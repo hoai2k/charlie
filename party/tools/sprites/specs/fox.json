@@ -1,0 +1,2367 @@
+{
+  "asset": "fox",
+  "bodyHeight": 260,
+  "frameSize": [
+    640,
+    560
+  ],
+  "anchor": [
+    320,
+    480
+  ],
+  "facing": 1,
+  "quality": 82,
+  "provenance": "Approved canonical artwork as exact ImageGen reference; authored transparent key-pose and cycle strips, one-frame isolated action cells, per-frame anchors and attachment landmarks.",
+  "sourceFiles": [
+    "../sources/fox-core.webp",
+    "../sources/fox-blink.webp",
+    "../sources/fox-celebrate.webp",
+    "../sources/fox-walk.webp",
+    "../sources/fox-run.webp",
+    "../sources/fox-dance.webp",
+    "../sources/fox-pout.webp",
+    "../sources/fox-ride.webp",
+    "../sources/fox-cheer-sad.webp",
+    "../sources/fox-actions-a.webp",
+    "../sources/fox-actions-b.webp",
+    "../sources/fox-actions-c.webp",
+    "../sources/fox-actions-d.webp",
+    "../sources/fox-round3-pet.webp",
+    "../sources/fox-portraits.webp"
+  ],
+  "generationPrompts": {
+    "../sources/fox-core.webp": "Use case: stylized-concept. Asset type: four-pose horizontal sprite strip for a children's party game, cut into four independent transparent character frames. Input image 1 is the approved Fox canonical: reproduce this exact character and preserve identity. Make exactly four separate full-body poses of the same slender orange fox in one horizontal row, equal scale with generous transparent gutters and no overlap, each entirely visible: (1) springy friendly idle on four paws, (2) alert ready stance with one forepaw lifted, (3) joyful celebratory leap with all paws lifted and huge tail swinging, (4) funny pout with head lowered and one forepaw stomp. Keep his slender orange body, large upright bushy tail with white tip, cream muzzle and chest, black ear tips with pink inner ears, white socks on all four paws, expressive brown eyes and little red tongue. Keep quadruped anatomy with exactly four legs and paws; no hands, no human arms. No flower or collar. Do not become tiny round Fellowfox. Bold smooth dark navy outlines, rounded appealing shapes, bright orange palette, simple clean cel shading, no 3D. True transparent background. No floor, shadow, effects, text, borders, props, scenery, or other characters. All poses face the same direction and share consistent proportions, colors and linework.",
+    "../sources/fox-blink.webp": "Use case: stylized-concept. Asset type: one full-body transparent sprite frame for a children's party game. Input image 1 is the approved Fox canonical; preserve the exact same slender orange quadruped Fox, head, cream muzzle and chest, big bushy white-tipped tail, white socks, pink-inner black-tipped ears, large brown eyes, red tongue, navy outlines, shading and proportions. Pose: a tiny natural idle blink with both eyes gently closed, relaxed friendly smile, ears subtly perked, tail softly curled; all four paws planted. Keep the whole character visible and facing right at approximately the same full-body scale as the canonical. No hands, no human arms, no collar, no flower, no Fellowfox roundness. No setting, ground, shadow, effects, props, text, border, or other character. True transparent background.",
+    "../sources/fox-celebrate.webp": "Use case: stylized-concept. Asset type: transparent 4-frame horizontal sprite strip for a children's party game celebration loop. Input image 1 is the approved Fox canonical: preserve the exact slender orange quadruped, cream muzzle/chest, black-tipped pink-inner ears, huge white-tipped bushy tail, white socks, big brown eyes, little red tongue, navy outline and shading. Exactly four distinct full-body frames, left to right, same character scale, separated with transparent gutters: (1) excited low anticipation crouch, ears forward and tail poised; (2) pounce upward with forepaws lifted and hind legs pushing off; (3) joyful peak of the leap, all four paws tucked naturally, mouth open with tongue out, tail flaring; (4) soft four-paw landing, body low and tail swishing. Maintain quadruped fox anatomy with four legs and paws only, no hands or human arms. Face right in every frame; no flower, collar, or Fellowfox round body. Bold clean navy outlines, faithful bright orange/cream palette, soft cel shading, transparent background. No floor, shadow, props, effects, text, border, scenery or extra figures.",
+    "../sources/fox-walk.webp": "Use case: stylized-concept. Asset type: 4-frame horizontal quadruped walk-cycle sprite strip. Image 1 is the approved Fox canonical and must remain the exact same character and style. Make exactly four separate full-body poses in one left-to-right row, even scale and clear transparent gaps: Fox walks facing right with a smooth four-beat gait, alternating front and hind paws, body gently bobbing and large white-tipped tail swaying. All frames stay on four legs, not leaping; keep the slender orange body, cream muzzle/chest, white socks, huge upright bushy white-tipped tail, black ear tips with pink inner ears, big brown eyes, little red tongue. No hands, no human arms, no flower or collar, no round Fellowfox body. Same face, colors, linework, outlines and shading in all frames. Full figure visible, real transparency. No ground, shadow, props, motion trails, scenery, labels, borders or other figures.",
+    "../sources/fox-run.webp": "Use case: stylized-concept. Asset type: 4-frame horizontal gallop-run sprite strip for a children's party game. Use approved Fox canonical image 1 as exact identity reference. Create exactly four separate full-body frames left to right, same native head/body proportions and scale, generous transparent gaps. Show a smooth quadruped gallop cycle with a low springy body: forelegs reach, hind legs gather and push, all paws briefly tuck in the airborne beat, then extend to the next stride; the huge white-tipped tail streams and bounces. This is an actual galloping fox, not a human runner and not a tall jump pose. Keep slender orange body, cream muzzle/chest, white socks on four paws, black ear tips with pink inner ears, large brown eyes, little red tongue, bushy white-tipped tail, exact navy outlines and clean cel shading. Face right in every frame. No hands, no extra legs, no flower, collar, Fellowfox round body, floor, shadow, props, speed lines, background, labels or borders. True transparent background.",
+    "../sources/fox-dance.webp": "Use case: stylized-concept. Asset type: 4-frame horizontal dance sprite strip for a children's party game. Image 1 is the approved Fox canonical; preserve exact identity, slender orange quadruped form, cream muzzle/chest, pink-inner black-tipped ears, white socks, huge white-tipped tail, large brown eyes, little red tongue and navy cel-shaded outlines. Exactly four full-body frames in one left-to-right row, same scale, separated by transparent space, all facing right. Make an upbeat fox dance while staying naturally on four paws: (1) weight shift with one forepaw lifted and tail curled; (2) bouncy hop with all paws briefly off the ground; (3) tail-swish turn with paws landing in a playful stance; (4) happy return to the first paw-lift pose. Distinct silhouettes with the same head size and body proportions. Four fox legs and paws only, no human arms/hands, no flower, no collar, no Fellowfox roundness. True transparent background, no floor, shadow, props, sound effects, text, border, setting or extra figure.",
+    "../sources/fox-pout.webp": "Use case: stylized-concept. Asset type: two-frame horizontal transparent pout sprite strip for a children's party game. Input 1 is the approved Fox canonical; reproduce the same slender orange fox, cream muzzle/chest, white socks, pink-inner black-tipped ears, huge white-tipped bushy tail, brown eyes, red tongue and navy outlines. Exactly two distinct full-body poses, same scale, no overlap: (1) Fox sits low on its hindquarters, ears flattened, chin turned away with a funny sulky pout, tail curled around its side; (2) Fox lowers its head, stamps one front paw with ears flat, lip poked out and tail drooping. Four fox legs/paws only, no hands or human arms. Face right, no flower, collar or Fellowfox round body. Smooth appealing cel shading and clean true transparent background. No floor, shadow, effects, props, text, borders, scenery or other character.",
+    "../sources/fox-ride.webp": "Use case: stylized-concept. Asset type: two-frame horizontal ride sprite strip for a children's party game; the broom is a separate attached prop and must not be drawn here. Preserve the approved Fox canonical in image 1 exactly: slender orange quadruped, white chest/muzzle and socks, black-tipped pink-inner ears, huge white-tipped tail, expressive brown eyes, red tongue, navy outlines. Exactly two full-body frames with transparent space, same scale, facing right. Show Fox flying in a low forward riding crouch on an invisible broom: body stretched horizontally, all four paws lifted and slightly curled beneath the torso, ears and chest fur streaming back, giant tail flowing behind. Frame 2 subtly shifts the paw curl and tail/ear flutter while keeping head size and body scale fixed. Keep exactly four fox legs, no human hands/arms, no saddle, broom, flower, collar, Fellowfox round body, floor, shadow, speed lines, effects, text, border, setting or extra character. True transparent background.",
+    "../sources/fox-cheer-sad.webp": "Use case: stylized-concept. Asset type: 2-pose horizontal transparent key-frame sprite strip. Input 1 is the approved Fox canonical: preserve exact Fox identity and style, slender orange quadruped, cream chest/muzzle, white socks, dark ear tips with pink inner ears, huge white-tipped tail, large brown eyes, red tongue, clean navy outlines. Exactly two separate full-body poses, same scale, facing right, transparent gutter: first is a small personal cheer, ears high, mouth open, one front paw lifted in a happy little pump, tail raised; second is a distinct sad sigh, head and ears drooping, eyes downcast, mouth relaxed, tail hanging low. Four paws/legs only; no hands or human arms. No flower, collar, extra character, Fellowfox body, ground, shadow, props, effects, text, border, or scenery. True transparent background, clean cel shading.",
+    "../sources/fox-actions-a.webp": "Use case: stylized-concept. Asset type: transparent 4-column by 2-row sprite grid of eight separate Fox action poses for a children's game, one isolated full-body pose per equal cell in row-major order. Use approved canonical image 1 as the exact character/style reference. Pose cells left-to-right, top row then bottom: 1 friendly wave (one front paw lifted); 2 hurt flinch, ears back and one paw tucked; 3 dizzy wobble with unfocused eyes and low drooping head; 4 surprised, wide brown eyes, ears straight up; 5 alert ready crouch, focused eyes and one paw forward; 6 joyful vertical jump with legs tucked; 7 tumbling sideways through the air while keeping clear fox anatomy; 8 four-paw soft landing, knees bent and tail lifted. Every tile shows the same slender orange quadruped Fox with cream muzzle/chest, huge bushy white-tipped tail, white socks, black ear tips with pink inner ears, big brown eyes, red tongue, navy outlines and clean cel shading. No human hands/arms, exactly four fox paws, no flower, collar, or round Fellowfox body. Keep identical head size and character scale in all cells; clear transparent spacing between cells, no overlap, no clipped tails or ears. True transparent background. No setting, floor, shadow, effects, props, text, borders, or additional characters.",
+    "../sources/fox-actions-b.webp": "Use case: stylized-concept. Asset type: transparent 4-column by 2-row grid of eight separate Fox game-action key frames; one full-body pose in each equal cell in row-major order. Use image 1, the approved Fox canonical, as an exact identity and style reference. Top row: 1 playful action stance, nose forward and one forepaw lifted; 2 tossing pose, head flicked forward and mouth open as if releasing a small separate object (draw no object); 3 pushing pose, low stance with shoulders forward and forepaws braced; 4 carrying pose, walking while gently holding an invisible prop in the mouth. Bottom row: 5 painting pose, careful low forepaw poised beside an invisible separate brush; 6 sleepy Fox curled on its side with tail around body and eyes closed; 7 casting pose, alert and graceful with muzzle raised as if holding an invisible wand in the mouth; 8 clapping pose, happily tapping the two front paws together at chest height while remaining a fox on four legs. Preserve the same slender orange Fox with cream muzzle/chest, pink-inner black-tipped ears, huge white-tipped tail, white socks, large brown eyes, little red tongue, dark navy outline, and clean cel shading. Faces right. Four legs only; paws remain fox paws, never human hands or arms. No flower, collar, Fellowfox body. Identical head size across cells, clear spacing, no overlap, no clipped art, transparent background. No props or objects, floor, shadow, effects, scene, text, frame lines, or extra characters.",
+    "../sources/fox-actions-c.webp": "Use case: stylized-concept. Asset type: transparent sprite grid, 4 columns by 2 rows, with eight separate full-body pose cells in row-major order. Image 1 is the exact approved Fox canonical; preserve its slender orange quadruped body, cream muzzle/chest, white socks, huge bushy white-tipped tail, dark-tipped pink ears, brown eyes, red tongue, navy outlines, and cel shading. Top row: 1 eat, lowered head and gentle mouth nibble on an invisible separate treat; 2 polite bow, forelegs bending and head lowering; 3 playful strike 1, quick front-paw swipe while balanced on four legs; 4 strike 2, low forward paw reach with body stretched. Bottom row: 5 strike 3, quick turning kick with one hind paw lifted naturally; 6 full-body shake with ears and tail rippling; 7 stir pose, careful front paw circling an invisible separate bowl; 8 upbeat dance-up pose, brief joyful rear-up bounce with forepaws lifted and tail high. Every cell is a distinct pose, one Fox only, same head size and body scale, all facing right. Do not draw hands, human arms, objects, props, flower, collar, Fellowfox roundness, backgrounds, floors, shadows, text, borders, panels or extra characters. Four fox legs/paws only, no extra limbs. True transparent background.",
+    "../sources/fox-actions-d.webp": "Use case: stylized-concept. Asset type: transparent 4-column by 2-row sprite grid of eight separate Fox interaction/dance poses, one full-body pose per equal cell in row-major order. Use canonical image 1 as the exact Fox identity and style reference. Top row: 1 dance-down, low playful dip with tail raised; 2 dance-side, a jaunty sideways step with tail swishing; 3 look-around, head tilted and ears swiveling while glancing behind; 4 high-five, lift one front paw toward an unseen partner (paw shape stays a fox paw). Bottom row: 5 compact four-paw crouch, ears alert; 6 dash, forward low lunge with all limbs reaching in a fast burst; 7 catch, head and open mouth angled upward with forepaws lifted to receive something (draw no object); 8 wave-goodbye, turn head slightly back and lift one forepaw in a friendly wave. Same slender orange Fox, white-tipped huge bushy tail, white socks, cream muzzle/chest, black-tipped pink-inner ears, large brown eyes, tiny red tongue, consistent navy outlines and cel shading. No human arms or hands, four fox legs/paws only. No flower, collar, Fellowfox body, props, objects, effects, floor, shadow, text, frames, scenery or extra characters. Clear transparent cell spacing, no overlap or clipping, consistent head scale.",
+    "../sources/fox-round3-pet.webp": "Use case: stylized-concept. Asset type: four-pose horizontal transparent strip for a children's party game and pet-spa mini-game. Input image 1 is the approved Fox canonical; preserve Fox's exact slender orange quadruped identity, cream muzzle/chest, white socks, huge bushy white-tipped tail, pink-inner black-tipped ears, big brown eyes, little red tongue, dark navy outline and clean shading. Exactly four separate full-body poses, same scale, facing right, clear transparent gutters: (1) thoughtful Fox with a slight head tilt and one paw raised near the muzzle, still a fox paw; (2) a jubilant star-dance pose with eyes happy and tail high, four-legged spring; (3) giggling during grooming, eyes closed, mouth smiling and whole body wiggling happily; (4) catch-toy, low playful pounce with both front paws reaching and mouth open to catch an invisible toy (draw no toy). Keep four fox legs/paws; no human hands or arms. No flower, collar, Fellowfox round body, objects or props. True transparent background, no floor, shadow, effects, text, border, setting or extra characters.",
+    "../sources/fox-portraits.webp": "Use case: stylized-concept. Asset type: five square-ready transparent Fox HUD portrait busts in one left-to-right strip, for a tiny 60px circle. Use approved Fox canonical image 1 as exact identity/style reference. Exactly five separate head-and-shoulders bust portraits with shoulders visible to the bottom, same three-quarter view facing right and same crop/scale. Expressions left-to-right: neutral-friendly, happy with tongue slightly out, sad with drooping ears and worried brows, surprised with wide eyes and perked ears, determined with focused brown eyes. Keep slender Fox identity in the face: orange fur, cream muzzle and cheeks, black ear tips with pink inner ears, big warm brown eyes, little red tongue where appropriate, navy outline and smooth cel shading. Face fills most of each square without clipping ear tips; eyes about 45% down from top. Do not make a cat, dog, or Fellowfox; no flower or collar. True transparent backgrounds, no props, scenery, text, frames, shadows, or extra characters."
+  },
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/fox-core.webp",
+          "rect": [
+            17,
+            108,
+            497,
+            479
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            353,
+            120
+          ],
+          "hand": [
+            467,
+            230
+          ],
+          "eyes": [
+            398,
+            211
+          ],
+          "neck": [
+            358,
+            316
+          ],
+          "back": [
+            234,
+            331
+          ],
+          "dur": 2.2
+        },
+        {
+          "source": "../sources/fox-blink.webp",
+          "rect": [
+            31,
+            39,
+            1231,
+            1114
+          ],
+          "isolate": true,
+          "scale": 0.45,
+          "head": [
+            874,
+            278
+          ],
+          "hand": [
+            1157,
+            535
+          ],
+          "eyes": [
+            985,
+            490
+          ],
+          "neck": [
+            886,
+            735
+          ],
+          "back": [
+            579,
+            769
+          ],
+          "dur": 0.12
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/fox-celebrate.webp",
+          "rect": [
+            1040,
+            56,
+            554,
+            467
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            393,
+            117
+          ],
+          "hand": [
+            521,
+            224
+          ],
+          "eyes": [
+            443,
+            205
+          ],
+          "neck": [
+            399,
+            308
+          ],
+          "back": [
+            260,
+            322
+          ],
+          "dur": 0.1
+        },
+        {
+          "source": "../sources/fox-celebrate.webp",
+          "rect": [
+            560,
+            106,
+            495,
+            555
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            351,
+            139
+          ],
+          "hand": [
+            465,
+            266
+          ],
+          "eyes": [
+            396,
+            244
+          ],
+          "neck": [
+            356,
+            366
+          ],
+          "back": [
+            233,
+            383
+          ],
+          "anchor": [
+            327,
+            655
+          ],
+          "dur": 0.1
+        },
+        {
+          "source": "../sources/fox-celebrate.webp",
+          "rect": [
+            1,
+            136,
+            552,
+            544
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            392,
+            136
+          ],
+          "hand": [
+            519,
+            261
+          ],
+          "eyes": [
+            442,
+            239
+          ],
+          "neck": [
+            397,
+            359
+          ],
+          "back": [
+            259,
+            375
+          ],
+          "anchor": [
+            364,
+            664
+          ],
+          "dur": 0.1
+        },
+        {
+          "source": "../sources/fox-celebrate.webp",
+          "rect": [
+            1637,
+            211,
+            535,
+            465
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            380,
+            116
+          ],
+          "hand": [
+            503,
+            223
+          ],
+          "eyes": [
+            428,
+            205
+          ],
+          "neck": [
+            385,
+            307
+          ],
+          "back": [
+            251,
+            321
+          ],
+          "dur": 0.12
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/fox-pout.webp",
+          "rect": [
+            30,
+            35,
+            794,
+            776
+          ],
+          "isolate": true,
+          "scale": 0.5,
+          "head": [
+            564,
+            194
+          ],
+          "hand": [
+            746,
+            372
+          ],
+          "eyes": [
+            635,
+            341
+          ],
+          "neck": [
+            572,
+            512
+          ],
+          "back": [
+            373,
+            535
+          ],
+          "dur": 0.18
+        },
+        {
+          "source": "../sources/fox-pout.webp",
+          "rect": [
+            844,
+            130,
+            991,
+            673
+          ],
+          "isolate": true,
+          "scale": 0.5,
+          "head": [
+            704,
+            168
+          ],
+          "hand": [
+            932,
+            323
+          ],
+          "eyes": [
+            793,
+            296
+          ],
+          "neck": [
+            714,
+            444
+          ],
+          "back": [
+            466,
+            464
+          ],
+          "dur": 0.16
+        }
+      ],
+      "fps": 3,
+      "loop": true,
+      "motion": 0.12,
+      "facing": 1
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/fox-walk.webp",
+          "rect": [
+            9,
+            89,
+            553,
+            508
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            393,
+            127
+          ],
+          "hand": [
+            520,
+            244
+          ],
+          "eyes": [
+            442,
+            224
+          ],
+          "neck": [
+            398,
+            335
+          ],
+          "back": [
+            260,
+            351
+          ]
+        },
+        {
+          "source": "../sources/fox-walk.webp",
+          "rect": [
+            1088,
+            102,
+            545,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            387,
+            124
+          ],
+          "hand": [
+            512,
+            238
+          ],
+          "eyes": [
+            436,
+            218
+          ],
+          "neck": [
+            392,
+            327
+          ],
+          "back": [
+            256,
+            342
+          ]
+        },
+        {
+          "source": "../sources/fox-walk.webp",
+          "rect": [
+            1636,
+            102,
+            534,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            379,
+            124
+          ],
+          "hand": [
+            502,
+            238
+          ],
+          "eyes": [
+            427,
+            218
+          ],
+          "neck": [
+            384,
+            327
+          ],
+          "back": [
+            251,
+            342
+          ]
+        },
+        {
+          "source": "../sources/fox-walk.webp",
+          "rect": [
+            557,
+            104,
+            523,
+            494
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            371,
+            124
+          ],
+          "hand": [
+            492,
+            237
+          ],
+          "eyes": [
+            418,
+            217
+          ],
+          "neck": [
+            377,
+            326
+          ],
+          "back": [
+            246,
+            341
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/fox-run.webp",
+          "rect": [
+            13,
+            174,
+            580,
+            417
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            412,
+            104
+          ],
+          "hand": [
+            545,
+            200
+          ],
+          "eyes": [
+            464,
+            183
+          ],
+          "neck": [
+            418,
+            275
+          ],
+          "back": [
+            273,
+            288
+          ]
+        },
+        {
+          "source": "../sources/fox-run.webp",
+          "rect": [
+            1067,
+            185,
+            569,
+            352
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            404,
+            88
+          ],
+          "hand": [
+            535,
+            169
+          ],
+          "eyes": [
+            455,
+            155
+          ],
+          "neck": [
+            410,
+            232
+          ],
+          "back": [
+            267,
+            243
+          ]
+        },
+        {
+          "source": "../sources/fox-run.webp",
+          "rect": [
+            1633,
+            188,
+            539,
+            408
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            383,
+            102
+          ],
+          "hand": [
+            507,
+            196
+          ],
+          "eyes": [
+            431,
+            180
+          ],
+          "neck": [
+            388,
+            269
+          ],
+          "back": [
+            253,
+            282
+          ]
+        },
+        {
+          "source": "../sources/fox-run.webp",
+          "rect": [
+            573,
+            211,
+            506,
+            381
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            359,
+            95
+          ],
+          "hand": [
+            476,
+            183
+          ],
+          "eyes": [
+            405,
+            168
+          ],
+          "neck": [
+            364,
+            251
+          ],
+          "back": [
+            238,
+            263
+          ]
+        }
+      ],
+      "fps": 12,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/fox-dance.webp",
+          "rect": [
+            564,
+            42,
+            566,
+            510
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            402,
+            128
+          ],
+          "hand": [
+            532,
+            245
+          ],
+          "eyes": [
+            453,
+            224
+          ],
+          "neck": [
+            408,
+            337
+          ],
+          "back": [
+            266,
+            352
+          ]
+        },
+        {
+          "source": "../sources/fox-dance.webp",
+          "rect": [
+            1705,
+            60,
+            495,
+            585
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            351,
+            146
+          ],
+          "hand": [
+            465,
+            281
+          ],
+          "eyes": [
+            396,
+            257
+          ],
+          "neck": [
+            356,
+            386
+          ],
+          "back": [
+            233,
+            404
+          ],
+          "anchor": [
+            327,
+            655
+          ]
+        },
+        {
+          "source": "../sources/fox-dance.webp",
+          "rect": [
+            22,
+            63,
+            515,
+            582
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            366,
+            146
+          ],
+          "hand": [
+            484,
+            279
+          ],
+          "eyes": [
+            412,
+            256
+          ],
+          "neck": [
+            371,
+            384
+          ],
+          "back": [
+            242,
+            402
+          ]
+        },
+        {
+          "source": "../sources/fox-dance.webp",
+          "rect": [
+            1159,
+            93,
+            563,
+            557
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            400,
+            139
+          ],
+          "hand": [
+            529,
+            267
+          ],
+          "eyes": [
+            450,
+            245
+          ],
+          "neck": [
+            405,
+            368
+          ],
+          "back": [
+            265,
+            384
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.12,
+      "facing": 1
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/fox-ride.webp",
+          "rect": [
+            1059,
+            109,
+            995,
+            546
+          ],
+          "isolate": true,
+          "scale": 0.55,
+          "head": [
+            706,
+            136
+          ],
+          "hand": [
+            935,
+            262
+          ],
+          "eyes": [
+            796,
+            240
+          ],
+          "neck": [
+            716,
+            360
+          ],
+          "back": [
+            468,
+            377
+          ],
+          "anchor": [
+            657,
+            721
+          ]
+        },
+        {
+          "source": "../sources/fox-ride.webp",
+          "rect": [
+            26,
+            112,
+            1016,
+            501
+          ],
+          "isolate": true,
+          "scale": 0.55,
+          "head": [
+            721,
+            125
+          ],
+          "hand": [
+            955,
+            240
+          ],
+          "eyes": [
+            813,
+            220
+          ],
+          "neck": [
+            732,
+            331
+          ],
+          "back": [
+            478,
+            346
+          ],
+          "anchor": [
+            671,
+            661
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/fox-cheer-sad.webp",
+          "rect": [
+            18,
+            15,
+            909,
+            800
+          ],
+          "isolate": true,
+          "scale": 0.55,
+          "head": [
+            645,
+            200
+          ],
+          "hand": [
+            854,
+            384
+          ],
+          "eyes": [
+            727,
+            352
+          ],
+          "neck": [
+            654,
+            528
+          ],
+          "back": [
+            427,
+            552
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/fox-cheer-sad.webp",
+          "rect": [
+            908,
+            170,
+            940,
+            645
+          ],
+          "isolate": true,
+          "scale": 0.55,
+          "head": [
+            667,
+            161
+          ],
+          "hand": [
+            884,
+            310
+          ],
+          "eyes": [
+            752,
+            284
+          ],
+          "neck": [
+            677,
+            426
+          ],
+          "back": [
+            442,
+            445
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            9,
+            12,
+            443,
+            406
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            315,
+            102
+          ],
+          "hand": [
+            416,
+            195
+          ],
+          "eyes": [
+            354,
+            179
+          ],
+          "neck": [
+            319,
+            268
+          ],
+          "back": [
+            208,
+            280
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 1
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            1430,
+            13,
+            407,
+            422
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            289,
+            106
+          ],
+          "hand": [
+            383,
+            203
+          ],
+          "eyes": [
+            326,
+            186
+          ],
+          "neck": [
+            293,
+            279
+          ],
+          "back": [
+            191,
+            291
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            477,
+            53,
+            420,
+            354
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            298,
+            88
+          ],
+          "hand": [
+            395,
+            170
+          ],
+          "eyes": [
+            336,
+            156
+          ],
+          "neck": [
+            302,
+            234
+          ],
+          "back": [
+            197,
+            244
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            913,
+            88,
+            479,
+            321
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            340,
+            80
+          ],
+          "hand": [
+            450,
+            154
+          ],
+          "eyes": [
+            383,
+            141
+          ],
+          "neck": [
+            345,
+            212
+          ],
+          "back": [
+            225,
+            221
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            478,
+            392,
+            385,
+            397
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            273,
+            99
+          ],
+          "hand": [
+            362,
+            191
+          ],
+          "eyes": [
+            308,
+            175
+          ],
+          "neck": [
+            277,
+            262
+          ],
+          "back": [
+            181,
+            274
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            21,
+            434,
+            443,
+            391
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            315,
+            98
+          ],
+          "hand": [
+            416,
+            188
+          ],
+          "eyes": [
+            354,
+            172
+          ],
+          "neck": [
+            319,
+            258
+          ],
+          "back": [
+            208,
+            270
+          ],
+          "anchor": [
+            292,
+            477
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.7,
+      "facing": 1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            975,
+            434,
+            419,
+            354
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            297,
+            88
+          ],
+          "hand": [
+            394,
+            170
+          ],
+          "eyes": [
+            335,
+            156
+          ],
+          "neck": [
+            302,
+            234
+          ],
+          "back": [
+            197,
+            244
+          ],
+          "anchor": [
+            277,
+            432
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-a.webp",
+          "rect": [
+            1438,
+            459,
+            408,
+            366
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            290,
+            92
+          ],
+          "hand": [
+            384,
+            176
+          ],
+          "eyes": [
+            326,
+            161
+          ],
+          "neck": [
+            294,
+            242
+          ],
+          "back": [
+            192,
+            253
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            25,
+            42,
+            414,
+            393
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            294,
+            98
+          ],
+          "hand": [
+            389,
+            189
+          ],
+          "eyes": [
+            331,
+            173
+          ],
+          "neck": [
+            298,
+            259
+          ],
+          "back": [
+            195,
+            271
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            1331,
+            57,
+            428,
+            374
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            304,
+            94
+          ],
+          "hand": [
+            402,
+            180
+          ],
+          "eyes": [
+            342,
+            165
+          ],
+          "neck": [
+            308,
+            247
+          ],
+          "back": [
+            201,
+            258
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            917,
+            63,
+            409,
+            373
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            290,
+            93
+          ],
+          "hand": [
+            384,
+            179
+          ],
+          "eyes": [
+            327,
+            164
+          ],
+          "neck": [
+            294,
+            246
+          ],
+          "back": [
+            192,
+            257
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            461,
+            65,
+            429,
+            371
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            305,
+            93
+          ],
+          "hand": [
+            403,
+            178
+          ],
+          "eyes": [
+            343,
+            163
+          ],
+          "neck": [
+            309,
+            245
+          ],
+          "back": [
+            202,
+            256
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            1358,
+            447,
+            390,
+            406
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            277,
+            102
+          ],
+          "hand": [
+            367,
+            195
+          ],
+          "eyes": [
+            312,
+            179
+          ],
+          "neck": [
+            281,
+            268
+          ],
+          "back": [
+            183,
+            280
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            907,
+            448,
+            428,
+            407
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            304,
+            102
+          ],
+          "hand": [
+            402,
+            195
+          ],
+          "eyes": [
+            342,
+            179
+          ],
+          "neck": [
+            308,
+            269
+          ],
+          "back": [
+            201,
+            281
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            18,
+            472,
+            416,
+            376
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            295,
+            94
+          ],
+          "hand": [
+            391,
+            180
+          ],
+          "eyes": [
+            333,
+            165
+          ],
+          "neck": [
+            300,
+            248
+          ],
+          "back": [
+            196,
+            259
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-b.webp",
+          "rect": [
+            480,
+            549,
+            406,
+            285
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            288,
+            71
+          ],
+          "hand": [
+            382,
+            137
+          ],
+          "eyes": [
+            325,
+            125
+          ],
+          "neck": [
+            292,
+            188
+          ],
+          "back": [
+            191,
+            197
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.6,
+      "facing": 1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            464,
+            25,
+            402,
+            398
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            285,
+            100
+          ],
+          "hand": [
+            378,
+            191
+          ],
+          "eyes": [
+            322,
+            175
+          ],
+          "neck": [
+            289,
+            263
+          ],
+          "back": [
+            189,
+            275
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            18,
+            43,
+            437,
+            375
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            310,
+            94
+          ],
+          "hand": [
+            411,
+            180
+          ],
+          "eyes": [
+            350,
+            165
+          ],
+          "neck": [
+            315,
+            248
+          ],
+          "back": [
+            205,
+            259
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": false,
+      "motion": 0.5,
+      "facing": 1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            910,
+            53,
+            393,
+            363
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            279,
+            91
+          ],
+          "hand": [
+            369,
+            174
+          ],
+          "eyes": [
+            314,
+            160
+          ],
+          "neck": [
+            283,
+            240
+          ],
+          "back": [
+            185,
+            250
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            1337,
+            56,
+            427,
+            356
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            303,
+            89
+          ],
+          "hand": [
+            401,
+            171
+          ],
+          "eyes": [
+            342,
+            157
+          ],
+          "neck": [
+            307,
+            235
+          ],
+          "back": [
+            201,
+            246
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            1390,
+            412,
+            359,
+            444
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            104,
+            111
+          ],
+          "hand": [
+            22,
+            213
+          ],
+          "eyes": [
+            72,
+            195
+          ],
+          "neck": [
+            101,
+            293
+          ],
+          "back": [
+            190,
+            306
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.8,
+      "facing": -1
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            14,
+            451,
+            399,
+            381
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            283,
+            95
+          ],
+          "hand": [
+            375,
+            183
+          ],
+          "eyes": [
+            319,
+            168
+          ],
+          "neck": [
+            287,
+            251
+          ],
+          "back": [
+            188,
+            263
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            465,
+            463,
+            429,
+            373
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            305,
+            93
+          ],
+          "hand": [
+            403,
+            179
+          ],
+          "eyes": [
+            343,
+            164
+          ],
+          "neck": [
+            309,
+            246
+          ],
+          "back": [
+            202,
+            257
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-c.webp",
+          "rect": [
+            915,
+            464,
+            411,
+            371
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            292,
+            93
+          ],
+          "hand": [
+            386,
+            178
+          ],
+          "eyes": [
+            329,
+            163
+          ],
+          "neck": [
+            296,
+            245
+          ],
+          "back": [
+            193,
+            256
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            451,
+            6,
+            382,
+            433
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            271,
+            108
+          ],
+          "hand": [
+            359,
+            208
+          ],
+          "eyes": [
+            306,
+            191
+          ],
+          "neck": [
+            275,
+            286
+          ],
+          "back": [
+            180,
+            299
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            1377,
+            6,
+            390,
+            436
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            277,
+            109
+          ],
+          "hand": [
+            367,
+            209
+          ],
+          "eyes": [
+            312,
+            192
+          ],
+          "neck": [
+            281,
+            288
+          ],
+          "back": [
+            183,
+            301
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            4,
+            9,
+            426,
+            433
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            302,
+            108
+          ],
+          "hand": [
+            400,
+            208
+          ],
+          "eyes": [
+            341,
+            191
+          ],
+          "neck": [
+            307,
+            286
+          ],
+          "back": [
+            200,
+            299
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.35,
+      "facing": 1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            914,
+            16,
+            417,
+            422
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            296,
+            106
+          ],
+          "hand": [
+            392,
+            203
+          ],
+          "eyes": [
+            334,
+            186
+          ],
+          "neck": [
+            300,
+            279
+          ],
+          "back": [
+            196,
+            291
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            947,
+            450,
+            374,
+            425
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            266,
+            106
+          ],
+          "hand": [
+            352,
+            204
+          ],
+          "eyes": [
+            299,
+            187
+          ],
+          "neck": [
+            269,
+            280
+          ],
+          "back": [
+            176,
+            293
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            1386,
+            451,
+            382,
+            424
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            271,
+            106
+          ],
+          "hand": [
+            359,
+            204
+          ],
+          "eyes": [
+            306,
+            187
+          ],
+          "neck": [
+            275,
+            280
+          ],
+          "back": [
+            180,
+            293
+          ],
+          "anchor": [
+            252,
+            517
+          ]
+        }
+      ],
+      "fps": 12,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            11,
+            474,
+            413,
+            386
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            293,
+            96
+          ],
+          "hand": [
+            388,
+            185
+          ],
+          "eyes": [
+            330,
+            170
+          ],
+          "neck": [
+            297,
+            255
+          ],
+          "back": [
+            194,
+            266
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/fox-actions-d.webp",
+          "rect": [
+            452,
+            496,
+            471,
+            356
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            334,
+            89
+          ],
+          "hand": [
+            443,
+            171
+          ],
+          "eyes": [
+            377,
+            157
+          ],
+          "neck": [
+            339,
+            235
+          ],
+          "back": [
+            221,
+            246
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/fox-round3-pet.webp",
+          "rect": [
+            550,
+            63,
+            514,
+            570
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            365,
+            142
+          ],
+          "hand": [
+            483,
+            274
+          ],
+          "eyes": [
+            411,
+            251
+          ],
+          "neck": [
+            370,
+            376
+          ],
+          "back": [
+            242,
+            393
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.35,
+      "facing": 1
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/fox-round3-pet.webp",
+          "rect": [
+            24,
+            89,
+            508,
+            578
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            361,
+            144
+          ],
+          "hand": [
+            478,
+            277
+          ],
+          "eyes": [
+            406,
+            254
+          ],
+          "neck": [
+            366,
+            381
+          ],
+          "back": [
+            239,
+            399
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/fox-round3-pet.webp",
+          "rect": [
+            1605,
+            108,
+            531,
+            528
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            377,
+            132
+          ],
+          "hand": [
+            499,
+            253
+          ],
+          "eyes": [
+            425,
+            232
+          ],
+          "neck": [
+            382,
+            348
+          ],
+          "back": [
+            250,
+            364
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.6,
+      "facing": 1
+    },
+    "catch-toy": {
+      "frames": [
+        {
+          "source": "../sources/fox-round3-pet.webp",
+          "rect": [
+            1078,
+            123,
+            513,
+            541
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            364,
+            135
+          ],
+          "hand": [
+            482,
+            260
+          ],
+          "eyes": [
+            410,
+            238
+          ],
+          "neck": [
+            369,
+            357
+          ],
+          "back": [
+            241,
+            373
+          ],
+          "anchor": [
+            339,
+            617
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/fox-portraits.webp",
+      "rect": [
+        18,
+        84,
+        402,
+        611
+      ],
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/fox-portraits.webp",
+      "rect": [
+        1191,
+        87,
+        400,
+        607
+      ],
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/fox-portraits.webp",
+      "rect": [
+        400,
+        88,
+        397,
+        605
+      ],
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/fox-portraits.webp",
+      "rect": [
+        1589,
+        91,
+        390,
+        603
+      ],
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/fox-portraits.webp",
+      "rect": [
+        782,
+        181,
+        418,
+        513
+      ],
+      "trim": true
+    }
+  }
+}
