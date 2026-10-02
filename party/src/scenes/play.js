@@ -24,6 +24,7 @@ export class PlayScene {
     this.playTime = 0;
     this.paused = null;
     this.error = null;
+    this.leaving = false; // the scene object is reused: without this every game after the first sticks on FINISH
     const host = this;
     const api = {
       players: session.players,

@@ -640,7 +640,17 @@ export class Game {
     g.save();
     // shake the platform a little during the telegraph
     if (this.tele) { const k = this.tele.k || 0; g.translate(rand(-1, 1) * 2.5 * k, rand(-1, 1) * 1.5 * k); }
-    if (!drawArt(g, 'prop/cake-platform', CX, CY + THICK * 0.5, this.R * 2.15, this.R * K * 2 + THICK * 1.5)) {
+    const plat = art('prop/cake-platform');
+    if (plat) {
+      // Map the prop's top face (centre ~33% down, rx ~49.5% of the width,
+      // ry ~33% of the height) onto the arena ellipse so players stand on the
+      // frosting, not on the cake's side (the art is flatter than K). The side
+      // band below the face keeps its own proportions.
+      const sx = this.R / (plat.width * 0.495), sy = (this.R * K) / (plat.height * 0.33);
+      const dw = plat.width * sx, cut = plat.height * 0.62, y0 = CY - plat.height * 0.33 * sy;
+      g.drawImage(plat, 0, 0, plat.width, cut, CX - dw / 2, y0, dw, cut * sy);
+      g.drawImage(plat, 0, cut, plat.width, plat.height - cut, CX - dw / 2, y0 + cut * sy - 1, dw, (plat.height - cut) * sx);
+    } else {
       drawPlatformShape(g, CX, CY, this.R, K, THICK * (0.6 + 0.4 * this.R / R0), this.t, this.tele, this.crumbleFlash, 1, this.sprinkles, this.cracks);
     }
     g.restore();
