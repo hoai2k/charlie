@@ -86,7 +86,13 @@ export const TROLL = {
   members: [{ asset: 'troll', h: 270, face: [0.49, 0.13, 0.12], top: 0.97, facing: 1, motion: 'stomp' }],
 };
 
-export const ALL_ENTRIES = [...CHARACTERS, TROLL];
+// Fellowfox on her own (Pet Spa uses the animal friends as pets).
+export const FELLOWFOX = {
+  id: 'fellowfox', name: 'Fellowfox', color: '#ff8a2a', npc: true,
+  members: [{ asset: 'fellowfox', h: 110, face: [0.36, 0.38, 0.32], top: 0.95, facing: -1, motion: 'trot' }],
+};
+
+export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX];
 export const charById = (id) => ALL_ENTRIES.find((c) => c.id === id);
 
 // Fill defaults.

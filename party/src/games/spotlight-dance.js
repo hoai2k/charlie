@@ -248,8 +248,8 @@ export class Game {
     this.t = 0;
     this.rows = this.n <= 4 ? 1 : 2;
     this.L = this.rows === 1
-      ? { floorTop: 610, promptY: 365, iconSize: 240, impY: 560, impS: 1.3, feet: [958], sc: 1.22 }
-      : { floorTop: 520, promptY: 300, iconSize: 170, impY: 400, impS: 0.85, feet: [738, 1040], sc: 0.8 };
+      ? { floorTop: 610, promptY: 345, iconSize: 240, impY: 520, impS: 1.3, feet: [958], sc: 1.22, cs: 1.5 }
+      : { floorTop: 520, promptY: 300, iconSize: 170, impY: 400, impS: 0.85, feet: [738, 1040], sc: 0.8, cs: 1.0 };
     this.round = 0;
     this.seq = [];
     this.phase = 'intro';
@@ -283,7 +283,8 @@ export class Game {
       for (let c = 0; c < count; c++) {
         const p = this.players[idx];
         const x = W / 2 + (c - (count - 1) / 2) * cw, y = L.feet[r];
-        const a = new Actor(p.charId, { scale: L.sc, x, y });
+        const a = new Actor(p.charId, { scale: L.cs, x, y });
+        a.scale = Math.min(L.cs, (cw * 0.8) / (a.width / a.scale));
         a.facing = x < W / 2 - 10 ? 1 : x > W / 2 + 10 ? -1 : 1;
         a.snap();
         this.pl[idx] = {
@@ -535,10 +536,10 @@ export class Game {
     pl.p.ctrl.rumble(0.6, 220);
     const hx = pl.x + (pl.hearts - 1) * 34 * this.L.sc, hy = pl.y + 34 * this.L.sc;
     particles.burst(hx, hy, { type: 'heart', count: 5, colors: ['#9a8fb5', '#ff4f8b'], speed: [60, 180] });
-    particles.popText(pl.x, pl.y - 200 * this.L.sc, timeout ? 'Too slow!' : 'Oops!', '#ff6f8f', 52);
+    particles.popText(pl.x, pl.y - 200 * this.L.cs, timeout ? 'Too slow!' : 'Oops!', '#ff6f8f', 52);
     if (pl.hearts <= 0) {
       pl.alive = false;
-      particles.popText(pl.x, pl.y - 250 * this.L.sc, 'Out - cheer!', '#ffffff', 40);
+      particles.popText(pl.x, pl.y - 250 * this.L.cs, 'Out - cheer!', '#ffffff', 40);
     }
     // the imps giggle
     this.imps.forEach((im, i) => { if (im.alive) { im.mood = 'laugh'; im.moodT = 0.9 + i * 0.05; } });
@@ -598,7 +599,7 @@ export class Game {
   }
 
   // ---- layout helpers -----------------------------------------------------
-  slotY(pl) { return pl.y - 190 * this.L.sc - this.isz * 0.55; }
+  slotY(pl) { return pl.y - 190 * this.L.cs - this.isz * 0.55; }
   slotX(pl, i, len) { const step = this.isz + 5; return pl.x + (i - (len - 1) / 2) * step; }
 
   // ---- drawing ------------------------------------------------------------

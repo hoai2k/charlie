@@ -55,7 +55,7 @@ class Particles {
 
   /** Floating score text like "+1" or "Nice!" */
   popText(x, y, text, color = '#ffd23f', size = 52) {
-    this.add({ type: 'text', x, y, vx: 0, vy: -140, life: 0.95, size, color, gravity: 120, drag: 0, rot: 0, spin: 0, text });
+    return this.add({ type: 'text', x, y, vx: 0, vy: -140, life: 0.95, size, color, gravity: 120, drag: 0, rot: 0, spin: 0, text });
   }
   /** Expanding ring shockwave */
   ring(x, y, color = '#ffffff', size = 120, life = 0.4) {
@@ -75,6 +75,7 @@ class Particles {
     p.age = 0; p.maxLife = p.life;
     if (this.list.length >= this.max) this.list.shift();
     this.list.push(p);
+    return p;
   }
 
   update(dt) {

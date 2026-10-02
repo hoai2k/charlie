@@ -99,8 +99,9 @@ function drawBalloonShape(g, cx, cy, r, color, lw = 5) {
 }
 
 // Station-local geometry (design units, scaled by the station scale).
-const CHAR_X = -175, PUMP_X = -72, BAL_X = 78, NOZZLE_Y = -92;
-const R_MIN = 26, R_MAX = 165;
+const CHAR_X = -168, PUMP_X = -52, BAL_X = 104, NOZZLE_Y = -150;
+const PS = 1.4;                 // pump size multiplier
+const R_MIN = 26, R_MAX = 172;
 
 export class Game {
   constructor(api) {
@@ -122,7 +123,11 @@ export class Game {
     this.st = this.players.map((p, i) => {
       const s = this.slot[i];
       const a = new Actor(p.charId, { scale: s.sc, x: s.cx + CHAR_X * s.sc, y: s.by });
-      a.snap();
+      // characters are drawn bigger than the station (groups a bit smaller so they fit the cell)
+      const base = a.width / a.scale;
+      const chMul = clamp(this.rows === 1 ? 1.55 : 1.2, 0.8, Math.max(0.9, 270 / base * (this.rows === 1 ? 1 : 0.9)));
+      a.scale = s.sc * chMul; a.snap();
+      s.chMul = chMul;
       return {
         p, i, a, s,
         size: 0, shownSize: 0, press: 0, pump: 0, gauge: 0, gaugeShown: 0,
@@ -146,12 +151,12 @@ export class Game {
     const perRow = rows === 1 ? n : Math.ceil(n / 2);
     const colsMax = rows === 1 ? Math.max(n, 3) : perRow;
     const cw = Math.min(560, (W - 80) / colsMax);
-    const sc = rows === 1 ? Math.min(1.25, cw / 480) : 0.76;
+    const sc = rows === 1 ? Math.min(1.25, cw / 480) : 0.68;
     this.slot = [];
     let idx = 0;
     for (let r = 0; r < rows; r++) {
       const count = r === 0 ? perRow : n - perRow;
-      const by = rows === 1 ? 925 : (r === 0 ? 540 : 965);
+      const by = rows === 1 ? 925 : (r === 0 ? 560 : 985);
       for (let c = 0; c < count; c++) {
         const cx = W / 2 + (c - (count - 1) / 2) * cw;
         this.slot[idx++] = { cx, by, sc, row: r };
@@ -167,7 +172,7 @@ export class Game {
     return { x: s.cx + BAL_X * s.sc, y: s.by + (NOZZLE_Y - r * 1.0) * s.sc, r: r * s.sc };
   }
   nozzlePos(st) { const s = st.s; return { x: s.cx + BAL_X * s.sc, y: s.by + NOZZLE_Y * s.sc }; }
-  hosePos(st) { const s = st.s; return { x: s.cx + (PUMP_X + 20) * s.sc, y: s.by - 44 * s.sc }; }
+  hosePos(st) { const s = st.s; return { x: s.cx + (PUMP_X + 18 * PS) * s.sc, y: s.by - 44 * PS * s.sc }; }
 
   // ---- AI -----------------------------------------------------------------
   aiInput(st, dt) {
@@ -407,8 +412,8 @@ export class Game {
     }
     // counters (one per row)
     for (let r = 0; r < this.rows; r++) {
-      const by = this.rows === 1 ? 925 : (r === 0 ? 540 : 965);
-      const top = by - 24 * (this.rows === 1 ? 1.2 : 0.76);
+      const by = this.rows === 1 ? 925 : (r === 0 ? 560 : 985);
+      const top = by - 24 * (this.rows === 1 ? 1.2 : 0.68);
       const gr = g.createLinearGradient(0, top, 0, top + 200);
       gr.addColorStop(0, '#fff4cf'); gr.addColorStop(1, '#ffd98a');
       g.fillStyle = gr; g.fillRect(0, top, W, H - top);
@@ -431,7 +436,7 @@ export class Game {
     g.fillStyle = 'rgba(255,255,255,0.35)'; ui.roundRect(g, -204, -8, 408, 12, 6); g.fill();
     // --- stand + nozzle
     g.fillStyle = '#8f9ab8'; g.strokeStyle = NAVY; g.lineWidth = 5;
-    g.fillRect(BAL_X - 8, NOZZLE_Y + 8, 16, 78); g.strokeRect(BAL_X - 8, NOZZLE_Y + 8, 16, 78);
+    g.fillRect(BAL_X - 9, NOZZLE_Y + 8, 18, -NOZZLE_Y - 22); g.strokeRect(BAL_X - 9, NOZZLE_Y + 8, 18, -NOZZLE_Y - 22);
     g.beginPath(); g.moveTo(BAL_X - 20, NOZZLE_Y + 12); g.lineTo(BAL_X + 20, NOZZLE_Y + 12); g.lineTo(BAL_X + 10, NOZZLE_Y - 4); g.lineTo(BAL_X - 10, NOZZLE_Y - 4); g.closePath();
     g.fillStyle = '#c3cbe0'; g.fill(); g.stroke();
     // --- hose
@@ -439,11 +444,12 @@ export class Game {
     g.lineCap = 'round';
     for (const [lw, col] of [[16, NAVY], [9, flashRed ? '#ff8fa8' : '#6fe3b4']]) {
       g.lineWidth = lw; g.strokeStyle = col; g.beginPath();
-      g.moveTo(PUMP_X + 18, -44);
-      g.bezierCurveTo(PUMP_X + 60, 12 + wob, BAL_X - 40, 20 - wob, BAL_X, NOZZLE_Y + 70);
+      g.moveTo(PUMP_X + 18 * PS, -44 * PS);
+      g.bezierCurveTo(PUMP_X + 70, 16 + wob, BAL_X - 50, 20 - wob, BAL_X, NOZZLE_Y + 100);
       g.stroke();
     }
     // --- pump
+    g.save(); g.translate(PUMP_X, 0); g.scale(PS, PS); g.translate(-PUMP_X, 0);
     const hdl = st.pump * 34;
     g.fillStyle = '#7b86a8'; g.strokeStyle = NAVY; g.lineWidth = 5;
     ui.roundRect(g, PUMP_X - 38, -26, 76, 24, 8); g.fill(); g.stroke();
@@ -457,6 +463,7 @@ export class Game {
     g.fillStyle = p.color; g.fillRect(PUMP_X - 22, -60, 44, 10); g.strokeRect(PUMP_X - 22, -60, 44, 10);
     ui.roundRect(g, PUMP_X - 44, -150 + hdl, 88, 24, 12); g.fillStyle = '#ffd23f'; g.fill(); g.stroke();
     g.restore();
+    g.restore();
 
     // --- balloon
     this.drawBalloon(g, st);
@@ -464,7 +471,7 @@ export class Game {
     // --- character
     const a = st.a;
     a.x = s.cx + CHAR_X * sc; a.y = s.by + 6 * sc;
-    a.scale = sc;
+    a.scale = sc * (st.s.chMul || 1);
     a.draw(g, { ring: p.color });
 
     // --- front stuff in station space
