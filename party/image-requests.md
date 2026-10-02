@@ -629,11 +629,13 @@ The canvas is 1920×1080 logical and the backing store tops out at 2× (4K TVs).
 | professor-hoot | ~200 | 360 |
 | garden-fairy | ~50 | 120 |
 
-Budgets: about 30–48 frames per roster member at first (aliases and fallbacks
-cover the rest), **≤ 1.5 MB of WebP per member including portraits**, and
-**≤ 25 MB for `assets/sprites/` in total**. Every listed set is loaded at
-boot, and iPads have limited decode memory, so prefer trimmed, packed frames
-over large empty canvases.
+Budgets: start with about 30–48 frames per roster member, expanding for the
+requested actions and cycles. Aim for **≤ 1.5 MB of WebP per member including
+portraits** and enforce **≤ 25 MiB decoded per member** (Round 3). Sets load
+on demand for characters that appear, rather than all at boot. The original
+25 MiB total download target is now a warning for the expanded roster.
+iPads have limited decode memory, so prefer trimmed frames over large empty
+canvases and inspect party-size memory usage when adding animation frames.
 
 ### 5.5 Recommended engine improvements (yours to make or to report)
 

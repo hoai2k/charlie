@@ -252,6 +252,12 @@
     "prop/ing-sneezy-pepper": "prop/ingredient-dragonpepper.webp",
     "prop/pet-bow-pink": "prop/bow-pink.webp",
     "prop/pet-bow-blue": "prop/bow-blue.webp",
-    "prop/pet-bow-yellow": "prop/bow-gold.webp"
+    "prop/pet-bow-yellow": "prop/bow-gold.webp",
+    "prop/fountain": "prop/fountain.webp",
+    "prop/hedge": "prop/hedge.webp",
+    "prop/arena-cake": "prop/arena-cake.webp",
+    "prop/arena-cake-crumb": "prop/arena-cake-crumb.webp",
+    "prop/danger-ring": "prop/danger-ring.webp",
+    "prop/pet-bow-red": "prop/pet-bow-red.webp"
   }
 }
