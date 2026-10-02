@@ -708,7 +708,8 @@ function advanceBackground() {
 
 function getSelectedCharacter(select, fallback) {
   const character = characters[select?.value];
-  if (character && (isAllDollsMode() || !character.hidden)) return character;
+  // Hidden dolls can still race when "Random" lands on them in the menu.
+  if (character) return character;
   return characters[fallback];
 }
 
@@ -1297,6 +1298,7 @@ function togglePause() {
   updateTouchControlsVisibility();
   if (state.paused) clearTouchInput();
   if (state.paused) {
+    resetPauseMenuFocus();
     GameAudio.play("ui_pause");
     const pausedTrack = music;
     fadeMusicGain(pausedTrack, 0, PAUSE_MUSIC_FADE_MS, () => {
@@ -1312,6 +1314,53 @@ function togglePause() {
     state.lastTime = 0;
     requestAnimationFrame(loop);
   }
+}
+
+/* Pause menu: D-pad/stick moves between the buttons, A picks one, Start or B
+ * resumes. Buttons held when the menu opened (the Start that paused) are
+ * ignored until released. */
+const pauseMenu = { focus: 0, prev: new Map(), repeat: 0 };
+
+function pauseMenuButtons() {
+  return Array.from(pausePanel.querySelectorAll("button")).filter(button => button.getClientRects().length > 0);
+}
+
+function setPauseMenuFocus(index) {
+  const buttons = pauseMenuButtons();
+  if (!buttons.length) return;
+  pauseMenu.focus = (index + buttons.length) % buttons.length;
+  buttons.forEach((button, i) => button.classList.toggle("focused", i === pauseMenu.focus));
+  buttons[pauseMenu.focus].focus({ preventScroll: true });
+}
+
+function resetPauseMenuFocus() {
+  pauseMenu.prev.clear();
+  pauseMenu.primed = false;
+  setPauseMenuFocus(0);
+}
+
+function updatePauseMenu(dt) {
+  const pads = connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : []);
+  pauseMenu.repeat -= dt;
+  for (const pad of pads) {
+    const prev = pauseMenu.prev.get(pad.index) || { buttons: [], dir: 0 };
+    const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev.buttons[button] && pauseMenu.primed;
+    const stickY = Math.abs(pad.axes[1] || 0) > 0.55 ? Math.sign(pad.axes[1]) : 0;
+    const stickX = Math.abs(pad.axes[0] || 0) > 0.55 ? Math.sign(pad.axes[0]) : 0;
+    const dpad = (pad.buttons[13]?.pressed || pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[12]?.pressed || pad.buttons[14]?.pressed ? 1 : 0);
+    const dir = dpad || stickX || stickY;
+    if (pauseMenu.primed && dir && (dir !== prev.dir || pauseMenu.repeat <= 0)) {
+      setPauseMenuFocus(pauseMenu.focus + dir);
+      GameAudio.play("ui_hover");
+      pauseMenu.repeat = dir !== prev.dir ? 0.4 : 0.18;
+    }
+    const startOrBack = pressed(9) || pressed(1);
+    const choose = pressed(0);
+    pauseMenu.prev.set(pad.index, { buttons: pad.buttons.map(button => button.pressed), dir });
+    if (startOrBack) { togglePause(); return; }
+    if (choose) { pauseMenuButtons()[pauseMenu.focus]?.click(); return; }
+  }
+  pauseMenu.primed = true;
 }
 
 function returnToMenu() {
@@ -1341,12 +1390,28 @@ function returnToMenu() {
   window.Lobby?.showSelect();
 }
 
+function fullscreenElement() {
+  return document.fullscreenElement || document.webkitFullscreenElement || null;
+}
+
+function canFullscreen() {
+  const target = document.querySelector(".game-frame");
+  return Boolean(target.requestFullscreen || target.webkitRequestFullscreen);
+}
+
+// Resolves to whether the frame is fullscreen afterwards. Browsers only allow
+// entering fullscreen from a click/tap/key press, not a controller button.
 function toggleFullscreen() {
   const target = document.querySelector(".game-frame");
-  if (!document.fullscreenElement) {
-    target.requestFullscreen?.();
-  } else {
-    document.exitFullscreen?.();
+  try {
+    if (!fullscreenElement()) {
+      const request = target.requestFullscreen?.() ?? target.webkitRequestFullscreen?.();
+      return Promise.resolve(request).then(() => Boolean(fullscreenElement()), () => false);
+    }
+    const exit = document.exitFullscreen?.() ?? document.webkitExitFullscreen?.();
+    return Promise.resolve(exit).then(() => Boolean(fullscreenElement()), () => Boolean(fullscreenElement()));
+  } catch (error) {
+    return Promise.resolve(Boolean(fullscreenElement()));
   }
 }
 
@@ -1504,7 +1569,13 @@ function menuAnimationLoop(time) {
     return;
   }
   if (assetsReady && isMenuOpen()) pollPlayerJoinAndLeave(dt);
-  updateControllerPointers(dt);
+  if (state.paused) {
+    // The pause menu is driven with the D-pad, not the floating pointer.
+    hideControllerPointers();
+    updatePauseMenu(dt);
+  } else {
+    updateControllerPointers(dt);
+  }
   drawScene(dt);
   menuAnimationFrame = requestAnimationFrame(menuAnimationLoop);
 }
