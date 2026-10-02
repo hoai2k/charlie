@@ -77,8 +77,11 @@ export class GameSelectScene {
     if (this.roulette) { this.updateRoulette(dt); return; }
     if (this.chosen) { this.chosen.t += dt; if (this.chosen.t > 0.7) this.launch(); return; }
     if (!inputOpen) return;
-    const humans = session.players.filter((p) => !p.isAI).map((p) => p.ctrl);
-    const ctrls = humans.length ? humans : input.humans();
+    // Joined humans drive the cursor; if all their pads dropped (battery, re-pair
+    // to a new slot) fall back to any controller so the menu never locks up.
+    const live = new Set(input.humans());
+    const humans = session.players.filter((p) => !p.isAI && live.has(p.ctrl)).map((p) => p.ctrl);
+    const ctrls = humans.length ? humans : [...live];
     for (const c of ctrls) {
       if (c.nav.x || c.nav.y) this.move(c.nav.x, c.nav.y);
       if (c.pressed('a')) { this.choose(); return; }
@@ -212,7 +215,7 @@ export class GameSelectScene {
       for (const [i, line] of ['Can\'t decide?', 'Spin the wheel and let', 'the party pick a game!'].entries()) ui.text(g, line, x + w / 2, y + 520 + i * 48, { size: 36, color: '#24163f', stroke: false, weight: 700 });
     } else {
       drawEmote(g, 'star', x + w / 2, y + 220, 200, this.t);
-      ui.text(g, 'Party Marathon', x + w / 2, y + 430, { size: 62, color: '#9b5cff' });
+      ui.text(g, 'Party Marathon', x + w / 2, y + 430, { size: 62, color: '#9b5cff', maxWidth: w - 50 });
       for (const [i, line] of ['Five random party games', 'in a row. Most stars', 'wins the trophy!'].entries()) ui.text(g, line, x + w / 2, y + 520 + i * 48, { size: 36, color: '#24163f', stroke: false, weight: 700 });
     }
   }

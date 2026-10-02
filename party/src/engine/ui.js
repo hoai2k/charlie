@@ -191,6 +191,7 @@ export function scoreboard(g, players, values, o = {}) {
   const y = o.y ?? 40;
   let x = (W - total) / 2;
   const gapAt = n === 1 ? 1 : Math.ceil(n / 2);  // solo: chip sits left of the timer
+  if (o.avoidCenter && n === 1) x = W / 2 - gap / 2 - chipW;
   players.forEach((p, i) => {
     if (o.avoidCenter && i === gapAt) x += gap;
     const out = o.out && o.out[i];
