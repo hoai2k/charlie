@@ -24,6 +24,15 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
 3. Add a card for the game to the root `index.html` and a row to the game
    list in `README.md`.
 
+## Conventions
+
+- Images are WebP (lossless alpha). Convert new art with Pillow
+  (`quality=82-90, method=6`) rather than committing large PNGs.
+- `americangirldollrace/index.html` loads its CSS and JS with a `?v=` string;
+  bump it whenever those files change, since Pages caches for ~10 minutes.
+- Audio in the race goes through the Web Audio engine in `audio.js`; don't set
+  `HTMLAudioElement.volume` directly (iOS ignores it).
+
 ## Git policy
 
 **Always commit and push to `origin/main` when done with a change.** Finish
@@ -40,3 +49,7 @@ and push `main` as well.
   from cdn.jsdelivr.net and models from storage.googleapis.com.
 - The per-character `dollpuppets/assets/<name>/config.js` files are generated
   by a build script that was not imported; edit them directly with care.
+  (Their sprite paths were switched from `.png` to `.webp` by hand.)
+- `dollpuppets/src/core/face-stabilizer.js` sits between the tracker and the
+  renderer: it holds the pose through brief tracking dropouts and smooths
+  movement. Feed new tracker results through it, not straight to render.

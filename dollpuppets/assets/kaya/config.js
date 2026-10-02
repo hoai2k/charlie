@@ -79,7 +79,7 @@ export const kayaConfig = {
   "sprites": {
     "faces": {
       "reference": {
-        "file": "assets/kaya/reference.png",
+        "file": "assets/kaya/reference.webp",
         "size": [
           362,
           362
@@ -102,7 +102,7 @@ export const kayaConfig = {
         ]
       },
       "mouth_open": {
-        "file": "assets/kaya/mouth_open.png",
+        "file": "assets/kaya/mouth_open.webp",
         "size": [
           362,
           362
@@ -125,7 +125,7 @@ export const kayaConfig = {
         ]
       },
       "mouth_closed": {
-        "file": "assets/kaya/mouth_closed.png",
+        "file": "assets/kaya/mouth_closed.webp",
         "size": [
           362,
           362
@@ -148,7 +148,7 @@ export const kayaConfig = {
         ]
       },
       "mouth_smile": {
-        "file": "assets/kaya/mouth_smile.png",
+        "file": "assets/kaya/mouth_smile.webp",
         "size": [
           362,
           362
@@ -171,7 +171,7 @@ export const kayaConfig = {
         ]
       },
       "mouth_frown": {
-        "file": "assets/kaya/mouth_frown.png",
+        "file": "assets/kaya/mouth_frown.webp",
         "size": [
           362,
           362
@@ -194,7 +194,7 @@ export const kayaConfig = {
         ]
       },
       "mouth_pucker": {
-        "file": "assets/kaya/mouth_pucker_s2.png",
+        "file": "assets/kaya/mouth_pucker_s2.webp",
         "size": [
           362,
           362
@@ -221,7 +221,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "left_eye_open": {
-        "file": "assets/kaya/left_eye_open.png",
+        "file": "assets/kaya/left_eye_open.webp",
         "size": [
           362,
           362
@@ -244,7 +244,7 @@ export const kayaConfig = {
         ]
       },
       "left_eye_closed": {
-        "file": "assets/kaya/left_eye_closed.png",
+        "file": "assets/kaya/left_eye_closed.webp",
         "size": [
           362,
           362
@@ -267,7 +267,7 @@ export const kayaConfig = {
         ]
       },
       "left_brow": {
-        "file": "assets/kaya/left_brow.png",
+        "file": "assets/kaya/left_brow.webp",
         "size": [
           362,
           362
@@ -290,7 +290,7 @@ export const kayaConfig = {
         ]
       },
       "right_eye_open": {
-        "file": "assets/kaya/right_eye_open.png",
+        "file": "assets/kaya/right_eye_open.webp",
         "size": [
           362,
           362
@@ -313,7 +313,7 @@ export const kayaConfig = {
         ]
       },
       "right_eye_closed": {
-        "file": "assets/kaya/right_eye_closed.png",
+        "file": "assets/kaya/right_eye_closed.webp",
         "size": [
           362,
           362
@@ -336,7 +336,7 @@ export const kayaConfig = {
         ]
       },
       "right_brow": {
-        "file": "assets/kaya/right_brow.png",
+        "file": "assets/kaya/right_brow.webp",
         "size": [
           362,
           362
@@ -359,7 +359,7 @@ export const kayaConfig = {
         ]
       },
       "s2_reference": {
-        "file": "assets/kaya/s2_reference.png",
+        "file": "assets/kaya/s2_reference.webp",
         "size": [
           362,
           362
@@ -386,7 +386,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_surprise": {
-        "file": "assets/kaya/expression_surprise.png",
+        "file": "assets/kaya/expression_surprise.webp",
         "size": [
           362,
           362
@@ -413,7 +413,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_angry": {
-        "file": "assets/kaya/expression_angry.png",
+        "file": "assets/kaya/expression_angry.webp",
         "size": [
           362,
           362
@@ -440,7 +440,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_disgust": {
-        "file": "assets/kaya/expression_disgust.png",
+        "file": "assets/kaya/expression_disgust.webp",
         "size": [
           362,
           362
@@ -467,7 +467,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_fear": {
-        "file": "assets/kaya/expression_fear.png",
+        "file": "assets/kaya/expression_fear.webp",
         "size": [
           362,
           362
@@ -494,7 +494,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_squint": {
-        "file": "assets/kaya/expression_squint.png",
+        "file": "assets/kaya/expression_squint.webp",
         "size": [
           362,
           362
@@ -521,7 +521,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_left": {
-        "file": "assets/kaya/expression_smirk_left.png",
+        "file": "assets/kaya/expression_smirk_left.webp",
         "size": [
           362,
           362
@@ -548,7 +548,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_right": {
-        "file": "assets/kaya/expression_smirk_right.png",
+        "file": "assets/kaya/expression_smirk_right.webp",
         "size": [
           362,
           362
@@ -575,7 +575,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_thinking": {
-        "file": "assets/kaya/expression_thinking.png",
+        "file": "assets/kaya/expression_thinking.webp",
         "size": [
           362,
           362
@@ -602,7 +602,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_big_open": {
-        "file": "assets/kaya/mouth_big_open.png",
+        "file": "assets/kaya/mouth_big_open.webp",
         "size": [
           362,
           362
@@ -629,7 +629,7 @@ export const kayaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_tongue": {
-        "file": "assets/kaya/mouth_tongue.png",
+        "file": "assets/kaya/mouth_tongue.webp",
         "size": [
           362,
           362
@@ -658,7 +658,7 @@ export const kayaConfig = {
     },
     "body": {
       "pose_1": {
-        "file": "assets/kaya/body_pose_1.png",
+        "file": "assets/kaya/body_pose_1.webp",
         "size": [
           500,
           357
@@ -685,7 +685,7 @@ export const kayaConfig = {
         ]
       },
       "pose_2": {
-        "file": "assets/kaya/body_pose_2.png",
+        "file": "assets/kaya/body_pose_2.webp",
         "size": [
           336,
           363
@@ -712,7 +712,7 @@ export const kayaConfig = {
         ]
       },
       "pose_3": {
-        "file": "assets/kaya/body_pose_3.png",
+        "file": "assets/kaya/body_pose_3.webp",
         "size": [
           361,
           364
@@ -739,7 +739,7 @@ export const kayaConfig = {
         ]
       },
       "pose_4": {
-        "file": "assets/kaya/body_pose_4.png",
+        "file": "assets/kaya/body_pose_4.webp",
         "size": [
           370,
           390
@@ -766,7 +766,7 @@ export const kayaConfig = {
         ]
       },
       "pose_5": {
-        "file": "assets/kaya/body_pose_5.png",
+        "file": "assets/kaya/body_pose_5.webp",
         "size": [
           380,
           365
@@ -793,7 +793,7 @@ export const kayaConfig = {
         ]
       },
       "pose_6": {
-        "file": "assets/kaya/body_pose_6.png",
+        "file": "assets/kaya/body_pose_6.webp",
         "size": [
           337,
           366
@@ -822,7 +822,7 @@ export const kayaConfig = {
     },
     "talking": {
       "talking_reference": {
-        "file": "assets/kaya/talking_reference.png",
+        "file": "assets/kaya/talking_reference.webp",
         "size": [
           418,
           418
@@ -849,7 +849,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_closed": {
-        "file": "assets/kaya/talking_mouth_closed.png",
+        "file": "assets/kaya/talking_mouth_closed.webp",
         "size": [
           418,
           418
@@ -876,7 +876,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_small_open": {
-        "file": "assets/kaya/talking_mouth_small_open.png",
+        "file": "assets/kaya/talking_mouth_small_open.webp",
         "size": [
           418,
           418
@@ -903,7 +903,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_medium_open": {
-        "file": "assets/kaya/talking_mouth_medium_open.png",
+        "file": "assets/kaya/talking_mouth_medium_open.webp",
         "size": [
           418,
           418
@@ -930,7 +930,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_big_open": {
-        "file": "assets/kaya/talking_mouth_big_open.png",
+        "file": "assets/kaya/talking_mouth_big_open.webp",
         "size": [
           418,
           418
@@ -957,7 +957,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_wide": {
-        "file": "assets/kaya/talking_mouth_wide.png",
+        "file": "assets/kaya/talking_mouth_wide.webp",
         "size": [
           418,
           418
@@ -984,7 +984,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_teeth": {
-        "file": "assets/kaya/talking_mouth_teeth.png",
+        "file": "assets/kaya/talking_mouth_teeth.webp",
         "size": [
           418,
           418
@@ -1011,7 +1011,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_mouth_pucker": {
-        "file": "assets/kaya/talking_mouth_pucker.png",
+        "file": "assets/kaya/talking_mouth_pucker.webp",
         "size": [
           418,
           418
@@ -1038,7 +1038,7 @@ export const kayaConfig = {
         "talking": true
       },
       "talking_frowning": {
-        "file": "assets/kaya/talking_frowning.png",
+        "file": "assets/kaya/talking_frowning.webp",
         "size": [
           418,
           418
@@ -1067,7 +1067,7 @@ export const kayaConfig = {
     },
     "extensions": {
       "hair_extension": {
-        "file": "assets/kaya/hair_extension.png",
+        "file": "assets/kaya/hair_extension.webp",
         "size": [
           205,
           1154

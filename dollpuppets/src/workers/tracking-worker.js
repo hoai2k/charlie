@@ -6,6 +6,8 @@ import {
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/vision_bundle.mjs";
 
 const CDN_ROOT = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm";
+// Models are pinned to version "1" rather than "latest": the expression
+// thresholds in gameConfig.js are tuned to these exact models' outputs.
 const MODEL_ROOT = "https://storage.googleapis.com/mediapipe-models";
 
 let vision = null;
@@ -54,7 +56,7 @@ async function configure(mode) {
     await resetModuleFactory();
     faceLandmarker = await FaceLandmarker.createFromOptions(vision, {
       baseOptions: {
-        modelAssetPath: `${MODEL_ROOT}/face_landmarker/face_landmarker/float16/latest/face_landmarker.task`,
+        modelAssetPath: `${MODEL_ROOT}/face_landmarker/face_landmarker/float16/1/face_landmarker.task`,
         delegate: "CPU"
       },
       runningMode: "VIDEO",
@@ -68,7 +70,7 @@ async function configure(mode) {
     await resetModuleFactory();
     handLandmarker = await HandLandmarker.createFromOptions(vision, {
       baseOptions: {
-        modelAssetPath: `${MODEL_ROOT}/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task`,
+        modelAssetPath: `${MODEL_ROOT}/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`,
         delegate: "CPU"
       },
       runningMode: "VIDEO",
@@ -80,7 +82,7 @@ async function configure(mode) {
     await resetModuleFactory();
     poseLandmarker = await PoseLandmarker.createFromOptions(vision, {
       baseOptions: {
-        modelAssetPath: `${MODEL_ROOT}/pose_landmarker/pose_landmarker_lite/float16/latest/pose_landmarker_lite.task`,
+        modelAssetPath: `${MODEL_ROOT}/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task`,
         delegate: "CPU"
       },
       runningMode: "VIDEO",

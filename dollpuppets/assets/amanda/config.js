@@ -158,7 +158,7 @@ export const amandaConfig = {
   "sprites": {
     "faces": {
       "reference": {
-        "file": "assets/amanda/reference.png",
+        "file": "assets/amanda/reference.webp",
         "size": [
           362,
           362
@@ -184,7 +184,7 @@ export const amandaConfig = {
         "hasBrows": false
       },
       "mouth_open": {
-        "file": "assets/amanda/mouth_open.png",
+        "file": "assets/amanda/mouth_open.webp",
         "size": [
           362,
           362
@@ -210,7 +210,7 @@ export const amandaConfig = {
         "hasBrows": false
       },
       "mouth_closed": {
-        "file": "assets/amanda/mouth_closed.png",
+        "file": "assets/amanda/mouth_closed.webp",
         "size": [
           362,
           362
@@ -236,7 +236,7 @@ export const amandaConfig = {
         "hasBrows": false
       },
       "mouth_smile": {
-        "file": "assets/amanda/mouth_smile.png",
+        "file": "assets/amanda/mouth_smile.webp",
         "size": [
           362,
           362
@@ -262,7 +262,7 @@ export const amandaConfig = {
         "hasBrows": false
       },
       "mouth_frown": {
-        "file": "assets/amanda/mouth_frown.png",
+        "file": "assets/amanda/mouth_frown.webp",
         "size": [
           362,
           362
@@ -288,7 +288,7 @@ export const amandaConfig = {
         "hasBrows": false
       },
       "mouth_pucker": {
-        "file": "assets/amanda/mouth_pucker_s2.png",
+        "file": "assets/amanda/mouth_pucker_s2.webp",
         "size": [
           362,
           362
@@ -315,7 +315,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "left_eye_open": {
-        "file": "assets/amanda/left_eye_open.png",
+        "file": "assets/amanda/left_eye_open.webp",
         "size": [
           362,
           362
@@ -338,7 +338,7 @@ export const amandaConfig = {
         ]
       },
       "left_eye_closed": {
-        "file": "assets/amanda/left_eye_closed.png",
+        "file": "assets/amanda/left_eye_closed.webp",
         "size": [
           362,
           362
@@ -361,7 +361,7 @@ export const amandaConfig = {
         ]
       },
       "left_brow": {
-        "file": "assets/amanda/left_brow.png",
+        "file": "assets/amanda/left_brow.webp",
         "size": [
           362,
           362
@@ -384,7 +384,7 @@ export const amandaConfig = {
         ]
       },
       "right_eye_open": {
-        "file": "assets/amanda/right_eye_open.png",
+        "file": "assets/amanda/right_eye_open.webp",
         "size": [
           362,
           362
@@ -407,7 +407,7 @@ export const amandaConfig = {
         ]
       },
       "right_eye_closed": {
-        "file": "assets/amanda/right_eye_closed.png",
+        "file": "assets/amanda/right_eye_closed.webp",
         "size": [
           362,
           362
@@ -430,7 +430,7 @@ export const amandaConfig = {
         ]
       },
       "right_brow": {
-        "file": "assets/amanda/right_brow.png",
+        "file": "assets/amanda/right_brow.webp",
         "size": [
           362,
           362
@@ -453,7 +453,7 @@ export const amandaConfig = {
         ]
       },
       "s2_reference": {
-        "file": "assets/amanda/s2_reference.png",
+        "file": "assets/amanda/s2_reference.webp",
         "size": [
           362,
           362
@@ -480,7 +480,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_surprise": {
-        "file": "assets/amanda/expression_surprise.png",
+        "file": "assets/amanda/expression_surprise.webp",
         "size": [
           362,
           362
@@ -507,7 +507,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_angry": {
-        "file": "assets/amanda/expression_angry.png",
+        "file": "assets/amanda/expression_angry.webp",
         "size": [
           362,
           362
@@ -534,7 +534,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_disgust": {
-        "file": "assets/amanda/expression_disgust.png",
+        "file": "assets/amanda/expression_disgust.webp",
         "size": [
           362,
           362
@@ -561,7 +561,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_fear": {
-        "file": "assets/amanda/expression_fear.png",
+        "file": "assets/amanda/expression_fear.webp",
         "size": [
           362,
           362
@@ -588,7 +588,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_squint": {
-        "file": "assets/amanda/expression_squint.png",
+        "file": "assets/amanda/expression_squint.webp",
         "size": [
           362,
           362
@@ -615,7 +615,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_left": {
-        "file": "assets/amanda/expression_smirk_left.png",
+        "file": "assets/amanda/expression_smirk_left.webp",
         "size": [
           362,
           362
@@ -642,7 +642,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_right": {
-        "file": "assets/amanda/expression_smirk_right.png",
+        "file": "assets/amanda/expression_smirk_right.webp",
         "size": [
           362,
           362
@@ -669,7 +669,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_thinking": {
-        "file": "assets/amanda/expression_thinking.png",
+        "file": "assets/amanda/expression_thinking.webp",
         "size": [
           362,
           362
@@ -696,7 +696,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_big_open": {
-        "file": "assets/amanda/mouth_big_open.png",
+        "file": "assets/amanda/mouth_big_open.webp",
         "size": [
           362,
           362
@@ -723,7 +723,7 @@ export const amandaConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_tongue": {
-        "file": "assets/amanda/mouth_tongue.png",
+        "file": "assets/amanda/mouth_tongue.webp",
         "size": [
           362,
           362
@@ -752,7 +752,7 @@ export const amandaConfig = {
     },
     "body": {
       "pose_1": {
-        "file": "assets/amanda/body_pose_1.png",
+        "file": "assets/amanda/body_pose_1.webp",
         "size": [
           392,
           474
@@ -779,7 +779,7 @@ export const amandaConfig = {
         ]
       },
       "pose_2": {
-        "file": "assets/amanda/body_pose_2.png",
+        "file": "assets/amanda/body_pose_2.webp",
         "size": [
           463,
           469
@@ -806,7 +806,7 @@ export const amandaConfig = {
         ]
       },
       "pose_3": {
-        "file": "assets/amanda/body_pose_3.png",
+        "file": "assets/amanda/body_pose_3.webp",
         "size": [
           399,
           463
@@ -833,7 +833,7 @@ export const amandaConfig = {
         ]
       },
       "pose_4": {
-        "file": "assets/amanda/body_pose_4.png",
+        "file": "assets/amanda/body_pose_4.webp",
         "size": [
           447,
           380
@@ -860,7 +860,7 @@ export const amandaConfig = {
         ]
       },
       "pose_5": {
-        "file": "assets/amanda/body_pose_5.png",
+        "file": "assets/amanda/body_pose_5.webp",
         "size": [
           339,
           379
@@ -887,7 +887,7 @@ export const amandaConfig = {
         ]
       },
       "pose_6": {
-        "file": "assets/amanda/body_pose_6.png",
+        "file": "assets/amanda/body_pose_6.webp",
         "size": [
           308,
           379
@@ -916,7 +916,7 @@ export const amandaConfig = {
     },
     "talking": {
       "talking_reference": {
-        "file": "assets/amanda/talking_reference.png",
+        "file": "assets/amanda/talking_reference.webp",
         "size": [
           418,
           418
@@ -943,7 +943,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_closed": {
-        "file": "assets/amanda/talking_mouth_closed.png",
+        "file": "assets/amanda/talking_mouth_closed.webp",
         "size": [
           418,
           418
@@ -970,7 +970,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_small_open": {
-        "file": "assets/amanda/talking_mouth_small_open.png",
+        "file": "assets/amanda/talking_mouth_small_open.webp",
         "size": [
           418,
           418
@@ -997,7 +997,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_medium_open": {
-        "file": "assets/amanda/talking_mouth_medium_open.png",
+        "file": "assets/amanda/talking_mouth_medium_open.webp",
         "size": [
           418,
           418
@@ -1024,7 +1024,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_big_open": {
-        "file": "assets/amanda/talking_mouth_big_open.png",
+        "file": "assets/amanda/talking_mouth_big_open.webp",
         "size": [
           418,
           418
@@ -1051,7 +1051,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_wide": {
-        "file": "assets/amanda/talking_mouth_wide.png",
+        "file": "assets/amanda/talking_mouth_wide.webp",
         "size": [
           418,
           418
@@ -1078,7 +1078,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_teeth": {
-        "file": "assets/amanda/talking_mouth_teeth.png",
+        "file": "assets/amanda/talking_mouth_teeth.webp",
         "size": [
           418,
           418
@@ -1105,7 +1105,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_mouth_pucker": {
-        "file": "assets/amanda/talking_mouth_pucker.png",
+        "file": "assets/amanda/talking_mouth_pucker.webp",
         "size": [
           418,
           418
@@ -1132,7 +1132,7 @@ export const amandaConfig = {
         "talking": true
       },
       "talking_frowning": {
-        "file": "assets/amanda/talking_frowning.png",
+        "file": "assets/amanda/talking_frowning.webp",
         "size": [
           418,
           418
@@ -1161,7 +1161,7 @@ export const amandaConfig = {
     },
     "extensions": {
       "hair_extension": {
-        "file": "assets/amanda/hair_extension.png",
+        "file": "assets/amanda/hair_extension.webp",
         "size": [
           782,
           994

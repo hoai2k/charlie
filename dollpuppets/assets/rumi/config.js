@@ -201,7 +201,7 @@ export const rumiConfig = {
   "sprites": {
     "faces": {
       "reference": {
-        "file": "assets/rumi/reference.png",
+        "file": "assets/rumi/reference.webp",
         "size": [
           362,
           362
@@ -224,7 +224,7 @@ export const rumiConfig = {
         ]
       },
       "mouth_open": {
-        "file": "assets/rumi/mouth_open.png",
+        "file": "assets/rumi/mouth_open.webp",
         "size": [
           362,
           362
@@ -247,7 +247,7 @@ export const rumiConfig = {
         ]
       },
       "mouth_closed": {
-        "file": "assets/rumi/mouth_closed.png",
+        "file": "assets/rumi/mouth_closed.webp",
         "size": [
           362,
           362
@@ -270,7 +270,7 @@ export const rumiConfig = {
         ]
       },
       "mouth_smile": {
-        "file": "assets/rumi/mouth_smile.png",
+        "file": "assets/rumi/mouth_smile.webp",
         "size": [
           362,
           362
@@ -293,7 +293,7 @@ export const rumiConfig = {
         ]
       },
       "mouth_frown": {
-        "file": "assets/rumi/mouth_frown.png",
+        "file": "assets/rumi/mouth_frown.webp",
         "size": [
           362,
           362
@@ -316,7 +316,7 @@ export const rumiConfig = {
         ]
       },
       "mouth_pucker": {
-        "file": "assets/rumi/mouth_pucker_s2.png",
+        "file": "assets/rumi/mouth_pucker_s2.webp",
         "size": [
           362,
           362
@@ -343,7 +343,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "left_eye_open": {
-        "file": "assets/rumi/left_eye_open.png",
+        "file": "assets/rumi/left_eye_open.webp",
         "size": [
           362,
           362
@@ -366,7 +366,7 @@ export const rumiConfig = {
         ]
       },
       "left_eye_closed": {
-        "file": "assets/rumi/left_eye_closed.png",
+        "file": "assets/rumi/left_eye_closed.webp",
         "size": [
           362,
           362
@@ -389,7 +389,7 @@ export const rumiConfig = {
         ]
       },
       "left_brow": {
-        "file": "assets/rumi/left_brow.png",
+        "file": "assets/rumi/left_brow.webp",
         "size": [
           362,
           362
@@ -412,7 +412,7 @@ export const rumiConfig = {
         ]
       },
       "right_eye_open": {
-        "file": "assets/rumi/right_eye_open.png",
+        "file": "assets/rumi/right_eye_open.webp",
         "size": [
           362,
           362
@@ -435,7 +435,7 @@ export const rumiConfig = {
         ]
       },
       "right_eye_closed": {
-        "file": "assets/rumi/right_eye_closed.png",
+        "file": "assets/rumi/right_eye_closed.webp",
         "size": [
           362,
           362
@@ -458,7 +458,7 @@ export const rumiConfig = {
         ]
       },
       "right_brow": {
-        "file": "assets/rumi/right_brow.png",
+        "file": "assets/rumi/right_brow.webp",
         "size": [
           362,
           362
@@ -481,7 +481,7 @@ export const rumiConfig = {
         ]
       },
       "s2_reference": {
-        "file": "assets/rumi/s2_reference.png",
+        "file": "assets/rumi/s2_reference.webp",
         "size": [
           362,
           362
@@ -508,7 +508,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_surprise": {
-        "file": "assets/rumi/expression_surprise.png",
+        "file": "assets/rumi/expression_surprise.webp",
         "size": [
           362,
           362
@@ -535,7 +535,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_angry": {
-        "file": "assets/rumi/expression_angry.png",
+        "file": "assets/rumi/expression_angry.webp",
         "size": [
           362,
           362
@@ -562,7 +562,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_disgust": {
-        "file": "assets/rumi/expression_disgust.png",
+        "file": "assets/rumi/expression_disgust.webp",
         "size": [
           362,
           362
@@ -589,7 +589,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_fear": {
-        "file": "assets/rumi/expression_fear.png",
+        "file": "assets/rumi/expression_fear.webp",
         "size": [
           362,
           362
@@ -616,7 +616,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_squint": {
-        "file": "assets/rumi/expression_squint.png",
+        "file": "assets/rumi/expression_squint.webp",
         "size": [
           362,
           362
@@ -643,7 +643,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_left": {
-        "file": "assets/rumi/expression_smirk_left.png",
+        "file": "assets/rumi/expression_smirk_left.webp",
         "size": [
           362,
           362
@@ -670,7 +670,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_right": {
-        "file": "assets/rumi/expression_smirk_right.png",
+        "file": "assets/rumi/expression_smirk_right.webp",
         "size": [
           362,
           362
@@ -697,7 +697,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_thinking": {
-        "file": "assets/rumi/expression_thinking.png",
+        "file": "assets/rumi/expression_thinking.webp",
         "size": [
           362,
           362
@@ -724,7 +724,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_big_open": {
-        "file": "assets/rumi/mouth_big_open.png",
+        "file": "assets/rumi/mouth_big_open.webp",
         "size": [
           362,
           362
@@ -751,7 +751,7 @@ export const rumiConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_tongue": {
-        "file": "assets/rumi/mouth_tongue.png",
+        "file": "assets/rumi/mouth_tongue.webp",
         "size": [
           362,
           362
@@ -780,7 +780,7 @@ export const rumiConfig = {
     },
     "body": {
       "pose_1": {
-        "file": "assets/rumi/body_pose_1.png",
+        "file": "assets/rumi/body_pose_1.webp",
         "size": [
           335,
           395
@@ -807,7 +807,7 @@ export const rumiConfig = {
         ]
       },
       "pose_2": {
-        "file": "assets/rumi/body_pose_2.png",
+        "file": "assets/rumi/body_pose_2.webp",
         "size": [
           432,
           400
@@ -834,7 +834,7 @@ export const rumiConfig = {
         ]
       },
       "pose_3": {
-        "file": "assets/rumi/body_pose_3.png",
+        "file": "assets/rumi/body_pose_3.webp",
         "size": [
           288,
           389
@@ -861,7 +861,7 @@ export const rumiConfig = {
         ]
       },
       "pose_4": {
-        "file": "assets/rumi/body_pose_4.png",
+        "file": "assets/rumi/body_pose_4.webp",
         "size": [
           330,
           328
@@ -888,7 +888,7 @@ export const rumiConfig = {
         ]
       },
       "pose_5": {
-        "file": "assets/rumi/body_pose_5.png",
+        "file": "assets/rumi/body_pose_5.webp",
         "size": [
           306,
           301
@@ -915,7 +915,7 @@ export const rumiConfig = {
         ]
       },
       "pose_6": {
-        "file": "assets/rumi/body_pose_6.png",
+        "file": "assets/rumi/body_pose_6.webp",
         "size": [
           267,
           318
@@ -944,7 +944,7 @@ export const rumiConfig = {
     },
     "talking": {
       "talking_reference": {
-        "file": "assets/rumi/talking_reference.png",
+        "file": "assets/rumi/talking_reference.webp",
         "size": [
           418,
           418
@@ -971,7 +971,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_closed": {
-        "file": "assets/rumi/talking_mouth_closed.png",
+        "file": "assets/rumi/talking_mouth_closed.webp",
         "size": [
           418,
           418
@@ -998,7 +998,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_small_open": {
-        "file": "assets/rumi/talking_mouth_small_open.png",
+        "file": "assets/rumi/talking_mouth_small_open.webp",
         "size": [
           418,
           418
@@ -1025,7 +1025,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_medium_open": {
-        "file": "assets/rumi/talking_mouth_medium_open.png",
+        "file": "assets/rumi/talking_mouth_medium_open.webp",
         "size": [
           418,
           418
@@ -1052,7 +1052,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_big_open": {
-        "file": "assets/rumi/talking_mouth_big_open.png",
+        "file": "assets/rumi/talking_mouth_big_open.webp",
         "size": [
           418,
           418
@@ -1079,7 +1079,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_wide": {
-        "file": "assets/rumi/talking_mouth_wide.png",
+        "file": "assets/rumi/talking_mouth_wide.webp",
         "size": [
           418,
           418
@@ -1106,7 +1106,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_teeth": {
-        "file": "assets/rumi/talking_mouth_teeth.png",
+        "file": "assets/rumi/talking_mouth_teeth.webp",
         "size": [
           418,
           418
@@ -1133,7 +1133,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_mouth_pucker": {
-        "file": "assets/rumi/talking_mouth_pucker.png",
+        "file": "assets/rumi/talking_mouth_pucker.webp",
         "size": [
           418,
           418
@@ -1160,7 +1160,7 @@ export const rumiConfig = {
         "talking": true
       },
       "talking_frowning": {
-        "file": "assets/rumi/talking_frowning.png",
+        "file": "assets/rumi/talking_frowning.webp",
         "size": [
           418,
           418
@@ -1189,7 +1189,7 @@ export const rumiConfig = {
     },
     "extensions": {
       "hair_extension": {
-        "file": "assets/rumi/hair_extension.png",
+        "file": "assets/rumi/hair_extension.webp",
         "size": [
           162,
           1459

@@ -54,7 +54,7 @@ export const juliette2Config = {
   "sprites": {
     "faces": {
       "reference": {
-        "file": "assets/juliette2/reference.png",
+        "file": "assets/juliette2/reference.webp",
         "size": [
           362,
           362
@@ -80,7 +80,7 @@ export const juliette2Config = {
         "hasBrows": false
       },
       "mouth_open": {
-        "file": "assets/juliette2/mouth_open.png",
+        "file": "assets/juliette2/mouth_open.webp",
         "size": [
           362,
           362
@@ -106,7 +106,7 @@ export const juliette2Config = {
         "hasBrows": false
       },
       "mouth_closed": {
-        "file": "assets/juliette2/mouth_closed.png",
+        "file": "assets/juliette2/mouth_closed.webp",
         "size": [
           362,
           362
@@ -132,7 +132,7 @@ export const juliette2Config = {
         "hasBrows": false
       },
       "mouth_smile": {
-        "file": "assets/juliette2/mouth_smile.png",
+        "file": "assets/juliette2/mouth_smile.webp",
         "size": [
           362,
           362
@@ -158,7 +158,7 @@ export const juliette2Config = {
         "hasBrows": false
       },
       "mouth_frown": {
-        "file": "assets/juliette2/mouth_frown.png",
+        "file": "assets/juliette2/mouth_frown.webp",
         "size": [
           362,
           362
@@ -184,7 +184,7 @@ export const juliette2Config = {
         "hasBrows": false
       },
       "mouth_pucker": {
-        "file": "assets/juliette2/mouth_pucker_s2.png",
+        "file": "assets/juliette2/mouth_pucker_s2.webp",
         "size": [
           362,
           362
@@ -211,7 +211,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "left_eye_open": {
-        "file": "assets/juliette2/left_eye_open.png",
+        "file": "assets/juliette2/left_eye_open.webp",
         "size": [
           362,
           362
@@ -234,7 +234,7 @@ export const juliette2Config = {
         ]
       },
       "left_eye_closed": {
-        "file": "assets/juliette2/left_eye_closed.png",
+        "file": "assets/juliette2/left_eye_closed.webp",
         "size": [
           362,
           362
@@ -257,7 +257,7 @@ export const juliette2Config = {
         ]
       },
       "left_brow": {
-        "file": "assets/juliette2/left_brow.png",
+        "file": "assets/juliette2/left_brow.webp",
         "size": [
           362,
           362
@@ -280,7 +280,7 @@ export const juliette2Config = {
         ]
       },
       "right_eye_open": {
-        "file": "assets/juliette2/right_eye_open.png",
+        "file": "assets/juliette2/right_eye_open.webp",
         "size": [
           362,
           362
@@ -303,7 +303,7 @@ export const juliette2Config = {
         ]
       },
       "right_eye_closed": {
-        "file": "assets/juliette2/right_eye_closed.png",
+        "file": "assets/juliette2/right_eye_closed.webp",
         "size": [
           362,
           362
@@ -326,7 +326,7 @@ export const juliette2Config = {
         ]
       },
       "right_brow": {
-        "file": "assets/juliette2/right_brow.png",
+        "file": "assets/juliette2/right_brow.webp",
         "size": [
           362,
           362
@@ -349,7 +349,7 @@ export const juliette2Config = {
         ]
       },
       "s2_reference": {
-        "file": "assets/juliette2/s2_reference.png",
+        "file": "assets/juliette2/s2_reference.webp",
         "size": [
           362,
           362
@@ -376,7 +376,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_surprise": {
-        "file": "assets/juliette2/expression_surprise.png",
+        "file": "assets/juliette2/expression_surprise.webp",
         "size": [
           362,
           362
@@ -403,7 +403,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_angry": {
-        "file": "assets/juliette2/expression_angry.png",
+        "file": "assets/juliette2/expression_angry.webp",
         "size": [
           362,
           362
@@ -430,7 +430,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_disgust": {
-        "file": "assets/juliette2/expression_disgust.png",
+        "file": "assets/juliette2/expression_disgust.webp",
         "size": [
           362,
           362
@@ -457,7 +457,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_fear": {
-        "file": "assets/juliette2/expression_fear.png",
+        "file": "assets/juliette2/expression_fear.webp",
         "size": [
           362,
           362
@@ -484,7 +484,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_squint": {
-        "file": "assets/juliette2/expression_squint.png",
+        "file": "assets/juliette2/expression_squint.webp",
         "size": [
           362,
           362
@@ -511,7 +511,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_left": {
-        "file": "assets/juliette2/expression_smirk_left.png",
+        "file": "assets/juliette2/expression_smirk_left.webp",
         "size": [
           362,
           362
@@ -538,7 +538,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_right": {
-        "file": "assets/juliette2/expression_smirk_right.png",
+        "file": "assets/juliette2/expression_smirk_right.webp",
         "size": [
           362,
           362
@@ -565,7 +565,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "expression_thinking": {
-        "file": "assets/juliette2/expression_thinking.png",
+        "file": "assets/juliette2/expression_thinking.webp",
         "size": [
           362,
           362
@@ -592,7 +592,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_big_open": {
-        "file": "assets/juliette2/mouth_big_open.png",
+        "file": "assets/juliette2/mouth_big_open.webp",
         "size": [
           362,
           362
@@ -619,7 +619,7 @@ export const juliette2Config = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_tongue": {
-        "file": "assets/juliette2/mouth_tongue.png",
+        "file": "assets/juliette2/mouth_tongue.webp",
         "size": [
           362,
           362
@@ -648,7 +648,7 @@ export const juliette2Config = {
     },
     "body": {
       "pose_1": {
-        "file": "assets/juliette2/body_pose_1.png",
+        "file": "assets/juliette2/body_pose_1.webp",
         "size": [
           399,
           500
@@ -675,7 +675,7 @@ export const juliette2Config = {
         ]
       },
       "pose_2": {
-        "file": "assets/juliette2/body_pose_2.png",
+        "file": "assets/juliette2/body_pose_2.webp",
         "size": [
           428,
           478
@@ -702,7 +702,7 @@ export const juliette2Config = {
         ]
       },
       "pose_3": {
-        "file": "assets/juliette2/body_pose_3.png",
+        "file": "assets/juliette2/body_pose_3.webp",
         "size": [
           424,
           510
@@ -729,7 +729,7 @@ export const juliette2Config = {
         ]
       },
       "pose_4": {
-        "file": "assets/juliette2/body_pose_4.png",
+        "file": "assets/juliette2/body_pose_4.webp",
         "size": [
           480,
           444
@@ -756,7 +756,7 @@ export const juliette2Config = {
         ]
       },
       "pose_5": {
-        "file": "assets/juliette2/body_pose_5.png",
+        "file": "assets/juliette2/body_pose_5.webp",
         "size": [
           375,
           452
@@ -783,7 +783,7 @@ export const juliette2Config = {
         ]
       },
       "pose_6": {
-        "file": "assets/juliette2/body_pose_6.png",
+        "file": "assets/juliette2/body_pose_6.webp",
         "size": [
           423,
           519
@@ -812,7 +812,7 @@ export const juliette2Config = {
     },
     "talking": {
       "talking_reference": {
-        "file": "assets/juliette2/talking_reference.png",
+        "file": "assets/juliette2/talking_reference.webp",
         "size": [
           418,
           418
@@ -839,7 +839,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_closed": {
-        "file": "assets/juliette2/talking_mouth_closed.png",
+        "file": "assets/juliette2/talking_mouth_closed.webp",
         "size": [
           418,
           418
@@ -866,7 +866,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_small_open": {
-        "file": "assets/juliette2/talking_mouth_small_open.png",
+        "file": "assets/juliette2/talking_mouth_small_open.webp",
         "size": [
           418,
           418
@@ -893,7 +893,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_medium_open": {
-        "file": "assets/juliette2/talking_mouth_medium_open.png",
+        "file": "assets/juliette2/talking_mouth_medium_open.webp",
         "size": [
           418,
           418
@@ -920,7 +920,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_big_open": {
-        "file": "assets/juliette2/talking_mouth_big_open.png",
+        "file": "assets/juliette2/talking_mouth_big_open.webp",
         "size": [
           418,
           418
@@ -947,7 +947,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_wide": {
-        "file": "assets/juliette2/talking_mouth_wide.png",
+        "file": "assets/juliette2/talking_mouth_wide.webp",
         "size": [
           418,
           418
@@ -974,7 +974,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_teeth": {
-        "file": "assets/juliette2/talking_mouth_teeth.png",
+        "file": "assets/juliette2/talking_mouth_teeth.webp",
         "size": [
           418,
           418
@@ -1001,7 +1001,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_mouth_pucker": {
-        "file": "assets/juliette2/talking_mouth_pucker.png",
+        "file": "assets/juliette2/talking_mouth_pucker.webp",
         "size": [
           418,
           418
@@ -1028,7 +1028,7 @@ export const juliette2Config = {
         "talking": true
       },
       "talking_frowning": {
-        "file": "assets/juliette2/talking_frowning.png",
+        "file": "assets/juliette2/talking_frowning.webp",
         "size": [
           418,
           418
@@ -1057,7 +1057,7 @@ export const juliette2Config = {
     },
     "extensions": {
       "hair_extension": {
-        "file": "assets/juliette2/hair_extension.png",
+        "file": "assets/juliette2/hair_extension.webp",
         "size": [
           873,
           1040

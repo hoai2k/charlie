@@ -10,13 +10,19 @@ const RIGHT_WRIST = 16;
 const LEFT_HIP = 23;
 const RIGHT_HIP = 24;
 
-export function createPuppetState(result) {
+// Head tilt was tuned on a 4:3 landscape webcam, where it is measured in
+// normalized (non-square) image coordinates. Measuring relative to that shape
+// keeps 4:3 behaviour identical while portrait cameras tilt consistently.
+const REFERENCE_ASPECT = 4 / 3;
+
+// `aspect` is the camera frame's width / height.
+export function createPuppetState(result, { aspect = REFERENCE_ASPECT } = {}) {
   const faceLandmarks = result.face?.faceLandmarks?.[0] ?? [];
   const blendshapes = readBlendshapes(result.face?.faceBlendshapes?.[0]?.categories ?? []);
   const poseLandmarks = result.pose?.landmarks?.[0] ?? [];
 
   return {
-    face: createFaceState(faceLandmarks, blendshapes),
+    face: createFaceState(faceLandmarks, blendshapes, aspect),
     hands: createHandsState(result.hands),
     body: createBodyState(poseLandmarks),
     raw: result
@@ -88,7 +94,7 @@ export function createDemoPuppetState(nowMs) {
   };
 }
 
-function createFaceState(landmarks, blendshapes) {
+function createFaceState(landmarks, blendshapes, aspect) {
   const mirrored = landmarks.map(mirrorPoint);
   const box = bounds(mirrored);
   const center = centerOf(box) ?? mirrored[FACE_CENTER_LANDMARK] ?? { x: 0.5, y: 0.3, z: 0 };
@@ -121,7 +127,7 @@ function createFaceState(landmarks, blendshapes) {
     bounds: box,
     eyes,
     size,
-    rotation: estimateFaceRoll(mirrored),
+    rotation: estimateFaceRoll(mirrored, aspect),
     expressions: {
       mouthOpen,
       mouthLowerDown,
@@ -304,7 +310,7 @@ function centerOf(box) {
   };
 }
 
-function estimateFaceRoll(points) {
+function estimateFaceRoll(points, aspect) {
   const leftEye = points[33];
   const rightEye = points[263];
 
@@ -312,7 +318,8 @@ function estimateFaceRoll(points) {
     return 0;
   }
 
-  return normalizeRoll(Math.atan2(rightEye.y - leftEye.y, rightEye.x - leftEye.x));
+  const xScale = aspect / REFERENCE_ASPECT;
+  return normalizeRoll(Math.atan2(rightEye.y - leftEye.y, (rightEye.x - leftEye.x) * xScale));
 }
 
 function normalizeRoll(angle) {

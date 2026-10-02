@@ -3,18 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Browsers only allow the camera on https:// pages.
+      if (location.protocol === "http:" && !["localhost", "127.0.0.1"].includes(location.hostname)) {
+        location.replace("https:" + location.href.slice(5));
+      }
+    </script>
     <title>Doll Puppets</title>
     <link rel="icon" type="image/png" href="./favicon.png" />
     <link rel="stylesheet" href="./site.css" />
   </head>
   <body>
-    <main class="dolls-app" style="--background-image: url('./assets/backgrounds/farm.png')">
+    <main class="dolls-app" style="--background-image: url('./assets/backgrounds/farm.webp')">
       <div class="scene-background" aria-hidden="true"></div>
       <video id="camera" playsinline muted aria-hidden="true"></video>
       <canvas id="doll-canvas" aria-label="AR doll scene"></canvas>
 
       <button id="pause-game" class="pause-button" type="button" aria-pressed="false">Pause</button>
       <p id="status" class="status" role="status"></p>
+      <button id="camera-retry" class="camera-retry" type="button" hidden>Try again</button>
 
       <button
         id="settings-toggle"

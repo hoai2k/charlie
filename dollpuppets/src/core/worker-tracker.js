@@ -20,12 +20,20 @@ export const TRACKING_MODES = {
   }
 };
 
+// Loading MediaPipe and its models (~23 MB) can be slow on home Wi-Fi, but a
+// request that never answers must not hang the game forever.
+const CONFIGURE_TIMEOUT_MS = 60000;
+const ESTIMATE_TIMEOUT_MS = 3000;
+
 export function createWorkerTracker() {
   const worker = new Worker(new URL("../workers/tracking-worker.js", import.meta.url), {
     type: "module"
   });
   let nextId = 1;
   const pending = new Map();
+  // Set once the worker has crashed (e.g. its CDN import failed). A dead
+  // worker never answers, so every later request is rejected immediately.
+  let deadError = null;
 
   worker.addEventListener("message", (event) => {
     const { id, type, result, error } = event.data;
@@ -34,11 +42,12 @@ export function createWorkerTracker() {
       return;
     }
 
-    const { resolve, reject } = pending.get(id);
+    const { resolve, reject, timer } = pending.get(id);
     pending.delete(id);
+    clearTimeout(timer);
 
     if (type === "error") {
-      reject(new Error(error ?? "Tracking worker failed"));
+      reject(new TrackerError(error ?? "Tracking worker failed"));
       return;
     }
 
@@ -46,34 +55,63 @@ export function createWorkerTracker() {
   });
 
   worker.addEventListener("error", (event) => {
-    for (const { reject } of pending.values()) {
-      reject(new Error(event.message || "Tracking worker crashed"));
-    }
-    pending.clear();
+    event.preventDefault?.();
+    deadError = new TrackerError(event.message || "Tracking worker crashed");
+    rejectAll(deadError);
   });
 
-  function request(message, transfer = []) {
+  function rejectAll(error) {
+    for (const { reject, timer } of pending.values()) {
+      clearTimeout(timer);
+      reject(error);
+    }
+    pending.clear();
+  }
+
+  function request(message, transfer = [], timeoutMs = ESTIMATE_TIMEOUT_MS) {
+    if (deadError) {
+      transfer.forEach((item) => item.close?.());
+      return Promise.reject(deadError);
+    }
+
     const id = nextId;
     nextId += 1;
 
     return new Promise((resolve, reject) => {
-      pending.set(id, { resolve, reject });
+      const timer = setTimeout(() => {
+        pending.delete(id);
+        reject(new TrackerError(`Tracking ${message.type} timed out`));
+      }, timeoutMs);
+      pending.set(id, { resolve, reject, timer });
       worker.postMessage({ ...message, id }, transfer);
     });
   }
 
   return {
     configure(mode) {
-      return request({ type: "configure", mode });
+      return request({ type: "configure", mode }, [], CONFIGURE_TIMEOUT_MS);
     },
 
     estimate(image, timestampMs, mode) {
       return request({ type: "estimate", image, timestampMs, mode }, [image]);
     },
 
+    get dead() {
+      return deadError !== null;
+    },
+
     dispose() {
       worker.terminate();
-      pending.clear();
+      deadError = deadError ?? new TrackerError("Tracking worker disposed");
+      rejectAll(deadError);
     }
   };
+}
+
+// Distinguishes face-tracking failures from camera failures in the UI.
+export class TrackerError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "TrackerError";
+  }
 }

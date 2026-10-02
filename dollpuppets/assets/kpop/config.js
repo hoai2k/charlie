@@ -79,7 +79,7 @@ export const kpopConfig = {
   "sprites": {
     "faces": {
       "reference": {
-        "file": "assets/kpop/reference.png",
+        "file": "assets/kpop/reference.webp",
         "size": [
           362,
           362
@@ -105,7 +105,7 @@ export const kpopConfig = {
         "hasBrows": false
       },
       "mouth_open": {
-        "file": "assets/kpop/mouth_open.png",
+        "file": "assets/kpop/mouth_open.webp",
         "size": [
           362,
           362
@@ -131,7 +131,7 @@ export const kpopConfig = {
         "hasBrows": false
       },
       "mouth_closed": {
-        "file": "assets/kpop/mouth_closed.png",
+        "file": "assets/kpop/mouth_closed.webp",
         "size": [
           362,
           362
@@ -157,7 +157,7 @@ export const kpopConfig = {
         "hasBrows": false
       },
       "mouth_smile": {
-        "file": "assets/kpop/mouth_smile.png",
+        "file": "assets/kpop/mouth_smile.webp",
         "size": [
           362,
           362
@@ -183,7 +183,7 @@ export const kpopConfig = {
         "hasBrows": false
       },
       "mouth_frown": {
-        "file": "assets/kpop/mouth_frown.png",
+        "file": "assets/kpop/mouth_frown.webp",
         "size": [
           362,
           362
@@ -209,7 +209,7 @@ export const kpopConfig = {
         "hasBrows": false
       },
       "mouth_pucker": {
-        "file": "assets/kpop/mouth_pucker.png",
+        "file": "assets/kpop/mouth_pucker.webp",
         "size": [
           362,
           362
@@ -235,7 +235,7 @@ export const kpopConfig = {
         "hasBrows": false
       },
       "left_eye_open": {
-        "file": "assets/kpop/left_eye_open.png",
+        "file": "assets/kpop/left_eye_open.webp",
         "size": [
           362,
           362
@@ -258,7 +258,7 @@ export const kpopConfig = {
         ]
       },
       "left_eye_closed": {
-        "file": "assets/kpop/left_eye_closed.png",
+        "file": "assets/kpop/left_eye_closed.webp",
         "size": [
           362,
           362
@@ -281,7 +281,7 @@ export const kpopConfig = {
         ]
       },
       "left_brow": {
-        "file": "assets/kpop/left_brow.png",
+        "file": "assets/kpop/left_brow.webp",
         "size": [
           362,
           362
@@ -304,7 +304,7 @@ export const kpopConfig = {
         ]
       },
       "right_eye_open": {
-        "file": "assets/kpop/right_eye_open.png",
+        "file": "assets/kpop/right_eye_open.webp",
         "size": [
           362,
           362
@@ -327,7 +327,7 @@ export const kpopConfig = {
         ]
       },
       "right_eye_closed": {
-        "file": "assets/kpop/right_eye_closed.png",
+        "file": "assets/kpop/right_eye_closed.webp",
         "size": [
           362,
           362
@@ -350,7 +350,7 @@ export const kpopConfig = {
         ]
       },
       "right_brow": {
-        "file": "assets/kpop/right_brow.png",
+        "file": "assets/kpop/right_brow.webp",
         "size": [
           362,
           362
@@ -373,7 +373,7 @@ export const kpopConfig = {
         ]
       },
       "s2_reference": {
-        "file": "assets/kpop/s2_reference.png",
+        "file": "assets/kpop/s2_reference.webp",
         "size": [
           362,
           362
@@ -400,7 +400,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_surprise": {
-        "file": "assets/kpop/expression_surprise.png",
+        "file": "assets/kpop/expression_surprise.webp",
         "size": [
           362,
           362
@@ -427,7 +427,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_angry": {
-        "file": "assets/kpop/expression_angry.png",
+        "file": "assets/kpop/expression_angry.webp",
         "size": [
           362,
           362
@@ -454,7 +454,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_disgust": {
-        "file": "assets/kpop/expression_disgust.png",
+        "file": "assets/kpop/expression_disgust.webp",
         "size": [
           362,
           362
@@ -481,7 +481,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_fear": {
-        "file": "assets/kpop/expression_fear.png",
+        "file": "assets/kpop/expression_fear.webp",
         "size": [
           362,
           362
@@ -508,7 +508,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_squint": {
-        "file": "assets/kpop/expression_squint.png",
+        "file": "assets/kpop/expression_squint.webp",
         "size": [
           362,
           362
@@ -535,7 +535,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_left": {
-        "file": "assets/kpop/expression_smirk_left.png",
+        "file": "assets/kpop/expression_smirk_left.webp",
         "size": [
           362,
           362
@@ -562,7 +562,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_smirk_right": {
-        "file": "assets/kpop/expression_smirk_right.png",
+        "file": "assets/kpop/expression_smirk_right.webp",
         "size": [
           362,
           362
@@ -589,7 +589,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "expression_thinking": {
-        "file": "assets/kpop/expression_thinking.png",
+        "file": "assets/kpop/expression_thinking.webp",
         "size": [
           362,
           362
@@ -616,7 +616,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_big_open": {
-        "file": "assets/kpop/mouth_big_open.png",
+        "file": "assets/kpop/mouth_big_open.webp",
         "size": [
           362,
           362
@@ -643,7 +643,7 @@ export const kpopConfig = {
         "suppressClosedEyeOverlay": false
       },
       "mouth_tongue": {
-        "file": "assets/kpop/mouth_tongue.png",
+        "file": "assets/kpop/mouth_tongue.webp",
         "size": [
           362,
           362
@@ -672,7 +672,7 @@ export const kpopConfig = {
     },
     "body": {
       "pose_1": {
-        "file": "assets/kpop/body_pose_1.png",
+        "file": "assets/kpop/body_pose_1.webp",
         "size": [
           422,
           455
@@ -699,7 +699,7 @@ export const kpopConfig = {
         ]
       },
       "pose_2": {
-        "file": "assets/kpop/body_pose_2.png",
+        "file": "assets/kpop/body_pose_2.webp",
         "size": [
           458,
           454
@@ -726,7 +726,7 @@ export const kpopConfig = {
         ]
       },
       "pose_3": {
-        "file": "assets/kpop/body_pose_3.png",
+        "file": "assets/kpop/body_pose_3.webp",
         "size": [
           407,
           454
@@ -753,7 +753,7 @@ export const kpopConfig = {
         ]
       },
       "pose_4": {
-        "file": "assets/kpop/body_pose_4.png",
+        "file": "assets/kpop/body_pose_4.webp",
         "size": [
           483,
           438
@@ -780,7 +780,7 @@ export const kpopConfig = {
         ]
       },
       "pose_5": {
-        "file": "assets/kpop/body_pose_5.png",
+        "file": "assets/kpop/body_pose_5.webp",
         "size": [
           359,
           451
@@ -807,7 +807,7 @@ export const kpopConfig = {
         ]
       },
       "pose_6": {
-        "file": "assets/kpop/body_pose_6.png",
+        "file": "assets/kpop/body_pose_6.webp",
         "size": [
           393,
           450
@@ -836,7 +836,7 @@ export const kpopConfig = {
     },
     "talking": {
       "talking_reference": {
-        "file": "assets/kpop/talking_reference.png",
+        "file": "assets/kpop/talking_reference.webp",
         "size": [
           418,
           418
@@ -863,7 +863,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_closed": {
-        "file": "assets/kpop/talking_mouth_closed.png",
+        "file": "assets/kpop/talking_mouth_closed.webp",
         "size": [
           418,
           418
@@ -890,7 +890,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_small_open": {
-        "file": "assets/kpop/talking_mouth_small_open.png",
+        "file": "assets/kpop/talking_mouth_small_open.webp",
         "size": [
           418,
           418
@@ -917,7 +917,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_medium_open": {
-        "file": "assets/kpop/talking_mouth_medium_open.png",
+        "file": "assets/kpop/talking_mouth_medium_open.webp",
         "size": [
           418,
           418
@@ -944,7 +944,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_big_open": {
-        "file": "assets/kpop/talking_mouth_big_open.png",
+        "file": "assets/kpop/talking_mouth_big_open.webp",
         "size": [
           418,
           418
@@ -971,7 +971,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_wide": {
-        "file": "assets/kpop/talking_mouth_wide.png",
+        "file": "assets/kpop/talking_mouth_wide.webp",
         "size": [
           418,
           418
@@ -998,7 +998,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_teeth": {
-        "file": "assets/kpop/talking_mouth_teeth.png",
+        "file": "assets/kpop/talking_mouth_teeth.webp",
         "size": [
           418,
           418
@@ -1025,7 +1025,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_mouth_pucker": {
-        "file": "assets/kpop/talking_mouth_pucker.png",
+        "file": "assets/kpop/talking_mouth_pucker.webp",
         "size": [
           418,
           418
@@ -1052,7 +1052,7 @@ export const kpopConfig = {
         "talking": true
       },
       "talking_frowning": {
-        "file": "assets/kpop/talking_frowning.png",
+        "file": "assets/kpop/talking_frowning.webp",
         "size": [
           418,
           418
@@ -1081,7 +1081,7 @@ export const kpopConfig = {
     },
     "extensions": {
       "hair_extension": {
-        "file": "assets/kpop/hair_extension.png",
+        "file": "assets/kpop/hair_extension.webp",
         "size": [
           392,
           1424

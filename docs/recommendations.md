@@ -13,6 +13,29 @@ The findings below come from reading the code. They cover things a smoke test
 can't catch: iPad behaviour, slow networks, and failure paths. Line numbers
 refer to the code as imported.
 
+## Status (October 2026)
+
+Fixed:
+
+- **Site-wide:** HTTPS redirect inside Doll Puppets (still tick "Enforce
+  HTTPS" in the Pages settings so the whole site benefits); version strings
+  on the race's scripts and stylesheet.
+- **Race:** #1 (early PLAY), #2 (Web Audio, so volumes work on iPad), #3 (WebP
+  only, 34.3 → 4.5 MB; sprite sheets are still full resolution), #4
+  (letterboxed in portrait), #5 (stuck keys, pause when hidden), and the
+  voice-casting experiments are removed from the site.
+- **Puppets:** #1 and #2 (specific camera errors, a "Try again" button, camera
+  turned off when tracking fails, dead or hung tracker detected), #3
+  (automatic tracker restart), #4 (no camera stream leaks on fast
+  Pause/Resume), #5 (camera off while hidden, restarted if the browser ends
+  it), #6 (the tracker sees the camera's real shape; tilt consistent in
+  portrait), #7 (pose held through dropouts and smoothed, so no jumping to
+  the centre), #9 (WebP, 107.9 → 12.0 MB), and #11 (models pinned to
+  version 1).
+
+Everything else below is still open. The race's jump sound and unused sound
+effects (#7) are deliberately left alone for now.
+
 ## Top priorities
 
 If you only do a handful, do these. They matter most for a child playing on

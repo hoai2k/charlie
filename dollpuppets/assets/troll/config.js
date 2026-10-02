@@ -54,7 +54,7 @@ export const trollConfig = {
   "sprites": {
     "faces": {
       "reference": {
-        "file": "assets/troll/reference.png",
+        "file": "assets/troll/reference.webp",
         "size": [
           362,
           362
@@ -80,7 +80,7 @@ export const trollConfig = {
         "hasBrows": false
       },
       "mouth_open": {
-        "file": "assets/troll/mouth_open.png",
+        "file": "assets/troll/mouth_open.webp",
         "size": [
           362,
           362
@@ -106,7 +106,7 @@ export const trollConfig = {
         "hasBrows": false
       },
       "mouth_closed": {
-        "file": "assets/troll/mouth_closed.png",
+        "file": "assets/troll/mouth_closed.webp",
         "size": [
           362,
           362
@@ -132,7 +132,7 @@ export const trollConfig = {
         "hasBrows": false
       },
       "mouth_smile": {
-        "file": "assets/troll/mouth_smile.png",
+        "file": "assets/troll/mouth_smile.webp",
         "size": [
           362,
           362
@@ -158,7 +158,7 @@ export const trollConfig = {
         "hasBrows": false
       },
       "mouth_frown": {
-        "file": "assets/troll/mouth_frown.png",
+        "file": "assets/troll/mouth_frown.webp",
         "size": [
           362,
           362
@@ -184,7 +184,7 @@ export const trollConfig = {
         "hasBrows": false
       },
       "mouth_pucker": {
-        "file": "assets/troll/mouth_pucker_s2.png",
+        "file": "assets/troll/mouth_pucker_s2.webp",
         "size": [
           362,
           362
@@ -211,7 +211,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "left_eye_open": {
-        "file": "assets/troll/left_eye_open.png",
+        "file": "assets/troll/left_eye_open.webp",
         "size": [
           362,
           362
@@ -234,7 +234,7 @@ export const trollConfig = {
         ]
       },
       "left_eye_closed": {
-        "file": "assets/troll/left_eye_closed.png",
+        "file": "assets/troll/left_eye_closed.webp",
         "size": [
           362,
           362
@@ -257,7 +257,7 @@ export const trollConfig = {
         ]
       },
       "left_brow": {
-        "file": "assets/troll/left_brow.png",
+        "file": "assets/troll/left_brow.webp",
         "size": [
           362,
           362
@@ -280,7 +280,7 @@ export const trollConfig = {
         ]
       },
       "right_eye_open": {
-        "file": "assets/troll/right_eye_open.png",
+        "file": "assets/troll/right_eye_open.webp",
         "size": [
           362,
           362
@@ -303,7 +303,7 @@ export const trollConfig = {
         ]
       },
       "right_eye_closed": {
-        "file": "assets/troll/right_eye_closed.png",
+        "file": "assets/troll/right_eye_closed.webp",
         "size": [
           362,
           362
@@ -326,7 +326,7 @@ export const trollConfig = {
         ]
       },
       "right_brow": {
-        "file": "assets/troll/right_brow.png",
+        "file": "assets/troll/right_brow.webp",
         "size": [
           362,
           362
@@ -349,7 +349,7 @@ export const trollConfig = {
         ]
       },
       "s2_reference": {
-        "file": "assets/troll/s2_reference.png",
+        "file": "assets/troll/s2_reference.webp",
         "size": [
           362,
           362
@@ -376,7 +376,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_surprise": {
-        "file": "assets/troll/expression_surprise.png",
+        "file": "assets/troll/expression_surprise.webp",
         "size": [
           362,
           362
@@ -403,7 +403,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_angry": {
-        "file": "assets/troll/expression_angry.png",
+        "file": "assets/troll/expression_angry.webp",
         "size": [
           362,
           362
@@ -430,7 +430,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_disgust": {
-        "file": "assets/troll/expression_disgust.png",
+        "file": "assets/troll/expression_disgust.webp",
         "size": [
           362,
           362
@@ -457,7 +457,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_fear": {
-        "file": "assets/troll/expression_fear.png",
+        "file": "assets/troll/expression_fear.webp",
         "size": [
           362,
           362
@@ -484,7 +484,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_squint": {
-        "file": "assets/troll/expression_squint.png",
+        "file": "assets/troll/expression_squint.webp",
         "size": [
           362,
           362
@@ -511,7 +511,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_smirk_left": {
-        "file": "assets/troll/expression_smirk_left.png",
+        "file": "assets/troll/expression_smirk_left.webp",
         "size": [
           362,
           362
@@ -538,7 +538,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_smirk_right": {
-        "file": "assets/troll/expression_smirk_right.png",
+        "file": "assets/troll/expression_smirk_right.webp",
         "size": [
           362,
           362
@@ -565,7 +565,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "expression_thinking": {
-        "file": "assets/troll/expression_thinking.png",
+        "file": "assets/troll/expression_thinking.webp",
         "size": [
           362,
           362
@@ -592,7 +592,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "mouth_big_open": {
-        "file": "assets/troll/mouth_big_open.png",
+        "file": "assets/troll/mouth_big_open.webp",
         "size": [
           362,
           362
@@ -619,7 +619,7 @@ export const trollConfig = {
         "suppressClosedEyeOverlay": true
       },
       "mouth_tongue": {
-        "file": "assets/troll/mouth_tongue.png",
+        "file": "assets/troll/mouth_tongue.webp",
         "size": [
           362,
           362
@@ -648,7 +648,7 @@ export const trollConfig = {
     },
     "body": {
       "pose_1": {
-        "file": "assets/troll/body_pose_1.png",
+        "file": "assets/troll/body_pose_1.webp",
         "size": [
           662,
           910
@@ -675,7 +675,7 @@ export const trollConfig = {
         ]
       },
       "pose_2": {
-        "file": "assets/troll/body_pose_2.png",
+        "file": "assets/troll/body_pose_2.webp",
         "size": [
           713,
           908
@@ -702,7 +702,7 @@ export const trollConfig = {
         ]
       },
       "pose_3": {
-        "file": "assets/troll/body_pose_3.png",
+        "file": "assets/troll/body_pose_3.webp",
         "size": [
           718,
           908
@@ -729,7 +729,7 @@ export const trollConfig = {
         ]
       },
       "pose_4": {
-        "file": "assets/troll/body_pose_4.png",
+        "file": "assets/troll/body_pose_4.webp",
         "size": [
           952,
           902
@@ -756,7 +756,7 @@ export const trollConfig = {
         ]
       },
       "pose_5": {
-        "file": "assets/troll/body_pose_5.png",
+        "file": "assets/troll/body_pose_5.webp",
         "size": [
           679,
           901
@@ -783,7 +783,7 @@ export const trollConfig = {
         ]
       },
       "pose_6": {
-        "file": "assets/troll/body_pose_6.png",
+        "file": "assets/troll/body_pose_6.webp",
         "size": [
           698,
           901
@@ -812,7 +812,7 @@ export const trollConfig = {
     },
     "talking": {
       "talking_reference": {
-        "file": "assets/troll/talking_reference.png",
+        "file": "assets/troll/talking_reference.webp",
         "size": [
           418,
           418
@@ -839,7 +839,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_closed": {
-        "file": "assets/troll/talking_mouth_closed.png",
+        "file": "assets/troll/talking_mouth_closed.webp",
         "size": [
           418,
           418
@@ -866,7 +866,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_small_open": {
-        "file": "assets/troll/talking_mouth_small_open.png",
+        "file": "assets/troll/talking_mouth_small_open.webp",
         "size": [
           418,
           418
@@ -893,7 +893,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_medium_open": {
-        "file": "assets/troll/talking_mouth_medium_open.png",
+        "file": "assets/troll/talking_mouth_medium_open.webp",
         "size": [
           418,
           418
@@ -920,7 +920,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_big_open": {
-        "file": "assets/troll/talking_mouth_big_open.png",
+        "file": "assets/troll/talking_mouth_big_open.webp",
         "size": [
           418,
           418
@@ -947,7 +947,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_wide": {
-        "file": "assets/troll/talking_mouth_wide.png",
+        "file": "assets/troll/talking_mouth_wide.webp",
         "size": [
           418,
           418
@@ -974,7 +974,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_teeth": {
-        "file": "assets/troll/talking_mouth_teeth.png",
+        "file": "assets/troll/talking_mouth_teeth.webp",
         "size": [
           418,
           418
@@ -1001,7 +1001,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_mouth_pucker": {
-        "file": "assets/troll/talking_mouth_pucker.png",
+        "file": "assets/troll/talking_mouth_pucker.webp",
         "size": [
           418,
           418
@@ -1028,7 +1028,7 @@ export const trollConfig = {
         "talking": true
       },
       "talking_frowning": {
-        "file": "assets/troll/talking_frowning.png",
+        "file": "assets/troll/talking_frowning.webp",
         "size": [
           418,
           418

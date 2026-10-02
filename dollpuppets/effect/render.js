@@ -142,13 +142,13 @@ const GAME_FULL_BODY_OVERSCAN = 1.02;
 const DEFAULT_TALKING_MASK_FEATHER = 0.035;
 
 const KISS_EFFECT_SPRITES = {
-  kiss_heart: { file: "assets/effects/kiss_heart.png" },
-  kiss_bubble: { file: "assets/effects/kiss_bubble.png" },
-  kiss_butterfly_open: { file: "assets/effects/kiss_butterfly_open.png" },
-  kiss_butterfly_closed: { file: "assets/effects/kiss_butterfly_closed.png" },
-  kiss_moth_open: { file: "assets/effects/kiss_moth_open.png", optional: true },
-  kiss_moth_closed: { file: "assets/effects/kiss_moth_closed.png", optional: true },
-  pose_oil_spill: { file: "assets/effects/oil_spill.png" }
+  kiss_heart: { file: "assets/effects/kiss_heart.webp" },
+  kiss_bubble: { file: "assets/effects/kiss_bubble.webp" },
+  kiss_butterfly_open: { file: "assets/effects/kiss_butterfly_open.webp" },
+  kiss_butterfly_closed: { file: "assets/effects/kiss_butterfly_closed.webp" },
+  kiss_moth_open: { file: "assets/effects/kiss_moth_open.webp", optional: true },
+  kiss_moth_closed: { file: "assets/effects/kiss_moth_closed.webp", optional: true },
+  pose_oil_spill: { file: "assets/effects/oil_spill.webp" }
 };
 
 export function renderDollsEffect(options = {}) {
