@@ -544,3 +544,169 @@ button:focus-visible {
     height: 84px;
   }
 }
+
+/* ── Title, character select and settings (menu.js) ─────────────────────── */
+
+.start-panel.lobby {
+  inset: 0;
+  left: 0;
+  bottom: 0;
+  transform: none;
+  width: auto;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  z-index: 30;
+  text-align: left;
+  color: #2b1a3a;
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  background: #e9cfa2 url(assets/ui/select_background.webp) center / cover;
+}
+
+.start-panel.lobby[data-screen="title"] {
+  background: #f3b9a0 url(assets/ui/title_sky.webp) center / cover;
+}
+
+.lb-stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1280px;
+  height: 720px;
+  transform-origin: 50% 50%;
+}
+
+.lb-screen,
+.lb-abs {
+  position: absolute;
+}
+
+.lb-screen {
+  inset: 0;
+  transition: opacity 0.45s ease;
+}
+
+.lb-screen.off,
+#lbSettings.off {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.lb-atlas {
+  position: absolute;
+  background-repeat: no-repeat;
+}
+
+.lb-glyph {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  vertical-align: middle;
+  background: url(assets/ui/button_glyphs.webp) no-repeat;
+}
+
+.lb-panel {
+  position: relative;
+  background: rgba(255, 250, 240, 0.92);
+  border: 3px solid #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 16px rgba(60, 30, 10, 0.25);
+}
+
+.lb-panel-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a5a2b;
+}
+
+@keyframes lb-pulse {
+  50% { transform: scale(1.06); }
+}
+
+/* title */
+#lbTitleSky { inset: 0; background: url(assets/ui/title_sky.webp) center / cover; }
+#lbTitleClouds { left: 0; right: 0; top: 10px; height: 230px; opacity: 0.95; background: url(assets/ui/title_clouds.webp) 0 0 / auto 230px repeat-x; }
+#lbTitleHills { left: 0; right: 0; bottom: 0; height: 330px; background: url(assets/ui/title_hills.webp) 0 0 / auto 330px repeat-x; }
+#lbTitleHero { left: 160px; bottom: 96px; width: 960px; height: 384px; background: url(assets/ui/title_hero.webp) center / contain no-repeat; filter: drop-shadow(0 14px 10px rgba(40, 60, 20, 0.35)); }
+#lbTitleLogo { left: 320px; top: 22px; width: 640px; height: 244px; background: url(assets/ui/logo.webp) center / contain no-repeat; filter: drop-shadow(0 8px 12px rgba(60, 20, 60, 0.35)); animation: lb-logo-in 0.9s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
+@keyframes lb-logo-in { from { transform: scale(0.4) rotate(-6deg); opacity: 0; } }
+#lbPressStart { left: 190px; bottom: -6px; width: 900px; height: 150px; display: flex; align-items: center; justify-content: center; gap: 8px; padding-bottom: 6px; font-size: 27px; font-weight: 700; color: #6a3a14; cursor: pointer; background: url(assets/ui/press_start_plate.webp) center / contain no-repeat; animation: lb-pulse 1.3s ease-in-out infinite; }
+
+/* select */
+#lbSelectLogo { left: 18px; top: 8px; width: 290px; height: 110px; background: url(assets/ui/logo.webp) center / contain no-repeat; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3)); }
+#lbTopRight { right: 18px; top: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+#lbSettingsBtn { display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 22px; font-weight: 700; cursor: pointer; }
+#lbHints { display: flex; align-items: center; gap: 6px; padding: 5px 14px; font-size: 16px; }
+#lbGrid { left: 342px; top: 12px; width: 596px; height: 360px; }
+.lb-card { position: absolute; width: 108px; height: 166px; border: 4px solid #fff; border-radius: 16px; background: linear-gradient(#fffaf2, #f6e3c8); box-shadow: 0 4px 10px rgba(80, 40, 10, 0.3); cursor: pointer; transition: transform 0.12s ease, border-color 0.12s ease; }
+.lb-card.hot { transform: translateY(-4px) scale(1.05); }
+.lb-pic { position: absolute; left: 2px; right: 2px; top: 2px; height: 128px; border-radius: 12px 12px 6px 6px; background-size: cover; background-position: center top; }
+.lb-pic.random { background-size: contain; background-repeat: no-repeat; background-position: center; }
+.lb-name { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 17px; font-weight: 700; }
+.lb-cursors { position: absolute; left: -10px; right: -10px; top: -18px; height: 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 2px; pointer-events: none; }
+
+#lbSlots { left: 0; right: 0; bottom: 0; height: 330px; }
+.lb-slot { position: absolute; bottom: 8px; width: 152px; height: 318px; cursor: pointer; transition: left 0.35s ease; }
+.lb-slot.enter { animation: lb-slot-in 0.35s ease; }
+@keyframes lb-slot-in { from { opacity: 0; transform: translateY(30px); } }
+.lb-empty { position: absolute; left: 6px; bottom: 34px; width: 140px; height: 191px; opacity: 0.92; background: url(assets/ui/slot_empty.webp) center / contain no-repeat; }
+.lb-pnum { position: absolute; left: 0; right: 0; top: 74px; text-align: center; font-size: 22px; font-weight: 700; color: rgba(255, 255, 255, 0.85); text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5); }
+.lb-join { position: absolute; left: -20px; right: -20px; bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 18px; font-weight: 700; color: #fff; text-shadow: 0 2px 3px rgba(0, 0, 0, 0.6); animation: lb-pulse 1.6s ease-in-out infinite; }
+.lb-glow { position: absolute; left: 6px; bottom: 26px; width: 140px; height: 40px; border-radius: 50%; filter: blur(10px); opacity: 0.85; }
+.lb-pedestal { position: absolute; left: 6px; bottom: 18px; width: 140px; height: 57px; background: url(assets/ui/slot_pedestal.webp) center / contain no-repeat; }
+.lb-doll { position: absolute; left: -24px; bottom: 50px; width: 200px; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center bottom; transform-origin: 50% 100%; }
+.lb-doll.random { transform: scale(0.6); }
+.lb-doll.bounce { animation: lb-cheer 0.5s cubic-bezier(0.3, 1.8, 0.5, 1); }
+.lb-doll.sway { animation: lb-sway 1.8s ease-in-out infinite; }
+@keyframes lb-cheer { 0% { transform: scale(0.9); } 40% { transform: translateY(-34px) scale(1.06); } }
+@keyframes lb-sway { 50% { transform: rotate(2deg); } }
+.lb-label { position: absolute; left: -6px; right: -6px; bottom: 10px; text-align: center; white-space: nowrap; font-size: 19px; font-weight: 700; text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35), 0 0 6px rgba(0, 0, 0, 0.4); }
+.lb-badge { position: absolute; left: 2px; top: 22px; width: 52px; height: 52px; }
+.lb-ai, .lb-ai-icon { background: url(assets/ui/ai_badge.webp) center / contain no-repeat; }
+.lb-ai-icon { height: 64px; }
+.lb-device { position: absolute; right: 4px; top: 34px; padding: 1px 7px; border-radius: 10px; background: rgba(0, 0, 0, 0.45); color: #fff; font-size: 13px; font-weight: 700; }
+.lb-ribbon { position: absolute; left: -4px; bottom: 6px; width: 160px; height: 60px; display: flex; align-items: center; justify-content: center; padding-bottom: 6px; font-size: 21px; font-weight: 700; color: #1e3f8f; background: url(assets/ui/ready_ribbon.webp) center / contain no-repeat; animation: lb-ribbon-in 0.35s cubic-bezier(0.2, 1.8, 0.4, 1); }
+@keyframes lb-ribbon-in { from { transform: scale(0.2); opacity: 0; } }
+
+#lbRaceBar { left: 440px; top: 374px; width: 400px; height: 40px; display: none; overflow: hidden; border: 3px solid #fff; border-radius: 26px; background: rgba(255, 255, 255, 0.92); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); cursor: pointer; }
+#lbRaceBar.show { display: block; animation: lb-pulse 1.2s ease-in-out infinite; }
+#lbRaceBar.waiting { background: rgba(255, 255, 255, 0.78); animation: none; }
+#lbRaceFill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, #7fd36a, #2e9e44); }
+#lbRaceText { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; font-weight: 700; }
+
+/* settings */
+#lbSettings { inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; background: rgba(30, 15, 40, 0.55); transition: opacity 0.25s ease; }
+#lbSetPanel { width: 720px; padding: 18px 26px 14px; }
+#lbSetPanel h2 { margin: 0 0 8px; text-align: center; font-size: 32px; }
+.lb-set-row { display: flex; align-items: center; gap: 16px; height: 104px; padding: 0 14px; border: 4px solid transparent; border-radius: 16px; }
+.lb-set-row.focus { border-color: #2a6fdb; background: rgba(42, 111, 219, 0.08); }
+.lb-icon { position: relative; flex: none; width: 160px; height: 90px; display: flex; align-items: center; justify-content: center; gap: 2px; }
+#lbTrackThumb { position: relative; border: 3px solid #fff; border-radius: 10px; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25); }
+#lbMonsterIcon, #lbSpecialIcon { position: relative; }
+.lb-txt { flex: 1; }
+.lb-val { font-size: 26px; font-weight: 700; }
+.lb-none { font-size: 15px; color: #8a6a4a; }
+.lb-arrow { padding: 0 10px; font-size: 30px; font-weight: 700; color: #8a5a2b; cursor: pointer; }
+#lbSetFoot { margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 17px; color: #6a5a7a; }
+#lbSetDone, #lbFullscreen { margin-left: 12px; padding: 4px 16px; border: 0; border-radius: 14px; font: inherit; font-weight: 700; cursor: pointer; }
+#lbSetDone { background: #2a6fdb; color: #fff; }
+#lbFullscreen { background: #efe2cf; color: #6a3a14; }
+
+/* effects */
+.lb-toast { position: absolute; left: 50%; top: 318px; z-index: 20; width: 380px; height: 88px; margin-left: -190px; display: flex; align-items: center; justify-content: center; padding-bottom: 6px; font-size: 26px; font-weight: 700; pointer-events: none; background: url(assets/ui/join_toast.webp) center / contain no-repeat; animation: lb-toast 1.8s ease forwards; }
+@keyframes lb-toast { 0% { transform: translateY(40px) scale(0.6); opacity: 0; } 15% { transform: none; opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-30px); opacity: 0; } }
+.lb-confetti { position: absolute; left: 0; top: 0; z-index: 15; width: 26px; height: 26px; pointer-events: none; background: url(assets/ui/confetti.webp) 0 0 / 156px 26px no-repeat; }
+.start-panel.lobby.touch-only #lbHints,
+.start-panel.lobby.touch-only #lbSettingsBtn .lb-glyph,
+.start-panel.lobby.touch-only #lbSetFoot .lb-glyph {
+  display: none;
+}
