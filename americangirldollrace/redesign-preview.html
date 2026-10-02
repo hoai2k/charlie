@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doll Race Redesign Preview</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink: #2b1a3a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #1d1430; overflow: hidden; }
+  body { font-family: "Fredoka", "Trebuchet MS", system-ui, sans-serif; color: var(--ink); user-select: none; -webkit-user-select: none; touch-action: manipulation; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1280px; height: 720px; transform-origin: 0 0; overflow: hidden; background: #8cc7f0; }
+  .screen { position: absolute; inset: 0; transition: opacity .45s ease; }
+  .screen.off { opacity: 0; pointer-events: none; }
+  .abs { position: absolute; }
+  .atlas { position: absolute; background-repeat: no-repeat; }
+
+  /* ---------- title ---------- */
+  #titleSky { inset: 0; background: url(assets/ui/title_sky.webp) center / cover; }
+  #titleClouds { left: 0; right: 0; top: 10px; height: 230px; background: url(assets/ui/title_clouds.webp) 0 0 / auto 230px repeat-x; opacity: .95; }
+  #titleHills { left: 0; right: 0; bottom: 0; height: 330px; background: url(assets/ui/title_hills.webp) 0 0 / auto 330px repeat-x; }
+  #titleHero { width: 960px; height: 384px; left: 160px; bottom: 96px; background: url(assets/ui/title_hero.webp) center / contain no-repeat; filter: drop-shadow(0 14px 10px rgba(40, 60, 20, .35)); }
+  #titleLogo { width: 640px; height: 244px; left: 320px; top: 22px; background: url(assets/ui/logo.webp) center / contain no-repeat; filter: drop-shadow(0 8px 12px rgba(60, 20, 60, .35)); animation: logoIn .9s cubic-bezier(.2, 1.6, .4, 1) both; }
+  @keyframes logoIn { from { transform: scale(.4) rotate(-6deg); opacity: 0; } to { transform: none; opacity: 1; } }
+  #pressStart { width: 900px; height: 150px; left: 190px; bottom: -6px; background: url(assets/ui/press_start_plate.webp) center / contain no-repeat; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 27px; font-weight: 700; color: #6a3a14; padding-bottom: 6px; animation: pulse 1.3s ease-in-out infinite; cursor: pointer; }
+  @keyframes pulse { 50% { transform: scale(1.06); } }
+
+  /* ---------- select ---------- */
+  #selectBg { inset: 0; background: url(assets/ui/select_background.webp) center / cover; }
+  #selectLogo { width: 290px; height: 110px; left: 18px; top: 8px; background: url(assets/ui/logo.webp) center / contain no-repeat; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .3)); }
+  .panel { position: absolute; background: rgba(255, 250, 240, .9); border: 3px solid #fff; border-radius: 18px; box-shadow: 0 6px 16px rgba(60, 30, 10, .25); }
+  .panelTitle { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #8a5a2b; }
+  #trackPanel { right: 18px; top: 10px; width: 300px; height: 182px; padding: 8px 10px; text-align: center; }
+  #trackCard { left: 40px; top: 32px; width: 220px; height: 124px; border-radius: 12px; border: 3px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,.25); background-image: url(assets/ui/track_cards.webp); background-size: 1100px 124px; transition: background-position .25s ease; }
+  #trackName { position: absolute; left: 0; right: 0; bottom: 6px; font-size: 20px; font-weight: 700; }
+  .optChip { left: 18px; width: 290px; height: 112px; padding: 8px 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+  .optChip .icon { position: relative; width: 84px; height: 84px; flex: none; }
+  .optChip .val { font-size: 21px; font-weight: 700; line-height: 1.05; }
+  .optChip .hint { margin-top: 6px; font-size: 13px; color: #8a6a4a; display: flex; align-items: center; gap: 5px; }
+  #monsterChip { top: 128px; }
+  #specialChip { top: 250px; }
+  #cpuPanel { right: 18px; top: 202px; width: 300px; height: 168px; padding: 8px 14px; font-size: 15px; line-height: 1.45; }
+  #cpuPanel .row { display: flex; align-items: center; gap: 6px; }
+
+  #grid { left: 350px; top: 22px; width: 580px; height: 350px; }
+  .card { position: absolute; width: 104px; height: 160px; border-radius: 16px; background: linear-gradient(#fffaf2, #f6e3c8); border: 4px solid #fff; box-shadow: 0 4px 10px rgba(80, 40, 10, .3); overflow: visible; cursor: pointer; transition: transform .12s ease, border-color .12s ease; }
+  .card .pic { position: absolute; left: 2px; right: 2px; top: 2px; height: 122px; border-radius: 12px 12px 6px 6px; background-size: cover; background-position: center top; }
+  .card .name { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 17px; font-weight: 700; }
+  .card.hot { transform: translateY(-4px) scale(1.05); }
+  .card .cursors { position: absolute; left: -10px; right: -10px; top: -18px; height: 36px; display: flex; justify-content: center; flex-wrap: wrap; gap: 0 2px; pointer-events: none; }
+
+  #slots { left: 0; right: 0; bottom: 0; height: 330px; }
+  .slot { position: absolute; bottom: 8px; width: 152px; height: 318px; cursor: pointer; }
+  .slot .empty { position: absolute; left: 6px; bottom: 34px; width: 140px; height: 191px; background: url(assets/ui/slot_empty.webp) center / contain no-repeat; opacity: .92; }
+  .slot .join { position: absolute; left: 0; right: 0; bottom: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 18px; font-weight: 700; color: #fff; text-shadow: 0 2px 3px rgba(0,0,0,.6); animation: pulse 1.6s ease-in-out infinite; }
+  .slot .pnum { position: absolute; left: 0; right: 0; top: 74px; text-align: center; font-size: 22px; font-weight: 700; color: rgba(255,255,255,.85); text-shadow: 0 2px 3px rgba(0,0,0,.5); }
+  .slot .glow { position: absolute; left: 6px; bottom: 26px; width: 140px; height: 40px; border-radius: 50%; filter: blur(10px); opacity: .85; }
+  .slot .pedestal { position: absolute; left: 6px; bottom: 18px; width: 140px; height: 57px; background: url(assets/ui/slot_pedestal.webp) center / contain no-repeat; }
+  .slot .doll { position: absolute; left: -24px; bottom: 50px; width: 200px; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center bottom; transform-origin: 50% 100%; }
+  .slot .doll.bounce { animation: cheer .5s cubic-bezier(.3, 1.8, .5, 1); }
+  .slot .doll.sway { animation: sway 1.8s ease-in-out infinite; }
+  @keyframes cheer { 0% { transform: translateY(0) scale(.9); } 40% { transform: translateY(-34px) scale(1.06); } 100% { transform: none; } }
+  @keyframes sway { 50% { transform: rotate(2deg); } }
+  .slot .label { position: absolute; left: -6px; right: -6px; bottom: 10px; text-align: center; font-size: 19px; font-weight: 700; color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 0 6px rgba(0,0,0,.4); white-space: nowrap; }
+  .slot .badge { position: absolute; left: 2px; top: 22px; width: 52px; height: 52px; }
+  .slot .device { position: absolute; right: 4px; top: 34px; font-size: 13px; font-weight: 700; color: #fff; background: rgba(0,0,0,.45); border-radius: 10px; padding: 1px 7px; }
+  .slot .ribbon { position: absolute; left: -4px; bottom: 6px; width: 160px; height: 60px; background: url(assets/ui/ready_ribbon.webp) center / contain no-repeat; display: flex; align-items: center; justify-content: center; font-size: 21px; font-weight: 700; color: #1e3f8f; padding-bottom: 6px; animation: ribbonIn .35s cubic-bezier(.2, 1.8, .4, 1); }
+  @keyframes ribbonIn { from { transform: scale(.2); opacity: 0; } }
+
+  #raceBar { left: 440px; top: 374px; width: 400px; height: 40px; border-radius: 26px; background: rgba(255,255,255,.92); border: 3px solid #fff; box-shadow: 0 4px 12px rgba(0,0,0,.3); overflow: hidden; display: none; cursor: pointer; }
+  #raceFill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: linear-gradient(90deg, #7fd36a, #2e9e44); }
+  #raceText { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 22px; font-weight: 700; }
+  #raceBar.show { display: block; animation: pulse 1.2s ease-in-out infinite; }
+  #raceBar.waiting { background: rgba(255,255,255,.75); animation: none; }
+
+  .glyph { display: inline-block; width: 28px; height: 28px; background-image: url(assets/ui/button_glyphs.webp); background-repeat: no-repeat; vertical-align: middle; flex: none; }
+  .glyph.wide { width: 34px; height: 34px; margin: -3px 0; }
+
+  .toast { position: absolute; left: 50%; top: 300px; width: 520px; height: 120px; margin-left: -260px; background: url(assets/ui/join_toast.webp) center / contain no-repeat; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 700; padding-bottom: 8px; pointer-events: none; animation: toast 1.8s ease forwards; z-index: 20; }
+  @keyframes toast { 0% { transform: translateY(40px) scale(.6); opacity: 0; } 15% { transform: none; opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(-30px); opacity: 0; } }
+  .confetti { position: absolute; width: 26px; height: 26px; background: url(assets/ui/confetti.webp) 0 0 / 156px 26px no-repeat; pointer-events: none; z-index: 15; }
+
+  /* ---------- go ---------- */
+  #goBg { inset: 0; background: url(assets/ui/title_sky.webp) center / cover; }
+  #goLine { left: 0; right: 0; bottom: 70px; height: 280px; display: flex; justify-content: center; align-items: flex-end; gap: 0; }
+  #goLine .d { width: 190px; height: 190px; margin: 0 -22px; background-size: contain; background-repeat: no-repeat; background-position: center bottom; animation: hop .7s ease-in-out infinite alternate; }
+  @keyframes hop { to { transform: translateY(-22px); } }
+  #goTitle { left: 0; right: 0; top: 70px; text-align: center; font-size: 76px; font-weight: 700; color: #fff; text-shadow: 0 5px 0 #c2407a, 0 10px 18px rgba(0,0,0,.35); }
+  #goNote { left: 290px; right: 290px; top: 190px; text-align: center; font-size: 21px; padding: 12px 18px; }
+  #goNote a { color: #2a6fdb; font-weight: 700; }
+
+  @media (max-height: 500px) { #help { display: none; } }
+  #help { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font: 13px system-ui, sans-serif; color: #cbb8e8; padding: 4px; z-index: 50; pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- TITLE -->
+  <section class="screen" id="title">
+    <div class="abs" id="titleSky"></div>
+    <div class="abs" id="titleClouds"></div>
+    <div class="abs" id="titleHills"></div>
+    <div class="abs" id="titleHero"></div>
+    <div class="abs" id="titleLogo"></div>
+    <div class="abs" id="pressStart"><span class="glyph" data-g="A"></span><span id="pressText">Press A to start</span></div>
+  </section>
+
+  <!-- SELECT -->
+  <section class="screen off" id="select">
+    <div class="abs" id="selectBg"></div>
+    <div class="abs" id="selectLogo"></div>
+    <div class="panel optChip" id="monsterChip"><div class="icon" id="monsterIcon"></div><div><div class="panelTitle">Monsters</div><div class="val" id="monsterVal"></div><div class="hint"><span class="glyph wide" data-g="LB"></span><span>or Z / click</span></div></div></div>
+    <div class="panel optChip" id="specialChip"><div class="icon" id="specialIcon"></div><div><div class="panelTitle">Specials</div><div class="val" id="specialVal"></div><div class="hint"><span class="glyph" data-g="Y"></span><span>or C / click</span></div></div></div>
+    <div class="panel" id="trackPanel"><div class="panelTitle">Track</div><div class="atlas" id="trackCard"></div><div id="trackName"></div>
+      <span class="glyph wide abs" data-g="RB" style="right:4px;top:128px"></span><span class="abs" style="left:10px;top:80px;font-size:26px;font-weight:700;cursor:pointer" id="trackPrev">◀</span><span class="abs" style="right:12px;top:80px;font-size:26px;font-weight:700;cursor:pointer" id="trackNext">▶</span></div>
+    <div class="panel" id="cpuPanel">
+      <div class="panelTitle">How to play</div>
+      <div class="row"><span class="glyph" data-g="A"></span> join, then pick your doll</div>
+      <div class="row"><span class="glyph" data-g="B"></span> change your mind / leave</div>
+      <div class="row"><span class="glyph" data-g="X"></span> add / remove a computer racer</div>
+      <div class="row"><span class="glyph wide" data-g="LB"></span><span class="glyph wide" data-g="RB"></span> monsters / track</div>
+    </div>
+    <div class="abs" id="grid"></div>
+    <div class="abs" id="slots"></div>
+    <div class="abs" id="raceBar"><div id="raceFill"></div><div id="raceText"></div></div>
+  </section>
+
+  <!-- GO -->
+  <section class="screen off" id="go">
+    <div class="abs" id="goBg"></div>
+    <div class="abs" id="goTitle">Ready, set, GO!</div>
+    <div class="panel abs" id="goNote">This is where the race would start.<br>This page only previews the new title and select screens. <a href="./">Play the current game</a> &nbsp;·&nbsp; press <span class="glyph" data-g="B"></span> to go back</div>
+    <div class="abs" id="goLine"></div>
+  </section>
+</div>
+<div id="help">Redesign preview · Controllers: any button joins · Keyboard: WASD + Space (A) / F (B) / R (X), or Arrows + Enter (A) / Shift (B) / / (X) · Q/E track · Z monsters · C specials · Touch/mouse: tap a slot, then a doll</div>
+
+<script>
+(() => {
+  const DOLLS = [
+    { key: "lily", name: "Lily" }, { key: "rumi", name: "Rumi" }, { key: "kaya", name: "Kaya" },
+    { key: "amanda", name: "Amanda" }, { key: "juliette", name: "Juliette" }, { key: "claudia", name: "Claudia" },
+    { key: "whirlpool", name: "Whirlpool" }, { key: "marisol", name: "Marisol" }, { key: "penelope", name: "Penelope" },
+    { key: "random", name: "Random" }
+  ];
+  const COLORS = ["#e0322f", "#2a6fdb", "#e8a800", "#2e9e44", "#8a3fd1", "#f07a1a", "#18a3a3", "#e8559a"];
+  const TRACKS = ["Farm", "Fairy", "Village", "Winter", "Castles"];
+  const MONSTERS = ["No Monsters", "Normal", "Extra Monsters", "Too Many!"];
+  const SPECIALS = ["None", "All Unicorns", "All Pegasi", "All Dolls", "Horsing Around", "Amanda Mode"];
+  const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
+  const COLS = 5;
+
+  const $ = s => document.querySelector(s);
+  const stage = $("#stage");
+  const state = { screen: "title", slots: Array(8).fill(null), track: 0, monsters: 1, specials: 0, hold: 0, touchFocus: null };
+
+  // ---------- layout ----------
+  function fit() {
+    const s = Math.min(innerWidth / 1280, (innerHeight - 22) / 720);
+    stage.style.transform = `scale(${s}) translate(-50%, -50%)`;
+    stage.style.transformOrigin = "0 0";
+    stage.style.left = "50%"; stage.style.top = `calc(50% - 11px)`;
+    stage.style.transform = `translate(-50%, -50%) scale(${s})`;
+    stage.style.transformOrigin = "50% 50%";
+  }
+  addEventListener("resize", fit); fit();
+
+  function glyphs(root = document) {
+    root.querySelectorAll(".glyph").forEach(el => {
+      const i = GLYPHS[el.dataset.g]; const h = el.classList.contains("wide") ? 34 : 28;
+      el.style.backgroundSize = `${h * 6}px ${h}px`;
+      el.style.backgroundPosition = `${-i * h}px 0`;
+    });
+  }
+  function atlasCell(el, url, cells, index, w, h) {
+    el.style.backgroundImage = `url(${url})`;
+    el.style.backgroundSize = `${w * cells}px ${h}px`;
+    el.style.backgroundPosition = `${-index * w}px 0`;
+    el.style.width = `${w}px`; el.style.height = `${h}px`;
+  }
+  function badge(i, size) {
+    const el = document.createElement("div");
+    el.className = "atlas";
+    el.style.position = "relative";
+    atlasCell(el, "assets/ui/player_badges.webp", 8, i, size, size);
+    return el;
+  }
+  const art = (key, pose) => key === "random" ? "assets/ui/random_card.webp" : `assets/portraits/${key}${pose ? "_" + pose : ""}.webp`;
+
+  // ---------- grid ----------
+  const grid = $("#grid");
+  const cards = DOLLS.map((d, i) => {
+    const c = document.createElement("div");
+    c.className = "card";
+    c.style.left = `${(i % COLS) * 116 + 2}px`;
+    c.style.top = `${Math.floor(i / COLS) * 174 + 14}px`;
+    c.innerHTML = `<div class="pic" style="background-image:url(${art(d.key)})${d.key === "random" ? ";background-size:contain;background-repeat:no-repeat;background-position:center" : ""}"></div><div class="name">${d.name}</div><div class="cursors"></div>`;
+    c.addEventListener("pointerdown", () => tapCard(i));
+    grid.appendChild(c);
+    return c;
+  });
+
+  // ---------- slots ----------
+  const slotsEl = $("#slots");
+  const slotEls = state.slots.map((_, i) => {
+    const s = document.createElement("div");
+    s.className = "slot";
+    s.style.left = `${16 + i * 157}px`;
+    s.addEventListener("pointerdown", () => tapSlot(i));
+    slotsEl.appendChild(s);
+    return s;
+  });
+
+  function renderOptions() {
+    const tc = $("#trackCard");
+    tc.style.backgroundPosition = `${-state.track * 220}px 0`;
+    $("#trackName").textContent = TRACKS[state.track];
+    atlasCell($("#monsterIcon"), "assets/ui/difficulty_icons.webp", 4, state.monsters, 84, 84);
+    $("#monsterVal").textContent = MONSTERS[state.monsters];
+    atlasCell($("#specialIcon"), "assets/ui/specials_icons.webp", 6, state.specials, 84, 84);
+    $("#specialVal").textContent = SPECIALS[state.specials];
+  }
+
+  function slotDoll(slot) {
+    if (slot.locked) return slot.doll;
+    return DOLLS[slot.cursor].key;
+  }
+
+  function renderSlot(i, bounce) {
+    const slot = state.slots[i], el = slotEls[i];
+    el.innerHTML = "";
+    if (!slot) {
+      el.innerHTML = `<div class="empty"></div><div class="pnum">P${i + 1}</div><div class="join"><span class="glyph" data-g="${state.screen === "select" && joinedCount() ? "A" : "A"}"></span>Join</div>`;
+      glyphs(el);
+      return;
+    }
+    const color = slot.ai ? "#7a7f8c" : COLORS[i];
+    const key = slotDoll(slot);
+    const pose = slot.locked ? "cheer" : "wave";
+    const dollUrl = key === "random" ? "assets/ui/random_card.webp" : art(key, pose);
+    el.innerHTML = `
+      <div class="glow" style="background:${color}"></div>
+      <div class="pedestal"></div>
+      <div class="doll ${bounce ? "bounce" : slot.locked ? "" : "sway"}" style="background-image:url(${dollUrl})${key === "random" ? ";transform:scale(.6)" : ""}"></div>
+      ${slot.locked ? `<div class="ribbon">${slot.ai ? "CPU" : "READY!"}</div>` : `<div class="label" style="color:${color}">${DOLLS.find(d => d.key === key).name}</div>`}
+      <div class="device">${slot.ai ? "Computer" : deviceName(slot.device)}</div>`;
+    if (slot.ai) {
+      const b = document.createElement("div");
+      b.className = "badge";
+      b.style.background = "url(assets/ui/ai_badge.webp) center / contain no-repeat";
+      el.appendChild(b);
+    } else {
+      const b = badge(i, 52); b.classList.add("badge"); b.style.position = "absolute"; el.appendChild(b);
+    }
+  }
+
+  function renderCursors() {
+    cards.forEach(c => { c.querySelector(".cursors").innerHTML = ""; c.classList.remove("hot"); c.style.borderColor = "#fff"; });
+    state.slots.forEach((slot, i) => {
+      if (!slot || slot.ai) return;
+      const c = cards[slot.cursor];
+      const b = badge(i, 34);
+      if (slot.locked) b.style.opacity = ".55";
+      c.querySelector(".cursors").appendChild(b);
+      if (!slot.locked) { c.classList.add("hot"); c.style.borderColor = COLORS[i]; }
+    });
+  }
+
+  function renderRaceBar() {
+    const bar = $("#raceBar"), humans = state.slots.filter(s => s && !s.ai);
+    const ready = humans.length && humans.every(s => s.locked);
+    bar.classList.toggle("show", humans.length > 0);
+    bar.classList.toggle("waiting", !ready);
+    if (!humans.length) return;
+    const waiting = humans.filter(s => !s.locked).length;
+    $("#raceText").innerHTML = ready ? `Hold <span class="glyph" data-g="A"></span> to race!` : `Waiting for ${waiting} player${waiting > 1 ? "s" : ""}…`;
+    $("#raceFill").style.width = `${ready ? state.hold * 100 : 0}%`;
+    glyphs(bar);
+  }
+
+  function renderAll() { state.slots.forEach((_, i) => renderSlot(i)); renderCursors(); renderRaceBar(); renderOptions(); }
+
+  // ---------- fx ----------
+  function toast(text) {
+    const t = document.createElement("div");
+    t.className = "toast"; t.textContent = text;
+    stage.appendChild(t);
+    setTimeout(() => t.remove(), 1900);
+  }
+  const confetti = [];
+  function burst(x, y, n = 26) {
+    for (let k = 0; k < n; k += 1) {
+      const el = document.createElement("div");
+      el.className = "confetti";
+      el.style.backgroundPosition = `${-(k % 6) * 26}px 0`;
+      stage.appendChild(el);
+      confetti.push({ el, x, y, vx: (Math.random() - .5) * 520, vy: -260 - Math.random() * 420, r: Math.random() * 360, vr: (Math.random() - .5) * 720, t: 0 });
+    }
+  }
+
+  // ---------- actions ----------
+  const joinedCount = () => state.slots.filter(s => s && !s.ai).length;
+  function deviceName(d) {
+    if (d.startsWith("pad")) return `🎮 ${Number(d.slice(3)) + 1}`;
+    return { kb1: "WASD", kb2: "Arrows", touch: "Touch" }[d] || d;
+  }
+  function slotOf(device) { return state.slots.findIndex(s => s && s.device === device); }
+
+  function join(device, preferred) {
+    let i = preferred ?? state.slots.findIndex(s => !s);
+    if (i < 0) i = state.slots.findIndex(s => s && s.ai); // a person bumps a computer racer
+    if (i < 0) { toast("The race is full!"); return -1; }
+    const cursor = (i * 3) % 9;
+    state.slots[i] = { device, cursor, locked: false, doll: null, ai: false, aFresh: false };
+    renderSlot(i, true); renderCursors(); renderRaceBar();
+    toast(`Here comes P${i + 1}!`);
+    return i;
+  }
+  function lock(i) {
+    const s = state.slots[i];
+    s.doll = DOLLS[s.cursor].key === "random" ? DOLLS[Math.floor(Math.random() * 9)].key : DOLLS[s.cursor].key;
+    s.locked = true; s.aFresh = false;
+    renderSlot(i, true); renderCursors(); renderRaceBar();
+    const r = slotEls[i].getBoundingClientRect(), st = stage.getBoundingClientRect(), sc = st.width / 1280;
+    burst((r.left - st.left) / sc + 76, (r.top - st.top) / sc + 120);
+  }
+  function back(i) {
+    const s = state.slots[i];
+    if (s.locked) { s.locked = false; state.hold = 0; renderSlot(i); }
+    else { state.slots[i] = null; renderSlot(i); }
+    renderCursors(); renderRaceBar();
+  }
+  function move(i, dx, dy) {
+    const s = state.slots[i];
+    if (!s || s.locked) return;
+    let col = s.cursor % COLS, row = Math.floor(s.cursor / COLS);
+    col = (col + dx + COLS) % COLS; row = (row + dy + 2) % 2;
+    s.cursor = row * COLS + col;
+    renderSlot(i); renderCursors();
+  }
+  function toggleCpu() {
+    const last = state.slots.map((s, i) => s && s.ai ? i : -1).filter(i => i >= 0).pop();
+    const free = state.slots.findIndex(s => !s);
+    if (free >= 0 && (last === undefined || state.slots.filter(s => s && s.ai).length < 3)) {
+      const taken = new Set(state.slots.filter(Boolean).map(s => s.doll));
+      const pool = DOLLS.slice(0, 9).filter(d => !taken.has(d.key));
+      const doll = (pool.length ? pool : DOLLS.slice(0, 9))[Math.floor(Math.random() * (pool.length || 9))].key;
+      state.slots[free] = { ai: true, locked: true, doll, cursor: 0, device: "cpu" };
+      renderSlot(free, true);
+    } else if (last !== undefined) {
+      state.slots[last] = null; renderSlot(last);
+    }
+    renderRaceBar();
+  }
+  const cycleTrack = d => { state.track = (state.track + d + TRACKS.length) % TRACKS.length; renderOptions(); };
+  const cycleMonsters = () => { state.monsters = (state.monsters + 1) % MONSTERS.length; renderOptions(); };
+  const cycleSpecials = () => { state.specials = (state.specials + 1) % SPECIALS.length; renderOptions(); };
+
+  function show(name) {
+    state.screen = name;
+    for (const id of ["title", "select", "go"]) $("#" + id).classList.toggle("off", id !== name);
+    if (name === "go") {
+      const line = $("#goLine"); line.innerHTML = "";
+      state.slots.filter(Boolean).forEach((s, k) => {
+        const d = document.createElement("div"); d.className = "d";
+        d.style.backgroundImage = `url(${art(s.doll, "cheer")})`;
+        d.style.animationDelay = `${k * 0.09}s`;
+        line.appendChild(d);
+      });
+      for (let k = 0; k < 5; k += 1) setTimeout(() => burst(200 + Math.random() * 880, 300), k * 180);
+    }
+    if (name === "select") renderAll();
+  }
+
+  // ---------- touch / mouse ----------
+  $("#pressStart").addEventListener("pointerdown", e => { e.stopPropagation(); startFrom("touch"); });
+  $("#title").addEventListener("pointerdown", () => startFrom("touch"));
+  function tapSlot(i) {
+    const s = state.slots[i];
+    if (!s) { const j = join("touch", i); state.touchFocus = j; return; }
+    if (s.ai) return;
+    if (s.device === "touch") { state.touchFocus = i; if (s.locked) back(i); }
+  }
+  function tapCard(idx) {
+    let i = state.touchFocus;
+    if (i == null || !state.slots[i] || state.slots[i].device !== "touch") {
+      i = state.slots.findIndex(s => s && s.device === "touch" && !s.locked);
+      if (i < 0) { i = join("touch"); if (i < 0) return; }
+    }
+    const s = state.slots[i];
+    if (s.locked) s.locked = false;
+    s.cursor = idx; lock(i);
+    state.touchFocus = state.slots.findIndex(x => x && x.device === "touch" && !x.locked);
+    if (state.touchFocus < 0) state.touchFocus = null;
+  }
+  $("#monsterChip").addEventListener("pointerdown", cycleMonsters);
+  $("#specialChip").addEventListener("pointerdown", cycleSpecials);
+  $("#trackPrev").addEventListener("pointerdown", () => cycleTrack(-1));
+  $("#trackNext").addEventListener("pointerdown", () => cycleTrack(1));
+  $("#trackCard").addEventListener("pointerdown", () => cycleTrack(1));
+  $("#raceBar").addEventListener("pointerdown", () => { if (allReady()) show("go"); });
+  $("#go").addEventListener("pointerdown", e => { if (e.target.tagName !== "A") show("select"); });
+
+  function startFrom(device) {
+    if (state.screen !== "title") return;
+    show("select");
+    if (slotOf(device) < 0) join(device, 0);
+  }
+  const allReady = () => joinedCount() > 0 && state.slots.every(s => !s || s.ai || s.locked);
+
+  // ---------- keyboard + gamepad input ----------
+  const KEYMAP = {
+    kb1: { KeyA: "left", KeyD: "right", KeyW: "up", KeyS: "down", Space: "a", KeyF: "b", KeyR: "x" },
+    kb2: { ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down", Enter: "a", ShiftLeft: "b", ShiftRight: "b", Slash: "x" }
+  };
+  const GLOBAL_KEYS = { KeyQ: () => cycleTrack(-1), KeyE: () => cycleTrack(1), KeyZ: cycleMonsters, KeyC: cycleSpecials };
+  const held = {}; // device -> Set
+  addEventListener("keydown", e => {
+    if (e.repeat) return;
+    if (GLOBAL_KEYS[e.code] && state.screen === "select") { GLOBAL_KEYS[e.code](); return; }
+    for (const [dev, map] of Object.entries(KEYMAP)) {
+      const act = map[e.code];
+      if (!act) continue;
+      e.preventDefault();
+      (held[dev] ||= new Set()).add(act);
+      press(dev, act);
+      return;
+    }
+    if (state.screen === "title") startFrom("kb1");
+  });
+  addEventListener("keyup", e => {
+    for (const [dev, map] of Object.entries(KEYMAP)) { const act = map[e.code]; if (act) held[dev]?.delete(act); }
+  });
+
+  function press(dev, act) {
+    if (state.screen === "title") { startFrom(dev); return; }
+    if (state.screen === "go") { if (act === "b") show("select"); return; }
+    let i = slotOf(dev);
+    if (i < 0) {
+      if (["a", "b", "x", "y", "start"].includes(act)) join(dev);
+      return;
+    }
+    const s = state.slots[i];
+    if (act === "a") { if (!s.locked) lock(i); else s.aFresh = true; }
+    else if (act === "b") back(i);
+    else if (act === "x") toggleCpu();
+    else if (act === "y") cycleSpecials();
+    else if (act === "lb") cycleMonsters();
+    else if (act === "rb") cycleTrack(1);
+    else if (act === "left") move(i, -1, 0);
+    else if (act === "right") move(i, 1, 0);
+    else if (act === "up") move(i, 0, -1);
+    else if (act === "down") move(i, 0, 1);
+  }
+
+  const BTN = { 0: "a", 1: "b", 2: "x", 3: "y", 4: "lb", 5: "rb", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
+  const padPrev = {};
+  function pollPads(dt) {
+    const pads = navigator.getGamepads ? navigator.getGamepads() : [];
+    for (const p of pads) {
+      if (!p) continue;
+      const dev = "pad" + p.index;
+      const prev = padPrev[dev] ||= { b: {}, ax: 0, ay: 0, rep: 0 };
+      const now = new Set();
+      for (const [b, act] of Object.entries(BTN)) {
+        const on = p.buttons[b]?.pressed;
+        if (on) now.add(act);
+        if (on && !prev.b[b]) press(dev, act);
+        prev.b[b] = on;
+      }
+      if (state.screen === "title" && p.buttons.some(b => b.pressed) && !Object.keys(BTN).some(b => p.buttons[b]?.pressed)) startFrom(dev);
+      const ax = Math.abs(p.axes[0]) > .55 ? Math.sign(p.axes[0]) : 0;
+      const ay = Math.abs(p.axes[1]) > .55 ? Math.sign(p.axes[1]) : 0;
+      prev.rep -= dt;
+      if ((ax !== prev.ax || ay !== prev.ay) || ((ax || ay) && prev.rep <= 0)) {
+        if (ax) press(dev, ax < 0 ? "left" : "right");
+        else if (ay) press(dev, ay < 0 ? "up" : "down");
+        prev.rep = (ax !== prev.ax || ay !== prev.ay) ? .4 : .16;
+      }
+      prev.ax = ax; prev.ay = ay;
+      held[dev] = now;
+    }
+  }
+
+  // ---------- loop ----------
+  let last = performance.now(), t = 0;
+  function frame(now) {
+    const dt = Math.min(.05, (now - last) / 1000); last = now; t += dt;
+    pollPads(dt);
+    if (state.screen === "title") {
+      $("#titleClouds").style.backgroundPositionX = `${-t * 18}px`;
+      $("#titleHills").style.backgroundPositionX = `${-t * 70}px`;
+      const slide = Math.min(1, t / 1.4), ease = 1 - Math.pow(1 - slide, 3);
+      $("#titleHero").style.transform = `translate(${(1 - ease) * -900}px, ${Math.sin(t * 7) * 6}px)`;
+    }
+    if (state.screen === "select") {
+      const ready = allReady();
+      const holding = ready && state.slots.some(s => s && !s.ai && s.aFresh && held[s.device]?.has("a"));
+      const before = state.hold;
+      state.hold = holding ? Math.min(1, state.hold + dt / 0.9) : Math.max(0, state.hold - dt * 2);
+      if (state.hold !== before) $("#raceFill").style.width = `${state.hold * 100}%`;
+      if (state.hold >= 1) { state.hold = 0; show("go"); }
+    }
+    for (let k = confetti.length - 1; k >= 0; k -= 1) {
+      const c = confetti[k]; c.t += dt; c.vy += 900 * dt; c.x += c.vx * dt; c.y += c.vy * dt; c.r += c.vr * dt;
+      c.el.style.transform = `translate(${c.x}px, ${c.y}px) rotate(${c.r}deg)`;
+      c.el.style.opacity = String(Math.max(0, 1 - c.t / 1.6));
+      if (c.t > 1.6) { c.el.remove(); confetti.splice(k, 1); }
+    }
+    requestAnimationFrame(frame);
+  }
+  glyphs();
+  renderOptions();
+  state.slots.forEach((_, i) => renderSlot(i));
+  requestAnimationFrame(frame);
+
+  // Test hook for screenshots: ?demo=select|full|go
+  const demo = new URLSearchParams(location.search).get("demo");
+  if (demo) {
+    show("select");
+    if (demo === "select" || demo === "full" || demo === "go") {
+      join("pad0"); join("pad1"); join("kb1");
+      state.slots[0].cursor = 4; lock(0);
+      state.slots[1].cursor = 1;
+      state.slots[2].cursor = 7; lock(2);
+      toggleCpu();
+      renderAll();
+    }
+    if (demo === "full" || demo === "go") {
+      for (let k = 3; k < 8; k += 1) { if (!state.slots[k] || state.slots[k].ai) { state.slots[k] = null; join("pad" + k, k); state.slots[k].cursor = (k * 2) % 10; if (k !== 6) lock(k); } }
+      state.slots[1].cursor = 1; lock(1);
+      state.track = 4; state.monsters = 2; state.specials = 1;
+      renderAll();
+    }
+    if (demo === "go") { state.slots[6].cursor = 6; lock(6); show("go"); }
+  }
+})();
+</script>
+</body>
+</html>
