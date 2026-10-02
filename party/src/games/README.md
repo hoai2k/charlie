@@ -72,6 +72,8 @@ const a = new Actor(p.charId, { scale: 1, x, y });  a.snap();
 a.x/a.y = feet on the ground; a.z = height above ground (jumps); a.facing = ±1
 a.moveAnim(vx, vy, maxSpeed)        // sets facing, walk/idle pose from velocity
 a.setPose('walk') / a.playOnce('cheer', 0.5) / a.squash(0.3) / a.flash('#fff') / a.emote('heart', 1)
+a.say('Yay!', 1.5, 'yay')     // speech bubble + non-word voice clip (kinds: hello ready yay aww ouch woo laugh gasp; null = silent)
+a.tint('#ff66cc', 0.3)        // persistent color wash; tint(null) clears
 a.update(dt); a.draw(g, { ring: p.color })        // ring = colored ellipse under the player
 a.height, a.width, a.radius (collision suggestion), a.anchor('head'|'hand'|'center')
 a.attach((g, info) => draw at info.head / info.hand in forward space)   // crowns, wands, held items
@@ -106,7 +108,9 @@ FINISH zoom. The countdown gets a fly-in (`meta.flyIn = false` to opt out).
   star, sparkle, magic, grow, shrink, munch, bubble, water, shutter, brush,
   stamp, swap, flip, dash, stun, roar, stomp, snore, note {midi}, drumroll,
   cheer, fanfare, win, lose, aww, yay, giggle, select, move, back, error).
-  `voice(charId, 'yay'|'aww'|'ouch'|'woo'|'laugh'|'gasp')`. `music.beat()`
+  `voice(charId, 'yay'|'aww'|'ouch'|'woo'|'laugh'|'gasp')` (non-word clips only).
+  **No spoken words anywhere**: characters and Glimmer talk in text bubbles
+  (`actor.say`, `hostBubble`); `host()` is a silent no-op. `music.beat()`
   for rhythm sync (`music.bpm`).
 - `engine/ui.js`: `text`, `panel`, `roundRect`, `glyph`, `hints`, `banner`,
   `timer(g, secondsLeft)`, `scoreboard(g, players, values, { y, format,

@@ -139,7 +139,8 @@ export class CharSelectScene {
         if (c.pressed('a')) {
           if (this.takenByHuman(h.charId, h)) { sfx('error'); h.actor.playOnce('surprised', 0.4, 'idle'); }
           else {
-            h.locked = true; sfx('ready'); voice(h.charId, 'hello');
+            h.locked = true; sfx('ready');
+            h.actor.say(CHARACTERS[h.cursor].lines?.hello || 'Hi!', 1.8, 'hello');
             h.actor.playOnce('ready', 0.7, 'wave');
             this.cardBounce[h.cursor] = 1.5;
             const r = this.cardRect(h.cursor);

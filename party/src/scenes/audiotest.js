@@ -39,7 +39,6 @@ const TABS = [
   { id: 'npc', label: 'NPC', cols: 3 },
   { id: 'jingle', label: 'Jingles', cols: 3 },
   { id: 'voice', label: 'Voices', cols: KINDS.length },
-  { id: 'host', label: 'Host', cols: 3 },
   { id: 'synth', label: 'Synth', cols: 4 },
   { id: 'music', label: 'Music', cols: 3 },
 ];

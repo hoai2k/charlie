@@ -70,21 +70,10 @@ function loadMusic(name) {
 /** True if a recorded file exists for this sfx key. */
 export function hasSound(key) { return fileBuffers.has(key); }
 
-// Glimmer's host lines ("host/<key>", see audio-requests.md §5.1). Silent
-// until recordings exist; lines never overlap each other.
-let hostBusyUntil = 0;
-export function host(key, { interrupt = false } = {}) {
-  if (!ctx || ctx.state !== 'running' || muted) return false;
-  const bufs = fileBuffers.get('host/' + key);
-  if (!bufs) return false;
-  if (!interrupt && ctx.currentTime < hostBusyUntil) return false;
-  const b = bufs[Math.floor(Math.random() * bufs.length)];
-  const src = ctx.createBufferSource(); src.buffer = b;
-  const g = ctx.createGain(); g.gain.value = 1;
-  src.connect(g); g.connect(sfxBus); src.start();
-  hostBusyUntil = ctx.currentTime + b.duration;
-  return true;
-}
+// Glimmer never speaks out loud (design decision: no spoken lines). Her
+// words are shown as text bubbles (engine/host.js hostBubble). host() stays
+// as a silent no-op so call sites keep working.
+export function host() { return false; }
 
 export function setMuted(m) { muted = m; if (master) master.gain.value = m ? 0 : 0.8; }
 export function isMuted() { return muted; }
@@ -265,8 +254,10 @@ export function sfx(name, opts = {}) {
 }
 export const SFX_NAMES = Object.keys(SYNTH);
 
-// Character voice clips: manifest keys "voice/<charId>/<kind>". Until clips
-// exist each kind falls back to a synth stand-in.
+// Character voice clips: manifest keys "voice/<charId>/<kind>". These are
+// NON-WORD vocalizations only (giggles, yips, beeps, gasps); anything with
+// words is shown as a speech bubble instead (Actor.say). Missing clips fall
+// back to a synth stand-in.
 export const VOICE_KINDS = { hello: 'join', ready: 'ready', yay: 'yay', aww: 'aww', ouch: 'bonk', woo: 'yay', laugh: 'giggle', gasp: 'blip' };
 const voicesLoading = new Set();
 /** Decode the voice clips for these characters (called when a party forms). */

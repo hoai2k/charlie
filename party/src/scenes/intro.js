@@ -5,7 +5,7 @@ import { drawArt } from '../engine/art.js';
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host } from '../engine/audio.js';
-import { Actor, drawPortrait } from '../engine/sprites.js';
+import { Actor, drawPortrait, drawSpeech } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { drawHost, hostBubble } from '../engine/host.js';
 import { rand } from '../engine/util.js';
@@ -121,7 +121,10 @@ export class IntroScene {
     if (this.meta.duration) ui.text(g, '⏱ ' + this.meta.duration, 1820, 778, { size: 26, align: 'right', color: '#6b5a85', stroke: false });
 
     // Host.
-    drawHost(g, 200, 215, 150, this.t, this.go !== null ? 'cheer' : 'talk');
+    drawHost(g, 170, 215, 150, this.t, this.go !== null ? 'cheer' : 'talk');
+    // Glimmer talks in a speech bubble (no spoken audio).
+    const line = this.go !== null ? "Here we go!" : this.t < 2.6 ? `Let's play ${this.meta.title}!` : this.ready.every((r, i) => r || session.players[i].isAI) ? 'Ready? Ready!' : "Press A when you're ready!";
+    drawSpeech(g, line, 240, 186, 0.8, this.t < 2.6 ? this.t : this.t - 2.6, 0, 1, 'left');
 
     // Players + ready state.
     this.actors.forEach((a, i) => {

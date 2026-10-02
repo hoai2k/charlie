@@ -881,7 +881,7 @@ export class Game {
     this.phase = 'parade'; this.phaseT = 0;
     for (const p of this.players) if (p.isAI) { p.ctrl.hold('a', false); p.ctrl.move(0, 0); }
     const n = this.stations.length;
-    const targetH = n <= 3 ? 250 : n <= 5 ? 200 : 158;
+    const targetH = n <= 3 ? 320 : n <= 5 ? 250 : 190;
     const spacing = Math.min(360, 1640 / n);
     this.stations.forEach((s, i) => {
       const pet = s.pet;
@@ -889,23 +889,25 @@ export class Game {
       const w1 = pet.width / pet.scale;
       pet.scale = Math.min(pet.scale, (spacing * 0.95) / w1);
       pet.facing = 1; pet.z = 0;
-      pet.x = -200 - i * 260; pet.y = 690; pet.snap();
+      pet.x = -200 - i * 260; pet.y = 752; pet.snap();
       pet.setPose('walk');
       s.shakeT = 0; s.jumpT = -1;
       s.paradeX = W / 2 + (i - (n - 1) / 2) * spacing;
       s.arrived = false;
-      s.wet = 0;
-      s.suds.forEach((u) => (u.amt *= 0.0));
+      // Every pet is show-ready for the parade (a little spa magic).
+      s.wet = 0; s.suds = [];
+      if (s.mud.some((bb) => bb.amt > 0)) { for (const bb of s.mud) bb.amt = 0; this.renderMud(s); }
+      if (s.fluff < 1) s.fluff = 1;
       const ch = s.char;
-      const aud = Math.min(200, (W - 160) / n);
-      ch.scale = n > 5 ? 0.6 : 0.75; ch.x = W / 2 + (i - (n - 1) / 2) * aud; ch.y = 1060; ch.facing = 1; ch.snap();
+      const aud = Math.min(250, (W - 160) / n);
+      ch.scale = n > 5 ? 0.72 : 0.92; ch.x = W / 2 + (i - (n - 1) / 2) * aud; ch.y = 1066; ch.facing = 1; ch.snap();
       ch.setPose('clap');
     });
     this.banner = { text: 'Pet Parade!', t: 0 };
     sfx('fanfare'); snd('applause', 'cheer');
     // Camera: start close on the stage entrance, then pull back as the pets line up.
     const cam = this.api.camera;
-    if (cam) { cam.x = 620; cam.y = 600; cam.zoom = 1.25; cam.follow(760, 600, 1.2, 1.4); }
+    if (cam) { cam.x = 620; cam.y = 640; cam.zoom = 1.25; cam.follow(760, 640, 1.2, 1.4); }
   }
 
   updateParade(dt) {
@@ -913,7 +915,7 @@ export class Game {
     const cam = this.api.camera;
     if (cam) {
       const lead = this.stations.reduce((mx, s) => Math.max(mx, s.pet.x), -Infinity);
-      if (t < 3.4) cam.follow(clamp(lead, 600, W - 600), 600, 1.2, 1.6);
+      if (t < 3.4) cam.follow(clamp(lead, 600, W - 600), 640, 1.2, 1.6);
       else cam.follow(W / 2, H / 2, 1, 1.2);
     }
     this.stations.forEach((s, i) => {
@@ -963,7 +965,7 @@ export class Game {
       return `${s.def.name}${bits.length ? ' · ' + bits.join(', ') : ''}`;
     });
     const hs = highlight !== null ? this.stations[highlight] : null;
-    const focus = this.phase === 'parade' ? (hs ? { x: hs.pet.x, y: hs.pet.y - hs.pet.height * 0.5, zoom: 1.3 } : { x: W / 2, y: 600, zoom: 1.15 }) : undefined;
+    const focus = this.phase === 'parade' ? (hs ? { x: hs.pet.x, y: hs.pet.y - hs.pet.height * 0.5, zoom: 1.3 } : { x: W / 2, y: 640, zoom: 1.15 }) : undefined;
     this.api.finish({ showcase: true, highlight, stats, title: 'So Sparkly!', focus });
   }
 
@@ -1305,17 +1307,26 @@ export class Game {
       const sx = W * (0.15 + i * 0.23), sw = Math.sin(t * 0.9 + i * 1.3) * 260;
       g.globalAlpha = 0.12;
       g.fillStyle = ['#ff9ecf', '#fff6a8', '#9fe8ff', '#c9a6ff'][i];
-      g.beginPath(); g.moveTo(sx - 30, -20); g.lineTo(sx + 30, -20); g.lineTo(sx + sw + 220, 760); g.lineTo(sx + sw - 220, 760); g.closePath(); g.fill();
+      g.beginPath(); g.moveTo(sx - 30, -20); g.lineTo(sx + 30, -20); g.lineTo(sx + sw + 240, 820); g.lineTo(sx + sw - 240, 820); g.closePath(); g.fill();
     }
     g.restore();
     // stage
-    g.fillStyle = '#ffb3d9'; g.fillRect(0, 700, W, 40);
-    g.fillStyle = '#d98ab8'; g.fillRect(0, 740, W, 50);
-    g.fillStyle = '#2a1650'; g.fillRect(0, 790, W, H - 790);
-    g.strokeStyle = NAVY; g.lineWidth = 5; g.beginPath(); g.moveTo(0, 700); g.lineTo(W, 700); g.moveTo(0, 740); g.lineTo(W, 740); g.stroke();
+    g.fillStyle = '#ffb3d9'; g.fillRect(0, 760, W, 40);
+    g.fillStyle = '#d98ab8'; g.fillRect(0, 800, W, 50);
+    const aud = g.createLinearGradient(0, 850, 0, H);
+    aud.addColorStop(0, '#3a1f66'); aud.addColorStop(1, '#1f1040');
+    g.fillStyle = aud; g.fillRect(0, 850, W, H - 850);
+    // crowd silhouettes behind the players' characters
+    g.fillStyle = 'rgba(20,8,45,0.75)';
+    for (let i = 0; i < 26; i++) {
+      const x = (i + 0.5) * (W / 26), bob = Math.abs(Math.sin(t * 4 + i)) * 8;
+      g.beginPath(); g.arc(x, 905 - bob, 30, 0, TAU); g.fill();
+      g.fillRect(x - 38, 925 - bob, 76, 60);
+    }
+    g.strokeStyle = NAVY; g.lineWidth = 5; g.beginPath(); g.moveTo(0, 760); g.lineTo(W, 760); g.moveTo(0, 800); g.lineTo(W, 800); g.stroke();
     for (let x = 30; x < W; x += 120) {
       g.fillStyle = (Math.floor(t * 4) + x / 120) % 2 < 1 ? '#ffd23f' : '#ffffff';
-      g.beginPath(); g.arc(x, 765, 9, 0, TAU); g.fill();
+      g.beginPath(); g.arc(x, 825, 9, 0, TAU); g.fill();
     }
     // curtains
     for (const side of [-1, 1]) {
@@ -1324,9 +1335,9 @@ export class Game {
       g.save();
       g.fillStyle = '#e8364a';
       const x0 = side < 0 ? 0 : W - cw;
-      g.fillRect(x0, 0, cw, 790);
+      g.fillRect(x0, 0, cw, 850);
       g.fillStyle = 'rgba(0,0,0,0.15)';
-      for (let x = x0 + 20; x < x0 + cw; x += 60) g.fillRect(x, 0, 18, 790);
+      for (let x = x0 + 20; x < x0 + cw; x += 60) g.fillRect(x, 0, 18, 850);
       g.restore();
     }
     g.fillStyle = '#e8364a'; g.fillRect(0, 0, W, 70);
@@ -1342,7 +1353,7 @@ export class Game {
     }
     // audience: the players' characters cheering
     for (const s of this.stations) { s.char.draw(g, { ring: s.p.color }); }
-    this.stations.forEach((s) => { if (s.arrived) ui.text(g, s.def.name, s.pet.x, 760 + 0, { size: 26, color: '#fff', maxWidth: 200 }); });
+    this.stations.forEach((s) => { if (s.arrived) ui.text(g, s.def.name, s.pet.x, 780, { size: 28, color: '#fff', maxWidth: 200 }); });
   }
 
   draw(g) {

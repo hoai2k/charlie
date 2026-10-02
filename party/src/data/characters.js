@@ -3,6 +3,8 @@
 // each member is an independent sprite set keyed by its asset id, so the
 // KPop Girls are three sprite sets and Felicity brings Fellowfox along.
 //
+// lines: short speech-bubble lines (characters never talk out loud).
+//
 // Member fields:
 //   asset    sprite/asset id -> assets/characters/<asset>.webp (base art) and
 //            assets/sprites/<asset>/ (generated pose sprites, when present)
@@ -20,7 +22,7 @@
 
 export const CHARACTERS = [
   {
-    id: 'felicity', name: 'Felicity', subtitle: '& Fellowfox', color: '#ff8a2a',
+    id: 'felicity', lines: { hello: 'Hi! Fellowfox says hi too!', win: 'We did it, Fellowfox!', lose: 'Aww, Fellowfox…' }, name: 'Felicity', subtitle: '& Fellowfox', color: '#ff8a2a',
     blurb: 'Fox girl with her best pet pal',
     members: [
       { asset: 'felicity', h: 178, dx: 0, dy: 0, follow: 0, face: [0.46, 0.27, 0.19], top: 0.92, facing: 0, motion: 'walk' },
@@ -28,7 +30,7 @@ export const CHARACTERS = [
     ],
   },
   {
-    id: 'kpop-girls', name: 'KPop Girls', subtitle: 'Trio', plural: true, color: '#b04dff',
+    id: 'kpop-girls', lines: { hello: "Let's go, girls!", win: 'Encore! Encore!', lose: "Next time we'll shine!" }, name: 'KPop Girls', subtitle: 'Trio', plural: true, color: '#b04dff',
     blurb: 'Three performers, always together',
     members: [
       { asset: 'kpop-girl-center', h: 158, dx: 0, dy: 0, follow: 0, face: [0.165, 0.22, 0.1], top: 0.97, facing: 0, motion: 'walk' },
@@ -37,44 +39,44 @@ export const CHARACTERS = [
     ],
   },
   {
-    id: 'bronze', name: 'Bronze', color: '#3fa86b', blurb: 'One-eyed robot with bouncy boots',
+    id: 'bronze', lines: { hello: 'Beep boop! Ready!', win: 'Victory beeps!', lose: 'Bzzt… aww.' }, name: 'Bronze', color: '#3fa86b', blurb: 'One-eyed robot with bouncy boots',
     members: [{ asset: 'bronze', h: 176, face: [0.33, 0.27, 0.17], top: 0.9, facing: 0, motion: 'clunk' }],
   },
   {
-    id: 'cotton-candy', name: 'Cotton Candy', color: '#ff7ac6', blurb: 'Pony with the longest rainbow hair',
+    id: 'cotton-candy', lines: { hello: 'Hello, friends!', win: 'Hooray, hooray!', lose: 'Hmph!' }, name: 'Cotton Candy', color: '#ff7ac6', blurb: 'Pony with the longest rainbow hair',
     members: [{ asset: 'cotton-candy', h: 172, face: [0.48, 0.19, 0.13], top: 0.93, facing: -1, motion: 'trot' }],
   },
   {
-    id: 'fox', name: 'Fox', color: '#ff6a1a', blurb: 'Springy, speedy, always smiling',
+    id: 'fox', lines: { hello: "Yip yip! Let's go!", win: 'Yip yip hooray!', lose: 'No fair!' }, name: 'Fox', color: '#ff6a1a', blurb: 'Springy, speedy, always smiling',
     members: [{ asset: 'fox', h: 142, face: [0.8, 0.26, 0.19], top: 0.92, facing: 1, motion: 'trot' }],
   },
   {
-    id: 'hotdog', name: 'Hotdog', color: '#ffcc22', blurb: 'Fluffy rainbow ball of silly',
+    id: 'hotdog', lines: { hello: 'Party time!', win: 'Woo-hoo!', lose: 'Pfffft!' }, name: 'Hotdog', color: '#ffcc22', blurb: 'Fluffy rainbow ball of silly',
     members: [{ asset: 'hotdog', h: 124, face: [0.57, 0.58, 0.3], top: 0.85, facing: 0, motion: 'hop' }],
   },
   {
-    id: 'marina', name: 'Marina', color: '#e8364a', blurb: 'Red-haired mermaid with a sparkly crown',
+    id: 'marina', lines: { hello: "Splash! I'm in!", win: 'Making waves!', lose: 'Glub… so close.' }, name: 'Marina', color: '#e8364a', blurb: 'Red-haired mermaid with a sparkly crown',
     members: [{ asset: 'marina', h: 178, face: [0.25, 0.22, 0.13], top: 0.95, facing: 0, motion: 'glide' }],
   },
   {
-    id: 'scale', name: 'Scale', color: '#2a9d8f', blurb: 'Blonde mermaid in a flower top',
+    id: 'scale', lines: { hello: 'Hello there!', win: 'Simply splendid!', lose: 'Hmph. Next time.' }, name: 'Scale', color: '#2a9d8f', blurb: 'Blonde mermaid in a flower top',
     members: [{ asset: 'scale', h: 178, face: [0.23, 0.22, 0.14], top: 0.92, facing: 0, motion: 'glide' }],
   },
   {
-    id: 'marshmallow-birthday-cake', name: 'Birthday Cake', subtitle: 'Marshmallow', color: '#ff8fb6',
+    id: 'marshmallow-birthday-cake', lines: { hello: "Let's celebrate!", win: 'Cake-tastic!', lose: "My frosting's sad…" }, name: 'Birthday Cake', subtitle: 'Marshmallow', color: '#ff8fb6',
     blurb: 'A happy cake that bounces everywhere',
     members: [{ asset: 'marshmallow-birthday-cake', h: 140, face: [0.47, 0.52, 0.42], top: 0.92, facing: 0, motion: 'bounce' }],
   },
   {
-    id: 'princess-amber', name: 'Princess Amber', color: '#ff9a1f', blurb: 'Kind princess in a starry gown',
+    id: 'princess-amber', lines: { hello: 'Let the fun begin!', win: 'How wonderful!', lose: 'Oh, bother.' }, name: 'Princess Amber', color: '#ff9a1f', blurb: 'Kind princess in a starry gown',
     members: [{ asset: 'princess-amber', h: 184, face: [0.29, 0.27, 0.11], top: 0.93, facing: 0, motion: 'walk' }],
   },
   {
-    id: 'snowstar', name: 'Snowstar', color: '#39c46a', blurb: 'Big curious face, cozy green sweater',
+    id: 'snowstar', lines: { hello: 'Ooh, a party!', win: 'I won? I WON!', lose: 'Aww, rats.' }, name: 'Snowstar', color: '#39c46a', blurb: 'Big curious face, cozy green sweater',
     members: [{ asset: 'snowstar', h: 172, face: [0.36, 0.31, 0.22], top: 0.95, facing: 0, motion: 'walk' }],
   },
   {
-    id: 'unicorn', name: 'The Last Unicorn', color: '#a98bff', blurb: 'Gentle, graceful and serene',
+    id: 'unicorn', lines: { hello: 'Hello, friends.', win: 'What a lovely day.', lose: 'Oh well…' }, name: 'The Last Unicorn', color: '#a98bff', blurb: 'Gentle, graceful and serene',
     members: [{ asset: 'unicorn', h: 186, face: [0.77, 0.18, 0.12], top: 0.88, facing: 1, motion: 'trot' }],
   },
 ];

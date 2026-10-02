@@ -19,6 +19,16 @@ deliver in any order and in partial batches.
 
 ---
 
+
+> **Design decision (from the user): no spoken words.** Characters and the
+> host never say words out loud. Speech is shown as text bubbles
+> (`actor.say(text, dur, kind)`), and each bubble launches with that
+> character's **non-word** voice clip (giggle, yip, beep, gasp — plus
+> "Yay!"-style exclamations). The `voice/*` clips below are kept on that
+> basis (the user auditioned them and they're good). **Glimmer's host lines
+> (§5.1) and Professor Hoot's spoken lines are no longer wanted**; `host()`
+> is a silent no-op. Any future voice request must be wordless.
+
 ## 1. How it works
 
 `assets/audio/manifest.json` maps sound names to files (paths relative to
