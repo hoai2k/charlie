@@ -54,7 +54,8 @@ export const meta = {
 };
 
 // --- tuning -----------------------------------------------------------------
-const CX = 960, CY = 650, RX = 545, RY = 190;
+// RY leaves room between the back and front rows for name tags + the overhead present.
+const CX = 960, CY = 645, RX = 545, RY = 222, RUG_RY = 190;
 const FLIGHT = 0.42;
 const MIN_HOLD = 0.25;
 const NO_BACK = 1.0;
@@ -682,8 +683,8 @@ export class Game {
     // Rug art: the rug itself spans (2,56)-(1177,720) of the 1182x800 image. Stretch
     // it so the rug is (RX+150) x ~(RY+110) around the circle, like the procedural rug
     // (the art is drawn from a steeper angle than the flat player ellipse).
-    const sx = (RX + 150) * 2 / 1175, sy = (RY + 110) * 2 / 664;
-    if (!drawArt(g, 'prop/party-rug', CX + 1.5 * sx, CY + 14 + 12 * sy, 1182 * sx, 800 * sy, { fit: 'stretch' })) drawRug(g, CX, CY + 14, RX + 150, RY + 78, this.confettiDots);
+    const sx = (RX + 150) * 2 / 1175, sy = (RUG_RY + 110) * 2 / 664;
+    if (!drawArt(g, 'prop/party-rug', CX + 1.5 * sx, CY + 14 + 12 * sy, 1182 * sx, 800 * sy, { fit: 'stretch' })) drawRug(g, CX, CY + 14, RX + 150, RUG_RY + 78, this.confettiDots);
   }
 }
 

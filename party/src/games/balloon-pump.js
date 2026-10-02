@@ -534,6 +534,9 @@ export class Game {
     const a = st.a;
     a.x = s.cx + CHAR_X * sc; a.y = s.by + 6 * sc;
     a.scale = sc * (st.s.chMul || 1);
+    // keep trailing group members (Fellowfox, KPop girls) on screen at the left edge
+    const lo = Math.min(...a.members.map((m) => m.def.dx * a.facing * a.scale - a._memberSize(m).w * a.scale * 0.55));
+    a.x = Math.max(a.x, 26 - lo);
     a.draw(g, { ring: p.color });
 
     // --- front stuff in station space

@@ -595,7 +595,8 @@ export class Game {
     const c = this.cake;
     // candy cloud under the cake
     const y = 372;
-    ui.cloud(g, c.x - 6, y + 24, 2.1, '#ffffff', 0.95);
+    // generated outlined cloud matches the cake art; the flat procedural cloud read as a white slab
+    if (!drawArt(g, 'prop/seat-cloud', c.x - 6, y + 30, 620, 290)) ui.cloud(g, c.x - 6, y + 24, 2.1, '#ffffff', 0.95);
     const wob = Math.sin(this.t * 3) * 0.02 + (this.rush ? Math.sin(this.t * 22) * 0.015 : 0);
     // same squash/wobble as the procedural cake, applied around the art (pivot at its base)
     g.save(); g.translate(c.x, y + 10); g.rotate(wob * 1.4); g.scale(1 + c.sq * 0.6 + wob, 1 - c.sq * 0.6 - wob);

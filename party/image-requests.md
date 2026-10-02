@@ -1543,6 +1543,19 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | `prop/cake-platform` (Bumper Bounce) | No crumble visuals: the platform just shrinks with a red band drawn over it. The cake looks tall. | A rounder top (height about 0.62× width, thinner side band), plus 2–3 edge-crumble overlay rings. |
 | `bg/fairy-garden` (+ night) | A side view, but the game is top-down. The code shifts it up so the fence is the back border and draws its own lawn below. Works, but the lawn is procedural. | A top-down garden ground (grass with soft paths, no plots; plots are drawn by code), fence/flower border along the top ~330 px, day and night versions. |
 | `bg/potion-class` | Has its own empty blackboard where the game's board doesn't sit (code fix in progress to use the art's board). | Re-check once the code fix lands; no change needed if it reads well. |
+| sprite `princess-amber` `dance` (4 frames) | About 1.4× too big (head-to-neck 118 px vs 86 in idle); she swells whenever she dances in Spotlight and Pop Star. | Re-intake at `scale` ≈ 0.72, or re-generate at idle head size. |
+| sprite `fox` `ride` (2 frames) | About 0.6× size, and the anchor sits ~27 source px below the paws, so the fox floats above the broom in Broomstick Dash. | Scale ≈ 1.4; anchor at the belly/paw line where the broom goes. |
+| sprite `fox` `dance` (4), `think`, `dance-star` | About 1.2× too big. | Scale ≈ 0.83. |
+| sprite `fox` `eat`, `catch`, `look-around`, `strike2`, `strike3`, `fall`, `bow` | `head`/`hand` points off the art (look copied from another frame). | Re-annotate `head` (top of skull) and `hand` (mouth). |
+| sprite `cotton-candy` `run` (4) | About 0.7× size; she shrinks when running. | Scale ≈ 1.4 on head size. |
+| sprite `cotton-candy` `ride` | Anchor below the hooves; floats above the broom. | Anchor at the belly/hoof line. |
+| sprite `cotton-candy` `giggle` | About 1.35× too big (Pet Spa). | Scale ≈ 0.75. |
+| sprite `unicorn` `sad`, `run`, `celebrate`, `jump`, `land`, `action`, `throw`, `bow`, `strike1/3`, `stir`, `catch`, `look-around` | `hand` lands off the art. | Re-annotate `hand` (mouth, or horn tip for cast). |
+| sprite `kpop-girl-left` / `kpop-girl-center` (`ready`, `celebrate`, `dance`, `pout`, `sad`, `think`, `clap`, `strike*`) | `hand` 16 px or more from the actual hand. | Re-annotate `hand`. |
+| sprite `marina`, `scale` (all non-idle poses) | `head`/`neck` landmarks inconsistent with idle (~1.26×) though the art is fine; necklaces drift in Fashion Show. | Re-check `neck`/`eyes`/`head` landmarks. |
+| sprite `snowstar`, `marshmallow-birthday-cake` | No `carry`, `dance` or `cast`; Pass the Present, Spotlight and Pop Star use fallbacks. | Add `carry` (present overhead / balanced on the cake), 4-frame `dance`, `cast`. |
+| sprite `marina`, `scale` | No `carry`, `cast`, `action`, `clap`, `bow`, `sing`. | Add `carry` and `cast` first (Pass the Present, Wizard Quick-Draw, Potion Class). |
+| sprite `troll` `windup`, `grab`, `cheer`, `wave`, `dizzy` | `hand` points off the art. | Re-annotate. |
 | `prop/cake-stand` | Plate is much flatter than the cake's view angle (top ellipse height/width ≈ 0.15 vs the code's 0.36) and the pedestal is very tall; the cake and toppings wouldn't line up. Unused. | A low stand from the same 3/4 angle: top ellipse ≈ 0.36× width, plate ~500 px wide, short pedestal (total height ≈ 0.4× width), plain white or lilac plate. |
 | `prop/plant-<kind>-glow` | Nearly identical to the blooms (rose and sunflower only gain small sparkles), so the night cross-fade barely shows. | Clearly glowing night versions: bright light inside the petals, a soft halo, slightly cooler and more saturated colors. Same silhouette and framing as the bloom. |
 | `prop/plant-<kind>-seed` (optional) | Big close-ups that fill the frame; the code shrinks them to ~52 px. | A small seed peeking from a little soil hole, small within the 256-tall frame, bottom-anchored. |
