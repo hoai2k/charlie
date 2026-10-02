@@ -1,0 +1,581 @@
+{
+  "status": "NOT READY: consolidate temporary keys; manually place landmarks; visually review scales and decoded budget before building",
+  "asset": "felicity",
+  "poses": {
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            27,
+            21,
+            410,
+            446
+          ],
+          "isolate": true,
+          "anchor": [
+            238,
+            442
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            452,
+            55,
+            361,
+            446
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            442
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            830,
+            25,
+            314,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            479
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            1162,
+            68,
+            347,
+            395
+          ],
+          "isolate": true,
+          "anchor": [
+            201,
+            391
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            24,
+            540,
+            348,
+            424
+          ],
+          "isolate": true,
+          "anchor": [
+            202,
+            420
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            415,
+            536,
+            388,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            225,
+            412
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            825,
+            521,
+            314,
+            477
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            473
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            1164,
+            540,
+            372,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            216,
+            412
+          ],
+          "scale": 1.45
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            11,
+            8,
+            391,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            227,
+            496
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            413,
+            4,
+            358,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            208,
+            493
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            767,
+            4,
+            387,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            224,
+            493
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            1156,
+            18,
+            376,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            218,
+            452
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            18,
+            526,
+            406,
+            480
+          ],
+          "isolate": true,
+          "anchor": [
+            235,
+            476
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            421,
+            508,
+            357,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            207,
+            489
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            778,
+            518,
+            365,
+            487
+          ],
+          "isolate": true,
+          "anchor": [
+            212,
+            483
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "twirl-front": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            1148,
+            512,
+            382,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            222,
+            489
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash-launch": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            18,
+            10,
+            417,
+            401
+          ],
+          "isolate": true,
+          "anchor": [
+            242,
+            397
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash-held": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            419,
+            55,
+            436,
+            355
+          ],
+          "isolate": true,
+          "anchor": [
+            253,
+            351
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hip-cocked": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            875,
+            7,
+            324,
+            406
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            402
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hip-swung": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            32,
+            408,
+            358,
+            421
+          ],
+          "isolate": true,
+          "anchor": [
+            208,
+            417
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "knockback-a": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            418,
+            440,
+            408,
+            382
+          ],
+          "isolate": true,
+          "anchor": [
+            237,
+            378
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "knockback-b": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            848,
+            424,
+            365,
+            405
+          ],
+          "isolate": true,
+          "anchor": [
+            212,
+            401
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "twirl-right": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            17,
+            816,
+            390,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            226,
+            452
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "twirl-back": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            433,
+            835,
+            394,
+            431
+          ],
+          "isolate": true,
+          "anchor": [
+            229,
+            427
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "twirl-left": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            860,
+            816,
+            344,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            452
+          ],
+          "scale": 1.65
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    }
+  }
+}

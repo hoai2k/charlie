@@ -20,8 +20,8 @@ Snapshot: 2026-10-02. Round 3 is queued in `IMAGE-WORK-QUEUE.md`; `../image-requ
 | `garden-fairy-yellow` | 5 | 7 | 5 | fly |
 | `garden-fairy-green` | 5 | 7 | 5 | fly |
 | `garden-fairy-purple` | 5 | 7 | 5 | fly |
-| `marina` | 18 | 29 | 5 | run |
-| `scale` | 18 | 29 | 5 | run |
+| `marina` | 74 | 91 | 5 | run |
+| `scale` | 74 | 91 | 5 | run |
 | `kpop-girl-left` | 44 | 60 | 6 | — |
 | `cotton-candy` | 45 | 60 | 5 | — |
 | `kpop-girl-center` | 44 | 60 | 6 | — |
@@ -38,7 +38,7 @@ Frame entries may repeat an image for timing; aliases and procedural overlays ar
 ## Remaining character work
 
 - Felicity, Fellowfox and Bronze have their published Round 3 cycle upgrades and fourteen extra game actions.
-- Marina and Scale have Tier 1 core animation, portraits and Round 3 blink/celebration/pout/dance/ride upgrades. Their 25 extended action keys remain queued.
+- Marina and Scale have Tier 1 core animation, portraits and Round 3 blink/celebration/pout/dance/ride upgrades. Their expanded sets now have 74 keys / 91 frames; paint and newly requested landmark polish remain pending.
 - Cotton Candy, Fox and all three KPop members are published. Unicorn and Hotdog also have their initial action sets and Pet Spa poses.
 - Princess Amber has 43 authored pose keys and 60 frame entries. Snowstar and Birthday Cake retain Tier-1 core builds (20 pose keys, 32 frame entries, five portraits each); their extended actions and dance remain queued.
 - Round 2 requests remain incomplete across the roster. Consult the work queue and actual manifest rather than treating runtime fallback as completed artwork.
@@ -46,7 +46,7 @@ Frame entries may repeat an image for timing; aliases and procedural overlays ar
 
 ## Registered game art
 
-The published checkpoint has **230 keys / 220 unique files**. All 20 game thumbnails and shared/game backgrounds are present, alongside 30 plant stages, priority props, UI rewards and effects. Fashion accessories and cake parts are included. Remaining art and code hookups are recorded in the queue.
+The published checkpoint has **263 keys / 245 unique files**. All 20 game thumbnails and shared/game backgrounds are present, alongside 30 plant stages, priority props, UI rewards and effects. Fashion accessories and cake parts are included. Remaining art and code hookups are recorded in the queue.
 
 
 ## Verification

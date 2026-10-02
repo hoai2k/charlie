@@ -162,3 +162,27 @@ When approaching the user's usage threshold, stop starting new generations,
 finish and save in-flight outputs, commit reviewed work, and write exact pending
 tasks and file paths. Leave unreviewed partial sets explicitly marked as partial.
 Do not rely on tool-result memory as the only copy of a prompt or output path.
+
+
+## Expanded-set checkpoint lessons
+
+Compare manifest keys with the union of every current request section after
+syncing main. A broad 74-key set can still miss `paint`; save an exact pending
+prompt rather than claiming complete coverage or aliasing another pose.
+When expanding long sets past the decoded budget, reduce the common frame size,
+bodyHeight and output anchor together. Reducing only newly added frame scales
+causes the character to shrink between actions. Keep source-relative landmark
+points and source action scale consistent with the neutral head size.
+
+Authored twirls need front, three-quarter, back and three-quarter frames. A
+single front pose with a procedural paper-width spin does not satisfy this.
+Keep balance art free of baked platforms and Storm Cloud lightning separate.
+
+A source-only checkpoint belongs in `pending/`, outside shipping specs, with
+exact prompts and clear unreviewed landmarks. Restore the shipping spec so a
+future blanket build cannot silently intake draft geometry. Never label draft
+points as visually verified.
+
+The request heartbeat checks new and changed requests every 30 minutes and
+cancels after one unchanged interval. It must honor the user's usage pause: queue
+new work while paused, without launching generation automatically.

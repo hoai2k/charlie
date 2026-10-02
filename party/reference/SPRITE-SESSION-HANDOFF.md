@@ -1,83 +1,65 @@
-# Sprite session handoff — 2026-10-02
+# Sprite session handoff — 2026-10-02 resumed checkpoint
 
-Wrap-up began at 44% account allowance remaining; the final review reached 42%.
-This is the pause checkpoint requested near 40%. No image calls remain queued
-for automatic execution.
-The full image brief is not complete; procedural fallbacks keep games playable.
+Production is paused at the user's requested 40% remaining allowance threshold
+(60% used). Do not start further image generation until the user resumes.
+The entire image brief is **not complete**. All approved canonicals remain approved.
 
-## Start here
+## Published and ready work
 
-- `../tools/sprites/AGENT-PLAYBOOK.md`: practical lessons, prompt/crop/anchor
-  conventions, observed failures, validation commands and safe Git workflow.
-- `IMAGE-WORK-QUEUE.md`: current priorities and latest hip-bump/knockback/dash
-  additions from main.
-- `ASSET-COVERAGE.md`: published set counts; aliases are explicitly distinguished
-  from authored frames.
-- `../assets/art/ART-STATUS.md`: 230 indexed art keys / 220 files, remaining
-  generation and remaining game hookups.
-- `../image-requests.md`: authoritative requirements, including new requests
-  from other agents. Re-sync main and compare its changes before new work.
+This resumed session published gold frame, eight art icons, candle flame,
+sprinkles, three legacy ingredients, matching bathtub front overlay, fountain,
+hedge, arena cake/crumb, danger ring and all eight pet-bow color keys.
+Reviewed expanded mermaid sets contain 74 pose keys, 91 frames and five portraits
+each, with shared output scaling; decoded sizes are 23.4 and 23.0 MiB.
+Their `paint` action remains pending, with exact saved prompts. The new lead
+review additionally requests head/neck/eyes attachment review.
 
-## Production status at wrap-up
+## Saved partial work: do not ship as completed sprites
 
-Felicity, Fellowfox and Bronze have the original actions, optional actions,
-Round 3 cycle upgrades and fourteen added game actions. All three KPop members,
-Cotton Candy, Fox and Unicorn have broad player sets. Fox's incorrectly sorted
-cycles were corrected and published. Approved NPC sets and cutouts are in use;
-Storm Cloud lightning remains a separate effect.
+Felicity's three new generated source sheets and exact prompts are committed as
+source work only. `tools/sprites/pending/felicity-round2-intake.json` holds crops
+and draft frames; shipping Felicity spec was restored to its validated version.
+The pending landmarks are defaults and need manual annotation, not blind build.
+Consolidate dash-launch/held, hip-cocked/swung, knockback-a/b into two-frame keys;
+combine twirl-front/right/back/left into a four-view `pose-twirl`.
+Compare head size against idle, adjust shared output size if decoded >25 MiB,
+set correct airborne anchors, loops, one-shot timings and facing. Review all
+new crops for clipping; discard any detached baked effect particles.
 
-Amber now has 43 authored pose keys and 60 frame entries. Hotdog has 45 pose
-keys, 60 frame entries and five portraits. Hotdog's neutral/blink matching,
-source order and sampled mouth/eye landmarks were corrected in review.
-Amber's celebration eye positions were corrected after a Fashion Show check.
-Snowstar and Birthday Cake retain their published core sets (20 pose keys,
-32 frame entries and five portraits each); extended actions remain queued.
-Marina and Scale now have 18 keys and 29 authored frames each, including new
-cycles. Each still needs 25 extended action keys. No placeholder action aliases
-were retained to inflate coverage. Metadata outside the sampled poses may
-benefit from further in-game attachment polish; broad multi-direction animation
-and every Round 2/3 action have not been fully authored.
+Snowstar/Cake in-flight status is recorded below after agents finish saving.
+No other character expansions were started by these agents after the pause.
 
+## Remaining queue
 
-The user has approved all current canonicals. Do not ask again or redesign them.
-Glimmer is lighter with no blush; Garden Fairies have varied skin tones and the
-purple fairy is light olive. Felicity travels with Fellowfox but their sprites
-are separate; KPop has three separate coordinated members. Marina/Scale have
-tails, Cake has no limbs, and Troll is NPC-only.
+Read the latest `../image-requests.md` regeneration table and IMAGE-WORK-QUEUE.
+General-art regenerations include podium blocks, confetti atlas, card ratio,
+green fizzle, rug angle, neutral cauldron/bubbles/bottle, separate Storm Cloud
+lightning, balloon framing, cookie flavor damage states, rock crop, platform
+crumble rings, 1024px hazard danger ring, four outlined crumb variants, outlined
+hedge, top-down garden day/night, stand angle, plant glow/seed and pearl
+tiara. Conditional plain sponge cake layers are also requested.
 
-## Next work after resuming
+New sprite review requests include Amber dance scale; Fox and Cotton Candy
+scale/ride anchors; Fox, Unicorn, KPop left/center, mermaid and Troll landmarks.
+Complete full action vocabulary for Felicity/Fellowfox/Bronze, KPop trio/Amber,
+Fox/Cotton Candy/Unicorn/Hotdog and Cake. Mermaids still need paint.
+Do not count aliases or engine fallbacks as newly authored artwork.
 
-1. Review the published pause checkpoint and choose one remaining character or
-   narrow prop family. No canonical approvals are pending.
-2. Complete the remaining initial/optional player actions for Snowstar, Cake
-   and the mermaids, reusing saved sheets. Check actual manifests first.
-3. Author the remaining Round 2/3 action vocabulary across the roster, including
-   hip-bump and knockback and the two-frame dash upgrade. Engine fallback keys
-   do not mean the artwork exists. Do not pad a manifest with placeholder aliases
-   to make a set appear complete.
-4. Finish the art list in ART-STATUS: art-studio icons/frame, flame/sprinkles,
-   bathtub front overlay, older distinct ingredients and arena props as needed.
-   Integrate suitable art without breaking procedural geometry/customization.
-5. Re-run asset validation, timing/landmark tests, art-loading tests and focused
-   in-game checks, then commit and push each completed character to main.
+## Resume workflow and monitoring
 
-Use lighter agents for isolated character intake/generation and narrow code
-changes, with a separate visual review. Save exact prompts immediately. Some
-Hotdog prompts lost in an earlier compaction are explicitly reconstructed;
-retain that label rather than claiming exact provenance.
+Read tools/sprites/AGENT-PLAYBOOK.md for prompt, intake, landmark, validation and
+safe Git lessons. Use lighter agents for isolated character/metadata work and
+root visual review. Never stage another worker's unfinished files.
 
-## Workspace and verification notes
+Sync main safely; SSH equivalent remote works while HTTPS credentials do not.
+Remove only macOS .git/._* sidecars before/after fetch if false pack errors occur.
+Keep configured origin unchanged. Commit and push reviewed batches regularly.
+The half-hour heartbeat `charlie-party-image-request-follow-up` queues new or
+changed requests while paused, and cancels after one unchanged 30-minute interval.
+Its newest baseline is in IMAGE-WORK-QUEUE.md.
 
-Other agents continue working in this repository. Preserve unrelated changes,
-especially outside `party/`; stage explicit paths. Main uses SSH for successful
-pushes in this environment. Clean only macOS `.git/._*` sidecars if Git reports
-their misleading pack-index errors; never remove real pack files.
-
-The local no-cache preview is on port 8141; older 8137/8140 previews may retain
-mixed module revisions. Final checkpoint validation passed for all 26 indexed sets (24.78 MiB total).
-Runtime timing/landmark tests and art-loading tests passed. Expected warnings
-remain for NPC-only action omissions and Felicity/Cotton Candy exceeding the
-1.5 MiB soft encoded target; all sets remain below 25 MiB decoded.
-After merging code, use a fresh/no-cache preview before diagnosing apparent
-missing exports. The image loader now bounds requests, shares aliases and
-retries once. Raw PNG copies and QA contact sheets are not shipped assets.
+No-cache preview is port 8141. Test timing/landmarks and art loading with:
+`node --test party/tools/sprites/runtime.test.mjs party/tools/sprites/art-loading.test.mjs`.
+Validate stable builds with `python3 party/tools/sprites/validate.py`.
+Per-member decoded limit is 25 MiB. Total encoded 25 MiB is now a distribution
+warning because sprites load on demand; 1.5 MiB per-member remains a soft target.

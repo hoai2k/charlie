@@ -87,3 +87,27 @@ Storm Cloud lightning stays separate per the user; supply a separate effect.
 Conditional sponge-layer art will be supplied for future configurable cakes.
 Snow/Cake agent also owns later Fox/Cotton Candy/Unicorn/Hotdog action extras;
 mermaid agent also owns later KPop trio/Amber extras. Root owns pilot extras.
+
+## Pause checkpoint at 40% remaining
+
+Production paused after the account check reached 60% used. No new generation
+should start until the user resumes. The half-hour monitor may queue requests,
+but must honor this production pause and cancel after an unchanged interval.
+
+Last checked revision: `6fa3543e7d72c8991d3ffde2c226bb429b090845`.
+Last checked UTC: 2026-10-02T21:08:58.672036+00:00.
+
+New lead-review requests from 76b86f1 / 6fa3543: Amber dance size; Fox ride size/
+anchor and dance/think/dance-star size plus head/mouth points; Cotton Candy run
+size, ride anchor and giggle size; Unicorn mouth/horn points; KPop left/center
+hand points; mermaid head/neck/eyes points; Troll hand points. Snowstar/Cake and
+mermaid carry/cast/dance additions should be compared to their new sets before
+duplicating generation. All requests in the regeneration table remain queued
+unless explicitly checked against delivered outputs.
+
+Latest sync also requests a 1024px thin hazard-striped danger ring, four outlined
+256px arena-cake crumb variants, and a navy-outlined hedge with darker side face.
+These supersede the small soft ring/crumbs delivered earlier.
+
+Last checked revision: `381256aa006fb8a8f66e458baa047cfff2a08dcc`.
+Last checked UTC: 2026-10-02T21:12:21.868344+00:00.
