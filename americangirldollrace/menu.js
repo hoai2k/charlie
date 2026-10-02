@@ -55,6 +55,43 @@
   const art = (key, pose) => key === RANDOM ? "assets/ui/random_card.webp" : `assets/portraits/${key}${pose ? `_${pose}` : ""}.webp`;
   const dollName = key => key === RANDOM ? "Random" : characters[key]?.name || key;
   const humanCount = () => lobby.slots.filter(Boolean).length;
+  const outfits = () => window.DollOutfits;
+  const outfitCount = key => (outfits() ? outfits().count(key) : 1);
+  // Outfits of `key` already claimed by locked players (other than `except`).
+  function outfitsTaken(key, except = -1) {
+    const taken = new Set();
+    lobby.slots.forEach((slot, index) => {
+      if (slot && slot.locked && index !== except && slot.doll === key) taken.add(slot.outfit || 0);
+    });
+    return taken;
+  }
+  function firstFreeOutfit(key, taken) {
+    for (let n = 0; n < outfitCount(key); n += 1) if (!taken.has(n)) return n;
+    return 0;
+  }
+  // Swatch colour for an outfit: the doll's own colour stands for her original clothes.
+  const outfitSwatch = (key, n) => outfits()?.colorOf(key, n) || characters[key]?.color || "#ccc";
+  // Sets a CSS background to the recoloured art once it's ready.
+  function setOutfitBackground(el, key, kind, n) {
+    const id = `${key}|${kind}|${n}`;
+    el.dataset.outfit = id;
+    el.style.backgroundImage = `url(${art(key, kind === "portrait" ? "" : kind)})`;
+    if (!n || !outfits()) return;
+    outfits().url(key, kind, n).then(src => {
+      if (el.dataset.outfit === id) el.style.backgroundImage = `url("${src}")`;
+    });
+  }
+  // Build the race sprite sheet for a chosen outfit ahead of time (it takes a
+  // moment), so the race can start straight away.
+  let prebuildTimer = null;
+  function prebuildSheets() {
+    clearTimeout(prebuildTimer);
+    prebuildTimer = setTimeout(() => {
+      for (const slot of lobby.slots) {
+        if (slot?.locked && slot.outfit && outfits()) outfits().get(slot.doll, "sheet", slot.outfit);
+      }
+    }, 600);
+  }
   const slotOf = device => lobby.slots.findIndex(slot => slot && slot.device === device);
   const nextFree = () => lobby.slots.findIndex(slot => !slot);
   const allReady = () => humanCount() > 0 && lobby.slots.every(slot => !slot || slot.locked);
@@ -256,7 +293,8 @@
       } else if (id[0] === "p") {
         renderPlayer(el, Number(id.slice(1)), bounceId === id);
       } else {
-        renderCpu(el, lobby.cpus[Number(id.slice(1))], bounceId === id);
+        const cpu = Number(id.slice(1));
+        renderCpu(el, lobby.cpus[cpu], bounceId === id, cpuOutfits()[cpu]);
       }
     });
   }
@@ -265,26 +303,79 @@
     const slot = lobby.slots[index];
     const color = slotColor(index);
     const key = slot.locked ? slot.doll : lobby.roster[slot.cursor];
-    const url = key === RANDOM ? art(RANDOM) : art(key, slot.locked ? "cheer" : "wave");
+    // While browsing, a doll someone else already has previews the outfit
+    // this player would get.
+    const outfit = key === RANDOM ? 0 : slot.locked ? slot.outfit || 0 : firstFreeOutfit(key, outfitsTaken(key, index));
     el.innerHTML = `
       <div class="lb-glow" style="background:${color}"></div>
       <div class="lb-pedestal"></div>
-      <div class="lb-doll${bounce ? " bounce" : slot.locked ? "" : " sway"}${key === RANDOM ? " random" : ""}" style="background-image:url(${url})"></div>
+      <div class="lb-doll${bounce ? " bounce" : slot.locked ? "" : " sway"}${key === RANDOM ? " random" : ""}"></div>
       ${slot.locked ? `<div class="lb-ribbon">READY!</div>` : `<div class="lb-label" style="color:${color}">${dollName(key)}</div>`}
       <div class="lb-device">${deviceName(slot.device)}</div>`;
+    const doll = el.querySelector(".lb-doll");
+    if (key === RANDOM) doll.style.backgroundImage = `url(${art(RANDOM)})`;
+    else setOutfitBackground(doll, key, slot.locked ? "cheer" : "wave", outfit);
+    if (slot.locked && outfitCount(key) > 1) el.appendChild(outfitSwatches(index, key));
     const b = badge(index, 52);
     b.classList.add("lb-badge");
     el.appendChild(b);
   }
 
-  function renderCpu(el, key, bounce) {
+  // ◀ ● ● ● ▶ row under a ready player: their outfit is ringed, outfits
+  // other players on the same doll have are faded out.
+  function outfitSwatches(index, key) {
+    const slot = lobby.slots[index];
+    const taken = outfitsTaken(key, index);
+    const row = document.createElement("div");
+    row.className = "lb-outfits";
+    const arrow = (text, d) => {
+      const el = document.createElement("span");
+      el.className = "lb-outfit-arrow";
+      el.textContent = text;
+      el.addEventListener("pointerdown", event => { event.preventDefault(); event.stopPropagation(); cycleOutfit(index, d); });
+      return el;
+    };
+    row.appendChild(arrow("◀", -1));
+    for (let n = 0; n < outfitCount(key); n += 1) {
+      const dot = document.createElement("span");
+      dot.className = `lb-outfit${n === (slot.outfit || 0) ? " current" : ""}${taken.has(n) ? " taken" : ""}`;
+      dot.style.background = outfitSwatch(key, n);
+      dot.addEventListener("pointerdown", event => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (!taken.has(n)) setOutfit(index, n);
+      });
+      row.appendChild(dot);
+    }
+    row.appendChild(arrow("▶", 1));
+    return row;
+  }
+
+  function renderCpu(el, key, bounce, outfit = 0) {
     el.innerHTML = `
       <div class="lb-glow" style="background:#7a7f8c"></div>
       <div class="lb-pedestal"></div>
-      <div class="lb-doll${bounce ? " bounce" : ""}" style="background-image:url(${art(key, "cheer")})"></div>
+      <div class="lb-doll${bounce ? " bounce" : ""}"></div>
       <div class="lb-ribbon">CPU</div>
       <div class="lb-badge lb-ai"></div>
       <div class="lb-device">Computer</div>`;
+    setOutfitBackground(el.querySelector(".lb-doll"), key, "cheer", outfit);
+  }
+
+  // Computer racers on a doll a player has get the next free outfits.
+  function cpuOutfits() {
+    const taken = new Map();
+    for (const slot of lobby.slots) {
+      if (!slot?.locked) continue;
+      if (!taken.has(slot.doll)) taken.set(slot.doll, new Set());
+      taken.get(slot.doll).add(slot.outfit || 0);
+    }
+    return lobby.cpus.map(key => {
+      if (!taken.has(key)) taken.set(key, new Set());
+      const n = firstFreeOutfit(key, taken.get(key));
+      taken.get(key).add(n);
+      return n;
+    });
   }
 
   function renderCursors() {
@@ -403,14 +494,46 @@
     const pick = lobby.roster[slot.cursor];
     // Random can land on any doll, including hidden ones like Penelope.
     const pool = ROSTER_ORDER.filter(key => characters[key]);
+    const previousDoll = slot.doll;
     slot.doll = pick === RANDOM ? pool[Math.floor(Math.random() * pool.length)] : pick;
+    // Keep the outfit when re-picking the same doll; never share one with
+    // another player on the same doll.
+    const taken = outfitsTaken(slot.doll, index);
+    const wanted = slot.doll === previousDoll ? slot.outfit || 0 : 0;
+    slot.outfit = taken.has(wanted) ? firstFreeOutfit(slot.doll, taken) : wanted;
     slot.locked = true;
+    prebuildSheets();
     slot.aFresh = false;
     renderStalls(`p${index}`);
     renderCursors();
     renderRaceBar();
     burstAt(lobby.stallEls.get(`p${index}`));
     sound("ui_select_character");
+  }
+
+  function setOutfit(index, n) {
+    const slot = lobby.slots[index];
+    if (!slot?.locked || n === (slot.outfit || 0)) return;
+    slot.outfit = n;
+    sound("ui_hover");
+    renderAll();
+    prebuildSheets();
+  }
+
+  // ◀/▶ after choosing a doll steps through her outfits, skipping any that
+  // another player on the same doll already has.
+  function cycleOutfit(index, d) {
+    const slot = lobby.slots[index];
+    if (!slot?.locked) return;
+    const total = outfitCount(slot.doll);
+    if (total < 2) return;
+    const taken = outfitsTaken(slot.doll, index);
+    let n = slot.outfit || 0;
+    for (let step = 0; step < total; step += 1) {
+      n = (n + d + total) % total;
+      if (!taken.has(n)) break;
+    }
+    setOutfit(index, n);
   }
 
   function back(index) {
@@ -529,10 +652,25 @@
   // ---------- starting the race: hand the lobby to the game ----------
   function startRaceFromLobby() {
     if (assetsFailed) { window.location.reload(); return; }
-    if (!assetsReady || !allReady()) return;
+    if (!assetsReady || !allReady() || lobby.dressing) return;
+    // Recoloured sprite sheets must exist before the race draws them.
+    const pending = lobby.slots
+      .filter(slot => slot && slot.outfit && outfits())
+      .map(slot => outfits().getSync(slot.doll, "sheet", slot.outfit) ? null : outfits().get(slot.doll, "sheet", slot.outfit))
+      .filter(Boolean);
+    if (pending.length) {
+      lobby.dressing = true;
+      $("#lbRaceText").textContent = "Getting dressed…";
+      Promise.all(pending).finally(() => {
+        lobby.dressing = false;
+        if (isMenuOpen() && lobby.screen === "select" && allReady()) startRaceFromLobby();
+      });
+      return;
+    }
     // Touch controls only drive player 1, so a touch player always goes first.
     const humans = lobby.slots.filter(Boolean).sort((a, b) => (b.device === "touch") - (a.device === "touch"));
     const cpus = lobby.cpus.slice(0, MAX_PLAYERS - humans.length);
+    state.raceOutfits = [...humans.map(slot => slot.outfit || 0), ...cpuOutfits().slice(0, cpus.length)];
     updateCharacterSelectOptions();
     [...humans.map(slot => slot.doll), ...cpus].forEach((key, index) => {
       const select = characterSelects[index];
@@ -658,6 +796,7 @@
       else slot.aFresh = true;
       if (action === "start" && allReady() && humanCount() === 1) startRaceFromLobby();
     } else if (action === "b") back(index);
+    else if (slot.locked && (action === "left" || action === "right")) cycleOutfit(index, action === "left" ? -1 : 1);
     else if (action === "left") move(index, -1, 0);
     else if (action === "right") move(index, 1, 0);
     else if (action === "up") move(index, 0, -1);
@@ -722,7 +861,7 @@
       const before = lobby.hold;
       lobby.hold = holding ? Math.min(1, lobby.hold + dt / 0.9) : Math.max(0, lobby.hold - dt * 2);
       if (lobby.hold !== before) $("#lbRaceFill").style.width = `${lobby.hold * 100}%`;
-      if (lobby.hold >= 1) { startRaceFromLobby(); return; }
+      if (lobby.hold >= 1) { lobby.hold = 0; startRaceFromLobby(); }
       if (lobby.lastAssetsReady !== assetsReady) { lobby.lastAssetsReady = assetsReady; renderRaceBar(); }
     }
     for (let k = lobby.confetti.length - 1; k >= 0; k -= 1) {
@@ -767,7 +906,7 @@
         const device = pad !== null && pad !== undefined ? `pad${pad}` : keys || (isTouchDevice() ? "touch" : "wasd");
         if (slotOf(device) >= 0) return;
         const cursor = Math.max(0, lobby.roster.indexOf(racer.spriteKey));
-        lobby.slots[index] = { device, cursor, locked: false, doll: null, aFresh: false };
+        lobby.slots[index] = { device, cursor, locked: false, doll: racer.spriteKey, outfit: racer.outfit || 0, aFresh: false };
       });
       lobby.cpus = state.racers.filter(racer => racer.ai).map(racer => racer.spriteKey).slice(0, MAX_CPUS);
     },
