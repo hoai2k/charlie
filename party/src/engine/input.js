@@ -47,7 +47,8 @@ function deadzone(x, y) {
 }
 
 function emptyState() {
-  const s = { x: 0, y: 0, rx: 0, ry: 0 };
+  // Axes use lx/ly so they can't collide with the 'x'/'y' buttons.
+  const s = { lx: 0, ly: 0, rx: 0, ry: 0 };
   for (const b of BUTTONS) s[b] = false;
   return s;
 }
@@ -65,8 +66,8 @@ export class Controller {
     this.lastActive = 0;
   }
   get isAI() { return this.kind === 'ai'; }
-  get x() { return this.cur.x; }
-  get y() { return this.cur.y; }
+  get x() { return this.cur.lx; }
+  get y() { return this.cur.ly; }
   get rx() { return this.cur.rx; }
   get ry() { return this.cur.ry; }
   held(b) { return !!this.cur[b]; }
@@ -87,20 +88,20 @@ export class Controller {
     const t = this.prev; this.prev = this.cur; this.cur = t;
     const s = this.cur;
     for (const b of BUTTONS) s[b] = false;
-    s.x = s.y = s.rx = s.ry = 0;
+    s.lx = s.ly = s.rx = s.ry = 0;
     this.poll(s);
     // D-pad also drives the move axes.
-    if (s.left) s.x = -1; if (s.right) s.x = 1;
-    if (s.up) s.y = -1; if (s.down) s.y = 1;
-    if (this.anyPressed() || Math.abs(s.x) > 0.5 || Math.abs(s.y) > 0.5) this.lastActive = now;
+    if (s.left) s.lx = -1; if (s.right) s.lx = 1;
+    if (s.up) s.ly = -1; if (s.down) s.ly = 1;
+    if (this.anyPressed() || Math.abs(s.lx) > 0.5 || Math.abs(s.ly) > 0.5) this.lastActive = now;
     this._updateNav(dt);
   }
   _updateNav(dt) {
     const dir = (v) => (v > 0.5 ? 1 : v < -0.5 ? -1 : 0);
-    const dx = dir(this.cur.x), dy = dir(this.cur.y);
+    const dx = dir(this.cur.lx), dy = dir(this.cur.ly);
     // Pick the dominant axis so diagonals don't double-step.
     let nx = dx, ny = dy;
-    if (dx && dy) { if (Math.abs(this.cur.x) >= Math.abs(this.cur.y)) ny = 0; else nx = 0; }
+    if (dx && dy) { if (Math.abs(this.cur.lx) >= Math.abs(this.cur.ly)) ny = 0; else nx = 0; }
     const h = this._navHeld;
     this.nav.x = 0; this.nav.y = 0;
     if (nx !== h.x || ny !== h.y) {
@@ -136,7 +137,7 @@ class PadController extends Controller {
     // Guide/home button acts as start on some browsers.
     if (bt[16] && bt[16].pressed) s.start = true;
     const ax = p.axes;
-    [s.x, s.y] = deadzone(ax[0] || 0, ax[1] || 0);
+    [s.lx, s.ly] = deadzone(ax[0] || 0, ax[1] || 0);
     [s.rx, s.ry] = deadzone(ax[2] || 0, ax[3] || 0);
   }
   rumble(strength = 0.5, ms = 120) {
@@ -186,7 +187,7 @@ export class AIController extends Controller {
   hold(b, on = true) { if (on) this._hold.add(b); else this._hold.delete(b); }
   reset() { this._axis.x = this._axis.y = 0; this._hold.clear(); this._tap.clear(); }
   poll(s) {
-    s.x = this._axis.x; s.y = this._axis.y;
+    s.lx = this._axis.x; s.ly = this._axis.y;
     for (const b of this._hold) s[b] = true;
     // A tap is down for one frame; tapping every frame looks like holding, so
     // mash AI should leave at least one frame between taps.

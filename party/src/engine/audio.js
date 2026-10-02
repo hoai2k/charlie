@@ -213,6 +213,15 @@ export function sfx(name, opts = {}) {
 }
 export const SFX_NAMES = Object.keys(SYNTH);
 
+// Character voice clips: manifest keys "voice/<charId>/<kind>". Until clips
+// exist each kind falls back to a synth stand-in.
+export const VOICE_KINDS = { hello: 'join', ready: 'ready', yay: 'yay', aww: 'aww', ouch: 'bonk', woo: 'yay', laugh: 'giggle', gasp: 'blip' };
+export function voice(charId, kind) {
+  const key = `voice/${charId}/${kind}`;
+  if (fileBuffers.has(key)) sfx(key);
+  else sfx(VOICE_KINDS[kind] || 'blip');
+}
+
 // --- music -----------------------------------------------------------------
 
 // Each song: bpm, root (midi), scale, chord progression (scale degrees), and

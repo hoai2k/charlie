@@ -28,7 +28,7 @@ export const CHARACTERS = [
     ],
   },
   {
-    id: 'kpop-girls', name: 'KPop Girls', subtitle: 'Trio', color: '#b04dff',
+    id: 'kpop-girls', name: 'KPop Girls', subtitle: 'Trio', plural: true, color: '#b04dff',
     blurb: 'Three performers, always together',
     members: [
       { asset: 'kpop-girl-center', h: 158, dx: 0, dy: 0, follow: 0, face: [0.165, 0.22, 0.1], top: 0.97, facing: 0, motion: 'walk' },

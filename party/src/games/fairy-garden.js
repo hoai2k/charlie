@@ -1,0 +1,18 @@
+// PLACEHOLDER — replaced by the real minigame. See PLAN.md and games/README.md.
+import { PlaceholderGame } from './_placeholder.js';
+
+export const meta = {
+  id: 'fairy-garden',
+  title: 'Fairy Garden',
+  category: 'studio',
+  type: 'Cooperative',
+  goal: 'Grow a glowing garden for the fairies!',
+  controls: [['stick', 'Move'], ['a', 'Action']],
+  tips: ['This game is still being built.'],
+  music: 'chill',
+  minPlayers: 1,
+  maxPlayers: 8,
+  placeholder: true,
+};
+
+export { PlaceholderGame as Game };

@@ -16,9 +16,11 @@ import { setupCanvas, beginFrame, endFrame, W, H } from './engine/canvas.js';
 import { input } from './engine/input.js';
 import { initAudio, unlockAudio, setMuted } from './engine/audio.js';
 import { loadSprites } from './engine/sprites.js';
+import { loadArt } from './engine/art.js';
 import { particles } from './engine/particles.js';
 import { fx } from './engine/fx.js';
 import { scenes } from './engine/scenes.js';
+import { shell } from './engine/shell.js';
 import * as ui from './engine/ui.js';
 import { session, makePlayer, newAIController, randomFreeCharacter } from './state.js';
 import { CHARACTERS } from './data/characters.js';
@@ -33,24 +35,7 @@ const canvas = document.getElementById('game');
 const g = setupCanvas(canvas);
 input.init(canvas);
 
-// Fullscreen + sound need a user gesture. Keyboard/pointer events are real
-// gestures; gamepad presses are not in most browsers, so we also try then and
-// fall back to a "click for fullscreen" hint.
-export const shell = {
-  wantFullscreen: false,
-  tryFullscreen() {
-    const el = document.documentElement;
-    if (document.fullscreenElement || document.webkitFullscreenElement) return true;
-    const req = el.requestFullscreen || el.webkitRequestFullscreen;
-    if (!req) return false;
-    try {
-      const p = req.call(el, { navigationUI: 'hide' });
-      if (p && p.catch) p.catch(() => {});
-    } catch (e) { /* not allowed without a gesture */ }
-    return !!(document.fullscreenElement || document.webkitFullscreenElement);
-  },
-  isFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); },
-};
+// Fullscreen + sound need a user gesture (see engine/shell.js).
 input.onUserGesture = () => {
   unlockAudio();
   if (shell.wantFullscreen) shell.tryFullscreen();
@@ -70,7 +55,7 @@ async function boot() {
   initAudio();
   // Wait (briefly) for the font so the first frames use it.
   try { await Promise.race([document.fonts.load('700 40px Fredoka'), new Promise((r) => setTimeout(r, 1500))]); } catch (e) { /* ignore */ }
-  await loadSprites((p) => { loadProgress = p; });
+  await Promise.all([loadSprites((p) => { loadProgress = p; }), loadArt()]);
 
   scenes.register('sprites', new SpriteViewerScene());
   const extra = await import('./scenes/index.js').catch((e) => { console.warn('Scenes not available yet', e); return null; });
