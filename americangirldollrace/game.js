@@ -537,6 +537,34 @@ function validateSpriteSheets() {
   }
 }
 
+/* Alternate outfit colours (outfits.js). racer.outfit 0 = original clothes. */
+function applyRacerOutfit(racer, outfit) {
+  racer.outfit = outfit || 0;
+  if (!racer.outfit || !window.DollOutfits) return;
+  const ready = DollOutfits.getSync(racer.spriteKey, "sheet", racer.outfit);
+  if (ready) {
+    racer.sheet = ready;
+    return;
+  }
+  // Not built yet (e.g. a mid-race join): swap it in as soon as it is.
+  DollOutfits.get(racer.spriteKey, "sheet", racer.outfit).then(sheet => {
+    if (racer.outfit === outfit && sheet) racer.sheet = sheet;
+  });
+}
+
+function dedupeRacerOutfits() {
+  if (!window.DollOutfits) return;
+  const taken = new Map();
+  // Players keep what they chose; computer racers move if they clash.
+  const ordered = state.racers.slice().sort((a, b) => a.ai - b.ai);
+  for (const racer of ordered) {
+    const used = taken.get(racer.spriteKey) || new Set();
+    if (used.has(racer.outfit)) applyRacerOutfit(racer, DollOutfits.firstFree(racer.spriteKey, used));
+    used.add(racer.outfit);
+    taken.set(racer.spriteKey, used);
+  }
+}
+
 function resetRace(mode = state.mode) {
   clearNextRaceTimer();
   updateMobileModeAvailability();
@@ -599,8 +627,11 @@ function resetRace(mode = state.mode) {
       character.riderYOffset,
       character.riderXOffset
     );
+    applyRacerOutfit(racer, state.raceOutfits?.[index] || 0);
     state.racers.push(racer);
   }
+  // Two racers on the same doll never share an outfit (e.g. computer racers).
+  dedupeRacerOutfits();
   updatePlayerLabels();
   updateModeLabels();
   updateBackgroundSelect();
@@ -778,7 +809,17 @@ function updatePlayerLabels() {
     const badge = card.querySelector(".hud-badge");
     badge.classList.toggle("ai", racer.ai);
     badge.style.backgroundPosition = racer.ai ? "" : `${(racer.playerIndex % 8) * (100 / 7)}% 0`;
-    card.querySelector(".hud-face").style.backgroundImage = `url("assets/portraits/${racer.spriteKey}.webp")`;
+    const face = card.querySelector(".hud-face");
+    const faceKey = `${racer.spriteKey}|${racer.outfit || 0}`;
+    if (face.dataset.key !== faceKey) {
+      face.dataset.key = faceKey;
+      face.style.backgroundImage = `url("assets/portraits/${racer.spriteKey}.webp")`;
+      if (racer.outfit && window.DollOutfits) {
+        DollOutfits.url(racer.spriteKey, "portrait", racer.outfit).then(src => {
+          if (face.dataset.key === faceKey) face.style.backgroundImage = `url("${src}")`;
+        });
+      }
+    }
     playerLabels[index].textContent = racer.ai ? `${racer.name} (CPU)` : racer.name;
     playerLabels[index].style.color = "";
   }
@@ -3227,6 +3268,10 @@ function spawnJoinedPlayer(picker) {
     character.riderXOffset
   );
   racer.joinFlashTimer = 1.4;
+  if (window.DollOutfits) {
+    const used = new Set(state.racers.filter(other => other.spriteKey === racer.spriteKey).map(other => other.outfit || 0));
+    applyRacerOutfit(racer, DollOutfits.firstFree(racer.spriteKey, used));
+  }
   state.racers.push(racer);
   state.retiredPads.delete(picker.pad);
   state.slotPads[slot] = picker.pad;
@@ -3331,6 +3376,7 @@ function compactSlotsForNextRace() {
   humans.concat(ais).forEach((racer, index) => {
     if (characterSelects[index]) characterSelects[index].value = racer.spriteKey;
   });
+  state.raceOutfits = humans.concat(ais).map(racer => racer.outfit || 0);
   for (let index = 0; index < MAX_PLAYERS; index += 1) {
     state.slotPads[index] = pads[index] ?? null;
     state.slotKeys[index] = schemes[index] ?? null;
@@ -4650,7 +4696,7 @@ function drawVictoryPodium(winner, elapsed) {
     // Doll: the winner hops, the others sway.
     const hop = index === 0 ? Math.abs(Math.sin(elapsed * VICTORY_JUMP_SPEED)) * 34 : 0;
     const sway = index === 0 ? 0 : Math.sin(elapsed * 0.003 + index) * 0.04;
-    const image = getPortraitImage(racer.spriteKey, step.pose);
+    const image = (racer.outfit && window.DollOutfits?.getSync(racer.spriteKey, step.pose, racer.outfit)) || getPortraitImage(racer.spriteKey, step.pose);
     ctx.save();
     ctx.globalAlpha = 0.25;
     ctx.fillStyle = "#142027";
@@ -4694,8 +4740,11 @@ function drawVictoryBanner(winner, elapsed) {
   ctx.lineWidth = 10;
   ctx.strokeStyle = "white";
   ctx.fillStyle = winner.ai ? winner.color : slotColor(winner.playerIndex);
-  ctx.strokeText(`${winner.name} Wins!`, 0, 0);
-  ctx.fillText(`${winner.name} Wins!`, 0, 0);
+  // With two of the same doll racing, say which player won.
+  const twin = state.racers.some(racer => racer !== winner && racer.name === winner.name);
+  const title = `${twin && !winner.ai ? `P${winner.playerIndex + 1} ` : ""}${winner.name} Wins!`;
+  ctx.strokeText(title, 0, 0);
+  ctx.fillText(title, 0, 0);
   ctx.font = "700 26px Fredoka, system-ui, sans-serif";
   ctx.lineWidth = 6;
   ctx.strokeStyle = "#7a3b12";
