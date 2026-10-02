@@ -1,6 +1,7 @@
 # Image work queue
 
-Synced with main through `31cd4f0` (Round 3 of `image-requests.md`, 2026-10-02).
+Synced with main through `721b9ed` (including the Bumper Bounce request update,
+2026-10-02), merged at `e3cfde0`.
 The brief remains authoritative; this file records sequencing and ownership.
 All NPC canonical designs are now user-approved, including no-blush Glimmer
 and the diverse Garden Fairies with a light olive purple fairy.
@@ -31,6 +32,23 @@ are intentional, while Marina/Scale still need their extended player actions.
 
 Use `tools/sprites/AGENT-PLAYBOOK.md` for practical generation/intake/QA lessons.
 The integrator reviews visuals, shared code, browser behavior and commits.
+
+## New requests from the latest sync
+
+- `hip-bump`: two authored frames at 10 fps, hip cocked then swung toward facing,
+  arms balancing, cheeky grin, `holdLast`, motion 0.3. Bumper Bounce now requests
+  this instead of push. Adapt for quadrupeds/tails and Cake without new limbs.
+- `knockback`: two frames at 8 fps, leaning back and windmilling/skidding away
+  from the hit, motion 0.3. Bumper Bounce holds this about 0.7 seconds. The engine
+  already supplies fallback lean, wobble, flash and dust; authored images remain
+  queued across the roster.
+- `dash`: upgrade to two frames (launch and held lunge) with `holdLast` for Crown
+  Keeper. Existing single-frame dash artwork remains usable until upgraded.
+- No fake paper-width twirls. Actual spins in celebrate/ready/pose-twirl require
+  front/three-quarter/back/three-quarter artwork; the engine fallback now hops.
+
+These are additive follow-ups after the remaining roster's initial vocabulary;
+they must not cause completed unrelated sheets to be regenerated.
 
 ## Quality and verification
 
