@@ -70,9 +70,6 @@ const canvas = document.querySelector("#doll-canvas");
 const pauseButton = document.querySelector("#pause-game");
 const openSelectButton = document.querySelector("#open-select");
 const titleScreen = document.querySelector("#title-screen");
-const titleParade = document.querySelector("#title-parade");
-const selectScreen = document.querySelector("#select-screen");
-const selectPlayButton = document.querySelector("#select-play");
 const backgroundList = document.querySelector("#background-list");
 const characterList = document.querySelector("#character-list");
 const debugTools = document.querySelector("#debug-tools");
@@ -119,7 +116,7 @@ let lastStatusAt = 0;
 let lastState = createDemoPuppetState(0);
 let selectedBackground = "farm";
 let selectedCharacter = initialCharacterId;
-// "title" -> "select" -> "play"; the select screen can be reopened mid-game.
+// "title" (pick a doll) -> "play"; the Dolls button returns to the title.
 let screen = "title";
 let backgroundOffset = 0;
 let backgroundVelocity = 0;
@@ -678,13 +675,14 @@ function buildCharacterChoices() {
     button.dataset.portrait = style.portrait ? "full" : "head";
     button.setAttribute("role", "option");
     button.style.setProperty("--card-color", style.color ?? "#6a3aa8");
+    button.style.setProperty("--i", String(characterList.children.length));
     button.style.setProperty("--card-image", `url("${characterArt(character.id)}")`);
     button.innerHTML = `
       <span class="character-art" aria-hidden="true"></span>
       <span class="character-name">${character.label}</span>
     `;
     button.addEventListener("click", () => {
-      setCharacter(character.id);
+      playAs(character.id);
     });
     characterList.append(button);
   }
@@ -720,17 +718,6 @@ function applyOptionalTitleArt() {
   });
 }
 
-function buildTitleParade() {
-  const ids = Object.keys(CHARACTER_STYLES).filter((id) => CHARACTER_STYLES[id].portrait && visibleDollCharacters[id]);
-  ids.forEach((id, index) => {
-    const doll = document.createElement("span");
-    doll.className = "parade-doll";
-    doll.style.setProperty("--portrait", `url("${characterArt(id)}")`);
-    doll.style.setProperty("--i", String(index));
-    titleParade.append(doll);
-  });
-}
-
 function setCharacter(characterId, { updateUrl = true } = {}) {
   if (!visibleDollCharacters[characterId]) {
     return;
@@ -740,7 +727,7 @@ function setCharacter(characterId, { updateUrl = true } = {}) {
   for (const card of characterList.querySelectorAll(".character-card")) {
     const selected = card.dataset.character === characterId;
     card.setAttribute("aria-selected", String(selected));
-    if (selected && screen === "select") {
+    if (selected && screen === "title") {
       card.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
     }
   }
@@ -759,38 +746,34 @@ function setScreen(next) {
   screen = next;
   app.dataset.screen = next;
   titleScreen.hidden = next !== "title";
-  selectScreen.hidden = next !== "select";
   gestureHints.hidden = next !== "play" || hintsDismissed;
-  if (next === "select") {
+  if (next === "title") {
+    // Coming back from a game: keyboard focus starts on the current doll.
+    if (characterList.dataset.picked === "true") {
+      characterList.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true });
+    }
+  } else if (next === "play") {
     if (paused) {
-      // Show the doll moving while choosing.
       pausedForHidden = false;
       void setPaused(false);
     }
-    characterList.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true });
-    setCharacter(selectedCharacter, { updateUrl: false });
-  } else if (next === "play") {
     pauseButton.focus({ preventScroll: true });
   }
 }
 
-function startFromTitle() {
-  if (screen !== "title") {
-    return;
+// Picking a doll is the "start" press: go straight into the game and ask for
+// the camera then (after a tap, never on page load).
+function playAs(characterId) {
+  characterList.dataset.picked = "true";
+  setCharacter(characterId);
+  setScreen("play");
+  if (!usingCamera && !cameraStarting) {
+    void startCamera();
   }
-  setScreen("select");
-  // Ask for the camera now, after a tap, rather than the moment the page opens.
-  void startCamera();
 }
 
-titleScreen.addEventListener("click", startFromTitle);
-
-selectPlayButton.addEventListener("click", () => {
-  setScreen("play");
-});
-
 openSelectButton.addEventListener("click", () => {
-  setScreen("select");
+  setScreen("title");
 });
 
 pauseButton.addEventListener("click", () => {
@@ -880,22 +863,17 @@ window.addEventListener("keydown", (event) => {
   }
 
   if (screen === "title") {
-    if (["Enter", " ", "Escape"].includes(event.key)) {
-      event.preventDefault();
-      startFromTitle();
-    }
-    return;
-  }
-
-  if (screen === "select") {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       event.preventDefault();
+      characterList.dataset.picked = "true";
       stepCharacter(event.key === "ArrowLeft" ? -1 : 1);
       characterList.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true });
-    } else if (event.key === "Escape") {
+    } else if (event.key === "Escape" && (usingCamera || cameraStarting)) {
+      // Back to the game already in progress.
       event.preventDefault();
       setScreen("play");
     }
+    // Enter/Space press the focused doll card like a tap.
     return;
   }
 
@@ -913,7 +891,7 @@ canvas.addEventListener("pointercancel", endBackgroundDrag);
 
 buildBackgroundChoices();
 buildCharacterChoices();
-buildTitleParade();
+characterList.dataset.picked = String(Boolean(visibleDollCharacters[requestedCharacter]));
 upgradeHeadPortraits();
 applyOptionalTitleArt();
 if (debugTools) {

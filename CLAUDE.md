@@ -58,8 +58,9 @@ See `AGENTS.md` for the shared agent instructions and push recovery guidance.
 - `dollpuppets/src/core/face-stabilizer.js` sits between the tracker and the
   renderer: it holds the pose through brief tracking dropouts and smooths
   movement. Feed new tracker results through it, not straight to render.
-- `dollpuppets/` opens on a title screen, then a "Choose your doll" screen;
-  the camera is only requested after the title tap. Card colours/portraits are
+- `dollpuppets/` opens on a title screen that is also the doll picker:
+  tapping a doll starts the game and requests the camera (never on page
+  load). The in-game "Dolls" button returns to it. Card colours/portraits are
   in `CHARACTER_STYLES` in `site.js`. Optional art listed in
   `dollpuppets/image-requests.md` is picked up automatically when the file
   exists. Bump the `?v=` on `site.css`/`site.js` in its `index.html` on change.
