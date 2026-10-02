@@ -9,7 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20261002h">
+    <!-- Title racers load first so the opening gallop isn't late. -->
+    <link rel="preload" as="image" href="assets/ui/title_hero_whirlpool.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_juliette.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_claudia.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_lily.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_rumi.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hero_kaya.webp" fetchpriority="high">
+    <link rel="stylesheet" href="styles.css?v=20261002i">
   </head>
   <body>
     <main class="shell">
@@ -286,10 +293,10 @@
         <audio id="nextMusic" preload="auto" loop></audio>
       </section>
     </main>
-    <script src="config.js?v=20261002h"></script>
-    <script src="assets/audio/manifest.js?v=20261002h"></script>
-    <script src="audio.js?v=20261002h"></script>
-    <script src="game.js?v=20261002h"></script>
-    <script src="menu.js?v=20261002h"></script>
+    <script src="config.js?v=20261002i"></script>
+    <script src="assets/audio/manifest.js?v=20261002i"></script>
+    <script src="audio.js?v=20261002i"></script>
+    <script src="game.js?v=20261002i"></script>
+    <script src="menu.js?v=20261002i"></script>
   </body>
 </html>

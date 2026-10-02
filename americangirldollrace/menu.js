@@ -105,10 +105,11 @@
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let titleLayers = [];
   let titleLayerStart = 0;
+  let titleFallbackStart = null;
 
   async function loadTitleHero() {
     try {
-      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002h", document.baseURI);
+      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002i", document.baseURI);
       const response = await fetch(layoutUrl);
       if (!response.ok) throw new Error(`Title layout: ${response.status}`);
       const layout = await response.json();
@@ -133,8 +134,11 @@
       titleHero.classList.add("layered");
       titleHero.style.transform = "";
     } catch (error) {
-      // Leave the original composite in place if any layer cannot load.
+      // Show the original single-picture group only if a layer can't load, so
+      // the group never makes its entrance twice.
       console.warn("Using the original title artwork", error);
+      titleFallbackStart = lobby.time;
+      titleHero.classList.add("fallback");
     }
   }
 
@@ -694,8 +698,9 @@
       $("#lbTitleClouds").style.backgroundPositionX = `${-t * 18}px`;
       $("#lbTitleHills").style.backgroundPositionX = `${-t * 70}px`;
       if (titleLayers.length) animateTitleHero(lobby.time - titleLayerStart);
-      else {
-        const ease = reducedMotion.matches ? 1 : 1 - Math.pow(1 - Math.min(1, t / 1.4), 3);
+      else if (titleFallbackStart !== null) {
+        const since = lobby.time - titleFallbackStart;
+        const ease = reducedMotion.matches ? 1 : 1 - Math.pow(1 - Math.min(1, since / 1.4), 3);
         titleHero.style.transform = `translateX(${(1 - ease) * -900}px)`;
       }
     } else if (!lobby.settingsOpen) {
