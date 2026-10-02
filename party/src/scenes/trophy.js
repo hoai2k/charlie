@@ -56,7 +56,7 @@ export class TrophyScene {
     if (hasSound('jingle/trophy')) sfx('jingle/trophy'); else sfx('fanfare'); setTimeout(() => sfx('cheer'), 500);
     host('champion');
     if (this.champs.length === 1) setTimeout(() => host('name/' + session.players[this.champs[0]].charId), 1800);
-    for (const i of this.champs) voice(session.players[i].charId, 'yay');
+    this.actors.filter((x) => x.champ).forEach(({ a, i }) => a.say(charById(session.players[i].charId).lines?.win || 'Hooray!', 3, 'yay'));
     session.partyMode = null;
   }
 

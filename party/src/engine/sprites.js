@@ -17,6 +17,7 @@
 //   a.setPose('walk');             // see POSES below
 //   a.playOnce('action', 0.35);    // one-shot pose, then back to the previous pose
 //   a.squash(0.25); a.flash('#fff'); a.tint('#ff66cc', 0.3); a.emote('heart', 1.2);
+//   a.say('Yay!', 1.5);            // speech bubble (characters never talk out loud)
 //   a.update(dt); a.draw(g, { ring: '#ff4d6d' });
 //
 // Attachments (crowns, hats, wands, carried presents) ride the pose motion:
@@ -30,6 +31,7 @@
 
 import { CHARACTERS, ALL_ASSETS, charById } from '../data/characters.js';
 import { drawEmote } from './emotes.js';
+import { voice } from './audio.js';
 import { clamp, damp, TAU } from './util.js';
 
 // ---------------------------------------------------------------------------
@@ -439,6 +441,18 @@ export class Actor {
   }
   clearEmotes() { this.emotes = []; return this; }
 
+  /**
+   * Speech bubble above the head. Characters never say words out loud: the
+   * bubble launches with a non-word voice sound (giggle, yip, beep...).
+   * a.say('Yay!', 1.5, 'yay')   kind: hello ready yay aww ouch woo laugh gasp, or null for silent
+   * a.say(null) clears.
+   */
+  say(text, dur = 1.6, kind = 'laugh') {
+    this.speech = text ? { text, t: 0, dur } : null;
+    if (text && kind) voice(this.charId, kind);
+    return this;
+  }
+
   /** Draw something attached to a member (see header). Returns a handle for detach(). */
   attach(fn, { member = 0, behind = false } = {}) {
     const h = { fn, member, behind };
@@ -506,6 +520,7 @@ export class Actor {
     s.v += (-s.p * 260 - s.v * 16) * dt; s.p += s.v * dt;
     if (this._flash.t > 0) this._flash.t -= dt;
     for (const e of this.emotes) e.t += dt;
+    if (this.speech) { this.speech.t += dt; if (this.speech.t > this.speech.dur) this.speech = null; }
     this.emotes = this.emotes.filter((e) => e.dur <= 0 || e.t < e.dur);
     this._facingSmooth = damp(this._facingSmooth, this.facing, 10, dt);
 
@@ -557,6 +572,10 @@ export class Actor {
     }
     if (opts.ring) this._drawRing(g, opts.ring, sc, alpha);
     for (const m of order) this._drawMember(g, m, sc, alpha, opts.pose || this.pose);
+    if (this.speech && opts.emotes !== false) {
+      const top = this.y - this.z - this.height * (opts.scale ?? 1) - (this.emotes.length ? 86 : 30);
+      drawSpeech(g, this.speech.text, this.x, top, Math.max(0.75, Math.min(1.25, sc)), this.speech.t, this.speech.dur, alpha);
+    }
     if (opts.emotes !== false && this.emotes.length) {
       const top = this.y - this.z - this.height * (opts.scale ?? 1) - 26;
       const size = 44 * Math.max(0.7, Math.min(1.3, sc));
@@ -690,6 +709,35 @@ export class Actor {
 function fr0Angle(sp, t) { return sp ? pickFrame(sp, t).headAngle || 0 : 0; }
 
 export function poseDuration(sp) { return sp.frames.reduce((total, fr) => total + (fr.dur || 1 / sp.fps), 0); }
+
+/**
+ * Rounded speech bubble whose tail points at (x, y). tail: 'down' (bubble
+ * above the point) or 'left' (bubble to the right of the point).
+ */
+export function drawSpeech(g, text, x, y, scale = 1, t = 1, dur = 0, alpha = 1, tail = 'down') {
+  const pop = Math.min(1, t / 0.15), fade = dur ? Math.min(1, (dur - t) / 0.2) : 1;
+  const k = (0.6 + 0.4 * pop) * scale;
+  g.save();
+  g.globalAlpha = alpha * Math.max(0, fade);
+  g.translate(x, y); g.scale(k, k);
+  g.font = '700 30px Fredoka, "Baloo 2", system-ui, sans-serif';
+  const w = Math.max(70, g.measureText(text).width + 36), h = 52, r = 22;
+  const x0 = tail === 'left' ? 18 : -w / 2, y0 = tail === 'left' ? -h / 2 : -h - 14;
+  g.fillStyle = '#ffffff'; g.strokeStyle = '#24163f'; g.lineWidth = 4; g.lineJoin = 'round';
+  g.beginPath();
+  g.moveTo(x0 + r, y0); g.arcTo(x0 + w, y0, x0 + w, y0 + h, r); g.arcTo(x0 + w, y0 + h, x0, y0 + h, r);
+  if (tail === 'left') {
+    g.arcTo(x0, y0 + h, x0, y0, r); g.lineTo(x0, 10); g.lineTo(0, 0); g.lineTo(x0, -10);
+  } else {
+    g.lineTo(10, y0 + h); g.lineTo(0, 0); g.lineTo(-10, y0 + h);
+    g.arcTo(x0, y0 + h, x0, y0, r);
+  }
+  g.arcTo(x0, y0, x0 + w, y0, r); g.closePath();
+  g.fill(); g.stroke();
+  g.fillStyle = '#24163f'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText(text, x0 + w / 2, y0 + h / 2 + 1);
+  g.restore();
+}
 
 export function pickFrame(sp, t) {
   t = Math.max(0, Number.isFinite(t) ? t : 0);

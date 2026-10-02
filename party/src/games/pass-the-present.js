@@ -54,7 +54,7 @@ export const meta = {
 };
 
 // --- tuning -----------------------------------------------------------------
-const CX = 960, CY = 655, RX = 600, RY = 200;
+const CX = 960, CY = 650, RX = 545, RY = 190;
 const FLIGHT = 0.42;
 const MIN_HOLD = 0.25;
 const NO_BACK = 1.0;
@@ -77,7 +77,8 @@ export class Game {
     const n = players.length;
     this.n = n;
     this.t = 0;
-    this.baseScale = n <= 3 ? 1.0 : n <= 4 ? 0.94 : n <= 6 ? 0.84 : 0.74;
+    this.baseScale = n <= 3 ? 1.17 : n <= 4 ? 1.1 : n <= 6 ? 0.92 : 0.8;
+    this.cam = api.camera;
     this.hearts0 = n <= 2 ? 3 : n <= 4 ? 2 : 1;
     this.round = 0;
     this.elimCount = 0;
@@ -141,6 +142,7 @@ export class Game {
     if (!this.ends) this.stepPresent(dt);
     for (const e of this.ents) this.updateEnt(e, dt);
     P.spin += dt * (2 + P.heat * 10);
+    this.followCamera();
     if (this.ends) {
       this.ends.t += dt;
       if (this.ends.t > 2.4 && !this.ends.done) this.finishNow();
@@ -316,6 +318,7 @@ export class Game {
     P.state = 'popping'; P.heat = 1;
     const a = h.a;
     const hp = { x: h.x, y: h.y - h.a.height - 30 };
+    if (this.cam) this.cam.punch(h.x, h.y - h.a.height * 0.7, 1.28, 0.45);
     sfx('bigpop'); sfx('boom'); fx.shake(24, 0.55); fx.flash('#ffffff', 0.2); fx.hitstop(0.09);
     voice(h.p.charId, 'ouch');
     if (!h.p.isAI) h.p.ctrl.rumble(1, 400);
@@ -396,7 +399,8 @@ export class Game {
     // anyone still standing (shouldn't happen) shares first
     const stats = this.ents.map((e) => (e === this.ends.winner ? `${e.hearts} heart${e.hearts === 1 ? '' : 's'} left` : 'Popped!'));
     const k = this.real.length;
-    this.api.finish({ placements: place.slice(0, k), stats: stats.slice(0, k) });
+    const w = this.ends.winner;
+    this.api.finish({ placements: place.slice(0, k), stats: stats.slice(0, k), focus: w ? { x: w.x, y: w.y - w.a.height * 0.6 } : undefined });
   }
 
   destroy() { if (this.npc) input.releaseAI(this.npc.ctrl); }
@@ -441,11 +445,26 @@ export class Game {
     const order = this.ents.slice().sort((a, b) => a.a.y - b.a.y);
     // target highlight under the actors
     if (holder && !this.ends) this.drawTargetRing(g, holder);
-    for (const e of order) this.drawEnt(g, e);
+    for (const e of order) if (e.state !== 'out') this.drawEnt(g, e);
     if (holder && !this.ends) this.drawAimArrow(g, holder);
     this.drawPresentWorld(g);
-    for (const e of order) this.drawOverlay(g, e);
+    for (const e of order) if (e.state !== 'out') this.drawOverlay(g, e);
+  }
+
+  drawHUD(g) {
+    // spectators stay in screen space so they never get cropped by the camera
+    for (const e of this.ents) if (e.state === 'out') { this.drawEnt(g, e); this.drawOverlay(g, e); }
     this.drawHud(g);
+  }
+
+  followCamera() {
+    const cam = this.cam; if (!cam) return;
+    const P = this.pres;
+    if (this.ends && this.ends.winner) { const w = this.ends.winner; cam.follow(w.x, w.y - 80, 1.25, 2.5); return; }
+    if (P.state === 'held' || P.state === 'flying') {
+      const pos = this.presPos();
+      cam.follow(lerp(CX, pos.x, 0.22), lerp(CY - 40, pos.y, 0.22), 1.06 + 0.05 * P.heat, 1.4);
+    } else cam.follow(CX, H / 2, 1.0, 1.4);
   }
 
   drawEnt(g, e) {

@@ -6,6 +6,7 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
+import { depthScale } from '../engine/camera.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
@@ -108,7 +109,7 @@ export class Game {
     this.over = false;
     this.double = false;
     this.bannerT = -10;
-    this.scale = n <= 4 ? 0.9 : n <= 6 ? 0.8 : 0.72;
+    this.scale = n <= 4 ? 1.02 : n <= 6 ? 0.84 : 0.74;
     this.R = n <= 4 ? 34 : n <= 6 ? 31 : 28;
     this.units = this.players.map((p, i) => this.makeUnit(p, i));
     this.crown = { state: 'air', x: C.x, y: C.y, sx: C.x, sy: C.y, tx: C.x, ty: C.y, u: 0, z: 0, spin: 0, holder: -1 };
@@ -178,6 +179,7 @@ export class Game {
     particles.popText(U.x, U.y - U.a.height - 40, 'Crown!', '#ffd23f', 54);
     if (!U.p.isAI) U.p.ctrl.rumble(0.4, 160);
     this.pickupT = this.t;
+    if (this.api.camera) this.api.camera.punch(U.x, U.y - 60, 1.2, 0.35);
   }
 
   dropCrown(U, fromAng) {
@@ -207,6 +209,11 @@ export class Game {
       this.launchCrown(C.x, C.y - 120, spot.x, spot.y, 0.9);
     }
     this.updateCrown(dt);
+    if (this.double && this.api.camera) {
+      const c = this.crown, H2 = this.holder >= 0 ? this.units[this.holder] : null;
+      const fx0 = H2 ? H2.x : c.x, fy0 = H2 ? H2.y - 60 : c.y;
+      this.api.camera.follow(lerp(W / 2, fx0, 0.45), lerp(H / 2, fy0, 0.45), 1.07, 1.6);
+    }
     for (const U of this.units) this.updateUnit(U, dt);
     this.collide(dt);
     // scoring
@@ -281,6 +288,7 @@ export class Game {
     if (U.stun > 0) { a.setPose(POSE.dizzy); }
     else { if (a.pose === POSE.dizzy) a.setPose('idle'); a.moveAnim(U.vx, U.vy, WALK, { run: Math.hypot(U.vx, U.vy) > WALK * 0.9 }); }
     a.x = U.x; a.y = U.y;
+    a.scale = this.scale * depthScale(U.y, { top: ARENA.y0, near: ARENA.y1, far: 0.84, nearScale: 1.06 });
   }
 
   collide(dt) {
@@ -345,6 +353,7 @@ export class Game {
       particles.popText(mx, my - 50, 'BONK!', '#ff6fb1', 62);
       sfx('bonk'); sfx('hit'); voice(T.p.charId, 'ouch');
       fx.shake(this.n > 4 ? 6 : 12, 0.25); fx.hitstop(0.06);
+      if (this.api.camera) this.api.camera.punch(mx, my + 20, 1.2, 0.35);
       if (!T.p.isAI) T.p.ctrl.rumble(0.8, 260);
       if (!D.p.isAI) D.p.ctrl.rumble(0.5, 140);
     } else if (!T.nudge || T.nudge < this.t) {
@@ -430,7 +439,8 @@ export class Game {
     const stats = this.units.map((u) => `${u.score.toFixed(1)} s`);
     sfx('whistle');
     for (const u of this.units) u.a.playOnce(placements[u.i] === 1 ? 'celebrate' : 'idle', 1);
-    this.api.finish({ placements, stats });
+    const fu = this.holder >= 0 ? this.units[this.holder] : this.units[placements.indexOf(1)];
+    this.api.finish({ placements, stats, focus: { x: fu.x, y: fu.y - fu.a.height / 2, zoom: 1.35 } });
   }
 
   // --- drawing -------------------------------------------------------------------------
@@ -574,7 +584,6 @@ export class Game {
     if (this.holder < 0) list.push({ y: this.crownDrawY(), fn: () => this.drawLooseCrown(g) });
     list.sort((a, b) => a.y - b.y);
     for (const e of list) e.fn();
-    this.drawHud(g);
   }
 
   crownDrawY() { const c = this.crown; return this.waitCrown ? C.y + 100 : c.y + 2 + (c.state === 'air' ? 0 : 0); }
@@ -633,7 +642,7 @@ export class Game {
     }
   }
 
-  drawHud(g) {
+  drawHUD(g) {
     const n = this.n;
     const scores = this.units.map((u) => u.score);
     ui.scoreboard(g, this.players, scores, { y: 22, format: (v) => `${v.toFixed(1)}s` });

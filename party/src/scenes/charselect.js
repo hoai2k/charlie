@@ -5,7 +5,7 @@ import { drawArt } from '../engine/art.js';
 //   X  add a CPU    Y  remove a CPU    LB/RB  CPU level
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, voice, host } from '../engine/audio.js';
+import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
 import { Actor, getBaseImage } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
@@ -139,7 +139,8 @@ export class CharSelectScene {
         if (c.pressed('a')) {
           if (this.takenByHuman(h.charId, h)) { sfx('error'); h.actor.playOnce('surprised', 0.4, 'idle'); }
           else {
-            h.locked = true; sfx('ready'); voice(h.charId, 'hello');
+            h.locked = true; sfx('ready');
+            h.actor.say(CHARACTERS[h.cursor].lines?.hello || 'Hi!', 1.8, 'hello');
             h.actor.playOnce('ready', 0.7, 'wave');
             this.cardBounce[h.cursor] = 1.5;
             const r = this.cardRect(h.cursor);
@@ -181,6 +182,7 @@ export class CharSelectScene {
     for (const p of players) { p.aiLevel = session.cpuLevel; p.stars = sameParty ? old.get(p.ctrl) || 0 : 0; }
     if (!sameParty) session.played = [];
     session.players = players;
+    preloadVoices(players.map((p) => p.charId));
     for (const h of this.humans) h.actor.playOnce('celebrate', 1, 'idle');
     for (const c of this.cpus) c.actor.playOnce('cheer', 0.6, 'idle');
   }

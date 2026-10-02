@@ -120,10 +120,11 @@ export class ResultsScene {
       }
       for (const e of this.entries) {
         const p = session.players[e.idx];
-        if (e.winner) { e.actor.setPose('celebrate'); voice(p.charId, 'yay'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); }
+        const lines = charById(p.charId).lines || {};
+        if (e.winner) { e.actor.setPose('celebrate'); if (!this.showcase || e.idx === this.result.highlight) e.actor.say(lines.win || 'Yay!', 2.6, 'yay'); else voice(p.charId, 'yay'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); }
         else if (e.loser) { e.actor.setPose('pout'); }
         else e.actor.setPose('cheer');
-        if (e.loser) setTimeout(() => voice(p.charId, 'aww'), 900);
+        if (e.loser) setTimeout(() => e.actor.say(lines.lose || 'Aww…', 2.4, 'aww'), 900);
       }
       if (this.entries.some((e) => e.loser)) setTimeout(() => sfx('lose'), 1300);
     }

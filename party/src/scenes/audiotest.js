@@ -11,7 +11,7 @@
 // unlocks it.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, voice, music, hasSound, audioCtx, audioRunning, unlockAudio, SFX_NAMES, SONG_NAMES, VOICE_KINDS } from '../engine/audio.js';
+import { sfx, voice, music, hasSound, audioCtx, audioRunning, unlockAudio, SFX_NAMES, SONG_NAMES, VOICE_KINDS, preloadVoices } from '../engine/audio.js';
 import { CHARACTERS } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 
@@ -39,7 +39,6 @@ const TABS = [
   { id: 'npc', label: 'NPC', cols: 3 },
   { id: 'jingle', label: 'Jingles', cols: 3 },
   { id: 'voice', label: 'Voices', cols: KINDS.length },
-  { id: 'host', label: 'Host', cols: 3 },
   { id: 'synth', label: 'Synth', cols: 4 },
   { id: 'music', label: 'Music', cols: 3 },
 ];
@@ -49,6 +48,7 @@ const VOICE_LABEL_W = 250;
 
 export class AudioTestScene {
   enter() {
+    preloadVoices(CHARACTERS.map((c) => c.id)); // the game only loads the party's voices
     this.t = 0;
     this.tab = 0;
     this.sel = TABS.map(() => 0);

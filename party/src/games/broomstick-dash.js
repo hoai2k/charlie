@@ -216,14 +216,15 @@ export class Game {
     const mail = (x, y, line = true) => { items.push({ type: 'mail', x, y, r: mr, ph: rand(TAU), pid }); if (line) path.push({ x, y, kind: 'mail', pid }); };
     let x = 2.5;
     const first = true;
-    let n = 0;
+    let n = 0, lastKind = '';
     while (x < COURSE - 2.4) {
       const prog = x / COURSE;
       pid++;
-      let kind = pick(['arc', 'arc', 'gate', 'single', 'mail']);
+      let kind = pick(['arc', 'arc', 'arc', 'gate', 'gate', 'single', 'mail']);
+      if (kind === 'mail' && lastKind === 'mail') kind = 'arc';
       if (n === 0) kind = 'arc';
       if (prog > 0.35 && chance(0.3)) kind = 'slalom';
-      n++;
+      n++; lastKind = kind;
       const start = x;
       path.push({ x: x - 0.45, y: 0.5, kind: 'rest', pid: -1 });
       if (kind === 'arc') {

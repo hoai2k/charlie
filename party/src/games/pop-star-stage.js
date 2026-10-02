@@ -162,6 +162,16 @@ function glowSprite(color) {
   return c;
 }
 
+// When the Shadow Imp canonical/sprite set lands (entry 'shadow-imp'), imps
+// become real Actors; until then they are drawn procedurally above.
+const hasImpArt = () => !!(charById('shadow-imp') && getBaseImage('shadow-imp'));
+function impActor(m, r) {
+  if (!m.actor) { m.actor = new Actor('shadow-imp'); m.actor.snap(); }
+  const a = m.actor;
+  a.scale = (r * 2.6) / a.leader.h;
+  return a;
+}
+
 /** A note gem: generated prop art if present, else a glowing Xbox glyph. */
 function drawNote(g, btn, x, y, size, t, o = {}) {
   g.save();
@@ -532,7 +542,7 @@ export class Game {
 
   spawnBoss() {
     const hp = 14 * this.n;
-    this.boss = { x: W / 2, y: 770, r: 10, tr: this.n <= 3 ? 120 : 105, hp, max: hp, t: 0, hitT: 0, dead: false, deadT: 0, mood: 'grin' };
+    this.boss = { x: W / 2, y: 790, r: 10, tr: this.n <= 3 ? 112 : 100, hp, max: hp, t: 0, hitT: 0, dead: false, deadT: 0, mood: 'grin' };
     this.banner('Uh-oh! A BIG Shadow Imp!', 2.2, '#c49bff', 76);
     snd('npc/imp/giggle', 'giggle'); sfx('whoosh');
     fx.shake(8, 0.3);
@@ -570,7 +580,7 @@ export class Game {
     B.t += dt;
     B.r = damp(B.r, B.dead ? 0 : B.tr, B.dead ? 8 : 3, dt);
     B.x = W / 2 + Math.sin(B.t * 0.9) * Math.min(420, (this.n - 1) * this.spacing * 0.4 + 120);
-    B.y = 770 + Math.sin(B.t * 1.7) * 14;
+    B.y = 790 + Math.sin(B.t * 1.7) * 12;
     if (B.hitT > 0) { B.hitT -= dt; if (B.hitT <= 0) B.mood = B.hp < B.max * 0.3 ? 'eep' : 'grin'; }
     if (B.dead) B.deadT += dt;
     if (!B.dead && b >= 123.5) this.defeatBoss(false);
@@ -586,7 +596,11 @@ export class Game {
     this.lanes.forEach((L, i) => {
       L.actor.playOnce(L.score === best ? 'celebrate' : pick(['strike1', 'strike2', 'strike3']), 0.8, 'celebrate');
     });
+    const star = this.lanes.find((L) => L.score === best);
+    if (star) star.actor.say('Thank you!', 2.2, 'yay');
     this.banner('Encore!', 2.0, '#ff6fd0', 110);
+    // No notes are left: the camera can lean in on the performers.
+    if (this.api.camera) this.api.camera.follow(W / 2, 760, 1.12, 1.6);
   }
 
   updateFinale(dt) {
@@ -602,7 +616,10 @@ export class Game {
     this.finished = true;
     const scores = this.lanes.map((L) => L.score);
     const stats = this.lanes.map((L) => `${L.score} pts · best combo ${L.maxCombo}`);
-    this.api.finish({ placements: placementsFromScores(scores), stats });
+    const best = Math.max(...scores);
+    const win = this.lanes.filter((L) => L.score === best);
+    const focus = win.length === 1 ? { x: win[0].actor.x, y: FLOOR_Y - win[0].actor.height * 0.6, zoom: 1.3 } : { x: W / 2, y: 780, zoom: 1.15 };
+    this.api.finish({ placements: placementsFromScores(scores), stats, focus });
   }
 
   // ---- CPU -------------------------------------------------------------------------------
@@ -808,6 +825,16 @@ export class Game {
   }
 
   drawImps(g) {
+    if (hasImpArt()) {
+      for (const m of this.imps) {
+        const a = impActor(m, m.r);
+        a.x = m.x; a.y = m.y + m.r * 1.3; a.facing = m.side > 0 ? -1 : 1;
+        a.setPose(m.state === 'poof' ? 'poof' : m.mood === 'giggle' ? 'laugh' : m.mood === 'eep' ? 'surprised' : 'idle');
+        a.update(1 / 60);
+        a.draw(g, { alpha: m.state === 'poof' ? 1 - m.pt / 0.35 : 1, shadow: false });
+      }
+      return;
+    }
     for (const m of this.imps) {
       if (m.state === 'poof') {
         const k = m.pt / 0.35;
@@ -821,9 +848,24 @@ export class Game {
     }
   }
 
-  drawBoss(g) {
+  drawBoss(g, barOnly) {
     const B = this.boss;
     if (!B || B.r < 2) return;
+    if (barOnly) {
+      if (!B.dead) {
+        const bx = clamp(B.x, 260, W - 260), by = HIT_Y + this.noteSize * 0.9 + 64;
+        ui.bar(g, bx - 150, by, 300, 22, B.hp / B.max, '#b77bff', { bg: 'rgba(0,0,0,0.5)' });
+      }
+      return;
+    }
+    if (hasImpArt()) {
+      const a = impActor(B, B.r);
+      a.x = B.x + (B.hitT > 0 ? rand(-6, 6) : 0); a.y = B.y + B.r * 1.3;
+      a.setPose(B.dead ? 'poof' : B.mood === 'eep' ? 'surprised' : 'laugh');
+      if (B.hitT > 0) a.flash('#ffffff', 0.1);
+      a.update(1 / 60); a.draw(g, { shadow: false });
+      return;
+    }
     g.save();
     if (B.hitT > 0) { g.translate(rand(-6, 6), rand(-4, 4)); }
     drawImp(g, B.x, B.y, B.r, B.t, { colors: ['#4a2a8a', '#1a1046'], mood: B.dead ? 'eep' : B.mood, seed: 1, look: 0 });
@@ -832,16 +874,13 @@ export class Game {
       g.fillStyle = '#ffffff'; g.beginPath(); g.arc(B.x, B.y, B.r, 0, TAU); g.fill();
     }
     g.restore();
-    if (!B.dead) {
-      const bx = clamp(B.x, 260, W - 260), by = B.y - B.r * 1.55;
-      ui.bar(g, bx - 150, by, 300, 24, B.hp / B.max, '#b77bff', { bg: 'rgba(0,0,0,0.5)' });
-    }
   }
 
   draw(g) {
     this.drawStage(g);
+    this.drawBoss(g, false);
     for (const L of this.lanes) this.drawLane(g, L);
-    this.drawBoss(g);
+    this.drawBoss(g, true);
     this.drawImps(g);
     // characters
     for (const L of this.lanes) {
@@ -856,7 +895,10 @@ export class Game {
       a.draw(g, { ring: L.p.color, emotes: true });
     }
     this.drawBeams(g);
-    // HUD
+  }
+
+  /** Screen-space HUD (above the camera view and particles). */
+  drawHUD(g) {
     ui.scoreboard(g, this.players, this.lanes.map((L) => L.score), { y: 12, format: (v) => String(v) });
     // tags under the performers (and floating above them for the first bars)
     for (const L of this.lanes) {

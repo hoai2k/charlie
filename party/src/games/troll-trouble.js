@@ -8,7 +8,8 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art, drawArt } from '../engine/art.js';
+import { art } from '../engine/art.js';
+import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, chance, pick, placementsFromScores, ease, TAU } from '../engine/util.js';
 
@@ -280,6 +281,7 @@ export class Game {
     this.collide(pl, 34);
     a.x = pl.x; a.y = pl.y;
     a.alpha = pl.inv > 0 && pl.stun <= 0 ? (Math.sin(this.t * 40) > 0 ? 0.45 : 1) : 1;
+    a.scale = depthScale(pl.y);
     a.update(dt);
     // pick up gems
     if (pl.stun <= 0) {
@@ -414,7 +416,7 @@ export class Game {
     tr.x += tr.vx * dt; tr.y += tr.vy * dt;
     tr.x = clamp(tr.x, ARENA.x0 + 60, ARENA.x1 - 60); tr.y = clamp(tr.y, ARENA.y0 + 110, ARENA.y1);
     this.collide(tr, 56);
-    a.x = tr.x; a.y = tr.y;
+    a.x = tr.x; a.y = tr.y; a.scale = 0.92 * depthScale(tr.y);
     // gently shove players he walks into (no damage - he is grumpy, not mean)
     if (tr.bumpCd <= 0 && (tr.state === 'chase' || tr.state === 'wander')) {
       for (const pl of this.pl) {
@@ -454,6 +456,7 @@ export class Game {
     particles.burst(tr.slamX, tr.slamY - 10, { type: 'petal', count: 18, colors: ['#ff9ccc', '#ffffff', '#ffe36e'], speed: [200, 520] });
     particles.ring(tr.slamX, tr.slamY, '#ffffff', SLAM_R * 1.1, 0.5);
     this.waves.push({ x: tr.slamX, y: tr.slamY, t: 0 });
+    if (this.api.camera) this.api.camera.punch(tr.slamX, tr.slamY, 1.12, 0.3);
     let hit = 0;
     for (const pl of this.pl) {
       if (pl.inv > 0 || !this.inSlam(pl.x, pl.y, 16)) continue;
@@ -468,7 +471,7 @@ export class Game {
       if (drop > 0) { pl.gems -= drop; this.dropGems(pl, drop); particles.popText(pl.x, pl.y - pl.a.height - 40, `-${drop}`, '#ff6f8f', 60); }
       particles.burst(pl.x, pl.y - 80, { type: 'star', count: 6, colors: ['#ffd23f', '#ffffff'] });
     }
-    if (!hit) { a.emote('sweat', 1.0); this.say('Hmph!', tr.x, tr.y - a.height - 40, '#ffffff'); }
+    if (!hit) { a.emote('sweat', 1.0); a.say('Hmph!', 1.3, null); }
     tr.target = null;
   }
 
@@ -561,7 +564,8 @@ export class Game {
     this.pl.forEach(() => {
     });
     this.troll.a.setPose('laugh'); this.troll.a.z = 0; sfx('npc/troll/laugh');
-    this.api.finish({ placements, stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`) });
+    const win = this.pl.filter((q) => q.gems === best)[0];
+    this.api.finish({ placements, stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`), focus: win && best > 0 ? { x: win.x, y: win.y - 80 } : undefined });
   }
 
   // ---- drawing -----------------------------------------------------------------
@@ -705,6 +709,9 @@ export class Game {
         g.restore();
       }
     }
+  }
+
+  drawHUD(g) {
     // angry vignette
     if (this.angry) {
       g.save();

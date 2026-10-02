@@ -14,7 +14,7 @@
 
 import { setupCanvas, beginFrame, endFrame, W, H } from './engine/canvas.js';
 import { input } from './engine/input.js';
-import { initAudio, unlockAudio, setMuted } from './engine/audio.js';
+import { initAudio, unlockAudio, setMuted, preloadVoices } from './engine/audio.js';
 import { loadSprites } from './engine/sprites.js';
 import { loadArt } from './engine/art.js';
 import { particles } from './engine/particles.js';
@@ -86,6 +86,7 @@ function setupDebugPlayers() {
     const charId = chars[i] || randomFreeCharacter(session.players);
     session.players.push(makePlayer(i, charId, ctrl, isAI));
   }
+  setTimeout(() => preloadVoices(session.players.map((p) => p.charId)), 500);
 }
 
 let last = performance.now();
