@@ -3443,6 +3443,156 @@
       "height": 400,
       "bytes": 36640,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/party-rug",
+      "ref": "prop/party-rug.webp",
+      "maxSize": [
+        960,
+        400
+      ],
+      "suffix": "-v2",
+      "prompt": "Use case: precise-object-edit. Recreate referenceparty rug design/style/colors butflatteroval2.4:1widthtoheight, viewed3/4topdownflatonground. Fullrugcentered, crispnavyedgeoutline, clean2Dcartooncel shading. Noobjectsorrewardstarsfloatingabove,noverticalwall. Transparentbackground,noshadowoutsiderug.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-86169283-0e00-4423-bd52-b443233c627a.png",
+      "tool": "built-in imagegen",
+      "width": 960,
+      "height": 368,
+      "bytes": 61300,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-stand",
+      "ref": "prop/cake-stand.webp",
+      "maxSize": [
+        500,
+        200
+      ],
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. Referencecakestandstyle. ONEshortlowwhiteandpale-lilaccakestand: plate500wide, topellipseheight180 (=.36width), shortpedestal totalobjectheight200 (=.4width). Cleanwhiteemptyplate, no cake. View3/4above,crispnavyoutlines,2Dcartooncelshade. Wideflatplatterwithshortcentralfoot, NOTtallvase. Transparentbackground,noshadow,textorotherobjects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1e561b47-9ca3-4faa-ad5f-df8c96c6e820.png",
+      "tool": "built-in imagegen",
+      "width": 399,
+      "height": 200,
+      "bytes": 16504,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/tiara-pearl",
+      "ref": "prop/tiara-pearl.webp",
+      "maxSize": [
+        256,
+        160
+      ],
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. ChangeONLYreferencetiara's goldmetal tobrightsilverandwhitepearls. Keepcrownshape,pearlpositions,navyoutlines, clean2Dcartoonstyle, generouscenteredfullobjectframing. White/silvercolorfamily, nogoldyellowmetal. Transparentbackground,noshadoworletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f14c6a04-cbe0-4716-9345-f003c5f24ab1.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 112,
+      "bytes": 14588,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/podium-1",
+      "ref": "prop/podium.webp",
+      "maxSize": [
+        230,
+        230
+      ],
+      "suffix": "",
+      "prompt": "Use case: stylized-concept. Referenceold podium style only. CreateONE standalone Charlie Party results podium block number1 (BUTDO NOT DRAW NUMBER). Frontview, consistent230pxwide inruntime, blankfrontface, rectangularblock with veryshallowvisibleellipsetopface. Frontheight210px plus20pxtopface. Brightgold-yellowpalette, darknavyoutline clean2Dcartooncelshade. Emptyhorizontal flat top forcharacters, noobjects, people, numbers, letters orstepsjoined. Transparentbackground,noshadow. Fullblockcentered withslimmargin.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-50314044-138a-4bb8-b3c4-4dadc9eafc74.png",
+      "exactSize": [
+        230,
+        230
+      ],
+      "tool": "built-in imagegen",
+      "width": 230,
+      "height": 230,
+      "bytes": 4214,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/podium-2",
+      "ref": "prop/podium.webp",
+      "maxSize": [
+        230,
+        160
+      ],
+      "suffix": "",
+      "prompt": "Use case: stylized-concept. Referenceold podium style only. CreateONE standalone Charlie Party results podium block number2 (BUTDO NOT DRAW NUMBER). Frontview, consistent230pxwide inruntime, blankfrontface, rectangularblock with veryshallowvisibleellipsetopface. Frontheight140px plus20pxtopface. Brightsilver-lilacpalette, darknavyoutline clean2Dcartooncelshade. Emptyhorizontal flat top forcharacters, noobjects, people, numbers, letters orstepsjoined. Transparentbackground,noshadow. Fullblockcentered withslimmargin.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-9ef222d1-0b60-4613-a03d-07c55ce6277e.png",
+      "exactSize": [
+        230,
+        160
+      ],
+      "tool": "built-in imagegen",
+      "width": 230,
+      "height": 160,
+      "bytes": 3832,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/podium-3",
+      "ref": "prop/podium.webp",
+      "maxSize": [
+        230,
+        100
+      ],
+      "suffix": "",
+      "prompt": "Use case: stylized-concept. Referenceold podium style only. CreateONE standalone Charlie Party results podium block number3 (BUTDO NOT DRAW NUMBER). Frontview, consistent230pxwide inruntime, blankfrontface, rectangularblock with veryshallowvisibleellipsetopface. Frontheight80px plus20pxtopface. Brightbronze-orangepalette, darknavyoutline clean2Dcartooncelshade. Emptyhorizontal flat top forcharacters, noobjects, people, numbers, letters orstepsjoined. Transparentbackground,noshadow. Fullblockcentered withslimmargin.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-109ef253-3ba6-44d9-8fc0-f24e33337f5b.png",
+      "exactSize": [
+        230,
+        100
+      ],
+      "tool": "built-in imagegen",
+      "width": 230,
+      "height": 100,
+      "bytes": 2674,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/podium-4",
+      "ref": "prop/podium.webp",
+      "maxSize": [
+        230,
+        50
+      ],
+      "suffix": "",
+      "prompt": "Use case: stylized-concept. Referenceold podium style only. CreateONE standalone Charlie Party results podium block number4 (BUTDO NOT DRAW NUMBER). Frontview, consistent230pxwide inruntime, blankfrontface, rectangularblock with veryshallowvisibleellipsetopface. Frontheight30px plus20pxtopface. Brightrose-pinkpalette, darknavyoutline clean2Dcartooncelshade. Emptyhorizontal flat top forcharacters, noobjects, people, numbers, letters orstepsjoined. Transparentbackground,noshadow. Fullblockcentered withslimmargin.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a037d162-e78b-472f-accb-69c8ac870bbb.png",
+      "exactSize": [
+        230,
+        50
+      ],
+      "tool": "built-in imagegen",
+      "width": 230,
+      "height": 50,
+      "bytes": 1894,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/confetti",
+      "ref": "prop/confetti.webp",
+      "maxSize": [
+        512,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "-v2",
+      "prompt": "Usecase: stylized-concept. CreateONEconfettiparticleSPRITEATLAS exact8COLUMNS4ROWS (=32cells). Eachsquarecell64pixelsfinalcanvas512x256. Oneisolatedcenteredpiecepercell, transparentgenerousgutter aroundeachpiece. Row1eightsmallribbonrectangles; row2eightcurledribbons; row3eightfivepointstars; row4eightcircles/dots. Everyrow8pieces evenlyspaced exactalignedgrid; colorsredorangegoldlimegreencyanbluepurplepinkmixed. Eachpiece fillsatmost50%cellwidth/height. Consistentcrispnavyoutline/2Dcelshade CharliePartystyle. Transparentbackground,no gridlines, lettersorotherobjects. Inputoldconfettistyleonly.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4fbfb095-99a2-45a0-8b96-bef523a27a98.png",
+      "grid": [
+        8,
+        4
+      ],
+      "cellSize": 64,
+      "tool": "built-in imagegen",
+      "width": 512,
+      "height": 256,
+      "bytes": 37242,
+      "status": "generated; inspected"
     }
   ]
 }

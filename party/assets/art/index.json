@@ -58,7 +58,7 @@
     "prop/broom": "prop/broom.webp",
     "prop/star-ring": "prop/star-ring.webp",
     "prop/owl-mail": "prop/owl-mail.webp",
-    "prop/party-rug": "prop/party-rug.webp",
+    "prop/party-rug": "prop/party-rug-v2.webp",
     "prop/treat-sprinkle": "prop/treat-sprinkle.webp",
     "prop/treat-cupcake": "prop/treat-cupcake.webp",
     "prop/treat-golden": "prop/treat-golden.webp",
@@ -170,7 +170,7 @@
     "prop/podium": "prop/podium.webp",
     "ui/star": "ui/star.webp",
     "ui/medal": "ui/medal.webp",
-    "prop/confetti": "prop/confetti.webp",
+    "prop/confetti": "prop/confetti-v2.webp",
     "prop/puffy-hair-cloud": "prop/puffy-hair-cloud.webp",
     "prop/polka-dots": "prop/polka-dots.webp",
     "prop/light-stick": "prop/light-stick.webp",
@@ -193,7 +193,7 @@
     "prop/crown-gold": "prop/crown-gold.webp",
     "prop/crown-silver": "prop/crown-silver.webp",
     "prop/crown-flower": "prop/crown-flower.webp",
-    "prop/tiara-pearl": "prop/tiara-pearl.webp",
+    "prop/tiara-pearl": "prop/tiara-pearl-v2.webp",
     "prop/tiara-star": "prop/tiara-star.webp",
     "prop/hat-top": "prop/hat-top.webp",
     "prop/hat-witch": "prop/hat-witch.webp",
@@ -222,7 +222,7 @@
     "prop/cake-layer-chocolate": "prop/cake-layer-chocolate.webp",
     "prop/cake-layer-strawberry": "prop/cake-layer-strawberry.webp",
     "prop/cake-layer-rainbow": "prop/cake-layer-rainbow.webp",
-    "prop/cake-stand": "prop/cake-stand.webp",
+    "prop/cake-stand": "prop/cake-stand-v2.webp",
     "prop/topper-strawberry": "prop/topper-strawberry.webp",
     "prop/topper-cherry": "prop/topper-cherry.webp",
     "prop/topper-star": "prop/topper-star.webp",
@@ -262,6 +262,10 @@
     "prop/pet-bow-green": "prop/pet-bow-green.webp",
     "prop/pet-bow-purple": "prop/pet-bow-purple.webp",
     "prop/pet-bow-orange": "prop/pet-bow-orange.webp",
-    "prop/pet-bow-teal": "prop/pet-bow-teal.webp"
+    "prop/pet-bow-teal": "prop/pet-bow-teal.webp",
+    "prop/podium-1": "prop/podium-1.webp",
+    "prop/podium-2": "prop/podium-2.webp",
+    "prop/podium-3": "prop/podium-3.webp",
+    "prop/podium-4": "prop/podium-4.webp"
   }
 }
