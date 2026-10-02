@@ -154,7 +154,7 @@ export class Game {
     this.finished = false;
     this.clouds = Array.from({ length: 5 }, (_, i) => ({ x: i * 460, y: 260 + (i * 211) % 700, s: 1 + (i % 3) * 0.4 }));
     this.pl = this.players.map((p, i) => {
-      const a = new Actor(p.charId, { scale: 1 });
+      const a = new Actor(p, { scale: 1 });
       const x = W / 2 + (i - (this.n - 1) / 2) * Math.min(210, 1500 / Math.max(1, this.n)), y = 860 + (i % 2) * 50;
       a.x = x; a.y = y; a.snap();
       return {

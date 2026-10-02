@@ -183,7 +183,7 @@ export class Game {
     const spacing = Math.min(300, (W - 160) / n);
     const sc = n <= 3 ? 1.1 : n <= 5 ? 0.95 : 0.72;
     this.actors = this.players.map((p, i) => {
-      const a = new Actor(p.charId, { scale: sc, x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1034 });
+      const a = new Actor(p, { scale: sc, x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1034 });
       a.snap(); return a;
     });
     this.choice = this.players.map(() => ({ v: 0, locked: false, state: 'pick', bounce: 0 }));

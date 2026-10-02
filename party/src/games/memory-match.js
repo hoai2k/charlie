@@ -3,6 +3,7 @@
 // with A: a match flies to your pile and you go again; no match flips back and
 // the next player takes a turn. Most pairs wins. Solo: find all pairs in as
 // few tries as you can (star rating).
+import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -62,7 +63,7 @@ export const meta = {
   },
 };
 
-const turnName = (p) => (p.isAI ? charById(p.charId)?.name || 'CPU' : p.tag);
+const turnName = (p) => (p.isAI ? playerName(p) : p.tag);
 /** "Fox's" / "KPop Girls'" / "P1's" */
 const possessive = (p) => {
   const ch = charById(p.charId);
@@ -81,7 +82,7 @@ export class Game {
 
     // Faces: prefer the players' own characters ("that's me!"), then random.
     const faces = allFaces();
-    const mine = this.players.map((p) => faces.find((f) => f.key === p.charId)).filter(Boolean);
+    const mine = [...new Set(this.players.map((p) => faces.find((f) => f.key === p.charId)).filter(Boolean))]; // two players may share a character
     const rest = shuffle(faces.filter((f) => !mine.includes(f)));
     const chosen = shuffle(mine).slice(0, Math.min(mine.length, Math.ceil(this.pairsTotal * 0.6))).concat(rest).slice(0, this.pairsTotal);
     const deck = shuffle(chosen.concat(chosen));
@@ -119,7 +120,7 @@ export class Game {
       const group = (charById(p.charId)?.members.length || 1) > 1;
       const scale = clamp((sh - 64) / 185, 0.6, 1.3) * (group ? 0.82 : 1);
       const ax = left ? x0 + 128 : x0 + SIDE_W - 144;
-      const a = new Actor(p.charId, { x: ax, y: cy + sh / 2 - 34, scale, facing: left ? 1 : -1 });
+      const a = new Actor(p, { x: ax, y: cy + sh / 2 - 34, scale, facing: left ? 1 : -1 });
       a.snap();
       return {
         p, i, left, x0, cy, sh, actor: a, scale,
@@ -248,8 +249,9 @@ export class Game {
     this.cur.actor.playOnce('flip', 0.3, 'think');
     this.remember(card);
     // "That's me!" — the pictured character waves from the sidelines.
-    const me = this.seats.find((o) => o.p.charId === card.face.charId && card.face.key === o.p.charId);
-    if (me) setTimeout(() => { me.actor.playOnce('wave', 0.9); me.actor.emote('heart', 1); }, 260);
+    for (const me of this.seats.filter((o) => o.p.charId === card.face.charId && card.face.key === o.p.charId)) {
+      setTimeout(() => { me.actor.playOnce('wave', 0.9); me.actor.emote('heart', 1); }, 260);
+    }
     if (this.picks.length === 2) {
       this.state = 'reveal'; this.stateT = 0;
       if (this.solo) this.tries++;
@@ -530,7 +532,7 @@ export class Game {
     g.restore();
     // name pill
     const tagY = y0 + 28;
-    const label = p.isAI ? `CPU · ${charById(p.charId)?.name || ''}` : `${p.tag} · ${charById(p.charId)?.name || ''}`;
+    const label = `${p.isAI ? 'CPU' : p.tag} · ${playerName(p)}`;
     ui.text(g, label, x0 + w / 2, tagY, { size: s.sh < 260 ? 24 : 28, color: p.color, strokeWidth: 6, maxWidth: w - 30 });
     a.draw(g, { ring: p.color });
     if (isTurn && this.state === 'pick') {
@@ -574,7 +576,7 @@ export class Game {
     } else if (this.again > 0) sc = 1 + Math.sin(this.again * Math.PI) * 0.12;
     g.save(); g.translate(px, py); g.scale(sc, sc);
     ui.panel(g, -pw / 2, -42, pw, 84, { r: 42, fill: '#ffffff', stroke: p.color, lineWidth: 7 });
-    drawPortrait(g, p.charId, -pw / 2 + 44, 0, 32, { ring: p.color, ringWidth: 4 });
+    drawPortrait(g, p, -pw / 2 + 44, 0, 32, { ring: p.color, ringWidth: 4 });
     ui.text(g, label, 30, 2, { size: 42, color: p.color, strokeWidth: 8, weight: 800 });
     g.restore();
     ui.text(g, `${left} pair${left === 1 ? '' : 's'} left`, W - SIDE_W / 2, 60, { size: 32, color: '#fff', strokeWidth: 7 });

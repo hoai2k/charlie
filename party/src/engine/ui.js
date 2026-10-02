@@ -211,7 +211,7 @@ export function scoreboard(g, players, values, o = {}) {
     g.save();
     if (out) g.globalAlpha = 0.45;
     panel(g, x, y, chipW, 76, { r: 38, fill: '#ffffff', stroke: p.color, lineWidth: 6 });
-    drawPortrait(g, p.charId, x + 38, y + 38, 30, { expr: (o.expr && o.expr[i]) || 'neutral', ring: null, gray: !!out });
+    drawPortrait(g, p, x + 38, y + 38, 30, { expr: (o.expr && o.expr[i]) || 'neutral', ring: null, gray: !!out });
     text(g, p.tag, x + 84, y + 22, { size: 22, color: p.color, align: 'left', strokeWidth: 5 });
     const v = o.format ? o.format(values[i], i) : String(values[i] ?? '');
     text(g, v, x + chipW - 18, y + 46, { size: 38, color: NAVY, align: 'right', stroke: false, weight: 800, maxWidth: chipW - 100 });

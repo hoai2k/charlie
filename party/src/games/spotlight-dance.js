@@ -291,7 +291,7 @@ export class Game {
       for (let c = 0; c < count; c++) {
         const p = this.players[idx];
         const x = W / 2 + (c - (count - 1) / 2) * cw, y = L.feet[r];
-        const a = new Actor(p.charId, { scale: L.cs, x, y });
+        const a = new Actor(p, { scale: L.cs, x, y });
         a.scale = Math.min(L.cs, (cw * 0.8) / (a.width / a.scale));
         a.facing = x < W / 2 - 10 ? 1 : x > W / 2 + 10 ? -1 : 1;
         a.snap();

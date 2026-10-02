@@ -2,6 +2,7 @@
 // Mash A to pump. Each press adds PRESSURE to a gauge; pressure flows into the
 // balloon. Sweet spot = high but not red: past the red line the hose sputters
 // and wastes the air (comic puffs). First balloon to POP wins the round.
+import { winsText } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
@@ -170,7 +171,7 @@ export class Game {
     }));
     this.st = this.players.map((p, i) => {
       const s = this.slot[i];
-      const a = new Actor(p.charId, { scale: s.sc, x: s.cx + CHAR_X * s.sc, y: s.by });
+      const a = new Actor(p, { scale: s.sc, x: s.cx + CHAR_X * s.sc, y: s.by });
       // characters are drawn bigger than the station (groups a bit smaller so they fit the cell)
       const base = a.width / a.scale;
       const chMul = clamp(this.rows === 1 ? 1.55 : 1.2, 0.8, Math.max(0.8, (this.rows === 1 ? 215 : 235) / base));
@@ -685,7 +686,7 @@ export class Game {
     if (this.phase === 'between') ui.banner(g, `Round ${this.round}!`, this.phaseT, { size: 140, y: 330, color: '#ff6fb1' });
     if (this.phase === 'pop' && this.winner && !this.finalRound && this.phaseT > 0.3) {
       const st = this.winner;
-      ui.banner(g, `${charById(st.p.charId)?.name || st.p.tag} ${charById(st.p.charId)?.plural ? 'win' : 'wins'} the round!`, this.phaseT - 0.3, { size: 80, y: 330, color: st.p.color, tilt: -0.02 });
+      ui.banner(g, `${winsText(st.p)} the round!`, this.phaseT - 0.3, { size: 80, y: 330, color: st.p.color, tilt: -0.02 });
     }
     if (this.phase === 'pop' && !this.winner && this.resultText) ui.banner(g, this.resultText, this.phaseT, { size: 110, y: 330, color: '#ffffff' });
   }

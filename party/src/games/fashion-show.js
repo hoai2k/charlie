@@ -3,6 +3,7 @@
 // up/down item, X color, Y surprise, A ready). Phase 2: models strut down the
 // runway one group at a time while the crowd flashes cameras; A strikes a
 // pose. Finale: a group photo, confetti, and everyone gets a star.
+import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -152,7 +153,7 @@ export class Game {
   // --- setup ---------------------------------------------------------------
   makeStation(p, i, r) {
     const L = layoutStation(r, this.n);
-    const a = new Actor(p.charId, { x: L.foot.x, y: L.foot.y, facing: 1 });
+    const a = new Actor(p, { x: L.foot.x, y: L.foot.y, facing: 1 });
     a.scale = Math.min(L.charH / a.leader.h, L.charW / Math.max(1, a.width));
     a.snap();
     const st = {
@@ -770,7 +771,7 @@ export class Game {
     ui.panel(g, x, y - sz * 0.5, tw, sz, { r: sz / 2, fill: p.color, lineWidth: 3, shadow: false });
     ui.text(g, p.tag, x + tw / 2, y + 1, { size: sz * 0.55, strokeWidth: 4, shadow: false });
     x += tw + 12;
-    if (wide) drawPortrait(g, p.charId, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
+    if (wide) drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
     const o = st.outfit[st.tab], col = PALETTE[o.colors[o.item]];
     const items = [['x', wide ? 'Color' : ''], ['y', wide ? 'Surprise!' : ''], ['a', 'Ready!']];
     const avail = r.x + r.w - 16 - x;
@@ -882,7 +883,7 @@ export class Game {
         ui.text(g, msg, W / 2, 1040, { size: 52, color: '#ffd23f', weight: 800 });
         ui.bar(g, W / 2 - 200, 990, 400, 18, left / POSE, '#ff7ac6');
       } else if (st0.rw.state === 'walk') {
-        const names = this.group.map((s) => charById(s.p.charId).name).join(' & ');
+        const names = this.group.map((s) => playerName(s.p)).join(' & ');
         ui.text(g, names, W / 2, 1040, { size: 50, color: '#fff', weight: 800, maxWidth: 1100 });
       }
     }

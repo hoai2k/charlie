@@ -136,7 +136,7 @@ export class Game {
         const a = (i / n) * TAU - Math.PI / 2 + 0.35;
         sx = W / 2 + Math.cos(a) * 640; sy = Y0 + PH / 2 + Math.sin(a) * 300;
       }
-      const a = new Actor(p.charId, { scale: CHAR_SCALE, x: sx, y: sy, facing: sx < W / 2 ? 1 : -1 });
+      const a = new Actor(p, { scale: CHAR_SCALE, x: sx, y: sy, facing: sx < W / 2 ? 1 : -1 });
       a.snap(); a.setPose('idle');
       const s = { a, x: sx, y: sy, vx: 0, vy: 0, kx: 0, ky: 0, dir: { x: sx < W / 2 ? 1 : -1, y: 0 }, cool: 0, roller: 0, drip: 0, bumpT: 0,
         ai: { t: rand(0.1, 0.5), tx: sx, ty: sy, pause: 0, bombT: 0 } };

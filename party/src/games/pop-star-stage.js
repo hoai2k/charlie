@@ -320,7 +320,7 @@ export class Game {
     const scale = n <= 2 ? 1.25 : n <= 4 ? 1.15 : n <= 6 ? 1.0 : 0.9;
     this.lanes = this.players.map((p, i) => {
       const x = W / 2 + (i - (n - 1) / 2) * this.spacing;
-      const a = new Actor(p.charId, { x, y: FLOOR_Y, scale });
+      const a = new Actor(p, { x, y: FLOOR_Y, scale });
       const maxW = this.spacing * 0.95;
       if (a.width > maxW) a.scale *= maxW / a.width;
       a.facing = 1; a.snap(); a.setPose('idle');

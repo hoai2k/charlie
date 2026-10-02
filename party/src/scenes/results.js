@@ -10,7 +10,7 @@ import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawStarShape } from '../engine/emotes.js';
 import { ease, clamp, TAU } from '../engine/util.js';
-import { session } from '../state.js';
+import { session, winsText } from '../state.js';
 import { gameById } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
 import { charById } from '../data/characters.js';
@@ -61,7 +61,7 @@ export class ResultsScene {
       const x = W / 2 + (k - (n - 1) / 2) * spacing;
       const podium = this.showcase ? 60 : (PODIUM_H[place - 1] ?? 30);
       const floor = 860;
-      const a = new Actor(players[idx].charId, { scale: n > 5 ? 0.9 : 1.1, x, y: floor - podium });
+      const a = new Actor(players[idx], { scale: n > 5 ? 0.9 : 1.1, x, y: floor - podium });
       a.z = 900 + k * 120; a.vz = 0; a.snap();
       const winner = this.showcase || place === 1;
       const loser = !this.showcase && n > 1 && place === worst && place !== 1;
@@ -84,7 +84,7 @@ export class ResultsScene {
     if (this.showcase) return this.result.title || "Everyone's a star!";
     if (session.players.length === 1) return this.winners.length ? (this.result.title || 'You did it!') : 'So close!';
     if (!this.winners.length) return this.result.title || 'Great game!';
-    if (this.winners.length === 1) { const c = charById(session.players[this.winners[0].idx].charId); return `${c.name} ${c.plural ? 'win' : 'wins'}!`; }
+    if (this.winners.length === 1) return `${winsText(session.players[this.winners[0].idx])}!`;
     if (this.winners.length === session.players.length) return "It's a tie!";
     return 'Tie for first!';
   }

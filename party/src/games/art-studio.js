@@ -5,6 +5,7 @@
 // own last stroke. Optional coloring pages (fill bucket stops at the lines).
 // "Done!" (or the pause menu) hangs the painting in a gold frame on the
 // museum wall; X there saves it as a PNG.
+import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -62,12 +63,15 @@ function heartPath(g, x, y, s) {
 }
 function lighter(c, k = 0.5) { const [r, gg, b] = rgb(c); return `rgb(${Math.round(r + (255 - r) * k)},${Math.round(gg + (255 - gg) * k)},${Math.round(b + (255 - b) * k)})`; }
 
+const meStamp = (p) => `char:${p.charId}:${p.variant || 0}`;   // a player's own portrait stamp, in their colours
+
 export function drawStamp(g, kind, x, y, size, color, rot = 0) {
   const s = size, NAVY = '#24163f';
   g.save(); g.translate(x, y); g.rotate(rot);
   g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = NAVY; g.lineWidth = Math.max(2, s * 0.035);
   if (kind.startsWith('char:')) {
-    drawPortrait(g, kind.slice(5), 0, 0, s * 0.48, { ring: color === '#ffffff' ? '#ffd23f' : color, ringWidth: Math.max(3, s * 0.06), expr: 'happy' });
+    const [charId, v] = kind.slice(5).split(':');   // 'char:<id>[:<colour variant>]'
+    drawPortrait(g, charId, 0, 0, s * 0.48, { variant: +v || 0, ring: color === '#ffffff' ? '#ffd23f' : color, ringWidth: Math.max(3, s * 0.06), expr: 'happy' });
     g.restore(); return;
   }
   switch (kind) {
@@ -160,7 +164,7 @@ export class Game {
     this.bctx = this.base.getContext('2d');
     this.page = 'blank'; this.lines = null;
     this.clearCanvas();
-    this.stampKinds = ['me', ...SHAPE_STAMPS, ...shuffle(this.players.map((p) => 'char:' + p.charId))];
+    this.stampKinds = ['me', ...SHAPE_STAMPS, ...shuffle([...new Set(this.players.map(meStamp))])];
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
     this.layoutActors();
     const owner = this.players.find((p) => !p.isAI) || this.players[0];
@@ -176,7 +180,7 @@ export class Game {
       tool: 0, color: [9, 6, 2, 4, 8, 0, 5, 1][i % 8], size: 1, stamp: 0, stroke: null, confirm: null, paletteT: 0,
       strokes: 0, stamps: 0, fills: 0, ai: { cmds: [], wait: 0, idle: rand(0.5, 1.5) }, soundT: 0, overBtn: null,
     };
-    st.actor = new Actor(p.charId, { facing: 1 });
+    st.actor = new Actor(p, { facing: 1 });
     return st;
   }
 
@@ -418,7 +422,7 @@ export class Game {
 
   doStamp(st) {
     const kindRaw = this.stampKinds[st.stamp];
-    const kind = kindRaw === 'me' ? 'char:' + st.p.charId : kindRaw;
+    const kind = kindRaw === 'me' ? meStamp(st.p) : kindRaw;
     const s = { owner: st.i, tool: 'stamp', kind, x: st.cur.x, y: st.cur.y, size: SIZES[st.size].stamp, color: COLORS[st.color], rot: rand(-0.25, 0.25) };
     this.pushStroke(s); drawStamp(this.pctx, kind, s.x, s.y, s.size, s.color, s.rot);
     st.stamps++;
@@ -787,12 +791,12 @@ export class Game {
       const pop = st.toolPop ? 1 + st.toolPop * 0.25 : 1;
       ui.panel(g, x, y, cw, chH, { r: 22, fill: '#ffffff', stroke: st.p.color, lineWidth: 6 });
       const pr = Math.min(28, cw * 0.14);
-      drawPortrait(g, st.p.charId, x + pr + 12, y + chH / 2 - 8, pr, { ring: st.p.color, ringWidth: 4 });
+      drawPortrait(g, st.p, x + pr + 12, y + chH / 2 - 8, pr, { ring: st.p.color, ringWidth: 4 });
       ui.text(g, st.p.tag, x + pr + 12, y + chH - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
       const tool = this.toolOf(st);
       const tx = x + pr * 2 + 24 + (cw - pr * 2 - 24) * 0.28;
       g.save(); g.translate(tx, y + chH / 2 - 6); g.scale(pop, pop);
-      if (tool === 'stamp') drawStamp(g, this.stampKinds[st.stamp] === 'me' ? 'char:' + st.p.charId : this.stampKinds[st.stamp], 0, 0, Math.min(52, cw * 0.22), COLORS[st.color]);
+      if (tool === 'stamp') drawStamp(g, this.stampKinds[st.stamp] === 'me' ? meStamp(st.p) : this.stampKinds[st.stamp], 0, 0, Math.min(52, cw * 0.22), COLORS[st.color]);
       else drawToolIcon(g, tool, 0, 0, Math.min(48, cw * 0.22), COLORS[st.color]);
       g.restore();
       if (cw > 150) ui.text(g, TOOLS[st.tool].name, tx, y + chH - 14, { size: 18, color: '#24163f', stroke: false, maxWidth: cw * 0.34 });
@@ -816,7 +820,7 @@ export class Game {
       if (tool === 'stamp') {
         g.globalAlpha = 0.45;
         const k = this.stampKinds[st.stamp];
-        drawStamp(g, k === 'me' ? 'char:' + st.p.charId : k, x, y, SIZES[st.size].stamp * S, color);
+        drawStamp(g, k === 'me' ? meStamp(st.p) : k, x, y, SIZES[st.size].stamp * S, color);
         g.globalAlpha = 1;
       } else if (tool !== 'fill') {
         const r = SIZES[st.size].r * S;
@@ -831,7 +835,7 @@ export class Game {
     g.lineWidth = 3; g.strokeStyle = st.p.color; g.stroke();
     const bx = x + 30, by = y - 30;
     g.beginPath(); g.arc(bx, by, 22, 0, TAU); g.fillStyle = '#fff'; g.fill(); g.lineWidth = 4; g.strokeStyle = st.p.color; g.stroke();
-    if (tool === 'stamp') { const k = this.stampKinds[st.stamp]; drawStamp(g, k === 'me' ? 'char:' + st.p.charId : k, bx, by, 32, color); }
+    if (tool === 'stamp') { const k = this.stampKinds[st.stamp]; drawStamp(g, k === 'me' ? meStamp(st.p) : k, bx, by, 32, color); }
     else drawToolIcon(g, tool, bx, by, 30, color);
     // brief "undo" badge after B
     const ua = st.undoAt ? 1 - (performance.now() - st.undoAt) / 700 : 0;
@@ -848,7 +852,7 @@ export class Game {
         this.stampKinds.forEach((k, i) => {
           const cx = px + 8 + i * (s + 6) + s / 2, cy = py + 8 + s / 2;
           if (i === st.stamp) { g.beginPath(); g.arc(cx, cy, s * 0.56, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); }
-          drawStamp(g, k === 'me' ? 'char:' + st.p.charId : k, cx, cy, s * 0.82, color);
+          drawStamp(g, k === 'me' ? meStamp(st.p) : k, cx, cy, s * 0.82, color);
         });
       } else {
         const n = COLORS.length, s = 34, w = n * (s + 6) + 16;
@@ -954,7 +958,7 @@ export class Game {
       g.save(); g.globalAlpha = a;
       ui.panel(g, W / 2 - 300, py + ph + 56, 600, 96, { r: 14, fill: '#ffe9a8', lineWidth: 5 });
       ui.text(g, 'Our Masterpiece', W / 2, py + ph + 90, { size: 40, color: '#24163f', stroke: false, weight: 800 });
-      const names = this.stations.map((st) => charById(st.p.charId).name).join(', ');
+      const names = this.stations.map((st) => playerName(st.p)).join(', ');
       ui.text(g, 'by ' + names, W / 2, py + ph + 128, { size: 22, color: '#6b5a85', stroke: false, maxWidth: 560 });
       g.restore();
     }

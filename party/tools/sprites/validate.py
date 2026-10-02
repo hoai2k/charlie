@@ -112,6 +112,14 @@ if __name__ == '__main__':
                 warnings.append(f'{asset}: optimized copy is stale - run tools/sprites/optimize.py {asset}')
     except Exception as e:  # never block validation on this check
         warnings.append(f'optimized-copy check skipped: {e}')
+    # Colour-variant region masks (tools/sprites/make_masks.py) must match their sets.
+    try:
+        import make_masks
+        for asset in make_masks.MASK_SETS:
+            why = make_masks.stale(asset)
+            if why: warnings.append(f'{asset}: {why} - run tools/sprites/make_masks.py {asset}')
+    except Exception as e:
+        warnings.append(f'mask check skipped: {e}')
     for message in warnings: print('WARN:', message)
     for message in errors: print('ERROR:', message)
     raise SystemExit(bool(errors))

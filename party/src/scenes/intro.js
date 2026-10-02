@@ -26,7 +26,7 @@ export class IntroScene {
     const n = session.players.length;
     const spacing = Math.min(220, (W - 160) / n);
     this.actors = session.players.map((p, i) => {
-      const a = new Actor(p.charId, { scale: n > 4 ? 0.56 : 0.66, x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1048 });
+      const a = new Actor(p, { scale: n > 4 ? 0.56 : 0.66, x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1048 });
       a.snap(); return a;
     });
     sfx('magic');

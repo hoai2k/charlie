@@ -105,7 +105,7 @@ export class Game {
     this.rush = false; this.rushT = 0;
     this.done = false;
     this.ents = this.players.map((p, i) => {
-      const a = new Actor(p.charId, { scale: this.scale, x: 0, y: GROUND_Y });
+      const a = new Actor(p, { scale: this.scale, x: 0, y: GROUND_Y });
       const x = n === 1 ? W / 2 : 260 + ((W - 520) * i) / (n - 1);
       const lane = ((i % 3) - 1) * 16;
       a.x = x; a.y = GROUND_Y + lane; a.facing = x < W / 2 ? 1 : -1; a.snap();

@@ -5,6 +5,7 @@
 //   bg/pass-the-present  prop/present  prop/party-rug
 // New-pose hooks (fall back to existing poses): 'hold-present' -> carry,
 //   'toss' -> throw, 'catch-present' -> surprised, 'sooty' -> dizzy
+import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSE_NAMES, drawPortrait } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
@@ -91,7 +92,7 @@ export class Game {
     this.nervT = 1;
     this.ents = players.map((p, i) => {
       const sc = this.baseScale * (p.charId === 'troll' ? 0.58 : 1);
-      const a = new Actor(p.charId, { scale: sc });
+      const a = new Actor(p, { scale: sc });
       return {
         p, a, i, sc, hearts: this.hearts0, state: 'ring', x: CX, y: CY, tx: CX, ty: CY, holdT: 0, aim: null, noBack: null, noBackT: 0,
         dizzy: 0, elimIdx: -1, brain: new Brain(p), ai: null, spot: null, mood: 0, soot: null, aimAng: 0, heartShake: 0,
@@ -631,7 +632,7 @@ export class Game {
     const P = this.pres;
     if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) ui.text(g, 'Aim with the stick, press A to toss!', W / 2, 1010, { size: 40, color: '#ffffff' });
     if (this.ends && this.ends.winner) {
-      const nm = (charById(this.ends.winner.p.charId) || {}).name || this.ends.winner.p.tag;
+      const nm = playerName(this.ends.winner.p);
       ui.banner(g, `${nm} ${(charById(this.ends.winner.p.charId) || {}).plural ? 'win' : 'wins'}!`, this.ends.t, { y: 300, size: 110, color: '#ffd23f' });
     }
     // red vignette as the fuse runs low

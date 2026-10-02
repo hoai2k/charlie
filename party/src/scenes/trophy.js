@@ -43,14 +43,14 @@ export class TrophyScene {
     const others = session.players.map((p, i) => i).filter((i) => !this.champs.includes(i));
     this.actors = [];
     this.champs.forEach((i, k) => {
-      const a = new Actor(session.players[i].charId, { scale: 1.3, x: W / 2 + (k - (this.champs.length - 1) / 2) * 260, y: 700 });
+      const a = new Actor(session.players[i], { scale: 1.3, x: W / 2 + (k - (this.champs.length - 1) / 2) * 260, y: 700 });
       a.setPose('celebrate'); a.snap();
       a.attach((g, info) => drawCrown(g, info.head.x, info.head.y + 4, info.h * 0.12));
       this.actors.push({ a, i, champ: true });
     });
     others.forEach((i, k) => {
       const side = k % 2 ? 1 : -1, slot = Math.floor(k / 2);
-      const a = new Actor(session.players[i].charId, { scale: 0.85, x: W / 2 + side * (520 + slot * 200), y: 900 });
+      const a = new Actor(session.players[i], { scale: 0.85, x: W / 2 + side * (520 + slot * 200), y: 900 });
       a.setPose('cheer'); a.snap();
       this.actors.push({ a, i, champ: false });
     });

@@ -371,7 +371,7 @@ export class Game {
     // Players
     const sc = n <= 4 ? 0.9 : 0.76;
     this.movers = this.players.map((p, i) => {
-      const a = new Actor(p.charId, { scale: sc, x: W / 2 + (i - (n - 1) / 2) * Math.min(170, (W - 300) / n), y: rows === 2 ? 730 : 620 });
+      const a = new Actor(p, { scale: sc, x: W / 2 + (i - (n - 1) / 2) * Math.min(170, (W - 300) / n), y: rows === 2 ? 730 : 620 });
       a.facing = i < n / 2 ? 1 : -1; a.snap();
       const m = {
         p, i, a, seed: i % SEEDS.length, canT: 0, castT: 0, singCD: 0, dustCD: 0, jar: 0,
@@ -1043,7 +1043,7 @@ export class Game {
       const pop = 1 + m.chipPop * 0.08; m.chipPop = Math.max(0, m.chipPop - 0.04);
       g.save(); g.translate(x + chipW / 2, y + 36); g.scale(pop, pop); g.translate(-(x + chipW / 2), -(y + 36));
       ui.panel(g, x, y, chipW, 72, { r: 36, fill: '#ffffff', stroke: p.color, lineWidth: 6 });
-      ui.drawPortrait(g, p.charId, x + 36, y + 36, 28, { expr: 'happy' });
+      ui.drawPortrait(g, p, x + 36, y + 36, 28, { expr: 'happy' });
       ui.text(g, p.tag, x + 76, y + 20, { size: 20, color: p.color, align: 'left', strokeWidth: 5 });
       if (nightish) {
         drawJar(g, x + chipW - 82, y + 40, 40, m.jar, this.t);

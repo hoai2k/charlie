@@ -148,7 +148,7 @@ export class Game {
     const n = this.n;
     const ang = -Math.PI / 2 + (i / n) * TAU + 0.35;
     const x = C.x + Math.cos(ang) * 590, y = C.y + Math.sin(ang) * 270;
-    const a = new Actor(p.charId, { scale: this.scale, x, y });
+    const a = new Actor(p, { scale: this.scale, x, y });
     a.facing = x < C.x ? 1 : -1; a.snap();
     return {
       p, i, a, x, y, vx: 0, vy: 0, aim: Math.atan2(C.y - y, C.x - x),

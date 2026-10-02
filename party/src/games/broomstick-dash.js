@@ -290,7 +290,7 @@ export class Game {
   }
 
   makeLane(p, i) {
-    const a = new Actor(p.charId, { scale: this.aScale, x: 0, y: 0 });
+    const a = new Actor(p, { scale: this.aScale, x: 0, y: 0 });
     // thin lanes: shrink tall characters so the whole rider fits inside the band
     a.scale = Math.min(this.aScale, (0.46 * this.laneH) / a.leader.h);
     a.snap();
@@ -791,7 +791,7 @@ export class Game {
     for (const L of order) {
       const f = clamp(L.dist / COURSE, 0, 1);
       const x = bx + bw * f, bob = Math.sin(this.t * 6 + L.i) * 2;
-      ui.drawPortrait(g, L.p.charId, x, by + bob, 22, { expr: L.fin !== null ? 'happy' : L.hurtT > 0 ? 'surprised' : 'neutral', ring: L.p.color, ringWidth: 5 });
+      ui.drawPortrait(g, L.p, x, by + bob, 22, { expr: L.fin !== null ? 'happy' : L.hurtT > 0 ? 'surprised' : 'neutral', ring: L.p.color, ringWidth: 5 });
     }
     // timer on the left
     ui.timer(g, TIME_CAP - this.t, 170, 62);
