@@ -1,0 +1,706 @@
+{
+  "asset": "marina",
+  "bodyHeight": 320,
+  "frameSize": [
+    640,
+    640
+  ],
+  "anchor": [
+    320,
+    520
+  ],
+  "facing": 0,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/marina-core.webp",
+          "rect": [
+            0,
+            6,
+            550,
+            712
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            192,
+            57
+          ],
+          "eyes": [
+            176,
+            199
+          ],
+          "neck": [
+            198,
+            285
+          ],
+          "back": [
+            198,
+            370
+          ],
+          "hand": [
+            66,
+            427
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/marina-core.webp",
+          "rect": [
+            529,
+            11,
+            558,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            212,
+            663
+          ],
+          "scale": 1,
+          "head": [
+            190,
+            56
+          ],
+          "eyes": [
+            190,
+            190
+          ],
+          "neck": [
+            201,
+            296
+          ],
+          "back": [
+            223,
+            374
+          ],
+          "hand": [
+            435,
+            141
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/marina-core.webp",
+          "rect": [
+            1128,
+            4,
+            515,
+            716
+          ],
+          "isolate": true,
+          "anchor": [
+            165,
+            666
+          ],
+          "scale": 1,
+          "head": [
+            154,
+            57
+          ],
+          "eyes": [
+            154,
+            200
+          ],
+          "neck": [
+            160,
+            301
+          ],
+          "back": [
+            175,
+            379
+          ],
+          "hand": [
+            154,
+            344
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/marina-core.webp",
+          "rect": [
+            1661,
+            7,
+            505,
+            711
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            668
+          ],
+          "scale": 1,
+          "head": [
+            182,
+            57
+          ],
+          "eyes": [
+            172,
+            199
+          ],
+          "neck": [
+            177,
+            299
+          ],
+          "back": [
+            202,
+            391
+          ],
+          "hand": [
+            35,
+            185
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/marina-reactions.webp",
+          "rect": [
+            13,
+            11,
+            546,
+            706
+          ],
+          "isolate": true,
+          "anchor": [
+            218,
+            650
+          ],
+          "scale": 1,
+          "head": [
+            164,
+            56
+          ],
+          "eyes": [
+            147,
+            205
+          ],
+          "neck": [
+            164,
+            304
+          ],
+          "back": [
+            186,
+            367
+          ],
+          "hand": [
+            136,
+            304
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/marina-reactions.webp",
+          "rect": [
+            573,
+            14,
+            556,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            250,
+            670
+          ],
+          "scale": 1,
+          "head": [
+            200,
+            56
+          ],
+          "eyes": [
+            183,
+            190
+          ],
+          "neck": [
+            195,
+            289
+          ],
+          "back": [
+            222,
+            381
+          ],
+          "hand": [
+            72,
+            423
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/marina-reactions.webp",
+          "rect": [
+            1076,
+            8,
+            550,
+            704
+          ],
+          "isolate": true,
+          "anchor": [
+            220,
+            662
+          ],
+          "scale": 1,
+          "head": [
+            165,
+            56
+          ],
+          "eyes": [
+            165,
+            204
+          ],
+          "neck": [
+            165,
+            303
+          ],
+          "back": [
+            204,
+            387
+          ],
+          "hand": [
+            226,
+            282
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/marina-reactions.webp",
+          "rect": [
+            1600,
+            7,
+            562,
+            713
+          ],
+          "isolate": true,
+          "anchor": [
+            236,
+            663
+          ],
+          "scale": 1,
+          "head": [
+            185,
+            57
+          ],
+          "eyes": [
+            185,
+            207
+          ],
+          "neck": [
+            197,
+            314
+          ],
+          "back": [
+            208,
+            378
+          ],
+          "hand": [
+            157,
+            356
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/marina-air.webp",
+          "rect": [
+            41,
+            17,
+            480,
+            716
+          ],
+          "isolate": true,
+          "anchor": [
+            206,
+            722
+          ],
+          "scale": 1,
+          "head": [
+            230,
+            57
+          ],
+          "eyes": [
+            230,
+            215
+          ],
+          "neck": [
+            230,
+            315
+          ],
+          "back": [
+            245,
+            401
+          ],
+          "hand": [
+            394,
+            222
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/marina-air.webp",
+          "rect": [
+            518,
+            17,
+            536,
+            723
+          ],
+          "isolate": true,
+          "anchor": [
+            295,
+            701
+          ],
+          "scale": 1,
+          "head": [
+            161,
+            58
+          ],
+          "eyes": [
+            150,
+            210
+          ],
+          "neck": [
+            166,
+            318
+          ],
+          "back": [
+            273,
+            362
+          ],
+          "hand": [
+            64,
+            412
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/marina-air.webp",
+          "rect": [
+            1070,
+            199,
+            599,
+            535
+          ],
+          "isolate": true,
+          "anchor": [
+            305,
+            508
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            54
+          ],
+          "eyes": [
+            180,
+            187
+          ],
+          "neck": [
+            210,
+            268
+          ],
+          "back": [
+            270,
+            364
+          ],
+          "hand": [
+            180,
+            508
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/marina-air.webp",
+          "rect": [
+            1656,
+            17,
+            431,
+            719
+          ],
+          "isolate": true,
+          "anchor": [
+            207,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            134,
+            58
+          ],
+          "eyes": [
+            138,
+            216
+          ],
+          "neck": [
+            147,
+            316
+          ],
+          "back": [
+            181,
+            410
+          ],
+          "hand": [
+            125,
+            302
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cheer": {
+      "alias": "celebrate"
+    },
+    "sad": {
+      "alias": "pout"
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/marina-walk.webp",
+          "rect": [
+            51,
+            5,
+            530,
+            670
+          ],
+          "isolate": true,
+          "anchor": [
+            302,
+            675
+          ],
+          "scale": 1,
+          "head": [
+            302,
+            34
+          ],
+          "eyes": [
+            302,
+            201
+          ],
+          "neck": [
+            302,
+            281
+          ],
+          "back": [
+            302,
+            362
+          ],
+          "hand": [
+            450,
+            402
+          ]
+        },
+        {
+          "source": "../sources/marina-walk.webp",
+          "rect": [
+            624,
+            6,
+            455,
+            711
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            675
+          ],
+          "scale": 1,
+          "head": [
+            177,
+            36
+          ],
+          "eyes": [
+            177,
+            213
+          ],
+          "neck": [
+            177,
+            299
+          ],
+          "back": [
+            177,
+            384
+          ],
+          "hand": [
+            387,
+            427
+          ]
+        },
+        {
+          "source": "../sources/marina-walk.webp",
+          "rect": [
+            1122,
+            9,
+            513,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            180,
+            675
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            34
+          ],
+          "eyes": [
+            180,
+            206
+          ],
+          "neck": [
+            180,
+            289
+          ],
+          "back": [
+            180,
+            372
+          ],
+          "hand": [
+            436,
+            413
+          ]
+        },
+        {
+          "source": "../sources/marina-walk.webp",
+          "rect": [
+            1674,
+            3,
+            454,
+            714
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            675
+          ],
+          "scale": 1,
+          "head": [
+            182,
+            36
+          ],
+          "eyes": [
+            182,
+            214
+          ],
+          "neck": [
+            182,
+            300
+          ],
+          "back": [
+            182,
+            386
+          ],
+          "hand": [
+            386,
+            428
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "run": {
+      "alias": "walk",
+      "fps": 10
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/marina-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/marina-portrait-happy.webp"
+    },
+    "sad": {
+      "source": "../sources/marina-portrait-sad.webp"
+    },
+    "surprised": {
+      "source": "../sources/marina-portrait-surprised.webp"
+    },
+    "determined": {
+      "source": "../sources/marina-portrait-determined.webp"
+    }
+  }
+}
