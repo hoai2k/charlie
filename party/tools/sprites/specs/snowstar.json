@@ -1,14 +1,14 @@
 {
   "asset": "snowstar",
-  "bodyHeight": 300,
+  "bodyHeight": 288,
   "quality": 82,
   "frameSize": [
-    640,
-    620
+    614,
+    595
   ],
   "anchor": [
-    320,
-    540
+    307,
+    518
   ],
   "facing": 0,
   "poses": {
@@ -1298,6 +1298,1505 @@
       "fps": 4,
       "loop": true,
       "motion": 0.15,
+      "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            19,
+            7,
+            364,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            189,
+            494
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            428,
+            13,
+            344,
+            487
+          ],
+          "isolate": true,
+          "anchor": [
+            179,
+            483
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            802,
+            7,
+            359,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            500
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            1182,
+            8,
+            342,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            178,
+            488
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            21,
+            502,
+            346,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            180,
+            500
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            418,
+            502,
+            334,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            174,
+            497
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            791,
+            518,
+            365,
+            479
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            475
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-a.webp",
+          "rect": [
+            1186,
+            501,
+            337,
+            509
+          ],
+          "isolate": true,
+          "anchor": [
+            175,
+            505
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            14,
+            1,
+            368,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            500
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            400,
+            1,
+            365,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            500
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            789,
+            0,
+            362,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            502
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            1166,
+            82,
+            359,
+            422
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            418
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            3,
+            517,
+            368,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            493
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            406,
+            499,
+            351,
+            418
+          ],
+          "isolate": true,
+          "anchor": [
+            183,
+            414
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            772,
+            532,
+            392,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            204,
+            479
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-b.webp",
+          "rect": [
+            1174,
+            516,
+            350,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            494
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            9,
+            122,
+            399,
+            370
+          ],
+          "isolate": true,
+          "anchor": [
+            207,
+            366
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-i.webp",
+          "rect": [
+            4,
+            8,
+            1018,
+            1501
+          ],
+          "isolate": true,
+          "anchor": [
+            529,
+            1497
+          ],
+          "scale": 0.3,
+          "head": [
+            509,
+            185
+          ],
+          "eyes": [
+            509,
+            605
+          ],
+          "neck": [
+            530,
+            844
+          ],
+          "back": [
+            509,
+            1030
+          ],
+          "hand": [
+            910,
+            846
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            808,
+            41,
+            350,
+            458
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            454
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            1183,
+            9,
+            335,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            174,
+            496
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            12,
+            577,
+            393,
+            428
+          ],
+          "isolate": true,
+          "anchor": [
+            204,
+            424
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            412,
+            523,
+            349,
+            486
+          ],
+          "isolate": true,
+          "anchor": [
+            181,
+            482
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            754,
+            536,
+            426,
+            459
+          ],
+          "isolate": true,
+          "anchor": [
+            222,
+            455
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-c.webp",
+          "rect": [
+            1190,
+            524,
+            335,
+            488
+          ],
+          "isolate": true,
+          "anchor": [
+            174,
+            484
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            9,
+            8,
+            359,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            493
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            373,
+            11,
+            335,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            174,
+            488
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            8,
+            95,
+            320,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            166,
+            502
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            316,
+            131,
+            291,
+            479
+          ],
+          "isolate": true,
+          "anchor": [
+            151,
+            475
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            546,
+            138,
+            401,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            452
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            893,
+            66,
+            323,
+            542
+          ],
+          "isolate": true,
+          "anchor": [
+            168,
+            538
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            4,
+            691,
+            359,
+            523
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            519
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            321,
+            690,
+            301,
+            520
+          ],
+          "isolate": true,
+          "anchor": [
+            157,
+            516
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            597,
+            794,
+            337,
+            415
+          ],
+          "isolate": true,
+          "anchor": [
+            175,
+            411
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-e.webp",
+          "rect": [
+            913,
+            672,
+            304,
+            536
+          ],
+          "isolate": true,
+          "anchor": [
+            158,
+            532
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            15,
+            5,
+            393,
+            514
+          ],
+          "isolate": true,
+          "anchor": [
+            204,
+            510
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            411,
+            2,
+            353,
+            512
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            508
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            766,
+            11,
+            386,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            201,
+            500
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            1158,
+            9,
+            367,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            503
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            12,
+            523,
+            359,
+            443
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            439
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            375,
+            509,
+            388,
+            505
+          ],
+          "isolate": true,
+          "anchor": [
+            202,
+            501
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            764,
+            520,
+            389,
+            488
+          ],
+          "isolate": true,
+          "anchor": [
+            202,
+            484
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-f.webp",
+          "rect": [
+            1152,
+            512,
+            378,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            499
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-pose-twirl-r3.webp",
+          "rect": [
+            8,
+            2,
+            537,
+            714
+          ],
+          "isolate": true,
+          "anchor": [
+            279,
+            710
+          ],
+          "scale": 0.714,
+          "head": [
+            270,
+            80
+          ],
+          "eyes": [
+            276,
+            265
+          ],
+          "neck": [
+            285,
+            420
+          ],
+          "back": [
+            280,
+            470
+          ],
+          "hand": [
+            350,
+            460
+          ]
+        },
+        {
+          "source": "../sources/snowstar-pose-twirl-r3.webp",
+          "rect": [
+            572,
+            5,
+            447,
+            711
+          ],
+          "isolate": true,
+          "anchor": [
+            232,
+            707
+          ],
+          "scale": 0.714,
+          "head": [
+            230,
+            70
+          ],
+          "eyes": [
+            300,
+            260
+          ],
+          "neck": [
+            230,
+            410
+          ],
+          "back": [
+            180,
+            460
+          ],
+          "hand": [
+            310,
+            465
+          ]
+        },
+        {
+          "source": "../sources/snowstar-pose-twirl-r3.webp",
+          "rect": [
+            1121,
+            11,
+            495,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            257,
+            701
+          ],
+          "scale": 0.714,
+          "head": [
+            240,
+            70
+          ],
+          "eyes": [
+            240,
+            260
+          ],
+          "neck": [
+            240,
+            400
+          ],
+          "back": [
+            240,
+            450
+          ],
+          "hand": [
+            340,
+            460
+          ]
+        },
+        {
+          "source": "../sources/snowstar-pose-twirl-r3.webp",
+          "rect": [
+            1696,
+            3,
+            471,
+            713
+          ],
+          "isolate": true,
+          "anchor": [
+            245,
+            709
+          ],
+          "scale": 0.714,
+          "head": [
+            240,
+            70
+          ],
+          "eyes": [
+            165,
+            260
+          ],
+          "neck": [
+            240,
+            400
+          ],
+          "back": [
+            270,
+            460
+          ],
+          "hand": [
+            130,
+            460
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.05,
+      "facing": 0
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            397,
+            3,
+            358,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            186,
+            502
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            778,
+            6,
+            355,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            498
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            1176,
+            12,
+            344,
+            496
+          ],
+          "isolate": true,
+          "anchor": [
+            179,
+            492
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch-toy": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            13,
+            541,
+            350,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            182,
+            460
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            394,
+            515,
+            356,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            488
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            775,
+            514,
+            356,
+            491
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            487
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-g.webp",
+          "rect": [
+            1177,
+            518,
+            344,
+            488
+          ],
+          "isolate": true,
+          "anchor": [
+            179,
+            484
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            722,
+            34,
+            373,
+            462
+          ],
+          "isolate": true,
+          "anchor": [
+            194,
+            458
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            1100,
+            52,
+            419,
+            443
+          ],
+          "isolate": true,
+          "anchor": [
+            218,
+            439
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            13,
+            513,
+            318,
+            491
+          ],
+          "isolate": true,
+          "anchor": [
+            165,
+            487
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            358,
+            507,
+            327,
+            496
+          ],
+          "isolate": true,
+          "anchor": [
+            170,
+            492
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            685,
+            518,
+            464,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            241,
+            481
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/snowstar-actions-d.webp",
+          "rect": [
+            1084,
+            517,
+            440,
+            486
+          ],
+          "isolate": true,
+          "anchor": [
+            229,
+            482
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-dance-r3.webp",
+          "rect": [
+            12,
+            26,
+            509,
+            676
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            672
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/snowstar-dance-r3.webp",
+          "rect": [
+            535,
+            13,
+            554,
+            697
+          ],
+          "isolate": true,
+          "anchor": [
+            288,
+            693
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/snowstar-dance-r3.webp",
+          "rect": [
+            1091,
+            26,
+            527,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            680
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/snowstar-dance-r3.webp",
+          "rect": [
+            1634,
+            15,
+            527,
+            695
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            691
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-actions-h.webp",
+          "rect": [
+            7,
+            100,
+            1010,
+            1387
+          ],
+          "isolate": true,
+          "anchor": [
+            525,
+            1383
+          ],
+          "scale": 0.3
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
       "facing": 0
     }
   },

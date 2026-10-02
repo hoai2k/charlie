@@ -26,7 +26,12 @@ Compare head size against idle, adjust shared output size if decoded >25 MiB,
 set correct airborne anchors, loops, one-shot timings and facing. Review all
 new crops for clipping; discard any detached baked effect particles.
 
-Snowstar/Cake in-flight status is recorded below after agents finish saving.
+Snowstar extension is being finalized with 75 pose keys / 96 frames, including
+clean balance and four-view twirl at idle-matched scale. Source prompts and
+all sheets are saved. Cake sheets A–E remain unreviewed/incomplete; draft poses
+are saved in tools/sprites/pending/marshmallow-birthday-cake-intake.json, and
+the shipping Cake spec was restored. Complete missing vocabulary and annotate
+landmarks before building it.
 No other character expansions were started by these agents after the pause.
 
 ## Remaining queue

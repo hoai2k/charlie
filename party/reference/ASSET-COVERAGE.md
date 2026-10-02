@@ -28,7 +28,7 @@ Snapshot: 2026-10-02. Round 3 is queued in `IMAGE-WORK-QUEUE.md`; `../image-requ
 | `kpop-girl-right` | 44 | 60 | 6 | — |
 | `fox` | 45 | 60 | 5 | — |
 | `princess-amber` | 43 | 60 | 5 | — |
-| `snowstar` | 20 | 32 | 5 | — |
+| `snowstar` | 75 | 96 | 5 | — |
 | `marshmallow-birthday-cake` | 20 | 32 | 5 | — |
 | `unicorn` | 45 | 62 | 6 | — |
 | `hotdog` | 45 | 60 | 5 | — |
@@ -40,7 +40,7 @@ Frame entries may repeat an image for timing; aliases and procedural overlays ar
 - Felicity, Fellowfox and Bronze have their published Round 3 cycle upgrades and fourteen extra game actions.
 - Marina and Scale have Tier 1 core animation, portraits and Round 3 blink/celebration/pout/dance/ride upgrades. Their expanded sets now have 74 keys / 91 frames; paint and newly requested landmark polish remain pending.
 - Cotton Candy, Fox and all three KPop members are published. Unicorn and Hotdog also have their initial action sets and Pet Spa poses.
-- Princess Amber has 43 authored pose keys and 60 frame entries. Snowstar and Birthday Cake retain Tier-1 core builds (20 pose keys, 32 frame entries, five portraits each); their extended actions and dance remain queued.
+- Princess Amber has 43 authored pose keys and 60 frame entries. Snowstar now has 75 keys / 96 frames and five portraits, including carry, cast and four-frame dance. Birthday Cake retains its core build (20 keys / 32 frames / five portraits); extension sources are saved as incomplete pending intake.
 - Round 2 requests remain incomplete across the roster. Consult the work queue and actual manifest rather than treating runtime fallback as completed artwork.
 - All requested NPC canonicals are user-approved. Hoot, Imps and Fairies are integrated; Troll has his own run, ready, pout, sad, cheer and wave. Storm Cloud and Broccoli are indexed prop variants; Storm lightning is drawn separately.
 

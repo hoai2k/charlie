@@ -1,0 +1,178 @@
+[
+  {
+    "character": "snowstar",
+    "sheet": "actions-a",
+    "poses": [
+      "carry",
+      "push",
+      "paint",
+      "cast",
+      "clap",
+      "eat",
+      "bow",
+      "strike1"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent character sprite sheet for Charlie Party, one character repeated in ordered poses. Input image 1 is the approved Snowstar canonical and is the identity reference; reproduce this exact character in every cell. Keep the enormous round face (head must remain oversized, never normal-sized), huge blue-green eyes with tiny white flower highlights, patchwork geometric multicolor bangs, rainbow side curls and wisps, red bow and floral ornaments, green turtleneck sweater, dark teal pants, green boots. House style: bold smooth dark navy outlines, bright original colors, simple clean cel shading, no photorealism or 3D. Keep character scale and head/body proportions consistent across all cells. Show entire figure in each separate cell with generous transparent gutters and outer margins; no overlap, clipping, text, labels, boxes, floor/shadow, scenery, extra effects or props. Use actual transparent background. Every listed invisible held object must remain invisible; empty hands except where the pose calls for open expressive hands. Eight distinct full-body poses in a 4-column by 2-row grid. Read left-to-right, top row then bottom row. Poses: 1 carry: carefully holds an invisible box overhead with both hands; 2 push: determined forward shoulder shove; 3 paint: focused painting with an invisible brush; 4 cast: dramatic forward spell thrust, empty hand; 5 clap: happy clapping; 6 eat: happy bite and munch; 7 bow: graceful bow; 8 strike1: confident hand-on-hip runway pose.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-a.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-47c7501d-164b-4e0a-babb-9fd5b367e652.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-b",
+    "poses": [
+      "strike2",
+      "strike3",
+      "dance-up",
+      "dance-down",
+      "dance-side",
+      "dance-star",
+      "shake",
+      "stir"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: sprite sheet. Input image 1 is the approved Snowstar canonical identity reference; reproduce this exact character. Keep enormous round face, flower-highlight blue-green eyes, multicolor geometric bangs, rainbow curls, bow and flowers, green sweater, teal pants and boots. 4-column by 2-row transparent grid, eight separate full-body figures with generous gutters. Read left-to-right: 1 peace sign beside face (strike2); 2 arms-up star pose (strike3); 3 both arms straight overhead (dance-up); 4 bouncy crouch with hands on knees (dance-down); 5 point and lean toward right (dance-side); 6 airborne star shape, arms and legs spread (dance-star); 7 quick whole-body shake, curls flying (shake); 8 stir an invisible pot with a large spoon (stir), other hand empty. Consistent scale and head size, bold smooth dark navy outlines, bright cel shading. No text, labels, boxes, scenery, floor shadows, extra effects, props, clipping or overlap. Real transparent background.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-b.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-9dbbce17-13b3-49d5-9d18-e4036b47a5ab.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-c",
+    "poses": [
+      "swim",
+      "balance",
+      "splat-throw",
+      "wand-up",
+      "broom-rise",
+      "broom-glide",
+      "broom-zapped",
+      "count"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent character sprite sheet for Charlie Party. Input image 1 is approved Snowstar canonical; reproduce this exact character: enormous round face, huge flower-highlight blue-green eyes, patchwork multicolor geometric bangs, rainbow side curls and wisps, red bow and floral ornaments, green turtleneck, dark teal pants and green boots. Keep head enormous in every pose. Bold smooth dark navy outline and bright clean cel shading, consistent model and size. Exactly eight separate full-body figures in 4 columns by 2 rows, ordered left-to-right then next row, with generous transparent gutters and margins. Poses: swim, head and shoulders above water paddling; balance, arms out wobbling on a cracking cookie; splat-throw, underhand lob of an invisible paint balloon; wand-up, hold an invisible wand high with anticipation; broom-rise, seated leaning forward on an invisible broom with curls streaming back; broom-glide, seated upright relaxed on an invisible broom; broom-zapped, startled/frizzy, tipped sideways while broom-riding; count, point a finger and count. Bold dark navy outlines, bright clean cel shading, exact identity. Real transparent background; no text, scenery, floor shadows, decorations, extra props, crop or overlap.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-c.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-d5739063-5d92-4db5-afc4-a9a9c785c300.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-d",
+    "poses": [
+      "look-up",
+      "crowned",
+      "dash-launch",
+      "dash-lunge",
+      "hip-cock",
+      "hip-swing",
+      "knockback-a",
+      "knockback-b"
+    ],
+    "prompt": "Use case: illustration-story. Transparent Charlie Party sprite sheet. Input image 1 is approved Snowstar canonical; reproduce exact character with enormous round flower-eye face, colorful geometric rainbow bangs and curls, red bow/floral ornaments, green sweater, teal pants and boots. 4 by 2 grid, exactly eight separate full-body ordered cells with alpha transparent gutters: cell1 look-up, head tilted back watching the sky; cell2 crowned, proud chin-up strut with NO crown object; cells3-4 are a 2-frame DASH action, launch into a forward lunge then held lunge with arms out and curls swept back; cells5-6 are a 2-frame HIP-BUMP action, side-on with upper body leaning away, hips cocked back then swung toward the right, arms raised for balance, cheeky grin; cells7-8 are a 2-frame KNOCKBACK action, skidding backward on heels, torso strongly leaning back, arms windmilling opposite ways, wide whoa eyes. Keep every cell clear, full figure, consistent head size and model, bold dark navy outline, bright cel shading. No text, labels, shadows, scenery, background, props or effects.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-d.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-e3d55b77-4b56-4f90-811d-f37e82ee0527.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-e",
+    "poses": [
+      "catch",
+      "sit",
+      "tumble",
+      "hold-present",
+      "toss",
+      "catch-present",
+      "sooty",
+      "drink"
+    ],
+    "prompt": "Use case: illustration-story. Transparent Charlie Party sprite sheet. Input image 1: approved Snowstar canonical, reproduce exact character: enormous round flower-eye face, multicolor geometric rainbow bangs, rainbow curls, red bow and flowers, green sweater, teal pants, green boots. Exactly eight separate full-body cells in a 4x2 grid, ordered left-to-right then next row, with generous transparent gutters: poses 1 catch, arms raised as a basket; 2 sit, sitting on a tiny invisible cloud with legs dangling; 3 tumble, tumbling sideways through air; 4 hold-present, nervously holding an invisible box overhead; 5 toss, two-handed underhand toss; 6 catch-present, startled catch with saucer eyes; 7 sooty, dazed with lightly soot-smudged cheeks; 8 drink, sip an invisible potion bottle. Empty hands unless a pose requires them; no visible held objects. Keep scale/head size consistent, bold smooth dark navy lines and bright cel shading. No text, scenery, floor shadows, effects, clipping or overlap; real transparent background.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-e.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-b50b5a4a-a6b8-4d76-aaf1-9c99e1a6072b.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-f",
+    "poses": [
+      "float",
+      "hiccup",
+      "giggle",
+      "stomp-giant",
+      "squeak-tiny",
+      "flip",
+      "blow",
+      "shake-sprinkles"
+    ],
+    "prompt": "Use case: illustration-story. Transparent Charlie Party full-body sprite sheet; input image 1 approved Snowstar canonical, exact identity: enormous round flower-highlight blue-green eyes, multicolor geometric bangs and rainbow curls, red bow/floral ornaments, green turtleneck, dark teal pants and green boots. Exactly eight separate full-body poses in 4 columns x 2 rows, ordered left-to-right then bottom row. 1 float: drifting calmly with arms out; 2 hiccup: startled jolt with puffed cheeks; 3 giggle: hand over mouth laughing; 4 stomp-giant: proud wide stance; 5 squeak-tiny: surprised small hop; 6 flip: reach forward to flip an invisible card; 7 blow: cheeks puffed blowing gently; 8 shake-sprinkles: shaking an invisible sprinkle jar. Keep same figure scale and huge head; clear transparent gutters, bold navy outlines, bright clean cel shading. Empty hands except expressive gestures; invisible objects stay invisible. No labels, text, scenery, shadows, effects, clipping or overlap. Real transparent background.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-f.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-f3cfa683-1419-4c92-9f00-f5a4a747cd6a.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-g",
+    "poses": [
+      "pose-twirl",
+      "photo",
+      "sing",
+      "water",
+      "catch-toy",
+      "dance-01",
+      "dance-02",
+      "dance-03"
+    ],
+    "prompt": "Use case: illustration-story. Charlie Party transparent character sprite sheet. Input image 1 is approved Snowstar canonical; reproduce exact identity and immense round flower-eye face, rainbow patchwork hair/curls, bow/flowers, green sweater, teal pants and green boots. Exactly 8 separate full-body poses, 4 columns x 2 rows, read left-to-right then next row, large transparent gutters. 1 graceful pose-twirl with body turning; 2 photo pose facing the camera with peace sign; 3 joyful singing into invisible microphone; 4 gently pour from invisible watering can; 5 playful crouch ready to catch an invisible toy; 6 look-around, turning head to scan side-to-side; 7 high-five, raise one hand for an off-screen partner; 8 friendly wave-goodbye, broad farewell wave with the raised hand. Keep her head very oversized and model consistent. Clean bold navy outlines, bright original cel shading, real transparent background. No text, props, scenery, shadows, effects, clipping or overlap; invisible objects must remain invisible.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "output": "party/tools/sprites/sources/snowstar-actions-g.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-d7d77f49-19c4-4e68-976d-5c91e7cb8ef8.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "dance-r3",
+    "poses": [
+      "dance-a",
+      "dance-b",
+      "dance-c",
+      "dance-d"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent 4-frame looping dance sprite strip for Charlie Party. Input image 1 is the approved Snowstar canonical; reproduce exact Snowstar identity in every frame: enormous round face, huge blue-green flower-highlight eyes, patchwork rainbow bangs and side curls, red bow and flowers, green turtleneck, dark teal pants, green boots. Create exactly FOUR separate full-body dancing frames arranged in one horizontal row, left-to-right order A/B/C/D, with generous transparent gutters and fully visible silhouettes. One cheerful 1.0-second looping 2-beat cycle at 4 fps: A knee-bend and elbows in; B lean left with one arm sweeping up; C lean right with opposite arm sweep and lifted foot; D return into a buoyant open-arm bounce that flows back to A. Keep face/head enormous and consistent, body stays recognizably same scale, dynamic but simple. Bold smooth dark navy outline, bright original cel shading. Transparent background; no text, labels, scenery, shadows, decorations, props, clipping or overlap.",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-e6f14255-a497-46bb-ae2f-f90980849402.png",
+    "output": "party/tools/sprites/sources/snowstar-dance-r3.webp"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-h",
+    "poses": [
+      "crouch"
+    ],
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-5e242e34-7e8c-4611-bfc4-7302bd8dcaa4.png",
+    "output": "party/tools/sprites/sources/snowstar-actions-h.webp",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "prompt": "Use case: illustration-story. Asset type: transparent single full-body action sprite for Charlie Party. Input image 1 is the approved Snowstar canonical; reproduce this exact Snowstar with her enormous round face, blue-green flower-highlight eyes, patchwork rainbow bangs and curls, red bow and flowers, green turtleneck, dark teal pants and green boots. Draw one clearly distinct CROUCH pose: lower body bent deeply, upper body leaning forward slightly, face still enormous and expressive, playful determined eyes, feet planted. Keep whole figure visible with margin. Bold smooth dark navy outlines, clean bright cel shading matching the canonical. True transparent background; no extra effects, props, text, scenery, floor shadow, clipping or overlap."
+  },
+  {
+    "character": "snowstar",
+    "sheet": "actions-i",
+    "poses": [
+      "balance"
+    ],
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-13811227-78a9-4ee7-b75d-fd3805abdc62.png",
+    "output": "party/tools/sprites/sources/snowstar-actions-i.webp",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "prompt": "Use case: illustration-story. Asset type: transparent single full-body action sprite for Charlie Party. Input image 1 is the approved Snowstar canonical; reproduce exact Snowstar: enormous round face, blue-green eyes with tiny flower highlights, patchwork rainbow bangs and side curls, red bow and floral ornaments, green turtleneck sweater, dark teal pants, green boots. Pose: balance, a clear arms-out wobble on a flat invisible ground line, torso tilted slightly, one foot just lifting, concerned-but-funny wide eyes. The character is alone, floating on transparent background. Do not draw a cookie, platform, floor, cracks, props, shadows, motion lines, symbols or effects. Keep whole body and enormous head visible, bold navy outline and bright cel shading."
+  },
+  {
+    "character": "snowstar",
+    "sheet": "pose-twirl-r3",
+    "poses": [
+      "twirl-a",
+      "twirl-b",
+      "twirl-c",
+      "twirl-d"
+    ],
+    "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-22edb8a1-663c-4e1a-8713-5db7342a31bd.png",
+    "output": "party/tools/sprites/sources/snowstar-pose-twirl-r3.webp",
+    "canonical": "party/reference/canonical/snowstar.webp",
+    "prompt": "Use case: illustration-story. Asset type: transparent four-frame full-body twirl cycle for Charlie Party. Input image 1 is the approved Snowstar canonical. Reproduce the exact same character and outfit in all four views: enormous round face and huge blue-green eyes with tiny white flower highlights visible whenever facing camera; patchwork geometric multicolor bangs and rainbow side curls; red bow, floral ornaments and curling wisps; green turtleneck sweater, dark teal pants, green boots. Preserve identity and clothing details, proportions, colors and outline weight through the turn. Show four separate full-body frames in one horizontal row with transparent gutters, ordered left-to-right: 1 front view facing camera; 2 three-quarter view turning away toward her right; 3 full back view, showing the rear patchwork hair, red bow, curls, green sweater, teal pants and boots; 4 opposite three-quarter view turning back toward camera. This is a genuine 360-degree body turn, not a paper spin or front-only variation. Keep enormous head size. Graceful playful twirl, full figure visible in every frame. Bold smooth dark navy outlines, bright clean cel shading. True transparent background, no text, labels, scenery, shadows, sparkles or props; no cropping or overlap."
+  }
+]

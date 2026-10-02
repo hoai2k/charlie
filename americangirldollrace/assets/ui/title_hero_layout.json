@@ -17,10 +17,13 @@
       "width": 680,
       "height": 550,
       "z": 0,
-      "bobAmplitude": 10,
-      "bobPeriodMs": 1400,
-      "phaseRadians": 4.1888,
-      "enterDelayMs": 180
+      "bobAmplitude": 16,
+      "bobPeriodMs": 880,
+      "phaseRadians": -0.35,
+      "enterDelayMs": 180,
+      "bobWave": "glide",
+      "tiltDegrees": 1.8,
+      "pivot": "50% 70%"
     },
     {
       "key": "juliette",
@@ -31,10 +34,13 @@
       "width": 520,
       "height": 495,
       "z": 1,
-      "bobAmplitude": 10,
-      "bobPeriodMs": 1400,
-      "phaseRadians": 2.0944,
-      "enterDelayMs": 90
+      "bobAmplitude": 12,
+      "bobPeriodMs": 880,
+      "phaseRadians": 0.4,
+      "enterDelayMs": 90,
+      "bobWave": "gallop",
+      "tiltDegrees": 1.3,
+      "pivot": "55% 88%"
     },
     {
       "key": "whirlpool",
@@ -45,10 +51,13 @@
       "width": 475,
       "height": 510,
       "z": 2,
-      "bobAmplitude": 10,
-      "bobPeriodMs": 1400,
-      "phaseRadians": 0,
-      "enterDelayMs": 0
+      "bobAmplitude": 14,
+      "bobPeriodMs": 880,
+      "phaseRadians": 0.0,
+      "enterDelayMs": 0,
+      "bobWave": "gallop",
+      "tiltDegrees": 1.6,
+      "pivot": "55% 88%"
     },
     {
       "key": "lily",
@@ -59,10 +68,13 @@
       "width": 253,
       "height": 337,
       "z": 3,
-      "bobAmplitude": 14,
-      "bobPeriodMs": 700,
-      "phaseRadians": 1.0472,
-      "enterDelayMs": 270
+      "bobAmplitude": 10,
+      "bobPeriodMs": 440,
+      "phaseRadians": 0.5,
+      "enterDelayMs": 270,
+      "bobWave": "bounce",
+      "tiltDegrees": 0,
+      "pivot": "50% 100%"
     },
     {
       "key": "rumi",
@@ -73,10 +85,13 @@
       "width": 304,
       "height": 358,
       "z": 4,
-      "bobAmplitude": 14,
-      "bobPeriodMs": 700,
-      "phaseRadians": 3.1416,
-      "enterDelayMs": 360
+      "bobAmplitude": 11,
+      "bobPeriodMs": 440,
+      "phaseRadians": 0.15,
+      "enterDelayMs": 360,
+      "bobWave": "bounce",
+      "tiltDegrees": 0,
+      "pivot": "50% 100%"
     },
     {
       "key": "kaya",
@@ -87,11 +102,15 @@
       "width": 272,
       "height": 369,
       "z": 5,
-      "bobAmplitude": 14,
-      "bobPeriodMs": 700,
-      "phaseRadians": 5.236,
-      "enterDelayMs": 450
+      "bobAmplitude": 9,
+      "bobPeriodMs": 440,
+      "phaseRadians": 0.8,
+      "enterDelayMs": 450,
+      "bobWave": "bounce",
+      "tiltDegrees": 0,
+      "pivot": "50% 100%"
     }
   ],
-  "animationPadding": 16
+  "animationPadding": 16,
+  "bobNotes": "All layers share one stride (riders 880 ms, runners two steps per stride at 440 ms) with small phase offsets (radians of each layer's own cycle) so the group moves together but not in lockstep. bobWave: gallop = quick push-off, hang at the top, nose-up/nose-down tilt; glide = smooth sine with gentle tilt (pegasus in the air); bounce = one hop per step with a firm footfall. bobAmplitude is in composition pixels (shown at 0.6x)."
 }
