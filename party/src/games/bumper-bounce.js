@@ -7,6 +7,7 @@
 //   'tumble' -> fall
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSE_NAMES } from '../engine/sprites.js';
+import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
@@ -64,13 +65,13 @@ const CX = 960, CY = 505, K = 0.62;      // platform centre (screen) and 3/4 squ
 const R0 = 500;                          // starting platform radius (world px)
 const THICK = 84;                        // visible cake side
 const ACCEL = 1350, DRAG = 2.5;          // slippery but controllable
-const DASH_V = 820, DASH_T = 0.3, DASH_CD = 1.2;
+const DASH_V = 700, DASH_T = 0.3, DASH_CD = 1.2;
 const FALL_T = 0.95;
 const TIME_CAP = 60;
 // [time, radius] - the frosting crumbles in stages; each is telegraphed 2.2 s ahead
 const STAGES = [[20, 430], [30, 365], [40, 305], [48, 250]];
 const TELEGRAPH = 2.2;
-const SUDDEN_AT = 54, SUDDEN_R = 105;
+const SUDDEN_AT = 54, SUDDEN_R = 55;
 
 const NEW_POSE_FALLBACK = { dash: 'push', sit: 'idle', tumble: 'fall' };
 const poseName = (n) => (POSE_NAMES.includes(n) ? n : NEW_POSE_FALLBACK[n] || 'idle');
@@ -102,8 +103,9 @@ export class Game {
     this.ents = players.map((p, i) => {
       const ang = (i / n) * TAU - Math.PI / 2 + 0.3;
       const rr = n === 2 ? 190 : 250;
-      const a = new Actor(p.charId, { scale: this.scale });
-      const r = 30 + 18 * this.scale;
+      const sc = this.scale * (p.charId === 'troll' ? 0.58 : 1);
+      const a = new Actor(p.charId, { scale: sc });
+      const r = 30 + 18 * sc;
       const e = {
         p, a, i, x: Math.cos(ang) * rr, y: Math.sin(ang) * rr * 0.9, vx: 0, vy: 0, r, dash: 0, cd: 0, stun: 0, dirx: -Math.cos(ang), diry: -Math.sin(ang),
         state: 'alive', ft: 0, elimAt: Infinity, fx: 0, fy: 0, fvx: 0, fvy: 0, seat: null, seatT: 0, brain: new Brain(p),
@@ -307,14 +309,14 @@ export class Game {
       const cd = this.bumpCd.get(key) ?? -1;
       let impact = 0;
       if (vn > 0) {
-        const jn = (1 + 0.8) * vn * 0.5;
+        const jn = (1 + 0.5) * vn * 0.5;
         A.vx -= nx * jn; A.vy -= ny * jn; B.vx += nx * jn; B.vy += ny * jn;
         impact = vn;
       }
       // dash bumps add a big kick; the dasher takes a small recoil
       let kick = 0;
-      if (A.dash > 0 && vn > -200) { B.vx += nx * 560; B.vy += ny * 560; A.vx -= nx * 130; A.vy -= ny * 130; kick += 560; B.stun = Math.max(B.stun, 0.3); B.a.playOnce('hurt', 0.4); A.dash = Math.min(A.dash, 0.06); }
-      if (B.dash > 0 && vn > -200) { A.vx -= nx * 560; A.vy -= ny * 560; B.vx += nx * 130; B.vy += ny * 130; kick += 560; A.stun = Math.max(A.stun, 0.3); A.a.playOnce('hurt', 0.4); B.dash = Math.min(B.dash, 0.06); }
+      if (A.dash > 0 && vn > -200) { B.vx += nx * 270; B.vy += ny * 270; A.vx -= nx * 100; A.vy -= ny * 100; kick += 270; B.stun = Math.max(B.stun, 0.3); B.a.playOnce('hurt', 0.4); A.dash = Math.min(A.dash, 0.06); }
+      if (B.dash > 0 && vn > -200) { A.vx -= nx * 270; A.vy -= ny * 270; B.vx += nx * 100; B.vy += ny * 100; kick += 270; A.stun = Math.max(A.stun, 0.3); A.a.playOnce('hurt', 0.4); B.dash = Math.min(B.dash, 0.06); }
       if (impact + kick > 230 && this.t - cd > 0.12) {
         this.bumpCd.set(key, this.t);
         this.impactFx(A, B, nx, ny, impact + kick, kick > 0);
@@ -383,7 +385,7 @@ export class Game {
     const tx = side > 0 ? 125 : W - 125;
     const ty = 250 + row * 170;
     e.seat = { x: tx, y: ty, side };
-    e.a.scale = 0.62;
+    e.a.scale = e.p.charId === 'troll' ? 0.36 : 0.6;
     e.a.facing = side > 0 ? 1 : -1;
     e.a.alpha = 1;
     const pout = !(this.ends && this.ends.winner);
@@ -437,7 +439,7 @@ export class Game {
   aiThink(e, dt) {
     const p = e.p, prof = aiProfile(p), ctrl = p.ctrl, lvl = clamp(p.aiLevel ?? 0, 0, 2);
     if (e.stun > 0) { ctrl.move(0, 0); return; }
-    const margin = [58, 105, 135][lvl] + (e.dawdle > 0 ? -30 : 0);
+    const margin = [80, 110, 135][lvl] + (e.dawdle > 0 ? -30 : 0);
     const look = [0.18, 0.32, 0.45][lvl];
     const R = this.tele ? Math.min(this.R, this.tele.R + (this.tele.k > 0.15 ? 0 : 60)) : this.R;
     const Rs = Math.max(70, R - margin);
@@ -491,7 +493,7 @@ export class Game {
         const lined = vs < 120 || (e.vx * dx + e.vy * dy) / (vs * d) > 0.75;
         const landX = e.x + dx / d * Math.min(d + 60, 360), landY = e.y + dy / d * Math.min(d + 60, 360);
         const safe = Math.hypot(landX, landY) < R - 15 || chance(prof.mistake * 0.6);
-        const rate = [2.2, 4.5, 9][lvl];
+        const rate = [1.3, 3, 6][lvl];
         if (lined && safe && chance(rate * dt)) { pressDash = true; mx = dx / d; my = dy / d; }
       }
     }
@@ -582,7 +584,7 @@ export class Game {
     if (this.n === 2 && this.npc && this.playT < 3) ui.text(g, 'A friendly Troll joins in!', W / 2, 150, { size: 40, color: '#ffffff' });
     if (this.ends && this.ends.winner) {
       const w = this.ends.winner;
-      ui.banner(g, `${w.p.tag === 'CPU' ? 'CPU' : w.p.tag} wins!`, this.ends.t, { y: 330, size: 110, color: w.p.color === '#ffffff' ? '#ffd23f' : '#ffd23f' });
+      ui.banner(g, `${(charById(w.p.charId) || {}).name || w.p.tag} wins!`, this.ends.t, { y: 330, size: 110, color: w.p.color === '#ffffff' ? '#ffd23f' : '#ffd23f' });
     }
   }
 

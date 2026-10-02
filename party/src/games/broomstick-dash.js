@@ -70,13 +70,15 @@ export const meta = {
     const s = h / 300;
     g.scale(s, s);
     drawBroomShape(g, 100, t);
-    g.fillStyle = '#ff6fb1'; g.strokeStyle = NAVY; g.lineWidth = 6;
-    g.beginPath(); g.arc(-6, -62, 30, 0, TAU); g.fill(); g.stroke();   // head
-    g.fillStyle = '#ffe2c8'; g.beginPath(); g.arc(-2, -56, 22, 0, TAU); g.fill();
-    g.fillStyle = '#7a4fc2'; g.beginPath(); g.moveTo(-34, -78); g.lineTo(-4, -140); g.lineTo(24, -78); g.closePath(); g.fill(); g.stroke(); // hat
-    g.fillRect(-42, -80, 72, 8); g.strokeRect(-42, -80, 72, 8);
-    g.fillStyle = '#9b5cff'; g.beginPath(); g.moveTo(-26, -30); g.lineTo(18, -30); g.lineTo(26, -4); g.lineTo(-30, -4); g.closePath(); g.fill(); g.stroke(); // robe
-    g.strokeStyle = '#ff6fb1'; g.lineWidth = 9; g.beginPath(); g.moveTo(-14, -34); g.quadraticCurveTo(-60, -30, -100, -50 + Math.sin(t * 6) * 8); g.stroke(); // scarf
+    g.strokeStyle = '#ff6fb1'; g.lineWidth = 12; g.lineCap = 'round'; g.beginPath(); g.moveTo(-14, -34); g.quadraticCurveTo(-60, -30, -105, -52 + Math.sin(t * 6) * 8); g.stroke(); // scarf
+    g.lineWidth = 6; g.strokeStyle = NAVY; g.fillStyle = '#9b5cff';
+    g.beginPath(); g.moveTo(-26, -30); g.lineTo(18, -30); g.lineTo(28, -4); g.lineTo(-32, -4); g.closePath(); g.fill(); g.stroke(); // robe
+    g.fillStyle = '#ffe2c8'; g.beginPath(); g.arc(-4, -56, 24, 0, TAU); g.fill(); g.stroke();   // head
+    g.fillStyle = NAVY; g.beginPath(); g.arc(4, -58, 3.5, 0, TAU); g.arc(-12, -58, 3.5, 0, TAU); g.fill();
+    g.lineWidth = 3.5; g.beginPath(); g.arc(-4, -50, 8, 0.2, Math.PI - 0.2); g.stroke();
+    g.fillStyle = '#7a4fc2'; g.lineWidth = 6;
+    g.beginPath(); g.moveTo(-34, -70); g.quadraticCurveTo(-8, -84, 24, -70); g.lineTo(0, -140); g.closePath(); g.fill(); g.stroke(); // hat
+    g.fillStyle = '#ffd23f'; g.beginPath(); g.arc(-2, -92, 6, 0, TAU); g.fill();
     g.restore();
   },
 };

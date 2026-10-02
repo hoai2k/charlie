@@ -16,7 +16,7 @@
 //   a.facing = 1;                  // 1 right, -1 left
 //   a.setPose('walk');             // see POSES below
 //   a.playOnce('action', 0.35);    // one-shot pose, then back to the previous pose
-//   a.squash(0.25); a.flash('#fff'); a.emote('heart', 1.2);
+//   a.squash(0.25); a.flash('#fff'); a.tint('#ff66cc', 0.3); a.emote('heart', 1.2);
 //   a.update(dt); a.draw(g, { ring: '#ff4d6d' });
 //
 // Attachments (crowns, hats, wands, carried presents) ride the pose motion:
@@ -418,6 +418,8 @@ export class Actor {
   get currentPose() { return this.pose; }
   squash(amount = 0.25) { this._spring.v += amount * 14; return this; }
   flash(color = '#ffffff', dur = 0.15) { this._flash = { color, t: dur, dur }; return this; }
+  /** Persistent color wash (e.g. a potion effect); tint(null) clears it. */
+  tint(color, alpha = 0.35) { this._tint = color ? { color, alpha } : null; return this; }
   emote(kind, dur = 1.2) {
     this.emotes = this.emotes.filter((e) => e.kind !== kind);
     this.emotes.push({ kind, t: 0, dur });
@@ -627,6 +629,7 @@ export class Actor {
     };
     drawIt(img);
     if (o.tint && o.tint[1] > 0.01) { g.globalAlpha = alpha * o.tint[1] * (sp ? 0.5 : 1); drawIt(tinted(img, o.tint[0])); }
+    if (this._tint && this._tint.alpha > 0.01) { g.globalAlpha = alpha * this._tint.alpha; drawIt(tinted(img, this._tint.color)); }
     if (this._flash.t > 0) { g.globalAlpha = alpha * (this._flash.t / this._flash.dur); drawIt(tinted(img, this._flash.color)); }
     g.restore();
     if (info) { g.globalAlpha = alpha; for (const a of atts) if (!a.behind) { g.save(); a.fn(g, info); g.restore(); } }

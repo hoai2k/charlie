@@ -81,30 +81,42 @@ export class IntroScene {
     ui.text(g, this.meta.type || '', W / 2, 180, { size: 34, color: '#24163f', stroke: false });
 
     // Picture card.
-    ui.panel(g, 70, 220, 900, 560, { fill: '#ffffff' });
-    drawGameIcon(g, this.meta, 90, 240, 860, 520, this.t);
+    ui.panel(g, 70, 212, 900, 590, { fill: '#ffffff' });
+    drawGameIcon(g, this.meta, 90, 232, 860, 550, this.t);
 
-    // How to play card.
-    ui.panel(g, 1000, 220, 850, 560, { fill: '#fff8ec' });
-    ui.text(g, 'How to play', 1425, 270, { size: 50, color: '#ff6fb1' });
-    let y = 340;
-    const goalLines = ui.wrap(g, this.meta.goal || '', 770, 38, 700);
-    goalLines.forEach((l) => { ui.text(g, l, 1040, y, { size: 38, align: 'left', color: '#24163f', stroke: false, weight: 700 }); y += 46; });
-    y += 14;
-    for (const [btn, label] of this.meta.controls || []) {
-      ui.glyph(g, btn, 1066, y, 50);
-      ui.text(g, label, 1112, y + 2, { size: 34, align: 'left', color: '#24163f', stroke: false, weight: 600, maxWidth: 700 });
-      y += 62;
+    // How to play card: goal, controls, then as many tips as fit (tips that
+    // don't fit rotate through the last slot).
+    ui.panel(g, 1000, 212, 850, 590, { fill: '#fff8ec' });
+    ui.text(g, 'How to play', 1425, 258, { size: 48, color: '#ff6fb1' });
+    let y = 318;
+    const goalLines = ui.wrap(g, this.meta.goal || '', 770, 36, 700);
+    goalLines.forEach((l) => { ui.text(g, l, 1040, y, { size: 36, align: 'left', color: '#24163f', stroke: false, weight: 700 }); y += 44; });
+    y += 10;
+    const controls = this.meta.controls || [];
+    const rowH = controls.length > 4 ? 48 : 56;
+    for (const [btn, label] of controls) {
+      ui.glyph(g, btn, 1066, y, rowH - 8);
+      ui.text(g, label, 1108, y + 2, { size: rowH > 50 ? 32 : 28, align: 'left', color: '#24163f', stroke: false, weight: 600, maxWidth: 710 });
+      y += rowH;
     }
-    y += 8;
-    for (const tip of this.meta.tips || []) {
-      const lines = ui.wrap(g, tip, 740, 28, 600);
-      if (y + lines.length * 34 > 770) break;
-      ui.text(g, '★', 1050, y, { size: 30, color: '#ffd23f', strokeWidth: 5 });
-      lines.forEach((l) => { ui.text(g, l, 1080, y, { size: 28, align: 'left', color: '#6b5a85', stroke: false, weight: 600 }); y += 34; });
+    y += 6;
+    const tips = (this.meta.tips || []).map((tip) => ui.wrap(g, tip, 740, 26, 600));
+    const bottom = 772;
+    const fit = [];
+    let yy = y;
+    for (const lines of tips) { if (yy + lines.length * 31 > bottom) break; fit.push(lines); yy += lines.length * 31 + 6; }
+    if (fit.length < tips.length && fit.length > 0) {
+      // Rotate the remaining tips through the last visible slot.
+      const rest = tips.slice(fit.length - 1);
+      const pickT = rest[Math.floor(this.t / 4) % rest.length];
+      if (y + fit.slice(0, -1).reduce((a, l) => a + l.length * 31 + 6, 0) + pickT.length * 31 <= bottom + 4) fit[fit.length - 1] = pickT;
+    }
+    for (const lines of fit) {
+      ui.text(g, '★', 1050, y, { size: 28, color: '#ffd23f', strokeWidth: 5 });
+      lines.forEach((l) => { ui.text(g, l, 1080, y, { size: 26, align: 'left', color: '#6b5a85', stroke: false, weight: 600 }); y += 31; });
       y += 6;
     }
-    if (this.meta.duration) ui.text(g, '⏱ ' + this.meta.duration, 1820, 750, { size: 28, align: 'right', color: '#6b5a85', stroke: false });
+    if (this.meta.duration) ui.text(g, '⏱ ' + this.meta.duration, 1820, 778, { size: 26, align: 'right', color: '#6b5a85', stroke: false });
 
     // Host.
     drawHost(g, 200, 215, 150, this.t, this.go !== null ? 'cheer' : 'talk');
@@ -126,7 +138,7 @@ export class IntroScene {
     });
     if (this.go !== null) ui.banner(g, "Let's go!", this.go, { y: 520, size: 160 });
     else if (this.t > 0.6 && this.ready.some((r, i) => !r && !session.players[i].isAI)) {
-      ui.text(g, 'Press A when you are ready!', W / 2, 818, { size: 36, color: '#fff' });
+      ui.text(g, 'Press A when you are ready!', W / 2, 838, { size: 34, color: '#fff' });
     }
   }
 }

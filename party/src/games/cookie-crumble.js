@@ -17,11 +17,11 @@ const COLS = 10, ROWS = 6;
 const GX = (W - COLS * T) / 2, GY = 132;
 const FACE = 124;                    // visible cookie size
 const TIME_LIMIT = 60;
-const CRACK_T = [0, 0.42, 0.84], FALL_T = 1.3;   // crack stage thresholds and fall time (seconds of crack timer)
+const CRACK_T = [0, 0.5, 1.0], FALL_T = 1.5;   // crack stage thresholds and fall time (seconds of crack timer)
 const HOP_DIST = 235, HOP_DUR = 0.4;
-const SPEED = 350;
+const SPEED = 330;
 const PR = 30;                       // player feet radius for bumping
-const CHAR_SCALE = 0.62;
+const CHAR_SCALE = 0.7;
 const CRUMBLE_START = 17;            // random crumbling begins
 const NAVY = '#24163f';
 const pickPose = (...names) => names.find((n) => POSE_NAMES.includes(n)) || 'idle';
@@ -348,7 +348,7 @@ export class Game {
     particles.burst(s.x, s.y, { type: 'bubble', count: 8, speed: [60, 220] });
     particles.ring(s.x, s.y, '#ffffff', 220, 0.6);
     this.ripples.push({ x: s.x, y: s.y, t: 0 }, { x: s.x, y: s.y, t: -0.2 }, { x: s.x, y: s.y, t: -0.4 });
-    sfx('splash'); sfx('bubble');
+    sfx('splash'); sfx('bubble'); sfx('crowd-ooh');
     voice(this.players[i].charId, 'ouch');
     fx.shake(10, 0.25);
     this.players[i].ctrl.rumble && this.players[i].ctrl.rumble(0.7, 250);
@@ -560,10 +560,17 @@ export class Game {
     if (danger) { ai.hesitate = (ai.hesitate ?? 0); if (ai.hesitate === 0) ai.hesitate = this.clock + reactionTime(p) * 0.8; }
     else ai.hesitate = 0;
     const urgent = danger && this.clock >= ai.hesitate;
-    if (ai.brain.t <= 0 || urgent && !ai.urgentDone || !ai.target || ai.target.state === 'fallen' || (ai.target.state === 'cracking' && ai.target.stage >= 2)) {
-      ai.urgentDone = urgent;
+    ai.restT = (ai.restT ?? rand(1.5, 4)) - dt;
+    const invalid = !ai.target || ai.target.state === 'fallen' || (ai.target.state === 'cracking' && ai.target.stage >= 2);
+    if (ai.brain.t <= 0 || (urgent && !ai.urgentDone) || invalid) {
+      const crowded = me && this.ps.some((o) => o !== s && o.state === 'play' && Math.hypot(o.x - s.x, o.y - s.y) < 200);
+      const wander = ai.restT <= 0;
       ai.brain.t = [rand(0.7, 1.3), rand(0.4, 0.8), rand(0.25, 0.5)][lvl];
-      if (me) this.chooseTarget(p, s, ai, me, lvl);
+      if (me && (invalid || urgent || crowded || wander || me.state !== 'intact')) {
+        ai.urgentDone = urgent;
+        this.chooseTarget(p, s, ai, me, lvl);
+        if (wander) ai.restT = [rand(3, 6), rand(2.5, 4.5), rand(2, 3.5)][lvl];
+      }
     }
     if (!danger) ai.urgentDone = false;
     // follow the path
@@ -629,9 +636,9 @@ export class Game {
       }
       // keep away from the grid border a little
       const edge = Math.min(t.c, COLS - 1 - t.c, t.r, ROWS - 1 - t.r);
-      sc += Math.min(edge, 2) * 0.35;
+      sc += Math.min(edge, 2) * 0.9;
       if (t === me) {
-        sc += me.state === 'intact' ? 1.3 : -3;
+        sc += me.state === 'intact' ? [3.2, 2.6, 2.0][lvl] : -3;
         if (me.state === 'cracking') sc -= 4;
       }
       sc += rand(-1, 1) * [2.6, 1.0, 0.3][lvl];

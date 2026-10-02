@@ -240,7 +240,7 @@ export class Game {
         particles.burst(this.wx(st, FEET.x), this.wy(st, FEET.y - 60), { type: 'smoke', count: 10, speed: [40, 140] });
         st.actor.clearEmotes();
       }
-      Object.assign(st, { added: [], flying: [], brewTarget: WATER.slice(), phase: 'add', phaseT: 0, stir: 0, eff: null, effT: 0, result: null, wandT: -1, cloud: 0, slots: rd.ings.length, hopZ: 0 });
+      Object.assign(st, { added: [], flying: [], brewTarget: WATER.slice(), phase: 'add', phaseT: 0, stir: 0, eff: null, effT: 0, result: null, wandT: -1, cloud: 0, slots: rd.ings.length, hopZ: 0, selShow: 2.5 });
       st.ai.plan = null; st.ai.phase = null;
       st.actor.setPose('idle');
     }
@@ -297,7 +297,7 @@ export class Game {
         if (this.round + 1 < this.rounds.length) this.startRound(this.round + 1);
         else {
           this.phase = 'end'; this.phaseT = 0;
-          this.say('Class dismissed! You are all wonderful wizards!', 5);
+          this.say('Hoo-ray! Well done, class!', 5);
           this.hoot.flapT = 1.5; sfx('fanfare'); snd('applause', 'cheer'); particles.confettiRain(W, 120);
           for (const st of this.stations) st.actor.setPose('celebrate');
         }
@@ -337,6 +337,7 @@ export class Game {
     st.cool = Math.max(0, st.cool - dt);
     st.navCool = Math.max(0, st.navCool - dt);
     st.selBump = Math.max(0, st.selBump - dt * 4);
+    st.selShow = Math.max(0, (st.selShow ?? 2.5) - dt);
     st.splash = Math.max(0, st.splash - dt * 2.5);
     st.shake = Math.max(0, st.shake - dt * 3);
     st.cloud = Math.max(0, st.cloud - dt * 1.6);
@@ -345,7 +346,7 @@ export class Game {
     if (st.phase === 'add') {
       if (c.nav.x && st.navCool <= 0) {
         st.sel = (st.sel + c.nav.x + INGREDIENTS.length) % INGREDIENTS.length;
-        st.selBump = 1; st.navCool = 0.07; sfx('move');
+        st.selBump = 1; st.selShow = 1.6; st.navCool = 0.07; sfx('move');
       }
       if (active && st.cool <= 0 && c.pressed('a')) {
         if (st.added.length + st.flying.length < st.slots) this.toss(st);
@@ -845,7 +846,7 @@ export class Game {
     for (let j = 0; j < 3; j++) {
       const ph = (this.t * 0.4 + j / 3 + st.i * 0.13) % 1;
       g.save(); g.globalAlpha = 0.35 * Math.sin(ph * Math.PI) * (0.6 + bubbling);
-      g.fillStyle = rgbStr(st.brew);
+      g.fillStyle = rgbStr(st.brew.map((v) => v + (255 - v) * 0.6));
       g.beginPath(); g.arc(BREW.x - 40 + j * 40 + Math.sin(ph * 6 + j) * 12, BREW.y - 30 - ph * 110, 14 + ph * 20, 0, TAU); g.fill();
       g.restore();
     }
@@ -904,18 +905,27 @@ export class Game {
     if (st.phase === 'add') {
       const name = INGREDIENTS[st.sel].name;
       const showA = active && st.added.length + st.flying.length < st.slots;
-      const tw = ui.measure(g, name, 24, 700);
-      const pw = tw + 24 + (showA ? 40 : 0);
-      const cx = clamp(SHELF_X(st.sel), pw / 2 + 4, SW - pw / 2 - 4);
-      g.fillStyle = 'rgba(36,22,63,0.72)'; ui.roundRect(g, cx - pw / 2, 274, pw, 38, 19); g.fill();
-      if (showA) ui.glyph(g, 'a', cx - pw / 2 + 24, 293, 30);
-      ui.text(g, name, cx + (showA ? 20 : 0), 293, { size: 24, color: '#fff', stroke: false });
+      const x = SHELF_X(st.sel);
+      const nameA = clamp(st.selShow / 0.3, 0, 1);
+      if (nameA > 0) {
+        // Name tag pops up for a moment after picking, then shrinks to an A hint.
+        const tw = ui.measure(g, name, 24, 700);
+        const pw = tw + 24 + (showA ? 40 : 0);
+        const cx = clamp(x, pw / 2 + 4, SW - pw / 2 - 4);
+        g.save(); g.globalAlpha *= nameA;
+        g.fillStyle = 'rgba(36,22,63,0.78)'; ui.roundRect(g, cx - pw / 2, 274, pw, 38, 19); g.fill();
+        if (showA) ui.glyph(g, 'a', cx - pw / 2 + 24, 293, 30);
+        ui.text(g, name, cx + (showA ? 20 : 0), 293, { size: 24, color: '#fff', stroke: false });
+        g.restore();
+      } else if (showA) {
+        ui.glyph(g, 'a', x, 300 + Math.sin(this.t * 6) * 3, 32);
+      }
     } else if (st.phase === 'stir') {
       const cx = BREW.x, cy = 118;
       const prog = clamp(st.stir / STIR_NEED, 0, 1);
       g.lineWidth = 10; g.strokeStyle = 'rgba(36,22,63,0.35)'; g.beginPath(); g.arc(cx, cy, 44, 0, TAU); g.stroke();
       g.strokeStyle = p.color; g.beginPath(); g.arc(cx, cy, 44, -Math.PI / 2, -Math.PI / 2 + prog * TAU); g.stroke();
-      const ang = p.isAI ? st.ai.ang : this.t * 5;
+      const ang = p.isAI ? st.ai.ang : st.stirAng;
       ui.glyph(g, 'stick', cx + Math.cos(ang) * 8, cy + Math.sin(ang) * 8, 50);
       // circular arrow
       g.save(); g.translate(cx, cy); g.rotate(this.t * 3);

@@ -356,15 +356,17 @@ const BACK = [
   {
     name: 'Angel Wings', color: 6,
     draw(g, S, col, t) {
-      const flap = Math.sin(t * 3) * 0.06;
+      const flap = Math.sin(t * 3) * 0.08;
       for (const sx of [-1, 1]) {
-        g.save(); g.scale(sx, 1); g.rotate(-0.15 - flap);
-        for (let k = 4; k >= 0; k--) {
-          const x = S * (0.1 + k * 0.065), y = -S * 0.12 + k * S * 0.045, rx = S * (0.16 - k * 0.012), ry = S * (0.07 - k * 0.006);
-          g.beginPath(); g.ellipse(x, y, rx, ry, 0.5 + k * 0.12, 0, TAU);
+        g.save(); g.scale(sx, 1); g.translate(S * 0.04, 0); g.rotate(-flap);
+        for (let k = 5; k >= 0; k--) {
+          const a = -0.95 + k * 0.27, len = S * (0.34 - k * 0.03);
+          g.save(); g.rotate(a);
+          g.beginPath(); g.ellipse(len * 0.55, 0, len * 0.55, S * 0.055, 0, 0, TAU);
           g.fillStyle = col.rainbow ? RAINBOW[k] : (k % 2 ? col.l : col.c); g.fill(); ol(g, S, 0.01);
+          g.restore();
         }
-        g.beginPath(); g.ellipse(S * 0.14, -S * 0.12, S * 0.14, S * 0.07, -0.3, 0, TAU); g.fillStyle = col.rainbow ? '#fff' : col.c; g.fill(); ol(g, S, 0.01);
+        g.beginPath(); g.ellipse(S * 0.06, -S * 0.04, S * 0.08, S * 0.06, 0, 0, TAU); g.fillStyle = col.rainbow ? '#fff' : col.c; g.fill(); ol(g, S, 0.01);
         g.restore();
       }
     },
