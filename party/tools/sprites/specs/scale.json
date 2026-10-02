@@ -46,16 +46,127 @@
           "hand": [
             39,
             412
-          ]
+          ],
+          "dur": 2.88
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            50,
+            0,
+            268,
+            328
+          ],
+          "anchor": [
+            113,
+            292
+          ],
+          "scale": 2.2,
+          "head": [
+            113,
+            48
+          ],
+          "eyes": [
+            113,
+            127
+          ],
+          "neck": [
+            113,
+            172
+          ],
+          "back": [
+            120,
+            208
+          ],
+          "hand": [
+            178,
+            187
+          ],
+          "dur": 0.12,
+          "isolate": true
         }
       ],
-      "fps": 5,
+      "fps": 1,
       "loop": true,
       "motion": 0.85,
       "facing": 0
     },
     "celebrate": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.75,
+      "facing": 0,
       "frames": [
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            358,
+            3,
+            249,
+            315
+          ],
+          "anchor": [
+            131,
+            289
+          ],
+          "scale": 2.2,
+          "head": [
+            131,
+            45
+          ],
+          "eyes": [
+            131,
+            124
+          ],
+          "neck": [
+            131,
+            169
+          ],
+          "back": [
+            138,
+            205
+          ],
+          "hand": [
+            151,
+            169
+          ],
+          "isolate": true
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            653,
+            0,
+            294,
+            281
+          ],
+          "anchor": [
+            163,
+            320
+          ],
+          "scale": 2.2,
+          "head": [
+            163,
+            48
+          ],
+          "eyes": [
+            163,
+            127
+          ],
+          "neck": [
+            163,
+            172
+          ],
+          "back": [
+            169,
+            208
+          ],
+          "hand": [
+            248,
+            72
+          ],
+          "isolate": true
+        },
         {
           "source": "../sources/scale-core.webp",
           "rect": [
@@ -90,14 +201,49 @@
             356,
             198
           ]
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            51,
+            291,
+            288,
+            333
+          ],
+          "anchor": [
+            112,
+            302
+          ],
+          "scale": 2.2,
+          "head": [
+            112,
+            59
+          ],
+          "eyes": [
+            112,
+            137
+          ],
+          "neck": [
+            112,
+            183
+          ],
+          "back": [
+            119,
+            219
+          ],
+          "hand": [
+            193,
+            177
+          ],
+          "isolate": true
         }
-      ],
-      "fps": 5,
-      "loop": true,
-      "motion": 0.85,
-      "facing": 0
+      ]
     },
     "pout": {
+      "fps": 3,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0,
       "frames": [
         {
           "source": "../sources/scale-core.webp",
@@ -133,12 +279,43 @@
             146,
             370
           ]
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            380,
+            302,
+            216,
+            314
+          ],
+          "anchor": [
+            109,
+            291
+          ],
+          "scale": 2.2,
+          "head": [
+            109,
+            48
+          ],
+          "eyes": [
+            109,
+            126
+          ],
+          "neck": [
+            109,
+            172
+          ],
+          "back": [
+            116,
+            208
+          ],
+          "hand": [
+            142,
+            154
+          ],
+          "isolate": true
         }
-      ],
-      "fps": 5,
-      "loop": true,
-      "motion": 0.85,
-      "facing": 0
+      ]
     },
     "wave": {
       "frames": [
@@ -676,14 +853,319 @@
       "facing": 0
     },
     "run": {
-      "alias": "walk",
-      "fps": 10
+      "alias": "walk"
     },
     "cheer": {
-      "alias": "celebrate"
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0,
+      "frames": [
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            705,
+            292,
+            253,
+            343
+          ],
+          "anchor": [
+            111,
+            301
+          ],
+          "scale": 2.2,
+          "head": [
+            111,
+            58
+          ],
+          "eyes": [
+            111,
+            136
+          ],
+          "neck": [
+            111,
+            182
+          ],
+          "back": [
+            117,
+            218
+          ],
+          "hand": [
+            55,
+            130
+          ],
+          "isolate": true
+        }
+      ]
     },
     "sad": {
-      "alias": "pout"
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0,
+      "frames": [
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            1015,
+            305,
+            261,
+            331
+          ],
+          "anchor": [
+            127,
+            288
+          ],
+          "scale": 2.2,
+          "head": [
+            127,
+            45
+          ],
+          "eyes": [
+            127,
+            123
+          ],
+          "neck": [
+            127,
+            169
+          ],
+          "back": [
+            134,
+            205
+          ],
+          "hand": [
+            137,
+            199
+          ],
+          "isolate": true
+        }
+      ]
+    },
+    "dance": {
+      "fps": 4,
+      "loop": true,
+      "motion": 0.45,
+      "facing": 0,
+      "frames": [
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            55,
+            599,
+            264,
+            336
+          ],
+          "anchor": [
+            108,
+            295
+          ],
+          "scale": 2.2,
+          "head": [
+            108,
+            52
+          ],
+          "eyes": [
+            108,
+            130
+          ],
+          "neck": [
+            108,
+            176
+          ],
+          "back": [
+            115,
+            212
+          ],
+          "hand": [
+            189,
+            170
+          ],
+          "isolate": true
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            387,
+            604,
+            247,
+            332
+          ],
+          "anchor": [
+            102,
+            290
+          ],
+          "scale": 2.2,
+          "head": [
+            102,
+            47
+          ],
+          "eyes": [
+            102,
+            125
+          ],
+          "neck": [
+            102,
+            171
+          ],
+          "back": [
+            109,
+            207
+          ],
+          "hand": [
+            151,
+            95
+          ],
+          "isolate": true
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            699,
+            603,
+            239,
+            326
+          ],
+          "anchor": [
+            117,
+            291
+          ],
+          "scale": 2.2,
+          "head": [
+            117,
+            48
+          ],
+          "eyes": [
+            117,
+            126
+          ],
+          "neck": [
+            117,
+            172
+          ],
+          "back": [
+            123,
+            208
+          ],
+          "hand": [
+            159,
+            169
+          ],
+          "isolate": true
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            989,
+            600,
+            292,
+            311
+          ],
+          "anchor": [
+            153,
+            294
+          ],
+          "scale": 2.2,
+          "head": [
+            153,
+            51
+          ],
+          "eyes": [
+            153,
+            129
+          ],
+          "neck": [
+            153,
+            175
+          ],
+          "back": [
+            160,
+            211
+          ],
+          "hand": [
+            241,
+            172
+          ],
+          "isolate": true
+        }
+      ]
+    },
+    "ride": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0,
+      "frames": [
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            30,
+            913,
+            307,
+            293
+          ],
+          "anchor": [
+            133,
+            283
+          ],
+          "scale": 2.2,
+          "head": [
+            133,
+            39
+          ],
+          "eyes": [
+            133,
+            118
+          ],
+          "neck": [
+            133,
+            163
+          ],
+          "back": [
+            140,
+            199
+          ],
+          "hand": [
+            159,
+            172
+          ],
+          "isolate": true
+        },
+        {
+          "source": "../sources/scale-extensions.webp",
+          "rect": [
+            359,
+            914,
+            249,
+            276
+          ],
+          "anchor": [
+            130,
+            282
+          ],
+          "scale": 2.2,
+          "head": [
+            130,
+            38
+          ],
+          "eyes": [
+            130,
+            117
+          ],
+          "neck": [
+            130,
+            162
+          ],
+          "back": [
+            137,
+            198
+          ],
+          "hand": [
+            156,
+            171
+          ],
+          "isolate": true
+        }
+      ]
     }
   },
   "portraits": {
@@ -702,5 +1184,6 @@
     "determined": {
       "source": "../sources/scale-portrait-determined.webp"
     }
-  }
+  },
+  "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added."
 }

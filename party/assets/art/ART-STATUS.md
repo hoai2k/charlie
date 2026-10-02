@@ -27,6 +27,14 @@ Round 2 replaced original three-kind plant list with six kinds × five stages; a
 
 ## Integration handoff (not edited by art agent)
 
+Root integration checkpoint: matching-color Fashion Show accessories now use
+generated art with existing procedural fallbacks. Wizard Quickdraw uses
+lantern-off/on while retaining separate signal rays. Pass the Present uses its
+ticking variant above the existing urgency threshold. The image loader shares
+aliases, limits concurrency to six and retries once; regression tests pass.
+All literal art keys currently referenced by game code exist in the index.
+The remaining notes below retain the original handoff for future work.
+
 1. Fashion Show: `src/games/fashion-show.js` currently imports wardrobe and uses procedural accessory render paths; only vanity is directly hooked. All 28 requested accessories now exist. Map wardrobe IDs to keys and use current Actor head/eyes/neck/back/hand anchors, retaining procedural fallback. Check wands, wings junction and necklaces carefully at both facings.
 2. Results: trophy/podium/ui star/ui medal generated but `src/scenes/results.js` had no direct art keys on last scan. Preserve variable player-count podium layout; generated podium is three joined blocks, no numbers.
 3. Cake Bakery: all four cake layers, cake stand, six toppers and unlit candle generated; game had no prop hooks on last scan. Candle flame and sprinkles still pending.

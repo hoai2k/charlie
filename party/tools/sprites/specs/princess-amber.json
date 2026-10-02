@@ -1091,8 +1091,8 @@
             44
           ],
           "eyes": [
-            166,
-            118
+            102,
+            153
           ],
           "neck": [
             166,
@@ -1127,8 +1127,8 @@
             50
           ],
           "eyes": [
-            176,
-            136
+            152,
+            143
           ],
           "neck": [
             176,
@@ -1163,8 +1163,8 @@
             50
           ],
           "eyes": [
-            178,
-            134
+            161,
+            141
           ],
           "neck": [
             178,
@@ -1199,8 +1199,8 @@
             48
           ],
           "eyes": [
-            158,
-            130
+            172,
+            148
           ],
           "neck": [
             158,
@@ -1299,6 +1299,1176 @@
       "loop": true,
       "motion": 0.15,
       "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            45,
+            4,
+            369,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            499
+          ],
+          "scale": 1,
+          "head": [
+            184,
+            60
+          ],
+          "eyes": [
+            184,
+            141
+          ],
+          "neck": [
+            184,
+            201
+          ],
+          "back": [
+            140,
+            282
+          ],
+          "hand": [
+            103,
+            171
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            446,
+            4,
+            318,
+            499
+          ],
+          "isolate": true,
+          "anchor": [
+            165,
+            495
+          ],
+          "scale": 1,
+          "head": [
+            159,
+            60
+          ],
+          "eyes": [
+            159,
+            140
+          ],
+          "neck": [
+            159,
+            200
+          ],
+          "back": [
+            121,
+            279
+          ],
+          "hand": [
+            159,
+            274
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            804,
+            4,
+            337,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            175,
+            502
+          ],
+          "scale": 1,
+          "head": [
+            168,
+            61
+          ],
+          "eyes": [
+            168,
+            142
+          ],
+          "neck": [
+            168,
+            202
+          ],
+          "back": [
+            128,
+            283
+          ],
+          "hand": [
+            236,
+            182
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            1171,
+            4,
+            346,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            180,
+            502
+          ],
+          "scale": 1,
+          "head": [
+            173,
+            61
+          ],
+          "eyes": [
+            173,
+            142
+          ],
+          "neck": [
+            173,
+            202
+          ],
+          "back": [
+            131,
+            283
+          ],
+          "hand": [
+            104,
+            152
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            35,
+            507,
+            313,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            163,
+            503
+          ],
+          "scale": 1,
+          "head": [
+            156,
+            61
+          ],
+          "eyes": [
+            156,
+            142
+          ],
+          "neck": [
+            156,
+            203
+          ],
+          "back": [
+            119,
+            284
+          ],
+          "hand": [
+            156,
+            193
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            411,
+            507,
+            322,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            167,
+            503
+          ],
+          "scale": 1,
+          "head": [
+            161,
+            61
+          ],
+          "eyes": [
+            161,
+            142
+          ],
+          "neck": [
+            161,
+            203
+          ],
+          "back": [
+            122,
+            284
+          ],
+          "hand": [
+            193,
+            132
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            776,
+            515,
+            357,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            186,
+            493
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            60
+          ],
+          "eyes": [
+            178,
+            139
+          ],
+          "neck": [
+            178,
+            199
+          ],
+          "back": [
+            136,
+            278
+          ],
+          "hand": [
+            114,
+            268
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-a-r3.webp",
+          "rect": [
+            1159,
+            519,
+            364,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            189,
+            489
+          ],
+          "scale": 1,
+          "head": [
+            182,
+            59
+          ],
+          "eyes": [
+            182,
+            138
+          ],
+          "neck": [
+            182,
+            197
+          ],
+          "back": [
+            138,
+            276
+          ],
+          "hand": [
+            255,
+            148
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            21,
+            1,
+            359,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            499
+          ],
+          "scale": 1,
+          "head": [
+            180,
+            60
+          ],
+          "eyes": [
+            180,
+            141
+          ],
+          "neck": [
+            180,
+            201
+          ],
+          "back": [
+            136,
+            282
+          ],
+          "hand": [
+            251,
+            161
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            427,
+            0,
+            348,
+            506
+          ],
+          "isolate": true,
+          "anchor": [
+            181,
+            502
+          ],
+          "scale": 1,
+          "head": [
+            174,
+            61
+          ],
+          "eyes": [
+            174,
+            142
+          ],
+          "neck": [
+            174,
+            202
+          ],
+          "back": [
+            132,
+            283
+          ],
+          "hand": [
+            244,
+            172
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            831,
+            0,
+            290,
+            508
+          ],
+          "isolate": true,
+          "anchor": [
+            151,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            145,
+            61
+          ],
+          "eyes": [
+            145,
+            142
+          ],
+          "neck": [
+            145,
+            203
+          ],
+          "back": [
+            110,
+            284
+          ],
+          "hand": [
+            197,
+            284
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            1182,
+            4,
+            331,
+            505
+          ],
+          "isolate": true,
+          "anchor": [
+            172,
+            501
+          ],
+          "scale": 1,
+          "head": [
+            166,
+            61
+          ],
+          "eyes": [
+            166,
+            141
+          ],
+          "neck": [
+            166,
+            202
+          ],
+          "back": [
+            126,
+            283
+          ],
+          "hand": [
+            166,
+            162
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            18,
+            503,
+            368,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            490
+          ],
+          "scale": 1,
+          "head": [
+            184,
+            59
+          ],
+          "eyes": [
+            184,
+            138
+          ],
+          "neck": [
+            184,
+            198
+          ],
+          "back": [
+            140,
+            277
+          ],
+          "hand": [
+            125,
+            124
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            386,
+            508,
+            402,
+            473
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            469
+          ],
+          "scale": 1,
+          "head": [
+            201,
+            57
+          ],
+          "eyes": [
+            201,
+            132
+          ],
+          "neck": [
+            201,
+            189
+          ],
+          "back": [
+            153,
+            265
+          ],
+          "hand": [
+            129,
+            246
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            773,
+            509,
+            372,
+            468
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            464
+          ],
+          "scale": 1,
+          "head": [
+            186,
+            56
+          ],
+          "eyes": [
+            186,
+            131
+          ],
+          "neck": [
+            186,
+            187
+          ],
+          "back": [
+            141,
+            262
+          ],
+          "hand": [
+            260,
+            168
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-b-r3.webp",
+          "rect": [
+            1156,
+            508,
+            370,
+            477
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            473
+          ],
+          "scale": 1,
+          "head": [
+            185,
+            57
+          ],
+          "eyes": [
+            185,
+            134
+          ],
+          "neck": [
+            185,
+            191
+          ],
+          "back": [
+            141,
+            267
+          ],
+          "hand": [
+            185,
+            162
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            41,
+            5,
+            303,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            158,
+            490
+          ],
+          "scale": 1,
+          "head": [
+            152,
+            59
+          ],
+          "eyes": [
+            152,
+            138
+          ],
+          "neck": [
+            152,
+            198
+          ],
+          "back": [
+            115,
+            277
+          ],
+          "hand": [
+            152,
+            148
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            428,
+            8,
+            307,
+            496
+          ],
+          "isolate": true,
+          "anchor": [
+            160,
+            492
+          ],
+          "scale": 1,
+          "head": [
+            154,
+            60
+          ],
+          "eyes": [
+            154,
+            139
+          ],
+          "neck": [
+            154,
+            198
+          ],
+          "back": [
+            117,
+            278
+          ],
+          "hand": [
+            77,
+            129
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            805,
+            94,
+            327,
+            409
+          ],
+          "isolate": true,
+          "anchor": [
+            170,
+            405
+          ],
+          "scale": 1,
+          "head": [
+            164,
+            49
+          ],
+          "eyes": [
+            164,
+            115
+          ],
+          "neck": [
+            164,
+            164
+          ],
+          "back": [
+            124,
+            229
+          ],
+          "hand": [
+            131,
+            204
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            1160,
+            11,
+            349,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            181,
+            496
+          ],
+          "scale": 1,
+          "head": [
+            174,
+            60
+          ],
+          "eyes": [
+            174,
+            140
+          ],
+          "neck": [
+            174,
+            200
+          ],
+          "back": [
+            133,
+            280
+          ],
+          "hand": [
+            244,
+            190
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            29,
+            511,
+            340,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            499
+          ],
+          "scale": 1,
+          "head": [
+            170,
+            60
+          ],
+          "eyes": [
+            170,
+            141
+          ],
+          "neck": [
+            170,
+            201
+          ],
+          "back": [
+            129,
+            282
+          ],
+          "hand": [
+            170,
+            176
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            420,
+            510,
+            336,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            175,
+            499
+          ],
+          "scale": 1,
+          "head": [
+            168,
+            60
+          ],
+          "eyes": [
+            168,
+            141
+          ],
+          "neck": [
+            168,
+            201
+          ],
+          "back": [
+            128,
+            282
+          ],
+          "hand": [
+            168,
+            171
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0,
+      "holdLast": true
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            809,
+            511,
+            316,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            164,
+            498
+          ],
+          "scale": 1,
+          "head": [
+            158,
+            60
+          ],
+          "eyes": [
+            158,
+            141
+          ],
+          "neck": [
+            158,
+            201
+          ],
+          "back": [
+            120,
+            281
+          ],
+          "hand": [
+            221,
+            141
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-actions-c-r3.webp",
+          "rect": [
+            1171,
+            510,
+            349,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            181,
+            498
+          ],
+          "scale": 1,
+          "head": [
+            174,
+            60
+          ],
+          "eyes": [
+            174,
+            141
+          ],
+          "neck": [
+            174,
+            201
+          ],
+          "back": [
+            133,
+            281
+          ],
+          "hand": [
+            244,
+            136
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0,
+      "holdLast": true
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-dance-r3.webp",
+          "rect": [
+            10,
+            4,
+            462,
+            711
+          ],
+          "isolate": true,
+          "scale": 1,
+          "facing": 0,
+          "anchor": [
+            231,
+            707
+          ],
+          "head": [
+            231,
+            85
+          ],
+          "eyes": [
+            231,
+            199
+          ],
+          "neck": [
+            231,
+            284
+          ],
+          "back": [
+            176,
+            398
+          ],
+          "hand": [
+            116,
+            249
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-r3.webp",
+          "rect": [
+            505,
+            4,
+            561,
+            700
+          ],
+          "isolate": true,
+          "scale": 1,
+          "facing": 0,
+          "anchor": [
+            280,
+            696
+          ],
+          "head": [
+            280,
+            84
+          ],
+          "eyes": [
+            280,
+            196
+          ],
+          "neck": [
+            280,
+            280
+          ],
+          "back": [
+            213,
+            392
+          ],
+          "hand": [
+            393,
+            245
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-r3.webp",
+          "rect": [
+            1052,
+            5,
+            608,
+            704
+          ],
+          "isolate": true,
+          "scale": 1,
+          "facing": 0,
+          "anchor": [
+            304,
+            700
+          ],
+          "head": [
+            304,
+            84
+          ],
+          "eyes": [
+            304,
+            197
+          ],
+          "neck": [
+            304,
+            282
+          ],
+          "back": [
+            231,
+            394
+          ],
+          "hand": [
+            304,
+            176
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-dance-r3.webp",
+          "rect": [
+            1688,
+            4,
+            474,
+            710
+          ],
+          "isolate": true,
+          "scale": 1,
+          "facing": 0,
+          "anchor": [
+            237,
+            706
+          ],
+          "head": [
+            237,
+            85
+          ],
+          "eyes": [
+            237,
+            199
+          ],
+          "neck": [
+            237,
+            284
+          ],
+          "back": [
+            180,
+            398
+          ],
+          "hand": [
+            332,
+            284
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
     }
   },
   "portraits": {
@@ -1317,5 +2487,47 @@
     "determined": {
       "source": "../sources/princess-amber-portrait-determined.webp"
     }
-  }
+  },
+  "generationPrompts": {
+    "../sources/princess-amber-actions-a-r3.webp": {
+      "accuracy": "exact",
+      "role": "actions-a",
+      "originalOutput": "exec-9e450d1c-5e10-4b05-88c5-95a5c404553f.png",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent 4-column by 2-row sprite grid for a children's party game\nPrimary request: Reproduce this exact Princess Amber character from the approved canonical reference. Make eight separate full-body animation key poses in row-major order:\nTop row: (1) push, both palms braced forward at chest level, gown leaning into the push; (2) carry, careful walking hold with empty hands positioned to support an invisible object; (3) paint, poised hand as if brushing a separate surface, draw no brush or surface; (4) cast, elegant wand-casting posture with empty forward hand, draw no wand or magic.\nBottom row: (5) clap, joyful hands meeting at chest; (6) eat, gentle bite gesture with one empty hand near mouth, draw no food; (7) bow, graceful princess curtsy with one hand gathering the gown; (8) strike1, playful dramatic palm-forward self-defense pose with no weapon.\nSubject: same long copper/auburn hair, amber star-flower crown, floor-length orange gown, black sleeves and bodice accents, white star/flower motifs outlined in black. Keep exact design, face, palette and body proportions.\nStyle/medium: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright clean colors, simple cel shading matching the 2D canonical.\nComposition/framing: exactly eight cells in a clean four-column by two-row grid, one entire full-body Amber centered in each equal cell, generous transparent gutters, consistent head size, camera, line weight, and scale. Leave enough space for long hair and gown; no clipping.\nScene/backdrop: transparent.\nConstraints: preserve Amber's exact identity and orange gown; hands remain natural human hands. Full character visible in every pose, no extra characters.\nAvoid: dark backdrop, scenery, props, wand, food, brush, surface, shadows, floating stars or flowers, motion effects, text, border, watermark."
+    },
+    "../sources/princess-amber-actions-b-r3.webp": {
+      "accuracy": "exact",
+      "role": "actions-b",
+      "originalOutput": "exec-40cd8a9d-9ebd-4911-9098-71ff7088c480.png",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent 4-column by 2-row sprite grid for a children's party game\nPrimary request: Reproduce this exact Princess Amber from the approved canonical reference as eight full-body animation poses in row-major order:\nTop row: (1) strike2, a graceful diagonal hand sweep with gown turning; (2) strike3, a quick elegant pivot with one arm extended; (3) stir, careful circular stirring mime with one hand while holding the other near waist, draw no object; (4) shake, playful full-body shiver with hair and skirt bouncing.\nBottom row: (5) dance-up, joyful twirl with arms and skirt lifted; (6) dance-down, soft low curtsy dip with gown fanned; (7) dance-side, jaunty side step and flowing hair; (8) dance-star, bright celebratory star-like silhouette made by arms and gown, no drawn star icon.\nSubject: exact long copper/auburn hair, amber flower-star crown, floor-length orange gown, black sleeves and bodice accents, white star/flower motifs outlined in black; same face and head proportions.\nStyle/medium: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple cel shading matching the approved 2D canonical.\nComposition/framing: exactly eight separated cells in a regular four-column by two-row grid, one full-body character centered in every equal cell; generous transparent gutters, consistent head size, camera, linework and overall scale. Hair and gown must not clip.\nScene/backdrop: transparent.\nConstraints: preserve the exact character design, orange gown color, crown, sleeve and motif pattern. Full body visible in every cell, no extra characters.\nAvoid: dark backdrop, props, wand, food, instruments, surfaces, shadows, floating flowers or stars, motion effects, text, border, watermark."
+    },
+    "../sources/princess-amber-actions-c-r3.webp": {
+      "accuracy": "exact",
+      "role": "actions-c",
+      "originalOutput": "exec-6917377a-61b2-4584-9b15-007ab51cd037.png",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent 4-column by 2-row sprite grid for a children's party game\nPrimary request: Reproduce the exact Princess Amber in the approved canonical as eight full-body interaction poses in row-major order:\nTop row: (1) look-around, head turned to glance over her shoulder while body remains poised; (2) high-five, one open hand held up toward an unseen partner; (3) crouch, compact careful crouch with gown gathered safely; (4) dash, forward energetic launch pose with hair and gown trailing.\nBottom row: (5) catch, reaching-up anticipation pose with empty hands; (6) catch, completed receiving pose with empty hands; (7) wave-goodbye, gentle raised-hand farewell; (8) wave-goodbye, broad cheerful final wave with torso turned slightly.\nSubject: exact Princess Amber: long copper/auburn hair, amber star-flower crown, floor-length orange gown, black sleeves/bodice accents, white flower-star motifs outlined in black; same face, outfit palette and body proportions.\nStyle/medium: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple cel shading matching the approved 2D canonical.\nComposition/framing: exactly eight separate full-body cells in a regular 4-column by 2-row grid, one character centered per cell, generous transparent gutters, consistent head size, scale, camera and linework. Hair and gown completely inside each cell.\nScene/backdrop: transparent.\nConstraints: preserve Amber's exact canonical identity. Use graceful human hands; no extra characters. Empty hands for catch so game props stay separate.\nAvoid: backdrop, scenery, props, partner, floating decorations, shadows, magic effects, text, border, watermark."
+    },
+    "../sources/princess-amber-dance-r3.webp": {
+      "accuracy": "exact",
+      "role": "dance",
+      "originalOutput": "exec-17385c73-4ba3-4a72-a325-1d07da146994.png",
+      "prompt": "Use case: stylized-concept\nAsset type: four-frame horizontal transparent dance cycle for a children's party game\nPrimary request: Reproduce the exact Princess Amber in the approved canonical reference as one four-frame dance loop, in order: (1) playful anticipation step, leaning to one side with one hand raised; (2) graceful twirl with orange skirt flaring and long auburn hair swinging; (3) joyful mid-twirl with both arms lifted, eyes happily closed, full gown flowing; (4) settle into a jaunty side-step that leads naturally back to frame 1.\nSubject: same Amber identity and canonical design: long copper/auburn hair, amber flower-star crown, floor-length orange gown, black sleeves and bodice accents, white star/flower motifs outlined in black.\nStyle/medium: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright colors, simple cel shading matching the approved 2D reference.\nComposition/framing: exactly four separate full-body frames left to right in one horizontal row with generous transparent gaps; consistent head size and camera; all of the long hair and gown visible without clipping. Every frame must read as a different beat of the same dance, not four idle poses.\nScene/backdrop: transparent.\nConstraints: preserve exact face, crown, gown palette and motifs, silhouette, hair length and outline weight. Head size stays constant through the dance. Natural hands only; no props.\nAvoid: background, stage, floor, shadow, props, floating stars/flowers, motion trails, text, border, watermark, extra characters."
+    }
+  },
+  "provenance": "Approved Princess Amber canonical used as exact reference for all new Round 3 extension sheets. Existing reviewed core and cycle art remains intact. New 8-pose action grids and four-frame dance are lossless WebP sources with per-frame anchors and landmarks.",
+  "sourceFiles": [
+    "../sources/princess-amber-actions-a-r3.webp",
+    "../sources/princess-amber-actions-b-r3.webp",
+    "../sources/princess-amber-actions-c-r3.webp",
+    "../sources/princess-amber-air-r3.webp",
+    "../sources/princess-amber-core-r3.webp",
+    "../sources/princess-amber-cycles-r3.webp",
+    "../sources/princess-amber-dance-r3.webp",
+    "../sources/princess-amber-move-r3.webp",
+    "../sources/princess-amber-portrait-determined.webp",
+    "../sources/princess-amber-portrait-happy.webp",
+    "../sources/princess-amber-portrait-neutral.webp",
+    "../sources/princess-amber-portrait-sad.webp",
+    "../sources/princess-amber-portrait-surprised.webp"
+  ]
 }

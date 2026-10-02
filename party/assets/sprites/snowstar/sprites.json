@@ -1,0 +1,1054 @@
+{
+  "frameSize": [
+    640,
+    620
+  ],
+  "anchor": [
+    320,
+    540
+  ],
+  "bodyHeight": 300,
+  "facing": 0,
+  "poses": {
+    "idle": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.12,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "idle-00.webp",
+          "anchor": [
+            113,
+            301
+          ],
+          "head": [
+            113,
+            36
+          ],
+          "hand": [
+            113,
+            231
+          ],
+          "eyes": [
+            113,
+            134
+          ],
+          "neck": [
+            113,
+            185
+          ],
+          "back": [
+            107,
+            216
+          ],
+          "dur": 3.1
+        },
+        {
+          "src": "idle-01.webp",
+          "anchor": [
+            112,
+            302
+          ],
+          "head": [
+            112,
+            36
+          ],
+          "hand": [
+            112,
+            231
+          ],
+          "eyes": [
+            112,
+            134
+          ],
+          "neck": [
+            112,
+            186
+          ],
+          "back": [
+            106,
+            217
+          ],
+          "dur": 0.12
+        }
+      ]
+    },
+    "ready": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "ready-00.webp",
+          "anchor": [
+            112,
+            295
+          ],
+          "head": [
+            112,
+            36
+          ],
+          "hand": [
+            112,
+            226
+          ],
+          "eyes": [
+            112,
+            131
+          ],
+          "neck": [
+            112,
+            181
+          ],
+          "back": [
+            106,
+            211
+          ]
+        }
+      ]
+    },
+    "wave": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "wave-00.webp",
+          "anchor": [
+            111,
+            297
+          ],
+          "head": [
+            111,
+            36
+          ],
+          "hand": [
+            162,
+            192
+          ],
+          "eyes": [
+            111,
+            132
+          ],
+          "neck": [
+            111,
+            183
+          ],
+          "back": [
+            104,
+            213
+          ]
+        }
+      ]
+    },
+    "cheer": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "cheer-00.webp",
+          "anchor": [
+            112,
+            300
+          ],
+          "head": [
+            112,
+            36
+          ],
+          "hand": [
+            112,
+            230
+          ],
+          "eyes": [
+            112,
+            134
+          ],
+          "neck": [
+            112,
+            185
+          ],
+          "back": [
+            106,
+            215
+          ]
+        }
+      ]
+    },
+    "sad": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "sad-00.webp",
+          "anchor": [
+            110,
+            289
+          ],
+          "head": [
+            110,
+            35
+          ],
+          "hand": [
+            110,
+            222
+          ],
+          "eyes": [
+            110,
+            129
+          ],
+          "neck": [
+            110,
+            178
+          ],
+          "back": [
+            103,
+            208
+          ]
+        }
+      ]
+    },
+    "pout": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "pout-00.webp",
+          "anchor": [
+            112,
+            293
+          ],
+          "head": [
+            112,
+            36
+          ],
+          "hand": [
+            112,
+            225
+          ],
+          "eyes": [
+            112,
+            130
+          ],
+          "neck": [
+            112,
+            181
+          ],
+          "back": [
+            105,
+            210
+          ],
+          "dur": 0.8
+        },
+        {
+          "src": "pout-01.webp",
+          "anchor": [
+            107,
+            287
+          ],
+          "head": [
+            107,
+            29
+          ],
+          "hand": [
+            129,
+            203
+          ],
+          "eyes": [
+            107,
+            116
+          ],
+          "neck": [
+            107,
+            191
+          ],
+          "back": [
+            107,
+            209
+          ],
+          "dur": 0.25
+        }
+      ]
+    },
+    "surprised": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "surprised-00.webp",
+          "anchor": [
+            113,
+            295
+          ],
+          "head": [
+            113,
+            36
+          ],
+          "hand": [
+            113,
+            227
+          ],
+          "eyes": [
+            113,
+            131
+          ],
+          "neck": [
+            113,
+            182
+          ],
+          "back": [
+            106,
+            212
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "fps": 7,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "walk-00.webp",
+          "anchor": [
+            107,
+            299
+          ],
+          "head": [
+            107,
+            36
+          ],
+          "hand": [
+            158,
+            212
+          ],
+          "eyes": [
+            107,
+            133
+          ],
+          "neck": [
+            107,
+            184
+          ],
+          "back": [
+            100,
+            215
+          ]
+        },
+        {
+          "src": "walk-01.webp",
+          "anchor": [
+            106,
+            298
+          ],
+          "head": [
+            106,
+            36
+          ],
+          "hand": [
+            156,
+            211
+          ],
+          "eyes": [
+            106,
+            132
+          ],
+          "neck": [
+            106,
+            183
+          ],
+          "back": [
+            99,
+            214
+          ]
+        },
+        {
+          "src": "walk-02.webp",
+          "anchor": [
+            104,
+            298
+          ],
+          "head": [
+            104,
+            36
+          ],
+          "hand": [
+            154,
+            211
+          ],
+          "eyes": [
+            104,
+            132
+          ],
+          "neck": [
+            104,
+            184
+          ],
+          "back": [
+            98,
+            214
+          ]
+        },
+        {
+          "src": "walk-03.webp",
+          "anchor": [
+            103,
+            300
+          ],
+          "head": [
+            103,
+            36
+          ],
+          "hand": [
+            152,
+            212
+          ],
+          "eyes": [
+            103,
+            134
+          ],
+          "neck": [
+            103,
+            185
+          ],
+          "back": [
+            97,
+            215
+          ]
+        }
+      ]
+    },
+    "run": {
+      "fps": 10,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "run-00.webp",
+          "anchor": [
+            106,
+            282
+          ],
+          "head": [
+            106,
+            34
+          ],
+          "hand": [
+            157,
+            200
+          ],
+          "eyes": [
+            106,
+            125
+          ],
+          "neck": [
+            106,
+            174
+          ],
+          "back": [
+            100,
+            202
+          ]
+        },
+        {
+          "src": "run-01.webp",
+          "anchor": [
+            104,
+            280
+          ],
+          "head": [
+            104,
+            34
+          ],
+          "hand": [
+            153,
+            198
+          ],
+          "eyes": [
+            104,
+            125
+          ],
+          "neck": [
+            104,
+            173
+          ],
+          "back": [
+            97,
+            201
+          ]
+        },
+        {
+          "src": "run-02.webp",
+          "anchor": [
+            107,
+            277
+          ],
+          "head": [
+            107,
+            32
+          ],
+          "hand": [
+            159,
+            185
+          ],
+          "eyes": [
+            107,
+            116
+          ],
+          "neck": [
+            107,
+            162
+          ],
+          "back": [
+            101,
+            188
+          ]
+        },
+        {
+          "src": "run-03.webp",
+          "anchor": [
+            106,
+            279
+          ],
+          "head": [
+            106,
+            34
+          ],
+          "hand": [
+            157,
+            197
+          ],
+          "eyes": [
+            106,
+            124
+          ],
+          "neck": [
+            106,
+            172
+          ],
+          "back": [
+            100,
+            200
+          ]
+        }
+      ]
+    },
+    "jump": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "jump-00.webp",
+          "anchor": [
+            106,
+            319
+          ],
+          "head": [
+            106,
+            36
+          ],
+          "hand": [
+            178,
+            183
+          ],
+          "eyes": [
+            106,
+            134
+          ],
+          "neck": [
+            106,
+            188
+          ],
+          "back": [
+            102,
+            219
+          ]
+        }
+      ]
+    },
+    "fall": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "fall-00.webp",
+          "anchor": [
+            117,
+            300
+          ],
+          "head": [
+            117,
+            34
+          ],
+          "hand": [
+            196,
+            171
+          ],
+          "eyes": [
+            117,
+            125
+          ],
+          "neck": [
+            117,
+            177
+          ],
+          "back": [
+            112,
+            205
+          ]
+        }
+      ]
+    },
+    "land": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "land-00.webp",
+          "anchor": [
+            113,
+            242
+          ],
+          "head": [
+            113,
+            29
+          ],
+          "hand": [
+            113,
+            237
+          ],
+          "eyes": [
+            113,
+            107
+          ],
+          "neck": [
+            113,
+            151
+          ],
+          "back": [
+            108,
+            176
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "hurt-00.webp",
+          "anchor": [
+            107,
+            295
+          ],
+          "head": [
+            107,
+            36
+          ],
+          "hand": [
+            110,
+            200
+          ],
+          "eyes": [
+            107,
+            131
+          ],
+          "neck": [
+            107,
+            185
+          ],
+          "back": [
+            103,
+            215
+          ]
+        }
+      ]
+    },
+    "dizzy": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "dizzy-00.webp",
+          "anchor": [
+            111,
+            282
+          ],
+          "head": [
+            111,
+            34
+          ],
+          "hand": [
+            113,
+            191
+          ],
+          "eyes": [
+            111,
+            125
+          ],
+          "neck": [
+            111,
+            177
+          ],
+          "back": [
+            107,
+            205
+          ]
+        }
+      ]
+    },
+    "think": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "think-00.webp",
+          "anchor": [
+            101,
+            293
+          ],
+          "head": [
+            101,
+            36
+          ],
+          "hand": [
+            103,
+            199
+          ],
+          "eyes": [
+            101,
+            131
+          ],
+          "neck": [
+            101,
+            184
+          ],
+          "back": [
+            97,
+            214
+          ]
+        }
+      ]
+    },
+    "action": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "action-00.webp",
+          "anchor": [
+            114,
+            276
+          ],
+          "head": [
+            114,
+            33
+          ],
+          "hand": [
+            191,
+            167
+          ],
+          "eyes": [
+            114,
+            122
+          ],
+          "neck": [
+            114,
+            173
+          ],
+          "back": [
+            109,
+            200
+          ]
+        }
+      ]
+    },
+    "throw": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "throw-00.webp",
+          "anchor": [
+            111,
+            293
+          ],
+          "head": [
+            111,
+            36
+          ],
+          "hand": [
+            186,
+            178
+          ],
+          "eyes": [
+            111,
+            131
+          ],
+          "neck": [
+            111,
+            184
+          ],
+          "back": [
+            107,
+            214
+          ]
+        }
+      ]
+    },
+    "sleep": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "sleep-00.webp",
+          "anchor": [
+            104,
+            241
+          ],
+          "head": [
+            104,
+            24
+          ],
+          "hand": [
+            124,
+            171
+          ],
+          "eyes": [
+            104,
+            98
+          ],
+          "neck": [
+            104,
+            161
+          ],
+          "back": [
+            104,
+            175
+          ]
+        }
+      ]
+    },
+    "celebrate": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "celebrate-00.webp",
+          "anchor": [
+            109,
+            262
+          ],
+          "head": [
+            109,
+            26
+          ],
+          "hand": [
+            131,
+            185
+          ],
+          "eyes": [
+            109,
+            106
+          ],
+          "neck": [
+            109,
+            175
+          ],
+          "back": [
+            109,
+            191
+          ],
+          "dur": 0.16
+        },
+        {
+          "src": "celebrate-01.webp",
+          "anchor": [
+            110,
+            320
+          ],
+          "head": [
+            110,
+            31
+          ],
+          "hand": [
+            131,
+            216
+          ],
+          "eyes": [
+            110,
+            123
+          ],
+          "neck": [
+            110,
+            203
+          ],
+          "back": [
+            110,
+            222
+          ],
+          "dur": 0.15
+        },
+        {
+          "src": "celebrate-02.webp",
+          "anchor": [
+            115,
+            302
+          ],
+          "head": [
+            115,
+            29
+          ],
+          "hand": [
+            138,
+            203
+          ],
+          "eyes": [
+            115,
+            116
+          ],
+          "neck": [
+            115,
+            191
+          ],
+          "back": [
+            115,
+            209
+          ],
+          "dur": 0.28
+        },
+        {
+          "src": "celebrate-03.webp",
+          "anchor": [
+            111,
+            280
+          ],
+          "head": [
+            111,
+            29
+          ],
+          "hand": [
+            133,
+            198
+          ],
+          "eyes": [
+            111,
+            113
+          ],
+          "neck": [
+            111,
+            187
+          ],
+          "back": [
+            111,
+            204
+          ],
+          "dur": 0.22
+        }
+      ]
+    },
+    "ride": {
+      "fps": 4,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "ride-00.webp",
+          "anchor": [
+            99,
+            279
+          ],
+          "head": [
+            99,
+            28
+          ],
+          "hand": [
+            119,
+            197
+          ],
+          "eyes": [
+            99,
+            113
+          ],
+          "neck": [
+            99,
+            186
+          ],
+          "back": [
+            99,
+            203
+          ]
+        },
+        {
+          "src": "ride-01.webp",
+          "anchor": [
+            109,
+            280
+          ],
+          "head": [
+            109,
+            28
+          ],
+          "hand": [
+            130,
+            198
+          ],
+          "eyes": [
+            109,
+            113
+          ],
+          "neck": [
+            109,
+            187
+          ],
+          "back": [
+            109,
+            203
+          ]
+        }
+      ]
+    }
+  },
+  "portraits": {
+    "neutral": "portrait-neutral.webp",
+    "happy": "portrait-happy.webp",
+    "sad": "portrait-sad.webp",
+    "surprised": "portrait-surprised.webp",
+    "determined": "portrait-determined.webp"
+  },
+  "provenance": "Generated from approved canonical; normalized by tools/sprites/build.py"
+}

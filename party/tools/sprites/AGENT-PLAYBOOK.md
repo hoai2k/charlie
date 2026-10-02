@@ -57,6 +57,22 @@ an initial crop estimate, not semantic validation. Check pose order, disconnecte
 parts, adjacent figures and isolated effect marks. The `isolate` option can drop
 small particles, but can also drop a detached body part. Inspect the result.
 
+For a single-row strip, sort figures strictly left-to-right, never by their top
+edge or vertical center. Airborne and crouched poses have different heights.
+A custom y-first sorter silently reordered Fox's walk/run/dance/celebrate frames
+and chose Hotdog's third (crouched) core figure as neutral. Check source rectangle
+x coordinates against the prompt order. When reordering, move the entire frame
+record, including its scale, landmarks and duration. For multi-row grids, cluster
+into the declared rows first and sort left-to-right within each row. Finally
+compare neutral and blink side by side: closing eyes must not change body pose.
+
+Do not assume a generated grid has mathematically equal cells. A fourteen-pose
+mermaid sheet used rows of 4/4/4/2 with figures crossing nominal row boundaries;
+uniform crops clipped Marina's tail. Find each connected figure's actual bounds,
+add a transparent margin, and verify every tail/crown/hand. Group the figures
+according to the prompt's row counts. Runtime alpha/path validation cannot detect
+a limb already clipped out of a source crop.
+
 The build derives one common scale from neutral idle. **Do not normalize every
 pose to neutral bounding-box height.** This made horizontal animal heads much
 too large. Compare head width and torso size; a running, sitting or curled animal
@@ -120,6 +136,14 @@ local browser warning occurred despite the file being present and decodable;
 check the file before assuming generation failed.
 
 ## Checkpoint safely with concurrent agents
+
+After merging shared modules, test on a no-cache local server. A reused browser
+origin mixed old audio/input modules with new callers, producing missing-export
+and missing-method errors even though the functions existed on disk. A fresh
+preview origin with `Cache-Control: no-store` avoids this during development.
+Before changing working code to chase such an error, verify the export on disk
+and retest the complete current revision. Bumping only main.js does not itself
+change the URLs of its imported modules.
 
 Agents own disjoint character directories/specs/sources. The integrator owns
 the shared index, shared engine edits and Git commits. Stage explicit paths;

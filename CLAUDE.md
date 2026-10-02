@@ -40,6 +40,11 @@ each change with a commit on `main` and `git push origin main` so it deploys.
 If you were working on a feature branch, merge/fast-forward it into `main`
 and push `main` as well.
 
+This is the user's explicitly requested default workflow, including publishing
+to the remote and triggering the Pages deployment. A request to "commit to repo
+main" means commit and push unless the user explicitly asks for local-only work.
+See `AGENTS.md` for the shared agent instructions and push recovery guidance.
+
 ## Game notes
 
 - `dollpuppets/` was flattened from `messenger/dolls/` on hoai.net: the shared

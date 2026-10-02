@@ -11,7 +11,7 @@
   ],
   "facing": 1,
   "quality": 82,
-  "provenance": "Approved canonical artwork as exact ImageGen reference; authored transparent key-pose and cycle strips, one-frame isolated action cells, per-frame anchors and attachment landmarks.",
+  "provenance": "Approved canonical artwork as exact ImageGen reference; authored transparent key-pose and cycle strips, one-frame isolated action cells, per-frame anchors and attachment landmarks. Horizontal strips are ordered left-to-right by source x coordinate, with per-frame anchors and durations retained.",
   "sourceFiles": [
     "../sources/fox-core.webp",
     "../sources/fox-blink.webp",
@@ -124,32 +124,36 @@
         {
           "source": "../sources/fox-celebrate.webp",
           "rect": [
-            1040,
-            56,
-            554,
-            467
+            1,
+            136,
+            552,
+            544
           ],
           "isolate": true,
           "scale": 1.0,
           "head": [
-            393,
-            117
+            392,
+            136
           ],
           "hand": [
-            521,
-            224
+            519,
+            261
           ],
           "eyes": [
-            443,
-            205
+            442,
+            239
           ],
           "neck": [
-            399,
-            308
+            397,
+            359
           ],
           "back": [
-            260,
-            322
+            259,
+            375
+          ],
+          "anchor": [
+            364,
+            664
           ],
           "dur": 0.1
         },
@@ -192,36 +196,32 @@
         {
           "source": "../sources/fox-celebrate.webp",
           "rect": [
-            1,
-            136,
-            552,
-            544
+            1040,
+            56,
+            554,
+            467
           ],
           "isolate": true,
           "scale": 1.0,
           "head": [
-            392,
-            136
+            393,
+            117
           ],
           "hand": [
-            519,
-            261
+            521,
+            224
           ],
           "eyes": [
-            442,
-            239
+            443,
+            205
           ],
           "neck": [
-            397,
-            359
+            399,
+            308
           ],
           "back": [
-            259,
-            375
-          ],
-          "anchor": [
-            364,
-            664
+            260,
+            322
           ],
           "dur": 0.1
         },
@@ -371,6 +371,37 @@
         {
           "source": "../sources/fox-walk.webp",
           "rect": [
+            557,
+            104,
+            523,
+            494
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            371,
+            124
+          ],
+          "hand": [
+            492,
+            237
+          ],
+          "eyes": [
+            418,
+            217
+          ],
+          "neck": [
+            377,
+            326
+          ],
+          "back": [
+            246,
+            341
+          ]
+        },
+        {
+          "source": "../sources/fox-walk.webp",
+          "rect": [
             1088,
             102,
             545,
@@ -429,37 +460,6 @@
             251,
             342
           ]
-        },
-        {
-          "source": "../sources/fox-walk.webp",
-          "rect": [
-            557,
-            104,
-            523,
-            494
-          ],
-          "isolate": true,
-          "scale": 1.0,
-          "head": [
-            371,
-            124
-          ],
-          "hand": [
-            492,
-            237
-          ],
-          "eyes": [
-            418,
-            217
-          ],
-          "neck": [
-            377,
-            326
-          ],
-          "back": [
-            246,
-            341
-          ]
         }
       ],
       "fps": 10,
@@ -498,6 +498,37 @@
           "back": [
             273,
             288
+          ]
+        },
+        {
+          "source": "../sources/fox-run.webp",
+          "rect": [
+            573,
+            211,
+            506,
+            381
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            359,
+            95
+          ],
+          "hand": [
+            476,
+            183
+          ],
+          "eyes": [
+            405,
+            168
+          ],
+          "neck": [
+            364,
+            251
+          ],
+          "back": [
+            238,
+            263
           ]
         },
         {
@@ -561,37 +592,6 @@
             253,
             282
           ]
-        },
-        {
-          "source": "../sources/fox-run.webp",
-          "rect": [
-            573,
-            211,
-            506,
-            381
-          ],
-          "isolate": true,
-          "scale": 1.0,
-          "head": [
-            359,
-            95
-          ],
-          "hand": [
-            476,
-            183
-          ],
-          "eyes": [
-            405,
-            168
-          ],
-          "neck": [
-            364,
-            251
-          ],
-          "back": [
-            238,
-            263
-          ]
         }
       ],
       "fps": 12,
@@ -601,6 +601,37 @@
     },
     "dance": {
       "frames": [
+        {
+          "source": "../sources/fox-dance.webp",
+          "rect": [
+            22,
+            63,
+            515,
+            582
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            366,
+            146
+          ],
+          "hand": [
+            484,
+            279
+          ],
+          "eyes": [
+            412,
+            256
+          ],
+          "neck": [
+            371,
+            384
+          ],
+          "back": [
+            242,
+            402
+          ]
+        },
         {
           "source": "../sources/fox-dance.webp",
           "rect": [
@@ -630,6 +661,37 @@
           "back": [
             266,
             352
+          ]
+        },
+        {
+          "source": "../sources/fox-dance.webp",
+          "rect": [
+            1159,
+            93,
+            563,
+            557
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            400,
+            139
+          ],
+          "hand": [
+            529,
+            267
+          ],
+          "eyes": [
+            450,
+            245
+          ],
+          "neck": [
+            405,
+            368
+          ],
+          "back": [
+            265,
+            384
           ]
         },
         {
@@ -666,68 +728,6 @@
             327,
             655
           ]
-        },
-        {
-          "source": "../sources/fox-dance.webp",
-          "rect": [
-            22,
-            63,
-            515,
-            582
-          ],
-          "isolate": true,
-          "scale": 1.0,
-          "head": [
-            366,
-            146
-          ],
-          "hand": [
-            484,
-            279
-          ],
-          "eyes": [
-            412,
-            256
-          ],
-          "neck": [
-            371,
-            384
-          ],
-          "back": [
-            242,
-            402
-          ]
-        },
-        {
-          "source": "../sources/fox-dance.webp",
-          "rect": [
-            1159,
-            93,
-            563,
-            557
-          ],
-          "isolate": true,
-          "scale": 1.0,
-          "head": [
-            400,
-            139
-          ],
-          "hand": [
-            529,
-            267
-          ],
-          "eyes": [
-            450,
-            245
-          ],
-          "neck": [
-            405,
-            368
-          ],
-          "back": [
-            265,
-            384
-          ]
         }
       ],
       "fps": 4,
@@ -737,41 +737,6 @@
     },
     "ride": {
       "frames": [
-        {
-          "source": "../sources/fox-ride.webp",
-          "rect": [
-            1059,
-            109,
-            995,
-            546
-          ],
-          "isolate": true,
-          "scale": 0.55,
-          "head": [
-            706,
-            136
-          ],
-          "hand": [
-            935,
-            262
-          ],
-          "eyes": [
-            796,
-            240
-          ],
-          "neck": [
-            716,
-            360
-          ],
-          "back": [
-            468,
-            377
-          ],
-          "anchor": [
-            657,
-            721
-          ]
-        },
         {
           "source": "../sources/fox-ride.webp",
           "rect": [
@@ -805,6 +770,41 @@
           "anchor": [
             671,
             661
+          ]
+        },
+        {
+          "source": "../sources/fox-ride.webp",
+          "rect": [
+            1059,
+            109,
+            995,
+            546
+          ],
+          "isolate": true,
+          "scale": 0.55,
+          "head": [
+            706,
+            136
+          ],
+          "hand": [
+            935,
+            262
+          ],
+          "eyes": [
+            796,
+            240
+          ],
+          "neck": [
+            716,
+            360
+          ],
+          "back": [
+            468,
+            377
+          ],
+          "anchor": [
+            657,
+            721
           ]
         }
       ],
