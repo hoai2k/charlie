@@ -49,3 +49,14 @@ Broomstick background was generated as coherent sky but is not mathematically se
 Read imagegen skill. One built-in call per asset or variant, transparent_background=true for props; inspect local edit targets before passing referenced_image_paths. Save generated WebPs inside repository. Last checked usage 46% used; root requests stop starting new generation at 57% used and preserve state near 40% remaining. Root handles commits/merges; art agent made no shared-code edits.
 
 Current handoff has no running tool calls or unsaved generated output. Root should commit the latest art + manifests. Do not claim all section 9.4 requests complete until the remaining list is resolved.
+
+## Resumed production checkpoint
+
+Published additions: gold gallery frame; all eight art-tool icons; separate
+candle flame and sprinkle cluster; rainbow feather, stardust jar and moon drop;
+matched bathtub-front overlay on the same 454×300 canvas as the bathtub.
+Legacy mushroom/berries/flower/crystal/pepper keys alias the matching current
+ingredients. Pink/blue/yellow pet bows reuse corresponding fashion bows.
+Remaining generation: fountain, hedge, top-down arena cake, crumb, danger ring
+and red/green/purple/orange/teal pet bows. Sprite production is resumed by
+the user; the previous budget pause no longer applies.

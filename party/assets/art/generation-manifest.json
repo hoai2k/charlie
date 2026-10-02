@@ -3098,6 +3098,78 @@
       "height": 128,
       "bytes": 3980,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/sprinkles",
+      "prompt": "Use case: stylized-concept. Game asset prop/sprinkles: one compact scattered cluster of 12 small rounded candy sprinkle rods, vivid pink blue green orange yellow lavender, spaced with transparent gaps. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-8bab6719-0fe3-4aa8-ad6f-81265831273f.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 125,
+      "height": 128,
+      "bytes": 7590,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/ing-rainbow-feather",
+      "prompt": "Use case: stylized-concept. Game asset prop/ing-rainbow-feather: one magical rainbow feather with curved purple quill, softly striped multicolor vane. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 256px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5151c0a9-65d6-4613-b024-0e89fd9be2e6.png",
+      "maxSize": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 249,
+      "height": 256,
+      "bytes": 14356,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/ing-stardust-jar",
+      "prompt": "Use case: stylized-concept. Game asset prop/ing-stardust-jar: one small round clear corked glass jar filled with purple-blue stardust and tiny yellow stars, no text. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 256px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-35f7c4f4-73cb-4fd6-8589-eddb2540de4b.png",
+      "maxSize": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 237,
+      "height": 256,
+      "bytes": 19904,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/ing-moon-drop",
+      "prompt": "Use case: stylized-concept. Game asset prop/ing-moon-drop: one translucent silvery blue crescent-embossed teardrop ingredient. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 256px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-34cf6d51-0607-4363-93c1-6000867399a5.png",
+      "maxSize": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 252,
+      "bytes": 12618,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/bathtub-front",
+      "prompt": "Use case: precise-object-edit. Edit target: this exact existing cartoon bathtub sprite. Produce its FRONT OCCLUSION OVERLAY for a game, preserve exact camera, outer silhouette, position, mint body, pink heart trim, gold claw feet and FRONT HALF of pink rim. Remove only the rear rim and pink interior/back wall: replace entire opening above the front rim with genuine transparent pixels so a pet drawn behind this overlay appears seated inside the tub. Keep tub body and front rim pixel-aligned with original, do not redraw or change design, do not add water, foam, pets or shadows. Keep the same original canvas aspect ratio and transparent outside. No text.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-ac87070b-f72d-4335-b8d3-37d1c1f983db.png",
+      "maxSize": [
+        454,
+        300
+      ],
+      "preserveCanvas": true,
+      "alignment": "same draw box as prop/bathtub",
+      "tool": "built-in imagegen",
+      "width": 454,
+      "height": 300,
+      "bytes": 24392,
+      "status": "generated; inspected"
     }
   ]
 }
