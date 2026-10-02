@@ -1931,6 +1931,466 @@
       "height": 94,
       "bytes": 3930,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/treat-donut",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one round pink frosted donut with colorful sprinkles",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ebe161e5-7d84-4a84-9f28-9fb248905c8a.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 118,
+      "bytes": 9298,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/treat-candy",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one cheerful wrapped hard candy, pink striped wrapper and twisted ends",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-27226136-f5c0-4837-a5a0-09465ced1ca0.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 89,
+      "bytes": 5472,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/treat-cookie",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one round golden chocolate chip cookie seen face on, thick edge",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b51f2e42-8b88-4061-853b-95861980698b.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 126,
+      "bytes": 8170,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/treat-icecream",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one strawberry ice cream scoop with sprinkles in a waffle cone",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-8daac632-3110-4b70-a8d1-6d7b4525fd63.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 82,
+      "height": 128,
+      "bytes": 5638,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/treat-lollipop",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one rainbow spiral round lollipop on a short white stick",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d374b47c-732a-49b5-99e0-2432cd8dc710.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 86,
+      "height": 128,
+      "bytes": 6192,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/paint-bomb",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one round squishy paint-filled pink water balloon with tied knot, no splatter",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-6b31bb1f-bfe1-4999-8d74-b4730809157b.png",
+      "size": [
+        96,
+        96
+      ],
+      "tool": "built-in imagegen",
+      "width": 96,
+      "height": 92,
+      "bytes": 3756,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/splat",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one white paint splat silhouette with a few rounded drips and several thick lobes, minimal light grey interior shading, plain white for code to tint, no dark outline",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-fcb77640-1444-4a16-9d30-6d60de612d7c.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 225,
+      "bytes": 9186,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/mic-stand",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one upright stage microphone on a slim black stand with round weighted foot, front view",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-3c0416da-c913-44d0-95b0-1c13467f77ff.png",
+      "size": [
+        160,
+        400
+      ],
+      "tool": "built-in imagegen",
+      "width": 160,
+      "height": 270,
+      "bytes": 6376,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/trophy",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one large gold trophy cup with a big embossed star on its bowl, two curving handles and squat purple base",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-e0039ae6-d409-4e04-b455-f5e96ad79288.png",
+      "size": [
+        300,
+        300
+      ],
+      "tool": "built-in imagegen",
+      "width": 300,
+      "height": 299,
+      "bytes": 25886,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/podium",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one joined three-step pastel winners podium seen from front with slight top visible, tall central pink block, medium lavender left block, low sky blue right block; no numbers, no decorations or letters",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-6800c1f3-959f-4045-8c0d-ac9db8fd9522.png",
+      "size": [
+        1000,
+        500
+      ],
+      "tool": "built-in imagegen",
+      "width": 964,
+      "height": 500,
+      "bytes": 20562,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "ui/star",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one cheerful plump gold five pointed star currency token, simple large clean silhouette",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-cb8ef07f-6d3a-4f24-b6e0-d02450141c1e.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 116,
+      "bytes": 6742,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "ui/medal",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one gold circular showstopper medal with pink and blue short ribbons above and embossed star center",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-a3590c0b-b454-4cbc-99be-99e97f4faafc.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 114,
+      "height": 128,
+      "bytes": 7872,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/confetti",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one square particle texture sheet containing about 30 isolated small pieces of colorful confetti, rectangles and curls, spaced evenly apart with transparent empty gaps, no words",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-659e308e-0ffe-423e-b01e-c80bc003aa7a.png",
+      "size": [
+        512,
+        512
+      ],
+      "tool": "built-in imagegen",
+      "width": 502,
+      "height": 512,
+      "bytes": 74432,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/puffy-hair-cloud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one funny big frizzy fluffy purple hair wig cloud overlay for a potion effect; open underneath for a face, no face or eyes",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-8ad2674a-7af5-4114-b6c2-ca3c54054d6b.png",
+      "size": [
+        200,
+        200
+      ],
+      "tool": "built-in imagegen",
+      "width": 200,
+      "height": 192,
+      "bytes": 13250,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/polka-dots",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one transparent overlay texture with around twelve isolated cheerful pastel polka dots, varied round sizes, balanced loose scattered arrangement",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-8bd964c7-7228-4597-a79a-8f220ba6753b.png",
+      "size": [
+        200,
+        200
+      ],
+      "tool": "built-in imagegen",
+      "width": 200,
+      "height": 127,
+      "bytes": 12012,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/light-stick",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one concert fan light stick with pink star-shaped glowing head and purple grip, upright, no lettering",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-0afbc24b-9012-454c-a320-496fed64ee2a.png",
+      "size": [
+        160,
+        260
+      ],
+      "tool": "built-in imagegen",
+      "width": 160,
+      "height": 241,
+      "bytes": 9210,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/bathtub",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one empty mint and pink clawfoot pet bathtub seen front on with open top interior visible, four gold feet, no water or pets, no glow or halo",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d5f47daa-ede1-4cf7-9a18-a4a24f4c4953.png",
+      "size": [
+        500,
+        300
+      ],
+      "tool": "built-in imagegen",
+      "width": 454,
+      "height": 300,
+      "bytes": 27172,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/bubbles",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one compact cluster of fluffy white soap foam with a few pearly pale blue bubbles, no halo",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-7848fb24-d80a-4c6f-8654-56694f197203.png",
+      "size": [
+        256,
+        180
+      ],
+      "tool": "built-in imagegen",
+      "width": 203,
+      "height": 180,
+      "bytes": 9306,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/shampoo",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one squat pink pet shampoo pump bottle with simple paw print emblem, no letters, no glow",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d2003a74-2d17-4650-bb73-61baa83fbdda.png",
+      "size": [
+        128,
+        160
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 131,
+      "bytes": 7656,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/recipe-card",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one blank pale cream parchment recipe card with rolled corners, thin purple ornamental border, tall 3:4 shape, absolutely no text or icons, no glow",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-16777707-d5a9-4d51-94ea-63f85209e9f2.png",
+      "size": [
+        600,
+        800
+      ],
+      "tool": "built-in imagegen",
+      "width": 569,
+      "height": 800,
+      "bytes": 56052,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/spoon",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one big simple wooden mixing spoon, vertical with oval bowl at top and handle below, no glow",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-4ebbe4ee-e285-4eb1-83b0-001a03afe1a7.png",
+      "size": [
+        100,
+        240
+      ],
+      "tool": "built-in imagegen",
+      "width": 100,
+      "height": 176,
+      "bytes": 4992,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/seed-magic",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one golden magical seed, plump teardrop shape with tiny engraved star and small luminous edge",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-35e4d762-5bbc-44c0-a8f7-aaddfdd82386.png",
+      "size": [
+        64,
+        64
+      ],
+      "tool": "built-in imagegen",
+      "width": 64,
+      "height": 63,
+      "bytes": 2704,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/garden-plot",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one oval brown garden soil mound, a few soft clumps and pebbles, empty for a plant to grow from center, no glow",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-5a8d34ea-93f2-4c24-ad82-c4e0b490a127.png",
+      "size": [
+        256,
+        140
+      ],
+      "tool": "built-in imagegen",
+      "width": 217,
+      "height": 140,
+      "bytes": 6638,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/card-front",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one tall 3:4 blank pastel lavender game memory card, gold rounded rim and plain warm ivory center, no drawings or text or glow",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-887fcf4d-a7c9-49a5-86c2-8378c49b8927.png",
+      "size": [
+        300,
+        400
+      ],
+      "tool": "built-in imagegen",
+      "width": 300,
+      "height": 399,
+      "bytes": 12688,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/present-ticking",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 edit target. Keep exactly this gift box design, colors, camera and outline. Change only to bulging sides under pressure and a wobbly ribbon bow. No effects or halo.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2cc227ab-3390-4a13-8e6e-ed90d9fa45d4.png",
+      "size": [
+        200,
+        200
+      ],
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/present.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 200,
+      "height": 197,
+      "bytes": 14674,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cookie-tile-cracked",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 edit target. Keep identical cookie and camera. Add three deep cracks spreading from middle, but cookie still in one piece. No glow.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-9f15145a-1e5e-40d0-a0a9-48f0c5528e41.png",
+      "size": [
+        200,
+        200
+      ],
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/cookie-1.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 200,
+      "height": 191,
+      "bytes": 17782,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cookie-tile-crumbling",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 edit target. Keep identical cookie and camera. It is now cracking apart into 5 closely spaced chunks, with small crumbs around edge. No glow.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-e8f44098-d812-4301-8ee9-65f8d622aa8c.png",
+      "size": [
+        200,
+        200
+      ],
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/cookie-1.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 200,
+      "height": 199,
+      "bytes": 24144,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/lantern-on",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 edit target. Keep identical brass lantern camera proportions and details. Change only candle wick to a lit golden flame with warm inner glass light. Preserve clear outer silhouette.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-a65f9b74-b84f-4151-a2ce-c65de214a6b4.png",
+      "size": [
+        160,
+        160
+      ],
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/lantern-off.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 102,
+      "height": 160,
+      "bytes": 9184,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/soot-puff",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one cartoon charcoal gray cloud puff with curled rounded lobes, playful smoke burst, no eyes or face",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-521a11e6-a5d0-4d75-be60-c12fb3476e20.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 182,
+      "bytes": 11122,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/fizzle-puff",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one small playful violet magic smoke puff with three tiny golden stars, no face, compact burst",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2145bfb8-1143-464c-996d-4362bb678558.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 241,
+      "bytes": 12844,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/spotlight-beam",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one soft white stage spotlight cone pointing down, narrow top widening to broad oval bottom; translucent soft gradient alpha at edges, no lamp, no background or floor",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-33aed980-fc56-4ed6-be05-57e9b8766772.png",
+      "size": [
+        400,
+        600
+      ],
+      "tool": "built-in imagegen",
+      "width": 400,
+      "height": 483,
+      "bytes": 35604,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cauldron-bubbles",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one low mound of bright green bubbly potion foam overlay with three little bubbles floating just above, front view, no cauldron vessel",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-51db543b-8bed-4161-a753-b565bb4b3f1c.png",
+      "size": [
+        360,
+        180
+      ],
+      "tool": "built-in imagegen",
+      "width": 269,
+      "height": 180,
+      "bytes": 12192,
+      "status": "generated; inspected"
     }
   ]
 }
