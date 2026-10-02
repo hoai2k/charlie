@@ -59,3 +59,9 @@ Visual review: `?scene=sprites&chars=felicity&pose=walk&debug=1&zoom=2` focuses 
 Add `&time=0.2` for a deterministic frozen pose, or press P to pause and period to advance
 1/12 second. A toggles canonical fallback; X exercises turning and follower motion;
 Y displays foot/head/hand anchors. Pose labels distinguish authored art, aliases and fallbacks.
+
+`add_sheet.py ASSET SOURCE NAME pose1,pose2,...` registers a reviewed strip by
+its largest connected figures. It requires numpy and scipy and preserves source pixels.
+Always inspect the result; connected artwork can need manual crop boundaries. The optional
+`isolate: true` crop flag removes neighboring components while preserving antialias edges.
+Portrait `trim: true` fits the alpha bounds proportionally in a 384px square, bottom aligned.

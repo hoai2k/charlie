@@ -1,0 +1,608 @@
+{
+  "generated": [
+    {
+      "key": "ui/logo",
+      "prompt": "Use case: logo-brand. Generate the game logo wordmark reading exactly \"Charlie Party\", spell C h a r l i e P a r t y correctly. Chunky bubbly rounded letters, Charlie in candy pink-to-orange and Party in sunny yellow-to-mint, thick navy outline, glossy highlights, gold star replacing dot on the i, confetti and few stars tucked around letters, playful bouncing baseline. Wide landscape about 1600x700 composition. Fully transparent background. Bold smooth navy outlines, clean cel shading, original children's party video game look. No other text.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-e8674af8-dcd8-4989-94f1-d88b452e9340.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/title",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Festive outdoor party stage at golden hour: bunting, balloons, striped tent, fairy lights, confetti in air, rolling candy-colored hills. Center-bottom stage open for character lineup and upper center clear for large game logo.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-85c7cb10-e30c-46cf-b1f4-9bfcc981a26e.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/menu",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Calm soft pastel party room with bunting along top edge and gentle bokeh lights. Low detail and mostly flat middle for character selection interface. Soft lavender, peach and mint.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-128f47ec-22c5-46d9-b441-e347e46717d2.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/results",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Awards stage: velvet curtains at far left and right, spotlights converging on center, confetti at edges, sparkly backdrop. Clear large stage middle and bottom for awards podium and characters drawn by game. Do not draw podium.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2b0edabe-7fc2-467e-8ab4-c12e02927143.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/howto",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Cozy presenting nook: storybook stage with curtains and soft starry backdrop. Left two-thirds especially calm low-detail for large rules panel. Open floor for characters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-35343e36-0c1a-4388-baf7-5c0b478e3c3e.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/marathon",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Grand trophy ceremony: golden curtains at far sides, fireworks high in night sky, giant star banner without text. Empty calm center and lower stage for awards and players. No trophy or podium.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ee60e4d5-3bb8-44c1-9a0d-09ce37f78772.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/sprinkle-catch",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. Candy-land sky in pink, peach and lavender, with cotton-candy clouds and sprinkle \"stars\". Frosting-grass meadow along the bottom (ground top edge at about y = 900) with gumdrop bushes at the far left and right. Gameplay layout constraint: Upper center clear: the giant sky cake is a separate prop so it can wobble (`prop/sky-cake`) No gameplay objects such as cake arena, cake, collectible treats, gems, players, platforms, notes, cards or HUD. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-f1fc3742-e1b1-46f9-9b0b-fcf87f39c62d.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 91646,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/bumper-bounce",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Top-down view. Looking down from high in the sky: soft clouds far below, pastel gradient, tiny balloons drifting. Gameplay layout constraint: Center 1200\u00d7900 calm: the floating cake arena is drawn on top (`prop/arena-cake`) No gameplay objects such as cake arena, cake, collectible treats, gems, players, platforms, notes, cards or HUD. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-c5e2f37a-014f-4b4d-a507-3a0cd6d6b13b.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 90024,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/balloon-pump",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. A sunny fairground with bunting, a distant Ferris wheel and striped tents; grass at the bottom. Gameplay layout constraint: Lower half and the sky above the players open (balloons rise there) No gameplay objects such as cake arena, cake, collectible treats, gems, players, platforms, notes, cards or HUD. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-db13b483-3d27-421c-8429-f001b10a3c87.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 113742,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/troll-trouble",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Top-down view. Lush meadow with flower patches, mossy rocks and mushroom rings around the borders, a cave mouth at the top edge where the Troll appears. Gameplay layout constraint: Grass in the center slightly textured but calm (gems must pop) No gameplay objects such as cake arena, cake, collectible treats, gems, players, platforms, notes, cards or HUD. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ff38624c-cf0a-4eb0-989c-cf3c02ce6aad.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 229754,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/spotlight-dance",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side, stage view. Night concert stage in purples and magentas, truss lights, speakers, glittery backdrop; the corners are shadowy-cute (where imps lurk), not scary. Gameplay layout constraint: Stage floor across the bottom third No characters or gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-32fb86d5-f023-4e29-ba63-f8fbcfb9bea1.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 184758,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/wizard-quickdraw",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. Moonlit wizard-school courtyard: stone towers with glowing windows, floating candles, starry sky, a stone perch at top center for Professor Hoot. Gameplay layout constraint: Row along the bottom for up to 8 players No characters or gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-812b0d6c-3ffc-4acd-9b21-94205e49277c.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 150604,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/paint-party",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Top-down view. A big plaza with **near-white** floor tiles, framed by paint pots, brushes and rainbow splats at the edges. Gameplay layout constraint: The center must be light and plain (paint is drawn on it) No characters or gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-83db244e-adb3-43e1-920d-2362e6cc25ad.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 142080,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/broomstick-dash",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side-scroll view. Wizard-school sky at dusk to night: castle silhouette with glowing windows on the horizon, moon, layered clouds. **Must tile seamlessly left-to-right**. Gameplay layout constraint: Optionally also `bg/broomstick-dash-far` (a parallax layer, needs code) No characters or gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-538b511e-9cae-49e0-b156-ac7906c01c33.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 111982,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/fairy-count",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. Moonlit garden: giant flowers, mushroom cottages, a big moon, a few fireflies, deep blue and teal palette. Gameplay layout constraint: **No pink anywhere** (the kids count pink fairies). Mid-height band open where fairies fly No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-c68eb9db-668f-411c-9e0a-750053bf67f2.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 140838,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/art-studio",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Front view. Sunny art studio wall: shelves of paint jars, plants, a window, a string of kids' drawings (abstract, no text) around the edges. Gameplay layout constraint: Central about 1400\u00d7800 plain light wall (the code draws the shared canvas there) No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b8b2b9e9-7936-4007-847b-15ebf20c208e.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 134918,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/cake-bakery",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. Bright pastel bakery: tiled wall, mixer, sprinkle jars, oven, bunting; a long counter top across the bottom third. Gameplay layout constraint: Counter-top band clear for 1\u20134 cake stations No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-cfffb568-5d39-43f1-92f9-ef9a8ab641a1.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 116708,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/pet-spa",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. Bubbly pet spa salon: pastel tiles, fluffy towels on shelves, round mirrors, plants, floating bubbles at the edges. Gameplay layout constraint: Floor band clear for tubs No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-3b8ba4ba-5421-4455-a86f-83281e12fd51.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 145226,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/pop-star-stage",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Front, stage view. Big bright arena concert: giant LED screens with abstract shapes (no text), lasers, a crowd silhouette waving light sticks, confetti. Gameplay layout constraint: Keep a calm vertical lane on one side or the middle for the note highway (the code draws it) No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-02bfa54a-fe1e-470a-9f14-9c8e59eb8a5e.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 163344,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/fairy-garden",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Side view. Day garden: rainbow flowers, a picket fence, butterflies, a soft blue sky; an even band of soil and grass along the bottom. Gameplay layout constraint:  No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ca27127d-acdf-4ed8-8057-aa9ee2a45b0b.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 131312,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/memory-match",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Top-down view. Magical unicorn meadow at twilight: rainbow arcing across the top, pastel stars, a soft velvet-purple tablecloth filling the center. Gameplay layout constraint: Center tablecloth plain (cards drawn on it) No gameplay objects. Generate a SINGLE full-frame scene only.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-f57cbe41-ab08-4880-800b-b5d1b601a939.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 194310,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/potion-class",
+      "prompt": "Edit reference: REMOVE all three foreground cauldrons, their circular stone bases, and foreground table edges/bowls at lower corners. Replace with empty matching stone floor. Preserve entire classroom, shelves, blank blackboard, colors, composition and style. No characters, no text. Lower third must be empty usable floor.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-de0e3fa4-6ffa-47cf-9f78-4e6ccbf665e0.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 168476,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/cookie-crumble",
+      "prompt": "Edit reference: remove ALL cookies and cookie pieces and crumbs, including the large ones at edges. Keep a calm pale swirling milk sea. Small chocolate chips and marshmallows only at far outside corners; center 80% plain milk with subtle swirls, no objects. Top-down camera no horizon. Keep soft cartoon shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d4d6a41d-45e7-423e-a594-40eac8b6d75b.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 44934,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/fairy-garden-night",
+      "prompt": "Edit reference: preserve exactly this garden layout, fence, tree silhouettes, grass soil line and flower positions, but make it nighttime with deep blue and teal sky, gentle aurora above, tiny fireflies, glowing flowers. Remove butterflies. No fairies, people, text, objects added. Same framing.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-516e5388-df71-454d-92aa-87e08882fbb1.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 131014,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/fashion-show-dressing",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: A royal pink and gold dressing room with pastel vanity dressing table, soft lights around large central mirror. Mirror reflective area is completely plain pale blue because code draws a character there. Wardrobes and clothes at far sides only, open lower third floor. No characters, no text.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-8a23e2d0-1814-4af5-819d-56e139b1cdc6.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 166826,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/sprinkle-catch",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Felicity and her much smaller pet Fellowfox catching cupcakes raining from a giant three-tier sky cake on a cloud. Preserve Felicity's two long brown pigtails, daisy, orange dress purple flowers; Fellowfox black ear flower.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-7523ef9a-6a0d-494e-9e73-abddda28150d.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 82506,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/bumper-bounce",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Bronze playfully bumping Hotdog on a floating frosted cake arena in the sky. Bronze remains one-eyed with NO arms and NO mouth. Hotdog is the rainbow furry big-eared creature, NOT a food.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d3901348-3662-4abc-b5d4-5964e29f5dba.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/bronze.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/hotdog.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 77672,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/pass-the-present",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Snowstar holding a comically bulging wrapped present with wobbly bow, wide-eyed surprise at birthday party. Preserve her enormous face, multicolored geometric hair and green turtleneck, small body.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-439da6d1-4a8b-4927-b14a-8ee48479f389.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/snowstar.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 75778,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/balloon-pump",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Birthday Cake bouncing on a plunger pump, large red balloon about to pop, sunny fairground. Cake character has no arms or legs, preserve smiling pink three-tier cake, sprinkles and candle.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-a356f268-668a-4107-8fd7-faac3a612600.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/marshmallow-birthday-cake.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 68026,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/troll-trouble",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: The Troll comically stomping one foot in meadow while Cotton Candy pony grabs a shiny blue gem. Playful slapstick, not scary. Pony NO horn, long pastel mane yellow crown. Preserve troll olive spotted skin shaggy brown hair.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-823fdcea-676f-44a9-9aca-afff8b0f73a7.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/troll.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/cotton-candy.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 101918,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/spotlight-dance",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Marina and Scale dancing in a purple stage spotlight, a small shadow imp at one side poofing into glitter. Both girls are mermaids with tails, NO legs; Marina red hair teal-purple tail and purple shell top; Scale blonde red tail blue crisscross bands green petal top.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-130b5f63-4c4b-44ed-8a2d-ad6dff94e503.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/marina.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/scale.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/shadow-imp.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 91206,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/wizard-quickdraw",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Princess Amber with a wooden wand ready to cast, Professor Hoot holding a brass lantern flashing golden light in wizard school courtyard. Preserve Amber orange dress black and white flowers, and Hoot owl glasses purple pointed hat midnight-blue robe.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-7f89d788-8ddc-4811-a2aa-e76a1cc003e1.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/princess-amber.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/professor-hoot.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 104620,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/cookie-crumble",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Fox mid-hop across gap between square chocolate-chip cookie tiles over a swirling milk sea. Slender orange fox, white socks muzzle chest, enormous upright white tipped tail, red tongue, NO flower.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-14d7d639-eca3-4039-9ba2-06fdc4c9918e.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fox.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 56258,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/paint-party",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Hotdog bounding happily across pale plaza leaving brilliant rainbow paint trail from paws. Hotdog is the big-eared rainbow furry creature with flame tuft, not a food.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-525a46ee-5a60-42a5-995b-433c54f2bf81.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/hotdog.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 77752,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/broomstick-dash",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Marina riding a horizontal wooden broom through glowing gold star ring, wizard castle and moon behind. Preserve red hair, crown, purple shell top, teal-purple mermaid tail, NO legs.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-dca95361-3831-471e-9cb4-bec4ee2e03d6.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/marina.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 77332,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/crown-keeper",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Scale holding a giant jeweled gold prize crown aloft triumphantly in princess courtyard. Keep her own distinctive crown also on head. Scale blonde mermaid, green layered petal top with blue flowers, red tail crossed by light-blue bands, teal fin, NO legs.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-0e175f07-1a2e-4708-aa88-198fbf2d2959.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/scale.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 89648,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/fashion-show",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Cotton Candy pony proudly strutting palace runway in heart-shaped sunglasses and flowing royal purple cape. White pony, long pastel pink/lavender/blue mane, small yellow crown, flower flank, NO horn.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ec170f40-e91b-4068-92c9-25365dc6db95.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/cotton-candy.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 72746,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/art-studio",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Snowstar painting bright rainbow on a big canvas using a paintbrush, sunny kids art studio. Enormous face, colorful geometric hair, green turtleneck.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-75806c8f-3359-4a91-a788-210cafdd3ce3.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/snowstar.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 98098,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/cake-bakery",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Birthday Cake proudly smiling beside a towering elaborately decorated confection on a stand in a pastel bakery. The Cake character has face and candle, no limbs; towering confection has no face.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-6ad97298-59ac-426c-8eb6-c4c93bdd12bd.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/marshmallow-birthday-cake.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 76240,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/pet-spa",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Fellowfox enjoying a bubble bath in a pastel clawfoot tub with a rubber duck. Preserve orange round fox, cream muzzle chest, huge dark eyes, black flower beside ear. Cheerful spa.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-1bbfb801-ef7a-4c52-8192-346b3ec61e97.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 61578,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/pop-star-stage",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: All THREE KPop Girls singing enthusiastically with microphones on big bright concert stage. Reproduce each girl's exact appearance and outfit from reference. Brown side bun blue top wide navy trousers; purple braided hair orange jacket orange/gold skirt purple boots; long coral hair navy abstract tee gold skirt navy boots.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-be7bbed7-900a-4695-bea5-c772c62eecbf.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/kpop-girls.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 94932,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/potion-class",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Bronze stirring bubbling iron cauldron with wooden spoon attached to side pipe, swirling rainbow fizz. Bronze has NO arms, NO mouth, ONE eye; preserve green-rim dome purple antenna and mismatched legs.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-978fef9b-6def-44a6-a6e0-a985ba3c2173.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/bronze.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 76312,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/memory-match",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: The Unicorn beside a fan of face-up cards showing simple original animal portraits in a magical meadow. Preserve elegant slim white unicorn, lavender-white mane, long pale spiral horn, closed happy eyes. NO crown.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d655d064-4c32-4743-802a-97a9a961913a.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/unicorn.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 80000,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/crown-keeper",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Strict straight-down view of pale warm cobblestone courtyard with rose hedge border ONLY in outermost 5% of canvas edges. Entire middle 90% EMPTY light cobblestone floor. No fountain anywhere, no planters or obstacles. Fountain and hedges are separate game objects drawn on top. No perspective, horizon or vertical walls.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-1701ae15-5df4-4cff-a200-dfa2ca469504.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 134782,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/pass-the-present",
+      "prompt": "Edit reference: remove circular rug entirely and replace with matching warm wooden floorboards. All party decorations stay at far edges. Preserve rest unchanged.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-e79f72cc-5da7-4038-a77b-e861be54fbb4.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 131694,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/fashion-show",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Royal purple fashion hall, pink curtains, gold chandeliers. Empty runway extends from rear center toward wide bottom foreground in perspective. NO audience, NO crowd, NO people. Clear central runway. Low contrast floor.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-1b7b821e-cf3f-47c4-9a55-12ea754975c0.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 140886,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "bg/art-gallery",
+      "prompt": "Use case: 2D children's party video game background, 1920x1080 wide landscape. Style: bold smooth dark navy outlines and simple clean cel shading, rounded appealing shapes, soft bright pastel colors, slightly subdued so characters pop. No photorealism, no 3D. No characters, people, animals, words, letters, logo, watermark. Keep top 140px calm for HUD. Scene: Museum gallery wall with gentle spotlights, wooden floor and velvet ropes along far sides. Huge empty pale cream wall occupying center for a framed painting inserted by game code. No paintings or frames in center. No text.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-8c89361f-d880-4d6d-9207-6cf229a78bea.png",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 57792,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/fairy-count",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: An excited white unicorn with rainbow mane watches three little pink flower fairies flutter across the moonlit blue-teal garden. Preserve the varied skin tones and flower-petal clothing of the approved fairies, each visibly separate and tiny beside the unicorn. Playful counting moment, no numbers.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ac880674-c032-4e5b-8c85-ec055f49cc6a.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/unicorn.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/garden-fairies.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 88884,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "thumb/fairy-garden",
+      "prompt": "Use case: illustration-story. Asset: 800x500 landscape game-selection thumbnail for children's party video game. Input images are approved canonical identity references: reproduce these exact characters, identical anatomy, colors, face, proportions and outfits. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no 3D. Fun dynamic readable iconic moment, center subjects with safe margin for rounded card corners. Opaque softly colored background. No text, letters, numbers, logo, watermark. Scene: Felicity the blonde girl in striped pink dress carefully waters glowing magical flowers with a small watering can while three tiny flower fairies with different skin tones happily flutter around her. Cheerful fenced garden in sunshine.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-a47b79eb-052d-4a37-a8ab-298d45960a15.png",
+      "inputs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/garden-fairies.webp"
+      ],
+      "tool": "built-in imagegen",
+      "width": 800,
+      "height": 500,
+      "bytes": 111842,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/giant-cake",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: A single floating three-layer birthday cake with rounded smiley face, pastel pink, vanilla and lavender icing, rainbow sprinkles and lit candles, three-quarter front view. Flat base at bottom-center.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-028cfaed-8a66-4163-9c78-fa17ee7b1166.png",
+      "size": [
+        520,
+        420
+      ],
+      "tool": "built-in imagegen",
+      "width": 389,
+      "height": 420,
+      "bytes": 42066,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-platform",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: A wide low round birthday cake platform, viewed from elevated three-quarter angle so the top is a large ellipse, pink icing top and white drippy frosting edge, rainbow sprinkles confined to side wall, no candles, no decorations on spacious smooth top. Game arena characters will stand on top.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-15d8d147-191c-4bed-93ea-c49e8ceab0b8.png",
+      "size": [
+        1075,
+        720
+      ],
+      "tool": "built-in imagegen",
+      "width": 1075,
+      "height": 632,
+      "bytes": 76510,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/seat-cloud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: A single fluffy small cloud seat, broad horizontal shape with rounded white and pale blue puffs, smooth shallow top, three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-01eb53b2-06ed-4ba7-baee-2905da3aa716.png",
+      "size": [
+        190,
+        120
+      ],
+      "tool": "built-in imagegen",
+      "width": 185,
+      "height": 120,
+      "bytes": 6968,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/present",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: A single rounded neutral light pink gift box with elegant darker pink ribbon and large loop bow, three-quarter view, no patterns.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-0472919f-4a79-46e2-ad5c-81aa0e79d1af.png",
+      "size": [
+        200,
+        200
+      ],
+      "tool": "built-in imagegen",
+      "width": 200,
+      "height": 193,
+      "bytes": 13388,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/crown",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: A single chunky gold royal prize crown with five soft points and three colored jewel insets, front three-quarter view, flat elliptical bottom to attach to a character's head.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-be655af6-de42-43b2-851e-d7bf45849a85.png",
+      "size": [
+        160,
+        160
+      ],
+      "tool": "built-in imagegen",
+      "width": 160,
+      "height": 137,
+      "bytes": 11578,
+      "status": "generated; inspected"
+    }
+  ]
+}

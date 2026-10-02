@@ -36,7 +36,7 @@ if len(figures) != len(poses):
 im.save(base / 'sources' / f'{args.asset}-{args.sheet_name}.webp', 'WEBP', lossless=True, method=6)
 p = base / 'specs' / f'{args.asset}.json'
 spec = json.loads(p.read_text())
-loops = {'idle', 'walk', 'run', 'celebrate', 'pout', 'sad', 'dizzy', 'think', 'wave', 'carry', 'dance', 'paint', 'sleep', 'clap', 'ride', 'stir', 'look-around'}
+loops = {'idle', 'walk', 'run', 'celebrate', 'pout', 'sad', 'dizzy', 'think', 'wave', 'carry', 'dance', 'paint', 'sleep', 'clap', 'ride', 'stir', 'look-around', 'crouch'}
 for name, (_, (left, top, right, bottom)) in zip(poses, figures):
     left, top, right, bottom = max(0, left-4), max(0, top-4), min(im.width, right+4), min(im.height, bottom+4)
     w, h = right-left, bottom-top

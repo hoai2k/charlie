@@ -10,7 +10,7 @@
     212
   ],
   "facing": 1,
-  "provenance": "ImageGen using approved canonical; walk strip reviewed and split at transparent gutters; idle is approved canonical.",
+  "provenance": "Approved canonical + ImageGen key-pose sheets; 4-frame walk; procedural overlay; run/cheer/sad/dance-star are declared compatible aliases.",
   "poses": {
     "idle": {
       "frames": [
@@ -353,7 +353,27 @@
             294,
             514
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            238,
+            124
+          ],
+          "hand": [
+            130,
+            280
+          ],
+          "eyes": [
+            238,
+            228
+          ],
+          "neck": [
+            238,
+            321
+          ],
+          "back": [
+            130,
+            363
+          ]
         }
       ],
       "fps": 5,
@@ -376,7 +396,27 @@
             270,
             500
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            197,
+            126
+          ],
+          "hand": [
+            176,
+            358
+          ],
+          "eyes": [
+            197,
+            227
+          ],
+          "neck": [
+            197,
+            318
+          ],
+          "back": [
+            99,
+            353
+          ]
         }
       ],
       "fps": 5,
@@ -399,7 +439,27 @@
             264,
             596
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            203,
+            150
+          ],
+          "hand": [
+            102,
+            498
+          ],
+          "eyes": [
+            203,
+            270
+          ],
+          "neck": [
+            203,
+            378
+          ],
+          "back": [
+            107,
+            420
+          ]
         }
       ],
       "fps": 5,
@@ -422,7 +482,27 @@
             280,
             516
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            210,
+            229
+          ],
+          "hand": [
+            108,
+            452
+          ],
+          "eyes": [
+            210,
+            333
+          ],
+          "neck": [
+            210,
+            426
+          ],
+          "back": [
+            108,
+            364
+          ]
         }
       ],
       "fps": 5,
@@ -443,9 +523,29 @@
           "isolate": true,
           "anchor": [
             266,
-            506
+            541
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            291,
+            122
+          ],
+          "hand": [
+            307,
+            352
+          ],
+          "eyes": [
+            291,
+            224
+          ],
+          "neck": [
+            291,
+            316
+          ],
+          "back": [
+            194,
+            357
+          ]
         }
       ],
       "fps": 5,
@@ -466,9 +566,29 @@
           "isolate": true,
           "anchor": [
             274,
-            509
+            544
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            316,
+            128
+          ],
+          "hand": [
+            410,
+            359
+          ],
+          "eyes": [
+            316,
+            231
+          ],
+          "neck": [
+            316,
+            323
+          ],
+          "back": [
+            216,
+            359
+          ]
         }
       ],
       "fps": 5,
@@ -491,7 +611,27 @@
             264,
             370
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            345,
+            116
+          ],
+          "hand": [
+            375,
+            337
+          ],
+          "eyes": [
+            345,
+            191
+          ],
+          "neck": [
+            345,
+            258
+          ],
+          "back": [
+            248,
+            262
+          ]
         }
       ],
       "fps": 5,
@@ -514,7 +654,27 @@
             235,
             512
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            262,
+            119
+          ],
+          "hand": [
+            248,
+            284
+          ],
+          "eyes": [
+            262,
+            222
+          ],
+          "neck": [
+            262,
+            315
+          ],
+          "back": [
+            176,
+            361
+          ]
         }
       ],
       "fps": 5,
@@ -537,7 +697,27 @@
             269,
             452
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            311,
+            114
+          ],
+          "hand": [
+            440,
+            310
+          ],
+          "eyes": [
+            311,
+            205
+          ],
+          "neck": [
+            311,
+            287
+          ],
+          "back": [
+            212,
+            319
+          ]
         }
       ],
       "fps": 5,
@@ -560,7 +740,27 @@
             269,
             490
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            310,
+            124
+          ],
+          "hand": [
+            460,
+            267
+          ],
+          "eyes": [
+            310,
+            222
+          ],
+          "neck": [
+            310,
+            311
+          ],
+          "back": [
+            212,
+            346
+          ]
         }
       ],
       "fps": 5,
@@ -583,7 +783,27 @@
             276,
             390
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            372,
+            130
+          ],
+          "hand": [
+            451,
+            351
+          ],
+          "eyes": [
+            372,
+            209
+          ],
+          "neck": [
+            372,
+            280
+          ],
+          "back": [
+            271,
+            276
+          ]
         }
       ],
       "fps": 5,
@@ -606,13 +826,984 @@
             221,
             517
           ],
-          "scale": 1
+          "scale": 1,
+          "head": [
+            234,
+            120
+          ],
+          "hand": [
+            336,
+            297
+          ],
+          "eyes": [
+            234,
+            224
+          ],
+          "neck": [
+            234,
+            318
+          ],
+          "back": [
+            153,
+            365
+          ]
         }
       ],
       "fps": 5,
       "loop": true,
       "motion": 0.85,
       "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-activities.webp",
+          "rect": [
+            32,
+            57,
+            550,
+            592
+          ],
+          "isolate": true,
+          "anchor": [
+            286,
+            588
+          ],
+          "scale": 1.0,
+          "head": [
+            275,
+            136
+          ],
+          "hand": [
+            363,
+            332
+          ],
+          "eyes": [
+            275,
+            255
+          ],
+          "neck": [
+            275,
+            361
+          ],
+          "back": [
+            170,
+            414
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-activities.webp",
+          "rect": [
+            590,
+            124,
+            508,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            264,
+            497
+          ],
+          "scale": 1.0,
+          "head": [
+            284,
+            130
+          ],
+          "hand": [
+            422,
+            371
+          ],
+          "eyes": [
+            284,
+            230
+          ],
+          "neck": [
+            284,
+            321
+          ],
+          "back": [
+            188,
+            351
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-activities.webp",
+          "rect": [
+            1116,
+            311,
+            492,
+            323
+          ],
+          "isolate": true,
+          "anchor": [
+            256,
+            319
+          ],
+          "scale": 1.0,
+          "head": [
+            271,
+            90
+          ],
+          "hand": [
+            325,
+            262
+          ],
+          "eyes": [
+            271,
+            155
+          ],
+          "neck": [
+            271,
+            213
+          ],
+          "back": [
+            177,
+            226
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-activities.webp",
+          "rect": [
+            1645,
+            93,
+            493,
+            545
+          ],
+          "isolate": true,
+          "anchor": [
+            256,
+            541
+          ],
+          "scale": 1.0,
+          "head": [
+            261,
+            136
+          ],
+          "hand": [
+            449,
+            289
+          ],
+          "eyes": [
+            261,
+            245
+          ],
+          "neck": [
+            261,
+            343
+          ],
+          "back": [
+            168,
+            382
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-social.webp",
+          "rect": [
+            54,
+            114,
+            467,
+            530
+          ],
+          "isolate": true,
+          "anchor": [
+            243,
+            526
+          ],
+          "scale": 1.0,
+          "head": [
+            224,
+            138
+          ],
+          "hand": [
+            224,
+            360
+          ],
+          "eyes": [
+            224,
+            244
+          ],
+          "neck": [
+            224,
+            339
+          ],
+          "back": [
+            135,
+            371
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-social.webp",
+          "rect": [
+            574,
+            128,
+            471,
+            514
+          ],
+          "isolate": true,
+          "anchor": [
+            245,
+            510
+          ],
+          "scale": 1.0,
+          "head": [
+            231,
+            134
+          ],
+          "hand": [
+            236,
+            293
+          ],
+          "eyes": [
+            231,
+            236
+          ],
+          "neck": [
+            231,
+            329
+          ],
+          "back": [
+            141,
+            360
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-social.webp",
+          "rect": [
+            1072,
+            135,
+            509,
+            513
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            509
+          ],
+          "scale": 1.0,
+          "head": [
+            285,
+            128
+          ],
+          "hand": [
+            438,
+            328
+          ],
+          "eyes": [
+            285,
+            231
+          ],
+          "neck": [
+            285,
+            323
+          ],
+          "back": [
+            188,
+            359
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-social.webp",
+          "rect": [
+            1617,
+            213,
+            507,
+            435
+          ],
+          "isolate": true,
+          "anchor": [
+            264,
+            431
+          ],
+          "scale": 1.0,
+          "head": [
+            203,
+            187
+          ],
+          "hand": [
+            127,
+            396
+          ],
+          "eyes": [
+            203,
+            274
+          ],
+          "neck": [
+            203,
+            352
+          ],
+          "back": [
+            106,
+            304
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-runway.webp",
+          "rect": [
+            39,
+            134,
+            523,
+            515
+          ],
+          "isolate": true,
+          "anchor": [
+            272,
+            511
+          ],
+          "scale": 1.0,
+          "head": [
+            267,
+            118
+          ],
+          "hand": [
+            371,
+            386
+          ],
+          "eyes": [
+            267,
+            221
+          ],
+          "neck": [
+            267,
+            314
+          ],
+          "back": [
+            167,
+            360
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-runway.webp",
+          "rect": [
+            614,
+            145,
+            466,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            242,
+            500
+          ],
+          "scale": 1.0,
+          "head": [
+            247,
+            126
+          ],
+          "hand": [
+            261,
+            292
+          ],
+          "eyes": [
+            247,
+            227
+          ],
+          "neck": [
+            247,
+            318
+          ],
+          "back": [
+            158,
+            353
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-runway.webp",
+          "rect": [
+            1115,
+            104,
+            489,
+            535
+          ],
+          "isolate": true,
+          "anchor": [
+            254,
+            531
+          ],
+          "scale": 1.0,
+          "head": [
+            191,
+            118
+          ],
+          "hand": [
+            377,
+            257
+          ],
+          "eyes": [
+            191,
+            225
+          ],
+          "neck": [
+            191,
+            321
+          ],
+          "back": [
+            98,
+            374
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-runway.webp",
+          "rect": [
+            1623,
+            226,
+            526,
+            421
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            417
+          ],
+          "scale": 1.0,
+          "head": [
+            189,
+            93
+          ],
+          "hand": [
+            158,
+            358
+          ],
+          "eyes": [
+            189,
+            177
+          ],
+          "neck": [
+            189,
+            253
+          ],
+          "back": [
+            89,
+            295
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-dance.webp",
+          "rect": [
+            63,
+            158,
+            463,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            241,
+            490
+          ],
+          "scale": 1.0,
+          "head": [
+            222,
+            128
+          ],
+          "hand": [
+            190,
+            316
+          ],
+          "eyes": [
+            222,
+            227
+          ],
+          "neck": [
+            222,
+            316
+          ],
+          "back": [
+            134,
+            346
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-dance.webp",
+          "rect": [
+            588,
+            69,
+            440,
+            585
+          ],
+          "isolate": true,
+          "anchor": [
+            229,
+            581
+          ],
+          "scale": 1.0,
+          "head": [
+            189,
+            117
+          ],
+          "hand": [
+            251,
+            281
+          ],
+          "eyes": [
+            189,
+            234
+          ],
+          "neck": [
+            189,
+            339
+          ],
+          "back": [
+            106,
+            410
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-dance.webp",
+          "rect": [
+            1052,
+            298,
+            551,
+            356
+          ],
+          "isolate": true,
+          "anchor": [
+            287,
+            352
+          ],
+          "scale": 1.0,
+          "head": [
+            347,
+            114
+          ],
+          "hand": [
+            325,
+            320
+          ],
+          "eyes": [
+            347,
+            185
+          ],
+          "neck": [
+            347,
+            249
+          ],
+          "back": [
+            242,
+            249
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-dance.webp",
+          "rect": [
+            1674,
+            129,
+            429,
+            527
+          ],
+          "isolate": true,
+          "anchor": [
+            223,
+            523
+          ],
+          "scale": 1.0,
+          "head": [
+            193,
+            132
+          ],
+          "hand": [
+            378,
+            269
+          ],
+          "eyes": [
+            193,
+            237
+          ],
+          "neck": [
+            193,
+            332
+          ],
+          "back": [
+            112,
+            369
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-extras-social.webp",
+          "rect": [
+            78,
+            91,
+            639,
+            557
+          ],
+          "isolate": true,
+          "anchor": [
+            332,
+            553
+          ],
+          "scale": 0.86,
+          "head": [
+            371,
+            145
+          ],
+          "hand": [
+            339,
+            479
+          ],
+          "eyes": [
+            371,
+            256
+          ],
+          "neck": [
+            371,
+            356
+          ],
+          "back": [
+            249,
+            390
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-extras-social.webp",
+          "rect": [
+            796,
+            71,
+            576,
+            575
+          ],
+          "isolate": true,
+          "anchor": [
+            300,
+            571
+          ],
+          "scale": 0.86,
+          "head": [
+            276,
+            144
+          ],
+          "hand": [
+            490,
+            328
+          ],
+          "eyes": [
+            276,
+            259
+          ],
+          "neck": [
+            276,
+            362
+          ],
+          "back": [
+            167,
+            402
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-extras-social.webp",
+          "rect": [
+            1448,
+            275,
+            660,
+            367
+          ],
+          "isolate": true,
+          "anchor": [
+            343,
+            363
+          ],
+          "scale": 0.86,
+          "head": [
+            436,
+            121
+          ],
+          "hand": [
+            403,
+            312
+          ],
+          "eyes": [
+            436,
+            195
+          ],
+          "neck": [
+            436,
+            261
+          ],
+          "back": [
+            310,
+            257
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-extras-motion.webp",
+          "rect": [
+            33,
+            125,
+            762,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            396,
+            481
+          ],
+          "scale": 0.9,
+          "head": [
+            503,
+            136
+          ],
+          "hand": [
+            686,
+            330
+          ],
+          "eyes": [
+            503,
+            233
+          ],
+          "neck": [
+            503,
+            320
+          ],
+          "back": [
+            358,
+            340
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-extras-motion.webp",
+          "rect": [
+            874,
+            94,
+            584,
+            548
+          ],
+          "isolate": true,
+          "anchor": [
+            304,
+            544
+          ],
+          "scale": 0.9,
+          "head": [
+            310,
+            132
+          ],
+          "hand": [
+            339,
+            356
+          ],
+          "eyes": [
+            310,
+            241
+          ],
+          "neck": [
+            310,
+            340
+          ],
+          "back": [
+            199,
+            384
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-extras-motion.webp",
+          "rect": [
+            1481,
+            72,
+            660,
+            580
+          ],
+          "isolate": true,
+          "anchor": [
+            343,
+            576
+          ],
+          "scale": 0.9,
+          "head": [
+            436,
+            139
+          ],
+          "hand": [
+            581,
+            331
+          ],
+          "eyes": [
+            436,
+            255
+          ],
+          "neck": [
+            436,
+            360
+          ],
+          "back": [
+            310,
+            406
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-star": {
+      "alias": "strike3",
+      "loop": false,
+      "motion": 1
     }
   },
   "portraits": {
