@@ -68,3 +68,11 @@ At approximately 40% remaining account allowance, stop starting new assets,
 finish in-flight work, commit/push safe checkpoints and save a handoff with
 exact remaining requests. Do not treat aliases or procedural fallbacks as
 newly authored images in coverage reports.
+
+## Request monitor checkpoint
+
+Last checked revision: `630c728b6ca38d98d7c39405fde84453983a35ec`.
+Last checked UTC: 2026-10-02T20:44:57+00:00.
+Heartbeat: `charlie-party-image-request-follow-up`; checks every 30 minutes and
+cancels itself after one full interval without new or changed image requests.
+Include regeneration requests as well as new assets.

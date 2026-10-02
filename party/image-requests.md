@@ -629,11 +629,13 @@ The canvas is 1920×1080 logical and the backing store tops out at 2× (4K TVs).
 | professor-hoot | ~200 | 360 |
 | garden-fairy | ~50 | 120 |
 
-Budgets: about 30–48 frames per roster member at first (aliases and fallbacks
-cover the rest), **≤ 1.5 MB of WebP per member including portraits**, and
-**≤ 25 MB for `assets/sprites/` in total**. Every listed set is loaded at
-boot, and iPads have limited decode memory, so prefer trimmed, packed frames
-over large empty canvases.
+Budgets: start with about 30–48 frames per roster member, expanding for the
+requested actions and cycles. Aim for **≤ 1.5 MB of WebP per member including
+portraits** and enforce **≤ 25 MiB decoded per member** (Round 3). Sets load
+on demand for characters that appear, rather than all at boot. The original
+25 MiB total download target is now a warning for the expanded roster.
+iPads have limited decode memory, so prefer trimmed frames over large empty
+canvases and inspect party-size memory usage when adding animation frames.
 
 ### 5.5 Recommended engine improvements (yours to make or to report)
 
@@ -1543,6 +1545,11 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | `prop/cake-platform` (Bumper Bounce) | No crumble visuals: the platform just shrinks with a red band drawn over it. The cake looks tall. | A rounder top (height about 0.62× width, thinner side band), plus 2–3 edge-crumble overlay rings. |
 | `bg/fairy-garden` (+ night) | A side view, but the game is top-down. The code shifts it up so the fence is the back border and draws its own lawn below. Works, but the lawn is procedural. | A top-down garden ground (grass with soft paths, no plots; plots are drawn by code), fence/flower border along the top ~330 px, day and night versions. |
 | `bg/potion-class` | Has its own empty blackboard where the game's board doesn't sit (code fix in progress to use the art's board). | Re-check once the code fix lands; no change needed if it reads well. |
+| `prop/cake-stand` | Plate is much flatter than the cake's view angle (top ellipse height/width ≈ 0.15 vs the code's 0.36) and the pedestal is very tall; the cake and toppings wouldn't line up. Unused. | A low stand from the same 3/4 angle: top ellipse ≈ 0.36× width, plate ~500 px wide, short pedestal (total height ≈ 0.4× width), plain white or lilac plate. |
+| `prop/plant-<kind>-glow` | Nearly identical to the blooms (rose and sunflower only gain small sparkles), so the night cross-fade barely shows. | Clearly glowing night versions: bright light inside the petals, a soft halo, slightly cooler and more saturated colors. Same silhouette and framing as the bloom. |
+| `prop/plant-<kind>-seed` (optional) | Big close-ups that fill the frame; the code shrinks them to ~52 px. | A small seed peeking from a little soil hole, small within the 256-tall frame, bottom-anchored. |
+| `prop/cake-layer-*` (only if real layers are wanted) | Frosting is baked in and only round layers exist, so they can't follow heart/star/tower shapes, 8 frostings or per-layer flavors. Unused. | Plain sponge (no frosting), same view angle as the cake, one per shape (round, heart, star), neutral color the code can tint. |
+| `prop/tiara-pearl` (minor) | Gold with pearls, but mapped to the Pearl (white) color. | A white/silver pearl tiara (or the lead remaps it to Gold). |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one

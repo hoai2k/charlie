@@ -3170,6 +3170,90 @@
       "height": 300,
       "bytes": 24392,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/hedge",
+      "prompt": "Use case: stylized-concept. Game asset prop/hedge: top-down straight rectangular green trimmed hedge, dense rounded leaf texture, thin dark outline, no flowers, horizontal silhouette exactly rectangular 250 by46. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 250x46.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5c16ca47-2196-483c-9a09-6ff1160d0e37.png",
+      "maxSize": [
+        250,
+        46
+      ],
+      "tool": "built-in imagegen",
+      "width": 225,
+      "height": 46,
+      "bytes": 8138,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/fountain",
+      "prompt": "Use case: stylized-concept. Game asset prop/fountain: top-down exact circular garden fountain, round pale stone outer rim, blue water basin, tiny central water jet viewed from directly overhead, outer silhouette perfectly circular. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 208px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-fed0c5bd-3b63-4431-997c-5332bf76f234.png",
+      "maxSize": [
+        208,
+        208
+      ],
+      "tool": "built-in imagegen",
+      "width": 208,
+      "height": 206,
+      "bytes": 16704,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/arena-cake",
+      "prompt": "Use case: stylized-concept. Game asset prop/arena-cake: top-down perfectly round frosted pink birthday cake platform, white piped scallops around rim, colorful sparse sprinkles, large pale pink flat center for gameplay, no candles no face no tier perspective. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 1000px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-631b7f88-67fd-4b66-8d45-4886056a3195.png",
+      "maxSize": [
+        1000,
+        1000
+      ],
+      "tool": "built-in imagegen",
+      "width": 997,
+      "height": 1000,
+      "bytes": 117348,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/arena-cake-crumb",
+      "prompt": "Use case: stylized-concept. Game asset prop/arena-cake-crumb: one small frosted cake crumb chunk, pink frosting over golden sponge, simple rounded irregular piece. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-0498b66e-2aea-42cd-8ff0-8995a2152695.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 124,
+      "bytes": 7404,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/danger-ring",
+      "prompt": "Use case: stylized-concept. Game asset prop/danger-ring: one hollow perfectly circular golden-orange cartoon warning ring, softly shaded thick rim, clear fully transparent center, no text no effects outside. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 256px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f60ac4a9-1d95-44fb-b442-81c5370013cd.png",
+      "maxSize": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 253,
+      "bytes": 16878,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/pet-bow-red",
+      "prompt": "Use case: stylized-concept. Game asset prop/pet-bow-red: a small red satin pet grooming ribbon bow, two rounded loops, central knot, two short tails, front view. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a3f19721-1eae-4d6d-ada2-54213233521d.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 93,
+      "bytes": 6464,
+      "status": "generated; inspected"
     }
   ]
 }

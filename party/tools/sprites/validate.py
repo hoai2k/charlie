@@ -84,8 +84,11 @@ def validate(root, strict=False):
         total_bytes += size
         if size > 1.5 * 1024**2: warnings.append(label + 'exceeds 1.5 MiB member budget')
         decoded = sum(im.width * im.height * 4 for im in image_cache.values() if im)
+        if decoded > 25 * 1024**2: error(label + 'exceeds 25 MiB decoded member budget')
         print(f'{asset}: {len(poses)} poses, {nframes} real frames, {len(m.get("portraits", {}))} portraits; {size / 1024:.0f} KiB, decode {decoded / 1024**2:.1f} MiB')
-    if total_bytes > 25 * 1024**2: errors.append('Total sprite images exceed 25 MiB')
+    # Round 3 loads sets on demand. The original all-at-boot download target
+    # remains useful information, but cannot reject an expanded lazy roster.
+    if total_bytes > 25 * 1024**2: warnings.append('Total sprite images exceed the original 25 MiB download target (sets load on demand)')
     print(f'{len(sets)} sets; {total_bytes / 1024**2:.2f} MiB total')
     return errors, warnings
 
