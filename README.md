@@ -27,3 +27,8 @@ Every game lives in its own subdirectory and is deployed with GitHub Pages, so
 `.github/workflows/pages.yml` publishes the repository to GitHub Pages on
 every push to `main`. One-time setup: in the repo's **Settings → Pages**, set
 **Source** to **GitHub Actions**.
+
+## Improvement backlog
+
+See [`docs/recommendations.md`](docs/recommendations.md) for the audit of both
+games and a prioritized list of suggested fixes.
