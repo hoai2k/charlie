@@ -1539,8 +1539,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/cake-platform` (Bumper Bounce; v2 delivered) | No crumble visuals: the platform just shrinks with a red band drawn over it. The cake looks tall. | A rounder top (height about 0.62× width, thinner side band), plus 2–3 edge-crumble overlay rings. |
-| `bg/fairy-garden` (+ night) | A side view, but the game is top-down. The code shifts it up so the fence is the back border and draws its own lawn below. Works, but the lawn is procedural. | A top-down garden ground (grass with soft paths, no plots; plots are drawn by code), fence/flower border along the top ~330 px, day and night versions. |
 | `bg/potion-class` | Has its own empty blackboard where the game's board doesn't sit (code fix in progress to use the art's board). | Re-check once the code fix lands; no change needed if it reads well. |
 | sprite `princess-amber` `dance` (4 frames) | About 1.4× too big (head-to-neck 118 px vs 86 in idle); she swells whenever she dances in Spotlight and Pop Star. | Re-intake at `scale` ≈ 0.72, or re-generate at idle head size. |
 | sprite `fox` `ride` (2 frames) | About 0.6× size, and the anchor sits ~27 source px below the paws, so the fox floats above the broom in Broomstick Dash. | Scale ≈ 1.4; anchor at the belly/paw line where the broom goes. |
@@ -1555,10 +1553,7 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | sprite `snowstar`, `marshmallow-birthday-cake` | No `carry`, `dance` or `cast`; Pass the Present, Spotlight and Pop Star use fallbacks. | Add `carry` (present overhead / balanced on the cake), 4-frame `dance`, `cast`. |
 | sprite `marina`, `scale` | No `carry`, `cast`, `action`, `clap`, `bow`, `sing`. | Add `carry` and `cast` first (Pass the Present, Wizard Quick-Draw, Potion Class). |
 | sprite `troll` `windup`, `grab`, `cheer`, `wave`, `dizzy` | `hand` points off the art. | Re-annotate. |
-| `prop/arena-cake-crumb` (optional) | Usable at the 45–75 px it's drawn, but there's only one, and with no outline the chunks look soft against the cake's outlined rim. | `arena-cake-crumb-1..4`, 256 px, broken pink-frosted sponge chunks with the same navy outline as `prop/arena-cake`. |
 | `prop/cake-stand` | Plate is much flatter than the cake's view angle (top ellipse height/width ≈ 0.15 vs the code's 0.36) and the pedestal is very tall; the cake and toppings wouldn't line up. Unused. | A low stand from the same 3/4 angle: top ellipse ≈ 0.36× width, plate ~500 px wide, short pedestal (total height ≈ 0.4× width), plain white or lilac plate. |
-| `prop/plant-<kind>-seed` (optional) | Big close-ups that fill the frame; the code shrinks them to ~52 px. | A small seed peeking from a little soil hole, small within the 256-tall frame, bottom-anchored. |
-| `prop/cake-layer-*` (only if real layers are wanted) | Frosting is baked in and only round layers exist, so they can't follow heart/star/tower shapes, 8 frostings or per-layer flavors. Unused. | Plain sponge (no frosting), same view angle as the cake, one per shape (round, heart, star), neutral color the code can tint. |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one
@@ -1578,5 +1573,7 @@ fine; the code uses one of each pair.
 - `prop/danger-ring` v3: thin hazard-stripe ring (image agent updated Bumper Bounce's ring constant).
 - `prop/storm-cloud-lightning`: bolt art under the storm clouds in Broomstick Dash (bigger on a zap).
 - `prop/cookie-{2,3,4}-{cracked,crumbling}`: every flavor now shows art crack states in Cookie Crumble.
-- `prop/cake-platform` v2: flatter top delivered, but Bumper Bounce draws `prop/arena-cake`, so the platform is only a fallback; the edge-crumble overlay rings are still open (row above).
+- `prop/cake-platform` v2 + `prop/cake-platform-crumble-1..3`, `prop/arena-cake-crumb-1..4`: Bumper Bounce's breaking edge (image agent integration, checked in game).
+- `prop/cake-sponge-round/heart/star`: Cake Bakery multiplies the round sponge's crumb texture over every layer side (any shape, tinted by flavor; frosting band left smooth). The heart/star files are not needed for that and stay unused.
+- `prop/plant-<kind>-seed` v2 and `bg/fairy-garden(-night)` v2 (overhead): image agent integration, checked in game.
 - `prop/cake-stand` v2: still unused (top ellipse is flatter than the cakes' 0.36 view and the stand is about 0.5x as tall as wide); row above still applies.
