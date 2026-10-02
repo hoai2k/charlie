@@ -6,7 +6,7 @@ The brief remains authoritative; this file records sequencing and ownership.
 All NPC canonical designs are now user-approved, including no-blush Glimmer
 and the diverse Garden Fairies with a light olive purple fairy.
 
-## Current priorities at the pause checkpoint
+## Current priorities (production resumed)
 
 Completed: approved NPC sets/cutouts and integration; Troll Round 3 reactions;
 Felicity/Fellowfox/Bronze upgraded cycles plus added actions; all KPop members;
@@ -27,7 +27,7 @@ Marina/Scale have core sets plus Round 3 cycles. Snowstar/Cake have core sets.
 
 Use `tools/sprites/AGENT-PLAYBOOK.md` for concrete production lessons and
 `SPRITE-SESSION-HANDOFF.md` to resume. Prefer lighter agents with visual review.
-Stop new generation during this requested budget pause.
+Production resumed by the user; generate the remaining assets and publish reviewed batches regularly.
 
 ## New requests from the latest sync
 

@@ -239,6 +239,19 @@
     "icon/shapes": "icon/shapes.webp",
     "icon/eraser": "icon/eraser.webp",
     "icon/undo": "icon/undo.webp",
-    "prop/candle-flame": "prop/candle-flame.webp"
+    "prop/candle-flame": "prop/candle-flame.webp",
+    "prop/sprinkles": "prop/sprinkles.webp",
+    "prop/ing-rainbow-feather": "prop/ing-rainbow-feather.webp",
+    "prop/ing-stardust-jar": "prop/ing-stardust-jar.webp",
+    "prop/ing-moon-drop": "prop/ing-moon-drop.webp",
+    "prop/bathtub-front": "prop/bathtub-front.webp",
+    "prop/ing-glow-mushroom": "prop/ingredient-mushroom.webp",
+    "prop/ing-bubble-berries": "prop/ingredient-moonberry.webp",
+    "prop/ing-sparkle-flower": "prop/ingredient-starflower.webp",
+    "prop/ing-snow-crystal": "prop/ingredient-snowcrystal.webp",
+    "prop/ing-sneezy-pepper": "prop/ingredient-dragonpepper.webp",
+    "prop/pet-bow-pink": "prop/bow-pink.webp",
+    "prop/pet-bow-blue": "prop/bow-blue.webp",
+    "prop/pet-bow-yellow": "prop/bow-gold.webp"
   }
 }
