@@ -121,3 +121,15 @@ elapsed. Keep the monitor active for its next check.
 
 Last checked revision: `85b7d2e92a82adbae333fd5e8cc68a145d7b1fe5`.
 Last checked UTC: 2026-10-02T21:29:53.396518+00:00.
+
+## Production resumed — Sol
+
+The user explicitly revoked the40%allowancepause forSol. Complete all requested
+assets and regenerations, checking new requests and publishing reviewed batches.
+Cake/animals andmermaid/KPop/Amber agents resumed; root owns pilots/generalprops.
+Last checked revision: `06127696957f7437feb62a83e905a551784936dc`.
+Last checked UTC: 2026-10-02T21:35:49.123002+00:00.
+
+Reviewed regeneration batch: thin1024hazardring (BumperBounce radius updated),
+outlinedhedge, greenfizzle, neutralbubbles/bottle, emptycauldron,3:4cardback.
+Correspondingruntimekeys pointto versionedfiles; originalsremainavailable.

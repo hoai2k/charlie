@@ -85,8 +85,8 @@ const SUDDEN_AT = 54, SUDDEN_R = 55;
 // prop/arena-cake (997x1000, near top-down with a thin side band at the bottom):
 // the frosted top face's outer rim spans x 0..997, y 3..912 in the image.
 const ARENA_ART = { cx: 498, cy: 457, rx: 498, ry: 455 };
-// prop/danger-ring (256x253): band from r 88 to r 128 of the image.
-const RING_IN = 88 / 128;
+// Thin 1024px hazard ring: measured inner edge, relative to canvas half-width.
+const RING_IN = 0.867188;
 const CHUNK_T = 1.3;
 
 const NEW_POSE_FALLBACK = { dash: 'push', sit: 'idle', tumble: 'fall' };
