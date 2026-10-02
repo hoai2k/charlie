@@ -147,10 +147,13 @@ export class ResultsScene {
     const done = this.t > starStart + 0.3 * Math.max(...this.earned, 1) + 0.5;
     if (!inputOpen || this.leaving || !done) return;
     const c = input.humans().find((h) => h.pressed('a') || h.pressed('y') || h.pressed('b'));
-    if (c || (new URLSearchParams(location.search).has('auto') && this.t > 6)) {
+    // Mouse / touch: "[Y] Play again" replays, any other click continues.
+    const hint = ui.clickedHint();
+    const click = input.pointer.pressed && this.t > this.revealAt + 2.1;
+    if (c || click || (new URLSearchParams(location.search).has('auto') && this.t > 6)) {
       this.leaving = true;
       sfx('select');
-      if (c && c.pressed('y')) { this.manager.go('intro', { gameId: this.gameId }); return; }
+      if ((c && c.pressed('y')) || (!c && hint === 'y')) { this.manager.go('intro', { gameId: this.gameId }); return; }
       if (session.partyMode) {
         session.partyMode.round++;
         const next = session.partyMode.games[session.partyMode.round];

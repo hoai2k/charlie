@@ -56,7 +56,11 @@ deliver in any order and in partial batches.
   also go under `"sfx"`.
 - **`music`**: song name → one file. The file loops **as a whole** (Web
   Audio `loop = true` over the entire buffer, with no loop points), and the
-  engine fades it in over 0.4 s.
+  engine fades it in over 0.4 s. A long song can instead be listed as
+  `{ "file": "music/x.mp3", "stream": true }`: it plays through an `<audio>`
+  element routed into the music bus, so it isn't decoded into memory (the
+  loop-length budget below doesn't apply). The title and `party` songs use this
+  for *Bubblegum Radar*.
 - Everything in the manifest is fetched and decoded when audio starts (after
   the first key or button press). A file that is missing or fails to decode
   is **silently skipped**, and the synth keeps playing for that name. That's

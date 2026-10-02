@@ -10,6 +10,10 @@
 //   ctrl.released('a')    went up this frame
 //   ctrl.nav              {x, y} in {-1,0,1}: menu steps with auto-repeat
 //   ctrl.rumble(0..1, ms)
+//   ctrl.inject('a')      press a button next frame (mouse clicks on menu hints)
+//
+//   input.pointerOver(rect)  pointer is over {x, y, w, h} (logical coords); shows a hand cursor
+//   input.clicked(rect)      ...and was pressed this frame
 
 import { toLogical } from './canvas.js';
 
@@ -64,6 +68,7 @@ export class Controller {
     this._navHeld = { x: 0, y: 0, t: 0 };
     this.connected = true;
     this.lastActive = 0;
+    this._inject = new Set();
   }
   get isAI() { return this.kind === 'ai'; }
   get x() { return this.cur.lx; }
@@ -90,6 +95,8 @@ export class Controller {
     for (const b of BUTTONS) s[b] = false;
     s.lx = s.ly = s.rx = s.ry = 0;
     this.poll(s);
+    for (const b of this._inject) s[b] = true;
+    this._inject.clear();
     // D-pad also drives the move axes.
     if (s.left) s.lx = -1; if (s.right) s.lx = 1;
     if (s.up) s.ly = -1; if (s.down) s.ly = 1;
@@ -112,6 +119,8 @@ export class Controller {
       if (h.t > 0.38) { h.t -= 0.11; this.nav.x = nx; this.nav.y = ny; }
     }
   }
+  /** Press `b` for one frame, starting next frame (as if the player tapped it). */
+  inject(b) { this._inject.add(b); }
   rumble() {}
 }
 
@@ -203,10 +212,13 @@ class InputManager {
     this.pads = [];                // PadController by gamepad index
     this.keyboards = [new KeyboardController('kb1'), new KeyboardController('kb2')];
     this.ais = new Set();
-    this.pointer = { x: 0, y: 0, down: false, pressed: false, released: false, moved: false, _pd: false, _pu: false };
+    // moved: moved this frame. seen: a mouse/touch has been over the canvas.
+    // hot: something under the pointer is clickable (hand cursor).
+    this.pointer = { x: 0, y: 0, down: false, pressed: false, released: false, moved: false, seen: false, hot: false, _pd: false, _pu: false, _mv: false };
     this.now = 0;
     this.lastDeviceKind = 'pad';
     this.onUserGesture = null;     // called synchronously inside real DOM gestures
+    this.onPointerButton = null;   // (x, y) => true if an overlay button took the click
   }
 
   init(canvas) {
@@ -221,9 +233,13 @@ class InputManager {
     window.addEventListener('keyup', (e) => { keysDown.delete(e.code); });
     window.addEventListener('blur', () => keysDown.clear());
     const p = this.pointer;
-    const setPos = (e) => { const l = toLogical(e.clientX, e.clientY); p.x = l.x; p.y = l.y; p.moved = true; };
+    const setPos = (e) => { const l = toLogical(e.clientX, e.clientY); p.x = l.x; p.y = l.y; p._mv = true; p.seen = true; };
     canvas.addEventListener('pointerdown', (e) => {
-      setPos(e); p.down = true; p._pd = true;
+      setPos(e);
+      // Overlay buttons (sound / fullscreen) act right here, inside the
+      // gesture, and the click never reaches the scene.
+      const took = this.onPointerButton && this.onPointerButton(p.x, p.y);
+      if (!took) { p.down = true; p._pd = true; }
       this.onUserGesture && this.onUserGesture('pointer');
     });
     window.addEventListener('pointermove', setPos);
@@ -248,8 +264,17 @@ class InputManager {
     for (const c of this.pads) if (c && c.anyPressed()) this.lastDeviceKind = 'pad';
 
     const p = this.pointer;
-    p.pressed = p._pd; p.released = p._pu; p._pd = p._pu = false;
+    p.pressed = p._pd; p.released = p._pu; p.moved = p._mv; p._pd = p._pu = p._mv = false;
+    p.hot = false;
   }
+
+  pointerOver(r) {
+    const p = this.pointer;
+    const over = p.seen && p.x >= r.x && p.x <= r.x + r.w && p.y >= r.y && p.y <= r.y + r.h;
+    if (over) p.hot = true;
+    return over;
+  }
+  clicked(r) { return this.pointerOver(r) && this.pointer.pressed; }
 
   /** Human controllers that exist right now (connected pads + both keyboard layouts). */
   humans() {

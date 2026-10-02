@@ -21,6 +21,12 @@ keyboard works too. Plays at `/charlie/party/`.
 | LB / RB | LB / RB | Z / C | , / . |
 | Pause | Menu (☰) | Esc | P |
 
+Menus also work with a mouse or touch: click a card, tile or button hint.
+The round buttons in the bottom-left corner of the menus (and the pause
+menu) toggle sound and fullscreen; **M** and **F** do the same from the
+keyboard. Sound mutes itself while the tab is hidden or the window isn't
+focused, and the mute setting is remembered.
+
 ## Testing URLs
 
 - `?scene=sprites` — sprite viewer (all characters, every pose)

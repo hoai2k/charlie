@@ -566,5 +566,14 @@
    "voice/unicorn/yay-3.mp3"
   ]
  },
- "music": {}
+ "music": {
+  "title": {
+   "file": "music/bubblegum-radar.mp3",
+   "stream": true
+  },
+  "party": {
+   "file": "music/bubblegum-radar.mp3",
+   "stream": true
+  }
+ }
 }

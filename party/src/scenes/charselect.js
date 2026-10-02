@@ -114,6 +114,8 @@ export class CharSelectScene {
     if (!inputOpen) return;
     if (!this.greeted && this.t > 0.6) { this.greeted = true; host(session.played.length ? 'pick-character' : 'welcome'); }
 
+    if (this.updatePointer()) return;
+
     // Joining: any unassigned human controller pressing A (or Start).
     const joinedNow = new Set();
     for (const c of input.humans()) {
@@ -131,26 +133,10 @@ export class CharSelectScene {
           let col = h.cursor % COLS, row = Math.floor(h.cursor / COLS);
           col = (col + nav.x + COLS) % COLS;
           row = (row + nav.y + 2) % 2;
-          h.cursor = row * COLS + col;
-          h.charId = CHARACTERS[h.cursor].id;
-          h.actor = this.makeActor(h.charId);
-          h.actor.playOnce('wave', 0.7, 'idle');
-          this.cardBounce[h.cursor] = 1;
-          sfx('move');
-          this.resolveCpuConflicts();
+          this.setCursor(h, row * COLS + col);
         }
-        if (c.pressed('a')) {
-          if (this.takenByHuman(h.charId, h)) { sfx('error'); h.actor.playOnce('surprised', 0.4, 'idle'); }
-          else {
-            h.locked = true; sfx('ready');
-            h.actor.say(CHARACTERS[h.cursor].lines?.hello || 'Hi!', 1.8, 'hello');
-            h.actor.playOnce('ready', 0.7, 'wave');
-            this.cardBounce[h.cursor] = 1.5;
-            const r = this.cardRect(h.cursor);
-            particles.burst(r.x + r.w / 2, r.y + r.h / 2, { type: 'star', count: 12 });
-            this.resolveCpuConflicts();
-          }
-        } else if (c.pressed('b')) {
+        if (c.pressed('a')) this.lockIn(h);
+        else if (c.pressed('b')) {
           this.humans = this.humans.filter((x) => x !== h);
           sfx('back');
           this.fitCpus();
@@ -169,6 +155,59 @@ export class CharSelectScene {
         sfx('move');
       }
     }
+  }
+
+  setCursor(h, i) {
+    h.cursor = i;
+    h.charId = CHARACTERS[i].id;
+    h.actor = this.makeActor(h.charId);
+    h.actor.playOnce('wave', 0.7, 'idle');
+    this.cardBounce[i] = 1;
+    sfx('move');
+    this.resolveCpuConflicts();
+  }
+
+  lockIn(h) {
+    if (this.takenByHuman(h.charId, h)) { sfx('error'); h.actor.playOnce('surprised', 0.4, 'idle'); return; }
+    h.locked = true; sfx('ready');
+    h.actor.say(CHARACTERS[h.cursor].lines?.hello || 'Hi!', 1.8, 'hello');
+    h.actor.playOnce('ready', 0.7, 'wave');
+    this.cardBounce[h.cursor] = 1.5;
+    const r = this.cardRect(h.cursor);
+    particles.burst(r.x + r.w / 2, r.y + r.h / 2, { type: 'star', count: 12 });
+    this.resolveCpuConflicts();
+  }
+
+  // Mouse / touch play as the keyboard (WASD) seat, or P1 if that seat is empty.
+  mouseSeat() {
+    const kb = input.keyboards[0];
+    return this.humans.find((h) => h.ctrl === kb) || this.humans[0] || null;
+  }
+
+  /** Clicks: a card picks that character, the empty seat joins (or adds a CPU),
+   *  the green bar starts, and the footer hints click like their buttons. */
+  updatePointer() {
+    const kb = input.keyboards[0];
+    if (this.allReady() && input.clicked({ x: W / 2 - 330, y: 1000, w: 660, h: 72 })) { this.start(); return true; }
+    for (let i = 0; i < CHARACTERS.length; i++) {
+      if (!input.clicked(this.cardRect(i))) continue;
+      let h = this.mouseSeat();
+      if (!h) { this.join(kb); h = this.humans[this.humans.length - 1]; }
+      if (h.locked && h.cursor === i) return true;
+      h.locked = false;
+      if (h.cursor !== i) this.setCursor(h, i);
+      this.lockIn(h);
+      return true;
+    }
+    if (this.joinRect && input.clicked(this.joinRect)) {
+      if (!this.humans.some((h) => h.ctrl === kb)) this.join(kb);
+      else { this.manualCpu = true; this.wantTotal = clamp(this.total + 1, 1, MAX_PLAYERS); if (this.addCpu()) sfx('join'); else sfx('error'); }
+      return true;
+    }
+    const hint = ui.clickedHint();
+    const seat = this.mouseSeat();
+    if (hint && seat) { seat.ctrl.inject(hint); return true; }
+    return false;
   }
 
   allReady() { return this.humans.length > 0 && this.humans.every((h) => h.locked); }
@@ -293,12 +332,14 @@ export class CharSelectScene {
     const total = n * sw + (n - 1) * gap;
     const x0 = (W - total) / 2, y0 = 700, sh = 290;
     const bubbles = [];
+    this.joinRect = null;
     for (let i = 0; i < n; i++) {
       const s = slots[i];
       const x = x0 + i * (sw + gap);
       const color = i < this.humans.length ? PLAYER_COLORS[i] : '#b9b0c9';
       if (!s) { ui.panel(g, x, y0, sw, sh, { r: 26, fill: 'rgba(255,255,255,0.35)', stroke: 'rgba(36,22,63,0.25)' }); continue; }
       if (s.kind === 'join') {
+        this.joinRect = { x, y: y0, w: sw, h: sh };
         ui.panel(g, x, y0, sw, sh, { r: 26, fill: 'rgba(255,255,255,0.55)', stroke: 'rgba(36,22,63,0.4)' });
         ui.glyph(g, 'a', x + sw / 2, y0 + sh / 2 - 30, n <= 4 ? 80 : 60, { pulse: true });
         ui.text(g, n <= 4 ? 'Press A to join!' : 'Join!', x + sw / 2, y0 + sh / 2 + 50, { size: n <= 4 ? 40 : 30, color: '#fff' });
