@@ -275,8 +275,11 @@ in `procedural()` in `sprites.js`. Rules of thumb:
 | …already contain the vertical motion (a jump arc drawn in the frames) | `0–0.15` |
 | …are a walk/run cycle with drawn bob | `0.1–0.2` |
 
-With sprites, procedural horizontal twirls are disabled **before** squash is
-blended. Celebrate, ready and dance therefore never squeeze through zero.
+There are no procedural twirls: the engine never squashes a sprite through
+zero width to fake a spin (it reads as a flat piece of paper turning). Any
+spin or twirl in `celebrate`, `ready` or `pose-twirl` must be **drawn in the
+frames** (front → three-quarter → back → three-quarter). Without frames,
+those poses just hop.
 Any `motion` weight is safe; choose it based on motion already in the artwork.
 
 `playOnce(name)` uses the generated clip's duration when present (0.5 seconds
@@ -437,7 +440,7 @@ motion where it reads well (§5.2).
 | Results / podium | celebrate (1st), cheer (2nd/3rd), sad, pout (last), portraits happy/sad |
 | Party Marathon trophy | celebrate holding the trophy (`hand`), clap (proposed) for others |
 | `sprinkle-catch` | walk, run, cheer, dizzy, celebrate, pout |
-| `bumper-bounce` | walk, push, hurt, fall, clap/cheer (cheering from a cloud after falling out) |
+| `bumper-bounce` | walk, dash, push, knockback, hurt, fall, clap/cheer (cheering from a cloud after falling out) |
 | `pass-the-present` | idle, carry, throw, surprised, dizzy, sad |
 | `balloon-pump` | action (pump), surprised, cheer, pout |
 | `troll-trouble` | run, walk, action (grab gem), surprised, dizzy, hurt; Troll set |
@@ -641,8 +644,9 @@ reference). Item 5 is now done too; item 6 remains optional:
    pose other than the one requested, use `motion` 1.0 (or `max(motion,
    0.8)`). Decide `usingSprites` (which suppresses fallback emotes) per
    resolved pose, not per set.
-2. **Twirl blend.** With sprites, ignore the procedural horizontal flip in
-   celebrate/ready/dance, and blend only the squash part of `sx`.
+2. **Twirl blend.** Done differently: the paper-style procedural twirl was
+   removed entirely (only dance's instant left/right mirror remains), so
+   spins come from drawn frames only.
 3. **More attachment points** for the Fashion Show: `eyes` (glasses), `neck`
    (necklaces), and `back` (capes and wings, drawn `behind`), passed through
    `info` with sensible defaults derived from `head` when a frame lacks them.
@@ -1258,7 +1262,8 @@ to `POSES` in `sprites.js` with that fallback in the same commit as its frames.
 | `count` | Pointing a finger and counting along | fairy-count | think |
 | `look-up` | Head tilted back watching the sky | fairy-count | idle |
 | `crowned` | Proud royal strut, chin up (crown attached by code at `head`) | crown-keeper | walk |
-| `dash` | Forward lunge, arms out (a bump) | crown-keeper, bumper-bounce | push |
+| `dash` | Forward lunge, arms out (a bump). Bumper Bounce holds it ~0.5 s, so 2 frames (launch, held lunge with hair/ears streaming back) with `holdLast` | crown-keeper, bumper-bounce | push |
+| `knockback` | **Just got bumped:** skidding backward on the heels, torso leaning way back away from the hit, arms windmilling, wide "whoa!" eyes, mouth open. Facing toward the bumper. 2 frames @ 8 (arms windmill A/B) with a strong lean; `motion` 0.3 (code adds the teeter wobble, red flash and skid dust). Held ~0.7 s while the character slides | bumper-bounce (could serve crown-keeper bumps later) | balance → hurt |
 | `catch` | Arms up in a basket catching something falling | sprinkle-catch | cheer |
 | `sit` | Sitting on a little cloud, legs dangling | bumper-bounce (spectators) | idle |
 | `tumble` | Tumbling off an edge | bumper-bounce | fall |

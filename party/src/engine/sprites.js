@@ -95,6 +95,7 @@ export const POSES = {
   'high-five': { loop: false, fallback: ['wave', 'cheer'], proc: 'high-five', desc: 'Open-palm friendly team high-five (paw tap for pets).' },
   crouch:    { loop: true, fallback: ['land'], proc: 'crouch', desc: 'Low playful hiding or obstacle duck.' },
   dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
+  knockback: { loop: true, fallback: ['balance', 'hurt'], proc: 'knockback', desc: 'Bumped: skidding backward, leaning back, arms windmilling, teetering.' },
   catch:     { loop: false, fallback: ['carry', 'action'], proc: 'catch', desc: 'Receive a present or pickup with a soft recoil.' },
   'wave-goodbye': { loop: false, fallback: ['wave'], proc: 'wave', desc: 'Warm farewell while turning to leave.' },
   // Round-2 wish poses requested by the minigames (image-requests.md). Games
@@ -393,7 +394,15 @@ function procedural(pose, t, style, speed, allowMirror = true) { // allowMirror:
     case 'balance': o.rot = Math.sin(t * 7) * 0.12; o.dx = Math.sin(t * 7) * 3; break;
     case 'wand-up': o.sy = 1.03 + Math.sin(t * 30) * 0.006; o.dx = Math.sin(t * 40) * 0.8; break;
     case 'float': o.lift += 18 + Math.sin(t * 2) * 8; o.rot = Math.sin(t * 1.6) * 0.08; break;
-    case 'dash': { const k = Math.sin(Math.min(1, t / .3) * Math.PI); o.rot = .12 * k; o.sx = 1 + .08 * k; o.sy = 1 - .04 * k; break; }
+    // Snap into a forward lunge and hold it for as long as the pose plays.
+    case 'dash': { const k = Math.min(1, t / .07); o.rot = .2 * k; o.sx = 1 + .1 * k; o.sy = 1 - .06 * k; o.dx = 12 * k; break; }
+    // Pushed backward: big lean away from facing, then a teetering wobble.
+    case 'knockback': {
+      const k = Math.min(1, t / .06), w = Math.exp(-t * 3);
+      o.rot = -(.36 + Math.sin(t * 18) * .1 * w) * k; o.dx = -14 * k; o.sy = 1 - .05 * k; o.sx = 1 + .04 * k;
+      o.lift += Math.abs(Math.sin(t * 18)) * 5 * w;
+      o.tint = ['#ff3355', .45 * Math.max(0, 1 - t / .25)]; break;
+    }
     case 'catch': { const k = Math.sin(Math.min(1, t / .35) * Math.PI); o.dx = -7 * k; o.sy = 1 - .07 * k; o.rot = -.06 * k; break; }
     default: break;
   }

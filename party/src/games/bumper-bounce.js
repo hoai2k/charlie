@@ -4,7 +4,11 @@
 // Art hooks (optional; procedural fallbacks ship today):
 //   bg/bumper-bounce  prop/cake-platform  prop/seat-cloud
 // New-pose hooks (fall back to existing poses): 'dash' -> push, 'sit' -> idle,
-//   'tumble' -> fall
+//   'tumble' -> fall, 'knockback' (bumped: skid back, teeter) -> balance -> hurt
+//
+// A dash bump reads in three beats: the dasher holds the lunge, then a shove;
+// a comic POW burst + hit-stop at the contact point; the victim freezes in a
+// lean-back teeter while skidding away, kicking up frosting.
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSE_NAMES } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
@@ -67,6 +71,9 @@ const R0 = 500;                          // starting platform radius (world px)
 const THICK = 84;                        // visible cake side
 const ACCEL = 1350, DRAG = 2.5;          // slippery but controllable
 const DASH_V = 700, DASH_T = 0.3, DASH_CD = 1.2;
+const DASH_POSE_T = 0.5, SHOVE_T = 0.45;   // how long the lunge / follow-through shove read
+const KNOCK_T = 0.7, KNOCK_STUN = 0.45;    // victim's teeter pose / reduced control
+const POW_T = 0.32;
 const FALL_T = 0.95;
 const TIME_CAP = 60;
 // [time, radius] - the frosting crumbles in stages; each is telegraphed 2.2 s ahead
@@ -100,6 +107,7 @@ export class Game {
     this.outCount = 0;
     this.firstFallT = null;
     this.bumpCd = new Map();
+    this.pows = [];   // comic impact bursts
     this.sprinkles = Array.from({ length: 90 }, () => ({ a: rand(TAU), d: Math.sqrt(rand()) * 0.94, c: pick(RAINBOW), r: rand(TAU) }));
     this.cracks = Array.from({ length: 14 }, (_, i) => ({ a: (i / 14) * TAU + rand(-0.15, 0.15), len: rand(0.5, 1), seed: rand(100) }));
     this.ents = players.map((p, i) => {
@@ -112,7 +120,7 @@ export class Game {
       const e = {
         p, a, i, sc: sc0, x: Math.cos(ang) * rr, y: Math.sin(ang) * rr * 0.9, vx: 0, vy: 0, r, dash: 0, cd: 0, stun: 0, dirx: -Math.cos(ang), diry: -Math.sin(ang),
         state: 'alive', ft: 0, elimAt: Infinity, fx: 0, fy: 0, fvx: 0, fvy: 0, seat: null, seatT: 0, brain: new Brain(p),
-        goal: null, dawdle: 0, edgeRisk: 0, exclaimCd: 0, ready: false, hitFlash: 0, trailT: 0,
+        goal: null, dawdle: 0, edgeRisk: 0, exclaimCd: 0, ready: false, hitFlash: 0, trailT: 0, knock: 0, knockFace: 1, skidT: 0,
       };
       a.facing = Math.cos(ang) > 0 ? -1 : 1;
       this.placeActor(e); a.snap();
@@ -145,6 +153,8 @@ export class Game {
     for (const c of this.clouds) { c.x -= c.v * dt; if (c.x < -300) c.x = W + 300; }
 
     if (!this.ends) this.updatePlatform(dt, pt);
+    for (const p of this.pows) p.t += dt;
+    this.pows = this.pows.filter((p) => p.t < POW_T);
     this.R = approach(this.R, this.Rt, dt * (this.Rt < this.R ? 520 : 0));
 
     for (const e of this.ents) {
@@ -246,6 +256,16 @@ export class Game {
     const ctrl = e.p.ctrl;
     e.stun = Math.max(0, e.stun - dt); e.dash = Math.max(0, e.dash - dt); e.cd = Math.max(0, e.cd - dt);
     e.exclaimCd = Math.max(0, e.exclaimCd - dt); e.hitFlash = Math.max(0, e.hitFlash - dt);
+    e.knock = Math.max(0, e.knock - dt);
+    if (e.knock > 0 && Math.hypot(e.vx, e.vy) > 60) {
+      // skid marks: frosting kicked up at the feet while sliding back
+      e.skidT -= dt;
+      if (e.skidT <= 0) {
+        e.skidT = 0.04;
+        const [sx, sy] = this.toScreen(e.x, e.y);
+        particles.burst(sx, sy, { type: 'dust', count: 2, speed: [20, 90], size: [12, 22], colors: ['#ffffff', '#ffe3f1'] });
+      }
+    }
     let ix = this.ends ? 0 : ctrl.x, iy = this.ends ? 0 : ctrl.y;
     const m = Math.hypot(ix, iy);
     if (m > 1) { ix /= m; iy /= m; }
@@ -286,7 +306,7 @@ export class Game {
     void sp;
     e.dash = DASH_T; e.cd = DASH_CD; e.ready = false;
     e.dirx = dir[0]; e.diry = dir[1];
-    e.a.playOnce(poseName('dash'), 0.3); e.a.squash(-0.25);
+    e.a.playOnce(poseName('dash'), DASH_POSE_T); e.a.squash(-0.25);
     if (dir[0] !== 0) e.a.facing = dir[0] > 0 ? 1 : -1;
     sfx('dash'); if (!e.p.isAI) e.p.ctrl.rumble(0.25, 80);
     const [sx, sy] = this.toScreen(e.x, e.y);
@@ -298,6 +318,7 @@ export class Game {
     const a = e.a;
     const sp = Math.hypot(e.vx, e.vy);
     if (this.ends && this.ends.winner === e) { if (a.pose !== 'celebrate') { a.clearEmotes(); a.setPose('celebrate'); } return; }
+    if (e.knock > 0) { if (a.pose !== 'knockback') a.setPose('knockback'); a.facing = e.knockFace; return; }
     if (e.stun > 0) { if (!a._once && a.pose !== 'dizzy') a.setPose('hurt'); return; }
     if (e.state === 'alive' && !a._once) a.moveAnim(e.vx, e.vy * K, 520, { run: sp > 330 });
     if (Math.abs(e.vx) > 30) a.facing = e.vx > 0 ? 1 : -1;
@@ -329,14 +350,26 @@ export class Game {
       }
       // dash bumps add a big kick; the dasher takes a small recoil
       let kick = 0;
-      if (A.dash > 0 && vn > -200) { B.vx += nx * 270; B.vy += ny * 270; A.vx -= nx * 100; A.vy -= ny * 100; kick += 270; B.stun = Math.max(B.stun, 0.3); B.a.playOnce('hurt', 0.4); A.dash = Math.min(A.dash, 0.06); }
-      if (B.dash > 0 && vn > -200) { A.vx -= nx * 270; A.vy -= ny * 270; B.vx += nx * 100; B.vy += ny * 100; kick += 270; A.stun = Math.max(A.stun, 0.3); A.a.playOnce('hurt', 0.4); B.dash = Math.min(B.dash, 0.06); }
+      if (A.dash > 0 && vn > -200) { B.vx += nx * 270; B.vy += ny * 270; A.vx -= nx * 100; A.vy -= ny * 100; kick += 270; this.knock(B, A); A.dash = Math.min(A.dash, 0.06); }
+      if (B.dash > 0 && vn > -200) { A.vx -= nx * 270; A.vy -= ny * 270; B.vx += nx * 100; B.vy += ny * 100; kick += 270; this.knock(A, B); B.dash = Math.min(B.dash, 0.06); }
       if (impact + kick > 230 && this.t - cd > 0.12) {
         this.bumpCd.set(key, this.t);
         this.impactFx(A, B, nx, ny, impact + kick, kick > 0);
       }
     }
     void dt;
+  }
+
+  /** Dash bump landed: the bumper shoves, the victim teeters backward. */
+  knock(victim, bumper) {
+    const [vx] = this.toScreen(victim.x, victim.y), [bx] = this.toScreen(bumper.x, bumper.y);
+    const face = bx >= vx ? 1 : -1;            // victim faces the bumper and leans away
+    victim.stun = Math.max(victim.stun, KNOCK_STUN);
+    victim.knock = KNOCK_T; victim.knockFace = face; victim.skidT = 0;
+    victim.a.clearEmotes(); victim.a.playOnce('knockback', KNOCK_T, 'idle'); victim.a.facing = face;
+    victim.a.emote('sweat', KNOCK_T);
+    bumper.a.facing = -face;
+    bumper.a.playOnce(poseName('push'), SHOVE_T);
   }
 
   impactFx(A, B, nx, ny, power, big) {
@@ -348,7 +381,10 @@ export class Game {
     particles.burst(mx, my, { type: 'star', count: 3 + Math.round(s * 7), colors: ['#ffd23f', '#ffffff', '#ff6fb1'], speed: [150, 380 + s * 200] });
     particles.ring(mx, my, '#ffffff', 80 + s * 90, 0.35);
     fx.shake(5 + 14 * s, 0.14 + 0.15 * s);
-    if (big) { fx.hitstop(0.035 + 0.05 * s); sfx('hit'); sfx('bounce'); if (s > 0.6) particles.popText(mx, my - 40, pick(['BUMP!', 'BONK!', 'BOING!']), '#ffd23f', 56); }
+    if (big) {
+      fx.hitstop(0.06 + 0.05 * s); sfx('hit'); sfx('bounce');
+      this.pows.push({ x: mx, y: my, t: 0, r: 58 + 42 * s, rot: rand(TAU), word: pick(['BUMP!', 'BONK!', 'BOING!', 'POW!']), jag: Array.from({ length: 14 }, () => rand(0.8, 1.15)) });
+    }
     else sfx('bonk');
     for (const e of [A, B]) if (!e.p.isAI) e.p.ctrl.rumble(0.3 + 0.5 * s, 120);
     void nx; void ny;
@@ -525,6 +561,37 @@ export class Game {
     const live = this.ents.filter((e) => e.state === 'alive').sort((a, b) => a.a.y - b.a.y);
     for (const e of live) this.drawAlive(g, e);
     for (const e of this.ents) if (e.state === 'falling') this.drawFalling(g, e);
+    for (const p of this.pows) this.drawPow(g, p);
+  }
+
+  // Comic-book impact: jagged starburst + speed lines + a word, popping in
+  // fast and fading out.
+  drawPow(g, p) {
+    const k = p.t / POW_T;
+    const sc = k < 0.25 ? ease.outBack(k / 0.25) : 1 + (k - 0.25) * 0.15;
+    const alpha = k < 0.6 ? 1 : 1 - (k - 0.6) / 0.4;
+    g.save();
+    g.globalAlpha = alpha;
+    g.translate(p.x, p.y);
+    g.strokeStyle = '#ffffff'; g.lineWidth = 7; g.lineCap = 'round';
+    for (let i = 0; i < 10; i++) {
+      const a = p.rot + i * TAU / 10, r0 = p.r * (0.9 + k * 0.6), r1 = p.r * (1.35 + k * 0.9);
+      g.beginPath(); g.moveTo(Math.cos(a) * r0, Math.sin(a) * r0 * 0.8); g.lineTo(Math.cos(a) * r1, Math.sin(a) * r1 * 0.8); g.stroke();
+    }
+    g.scale(sc, sc);
+    const n = p.jag.length * 2;
+    const spikes = (r, inner) => {
+      g.beginPath();
+      for (let i = 0; i < n; i++) {
+        const a = p.rot + i * TAU / n, rr = (i % 2 ? r * inner : r * p.jag[i >> 1]);
+        g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr * 0.8);
+      }
+      g.closePath();
+    };
+    spikes(p.r, 0.62); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 6; g.strokeStyle = ui.NAVY; g.lineJoin = 'round'; g.stroke();
+    spikes(p.r * 0.62, 0.7); g.fillStyle = '#ffffff'; g.fill();
+    ui.text(g, p.word, 0, 2, { size: p.r * 0.5, color: '#ff4d6d', weight: 800, strokeWidth: 8 });
+    g.restore();
   }
 
   drawHUD(g) {
