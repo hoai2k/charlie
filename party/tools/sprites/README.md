@@ -43,6 +43,10 @@ frame, explicitly place the source anchor at the virtual ground below the feet. 
 frame has a scale mismatch, supply `scale` (multiplicative adjustment), based on head/torso size;
 never normalize every frame's bounding box independently. That makes an arms-up character shrink.
 The main `anchor` is on the common output canvas; main `bodyHeight` is the neutral figure's height.
+Optional top-level `quality` sets reproducible WebP encoding quality (default 86;
+use 82 when a longer animation set needs a smaller download). Normalize new
+poses by the character's head/body proportions, not by forcing horizontal or
+crouched poses to the neutral bounding-box height.
 
 Pose fields (`fps`, `loop`, `motion`, `facing`, `holdLast`) pass through. Individual frames accept
 `dur` seconds and `headAngle` radians. Keep 1-frame poses at `motion` .8–1 so the engine supplies
