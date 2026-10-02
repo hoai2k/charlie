@@ -47,6 +47,12 @@ See `AGENTS.md` for the shared agent instructions and push recovery guidance.
 
 ## Game notes
 
+- `swingers/` is a copy of the separate repo `hoai2k/swingers` (commit
+  `95e7218`), which is still developed there and also deployed on its own at
+  `games.hoai.net/swingers/`. To update it, copy `index.html`, `lib/`, `src/`
+  and `assets/` from that repo over `swingers/` (keep `swingers/favicon.svg`,
+  which is only for the library card). It runs Matter.js from `lib/`; there
+  is no build step.
 - `dollpuppets/` was flattened from `messenger/dolls/` on hoai.net: the shared
   `messenger/src/{core,workers}` modules now live in `dollpuppets/src/`. Keep
   the game self-contained — never import from outside its own directory.
