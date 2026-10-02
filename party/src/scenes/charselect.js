@@ -6,7 +6,7 @@ import { drawArt } from '../engine/art.js';
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
-import { Actor, getBaseImage } from '../engine/sprites.js';
+import { Actor, getBaseImage, drawSpeech } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
 import { CHARACTERS, PLAYER_COLORS } from '../data/characters.js';
@@ -288,6 +288,7 @@ export class CharSelectScene {
     const sw = n <= 4 ? 400 : 212, gap = n <= 4 ? 28 : 14;
     const total = n * sw + (n - 1) * gap;
     const x0 = (W - total) / 2, y0 = 700, sh = 290;
+    const bubbles = [];
     for (let i = 0; i < n; i++) {
       const s = slots[i];
       const x = x0 + i * (sw + gap);
@@ -310,8 +311,10 @@ export class CharSelectScene {
       if (ch.members.length > 1) a.scale *= 0.85;
       a.x = x + sw / 2 + (ch.id === 'felicity' ? 20 : 0); a.y = y0 + sh - 80;
       if (a._lastSlotX !== a.x) { a.snap(); a._lastSlotX = a.x; }
-      a.draw(g);
+      a.draw(g, { emotes: false });
       g.restore();
+      // Speech bubbles go on top of every slot (drawn after the loop).
+      if (a.speech) bubbles.push([a.speech.text, a.x, a.y - a.height - 18, n <= 4 ? 0.9 : 0.7, a.speech.t, a.speech.dur]);
       const tag = isH ? 'P' + (this.humans.indexOf(s.h) + 1) : 'CPU';
       ui.panel(g, x + 14, y0 - 18, 84, 44, { r: 22, fill: pc, lineWidth: 4, shadow: false });
       ui.text(g, tag, x + 56, y0 + 4, { size: 26, strokeWidth: 5 });
@@ -323,6 +326,7 @@ export class CharSelectScene {
         ui.text(g, AI_LEVELS[session.cpuLevel], x + sw - 50, y0 + 6, { size: 22, color: '#8d82a3', strokeWidth: 5 });
       }
     }
+    for (const b of bubbles) drawSpeech(g, ...b);
     if (this.humans.length === 0) {
       ui.text(g, 'Everyone who wants to play: press A!', W / 2, 1040, { size: 40, color: '#fff' });
     }
