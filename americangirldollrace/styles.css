@@ -1,0 +1,426 @@
+:root {
+  color-scheme: light;
+  --ink: #172126;
+  --panel: rgba(255, 255, 255, 0.88);
+  --line: rgba(23, 33, 38, 0.18);
+  --gold: #f0c052;
+  --blue: #244b86;
+  --violet: #5a3a86;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: #cde9f8;
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.shell {
+  width: min(100vw, 1440px);
+  height: 100vh;
+  height: 100dvh;
+  padding: 16px;
+}
+
+.game-frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(23, 33, 38, 0.28);
+  border-radius: 8px;
+  background: #7fc6e8;
+  box-shadow: 0 18px 50px rgba(31, 48, 58, 0.25);
+}
+
+.game-frame:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.controller-pointer-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.controller-pointer {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  transform-origin: 0 0;
+  filter: drop-shadow(0 2px 4px rgba(23, 33, 38, 0.45));
+}
+
+.controller-pointer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(0 0, 0 100%, 34% 72%, 55% 100%, 78% 87%, 58% 60%, 100% 58%);
+  background: var(--pointer-color, #244b86);
+}
+
+.controller-pointer::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  clip-path: polygon(0 0, 0 100%, 34% 72%, 55% 100%, 78% 87%, 58% 60%, 100% 58%);
+  border: 2px solid white;
+}
+
+.hud {
+  position: absolute;
+  inset: 14px 14px auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(120px, 1fr));
+  gap: 12px;
+  align-items: start;
+  pointer-events: none;
+}
+
+.race-title,
+.racer-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 6px 20px rgba(23, 33, 38, 0.12);
+}
+
+.race-title {
+  grid-column: 2 / 4;
+  grid-row: 1;
+  padding: 10px 18px;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 800;
+  text-align: center;
+}
+
+.racer-card {
+  min-height: 56px;
+  padding: 9px 12px;
+  display: grid;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.racer-card.juliette {
+  text-align: right;
+}
+
+#playerOneHud {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#playerTwoHud {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+#playerThreeHud {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#playerFourHud {
+  grid-column: 4;
+  grid-row: 2;
+  text-align: right;
+}
+
+.label {
+  font-weight: 800;
+}
+
+.whirlpool .label {
+  color: var(--violet);
+}
+
+.juliette .label {
+  color: #946318;
+}
+
+.start-panel,
+.finish-panel {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  width: min(640px, calc(100% - 32px));
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 44px rgba(23, 33, 38, 0.22);
+  text-align: center;
+}
+
+.finish-panel.celebration {
+  border-color: rgba(240, 192, 82, 0.85);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 44px rgba(23, 33, 38, 0.22), 0 0 0 5px rgba(240, 192, 82, 0.22);
+}
+
+.finish-panel.celebration h2 {
+  color: #b6427b;
+}
+
+.finish-panel.celebration p {
+  font-weight: 800;
+}
+
+.hidden {
+  display: none !important;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1;
+}
+
+h2 {
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.05;
+}
+
+p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.character-selectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.character-selectors label {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+select {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--ink);
+  font: inherit;
+}
+
+select:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.mode-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.settings-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: end;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.mode-select {
+  display: grid;
+  gap: 6px;
+  min-width: 150px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+button {
+  margin-top: 16px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: white;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mode-actions button {
+  margin-top: 0;
+}
+
+#fullscreenButton,
+#settingsButton {
+  background: #25897f;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.controls span {
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.touch-controls {
+  position: absolute;
+  left: max(14px, env(safe-area-inset-left));
+  top: max(96px, env(safe-area-inset-top));
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.touch-button,
+.touch-pause {
+  width: 78px;
+  height: 78px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.82);
+  border-radius: 50%;
+  background: rgba(36, 75, 134, 0.78);
+  box-shadow: 0 10px 24px rgba(23, 33, 38, 0.22);
+  font-size: 14px;
+  touch-action: none;
+  pointer-events: auto;
+}
+
+.touch-pause {
+  position: absolute;
+  top: max(96px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  display: none;
+  width: 84px;
+  height: 52px;
+  border-radius: 8px;
+  background: rgba(23, 33, 38, 0.72);
+  font-size: 13px;
+}
+
+#touchPushButton {
+  background: rgba(37, 137, 127, 0.82);
+}
+
+.touch-button:active,
+.touch-button.pressed,
+.touch-pause:active {
+  transform: translateY(2px) scale(0.97);
+  filter: brightness(1.12);
+}
+
+@media (max-width: 700px) {
+  .shell {
+    padding: 8px;
+  }
+
+  .game-frame {
+    border-radius: 0;
+  }
+
+  .hud {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .race-title {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    order: -1;
+  }
+
+  #playerOneHud,
+  #playerTwoHud,
+  #playerThreeHud,
+  #playerFourHud {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .racer-card {
+    font-size: 12px;
+  }
+
+  .character-selectors {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (pointer: coarse) {
+  body {
+    overscroll-behavior: none;
+  }
+
+  .game-frame {
+    touch-action: none;
+  }
+
+  .touch-controls {
+    display: flex;
+  }
+
+  .touch-pause {
+    display: block;
+  }
+
+  .start-panel,
+  .finish-panel {
+    bottom: 18px;
+    max-height: calc(100% - 36px);
+    overflow: auto;
+  }
+}

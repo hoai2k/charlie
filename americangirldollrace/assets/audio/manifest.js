@@ -1,0 +1,411 @@
+window.AUDIO_MANIFEST = {
+ "loops": [
+  "amb_castles_loop",
+  "amb_fairy_loop",
+  "amb_farm_loop",
+  "amb_town_loop",
+  "amb_winter_loop",
+  "frozen_loop",
+  "horse_canter_loop",
+  "horse_gallop_loop",
+  "oil_slide_loop",
+  "pegasus_flight_loop",
+  "pegasus_glide_loop",
+  "pegasus_hover",
+  "powerup_boost_loop",
+  "powerup_spawn_twinkle",
+  "run_loop_grass",
+  "storm_cloud_loop",
+  "troll_sleep_loop",
+  "unicorn_gallop_loop"
+ ],
+ "sfx": {
+  "amanda_emerge": [
+   1,
+   2,
+   3
+  ],
+  "amanda_giggle_sting": [
+   1,
+   2,
+   3
+  ],
+  "amanda_retreat": [
+   1,
+   2
+  ],
+  "amanda_shove": [
+   1,
+   2,
+   3
+  ],
+  "amb_castles_loop": [
+   1
+  ],
+  "amb_fairy_loop": [
+   1
+  ],
+  "amb_farm_loop": [
+   1
+  ],
+  "amb_town_loop": [
+   1
+  ],
+  "amb_winter_loop": [
+   1
+  ],
+  "countdown_go": [
+   1
+  ],
+  "countdown_tick": [
+   1
+  ],
+  "crowd_cheer_short": [
+   1,
+   2
+  ],
+  "crowd_ooh": [
+   1,
+   2
+  ],
+  "finish_line_cross": [
+   1
+  ],
+  "firework_burst": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "firework_launch": [
+   1,
+   2,
+   3
+  ],
+  "footstep_doll": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "frozen_break": [
+   1,
+   2
+  ],
+  "frozen_loop": [
+   1
+  ],
+  "frozen_start": [
+   1,
+   2
+  ],
+  "horse_canter_loop": [
+   1
+  ],
+  "horse_gallop_loop": [
+   1
+  ],
+  "horse_hoof_single": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "horse_jump": [
+   1,
+   2
+  ],
+  "horse_land": [
+   1,
+   2
+  ],
+  "horse_mount": [
+   1,
+   2
+  ],
+  "horse_snort": [
+   1,
+   2,
+   3
+  ],
+  "horse_whinny": [
+   1,
+   2,
+   3
+  ],
+  "hurdle_clip": [
+   1,
+   2,
+   3
+  ],
+  "jump_land_heavy": [
+   1,
+   2
+  ],
+  "jump_land_soft": [
+   1,
+   2,
+   3
+  ],
+  "jump_takeoff": [
+   1,
+   2,
+   3
+  ],
+  "knockback_tumble": [
+   1,
+   2,
+   3
+  ],
+  "lego_split_merge": [
+   1
+  ],
+  "lego_split_open": [
+   1
+  ],
+  "mount_expire_poof": [
+   1
+  ],
+  "mount_expire_warning": [
+   1
+  ],
+  "oil_slide_end": [
+   1,
+   2
+  ],
+  "oil_slide_loop": [
+   1
+  ],
+  "oil_slip_start": [
+   1,
+   2,
+   3
+  ],
+  "oil_splat": [
+   1,
+   2,
+   3
+  ],
+  "pegasus_flight_loop": [
+   1
+  ],
+  "pegasus_glide_loop": [
+   1
+  ],
+  "pegasus_hover": [
+   1
+  ],
+  "pegasus_landing": [
+   1,
+   2
+  ],
+  "pegasus_takeoff": [
+   1,
+   2
+  ],
+  "pegasus_wing_flap": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "powerup_blocked": [
+   1,
+   2
+  ],
+  "powerup_boost": [
+   1,
+   2
+  ],
+  "powerup_boost_loop": [
+   1
+  ],
+  "powerup_emp": [
+   1,
+   2
+  ],
+  "powerup_highjump": [
+   1,
+   2
+  ],
+  "powerup_horse_pickup": [
+   1
+  ],
+  "powerup_oil_pickup": [
+   1,
+   2
+  ],
+  "powerup_pickup_generic": [
+   1,
+   2,
+   3
+  ],
+  "powerup_snowball_pickup": [
+   1,
+   2
+  ],
+  "powerup_spawn_twinkle": [
+   1
+  ],
+  "powerup_stack": [
+   1,
+   2
+  ],
+  "push_impact": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "push_whoosh": [
+   1,
+   2,
+   3
+  ],
+  "reward_cloud_arrive": [
+   1
+  ],
+  "reward_cloud_drop": [
+   1,
+   2
+  ],
+  "run_loop_grass": [
+   1
+  ],
+  "snowball_hit": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "snowball_miss": [
+   1,
+   2
+  ],
+  "snowball_throw": [
+   1,
+   2,
+   3
+  ],
+  "storm_cloud_arrive": [
+   1
+  ],
+  "storm_cloud_loop": [
+   1
+  ],
+  "storm_lightning": [
+   1,
+   2,
+   3
+  ],
+  "storm_monster_drop": [
+   1,
+   2
+  ],
+  "troll_fall": [
+   1,
+   2,
+   3
+  ],
+  "troll_grab": [
+   1,
+   2,
+   3
+  ],
+  "troll_hit": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "troll_idle_grunt": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "troll_lift": [
+   1,
+   2
+  ],
+  "troll_notice": [
+   1,
+   2,
+   3
+  ],
+  "troll_sleep_loop": [
+   1
+  ],
+  "troll_stagger": [
+   1,
+   2
+  ],
+  "troll_throw": [
+   1,
+   2,
+   3
+  ],
+  "troll_wake": [
+   1,
+   2
+  ],
+  "troll_walk_step": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "ui_back": [
+   1
+  ],
+  "ui_click": [
+   1
+  ],
+  "ui_fullscreen": [
+   1
+  ],
+  "ui_hover": [
+   1
+  ],
+  "ui_pause": [
+   1
+  ],
+  "ui_select_character": [
+   1
+  ],
+  "ui_unpause": [
+   1
+  ],
+  "unicorn_appear": [
+   1
+  ],
+  "unicorn_beam_charge": [
+   1
+  ],
+  "unicorn_beam_fire": [
+   1,
+   2,
+   3
+  ],
+  "unicorn_beam_hit": [
+   1,
+   2,
+   3
+  ],
+  "unicorn_gallop_loop": [
+   1
+  ],
+  "unicorn_whinny_magic": [
+   1,
+   2
+  ],
+  "victory_fanfare": [
+   1
+  ],
+  "victory_jump": [
+   1,
+   2
+  ]
+ },
+ "vo": {}
+};

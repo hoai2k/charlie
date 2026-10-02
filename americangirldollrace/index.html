@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>American Girl Doll Race</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="stylesheet" href="styles.css?v=20260525-menu-hidden">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="game-frame" aria-label="American Girl Doll Race">
+        <canvas id="game" width="1280" height="720"></canvas>
+        <div class="hud" aria-live="polite">
+          <div class="racer-card whirlpool" id="playerOneHud">
+            <span class="label" id="playerOneLabel">Whirlpool</span>
+            <span id="whirlpoolStatus">Ready</span>
+          </div>
+          <div class="race-title">American Girl Doll Race</div>
+          <div class="racer-card juliette" id="playerTwoHud">
+            <span class="label" id="playerTwoLabel">Juliette</span>
+            <span id="julietteStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerThreeHud">
+            <span class="label" id="playerThreeLabel">Claudia</span>
+            <span id="claudiaStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerFourHud">
+            <span class="label" id="playerFourLabel">Kaya</span>
+            <span id="kayaStatus">Ready</span>
+          </div>
+        </div>
+        <div class="start-panel" id="startPanel">
+          <h1>American Girl Doll Race</h1>
+          <p>Race across the track. Jump the white picket hurdles and cross the finish first.</p>
+          <div class="character-selectors" aria-label="Character selection">
+            <label>
+              <span>Player 1</span>
+              <select id="playerOneCharacter">
+                <option value="whirlpool" selected>Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerTwoSelectWrap">
+              <span id="playerTwoSelectLabel">Player 2</span>
+              <select id="playerTwoCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette" selected>Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerThreeSelectWrap" class="hidden">
+              <span id="playerThreeSelectLabel">Player 3</span>
+              <select id="playerThreeCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia" selected>Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerFourSelectWrap" class="hidden">
+              <span id="playerFourSelectLabel">Player 4</span>
+              <select id="playerFourCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya" selected>Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+          </div>
+          <div class="mode-actions">
+            <button id="startButton" type="button">PLAY</button>
+            <button id="settingsButton" type="button">SETTINGS</button>
+          </div>
+          <div class="settings-panel hidden" id="settingsPanel">
+            <label class="mode-select">
+              <span>Players</span>
+              <select id="gameMode">
+                <option value="one">1 Player</option>
+                <option value="one-one-ai">1 Player + 1 AI</option>
+                <option value="one-two-ai">1 Player + 2 AIs</option>
+                <option value="two" selected>2 Players</option>
+                <option value="three">3 Players</option>
+                <option value="four">4 Players</option>
+                <option value="two-one-ai">2 Players + 1 AI</option>
+                <option value="two-two-ai">2 Players + 2 AIs</option>
+                <option value="three-one-ai">3 Players + 1 AI</option>
+              </select>
+            </label>
+            <label class="mode-select hidden">
+              <span>Background</span>
+              <select id="backgroundSelect">
+                <option value="farm" selected>Farm</option>
+                <option value="fairy">Fairy</option>
+                <option value="town">Village</option>
+                <option value="winter">Winter</option>
+                <option value="castles">Castles</option>
+              </select>
+            </label>
+            <label class="mode-select">
+              <span>Difficulty</span>
+              <select id="difficultySelect">
+                <option value="none">No Monsters</option>
+                <option value="normal" selected>Normal</option>
+                <option value="extra">Extra Monsters</option>
+                <option value="too-many">Too Many Monsters</option>
+              </select>
+            </label>
+            <label class="mode-select">
+              <span>Specials</span>
+              <select id="specialsSelect">
+                <option value="none" selected>None</option>
+                <option value="unicorn">All Unicorns</option>
+                <option value="pegasus">All Pegasi</option>
+                <option value="all-dolls">All dolls</option>
+                <option value="horsing">Horsing Around</option>
+                <option value="amanda-mode">Amanda Mode</option>
+              </select>
+            </label>
+            <button id="fullscreenButton" type="button">FULLSCREEN</button>
+          </div>
+          <div class="controls">
+            <span>Player 1: controller or WASD + Space + F</span>
+            <span>Player 2: arrows + Enter + Shift or controller 2</span>
+            <span>Xbox: stick or D-pad, A to jump, X to push</span>
+          </div>
+        </div>
+        <div class="finish-panel hidden" id="finishPanel">
+          <h2 id="finishTitle">Race Complete</h2>
+          <p id="finishText"></p>
+          <button id="restartButton" type="button">Next Race</button>
+        </div>
+        <div class="finish-panel hidden" id="pausePanel">
+          <h2>Paused</h2>
+          <p>Music is off while the race is paused.</p>
+          <button id="resumeButton" type="button">Resume</button>
+          <button id="menuButton" type="button">Main Menu</button>
+        </div>
+        <div class="touch-controls hidden" id="touchControls" aria-label="Touch controls">
+          <button class="touch-button" id="touchJumpButton" type="button">Jump</button>
+          <button class="touch-button" id="touchPushButton" type="button">Push</button>
+        </div>
+        <button class="touch-pause hidden" id="touchPauseButton" type="button">Pause</button>
+        <audio id="music" src="assets/music/Plastic Shoes.mp3" preload="auto" loop></audio>
+        <audio id="nextMusic" preload="auto" loop></audio>
+      </section>
+    </main>
+    <script src="config.js"></script>
+    <script src="assets/audio/manifest.js"></script>
+    <script src="audio.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
