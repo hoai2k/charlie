@@ -2073,45 +2073,81 @@
     "dash": {
       "frames": [
         {
-          "source": "../sources/fellowfox-extras-motion.webp",
+          "source": "../sources/fellowfox-round2-final-c.webp",
           "rect": [
-            33,
-            125,
-            762,
-            485
+            34,
+            44,
+            416,
+            331
           ],
           "isolate": true,
           "anchor": [
-            396,
-            481
+            136,
+            346
           ],
-          "scale": 0.9,
+          "scale": 1.5,
           "head": [
-            503,
-            136
-          ],
-          "hand": [
-            686,
-            330
+            135,
+            126
           ],
           "eyes": [
-            503,
-            233
+            117,
+            196
           ],
           "neck": [
-            503,
-            320
+            156,
+            269
           ],
           "back": [
-            358,
-            340
+            265,
+            184
+          ],
+          "hand": [
+            94,
+            230
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            455,
+            86,
+            515,
+            278
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            304
+          ],
+          "scale": 1.5,
+          "head": [
+            129,
+            85
+          ],
+          "eyes": [
+            99,
+            154
+          ],
+          "neck": [
+            143,
+            225
+          ],
+          "back": [
+            291,
+            183
+          ],
+          "hand": [
+            76,
+            184
           ]
         }
       ],
-      "fps": 5,
+      "fps": 9,
       "loop": false,
-      "motion": 0.85,
-      "facing": 1
+      "motion": 0.3,
+      "facing": -1,
+      "holdLast": true
     },
     "catch": {
       "frames": [
@@ -2804,6 +2840,957 @@
       "fps": 5,
       "loop": false,
       "motion": 0.5,
+      "facing": 0
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            19,
+            51,
+            395,
+            409
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            403
+          ],
+          "scale": 1.3,
+          "head": [
+            177,
+            98
+          ],
+          "eyes": [
+            153,
+            178
+          ],
+          "neck": [
+            143,
+            269
+          ],
+          "back": [
+            234,
+            305
+          ],
+          "hand": [
+            140,
+            212
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            418,
+            44,
+            356,
+            422
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            410
+          ],
+          "scale": 1.3,
+          "head": [
+            168,
+            104
+          ],
+          "eyes": [
+            159,
+            190
+          ],
+          "neck": [
+            157,
+            282
+          ],
+          "back": [
+            205,
+            319
+          ],
+          "hand": [
+            137,
+            222
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            792,
+            105,
+            397,
+            351
+          ],
+          "isolate": true,
+          "anchor": [
+            189,
+            375
+          ],
+          "scale": 1.3,
+          "head": [
+            140,
+            117
+          ],
+          "eyes": [
+            120,
+            200
+          ],
+          "neck": [
+            133,
+            278
+          ],
+          "back": [
+            292,
+            212
+          ],
+          "hand": [
+            86,
+            236
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            1211,
+            52,
+            357,
+            405
+          ],
+          "isolate": true,
+          "anchor": [
+            134,
+            428
+          ],
+          "scale": 1.3,
+          "head": [
+            131,
+            99
+          ],
+          "eyes": [
+            115,
+            178
+          ],
+          "neck": [
+            79,
+            263
+          ],
+          "back": [
+            199,
+            290
+          ],
+          "hand": [
+            79,
+            217
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            25,
+            492,
+            373,
+            420
+          ],
+          "isolate": true,
+          "anchor": [
+            214,
+            440
+          ],
+          "scale": 1.3,
+          "head": [
+            171,
+            77
+          ],
+          "eyes": [
+            192,
+            159
+          ],
+          "neck": [
+            213,
+            244
+          ],
+          "back": [
+            260,
+            317
+          ],
+          "hand": [
+            216,
+            185
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            419,
+            515,
+            390,
+            388
+          ],
+          "isolate": true,
+          "anchor": [
+            152,
+            384
+          ],
+          "scale": 1.3,
+          "head": [
+            135,
+            67
+          ],
+          "eyes": [
+            108,
+            133
+          ],
+          "neck": [
+            102,
+            224
+          ],
+          "back": [
+            224,
+            262
+          ],
+          "hand": [
+            90,
+            166
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            816,
+            493,
+            382,
+            407
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            447
+          ],
+          "scale": 1.3,
+          "head": [
+            203,
+            75
+          ],
+          "eyes": [
+            194,
+            140
+          ],
+          "neck": [
+            161,
+            208
+          ],
+          "back": [
+            161,
+            274
+          ],
+          "hand": [
+            172,
+            174
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-a.webp",
+          "rect": [
+            1224,
+            527,
+            343,
+            391
+          ],
+          "isolate": true,
+          "anchor": [
+            121,
+            386
+          ],
+          "scale": 1.3,
+          "head": [
+            134,
+            111
+          ],
+          "eyes": [
+            126,
+            186
+          ],
+          "neck": [
+            132,
+            261
+          ],
+          "back": [
+            182,
+            299
+          ],
+          "hand": [
+            78,
+            223
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            29,
+            79,
+            362,
+            412
+          ],
+          "isolate": true,
+          "anchor": [
+            149,
+            405
+          ],
+          "scale": 1.3,
+          "head": [
+            141,
+            93
+          ],
+          "eyes": [
+            127,
+            172
+          ],
+          "neck": [
+            123,
+            265
+          ],
+          "back": [
+            203,
+            308
+          ],
+          "hand": [
+            99,
+            201
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            404,
+            47,
+            398,
+            438
+          ],
+          "isolate": true,
+          "anchor": [
+            159,
+            433
+          ],
+          "scale": 1.3,
+          "head": [
+            147,
+            79
+          ],
+          "eyes": [
+            128,
+            158
+          ],
+          "neck": [
+            105,
+            250
+          ],
+          "back": [
+            244,
+            317
+          ],
+          "hand": [
+            106,
+            194
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            810,
+            84,
+            315,
+            371
+          ],
+          "isolate": true,
+          "anchor": [
+            140,
+            400
+          ],
+          "scale": 1.3,
+          "head": [
+            140,
+            88
+          ],
+          "eyes": [
+            111,
+            156
+          ],
+          "neck": [
+            117,
+            231
+          ],
+          "back": [
+            184,
+            273
+          ],
+          "hand": [
+            86,
+            196
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            1171,
+            124,
+            399,
+            362
+          ],
+          "isolate": true,
+          "anchor": [
+            196,
+            360
+          ],
+          "scale": 1.3,
+          "head": [
+            124,
+            113
+          ],
+          "eyes": [
+            93,
+            216
+          ],
+          "neck": [
+            150,
+            280
+          ],
+          "back": [
+            261,
+            214
+          ],
+          "hand": [
+            87,
+            261
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            28,
+            518,
+            314,
+            404
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            399
+          ],
+          "scale": 1.3,
+          "head": [
+            181,
+            93
+          ],
+          "eyes": [
+            171,
+            169
+          ],
+          "neck": [
+            184,
+            245
+          ],
+          "back": [
+            200,
+            306
+          ],
+          "hand": [
+            190,
+            196
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            447,
+            526,
+            337,
+            397
+          ],
+          "isolate": true,
+          "anchor": [
+            132,
+            391
+          ],
+          "scale": 1.3,
+          "head": [
+            126,
+            92
+          ],
+          "eyes": [
+            119,
+            166
+          ],
+          "neck": [
+            113,
+            244
+          ],
+          "back": [
+            192,
+            293
+          ],
+          "hand": [
+            92,
+            192
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            806,
+            483,
+            349,
+            442
+          ],
+          "isolate": true,
+          "anchor": [
+            157,
+            441
+          ],
+          "scale": 1.3,
+          "head": [
+            163,
+            79
+          ],
+          "eyes": [
+            138,
+            153
+          ],
+          "neck": [
+            138,
+            232
+          ],
+          "back": [
+            169,
+            330
+          ],
+          "hand": [
+            120,
+            191
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            975,
+            19,
+            367,
+            361
+          ],
+          "isolate": true,
+          "anchor": [
+            225,
+            354
+          ],
+          "scale": 1.5,
+          "head": [
+            236,
+            89
+          ],
+          "eyes": [
+            265,
+            155
+          ],
+          "neck": [
+            282,
+            227
+          ],
+          "back": [
+            190,
+            262
+          ],
+          "hand": [
+            281,
+            188
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            38,
+            387,
+            404,
+            371
+          ],
+          "isolate": true,
+          "anchor": [
+            173,
+            364
+          ],
+          "scale": 1.5,
+          "head": [
+            142,
+            89
+          ],
+          "eyes": [
+            120,
+            160
+          ],
+          "neck": [
+            108,
+            232
+          ],
+          "back": [
+            245,
+            257
+          ],
+          "hand": [
+            120,
+            197
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            501,
+            395,
+            423,
+            364
+          ],
+          "isolate": true,
+          "anchor": [
+            104,
+            363
+          ],
+          "scale": 1.5,
+          "head": [
+            221,
+            76
+          ],
+          "eyes": [
+            200,
+            136
+          ],
+          "neck": [
+            176,
+            213
+          ],
+          "back": [
+            152,
+            275
+          ],
+          "hand": [
+            177,
+            176
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            1001,
+            399,
+            342,
+            358
+          ],
+          "isolate": true,
+          "anchor": [
+            106,
+            359
+          ],
+          "scale": 1.5,
+          "head": [
+            187,
+            75
+          ],
+          "eyes": [
+            161,
+            143
+          ],
+          "neck": [
+            129,
+            217
+          ],
+          "back": [
+            139,
+            274
+          ],
+          "hand": [
+            146,
+            185
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "facing": -1,
+      "holdLast": true
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-round2-final-b.webp",
+          "rect": [
+            1192,
+            504,
+            361,
+            413
+          ],
+          "isolate": true,
+          "anchor": [
+            154,
+            417
+          ],
+          "scale": 1.3,
+          "head": [
+            158,
+            74
+          ],
+          "eyes": [
+            145,
+            151
+          ],
+          "neck": [
+            147,
+            234
+          ],
+          "back": [
+            161,
+            301
+          ],
+          "hand": [
+            146,
+            195
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            36,
+            758,
+            322,
+            364
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            363
+          ],
+          "scale": 1.5,
+          "head": [
+            197,
+            87
+          ],
+          "eyes": [
+            215,
+            160
+          ],
+          "neck": [
+            192,
+            217
+          ],
+          "back": [
+            259,
+            255
+          ],
+          "hand": [
+            225,
+            187
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            538,
+            760,
+            320,
+            361
+          ],
+          "isolate": true,
+          "anchor": [
+            117,
+            361
+          ],
+          "scale": 1.5,
+          "head": [
+            118,
+            72
+          ],
+          "eyes": [
+            121,
+            136
+          ],
+          "neck": [
+            121,
+            196
+          ],
+          "back": [
+            111,
+            255
+          ],
+          "hand": [
+            65,
+            218
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-round2-final-c.webp",
+          "rect": [
+            1000,
+            755,
+            331,
+            372
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            366
+          ],
+          "scale": 1.5,
+          "head": [
+            211,
+            79
+          ],
+          "eyes": [
+            238,
+            145
+          ],
+          "neck": [
+            262,
+            206
+          ],
+          "back": [
+            200,
+            254
+          ],
+          "hand": [
+            259,
+            181
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
       "facing": 0
     }
   },

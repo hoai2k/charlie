@@ -1,5 +1,5 @@
 {
-  "status": "NOT READY: consolidate temporary keys; manually place landmarks; visually review scales and decoded budget before building",
+  "status": "COMPLETE: intaken into specs/felicity.json; 25 authored frames, consolidated dash/hip-bump/knockback/twirl. Source-local landmarks and runtime overlays inspected; source-based midpoint refinements applied. Full set74keys91frames5portraits, bodyHeight270,22.6MiB decoded. Optimized copies and fingerprint saved.",
   "asset": "felicity",
   "poses": {
     "dance-star": {

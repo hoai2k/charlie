@@ -57,3 +57,19 @@ The published checkpoint has **263 keys / 245 unique files**. All 20 game thumbn
 - Each completed character checkpoint is committed and pushed to main for concurrent game testing.
 
 Cakefullunionextension reviewed/published:74keys95frames,fiveportraits.
+
+## Reviewed expanded companion checkpoint
+
+Felicity now has 74 pose keys, 91 authored frames and five portraits. Fellowfox
+has 75 keys (including catch-toy), 91 frames and five portraits. Both cover the
+full current player action vocabulary, including two-frame dash/hip-bump/knockback
+and four-view twirl. Optimized copies preserve the full originals. Visual checks
+covered attachment overlays and Pass the Present in both quality modes.
+
+General art inventory: 284 indexed keys referencing 267 files. New cake sponge
+shapes are neutral optional layers; the current configurable bakery renderer
+remains procedural to preserve all frosting, shape and per-layer choices.
+
+Bronze now has 74 pose keys, 91 authored frames and five portraits, with
+20.3 MiB decoded memory at bodyHeight 280. All additions use its pipe attachment
+without adding arms. Its optimized copies are generated and reviewed.

@@ -1,14 +1,14 @@
 {
  "sets": {
   "felicity": {
-   "scale": 0.8,
+   "scale": 0.88889,
    "portrait": 192,
-   "source": "ff0418b713e5fe19"
+   "source": "7dffceca1e72b3eb"
   },
   "fellowfox": {
    "scale": 1.0,
    "portrait": 192,
-   "source": "0061050b8e85b865"
+   "source": "e874897972381e54"
   },
   "troll": {
    "scale": 0.75,
@@ -21,9 +21,9 @@
    "source": "b3167fe8d122712b"
   },
   "bronze": {
-   "scale": 0.75,
+   "scale": 0.85714,
    "portrait": 192,
-   "source": "2710e8b045950c94"
+   "source": "11306b1a0bad1b41"
   },
   "professor-hoot": {
    "scale": 0.75,
@@ -116,9 +116,9 @@
    "source": "3393cf1f59da5d2d"
   },
   "marshmallow-birthday-cake": {
-   "scale": 0.8,
+   "scale": 0.92308,
    "portrait": 192,
-   "source": "12c757a79c28fb30"
+   "source": "1811a6a0af779645"
   },
   "unicorn": {
    "scale": 0.85714,

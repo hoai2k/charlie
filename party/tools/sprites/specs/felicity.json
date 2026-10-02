@@ -1,13 +1,13 @@
 {
   "asset": "felicity",
-  "bodyHeight": 300,
+  "bodyHeight": 270,
   "frameSize": [
-    640,
-    496
+    576,
+    446
   ],
   "anchor": [
-    320,
-    476
+    288,
+    428
   ],
   "facing": 1,
   "provenance": "Approved canonical artwork with generated key poses and Round 3 authored blink, celebration, dance, ride and distinct expressions; per-frame landmarks and transparent WebP intake.",
@@ -2070,45 +2070,81 @@
     "dash": {
       "frames": [
         {
-          "source": "../sources/felicity-extras-motion.webp",
+          "source": "../sources/felicity-round2-final-c.webp",
           "rect": [
-            26,
-            29,
-            787,
-            689
+            18,
+            10,
+            417,
+            401
           ],
           "isolate": true,
           "anchor": [
-            456,
-            685
+            220,
+            421
           ],
-          "scale": 1,
+          "scale": 1.65,
           "head": [
-            496,
-            96
+            282,
+            82
           ],
           "eyes": [
-            519,
-            220
+            293,
+            148
           ],
           "neck": [
-            496,
-            331
+            276,
+            203
           ],
           "back": [
-            394,
-            413
+            222,
+            243
           ],
           "hand": [
-            630,
-            344
+            344,
+            211
+          ]
+        },
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            419,
+            55,
+            436,
+            355
+          ],
+          "isolate": true,
+          "anchor": [
+            252,
+            376
+          ],
+          "scale": 1.65,
+          "head": [
+            325,
+            95
+          ],
+          "eyes": [
+            339,
+            156
+          ],
+          "neck": [
+            312,
+            206
+          ],
+          "back": [
+            247,
+            236
+          ],
+          "hand": [
+            412,
+            187
           ]
         }
       ],
-      "fps": 5,
+      "fps": 9,
       "loop": false,
-      "motion": 0.85,
-      "facing": 1
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
     },
     "catch": {
       "frames": [
@@ -2197,9 +2233,47 @@
       "facing": 1
     },
     "dance-star": {
-      "alias": "strike3",
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            27,
+            21,
+            410,
+            446
+          ],
+          "isolate": true,
+          "anchor": [
+            218,
+            479
+          ],
+          "scale": 1.5,
+          "head": [
+            217,
+            80
+          ],
+          "eyes": [
+            218,
+            161
+          ],
+          "neck": [
+            230,
+            219
+          ],
+          "back": [
+            213,
+            270
+          ],
+          "hand": [
+            326,
+            182
+          ]
+        }
+      ],
+      "fps": 5,
       "loop": false,
-      "motion": 1
+      "motion": 0.85,
+      "facing": 1
     },
     "sing": {
       "frames": [
@@ -2802,6 +2876,914 @@
       "loop": false,
       "motion": 0.5,
       "facing": 0
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            452,
+            55,
+            361,
+            446
+          ],
+          "isolate": true,
+          "anchor": [
+            203,
+            444
+          ],
+          "scale": 1.5,
+          "head": [
+            225,
+            89
+          ],
+          "eyes": [
+            231,
+            169
+          ],
+          "neck": [
+            230,
+            225
+          ],
+          "back": [
+            207,
+            273
+          ],
+          "hand": [
+            321,
+            267
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            830,
+            25,
+            314,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            178,
+            475
+          ],
+          "scale": 1.5,
+          "head": [
+            180,
+            74
+          ],
+          "eyes": [
+            187,
+            151
+          ],
+          "neck": [
+            201,
+            221
+          ],
+          "back": [
+            176,
+            278
+          ],
+          "hand": [
+            290,
+            159
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            1162,
+            68,
+            347,
+            395
+          ],
+          "isolate": true,
+          "anchor": [
+            222,
+            433
+          ],
+          "scale": 1.5,
+          "head": [
+            244,
+            79
+          ],
+          "eyes": [
+            239,
+            153
+          ],
+          "neck": [
+            222,
+            212
+          ],
+          "back": [
+            159,
+            259
+          ],
+          "hand": [
+            268,
+            275
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            24,
+            540,
+            348,
+            424
+          ],
+          "isolate": true,
+          "anchor": [
+            216,
+            451
+          ],
+          "scale": 1.5,
+          "head": [
+            213,
+            71
+          ],
+          "eyes": [
+            242,
+            148
+          ],
+          "neck": [
+            235,
+            213
+          ],
+          "back": [
+            196,
+            258
+          ],
+          "hand": [
+            306,
+            274
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            415,
+            536,
+            388,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            221,
+            455
+          ],
+          "scale": 1.5,
+          "head": [
+            193,
+            82
+          ],
+          "eyes": [
+            214,
+            164
+          ],
+          "neck": [
+            237,
+            212
+          ],
+          "back": [
+            203,
+            270
+          ],
+          "hand": [
+            296,
+            279
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            825,
+            521,
+            314,
+            477
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            470
+          ],
+          "scale": 1.5,
+          "head": [
+            181,
+            85
+          ],
+          "eyes": [
+            199,
+            162
+          ],
+          "neck": [
+            198,
+            215
+          ],
+          "back": [
+            169,
+            280
+          ],
+          "hand": [
+            275,
+            275
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-a.webp",
+          "rect": [
+            1164,
+            540,
+            372,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            236,
+            470
+          ],
+          "scale": 1.5,
+          "head": [
+            226,
+            97
+          ],
+          "eyes": [
+            212,
+            167
+          ],
+          "neck": [
+            211,
+            219
+          ],
+          "back": [
+            196,
+            262
+          ],
+          "hand": [
+            316,
+            230
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            11,
+            8,
+            391,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            494
+          ],
+          "scale": 1.45,
+          "head": [
+            202,
+            74
+          ],
+          "eyes": [
+            216,
+            161
+          ],
+          "neck": [
+            230,
+            218
+          ],
+          "back": [
+            209,
+            279
+          ],
+          "hand": [
+            251,
+            242
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            413,
+            4,
+            358,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            496
+          ],
+          "scale": 1.45,
+          "head": [
+            188,
+            76
+          ],
+          "eyes": [
+            197,
+            162
+          ],
+          "neck": [
+            215,
+            221
+          ],
+          "back": [
+            183,
+            283
+          ],
+          "hand": [
+            224,
+            198
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            767,
+            4,
+            387,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            202,
+            496
+          ],
+          "scale": 1.45,
+          "head": [
+            195,
+            69
+          ],
+          "eyes": [
+            209,
+            151
+          ],
+          "neck": [
+            213,
+            213
+          ],
+          "back": [
+            196,
+            277
+          ],
+          "hand": [
+            256,
+            275
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            1156,
+            18,
+            376,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            194,
+            482
+          ],
+          "scale": 1.45,
+          "head": [
+            206,
+            73
+          ],
+          "eyes": [
+            194,
+            148
+          ],
+          "neck": [
+            199,
+            200
+          ],
+          "back": [
+            195,
+            260
+          ],
+          "hand": [
+            209,
+            211
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            18,
+            526,
+            406,
+            480
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            475
+          ],
+          "scale": 1.45,
+          "head": [
+            184,
+            86
+          ],
+          "eyes": [
+            190,
+            172
+          ],
+          "neck": [
+            234,
+            229
+          ],
+          "back": [
+            227,
+            294
+          ],
+          "hand": [
+            78,
+            374
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            421,
+            508,
+            357,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            181,
+            493
+          ],
+          "scale": 1.45,
+          "head": [
+            183,
+            84
+          ],
+          "eyes": [
+            199,
+            168
+          ],
+          "neck": [
+            195,
+            224
+          ],
+          "back": [
+            174,
+            292
+          ],
+          "hand": [
+            62,
+            161
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            778,
+            518,
+            365,
+            487
+          ],
+          "isolate": true,
+          "anchor": [
+            183,
+            483
+          ],
+          "scale": 1.45,
+          "head": [
+            184,
+            87
+          ],
+          "eyes": [
+            189,
+            158
+          ],
+          "neck": [
+            193,
+            217
+          ],
+          "back": [
+            204,
+            288
+          ],
+          "hand": [
+            97,
+            198
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            875,
+            7,
+            324,
+            406
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            401
+          ],
+          "scale": 1.65,
+          "head": [
+            155,
+            59
+          ],
+          "eyes": [
+            175,
+            125
+          ],
+          "neck": [
+            189,
+            177
+          ],
+          "back": [
+            210,
+            226
+          ],
+          "hand": [
+            246,
+            215
+          ]
+        },
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            32,
+            408,
+            358,
+            421
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            416
+          ],
+          "scale": 1.65,
+          "head": [
+            181,
+            88
+          ],
+          "eyes": [
+            197,
+            155
+          ],
+          "neck": [
+            188,
+            205
+          ],
+          "back": [
+            232,
+            247
+          ],
+          "hand": [
+            134,
+            242
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            418,
+            440,
+            408,
+            382
+          ],
+          "isolate": true,
+          "anchor": [
+            276,
+            382
+          ],
+          "scale": 1.65,
+          "head": [
+            176,
+            65
+          ],
+          "eyes": [
+            191,
+            130
+          ],
+          "neck": [
+            208,
+            178
+          ],
+          "back": [
+            229,
+            232
+          ],
+          "hand": [
+            323,
+            141
+          ]
+        },
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            848,
+            424,
+            365,
+            405
+          ],
+          "isolate": true,
+          "anchor": [
+            243,
+            398
+          ],
+          "scale": 1.65,
+          "head": [
+            191,
+            68
+          ],
+          "eyes": [
+            197,
+            139
+          ],
+          "neck": [
+            206,
+            197
+          ],
+          "back": [
+            256,
+            242
+          ],
+          "hand": [
+            297,
+            160
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round2-final-b.webp",
+          "rect": [
+            1148,
+            512,
+            382,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            489
+          ],
+          "scale": 1.45,
+          "head": [
+            215,
+            88
+          ],
+          "eyes": [
+            206,
+            153
+          ],
+          "neck": [
+            213,
+            222
+          ],
+          "back": [
+            212,
+            289
+          ],
+          "hand": [
+            308,
+            270
+          ]
+        },
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            17,
+            816,
+            390,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            216,
+            448
+          ],
+          "scale": 1.65,
+          "head": [
+            210,
+            90
+          ],
+          "eyes": [
+            222,
+            146
+          ],
+          "neck": [
+            224,
+            193
+          ],
+          "back": [
+            218,
+            255
+          ],
+          "hand": [
+            333,
+            198
+          ]
+        },
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            433,
+            835,
+            394,
+            431
+          ],
+          "isolate": true,
+          "anchor": [
+            199,
+            429
+          ],
+          "scale": 1.65,
+          "head": [
+            200,
+            88
+          ],
+          "eyes": [
+            197,
+            132
+          ],
+          "neck": [
+            206,
+            177
+          ],
+          "back": [
+            204,
+            235
+          ],
+          "hand": [
+            316,
+            187
+          ]
+        },
+        {
+          "source": "../sources/felicity-round2-final-c.webp",
+          "rect": [
+            860,
+            816,
+            344,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            147,
+            448
+          ],
+          "scale": 1.65,
+          "head": [
+            146,
+            85
+          ],
+          "eyes": [
+            125,
+            136
+          ],
+          "neck": [
+            148,
+            181
+          ],
+          "back": [
+            186,
+            244
+          ],
+          "hand": [
+            38,
+            167
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
     }
   },
   "portraits": {
@@ -2861,5 +3843,5 @@
       "trim": true
     }
   },
-  "quality": 82
+  "quality": 78
 }
