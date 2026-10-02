@@ -28,8 +28,8 @@ The configurable bakery now uses the round neutral sponge as a crumb texture
 with multiply blending across layer sides; flavor tints and frosting stay
 configurable. Heart/star sponge and cake-layer aliases remain available.
 
-Recent published checkpoints: 689dcbd (companion/Bronze sets and safe merge),
-256bcd0 (final prop geometry and concurrent optimizer index protection).
+Recent published checkpoints: 689dcbd (companion/Bronze), 256bcd0 (prop geometry),
+7d11066 (Troll), fb24927 (Hoot actions/game integration), 4a6343a (wing cycles).
 Exact prompts/master paths are in art/generation-manifest.json and the character
 specs/pending prompt records. QA images outside runtime folders are not shipped.
 
@@ -43,11 +43,9 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
   Scale paint is generated. Marina paint succeeded on variant five with a purple
   painting smock, keeping her canonical identity. Source marina-paint-r5.webp and
   exact retry records are saved; runtime intake and landmark review are underway.
-- npc_canonicals: Troll's reported hand points are corrected and reviewed;
-  finish optimization. Hoot point/laugh/bravo are being authored. Complete Glimmer
-  and Garden Fairy wing cycles to the NPC-specific brief. Do not apply the full
-  player pose union to NPCs. Then complete Princess Amber
-  extension and dance-size correction.
+- npc_canonicals: Hoot, Troll, Glimmer and all five Garden Fairy updates are
+  reviewed and published (7d11066, fb24927, 4a6343a). Complete Princess Amber
+  extension and dance-size correction, then rebuild her color-variant masks.
 - Root: review actual runtime overlays and in-game behavior, validate stable
   deliveries, stage precise paths, merge main safely and push each batch.
 

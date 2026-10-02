@@ -1553,9 +1553,7 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | sprite `unicorn` `sad`, `run`, `celebrate`, `jump`, `land`, `action`, `throw`, `bow`, `strike1/3`, `stir`, `catch`, `look-around` | `hand` lands off the art. | Re-annotate `hand` (mouth, or horn tip for cast). |
 | sprite `kpop-girl-left` / `kpop-girl-center` (`ready`, `celebrate`, `dance`, `pout`, `sad`, `think`, `clap`, `strike*`) | `hand` 16 px or more from the actual hand. | Re-annotate `hand`. |
 | sprite `marina`, `scale` (all non-idle poses) | `head`/`neck` landmarks inconsistent with idle (~1.26×) though the art is fine; necklaces drift in Fashion Show. | Re-check `neck`/`eyes`/`head` landmarks. |
-| sprite `snowstar`, `marshmallow-birthday-cake` | No `carry`, `dance` or `cast`; Pass the Present, Spotlight and Pop Star use fallbacks. | Add `carry` (present overhead / balanced on the cake), 4-frame `dance`, `cast`. |
 | sprite `marina`, `scale` | No `carry`, `cast`, `action`, `clap`, `bow`, `sing`. | Add `carry` and `cast` first (Pass the Present, Wizard Quick-Draw, Potion Class). |
-| sprite `troll` `windup`, `grab`, `cheer`, `wave`, `dizzy` | `hand` points off the art. | Re-annotate. |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one
@@ -1575,17 +1573,20 @@ fine; the code uses one of each pair.
 - `prop/danger-ring` v3: thin hazard-stripe ring (image agent updated Bumper Bounce's ring constant).
 - `prop/storm-cloud-lightning`: bolt art under the storm clouds in Broomstick Dash (bigger on a zap).
 - `prop/cookie-{2,3,4}-{cracked,crumbling}`: every flavor now shows art crack states in Cookie Crumble.
-- `prop/cake-platform` v2 + `prop/cake-platform-crumble-1..3`, `prop/arena-cake-crumb-1..4`: Bumper Bounce's breaking edge (image agent integration, checked in game).
+- `prop/cake-platform` v3 + `prop/cake-platform-crumble-1..3`, `prop/arena-cake-crumb-1..4`: Bumper Bounce's breaking edge (image agent integration, checked in game).
 - `prop/cake-sponge-round/heart/star`: Cake Bakery multiplies the round sponge's crumb texture over every layer side (any shape, tinted by flavor; frosting band left smooth). The heart/star files are not needed for that and stay unused.
 - `prop/plant-<kind>-seed` v2 and `bg/fairy-garden(-night)` v2 (overhead): image agent integration, checked in game.
 
 - `bg/potion-class`: recipe content now aligns with the painted blackboard; in-game review passed, so no regeneration is needed.
 - `bg/fairy-garden` day/night v2: matching overhead lawns, integrated and reviewed with the night glow cross-fade.
-- `bg/fairy-garden` day/night v2: matching overhead lawns, integrated and reviewed with the night glow cross-fade.
-- `bg/potion-class`: recipe content now aligns with the painted blackboard; in-game review passed, so no regeneration is needed.
 - `prop/arena-cake-crumb-1..4`: navy outlined pink-frosted variants, alternated by Bumper Bounce.
 - `prop/cake-stand` v3: 500x200 low white/lilac stand with a higher plate view and very short base; provided for future bakery use.
 - Six `prop/plant-<kind>-seed` v2 images: tiny bottom-anchored soil stages on consistent 256-square canvases; the consumer preserves that framing.
-- Plain neutral `prop/cake-layer-round|heart|star`: supplied for future configurable layers, while the current procedural bakery preserves all flavors and frosting choices.
+- Plain neutral `prop/cake-layer-round|heart|star`: shape aliases for the sponge art; round crumb texture is integrated into configurable bakery layers.
 
 - `prop/cake-platform` v3: 1024x680 broad top and shallow front band, with three independently transparent damage rings. Bumper Bounce maps the fallback's new geometry and shows progressive crumble edges on the main arena.
+
+- Snowstar and Birthday Cake: authored carry, four-frame dance and cast, plus full requested player vocabulary; published with optimized copies and reviewed in game.
+- Troll windup/grab/cheer/wave/dizzy: hand points corrected to actual fists/palms, reviewed in full and optimized gameplay; published 7d11066.
+- Professor Hoot: distinct two-frame point/laugh/bravo and corrected original face/wing points; Potion Class uses the new reactions, published fb24927.
+- Glimmer and all five Garden Fairies: unique wing cycles, blink and fairy rear turns; head size/skin colors preserved, reviewed in both quality modes, published 4a6343a.
