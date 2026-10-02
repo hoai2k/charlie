@@ -167,7 +167,7 @@ export class Game {
   makeStation(p, i) {
     const box = this.boxes[i];
     const k = box.k;
-    const a = new Actor(p.charId, { x: box.x + FEET.x * k, y: box.y + FEET.y * k, scale: 0.72 * k, facing: 1 });
+    const a = new Actor(p.charId, { x: box.x + FEET.x * k, y: box.y + FEET.y * k, scale: (this.n <= 4 ? 0.84 : 0.74) * k, facing: 1 });
     a.snap();
     const st = {
       p, i, box, k, actor: a,
@@ -212,7 +212,7 @@ export class Game {
         });
       } else if (st.eff === 'puffhair') {
         const pop = ease.outElastic(clamp(st.effT / 0.8, 0, 1));
-        const r = info.h * 0.2 * pop * (1 + Math.sin(this.t * 4) * 0.04);
+        const r = info.h * 0.3 * pop * (1 + Math.sin(this.t * 4) * 0.04);
         if (r > 1) {
           puffCloud(g, info.head.x, info.head.y + info.h * 0.02, r, '#e8dcff');
           puffCloud(g, info.head.x - r * 0.3, info.head.y - r * 0.15, r * 0.5, '#ffd9f0');
@@ -515,14 +515,13 @@ export class Game {
       a.playOnce('celebrate', 1.8, 'idle');
       particles.burst(ax, ay, { type: 'star', count: 18, colors: ['#ffd23f', '#ffffff', E.color] });
       particles.burst(ax, ay, { type: 'confetti', count: 24 });
-      particles.popText(ax, ay - 40 * st.k, 'Perfect!', '#ffd23f', 46 * st.k + 10);
+      particles.popText(this.wx(st, 120), this.wy(st, 70), '+1 potion', '#ffd23f', 30 * st.k + 8);
       this.hootReact('yay');
       if (this.n <= 4) fx.flash('#fff6c2', 0.12);
     } else {
       a.playOnce('surprised', 0.55, 'idle');
       setTimeout(() => { if (st.eff === eff) { voice(st.p.charId, 'laugh'); a.emote('happy', 1.4); a.playOnce('cheer', 0.5, 'idle'); } }, 700);
       particles.burst(ax, ay, { type: E.good ? 'star' : 'bubble', count: 14, colors: [E.color, '#ffffff'] });
-      particles.popText(ax, ay - 40 * st.k, E.label, E.color, 40 * st.k + 10);
       if (result === 'silly') { sfx('giggle'); this.hootReact('silly'); }
       else { if (E.good) a.playOnce('celebrate', 1.4, 'idle'); this.hootReact('surprise'); }
     }
@@ -765,9 +764,10 @@ export class Game {
       }
     } else {
       const E = EFFECTS[rd.eff];
-      ui.text(g, `Recipe ${this.round + 1} of 3`, 44, 44, { ...chalk, size: 26, align: 'left', color: '#cfe9df' });
-      drawBottle(g, 160, 92, 70, E.color, { glow: 0.8, t: this.t });
-      ui.text(g, E.potion, bw / 2 + 40, 84, { size: 56, color: E.color, strokeWidth: 10, weight: 800, maxWidth: 560 });
+      ui.text(g, `Recipe ${this.round + 1} of 3`, bw - 40, 40, { ...chalk, size: 24, align: 'right', color: '#cfe9df' });
+      const tw = Math.min(560, ui.measure(g, E.potion, 56, 800));
+      ui.text(g, E.potion, bw / 2 + 40, 92, { size: 56, color: E.color, strokeWidth: 10, weight: 800, maxWidth: 560 });
+      drawBottle(g, bw / 2 + 40 - tw / 2 - 52, 94, 70, E.color, { glow: 0.8, t: this.t });
       const n = rd.ings.length;
       const gap = n === 4 ? 172 : 200;
       rd.ings.forEach((id, i) => {
@@ -900,12 +900,14 @@ export class Game {
     const p = st.p;
     const active = this.phase === 'brew';
     if (st.phase === 'add') {
-      const x = SHELF_X(st.sel);
       const name = INGREDIENTS[st.sel].name;
-      ui.text(g, name, clamp(x, 70, 410), 292, { size: 24, color: '#fff', strokeWidth: 6, maxWidth: 160 });
-      if (active && st.added.length + st.flying.length < st.slots) {
-        ui.glyph(g, 'a', clamp(x, 70, 410) + Math.min(80, 6 + name.length * 6.5), 292, 32, { pulse: true });
-      }
+      const showA = active && st.added.length + st.flying.length < st.slots;
+      const tw = ui.measure(g, name, 24, 700);
+      const pw = tw + 24 + (showA ? 40 : 0);
+      const cx = clamp(SHELF_X(st.sel), pw / 2 + 4, SW - pw / 2 - 4);
+      g.fillStyle = 'rgba(36,22,63,0.72)'; ui.roundRect(g, cx - pw / 2, 274, pw, 38, 19); g.fill();
+      if (showA) ui.glyph(g, 'a', cx - pw / 2 + 24, 293, 30);
+      ui.text(g, name, cx + (showA ? 20 : 0), 293, { size: 24, color: '#fff', stroke: false });
     } else if (st.phase === 'stir') {
       const cx = BREW.x, cy = 118;
       const prog = clamp(st.stir / STIR_NEED, 0, 1);
