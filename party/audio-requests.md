@@ -1001,40 +1001,331 @@ Listen to these first, because the measurements can't tell if they are right:
 ## 10. Round 2 — sound wishes from the minigames (wordless only)
 
 Compiled by the lead from the minigame agents. Every key below already has a
-synth fallback, so add files at your own pace. Keys marked *(wired)* are
+synth fallback, so add files at your own pace. **All of them are now
+delivered** (round 2, see §11); the Status column gives the number of files per
+key in row order. Keys marked *(wired)* are
 already called by the code and play as soon as a file is listed in the
 manifest; the others need a one-line code hook when delivered (tell the
 lead or the game's owner).
 
-| Key | Sound | Game |
-| --- | --- | --- |
-| `tick-tock` *(wired)* | Distinct tick/tock pair for the ticking present | Pass the Present |
-| `fuse-sizzle` | Fuse sizzle loop rising in pitch as the present heats | Pass the Present |
-| `golden-chime` | Short sparkly 2-note chime (golden cupcake / golden gem) | Sprinkle Catch, Troll Trouble |
-| `cake-blorp` | Cake plops a treat out | Sprinkle Catch |
-| `rubber-bounce` | Soft rubbery bounce for treats | Sprinkle Catch |
-| `boing` | Cartoon boing for dash bumps | Bumper Bounce, Crown Keeper |
-| `frosting-crumble` | Frosting crumble/crack for the edge stages | Bumper Bounce |
-| `wheee-fall` | Falling "wheee"-style whoosh (no words) | Bumper Bounce |
-| `balloon-stretch` *(wired)* | Rubbery creak at 50/75/90% size | Balloon Pump |
-| `hose-sputter` | Comic sputter/raspberry for the red-zone hose | Balloon Pump |
-| `npc/troll/*` *(wired)* | grumble, windup, yawn, laugh (delivered round 1) | Troll Trouble |
-| `note-u`, `note-d`, `note-l`, `note-r`, `note-star` | Five dance-move notes (now synth midi 72/67/70/75/79) | Spotlight Dance-Off |
-| `sparkle-beam` | Sparkle-beam zap | Spotlight Dance-Off, Pop Star Stage, Wizard Quick-Draw |
-| `cookie-snap`, `crumble-plop` | Cookie crack snap; crumble and milk plop | Cookie Crumble |
-| `paint-splat-wet`, `roller-ding` | Squishy splat with drip; roller pickup ding | Paint Party |
-| `crown-sting`, `crown-land`, `bonk` | Royal sting on pickup; boing/thunk on landing; bonk on bump | Crown Keeper |
-| `ring-combo` | Sparkly ding in 6–8 pitch steps | Broomstick Dash |
-| `broom-whoosh` | Short whoosh loop (boost and glide variants) | Broomstick Dash |
-| `wing-twinkle` | Magical wing-twinkle loop | Fairy Count |
-| `count-chime` | Soft counting chime in 12 pitch steps | Fairy Count |
-| `double-time` | "Double time!" style instrumental sting (no words) | Crown Keeper, Paint Party |
-| `cauldron-plop`, `hic`, `giant-stomp`, `tiny-squeak` | Potion effects (hic = cute non-word hiccup) | Potion Class |
-| `card-flip`, `card-whoosh`, `match-chime` | Paper card flip; whoosh into the pile; match chime | Memory Match |
-| `camera-flash` | Crowd of camera clicks | Fashion Show |
-| `sprinkle-shake`, `candle-blow` | Sprinkle-jar rattle loop; "fwoo" breath | Cake Bakery |
-| `crowd-aww` | Crowd "awww" (wordless) | Fashion Show, results |
-| `jingle/happy-birthday` | Instrumental Happy Birthday (public-domain tune) | Cake Bakery |
-| `scrub`, `shower`, `pet-shake` | Soapy squeak scrub; short spray; wet-fur flap | Pet Spa |
-| `note-hit-a`, `note-hit-b`, `note-hit-x`, `note-hit-y`, `fever`, `big-imp-poof` | Pitched hit chimes, fever riser, big imp poof | Pop Star Stage |
-| `plant-seed`, `firefly-catch`, `petal-firework`, `night-crickets` | Soil pat; twinkly bloop; soft pop + shimmer; ambience loop | Fairy Garden |
+| Key | Sound | Game | Status |
+| --- | --- | --- | --- |
+| `tick-tock` *(wired)* | Distinct tick/tock pair for the ticking present | Pass the Present | delivered (round 1) |
+| `fuse-sizzle` | Fuse sizzle loop rising in pitch as the present heats | Pass the Present | delivered, loop |
+| `golden-chime` | Short sparkly 2-note chime (golden cupcake / golden gem) | Sprinkle Catch, Troll Trouble | delivered |
+| `cake-blorp` | Cake plops a treat out | Sprinkle Catch | delivered |
+| `rubber-bounce` | Soft rubbery bounce for treats | Sprinkle Catch | delivered (2) |
+| `boing` | Cartoon boing for dash bumps | Bumper Bounce, Crown Keeper | delivered (2) |
+| `frosting-crumble` | Frosting crumble/crack for the edge stages | Bumper Bounce | delivered |
+| `wheee-fall` | Falling "wheee"-style whoosh (no words) | Bumper Bounce | delivered (no voice) |
+| `balloon-stretch` *(wired)* | Rubbery creak at 50/75/90% size | Balloon Pump | delivered (round 1) |
+| `hose-sputter` | Comic sputter/raspberry for the red-zone hose | Balloon Pump | delivered |
+| `npc/troll/*` *(wired)* | grumble, windup, yawn, laugh (delivered round 1) | Troll Trouble | delivered (round 1) |
+| `note-u`, `note-d`, `note-l`, `note-r`, `note-star` | Five dance-move notes (now synth midi 72/67/70/75/79) | Spotlight Dance-Off | delivered, exact pitches |
+| `sparkle-beam` | Sparkle-beam zap | Spotlight Dance-Off, Pop Star Stage, Wizard Quick-Draw | delivered |
+| `cookie-snap`, `crumble-plop` | Cookie crack snap; crumble and milk plop | Cookie Crumble | delivered (2 + 2) |
+| `paint-splat-wet`, `roller-ding` | Squishy splat with drip; roller pickup ding | Paint Party | delivered (2 + 1) |
+| `crown-sting`, `crown-land`, `bonk` | Royal sting on pickup; boing/thunk on landing; bonk on bump | Crown Keeper | delivered (1 + 1 + 2) |
+| `ring-combo` | Sparkly ding in 6–8 pitch steps | Broomstick Dash | delivered, one base tone (MIDI 79) |
+| `broom-whoosh` | Short whoosh loop (boost and glide variants) | Broomstick Dash | delivered, plus `broom-glide` loop |
+| `wing-twinkle` | Magical wing-twinkle loop | Fairy Count | delivered, loop |
+| `count-chime` | Soft counting chime in 12 pitch steps | Fairy Count | delivered, one base tone (MIDI 79) |
+| `double-time` | "Double time!" style instrumental sting (no words) | Crown Keeper, Paint Party | delivered (instrumental) |
+| `cauldron-plop`, `hic`, `giant-stomp`, `tiny-squeak` | Potion effects (hic = cute non-word hiccup) | Potion Class | delivered (1 + 1 + 2 + 2) |
+| `card-flip`, `card-whoosh`, `match-chime` | Paper card flip; whoosh into the pile; match chime | Memory Match | delivered (2 + 1 + 1) |
+| `camera-flash` | Crowd of camera clicks | Fashion Show | delivered (2) |
+| `sprinkle-shake`, `candle-blow` | Sprinkle-jar rattle loop; "fwoo" breath | Cake Bakery | delivered (loop + 1) |
+| `crowd-aww` | Crowd "awww" (wordless) | Fashion Show, results | delivered (2) |
+| `jingle/happy-birthday` | Instrumental Happy Birthday (public-domain tune) | Cake Bakery | delivered (rendered, not generated) |
+| `scrub`, `shower`, `pet-shake` | Soapy squeak scrub; short spray; wet-fur flap | Pet Spa | delivered (2 + 1 + 2) |
+| `note-hit-a`, `note-hit-b`, `note-hit-x`, `note-hit-y`, `fever`, `big-imp-poof` | Pitched hit chimes, fever riser, big imp poof | Pop Star Stage | delivered (exact pitches) + 1 + 1 |
+| `plant-seed`, `firefly-catch`, `petal-firework`, `night-crickets` | Soil pat; twinkly bloop; soft pop + shimmer; ambience loop | Fairy Garden | delivered (3 + 3 + 2 + loop) |
+
+
+## 11. Delivery log: round 2 (§10 sound wishes)
+
+Generated on 2026-10-02 with the same ElevenLabs **sound-generation** API as
+round 1 (`POST /v1/sound-generation`, `prompt_influence` 0.6 for SFX, 0.55
+for `crowd-aww`, 0.7 for the stings; loop sources were requested with
+`loop: true`), then processed with the §9 chain. One file,
+`jingle/happy-birthday`, was **rendered in Python/numpy, not generated** (the
+sound API can't play a given melody). Every sound is wordless. **All checks
+were by measurement; nobody has listened to these yet** (see §11.5).
+
+### 11.1 What was delivered
+
+All 51 missing §10 keys plus `broom-glide` (the softer glide variant of
+`broom-whoosh`): **52 keys, 70 files, 1.59 MiB** (1,662,600 bytes: 42 WAV
+files 1.20 MiB, 28 MP3 files 0.38 MiB). "Level" is integrated loudness for
+loops and long clips, otherwise the sample peak in dBFS.
+
+| Key | Files | Seconds | Type | Level |
+| --- | --- | --- | --- | --- |
+| `fuse-sizzle` | `sfx/fuse-sizzle.wav` | 0.80 | loop 0.8 s | -22 LUFS |
+| `golden-chime` | `sfx/golden-chime.mp3` | 0.78 | two-note chime, MIDI 83→88 | pk -6.8 |
+| `cake-blorp` | `sfx/cake-blorp.wav` | 0.22 | one-shot | pk -3.3 |
+| `rubber-bounce` | `sfx/rubber-bounce-1.wav`, `sfx/rubber-bounce-2.wav` | 0.28–0.34 | one-shot | pk -3.3 |
+| `boing` | `sfx/boing-1.mp3`, `sfx/boing-2.mp3` | 0.47–0.50 | one-shot | pk -3.7 |
+| `frosting-crumble` | `sfx/frosting-crumble.wav` | 0.34 | one-shot | pk -3.3 |
+| `wheee-fall` | `sfx/wheee-fall.mp3` | 1.15 | one-shot | -15 LUFS |
+| `hose-sputter` | `sfx/hose-sputter.mp3` | 0.60 | one-shot | pk -3.7 |
+| `note-u` | `sfx/note-u.wav` | 0.27 | pitched, MIDI 72 | pk -6.3 |
+| `note-d` | `sfx/note-d.wav` | 0.27 | pitched, MIDI 67 | pk -6.3 |
+| `note-l` | `sfx/note-l.wav` | 0.27 | pitched, MIDI 70 | pk -6.3 |
+| `note-r` | `sfx/note-r.wav` | 0.27 | pitched, MIDI 75 | pk -6.3 |
+| `note-star` | `sfx/note-star.wav` | 0.27 | pitched, MIDI 79 | pk -6.3 |
+| `sparkle-beam` | `sfx/sparkle-beam.mp3` | 0.65 | one-shot | pk -6.0 |
+| `cookie-snap` | `sfx/cookie-snap-1.wav`, `sfx/cookie-snap-2.wav` | 0.23–0.28 | one-shot | pk -6.3 |
+| `crumble-plop` | `sfx/crumble-plop-1.mp3`, `sfx/crumble-plop-2.wav` | 0.29–0.52 | one-shot | pk -3.8, pk -3.3 |
+| `paint-splat-wet` | `sfx/paint-splat-wet-1.wav`, `sfx/paint-splat-wet-2.wav` | 0.17–0.24 | one-shot | pk -3.3 |
+| `roller-ding` | `sfx/roller-ding.wav` | 0.38 | one-shot | pk -6.3 |
+| `crown-sting` | `sfx/crown-sting.mp3` | 0.99 | one-shot | -16 LUFS |
+| `crown-land` | `sfx/crown-land.mp3` | 0.44 | one-shot | pk -3.8 |
+| `bonk` | `sfx/bonk-1.wav`, `sfx/bonk-2.wav` | 0.31–0.33 | one-shot | pk -3.3 |
+| `ring-combo` | `sfx/ring-combo.wav` | 0.34 | pitched, MIDI 79 | pk -6.3 |
+| `broom-whoosh` | `sfx/broom-whoosh.wav` | 1.00 | loop 1.0 s, 22.05 kHz | -18 LUFS |
+| `broom-glide` | `sfx/broom-glide.wav` | 1.00 | loop 1.0 s, 22.05 kHz | -23 LUFS |
+| `wing-twinkle` | `sfx/wing-twinkle.wav` | 0.80 | loop 0.8 s | -29 LUFS |
+| `count-chime` | `sfx/count-chime.wav` | 0.34 | pitched, MIDI 79 | pk -6.3 |
+| `double-time` | `sfx/double-time.mp3` | 1.18 | one-shot | -16 LUFS |
+| `cauldron-plop` | `sfx/cauldron-plop.mp3` | 0.57 | one-shot | pk -3.8 |
+| `hic` | `sfx/hic.wav` | 0.13 | one-shot | pk -3.3 |
+| `giant-stomp` | `sfx/giant-stomp-1.mp3`, `sfx/giant-stomp-2.wav` | 0.25–0.50 | one-shot | pk -3.8, pk -3.3 |
+| `tiny-squeak` | `sfx/tiny-squeak-1.mp3`, `sfx/tiny-squeak-2.wav` | 0.36–0.44 | one-shot | pk -6.7, pk -3.3 |
+| `card-flip` | `sfx/card-flip-1.wav`, `sfx/card-flip-2.wav` | 0.16–0.25 | one-shot | pk -6.3, pk -9.3 |
+| `card-whoosh` | `sfx/card-whoosh.wav` | 0.25 | one-shot | pk -6.3 |
+| `match-chime` | `sfx/match-chime.wav` | 0.34 | two-note chime, MIDI 79→84 | pk -6.3 |
+| `camera-flash` | `sfx/camera-flash-1.mp3`, `sfx/camera-flash-2.mp3` | 0.73–0.73 | one-shot | pk -3.6, pk -6.5 |
+| `sprinkle-shake` | `sfx/sprinkle-shake.wav` | 0.96 | loop 0.96 s | -27 LUFS |
+| `candle-blow` | `sfx/candle-blow.mp3` | 0.70 | one-shot | pk -3.9 |
+| `crowd-aww` | `sfx/crowd-aww-1.mp3`, `sfx/crowd-aww-2.mp3` | 1.18–1.20 | one-shot | -16 LUFS, -17 LUFS |
+| `jingle/happy-birthday` | `jingle/happy-birthday.mp3` | 13.90 | jingle (rendered) | -16 LUFS |
+| `scrub` | `sfx/scrub-1.mp3`, `sfx/scrub-2.wav` | 0.40–0.52 | one-shot | pk -4.1, pk -3.3 |
+| `shower` | `sfx/shower.mp3` | 0.50 | one-shot | pk -8.3 |
+| `pet-shake` | `sfx/pet-shake-1.mp3`, `sfx/pet-shake-2.mp3` | 0.68–0.73 | one-shot | pk -4.0, pk -3.8 |
+| `note-hit-a` | `sfx/note-hit-a.wav` | 0.27 | pitched, MIDI 72 | pk -6.3 |
+| `note-hit-b` | `sfx/note-hit-b.wav` | 0.27 | pitched, MIDI 75 | pk -6.3 |
+| `note-hit-x` | `sfx/note-hit-x.wav` | 0.27 | pitched, MIDI 79 | pk -6.3 |
+| `note-hit-y` | `sfx/note-hit-y.wav` | 0.27 | pitched, MIDI 82 | pk -6.3 |
+| `fever` | `sfx/fever.mp3` | 1.15 | one-shot | -16 LUFS |
+| `big-imp-poof` | `sfx/big-imp-poof.mp3` | 0.50 | one-shot | pk -3.7 |
+| `plant-seed` | `sfx/plant-seed-1.wav`, `sfx/plant-seed-2.wav`, `sfx/plant-seed-3.wav` | 0.08–0.12 | one-shot | pk -3.3 |
+| `firefly-catch` | `sfx/firefly-catch-1.wav`, `sfx/firefly-catch-2.mp3`, `sfx/firefly-catch-3.wav` | 0.17–0.44 | one-shot | pk -6.3, pk -6.7, pk -6.3 |
+| `petal-firework` | `sfx/petal-firework-1.mp3`, `sfx/petal-firework-2.mp3` | 0.76–0.81 | one-shot | pk -4.3, pk -3.6 |
+| `night-crickets` | `sfx/night-crickets.wav` | 2.50 | loop 2.5 s, 22.05 kHz | -27 LUFS |
+
+**Notes for wiring** (no code was changed in this delivery):
+
+- `note-u`/`d`/`l`/`r`/`star` sound at exactly MIDI 72/67/70/75/79 at
+  `rate` 1 (measured within ±1 cent). `note-hit-a`/`b`/`x`/`y` match
+  `BTN_MIDI` in `pop-star-stage.js` (72/75/79/82, not the 72/76/79/84
+  fallback); a "perfect" hit one octave up is `rate: 2`.
+- `count-chime` and `ring-combo` are one tone each at **MIDI 79** (G5), the
+  same base as the synth `collect`, so `rate: 2 ** (step / 12)` reproduces the
+  synth's steps (Fairy Count up to +12, Broomstick Dash up to +14).
+- `fuse-sizzle` is meant to be pitched up with `rate` as the present heats.
+- Loops are mixed as beds, quieter than one-shots (whoosh −18, glide −23,
+  fuse −22, sprinkle −27, wing −29, crickets −27 LUFS); raise them with `vol`
+  if needed. All six loops are short WAVs that loop seamlessly (§11.3).
+- `golden-chime` and `match-chime` are two rising notes, not one ping.
+- `jingle/happy-birthday` is 13.9 s: C major, 3/4, 112 BPM with a small
+  ritardando in the last two bars.
+
+### 11.2 Prompts used (for regenerating)
+
+Same columns as §9.2. Where a file was cut, repitched, layered or assembled,
+the note in italics says how; the prompt is the take it came from.
+
+| File | s | Peak | Prompt |
+| --- | --- | --- | --- |
+| `sfx/fuse-sizzle.wav` | 0.80 | -12.8 | Cartoon fuse sizzling steadily, soft crackling sparkler hiss, continuous and even, no explosion, no bang |
+| `sfx/golden-chime.mp3` | 0.78 | -6.8 | *(tone repitched to MIDI 83/88)* One clean celesta bell note struck once, bright and pure, short decay |
+| `sfx/cake-blorp.wav` | 0.22 | -3.3 | Cartoon cake plopping out a treat, a soft squishy blorp pop, cute and bouncy |
+| `sfx/rubber-bounce-1.wav` | 0.34 | -3.3 | One playful rubbery boing-bounce, a squishy jelly candy bouncing off a plate, cartoon, mid pitched |
+| `sfx/rubber-bounce-2.wav` | 0.28 | -3.3 | One gentle rubbery bounce, jelly sweet bouncing once, soft cartoon boink |
+| `sfx/boing-1.mp3` | 0.50 | -3.7 | Cartoon spring boing, one bouncy boinggg with a springy wobble, comic |
+| `sfx/boing-2.mp3` | 0.47 | -3.7 | Classic cartoon jaw harp boing, short springy bounce sound, funny |
+| `sfx/frosting-crumble.wav` | 0.34 | -3.3 | Thick frosting and cake edge crumbling and cracking away, soft sugary crumbly crack, cartoon |
+| `sfx/wheee-fall.mp3` | 1.15 | -7.0 | Cartoon falling sound: a slide whistle gliding down in pitch with a soft whoosh of air, playful, instrumental only, no voice |
+| `sfx/hose-sputter.mp3` | 0.60 | -3.7 | Garden hose sputtering and gurgling, wet bubbly blubbering splutter of water and air, comic cartoon, no voice |
+| `sfx/note-u.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 72)* One mellow marimba tone, a single note struck once, warm and round, dry |
+| `sfx/note-d.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 67)* One mellow marimba tone, a single note struck once, warm and round, dry |
+| `sfx/note-l.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 70)* One mellow marimba tone, a single note struck once, warm and round, dry |
+| `sfx/note-r.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 75)* One mellow marimba tone, a single note struck once, warm and round, dry |
+| `sfx/note-star.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 79)* One mellow marimba tone, a single note struck once, warm and round, dry |
+| `sfx/sparkle-beam.mp3` | 0.65 | -6.0 | Magic sparkle beam zap, a quick shimmering whoosh of glitter with a soft bright ting, cute and magical, not harsh |
+| `sfx/cookie-snap-1.wav` | 0.28 | -6.3 | One sharp crunchy biscuit snap, short |
+| `sfx/cookie-snap-2.wav` | 0.23 | -6.3 | Short crisp cracker snap, one break |
+| `sfx/crumble-plop-1.mp3` | 0.52 | -3.8 | Cookie crumbs falling into a glass of milk with a soft little plop |
+| `sfx/crumble-plop-2.wav` | 0.29 | -3.3 | Small cookie chunk plopping into a cup of milk, soft cute plunk |
+| `sfx/paint-splat-wet-1.wav` | 0.24 | -3.3 | Squishy wet paint splat with a little drip, cartoon, one splat |
+| `sfx/paint-splat-wet-2.wav` | 0.17 | -3.3 | One gooey paint blob splat with a short drippy tail, playful |
+| `sfx/roller-ding.wav` | 0.38 | -6.3 | Cheerful pickup ding, one warm mid-pitched bell note, item collected, short and round |
+| `sfx/crown-sting.mp3` | 0.99 | -5.5 | Short royal fanfare sting, regal trumpets with a bright bell sparkle, kids game, celebratory, ending on a held major chord, instrumental |
+| `sfx/crown-land.mp3` | 0.44 | -3.8 | Toy crown landing on a head, a soft wooden thunk with a short springy boing, cute cartoon |
+| `sfx/bonk-1.wav` | 0.33 | -3.3 | Cartoon bonk on the head, a hollow wooden coconut knock, comic, bright, one hit |
+| `sfx/bonk-2.wav` | 0.31 | -3.3 | Comic cartoon bonk, a hollow woodblock clonk with a tiny boing, one hit |
+| `sfx/ring-combo.wav` | 0.34 | -6.3 | *(tone repitched to MIDI 79)* A single sparkly bell ding, one clear bright note, glockenspiel, no reverb |
+| `sfx/broom-whoosh.wav` | 1.00 | -5.3 | Constant fast wind rush heard while flying, steady strong airflow at an unchanging level, no swells, smooth, exciting |
+| `sfx/broom-glide.wav` | 1.00 | -10.5 | *(cut from the `broom-whoosh` take, filtered 120 Hz–1.6 kHz, 5 dB quieter)* Constant fast wind rush heard while flying, steady strong airflow at an unchanging level, no swells, smooth, exciting |
+| `sfx/wing-twinkle.wav` | 0.80 | -6.3 | Soft fluttering of small wings, gentle airy flapping with a warm faint twinkle of chimes, continuous, steady, calm |
+| `sfx/count-chime.wav` | 0.34 | -6.3 | *(tone repitched to MIDI 79)* One soft music box note, pure and sweet, single tone |
+| `sfx/double-time.mp3` | 1.18 | -5.9 | Fast upbeat instrumental sting: a quick rising xylophone run and two bright brass stabs, exciting and playful, speeding up, no voice |
+| `sfx/cauldron-plop.mp3` | 0.57 | -3.8 | Something plopping into a bubbling potion cauldron, thick liquid bloop with a bubble |
+| `sfx/hic.wav` | 0.13 | -3.3 | Cute cartoon hiccup sound effect, a single small squeaky hic |
+| `sfx/giant-stomp-1.mp3` | 0.50 | -3.8 | *(hit cut at 0.43 s of one multi-hit take, plus saturation and crunch layers)* Heavy wooden boxes dropped one at a time on a wooden floor, four separate thick clunks with pauses, punchy, crunchy, cartoon |
+| `sfx/giant-stomp-2.wav` | 0.25 | -3.3 | *(hit cut at 0.92 s of one multi-hit take, plus saturation and crunch layers)* Heavy wooden boxes dropped one at a time on a wooden floor, four separate thick clunks with pauses, punchy, crunchy, cartoon |
+| `sfx/tiny-squeak-1.mp3` | 0.44 | -6.7 | One small squeaky toy squeak, very short and cute |
+| `sfx/tiny-squeak-2.wav` | 0.36 | -3.3 | Little cartoon critter squeak, tiny and sweet, single chirp |
+| `sfx/card-flip-1.wav` | 0.25 | -6.3 | Paper playing card flipped over on a table, crisp quick flick |
+| `sfx/card-flip-2.wav` | 0.16 | -9.3 | One playing card turned over, quick soft paper snap |
+| `sfx/card-whoosh.wav` | 0.25 | -6.3 | A card sliding fast across a table into a stack, short swish and tap |
+| `sfx/match-chime.wav` | 0.34 | -6.3 | *(tone repitched to MIDI 79/84)* One mellow marimba tone, a single note struck once, warm and round, dry |
+| `sfx/camera-flash-1.mp3` | 0.73 | -3.6 | Crowd of photographers taking pictures, several camera shutters clicking quickly with flash pops, fashion runway |
+| `sfx/camera-flash-2.mp3` | 0.73 | -6.5 | Burst of many camera clicks and flashes at a red carpet, quick overlapping shutter clicks |
+| `sfx/sprinkle-shake.wav` | 0.96 | -6.3 | Shaking a small jar of candy sprinkles back and forth, steady even rhythmic rattle, continuous |
+| `sfx/candle-blow.mp3` | 0.70 | -3.9 | Soft breath blowing out birthday candles, a gentle fwoo puff of air |
+| `sfx/crowd-aww-1.mp3` | 1.20 | -5.3 | Small group of children making a warm wordless awww sigh together, gentle and adoring, sweet, no words |
+| `sfx/crowd-aww-2.mp3` | 1.18 | -3.7 | A few young children going awww together, a soft high adoring sigh, cute and kind, wordless |
+| `jingle/happy-birthday.mp3` | 13.90 | -4.3 | *(rendered in Python/numpy, no prompt; see §11.3)* |
+| `sfx/scrub-1.mp3` | 0.52 | -4.1 | Soapy sponge scrubbing with squeaky foam bubbles, one short scrub |
+| `sfx/scrub-2.wav` | 0.40 | -3.3 | Quick squeaky soapy scrub on fur, bubbly lather, short |
+| `sfx/shower.mp3` | 0.50 | -8.3 | Short spray of a handheld shower hose, gentle water spray burst then stops, bath time |
+| `sfx/pet-shake-1.mp3` | 0.68 | -4.0 | Wet puppy shaking off water, fur flapping and droplets spraying, cartoon, short |
+| `sfx/pet-shake-2.mp3` | 0.73 | -3.8 | Little wet dog shaking itself dry, floppy ears flapping and fur rustling, droplets pattering, cute |
+| `sfx/note-hit-a.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 72)* Single vibraphone note, one clean soft mallet hit, bright and round, short decay, no tremolo |
+| `sfx/note-hit-b.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 75)* Single vibraphone note, one clean soft mallet hit, bright and round, short decay, no tremolo |
+| `sfx/note-hit-x.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 79)* Single vibraphone note, one clean soft mallet hit, bright and round, short decay, no tremolo |
+| `sfx/note-hit-y.wav` | 0.27 | -6.3 | *(tone repitched to MIDI 82)* Single vibraphone note, one clean soft mallet hit, bright and round, short decay, no tremolo |
+| `sfx/fever.mp3` | 1.15 | -4.3 | Rainbow fever power-up riser, a rising sparkly synth sweep with shimmering bells, exciting, ends bright |
+| `sfx/big-imp-poof.mp3` | 0.50 | -3.7 | Big magical poof: a cartoon puff of smoke, airy whoosh with a soft pop and twinkling sparkles, friendly, mid-range |
+| `sfx/plant-seed-1.wav` | 0.09 | -3.3 | *(hit cut at 0.7 s of one multi-hit take)* Hand patting soft garden soil, five separate gentle pats with pauses, crunchy earthy pat, close up |
+| `sfx/plant-seed-2.wav` | 0.12 | -3.3 | *(hit cut at 1.77 s of one multi-hit take)* Hand patting soft garden soil, five separate gentle pats with pauses, crunchy earthy pat, close up |
+| `sfx/plant-seed-3.wav` | 0.08 | -3.3 | *(hit cut at 2.69 s of one multi-hit take)* Hand patting soft garden soil, five separate gentle pats with pauses, crunchy earthy pat, close up |
+| `sfx/firefly-catch-1.wav` | 0.35 | -6.3 | Twinkly cute bloop, a little magical blip with a sparkle |
+| `sfx/firefly-catch-2.mp3` | 0.44 | -6.7 | Tiny bright magical bloop with a twinkle, cute catch sound |
+| `sfx/firefly-catch-3.wav` | 0.17 | -6.3 | Short sparkly pop bloop, firefly caught in a jar, cute |
+| `sfx/petal-firework-1.mp3` | 0.81 | -4.3 | Soft round pop like a bubble, then a warm low twinkling shimmer of glockenspiel notes, magical flower bloom, gentle |
+| `sfx/petal-firework-2.mp3` | 0.76 | -3.6 | Gentle magical firework: a soft round pop then a warm sparkling chime cascade, cute, not loud |
+| `sfx/night-crickets.wav` | 2.50 | -15.2 | Crickets chirping at night, close and clear, gentle rhythmic chirps, calm countryside, steady |
+
+Pitched tone sources (single takes, measured fundamentals): `note-*` from
+"One mellow marimba tone, a single note struck once, warm and round, dry"
+(526.1 Hz, MIDI 72.09); `note-hit-*` from "Single vibraphone note, one clean
+soft mallet hit, bright and round, short decay, no tremolo" (1050.9 Hz, MIDI
+84.07); `count-chime` from "One soft music box note, pure and sweet, single
+tone" (1478.1 Hz); `ring-combo` from "A single sparkly bell ding, one clear
+bright note, glockenspiel, no reverb" (2096.5 Hz); `golden-chime` from "One
+clean celesta bell note struck once, bright and pure, short decay" (1875.2
+Hz). Each source holds over 94 % of its energy at the fundamental.
+
+### 11.3 Processing and deviations from §9
+
+- **Chain:** as §9 (mono, 44.1 kHz, 30 Hz high-pass, silence trim, peak −3.3
+  dBFS for SFX and −6.3 for UI-like chimes/dings, about −16 LUFS with a −3.3
+  dBFS peak cap for `crowd-aww`, `crown-sting`, `double-time`, `fever` and
+  the jingle). Changes: the fade-in is 5 ms; the "shrill" rule (more than
+  60 % of the energy above 4 kHz → 3 dB lower) now applies to every clip, not
+  only crowds and voices; peak-normalized clips of 0.4 s or more are capped at
+  −14 LUFS so a sustained tone doesn't jump out (only `wheee-fall` was
+  affected); the trim also drops a stray click that sits more than 100 ms
+  before the main sound, or a blip after a 100 ms gap at the end.
+- **Formats:** clips under 0.4 s and all loops are 16-bit mono WAV, the rest
+  mono 96 kbps MP3, as in round 1. Deviation: `broom-whoosh` and
+  `broom-glide` are 22.05 kHz WAV (like `night-crickets`) because they have no
+  energy above 4 kHz, which halves their size.
+- **Loops:** a steady stretch of a `loop: true` take was picked by measuring
+  level variance, preferring a seam at a quieter moment, and the extra tail
+  was equal-power crossfaded into the head (60 to 250 ms). The last sample of
+  each loop runs straight into the first, because the wrap is the source's own
+  continuation. Measured for every loop: the sample jump at the wrap is below
+  the 99th percentile of normal sample-to-sample steps, the level change
+  across the wrap (20 ms windows) is inside the loop's own range, and the
+  crossfaded region is within the 5–95 % level range of the rest of the loop.
+  `sprinkle-shake` is exactly 4 shake periods (4 × 0.24 s).
+- **Pitched notes:** one clean generated tone per set, its fundamental
+  measured by FFT peak with sub-harmonic check, then repitched tape-style (soxr
+  resampler) to each target and trimmed to 0.27 s (`count-chime` and
+  `ring-combo` 0.34 s) with an 80 to 120 ms fade. Measured error after
+  repitching: −0.7 to +0.4 cents, `ring-combo` +3 cents.
+- **`golden-chime`, `match-chime`:** the API returned a single sustained ping
+  for both (twice for `golden-chime`), so each is assembled from a generated
+  bell or marimba tone repitched to two rising notes 0.10–0.11 s apart
+  (B5→E6 and G5→C6).
+- **`giant-stomp`:** nine single-footstep takes and one multi-step take were
+  all sub-bass (95 to 100 % of the energy under 300 Hz, inaudible on
+  tablets). The two files are
+  wooden clunks cut from one "wooden boxes dropped" take, with a
+  soft-saturation layer above 250 Hz and a 50 ms crunch from the
+  `frosting-crumble` take under the attack, which moves the spectral centroid
+  from about 300 to 400 Hz with real 250 Hz–3.5 kHz content.
+- **`plant-seed`:** three single pats cut from one take of several soil pats
+  (single-pat prompts came out near-silent or as sub-bass thuds).
+- **`broom-glide`:** a different stretch of the `broom-whoosh` take, filtered
+  120 Hz–1.6 kHz and 5 dB quieter. Four dedicated glide takes were rejected
+  (two pure sub-bass rumble, one that swelled up from silence, one 8 kHz
+  hiss).
+- **`jingle/happy-birthday` (rendered, not generated):** the public-domain
+  melody played as a music box/celesta in additive synthesis (partials 1, 2,
+  3, 4.16 and 5.43 × f with bell-like exponential decays and a faint octave
+  sparkle), over a soft waltz accompaniment (root on beat 1, two-note chords on
+  beats 2 and 3: C, G7, C7, F). It has a small synthetic room reverb, about
+  2 dB of soft limiting and −16.4 LUFS, mono 96 kbps MP3. The script is
+  `hbday.py` in the generating session's scratchpad; it is not in the repo.
+
+### 11.4 Skipped, failed or rewritten
+
+- **Nothing skipped.** 123 generation calls (about 143 s of requested audio),
+  no moderation refusals, no errors or quota problems.
+- **Prompts reworded after measurement** (the first wording's take was
+  rejected): `rubber-bounce` 1–2 (sub-bass or near-silent), `bonk` 1 and 3
+  (pure sub-bass), `crown-land` 1–2 (sub-bass, then 9–10 kHz tinny),
+  `plant-seed` (near-silent, see above), `petal-firework` 1–2 (near-silent,
+  12 kHz and 8 kHz shrill takes), `night-crickets` (9.6 kHz hiss, then a
+  near-silent take), `wing-twinkle` (10 kHz
+  hiss; the kept take is warmer but still mostly above 4 kHz), `hose-sputter`
+  (8 kHz hiss), `card-whoosh` 1 (12 kHz hiss), `roller-ding` (4.8 kHz pure
+  tone), `pet-shake` 2 (98 % above 4 kHz), `crowd-aww` 2
+  (centroid 430 Hz, likely adult voices), `big-imp-poof`
+  (90 % sub-bass), `broom-whoosh` (swelled instead of staying steady).
+- **Takes dropped** (generated but not shipped), to stay near the size budget
+  or because they were the weakest take: `rubber-bounce`, `cookie-snap`,
+  `card-flip`, `scrub`, `tiny-squeak`, `crumble-plop`, `paint-splat-wet`,
+  `bonk`, `boing`, `camera-flash` and `giant-stomp` each lost one take (all
+  keep 2, the minimum for repeated hits); the second takes of `cake-blorp`,
+  `crown-land`, `cauldron-plop`, `card-whoosh`, `hic`, `candle-blow` and
+  `frosting-crumble` were dropped (1 take each, like other non-repeated
+  sounds).
+- **Size:** 1.59 MiB, a little over the ~1.5 MB target, because the 0.4 s WAV
+  rule makes each short hit 10 to 35 KB. If needed: drop `firefly-catch-3`
+  and `plant-seed-3` (−22 KB), shorten `night-crickets` to 2 s (−22 KB), or
+  encode non-timing-critical hits as MP3.
+
+### 11.5 Listening pass needed
+
+Open `?scene=audio`; the new keys are in the SFX and Jingles tabs (`X` plays
+the next variant). Listen to these first:
+
+- [ ] `crowd-aww` (both): kids, not adults, and **no words**. `hic`: a cute
+  hiccup, not a voice. `wheee-fall`: slide whistle, no voice. `double-time`,
+  `crown-sting`, `fever`: instrumental only.
+- [ ] `giant-stomp`: is the layered wooden clunk punchy and funny (not a
+  door slam)? `plant-seed`: very short dull pats (0.08–0.12 s). Do they read
+  as soil?
+- [ ] `jingle/happy-birthday`: correct melody and rhythm, cute music-box
+  sound, ending not cut off.
+- [ ] Pitched sets: `note-*` (marimba) and `note-hit-*` (vibraphone) in tune
+  against the backing music; `count-chime`/`ring-combo` stepped up with
+  `rate` to +12/+14 semitones still sound sweet, not chipmunky.
+- [ ] Loops, repeated for 30 s: no bump at the seam in `fuse-sizzle`,
+  `broom-whoosh`, `broom-glide`, `wing-twinkle`, `sprinkle-shake`,
+  `night-crickets`. `sprinkle-shake` and `wing-twinkle` are very bright (most
+  energy above 4 kHz), so check they aren't piercing. `night-crickets` should be
+  calm, not shrill.
+- [ ] Bright noisy hits (placed 3 dB lower): `cookie-snap`, `card-flip-2`,
+  `shower`, `camera-flash-2`, `sparkle-beam`, `tiny-squeak`. Pleasant, not
+  harsh? `camera-flash` should sound like several cameras.
+- [ ] `crumble-plop-1` is crumbs, a pause, then a plop (0.52 s). Fine, or too
+  gappy? `hose-sputter`: comic, not rude.
+- [ ] `golden-chime`/`match-chime` (two rising notes), `roller-ding`,
+  `firefly-catch`: cheerful and soft.
