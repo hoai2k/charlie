@@ -109,7 +109,8 @@ party/
   src/games/            one module per minigame + index.js registry
   src/data/characters.js
   assets/characters/    base art (from canonical, 520px WebP)
-  assets/sprites/       generated sprite sets (index.json + <asset>/sprites.json)
+  assets/sprites/       generated sprite sets (index.json + <asset>/sprites.json) - originals
+  assets/sprites-opt/   memory-optimized copies (tools/sprites/optimize.py), used by default
   assets/art/           generated backgrounds/props/icons (index.json)
   assets/audio/         recorded SFX/music (manifest.json)
   tools/shot.mjs        headless screenshot/test helper
@@ -176,6 +177,9 @@ files (it reports needed engine changes instead).
 - [x] ElevenLabs SFX round 1 (wordless voices, creature sounds, jingles) — no spoken words by design
 - [x] Generated art in game: logo, menu backdrops, all 20 backgrounds and thumbnails,
       NPC art; sprite sets for Felicity, Fellowfox, Bronze, Troll, Glimmer, Hoot, Shadow Imp, Garden Fairy
+- [x] Settings screen (gear button / View / O): Sound, Full screen, Pictures
+      Optimized (default, ~40% less sprite memory) or Full (originals). Sprites load
+      per pose on demand and are released when the party changes.
 - [ ] Remaining roster sprite sets and props (see image-requests.md Round 3)
 - [ ] Music tracks (need a music-capable generator or composer)
 

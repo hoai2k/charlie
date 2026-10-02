@@ -50,6 +50,8 @@ console.log('Sprite runtime timing, alias, fallback and one-shot regression test
 // Entire one-shot must fit an explicit gameplay duration, including final frame.
 const drawn = [];
 const g = new Proxy({}, { get: (target, prop) => prop in target ? target[prop] : (...args) => { if (prop === 'drawImage') drawn.push(args[0]); } });
+// Non-core poses load on first use; load 'throw' before drawing it.
+await Promise.all(set.poses.throw.frames.map((f) => f.load && f.load()));
 actor.playOnce('throw', .2);
 actor.update(.08); // source time=.16, already inside frame 2 (.1..4)
 actor.draw(g, { shadow: false, emotes: false });

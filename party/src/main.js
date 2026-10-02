@@ -13,6 +13,7 @@
 //   ?mute=1
 //
 // Keys anywhere: M sound on/off, F fullscreen on/off (also the corner buttons).
+// O or a controller's View button on menu screens: Settings.
 
 import { setupCanvas, beginFrame, endFrame, W, H } from './engine/canvas.js';
 import { input } from './engine/input.js';
@@ -24,6 +25,7 @@ import { fx } from './engine/fx.js';
 import { scenes } from './engine/scenes.js';
 import { shell } from './engine/shell.js';
 import { corner } from './engine/corner.js';
+import { settings } from './engine/settings.js';
 import * as ui from './engine/ui.js';
 import { session, makePlayer, newAIController, randomFreeCharacter } from './state.js';
 import { CHARACTERS } from './data/characters.js';
@@ -110,7 +112,12 @@ function frame(now) {
     for (let i = 0; i < steps; i++) {
       const dt = (rawDt * speed) / steps;
       const wdt = fx.timeScale(dt);
-      scenes.update(wdt);
+      // Settings overlay pauses the screen underneath (it keeps its state).
+      if (settings.isOpen) settings.update(dt);
+      else {
+        if (corner.visible && input.humans().some((c) => c.pressed('back'))) settings.open();
+        else scenes.update(wdt);
+      }
       particles.update(wdt);
       fx.update(dt);
       if (i < steps - 1) input.update(0);
@@ -123,6 +130,7 @@ function frame(now) {
     scenes.draw(g);
     g.restore();
     fx.drawFlash(g, W, H);
+    settings.draw(g);
     corner.draw(g);
   }
   endFrame();

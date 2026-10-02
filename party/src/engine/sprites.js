@@ -154,20 +154,52 @@ function loadImage(src) {
   });
 }
 
+// Image quality: 'optimized' (default) draws the downscaled copies in
+// assets/sprites-opt/ (tools/sprites/optimize.py); 'full' draws the originals.
+// Coordinates always come from the original sprites.json; optimized frames are
+// simply drawn at the original frame size.
+const QUALITY_KEY = 'party.imageQuality';
+let imageQuality = (() => {
+  const q = params.get('quality');
+  if (q === 'full' || q === 'optimized') return q;
+  try { return localStorage.getItem(QUALITY_KEY) === 'full' ? 'full' : 'optimized'; } catch (e) { return 'optimized'; }
+})();
+let optIndex = {};
+export function getImageQuality() { return imageQuality; }
+/** Switch quality; loaded sets are dropped and reload on demand. */
+export function setImageQuality(q) {
+  q = q === 'full' ? 'full' : 'optimized';
+  if (q === imageQuality) return;
+  imageQuality = q;
+  try { localStorage.setItem(QUALITY_KEY, q); } catch (e) { /* private mode */ }
+  spriteSets.clear(); setLoads.clear(); tintCache.clear();
+}
+
+// Poses loaded with the set; the rest load the first time a game asks for
+// them (a game uses ~6-12 of a character's 60-75 poses). Until a lazy pose
+// is ready the character shows its idle frames.
+const CORE_POSES = new Set(['idle', 'walk', 'run', 'celebrate', 'pout', 'cheer', 'sad', 'hurt', 'dizzy', 'ready', 'wave', 'surprised', 'think']);
+
 async function loadSpriteSet(asset) {
   const dir = `assets/sprites/${asset}/`;
   const res = await fetch(dir + 'sprites.json', { cache: 'no-cache' });
   if (!res.ok) return null;
   const m = await res.json();
   if (!(Number.isFinite(m.bodyHeight) && m.bodyHeight > 0)) throw new Error('bodyHeight must be positive');
+  const opt = imageQuality === 'optimized' ? optIndex[asset] : null;
+  const imgDir = opt ? `assets/sprites-opt/${asset}/` : dir;
+  const k = opt ? opt.scale || 1 : 1;
   const imgCache = new Map();
   const getImg = (file) => {
-    if (!imgCache.has(file)) imgCache.set(file, loadImage(dir + file));
+    if (!imgCache.has(file)) imgCache.set(file, loadImage(imgDir + file));
     return imgCache.get(file);
   };
-  const atlas = m.atlas ? await getImg(m.atlas) : null;
-  const set = { manifest: m, poses: {}, portraits: {}, anchor: m.anchor, bodyHeight: m.bodyHeight, facing: m.facing ?? 0 };
+  // Optimized frame missing (copy not rebuilt yet)? Use the original instead.
+  const getFrameImg = (file) => getImg(file).then((img) => (img || !opt ? { img, k } : loadImage(dir + file).then((o) => ({ img: o, k: 1 }))));
+  const atlas = m.atlas ? await loadImage(dir + m.atlas) : null; // atlases are never optimized
+  const set = { manifest: m, poses: {}, portraits: {}, anchor: m.anchor, bodyHeight: m.bodyHeight, facing: m.facing ?? 0, quality: opt ? 'optimized' : 'full' };
   const aliases = [];
+  const eager = [];
   for (const [name, def] of Object.entries(m.poses || {})) {
     if (typeof def === 'string') { aliases.push([name, { alias: def }]); continue; }
     if (def.alias) { aliases.push([name, def]); continue; }
@@ -175,20 +207,25 @@ async function loadSpriteSet(asset) {
     for (const f of def.frames || []) {
       // Frame forms: "file.webp" | [x,y,w,h] (atlas) | {src|rect, anchor?, dur?}
       const fo = typeof f === 'string' ? { src: f } : Array.isArray(f) ? { rect: f } : f;
-      const img = fo.src ? await getImg(fo.src) : atlas;
-      if (!img) continue;
+      if (!fo.src && !atlas) continue;
       const rect = fo.rect || null;
-      if (rect && (rect.length !== 4 || !rect.every(Number.isFinite) || rect[0] < 0 || rect[1] < 0 || rect[2] <= 0 || rect[3] <= 0 || rect[0] + rect[2] > img.width || rect[1] + rect[3] > img.height)) {
+      if (rect && (rect.length !== 4 || !rect.every(Number.isFinite) || rect[0] < 0 || rect[1] < 0 || rect[2] <= 0 || rect[3] <= 0 || rect[0] + rect[2] > atlas.width || rect[1] + rect[3] > atlas.height)) {
         console.warn('Invalid sprite rect', asset, name, rect); continue;
       }
       const anchor = fo.anchor || def.anchor || m.anchor;
       if (!anchor || anchor.length !== 2 || !anchor.every(Number.isFinite)) { console.warn('Invalid sprite anchor', asset, name); continue; }
-      frames.push({
-        img, rect, anchor, dur: Number.isFinite(fo.dur) && fo.dur > 0 ? fo.dur : null,
+      const fr = {
+        img: fo.src ? null : atlas, src: fo.src || null, k: fo.src ? k : 1, w: 0, h: 0, failed: false, loading: null,
+        rect, anchor, dur: Number.isFinite(fo.dur) && fo.dur > 0 ? fo.dur : null,
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,
         eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
         headAngle: fo.headAngle ?? def.headAngle ?? 0,
-      });
+      };
+      if (fr.src) fr.load = () => fr.loading || (fr.loading = getFrameImg(fr.src).then(({ img, k: fk }) => {
+        if (!img) { fr.failed = true; return; }
+        fr.k = fk; fr.img = img; fr.w = (img.naturalWidth || img.width) / fk; fr.h = (img.naturalHeight || img.height) / fk;
+      }));
+      frames.push(fr);
     }
     if (frames.length) {
       set.poses[name] = {
@@ -197,6 +234,7 @@ async function loadSpriteSet(asset) {
         facing: def.facing ?? m.facing ?? 0,
         bodyHeight: def.bodyHeight || m.bodyHeight,
       };
+      if (CORE_POSES.has(name)) eager.push(set.poses[name]);
     }
   }
   // Resolve chains independently of manifest order; cycles stay unresolved.
@@ -211,11 +249,26 @@ async function loadSpriteSet(asset) {
     if (next.length === pending.length) { console.warn('Unresolved sprite aliases', asset, next.map(([name]) => name)); break; }
     pending = next;
   }
+  await Promise.all(eager.map(loadPose));
   for (const [expr, file] of Object.entries(m.portraits || {})) {
-    const img = await getImg(file);
+    const img = (await getFrameImg(file)).img;
     if (img) set.portraits[expr] = img;
   }
   return set;
+}
+
+function loadPose(sp) { return Promise.all(sp.frames.map((f) => (f.load ? f.load() : null))); }
+const poseReady = (sp) => sp.frames.every((f) => f.img || f.failed) && !sp.frames.some((f) => f.failed);
+/**
+ * The pose to actually draw: `sp` once its frames are loaded, otherwise start
+ * loading it and use the set's idle frames (or null = base art) meanwhile.
+ */
+export function usablePose(set, sp) {
+  if (!sp) return null;
+  if (poseReady(sp)) return sp;
+  loadPose(sp);
+  const idle = set && set.poses.idle;
+  return idle && poseReady(idle) ? idle : null;
 }
 
 /** Preload base art and any generated sprite sets. */
@@ -238,6 +291,8 @@ export async function loadSprites(onProgress = () => {}) {
       const idx = await res.json();
       for (const a of idx.sets || []) indexedSets.add(a);
     }
+    const o = await fetch('assets/sprites-opt/index.json', { cache: 'no-cache' });
+    if (o.ok) optIndex = (await o.json()).sets || {};
   } catch (e) { /* no sprite index yet */ }
   tick();
 }
@@ -258,16 +313,29 @@ export function preloadCharacters(charIds) {
   return Promise.all(charIds.flatMap((id) => (charById(id)?.members || []).map((m) => ensureSpriteSet(m.asset))));
 }
 export const indexedSpriteSets = () => [...indexedSets];
+/**
+ * Drop loaded sets except these party entries' (call when the party changes).
+ * NPC sets reload on demand when a game shows them again.
+ */
+export function releaseSpriteSets(keepCharIds = []) {
+  const keep = new Set(keepCharIds.flatMap((id) => (charById(id)?.members || []).map((m) => m.asset)));
+  for (const a of [...setLoads.keys()]) if (!keep.has(a)) { setLoads.delete(a); spriteSets.delete(a); }
+  tintCache.clear();
+}
 
 export const getBaseImage = (asset) => baseImages.get(asset);
 export const getSpriteSet = (asset) => (forceFallback ? null : spriteSets.get(asset));
 export const loadedSpriteSets = () => [...spriteSets.keys()];
 
 // Tinted silhouettes for hit flashes and the sad blue wash.
-const tintCache = new WeakMap();
+// Bounded: each entry is a full-size canvas, so keep only the most recent.
+const TINT_MAX = 24;
+const tintCache = new Map();   // img -> Map(color -> canvas), insertion order = age
+let tintCount = 0;
 function tinted(img, color) {
   let byColor = tintCache.get(img);
-  if (!byColor) { byColor = new Map(); tintCache.set(img, byColor); }
+  if (byColor) { tintCache.delete(img); tintCache.set(img, byColor); } // mark recent
+  else { byColor = new Map(); tintCache.set(img, byColor); }
   let c = byColor.get(color);
   if (!c) {
     c = document.createElement('canvas');
@@ -276,7 +344,11 @@ function tinted(img, color) {
     x.drawImage(img, 0, 0);
     x.globalCompositeOperation = 'source-in';
     x.fillStyle = color; x.fillRect(0, 0, c.width, c.height);
-    byColor.set(color, c);
+    byColor.set(color, c); tintCount++;
+    while (tintCount > TINT_MAX && tintCache.size > 1) {
+      const [oldImg, oldMap] = tintCache.entries().next().value;
+      tintCount -= oldMap.size; tintCache.delete(oldImg);
+    }
   }
   return c;
 }
@@ -688,6 +760,7 @@ export class Actor {
     let t = this.poseTime + (m.i && (POSES[pose]?.loop ?? sp?.loop) ? m.phase : 0);
     if (this._once && pose === this._once.pose && sp) t = this.poseTime / this._once.duration * poseDuration(sp);
     if (sp && !sp.loop && !sp.holdLast && t >= poseDuration(sp)) sp = set.poses.idle || sp;
+    sp = usablePose(set, sp);
     return { set, sp, t };
   }
 
@@ -722,7 +795,9 @@ export class Actor {
     // Forward space: +x = facing direction. The art itself is mirrored only
     // when it was drawn looking left.
     const imgFlip = artFacing === -1 ? -1 : 1;
-    const sw = rect ? rect[2] : img.width, sh = rect ? rect[3] : img.height;
+    // Frames carry their original size (optimized copies are smaller images).
+    const fr0 = sp ? pickFrame(sp, t) : null;
+    const sw = rect ? rect[2] : fr0 ? fr0.w : img.width, sh = rect ? rect[3] : fr0 ? fr0.h : img.height;
     const atts = this.attachments.length ? this.attachments.filter((a) => a.member === m.i) : null;
 
     g.save();
