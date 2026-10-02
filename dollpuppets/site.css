@@ -308,13 +308,15 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: max(5vh, env(safe-area-inset-top)) 16px 0;
-  overflow: hidden;
+  justify-content: safe center;
+  gap: clamp(8px, 2vh, 18px);
+  padding: max(3vh, env(safe-area-inset-top)) 16px max(3vh, env(safe-area-inset-bottom));
+  overflow-x: hidden;
+  overflow-y: auto;
   background:
     radial-gradient(ellipse 70% 55% at 50% 30%, rgba(255, 248, 236, 0.55), transparent 70%),
     linear-gradient(180deg, rgba(118, 70, 190, 0.18), rgba(224, 79, 151, 0.28));
   text-align: center;
-  cursor: pointer;
 }
 
 .dolls-app:not([data-screen="title"]) .title-screen {
@@ -329,7 +331,8 @@ button {
 }
 
 .title-screen[data-logo-art="true"] .logo {
-  width: min(88vw, 760px);
+  flex: none;
+  width: min(84vw, 600px, 62vh);
   aspect-ratio: 1100 / 420;
   background: var(--logo-image) center / contain no-repeat;
 }
@@ -339,7 +342,7 @@ button {
 }
 
 .title-glow {
-  position: absolute;
+  position: fixed;
   top: -30vmax;
   left: 50%;
   width: 90vmax;
@@ -371,21 +374,21 @@ button {
 
 .logo-small {
   color: var(--gold);
-  font-size: clamp(40px, 9vmin, 84px);
+  font-size: clamp(32px, 7vmin, 64px);
   font-weight: 700;
   transform: rotate(-4deg);
 }
 
 .logo-big {
   color: var(--pink);
-  font-size: clamp(64px, 17vmin, 170px);
+  font-size: clamp(54px, 13vmin, 128px);
   font-weight: 700;
   letter-spacing: 0.01em;
 }
 
 .tagline {
   position: relative;
-  margin: 1.6vh 0 0;
+  margin: 0;
   padding: 6px 18px;
   border-radius: 999px;
   color: #fff;
@@ -394,79 +397,10 @@ button {
   font-weight: 600;
 }
 
-.title-screen {
-  --parade-size: clamp(120px, 24vmin, 260px);
-  --parade-sink: -28px;
-}
-
-.title-parade {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  width: max(100%, 900px);
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.parade-doll {
-  flex: none;
-  width: var(--parade-size);
-  aspect-ratio: 4 / 5;
-  /* The portraits are cut off at the waist: sink them below the screen edge
-     by more than the bob lift (10px) plus the rotation's corner lift, so the
-     cut edge never comes into view. */
-  margin: 0 calc(var(--parade-size) * -0.24) var(--parade-sink);
-  background-image: var(--portrait);
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-size: contain;
-  filter: drop-shadow(0 8px 10px rgba(43, 24, 56, 0.35));
-  transform-origin: 50% 100%;
-  animation: bob 2.4s ease-in-out infinite;
-  animation-delay: calc(var(--i) * -0.3s);
-}
-
-.parade-doll:nth-child(odd) {
-  margin-bottom: calc(var(--parade-sink) - 4vmin);
-}
-
-.parade-doll:nth-child(even) {
-  z-index: 1;
-}
-
-.start-button {
-  position: absolute;
-  left: 50%;
-  bottom: calc(var(--parade-size) * 1.1 + 5vh);
-  z-index: 2;
-  min-width: 260px;
-  min-height: 72px;
-  padding: 14px 40px;
-  border: 4px solid #fff;
-  border-radius: 999px;
-  color: #fff;
-  background: linear-gradient(180deg, #ff7fbd, var(--pink) 55%, var(--pink-deep));
-  box-shadow:
-    0 6px 0 #7a1c4e,
-    0 16px 34px rgba(122, 28, 78, 0.45);
-  font-size: clamp(24px, 4vmin, 34px);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  transform: translateX(-50%);
-  cursor: pointer;
-  animation: pulse 1.6s ease-in-out infinite;
-}
-
-.start-text {
-  text-shadow: 0 2px 0 rgba(122, 28, 78, 0.6);
-}
-
 .camera-note {
   position: relative;
-  max-width: min(460px, calc(100vw - 32px));
-  margin: 8px 0 0;
+  max-width: min(520px, calc(100vw - 32px));
+  margin: 0;
   padding: 3px 12px;
   border-radius: 999px;
   color: #fff;
@@ -476,75 +410,23 @@ button {
   text-shadow: 0 1px 3px rgba(43, 24, 56, 0.9);
 }
 
-/* ---------- Select screen ---------- */
+/* ---------- Doll picker (on the title screen) ---------- */
 
-.select-screen {
-  position: absolute;
-  inset: 0;
-  z-index: 6;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.dolls-app:not([data-screen="select"]) .select-screen {
-  display: none;
-}
-
-.select-banner {
-  align-self: center;
-  margin-top: max(14px, env(safe-area-inset-top));
-  padding: 8px 34px 10px;
-  border: 4px solid #fff;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #8a55cf, var(--purple));
-  box-shadow:
-    0 5px 0 #46226f,
-    var(--shadow);
-  animation: drop-in 420ms cubic-bezier(0.2, 1.4, 0.4, 1) both;
-}
-
-.select-banner h2 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(22px, 4vmin, 34px);
-  font-weight: 700;
-  text-shadow: 0 2px 0 #46226f;
-}
-
-/* The notices share the top centre; push them under the banner here. */
-.dolls-app[data-screen="select"] .notice-stack {
-  top: calc(max(14px, env(safe-area-inset-top)) + 76px);
-}
-
-.select-tray {
-  width: min(1100px, 100%);
-  margin: 0 auto;
-  padding: 14px 16px max(14px, env(safe-area-inset-bottom));
-  border: 3px solid #fff;
-  border-bottom: 0;
-  border-radius: 28px 28px 0 0;
-  background: var(--panel);
-  box-shadow: 0 -10px 40px rgba(43, 24, 56, 0.25);
-  pointer-events: auto;
-  animation: slide-up 420ms cubic-bezier(0.2, 1.1, 0.4, 1) both;
+.title-screen {
+  /* Cards wrap into rows of --cols; 10 dolls make two rows of five. */
+  --card: clamp(72px, min(10vw, 13vh), 132px);
+  --card-gap: clamp(8px, 1.4vw, 14px);
+  --cols: 5;
 }
 
 .character-list {
+  position: relative;
   display: flex;
-  gap: 10px;
-  padding: 12px 10px 10px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-}
-
-@media (min-width: 900px) {
-  .character-list {
-    justify-content: safe center;
-  }
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--card-gap);
+  max-width: calc(var(--cols) * (var(--card) + var(--card-gap)));
+  padding: 8px 4px;
 }
 
 .character-card {
@@ -552,7 +434,7 @@ button {
   flex: none;
   display: grid;
   grid-template-rows: auto auto;
-  width: 100px;
+  width: var(--card);
   padding: 0;
   border: 4px solid #fff;
   border-radius: 18px;
@@ -560,18 +442,22 @@ button {
   box-shadow: 0 4px 0 rgba(43, 24, 56, 0.25);
   cursor: pointer;
   overflow: hidden;
-  scroll-snap-align: center;
+  animation: card-in 420ms cubic-bezier(0.2, 1.3, 0.4, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 40ms);
   transition:
     transform 160ms ease,
     box-shadow 160ms ease,
     border-color 160ms ease;
 }
 
-.character-card:hover {
-  transform: translateY(-3px);
+.character-card:hover,
+.character-card:focus-visible {
+  transform: translateY(-4px) scale(1.04);
 }
 
-.character-card[aria-selected="true"] {
+/* Highlight the current doll only once one has been picked (or arrowed to),
+   so a first-time player isn't nudged toward the default. */
+.character-list[data-picked="true"] .character-card[aria-selected="true"] {
   border-color: var(--gold);
   box-shadow:
     0 0 0 3px var(--ink),
@@ -598,9 +484,9 @@ button {
 }
 
 .character-name {
-  padding: 4px 4px 6px;
+  padding: 4px 2px 6px;
   color: #fff;
-  font-size: 15px;
+  font-size: clamp(11px, calc(var(--card) * 0.155), 16px);
   font-weight: 700;
   line-height: 1.1;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
@@ -609,21 +495,22 @@ button {
   text-overflow: ellipsis;
 }
 
-.select-footer {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 6px;
-}
-
 .scene-picker {
-  min-width: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 6px 8px 6px 14px;
+  border: 3px solid #fff;
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
 }
 
 .scene-label {
-  display: block;
-  margin: 0 0 6px 4px;
+  flex: none;
+  margin: 0;
   color: var(--purple);
   font-size: 14px;
   font-weight: 700;
@@ -689,29 +576,6 @@ button {
   text-align: center;
 }
 
-.play-button {
-  flex: none;
-  min-width: 170px;
-  min-height: 64px;
-  padding: 10px 34px;
-  border: 4px solid #fff;
-  border-radius: 999px;
-  color: #fff;
-  background: linear-gradient(180deg, #ff7fbd, var(--pink) 55%, var(--pink-deep));
-  box-shadow:
-    0 5px 0 #7a1c4e,
-    0 12px 26px rgba(122, 28, 78, 0.4);
-  font-size: 30px;
-  font-weight: 700;
-  text-shadow: 0 2px 0 rgba(122, 28, 78, 0.6);
-  cursor: pointer;
-  transition: transform 120ms ease;
-}
-
-.play-button:active {
-  transform: translateY(3px);
-}
-
 .debug-tools {
   margin-top: 10px;
 }
@@ -740,23 +604,10 @@ button:focus-visible {
   }
 }
 
-@keyframes bob {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1.5deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(1.5deg);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: translateX(-50%) scale(1);
-  }
-  50% {
-    transform: translateX(-50%) scale(1.06);
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.9);
   }
 }
 
@@ -764,19 +615,6 @@ button:focus-visible {
   from {
     opacity: 0;
     transform: scale(0.6) translateY(-20px);
-  }
-}
-
-@keyframes drop-in {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
   }
 }
 
@@ -800,34 +638,28 @@ button:focus-visible {
     display: none;
   }
 
-  .select-tray {
-    padding: 8px 10px max(10px, env(safe-area-inset-bottom));
+  .title-screen {
+    --cols: 4;
+    --card: clamp(64px, 20vw, 96px);
   }
 
-  .character-card {
-    width: 78px;
+  .scene-label {
+    display: none;
   }
+}
 
-  .character-name {
-    font-size: 14px;
-  }
-
-  .select-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .play-button {
-    min-height: 56px;
-    font-size: 26px;
+@media (max-height: 640px) {
+  .camera-note {
+    display: none;
   }
 }
 
 @media (max-height: 520px) {
-  .character-card {
-    width: 70px;
+  .title-screen {
+    --cols: 10;
+    --card: clamp(56px, 7.6vw, 80px);
   }
+
 
   .tagline,
   .camera-note {

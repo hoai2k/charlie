@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" />
-    <link rel="stylesheet" href="./site.css?v=20261002d" />
+    <link rel="stylesheet" href="./site.css?v=20261002e" />
   </head>
   <body>
     <main class="dolls-app" data-screen="title" style="--background-image: url('./assets/backgrounds/farm.webp')">
@@ -42,45 +42,30 @@
         <button id="camera-retry" class="camera-retry" type="button" hidden>Try again</button>
       </div>
 
-      <!-- Title screen -->
+      <!-- Title screen: pick a doll and you're straight into the game -->
       <section id="title-screen" class="title-screen" aria-label="Doll Puppets">
         <div class="title-glow" aria-hidden="true"></div>
         <h1 class="logo" aria-label="Doll Puppets">
           <span class="logo-small">Doll</span>
           <span class="logo-big">Puppets</span>
         </h1>
-        <p class="tagline">Make a face — your doll makes it too!</p>
-        <div id="title-parade" class="title-parade" aria-hidden="true"></div>
-        <button id="title-start" class="start-button" type="button">
-          <span class="start-text">Tap to start</span>
-        </button>
-        <p class="camera-note">Doll Puppets uses your camera to copy your face. Nothing is recorded.</p>
-      </section>
+        <p class="tagline">Tap a doll to play!</p>
 
-      <!-- Character + scene select -->
-      <section id="select-screen" class="select-screen" aria-label="Choose your doll" hidden>
-        <header class="select-banner">
-          <h2>Choose your doll</h2>
-        </header>
+        <div id="character-list" class="character-list" role="listbox" aria-label="Dolls"></div>
 
-        <div class="select-tray">
-          <div id="character-list" class="character-list" role="listbox" aria-label="Dolls"></div>
+        <div class="scene-picker">
+          <span class="scene-label">Scene</span>
+          <div id="background-list" class="background-list" role="listbox" aria-label="Scenes"></div>
+        </div>
 
-          <div class="select-footer">
-            <div class="scene-picker">
-              <span class="scene-label">Scene</span>
-              <div id="background-list" class="background-list" role="listbox" aria-label="Scenes"></div>
-            </div>
-            <button id="select-play" class="play-button" type="button">Play!</button>
-          </div>
+        <p class="camera-note">Your doll copies your face using the camera. Nothing is recorded.</p>
 
-          <div id="debug-tools" class="debug-tools" hidden>
-            <button id="download-debug" class="debug-button" type="button">Download Debug Capture</button>
-          </div>
+        <div id="debug-tools" class="debug-tools" hidden>
+          <button id="download-debug" class="debug-button" type="button">Download Debug Capture</button>
         </div>
       </section>
     </main>
 
-    <script type="module" src="./site.js?v=20261002d"></script>
+    <script type="module" src="./site.js?v=20261002e"></script>
   </body>
 </html>
