@@ -1,7 +1,7 @@
 // Focused regression tests for frame timing and the legacy Actor API.
 import assert from 'node:assert/strict';
 globalThis.location = { search: '' };
-const { Actor, pickFrame, poseDuration, resolvePose, loadSprites, getSpriteSet } = await import('../../src/engine/sprites.js');
+const { Actor, pickFrame, poseDuration, resolvePose, loadSprites, getSpriteSet, ensureSpriteSet } = await import('../../src/engine/sprites.js');
 const frames = [{ id: 'a', dur: .1 }, { id: 'b', dur: .2 }, { id: 'c' }];
 const pose = { frames, fps: 10, loop: true };
 assert.equal(poseDuration(pose), .4);
@@ -29,6 +29,8 @@ const manifest = { bodyHeight: 100, anchor: [50, 120], facing: 1, poses: {
 } };
 globalThis.fetch = async (url) => ({ ok: true, json: async () => url.endsWith('index.json') ? { sets: ['felicity'] } : manifest });
 await loadSprites();
+assert.equal(getSpriteSet('felicity'), undefined); // sets load on demand
+await ensureSpriteSet('felicity');
 const set = getSpriteSet('felicity');
 assert.equal(set.poses.run.frames, set.poses.walk.frames);
 assert.equal(set.poses.run.fps, 12);
