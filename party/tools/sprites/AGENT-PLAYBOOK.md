@@ -205,3 +205,7 @@ The optimizer now locks and re-reads its shared index only after encoding each
 character, so simultaneous character jobs preserve each other's fingerprints.
 When merging independently encoded optimized copies, retain the reviewed full
 source and rebuild its optimized derivatives; preserve unrelated originals.
+
+`build.py` decodes each source sheet once per build, copies pixels before alpha
+cleanup, and releases the source cache before encoding. This avoids repeated
+external-volume reads during annotation iterations without changing artwork.

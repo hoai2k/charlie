@@ -13,8 +13,16 @@ from PIL import Image, ImageChops, ImageDraw
 POINTS = ('head', 'hand', 'eyes', 'neck', 'back')
 
 
-def read_image(spec, base):
-    image = Image.open(base / spec['source']).convert('RGBA')
+def read_image(spec, base, sources=None):
+    path = (base / spec['source']).resolve()
+    if sources is None:
+        image = Image.open(path).convert('RGBA')
+    else:
+        if path not in sources:
+            with Image.open(path) as source:
+                sources[path] = source.convert('RGBA')
+        # Alpha cleanup must never alter the cached full sheet.
+        image = sources[path].copy()
     if 'rect' in spec:
         x, y, w, h = spec['rect']
         if min(x, y) < 0 or min(w, h) <= 0 or x + w > image.width or y + h > image.height:
@@ -69,17 +77,19 @@ def build(spec, base, output):
     output.mkdir(parents=True, exist_ok=True)
     quality = int(spec.get('quality', 86))
     prepared = {}
+    sources = {}
     for pose, definition in spec['poses'].items():
         if isinstance(definition, str) or 'alias' in definition:
             continue
         items = []
         for frame in definition['frames']:
             item = {**spec.get('sourceDefaults', {}), **definition.get('sourceDefaults', {}), **frame}
-            image, bbox = read_image(item, base)
+            image, bbox = read_image(item, base, sources)
             items.append((item, image, bbox))
         if not items:
             raise ValueError(f'{pose} has no frames')
         prepared[pose] = items
+    sources.clear()
     if 'idle' not in prepared:
         raise ValueError('A real idle frame is required to establish the shared scale')
     idle_bbox = prepared['idle'][0][2]
