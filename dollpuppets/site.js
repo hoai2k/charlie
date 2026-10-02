@@ -162,15 +162,42 @@ function cameraErrorMessage(error) {
       return "The camera only works when this page is opened with https://.";
     case "NotAllowedError":
     case "SecurityError":
-      return "Camera access is turned off. Allow the camera for this page, then tap Try again.";
+      return `The camera is blocked for this page. ${cameraUnblockHint()} Then tap Try again.`;
     case "NotFoundError":
-    case "OverconstrainedError":
       return "No camera was found. Connect one, then tap Try again.";
     case "NotReadableError":
     case "AbortError":
-      return "The camera is busy in another app. Close that app, then tap Try again.";
+    case "OverconstrainedError":
+      return "The camera is busy. Close other apps or tabs using it (video calls, other games), then tap Try again.";
     default:
-      return "The camera couldn't start. Tap Try again.";
+      return `The camera couldn't start (${error?.name || "unknown error"}). Tap Try again.`;
+  }
+}
+
+// Where each browser keeps the per-site camera switch.
+function cameraUnblockHint() {
+  const ua = navigator.userAgent;
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) {
+    return "Tap \"aA\" in the address bar, then Website Settings, and set Camera to Allow.";
+  }
+  if (/Firefox\//.test(ua)) {
+    return "Click the crossed-out camera in the address bar and remove the block.";
+  }
+  if (/Safari\//.test(ua) && !/Chrome|Chromium|Edg\//.test(ua)) {
+    return "Open Safari > Settings for This Website and set Camera to Allow.";
+  }
+  return "Click the camera or settings icon at the left of the address bar and choose Allow.";
+}
+
+// Ask the browser up front: a blocked camera fails instantly, and a prompt
+// that is about to appear deserves a "please tap Allow" message.
+async function cameraPermissionState() {
+  try {
+    const result = await navigator.permissions?.query({ name: "camera" });
+    return result?.state ?? "unknown";
+  } catch {
+    // Firefox (older) and Safari (older) can't query "camera".
+    return "unknown";
   }
 }
 
@@ -290,6 +317,53 @@ function shouldUpdateStatus(now) {
   return true;
 }
 
+let frameCanvas = null;
+let resizeOptionsWork = true;
+
+// createImageBitmap's resize options aren't supported everywhere (older
+// Safari rejects them); fall back to scaling through a canvas.
+async function grabTrackingFrame(width, height) {
+  if (resizeOptionsWork) {
+    try {
+      return await createImageBitmap(video, { resizeWidth: width, resizeHeight: height, resizeQuality: "low" });
+    } catch (error) {
+      console.warn("createImageBitmap resize failed; using a canvas instead", error);
+      resizeOptionsWork = false;
+    }
+  }
+  frameCanvas = frameCanvas ?? document.createElement("canvas");
+  frameCanvas.width = width;
+  frameCanvas.height = height;
+  frameCanvas.getContext("2d").drawImage(video, 0, 0, width, height);
+  return createImageBitmap(frameCanvas);
+}
+
+// If the camera is "on" but no tracked frame comes back for a while (frozen
+// stream, a driver that never delivers frames), say so and reopen it once.
+const NO_FRAMES_WARNING_MS = 6000;
+const NO_FRAMES_RESTART_MS = 12000;
+let lastTrackingResultAt = 0;
+let cameraLiveSince = 0;
+let watchdogRestarted = false;
+
+function checkCameraWatchdog(now) {
+  if (!usingCamera || paused || cameraStarting || !cameraLiveSince) {
+    return;
+  }
+  const quietFor = now - Math.max(lastTrackingResultAt, cameraLiveSince);
+  if (quietFor > NO_FRAMES_RESTART_MS && !watchdogRestarted) {
+    watchdogRestarted = true;
+    cameraLiveSince = now;
+    setStatus("Reconnecting the camera…");
+    void resumeCamera();
+  } else if (quietFor > NO_FRAMES_RESTART_MS * 2) {
+    cameraLiveSince = 0;
+    showCameraProblem("The camera isn't sending a picture. Check that it's plugged in and not covered, then tap Try again.");
+  } else if (quietFor > NO_FRAMES_WARNING_MS && shouldUpdateStatus(now)) {
+    setStatus("Waiting for the camera picture…");
+  }
+}
+
 function scheduleTracking(now) {
   if (!usingCamera || !tracker || trackingInFlight) {
     return;
@@ -315,7 +389,7 @@ function scheduleTracking(now) {
   const resizeHeight = aspect >= 1 ? Math.round(longSide / aspect) : longSide;
   const activeTracker = tracker;
 
-  createImageBitmap(video, { resizeWidth, resizeHeight, resizeQuality: "low" })
+  grabTrackingFrame(resizeWidth, resizeHeight)
     .then((image) => activeTracker.estimate(image, now, trackingMode))
     .then((result) => {
       consecutiveTrackingFailures = 0;
@@ -324,6 +398,7 @@ function scheduleTracking(now) {
         return;
       }
 
+      lastTrackingResultAt = performance.now();
       lastState = createPuppetState(result, { aspect });
       stabilizer.update(lastState, performance.now());
       if (shouldUpdateStatus(now)) {
@@ -360,6 +435,7 @@ function frame(now) {
 
   if (usingCamera) {
     scheduleTracking(now);
+    checkCameraWatchdog(now);
   } else {
     lastState = createDemoPuppetState(now);
   }
@@ -392,6 +468,7 @@ async function resumeCamera() {
   try {
     await camera.start();
     lastTrackingAt = 0;
+    cameraLiveSince = performance.now();
     setStatus("");
   } catch (error) {
     if (error.cancelled) {
@@ -479,6 +556,11 @@ async function startCameraAndTracking() {
   }
   camera = camera ?? createCamera(video, { onEnded: handleCameraEnded });
 
+  const permission = await cameraPermissionState();
+  // Only "prompt" means a browser question is about to appear; with "granted"
+  // the camera just opens, and "unknown" browsers may not ask at all.
+  setStatus(permission === "prompt" ? "Tap Allow so your doll can see you!" : "Turning on the camera…");
+
   try {
     await camera.start();
   } catch (error) {
@@ -507,6 +589,8 @@ async function startCameraAndTracking() {
   }
 
   usingCamera = true;
+  cameraLiveSince = performance.now();
+  watchdogRestarted = false;
   stabilizer.reset();
   if (paused) {
     // Paused while starting up: keep the camera off until Resume.

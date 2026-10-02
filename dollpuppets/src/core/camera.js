@@ -28,15 +28,7 @@ export function createCamera(video, { onEnded } = {}) {
       // Never leave an earlier stream running (and the camera light on).
       stop();
       const startToken = token;
-      const nextStream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-          facingMode: "user",
-          width: { ideal: 640 },
-          height: { ideal: 480 },
-          frameRate: { ideal: 24, max: 30 }
-        }
-      });
+      const nextStream = await openStream();
 
       if (startToken !== token) {
         nextStream.getTracks().forEach((track) => track.stop());
@@ -70,6 +62,37 @@ export function createCamera(video, { onEnded } = {}) {
 
     stop
   };
+}
+
+// Preferred settings first, then simpler ones: some webcams (and Firefox or
+// Safari with some cameras) reject the size or frame-rate request, and some
+// Windows drivers report "busy" for a mode they can't do but open fine with
+// their defaults. Permission and missing-camera errors are final.
+const CONSTRAINT_LADDER = [
+  {
+    facingMode: "user",
+    width: { ideal: 640 },
+    height: { ideal: 480 },
+    frameRate: { ideal: 24, max: 30 }
+  },
+  { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } },
+  true
+];
+const RETRYABLE_ERRORS = new Set(["OverconstrainedError", "ConstraintNotSatisfiedError", "NotReadableError", "AbortError", "TypeError"]);
+
+async function openStream() {
+  let lastError = null;
+  for (const video of CONSTRAINT_LADDER) {
+    try {
+      return await navigator.mediaDevices.getUserMedia({ audio: false, video });
+    } catch (error) {
+      lastError = error;
+      if (!RETRYABLE_ERRORS.has(error?.name)) {
+        throw error;
+      }
+    }
+  }
+  throw lastError;
 }
 
 function cancelledError() {

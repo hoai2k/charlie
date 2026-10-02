@@ -636,8 +636,9 @@ button:focus-visible {
 #lbTitleSky { inset: 0; background: url(assets/ui/title_sky.webp) center / cover; }
 #lbTitleClouds { left: 0; right: 0; top: 10px; height: 230px; opacity: 0.95; background: url(assets/ui/title_clouds.webp) 0 0 / auto 230px repeat-x; }
 #lbTitleHills { left: 0; right: 0; bottom: 0; height: 330px; background: url(assets/ui/title_hills.webp) 0 0 / auto 330px repeat-x; }
-#lbTitleHero { left: 160px; bottom: 96px; width: 960px; height: 384px; background: url(assets/ui/title_hero.webp) center / contain no-repeat; filter: drop-shadow(0 14px 10px rgba(40, 60, 20, 0.35)); }
-#lbTitleHero.layered { background-image: none; }
+#lbTitleHero { left: 160px; bottom: 96px; width: 960px; height: 384px; background: center / contain no-repeat; filter: drop-shadow(0 14px 10px rgba(40, 60, 20, 0.35)); }
+/* The single-picture group is only a fallback for when the separate layers can't load. */
+#lbTitleHero.fallback { background-image: url(assets/ui/title_hero.webp); }
 .lb-title-racer { position: absolute; display: block; pointer-events: none; will-change: transform; }
 @media (prefers-reduced-motion: reduce) {
   #lbTitleLogo, #lbPressStart { animation: none !important; }

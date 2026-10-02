@@ -104,37 +104,48 @@
   const titleHero = $("#lbTitleHero");
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let titleLayers = [];
-  let titleLayerStart = 0;
+  let titleFallbackStart = null;
 
   async function loadTitleHero() {
     try {
-      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002h", document.baseURI);
+      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002j", document.baseURI);
       const response = await fetch(layoutUrl);
       if (!response.ok) throw new Error(`Title layout: ${response.status}`);
       const layout = await response.json();
-      const layers = await Promise.all(layout.layers.map(async layer => {
+      const layers = layout.layers.map(layer => {
         const image = new Image();
         image.className = "lb-title-racer";
         image.alt = "";
         image.draggable = false;
+        image.style.visibility = "hidden";
         image.src = new URL(layer.file, layoutUrl).href;
-        await image.decode();
         image.style.left = `${layer.x / layout.canvas.width * 100}%`;
         image.style.top = `${layer.y / layout.canvas.height * 100}%`;
         image.style.width = `${layer.width / layout.canvas.width * 100}%`;
         image.style.height = `${layer.height / layout.canvas.height * 100}%`;
         image.style.zIndex = layer.z;
-        return { ...layer, image, canvasWidth: layout.canvas.width };
-      }));
-      titleLayerStart = lobby.time;
+        return { ...layer, image, canvasWidth: layout.canvas.width, startAt: null };
+      });
       titleLayers = layers;
-      animateTitleHero(0);
       titleHero.replaceChildren(...layers.map(layer => layer.image));
       titleHero.classList.add("layered");
       titleHero.style.transform = "";
+      // The runners show as soon as they're ready; the riders start their
+      // gallop together once all three have loaded.
+      const group = runner => layers.filter(layer => (layer.role === "runner") === runner);
+      await Promise.all([true, false].map(async runner => {
+        const members = group(runner);
+        await Promise.all(members.map(layer => layer.image.decode()));
+        for (const layer of members) layer.startAt = lobby.time;
+      }));
     } catch (error) {
-      // Leave the original composite in place if any layer cannot load.
+      // Show the original single-picture group only if a layer can't load, so
+      // the group never makes its entrance twice.
       console.warn("Using the original title artwork", error);
+      titleLayers = [];
+      titleHero.replaceChildren();
+      titleFallbackStart = lobby.time;
+      titleHero.classList.add("fallback");
     }
   }
 
@@ -156,13 +167,19 @@
     return { lift: 0.5 - 0.5 * Math.cos(TAU * u), tilt: -0.8 * Math.sin(TAU * u) };
   }
 
-  function animateTitleHero(t) {
+  function animateTitleHero(now) {
     for (const layer of titleLayers) {
-      const localMs = t * 1000 - layer.enterDelayMs;
-      const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, localMs / 950));
-      const ease = 1 - (1 - progress) ** 3;
-      // Phase uses the shared clock, so the entrance delay doesn't shift the rhythm.
-      const cycle = t * 1000 / layer.bobPeriodMs + (layer.phaseRadians || 0) / (Math.PI * 2);
+      if (layer.startAt === null) continue;
+      // Runners are already on the field (they just fade in); the riders
+      // gallop in from the left to join them.
+      const runner = layer.role === "runner";
+      const localMs = (now - layer.startAt) * 1000 - (runner ? 0 : layer.enterDelayMs);
+      const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, localMs / (runner ? 350 : 1500)));
+      const ease = runner ? 1 : 1 - (1 - progress) ** 3;
+      layer.image.style.opacity = runner ? String(progress) : "";
+      // The bob runs on the shared clock, so load timing never changes how the
+      // layers line up with each other.
+      const cycle = now * 1000 / layer.bobPeriodMs + (layer.phaseRadians || 0) / (Math.PI * 2);
       const { lift, tilt } = reducedMotion.matches ? { lift: 0, tilt: 0 } : titleBob(layer.bobWave, cycle - Math.floor(cycle));
       const bob = -lift * layer.bobAmplitude;
       const angle = tilt * (layer.tiltDegrees || 0);
@@ -172,6 +189,7 @@
       layer.image.style.transform = `translate(${-(1 - ease) * layer.canvasWidth / layer.width * 100}%, ${bob / layer.height * 100}%) rotate(${angle.toFixed(3)}deg)`;
     }
   }
+
 
   // ---------- roster grid ----------
   const rows = () => [lobby.roster.slice(0, COLS).map((_, i) => i), lobby.roster.slice(COLS).map((_, i) => i + COLS)];
@@ -693,9 +711,10 @@
       const t = reducedMotion.matches ? 0 : lobby.time;
       $("#lbTitleClouds").style.backgroundPositionX = `${-t * 18}px`;
       $("#lbTitleHills").style.backgroundPositionX = `${-t * 70}px`;
-      if (titleLayers.length) animateTitleHero(lobby.time - titleLayerStart);
-      else {
-        const ease = reducedMotion.matches ? 1 : 1 - Math.pow(1 - Math.min(1, t / 1.4), 3);
+      if (titleLayers.length) animateTitleHero(lobby.time);
+      else if (titleFallbackStart !== null) {
+        const since = lobby.time - titleFallbackStart;
+        const ease = reducedMotion.matches ? 1 : 1 - Math.pow(1 - Math.min(1, since / 1.4), 3);
         titleHero.style.transform = `translateX(${(1 - ease) * -900}px)`;
       }
     } else if (!lobby.settingsOpen) {
