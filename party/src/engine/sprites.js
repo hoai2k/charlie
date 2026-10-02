@@ -97,6 +97,39 @@ export const POSES = {
   dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
   catch:     { loop: false, fallback: ['carry', 'action'], proc: 'catch', desc: 'Receive a present or pickup with a soft recoil.' },
   'wave-goodbye': { loop: false, fallback: ['wave'], proc: 'wave', desc: 'Warm farewell while turning to leave.' },
+  // Round-2 wish poses requested by the minigames (image-requests.md). Games
+  // ask for these names directly; until a character has frames for one, the
+  // fallback chain picks the closest pose that character does have.
+  swim:        { loop: true,  fallback: ['walk'], proc: 'swim', desc: 'Treading water, head and shoulders up, paddling.' },
+  balance:     { loop: true,  fallback: ['surprised', 'crouch'], proc: 'balance', desc: 'Arms-out wobble on something unsteady.' },
+  'splat-throw': { loop: false, fallback: ['throw'], proc: 'action', desc: 'Underhand lob of a paint balloon.' },
+  'wand-up':   { loop: true,  fallback: ['ready', 'cast'], proc: 'wand-up', desc: 'Wand held high, trembling with anticipation.' },
+  'broom-rise':  { loop: true, fallback: ['ride'], proc: 'ride', desc: 'On a broom, leaning forward, hair streaming.' },
+  'broom-glide': { loop: true, fallback: ['ride'], proc: 'ride', desc: 'On a broom, upright and relaxed.' },
+  'broom-zapped': { loop: false, fallback: ['hurt'], proc: 'hurt', desc: 'Frizzy hair, startled, tipped on the broom.' },
+  count:       { loop: true,  fallback: ['think'], proc: 'talk', desc: 'Pointing a finger and counting along.' },
+  'look-up':   { loop: true,  fallback: ['look-around', 'think'], proc: 'look-around', desc: 'Head tilted back watching the sky.' },
+  crowned:     { loop: true,  fallback: ['walk'], proc: 'walk', desc: 'Proud royal strut, chin up (crown attached by code).' },
+  sit:         { loop: true,  fallback: ['crouch', 'idle'], proc: 'crouch', desc: 'Sitting, legs dangling.' },
+  tumble:      { loop: false, fallback: ['fall'], proc: 'fall', desc: 'Tumbling off an edge.' },
+  'hold-present': { loop: true, fallback: ['carry'], proc: 'carry', desc: 'Box held overhead, nervous.' },
+  toss:        { loop: false, fallback: ['throw'], proc: 'action', desc: 'Two-handed underhand toss.' },
+  'catch-present': { loop: false, fallback: ['catch', 'surprised'], proc: 'catch', desc: 'Startled catch.' },
+  sooty:       { loop: true,  fallback: ['dizzy'], auto: 'dizzy', proc: 'dizzy', desc: 'Dizzy with a soot-smudged face.' },
+  drink:       { loop: false, fallback: ['eat'], proc: 'eat', desc: 'Sipping from a potion bottle.' },
+  float:       { loop: true,  fallback: ['celebrate'], proc: 'float', desc: 'Arms out, drifting.' },
+  hiccup:      { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'A jolt with puffed cheeks.' },
+  giggle:      { loop: true,  fallback: ['laugh', 'cheer'], proc: 'clap', desc: 'Hand over mouth, laughing.' },
+  'stomp-giant': { loop: true, fallback: ['ready', 'cheer'], proc: 'strike', desc: 'Proud wide stance.' },
+  'squeak-tiny': { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'Surprised little hop.' },
+  flip:        { loop: false, fallback: ['action'], proc: 'action', desc: 'Reaching out to flip a card.' },
+  blow:        { loop: false, fallback: ['action'], proc: 'action', desc: 'Cheeks puffed, blowing out candles.' },
+  'shake-sprinkles': { loop: true, fallback: ['paint'], proc: 'paint', desc: 'Shaking a sprinkle jar.' },
+  'pose-twirl': { loop: false, fallback: ['strike3', 'ready'], proc: 'ready', desc: 'Runway dress twirl.' },
+  photo:       { loop: true,  fallback: ['strike2', 'cheer'], proc: 'strike', desc: 'Peace sign facing the camera.' },
+  sing:        { loop: true,  fallback: ['dance'], proc: 'dance', desc: 'Holding a mic and singing.' },
+  water:       { loop: false, fallback: ['action'], proc: 'action', desc: 'Tilting a watering can.' },
+  'catch-toy': { loop: false, fallback: ['jump', 'catch'], proc: 'cheer', desc: 'Leap to catch a toy.' },
 };
 export const POSE_NAMES = Object.keys(POSES);
 
@@ -341,6 +374,10 @@ function procedural(pose, t, style, speed, allowTwirl = true) {
     case 'look-around': o.rot = Math.sin(t * 1.8) * .06; o.dx = Math.sin(t * .9) * 3; break;
     case 'high-five': { const k = Math.sin(Math.min(1, t / .45) * Math.PI); o.dx = 9 * k; o.lift += 5 * k; o.rot = .06 * k; break; }
     case 'crouch': o.sy = .96 + breathe * .012; o.sx = 1.035; break;
+    case 'swim': o.lift = Math.sin(t * 3.2) * 4 - 6; o.rot = Math.sin(t * 2.4) * 0.06; break;
+    case 'balance': o.rot = Math.sin(t * 7) * 0.12; o.dx = Math.sin(t * 7) * 3; break;
+    case 'wand-up': o.sy = 1.03 + Math.sin(t * 30) * 0.006; o.dx = Math.sin(t * 40) * 0.8; break;
+    case 'float': o.lift += 18 + Math.sin(t * 2) * 8; o.rot = Math.sin(t * 1.6) * 0.08; break;
     case 'dash': { const k = Math.sin(Math.min(1, t / .3) * Math.PI); o.rot = .12 * k; o.sx = 1 + .08 * k; o.sy = 1 - .04 * k; break; }
     case 'catch': { const k = Math.sin(Math.min(1, t / .35) * Math.PI); o.dx = -7 * k; o.sy = 1 - .07 * k; o.rot = -.06 * k; break; }
     default: break;

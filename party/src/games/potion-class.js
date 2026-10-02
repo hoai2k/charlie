@@ -420,7 +420,7 @@ export class Game {
     const id = INGREDIENTS[st.sel].id;
     st.flying.push({ id, t: 0, dur: 0.48, fx: SHELF_X(st.sel), fy: SHELF_Y, spin: rand(-8, 8) });
     st.cool = 0.12;
-    st.actor.playOnce('throw', 0.35, 'idle');
+    st.actor.playOnce('toss', 0.35, 'idle');
     sfx('whoosh');
   }
 

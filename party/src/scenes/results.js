@@ -216,7 +216,7 @@ export class ResultsScene {
     // Session tally.
     const totals = session.players.map((p, i) => this.baseStars[i] + this.starsGiven[i]);
     ui.scoreboard(g, session.players, totals, { y: 24, format: (v) => `★ ${v}` });
-    if (this.t > this.revealAt + 1.5) {
+    if (this.t > this.revealAt + 2.1) { // after the winner punch-in settles
       const list = [['a', session.partyMode ? 'Next game' : 'Continue'], ['y', 'Play again']];
       ui.hints(g, list, W / 2, 1048, { size: 30 });
     }

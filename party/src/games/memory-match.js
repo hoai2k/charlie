@@ -245,7 +245,7 @@ export class Game {
     this.picks.push(card);
     sfx('flip'); setTimeout(() => sfx('sparkle'), 120);
     particles.burst(card.x, card.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ffe066', card.face.color] });
-    this.cur.actor.playOnce('action', 0.3, 'think');
+    this.cur.actor.playOnce('flip', 0.3, 'think');
     this.remember(card);
     // "That's me!" — the pictured character waves from the sidelines.
     const me = this.seats.find((o) => o.p.charId === card.face.charId && card.face.key === o.p.charId);

@@ -450,7 +450,7 @@ export class Game {
         if (d < bd) { bd = d; best = f; }
       }
       if (best) { this.catchFirefly(m, best); return; }
-      if (this.phase === 'night') { a.playOnce('action', 0.3); sfx('whoosh'); particles.burst(cx + a.facing * 40, cy, { type: 'sparkle', count: 3 }); return; }
+      if (this.phase === 'night') { a.playOnce('catch', 0.3); sfx('whoosh'); particles.burst(cx + a.facing * 40, cy, { type: 'sparkle', count: 3 }); return; }
     }
     const pl = m.target;
     if (!pl) { a.playOnce('action', 0.25); sfx('blip'); return; }
@@ -473,7 +473,7 @@ export class Game {
 
   water(m, pl) {
     m.canT = 0.7;
-    m.a.playOnce('action', 0.6);
+    m.a.playOnce('water', 0.6);
     const before = pl.water;
     pl.water = Math.min(1, pl.water + 0.65);
     m.watered++;
@@ -496,7 +496,7 @@ export class Game {
   sing(m) {
     m.singCD = 1.4; m.sung++;
     const a = m.a;
-    a.playOnce('dance', 1.0);
+    a.playOnce('sing', 1.0);
     const base = pick([60, 62, 64, 67, 69]);
     [0, 4, 7].forEach((d, i) => setTimeout(() => sfx('note', { midi: base + 12 + d + (i === 2 && chance(0.5) ? 2 : 0), dur: 0.25, vol: 0.14, force: true }), i * 150));
     const hx = a.x, hy = a.y - a.height;

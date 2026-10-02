@@ -18,9 +18,9 @@ const ROUNDS = 3;
 const GUESS_TIME = 10;
 const MAX_NUM = 15;
 
-// Poses. WISH list (see report): 'count' (pointing a finger and counting along),
-// 'look-up' (head tilted back watching the sky). Until they exist: idle/think.
-const POSE = { watch: 'idle', pick: 'idle', locked: 'ready', exact: 'celebrate', close: 'cheer', miss: 'pout' };
+// Poses: 'look-up' while fairies fly, 'count' while picking (engine falls
+// back to look-around/think for characters without those frames).
+const POSE = { watch: 'look-up', pick: 'count', locked: 'ready', exact: 'celebrate', close: 'cheer', miss: 'pout' };
 
 const FAIRY_COLORS = [
   { id: 'pink', name: 'PINK', c: '#ff6fb1', hair: '#d93d86', glow: '#ff9ad0' },
@@ -236,6 +236,7 @@ export class Game {
 
   startGuess() {
     this.setPhase('guess');
+    for (const a of this.actors) a.setPose(POSE.pick);
     this.players.forEach((p, i) => {
       if (!p.isAI) { this.ai[i] = null; return; }
       const prof = aiProfile(p), lvl = clamp(p.aiLevel ?? 0, 0, 2);
@@ -282,7 +283,7 @@ export class Game {
     for (const f of this.fireflies) { f.x += Math.sin(this.t * 0.5 + f.ph) * 12 * dt; f.y += Math.cos(this.t * 0.4 + f.ph * 2) * 10 * dt; }
     switch (this.phase) {
       case 'intro': if (this.pt > 1.5) this.setPhase('ask'); break;
-      case 'ask': if (this.pt > 2.9) { this.setPhase('watch'); sfx('magic', { vol: 0.5 }); } break;
+      case 'ask': if (this.pt > 2.9) { this.setPhase('watch'); sfx('magic', { vol: 0.5 }); for (const a of this.actors) a.setPose('look-up'); } break;
       case 'watch': this.updateFairies(dt); if (this.pt > this.watchLen) this.startGuess(); break;
       case 'guess': this.updateGuess(dt); break;
       case 'reveal': this.updateReveal(dt); break;

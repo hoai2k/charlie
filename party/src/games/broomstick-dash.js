@@ -21,9 +21,9 @@ const NAVY = '#24163f';
 // Poses. New poses we would love (see report); until they exist we map to the
 // nearest current pose and add emotes/particles.
 const POSE = {
-  rise: 'ride',    // WISH: 'broom-rise'  (leaning forward, hair streaming, gripping the broom)
-  glide: 'ride',   // WISH: 'broom-glide' (sitting upright, relaxed, one hand waving)
-  zapped: 'hurt',  // WISH: 'broom-zapped' (frizzy hair, startled, tipped on the broom)
+  rise: 'broom-rise',    // falls back to ride  (leaning forward, hair streaming, gripping the broom)
+  glide: 'broom-glide',  // falls back to ride (sitting upright, relaxed, one hand waving)
+  zapped: 'broom-zapped', // falls back to hurt (frizzy hair, startled, tipped on the broom)
   win: 'celebrate',
 };
 

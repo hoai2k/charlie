@@ -480,7 +480,7 @@ export class Game {
         if (c.pressed('x')) this.xAction(st);
         const kind = DECOS[st.decoSel].id;
         a.facing = 1;
-        if (c.held('a') && kind === 'sprinkles') { if (a.pose !== 'paint' && !a._once) a.setPose('paint'); } else if (a.pose === 'paint') a.setPose('idle');
+        if (c.held('a') && kind === 'sprinkles') { if (a.pose !== 'shake-sprinkles' && !a._once) a.setPose('shake-sprinkles'); } else if (a.pose === 'shake-sprinkles') a.setPose('idle');
         continue;
       }
       if (tab === 'done') {
@@ -579,7 +579,7 @@ export class Game {
   puff(st) {
     const a = st.actor, k = st.L.k, s = st.L.stand;
     st.blow++;
-    a.playOnce('action', 0.25, 'idle');
+    a.playOnce('blow', 0.25, 'idle');
     const mouth = a.anchor('head');
     const my = mouth.y + a.height * 0.2;
     sfx('whoosh');

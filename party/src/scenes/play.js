@@ -82,8 +82,8 @@ export class PlayScene {
   }
 
   update(dt, inputOpen) {
-    this.t += dt;
     if (this.paused) { this.updatePause(); return; }
+    this.t += dt; // after the pause check so a pause during 3-2-1 doesn't skip the countdown
     if (this.usesCamera) { this.camera.update(dt); this.camera.tickPunch(dt); }
     if (inputOpen && this.state !== 'finish' && this.state !== 'error') {
       const pauser = input.humans().find((c) => c.pressed('start'));

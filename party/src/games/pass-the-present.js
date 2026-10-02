@@ -599,7 +599,7 @@ export class Game {
     if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) ui.text(g, 'Aim with the stick, press A to toss!', W / 2, 1010, { size: 40, color: '#ffffff' });
     if (this.ends && this.ends.winner) {
       const nm = (charById(this.ends.winner.p.charId) || {}).name || this.ends.winner.p.tag;
-      ui.banner(g, `${nm} wins!`, this.ends.t, { y: 300, size: 110, color: '#ffd23f' });
+      ui.banner(g, `${nm} ${(charById(this.ends.winner.p.charId) || {}).plural ? 'win' : 'wins'}!`, this.ends.t, { y: 300, size: 110, color: '#ffd23f' });
     }
     // red vignette as the fuse runs low
     if (P.heat > 0.3 && (P.state === 'held' || P.state === 'flying')) {

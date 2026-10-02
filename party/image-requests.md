@@ -1224,6 +1224,16 @@ Felicity is the first authored reference set; other members remain compatible
 through fallbacks until their own frames are generated.
 ### Round 2 — compiled by the lead from the minigame agents (2026-10-02)
 
+> **Status (lead):** every round-2 pose below is now registered in `POSES`
+> (`src/engine/sprites.js`) with a fallback chain, and the games request
+> these names directly. Adding frames for a pose to a character's sprite set
+> upgrades every game that uses it, with no code change. Felicity +
+> Fellowfox were verified in all 20 games: attachments (wand, crown,
+> fashion items) track her `head`/`hand`/`eyes` points, `ride` reads well on
+> the broom, and her `dash`, `catch`, `look-around` and `crouch` frames are
+> picked up by the fallbacks (dash → bumps, catch → Pass the Present and
+> Fairy Garden fireflies, look-around → Fairy Count's look-up).
+
 Everything below has a working procedural fallback today; all are
 nice-to-have unless marked. Sizes are logical px at 1080p. New poses are for
 **all roster characters** unless noted; until frames exist the game maps
