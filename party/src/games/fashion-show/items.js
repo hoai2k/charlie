@@ -531,7 +531,7 @@ export const CATS = [
   { id: 'neck', name: 'Neck', items: NECK, tabItem: 1 },
   { id: 'back', name: 'Back', items: BACK, tabItem: 1 },
   { id: 'hand', name: 'Hand', items: HAND, tabItem: 1 },
-  { id: 'aura', name: 'Aura', items: AURA, tabItem: 1 },
+  { id: 'aura', name: 'Aura', items: AURA, tabItem: 4 },
 ];
 export const CAT = Object.fromEntries(CATS.map((c, i) => [c.id, i]));
 

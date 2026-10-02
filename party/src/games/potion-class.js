@@ -9,7 +9,7 @@ import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
-import { sfx, voice } from '../engine/audio.js';
+import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, makesMistake, reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU } from '../engine/util.js';
@@ -101,6 +101,8 @@ function mixColor(ids) {
   return avg.map((v) => clamp(gray + (v - gray) * 1.6 + 18, 30, 255));
 }
 const sameSet = (a, b) => a.length === b.length && a.slice().sort().join() === b.slice().sort().join();
+// Recorded sound if it exists, else the synth stand-in.
+const snd = (key, fallback, o) => (hasSound(key) ? sfx(key, o) : fallback && sfx(fallback, o));
 const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
 
 function puffCloud(g, x, y, r, color, alpha = 1) {
@@ -246,7 +248,7 @@ export class Game {
     if (rd.experiment) this.say('Free experiment! Mix anything you like!', 4);
     else this.say(`Recipe ${i + 1}: the ${EFFECTS[rd.eff].potion}!`, 3.2);
     this.hoot.point = 1; this.hoot.flapT = 0.5;
-    sfx('magic');
+    sfx('magic'); snd('jingle/round'); snd('npc/hoot/hoo');
   }
 
   say(text, dur = 3) { this.speech = { text, t: 0, dur }; }
@@ -280,7 +282,7 @@ export class Game {
       const pop = Math.floor((this.phaseT - 0.5) / 0.28) + 1;
       if (pop > this.boardPop && this.boardPop < n) { this.boardPop++; sfx('collect', { step: this.boardPop * 2 }); }
       if (this.phaseT > 0.5 + n * 0.28 + 0.5) {
-        this.phase = 'brew'; this.phaseT = 0; this.hoot.point = 0;
+        this.phase = 'brew'; this.phaseT = 0; this.hoot.point = 0; snd('npc/hoot/ready');
         if (this.round === 0) this.say('Pick ingredients and toss them in with A!', 3.5);
       }
     } else if (this.phase === 'brew') {
@@ -296,7 +298,7 @@ export class Game {
         else {
           this.phase = 'end'; this.phaseT = 0;
           this.say('Class dismissed! You are all wonderful wizards!', 5);
-          this.hoot.flapT = 1.5; sfx('fanfare'); particles.confettiRain(W, 120);
+          this.hoot.flapT = 1.5; sfx('fanfare'); snd('applause', 'cheer'); particles.confettiRain(W, 120);
           for (const st of this.stations) st.actor.setPose('celebrate');
         }
       }
@@ -324,7 +326,7 @@ export class Game {
 
   hootReact(kind) {
     const h = this.hoot;
-    if (kind === 'yay') { h.flapT = 0.9; h.mood = 'happy'; this.say(pick(LINES.yay), 2.2); }
+    if (kind === 'yay') { h.flapT = 0.9; h.mood = 'happy'; this.say(pick(LINES.yay), 2.2); snd('npc/hoot/bravo'); }
     else if (kind === 'silly') { h.mood = 'laugh'; h.moodT = 1.2; this.say(pick(LINES.silly), 2.2); }
     else { h.mood = 'wow'; h.moodT = 1; h.flapT = 0.5; this.say(pick(LINES.surprise), 2.2); }
   }
@@ -423,7 +425,7 @@ export class Game {
     st.splash = 1;
     const ing = INGREDIENTS.find((x) => x.id === f.id);
     const bx = this.wx(st, BREW.x), by = this.wy(st, BREW.y);
-    sfx('splash'); sfx('collect', { step: st.added.length * 2 });
+    snd('cauldron', 'splash'); sfx('collect', { step: st.added.length * 2 });
     particles.burst(bx, by, { type: 'drop', count: 12, colors: [ing.color, rgbStr(st.brew)], angle: -Math.PI / 2, spread: 0.9, speed: [200, 420] });
     particles.burst(bx, by - 10, { type: 'sparkle', count: 6, colors: [ing.color, '#ffffff'] });
     particles.ring(bx, by, ing.color, 90 * st.k, 0.35);
@@ -457,7 +459,7 @@ export class Game {
           const ht = Math.floor(st.stir / Math.PI);
           if (ht > st.halfTurns) {
             st.halfTurns = ht;
-            sfx(ht % 2 ? 'bubble' : 'water');
+            snd('stir', ht % 2 ? 'bubble' : 'water');
             particles.burst(this.wx(st, BREW.x + rand(-60, 60)), this.wy(st, BREW.y), { type: 'bubble', count: 3, speed: [40, 120] });
             if (ht % 2 === 0) particles.burst(this.wx(st, BREW.x), this.wy(st, BREW.y - 20), { type: 'sparkle', count: 4, colors: ['#fff', rgbStr(st.brew)] });
           }
@@ -468,14 +470,14 @@ export class Game {
       st.lastAngT += dt;
       if (st.lastAngT > 0.3) st.lastAng = null;
     }
-    a.setPose(moving || st.lastAngT < 0.2 ? 'paint' : 'idle');
+    a.setPose(moving || st.lastAngT < 0.2 ? 'stir' : 'idle');
     if (st.stir >= STIR_NEED) { a.setPose('idle'); this.setPhase(st, 'wand'); }
   }
 
   startPoof(st) {
     st.phase = 'poof'; st.phaseT = 0; st.poofT = 0; st.wandT = 0; st.cool = 0.2;
-    st.actor.playOnce('action', 0.45, 'idle');
-    sfx('whoosh'); sfx('sparkle');
+    st.actor.playOnce('cast', 0.45, 'idle');
+    snd('zap', 'whoosh'); sfx('sparkle');
     const hx = this.wx(st, FEET.x + 40), hy = this.wy(st, FEET.y - 130);
     for (let j = 0; j < 6; j++) {
       const u = j / 5;
@@ -522,7 +524,7 @@ export class Game {
       a.playOnce('surprised', 0.55, 'idle');
       setTimeout(() => { if (st.eff === eff) { voice(st.p.charId, 'laugh'); a.emote('happy', 1.4); a.playOnce('cheer', 0.5, 'idle'); } }, 700);
       particles.burst(ax, ay, { type: E.good ? 'star' : 'bubble', count: 14, colors: [E.color, '#ffffff'] });
-      if (result === 'silly') { sfx('giggle'); this.hootReact('silly'); }
+      if (result === 'silly') { snd('fizzle', 'giggle'); if (hasSound('fizzle')) setTimeout(() => sfx('giggle'), 400); this.hootReact('silly'); }
       else { if (E.good) a.playOnce('celebrate', 1.4, 'idle'); this.hootReact('surprise'); }
     }
     if (eff === 'hearts') a.emote('hearts', 0);

@@ -12,13 +12,17 @@ import { Actor, getBaseImage } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
-import { sfx, voice } from '../engine/audio.js';
-import { art } from '../engine/art.js';
+import { sfx, voice, hasSound } from '../engine/audio.js';
+import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 
 const NAVY = '#24163f';
+
+/** Play a recorded sound when it exists, else a synth stand-in. */
+function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
+const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'prop/towel', brush: 'prop/brush', treat: 'prop/pet-treat' };
 
 // ---------------------------------------------------------------------------
 // Pets. Fellowfox normally follows Felicity, so it gets a one-member entry
@@ -160,6 +164,7 @@ function drawAccessory(g, kind, color, s, t = 0) {
 
 /** Procedural tool icons (cursor + toolbar). */
 function drawTool(g, id, x, y, s, t = 0, o = {}) {
+  if (TOOL_ART[id] && drawArt(g, TOOL_ART[id], x, y, s * 1.1, s * 1.1)) return;
   g.save(); g.translate(x, y);
   g.lineWidth = Math.max(2, s * 0.07); g.strokeStyle = NAVY; g.lineJoin = 'round'; g.lineCap = 'round';
   switch (id) {
@@ -226,6 +231,7 @@ function drawTool(g, id, x, y, s, t = 0, o = {}) {
 
 function drawDuck(g, x, y, s, rot = 0) {
   g.save(); g.translate(x, y); g.rotate(rot);
+  if (drawArt(g, 'prop/rubber-duck', 0, 0, s * 1.2, s * 1.2)) { g.restore(); return; }
   g.lineWidth = Math.max(2, s * 0.08); g.strokeStyle = NAVY;
   g.fillStyle = '#ffd23f';
   g.beginPath(); g.ellipse(0, s * 0.12, s * 0.48, s * 0.3, 0, 0, TAU); g.fill(); g.stroke();
@@ -574,7 +580,7 @@ export class Game {
     } else if (hold && tool === 'towel') {
       if (on && s.wet > 0) {
         s.wet = Math.max(0, s.wet - 0.3 * motion * dt);
-        if (s.sfxT <= 0) { sfx('brush'); s.sfxT = 0.16; }
+        if (s.sfxT <= 0) { snd('towel', 'brush'); s.sfxT = hasSound('towel') ? 0.4 : 0.16; }
         if (chance(dt * 10)) particles.burst(cur.x, cur.y, { type: 'drop', count: 2, colors: ['#8fe0ff'], speed: [80, 200], size: [3, 6] });
         if (s.wet <= 0 && s.wasWet) this.shakeOff(s);
       } else if (on && s.sfxT <= 0) { sfx('brush'); s.sfxT = 0.3; }
@@ -599,8 +605,14 @@ export class Game {
       this.giveTreat(s);
     }
 
-    // Drying shake animation & wet drips
-    if (s.shakeT > 0) s.shakeT -= dt;
+    // Drying shake droplets & wet drips
+    if (s.shakeT > 0) {
+      s.shakeT -= dt;
+      if (chance(dt * 14)) {
+        const c2 = pet.anchor('center'), side = chance(0.5) ? 1 : -1;
+        particles.burst(c2.x + side * pet.width * 0.3, c2.y + rand(-30, 30), { type: 'drop', count: 3, angle: side > 0 ? -0.2 : Math.PI + 0.2, spread: 0.7, speed: [200, 420], colors: ['#5cc8ff', '#ffffff'], size: [4, 8] });
+      }
+    }
     if (s.wet > 0.15) {
       s.dripT -= dt;
       if (s.dripT <= 0) {
@@ -668,10 +680,10 @@ export class Game {
     s.events.dry = true;
     s.shakeT = 1.0;
     const pet = s.pet, c = pet.anchor('center');
+    pet.playOnce('shake', 0.9, 'idle');
     for (const side of [-1, 1]) particles.burst(c.x + side * 30, c.y, { type: 'drop', count: 18, angle: side > 0 ? -0.3 : Math.PI + 0.3, spread: 0.9, speed: [260, 560], colors: ['#5cc8ff', '#8fe0ff', '#ffffff'], size: [4, 9] });
     sfx('splash'); sfx('whoosh');
     particles.popText(c.x, c.y - 60, 'Fluffy dry!', '#ff9ecf', 44 * s.k);
-    pet.flash('#ffffff', 0.2);
     s.char.playOnce('surprised', 0.4, 'idle');
     setTimeout(() => { if (!this.finished) s.char.playOnce('cheer', 0.5); }, 450);
     this.rumble(s.p, 0.4, 150);
@@ -701,7 +713,7 @@ export class Game {
       kind: 'treat', from, to, t: 0, dur: 0.38, arc: 80 * s.k, s: 40 * s.k,
       onLand: () => {
         s.treats++; s.care += 2;
-        pet.playOnce('action', 0.7); pet.squash(0.25); pet.emote('hearts', 1.6);
+        pet.playOnce('eat', 0.8); pet.squash(0.25); pet.emote('hearts', 1.6);
         sfx('munch'); setTimeout(() => sfx('munch', { force: true }), 260);
         particles.burst(to.x, to.y, { type: 'heart', count: 7 });
         particles.burst(to.x, to.y, { type: 'spark', count: 6, colors: ['#e0a060', '#ff9ecf'] });
@@ -724,12 +736,12 @@ export class Game {
     if (s.jumpT >= 0) return;
     s.cooldown = 0.8; s.toys++; s.care++;
     const pet = s.pet, head = pet.anchor('head');
-    sfx('bubble'); sfx('pop');
+    snd('squeak', 'bubble'); sfx('pop');
     this.flying.push({
       kind: 'duck', from: { x: s.cursor.x, y: s.cursor.y }, to: { x: head.x, y: head.y - 80 * s.k }, t: 0, dur: 0.45, arc: 140 * s.k, s: 36 * s.k,
       onLand: () => {
         particles.burst(head.x, head.y - 80 * s.k, { type: 'star', count: 6 });
-        sfx('bounce');
+        snd('squeak', 'bounce');
       },
     });
     setTimeout(() => {
@@ -865,10 +877,10 @@ export class Game {
       const ch = s.char;
       const aud = Math.min(200, (W - 160) / n);
       ch.scale = n > 5 ? 0.6 : 0.75; ch.x = W / 2 + (i - (n - 1) / 2) * aud; ch.y = 1060; ch.facing = 1; ch.snap();
-      ch.setPose('idle');
+      ch.setPose('clap');
     });
     this.banner = { text: 'Pet Parade!', t: 0 };
-    sfx('fanfare'); sfx('cheer');
+    sfx('fanfare'); snd('applause', 'cheer');
   }
 
   updateParade(dt) {
@@ -883,7 +895,7 @@ export class Game {
           pet.moveAnim(v, 0, 620);
           if (Math.abs(dx) < 2) {
             s.arrived = true; pet.x = s.paradeX; pet.facing = i < this.stations.length / 2 ? 1 : -1;
-            pet.playOnce('cheer', 0.5, 'celebrate');
+            pet.playOnce('bow', 0.7, 'celebrate');
             particles.burst(pet.x, pet.y - pet.height * 0.6, { type: 'sparkle', count: 12 });
             sfx('collect', { step: i * 2 });
           }
@@ -891,12 +903,12 @@ export class Game {
       } else if (chance(dt * 0.4)) pet.emote('heart', 1);
       pet.update(dt);
       const ch = s.char;
-      if (chance(dt * 0.8)) ch.playOnce(pick(['cheer', 'cheer', 'wave']), 0.6, 'idle');
+      if (chance(dt * 0.8)) ch.playOnce(pick(['cheer', 'cheer', 'wave']), 0.6, 'clap');
       ch.update(dt);
     });
     if (t > 3.6 && !this.paradeConfetti) {
       this.paradeConfetti = true;
-      particles.confettiRain(W, 160); sfx('yay'); sfx('cheer');
+      particles.confettiRain(W, 160); sfx('yay'); snd('applause', 'cheer');
       fx.flash('#ffffff', 0.15);
     }
     if (t > 3.6 && chance(dt * 2.5)) {
@@ -1166,13 +1178,7 @@ export class Game {
     s.char.draw(g, { ring: p.color });
     // pet (with shake)
     const pet = s.pet;
-    g.save();
-    if (s.shakeT > 0) {
-      const kk = s.shakeT / 1.0, w = Math.sin(this.t * 45);
-      g.translate(pet.x, pet.y); g.rotate(w * 0.09 * kk); g.scale(1 + w * 0.05 * kk, 1); g.translate(-pet.x, -pet.y);
-    }
     pet.draw(g);
-    g.restore();
 
     // toolbar
     const ty = r.y + r.h - s.toolH + 4, th = s.toolH - 16;

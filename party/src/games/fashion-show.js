@@ -8,7 +8,7 @@ import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
-import { sfx, voice } from '../engine/audio.js';
+import { sfx, voice, hasSound, host } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
@@ -33,7 +33,9 @@ export const meta = {
 };
 
 const COMPLIMENTS = ['Fabulous!', 'Gorgeous!', 'So royal!', 'Sparkly!', 'Wow!', 'Stunning!', 'Magical!', 'Lovely!', 'Dazzling!', 'Super cute!'];
-const POSE_SET = ['ready', 'cheer', 'wave', 'celebrate', 'action'];
+const POSE_SET = ['strike1', 'strike2', 'strike3', 'ready', 'cheer'];
+/** Recorded sound if it exists, else the synth stand-in. */
+const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
 
 // Runway geometry (logical px).
 const RW = { backY: 492, frontY: 1080, backHW: 150, frontHW: 540, startY: 505, stopY: 905 };
@@ -133,22 +135,27 @@ export class Game {
     const headW = faceW * 1.08;
     const hx = info.head.x, hy = info.head.y;
     const fy = hy + ((def.top ?? 1) - (1 - def.face[1])) * h;
+    const eyes = info.eyes || { x: hx, y: fy };
+    const neck = info.neck || { x: hx, y: fy + faceW * 0.5 };
+    const back = info.back || { x: hx * 0.3, y: -h * 0.6 };
+    const tilt = info.headAngle || 0;
     const put = (ci, x, y, S, which) => {
       const o = st.outfit[ci], it = CATS[ci].items[o.item];
       const fn = which === 'behind' ? it.behind : it.draw;
       if (!fn) return;
       const col = PALETTE[o.colors[o.item]];
       g.save(); g.translate(x, y);
+      if (tilt && (ci === CAT.head || ci === CAT.face)) g.rotate(tilt);
       const k = popK(st.pop[ci]); g.scale(k, k);
       fn(g, S, col, t);
       g.restore();
     };
     if (behind) {
       put(CAT.aura, 0, -h * 0.5, h, 'behind');
-      put(CAT.back, hx * 0.3, -h * 0.6, h, 'draw');
+      put(CAT.back, back.x, back.y, h, 'draw');
     } else {
-      put(CAT.neck, hx, fy + faceW * 0.5, faceW, 'draw');
-      put(CAT.face, hx, fy, faceW, 'draw');
+      put(CAT.neck, neck.x, neck.y, faceW, 'draw');
+      put(CAT.face, eyes.x, eyes.y, faceW, 'draw');
       put(CAT.head, hx, hy + headW * 0.1, headW, 'draw');
       put(CAT.hand, info.hand.x, info.hand.y, h, 'draw');
       put(CAT.aura, 0, -h * 0.5, h, 'draw');
@@ -336,7 +343,7 @@ export class Game {
     a.playOnce(POSE_SET[st.poseIdx], 0.75, 'idle'); a.squash(0.22); a.flash('#ffffff', 0.12);
     a.facing = chance(0.5) ? 1 : -1;
     sfx('shutter');
-    if (this.t - this.lastCheer > 1.1) { this.lastCheer = this.t; sfx('cheer'); }
+    if (this.t - this.lastCheer > 1.1) { this.lastCheer = this.t; snd('crowd-ooh', 'cheer'); }
     const head = a.anchor('head');
     particles.burst(head.x, head.y + a.height * 0.2, { type: 'heart', count: 5, speed: [120, 300] });
     particles.burst(head.x, head.y + a.height * 0.3, { type: 'sparkle', count: 6, colors: ['#fff', '#fff6a8'] });
@@ -376,7 +383,7 @@ export class Game {
         a.setPose('walk'); a.speed = 0.55;
         if (u >= 1) {
           rw.state = 'pose'; a.setPose('idle'); a.playOnce('ready', 0.6, 'idle'); a.facing = 1;
-          sfx('cheer'); for (let i = 0; i < 6; i++) this.cameraFlash(a.x);
+          snd('applause', 'cheer'); for (let i = 0; i < 6; i++) this.cameraFlash(a.x);
           for (const m of this.crowd) if (chance(0.5)) m.jv = rand(160, 280);
           rw.aiT = rand(0.4, 0.9);
         }
@@ -402,7 +409,8 @@ export class Game {
       } else if (rw.state === 'side') {
         // Already walked: cheer on friends (A = cheer).
         if (c.pressed('a') && st.poseCD <= 0) { st.poseCD = 0.5; a.playOnce('cheer', 0.5, 'idle'); particles.burst(a.x, a.y - a.height, { type: 'heart', count: 2 }); }
-        if (st.p.isAI && chance(dt * 0.35)) a.playOnce(pick(['cheer', 'wave']), 0.6, 'idle');
+        if (this.group && this.group[0].rw.state === 'pose') { if (a.pose !== 'clap' && !a._once) a.setPose('clap'); } else if (a.pose === 'clap') a.setPose('idle');
+        if (st.p.isAI && chance(dt * 0.25)) a.playOnce(pick(['cheer', 'wave']), 0.6);
       }
       a.update(dt);
     }
@@ -455,9 +463,9 @@ export class Game {
     if (t >= 3.4 && t - dt < 3.4) sfx('tock');
     if (t >= 3.6 && !this.photoTaken) {
       this.photoTaken = true;
-      fx.flash('#ffffff', 0.45); sfx('shutter'); sfx('fanfare'); sfx('cheer');
+      fx.flash('#ffffff', 0.45); sfx('shutter'); sfx('fanfare'); snd('applause', 'cheer');
       particles.confettiRain(W, 160);
-      for (const st of this.stations) { st.actor.playOnce('ready', 0.6, 'celebrate'); }
+      this.stations.forEach((st, i) => st.actor.playOnce(i % 2 ? 'bow' : 'strike3', 0.8, 'celebrate'));
       for (const m of this.crowd) m.jv = rand(180, 300);
     }
     if (this.photoTaken && chance(dt * 3)) this.cameraFlash();
@@ -616,10 +624,11 @@ export class Game {
       g.save(); g.translate(bx + bw / 2, by + bh / 2); g.scale(k, k);
       ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: 16, fill: sel ? '#ffffff' : mix(st.p.color, '#ffffff', 0.5), lineWidth: sel ? 5 : 3, shadow: sel });
       const worn = st.outfit[ci].item;
-      const isz = Math.min(bh * 0.82, bw * 0.7);
-      drawItemIcon(g, ci, worn || cat.tabItem, worn ? st.outfit[ci].colors[worn] : null, 0, bw > 120 && sel ? -bh * 0.08 : 0, isz, this.t);
+      const labeled = sel && bh > 64 && bw > 110;
+      const isz = Math.min(bh * (labeled ? 0.95 : 1.15), bw * 0.62);
+      drawItemIcon(g, ci, worn || cat.tabItem, worn ? st.outfit[ci].colors[worn] : null, 0, labeled ? -bh * 0.1 : bh * 0.04, isz, this.t);
       if (worn) { g.beginPath(); g.arc(bw / 2 - 9, -bh / 2 + 9, 6, 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke(); }
-      if (sel && bw > 120) ui.text(g, cat.name, 0, bh * 0.34, { size: bh * 0.24, color: NAVY, stroke: false, weight: 800 });
+      if (labeled) ui.text(g, cat.name, 0, bh * 0.34, { size: bh * 0.24, color: NAVY, stroke: false, weight: 800 });
       g.restore();
     });
   }
@@ -700,7 +709,7 @@ export class Game {
     const { L } = st, lr = L.list;
     g.save();
     ui.roundRect(g, lr.x, lr.y, lr.w, lr.h, 22); g.fillStyle = 'rgba(255,255,255,0.75)'; g.fill();
-    const cx = lr.x + lr.w / 2, cy = lr.y + lr.h * 0.45;
+    const cx = lr.x + lr.w / 2, cy = lr.y + lr.h * 0.36;
     const p = Math.min(1, st.readyT / 0.3), sc = ease.outBack(p);
     g.translate(cx, cy); g.rotate(-0.12); g.scale(sc, sc);
     const w = Math.min(lr.w * 0.95, 300), h = w * 0.36;
@@ -709,8 +718,8 @@ export class Game {
     g.restore();
     const waiting = this.stations.filter((s) => !s.ready).length;
     const sz = clamp(lr.w * 0.09, 16, 28);
-    if (waiting) ui.text(g, waiting === 1 ? 'Waiting for 1 friend...' : `Waiting for ${waiting} friends...`, cx, cy + lr.h * 0.2, { size: sz, color: NAVY, stroke: false, maxWidth: lr.w - 20 });
-    if (!st.p.isAI) ui.hints(g, [['b', 'Change']], cx, cy + lr.h * 0.32, { size: sz * 1.3 });
+    if (waiting) ui.text(g, waiting === 1 ? 'Waiting for 1 friend...' : `Waiting for ${waiting} friends...`, cx, cy + lr.h * 0.26, { size: sz, color: NAVY, stroke: false, maxWidth: lr.w - 20 });
+    if (!st.p.isAI) ui.hints(g, [['b', 'Change']], cx, cy + lr.h * 0.42, { size: sz * 1.3 });
   }
 
   drawCurtains(g, k) {

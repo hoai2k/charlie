@@ -5,7 +5,7 @@ import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice } from '../engine/audio.js';
+import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
@@ -21,8 +21,8 @@ const NAVY = '#24163f';
 // Poses. New poses we would love (see report); until they exist we map to the
 // nearest current pose and add emotes/particles.
 const POSE = {
-  rise: 'jump',    // WISH: 'broom-rise'  (leaning forward, hair streaming, gripping the broom)
-  glide: 'fall',   // WISH: 'broom-glide' (sitting upright, relaxed, one hand waving)
+  rise: 'ride',    // WISH: 'broom-rise'  (leaning forward, hair streaming, gripping the broom)
+  glide: 'ride',   // WISH: 'broom-glide' (sitting upright, relaxed, one hand waving)
   zapped: 'hurt',  // WISH: 'broom-zapped' (frizzy hair, startled, tipped on the broom)
   win: 'celebrate',
 };
@@ -414,7 +414,7 @@ export class Game {
     particles.burst(sp.x + 20, sp.y, { type: 'sparkle', count: 12, colors: [col, '#fff6a8', L.p.color], speed: [100, 420], size: [12, 26] });
     particles.ring(sp.x + 10, sp.y, col, 110 * this.k * (this.laneH / 430 + 0.3), 0.4);
     sfx('collect', { step: Math.min(L.combo - 1, 7) * 2 });
-    sfx('sparkle');
+    sfx(hasSound('ring') ? 'ring' : 'sparkle');
     if (!L.p.isAI || true) sfx('whoosh', { vol: 0.5 });
     L.a.playOnce('cheer', 0.35); L.a.squash(0.25);
     const txt = L.combo >= 3 ? `Boost x${L.combo}!` : 'Boost!';
@@ -440,7 +440,7 @@ export class Game {
     particles.burst(sp.x, sp.y, { type: 'spark', count: 16, colors: ['#ffe64d', '#ffffff', '#9fd3ff'], speed: [200, 560] });
     particles.burst(sp.x, sp.y, { type: 'star', count: 5, colors: ['#ffe64d'], size: [14, 24] });
     particles.popText(sp.x + 40, sp.y - this.laneH * 0.2, 'Zap!', '#ffe64d', clamp(this.laneH * 0.14, 30, 56));
-    sfx('hit'); sfx('stun');
+    sfx('hit'); sfx(hasSound('zap') ? 'zap' : 'stun');
     voice(L.p.charId, 'ouch');
     fx.shake(this.n > 4 ? 4 : 9, 0.25);
     if (!L.p.isAI) L.p.ctrl.rumble(0.8, 260);
