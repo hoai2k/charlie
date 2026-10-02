@@ -523,10 +523,20 @@ export class Game {
     const tx = hx + Math.cos(ang) * len, ty = hy + Math.sin(ang) * len;
     // grip is the hand; draw the shaft a little behind it
     const bx = hx - Math.cos(ang) * len * 0.18, by = hy - Math.sin(ang) * len * 0.18;
-    g.lineCap = 'round';
-    g.strokeStyle = NAVY; g.lineWidth = 11; g.beginPath(); g.moveTo(bx, by); g.lineTo(tx, ty); g.stroke();
-    g.strokeStyle = '#8b5a2b'; g.lineWidth = 6.5; g.beginPath(); g.moveTo(bx, by); g.lineTo(tx, ty); g.stroke();
-    g.strokeStyle = '#ffd23f'; g.lineWidth = 7; g.beginPath(); g.moveTo(bx + (tx - bx) * 0.12, by + (ty - by) * 0.12); g.lineTo(bx + (tx - bx) * 0.2, by + (ty - by) * 0.2); g.stroke();
+    const wandImg = art('prop/wand-wizard');
+    if (wandImg) {
+      // Generated wand: handle end (1, 90) -> crystal tip (132, 7) in the 140x94 image.
+      // Lay that axis along the wand angle from the grip-back point to the tip.
+      const ws = (len * 1.18) / Math.hypot(131, 83);
+      g.save(); g.translate(bx, by); g.rotate(ang + Math.atan2(83, 131)); g.scale(ws, ws);
+      g.drawImage(wandImg, -1, -90);
+      g.restore();
+    } else {
+      g.lineCap = 'round';
+      g.strokeStyle = NAVY; g.lineWidth = 11; g.beginPath(); g.moveTo(bx, by); g.lineTo(tx, ty); g.stroke();
+      g.strokeStyle = '#8b5a2b'; g.lineWidth = 6.5; g.beginPath(); g.moveTo(bx, by); g.lineTo(tx, ty); g.stroke();
+      g.strokeStyle = '#ffd23f'; g.lineWidth = 7; g.beginPath(); g.moveTo(bx + (tx - bx) * 0.12, by + (ty - by) * 0.12); g.lineTo(bx + (tx - bx) * 0.2, by + (ty - by) * 0.2); g.stroke();
+    }
     // star tip
     const glow = s.locked ? 0.15 : 0.7 + Math.sin(this.clock * 6 + i) * 0.3 + (this.st === 'go' ? 0.6 : 0);
     g.save(); g.translate(tx, ty);
@@ -536,7 +546,8 @@ export class Game {
       rg.addColorStop(0, `rgba(${c},${clamp(glow * 0.8, 0, 1)})`); rg.addColorStop(1, `rgba(${c},0)`);
       g.globalCompositeOperation = 'lighter'; g.fillStyle = rg; g.beginPath(); g.arc(0, 0, gr, 0, TAU); g.fill(); g.globalCompositeOperation = 'source-over'; }
     g.globalAlpha = 1; g.rotate(Math.sin(this.clock * 2 + i) * 0.3);
-    drawStarShape(g, 30 * (info.h / 170), s.locked ? '#9dd8a0' : '#ffd23f');
+    if (!wandImg) drawStarShape(g, 30 * (info.h / 170), s.locked ? '#9dd8a0' : '#ffd23f');
+    else if (!s.locked) { g.globalAlpha = 0.55 + 0.45 * Math.sin(this.clock * 6 + i); drawStarShape(g, 12 * (info.h / 170), '#fff6c2'); }
     g.restore();
     // remember the tip in logical screen coordinates (for beams and puffs)
     if (this.baseInv) {
@@ -569,6 +580,12 @@ export class Game {
     this.drawRockets(g);
     this.puffs.forEach((pf) => {
       const k = pf.t / pf.life;
+      // Generated fizzle puff (cloud + stars), mirrored by drift direction; procedural green bubble otherwise.
+      const d = pf.r * 6 * (0.7 + k * 0.6);
+      g.save(); g.translate(pf.x, pf.y); if (pf.vx < 0) g.scale(-1, 1); g.rotate(pf.vx * 0.006);
+      const drawn = drawArt(g, 'prop/fizzle-puff', 0, 0, d, d, { alpha: 0.9 * (1 - k * k) });
+      g.restore();
+      if (drawn) return;
       g.save(); g.globalAlpha = 0.65 * (1 - k); g.fillStyle = '#7ae582'; g.strokeStyle = '#2f9e44'; g.lineWidth = 3;
       g.beginPath(); g.arc(pf.x, pf.y, pf.r * (0.7 + k), 0, TAU); g.fill(); g.restore();
     });

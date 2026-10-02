@@ -332,6 +332,7 @@ export class Game {
     h.hearts = Math.max(0, h.hearts - 1); h.heartShake = 1;
     particles.popText(h.x + 60, h.y - h.a.height - 10, '-1', '#ff4d6d', 56);
     particles.burst(h.x, h.y - h.a.height, { type: 'heart', count: 5, colors: ['#ff4f8b'], speed: [60, 220], gravity: 500 });
+    this.sootPuff = { x: h.x, y: h.y - h.a.height * 0.72, s: h.a.height, t0: this.t };
     // soot + dizzy
     a.clearEmotes(); a.playOnce('hurt', 0.4, poseName('sooty')); a.squash(0.4);
     h.dizzy = 1.7;
@@ -448,7 +449,22 @@ export class Game {
     for (const e of order) if (e.state !== 'out') this.drawEnt(g, e);
     if (holder && !this.ends) this.drawAimArrow(g, holder);
     this.drawPresentWorld(g);
+    this.drawSootPuff(g);
     for (const e of order) if (e.state !== 'out') this.drawOverlay(g, e);
+  }
+
+  // Soot cloud bursting over the popped player's head (the smoke/dust particles
+  // stay as the procedural part of the effect either way).
+  drawSootPuff(g) {
+    const sp = this.sootPuff;
+    if (!sp) return;
+    const k = (this.t - sp.t0) / 1.3;
+    if (k >= 1 || k < 0) { this.sootPuff = null; return; }
+    const grow = 0.55 + 0.45 * ease.outBack(clamp(k * 3, 0, 1)) + k * 0.25;
+    const w = sp.s * 1.9 * grow;
+    g.save(); g.translate(sp.x, sp.y - k * 60); g.rotate(Math.sin(k * 5) * 0.05);
+    drawArt(g, 'prop/soot-puff', 0, 0, w, w * 0.72, { alpha: k < 0.55 ? 1 : 1 - (k - 0.55) / 0.45 });
+    g.restore();
   }
 
   drawHUD(g) {
@@ -565,7 +581,22 @@ export class Game {
     const size = 92 * (P.state === 'flying' ? 1 : this.holderScale());
     g.scale(big, big);
     const presentKey = P.heat > 0.55 && art('prop/present-ticking') ? 'prop/present-ticking' : 'prop/present';
-    if (!drawArt(g, presentKey, 0, 0, size * 1.2, size * 1.2)) drawPresent(g, 0, 0, size, P.heat, this.t, 1);
+    const pimg = art(presentKey);
+    if (pimg) {
+      // Generated present: the procedural red glow (cached bitmap) behind it and a
+      // red-hot copy cross-faded in as the fuse burns down.
+      const pul = 0.5 + 0.5 * Math.sin(this.t * (6 + P.heat * 18));
+      if (P.heat > 0.05) {
+        const r = (100 + P.heat * 30) * (size / 90);
+        g.save(); g.globalAlpha *= (0.35 + 0.45 * pul) * P.heat; g.drawImage(presentGlow(), -r, -r, r * 2, r * 2); g.restore();
+      }
+      const fs = Math.min(size * 1.2 / pimg.width, size * 1.2 / pimg.height), dw = pimg.width * fs, dh = pimg.height * fs;
+      g.drawImage(pimg, -dw / 2, -dh / 2, dw, dh);
+      if (P.heat > 0.1) {
+        g.save(); g.globalAlpha *= clamp((P.heat - 0.1) * 1.1, 0, 0.9) * (0.85 + 0.15 * pul);
+        g.drawImage(hotArt(presentKey, pimg), -dw / 2, -dh / 2, dw, dh); g.restore();
+      }
+    } else drawPresent(g, 0, 0, size, P.heat, this.t, 1);
     g.restore();
     // shadow while flying
     if (P.state === 'flying') {
@@ -613,7 +644,7 @@ export class Game {
 
   drawBackground(g) {
     const bg = art('bg/pass-the-present');
-    if (bg) { g.drawImage(bg, 0, 0, W, H); return; }
+    if (bg) { g.drawImage(bg, 0, 0, W, H); this.drawRugLayer(g); return; }
     // wall
     const wall = g.createLinearGradient(0, 0, 0, 400); wall.addColorStop(0, '#ffc2de'); wall.addColorStop(1, '#ffe6f2');
     g.fillStyle = wall; g.fillRect(0, 0, W, 410);
@@ -643,8 +674,16 @@ export class Game {
     }
     // present pile + cake table at the back
     drawTable(g, 250, 420, this.t); drawTable(g, W - 250, 420, this.t, true);
-    // rug
-    if (!drawArt(g, 'prop/party-rug', CX, CY + 16, RX * 2 + 280, RY * 2 + 200)) drawRug(g, CX, CY + 14, RX + 150, RY + 78, this.confettiDots);
+    this.drawRugLayer(g);
+  }
+
+  // The round rug under the circle (the generated background has no rug).
+  drawRugLayer(g) {
+    // Rug art: the rug itself spans (2,56)-(1177,720) of the 1182x800 image. Stretch
+    // it so the rug is (RX+150) x ~(RY+110) around the circle, like the procedural rug
+    // (the art is drawn from a steeper angle than the flat player ellipse).
+    const sx = (RX + 150) * 2 / 1175, sy = (RY + 110) * 2 / 664;
+    if (!drawArt(g, 'prop/party-rug', CX + 1.5 * sx, CY + 14 + 12 * sy, 1182 * sx, 800 * sy, { fit: 'stretch' })) drawRug(g, CX, CY + 14, RX + 150, RY + 78, this.confettiDots);
   }
 }
 
@@ -686,6 +725,31 @@ function drawPresent(g, x, y, size, heat, t, alpha) {
     g.closePath(); g.fill(); g.restore();
   }
   g.restore();
+}
+
+// Red-hot copies of the present art (multiply-tinted once and cached) and the
+// heat glow as a cached bitmap, so the art path builds nothing per frame.
+const hotCache = new Map();
+function hotArt(key, img) {
+  let c = hotCache.get(key);
+  if (c) return c;
+  c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+  const cg = c.getContext('2d');
+  cg.drawImage(img, 0, 0);
+  cg.globalCompositeOperation = 'multiply'; cg.fillStyle = '#ff5a3c'; cg.fillRect(0, 0, c.width, c.height);
+  cg.globalCompositeOperation = 'destination-in'; cg.drawImage(img, 0, 0);
+  hotCache.set(key, c);
+  return c;
+}
+let glowBmp = null;
+function presentGlow() {
+  if (glowBmp) return glowBmp;
+  glowBmp = document.createElement('canvas'); glowBmp.width = glowBmp.height = 128;
+  const cg = glowBmp.getContext('2d');
+  const gr = cg.createRadialGradient(64, 64, 64 * 10 / 130, 64, 64, 64);
+  gr.addColorStop(0, 'rgba(255,60,50,1)'); gr.addColorStop(1, 'rgba(255,60,50,0)');
+  cg.fillStyle = gr; cg.fillRect(0, 0, 128, 128);
+  return glowBmp;
 }
 
 function drawRug(g, cx, cy, rx, ry, dots) {

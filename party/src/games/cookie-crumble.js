@@ -8,7 +8,7 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
 import { depthScale } from '../engine/camera.js';
 import { rand, randInt, pick, chance, clamp, lerp, damp, ease, shuffle, TAU } from '../engine/util.js';
@@ -62,6 +62,7 @@ export const meta = {
         continue;
       }
       const hs = cs * 0.43;
+      if (drawArt(g, cracked.has(key) ? 'prop/cookie-tile-cracked' : (c + r) % 3 === 0 ? 'prop/cookie-2' : 'prop/cookie-1', cx, cy + cs * 0.03, hs * 2.25, hs * 2.25)) continue;
       g.fillStyle = 'rgba(80,120,170,0.25)'; ui.roundRect(g, cx - hs + 3, cy - hs + cs * 0.1, hs * 2, hs * 2, hs * 0.5); g.fill();
       g.fillStyle = '#b97a3a'; ui.roundRect(g, cx - hs, cy - hs + cs * 0.07, hs * 2, hs * 2, hs * 0.5); g.fill();
       g.fillStyle = (c + r) % 3 === 0 ? '#f7b5d0' : '#e8b068'; ui.roundRect(g, cx - hs, cy - hs, hs * 2, hs * 2, hs * 0.5); g.fill();
@@ -150,6 +151,19 @@ const CRACKS = [
   [[[-0.8, 0.7], [-0.4, 0.3], [-0.45, -0.1], [-0.05, -0.3]], [[-0.4, 0.3], [0.0, 0.45], [0.35, 0.85]], [[-0.05, -0.3], [0.4, -0.2], [0.8, -0.6]], [[-0.45, -0.1], [-0.8, -0.35]], [[-0.05, -0.3], [-0.1, -0.7], [0.1, -0.95]]],
 ];
 const CRACK_STAGES = [2, 4, 5];   // how many polylines are visible at stage 1,2,3
+
+// Generated cookie art. Flavors follow the procedural types (0 choc chip, 1 pink
+// sprinkle, 2 double choc, 3 oatmeal). The choc-chip cookie also has crack states:
+// stage 1 = intact art + light procedural cracks, stage 2 = cracked, stage 3 = crumbling.
+// The other flavors keep the procedural crack lines over their art.
+const COOKIE_ART = ['prop/cookie-tile', 'prop/cookie-2', 'prop/cookie-3', 'prop/cookie-4'];
+const ART_SIZE = 142;             // round cookie art, a hair wider than the cell so the corners stay small
+function cookieArtKey(type, stage) {
+  if (type === 0 && stage >= 3) return 'prop/cookie-tile-crumbling';
+  if (type === 0 && stage === 2) return 'prop/cookie-tile-cracked';
+  return COOKIE_ART[type];
+}
+function cookieArtCracks(type, stage) { return type !== 0 || stage === 1; }   // procedural crack lines needed on top?
 
 // ---------------------------------------------------------------------------
 
@@ -756,17 +770,19 @@ export class Game {
       g.beginPath(); g.ellipse(r.x, r.y + 10, (r.small ? 20 : 30) + k * (r.small ? 40 : 110), ((r.small ? 20 : 30) + k * (r.small ? 40 : 110)) * 0.55, 0, 0, TAU); g.stroke(); g.restore();
     }
     // shadows + cookies
+    const cookieArt = !!art(COOKIE_ART[0]);
     for (const t of this.tiles) {
       if (t.state === 'fallen') continue;
       g.fillStyle = 'rgba(90,130,180,0.28)';
-      ui.roundRect(g, t.x - FACE / 2 + 6, t.y - FACE / 2 + 14, FACE, FACE, 40); g.fill();
+      if (cookieArt) { g.beginPath(); g.ellipse(t.x + 6, t.y + 12, ART_SIZE / 2, ART_SIZE / 2 - 4, 0, 0, TAU); g.fill(); }
+      else { ui.roundRect(g, t.x - FACE / 2 + 6, t.y - FACE / 2 + 14, FACE, FACE, 40); g.fill(); }
     }
     for (const t of this.tiles) if (t.state !== 'fallen') this.drawTile(g, t);
     for (const f of this.fallers) {
       const k = f.t / 0.7;
       g.save(); g.translate(f.x, f.y + k * 40); g.rotate(f.rot * k * 3); g.scale(1 - k * 0.45, 1 - k * 0.45); g.globalAlpha = 1 - k * k;
-      const sp = this.sprites[f.type][f.v]; g.drawImage(sp, -sp.width / 2, -sp.width / 2 - 2);
-      this.drawCracks(g, f.crack, 3, 1);
+      if (drawArt(g, cookieArtKey(f.type, 3), 0, 0, ART_SIZE, ART_SIZE)) { if (cookieArtCracks(f.type, 3)) this.drawCracks(g, f.crack, 3, 1); }
+      else { const sp = this.sprites[f.type][f.v]; g.drawImage(sp, -sp.width / 2, -sp.width / 2 - 2); this.drawCracks(g, f.crack, 3, 1); }
       g.restore();
     }
     // characters sorted by depth; swimmers are clipped at the waterline
@@ -816,11 +832,15 @@ export class Game {
     let ox = 0, oy = 0;
     if (t.shake > 0) { ox = Math.sin(this.clock * 70 + t.c * 3) * 3.5 * t.shake; oy = Math.cos(this.clock * 63 + t.r) * 2.5 * t.shake; }
     g.save(); g.translate(t.x + ox, t.y + oy);
-    g.drawImage(sp, -sp.width / 2, -sp.width / 2 - 2);
-    if (t.stepped) { g.fillStyle = 'rgba(80,40,10,0.13)'; ui.roundRect(g, -FACE / 2 + 4, -FACE / 2 + 2, FACE - 8, FACE - 8, 36); g.fill(); }
-    if (t.state === 'cracking' && t.stage > 0) {
-      this.drawCracks(g, t.crack, t.stage, 1);
-      if (t.stage === 3) { g.fillStyle = `rgba(255,255,255,${0.15 + 0.15 * Math.sin(this.clock * 30)})`; ui.roundRect(g, -FACE / 2 + 4, -FACE / 2 + 2, FACE - 8, FACE - 8, 36); g.fill(); }
+    const stage = t.state === 'cracking' ? t.stage : 0;
+    const isArt = drawArt(g, cookieArtKey(t.type, stage), 0, 0, ART_SIZE, ART_SIZE);
+    // round tint for the art, the squircle for the procedural sprite
+    const face = isArt ? () => { g.beginPath(); g.ellipse(0, 0, ART_SIZE / 2 - 6, ART_SIZE / 2 - 7, 0, 0, TAU); } : () => ui.roundRect(g, -FACE / 2 + 4, -FACE / 2 + 2, FACE - 8, FACE - 8, 36);
+    if (!isArt) g.drawImage(sp, -sp.width / 2, -sp.width / 2 - 2);
+    if (t.stepped && stage < 3) { g.fillStyle = 'rgba(80,40,10,0.13)'; face(); g.fill(); }
+    if (stage > 0) {
+      if (!isArt || cookieArtCracks(t.type, stage)) this.drawCracks(g, t.crack, stage, 1);
+      if (stage === 3 && (!isArt || t.type !== 0)) { g.fillStyle = `rgba(255,255,255,${0.15 + 0.15 * Math.sin(this.clock * 30)})`; face(); g.fill(); }
     }
     g.restore();
   }

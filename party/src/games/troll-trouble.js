@@ -8,7 +8,7 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, chance, pick, placementsFromScores, ease, TAU } from '../engine/util.js';
@@ -21,6 +21,9 @@ const SPEED = 370, DASH_SPEED = 1150, DASH_TIME = 0.17, DASH_CD = 1.1;
 const STUN_TIME = 1.5, INV_TIME = 2.2;
 const SLAM_R = 250, SLAM_RY = 0.82;        // telegraph radius (x) and squash (y) for the top-down look
 const GEM_COLORS = [['#ff5b9e', '#ffb3d6'], ['#35c8ff', '#b4ecff'], ['#7be04d', '#d3f7b0'], ['#b673ff', '#e3c9ff'], ['#ff9a2e', '#ffd9a6']];
+
+// Generated gem art per GEM_COLORS kind (pink->red, orange->yellow are the nearest files).
+const GEM_ART = ['prop/gem-red', 'prop/gem-blue', 'prop/gem-green', 'prop/gem-purple', 'prop/gem-yellow'];
 
 const ROCKS = [
   { x: 470, y: 470, r: 50 }, { x: 1450, y: 450, r: 58 }, { x: 960, y: 650, r: 46 },
@@ -80,6 +83,8 @@ export const meta = {
 function drawFlower(g, x, y, s, seed) {
   const cols = ['#ffffff', '#ff9ccc', '#ffe36e', '#c9a6ff', '#ff8c8c'];
   const c = cols[seed % cols.length];
+  // the pink one uses the generated flower (the others keep their procedural colors)
+  if (c === '#ff9ccc' && drawArt(g, 'prop/flower', x, y, s * 3.6, s * 3.6)) return;
   g.save(); g.translate(x, y);
   g.fillStyle = c;
   for (let i = 0; i < 5; i++) { const a = (i / 5) * TAU; g.beginPath(); g.arc(Math.cos(a) * s, Math.sin(a) * s, s * 0.85, 0, TAU); g.fill(); }
@@ -90,6 +95,10 @@ function drawFlower(g, x, y, s, seed) {
 function drawGemShape(g, x, y, r, kind, scale = 1, big = false) {
   const [c1, c2] = big ? ['#ffb400', '#fff1a0'] : GEM_COLORS[kind % GEM_COLORS.length];
   g.save(); g.translate(x, y); g.scale(scale, scale);
+  // generated gems: about the procedural footprint (2r wide), a touch taller since the art is a tall diamond
+  const gk = big ? 'prop/gem-gold' : GEM_ART[kind % GEM_ART.length];
+  const gs = big ? r * 2.5 : r * 2.2;          // gold drawn a bit bigger so it never reads as a small yellow gem
+  if (drawArt(g, gk, 0, r * 0.05, gs, gs) || (!big && drawArt(g, 'prop/gem', 0, r * 0.05, r * 2.2, r * 2.2))) { g.restore(); return; }
   g.lineJoin = 'round'; g.lineWidth = Math.max(2.5, r * 0.14); g.strokeStyle = NAVY;
   // faceted diamond
   g.beginPath(); g.moveTo(-r, -r * 0.25); g.lineTo(-r * 0.5, -r * 0.85); g.lineTo(r * 0.5, -r * 0.85); g.lineTo(r, -r * 0.25); g.lineTo(0, r); g.closePath();
@@ -104,6 +113,9 @@ function drawRock(g, rk, big = true) {
   const { x, y, r } = rk;
   g.save(); g.translate(x, y);
   g.fillStyle = 'rgba(30,60,30,0.28)'; g.beginPath(); g.ellipse(6, r * 0.45, r * 1.15, r * 0.42, 0, 0, TAU); g.fill();
+  // generated rock: ~2.3r wide over the collision circle, its base on the shadow
+  // (the file has ~8% empty space under the rock, hence the 0.72r anchor)
+  if (drawArt(g, 'prop/rock', 0, r * 0.72, r * 2.3, r * 2.3, { anchor: 'bottom' })) { g.restore(); return; }
   g.lineJoin = 'round'; g.lineWidth = 5; g.strokeStyle = NAVY;
   g.fillStyle = '#9aa0b4';
   g.beginPath();

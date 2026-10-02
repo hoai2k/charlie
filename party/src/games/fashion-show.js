@@ -62,8 +62,32 @@ const WORN_ART = {
   'Butterfly Wings': { colors: { 2: 'wings-butterfly' }, w: 0.85, h: 0.65, ay: 0.55, flap: 5 },
   'Angel Wings': { colors: { 6: 'wings-feather' }, w: 0.85, h: 0.6, ay: 0.65, flap: 3 },
   'Royal Cape': { colors: { 5: 'cape-royal', 7: 'cape-rainbow' }, w: 0.65, h: 0.62, ay: 0, sway: true },
-  'Magic Wand': { colors: { 1: 'wand-star' }, w: 0.17, h: 0.38, ay: 0.88 },
+  'Magic Wand': { colors: { 1: 'wand-star', 0: 'wand-heart' }, w: 0.17, h: 0.38, ay: 0.88 },
+  'Top Hat': { colors: { 2: 'hat-top' }, w: 1.0, h: 0.95, ay: 0.82 },
+  'Party Hat': { colors: { 7: 'hat-party' }, w: 0.62, h: 0.85, ay: 0.95 },
+  'Sun Hat': { colors: { 1: 'hat-sun' }, w: 1.35, h: 0.82, ay: 0.78 },
+  Beret: { colors: { 5: 'hat-beret' }, w: 1.0, h: 0.72, ay: 0.85 },
+  'Star Glasses': { colors: { 1: 'glasses-star' }, w: 1.05, h: 0.5, ay: 0.5 },
+  Sunglasses: { colors: { 2: 'glasses-sun' }, w: 1.0, h: 0.48, ay: 0.5 },
+  'Flower Lei': { colors: { 0: 'necklace-lei' }, w: 0.85, h: 0.85, ay: 0.04 },
 };
+// Extra palette variants that have their own art.
+WORN_ART.Tiara.colors[0] = 'tiara-star';
+WORN_ART['Royal Cape'].colors[3] = 'cape-starry';
+
+/** Menu icon: the item's art when this color has one, else the vector icon. */
+function drawItemIconArt(g, ci, ii, colIdx, cx, cy, size, t) {
+  const it = CATS[ci].items[ii];
+  const key = WORN_ART[it.name]?.colors[colIdx ?? it.color ?? 0];
+  const img = key && art('prop/' + key);
+  if (img) {
+    const k = ci === CAT.back ? 0.95 : ci === CAT.hand ? 0.9 : 0.82;
+    const s = Math.min(size * k / img.width, size * k / img.height);
+    g.drawImage(img, cx - img.width * s / 2, cy - img.height * s / 2, img.width * s, img.height * s);
+    return;
+  }
+  drawItemIcon(g, ci, ii, colIdx, cx, cy, size, t);
+}
 
 function drawWornArt(g, item, color, S, t) {
   const spec = WORN_ART[item.name], key = spec?.colors[color];
@@ -616,16 +640,25 @@ export class Game {
     wg.addColorStop(0, mix(p.color, '#ffffff', 0.84)); wg.addColorStop(1, mix(p.color, '#ffffff', 0.68));
     g.fillStyle = wg; g.fillRect(r.x, r.y, r.w, r.h);
     // wallpaper hearts
+    if (!art('bg/fashion-show-dressing')) {
     g.save(); g.globalAlpha = 0.35; g.fillStyle = '#ffffff';
     const step = clamp(r.h * 0.09, 40, 80);
     for (let yy = r.y + step * 0.5, row = 0; yy < r.y + r.h; yy += step, row++) {
       for (let xx = r.x + (row % 2 ? step / 2 : 0); xx < r.x + r.w; xx += step) { heartPath(g, xx, yy, step * 0.22); g.fill(); }
     }
     g.restore();
+    }
     // mirror behind the character
     const ca = L.ca, mx = L.foot.x, my = ca.y + ca.h * 0.47, mrx = Math.min(ca.w * 0.4, ca.h * 0.36), mry = ca.h * 0.45;
-    const vanity = art('prop/vanity-mirror');
-    if (vanity) g.drawImage(vanity, mx - mrx * 1.25, my - mry * 1.15, mrx * 2.5, mry * 2.3);
+    const fy = L.foot.y - ca.h * 0.045;
+    const room = art('bg/fashion-show-dressing');
+    const vanity = !room && art('prop/vanity-mirror');
+    if (room) {
+      // Dressing-room backdrop: its floor line (y ~740 of 1080) meets this
+      // station's floor and its lit mirror sits right behind the model.
+      const k = Math.max((fy - r.y) / 740, 2 * Math.max(r.x + r.w - mx, mx - r.x) / room.width);
+      g.drawImage(room, mx - room.width * k / 2, fy - 740 * k, room.width * k, room.height * k);
+    } else if (vanity) g.drawImage(vanity, mx - mrx * 1.25, my - mry * 1.15, mrx * 2.5, mry * 2.3);
     else {
       g.beginPath(); g.ellipse(mx, my, mrx + 16, mry + 16, 0, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 5; g.strokeStyle = NAVY; g.stroke();
       const mg = g.createLinearGradient(mx - mrx, my - mry, mx + mrx, my + mry);
@@ -644,9 +677,10 @@ export class Game {
       }
     }
     // floor + pedestal
-    const fy = L.foot.y - ca.h * 0.045;
-    g.fillStyle = mix(p.color, '#ffffff', 0.45); g.fillRect(r.x, fy, r.w, r.y + r.h - fy);
-    g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(r.x, fy, r.w, 6);
+    if (!room) {
+      g.fillStyle = mix(p.color, '#ffffff', 0.45); g.fillRect(r.x, fy, r.w, r.y + r.h - fy);
+      g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(r.x, fy, r.w, 6);
+    }
     const pr = Math.min(ca.w * 0.34, 260);
     g.beginPath(); g.ellipse(L.foot.x, L.foot.y + 6, pr, pr * 0.22, 0, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
     g.beginPath(); g.ellipse(L.foot.x, L.foot.y, pr * 0.92, pr * 0.18, 0, 0, TAU); g.fillStyle = '#fff4fb'; g.fill();
@@ -680,7 +714,7 @@ export class Game {
       const worn = st.outfit[ci].item;
       const labeled = sel && bh > 64 && bw > 110;
       const isz = Math.min(bh * (labeled ? 0.95 : 1.15), bw * 0.62);
-      drawItemIcon(g, ci, worn || cat.tabItem, worn ? st.outfit[ci].colors[worn] : null, 0, labeled ? -bh * 0.1 : bh * 0.04, isz, this.t);
+      drawItemIconArt(g, ci, worn || cat.tabItem, worn ? st.outfit[ci].colors[worn] : null, 0, labeled ? -bh * 0.1 : bh * 0.04, isz, this.t);
       if (worn) { g.beginPath(); g.arc(bw / 2 - 9, -bh / 2 + 9, 6, 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke(); }
       if (labeled) ui.text(g, cat.name, 0, bh * 0.34, { size: bh * 0.24, color: NAVY, stroke: false, weight: 800 });
       g.restore();
@@ -708,7 +742,7 @@ export class Game {
       ui.panel(g, -bw / 2, -bh / 2, bw, bh, { r: 14, fill: sel ? '#ffd23f' : '#ffffff', lineWidth: sel ? 4 : 2, stroke: sel ? NAVY : 'rgba(36,22,63,0.25)', shadow: false });
       const isz = Math.min(bh * 0.9, named ? bh * 0.9 : bw * 0.8);
       const ix = named ? -bw / 2 + isz / 2 + 6 : 0;
-      drawItemIcon(g, ci, ii, o.colors[ii], ix, 0, isz, this.t);
+      drawItemIconArt(g, ci, ii, o.colors[ii], ix, 0, isz, this.t);
       if (named) ui.text(g, it.name, ix + isz / 2 + 8, 2, { size: clamp(bh * 0.3, 18, 30), color: NAVY, stroke: false, align: 'left', weight: 700, maxWidth: bw - isz - 26 });
       if (sel && it.draw) {
         const col = PALETTE[o.colors[ii]];

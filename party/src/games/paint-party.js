@@ -8,7 +8,7 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { placementsFromScores, rand, randInt, pick, chance, clamp, lerp, damp, ease, TAU } from '../engine/util.js';
 
@@ -66,8 +66,10 @@ export const meta = {
     // splat bomb in the air
     const bx = w * 0.64, by = h * 0.5 - Math.abs(Math.sin(t * 3)) * h * 0.12;
     g.fillStyle = 'rgba(0,0,0,0.2)'; g.beginPath(); g.ellipse(bx, h * 0.68, h * 0.07, h * 0.03, 0, 0, TAU); g.fill();
-    g.fillStyle = '#ff4d6d'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02; g.beginPath(); g.arc(bx, by, h * 0.08, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.ellipse(bx - h * 0.03, by - h * 0.03, h * 0.02, h * 0.012, -0.6, 0, TAU); g.fill();
+    if (!drawArt(g, 'prop/paint-bomb', bx, by - h * 0.02, h * 0.22, h * 0.22)) {
+      g.fillStyle = '#ff4d6d'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02; g.beginPath(); g.arc(bx, by, h * 0.08, 0, TAU); g.fill(); g.stroke();
+      g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.ellipse(bx - h * 0.03, by - h * 0.03, h * 0.02, h * 0.012, -0.6, 0, TAU); g.fill();
+    }
     // brush
     g.save(); g.translate(w * 0.34, h * 0.56); g.rotate(-0.7);
     g.fillStyle = '#c28a4d'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02; ui.roundRect(g, -h * 0.03, -h * 0.34, h * 0.06, h * 0.3, h * 0.02); g.fill(); g.stroke();
@@ -80,6 +82,29 @@ export const meta = {
 
 const hex2rgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
 const mix = (h, t, amt) => { const a = hex2rgb(h), b = t === 'w' ? [255, 255, 255] : [0, 0, 0]; return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * amt)).join(',')})`; };
+
+// Generated art recolored per player, built once per (image, color) and cached:
+//  - prop/paint-bomb is a pink balloon: 'color' blend keeps its shading/outline, swaps the hue
+//  - prop/splat is a white splat made for tinting: 'multiply' turns white into the player color
+const tintCache = new Map();
+function tinted(key, color, mode) {
+  const img = art(key);
+  if (!img) return null;
+  const id = key + color;
+  let c = tintCache.get(id);
+  if (c && c.src === img) return c.cv;
+  const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+  const cg = cv.getContext('2d');
+  cg.drawImage(img, 0, 0);
+  cg.globalCompositeOperation = mode; cg.fillStyle = color; cg.fillRect(0, 0, cv.width, cv.height);
+  cg.globalCompositeOperation = 'destination-in'; cg.drawImage(img, 0, 0);
+  tintCache.set(id, { src: img, cv });
+  return cv;
+}
+function drawFit(g, img, x, y, w, h) {
+  const k = Math.min(w / img.width, h / img.height), dw = img.width * k, dh = img.height * k;
+  g.drawImage(img, x - dw / 2, y - dh / 2, dw, dh);
+}
 
 // ---------------------------------------------------------------------------
 
@@ -488,6 +513,8 @@ export class Game {
       g.save(); g.globalAlpha = 0.35 + 0.25 * Math.sin(this.clock * 20); g.strokeStyle = b.color; g.lineWidth = 6; g.setLineDash([14, 10]);
       g.beginPath(); g.ellipse(b.tx, b.ty, BOMB_R * k, BOMB_R * k * 0.9, 0, 0, TAU); g.stroke(); g.restore();
       g.save(); g.translate(x, y); g.rotate(k * 9);
+      const bombImg = tinted('prop/paint-bomb', b.color, 'color');
+      if (bombImg) { drawFit(g, bombImg, 0, -3, 58, 58); g.restore(); continue; }
       g.fillStyle = b.color; g.strokeStyle = NAVY; g.lineWidth = 5; g.beginPath(); g.arc(0, 0, 21, 0, TAU); g.fill(); g.stroke();
       g.fillStyle = 'rgba(255,255,255,0.75)'; g.beginPath(); g.ellipse(-7, -8, 7, 4, -0.6, 0, TAU); g.fill();
       g.fillStyle = '#fff'; for (let k2 = 0; k2 < 3; k2++) { g.beginPath(); g.arc(Math.cos(k2 * 2.1) * 11, Math.sin(k2 * 2.1) * 11 + 4, 3, 0, TAU); g.fill(); }
@@ -502,6 +529,15 @@ export class Game {
     for (const sp of this.splats) {
       const k = sp.t / 0.8, grow = ease.outBack(clamp(sp.t / 0.22, 0, 1)), alpha = k < 0.35 ? 1 : 1 - (k - 0.35) / 0.65;
       g.save(); g.translate(sp.x, sp.y); g.globalAlpha = clamp(alpha, 0, 1) * 0.95;
+      const splatImg = tinted('prop/splat', sp.color, 'multiply');
+      if (splatImg) {
+        // body of the art splat ~ the painted circle (2r), drips reach past it; rotated per splat
+        const R = sp.r * grow;
+        g.rotate(sp.lobes[0].a);
+        drawFit(g, art('prop/splat'), 0, 0, R * 3.04, R * 3.04);   // white rim (like the procedural outline)
+        drawFit(g, splatImg, 0, 0, R * 2.9, R * 2.9);
+        g.restore(); continue;
+      }
       g.fillStyle = sp.color; g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = 5;
       const R = sp.r * grow;
       g.beginPath(); g.arc(0, 0, R * 0.8, 0, TAU); g.fill(); g.stroke();

@@ -178,6 +178,60 @@ const HEAD = [
       g.beginPath(); g.arc(S * 0.3, -S * 1.06, S * 0.05, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); ol(g, S, 0.03);
     },
   },
+  {
+    name: 'Top Hat', color: 2, icon: [0.8, 0.3],
+    draw(g, S, col) {
+      const ink = '#2f2545';
+      g.beginPath(); g.ellipse(0, S * 0.08, S * 0.5, S * 0.11, 0, 0, TAU); g.fillStyle = ink; g.fill(); ol(g, S);
+      g.beginPath(); g.moveTo(-S * 0.29, S * 0.07); g.lineTo(-S * 0.32, -S * 0.6); g.quadraticCurveTo(0, -S * 0.67, S * 0.32, -S * 0.6);
+      g.lineTo(S * 0.29, S * 0.07); g.quadraticCurveTo(0, S * 0.13, -S * 0.29, S * 0.07); g.closePath();
+      g.fillStyle = ink; g.fill(); ol(g, S);
+      g.beginPath(); g.moveTo(-S * 0.3, -S * 0.17); g.quadraticCurveTo(0, -S * 0.12, S * 0.3, -S * 0.17); g.lineTo(S * 0.295, -S * 0.03);
+      g.quadraticCurveTo(0, S * 0.02, -S * 0.295, -S * 0.03); g.closePath();
+      g.fillStyle = fillOf(g, col, S); g.fill(); ol(g, S, 0.03);
+      shine(g, -S * 0.2, -S * 0.4, S * 0.03, S * 0.12, 0.05, 0.35);
+    },
+  },
+  {
+    name: 'Party Hat', color: 7, icon: [0.75, 0.36],
+    draw(g, S, col) {
+      const cone = () => { g.beginPath(); g.moveTo(-S * 0.27, S * 0.1); g.lineTo(0, -S * 0.78); g.lineTo(S * 0.27, S * 0.1); g.quadraticCurveTo(0, S * 0.18, -S * 0.27, S * 0.1); g.closePath(); };
+      cone(); g.fillStyle = col.rainbow ? '#fff4fb' : col.l; g.fill();
+      g.save(); cone(); g.clip();
+      for (let k = 0; k < 7; k++) {
+        g.beginPath(); g.moveTo(-S * 0.5, S * (0.02 - k * 0.14)); g.lineTo(S * 0.5, S * (-0.1 - k * 0.14)); g.lineWidth = S * 0.06;
+        g.strokeStyle = col.rainbow ? RAINBOW[k % 7] : (k % 2 ? col.c : col.d); g.stroke();
+      }
+      g.restore();
+      cone(); ol(g, S);
+      for (let k = 0; k < 7; k++) { g.beginPath(); g.arc(-S * 0.24 + k * S * 0.08, S * 0.12 + Math.sin(k * 1.4) * S * 0.01, S * 0.045, 0, TAU); g.fillStyle = col.rainbow ? '#ff9fd8' : col.c; g.fill(); ol(g, S, 0.015); }
+      g.beginPath(); g.arc(0, -S * 0.8, S * 0.08, 0, TAU); g.fillStyle = col.rainbow ? '#ff7ac6' : col.d; g.fill(); ol(g, S, 0.03);
+    },
+  },
+  {
+    name: 'Sun Hat', color: 1, icon: [0.85, 0.12],
+    draw(g, S, col) {
+      g.beginPath(); g.ellipse(0, S * 0.04, S * 0.66, S * 0.17, 0, 0, TAU); g.fillStyle = fillOf(g, col, S); g.fill(); ol(g, S);
+      g.beginPath(); g.ellipse(0, S * 0.0, S * 0.3, S * 0.3, 0, Math.PI, TAU); g.closePath(); g.fillStyle = fillOf(g, col, S); g.fill(); ol(g, S);
+      g.beginPath(); g.rect(-S * 0.3, -S * 0.1, S * 0.6, S * 0.09); g.fillStyle = '#ff7ac6'; g.fill(); ol(g, S, 0.025);
+      for (const sx of [-1, 1]) {
+        g.beginPath(); g.moveTo(S * 0.12, -S * 0.06); g.quadraticCurveTo(S * (0.12 + sx * 0.12), -S * 0.2, S * (0.12 + sx * 0.14), -S * 0.02); g.closePath();
+        g.fillStyle = '#ff7ac6'; g.fill(); ol(g, S, 0.02);
+      }
+      shine(g, -S * 0.14, -S * 0.18, S * 0.06, S * 0.03, -0.4, 0.5);
+    },
+  },
+  {
+    name: 'Beret', color: 5, icon: [0.95, 0.12],
+    draw(g, S, col) {
+      g.save(); g.rotate(-0.12);
+      g.beginPath(); g.ellipse(S * 0.04, -S * 0.1, S * 0.5, S * 0.22, 0, 0, TAU); g.fillStyle = fillOf(g, col, S); g.fill(); ol(g, S);
+      g.beginPath(); g.ellipse(S * 0.02, S * 0.06, S * 0.36, S * 0.07, 0, 0, TAU); g.fillStyle = col.d; g.fill(); ol(g, S, 0.03);
+      g.beginPath(); g.moveTo(S * 0.02, -S * 0.31); g.quadraticCurveTo(S * 0.05, -S * 0.4, S * 0.1, -S * 0.39); g.lineWidth = S * 0.05; g.strokeStyle = NAVY; g.stroke();
+      shine(g, -S * 0.18, -S * 0.18, S * 0.1, S * 0.04, -0.2, 0.4);
+      g.restore();
+    },
+  },
 ];
 
 // --- face ----------------------------------------------------------------
@@ -198,7 +252,7 @@ const FACE = [
     },
   },
   {
-    name: 'Heart Shades', color: 5,
+    name: 'Heart Shades', color: 0,
     draw(g, S, col) {
       for (const sx of [-1, 1]) {
         heartPath(g, sx * S * 0.22, -S * 0.0, S * 0.36);
@@ -232,6 +286,34 @@ const FACE = [
         g.lineWidth = S * 0.015; g.strokeStyle = 'rgba(200,40,100,0.6)'; g.stroke();
       }
       heartPath(g, S * 0.36, S * 0.02, S * 0.1); g.fillStyle = '#ff4d8b'; g.fill(); ol(g, S, 0.015);
+    },
+  },
+  {
+    name: 'Star Glasses', color: 1,
+    draw(g, S, col) {
+      for (const sx of [-1, 1]) {
+        starAt(g, sx * S * 0.22, -S * 0.03, S * 0.2, 0, 0.55);
+        g.fillStyle = 'rgba(200,240,255,0.35)'; g.fill();
+        g.lineWidth = S * 0.07; g.strokeStyle = NAVY; g.stroke();
+        g.lineWidth = S * 0.04; g.strokeStyle = fillOf(g, col, S); g.stroke();
+        shine(g, sx * S * 0.22 - S * 0.05, -S * 0.08, S * 0.035, S * 0.018, -0.6, 0.8);
+      }
+      g.beginPath(); g.moveTo(-S * 0.06, -S * 0.07); g.lineTo(S * 0.06, -S * 0.07); g.lineWidth = S * 0.05; g.strokeStyle = NAVY; g.stroke();
+    },
+  },
+  {
+    name: 'Sunglasses', color: 2,
+    draw(g, S, col) {
+      for (const sx of [-1, 1]) {
+        g.beginPath();
+        g.moveTo(sx * S * 0.06, -S * 0.15); g.lineTo(sx * S * 0.4, -S * 0.15); g.quadraticCurveTo(sx * S * 0.4, S * 0.12, sx * S * 0.24, S * 0.1);
+        g.quadraticCurveTo(sx * S * 0.07, S * 0.1, sx * S * 0.06, -S * 0.15); g.closePath();
+        g.fillStyle = '#2f2545'; g.fill();
+        g.lineWidth = S * 0.06; g.strokeStyle = NAVY; g.stroke();
+        g.lineWidth = S * 0.035; g.strokeStyle = fillOf(g, col, S); g.stroke();
+        shine(g, sx * S * 0.2 - S * 0.04, -S * 0.07, S * 0.05, S * 0.022, -0.5, 0.6);
+      }
+      g.beginPath(); g.moveTo(-S * 0.07, -S * 0.12); g.lineTo(S * 0.07, -S * 0.12); g.lineWidth = S * 0.05; g.strokeStyle = NAVY; g.stroke();
     },
   },
 ];
@@ -291,6 +373,18 @@ const NECK = [
       heartPath(g, 0, S * 0.045, S * 0.18); g.fillStyle = fillOf(g, col, S * 0.3); g.fill();
       shine(g, -S * 0.04, -S * 0.02, S * 0.03, S * 0.018);
       g.restore();
+    },
+  },
+  {
+    name: 'Flower Lei', color: 0,
+    draw(g, S, col) {
+      const n = 11;
+      for (let i = 0; i < n; i++) {
+        const u = (i / (n - 1)) * 2 - 1;
+        const x = u * S * 0.4, y = -S * 0.06 + (1 - u * u) * S * 0.3;
+        const c = col.rainbow ? RAINBOW[i % 7] : [col.c, '#fff4fb', '#ffd23f'][i % 3];
+        flower(g, x, y, S * 0.075, c, i % 3 === 2 ? '#ff7ac6' : '#ffd23f', S);
+      }
     },
   },
 ];
