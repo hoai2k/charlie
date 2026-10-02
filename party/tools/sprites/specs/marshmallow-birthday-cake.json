@@ -1,14 +1,14 @@
 {
   "asset": "marshmallow-birthday-cake",
-  "bodyHeight": 300,
+  "bodyHeight": 260,
   "quality": 82,
   "frameSize": [
-    640,
-    620
+    555,
+    537
   ],
   "anchor": [
-    320,
-    540
+    277,
+    468
   ],
   "facing": 0,
   "poses": {
@@ -1299,6 +1299,2646 @@
       "loop": true,
       "motion": 0.15,
       "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            25,
+            43,
+            342,
+            440
+          ],
+          "isolate": true,
+          "anchor": [
+            178,
+            436
+          ],
+          "scale": 1,
+          "head": [
+            171,
+            62
+          ],
+          "eyes": [
+            171,
+            260
+          ],
+          "neck": [
+            171,
+            299
+          ],
+          "back": [
+            68,
+            251
+          ],
+          "hand": [
+            171,
+            106
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            385,
+            90,
+            379,
+            394
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            390
+          ],
+          "scale": 1,
+          "head": [
+            262,
+            55
+          ],
+          "eyes": [
+            216,
+            232
+          ],
+          "neck": [
+            205,
+            268
+          ],
+          "back": [
+            76,
+            225
+          ],
+          "hand": [
+            227,
+            95
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            765,
+            90,
+            379,
+            402
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            398
+          ],
+          "scale": 1,
+          "head": [
+            265,
+            60
+          ],
+          "eyes": [
+            220,
+            237
+          ],
+          "neck": [
+            212,
+            273
+          ],
+          "back": [
+            76,
+            229
+          ],
+          "hand": [
+            239,
+            96
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            1150,
+            67,
+            360,
+            427
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            423
+          ],
+          "scale": 1,
+          "head": [
+            223,
+            56
+          ],
+          "eyes": [
+            198,
+            252
+          ],
+          "neck": [
+            191,
+            290
+          ],
+          "back": [
+            72,
+            243
+          ],
+          "hand": [
+            205,
+            98
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            11,
+            541,
+            368,
+            419
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            415
+          ],
+          "scale": 1,
+          "head": [
+            184,
+            54
+          ],
+          "eyes": [
+            184,
+            247
+          ],
+          "neck": [
+            184,
+            285
+          ],
+          "back": [
+            74,
+            239
+          ],
+          "hand": [
+            184,
+            96
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            391,
+            539,
+            367,
+            426
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            422
+          ],
+          "scale": 1,
+          "head": [
+            184,
+            55
+          ],
+          "eyes": [
+            184,
+            251
+          ],
+          "neck": [
+            184,
+            290
+          ],
+          "back": [
+            73,
+            243
+          ],
+          "hand": [
+            184,
+            98
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            770,
+            598,
+            370,
+            370
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            366
+          ],
+          "scale": 1,
+          "head": [
+            233,
+            44
+          ],
+          "eyes": [
+            196,
+            226
+          ],
+          "neck": [
+            192,
+            255
+          ],
+          "back": [
+            74,
+            218
+          ],
+          "hand": [
+            211,
+            81
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-a.webp",
+          "rect": [
+            1173,
+            530,
+            356,
+            429
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            425
+          ],
+          "scale": 1,
+          "head": [
+            242,
+            64
+          ],
+          "eyes": [
+            196,
+            257
+          ],
+          "neck": [
+            192,
+            292
+          ],
+          "back": [
+            64,
+            253
+          ],
+          "hand": [
+            217,
+            103
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            6,
+            79,
+            368,
+            434
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            430
+          ],
+          "scale": 1,
+          "head": [
+            228,
+            61
+          ],
+          "eyes": [
+            199,
+            260
+          ],
+          "neck": [
+            195,
+            295
+          ],
+          "back": [
+            66,
+            256
+          ],
+          "hand": [
+            213,
+            100
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            383,
+            61,
+            385,
+            448
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            444
+          ],
+          "scale": 1,
+          "head": [
+            192,
+            58
+          ],
+          "eyes": [
+            192,
+            264
+          ],
+          "neck": [
+            192,
+            305
+          ],
+          "back": [
+            77,
+            255
+          ],
+          "hand": [
+            192,
+            103
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            770,
+            22,
+            354,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            488
+          ],
+          "scale": 1,
+          "head": [
+            177,
+            64
+          ],
+          "eyes": [
+            177,
+            290
+          ],
+          "neck": [
+            177,
+            335
+          ],
+          "back": [
+            71,
+            280
+          ],
+          "hand": [
+            177,
+            113
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            1136,
+            168,
+            395,
+            359
+          ],
+          "isolate": true,
+          "anchor": [
+            205,
+            355
+          ],
+          "scale": 1,
+          "head": [
+            198,
+            47
+          ],
+          "eyes": [
+            198,
+            215
+          ],
+          "neck": [
+            198,
+            251
+          ],
+          "back": [
+            79,
+            212
+          ],
+          "hand": [
+            198,
+            86
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            10,
+            549,
+            386,
+            439
+          ],
+          "isolate": true,
+          "anchor": [
+            201,
+            435
+          ],
+          "scale": 1,
+          "head": [
+            124,
+            61
+          ],
+          "eyes": [
+            174,
+            268
+          ],
+          "neck": [
+            181,
+            307
+          ],
+          "back": [
+            309,
+            259
+          ],
+          "hand": [
+            139,
+            105
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            401,
+            529,
+            368,
+            461
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            457
+          ],
+          "scale": 1,
+          "head": [
+            243,
+            65
+          ],
+          "eyes": [
+            206,
+            277
+          ],
+          "neck": [
+            202,
+            318
+          ],
+          "back": [
+            74,
+            272
+          ],
+          "hand": [
+            224,
+            106
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            762,
+            543,
+            393,
+            445
+          ],
+          "isolate": true,
+          "anchor": [
+            204,
+            441
+          ],
+          "scale": 1,
+          "head": [
+            196,
+            58
+          ],
+          "eyes": [
+            196,
+            263
+          ],
+          "neck": [
+            196,
+            303
+          ],
+          "back": [
+            79,
+            254
+          ],
+          "hand": [
+            196,
+            102
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-b.webp",
+          "rect": [
+            1151,
+            583,
+            375,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            195,
+            412
+          ],
+          "scale": 1,
+          "head": [
+            255,
+            58
+          ],
+          "eyes": [
+            217,
+            250
+          ],
+          "neck": [
+            206,
+            287
+          ],
+          "back": [
+            75,
+            241
+          ],
+          "hand": [
+            236,
+            96
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            27,
+            12,
+            381,
+            423
+          ],
+          "isolate": true,
+          "anchor": [
+            198,
+            419
+          ],
+          "scale": 1,
+          "head": [
+            190,
+            55
+          ],
+          "eyes": [
+            190,
+            250
+          ],
+          "neck": [
+            190,
+            288
+          ],
+          "back": [
+            76,
+            241
+          ],
+          "hand": [
+            190,
+            97
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            453,
+            3,
+            393,
+            441
+          ],
+          "isolate": true,
+          "anchor": [
+            204,
+            437
+          ],
+          "scale": 1,
+          "head": [
+            216,
+            57
+          ],
+          "eyes": [
+            216,
+            265
+          ],
+          "neck": [
+            208,
+            304
+          ],
+          "back": [
+            79,
+            260
+          ],
+          "hand": [
+            212,
+            101
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            886,
+            30,
+            433,
+            427
+          ],
+          "isolate": true,
+          "anchor": [
+            225,
+            423
+          ],
+          "scale": 1,
+          "head": [
+            299,
+            64
+          ],
+          "eyes": [
+            242,
+            260
+          ],
+          "neck": [
+            234,
+            299
+          ],
+          "back": [
+            87,
+            252
+          ],
+          "hand": [
+            268,
+            102
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            1367,
+            9,
+            379,
+            437
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            433
+          ],
+          "scale": 1,
+          "head": [
+            190,
+            57
+          ],
+          "eyes": [
+            190,
+            258
+          ],
+          "neck": [
+            190,
+            297
+          ],
+          "back": [
+            76,
+            249
+          ],
+          "hand": [
+            190,
+            101
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            21,
+            443,
+            382,
+            433
+          ],
+          "isolate": true,
+          "anchor": [
+            199,
+            429
+          ],
+          "scale": 1,
+          "head": [
+            252,
+            61
+          ],
+          "eyes": [
+            214,
+            260
+          ],
+          "neck": [
+            210,
+            299
+          ],
+          "back": [
+            76,
+            251
+          ],
+          "hand": [
+            229,
+            100
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            443,
+            455,
+            414,
+            413
+          ],
+          "isolate": true,
+          "anchor": [
+            215,
+            409
+          ],
+          "scale": 1,
+          "head": [
+            228,
+            54
+          ],
+          "eyes": [
+            219,
+            248
+          ],
+          "neck": [
+            215,
+            285
+          ],
+          "back": [
+            83,
+            240
+          ],
+          "hand": [
+            224,
+            95
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            887,
+            457,
+            407,
+            427
+          ],
+          "isolate": true,
+          "anchor": [
+            212,
+            423
+          ],
+          "scale": 1,
+          "head": [
+            256,
+            56
+          ],
+          "eyes": [
+            228,
+            260
+          ],
+          "neck": [
+            220,
+            299
+          ],
+          "back": [
+            81,
+            252
+          ],
+          "hand": [
+            236,
+            98
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-c.webp",
+          "rect": [
+            1346,
+            458,
+            406,
+            425
+          ],
+          "isolate": true,
+          "anchor": [
+            211,
+            421
+          ],
+          "scale": 1,
+          "head": [
+            203,
+            55
+          ],
+          "eyes": [
+            203,
+            251
+          ],
+          "neck": [
+            203,
+            289
+          ],
+          "back": [
+            81,
+            242
+          ],
+          "hand": [
+            203,
+            98
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            8,
+            52,
+            375,
+            461
+          ],
+          "isolate": true,
+          "anchor": [
+            195,
+            457
+          ],
+          "scale": 1,
+          "head": [
+            206,
+            60
+          ],
+          "eyes": [
+            195,
+            272
+          ],
+          "neck": [
+            195,
+            313
+          ],
+          "back": [
+            75,
+            263
+          ],
+          "hand": [
+            199,
+            106
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            401,
+            22,
+            356,
+            480
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            476
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            62
+          ],
+          "eyes": [
+            178,
+            283
+          ],
+          "neck": [
+            178,
+            326
+          ],
+          "back": [
+            71,
+            274
+          ],
+          "hand": [
+            178,
+            110
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            10,
+            16,
+            384,
+            468
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            464
+          ],
+          "scale": 1,
+          "head": [
+            200,
+            61
+          ],
+          "eyes": [
+            192,
+            276
+          ],
+          "neck": [
+            192,
+            318
+          ],
+          "back": [
+            77,
+            267
+          ],
+          "hand": [
+            192,
+            108
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            398,
+            99,
+            426,
+            384
+          ],
+          "isolate": true,
+          "anchor": [
+            222,
+            380
+          ],
+          "scale": 1,
+          "head": [
+            213,
+            54
+          ],
+          "eyes": [
+            213,
+            230
+          ],
+          "neck": [
+            213,
+            265
+          ],
+          "back": [
+            85,
+            227
+          ],
+          "hand": [
+            213,
+            92
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            804,
+            50,
+            398,
+            437
+          ],
+          "isolate": true,
+          "anchor": [
+            207,
+            433
+          ],
+          "scale": 1,
+          "head": [
+            271,
+            61
+          ],
+          "eyes": [
+            223,
+            267
+          ],
+          "neck": [
+            219,
+            306
+          ],
+          "back": [
+            80,
+            258
+          ],
+          "hand": [
+            247,
+            105
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            1220,
+            39,
+            381,
+            446
+          ],
+          "isolate": true,
+          "anchor": [
+            198,
+            442
+          ],
+          "scale": 1,
+          "head": [
+            190,
+            58
+          ],
+          "eyes": [
+            190,
+            263
+          ],
+          "neck": [
+            190,
+            303
+          ],
+          "back": [
+            76,
+            254
+          ],
+          "hand": [
+            190,
+            103
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            10,
+            510,
+            398,
+            454
+          ],
+          "isolate": true,
+          "anchor": [
+            207,
+            450
+          ],
+          "scale": 1,
+          "head": [
+            255,
+            64
+          ],
+          "eyes": [
+            219,
+            272
+          ],
+          "neck": [
+            211,
+            313
+          ],
+          "back": [
+            80,
+            263
+          ],
+          "hand": [
+            231,
+            109
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            413,
+            493,
+            386,
+            453
+          ],
+          "isolate": true,
+          "anchor": [
+            201,
+            449
+          ],
+          "scale": 1,
+          "head": [
+            193,
+            59
+          ],
+          "eyes": [
+            193,
+            267
+          ],
+          "neck": [
+            193,
+            308
+          ],
+          "back": [
+            77,
+            258
+          ],
+          "hand": [
+            193,
+            104
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            800,
+            527,
+            410,
+            441
+          ],
+          "isolate": true,
+          "anchor": [
+            213,
+            437
+          ],
+          "scale": 1,
+          "head": [
+            205,
+            57
+          ],
+          "eyes": [
+            205,
+            260
+          ],
+          "neck": [
+            205,
+            300
+          ],
+          "back": [
+            82,
+            251
+          ],
+          "hand": [
+            205,
+            101
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-e.webp",
+          "rect": [
+            1217,
+            504,
+            383,
+            454
+          ],
+          "isolate": true,
+          "anchor": [
+            199,
+            450
+          ],
+          "scale": 1,
+          "head": [
+            192,
+            59
+          ],
+          "eyes": [
+            192,
+            268
+          ],
+          "neck": [
+            192,
+            309
+          ],
+          "back": [
+            77,
+            259
+          ],
+          "hand": [
+            192,
+            104
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            22,
+            18,
+            371,
+            423
+          ],
+          "isolate": true,
+          "anchor": [
+            186,
+            419
+          ],
+          "scale": 1.0,
+          "head": [
+            223,
+            59
+          ],
+          "eyes": [
+            186,
+            254
+          ],
+          "neck": [
+            197,
+            292
+          ],
+          "back": [
+            74,
+            250
+          ],
+          "hand": [
+            241,
+            106
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            465,
+            34,
+            373,
+            423
+          ],
+          "isolate": true,
+          "anchor": [
+            186,
+            419
+          ],
+          "scale": 1.0,
+          "head": [
+            194,
+            55
+          ],
+          "eyes": [
+            186,
+            250
+          ],
+          "neck": [
+            186,
+            288
+          ],
+          "back": [
+            78,
+            245
+          ],
+          "hand": [
+            194,
+            102
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            906,
+            36,
+            367,
+            420
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            416
+          ],
+          "scale": 1.0,
+          "head": [
+            184,
+            59
+          ],
+          "eyes": [
+            184,
+            248
+          ],
+          "neck": [
+            184,
+            286
+          ],
+          "back": [
+            77,
+            244
+          ],
+          "hand": [
+            184,
+            105
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            1295,
+            49,
+            465,
+            408
+          ],
+          "isolate": true,
+          "anchor": [
+            232,
+            404
+          ],
+          "scale": 1.0,
+          "head": [
+            232,
+            57
+          ],
+          "eyes": [
+            232,
+            241
+          ],
+          "neck": [
+            232,
+            282
+          ],
+          "back": [
+            88,
+            241
+          ],
+          "hand": [
+            232,
+            102
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            46,
+            495,
+            332,
+            364
+          ],
+          "isolate": true,
+          "anchor": [
+            166,
+            360
+          ],
+          "scale": 1.0,
+          "head": [
+            166,
+            47
+          ],
+          "eyes": [
+            166,
+            215
+          ],
+          "neck": [
+            166,
+            248
+          ],
+          "back": [
+            70,
+            211
+          ],
+          "hand": [
+            166,
+            87
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            431,
+            480,
+            356,
+            390
+          ],
+          "isolate": true,
+          "anchor": [
+            178,
+            386
+          ],
+          "scale": 1.0,
+          "head": [
+            221,
+            51
+          ],
+          "eyes": [
+            171,
+            238
+          ],
+          "neck": [
+            182,
+            273
+          ],
+          "back": [
+            71,
+            234
+          ],
+          "hand": [
+            228,
+            98
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            860,
+            480,
+            437,
+            395
+          ],
+          "isolate": true,
+          "anchor": [
+            218,
+            391
+          ],
+          "scale": 1.0,
+          "head": [
+            227,
+            51
+          ],
+          "eyes": [
+            218,
+            241
+          ],
+          "neck": [
+            218,
+            273
+          ],
+          "back": [
+            87,
+            237
+          ],
+          "hand": [
+            227,
+            95
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-f.webp",
+          "rect": [
+            1372,
+            475,
+            350,
+            398
+          ],
+          "isolate": true,
+          "anchor": [
+            175,
+            394
+          ],
+          "scale": 1.0,
+          "head": [
+            175,
+            52
+          ],
+          "eyes": [
+            175,
+            239
+          ],
+          "neck": [
+            175,
+            275
+          ],
+          "back": [
+            70,
+            235
+          ],
+          "hand": [
+            175,
+            96
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-pose-twirl-r3.webp",
+          "rect": [
+            18,
+            38,
+            534,
+            639
+          ],
+          "isolate": true,
+          "anchor": [
+            267,
+            635
+          ],
+          "scale": 0.68,
+          "head": [
+            267,
+            83
+          ],
+          "eyes": [
+            267,
+            358
+          ],
+          "neck": [
+            267,
+            428
+          ],
+          "back": [
+            107,
+            358
+          ],
+          "hand": [
+            267,
+            153
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-pose-twirl-r3.webp",
+          "rect": [
+            569,
+            37,
+            511,
+            649
+          ],
+          "isolate": true,
+          "anchor": [
+            256,
+            645
+          ],
+          "scale": 0.68,
+          "head": [
+            256,
+            84
+          ],
+          "eyes": [
+            204,
+            370
+          ],
+          "neck": [
+            245,
+            441
+          ],
+          "back": [
+            102,
+            363
+          ],
+          "hand": [
+            256,
+            156
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-pose-twirl-r3.webp",
+          "rect": [
+            1090,
+            38,
+            525,
+            651
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            647
+          ],
+          "scale": 0.68,
+          "head": [
+            262,
+            85
+          ],
+          "eyes": [
+            262,
+            378
+          ],
+          "neck": [
+            262,
+            443
+          ],
+          "back": [
+            105,
+            365
+          ],
+          "hand": [
+            262,
+            156
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-pose-twirl-r3.webp",
+          "rect": [
+            1631,
+            38,
+            522,
+            645
+          ],
+          "isolate": true,
+          "anchor": [
+            261,
+            641
+          ],
+          "scale": 0.68,
+          "head": [
+            261,
+            84
+          ],
+          "eyes": [
+            313,
+            368
+          ],
+          "neck": [
+            271,
+            439
+          ],
+          "back": [
+            104,
+            361
+          ],
+          "hand": [
+            261,
+            155
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.05,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            8,
+            54,
+            386,
+            457
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            453
+          ],
+          "scale": 1.0,
+          "head": [
+            262,
+            64
+          ],
+          "eyes": [
+            212,
+            274
+          ],
+          "neck": [
+            201,
+            315
+          ],
+          "back": [
+            69,
+            265
+          ],
+          "hand": [
+            262,
+            110
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            396,
+            61,
+            381,
+            448
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            444
+          ],
+          "scale": 1.0,
+          "head": [
+            210,
+            63
+          ],
+          "eyes": [
+            179,
+            269
+          ],
+          "neck": [
+            187,
+            309
+          ],
+          "back": [
+            76,
+            260
+          ],
+          "hand": [
+            210,
+            108
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            757,
+            160,
+            413,
+            352
+          ],
+          "isolate": true,
+          "anchor": [
+            206,
+            348
+          ],
+          "scale": 1.0,
+          "head": [
+            206,
+            46
+          ],
+          "eyes": [
+            206,
+            215
+          ],
+          "neck": [
+            206,
+            246
+          ],
+          "back": [
+            83,
+            211
+          ],
+          "hand": [
+            206,
+            84
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            1162,
+            55,
+            368,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            452
+          ],
+          "scale": 1.0,
+          "head": [
+            169,
+            64
+          ],
+          "eyes": [
+            202,
+            283
+          ],
+          "neck": [
+            195,
+            319
+          ],
+          "back": [
+            74,
+            274
+          ],
+          "hand": [
+            169,
+            109
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            10,
+            525,
+            393,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            196,
+            452
+          ],
+          "scale": 1.0,
+          "head": [
+            196,
+            59
+          ],
+          "eyes": [
+            196,
+            269
+          ],
+          "neck": [
+            196,
+            315
+          ],
+          "back": [
+            79,
+            269
+          ],
+          "hand": [
+            196,
+            109
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            413,
+            519,
+            407,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            204,
+            460
+          ],
+          "scale": 1.0,
+          "head": [
+            204,
+            60
+          ],
+          "eyes": [
+            204,
+            278
+          ],
+          "neck": [
+            204,
+            320
+          ],
+          "back": [
+            81,
+            274
+          ],
+          "hand": [
+            204,
+            111
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-g.webp",
+          "rect": [
+            834,
+            561,
+            391,
+            435
+          ],
+          "isolate": true,
+          "anchor": [
+            196,
+            431
+          ],
+          "scale": 1.0,
+          "head": [
+            215,
+            57
+          ],
+          "eyes": [
+            215,
+            270
+          ],
+          "neck": [
+            207,
+            304
+          ],
+          "back": [
+            78,
+            257
+          ],
+          "hand": [
+            215,
+            104
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-r4.webp",
+          "rect": [
+            11,
+            163,
+            533,
+            524
+          ],
+          "isolate": true,
+          "anchor": [
+            266,
+            520
+          ],
+          "scale": 0.68,
+          "head": [
+            266,
+            73
+          ],
+          "eyes": [
+            266,
+            314
+          ],
+          "neck": [
+            266,
+            362
+          ],
+          "back": [
+            107,
+            309
+          ],
+          "hand": [
+            266,
+            126
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-r4.webp",
+          "rect": [
+            568,
+            85,
+            513,
+            582
+          ],
+          "isolate": true,
+          "anchor": [
+            256,
+            578
+          ],
+          "scale": 0.68,
+          "head": [
+            256,
+            81
+          ],
+          "eyes": [
+            256,
+            349
+          ],
+          "neck": [
+            256,
+            402
+          ],
+          "back": [
+            103,
+            343
+          ],
+          "hand": [
+            256,
+            140
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-r4.webp",
+          "rect": [
+            1091,
+            84,
+            512,
+            583
+          ],
+          "isolate": true,
+          "anchor": [
+            256,
+            579
+          ],
+          "scale": 0.68,
+          "head": [
+            256,
+            82
+          ],
+          "eyes": [
+            256,
+            350
+          ],
+          "neck": [
+            256,
+            402
+          ],
+          "back": [
+            102,
+            344
+          ],
+          "hand": [
+            256,
+            140
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-dance-r4.webp",
+          "rect": [
+            1628,
+            163,
+            533,
+            525
+          ],
+          "isolate": true,
+          "anchor": [
+            266,
+            521
+          ],
+          "scale": 0.68,
+          "head": [
+            266,
+            74
+          ],
+          "eyes": [
+            266,
+            315
+          ],
+          "neck": [
+            266,
+            362
+          ],
+          "back": [
+            107,
+            310
+          ],
+          "hand": [
+            266,
+            126
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            759,
+            91,
+            394,
+            428
+          ],
+          "isolate": true,
+          "anchor": [
+            205,
+            424
+          ],
+          "scale": 1,
+          "head": [
+            268,
+            60
+          ],
+          "eyes": [
+            225,
+            257
+          ],
+          "neck": [
+            217,
+            295
+          ],
+          "back": [
+            79,
+            248
+          ],
+          "hand": [
+            240,
+            98
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            1134,
+            151,
+            396,
+            368
+          ],
+          "isolate": true,
+          "anchor": [
+            206,
+            364
+          ],
+          "scale": 1,
+          "head": [
+            269,
+            52
+          ],
+          "eyes": [
+            226,
+            221
+          ],
+          "neck": [
+            218,
+            254
+          ],
+          "back": [
+            79,
+            213
+          ],
+          "hand": [
+            242,
+            85
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true,
+      "facing": 0
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            11,
+            525,
+            381,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            198,
+            452
+          ],
+          "scale": 1,
+          "head": [
+            221,
+            64
+          ],
+          "eyes": [
+            206,
+            274
+          ],
+          "neck": [
+            202,
+            315
+          ],
+          "back": [
+            76,
+            264
+          ],
+          "hand": [
+            210,
+            105
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            388,
+            528,
+            362,
+            458
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            454
+          ],
+          "scale": 1,
+          "head": [
+            210,
+            64
+          ],
+          "eyes": [
+            195,
+            275
+          ],
+          "neck": [
+            192,
+            316
+          ],
+          "back": [
+            72,
+            266
+          ],
+          "hand": [
+            199,
+            105
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true,
+      "facing": 0
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            822,
+            555,
+            369,
+            414
+          ],
+          "isolate": true,
+          "anchor": [
+            192,
+            410
+          ],
+          "scale": 1,
+          "head": [
+            214,
+            58
+          ],
+          "eyes": [
+            199,
+            248
+          ],
+          "neck": [
+            196,
+            286
+          ],
+          "back": [
+            74,
+            240
+          ],
+          "hand": [
+            207,
+            95
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-actions-d.webp",
+          "rect": [
+            1180,
+            556,
+            353,
+            428
+          ],
+          "isolate": true,
+          "anchor": [
+            184,
+            424
+          ],
+          "scale": 1,
+          "head": [
+            205,
+            60
+          ],
+          "eyes": [
+            191,
+            257
+          ],
+          "neck": [
+            187,
+            295
+          ],
+          "back": [
+            71,
+            248
+          ],
+          "hand": [
+            198,
+            98
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true,
+      "facing": 0
     }
   },
   "portraits": {
@@ -1317,5 +3957,6 @@
     "determined": {
       "source": "../sources/marshmallow-birthday-cake-portrait-determined.webp"
     }
-  }
+  },
+  "provenance": "Generated from approved Marshmallow Birthday Cake canonical; full requested action set; all new frames have source-local reviewed landmarks; 260 px common bodyHeight keeps decoded memory below 25 MiB."
 }

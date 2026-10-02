@@ -1,7 +1,7 @@
 # Sprite session handoff — 2026-10-02 resumed checkpoint
 
-Production is paused at the user's requested 40% remaining allowance threshold
-(60% used). Do not start further image generation until the user resumes.
+Production is active. The user explicitly revoked the previous 40% allowance
+pause for Sol; continue all requested images and regeneration requests.
 The entire image brief is **not complete**. All approved canonicals remain approved.
 
 ## Published and ready work
@@ -68,3 +68,11 @@ No-cache preview is port 8141. Test timing/landmarks and art loading with:
 Validate stable builds with `python3 party/tools/sprites/validate.py`.
 Per-member decoded limit is 25 MiB. Total encoded 25 MiB is now a distribution
 warning because sprites load on demand; 1.5 MiB per-member remains a soft target.
+
+## Current delivery update
+
+Cake reviewed: 74 pose keys /95 realframes /5portraits,24.8MiBdecoded. Full
+requestedunioncovered, includingdance/carry/cast,truebacktwirl andtwoframe
+dash/hipbump/knockback. Earlier Cake pending instructions are superseded by
+the shipping spec/runtime. Mermaidpaint: Scaleauthored; Marinablocked after
+three builtinimagegen refusals. Mermaidmetadataunderrootreview; others ongoing.
