@@ -18,6 +18,7 @@ parser.add_argument('sheet_name')
 parser.add_argument('poses', help='Comma-separated, left-to-right pose names')
 parser.add_argument('--facing', type=int, default=1)
 parser.add_argument('--scale', type=float, default=1)
+parser.add_argument('--rows', type=int, default=1, help='Number of rows in a regular pose grid')
 args = parser.parse_args()
 base = Path(__file__).resolve().parent
 im = Image.open(args.source).convert('RGBA')
@@ -30,7 +31,14 @@ for i, obj in enumerate(objects):
     if area > 1000:
         figures.append((area, (obj[1].start, obj[0].start, obj[1].stop, obj[0].stop)))
 poses = args.poses.split(',')
-figures = sorted(sorted(figures, reverse=True)[:len(poses)], key=lambda x: (x[1][0] + x[1][2]) / 2)
+figures = sorted(figures, reverse=True)[:len(poses)]
+if args.rows < 1 or len(poses) % args.rows:
+    raise SystemExit('Pose count must divide evenly into --rows')
+cols = len(poses) // args.rows
+figures.sort(key=lambda x: (x[1][1] + x[1][3]) / 2)
+figures = [figure for row in range(args.rows)
+           for figure in sorted(figures[row * cols:(row + 1) * cols],
+                                key=lambda x: (x[1][0] + x[1][2]) / 2)]
 if len(figures) != len(poses):
     raise SystemExit(f'Expected {len(poses)} figures, found {len(figures)}')
 im.save(base / 'sources' / f'{args.asset}-{args.sheet_name}.webp', 'WEBP', lossless=True, method=6)

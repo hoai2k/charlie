@@ -7,24 +7,30 @@ and the diverse Garden Fairies with a light olive purple fairy.
 
 ## Current priorities
 
-1. **NPC integration** — finish Hoot, three Imps, five Fairies, Broccoli and
-   Storm Cloud; register sets and cut-outs. Connect game rendering. Keep
-   Storm Cloud lightning separate. Add Troll's own run, ready, pout and sad.
-   Owner: NPC art agent; root handles game integration and checks.
-2. **Upgrade the shipped pilots** — Felicity, Fellowfox and Bronze: idle
-   blink, 3–4 celebration frames, two pout frames, four dance frames at
-   4 fps, two ride frames, distinct cheer/sad. Then sing, water, count,
-   look-up, hold-present, toss, sooty, swim, sit, balance, blow and float.
-   Fellowfox also needs giggle and catch-toy. Root queues these separately
-   from their already shipped 37 initial actions plus six optional actions.
-3. **Remaining roster** — animal agent finishes Cotton Candy currently in
-   progress, then Fox, Unicorn and Hotdog. NPC agent takes the KPop trio
-   after NPCs. Root has Marina/Scale generation in progress, then Princess
-   Amber, Snowstar and Birthday Cake. Each completed set ships immediately.
-4. **Remaining game art** — environment agent: balloons/pump, gems, Pet Spa
-   tools, 30 plant stages and watering can, ingredients, memory-card back,
-   notes, cookies, broom props and vanity mirror, then remaining original
-   and Round 2 requests. Already generated items are not regenerated.
+Completed checkpoints: approved NPC sets/cutouts and game integration; Troll
+Round 3 reactions; Felicity/Fellowfox/Bronze upgraded cycles and 14 game actions;
+all three KPop members; Cotton Candy and Fox; Marina/Scale Tier-1 core sets.
+Fox was committed as `ce6f813`. NPC omissions outside their requested vocabulary
+are intentional, while Marina/Scale still need their extended player actions.
+
+1. **Remaining roster** — lighter animal agent owns Hotdog; NPC agent finishes
+   only Unicorn, then hands off. Amber, Snowstar and Birthday Cake each have
+   core, walk/run, air/reaction and celebration/ride sheets saved with specs and
+   exact prompts. Those three need QA, remaining actions/dance and registration.
+   Delegate that finishing work to a lighter agent when a slot opens.
+2. **Mermaid extensions** — Marina/Scale still need game-action vocabulary and
+   Round 3 animation upgrades; preserve tails and use gliding locomotion.
+3. **Game art** — environment agent completes fashion accessories and cake
+   toppings, then hands off. Existing 190-key checkpoint includes backgrounds,
+   thumbnails, priority props, plants, UI and effects. New accessory/topping art
+   needs registration checkpoint and narrow game hooks (fashion, cake, rewards).
+4. **Audit remaining requests** — compare authored poses and indexed art against
+   Round 2/3 without counting aliases as newly generated art. Round 3 extra poses
+   are currently broadest on the three pilot characters. Update coverage after
+   the remaining roster lands; do not label the entire brief complete.
+
+Use `tools/sprites/AGENT-PLAYBOOK.md` for practical generation/intake/QA lessons.
+The integrator reviews visuals, shared code, browser behavior and commits.
 
 ## Quality and verification
 
