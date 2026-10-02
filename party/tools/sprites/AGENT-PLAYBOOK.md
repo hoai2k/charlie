@@ -209,3 +209,22 @@ source and rebuild its optimized derivatives; preserve unrelated originals.
 `build.py` decodes each source sheet once per build, copies pixels before alpha
 cleanup, and releases the source cache before encoding. This avoids repeated
 external-volume reads during annotation iterations without changing artwork.
+
+## Final review refinements
+
+Review crouched animal points individually. An upright head/eye/neck template
+does not fit a lowered head, even when the pose scale is correct. Put the eyes
+between the visible eyes, the head at the skull, the neck at the white chest or
+neck join and the hand at the actual mouth. A source-coordinate change that
+looks plausible must still be checked on the next built runtime overlay.
+
+Marina's painting pose succeeded with an activity-specific purple painting
+smock after several output refusals with no specific cause supplied. Keep that
+successful master and its exact prompt; do not infer a moderation cause from
+the refusals. Her approved canonical stays unchanged. Preserve identity and
+use ordinary appropriate activity clothes when a pose benefits from them.
+
+The color-variant system requires `make_masks.py` after final sprite changes to
+Felicity, KPop center and Princess Amber. The masks are classified from existing
+pixels; no extra generated recolor artwork is required. Include them in the
+same reviewed character delivery and validate their source fingerprints.

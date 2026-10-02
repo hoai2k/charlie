@@ -167,3 +167,7 @@ Main update b5b1cc1 adds color-variant masks: rebuild masks for Felicity, KPop
 center and Amber after sprite changes. No extra image generation is requested.
 Troll hand points passed runtime overlay and full/optimized gameplay review;
 19 poses, 37 authored frames, 5 portraits, 14.5 MiB decoded.
+
+Professor Hoot reviewed: distinct two-frame point, laugh and bravo; original
+face/wing landmarks corrected. Potion Class now selects bravo for applause
+and laugh before speech. Full and optimized game review plus validation passed.
