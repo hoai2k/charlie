@@ -105,12 +105,33 @@ const UNICORN_BEAM_RANGE = 520;
 const UNICORN_BEAM_DURATION = 0.2;
 const PEGASUS_HOVER_Z = (HORSE_JUMP_POWER * HORSE_JUMP_POWER) / (2 * GRAVITY);
 const RIDER_MOUNT_Y_OFFSET = 100;
-const UNICORN_OFFSET_Y = 0;
-const PEGASUS_OFFSET_Y = 0;
-const UNICORN_JUMPING_OFFSET_Y = 0;
-const PEGASUS_JUMPING_OFFSET_Y = 0;
 const DEFAULT_RIDER_X_OFFSET = 0;
 const DEFAULT_RIDER_Y_OFFSET = RIDER_MOUNT_Y_OFFSET;
+// Per-frame mount calibration measured from the sprite sheets (frame pixels):
+// [seatX, seatY, groundShiftY] for each [row][col]. seatX/seatY is the top of
+// the back where the rider sits (seatY already includes groundShiftY);
+// groundShiftY moves the frame down so the unicorn/pegasus art, which is drawn
+// higher in its cells than the horse, stands on the same ground line and its
+// body bobs like the horse's. The per-doll riderX/YOffset values were tuned on
+// the horse gallop, so riders are placed relative to MOUNT_SEAT_REFERENCE.
+const MOUNT_FRAME_CALIBRATION = {
+  horse: [
+    [[199, 230, 0], [219, 232, 0], [198, 233, 0]],
+    [[228, 234, 0], [218, 219, 0], [229, 233, 0]],
+    [[219, 231, 0], [224, 235, 0], [226, 228, 0]]
+  ],
+  unicorn: [
+    [[218, 216, 29], [225, 218, 30], [190, 219, 27]],
+    [[237, 220, 42], [218, 205, 45], [225, 219, 36]],
+    [[189, 217, 34], [212, 221, 94], [208, 214, 57]]
+  ],
+  pegasus: [
+    [[203, 218, 22], [221, 220, 24], [199, 221, 24]],
+    [[235, 222, 7], [222, 207, 0], [220, 221, 3]],
+    [[222, 219, 26], [217, 223, 70], [207, 216, 32]]
+  ]
+};
+const MOUNT_SEAT_REFERENCE = { x: 225, y: 228.67 };
 const PUSH_COOLDOWN = 0.72;
 const PUSH_ACTIVE_TIME = 0.22;
 const PUSH_RANGE_X = 78;
@@ -3905,14 +3926,20 @@ function drawRacer(racer) {
     const horseScale = scale * 1.08;
     const horseW = FRAME * horseScale;
     const horseH = FRAME * horseScale;
+    const calibration = getMountFrameCalibration(racer.horseType, horseRow, horseCol);
     const horseX = screenX - SPRITE_ANCHOR_X * horseScale;
-    const horseY = racer.y + 58 - SPRITE_ANCHOR_Y * horseScale - racer.z;
+    const horseBaseY = racer.y + 58 - SPRITE_ANCHOR_Y * horseScale - racer.z;
+    const horseY = horseBaseY + calibration.groundShift * horseScale;
     const riderScale = scale * 0.7;
     const riderW = FRAME * riderScale;
     const riderH = FRAME * riderScale;
-    const riderOffset = getRiderMountOffset(racer, jumping);
-    const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 * drawFacing + riderOffset.x) * scale;
-    const riderY = horseY - 60 * scale + riderOffset.y * scale;
+    // Positions are in "facing right" space; drawFacingImage mirrors both the
+    // mount and the rider around screenX, so the rider stays on the saddle
+    // when facing left too.
+    const seatDX = (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * horseScale;
+    const seatDY = (calibration.seatY - MOUNT_SEAT_REFERENCE.y) * horseScale;
+    const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale + seatDX;
+    const riderY = horseBaseY - 60 * scale + racer.riderYOffset * scale + seatDY;
     if (!flashing) {
       const horseImage = images[racer.horseType] || images.horse;
       drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);
@@ -3961,21 +3988,10 @@ function drawFacingImage(image, sx, sy, sw, sh, dx, dy, dw, dh, facing, anchorX)
   }
 }
 
-function getMountRiderYOffset(horseType, jumping) {
-  if (horseType === "unicorn") {
-    return UNICORN_OFFSET_Y + (jumping ? UNICORN_JUMPING_OFFSET_Y : 0);
-  }
-  if (horseType === "pegasus") {
-    return PEGASUS_OFFSET_Y + (jumping ? PEGASUS_JUMPING_OFFSET_Y : 0);
-  }
-  return 0;
-}
-
-function getRiderMountOffset(racer, jumping) {
-  return {
-    x: racer.riderXOffset,
-    y: racer.riderYOffset + getMountRiderYOffset(racer.horseType, jumping)
-  };
+function getMountFrameCalibration(horseType, row, col) {
+  const table = MOUNT_FRAME_CALIBRATION[horseType] || MOUNT_FRAME_CALIBRATION.horse;
+  const entry = table[row]?.[col] || table[0][0];
+  return { seatX: entry[0], seatY: entry[1], groundShift: entry[2] };
 }
 
 function drawElectricEffect(x, y, w, h) {
