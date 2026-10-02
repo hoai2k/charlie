@@ -37,6 +37,10 @@ export class PlayScene {
       camera: new Camera(),
     };
     this.camera = api.camera;
+    // Big parties spread players to the screen edges: zoom less so nobody
+    // loses sight of their character during punch-ins.
+    const np = session.players.length;
+    this.camera.maxZoom = np >= 7 ? 1.1 : np >= 5 ? 1.18 : 2.2;
     this.api = api;
     try {
       this.game = new this.meta.module.Game(api);
