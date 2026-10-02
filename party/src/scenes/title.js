@@ -3,7 +3,7 @@
 // for fullscreen and turns the sound on.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, unlockAudio } from '../engine/audio.js';
+import { sfx, music, unlockAudio, host } from '../engine/audio.js';
 import { Actor } from '../engine/sprites.js';
 import { art } from '../engine/art.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -65,6 +65,7 @@ export class TitleScene {
     unlockAudio();
     music.play('title', { restart: true });
     sfx('join'); setTimeout(() => sfx('star'), 120);
+    setTimeout(() => host('charlie-party'), 150);
     fx.flash('#ffffff', 0.3);
     particles.burst(W / 2, 760, { type: 'star', count: 30 });
     particles.burst(W / 2, 760, { type: 'confetti', count: 60 });

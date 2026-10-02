@@ -3,7 +3,7 @@
 // human presses A to ready up (CPUs ready themselves).
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, voice } from '../engine/audio.js';
+import { sfx, music, voice, host } from '../engine/audio.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { drawHost, hostBubble } from '../engine/host.js';
@@ -25,10 +25,11 @@ export class IntroScene {
     const n = session.players.length;
     const spacing = Math.min(220, (W - 160) / n);
     this.actors = session.players.map((p, i) => {
-      const a = new Actor(p.charId, { scale: n > 4 ? 0.62 : 0.72, x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1010 });
+      const a = new Actor(p.charId, { scale: n > 4 ? 0.56 : 0.66, x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1048 });
       a.snap(); return a;
     });
     sfx('magic');
+    this.said = 0;
   }
 
   update(dt, inputOpen) {
@@ -39,6 +40,8 @@ export class IntroScene {
       if (this.go > 0.9) this.manager.go('play', { gameId: this.gameId });
       return;
     }
+    if (this.said === 0 && this.t > 0.3) { this.said = 1; const last = session.partyMode && session.partyMode.round === session.partyMode.games.length - 1; host(last ? 'last-game' : 'title/' + this.gameId); }
+    if (this.said === 1 && this.t > 2.2 && session.players.some((p, i) => !p.isAI && !this.ready[i])) { this.said = 2; host('press-a'); }
     session.players.forEach((p, i) => {
       if (!this.ready[i] && this.t > this.aiReadyAt[i]) this.setReady(i, true);
     });
@@ -123,7 +126,7 @@ export class IntroScene {
     });
     if (this.go !== null) ui.banner(g, "Let's go!", this.go, { y: 520, size: 160 });
     else if (this.t > 0.6 && this.ready.some((r, i) => !r && !session.players[i].isAI)) {
-      ui.text(g, 'Press A when you are ready!', W / 2, 828, { size: 40, color: '#fff' });
+      ui.text(g, 'Press A when you are ready!', W / 2, 818, { size: 36, color: '#fff' });
     }
   }
 }

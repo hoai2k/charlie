@@ -24,8 +24,9 @@
 //   a.detach(h);
 // The callback draws in "forward space": origin at the member's feet, +x is
 // the direction the character faces, -y is up, units are screen px. info has
-// { h, w, head: {x, y}, hand: {x, y}, pose, facing }. Sprite sets can supply
-// per-pose/per-frame head and hand points so attachments track the art.
+// { h, w, head, hand, eyes, neck, back (each {x, y}), headAngle, pose, facing }.
+// Sprite sets can supply per-pose/per-frame head, hand, eyes, neck, back
+// points and headAngle so attachments track the art.
 
 import { CHARACTERS, ALL_ASSETS, charById } from '../data/characters.js';
 import { drawEmote } from './emotes.js';
@@ -60,6 +61,33 @@ export const POSES = {
   dance:     { loop: true,  fallback: ['celebrate'], auto: 'note', desc: 'Dancing on the beat.' },
   paint:     { loop: true,  fallback: ['action'], desc: 'Painting / crafting with a brush.' },
   sleep:     { loop: true,  fallback: ['idle'], auto: 'zzz', desc: 'Sleeping (Troll naps).' },
+  // Added for the minigames (image-requests.md §4.3).
+  cast:      { loop: false, fallback: ['throw', 'action'], proc: 'action', desc: 'Wand/spell thrust forward (wand in hand).' },
+  clap:      { loop: true,  fallback: ['wave', 'cheer'], proc: 'clap', desc: 'Spectator clapping / looping cheer.' },
+  eat:       { loop: false, fallback: ['action'], proc: 'eat', autoFallback: 'heart', desc: 'Taste / munch with happy cheeks.' },
+  ride:      { loop: true,  fallback: ['fall', 'jump'], proc: 'ride', desc: 'Riding a broom, leaning forward.' },
+  bow:       { loop: false, fallback: ['wave'], proc: 'bow', desc: 'Bow or curtsy.' },
+  strike1:   { loop: false, fallback: ['ready', 'cheer'], proc: 'strike', desc: 'Runway pose 1: hand on hip.' },
+  strike2:   { loop: false, fallback: ['ready', 'cheer'], proc: 'strike', desc: 'Runway pose 2: peace sign by the face.' },
+  strike3:   { loop: false, fallback: ['ready', 'cheer'], proc: 'strike', desc: 'Runway pose 3: arms-up star.' },
+  'dance-up':   { loop: false, fallback: ['dance'], proc: 'dance-up', desc: 'Dance move: arms straight up.' },
+  'dance-down': { loop: false, fallback: ['dance'], proc: 'dance-down', desc: 'Dance move: crouch, hands on knees.' },
+  'dance-side': { loop: false, fallback: ['dance'], proc: 'dance-side', desc: 'Dance move: point and lean forward-side.' },
+  'dance-star': { loop: false, fallback: ['celebrate'], proc: 'ready', desc: 'Dance move: jump into a star shape.' },
+  shake:     { loop: false, fallback: ['dizzy'], proc: 'shake', desc: 'Wet-dog shake (pets after a bath).' },
+  stir:      { loop: true,  fallback: ['paint'], proc: 'paint', desc: 'Stirring a cauldron with a big spoon.' },
+  // NPC poses (Glimmer, Shadow Imps, Professor Hoot, Troll).
+  talk:      { loop: true,  fallback: ['idle'], proc: 'talk', desc: 'NPC talking to camera.' },
+  present:   { loop: true,  fallback: ['wave'], proc: 'wave', desc: 'NPC "ta-da!" presenting to the side.' },
+  point:     { loop: false, fallback: ['present', 'action'], proc: 'action', desc: 'NPC points forward.' },
+  laugh:     { loop: true,  fallback: ['cheer'], proc: 'clap', autoFallback: 'happy', desc: 'Giggle / belly laugh.' },
+  poof:      { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'Shadow Imp banished in a puff.' },
+  hoot:      { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'Professor Hoot hoots.' },
+  lantern:   { loop: false, fallback: ['action'], proc: 'action', desc: 'Professor Hoot raises the lantern.' },
+  windup:    { loop: false, fallback: ['action'], proc: 'windup', desc: 'Troll winds up a ground-pound (telegraph).' },
+  slam:      { loop: false, fallback: ['land'], proc: 'land', desc: 'Troll ground-pound impact.' },
+  grab:      { loop: false, fallback: ['action'], proc: 'action', desc: 'Troll grabs forward.' },
+  exit:      { loop: true,  fallback: ['walk'], proc: 'walk', desc: 'NPC leaving the scene.' },
 };
 export const POSE_NAMES = Object.keys(POSES);
 
@@ -107,6 +135,8 @@ async function loadSpriteSet(asset) {
       frames.push({
         img, rect: fo.rect || null, anchor: fo.anchor || def.anchor || m.anchor, dur: fo.dur || null,
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,
+        eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
+        headAngle: fo.headAngle ?? def.headAngle ?? 0,
       });
     }
     if (frames.length) {
@@ -272,6 +302,17 @@ function procedural(pose, t, style, speed) {
       break;
     }
     case 'sleep': o.sy = 0.95 + breathe * 0.025; o.rot = -0.05; break;
+    case 'clap': { const p = (t * 2.4) % 1; o.lift += Math.sin(p * Math.PI) * 10; o.sy = 1 + Math.sin(p * Math.PI) * 0.05; o.rot = Math.sin(t * 9) * 0.04; break; }
+    case 'eat': { const c = Math.abs(Math.sin(t * 14)); o.sy = 1 - c * 0.06; o.sx = 1 + c * 0.05; break; }
+    case 'ride': o.rot = 0.14 + Math.sin(t * 3) * 0.04; o.lift += Math.sin(t * 2.2) * 4; break;
+    case 'bow': { const k = Math.sin(Math.min(1, t / 0.7) * Math.PI); o.rot = 0.35 * k; o.sy = 1 - 0.06 * k; o.dx = 6 * k; break; }
+    case 'strike': { const k = Math.min(1, t / 0.15); o.sy = 1 + 0.12 * (1 - k) + 0.03; o.sx = 1 - 0.06 * (1 - k); o.rot = -0.12 * k; o.lift += 8 * (1 - k); break; }
+    case 'dance-up': { const k = Math.max(0, 1 - t / 0.4); o.sy = 1 + 0.14 * k; o.sx = 1 - 0.08 * k; o.lift += 16 * k; break; }
+    case 'dance-down': { const k = Math.max(0, 1 - t / 0.4); o.sy = 1 - 0.16 * k; o.sx = 1 + 0.12 * k; break; }
+    case 'dance-side': { const k = Math.max(0, 1 - t / 0.4); o.rot = 0.22 * k; o.dx = 14 * k; break; }
+    case 'shake': { const k = Math.max(0, 1 - t / 0.7); o.rot = Math.sin(t * 50) * 0.18 * k; o.sx = 1 + Math.sin(t * 50) * 0.05 * k; break; }
+    case 'talk': o.sy = 1 + Math.abs(Math.sin(t * 9)) * 0.025; o.rot = Math.sin(t * 2) * 0.04; break;
+    case 'windup': { const k = Math.min(1, t / 0.6); o.sy = 1 - 0.12 * k; o.sx = 1 + 0.1 * k; o.dx = -10 * k; o.rot = -0.1 * k + Math.sin(t * 40) * 0.02 * k; break; }
     default: break;
   }
   return o;
@@ -387,6 +428,7 @@ export class Actor {
     switch (name) {
       case 'head': return { x: m.x + headDx * m.facing, y: m.y - this.z - (d.top ?? 1) * h };
       case 'hand': return { x: m.x + 0.28 * h * m.facing, y: m.y - this.z - 0.5 * h };
+      case 'eyes': return { x: m.x + headDx * m.facing, y: m.y - this.z - (1 - d.face[1]) * h };
       case 'center': return { x: m.x, y: m.y - this.z - 0.5 * h };
       default: return { x: m.x, y: m.y - this.z };
     }
@@ -428,7 +470,8 @@ export class Actor {
 
     // Auto emotes (rain cloud on pout, sparkles on celebrate...).
     const pd = POSES[this.pose] || {};
-    const usingSprites = !!getSpriteSet(this.leader.asset);
+    const lset = getSpriteSet(this.leader.asset);
+    const usingSprites = !!(lset && lset.poses[this.pose]);
     const auto = pd.auto || (!usingSprites ? pd.autoFallback : null);
     if (auto && !this.emotes.some((e) => e.kind === auto)) this.emotes.push({ kind: auto, t: 0, dur: 0, auto: true });
     this.emotes = this.emotes.filter((e) => !e.auto || e.kind === auto);
@@ -514,14 +557,16 @@ export class Actor {
     const set = getSpriteSet(def.asset);
     const sp = set ? resolvePose(set, pose) : null;
     const motionW = sp ? sp.motion : 1;
-    const o = procedural(pose, t + this.seed * (pose === 'idle' ? 3 : 0), def.motion, this.speed);
+    const o = procedural(POSES[pose]?.proc || pose, t + this.seed * (pose === 'idle' ? 3 : 0), def.motion, this.speed);
 
-    // Blend procedural motion toward neutral when sprite frames carry the animation.
-    const k = motionW;
+    // Blend procedural motion toward neutral when sprite frames carry the
+    // animation. A pose that fell back to a different pose's frames keeps the
+    // full procedural motion so it still reads (e.g. celebrate on idle frames).
+    const k = sp && set.poses[pose] !== sp ? Math.max(motionW, 0.9) : motionW;
     const lift = o.lift * k, rot = o.rot * k, dx = o.dx * k;
     let sx = 1 + (o.sx - 1) * (sp ? Math.min(1, k) : 1);
     let sy = 1 + (o.sy - 1) * k;
-    if (sp && o.sx < 0 && k < 0.5) sx = 1; // no twirl flips over real frames
+    if (sp) sx = Math.abs(sx) < 0.35 ? 1 : Math.abs(sx); // no twirl squeeze over real frames
     const sq = clamp(this._spring.p, -0.5, 0.6);
     sx *= 1 + sq * 0.5; sy *= 1 - sq * 0.5;
 
@@ -574,16 +619,26 @@ export class Actor {
     const aspect = base ? base.width / base.height : 0.6;
     let head = { x: (def.face[0] - aspect / 2) * h * imgFlip, y: -(def.top ?? 1) * h };
     let hand = { x: 0.28 * h, y: -0.5 * h };
+    const [, fcy, fr] = def.face;
+    let eyes = { x: head.x, y: -(1 - fcy) * h };
+    let neck = { x: head.x, y: -(1 - Math.min(0.95, fcy + fr * 0.95)) * h };
+    let back = { x: -0.12 * h, y: -0.58 * h };
     if (sp) {
       // Sprite frames may carry their own anchor points (frame pixels).
       const fr = pickFrame(sp, t);
       const conv = (pt) => ({ x: (pt[0] - anchor[0]) * pxScale * imgFlip, y: (pt[1] - anchor[1]) * pxScale });
       if (fr.head) head = conv(fr.head);
       if (fr.hand) hand = conv(fr.hand);
+      if (fr.eyes) eyes = conv(fr.eyes);
+      if (fr.neck) neck = conv(fr.neck);
+      if (fr.back) back = conv(fr.back);
     }
-    return { h, w: aspect * h, head, hand, pose, facing: m.facing, member: m.i };
+    return { h, w: aspect * h, head, hand, eyes, neck, back, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i };
   }
 }
+
+/** Per-frame head tilt (radians) from the sprite set, 0 for base art. */
+function fr0Angle(sp, t) { return sp ? pickFrame(sp, t).headAngle || 0 : 0; }
 
 function pickFrame(sp, t) {
   const n = sp.frames.length;

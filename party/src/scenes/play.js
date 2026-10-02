@@ -2,7 +2,7 @@
 // banner, crash safety, then hands the result to the Results scene.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music } from '../engine/audio.js';
+import { sfx, music, host } from '../engine/audio.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
@@ -67,6 +67,7 @@ export class PlayScene {
     };
     this.state = 'finish'; this.t = 0;
     sfx('whistle'); fx.flash('#ffffff', 0.25);
+    host('finish', { interrupt: true });
   }
 
   update(dt, inputOpen) {
@@ -78,7 +79,7 @@ export class PlayScene {
     }
     if (this.state === 'countdown') {
       const n = Math.floor(this.t);
-      if (n !== this.lastCount && n <= 3) { this.lastCount = n; sfx(n < 3 ? 'count' : 'go'); }
+      if (n !== this.lastCount && n <= 3) { this.lastCount = n; sfx(n < 3 ? 'count' : 'go'); host(n < 3 ? 'count-' + (3 - n) : 'go', { interrupt: true }); }
       this.safe(() => this.game.preUpdate && this.game.preUpdate(dt));
       if (this.t >= 3) { this.state = 'play'; }
     }

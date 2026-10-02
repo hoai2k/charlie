@@ -42,6 +42,50 @@ export function unlockAudio() {
 }
 export function audioRunning() { return !!ctx && ctx.state === 'running'; }
 
+const musicEntry = (name) => {
+  const e = manifest.music[name];
+  if (!e) return null;
+  return typeof e === 'string' ? { file: e } : e; // { file, loopStart, loopEnd, offset }
+};
+const musicLoading = new Map();
+const MUSIC_CACHE = 3;
+const musicLRU = [];
+function loadMusic(name) {
+  const e = musicEntry(name);
+  if (!e || !ctx) return Promise.resolve(null);
+  if (fileBuffers.has('music:' + name)) return Promise.resolve(fileBuffers.get('music:' + name)[0]);
+  if (!musicLoading.has(name)) {
+    musicLoading.set(name, loadBuffer(e.file).then((b) => {
+      musicLoading.delete(name);
+      if (!b) return null;
+      fileBuffers.set('music:' + name, [b]);
+      musicLRU.push(name);
+      while (musicLRU.length > MUSIC_CACHE) { const old = musicLRU.shift(); if (old !== music.name) fileBuffers.delete('music:' + old); }
+      return b;
+    }));
+  }
+  return musicLoading.get(name);
+}
+
+/** True if a recorded file exists for this sfx key. */
+export function hasSound(key) { return fileBuffers.has(key); }
+
+// Glimmer's host lines ("host/<key>", see audio-requests.md §5.1). Silent
+// until recordings exist; lines never overlap each other.
+let hostBusyUntil = 0;
+export function host(key, { interrupt = false } = {}) {
+  if (!ctx || ctx.state !== 'running' || muted) return false;
+  const bufs = fileBuffers.get('host/' + key);
+  if (!bufs) return false;
+  if (!interrupt && ctx.currentTime < hostBusyUntil) return false;
+  const b = bufs[Math.floor(Math.random() * bufs.length)];
+  const src = ctx.createBufferSource(); src.buffer = b;
+  const g = ctx.createGain(); g.gain.value = 1;
+  src.connect(g); g.connect(sfxBus); src.start();
+  hostBusyUntil = ctx.currentTime + b.duration;
+  return true;
+}
+
 export function setMuted(m) { muted = m; if (master) master.gain.value = m ? 0 : 0.8; }
 export function isMuted() { return muted; }
 
@@ -58,9 +102,7 @@ async function loadManifest() {
         if (ok.length) fileBuffers.set(name, ok);
       });
     }
-    for (const [name, file] of Object.entries(manifest.music)) {
-      loadBuffer(file).then((b) => { if (b) fileBuffers.set('music:' + name, [b]); });
-    }
+    // Music decodes lazily on first play (decoded songs are big on iPads).
   } catch (e) { /* no manifest: synth only */ }
 }
 async function loadBuffer(file) {
@@ -297,11 +339,18 @@ class Music {
     this.gain.gain.exponentialRampToValueAtTime(1, ctx.currentTime + 0.4);
     this.gain.connect(musicBus);
     const fileBuf = fileBuffers.get('music:' + name);
+    const entry = musicEntry(name);
     if (fileBuf) {
       const src = ctx.createBufferSource(); src.buffer = fileBuf[0]; src.loop = true;
+      if (entry.loopEnd) { src.loopStart = entry.loopStart || 0; src.loopEnd = entry.loopEnd; }
       src.connect(this.gain); src.start();
-      this.fileSrc = src; this.start = ctx.currentTime; this.song = { bpm: def.bpm };
+      this.fileSrc = src; this.start = ctx.currentTime + (entry.offset || 0); this.song = { bpm: def.bpm };
       return;
+    }
+    if (entry) {
+      // Play the synth version now; swap to the recording once it decodes
+      // (except 'dance', whose beat clock must not jump mid-song).
+      loadMusic(name).then((b) => { if (b && this.name === name && name !== 'dance') this.play(name, { restart: true }); });
     }
     this.song = buildSong(def);
     this.step = 0;
@@ -323,6 +372,8 @@ class Music {
     if (this.fileSrc) { try { this.fileSrc.stop(ctx.currentTime + fade); } catch (e) { /* ignore */ } this.fileSrc = null; }
     this.gain = null; this.song = null; this.name = null;
   }
+  /** Start decoding a recorded song early (e.g. during a countdown). */
+  preload(name) { return loadMusic(name); }
   /** Beats elapsed since the song started (fractional). */
   beat() {
     if (!this.song || !ctx) return 0;

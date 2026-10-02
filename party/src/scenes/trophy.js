@@ -2,7 +2,7 @@
 // marathon lifts the trophy; everyone else cheers.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, voice } from '../engine/audio.js';
+import { sfx, music, voice, host, hasSound } from '../engine/audio.js';
 import { Actor } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
@@ -52,7 +52,9 @@ export class TrophyScene {
       this.actors.push({ a, i, champ: false });
     });
     music.play('victory');
-    sfx('fanfare'); setTimeout(() => sfx('cheer'), 500);
+    if (hasSound('jingle/trophy')) sfx('jingle/trophy'); else sfx('fanfare'); setTimeout(() => sfx('cheer'), 500);
+    host('champion');
+    if (this.champs.length === 1) setTimeout(() => host('name/' + session.players[this.champs[0]].charId), 1800);
     for (const i of this.champs) voice(session.players[i].charId, 'yay');
     session.partyMode = null;
   }

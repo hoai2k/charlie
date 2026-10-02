@@ -3,7 +3,7 @@
 // Any human can drive the shared cursor.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music } from '../engine/audio.js';
+import { sfx, music, host } from '../engine/audio.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
@@ -100,6 +100,7 @@ export class GameSelectScene {
 
   startRoulette(pool, marathon) {
     sfx('drumroll');
+    if (marathon) { sfx('jingle/marathon-start'); host('marathon'); } else host('random');
     const fresh = pool.filter((id) => id !== session.lastGameId);
     const target = marathon ? pool[0] : pick(fresh.length ? fresh : pool);
     const tiles = this.rows.flat().filter((it) => it.kind === 'game');

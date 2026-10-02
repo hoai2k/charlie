@@ -157,9 +157,25 @@ files (it reports needed engine changes instead).
 
 ## Status
 
+Last updated by the lead during the first build pass.
+
 - [x] Engine core + sprite system + sprite viewer (`?scene=sprites`)
-- [ ] Image + audio request docs
-- [ ] Menus, how-to screens, minigame host, results
-- [ ] 12 party games
-- [ ] 8 studio games
-- [ ] QA + deploy
+- [x] `image-requests.md` (round 1) and `audio-requests.md` — ready for generation
+- [x] Menus, how-to screens, minigame host, results podium, marathon trophy
+- [x] Xbox controller flow verified with simulated pads (join, pick, start, menus)
+- [ ] 12 party games — **in progress** (agents building; files may be half-done)
+- [ ] 8 studio games — **in progress**
+- [ ] Lead audit of every game, then a QA pass
+- [ ] Round 2 of image/audio requests (new poses/props/sounds the games ask for)
+
+### Known not-working yet
+- Any minigame whose file still says `PLACEHOLDER` shows a "Coming soon" stub
+  (mash A for points). Games mid-build may misbehave or crash; the host
+  catches crashes ("Oopsie!" screen, everyone gets a star) so the party
+  continues.
+- No generated sprites, portraits, NPC art, backgrounds or recorded audio
+  yet: everything uses the canonical art with procedural animation, a vector
+  stand-in for Glimmer, and synthesized sound. Host voice lines are silent
+  until recorded.
+- Fullscreen from a controller press alone is blocked by most browsers; a key
+  press or click enables it (a tip says so).

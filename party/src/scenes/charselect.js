@@ -4,7 +4,7 @@
 //   X  add a CPU    Y  remove a CPU    LB/RB  CPU level
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, voice } from '../engine/audio.js';
+import { sfx, music, voice, host } from '../engine/audio.js';
 import { Actor, getBaseImage } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
@@ -35,6 +35,7 @@ export class CharSelectScene {
     }
     if (session.players.length) { this.wantTotal = session.players.length; this.manualCpu = true; }
     this.cardBounce = CHARACTERS.map(() => 0);
+    this.greeted = false;
   }
 
   makeActor(charId) {
@@ -107,6 +108,7 @@ export class CharSelectScene {
       return;
     }
     if (!inputOpen) return;
+    if (!this.greeted && this.t > 0.6) { this.greeted = true; host(session.played.length ? 'pick-character' : 'welcome'); }
 
     // Joining: any unassigned human controller pressing A (or Start).
     const joinedNow = new Set();

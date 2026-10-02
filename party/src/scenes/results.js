@@ -2,7 +2,7 @@
 // pouts under a rain cloud, everyone's stars fly into the session tally.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, voice } from '../engine/audio.js';
+import { sfx, music, voice, host } from '../engine/audio.js';
 import { Actor } from '../engine/sprites.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
@@ -68,9 +68,12 @@ export class ResultsScene {
     });
     this.revealAt = 0.15 + n * 0.12 + 0.5;
     this.revealed = false;
+    this.starJingle = false;
     this.winners = this.entries.filter((e) => e.winner);
     music.stop(0.2);
     this.leaving = false;
+    sfx('jingle/results');
+    setTimeout(() => host(this.showcase ? 'great-job' : 'winner-is'), 300);
   }
 
   headline() {
@@ -96,6 +99,10 @@ export class ResultsScene {
     if (!this.revealed && this.t > this.revealAt) {
       this.revealed = true;
       sfx('fanfare'); setTimeout(() => sfx('cheer'), 600);
+      if (this.showcase) host('everyone-star', { interrupt: true });
+      else if (this.winners.length === 1) host('name/' + session.players[this.winners[0].idx].charId, { interrupt: true });
+      else host('tie', { interrupt: true });
+      if (this.showcase && this.result.highlight != null) setTimeout(() => { sfx('jingle/showstopper'); host('showstopper'); }, 1800);
       particles.confettiRain(W, 160);
       fx.flash('#fff6d0', 0.3);
       for (const e of this.entries) {
@@ -120,7 +127,7 @@ export class ResultsScene {
       const k = Math.floor((this.t - starStart) / 0.28);
       session.players.forEach((p, i) => {
         const want = Math.min(this.earned[i], k + 1);
-        if (this.starsGiven[i] < want) { this.starsGiven[i] = want; sfx('collect', { step: this.starsGiven[i] * 2 }); }
+        if (this.starsGiven[i] < want) { if (!this.starJingle) { this.starJingle = true; sfx('jingle/star-award'); } this.starsGiven[i] = want; sfx('collect', { step: this.starsGiven[i] * 2 }); }
       });
     }
     const done = this.t > starStart + 0.3 * Math.max(...this.earned, 1) + 0.5;
