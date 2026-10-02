@@ -8,11 +8,18 @@
 //   music.play('party')             start a looping song (title, menu, party, chase, chill, dance, tense, victory)
 //   music.stop()
 //   music.beat()                    current position in beats (for rhythm games)
+//
+// Sound goes quiet while the tab is hidden or the window loses focus (the
+// AudioContext is suspended, so music picks up where it left off), and the
+// mute setting is remembered between visits.
 
 let ctx = null, master, sfxBus, musicBus, noiseBuf;
 const fileBuffers = new Map();   // name -> [AudioBuffer]
 let manifest = { sfx: {}, music: {} };
+const MUTE_KEY = 'charlieParty.muted';
 let muted = false;
+try { muted = localStorage.getItem(MUTE_KEY) === '1'; } catch (e) { /* storage blocked */ }
+let awaySuspended = false; // we suspended the context because the page lost focus
 
 export function audioCtx() { return ctx; }
 
@@ -21,7 +28,7 @@ export function initAudio() {
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!AC) return null;
   ctx = new AC();
-  master = ctx.createGain(); master.gain.value = 0.8;
+  master = ctx.createGain(); master.gain.value = muted ? 0 : 0.8;
   const comp = ctx.createDynamicsCompressor();
   comp.threshold.value = -14; comp.ratio.value = 4;
   master.connect(comp); comp.connect(ctx.destination);
@@ -31,13 +38,33 @@ export function initAudio() {
   const d = noiseBuf.getChannelData(0);
   for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
   loadManifest();
+  document.addEventListener('visibilitychange', onFocusChange);
+  window.addEventListener('blur', onFocusChange);
+  window.addEventListener('focus', onFocusChange);
+  window.addEventListener('pagehide', onFocusChange);
   return ctx;
+}
+
+const pageAway = () => document.hidden || (document.hasFocus && !document.hasFocus());
+function onFocusChange() {
+  if (!ctx) return;
+  if (pageAway()) {
+    if (ctx.state === 'running') { awaySuspended = true; ctx.suspend().catch(() => {}); }
+    music._pauseStream();
+  } else if (awaySuspended) {
+    awaySuspended = false;
+    ctx.resume().catch(() => {});
+    music._kick();
+  }
 }
 
 /** Must run inside (or soon after) a user gesture. Safe to call repeatedly. */
 export function unlockAudio() {
   initAudio();
+  if (pageAway()) return false;
+  awaySuspended = false;
   if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {});
+  music._kick(); // streamed songs need play() inside a gesture on some browsers
   return ctx && ctx.state === 'running';
 }
 export function audioRunning() { return !!ctx && ctx.state === 'running'; }
@@ -45,7 +72,7 @@ export function audioRunning() { return !!ctx && ctx.state === 'running'; }
 const musicEntry = (name) => {
   const e = manifest.music[name];
   if (!e) return null;
-  return typeof e === 'string' ? { file: e } : e; // { file, loopStart, loopEnd, offset }
+  return typeof e === 'string' ? { file: e } : e; // { file, loopStart, loopEnd, offset, stream }
 };
 const musicLoading = new Map();
 const MUSIC_CACHE = 3;
@@ -75,8 +102,14 @@ export function hasSound(key) { return fileBuffers.has(key); }
 // as a silent no-op so call sites keep working.
 export function host() { return false; }
 
-export function setMuted(m) { muted = m; if (master) master.gain.value = m ? 0 : 0.8; }
+/** Mute everything. `save` remembers the choice for the next visit. */
+export function setMuted(m, { save = false } = {}) {
+  muted = !!m;
+  if (master) master.gain.value = muted ? 0 : 0.8;
+  if (save) { try { localStorage.setItem(MUTE_KEY, muted ? '1' : '0'); } catch (e) { /* storage blocked */ } }
+}
 export function isMuted() { return muted; }
+export function toggleMuted() { setMuted(!muted, { save: true }); return muted; }
 
 async function loadManifest() {
   try {
@@ -94,6 +127,8 @@ async function loadManifest() {
       });
     }
     // Music decodes lazily on first play (decoded songs are big on iPads).
+    // A song that started before the manifest arrived switches to its recording.
+    if (music.name && musicEntry(music.name) && music.name !== 'dance') music.play(music.name, { restart: true });
   } catch (e) { /* no manifest: synth only */ }
 }
 async function loadBuffer(file) {
@@ -338,11 +373,29 @@ const DRUMS = {
   four:  { k: 'x...x...x...x...', s: '....x.......x...', h: '..x...x...x...xx' },
 };
 
+// Long songs (manifest entry with "stream": true) play through an <audio>
+// element routed into the music bus instead of being decoded whole: a
+// 3-minute song is ~70 MB of PCM, too much for an iPad. One element per file,
+// so songs that share a file share the element.
+const streams = new Map(); // file -> { el, out }
+function streamFor(file) {
+  if (!streams.has(file)) {
+    const el = new Audio('assets/audio/' + file);
+    el.loop = true; el.preload = 'auto';
+    el.setAttribute('playsinline', '');
+    const out = ctx.createGain();
+    ctx.createMediaElementSource(el).connect(out);
+    streams.set(file, { el, out });
+  }
+  return streams.get(file);
+}
+
 class Music {
-  constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; }
+  constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; }
   play(name, { restart = false } = {}) {
     if (!ctx) return;
-    if (this.name === name && !restart) return;
+    // A streamed song never needs restarting: just make sure it is playing.
+    if (this.name === name && (!restart || this.stream)) { this._kick(); return; }
     this.stop(0.25);
     const def = SONGS[name];
     this.name = name;
@@ -353,6 +406,14 @@ class Music {
     this.gain.connect(musicBus);
     const fileBuf = fileBuffers.get('music:' + name);
     const entry = musicEntry(name);
+    if (entry && entry.stream) {
+      const st = streamFor(entry.file);
+      st.out.connect(this.gain);
+      st.el.currentTime = 0;
+      this.stream = st; this.start = ctx.currentTime; this.song = { bpm: def.bpm };
+      this._kick();
+      return;
+    }
     if (fileBuf) {
       const src = ctx.createBufferSource(); src.buffer = fileBuf[0]; src.loop = true;
       if (entry.loopEnd) { src.loopStart = entry.loopStart || 0; src.loopEnd = entry.loopEnd; }
@@ -383,8 +444,23 @@ class Music {
       setTimeout(() => g.disconnect(), fade * 1000 + 100);
     }
     if (this.fileSrc) { try { this.fileSrc.stop(ctx.currentTime + fade); } catch (e) { /* ignore */ } this.fileSrc = null; }
-    this.gain = null; this.song = null; this.name = null;
+    if (this.stream && this.gain) {
+      const st = this.stream, g = this.gain;
+      setTimeout(() => {
+        try { st.out.disconnect(g); } catch (e) { /* already gone */ }
+        if (this.stream !== st) st.el.pause();
+      }, fade * 1000 + 50);
+    }
+    this.gain = null; this.song = null; this.name = null; this.stream = null;
   }
+  /** (Re)start a streamed song; play() can be refused until a user gesture. */
+  _kick() {
+    const st = this.stream;
+    if (!st || !st.el.paused || pageAway()) return;
+    const p = st.el.play();
+    if (p && p.catch) p.catch(() => {}); // retried on the next gesture (unlockAudio)
+  }
+  _pauseStream() { if (this.stream) this.stream.el.pause(); }
   /** Start decoding a recorded song early (e.g. during a countdown). */
   preload(name) { return loadMusic(name); }
   /** Beats elapsed since the song started (fractional). */

@@ -16,4 +16,11 @@ export const shell = {
     } catch (e) { /* needs a gesture */ }
     return this.isFullscreen();
   },
+  /** Fullscreen button: call inside a user gesture. */
+  toggleFullscreen() {
+    this.wantFullscreen = false;
+    if (!this.isFullscreen()) { this.tryFullscreen(); return; }
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    try { const p = exit && exit.call(document); if (p && p.catch) p.catch(() => {}); } catch (e) { /* ignore */ }
+  },
 };

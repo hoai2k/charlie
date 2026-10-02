@@ -87,6 +87,17 @@ export class GameSelectScene {
       if (c.pressed('a')) { this.choose(); return; }
       if (c.pressed('b')) { sfx('back'); this.manager.go('charselect'); return; }
     }
+    // Mouse / touch: hovering a tile selects it, clicking plays it, and the
+    // footer hints click like their buttons.
+    for (const [ri, row] of this.rows.entries()) {
+      for (const [ci, it] of row.entries()) {
+        const sel = ri === this.row && ci === this.col;
+        if (input.clicked(it)) { this.row = ri; this.col = ci; this.choose(); return; }
+        if (input.pointer.moved && !sel && input.pointerOver(it)) { this.row = ri; this.col = ci; sfx('move'); }
+      }
+    }
+    const hint = ui.clickedHint();
+    if (hint && ctrls[0]) ctrls[0].inject(hint);
     if (new URLSearchParams(location.search).has('autoselect') && this.t > 1) this.choose();
   }
 

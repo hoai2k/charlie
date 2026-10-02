@@ -2,6 +2,7 @@
 // chunky outlined text, rounded panels, Xbox button glyphs, HUD score chips,
 // timers and banners.
 import { W, H } from './canvas.js';
+import { input } from './input.js';
 import { drawPortrait } from './sprites.js';
 import { drawStarShape } from './emotes.js';
 import { clamp, ease, TAU } from './util.js';
@@ -124,6 +125,16 @@ export function glyph(g, b, x, y, size = 44, o = {}) {
   g.restore();
 }
 
+// Where the hint rows were drawn last frame, so menus can treat a click on
+// "[A] Play" as pressing A. Cleared by main.js before each draw.
+let hintRects = [];
+export function resetHotspots() { hintRects = []; }
+/** Button of the hint the pointer clicked this frame (or null). Call from update(). */
+export function clickedHint() {
+  for (const r of hintRects) if (input.clicked(r)) return r.button;
+  return null;
+}
+
 /** A row of [glyph] label hints, e.g. hints(g, [['a','Select'],['b','Back']], x, y) */
 export function hints(g, list, x, y, o = {}) {
   const size = o.size || 36, gap = o.gap || 34;
@@ -131,6 +142,7 @@ export function hints(g, list, x, y, o = {}) {
   let total = widths.reduce((a, b) => a + b, 0) - gap;
   let cx = o.align === 'left' ? x : o.align === 'right' ? x - total : x - total / 2;
   list.forEach(([b, label], i) => {
+    hintRects.push({ button: b, x: cx - 8, y: y - size * 0.75, w: widths[i] - gap + 16, h: size * 1.5 });
     glyph(g, b, cx + size / 2, y, size);
     text(g, label, cx + size * 1.15, y, { size: size * 0.8, align: 'left', color: o.color || '#fff', strokeWidth: 6 });
     cx += widths[i];

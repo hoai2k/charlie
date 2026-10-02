@@ -142,7 +142,7 @@ function drawImp(g, x, y, s, o = {}) {
     case 'D': sy = 1 - 0.22 * k; sx = 1 + 0.16 * k; armL = { x: -1.05, y: 0.75 }; armR = { x: 1.05, y: 0.75 }; jump = 0; break;
     case 'L': rot = -0.3 * k; dx = -22 * k; armL = { x: -1.6, y: -0.05 }; armR = { x: 0.9, y: 0.55 }; break;
     case 'R': rot = 0.3 * k; dx = 22 * k; armR = { x: 1.6, y: -0.05 }; armL = { x: -0.9, y: 0.55 }; break;
-    case 'A': sx = Math.cos(mt * 11) * k + (1 - k); jump = -26 * k * Math.abs(Math.sin(mt * 7)); armL = { x: -0.8, y: -0.95 }; armR = { x: 0.8, y: -0.95 }; starEyes = true; sparkles = true; break;
+    case 'A': rot = Math.sin(mt * 16) * 0.22 * k; sy = 1 + 0.08 * k; sx = 1 - 0.05 * k; jump = -26 * k * Math.abs(Math.sin(mt * 7)); armL = { x: -0.8, y: -0.95 }; armR = { x: 0.8, y: -0.95 }; starEyes = true; sparkles = true; break;
     default: break;
   }
   const poofK = o.scale ?? 1;

@@ -130,13 +130,31 @@ export class PlayScene {
     const c = this.paused.by, items = this.pauseItems();
     if (c.nav.y) { this.paused.sel = (this.paused.sel + c.nav.y + items.length) % items.length; sfx('move'); }
     if (c.pressed('start') || c.pressed('b')) { this.paused = null; sfx('back'); return; }
-    if (c.pressed('a')) {
-      const act = items[this.paused.sel][1];
-      this.paused = null; sfx('select');
-      if (act === 'restart') { this.manager.go('play', { gameId: this.gameId }); }
-      else if (act === 'quit') { music.play('menu'); this.manager.go('gameselect'); }
-      else if (act === 'done') { this.safe(() => (this.game.onDone ? this.game.onDone() : this.finish({ showcase: true }))); }
+    // Mouse / touch: hover highlights, click picks; a click outside the box resumes.
+    const lay = this.pauseLayout();
+    for (let i = 0; i < items.length; i++) {
+      const r = lay.item(i);
+      if (input.pointer.moved && input.pointerOver(r) && this.paused.sel !== i) { this.paused.sel = i; sfx('move'); }
+      if (input.clicked(r)) { this.paused.sel = i; this.choosePause(items[i][1]); return; }
     }
+    if (input.pointer.pressed && !input.pointerOver(lay.box)) { this.paused = null; sfx('back'); return; }
+    if (c.pressed('a')) this.choosePause(items[this.paused.sel][1]);
+  }
+
+  choosePause(act) {
+    this.paused = null; sfx('select');
+    if (act === 'restart') { this.manager.go('play', { gameId: this.gameId }); }
+    else if (act === 'quit') { music.play('menu'); this.manager.go('gameselect'); }
+    else if (act === 'done') { this.safe(() => (this.game.onDone ? this.game.onDone() : this.finish({ showcase: true }))); }
+  }
+
+  pauseLayout() {
+    const n = this.pauseItems().length, h = 140 + n * 90, top = H / 2 - h / 2;
+    return {
+      h, top,
+      box: { x: W / 2 - 330, y: top, w: 660, h },
+      item: (i) => ({ x: W / 2 - 270, y: top + 150 + i * 90 - 36, w: 540, h: 72 }),
+    };
   }
 
   draw(g) {
@@ -173,13 +191,13 @@ export class PlayScene {
   drawPause(g) {
     g.save(); g.fillStyle = 'rgba(36,22,63,0.6)'; g.fillRect(0, 0, W, H); g.restore();
     const items = this.pauseItems();
-    const h = 140 + items.length * 90;
-    ui.panel(g, W / 2 - 330, H / 2 - h / 2, 660, h, { fill: '#fff8ec' });
-    ui.text(g, 'Paused', W / 2, H / 2 - h / 2 + 64, { size: 70, color: '#ff6fb1' });
+    const { h, top, item } = this.pauseLayout();
+    ui.panel(g, W / 2 - 330, top, 660, h, { fill: '#fff8ec' });
+    ui.text(g, 'Paused', W / 2, top + 64, { size: 70, color: '#ff6fb1' });
     items.forEach(([label], i) => {
-      const y = H / 2 - h / 2 + 150 + i * 90;
+      const r = item(i), y = r.y + r.h / 2;
       const sel = i === this.paused.sel;
-      if (sel) ui.panel(g, W / 2 - 270, y - 36, 540, 72, { r: 36, fill: '#ffd23f', shadow: false, lineWidth: 5 });
+      if (sel) ui.panel(g, r.x, r.y, r.w, r.h, { r: 36, fill: '#ffd23f', shadow: false, lineWidth: 5 });
       ui.text(g, label, W / 2, y, { size: 44, color: sel ? '#24163f' : '#6b5a85', stroke: false, weight: 700 });
     });
   }

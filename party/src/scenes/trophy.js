@@ -68,7 +68,7 @@ export class TrophyScene {
     }
     if (Math.random() < dt * 4) particles.burst(Math.random() * W, Math.random() * 400, { type: 'confetti', count: 12 });
     if (Math.random() < dt * 1.2) { particles.burst(Math.random() * W, 200 + Math.random() * 300, { type: 'star', count: 18 }); sfx('pop'); }
-    if (inputOpen && this.t > 2.5 && (input.anyHumanPressed('a') || input.anyHumanPressed('b') || (new URLSearchParams(location.search).has('auto') && this.t > 6))) {
+    if (inputOpen && this.t > 2.5 && (input.anyHumanPressed('a') || input.anyHumanPressed('b') || input.pointer.pressed || (new URLSearchParams(location.search).has('auto') && this.t > 6))) {
       sfx('select'); this.manager.go('gameselect');
     }
   }
