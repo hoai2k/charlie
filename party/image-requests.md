@@ -1214,3 +1214,11 @@ phases above, or sooner if they are marked as blocking. Use this format:
 ```
 
 _(none yet)_
+
+### Optional action extension (implemented in the sprite engine)
+
+`look-around`, `high-five`, `crouch`, `dash`, `catch`, and `wave-goodbye` are
+optional actions with procedural motion and fallback chains. See
+`reference/RECOMMENDED-ACTIONS.md` for use, timing and gameplay boundaries.
+Felicity is the first authored reference set; other members remain compatible
+through fallbacks until their own frames are generated.
