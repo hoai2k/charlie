@@ -47,14 +47,17 @@ export async function loadArt() {
 }
 
 /** The loaded image for `key`, or null. */
-export function art(key) { return images.get(key) || null; }
-export function hasArt(key) { return images.has(key); }
+/** Every key the game has asked for this session (integration audits). */
+export const requestedKeys = new Set();
+export function art(key) { requestedKeys.add(key); return images.get(key) || null; }
+export function hasArt(key) { requestedKeys.add(key); return images.has(key); }
 
 /**
  * Draw art fitted into a box. anchor: 'center' | 'bottom' (x,y = bottom center) | 'topleft'.
  * fit: 'contain' (default) | 'cover' | 'stretch'. Returns false if the art is missing.
  */
 export function drawArt(g, key, x, y, w, h, { anchor = 'center', fit = 'contain', alpha = 1 } = {}) {
+  requestedKeys.add(key);
   const img = images.get(key);
   if (!img) return false;
   let dw = w, dh = h;
