@@ -11,6 +11,7 @@ Every game lives in its own subdirectory and is deployed with GitHub Pages, so
 | Game | Directory | Play |
 | --- | --- | --- |
 | American Girl Doll Race | [`americangirldollrace/`](americangirldollrace/) | `/charlie/americangirldollrace/` |
+| Doll Puppets (camera puppet — your face drives a doll) | [`dollpuppets/`](dollpuppets/) | `/charlie/dollpuppets/` |
 
 ## Adding a game
 

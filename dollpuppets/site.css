@@ -1,0 +1,297 @@
+:root {
+  color-scheme: light;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #74c8ef;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.dolls-app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  color: #231f20;
+  isolation: isolate;
+}
+
+.scene-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--background-image);
+  background-position: calc(50% + var(--background-x, 0px)) bottom;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+}
+
+.dolls-app[data-background="none"] .scene-background {
+  display: none;
+}
+
+#camera {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #101819;
+}
+
+.dolls-app[data-background="none"] #camera {
+  display: block;
+  transform: scaleX(-1);
+}
+
+#doll-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.dolls-app[data-background="none"] #doll-canvas {
+  cursor: default;
+}
+
+.dolls-app[data-dragging-background="true"] #doll-canvas {
+  cursor: grabbing;
+}
+
+.pause-button,
+.settings-button,
+.icon-button {
+  border: 1px solid rgba(37, 28, 21, 0.2);
+  border-radius: 8px;
+  color: #24170f;
+  background: rgba(255, 251, 241, 0.9);
+  box-shadow: 0 8px 24px rgba(36, 23, 15, 0.18);
+  cursor: pointer;
+}
+
+.pause-button {
+  position: absolute;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 5;
+  display: none;
+  min-height: 44px;
+  min-width: 92px;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+
+.settings-button {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 5;
+  min-height: 44px;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+
+.status {
+  position: absolute;
+  left: 16px;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 3;
+  max-width: min(420px, calc(100vw - 160px));
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(37, 28, 21, 0.18);
+  border-radius: 8px;
+  color: #24170f;
+  background: rgba(255, 251, 241, 0.78);
+  font-size: 13px;
+  line-height: 1.35;
+  box-shadow: 0 8px 22px rgba(36, 23, 15, 0.12);
+}
+
+.status:empty {
+  display: none;
+}
+
+.settings-panel {
+  position: absolute;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: calc(max(16px, env(safe-area-inset-bottom)) + 58px);
+  z-index: 6;
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(600px, calc(100svh - 96px));
+  padding: 16px;
+  overflow: auto;
+  border: 1px solid rgba(37, 28, 21, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 251, 241, 0.94);
+  box-shadow: 0 16px 48px rgba(36, 23, 15, 0.22);
+  backdrop-filter: blur(10px);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.settings-header h1 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-weight: 700;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.field > span {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(37, 28, 21, 0.25);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #24170f;
+  background: #fffaf0;
+}
+
+.background-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.background-choice {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  padding: 8px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #24170f;
+  background: rgba(255, 255, 255, 0.62);
+  text-align: left;
+  cursor: pointer;
+}
+
+.background-choice[data-selected="true"] {
+  border-color: #a73b5f;
+  background: #fff8e8;
+}
+
+.background-preview {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  border-radius: 6px;
+  background-image: var(--preview-image);
+  background-position: center bottom;
+  background-size: cover;
+}
+
+.background-choice[data-background="none"] .background-preview {
+  border: 1px solid rgba(37, 28, 21, 0.16);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    #101819;
+  background-size: 14px 14px;
+}
+
+.background-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.debug-tools {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(37, 28, 21, 0.16);
+}
+
+.debug-button {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(37, 28, 21, 0.25);
+  border-radius: 8px;
+  color: #fffaf0;
+  background: #344b5a;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .status {
+    left: 12px;
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 58px);
+    max-width: calc(100vw - 24px);
+  }
+
+  .settings-button {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  .settings-panel {
+    left: 12px;
+    right: 12px;
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 56px);
+    width: auto;
+    max-height: min(520px, calc(100svh - 86px));
+  }
+}
+
+@media (min-width: 641px) {
+  .pause-button {
+    display: block;
+  }
+
+  .status {
+    bottom: calc(max(16px, env(safe-area-inset-bottom)) + 58px);
+    max-width: min(420px, calc(100vw - 32px));
+  }
+}

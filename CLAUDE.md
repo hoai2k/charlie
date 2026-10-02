@@ -30,3 +30,13 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
 each change with a commit on `main` and `git push origin main` so it deploys.
 If you were working on a feature branch, merge/fast-forward it into `main`
 and push `main` as well.
+
+## Game notes
+
+- `dollpuppets/` was flattened from `messenger/dolls/` on hoai.net: the shared
+  `messenger/src/{core,workers}` modules now live in `dollpuppets/src/`. Keep
+  the game self-contained — never import from outside its own directory.
+  It needs camera permission (HTTPS, which Pages provides) and loads MediaPipe
+  from cdn.jsdelivr.net and models from storage.googleapis.com.
+- The per-character `dollpuppets/assets/<name>/config.js` files are generated
+  by a build script that was not imported; edit them directly with care.
