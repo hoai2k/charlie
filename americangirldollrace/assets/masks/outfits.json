@@ -1,0 +1,167 @@
+{
+ "version": 1,
+ "palette": {
+  "red": "#d8262f",
+  "orange": "#f08a1c",
+  "yellow": "#f2c230",
+  "lime": "#8cc63f",
+  "green": "#2fa84f",
+  "mint": "#5fd3a4",
+  "teal": "#14a3b8",
+  "blue": "#2f6fe0",
+  "navy": "#2b3f8f",
+  "purple": "#8e44c9",
+  "lilac": "#b48ff0",
+  "pink": "#e85aa8",
+  "berry": "#b0175f"
+ },
+ "dolls": {
+  "whirlpool": {
+   "stats": {
+    "h": -1.309,
+    "L": 0.2354,
+    "C": 0.0547
+   },
+   "outfits": [
+    "yellow",
+    "mint",
+    "pink",
+    "blue",
+    "red",
+    "orange",
+    "green"
+   ]
+  },
+  "juliette": {
+   "stats": {
+    "h": 1.309,
+    "L": 0.8114,
+    "C": 0.0844
+   },
+   "outfits": [
+    "navy",
+    "berry",
+    "lilac",
+    "green",
+    "teal",
+    "red",
+    "orange"
+   ]
+  },
+  "claudia": {
+   "stats": {
+    "h": 3.0543,
+    "L": 0.8648,
+    "C": 0.049,
+    "beta": 0.7
+   },
+   "outfits": [
+    "navy",
+    "red",
+    "green",
+    "lilac",
+    "orange",
+    "pink",
+    "yellow"
+   ]
+  },
+  "kaya": {
+   "stats": {
+    "h": 0.9599,
+    "L": 0.6435,
+    "C": 0.1398
+   },
+   "outfits": [
+    "navy",
+    "mint",
+    "lilac",
+    "berry",
+    "yellow",
+    "green",
+    "red"
+   ]
+  },
+  "lily": {
+   "stats": {
+    "h": -2.0071,
+    "L": 0.6503,
+    "C": 0.0755
+   },
+   "outfits": [
+    "lime",
+    "berry",
+    "purple",
+    "orange",
+    "teal",
+    "yellow",
+    "red"
+   ]
+  },
+  "marisol": {
+   "stats": {
+    "h": 0.0873,
+    "L": 0.7117,
+    "C": 0.1143
+   },
+   "outfits": [
+    "navy",
+    "green",
+    "yellow",
+    "purple",
+    "teal",
+    "red",
+    "orange"
+   ]
+  },
+  "amanda": {
+   "stats": {
+    "h": 0.4363,
+    "L": 0.3004,
+    "C": 0.1567,
+    "warmBeta": 0.7
+   },
+   "outfits": [
+    "yellow",
+    "teal",
+    "pink",
+    "lime",
+    "navy",
+    "purple",
+    "orange"
+   ]
+  },
+  "rumi": {
+   "stats": {
+    "h": 1.309,
+    "L": 0.5012,
+    "C": 0.1259
+   },
+   "outfits": [
+    "mint",
+    "lilac",
+    "orange",
+    "navy",
+    "pink",
+    "green",
+    "red"
+   ]
+  },
+  "penelope": {
+   "stats": {
+    "h": 0.2618,
+    "L": 0.7821,
+    "C": 0.0579,
+    "beta": 0.7
+   },
+   "outfits": [
+    "navy",
+    "green",
+    "berry",
+    "lilac",
+    "teal",
+    "yellow",
+    "orange"
+   ]
+  }
+ }
+}
