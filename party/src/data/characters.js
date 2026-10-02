@@ -97,7 +97,33 @@ export const GLIMMER = {
   members: [{ asset: 'glimmer', h: 110, face: [0.46, 0.26, 0.17], top: 0.94, facing: 1, motion: 'glide' }],
 };
 
-export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX, GLIMMER];
+export const PROFESSOR_HOOT = {
+  id: 'professor-hoot', name: 'Professor Hoot', color: '#7660ca', npc: true,
+  members: [{ asset: 'professor-hoot', h: 148, face: [0.44, 0.32, 0.20], top: 0.98, facing: 1, motion: 'hop' }],
+};
+
+export const SHADOW_IMPS = [
+  ['shadow-imp', 'Shadow Imp', '#793da1'],
+  ['shadow-imp-blue', 'Blue Shadow Imp', '#364e95'],
+  ['shadow-imp-pink', 'Pink Shadow Imp', '#b94290'],
+].map(([id, name, color]) => ({
+  id, name, color, npc: true,
+  members: [{ asset: id, h: 100, face: [0.44, 0.25, 0.24], top: 0.97, facing: 1, motion: 'glide' }],
+}));
+
+export const SHADOW_IMP = SHADOW_IMPS[0];
+
+// Color and flower silhouette both identify a fairy for accessible counting.
+export const GARDEN_FAIRIES = [
+  ['pink', 'Tulip', '#ff73b5'], ['blue', 'Bluebell', '#7599ff'],
+  ['yellow', 'Daisy', '#ffd842'], ['green', 'Leaf', '#8ac544'],
+  ['purple', 'Violet', '#a96bf0'],
+].map(([variant, flower, color]) => ({
+  id: `garden-fairy-${variant}`, name: `${flower} Fairy`, color, npc: true,
+  members: [{ asset: `garden-fairy-${variant}`, h: 54, face: [0.35, 0.41, 0.21], top: 0.98, facing: 1, motion: 'glide' }],
+}));
+
+export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX, GLIMMER, PROFESSOR_HOOT, ...SHADOW_IMPS, ...GARDEN_FAIRIES];
 export const charById = (id) => ALL_ENTRIES.find((c) => c.id === id);
 
 // Fill defaults.

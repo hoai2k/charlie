@@ -1,0 +1,554 @@
+{
+  "asset": "professor-hoot",
+  "bodyHeight": 320,
+  "frameSize": [
+    520,
+    460
+  ],
+  "anchor": [
+    260,
+    440
+  ],
+  "facing": 1,
+  "provenance": "Built-in image_gen from approved professor-hoot.webp; exact prompts in professor-hoot-generation-prompts.json. Lantern held empty for runtime prop attachment.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ],
+          "dur": 1
+        },
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ],
+          "dur": 0.8
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.3
+    },
+    "talk": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        },
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        }
+      ],
+      "fps": 7,
+      "loop": true,
+      "motion": 0.3
+    },
+    "hoot": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.9
+    },
+    "present": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "lantern": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-actions.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            465,
+            141
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-actions.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        },
+        {
+          "source": "../sources/professor-hoot-actions.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-actions.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/professor-hoot-actions.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            424.96,
+            271.36
+          ]
+        },
+        {
+          "source": "../sources/professor-hoot-actions.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            276.48,
+            499.2
+          ],
+          "head": [
+            250.88,
+            25.6
+          ],
+          "eyes": [
+            302.08,
+            163.84
+          ],
+          "neck": [
+            276.48,
+            276.48
+          ],
+          "back": [
+            204.8,
+            291.84
+          ],
+          "hand": [
+            396,
+            229
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3
+    },
+    "surprised": {
+      "alias": "hoot",
+      "loop": false,
+      "motion": 0.85
+    },
+    "wave": {
+      "alias": "present",
+      "loop": true,
+      "motion": 0.85
+    },
+    "celebrate": {
+      "alias": "clap",
+      "loop": true,
+      "motion": 0.3
+    },
+    "cheer": {
+      "alias": "clap",
+      "loop": false,
+      "motion": 0.3
+    },
+    "point": {
+      "alias": "present",
+      "loop": false,
+      "motion": 0.85
+    },
+    "laugh": {
+      "alias": "clap",
+      "loop": true,
+      "motion": 0.35
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/professor-hoot-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/professor-hoot-portrait-happy.webp"
+    },
+    "sad": {
+      "source": "../sources/professor-hoot-portrait-sad.webp"
+    },
+    "surprised": {
+      "source": "../sources/professor-hoot-portrait-surprised.webp"
+    },
+    "determined": {
+      "source": "../sources/professor-hoot-portrait-determined.webp"
+    },
+    "talk": {
+      "source": "../sources/professor-hoot-portrait-talk.webp"
+    }
+  }
+}

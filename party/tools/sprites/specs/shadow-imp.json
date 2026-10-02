@@ -1,0 +1,845 @@
+{
+  "asset": "shadow-imp",
+  "bodyHeight": 260,
+  "frameSize": [
+    500,
+    440
+  ],
+  "anchor": [
+    250,
+    420
+  ],
+  "facing": 1,
+  "provenance": "Built-in image_gen from approved Shadow Imp canonical. Prompts shadow-imp-generation-prompts.json. Blue/pink variants use selective violet hue recoloring preserving yellow eyes and alpha, as explicitly requested in image-requests.md.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ],
+          "dur": 0.8
+        },
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ],
+          "dur": 0.1
+        },
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ],
+          "dur": 0.7
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        },
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.35
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        },
+        {
+          "source": "../sources/shadow-imp-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.35
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        },
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        },
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        },
+        {
+          "source": "../sources/shadow-imp-dance.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            501.76
+          ],
+          "scale": 1,
+          "head": [
+            307.2,
+            40.96
+          ],
+          "eyes": [
+            327.68,
+            204.8
+          ],
+          "neck": [
+            291.84,
+            291.84
+          ],
+          "back": [
+            204.8,
+            302.08
+          ],
+          "hand": [
+            389.12,
+            312.32
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15
+    },
+    "poof": {
+      "frames": [
+        {
+          "source": "../sources/shadow-imp-poof.webp",
+          "grid": [
+            3,
+            1
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            398.20000000000005,
+            709.52
+          ],
+          "scale": 0.79,
+          "head": [
+            434.4,
+            57.92
+          ],
+          "eyes": [
+            463.36,
+            289.6
+          ],
+          "neck": [
+            412.67999999999995,
+            412.67999999999995
+          ],
+          "back": [
+            289.6,
+            427.15999999999997
+          ],
+          "hand": [
+            550.24,
+            441.64
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/shadow-imp-poof.webp",
+          "grid": [
+            3,
+            1
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            398.20000000000005,
+            709.52
+          ],
+          "scale": 0.79,
+          "head": [
+            434.4,
+            57.92
+          ],
+          "eyes": [
+            463.36,
+            289.6
+          ],
+          "neck": [
+            412.67999999999995,
+            412.67999999999995
+          ],
+          "back": [
+            289.6,
+            427.15999999999997
+          ],
+          "hand": [
+            550.24,
+            441.64
+          ],
+          "dur": 0.16
+        },
+        {
+          "source": "../sources/shadow-imp-poof.webp",
+          "grid": [
+            3,
+            1
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            398.20000000000005,
+            709.52
+          ],
+          "scale": 0.79,
+          "head": [
+            434.4,
+            57.92
+          ],
+          "eyes": [
+            463.36,
+            289.6
+          ],
+          "neck": [
+            412.67999999999995,
+            412.67999999999995
+          ],
+          "back": [
+            289.6,
+            427.15999999999997
+          ],
+          "hand": [
+            550.24,
+            441.64
+          ],
+          "dur": 0.22
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0
+    },
+    "celebrate": {
+      "alias": "dance",
+      "loop": true,
+      "motion": 0.15
+    },
+    "cheer": {
+      "alias": "laugh",
+      "loop": false,
+      "motion": 0.4
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/shadow-imp-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 0,
+      "isolate": true
+    },
+    "happy": {
+      "source": "../sources/shadow-imp-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 1,
+      "isolate": true
+    },
+    "sad": {
+      "source": "../sources/shadow-imp-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 2,
+      "isolate": true
+    },
+    "surprised": {
+      "source": "../sources/shadow-imp-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 3,
+      "isolate": true
+    },
+    "determined": {
+      "source": "../sources/shadow-imp-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 4,
+      "isolate": true
+    },
+    "laugh": {
+      "source": "../sources/shadow-imp-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 5,
+      "isolate": true
+    }
+  }
+}

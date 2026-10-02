@@ -1,0 +1,300 @@
+{
+  "asset": "garden-fairy-yellow",
+  "bodyHeight": 240,
+  "frameSize": [
+    440,
+    390
+  ],
+  "anchor": [
+    220,
+    370
+  ],
+  "facing": 1,
+  "provenance": "Built-in image_gen from approved garden-fairies v3 individual canonical; retains approved skin tone and unique flower cap. Generated 6 full-body key poses, portrait crops plus authored sad/determined busts.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ],
+          "dur": 0.84
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ],
+          "dur": 0.65
+        }
+      ],
+      "fps": 6,
+      "motion": 0.3,
+      "loop": true
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ]
+        }
+      ],
+      "fps": 6,
+      "motion": 0.85,
+      "loop": true
+    },
+    "fly": {
+      "alias": "walk",
+      "loop": true,
+      "motion": 0.85
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ]
+        }
+      ],
+      "fps": 5,
+      "motion": 0.15,
+      "loop": true
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-yellow-core.webp",
+          "grid": [
+            3,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            281.6,
+            496.64
+          ],
+          "head": [
+            276.48,
+            40.96
+          ],
+          "eyes": [
+            286.72,
+            230.4
+          ],
+          "neck": [
+            276.48,
+            302.08
+          ],
+          "back": [
+            204.8,
+            317.44
+          ],
+          "hand": [
+            384.0,
+            317.44
+          ]
+        }
+      ],
+      "fps": 6,
+      "motion": 0.85,
+      "loop": false
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/garden-fairy-yellow-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/garden-fairy-yellow-portrait-happy.webp"
+    },
+    "surprised": {
+      "source": "../sources/garden-fairy-yellow-portrait-surprised.webp"
+    },
+    "sad": {
+      "source": "../sources/garden-fairy-yellow-portrait-sad.webp"
+    },
+    "determined": {
+      "source": "../sources/garden-fairy-yellow-portrait-determined.webp"
+    }
+  }
+}

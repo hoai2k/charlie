@@ -1,0 +1,247 @@
+{
+  "frameSize": [
+    440,
+    390
+  ],
+  "anchor": [
+    220,
+    370
+  ],
+  "bodyHeight": 240,
+  "facing": 1,
+  "poses": {
+    "idle": {
+      "fps": 6,
+      "motion": 0.3,
+      "loop": true,
+      "frames": [
+        {
+          "src": "idle-00.webp",
+          "anchor": [
+            118,
+            235
+          ],
+          "head": [
+            115,
+            14
+          ],
+          "hand": [
+            167,
+            148
+          ],
+          "eyes": [
+            120,
+            106
+          ],
+          "neck": [
+            115,
+            140
+          ],
+          "back": [
+            80,
+            148
+          ],
+          "dur": 0.7
+        },
+        {
+          "src": "idle-01.webp",
+          "anchor": [
+            100,
+            234
+          ],
+          "head": [
+            97,
+            13
+          ],
+          "hand": [
+            149,
+            147
+          ],
+          "eyes": [
+            102,
+            105
+          ],
+          "neck": [
+            97,
+            139
+          ],
+          "back": [
+            62,
+            147
+          ],
+          "dur": 0.12
+        },
+        {
+          "src": "idle-02.webp",
+          "anchor": [
+            118,
+            235
+          ],
+          "head": [
+            115,
+            14
+          ],
+          "hand": [
+            167,
+            148
+          ],
+          "eyes": [
+            120,
+            106
+          ],
+          "neck": [
+            115,
+            140
+          ],
+          "back": [
+            80,
+            148
+          ],
+          "dur": 0.65
+        }
+      ]
+    },
+    "walk": {
+      "fps": 6,
+      "motion": 0.85,
+      "loop": true,
+      "frames": [
+        {
+          "src": "walk-00.webp",
+          "anchor": [
+            101,
+            236
+          ],
+          "head": [
+            98,
+            15
+          ],
+          "hand": [
+            150,
+            149
+          ],
+          "eyes": [
+            103,
+            107
+          ],
+          "neck": [
+            98,
+            141
+          ],
+          "back": [
+            63,
+            149
+          ]
+        }
+      ]
+    },
+    "fly": {
+      "alias": "walk",
+      "loop": true,
+      "motion": 0.85
+    },
+    "celebrate": {
+      "fps": 5,
+      "motion": 0.15,
+      "loop": true,
+      "frames": [
+        {
+          "src": "celebrate-00.webp",
+          "anchor": [
+            98,
+            234
+          ],
+          "head": [
+            95,
+            13
+          ],
+          "hand": [
+            147,
+            147
+          ],
+          "eyes": [
+            100,
+            105
+          ],
+          "neck": [
+            95,
+            139
+          ],
+          "back": [
+            60,
+            147
+          ]
+        },
+        {
+          "src": "celebrate-01.webp",
+          "anchor": [
+            94,
+            232
+          ],
+          "head": [
+            91,
+            11
+          ],
+          "hand": [
+            143,
+            145
+          ],
+          "eyes": [
+            96,
+            103
+          ],
+          "neck": [
+            91,
+            137
+          ],
+          "back": [
+            56,
+            145
+          ]
+        }
+      ]
+    },
+    "surprised": {
+      "fps": 6,
+      "motion": 0.85,
+      "loop": false,
+      "frames": [
+        {
+          "src": "surprised-00.webp",
+          "anchor": [
+            94,
+            236
+          ],
+          "head": [
+            91,
+            15
+          ],
+          "hand": [
+            143,
+            149
+          ],
+          "eyes": [
+            96,
+            107
+          ],
+          "neck": [
+            91,
+            141
+          ],
+          "back": [
+            56,
+            149
+          ]
+        }
+      ]
+    }
+  },
+  "portraits": {
+    "neutral": "portrait-neutral.webp",
+    "happy": "portrait-happy.webp",
+    "surprised": "portrait-surprised.webp",
+    "sad": "portrait-sad.webp",
+    "determined": "portrait-determined.webp"
+  },
+  "provenance": "Built-in image_gen from approved garden-fairies v3 individual canonical; retains approved skin tone and unique flower cap. Generated 6 full-body key poses, portrait crops plus authored sad/determined busts."
+}
