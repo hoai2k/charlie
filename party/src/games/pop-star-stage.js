@@ -21,7 +21,7 @@ import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 const NAVY = '#24163f';
 const BPM = 120;
 const SPB = 60 / BPM;
-const TRAVEL = 3.2;                    // beats a note is visible before the hit line
+const TRAVEL = 2.5;                    // beats a note is visible before the hit line
 const PERFECT = 0.08 / SPB;           // window in beats (±)
 const GOOD = 0.16 / SPB;
 const SONG_END = 130;                 // beats (65 s)
@@ -254,9 +254,10 @@ export const meta = {
 
 // ---------------------------------------------------------------------------
 
-const TOP = 128;          // top of the note highways
-const HIT_Y = 590;        // hit line
-const FLOOR_Y = 1012;     // characters' feet
+const TOP = 124;          // top of the note highways
+const HIT_Y = 436;        // hit line (well above every performer's head)
+const FLOOR_Y = 1000;     // characters' feet
+const IMP_Y = [560, 720]; // band where Shadow Imps float
 
 export class Game {
   constructor(api) {
@@ -267,8 +268,8 @@ export class Game {
     this.chart = makeChart();
     this.spacing = Math.min(n === 1 ? 600 : 330, (W - 120) / n);
     this.laneW = Math.min(n === 1 ? 300 : 250, this.spacing - 30);
-    this.noteSize = clamp(this.laneW * 0.42, 54, 84);
-    const scale = n === 1 ? 1.3 : n === 2 ? 1.15 : n <= 3 ? 1.0 : n <= 5 ? 0.86 : 0.72;
+    this.noteSize = clamp(this.laneW * (n > 5 ? 0.3 : 0.34), 46, 70);
+    const scale = n <= 2 ? 1.25 : n <= 4 ? 1.15 : n <= 6 ? 1.0 : 0.9;
     this.lanes = this.players.map((p, i) => {
       const x = W / 2 + (i - (n - 1) / 2) * this.spacing;
       const a = new Actor(p.charId, { x, y: FLOOR_Y, scale });
@@ -472,10 +473,10 @@ export class Game {
   spawnImp(peek = false) {
     const side = chance(0.5) ? -1 : 1;
     const L = pick(this.lanes);
-    const r = rand(26, 38) * (this.n > 5 ? 0.85 : 1);
+    const r = rand(40, 54) * (this.n > 5 ? 0.8 : 1);
     this.imps.push({
-      x: side < 0 ? -70 : W + 70, y: rand(650, 800), r, side,
-      tx: peek ? (side < 0 ? rand(60, 160) : W - rand(60, 160)) : L.x + rand(-80, 80), ty: rand(660, 790),
+      x: side < 0 ? -90 : W + 90, y: rand(...IMP_Y), r, side,
+      tx: peek ? (side < 0 ? rand(70, 170) : W - rand(70, 170)) : L.x + rand(-90, 90), ty: rand(...IMP_Y),
       speed: rand(55, 95), state: 'creep', t: rand(10), seed: rand(TAU), colors: pick(IMP_COLORS), mood: 'grin', moodT: 0, targeted: false,
     });
     if (!peek && chance(0.3)) snd('npc/imp/giggle', null);
@@ -488,7 +489,7 @@ export class Game {
       if (m.state === 'creep') {
         const dx = m.tx - m.x, dy = m.ty - m.y, d = Math.hypot(dx, dy);
         if (d > 4) { m.x += (dx / d) * Math.min(d, m.speed * dt); m.y += (dy / d) * Math.min(d, m.speed * dt); }
-        else if (chance(dt * 0.5)) { m.tx = clamp(m.x + rand(-140, 140), 40, W - 40); m.ty = rand(650, 800); }
+        else if (chance(dt * 0.5)) { m.tx = clamp(m.x + rand(-140, 140), 40, W - 40); m.ty = rand(...IMP_Y); }
       } else if (m.state === 'poof') {
         m.pt += dt;
       }
@@ -514,7 +515,7 @@ export class Game {
         onHit = () => this.poofImp(m, L);
       } else {
         to = { x: from.x + rand(-60, 60), y: TOP - 40 };
-        onHit = () => particles.burst(to.x, HIT_Y - 260, { type: 'sparkle', count: 3, colors: [BTN_COLOR[btn], '#fff'] });
+        onHit = () => particles.burst(to.x, HIT_Y - 180, { type: 'sparkle', count: 3, colors: [BTN_COLOR[btn], '#fff'] });
       }
     }
     this.beams.push({ from, to, color: BTN_COLOR[btn], t: 0, dur: 0.22, hitAt: 0.08, onHit, fever: L.fever });
@@ -541,7 +542,7 @@ export class Game {
 
   spawnBoss() {
     const hp = 14 * this.n;
-    this.boss = { x: W / 2, y: 790, r: 10, tr: this.n <= 3 ? 112 : 100, hp, max: hp, t: 0, hitT: 0, dead: false, deadT: 0, mood: 'grin' };
+    this.boss = { x: W / 2, y: 650, r: 10, tr: this.n <= 4 ? 105 : 92, hp, max: hp, t: 0, hitT: 0, dead: false, deadT: 0, mood: 'grin' };
     this.banner('Uh-oh! A BIG Shadow Imp!', 2.2, '#c49bff', 76);
     snd('npc/imp/giggle', 'giggle'); sfx('whoosh');
     fx.shake(8, 0.3);
@@ -579,7 +580,7 @@ export class Game {
     B.t += dt;
     B.r = damp(B.r, B.dead ? 0 : B.tr, B.dead ? 8 : 3, dt);
     B.x = W / 2 + Math.sin(B.t * 0.9) * Math.min(420, (this.n - 1) * this.spacing * 0.4 + 120);
-    B.y = 790 + Math.sin(B.t * 1.7) * 12;
+    B.y = 650 + Math.sin(B.t * 1.7) * 12;
     if (B.hitT > 0) { B.hitT -= dt; if (B.hitT <= 0) B.mood = B.hp < B.max * 0.3 ? 'eep' : 'grin'; }
     if (B.dead) B.deadT += dt;
     if (!B.dead && b >= 123.5) this.defeatBoss(false);
@@ -599,7 +600,7 @@ export class Game {
     if (star) star.actor.say('Thank you!', 2.2, 'yay');
     this.banner('Encore!', 2.0, '#ff6fd0', 110);
     // No notes are left: the camera can lean in on the performers.
-    if (this.api.camera) this.api.camera.follow(W / 2, 760, 1.12, 1.6);
+    if (this.api.camera) this.api.camera.follow(W / 2, 800, 1.12, 1.6);
   }
 
   updateFinale(dt) {
@@ -703,14 +704,17 @@ export class Game {
     }
     g.restore();
     // stage floor with LED tiles
-    g.fillStyle = '#21123f'; g.fillRect(0, 930, W, H - 930);
-    g.fillStyle = '#ff6fd0'; g.fillRect(0, 926, W, 6);
+    g.fillStyle = '#21123f'; g.fillRect(0, 870, W, H - 870);
+    g.fillStyle = '#ff6fd0'; g.fillRect(0, 866, W, 6);
     const tiles = 16;
     for (let i = 0; i < tiles; i++) {
       const lit = (i + Math.floor(Math.max(0, b))) % 4 === 0;
       g.globalAlpha = lit ? 0.35 + pulse * 0.4 : 0.12;
       g.fillStyle = this.anyFever ? RAINBOW[i % RAINBOW.length] : (i % 2 ? '#7f5cff' : '#ff6fd0');
-      g.fillRect(i * (W / tiles) + 4, 940, W / tiles - 8, 120);
+      // perspective deck tiles
+      const x0 = i * (W / tiles), w0 = W / tiles;
+      g.beginPath(); g.moveTo(x0 + 4 + (x0 - W / 2) * 0.0, 880); g.lineTo(x0 + w0 - 4, 880);
+      g.lineTo(x0 + w0 - 4 + (x0 + w0 - W / 2) * 0.12, H); g.lineTo(x0 + 4 + (x0 - W / 2) * 0.12, H); g.closePath(); g.fill();
     }
     g.globalAlpha = 1;
     // crowd light sticks along the very bottom
@@ -807,6 +811,23 @@ export class Game {
     }
   }
 
+  /** Each performer stands in their own spotlight (player color, pulsing on the beat). */
+  drawSpots(g) {
+    const b = this.beatNow;
+    const pulse = Math.pow(1 - (((b % 1) + 1) % 1), 3);
+    g.save(); g.globalCompositeOperation = 'lighter';
+    for (const L of this.lanes) {
+      const a = L.actor, r = Math.max(70, Math.min(this.spacing * 0.48, a.width * 0.7));
+      const col = L.fever ? RAINBOW[Math.floor(this.clock * 8) % RAINBOW.length] : L.p.color;
+      g.globalAlpha = 0.1 + pulse * 0.06;
+      g.fillStyle = col;
+      g.beginPath(); g.moveTo(L.x - 30, HIT_Y + this.noteSize); g.lineTo(L.x + 30, HIT_Y + this.noteSize); g.lineTo(L.x + r, FLOOR_Y); g.lineTo(L.x - r, FLOOR_Y); g.closePath(); g.fill();
+      g.globalAlpha = 0.32 + pulse * 0.18;
+      g.beginPath(); g.ellipse(L.x, FLOOR_Y, r, r * 0.26, 0, 0, TAU); g.fill();
+    }
+    g.restore();
+  }
+
   drawBeams(g) {
     g.save(); g.globalCompositeOperation = 'lighter'; g.lineCap = 'round';
     for (const bm of this.beams) {
@@ -881,6 +902,7 @@ export class Game {
     for (const L of this.lanes) this.drawLane(g, L);
     this.drawBoss(g, true);
     this.drawImps(g);
+    this.drawSpots(g);
     // characters
     for (const L of this.lanes) {
       const a = L.actor;
@@ -912,7 +934,7 @@ export class Game {
     for (const bn of this.banners) {
       const fade = bn.t > bn.dur - 0.3 ? (bn.dur - bn.t) / 0.3 : 1;
       g.save(); g.globalAlpha = clamp(fade, 0, 1);
-      ui.banner(g, bn.text, bn.t, { size: Math.min(bn.size, 80), y: 880, color: bn.color, tilt: -0.03 });
+      ui.banner(g, bn.text, bn.t, { size: Math.min(bn.size, 80), y: 640, color: bn.color, tilt: -0.03 });
       g.restore();
     }
   }
