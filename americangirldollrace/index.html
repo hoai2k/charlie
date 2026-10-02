@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20261002c">
+    <link rel="stylesheet" href="styles.css?v=20261002f">
   </head>
   <body>
     <main class="shell">
@@ -20,7 +20,6 @@
             <span class="label" id="playerOneLabel">Whirlpool</span>
             <span id="whirlpoolStatus">Ready</span>
           </div>
-          <div class="race-title">American Girl Doll Race</div>
           <div class="racer-card juliette" id="playerTwoHud">
             <span class="label" id="playerTwoLabel">Juliette</span>
             <span id="julietteStatus">Ready</span>
@@ -80,7 +79,8 @@
                   <div class="lb-set-row" data-row="1"><div class="lb-icon"><div class="lb-atlas" id="lbMonsterIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Monsters</div><div class="lb-val" id="lbMonsterVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div class="lb-set-row" data-row="2"><div class="lb-icon"><div class="lb-atlas" id="lbSpecialIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Specials</div><div class="lb-val" id="lbSpecialVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
                   <div class="lb-set-row" data-row="3"><div class="lb-icon" id="lbCpuIcons"></div><div class="lb-txt"><div class="lb-panel-title">Computer racers</div><div class="lb-val" id="lbCpuVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
-                  <div id="lbSetFoot">D-pad to choose and change · <span class="lb-glyph" data-g="B"></span> done <button type="button" id="lbFullscreen">Fullscreen</button><span id="lbSetDone">Done</span></div>
+                  <div class="lb-set-row" data-row="4" id="lbFullscreenRow"><div class="lb-icon"><div class="lb-screen-icon">⛶</div></div><div class="lb-txt"><div class="lb-panel-title">Full screen</div><div class="lb-val" id="lbFullscreenVal"></div></div><span class="lb-arrow" data-d="1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div id="lbSetFoot">D-pad to choose and change · <span class="lb-glyph" data-g="B"></span> done <span id="lbSetDone">Done</span></div>
                 </div>
               </div>
             </section>
@@ -257,16 +257,25 @@
           </div>
           </div>
         </div>
-        <div class="finish-panel hidden" id="finishPanel">
-          <h2 id="finishTitle">Race Complete</h2>
-          <p id="finishText"></p>
-          <button id="restartButton" type="button">Next Race</button>
+        <div class="finish-strip hidden" id="finishPanel">
+          <div class="finish-track" aria-hidden="true"></div>
+          <div class="finish-info">
+            <h2 id="finishTitle">Next race</h2>
+            <p id="finishText"></p>
+            <div class="finish-timer"><div class="finish-timer-fill"></div></div>
+          </div>
+          <button id="restartButton" type="button"><span class="lb-glyph finish-glyph-a"></span>Race now</button>
         </div>
-        <div class="finish-panel hidden" id="pausePanel">
-          <h2>Paused</h2>
-          <p>Music is off while the race is paused.</p>
-          <button id="resumeButton" type="button">Resume</button>
-          <button id="menuButton" type="button">Main Menu</button>
+        <div class="pause-panel hidden" id="pausePanel">
+          <div class="pause-card">
+            <div class="pause-logo" role="img" aria-label="American Girl Doll Race"></div>
+            <h2>Paused</h2>
+            <div class="pause-buttons">
+              <button id="resumeButton" type="button"><span class="pause-icon">▶</span>Keep racing</button>
+              <button id="menuButton" type="button" class="secondary"><span class="pause-icon">⌂</span>Main menu</button>
+            </div>
+            <div class="pause-hint"><span class="lb-glyph pause-glyph-a"></span>choose · Start to keep racing</div>
+          </div>
         </div>
         <div class="touch-controls hidden" id="touchControls" aria-label="Touch controls">
           <button class="touch-button" id="touchJumpButton" type="button">Jump</button>
@@ -277,10 +286,10 @@
         <audio id="nextMusic" preload="auto" loop></audio>
       </section>
     </main>
-    <script src="config.js?v=20261002c"></script>
-    <script src="assets/audio/manifest.js?v=20261002c"></script>
-    <script src="audio.js?v=20261002c"></script>
-    <script src="game.js?v=20261002c"></script>
-    <script src="menu.js?v=20261002c"></script>
+    <script src="config.js?v=20261002f"></script>
+    <script src="assets/audio/manifest.js?v=20261002f"></script>
+    <script src="audio.js?v=20261002f"></script>
+    <script src="game.js?v=20261002f"></script>
+    <script src="menu.js?v=20261002f"></script>
   </body>
 </html>

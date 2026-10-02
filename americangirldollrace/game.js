@@ -298,7 +298,8 @@ const images = {
   unicorn: loadImage("assets/unicorn_sprites.webp"),
   pegasus: loadImage("assets/pegasus_sprites.webp"),
   monster: loadImage("assets/monster_sprites.webp"),
-  powerupIcons: loadImage("assets/icons_alpha.webp")
+  powerupIcons: loadImage("assets/icons_alpha.webp"),
+  confetti: loadImage("assets/ui/confetti.webp")
 };
 
 const jumpSpriteScale = {
@@ -708,7 +709,8 @@ function advanceBackground() {
 
 function getSelectedCharacter(select, fallback) {
   const character = characters[select?.value];
-  if (character && (isAllDollsMode() || !character.hidden)) return character;
+  // Hidden dolls can still race when "Random" lands on them in the menu.
+  if (character) return character;
   return characters[fallback];
 }
 
@@ -766,13 +768,44 @@ function updatePlayerLabels() {
   hudElement?.classList.toggle("compact", racers.length > 4);
   for (let index = 0; index < playerHuds.length; index += 1) {
     const racer = racers[index];
-    if (!playerHuds[index]) continue;
-    playerHuds[index].classList.toggle("hidden", !racer);
+    const card = playerHuds[index];
+    if (!card) continue;
+    card.classList.toggle("hidden", !racer);
     if (!racer) continue;
-    playerHuds[index].style.setProperty("--slot-color", slotColor(racer.playerIndex));
-    playerLabels[index].textContent = `${racerTag(racer)}: ${racer.name}`;
-    playerLabels[index].style.color = racer.color;
+    ensureHudCardParts(card);
+    const color = racer.ai ? "#7a7f8c" : slotColor(racer.playerIndex);
+    card.style.setProperty("--slot-color", color);
+    const badge = card.querySelector(".hud-badge");
+    badge.classList.toggle("ai", racer.ai);
+    badge.style.backgroundPosition = racer.ai ? "" : `${(racer.playerIndex % 8) * (100 / 7)}% 0`;
+    card.querySelector(".hud-face").style.backgroundImage = `url("assets/portraits/${racer.spriteKey}.webp")`;
+    playerLabels[index].textContent = racer.ai ? `${racer.name} (CPU)` : racer.name;
+    playerLabels[index].style.color = "";
   }
+}
+
+// Each HUD card shows the player's rosette (or the computer badge), a little
+// portrait, then the name and place/status lines.
+function ensureHudCardParts(card) {
+  if (card.querySelector(".hud-badge")) return;
+  const badge = document.createElement("span");
+  badge.className = "hud-badge";
+  const face = document.createElement("span");
+  face.className = "hud-face";
+  const text = document.createElement("span");
+  text.className = "hud-text";
+  text.append(...card.children);
+  card.append(badge, face, text);
+}
+
+function ordinal(place) {
+  const suffix = place % 100 >= 11 && place % 100 <= 13 ? "th" : ["th", "st", "nd", "rd"][place % 10] || "th";
+  return `${place}${suffix}`;
+}
+
+function getRaceOrder() {
+  if (state.done && state.finishOrder?.length) return state.finishOrder;
+  return state.racers.slice().sort((a, b) => b.x - a.x);
 }
 
 function updateModeLabels() {
@@ -1297,6 +1330,7 @@ function togglePause() {
   updateTouchControlsVisibility();
   if (state.paused) clearTouchInput();
   if (state.paused) {
+    resetPauseMenuFocus();
     GameAudio.play("ui_pause");
     const pausedTrack = music;
     fadeMusicGain(pausedTrack, 0, PAUSE_MUSIC_FADE_MS, () => {
@@ -1312,6 +1346,75 @@ function togglePause() {
     state.lastTime = 0;
     requestAnimationFrame(loop);
   }
+}
+
+/* Pause menu: D-pad/stick moves between the buttons, A picks one, Start or B
+ * resumes. Buttons held when the menu opened (the Start that paused) are
+ * ignored until released. */
+const pauseMenu = { focus: 0, prev: new Map(), repeat: 0 };
+
+function pauseMenuButtons() {
+  return Array.from(pausePanel.querySelectorAll("button")).filter(button => button.getClientRects().length > 0);
+}
+
+function setPauseMenuFocus(index) {
+  const buttons = pauseMenuButtons();
+  if (!buttons.length) return;
+  pauseMenu.focus = (index + buttons.length) % buttons.length;
+  buttons.forEach((button, i) => button.classList.toggle("focused", i === pauseMenu.focus));
+  buttons[pauseMenu.focus].focus({ preventScroll: true });
+}
+
+function resetPauseMenuFocus() {
+  pauseMenu.prev.clear();
+  pauseMenu.primed = false;
+  setPauseMenuFocus(0);
+}
+
+function updatePauseMenu(dt) {
+  const pads = connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : []);
+  pauseMenu.repeat -= dt;
+  for (const pad of pads) {
+    const prev = pauseMenu.prev.get(pad.index) || { buttons: [], dir: 0 };
+    const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev.buttons[button] && pauseMenu.primed;
+    const stickY = Math.abs(pad.axes[1] || 0) > 0.55 ? Math.sign(pad.axes[1]) : 0;
+    const stickX = Math.abs(pad.axes[0] || 0) > 0.55 ? Math.sign(pad.axes[0]) : 0;
+    const dpad = (pad.buttons[13]?.pressed || pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[12]?.pressed || pad.buttons[14]?.pressed ? 1 : 0);
+    const dir = dpad || stickX || stickY;
+    if (pauseMenu.primed && dir && (dir !== prev.dir || pauseMenu.repeat <= 0)) {
+      setPauseMenuFocus(pauseMenu.focus + dir);
+      GameAudio.play("ui_hover");
+      pauseMenu.repeat = dir !== prev.dir ? 0.4 : 0.18;
+    }
+    const startOrBack = pressed(9) || pressed(1);
+    const choose = pressed(0);
+    pauseMenu.prev.set(pad.index, { buttons: pad.buttons.map(button => button.pressed), dir });
+    if (startOrBack) { togglePause(); return; }
+    if (choose) { pauseMenuButtons()[pauseMenu.focus]?.click(); return; }
+  }
+  pauseMenu.primed = true;
+}
+
+// On the finish screen, A or Start on any controller starts the next race now.
+const finishMenu = { prev: new Map(), primed: false };
+
+function resetFinishMenuInput() {
+  finishMenu.prev.clear();
+  finishMenu.primed = false;
+}
+
+function updateFinishMenu() {
+  if (finishPanel.classList.contains("hidden")) return;
+  for (const pad of connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : [])) {
+    const prev = finishMenu.prev.get(pad.index) || [];
+    const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev[button] && finishMenu.primed;
+    finishMenu.prev.set(pad.index, pad.buttons.map(button => button.pressed));
+    if (pressed(0) || pressed(9)) {
+      restartButton.click();
+      return;
+    }
+  }
+  finishMenu.primed = true;
 }
 
 function returnToMenu() {
@@ -1341,16 +1444,34 @@ function returnToMenu() {
   window.Lobby?.showSelect();
 }
 
+function fullscreenElement() {
+  return document.fullscreenElement || document.webkitFullscreenElement || null;
+}
+
+function canFullscreen() {
+  const target = document.querySelector(".game-frame");
+  return Boolean(target.requestFullscreen || target.webkitRequestFullscreen);
+}
+
+// Resolves to whether the frame is fullscreen afterwards. Browsers only allow
+// entering fullscreen from a click/tap/key press, not a controller button.
 function toggleFullscreen() {
   const target = document.querySelector(".game-frame");
-  if (!document.fullscreenElement) {
-    target.requestFullscreen?.();
-  } else {
-    document.exitFullscreen?.();
+  try {
+    if (!fullscreenElement()) {
+      const request = target.requestFullscreen?.() ?? target.webkitRequestFullscreen?.();
+      return Promise.resolve(request).then(() => Boolean(fullscreenElement()), () => false);
+    }
+    const exit = document.exitFullscreen?.() ?? document.webkitExitFullscreen?.();
+    return Promise.resolve(exit).then(() => Boolean(fullscreenElement()), () => Boolean(fullscreenElement()));
+  } catch (error) {
+    return Promise.resolve(Boolean(fullscreenElement()));
   }
 }
 
 function finishRace(winner) {
+  // Places for the podium and the HUD, decided before the slots are compacted.
+  state.finishOrder = state.racers.slice().sort((a, b) => (b === winner) - (a === winner) || b.x - a.x);
   clearJoinPickers();
   compactSlotsForNextRace();
   state.running = false;
@@ -1363,13 +1484,19 @@ function finishRace(winner) {
   const nextBackground = BACKGROUNDS[(state.backgroundIndex + 1) % BACKGROUNDS.length];
   beginBoardEndMusic(nextBackground);
   playVictoryAudio(winner);
-  const playerWon = !winner.ai;
-  finishTitle.textContent = `Hooray! ${winner.name} Wins!`;
-  finishText.textContent = playerWon
-    ? `${winner.name} crossed the finish first. Time for fireworks! Next race: ${nextBackground.name}.`
-    : `${winner.name} crossed the finish first. Fireworks for the champion! Next race: ${nextBackground.name}.`;
+  // The scene already says who won, so the strip is about what comes next.
+  finishTitle.textContent = `Next race: ${nextBackground.name}`;
+  finishText.textContent = "Get ready…";
+  const nextIndex = BACKGROUNDS.indexOf(nextBackground);
+  finishPanel.style.setProperty("--next-track", `${nextIndex * 25}% 0`);
+  finishPanel.style.setProperty("--next-race-ms", `${NEXT_RACE_DELAY}ms`);
   finishPanel.classList.remove("hidden");
+  finishPanel.classList.remove("celebration");
+  void finishPanel.offsetWidth; // restart the countdown bar animation
   finishPanel.classList.add("celebration");
+  resetFinishMenuInput();
+  updatePlayerLabels();
+  updateHud();
   startMenuAnimationLoop();
   clearNextRaceTimer();
   state.nextRaceTimer = setTimeout(() => {
@@ -1504,7 +1631,10 @@ function menuAnimationLoop(time) {
     return;
   }
   if (assetsReady && isMenuOpen()) pollPlayerJoinAndLeave(dt);
-  updateControllerPointers(dt);
+  // Pause and finish screens are driven with the D-pad and A, not a pointer.
+  hideControllerPointers();
+  if (state.paused) updatePauseMenu(dt);
+  else if (state.done) updateFinishMenu();
   drawScene(dt);
   menuAnimationFrame = requestAnimationFrame(menuAnimationLoop);
 }
@@ -2924,19 +3054,26 @@ function renderJoinPickers() {
     picker.element.dataset.signature = signature;
     picker.element.style.setProperty("--slot-color", slotColor(slot));
     picker.element.replaceChildren();
+    // Same look as the select screen: rosette, portrait card, name, prompt.
     const title = document.createElement("div");
     title.className = "join-card-title";
-    title.textContent = `P${slot + 1} joins!`;
+    const rosette = document.createElement("span");
+    rosette.className = "join-card-badge";
+    rosette.style.backgroundPosition = `${(slot % 8) * (100 / 7)}% 0`;
+    title.append(rosette, document.createTextNode(`Here comes P${slot + 1}!`));
     const sprite = document.createElement("div");
-    sprite.className = "join-card-sprite";
-    sprite.style.backgroundImage = `url("${character.image().src}")`;
+    sprite.className = "join-card-portrait";
+    sprite.style.backgroundImage = `url("assets/portraits/${character.spriteKey}_wave.webp")`;
     const name = document.createElement("div");
     name.className = "join-card-name";
-    name.textContent = `◀ ${character.name} ▶`;
-    name.style.color = character.color;
+    name.innerHTML = `<span class="join-arrow">◀</span>${character.name}<span class="join-arrow">▶</span>`;
     const hint = document.createElement("div");
     hint.className = "join-card-hint";
-    hint.textContent = `${confirm}: race · ${cancel}: cancel`;
+    if (picker.keys) {
+      hint.textContent = `${confirm}: race · ${cancel}: cancel`;
+    } else {
+      hint.innerHTML = `<span class="lb-glyph join-glyph-a"></span>race <span class="lb-glyph join-glyph-b"></span>cancel`;
+    }
     picker.element.append(title, sprite, name, hint);
   }
 }
@@ -3499,8 +3636,15 @@ function updateHud() {
       continue;
     }
     const leaving = getLeaveHoldProgress(racer.playerIndex);
-    const status = leaving > 0 ? `Leaving ${Math.round(leaving * 100)}%` : racerStatus(racer);
-    playerStatuses[index].textContent = `${racerTag(racer)} ${Math.round((racer.x / FINISH) * 100)}% ${status}`;
+    const place = getRaceOrder().indexOf(racer) + 1;
+    let text;
+    if (state.done) text = racer === state.winner ? "Winner! 🏆" : `${ordinal(place)} place`;
+    else if (leaving > 0) text = `Leaving ${Math.round(leaving * 100)}%`;
+    else {
+      const status = racerStatus(racer);
+      text = status === "Racing" ? ordinal(place) : `${ordinal(place)} · ${status}`;
+    }
+    playerStatuses[index].textContent = text;
   }
 }
 
@@ -4414,7 +4558,8 @@ function drawVictoryScene() {
   ctx.fillStyle = skyGradient;
   ctx.fillRect(0, 0, W, H);
   drawVictoryFireworks(elapsed);
-  drawVictoryWinner(winner, elapsed);
+  drawVictoryPodium(winner, elapsed);
+  drawVictoryConfetti(elapsed);
   drawVictoryBanner(winner, elapsed);
   ctx.restore();
 }
@@ -4428,63 +4573,135 @@ function drawVictoryFireworks(elapsed) {
     const cx = W * (0.16 + ((i * 0.137) % 0.72));
     const cy = H * (0.13 + ((i * 0.211) % 0.32));
     ctx.save();
-    ctx.globalAlpha = clamp(burst, 0, 1);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = colors[i % colors.length];
-    for (let ray = 0; ray < 14; ray += 1) {
-      const angle = (Math.PI * 2 * ray) / 14 + i * 0.4;
-      const inner = radius * 0.34;
-      const outer = radius;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(angle) * inner, cy + Math.sin(angle) * inner);
-      ctx.lineTo(cx + Math.cos(angle) * outer, cy + Math.sin(angle) * outer);
-      ctx.stroke();
+    ctx.globalAlpha = clamp(burst, 0, 1) * 0.8;
+    ctx.fillStyle = colors[i % colors.length];
+    // Sparkle dots instead of thin lines read better on a TV.
+    for (let ray = 0; ray < 16; ray += 1) {
+      const angle = (Math.PI * 2 * ray) / 16 + i * 0.4;
+      for (let step = 0; step < 3; step += 1) {
+        const r = radius * (0.45 + step * 0.27);
+        ctx.beginPath();
+        ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 4.2 - step * 1.1, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
     ctx.restore();
   }
 }
 
-function drawVictoryWinner(winner, elapsed) {
-  const jump = Math.abs(Math.sin(elapsed * VICTORY_JUMP_SPEED));
-  const scale = 0.56 + jump * 0.04;
-  const drawW = FRAME * scale;
-  const drawH = FRAME * scale;
-  const x = W * 0.5;
-  const groundY = H * 0.72;
-  const y = groundY - VICTORY_JUMP_HEIGHT * jump;
-  const frame = jump > 0.18 ? 1 : Math.floor(elapsed / 180) % 3;
-  const row = jump > 0.18 ? 2 : 1;
-  const drawX = x - SPRITE_ANCHOR_X * scale;
-  const drawY = y + 54 - SPRITE_ANCHOR_Y * scale;
+// Falling confetti from assets/ui/confetti.webp (six 64px pieces in a row).
+function drawVictoryConfetti(elapsed) {
+  const sheet = images.confetti;
+  if (!sheet?.complete || !sheet.naturalWidth) return;
+  const cell = sheet.naturalHeight;
+  const t = elapsed / 1000;
+  for (let i = 0; i < 46; i += 1) {
+    const seed = (i * 7919) % 1000 / 1000;
+    const speed = 70 + seed * 90;
+    const size = 18 + ((i * 37) % 14);
+    const y = ((t * speed + seed * (H + 120)) % (H + 120)) - 60;
+    const x = ((i * 0.61803) % 1) * W + Math.sin(t * (1.2 + seed) + i) * 26;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(t * (1.5 + seed * 2) + i);
+    ctx.globalAlpha = 0.92;
+    ctx.drawImage(sheet, (i % 6) * cell, 0, cell, cell, -size / 2, -size / 2, size, size);
+    ctx.restore();
+  }
+}
 
-  ctx.save();
-  ctx.globalAlpha = 0.28;
-  ctx.fillStyle = "#142027";
-  ctx.beginPath();
-  ctx.ellipse(x, groundY + 42, 74 * scale * (1.1 - jump * 0.25), 16 * scale, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
+const portraitImages = new Map();
+function getPortraitImage(spriteKey, pose) {
+  const src = `assets/portraits/${spriteKey}${pose ? `_${pose}` : ""}.webp`;
+  if (!portraitImages.has(src)) portraitImages.set(src, loadImage(src));
+  const image = portraitImages.get(src);
+  return image.complete && image.naturalWidth ? image : null;
+}
 
-  drawFacingImage(winner.sheet, frame * FRAME, row * FRAME, FRAME, FRAME, drawX, drawY, drawW, drawH, 1, x);
+const PODIUM_STEPS = [
+  { place: 1, dx: 0, height: 112, color: "#f2c94c", edge: "#c99a1b", pose: "cheer", size: 300 },
+  { place: 2, dx: -190, height: 78, color: "#dfe6ee", edge: "#9aa9b8", pose: "wave", size: 236 },
+  { place: 3, dx: 190, height: 56, color: "#e8a66a", edge: "#b56f34", pose: "wave", size: 220 }
+];
+
+function drawVictoryPodium(winner, elapsed) {
+  const order = (state.finishOrder?.length ? state.finishOrder : [winner]).slice(0, 3);
+  const baseY = H - 132;
+  const blockW = 176;
+  order.forEach((racer, index) => {
+    const step = PODIUM_STEPS[index];
+    const cx = W / 2 + (order.length === 1 ? 0 : step.dx);
+    const top = baseY - step.height;
+    // Block
+    ctx.save();
+    ctx.fillStyle = step.color;
+    ctx.strokeStyle = step.edge;
+    ctx.lineWidth = 4;
+    roundRect(cx - blockW / 2, top, blockW, step.height + 12, 14);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = step.edge;
+    ctx.font = `700 ${index === 0 ? 50 : 40}px Fredoka, system-ui, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(step.place), cx, top + Math.min(step.height / 2 + 4, 52));
+    ctx.restore();
+
+    // Doll: the winner hops, the others sway.
+    const hop = index === 0 ? Math.abs(Math.sin(elapsed * VICTORY_JUMP_SPEED)) * 34 : 0;
+    const sway = index === 0 ? 0 : Math.sin(elapsed * 0.003 + index) * 0.04;
+    const image = getPortraitImage(racer.spriteKey, step.pose);
+    ctx.save();
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = "#142027";
+    ctx.beginPath();
+    ctx.ellipse(cx, top + 2, 54 * (1 - hop / 120), 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    if (image) {
+      ctx.save();
+      ctx.translate(cx, top + 8 - hop);
+      ctx.rotate(sway);
+      ctx.drawImage(image, -step.size / 2, -step.size, step.size, step.size);
+      ctx.restore();
+    } else {
+      const scale = step.size / FRAME;
+      drawFacingImage(racer.sheet, 0, 0, FRAME, FRAME, cx - SPRITE_ANCHOR_X * scale, top - hop - SPRITE_ANCHOR_Y * scale, FRAME * scale, FRAME * scale, 1, cx);
+    }
+
+    // Name tag under the block top.
+    ctx.save();
+    ctx.font = "700 21px Fredoka, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = racer.ai ? "#4a4f5c" : slotColor(racer.playerIndex);
+    const label = racer.ai ? racer.name : `P${racer.playerIndex + 1} ${racer.name}`;
+    ctx.strokeText(label, cx, baseY + 4);
+    ctx.fillText(label, cx, baseY + 4);
+    ctx.restore();
+  });
 }
 
 function drawVictoryBanner(winner, elapsed) {
   const pulse = 1 + Math.sin(elapsed * 0.006) * 0.035;
   ctx.save();
-  ctx.translate(W / 2, H * 0.18);
+  ctx.translate(W / 2, H * 0.16);
   ctx.scale(pulse, pulse);
   ctx.textAlign = "center";
-  ctx.font = "900 54px system-ui";
-  ctx.lineWidth = 8;
+  ctx.lineJoin = "round";
+  ctx.font = "700 64px Fredoka, system-ui, sans-serif";
+  ctx.lineWidth = 10;
   ctx.strokeStyle = "white";
-  ctx.fillStyle = winner.color;
+  ctx.fillStyle = winner.ai ? winner.color : slotColor(winner.playerIndex);
   ctx.strokeText(`${winner.name} Wins!`, 0, 0);
   ctx.fillText(`${winner.name} Wins!`, 0, 0);
-  ctx.font = "800 22px system-ui";
-  ctx.lineWidth = 5;
+  ctx.font = "700 26px Fredoka, system-ui, sans-serif";
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = "#7a3b12";
   ctx.fillStyle = "#ffe36e";
-  ctx.strokeText("Champion of the track", 0, 38);
-  ctx.fillText("Champion of the track", 0, 38);
+  ctx.strokeText("Champion of the track", 0, 42);
+  ctx.fillText("Champion of the track", 0, 42);
   ctx.restore();
 }
 
@@ -4494,11 +4711,21 @@ function drawBackground() {
   const viewTop = getWorldViewportTop();
   const scale = H / bg.height;
   const bgW = bg.width * scale;
-  const startX = -((state.camera % bgW) + bgW) % bgW;
   ctx.fillStyle = "#7fc6e8";
   ctx.fillRect(0, viewTop, viewWidth, H - viewTop);
-  for (let x = startX; x < viewWidth + bgW; x += bgW) {
-    ctx.drawImage(bg, x, 0, bgW, H);
+  // The backgrounds aren't made to tile, so every other copy is mirrored:
+  // neighbouring edges then always match and there's no visible seam.
+  const firstTile = Math.floor(state.camera / bgW);
+  for (let tile = firstTile, x = tile * bgW - state.camera; x < viewWidth; tile += 1, x += bgW) {
+    if (tile % 2 === 0) {
+      ctx.drawImage(bg, x, 0, bgW, H);
+      continue;
+    }
+    ctx.save();
+    ctx.translate(x + bgW, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(bg, 0, 0, bgW, H);
+    ctx.restore();
   }
   ctx.fillStyle = "rgba(255, 255, 255, 0.16)";
   ctx.fillRect(0, TRACK_TOP - 8, viewWidth, TRACK_BOTTOM - TRACK_TOP + 86);
@@ -4972,7 +5199,7 @@ function clamp(value, min, max) {
 }
 
 function isInteractiveTouchTarget(target) {
-  return Boolean(target.closest("button, select, label, .start-panel, .finish-panel, .touch-controls"));
+  return Boolean(target.closest("button, select, label, .start-panel, .finish-strip, .pause-panel, .touch-controls"));
 }
 
 function updateTouchMove(event) {

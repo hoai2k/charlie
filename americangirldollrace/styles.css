@@ -664,7 +664,7 @@ button:focus-visible {
 .lb-glow { position: absolute; left: 6px; bottom: 26px; width: 140px; height: 40px; border-radius: 50%; filter: blur(10px); opacity: 0.85; }
 .lb-pedestal { position: absolute; left: 6px; bottom: 18px; width: 140px; height: 57px; background: url(assets/ui/slot_pedestal.webp) center / contain no-repeat; }
 .lb-doll { position: absolute; left: -24px; bottom: 50px; width: 200px; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center bottom; transform-origin: 50% 100%; }
-.lb-doll.random { transform: scale(0.6); }
+.lb-doll.random { background-size: auto 62%; }
 .lb-doll.bounce { animation: lb-cheer 0.5s cubic-bezier(0.3, 1.8, 0.5, 1); }
 .lb-doll.sway { animation: lb-sway 1.8s ease-in-out infinite; }
 @keyframes lb-cheer { 0% { transform: scale(0.9); } 40% { transform: translateY(-34px) scale(1.06); } }
@@ -686,8 +686,8 @@ button:focus-visible {
 /* settings */
 #lbSettings { inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; background: rgba(30, 15, 40, 0.55); transition: opacity 0.25s ease; }
 #lbSetPanel { width: 720px; padding: 18px 26px 14px; }
-#lbSetPanel h2 { margin: 0 0 8px; text-align: center; font-size: 32px; }
-.lb-set-row { display: flex; align-items: center; gap: 16px; height: 104px; padding: 0 14px; border: 4px solid transparent; border-radius: 16px; }
+#lbSetPanel h2 { margin: 0 0 4px; text-align: center; font-size: 32px; }
+.lb-set-row { display: flex; align-items: center; gap: 16px; height: 96px; cursor: pointer; padding: 0 14px; border: 4px solid transparent; border-radius: 16px; }
 .lb-set-row.focus { border-color: #2a6fdb; background: rgba(42, 111, 219, 0.08); }
 .lb-icon { position: relative; flex: none; width: 160px; height: 90px; display: flex; align-items: center; justify-content: center; gap: 2px; }
 #lbTrackThumb { position: relative; border: 3px solid #fff; border-radius: 10px; box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25); }
@@ -697,9 +697,10 @@ button:focus-visible {
 .lb-none { font-size: 15px; color: #8a6a4a; }
 .lb-arrow { padding: 0 10px; font-size: 30px; font-weight: 700; color: #8a5a2b; cursor: pointer; }
 #lbSetFoot { margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 17px; color: #6a5a7a; }
-#lbSetDone, #lbFullscreen { margin-left: 12px; padding: 4px 16px; border: 0; border-radius: 14px; font: inherit; font-weight: 700; cursor: pointer; }
+#lbSetDone { margin-left: 12px; padding: 4px 16px; border: 0; border-radius: 14px; font: inherit; font-weight: 700; cursor: pointer; }
 #lbSetDone { background: #2a6fdb; color: #fff; }
-#lbFullscreen { background: #efe2cf; color: #6a3a14; }
+.lb-screen-icon { font-size: 64px; line-height: 1; color: #8a5a2b; }
+.lb-set-note { display: block; font-size: 15px; font-weight: 600; color: #8a6a4a; }
 
 /* effects */
 .lb-toast { position: absolute; left: 50%; top: 318px; z-index: 20; width: 380px; height: 88px; margin-left: -190px; display: flex; align-items: center; justify-content: center; padding-bottom: 6px; font-size: 26px; font-weight: 700; pointer-events: none; background: url(assets/ui/join_toast.webp) center / contain no-repeat; animation: lb-toast 1.8s ease forwards; }
@@ -709,4 +710,448 @@ button:focus-visible {
 .start-panel.lobby.touch-only #lbSettingsBtn .lb-glyph,
 .start-panel.lobby.touch-only #lbSetFoot .lb-glyph {
   display: none;
+}
+
+/* ── Pause menu ─────────────────────────────────────────────────────────── */
+
+.pause-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 28;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: radial-gradient(ellipse at center, rgba(40, 20, 60, 0.35), rgba(30, 15, 45, 0.7));
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  animation: pause-fade 0.2s ease-out;
+}
+
+@keyframes pause-fade {
+  from { opacity: 0; }
+}
+
+.pause-card {
+  width: min(460px, 100%);
+  padding: 18px 28px 20px;
+  border: 4px solid #fff;
+  border-radius: 26px;
+  background: rgba(255, 250, 240, 0.96);
+  box-shadow: 0 18px 44px rgba(30, 10, 40, 0.4);
+  text-align: center;
+  color: #2b1a3a;
+  animation: pause-pop 0.28s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+@keyframes pause-pop {
+  from { transform: scale(0.8); opacity: 0; }
+}
+
+.pause-logo {
+  height: 110px;
+  margin: -6px auto 2px;
+  background: url(assets/ui/logo.webp) center / contain no-repeat;
+}
+
+.pause-card h2 {
+  margin: 0 0 12px;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #b6427b;
+}
+
+.pause-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pause-buttons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  min-height: 62px;
+  border: 4px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(#45b85a, #2e9e44);
+  box-shadow: 0 5px 0 #1f7a33;
+  font-family: inherit;
+  font-size: 26px;
+  font-weight: 700;
+  transition: transform 0.1s ease;
+}
+
+.pause-buttons button.secondary {
+  background: linear-gradient(#f7e9d3, #ecd6b4);
+  box-shadow: 0 5px 0 #c9a979;
+  color: #6a3a14;
+}
+
+.pause-buttons button.focused,
+.pause-buttons button:hover {
+  border-color: #2a6fdb;
+  transform: scale(1.04);
+}
+
+.pause-buttons button:active {
+  transform: translateY(3px);
+}
+
+.pause-icon {
+  font-size: 22px;
+}
+
+.pause-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 16px;
+  color: #6a5a7a;
+}
+
+.pause-glyph-a {
+  background-size: 168px 28px;
+  background-position: 0 0;
+}
+
+@media (pointer: coarse) {
+  .pause-hint {
+    display: none;
+  }
+}
+
+.pause-buttons button:focus-visible {
+  outline: none;
+}
+
+/* ── In-race HUD cards (rosette, portrait, name, place) ──────────────────── */
+
+.hud {
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+}
+
+.hud .racer-card {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  min-height: 0;
+  padding: 6px 12px 6px 8px;
+  border: 3px solid #fff;
+  border-left: 3px solid #fff;
+  border-radius: 18px;
+  background: rgba(255, 250, 240, 0.92);
+  box-shadow: 0 4px 12px rgba(40, 20, 10, 0.22), inset 0 -4px 0 var(--slot-color, transparent);
+  text-align: left !important;
+  color: #2b1a3a;
+}
+
+.hud-badge {
+  width: 34px;
+  height: 34px;
+  background: url(assets/ui/player_badges.webp) 0 0 / 800% 100% no-repeat;
+}
+
+.hud-badge.ai {
+  background: url(assets/ui/ai_badge.webp) center / contain no-repeat;
+}
+
+.hud-face {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--slot-color, #fff);
+  border-radius: 50%;
+  background: #f6e3c8 center top / cover no-repeat;
+}
+
+.hud-text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.hud .racer-card .label {
+  overflow: hidden;
+  font-size: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #2b1a3a !important;
+}
+
+.hud .racer-card .hud-text > span:last-child {
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #6a4a2a;
+}
+
+.hud.compact .racer-card {
+  display: grid !important;
+  gap: 5px;
+  padding: 3px 8px 3px 4px;
+  border-radius: 14px;
+}
+
+.hud.compact .hud-badge,
+.hud.compact .hud-face {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.hud.compact .racer-card .label {
+  font-size: 13px;
+}
+
+.hud.compact .racer-card .hud-text > span:last-child {
+  font-size: 12px;
+}
+
+/* ── Finish strip: next race + countdown ────────────────────────────────── */
+
+.finish-strip {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 26;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: min(640px, calc(100% - 32px));
+  padding: 10px 14px;
+  transform: translateX(-50%);
+  border: 4px solid #fff;
+  border-radius: 24px;
+  background: rgba(255, 250, 240, 0.95);
+  box-shadow: 0 12px 30px rgba(30, 10, 40, 0.35);
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  color: #2b1a3a;
+  animation: pause-pop 0.35s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.finish-track {
+  flex: none;
+  width: 128px;
+  height: 72px;
+  border: 3px solid #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  background: url(assets/ui/track_cards.webp) var(--next-track, 0 0) / 500% 100% no-repeat;
+}
+
+.finish-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.finish-strip h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #b6427b;
+}
+
+.finish-strip p {
+  margin: 0;
+  font-size: 15px;
+  color: #6a5a7a;
+}
+
+.finish-timer {
+  height: 10px;
+  margin-top: 6px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #ecdcc4;
+}
+
+.finish-timer-fill {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #7fd36a, #2e9e44);
+}
+
+.finish-strip.celebration .finish-timer-fill {
+  animation: finish-countdown var(--next-race-ms, 3600ms) linear forwards;
+}
+
+@keyframes finish-countdown {
+  to { width: 100%; }
+}
+
+.finish-strip button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  margin: 0;
+  min-height: 56px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 18px;
+  background: linear-gradient(#45b85a, #2e9e44);
+  box-shadow: 0 5px 0 #1f7a33;
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.finish-glyph-a,
+.join-glyph-a {
+  background-size: 168px 28px;
+  background-position: 0 0;
+}
+
+.join-glyph-b {
+  background-size: 168px 28px;
+  background-position: -28px 0;
+}
+
+@media (pointer: coarse) {
+  .finish-glyph-a {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .finish-track {
+    display: none;
+  }
+}
+
+/* ── Mid-race join card ─────────────────────────────────────────────────── */
+
+.join-card {
+  width: 212px;
+  padding: 8px 10px 10px;
+  border: 4px solid var(--slot-color, #2a6fdb);
+  border-radius: 22px;
+  background: rgba(255, 250, 240, 0.97);
+  box-shadow: 0 12px 30px rgba(30, 10, 40, 0.35);
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  color: #2b1a3a;
+}
+
+.join-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--slot-color, #2a6fdb);
+}
+
+.join-card-badge {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  background: url(assets/ui/player_badges.webp) 0 0 / 800% 100% no-repeat;
+}
+
+.join-card-portrait {
+  width: 140px;
+  height: 140px;
+  margin: 0 auto;
+  background: center bottom / contain no-repeat;
+}
+
+.join-card-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.join-arrow {
+  color: var(--slot-color, #2a6fdb);
+}
+
+.join-card-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.join-tray-message {
+  border-radius: 16px;
+  background: rgba(43, 26, 58, 0.85);
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  .join-card {
+    width: 140px;
+  }
+
+  .join-card-portrait {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* ── Touch buttons ──────────────────────────────────────────────────────── */
+
+.touch-button,
+.touch-pause {
+  border: 4px solid #fff;
+  font-family: "Fredoka", "Trebuchet MS", ui-sans-serif, system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.touch-button {
+  width: 88px;
+  height: 88px;
+  background: radial-gradient(circle at 35% 30%, #6fd17f, #2e9e44 70%);
+  box-shadow: 0 6px 0 #1f7a33, 0 12px 22px rgba(30, 10, 40, 0.3);
+}
+
+#touchPushButton {
+  background: radial-gradient(circle at 35% 30%, #6fa7f0, #2a6fdb 70%);
+  box-shadow: 0 6px 0 #1d4f9c, 0 12px 22px rgba(30, 10, 40, 0.3);
+}
+
+.touch-pause {
+  border-radius: 18px;
+  background: rgba(255, 250, 240, 0.92);
+  box-shadow: 0 4px 0 #c9a979, 0 8px 16px rgba(30, 10, 40, 0.25);
+  color: #6a3a14;
+  text-shadow: none;
+}
+
+.touch-button.pressed,
+.touch-button:active {
+  transform: translateY(4px) scale(0.96);
+  filter: brightness(1.1);
+}
+
+.hud .racer-card.hidden,
+.hud.compact .racer-card.hidden {
+  display: none !important;
+}
+
+.join-card-title {
+  white-space: nowrap;
+}
+
+/* Keep the touch Pause button clear of the race progress tracker. */
+.touch-pause {
+  top: max(150px, env(safe-area-inset-top));
 }
