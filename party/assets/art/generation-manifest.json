@@ -4223,6 +4223,46 @@
       "height": 354,
       "bytes": 24722,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-stand",
+      "ref": "prop/cake-stand-v2.webp",
+      "maxSize": [
+        500,
+        200
+      ],
+      "suffix": "-v3",
+      "prompt": "Use case: precise-object-edit. Edit target: cake stand reference. Change its viewing angle and pedestal height ONLY. Make one white and pale lilac cake stand with navy outline, matching the decorative pearl scalloped rim. Camera is much higher, looking down at 45 degrees: the TOP oval plate MUST visibly measure 500 wide by 180 tall, ellipse height is 36 percent of width. The stem is EXTREMELY short, only 10 pixels high at 500 width, flat small oval base below. Entire stand width-to-height exactly 2.5:1 (500 wide,200 tall). Most of the image height is the plate's TOP ellipse; minimal side band and nearly no stem. No cake, frosting, toppings, characters or shadows. Full object centered, transparent background. Clean 2D cartoon cel shade. Do not repeat the reference's flat ellipse or tall pedestal.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-b0152027-cca5-4ef5-9852-19b9aa7c6022.png",
+      "exactSize": [
+        500,
+        200
+      ],
+      "tool": "built-in imagegen",
+      "width": 500,
+      "height": 200,
+      "bytes": 16888,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-platform",
+      "ref": "prop/arena-cake.webp",
+      "maxSize": [
+        1024,
+        680
+      ],
+      "suffix": "-v3",
+      "exactSize": [
+        1024,
+        680
+      ],
+      "prompt": "Use case: stylized-concept. Reference image is style and palette only. One circular pink-frosted cake PLATFORM for a top-down party arena. Camera almost overhead, slight front tilt. The TOP face is a large ROUND ELLIPSE, width 1024 pixels and height 635 pixels (height 62 percent of width). Cake is extremely shallow: side wall below top face ONLY 45 pixels thick. Full object should measure 1024 wide by680 tall after transparent trimming. Top is plain pink frosting, no face and no candles. A narrow wavy white frosting rim around upper edge, navy outline, little rainbow sprinkles on the tiny front side band. Mostly the big empty playable pink top is visible. Transparent background, entire ellipse centered uncropped, no plate, characters, scenery, shadows, or floating decorations. Clean crisp 2D cartoon cel shading matching reference. Do not flatten the top to a skinny oval.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-06d5af14-1a85-4d01-8a52-e74ef912ae9d.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 680,
+      "bytes": 92042,
+      "status": "generated; inspected"
     }
   ]
 }

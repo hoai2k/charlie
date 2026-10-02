@@ -753,12 +753,10 @@ export class Game {
       g.drawImage(cake, CX - ARENA_ART.cx * sx, CY - ARENA_ART.cy * sy, cake.width * sx, cake.height * sy);
       if (this.crumbleFlash > 0) { g.globalAlpha = this.crumbleFlash; g.fillStyle = '#fff'; g.beginPath(); g.ellipse(CX, CY, this.R, this.R * K, 0, 0, TAU); g.fill(); g.globalAlpha = 1; }
     } else if (plat) {
-      // Map the prop's top face (centre ~33% down, rx ~49.5% of the width,
-      // ry ~33% of the height) onto the arena ellipse so players stand on the
-      // frosting, not on the cake's side (the art is flatter than K). The side
-      // band below the face keeps its own proportions.
-      const sx = this.R / (plat.width * 0.495), sy = (this.R * K) / (plat.height * 0.33);
-      const dw = plat.width * sx, cut = plat.height * 0.62, y0 = CY - plat.height * 0.33 * sy;
+      // The v3 fallback's broad top fills 93% of its height; preserve the
+      // shallow side band while aligning the frosting with the arena ellipse.
+      const sx = this.R / (plat.width * 0.495), sy = (this.R * K) / (plat.height * 0.465);
+      const dw = plat.width * sx, cut = plat.height * 0.93, y0 = CY - plat.height * 0.465 * sy;
       g.drawImage(plat, 0, 0, plat.width, cut, CX - dw / 2, y0, dw, cut * sy);
       g.drawImage(plat, 0, cut, plat.width, plat.height - cut, CX - dw / 2, y0 + cut * sy - 1, dw, (plat.height - cut) * sx);
     } else {

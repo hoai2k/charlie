@@ -51,7 +51,7 @@
     "thumb/fairy-count": "thumb/fairy-count.webp",
     "thumb/fairy-garden": "thumb/fairy-garden.webp",
     "prop/giant-cake": "prop/giant-cake.webp",
-    "prop/cake-platform": "prop/cake-platform-v2.webp",
+    "prop/cake-platform": "prop/cake-platform-v3.webp",
     "prop/seat-cloud": "prop/seat-cloud.webp",
     "prop/present": "prop/present.webp",
     "prop/crown": "prop/crown.webp",
@@ -222,7 +222,7 @@
     "prop/cake-layer-chocolate": "prop/cake-layer-chocolate.webp",
     "prop/cake-layer-strawberry": "prop/cake-layer-strawberry.webp",
     "prop/cake-layer-rainbow": "prop/cake-layer-rainbow.webp",
-    "prop/cake-stand": "prop/cake-stand-v2.webp",
+    "prop/cake-stand": "prop/cake-stand-v3.webp",
     "prop/topper-strawberry": "prop/topper-strawberry.webp",
     "prop/topper-cherry": "prop/topper-cherry.webp",
     "prop/topper-star": "prop/topper-star.webp",
@@ -283,6 +283,9 @@
     "prop/cake-platform-crumble-3": "prop/cake-platform-crumble-3.webp",
     "prop/cake-sponge-round": "prop/cake-sponge-round.webp",
     "prop/cake-sponge-heart": "prop/cake-sponge-heart.webp",
-    "prop/cake-sponge-star": "prop/cake-sponge-star.webp"
+    "prop/cake-sponge-star": "prop/cake-sponge-star.webp",
+    "prop/cake-layer-round": "prop/cake-sponge-round.webp",
+    "prop/cake-layer-heart": "prop/cake-sponge-heart.webp",
+    "prop/cake-layer-star": "prop/cake-sponge-star.webp"
   }
 }

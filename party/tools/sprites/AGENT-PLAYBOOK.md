@@ -200,3 +200,8 @@ files with `sprites-opt/index.json`. The optimizer ignores macOS `._*` sidecars.
 Review both default optimized mode and `&quality=full` in actual games.
 The user revoked the former allowance pause for Sol; only an explicit new pause
 should stop production.
+
+The optimizer now locks and re-reads its shared index only after encoding each
+character, so simultaneous character jobs preserve each other's fingerprints.
+When merging independently encoded optimized copies, retain the reviewed full
+source and rebuild its optimized derivatives; preserve unrelated originals.
