@@ -1,0 +1,30 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-round2-actions-b.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "look-up",
+    "crowned",
+    "dash launch",
+    "dash held lunge",
+    "hip-bump cocked",
+    "hip-bump swing",
+    "knockback windmill A",
+    "knockback windmill B"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body action sprite sheet for Charlie Party. Input image 1 is the approved canonical marina reference; reproduce this exact character in every cell.\n\nCreate an actual-alpha transparent sheet with 4 columns and 2 rows, generous gutters, one complete full-body figure per occupied cell, row-major order exactly as listed. Keep crown, hair, hands, tail and fins fully within each cell. Each pose is distinct, with consistent head and torso scale. Pose-twirl cells, when present, are one continuous four-angle rotation.\n1) LOOK-UP: head tilted far back, eyes looking overhead, tail gently floating.\n2) CROWNED: proud royal glide, chin lifted, hand poised at hip, elegant tail curl.\n3) DASH LAUNCH: compact forward launch crouch, arms back and tail curled tightly forward.\n4) DASH HELD LUNGE: strong forward lunge, both arms thrust ahead, torso stretched, tail streaming behind.\n5) HIP-BUMP COCKED: side-on bump windup, upper torso leans away, tail base swung toward target, arms up, cheeky grin.\n6) HIP-BUMP SWING: side-on bump follow-through, tail base and fin sweep into target while torso counterleans.\n7) KNOCKBACK WINDMILL A: backward skid, torso sharply leaning away, one arm high one low, wide whoa eyes, tail stretched toward bumper.\n8) KNOCKBACK WINDMILL B: second backward skid, reversed windmilling arms, tail curled under as she recovers, wide eyes.\n\nCharacter identity: marina has long red hair, teal eyes, gold crown with purple jewels, purple shell top, teal scaled tail with purple bands and large purple fins. Preserve the canonical face, palette, proportions, bold smooth dark navy outlines and clean cel shading. Exactly two arms and one continuous fish tail in every cell, absolutely no legs or feet. Adapt sitting, landing, stomping, running and balance with tail curls, fin gestures or gliding. Hands remain empty unless gripping an invisible prop is specified. Draw no props, water, floor, shadow, scenery, glow, motion lines, sparkles, text, labels, grid borders or watermark. Three-quarter view unless a pose lists a specific angle. Avoid clipping and checkerboard backgrounds.",
+  "pose_descriptions": [
+    "LOOK-UP: head tilted far back, eyes looking overhead, tail gently floating.",
+    "CROWNED: proud royal glide, chin lifted, hand poised at hip, elegant tail curl.",
+    "DASH LAUNCH: compact forward launch crouch, arms back and tail curled tightly forward.",
+    "DASH HELD LUNGE: strong forward lunge, both arms thrust ahead, torso stretched, tail streaming behind.",
+    "HIP-BUMP COCKED: side-on bump windup, upper torso leans away, tail base swung toward target, arms up, cheeky grin.",
+    "HIP-BUMP SWING: side-on bump follow-through, tail base and fin sweep into target while torso counterleans.",
+    "KNOCKBACK WINDMILL A: backward skid, torso sharply leaning away, one arm high one low, wide whoa eyes, tail stretched toward bumper.",
+    "KNOCKBACK WINDMILL B: second backward skid, reversed windmilling arms, tail curled under as she recovers, wide eyes."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-paint-pending.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "paint"
+  ],
+  "grid": [
+    1,
+    1
+  ],
+  "status": "pending-generation: paused at usage threshold; resume with the built-in image_gen tool, save lossless source WebP, add one real paint frame with per-frame landmarks to the intake spec, rebuild runtime at quality 82, and rerun validate.py.",
+  "prompt": "Use case: illustration-story. Asset type: one transparent full-body mermaid paint pose for Charlie Party. Input image 1 is the approved canonical marina reference; reproduce this exact character. Marina\u2019s long red hair, teal eyes, gold crown with purple jewels, purple shell top, teal scaled tail with purple bands and large purple fins. Exactly two arms and one continuous fish tail, no legs or feet. Pose: focused painting action, one hand holding an implied small brush and making a clear forward brush stroke across an imaginary surface, other arm balancing, concentrated expression. Three-quarter view. Preserve canonical colors, face and scale, bold navy outline and clean cel shading. No brush, paint, canvas, surface, ground, water, scenery, shadow, glow, particles, text or watermark. Actual alpha transparency."
+}

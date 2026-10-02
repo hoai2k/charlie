@@ -1,0 +1,18 @@
+{
+  "asset": "scale",
+  "source": "../sources/scale-tier23-actions-h.webp",
+  "input_image_1": "../../../reference/canonical/scale.webp",
+  "poses": [
+    "sleep",
+    "shake"
+  ],
+  "grid": [
+    2,
+    1
+  ],
+  "pose_descriptions": [
+    "SLEEP: peaceful curled sleeping pose, eyes closed, tail wrapped loosely around body, no bed or pillow.",
+    "SHAKE: full-body after-bath shake: head, hair and tail swish side to side; no water droplets or effects."
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body mermaid action sprite sheet. Input image 1 is the approved canonical scale reference; reproduce the exact character.\n\nCreate an actual-alpha transparent sheet with 2 columns and 1 rows, one fully visible figure per cell, row-major order. Keep a consistent head and torso scale, bold smooth navy outlines and clean cel shading. Each pose is a distinct silhouette:\n1) SLEEP: peaceful curled sleeping pose, eyes closed, tail wrapped loosely around body, no bed or pillow.\n2) SHAKE: full-body after-bath shake: head, hair and tail swish side to side; no water droplets or effects.\n\nIdentity: scale has blonde hair, teal eyes, gold crown with teal fin flourishes, dark green layered top with blue flowers and red dotted edge, red tail with blue crisscross lattice and teal fins. Preserve canonical face, colors and proportions. Exactly two arms and one continuous fish tail, absolutely no legs or feet. Adapt actions with arm gestures, torso lean, tail curls and fin movement. No props, ground, water, scenery, shadows, glow, motion lines, particles, text, grid borders or watermark. Leave generous transparent gutters and margin around each figure; never clip crown, hair, hands or tail.\n"
+}

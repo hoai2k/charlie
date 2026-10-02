@@ -1,0 +1,30 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-round2-actions-d.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "float",
+    "hiccup",
+    "giggle",
+    "stomp-giant",
+    "squeak-tiny",
+    "flip",
+    "blow",
+    "shake-sprinkles"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body action sprite sheet for Charlie Party. Input image 1 is the approved canonical marina reference; reproduce this exact character in every cell.\n\nCreate an actual-alpha transparent sheet with 4 columns and 2 rows, generous gutters, one complete full-body figure per occupied cell, row-major order exactly as listed. Keep crown, hair, hands, tail and fins fully within each cell. Each pose is distinct, with consistent head and torso scale. Pose-twirl cells, when present, are one continuous four-angle rotation.\n1) FLOAT: serene outward arms, upright torso, tail hanging in soft curve while drifting.\n2) HICCUP: sudden jolt, shoulders raised, puffed cheeks, startled eyes, tail flicked up.\n3) GIGGLE: hand over mouth, happy crescent eyes, shoulders lifted in laughter.\n4) STOMP-GIANT: proud broad stance suggested by planted broad tail and spread fins, hands on hips, chin up.\n5) SQUEAK-TINY: tiny hop, tail curled close, hands beside face, saucer eyes.\n6) FLIP: reach forward with one hand as if flipping an invisible card, focused expression.\n7) BLOW: puffed cheeks and pursed lips, hands cupped near mouth, blowing gently.\n8) SHAKE-SPRINKLES: hands together at chest as if shaking invisible jar, elbows side to side.\n\nCharacter identity: marina has long red hair, teal eyes, gold crown with purple jewels, purple shell top, teal scaled tail with purple bands and large purple fins. Preserve the canonical face, palette, proportions, bold smooth dark navy outlines and clean cel shading. Exactly two arms and one continuous fish tail in every cell, absolutely no legs or feet. Adapt sitting, landing, stomping, running and balance with tail curls, fin gestures or gliding. Hands remain empty unless gripping an invisible prop is specified. Draw no props, water, floor, shadow, scenery, glow, motion lines, sparkles, text, labels, grid borders or watermark. Three-quarter view unless a pose lists a specific angle. Avoid clipping and checkerboard backgrounds.",
+  "pose_descriptions": [
+    "FLOAT: serene outward arms, upright torso, tail hanging in soft curve while drifting.",
+    "HICCUP: sudden jolt, shoulders raised, puffed cheeks, startled eyes, tail flicked up.",
+    "GIGGLE: hand over mouth, happy crescent eyes, shoulders lifted in laughter.",
+    "STOMP-GIANT: proud broad stance suggested by planted broad tail and spread fins, hands on hips, chin up.",
+    "SQUEAK-TINY: tiny hop, tail curled close, hands beside face, saucer eyes.",
+    "FLIP: reach forward with one hand as if flipping an invisible card, focused expression.",
+    "BLOW: puffed cheeks and pursed lips, hands cupped near mouth, blowing gently.",
+    "SHAKE-SPRINKLES: hands together at chest as if shaking invisible jar, elbows side to side."
+  ]
+}

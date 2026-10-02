@@ -1,0 +1,38 @@
+{
+  "asset": "scale",
+  "source": "../sources/scale-round2-actions-e.webp",
+  "input_image_1": "../../../reference/canonical/scale.webp",
+  "poses": [
+    "pose-twirl angle 1 of 4: front three-quarter",
+    "pose-twirl angle 2 of 4: profile facing right",
+    "pose-twirl angle 3 of 4: back three-quarter",
+    "pose-twirl angle 4 of 4: profile facing left",
+    "photo",
+    "sing",
+    "water",
+    "look-around",
+    "high-five",
+    "crouch",
+    "wave-goodbye",
+    "catch-toy"
+  ],
+  "grid": [
+    4,
+    3
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body action sprite sheet for Charlie Party. Input image 1 is the approved canonical scale reference; reproduce this exact character in every cell.\n\nCreate an actual-alpha transparent sheet with 4 columns and 3 rows, generous gutters, one complete full-body figure per occupied cell, row-major order exactly as listed. Keep crown, hair, hands, tail and fins fully within each cell. Each pose is distinct, with consistent head and torso scale. Pose-twirl cells, when present, are one continuous four-angle rotation.\n1) POSE-TWIRL ANGLE 1 OF 4: FRONT THREE-QUARTER: runway turn angle 1/4, front three-quarter view, one arm extended, tail begins spiral.\n2) POSE-TWIRL ANGLE 2 OF 4: PROFILE FACING RIGHT: same continuous runway turn angle 2/4, right profile, hair and tail fan outward.\n3) POSE-TWIRL ANGLE 3 OF 4: BACK THREE-QUARTER: same continuous runway turn angle 3/4, back three-quarter, hair and tail sweep around.\n4) POSE-TWIRL ANGLE 4 OF 4: PROFILE FACING LEFT: same continuous runway turn angle 4/4, left profile returning toward camera, hair and tail still fanning.\n5) PHOTO: front facing, cheerful peace sign beside face, other arm relaxed.\n6) SING: joyful expressive singing, open mouth, one hand gestures outward, other near chest.\n7) WATER: two-handed careful pouring gesture from invisible watering can, eyes follow stream downward.\n8) LOOK-AROUND: curious search pose, one hand shading brow and eyes scanning.\n9) HIGH-FIVE: one open palm held high toward a partner outside frame, friendly lean.\n10) CROUCH: low compact tuck, torso lowered and tail curled underneath, hands near head.\n11) WAVE-GOODBYE: warm one-hand farewell wave, torso turns away, tail starts gliding off.\n12) CATCH-TOY: joyful upward leap reaching both hands for imaginary toy, tail arched beneath.\n\nCharacter identity: scale has blonde hair, gold crown with teal fin flourishes, dark green layered top with blue flowers and red dotted edge, red tail with blue crisscross lattice and teal fins. Preserve the canonical face, palette, proportions, bold smooth dark navy outlines and clean cel shading. Exactly two arms and one continuous fish tail in every cell, absolutely no legs or feet. Adapt sitting, landing, stomping, running and balance with tail curls, fin gestures or gliding. Hands remain empty unless gripping an invisible prop is specified. Draw no props, water, floor, shadow, scenery, glow, motion lines, sparkles, text, labels, grid borders or watermark. Three-quarter view unless a pose lists a specific angle. Avoid clipping and checkerboard backgrounds.",
+  "pose_descriptions": [
+    "POSE-TWIRL ANGLE 1 OF 4: FRONT THREE-QUARTER: runway turn angle 1/4, front three-quarter view, one arm extended, tail begins spiral.",
+    "POSE-TWIRL ANGLE 2 OF 4: PROFILE FACING RIGHT: same continuous runway turn angle 2/4, right profile, hair and tail fan outward.",
+    "POSE-TWIRL ANGLE 3 OF 4: BACK THREE-QUARTER: same continuous runway turn angle 3/4, back three-quarter, hair and tail sweep around.",
+    "POSE-TWIRL ANGLE 4 OF 4: PROFILE FACING LEFT: same continuous runway turn angle 4/4, left profile returning toward camera, hair and tail still fanning.",
+    "PHOTO: front facing, cheerful peace sign beside face, other arm relaxed.",
+    "SING: joyful expressive singing, open mouth, one hand gestures outward, other near chest.",
+    "WATER: two-handed careful pouring gesture from invisible watering can, eyes follow stream downward.",
+    "LOOK-AROUND: curious search pose, one hand shading brow and eyes scanning.",
+    "HIGH-FIVE: one open palm held high toward a partner outside frame, friendly lean.",
+    "CROUCH: low compact tuck, torso lowered and tail curled underneath, hands near head.",
+    "WAVE-GOODBYE: warm one-hand farewell wave, torso turns away, tail starts gliding off.",
+    "CATCH-TOY: joyful upward leap reaching both hands for imaginary toy, tail arched beneath."
+  ]
+}

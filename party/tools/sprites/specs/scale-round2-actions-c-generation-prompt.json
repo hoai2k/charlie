@@ -1,0 +1,30 @@
+{
+  "asset": "scale",
+  "source": "../sources/scale-round2-actions-c.webp",
+  "input_image_1": "../../../reference/canonical/scale.webp",
+  "poses": [
+    "catch",
+    "sit",
+    "tumble",
+    "hold-present",
+    "toss",
+    "catch-present",
+    "sooty",
+    "drink"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body mermaid action sprite sheet. Input 1 is Scale\u2019s approved canonical; reproduce her exact face, blonde hair, gold crown with teal fin flourishes, dark green layered top with blue flowers and a red dotted edge, red lattice tail and teal fins. Create an actual-alpha transparent 4-column by 2-row sheet, one complete unclipped figure per cell, ordered row-major. Keep one consistent head scale and bold navy outlines with clean cel shading. Scale always has exactly two arms and one continuous fish tail, no legs or feet. Poses: 1 catch, both arms raised in a basket while looking up; 2 sit upright as if perched on an invisible seat, tail curled below; 3 gentle midair roll, arms open and tail curled; 4 hold a large invisible package overhead, glance up; 5 underhand toss follow-through with both hands; 6 surprised two-handed catch at chest; 7 dizzy sway with one cheek smudged dark; 8 sip from an invisible bottle. Props are implied only; draw none. No other characters, water, ground, scenery, shadows, effects, text, borders or watermark.",
+  "pose_descriptions": [
+    "CATCH: both arms raised in a basket, eyes track an imaginary falling object.",
+    "SIT ON AN IMPLIED INVISIBLE SOFT CLOUD WITH TAIL CURLED BELOW: sitting upright on an invisible cloud, hands at sides, tail hangs in a relaxed curl.",
+    "TUMBLE: playful midair sideways somersault, arms extended, tail curled into arc.",
+    "HOLD-PRESENT: both hands high as if supporting invisible large box, nervous upward glance.",
+    "TOSS: two-handed underhand toss follow-through, arms sweep up and forward.",
+    "CATCH-PRESENT: startled two-handed catch held against chest, huge surprised eyes.",
+    "SOOTY: dizzy wobble, one cheek soot smudge, half-lidded eyes, uneven raised hands.",
+    "DRINK: one hand raised to lips as if sipping invisible bottle, eyes gently closed."
+  ]
+}

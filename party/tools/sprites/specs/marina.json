@@ -1,13 +1,13 @@
 {
   "asset": "marina",
-  "bodyHeight": 320,
+  "bodyHeight": 300,
   "frameSize": [
-    640,
-    640
+    600,
+    600
   ],
   "anchor": [
-    320,
-    520
+    300,
+    488
   ],
   "facing": 0,
   "poses": {
@@ -1166,6 +1166,2627 @@
           "isolate": true
         }
       ]
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            22,
+            18,
+            365,
+            503
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            182,
+            453
+          ],
+          "head": [
+            175,
+            45
+          ],
+          "eyes": [
+            175,
+            141
+          ],
+          "neck": [
+            175,
+            216
+          ],
+          "back": [
+            190,
+            307
+          ],
+          "hand": [
+            270,
+            221
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            396,
+            14,
+            370,
+            481
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            185,
+            433
+          ],
+          "head": [
+            178,
+            43
+          ],
+          "eyes": [
+            178,
+            135
+          ],
+          "neck": [
+            178,
+            207
+          ],
+          "back": [
+            192,
+            293
+          ],
+          "hand": [
+            274,
+            212
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            762,
+            22,
+            388,
+            485
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            194,
+            436
+          ],
+          "head": [
+            186,
+            44
+          ],
+          "eyes": [
+            186,
+            136
+          ],
+          "neck": [
+            186,
+            209
+          ],
+          "back": [
+            202,
+            296
+          ],
+          "hand": [
+            299,
+            238
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            1189,
+            30,
+            323,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            162,
+            436
+          ],
+          "head": [
+            155,
+            44
+          ],
+          "eyes": [
+            155,
+            136
+          ],
+          "neck": [
+            155,
+            208
+          ],
+          "back": [
+            168,
+            295
+          ],
+          "hand": [
+            194,
+            73
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            13,
+            542,
+            418,
+            399
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            209,
+            359
+          ],
+          "head": [
+            201,
+            36
+          ],
+          "eyes": [
+            201,
+            112
+          ],
+          "neck": [
+            201,
+            172
+          ],
+          "back": [
+            217,
+            243
+          ],
+          "hand": [
+            305,
+            176
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            446,
+            490,
+            323,
+            499
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            162,
+            449
+          ],
+          "head": [
+            155,
+            45
+          ],
+          "eyes": [
+            155,
+            140
+          ],
+          "neck": [
+            155,
+            215
+          ],
+          "back": [
+            168,
+            304
+          ],
+          "hand": [
+            236,
+            220
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            842,
+            500,
+            337,
+            492
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            168,
+            443
+          ],
+          "head": [
+            162,
+            44
+          ],
+          "eyes": [
+            162,
+            138
+          ],
+          "neck": [
+            162,
+            212
+          ],
+          "back": [
+            175,
+            300
+          ],
+          "hand": [
+            236,
+            187
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-a.webp",
+          "rect": [
+            1185,
+            518,
+            344,
+            466
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            172,
+            419
+          ],
+          "head": [
+            165,
+            42
+          ],
+          "eyes": [
+            165,
+            130
+          ],
+          "neck": [
+            165,
+            200
+          ],
+          "back": [
+            179,
+            284
+          ],
+          "hand": [
+            196,
+            158
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            5,
+            14,
+            386,
+            533
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            193,
+            480
+          ],
+          "head": [
+            185,
+            48
+          ],
+          "eyes": [
+            185,
+            149
+          ],
+          "neck": [
+            185,
+            229
+          ],
+          "back": [
+            201,
+            325
+          ],
+          "hand": [
+            286,
+            235
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            372,
+            17,
+            395,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            198,
+            447
+          ],
+          "head": [
+            190,
+            45
+          ],
+          "eyes": [
+            190,
+            139
+          ],
+          "neck": [
+            190,
+            214
+          ],
+          "back": [
+            205,
+            303
+          ],
+          "hand": [
+            292,
+            219
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            757,
+            104,
+            342,
+            383
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            171,
+            345
+          ],
+          "head": [
+            164,
+            34
+          ],
+          "eyes": [
+            164,
+            107
+          ],
+          "neck": [
+            164,
+            165
+          ],
+          "back": [
+            178,
+            234
+          ],
+          "hand": [
+            274,
+            161
+          ]
+        },
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            1046,
+            67,
+            486,
+            444
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            243,
+            400
+          ],
+          "head": [
+            233,
+            40
+          ],
+          "eyes": [
+            233,
+            124
+          ],
+          "neck": [
+            233,
+            191
+          ],
+          "back": [
+            253,
+            271
+          ],
+          "hand": [
+            389,
+            186
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 0,
+      "holdLast": true
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            50,
+            521,
+            312,
+            412
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            156,
+            371
+          ],
+          "head": [
+            150,
+            37
+          ],
+          "eyes": [
+            150,
+            115
+          ],
+          "neck": [
+            150,
+            177
+          ],
+          "back": [
+            162,
+            251
+          ],
+          "hand": [
+            243,
+            185
+          ]
+        },
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            371,
+            531,
+            407,
+            413
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            204,
+            372
+          ],
+          "head": [
+            195,
+            37
+          ],
+          "eyes": [
+            195,
+            116
+          ],
+          "neck": [
+            195,
+            178
+          ],
+          "back": [
+            212,
+            252
+          ],
+          "hand": [
+            317,
+            186
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 0,
+      "holdLast": true
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            759,
+            575,
+            393,
+            424
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            196,
+            382
+          ],
+          "head": [
+            189,
+            38
+          ],
+          "eyes": [
+            189,
+            119
+          ],
+          "neck": [
+            189,
+            182
+          ],
+          "back": [
+            204,
+            259
+          ],
+          "hand": [
+            314,
+            153
+          ]
+        },
+        {
+          "source": "../sources/marina-round2-actions-b.webp",
+          "rect": [
+            1183,
+            546,
+            343,
+            462
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            172,
+            416
+          ],
+          "head": [
+            165,
+            42
+          ],
+          "eyes": [
+            165,
+            129
+          ],
+          "neck": [
+            165,
+            199
+          ],
+          "back": [
+            178,
+            282
+          ],
+          "hand": [
+            274,
+            166
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0,
+      "holdLast": true
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            48,
+            51,
+            357,
+            479
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            178,
+            431
+          ],
+          "head": [
+            171,
+            43
+          ],
+          "eyes": [
+            171,
+            134
+          ],
+          "neck": [
+            171,
+            206
+          ],
+          "back": [
+            186,
+            292
+          ],
+          "hand": [
+            243,
+            110
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            433,
+            27,
+            316,
+            502
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            158,
+            452
+          ],
+          "head": [
+            152,
+            45
+          ],
+          "eyes": [
+            152,
+            141
+          ],
+          "neck": [
+            152,
+            216
+          ],
+          "back": [
+            164,
+            306
+          ],
+          "hand": [
+            234,
+            221
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            753,
+            36,
+            429,
+            478
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            214,
+            488
+          ],
+          "head": [
+            206,
+            43
+          ],
+          "eyes": [
+            206,
+            134
+          ],
+          "neck": [
+            206,
+            206
+          ],
+          "back": [
+            223,
+            292
+          ],
+          "hand": [
+            317,
+            210
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            1198,
+            38,
+            315,
+            500
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            158,
+            450
+          ],
+          "head": [
+            151,
+            45
+          ],
+          "eyes": [
+            151,
+            140
+          ],
+          "neck": [
+            151,
+            215
+          ],
+          "back": [
+            164,
+            305
+          ],
+          "hand": [
+            158,
+            60
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            23,
+            519,
+            381,
+            467
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            190,
+            420
+          ],
+          "head": [
+            183,
+            42
+          ],
+          "eyes": [
+            183,
+            131
+          ],
+          "neck": [
+            183,
+            201
+          ],
+          "back": [
+            198,
+            285
+          ],
+          "hand": [
+            274,
+            177
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            442,
+            512,
+            319,
+            476
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            160,
+            428
+          ],
+          "head": [
+            153,
+            43
+          ],
+          "eyes": [
+            153,
+            133
+          ],
+          "neck": [
+            153,
+            205
+          ],
+          "back": [
+            166,
+            290
+          ],
+          "hand": [
+            207,
+            195
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            801,
+            514,
+            370,
+            472
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            185,
+            425
+          ],
+          "head": [
+            178,
+            42
+          ],
+          "eyes": [
+            178,
+            132
+          ],
+          "neck": [
+            178,
+            203
+          ],
+          "back": [
+            192,
+            288
+          ],
+          "hand": [
+            274,
+            208
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-c.webp",
+          "rect": [
+            1193,
+            518,
+            321,
+            486
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            160,
+            437
+          ],
+          "head": [
+            154,
+            44
+          ],
+          "eyes": [
+            154,
+            136
+          ],
+          "neck": [
+            154,
+            209
+          ],
+          "back": [
+            167,
+            296
+          ],
+          "hand": [
+            205,
+            194
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            12,
+            5,
+            401,
+            536
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            200,
+            482
+          ],
+          "head": [
+            192,
+            48
+          ],
+          "eyes": [
+            192,
+            150
+          ],
+          "neck": [
+            192,
+            230
+          ],
+          "back": [
+            209,
+            327
+          ],
+          "hand": [
+            297,
+            236
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            406,
+            13,
+            372,
+            458
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            186,
+            412
+          ],
+          "head": [
+            179,
+            41
+          ],
+          "eyes": [
+            179,
+            128
+          ],
+          "neck": [
+            179,
+            197
+          ],
+          "back": [
+            193,
+            279
+          ],
+          "hand": [
+            275,
+            202
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            807,
+            10,
+            372,
+            518
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            186,
+            466
+          ],
+          "head": [
+            179,
+            47
+          ],
+          "eyes": [
+            179,
+            145
+          ],
+          "neck": [
+            179,
+            223
+          ],
+          "back": [
+            193,
+            316
+          ],
+          "hand": [
+            275,
+            228
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            1181,
+            6,
+            348,
+            513
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            174,
+            462
+          ],
+          "head": [
+            167,
+            46
+          ],
+          "eyes": [
+            167,
+            144
+          ],
+          "neck": [
+            167,
+            221
+          ],
+          "back": [
+            181,
+            313
+          ],
+          "hand": [
+            258,
+            226
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            28,
+            515,
+            345,
+            450
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            172,
+            459
+          ],
+          "head": [
+            166,
+            40
+          ],
+          "eyes": [
+            166,
+            126
+          ],
+          "neck": [
+            166,
+            194
+          ],
+          "back": [
+            179,
+            274
+          ],
+          "hand": [
+            255,
+            198
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            373,
+            516,
+            442,
+            454
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            221,
+            409
+          ],
+          "head": [
+            212,
+            41
+          ],
+          "eyes": [
+            212,
+            127
+          ],
+          "neck": [
+            212,
+            195
+          ],
+          "back": [
+            230,
+            277
+          ],
+          "hand": [
+            309,
+            218
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            824,
+            514,
+            356,
+            491
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            178,
+            442
+          ],
+          "head": [
+            171,
+            44
+          ],
+          "eyes": [
+            171,
+            137
+          ],
+          "neck": [
+            171,
+            211
+          ],
+          "back": [
+            185,
+            300
+          ],
+          "hand": [
+            199,
+            187
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-d.webp",
+          "rect": [
+            1202,
+            505,
+            328,
+            494
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            164,
+            445
+          ],
+          "head": [
+            157,
+            44
+          ],
+          "eyes": [
+            157,
+            138
+          ],
+          "neck": [
+            157,
+            212
+          ],
+          "back": [
+            171,
+            301
+          ],
+          "hand": [
+            200,
+            193
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            21,
+            0,
+            331,
+            382
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            166,
+            344
+          ],
+          "head": [
+            159,
+            34
+          ],
+          "eyes": [
+            159,
+            107
+          ],
+          "neck": [
+            159,
+            164
+          ],
+          "back": [
+            172,
+            233
+          ],
+          "hand": [
+            245,
+            168
+          ]
+        },
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            387,
+            1,
+            253,
+            378
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            126,
+            340
+          ],
+          "head": [
+            121,
+            34
+          ],
+          "eyes": [
+            121,
+            106
+          ],
+          "neck": [
+            121,
+            163
+          ],
+          "back": [
+            132,
+            231
+          ],
+          "hand": [
+            187,
+            166
+          ]
+        },
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            720,
+            2,
+            323,
+            376
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            162,
+            338
+          ],
+          "head": [
+            155,
+            34
+          ],
+          "eyes": [
+            155,
+            105
+          ],
+          "neck": [
+            155,
+            162
+          ],
+          "back": [
+            168,
+            229
+          ],
+          "hand": [
+            239,
+            165
+          ]
+        },
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            1139,
+            1,
+            285,
+            382
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            142,
+            344
+          ],
+          "head": [
+            137,
+            34
+          ],
+          "eyes": [
+            137,
+            107
+          ],
+          "neck": [
+            137,
+            164
+          ],
+          "back": [
+            148,
+            233
+          ],
+          "hand": [
+            211,
+            168
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            53,
+            359,
+            319,
+            374
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            160,
+            337
+          ],
+          "head": [
+            153,
+            34
+          ],
+          "eyes": [
+            153,
+            105
+          ],
+          "neck": [
+            153,
+            161
+          ],
+          "back": [
+            166,
+            228
+          ],
+          "hand": [
+            242,
+            112
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            379,
+            355,
+            352,
+            374
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            176,
+            337
+          ],
+          "head": [
+            169,
+            34
+          ],
+          "eyes": [
+            169,
+            105
+          ],
+          "neck": [
+            169,
+            161
+          ],
+          "back": [
+            183,
+            228
+          ],
+          "hand": [
+            246,
+            165
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            766,
+            364,
+            307,
+            356
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            154,
+            320
+          ],
+          "head": [
+            147,
+            32
+          ],
+          "eyes": [
+            147,
+            100
+          ],
+          "neck": [
+            147,
+            153
+          ],
+          "back": [
+            160,
+            217
+          ],
+          "hand": [
+            230,
+            214
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            1104,
+            362,
+            325,
+            366
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            162,
+            329
+          ],
+          "head": [
+            156,
+            33
+          ],
+          "eyes": [
+            156,
+            102
+          ],
+          "neck": [
+            156,
+            157
+          ],
+          "back": [
+            169,
+            223
+          ],
+          "hand": [
+            240,
+            161
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            37,
+            702,
+            347,
+            368
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            174,
+            331
+          ],
+          "head": [
+            167,
+            33
+          ],
+          "eyes": [
+            167,
+            103
+          ],
+          "neck": [
+            167,
+            158
+          ],
+          "back": [
+            180,
+            224
+          ],
+          "hand": [
+            278,
+            52
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            431,
+            730,
+            277,
+            334
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            138,
+            301
+          ],
+          "head": [
+            133,
+            30
+          ],
+          "eyes": [
+            133,
+            94
+          ],
+          "neck": [
+            133,
+            144
+          ],
+          "back": [
+            144,
+            204
+          ],
+          "hand": [
+            205,
+            147
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            727,
+            705,
+            374,
+            349
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            187,
+            314
+          ],
+          "head": [
+            180,
+            31
+          ],
+          "eyes": [
+            180,
+            98
+          ],
+          "neck": [
+            180,
+            150
+          ],
+          "back": [
+            194,
+            213
+          ],
+          "hand": [
+            277,
+            87
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "catch-toy": {
+      "frames": [
+        {
+          "source": "../sources/marina-round2-actions-e.webp",
+          "rect": [
+            1098,
+            696,
+            304,
+            385
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            152,
+            393
+          ],
+          "head": [
+            146,
+            35
+          ],
+          "eyes": [
+            146,
+            108
+          ],
+          "neck": [
+            146,
+            166
+          ],
+          "back": [
+            158,
+            235
+          ],
+          "hand": [
+            198,
+            58
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            16,
+            8,
+            433,
+            498
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            216,
+            448
+          ],
+          "head": [
+            208,
+            45
+          ],
+          "eyes": [
+            208,
+            139
+          ],
+          "neck": [
+            208,
+            214
+          ],
+          "back": [
+            225,
+            304
+          ],
+          "hand": [
+            325,
+            224
+          ]
+        }
+      ],
+      "fps": 14,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 0
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            441,
+            9,
+            368,
+            523
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            184,
+            471
+          ],
+          "head": [
+            177,
+            47
+          ],
+          "eyes": [
+            177,
+            146
+          ],
+          "neck": [
+            177,
+            225
+          ],
+          "back": [
+            191,
+            319
+          ],
+          "hand": [
+            287,
+            199
+          ]
+        }
+      ],
+      "fps": 14,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            771,
+            33,
+            457,
+            476
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            228,
+            428
+          ],
+          "head": [
+            219,
+            43
+          ],
+          "eyes": [
+            219,
+            133
+          ],
+          "neck": [
+            219,
+            205
+          ],
+          "back": [
+            238,
+            290
+          ],
+          "hand": [
+            352,
+            214
+          ]
+        }
+      ],
+      "fps": 14,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            1244,
+            3,
+            289,
+            573
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            144,
+            516
+          ],
+          "head": [
+            139,
+            52
+          ],
+          "eyes": [
+            139,
+            160
+          ],
+          "neck": [
+            139,
+            246
+          ],
+          "back": [
+            150,
+            350
+          ],
+          "hand": [
+            144,
+            69
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            21,
+            512,
+            410,
+            492
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            205,
+            443
+          ],
+          "head": [
+            197,
+            44
+          ],
+          "eyes": [
+            197,
+            138
+          ],
+          "neck": [
+            197,
+            212
+          ],
+          "back": [
+            213,
+            300
+          ],
+          "hand": [
+            308,
+            207
+          ]
+        }
+      ],
+      "fps": 14,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            457,
+            512,
+            321,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            160,
+            446
+          ],
+          "head": [
+            154,
+            45
+          ],
+          "eyes": [
+            154,
+            139
+          ],
+          "neck": [
+            154,
+            213
+          ],
+          "back": [
+            167,
+            302
+          ],
+          "hand": [
+            177,
+            193
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            799,
+            524,
+            407,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            204,
+            432
+          ],
+          "head": [
+            195,
+            43
+          ],
+          "eyes": [
+            195,
+            134
+          ],
+          "neck": [
+            195,
+            206
+          ],
+          "back": [
+            212,
+            293
+          ],
+          "hand": [
+            256,
+            187
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-f.webp",
+          "rect": [
+            1165,
+            576,
+            365,
+            396
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            182,
+            356
+          ],
+          "head": [
+            175,
+            36
+          ],
+          "eyes": [
+            175,
+            111
+          ],
+          "neck": [
+            175,
+            170
+          ],
+          "back": [
+            190,
+            242
+          ],
+          "hand": [
+            219,
+            178
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            18,
+            16,
+            378,
+            507
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            189,
+            456
+          ],
+          "head": [
+            181,
+            46
+          ],
+          "eyes": [
+            181,
+            142
+          ],
+          "neck": [
+            181,
+            218
+          ],
+          "back": [
+            197,
+            309
+          ],
+          "hand": [
+            287,
+            213
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            412,
+            19,
+            338,
+            503
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            169,
+            453
+          ],
+          "head": [
+            162,
+            45
+          ],
+          "eyes": [
+            162,
+            141
+          ],
+          "neck": [
+            162,
+            216
+          ],
+          "back": [
+            176,
+            307
+          ],
+          "hand": [
+            257,
+            151
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            784,
+            12,
+            375,
+            493
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            188,
+            444
+          ],
+          "head": [
+            180,
+            44
+          ],
+          "eyes": [
+            180,
+            138
+          ],
+          "neck": [
+            180,
+            212
+          ],
+          "back": [
+            195,
+            301
+          ],
+          "hand": [
+            285,
+            74
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.9,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            1215,
+            6,
+            302,
+            537
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            151,
+            483
+          ],
+          "head": [
+            145,
+            48
+          ],
+          "eyes": [
+            145,
+            150
+          ],
+          "neck": [
+            145,
+            231
+          ],
+          "back": [
+            157,
+            328
+          ],
+          "hand": [
+            223,
+            75
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            17,
+            529,
+            348,
+            457
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            174,
+            411
+          ],
+          "head": [
+            167,
+            41
+          ],
+          "eyes": [
+            167,
+            128
+          ],
+          "neck": [
+            167,
+            197
+          ],
+          "back": [
+            181,
+            279
+          ],
+          "hand": [
+            202,
+            192
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            389,
+            516,
+            353,
+            490
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            176,
+            441
+          ],
+          "head": [
+            169,
+            44
+          ],
+          "eyes": [
+            169,
+            137
+          ],
+          "neck": [
+            169,
+            211
+          ],
+          "back": [
+            184,
+            299
+          ],
+          "hand": [
+            282,
+            147
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            746,
+            517,
+            433,
+            481
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            216,
+            433
+          ],
+          "head": [
+            208,
+            43
+          ],
+          "eyes": [
+            208,
+            135
+          ],
+          "neck": [
+            208,
+            207
+          ],
+          "back": [
+            225,
+            293
+          ],
+          "hand": [
+            325,
+            58
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-g.webp",
+          "rect": [
+            1184,
+            517,
+            335,
+            489
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            168,
+            440
+          ],
+          "head": [
+            161,
+            44
+          ],
+          "eyes": [
+            161,
+            137
+          ],
+          "neck": [
+            161,
+            210
+          ],
+          "back": [
+            174,
+            298
+          ],
+          "hand": [
+            241,
+            220
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-h.webp",
+          "rect": [
+            158,
+            87,
+            602,
+            781
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            301,
+            703
+          ],
+          "head": [
+            289,
+            70
+          ],
+          "eyes": [
+            289,
+            219
+          ],
+          "neck": [
+            289,
+            336
+          ],
+          "back": [
+            313,
+            476
+          ],
+          "hand": [
+            391,
+            328
+          ]
+        }
+      ],
+      "fps": 2,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/marina-tier23-actions-h.webp",
+          "rect": [
+            951,
+            69,
+            774,
+            751
+          ],
+          "isolate": true,
+          "scale": 1.35,
+          "anchor": [
+            387,
+            676
+          ],
+          "head": [
+            372,
+            68
+          ],
+          "eyes": [
+            372,
+            210
+          ],
+          "neck": [
+            372,
+            323
+          ],
+          "back": [
+            402,
+            458
+          ],
+          "hand": [
+            573,
+            338
+          ]
+        }
+      ],
+      "fps": 14,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
     }
   },
   "portraits": {
@@ -1185,5 +3806,6 @@
       "source": "../sources/marina-portrait-determined.webp"
     }
   },
-  "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added."
+  "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added. Added authored Round 2 action sheets from built-in image_gen using the approved canonical as input; each source is lossless WebP, cropped to each figure\u2019s actual alpha bounds, runtime encoded at quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82.",
+  "quality": 82
 }

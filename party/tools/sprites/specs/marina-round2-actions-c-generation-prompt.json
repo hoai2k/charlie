@@ -1,0 +1,21 @@
+{
+  "asset": "marina",
+  "source": "../sources/marina-round2-actions-c.webp",
+  "input_image_1": "../../../reference/canonical/marina.webp",
+  "poses": [
+    "catch",
+    "sit",
+    "tumble",
+    "hold-present",
+    "toss",
+    "catch-present",
+    "sooty",
+    "drink"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "prompt": "Use case: illustration-story. Asset type: transparent full-body mermaid sprite sheet for a children\u2019s party game. Input 1 is Marina\u2019s approved canonical; reproduce her exact face, long red hair, gold crown with purple jewels, purple shell top, teal tail with purple bands and purple fins. Make a transparent 4-column by 2-row sprite sheet, one complete, unclipped Marina per cell, ordered row-major. Her anatomy is always two arms and one continuous fish tail, with absolutely no legs or feet. Draw bold navy outlines, clean cel shading and consistent head size. Poses: 1 catch, both arms raised in a basket while looking up; 2 sit upright as if perched on an invisible seat, tail curled below; 3 gentle playful midair roll, arms open and tail curled; 4 hold a large invisible package overhead, nervous glance up; 5 underhand toss follow-through with both hands; 6 surprised two-handed catch at chest; 7 dizzy sway with one cheek smudged dark; 8 sipping from an invisible bottle. Hands and props are only implied; draw no package, bottle or other object. No other characters, water, ground, scenery, shadows, effects, text, border or watermark. Genuine alpha transparency.",
+  "pose_descriptions": []
+}
