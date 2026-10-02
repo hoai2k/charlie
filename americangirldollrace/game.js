@@ -1298,6 +1298,7 @@ function togglePause() {
   updateTouchControlsVisibility();
   if (state.paused) clearTouchInput();
   if (state.paused) {
+    resetPauseMenuFocus();
     GameAudio.play("ui_pause");
     const pausedTrack = music;
     fadeMusicGain(pausedTrack, 0, PAUSE_MUSIC_FADE_MS, () => {
@@ -1313,6 +1314,53 @@ function togglePause() {
     state.lastTime = 0;
     requestAnimationFrame(loop);
   }
+}
+
+/* Pause menu: D-pad/stick moves between the buttons, A picks one, Start or B
+ * resumes. Buttons held when the menu opened (the Start that paused) are
+ * ignored until released. */
+const pauseMenu = { focus: 0, prev: new Map(), repeat: 0 };
+
+function pauseMenuButtons() {
+  return Array.from(pausePanel.querySelectorAll("button")).filter(button => button.getClientRects().length > 0);
+}
+
+function setPauseMenuFocus(index) {
+  const buttons = pauseMenuButtons();
+  if (!buttons.length) return;
+  pauseMenu.focus = (index + buttons.length) % buttons.length;
+  buttons.forEach((button, i) => button.classList.toggle("focused", i === pauseMenu.focus));
+  buttons[pauseMenu.focus].focus({ preventScroll: true });
+}
+
+function resetPauseMenuFocus() {
+  pauseMenu.prev.clear();
+  pauseMenu.primed = false;
+  setPauseMenuFocus(0);
+}
+
+function updatePauseMenu(dt) {
+  const pads = connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : []);
+  pauseMenu.repeat -= dt;
+  for (const pad of pads) {
+    const prev = pauseMenu.prev.get(pad.index) || { buttons: [], dir: 0 };
+    const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev.buttons[button] && pauseMenu.primed;
+    const stickY = Math.abs(pad.axes[1] || 0) > 0.55 ? Math.sign(pad.axes[1]) : 0;
+    const stickX = Math.abs(pad.axes[0] || 0) > 0.55 ? Math.sign(pad.axes[0]) : 0;
+    const dpad = (pad.buttons[13]?.pressed || pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[12]?.pressed || pad.buttons[14]?.pressed ? 1 : 0);
+    const dir = dpad || stickX || stickY;
+    if (pauseMenu.primed && dir && (dir !== prev.dir || pauseMenu.repeat <= 0)) {
+      setPauseMenuFocus(pauseMenu.focus + dir);
+      GameAudio.play("ui_hover");
+      pauseMenu.repeat = dir !== prev.dir ? 0.4 : 0.18;
+    }
+    const startOrBack = pressed(9) || pressed(1);
+    const choose = pressed(0);
+    pauseMenu.prev.set(pad.index, { buttons: pad.buttons.map(button => button.pressed), dir });
+    if (startOrBack) { togglePause(); return; }
+    if (choose) { pauseMenuButtons()[pauseMenu.focus]?.click(); return; }
+  }
+  pauseMenu.primed = true;
 }
 
 function returnToMenu() {
@@ -1521,7 +1569,13 @@ function menuAnimationLoop(time) {
     return;
   }
   if (assetsReady && isMenuOpen()) pollPlayerJoinAndLeave(dt);
-  updateControllerPointers(dt);
+  if (state.paused) {
+    // The pause menu is driven with the D-pad, not the floating pointer.
+    hideControllerPointers();
+    updatePauseMenu(dt);
+  } else {
+    updateControllerPointers(dt);
+  }
   drawScene(dt);
   menuAnimationFrame = requestAnimationFrame(menuAnimationLoop);
 }
