@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
-    <link rel="stylesheet" href="styles.css?v=20261002e">
+    <link rel="stylesheet" href="styles.css?v=20261002f">
   </head>
   <body>
     <main class="shell">
@@ -20,7 +20,6 @@
             <span class="label" id="playerOneLabel">Whirlpool</span>
             <span id="whirlpoolStatus">Ready</span>
           </div>
-          <div class="race-title">American Girl Doll Race</div>
           <div class="racer-card juliette" id="playerTwoHud">
             <span class="label" id="playerTwoLabel">Juliette</span>
             <span id="julietteStatus">Ready</span>
@@ -258,10 +257,14 @@
           </div>
           </div>
         </div>
-        <div class="finish-panel hidden" id="finishPanel">
-          <h2 id="finishTitle">Race Complete</h2>
-          <p id="finishText"></p>
-          <button id="restartButton" type="button">Next Race</button>
+        <div class="finish-strip hidden" id="finishPanel">
+          <div class="finish-track" aria-hidden="true"></div>
+          <div class="finish-info">
+            <h2 id="finishTitle">Next race</h2>
+            <p id="finishText"></p>
+            <div class="finish-timer"><div class="finish-timer-fill"></div></div>
+          </div>
+          <button id="restartButton" type="button"><span class="lb-glyph finish-glyph-a"></span>Race now</button>
         </div>
         <div class="pause-panel hidden" id="pausePanel">
           <div class="pause-card">
@@ -283,10 +286,10 @@
         <audio id="nextMusic" preload="auto" loop></audio>
       </section>
     </main>
-    <script src="config.js?v=20261002e"></script>
-    <script src="assets/audio/manifest.js?v=20261002e"></script>
-    <script src="audio.js?v=20261002e"></script>
-    <script src="game.js?v=20261002e"></script>
-    <script src="menu.js?v=20261002e"></script>
+    <script src="config.js?v=20261002f"></script>
+    <script src="assets/audio/manifest.js?v=20261002f"></script>
+    <script src="audio.js?v=20261002f"></script>
+    <script src="game.js?v=20261002f"></script>
+    <script src="menu.js?v=20261002f"></script>
   </body>
 </html>
