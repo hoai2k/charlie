@@ -229,6 +229,16 @@
     "prop/topper-heart": "prop/topper-heart.webp",
     "prop/topper-flower": "prop/topper-flower.webp",
     "prop/topper-unicorn-horn": "prop/topper-unicorn-horn.webp",
-    "prop/candle": "prop/candle.webp"
+    "prop/candle": "prop/candle.webp",
+    "prop/frame-gold": "prop/frame-gold.webp",
+    "icon/brush": "icon/brush.webp",
+    "icon/rainbow": "icon/rainbow.webp",
+    "icon/glitter": "icon/glitter.webp",
+    "icon/stamp": "icon/stamp.webp",
+    "icon/bucket": "icon/bucket.webp",
+    "icon/shapes": "icon/shapes.webp",
+    "icon/eraser": "icon/eraser.webp",
+    "icon/undo": "icon/undo.webp",
+    "prop/candle-flame": "prop/candle-flame.webp"
   }
 }

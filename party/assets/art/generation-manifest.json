@@ -2951,6 +2951,153 @@
       "height": 95,
       "bytes": 2358,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/frame-gold",
+      "prompt": "Use case: stylized-concept. Asset: prop/frame-gold for a children's party game art gallery. One ornate rounded rectangular golden picture frame, front view, wide landscape ratio 1600:1000, outer gold bevel with cute subtle star corner ornaments and clean inner bevel. Broad straight repeatable edge sections suitable for nine-slice scaling. INNER OPENING COMPLETELY TRANSPARENT, no painting, no white fill, no backing, no glass. Also transparent outside the frame. Bold smooth dark navy outlines, bright golden-yellow with simple clean cel shading, rounded appealing shapes, no realism or3D, no text, no watermark, no shadows. One frame only, entire frame visible with generous small margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-89a17834-2e34-4740-b706-450af290327c.png",
+      "maxSize": [
+        1600,
+        1000
+      ],
+      "anchor": "center",
+      "nineSlice": [
+        180,
+        180,
+        180,
+        180
+      ],
+      "tool": "built-in imagegen",
+      "width": 1542,
+      "height": 925,
+      "bytes": 138380,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/brush",
+      "prompt": "Use case: stylized-concept. Game asset icon/brush: a friendly diagonally tilted paintbrush, wooden handle, gold ferrule and pink paint bristles. A single compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no shadow, no text, letters, watermark or other objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-281e5bf8-cc14-4337-92d5-dc15911e09b9.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 128,
+      "bytes": 5782,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/rainbow",
+      "prompt": "Use case: stylized-concept. Game asset icon/rainbow: a compact six-color rainbow arch with two tiny white clouds. A single compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no shadow, no text, letters, watermark or other objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f46aaf4b-51c9-4bbd-a962-10b0ac5a2f7f.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 84,
+      "bytes": 4824,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/glitter",
+      "prompt": "Use case: stylized-concept. Game asset icon/glitter: a small purple glitter shaker jar with a golden star emblem, lid partly open, three star specks near lid. A single compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no shadow, no text, letters, watermark or other objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-693535b5-9230-4128-a200-9d157aabe962.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 119,
+      "height": 128,
+      "bytes": 6422,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/stamp",
+      "prompt": "Use case: stylized-concept. Game asset icon/stamp: a wooden rubber craft stamp with chunky pink handle and square navy rubber base. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c5944250-6225-49c0-95d6-84ee6a039d09.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 125,
+      "bytes": 5064,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/bucket",
+      "prompt": "Use case: stylized-concept. Game asset icon/bucket: a tipped small light blue paint bucket with rainbow paint at the rim, no spill trail. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f84c7f9d-f905-4193-b22b-50ef326bc5ea.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 115,
+      "bytes": 6238,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/shapes",
+      "prompt": "Use case: stylized-concept. Game asset icon/shapes: one compact arranged set of a pink heart, golden star, teal circle and purple square. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a03a03f6-994c-4207-a691-e9f84aa7d84d.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 125,
+      "height": 128,
+      "bytes": 5222,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/eraser",
+      "prompt": "Use case: stylized-concept. Game asset icon/eraser: a pink and blue chunky school eraser tilted diagonally with clean rounded corners. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-9f8c1ab7-568e-44fe-ad2a-c2873b4f2808.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 127,
+      "bytes": 4362,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "icon/undo",
+      "prompt": "Use case: stylized-concept. Game asset icon/undo: one thick smoothly curved golden return arrow pointing left, playful rounded arrowhead. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-35af5d92-1575-4da8-80d0-e85bfec07f0d.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 128,
+      "bytes": 5682,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/candle-flame",
+      "prompt": "Use case: stylized-concept. Game asset prop/candle-flame: one tiny upright teardrop candle flame, outer warm orange, yellow inside and cream core, no candle. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-276eebdd-caac-4fe1-a356-e61db4baee4a.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 119,
+      "height": 128,
+      "bytes": 3980,
+      "status": "generated; inspected"
     }
   ]
 }
