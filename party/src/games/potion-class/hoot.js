@@ -15,7 +15,7 @@ const NAVY = '#24163f';
  *      blink 0..1, look [-1..1, -1..1] }
  */
 export function drawHoot(g, x, y, s, o = {}) {
-  const pose = o.point > 0.2 ? 'point' : o.mood === 'wow' ? 'surprised' : o.flap > 0.2 ? 'clap' : o.talk > 0.2 ? 'talk' : o.mood === 'laugh' ? 'laugh' : 'idle';
+  const pose = o.point > 0.2 ? 'point' : o.mood === 'wow' ? 'surprised' : o.flap > 0.2 ? 'bravo' : o.mood === 'laugh' ? 'laugh' : o.talk > 0.2 ? 'talk' : 'idle';
   if (drawNpcSprite(g, 'professor-hoot', x, y, 340 * s, o.t || 0, { pose, rotation: o.tilt || 0 })) return;
 
   if (drawArt(g, 'prop/professor-hoot', x, y, 260 * s, 340 * s, { anchor: 'bottom' })) return;

@@ -73,3 +73,13 @@ remains procedural to preserve all frosting, shape and per-layer choices.
 Bronze now has 74 pose keys, 91 authored frames and five portraits, with
 20.3 MiB decoded memory at bodyHeight 280. All additions use its pipe attachment
 without adding arms. Its optimized copies are generated and reviewed.
+
+### Live coverage checkpoint — 2026-10-02 23:40 UTC
+
+Current built manifests cover 899 of 1,110 player/companion pose keys (about
+81%). This includes Marina, Scale and Fox pending final runtime review; it is
+not a publication count. Seven extension sets account for 211 missing keys:
+Cotton Candy, Unicorn, Hotdog, Princess Amber and KPop left/center/right.
+Additional cycle frames, requested scale fixes, masks and attachment review
+remain part of those deliveries. General art is complete at 287 keys / 267
+files. Hoot/Troll reviewed corrections are published at fb24927 / 7d11066.

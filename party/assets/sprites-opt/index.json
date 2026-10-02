@@ -13,12 +13,12 @@
   "troll": {
    "scale": 0.75,
    "portrait": 192,
-   "source": "9196ab3cc34b39d6"
+   "source": "67549dd021895bfd"
   },
   "glimmer": {
    "scale": 0.75,
    "portrait": 192,
-   "source": "b3167fe8d122712b"
+   "source": "d291b6a89188e888"
   },
   "bronze": {
    "scale": 0.85714,
@@ -28,7 +28,7 @@
   "professor-hoot": {
    "scale": 0.75,
    "portrait": 192,
-   "source": "3d55b030eff7a5df"
+   "source": "9ef732e18d913623"
   },
   "shadow-imp": {
    "scale": 0.92308,
@@ -48,27 +48,27 @@
   "garden-fairy-pink": {
    "scale": 1.0,
    "portrait": 192,
-   "source": "91683053a8800176"
+   "source": "d99888ed6a55446a"
   },
   "garden-fairy-blue": {
    "scale": 1.0,
    "portrait": 192,
-   "source": "0f8bae5f6f5c3319"
+   "source": "d707a999f4001528"
   },
   "garden-fairy-yellow": {
    "scale": 1.0,
    "portrait": 192,
-   "source": "81f3c51c90a1e072"
+   "source": "9d0071a01e7d49b1"
   },
   "garden-fairy-green": {
    "scale": 1.0,
    "portrait": 192,
-   "source": "7c66077f6c628185"
+   "source": "6469075eb92d39db"
   },
   "garden-fairy-purple": {
    "scale": 1.0,
    "portrait": 192,
-   "source": "148390d009c62f3e"
+   "source": "e9ec1780a534ea1e"
   },
   "marina": {
    "scale": 0.8,
