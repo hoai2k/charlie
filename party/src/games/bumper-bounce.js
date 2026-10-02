@@ -11,6 +11,7 @@
 // dasher slides in hip-first, then swings the hip again on contact;
 // a comic POW burst + hit-stop at the contact point; the victim freezes in a
 // lean-back teeter while skidding away, kicking up frosting.
+import { winsText } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSE_NAMES } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
@@ -124,7 +125,7 @@ export class Game {
       const ang = (i / n) * TAU - Math.PI / 2 + 0.3;
       const rr = n === 2 ? 190 : 250;
       const sc = this.scale * (p.charId === 'troll' ? 0.58 : 1);
-      const a = new Actor(p.charId, { scale: sc });
+      const a = new Actor(p, { scale: sc });
       const sc0 = sc;
       const r = 30 + 18 * sc;
       const e = {
@@ -707,7 +708,7 @@ export class Game {
     if (this.n === 2 && this.npc && this.playT < 3) ui.text(g, 'A friendly Troll joins in!', W / 2, 150, { size: 40, color: '#ffffff' });
     if (this.ends && this.ends.winner) {
       const w = this.ends.winner;
-      ui.banner(g, `${(charById(w.p.charId) || {}).name || w.p.tag} ${(charById(w.p.charId) || {}).plural ? 'win' : 'wins'}!`, this.ends.t, { y: 330, size: 110, color: w.p.color === '#ffffff' ? '#ffd23f' : '#ffd23f' });
+      ui.banner(g, `${winsText(w.p)}!`, this.ends.t, { y: 330, size: 110, color: w.p.color === '#ffffff' ? '#ffd23f' : '#ffd23f' });
     }
   }
 

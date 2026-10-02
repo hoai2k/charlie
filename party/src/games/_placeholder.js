@@ -14,7 +14,7 @@ export class PlaceholderGame {
     this.time = 10;
     this.scores = this.players.map(() => 0);
     this.actors = this.players.map((p, i) => {
-      const a = new Actor(p.charId, { x: 300 + i * ((W - 600) / Math.max(1, this.players.length - 1 || 1)), y: 760 });
+      const a = new Actor(p, { x: 300 + i * ((W - 600) / Math.max(1, this.players.length - 1 || 1)), y: 760 });
       a.snap();
       return a;
     });

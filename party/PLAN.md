@@ -180,6 +180,12 @@ files (it reports needed engine changes instead).
 - [x] Settings screen (gear button / View / O): Sound, Full screen, Pictures
       Optimized (default, ~40% less sprite memory) or Full (originals). Sprites load
       per pose on demand and are released when the party changes.
+- [x] Colour variants: several players can pick the same character. Each one
+      locked in gets a colour scheme nobody else has (3 alternates per
+      character, `src/data/variants.js`); left/right flips through the free ones.
+      Recoloured at runtime (`engine/recolor.js`, region masks for Felicity,
+      KPop Center and Amber from `tools/sprites/make_masks.py`); subtle ones
+      (Hotdog, Cake, Unicorn, Felicity) also get a player-colour outline.
 - [ ] Remaining roster sprite sets and props (see image-requests.md Round 3)
 - [ ] Music tracks (need a music-capable generator or composer)
 
@@ -194,5 +200,9 @@ files (it reports needed engine changes instead).
 - With one player, competitive games always place the player 1st.
 - Fullscreen from a controller press alone is blocked by most browsers; a key
   press or click enables it (a tip says so).
+- Colour variants: a few raised-arm KPop Center dance frames keep orange
+  sleeve highlights, and Amber's celebrate/dance frames an orange petticoat
+  edge (mask misses). Scale's Violet and every Amber alternate change a
+  signature colour; awaiting the user's/Charlie's check.
 - Only `main.js` is cache-busted (`?v=`); other modules may be cached by Pages
   for ~10 minutes after a deploy.

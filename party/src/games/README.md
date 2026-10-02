@@ -67,8 +67,13 @@ speed), `reactionTime(p)`, `makesMistake(p)`, `steer(p, fx, fy, tx, ty)`,
 information a human couldn't see (e.g. the hidden answer).
 
 ### Characters (`engine/sprites.js`)
+Pass the player (not `p.charId`) to `new Actor(p)` and `drawPortrait(g, p, ...)`:
+two players may share a character, told apart by its colour scheme
+(`p.variant`) and, for subtle ones, an outline (`p.glow`). Use
+`playerName(p)` / `winsText(p)` from `state.js` for names ("Golden Fox wins"),
+and never key per-player data by `charId`.
 ```js
-const a = new Actor(p.charId, { scale: 1, x, y });  a.snap();
+const a = new Actor(p, { scale: 1, x, y });  a.snap();
 a.x/a.y = feet on the ground; a.z = height above ground (jumps); a.facing = ±1
 a.moveAnim(vx, vy, maxSpeed)        // sets facing, walk/idle pose from velocity
 a.setPose('walk') / a.playOnce('cheer', 0.5) / a.squash(0.3) / a.flash('#fff') / a.emote('heart', 1)

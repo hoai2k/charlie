@@ -3,14 +3,19 @@ import { drawArt } from '../engine/art.js';
 // keyboard layouts), pick a character, CPUs fill empty seats.
 //   A  join / lock in / (everyone locked) start      B  unlock / leave
 //   X  add a CPU    Y  remove a CPU    LB/RB  CPU level
+//   Left/right once locked in: change colour scheme (data/variants.js).
+// Several players may pick the same character: each one locked in gets its
+// own colour scheme (the lowest one nobody else locked in has), and flipping
+// through colours skips the schemes other locked-in players are using.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
-import { Actor, getBaseImage, drawSpeech, preloadCharacters, releaseSpriteSets } from '../engine/sprites.js';
+import { Actor, getBaseImage, drawSpeech, preloadCharacters, releaseSpriteSets, prebakeVariant } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
 import { CHARACTERS, PLAYER_COLORS } from '../data/characters.js';
-import { session, makePlayer, newAIController, MAX_PLAYERS, AI_LEVELS } from '../state.js';
+import { session, makePlayer, newAIController, assignGlows, MAX_PLAYERS, AI_LEVELS } from '../state.js';
+import { variantCount, variantPalette } from '../data/variants.js';
 import { shell } from '../engine/shell.js';
 import { shuffle, TAU, clamp } from '../engine/util.js';
 
@@ -24,7 +29,7 @@ export class CharSelectScene {
     this.starting = null;
     music.play('menu');
     // Slots: humans in join order, then CPUs.
-    this.humans = [];  // { ctrl, cursor, charId, locked, actor, stars }
+    this.humans = [];  // { ctrl, cursor, charId, variant, locked, actor, stars }
     this.cpus = [];    // { ctrl, charId, actor, stars }
     this.wantTotal = 4;
     this.manualCpu = false;
@@ -35,7 +40,7 @@ export class CharSelectScene {
     for (const p of session.players) {
       const idx = CHARACTERS.findIndex((c) => c.id === p.charId);
       if (p.isAI) this.cpus.push({ ctrl: p.ctrl, charId: p.charId, actor: this.makeActor(p.charId), stars: p.stars });
-      else this.humans.push({ ctrl: p.ctrl, cursor: Math.max(0, idx), charId: p.charId, locked: true, actor: this.makeActor(p.charId), stars: p.stars });
+      else this.humans.push({ ctrl: p.ctrl, cursor: Math.max(0, idx), charId: p.charId, variant: p.variant || 0, locked: true, actor: this.makeActor(p.charId, p.variant || 0), stars: p.stars });
     }
     if (session.players.length) { this.wantTotal = session.players.length; this.manualCpu = true; }
     this.cardBounce = CHARACTERS.map(() => 0);
@@ -54,14 +59,53 @@ export class CharSelectScene {
     if (pad) { this.join(pad); this.autoJoined = true; }
   }
 
-  makeActor(charId) {
-    const a = new Actor(charId, { scale: 0.8 });
+  makeActor(charId, variant = 0) {
+    const a = new Actor(charId, { scale: 0.8, variant });
     a.setPose('idle');
     return a;
   }
 
   get total() { return this.humans.length + this.cpus.length; }
-  takenByHuman(charId, except) { return this.humans.some((h) => h !== except && h.locked && h.charId === charId); }
+
+  // --- colour schemes ---------------------------------------------------------
+  /** Colour schemes of `charId` that other locked-in players are using. */
+  reservedVariants(charId, except) {
+    return new Set(this.humans.filter((h) => h !== except && h.locked && h.charId === charId).map((h) => h.variant));
+  }
+  /** Lowest scheme nobody else has locked in (-1 when all are taken). */
+  freeVariant(charId, except) {
+    const taken = this.reservedVariants(charId, except);
+    for (let v = 0; v <= variantCount(charId); v++) if (!taken.has(v)) return v;
+    return -1;
+  }
+  setVariant(h, v) {
+    if (h.variant === v) return;
+    h.variant = v;
+    h.actor.variant = v;
+  }
+  /** Locked in: flip to the next free colour scheme in direction dir. */
+  cycleVariant(h, dir) {
+    const n = variantCount(h.charId) + 1, taken = this.reservedVariants(h.charId, h);
+    for (let k = 1; k < n; k++) {
+      const v = (((h.variant + dir * k) % n) + n) % n;
+      if (taken.has(v)) continue;
+      this.setVariant(h, v);
+      h.actor.playOnce('cheer', 0.5, 'idle');
+      const sl = this.slotRects && this.slotRects.get(h);
+      if (sl) particles.burst(sl.x + sl.w / 2, sl.y + sl.h * 0.45, { type: 'sparkle', count: 10, colors: [variantPalette(h.charId, v)?.swatch || CHARACTERS[h.cursor].color, '#ffffff'] });
+      sfx('select');
+      return;
+    }
+    sfx('error');
+  }
+  /** Players still choosing preview the scheme they'd get if they locked in now. */
+  updatePreviews() {
+    for (const h of this.humans) {
+      if (h.locked) continue;
+      const v = this.freeVariant(h.charId, h);
+      this.setVariant(h, Math.max(0, v));
+    }
+  }
 
   freeCharFor(cpu) {
     const used = new Set([...this.humans.map((h) => h.charId), ...this.cpus.filter((c) => c !== cpu).map((c) => c.charId)]);
@@ -103,7 +147,7 @@ export class CharSelectScene {
     const used = new Set(this.humans.map((h) => h.charId));
     let cursor = CHARACTERS.findIndex((c) => !used.has(c.id));
     if (cursor < 0) cursor = 0;
-    const h = { ctrl, cursor, charId: CHARACTERS[cursor].id, locked: false, actor: this.makeActor(CHARACTERS[cursor].id), stars: 0 };
+    const h = { ctrl, cursor, charId: CHARACTERS[cursor].id, variant: 0, locked: false, actor: this.makeActor(CHARACTERS[cursor].id), stars: 0 };
     this.humans.push(h);
     h.actor.playOnce('wave', 1, 'idle');
     sfx('join');
@@ -127,6 +171,7 @@ export class CharSelectScene {
     if (!this.greeted && this.t > 0.6) { this.greeted = true; host(session.played.length ? 'pick-character' : 'welcome'); }
 
     this.autoJoinPad(); // a controller that shows up after the screen opened
+    this.updatePreviews();
     if (this.updatePointer()) return;
 
     // Joining: any unassigned human controller pressing A (or Start).
@@ -156,6 +201,7 @@ export class CharSelectScene {
         }
       } else {
         if (c.pressed('b')) { h.locked = false; h.actor.setPose('idle'); sfx('back'); }
+        else if (c.nav.x) this.cycleVariant(h, c.nav.x);
         else if (c.pressed('a') || c.pressed('start')) {
           if (this.allReady()) { this.start(); return; }
         }
@@ -173,7 +219,8 @@ export class CharSelectScene {
   setCursor(h, i) {
     h.cursor = i;
     h.charId = CHARACTERS[i].id;
-    h.actor = this.makeActor(h.charId);
+    h.variant = Math.max(0, this.freeVariant(h.charId, h));
+    h.actor = this.makeActor(h.charId, h.variant);
     h.actor.playOnce('wave', 0.7, 'idle');
     this.cardBounce[i] = 1;
     sfx('move');
@@ -181,7 +228,10 @@ export class CharSelectScene {
   }
 
   lockIn(h) {
-    if (this.takenByHuman(h.charId, h)) { sfx('error'); h.actor.playOnce('surprised', 0.4, 'idle'); return; }
+    // Same character as someone else: take a colour scheme nobody locked in has.
+    const v = this.freeVariant(h.charId, h);
+    if (v < 0) { sfx('error'); h.actor.playOnce('surprised', 0.4, 'idle'); return; }
+    this.setVariant(h, v);
     h.locked = true; sfx('ready');
     h.actor.say(CHARACTERS[h.cursor].lines?.hello || 'Hi!', 1.8, 'hello');
     h.actor.playOnce('ready', 0.7, 'wave');
@@ -201,6 +251,7 @@ export class CharSelectScene {
    *  the green bar starts, and the footer hints click like their buttons. */
   updatePointer() {
     const kb = input.keyboards[0];
+    for (const a of this.arrowRects || []) if (a.who.locked && this.humans.includes(a.who) && input.clicked(a)) { this.cycleVariant(a.who, a.dir); return true; }
     if (this.allReady() && input.clicked({ x: W / 2 - 330, y: 1000, w: 660, h: 72 })) { this.start(); return true; }
     for (let i = 0; i < CHARACTERS.length; i++) {
       if (!input.clicked(this.cardRect(i))) continue;
@@ -230,10 +281,11 @@ export class CharSelectScene {
     sfx('fanfare');
     const old = new Map(session.players.map((p) => [p.ctrl, p.stars]));
     const players = [];
-    this.humans.forEach((h) => players.push(makePlayer(players.length, h.charId, h.ctrl, false)));
+    this.humans.forEach((h) => players.push(makePlayer(players.length, h.charId, h.ctrl, false, h.variant)));
     this.cpus.forEach((c) => players.push(makePlayer(players.length, c.charId, c.ctrl, true)));
+    assignGlows(players);
     // Keep stars only if the same controllers kept the same seats.
-    const sameParty = session.players.length === players.length && players.every((p, i) => session.players[i].ctrl === p.ctrl && session.players[i].charId === p.charId);
+    const sameParty = session.players.length === players.length && players.every((p, i) => session.players[i].ctrl === p.ctrl && session.players[i].charId === p.charId && (session.players[i].variant || 0) === p.variant);
     for (const p of players) { p.aiLevel = session.cpuLevel; p.stars = sameParty ? old.get(p.ctrl) || 0 : 0; }
     if (!sameParty) session.played = [];
     session.players = players;
@@ -241,6 +293,7 @@ export class CharSelectScene {
     // Free sprite sets of characters that aren't in the party any more.
     releaseSpriteSets(players.map((p) => p.charId));
     preloadCharacters(players.map((p) => p.charId));
+    for (const p of players) prebakeVariant(p.charId, p.variant);
     for (const h of this.humans) h.actor.playOnce('celebrate', 1, 'idle');
     for (const c of this.cpus) c.actor.playOnce('cheer', 0.6, 'idle');
   }
@@ -258,7 +311,9 @@ export class CharSelectScene {
     // Character cards.
     CHARACTERS.forEach((ch, i) => {
       const r = this.cardRect(i);
-      const lockedBy = this.humans.find((h) => h.locked && h.charId === ch.id);
+      const lockers = this.humans.filter((h) => h.locked && h.charId === ch.id);
+      const lockedBy = lockers[0];
+      const full = lockers.length > variantCount(ch.id);
       const hovered = this.humans.filter((h) => !h.locked && h.cursor === i);
       const cpu = this.cpus.find((c) => c.charId === ch.id);
       const b = this.cardBounce[i];
@@ -267,16 +322,20 @@ export class CharSelectScene {
       const sc = 1 + Math.sin(b * Math.PI) * 0.06 + (hovered.length ? 0.03 : 0);
       g.scale(sc, sc);
       g.translate(-r.w / 2, -r.h / 2);
-      ui.panel(g, 0, 0, r.w, r.h, { r: 24, fill: lockedBy ? '#e6e0ef' : '#ffffff', stroke: lockedBy ? lockedBy.ctrl && this.colorOf(lockedBy) : '#24163f', lineWidth: lockedBy ? 8 : 5 });
+      ui.panel(g, 0, 0, r.w, r.h, { r: 24, fill: full ? '#e6e0ef' : '#ffffff', stroke: lockedBy ? lockedBy.ctrl && this.colorOf(lockedBy) : '#24163f', lineWidth: lockedBy ? 8 : 5 });
       g.save(); ui.roundRect(g, 6, 6, r.w - 12, r.h - 60, 20); g.clip();
       g.fillStyle = ch.color; g.globalAlpha = 0.28; g.fillRect(0, 0, r.w, r.h); g.globalAlpha = 1;
       this.drawCardArt(g, ch, r.w / 2, r.h - 64, r.h - 80, r.w - 24, hovered.length > 0);
       g.restore();
       ui.text(g, ch.name, r.w / 2, r.h - 32, { size: ch.name.length > 12 ? 26 : 30, color: '#24163f', stroke: false, weight: 700, maxWidth: r.w - 16 });
       if (lockedBy) {
-        g.fillStyle = 'rgba(255,255,255,0.35)'; ui.roundRect(g, 0, 0, r.w, r.h, 24); g.fill();
-        ui.panel(g, r.w - 86, -14, 96, 50, { r: 25, fill: this.colorOf(lockedBy), lineWidth: 4, shadow: false });
-        ui.text(g, this.tagOf(lockedBy), r.w - 38, 11, { size: 28, strokeWidth: 5 });
+        // Still pickable (in another colour) until every scheme is taken.
+        if (full) { g.fillStyle = 'rgba(255,255,255,0.35)'; ui.roundRect(g, 0, 0, r.w, r.h, 24); g.fill(); }
+        lockers.forEach((h, k) => {
+          const tx = r.w - 86 - k * 70;
+          ui.panel(g, tx, -14, k ? 74 : 96, 50, { r: 25, fill: this.colorOf(h), lineWidth: 4, shadow: false });
+          ui.text(g, this.tagOf(h), tx + (k ? 37 : 48), 11, { size: 28, strokeWidth: 5 });
+        });
       } else if (cpu) {
         ui.panel(g, r.w - 86, -14, 96, 50, { r: 25, fill: '#b9b0c9', lineWidth: 4, shadow: false });
         ui.text(g, 'CPU', r.w - 38, 11, { size: 26, strokeWidth: 5 });
@@ -307,7 +366,8 @@ export class CharSelectScene {
       ui.text(g, 'Start the party!', 30, 2, { size: 46, weight: 800 });
       g.restore();
     } else if (this.humans.length) {
-      ui.hints(g, [['a', 'Pick'], ['b', 'Back'], ['x', 'Add CPU'], ['y', 'Remove CPU'], ['rb', `CPU: ${AI_LEVELS[session.cpuLevel]}`]], W / 2, 1040, { size: 34 });
+      const colours = this.humans.some((h) => h.locked && variantCount(h.charId));
+      ui.hints(g, [['a', 'Pick'], ['b', 'Back'], ...(colours ? [['dpad', 'Colour']] : []), ['x', 'Add CPU'], ['y', 'Remove CPU'], ['rb', `CPU: ${AI_LEVELS[session.cpuLevel]}`]], W / 2, 1040, { size: 34 });
     }
     if (this.starting !== null) ui.banner(g, "Let's party!", this.starting, { size: 150, y: 470 });
     if (shell.wantFullscreen && !shell.isFullscreen() && shell.canFullscreen() && this.t > 1) {
@@ -317,6 +377,36 @@ export class CharSelectScene {
 
   colorOf(h) { return PLAYER_COLORS[this.humans.indexOf(h)]; }
   tagOf(h) { return 'P' + (this.humans.indexOf(h) + 1); }
+
+  /** Name + colour scheme row under a human's slot: swatch dots (taken ones
+   *  crossed out) and, once locked in, arrows to flip through the free ones. */
+  drawColourPicker(g, h, ch, x, y0, sw, sh, big) {
+    const nv = variantCount(ch.id), pal = variantPalette(ch.id, h.variant);
+    const taken = this.reservedVariants(ch.id, h);
+    const label = pal ? `${pal.name} ${ch.name}` : ch.name;
+    const cy = y0 + sh - (big ? 46 : 40);
+    ui.text(g, label, x + sw / 2, cy, { size: big ? 30 : 21, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - (h.locked ? (big ? 110 : 64) : 20) });
+    // swatch dots: 0 = the character's own colours
+    const dr = big ? 9 : 6, gap = dr * 2.8, dy = y0 + sh - (big ? 18 : 15);
+    const x0 = x + sw / 2 - (nv * gap) / 2;
+    for (let v = 0; v <= nv; v++) {
+      const dx = x0 + v * gap;
+      g.beginPath(); g.arc(dx, dy, v === h.variant ? dr * 1.25 : dr, 0, TAU);
+      g.fillStyle = v ? variantPalette(ch.id, v).swatch : ch.color; g.globalAlpha = taken.has(v) ? 0.35 : 1; g.fill(); g.globalAlpha = 1;
+      g.lineWidth = v === h.variant ? 3 : 2; g.strokeStyle = '#24163f'; g.stroke();
+      if (taken.has(v)) { g.beginPath(); g.moveTo(dx - dr, dy - dr); g.lineTo(dx + dr, dy + dr); g.stroke(); }
+    }
+    if (!h.locked) return;
+    const pulse = 1 + Math.sin(this.t * 6) * 0.08, as = big ? 34 : 24;
+    for (const side of [-1, 1]) {
+      const ax = x + sw / 2 + side * (sw / 2 - (big ? 30 : 18));
+      g.save(); g.translate(ax, cy); g.scale(side * pulse, pulse);
+      g.beginPath(); g.moveTo(as * 0.45, 0); g.lineTo(-as * 0.3, -as * 0.45); g.lineTo(-as * 0.3, as * 0.45); g.closePath();
+      g.fillStyle = pal ? pal.swatch : ch.color; g.fill(); g.lineWidth = 3; g.strokeStyle = '#24163f'; g.stroke();
+      g.restore();
+      this.arrowRects.push({ who: h, dir: side, x: ax - as * 0.7, y: cy - as * 0.7, w: as * 1.4, h: as * 1.4 });
+    }
+  }
 
   drawCardArt(g, ch, cx, footY, maxH, maxW, hovered) {
     // Static composition of all members, fitted into the card.
@@ -348,6 +438,8 @@ export class CharSelectScene {
     const x0 = (W - total) / 2, y0 = 700, sh = 290;
     const bubbles = [];
     this.joinRect = null;
+    this.slotRects = new Map();
+    this.arrowRects = [];
     for (let i = 0; i < n; i++) {
       const s = slots[i];
       const x = x0 + i * (sw + gap);
@@ -378,7 +470,10 @@ export class CharSelectScene {
       const tag = isH ? 'P' + (this.humans.indexOf(s.h) + 1) : 'CPU';
       ui.panel(g, x + 14, y0 - 18, 84, 44, { r: 22, fill: pc, lineWidth: 4, shadow: false });
       ui.text(g, tag, x + 56, y0 + 4, { size: 26, strokeWidth: 5 });
-      ui.text(g, ch.name, x + sw / 2, y0 + sh - 38, { size: n <= 4 ? 34 : 24, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - 20 });
+      if (isH) this.slotRects.set(s.h, { x, y: y0, w: sw, h: sh });
+      const nv = variantCount(ch.id);
+      if (isH && nv) this.drawColourPicker(g, s.h, ch, x, y0, sw, sh, n <= 4);
+      else ui.text(g, ch.name, x + sw / 2, y0 + sh - 38, { size: n <= 4 ? 34 : 24, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - 20 });
       if (isH && s.h.locked) {
         ui.panel(g, x + sw - 120, y0 - 18, 110, 44, { r: 22, fill: '#36d17a', lineWidth: 4, shadow: false });
         ui.text(g, 'Ready!', x + sw - 65, y0 + 4, { size: 24, strokeWidth: 5 });

@@ -1,6 +1,7 @@
 // Session state shared by the menus, the minigame host and results.
 import { input } from './engine/input.js';
-import { PLAYER_COLORS, CHARACTERS } from './data/characters.js';
+import { PLAYER_COLORS, CHARACTERS, charById } from './data/characters.js';
+import { variantPalette, WEAK_VARIANTS } from './data/variants.js';
 import { shuffle } from './engine/util.js';
 
 export const MAX_PLAYERS = 8;
@@ -20,11 +21,14 @@ let aiSerial = 0;
 /**
  * Player object passed to every minigame.
  *   index (0..7), tag ('P1' | 'CPU'), color, charId, isAI, ctrl (Controller),
- *   aiLevel (0..2), stars (session total)
+ *   aiLevel (0..2), stars (session total), variant (colour scheme, 0 =
+ *   canonical; see data/variants.js), glow (outline colour or null)
+ * Pass the player itself to new Actor(p) / drawPortrait(g, p, ...) so its
+ * colour scheme shows.
  */
-export function makePlayer(index, charId, ctrl, isAI) {
+export function makePlayer(index, charId, ctrl, isAI, variant = 0) {
   return {
-    index, charId, ctrl, isAI,
+    index, charId, ctrl, isAI, variant, glow: null,
     color: PLAYER_COLORS[index],
     get tag() { return this.isAI ? 'CPU' : 'P' + (this.index + 1); },
     aiLevel: session.cpuLevel,
@@ -44,3 +48,24 @@ export function randomFreeCharacter(players) {
   const free = freeCharacters(players);
   return (free.length ? shuffle(free)[0] : CHARACTERS[0]).id;
 }
+
+/**
+ * Players sharing a character whose recolour is subtle get an outline in
+ * their player colour (data/variants.js WEAK_VARIANTS). Call when the party is set.
+ */
+export function assignGlows(players) {
+  for (const p of players) {
+    const dup = players.some((o) => o !== p && o.charId === p.charId);
+    p.glow = dup && WEAK_VARIANTS.has(p.charId) ? p.color : null;
+  }
+}
+
+/** Display name, with the colour scheme for alternates: "Golden Fox". */
+export function playerName(p) {
+  const ch = charById(p.charId);
+  if (!ch) return p.tag;
+  const pal = variantPalette(ch.id, p.variant);
+  return pal ? `${pal.name} ${ch.name}` : ch.name;
+}
+/** "Golden Fox wins" / "KPop Girls win". */
+export function winsText(p) { return `${playerName(p)} ${charById(p.charId)?.plural ? 'win' : 'wins'}`; }

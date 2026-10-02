@@ -109,7 +109,7 @@ export class Game {
 
   makeStation(p, i, r) {
     const L = layoutStation(r, this.n);
-    const a = new Actor(p.charId, { x: L.charFoot.x, y: L.charFoot.y, facing: 1 });
+    const a = new Actor(p, { x: L.charFoot.x, y: L.charFoot.y, facing: 1 });
     a.scale = Math.min(L.charH / a.leader.h, L.charW / Math.max(1, a.width));
     a.snap();
     const cake = newCake();
@@ -760,7 +760,7 @@ export class Game {
     g.save(); g.translate(s.x, s.y); g.scale(k, k);
     drawSprinkles(g, st.sprinkles);
     const items = st.items.slice().sort((a, b2) => a.y - b2.y);
-    for (const d of items) drawDecoShape(g, d, this.t, { lit: !!d.lit, flame: d.flame ?? 1, charId: st.p.charId, ring: st.p.color });
+    for (const d of items) drawDecoShape(g, d, this.t, { lit: !!d.lit, flame: d.flame ?? 1, charId: st.p, ring: st.p.color });
     g.restore();
     g.restore();
   }
@@ -947,7 +947,7 @@ export class Game {
     ui.panel(g, x, y - sz * 0.5, tw, sz, { r: sz / 2, fill: p.color, lineWidth: 3, shadow: false });
     ui.text(g, p.tag, x + tw / 2, y + 1, { size: sz * 0.55, strokeWidth: 4, shadow: false });
     x += tw + 12;
-    if (wide) { drawPortrait(g, p.charId, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }); x += sz * 1.4; }
+    if (wide) { drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }); x += sz * 1.4; }
     const tab = TABS[st.tab].id;
     let items;
     if (tab === 'deco') items = [['stick', 'Move'], ['a', DECOS[st.decoSel].id === 'sprinkles' ? 'Shake!' : 'Add'], ['x', 'Topping'], ['b', 'Undo']];
@@ -1003,7 +1003,7 @@ export class Game {
     const F = this.finale;
     const cx = lr.x + lr.w / 2;
     if (!st.rating) {
-      drawPortrait(g, st.p.charId, cx, lr.y + lr.h * 0.3, Math.min(lr.w * 0.28, 90), { ring: st.p.color, ringWidth: 7, expr: 'happy' });
+      drawPortrait(g, st.p, cx, lr.y + lr.h * 0.3, Math.min(lr.w * 0.28, 90), { ring: st.p.color, ringWidth: 7, expr: 'happy' });
       ui.text(g, st.p.tag, cx, lr.y + lr.h * 0.3 + Math.min(lr.w * 0.28, 90) + 26, { size: 34, color: st.p.color, strokeWidth: 6 });
       if (F.stage === 'blow' && !st.out) {
         const frac = st.blow / st.blowNeed;

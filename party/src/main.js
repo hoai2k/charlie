@@ -4,7 +4,7 @@
 //   ?scene=sprites                     sprite viewer (all characters x all poses)
 //   ?game=<id>                         jump straight to a minigame's intro
 //     &players=4 &humans=1             player count / how many are human (rest CPU)
-//     &chars=fox,bronze                characters for P1, P2...
+//     &chars=fox,bronze                characters for P1, P2... (repeats get the next colour scheme)
 //     &auto=1                          every player is CPU (watch the AI play)
 //     &skipintro=1                     skip the how-to-play screen
 //     &level=0..2                      CPU difficulty
@@ -27,7 +27,8 @@ import { shell } from './engine/shell.js';
 import { corner } from './engine/corner.js';
 import { settings } from './engine/settings.js';
 import * as ui from './engine/ui.js';
-import { session, makePlayer, newAIController, randomFreeCharacter } from './state.js';
+import { session, makePlayer, newAIController, randomFreeCharacter, assignGlows } from './state.js';
+import { variantCount } from './data/variants.js';
 import { CHARACTERS } from './data/characters.js';
 
 import { SpriteViewerScene } from './scenes/spriteviewer.js';
@@ -94,8 +95,10 @@ function setupDebugPlayers() {
     const isAI = i >= humans;
     const ctrl = isAI ? newAIController() : (humanCtrls[i] || input.keyboards[0]);
     const charId = chars[i] || randomFreeCharacter(session.players);
-    session.players.push(makePlayer(i, charId, ctrl, isAI));
+    const variant = Math.min(variantCount(charId), session.players.filter((p) => p.charId === charId).length);
+    session.players.push(makePlayer(i, charId, ctrl, isAI, variant));
   }
+  assignGlows(session.players);
   setTimeout(() => preloadVoices(session.players.map((p) => p.charId)), 500);
 }
 

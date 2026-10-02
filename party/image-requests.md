@@ -1526,7 +1526,14 @@ Every sprite set delivery must be **optimized and tested in game** before it's
 committed (full steps: `tools/sprites/README.md`, "Intake checklist"): run
 `tools/sprites/optimize.py <asset>`, validate, then play it in real games with
 both "Pictures: Optimized" (default) and `&quality=full`. Keep the originals —
-the game's Settings screen can switch to them.
+the game's Settings screen can switch to them. For `felicity`,
+`kpop-girl-center` and `princess-amber` also re-run
+`tools/sprites/make_masks.py <asset>` (colour-variant region masks).
+
+Colour variants (several players on one character) are recoloured in code
+(`src/data/variants.js`), so no extra art is needed. Optional, for future
+sets: a flat region-ID layer per frame (outfit, hair...) would replace the
+hand-tuned colour ranges and the mask classifier.
 
 ## Re-generation requests (lead's in-game review)
 

@@ -114,7 +114,7 @@ export class Game {
 
     this.actors = this.players.map((p, i) => {
       const x = W / 2 + (i - (n - 1) / 2) * spacing;
-      const a = new Actor(p.charId, { scale: this.sc, x, y: FEET_Y, facing: x < W / 2 - 4 ? 1 : x > W / 2 + 4 ? -1 : 1 });
+      const a = new Actor(p, { scale: this.sc, x, y: FEET_Y, facing: x < W / 2 - 4 ? 1 : x > W / 2 + 4 ? -1 : 1 });
       a.snap();
       a.setPose('ready');
       return a;

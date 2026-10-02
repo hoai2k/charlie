@@ -33,6 +33,8 @@ import { CHARACTERS, ALL_ASSETS, charById } from '../data/characters.js';
 import { drawEmote } from './emotes.js';
 import { voice } from './audio.js';
 import { clamp, damp, TAU } from './util.js';
+import { recolorFrame } from './recolor.js';
+import { rulesFor, variantPalette, MASK_SETS, PORTRAIT_SAFE } from '../data/variants.js';
 
 // ---------------------------------------------------------------------------
 // Pose vocabulary. `fallback` lists poses to try, in order, when a sprite set
@@ -271,6 +273,75 @@ export function usablePose(set, sp) {
   return idle && poseReady(idle) ? idle : null;
 }
 
+// ---------------------------------------------------------------------------
+// Colour variants (data/variants.js) so several players can pick the same
+// character. Variant 0 is the canonical art; 1..n are palette remaps baked once
+// per (frame, variant) into a canvas cached on the frame record (fr.variants),
+// so drawing costs the same as the original, and releasing a set or switching
+// picture quality frees them. Baking runs under a per-animation-frame time
+// budget; a pose whose recoloured frames aren't ready yet shows the recoloured
+// idle pose meanwhile. If a canvas can't be read (file://), the canonical art
+// is drawn instead.
+const BAKE_BUDGET_MS = 8;
+let bakeStamp = 0, bakeLeft = BAKE_BUDGET_MS;
+function takeBakeBudget(force) {
+  const now = performance.now();
+  if (now - bakeStamp > 12) { bakeStamp = now; bakeLeft = BAKE_BUDGET_MS; } // a new animation frame
+  return force || bakeLeft > 0;
+}
+/** Region mask for a frame (masks/<frame>.webp); null while loading, false if missing. */
+function frameMask(fr, asset) {
+  if (fr.mask === undefined) {
+    fr.mask = null;
+    loadImage(`assets/sprites/${asset}/masks/${fr.src}`).then((img) => { fr.mask = img || false; });
+  }
+  return fr.mask;
+}
+/** Recoloured canvas for frame fr in variant v, or null when not ready (force: bake now). */
+function variantImg(fr, sp, asset, charId, v, force = false) {
+  if (!v || !fr.img) return fr.img;
+  const vs = fr.variants || (fr.variants = new Map());
+  const done = vs.get(v);
+  if (done) return done;
+  const rules = rulesFor(charId, asset, v);
+  if (!rules.length || fr.rect) { vs.set(v, fr.img); return fr.img; }
+  const mask = MASK_SETS.has(asset) && rules.some((r) => r.mask) ? frameMask(fr, asset) : false;
+  if (mask === null || !takeBakeBudget(force)) return null;
+  const k = fr.k || 1, sc = (pt) => (pt ? [pt[0] * k, pt[1] * k] : null);
+  const land = { eyes: sc(fr.eyes), neck: sc(fr.neck), head: sc(fr.head), anchor: sc(fr.anchor), bodyH: (sp.bodyHeight || 1) * k, k };
+  const t0 = performance.now();
+  let out;
+  try { out = recolorFrame(fr.img, null, rules, land, mask || null); } catch (e) { out = fr.img; } // unreadable canvas
+  bakeLeft -= performance.now() - t0;
+  vs.set(v, out);
+  return out;
+}
+const variantReady = (sp, asset, charId, v, force) => sp.frames.every((f) => variantImg(f, sp, asset, charId, v, force));
+
+/** Bake a character's core poses for a variant in the background (e.g. during the how-to screen). */
+export function prebakeVariant(charId, v) {
+  if (!v) return;
+  const ch = charById(charId);
+  if (!ch) return;
+  Promise.all(ch.members.map((m) => ensureSpriteSet(m.asset))).then(() => {
+    const jobs = [];
+    for (const m of ch.members) {
+      const set = spriteSets.get(m.asset);
+      if (!set) continue;
+      for (const name of CORE_POSES) { const sp = set.poses[name]; if (sp) for (const f of sp.frames) jobs.push([f, sp, m.asset]); }
+    }
+    const step = () => {
+      const t0 = performance.now();
+      while (jobs.length && performance.now() - t0 < BAKE_BUDGET_MS) {
+        const [f, sp, asset] = jobs.shift();
+        if (f.img) variantImg(f, sp, asset, charId, v, true);
+      }
+      if (jobs.length) setTimeout(step, 16);
+    };
+    setTimeout(step, 0);
+  });
+}
+
 /** Preload base art and any generated sprite sets. */
 export async function loadSprites(onProgress = () => {}) {
   let done = 0;
@@ -349,6 +420,29 @@ function tinted(img, color) {
       const [oldImg, oldMap] = tintCache.entries().next().value;
       tintCount -= oldMap.size; tintCache.delete(oldImg);
     }
+  }
+  return c;
+}
+
+// Player-colour outline for duplicate picks whose recolour is subtle
+// (variants.js WEAK_VARIANTS): a small silhouette per (image, colour), drawn
+// at 8 offsets behind the art. Kept small (it's only an outline) and weakly
+// keyed so it goes away with its frame.
+const GLOW_H = 160;
+const glowCache = new WeakMap();   // img -> Map(color -> canvas)
+function glowSilhouette(img, color) {
+  let byColor = glowCache.get(img);
+  if (!byColor) { byColor = new Map(); glowCache.set(img, byColor); }
+  let c = byColor.get(color);
+  if (!c) {
+    const w = img.naturalWidth || img.width, h = img.naturalHeight || img.height, s = Math.min(1, GLOW_H / h);
+    c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(w * s)); c.height = Math.max(1, Math.round(h * s));
+    const x = c.getContext('2d');
+    x.drawImage(img, 0, 0, c.width, c.height);
+    x.globalCompositeOperation = 'source-in';
+    x.fillStyle = color; x.fillRect(0, 0, c.width, c.height);
+    byColor.set(color, c);
   }
   return c;
 }
@@ -510,12 +604,17 @@ let actorSerial = 0;
 
 export class Actor {
   /**
-   * @param {string} charId  party entry id from data/characters.js (or 'troll')
-   * @param {object} opts    { scale = 1, x, y, load = true (false: don't fetch the sprite set; use it only if already loaded) }
+   * @param {string|object} who  party entry id from data/characters.js (or 'troll'),
+   *                             or a player (uses its charId, colour variant and glow)
+   * @param {object} opts    { scale = 1, x, y, load = true (false: don't fetch the sprite set; use it only if already loaded),
+   *                           variant (colour scheme, 0 = canonical), glow (outline colour) }
    */
-  constructor(charId, opts = {}) {
-    this.char = charById(charId) || CHARACTERS[0];
+  constructor(who, opts = {}) {
+    const player = who && typeof who === 'object' ? who : null;
+    this.char = charById(player ? player.charId : who) || CHARACTERS[0];
     this.charId = this.char.id;
+    this.variant = opts.variant ?? player?.variant ?? 0;
+    this.glow = opts.glow ?? player?.glow ?? null;
     this.scale = opts.scale ?? 1;
     this.x = opts.x ?? 0; this.y = opts.y ?? 0; this.z = 0;
     this.facing = opts.facing ?? 1;
@@ -761,6 +860,12 @@ export class Actor {
     if (this._once && pose === this._once.pose && sp) t = this.poseTime / this._once.duration * poseDuration(sp);
     if (sp && !sp.loop && !sp.holdLast && t >= poseDuration(sp)) sp = set.poses.idle || sp;
     sp = usablePose(set, sp);
+    // Colour variant: draw a pose once its recoloured frames exist; meanwhile
+    // the recoloured idle (baked now: it's 1-3 frames), else the base art.
+    if (sp && this.variant && !variantReady(sp, m.def.asset, this.charId, this.variant, false)) {
+      const idle = set.poses.idle;
+      sp = idle && usablePose(set, idle) === idle && variantReady(idle, m.def.asset, this.charId, this.variant, true) ? idle : null;
+    }
     return { set, sp, t };
   }
 
@@ -785,6 +890,7 @@ export class Actor {
     if (sp) {
       const fr = pickFrame(sp, t);
       img = fr.img; rect = fr.rect; anchor = fr.anchor || set.anchor;
+      if (this.variant) img = variantImg(fr, sp, def.asset, this.charId, this.variant, true) || fr.img;
       bodyH = sp.bodyHeight || set.bodyHeight; artFacing = sp.facing ?? set.facing;
     } else {
       img = baseImages.get(def.asset);
@@ -817,6 +923,10 @@ export class Actor {
       if (rect) g.drawImage(src, rect[0], rect[1], sw, sh, ox, oy, sw, sh);
       else g.drawImage(src, ox, oy, sw, sh);
     };
+    if (this.glow) {
+      const gs = glowSilhouette(img, this.glow), d = 3.2 / pxScale;
+      for (let a = 0; a < 8; a++) { const ang = a * TAU / 8; g.save(); g.translate(Math.cos(ang) * d, Math.sin(ang) * d); g.drawImage(gs, ox, oy, sw, sh); g.restore(); }
+    }
     drawIt(img);
     if (o.tint && o.tint[1] > 0.01) { g.globalAlpha = alpha * o.tint[1] * (sp ? 0.5 : 1); drawIt(tinted(img, o.tint[0])); }
     if (this._tint && this._tint.alpha > 0.01) { g.globalAlpha = alpha * this._tint.alpha; drawIt(tinted(img, this._tint.color)); }
@@ -906,10 +1016,15 @@ export function pickFrame(sp, t) {
 
 /**
  * Draw a round portrait of a party entry centered at (x, y) with radius r.
+ * who: a character id, or a player (shows its colour variant).
  * expr: neutral | happy | sad | surprised | determined (uses sprite-set
  * portraits when available, else crops the base art's face).
  */
-export function drawPortrait(g, charId, x, y, r, { expr = 'neutral', bg = null, ring = null, ringWidth = 6, gray = false } = {}) {
+const portraitVariants = new WeakMap();   // portrait img -> Map(variant -> canvas)
+export function drawPortrait(g, who, x, y, r, { expr = 'neutral', bg = null, ring = null, ringWidth = 6, gray = false, variant = null } = {}) {
+  const player = who && typeof who === 'object' ? who : null;
+  const charId = player ? player.charId : who;
+  const v = variant ?? player?.variant ?? 0;
   const ch = charById(charId);
   if (!ch) return;
   const m = ch.members[0];
@@ -920,7 +1035,21 @@ export function drawPortrait(g, charId, x, y, r, { expr = 'neutral', bg = null, 
   g.save();
   g.clip();
   const set = getSpriteSet(m.asset);
-  const pimg = set && (set.portraits[expr] || set.portraits.neutral);
+  let pimg = set && (set.portraits[expr] || set.portraits.neutral);
+  const pal = variantPalette(ch.id, v);
+  // Variant portraits: recoloured where the rules need no landmarks (others
+  // would change eye colour), plus a swatch badge either way (drawn below).
+  if (pimg && pal && PORTRAIT_SAFE.has(ch.id)) {
+    let byV = portraitVariants.get(pimg);
+    if (!byV) { byV = new Map(); portraitVariants.set(pimg, byV); }
+    if (!byV.has(v)) {
+      const rules = rulesFor(ch.id, m.asset, v).map((q) => ({ ...q, protect: [], below: null, above: null, mask: 0 }));
+      let c = pimg;
+      try { c = rules.length ? recolorFrame(pimg, null, rules, {}, null) : pimg; } catch (e) { /* unreadable */ }
+      byV.set(v, c);
+    }
+    pimg = byV.get(v);
+  }
   if (pimg) {
     const s = (2 * r) / Math.min(pimg.width, pimg.height);
     g.drawImage(pimg, x - (pimg.width * s) / 2, y - (pimg.height * s) / 2, pimg.width * s, pimg.height * s);
@@ -941,5 +1070,10 @@ export function drawPortrait(g, charId, x, y, r, { expr = 'neutral', bg = null, 
   g.restore();
   if (ring) { g.lineWidth = ringWidth; g.strokeStyle = ring; g.beginPath(); g.arc(x, y, r, 0, TAU); g.stroke(); }
   g.lineWidth = 3; g.strokeStyle = '#24163f'; g.beginPath(); g.arc(x, y, r + (ring ? ringWidth / 2 : 0), 0, TAU); g.stroke();
+  if (pal && r >= 14) {
+    const br = Math.max(6, r * 0.3), bx = x + r * 0.72, by = y + r * 0.72;
+    g.beginPath(); g.arc(bx, by, br, 0, TAU); g.fillStyle = pal.swatch; g.fill();
+    g.lineWidth = Math.max(2, br * 0.3); g.strokeStyle = '#24163f'; g.stroke();
+  }
   g.restore();
 }

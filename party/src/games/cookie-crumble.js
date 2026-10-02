@@ -202,7 +202,7 @@ export class Game {
     const spots = this.startSpots(this.n);
     this.ps = this.players.map((p, i) => {
       const tl = spots[i];
-      const a = new Actor(p.charId, { scale: CHAR_SCALE, x: tl.x, y: tl.y + 14, facing: tl.x < W / 2 ? 1 : -1 });
+      const a = new Actor(p, { scale: CHAR_SCALE, x: tl.x, y: tl.y + 14, facing: tl.x < W / 2 ? 1 : -1 });
       a.snap(); a.setPose('idle');
       tl.stepped = true;
       return {

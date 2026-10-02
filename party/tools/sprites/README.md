@@ -64,14 +64,21 @@ and are resized to 384×384. Supply intentional portrait crops with shoulders re
    Originals stay untouched and are used with "Pictures: Full". Re-run it after
    *any* change to a set's frames or manifest; `validate.py` warns when a copy is
    missing or stale.
-4. **Validate:** `python3 party/tools/sprites/validate.py` (no stale/missing
-   optimized-copy warnings) and `node party/tools/sprites/runtime.test.mjs`.
-5. **Test in game, both qualities**, e.g.
+4. **Colour-variant masks** (only `felicity`, `kpop-girl-center`,
+   `princess-amber`): `python3 party/tools/sprites/make_masks.py <asset>
+   --review /tmp/review` and look at the sheet (magenta = recoloured region).
+   These outfits share their hue with skin or fur, so the alternate colour
+   schemes (`src/data/variants.js`) need a region mask per frame; a frame
+   without one keeps its canonical outfit colour in the alternates.
+5. **Validate:** `python3 party/tools/sprites/validate.py` (no stale/missing
+   optimized-copy or mask warnings) and `node party/tools/sprites/runtime.test.mjs`.
+6. **Test in game, both qualities**, e.g.
    `?game=crown-keeper&players=2&auto=1&skipintro=1&chars=<id>,fox` with and
    without `&quality=full`: size next to other characters, feet planted, facing,
    crown/wand/glasses on the head/hand/eyes points, celebrate/pout on the podium.
-   Also the games that use the new poses.
-6. Commit originals, optimized copies and both index files together.
+   Also the games that use the new poses, and a duplicate pick
+   (`chars=<id>,<id>`) to see the alternate colour scheme.
+7. Commit originals, optimized copies, masks and both index files together.
 
 `python3 party/tools/sprites/validate.py` validates every indexed set and prints real frame counts,
 portrait coverage, file sizes and decoded memory. `--strict-tier1` additionally requires every

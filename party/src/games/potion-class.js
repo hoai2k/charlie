@@ -210,7 +210,7 @@ export class Game {
   makeStation(p, i) {
     const box = this.boxes[i];
     const k = box.k;
-    const a = new Actor(p.charId, { x: box.x + FEET.x * k, y: box.y + FEET.y * k, scale: (this.n <= 4 ? 1.12 : 0.88) * (charById(p.charId)?.members.length > 1 ? 0.86 : 1) * k, facing: 1 });
+    const a = new Actor(p, { x: box.x + FEET.x * k, y: box.y + FEET.y * k, scale: (this.n <= 4 ? 1.12 : 0.88) * (charById(p.charId)?.members.length > 1 ? 0.86 : 1) * k, facing: 1 });
     a.snap();
     const st = {
       p, i, box, k, actor: a,
@@ -914,7 +914,7 @@ export class Game {
     // header chip + recipe slots
     g.save(); g.translate(0, st.box.hy - 8);
     ui.panel(g, 10, 8, 214, 58, { r: 29, fill: '#ffffff', stroke: p.color, lineWidth: 5, shadow: false });
-    drawPortrait(g, p.charId, 39, 37, 23);
+    drawPortrait(g, p, 39, 37, 23);
     ui.text(g, p.tag, 70, 25, { size: 22, color: p.color, align: 'left', strokeWidth: 5 });
     for (let j = 0; j < Math.min(st.score, 4); j++) drawBottle(g, 82 + j * 30, 49, 26, EFFECTS[this.rounds[j]?.eff]?.color || '#ff6fd0');
     if (st.score === 0) ui.text(g, 'potions: 0', 70, 49, { size: 18, color: '#8a7aa8', align: 'left', stroke: false, weight: 700 });

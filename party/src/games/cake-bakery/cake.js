@@ -420,7 +420,7 @@ function candleArt(color) {
   return c;
 }
 
-export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, ring = null } = {}) {
+export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, ring = null } = {}) { // charId: a character id or the player (for its colour scheme)
   const x = d.x, y = d.y;
   const ta = TOPPING_ART[d.kind];
   if (ta) {
