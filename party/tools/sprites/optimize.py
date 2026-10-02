@@ -38,9 +38,14 @@ def fingerprint(asset):
     """Hash of the set's manifest and every source file (name + bytes)."""
     h = hashlib.sha1()
     folder = SRC / asset
-    for f in sorted([folder / 'sprites.json', *folder.glob('*.webp')]):
+    for f in sorted([folder / 'sprites.json', *source_images(folder)]):
         h.update(f.name.encode()); h.update(f.read_bytes())
     return h.hexdigest()[:16]
+
+
+def source_images(folder):
+    """Ignore macOS metadata sidecars, which are not images."""
+    return sorted(f for f in folder.glob('*.webp') if not f.name.startswith('._'))
 
 
 def build(asset):
@@ -49,7 +54,7 @@ def build(asset):
     portraits = set((m.get('portraits') or {}).values())
     out = DST / asset
     count = 0
-    for f in sorted((SRC / asset).glob('*.webp')):
+    for f in source_images(SRC / asset):
         im = Image.open(f).convert('RGBA')
         if f.name in portraits or f.name.startswith('portrait'):
             s = min(1.0, PORTRAIT / max(im.size))
@@ -60,7 +65,7 @@ def build(asset):
         save(im, out / f.name)
         count += 1
     # Drop optimized files whose originals were removed.
-    names = {f.name for f in (SRC / asset).glob('*.webp')}
+    names = {f.name for f in source_images(SRC / asset)}
     for f in out.glob('*.webp'):
         if f.name not in names: f.unlink()
     return {'scale': round(k, 5), 'portrait': PORTRAIT, 'source': fingerprint(asset)}, count

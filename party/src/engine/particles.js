@@ -10,6 +10,7 @@
 
 import { rand, pick, TAU } from './util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape, starPath } from './emotes.js';
+import { art } from './art.js';
 
 export const RAINBOW = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff', '#ff6fd0'];
 
@@ -72,6 +73,7 @@ class Particles {
   }
 
   add(p) {
+    if (p.type === 'confetti') p.cell = Math.floor(rand(32));
     p.age = 0; p.maxLife = p.life;
     if (this.list.length >= this.max) this.list.shift();
     this.list.push(p);
@@ -98,9 +100,14 @@ class Particles {
       g.globalAlpha = fade;
       g.translate(p.x, p.y);
       switch (p.type) {
-        case 'confetti':
+        case 'confetti': {
           g.rotate(p.rot); g.scale(1, Math.cos(p.age * 9 + p.rot));
-          g.fillStyle = p.color; g.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); break;
+          const sheet = art('prop/confetti');
+          if (sheet && sheet.width === 512 && sheet.height === 256)
+            g.drawImage(sheet, (p.cell % 8) * 64, Math.floor(p.cell / 8) * 64, 64, 64, -p.size / 2, -p.size / 2, p.size, p.size);
+          else { g.fillStyle = p.color; g.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); }
+          break;
+        }
         case 'spark':
           g.fillStyle = p.color; g.beginPath(); g.arc(0, 0, p.size * (1 - t * 0.6), 0, TAU); g.fill(); break;
         case 'star': g.rotate(p.rot); drawStarShape(g, p.size, p.color); break;

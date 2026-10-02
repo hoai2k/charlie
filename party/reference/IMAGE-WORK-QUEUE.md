@@ -124,12 +124,27 @@ Last checked UTC: 2026-10-02T21:29:53.396518+00:00.
 
 ## Production resumed — Sol
 
-The user explicitly revoked the40%allowancepause forSol. Complete all requested
+The user explicitly revoked the 40% allowance pause for Sol. Complete all requested
 assets and regenerations, checking new requests and publishing reviewed batches.
-Cake/animals andmermaid/KPop/Amber agents resumed; root owns pilots/generalprops.
+Cake/animals and mermaid/KPop/Amber agents resumed; lighter agents own character batches, and root reviews and integrates them.
 Last checked revision: `06127696957f7437feb62a83e905a551784936dc`.
 Last checked UTC: 2026-10-02T21:35:49.123002+00:00.
 
 Reviewed regeneration batch: thin1024hazardring (BumperBounce radius updated),
 outlinedhedge, greenfizzle, neutralbubbles/bottle, emptycauldron,3:4cardback.
 Correspondingruntimekeys pointto versionedfiles; originalsremainavailable.
+
+## Request check — 2026-10-02 22:44 UTC
+
+Main update `7ebc997` adds mandatory optimized copies and in-game checks in both
+quality modes. This intake requirement is queued for every current delivery.
+No additional image generation requests were added in that revision.
+Production remains active; the former Astra allowance threshold is revoked.
+
+Last checked revision: `68e0a8a0c4abfa5cbceac65eabf16dd9bcc2c2f2`.
+Last checked UTC: 2026-10-02T22:43:57+00:00.
+
+Reviewed: bottom-anchored seed stages, overhead garden day/night, four outlined
+cake crumbs, three transparent crumble overlays, and plain round/heart/star
+sponge layers. Runtime integrations include cookie flavor damage, confetti atlas,
+separate Storm Cloud lightning and individual podium blocks.

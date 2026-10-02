@@ -147,6 +147,7 @@ function stormLightning(g, x, y, r, t, seed, flash) {
   const ow = Math.max(2, r * 0.08);
   // little lightning bolt
   if (Math.sin(t * 7 + seed * 3) > 0.35 || flash) {
+    if (drawArt(g, 'prop/storm-cloud-lightning', 0, r * 1.05, r * 0.45, r * 0.8)) { g.restore(); return; }
     g.fillStyle = '#ffe64d'; g.strokeStyle = NAVY; g.lineWidth = ow * 0.8; g.lineJoin = 'round';
     g.beginPath(); g.moveTo(-0.05 * r, 0.72 * r); g.lineTo(0.2 * r, 0.72 * r); g.lineTo(0.08 * r, 0.98 * r); g.lineTo(0.28 * r, 0.98 * r); g.lineTo(-0.1 * r, 1.4 * r); g.lineTo(0, 1.05 * r); g.lineTo(-0.18 * r, 1.05 * r); g.closePath(); g.fill(); g.stroke();
   }

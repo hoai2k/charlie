@@ -3916,6 +3916,313 @@
       "height": 553,
       "bytes": 65452,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/arena-cake-crumb-1",
+      "ref": "prop/arena-cake.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. Onebrokenpink-frostedcakespongechunk variant1, basedonreferencearenacakecolors/style. Chunkshapewedgewithjaggedside. ThickdarkNAVYOUTLINE matchingcake, goldenporousspongeinterior, pinktopfrostingwithtinywhitetrimandoneortworainbowsprinkles. 3/4slightlyaboveview. Fullchunkcenteredwithpadding,actualtransparentbackground, no wholecake, plates,lettersorshadow. Clean2Dcartooncelshade.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e96b99cd-5ce5-48c5-b49c-af39075b99e2.png",
+      "tool": "built-in imagegen",
+      "width": 219,
+      "height": 256,
+      "bytes": 18466,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/arena-cake-crumb-2",
+      "ref": "prop/arena-cake.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. Onebrokenpink-frostedcakespongechunk variant2, basedonreferencearenacakecolors/style. Chunkshapesmallbrokenrectangle. ThickdarkNAVYOUTLINE matchingcake, goldenporousspongeinterior, pinktopfrostingwithtinywhitetrimandoneortworainbowsprinkles. 3/4slightlyaboveview. Fullchunkcenteredwithpadding,actualtransparentbackground, no wholecake, plates,lettersorshadow. Clean2Dcartooncelshade.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5da67197-22d8-4fc7-9be2-f3f02080981c.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 250,
+      "bytes": 20596,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/arena-cake-crumb-3",
+      "ref": "prop/arena-cake.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. Onebrokenpink-frostedcakespongechunk variant3, basedonreferencearenacakecolors/style. Chunkshapeirregulartriangularpiece. ThickdarkNAVYOUTLINE matchingcake, goldenporousspongeinterior, pinktopfrostingwithtinywhitetrimandoneortworainbowsprinkles. 3/4slightlyaboveview. Fullchunkcenteredwithpadding,actualtransparentbackground, no wholecake, plates,lettersorshadow. Clean2Dcartooncelshade.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-8777bfd4-ce55-467c-b102-68e012b51635.png",
+      "tool": "built-in imagegen",
+      "width": 228,
+      "height": 256,
+      "bytes": 18052,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/arena-cake-crumb-4",
+      "ref": "prop/arena-cake.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. Onebrokenpink-frostedcakespongechunk variant4, basedonreferencearenacakecolors/style. Chunkshaperoundedcrumbclusterof2smallpieces. ThickdarkNAVYOUTLINE matchingcake, goldenporousspongeinterior, pinktopfrostingwithtinywhitetrimandoneortworainbowsprinkles. 3/4slightlyaboveview. Fullchunkcenteredwithpadding,actualtransparentbackground, no wholecake, plates,lettersorshadow. Clean2Dcartooncelshade.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-9271c3e9-1868-48b6-be6b-666da028758b.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 20874,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-platform-crumble-1",
+      "ref": "prop/cake-platform-v2.webp",
+      "maxSize": [
+        1024,
+        680
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecakeplatform. CreateONLYanedge-crumbleOVERLAYring fortheplatform atdamagelevel1of3. Keepreferenceovalouterfootprintframing3/4viewandpinkwhitefrostingstyleswithnavyoutline. REMOVEENTIRECENTERtoactualtransparency: hollowellipticalannulus, onlyoutermost8percentperimeterconsistsofjaggedpinkfrostedgoldenspongeedgechunks with3clearbite-likegaps cutintotheouteredgeandseveraltinyfallingcrumbsjustoutsideperimeter. Interiortransparenthole mustoccupymostofthecanvas; NOwholecake,background, plate,faceortext. Fullovalringuncropped, thinfrontfrostingedge,nofloatingeffects. Thisisindependenttextureoverlay, notfullcake.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-44ce6b76-f56b-45bf-919c-e9f20865beb0.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 680,
+      "bytes": 109236,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-platform-crumble-2",
+      "ref": "prop/cake-platform-v2.webp",
+      "maxSize": [
+        1024,
+        680
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecakeplatform. CreateONLYanedge-crumbleOVERLAYring fortheplatform atdamagelevel2of3. Keepreferenceovalouterfootprintframing3/4viewandpinkwhitefrostingstyleswithnavyoutline. REMOVEENTIRECENTERtoactualtransparency: hollowellipticalannulus, onlyoutermost12percentperimeterconsistsofjaggedpinkfrostedgoldenspongeedgechunks with6clearbite-likegaps cutintotheouteredgeandseveraltinyfallingcrumbsjustoutsideperimeter. Interiortransparenthole mustoccupymostofthecanvas; NOwholecake,background, plate,faceortext. Fullovalringuncropped, thinfrontfrostingedge,nofloatingeffects. Thisisindependenttextureoverlay, notfullcake.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e602dc03-d071-4af2-bd49-53b3772c589c.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 680,
+      "bytes": 132418,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-platform-crumble-3",
+      "ref": "prop/cake-platform-v2.webp",
+      "maxSize": [
+        1024,
+        680
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecakeplatform. CreateONLYanedge-crumbleOVERLAYring fortheplatform atdamagelevel3of3. Keepreferenceovalouterfootprintframing3/4viewandpinkwhitefrostingstyleswithnavyoutline. REMOVEENTIRECENTERtoactualtransparency: hollowellipticalannulus, onlyoutermost16percentperimeterconsistsofjaggedpinkfrostedgoldenspongeedgechunks with9clearbite-likegaps cutintotheouteredgeandseveraltinyfallingcrumbsjustoutsideperimeter. Interiortransparenthole mustoccupymostofthecanvas; NOwholecake,background, plate,faceortext. Fullovalringuncropped, thinfrontfrostingedge,nofloatingeffects. Thisisindependenttextureoverlay, notfullcake.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d4fee834-751c-4c2a-a7a1-9a70d9602e8f.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 680,
+      "bytes": 130864,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-sponge-round",
+      "ref": "prop/cake-platform.webp",
+      "maxSize": [
+        600,
+        400
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. CharlieParty CakeBakery plainunfrostedspongecake layer inroundshape viewed3/4fromabove. Oneflatsquat layerwithvisibleroundtopplaneshapeandsmallfrontsideband, neutralivory/palegraybeigeporoussponge, subtlepalegraygrainholesandcleannavyoutline. NOicing,frosting,cream,toppings,sprinkles, fillingorplate. Colorneutralwhite/graysoGAMECAN TINTflavortheentirecake. Matchreference2Dcartooncelshadeandperspective styleonly. Transparentbackground, centeredfullobject, no shadowsortext.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e8f66f4d-4602-4183-bd64-6c9d2af6ecf6.png",
+      "tool": "built-in imagegen",
+      "width": 600,
+      "height": 344,
+      "bytes": 24542,
+      "status": "generated; inspected"
+    },
+    {
+      "id": "bg/fairy-garden",
+      "prompt": "Use case: stylized-concept. Create a replacement cartoon game background using this reference ONLY for cheerful clean outlined children's-game illustration style and garden colors. IMPORTANT CAMERA CHANGE: true top-down overhead view looking straight down at garden ground, not side view. Landscape 16:9, 1920x1080 intended canvas. The entire image is grass ground seen from above; absolutely no sky, horizon, distant hills, standing trees, or soil cross-section. A cute white garden fence and colorful flower border occupy ONLY the uppermost 30 percent (top 330 pixels in 1080-tall image), viewed overhead/slightly oblique so recognizable; flowers line the fence. The lower 70 percent is spacious softly textured green lawn ready for code-drawn gardening plots. Very subtle pale grassy paths run along the left/right outer edges, broad open center and lower center. NO drawn plots, soil beds, grid, pots, characters, fairies, animals, tools, labels, HUD or text. Bright sunny day, flat cel shading with gentle softness, navy outlines on border objects, clean uncluttered playfield. Fill full canvas edge-to-edge.",
+      "reference": "party/assets/art/bg/fairy-garden.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-4fc66277-13c5-47c1-acd9-d0be5fa9544c.png",
+      "output": "party/assets/art/bg/fairy-garden-v2.webp",
+      "intake": "Full generated canvas resized to1920x1080 Lanczos, WebP quality90 method6; no cropping or repainting.",
+      "qa": "Matching top-down clear lawn, border confined upper quarter, no sky/horizon/plots; inspected.",
+      "key": "bg/fairy-garden",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 232858,
+      "status": "generated; inspected"
+    },
+    {
+      "id": "bg/fairy-garden-night",
+      "prompt": "Use case: precise-object-edit. Edit this exact top-down garden game background into its NIGHT variant. Preserve every shape, lawn texture, flower placement, fence, path and composition exactly. Same overhead view and 16:9 canvas. Change only lighting/colors: deep cool teal-blue lawn still readable for gameplay, soft blue moonlight on the white fence, faint pink/cyan/gold luminosity within the existing border flowers and a few tiny subtle firefly pinpoints near the upper flower border only. Keep the central and lower grass clear. NO sky, horizon, moon object, stars in sky, new objects, plot rectangles, characters, labels or text. Gentle magical night ambience, neither black nor muddy; clean cartoon outlines.",
+      "reference": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-4fc66277-13c5-47c1-acd9-d0be5fa9544c.png",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-538453f5-3504-4ca0-b4a7-ce299e58fe5e.png",
+      "output": "party/assets/art/bg/fairy-garden-night-v2.webp",
+      "intake": "Full generated canvas resized to1920x1080 Lanczos, WebP quality90 method6; no cropping or repainting.",
+      "qa": "Matching top-down clear lawn, border confined upper quarter, no sky/horizon/plots; inspected.",
+      "key": "bg/fairy-garden-night",
+      "tool": "built-in imagegen",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 180512,
+      "status": "generated; inspected"
+    },
+    {
+      "kind": "rose",
+      "stage": "seed",
+      "prompt": "Use case: precise-object-edit. Create the tiny planted seed stage for a children's 2D cartoon game from the supplied seed reference. Preserve its exact distinctive seed shape, colors and markings, but show only the upper half PEEKING OUT from a small shallow oval hole in brown soil, a few tiny soilcrumbs around rim. NOT a plant or sprout, no leaves/stem/flower. Front three-quarter game prop view, clean bold navy outlines matching reference and simple celshading. A SINGLE tiny seed and very small soil hole, centered horizontally near bottom of a tall transparent canvas. Seed plus hole occupies only bottom20% of canvas height, large empty transparent space above, no scenery, no shadow/backdrop, no sparkles or text. Ground base level and bottom-anchored. Rose seed: pink teardrop with embossed rosecurl, just its pointed upper half peeks out.",
+      "reference": "party/assets/art/prop/plant-rose-seed.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-740bfc27-f30e-481c-aa74-b919799eabce.png",
+      "output": "party/assets/art/prop/plant-rose-seed-v2.webp",
+      "intake": "Crop generated alpha>8 bounds, preserve source RGBA, proportional thumbnail max100wide x52tall, center on256x256 transparent canvas with opaque base at y253. WebP quality90 method6.",
+      "status": "generated; inspected",
+      "anchor": [
+        128,
+        253
+      ],
+      "key": "prop/plant-rose-seed",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 3238
+    },
+    {
+      "kind": "sunflower",
+      "stage": "seed",
+      "prompt": "Use case: precise-object-edit. Create the tiny planted seed stage for a children's 2D cartoon game from the supplied seed reference. Preserve its exact distinctive seed shape, colors and markings, but show only the upper half PEEKING OUT from a small shallow oval hole in brown soil, a few tiny soilcrumbs around rim. NOT a plant or sprout, no leaves/stem/flower. Front three-quarter game prop view, clean bold navy outlines matching reference and simple celshading. A SINGLE tiny seed and very small soil hole, centered horizontally near bottom of a tall transparent canvas. Seed plus hole occupies only bottom20% of canvas height, large empty transparent space above, no scenery, no shadow/backdrop, no sparkles or text. Ground base level and bottom-anchored. Sunflower seed: classic tapered charcoal seed with creamlongitudinalstripes, pointedtip upright peeks from soil.",
+      "reference": "party/assets/art/prop/plant-sunflower-seed.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-294a92a7-75fd-4bb5-babb-9f12b0e9429a.png",
+      "output": "party/assets/art/prop/plant-sunflower-seed-v2.webp",
+      "intake": "Crop generated alpha>8 bounds, preserve source RGBA, proportional thumbnail max100wide x52tall, center on256x256 transparent canvas with opaque base at y253. WebP quality90 method6.",
+      "status": "generated; inspected",
+      "anchor": [
+        128,
+        253
+      ],
+      "key": "prop/plant-sunflower-seed",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 3016
+    },
+    {
+      "kind": "star-bloom",
+      "stage": "seed",
+      "prompt": "Use case: precise-object-edit. Create the tiny planted seed stage for a children's 2D cartoon game from the supplied seed reference. Preserve its exact distinctive seed shape, colors and markings, but show only the upper half PEEKING OUT from a small shallow oval hole in brown soil, a few tiny soilcrumbs around rim. NOT a plant or sprout, no leaves/stem/flower. Front three-quarter game prop view, clean bold navy outlines matching reference and simple celshading. A SINGLE tiny seed and very small soil hole, centered horizontally near bottom of a tall transparent canvas. Seed plus hole occupies only bottom20% of canvas height, large empty transparent space above, no scenery, no shadow/backdrop, no sparkles or text. Ground base level and bottom-anchored. Star bloom seed: little gold starseed with five plump points and clean facets, upperpoints peeking out of soil.",
+      "reference": "party/assets/art/prop/plant-star-bloom-seed.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-1f3886ad-7416-4c86-9360-05cd7f097624.png",
+      "output": "party/assets/art/prop/plant-star-bloom-seed-v2.webp",
+      "intake": "Crop generated alpha>8 bounds, preserve source RGBA, proportional thumbnail max100wide x52tall, center on256x256 transparent canvas with opaque base at y253. WebP quality90 method6.",
+      "status": "generated; inspected",
+      "anchor": [
+        128,
+        253
+      ],
+      "key": "prop/plant-star-bloom-seed",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 3528
+    },
+    {
+      "kind": "rainbow-tulip",
+      "stage": "seed",
+      "prompt": "Use case: precise-object-edit. Create the tiny planted seed stage for a children's 2D cartoon game from the supplied seed reference. Preserve its exact distinctive seed shape, colors and markings, but show only the upper half PEEKING OUT from a small shallow oval hole in brown soil, a few tiny soilcrumbs around rim. NOT a plant or sprout, no leaves/stem/flower. Front three-quarter game prop view, clean bold navy outlines matching reference and simple celshading. A SINGLE tiny seed and very small soil hole, centered horizontally near bottom of a tall transparent canvas. Seed plus hole occupies only bottom20% of canvas height, large empty transparent space above, no scenery, no shadow/backdrop, no sparkles or text. Ground base level and bottom-anchored. Rainbow tulip seed is the small tan teardropbulb with rainbowcolored tiny pointedtip, not a full tulip. Its upperbulb and rainbowtip peek from soil.",
+      "reference": "party/assets/art/prop/plant-rainbow-tulip-seed.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-623bfc5b-52a5-4ee5-a586-061bc8b41ac7.png",
+      "output": "party/assets/art/prop/plant-rainbow-tulip-seed-v2.webp",
+      "intake": "Crop generated alpha>8 bounds, preserve source RGBA, proportional thumbnail max100wide x52tall, center on256x256 transparent canvas with opaque base at y253. WebP quality90 method6.",
+      "status": "generated; inspected",
+      "anchor": [
+        128,
+        253
+      ],
+      "key": "prop/plant-rainbow-tulip-seed",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 2874
+    },
+    {
+      "kind": "glow-mushroom",
+      "stage": "seed",
+      "prompt": "Use case: precise-object-edit. Create the tiny planted seed stage for a children's 2D cartoon game from the supplied seed reference. Preserve its exact distinctive seed shape, colors and markings, but show only the upper half PEEKING OUT from a small shallow oval hole in brown soil, a few tiny soilcrumbs around rim. NOT a plant or sprout, no leaves/stem/flower. Front three-quarter game prop view, clean bold navy outlines matching reference and simple celshading. A SINGLE tiny seed and very small soil hole, centered horizontally near bottom of a tall transparent canvas. Seed plus hole occupies only bottom20% of canvas height, large empty transparent space above, no scenery, no shadow/backdrop, no sparkles or text. Ground base level and bottom-anchored. Glow mushroom seed: purple oval sporeseed with aqua roundspots, just rounded upperhalf peeks from soil. No mushroom cap/stem yet.",
+      "reference": "party/assets/art/prop/plant-glow-mushroom-seed.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-3cf4f091-d26c-425a-80e6-98e60fc73781.png",
+      "output": "party/assets/art/prop/plant-glow-mushroom-seed-v2.webp",
+      "intake": "Crop generated alpha>8 bounds, preserve source RGBA, proportional thumbnail max100wide x52tall, center on256x256 transparent canvas with opaque base at y253. WebP quality90 method6.",
+      "status": "generated; inspected",
+      "anchor": [
+        128,
+        253
+      ],
+      "key": "prop/plant-glow-mushroom-seed",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 3384
+    },
+    {
+      "kind": "crystal-flower",
+      "stage": "seed",
+      "prompt": "Use case: precise-object-edit. Create the tiny planted seed stage for a children's 2D cartoon game from the supplied seed reference. Preserve its exact distinctive seed shape, colors and markings, but show only the upper half PEEKING OUT from a small shallow oval hole in brown soil, a few tiny soilcrumbs around rim. NOT a plant or sprout, no leaves/stem/flower. Front three-quarter game prop view, clean bold navy outlines matching reference and simple celshading. A SINGLE tiny seed and very small soil hole, centered horizontally near bottom of a tall transparent canvas. Seed plus hole occupies only bottom20% of canvas height, large empty transparent space above, no scenery, no shadow/backdrop, no sparkles or text. Ground base level and bottom-anchored. Crystal flower seed: faceted bluecyan teardropcrystal gemseed, just upper point peeking out of tinysoilhole. Same crystalfacetpalette.",
+      "reference": "party/assets/art/prop/plant-crystal-flower-seed.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-39be2231-8453-46a6-be4a-0f7d36513c31.png",
+      "output": "party/assets/art/prop/plant-crystal-flower-seed-v2.webp",
+      "intake": "Crop generated alpha>8 bounds, preserve source RGBA, proportional thumbnail max100wide x52tall, center on256x256 transparent canvas with opaque base at y253. WebP quality90 method6.",
+      "status": "generated; inspected",
+      "anchor": [
+        128,
+        253
+      ],
+      "key": "prop/plant-crystal-flower-seed",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 3220
+    },
+    {
+      "key": "prop/cake-sponge-heart",
+      "ref": "prop/cake-platform.webp",
+      "maxSize": [
+        600,
+        400
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. CharlieParty CakeBakery plainunfrostedspongecake layer inheartshape viewed3/4fromabove. Oneflatsquat layerwithvisiblehearttopplaneshapeandsmallfrontsideband, neutralivory/palegraybeigeporoussponge, subtlepalegraygrainholesandcleannavyoutline. NOicing,frosting,cream,toppings,sprinkles, fillingorplate. Colorneutralwhite/graysoGAMECAN TINTflavortheentirecake. Matchreference2Dcartooncelshadeandperspective styleonly. Transparentbackground, centeredfullobject, no shadowsortext.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-506a5c3d-fc41-4ff6-86bd-0bd3479a7b31.png",
+      "tool": "built-in imagegen",
+      "width": 600,
+      "height": 321,
+      "bytes": 22334,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-sponge-star",
+      "ref": "prop/cake-platform.webp",
+      "maxSize": [
+        600,
+        400
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. CharlieParty CakeBakery plainunfrostedspongecake layer instarshape viewed3/4fromabove. Oneflatsquat layerwithvisiblestartopplaneshapeandsmallfrontsideband, neutralivory/palegraybeigeporoussponge, subtlepalegraygrainholesandcleannavyoutline. NOicing,frosting,cream,toppings,sprinkles, fillingorplate. Colorneutralwhite/graysoGAMECAN TINTflavortheentirecake. Matchreference2Dcartooncelshadeandperspective styleonly. Transparentbackground, centeredfullobject, no shadowsortext.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-b3448117-a9c0-4092-873c-1b8f5b659dc1.png",
+      "tool": "built-in imagegen",
+      "width": 600,
+      "height": 354,
+      "bytes": 24722,
+      "status": "generated; inspected"
     }
   ]
 }

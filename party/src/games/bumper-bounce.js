@@ -764,6 +764,11 @@ export class Game {
     } else {
       drawPlatformShape(g, CX, CY, this.R, K, THICK * (0.6 + 0.4 * this.R / R0), this.t, this.tele, this.crumbleFlash, 1, this.sprinkles, this.cracks);
     }
+    // Persistent broken edges progress as the arena loses successive rings.
+    if (this.R < R0 - 10) {
+      const damage = clamp(Math.ceil((R0 - this.R) / 90), 1, 3);
+      drawArt(g, `prop/cake-platform-crumble-${damage}`, CX, CY, this.R * 2, this.R * K * 2, { fit: 'stretch', alpha: 0.9 });
+    }
     g.restore();
     // telegraph overlay: the doomed outer band
     const ring = this.tele && art('prop/danger-ring');
@@ -812,8 +817,10 @@ export class Game {
   }
   /** Telegraph: the doomed rim visibly breaks into cake chunks that rattle more and more. */
   drawEdgeCrumbs(g, k) {
-    const img = art('prop/arena-cake-crumb');
-    if (!img || k < 0.2) return;
+    const variants = [1, 2, 3, 4].map(n => art(`prop/arena-cake-crumb-${n}`)).filter(Boolean);
+    const fallback = art('prop/arena-cake-crumb');
+    if (!variants.length && fallback) variants.push(fallback);
+    if (!variants.length || k < 0.2) return;
     const band = this.R - this.tele.R, mid = (this.R + this.tele.R) / 2;
     const n = Math.round(mid / 26), s = band * 0.85;
     g.save();
@@ -821,6 +828,7 @@ export class Game {
     // far side first so nearer chunks overlap them
     const order = Array.from({ length: n }, (_, i) => i).sort((a, b) => Math.sin((a / n) * TAU) - Math.sin((b / n) * TAU));
     for (const i of order) {
+      const img = variants[i % variants.length];
       const a = (i / n) * TAU + 0.1;
       const jit = k * k * 4;
       const x = CX + Math.cos(a) * mid + Math.sin(this.t * 37 + i * 3) * jit;

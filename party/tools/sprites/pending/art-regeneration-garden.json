@@ -1,0 +1,24 @@
+{
+  "tool": "built-in image_gen",
+  "status": "ready for root review",
+  "assets": [
+    {
+      "id": "bg/fairy-garden",
+      "prompt": "Use case: stylized-concept. Create a replacement cartoon game background using this reference ONLY for cheerful clean outlined children's-game illustration style and garden colors. IMPORTANT CAMERA CHANGE: true top-down overhead view looking straight down at garden ground, not side view. Landscape 16:9, 1920x1080 intended canvas. The entire image is grass ground seen from above; absolutely no sky, horizon, distant hills, standing trees, or soil cross-section. A cute white garden fence and colorful flower border occupy ONLY the uppermost 30 percent (top 330 pixels in 1080-tall image), viewed overhead/slightly oblique so recognizable; flowers line the fence. The lower 70 percent is spacious softly textured green lawn ready for code-drawn gardening plots. Very subtle pale grassy paths run along the left/right outer edges, broad open center and lower center. NO drawn plots, soil beds, grid, pots, characters, fairies, animals, tools, labels, HUD or text. Bright sunny day, flat cel shading with gentle softness, navy outlines on border objects, clean uncluttered playfield. Fill full canvas edge-to-edge.",
+      "reference": "party/assets/art/bg/fairy-garden.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-4fc66277-13c5-47c1-acd9-d0be5fa9544c.png",
+      "output": "party/assets/art/bg/fairy-garden-v2.webp",
+      "intake": "Full generated canvas resized to1920x1080 Lanczos, WebP quality90 method6; no cropping or repainting.",
+      "qa": "Matching top-down clear lawn, border confined upper quarter, no sky/horizon/plots; inspected."
+    },
+    {
+      "id": "bg/fairy-garden-night",
+      "prompt": "Use case: precise-object-edit. Edit this exact top-down garden game background into its NIGHT variant. Preserve every shape, lawn texture, flower placement, fence, path and composition exactly. Same overhead view and 16:9 canvas. Change only lighting/colors: deep cool teal-blue lawn still readable for gameplay, soft blue moonlight on the white fence, faint pink/cyan/gold luminosity within the existing border flowers and a few tiny subtle firefly pinpoints near the upper flower border only. Keep the central and lower grass clear. NO sky, horizon, moon object, stars in sky, new objects, plot rectangles, characters, labels or text. Gentle magical night ambience, neither black nor muddy; clean cartoon outlines.",
+      "reference": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-4fc66277-13c5-47c1-acd9-d0be5fa9544c.png",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-538453f5-3504-4ca0-b4a7-ce299e58fe5e.png",
+      "output": "party/assets/art/bg/fairy-garden-night-v2.webp",
+      "intake": "Full generated canvas resized to1920x1080 Lanczos, WebP quality90 method6; no cropping or repainting.",
+      "qa": "Matching top-down clear lawn, border confined upper quarter, no sky/horizon/plots; inspected."
+    }
+  ]
+}

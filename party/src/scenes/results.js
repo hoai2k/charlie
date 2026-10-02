@@ -194,7 +194,8 @@ export class ResultsScene {
     for (const e of this.entries) {
       const w = 230 * (session.players.length > 5 ? 0.8 : 1);
       if (e.podium > 0) {
-        ui.panel(g, e.x - w / 2, e.floor - e.podium, w, e.podium + 20, { r: 16, fill: ['#ffd23f', '#d9e3f0', '#f0a35e'][e.place - 1] || '#c9b7f0', lineWidth: 5 });
+        if (!drawArt(g, `prop/podium-${Math.min(e.place, 4)}`, e.x, e.floor + 20, w, e.podium + 20, { anchor: 'bottom', fit: 'stretch' }))
+          ui.panel(g, e.x - w / 2, e.floor - e.podium, w, e.podium + 20, { r: 16, fill: ['#ffd23f', '#d9e3f0', '#f0a35e'][e.place - 1] || '#c9b7f0', lineWidth: 5 });
         if (!this.showcase && e.podium > 50) ui.text(g, String(e.place), e.x, e.floor - e.podium / 2 + 10, { size: 64, color: '#fff' });
       }
     }

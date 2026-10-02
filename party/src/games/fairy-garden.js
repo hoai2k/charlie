@@ -76,9 +76,10 @@ function drawPlant(g, kind, stage, x, y, s, t, o = {}) {
   g.scale(s * (1 + sq * 0.5), s * (1 - sq * 0.5));
   const sway = Math.sin(t * 1.6 + (o.seed || 0)) * 0.05;
   g.rotate(sway * (stage > 0 ? 1 : 0));
-  // a planted seed is small (the seed art is a big close-up); later stages fill the plant's height
-  const box = stage === 0 ? [52, 52] : [seed.h * 1.1, seed.h * 1.25];
-  if (drawArt(g, key, 0, stage === 0 ? 6 : 0, box[0], box[1], { anchor: 'bottom' })) {
+  // Seeds occupy only the bottom 52 pixels of a 256-square canvas; their
+  // planted base is at y=253, so preserve the canvas instead of shrinking it.
+  const box = stage === 0 ? [256, 256] : [seed.h * 1.1, seed.h * 1.25];
+  if (drawArt(g, key, 0, stage === 0 ? 3 : 0, box[0], box[1], { anchor: 'bottom' })) {
     if (night > 0 && night < 1) drawArt(g, `prop/plant-${seed.id}-glow`, 0, 0, seed.h * 1.1, seed.h * 1.25, { anchor: 'bottom', alpha: night });
     g.restore(); return;
   }
@@ -882,11 +883,12 @@ export class Game {
     const bgKey = night > 0.5 ? 'bg/fairy-garden-night' : 'bg/fairy-garden';
     const bg = art(bgKey);
     if (bg) {
-      // The art is a side view (sky, fence + flowers, grass strip near
-      // y≈870). Shift it up so the fence and flowers form the garden's back
-      // border, then lay the top-down lawn for the plots over the rest.
-      g.drawImage(bg, 0, GROUND_TOP + 40 - 870, W, H);
-      this.drawLawn(g, k, false);
+      // Matching overhead backgrounds leave the lower lawn open for plots.
+      const day = art('bg/fairy-garden'), nightBg = art('bg/fairy-garden-night');
+      g.drawImage(day || bg, 0, 0, W, H);
+      if (nightBg && night > 0) {
+        g.save(); g.globalAlpha = night; g.drawImage(nightBg, 0, 0, W, H); g.restore();
+      }
       if (k > 0.05 && !art('bg/fairy-garden-night')) { g.save(); g.globalAlpha = Math.min(0.55, k * 0.3); g.fillStyle = k > 1 ? '#10164a' : '#ff9f6f'; g.fillRect(0, 0, W, H); g.restore(); }
     } else {
       const [top, bot] = this.skyColors();

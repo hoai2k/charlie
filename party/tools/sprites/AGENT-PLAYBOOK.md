@@ -186,3 +186,17 @@ points as visually verified.
 The request heartbeat checks new and changed requests every 30 minutes and
 cancels after one unchanged interval. It must honor the user's usage pause: queue
 new work while paused, without launching generation automatically.
+
+## Runtime landmark and optimizer checks
+
+Inspect landmarks on the built runtime pixels. If a point needs correction,
+convert it back to source-crop coordinates using:
+`sourceAnchor + (desiredRuntimePoint - runtimeFrameAnchor) / (commonScale * itemScale)`.
+Full-sheet coordinates must first have the crop origin subtracted. Source-sheet
+overlays alone cannot prove runtime attachment placement.
+
+Run `optimize.py CHARACTER` after every final rebuild and commit the optimized
+files with `sprites-opt/index.json`. The optimizer ignores macOS `._*` sidecars.
+Review both default optimized mode and `&quality=full` in actual games.
+The user revoked the former allowance pause for Sol; only an explicit new pause
+should stop production.
