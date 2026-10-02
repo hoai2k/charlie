@@ -425,7 +425,7 @@ motion where it reads well (§5.2).
 | `land` | — | idle | Landing squash, recover | After every jump | 2 | 2 @ 12 (squash, recover), motion 0.3 | Knees bent, arms out for balance |
 | `action` | — | cheer | Generic quick action: grab, tap, swing, pump | balloon-pump (**pump**), crown-keeper (grab), troll-trouble (pick up gem), memory-match (flip), fairy-garden (plant/water), pet-spa (scrub), cake-bakery (add layer) | 2 | 3 @ 14 (wind-up, strike, recover), motion 0.4 | Short and readable. For balloon pumping: both hands pushing down on a plunger |
 | `throw` | — | action | Throwing forward | pass-the-present (toss), paint-party (splat bomb), wizard-quickdraw (cast, until `cast` exists), potion-class (add ingredient) | 2 | 3 @ 14 (arm back, release, follow-through), motion 0.3 | Big wind-up, clear release frame |
-| `push` | — | action | Shove/bump forward | bumper-bounce (dash-bump), crown-keeper (bump) | 2 | 2–3 @ 14 (brace, shove with both hands/shoulder), motion 0.4 | Whole body leans in; determined face |
+| `push` | — | action | Shove/bump forward | crown-keeper (bump) | 2 | 2–3 @ 14 (brace, shove with both hands/shoulder), motion 0.4 | Whole body leans in; determined face |
 | `carry` | ✓ | walk | Walking while holding something **overhead** | pass-the-present (holding the present), trophy walk, fairy-garden (carrying a seed or can) | 2 | 4 @ 8 (walk cycle with both arms up), motion 0.15; `hand` = top of the hands | Arms locked up, careful steps. Quadrupeds: object on the back, cake: on top |
 | `dance` | ✓ | celebrate | Dancing on the beat | spotlight-dance, pop-star-stage, fashion-show crowd, title screen | 2 | 4–8 frames, cycle = **exactly 2 beats at 120 bpm (1.0 s)**: 4 @ 4 fps or 8 @ 8 fps, motion ≤ 0.15 | Groovy and bouncy, distinct per character; the trio is coordinated |
 | `paint` | ✓ | action | Painting/crafting with a brush (loop) | art-studio, potion-class (stir, until `stir` exists), pet-spa (brushing), cake-bakery (frosting) | 3 | 3 @ 6 (brush up, across, down), motion 0.3 | Focused tongue-out concentration |
@@ -440,7 +440,7 @@ motion where it reads well (§5.2).
 | Results / podium | celebrate (1st), cheer (2nd/3rd), sad, pout (last), portraits happy/sad |
 | Party Marathon trophy | celebrate holding the trophy (`hand`), clap (proposed) for others |
 | `sprinkle-catch` | walk, run, cheer, dizzy, celebrate, pout |
-| `bumper-bounce` | walk, dash, push, knockback, hurt, fall, clap/cheer (cheering from a cloud after falling out) |
+| `bumper-bounce` | walk, hip-bump, knockback, hurt, fall, clap/cheer (cheering from a cloud after falling out) |
 | `pass-the-present` | idle, carry, throw, surprised, dizzy, sad |
 | `balloon-pump` | action (pump), surprised, cheer, pout |
 | `troll-trouble` | run, walk, action (grab gem), surprised, dizzy, hurt; Troll set |
@@ -1262,7 +1262,8 @@ to `POSES` in `sprites.js` with that fallback in the same commit as its frames.
 | `count` | Pointing a finger and counting along | fairy-count | think |
 | `look-up` | Head tilted back watching the sky | fairy-count | idle |
 | `crowned` | Proud royal strut, chin up (crown attached by code at `head`) | crown-keeper | walk |
-| `dash` | Forward lunge, arms out (a bump). Bumper Bounce holds it ~0.5 s, so 2 frames (launch, held lunge with hair/ears streaming back) with `holdLast` | crown-keeper, bumper-bounce | push |
+| `dash` | Forward lunge, arms out (a bump). 2 frames (launch, held lunge with hair/ears streaming back) with `holdLast` | crown-keeper | push |
+| `hip-bump` | **Hip bump** as on the Bumper Bounce thumbnail: body turned side-on, upper body leaning away, hip swung out toward the facing direction, arms up for balance, cheeky grin. 2 frames @ 10 (hip cocked back, hip swung out) with `holdLast`; `motion` 0.3. Held ~0.5 s while sliding in, replayed on contact | bumper-bounce | idle + procedural hip lean |
 | `knockback` | **Just got bumped:** skidding backward on the heels, torso leaning way back away from the hit, arms windmilling, wide "whoa!" eyes, mouth open. Facing toward the bumper. 2 frames @ 8 (arms windmill A/B) with a strong lean; `motion` 0.3 (code adds the teeter wobble, red flash and skid dust). Held ~0.7 s while the character slides | bumper-bounce (could serve crown-keeper bumps later) | balance → hurt |
 | `catch` | Arms up in a basket catching something falling | sprinkle-catch | cheer |
 | `sit` | Sitting on a little cloud, legs dangling | bumper-bounce (spectators) | idle |

@@ -1,12 +1,13 @@
 // Bumper Bounce - slippery top-down bump-off on a floating frosted cake.
-// Dash into rivals, don't fall off, and watch the frosting edge crumble!
+// Hip-bump rivals off, don't fall off yourself, and watch the frosting edge crumble!
 //
 // Art hooks (optional; procedural fallbacks ship today):
 //   bg/bumper-bounce  prop/cake-platform  prop/seat-cloud
-// New-pose hooks (fall back to existing poses): 'dash' -> push, 'sit' -> idle,
+// New-pose hooks (fall back to existing poses): 'hip-bump' -> idle, 'sit' -> idle,
 //   'tumble' -> fall, 'knockback' (bumped: skid back, teeter) -> balance -> hurt
 //
-// A dash bump reads in three beats: the dasher holds the lunge, then a shove;
+// A bump is a hip bump (as on the thumbnail) and reads in three beats: the
+// dasher slides in hip-first, then swings the hip again on contact;
 // a comic POW burst + hit-stop at the contact point; the victim freezes in a
 // lean-back teeter while skidding away, kicking up frosting.
 import { W, H } from '../engine/canvas.js';
@@ -28,8 +29,8 @@ export const meta = {
   category: 'party',
   type: 'Last one standing',
   goal: 'Bump everyone off the floating cake!',
-  controls: [['stick', 'Slide around'], ['a', 'Dash bump!']],
-  tips: ['You slide on the frosting - steer early!', 'Dash into friends to bump them off.', 'The edge crumbles - stay near the middle!'],
+  controls: [['stick', 'Slide around'], ['a', 'Hip bump!']],
+  tips: ['You slide on the frosting - steer early!', 'Slide in with a hip bump to knock friends off!', 'The edge crumbles - stay near the middle!'],
   music: 'bouncy',
   duration: 'Up to 60 sec',
   minPlayers: 1,
@@ -71,7 +72,7 @@ const R0 = 500;                          // starting platform radius (world px)
 const THICK = 84;                        // visible cake side
 const ACCEL = 1350, DRAG = 2.5;          // slippery but controllable
 const DASH_V = 700, DASH_T = 0.3, DASH_CD = 1.2;
-const DASH_POSE_T = 0.5, SHOVE_T = 0.45;   // how long the lunge / follow-through shove read
+const DASH_POSE_T = 0.5, SHOVE_T = 0.45;   // how long the hip-first slide / contact hip swing read
 const KNOCK_T = 0.7, KNOCK_STUN = 0.45;    // victim's teeter pose / reduced control
 const POW_T = 0.32;
 const FALL_T = 0.95;
@@ -306,7 +307,7 @@ export class Game {
     void sp;
     e.dash = DASH_T; e.cd = DASH_CD; e.ready = false;
     e.dirx = dir[0]; e.diry = dir[1];
-    e.a.playOnce(poseName('dash'), DASH_POSE_T); e.a.squash(-0.25);
+    e.a.playOnce('hip-bump', DASH_POSE_T); e.a.squash(-0.25);
     if (dir[0] !== 0) e.a.facing = dir[0] > 0 ? 1 : -1;
     sfx('dash'); if (!e.p.isAI) e.p.ctrl.rumble(0.25, 80);
     const [sx, sy] = this.toScreen(e.x, e.y);
@@ -360,7 +361,7 @@ export class Game {
     void dt;
   }
 
-  /** Dash bump landed: the bumper shoves, the victim teeters backward. */
+  /** Hip bump landed: the bumper swings the hip again, the victim teeters backward. */
   knock(victim, bumper) {
     const [vx] = this.toScreen(victim.x, victim.y), [bx] = this.toScreen(bumper.x, bumper.y);
     const face = bx >= vx ? 1 : -1;            // victim faces the bumper and leans away
@@ -369,7 +370,7 @@ export class Game {
     victim.a.clearEmotes(); victim.a.playOnce('knockback', KNOCK_T, 'idle'); victim.a.facing = face;
     victim.a.emote('sweat', KNOCK_T);
     bumper.a.facing = -face;
-    bumper.a.playOnce(poseName('push'), SHOVE_T);
+    bumper.a.playOnce('hip-bump', SHOVE_T); // restart = a second hip swing on contact
   }
 
   impactFx(A, B, nx, ny, power, big) {

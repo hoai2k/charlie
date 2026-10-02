@@ -72,7 +72,7 @@ walking.
 | # | id | Name | Type | How it plays | Key actions |
 |---|---|---|---|---|---|
 | 1 | `sprinkle-catch` | Sprinkle Catch | FFA, 40 s | Side view. Treats rain from a giant cake in the sky; run left/right to catch. Golden cupcakes are worth 5. Grumpy broccoli bonks you (dizzy 1 s). | walk/run, cheer, dizzy |
-| 2 | `bumper-bounce` | Bumper Bounce | Last standing | Top-down on a floating frosted cake. Push with stick, **A** to dash-bump. Edge crumbles over time. Fall off = out (cheer from a cloud). | walk, dash, push, knockback, hurt, fall |
+| 2 | `bumper-bounce` | Bumper Bounce | Last standing | Top-down on a floating frosted cake. Push with stick, **A** to hip-bump. Edge crumbles over time. Fall off = out (cheer from a cloud). | walk, hip-bump, knockback, hurt, fall |
 | 3 | `pass-the-present` | Pass the Present | Elimination rounds | Hot potato. Holder aims with stick and presses **A** to toss the ticking present. It pops into confetti + soot on whoever holds it; they're out for the round. | carry, throw, surprised, dizzy |
 | 4 | `balloon-pump` | Balloon Pump | Race, best of 3 | Mash **A** to pump your balloon. Over-pumping in the red zone doesn't help — rhythm beats panic. First pop wins the round. | action (pump), surprised, cheer |
 | 5 | `troll-trouble` | Troll Trouble | Survival + collect | Top-down meadow. Grab gems while the Troll stomps around; he telegraphs a ground-pound and a grab. Caught = drop your gems and get dizzy. Most gems at the end. | run, surprised, dizzy |

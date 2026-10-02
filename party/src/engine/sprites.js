@@ -95,6 +95,7 @@ export const POSES = {
   'high-five': { loop: false, fallback: ['wave', 'cheer'], proc: 'high-five', desc: 'Open-palm friendly team high-five (paw tap for pets).' },
   crouch:    { loop: true, fallback: ['land'], proc: 'crouch', desc: 'Low playful hiding or obstacle duck.' },
   dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
+  'hip-bump': { loop: false, fallback: ['idle'], proc: 'hip-bump', desc: 'Hip-first bump: side-on, hip swung out toward the target, arms up, cheeky grin.' },
   knockback: { loop: true, fallback: ['balance', 'hurt'], proc: 'knockback', desc: 'Bumped: skidding backward, leaning back, arms windmilling, teetering.' },
   catch:     { loop: false, fallback: ['carry', 'action'], proc: 'catch', desc: 'Receive a present or pickup with a soft recoil.' },
   'wave-goodbye': { loop: false, fallback: ['wave'], proc: 'wave', desc: 'Warm farewell while turning to leave.' },
@@ -396,6 +397,13 @@ function procedural(pose, t, style, speed, allowMirror = true) { // allowMirror:
     case 'float': o.lift += 18 + Math.sin(t * 2) * 8; o.rot = Math.sin(t * 1.6) * 0.08; break;
     // Snap into a forward lunge and hold it for as long as the pose plays.
     case 'dash': { const k = Math.min(1, t / .07); o.rot = .2 * k; o.sx = 1 + .1 * k; o.sy = 1 - .06 * k; o.dx = 12 * k; break; }
+    // Hip leads toward facing: upper body leans away, hips pushed out, with a
+    // quick extra pop at the start (replayed on contact).
+    case 'hip-bump': {
+      const k = Math.min(1, t / .07), pop = Math.sin(Math.min(1, t / .14) * Math.PI);
+      o.rot = -(.32 + .1 * pop) * k; o.dx = (18 + 10 * pop) * k; o.sy = 1 - .04 * k; o.sx = 1 + .05 * k;
+      o.lift += 6 * pop; break;
+    }
     // Pushed backward: big lean away from facing, then a teetering wobble.
     case 'knockback': {
       const k = Math.min(1, t / .06), w = Math.exp(-t * 3);
