@@ -29,7 +29,7 @@ Snapshot: 2026-10-02. Round 3 is queued in `IMAGE-WORK-QUEUE.md`; `../image-requ
 | `fox` | 45 | 60 | 5 | — |
 | `princess-amber` | 43 | 60 | 5 | — |
 | `snowstar` | 75 | 96 | 5 | — |
-| `marshmallow-birthday-cake` | 20 | 32 | 5 | — |
+| `marshmallow-birthday-cake` | 74 | 95 | 5 | — |
 | `unicorn` | 45 | 62 | 6 | — |
 | `hotdog` | 45 | 60 | 5 | — |
 
@@ -55,3 +55,5 @@ The published checkpoint has **263 keys / 245 unique files**. All 20 game thumbn
 - Indexed sprite paths, WebP decoding, alpha pass validation at published checkpoints. Some longer sets exceed the approximate 1.5 MiB download target while remaining below the decoded-memory limit. NPC-only sets intentionally do not implement every player Tier 1 action.
 - Browser smoke checks passed for Wizard Quickdraw, Fairy Count and Broomstick Dash, with no warning/error console entries.
 - Each completed character checkpoint is committed and pushed to main for concurrent game testing.
+
+Cakefullunionextension reviewed/published:74keys95frames,fiveportraits.

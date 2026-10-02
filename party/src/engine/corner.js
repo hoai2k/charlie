@@ -1,11 +1,13 @@
-// Sound and fullscreen buttons in the bottom-left corner of the menu screens
+// Sound, fullscreen and settings buttons in the bottom-left corner of the menu screens
 // (and the pause menu). Clicks are handled inside the DOM pointerdown via
 // input.onPointerButton, because fullscreen only works inside a real gesture.
-//   M toggles sound, F toggles fullscreen from the keyboard.
+//   M toggles sound, F toggles fullscreen, O (or a controller's View button)
+//   opens Settings (engine/settings.js), which also has these and image quality.
 import { H } from './canvas.js';
 import { input } from './input.js';
 import { isMuted, toggleMuted, unlockAudio, sfx } from './audio.js';
 import { shell } from './shell.js';
+import { settings, drawGear } from './settings.js';
 import { NAVY } from './ui.js';
 import { TAU } from './util.js';
 
@@ -20,6 +22,7 @@ export const corner = {
     const y = H - PAD - SIZE / 2;
     const list = [{ id: 'sound', x: PAD + SIZE / 2, y }];
     if (shell.canFullscreen()) list.push({ id: 'full', x: PAD + SIZE * 1.5 + GAP, y });
+    list.push({ id: 'settings', x: PAD + SIZE / 2 + list.length * (SIZE + GAP), y });
     return list;
   },
 
@@ -36,12 +39,16 @@ export const corner = {
     } else if (id === 'full') {
       shell.toggleFullscreen();
       sfx('select');
+    } else if (id === 'settings') {
+      settings.toggle();
     }
     this._press = 0.15; this._pressId = id;
   },
 
   init(canvas) {
+    settings.init();
     input.onPointerButton = (x, y) => {
+      if (settings.isOpen && !this.hit(x, y)) return settings.pointer(x, y);
       const b = this.hit(x, y);
       if (b) this.activate(b.id);
       return !!b;
@@ -50,6 +57,7 @@ export const corner = {
       if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.code === 'KeyM') this.activate('sound');
       else if (e.code === 'KeyF' && shell.canFullscreen()) this.activate('full');
+      else if (e.code === 'KeyO' && (this.visible || settings.isOpen)) this.activate('settings');
     });
     this.canvas = canvas;
   },
@@ -81,7 +89,8 @@ export const corner = {
       g.strokeStyle = NAVY; g.lineWidth = 6;
       g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.stroke();
       if (b.id === 'sound') drawSpeaker(g, isMuted());
-      else drawFullscreen(g, shell.isFullscreen());
+      else if (b.id === 'full') drawFullscreen(g, shell.isFullscreen());
+      else drawGear(g, 0, 0, 24, 0, hover ? '#ffd23f' : '#ffffff');
       g.restore();
     }
   },
@@ -120,3 +129,4 @@ function drawFullscreen(g, isFull) {
     g.stroke();
   }
 }
+

@@ -6,7 +6,7 @@ import { drawArt } from '../engine/art.js';
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
-import { Actor, getBaseImage, drawSpeech, preloadCharacters } from '../engine/sprites.js';
+import { Actor, getBaseImage, drawSpeech, preloadCharacters, releaseSpriteSets } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
 import { CHARACTERS, PLAYER_COLORS } from '../data/characters.js';
@@ -238,6 +238,8 @@ export class CharSelectScene {
     if (!sameParty) session.played = [];
     session.players = players;
     preloadVoices(players.map((p) => p.charId));
+    // Free sprite sets of characters that aren't in the party any more.
+    releaseSpriteSets(players.map((p) => p.charId));
     preloadCharacters(players.map((p) => p.charId));
     for (const h of this.humans) h.actor.playOnce('celebrate', 1, 'idle');
     for (const c of this.cpus) c.actor.playOnce('cheer', 0.6, 'idle');

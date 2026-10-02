@@ -1523,6 +1523,14 @@ in this order (most visible first): `prop/balloon` (8 colors) and
 
 ---
 
+## Intake: optimize and test every delivery
+
+Every sprite set delivery must be **optimized and tested in game** before it's
+committed (full steps: `tools/sprites/README.md`, "Intake checklist"): run
+`tools/sprites/optimize.py <asset>`, validate, then play it in real games with
+both "Pictures: Optimized" (default) and `&quality=full`. Keep the originals —
+the game's Settings screen can switch to them.
+
 ## Re-generation requests (lead's in-game review)
 
 Each item below was integrated and looked at in the running game. The code
@@ -1531,18 +1539,7 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/podium` | One fixed 3-step image, but results show 1–8 players with a block per player (1st tallest, then 2nd, 3rd, the rest low). It is unused. | Separate blocks: `prop/podium-1`, `podium-2`, `podium-3`, `podium-4` (the shared low step), front view, ~230 px wide, heights roughly 210/140/80/30 px plus a top face. The number is drawn by code, so leave the front blank. |
-| `prop/confetti` | A loose sheet of pieces that particles can't use. Unused. | A sprite grid: 8×4 cells of 64 px, one piece per cell, centered, mixed colors and shapes (ribbon, curl, star, dot). |
-| `prop/card-back` | 356×526 (0.68), but Memory Match cards are 0.76 wide-to-tall, so it's stretched about 12%. | 300×400 with the same design. |
-| `prop/fizzle-puff` | Purple, but Wizard Quick-Draw's fizzle theme is green (ring, text, sparks). | A green/lime version. |
-| `prop/party-rug` | Drawn from a steeper angle than the flat player circle, so the code squashes it about 24%. | A flatter oval, about 2.4:1, seen from the game's ~3/4 top-down angle. |
-| `prop/cauldron` | Teal water is baked in and the code paints over it. Taller and rounder than the station layout. | Empty pot (or neutral dark liquid) with an open rim seen slightly from above, about 1.25:1 wide-to-tall. |
-| `prop/cauldron-bubbles`, `prop/potion-bottle` | Fixed lime / purple liquid that the code recolors. | White/neutral liquid versions so the recolor stays clean (keep outlines, glass and cork as is). |
-| `prop/storm-cloud-zap` | Only a startled face; no zap. | Add lightning crackle on the cloud's edge, or a bolt beneath it. |
-| `prop/balloon-<color>` | Uneven transparent padding (0–34 px), so the code measures each file. | Same canvas and position for all 8, knot at bottom center, touching the bottom edge. |
-| `prop/cookie-2`, `cookie-3`, `cookie-4` | Only choc-chip has cracked/crumbling states, so the other flavors get drawn-on cracks. | `-cracked` and `-crumbling` for each flavor, same framing as `cookie-tile-cracked`. |
-| `prop/rock` | About 10 px of empty space below the base. | Trim to the base (the shadow is drawn by code). |
-| `prop/cake-platform` (Bumper Bounce) | No crumble visuals: the platform just shrinks with a red band drawn over it. The cake looks tall. | A rounder top (height about 0.62× width, thinner side band), plus 2–3 edge-crumble overlay rings. |
+| `prop/cake-platform` (Bumper Bounce; v2 delivered) | No crumble visuals: the platform just shrinks with a red band drawn over it. The cake looks tall. | A rounder top (height about 0.62× width, thinner side band), plus 2–3 edge-crumble overlay rings. |
 | `bg/fairy-garden` (+ night) | A side view, but the game is top-down. The code shifts it up so the fence is the back border and draws its own lawn below. Works, but the lawn is procedural. | A top-down garden ground (grass with soft paths, no plots; plots are drawn by code), fence/flower border along the top ~330 px, day and night versions. |
 | `bg/potion-class` | Has its own empty blackboard where the game's board doesn't sit (code fix in progress to use the art's board). | Re-check once the code fix lands; no change needed if it reads well. |
 | sprite `princess-amber` `dance` (4 frames) | About 1.4× too big (head-to-neck 118 px vs 86 in idle); she swells whenever she dances in Spotlight and Pop Star. | Re-intake at `scale` ≈ 0.72, or re-generate at idle head size. |
@@ -1558,17 +1555,28 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | sprite `snowstar`, `marshmallow-birthday-cake` | No `carry`, `dance` or `cast`; Pass the Present, Spotlight and Pop Star use fallbacks. | Add `carry` (present overhead / balanced on the cake), 4-frame `dance`, `cast`. |
 | sprite `marina`, `scale` | No `carry`, `cast`, `action`, `clap`, `bow`, `sing`. | Add `carry` and `cast` first (Pass the Present, Wizard Quick-Draw, Potion Class). |
 | sprite `troll` `windup`, `grab`, `cheer`, `wave`, `dizzy` | `hand` points off the art. | Re-annotate. |
-| `prop/danger-ring` (Bumper Bounce) | Delivered at 256 px but drawn ~1100–1250 px wide, so it's blurry. Its band is ~31% of the radius, far thicker than the 55–70 px strip that falls (the code clips it). Plain gold reads more like a reward than a warning. | 1024×1024 top-down warning ring: thin band (~8% of radius), red/white or red/yellow hazard stripes or a crackly red glow, crisp dark outline on the inner edge, transparent center. |
 | `prop/arena-cake-crumb` (optional) | Usable at the 45–75 px it's drawn, but there's only one, and with no outline the chunks look soft against the cake's outlined rim. | `arena-cake-crumb-1..4`, 256 px, broken pink-frosted sponge chunks with the same navy outline as `prop/arena-cake`. |
-| `prop/hedge` (optional) | Reads well, but it's the only Crown Keeper prop with no navy outline. | Same hedge with a 3 px navy outline, plus a darker side-face strip, 225×46. |
 | `prop/cake-stand` | Plate is much flatter than the cake's view angle (top ellipse height/width ≈ 0.15 vs the code's 0.36) and the pedestal is very tall; the cake and toppings wouldn't line up. Unused. | A low stand from the same 3/4 angle: top ellipse ≈ 0.36× width, plate ~500 px wide, short pedestal (total height ≈ 0.4× width), plain white or lilac plate. |
-| `prop/plant-<kind>-glow` | Nearly identical to the blooms (rose and sunflower only gain small sparkles), so the night cross-fade barely shows. | Clearly glowing night versions: bright light inside the petals, a soft halo, slightly cooler and more saturated colors. Same silhouette and framing as the bloom. |
 | `prop/plant-<kind>-seed` (optional) | Big close-ups that fill the frame; the code shrinks them to ~52 px. | A small seed peeking from a little soil hole, small within the 256-tall frame, bottom-anchored. |
 | `prop/cake-layer-*` (only if real layers are wanted) | Frosting is baked in and only round layers exist, so they can't follow heart/star/tower shapes, 8 frostings or per-layer flavors. Unused. | Plain sponge (no frosting), same view angle as the cake, one per shape (round, heart, star), neutral color the code can tint. |
-| `prop/tiara-pearl` (minor) | Gold with pearls, but mapped to the Pearl (white) color. | A white/silver pearl tiara (or the lead remaps it to Gold). |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
+
+
+### Resolved (integrated and checked in game)
+
+- `prop/podium-1..4`: results podium blocks; the top face keeps its shape and only the front stretches to each place's height.
+- `prop/confetti`: 8x4 atlas used by every confetti particle (column picked by the particle's hue; greys keep drawn rectangles).
+- `prop/card-back` v2: the visible card is 272x391 (0.70) inside a 300x400 canvas, so the code trims the padding and stretches about 9% to the 0.76 cards. Reads fine.
+- `prop/fizzle-puff` (green), `prop/hedge` (outlined), `prop/tiara-pearl` (silver), `prop/rock` (trimmed), `prop/balloon-<color>` (aligned), `prop/plant-<kind>-glow` v2 (clearly glowing): drop-in.
+- `prop/party-rug` v2: flat 2.6:1 oval, drawn under the circle without the old squash.
+- `prop/cauldron` v2 (empty pot, rim opening 125x39 at 200,58), `prop/cauldron-bubbles` and `prop/potion-bottle` v2 (white liquid): recolored with a new neutral tint mode.
+- `prop/danger-ring` v3: thin hazard-stripe ring (image agent updated Bumper Bounce's ring constant).
+- `prop/storm-cloud-lightning`: bolt art under the storm clouds in Broomstick Dash (bigger on a zap).
+- `prop/cookie-{2,3,4}-{cracked,crumbling}`: every flavor now shows art crack states in Cookie Crumble.
+- `prop/cake-platform` v2: flatter top delivered, but Bumper Bounce draws `prop/arena-cake`, so the platform is only a fallback; the edge-crumble overlay rings are still open (row above).
+- `prop/cake-stand` v2: still unused (top ellipse is flatter than the cakes' 0.36 view and the stand is about 0.5x as tall as wide); row above still applies.
