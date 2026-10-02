@@ -77,30 +77,49 @@ const AUDIO_CONFIG = {
 
 /* ─────────────────────────────────────────────────────────────────────────── */
 
+/*
+ * The engine runs on the Web Audio API: every sound goes through a GainNode on
+ * its bus (sfx / voice / music), and the buses feed a master GainNode. iOS and
+ * iPadOS Safari ignore HTMLAudioElement.volume, so gain nodes are the only way
+ * the volumes above are honoured there. Sound effects are decoded into
+ * AudioBuffers on first use; the two music <audio> elements are streamed and
+ * routed through MediaElementSource nodes so their volume is a gain node too.
+ */
 const GameAudio = (() => {
   const BUSES = ["sfx", "voice", "music"];
   const STORAGE_KEY = "agdr-audio-volumes";
   const SFX_DIR = "assets/audio/sfx";
-  const POOL_PER_VARIANT = 3;
+  // A one-shot whose buffer is still downloading plays when it arrives, unless
+  // it is later than this; a stale sound effect is worse than a missing one.
+  const LATE_PLAY_LIMIT = 0.35;
+  // Fetched as soon as audio unlocks so their first play isn't skipped.
+  const PRELOAD_KEYS = [
+    "ui_click", "ui_select_character", "ui_pause", "ui_unpause", "ui_back",
+    "crowd_cheer_short", "finish_line_cross", "victory_fanfare", "firework_launch", "firework_burst"
+  ];
 
   let manifest = { sfx: {}, vo: {} };
   let unlocked = false;
   let muted = false;
-  const musicTracks = new Map(); // HTMLAudioElement -> { gain }
+  let context = null;
+  let masterNode = null;
+  const busNodes = {};
+  const musicTracks = new Map(); // HTMLAudioElement -> { gain, node }
   let duckUntil = 0;
   let listener = { left: -Infinity, right: Infinity };
 
-  const pools = new Map();      // "sfx:key_01" -> [HTMLAudioElement]
-  const loops = new Map();      // loop id -> { el, key, bus, gain }
+  const buffers = new Map();    // src -> Promise<AudioBuffer|null>
+  const loops = new Map();      // loop id -> { key, bus, gain, trim, fileScale, baseGain, gainNode, source }
   const lastPlayed = new Map(); // throttle key -> timestamp (seconds)
   const lastVariant = new Map();
-  const active = [];            // recently started one-shots, for the cap
+  const active = [];            // playing one-shot sources, oldest first, for the cap
   const missing = new Set();
 
   let lastVoiceAt = 0;
   const lastVoiceBySpeaker = new Map();
 
   const now = () => performance.now() / 1000;
+  const clamp01 = value => Math.max(0, Math.min(1, value));
 
   /* ---- config ---------------------------------------------------------- */
 
@@ -167,13 +186,50 @@ const GameAudio = (() => {
   }
 
   function refreshLiveVolumes() {
-    for (const loop of loops.values()) {
-      loop.el.volume = clamp01(AUDIO_CONFIG.masterVolume * busVolume(loop.bus) * loop.gain);
+    if (masterNode) masterNode.gain.value = muted ? 0 : clamp01(AUDIO_CONFIG.masterVolume);
+    for (const bus of BUSES) {
+      if (busNodes[bus]) busNodes[bus].gain.value = clamp01(busVolume(bus));
     }
     updateMusicVolume();
   }
 
-  const clamp01 = value => Math.max(0, Math.min(1, value));
+  /* ---- audio graph ----------------------------------------------------- */
+
+  function createGraph() {
+    if (context) return true;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return false;
+    // iOS 17+: play through the silent switch like a normal <audio> element
+    // would; Web Audio is otherwise muted by it.
+    try {
+      if (navigator.audioSession) navigator.audioSession.type = "playback";
+    } catch (error) {
+      /* not supported */
+    }
+    try {
+      context = new AudioContextClass();
+    } catch (error) {
+      if (AUDIO_CONFIG.debug) console.warn("[audio] AudioContext unavailable", error);
+      return false;
+    }
+    masterNode = context.createGain();
+    masterNode.connect(context.destination);
+    for (const bus of BUSES) {
+      busNodes[bus] = context.createGain();
+      busNodes[bus].connect(masterNode);
+    }
+    for (const [element, track] of musicTracks) connectMusic(element, track);
+    refreshLiveVolumes();
+    return true;
+  }
+
+  // Safari starts contexts suspended and parks them as "interrupted" after the
+  // app is backgrounded; both need a resume() from inside a user gesture.
+  function resumeContext() {
+    if (context && context.state !== "running" && !document.hidden) {
+      context.resume().catch(() => {});
+    }
+  }
 
   /* ---- manifest -------------------------------------------------------- */
 
@@ -197,7 +253,7 @@ const GameAudio = (() => {
     }
   }
 
-  /* ---- element pooling ------------------------------------------------- */
+  /* ---- buffers --------------------------------------------------------- */
 
   function variantsFor(key) {
     return manifest.sfx[key] || null;
@@ -212,43 +268,32 @@ const GameAudio = (() => {
     return choice;
   }
 
-  function poolFor(src) {
-    let pool = pools.get(src);
-    if (!pool) {
-      pool = [];
-      pools.set(src, pool);
+  function loadBuffer(src) {
+    let pending = buffers.get(src);
+    if (!pending) {
+      pending = fetch(src)
+        .then(response => {
+          if (!response.ok) throw new Error(`${response.status} ${src}`);
+          return response.arrayBuffer();
+        })
+        // The callback form of decodeAudioData is the one older Safari supports.
+        .then(data => new Promise((resolve, reject) => context.decodeAudioData(data, resolve, reject)))
+        .catch(error => {
+          if (AUDIO_CONFIG.debug) console.warn(`[audio] could not load ${src}`, error);
+          return null;
+        });
+      buffers.set(src, pending);
     }
-    return pool;
+    return pending;
   }
 
-  function acquire(src) {
-    const pool = poolFor(src);
-    for (const el of pool) {
-      if (el.paused || el.ended) return el;
-    }
-    if (pool.length < POOL_PER_VARIANT) {
-      const el = new Audio(src);
-      el.preload = "auto";
-      pool.push(el);
-      return el;
-    }
-    // All busy: steal the one that started earliest.
-    return pool.reduce((oldest, el) => (el.currentTime > oldest.currentTime ? el : oldest), pool[0]);
-  }
-
-  function reapActive() {
-    for (let i = active.length - 1; i >= 0; i -= 1) {
-      if (active[i].paused || active[i].ended) active.splice(i, 1);
-    }
-    while (active.length >= AUDIO_CONFIG.maxConcurrentSfx) {
-      const el = active.shift();
-      try {
-        el.pause();
-        el.currentTime = 0;
-      } catch (error) {
-        /* ignore */
-      }
-    }
+  function withBuffer(src, callback, { allowLate = true } = {}) {
+    const requestedAt = now();
+    loadBuffer(src).then(buffer => {
+      if (!buffer || !unlocked || muted) return;
+      if (!allowLate && now() - requestedAt > LATE_PLAY_LIMIT) return;
+      callback(buffer);
+    });
   }
 
   /* ---- spatial --------------------------------------------------------- */
@@ -267,8 +312,39 @@ const GameAudio = (() => {
 
   /* ---- playback -------------------------------------------------------- */
 
+  function stopSource(source) {
+    try {
+      source.stop();
+    } catch (error) {
+      /* already stopped */
+    }
+  }
+
+  function startOneShot(buffer, bus, gain, rate = 1) {
+    while (active.length >= AUDIO_CONFIG.maxConcurrentSfx) stopSource(active.shift());
+    const gainNode = context.createGain();
+    gainNode.gain.value = gain;
+    gainNode.connect(busNodes[bus]);
+    const source = context.createBufferSource();
+    source.buffer = buffer;
+    source.playbackRate.value = rate;
+    source.connect(gainNode);
+    source.onended = () => {
+      const index = active.indexOf(source);
+      if (index >= 0) active.splice(index, 1);
+      gainNode.disconnect();
+    };
+    source.start();
+    active.push(source);
+    return source;
+  }
+
+  function canPlay() {
+    return unlocked && !muted && context !== null;
+  }
+
   function play(key, options = {}) {
-    if (!unlocked || muted) return null;
+    if (!canPlay()) return null;
     const bus = options.bus || "sfx";
     const list = variantsFor(key);
     if (!list || list.length === 0) {
@@ -292,34 +368,19 @@ const GameAudio = (() => {
 
     const variant = pickVariant(key, list);
     const file = `sfx/${key}_${String(variant).padStart(2, "0")}.mp3`;
-    const trim = (AUDIO_CONFIG.trim[key] ?? 1) * soundFileVolume(file);
-    const volume = clamp01(
-      AUDIO_CONFIG.masterVolume * busVolume(bus) * trim * (options.gain ?? 1) * spatial
-    );
-    if (volume <= 0.001) return null;
+    const gain = (AUDIO_CONFIG.trim[key] ?? 1) * soundFileVolume(file) * (options.gain ?? 1) * spatial;
+    if (AUDIO_CONFIG.masterVolume * busVolume(bus) * gain <= 0.001) return null;
 
-    reapActive();
-    const src = `${SFX_DIR}/${file.slice(4)}`;
-    const el = acquire(src);
-    el.loop = false;
-    el.volume = volume;
-    el.playbackRate = options.rate ?? 1;
-    try {
-      el.currentTime = 0;
-    } catch (error) {
-      /* Safari occasionally refuses before metadata loads. */
-    }
-    const promise = el.play();
-    if (promise?.catch) promise.catch(() => {});
-    active.push(el);
-    if (AUDIO_CONFIG.debug) console.log(`[audio] ${key} @ ${volume.toFixed(2)}`);
-    return el;
+    const rate = options.rate ?? 1;
+    withBuffer(`${SFX_DIR}/${file.slice(4)}`, buffer => startOneShot(buffer, bus, gain, rate), { allowLate: false });
+    if (AUDIO_CONFIG.debug) console.log(`[audio] ${key} @ ${gain.toFixed(2)}`);
+    return true;
   }
 
   /* ---- voice ----------------------------------------------------------- */
 
   function voice(character, event, options = {}) {
-    if (!unlocked || muted) return null;
+    if (!canPlay()) return null;
     const events = manifest.vo[character];
     const list = events && events[event];
     if (!list || list.length === 0) {
@@ -344,58 +405,57 @@ const GameAudio = (() => {
     const variantKey = `${character}/${event}`;
     const variant = pickVariant(variantKey, list);
     const file = `vo/${character}/${event}_${String(variant).padStart(2, "0")}.mp3`;
-    const src = `assets/audio/${file}`;
-    const el = acquire(src);
-    el.loop = false;
-    el.volume = clamp01(
-      AUDIO_CONFIG.masterVolume * busVolume("voice") * soundFileVolume(file) *
-        (options.gain ?? 1) * spatial
-    );
-    try {
-      el.currentTime = 0;
-    } catch (error) {
-      /* ignore */
-    }
-    const promise = el.play();
-    if (promise?.catch) promise.catch(() => {});
+    const gain = soundFileVolume(file) * (options.gain ?? 1) * spatial;
     lastVoiceAt = time;
     lastVoiceBySpeaker.set(character, time);
-    duckMusic((el.duration || 1.2) * 1000);
-    return el;
+    withBuffer(`assets/audio/${file}`, buffer => {
+      startOneShot(buffer, "voice", gain);
+      duckMusic(buffer.duration * 1000);
+    }, { allowLate: false });
+    return true;
   }
 
   /* ---- loops ----------------------------------------------------------- */
 
   function startLoop(id, key, options = {}) {
-    if (!unlocked || muted) return null;
+    if (!canPlay()) return null;
     const bus = options.bus || "sfx";
     const existing = loops.get(id);
     if (existing && existing.key === key) {
-      existing.bus = bus;
+      if (existing.bus !== bus) {
+        existing.gainNode.disconnect();
+        existing.gainNode.connect(busNodes[bus]);
+        existing.bus = bus;
+      }
       existing.baseGain = options.gain ?? existing.baseGain;
       existing.gain = existing.trim * existing.fileScale * existing.baseGain;
-      existing.el.volume = clamp01(AUDIO_CONFIG.masterVolume * busVolume(bus) * existing.gain);
-      return existing.el;
+      existing.gainNode.gain.value = existing.gain;
+      return existing;
     }
     if (existing) stopLoop(id);
 
     const list = variantsFor(key);
     if (!list || list.length === 0) return null;
-    const variant = list[0];
-    const file = `sfx/${key}_${String(variant).padStart(2, "0")}.mp3`;
-    const src = `${SFX_DIR}/${file.slice(4)}`;
-    const el = new Audio(src);
-    el.loop = true;
-    el.preload = "auto";
+    const file = `sfx/${key}_${String(list[0]).padStart(2, "0")}.mp3`;
     const trim = AUDIO_CONFIG.trim[key] ?? 1;
     const fileScale = soundFileVolume(file);
     const baseGain = options.gain ?? 1;
-    const gain = trim * fileScale * baseGain;
-    el.volume = clamp01(AUDIO_CONFIG.masterVolume * busVolume(bus) * gain);
-    const promise = el.play();
-    if (promise?.catch) promise.catch(() => {});
-    loops.set(id, { el, key, bus, gain, trim, fileScale, baseGain });
-    return el;
+    const gainNode = context.createGain();
+    gainNode.connect(busNodes[bus]);
+    const loop = { key, bus, trim, fileScale, baseGain, gain: trim * fileScale * baseGain, gainNode, source: null };
+    gainNode.gain.value = loop.gain;
+    loops.set(id, loop);
+    withBuffer(`${SFX_DIR}/${file.slice(4)}`, buffer => {
+      // The loop may have been stopped or replaced while its buffer loaded.
+      if (loops.get(id) !== loop) return;
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      source.connect(gainNode);
+      source.start();
+      loop.source = source;
+    });
+    return loop;
   }
 
   function setLoopGain(id, gain) {
@@ -403,18 +463,14 @@ const GameAudio = (() => {
     if (!loop) return;
     loop.baseGain = gain;
     loop.gain = loop.trim * loop.fileScale * gain;
-    loop.el.volume = clamp01(AUDIO_CONFIG.masterVolume * busVolume(loop.bus) * loop.gain);
+    loop.gainNode.gain.value = loop.gain;
   }
 
   function stopLoop(id) {
     const loop = loops.get(id);
     if (!loop) return;
-    try {
-      loop.el.pause();
-      loop.el.currentTime = 0;
-    } catch (error) {
-      /* ignore */
-    }
+    if (loop.source) stopSource(loop.source);
+    loop.gainNode.disconnect();
     loops.delete(id);
   }
 
@@ -426,22 +482,30 @@ const GameAudio = (() => {
 
   function stopAll() {
     for (const id of [...loops.keys()]) stopLoop(id);
-    for (const el of active) {
-      try {
-        el.pause();
-        el.currentTime = 0;
-      } catch (error) {
-        /* ignore */
-      }
-    }
-    active.length = 0;
+    for (const source of active.splice(0)) stopSource(source);
   }
 
   /* ---- music ----------------------------------------------------------- */
 
+  function connectMusic(element, track) {
+    if (!context || track.node) return;
+    try {
+      const source = context.createMediaElementSource(element);
+      track.node = context.createGain();
+      source.connect(track.node);
+      track.node.connect(busNodes.music);
+      // The gain node owns the level now; leave the element itself at full.
+      element.volume = 1;
+    } catch (error) {
+      if (AUDIO_CONFIG.debug) console.warn("[audio] could not route music through Web Audio", error);
+    }
+  }
+
   function attachMusic(element, gain = 1) {
     if (!element) return;
-    musicTracks.set(element, { gain: clamp01(gain) });
+    const track = { gain: clamp01(gain), node: null };
+    musicTracks.set(element, track);
+    connectMusic(element, track);
     updateMusicVolume();
   }
 
@@ -460,29 +524,54 @@ const GameAudio = (() => {
   function updateMusicVolume() {
     const ducking = performance.now() < duckUntil ? AUDIO_CONFIG.musicDuckWhileVoice : 1;
     for (const [element, track] of musicTracks) {
-      const fileScale = soundFileVolume(musicFileKey(element));
-      element.volume = clamp01(
-        AUDIO_CONFIG.masterVolume * busVolume("music") * ducking * track.gain * fileScale
-      );
+      const level = ducking * track.gain * soundFileVolume(musicFileKey(element));
+      if (track.node) {
+        track.node.gain.value = level;
+      } else {
+        // No Web Audio: fall back to element volume (ignored on iOS, fine elsewhere).
+        element.volume = clamp01(AUDIO_CONFIG.masterVolume * busVolume("music") * level);
+      }
     }
   }
 
   /* ---- lifecycle ------------------------------------------------------- */
 
+  // Must be called from inside a user gesture (click / tap / key press).
   function unlock() {
-    if (unlocked) return;
-    unlocked = true;
-    updateMusicVolume();
+    if (!unlocked) {
+      unlocked = createGraph();
+      if (unlocked) preloadCommon();
+    }
+    resumeContext();
+  }
+
+  function preloadCommon() {
+    for (const key of PRELOAD_KEYS) {
+      for (const variant of variantsFor(key) || []) {
+        loadBuffer(`${SFX_DIR}/${key}_${String(variant).padStart(2, "0")}.mp3`);
+      }
+    }
   }
 
   function setMuted(value) {
     muted = Boolean(value);
     if (muted) stopAll();
+    refreshLiveVolumes();
   }
 
   function tick() {
     updateMusicVolume();
   }
+
+  // Any later gesture revives a context Safari suspended in the background.
+  for (const type of ["pointerdown", "touchend", "keydown"]) {
+    window.addEventListener(type, resumeContext, { capture: true, passive: true });
+  }
+  document.addEventListener("visibilitychange", () => {
+    if (!context) return;
+    if (document.hidden) context.suspend().catch(() => {});
+    else resumeContext();
+  });
 
   loadOverrides();
   loadManifest();

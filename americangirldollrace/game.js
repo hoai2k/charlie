@@ -57,6 +57,7 @@ gameFrame.appendChild(controllerPointerLayer);
 
 let W = canvas.width;
 const H = canvas.height;
+const MIN_VIEW_WIDTH = 640;
 const EXPECTED_VIEW_WIDTH = 1280;
 const FRAME = 418;
 const SPRITE_COLS = 3;
@@ -243,25 +244,25 @@ const NEXT_TRACK_CROSSFADE_MS = 2400;
 const NEXT_TRACK_PREVIEW_GAIN = 0.55;
 
 const images = {
-  backgroundFarm: loadImage("assets/background_farm.png"),
-  backgroundCastles: loadImage("assets/background_castles.png"),
-  backgroundFairy: loadImage("assets/background_fairy.png"),
-  backgroundTown: loadImage("assets/background_village.png"),
-  backgroundWinter: loadImage("assets/background_winter.png"),
-  whirlpool: loadImage("assets/doll_whirlpool_sprites.png"),
-  juliette: loadImage("assets/doll_juliette_sprites.png"),
-  claudia: loadImage("assets/doll_claudia_sprites.png"),
-  kaya: loadImage("assets/doll_kaya_sprites.png"),
-  lily: loadImage("assets/doll_lily_sprites.png"),
-  marisol: loadImage("assets/doll_marisol_sprites.png"),
-  amanda: loadImage("assets/doll_amanda_sprites.png"),
-  penelope: loadImage("assets/doll_penelope_sprites.png"),
-  rumi: loadImage("assets/doll_rumi_sprites.png"),
-  horse: loadImage("assets/horse_sprites.png"),
-  unicorn: loadImage("assets/unicorn_sprites.png"),
-  pegasus: loadImage("assets/pegasus_sprites.png"),
-  monster: loadImage("assets/monster_sprites.png"),
-  powerupIcons: loadImage("assets/icons_alpha.png")
+  backgroundFarm: loadImage("assets/background_farm.webp"),
+  backgroundCastles: loadImage("assets/background_castles.webp"),
+  backgroundFairy: loadImage("assets/background_fairy.webp"),
+  backgroundTown: loadImage("assets/background_village.webp"),
+  backgroundWinter: loadImage("assets/background_winter.webp"),
+  whirlpool: loadImage("assets/doll_whirlpool_sprites.webp"),
+  juliette: loadImage("assets/doll_juliette_sprites.webp"),
+  claudia: loadImage("assets/doll_claudia_sprites.webp"),
+  kaya: loadImage("assets/doll_kaya_sprites.webp"),
+  lily: loadImage("assets/doll_lily_sprites.webp"),
+  marisol: loadImage("assets/doll_marisol_sprites.webp"),
+  amanda: loadImage("assets/doll_amanda_sprites.webp"),
+  penelope: loadImage("assets/doll_penelope_sprites.webp"),
+  rumi: loadImage("assets/doll_rumi_sprites.webp"),
+  horse: loadImage("assets/horse_sprites.webp"),
+  unicorn: loadImage("assets/unicorn_sprites.webp"),
+  pegasus: loadImage("assets/pegasus_sprites.webp"),
+  monster: loadImage("assets/monster_sprites.webp"),
+  powerupIcons: loadImage("assets/icons_alpha.webp")
 };
 
 const jumpSpriteScale = {
@@ -420,7 +421,11 @@ function loadImage(src) {
 function resizeCanvasToFrame() {
   const rect = gameFrame.getBoundingClientRect();
   if (rect.width <= 0 || rect.height <= 0) return;
-  const nextWidth = Math.max(640, Math.round(H * (rect.width / rect.height)));
+  const nextWidth = Math.max(MIN_VIEW_WIDTH, Math.round(H * (rect.width / rect.height)));
+  // In portrait the frame is narrower than the minimum view, so letterbox the
+  // canvas (keeping its proportions) instead of letting CSS squash it.
+  const letterboxHeight = nextWidth > H * (rect.width / rect.height) ? (rect.width * H) / nextWidth : null;
+  canvas.style.height = letterboxHeight ? `${letterboxHeight}px` : "";
   if (canvas.width === nextWidth && canvas.height === H) return;
   W = nextWidth;
   canvas.width = W;
@@ -429,10 +434,28 @@ function resizeCanvasToFrame() {
   drawScene(0);
 }
 
+let assetsReady = false;
+let assetsFailed = false;
+
 async function waitForAssets() {
   resizeCanvasToFrame();
-  await Promise.all(Object.values(images).map(img => img.decode()));
-  validateSpriteSheets();
+  // PLAY stays disabled until every image has decoded: starting a race early
+  // would be cancelled by the resetRace() below and leave the game stuck.
+  startButton.disabled = true;
+  startButton.textContent = "LOADING…";
+  try {
+    await Promise.all(Object.values(images).map(img => img.decode()));
+    validateSpriteSheets();
+  } catch (error) {
+    console.error(error);
+    assetsFailed = true;
+    startButton.disabled = false;
+    startButton.textContent = "TAP TO RETRY";
+    return;
+  }
+  assetsReady = true;
+  startButton.disabled = false;
+  startButton.textContent = "PLAY";
   resetRace();
   drawScene(0);
   startMenuAnimationLoop();
@@ -4075,6 +4098,24 @@ window.addEventListener("keydown", event => {
 });
 
 window.addEventListener("keyup", event => keys.delete(event.code));
+// A key held while the window loses focus never gets its keyup, so the racer
+// would keep running; forget everything that was held.
+window.addEventListener("blur", () => {
+  keys.clear();
+  clearTouchInput();
+});
+// Pause when the tab or iPad app is hidden, so the race doesn't carry on (and
+// the music doesn't keep playing) while nobody is watching.
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) return;
+  keys.clear();
+  clearTouchInput();
+  if (state.running && !state.paused && !state.done) {
+    togglePause();
+    // The pause fade runs on requestAnimationFrame, which stops in hidden tabs.
+    music.pause();
+  }
+});
 window.addEventListener("resize", resizeCanvasToFrame);
 window.visualViewport?.addEventListener("resize", resizeCanvasToFrame);
 gameFrame.addEventListener("pointerdown", event => {
@@ -4134,7 +4175,13 @@ backgroundSelect.addEventListener("change", () => setBackground(backgroundSelect
 settingsButton.addEventListener("click", toggleSettingsPanel);
 difficultySelect.addEventListener("change", () => setDifficulty(difficultySelect.value));
 specialsSelect.addEventListener("change", () => setSpecials(specialsSelect.value));
-startButton.addEventListener("click", () => startRace(gameMode.value));
+startButton.addEventListener("click", () => {
+  if (assetsFailed) {
+    window.location.reload();
+    return;
+  }
+  if (assetsReady) startRace(gameMode.value);
+});
 fullscreenButton.addEventListener("click", toggleFullscreen);
 
 // Menu chrome: the first click also unlocks audio, since browsers block
