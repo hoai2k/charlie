@@ -1213,4 +1213,95 @@ phases above, or sooner if they are marked as blocking. Use this format:
 - Where it's used: <how the code draws or attaches it; fallback used today>
 ```
 
-_(none yet)_
+### Round 2 — compiled by the lead from the minigame agents (2026-10-02)
+
+Everything below has a working procedural fallback today; all are
+nice-to-have unless marked. Sizes are logical px at 1080p. New poses are for
+**all roster characters** unless noted; until frames exist the game maps
+them to the nearest pose (listed in parentheses), so add each new pose name
+to `POSES` in `sprites.js` with that fallback in the same commit as its frames.
+
+#### New character poses (all characters)
+
+| Pose | Read | Games | Today's fallback |
+| --- | --- | --- | --- |
+| `swim` | Treading water, head and shoulders up, paddling | cookie-crumble | walk, clipped at the waterline |
+| `balance` | Arms-out wobble on a cracking cookie | cookie-crumble | surprised + "!" |
+| `splat-throw` | Underhand lob of a paint balloon | paint-party | throw |
+| `wand-up` | Wand held high, trembling with anticipation | wizard-quickdraw | ready |
+| `broom-rise` / `broom-glide` | On a broom: leaning forward with hair streaming / upright and relaxed | broomstick-dash | ride |
+| `broom-zapped` | Frizzy hair, startled, tipped sideways on the broom | broomstick-dash | hurt |
+| `count` | Pointing a finger and counting along | fairy-count | think |
+| `look-up` | Head tilted back watching the sky | fairy-count | idle |
+| `crowned` | Proud royal strut, chin up (crown attached by code at `head`) | crown-keeper | walk |
+| `dash` | Forward lunge, arms out (a bump) | crown-keeper, bumper-bounce | push |
+| `catch` | Arms up in a basket catching something falling | sprinkle-catch | cheer |
+| `sit` | Sitting on a little cloud, legs dangling | bumper-bounce (spectators) | idle |
+| `tumble` | Tumbling off an edge | bumper-bounce | fall |
+| `hold-present` | Box held overhead, nervous | pass-the-present | carry |
+| `toss` | Two-handed underhand toss | pass-the-present | throw |
+| `catch-present` | Startled catch | pass-the-present | surprised |
+| `sooty` | Dizzy with a soot-smudged face | pass-the-present | dizzy |
+| `drink` | Sipping from a potion bottle | potion-class | eat |
+| `float` | Arms out, drifting (Floaty potion) | potion-class | idle + lift |
+| `hiccup` | A jolt with puffed cheeks | potion-class | surprised |
+| `giggle` | Hand over mouth, laughing | potion-class | laugh |
+| `stomp-giant` | Proud wide stance (Giant potion) | potion-class | ready |
+| `squeak-tiny` | Surprised little hop (Tiny potion) | potion-class | surprised |
+| `flip` | Reaching out to flip a card | memory-match | action |
+| `blow` | Cheeks puffed, blowing out candles | cake-bakery | action |
+| `shake-sprinkles` | Shaking a sprinkle jar | cake-bakery | paint |
+| `pose-twirl` | Runway dress twirl | fashion-show | strike* |
+| `photo` | Peace sign facing the camera for a group photo | fashion-show | cheer |
+
+**NPC poses:** Glimmer `point`/`present` for the Fairy Count question
+reveal (already in §8.1). Professor Hoot: `talk`, `point` (at the
+chalkboard), `hoot`, `laugh`, `bravo` (wings up), `idle` with blink (§8.3).
+Troll: as §8.5 (Troll Trouble and solo Bumper Bounce / Pass the Present use
+him as the opponent).
+
+#### Backgrounds (`bg/<id>`, 1920×1080 unless noted)
+
+| Key | Description | Keep clear / constraints |
+| --- | --- | --- |
+| `bg/sprinkle-catch` | Candy-land sky, rainbow, hills, lollipops, frosting ground strip from y≈880 | Sky open for falling treats |
+| `bg/bumper-bounce` | Bright sky with clouds below, **no platform** | Center for the cake platform |
+| `bg/pass-the-present` | Birthday party room with bunting and gift tables; floor to the bottom | Rug is drawn separately |
+| `bg/wizard-quickdraw` | Night wizard-school courtyard, moon, castle silhouette | Top-center for the owl + lantern; lower third open |
+| `bg/cookie-crumble` | Milk lake with sprinkle graham-cracker shores (~215 px each side) | Open middle |
+| `bg/paint-party` | Plaza with a flat, light floor (drawn at 25% under the paint) | Flat and light |
+| `bg/broomstick-dash` | Dusk wizard-school sky with stars and a distant castle | Drawn behind stacked lanes |
+| `bg/fairy-count` | Moonlit garden at dusk | Sky open for fairies |
+| `bg/crown-keeper` | Top-down castle garden, hedge border | **Must match code layout**: arena x 160–1760, y 290–985, fountain at (960,640) r=104, four hedge boxes — or skip |
+| `bg/potion-class` | Cozy wizard classroom: stone wall, arched night windows, jars, candles, wood floor | Top-center for the chalkboard |
+| `bg/memory-match` | Pastel pink-lavender sky, big soft rainbow, clouds | Center covered by the board |
+| `bg/fashion-show` | Purple fashion hall, pink curtain stage, runway in perspective, no crowd | — |
+| `bg/cake-bakery` | Pastel tiled bakery wall with bunting (~960×540, drawn per station) | — |
+| `bg/art-studio` | Bright art-studio wall, paint splats, wood floor | Easel drawn by code |
+| `bg/art-gallery` | Museum wall with spotlights, wood floor, velvet rope | Empty space for the framed painting |
+
+#### Props (`prop/<name>`, transparent)
+
+| Key | Description | Size |
+| --- | --- | --- |
+| `prop/giant-cake` | Floating 3-layer birthday cake with a happy face, candles lit; origin bottom-center | ~520×420 |
+| `prop/treat-sprinkle`, `prop/treat-cupcake`, `prop/treat-golden`, `prop/treat-broccoli` | Sprinkle burst, cupcake, sparkly golden cupcake, grumpy broccoli | ~150 sq |
+| `prop/cake-platform` | 3/4-view round frosted cake platform | ~1075×720 |
+| `prop/seat-cloud` | Small cloud seat | ~190×120 |
+| `prop/party-rug` | Round party rug | ~1480×800 |
+| `prop/present` | Gift box with bow in neutral pink (code tints it red as it heats up) | ~110 sq |
+| `prop/professor-hoot` | Full-body owl teacher: purple star wizard hat, round gold glasses, pink bow tie (until his sprites exist) | ~260×340, feet at bottom |
+| `prop/ingredient-<id>` ×8 | moonberry, starflower, unicornhair, dragonpepper, bubbleroot, rainbowdew, snowcrystal, mushroom | 256 sq |
+| `prop/puffy-hair-cloud`, `prop/polka-dots` | Silly potion overlays | ~200 sq |
+| `prop/memory-card-back` | Unicorn head with rainbow mane and gold horn, rainbow arc, sparkles, rounded corners | ~400×526 |
+| `prop/cookie-1`…`prop/cookie-4` | Top-down cookie tiles (choc chip, pink sprinkle, double choc, oatmeal) with visible thickness | ~148×164 |
+| `prop/storm-cloud` | Grumpy purple storm cloud with face and a small bolt | ~400×340 |
+| `prop/owl-mail` | Winged cream envelope with a red heart seal | ~300×240 |
+| `prop/star-ring` | Tall gold ring seen from the side with a small star | ~160×400 |
+| `prop/broom` | Side-view broom, bristles to the left | ~560×120 |
+| `prop/vanity-mirror` | Oval dressing-room mirror ringed with bulbs | ~600×700 |
+| Later | `prop/fairy-<color>`, `prop/crown`, `prop/fountain`, `prop/hedge` | — |
+
+_Pending: Balloon Pump, Troll Trouble, Spotlight Dance-Off, Pet Spa, Pop
+Star Stage and Fairy Garden requests will be added when those games land._
+

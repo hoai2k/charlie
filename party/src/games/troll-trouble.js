@@ -471,7 +471,7 @@ export class Game {
       if (drop > 0) { pl.gems -= drop; this.dropGems(pl, drop); particles.popText(pl.x, pl.y - pl.a.height - 40, `-${drop}`, '#ff6f8f', 60); }
       particles.burst(pl.x, pl.y - 80, { type: 'star', count: 6, colors: ['#ffd23f', '#ffffff'] });
     }
-    if (!hit) { a.emote('sweat', 1.0); this.say('Hmph!', tr.x, tr.y - a.height - 40, '#ffffff'); }
+    if (!hit) { a.emote('sweat', 1.0); a.say('Hmph!', 1.3, null); }
     tr.target = null;
   }
 

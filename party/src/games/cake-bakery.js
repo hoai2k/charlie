@@ -355,7 +355,7 @@ export class Game {
       sfx('ready'); a.playOnce('ready', 0.6, 'wave'); a.squash(-0.25);
       const top = this.cakeTop(st);
       particles.burst(top.x, top.y, { type: 'confetti', count: 26, speed: [200, 500] });
-      if (!st.p.isAI) voice(st.p.charId, 'yay');
+      a.say('Done!', 1.3, 'ready');
     } else { sfx('back'); a.setPose('idle'); }
   }
 
@@ -602,7 +602,7 @@ export class Game {
       sfx('yay'); a.playOnce('cheer', 0.6, 'idle');
       particles.burst(top.x, top.y - 60 * k, { type: 'confetti', count: 24, speed: [200, 480] });
       particles.popText(top.x, top.y - 120 * k, 'Yay!', st.p.color, 56);
-      if (!st.p.isAI) voice(st.p.charId, 'woo');
+      a.say('Whoosh!', 1, st.p.isAI ? null : 'woo');
     }
   }
 
@@ -634,7 +634,7 @@ export class Game {
       const head = a.anchor('head');
       particles.burst(head.x, head.y, { type: 'heart', count: 14, speed: [150, 380] });
       sfx('star'); sfx('yay');
-      if (!st.p.isAI) voice(st.p.charId, 'yay');
+      a.say(pick(['Yum!', 'Mmm!', 'Yummy!']), 1.2, 'yay');
     }
     if (st.rating) st.rating.t += 1 / 60;
   }

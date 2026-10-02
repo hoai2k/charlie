@@ -589,7 +589,7 @@ export class Game {
       // a little rinse helps the last bits of mud too
       for (const b of s.mud) if (b.amt > 0 && Math.hypot(b.x - ih.x, b.y - ih.y) < rad + b.r) { b.amt = Math.max(0, b.amt - 0.25 * dt); s.mudDirty = true; }
       if (this.onPet(s, hx, hy, 30 * s.k)) {
-        if (!s.wasWet) { s.wasWet = true; pet.playOnce('surprised', 0.4); pet.emote('exclaim', 0.8); voice(s.def.char || 'fox', 'gasp'); }
+        if (!s.wasWet) { s.wasWet = true; pet.playOnce('surprised', 0.4); pet.say(pick(['Brrr!', 'Splish!', 'Eek, wet!']), 1.2, 'gasp'); }
         s.wet = Math.min(1, s.wet + 0.45 * dt);
       }
       if (this.parts(s).clean > 0.98 && s.sudsPeak > 0 && this.sudsTotal(s) <= 0.15 && !s.events.rinse) {
@@ -784,6 +784,7 @@ export class Game {
     pet.playOnce('celebrate', 2.4, 'idle');
     s.char.playOnce('celebrate', 2.4, 'idle');
     voice(s.p.charId, 'yay');
+    pet.say(pick(['So fluffy!', 'I feel sparkly!', 'Thank you!', 'Best bath ever!']), 2.2, null);
     this.rumble(s.p, 0.6, 250);
   }
 

@@ -12,7 +12,7 @@ import { sfx, voice, hasSound, host } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
-import { drawSparkleShape } from '../engine/emotes.js';
+import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { CATS, CAT, PALETTE, NAVY, drawItemIcon, heartPath, starAt } from './fashion-show/items.js';
 
@@ -68,8 +68,8 @@ function layoutStation(r, n) {
   return {
     tabH, hintH, listW, ca,
     list: { x: r.x + r.w - listW - 10, y: r.y + tabH + 14, w: listW, h: r.h - tabH - hintH - 28 },
-    foot: { x: ca.x + ca.w / 2, y: ca.y + ca.h * 0.95 },
-    charH: ca.h * 0.64, charW: ca.w * 0.78,
+    foot: { x: ca.x + ca.w / 2, y: ca.y + ca.h * 0.965 },
+    charH: ca.h * 0.8, charW: ca.w * 0.86,
   };
 }
 
@@ -222,7 +222,7 @@ export class Game {
       sfx('ready'); a.playOnce('ready', 0.6, 'wave'); a.squash(-0.25);
       const c = a.anchor('head');
       particles.burst(c.x, c.y, { type: 'confetti', count: 26, speed: [200, 500] });
-      if (!st.p.isAI) voice(st.p.charId, 'yay');
+      a.say('Ready!', 1.3, 'ready');
     } else { sfx('back'); a.setPose('idle'); }
   }
 
@@ -352,7 +352,7 @@ export class Game {
     particles.popText(a.x, head.y - 40, pick(COMPLIMENTS), st.p.color, 46);
     for (let i = 0; i < 4; i++) this.cameraFlash(a.x);
     for (const m of this.crowd) if (chance(0.25) && m.jump <= 0) m.jv = rand(160, 260);
-    if (st.poses % 4 === 0 && !st.p.isAI) voice(st.p.charId, 'woo');
+    if (st.poses % 4 === 1) a.say(pick(['Ta-da!', 'Wow!', 'Yay!', 'Sparkle!']), 0.9, st.p.isAI ? null : 'woo');
   }
 
   cameraFlash(nearX) {
@@ -591,7 +591,7 @@ export class Game {
     }
     g.restore();
     // mirror behind the character
-    const ca = L.ca, mx = L.foot.x, my = ca.y + ca.h * 0.44, mrx = Math.min(ca.w * 0.36, ca.h * 0.32), mry = ca.h * 0.42;
+    const ca = L.ca, mx = L.foot.x, my = ca.y + ca.h * 0.47, mrx = Math.min(ca.w * 0.4, ca.h * 0.36), mry = ca.h * 0.45;
     const vanity = art('prop/vanity-mirror');
     if (vanity) g.drawImage(vanity, mx - mrx * 1.25, my - mry * 1.15, mrx * 2.5, mry * 2.3);
     else {
@@ -612,7 +612,7 @@ export class Game {
       }
     }
     // floor + pedestal
-    const fy = L.foot.y - ca.h * 0.06;
+    const fy = L.foot.y - ca.h * 0.045;
     g.fillStyle = mix(p.color, '#ffffff', 0.45); g.fillRect(r.x, fy, r.w, r.y + r.h - fy);
     g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(r.x, fy, r.w, 6);
     const pr = Math.min(ca.w * 0.34, 260);
@@ -766,7 +766,7 @@ export class Game {
     else this.drawHall(g, t);
     const models = this.stations.filter((s) => s.actor.visible);
     const side = models.filter((s) => s.rw && s.rw.state === 'side').sort((a, b) => a.actor.y - b.actor.y);
-    for (const st of side) st.actor.draw(g, { ring: st.p.color });
+    for (const st of side) { st.actor.draw(g, { ring: st.p.color }); if (this.phase === 'runway') this.poseBadge(g, st, st.actor.x, st.actor.y + 26, 0.7); }
     // spotlights on the current models
     const lit = this.phase === 'runway' ? (this.group || []) : this.photoTaken ? [] : models;
     g.save(); g.globalCompositeOperation = 'lighter';
@@ -790,6 +790,7 @@ export class Game {
       if (this.phase === 'runway' && (st.rw.state === 'walk' || st.rw.state === 'pose')) {
         const head = st.actor.anchor('head');
         ui.playerTag(g, st.p, st.actor.x, head.y - 60);
+        this.poseBadge(g, st, st.actor.x + 62, head.y - 78, 1);
         if (st.rw.state === 'pose' && !st.p.isAI) ui.glyph(g, 'a', st.actor.x + 64, head.y - 80, 52, { pulse: true });
       }
     }
@@ -806,9 +807,6 @@ export class Game {
   }
 
   drawRunwayHUD(g) {
-    if (this.phase === 'runway' || (this.phase === 'finale' && !this.photoTaken)) {
-      ui.scoreboard(g, this.players, this.stations.map((s) => s.poses), { y: 14, format: (v) => `${v} pose${v === 1 ? '' : 's'}` });
-    }
     if (this.phase === 'runway' && this.group) {
       const st0 = this.group[0];
       if (st0.rw.state === 'pose') {
@@ -823,6 +821,16 @@ export class Game {
       }
     }
     if (this.phase === 'finale') this.drawPhoto(g);
+  }
+
+  /** Little "star N" pill showing a model's pose count. */
+  poseBadge(g, st, x, y, k) {
+    g.save(); g.translate(x, y); g.scale(k, k);
+    const label = String(st.poses), w = 58 + label.length * 18;
+    ui.panel(g, -w / 2, -22, w, 44, { r: 22, fill: '#ffffff', stroke: st.p.color, lineWidth: 5, shadow: false });
+    g.save(); g.translate(-w / 2 + 24, 0); drawStarShape(g, 30, '#ffd23f'); g.restore();
+    ui.text(g, label, 12, 2, { size: 30, color: NAVY, stroke: false, weight: 800 });
+    g.restore();
   }
 
   drawHall(g, t) {

@@ -302,7 +302,7 @@ export class Game {
       particles.popText(b.x, b.y - b.r * 0.3, 'POP!', '#ffd23f', clamp(100 * winner.s.sc, 64, 120));
       winner.a.setPose('celebrate');
       winner.a.squash(0.4);
-      voice(winner.p.charId, 'yay');
+      winner.a.say('Yay!', 1.6, 'yay');
       for (const st of this.st) if (st !== winner) {
         st.a.playOnce('surprised', 1.0, 'idle');
         st.a.emote('exclaim', 0.9);

@@ -562,6 +562,8 @@ export class Game {
           particles.popText(pl.x, top - 30, 'Bloom!', SEEDS[pl.kind].color, 36);
           // nearby gardeners cheer
           for (const m of this.movers) if (Math.hypot(m.a.x - pl.x, m.a.y - pl.y) < 300 && !m.a._once) m.a.playOnce('cheer', 0.5);
+          const fan = this.movers.find((m) => Math.hypot(m.a.x - pl.x, m.a.y - pl.y) < 300 && !m.a.speech);
+          if (fan && chance(0.3)) fan.a.say(pick(['So pretty!', 'It bloomed!', 'Wow!', 'Ooh, sparkly!']), 1.6, null);
           // a fairy comes to visit soon
           if (this.fairies.length < 18) setTimeout(() => { if (!this.finished) this.spawnFairy(pl); }, rand(600, 1800));
         } else sfx('collect', { step: pl.stage * 3 });
@@ -589,7 +591,7 @@ export class Game {
       if (this.phase === 'finale') {
         const k = this.fairies.indexOf(f) / Math.max(1, this.fairies.length);
         const a = this.phaseT * 1.2 + k * TAU;
-        tx = W / 2 + Math.cos(a) * 420; ty = 700 + Math.sin(a) * 140 - 120;
+        tx = W / 2 + Math.cos(a) * Math.min(760, 260 + this.n * 70); ty = 780 + Math.sin(a) * 90;
       } else {
         const pl = f.plot, top = pl.y - SEEDS[pl.kind].h * this.plotScale - 20;
         const spin = f.t * (f.twirl > 0 ? 6 : 1.6) + f.ph;
@@ -670,17 +672,18 @@ export class Game {
   startFinale() {
     if (this.phase === 'finale') return;
     this.phase = 'finale'; this.phaseT = 0;
-    this.say('Time for the fairy dance!', 3.5);
+    this.bubble = null;
     sfx('fanfare');
     const n = this.n;
+    // Everyone lines up on the front path to dance under the fairies.
+    const spacing = Math.min(260, (W - 300) / n);
     this.movers.forEach((m, i) => {
-      const a = (i / n) * TAU + Math.PI / 2;
-      m.home = { x: W / 2 + Math.cos(a) * Math.min(520, 160 + n * 60), y: 760 + Math.sin(a) * Math.min(200, 80 + n * 20) };
+      m.home = { x: W / 2 + (i - (n - 1) / 2) * spacing, y: 1010 - (i % 2) * 24 };
       m.p.isAI && m.p.ctrl.move(0, 0);
     });
     // leftover fireflies join the dance; jars open and lights fly up
     for (const f of this.fireflies) if (!f.caught) f.caught = true;
-    if (this.api.camera) this.api.camera.follow(W / 2, 680, 1.12, 0.9);
+    if (this.api.camera) this.api.camera.follow(W / 2, 760, 1.1, 0.9);
     // every planted seed blooms for the show
     for (const pl of this.plots) if (pl.kind >= 0 && pl.stage < 3) { pl.stage = 3; pl.open = 0.3; pl.bloomT = 0; pl.sv += 8; }
     // Fairies for any bloom without one
@@ -690,6 +693,8 @@ export class Game {
 
   updateFinale(dt) {
     const t = this.phaseT;
+    // Finishing early in the day? The sky hurries to night for the dance.
+    if (this.tod < 2) this.tod = Math.min(2, this.tod + dt * 0.9);
     for (const m of this.movers) {
       const a = m.a;
       const d = Math.hypot(m.home.x - a.x, m.home.y - a.y);
@@ -714,7 +719,11 @@ export class Game {
       particles.burst(x, y, { type: 'sparkle', count: 10 });
       sfx('pop'); if (chance(0.5)) sfx('sparkle');
     }
-    if (t > 4.5 && !this.cheered) { this.cheered = true; snd('applause', 'cheer'); for (const m of this.movers) m.a.playOnce('celebrate', 1.5, 'dance'); }
+    if (t > 4.5 && !this.cheered) {
+      this.cheered = true; snd('applause', 'cheer');
+      for (const m of this.movers) m.a.playOnce('celebrate', 1.5, 'dance');
+      pick(this.movers).a.say('Goodnight, garden!', 2.5, 'yay');
+    }
     if (t > FINALE_LEN) this.finishGame();
   }
 
@@ -726,7 +735,7 @@ export class Game {
       if (m.jar) bits.push(`${m.jar} firefl${m.jar === 1 ? 'y' : 'ies'}`);
       return bits.join(' · ');
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Magical!', focus: this.phase === 'finale' ? { x: W / 2, y: 700, zoom: 1.25 } : undefined });
+    this.api.finish({ showcase: true, highlight: null, stats, title: 'Magical!', focus: this.phase === 'finale' ? { x: W / 2, y: 880, zoom: 1.25 } : undefined });
   }
 
   postUpdate(dt) {

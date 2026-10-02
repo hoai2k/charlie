@@ -509,7 +509,7 @@ export class Game {
     a.facing = pl.baseFacing;
     a.setPose('dance');
     a.playOnce('cheer', 0.4, 'dance');
-    voice(pl.p.charId, 'woo');
+    if (chance(0.5)) pl.a.say('Got it!', 1.2, 'woo'); else voice(pl.p.charId, 'woo');
     sfx('correct');
     // choose the nearest living imp
     const live = this.imps.filter((im) => im.alive && !im.targeted);

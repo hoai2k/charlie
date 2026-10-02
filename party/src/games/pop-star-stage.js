@@ -162,6 +162,16 @@ function glowSprite(color) {
   return c;
 }
 
+// When the Shadow Imp canonical/sprite set lands (entry 'shadow-imp'), imps
+// become real Actors; until then they are drawn procedurally above.
+const hasImpArt = () => !!(charById('shadow-imp') && getBaseImage('shadow-imp'));
+function impActor(m, r) {
+  if (!m.actor) { m.actor = new Actor('shadow-imp'); m.actor.snap(); }
+  const a = m.actor;
+  a.scale = (r * 2.6) / a.leader.h;
+  return a;
+}
+
 /** A note gem: generated prop art if present, else a glowing Xbox glyph. */
 function drawNote(g, btn, x, y, size, t, o = {}) {
   g.save();
@@ -586,6 +596,8 @@ export class Game {
     this.lanes.forEach((L, i) => {
       L.actor.playOnce(L.score === best ? 'celebrate' : pick(['strike1', 'strike2', 'strike3']), 0.8, 'celebrate');
     });
+    const star = this.lanes.find((L) => L.score === best);
+    if (star) star.actor.say('Thank you!', 2.2, 'yay');
     this.banner('Encore!', 2.0, '#ff6fd0', 110);
     // No notes are left: the camera can lean in on the performers.
     if (this.api.camera) this.api.camera.follow(W / 2, 760, 1.12, 1.6);
@@ -813,6 +825,16 @@ export class Game {
   }
 
   drawImps(g) {
+    if (hasImpArt()) {
+      for (const m of this.imps) {
+        const a = impActor(m, m.r);
+        a.x = m.x; a.y = m.y + m.r * 1.3; a.facing = m.side > 0 ? -1 : 1;
+        a.setPose(m.state === 'poof' ? 'poof' : m.mood === 'giggle' ? 'laugh' : m.mood === 'eep' ? 'surprised' : 'idle');
+        a.update(1 / 60);
+        a.draw(g, { alpha: m.state === 'poof' ? 1 - m.pt / 0.35 : 1, shadow: false });
+      }
+      return;
+    }
     for (const m of this.imps) {
       if (m.state === 'poof') {
         const k = m.pt / 0.35;
@@ -834,6 +856,14 @@ export class Game {
         const bx = clamp(B.x, 260, W - 260), by = HIT_Y + this.noteSize * 0.9 + 64;
         ui.bar(g, bx - 150, by, 300, 22, B.hp / B.max, '#b77bff', { bg: 'rgba(0,0,0,0.5)' });
       }
+      return;
+    }
+    if (hasImpArt()) {
+      const a = impActor(B, B.r);
+      a.x = B.x + (B.hitT > 0 ? rand(-6, 6) : 0); a.y = B.y + B.r * 1.3;
+      a.setPose(B.dead ? 'poof' : B.mood === 'eep' ? 'surprised' : 'laugh');
+      if (B.hitT > 0) a.flash('#ffffff', 0.1);
+      a.update(1 / 60); a.draw(g, { shadow: false });
       return;
     }
     g.save();
