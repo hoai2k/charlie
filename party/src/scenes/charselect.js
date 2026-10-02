@@ -19,7 +19,7 @@ const CARD_W = 236, CARD_H = 250, GAP = 18;
 const GRID_X = (W - (COLS * CARD_W + (COLS - 1) * GAP)) / 2, GRID_Y = 150;
 
 export class CharSelectScene {
-  enter() {
+  enter({ starter = null } = {}) {
     this.t = 0;
     this.starting = null;
     music.play('menu');
@@ -40,6 +40,18 @@ export class CharSelectScene {
     if (session.players.length) { this.wantTotal = session.players.length; this.manualCpu = true; }
     this.cardBounce = CHARACTERS.map(() => 0);
     this.greeted = false;
+    // Nobody has to "press A to join" first: whoever pressed start on the
+    // title (or else the first controller) is already P1 and picking.
+    this.autoJoined = this.humans.length > 0;
+    if (!this.autoJoined && starter && !starter.isAI) { this.join(starter); this.autoJoined = true; }
+    this.autoJoinPad();
+  }
+
+  /** Join the first connected controller if the party is still empty (once per visit). */
+  autoJoinPad() {
+    if (this.autoJoined || this.humans.length) return;
+    const pad = input.pads.find((c) => c && c.connected);
+    if (pad) { this.join(pad); this.autoJoined = true; }
   }
 
   makeActor(charId) {
@@ -114,6 +126,7 @@ export class CharSelectScene {
     if (!inputOpen) return;
     if (!this.greeted && this.t > 0.6) { this.greeted = true; host(session.played.length ? 'pick-character' : 'welcome'); }
 
+    this.autoJoinPad(); // a controller that shows up after the screen opened
     if (this.updatePointer()) return;
 
     // Joining: any unassigned human controller pressing A (or Start).
