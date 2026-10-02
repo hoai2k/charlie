@@ -23,9 +23,17 @@ const RAINBOW = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff
 const cache = new Map();
 const CACHE_PX = 160;
 
+// Round-3 keys (prop/ing-*) for the same ingredients, used if the ingredient-* file is missing.
+// ing-rainbow-feather / ing-stardust-jar / ing-moon-drop match no ingredient here, so they stay unused.
+const ING_ALIAS = {
+  moonberry: 'ing-bubble-berries', starflower: 'ing-sparkle-flower', dragonpepper: 'ing-sneezy-pepper',
+  snowcrystal: 'ing-snow-crystal', mushroom: 'ing-glow-mushroom',
+};
+
 /** Draw ingredient `id` centered at (x, y), about `s` px across. */
 export function drawIngredient(g, id, x, y, s) {
   if (drawArt(g, 'prop/ingredient-' + id, x, y, s, s)) return;
+  if (ING_ALIAS[id] && drawArt(g, 'prop/' + ING_ALIAS[id], x, y, s, s)) return;
   let c = cache.get(id);
   if (!c) {
     c = document.createElement('canvas');
