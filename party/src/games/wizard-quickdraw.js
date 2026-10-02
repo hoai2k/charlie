@@ -199,7 +199,7 @@ export class Game {
       for (let i = 0; i < 7; i++) particles.burst(OWL.x + rand(-60, 60), OWL.y - rand(80, 200), { type: 'petal', count: 1, colors: ['#c99356', '#e8c28a', '#a8743f'], speed: [30, 120], life: [0.8, 1.4], size: [8, 13] });
     } else if (f.type === 'hoot') {
       o.mode = 'hoot'; o.t = 0; o.hootT = 0.9;
-      sfx('note', { midi: 55, dur: 0.35, vol: 0.2 });
+      sfx('npc/hoot/hoo'); sfx('note', { midi: 55, dur: 0.35, vol: 0.2 });
       this.after(0.38, () => sfx('note', { midi: 52, dur: 0.5, vol: 0.2 }));
     } else if (f.type === 'moth') {
       const fromL = chance(0.5);
@@ -222,7 +222,7 @@ export class Game {
     this.lant.burst = 1; this.lant.level = 1; this.lant.flick = 0;
     this.owl.mode = 'alert'; this.owl.t = 0;
     fx.flash('#ffe27a', 0.2);
-    sfx('star'); sfx('bigpop');
+    sfx('npc/hoot/ready'); sfx('star'); sfx('bigpop');
     this.after(0.05, () => sfx('magic'));
     for (let i = 0; i < 26; i++) particles.burst(HANG.x, 285, { type: pick(['sparkle', 'spark', 'star']), count: 1, colors: ['#fff7b0', '#ffd23f', '#ffffff'], speed: [200, 700], life: [0.4, 0.9] });
     particles.ring(HANG.x, 285, '#ffe27a', 400, 0.6);
@@ -244,7 +244,7 @@ export class Game {
     particles.ring(tip.x, tip.y, '#7ae582', 90, 0.4);
     for (let k = 0; k < 4; k++) this.puffs.push({ x: tip.x + rand(-14, 14), y: tip.y + rand(-10, 8), r: rand(18, 30), t: 0, life: rand(0.9, 1.4), vx: rand(-20, 20) });
     particles.popText(a.x, a.y - a.height * this.sc - 40, 'Fizzle!', '#7ae582', 56);
-    sfx('wrong'); sfx('stun');
+    sfx('wrong'); sfx('stun'); sfx('fizzle');
     p.ctrl.rumble && p.ctrl.rumble(0.5, 200);
     if (this.ps.every((x) => x.locked)) {
       this.st = 'allout'; this.stT = 0; this.msg = 'Everybody fizzled! Again!';
@@ -274,7 +274,7 @@ export class Game {
     this.after(0.5, () => {
       a.setPose(winning ? pickPose('celebrate', 'cheer') : 'cheer');
       a.emote(winning ? 'hearts' : 'star', 1.6);
-      sfx('cheer'); voice(p.charId, 'yay');
+      sfx('cheer'); sfx('applause'); sfx('npc/hoot/bravo'); voice(p.charId, 'yay');
       particles.popText(a.x, a.y - a.height * this.sc - 100, '+1', '#ffd23f', 64);
     });
   }

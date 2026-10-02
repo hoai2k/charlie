@@ -137,7 +137,9 @@ export class Game {
     const fy = hy + ((def.top ?? 1) - (1 - def.face[1])) * h;
     const eyes = info.eyes || { x: hx, y: fy };
     const neck = info.neck || { x: hx, y: fy + faceW * 0.5 };
-    const back = info.back || { x: hx * 0.3, y: -h * 0.6 };
+    // Front-facing art: center wings/capes on the body (the engine default leans backward for side views).
+    let back = info.back || { x: -0.12 * h, y: -h * 0.58 };
+    if (def.facing === 0 && Math.abs(back.x + 0.12 * h) < 0.5) back = { x: hx * 0.25, y: back.y };
     const tilt = info.headAngle || 0;
     const put = (ci, x, y, S, which) => {
       const o = st.outfit[ci], it = CATS[ci].items[o.item];
@@ -242,7 +244,7 @@ export class Game {
     if (ai.t > 0) return;
     const hurry = this.stations.every((s) => s.ready || s.p.isAI) && !this.cpuOnly;
     const slow = aiProfile(st.p).speed;
-    ai.t = rand(0.32, 0.7) / slow * (hurry ? 0.45 : 1);
+    ai.t = rand(0.28, 0.6) / slow * (hurry ? 0.45 : 1);
     if (ai.surprise && !ai.didSurprise && ai.step === 0) { ai.didSurprise = true; c.press('y'); ai.t += 1.2; return; }
     const goal = ai.plan[ai.step];
     if (!goal) { c.press('a'); return; }
@@ -319,7 +321,7 @@ export class Game {
   }
 
   modelHeight(k, y) {
-    const base = k === 1 ? 410 : k === 2 ? 350 : 300;
+    const base = k === 1 ? 410 : k === 2 ? 350 : 280;
     return lerp(165, base, clamp((y - RW.startY) / (RW.stopY - RW.startY), 0, 1));
   }
 
@@ -327,7 +329,7 @@ export class Game {
     const a = st.actor, { lane, k } = st.rw;
     const th = this.modelHeight(k, y);
     a.scale = Math.min(th / a.leader.h, (k === 1 ? 600 : k === 2 ? 380 : 270) * (th / this.modelHeight(k, RW.stopY)) / Math.max(1, a.width / a.scale));
-    a.x = W / 2 + lane * hwAt(y) * (k === 3 ? 0.62 : 0.55);
+    a.x = W / 2 + lane * Math.min(hwAt(y) * (k === 3 ? 0.72 : 0.6), k === 3 ? 270 : 240);
     a.y = y;
   }
 
@@ -340,7 +342,7 @@ export class Game {
     st.poses++; st.poseCD = 0.3;
     const a = st.actor;
     st.poseIdx = (st.poseIdx + 1 + randInt(0, 2)) % POSE_SET.length;
-    a.playOnce(POSE_SET[st.poseIdx], 0.75, 'idle'); a.squash(0.22); a.flash('#ffffff', 0.12);
+    a.playOnce(POSE_SET[st.poseIdx], 0.75, 'idle'); a.squash(0.22); a.flash('#fff6d0', 0.07);
     a.facing = chance(0.5) ? 1 : -1;
     sfx('shutter');
     if (this.t - this.lastCheer > 1.1) { this.lastCheer = this.t; snd('crowd-ooh', 'cheer'); }
@@ -381,6 +383,7 @@ export class Game {
         this.placeOnRunway(st, lerp(RW.startY, RW.stopY, u));
         a.alpha = Math.min(1, t / 0.35);
         a.setPose('walk'); a.speed = 0.55;
+        if (c.pressed('a') && st.poseCD <= 0 && u > 0.15) this.strikePose(st);
         if (u >= 1) {
           rw.state = 'pose'; a.setPose('idle'); a.playOnce('ready', 0.6, 'idle'); a.facing = 1;
           snd('applause', 'cheer'); for (let i = 0; i < 6; i++) this.cameraFlash(a.x);
@@ -762,6 +765,7 @@ export class Game {
     }
     g.restore();
     const front = models.filter((s) => !s.rw || s.rw.state !== 'side').sort((a, b) => a.actor.y - b.actor.y);
+    if (this.phase === 'finale') this.drawCrowd(g);
     for (const st of front) {
       st.actor.draw(g, { ring: st.p.color });
       if (this.phase === 'runway' && (st.rw.state === 'walk' || st.rw.state === 'pose')) {
@@ -770,7 +774,7 @@ export class Game {
         if (st.rw.state === 'pose' && !st.p.isAI) ui.glyph(g, 'a', st.actor.x + 64, head.y - 80, 52, { pulse: true });
       }
     }
-    this.drawCrowd(g);
+    if (this.phase !== 'finale') this.drawCrowd(g);
     for (const f of this.flashes) {
       const k = 1 - f.t / f.life;
       g.save(); g.translate(f.x, f.y); g.globalAlpha = k;
@@ -898,7 +902,7 @@ export class Game {
       }
       g.fillStyle = '#ff4d6d'; g.beginPath(); g.arc(x0 + 50, y0 + 50, 14 * (0.7 + 0.3 * Math.sin(t * 8)), 0, TAU); g.fill();
       g.restore();
-      if (t > 1.6) ui.banner(g, 'Say cheese!', t - 1.6, { y: 300, size: 120, color: '#fff' });
+      if (t > 1.6) ui.banner(g, 'Say cheese!', t - 1.6, { y: 380, size: 120, color: '#fff' });
       return;
     }
     const p = Math.min(1, (t - 3.6) / 0.5);

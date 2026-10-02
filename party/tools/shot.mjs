@@ -31,7 +31,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..')
 let server = null;
 if (!args.includes('--no-serve')) {
   server = spawn('npx', ['http-server', root, '-p', String(port), '-s', '-c-1'], { stdio: 'ignore' });
-  await new Promise((r) => setTimeout(r, 1200));
+  await new Promise((r) => setTimeout(r, 2500));
 }
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM || undefined, args: ['--autoplay-policy=no-user-gesture-required'] });
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
