@@ -93,7 +93,7 @@ export class Game {
     this.n = n;
     this.t = 0; this.playT = 0;
     this.scale = n <= 2 ? 1.12 : n <= 4 ? 1.02 : n <= 6 ? 0.8 : 0.7;
-    this.cam = api.camera; if (this.cam) { this.cam.maxZoom = 1.35; }
+    this.cam = api.camera; if (this.cam) { this.cam.maxZoom = 1.3; }
     this.R = R0; this.Rt = R0;
     this.stage = 0; this.tele = null; this.crumbleFlash = 0;
     this.ends = null;           // set when the round is decided
@@ -181,7 +181,7 @@ export class Game {
     if (!live.length) return;
     const pts = live.map((e) => { const [sx, sy] = this.toScreen(e.x, e.y); return { x: sx, y: sy - 50 }; });
     if (this.ends && this.ends.winner) { cam.follow(pts[0].x, pts[0].y, 1.3, 2.5); return; }
-    cam.frame(pts, 360, 1.8);
+    cam.frame(pts, 420, 1.8);
   }
 
   postUpdate(dt) {

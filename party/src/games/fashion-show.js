@@ -385,7 +385,7 @@ export class Game {
         a.setPose('walk'); a.speed = 0.55;
         if (c.pressed('a') && st.poseCD <= 0 && u > 0.15) this.strikePose(st);
         if (u >= 1) {
-          rw.state = 'pose'; a.setPose('idle'); a.playOnce('ready', 0.6, 'idle'); a.facing = 1;
+          rw.state = 'pose'; a.setPose('idle'); a.playOnce(pick(['strike1', 'strike2', 'strike3']), 0.7, 'idle'); a.facing = 1;
           snd('applause', 'cheer'); for (let i = 0; i < 6; i++) this.cameraFlash(a.x);
           for (const m of this.crowd) if (chance(0.5)) m.jv = rand(160, 280);
           rw.aiT = rand(0.4, 0.9);
@@ -499,6 +499,7 @@ export class Game {
     else if (this.phase === 'showtime') this.updateShowtime(dt);
     else if (this.phase === 'runway') this.updateRunway(dt);
     else if (this.phase === 'finale') this.updateFinale(dt);
+    this.updateCamera();
   }
 
   postUpdate(dt) {
@@ -512,8 +513,26 @@ export class Game {
   draw(g) {
     if (this.phase === 'dress' || (this.phase === 'showtime' && !this.runwayReady)) this.drawDressing(g);
     else this.drawRunway(g);
+  }
+
+  /** Screen-space layer (the runway is drawn through the host's camera). */
+  drawHUD(g) {
+    if (this.phase === 'runway' || this.phase === 'finale') this.drawRunwayHUD(g);
     if (this.curtain > 0) this.drawCurtains(g, this.curtain);
     if (this.phase === 'showtime' && this.phaseT > 0.5 && this.phaseT < 2.0) ui.banner(g, 'Showtime!', this.phaseT - 0.5, { size: 180, color: '#ffd23f' });
+  }
+
+  updateCamera() {
+    const cam = this.api.camera;
+    if (!cam) return;
+    if (this.phase === 'runway' && this.group) {
+      const st0 = this.group[0];
+      if (st0.rw.state === 'pose') {
+        const xs = this.group.map((s) => s.actor.x), cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+        const top = Math.min(...this.group.map((s) => s.actor.y - s.actor.height));
+        cam.follow(cx, (top + RW.stopY) / 2 + 40, this.group.length === 1 ? 1.25 : 1.12, 2.2);
+      } else cam.follow(W / 2, H / 2, 1, 2.5);
+    } else cam.follow(W / 2, H / 2, 1, 3);
   }
 
   drawDressing(g) {
@@ -784,7 +803,9 @@ export class Game {
       drawSparkleShape(g, f.size * 0.9 * (0.6 + k * 0.4), '#ffffff');
       g.restore();
     }
-    // HUD
+  }
+
+  drawRunwayHUD(g) {
     if (this.phase === 'runway' || (this.phase === 'finale' && !this.photoTaken)) {
       ui.scoreboard(g, this.players, this.stations.map((s) => s.poses), { y: 14, format: (v) => `${v} pose${v === 1 ? '' : 's'}` });
     }

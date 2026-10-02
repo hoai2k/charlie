@@ -587,6 +587,8 @@ export class Game {
       L.actor.playOnce(L.score === best ? 'celebrate' : pick(['strike1', 'strike2', 'strike3']), 0.8, 'celebrate');
     });
     this.banner('Encore!', 2.0, '#ff6fd0', 110);
+    // No notes are left: the camera can lean in on the performers.
+    if (this.api.camera) this.api.camera.follow(W / 2, 760, 1.12, 1.6);
   }
 
   updateFinale(dt) {
@@ -602,7 +604,10 @@ export class Game {
     this.finished = true;
     const scores = this.lanes.map((L) => L.score);
     const stats = this.lanes.map((L) => `${L.score} pts · best combo ${L.maxCombo}`);
-    this.api.finish({ placements: placementsFromScores(scores), stats });
+    const best = Math.max(...scores);
+    const win = this.lanes.filter((L) => L.score === best);
+    const focus = win.length === 1 ? { x: win[0].actor.x, y: FLOOR_Y - win[0].actor.height * 0.6, zoom: 1.3 } : { x: W / 2, y: 780, zoom: 1.15 };
+    this.api.finish({ placements: placementsFromScores(scores), stats, focus });
   }
 
   // ---- CPU -------------------------------------------------------------------------------
@@ -856,7 +861,10 @@ export class Game {
       a.draw(g, { ring: L.p.color, emotes: true });
     }
     this.drawBeams(g);
-    // HUD
+  }
+
+  /** Screen-space HUD (above the camera view and particles). */
+  drawHUD(g) {
     ui.scoreboard(g, this.players, this.lanes.map((L) => L.score), { y: 12, format: (v) => String(v) });
     // tags under the performers (and floating above them for the first bars)
     for (const L of this.lanes) {

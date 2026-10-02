@@ -279,7 +279,10 @@ export class Game {
   flood(ctx, x, y, color, guard = null) {
     x = Math.floor(x); y = Math.floor(y);
     if (x < 0 || y < 0 || x >= CW || y >= CH) return 0;
-    const img = ctx.getImageData(0, 0, CW, CH), d = img.data;
+    // Work on a CPU-side scratch copy (fast readback, no GPU-canvas readback warnings).
+    if (!this.scratch) { this.scratch = document.createElement('canvas'); this.scratch.width = CW; this.scratch.height = CH; this.sctx = this.scratch.getContext('2d', { willReadFrequently: true }); }
+    this.sctx.globalCompositeOperation = 'copy'; this.sctx.drawImage(ctx.canvas, 0, 0); this.sctx.globalCompositeOperation = 'source-over';
+    const img = this.sctx.getImageData(0, 0, CW, CH), d = img.data;
     const walls = this.linesAlpha;
     const i0 = (y * CW + x) * 4;
     if (walls && walls[y * CW + x] > 90) return 0;
@@ -327,7 +330,8 @@ export class Game {
         if (lineUnder || Math.abs(d[r] - sr) + Math.abs(d[r + 1] - sg) + Math.abs(d[r + 2] - sb) <= tol * 2) { mask[nb] = 2; d[r] = fr; d[r + 1] = fg; d[r + 2] = fb; }
       }
     }
-    ctx.putImageData(img, 0, 0);
+    this.sctx.putImageData(img, 0, 0);
+    ctx.save(); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'copy'; ctx.drawImage(this.scratch, 0, 0); ctx.restore();
     if (guard === null && this._markFill) {
       for (let gy = 0; gy < GY; gy++) for (let gx = 0; gx < GX; gx++) {
         const p = (gy * GRID + 25) * CW + gx * GRID + 25;
@@ -868,9 +872,9 @@ export class Game {
     g.save(); g.translate(W / 2, H / 2); g.scale(sc, sc); g.translate(-W / 2, -H / 2);
     ui.panel(g, 160, 110, W - 320, 860, { r: 40, fill: '#fff8ec' });
     ui.text(g, P.first ? 'What shall we paint?' : 'Start a new picture?', W / 2, 190, { size: 70, color: '#ff6fb1', weight: 800 });
-    const cw = 640, ch = 360, gap = 50;
+    const cw = 600, ch = 300, gap = 50;
     PAGES.forEach((pg, i) => {
-      const cx = W / 2 + ((i % 2) - 0.5) * (cw + gap), cy = 420 + Math.floor(i / 2) * (ch + 70);
+      const cx = W / 2 + ((i % 2) - 0.5) * (cw + gap), cy = 400 + Math.floor(i / 2) * (ch + 40);
       const sel = i === P.sel;
       const k = sel ? 1.04 + Math.sin(this.t * 6) * 0.015 : 1;
       g.save(); g.translate(cx, cy); g.scale(k, k);
@@ -886,9 +890,11 @@ export class Game {
       ui.text(g, pg.name, 0, ch / 2 - 30, { size: 38, color: sel ? '#ff6fb1' : '#24163f', stroke: sel ? '#24163f' : false, weight: 800 });
       g.restore();
     });
-    const who = P.owner.isAI ? 'CPU is choosing...' : `${P.owner.tag} picks!`;
-    ui.text(g, who, W / 2, 930, { size: 34, color: P.owner.color, strokeWidth: 6 });
-    if (!P.owner.isAI) ui.hints(g, P.first ? [['stick', 'Choose'], ['a', 'Paint!']] : [['stick', 'Choose'], ['a', 'New picture'], ['b', 'Keep painting']], W / 2, 880, { size: 40, color: '#24163f' });
+    if (P.owner.isAI) ui.text(g, 'CPU is choosing...', W / 2, 920, { size: 36, color: P.owner.color, strokeWidth: 6 });
+    else {
+      ui.text(g, `${P.owner.tag} picks!`, W / 2 - 420, 920, { size: 36, color: P.owner.color, strokeWidth: 6 });
+      ui.hints(g, P.first ? [['stick', 'Choose'], ['a', 'Paint!']] : [['stick', 'Choose'], ['a', 'New picture'], ['b', 'Keep painting']], W / 2 + 120, 920, { size: 40, color: '#24163f' });
+    }
     g.restore();
   }
 

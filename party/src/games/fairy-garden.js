@@ -325,9 +325,9 @@ export class Game {
     this.tod = 0;            // 0 day, 1 sunset, 2 night
     this.finished = false;
     // Plots
-    const cols = n <= 2 ? 6 : 8, rows = n <= 2 ? 2 : 3;
+    const cols = n <= 2 ? 6 : n <= 5 ? 8 : 10, rows = n <= 2 ? 2 : 3;
     const rowY = rows === 2 ? [610, 850] : [520, 720, 920];
-    const x0 = rows === 2 ? 330 : 250, x1 = W - x0;
+    const x0 = rows === 2 ? 330 : cols === 10 ? 200 : 250, x1 = W - x0;
     this.plots = [];
     for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
       this.plots.push({
@@ -336,7 +336,7 @@ export class Game {
         planter: -1, claimed: -1, seed: rand(10), fairy: null, thirstyT: rand(2),
       });
     }
-    this.plotScale = rows === 2 ? 1.35 : 1.18;
+    this.plotScale = rows === 2 ? 1.35 : cols === 10 ? 1.05 : 1.18;
     // Players
     const sc = n <= 4 ? 0.78 : 0.66;
     this.movers = this.players.map((p, i) => {
@@ -680,6 +680,7 @@ export class Game {
     });
     // leftover fireflies join the dance; jars open and lights fly up
     for (const f of this.fireflies) if (!f.caught) f.caught = true;
+    if (this.api.camera) this.api.camera.follow(W / 2, 680, 1.12, 0.9);
     // every planted seed blooms for the show
     for (const pl of this.plots) if (pl.kind >= 0 && pl.stage < 3) { pl.stage = 3; pl.open = 0.3; pl.bloomT = 0; pl.sv += 8; }
     // Fairies for any bloom without one
@@ -725,7 +726,7 @@ export class Game {
       if (m.jar) bits.push(`${m.jar} firefl${m.jar === 1 ? 'y' : 'ies'}`);
       return bits.join(' · ');
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Magical!' });
+    this.api.finish({ showcase: true, highlight: null, stats, title: 'Magical!', focus: this.phase === 'finale' ? { x: W / 2, y: 700, zoom: 1.25 } : undefined });
   }
 
   postUpdate(dt) {
@@ -1052,7 +1053,7 @@ export class Game {
     for (const it of items) {
       if (it.pl) {
         const pl = it.pl;
-        drawPlant(g, pl.kind, pl.stage, pl.x, pl.y - 4, this.plotScale, this.t, { grow: clamp(pl.grow, 0, 1), sq: clamp(pl.sq, -0.4, 0.4), open: pl.open, glow: pl.stage === 3 ? Math.max(glow, 0.15) : 0, seed: pl.seed });
+        drawPlant(g, pl.kind, pl.stage, pl.x, pl.y - 4, this.plotScale, this.t, { grow: clamp(pl.grow, 0, 1), sq: clamp(pl.sq, -0.4, 0.4), open: pl.open, glow: pl.stage === 3 && pl.kind === 4 ? Math.max(glow, 0.15) : 0, seed: pl.seed });
       } else {
         const m = it.m;
         m.a.draw(g, { ring: m.p.color });
@@ -1096,7 +1097,10 @@ export class Game {
       ui.text(g, SEEDS[m.seed].name, x + 30, y, { size: 24, color: NAVY, stroke: false, maxWidth: 120 });
       g.restore();
     }
-    // HUD
+  }
+
+  /** Screen-space HUD (above the camera view). */
+  drawHUD(g) {
     this.drawChips(g);
     this.drawStatus(g);
     // Glimmer the fairy host

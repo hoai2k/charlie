@@ -10,6 +10,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
+import { depthScale } from '../engine/camera.js';
 import { rand, randInt, pick, chance, clamp, lerp, damp, ease, shuffle, TAU } from '../engine/util.js';
 
 const T = 136;                       // cell size
@@ -323,6 +324,7 @@ export class Game {
       fallen.forEach((s) => this.eliminate(s, rank));
     }
     this.updateSwimmers(dt);
+    this.frameCamera();
 
     // end?
     const alive = this.aliveCount();
@@ -330,6 +332,17 @@ export class Game {
       if ((this.n > 1 && alive <= 1) || (this.n === 1 && alive === 0)) this.endGame(alive === 1);
       else if (this.t >= TIME_LIMIT) this.endGame(false, true);
     }
+  }
+
+  /** Late game: gently frame the shrinking cookie field and the players still on it. */
+  frameCamera() {
+    const cam = this.api.camera;
+    if (!cam || this.t < 18) return;
+    cam.maxZoom = 1.2;
+    const pts = [];
+    for (const t of this.tiles) if (t.state !== 'fallen') pts.push({ x: t.x, y: t.y });
+    for (const s of this.ps) if (s.state === 'play') pts.push({ x: s.x, y: s.y });
+    if (pts.length) cam.frame(pts, 300, 1.6);
   }
 
   eliminate(s, rank) {
@@ -351,6 +364,8 @@ export class Game {
     sfx('splash'); sfx('bubble'); sfx('crowd-ooh');
     voice(this.players[i].charId, 'ouch');
     fx.shake(10, 0.25);
+    this.lastOut = { x: s.x, y: s.y - 60 };
+    if (this.api.camera) this.api.camera.punch(s.x, s.y - 40, 1.16, 0.3);
     this.players[i].ctrl.rumble && this.players[i].ctrl.rumble(0.7, 250);
     s.a.emote('sweat', 1.2);
     particles.popText(s.x, s.y - 120, 'Splash!', '#8fd3ff', 52);
@@ -509,7 +524,9 @@ export class Game {
     // survivors (rank 0) tie for first
     const placements = this.ps.map((s) => (s.rank === 0 ? 1 : s.rank));
     const stats = this.ps.map((s) => (s.rank === 1 && s.outAt === null ? 'Survived!' : `Out at ${Math.round(s.outAt ?? this.t)}s`));
-    this.api.finish({ placements, stats });
+    const w = this.ps.find((s) => s.state === 'play');
+    const focus = w ? { x: w.x, y: w.y - 70, zoom: 1.35 } : this.lastOut ? { x: this.lastOut.x, y: this.lastOut.y, zoom: 1.2 } : undefined;
+    this.api.finish({ placements, stats, focus });
   }
 
   // ----- CPU brain -------------------------------------------------------
@@ -658,7 +675,10 @@ export class Game {
 
   ambient(dt) {
     this.clock += dt;
-    for (const s of this.ps) { s.a.update(dt); }
+    for (const s of this.ps) {
+      s.a.scale = CHAR_SCALE * depthScale(s.y, { top: GY, near: GY + ROWS * T, far: 0.84, nearScale: 1.1 });
+      s.a.update(dt);
+    }
     for (const f of this.fallers) f.t += dt;
     this.fallers = this.fallers.filter((f) => f.t < 0.7);
     for (const r of this.ripples) r.t += dt;
@@ -756,7 +776,6 @@ export class Game {
     this.ps.forEach((s, i) => {
       if (s.state === 'play') ui.playerTag(g, this.players[i], s.x, s.y - s.a.height - 22 - s.z * 0.6);
     });
-    this.drawHud(g);
   }
 
   drawWaves(g) {
@@ -827,7 +846,8 @@ export class Game {
     }
   }
 
-  drawHud(g) {
+  /** Screen-space HUD (drawn by the host after the camera). */
+  drawHUD(g) {
     const left = this.aliveCount();
     const timeLeft = Math.max(0, TIME_LIMIT - this.t);
     ui.timer(g, timeLeft, W / 2, 60);

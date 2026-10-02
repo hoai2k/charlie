@@ -229,6 +229,26 @@ function drawTool(g, id, x, y, s, t = 0, o = {}) {
   g.restore();
 }
 
+// Pre-rendered foam clumps (3 variants) so dozens of suds stay cheap.
+const foamCache = [];
+function foamSprite(i) {
+  if (!foamCache[i]) {
+    const c = document.createElement('canvas'); c.width = c.height = 96;
+    const g = c.getContext('2d');
+    g.translate(48, 48);
+    g.fillStyle = '#ffffff'; g.strokeStyle = '#a9dcff'; g.lineWidth = 3;
+    const ph = i * 2.1;
+    const blobs = [0, 1, 2, 3].map((j) => { const a = ph + j * 1.7; return [Math.cos(a) * 16, Math.sin(a) * 12, 17 + ((j * 7 + i * 3) % 3) * 4]; });
+    for (const [x, y, r] of blobs) { g.beginPath(); g.arc(x, y, r, 0, TAU); g.fill(); g.stroke(); }
+    g.fillStyle = '#ffffff'; for (const [x, y, r] of blobs) { g.beginPath(); g.arc(x, y, r - 2, 0, TAU); g.fill(); }
+    g.fillStyle = 'rgba(190,230,255,0.6)'; g.beginPath(); g.arc(10, 8, 6, 0, TAU); g.fill();
+    g.fillStyle = '#ffffff'; g.strokeStyle = '#a9dcff'; g.lineWidth = 2;
+    g.beginPath(); g.arc(-8, -10, 5, 0, TAU); g.stroke();
+    foamCache[i] = c;
+  }
+  return foamCache[i];
+}
+
 function drawDuck(g, x, y, s, rot = 0) {
   g.save(); g.translate(x, y); g.rotate(rot);
   if (drawArt(g, 'prop/rubber-duck', 0, 0, s * 1.2, s * 1.2)) { g.restore(); return; }
@@ -392,7 +412,8 @@ export class Game {
     s.suds = []; s.sudsPeak = 0; s.wet = 0; s.wasWet = false; s.fluff = 0; s.acc = [];
     s.events = {};
     if (!s.mudCanvas) { s.mudCanvas = document.createElement('canvas'); }
-    s.mudCanvas.width = s.mask.iw; s.mudCanvas.height = s.mask.ih;
+    // Half resolution is plenty for soft mud and much cheaper to redraw.
+    s.mudCanvas.width = Math.ceil(s.mask.iw / 2); s.mudCanvas.height = Math.ceil(s.mask.ih / 2);
     s.mudDirty = true;
     pet.attach((g, info) => this.drawPetOverlay(g, info, s));
   }
@@ -646,7 +667,8 @@ export class Game {
       if (chance(dt * 0.25)) s.char.playOnce('cheer', 0.5);
     }
     s.char.setPose(s.done ? (s.doneT < 2.4 ? 'celebrate' : 'idle') : 'idle');
-    if (s.mudDirty) this.renderMud(s);
+    s.mudT = (s.mudT || 0) - dt;
+    if (s.mudDirty && s.mudT <= 0) { this.renderMud(s); s.mudT = 0.06; }
     pet.update(dt);
     s.char.update(dt);
   }
@@ -881,10 +903,19 @@ export class Game {
     });
     this.banner = { text: 'Pet Parade!', t: 0 };
     sfx('fanfare'); snd('applause', 'cheer');
+    // Camera: start close on the stage entrance, then pull back as the pets line up.
+    const cam = this.api.camera;
+    if (cam) { cam.x = 620; cam.y = 600; cam.zoom = 1.25; cam.follow(760, 600, 1.2, 1.4); }
   }
 
   updateParade(dt) {
     const t = this.phaseT;
+    const cam = this.api.camera;
+    if (cam) {
+      const lead = this.stations.reduce((mx, s) => Math.max(mx, s.pet.x), -Infinity);
+      if (t < 3.4) cam.follow(clamp(lead, 600, W - 600), 600, 1.2, 1.6);
+      else cam.follow(W / 2, H / 2, 1, 1.2);
+    }
     this.stations.forEach((s, i) => {
       const pet = s.pet;
       if (!s.arrived) {
@@ -931,7 +962,9 @@ export class Game {
       if (s.treats) bits.push(`${s.treats} treat${s.treats > 1 ? 's' : ''}`);
       return `${s.def.name}${bits.length ? ' · ' + bits.join(', ') : ''}`;
     });
-    this.api.finish({ showcase: true, highlight, stats, title: 'So Sparkly!' });
+    const hs = highlight !== null ? this.stations[highlight] : null;
+    const focus = this.phase === 'parade' ? (hs ? { x: hs.pet.x, y: hs.pet.y - hs.pet.height * 0.5, zoom: 1.3 } : { x: W / 2, y: 600, zoom: 1.15 }) : undefined;
+    this.api.finish({ showcase: true, highlight, stats, title: 'So Sparkly!', focus });
   }
 
   postUpdate(dt) {
@@ -953,15 +986,14 @@ export class Game {
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.globalCompositeOperation = 'source-over';
     g.clearRect(0, 0, c.width, c.height);
+    g.setTransform(0.5, 0, 0, 0.5, 0, 0);
     for (const b of s.mud) {
       if (b.amt <= 0.01) continue;
       const k = 0.45 + 0.55 * b.amt;
       g.save();
       g.translate(b.x, b.y); g.rotate(b.rot);
       g.globalAlpha = Math.min(1, 0.25 + b.amt * 0.85);
-      const grd = g.createRadialGradient(-b.r * 0.2, -b.r * 0.2, b.r * 0.1, 0, 0, b.r * 1.2 * k);
-      grd.addColorStop(0, '#9a6a3c'); grd.addColorStop(1, '#5e3a1e');
-      g.fillStyle = grd;
+      g.fillStyle = '#76492a';
       g.beginPath();
       const n = b.shape.length;
       for (let i = 0; i <= n; i++) {
@@ -973,7 +1005,8 @@ export class Game {
       g.fill();
       // splatter dots
       for (const [dx, dy, rr] of b.dots) { g.beginPath(); g.arc(dx * b.r * k, dy * b.r * k, rr * b.r * k, 0, TAU); g.fill(); }
-      // shine
+      // darker core + shine
+      g.fillStyle = '#5e3a1e'; g.beginPath(); g.ellipse(b.r * 0.15 * k, b.r * 0.15 * k, b.r * 0.55 * k, b.r * 0.45 * k, 0.4, 0, TAU); g.fill();
       g.globalAlpha *= 0.35; g.fillStyle = '#d9a873';
       g.beginPath(); g.ellipse(-b.r * 0.3 * k, -b.r * 0.35 * k, b.r * 0.28 * k, b.r * 0.12 * k, -0.5, 0, TAU); g.fill();
       g.restore();
@@ -982,6 +1015,7 @@ export class Game {
       g.globalCompositeOperation = 'destination-in';
       g.drawImage(s.mask.img, 0, 0);
       g.globalCompositeOperation = 'source-over';
+      g.setTransform(1, 0, 0, 1, 0, 0);
     }
   }
 
@@ -994,7 +1028,7 @@ export class Game {
     g.scale(flip * pxs, pxs);
     g.translate(-m.iw / 2, -m.ih);
     // mud
-    if (s.mud.some((b) => b.amt > 0.01)) g.drawImage(s.mudCanvas, 0, 0);
+    if (s.mud.some((b) => b.amt > 0.01)) g.drawImage(s.mudCanvas, 0, 0, m.iw, m.ih);
     // wet sheen
     if (s.wet > 0.05) {
       g.save(); g.globalAlpha = Math.min(0.9, s.wet);
@@ -1006,22 +1040,17 @@ export class Game {
       }
       g.restore();
     }
-    // suds (foam clumps)
+    // suds (foam clumps from cached sprites; they gently breathe)
     const tt = this.t;
+    const base = g.globalAlpha;
     for (const u of s.suds) {
       if (u.amt < 0.03) continue;
-      const k = Math.min(1, u.amt);
-      g.save(); g.globalAlpha = Math.min(1, u.amt * 1.6);
-      g.translate(u.x, u.y);
-      g.fillStyle = '#ffffff'; g.strokeStyle = '#a9dcff'; g.lineWidth = m.ih * 0.005;
-      for (let j = 0; j < 4; j++) {
-        const a = u.ph + j * 1.7, rr = u.r * k * (0.55 + 0.2 * Math.sin(tt * 3 + j + u.ph));
-        g.beginPath(); g.arc(Math.cos(a) * u.r * 0.6 * k, Math.sin(a) * u.r * 0.45 * k, rr, 0, TAU); g.fill(); g.stroke();
-      }
-      g.fillStyle = 'rgba(255,255,255,0.95)';
-      g.beginPath(); g.arc(-u.r * 0.25 * k, -u.r * 0.3 * k, u.r * 0.15 * k, 0, TAU); g.fill();
-      g.restore();
+      const k = Math.min(1, u.amt) * (1 + 0.06 * Math.sin(tt * 3 + u.ph));
+      g.globalAlpha = base * Math.min(1, u.amt * 1.6);
+      const r = u.r * k * 1.25;
+      g.drawImage(foamSprite(Math.floor(u.ph * 10) % 3), u.x - r, u.y - r, r * 2, r * 2);
     }
+    g.globalAlpha = base;
     // brushed shine glints
     if (s.fluff > 0.3 && !s.wet) {
       for (let i = 0; i < 4; i++) {
@@ -1326,6 +1355,10 @@ export class Game {
       this.drawFlying(g);
       for (const s of this.stations) this.drawCursor(g, s);
     }
+  }
+
+  /** Screen-space overlay (drawn above the camera view). */
+  drawHUD(g) {
     if (this.banner) ui.banner(g, this.banner.text, this.banner.t, { size: 120, y: this.phase === 'parade' ? 190 : H / 2 - 40, color: '#ff8fd0' });
     if (this.phase === 'spa' && this.stations.every((s) => s.done)) {
       ui.banner(g, 'Everyone is happy!', this.allDoneT, { size: 100, y: H / 2, color: '#ffd23f' });

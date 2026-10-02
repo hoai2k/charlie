@@ -359,10 +359,10 @@ export class Game {
         const side = k % 2 ? 1 : -1;
         return {
           col: f.col, k, sx: side < 0 ? -80 : W + 80, sy: rand(260, 640),
-          tx: W / 2 + (k - (c - 1) / 2) * spacing, ty: 410, t0: 1.1 + k * 0.55, dur: 0.85, arrived: false, trail: [], trailT: 0,
+          tx: W / 2 + (k - (c - 1) / 2) * spacing, ty: 410, t0: 0.7 + k * 0.36, dur: 0.65, arrived: false, trail: [], trailT: 0,
         };
       }),
-      count: 0, stage: 'fly', scored: false, totalAt: 1.1 + (c - 1) * 0.55 + 0.85 + 0.6,
+      count: 0, stage: 'fly', scored: false, totalAt: 0.7 + (c - 1) * 0.36 + 0.65 + 0.4,
     };
     this.choice.forEach((ch) => { ch.state = 'locked'; });
     sfx('magic', { vol: 0.5 });
@@ -387,10 +387,11 @@ export class Game {
     if (rv.stage === 'fly' && this.pt >= rv.totalAt) {
       rv.stage = 'total'; rv.totalT = this.pt;
       sfx('correct'); fx.flash(this.target.glow, 0.12);
+      if (this.api.camera) this.api.camera.punch(W / 2, 430, 1.15, 0.9);
       particles.burst(W / 2, 410, { type: 'star', count: 14, colors: [this.target.c, '#fff6a8', this.target.glow], speed: [200, 520] });
     }
-    if (rv.stage === 'total' && this.pt >= rv.totalT + 1.1) { rv.stage = 'score'; rv.scoreT = this.pt; this.scoreRound(); }
-    if (rv.stage === 'score' && this.pt >= rv.scoreT + 3.0) this.setPhase('between');
+    if (rv.stage === 'total' && this.pt >= rv.totalT + 0.8) { rv.stage = 'score'; rv.scoreT = this.pt; this.scoreRound(); }
+    if (rv.stage === 'score' && this.pt >= rv.scoreT + 2.3) this.setPhase('between');
   }
 
   revealPos(r, age) {
@@ -440,7 +441,8 @@ export class Game {
     const score = this.points.map((pt, i) => pt * 1000 - this.totalErr[i] * 10);
     const placements = placementsFromScores(score);
     const stats = this.points.map((p, i) => `${p} pts, ${this.exacts[i]} exact`);
-    this.api.finish({ placements, stats });
+    const best = placements.indexOf(1), wa = this.actors[best];
+    this.api.finish({ placements, stats, focus: { x: wa.x, y: wa.y - wa.height / 2, zoom: 1.35 } });
   }
 
   // --- drawing ----------------------------------------------------------------
@@ -451,7 +453,6 @@ export class Game {
     this.drawGarden(g);
     this.actors.forEach((a, i) => a.draw(g, { ring: this.players[i].color }));
     if (this.phase === 'reveal') this.drawReveal(g);
-    this.drawHud(g);
     this.drawBubbles(g);
   }
 
@@ -549,7 +550,11 @@ export class Game {
         g.restore();
       }
     }
-    if (rv.stage !== 'fly') {
+  }
+
+  drawTotalPanel(g) {
+    const rv = this.rv;
+    if (rv && rv.stage !== 'fly') {
       const k = this.pt - rv.totalT;
       const sc = ease.outElastic(clamp(k / 0.7, 0, 1));
       g.save(); g.translate(W / 2, 548); g.scale(sc, sc);
@@ -577,8 +582,9 @@ export class Game {
     return total;
   }
 
-  drawHud(g) {
+  drawHUD(g) {
     const n = this.n;
+    if (this.phase === 'reveal') this.drawTotalPanel(g);
     ui.scoreboard(g, this.players, this.points, { y: 22, format: (v) => `${v} pts`, highlight: this.leaderFlags() });
     if (this.phase === 'intro') {
       ui.banner(g, this.round === ROUNDS - 1 ? 'Final Round!' : `Round ${this.round + 1}`, this.pt, { y: H / 2 - 60, size: 140, color: '#ffd23f' });
@@ -604,7 +610,7 @@ export class Game {
         ui.hints(g, [['dpad', 'Pick'], ['a', 'Lock in']], W / 2, 236, { size: 40 });
       }
     }
-    if (this.phase === 'reveal' && this.rv.stage === 'fly' && this.pt < 1.2) {
+    if (this.phase === 'reveal' && this.rv.stage === 'fly' && this.pt < 0.8) {
       ui.text(g, "Let's count together!", W / 2, 300, { size: 72, color: this.target.c, alpha: clamp(this.pt * 3, 0, 1) });
     }
     if (this.phase === 'reveal' || this.phase === 'ask') {

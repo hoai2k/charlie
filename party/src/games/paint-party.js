@@ -325,6 +325,7 @@ export class Game {
     particles.ring(b.tx, b.ty, b.color, 260, 0.45);
     sfx('splat'); sfx('pop');
     fx.shake(changed > 25 ? 9 : 5, 0.18);
+    if (this.api.camera && changed > 20) this.api.camera.punch(b.tx, b.ty, 1.05, 0.05);
     if (changed > 12) particles.popText(b.tx, b.ty - 40, `+${changed}`, '#ffffff', 46);
   }
 
@@ -361,7 +362,9 @@ export class Game {
     });
     particles.confettiRain(W, 80);
     const total = COLS * ROWS;
+    const wi = this.counts.indexOf(Math.max(...this.counts)), ws = this.ps[wi];
     this.api.finish({
+      focus: { x: ws.x, y: ws.y - 70, zoom: 1.3 },
       placements,
       stats: this.counts.map((c) => `${Math.round((c / total) * 100)}% painted`),
     });
@@ -493,7 +496,6 @@ export class Game {
     // players
     const order = this.ps.map((s, i) => i).sort((a, b) => this.ps[a].y - this.ps[b].y);
     for (const i of order) this.drawPlayer(g, i);
-    this.drawHud(g);
   }
 
   drawSplats(g) {
@@ -568,7 +570,8 @@ export class Game {
     ui.playerTag(g, p, a.x, a.y - a.height - 24);
   }
 
-  drawHud(g) {
+  /** Screen-space HUD (drawn by the host after the camera). */
+  drawHUD(g) {
     const total = COLS * ROWS;
     const left = Math.max(0, TIME - this.t);
     ui.timer(g, left, W / 2, 52);
