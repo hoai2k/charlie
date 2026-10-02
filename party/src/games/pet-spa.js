@@ -29,20 +29,13 @@ const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'pr
 // built here (same base art, no game-wide data change needed).
 const PETS = [
   { id: 'fox', name: 'Fox', char: 'fox' },
-  { id: 'fellowfox', name: 'Fellowfox', custom: { asset: 'fellowfox', h: 110, dx: 0, dy: 0, follow: 0, face: [0.36, 0.38, 0.32], top: 0.95, facing: -1, motion: 'trot' }, color: '#ff8a2a' },
+  { id: 'fellowfox', name: 'Fellowfox', char: 'fellowfox' },
   { id: 'cotton-candy', name: 'Cotton Candy', char: 'cotton-candy' },
   { id: 'unicorn', name: 'Unicorn', char: 'unicorn' },
   { id: 'hotdog', name: 'Hotdog', char: 'hotdog' },
 ];
 
-function makePetActor(def) {
-  if (def.char) return new Actor(def.char);
-  const a = new Actor('fox');
-  a.char = { id: def.id, name: def.name, color: def.color, members: [def.custom] };
-  a.charId = def.id;
-  a.members = [{ def: def.custom, i: 0, x: 0, y: 0, facing: 1, phase: 0 }];
-  return a;
-}
+function makePetActor(def) { return new Actor(def.char); }
 
 // Alpha mask of a pet's base art (quarter resolution) for "is the cursor on
 // the pet?" tests and for placing mud on the body.

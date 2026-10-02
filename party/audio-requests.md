@@ -992,3 +992,45 @@ Listen to these first, because the measurements can't tell if they are right:
 - [ ] `shutter`, `fizzle`, `zap`, `ring`, `grow-flower`, `towel`, `stir`:
   sound like what the name says?
 
+
+
+## 10. Round 2 — sound wishes from the minigames (wordless only)
+
+Compiled by the lead from the minigame agents. Every key below already has a
+synth fallback, so add files at your own pace. Keys marked *(wired)* are
+already called by the code and play as soon as a file is listed in the
+manifest; the others need a one-line code hook when delivered (tell the
+lead or the game's owner).
+
+| Key | Sound | Game |
+| --- | --- | --- |
+| `tick-tock` *(wired)* | Distinct tick/tock pair for the ticking present | Pass the Present |
+| `fuse-sizzle` | Fuse sizzle loop rising in pitch as the present heats | Pass the Present |
+| `golden-chime` | Short sparkly 2-note chime (golden cupcake / golden gem) | Sprinkle Catch, Troll Trouble |
+| `cake-blorp` | Cake plops a treat out | Sprinkle Catch |
+| `rubber-bounce` | Soft rubbery bounce for treats | Sprinkle Catch |
+| `boing` | Cartoon boing for dash bumps | Bumper Bounce, Crown Keeper |
+| `frosting-crumble` | Frosting crumble/crack for the edge stages | Bumper Bounce |
+| `wheee-fall` | Falling "wheee"-style whoosh (no words) | Bumper Bounce |
+| `balloon-stretch` *(wired)* | Rubbery creak at 50/75/90% size | Balloon Pump |
+| `hose-sputter` | Comic sputter/raspberry for the red-zone hose | Balloon Pump |
+| `npc/troll/*` *(wired)* | grumble, windup, yawn, laugh (delivered round 1) | Troll Trouble |
+| `note-u`, `note-d`, `note-l`, `note-r`, `note-star` | Five dance-move notes (now synth midi 72/67/70/75/79) | Spotlight Dance-Off |
+| `sparkle-beam` | Sparkle-beam zap | Spotlight Dance-Off, Pop Star Stage, Wizard Quick-Draw |
+| `cookie-snap`, `crumble-plop` | Cookie crack snap; crumble and milk plop | Cookie Crumble |
+| `paint-splat-wet`, `roller-ding` | Squishy splat with drip; roller pickup ding | Paint Party |
+| `crown-sting`, `crown-land`, `bonk` | Royal sting on pickup; boing/thunk on landing; bonk on bump | Crown Keeper |
+| `ring-combo` | Sparkly ding in 6–8 pitch steps | Broomstick Dash |
+| `broom-whoosh` | Short whoosh loop (boost and glide variants) | Broomstick Dash |
+| `wing-twinkle` | Magical wing-twinkle loop | Fairy Count |
+| `count-chime` | Soft counting chime in 12 pitch steps | Fairy Count |
+| `double-time` | "Double time!" style instrumental sting (no words) | Crown Keeper, Paint Party |
+| `cauldron-plop`, `hic`, `giant-stomp`, `tiny-squeak` | Potion effects (hic = cute non-word hiccup) | Potion Class |
+| `card-flip`, `card-whoosh`, `match-chime` | Paper card flip; whoosh into the pile; match chime | Memory Match |
+| `camera-flash` | Crowd of camera clicks | Fashion Show |
+| `sprinkle-shake`, `candle-blow` | Sprinkle-jar rattle loop; "fwoo" breath | Cake Bakery |
+| `crowd-aww` | Crowd "awww" (wordless) | Fashion Show, results |
+| `jingle/happy-birthday` | Instrumental Happy Birthday (public-domain tune) | Cake Bakery |
+| `scrub`, `shower`, `pet-shake` | Soapy squeak scrub; short spray; wet-fur flap | Pet Spa |
+| `note-hit-a`, `note-hit-b`, `note-hit-x`, `note-hit-y`, `fever`, `big-imp-poof` | Pitched hit chimes, fever riser, big imp poof | Pop Star Stage |
+| `plant-seed`, `firefly-catch`, `petal-firework`, `night-crickets` | Soil pat; twinkly bloop; soft pop + shimmer; ambience loop | Fairy Garden |

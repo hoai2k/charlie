@@ -338,7 +338,7 @@ export class Game {
     }
     this.plotScale = rows === 2 ? 1.35 : cols === 10 ? 1.05 : 1.18;
     // Players
-    const sc = n <= 4 ? 0.78 : 0.66;
+    const sc = n <= 4 ? 0.9 : 0.76;
     this.movers = this.players.map((p, i) => {
       const a = new Actor(p.charId, { scale: sc, x: W / 2 + (i - (n - 1) / 2) * Math.min(170, (W - 300) / n), y: rows === 2 ? 730 : 620 });
       a.facing = i < n / 2 ? 1 : -1; a.snap();

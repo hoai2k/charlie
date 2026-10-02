@@ -1311,6 +1311,45 @@ him as the opponent).
 | `prop/vanity-mirror` | Oval dressing-room mirror ringed with bulbs | ~600×700 |
 | Later | `prop/fairy-<color>`, `prop/crown`, `prop/fountain`, `prop/hedge` | — |
 
-_Pending: Balloon Pump, Troll Trouble, Spotlight Dance-Off, Pet Spa, Pop
-Star Stage and Fairy Garden requests will be added when those games land._
+#### Added with the last six games
+
+**Poses (all characters unless noted):** `sing` (holding a mic and
+singing — Pop Star Stage, Fairy Garden X; falls back to dance), `water`
+(tilting a watering can; action), `catch` also covers swiping a firefly jar
+(Fairy Garden). Pets only (fox, fellowfox, cotton-candy, unicorn, hotdog):
+`giggle` (squirming while scrubbed), `catch-toy` (leap for a rubber duck).
+Two-handed `action` pump read for Balloon Pump. Troll: `windup`, `slam`,
+`sleep`, `laugh` (already called with fallbacks).
+
+**NPCs:** the Shadow Imp canonical (§8.2) is now wanted by two games —
+Spotlight Dance-Off (poses: idle bounce, dance-up, dance-down, dance-side,
+dance-star spin, laugh, eep, poof) and Pop Star Stage (poof, laugh,
+surprised; the code switches to the sprites automatically once a
+`shadow-imp` entry with art exists). Garden fairies (§8.4) would need a
+small code change to replace the drawn ones.
+
+**Backgrounds (1920×1080):**
+
+| Key | Description | Keep clear / constraints |
+| --- | --- | --- |
+| `bg/balloon-pump` | Party room: pastel striped wall, bunting, floating balloons, counter/floor strip | Floor strip at y≈925 (one row) or y≈540 and y≈965 (two rows); open sky for balloons |
+| `bg/troll-trouble` | Top-down sunny meadow, back hedge in the top ~215 px, grass, flowers, dirt path | Leave rocks out (code draws them as obstacles) |
+| `bg/spotlight-dance` | K-pop concert stage: LED wall, truss lights, curtains, glossy floor, audience silhouettes at the bottom | Floor from y≈610 (one row) / y≈520 (two rows); open center for imps and prompts |
+| `bg/pet-spa` | Cheerful pet salon wall (window, shelves) | Stations drawn by code |
+| `bg/pop-star-stage` | Neon concert stage, dark edges where imps lurk | Lanes and performers drawn by code |
+| `bg/fairy-garden`, `bg/fairy-garden-night` | Garden with picket fence, day and night versions | Plots drawn by code |
+
+**Props:** `prop/gem` (5 colors + big gold gem), `prop/rock`,
+`prop/flower` (Troll Trouble); `prop/balloon-pump` (hand pump),
+`prop/balloon` (8 player colors, pinched knot); `prop/sponge`,
+`prop/towel`, `prop/brush`, `prop/pet-treat`, `prop/rubber-duck` (~128 px),
+`prop/shower-head` (~160 px); `prop/note-a`, `prop/note-b`, `prop/note-x`,
+`prop/note-y` (128 px gems, no letters); `prop/watering-can` (160 px),
+`prop/firefly` (64 px); plants `prop/plant-<kind>-<stage>` for kind in
+rose, sunflower, star-bloom, rainbow-tulip, glow-mushroom, crystal-flower
+and stage in seed, sprout, bud, bloom, glow (night) — 256 px tall,
+bottom-anchored (replaces the plant list in §9.4).
+
+**Thumbnails:** optional `thumb/<id>` for all 20 games (each game's
+procedural `drawIcon` is the fallback).
 
