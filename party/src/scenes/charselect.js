@@ -5,7 +5,7 @@ import { drawArt } from '../engine/art.js';
 //   X  add a CPU    Y  remove a CPU    LB/RB  CPU level
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, voice, host } from '../engine/audio.js';
+import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
 import { Actor, getBaseImage } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
@@ -181,6 +181,7 @@ export class CharSelectScene {
     for (const p of players) { p.aiLevel = session.cpuLevel; p.stars = sameParty ? old.get(p.ctrl) || 0 : 0; }
     if (!sameParty) session.played = [];
     session.players = players;
+    preloadVoices(players.map((p) => p.charId));
     for (const h of this.humans) h.actor.playOnce('celebrate', 1, 'idle');
     for (const c of this.cpus) c.actor.playOnce('cheer', 0.6, 'idle');
   }

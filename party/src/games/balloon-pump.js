@@ -298,6 +298,7 @@ export class Game {
       particles.burst(b.x, b.y, { type: 'star', count: 10, colors: ['#ffd23f', '#ffffff'] });
       particles.ring(b.x, b.y, '#ffffff', b.r * 2.2, 0.5);
       particles.ring(b.x, b.y, col, b.r * 3, 0.7);
+      if (this.api.camera) this.api.camera.punch(b.x, b.y, this.n > 4 ? 1.18 : 1.25, 0.5);
       particles.popText(b.x, b.y - b.r * 0.3, 'POP!', '#ffd23f', clamp(100 * winner.s.sc, 64, 120));
       winner.a.setPose('celebrate');
       winner.a.squash(0.4);
@@ -362,7 +363,9 @@ export class Game {
     const scores = this.st.map((st) => st.wins + st.lastSize * 0.9);
     const placements = this.solo ? [1] : placementsFromScores(scores);
     const stats = this.st.map((st) => (this.solo ? `${st.wins} of ${ROUNDS} popped` : `${st.wins} round win${st.wins === 1 ? '' : 's'}`));
-    this.api.finish({ placements, stats });
+    const w = this.lastWinner >= 0 ? this.st[this.lastWinner] : null;
+    const focus = w ? { x: w.a.x, y: w.a.y - 80 } : undefined;
+    this.api.finish({ placements, stats, focus });
   }
 
   // ---- drawing ------------------------------------------------------------
@@ -573,10 +576,9 @@ export class Game {
     this.drawBackground(g);
     const order = this.st.slice().sort((a, b) => a.s.row - b.s.row || a.s.cx - b.s.cx);
     for (const st of order) this.drawStation(g, st);
-    this.drawHud(g);
   }
 
-  drawHud(g) {
+  drawHUD(g) {
     const wins = this.st.map((st) => st.wins);
     ui.scoreboard(g, this.players, wins, {
       y: 36,

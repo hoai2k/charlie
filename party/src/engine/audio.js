@@ -96,6 +96,8 @@ async function loadManifest() {
     manifest = await res.json();
     manifest.sfx = manifest.sfx || {}; manifest.music = manifest.music || {};
     for (const [name, files] of Object.entries(manifest.sfx)) {
+      // Character voices load on demand (preloadVoices) - only the party's.
+      if (name.startsWith('voice/')) continue;
       const list = Array.isArray(files) ? files : [files];
       Promise.all(list.map(loadBuffer)).then((bufs) => {
         const ok = bufs.filter(Boolean);
@@ -266,10 +268,22 @@ export const SFX_NAMES = Object.keys(SYNTH);
 // Character voice clips: manifest keys "voice/<charId>/<kind>". Until clips
 // exist each kind falls back to a synth stand-in.
 export const VOICE_KINDS = { hello: 'join', ready: 'ready', yay: 'yay', aww: 'aww', ouch: 'bonk', woo: 'yay', laugh: 'giggle', gasp: 'blip' };
+const voicesLoading = new Set();
+/** Decode the voice clips for these characters (called when a party forms). */
+export function preloadVoices(charIds) {
+  if (!ctx) return;
+  for (const [name, files] of Object.entries(manifest.sfx)) {
+    if (!name.startsWith('voice/') || voicesLoading.has(name)) continue;
+    if (!charIds.includes(name.split('/')[1])) continue;
+    voicesLoading.add(name);
+    const list = Array.isArray(files) ? files : [files];
+    Promise.all(list.map(loadBuffer)).then((bufs) => { const ok = bufs.filter(Boolean); if (ok.length) fileBuffers.set(name, ok); });
+  }
+}
 export function voice(charId, kind) {
   const key = `voice/${charId}/${kind}`;
   if (fileBuffers.has(key)) sfx(key);
-  else sfx(VOICE_KINDS[kind] || 'blip');
+  else { preloadVoices([charId]); sfx(VOICE_KINDS[kind] || 'blip'); }
 }
 
 // --- music -----------------------------------------------------------------

@@ -560,6 +560,7 @@ export class Game {
         particles.burst(ix, iy, { type: 'star', count: 10, colors: [pl.p.color, '#ffffff', '#ffd23f'], speed: [200, 520] });
         particles.burst(ix, iy, { type: 'confetti', count: 20, colors: [pl.p.color, '#ffffff'], speed: [200, 600] });
         particles.ring(ix, iy, '#ffffff', 170, 0.5);
+        if (this.api.camera) this.api.camera.punch(ix, iy + 40, 1.14, 0.3);
         particles.popText(ix, iy - 40, '+1', pl.p.color, 76);
         sfx('sparkle'); sfx('pop'); sfx('npc/imp/poof'); sfx('npc/imp/eep');
       }
@@ -588,7 +589,9 @@ export class Game {
     });
     for (const im of this.imps) { im.mood = 'eep'; im.moodT = 99; }
     this.banner = null;
+    const wpl = this.pl.filter((q) => keys[q.i] === best)[0];
     this.api.finish({
+      focus: wpl ? { x: wpl.x, y: wpl.y - 100 } : undefined,
       placements,
       stats: this.pl.map((q) => `${q.score} imp${q.score === 1 ? '' : 's'}, ${q.hearts} heart${q.hearts === 1 ? '' : 's'}`),
     });
@@ -808,6 +811,9 @@ export class Game {
     this.drawBeams(g);
     for (const pl of this.pl) this.drawPlayer(g, pl);
     for (const pl of this.pl) this.drawRow(g, pl);
+  }
+
+  drawHUD(g) {
     this.drawCenter(g);
     this.drawHud(g);
   }

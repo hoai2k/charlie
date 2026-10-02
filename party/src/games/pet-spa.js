@@ -387,7 +387,7 @@ export class Game {
     s.ped = { x: r.x + r.w * 0.57, y: r.y + r.h - s.toolH - (compact ? 26 : r.h * 0.12) };
     s.char = new Actor(p.charId, { x: r.x + r.w * (r.w < 520 ? 0.15 : 0.14), y: s.ped.y + (compact ? 6 : r.h * 0.07) });
     const ch = s.char;
-    ch.scale = clamp((r.h * (compact ? 0.3 : 0.24)) / ch.leader.h, 0.38, 1.1);
+    ch.scale = clamp((r.h * (compact ? 0.3 : 0.26)) / ch.leader.h, 0.38, 1.4);
     ch.facing = 1; ch.snap();
     this.rebuildPet(s, def);
     s.cursor.x = s.cursor.px = s.ped.x + r.w * 0.05;
@@ -663,7 +663,7 @@ export class Game {
     if (!s.done && s.happyTarget >= 0.995) this.petDone(s);
     if (s.done) {
       s.doneT += dt;
-      if (chance(dt * 0.6)) pet.emote('heart', 1.2);
+      if (chance(dt * 0.3)) pet.emote('heart', 1.2);
       if (chance(dt * 0.25)) s.char.playOnce('cheer', 0.5);
     }
     s.char.setPose(s.done ? (s.doneT < 2.4 ? 'celebrate' : 'idle') : 'idle');

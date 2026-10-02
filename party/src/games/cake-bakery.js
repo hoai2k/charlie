@@ -1042,8 +1042,8 @@ export class Game {
     else if (F.stage === 'taste') msg = 'Taste test!';
     if (msg) {
       const bw = ui.measure(g, msg, 54) + 90;
-      g.save(); g.translate(W / 2, this.n === 1 ? 1000 : H / 2 + 0); g.rotate(-0.02);
-      if (this.n > 1) { ui.panel(g, -bw / 2, -44, bw, 88, { r: 44, fill: '#9b5cff' }); }
+      g.save(); g.translate(W / 2, this.n === 1 ? 170 : H / 2); g.rotate(-0.02);
+      ui.panel(g, -bw / 2, -44, bw, 88, { r: 44, fill: '#9b5cff' });
       ui.text(g, msg, 0, 2, { size: 54, weight: 800, color: '#fff' });
       g.restore();
     }

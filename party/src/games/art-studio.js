@@ -24,8 +24,8 @@ export const meta = {
   category: 'studio',
   type: 'Paint together · Everyone wins',
   goal: 'Paint a masterpiece together on one big canvas, then hang it in the museum!',
-  controls: [['stick', 'Move your paintbrush'], ['a', 'Hold to paint'], ['lb', 'Change tool (brush, glitter, stamps...)'], ['x', 'Change color / stamp'], ['y', 'Brush size'], ['b', 'Undo']],
-  tips: ['Try the fill bucket on a coloring page!', 'Move onto "Done!" at the top and press A when your picture is finished.', 'In the museum, press X to save your picture.'],
+  controls: [['stick', 'Move your paintbrush'], ['a', 'Hold to paint'], ['lb', 'Change tool (glitter, stamps, fill...)'], ['x', 'Change color / stamp'], ['y', 'Brush size']],
+  tips: ['B takes back your last stroke.', 'Go to "Done!" at the top when your picture is finished.', 'In the museum, press X to save your picture.'],
   music: 'chill',
   duration: 'as long as you like',
   minPlayers: 1,
@@ -353,7 +353,7 @@ export class Game {
     const sp = 1000 * accel;
     const cur = st.cur;
     cur.x = clamp(cur.x + (c.x * sp + c.rx * 160) * dt, 0, CW - 1);
-    cur.y = clamp(cur.y + (c.y * sp + c.ry * 160) * dt, st.p.isAI ? 0 : -100, CH - 1);
+    cur.y = clamp(cur.y + (c.y * sp + c.ry * 160) * dt, st.p.isAI ? 0 : -66, CH - 1);
     st.paletteT = Math.max(0, st.paletteT - dt);
     st.soundT -= dt;
     const scr = toScreen(cur.x, cur.y);

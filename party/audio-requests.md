@@ -540,32 +540,32 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `sfx/bigpop-1.wav` | 0.32 | -3.3 | Loud balloon bursting bang with a short echo, followed by crinkly confetti paper rustle and sprinkle |
 | `sfx/bigpop-2.wav` | 0.17 | -3.3 | Balloon pop with a sharp bang and a quick shower of confetti falling, cheerful party sound |
 | `sfx/boom-1.wav` | 0.16 | -3.3 | Cartoon poof-boom, a soft "fwoomp" with a bright confetti burst and sparkle, friendly not an explosion, audible on small speakers |
-| `sfx/boom-2.mp3` | 0.84 | -7.7 | Deep soft cartoon fwoomp thump of a party popper cannon, bass puff then confetti showering, playful |
-| `sfx/brush-1.wav` | 0.20 | -6.4 | Soft paintbrush stroke swish on paper, one short stroke |
+| `sfx/boom-2.mp3` | 0.84 | -3.7 | Deep soft cartoon fwoomp thump of a party popper cannon, bass puff then confetti showering, playful |
+| `sfx/brush-1.wav` | 0.20 | -6.3 | Soft paintbrush stroke swish on paper, one short stroke |
 | `sfx/brush-2.wav` | 0.20 | -6.3 | Gentle scrub brush swipe, one quick soft stroke |
 | `sfx/brush-3.wav` | 0.20 | -6.3 | One light brush stroke sound |
 | `sfx/bubble-2.wav` | 0.12 | -6.3 | One tiny water bubble blip pop |
 | `sfx/bubble-3.wav` | 0.12 | -6.3 | Small cute bubble bloop |
-| `sfx/bubble-4.wav` | 0.08 | -8.0 | Soft quick bubble pop, gentle |
+| `sfx/bubble-4.wav` | 0.08 | -6.3 | Soft quick bubble pop, gentle |
 | `sfx/cauldron.wav` | 2.13 | -3.3 | Bubbling witch cauldron, gentle potion bubbling loop, cartoon, steady |
 | `sfx/cheer-1.mp3` | 2.22 | -4.3 | Crowd of about 20 happy kids cheering and whooping at a birthday party, bright and joyful, fast attack, natural decay, small room |
 | `sfx/cheer-2.mp3` | 2.14 | -6.6 | A group of excited children cheering "yeah!" and whooping together at a party, joyful, fast attack then natural fade |
 | `sfx/cheer-3.mp3` | 2.14 | -5.1 | Party-sized crowd of 20 kids cheering and screaming with joy, whoops and hooray, cheerful, not a stadium |
 | `sfx/crack-1.wav` | 0.25 | -3.3 | Single crisp cookie snap |
 | `sfx/crack-2.wav` | 0.12 | -3.3 | One sharp biscuit crack, snapping a cookie in half |
-| `sfx/crack-3.wav` | 0.23 | -3.5 | Short brittle cookie crack |
+| `sfx/crack-3.wav` | 0.23 | -3.3 | Short brittle cookie crack |
 | `sfx/crowd-gasp.mp3` | 0.63 | -3.7 | Crowd of kids gasping together in surprise, quick sharp inhale |
 | `sfx/crowd-ooh.mp3` | 0.94 | -5.8 | Impressed crowd of kids saying "ooooh!" together, awestruck, rising then falling |
-| `sfx/crumble-1.mp3` | 0.44 | -3.6 | Cookie crumbling into small crumbs falling and scattering |
+| `sfx/crumble-1.mp3` | 0.44 | -3.5 | Cookie crumbling into small crumbs falling and scattering |
 | `sfx/crumble-2.wav` | 0.31 | -3.3 | A cookie breaking apart into crumbs, dry crunchy crumble |
 | `sfx/drumroll.mp3` | 1.49 | -3.5 | Snare drum roll building up, 1.5 seconds, ends with a clean abrupt stop, no cymbal, no crash |
-| `sfx/fanfare.mp3` | 2.35 | -5.3 | Triumphant short brass fanfare with bells, bright C major, kids party game winner reveal, ending on a bright held chord |
+| `sfx/fanfare.mp3` | 2.35 | -5.0 | Triumphant short brass fanfare with bells, bright C major, kids party game winner reveal, ending on a bright held chord |
 | `sfx/fizzle-1.mp3` | 0.57 | -3.5 | Comic spell fizzle "pfft pffzz", failed magic spark sputtering out, cartoon |
 | `sfx/fizzle-2.mp3` | 0.63 | -3.6 | Funny failed magic spell, sputtering fizzle and a little pop, cartoon |
 | `sfx/flip-1.wav` | 0.15 | -6.3 | Playing card flip "fwip", one quick flick |
 | `sfx/flip-2.wav` | 0.15 | -6.3 | A single card being flipped over on a table, quick fwip |
 | `sfx/giggle-1.mp3` | 0.76 | -4.4 | Two or three little kids giggling together, cute and bubbly |
-| `sfx/giggle-2.mp3` | 0.76 | -6.7 | Children giggling and snickering happily, short, adorable |
+| `sfx/giggle-2.mp3` | 0.76 | -6.8 | Children giggling and snickering happily, short, adorable |
 | `sfx/giggle-3.mp3` | 0.76 | -3.6 | A few small kids laughing with a little squeaky giggle, cute |
 | `sfx/grow-flower.mp3` | 0.81 | -4.0 | Magical plant growth sweep with leaves rustling and a soft sparkle, cartoon, rising |
 | `sfx/lose.mp3` | 1.59 | -3.7 | Gentle comic wah-wah-wah-wahh with a soft muted trombone, kind not mocking, ending with a little upbeat oh-well button |
@@ -577,21 +577,21 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `sfx/pump-3.wav` | 0.15 | -6.3 | Short soft puff of air from a bicycle pump, "pfft", airy |
 | `sfx/ring-1.mp3` | 0.63 | -3.8 | Bright sparkly "shwing" magical whoosh through a ring, glittering |
 | `sfx/ring-2.mp3` | 0.50 | -3.3 | Quick sparkly shimmer swoosh with a bright ting, magical boost sound |
-| `sfx/shutter-1.mp3` | 0.50 | -3.0 | Camera shutter click followed by a short flash charging whine rising in pitch |
+| `sfx/shutter-1.mp3` | 0.50 | -2.5 | Camera shutter click followed by a short flash charging whine rising in pitch |
 | `sfx/shutter-2.mp3` | 0.47 | -3.1 | Photo camera shutter click and a quick electronic flash recharge whine |
-| `sfx/splash-1.mp3` | 0.55 | -4.1 | Playful bath water splash, cartoon, a pet being washed in a tub, one splash |
-| `sfx/splash-2.mp3` | 0.68 | -4.6 | Fun splash of water in a bathtub with a few drips, cheerful cartoon |
+| `sfx/splash-1.mp3` | 0.55 | -3.6 | Playful bath water splash, cartoon, a pet being washed in a tub, one splash |
+| `sfx/splash-2.mp3` | 0.68 | -3.9 | Fun splash of water in a bathtub with a few drips, cheerful cartoon |
 | `sfx/splat-1.wav` | 0.21 | -3.3 | Wet paint splat, one single squishy splat |
 | `sfx/splat-2.wav` | 0.12 | -3.3 | Single cartoon wet splat of paint hitting a wall |
 | `sfx/splat-3.wav` | 0.18 | -3.3 | Short squelchy paint splat |
 | `sfx/squeak-1.wav` | 0.35 | -3.3 | Rubber duck squeak, one single squeak |
 | `sfx/squeak-2.wav` | 0.35 | -3.3 | Cute rubber bath toy squeak, short |
-| `sfx/star.mp3` | 0.52 | -13.6 | Sweet short star award chime, three quick ascending bell notes, sparkly |
+| `sfx/star.mp3` | 0.52 | -6.6 | Sweet short star award chime, three quick ascending bell notes, sparkly |
 | `sfx/stir.wav` | 0.23 | -3.3 | Wooden spoon stirring a pot, one slow swish |
 | `sfx/stomp-1.wav` | 0.34 | -3.3 | Heavy cartoon giant footstep: a punchy thud with a crunchy gravel slap on top, one hit, audible on small speakers |
 | `sfx/stomp-2.wav` | 0.23 | -3.3 | One big cartoon stomp on a wooden floor, solid thump with a crisp slap and a short rumble, one hit |
 | `sfx/stomp-3.wav` | 0.34 | -3.3 | Giant troll single footstep, punchy mid-range thump with a bit of dirt crunch, cartoon, one hit |
-| `sfx/thunder.mp3` | 0.76 | -5.6 | Small cartoon thunder crack and rumble, a gentle rolling boom with a crackle, not scary, kids animation |
+| `sfx/thunder.mp3` | 0.76 | -3.8 | Small cartoon thunder crack and rumble, a gentle rolling boom with a crackle, not scary, kids animation |
 | `sfx/tick-tock.wav` | 1.00 | -3.3 | Cartoon wall clock ticking, one tick and one tock, one second loop, steady |
 | `sfx/towel.wav` | 0.32 | -3.3 | Fluffy towel rubbing, soft cloth rub, short |
 | `sfx/troll-roar-1.mp3` | 0.84 | -3.7 | Comic grumpy cartoon troll grumble-roar, big belly-deep "grraawwrr hmph", like a grouchy grandpa not a monster, funny and friendly |
@@ -599,27 +599,27 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `sfx/troll-snore-1.mp3` | 1.18 | -3.7 | Cartoon giant troll snoring: deep rumbling inhale then a soft whistling exhale, starts and ends quiet, comical |
 | `sfx/troll-snore-2.mp3` | 1.39 | -3.5 | Funny cartoon snore of a big sleepy ogre, low rumbling snort in and a whistling puff out, quiet at both ends |
 | `sfx/water-1.mp3` | 0.78 | -3.5 | Watering can sprinkling and pouring water gently on plants |
-| `sfx/water-2.mp3` | 0.73 | -3.5 | Gentle watering can pour sprinkle, water droplets falling |
-| `sfx/whistle.mp3` | 0.52 | -5.5 | Referee pea whistle, one short sharp blast |
+| `sfx/water-2.mp3` | 0.73 | -3.7 | Gentle watering can pour sprinkle, water droplets falling |
+| `sfx/whistle.mp3` | 0.52 | -3.8 | Referee pea whistle, one short sharp blast |
 | `sfx/win-1.mp3` | 1.23 | -3.8 | Quick cheerful ascending four note arpeggio C E G C on bright marimba and brass with a bell sparkle on top, one second, video game round won |
 | `sfx/win-2.mp3` | 1.23 | -7.2 | Short happy rising flourish of notes going up the scale, glockenspiel and trumpet, bright major key, ends on a high note, game win jingle |
 | `sfx/yay-1.mp3` | 0.65 | -3.8 | A small group of 4 kids shouting "Yay!" together, short and bright, happy |
-| `sfx/yay-2.mp3` | 0.73 | -3.7 | Several children cheering a quick bright "Yay!" at a party, cute, excited |
-| `sfx/yay-3.mp3` | 0.73 | -7.9 | Little kids all yelling "Yaaay!" joyfully, short, bright and sweet |
-| `sfx/zap-1.mp3` | 0.52 | -3.6 | Bright magic spell cast "fwoosh ting", sparkly whoosh ending with a bell ting |
-| `sfx/zap-2.mp3` | 0.52 | -6.4 | Magic wand cast, quick sparkly whoosh and a chime ting |
+| `sfx/yay-2.mp3` | 0.73 | -3.6 | Several children cheering a quick bright "Yay!" at a party, cute, excited |
+| `sfx/yay-3.mp3` | 0.73 | -7.8 | Little kids all yelling "Yaaay!" joyfully, short, bright and sweet |
+| `sfx/zap-1.mp3` | 0.52 | -4.0 | Bright magic spell cast "fwoosh ting", sparkly whoosh ending with a bell ting |
+| `sfx/zap-2.mp3` | 0.52 | -3.1 | Magic wand cast, quick sparkly whoosh and a chime ting |
 
 **NPC sounds (§5.2)**
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
-| `npc/fairy/chime-1.mp3` | 0.47 | -7.2 | Tiny fairy bell twinkle, a quick high magical chime |
-| `npc/fairy/chime-2.mp3` | 0.47 | -11.5 | Little sparkling glass bell tinkle, fairy dust |
-| `npc/fairy/chime-3.mp3` | 0.47 | -8.6 | Delicate tiny bell twinkle, short and magical |
+| `npc/fairy/chime-1.mp3` | 0.47 | -6.7 | Tiny fairy bell twinkle, a quick high magical chime |
+| `npc/fairy/chime-2.mp3` | 0.47 | -6.5 | Little sparkling glass bell tinkle, fairy dust |
+| `npc/fairy/chime-3.mp3` | 0.47 | -7.3 | Delicate tiny bell twinkle, short and magical |
 | `npc/hoot/hoo-1.mp3` | 0.70 | -9.1 | Warm friendly owl hooting "hoo-hoo", gentle, cartoon, wise |
 | `npc/hoot/hoo-2.mp3` | 0.84 | -5.8 | Soft cute owl "hoo hoo" hoot, kind and cozy |
-| `npc/imp/eep.wav` | 0.30 | -5.9 | Startled tiny squeak "eep!", very short, cute cartoon creature |
-| `npc/imp/giggle-1.mp3` | 0.55 | -3.8 | Tiny mischievous gremlin giggle, high and squeaky, cartoon, cute |
+| `npc/imp/eep.wav` | 0.30 | -5.7 | Startled tiny squeak "eep!", very short, cute cartoon creature |
+| `npc/imp/giggle-1.mp3` | 0.55 | -3.9 | Tiny mischievous gremlin giggle, high and squeaky, cartoon, cute |
 | `npc/imp/giggle-2.mp3` | 0.57 | -6.2 | Squeaky little imp tee-hee-hee laugh, mischievous but cute, high pitched cartoon |
 | `npc/imp/giggle-3.mp3` | 0.55 | -4.1 | Cute high pitched little cartoon creature giggling "tee hee hee", playful and silly |
 | `npc/imp/poof.mp3` | 0.50 | -3.3 | Glittery magical poof of smoke with a fading comedic raspberry "nyaa", cartoon |
@@ -637,8 +637,8 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | --- | --- | --- | --- |
 | `jingle/marathon-start.mp3` | 2.51 | -3.6 | Exciting rising build here we go, cheerful playful party game kickoff sting with drums and brass |
 | `jingle/results.mp3` | 2.56 | -4.8 | Short snare drumroll that leads into a bright triumphant ta-da orchestral hit with brass and bells, kids game results reveal |
-| `jingle/round.mp3` | 0.84 | -3.7 | Short cheerful transition sting, two quick bright notes with a bell, next round |
-| `jingle/showstopper.mp3` | 1.51 | -4.0 | Shiny medal award sting, bright bell shimmer and a short triumphant brass hit, cheerful |
+| `jingle/round.mp3` | 0.84 | -3.8 | Short cheerful transition sting, two quick bright notes with a bell, next round |
+| `jingle/showstopper.mp3` | 1.51 | -3.9 | Shiny medal award sting, bright bell shimmer and a short triumphant brass hit, cheerful |
 | `jingle/star-award.mp3` | 1.80 | -7.8 | Glittery magical rising swell with sparkling bells and chimes, you got stars, cheerful |
 | `jingle/trophy.mp3` | 5.64 | -3.8 | Grand triumphant champion fanfare with full brass, choir aah pad and cymbal swell, ending on a held major chord with sparkle, kids game trophy ceremony |
 
@@ -649,24 +649,24 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
-| `voice/felicity/hello-1.mp3` | 0.91 | -3.8 | Cheerful young cartoon girl saying "Hi!" brightly, followed by a tiny cute fox yip, no music |
+| `voice/felicity/hello-1.mp3` | 0.91 | -3.7 | Cheerful young cartoon girl saying "Hi!" brightly, followed by a tiny cute fox yip, no music |
 | `voice/felicity/hello-2.mp3` | 0.65 | -8.7 | Friendly adventurous girl says "Hiya!" with a little fox yip after, cartoon, no music |
-| `voice/felicity/ready-1.mp3` | 0.91 | -9.2 | Bright eager young girl says "Ready!" with adventurous energy, cartoon, no music |
-| `voice/felicity/ready-2.mp3` | 0.84 | -9.5 | Lively young girl says "Let's go!" excited, cartoon, no music |
-| `voice/felicity/yay-1.mp3` | 1.04 | -6.0 | Excited young girl cheers "Yay!" followed by a tiny happy fox yip, cartoon, no music |
+| `voice/felicity/ready-1.mp3` | 0.91 | -8.8 | Bright eager young girl says "Ready!" with adventurous energy, cartoon, no music |
+| `voice/felicity/ready-2.mp3` | 0.84 | -9.4 | Lively young girl says "Let's go!" excited, cartoon, no music |
+| `voice/felicity/yay-1.mp3` | 1.04 | -6.1 | Excited young girl cheers "Yay!" followed by a tiny happy fox yip, cartoon, no music |
 | `voice/felicity/yay-2.mp3` | 0.91 | -9.2 | Happy young girl shouts "Yippee!" bright and lively, cartoon, no music |
 | `voice/felicity/yay-3.mp3` | 0.86 | -4.8 | Young girl cheers "Woohoo yay!" joyful and bubbly, tiny fox yip, no music |
 | `voice/felicity/aww-1.mp3` | 1.04 | -7.9 | Young girl says a sad little "aww" and a tiny sympathetic fox whimper, cartoon, no music |
 | `voice/felicity/aww-2.mp3` | 1.04 | -6.6 | Disappointed girl says "awww" gently, small fox whimper, no music |
 | `voice/felicity/ouch-1.wav` | 0.39 | -7.3 | Young cartoon girl says "Ow!" quick and cute, no music |
-| `voice/felicity/ouch-2.mp3` | 0.44 | -3.8 | Short surprised "Oof!" from a young girl, cartoon, no music |
+| `voice/felicity/ouch-2.mp3` | 0.44 | -3.6 | Short surprised "Oof!" from a young girl, cartoon, no music |
 | `voice/felicity/ouch-3.mp3` | 0.52 | -3.8 | Young girl "Ouch!" quick, cartoon, no music |
 | `voice/felicity/woo-1.mp3` | 0.84 | -8.3 | Young girl shouts "Woo-hoo!" excited, tiny fox yip, cartoon, no music |
 | `voice/felicity/woo-2.mp3` | 0.84 | -3.7 | Excited girl whoops "Whee!" energetic, cartoon, no music |
-| `voice/felicity/laugh-1.mp3` | 1.04 | -3.5 | Happy young girl giggling and laughing, bright, cartoon, no music |
+| `voice/felicity/laugh-1.mp3` | 1.04 | -3.7 | Happy young girl giggling and laughing, bright, cartoon, no music |
 | `voice/felicity/laugh-2.mp3` | 1.04 | -3.6 | Cheerful girl laughing "hehehe" playful, cartoon, no music |
 | `voice/felicity/gasp-1.wav` | 0.37 | -9.4 | Young girl gasps in surprise, short, cartoon, no music |
-| `voice/felicity/gasp-2.mp3` | 0.52 | -6.1 | Quick surprised gasp "oh!" from a young girl, no music |
+| `voice/felicity/gasp-2.mp3` | 0.52 | -6.0 | Quick surprised gasp "oh!" from a young girl, no music |
 
 `kpop-girls`
 
@@ -680,37 +680,37 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/kpop-girls/yay-2.mp3` | 1.28 | -9.9 | Three girls cheer "Yeah! Woo!" harmonized, joyful, no music |
 | `voice/kpop-girls/aww-1.mp3` | 1.23 | -6.5 | Three girls say "awww" together, group disappointed, cute, no music |
 | `voice/kpop-girls/aww-2.mp3` | 1.33 | -4.4 | Group of three young women sigh "awww" in harmony, gentle, no music |
-| `voice/kpop-girls/ouch-1.mp3` | 0.70 | -9.0 | Three girls say "Ow!" quickly, cartoon, no music |
-| `voice/kpop-girls/ouch-2.mp3` | 0.78 | -6.2 | Three girls "Ouch!" in surprise, short, no music |
+| `voice/kpop-girls/ouch-1.mp3` | 0.70 | -8.9 | Three girls say "Ow!" quickly, cartoon, no music |
+| `voice/kpop-girls/ouch-2.mp3` | 0.78 | -6.4 | Three girls "Ouch!" in surprise, short, no music |
 | `voice/kpop-girls/ouch-3.mp3` | 0.68 | -6.3 | Three young women "Oops!" short, cute, no music |
 | `voice/kpop-girls/woo-1.mp3` | 0.99 | -8.3 | Three young women whoop "Woo!" together, excited pop group, no music |
-| `voice/kpop-girls/woo-2.mp3` | 1.10 | -8.6 | Three girls "Woo-hoo!" one after another, upbeat, no music |
+| `voice/kpop-girls/woo-2.mp3` | 1.10 | -8.5 | Three girls "Woo-hoo!" one after another, upbeat, no music |
 | `voice/kpop-girls/laugh-1.mp3` | 1.20 | -4.5 | Three girls giggling together, three distinct voices, cute, no music |
 | `voice/kpop-girls/laugh-2.mp3` | 1.20 | -3.9 | Three young women laughing and giggling together, bright, no music |
 | `voice/kpop-girls/gasp-1.mp3` | 0.70 | -5.0 | Three girls gasp in surprise together, short, no music |
-| `voice/kpop-girls/gasp-2.mp3` | 0.84 | -6.2 | Three young women gasp "oh!" together, quick, no music |
+| `voice/kpop-girls/gasp-2.mp3` | 0.84 | -6.0 | Three young women gasp "oh!" together, quick, no music |
 
 `bronze`
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
 | `voice/bronze/hello-1.mp3` | 0.86 | -7.1 | Cute friendly little robot greeting: rising boop beep bweep, no words, cartoon robot sound, no music |
-| `voice/bronze/hello-2.mp3` | 0.73 | -7.7 | Small curious robot rising beep-boop greeting with a servo whir, cute, no speech, no music |
+| `voice/bronze/hello-2.mp3` | 0.73 | -7.6 | Small curious robot rising beep-boop greeting with a servo whir, cute, no speech, no music |
 | `voice/bronze/ready-1.mp3` | 0.86 | -7.8 | Cute little robot two short determined confirmation beeps boop-beep with a tiny servo whir, no music |
 | `voice/bronze/ready-2.mp3` | 0.91 | -6.3 | Robot cheerful "bip-bop" ready beeps, cute, no words, no music |
 | `voice/bronze/yay-1.mp3` | 1.04 | -8.0 | Happy little robot chirp arpeggio of beeps then a springy boing, cute, no words, no music |
 | `voice/bronze/yay-2.mp3` | 0.81 | -5.0 | Joyful robot rising chirps and a cartoon spring boing, no music |
-| `voice/bronze/yay-3.mp3` | 1.04 | -8.5 | Cute robot celebrating with fast happy beeps and a boing, no words, no music |
-| `voice/bronze/aww-1.mp3` | 1.04 | -6.7 | Cute little robot powering down, descending and slowing "bwoo-oo-oo" sad tone, cartoon, no music |
+| `voice/bronze/yay-3.mp3` | 1.04 | -3.6 | Cute robot celebrating with fast happy beeps and a boing, no words, no music |
+| `voice/bronze/aww-1.mp3` | 1.04 | -6.6 | Cute little robot powering down, descending and slowing "bwoo-oo-oo" sad tone, cartoon, no music |
 | `voice/bronze/aww-2.mp3` | 1.04 | -9.7 | Sad small robot slow descending whirr and beep winding down, cute, no music |
 | `voice/bronze/ouch-1.wav` | 0.40 | -3.3 | Cartoon robot metal clank with a short static sputter, comical, light, no music |
-| `voice/bronze/ouch-2.mp3` | 0.52 | -3.4 | Little robot bonk clank and a sputtering zzt, funny, no music |
+| `voice/bronze/ouch-2.mp3` | 0.52 | -3.1 | Little robot bonk clank and a sputtering zzt, funny, no music |
 | `voice/bronze/ouch-3.wav` | 0.34 | -3.3 | Tin robot clunk and a small electric sputter, cute, no music |
 | `voice/bronze/woo-1.mp3` | 0.81 | -7.3 | Excited little robot rising chirpy whoop of beeps and servo whirr, cute, no music |
 | `voice/bronze/woo-2.mp3` | 0.84 | -4.2 | Happy robot fast rising beep whoosh with a whirr, cartoon, no music |
 | `voice/bronze/laugh-1.mp3` | 1.04 | -6.3 | Cute robot rapid happy beeping trill like laughing, cartoon, no words, no music |
 | `voice/bronze/laugh-2.mp3` | 0.89 | -6.4 | Little robot giggling in fast bleeps and boops, cute, no music |
-| `voice/bronze/gasp-1.wav` | 0.29 | -8.4 | Cute robot sharp surprised up-chirp beep, no music |
+| `voice/bronze/gasp-1.wav` | 0.29 | -8.3 | Cute robot sharp surprised up-chirp beep, no music |
 | `voice/bronze/gasp-2.mp3` | 0.52 | -10.1 | Little robot quick startled rising bleep, cartoon, no music |
 
 `cotton-candy`
@@ -722,17 +722,17 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/cotton-candy/ready-1.mp3` | 0.84 | -4.3 | Soft friendly pony nicker, gentle and eager, cute, no music |
 | `voice/cotton-candy/ready-2.mp3` | 0.91 | -3.7 | Little pony soft excited nicker and a snort, cute cartoon, no music |
 | `voice/cotton-candy/yay-1.mp3` | 1.04 | -7.3 | Happy cartoon pony joyful whinny with a giggle, "hee-hee-neigh!", cute, no music |
-| `voice/cotton-candy/yay-2.mp3` | 0.86 | -5.8 | Pony excited bright neigh and giggle, sweet and sunny, no music |
+| `voice/cotton-candy/yay-2.mp3` | 0.86 | -5.9 | Pony excited bright neigh and giggle, sweet and sunny, no music |
 | `voice/cotton-candy/yay-3.mp3` | 1.04 | -6.6 | Joyful little pony whinny and squeal of delight, cartoon, no music |
 | `voice/cotton-candy/aww-1.mp3` | 0.99 | -4.9 | Cute pony little sad huff and soft low whinny, cartoon, no music |
 | `voice/cotton-candy/aww-2.mp3` | 0.84 | -5.3 | Disappointed pony sigh and a small whinny, sweet, no music |
-| `voice/cotton-candy/ouch-1.wav` | 0.31 | -9.7 | Cute pony short yelp squeal, cartoon, no music |
+| `voice/cotton-candy/ouch-1.wav` | 0.31 | -9.6 | Cute pony short yelp squeal, cartoon, no music |
 | `voice/cotton-candy/ouch-2.mp3` | 0.47 | -5.0 | Little pony quick surprised yip neigh, cute, no music |
-| `voice/cotton-candy/ouch-3.mp3` | 0.52 | -4.4 | Small pony short squeaky whinny "eep", cartoon, no music |
+| `voice/cotton-candy/ouch-3.mp3` | 0.52 | -4.3 | Small pony short squeaky whinny "eep", cartoon, no music |
 | `voice/cotton-candy/woo-1.mp3` | 0.84 | -8.3 | Excited cartoon pony whinny whoop, joyful gallop energy, no music |
 | `voice/cotton-candy/woo-2.mp3` | 0.84 | -4.4 | Happy pony bright rising neigh, cartoon, no music |
 | `voice/cotton-candy/laugh-1.mp3` | 1.04 | -3.4 | Cute pony giggle-neigh laughing "hee hee hee", sweet, no music |
-| `voice/cotton-candy/laugh-2.mp3` | 1.04 | -3.4 | Cartoon pony laughing giggly whinny, bright and happy, no music |
+| `voice/cotton-candy/laugh-2.mp3` | 1.04 | -3.3 | Cartoon pony laughing giggly whinny, bright and happy, no music |
 | `voice/cotton-candy/gasp-1.wav` | 0.35 | -10.2 | Cute pony short surprised squeal, no music |
 | `voice/cotton-candy/gasp-2.mp3` | 0.52 | -4.6 | Little pony startled sharp whinny gasp, cartoon, no music |
 
@@ -749,11 +749,11 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/fox/yay-3.mp3` | 1.04 | -3.9 | Cute fox happy howl-yip and panting, cartoon, no music |
 | `voice/fox/aww-1.mp3` | 0.86 | -9.3 | Cute cartoon fox high sad whine, little whimper, no music |
 | `voice/fox/aww-2.mp3` | 0.84 | -7.9 | Fox soft sad whine and sigh, cute, no music |
-| `voice/fox/ouch-1.mp3` | 0.52 | -6.9 | Cartoon fox quick short yelp, no music |
+| `voice/fox/ouch-1.mp3` | 0.52 | -6.8 | Cartoon fox quick short yelp, no music |
 | `voice/fox/ouch-2.mp3` | 0.47 | -4.3 | Fox little yip of pain, quick, cute, no music |
-| `voice/fox/ouch-3.mp3` | 0.47 | -3.6 | Small fox squeaky yelp, cartoon, no music |
+| `voice/fox/ouch-3.mp3` | 0.47 | -3.7 | Small fox squeaky yelp, cartoon, no music |
 | `voice/fox/woo-1.mp3` | 0.73 | -5.7 | Excited fox yipping bark whoop with panting, energetic, cartoon, no music |
-| `voice/fox/woo-2.mp3` | 0.55 | -3.6 | Fox fast happy yip yip yip, springy, no music |
+| `voice/fox/woo-2.mp3` | 0.55 | -3.7 | Fox fast happy yip yip yip, springy, no music |
 | `voice/fox/laugh-1.mp3` | 0.84 | -3.8 | Cartoon fox giggly chattering "ack ack ack" laugh, cute, no music |
 | `voice/fox/laugh-2.mp3` | 0.91 | -3.5 | Fox chuckling chatter and yips, playful, no music |
 | `voice/fox/gasp-1.wav` | 0.28 | -7.0 | Fox surprised short yip bark, cartoon, no music |
@@ -768,7 +768,7 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/hotdog/ready-1.mp3` | 0.89 | -6.6 | Silly fluffy creature bouncy "hoo hoo!" gibberish, eager, cartoon, no music |
 | `voice/hotdog/ready-2.mp3` | 0.84 | -6.7 | Goofy little creature excited trill "ooh-ooh!", cute, no music |
 | `voice/hotdog/yay-1.mp3` | 0.84 | -5.6 | Happy goofy cartoon creature squealing a bouncy "wheee!" and trill, cute, no music |
-| `voice/hotdog/yay-2.mp3` | 1.04 | -5.5 | Silly fuzzy creature joyful squeaky whoop and trill, no music |
+| `voice/hotdog/yay-2.mp3` | 1.04 | -5.6 | Silly fuzzy creature joyful squeaky whoop and trill, no music |
 | `voice/hotdog/yay-3.mp3` | 0.97 | -7.6 | Cute creature excited goofy "hoo-hoo-wheee!", cartoon, no music |
 | `voice/hotdog/aww-1.mp3` | 0.89 | -6.7 | Silly cartoon creature blowing a sad raspberry, funny, no music |
 | `voice/hotdog/aww-2.mp3` | 0.76 | -9.6 | Goofy creature sad "bwaaa" and a raspberry, comical, cute, no music |
@@ -779,8 +779,8 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/hotdog/woo-2.mp3` | 0.65 | -6.6 | Goofy creature excited bouncing "wee-hee-hee!" cartoon, no music |
 | `voice/hotdog/laugh-1.mp3` | 0.81 | -4.9 | Squeaky giggle of a silly fuzzy cartoon creature, cute, no music |
 | `voice/hotdog/laugh-2.mp3` | 1.04 | -3.7 | Goofy creature tee-hee giggle and snort, silly, no music |
-| `voice/hotdog/gasp-1.mp3` | 0.52 | -7.7 | Silly cartoon creature surprised "oooh!" squeak, short, no music |
-| `voice/hotdog/gasp-2.wav` | 0.33 | -6.0 | Goofy creature startled squeak gasp, cute, no music |
+| `voice/hotdog/gasp-1.mp3` | 0.52 | -7.4 | Silly cartoon creature surprised "oooh!" squeak, short, no music |
+| `voice/hotdog/gasp-2.wav` | 0.33 | -5.9 | Goofy creature startled squeak gasp, cute, no music |
 
 `marina`
 
@@ -790,26 +790,26 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/marina/hello-2.mp3` | 0.91 | -8.5 | Cheerful young woman says "Hello!" with a smile, confident, cartoon, no music |
 | `voice/marina/ready-1.mp3` | 0.86 | -9.3 | Confident young woman says "Ready!" cheerful and determined, no music |
 | `voice/marina/ready-2.mp3` | 0.84 | -7.0 | Bright young woman says "Let's do this!" confident, cartoon, no music |
-| `voice/marina/yay-1.mp3` | 1.04 | -9.0 | Young woman shouts "Woo-hoo!" splashy and joyful with a light water shimmer, cartoon mermaid, no music |
+| `voice/marina/yay-1.mp3` | 1.04 | -8.9 | Young woman shouts "Woo-hoo!" splashy and joyful with a light water shimmer, cartoon mermaid, no music |
 | `voice/marina/yay-2.mp3` | 1.04 | -8.9 | Happy young woman cheers "Yay!" bubbly with a little splash, no music |
 | `voice/marina/yay-3.mp3` | 0.84 | -6.7 | Cheerful woman "Yes!" delighted, light water shimmer, no music |
 | `voice/marina/aww-1.mp3` | 0.91 | -8.3 | Young woman says "aww, man" lightly disappointed, friendly, cartoon, no music |
 | `voice/marina/aww-2.mp3` | 1.04 | -6.6 | Mild disappointed "aww" from a young woman, cute and funny, no music |
-| `voice/marina/ouch-1.mp3` | 0.52 | -8.3 | Young woman says "Ow!" quick, cartoon, no music |
-| `voice/marina/ouch-2.mp3` | 0.52 | -3.8 | Young woman "Oof!" short surprised, no music |
-| `voice/marina/ouch-3.mp3` | 0.52 | -3.6 | Short "Ouch!" from a young woman, cute, no music |
+| `voice/marina/ouch-1.mp3` | 0.52 | -8.1 | Young woman says "Ow!" quick, cartoon, no music |
+| `voice/marina/ouch-2.mp3` | 0.52 | -3.7 | Young woman "Oof!" short surprised, no music |
+| `voice/marina/ouch-3.mp3` | 0.52 | -3.7 | Short "Ouch!" from a young woman, cute, no music |
 | `voice/marina/woo-1.mp3` | 0.76 | -8.7 | Young woman shouts "Woo-hoo!" excited with a splashy water shimmer, cartoon, no music |
-| `voice/marina/woo-2.mp3` | 0.84 | -4.1 | Excited woman whoops "Whee!" splash and bubbles, no music |
-| `voice/marina/laugh-1.mp3` | 0.84 | -4.5 | Bubbly happy laugh of a young woman, bright, cartoon, no music |
+| `voice/marina/woo-2.mp3` | 0.84 | -3.6 | Excited woman whoops "Whee!" splash and bubbles, no music |
+| `voice/marina/laugh-1.mp3` | 0.84 | -4.4 | Bubbly happy laugh of a young woman, bright, cartoon, no music |
 | `voice/marina/laugh-2.mp3` | 0.81 | -3.4 | Young woman cheerful giggling laugh with bubbles, no music |
 | `voice/marina/gasp-1.wav` | 0.28 | -3.3 | Young woman gasps in surprise, short, no music |
-| `voice/marina/gasp-2.mp3` | 0.52 | -7.1 | Quick surprised "oh!" gasp of a young woman, no music |
+| `voice/marina/gasp-2.mp3` | 0.52 | -7.0 | Quick surprised "oh!" gasp of a young woman, no music |
 
 `scale`
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
-| `voice/scale/hello-1.mp3` | 0.84 | -8.4 | Gentle poised young woman softly says "Hello!" graceful, a little royal, cartoon, no music |
+| `voice/scale/hello-1.mp3` | 0.84 | -8.6 | Gentle poised young woman softly says "Hello!" graceful, a little royal, cartoon, no music |
 | `voice/scale/hello-2.mp3` | 0.78 | -7.8 | Calm elegant young woman says "Hello there" softly, kind, no music |
 | `voice/scale/ready-1.mp3` | 0.57 | -7.3 | Poised young woman says "Ready." with quiet confidence, graceful, no music |
 | `voice/scale/ready-2.mp3` | 0.91 | -6.2 | Elegant gentle young woman says "I am ready" softly, no music |
@@ -819,11 +819,11 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/scale/aww-1.mp3` | 0.68 | -8.3 | Prim young woman says a small "hmph" with a disappointed sigh, cute, no music |
 | `voice/scale/aww-2.mp3` | 0.99 | -5.1 | Elegant young woman soft disappointed "oh..." sigh, no music |
 | `voice/scale/ouch-1.mp3` | 0.52 | -8.1 | Gentle young woman says "Oh!" small wince, quick, no music |
-| `voice/scale/ouch-2.mp3` | 0.52 | -4.0 | Poised woman soft "Oof" quick, no music |
+| `voice/scale/ouch-2.mp3` | 0.52 | -3.7 | Poised woman soft "Oof" quick, no music |
 | `voice/scale/ouch-3.wav` | 0.35 | -9.3 | Short gentle "Ow" from an elegant young woman, no music |
 | `voice/scale/woo-1.mp3` | 0.76 | -4.0 | Delighted young woman says "Wheee!" light and graceful, cartoon, no music |
 | `voice/scale/woo-2.mp3` | 0.84 | -5.9 | Elegant woman joyful "Oh yes!" light cheer, no music |
-| `voice/scale/laugh-1.mp3` | 0.84 | -3.6 | Soft elegant giggle of a young woman, gentle, cartoon, no music |
+| `voice/scale/laugh-1.mp3` | 0.84 | -3.7 | Soft elegant giggle of a young woman, gentle, cartoon, no music |
 | `voice/scale/laugh-2.mp3` | 0.84 | -3.9 | Graceful light laugh of a poised young woman, no music |
 | `voice/scale/gasp-1.mp3` | 0.52 | -6.4 | Delighted young woman says "Oh!" soft gasp, graceful, no music |
 | `voice/scale/gasp-2.wav` | 0.37 | -5.7 | Elegant young woman small surprised gasp, no music |
@@ -832,23 +832,23 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
-| `voice/marshmallow-birthday-cake/hello-1.mp3` | 0.91 | -4.6 | Squishy bouncy marshmallow cartoon creature, cheerful high squeaky "hiii!" with a squishy boing, no music |
-| `voice/marshmallow-birthday-cake/hello-2.mp3` | 0.63 | -6.9 | Cute squeaky marshmallow character high voice "hello!" with squish, cartoon, no music |
-| `voice/marshmallow-birthday-cake/ready-1.mp3` | 0.84 | -4.3 | Bouncy squeaky "ready!" from a cute marshmallow character, squishy, no music |
+| `voice/marshmallow-birthday-cake/hello-1.mp3` | 0.91 | -5.0 | Squishy bouncy marshmallow cartoon creature, cheerful high squeaky "hiii!" with a squishy boing, no music |
+| `voice/marshmallow-birthday-cake/hello-2.mp3` | 0.63 | -7.1 | Cute squeaky marshmallow character high voice "hello!" with squish, cartoon, no music |
+| `voice/marshmallow-birthday-cake/ready-1.mp3` | 0.84 | -4.8 | Bouncy squeaky "ready!" from a cute marshmallow character, squishy, no music |
 | `voice/marshmallow-birthday-cake/ready-2.mp3` | 0.86 | -5.3 | Cute squishy cartoon character high cheerful "let's go!" with squeak, no music |
-| `voice/marshmallow-birthday-cake/yay-1.mp3` | 1.04 | -4.9 | Happy squeaky marshmallow character squeals "yay!" ending with a party horn toot, cartoon, no music |
-| `voice/marshmallow-birthday-cake/yay-2.mp3` | 1.04 | -5.9 | Cute squishy character cheers high "wheee!" then a party horn toot, no music |
+| `voice/marshmallow-birthday-cake/yay-1.mp3` | 1.04 | -4.6 | Happy squeaky marshmallow character squeals "yay!" ending with a party horn toot, cartoon, no music |
+| `voice/marshmallow-birthday-cake/yay-2.mp3` | 1.04 | -5.8 | Cute squishy character cheers high "wheee!" then a party horn toot, no music |
 | `voice/marshmallow-birthday-cake/yay-3.mp3` | 1.04 | -3.8 | Squeaky happy cheer and a party blower toot, cartoon, no music |
 | `voice/marshmallow-birthday-cake/aww-1.mp3` | 1.04 | -3.8 | Deflating "awww" like a sinking soufflé, slow squeaky air leak, cute cartoon, no music |
 | `voice/marshmallow-birthday-cake/aww-2.mp3` | 0.91 | -4.5 | Sad marshmallow character slow deflating squeaky sigh, comical, no music |
 | `voice/marshmallow-birthday-cake/ouch-1.mp3` | 0.50 | -6.9 | Squishy "squish!" squeak, cute cartoon marshmallow, no music |
 | `voice/marshmallow-birthday-cake/ouch-2.mp3` | 0.44 | -3.7 | Soft squishy squeak and boing, cartoon, no music |
-| `voice/marshmallow-birthday-cake/ouch-3.mp3` | 0.52 | -8.1 | Cute squeaky "eep" squish, cartoon, no music |
+| `voice/marshmallow-birthday-cake/ouch-3.mp3` | 0.52 | -7.7 | Cute squeaky "eep" squish, cartoon, no music |
 | `voice/marshmallow-birthday-cake/woo-1.mp3` | 0.84 | -3.6 | Bouncy squeaky "wooo!" with boing, happy marshmallow character, no music |
-| `voice/marshmallow-birthday-cake/woo-2.mp3` | 0.47 | -4.5 | Cute squishy cartoon bouncing squeal and boing, no music |
+| `voice/marshmallow-birthday-cake/woo-2.mp3` | 0.47 | -4.4 | Cute squishy cartoon bouncing squeal and boing, no music |
 | `voice/marshmallow-birthday-cake/laugh-1.mp3` | 1.02 | -3.3 | Jiggly squeaky giggle of a cute marshmallow character, cartoon, no music |
 | `voice/marshmallow-birthday-cake/laugh-2.mp3` | 0.91 | -3.7 | Bouncy squishy giggle, high pitched, cute, no music |
-| `voice/marshmallow-birthday-cake/gasp-2.mp3` | 0.44 | -5.1 | Cute squishy startled "eep" squeak, no music |
+| `voice/marshmallow-birthday-cake/gasp-2.mp3` | 0.44 | -5.0 | Cute squishy startled "eep" squeak, no music |
 
 `princess-amber`
 
@@ -859,51 +859,51 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/princess-amber/ready-1.mp3` | 0.73 | -8.5 | Composed warm young woman says "Ready!" kind, cartoon princess, no music |
 | `voice/princess-amber/ready-2.mp3` | 0.91 | -7.3 | Gentle princess says "I'm ready!" warm and sweet, no music |
 | `voice/princess-amber/yay-1.mp3` | 0.99 | -8.7 | Kind young woman says "How lovely!" delighted, warm, cartoon princess, no music |
-| `voice/princess-amber/yay-2.mp3` | 0.94 | -6.9 | Warm princess cheers "Hooray!" gracefully happy, no music |
+| `voice/princess-amber/yay-2.mp3` | 0.94 | -6.8 | Warm princess cheers "Hooray!" gracefully happy, no music |
 | `voice/princess-amber/yay-3.mp3` | 0.99 | -3.7 | Gentle woman "Oh, wonderful!" delighted, no music |
 | `voice/princess-amber/aww-1.mp3` | 0.94 | -7.4 | Soft gentle "oh dear" from a kind young woman, cartoon princess, no music |
 | `voice/princess-amber/aww-2.mp3` | 1.04 | -8.1 | Warm princess says "oh dear" softly disappointed, no music |
-| `voice/princess-amber/ouch-1.mp3` | 0.52 | -5.7 | Gentle young woman "Oh!" small wince, quick, no music |
-| `voice/princess-amber/ouch-2.mp3` | 0.52 | -6.5 | Kind woman soft "Ow" quick, cartoon, no music |
+| `voice/princess-amber/ouch-1.mp3` | 0.52 | -5.6 | Gentle young woman "Oh!" small wince, quick, no music |
+| `voice/princess-amber/ouch-2.mp3` | 0.52 | -6.4 | Kind woman soft "Ow" quick, cartoon, no music |
 | `voice/princess-amber/ouch-3.mp3` | 0.52 | -8.3 | Princess quick small "oh my" wince, no music |
 | `voice/princess-amber/woo-1.mp3` | 0.76 | -7.1 | Warm young woman says "Wonderful!" excited and kind, cartoon, no music |
-| `voice/princess-amber/woo-2.mp3` | 0.84 | -5.6 | Princess happy "Wheee!" gentle and delighted, no music |
+| `voice/princess-amber/woo-2.mp3` | 0.84 | -3.9 | Princess happy "Wheee!" gentle and delighted, no music |
 | `voice/princess-amber/laugh-1.mp3` | 0.94 | -3.5 | Gentle warm giggle of a kind young woman, cartoon princess, no music |
 | `voice/princess-amber/laugh-2.mp3` | 0.84 | -3.7 | Soft sweet laugh of a princess, gentle, no music |
-| `voice/princess-amber/gasp-1.mp3` | 0.52 | -4.4 | Kind young woman small gasp "oh!" surprised, no music |
-| `voice/princess-amber/gasp-2.wav` | 0.36 | -4.5 | Princess soft startled gasp, gentle, no music |
+| `voice/princess-amber/gasp-1.mp3` | 0.52 | -4.2 | Kind young woman small gasp "oh!" surprised, no music |
+| `voice/princess-amber/gasp-2.wav` | 0.36 | -4.3 | Princess soft startled gasp, gentle, no music |
 
 `snowstar`
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
 | `voice/snowstar/hello-1.mp3` | 0.91 | -3.7 | Imaginative curious young girl says "Hiii!" full of wonder, cartoon, no music |
-| `voice/snowstar/hello-2.mp3` | 0.91 | -8.3 | Excited curious girl says "Hi hi hi!" with big wonder, no music |
-| `voice/snowstar/ready-1.mp3` | 0.78 | -6.3 | Curious wonder-filled girl says "Ready!" eager, cartoon, no music |
+| `voice/snowstar/hello-2.mp3` | 0.91 | -8.4 | Excited curious girl says "Hi hi hi!" with big wonder, no music |
+| `voice/snowstar/ready-1.mp3` | 0.78 | -6.2 | Curious wonder-filled girl says "Ready!" eager, cartoon, no music |
 | `voice/snowstar/ready-2.mp3` | 0.91 | -6.1 | Imaginative girl says "Okay, let's see!" excited, no music |
 | `voice/snowstar/yay-1.mp3` | 1.04 | -5.0 | Girl excited squeal of joy "Yaaay!" full of wonder, cartoon, no music |
-| `voice/snowstar/yay-2.mp3` | 0.97 | -7.6 | Curious girl cheering "Wow, yay!" delighted squeal, no music |
+| `voice/snowstar/yay-2.mp3` | 0.97 | -7.4 | Curious girl cheering "Wow, yay!" delighted squeal, no music |
 | `voice/snowstar/yay-3.mp3` | 1.02 | -7.9 | Young girl "Yippee!" excited squeal, bright, no music |
 | `voice/snowstar/aww-1.mp3` | 0.94 | -7.5 | Wobbly big-eyed "awww" from a curious young girl, sad and cute, cartoon, no music |
 | `voice/snowstar/aww-2.mp3` | 0.91 | -6.4 | Girl sad wobbly "awww..." sniffle, cute, no music |
-| `voice/snowstar/ouch-1.mp3` | 0.52 | -4.0 | Young girl "Ow!" quick, cartoon, no music |
-| `voice/snowstar/ouch-2.mp3` | 0.52 | -4.4 | Curious girl "Oof!" short, no music |
+| `voice/snowstar/ouch-1.mp3` | 0.52 | -3.5 | Young girl "Ow!" quick, cartoon, no music |
+| `voice/snowstar/ouch-2.mp3` | 0.52 | -3.8 | Curious girl "Oof!" short, no music |
 | `voice/snowstar/ouch-3.mp3` | 0.44 | -4.0 | Young girl small "ouchie" quick, no music |
 | `voice/snowstar/woo-1.mp3` | 0.84 | -7.7 | Amazed cartoon girl says a big happy "Ooooh wow!" full of wonder, no music |
 | `voice/snowstar/woo-2.mp3` | 0.84 | -9.6 | Girl amazed "Woooow!" delighted whoop, no music |
 | `voice/snowstar/laugh-1.mp3` | 0.86 | -3.8 | Delighted curious girl giggling, bright, cartoon, no music |
 | `voice/snowstar/laugh-2.mp3` | 0.86 | -5.3 | Young girl joyful laugh with wonder, cute, no music |
-| `voice/snowstar/gasp-1.mp3` | 0.52 | -6.4 | Young girl big amazed "Ooooh!" gasp of wonder, short, no music |
-| `voice/snowstar/gasp-2.mp3` | 0.52 | -5.1 | Curious girl quick gasp "oh!" wide-eyed, no music |
+| `voice/snowstar/gasp-1.mp3` | 0.52 | -6.2 | Young girl big amazed "Ooooh!" gasp of wonder, short, no music |
+| `voice/snowstar/gasp-2.mp3` | 0.52 | -3.7 | Curious girl quick gasp "oh!" wide-eyed, no music |
 
 `unicorn`
 
 | File | s | Peak | Prompt |
 | --- | --- | --- | --- |
 | `voice/unicorn/hello-1.mp3` | 0.86 | -3.8 | Warm soft breathy horse nicker, low and gentle, with a quiet glockenspiel chime, serene magical unicorn, no words, no music |
-| `voice/unicorn/hello-2.mp3` | 0.91 | -7.0 | Soft gentle horse whinny with warm breathy tone and a soft celesta twinkle, calm and magical, no music |
+| `voice/unicorn/hello-2.mp3` | 0.91 | -6.9 | Soft gentle horse whinny with warm breathy tone and a soft celesta twinkle, calm and magical, no music |
 | `voice/unicorn/ready-1.mp3` | 0.78 | -6.3 | Soft airy unicorn whinny with a gentle chime, serene, quiet, no music |
-| `voice/unicorn/ready-2.mp3` | 0.70 | -3.8 | Calm warm horse soft snort and low gentle whinny with a soft chime, magical, no music |
+| `voice/unicorn/ready-2.mp3` | 0.70 | -3.6 | Calm warm horse soft snort and low gentle whinny with a soft chime, magical, no music |
 | `voice/unicorn/yay-1.mp3` | 1.04 | -7.9 | Brighter gentle unicorn whinny with a sparkle swell of chimes, magical, soft, no music |
 | `voice/unicorn/yay-2.mp3` | 1.04 | -3.7 | Magical unicorn joyful soft whinny and sparkling shimmer, no music |
 | `voice/unicorn/yay-3.mp3` | 0.86 | -5.2 | Gentle unicorn happy airy whinny with glittering chimes, no music |
@@ -911,12 +911,12 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 | `voice/unicorn/aww-2.mp3` | 0.78 | -8.4 | Soft sad horse sigh with a faint bell, serene, no music |
 | `voice/unicorn/ouch-1.wav` | 0.36 | -3.3 | Soft unicorn small startled snort with a tiny chime, gentle, no music |
 | `voice/unicorn/ouch-2.wav` | 0.33 | -4.0 | Warm gentle horse small startled huff and snort with a soft low bell, quiet, no music |
-| `voice/unicorn/ouch-3.mp3` | 0.50 | -5.9 | Soft warm horse whuff and a short low breathy whinny, gentle, with a faint chime, no music |
+| `voice/unicorn/ouch-3.mp3` | 0.50 | -6.0 | Soft warm horse whuff and a short low breathy whinny, gentle, with a faint chime, no music |
 | `voice/unicorn/woo-1.mp3` | 0.68 | -8.5 | Graceful unicorn soft airy whinny rising with chime sparkle, magical, no music |
 | `voice/unicorn/woo-2.mp3` | 0.84 | -6.5 | Serene unicorn joyful light whinny and shimmer, no music |
 | `voice/unicorn/laugh-1.mp3` | 0.89 | -5.9 | Gentle unicorn soft airy whinny-laugh with delicate chimes, magical, no music |
 | `voice/unicorn/laugh-2.mp3` | 1.02 | -5.3 | Serene unicorn light happy huffing whinny and tinkling bells, no music |
-| `voice/unicorn/gasp-1.wav` | 0.39 | -3.9 | Soft horse quick intake of breath and a short warm whinny with a faint celesta note, gentle, no music |
+| `voice/unicorn/gasp-1.wav` | 0.39 | -3.8 | Soft horse quick intake of breath and a short warm whinny with a faint celesta note, gentle, no music |
 | `voice/unicorn/gasp-2.wav` | 0.38 | -6.3 | Gentle unicorn quick soft inhale with a tiny bell, no music |
 
 ### 9.3 Skipped, failed or rewritten
