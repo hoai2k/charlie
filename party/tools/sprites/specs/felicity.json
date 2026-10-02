@@ -1,0 +1,1862 @@
+{
+  "asset": "felicity",
+  "bodyHeight": 320,
+  "frameSize": [
+    640,
+    496
+  ],
+  "anchor": [
+    320,
+    476
+  ],
+  "facing": 1,
+  "provenance": "Approved canonical + ImageGen key-pose sheets; 4-frame walk; procedural overlay; run/cheer/sad/dance-star are declared compatible aliases.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "rect": [
+            0,
+            0,
+            566,
+            724
+          ],
+          "anchor": [
+            324,
+            710
+          ],
+          "head": [
+            324,
+            110
+          ],
+          "eyes": [
+            334,
+            250
+          ],
+          "neck": [
+            332,
+            350
+          ],
+          "back": [
+            269,
+            430
+          ],
+          "hand": [
+            445,
+            457
+          ],
+          "source": "../sources/felicity-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 0
+    },
+    "walk": {
+      "fps": 8,
+      "motion": 0.3,
+      "loop": true,
+      "frames": [
+        {
+          "source": "../sources/felicity-walk.webp",
+          "rect": [
+            0,
+            0,
+            572,
+            724
+          ],
+          "anchor": [
+            355,
+            684
+          ],
+          "scale": 1.048290856000254,
+          "head": [
+            355,
+            108
+          ],
+          "hand": [
+            471,
+            425
+          ],
+          "eyes": [
+            363,
+            242
+          ],
+          "neck": [
+            355,
+            350
+          ],
+          "back": [
+            303,
+            430
+          ]
+        },
+        {
+          "source": "../sources/felicity-walk.webp",
+          "rect": [
+            572,
+            0,
+            536,
+            724
+          ],
+          "anchor": [
+            323,
+            684
+          ],
+          "scale": 1.048290856000254,
+          "head": [
+            323,
+            108
+          ],
+          "hand": [
+            439,
+            425
+          ],
+          "eyes": [
+            331,
+            242
+          ],
+          "neck": [
+            323,
+            350
+          ],
+          "back": [
+            271,
+            430
+          ]
+        },
+        {
+          "source": "../sources/felicity-walk.webp",
+          "rect": [
+            1108,
+            0,
+            546,
+            724
+          ],
+          "anchor": [
+            335,
+            684
+          ],
+          "scale": 1.048290856000254,
+          "head": [
+            335,
+            108
+          ],
+          "hand": [
+            451,
+            425
+          ],
+          "eyes": [
+            343,
+            242
+          ],
+          "neck": [
+            335,
+            350
+          ],
+          "back": [
+            283,
+            430
+          ]
+        },
+        {
+          "source": "../sources/felicity-walk.webp",
+          "rect": [
+            1654,
+            0,
+            518,
+            724
+          ],
+          "anchor": [
+            331,
+            684
+          ],
+          "scale": 1.048290856000254,
+          "head": [
+            331,
+            108
+          ],
+          "hand": [
+            447,
+            425
+          ],
+          "eyes": [
+            339,
+            242
+          ],
+          "neck": [
+            331,
+            350
+          ],
+          "back": [
+            279,
+            430
+          ]
+        }
+      ]
+    },
+    "run": {
+      "alias": "walk",
+      "fps": 12,
+      "motion": 0.4
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "rect": [
+            566,
+            0,
+            539,
+            724
+          ],
+          "anchor": [
+            308,
+            710
+          ],
+          "head": [
+            308,
+            110
+          ],
+          "eyes": [
+            318,
+            250
+          ],
+          "neck": [
+            316,
+            350
+          ],
+          "back": [
+            253,
+            430
+          ],
+          "hand": [
+            422,
+            253
+          ],
+          "source": "../sources/felicity-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "rect": [
+            1105,
+            0,
+            530,
+            724
+          ],
+          "anchor": [
+            321,
+            710
+          ],
+          "head": [
+            321,
+            110
+          ],
+          "eyes": [
+            331,
+            250
+          ],
+          "neck": [
+            329,
+            350
+          ],
+          "back": [
+            266,
+            430
+          ],
+          "hand": [
+            365,
+            393
+          ],
+          "source": "../sources/felicity-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "rect": [
+            1635,
+            0,
+            537,
+            724
+          ],
+          "anchor": [
+            313,
+            710
+          ],
+          "head": [
+            313,
+            110
+          ],
+          "eyes": [
+            323,
+            250
+          ],
+          "neck": [
+            321,
+            350
+          ],
+          "back": [
+            258,
+            430
+          ],
+          "hand": [
+            421,
+            293
+          ],
+          "source": "../sources/felicity-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cheer": {
+      "alias": "celebrate",
+      "loop": false,
+      "motion": 1
+    },
+    "sad": {
+      "alias": "pout",
+      "loop": true,
+      "motion": 0.6
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/felicity-reactions.webp",
+          "rect": [
+            5,
+            16,
+            544,
+            694
+          ],
+          "isolate": true,
+          "anchor": [
+            316,
+            690
+          ],
+          "scale": 1,
+          "head": [
+            310,
+            97
+          ],
+          "eyes": [
+            326,
+            222
+          ],
+          "neck": [
+            310,
+            333
+          ],
+          "back": [
+            239,
+            416
+          ],
+          "hand": [
+            294,
+            326
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/felicity-reactions.webp",
+          "rect": [
+            559,
+            3,
+            546,
+            710
+          ],
+          "isolate": true,
+          "anchor": [
+            317,
+            706
+          ],
+          "scale": 1,
+          "head": [
+            311,
+            99
+          ],
+          "eyes": [
+            328,
+            227
+          ],
+          "neck": [
+            311,
+            341
+          ],
+          "back": [
+            240,
+            426
+          ],
+          "hand": [
+            284,
+            462
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/felicity-reactions.webp",
+          "rect": [
+            1093,
+            3,
+            559,
+            709
+          ],
+          "isolate": true,
+          "anchor": [
+            324,
+            705
+          ],
+          "scale": 1,
+          "head": [
+            319,
+            99
+          ],
+          "eyes": [
+            335,
+            227
+          ],
+          "neck": [
+            319,
+            340
+          ],
+          "back": [
+            246,
+            425
+          ],
+          "hand": [
+            425,
+            312
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/felicity-reactions.webp",
+          "rect": [
+            1654,
+            58,
+            518,
+            651
+          ],
+          "isolate": true,
+          "anchor": [
+            300,
+            647
+          ],
+          "scale": 1,
+          "head": [
+            295,
+            91
+          ],
+          "eyes": [
+            311,
+            208
+          ],
+          "neck": [
+            295,
+            312
+          ],
+          "back": [
+            228,
+            391
+          ],
+          "hand": [
+            420,
+            352
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/felicity-movement.webp",
+          "rect": [
+            24,
+            15,
+            564,
+            634
+          ],
+          "isolate": true,
+          "anchor": [
+            327,
+            685
+          ],
+          "scale": 1,
+          "head": [
+            321,
+            89
+          ],
+          "eyes": [
+            338,
+            203
+          ],
+          "neck": [
+            321,
+            304
+          ],
+          "back": [
+            248,
+            380
+          ],
+          "hand": [
+            434,
+            241
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/felicity-movement.webp",
+          "rect": [
+            527,
+            56,
+            573,
+            604
+          ],
+          "isolate": true,
+          "anchor": [
+            332,
+            655
+          ],
+          "scale": 1,
+          "head": [
+            327,
+            85
+          ],
+          "eyes": [
+            344,
+            193
+          ],
+          "neck": [
+            327,
+            290
+          ],
+          "back": [
+            252,
+            362
+          ],
+          "hand": [
+            470,
+            242
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/felicity-movement.webp",
+          "rect": [
+            1138,
+            182,
+            580,
+            517
+          ],
+          "isolate": true,
+          "anchor": [
+            336,
+            513
+          ],
+          "scale": 1,
+          "head": [
+            365,
+            72
+          ],
+          "eyes": [
+            383,
+            165
+          ],
+          "neck": [
+            365,
+            248
+          ],
+          "back": [
+            290,
+            310
+          ],
+          "hand": [
+            354,
+            470
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/felicity-movement.webp",
+          "rect": [
+            1709,
+            13,
+            452,
+            698
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            694
+          ],
+          "scale": 1,
+          "head": [
+            258,
+            98
+          ],
+          "eyes": [
+            271,
+            223
+          ],
+          "neck": [
+            258,
+            335
+          ],
+          "back": [
+            199,
+            419
+          ],
+          "hand": [
+            312,
+            286
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/felicity-actions.webp",
+          "rect": [
+            10,
+            72,
+            574,
+            596
+          ],
+          "isolate": true,
+          "anchor": [
+            333,
+            592
+          ],
+          "scale": 1,
+          "head": [
+            327,
+            83
+          ],
+          "eyes": [
+            344,
+            191
+          ],
+          "neck": [
+            327,
+            286
+          ],
+          "back": [
+            253,
+            358
+          ],
+          "hand": [
+            459,
+            292
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/felicity-actions.webp",
+          "rect": [
+            554,
+            62,
+            561,
+            607
+          ],
+          "isolate": true,
+          "anchor": [
+            325,
+            603
+          ],
+          "scale": 1,
+          "head": [
+            320,
+            85
+          ],
+          "eyes": [
+            337,
+            194
+          ],
+          "neck": [
+            320,
+            291
+          ],
+          "back": [
+            247,
+            364
+          ],
+          "hand": [
+            471,
+            206
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/felicity-actions.webp",
+          "rect": [
+            1067,
+            94,
+            589,
+            571
+          ],
+          "isolate": true,
+          "anchor": [
+            342,
+            567
+          ],
+          "scale": 1,
+          "head": [
+            336,
+            80
+          ],
+          "eyes": [
+            353,
+            183
+          ],
+          "neck": [
+            336,
+            274
+          ],
+          "back": [
+            259,
+            343
+          ],
+          "hand": [
+            507,
+            268
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/felicity-actions.webp",
+          "rect": [
+            1674,
+            62,
+            479,
+            603
+          ],
+          "isolate": true,
+          "anchor": [
+            278,
+            599
+          ],
+          "scale": 1,
+          "head": [
+            273,
+            84
+          ],
+          "eyes": [
+            287,
+            193
+          ],
+          "neck": [
+            273,
+            289
+          ],
+          "back": [
+            211,
+            362
+          ],
+          "hand": [
+            374,
+            271
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/felicity-activities.webp",
+          "rect": [
+            12,
+            20,
+            537,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            311,
+            680
+          ],
+          "scale": 1,
+          "head": [
+            306,
+            96
+          ],
+          "eyes": [
+            322,
+            219
+          ],
+          "neck": [
+            306,
+            328
+          ],
+          "back": [
+            236,
+            410
+          ],
+          "hand": [
+            446,
+            178
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/felicity-activities.webp",
+          "rect": [
+            585,
+            79,
+            553,
+            626
+          ],
+          "isolate": true,
+          "anchor": [
+            321,
+            622
+          ],
+          "scale": 1,
+          "head": [
+            315,
+            88
+          ],
+          "eyes": [
+            332,
+            200
+          ],
+          "neck": [
+            315,
+            300
+          ],
+          "back": [
+            243,
+            376
+          ],
+          "hand": [
+            437,
+            313
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/felicity-activities.webp",
+          "rect": [
+            1117,
+            152,
+            484,
+            533
+          ],
+          "isolate": true,
+          "anchor": [
+            281,
+            529
+          ],
+          "scale": 1,
+          "head": [
+            276,
+            75
+          ],
+          "eyes": [
+            290,
+            171
+          ],
+          "neck": [
+            276,
+            256
+          ],
+          "back": [
+            213,
+            320
+          ],
+          "hand": [
+            257,
+            320
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/felicity-activities.webp",
+          "rect": [
+            1624,
+            29,
+            540,
+            676
+          ],
+          "isolate": true,
+          "anchor": [
+            313,
+            672
+          ],
+          "scale": 1,
+          "head": [
+            308,
+            95
+          ],
+          "eyes": [
+            324,
+            216
+          ],
+          "neck": [
+            308,
+            324
+          ],
+          "back": [
+            238,
+            406
+          ],
+          "hand": [
+            491,
+            196
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/felicity-social.webp",
+          "rect": [
+            15,
+            20,
+            547,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            317,
+            684
+          ],
+          "scale": 1,
+          "head": [
+            312,
+            96
+          ],
+          "eyes": [
+            328,
+            220
+          ],
+          "neck": [
+            312,
+            330
+          ],
+          "back": [
+            241,
+            413
+          ],
+          "hand": [
+            366,
+            323
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/felicity-social.webp",
+          "rect": [
+            575,
+            19,
+            526,
+            690
+          ],
+          "isolate": true,
+          "anchor": [
+            305,
+            686
+          ],
+          "scale": 1,
+          "head": [
+            300,
+            97
+          ],
+          "eyes": [
+            316,
+            221
+          ],
+          "neck": [
+            300,
+            331
+          ],
+          "back": [
+            231,
+            414
+          ],
+          "hand": [
+            316,
+            297
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/felicity-social.webp",
+          "rect": [
+            1126,
+            19,
+            554,
+            660
+          ],
+          "isolate": true,
+          "anchor": [
+            321,
+            656
+          ],
+          "scale": 1,
+          "head": [
+            316,
+            92
+          ],
+          "eyes": [
+            332,
+            211
+          ],
+          "neck": [
+            316,
+            317
+          ],
+          "back": [
+            244,
+            396
+          ],
+          "hand": [
+            432,
+            416
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/felicity-social.webp",
+          "rect": [
+            1686,
+            60,
+            476,
+            642
+          ],
+          "isolate": true,
+          "anchor": [
+            276,
+            638
+          ],
+          "scale": 1,
+          "head": [
+            271,
+            90
+          ],
+          "eyes": [
+            286,
+            205
+          ],
+          "neck": [
+            271,
+            308
+          ],
+          "back": [
+            209,
+            385
+          ],
+          "hand": [
+            381,
+            392
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/felicity-runway.webp",
+          "rect": [
+            12,
+            18,
+            553,
+            693
+          ],
+          "isolate": true,
+          "anchor": [
+            321,
+            689
+          ],
+          "scale": 1,
+          "head": [
+            315,
+            97
+          ],
+          "eyes": [
+            332,
+            222
+          ],
+          "neck": [
+            315,
+            333
+          ],
+          "back": [
+            243,
+            416
+          ],
+          "hand": [
+            426,
+            437
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/felicity-runway.webp",
+          "rect": [
+            556,
+            14,
+            533,
+            692
+          ],
+          "isolate": true,
+          "anchor": [
+            309,
+            688
+          ],
+          "scale": 1,
+          "head": [
+            304,
+            97
+          ],
+          "eyes": [
+            320,
+            221
+          ],
+          "neck": [
+            304,
+            332
+          ],
+          "back": [
+            235,
+            415
+          ],
+          "hand": [
+            187,
+            277
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/felicity-runway.webp",
+          "rect": [
+            1087,
+            28,
+            574,
+            675
+          ],
+          "isolate": true,
+          "anchor": [
+            333,
+            671
+          ],
+          "scale": 1,
+          "head": [
+            327,
+            95
+          ],
+          "eyes": [
+            344,
+            216
+          ],
+          "neck": [
+            327,
+            324
+          ],
+          "back": [
+            253,
+            405
+          ],
+          "hand": [
+            499,
+            223
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/felicity-runway.webp",
+          "rect": [
+            1648,
+            26,
+            522,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            303,
+            680
+          ],
+          "scale": 1,
+          "head": [
+            298,
+            96
+          ],
+          "eyes": [
+            313,
+            219
+          ],
+          "neck": [
+            298,
+            328
+          ],
+          "back": [
+            230,
+            410
+          ],
+          "hand": [
+            412,
+            315
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/felicity-dance.webp",
+          "rect": [
+            8,
+            33,
+            545,
+            681
+          ],
+          "isolate": true,
+          "anchor": [
+            316,
+            677
+          ],
+          "scale": 1,
+          "head": [
+            311,
+            95
+          ],
+          "eyes": [
+            327,
+            218
+          ],
+          "neck": [
+            311,
+            327
+          ],
+          "back": [
+            240,
+            409
+          ],
+          "hand": [
+            403,
+            354
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/felicity-dance.webp",
+          "rect": [
+            547,
+            4,
+            524,
+            710
+          ],
+          "isolate": true,
+          "anchor": [
+            304,
+            706
+          ],
+          "scale": 1,
+          "head": [
+            299,
+            99
+          ],
+          "eyes": [
+            314,
+            227
+          ],
+          "neck": [
+            299,
+            341
+          ],
+          "back": [
+            231,
+            426
+          ],
+          "hand": [
+            388,
+            142
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/felicity-dance.webp",
+          "rect": [
+            1040,
+            86,
+            582,
+            623
+          ],
+          "isolate": true,
+          "anchor": [
+            338,
+            619
+          ],
+          "scale": 1,
+          "head": [
+            332,
+            87
+          ],
+          "eyes": [
+            349,
+            199
+          ],
+          "neck": [
+            332,
+            299
+          ],
+          "back": [
+            256,
+            374
+          ],
+          "hand": [
+            466,
+            417
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/felicity-dance.webp",
+          "rect": [
+            1619,
+            27,
+            544,
+            683
+          ],
+          "isolate": true,
+          "anchor": [
+            316,
+            679
+          ],
+          "scale": 1,
+          "head": [
+            310,
+            96
+          ],
+          "eyes": [
+            326,
+            219
+          ],
+          "neck": [
+            310,
+            328
+          ],
+          "back": [
+            239,
+            410
+          ],
+          "hand": [
+            511,
+            273
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/felicity-extras-social.webp",
+          "rect": [
+            52,
+            3,
+            659,
+            717
+          ],
+          "isolate": true,
+          "anchor": [
+            382,
+            713
+          ],
+          "scale": 1,
+          "head": [
+            376,
+            100
+          ],
+          "eyes": [
+            395,
+            229
+          ],
+          "neck": [
+            376,
+            344
+          ],
+          "back": [
+            290,
+            430
+          ],
+          "hand": [
+            494,
+            165
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/felicity-extras-social.webp",
+          "rect": [
+            796,
+            4,
+            611,
+            716
+          ],
+          "isolate": true,
+          "anchor": [
+            354,
+            712
+          ],
+          "scale": 1,
+          "head": [
+            348,
+            100
+          ],
+          "eyes": [
+            367,
+            229
+          ],
+          "neck": [
+            348,
+            344
+          ],
+          "back": [
+            269,
+            430
+          ],
+          "hand": [
+            532,
+            236
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/felicity-extras-social.webp",
+          "rect": [
+            1555,
+            99,
+            612,
+            614
+          ],
+          "isolate": true,
+          "anchor": [
+            355,
+            610
+          ],
+          "scale": 1,
+          "head": [
+            386,
+            86
+          ],
+          "eyes": [
+            404,
+            196
+          ],
+          "neck": [
+            386,
+            295
+          ],
+          "back": [
+            306,
+            368
+          ],
+          "hand": [
+            343,
+            362
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/felicity-extras-motion.webp",
+          "rect": [
+            26,
+            29,
+            787,
+            689
+          ],
+          "isolate": true,
+          "anchor": [
+            456,
+            685
+          ],
+          "scale": 1,
+          "head": [
+            496,
+            96
+          ],
+          "eyes": [
+            519,
+            220
+          ],
+          "neck": [
+            496,
+            331
+          ],
+          "back": [
+            394,
+            413
+          ],
+          "hand": [
+            630,
+            344
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/felicity-extras-motion.webp",
+          "rect": [
+            846,
+            18,
+            701,
+            703
+          ],
+          "isolate": true,
+          "anchor": [
+            407,
+            699
+          ],
+          "scale": 1,
+          "head": [
+            400,
+            98
+          ],
+          "eyes": [
+            421,
+            225
+          ],
+          "neck": [
+            400,
+            337
+          ],
+          "back": [
+            308,
+            422
+          ],
+          "hand": [
+            526,
+            337
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/felicity-extras-motion.webp",
+          "rect": [
+            1604,
+            4,
+            558,
+            711
+          ],
+          "isolate": true,
+          "anchor": [
+            324,
+            707
+          ],
+          "scale": 1,
+          "head": [
+            318,
+            100
+          ],
+          "eyes": [
+            335,
+            228
+          ],
+          "neck": [
+            318,
+            341
+          ],
+          "back": [
+            246,
+            427
+          ],
+          "hand": [
+            469,
+            277
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-star": {
+      "alias": "strike3",
+      "loop": false,
+      "motion": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/felicity-portraits.webp",
+      "rect": [
+        2,
+        103,
+        435,
+        451
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/felicity-portraits.webp",
+      "rect": [
+        436,
+        102,
+        434,
+        453
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/felicity-portraits.webp",
+      "rect": [
+        869,
+        101,
+        426,
+        453
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/felicity-portraits.webp",
+      "rect": [
+        1295,
+        100,
+        435,
+        456
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/felicity-portraits.webp",
+      "rect": [
+        1730,
+        103,
+        440,
+        452
+      ],
+      "isolate": true,
+      "trim": true
+    }
+  }
+}

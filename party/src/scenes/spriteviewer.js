@@ -28,7 +28,7 @@ export class SpriteViewerScene {
     const filter = params.get('chars')?.split(',');
     this.entries = ALL_ENTRIES.filter((c) => !filter || filter.includes(c.id) || c.members.some((m) => filter.includes(m.asset)));
     if (!this.entries.length) this.entries = ALL_ENTRIES;
-    this.actors = this.entries.map((c) => new Actor(c.id, { scale: c.npc ? 0.75 : 1 }));
+    this.actors = this.entries.map((c) => new Actor(c.id, { scale: (c.npc ? 0.75 : 1) * this.zoom }));
     this.onKey = (event) => {
       if (event.repeat) return;
       if (event.code === 'KeyP') this.paused = !this.paused;

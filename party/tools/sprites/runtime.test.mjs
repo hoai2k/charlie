@@ -45,3 +45,15 @@ assert.ok(Math.abs(actor.poseTime - .01) < .00001);
 actor.playOnce('throw', .2);
 assert.equal(actor._once.duration, .2);
 console.log('Sprite runtime timing, alias, fallback and one-shot regression tests passed.');
+// Entire one-shot must fit an explicit gameplay duration, including final frame.
+const drawn = [];
+const g = new Proxy({}, { get: (target, prop) => prop in target ? target[prop] : (...args) => { if (prop === 'drawImage') drawn.push(args[0]); } });
+actor.playOnce('throw', .2);
+actor.update(.08); // source time=.16, already inside frame 2 (.1..4)
+actor.draw(g, { shadow: false, emotes: false });
+assert.equal(drawn[0], set.poses.throw.frames[1].img);
+// Sprite landmarks respect per-pose facing and current frame timing.
+set.poses.throw.frames[1].hand = [70, 60];
+actor.snap();
+assert.deepEqual(actor.anchor('hand'), { x: actor.x - 20 * 178 / 100, y: actor.y - 60 * 178 / 100 });
+console.log('Draw timing and sprite landmark tests passed.');

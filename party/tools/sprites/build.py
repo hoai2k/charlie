@@ -29,6 +29,22 @@ def read_image(spec, base):
         image = image.crop((round(x * image.width / cols), round(y * image.height / rows),
                             round((x + 1) * image.width / cols), round((y + 1) * image.height / rows)))
     alpha = image.getchannel('A').point(lambda a: a if a >= 8 else 0)
+    if spec.get('isolate'):
+        # Irregular sheets can overlap in x while remaining separate in 2D.
+        # Isolate the largest connected figure inside the supplied crop, keeping
+        # its antialias fringe. Requires scipy/numpy only for this optional mode.
+        import numpy as np
+        from scipy import ndimage
+        values = np.array(alpha)
+        separation = int(spec.get('separate', 0))
+        core = values >= 32
+        if separation:
+            core = ndimage.binary_erosion(core, iterations=separation)
+        labels, count = ndimage.label(core)
+        if count:
+            counts = np.bincount(labels.ravel()); counts[0] = 0
+            mask = ndimage.binary_dilation(labels == counts.argmax(), iterations=2 + separation)
+            alpha = Image.fromarray(np.where(mask, values, 0).astype('uint8'))
     image.putalpha(alpha)
     bbox = alpha.getbbox()
     if not bbox:
@@ -117,8 +133,14 @@ def build(spec, base, output):
         manifest['poses'][pose] = dest
     for expr, item in spec.get('portraits', {}).items():
         image, bbox = read_image({**spec.get('portraitDefaults', {}), **item}, base)
-        # Source portrait crop is intentionally preserved to keep eyes aligned.
-        image = image.resize((384, 384), Image.Resampling.LANCZOS)
+        # Preserve face proportions, fit the selected bust crop to a square,
+        # and align shoulders to the bottom so the HUD circle frames the face.
+        if item.get('trim', False):
+            image = image.crop(bbox)
+        image.thumbnail((384, 384), Image.Resampling.LANCZOS)
+        portrait = Image.new('RGBA', (384, 384))
+        portrait.alpha_composite(image, ((384 - image.width) // 2, 384 - image.height))
+        image = portrait
         filename = f'portrait-{expr}.webp'
         image.save(output / filename, 'WEBP', quality=86, method=6)
         manifest['portraits'][expr] = filename

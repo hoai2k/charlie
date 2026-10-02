@@ -88,6 +88,13 @@ export const POSES = {
   slam:      { loop: false, fallback: ['land'], proc: 'land', desc: 'Troll ground-pound impact.' },
   grab:      { loop: false, fallback: ['action'], proc: 'action', desc: 'Troll grabs forward.' },
   exit:      { loop: true,  fallback: ['walk'], proc: 'walk', desc: 'NPC leaving the scene.' },
+  // Optional actions: authored pilot frames; safe expressive fallbacks elsewhere.
+  'look-around': { loop: true, fallback: ['think'], proc: 'look-around', desc: 'Curious scouting and looking for a friend.' },
+  'high-five': { loop: false, fallback: ['wave', 'cheer'], proc: 'high-five', desc: 'Open-palm friendly team high-five (paw tap for pets).' },
+  crouch:    { loop: true, fallback: ['land'], proc: 'crouch', desc: 'Low playful hiding or obstacle duck.' },
+  dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
+  catch:     { loop: false, fallback: ['carry', 'action'], proc: 'catch', desc: 'Receive a present or pickup with a soft recoil.' },
+  'wave-goodbye': { loop: false, fallback: ['wave'], proc: 'wave', desc: 'Warm farewell while turning to leave.' },
 };
 export const POSE_NAMES = Object.keys(POSES);
 
@@ -329,6 +336,11 @@ function procedural(pose, t, style, speed, allowTwirl = true) {
     case 'shake': { const k = Math.max(0, 1 - t / 0.7); o.rot = Math.sin(t * 50) * 0.18 * k; o.sx = 1 + Math.sin(t * 50) * 0.05 * k; break; }
     case 'talk': o.sy = 1 + Math.abs(Math.sin(t * 9)) * 0.025; o.rot = Math.sin(t * 2) * 0.04; break;
     case 'windup': { const k = Math.min(1, t / 0.6); o.sy = 1 - 0.12 * k; o.sx = 1 + 0.1 * k; o.dx = -10 * k; o.rot = -0.1 * k + Math.sin(t * 40) * 0.02 * k; break; }
+    case 'look-around': o.rot = Math.sin(t * 1.8) * .06; o.dx = Math.sin(t * .9) * 3; break;
+    case 'high-five': { const k = Math.sin(Math.min(1, t / .45) * Math.PI); o.dx = 9 * k; o.lift += 5 * k; o.rot = .06 * k; break; }
+    case 'crouch': o.sy = .96 + breathe * .012; o.sx = 1.035; break;
+    case 'dash': { const k = Math.sin(Math.min(1, t / .3) * Math.PI); o.rot = .12 * k; o.sx = 1 + .08 * k; o.sy = 1 - .04 * k; break; }
+    case 'catch': { const k = Math.sin(Math.min(1, t / .35) * Math.PI); o.dx = -7 * k; o.sy = 1 - .07 * k; o.rot = -.06 * k; break; }
     default: break;
   }
   return o;
@@ -441,6 +453,15 @@ export class Actor {
    */
   anchor(name = 'head') {
     const m = this.members[0], d = m.def, h = d.h * this.scale;
+    const { set, sp, t } = this._spriteState(m, this.pose);
+    if (sp) {
+      const fr = pickFrame(sp, t), point = fr[name];
+      if (point) {
+        const a = fr.anchor || set.anchor, scale = h / (sp.bodyHeight || set.bodyHeight);
+        const flip = (sp.facing ?? set.facing) === -1 ? -1 : 1;
+        return { x: m.x + (point[0] - a[0]) * scale * flip * m.facing, y: m.y - this.z + (point[1] - a[1]) * scale };
+      }
+    }
     const img = baseImages.get(d.asset);
     const aspect = img ? img.width / img.height : 0.6;
     const artDir = d.facing === -1 ? -1 : 1;
@@ -571,14 +592,19 @@ export class Actor {
     g.restore();
   }
 
-  _drawMember(g, m, sc, alpha, pose) {
-    const def = m.def;
-    const set = getSpriteSet(def.asset);
+  _spriteState(m, pose) {
+    const set = getSpriteSet(m.def.asset);
     let sp = set ? resolvePose(set, pose) : null;
     // Followers vary their looping phase but start one-shots at frame zero.
     let t = this.poseTime + (m.i && (POSES[pose]?.loop ?? sp?.loop) ? m.phase : 0);
     if (this._once && pose === this._once.pose && sp) t = this.poseTime / this._once.duration * poseDuration(sp);
     if (sp && !sp.loop && !sp.holdLast && t >= poseDuration(sp)) sp = set.poses.idle || sp;
+    return { set, sp, t };
+  }
+
+  _drawMember(g, m, sc, alpha, pose) {
+    const def = m.def;
+    const { set, sp, t } = this._spriteState(m, pose);
     const motionW = sp ? sp.motion : 1;
     const o = procedural(POSES[pose]?.proc || pose, this.poseTime + (m.i && POSES[pose]?.loop ? m.phase : 0) + this.seed * (pose === 'idle' ? 3 : 0), def.motion, this.speed, !sp);
 

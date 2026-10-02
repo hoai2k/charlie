@@ -1,0 +1,472 @@
+{
+  "frameSize": [
+    300,
+    232
+  ],
+  "anchor": [
+    150,
+    212
+  ],
+  "bodyHeight": 150,
+  "facing": 1,
+  "poses": {
+    "idle": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "idle-00.webp",
+          "anchor": [
+            93,
+            152
+          ],
+          "head": [
+            96,
+            27
+          ],
+          "hand": [
+            102,
+            131
+          ],
+          "eyes": [
+            94,
+            70
+          ],
+          "neck": [
+            94,
+            104
+          ],
+          "back": [
+            72,
+            111
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "fps": 10,
+      "motion": 0.3,
+      "loop": true,
+      "frames": [
+        {
+          "src": "walk-00.webp",
+          "anchor": [
+            103,
+            135
+          ],
+          "head": [
+            116,
+            30
+          ],
+          "hand": [
+            143,
+            91
+          ],
+          "eyes": [
+            125,
+            71
+          ],
+          "neck": [
+            111,
+            95
+          ],
+          "back": [
+            83,
+            99
+          ]
+        },
+        {
+          "src": "walk-01.webp",
+          "anchor": [
+            101,
+            131
+          ],
+          "head": [
+            114,
+            26
+          ],
+          "hand": [
+            141,
+            87
+          ],
+          "eyes": [
+            123,
+            67
+          ],
+          "neck": [
+            109,
+            91
+          ],
+          "back": [
+            82,
+            95
+          ]
+        },
+        {
+          "src": "walk-02.webp",
+          "anchor": [
+            98,
+            132
+          ],
+          "head": [
+            111,
+            27
+          ],
+          "hand": [
+            138,
+            88
+          ],
+          "eyes": [
+            120,
+            68
+          ],
+          "neck": [
+            106,
+            92
+          ],
+          "back": [
+            79,
+            96
+          ]
+        },
+        {
+          "src": "walk-03.webp",
+          "anchor": [
+            103,
+            131
+          ],
+          "head": [
+            115,
+            26
+          ],
+          "hand": [
+            142,
+            87
+          ],
+          "eyes": [
+            124,
+            67
+          ],
+          "neck": [
+            111,
+            91
+          ],
+          "back": [
+            83,
+            95
+          ]
+        }
+      ]
+    },
+    "run": {
+      "alias": "walk",
+      "fps": 14,
+      "motion": 0.4
+    },
+    "celebrate": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "celebrate-00.webp",
+          "anchor": [
+            99,
+            175
+          ],
+          "head": [
+            85,
+            34
+          ],
+          "hand": [
+            113,
+            84
+          ],
+          "eyes": [
+            85,
+            68
+          ],
+          "neck": [
+            87,
+            106
+          ],
+          "back": [
+            57,
+            122
+          ]
+        }
+      ]
+    },
+    "pout": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "pout-00.webp",
+          "anchor": [
+            103,
+            105
+          ],
+          "head": [
+            102,
+            15
+          ],
+          "hand": [
+            112,
+            86
+          ],
+          "eyes": [
+            102,
+            53
+          ],
+          "neck": [
+            101,
+            77
+          ],
+          "back": [
+            65,
+            75
+          ]
+        }
+      ]
+    },
+    "wave": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "wave-00.webp",
+          "anchor": [
+            70,
+            168
+          ],
+          "head": [
+            70,
+            26
+          ],
+          "hand": [
+            22,
+            87
+          ],
+          "eyes": [
+            70,
+            70
+          ],
+          "neck": [
+            69,
+            105
+          ],
+          "back": [
+            89,
+            117
+          ]
+        }
+      ]
+    },
+    "cheer": {
+      "alias": "celebrate",
+      "loop": false,
+      "motion": 1
+    },
+    "sad": {
+      "alias": "pout",
+      "loop": true,
+      "motion": 0.6
+    },
+    "hurt": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1,
+      "frames": [
+        {
+          "src": "hurt-00.webp",
+          "anchor": [
+            92,
+            161
+          ]
+        }
+      ]
+    },
+    "dizzy": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": -1,
+      "frames": [
+        {
+          "src": "dizzy-00.webp",
+          "anchor": [
+            85,
+            157
+          ]
+        }
+      ]
+    },
+    "surprised": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1,
+      "frames": [
+        {
+          "src": "surprised-00.webp",
+          "anchor": [
+            83,
+            187
+          ]
+        }
+      ]
+    },
+    "ready": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1,
+      "frames": [
+        {
+          "src": "ready-00.webp",
+          "anchor": [
+            88,
+            162
+          ]
+        }
+      ]
+    },
+    "jump": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "jump-00.webp",
+          "anchor": [
+            83,
+            158
+          ]
+        }
+      ]
+    },
+    "fall": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "fall-00.webp",
+          "anchor": [
+            86,
+            159
+          ]
+        }
+      ]
+    },
+    "land": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "land-00.webp",
+          "anchor": [
+            83,
+            116
+          ]
+        }
+      ]
+    },
+    "think": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "think-00.webp",
+          "anchor": [
+            74,
+            160
+          ]
+        }
+      ]
+    },
+    "action": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "action-00.webp",
+          "anchor": [
+            84,
+            142
+          ]
+        }
+      ]
+    },
+    "throw": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "throw-00.webp",
+          "anchor": [
+            84,
+            153
+          ]
+        }
+      ]
+    },
+    "push": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "push-00.webp",
+          "anchor": [
+            86,
+            122
+          ]
+        }
+      ]
+    },
+    "carry": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "carry-00.webp",
+          "anchor": [
+            69,
+            162
+          ]
+        }
+      ]
+    }
+  },
+  "portraits": {
+    "neutral": "portrait-neutral.webp",
+    "happy": "portrait-happy.webp",
+    "sad": "portrait-sad.webp",
+    "surprised": "portrait-surprised.webp",
+    "determined": "portrait-determined.webp"
+  },
+  "provenance": "ImageGen using approved canonical; walk strip reviewed and split at transparent gutters; idle is approved canonical."
+}

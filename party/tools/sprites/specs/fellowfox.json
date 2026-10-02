@@ -1,0 +1,675 @@
+{
+  "asset": "fellowfox",
+  "bodyHeight": 150,
+  "frameSize": [
+    300,
+    232
+  ],
+  "anchor": [
+    150,
+    212
+  ],
+  "facing": 1,
+  "provenance": "ImageGen using approved canonical; walk strip reviewed and split at transparent gutters; idle is approved canonical.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "rect": [
+            24,
+            150,
+            537,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            300,
+            488
+          ],
+          "head": [
+            310,
+            91
+          ],
+          "eyes": [
+            302,
+            227
+          ],
+          "neck": [
+            302,
+            334
+          ],
+          "back": [
+            234,
+            359
+          ],
+          "hand": [
+            328,
+            421
+          ],
+          "source": "../sources/fellowfox-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 0
+    },
+    "walk": {
+      "fps": 10,
+      "motion": 0.3,
+      "loop": true,
+      "frames": [
+        {
+          "source": "../sources/fellowfox-walk.webp",
+          "rect": [
+            0,
+            0,
+            560,
+            723
+          ],
+          "anchor": [
+            345,
+            598
+          ],
+          "scale": 0.9811512041711495,
+          "head": [
+            387,
+            257
+          ],
+          "hand": [
+            475,
+            455
+          ],
+          "eyes": [
+            415,
+            389
+          ],
+          "neck": [
+            371,
+            470
+          ],
+          "back": [
+            281,
+            483
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-walk.webp",
+          "rect": [
+            560,
+            0,
+            538,
+            723
+          ],
+          "anchor": [
+            340,
+            598
+          ],
+          "scale": 0.9811512041711495,
+          "head": [
+            382,
+            257
+          ],
+          "hand": [
+            470,
+            455
+          ],
+          "eyes": [
+            410,
+            389
+          ],
+          "neck": [
+            366,
+            470
+          ],
+          "back": [
+            276,
+            483
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-walk.webp",
+          "rect": [
+            1098,
+            0,
+            559,
+            723
+          ],
+          "anchor": [
+            330,
+            598
+          ],
+          "scale": 0.9811512041711495,
+          "head": [
+            372,
+            257
+          ],
+          "hand": [
+            460,
+            455
+          ],
+          "eyes": [
+            400,
+            389
+          ],
+          "neck": [
+            356,
+            470
+          ],
+          "back": [
+            266,
+            483
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-walk.webp",
+          "rect": [
+            1657,
+            0,
+            519,
+            723
+          ],
+          "anchor": [
+            337,
+            598
+          ],
+          "scale": 0.9811512041711495,
+          "head": [
+            379,
+            257
+          ],
+          "hand": [
+            467,
+            455
+          ],
+          "eyes": [
+            407,
+            389
+          ],
+          "neck": [
+            363,
+            470
+          ],
+          "back": [
+            273,
+            483
+          ]
+        }
+      ]
+    },
+    "run": {
+      "alias": "walk",
+      "fps": 14,
+      "motion": 0.4
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "rect": [
+            580,
+            68,
+            526,
+            565
+          ],
+          "isolate": true,
+          "anchor": [
+            320,
+            558
+          ],
+          "head": [
+            274,
+            107
+          ],
+          "eyes": [
+            276,
+            216
+          ],
+          "neck": [
+            282,
+            337
+          ],
+          "back": [
+            185,
+            389
+          ],
+          "hand": [
+            365,
+            269
+          ],
+          "source": "../sources/fellowfox-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "rect": [
+            1083,
+            285,
+            586,
+            348
+          ],
+          "isolate": true,
+          "anchor": [
+            330,
+            338
+          ],
+          "head": [
+            325,
+            52
+          ],
+          "eyes": [
+            325,
+            172
+          ],
+          "neck": [
+            322,
+            248
+          ],
+          "back": [
+            208,
+            243
+          ],
+          "hand": [
+            357,
+            278
+          ],
+          "source": "../sources/fellowfox-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "rect": [
+            1699,
+            95,
+            448,
+            546
+          ],
+          "isolate": true,
+          "anchor": [
+            228,
+            536
+          ],
+          "head": [
+            226,
+            84
+          ],
+          "eyes": [
+            226,
+            222
+          ],
+          "neck": [
+            223,
+            335
+          ],
+          "back": [
+            288,
+            375
+          ],
+          "hand": [
+            72,
+            278
+          ],
+          "source": "../sources/fellowfox-core.webp"
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cheer": {
+      "alias": "celebrate",
+      "loop": false,
+      "motion": 1
+    },
+    "sad": {
+      "alias": "pout",
+      "loop": true,
+      "motion": 0.6
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-reactions.webp",
+          "rect": [
+            11,
+            143,
+            566,
+            518
+          ],
+          "isolate": true,
+          "anchor": [
+            294,
+            514
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-reactions.webp",
+          "rect": [
+            603,
+            156,
+            519,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            270,
+            500
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-reactions.webp",
+          "rect": [
+            1105,
+            60,
+            508,
+            600
+          ],
+          "isolate": true,
+          "anchor": [
+            264,
+            596
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-reactions.webp",
+          "rect": [
+            1633,
+            137,
+            539,
+            520
+          ],
+          "isolate": true,
+          "anchor": [
+            280,
+            516
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-movement.webp",
+          "rect": [
+            47,
+            79,
+            511,
+            510
+          ],
+          "isolate": true,
+          "anchor": [
+            266,
+            506
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-movement.webp",
+          "rect": [
+            595,
+            104,
+            526,
+            513
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            509
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-movement.webp",
+          "rect": [
+            1148,
+            278,
+            507,
+            374
+          ],
+          "isolate": true,
+          "anchor": [
+            264,
+            370
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-movement.webp",
+          "rect": [
+            1695,
+            135,
+            451,
+            516
+          ],
+          "isolate": true,
+          "anchor": [
+            235,
+            512
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-actions.webp",
+          "rect": [
+            42,
+            178,
+            518,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            269,
+            452
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-actions.webp",
+          "rect": [
+            567,
+            124,
+            517,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            269,
+            490
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-actions.webp",
+          "rect": [
+            1139,
+            237,
+            531,
+            394
+          ],
+          "isolate": true,
+          "anchor": [
+            276,
+            390
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-actions.webp",
+          "rect": [
+            1698,
+            106,
+            425,
+            521
+          ],
+          "isolate": true,
+          "anchor": [
+            221,
+            517
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/fellowfox-portraits.webp",
+      "rect": [
+        16,
+        102,
+        410,
+        525
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/fellowfox-portraits.webp",
+      "rect": [
+        438,
+        106,
+        413,
+        524
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/fellowfox-portraits.webp",
+      "rect": [
+        839,
+        173,
+        487,
+        456
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/fellowfox-portraits.webp",
+      "rect": [
+        1326,
+        82,
+        383,
+        547
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/fellowfox-portraits.webp",
+      "rect": [
+        1738,
+        110,
+        412,
+        524
+      ],
+      "isolate": true,
+      "trim": true
+    }
+  }
+}
