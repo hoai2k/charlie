@@ -194,14 +194,19 @@ function drawLayer(g, cake, i) {
   sideGrad.addColorStop(0, fl.d); sideGrad.addColorStop(0.35, fl.c); sideGrad.addColorStop(0.6, fl.c); sideGrad.addColorStop(1, fl.d);
   const frostGrad = g.createLinearGradient(-L.w / 2, 0, L.w / 2, 0);
   frostGrad.addColorStop(0, fr.d); frostGrad.addColorStop(0.4, fr.c); frostGrad.addColorStop(1, fr.d);
-  for (let y = L.yb; y >= L.yt; y -= step) {
-    const f = (L.yb - y) / L.h; // 0 bottom .. 1 top
-    facePath(g, sh, 0, y, L.w);
-    if (f > 1 - rimK) g.fillStyle = fr.rainbow ? rainbowGrad(g, -L.w / 2, L.w / 2) : frostGrad;
-    else if (fl.rainbow) g.fillStyle = RAINBOW[Math.min(6, Math.floor(f / (1 - rimK) * 7))];
-    else g.fillStyle = sideGrad;
-    g.fill();
-  }
+  // mode: 'all' or 'frost' (only the frosting band, redrawn over the crumb texture)
+  const sideSlices = (cg, mode = 'all') => {
+    for (let y = L.yb; y >= L.yt; y -= step) {
+      const f = (L.yb - y) / L.h; // 0 bottom .. 1 top
+      if (mode === 'frost' && f <= 1 - rimK) continue;
+      facePath(cg, sh, 0, y, L.w);
+      if (f > 1 - rimK) cg.fillStyle = fr.rainbow ? rainbowGrad(cg, -L.w / 2, L.w / 2) : frostGrad;
+      else if (fl.rainbow) cg.fillStyle = RAINBOW[Math.min(6, Math.floor(f / (1 - rimK) * 7))];
+      else cg.fillStyle = sideGrad;
+      cg.fill();
+    }
+  };
+  if (!drawCrumbSide(g, L, sideSlices)) sideSlices(g);
   // filling stripe
   g.save(); facePath(g, sh, 0, L.yb - L.h * 0.42, L.w * 1.0); g.lineWidth = 5; g.strokeStyle = 'rgba(255,255,255,0.45)'; g.stroke(); g.restore();
   // top face
@@ -264,6 +269,55 @@ function drawDrizzle(g, cake) {
     g.lineWidth = 9; g.lineCap = 'round'; g.strokeStyle = NAVY; g.stroke();
     g.lineWidth = 6; g.strokeStyle = col(k); g.stroke();
   }
+}
+
+// Sponge crumb texture: the side band of prop/cake-sponge-round (plain cream
+// sponge), normalized to white so multiplying it over a layer's flavor colour
+// only adds the crumb speckles and soft shading. The layers keep their
+// procedural shape (round/heart/star/tower), flavors and frosting.
+let crumbTex = null;
+function crumbTexture() {
+  if (crumbTex !== null) return crumbTex;
+  const img = art('prop/cake-sponge-round');
+  if (!img) return null;                       // not loaded (yet): try again later
+  crumbTex = false;
+  try {
+    const sx = Math.round(img.width * 0.37), sy = Math.round(img.height * 0.71);
+    const w = Math.round(img.width * 0.26), h = Math.round(img.height * 0.24);   // clear of its outline
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const cg = c.getContext('2d'); cg.drawImage(img, sx, sy, w, h, 0, 0, w, h);
+    const d = cg.getImageData(0, 0, w, h), px = d.data, mean = [0, 0, 0];
+    for (let i = 0; i < px.length; i += 4) { mean[0] += px[i]; mean[1] += px[i + 1]; mean[2] += px[i + 2]; }
+    const n = px.length / 4;
+    for (let i = 0; i < px.length; i += 4) for (let ch = 0; ch < 3; ch++) px[i + ch] = Math.min(255, px[i + ch] * 255 / (mean[ch] / n));
+    cg.putImageData(d, 0, 0);
+    crumbTex = c;
+  } catch (e) { /* unreadable canvas: plain sides */ }
+  return crumbTex;
+}
+function drawCrumbSide(g, L, sideSlices) {
+  const tex = crumbTexture();
+  if (!tex) return false;
+  const k = Math.hypot(g.getTransform().a, g.getTransform().b) || 1;
+  const x0 = -L.w / 2 - 12, y0 = L.yt - L.w * KY / 2 - 12, bw = L.w + 24, bh = L.yb - L.yt + L.w * KY + 24;
+  const c = document.createElement('canvas');
+  c.width = Math.ceil(bw * k); c.height = Math.ceil(bh * k);
+  const cg = c.getContext('2d');
+  cg.setTransform(k, 0, 0, k, -x0 * k, -y0 * k);
+  sideSlices(cg);
+  // crumb texture masked to the side's shape, then multiplied over it
+  const t = document.createElement('canvas'); t.width = c.width; t.height = c.height;
+  const tg = t.getContext('2d');
+  tg.setTransform(k, 0, 0, k, -x0 * k, -y0 * k);
+  const pat = tg.createPattern(tex, 'repeat');
+  if (pat.setTransform) pat.setTransform(new DOMMatrix().scale(L.w / (tex.width * 2)));
+  tg.fillStyle = pat; tg.fillRect(x0, y0, bw, bh);
+  tg.setTransform(1, 0, 0, 1, 0, 0); tg.globalCompositeOperation = 'destination-in'; tg.drawImage(c, 0, 0);
+  cg.setTransform(1, 0, 0, 1, 0, 0); cg.globalCompositeOperation = 'multiply'; cg.globalAlpha = 0.9; cg.drawImage(t, 0, 0);
+  cg.setTransform(k, 0, 0, k, -x0 * k, -y0 * k); cg.globalCompositeOperation = 'source-over'; cg.globalAlpha = 1;
+  sideSlices(cg, 'frost');
+  g.drawImage(c, x0, y0, bw, bh);
+  return true;
 }
 
 function drawStand(g) {

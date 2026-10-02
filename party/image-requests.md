@@ -1568,8 +1568,9 @@ fine; the code uses one of each pair.
 - `prop/danger-ring` v3: thin hazard-stripe ring (image agent updated Bumper Bounce's ring constant).
 - `prop/storm-cloud-lightning`: bolt art under the storm clouds in Broomstick Dash (bigger on a zap).
 - `prop/cookie-{2,3,4}-{cracked,crumbling}`: every flavor now shows art crack states in Cookie Crumble.
-- `prop/cake-platform` v2: flatter top delivered, but Bumper Bounce draws `prop/arena-cake`, so the platform is only a fallback; the edge-crumble overlay rings are still open (row above).
-- `prop/cake-stand` v2: still unused (top ellipse is flatter than the cakes' 0.36 view and the stand is about 0.5x as tall as wide); row above still applies.
+- `prop/cake-platform` v2 + `prop/cake-platform-crumble-1..3`, `prop/arena-cake-crumb-1..4`: Bumper Bounce's breaking edge (image agent integration, checked in game).
+- `prop/cake-sponge-round/heart/star`: Cake Bakery multiplies the round sponge's crumb texture over every layer side (any shape, tinted by flavor; frosting band left smooth). The heart/star files are not needed for that and stay unused.
+- `prop/plant-<kind>-seed` v2 and `bg/fairy-garden(-night)` v2 (overhead): image agent integration, checked in game.
 
 - `bg/potion-class`: recipe content now aligns with the painted blackboard; in-game review passed, so no regeneration is needed.
 - `bg/fairy-garden` day/night v2: matching overhead lawns, integrated and reviewed with the night glow cross-fade.
