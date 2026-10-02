@@ -45,3 +45,22 @@ aliases reuse compatible art (`run` from walk, `cheer` from celebrate, `sad` fro
 Review optional actions in `?scene=sprites&chars=felicity&pose=high-five&debug=1&zoom=2`.
 P pauses; period steps time; A compares canonical fallback. Check both facings and inspect
 the transparent borders against dark and light scenes before enabling a new game mechanic.
+
+## KPop performance references
+
+All three KPop members now provide the six optional actions above plus an authored `sing`
+key pose. `sing` is already exposed by the engine, loops with procedural dance motion,
+and can be selected with `actor.setPose('sing')`. Attach a separate microphone at `hand`
+when desired; the artwork keeps props separate. The right member sings with an open arm
+and hand over her heart, while the other two mime holding a microphone near their mouths.
+
+The three independent sets share bodyHeight 320, the same 44 pose names, the same frame
+counts per pose, and six expressions. Dance uses four frames at 4 fps for a one-second
+shared beat; start all three at the same pose time for synchronized choreography. Their
+idle blink schedules deliberately differ, so waiting together does not look mechanical.
+Celebration has four frames, pout two, ride two, and walk/run four each. The other actions
+remain individual authored key poses with procedural movement, rather than full drawn cycles.
+
+For an optional call-and-response stage moment, alternate `sing` on the lead member with
+`clap` on the other two, then switch all three to `dance`. The game controls music timing
+and rewards; these poses do not introduce scoring or movement rules.
