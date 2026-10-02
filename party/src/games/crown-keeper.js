@@ -27,7 +27,7 @@ const BEDS = [[285, 400, 100, 0], [1640, 405, 100, 1], [275, 905, 100, 2], [1650
 const WALK = 340, HOLD_MULT = 0.85, DASH_SPEED = 960, DASH_TIME = 0.18, DASH_CD = 1.3;
 
 // Poses. WISH list (see report): 'crowned' (proud royal strut, chin up) and 'dash' (forward lunge, arms out).
-const POSE = { dash: 'push', bonked: 'hurt', dizzy: 'dizzy', win: 'cheer' };
+const POSE = { dash: 'dash', bonked: 'hurt', dizzy: 'dizzy', win: 'cheer' };
 
 const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 

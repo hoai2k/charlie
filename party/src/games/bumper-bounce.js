@@ -603,7 +603,7 @@ export class Game {
     if (this.n === 2 && this.npc && this.playT < 3) ui.text(g, 'A friendly Troll joins in!', W / 2, 150, { size: 40, color: '#ffffff' });
     if (this.ends && this.ends.winner) {
       const w = this.ends.winner;
-      ui.banner(g, `${(charById(w.p.charId) || {}).name || w.p.tag} wins!`, this.ends.t, { y: 330, size: 110, color: w.p.color === '#ffffff' ? '#ffd23f' : '#ffd23f' });
+      ui.banner(g, `${(charById(w.p.charId) || {}).name || w.p.tag} ${(charById(w.p.charId) || {}).plural ? 'win' : 'wins'}!`, this.ends.t, { y: 330, size: 110, color: w.p.color === '#ffffff' ? '#ffd23f' : '#ffd23f' });
     }
   }
 

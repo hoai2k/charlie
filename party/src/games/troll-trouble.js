@@ -263,7 +263,7 @@ export class Game {
         const mm = Math.hypot(ix, iy);
         pl.dashDx = mm > 0.25 ? ix / mm : a.facing; pl.dashDy = mm > 0.25 ? iy / mm : 0;
         pl.dashT = DASH_TIME; pl.dashCd = DASH_CD;
-        sfx('dash'); a.playOnce('push', 0.22); a.squash(0.2);
+        sfx('dash'); a.playOnce('dash', 0.22); a.squash(0.2);
         particles.burst(pl.x, pl.y - 6, { type: 'dust', count: 6, speed: [60, 200] });
       }
       if (pl.dashT > 0) {

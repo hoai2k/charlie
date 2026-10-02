@@ -309,7 +309,7 @@ export class Game {
     const d = s.dir;
     const tx = clamp(s.x + d.x * BOMB_RANGE, 50, W - 50), ty = clamp(s.y + d.y * BOMB_RANGE, Y0 + 30, Y0 + PH - 20);
     this.bombs.push({ i, sx: s.x, sy: s.y - s.a.height * 0.5, gy: s.y, tx, ty, t: 0, dur: 0.5, color: p.color });
-    s.a.playOnce('throw', 0.4, 'idle'); s.a.squash(0.3);
+    s.a.playOnce('splat-throw', 0.4, 'idle'); s.a.squash(0.3);
     if (Math.abs(d.x) > 0.2) s.a.facing = d.x > 0 ? 1 : -1;
     sfx('whoosh'); p.ctrl.rumble && p.ctrl.rumble(0.3, 100);
   }

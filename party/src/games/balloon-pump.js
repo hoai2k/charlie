@@ -608,7 +608,7 @@ export class Game {
     if (this.phase === 'between') ui.banner(g, `Round ${this.round}!`, this.phaseT, { size: 140, y: 330, color: '#ff6fb1' });
     if (this.phase === 'pop' && this.winner && !this.finalRound && this.phaseT > 0.3) {
       const st = this.winner;
-      ui.banner(g, `${charById(st.p.charId)?.name || st.p.tag} wins the round!`, this.phaseT - 0.3, { size: 80, y: 330, color: st.p.color, tilt: -0.02 });
+      ui.banner(g, `${charById(st.p.charId)?.name || st.p.tag} ${charById(st.p.charId)?.plural ? 'win' : 'wins'} the round!`, this.phaseT - 0.3, { size: 80, y: 330, color: st.p.color, tilt: -0.02 });
     }
     if (this.phase === 'pop' && !this.winner && this.resultText) ui.banner(g, this.resultText, this.phaseT, { size: 110, y: 330, color: '#ffffff' });
   }
