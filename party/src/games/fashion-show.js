@@ -352,7 +352,6 @@ export class Game {
     particles.popText(a.x, head.y - 40, pick(COMPLIMENTS), st.p.color, 46);
     for (let i = 0; i < 4; i++) this.cameraFlash(a.x);
     for (const m of this.crowd) if (chance(0.25) && m.jump <= 0) m.jv = rand(160, 260);
-    if (st.poses % 4 === 1) a.say(pick(['Ta-da!', 'Wow!', 'Yay!', 'Sparkle!']), 0.9, st.p.isAI ? null : 'woo');
   }
 
   cameraFlash(nearX) {
@@ -790,7 +789,7 @@ export class Game {
       if (this.phase === 'runway' && (st.rw.state === 'walk' || st.rw.state === 'pose')) {
         const head = st.actor.anchor('head');
         ui.playerTag(g, st.p, st.actor.x, head.y - 60);
-        this.poseBadge(g, st, st.actor.x + 62, head.y - 78, 1);
+        this.poseBadge(g, st, st.actor.x, st.actor.y + 40, 1);
         if (st.rw.state === 'pose' && !st.p.isAI) ui.glyph(g, 'a', st.actor.x + 64, head.y - 80, 52, { pulse: true });
       }
     }

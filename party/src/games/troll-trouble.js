@@ -563,7 +563,7 @@ export class Game {
     });
     this.pl.forEach(() => {
     });
-    this.troll.a.setPose('laugh'); this.troll.a.z = 0; sfx('npc/troll/laugh');
+    this.troll.state = 'recover'; this.troll.t = 99; this.troll.a.setPose('laugh'); this.troll.a.z = 0; sfx('npc/troll/laugh');
     const win = this.pl.filter((q) => q.gems === best)[0];
     this.api.finish({ placements, stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`), focus: win && best > 0 ? { x: win.x, y: win.y - 80 } : undefined });
   }
