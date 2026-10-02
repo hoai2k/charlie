@@ -108,7 +108,7 @@
 
   async function loadTitleHero() {
     try {
-      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002g", document.baseURI);
+      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002h", document.baseURI);
       const response = await fetch(layoutUrl);
       if (!response.ok) throw new Error(`Title layout: ${response.status}`);
       const layout = await response.json();
@@ -138,18 +138,38 @@
     }
   }
 
+  // Bob shapes for one cycle u in [0, 1). lift is 0 at the lowest point and 1
+  // at the top; tilt is -1..1 (negative = nose up for a rider facing right).
+  function titleBob(wave, u) {
+    const TAU = Math.PI * 2;
+    if (wave === "bounce") {
+      // One hop per step: a firm footfall at u = 0, rounded at the top.
+      return { lift: Math.sin(Math.PI * u), tilt: 0 };
+    }
+    if (wave === "gallop") {
+      // Time-warp a sine so the push-off is quick and the body hangs at the
+      // top of the stride; the nose lifts on the way up and dips on landing.
+      const w = u + 0.55 * Math.sin(TAU * u) / TAU;
+      return { lift: 0.5 - 0.5 * Math.cos(TAU * w), tilt: -Math.sin(TAU * w) };
+    }
+    // "glide" (and the default): a smooth sine, gently nose-up while rising.
+    return { lift: 0.5 - 0.5 * Math.cos(TAU * u), tilt: -0.8 * Math.sin(TAU * u) };
+  }
+
   function animateTitleHero(t) {
     for (const layer of titleLayers) {
       const localMs = t * 1000 - layer.enterDelayMs;
       const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, localMs / 950));
       const ease = 1 - (1 - progress) ** 3;
       // Phase uses the shared clock, so the entrance delay doesn't shift the rhythm.
-      const bob = reducedMotion.matches ? 0 : layer.bobAmplitude * Math.sin(
-        t * 1000 / layer.bobPeriodMs * Math.PI * 2 + layer.phaseRadians
-      );
+      const cycle = t * 1000 / layer.bobPeriodMs + (layer.phaseRadians || 0) / (Math.PI * 2);
+      const { lift, tilt } = reducedMotion.matches ? { lift: 0, tilt: 0 } : titleBob(layer.bobWave, cycle - Math.floor(cycle));
+      const bob = -lift * layer.bobAmplitude;
+      const angle = tilt * (layer.tiltDegrees || 0);
       layer.image.style.visibility = progress > 0 ? "visible" : "hidden";
+      if (layer.pivot) layer.image.style.transformOrigin = layer.pivot;
       // Percent translations are relative to each cutout's dimensions.
-      layer.image.style.transform = `translate(${-(1 - ease) * layer.canvasWidth / layer.width * 100}%, ${bob / layer.height * 100}%)`;
+      layer.image.style.transform = `translate(${-(1 - ease) * layer.canvasWidth / layer.width * 100}%, ${bob / layer.height * 100}%) rotate(${angle.toFixed(3)}deg)`;
     }
   }
 
