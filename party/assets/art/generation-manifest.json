@@ -3593,6 +3593,329 @@
       "height": 256,
       "bytes": 37242,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/storm-cloud-lightning",
+      "ref": "prop/storm-cloud-zap.webp",
+      "maxSize": [
+        256,
+        320
+      ],
+      "suffix": "",
+      "prompt": "Usecase: stylized-concept. CharlieParty separateStormCloud LIGHTNINGOVERLAY. ONEboldcartoonyellow-whitezigzaglightningboltwithnavyoutline, smallgoldbranchingcrackleatupperend, verticaltaperedshape. NOcloud, NOface,nobackground. Preserveinputcartoonrenderingstyleonly. Actualtransparentbackground, no glowyshadow, lettersorotherprops. Upperendwillattach beneathcloud, restboltstrikesdownwards. Clean2Dcelshade.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d6952470-b343-4898-a144-04dfd1497c26.png",
+      "tool": "built-in imagegen",
+      "width": 124,
+      "height": 320,
+      "bytes": 11972,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cookie-2-cracked",
+      "ref": "prop/cookie-2.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecookieflavor2. CreateONEcookie withexactoriginalflavor/colors/sprinklesorchips and a few deepboldnavyfracturelines acrosssurface. Cookie remainsONEcompletecircle, nothingmissing. Matchoriginaltopdownviewandframingexactly,circlecenteredwith10pxmargin in256square atfinal. Boldnavyoutlineandclean2Dcartooncelshade,transparentbackground,nohands,plates,shadowsorletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4744380e-cf4d-4927-a9f0-f4641987b232.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 25578,
+      "status": "generated; inspected"
+    },
+    {
+      "kind": "rose",
+      "stage": "glow",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game flower sprite into its clearly luminous NIGHT GLOW state. Preserve the EXACT petal shapes, number, outline silhouette, stem curve, leaf placement, proportions, camera, framing and bottom stem anchor of the reference. Do not redesign or add any objects. Bright magical light visibly shines FROM INSIDE the petals/cap and center, with near-white luminous cores fading into more saturated slightly cooler original colors. Add a soft colored translucent halo close around the flower head, subtle light spilling down the existing leaves. Keep dark navy structural outlines readable, clean cartoon cel shading. The luminosity must be unmistakable even at tiny game size, not merely added sparkles. No sparkles or stars or detached particles. TRUE TRANSPARENT background, no black/night backdrop. Keep full original plant silhouette and same relative position on canvas, no cropping. This reference is a pink rose: inner pink petals glow radiant magenta-pink with pearly hotpink cores.",
+      "reference": "party/assets/art/prop/plant-rose-bloom.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-41048c18-d3a7-4008-86d0-5814b5af60da.png",
+      "output": "party/assets/art/prop/plant-rose-glow-v2.webp",
+      "intake": "Resize full RGBA generated canvas to exact reference dimensions (256 tall), Lanczos, WebP quality90 method6; preserve alpha, no trim.",
+      "status": "generated; inspected",
+      "key": "prop/plant-rose-glow",
+      "tool": "built-in imagegen",
+      "width": 173,
+      "height": 256,
+      "bytes": 23716
+    },
+    {
+      "kind": "sunflower",
+      "stage": "glow",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game flower sprite into its clearly luminous NIGHT GLOW state. Preserve the EXACT petal shapes, number, outline silhouette, stem curve, leaf placement, proportions, camera, framing and bottom stem anchor of the reference. Do not redesign or add any objects. Bright magical light visibly shines FROM INSIDE the petals/cap and center, with near-white luminous cores fading into more saturated slightly cooler original colors. Add a soft colored translucent halo close around the flower head, subtle light spilling down the existing leaves. Keep dark navy structural outlines readable, clean cartoon cel shading. The luminosity must be unmistakable even at tiny game size, not merely added sparkles. No sparkles or stars or detached particles. TRUE TRANSPARENT background, no black/night backdrop. Keep full original plant silhouette and same relative position on canvas, no cropping. This reference is a sunflower: golden yellow petals glow from white-yellow inner light with luminous amber center and soft warmlemon halo.",
+      "reference": "party/assets/art/prop/plant-sunflower-bloom.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-a6ccdeea-e179-45f2-93f7-ac268d51bbbd.png",
+      "output": "party/assets/art/prop/plant-sunflower-glow-v2.webp",
+      "intake": "Resize full RGBA generated canvas to exact reference dimensions (256 tall), Lanczos, WebP quality90 method6; preserve alpha, no trim.",
+      "status": "generated; inspected",
+      "key": "prop/plant-sunflower-glow",
+      "tool": "built-in imagegen",
+      "width": 175,
+      "height": 256,
+      "bytes": 25488
+    },
+    {
+      "kind": "star-bloom",
+      "stage": "glow",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game flower sprite into its clearly luminous NIGHT GLOW state. Preserve the EXACT petal shapes, number, outline silhouette, stem curve, leaf placement, proportions, camera, framing and bottom stem anchor of the reference. Do not redesign or add any objects. Bright magical light visibly shines FROM INSIDE the petals/cap and center, with near-white luminous cores fading into more saturated slightly cooler original colors. Add a soft colored translucent halo close around the flower head, subtle light spilling down the existing leaves. Keep dark navy structural outlines readable, clean cartoon cel shading. The luminosity must be unmistakable even at tiny game size, not merely added sparkles. No sparkles or stars or detached particles. TRUE TRANSPARENT background, no black/night backdrop. Keep full original plant silhouette and same relative position on canvas, no cropping. This reference is the five-point gold star bloom with pink center: star petals shine white-gold from within and pink jewelcenter luminous rose, cool teal leaves.",
+      "reference": "party/assets/art/prop/plant-star-bloom-bloom.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-f3fe3d29-5903-4239-94ba-fd877e926b69.png",
+      "output": "party/assets/art/prop/plant-star-bloom-glow-v2.webp",
+      "intake": "Resize full RGBA generated canvas to exact reference dimensions (256 tall), Lanczos, WebP quality90 method6; preserve alpha, no trim.",
+      "status": "generated; inspected",
+      "key": "prop/plant-star-bloom-glow",
+      "tool": "built-in imagegen",
+      "width": 165,
+      "height": 256,
+      "bytes": 19466
+    },
+    {
+      "kind": "rainbow-tulip",
+      "stage": "glow",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game flower sprite into its clearly luminous NIGHT GLOW state. Preserve the EXACT petal shapes, number, outline silhouette, stem curve, leaf placement, proportions, camera, framing and bottom stem anchor of the reference. Do not redesign or add any objects. Bright magical light visibly shines FROM INSIDE the petals/cap and center, with near-white luminous cores fading into more saturated slightly cooler original colors. Add a soft colored translucent halo close around the flower head, subtle light spilling down the existing leaves. Keep dark navy structural outlines readable, clean cartoon cel shading. The luminosity must be unmistakable even at tiny game size, not merely added sparkles. No sparkles or stars or detached particles. TRUE TRANSPARENT background, no black/night backdrop. Keep full original plant silhouette and same relative position on canvas, no cropping. This reference is rainbowtulip: each of existing rainbow colored petals shines brilliantly with pearly luminous interior in its own saturated hue, soft multicolor halo, greener coolteal leaves.",
+      "reference": "party/assets/art/prop/plant-rainbow-tulip-bloom.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-43dfe072-ee7d-4ba5-9741-7f19aae2b898.png",
+      "output": "party/assets/art/prop/plant-rainbow-tulip-glow-v2.webp",
+      "intake": "Resize full RGBA generated canvas to exact reference dimensions (256 tall), Lanczos, WebP quality90 method6; preserve alpha, no trim.",
+      "status": "generated; inspected",
+      "key": "prop/plant-rainbow-tulip-glow",
+      "tool": "built-in imagegen",
+      "width": 172,
+      "height": 256,
+      "bytes": 19070
+    },
+    {
+      "kind": "glow-mushroom",
+      "stage": "glow",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game flower sprite into its clearly luminous NIGHT GLOW state. Preserve the EXACT petal shapes, number, outline silhouette, stem curve, leaf placement, proportions, camera, framing and bottom stem anchor of the reference. Do not redesign or add any objects. Bright magical light visibly shines FROM INSIDE the petals/cap and center, with near-white luminous cores fading into more saturated slightly cooler original colors. Add a soft colored translucent halo close around the flower head, subtle light spilling down the existing leaves. Keep dark navy structural outlines readable, clean cartoon cel shading. The luminosity must be unmistakable even at tiny game size, not merely added sparkles. No sparkles or stars or detached particles. TRUE TRANSPARENT background, no black/night backdrop. Keep full original plant silhouette and same relative position on canvas, no cropping. This reference is the purple cap mushroom with aqua spots: aqua spots blaze nearwhite cyan frominside, violetcap luminous indigo, gills radiate creamyblue light and soft turquoiseviolet halo. Same cap/stem silhouette.",
+      "reference": "party/assets/art/prop/plant-glow-mushroom-bloom.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-74e25c2b-2428-478e-ae37-4425f5219302.png",
+      "output": "party/assets/art/prop/plant-glow-mushroom-glow-v2.webp",
+      "intake": "Resize full RGBA generated canvas to exact reference dimensions (256 tall), Lanczos, WebP quality90 method6; preserve alpha, no trim.",
+      "status": "generated; inspected",
+      "key": "prop/plant-glow-mushroom-glow",
+      "tool": "built-in imagegen",
+      "width": 254,
+      "height": 256,
+      "bytes": 24912
+    },
+    {
+      "kind": "crystal-flower",
+      "stage": "glow",
+      "prompt": "Use case: precise-object-edit. Edit the supplied game flower sprite into its clearly luminous NIGHT GLOW state. Preserve the EXACT petal shapes, number, outline silhouette, stem curve, leaf placement, proportions, camera, framing and bottom stem anchor of the reference. Do not redesign or add any objects. Bright magical light visibly shines FROM INSIDE the petals/cap and center, with near-white luminous cores fading into more saturated slightly cooler original colors. Add a soft colored translucent halo close around the flower head, subtle light spilling down the existing leaves. Keep dark navy structural outlines readable, clean cartoon cel shading. The luminosity must be unmistakable even at tiny game size, not merely added sparkles. No sparkles or stars or detached particles. TRUE TRANSPARENT background, no black/night backdrop. Keep full original plant silhouette and same relative position on canvas, no cropping. This reference is an icy blue crystal flower. Every crystalpetal radiates pearly white-cyan inner light with saturated blue facets and cool cyan halo, center blazing turquoise, preserve sharp crystal silhouette.",
+      "reference": "party/assets/art/prop/plant-crystal-flower-bloom.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-1c83222e-7fdc-4889-9888-d1ca16aaaa7a.png",
+      "output": "party/assets/art/prop/plant-crystal-flower-glow-v2.webp",
+      "intake": "Resize full RGBA generated canvas to exact reference dimensions (256 tall), Lanczos, WebP quality90 method6; preserve alpha, no trim.",
+      "status": "generated; inspected",
+      "key": "prop/plant-crystal-flower-glow",
+      "tool": "built-in imagegen",
+      "width": 175,
+      "height": 256,
+      "bytes": 23190
+    },
+    {
+      "key": "prop/cookie-2-crumbling",
+      "ref": "prop/cookie-2.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecookieflavor2. CreateONEcookie withexactoriginalflavor/colors/sprinklesorchips, fracturedintofiveunevenchunks separatedbyverythintransparentgaps butstillsamecircularfootprint. A fewsmallloosecrumbs onlywithincircularfootprint. Matchoriginaltopdownviewandframingexactly,circlecenteredwith10pxmargin in256square atfinal. Boldnavyoutlineandclean2Dcartooncelshade,transparentbackground,nohands,plates,shadowsorletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-75a8908a-a7f1-4d75-ae52-3c52f10cacd9.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 33096,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cookie-3-cracked",
+      "ref": "prop/cookie-3.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecookieflavor3. CreateONEcookie withexactoriginalflavor/colors/sprinklesorchips and a few deepboldnavyfracturelines acrosssurface. Cookie remainsONEcompletecircle, nothingmissing. Matchoriginaltopdownviewandframingexactly,circlecenteredwith10pxmargin in256square atfinal. Boldnavyoutlineandclean2Dcartooncelshade,transparentbackground,nohands,plates,shadowsorletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-fb0c202a-f3a0-4415-a4f1-4900adb0a7d0.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 23252,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/balloon-red",
+      "source": "party/assets/art/prop/balloon-red.webp",
+      "output": "party/assets/art/prop/balloon-red-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 10378,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-blue",
+      "source": "party/assets/art/prop/balloon-blue.webp",
+      "output": "party/assets/art/prop/balloon-blue-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 8198,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-green",
+      "source": "party/assets/art/prop/balloon-green.webp",
+      "output": "party/assets/art/prop/balloon-green-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 9928,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-yellow",
+      "source": "party/assets/art/prop/balloon-yellow.webp",
+      "output": "party/assets/art/prop/balloon-yellow-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 11126,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-purple",
+      "source": "party/assets/art/prop/balloon-purple.webp",
+      "output": "party/assets/art/prop/balloon-purple-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 9198,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-orange",
+      "source": "party/assets/art/prop/balloon-orange.webp",
+      "output": "party/assets/art/prop/balloon-orange-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 12818,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-teal",
+      "source": "party/assets/art/prop/balloon-teal.webp",
+      "output": "party/assets/art/prop/balloon-teal-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 11576,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/balloon-pink",
+      "source": "party/assets/art/prop/balloon-pink.webp",
+      "output": "party/assets/art/prop/balloon-pink-aligned.webp",
+      "tool": "Pillow intake alignment of previously generated artwork",
+      "intake": "Alpha>=16 trim; proportional resize to300px tall; centered256x320canvas, top20px andopaque knot atbottomedge.",
+      "width": 256,
+      "height": 320,
+      "bytes": 9442,
+      "status": "intake; inspected aligned body top andbottomknot"
+    },
+    {
+      "key": "prop/rock",
+      "source": "party/assets/art/prop/rock.webp",
+      "output": "party/assets/art/prop/rock-trimmed.webp",
+      "tool": "Pillow intake trim of previously generated artwork",
+      "intake": "Alpha>=16 boundingboxcrop toopaquefootprint; no newart.",
+      "width": 144,
+      "height": 108,
+      "bytes": 5060,
+      "status": "intake; base trimmed"
+    },
+    {
+      "key": "prop/cookie-3-crumbling",
+      "ref": "prop/cookie-3.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecookieflavor3. CreateONEcookie withexactoriginalflavor/colors/sprinklesorchips, fracturedintofiveunevenchunks separatedbyverythintransparentgaps butstillsamecircularfootprint. A fewsmallloosecrumbs onlywithincircularfootprint. Matchoriginaltopdownviewandframingexactly,circlecenteredwith10pxmargin in256square atfinal. Boldnavyoutlineandclean2Dcartooncelshade,transparentbackground,nohands,plates,shadowsorletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-83b8dc1e-5a0a-4c3c-b45e-e1b518a078b4.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 28826,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cookie-4-cracked",
+      "ref": "prop/cookie-4.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecookieflavor4. CreateONEcookie withexactoriginalflavor/colors/sprinklesorchips and a few deepboldnavyfracturelines acrosssurface. Cookie remainsONEcompletecircle, nothingmissing. Matchoriginaltopdownviewandframingexactly,circlecenteredwith10pxmargin in256square atfinal. Boldnavyoutlineandclean2Dcartooncelshade,transparentbackground,nohands,plates,shadowsorletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d901eed4-44b3-4c7e-9b80-d88eeeb928f3.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 28950,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cookie-4-crumbling",
+      "ref": "prop/cookie-4.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "preserveCanvas": true,
+      "suffix": "",
+      "prompt": "Usecase: precise-object-edit. Referencecookieflavor4. CreateONEcookie withexactoriginalflavor/colors/sprinklesorchips, fracturedintofiveunevenchunks separatedbyverythintransparentgaps butstillsamecircularfootprint. A fewsmallloosecrumbs onlywithincircularfootprint. Matchoriginaltopdownviewandframingexactly,circlecenteredwith10pxmargin in256square atfinal. Boldnavyoutlineandclean2Dcartooncelshade,transparentbackground,nohands,plates,shadowsorletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-ec59e1eb-c911-48f1-911c-0cb0cce7e838.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 256,
+      "bytes": 32998,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cake-platform",
+      "ref": "prop/cake-platform.webp",
+      "maxSize": [
+        1024,
+        720
+      ],
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. ReferenceCharliePartypinkcakeplatform. RecreateONEcakeplatform3/4seenfromHIGHERABOVE: roundtopfaceellipseratioheight0.62width (1000wide620tall), MUCHthinnerfrontsidebandonly60pxhigh. Pinkicingontop, whitescallopedicinglip, thinpinksidewithrainbowsprinkles, crispnavyoutlineclean2Dcartooncelshading. Wholecakenocharacters, platesorcandles. Transparentbackgroundnoshadow. Thisiswideflatcakeplatformnotatallcylinder. Keeporiginalcolors/style.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-ff40309b-6b75-477f-ab26-a29e44df223b.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 553,
+      "bytes": 65452,
+      "status": "generated; inspected"
     }
   ]
 }
