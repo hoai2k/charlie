@@ -452,8 +452,7 @@ export class Game {
   /** One judgement text per lane at a time (the newest replaces the old one). */
   judgeText(L, x, y, str, color, size) {
     if (L.lastText) L.lastText.age = L.lastText.maxLife;
-    particles.popText(x, y, str, color, size);
-    L.lastText = particles.list[particles.list.length - 1];
+    L.lastText = particles.popText(x, y, str, color, size);
   }
 
   miss(L, nn) {
