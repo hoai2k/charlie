@@ -234,7 +234,8 @@ const MODE_CONFIG = {
 const MAX_PLAYERS = 8;
 // One stable colour per player slot (P1..P8), independent of the character, so
 // two players who picked the same doll can still be told apart.
-const PLAYER_SLOT_COLORS = ["#e23b5a", "#2f7de1", "#2fa84f", "#f08a1c", "#8e44c9", "#14a3b8", "#d6409f", "#8a6a2b"];
+// These match the P1-P8 rosettes in assets/ui/player_badges.webp.
+const PLAYER_SLOT_COLORS = ["#e0322f", "#2a6fdb", "#e8a800", "#2e9e44", "#8a3fd1", "#f07a1a", "#18a3a3", "#e8559a"];
 const JOIN_BUTTONS = [0, 1, 2, 3, 9];
 const LEAVE_BUTTON = 8;
 const LEAVE_HOLD_SECONDS = 1.5;
@@ -1314,6 +1315,7 @@ function togglePause() {
 }
 
 function returnToMenu() {
+  window.Lobby?.captureFromRace();
   clearNextRaceTimer();
   clearJoinPickers();
   state.running = false;
@@ -1336,6 +1338,7 @@ function returnToMenu() {
   resetRace(gameMode.value);
   drawScene(0);
   startMenuAnimationLoop();
+  window.Lobby?.showSelect();
 }
 
 function toggleFullscreen() {
@@ -1493,6 +1496,13 @@ function menuAnimationLoop(time) {
   }
   const dt = Math.min(0.033, (time - (lastMenuFrameTime || time)) / 1000);
   lastMenuFrameTime = time;
+  // The title/select screens (menu.js) cover the frame and handle their own
+  // joining, so the canvas and the menu pointers rest while they show.
+  if (isMenuOpen() && window.Lobby) {
+    hideControllerPointers();
+    menuAnimationFrame = requestAnimationFrame(menuAnimationLoop);
+    return;
+  }
   if (assetsReady && isMenuOpen()) pollPlayerJoinAndLeave(dt);
   updateControllerPointers(dt);
   drawScene(dt);

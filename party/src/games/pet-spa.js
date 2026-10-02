@@ -104,9 +104,12 @@ const ACCESSORIES = [
   { kind: 'bow', color: '#7fd3ff' },
   { kind: 'gem', color: '#9b5cff' },
   { kind: 'flower', color: '#ff8fd0' },
+  { kind: 'bow', color: '#ffd23f' },
 ];
+const BOW_ART = { '#ff6fb1': 'prop/pet-bow-pink', '#7fd3ff': 'prop/pet-bow-blue', '#ffd23f': 'prop/pet-bow-yellow' };
 
 function drawAccessory(g, kind, color, s, t = 0) {
+  if (kind === 'bow' && BOW_ART[color] && drawArt(g, BOW_ART[color], 0, 0, s * 1.55, s * 1.15)) return;
   g.save();
   g.lineWidth = Math.max(2, s * 0.09); g.strokeStyle = NAVY; g.lineJoin = 'round';
   switch (kind) {
@@ -381,7 +384,17 @@ export class Game {
     s.char = new Actor(p.charId, { x: r.x + r.w * (r.w < 520 ? 0.15 : 0.14), y: s.ped.y + (compact ? 6 : r.h * 0.07) });
     const ch = s.char;
     ch.scale = clamp((r.h * (compact ? 0.3 : 0.26)) / ch.leader.h, 0.38, 1.4);
-    ch.facing = 1; ch.snap();
+    ch.facing = 1;
+    // Keep wide characters and followers (Fellowfox, the KPop trio) inside
+    // their own station instead of spilling into the neighbor's.
+    let left = 0;
+    for (const m of ch.char.members) {
+      const img = getBaseImage(m.asset);
+      const w = img ? (img.width / img.height) * m.h : m.h * 0.6;
+      left = Math.max(left, (w / 2 - m.dx) * ch.scale);
+    }
+    ch.x = Math.max(ch.x, r.x + left + 10);
+    ch.snap();
     this.rebuildPet(s, def);
     s.cursor.x = s.cursor.px = s.ped.x + r.w * 0.05;
     s.cursor.y = s.cursor.py = s.ped.y - s.pet.height * 0.55;
@@ -1039,12 +1052,19 @@ export class Game {
     // suds (foam clumps from cached sprites; they gently breathe)
     const tt = this.t;
     const base = g.globalAlpha;
+    const foamArt = art('prop/bubbles');
     for (const u of s.suds) {
       if (u.amt < 0.03) continue;
       const k = Math.min(1, u.amt) * (1 + 0.06 * Math.sin(tt * 3 + u.ph));
       g.globalAlpha = base * Math.min(1, u.amt * 1.6);
       const r = u.r * k * 1.25;
-      g.drawImage(foamSprite(Math.floor(u.ph * 10) % 3), u.x - r, u.y - r, r * 2, r * 2);
+      const v = Math.floor(u.ph * 10) % 3;
+      if (foamArt) {
+        // generated foam cluster (203x180); mirror every other clump for variety
+        const fw = r * 2.3, fh = fw * foamArt.height / foamArt.width;
+        if (v === 1) { g.save(); g.translate(u.x, u.y); g.scale(-1, 1); g.drawImage(foamArt, -fw / 2, -fh / 2, fw, fh); g.restore(); }
+        else g.drawImage(foamArt, u.x - fw / 2, u.y - fh / 2, fw, fh);
+      } else g.drawImage(foamSprite(v), u.x - r, u.y - r, r * 2, r * 2);
     }
     g.globalAlpha = base;
     // brushed shine glints
@@ -1143,7 +1163,11 @@ export class Game {
     if (sy + 10 < s.ped.y - s.pet.height) {
       g.fillStyle = '#e6b98a'; ui.roundRect(g, sx0, sy, sx1 - sx0, 12 * k, 5); g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
       const cols = ['#ff9ecf', '#7fd3ff', '#b78bff', '#7fe0a8'];
-      for (let i = 0; i < 4; i++) {
+      const sh = art('prop/shampoo');
+      if (sh) {
+        // shampoo pump bottles (128x131, ~8% empty at the left)
+        for (let i = 0; i < 3; i++) drawArt(g, 'prop/shampoo', sx0 + (40 + i * 46) * k, sy + 2 * k, (56 - (i % 2) * 10) * k, (56 - (i % 2) * 10) * k, { anchor: 'bottom' });
+      } else for (let i = 0; i < 4; i++) {
         const bx = sx0 + 24 * k + i * 34 * k, bh = (40 + (i % 2) * 14) * k;
         g.fillStyle = cols[i]; ui.roundRect(g, bx, sy - bh, 26 * k, bh, 8 * k); g.fill(); g.stroke();
         g.fillStyle = '#ffffff'; g.fillRect(bx + 6 * k, sy - bh * 0.6, 14 * k, bh * 0.3);
@@ -1151,6 +1175,30 @@ export class Game {
       drawDuck(g, sx1 - 40 * k, sy - 18 * k, 36 * k, Math.sin(this.t * 2 + s.i) * 0.1);
     }
     g.restore();
+  }
+
+  /**
+   * Clawfoot tub the pet stands in (bathtub = back, bathtub-front = overlay,
+   * both 454x300 and aligned). The front rim (y~95 of 300) sits just above
+   * the pet's paws so only ~8% of the pet is covered and no mud is hidden.
+   * Returns null (keep the rug) when the art is missing or the tub won't fit.
+   */
+  tubRect(s) {
+    const back = art('prop/bathtub'), front = art('prop/bathtub-front');
+    if (!back || !front) return null;
+    const r = s.r, pet = s.pet;
+    const rimY = s.ped.y - pet.height * 0.08;
+    const maxTh = (r.y + r.h - s.toolH - 6 - rimY) / ((276 - 95) / 300);
+    const tw = Math.min(Math.max(pet.width * 1.2, 220 * s.k), r.w * 0.86, maxTh * 454 / 300);
+    if (tw < pet.width * 0.95) return null;
+    const th = tw * 300 / 454;
+    return { x: s.ped.x - tw / 2, y: rimY - th * 95 / 300, w: tw, h: th, back, front };
+  }
+
+  drawTub(g, s, which) {
+    const t = s.tub;
+    if (!t) return;
+    g.drawImage(which === 'front' ? t.front : t.back, t.x, t.y, t.w, t.h);
   }
 
   drawStation(g, s) {
@@ -1170,19 +1218,22 @@ export class Game {
     g.fillStyle = 'rgba(255,255,255,0.5)';
     for (let x = r.x; x < r.x + r.w; x += 60 * k) g.fillRect(x, s.ped.y - 6 * k, 30 * k, r.h);
     g.restore();
-    // pedestal: fluffy round rug
-    const pw = Math.max(s.pet.width * 0.62, 110 * k), ph = pw * 0.24;
-    g.save();
-    g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 4;
-    g.beginPath();
-    for (let i = 0; i <= 28; i++) {
-      const a = (i / 28) * TAU, rr = 1 + (i % 2) * 0.06;
-      g.lineTo(s.ped.x + Math.cos(a) * pw * rr, s.ped.y + Math.sin(a) * ph * rr);
+    // pedestal: fluffy round rug (or the clawfoot tub when its art exists)
+    s.tub = this.tubRect(s);
+    if (!s.tub) {
+      const pw = Math.max(s.pet.width * 0.62, 110 * k), ph = pw * 0.24;
+      g.save();
+      g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 4;
+      g.beginPath();
+      for (let i = 0; i <= 28; i++) {
+        const a = (i / 28) * TAU, rr = 1 + (i % 2) * 0.06;
+        g.lineTo(s.ped.x + Math.cos(a) * pw * rr, s.ped.y + Math.sin(a) * ph * rr);
+      }
+      g.fill(); g.stroke();
+      g.fillStyle = s.done ? '#ffd23f' : '#ff9ecf';
+      g.beginPath(); g.ellipse(s.ped.x, s.ped.y, pw * 0.8, ph * 0.72, 0, 0, TAU); g.fill();
+      g.restore();
     }
-    g.fill(); g.stroke();
-    g.fillStyle = s.done ? '#ffd23f' : '#ff9ecf';
-    g.beginPath(); g.ellipse(s.ped.x, s.ped.y, pw * 0.8, ph * 0.72, 0, 0, TAU); g.fill();
-    g.restore();
     // header: tag + pet name + happiness meter
     const hy = r.y + 14;
     g.save();
@@ -1200,10 +1251,12 @@ export class Game {
 
     this.drawDecor(g, s);
     // player's character watching (behind the pet when overlapping)
-    s.char.draw(g, { ring: p.color });
-    // pet (with shake)
+    if (!s.tub) s.char.draw(g, { ring: p.color });
+    // pet (with shake), standing in the tub when there is one
     const pet = s.pet;
+    this.drawTub(g, s, 'back');
     pet.draw(g);
+    if (s.tub) { this.drawTub(g, s, 'front'); s.char.draw(g, { ring: p.color }); }
 
     // toolbar
     const ty = r.y + r.h - s.toolH + 4, th = s.toolH - 16;

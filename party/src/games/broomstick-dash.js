@@ -621,7 +621,9 @@ export class Game {
         const rp = it.r * laneH;
         const flash = this.t - L.zap[i] < 0.3 && L.zap[i] > 0;
         const sprite = drawNpcSprite(g, 'storm-cloud', sx, cy + rp * 0.8, rp * 1.9, this.t + it.ph, { pose: flash ? 'flash' : 'idle' });
-        if (sprite || drawArt(g, 'prop/storm-cloud', sx, cy, rp * 2.6, rp * 2.2)) stormLightning(g, sx, cy, rp, this.t, it.ph, flash);
+        // Zapped: the startled storm-cloud-zap face (held a beat longer than the bolt flash so it reads).
+        const zapped = L.zap[i] > 0 && this.t - L.zap[i] < 0.6;
+        if (sprite || (zapped && drawArt(g, 'prop/storm-cloud-zap', sx, cy, rp * 2.6, rp * 2.2)) || drawArt(g, 'prop/storm-cloud', sx, cy, rp * 2.6, rp * 2.2)) stormLightning(g, sx, cy, rp, this.t, it.ph, flash);
         else stormCloud(g, sx, cy, rp, this.t, it.ph, flash);
       } else if (it.type === 'mail' && L.st[i] === 0) {
         const my = top + (it.y + Math.sin(this.t * 3 + it.ph) * 0.05) * laneH;

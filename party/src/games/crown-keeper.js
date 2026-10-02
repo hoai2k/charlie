@@ -7,7 +7,7 @@ import { particles } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
-import { art } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 
@@ -84,6 +84,9 @@ function drawCrown(g, x, y, w, glowK = 0, t = 0) {
     gr.addColorStop(0, `rgba(255,240,150,${0.9 * glowK})`); gr.addColorStop(1, 'rgba(255,200,60,0)');
     g.fillStyle = gr; g.fillRect(-r, -h * 0.5 - r, r * 2, r * 2); g.restore();
   }
+  // Generated crown (prop/crown: the big jeweled crown requested for this game, 160x137,
+  // band bottom ~5 px above the image bottom). Bottom-anchored so it sits on the head.
+  if (drawArt(g, 'prop/crown', 0, w * 5 / 160, w * 1.04, w * 1.04 * 137 / 160, { anchor: 'bottom' })) { g.restore(); return; }
   g.lineJoin = 'round'; g.lineWidth = Math.max(2.5, w * 0.07); g.strokeStyle = NAVY;
   g.fillStyle = '#ffd23f';
   g.beginPath();

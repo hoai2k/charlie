@@ -11,6 +11,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
+import { drawNpcSprite } from '../engine/npc-art.js';
 import { drawHost, hostBubble } from '../engine/host.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { charById } from '../data/characters.js';
@@ -66,14 +67,21 @@ function leaf(g, x, y, len, ang, color = '#4cc95a') {
  */
 function drawPlant(g, kind, stage, x, y, s, t, o = {}) {
   const seed = SEEDS[kind];
-  const key = `prop/plant-${seed.id}-${o.glow > 0.5 && stage === 3 ? 'glow' : ['seed', 'sprout', 'bud', 'bloom'][stage]}`;
+  // Blooms cross-fade to their glowing night art as the sky darkens (o.night).
+  const night = stage === 3 ? Math.max(o.night || 0, o.glow > 0.5 ? 1 : 0) : 0;
+  const key = `prop/plant-${seed.id}-${night >= 1 ? 'glow' : ['seed', 'sprout', 'bud', 'bloom'][stage]}`;
   const grow = o.grow ?? 1;
   g.save(); g.translate(x, y);
   const sq = o.sq || 0;
   g.scale(s * (1 + sq * 0.5), s * (1 - sq * 0.5));
   const sway = Math.sin(t * 1.6 + (o.seed || 0)) * 0.05;
   g.rotate(sway * (stage > 0 ? 1 : 0));
-  if (drawArt(g, key, 0, 0, seed.h * 1.1, seed.h * 1.25, { anchor: 'bottom' })) { g.restore(); return; }
+  // a planted seed is small (the seed art is a big close-up); later stages fill the plant's height
+  const box = stage === 0 ? [52, 52] : [seed.h * 1.1, seed.h * 1.25];
+  if (drawArt(g, key, 0, stage === 0 ? 6 : 0, box[0], box[1], { anchor: 'bottom' })) {
+    if (night > 0 && night < 1) drawArt(g, `prop/plant-${seed.id}-glow`, 0, 0, seed.h * 1.1, seed.h * 1.25, { anchor: 'bottom', alpha: night });
+    g.restore(); return;
+  }
   g.lineWidth = 3; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.lineCap = 'round';
   if (stage === 0) {
     // little seed peeking from the soil with a sparkle
@@ -226,9 +234,13 @@ function drawJar(g, x, y, s, count, t) {
 
 /** Tiny procedural garden fairy (Garden Fairy NPC stand-in). */
 const FAIRY_COLORS = ['#ff8fd0', '#7fd3ff', '#ffd23f', '#7fe0a8', '#c49bff'];
+const FAIRY_SETS = ['garden-fairy-pink', 'garden-fairy-blue', 'garden-fairy-yellow', 'garden-fairy-green', 'garden-fairy-purple'];
 function drawFairy(g, x, y, s, t, color, glowK = 0.4, facing = 1) {
+  // Garden Fairy sprite set for this color (procedural fairy until it loads).
+  const set = FAIRY_SETS[FAIRY_COLORS.indexOf(color)] || FAIRY_SETS[0];
+  glow(g, color, x, y, s * 1.6, 0.35 + glowK * 0.5);
+  if (drawNpcSprite(g, set, x, y + s * 1.15, s * 2.8, t, { pose: 'fly', facing })) return;
   g.save(); g.translate(x, y); g.scale(facing, 1);
-  glow(g, color, 0, 0, s * 1.6, 0.35 + glowK * 0.5);
   // wings
   const flap = Math.abs(Math.sin(t * 22));
   g.fillStyle = 'rgba(230,250,255,0.85)'; g.strokeStyle = 'rgba(36,22,63,0.6)'; g.lineWidth = 1.5;
@@ -248,6 +260,24 @@ function drawFairy(g, x, y, s, t, color, glowK = 0.4, facing = 1) {
   g.beginPath(); g.arc(0, -s * 0.4, s * 0.3, Math.PI, TAU); g.closePath(); g.fill(); g.stroke();
   g.fillStyle = NAVY; g.beginPath(); g.arc(-s * 0.1, -s * 0.22, s * 0.045, 0, TAU); g.arc(s * 0.1, -s * 0.22, s * 0.045, 0, TAU); g.fill();
   g.restore();
+}
+
+// Soil plot art plus wet / night tinted copies (built once from the art).
+const plotCache = {};
+function plotArt(v) {
+  const img = art('prop/garden-plot');
+  if (!img) return null;
+  if (v === 'dry') return img;
+  if (!plotCache[v]) {
+    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const x = c.getContext('2d');
+    x.drawImage(img, 0, 0);
+    x.globalCompositeOperation = 'source-atop';
+    x.fillStyle = v === 'wet' ? 'rgba(45,20,8,0.38)' : 'rgba(22,16,52,0.6)';
+    x.fillRect(0, 0, c.width, c.height);
+    plotCache[v] = c;
+  }
+  return plotCache[v];
 }
 
 function drawFirefly(g, x, y, t, ph, k = 1) {
@@ -462,6 +492,7 @@ export class Game {
 
   plant(m, pl) {
     pl.kind = m.seed; pl.stage = 0; pl.grow = 0; pl.water = 0.3; pl.planter = m.i; pl.claimed = -1;
+    pl.plantedAt = this.t;
     pl.sv += 6;
     m.planted++;
     m.a.playOnce('action', 0.4);
@@ -911,6 +942,16 @@ export class Game {
   drawPlotSoil(g, pl) {
     const s = this.plotScale;
     const wet = pl.kind >= 0 ? pl.water : 0;
+    const dry = plotArt('dry');
+    if (dry) {
+      // garden-plot art (217x140, hole center ~10 px above the image center)
+      const w = 160 * s, h = w * dry.height / dry.width, x = pl.x - w / 2, y = pl.y + 7 * s - h / 2;
+      g.drawImage(wet > 0.3 ? plotArt('wet') : dry, x, y, w, h);
+      const nk = clamp(this.tod / 2, 0, 1);
+      if (nk > 0.02) { g.save(); g.globalAlpha = nk; g.drawImage(plotArt('night'), x, y, w, h); g.restore(); }
+      if (wet > 0.3) { g.fillStyle = 'rgba(160,220,255,0.35)'; g.beginPath(); g.ellipse(pl.x - 22 * s, pl.y - 2 * s, 18 * s, 5 * s, -0.2, 0, TAU); g.fill(); }
+      return;
+    }
     g.save(); g.translate(pl.x, pl.y);
     g.fillStyle = this.mixColor(wet > 0.3 ? '#7a4a2a' : '#9a6a3c', '#3a2a40', this.tod / 2);
     g.strokeStyle = NAVY; g.lineWidth = 3;
@@ -1071,7 +1112,15 @@ export class Game {
     for (const it of items) {
       if (it.pl) {
         const pl = it.pl;
-        drawPlant(g, pl.kind, pl.stage, pl.x, pl.y - 4, this.plotScale, this.t, { grow: clamp(pl.grow, 0, 1), sq: clamp(pl.sq, -0.4, 0.4), open: pl.open, glow: pl.stage === 3 && pl.kind === 4 ? Math.max(glow, 0.15) : 0, seed: pl.seed });
+        drawPlant(g, pl.kind, pl.stage, pl.x, pl.y - 4, this.plotScale, this.t, { grow: clamp(pl.grow, 0, 1), sq: clamp(pl.sq, -0.4, 0.4), open: pl.open, glow: pl.stage === 3 && pl.kind === 4 ? Math.max(glow, 0.15) : 0, night: clamp((this.tod - 1) * 1.5, 0, 1), seed: pl.seed });
+        // the magic seed dropping into the soil right after planting
+        const dt2 = this.t - (pl.plantedAt ?? -9);
+        if (dt2 >= 0 && dt2 < 0.45) {
+          const u = dt2 / 0.45, sz = 46 * this.plotScale;
+          g.save(); g.translate(pl.x, pl.y - 6 - (1 - ease.inQuad(u)) * 90 * this.plotScale); g.rotate(u * 4);
+          drawArt(g, 'prop/seed-magic', 0, 0, sz, sz, { alpha: u > 0.8 ? (1 - u) * 5 : 1 });
+          g.restore();
+        }
       } else {
         const m = it.m;
         m.a.draw(g, { ring: m.p.color });

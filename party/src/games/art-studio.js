@@ -11,7 +11,7 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
-import { art } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawHeartShape, drawStarShape, starPath } from '../engine/emotes.js';
@@ -109,7 +109,10 @@ export function drawStamp(g, kind, x, y, size, color, rot = 0) {
   g.restore();
 }
 
+// Generated tool icons (assets/art/icon/*); vector drawings are the fallback.
+const TOOL_ICON_ART = { brush: 'icon/brush', rainbow: 'icon/rainbow', glitter: 'icon/glitter', stamp: 'icon/stamp', fill: 'icon/bucket', eraser: 'icon/eraser', undo: 'icon/undo' };
 function drawToolIcon(g, id, x, y, s, color = '#ff6fd0') {
+  if (TOOL_ICON_ART[id] && drawArt(g, TOOL_ICON_ART[id], x, y, s * 1.25, s * 1.25)) return;
   g.save(); g.translate(x, y); g.scale(s / 40, s / 40);
   g.lineJoin = 'round'; g.lineCap = 'round'; g.lineWidth = 3; g.strokeStyle = '#24163f';
   switch (id) {
@@ -446,6 +449,7 @@ export class Game {
       if (this.strokeList[i].owner !== st.i) continue;
       if (st.stroke === this.strokeList[i]) st.stroke = null;
       this.strokeList.splice(i, 1);
+      st.undoAt = performance.now();
       this.rerender();
       sfx('back');
       const scr = toScreen(st.cur.x, st.cur.y);
@@ -829,6 +833,9 @@ export class Game {
     g.beginPath(); g.arc(bx, by, 22, 0, TAU); g.fillStyle = '#fff'; g.fill(); g.lineWidth = 4; g.strokeStyle = st.p.color; g.stroke();
     if (tool === 'stamp') { const k = this.stampKinds[st.stamp]; drawStamp(g, k === 'me' ? 'char:' + st.p.charId : k, bx, by, 32, color); }
     else drawToolIcon(g, tool, bx, by, 30, color);
+    // brief "undo" badge after B
+    const ua = st.undoAt ? 1 - (performance.now() - st.undoAt) / 700 : 0;
+    if (ua > 0) { g.save(); g.globalAlpha = ua; drawArt(g, 'icon/undo', x - 34, y - 34 - (1 - ua) * 20, 46, 46); g.restore(); }
     ui.text(g, st.p.tag, bx, by - 34, { size: 20, color: st.p.color, strokeWidth: 4 });
     // palette strip
     if (st.paletteT > 0 && !st.p.isAI) {
@@ -932,7 +939,13 @@ export class Game {
     const px = W / 2 - pw / 2, py = 80;
     g.save(); g.translate(W / 2, py + ph / 2); g.scale(pop, pop); g.translate(-W / 2, -(py + ph / 2));
     g.drawImage(this.final, px, py, pw, ph);
-    this.drawFrame(g, px, py, pw, ph, 40, '#ffd23f', '#d9a300');
+    // Gold frame art: its opening (158..1381 x 154..762 of 1542x925) is fitted
+    // to the painting, overlapping it slightly so no gap shows.
+    const fr = art('prop/frame-gold');
+    if (fr) {
+      const sx = (pw + 16) / (1381 - 158), sy = (ph + 16) / (762 - 154);
+      g.drawImage(fr, px - 8 - 158 * sx, py - 8 - 154 * sy, fr.width * sx, fr.height * sy);
+    } else this.drawFrame(g, px, py, pw, ph, 40, '#ffd23f', '#d9a300');
     for (const [cx, cy] of [[px - 20, py - 20], [px + pw + 20, py - 20], [px - 20, py + ph + 20], [px + pw + 20, py + ph + 20]]) { g.save(); g.translate(cx, cy); drawStarShape(g, 40, '#fff3a0'); g.restore(); }
     g.restore();
     // plaque

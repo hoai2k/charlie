@@ -1,6 +1,6 @@
 // Potion Class: magical ingredients, potion bottles and the cauldron, all
 // drawn procedurally (a generated prop image is used when it exists).
-import { drawArt } from '../../engine/art.js';
+import { art, drawArt } from '../../engine/art.js';
 import { drawStarShape, drawSparkleShape } from '../../engine/emotes.js';
 import { TAU } from '../../engine/util.js';
 
@@ -23,9 +23,17 @@ const RAINBOW = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff
 const cache = new Map();
 const CACHE_PX = 160;
 
+// Round-3 keys (prop/ing-*) for the same ingredients, used if the ingredient-* file is missing.
+// ing-rainbow-feather / ing-stardust-jar / ing-moon-drop match no ingredient here, so they stay unused.
+const ING_ALIAS = {
+  moonberry: 'ing-bubble-berries', starflower: 'ing-sparkle-flower', dragonpepper: 'ing-sneezy-pepper',
+  snowcrystal: 'ing-snow-crystal', mushroom: 'ing-glow-mushroom',
+};
+
 /** Draw ingredient `id` centered at (x, y), about `s` px across. */
 export function drawIngredient(g, id, x, y, s) {
   if (drawArt(g, 'prop/ingredient-' + id, x, y, s, s)) return;
+  if (ING_ALIAS[id] && drawArt(g, 'prop/' + ING_ALIAS[id], x, y, s, s)) return;
   let c = cache.get(id);
   if (!c) {
     c = document.createElement('canvas');
@@ -183,6 +191,59 @@ function paintIngredient(g, id) {
   }
 }
 
+// --- recolored art ---------------------------------------------------------
+// The delivered potion art has a fixed liquid color (purple bottle, lime
+// bubbles). Recolor just those pixels once per color (hue -> target, keep the
+// shading, nudge lightness) and cache the bitmap; outlines, glass and
+// highlights are untouched. Small LRU so a long session can't pile up canvases.
+const tints = new Map();
+const TINT_MAX = 40;
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2;
+  if (mx === mn) return [0, 0, l];
+  const d = mx - mn, s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+  const h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [h / 6, s, l];
+}
+function hslToRgb(h, s, l) {
+  if (s === 0) return [l * 255, l * 255, l * 255];
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q;
+  const f = (t) => { t = (t + 1) % 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < 0.5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; };
+  return [f(h + 1 / 3) * 255, f(h) * 255, f(h - 1 / 3) * 255];
+}
+/**
+ * `img` with every pixel whose hue is in [h0, h1] (and s > 0.25, l in 0.2..0.93)
+ * moved to `rgb`'s hue. lAvg = the source's average lightness for those pixels.
+ * Returns the cached canvas, or `img` itself if pixels can't be read.
+ */
+function tinted(key, img, rgb, h0, h1, lAvg, lLift = 0) {
+  const k = key + '|' + rgb.join(',');
+  let c = tints.get(k);
+  if (c) { tints.delete(k); tints.set(k, c); return c; }
+  c = document.createElement('canvas');
+  c.width = img.width; c.height = img.height;
+  const cg = c.getContext('2d');
+  cg.drawImage(img, 0, 0);
+  try {
+    const d = cg.getImageData(0, 0, c.width, c.height), px = d.data;
+    const [th, ts, tl] = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+    const dl = (tl - lAvg) * 0.8 + lLift;
+    for (let i = 0; i < px.length; i += 4) {
+      if (px[i + 3] < 8) continue;
+      const [h, s, l] = rgbToHsl(px[i], px[i + 1], px[i + 2]);
+      if (h < h0 || h > h1 || s < 0.25 || l < 0.2 || l > 0.93) continue;
+      const out = hslToRgb(th, clamp01(Math.max(ts * 0.9, s * 0.6)), clamp01(l + dl));
+      px[i] = out[0]; px[i + 1] = out[1]; px[i + 2] = out[2];
+    }
+    cg.putImageData(d, 0, 0);
+  } catch (e) { return img; }
+  tints.set(k, c);
+  if (tints.size > TINT_MAX) tints.delete(tints.keys().next().value);
+  return c;
+}
+const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+
 /** A round potion bottle with liquid `color`, centered at (x, y), ~s px tall. */
 export function drawBottle(g, x, y, s, color, { glow = 0, t = 0 } = {}) {
   g.save(); g.translate(x, y); g.scale(s / 100, s / 100);
@@ -191,6 +252,15 @@ export function drawBottle(g, x, y, s, color, { glow = 0, t = 0 } = {}) {
     const gr = g.createRadialGradient(0, 12, 4, 0, 12, 70);
     gr.addColorStop(0, hexA(color, 0.6 * glow)); gr.addColorStop(1, hexA(color, 0));
     g.fillStyle = gr; g.beginPath(); g.arc(0, 12, 70, 0, TAU); g.fill();
+  }
+  // Generated bottle (purple liquid recolored to `color`); 100 units ~ its height.
+  const img = art('prop/potion-bottle');
+  if (img) {
+    const bmp = tinted('bottle', img, hexRgb(color), 0.69, 0.92, 0.6);
+    const sc = 104 / img.height;
+    g.drawImage(bmp, -img.width * sc / 2 - 2, -img.height * sc / 2 + 2, img.width * sc, img.height * sc);
+    g.restore();
+    return;
   }
   g.strokeStyle = NAVY; g.lineWidth = 5;
   // glass
@@ -228,6 +298,8 @@ export const shade = (c, k) => (k >= 0 ? c.map((v) => v + (255 - v) * k) : c.map
 export function drawCauldron(g, x, y, s, o = {}) {
   const t = o.t || 0;
   const brew = o.brew || [140, 210, 255];
+  const img = art('prop/cauldron');
+  if (img) { drawCauldronArt(g, img, x, y, s, o, t, brew); return; }
   g.save(); g.translate(x, y); g.scale(s, s);
   g.lineJoin = 'round'; g.lineCap = 'round';
   // magic flames underneath
@@ -296,5 +368,73 @@ export function drawCauldron(g, x, y, s, o = {}) {
   g.fillStyle = '#5a4b8c';
   g.beginPath(); g.ellipse(0, 0, 108, 30, 0, 0.15, Math.PI - 0.15); g.ellipse(0, 4, 96, 22, 0, Math.PI - 0.1, 0.1, true); g.closePath(); g.fill();
   g.beginPath(); g.ellipse(0, 0, 108, 30, 0, 0, Math.PI); g.stroke();
+  g.restore();
+}
+
+// Generated cauldron: art px -> cauldron units. The painted water (center
+// 180,87; radii 105x25 in the 358x360 image) sits on the brew point (x, y),
+// which is where ingredients land. The pot is rounder/taller than the
+// procedural one, so it is drawn a little smaller to keep its feet near the
+// shelf.
+const CA = 0.68;
+const CW = { x: 180, y: 87, rx: 105, ry: 25 };
+const bubbleKey = (c) => c.map((v) => Math.min(255, Math.round(v / 32) * 32));
+
+function drawCauldronArt(g, img, x, y, s, o, t, brew) {
+  const bubbling = o.bubbling || 0;
+  g.save(); g.translate(x, y); g.scale(s, s);
+  g.drawImage(img, -CW.x * CA, -CW.y * CA, img.width * CA, img.height * CA);
+  // brew surface over the painted water, in the mix color
+  const lift = Math.sin(t * 2.2) * 1;
+  const rx = (CW.rx + 2) * CA, ry = (CW.ry + 2) * CA;
+  g.fillStyle = rgbStr(shade(brew, -0.12));
+  g.beginPath(); g.ellipse(0, lift * 0.4, rx, ry, 0, 0, TAU); g.fill();
+  g.fillStyle = rgbStr(shade(brew, 0.3));
+  g.beginPath(); g.ellipse(-rx * 0.08, lift * 0.4 + ry * 0.12, rx * 0.86, ry * 0.7, 0, 0, TAU); g.fill();
+  // swirl + surface bubbles (procedural design in 92x22 units, squeezed onto the water)
+  g.save(); g.scale(rx / 92, ry / 22);
+  g.beginPath(); g.ellipse(0, lift, 92, 22, 0, 0, TAU); g.clip();
+  g.strokeStyle = rgbStr(shade(brew, 0.65), 0.75); g.lineWidth = 4;
+  const sa = o.stir || 0;
+  g.beginPath();
+  for (let k = 0; k < 40; k++) { const a = sa + k * 0.32, r = 6 + k * 2.1; g.lineTo(Math.cos(a) * r, lift + Math.sin(a) * r * 0.24); }
+  g.stroke();
+  const nb = 3 + Math.round(bubbling * 5);
+  g.fillStyle = rgbStr(shade(brew, 0.55)); g.strokeStyle = rgbStr(shade(brew, -0.35)); g.lineWidth = 2;
+  for (let i = 0; i < nb; i++) {
+    const ph = (t * (0.9 + (i % 3) * 0.35) + i * 0.37) % 1;
+    const r = (3 + (i % 3) * 3) * Math.sin(ph * Math.PI) * (1 + bubbling * 0.6);
+    if (r < 0.5) continue;
+    g.beginPath(); g.arc(Math.sin(i * 2.7 + 1) * 64, lift + Math.cos(i * 1.9) * 9 - r * 0.6, r, 0, TAU); g.fill(); g.stroke();
+  }
+  g.restore();
+  // wooden spoon: bowl under the surface, handle leaning up and to the right
+  const spoon = o.spoon !== false && art('prop/spoon');
+  if (spoon) {
+    const a = o.spoonAngle ?? 2.3;
+    const sx = Math.cos(a) * rx * 0.5, sy = Math.sin(a) * ry * 0.45 + lift * 0.4;
+    const ss = 0.8;                    // spoon px -> cauldron units
+    g.save();
+    g.beginPath(); g.rect(-400, -400, 800, 400 + sy); g.clip();
+    g.translate(sx, sy); g.rotate(Math.PI + 0.26);
+    // image point (48, 62) = where the neck meets the bowl, on the surface
+    g.drawImage(spoon, -48 * ss, -62 * ss, spoon.width * ss, spoon.height * ss);
+    g.restore();
+    g.fillStyle = rgbStr(shade(brew, -0.2), 0.85);
+    g.beginPath(); g.ellipse(sx, sy + 1, 11, 4, 0, 0, TAU); g.fill();
+  }
+  // foam bubbling over while stirring / ready (lime art recolored to the brew)
+  const fa = clamp01((bubbling - 0.25) / 0.5);
+  const foam = fa > 0 && art('prop/cauldron-bubbles');
+  if (foam) {
+    const bmp = tinted('foam', foam, bubbleKey(brew), 0.12, 0.45, 0.64, 0.12);
+    const fw = rx * 2.05, fh = fw * foam.height / foam.width;
+    const pul = 1 + Math.sin(t * 7) * 0.04 * bubbling;
+    g.save(); g.globalAlpha *= fa;
+    g.translate(0, ry * 0.55); g.scale(pul * (0.8 + 0.2 * fa), (2 - pul) * (0.6 + 0.4 * fa));
+    // image bottom of the foam (y 164 of 180) rests on the front of the water
+    g.drawImage(bmp, -fw / 2, -fh * 164 / 180, fw, fh);
+    g.restore();
+  }
   g.restore();
 }
