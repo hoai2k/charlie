@@ -6,7 +6,10 @@
     <title>American Girl Doll Race</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
-    <link rel="stylesheet" href="styles.css?v=20261002b">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
+    <link rel="stylesheet" href="styles.css?v=20261002c">
   </head>
   <body>
     <main class="shell">
@@ -48,9 +51,43 @@
           </div>
         </div>
         <div class="join-tray hidden" id="joinTray" aria-live="polite"></div>
-        <div class="start-panel" id="startPanel">
-          <h1>American Girl Doll Race</h1>
-          <p>Race across the track. Jump the white picket hurdles and cross the finish first.</p>
+        <div class="start-panel lobby" id="startPanel" data-screen="title">
+          <div class="lb-stage" id="lbStage">
+            <!-- Title screen -->
+            <section class="lb-screen" id="lbTitle">
+              <div class="lb-abs" id="lbTitleSky"></div>
+              <div class="lb-abs" id="lbTitleClouds"></div>
+              <div class="lb-abs" id="lbTitleHills"></div>
+              <div class="lb-abs" id="lbTitleHero"></div>
+              <div class="lb-abs" id="lbTitleLogo" role="img" aria-label="American Girl Doll Race"></div>
+              <div class="lb-abs" id="lbPressStart">Press <span class="lb-glyph" data-g="A"></span> to start</div>
+            </section>
+            <!-- Character select: just choose a doll and go -->
+            <section class="lb-screen off" id="lbSelect">
+              <div class="lb-abs" id="lbSelectLogo"></div>
+              <div class="lb-abs" id="lbTopRight">
+                <div class="lb-panel" id="lbSettingsBtn">⚙ Settings <span class="lb-glyph" data-g="Y"></span></div>
+                <div class="lb-panel" id="lbHints"><span class="lb-glyph" data-g="A"></span>choose <span class="lb-glyph" data-g="B"></span>back</div>
+              </div>
+              <div class="lb-abs" id="lbGrid"></div>
+              <div class="lb-abs" id="lbSlots"></div>
+              <div class="lb-abs" id="lbRaceBar"><div id="lbRaceFill"></div><div id="lbRaceText"></div></div>
+              <!-- Settings: everything that isn't "pick a doll" -->
+              <div class="lb-abs off" id="lbSettings">
+                <div class="lb-panel" id="lbSetPanel">
+                  <h2>Settings</h2>
+                  <div class="lb-set-row" data-row="0"><div class="lb-icon"><div class="lb-atlas" id="lbTrackThumb"></div></div><div class="lb-txt"><div class="lb-panel-title">Track</div><div class="lb-val" id="lbTrackVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="1"><div class="lb-icon"><div class="lb-atlas" id="lbMonsterIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Monsters</div><div class="lb-val" id="lbMonsterVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="2"><div class="lb-icon"><div class="lb-atlas" id="lbSpecialIcon"></div></div><div class="lb-txt"><div class="lb-panel-title">Specials</div><div class="lb-val" id="lbSpecialVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div class="lb-set-row" data-row="3"><div class="lb-icon" id="lbCpuIcons"></div><div class="lb-txt"><div class="lb-panel-title">Computer racers</div><div class="lb-val" id="lbCpuVal"></div></div><span class="lb-arrow" data-d="-1">◀</span><span class="lb-arrow" data-d="1">▶</span></div>
+                  <div id="lbSetFoot">D-pad to choose and change · <span class="lb-glyph" data-g="B"></span> done <button type="button" id="lbFullscreen">Fullscreen</button><span id="lbSetDone">Done</span></div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <!-- The original menu controls stay in the page (hidden): the race
+               reads the players, mode and options from them. menu.js fills them in. -->
+          <div class="legacy-menu hidden" aria-hidden="true">
           <div class="character-selectors" aria-label="Character selection">
             <label>
               <span>Player 1</span>
@@ -218,6 +255,7 @@
             <span>Xbox: stick or D-pad, A to jump, X to push</span>
             <span>Spare controller: press A to join (up to 8)</span>
           </div>
+          </div>
         </div>
         <div class="finish-panel hidden" id="finishPanel">
           <h2 id="finishTitle">Race Complete</h2>
@@ -239,9 +277,10 @@
         <audio id="nextMusic" preload="auto" loop></audio>
       </section>
     </main>
-    <script src="config.js?v=20261002b"></script>
-    <script src="assets/audio/manifest.js?v=20261002b"></script>
-    <script src="audio.js?v=20261002b"></script>
-    <script src="game.js?v=20261002b"></script>
+    <script src="config.js?v=20261002c"></script>
+    <script src="assets/audio/manifest.js?v=20261002c"></script>
+    <script src="audio.js?v=20261002c"></script>
+    <script src="game.js?v=20261002c"></script>
+    <script src="menu.js?v=20261002c"></script>
   </body>
 </html>
