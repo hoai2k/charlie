@@ -99,6 +99,19 @@ if __name__ == '__main__':
     parser.add_argument('--strict-tier1', action='store_true')
     args = parser.parse_args()
     errors, warnings = validate(args.root.resolve(), args.strict_tier1)
+    # Optimized copies (tools/sprites/optimize.py) must exist and be current.
+    try:
+        import optimize
+        opt_idx = optimize.DST / 'index.json'
+        opt = json.loads(opt_idx.read_text()).get('sets', {}) if opt_idx.exists() else {}
+        for asset in json.loads((args.root / 'index.json').read_text()).get('sets', []):
+            info = opt.get(asset)
+            if not info:
+                warnings.append(f'{asset}: no optimized copy - run tools/sprites/optimize.py {asset}')
+            elif info.get('source') != optimize.fingerprint(asset):
+                warnings.append(f'{asset}: optimized copy is stale - run tools/sprites/optimize.py {asset}')
+    except Exception as e:  # never block validation on this check
+        warnings.append(f'optimized-copy check skipped: {e}')
     for message in warnings: print('WARN:', message)
     for message in errors: print('ERROR:', message)
     raise SystemExit(bool(errors))

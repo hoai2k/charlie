@@ -54,6 +54,25 @@ lively breathing, hops and squash. Distinct poses sharing frames should use expl
 do not claim they are separately generated animations. Portrait cells preserve their framing
 and are resized to 384×384. Supply intentional portrait crops with shoulders reaching the bottom.
 
+## Intake checklist (every new or changed set)
+
+1. Build with `build.py` and inspect `qa-contact-sheet.jpg` (above).
+2. Add the asset to `assets/sprites/index.json` once it looks right.
+3. **Optimize:** `python3 party/tools/sprites/optimize.py <asset>`. This writes the
+   downscaled copies in `assets/sprites-opt/<asset>/` (body ≤ 240 px, portraits
+   192 px) that the game draws by default ("Pictures: Optimized" in Settings).
+   Originals stay untouched and are used with "Pictures: Full". Re-run it after
+   *any* change to a set's frames or manifest; `validate.py` warns when a copy is
+   missing or stale.
+4. **Validate:** `python3 party/tools/sprites/validate.py` (no stale/missing
+   optimized-copy warnings) and `node party/tools/sprites/runtime.test.mjs`.
+5. **Test in game, both qualities**, e.g.
+   `?game=crown-keeper&players=2&auto=1&skipintro=1&chars=<id>,fox` with and
+   without `&quality=full`: size next to other characters, feet planted, facing,
+   crown/wand/glasses on the head/hand/eyes points, celebrate/pout on the podium.
+   Also the games that use the new poses.
+6. Commit originals, optimized copies and both index files together.
+
 `python3 party/tools/sprites/validate.py` validates every indexed set and prints real frame counts,
 portrait coverage, file sizes and decoded memory. `--strict-tier1` additionally requires every
 Tier-1 pose/alias and all five portraits. Aliases are counted as covered but not as real frames.

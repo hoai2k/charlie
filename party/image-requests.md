@@ -1523,6 +1523,14 @@ in this order (most visible first): `prop/balloon` (8 colors) and
 
 ---
 
+## Intake: optimize and test every delivery
+
+Every sprite set delivery must be **optimized and tested in game** before it's
+committed (full steps: `tools/sprites/README.md`, "Intake checklist"): run
+`tools/sprites/optimize.py <asset>`, validate, then play it in real games with
+both "Pictures: Optimized" (default) and `&quality=full`. Keep the originals —
+the game's Settings screen can switch to them.
+
 ## Re-generation requests (lead's in-game review)
 
 Each item below was integrated and looked at in the running game. The code
