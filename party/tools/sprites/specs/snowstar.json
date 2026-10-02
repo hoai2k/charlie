@@ -1317,5 +1317,6 @@
     "determined": {
       "source": "../sources/snowstar-portrait-determined.webp"
     }
-  }
+  },
+  "portraitNotes": "Portrait sources derive from isolated core-r3 idle/cheer/sad/surprised/ready frames, top 64 percent of each alpha bounding box, bottom-aligned on a transparent square to exclude leg fragments."
 }

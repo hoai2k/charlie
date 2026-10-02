@@ -16,7 +16,7 @@ are intentional, while Marina/Scale still need their extended player actions.
 1. **Remaining roster** — lighter animal agent owns Hotdog; NPC agent finishes
    only Unicorn, then hands off. Amber, Snowstar and Birthday Cake each have
    core, walk/run, air/reaction and celebration/ride sheets saved with specs and
-   exact prompts. Those three need QA, remaining actions/dance and registration.
+   exact prompts. Their Tier-1 core builds are reviewed; remaining actions/dance are queued.
    The lighter animal agent takes those three next, in that order.
 2. **Mermaid extensions** — Marina/Scale still need game-action vocabulary and
    Round 3 animation upgrades; preserve tails and use gliding locomotion.
