@@ -115,6 +115,15 @@ party/
   tools/shot.mjs        headless screenshot/test helper
 ```
 
+### Camera and 2.5D
+
+Mario Party is 3D: tilted three-quarter arenas, a fly-in when a minigame
+starts, punch-ins on knockouts and photo finishes, and a zoom on the winner.
+We get the same feel in 2D with `engine/camera.js` (pan/zoom/punch/frame)
+plus 3/4-view arenas, y-sorted drawing, ground shadows under jumps,
+`depthScale(y)` and parallax. Games opt in by splitting `drawHUD(g)` from
+`draw(g)`; the results podium punches in on the winner.
+
 ### Minigame contract (`src/games/<id>.js`)
 
 ```js

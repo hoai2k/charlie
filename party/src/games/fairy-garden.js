@@ -20,6 +20,26 @@ import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emote
 const NAVY = '#24163f';
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
 
+// Cached soft glow sprites (one radial gradient per color, reused every frame).
+const glowCache = new Map();
+function glowSprite(color) {
+  let c = glowCache.get(color);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = c.height = 128;
+    const x = c.getContext('2d');
+    const gr = x.createRadialGradient(64, 64, 3, 64, 64, 64);
+    gr.addColorStop(0, color); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    x.fillStyle = gr; x.fillRect(0, 0, 128, 128);
+    glowCache.set(color, c);
+  }
+  return c;
+}
+function glow(g, color, x, y, r, alpha = 1) {
+  g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha *= alpha;
+  g.drawImage(glowSprite(color), x - r, y - r, r * 2, r * 2);
+  g.restore();
+}
+
 // ---------------------------------------------------------------------------
 // Seeds
 
@@ -86,14 +106,8 @@ function drawPlant(g, kind, stage, x, y, s, t, o = {}) {
   // bloom
   g.translate(0, -stemH);
   const open = o.open ?? 1;
-  const glow = o.glow || 0;
-  if (glow > 0.05) {
-    g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = glow * (0.55 + 0.15 * Math.sin(t * 3 + (o.seed || 0)));
-    const gr = g.createRadialGradient(0, 0, 4, 0, 0, 70);
-    gr.addColorStop(0, seed.color); gr.addColorStop(1, 'rgba(0,0,0,0)');
-    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 70, 0, TAU); g.fill();
-    g.restore();
-  }
+  const glowK = o.glow || 0;
+  if (glowK > 0.05) glow(g, seed.color, 0, 0, 70, glowK * (0.55 + 0.15 * Math.sin(t * 3 + (o.seed || 0))));
   g.scale(open, open);
   switch (seed.id) {
     case 'rose': {
@@ -155,17 +169,12 @@ function drawPlant(g, kind, stage, x, y, s, t, o = {}) {
 }
 
 function drawMushroom(g, stage, grow, t, o) {
-  const glow = o.glow || 0;
+  const glowK = o.glow || 0;
   const sz = stage === 1 ? 0.45 + 0.15 * grow : stage === 2 ? 0.7 + 0.15 * grow : 1;
   const one = (x, s, hue) => {
     g.save(); g.translate(x, 0); g.scale(s, s);
     g.fillStyle = '#fff3dc'; g.beginPath(); g.moveTo(-9, 0); g.quadraticCurveTo(-7, -26, -6, -40); g.lineTo(6, -40); g.quadraticCurveTo(7, -26, 9, 0); g.closePath(); g.fill(); g.stroke();
-    if (glow > 0.05 || stage === 3) {
-      g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = Math.max(glow, 0.25) * (0.6 + 0.2 * Math.sin(t * 3 + x));
-      const gr = g.createRadialGradient(0, -44, 4, 0, -44, 60);
-      gr.addColorStop(0, hue); gr.addColorStop(1, 'rgba(0,0,0,0)');
-      g.fillStyle = gr; g.beginPath(); g.arc(0, -44, 60, 0, TAU); g.fill(); g.restore();
-    }
+    if (glowK > 0.05 || stage === 3) glow(g, hue, 0, -44, 60, Math.max(glowK, 0.25) * (0.6 + 0.2 * Math.sin(t * 3 + x)));
     g.fillStyle = hue;
     g.beginPath(); g.moveTo(-36, -38); g.quadraticCurveTo(-30, -78, 0, -80); g.quadraticCurveTo(30, -78, 36, -38); g.quadraticCurveTo(0, -30, -36, -38); g.closePath(); g.fill(); g.stroke();
     g.fillStyle = 'rgba(255,255,255,0.85)';
@@ -203,13 +212,7 @@ function drawJar(g, x, y, s, count, t) {
   g.save(); g.translate(x, y);
   g.lineWidth = Math.max(2, s * 0.06); g.strokeStyle = NAVY;
   // glow
-  if (count > 0) {
-    g.save(); g.globalCompositeOperation = 'lighter';
-    const r = s * (0.7 + Math.min(1, count / 8) * 0.6);
-    const gr = g.createRadialGradient(0, 0, 2, 0, 0, r);
-    gr.addColorStop(0, 'rgba(255,245,140,0.75)'); gr.addColorStop(1, 'rgba(255,245,140,0)');
-    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.restore();
-  }
+  if (count > 0) glow(g, '#fff58c', 0, 0, s * (0.7 + Math.min(1, count / 8) * 0.6), 0.75);
   g.fillStyle = 'rgba(210,240,255,0.45)';
   ui.roundRect(g, -s * 0.32, -s * 0.38, s * 0.64, s * 0.76, s * 0.16); g.fill(); g.stroke();
   g.fillStyle = '#c98a4f'; ui.roundRect(g, -s * 0.36, -s * 0.5, s * 0.72, s * 0.16, s * 0.05); g.fill(); g.stroke();
@@ -223,13 +226,9 @@ function drawJar(g, x, y, s, count, t) {
 
 /** Tiny procedural garden fairy (Garden Fairy NPC stand-in). */
 const FAIRY_COLORS = ['#ff8fd0', '#7fd3ff', '#ffd23f', '#7fe0a8', '#c49bff'];
-function drawFairy(g, x, y, s, t, color, glow = 0.4, facing = 1) {
+function drawFairy(g, x, y, s, t, color, glowK = 0.4, facing = 1) {
   g.save(); g.translate(x, y); g.scale(facing, 1);
-  // glow
-  g.save(); g.globalCompositeOperation = 'lighter'; g.globalAlpha = 0.35 + glow * 0.5;
-  const gr = g.createRadialGradient(0, 0, 1, 0, 0, s * 1.6);
-  gr.addColorStop(0, color); gr.addColorStop(1, 'rgba(0,0,0,0)');
-  g.fillStyle = gr; g.beginPath(); g.arc(0, 0, s * 1.6, 0, TAU); g.fill(); g.restore();
+  glow(g, color, 0, 0, s * 1.6, 0.35 + glowK * 0.5);
   // wings
   const flap = Math.abs(Math.sin(t * 22));
   g.fillStyle = 'rgba(230,250,255,0.85)'; g.strokeStyle = 'rgba(36,22,63,0.6)'; g.lineWidth = 1.5;
@@ -254,11 +253,7 @@ function drawFairy(g, x, y, s, t, color, glow = 0.4, facing = 1) {
 function drawFirefly(g, x, y, t, ph, k = 1) {
   if (drawArt(g, 'prop/firefly', x, y, 46 * k, 46 * k)) return;
   const tw = 0.6 + 0.4 * Math.sin(t * 6 + ph);
-  g.save(); g.globalCompositeOperation = 'lighter';
-  const gr = g.createRadialGradient(x, y, 1, x, y, 26 * k);
-  gr.addColorStop(0, `rgba(255,250,150,${0.95 * tw})`); gr.addColorStop(1, 'rgba(255,240,120,0)');
-  g.fillStyle = gr; g.beginPath(); g.arc(x, y, 26 * k, 0, TAU); g.fill();
-  g.restore();
+  glow(g, '#fffa96', x, y, 30 * k, 0.95 * tw);
   g.fillStyle = '#fffbd0'; g.beginPath(); g.arc(x, y, 4.5 * k, 0, TAU); g.fill();
   g.fillStyle = 'rgba(220,240,255,0.7)';
   const f = Math.abs(Math.sin(t * 30 + ph));
@@ -341,7 +336,7 @@ export class Game {
         planter: -1, claimed: -1, seed: rand(10), fairy: null, thirstyT: rand(2),
       });
     }
-    this.plotScale = rows === 2 ? 1.15 : 1.0;
+    this.plotScale = rows === 2 ? 1.35 : 1.18;
     // Players
     const sc = n <= 4 ? 0.78 : 0.66;
     this.movers = this.players.map((p, i) => {
@@ -1072,9 +1067,7 @@ export class Game {
         const gx = pl.x, gy = pl.y - SEEDS[pl.kind].h * this.plotScale;
         const r = 90 * (0.9 + 0.1 * Math.sin(this.t * 2 + pl.seed));
         g.globalAlpha = 0.45 * clamp(this.tod - 1, 0, 1);
-        const gr = g.createRadialGradient(gx, gy, 4, gx, gy, r);
-        gr.addColorStop(0, SEEDS[pl.kind].color); gr.addColorStop(1, 'rgba(0,0,0,0)');
-        g.fillStyle = gr; g.beginPath(); g.arc(gx, gy, r, 0, TAU); g.fill();
+        g.drawImage(glowSprite(SEEDS[pl.kind].color), gx - r, gy - r, r * 2, r * 2);
       }
       g.restore();
     }
@@ -1088,8 +1081,8 @@ export class Game {
         g.restore();
       }
     }
-    for (const f of this.fairies) drawFairy(g, f.x, f.y + Math.sin(f.t * 4) * 4, 16, f.t, f.color, clamp(this.tod - 0.8, 0, 1), f.facing);
-    for (const f of this.fireflies) drawFirefly(g, f.x, f.y, f.t, f.ph, 1);
+    for (const f of this.fairies) drawFairy(g, f.x, f.y + Math.sin(f.t * 4) * 4, 24, f.t, f.color, clamp(this.tod - 0.8, 0, 1), f.facing);
+    for (const f of this.fireflies) drawFirefly(g, f.x, f.y, f.t, f.ph, 1.4);
     // tags at the start so everyone finds themselves
     if (this.t < 5 && this.phase === 'day') for (const m of this.movers) ui.playerTag(g, m.p, m.a.x, m.a.y - m.a.height - 26);
     // seed-change popup above the player

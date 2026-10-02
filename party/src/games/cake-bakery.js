@@ -971,7 +971,7 @@ export class Game {
   drawReady(g, st) {
     const lr = st.L.list;
     g.save();
-    ui.roundRect(g, lr.x, lr.y, lr.w, lr.h, 22); g.fillStyle = 'rgba(255,255,255,0.8)'; g.fill();
+    ui.roundRect(g, lr.x, lr.y, lr.w, lr.h, 22); g.fillStyle = 'rgba(255,255,255,0.95)'; g.fill();
     const cx = lr.x + lr.w / 2, cy = lr.y + lr.h * 0.36;
     const p = Math.min(1, st.readyT / 0.3), sc = ease.outBack(p);
     g.translate(cx, cy); g.rotate(-0.12); g.scale(sc, sc);

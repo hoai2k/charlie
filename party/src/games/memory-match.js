@@ -63,6 +63,11 @@ export const meta = {
 };
 
 const turnName = (p) => (p.isAI ? charById(p.charId)?.name || 'CPU' : p.tag);
+/** "Fox's" / "KPop Girls'" / "P1's" */
+const possessive = (p) => {
+  const ch = charById(p.charId);
+  return p.isAI && ch?.plural ? `${turnName(p)}'` : `${turnName(p)}'s`;
+};
 
 export class Game {
   constructor(api) {
@@ -71,7 +76,7 @@ export class Game {
     this.n = this.players.length;
     this.solo = this.n === 1;
     this.t = 0;
-    [this.cols, this.rows] = this.n <= 2 ? [4, 4] : this.n <= 4 ? [5, 4] : [6, 5];
+    [this.cols, this.rows] = this.n <= 2 ? [4, 4] : this.n <= 4 ? [5, 4] : [6, 4];
     this.pairsTotal = (this.cols * this.rows) / 2;
 
     // Faces: prefer the players' own characters ("that's me!"), then random.
@@ -111,13 +116,15 @@ export class Game {
       const top = 130 + (H - 150 - sh * list.length) / 2;
       const cy = top + sh * (j + 0.5);
       const x0 = left ? 12 : W - SIDE_W + 4;
-      const scale = clamp(sh / 280, 0.55, this.solo ? 1.1 : 0.95);
-      const ax = left ? x0 + 140 : x0 + SIDE_W - 150;
+      const group = (charById(p.charId)?.members.length || 1) > 1;
+      const scale = clamp((sh - 64) / 185, 0.6, 1.3) * (group ? 0.82 : 1);
+      const ax = left ? x0 + 128 : x0 + SIDE_W - 144;
       const a = new Actor(p.charId, { x: ax, y: cy + sh / 2 - 34, scale, facing: left ? 1 : -1 });
       a.snap();
       return {
         p, i, left, x0, cy, sh, actor: a, scale,
-        pile: { x: left ? x0 + 262 : x0 + 62, y: cy + sh / 2 - 74 },
+        pile: { x: left ? x0 + 266 : x0 + 58, y: cy + sh / 2 - 74 },
+        won: [], mini: clamp(sh / 380, 0.62, 1),
         pairs: 0, pileBump: 0, cursor: { c: Math.floor(this.cols / 2) - (i % 2), r: Math.floor(this.rows / 2) },
       };
     });
@@ -162,11 +169,14 @@ export class Game {
     for (const o of this.seats) if (o !== s && !o.actor._once) o.actor.setPose('idle');
     s.actor.setPose('think');
     s.actor.playOnce('cheer', 0.4, 'think');
-    if (again) { this.again = 1.4; sfx('yay'); }
-    else if (this.solo && this.started) { sfx('swap'); }
-    else { this.bannerT = 0; sfx('select'); snd('jingle/round', 'swap'); }
+    if (again) {
+      this.again = 1; sfx('yay');
+      const hd = s.actor.anchor('head');
+      particles.popText(hd.x, hd.y - 40, 'Go again!', '#7fe08a', 40);
+    } else if (this.solo && this.started) { sfx('swap'); }
+    else { this.bannerT = 0; sfx('whoosh'); snd('jingle/round', 'select'); }
     this.started = true;
-    this.ai = { t: (again ? 0.4 : 0.9) + rand(0.2, 0.5), target: null };
+    this.ai = { t: (again ? 0.3 : 0.45) + rand(0.1, 0.3), target: null };
     s.p.ctrl.rumble(0.3, 100);
   }
 
@@ -175,7 +185,7 @@ export class Game {
   update(dt) {
     this.t += dt;
     this.stateT += dt;
-    if (this.bannerT >= 0) { this.bannerT += dt; if (this.bannerT > 1.3) this.bannerT = -1; }
+    if (this.bannerT >= 0) { this.bannerT += dt; if (this.bannerT > 0.8) this.bannerT = -1; }
     this.again = Math.max(0, this.again - dt);
     this.cursor.shake = Math.max(0, this.cursor.shake - dt * 3);
     this.cool = Math.max(0, (this.cool || 0) - dt);
@@ -185,7 +195,7 @@ export class Game {
 
     if (this.state === 'pick') {
       if (p.isAI) this.aiTurn(dt);
-      const canAct = this.bannerT < 0 || this.bannerT > 0.45;
+      const canAct = this.bannerT < 0 || this.bannerT > 0.3;
       if (c.nav.x || c.nav.y) {
         const nc = clamp(s.cursor.c + c.nav.x, 0, this.cols - 1), nr = clamp(s.cursor.r + c.nav.y, 0, this.rows - 1);
         if (nc !== s.cursor.c || nr !== s.cursor.r) { s.cursor.c = nc; s.cursor.r = nr; sfx('move'); }
@@ -193,19 +203,19 @@ export class Game {
       }
       if (canAct && c.pressed('a') && this.stateT > 0.12 && this.cool <= 0) this.tryFlip(this.cardAt(s.cursor.c, s.cursor.r));
     } else if (this.state === 'reveal') {
-      if (this.stateT > 0.55) this.resolve();
+      if (this.stateT > 0.45) this.resolve();
     } else if (this.state === 'match') {
-      if (this.stateT > 1.25) {
+      if (this.stateT > 1.0) {
         if (this.cards.every((cd) => cd.state === 'gone')) this.endGame();
         else this.startTurn(this.turn, true);
       }
     } else if (this.state === 'nomatch') {
-      if (this.stateT > 1.05 && !this.flippedBack) {
+      if (this.stateT > 0.9 && !this.flippedBack) {
         this.flippedBack = true;
         for (const cd of this.picks) { cd.flipTarget = 0; cd.state = 'down'; }
         sfx('flip'); setTimeout(() => sfx('flip'), 70);
       }
-      if (this.stateT > 1.45) this.nextTurn();
+      if (this.stateT > 1.2) this.nextTurn();
     } else if (this.state === 'end') {
       this.endT += dt;
       if (this.endT > (this.solo ? 4.2 : 3)) this.finish();
@@ -268,7 +278,7 @@ export class Game {
         cd.state = 'gone'; cd.owner = s.i; cd.glow = 1;
         particles.burst(cd.x, cd.y, { type: 'star', count: 14, colors: ['#ffe066', '#ffffff', cd.face.color] });
         particles.ring(cd.x, cd.y, '#ffffff', 140, 0.4);
-        cd.fly = { t: -0.45 - k * 0.12, dur: 0.65, fx: cd.x, fy: cd.y, tx: s.pile.x, ty: s.pile.y, rot: rand(-2, 2) };
+        cd.fly = { t: -0.45 - k * 0.12, dur: 0.65, fx: cd.x, fy: cd.y, tx: s.pile.x, ty: this.stackY(s, s.pairs - 1), rot: rand(-2, 2) };
       });
       particles.popText((a.x + b.x) / 2, Math.min(a.y, b.y) - this.ch * 0.4, 'Match!', '#ffe066', 64);
       fx.shake(5, 0.15);
@@ -321,6 +331,7 @@ export class Game {
         if (f.t >= f.dur) {
           const s = this.seats[cd.owner];
           s.pileBump = 1;
+          if (!s.won.includes(cd.face)) s.won.push(cd.face);
           particles.burst(f.tx, f.ty, { type: 'star', count: 10 });
           particles.popText(f.tx, f.ty - 60, '+1', this.players[cd.owner].color, 44);
           sfx('coin');
@@ -345,11 +356,11 @@ export class Game {
       // Step like a person: one card at a time, a little hesitation.
       if (s.cursor.c !== tc && (s.cursor.r === tr || Math.random() < 0.6)) c.move(Math.sign(tc - s.cursor.c), 0);
       else c.move(0, Math.sign(tr - s.cursor.r));
-      ai.t = rand(0.2, 0.32) / aiProfile(p).speed;
+      ai.t = rand(0.12, 0.18) / aiProfile(p).speed;
     } else {
       c.press('a');
       ai.target = null;
-      ai.t = reactionTime(p) + rand(0.3, 0.8);
+      ai.t = reactionTime(p) * 0.5 + rand(0.1, 0.3);
     }
   }
 
@@ -394,11 +405,7 @@ export class Game {
     // flying cards on top of everything
     for (const cd of this.cards) if (cd.fly && cd.fly.t > 0) this.drawFlyingCard(g, cd);
     this.drawHud(g);
-    if (this.bannerT >= 0 && this.state !== 'end') this.drawTurnBanner(g);
-    if (this.again > 0) {
-      const t = 1.4 - this.again;
-      ui.banner(g, 'Go again!', t, { size: 90, y: 200, color: '#7fe08a', strokeWidth: 16 });
-    }
+
     if (this.state === 'end' && !this.done) this.drawEnd(g);
   }
 
@@ -507,18 +514,19 @@ export class Game {
       g.fillStyle = gl; g.fillRect(x0 - 10, y0 - 20, w + 20, h + 40);
     }
     ui.panel(g, x0, y0, w, h, { r: 30, fill: isTurn ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.45)', stroke: p.color, lineWidth: isTurn ? 8 : 4, shadow: isTurn });
-    // pile of collected pairs
+    // collected pairs: a little stack of mini face cards
     const pl = s.pile;
-    const n = s.pairs;
-    const pw = 70, ph = 92;
-    for (let k = 0; k < Math.min(n, 5); k++) {
-      g.save(); g.translate(pl.x + (k - 2) * 3, pl.y - k * 6 - s.pileBump * 10); g.rotate((k % 2 ? 1 : -1) * 0.08);
-      drawCardBack(g, 0, 0, pw, ph); g.restore();
-    }
-    if (!n) { g.save(); g.globalAlpha = 0.4; g.setLineDash([8, 8]); g.strokeStyle = NAVY; g.lineWidth = 3; ui.roundRect(g, pl.x - pw / 2, pl.y - ph / 2, pw, ph, 10); g.stroke(); g.restore(); }
+    const n = s.won.length;
+    const mw = 64 * s.mini, mh = 84 * s.mini;
+    if (!n) { g.save(); g.globalAlpha = 0.4; g.setLineDash([8, 8]); g.strokeStyle = NAVY; g.lineWidth = 3; ui.roundRect(g, pl.x - mw / 2, this.stackY(s, 0) - mh / 2, mw, mh, 10); g.stroke(); g.restore(); }
+    s.won.forEach((face, k) => {
+      const top = k === n - 1;
+      g.save(); g.translate(pl.x + (k % 2 ? 4 : -4), this.stackY(s, k) - (top ? s.pileBump * 12 : 0)); g.rotate((k % 2 ? 1 : -1) * 0.07);
+      drawCardFace(g, face, 0, 0, mw, mh); g.restore();
+    });
     const bump = 1 + s.pileBump * 0.4;
-    g.save(); g.translate(pl.x, pl.y + ph / 2 + 4); g.scale(bump, bump);
-    ui.text(g, String(n), 0, 0, { size: 46, color: '#ffe066', strokeWidth: 9, weight: 800 });
+    g.save(); g.translate(pl.x, Math.min(this.stackY(s, Math.max(0, n - 1)) - mh / 2 - 22, s.cy + s.sh / 2 - 26 - mh)); g.scale(bump, bump);
+    ui.text(g, String(s.pairs), 0, 0, { size: 44, color: '#ffe066', strokeWidth: 9, weight: 800 });
     g.restore();
     // name pill
     const tagY = y0 + 28;
@@ -530,6 +538,15 @@ export class Game {
       g.save(); g.translate(ax, ay); g.fillStyle = p.color; g.strokeStyle = NAVY; g.lineWidth = 4;
       g.beginPath(); g.moveTo(-16, -20); g.lineTo(16, -20); g.lineTo(0, 2); g.closePath(); g.fill(); g.stroke(); g.restore();
     }
+  }
+
+  /** Y of the k-th collected card in a seat's stack (bottom up). */
+  stackY(s, k) {
+    const mh = 84 * s.mini;
+    const bottom = s.cy + s.sh / 2 - 18 - mh / 2;
+    const room = s.sh - 12 - 90 - mh;
+    const step = Math.min(mh * 0.42, room / Math.max(1, this.pairsTotal / 2));
+    return bottom - k * step;
   }
 
   drawHud(g) {
@@ -544,12 +561,22 @@ export class Game {
       this.drawSoloPanel(g, left);
       return;
     }
-    const label = `${turnName(p)}'s turn`;
+    const label = `${possessive(p)} turn!`;
     const tw = ui.measure(g, label, 42, 800);
     const pw = tw + 110;
-    ui.panel(g, cx - pw / 2, cy - 42, pw, 84, { r: 42, fill: '#ffffff', stroke: p.color, lineWidth: 7 });
-    drawPortrait(g, p.charId, cx - pw / 2 + 44, cy, 32, { ring: p.color, ringWidth: 4 });
-    ui.text(g, label, cx + 30, cy + 2, { size: 42, color: p.color, strokeWidth: 8, weight: 800 });
+    // Turn change: the pill slides in from the player's side panel and pops.
+    let px = cx, py = cy, sc = 1;
+    if (this.bannerT >= 0) {
+      const u = clamp(this.bannerT / 0.35, 0, 1);
+      const sx = s.left ? SIDE_W / 2 : W - SIDE_W / 2, sy = s.cy - s.sh / 2 + 30;
+      px = lerp(sx, cx, ease.outCubic(u)); py = lerp(sy, cy, ease.outCubic(u));
+      sc = u < 1 ? 0.7 + u * 0.7 : 1.4 - ease.outBack(clamp((this.bannerT - 0.35) / 0.3, 0, 1)) * 0.4;
+    } else if (this.again > 0) sc = 1 + Math.sin(this.again * Math.PI) * 0.12;
+    g.save(); g.translate(px, py); g.scale(sc, sc);
+    ui.panel(g, -pw / 2, -42, pw, 84, { r: 42, fill: '#ffffff', stroke: p.color, lineWidth: 7 });
+    drawPortrait(g, p.charId, -pw / 2 + 44, 0, 32, { ring: p.color, ringWidth: 4 });
+    ui.text(g, label, 30, 2, { size: 42, color: p.color, strokeWidth: 8, weight: 800 });
+    g.restore();
     ui.text(g, `${left} pair${left === 1 ? '' : 's'} left`, W - SIDE_W / 2, 60, { size: 32, color: '#fff', strokeWidth: 7 });
   }
 
@@ -569,17 +596,6 @@ export class Game {
       ui.text(g, lim === Infinity ? 'any tries' : `${lim} tries`, x + w - 24, ry, { size: 28, color: NAVY, stroke: false, align: 'right', weight: 800 });
       g.restore();
     });
-  }
-
-  drawTurnBanner(g) {
-    const t = this.bannerT;
-    const p = this.cur.p;
-    const a = t < 1 ? 1 : 1 - (t - 1) / 0.3;
-    g.save(); g.globalAlpha = clamp(a, 0, 1) * 0.35; g.fillStyle = NAVY; g.fillRect(0, H / 2 - 110, W, 220); g.restore();
-    g.save(); g.globalAlpha = clamp(a, 0, 1);
-    const str = this.solo ? 'Find all pairs!' : `${turnName(p)}'s turn!`;
-    ui.banner(g, str, t, { size: 120, color: p.color, strokeWidth: 22 });
-    g.restore();
   }
 
   drawEnd(g) {

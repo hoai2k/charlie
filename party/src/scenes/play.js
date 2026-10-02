@@ -8,6 +8,7 @@ import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { session } from '../state.js';
 import { gameById } from '../games/index.js';
+import { Camera } from '../engine/camera.js';
 
 const COUNTDOWN = 3.6;
 
@@ -32,11 +33,16 @@ export class PlayScene {
       get time() { return host.playTime; },
       get state() { return host.state; },
       finish: (result) => this.finish(result),
+      camera: new Camera(),
     };
+    this.camera = api.camera;
     this.api = api;
     try {
       this.game = new this.meta.module.Game(api);
     } catch (e) { this.crash(e); }
+    this.usesCamera = !!(this.game && this.game.drawHUD);
+    this.drawsParticles = true; // particles go inside the camera (or right after the game)
+    if (this.usesCamera && this.state === 'countdown' && this.meta.flyIn !== false) this.camera.flyIn();
     music.play(this.meta.music || 'party');
     this.lastCount = -1;
   }
@@ -65,6 +71,11 @@ export class PlayScene {
       highlight: result.highlight ?? null,  // index of a "showstopper" in studio games
       title: result.title || null,
     };
+    // Zoom toward the winner (or a focus point the game gives) for the FINISH beat.
+    if (this.usesCamera) {
+      const f = result.focus;
+      if (f) this.camera.punch(f.x, f.y, f.zoom || 1.35, 1.6);
+    }
     this.state = 'finish'; this.t = 0;
     sfx('whistle'); fx.flash('#ffffff', 0.25);
     host('finish', { interrupt: true });
@@ -73,6 +84,7 @@ export class PlayScene {
   update(dt, inputOpen) {
     this.t += dt;
     if (this.paused) { this.updatePause(); return; }
+    if (this.usesCamera) { this.camera.update(dt); this.camera.tickPunch(dt); }
     if (inputOpen && this.state !== 'finish' && this.state !== 'error') {
       const pauser = input.humans().find((c) => c.pressed('start'));
       if (pauser) { this.paused = { by: pauser, sel: 0 }; sfx('select'); return; }
@@ -124,7 +136,18 @@ export class PlayScene {
 
   draw(g) {
     if (this.game && !this.error) {
-      try { this.game.draw(g); } catch (e) { this.crash(e); }
+      try {
+        if (this.usesCamera) {
+          g.save(); this.camera.apply(g);
+          this.game.draw(g);
+          particles.draw(g);
+          g.restore();
+          this.game.drawHUD(g);
+        } else {
+          this.game.draw(g);
+          particles.draw(g);
+        }
+      } catch (e) { this.crash(e); }
     } else {
       ui.sky(g, '#8fd3ff', '#ffe0f4');
     }

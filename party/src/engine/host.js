@@ -47,7 +47,7 @@ export function drawHost(g, x, y, h, t, mood = 'talk') {
   if (mood === 'cheer' || mood === 'talk') g.arc(0, -22, 10, 0.15 * Math.PI, 0.85 * Math.PI); else g.arc(0, -10, 8, 1.2 * Math.PI, 1.8 * Math.PI);
   g.stroke();
   // wand
-  g.save(); g.translate(46, 10); g.rotate(-0.6 + Math.sin(t * 3) * 0.25);
+  g.save(); g.translate(58, 30); g.rotate(0.5 + Math.sin(t * 3) * 0.2);
   g.strokeStyle = '#24163f'; g.lineWidth = 6; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, -60); g.stroke();
   g.translate(0, -70); g.rotate(t * 1.5);
   g.fillStyle = '#ffd23f'; g.lineWidth = 4;

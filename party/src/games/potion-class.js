@@ -16,9 +16,11 @@ import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU } from '../engine/uti
 import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { INGREDIENTS, drawIngredient, drawBottle, drawCauldron, hexRgb, rgbStr, hexA } from './potion-class/ingredients.js';
 import { drawHoot, speechBubble } from './potion-class/hoot.js';
+import { charById } from '../data/characters.js';
 
 const NAVY = '#24163f';
-const SW = 480, SH = 400;            // station design size (scaled by k)
+const SW = 480, SH = 436;            // station design size (scaled by k)
+const EXTRA_1ROW = 170;              // headroom above one-row stations (big characters, Giant)
 const STIR_NEED = TAU * 3;           // three full circles
 const ROUND_TIME = 75;               // soft cap per recipe (auto-POOF after)
 const WATER = [150, 214, 255];
@@ -143,21 +145,23 @@ export class Game {
     const n = this.n;
     const rows = n <= 4 ? 1 : 2;
     const cols = Math.ceil(n / rows);
-    const k = Math.min(W / cols / SW, (H - 300) / (rows * SH), 1.5);
-    this.k = k;
-    const stH = SH * k * rows;
-    this.top = H - stH - (rows === 1 ? 10 : 0);
+    const extra = rows === 1 ? (n === 1 ? 110 : EXTRA_1ROW) : 0;
+    const unitH = SH + extra;
+    const k = Math.min(W / cols / SW, (H - 290) / (rows * unitH), n === 1 ? 1.45 : 1.2);
+    this.k = k; this.rows = rows;
+    this.top = H - unitH * k * rows - 4;
     this.boxes = [];
     for (let i = 0; i < n; i++) {
       const r = Math.floor(i / cols), c = i % cols;
       const inRow = r === rows - 1 ? n - cols * (rows - 1) : cols;
       const cellW = W / cols;
       const cx = W / 2 + (c - (inRow - 1) / 2) * cellW;
-      this.boxes.push({ x: cx - (SW * k) / 2, y: this.top + r * SH * k, k });
+      // y = the station's local origin; the header chip sits `hy` above/below it.
+      this.boxes.push({ x: cx - (SW * k) / 2, y: this.top + (extra + r * unitH) * k, k, hy: 8 - extra, py: rows === 1 ? 30 : 118 });
     }
-    this.wallBottom = this.top + 150 * k;
+    this.wallBottom = this.boxes[0].y + 150 * k;
     // Chalkboard + Hoot in the band above the stations.
-    const s = clamp((this.top - 24) / 330, 0.82, 1.15);
+    const s = clamp((this.top - 24) / 330, 0.82, 1.3);
     this.bs = s;
     const groupW = (250 + 860) * s;
     const gx = (W - groupW) / 2 + 90;
@@ -169,7 +173,7 @@ export class Game {
   makeStation(p, i) {
     const box = this.boxes[i];
     const k = box.k;
-    const a = new Actor(p.charId, { x: box.x + FEET.x * k, y: box.y + FEET.y * k, scale: (this.n <= 4 ? 0.84 : 0.74) * k, facing: 1 });
+    const a = new Actor(p.charId, { x: box.x + FEET.x * k, y: box.y + FEET.y * k, scale: (this.n <= 4 ? 1.12 : 0.88) * (charById(p.charId)?.members.length > 1 ? 0.86 : 1) * k, facing: 1 });
     a.snap();
     const st = {
       p, i, box, k, actor: a,
@@ -210,13 +214,13 @@ export class Game {
           const pj = clamp(pop * 1.6 - j * 0.08, 0, 1);
           if (pj <= 0) return;
           g.fillStyle = DOT_COLORS[j % DOT_COLORS.length]; g.strokeStyle = NAVY; g.lineWidth = 2;
-          g.beginPath(); g.arc(dx * info.w, -dy * info.h, info.h * 0.045 * pj, 0, TAU); g.fill(); g.stroke();
+          g.beginPath(); g.arc(dx * info.w, -dy * info.h, info.h * 0.06 * pj, 0, TAU); g.fill(); g.stroke();
         });
       } else if (st.eff === 'puffhair') {
         const pop = ease.outElastic(clamp(st.effT / 0.8, 0, 1));
         const r = info.h * 0.3 * pop * (1 + Math.sin(this.t * 4) * 0.04);
         if (r > 1) {
-          puffCloud(g, info.head.x, info.head.y + info.h * 0.02, r, '#e8dcff');
+          puffCloud(g, info.head.x, info.head.y - info.h * 0.05, r, '#e8dcff');
           puffCloud(g, info.head.x - r * 0.3, info.head.y - r * 0.15, r * 0.5, '#ffd9f0');
         }
       }
@@ -406,7 +410,7 @@ export class Game {
       st.readyT = 0;
       sfx('magic');
       particles.burst(this.wx(st, BREW.x), this.wy(st, BREW.y - 10), { type: 'sparkle', count: 14, colors: ['#fff', '#ffd23f', rgbStr(st.brew)] });
-      particles.popText(this.wx(st, BREW.x), this.wy(st, BREW.y - 70), 'Ready!', '#ffd23f', 40 * st.k + 8);
+      particles.popText(this.wx(st, BREW.x), this.wy(st, BREW.y - 25), 'Ready!', '#ffd23f', 40 * st.k + 8);
       st.actor.playOnce('cheer', 0.45, 'idle');
       if (!this.flags.wandSaid) { this.flags.wandSaid = true; this.say('Wave your wand with Y!', 3); }
     }
@@ -518,7 +522,7 @@ export class Game {
       a.playOnce('celebrate', 1.8, 'idle');
       particles.burst(ax, ay, { type: 'star', count: 18, colors: ['#ffd23f', '#ffffff', E.color] });
       particles.burst(ax, ay, { type: 'confetti', count: 24 });
-      particles.popText(this.wx(st, 120), this.wy(st, 70), '+1 potion', '#ffd23f', 30 * st.k + 8);
+      particles.popText(this.wx(st, 120), this.wy(st, st.box.hy + 62), '+1 potion', '#ffd23f', 30 * st.k + 8);
       this.hootReact('yay');
       if (this.n <= 4) fx.flash('#fff6c2', 0.12);
     } else {
@@ -817,7 +821,8 @@ export class Game {
     // rug
     g.fillStyle = hexA(p.color, 0.22); g.strokeStyle = hexA(p.color, 0.7); g.lineWidth = 4;
     g.beginPath(); g.ellipse(240, 326, 222, 46, 0, 0, TAU); g.fill(); g.stroke();
-    // header chip
+    // header chip + recipe slots
+    g.save(); g.translate(0, st.box.hy - 8);
     ui.panel(g, 10, 8, 214, 58, { r: 29, fill: '#ffffff', stroke: p.color, lineWidth: 5, shadow: false });
     drawPortrait(g, p.charId, 39, 37, 23);
     ui.text(g, p.tag, 70, 25, { size: 22, color: p.color, align: 'left', strokeWidth: 5 });
@@ -832,6 +837,7 @@ export class Game {
       if (st.added[j]) drawIngredient(g, st.added[j], cx, cy, 38);
       else { g.fillStyle = 'rgba(36,22,63,0.2)'; g.beginPath(); g.arc(cx, cy, 6, 0, TAU); g.fill(); }
     }
+    g.restore();
     // magic glow behind the cauldron when ready
     if (st.phase === 'wand' || st.phase === 'poof') {
       const gl = g.createRadialGradient(BREW.x, BREW.y, 10, BREW.x, BREW.y, 170);
@@ -860,8 +866,9 @@ export class Game {
       g.fillStyle = gl; g.beginPath(); g.arc(gx, gy, r * (1 + Math.sin(this.t * 4) * 0.06), 0, TAU); g.fill();
     }
     if (st.eff === 'floaty') puffCloud(g, a.x, a.y - 6 * k, 34 * k, '#ffffff', 0.85);
-    if (st.eff === 'rainbow') a._flash = { color: RAINBOW[Math.floor(this.t * 6 + st.i) % RAINBOW.length], t: 0.38, dur: 1 };
-    else if (st.eff === 'fizz') a._flash = { color: '#4fd86a', t: 0.3 + Math.sin(this.t * 6) * 0.12, dur: 1 };
+    if (st.eff === 'rainbow') a.tint(RAINBOW[Math.floor(this.t * 6 + st.i) % RAINBOW.length], 0.42);
+    else if (st.eff === 'fizz') a.tint('#4fd86a', 0.3 + Math.sin(this.t * 6) * 0.12);
+    else if (a._tint) a.tint(null);
     a.draw(g, { ring: p.color, scale: st.fxScale });
     if (st.cloud > 0) {
       const r = (70 + (1 - st.cloud) * 40) * k;
@@ -874,16 +881,23 @@ export class Game {
     g.save(); g.translate(bx, by); g.scale(k, k);
     g.fillStyle = '#9b6a3e'; g.strokeStyle = NAVY; g.lineWidth = 4;
     g.beginPath(); g.roundRect(12, 372, 456, 18, 6); g.fill(); g.stroke();
-    g.fillStyle = '#7a4f2e'; g.fillRect(40, 390, 14, 10); g.fillRect(426, 390, 14, 10);
+    g.fillStyle = '#7a4f2e'; g.fillRect(40, 390, 14, 6); g.fillRect(426, 390, 14, 6);
     const canPick = st.phase === 'add';
     INGREDIENTS.forEach((ing, j) => {
       const sel = j === st.sel && canPick;
       const x = SHELF_X(j);
       let y = SHELF_Y, s = 46;
       if (sel) {
-        y -= 12 + st.selBump * 8 + Math.sin(this.t * 6) * 3; s = 60;
-        g.fillStyle = hexA(p.color, 0.35); g.beginPath(); g.arc(x, y, 33, 0, TAU); g.fill();
-        g.strokeStyle = p.color; g.lineWidth = 5; g.stroke();
+        y -= 22 + st.selBump * 10 + Math.sin(this.t * 6) * 4; s = 66;
+        const gl = g.createRadialGradient(x, y, 8, x, y, 58);
+        gl.addColorStop(0, hexA(p.color, 0.7)); gl.addColorStop(1, hexA(p.color, 0));
+        g.fillStyle = gl; g.beginPath(); g.arc(x, y, 58, 0, TAU); g.fill();
+        g.fillStyle = 'rgba(255,255,255,0.85)'; g.beginPath(); g.arc(x, y, 37, 0, TAU); g.fill();
+        g.strokeStyle = NAVY; g.lineWidth = 9; g.stroke();
+        g.strokeStyle = p.color; g.lineWidth = 6; g.stroke();
+        // little arrow pointing down at it
+        g.fillStyle = p.color; g.strokeStyle = NAVY; g.lineWidth = 3;
+        g.beginPath(); g.moveTo(x - 11, y - 52); g.lineTo(x + 11, y - 52); g.lineTo(x, y - 40); g.closePath(); g.fill(); g.stroke();
       }
       g.save(); if (!canPick) g.globalAlpha = 0.75;
       drawIngredient(g, ing.id, x, y, s);
@@ -906,22 +920,19 @@ export class Game {
       const name = INGREDIENTS[st.sel].name;
       const showA = active && st.added.length + st.flying.length < st.slots;
       const x = SHELF_X(st.sel);
-      const nameA = clamp(st.selShow / 0.3, 0, 1);
-      if (nameA > 0) {
-        // Name tag pops up for a moment after picking, then shrinks to an A hint.
-        const tw = ui.measure(g, name, 24, 700);
-        const pw = tw + 24 + (showA ? 40 : 0);
-        const cx = clamp(x, pw / 2 + 4, SW - pw / 2 - 4);
-        g.save(); g.globalAlpha *= nameA;
-        g.fillStyle = 'rgba(36,22,63,0.78)'; ui.roundRect(g, cx - pw / 2, 274, pw, 38, 19); g.fill();
-        if (showA) ui.glyph(g, 'a', cx - pw / 2 + 24, 293, 30);
-        ui.text(g, name, cx + (showA ? 20 : 0), 293, { size: 24, color: '#fff', stroke: false });
-        g.restore();
-      } else if (showA) {
-        ui.glyph(g, 'a', x, 300 + Math.sin(this.t * 6) * 3, 32);
-      }
+      // Name tag under the shelf, always shown while picking.
+      const tw = ui.measure(g, name, 24, 700);
+      const pw = tw + 26 + (showA ? 40 : 0);
+      const cx = clamp(x, pw / 2 + 4, SW - pw / 2 - 4);
+      const pop = 1 + st.selBump * 0.12;
+      g.save(); g.translate(cx, 414); g.scale(pop, pop);
+      g.fillStyle = p.color; ui.roundRect(g, -pw / 2, -18, pw, 36, 18); g.fill();
+      g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
+      if (showA) ui.glyph(g, 'a', -pw / 2 + 22, 0, 28, { pulse: true });
+      ui.text(g, name, (showA ? 20 : 0), 1, { size: 24, color: '#fff', strokeWidth: 5 });
+      g.restore();
     } else if (st.phase === 'stir') {
-      const cx = BREW.x, cy = 118;
+      const cx = BREW.x, cy = st.box.py;
       const prog = clamp(st.stir / STIR_NEED, 0, 1);
       g.lineWidth = 10; g.strokeStyle = 'rgba(36,22,63,0.35)'; g.beginPath(); g.arc(cx, cy, 44, 0, TAU); g.stroke();
       g.strokeStyle = p.color; g.beginPath(); g.arc(cx, cy, 44, -Math.PI / 2, -Math.PI / 2 + prog * TAU); g.stroke();
@@ -934,14 +945,14 @@ export class Game {
       g.restore();
       ui.text(g, 'Stir!', cx + 76, cy, { size: 36, color: '#fff', align: 'left', strokeWidth: 7 });
     } else if (st.phase === 'wand') {
-      const cx = BREW.x, cy = 116;
+      const cx = BREW.x, cy = st.box.py;
       const sh = st.shake > 0 ? Math.sin(this.t * 60) * 6 * st.shake : 0;
       ui.glyph(g, 'y', cx + sh, cy, 62, { pulse: true });
       ui.text(g, 'POOF!', cx + 46, cy, { size: 42, color: '#ffd23f', align: 'left', strokeWidth: 8, weight: 800 });
     } else if (st.phase === 'shown') {
       const E = EFFECTS[st.eff];
       const pop = ease.outBack(clamp(st.effT / 0.35, 0, 1));
-      g.save(); g.translate(BREW.x + 20, 118); g.scale(pop, pop); g.rotate(-0.05);
+      g.save(); g.translate(BREW.x + 20, st.box.py); g.scale(pop * (this.rows === 1 ? 1.25 : 1), pop * (this.rows === 1 ? 1.25 : 1)); g.rotate(-0.05);
       const label = st.result === 'good' ? 'Perfect!' : st.result === 'silly' ? 'Silly!' : 'Surprise!';
       ui.text(g, label, 0, -18, { size: 42, color: st.result === 'good' ? '#ffd23f' : '#ffffff', strokeWidth: 8, weight: 800 });
       ui.text(g, E.label, 0, 24, { size: 30, color: E.color, strokeWidth: 7 });

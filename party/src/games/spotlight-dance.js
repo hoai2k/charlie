@@ -7,7 +7,7 @@ import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice, music } from '../engine/audio.js';
+import { sfx, voice, music, host } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
@@ -59,9 +59,9 @@ export const meta = {
     g.fillStyle = '#3a1670'; g.fillRect(x, y + h * 0.78, w, h * 0.22);
     g.fillStyle = 'rgba(255,255,255,0.12)'; g.beginPath(); g.ellipse(x + w * 0.5, y + h * 0.88, w * 0.3, h * 0.06, 0, 0, TAU); g.fill();
     // imp
-    drawImp(g, x + w * 0.5, y + h * 0.93, h * 0.0105, { t, seed: 1, move: MOVES[Math.floor(t * 1.5) % 5], mt: (t * 1.5) % 1 * 0.5, eye: IMP_EYES[0] });
-    drawImp(g, x + w * 0.17, y + h * 0.86, h * 0.0065, { t, seed: 3, move: null, eye: IMP_EYES[1] });
-    drawImp(g, x + w * 0.84, y + h * 0.86, h * 0.0065, { t, seed: 5, move: null, eye: IMP_EYES[2] });
+    drawImp(g, x + w * 0.5, y + h * 0.92, h * 0.0037, { t, seed: 1, move: MOVES[Math.floor(t * 1.5) % 5], mt: (t * 1.5) % 1 * 0.5, eye: IMP_EYES[0] });
+    drawImp(g, x + w * 0.17, y + h * 0.86, h * 0.0024, { t, seed: 3, move: null, eye: IMP_EYES[1] });
+    drawImp(g, x + w * 0.84, y + h * 0.86, h * 0.0024, { t, seed: 5, move: null, eye: IMP_EYES[2] });
     // arrow icons
     const mv = ['U', 'R', 'A'];
     mv.forEach((m, i) => drawMoveIcon(g, m, x + w * (0.34 + i * 0.16), y + h * 0.2, h * 0.17, { pop: 0.9 + 0.1 * Math.sin(t * 4 + i) }));
@@ -330,6 +330,7 @@ export class Game {
     this.setPhase('announce');
     this.banner = { text: `Round ${this.round}`, sub: `${seq.length} moves - watch the imps!`, t: 0 };
     sfx('swap');
+    if (this.round > 1) host(this.round >= TOTAL_ROUNDS ? 'final-round' : 'next-round');
   }
 
   showDur() { return clamp(0.82 - 0.04 * (this.seq.length - START_LEN), 0.52, 0.82); }
@@ -479,6 +480,8 @@ export class Game {
     }
     if (!this.pl.some((pl) => pl.status === 'entering')) {
       this.setPhase('resolve');
+      const ok = this.pl.filter((q) => q.status === 'done').length;
+      if (ok === 0) host('oops'); else if (ok === this.pl.filter((q) => q.status === 'done' || q.status === 'failed').length) host('perfect');
       for (const im of this.imps) { im.mood = 'normal'; im.moodT = 0; }
     }
   }
@@ -756,7 +759,14 @@ export class Game {
       const entered = i < pl.entered.length;
       if (entered && !(pl.status === 'failed' && i === pl.failIdx)) {
         const pop = pl.flashIdx === i && pl.flashT > 0 ? 1 + ease.outBack(1 - pl.flashT / 0.3) * 0 + pl.flashT * 1.2 : 1;
-        drawMoveIcon(g, pl.entered[i], x, y, isz * 0.94, { pop });
+        if (pl.p.isAI && this.phase === 'input') {
+          // CPU rows show progress only (no peeking at the answer); the icons are revealed after the round.
+          g.save(); g.translate(x, y); g.scale(pop, pop);
+          g.fillStyle = pl.p.color; g.strokeStyle = NAVY; g.lineWidth = 3;
+          ui.roundRect(g, -isz * 0.44, -isz * 0.44, isz * 0.88, isz * 0.88, isz * 0.24); g.fill(); g.stroke();
+          g.fillStyle = 'rgba(255,255,255,0.9)'; starPath(g, isz * 0.24, 0.5); g.fill();
+          g.restore();
+        } else drawMoveIcon(g, pl.entered[i], x, y, isz * 0.94, { pop });
       } else if (pl.status === 'failed' && i === pl.failIdx) {
         g.save(); g.translate(x, y);
         g.fillStyle = '#ff4d6d'; ui.roundRect(g, -isz * 0.47, -isz * 0.47, isz * 0.94, isz * 0.94, isz * 0.25); g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();

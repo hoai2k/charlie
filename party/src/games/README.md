@@ -28,6 +28,7 @@ export class Game {
   update(dt) {}         // gameplay; only called after GO
   postUpdate(dt) {}     // optional: animate during the FINISH! banner
   draw(g) {}            // draw everything incl. HUD; always called
+  drawHUD(g) {}         // optional: screen-space HUD; enables the camera (see below)
   onDone() {}           // optional (studio): pause menu "All done!" chosen
   destroy() {}          // optional cleanup
 }
@@ -82,6 +83,15 @@ use generated sprites later. Characters are 120–190 px tall at scale 1;
 groups (KPop trio, Felicity + Fellowfox) are wider — use `a.radius`/`a.width`.
 Sort actors by `y` before drawing in top-down games. `drawPortrait(g,
 charId, x, y, r, { expr })` for HUD faces. NPC Troll: `new Actor('troll')`.
+
+### Camera (2.5D, opt-in)
+Implement `drawHUD(g)` and the host renders `draw(g)` through `api.camera`
+(world space, particles included) and `drawHUD(g)` on top in screen space.
+Then: `api.camera.punch(x, y, 1.3, 0.5)` for big moments, `frame(points)` /
+`follow(x, y, zoom)` for framing, `finish({ ..., focus: { x, y } })` for the
+FINISH zoom. The countdown gets a fly-in (`meta.flyIn = false` to opt out).
+`depthScale(y)` from `engine/camera.js` makes top-down arenas feel 2.5D
+(multiply `actor.scale` by it). Use it sparingly, never hide a player.
 
 ### Juice and UI
 - `engine/particles.js`: `particles.burst(x, y, { type, count, colors })`
