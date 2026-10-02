@@ -101,6 +101,26 @@ function drawCrown(g, x, y, w, glowK = 0, t = 0) {
   g.restore();
 }
 
+// Hedge art, prepared once: top face, darkened front face, and 90-degree
+// rotated copies for the vertical hedges.
+let hedgeCache = null;
+function hedgeSprites() {
+  const img = art('prop/hedge');
+  if (!img) return null;
+  if (hedgeCache && hedgeCache.img === img) return hedgeCache;
+  const make = (rot, dark) => {
+    const cv = document.createElement('canvas');
+    cv.width = rot ? img.height : img.width; cv.height = rot ? img.width : img.height;
+    const c = cv.getContext('2d');
+    if (rot) { c.translate(cv.width, 0); c.rotate(Math.PI / 2); }
+    c.drawImage(img, 0, 0);
+    if (dark) { c.setTransform(1, 0, 0, 1, 0, 0); c.globalCompositeOperation = 'source-atop'; c.fillStyle = 'rgba(10,50,25,0.38)'; c.fillRect(0, 0, cv.width, cv.height); }
+    return cv;
+  };
+  hedgeCache = { img, top: img, front: make(false, true), topV: make(true, false), frontV: make(true, true) };
+  return hedgeCache;
+}
+
 // --- the game --------------------------------------------------------------------
 export class Game {
   constructor(api) {
@@ -520,6 +540,24 @@ export class Game {
     const x = h.x - h.w / 2, y = h.y - h.h / 2, up = 46;
     g.save();
     g.fillStyle = 'rgba(20,50,30,0.25)'; ui.roundRect(g, x + 8, y + 10, h.w, h.h, 16); g.fill();
+    // Generated hedge (prop/hedge: a 225x46 top-down hedge strip). Drawn as a
+    // 3/4 block covering exactly the procedural silhouette (x..x+w, y-up..y+h):
+    // the art as the top face (rotated for vertical hedges) and a darkened copy
+    // as the front face over the collision footprint's lower `up` px.
+    const hs = hedgeSprites();
+    if (hs) {
+      // front first, reaching 10 px up under the top face so the art's leafy
+      // fringe never leaves a seam between the two
+      if (h.w >= h.h) {
+        g.drawImage(hs.front, x, y + h.h - up - 10, h.w, up + 10);
+        g.drawImage(hs.top, x, y - up, h.w, h.h);
+      } else {
+        g.drawImage(hs.frontV, 0, hs.frontV.height - 60, hs.frontV.width, 60, x, y + h.h - up - 10, h.w, up + 10);
+        g.drawImage(hs.topV, x, y - up, h.w, h.h);
+      }
+      g.restore();
+      return;
+    }
     g.fillStyle = NAVY; ui.roundRect(g, x - 5, y - up - 5, h.w + 10, h.h + up + 10, 24); g.fill();
     const gr = g.createLinearGradient(0, y - up, 0, y + h.h); gr.addColorStop(0, '#58cc76'); gr.addColorStop(0.6, '#3cb35d'); gr.addColorStop(1, '#27854a');
     g.fillStyle = gr; ui.roundRect(g, x, y - up, h.w, h.h + up, 20); g.fill();
@@ -536,6 +574,15 @@ export class Game {
   drawFountainBase(g) {
     g.save(); g.translate(C.x, C.y);
     g.fillStyle = 'rgba(20,50,30,0.25)'; g.beginPath(); g.ellipse(8, 12, FOUNTAIN_R + 14, FOUNTAIN_R + 8, 0, 0, TAU); g.fill();
+    // Generated fountain (prop/fountain: top-down stone basin, 208x206, rim to
+    // the image edge, water inside ~70% of the radius). Its rim sits on the
+    // collision circle; ripples animate on the water.
+    if (drawArt(g, 'prop/fountain', 0, 0, (FOUNTAIN_R + 6) * 2, (FOUNTAIN_R + 6) * 2)) {
+      g.strokeStyle = 'rgba(255,255,255,0.7)'; g.lineWidth = 3;
+      for (let k = 0; k < 3; k++) { const r = ((this.t * 30 + k * 20) % 56) + 18; g.globalAlpha = 0.8 * (1 - r / 74); g.beginPath(); g.arc(0, 0, r, 0, TAU); g.stroke(); }
+      g.restore();
+      return;
+    }
     g.fillStyle = NAVY; g.beginPath(); g.arc(0, 0, FOUNTAIN_R + 10, 0, TAU); g.fill();
     g.fillStyle = '#ece4f6'; g.beginPath(); g.arc(0, 0, FOUNTAIN_R + 3, 0, TAU); g.fill();
     const wg = g.createRadialGradient(0, 0, 10, 0, 0, FOUNTAIN_R - 12);
@@ -549,6 +596,17 @@ export class Game {
 
   drawFountainSpout(g) {
     g.save(); g.translate(C.x, C.y);
+    if (art('prop/fountain')) {
+      // the art has its own little spout: add a low splashing plume over it
+      g.strokeStyle = 'rgba(200,240,255,0.9)'; g.lineWidth = 5; g.lineCap = 'round';
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * TAU + this.t * 0.5, off = (this.t * 1.4 + i * 0.37) % 1;
+        g.globalAlpha = 0.85; g.beginPath(); g.moveTo(0, -34);
+        g.quadraticCurveTo(Math.cos(a) * 30, -62 + Math.sin(a) * 5, Math.cos(a) * 52, Math.sin(a) * 40 - 6 + off * 4); g.stroke();
+      }
+      g.restore();
+      return;
+    }
     g.fillStyle = NAVY; g.beginPath(); g.ellipse(0, -8, 38, 24, 0, 0, TAU); g.fill();
     g.fillStyle = '#ece4f6'; g.beginPath(); g.ellipse(0, -10, 33, 20, 0, 0, TAU); g.fill();
     g.fillStyle = NAVY; g.fillRect(-14, -62, 28, 54);

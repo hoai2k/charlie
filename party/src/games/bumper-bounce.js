@@ -2,7 +2,8 @@
 // Hip-bump rivals off, don't fall off yourself, and watch the frosting edge crumble!
 //
 // Art hooks (optional; procedural fallbacks ship today):
-//   bg/bumper-bounce  prop/cake-platform  prop/seat-cloud
+//   bg/bumper-bounce  prop/arena-cake (else prop/cake-platform)  prop/seat-cloud
+//   prop/arena-cake-crumb (crumbling edge + falling chunks)  prop/danger-ring (next edge)
 // New-pose hooks (fall back to existing poses): 'hip-bump' -> idle, 'sit' -> idle,
 //   'tumble' -> fall, 'knockback' (bumped: skid back, teeter) -> balance -> hurt
 //
@@ -81,6 +82,12 @@ const TIME_CAP = 60;
 const STAGES = [[20, 430], [30, 365], [40, 305], [48, 250]];
 const TELEGRAPH = 2.2;
 const SUDDEN_AT = 54, SUDDEN_R = 55;
+// prop/arena-cake (997x1000, near top-down with a thin side band at the bottom):
+// the frosted top face's outer rim spans x 0..997, y 3..912 in the image.
+const ARENA_ART = { cx: 498, cy: 457, rx: 498, ry: 455 };
+// prop/danger-ring (256x253): band from r 88 to r 128 of the image.
+const RING_IN = 88 / 128;
+const CHUNK_T = 1.3;
 
 const NEW_POSE_FALLBACK = { dash: 'push', sit: 'idle', tumble: 'fall' };
 const poseName = (n) => (POSE_NAMES.includes(n) ? n : NEW_POSE_FALLBACK[n] || 'idle');
@@ -109,6 +116,8 @@ export class Game {
     this.firstFallT = null;
     this.bumpCd = new Map();
     this.pows = [];   // comic impact bursts
+    this.chunks = []; // cake chunks breaking off the edge (prop/arena-cake-crumb)
+    this.sudden = false;
     this.sprinkles = Array.from({ length: 90 }, () => ({ a: rand(TAU), d: Math.sqrt(rand()) * 0.94, c: pick(RAINBOW), r: rand(TAU) }));
     this.cracks = Array.from({ length: 14 }, (_, i) => ({ a: (i / 14) * TAU + rand(-0.15, 0.15), len: rand(0.5, 1), seed: rand(100) }));
     this.ents = players.map((p, i) => {
@@ -155,6 +164,8 @@ export class Game {
 
     if (!this.ends) this.updatePlatform(dt, pt);
     for (const p of this.pows) p.t += dt;
+    for (const c of this.chunks) { c.t += dt; c.vy += 1500 * dt; c.x += c.vx * dt; c.y += c.vy * dt; c.rot += c.vr * dt; }
+    this.chunks = this.chunks.filter((c) => c.t < CHUNK_T);
     this.pows = this.pows.filter((p) => p.t < POW_T);
     this.R = approach(this.R, this.Rt, dt * (this.Rt < this.R ? 520 : 0));
 
@@ -229,7 +240,7 @@ export class Game {
         if (left <= 0) this.crumble(st[1]);
       }
     } else if (pt >= SUDDEN_AT) {
-      if (!this.sudden) { this.sudden = true; sfx('crumble'); fx.shake(10, 0.5); particles.popText(W / 2, 170, 'Sudden death!', '#ff4d6d', 70); }
+      if (!this.sudden) { this.sudden = true; sfx('crumble'); fx.shake(10, 0.5); particles.popText(W / 2, 250, 'Sudden death!', '#ff4d6d', 70); }
       const k = clamp((pt - SUDDEN_AT) / (TIME_CAP - SUDDEN_AT), 0, 1);
       const target = lerp(STAGES[STAGES.length - 1][1], SUDDEN_R, k);
       this.Rt = this.R = Math.min(this.R, target);
@@ -237,6 +248,7 @@ export class Game {
         const a = rand(TAU);
         const [sx, sy] = this.toScreen(Math.cos(a) * this.R, Math.sin(a) * this.R);
         particles.burst(sx, sy + 10, { type: 'shard', count: 2, colors: ['#ffd9ec', '#f4c58a'], speed: [30, 120], size: [6, 10] });
+        this.addChunk(a, this.R - 10, rand(28, 44));
       }
     }
   }
@@ -251,6 +263,15 @@ export class Game {
       particles.burst(sx, sy + 10, { type: 'shard', count: 2, colors: ['#ffe3f1', '#ff9fcd', '#f4c58a', '#c98a52'], speed: [60, 300], size: [8, 16], vy: 80 });
     }
     particles.popText(W / 2, 180, 'Crumble!', '#ffd23f', 64);
+    // chunks of cake break off all around the old rim and tumble away
+    const nC = Math.round(oldR / 16);
+    for (let i = 0; i < nC; i++) this.addChunk((i / nC) * TAU + rand(-0.08, 0.08), lerp(newR, oldR, rand(0.35, 0.8)), (oldR - newR) * rand(0.75, 1.05));
+  }
+
+  addChunk(a, rr, size) {
+    const [sx, sy] = this.toScreen(Math.cos(a) * rr, Math.sin(a) * rr);
+    const back = Math.sin(a) < -0.15;   // far rim: pop up, then drop behind the cake
+    this.chunks.push({ x: sx, y: sy, vx: Math.cos(a) * rand(80, 220), vy: back ? rand(-420, -300) : rand(-160, -40), rot: rand(-0.4, 0.4), vr: rand(-5, 5), size, t: 0, back });
   }
 
   moveEnt(e, dt) {
@@ -558,7 +579,9 @@ export class Game {
   // --------------------------------------------------------------------- draw
   draw(g) {
     this.drawBackground(g);
+    this.drawChunks(g, true);
     this.drawPlatform(g);
+    this.drawChunks(g, false);
     const live = this.ents.filter((e) => e.state === 'alive').sort((a, b) => a.a.y - b.a.y);
     for (const e of live) this.drawAlive(g, e);
     for (const e of this.ents) if (e.state === 'falling') this.drawFalling(g, e);
@@ -593,6 +616,19 @@ export class Game {
     spikes(p.r * 0.62, 0.7); g.fillStyle = '#ffffff'; g.fill();
     ui.text(g, p.word, 0, 2, { size: p.r * 0.5, color: '#ff4d6d', weight: 800, strokeWidth: 8 });
     g.restore();
+  }
+
+  drawChunks(g, back) {
+    const img = art('prop/arena-cake-crumb');
+    if (!img) return;     // the shard particles alone are the fallback
+    for (const c of this.chunks) {
+      if (c.back !== back) continue;
+      const k = c.t / CHUNK_T, s = c.size * (1 - 0.5 * k);
+      g.save(); g.globalAlpha = 1 - clamp((k - 0.6) / 0.4, 0, 1);
+      g.translate(c.x, c.y); g.rotate(c.rot);
+      g.drawImage(img, -s / 2, -s * 0.48, s, s * img.height / img.width);
+      g.restore();
+    }
   }
 
   drawHUD(g) {
@@ -708,8 +744,15 @@ export class Game {
     g.save();
     // shake the platform a little during the telegraph
     if (this.tele) { const k = this.tele.k || 0; g.translate(rand(-1, 1) * 2.5 * k, rand(-1, 1) * 1.5 * k); }
-    const plat = art('prop/cake-platform');
-    if (plat) {
+    const cake = art('prop/arena-cake'), plat = !cake && art('prop/cake-platform');
+    if (cake) {
+      // Map the art's top-face rim onto the arena ellipse (R x R*K): players
+      // fall exactly where the frosting ends. The side band below keeps the
+      // same vertical squash, so it shrinks with the cake as it crumbles.
+      const sx = this.R / ARENA_ART.rx, sy = (this.R * K) / ARENA_ART.ry;
+      g.drawImage(cake, CX - ARENA_ART.cx * sx, CY - ARENA_ART.cy * sy, cake.width * sx, cake.height * sy);
+      if (this.crumbleFlash > 0) { g.globalAlpha = this.crumbleFlash; g.fillStyle = '#fff'; g.beginPath(); g.ellipse(CX, CY, this.R, this.R * K, 0, 0, TAU); g.fill(); g.globalAlpha = 1; }
+    } else if (plat) {
       // Map the prop's top face (centre ~33% down, rx ~49.5% of the width,
       // ry ~33% of the height) onto the arena ellipse so players stand on the
       // frosting, not on the cake's side (the art is flatter than K). The side
@@ -723,7 +766,22 @@ export class Game {
     }
     g.restore();
     // telegraph overlay: the doomed outer band
-    if (this.tele) {
+    const ring = this.tele && art('prop/danger-ring');
+    if (ring) {
+      // the warning ring's inner edge sits on the new edge; clipped to the
+      // doomed band, so the whole band that will fall glows and pulses
+      const k = this.tele.k || 0, pul = 0.5 + 0.5 * Math.sin(this.t * (10 + k * 14));
+      const ro = this.tele.R / RING_IN;
+      g.save();
+      g.beginPath();
+      g.ellipse(CX, CY, this.R, this.R * K, 0, 0, TAU);
+      g.ellipse(CX, CY, this.tele.R - 6, (this.tele.R - 6) * K, 0, 0, TAU, true);
+      g.clip('evenodd');
+      g.globalAlpha = 0.55 + 0.4 * pul * (0.4 + 0.6 * k);
+      g.drawImage(ring, CX - ro, CY - ro * K, ro * 2, ro * 2 * K);
+      g.restore();
+      this.drawEdgeCrumbs(g, k);
+    } else if (this.tele) {
       const k = this.tele.k || 0, pul = 0.5 + 0.5 * Math.sin(this.t * (10 + k * 14));
       g.save();
       g.beginPath();
@@ -751,6 +809,27 @@ export class Game {
       g.save(); g.setLineDash([22, 16]); g.lineDashOffset = -this.t * 40; g.lineWidth = 6; g.strokeStyle = `rgba(255,255,255,${0.5 + 0.4 * pul})`;
       g.beginPath(); g.ellipse(CX, CY, this.tele.R, this.tele.R * K, 0, 0, TAU); g.stroke(); g.restore();
     }
+  }
+  /** Telegraph: the doomed rim visibly breaks into cake chunks that rattle more and more. */
+  drawEdgeCrumbs(g, k) {
+    const img = art('prop/arena-cake-crumb');
+    if (!img || k < 0.2) return;
+    const band = this.R - this.tele.R, mid = (this.R + this.tele.R) / 2;
+    const n = Math.round(mid / 26), s = band * 0.85;
+    g.save();
+    g.globalAlpha = clamp((k - 0.2) / 0.3, 0, 1);
+    // far side first so nearer chunks overlap them
+    const order = Array.from({ length: n }, (_, i) => i).sort((a, b) => Math.sin((a / n) * TAU) - Math.sin((b / n) * TAU));
+    for (const i of order) {
+      const a = (i / n) * TAU + 0.1;
+      const jit = k * k * 4;
+      const x = CX + Math.cos(a) * mid + Math.sin(this.t * 37 + i * 3) * jit;
+      const y = CY + Math.sin(a) * mid * K + Math.cos(this.t * 41 + i * 5) * jit;
+      g.save(); g.translate(x, y); g.rotate(Math.sin(i * 2.3) * 0.5 + Math.sin(this.t * 23 + i) * 0.08 * k);
+      g.drawImage(img, -s / 2, -s * 0.48, s, s * img.height / img.width);
+      g.restore();
+    }
+    g.restore();
   }
 }
 
