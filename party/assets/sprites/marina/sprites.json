@@ -11,7 +11,7 @@
   "facing": 0,
   "poses": {
     "idle": {
-      "fps": 5,
+      "fps": 1,
       "loop": true,
       "motion": 0.85,
       "facing": 0,
@@ -41,18 +41,101 @@
           "back": [
             90,
             168
-          ]
+          ],
+          "dur": 2.88
+        },
+        {
+          "src": "idle-01.webp",
+          "anchor": [
+            132,
+            301
+          ],
+          "head": [
+            132,
+            42
+          ],
+          "hand": [
+            194,
+            189
+          ],
+          "eyes": [
+            132,
+            125
+          ],
+          "neck": [
+            132,
+            173
+          ],
+          "back": [
+            138,
+            212
+          ],
+          "dur": 0.12
         }
       ]
     },
     "celebrate": {
       "fps": 5,
       "loop": true,
-      "motion": 0.85,
+      "motion": 0.75,
       "facing": 0,
       "frames": [
         {
           "src": "celebrate-00.webp",
+          "anchor": [
+            128,
+            272
+          ],
+          "head": [
+            128,
+            13
+          ],
+          "hand": [
+            146,
+            144
+          ],
+          "eyes": [
+            128,
+            96
+          ],
+          "neck": [
+            128,
+            144
+          ],
+          "back": [
+            134,
+            183
+          ]
+        },
+        {
+          "src": "celebrate-01.webp",
+          "anchor": [
+            154,
+            330
+          ],
+          "head": [
+            154,
+            43
+          ],
+          "hand": [
+            233,
+            69
+          ],
+          "eyes": [
+            154,
+            126
+          ],
+          "neck": [
+            154,
+            174
+          ],
+          "back": [
+            160,
+            213
+          ]
+        },
+        {
+          "src": "celebrate-02.webp",
           "anchor": [
             96,
             301
@@ -77,13 +160,40 @@
             101,
             170
           ]
+        },
+        {
+          "src": "celebrate-03.webp",
+          "anchor": [
+            128,
+            297
+          ],
+          "head": [
+            128,
+            39
+          ],
+          "hand": [
+            205,
+            163
+          ],
+          "eyes": [
+            128,
+            122
+          ],
+          "neck": [
+            128,
+            170
+          ],
+          "back": [
+            134,
+            208
+          ]
         }
       ]
     },
     "pout": {
-      "fps": 5,
+      "fps": 3,
       "loop": true,
-      "motion": 0.85,
+      "motion": 0.55,
       "facing": 0,
       "frames": [
         {
@@ -111,6 +221,33 @@
           "back": [
             80,
             172
+          ]
+        },
+        {
+          "src": "pout-01.webp",
+          "anchor": [
+            108,
+            297
+          ],
+          "head": [
+            108,
+            39
+          ],
+          "hand": [
+            138,
+            151
+          ],
+          "eyes": [
+            108,
+            122
+          ],
+          "neck": [
+            108,
+            170
+          ],
+          "back": [
+            114,
+            208
           ]
         }
       ]
@@ -431,10 +568,74 @@
       ]
     },
     "cheer": {
-      "alias": "celebrate"
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "cheer-00.webp",
+          "anchor": [
+            119,
+            296
+          ],
+          "head": [
+            119,
+            38
+          ],
+          "hand": [
+            66,
+            115
+          ],
+          "eyes": [
+            119,
+            121
+          ],
+          "neck": [
+            119,
+            169
+          ],
+          "back": [
+            125,
+            207
+          ]
+        }
+      ]
     },
     "sad": {
-      "alias": "pout"
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "sad-00.webp",
+          "anchor": [
+            100,
+            294
+          ],
+          "head": [
+            100,
+            36
+          ],
+          "hand": [
+            109,
+            199
+          ],
+          "eyes": [
+            100,
+            119
+          ],
+          "neck": [
+            100,
+            167
+          ],
+          "back": [
+            106,
+            205
+          ]
+        }
+      ]
     },
     "walk": {
       "fps": 6,
@@ -553,8 +754,185 @@
       ]
     },
     "run": {
-      "alias": "walk",
-      "fps": 10
+      "alias": "walk"
+    },
+    "dance": {
+      "fps": 4,
+      "loop": true,
+      "motion": 0.45,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "dance-00.webp",
+          "anchor": [
+            122,
+            303
+          ],
+          "head": [
+            122,
+            45
+          ],
+          "hand": [
+            199,
+            169
+          ],
+          "eyes": [
+            122,
+            128
+          ],
+          "neck": [
+            122,
+            176
+          ],
+          "back": [
+            128,
+            214
+          ]
+        },
+        {
+          "src": "dance-01.webp",
+          "anchor": [
+            111,
+            303
+          ],
+          "head": [
+            111,
+            45
+          ],
+          "hand": [
+            157,
+            96
+          ],
+          "eyes": [
+            111,
+            128
+          ],
+          "neck": [
+            111,
+            176
+          ],
+          "back": [
+            117,
+            214
+          ]
+        },
+        {
+          "src": "dance-02.webp",
+          "anchor": [
+            99,
+            300
+          ],
+          "head": [
+            99,
+            42
+          ],
+          "hand": [
+            138,
+            170
+          ],
+          "eyes": [
+            99,
+            125
+          ],
+          "neck": [
+            99,
+            173
+          ],
+          "back": [
+            105,
+            211
+          ]
+        },
+        {
+          "src": "dance-03.webp",
+          "anchor": [
+            146,
+            294
+          ],
+          "head": [
+            146,
+            36
+          ],
+          "hand": [
+            229,
+            164
+          ],
+          "eyes": [
+            146,
+            119
+          ],
+          "neck": [
+            146,
+            167
+          ],
+          "back": [
+            152,
+            205
+          ]
+        }
+      ]
+    },
+    "ride": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0,
+      "frames": [
+        {
+          "src": "ride-00.webp",
+          "anchor": [
+            103,
+            308
+          ],
+          "head": [
+            103,
+            49
+          ],
+          "hand": [
+            128,
+            190
+          ],
+          "eyes": [
+            103,
+            132
+          ],
+          "neck": [
+            103,
+            180
+          ],
+          "back": [
+            109,
+            219
+          ]
+        },
+        {
+          "src": "ride-01.webp",
+          "anchor": [
+            116,
+            309
+          ],
+          "head": [
+            116,
+            50
+          ],
+          "hand": [
+            140,
+            191
+          ],
+          "eyes": [
+            116,
+            133
+          ],
+          "neck": [
+            116,
+            181
+          ],
+          "back": [
+            122,
+            220
+          ]
+        }
+      ]
     }
   },
   "portraits": {
@@ -564,5 +942,5 @@
     "surprised": "portrait-surprised.webp",
     "determined": "portrait-determined.webp"
   },
-  "provenance": "Generated from approved canonical; normalized by tools/sprites/build.py"
+  "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added."
 }
