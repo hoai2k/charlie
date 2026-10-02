@@ -210,6 +210,18 @@ export class Game {
     a.attach((g, info) => {
       if (st.eff === 'dots') {
         const pop = ease.outBack(clamp(st.effT / 0.5, 0, 1));
+        const dots = art('prop/polka-dots');
+        if (dots) {
+          // two staggered patches (the second mirrored) cover torso and legs
+          const bw = Math.min(info.w, info.h * 0.62) * 0.82, bh = bw * dots.height / dots.width;
+          [[0.6, 1], [0.3, -1]].forEach(([fy, flip], j) => {
+            const pj = clamp(pop * 1.4 - j * 0.3, 0, 1.2);
+            if (pj <= 0) return;
+            g.save(); g.translate(0, -info.h * fy); g.scale(pj * flip, pj);
+            g.drawImage(dots, -bw / 2, -bh / 2, bw, bh); g.restore();
+          });
+          return;
+        }
         DOT_SPOTS.forEach(([dx, dy], j) => {
           const pj = clamp(pop * 1.6 - j * 0.08, 0, 1);
           if (pj <= 0) return;
@@ -219,7 +231,12 @@ export class Game {
       } else if (st.eff === 'puffhair') {
         const pop = ease.outElastic(clamp(st.effT / 0.8, 0, 1));
         const r = info.h * 0.3 * pop * (1 + Math.sin(this.t * 4) * 0.04);
-        if (r > 1) {
+        const wig = art('prop/puffy-hair-cloud');
+        if (wig && r > 1) {
+          // wig art: image point (100, 80) = top of the head; the face shows through the arch
+          const ws = (r * 2.1) / wig.width;
+          g.drawImage(wig, info.head.x - 100 * ws, info.head.y - 80 * ws, wig.width * ws, wig.height * ws);
+        } else if (r > 1) {
           puffCloud(g, info.head.x, info.head.y - info.h * 0.05, r, '#e8dcff');
           puffCloud(g, info.head.x - r * 0.3, info.head.y - r * 0.15, r * 0.5, '#ffd9f0');
         }
@@ -774,7 +791,18 @@ export class Game {
       ui.text(g, `Recipe ${this.round + 1} of 3`, bw - 40, 40, { ...chalk, size: 24, align: 'right', color: '#cfe9df' });
       const tw = Math.min(560, ui.measure(g, E.potion, 56, 800));
       ui.text(g, E.potion, bw / 2 + 40, 92, { size: 56, color: E.color, strokeWidth: 10, weight: 800, maxWidth: 560 });
-      drawBottle(g, bw / 2 + 40 - tw / 2 - 52, 94, 70, E.color, { glow: 0.8, t: this.t });
+      const card = art('prop/recipe-card');
+      if (card) {
+        // parchment recipe card pinned to the left of the board, holding the target potion
+        const cw = 124, chh = cw * card.height / card.width;
+        g.save(); g.translate(90, 142); g.rotate(-0.06 + Math.sin(this.t * 1.3) * 0.012);
+        g.drawImage(card, -cw / 2, -chh / 2, cw, chh);
+        ui.text(g, 'Recipe', 0, -chh * 0.28, { size: 21, color: NAVY, stroke: false, weight: 800 });
+        drawBottle(g, 0, 14, 76, E.color, { glow: 0.8, t: this.t });
+        g.fillStyle = '#ff4d6d'; g.strokeStyle = NAVY; g.lineWidth = 3;
+        g.beginPath(); g.arc(0, -chh / 2 + 12, 7, 0, TAU); g.fill(); g.stroke();
+        g.restore();
+      } else drawBottle(g, bw / 2 + 40 - tw / 2 - 52, 94, 70, E.color, { glow: 0.8, t: this.t });
       const n = rd.ings.length;
       const gap = n === 4 ? 172 : 200;
       rd.ings.forEach((id, i) => {

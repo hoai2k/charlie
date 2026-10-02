@@ -2,8 +2,9 @@
 // where dropped toppings land. Everything lives in "cake-local" units: origin
 // at the center of the cake stand, +y down; a station draws it scaled by k.
 import { RAINBOW } from '../../engine/particles.js';
-import { starPath, drawSparkleShape } from '../../engine/emotes.js';
+import { starPath, drawSparkleShape, drawHeartShape } from '../../engine/emotes.js';
 import { drawPortrait } from '../../engine/sprites.js';
+import { art, drawArt } from '../../engine/art.js';
 import { clamp, lerp, rand, pick, TAU } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
@@ -100,8 +101,11 @@ export const DECOS = [
   { id: 'cherry', name: 'Cherry' },
   { id: 'strawberry', name: 'Strawberry' },
   { id: 'star', name: 'Candy Star' },
+  { id: 'heart', name: 'Candy Heart' },
+  { id: 'flower', name: 'Sugar Flower' },
   { id: 'gummy', name: 'Gummy Bear' },
   { id: 'candle', name: 'Candle', topOnly: true },
+  { id: 'unicorn', name: 'Unicorn Horn', topOnly: true },
   { id: 'topper', name: 'Me Topper!', topOnly: true },
 ];
 export const DECO = Object.fromEntries(DECOS.map((d, i) => [d.id, i]));
@@ -325,8 +329,53 @@ export function sprinkle(x, y) {
 
 function ol(g, w = 3) { g.lineWidth = w; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.stroke(); }
 
+// Generated topping art (cake-local units; (x, y) = where it touches the cake).
+// [art key, drawn height, how far the pick/base sinks below the landing point]
+const TOPPING_ART = {
+  cherry: ['prop/topper-cherry', 48, 3],
+  strawberry: ['prop/topper-strawberry', 40, 4],
+  star: ['prop/topper-star', 54, 6],
+  heart: ['prop/topper-heart', 54, 6],
+  flower: ['prop/topper-flower', 36, 4],
+  unicorn: ['prop/topper-unicorn-horn', 78, 4],
+};
+// The candle art is pink; other candy colors get a hue-shifted copy, built once.
+const CANDLE_HUE = 334, CANDLE_H = 62;
+const candleCache = new Map();
+function hueOf(hex) {
+  const n = parseInt(hex.slice(1), 16), r = (n >> 16) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+  if (!d) return 0;
+  const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return (h * 60 + 360) % 360;
+}
+function candleArt(color) {
+  const img = art('prop/candle');
+  if (!img) return null;
+  if (!color || color === '#ff6fd0') return img;
+  let c = candleCache.get(color);
+  if (c === undefined) {
+    c = img;
+    try {
+      const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+      const x = cv.getContext('2d');
+      if ('filter' in x) { x.filter = `hue-rotate(${Math.round(hueOf(color) - CANDLE_HUE)}deg)`; x.drawImage(img, 0, 0); c = cv; }
+    } catch (e) { c = img; }
+    candleCache.set(color, c);
+  }
+  return c;
+}
+
 export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, ring = null } = {}) {
   const x = d.x, y = d.y;
+  const ta = TOPPING_ART[d.kind];
+  if (ta) {
+    const [key, h, sink] = ta;
+    g.save(); g.translate(x, y + sink); if (d.rot) g.rotate(d.rot * 0.5);
+    const ok = drawArt(g, key, 0, 0, h * 1.6, h, { anchor: 'bottom' });
+    g.restore();
+    if (ok) return;
+  }
   switch (d.kind) {
     case 'cherry': {
       g.beginPath(); g.moveTo(x, y - 22); g.quadraticCurveTo(x + 2, y - 40, x + 12, y - 46); g.lineWidth = 4; g.strokeStyle = '#3d8b3d'; g.stroke();
@@ -363,6 +412,14 @@ export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, 
       break;
     }
     case 'candle': {
+      const cimg = candleArt(d.color);
+      if (cimg) {
+        // image is 64x95 with the wick tip ~3 px from the top edge
+        const ch = CANDLE_H, cw = ch * cimg.width / cimg.height;
+        g.drawImage(cimg, x - cw / 2, y + 2 - ch, cw, ch);
+        if (lit && flame > 0.02) drawFlame(g, x, y + 2 - ch + 1, t, flame);
+        break;
+      }
       const h = 54;
       g.beginPath(); g.rect(x - 6, y - h, 12, h); g.fillStyle = '#fffaf2'; g.fill();
       g.save(); g.clip(); g.strokeStyle = d.color || '#ff6fd0'; g.lineWidth = 5;
@@ -370,17 +427,28 @@ export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, 
       g.restore();
       g.beginPath(); g.rect(x - 6, y - h, 12, h); ol(g, 2.5);
       g.beginPath(); g.moveTo(x, y - h); g.lineTo(x, y - h - 8); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
-      if (lit && flame > 0.02) {
-        const f = flame * (0.9 + 0.12 * Math.sin(t * 23 + x) + 0.08 * Math.sin(t * 37 + y));
-        const fy = y - h - 10;
-        const gl = g.createRadialGradient(x, fy - 8, 1, x, fy - 8, 34 * f);
-        gl.addColorStop(0, 'rgba(255,220,120,0.55)'); gl.addColorStop(1, 'rgba(255,200,80,0)');
-        g.fillStyle = gl; g.beginPath(); g.arc(x, fy - 8, 34 * f, 0, TAU); g.fill();
-        g.beginPath(); g.moveTo(x, fy - 26 * f); g.quadraticCurveTo(x + 10 * f, fy - 6 * f, x, fy + 2); g.quadraticCurveTo(x - 10 * f, fy - 6 * f, x, fy - 26 * f);
-        g.fillStyle = '#ffb02e'; g.fill();
-        g.beginPath(); g.moveTo(x, fy - 15 * f); g.quadraticCurveTo(x + 5 * f, fy - 3 * f, x, fy + 1); g.quadraticCurveTo(x - 5 * f, fy - 3 * f, x, fy - 15 * f);
-        g.fillStyle = '#fff6b0'; g.fill();
-      }
+      if (lit && flame > 0.02) drawFlame(g, x, y - h - 10, t, flame);
+      break;
+    }
+    case 'heart': {
+      g.save(); g.translate(x, y - 16); g.rotate((d.rot || 0) * 0.5);
+      g.beginPath(); g.moveTo(0, 8); g.lineTo(0, 18); g.lineWidth = 3; g.strokeStyle = '#f5e6c8'; g.stroke();
+      drawHeartShape(g, 30, d.color || '#ff6fae'); g.restore();
+      break;
+    }
+    case 'flower': {
+      g.save(); g.translate(x, y - 12);
+      g.fillStyle = d.color || '#ff9fd0';
+      for (let k = 0; k < 6; k++) { const a = (k / 6) * TAU; g.beginPath(); g.ellipse(Math.cos(a) * 9, Math.sin(a) * 9 * 0.8, 8, 6, a, 0, TAU); g.fill(); ol(g, 2); }
+      g.beginPath(); g.arc(0, 0, 6, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); ol(g, 2);
+      g.restore();
+      break;
+    }
+    case 'unicorn': {
+      g.beginPath(); g.moveTo(x - 13, y); g.lineTo(x, y - 74); g.lineTo(x + 13, y); g.closePath();
+      g.fillStyle = '#ffd86b'; g.fill(); ol(g);
+      g.strokeStyle = '#e0a93a'; g.lineWidth = 3;
+      for (let k = 1; k < 5; k++) { const yy = y - k * 15; g.beginPath(); g.moveTo(x - 13 * (1 - k / 5), yy + 4); g.lineTo(x + 13 * (1 - k / 5), yy - 4); g.stroke(); }
       break;
     }
     case 'topper': {
@@ -394,6 +462,42 @@ export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, 
     }
     default: break;
   }
+}
+
+// Warm halo behind a flame: one cached radial-gradient sprite, reused.
+let flameGlow = null;
+function flameGlowSprite() {
+  if (!flameGlow) {
+    flameGlow = document.createElement('canvas'); flameGlow.width = flameGlow.height = 96;
+    const x = flameGlow.getContext('2d'), gr = x.createRadialGradient(48, 48, 2, 48, 48, 48);
+    gr.addColorStop(0, 'rgba(255,220,120,0.55)'); gr.addColorStop(1, 'rgba(255,200,80,0)');
+    x.fillStyle = gr; x.fillRect(0, 0, 96, 96);
+  }
+  return flameGlow;
+}
+function drawFlame(g, x, base, t, flame) {
+  const f = flame * (0.9 + 0.12 * Math.sin(t * 23 + x) + 0.08 * Math.sin(t * 37 + base));
+  const fy = base;
+  const img = art('prop/candle-flame');
+  if (img) {
+    // candle-flame art is 119x128; the flame's base sits at (65, 108)
+    const r = 34 * f;
+    g.drawImage(flameGlowSprite(), x - r, fy - 8 - r, r * 2, r * 2);
+    const k = (30 * f) / 108;
+    g.save(); g.translate(x, fy + 2);
+    g.rotate(Math.sin(t * 7 + x * 0.1) * 0.09);
+    g.scale(1 + 0.08 * Math.sin(t * 19 + x), 1 + 0.06 * Math.sin(t * 13 + base));
+    g.drawImage(img, -65 * k, -108 * k, img.width * k, img.height * k);
+    g.restore();
+    return;
+  }
+  const gl = g.createRadialGradient(x, fy - 8, 1, x, fy - 8, 34 * f);
+  gl.addColorStop(0, 'rgba(255,220,120,0.55)'); gl.addColorStop(1, 'rgba(255,200,80,0)');
+  g.fillStyle = gl; g.beginPath(); g.arc(x, fy - 8, 34 * f, 0, TAU); g.fill();
+  g.beginPath(); g.moveTo(x, fy - 26 * f); g.quadraticCurveTo(x + 10 * f, fy - 6 * f, x, fy + 2); g.quadraticCurveTo(x - 10 * f, fy - 6 * f, x, fy - 26 * f);
+  g.fillStyle = '#ffb02e'; g.fill();
+  g.beginPath(); g.moveTo(x, fy - 15 * f); g.quadraticCurveTo(x + 5 * f, fy - 3 * f, x, fy + 1); g.quadraticCurveTo(x - 5 * f, fy - 3 * f, x, fy - 15 * f);
+  g.fillStyle = '#fff6b0'; g.fill();
 }
 
 /** Sprinkles are drawn in color batches (cheap even with hundreds). */
@@ -428,7 +532,8 @@ export function drawDecoIcon(g, kind, cx, cy, size, t) {
     g.fillStyle = NAVY; g.beginPath(); g.arc(-5, -16, 2, 0, TAU); g.arc(5, -16, 2, 0, TAU); g.fill();
     g.beginPath(); g.arc(0, -11, 5, 0.2, Math.PI - 0.2); g.lineWidth = 2; g.stroke();
   } else {
-    const d = { kind, x: 0, y: kind === 'candle' ? 26 : 18, rot: 0.2, color: kind === 'gummy' ? '#36d17a' : kind === 'star' ? '#ffd23f' : '#ff6fd0' };
+    if (kind === 'unicorn') { g.translate(0, 6); g.scale(0.72, 0.72); }
+    const d = { kind, x: 0, y: kind === 'candle' || kind === 'unicorn' ? 26 : 18, rot: 0.2, color: kind === 'gummy' ? '#36d17a' : kind === 'star' ? '#ffd23f' : '#ff6fd0' };
     drawDecoShape(g, d, t, { lit: kind === 'candle', flame: 0.8 });
   }
   g.restore();

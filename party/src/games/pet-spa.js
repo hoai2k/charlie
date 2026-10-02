@@ -1039,12 +1039,19 @@ export class Game {
     // suds (foam clumps from cached sprites; they gently breathe)
     const tt = this.t;
     const base = g.globalAlpha;
+    const foamArt = art('prop/bubbles');
     for (const u of s.suds) {
       if (u.amt < 0.03) continue;
       const k = Math.min(1, u.amt) * (1 + 0.06 * Math.sin(tt * 3 + u.ph));
       g.globalAlpha = base * Math.min(1, u.amt * 1.6);
       const r = u.r * k * 1.25;
-      g.drawImage(foamSprite(Math.floor(u.ph * 10) % 3), u.x - r, u.y - r, r * 2, r * 2);
+      const v = Math.floor(u.ph * 10) % 3;
+      if (foamArt) {
+        // generated foam cluster (203x180); mirror every other clump for variety
+        const fw = r * 2.3, fh = fw * foamArt.height / foamArt.width;
+        if (v === 1) { g.save(); g.translate(u.x, u.y); g.scale(-1, 1); g.drawImage(foamArt, -fw / 2, -fh / 2, fw, fh); g.restore(); }
+        else g.drawImage(foamArt, u.x - fw / 2, u.y - fh / 2, fw, fh);
+      } else g.drawImage(foamSprite(v), u.x - r, u.y - r, r * 2, r * 2);
     }
     g.globalAlpha = base;
     // brushed shine glints
@@ -1143,7 +1150,11 @@ export class Game {
     if (sy + 10 < s.ped.y - s.pet.height) {
       g.fillStyle = '#e6b98a'; ui.roundRect(g, sx0, sy, sx1 - sx0, 12 * k, 5); g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
       const cols = ['#ff9ecf', '#7fd3ff', '#b78bff', '#7fe0a8'];
-      for (let i = 0; i < 4; i++) {
+      const sh = art('prop/shampoo');
+      if (sh) {
+        // shampoo pump bottles (128x131, ~8% empty at the left)
+        for (let i = 0; i < 3; i++) drawArt(g, 'prop/shampoo', sx0 + (40 + i * 46) * k, sy + 2 * k, (56 - (i % 2) * 10) * k, (56 - (i % 2) * 10) * k, { anchor: 'bottom' });
+      } else for (let i = 0; i < 4; i++) {
         const bx = sx0 + 24 * k + i * 34 * k, bh = (40 + (i % 2) * 14) * k;
         g.fillStyle = cols[i]; ui.roundRect(g, bx, sy - bh, 26 * k, bh, 8 * k); g.fill(); g.stroke();
         g.fillStyle = '#ffffff'; g.fillRect(bx + 6 * k, sy - bh * 0.6, 14 * k, bh * 0.3);
@@ -1151,6 +1162,17 @@ export class Game {
       drawDuck(g, sx1 - 40 * k, sy - 18 * k, 36 * k, Math.sin(this.t * 2 + s.i) * 0.1);
     }
     g.restore();
+  }
+
+  /** Bubble bath behind the pet (generated art only; the rug stays the stand). */
+  drawTub(g, s) {
+    const img = art('prop/bathtub');
+    if (!img) return;
+    const r = s.r, k = s.k;
+    const tw = Math.min(r.w * 0.8, 520 * k), th = tw * img.height / img.width;
+    const x = r.x + r.w * 0.5, foot = s.ped.y - 4 * k;
+    // the image has ~10% empty space under the feet
+    drawArt(g, 'prop/bathtub', x, foot + th * 0.1, tw, th, { anchor: 'bottom' });
   }
 
   drawStation(g, s) {
@@ -1199,6 +1221,7 @@ export class Game {
     g.restore();
 
     this.drawDecor(g, s);
+    this.drawTub(g, s);
     // player's character watching (behind the pet when overlapping)
     s.char.draw(g, { ring: p.color });
     // pet (with shake)

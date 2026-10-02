@@ -154,6 +154,48 @@ function drawImp(g, x, y, r, t, o = {}) {
   g.restore();
 }
 
+// Colored copies of white/pink stage art, each built once per color.
+const tintCache = new Map();
+function hueOf(hex) {
+  const n = parseInt(hex.slice(1, 7), 16), r = (n >> 16) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+  if (!d) return 0;
+  const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return (h * 60 + 360) % 360;
+}
+/** spotlight-beam washed with `color` (keeps the art's soft alpha). */
+function beamArt(color) {
+  const img = art('prop/spotlight-beam');
+  if (!img || !/^#[0-9a-f]{6}$/i.test(color)) return img;
+  const id = 'beam' + color;
+  let c = tintCache.get(id);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const x = c.getContext('2d');
+    x.drawImage(img, 0, 0);
+    x.globalCompositeOperation = 'source-atop'; x.globalAlpha = 0.7; x.fillStyle = color; x.fillRect(0, 0, c.width, c.height);
+    tintCache.set(id, c);
+  }
+  return c;
+}
+/** light-stick (pink star) hue-shifted toward `color`; plain art if filters are unsupported. */
+function stickArt(color) {
+  const img = art('prop/light-stick');
+  if (!img) return null;
+  const id = 'stick' + color;
+  let c = tintCache.get(id);
+  if (!c) {
+    c = img;
+    try {
+      const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+      const x = cv.getContext('2d');
+      if ('filter' in x) { x.filter = `hue-rotate(${Math.round(hueOf(color) - 330)}deg)`; x.drawImage(img, 0, 0); c = cv; }
+    } catch (e) { c = img; }
+    tintCache.set(id, c);
+  }
+  return c;
+}
+
 const glowCache = new Map();
 function glowSprite(color) {
   let c = glowCache.get(color);
@@ -728,8 +770,17 @@ export class Game {
       const sway = Math.sin(b * Math.PI + c.ph) * 0.4;
       g.save(); g.translate(c.x, H + 10); g.rotate(sway);
       g.fillStyle = 'rgba(10,5,25,0.85)'; g.beginPath(); g.arc(0, 0, 28, Math.PI, TAU); g.fill();
-      g.strokeStyle = c.c; g.lineWidth = 6; g.lineCap = 'round'; g.globalAlpha = 0.85;
-      g.beginPath(); g.moveTo(16, -10); g.lineTo(26, -10 - c.h); g.stroke();
+      const stick = stickArt(c.c);
+      if (stick) {
+        // light-stick art (160x241): handle in the fan's hand, star up top
+        const sh = c.h * 1.55, sw = sh * stick.width / stick.height;
+        g.translate(18, -6); g.rotate(0.22);
+        g.drawImage(glowSprite(c.c), -sh * 0.45, -sh * 1.2, sh * 0.9, sh * 0.9);
+        g.drawImage(stick, -sw / 2, -sh, sw, sh);
+      } else {
+        g.strokeStyle = c.c; g.lineWidth = 6; g.lineCap = 'round'; g.globalAlpha = 0.85;
+        g.beginPath(); g.moveTo(16, -10); g.lineTo(26, -10 - c.h); g.stroke();
+      }
       g.restore();
     }
     // dark edges where the imps come from
@@ -825,6 +876,14 @@ export class Game {
     for (const L of this.lanes) {
       const a = L.actor, r = Math.max(70, Math.min(this.spacing * 0.48, a.width * 0.7));
       const col = L.fever ? RAINBOW[Math.floor(this.clock * 8) % RAINBOW.length] : L.p.color;
+      const beam = beamArt(col);
+      if (beam) {
+        // spotlight-beam art (400x483): cone tip at y~20, floor pool centered at y~440, ~350 wide
+        const y0 = HIT_Y + this.noteSize, ky = (FLOOR_Y - y0) / 420, kx = (2 * r) / 350;
+        g.globalAlpha = 0.38 + pulse * 0.25;
+        g.drawImage(beam, L.x - 200 * kx, y0 - 20 * ky, 400 * kx, 483 * ky);
+        continue;
+      }
       g.globalAlpha = 0.1 + pulse * 0.06;
       g.fillStyle = col;
       g.beginPath(); g.moveTo(L.x - 30, HIT_Y + this.noteSize); g.lineTo(L.x + 30, HIT_Y + this.noteSize); g.lineTo(L.x + r, FLOOR_Y); g.lineTo(L.x - r, FLOOR_Y); g.closePath(); g.fill();
@@ -909,6 +968,17 @@ export class Game {
     this.drawBoss(g, true);
     this.drawImps(g);
     this.drawSpots(g);
+    // a mic stand beside each performer (generated art only; bobs on the beat)
+    if (art('prop/mic-stand')) {
+      const pulse = Math.pow(1 - (((this.beatNow % 1) + 1) % 1), 3);
+      for (const L of this.lanes) {
+        const mh = Math.min(L.actor.height * 0.8, 230), side = 1;
+        const mx = L.x + side * Math.min(this.spacing * 0.36, L.actor.width * 0.5 + 24);
+        g.save(); g.translate(mx, FLOOR_Y + 4); g.scale(1, 1 + pulse * 0.02);
+        drawArt(g, 'prop/mic-stand', 0, 0, mh * 0.6, mh, { anchor: 'bottom' });
+        g.restore();
+      }
+    }
     // characters
     for (const L of this.lanes) {
       const a = L.actor;

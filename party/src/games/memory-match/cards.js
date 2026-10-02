@@ -53,7 +53,8 @@ function cached(key, w, h, paint) {
 
 /** Card back centered at (x, y). */
 export function drawCardBack(g, x, y, w, h) {
-  const img = art('prop/memory-card-back');
+  // prop/card-back (same file as the older prop/memory-card-back key), stretched to the card.
+  const img = art('prop/card-back') || art('prop/memory-card-back');
   const c = img ? null : cached('back', w, h, paintBack);
   if (img) g.drawImage(img, x - w / 2, y - h / 2, w, h);
   else g.drawImage(c, x - w / 2, y - h / 2, w, h);
@@ -61,7 +62,8 @@ export function drawCardBack(g, x, y, w, h) {
 
 /** Card face for `face` (from allFaces) centered at (x, y). */
 export function drawCardFace(g, face, x, y, w, h) {
-  const c = cached('face-' + face.key, w, h, (cg, cw, ch) => paintFace(cg, cw, ch, face));
+  const frame = art('prop/card-front');
+  const c = cached((frame ? 'framed-' : 'face-') + face.key, w, h, (cg, cw, ch) => paintFace(cg, cw, ch, face, frame));
   g.drawImage(c, x - w / 2, y - h / 2, w, h);
 }
 
@@ -139,13 +141,20 @@ export function drawUnicornHead(g) {
   g.beginPath(); g.arc(30, 12, 5, 0.2 * Math.PI, 0.7 * Math.PI); g.stroke();
 }
 
-function paintFace(g, w, h, face) {
-  const r = Math.min(w, h) * 0.12;
-  rr(g, 2, 2, w - 4, h - 4, r);
-  g.fillStyle = '#fffaf2'; g.fill();
-  g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-  // pastel window
-  const ix = w * 0.07, iy = h * 0.055, iw = w * 0.86, ih = h * 0.7;
+function paintFace(g, w, h, face, frame) {
+  let r = Math.min(w, h) * 0.12;
+  // pastel window (inside the generated card-front frame's cream panel when it exists:
+  // that panel spans x 11-89%, y 9-90% of the 300x399 image)
+  let ix = w * 0.07, iy = h * 0.055, iw = w * 0.86, ih = h * 0.7, nameY = null;
+  if (frame) {
+    g.drawImage(frame, 0, 0, w, h);
+    ix = w * 0.135; iy = h * 0.115; iw = w * 0.73; ih = h * 0.6; r = Math.min(w, h) * 0.07;
+    nameY = iy + ih + (h * 0.885 - iy - ih) * 0.5;
+  } else {
+    rr(g, 2, 2, w - 4, h - 4, r);
+    g.fillStyle = '#fffaf2'; g.fill();
+    g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
+  }
   g.save(); rr(g, ix, iy, iw, ih, r * 0.7); g.clip();
   const gr = g.createLinearGradient(0, iy, 0, iy + ih);
   gr.addColorStop(0, lighten(face.color, 0.78)); gr.addColorStop(1, lighten(face.color, 0.45));
@@ -169,11 +178,12 @@ function paintFace(g, w, h, face) {
   g.restore();
   rr(g, ix, iy, iw, ih, r * 0.7); g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.5)'; g.stroke();
   // name ribbon
-  const ny = iy + ih + (h - iy - ih) * 0.48;
-  let size = Math.min(h * 0.11, w * 0.16);
+  const ny = nameY ?? iy + ih + (h - iy - ih) * 0.48;
+  const maxW = frame ? w * 0.72 : w * 0.86;
+  let size = Math.min(h * (frame ? 0.095 : 0.11), w * 0.16);
   g.font = `800 ${size}px ${FONT}`;
   const tw = g.measureText(face.name).width;
-  if (tw > w * 0.86) { size *= (w * 0.86) / tw; g.font = `800 ${size}px ${FONT}`; }
+  if (tw > maxW) { size *= maxW / tw; g.font = `800 ${size}px ${FONT}`; }
   g.textAlign = 'center'; g.textBaseline = 'middle';
   g.lineJoin = 'round'; g.lineWidth = size * 0.28; g.strokeStyle = NAVY; g.strokeText(face.name, w / 2, ny);
   g.fillStyle = face.color; g.fillText(face.name, w / 2, ny);
