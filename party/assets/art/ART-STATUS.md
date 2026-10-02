@@ -48,3 +48,14 @@ Production is paused at 60% used. The half-hour request monitor may record new
 requests while paused; it must not generate until the user resumes and cancels
 itself after one unchanged interval. See `../../reference/SPRITE-SESSION-HANDOFF.md`
 and `../../tools/sprites/AGENT-PLAYBOOK.md` for saved work and production lessons.
+
+## Sol regeneration delivery
+
+All general regeneration images are now delivered: overhead garden day/night,
+seed/glow plant stages, aligned balloons, neutral potion props, four podiums,
+confetti atlas, outlined crumbs, three crumble rings, and the low cake stand v3.
+Plain neutral layers have both `prop/cake-sponge-<shape>` and
+`prop/cake-layer-<shape>` aliases for round/heart/star; the procedural bakery
+continues handling its configurable frosting and flavor options. Original
+versions are preserved. Generation prompts and source masters are recorded in
+`generation-manifest.json`. Latest runtime pointers are in `index.json`.
