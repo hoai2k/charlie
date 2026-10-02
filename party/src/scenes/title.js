@@ -24,7 +24,7 @@ export class TitleScene {
     // Parade: everyone walks right along the hill, wrapping around.
     const spacing = 250;
     this.parade = CHARACTERS.map((c, i) => {
-      const a = new Actor(c.id, { scale: 0.82, x: i * spacing - 200, y: 0 });
+      const a = new Actor(c.id, { scale: 0.82, x: i * spacing - 200, y: 0, load: false }); // parade: base art unless already loaded
       a.facing = 1; a.speed = 0.6; a.setPose('walk'); a.snap();
       return a;
     });

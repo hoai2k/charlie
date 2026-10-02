@@ -227,18 +227,35 @@ export async function loadSprites(onProgress = () => {}) {
     tick();
   }));
   // assets/sprites/index.json lists the assets that have sprite sets, so we
-  // don't spray 404s for characters that aren't generated yet.
+  // don't spray 404s for characters that aren't generated yet. Sets load on
+  // demand (ensureSpriteSet) - a fully animated character decodes to tens of
+  // MB, so only characters that actually appear are loaded.
   try {
     const res = await fetch('assets/sprites/index.json', { cache: 'no-cache' });
     if (res.ok) {
       const idx = await res.json();
-      await Promise.all((idx.sets || []).map(async (a) => {
-        try { const s = await loadSpriteSet(a); if (s) spriteSets.set(a, s); } catch (e) { console.warn('Sprite set failed', a, e); }
-      }));
+      for (const a of idx.sets || []) indexedSets.add(a);
     }
   } catch (e) { /* no sprite index yet */ }
   tick();
 }
+
+const indexedSets = new Set();
+const setLoads = new Map();   // asset -> Promise
+/** Start loading an asset's sprite set if it has one (safe to call often). */
+export function ensureSpriteSet(asset) {
+  if (!indexedSets.has(asset)) return Promise.resolve(null);
+  if (!setLoads.has(asset)) {
+    setLoads.set(asset, loadSpriteSet(asset).then((s) => { if (s) spriteSets.set(asset, s); return s; })
+      .catch((e) => { console.warn('Sprite set failed', asset, e); return null; }));
+  }
+  return setLoads.get(asset);
+}
+/** Load the sprite sets for these party entries (e.g. the party, before play). */
+export function preloadCharacters(charIds) {
+  return Promise.all(charIds.flatMap((id) => (charById(id)?.members || []).map((m) => ensureSpriteSet(m.asset))));
+}
+export const indexedSpriteSets = () => [...indexedSets];
 
 export const getBaseImage = (asset) => baseImages.get(asset);
 export const getSpriteSet = (asset) => (forceFallback ? null : spriteSets.get(asset));
@@ -407,7 +424,7 @@ let actorSerial = 0;
 export class Actor {
   /**
    * @param {string} charId  party entry id from data/characters.js (or 'troll')
-   * @param {object} opts    { scale = 1, x, y }
+   * @param {object} opts    { scale = 1, x, y, load = true (false: don't fetch the sprite set; use it only if already loaded) }
    */
   constructor(charId, opts = {}) {
     this.char = charById(charId) || CHARACTERS[0];
@@ -430,6 +447,7 @@ export class Actor {
     this._autoEmoteT = 0;
     this._history = [];         // leader trail for followers
     this.attachments = [];      // { fn, member, behind }
+    if (opts.load !== false) for (const m of this.char.members) ensureSpriteSet(m.asset);
     this.members = this.char.members.map((m, i) => ({
       def: m, i, x: this.x + m.dx * this.facing * this.scale, y: this.y + m.dy * this.scale, facing: this.facing,
       phase: i * 0.21,
@@ -805,6 +823,7 @@ export function drawPortrait(g, charId, x, y, r, { expr = 'neutral', bg = null, 
   const ch = charById(charId);
   if (!ch) return;
   const m = ch.members[0];
+  ensureSpriteSet(m.asset);
   g.save();
   g.beginPath(); g.arc(x, y, r, 0, TAU);
   g.fillStyle = bg || ch.color; g.fill();

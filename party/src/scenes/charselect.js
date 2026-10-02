@@ -6,7 +6,7 @@ import { drawArt } from '../engine/art.js';
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
-import { Actor, getBaseImage, drawSpeech } from '../engine/sprites.js';
+import { Actor, getBaseImage, drawSpeech, preloadCharacters } from '../engine/sprites.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
 import { CHARACTERS, PLAYER_COLORS } from '../data/characters.js';
@@ -28,6 +28,9 @@ export class CharSelectScene {
     this.cpus = [];    // { ctrl, charId, actor, stars }
     this.wantTotal = 4;
     this.manualCpu = false;
+    // Drop CPU controllers left over from an earlier visit that never started
+    // (e.g. B back to the title) so input.ais doesn't grow.
+    for (const c of [...input.ais]) if (!session.players.some((p) => p.ctrl === c)) input.releaseAI(c);
     // Coming back from the game menu: keep the current party.
     for (const p of session.players) {
       const idx = CHARACTERS.findIndex((c) => c.id === p.charId);
@@ -183,6 +186,7 @@ export class CharSelectScene {
     if (!sameParty) session.played = [];
     session.players = players;
     preloadVoices(players.map((p) => p.charId));
+    preloadCharacters(players.map((p) => p.charId));
     for (const h of this.humans) h.actor.playOnce('celebrate', 1, 'idle');
     for (const c of this.cpus) c.actor.playOnce('cheer', 0.6, 'idle');
   }

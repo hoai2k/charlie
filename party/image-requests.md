@@ -29,6 +29,11 @@ All paths in this document are relative to `party/` unless they start with
 
 ---
 
+
+> **Start here (current round): [Round 3](#round-3--lessons-from-the-felicity-pilot-and-next-requests)**
+> at the end of this document. It records what the Felicity + Fellowfox
+> pilot taught us and lists the next requests in priority order.
+
 ## 1. Purpose, audience and phases
 
 Charlie is a 2nd-grade girl, and the characters are hers. The game is a couch
@@ -1363,3 +1368,125 @@ bottom-anchored (replaces the plant list in §9.4).
 **Thumbnails:** optional `thumb/<id>` for all 20 games (each game's
 procedural `drawIcon` is the fallback).
 
+
+
+---
+
+## Round 3 — lessons from the Felicity pilot, and next requests
+
+Written by the lead after running Felicity + Fellowfox through all 20
+minigames in the game itself (CPU rounds, per-frame pose logging, close-up
+crops around her). The pilot works: attachments track her art, aliases and
+fallbacks behave, and nothing broke. These are the considerations for the
+rest of the roster, then the next requests.
+
+### R3.1 What worked — keep doing it
+
+- **Per-frame anchor points.** Wands, crowns, glasses, bunny ears and
+  necklaces landed exactly on her `hand`/`head`/`eyes`/`neck` points in every
+  game. Supply all five points on every frame of every character.
+- **One shared foot anchor + `bodyHeight`.** No foot sliding, no scale pops
+  between poses, and her size matched the base-art characters beside her.
+- **Trimmed frames with per-frame anchors** (her frames are ~250×325, not the
+  640×496 canvas). Keep trimming: it is what keeps memory sane.
+- **Single key frames at `motion` 0.85.** In play, the procedural squash,
+  hop and tilt carry one good key pose convincingly. Don't spend frames on
+  poses that hold still or last under ~0.4 s.
+- **Distinctive pose silhouettes.** `ride` (crouched, gripping) is the best
+  example: it reads as broom-flying instantly and the scarf/broom props sit
+  right. Aim for that clarity in every pose.
+
+### R3.2 Considerations for the next characters
+
+1. **Where extra frames pay off (measured screen time).** Logging which pose
+   Felicity was in, frame by frame, across the games gives this ranking of
+   on-screen time: `idle` ≫ `walk` > `run` > `ready` (Wizard Quick-Draw holds
+   it all game) > `carry` (Pass the Present) > `broom-glide`/`ride` > `dance`
+   (Spotlight, Pop Star) > `look-up`/`count` > `hurt` ≈ `dizzy` ≈ `cheer`; plus
+   `celebrate` and `pout` on the podium after **every** game. So for each
+   character, beyond the 4-frame walk:
+   - `idle`: add a **blink** frame (`dur` ≈ 0.12 s) — the cheapest life there is.
+   - `celebrate`: 3–4 frames (anticipation crouch → leap → peak → land) — it's
+     the emotional payoff of every game.
+   - `pout`: 2 frames (arms crossed ↔ foot stomp) — the "funny tantrum".
+   - `dance`: 4 frames timed so one cycle = 2 beats at 120 bpm (fps 4), so the
+     rhythm games look on-beat.
+   - `ride`: 2 frames (hair/ears flutter) for Broomstick Dash's 40 s race.
+   - `run`: its own 4 frames if the character's run differs from a faster
+     walk (quadrupeds: a gallop).
+   Everything else stays a single key frame.
+2. **Give `cheer` and `sad` their own key frames.** Felicity aliases them to
+   `celebrate`/`pout`; in play that makes a small "+1" moment look like a
+   victory and a tiny setback look like losing. A quick fist-pump (`cheer`)
+   and a droopy sigh (`sad`) are distinct and used constantly.
+3. **Memory budget — now enforced by loading on demand.** Sets now load only
+   for characters that appear (the party, hovered characters, the sprite
+   viewer), not all at boot. Still, aim for **≤ 1.5 MB on disk and ≤ 25 MB
+   decoded per character** (`validate.py` prints both; Felicity is 1.3 MB /
+   15.9 MB). With multi-frame poses, keep frames trimmed and `bodyHeight`
+   ≈ 300–320 (the largest in-game draw is ~1.5× of `h` ≈ 270 px).
+4. **Groups.** The KPop Girls are three sets drawn together: identical
+   `bodyHeight`, identical pose list and frame counts, and slightly
+   different idle timing (vary `dur`) so they don't move in lockstep. Give
+   each girl her own `celebrate`/`dance` personality (see §4.4).
+5. **Followers.** Fellowfox needs only movement + reaction poses as a
+   follower, **but** she is now also a standalone pet in Pet Spa
+   (`new Actor('fellowfox')`, scale ~110 px). Pets need: `idle`, `sad`
+   (muddy), `shake` (wet-dog), `eat`, `giggle` (squirm while scrubbed),
+   `catch-toy`, `celebrate`, `dance` (brushed). The same applies to **Fox,
+   Cotton Candy, The Last Unicorn and Hotdog**, who are Pet Spa's pets too.
+6. **Non-humanoid "hands".** Follow §3.6: Bronze grips with the pipe, ponies
+   and foxes with the mouth, Cake balances things on top. Games attach wands,
+   brooms, jars and watering cans at `hand` — check those three props in the
+   viewer's debug overlay for each animal.
+7. **Mermaids.** Marina and Scale glide (`motion: 'glide'`); their `walk` is
+   a tail-swish glide, `ride` is side-saddle, `jump` is a tail flip. Keep the
+   foot anchor at the bottom of the tail curl so the shadow sits right.
+8. **Portraits are seen tiny.** HUD chips draw them in a 30 px-radius circle.
+   Keep the face big and centered (eyes ~45% from the top), and check them at
+   60 px across before committing.
+9. **Test in real games, not just the viewer.** The quickest check:
+   `?game=crown-keeper&players=2&auto=1&skipintro=1&chars=<id>,fox` (crown on
+   head + dash + hurt), `wizard-quickdraw` (wand at hand, `ready` held long),
+   `broomstick-dash` (ride), `pass-the-present` (carry overhead),
+   `fashion-show` (glasses/necklace/wings), and a results podium. The lead's
+   per-frame pose logger pattern: hook `Actor.prototype.draw` and record
+   `this.pose` for your `charId`.
+
+### R3.3 Next requests, in priority order
+
+**A. NPC canonicals (blocking several games' art) — needs the user's
+approval before any sprites.** None exist yet. In order of how often they
+are on screen: **Glimmer** (§8.1: every how-to screen and Fairy Count/Garden),
+**Shadow Imp** (§8.2: Spotlight Dance-Off and Pop Star Stage — the code
+already swaps to sprites when a `shadow-imp` entry exists), **Professor Hoot**
+(§8.3: Wizard Quick-Draw and Potion Class), **Garden Fairy** (§8.4). Then the
+**Troll** sprite set (§8.5, canonical already approved): `idle`, `walk`,
+`windup`, `slam`, `sleep`, `laugh`, `dizzy`, `surprised` — Troll Trouble uses
+all of them, and he is the solo opponent in Bumper Bounce and Pass the Present.
+
+**B. Felicity upgrades (small, high impact).** Multi-frame `idle` (blink),
+`celebrate`, `pout`, `dance`, `ride` per R3.2; own `cheer` and `sad` frames;
+then her most-used round-2 poses: `sing`, `water`, `count`, `look-up`,
+`hold-present`, `toss`, `sooty`, `swim`, `sit`, `balance`, `blow`, `float`.
+
+**C. Next roster sets.** Suggested order (the user may prefer another):
+1. **Fox** — simplest quadruped, appears as a player *and* a Pet Spa pet;
+   validates the animal conventions (mouth `hand`, gallop `run`).
+2. **Cotton Candy, The Last Unicorn, Hotdog** — the other pets; shared
+   quadruped/pet pose list (R3.2 item 5).
+3. **KPop Girls** (three sets together, R3.2 item 4) — very visible in the
+   music games.
+4. **Princess Amber, Snowstar** — humanoids, straightforward after Felicity.
+5. **Marina, Scale** — mermaid conventions (R3.2 item 7).
+6. **Bronze, Birthday Cake** — the unusual anatomies, last, with the most
+   care.
+Each set: Tier-1 poses + five portraits first, commit, then the rest.
+
+**D. Game art (no approval gate).** Start where it's seen most: `ui/logo`
+and the title backdrop (first impression), then `thumb/<id>` for all 20
+(the Game Select grid and how-to screens), then backgrounds for the games
+whose procedural backdrops are plainest: `bg/paint-party`, `bg/balloon-pump`,
+`bg/cake-bakery`, `bg/pet-spa`, `bg/memory-match`. Remember the layout
+constraints listed with each background in Round 2 (Crown Keeper's arena
+must match the code exactly).
