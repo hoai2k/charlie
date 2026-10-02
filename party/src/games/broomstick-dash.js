@@ -1,3 +1,4 @@
+import { drawNpcSprite } from '../engine/npc-art.js';
 // Broomstick Dash - wizard-school sky race. Every player flies in their own
 // horizontal lane over the SAME course. Hold A to rise, let go to glide down.
 // Fly through star rings to boost, dodge grumpy storm clouds, grab owl-mail.
@@ -135,6 +136,15 @@ function stormCloud(g, x, y, r, t, seed, flash) {
   g.beginPath(); g.moveTo(-ex - 0.2 * r, -0.28 * r); g.lineTo(-ex + 0.17 * r, -0.12 * r); g.stroke();
   g.beginPath(); g.moveTo(ex + 0.2 * r, -0.28 * r); g.lineTo(ex - 0.17 * r, -0.12 * r); g.stroke();
   g.beginPath(); g.arc(0, 0.5 * r, 0.2 * r, 1.15 * Math.PI, 1.85 * Math.PI); g.stroke();
+  stormLightning(g, 0, 0, r, t, seed, flash);
+  g.restore();
+}
+
+
+// Separate effect: the approved cloud art never contains a baked bolt.
+function stormLightning(g, x, y, r, t, seed, flash) {
+  g.save(); g.translate(x, y);
+  const ow = Math.max(2, r * 0.08);
   // little lightning bolt
   if (Math.sin(t * 7 + seed * 3) > 0.35 || flash) {
     g.fillStyle = '#ffe64d'; g.strokeStyle = NAVY; g.lineWidth = ow * 0.8; g.lineJoin = 'round';
@@ -609,7 +619,10 @@ export class Game {
       else if (it.type === 'cloud') {
         const cy = top + (it.y + Math.sin(this.t * 1.3 + it.ph) * 0.035) * laneH;
         const rp = it.r * laneH;
-        if (!drawArt(g, 'prop/storm-cloud', sx, cy, rp * 2.6, rp * 2.2)) stormCloud(g, sx, cy, rp, this.t, it.ph, this.t - L.zap[i] < 0.3 && L.zap[i] > 0);
+        const flash = this.t - L.zap[i] < 0.3 && L.zap[i] > 0;
+        const sprite = drawNpcSprite(g, 'storm-cloud', sx, cy + rp * 0.8, rp * 1.9, this.t + it.ph, { pose: flash ? 'flash' : 'idle' });
+        if (sprite || drawArt(g, 'prop/storm-cloud', sx, cy, rp * 2.6, rp * 2.2)) stormLightning(g, sx, cy, rp, this.t, it.ph, flash);
+        else stormCloud(g, sx, cy, rp, this.t, it.ph, flash);
       } else if (it.type === 'mail' && L.st[i] === 0) {
         const my = top + (it.y + Math.sin(this.t * 3 + it.ph) * 0.05) * laneH;
         if (!drawArt(g, 'prop/owl-mail', sx, my, it.r * laneH * 2.4, it.r * laneH * 2)) mailItem(g, sx, my, it.r * laneH, this.t, it.ph);

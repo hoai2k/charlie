@@ -1,3 +1,4 @@
+import { drawNpcSprite } from '../engine/npc-art.js';
 // Spotlight Dance-Off - memory game.
 // Cute Shadow Imps stole the spotlight! They perform a dance sequence (arrows +
 // A "sparkle"); everyone copies it from memory at the same time. A perfect copy
@@ -118,6 +119,13 @@ function drawMoveIcon(g, mv, x, y, size, o = {}) {
 
 /** The cute mischievous Shadow Imp: a round purple-navy puffball with glowing eyes and bat-ish ears. */
 function drawImp(g, x, y, s, o = {}) {
+  const variant = ['shadow-imp', 'shadow-imp-blue', 'shadow-imp-pink'][Math.abs(Math.floor(o.seed || 0)) % 3];
+  const pose = ({ U: 'dance-up', D: 'dance-down', L: 'dance-side', R: 'dance-side', A: 'dance-star' })[o.move]
+    || (o.mood === 'eep' ? 'surprised' : 'idle');
+  if (drawNpcSprite(g, variant, x, y, 175 * s * (o.scale ?? 1), o.move ? (o.mt || 0) : (o.t || 0), {
+    pose, facing: o.move === 'L' ? -1 : 1, alpha: o.alpha ?? 1, bob: 3 * s,
+  })) return;
+
   const t = o.t || 0, seed = o.seed || 0;
   const R = 58;
   const mt = o.mt ?? 0;
