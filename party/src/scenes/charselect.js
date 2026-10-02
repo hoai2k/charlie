@@ -246,6 +246,9 @@ export class CharSelectScene {
       ui.hints(g, [['a', 'Pick'], ['b', 'Back'], ['x', 'Add CPU'], ['y', 'Remove CPU'], ['rb', `CPU: ${AI_LEVELS[session.cpuLevel]}`]], W / 2, 1040, { size: 34 });
     }
     if (this.starting !== null) ui.banner(g, "Let's party!", this.starting, { size: 150, y: 470 });
+    if (shell.wantFullscreen && !shell.isFullscreen() && shell.canFullscreen() && this.t > 1) {
+      ui.text(g, 'Tip: press any key or click for full screen', W - 24, 1060, { size: 22, align: 'right', color: '#fff', strokeWidth: 5 });
+    }
   }
 
   colorOf(h) { return PLAYER_COLORS[this.humans.indexOf(h)]; }
