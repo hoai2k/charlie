@@ -5,6 +5,7 @@ import { W, H } from './canvas.js';
 import { input } from './input.js';
 import { drawPortrait } from './sprites.js';
 import { drawStarShape } from './emotes.js';
+import { drawArt } from './art.js';
 import { clamp, ease, TAU } from './util.js';
 
 export const FONT = 'Fredoka, "Baloo 2", "Arial Rounded MT Bold", system-ui, sans-serif';
@@ -240,7 +241,9 @@ export function stars(g, n, x, y, size = 30, o = {}) {
   for (let i = 0; i < n; i++) {
     g.save(); g.translate(x + i * size * 1.1 - ((n - 1) * size * 1.1) / 2, y);
     if (o.wobble) g.rotate(Math.sin(performance.now() / 300 + i) * 0.15);
-    drawStarShape(g, size, o.color || '#ffd23f'); g.restore();
+    // Generated star art (gold only); colored stars stay vector.
+    if (o.color || !drawArt(g, 'ui/star', 0, 0, size * 1.35, size * 1.35)) drawStarShape(g, size, o.color || '#ffd23f');
+    g.restore();
   }
 }
 

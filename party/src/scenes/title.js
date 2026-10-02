@@ -55,10 +55,10 @@ export class TitleScene {
     if (!inputOpen || this.leaving || this.t < 0.4) return;
     const c = input.humans().find((h) => h.anyButtonPressed());
     const p = input.pointer.pressed;
-    if (c || p) this.start();
+    if (c || p) this.start(c);
   }
 
-  start() {
+  start(starter = null) {
     this.leaving = true;
     shell.wantFullscreen = true;
     shell.tryFullscreen();
@@ -70,7 +70,7 @@ export class TitleScene {
     particles.burst(W / 2, 760, { type: 'star', count: 30 });
     particles.burst(W / 2, 760, { type: 'confetti', count: 60 });
     for (const a of this.parade) a.playOnce('celebrate', 1.2, 'walk');
-    setTimeout(() => this.manager.go('charselect'), 650);
+    setTimeout(() => this.manager.go('charselect', { starter }), 650);
   }
 
   draw(g) {
