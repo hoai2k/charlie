@@ -142,6 +142,8 @@ export class Game {
 
   // --- layout --------------------------------------------------------------
   layout() {
+    if (art('bg/potion-class')) { this.layoutArt(); return; }
+    this.artBoard = false;
     const n = this.n;
     const rows = n <= 4 ? 1 : 2;
     const cols = Math.ceil(n / rows);
@@ -168,6 +170,41 @@ export class Game {
     const by = Math.max(12, (this.top - 300 * s) / 2 - 6);
     this.board = { x: gx + 250 * s, y: by, w: 860 * s, h: 300 * s, s };
     this.hootPos = { x: gx + 120 * s, y: by + 310 * s };
+  }
+
+  // Layout around the blackboard painted into bg/potion-class (frame x 604-1316,
+  // y 216-596; dark board x 632-1292, y 244-572). The recipe goes on that board,
+  // stations stay below it (1-4 players), or 4 below + up to 2 per side beside it.
+  layoutArt() {
+    const n = this.n;
+    this.artBoard = true;
+    const below = Math.min(n, 4), side = n - below;
+    const FX0 = 604, FY1 = 596, gap = 10;
+    let k;
+    if (!side) k = Math.min(W / below / SW, (H - 4 - FY1 - gap) / SH, 1.2);
+    else if (side <= 2) k = Math.min(W / 4 / SW, (H - 4 - 20) / (2 * SH), (FX0 - 24) / SW);
+    else k = Math.min(W / 4 / SW, (H - 4 - 20) / (3 * SH), (FX0 - 24) / SW);
+    this.k = k; this.rows = side ? 2 : 1;
+    const bottomY = H - 4 - SH * k;
+    this.top = bottomY;
+    this.boxes = [];
+    for (let i = 0; i < below; i++) {
+      const cx = W / 2 + (i - (below - 1) / 2) * (W / below);
+      this.boxes.push({ x: cx - (SW * k) / 2, y: bottomY, k, hy: 8, py: 118 });
+    }
+    const sideX = Math.max(FX0 / 2, (SW * k) / 2 + 12);
+    for (let j = 0; j < side; j++) {
+      const cx = j % 2 ? W - sideX : sideX;
+      this.boxes.push({ x: cx - (SW * k) / 2, y: bottomY - (1 + Math.floor(j / 2)) * SH * k, k, hy: 8, py: 118 });
+    }
+    this.wallBottom = 640;
+    // Recipe design (content 20..840 x 18..282 of the 860x300 board) fitted into the painted board.
+    const bs = Math.min((1292 - 632 - 16) / 820, (572 - 244 - 12) / 264);
+    this.board = { x: 962 - 430 * bs, y: 408 - 150 * bs, w: 860 * bs, h: 300 * bs, s: bs };
+    // Hoot stands beside the board over the left window when the sides are free,
+    // else perches on the board's top frame and talks to his right.
+    if (!side) { this.bs = 1; this.hootPos = { x: 452, y: 604 }; this.perch = false; }
+    else { this.bs = 0.62; this.hootPos = { x: 700, y: 230 }; this.perch = true; }
   }
 
   makeStation(p, i) {
@@ -634,7 +671,11 @@ export class Game {
     this.drawBoard(g);
     this.drawHootAndSpeech(g);
     for (const st of this.stations) this.drawStation(g, st);
-    if (this.phase === 'brew' && this.brewT > ROUND_TIME - 20) ui.timer(g, ROUND_TIME - this.brewT, W - 120, 70);
+    if (this.phase === 'brew' && this.brewT > ROUND_TIME - 20) {
+      // (with side stations the top-right corner is a station; use the gap above the board)
+      if (this.perch) ui.timer(g, ROUND_TIME - this.brewT, 1400 - 30, 140);
+      else ui.timer(g, ROUND_TIME - this.brewT, W - 120, 70);
+    }
     if (this.phase === 'end' || this.phase === 'outro') {
       // nothing extra: Hoot's speech carries the moment
     }
@@ -750,6 +791,17 @@ export class Game {
     const b = this.board, s = b.s;
     g.save(); g.translate(b.x, b.y); g.scale(s, s);
     const bw = 860, bh = 300;
+    if (!this.artBoard) this.drawBoardFrame(g, bw, bh);
+    else {
+      // light chalk doodles on the painted board
+      g.save(); g.globalAlpha = 0.3; g.strokeStyle = '#fff'; g.lineWidth = 3;
+      g.beginPath(); g.arc(800, 250, 16, 0.5, 5.5); g.stroke(); g.restore();
+    }
+    this.drawBoardContent(g, bw, bh);
+    g.restore();
+  }
+
+  drawBoardFrame(g, bw, bh) {
     // frame + chalk
     g.fillStyle = 'rgba(20,10,40,0.3)'; ui.roundRect(g, 8, 12, bw, bh, 20); g.fill();
     g.fillStyle = '#8a5a34'; ui.roundRect(g, 0, 0, bw, bh, 20); g.fill();
@@ -768,6 +820,9 @@ export class Game {
     // chalk tray
     g.fillStyle = '#6e4529'; g.fillRect(40, bh - 22, bw - 80, 12);
     g.fillStyle = '#fff'; g.fillRect(120, bh - 28, 34, 8); g.fillStyle = '#ffb3d9'; g.fillRect(170, bh - 28, 26, 8);
+  }
+
+  drawBoardContent(g, bw, bh) {
 
     const rd = this.rd;
     const chalk = { stroke: false, color: '#f4fff8', weight: 700 };
@@ -826,7 +881,16 @@ export class Game {
     const hp = this.hootPos;
     const talk = this.speech && this.speech.t < Math.min(this.speech.dur, 1.6) ? Math.abs(Math.sin(this.speech.t * 14)) : 0;
     drawHoot(g, hp.x, hp.y, s, { t: this.t, flap: h.flap, point: h.pointV, tilt: h.tilt, mood: h.mood, talk, blink: h.blink, look: h.look });
-    if (this.speech) {
+    if (this.speech && this.perch) {
+      // bubble to Hoot's right, above the board
+      const sp = this.speech;
+      const a = Math.min(1, sp.t / 0.15, (sp.dur - sp.t) / 0.25);
+      const bw = 520, bx = hp.x + 70 + bw / 2, by = 112;
+      const pop = ease.outBack(clamp(sp.t / 0.25, 0, 1));
+      g.save(); g.translate(bx, by); g.scale(pop, pop);
+      speechBubble(g, ui, sp.text, 0, 0, bw, hp.x + 40 - bx, hp.y - 120 - by, 28, Math.max(0, a));
+      g.restore();
+    } else if (this.speech) {
       const sp = this.speech;
       const a = Math.min(1, sp.t / 0.15, (sp.dur - sp.t) / 0.25);
       const bw = Math.min(440 * s, hp.x - 90 * s - 24);
