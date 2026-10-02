@@ -59,8 +59,7 @@ outputs to avoid accidental replacement. The committed manifest intentionally
 omits machine-specific PNG paths; use its prompts with the built-in generator,
 then add local source paths to a separate manifest before exporting.
 
-These assets are ready for the title/select redesign described by the brief.
-This artwork change does not implement those new screens.
+The title/select screens use this artwork in `../../menu.js` and `../../styles.css`.
 
 ## Independent title hero layers
 
@@ -77,8 +76,13 @@ the original poses, rather than a pixel-exact disassembly of the composite.
 `title-hero-split-prompts.json` records the six final built-in ImageGen prompts.
 
 Use each layer's native `width`/`height` and `x`/`y` to reproduce the group.
-Optional motion parameters give each layer a different phase, period and entry
-delay. After loading the images into a map keyed by `layer.key`, for example:
+The title screen loads this layout and all six cutouts, keeping the original
+composite as a fallback until every image is decoded. Mounts bob on a 1.4-second
+cycle and runners on a quicker 0.7-second cycle, with 120-degree phase spacing
+within each group and staggered entrances. Reduced-motion mode keeps the group
+still. The container allows overflow for wing tips and bobbing.
+
+The motion parameters give each layer its phase, period and entry delay. After loading the images into a map keyed by `layer.key`, for example:
 
 ```js
 // elapsedMs is measured from animation start. Add a 16-pixel gutter around

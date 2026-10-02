@@ -637,6 +637,11 @@ button:focus-visible {
 #lbTitleClouds { left: 0; right: 0; top: 10px; height: 230px; opacity: 0.95; background: url(assets/ui/title_clouds.webp) 0 0 / auto 230px repeat-x; }
 #lbTitleHills { left: 0; right: 0; bottom: 0; height: 330px; background: url(assets/ui/title_hills.webp) 0 0 / auto 330px repeat-x; }
 #lbTitleHero { left: 160px; bottom: 96px; width: 960px; height: 384px; background: url(assets/ui/title_hero.webp) center / contain no-repeat; filter: drop-shadow(0 14px 10px rgba(40, 60, 20, 0.35)); }
+#lbTitleHero.layered { background-image: none; }
+.lb-title-racer { position: absolute; display: block; pointer-events: none; will-change: transform; }
+@media (prefers-reduced-motion: reduce) {
+  #lbTitleLogo, #lbPressStart { animation: none !important; }
+}
 #lbTitleLogo { left: 320px; top: 22px; width: 640px; height: 244px; background: url(assets/ui/logo.webp) center / contain no-repeat; filter: drop-shadow(0 8px 12px rgba(60, 20, 60, 0.35)); animation: lb-logo-in 0.9s cubic-bezier(0.2, 1.6, 0.4, 1) both; }
 @keyframes lb-logo-in { from { transform: scale(0.4) rotate(-6deg); opacity: 0; } }
 #lbPressStart { left: 190px; bottom: -6px; width: 900px; height: 150px; display: flex; align-items: center; justify-content: center; gap: 8px; padding-bottom: 6px; font-size: 27px; font-weight: 700; color: #6a3a14; cursor: pointer; background: url(assets/ui/press_start_plate.webp) center / contain no-repeat; animation: lb-pulse 1.3s ease-in-out infinite; }

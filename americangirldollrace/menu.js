@@ -100,6 +100,59 @@
   }
   new ResizeObserver(fit).observe(root);
 
+  // ---------- independently animated title racers ----------
+  const titleHero = $("#lbTitleHero");
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let titleLayers = [];
+  let titleLayerStart = 0;
+
+  async function loadTitleHero() {
+    try {
+      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002g", document.baseURI);
+      const response = await fetch(layoutUrl);
+      if (!response.ok) throw new Error(`Title layout: ${response.status}`);
+      const layout = await response.json();
+      const layers = await Promise.all(layout.layers.map(async layer => {
+        const image = new Image();
+        image.className = "lb-title-racer";
+        image.alt = "";
+        image.draggable = false;
+        image.src = new URL(layer.file, layoutUrl).href;
+        await image.decode();
+        image.style.left = `${layer.x / layout.canvas.width * 100}%`;
+        image.style.top = `${layer.y / layout.canvas.height * 100}%`;
+        image.style.width = `${layer.width / layout.canvas.width * 100}%`;
+        image.style.height = `${layer.height / layout.canvas.height * 100}%`;
+        image.style.zIndex = layer.z;
+        return { ...layer, image, canvasWidth: layout.canvas.width };
+      }));
+      titleLayerStart = lobby.time;
+      titleLayers = layers;
+      animateTitleHero(0);
+      titleHero.replaceChildren(...layers.map(layer => layer.image));
+      titleHero.classList.add("layered");
+      titleHero.style.transform = "";
+    } catch (error) {
+      // Leave the original composite in place if any layer cannot load.
+      console.warn("Using the original title artwork", error);
+    }
+  }
+
+  function animateTitleHero(t) {
+    for (const layer of titleLayers) {
+      const localMs = t * 1000 - layer.enterDelayMs;
+      const progress = reducedMotion.matches ? 1 : Math.max(0, Math.min(1, localMs / 950));
+      const ease = 1 - (1 - progress) ** 3;
+      // Phase uses the shared clock, so the entrance delay doesn't shift the rhythm.
+      const bob = reducedMotion.matches ? 0 : layer.bobAmplitude * Math.sin(
+        t * 1000 / layer.bobPeriodMs * Math.PI * 2 + layer.phaseRadians
+      );
+      layer.image.style.visibility = progress > 0 ? "visible" : "hidden";
+      // Percent translations are relative to each cutout's dimensions.
+      layer.image.style.transform = `translate(${-(1 - ease) * layer.canvasWidth / layer.width * 100}%, ${bob / layer.height * 100}%)`;
+    }
+  }
+
   // ---------- roster grid ----------
   const rows = () => [lobby.roster.slice(0, COLS).map((_, i) => i), lobby.roster.slice(COLS).map((_, i) => i + COLS)];
 
@@ -617,11 +670,14 @@
     pollPads(dt);
     keysTapped.clear();
     if (lobby.screen === "title") {
-      const t = lobby.time;
+      const t = reducedMotion.matches ? 0 : lobby.time;
       $("#lbTitleClouds").style.backgroundPositionX = `${-t * 18}px`;
       $("#lbTitleHills").style.backgroundPositionX = `${-t * 70}px`;
-      const ease = 1 - Math.pow(1 - Math.min(1, t / 1.4), 3);
-      $("#lbTitleHero").style.transform = `translate(${(1 - ease) * -900}px, ${Math.sin(t * 7) * 6}px)`;
+      if (titleLayers.length) animateTitleHero(lobby.time - titleLayerStart);
+      else {
+        const ease = reducedMotion.matches ? 1 : 1 - Math.pow(1 - Math.min(1, t / 1.4), 3);
+        titleHero.style.transform = `translateX(${(1 - ease) * -900}px)`;
+      }
     } else if (!lobby.settingsOpen) {
       const holding = allReady() && assetsReady && lobby.slots.some(slot => slot && slot.aFresh && lobby.heldActions.get(slot.device)?.has("a"));
       const before = lobby.hold;
@@ -684,6 +740,7 @@
     }
   };
 
+  loadTitleHero();
   buildGrid();
   glyphs();
   root.dataset.screen = "title";
