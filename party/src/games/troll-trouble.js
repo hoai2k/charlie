@@ -740,16 +740,16 @@ export class Game {
   drawHud(g) {
     const gems = this.pl.map((q) => q.gems);
     ui.scoreboard(g, this.players, gems, {
-      avoidCenter: this.n > 1, y: this.n === 1 ? 118 : 40, format: (v) => `${v}`,
+      avoidCenter: true, format: (v) => `${v}`,
       expr: this.pl.map((q) => (q.stun > 0 ? 'sad' : 'neutral')),
     });
-    if (this.n > 4) ui.timer(g, this.left, W / 2, 158); else ui.timer(g, this.left);
+    ui.timer(g, this.left);
     if (this.hint > 0) {
       g.save(); g.globalAlpha = clamp(this.hint, 0, 1);
-      ui.panel(g, W / 2 - 520, 215, 1040, 66, { r: 33, fill: '#fff8ec' });
-      ui.text(g, 'Grab gems!  Run from the growing shadow!', W / 2 - 60, 249, { size: 34, color: NAVY, stroke: false, weight: 700 });
-      ui.glyph(g, 'a', W / 2 + 380, 249, 46, { pulse: true });
-      ui.text(g, 'Dash', W / 2 + 415, 249, { size: 30, color: NAVY, stroke: false, align: 'left', weight: 700 });
+      ui.panel(g, W / 2 - 520, 130, 1040, 66, { r: 33, fill: '#fff8ec' });
+      ui.text(g, 'Grab gems!  Run from the growing shadow!', W / 2 - 60, 164, { size: 34, color: NAVY, stroke: false, weight: 700 });
+      ui.glyph(g, 'a', W / 2 + 380, 164, 46, { pulse: true });
+      ui.text(g, 'Dash', W / 2 + 415, 164, { size: 30, color: NAVY, stroke: false, align: 'left', weight: 700 });
       g.restore();
     }
     if (this.angerBanner > 0) {
