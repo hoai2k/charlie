@@ -1,0 +1,146 @@
+[
+  {
+    "asset": "bronze",
+    "sheet": "walk",
+    "poses": [
+      "walk0",
+      "walk1",
+      "walk2",
+      "walk3"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-174c2ab8-3693-4815-965c-3027e00e3efa.png",
+    "prompt": "Exact Bronze canonical; armless one-eyed robot; four pose walk or idle/celebrate/pout/wave. Complete prompt in task history."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "core",
+    "poses": [
+      "idle",
+      "celebrate",
+      "pout",
+      "wave"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c3ada756-c521-4792-b00a-8673bcfbe288.png",
+    "prompt": "Exact Bronze canonical; armless one-eyed robot; four pose walk or idle/celebrate/pout/wave. Complete prompt in task history."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "reactions",
+    "poses": [
+      "hurt",
+      "dizzy",
+      "surprised",
+      "ready"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-91225ffa-d25c-446e-b180-6871bf3573cc.png",
+    "prompt": "Reproduce EXACT Bronze robot in FOUR fullbody separate posecells horizontal row same camera scale baseline slight RIGHTthreequarter. Cell1 HURT flinch dome tilted squinted singleeye recoiledleg. Cell2 DIZZY spiral singlepupil offbalance knees. Cell3 SURPRISED verywide singleeye antenna upright feet startled apart. Cell4 READY confident narrowedeyelid leans forward kneesbent. NO ARMS HANDS MOUTH or second eye. Keep graycanrobot greenrimdome blueorange-eye purplediamondantenna bentgraypipe purplepanel greenbutton mismatchedlegs bigpurpleorangerim shoes coloredpaintdoodles. Express using oneeye dome antenna legs only. All complete antenna feet pipe contained own equalcell generous clear margins no overlap. Bold darknavyline brightcleancelshading no3D. True transparency NO labels text effects stars floor shadows props."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "air",
+    "poses": [
+      "jump",
+      "fall",
+      "land",
+      "think"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-accd3b6f-f857-403f-a873-580f43219ca2.png",
+    "prompt": "Reproduce EXACT Bronze armless one-eyed robot. FOUR fullbody gameposes horizontal row same scale fixedrightthreequarter camera: 1 JUMP both mechanicalfeet tuckedunder with dome alert, 2 FALL legs extended down eye wide pipeup, 3 LAND knees deeply compressed dome lowered eye squint, 4 THINK singleeye glancingup dome tilted antenna curved inquisitively. Bronze never has arms hands mouth or second eye. Preserve graygreenrimdome blueorangeeye ring purplediamondantenna graybentpipe graycanbody purplepanelgreenbutton mismatchedlegs purpleorange-rimshoes coloredpaintdoodles. Each complete figure antennafeet pipe inside own equalwidthcell generousspacing nooverlap, transparent background. Darknavy outlines brightcleancelshading no3D no text labels effects shadows floor."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "actions",
+    "poses": [
+      "action",
+      "throw",
+      "push",
+      "carry"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d981d68c-41db-4fae-b5ac-9341b9a2aa26.png",
+    "prompt": "Reproduce EXACT Bronze armlessrobot FOUR fullbody gameaction keyposes equal-width cells horizontal, same scale/camera slight rightthreequarter: 1 ACTION forward enthusiastic pipe thrust upperbody leaningright 2 THROW anticipatory backward lean with pipe aimedforward to launch imaginaryitem, 3 PUSH leans hard forward bracing bothshoes, 4 CARRY proud upright walking stance eye focusedforward pipe slightly raised. NO props or objects drawn actions communicate via pose only. NO ARMS HANDS MOUTH SECOND EYE. Preserve exact greenrim graydome blueorange singleeye purplediamondantenna graybentpipe canbody purplepanelgreenbutton mismatchedlegs bigpurpleorangerimshoes and coloredpaintdoodles. Complete each antenna and feet within cell generous transparentmargins no overlap. Boldnavyoutline brightcleancelshade no3D. True transparency no labels effects text floor shadows."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "studio",
+    "poses": [
+      "dance",
+      "paint",
+      "sleep",
+      "cast"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-27e3ab9b-229e-45b7-86f4-9f169a65fca1.png",
+    "prompt": "Reproduce exact Bronze oneeyed armlessrobot FOUR fullbody equalcell horizontal row poses:1 DANCE leanleft onefootkick right happycrescenteye antenna curved,2 PAINT angleddome concentrating pipe aimed diagonally down forward (NO brush),3 SLEEP sitting legs stretchedforward eye fullyclosed antenna drooped pipe still,4 CAST magic poised tall antenna aimedforward focused singleeye pipeup (NO magicdrawn). Samecamera slightlyrightthreequarter constantbodysize. NO ARMS HANDS MOUTH ever. Exactgraygreenrimdome blueorangeeye purplediamondantenna graybentpipe graycanbody purplepanelgreenbutton mismatchedlegs bigpurpleorangerimshoes coloredpaintdoodles. Every entirefigure contained cell generousgaps transparentbackground. Boldnavy outline cleancelshade no3D no text labels shadows floor particles props."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "social",
+    "poses": [
+      "clap",
+      "eat",
+      "ride",
+      "bow"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-bd32f84f-cdce-4015-9c5c-6cb06b942946.png",
+    "prompt": "Reproduce exact Bronze armless oneeyedrobot as FOUR complete fullbody gameposes in spaced equalcells horizontal:1 CLAP happyeye knees tapping shoes together (noarms),2 EAT curious eye dome leaned toward pipe opening (nofood, nomouth),3 RIDE balanced seated position knees forward bothshoes offground (novehicle),4 BOW polite forward dome tilt bentknees pipeback. Same rightthreequartercamera scale. NO ARMS HANDS MOUTH or second eye. Graygreenrimdome blueorangeeye purplediamondantenna graybentpipe graycanbody purplepanelgreenbutton mismatchedlegs purpleorangerimshoes coloredpaintdoodles. Keep full antenna shoes pipe each owncell nooverlap bigmargins. Boldnavyline cleancelshading brightcolors realtransparentbackground. NO labels text props floor shadows effects."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "runway",
+    "poses": [
+      "strike1",
+      "strike2",
+      "strike3",
+      "dance-star"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1360a8a6-e678-4fa2-aa2c-944381e932bd.png",
+    "prompt": "Exact Bronze armless robot FOUR fullbody distinct runway/dance gameposes horizontal row. Same scale fixedcamera. 1 STRIKE1 confident leanedside eye confident pipeback legs crossed; 2 STRIKE2 jaunty onefoot kick antenna diagonal eyehappy; 3 STRIKE3 broad balanced stance dome jaunty eye bright; 4 DANCE-STAR wide-legged star stance gleeful crescenteye antenna straight. NO ARMS HANDS MOUTH secondeye. Preserve greenrimgraydome single blueorange eye purple diamondantenna bentgraypipe canbody purplepanel greenbutton mismatchedlegs purpleorangerimshoes coloredpaintdoodles. Fourcompletefigures in separateequalcells generousmargins nooverlap realtransparency no text labels props shadows effects floor. Smoothnavylines cleancelshade brightcolors."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "rhythm",
+    "poses": [
+      "dance-up",
+      "dance-down",
+      "dance-side",
+      "stir"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-141509d5-7a8c-4281-870e-4561b2700c11.png",
+    "prompt": "Exact Bronze armless robot FOUR fullbody rhythm gameposes horizontal row fixedcamera same scale:1 DANCE-UP tall toes straightleg stretch domeup antenna high,2 DANCE-DOWN deep low knee squat dome down,3 DANCE-SIDE dramatic sidewayslean one shoe slidesout eye gleeful,4 STIR slightforward focusedlean pipe angled down ready to rotate imaginaryspoon (no prop). NO ARMS HANDS MOUTH secondeye ever. Exact graygreenrimdome blueorange singleeye purplediamondantenna bentgraypipe graycanbody purplepanelgreenbutton mismatchedlegs bigpurpleorange shoes coloredpaintdoodles. Boldnavyline brightcleancelshading. Allcomplete figures in separateequalcells generous transparentmargin. No text labels effects floor shadows props."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "extras",
+    "poses": [
+      "look-around",
+      "high-five",
+      "crouch",
+      "dash"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d04854f3-b3b8-4895-8d13-68a507df279e.png",
+    "prompt": "Edit this exact four-pose strip. Change ONLY the first robot's antenna: remove the question-mark-shaped purple tip and replace with the SAME faceted purple diamond jewel atop a slightlycurved thinpurple antenna as the otherthree robots and approved Bronze. No questionmark anywhere. Keep firstrobot inquisitive eye look and exactbodypose. Preserve all otherrobots, alpha transparency, spacing, colors outlines sizes. No new background props text effects."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "extras2",
+    "poses": [
+      "catch",
+      "wave-goodbye",
+      "shake"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a2d6eb92-7979-4d45-bc51-852e8fd07f2e.png",
+    "prompt": "Reproduce exact Bronze armlessoneeyedrobot THREE fullbody gameposes horizontal separateequalcells constant bodysize slightRIGHTthreequartercamera:1 CATCH bracedknees pipe presented upward expectant eye (no ball),2 WAVE-GOODBYE gentle eyecrescent dome bowed pipe tilted high warm farewell,3 SHAKE playful diagonal dome wobble onefootlifted antenna bendsopposite. NO ARMS HANDS MOUTH secondeye. Preserve exact graygreenrimdome blueorangeeye purplediamondantenna graybentpipe canbody purplepanelgreenbutton mismatchedlegs purpleorangeshoes coloredpaintdoodles. Whole figures generousmargins nooverlap no clipping. Boldnavyoutline brightcleancelshade transparentbackground no text labels shadowsfloor motionlines effects props."
+  },
+  {
+    "asset": "bronze",
+    "sheet": "portraits",
+    "poses": [
+      "neutral",
+      "happy",
+      "sad",
+      "surprised",
+      "determined"
+    ],
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d6cd413a-cf72-494d-9a45-329def41fced.png",
+    "prompt": "Reproduce exact Bronze robot FIVE HUD portraits headanduppercanbody horizontal equallyspacedcells equalcamera scale. LefttoRight expressions NEUTRAL curiousroundeye; HAPPY upwardeyecrescent; SAD droopingupperlid; SURPRISED hugewideeye; DETERMINED angledfocusedeyelid. Express entirely inside singleeye. NO MOUTH ARMS HANDS SECONDEYE. Exact graydome greenrim blueorange circularsingleeye, purplediamond antenna,graybentpipe,uppercanbody purplepanelgreenbutton paintdoodles. Include entire antenna andpipe eachcell nooverlap, enoughtransparentmargin. Eyes45%height with moretransparentpaddingaboveifneeded. Boldnavy outlines celshading samecolors. Transparentbackground no circles labels text effects shadows orscenery. Five busts only."
+  }
+]

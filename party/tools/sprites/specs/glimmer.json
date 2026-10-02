@@ -1,0 +1,759 @@
+{
+  "asset": "glimmer",
+  "bodyHeight": 320,
+  "frameSize": [
+    600,
+    500
+  ],
+  "anchor": [
+    300,
+    472
+  ],
+  "facing": 1,
+  "provenance": "Built-in image_gen from user-approved no-blush Glimmer v3. Prompts in glimmer-generation-prompts.json. Wing flutter and expressions are generated art; procedural overlay supplies hover.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            18,
+            20,
+            537,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            285,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            285,
+            34
+          ],
+          "eyes": [
+            311,
+            217
+          ],
+          "neck": [
+            301,
+            299
+          ],
+          "back": [
+            215,
+            326
+          ],
+          "hand": [
+            424,
+            387
+          ],
+          "dur": 0.65
+        },
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            591,
+            23,
+            443,
+            676
+          ],
+          "isolate": true,
+          "anchor": [
+            235,
+            673
+          ],
+          "scale": 1,
+          "head": [
+            235,
+            34
+          ],
+          "eyes": [
+            257,
+            216
+          ],
+          "neck": [
+            248,
+            297
+          ],
+          "back": [
+            177,
+            324
+          ],
+          "hand": [
+            350,
+            385
+          ],
+          "dur": 0.1
+        },
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            18,
+            20,
+            537,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            285,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            285,
+            34
+          ],
+          "eyes": [
+            311,
+            217
+          ],
+          "neck": [
+            301,
+            299
+          ],
+          "back": [
+            215,
+            326
+          ],
+          "hand": [
+            424,
+            387
+          ],
+          "dur": 0.5
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.35
+    },
+    "talk": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            1050,
+            20,
+            570,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            302,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            302,
+            34
+          ],
+          "eyes": [
+            331,
+            217
+          ],
+          "neck": [
+            319,
+            299
+          ],
+          "back": [
+            228,
+            326
+          ],
+          "hand": [
+            450,
+            387
+          ]
+        },
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            1674,
+            20,
+            467,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            248,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            248,
+            34
+          ],
+          "eyes": [
+            271,
+            217
+          ],
+          "neck": [
+            262,
+            299
+          ],
+          "back": [
+            187,
+            326
+          ],
+          "hand": [
+            369,
+            387
+          ]
+        },
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            18,
+            20,
+            537,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            285,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            285,
+            34
+          ],
+          "eyes": [
+            311,
+            217
+          ],
+          "neck": [
+            301,
+            299
+          ],
+          "back": [
+            215,
+            326
+          ],
+          "hand": [
+            424,
+            387
+          ]
+        },
+        {
+          "source": "../sources/glimmer-idle-talk.webp",
+          "rect": [
+            1674,
+            20,
+            467,
+            679
+          ],
+          "isolate": true,
+          "anchor": [
+            248,
+            676
+          ],
+          "scale": 1,
+          "head": [
+            248,
+            34
+          ],
+          "eyes": [
+            271,
+            217
+          ],
+          "neck": [
+            262,
+            299
+          ],
+          "back": [
+            187,
+            326
+          ],
+          "hand": [
+            369,
+            387
+          ]
+        }
+      ],
+      "fps": 7,
+      "loop": true,
+      "motion": 0.3
+    },
+    "present": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-present-cast.webp",
+          "rect": [
+            10,
+            39,
+            517,
+            646
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            643
+          ],
+          "scale": 1.04,
+          "head": [
+            274,
+            32
+          ],
+          "eyes": [
+            300,
+            207
+          ],
+          "neck": [
+            290,
+            284
+          ],
+          "back": [
+            207,
+            310
+          ],
+          "hand": [
+            408,
+            368
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-present-cast.webp",
+          "rect": [
+            515,
+            32,
+            534,
+            653
+          ],
+          "isolate": true,
+          "anchor": [
+            283,
+            650
+          ],
+          "scale": 1.04,
+          "head": [
+            283,
+            33
+          ],
+          "eyes": [
+            310,
+            209
+          ],
+          "neck": [
+            299,
+            287
+          ],
+          "back": [
+            214,
+            313
+          ],
+          "hand": [
+            422,
+            372
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-cast.webp",
+          "rect": [
+            134,
+            48,
+            740,
+            747
+          ],
+          "isolate": true,
+          "anchor": [
+            392,
+            744
+          ],
+          "scale": 0.9,
+          "head": [
+            392,
+            37
+          ],
+          "eyes": [
+            429,
+            239
+          ],
+          "neck": [
+            414,
+            329
+          ],
+          "back": [
+            296,
+            359
+          ],
+          "hand": [
+            585,
+            426
+          ]
+        },
+        {
+          "source": "../sources/glimmer-cast.webp",
+          "rect": [
+            1034,
+            48,
+            816,
+            757
+          ],
+          "isolate": true,
+          "anchor": [
+            432,
+            754
+          ],
+          "scale": 0.9,
+          "head": [
+            432,
+            38
+          ],
+          "eyes": [
+            473,
+            242
+          ],
+          "neck": [
+            457,
+            333
+          ],
+          "back": [
+            326,
+            363
+          ],
+          "hand": [
+            645,
+            431
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3
+    },
+    "point": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-cast.webp",
+          "rect": [
+            1034,
+            48,
+            816,
+            757
+          ],
+          "isolate": true,
+          "anchor": [
+            432,
+            754
+          ],
+          "scale": 0.9,
+          "head": [
+            432,
+            38
+          ],
+          "eyes": [
+            473,
+            242
+          ],
+          "neck": [
+            457,
+            333
+          ],
+          "back": [
+            326,
+            363
+          ],
+          "hand": [
+            645,
+            431
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-reactions.webp",
+          "rect": [
+            34,
+            15,
+            434,
+            469
+          ],
+          "isolate": true,
+          "anchor": [
+            230,
+            466
+          ],
+          "scale": 1.39,
+          "head": [
+            230,
+            23
+          ],
+          "eyes": [
+            252,
+            150
+          ],
+          "neck": [
+            243,
+            206
+          ],
+          "back": [
+            174,
+            225
+          ],
+          "hand": [
+            343,
+            267
+          ]
+        },
+        {
+          "source": "../sources/glimmer-reactions.webp",
+          "rect": [
+            523,
+            14,
+            415,
+            482
+          ],
+          "isolate": true,
+          "anchor": [
+            220,
+            479
+          ],
+          "scale": 1.39,
+          "head": [
+            220,
+            24
+          ],
+          "eyes": [
+            241,
+            154
+          ],
+          "neck": [
+            232,
+            212
+          ],
+          "back": [
+            166,
+            231
+          ],
+          "hand": [
+            328,
+            275
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.15
+    },
+    "cheer": {
+      "alias": "celebrate",
+      "loop": false,
+      "fps": 8,
+      "motion": 0.15
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-reactions.webp",
+          "rect": [
+            1027,
+            16,
+            455,
+            481
+          ],
+          "isolate": true,
+          "anchor": [
+            241,
+            478
+          ],
+          "scale": 1.39,
+          "head": [
+            241,
+            24
+          ],
+          "eyes": [
+            264,
+            154
+          ],
+          "neck": [
+            255,
+            212
+          ],
+          "back": [
+            182,
+            231
+          ],
+          "hand": [
+            359,
+            274
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-reactions.webp",
+          "rect": [
+            29,
+            523,
+            448,
+            487
+          ],
+          "isolate": true,
+          "anchor": [
+            237,
+            484
+          ],
+          "scale": 1.39,
+          "head": [
+            237,
+            24
+          ],
+          "eyes": [
+            260,
+            156
+          ],
+          "neck": [
+            251,
+            214
+          ],
+          "back": [
+            179,
+            234
+          ],
+          "hand": [
+            354,
+            278
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/glimmer-reactions.webp",
+          "rect": [
+            526,
+            525,
+            453,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            240,
+            482
+          ],
+          "scale": 1.39,
+          "head": [
+            240,
+            24
+          ],
+          "eyes": [
+            263,
+            155
+          ],
+          "neck": [
+            254,
+            213
+          ],
+          "back": [
+            181,
+            233
+          ],
+          "hand": [
+            358,
+            276
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85
+    },
+    "walk": {
+      "alias": "idle",
+      "fps": 7,
+      "motion": 0.6
+    },
+    "ready": {
+      "alias": "wave",
+      "motion": 0.85
+    },
+    "pout": {
+      "alias": "sad",
+      "motion": 0.85
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/glimmer-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 0,
+      "isolate": true
+    },
+    "happy": {
+      "source": "../sources/glimmer-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 1,
+      "isolate": true
+    },
+    "sad": {
+      "source": "../sources/glimmer-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 2,
+      "isolate": true
+    },
+    "surprised": {
+      "source": "../sources/glimmer-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 3,
+      "isolate": true
+    },
+    "determined": {
+      "source": "../sources/glimmer-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 4,
+      "isolate": true
+    },
+    "talk": {
+      "source": "../sources/glimmer-portraits.webp",
+      "grid": [
+        3,
+        2
+      ],
+      "cell": 5,
+      "isolate": true
+    }
+  }
+}

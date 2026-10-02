@@ -1,0 +1,1871 @@
+{
+  "asset": "bronze",
+  "bodyHeight": 320,
+  "frameSize": [
+    640,
+    560
+  ],
+  "anchor": [
+    320,
+    520
+  ],
+  "facing": 0,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            54,
+            5,
+            459,
+            704
+          ],
+          "isolate": true,
+          "anchor": [
+            197.0,
+            700
+          ],
+          "scale": 1.0,
+          "head": [
+            196,
+            150
+          ],
+          "eyes": [
+            196,
+            251
+          ],
+          "neck": [
+            196,
+            324
+          ],
+          "back": [
+            196,
+            436
+          ],
+          "hand": [
+            404,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            541,
+            20,
+            527,
+            692
+          ],
+          "isolate": true,
+          "anchor": [
+            317.0,
+            688
+          ],
+          "scale": 0.8675,
+          "head": [
+            235,
+            127
+          ],
+          "eyes": [
+            235,
+            243
+          ],
+          "neck": [
+            235,
+            327
+          ],
+          "back": [
+            235,
+            429
+          ],
+          "hand": [
+            464,
+            147
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            1108,
+            125,
+            473,
+            583
+          ],
+          "isolate": true,
+          "anchor": [
+            187.5,
+            580
+          ],
+          "scale": 0.983,
+          "head": [
+            188,
+            14
+          ],
+          "eyes": [
+            188,
+            116
+          ],
+          "neck": [
+            188,
+            190
+          ],
+          "back": [
+            188,
+            361
+          ],
+          "hand": [
+            416,
+            34
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/bronze-core.webp",
+          "rect": [
+            1616,
+            12,
+            521,
+            701
+          ],
+          "isolate": true,
+          "anchor": [
+            331.5,
+            697
+          ],
+          "scale": 0.983,
+          "head": [
+            252,
+            135
+          ],
+          "eyes": [
+            252,
+            237
+          ],
+          "neck": [
+            252,
+            312
+          ],
+          "back": [
+            252,
+            435
+          ],
+          "hand": [
+            458,
+            155
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            66,
+            82,
+            440,
+            632
+          ],
+          "isolate": true,
+          "anchor": [
+            335.0,
+            628
+          ],
+          "scale": 0.983,
+          "head": [
+            200,
+            13
+          ],
+          "eyes": [
+            200,
+            115
+          ],
+          "neck": [
+            200,
+            190
+          ],
+          "back": [
+            200,
+            392
+          ],
+          "hand": [
+            387,
+            33
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            583,
+            7,
+            476,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            243.5,
+            701
+          ],
+          "scale": 0.9253,
+          "head": [
+            200,
+            46
+          ],
+          "eyes": [
+            200,
+            155
+          ],
+          "neck": [
+            200,
+            234
+          ],
+          "back": [
+            200,
+            437
+          ],
+          "hand": [
+            419,
+            66
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            1064,
+            7,
+            529,
+            701
+          ],
+          "isolate": true,
+          "anchor": [
+            261.5,
+            698
+          ],
+          "scale": 0.9132,
+          "head": [
+            260,
+            137
+          ],
+          "eyes": [
+            260,
+            247
+          ],
+          "neck": [
+            260,
+            327
+          ],
+          "back": [
+            260,
+            435
+          ],
+          "hand": [
+            466,
+            157
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/bronze-reactions.webp",
+          "rect": [
+            1639,
+            52,
+            495,
+            661
+          ],
+          "isolate": true,
+          "anchor": [
+            90.5,
+            657
+          ],
+          "scale": 0.972,
+          "head": [
+            244,
+            31
+          ],
+          "eyes": [
+            244,
+            135
+          ],
+          "neck": [
+            244,
+            210
+          ],
+          "back": [
+            244,
+            410
+          ],
+          "hand": [
+            436,
+            51
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            45,
+            0,
+            449,
+            625
+          ],
+          "isolate": true,
+          "anchor": [
+            236.0,
+            692
+          ],
+          "scale": 1.0,
+          "head": [
+            196,
+            129
+          ],
+          "eyes": [
+            196,
+            230
+          ],
+          "neck": [
+            196,
+            302
+          ],
+          "back": [
+            196,
+            388
+          ],
+          "hand": [
+            395,
+            149
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            564,
+            0,
+            448,
+            709
+          ],
+          "isolate": true,
+          "anchor": [
+            214.0,
+            706
+          ],
+          "scale": 1.0146,
+          "head": [
+            222,
+            136
+          ],
+          "eyes": [
+            222,
+            235
+          ],
+          "neck": [
+            222,
+            307
+          ],
+          "back": [
+            222,
+            440
+          ],
+          "hand": [
+            394,
+            156
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            1059,
+            158,
+            533,
+            580
+          ],
+          "isolate": true,
+          "anchor": [
+            278.5,
+            576
+          ],
+          "scale": 0.9507,
+          "head": [
+            262,
+            136
+          ],
+          "eyes": [
+            262,
+            242
+          ],
+          "neck": [
+            262,
+            318
+          ],
+          "back": [
+            262,
+            360
+          ],
+          "hand": [
+            469,
+            156
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/bronze-air.webp",
+          "rect": [
+            1650,
+            68,
+            440,
+            667
+          ],
+          "isolate": true,
+          "anchor": [
+            209.0,
+            663
+          ],
+          "scale": 1.0579,
+          "head": [
+            206,
+            18
+          ],
+          "eyes": [
+            206,
+            113
+          ],
+          "neck": [
+            206,
+            182
+          ],
+          "back": [
+            206,
+            414
+          ],
+          "hand": [
+            387,
+            38
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            27,
+            8,
+            538,
+            686
+          ],
+          "isolate": true,
+          "anchor": [
+            369.0,
+            682
+          ],
+          "scale": 1.0743,
+          "head": [
+            288,
+            145
+          ],
+          "eyes": [
+            288,
+            239
+          ],
+          "neck": [
+            288,
+            306
+          ],
+          "back": [
+            288,
+            425
+          ],
+          "hand": [
+            473,
+            165
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            573,
+            68,
+            522,
+            633
+          ],
+          "isolate": true,
+          "anchor": [
+            427.5,
+            629
+          ],
+          "scale": 1.0946,
+          "head": [
+            224,
+            97
+          ],
+          "eyes": [
+            224,
+            189
+          ],
+          "neck": [
+            224,
+            256
+          ],
+          "back": [
+            224,
+            392
+          ],
+          "hand": [
+            459,
+            117
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            1134,
+            65,
+            546,
+            636
+          ],
+          "isolate": true,
+          "anchor": [
+            389.5,
+            632
+          ],
+          "scale": 1.1086,
+          "head": [
+            292,
+            143
+          ],
+          "eyes": [
+            292,
+            234
+          ],
+          "neck": [
+            292,
+            300
+          ],
+          "back": [
+            292,
+            394
+          ],
+          "hand": [
+            480,
+            163
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/bronze-actions.webp",
+          "rect": [
+            1728,
+            9,
+            419,
+            692
+          ],
+          "isolate": true,
+          "anchor": [
+            250.5,
+            688
+          ],
+          "scale": 1.1414,
+          "head": [
+            164,
+            152
+          ],
+          "eyes": [
+            164,
+            240
+          ],
+          "neck": [
+            164,
+            304
+          ],
+          "back": [
+            164,
+            429
+          ],
+          "hand": [
+            369,
+            172
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            61,
+            15,
+            508,
+            686
+          ],
+          "isolate": true,
+          "anchor": [
+            141.0,
+            683
+          ],
+          "scale": 0.8382,
+          "head": [
+            218,
+            109
+          ],
+          "eyes": [
+            218,
+            229
+          ],
+          "neck": [
+            218,
+            316
+          ],
+          "back": [
+            218,
+            425
+          ],
+          "hand": [
+            447,
+            129
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            555,
+            77,
+            540,
+            632
+          ],
+          "isolate": true,
+          "anchor": [
+            360.0,
+            629
+          ],
+          "scale": 1.0176,
+          "head": [
+            270,
+            57
+          ],
+          "eyes": [
+            270,
+            156
+          ],
+          "neck": [
+            270,
+            228
+          ],
+          "back": [
+            270,
+            392
+          ],
+          "hand": [
+            475,
+            77
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            1089,
+            123,
+            541,
+            587
+          ],
+          "isolate": true,
+          "anchor": [
+            245.0,
+            584
+          ],
+          "scale": 0.9747,
+          "head": [
+            292,
+            81
+          ],
+          "eyes": [
+            292,
+            184
+          ],
+          "neck": [
+            292,
+            259
+          ],
+          "back": [
+            292,
+            364
+          ],
+          "hand": [
+            476,
+            101
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/bronze-studio.webp",
+          "rect": [
+            1652,
+            34,
+            508,
+            682
+          ],
+          "isolate": true,
+          "anchor": [
+            271.0,
+            678
+          ],
+          "scale": 0.9036,
+          "head": [
+            254,
+            33
+          ],
+          "eyes": [
+            254,
+            144
+          ],
+          "neck": [
+            254,
+            225
+          ],
+          "back": [
+            254,
+            423
+          ],
+          "hand": [
+            447,
+            53
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            58,
+            5,
+            400,
+            682
+          ],
+          "isolate": true,
+          "anchor": [
+            166.0,
+            680
+          ],
+          "scale": 1.0878,
+          "head": [
+            172,
+            144
+          ],
+          "eyes": [
+            172,
+            237
+          ],
+          "neck": [
+            172,
+            304
+          ],
+          "back": [
+            172,
+            423
+          ],
+          "hand": [
+            352,
+            164
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            575,
+            25,
+            548,
+            689
+          ],
+          "isolate": true,
+          "anchor": [
+            248.5,
+            685
+          ],
+          "scale": 1.0612,
+          "head": [
+            304,
+            138
+          ],
+          "eyes": [
+            304,
+            233
+          ],
+          "neck": [
+            304,
+            302
+          ],
+          "back": [
+            304,
+            427
+          ],
+          "hand": [
+            482,
+            158
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            1138,
+            6,
+            446,
+            666
+          ],
+          "isolate": true,
+          "anchor": [
+            217.0,
+            689
+          ],
+          "scale": 1.0297,
+          "head": [
+            208,
+            26
+          ],
+          "eyes": [
+            208,
+            124
+          ],
+          "neck": [
+            208,
+            194
+          ],
+          "back": [
+            208,
+            413
+          ],
+          "hand": [
+            392,
+            46
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/bronze-social.webp",
+          "rect": [
+            1734,
+            88,
+            408,
+            625
+          ],
+          "isolate": true,
+          "anchor": [
+            244.0,
+            621
+          ],
+          "scale": 1.0547,
+          "head": [
+            176,
+            124
+          ],
+          "eyes": [
+            176,
+            219
+          ],
+          "neck": [
+            176,
+            288
+          ],
+          "back": [
+            176,
+            388
+          ],
+          "hand": [
+            359,
+            144
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            49,
+            24,
+            414,
+            721
+          ],
+          "isolate": true,
+          "anchor": [
+            152.5,
+            718
+          ],
+          "scale": 1.0844,
+          "head": [
+            171,
+            125
+          ],
+          "eyes": [
+            171,
+            218
+          ],
+          "neck": [
+            171,
+            285
+          ],
+          "back": [
+            171,
+            447
+          ],
+          "hand": [
+            364,
+            145
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            522,
+            37,
+            489,
+            699
+          ],
+          "isolate": true,
+          "anchor": [
+            287.0,
+            695
+          ],
+          "scale": 1.0644,
+          "head": [
+            265,
+            112
+          ],
+          "eyes": [
+            265,
+            207
+          ],
+          "neck": [
+            265,
+            275
+          ],
+          "back": [
+            265,
+            433
+          ],
+          "hand": [
+            430,
+            132
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            1034,
+            44,
+            486,
+            671
+          ],
+          "isolate": true,
+          "anchor": [
+            250.0,
+            667
+          ],
+          "scale": 1.0087,
+          "head": [
+            220,
+            126
+          ],
+          "eyes": [
+            220,
+            226
+          ],
+          "neck": [
+            220,
+            298
+          ],
+          "back": [
+            220,
+            416
+          ],
+          "hand": [
+            428,
+            146
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/bronze-runway.webp",
+          "rect": [
+            1542,
+            27,
+            496,
+            680
+          ],
+          "isolate": true,
+          "anchor": [
+            248.5,
+            676
+          ],
+          "scale": 1.0389,
+          "head": [
+            244,
+            147
+          ],
+          "eyes": [
+            244,
+            244
+          ],
+          "neck": [
+            244,
+            314
+          ],
+          "back": [
+            244,
+            422
+          ],
+          "hand": [
+            436,
+            167
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            43,
+            3,
+            394,
+            749
+          ],
+          "isolate": true,
+          "anchor": [
+            175.5,
+            746
+          ],
+          "scale": 1.0776,
+          "head": [
+            172,
+            150
+          ],
+          "eyes": [
+            172,
+            243
+          ],
+          "neck": [
+            172,
+            311
+          ],
+          "back": [
+            172,
+            464
+          ],
+          "hand": [
+            347,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            481,
+            182,
+            514,
+            559
+          ],
+          "isolate": true,
+          "anchor": [
+            257.5,
+            555
+          ],
+          "scale": 1.0579,
+          "head": [
+            256,
+            140
+          ],
+          "eyes": [
+            256,
+            235
+          ],
+          "neck": [
+            256,
+            304
+          ],
+          "back": [
+            256,
+            347
+          ],
+          "hand": [
+            452,
+            160
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            1067,
+            130,
+            436,
+            617
+          ],
+          "isolate": true,
+          "anchor": [
+            169.0,
+            613
+          ],
+          "scale": 1.1377,
+          "head": [
+            164,
+            99
+          ],
+          "eyes": [
+            164,
+            187
+          ],
+          "neck": [
+            164,
+            252
+          ],
+          "back": [
+            164,
+            383
+          ],
+          "hand": [
+            384,
+            119
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/bronze-rhythm.webp",
+          "rect": [
+            1554,
+            169,
+            472,
+            578
+          ],
+          "isolate": true,
+          "anchor": [
+            225.0,
+            574
+          ],
+          "scale": 1.1414,
+          "head": [
+            239,
+            107
+          ],
+          "eyes": [
+            239,
+            195
+          ],
+          "neck": [
+            239,
+            259
+          ],
+          "back": [
+            239,
+            358
+          ],
+          "hand": [
+            415,
+            127
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras2.webp",
+          "rect": [
+            57,
+            24,
+            575,
+            759
+          ],
+          "isolate": true,
+          "anchor": [
+            281.5,
+            756
+          ],
+          "scale": 0.8361,
+          "head": [
+            264,
+            148
+          ],
+          "eyes": [
+            264,
+            268
+          ],
+          "neck": [
+            264,
+            356
+          ],
+          "back": [
+            264,
+            471
+          ],
+          "hand": [
+            506,
+            168
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras2.webp",
+          "rect": [
+            784,
+            8,
+            512,
+            775
+          ],
+          "isolate": true,
+          "anchor": [
+            231.5,
+            772
+          ],
+          "scale": 0.756,
+          "head": [
+            240,
+            72
+          ],
+          "eyes": [
+            240,
+            205
+          ],
+          "neck": [
+            240,
+            302
+          ],
+          "back": [
+            240,
+            480
+          ],
+          "hand": [
+            451,
+            92
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras2.webp",
+          "rect": [
+            1380,
+            79,
+            530,
+            705
+          ],
+          "isolate": true,
+          "anchor": [
+            379.0,
+            701
+          ],
+          "scale": 0.8547,
+          "head": [
+            261,
+            113
+          ],
+          "eyes": [
+            261,
+            231
+          ],
+          "neck": [
+            261,
+            316
+          ],
+          "back": [
+            261,
+            437
+          ],
+          "hand": [
+            466,
+            133
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            3,
+            10,
+            460,
+            712
+          ],
+          "isolate": true,
+          "anchor": [
+            259.5,
+            709
+          ],
+          "scale": 1.0389,
+          "head": [
+            228,
+            140
+          ],
+          "eyes": [
+            228,
+            237
+          ],
+          "neck": [
+            228,
+            307
+          ],
+          "back": [
+            228,
+            441
+          ],
+          "hand": [
+            405,
+            160
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            527,
+            0,
+            466,
+            719
+          ],
+          "isolate": true,
+          "anchor": [
+            373.0,
+            715
+          ],
+          "scale": 0.9481,
+          "head": [
+            232,
+            146
+          ],
+          "eyes": [
+            232,
+            252
+          ],
+          "neck": [
+            232,
+            329
+          ],
+          "back": [
+            232,
+            446
+          ],
+          "hand": [
+            410,
+            166
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            1071,
+            203,
+            468,
+            499
+          ],
+          "isolate": true,
+          "anchor": [
+            230.0,
+            495
+          ],
+          "scale": 0.9559,
+          "head": [
+            212,
+            46
+          ],
+          "eyes": [
+            212,
+            151
+          ],
+          "neck": [
+            212,
+            228
+          ],
+          "back": [
+            212,
+            309
+          ],
+          "hand": [
+            412,
+            66
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/bronze-extras.webp",
+          "rect": [
+            1602,
+            162,
+            570,
+            538
+          ],
+          "isolate": true,
+          "anchor": [
+            263.5,
+            535
+          ],
+          "scale": 1.0358,
+          "head": [
+            334,
+            44
+          ],
+          "eyes": [
+            334,
+            141
+          ],
+          "neck": [
+            334,
+            212
+          ],
+          "back": [
+            334,
+            334
+          ],
+          "hand": [
+            502,
+            64
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            76,
+            3,
+            438,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            200.0,
+            685
+          ],
+          "scale": 1.0743,
+          "head": [
+            206,
+            44
+          ],
+          "eyes": [
+            206,
+            138
+          ],
+          "neck": [
+            206,
+            206
+          ],
+          "back": [
+            206,
+            427
+          ],
+          "hand": [
+            385,
+            64
+          ]
+        },
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            603,
+            2,
+            417,
+            693
+          ],
+          "isolate": true,
+          "anchor": [
+            127.5,
+            689
+          ],
+          "scale": 1.0644,
+          "head": [
+            174,
+            143
+          ],
+          "eyes": [
+            174,
+            238
+          ],
+          "neck": [
+            174,
+            306
+          ],
+          "back": [
+            174,
+            430
+          ],
+          "hand": [
+            367,
+            163
+          ]
+        },
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            1140,
+            3,
+            419,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            213.5,
+            684
+          ],
+          "scale": 1.0579,
+          "head": [
+            189,
+            34
+          ],
+          "eyes": [
+            189,
+            129
+          ],
+          "neck": [
+            189,
+            198
+          ],
+          "back": [
+            189,
+            427
+          ],
+          "hand": [
+            369,
+            54
+          ]
+        },
+        {
+          "source": "../sources/bronze-walk.webp",
+          "rect": [
+            1674,
+            3,
+            417,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            160.0,
+            680
+          ],
+          "scale": 1.0677,
+          "head": [
+            182,
+            141
+          ],
+          "eyes": [
+            182,
+            235
+          ],
+          "neck": [
+            182,
+            304
+          ],
+          "back": [
+            182,
+            424
+          ],
+          "hand": [
+            367,
+            161
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "run": {
+      "alias": "walk",
+      "fps": 12,
+      "motion": 0.35
+    },
+    "cheer": {
+      "alias": "celebrate",
+      "loop": false
+    },
+    "sad": {
+      "alias": "pout",
+      "loop": true
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/bronze-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/bronze-portrait-happy.webp"
+    },
+    "sad": {
+      "source": "../sources/bronze-portrait-sad.webp"
+    },
+    "surprised": {
+      "source": "../sources/bronze-portrait-surprised.webp"
+    },
+    "determined": {
+      "source": "../sources/bronze-portrait-determined.webp"
+    }
+  },
+  "provenance": "Approved Bronze canonical. Actual generated action art; independent keyposes animated by procedural motion; four-frame walk. Neutral dome width preserves scale across crouches and antenna bends."
+}

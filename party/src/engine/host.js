@@ -6,14 +6,17 @@ import { TAU } from './util.js';
 import * as ui from './ui.js';
 
 let hostActor = null;
+let lastHostTime = null;
 
 /** Draw Glimmer hovering at (x, y) (feet point), about `h` px tall. */
 export function drawHost(g, x, y, h, t, mood = 'talk') {
   if (charById('glimmer') && getBaseImage('glimmer')) {
     if (!hostActor) hostActor = new Actor('glimmer');
     hostActor.x = x; hostActor.y = y; hostActor.scale = h / hostActor.leader.h;
-    hostActor.setPose(mood === 'cheer' ? 'celebrate' : mood === 'talk' ? 'idle' : mood);
-    hostActor.update(1 / 60);
+    hostActor.setPose(mood === 'cheer' ? 'celebrate' : mood);
+    const dt = lastHostTime === null || t < lastHostTime ? 0 : Math.min(0.1, t - lastHostTime);
+    lastHostTime = t;
+    hostActor.update(dt);
     hostActor.draw(g, { shadow: false });
     return;
   }

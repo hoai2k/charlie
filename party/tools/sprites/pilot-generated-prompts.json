@@ -1,0 +1,146 @@
+[
+  {
+    "id": "felicity-actions",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl, TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress white collar flower purple skirtflowers, orange shoes, huge white tipped tail. LEFT TO RIGHT (1) ACTION playful forward reach, bent knees/forelegs, cheerful intent; (2) THROW fullbody forward followthrough, one hand/forepaw extended, tail counterbalance; (3) PUSH braced low forward shove with both hands/forepaws, determined face; (4) CARRY upright walking, both hands/forepaws held together in front supporting an imaginary object, focused expression. Do not draw objects.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-actions",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox round orange foxpet, FOUR PAWS, huge amber dark eyes, cream muzzle/chest, dark paw/ear tips, black flower, bushy white tipped tail. No clothes or human hands. Adapt gestures to paws/muzzle. LEFT TO RIGHT (1) ACTION playful forward reach, bent knees/forelegs, cheerful intent; (2) THROW fullbody forward followthrough, one hand/forepaw extended, tail counterbalance; (3) PUSH braced low forward shove with both hands/forepaws, determined face; (4) CARRY upright walking, both hands/forepaws held together in front supporting an imaginary object, focused expression. Do not draw objects.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-activities",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress whitecollarflower purple skirtflowers, orange shoes, huge whitetipped tail. LEFT TO RIGHT (1) DANCE fullbody cheerful sidelean, one arm across body other raised, rhythmic knees; (2) PAINT bent forward focused expression, right hand gripping invisible brush at waist, delicate painting gesture; (3) SLEEP seated curled on ground, tail around body, eyes closed serene, hands by cheek, no Z symbols; (4) CAST confident thrust of empty wand-grip hand forward and upward, other arm behind, focused eyes. Keep all four full figures comparable head size, large gap, no props or magic effects.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-social",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress whitecollarflower purple skirtflowers, orange shoes, huge whitetipped tail. LEFT TO RIGHT (1) CLAP huge happy closed-eye grin, hands clapping at chest, planted feet; (2) EAT taste imaginary treat, fingertips near mouth, puffed happy cheeks, eyes closed pleased; (3) RIDE sitting astride imaginary broom, knees bent/legs hanging, torso leaning forward, both hands gripping an invisible horizontal handle, NO broom; (4) BOW graceful curtsy, knees bent, head lowered, each hand holding the side of her own skirt. Large transparent gaps and constant head size, no props. All fullbodies.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-runway",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress whitecollarflower purple skirtflowers, orange shoes, huge whitetipped tail. LEFT TO RIGHT (1) STRIKE1 glamorous confident runway pose one hand on hip, one knee bent, smile; (2) STRIKE2 cute peace-sign two fingers by cheek, other hand on hip, smiling tilt; (3) STRIKE3 both arms UP and out, legs wide, giant closed-eye happy grin, strong STAR silhouette; (4) SHAKE midshake body twist with pigtails and tail swung sideways, eyes scrunched laughing. No droplets or effects, all four body positions different, preserve exact face and outfit.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-dance",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress whitecollarflower purple skirtflowers, orange shoes, huge whitetipped tail. LEFT TO RIGHT (1) STIR leaning slightly forward, both hands closed around an imaginary upright spoon at waist, hands extending forward-left for circular stirring, focused smile, no spoon/bowl; (2) DANCE-UP arms perfectly straight overhead hands high, knees soft, delighted grin; (3) DANCE-DOWN low squat knees apart, both hands on knees, mischievous grin; (4) DANCE-SIDE one arm points straight right, other hand on hip, lean strongly right, legs planted wide, confident grin. Keep whole bodies fully visible and generous gutters. No props.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-extras-social",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY THREE fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own third with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress whitecollarflower purple skirtflowers, orange shoes, huge whitetipped tail. EXACTLY THREE figures LEFT TO RIGHT (1) LOOK-AROUND curious scouting, one hand shades eyes, head looking right, weight over one leg; (2) HIGH-FIVE one arm reaches straight forward at shoulder height with open vertical palm, inviting huge smile, grounded upright body, ready to touch another player's palm (no second character); (3) CROUCH hiding low, both knees deeply bent together, tail wrapped behind, elbows tucked by torso, playful alert expression, ears still prominent. Same head size, large transparent gaps, all anatomy preserved.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-extras-motion",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY THREE fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own third with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Felicity orange foxgirl TWO long brown pigtails yellow ties, white daisy ear, teal eyes, orange black dress whitecollarflower purple skirtflowers, orange shoes, huge whitetipped tail. EXACTLY THREE figures LEFT TO RIGHT (1) DASH very strong athletic forward lean, rear leg stretches back, front knee drives high, elbows bent, pigtails trailing backward, determined playful face; (2) CATCH cupped open hands together forward at chest, knees bend gently to receive an imaginary object, eyes alert happy; (3) WAVE-GOODBYE body turns sideways toward right, looks back warmly at viewer, one hand up waving behind shoulder, one foot stepping away. Same head size, generous margins and gaps, fully visible. No object, no lines/effects.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-activities",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox tiny ROUND orange quadruped fox pet, enormous amber-dark eyes, cream muzzle/chest, dark paws/ear tips, BLACK flower by one ear, bushy whitetipped tail. Preserve FOUR PAWS, NO clothes or human hands. LEFT TO RIGHT (1) DANCE happy boogie on hindpaws with front paws lifted, tail swings, closed-eye grin; (2) PAINT sitting on haunches reaching one front paw delicately forward-down as if tapping a brush, focused smile, NO brush; (3) SLEEP curled into a round ball with tail snug round body, closed eyes, muzzle resting on front paws; (4) CAST standing with one front paw thrust forward-up, determined eyes and ears perked, no effects/props. Distinct silhouettes with identical head scale and fullbody.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-social",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox tiny ROUND orange quadruped fox pet, enormous amber-dark eyes, cream muzzle/chest, dark paws/ear tips, BLACK flower by one ear, bushy whitetipped tail. Preserve FOUR PAWS, NO clothes or human hands. LEFT TO RIGHT (1) CLAP sitting on haunches with front paws touching each other at chest, eyes closed happy grin; (2) EAT muzzle nuzzled toward both forepaws under chin, puffed happy cheeks, delighted squint, no food; (3) RIDE seated with forepaws stretched forward to grip imaginary broom, rear paws bent underneath, leaning forward, NO broom; (4) BOW playful dog bow, forelegs stretched flat forward, chest low, hindquarters and tail up, cute smiling face. Distinct natural pet silhouettes, exactly same proportions and head size.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-runway",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox tiny ROUND orange quadruped fox pet, enormous amber-dark eyes, cream muzzle/chest, dark paws/ear tips, BLACK flower by one ear, bushy whitetipped tail. Preserve FOUR PAWS, NO clothes or human hands. LEFT TO RIGHT (1) STRIKE1 proud pet runway stance head high, one forepaw elegantly lifted, confident smile; (2) STRIKE2 seated adorably, one forepaw by cheek, head tilted, playful wink; (3) STRIKE3 big joyful starshape, front paws stretched UP and out, rear paws wide, closed-eye happy grin; (4) SHAKE wetdog bodytwist, ears flopped sideways and tail swinging, eyes squeezed happy, all four paws planted. No drops or effects. Keep each pet's head size consistent.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-dance",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY FOUR fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own quarter with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox tiny ROUND orange quadruped fox pet, enormous amber-dark eyes, cream muzzle/chest, dark paws/ear tips, BLACK flower by one ear, bushy whitetipped tail. Preserve FOUR PAWS, NO clothes or human hands. LEFT TO RIGHT (1) STIR seated on haunches with both front paws together extended down-forward gripping an imaginary spoon at chest-height, focused smile, no spoon; (2) DANCE-UP standing briefly on rear paws with both front paws straight UP overhead, happy face; (3) DANCE-DOWN playful low crouch, tummy near floor and all four paws tucked, happy grin; (4) DANCE-SIDE weight leaned sideways, one front paw points right and other bends at chest, rear paws planted, cheerful expression. Constant head/torso size, full figures, large transparent gaps.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-extras-social",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY THREE fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own third with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox tiny ROUND orange quadruped fox pet, enormous amber-dark eyes, cream muzzle/chest, dark paws/ear tips, BLACK flower by one ear, bushy whitetipped tail. Preserve FOUR PAWS, NO clothes or human hands. THREE figures LEFT TO RIGHT (1) LOOK-AROUND curious scouting, standing allfourpaws with head lifted toward right and ears alert, inquisitive face; (2) HIGH-FIVE seated and extending one open forepaw straight forward at face height, cheerful inviting smile, keep toe pads pawlike; (3) CROUCH hides low belly almost ground, allfourlegs bent tucked under, ears alert and focused playful expression, tail curled close. Same head size, large gaps.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-extras-motion",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Asset: children's game sprite sheet. Image1 canonical identity: reproduce this exact character. Image2 gives exact sprite rendering/scale. EXACTLY THREE fullbody poses, ONE horizontal row, wide3:1 composition, every character INSIDE its own third with generous TRANSPARENT gutter; no overlap, no clipping. Constant head/torso size across poses. Camera threequarter RIGHT. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Preserve appearance, hair/fur, clothing, all ornaments. NO text, letters, labels, scenery, props, particles, lines, shadows. Real transparent alpha. Invisible ground baseline shared near bottom. Fellowfox tiny ROUND orange quadruped fox pet, enormous amber-dark eyes, cream muzzle/chest, dark paws/ear tips, BLACK flower by one ear, bushy whitetipped tail. Preserve FOUR PAWS, NO clothes or human hands. THREE figures LEFT TO RIGHT (1) DASH galloping RIGHT with stretched flying body, forepaws reaching forward, rear paws back, tail trailing horizontally LEFT, determined fun eyes; (2) CATCH crouched slightly with both front paws cupped together in front of chest to receive imaginary treat, eager open eyes, NO object; (3) WAVE-GOODBYE taking a step RIGHT with body angled away, looking back warmly at camera, one forepaw waving at shoulder, no second character. Fullbody, large gaps, no lines/effects.",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/fellowfox.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  },
+  {
+    "id": "felicity-movement",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create game sprite pose reference strip with EXACTLY FOUR separate full-body copies of the same character in a single horizontal row, approximately 3:1 wide. Input image1 is canonical: reproduce this exact character; image2 is existing sprite style and scale reference. Match image2 lineweight, consistent head and torso size in EVERY pose. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Large TRANSPARENT gutters between four equal cell regions, NO character overlapping any cell boundary. All whole bodies fully visible, no text, no labels, no scenery, no particles, no shadows, no motion marks. Three-quarter facing screen RIGHT in EVERY cell. LEFT TO RIGHT poses: (1) JUMP rising, knees or paws tucked, joyful face, body above virtual baseline; (2) FALL arms/paws spread, startled face, airborne; (3) LAND low compression on feet/paws, knees bent and torso squashed, determined soft landing; (4) THINK head tilt, hand/paw by chin, thoughtful raised brow. Real transparent alpha background. Pose silhouettes clearly different while character identity stays identical. Felicity orange fox girl: brown bangs, TWO long brown pigtails with yellow ties, daisy by ear, huge teal eyes, orange black dress with purple flowers, white collar flower, orange shoes, white tipped tail.",
+    "refs": [
+      "party/reference/canonical/felicity.webp",
+      "party/tools/sprites/sources/felicity-core.webp"
+    ]
+  },
+  {
+    "id": "fellowfox-movement",
+    "method": "built-in imagegen",
+    "prompt": "Use case: identity-preserve. Create game sprite pose reference strip with EXACTLY FOUR separate full-body copies of the same character in a single horizontal row, approximately 3:1 wide. Input image1 is canonical: reproduce this exact character; image2 is existing sprite style and scale reference. Match image2 lineweight, consistent head and torso size in EVERY pose. Bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple clean cel shading, no photorealism, no3D. Large TRANSPARENT gutters between four equal cell regions, NO character overlapping any cell boundary. All whole bodies fully visible, no text, no labels, no scenery, no particles, no shadows, no motion marks. Three-quarter facing screen RIGHT in EVERY cell. LEFT TO RIGHT poses: (1) JUMP rising, knees or paws tucked, joyful face, body above virtual baseline; (2) FALL arms/paws spread, startled face, airborne; (3) LAND low compression on feet/paws, knees bent and torso squashed, determined soft landing; (4) THINK head tilt, hand/paw by chin, thoughtful raised brow. Real transparent alpha background. Pose silhouettes clearly different while character identity stays identical. Fellowfox tiny ROUND orange fox pet with cream muzzle/chest, HUGE amber-dark eyes, black flower by ear, dark paws/ear tips, white tipped bushy tail. FOUR PAWS always; never human arms/hands/clothes.",
+    "refs": [
+      "party/reference/canonical/fellowfox.webp",
+      "party/tools/sprites/sources/fellowfox-core.webp"
+    ]
+  }
+]

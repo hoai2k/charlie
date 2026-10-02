@@ -1332,7 +1332,7 @@
     },
     "crouch": {
       "fps": 5,
-      "loop": false,
+      "loop": true,
       "motion": 0.85,
       "facing": 1,
       "frames": [

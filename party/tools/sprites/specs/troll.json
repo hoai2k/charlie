@@ -1,0 +1,1081 @@
+{
+  "asset": "troll",
+  "bodyHeight": 320,
+  "frameSize": [
+    640,
+    580
+  ],
+  "anchor": [
+    320,
+    558
+  ],
+  "facing": 1,
+  "provenance": "Built-in image_gen from approved troll.webp; source prompts in troll-generation-prompts.json. Individually isolated generated keyframes; explicit contact anchors and per-sheet anatomical scale. No synthetic character frames.",
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/troll-idle.webp",
+          "rect": [
+            99,
+            31,
+            544,
+            675
+          ],
+          "isolate": true,
+          "scale": 1,
+          "anchor": [
+            262,
+            672
+          ],
+          "head": [
+            326,
+            34
+          ],
+          "eyes": [
+            354,
+            142
+          ],
+          "neck": [
+            310,
+            230
+          ],
+          "back": [
+            201,
+            263
+          ],
+          "hand": [
+            452,
+            439
+          ],
+          "dur": 0.85
+        },
+        {
+          "source": "../sources/troll-idle.webp",
+          "rect": [
+            816,
+            27,
+            540,
+            678
+          ],
+          "isolate": true,
+          "scale": 1,
+          "anchor": [
+            264,
+            675
+          ],
+          "head": [
+            324,
+            34
+          ],
+          "eyes": [
+            351,
+            142
+          ],
+          "neck": [
+            308,
+            231
+          ],
+          "back": [
+            200,
+            264
+          ],
+          "hand": [
+            448,
+            441
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/troll-idle.webp",
+          "rect": [
+            99,
+            31,
+            544,
+            675
+          ],
+          "isolate": true,
+          "scale": 1,
+          "anchor": [
+            262,
+            672
+          ],
+          "head": [
+            326,
+            34
+          ],
+          "eyes": [
+            354,
+            142
+          ],
+          "neck": [
+            310,
+            230
+          ],
+          "back": [
+            201,
+            263
+          ],
+          "hand": [
+            452,
+            439
+          ],
+          "dur": 0.7
+        },
+        {
+          "source": "../sources/troll-idle.webp",
+          "rect": [
+            1568,
+            34,
+            504,
+            672
+          ],
+          "isolate": true,
+          "scale": 1,
+          "anchor": [
+            234,
+            669
+          ],
+          "head": [
+            302,
+            34
+          ],
+          "eyes": [
+            328,
+            141
+          ],
+          "neck": [
+            287,
+            228
+          ],
+          "back": [
+            186,
+            262
+          ],
+          "hand": [
+            418,
+            437
+          ],
+          "dur": 0.5
+        },
+        {
+          "source": "../sources/troll-idle.webp",
+          "rect": [
+            99,
+            31,
+            544,
+            675
+          ],
+          "isolate": true,
+          "scale": 1,
+          "anchor": [
+            262,
+            672
+          ],
+          "head": [
+            326,
+            34
+          ],
+          "eyes": [
+            354,
+            142
+          ],
+          "neck": [
+            310,
+            230
+          ],
+          "back": [
+            201,
+            263
+          ],
+          "hand": [
+            452,
+            439
+          ],
+          "dur": 0.65
+        }
+      ],
+      "fps": 3,
+      "loop": true,
+      "motion": 0.25
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/troll-walk.webp",
+          "rect": [
+            23,
+            46,
+            550,
+            629
+          ],
+          "isolate": true,
+          "scale": 1.075,
+          "anchor": [
+            346,
+            626
+          ],
+          "head": [
+            330,
+            31
+          ],
+          "eyes": [
+            358,
+            132
+          ],
+          "neck": [
+            314,
+            214
+          ],
+          "back": [
+            204,
+            245
+          ],
+          "hand": [
+            456,
+            409
+          ]
+        },
+        {
+          "source": "../sources/troll-walk.webp",
+          "rect": [
+            649,
+            57,
+            396,
+            615
+          ],
+          "isolate": true,
+          "scale": 1.075,
+          "anchor": [
+            166,
+            612
+          ],
+          "head": [
+            238,
+            31
+          ],
+          "eyes": [
+            257,
+            129
+          ],
+          "neck": [
+            226,
+            209
+          ],
+          "back": [
+            147,
+            240
+          ],
+          "hand": [
+            329,
+            400
+          ]
+        },
+        {
+          "source": "../sources/troll-walk.webp",
+          "rect": [
+            1111,
+            46,
+            535,
+            629
+          ],
+          "isolate": true,
+          "scale": 1.075,
+          "anchor": [
+            353,
+            626
+          ],
+          "head": [
+            321,
+            31
+          ],
+          "eyes": [
+            348,
+            132
+          ],
+          "neck": [
+            305,
+            214
+          ],
+          "back": [
+            198,
+            245
+          ],
+          "hand": [
+            444,
+            409
+          ]
+        },
+        {
+          "source": "../sources/troll-walk.webp",
+          "rect": [
+            1737,
+            62,
+            416,
+            611
+          ],
+          "isolate": true,
+          "scale": 1.075,
+          "anchor": [
+            214,
+            608
+          ],
+          "head": [
+            250,
+            31
+          ],
+          "eyes": [
+            270,
+            128
+          ],
+          "neck": [
+            237,
+            208
+          ],
+          "back": [
+            154,
+            238
+          ],
+          "hand": [
+            345,
+            397
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.22
+    },
+    "windup": {
+      "frames": [
+        {
+          "source": "../sources/troll-pound.webp",
+          "rect": [
+            75,
+            11,
+            455,
+            687
+          ],
+          "isolate": true,
+          "scale": 1.23,
+          "anchor": [
+            220,
+            684
+          ],
+          "head": [
+            273,
+            34
+          ],
+          "eyes": [
+            296,
+            144
+          ],
+          "neck": [
+            259,
+            234
+          ],
+          "back": [
+            168,
+            268
+          ],
+          "hand": [
+            378,
+            447
+          ]
+        },
+        {
+          "source": "../sources/troll-pound.webp",
+          "rect": [
+            598,
+            35,
+            437,
+            663
+          ],
+          "isolate": true,
+          "scale": 1.23,
+          "anchor": [
+            218,
+            660
+          ],
+          "head": [
+            262,
+            33
+          ],
+          "eyes": [
+            284,
+            139
+          ],
+          "neck": [
+            249,
+            225
+          ],
+          "back": [
+            162,
+            259
+          ],
+          "hand": [
+            363,
+            431
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.12
+    },
+    "slam": {
+      "frames": [
+        {
+          "source": "../sources/troll-pound.webp",
+          "rect": [
+            1115,
+            275,
+            481,
+            423
+          ],
+          "isolate": true,
+          "scale": 1.23,
+          "anchor": [
+            240,
+            420
+          ],
+          "head": [
+            289,
+            21
+          ],
+          "eyes": [
+            313,
+            89
+          ],
+          "neck": [
+            274,
+            144
+          ],
+          "back": [
+            178,
+            165
+          ],
+          "hand": [
+            399,
+            275
+          ],
+          "dur": 0.15
+        },
+        {
+          "source": "../sources/troll-pound.webp",
+          "rect": [
+            1684,
+            155,
+            428,
+            542
+          ],
+          "isolate": true,
+          "scale": 1.23,
+          "anchor": [
+            212,
+            539
+          ],
+          "head": [
+            257,
+            27
+          ],
+          "eyes": [
+            278,
+            114
+          ],
+          "neck": [
+            244,
+            184
+          ],
+          "back": [
+            158,
+            211
+          ],
+          "hand": [
+            355,
+            352
+          ],
+          "dur": 0.3
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.12
+    },
+    "grab": {
+      "frames": [
+        {
+          "source": "../sources/troll-grab.webp",
+          "rect": [
+            9,
+            36,
+            594,
+            658
+          ],
+          "isolate": true,
+          "scale": 1.025,
+          "anchor": [
+            338,
+            655
+          ],
+          "head": [
+            356,
+            33
+          ],
+          "eyes": [
+            386,
+            138
+          ],
+          "neck": [
+            339,
+            224
+          ],
+          "back": [
+            220,
+            257
+          ],
+          "hand": [
+            493,
+            428
+          ]
+        },
+        {
+          "source": "../sources/troll-grab.webp",
+          "rect": [
+            721,
+            56,
+            835,
+            638
+          ],
+          "isolate": true,
+          "scale": 1.025,
+          "anchor": [
+            418,
+            635
+          ],
+          "head": [
+            501,
+            32
+          ],
+          "eyes": [
+            543,
+            134
+          ],
+          "neck": [
+            476,
+            217
+          ],
+          "back": [
+            309,
+            249
+          ],
+          "hand": [
+            693,
+            415
+          ]
+        },
+        {
+          "source": "../sources/troll-grab.webp",
+          "rect": [
+            1514,
+            76,
+            652,
+            618
+          ],
+          "isolate": true,
+          "scale": 1.025,
+          "anchor": [
+            248,
+            615
+          ],
+          "head": [
+            391,
+            31
+          ],
+          "eyes": [
+            424,
+            130
+          ],
+          "neck": [
+            372,
+            210
+          ],
+          "back": [
+            241,
+            241
+          ],
+          "hand": [
+            541,
+            402
+          ]
+        }
+      ],
+      "fps": 9,
+      "loop": false,
+      "motion": 0.18
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/troll-reactions.webp",
+          "rect": [
+            64,
+            9,
+            448,
+            507
+          ],
+          "isolate": true,
+          "scale": 1.34,
+          "anchor": [
+            211,
+            504
+          ],
+          "head": [
+            269,
+            25
+          ],
+          "eyes": [
+            291,
+            106
+          ],
+          "neck": [
+            255,
+            172
+          ],
+          "back": [
+            166,
+            198
+          ],
+          "hand": [
+            372,
+            330
+          ]
+        },
+        {
+          "source": "../sources/troll-reactions.webp",
+          "rect": [
+            545,
+            10,
+            468,
+            507
+          ],
+          "isolate": true,
+          "scale": 1.34,
+          "anchor": [
+            241,
+            504
+          ],
+          "head": [
+            281,
+            25
+          ],
+          "eyes": [
+            304,
+            106
+          ],
+          "neck": [
+            267,
+            172
+          ],
+          "back": [
+            173,
+            198
+          ],
+          "hand": [
+            388,
+            330
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.22
+    },
+    "laugh": {
+      "frames": [
+        {
+          "source": "../sources/troll-reactions.webp",
+          "rect": [
+            1064,
+            10,
+            409,
+            507
+          ],
+          "isolate": true,
+          "scale": 1.34,
+          "anchor": [
+            230,
+            504
+          ],
+          "head": [
+            245,
+            25
+          ],
+          "eyes": [
+            266,
+            106
+          ],
+          "neck": [
+            233,
+            172
+          ],
+          "back": [
+            151,
+            198
+          ],
+          "hand": [
+            339,
+            330
+          ]
+        },
+        {
+          "source": "../sources/troll-reactions.webp",
+          "rect": [
+            71,
+            522,
+            395,
+            477
+          ],
+          "isolate": true,
+          "scale": 1.34,
+          "anchor": [
+            192,
+            474
+          ],
+          "head": [
+            237,
+            24
+          ],
+          "eyes": [
+            257,
+            100
+          ],
+          "neck": [
+            225,
+            162
+          ],
+          "back": [
+            146,
+            186
+          ],
+          "hand": [
+            328,
+            310
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.35
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/troll-reactions.webp",
+          "rect": [
+            498,
+            521,
+            528,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.34,
+          "anchor": [
+            314,
+            477
+          ],
+          "head": [
+            317,
+            24
+          ],
+          "eyes": [
+            343,
+            101
+          ],
+          "neck": [
+            301,
+            163
+          ],
+          "back": [
+            195,
+            187
+          ],
+          "hand": [
+            438,
+            312
+          ]
+        },
+        {
+          "source": "../sources/troll-reactions.webp",
+          "rect": [
+            1025,
+            519,
+            492,
+            482
+          ],
+          "isolate": true,
+          "scale": 1.34,
+          "anchor": [
+            261,
+            479
+          ],
+          "head": [
+            295,
+            24
+          ],
+          "eyes": [
+            320,
+            101
+          ],
+          "neck": [
+            280,
+            164
+          ],
+          "back": [
+            182,
+            188
+          ],
+          "hand": [
+            408,
+            313
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.3
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/troll-hurt-sleep.webp",
+          "rect": [
+            81,
+            38,
+            409,
+            665
+          ],
+          "isolate": true,
+          "scale": 1.015,
+          "anchor": [
+            215,
+            662
+          ],
+          "head": [
+            245,
+            33
+          ],
+          "eyes": [
+            266,
+            140
+          ],
+          "neck": [
+            233,
+            226
+          ],
+          "back": [
+            151,
+            259
+          ],
+          "hand": [
+            339,
+            432
+          ]
+        },
+        {
+          "source": "../sources/troll-hurt-sleep.webp",
+          "rect": [
+            643,
+            51,
+            365,
+            652
+          ],
+          "isolate": true,
+          "scale": 1.015,
+          "anchor": [
+            200,
+            649
+          ],
+          "head": [
+            219,
+            33
+          ],
+          "eyes": [
+            237,
+            137
+          ],
+          "neck": [
+            208,
+            222
+          ],
+          "back": [
+            135,
+            254
+          ],
+          "hand": [
+            303,
+            424
+          ]
+        }
+      ],
+      "fps": 9,
+      "loop": false,
+      "motion": 0.4
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/troll-hurt-sleep.webp",
+          "rect": [
+            1106,
+            156,
+            488,
+            543
+          ],
+          "isolate": true,
+          "scale": 1.015,
+          "anchor": [
+            293,
+            540
+          ],
+          "head": [
+            293,
+            27
+          ],
+          "eyes": [
+            317,
+            114
+          ],
+          "neck": [
+            278,
+            185
+          ],
+          "back": [
+            181,
+            212
+          ],
+          "hand": [
+            405,
+            353
+          ]
+        },
+        {
+          "source": "../sources/troll-hurt-sleep.webp",
+          "rect": [
+            1676,
+            164,
+            484,
+            535
+          ],
+          "isolate": true,
+          "scale": 1.015,
+          "anchor": [
+            291,
+            532
+          ],
+          "head": [
+            290,
+            27
+          ],
+          "eyes": [
+            315,
+            112
+          ],
+          "neck": [
+            276,
+            182
+          ],
+          "back": [
+            179,
+            209
+          ],
+          "hand": [
+            402,
+            348
+          ]
+        }
+      ],
+      "fps": 2,
+      "loop": true,
+      "motion": 0.2
+    },
+    "exit": {
+      "alias": "walk",
+      "fps": 5,
+      "motion": 0.25,
+      "loop": true
+    },
+    "celebrate": {
+      "alias": "laugh",
+      "fps": 6,
+      "motion": 0.35,
+      "loop": true
+    },
+    "cheer": {
+      "alias": "laugh",
+      "fps": 6,
+      "motion": 0.35,
+      "loop": false
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/troll-idle.webp",
+          "rect": [
+            1568,
+            34,
+            504,
+            672
+          ],
+          "isolate": true,
+          "scale": 1,
+          "anchor": [
+            234,
+            669
+          ],
+          "head": [
+            302,
+            34
+          ],
+          "eyes": [
+            328,
+            141
+          ],
+          "neck": [
+            287,
+            228
+          ],
+          "back": [
+            186,
+            262
+          ],
+          "hand": [
+            418,
+            437
+          ],
+          "dur": 0.5
+        }
+      ],
+      "fps": 4,
+      "motion": 0.8,
+      "loop": true
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/troll-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/troll-portrait-happy.webp"
+    },
+    "sad": {
+      "source": "../sources/troll-portrait-sad.webp"
+    },
+    "surprised": {
+      "source": "../sources/troll-portrait-surprised.webp"
+    },
+    "determined": {
+      "source": "../sources/troll-portrait-determined.webp"
+    }
+  }
+}

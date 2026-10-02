@@ -92,7 +92,12 @@ export const FELLOWFOX = {
   members: [{ asset: 'fellowfox', h: 110, face: [0.36, 0.38, 0.32], top: 0.95, facing: -1, motion: 'trot' }],
 };
 
-export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX];
+export const GLIMMER = {
+  id: 'glimmer', name: 'Glimmer', color: '#7fe3d4', npc: true,
+  members: [{ asset: 'glimmer', h: 110, face: [0.46, 0.26, 0.17], top: 0.94, facing: 1, motion: 'glide' }],
+};
+
+export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX, GLIMMER];
 export const charById = (id) => ALL_ENTRIES.find((c) => c.id === id);
 
 // Fill defaults.
