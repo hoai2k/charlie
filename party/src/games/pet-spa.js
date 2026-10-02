@@ -104,9 +104,12 @@ const ACCESSORIES = [
   { kind: 'bow', color: '#7fd3ff' },
   { kind: 'gem', color: '#9b5cff' },
   { kind: 'flower', color: '#ff8fd0' },
+  { kind: 'bow', color: '#ffd23f' },
 ];
+const BOW_ART = { '#ff6fb1': 'prop/pet-bow-pink', '#7fd3ff': 'prop/pet-bow-blue', '#ffd23f': 'prop/pet-bow-yellow' };
 
 function drawAccessory(g, kind, color, s, t = 0) {
+  if (kind === 'bow' && BOW_ART[color] && drawArt(g, BOW_ART[color], 0, 0, s * 1.55, s * 1.15)) return;
   g.save();
   g.lineWidth = Math.max(2, s * 0.09); g.strokeStyle = NAVY; g.lineJoin = 'round';
   switch (kind) {
@@ -1164,15 +1167,28 @@ export class Game {
     g.restore();
   }
 
-  /** Bubble bath behind the pet (generated art only; the rug stays the stand). */
-  drawTub(g, s) {
-    const img = art('prop/bathtub');
-    if (!img) return;
-    const r = s.r, k = s.k;
-    const tw = Math.min(r.w * 0.8, 520 * k), th = tw * img.height / img.width;
-    const x = r.x + r.w * 0.5, foot = s.ped.y - 4 * k;
-    // the image has ~10% empty space under the feet
-    drawArt(g, 'prop/bathtub', x, foot + th * 0.1, tw, th, { anchor: 'bottom' });
+  /**
+   * Clawfoot tub the pet stands in (bathtub = back, bathtub-front = overlay,
+   * both 454x300 and aligned). The front rim (y~95 of 300) sits just above
+   * the pet's paws so only ~8% of the pet is covered and no mud is hidden.
+   * Returns null (keep the rug) when the art is missing or the tub won't fit.
+   */
+  tubRect(s) {
+    const back = art('prop/bathtub'), front = art('prop/bathtub-front');
+    if (!back || !front) return null;
+    const r = s.r, pet = s.pet;
+    const rimY = s.ped.y - pet.height * 0.08;
+    const maxTh = (r.y + r.h - s.toolH - 6 - rimY) / ((276 - 95) / 300);
+    const tw = Math.min(Math.max(pet.width * 1.2, 220 * s.k), r.w * 0.86, maxTh * 454 / 300);
+    if (tw < pet.width * 0.95) return null;
+    const th = tw * 300 / 454;
+    return { x: s.ped.x - tw / 2, y: rimY - th * 95 / 300, w: tw, h: th, back, front };
+  }
+
+  drawTub(g, s, which) {
+    const t = s.tub;
+    if (!t) return;
+    g.drawImage(which === 'front' ? t.front : t.back, t.x, t.y, t.w, t.h);
   }
 
   drawStation(g, s) {
@@ -1192,19 +1208,22 @@ export class Game {
     g.fillStyle = 'rgba(255,255,255,0.5)';
     for (let x = r.x; x < r.x + r.w; x += 60 * k) g.fillRect(x, s.ped.y - 6 * k, 30 * k, r.h);
     g.restore();
-    // pedestal: fluffy round rug
-    const pw = Math.max(s.pet.width * 0.62, 110 * k), ph = pw * 0.24;
-    g.save();
-    g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 4;
-    g.beginPath();
-    for (let i = 0; i <= 28; i++) {
-      const a = (i / 28) * TAU, rr = 1 + (i % 2) * 0.06;
-      g.lineTo(s.ped.x + Math.cos(a) * pw * rr, s.ped.y + Math.sin(a) * ph * rr);
+    // pedestal: fluffy round rug (or the clawfoot tub when its art exists)
+    s.tub = this.tubRect(s);
+    if (!s.tub) {
+      const pw = Math.max(s.pet.width * 0.62, 110 * k), ph = pw * 0.24;
+      g.save();
+      g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 4;
+      g.beginPath();
+      for (let i = 0; i <= 28; i++) {
+        const a = (i / 28) * TAU, rr = 1 + (i % 2) * 0.06;
+        g.lineTo(s.ped.x + Math.cos(a) * pw * rr, s.ped.y + Math.sin(a) * ph * rr);
+      }
+      g.fill(); g.stroke();
+      g.fillStyle = s.done ? '#ffd23f' : '#ff9ecf';
+      g.beginPath(); g.ellipse(s.ped.x, s.ped.y, pw * 0.8, ph * 0.72, 0, 0, TAU); g.fill();
+      g.restore();
     }
-    g.fill(); g.stroke();
-    g.fillStyle = s.done ? '#ffd23f' : '#ff9ecf';
-    g.beginPath(); g.ellipse(s.ped.x, s.ped.y, pw * 0.8, ph * 0.72, 0, 0, TAU); g.fill();
-    g.restore();
     // header: tag + pet name + happiness meter
     const hy = r.y + 14;
     g.save();
@@ -1221,12 +1240,13 @@ export class Game {
     g.restore();
 
     this.drawDecor(g, s);
-    this.drawTub(g, s);
     // player's character watching (behind the pet when overlapping)
-    s.char.draw(g, { ring: p.color });
-    // pet (with shake)
+    if (!s.tub) s.char.draw(g, { ring: p.color });
+    // pet (with shake), standing in the tub when there is one
     const pet = s.pet;
+    this.drawTub(g, s, 'back');
     pet.draw(g);
+    if (s.tub) { this.drawTub(g, s, 'front'); s.char.draw(g, { ring: p.color }); }
 
     // toolbar
     const ty = r.y + r.h - s.toolH + 4, th = s.toolH - 16;

@@ -519,6 +519,8 @@ export function drawSprinkles(g, list) {
 
 /** Little icon for the decoration menu (centered at cx, cy, about `size` px). */
 export function drawDecoIcon(g, kind, cx, cy, size, t) {
+  // generated sprinkle-scatter art (125x128) for the Sprinkles menu / cursor icon
+  if (kind === 'sprinkles' && drawArt(g, 'prop/sprinkles', cx, cy, size * 0.95, size * 0.95)) return;
   g.save(); g.translate(cx, cy); const s = size / 60; g.scale(s, s);
   if (kind === 'sprinkles') {
     // shaker jar
