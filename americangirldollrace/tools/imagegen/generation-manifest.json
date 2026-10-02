@@ -1,0 +1,838 @@
+{
+  "assets": [
+    {
+      "file": "assets/portraits/whirlpool.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Edit the reference sprite sheet into ONE waist-up roster portrait of Whirlpool. Preserve exactly this toy doll's face, skin, long black wavy hair with blue/purple streaks, purple patterned dress and black quilted vest. Three-quarter toward viewer, smiling. Photoreal toy look matching reference. Head fills top 55% of frame. Transparent background, no text, no props. Target portrait aspect 320:400. Only one doll, not a sprite sheet.",
+      "refs": [
+        "assets/doll_whirlpool_sprites.webp"
+      ],
+      "bytes": 153698,
+      "sha256": "d52e8392610b5cbb03e0a170172e08ad7e65fec612cfe743a32c53c65180e324",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/whirlpool_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: whirlpool_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_whirlpool_sprites.webp"
+      ],
+      "foot_baseline": 395,
+      "bytes": 99972,
+      "sha256": "7543d0e5807de6e3bbdcba4755d4dfa5f207479a1a877bb0d524573fd737c33c",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/whirlpool_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: whirlpool_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_whirlpool_sprites.webp"
+      ],
+      "foot_baseline": 395,
+      "bytes": 94542,
+      "sha256": "9fb420b072579f1cbf778da7f3d97adc1370c56d62c29830ecafabafb33a0fb2",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/whirlpool_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: whirlpool_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_whirlpool_sprites.webp"
+      ],
+      "foot_baseline": 395,
+      "seat_anchor": [
+        210,
+        278
+      ],
+      "bytes": 100810,
+      "sha256": "53d3fdc9d119c3ea1d39e86232723941413c6f134161cc097f78930a0ea94439",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/juliette.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: juliette.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_juliette_sprites.webp"
+      ],
+      "bytes": 148834,
+      "sha256": "8282d7fa3699cb974a68c3996f85e2fe6dd04abda2de51b79891e6c787e67f80",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/juliette_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: juliette_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_juliette_sprites.webp"
+      ],
+      "foot_baseline": 407,
+      "bytes": 131420,
+      "sha256": "31570b01fae12eba2cc77e5358f9abf0e2c8eccadb82417c10cb73828521696d",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/juliette_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: juliette_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_juliette_sprites.webp"
+      ],
+      "foot_baseline": 407,
+      "bytes": 116632,
+      "sha256": "30f911f98c795ee5bbf94956cb2fd07c0f0735a7289c3f6a427c005ee1d22d41",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/juliette_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: juliette_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_juliette_sprites.webp"
+      ],
+      "foot_baseline": 407,
+      "seat_anchor": [
+        215,
+        285
+      ],
+      "bytes": 108028,
+      "sha256": "1d0f513171fa8a164f11baaa1488df9caa4d7332d215530e0e3a7e6e2f52030b",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/claudia.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: claudia.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_claudia_sprites.webp"
+      ],
+      "bytes": 134094,
+      "sha256": "cc6faa35921960f58c6e62f06f37bcae0ee4cf96a091177dabacd8566dee2c89",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/claudia_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: claudia_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_claudia_sprites.webp"
+      ],
+      "foot_baseline": 395,
+      "bytes": 74336,
+      "sha256": "76c2a9ce6355fb7fece93a00d442207060c551c7352eed3d06329d1f2771ffdc",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/claudia_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: claudia_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_claudia_sprites.webp"
+      ],
+      "foot_baseline": 395,
+      "bytes": 69344,
+      "sha256": "273c43be7fc22534241fe9ac8796a772e2acd5059866a68e864630dc3e3ab75d",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/claudia_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: claudia_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_claudia_sprites.webp"
+      ],
+      "foot_baseline": 395,
+      "seat_anchor": [
+        215,
+        276
+      ],
+      "bytes": 75448,
+      "sha256": "3c6c8687807d2116319bf195b0e98e6a2e9fa2a7f36667fc746bdd29330902d9",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/kaya.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: kaya.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_kaya_sprites.webp"
+      ],
+      "bytes": 120104,
+      "sha256": "7e996e60383a262f34191ba5f53b47a49ddf58f0d85c37082ff5917b43c36e12",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/kaya_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: kaya_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_kaya_sprites.webp"
+      ],
+      "foot_baseline": 407,
+      "bytes": 118960,
+      "sha256": "7c55207af298112d143c5a0428caf06776f37c4f1a5011556ac613de3600e4a1",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/kaya_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: kaya_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_kaya_sprites.webp"
+      ],
+      "foot_baseline": 407,
+      "bytes": 105318,
+      "sha256": "5463a1811ab0ba850c00eefbc423af96e443cc15b21a5a416ae0a247a555a9ca",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/kaya_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: kaya_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_kaya_sprites.webp"
+      ],
+      "foot_baseline": 407,
+      "seat_anchor": [
+        210,
+        288
+      ],
+      "bytes": 107614,
+      "sha256": "6afa810b78ade05724b870700712db33a13177a6eac9db6b5f6d001553cb6412",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/lily.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: lily.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_lily_sprites.webp"
+      ],
+      "bytes": 140620,
+      "sha256": "51fcce2649d03dabbc3c50bcaffbe66e7d127fa2b4b39626cca9f670bfb8b815",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/lily_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: lily_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_lily_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 110082,
+      "sha256": "37968d45e13b5a4cadfe815d3f7e3b1106f8f42f3a8c89010373e3e496615d42",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/lily_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: lily_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_lily_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 102880,
+      "sha256": "8bb95750939f9a1b0f70dd1c089fa0b4a04e4ead71190bd5108dbb0964d748b2",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/lily_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: lily_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_lily_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "seat_anchor": [
+        218,
+        273
+      ],
+      "bytes": 103136,
+      "sha256": "11baaf87028405832ed28b6bf740531efba98b6e1ea432456d9ba53cc04b239b",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/marisol.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: marisol.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_marisol_sprites.webp"
+      ],
+      "bytes": 118672,
+      "sha256": "101e4ad696b1909e5f0ad5778bf5a79ba26742854aba1162bbc1894a5944fafe",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/marisol_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: marisol_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_marisol_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 81906,
+      "sha256": "a3b995f82574765a32f1175a34d46a5ddef093561cc3b42342779ad9a068fb33",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/marisol_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: marisol_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_marisol_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 76908,
+      "sha256": "e20ca6124899980c0764dbf6c260c8ab44fe21c060417a08d2d17dcd4bfc60e6",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/marisol_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: marisol_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_marisol_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "seat_anchor": [
+        222,
+        274
+      ],
+      "bytes": 81784,
+      "sha256": "0ab46a52fbbb9089fbe16301ebccf4e15824840789692d4d6af55839f7a8caab",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/amanda.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: amanda.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_amanda_sprites.webp"
+      ],
+      "bytes": 150236,
+      "sha256": "e0f44a2eac944987d878018c3a9658cc6cd6e5f79a952bd56c209ceec335f9bf",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/amanda_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: amanda_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_amanda_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 87958,
+      "sha256": "9824bec16011db2cccf2a06274070573ccb56086d88c3fbdb47a2f7d39110a82",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/amanda_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: amanda_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_amanda_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 80834,
+      "sha256": "ee4d242ca0eefa9a5917513e34cae853b3eb03716dfa02742d72f5b2155daeec",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/amanda_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: amanda_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_amanda_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "seat_anchor": [
+        207,
+        296
+      ],
+      "bytes": 81094,
+      "sha256": "d5d9659c0997ce23f23bcbaa7845b0d896c67064719dd16a50faa7a58c0f38ae",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/rumi.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: rumi.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_rumi_sprites.webp"
+      ],
+      "bytes": 142012,
+      "sha256": "0299a2d17ac68f1e9b52e6025af6f30497e7430efbd6dfad4f73c2af6f301f66",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/rumi_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: rumi_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_rumi_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 95714,
+      "sha256": "b609bc2333e235d108a27528d9620d19d32e95cccd7c86e5772c53ef4fc97797",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/rumi_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: rumi_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_rumi_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 95520,
+      "sha256": "1ca01645b2fcb8ac4a0bc6815747fedfac562758e377c85e905fbc14504c07c2",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/rumi_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: rumi_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_rumi_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "seat_anchor": [
+        217,
+        274
+      ],
+      "bytes": 95492,
+      "sha256": "4c7fbbb669fc90383a48492769a2a92c6bb2025e56c26e19ae52b48e7f3bed84",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/penelope.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: penelope.webp. Transform the reference doll sprite sheet into ONE waist-up roster portrait, three-quarter toward viewer, smiling. Head fills top 55% of the frame. Portrait aspect 4:5. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_penelope_sprites.webp"
+      ],
+      "bytes": 129888,
+      "sha256": "6d5da1b687737653df665b44da3d094fccb207da89a40ecb04277c4d1fb76274",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/penelope_cheer.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: penelope_cheer.webp. Transform the reference doll sprite sheet into ONE full-body ready pose, both arms raised joyfully, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_penelope_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 95490,
+      "sha256": "7e5e2ebf8899ba70c97ff96b63d2e7bff362cf23191750cbc3587eafa289974a",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/penelope_wave.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: penelope_wave.webp. Transform the reference doll sprite sheet into ONE full-body friendly waving pose, one hand raised and other relaxed, standing with feet planted at the idle foot baseline. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. Match original idle body scale: approximately 370 px body height in a 418 square frame, horizontally centred, foot baseline approximately y=392. Leave enough room above raised hands.",
+      "refs": [
+        "assets/doll_penelope_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "bytes": 89384,
+      "sha256": "c2969cfb671c6b451eba9e8aa02d84807839c6e013cf53774dd234c85b5ec599",
+      "status": "complete"
+    },
+    {
+      "file": "assets/portraits/penelope_ride.webp",
+      "w": 418,
+      "h": 418,
+      "alpha": true,
+      "prompt": "Use case: identity-preserve. Asset: penelope_ride.webp. Transform the reference doll sprite sheet into ONE full-body seated riding pose, legs astride a missing horse, hands forward holding invisible reins, facing three-quarter right. No mount drawn. Square frame. Preserve EXACT toy doll identity, face, skin, hairstyle, hair colour, outfit, shoes and all accessories from the first idle frame. Photoreal toy style, not human. Only one doll, never a sheet, no text or props. Clean genuinely transparent background. ",
+      "refs": [
+        "assets/doll_penelope_sprites.webp"
+      ],
+      "foot_baseline": 408,
+      "seat_anchor": [
+        208,
+        292
+      ],
+      "bytes": 91276,
+      "sha256": "424371759d248e216cb94c6bb61cf11be3cf4278193d869ae36e0758f43fe7b0",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/player_badges.webp",
+      "w": 1024,
+      "h": 128,
+      "alpha": true,
+      "cells": 8,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly 8 equal square cells in ONE horizontal row, one prize rosette in each: large white numeral 1,2,3,4,5,6,7,8 respectively. Colours red, blue, yellow, green, purple, orange, teal, pink. High contrast dark numeral outline. Distinct patterned ribbon tails aid colour-blind readability. Transparent gutters. No P letters. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. Uniform atlas cell boundaries; each element centered in its own cell.",
+      "refs": [],
+      "bytes": 117070,
+      "sha256": "5bb103aac998b88a86588408591f22dcd470751c2f244a631adee311e32d4259",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/slot_pedestal.webp",
+      "w": 220,
+      "h": 90,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One neutral round wooden show-ring pedestal, slightly from above, pale wood and stone trim. Neutral tintable. No text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 16830,
+      "sha256": "f7cb1d27f9cf49176e495fc2a3b50a0050f0495be9a8e002441880ea93084e2a",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/slot_empty.webp",
+      "w": 220,
+      "h": 300,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One empty player slot: gentle stable-door frame around a dashed softly glowing doll silhouette. Transparent outside and open centre. No text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 78776,
+      "sha256": "bf34b96b3013e1a530e3f70ea68eb9203fee68ab19981dca76c4a37b22357ddd",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/ready_ribbon.webp",
+      "w": 240,
+      "h": 90,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One blue prize ribbon banner with broad blank plain ivory centre for game text, folded blue ends and modest gold edging. No text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 18944,
+      "sha256": "4c9a9a07c879272448f547973dc6bdae514339e9cee4b2dea71f938d21991242",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/button_glyphs.webp",
+      "w": 576,
+      "h": 96,
+      "alpha": true,
+      "cells": 6,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly 6 equal square cells in ONE horizontal row. Friendly rounded controller buttons: A green, B red, X blue, Y yellow, LB light gray rounded bumper, RB light gray rounded bumper. Exact letters A B X Y LB RB, large dark or white high-contrast lettering, one glyph per cell. No other text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. Uniform atlas cell boundaries; each element centered in its own cell.",
+      "refs": [],
+      "bytes": 53246,
+      "sha256": "c414d5bdfca95a3eefaf2e51aa1f2731fdfbbf71b15c77d476dd91e4d3adc195",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/select_background.webp",
+      "w": 2172,
+      "h": 724,
+      "alpha": false,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Cosy sunlit stable/tack room, panoramic 3:1. Lower third has 8 evenly spaced stall doors or open show-ring floor for player slots. Upper middle calm uncluttered broad pale wall behind roster cards. Soft low contrast painterly storybook scenery matching reference. Safe centre 1280x720; edges only decorative bleed. Bright soft-painted storybook polish for children on a TV. Opaque image. ",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "bytes": 267876,
+      "sha256": "6047c602d8cdf37fb4f648440ec34c58114efe754780d1637eef2d26a1c9acdb",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/logo.webp",
+      "w": 1100,
+      "h": 420,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Playful storybook game wordmark, exact only text \"American Girl Doll Race\", arranged on two lines American Girl / Doll Race, chunky highly readable lettering, horseshoe and flowing ribbon motif and a small galloping horse silhouette. Vibrant blue teal coral gold, crisp outlines, readable at half size. Wide 1100:420 aspect. Transparent outside. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 496270,
+      "sha256": "3f51f81399b0905efc5ae8122756fec45db5387b58cd1b6876a74adccb68b591",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/title_sky.webp",
+      "w": 2172,
+      "h": 724,
+      "alpha": false,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Panoramic 3:1 storybook sunrise sky, distant rolling green hills and a small castle on a far hill. Warm pink peach sunrise, blue upper sky, broad uncluttered upper centre for logo. Soft painted scenery matching reference. No dolls, text, foreground objects. Safe centre 1280x720 and decorative bleed to sides. Bright soft-painted storybook polish for children on a TV. Opaque image. ",
+      "refs": [
+        "assets/background_castles.webp"
+      ],
+      "bytes": 287830,
+      "sha256": "ac13e915d477c7e824015f670238eae84d4d9c36f10623d15b70806913b659b7",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/title_hills.webp",
+      "w": 2172,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Panoramic thin 2172:400 midground parallax strip: soft painted green meadow, white picket hurdles and fence posts. Transparent above gently undulating meadow. Seamless horizontal tile: left and right border must continue same grass height and colour, no fence or object clipped at seam. No sky, text, dolls. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "tile_mode": "reflected horizontal extension",
+      "bytes": 897114,
+      "sha256": "cf34b542b43924a8cf5ef61d2f66d0638bb54617292d16908d49041a938fb435",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/title_clouds.webp",
+      "w": 2172,
+      "h": 300,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Panoramic thin 2172:300 parallax strip of soft white peach storybook clouds, varied small clusters with generous transparent space. Seamless horizontally tileable, matching left/right cloud edges. No sky colour or text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "tile_mode": "reflected horizontal extension",
+      "bytes": 151982,
+      "sha256": "fb2daedbf5976c45474db51bf01b80b0b8352ef08f0c77dd1008bedd35b2bbda",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/title_hero.webp",
+      "w": 1600,
+      "h": 640,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One wide 1600:640 group cutout: Whirlpool riding brown horse, Juliette riding white rainbow-maned unicorn, Claudia riding white feather-wing pegasus, all mid-gallop heading RIGHT. Lily, Rumi and Kaya running alongside toward RIGHT. Exactly six dolls and three mounts, all full bodies visible without cropping, arranged across width with enough separation to read silhouettes. Preserve EXACT doll and mount identities from labelled references. Photoreal toys as existing sprites. Transparent background, no ground, no text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [
+        "assets/doll_whirlpool_sprites.webp",
+        "assets/doll_juliette_sprites.webp",
+        "assets/doll_claudia_sprites.webp",
+        "assets/doll_lily_sprites.webp",
+        "assets/doll_rumi_sprites.webp",
+        "assets/doll_kaya_sprites.webp",
+        "assets/horse_sprites.webp",
+        "assets/unicorn_sprites.webp",
+        "assets/pegasus_sprites.webp"
+      ],
+      "reference_method": "labelled board of first idle frames",
+      "bytes": 1032156,
+      "sha256": "f685a3e17eee3d4da93e4a991797b527a77e0623559f632919d33b9f50faad24",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/press_start_plate.webp",
+      "w": 640,
+      "h": 110,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One wide warm wooden sign with softly rounded corners and ribbon accents, broad completely plain light centre for game text. No text, symbols or mounts. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 32338,
+      "sha256": "1ed6f7e1f60143b4395e3c8fd28fb10d1332603813a4698f8cfe9a328dad35ca",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/track_cards.webp",
+      "w": 2000,
+      "h": 225,
+      "alpha": false,
+      "cells": 5,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly FIVE equal 400:225 landscape cells in ONE horizontal row, edge-to-edge without gaps. Painted track vignettes matching references in order FARM (red barn/meadow), FAIRY (magical garden mushrooms), VILLAGE (European riverside town), WINTER (snowy farm), CASTLES (fairytale castles/mountains). Each has one hurdle in foreground. No labels or text. Bright soft-painted storybook polish for children on a TV. Opaque image. Uniform atlas cell boundaries; each element centered in its own cell.",
+      "refs": [
+        "assets/background_farm.webp",
+        "assets/background_fairy.webp",
+        "assets/background_village.webp",
+        "assets/background_winter.webp",
+        "assets/background_castles.webp"
+      ],
+      "components": [
+        {
+          "name": "farm",
+          "prompt": "Use case: stylized-concept. Create ONE 16:9 LANDSCAPE track card thumbnail for FARM. Restyle the supplied background into a bright soft-painted storybook vignette with one complete horse-racing hurdle in the lower foreground. Match the source track scenery and palette. Entire hurdle including posts and feet visible in lower quarter; broad scenic view above. No text, no borders, no dolls, no split panels. Final cell aspect 400:225, landscape.",
+          "refs": [
+            "assets/background_farm.webp"
+          ]
+        },
+        {
+          "name": "fairy",
+          "prompt": "Use case: stylized-concept. Create ONE 16:9 LANDSCAPE track card thumbnail for FAIRY. Restyle the supplied background into a bright soft-painted storybook vignette with one complete horse-racing hurdle in the lower foreground. Match the source track scenery and palette. Entire hurdle including posts and feet visible in lower quarter; broad scenic view above. No text, no borders, no dolls, no split panels. Final cell aspect 400:225, landscape.",
+          "refs": [
+            "assets/background_fairy.webp"
+          ]
+        },
+        {
+          "name": "village",
+          "prompt": "Use case: stylized-concept. Create ONE 16:9 LANDSCAPE track card thumbnail for VILLAGE. Restyle the supplied background into a bright soft-painted storybook vignette with one complete horse-racing hurdle in the lower foreground. Match the source track scenery and palette. Entire hurdle including posts and feet visible in lower quarter; broad scenic view above. No text, no borders, no dolls, no split panels. Final cell aspect 400:225, landscape.",
+          "refs": [
+            "assets/background_village.webp"
+          ]
+        },
+        {
+          "name": "winter",
+          "prompt": "Use case: stylized-concept. Create ONE 16:9 LANDSCAPE track card thumbnail for WINTER. Restyle the supplied background into a bright soft-painted storybook vignette with one complete horse-racing hurdle in the lower foreground. Match the source track scenery and palette. Entire hurdle including posts and feet visible in lower quarter; broad scenic view above. No text, no borders, no dolls, no split panels. Final cell aspect 400:225, landscape.",
+          "refs": [
+            "assets/background_winter.webp"
+          ]
+        },
+        {
+          "name": "castles",
+          "prompt": "Use case: stylized-concept. Create ONE 16:9 LANDSCAPE track card thumbnail for CASTLES. Restyle the supplied background into a bright soft-painted storybook vignette with one complete horse-racing hurdle in the lower foreground. Match the source track scenery and palette. Entire hurdle including posts and feet visible in lower quarter; broad scenic view above. No text, no borders, no dolls, no split panels. Final cell aspect 400:225, landscape.",
+          "refs": [
+            "assets/background_castles.webp"
+          ]
+        }
+      ],
+      "bytes": 203802,
+      "sha256": "66624814a68798f7731c7d5f3c598fe8a31d79fcb84fabd6b35b7f1156a538de",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/random_card.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One waist-up neutral doll silhouette under a large sparkly question mark, inviting mystery roster portrait. Storybook toy look, lavender dark silhouette and gold white question mark. Transparent outside. No card frame or other text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 84068,
+      "sha256": "4f04dc0b493c92414a42c9ce16854c36fbfc8d172a4df23fc55a90194a85a944",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/ai_badge.webp",
+      "w": 128,
+      "h": 128,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One friendly toy robot horse head badge with a small wind-up key, rounded silver blue and warm gold, big expressive eyes. Bold readable silhouette. No text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 21798,
+      "sha256": "33833c0a01c1cc5b2b3dfda9addb1d35f2e7140b4caa67dda191c6d0c1b39705",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/difficulty_icons.webp",
+      "w": 640,
+      "h": 160,
+      "alpha": true,
+      "cells": 4,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly FOUR equal square cells in ONE horizontal row: 1 sleeping troll, 2 one awake troll, 3 two trolls together, 4 a playful pile-up of many trolls. Use reference monster's mossy green stone-skinned stocky troll identity, softened friendly toy style. No text, no numbers; transparent gutters. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. Uniform atlas cell boundaries; each element centered in its own cell.",
+      "refs": [
+        "assets/monster_sprites.webp"
+      ],
+      "bytes": 133268,
+      "sha256": "acf0d066be8aa7618459d282eeedef1e9f0789f37edbe565413736d5afd92729",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/specials_icons.webp",
+      "w": 960,
+      "h": 160,
+      "alpha": true,
+      "cells": 6,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly SIX equal square cells in ONE horizontal row, ordered: 1 neutral gray empty horseshoe with diagonal slash (None), 2 rainbow white unicorn head (All Unicorns), 3 white winged pegasus head (All Pegasi), 4 group of small toy doll heads (All Dolls), 5 brown horse head (Horsing Around), 6 Amanda's exact doll face red glasses blue beret and small gold crown (Amanda Mode). Match reference identities. No text; transparent gutters. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. Uniform atlas cell boundaries; each element centered in its own cell.",
+      "refs": [
+        "assets/doll_amanda_sprites.webp",
+        "assets/unicorn_sprites.webp",
+        "assets/pegasus_sprites.webp",
+        "assets/horse_sprites.webp"
+      ],
+      "bytes": 180116,
+      "sha256": "a85b4f4cf1fc24f11b2e2625d7628a6f26be419ee20abae137b4c14d4af940ef",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/join_toast.webp",
+      "w": 520,
+      "h": 120,
+      "alpha": true,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. One friendly blank cream ribbon banner with neutral silver border and small sparkle accents for mid-race joining announcement. Wide 520:120, tintable neutral, large plain centre, no text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. ",
+      "refs": [],
+      "bytes": 41592,
+      "sha256": "ab3d46efb75d5079dc0d900b9a53a64b9ad2f459030bf49e5457014b3625d40b",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/confetti.webp",
+      "w": 384,
+      "h": 64,
+      "alpha": true,
+      "cells": 6,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly SIX equal square cells in ONE horizontal row: one red curled ribbon, blue paper diamond, yellow star, green paper rectangle, purple curled ribbon, pink curved ribbon. Each piece fully contained within cell, bold toy storybook colours, no extra particles, no text. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. Uniform atlas cell boundaries; each element centered in its own cell. IMPORTANT: The cells are imaginary layout guides only. Do NOT draw borders, outlines, grid lines, boxes or dividers. Just six isolated confetti pieces evenly spaced on alpha.",
+      "refs": [],
+      "bytes": 18498,
+      "sha256": "f2540dc2eaaecf718cdbac21aeec32c067c914be42bb06c2da9cc3f6253974ff",
+      "status": "complete"
+    },
+    {
+      "file": "assets/ui/mount_tokens.webp",
+      "w": 480,
+      "h": 160,
+      "alpha": true,
+      "cells": 3,
+      "prompt": "Use case: stylized-concept. Asset for American Girl Doll Race. Exactly THREE equal square cells in ONE horizontal row: brown horse head, white unicorn head with rainbow mane and gold horn, white pegasus head with feather wing behind. Exact mount identities from references, friendly readable toy look. No text. Transparent gutters. Bright soft-painted storybook polish for children on a TV. Clean genuine alpha with no white halos. Uniform atlas cell boundaries; each element centered in its own cell.",
+      "refs": [
+        "assets/horse_sprites.webp",
+        "assets/unicorn_sprites.webp",
+        "assets/pegasus_sprites.webp"
+      ],
+      "bytes": 84720,
+      "sha256": "a27735cf46aa65005d197345bc35505b5c25fd0d75bd55cccfa27573d1195db0",
+      "status": "complete"
+    }
+  ],
+  "mode": "built-in image_gen",
+  "total_assets": 56,
+  "seat_anchor_note": "Visual centre of the seated pelvis; pixels from top-left of final 418x418 frame."
+}
