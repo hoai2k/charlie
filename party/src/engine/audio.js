@@ -124,7 +124,9 @@ function env(g, t, vol, a, d, sustainTime = 0) {
   g.gain.exponentialRampToValueAtTime(0.0001, t + a + sustainTime + d);
 }
 
-function tone({ type = 'square', f = 440, f2 = null, t = 0, dur = 0.12, vol = 0.3, a = 0.005, bus = sfxBus, vib = 0, detune = 0, lp = 0 }) {
+let callBus = null; // per-call volume bus used by sfx(name, { vol })
+
+function tone({ type = 'square', f = 440, f2 = null, t = 0, dur = 0.12, vol = 0.3, a = 0.005, bus = callBus || sfxBus, vib = 0, detune = 0, lp = 0 }) {
   const now = ctx.currentTime + t;
   const o = ctx.createOscillator();
   const g = ctx.createGain();
@@ -143,7 +145,7 @@ function tone({ type = 'square', f = 440, f2 = null, t = 0, dur = 0.12, vol = 0.
   o.start(now); o.stop(now + a + dur + 0.05);
 }
 
-function noise({ t = 0, dur = 0.2, vol = 0.3, type = 'lowpass', f = 1200, f2 = null, q = 1, bus = sfxBus, a = 0.003 }) {
+function noise({ t = 0, dur = 0.2, vol = 0.3, type = 'lowpass', f = 1200, f2 = null, q = 1, bus = callBus || sfxBus, a = 0.003 }) {
   const now = ctx.currentTime + t;
   const s = ctx.createBufferSource(); s.buffer = noiseBuf; s.loop = true;
   const fl = ctx.createBiquadFilter(); fl.type = type; fl.Q.value = q;
@@ -251,7 +253,13 @@ export function sfx(name, opts = {}) {
     return;
   }
   const fn = SYNTH[name];
-  if (fn) fn(opts);
+  if (!fn) return;
+  if (opts.vol !== undefined && opts.vol !== 1) {
+    callBus = ctx.createGain(); callBus.gain.value = Math.max(0, opts.vol); callBus.connect(sfxBus);
+    const bus = callBus;
+    setTimeout(() => bus.disconnect(), 4000);
+  }
+  try { fn(opts); } finally { callBus = null; }
 }
 export const SFX_NAMES = Object.keys(SYNTH);
 

@@ -12,6 +12,7 @@ import { drawStarShape } from '../engine/emotes.js';
 import { ease, clamp, TAU } from '../engine/util.js';
 import { session } from '../state.js';
 import { gameById } from '../games/index.js';
+import { Camera } from '../engine/camera.js';
 import { charById } from '../data/characters.js';
 
 export const STARS_BY_PLACE = [3, 2, 1];
@@ -70,6 +71,8 @@ export class ResultsScene {
     this.revealAt = 0.15 + n * 0.12 + 0.5;
     this.revealed = false;
     this.starJingle = false;
+    this.camera = new Camera();
+    this.drawsParticles = true;
     this.winners = this.entries.filter((e) => e.winner);
     music.stop(0.2);
     this.leaving = false;
@@ -79,6 +82,8 @@ export class ResultsScene {
 
   headline() {
     if (this.showcase) return this.result.title || "Everyone's a star!";
+    if (session.players.length === 1) return this.winners.length ? (this.result.title || 'You did it!') : 'So close!';
+    if (!this.winners.length) return this.result.title || 'Great game!';
     if (this.winners.length === 1) { const c = charById(session.players[this.winners[0].idx].charId); return `${c.name} ${c.plural ? 'win' : 'wins'}!`; }
     if (this.winners.length === session.players.length) return "It's a tie!";
     return 'Tie for first!';
@@ -86,6 +91,7 @@ export class ResultsScene {
 
   update(dt, inputOpen) {
     this.t += dt;
+    this.camera.update(dt); this.camera.tickPunch(dt);
     for (const e of this.entries) {
       const a = e.actor;
       if (this.t > e.delay && !e.landed) {
@@ -106,6 +112,12 @@ export class ResultsScene {
       if (this.showcase && this.result.highlight != null) setTimeout(() => { sfx('jingle/showstopper'); host('showstopper'); }, 1800);
       particles.confettiRain(W, 160);
       fx.flash('#fff6d0', 0.3);
+      // Camera punch on the winner (center of the winners when tied).
+      if (this.winners.length && this.winners.length < this.entries.length) {
+        const wx = this.winners.reduce((a, e) => a + e.x, 0) / this.winners.length;
+        const wy = this.winners[0].floor - this.winners[0].podium - 110;
+        this.camera.punch(wx, wy, 1.32, 1.3);
+      }
       for (const e of this.entries) {
         const p = session.players[e.idx];
         if (e.winner) { e.actor.setPose('celebrate'); voice(p.charId, 'yay'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); }
@@ -149,6 +161,8 @@ export class ResultsScene {
   }
 
   draw(g) {
+    g.save();
+    this.camera.apply(g);
     // Stage backdrop.
     const gr = g.createRadialGradient(W / 2, 300, 100, W / 2, 400, 1200);
     gr.addColorStop(0, '#ffcde6'); gr.addColorStop(1, '#7b4bc9');
@@ -193,6 +207,8 @@ export class ResultsScene {
         ui.text(g, 'Showstopper!', e.x, e.actor.y - e.actor.height - 110, { size: 36, color: '#ffd23f' });
       }
     }
+    particles.draw(g);
+    g.restore();
     // Headline.
     if (this.revealed) ui.banner(g, this.headline(), this.t - this.revealAt, { y: 210, size: 110 });
     else ui.text(g, this.meta ? this.meta.title : '', W / 2, 210, { size: 80, color: '#fff' });

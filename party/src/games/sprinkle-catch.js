@@ -98,7 +98,7 @@ export class Game {
       a.x = x; a.y = GROUND_Y + lane; a.facing = x < W / 2 ? 1 : -1; a.snap();
       return {
         p, a, i, x, vx: 0, pv: 0, z: 0, vz: 0, score: 0, stun: 0, inv: 0, streak: 0, streakT: 0, lane,
-        brain: new Brain(p), target: null, err: 0, wander: 0, wanderX: x, dodge: new Map(), bumpCd: 0, lastLand: 0,
+        brain: new Brain(p), popN: 0, popT: 0, target: null, err: 0, wander: 0, wanderX: x, dodge: new Map(), bumpCd: 0, lastLand: 0,
       };
     });
     this.sparkles = Array.from({ length: 26 }, () => ({ x: rand(W), y: rand(H), p: rand(TAU), s: rand(0.5, 1) }));
@@ -213,7 +213,7 @@ export class Game {
   movePlayer(e, dt) {
     const p = e.p, a = e.a, ctrl = p.ctrl;
     e.stun = Math.max(0, e.stun - dt); e.inv = Math.max(0, e.inv - dt);
-    e.streakT = Math.max(0, e.streakT - dt); e.bumpCd = Math.max(0, e.bumpCd - dt);
+    e.streakT = Math.max(0, e.streakT - dt); e.popT = Math.max(0, e.popT - dt); e.bumpCd = Math.max(0, e.bumpCd - dt);
     const stunned = e.stun > 0;
     const inX = this.done ? 0 : ctrl.x;
     const target = inX * MAX_SPEED * (stunned ? 0.25 : 1);
@@ -332,11 +332,12 @@ export class Game {
     const a = e.a, top = a.y - a.z - a.height;
     a.playOnce(poseName('catch'), t.kind === 'golden' ? 0.7 : 0.45); a.squash(0.25);
     const col = t.kind === 'golden' ? '#ffd23f' : t.kind === 'cupcake' ? '#ff6fb1' : '#ffffff';
-    particles.popText(e.x, top - 10, '+' + val, col, t.kind === 'golden' ? 72 : 52);
+    this.pop(e, '+' + val, col, t.kind === 'golden' ? 68 : 50);
     if (t.kind === 'golden') {
       sfx('star'); sfx('sparkle'); voice(e.p.charId, 'yay');
       particles.burst(e.x, top + a.height * 0.4, { type: 'star', count: 14, colors: ['#ffd23f', '#fff6a8', '#fff'] });
       fx.flash('#fff3b0', 0.12); fx.shake(5, 0.18);
+      this.api.camera && this.api.camera.punch(e.x, a.y - a.height * 0.6, 1.1, 0.3);
       a.emote('sparkle', 1.2);
     } else {
       sfx('collect', { step: Math.min(e.streak - 1, 14) });
@@ -344,7 +345,7 @@ export class Game {
       if (t.kind === 'cupcake') a.emote('star', 0.6);
     }
     if (e.streak === 3 || e.streak === 5 || e.streak === 8 || e.streak === 12) {
-      particles.popText(e.x + 70, top + 30, `x${e.streak}!`, '#6fe3b4', 38);
+      this.pop(e, `x${e.streak}!`, '#6fe3b4', 38, 1);
       if (!e.p.isAI) e.p.ctrl.rumble(0.3, 90);
     }
   }
@@ -372,7 +373,7 @@ export class Game {
     sfx('bonk'); sfx('stun'); voice(e.p.charId, 'ouch'); fx.shake(9, 0.22);
     if (!e.p.isAI) e.p.ctrl.rumble(0.8, 220);
     a.playOnce('hurt', 0.35, 'dizzy'); a.squash(0.35);
-    particles.popText(e.x, a.y - a.z - a.height - 10, lose ? '-' + lose : 'Bonk!', '#ff4d6d', 56);
+    this.pop(e, lose ? '-' + lose : 'Bonk!', '#ff4d6d', 54);
     for (let k = 0; k < lose; k++) {
       const s = this.spawnTreat('sprinkle');
       s.x = e.x; s.y = a.y - a.height * 0.9; s.vx = rand(-280, 280); s.vy = -rand(420, 640); s.grace = 0.55; s.bounces = 0;
@@ -466,7 +467,9 @@ export class Game {
       e.a.clearEmotes();
       if (this.n === 1 ? scores[0] >= SOLO_GOAL : scores[i] === top) e.a.setPose('celebrate'); else if (this.n > 1 && placements[i] === Math.max(...placements) && placements[i] > 1) e.a.setPose('pout'); else e.a.setPose('idle');
     });
-    this.api.finish({ placements, stats: scores.map((s) => `${s} pts`) });
+    const wi = this.n === 1 ? 0 : scores.indexOf(top);
+    const wa = this.ents[Math.max(0, wi)].a;
+    this.api.finish({ placements, stats: scores.map((s) => `${s} pts`), focus: { x: wa.x, y: wa.y - wa.height * 0.5 } });
   }
 
   // -------------------------------------------------------------------- draw
@@ -490,7 +493,16 @@ export class Game {
       const top = a.y - a.z - a.height - 24 - (a.emotes.length ? 52 : 0);
       ui.playerTag(g, e.p, e.x, top);
     }
-    this.drawHud(g);
+  }
+
+  drawHUD(g) { this.drawHud(g); }
+
+  /** Stacked, side-staggered pop text so quick catches stay legible. */
+  pop(e, str, color, size, side = 0) {
+    e.popN = e.popT > 0 ? e.popN + 1 : 0; e.popT = 0.75;
+    const a = e.a, top = a.y - a.z - a.height;
+    const lvl = e.popN % 3;
+    particles.popText(e.x + side * 70 + (lvl === 1 ? 34 : lvl === 2 ? -34 : 0), top - 14 - lvl * 54, str, color, size);
   }
 
   drawHud(g) {

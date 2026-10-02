@@ -7,7 +7,7 @@ import { Actor } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice } from '../engine/audio.js';
+import { sfx, voice, host } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
@@ -262,6 +262,7 @@ export class Game {
       st.redT = st.gauge > RED ? st.redT + dt : 0;
       st.popTime += dt;
       leader = Math.max(leader, st.size);
+      for (const mark of [0.5, 0.75, 0.9]) if (st.size >= mark && (st.stretchMark || 0) < mark) { st.stretchMark = mark; sfx('balloon-stretch'); }
       if (this.solo) st.timeLeft -= dt;
       // characters get nervous when the balloon is big
       if (st.size > 0.82 && st.a.emotes.every((e) => e.kind !== 'exclaim') && chance(dt * 1.2)) st.a.emote('sweat', 0.7);
@@ -339,11 +340,12 @@ export class Game {
     this.resultText = null;
     for (const st of this.st) {
       st.size = 0; st.shownSize = 0; st.gauge = 0; st.gaugeShown = 0; st.popped = false; st.deflating = false;
-      st.appear = 0; st.timeLeft = SOLO_TIME; st.sputter = 0; st.popTime = 0;
+      st.appear = 0; st.stretchMark = 0; st.timeLeft = SOLO_TIME; st.sputter = 0; st.popTime = 0;
       st.a.setPose('idle'); st.a.clearEmotes();
       st.ai.paused = false; st.ai.nextPanic = this.t + rand(2, 4.5); st.ai.panicUntil = 0; st.ai.next = rand(0.2, 0.6);
     }
     sfx('swap');
+    host(this.round >= ROUNDS ? 'final-round' : 'next-round');
   }
 
   betweenPhase() {

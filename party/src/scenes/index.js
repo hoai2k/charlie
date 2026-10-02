@@ -6,6 +6,7 @@ import { IntroScene } from './intro.js';
 import { PlayScene } from './play.js';
 import { ResultsScene } from './results.js';
 import { TrophyScene } from './trophy.js';
+import { AudioTestScene } from './audiotest.js';
 
 export function registerScenes(scenes) {
   scenes.register('title', new TitleScene());
@@ -15,4 +16,5 @@ export function registerScenes(scenes) {
   scenes.register('play', new PlayScene());
   scenes.register('results', new ResultsScene());
   scenes.register('trophy', new TrophyScene());
+  scenes.register('audio', new AudioTestScene());
 }

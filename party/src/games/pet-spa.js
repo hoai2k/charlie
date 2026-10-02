@@ -250,7 +250,7 @@ export const meta = {
   type: 'Caring · Everyone together',
   goal: 'Give your muddy pet a bubbly bath and make it super happy!',
   controls: [['stick', 'Move your hand'], ['a', 'Hold to use the tool'], ['rb', 'Change tool (LB / RB)'], ['x', 'Pick the next step'], ['b', 'Cuddle'], ['y', 'Squeaky duck']],
-  tips: ['Scrub away all the mud, then rinse the bubbles off.', 'Towel your pet dry — watch it shake!', 'Fill the heart meter for a happy dance. Then put on a show!'],
+  tips: ['Scrub off the mud, then rinse the bubbles.', 'Towel your pet dry — watch it shake!', 'Fill the heart meter for a happy dance. Then put on a show!'],
   music: 'chill',
   duration: '1–2 min',
   minPlayers: 1, maxPlayers: 8,
@@ -298,7 +298,7 @@ export const meta = {
     }
     g.save(); g.translate(x + w * 0.83, y + h * 0.22); g.rotate(Math.sin(t * 2) * 0.2); drawHeartShape(g, 34 * s, '#ff4f8b'); g.restore();
     drawDuck(g, x + w * 0.18, y + h * 0.83, 34 * s, Math.sin(t * 3) * 0.15);
-    ui.text(g, 'Pet Spa', x + w / 2, y + h * 0.9, { size: h * 0.12, color: '#ffffff', maxWidth: w * 0.6 });
+    ui.text(g, 'Pet Spa', x + w / 2, y + h * 0.1, { size: h * 0.11, color: '#ffffff', maxWidth: w * 0.9 });
   },
 };
 
