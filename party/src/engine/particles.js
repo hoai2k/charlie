@@ -10,6 +10,33 @@
 
 import { rand, pick, TAU } from './util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape, starPath } from './emotes.js';
+import { art } from './art.js';
+
+// Confetti atlas (prop/confetti: 8x4 cells of 64 px; rows ribbon, curl, star,
+// dot; columns red, orange, yellow, green, teal, blue, purple, pink). A piece
+// uses the column nearest its colour's hue, so team-coloured confetti stays on
+// colour; greys and white keep the drawn rectangle.
+const ATLAS_HUES = [352, 27, 49, 105, 175, 210, 268, 324];
+const ATLAS_ROWS = [0, 0, 0, 0, 1, 1, 1, 2, 2, 3];
+const colCache = new Map();
+function atlasCol(color) {
+  let c = colCache.get(color);
+  if (c !== undefined) return c;
+  c = -1;
+  const m = /^#([0-9a-f]{6})$/i.exec(color || '');
+  if (m) {
+    const n = parseInt(m[1], 16), r = (n >> 16) / 255, gr = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    const mx = Math.max(r, gr, b), mn = Math.min(r, gr, b);
+    if (mx - mn > 0.25) {
+      let h = mx === r ? (gr - b) / (mx - mn) : mx === gr ? 2 + (b - r) / (mx - mn) : 4 + (r - gr) / (mx - mn);
+      h = (h * 60 + 360) % 360;
+      let best = 1e9;
+      ATLAS_HUES.forEach((ah, i) => { const d = Math.min(Math.abs(h - ah), 360 - Math.abs(h - ah)); if (d < best) { best = d; c = i; } });
+    }
+  }
+  colCache.set(color, c);
+  return c;
+}
 
 export const RAINBOW = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff', '#ff6fd0'];
 
@@ -98,9 +125,18 @@ class Particles {
       g.globalAlpha = fade;
       g.translate(p.x, p.y);
       switch (p.type) {
-        case 'confetti':
+        case 'confetti': {
+          const atlas = art('prop/confetti'), col = atlas ? atlasCol(p.color) : -1;
+          if (col >= 0) {
+            if (p.cell === undefined) p.cell = ATLAS_ROWS[Math.floor(Math.random() * ATLAS_ROWS.length)];
+            const cw = atlas.width / 8, ch = atlas.height / 4, d = p.size * 2.2;
+            g.rotate(p.rot); g.scale(1, 0.35 + 0.65 * Math.abs(Math.cos(p.age * 7 + p.rot)));
+            g.drawImage(atlas, col * cw, p.cell * ch, cw, ch, -d / 2, -d / 2, d, d);
+            break;
+          }
           g.rotate(p.rot); g.scale(1, Math.cos(p.age * 9 + p.rot));
           g.fillStyle = p.color; g.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2); break;
+        }
         case 'spark':
           g.fillStyle = p.color; g.beginPath(); g.arc(0, 0, p.size * (1 - t * 0.6), 0, TAU); g.fill(); break;
         case 'star': g.rotate(p.rot); drawStarShape(g, p.size, p.color); break;

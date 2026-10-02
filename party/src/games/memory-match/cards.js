@@ -53,11 +53,31 @@ function cached(key, w, h, paint) {
 
 /** Card back centered at (x, y). */
 export function drawCardBack(g, x, y, w, h) {
-  // prop/card-back (same file as the older prop/memory-card-back key), stretched to the card.
+  // prop/card-back (same file as the older prop/memory-card-back key): its visible
+  // card (transparent padding trimmed) is stretched to the card.
   const img = art('prop/card-back') || art('prop/memory-card-back');
-  const c = img ? null : cached('back', w, h, paintBack);
-  if (img) g.drawImage(img, x - w / 2, y - h / 2, w, h);
-  else g.drawImage(c, x - w / 2, y - h / 2, w, h);
+  if (img) { const b = opaqueBox(img); g.drawImage(img, b.x, b.y, b.w, b.h, x - w / 2, y - h / 2, w, h); return; }
+  g.drawImage(cached('back', w, h, paintBack), x - w / 2, y - h / 2, w, h);
+}
+
+// Opaque bounds of an image (measured once per image).
+const boxes = new WeakMap();
+function opaqueBox(img) {
+  let b = boxes.get(img);
+  if (b) return b;
+  b = { x: 0, y: 0, w: img.width, h: img.height };
+  try {
+    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const cg = c.getContext('2d'); cg.drawImage(img, 0, 0);
+    const d = cg.getImageData(0, 0, c.width, c.height).data;
+    let x0 = c.width, y0 = c.height, x1 = -1, y1 = -1;
+    for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) {
+      if (d[(y * c.width + x) * 4 + 3] > 40) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    if (x1 >= x0) b = { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+  } catch (e) { /* tainted or not ready: draw the whole image */ }
+  boxes.set(img, b);
+  return b;
 }
 
 /** Card face for `face` (from allFaces) centered at (x, y). */

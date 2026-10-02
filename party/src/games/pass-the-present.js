@@ -680,11 +680,11 @@ export class Game {
 
   // The round rug under the circle (the generated background has no rug).
   drawRugLayer(g) {
-    // Rug art: the rug itself spans (2,56)-(1177,720) of the 1182x800 image. Stretch
-    // it so the rug is (RX+150) x ~(RY+110) around the circle, like the procedural rug
-    // (the art is drawn from a steeper angle than the flat player ellipse).
-    const sx = (RX + 150) * 2 / 1175, sy = (RUG_RY + 110) * 2 / 664;
-    if (!drawArt(g, 'prop/party-rug', CX + 1.5 * sx, CY + 14 + 12 * sy, 1182 * sx, 800 * sy, { fit: 'stretch' })) drawRug(g, CX, CY + 14, RX + 150, RUG_RY + 78, this.confettiDots);
+    // Rug art (prop/party-rug: a flat 960x368 oval at the game's 3/4 angle, edge to
+    // edge). Sized (RX+150) wide like the procedural rug; a slight vertical stretch
+    // keeps its rim outside the player ellipse.
+    const rw = (RX + 150) * 2, rh = rw * 0.4;
+    if (!drawArt(g, 'prop/party-rug', CX, CY + 18, rw, rh, { fit: 'stretch' })) drawRug(g, CX, CY + 14, RX + 150, RUG_RY + 78, this.confettiDots);
   }
 }
 

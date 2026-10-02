@@ -1,4 +1,4 @@
-import { drawArt } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
 // Results: podium ceremony. Winners celebrate (with a crown), the last place
 // pouts under a rain cloud, everyone's stars fly into the session tally.
 import { W, H } from '../engine/canvas.js';
@@ -194,7 +194,8 @@ export class ResultsScene {
     for (const e of this.entries) {
       const w = 230 * (session.players.length > 5 ? 0.8 : 1);
       if (e.podium > 0) {
-        ui.panel(g, e.x - w / 2, e.floor - e.podium, w, e.podium + 20, { r: 16, fill: ['#ffd23f', '#d9e3f0', '#f0a35e'][e.place - 1] || '#c9b7f0', lineWidth: 5 });
+        if (!drawPodium(g, this.showcase ? 4 : Math.min(4, e.place), e.x, e.floor - e.podium, w, e.podium + 20))
+          ui.panel(g, e.x - w / 2, e.floor - e.podium, w, e.podium + 20, { r: 16, fill: ['#ffd23f', '#d9e3f0', '#f0a35e'][e.place - 1] || '#c9b7f0', lineWidth: 5 });
         if (!this.showcase && e.podium > 50) ui.text(g, String(e.place), e.x, e.floor - e.podium / 2 + 10, { size: 64, color: '#fff' });
       }
     }
@@ -226,4 +227,17 @@ export class ResultsScene {
       ui.hints(g, list, W / 2, 1048, { size: 30 });
     }
   }
+}
+
+// Generated podium blocks (prop/podium-1..4, 230 px wide, a top face over a
+// blank front). The top face keeps its shape with its middle at y (where the
+// winner stands); only the front stretches down to the bottom.
+const PODIUM_TOP = [40, 40, 30, 18];
+function drawPodium(g, n, x, y, w, frontH) {
+  const img = art(`prop/podium-${n}`);
+  if (!img) return false;
+  const s = w / img.width, tf = PODIUM_TOP[n - 1], top = tf * s;
+  g.drawImage(img, 0, 0, img.width, tf, x - w / 2, y - top / 2, w, top);
+  g.drawImage(img, 0, tf, img.width, img.height - tf, x - w / 2, y + top / 2, w, Math.max(4, frontH - top / 2));
+  return true;
 }
