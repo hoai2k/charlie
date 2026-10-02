@@ -6,6 +6,11 @@ strip are wired into the game. Generated with the built-in image generator;
 the final prompt set is recorded in `assets/image-generation-prompts.json`.
 Title, selection, and hint layouts were checked at 390×844 and 1280×720.
 
+Reviewed in game on 2026-10-02: all seven images were accepted as delivered,
+and no new images are needed right now. One follow-up fix was code only. The
+race portraits stop at the waist, so the bobbing title parade now sits
+below the screen edge and the cut edge never comes into view.
+
 This brief is for whoever makes art for Doll Puppets (a person or an image
 agent). The game now opens on a **title screen** and then a **"Choose your
 doll" screen**, before the camera puppet starts. Both screens already work with

@@ -1,0 +1,142 @@
+[
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-a",
+    "poses": [
+      "carry",
+      "push",
+      "paint",
+      "cast",
+      "clap",
+      "eat",
+      "bow",
+      "strike1"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses in order: carry: carefully balance an invisible box atop the cake; push: firm forward whole-cake lean; paint: attentive tilt toward an invisible canvas; cast: forward magical-looking tilt, no wand; clap: happy rhythmic whole-body squash pulses; eat: satisfied bite, fuller cheeks; bow: polite domed bow; strike1: confident tall hand-on-hip equivalent, proud tilt.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-a.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-b",
+    "poses": [
+      "strike2",
+      "strike3",
+      "dance-up",
+      "dance-down",
+      "dance-side",
+      "dance-star",
+      "shake",
+      "stir"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: strike2: playful wink and front tilt; strike3: proud upright star pose expressed only by a tilted cake silhouette; dance-up: tall springy bounce; dance-down: deep squash; dance-side: lean to the right; dance-star: airborne starburst silhouette made only by tilted cake tiers; shake: frosting and tiers jiggle; stir: focused stirring mime using only facial expression/tilt, no spoon.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-b.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-c",
+    "poses": [
+      "swim",
+      "balance",
+      "splat-throw",
+      "wand-up",
+      "broom-rise",
+      "broom-glide",
+      "broom-zapped",
+      "count"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: swim: buoyant head-up bob; balance: wobbling on a precarious tilt; splat-throw: underhand-action equivalent, whole cake tilts forward; wand-up: anticipatory tall pose looking up; broom-rise: bounce diagonally upward as if perched on an invisible broom; broom-glide: relaxed level perch; broom-zapped: startled side tilt and frizzy candle flame; count: focused counting expression and tiny bounce.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-c.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-d",
+    "poses": [
+      "look-up",
+      "crowned",
+      "dash-a",
+      "dash-b",
+      "hip-bump-a",
+      "hip-bump-b",
+      "knockback-a",
+      "knockback-b"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses 1 look-up, upward gaze and tipped-back dome; 2 crowned, proud tall strut without a crown; 3-4 are the two-frame dash: forward tilted launch, then held fast forward lean; 5-6 are two-frame hip-bump: lower cake tier cocks back while upper dome leans away, then base swings toward the facing direction; 7-8 are two-frame knockback: cake skids backward while sharply leaning away, then opposite wobble. Read in order. No hips drawn as limbs.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-d.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-e",
+    "poses": [
+      "catch",
+      "sit",
+      "tumble",
+      "hold-present",
+      "toss",
+      "catch-present",
+      "sooty",
+      "drink"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: catch: bounce with wide upward gaze as something lands on cake top, but show no object; sit: low squashed cloud-sitting posture; tumble: whole cake tumbles sideways; hold-present: steady cake with top tier ready to balance an invisible box; toss: forward tilt as if nudging an invisible object; catch-present: startled catch, no object; sooty: dazed expression with soot-smudged cheeks; drink: cheerful sip expression, with no bottle.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-e.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-f",
+    "poses": [
+      "float",
+      "hiccup",
+      "giggle",
+      "stomp-giant",
+      "squeak-tiny",
+      "flip",
+      "blow",
+      "shake-sprinkles"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: float: drift in a level, light bounce; hiccup: sudden squash and candle twitch; giggle: smiling eyes and tiny repeated bob; stomp-giant: wide proud grounded cake silhouette; squeak-tiny: small startled hop; flip: forward look as if flipping a card with no visible object; blow: cheeks puff, blowing gently; shake-sprinkles: whole-cake shimmy with sprinkle-free body.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-f.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "actions-g",
+    "poses": [
+      "pose-twirl",
+      "photo",
+      "sing",
+      "water",
+      "catch-toy",
+      "look-around",
+      "high-five",
+      "wave-goodbye"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent sprite sheet for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact character in every cell. Exact identity: pink domed three-tier cake body, white marshmallow piping rows, pink frosting band, multicolor sprinkles, big black lash eyes and smile on the front, one tiny red-and-white striped candle with red/yellow flame. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet in any frame. ABSOLUTELY NO LIMBS: express every action only through squash/stretch, whole-cake bounce, gentle tilt, candle motion and facial expression; never add appendages. Keep the candle attached at the top and face on the front tier. Consistent cake proportions and outline weight, bold smooth dark navy outlines, bright clean cel shading. Exactly eight distinct full-body figures in a 4-column by 2-row grid, ordered left-to-right then bottom row, generous transparent gutters and margins, never clipped or overlapping. No text, labels, boxes, scenery, shadows, extra decorations or props. Any held/touched items are invisible and remain invisible. True transparent background. Cell poses: pose-twirl, graceful full-cake turn; photo, frontal cheerful pose; sing, open-mouth singing with candle upright; water, gentle pouring mime expressed with tilt, no can; catch-toy, alert crouched squash as if ready, no toy; look-around, scanning tilt side to side; high-five, lean toward an off-screen partner, no arms; wave-goodbye, friendly side-to-side tilt.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-actions-g.webp"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "dance-r3",
+    "poses": [
+      "dance-a",
+      "dance-b",
+      "dance-c",
+      "dance-d"
+    ],
+    "prompt": "Use case: illustration-story. Asset type: transparent 4-frame dance strip for Charlie Party. Input image 1 is the approved Marshmallow Birthday Cake canonical; reproduce this exact pink tiered cake with white marshmallow rows, pink frosting band, multicolor sprinkles, big lash eyes and smile, and one red/yellow candle. ABSOLUTELY NO LIMBS: no arms, hands, legs or feet. Animate only whole-cake squash/stretch, tilts, bounce, candle and expression. Exactly four separate full cake figures in one horizontal row A/B/C/D with transparent gutters: A anticipatory low squash; B bounce high, tilted left, eyes joyful; C bounce high tilted right, candle flame lively; D soft return-to-ground squash, smile; one fluid loop lasting exactly 1 second at 4 fps. Keep the same face and cake proportions throughout. Bold navy outlines and bright cel shading. Real transparent background, no labels, shadows, scenery, text, clipping or overlap.",
+    "canonical": "party/reference/canonical/marshmallow-birthday-cake.webp",
+    "master": "",
+    "source": "../sources/marshmallow-birthday-cake-dance-r3.webp"
+  }
+]
