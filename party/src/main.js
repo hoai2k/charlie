@@ -11,6 +11,8 @@
 //   ?speed=3                           run the simulation faster
 //   ?nosprites=1                       ignore generated sprites (base art only)
 //   ?mute=1
+//
+// Keys anywhere: M sound on/off, F fullscreen on/off (also the corner buttons).
 
 import { setupCanvas, beginFrame, endFrame, W, H } from './engine/canvas.js';
 import { input } from './engine/input.js';
@@ -21,6 +23,7 @@ import { particles } from './engine/particles.js';
 import { fx } from './engine/fx.js';
 import { scenes } from './engine/scenes.js';
 import { shell } from './engine/shell.js';
+import { corner } from './engine/corner.js';
 import * as ui from './engine/ui.js';
 import { session, makePlayer, newAIController, randomFreeCharacter } from './state.js';
 import { CHARACTERS } from './data/characters.js';
@@ -34,12 +37,17 @@ if (params.has('mute')) setMuted(true);
 const canvas = document.getElementById('game');
 const g = setupCanvas(canvas);
 input.init(canvas);
+corner.init(canvas);
 
 // Fullscreen + sound need a user gesture (see engine/shell.js).
 input.onUserGesture = () => {
   unlockAudio();
   if (shell.wantFullscreen) shell.tryFullscreen();
 };
+
+// Screens that show the sound / fullscreen corner buttons (play: only while paused).
+const MENU_SCENES = new Set(['title', 'charselect', 'gameselect', 'intro', 'results', 'trophy']);
+const showCorner = () => MENU_SCENES.has(scenes.name) || (scenes.name === 'play' && !!scenes.current.paused);
 
 let loadProgress = 0;
 let loaded = false;
@@ -107,11 +115,15 @@ function frame(now) {
       fx.update(dt);
       if (i < steps - 1) input.update(0);
     }
+    corner.visible = showCorner();
+    corner.update(rawDt);
+    ui.resetHotspots();
     g.save();
     g.translate(fx.ox, fx.oy);
     scenes.draw(g);
     g.restore();
     fx.drawFlash(g, W, H);
+    corner.draw(g);
   }
   endFrame();
   requestAnimationFrame(frame);

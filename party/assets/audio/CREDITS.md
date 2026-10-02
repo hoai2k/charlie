@@ -10,5 +10,7 @@ recordings, samples or melodies were used. Each file's prompt is listed in
 | --- | --- | --- |
 | `sfx/*`, `npc/*`, `jingle/*`, `voice/*` | ElevenLabs sound generation (text prompts written for Charlie Party) | Generated content, used under the terms of the ElevenLabs account that produced it. Check that the account's plan allows the use you want (a public GitHub Pages site) before publishing widely. |
 
-Not yet delivered: Glimmer's host lines (`host/*`) and the music loops
+| `music/bubblegum-radar.mp3` | *Bubblegum Radar*, copied from `americangirldollrace/assets/music/` (cover art stripped) | Same source and terms as the race's music. Plays on the title screen and in games that use the `party` song. |
+
+Not yet delivered: Glimmer's host lines (`host/*`) and the other music loops
 (`music/*`); see `audio-requests.md` §9.3.

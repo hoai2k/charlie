@@ -286,7 +286,7 @@ function tinted(img, color) {
 
 const MOTION_FREQ = { walk: 2.4, trot: 3.2, glide: 1.4, bounce: 2.2, clunk: 2.6, hop: 2.8, stomp: 1.6 };
 
-function procedural(pose, t, style, speed, allowTwirl = true) {
+function procedural(pose, t, style, speed, allowMirror = true) { // allowMirror: base art may face the other way on dance beats (never a squashed "paper" spin)
   const o = { lift: 0, rot: 0, sx: 1, sy: 1, dx: 0, tint: null, shadowScale: 1 };
   const breathe = Math.sin(t * TAU * 0.8);
   const floaty = style === 'glide';
@@ -330,12 +330,11 @@ function procedural(pose, t, style, speed, allowTwirl = true) {
     case 'fall': o.sy = 1.04; o.sx = 0.97; o.rot -= 0.04; break;
     case 'land': { const k = Math.max(0, 1 - t / 0.25); o.sy = 1 - 0.2 * k; o.sx = 1 + 0.18 * k; break; }
     case 'celebrate': {
-      const p = (t / 0.52) % 1, n = Math.floor(t / 0.52);
+      const p = (t / 0.52) % 1;
       o.lift += Math.sin(p * Math.PI) * 46;
       const sq = p < 0.12 ? 1 - p / 0.12 : 0;
       o.sy = 1 - 0.16 * sq + 0.1 * Math.sin(p * Math.PI); o.sx = 1 + 0.14 * sq - 0.05 * Math.sin(p * Math.PI);
       o.rot = Math.sin(t * 5) * 0.12;
-      if (allowTwirl && n % 3 === 2) o.sx *= Math.cos(p * TAU); // twirl every third hop
       break;
     }
     case 'cheer': {
@@ -347,7 +346,7 @@ function procedural(pose, t, style, speed, allowTwirl = true) {
     case 'dance': {
       const b = t * 2.2;
       o.lift += Math.abs(Math.sin(b * Math.PI)) * 18; o.rot = Math.sin(b * Math.PI) * 0.16;
-      o.sy = 1 - Math.pow(Math.abs(Math.cos(b * Math.PI)), 4) * 0.1; o.sx = allowTwirl ? (Math.floor(b / 2) % 2 ? -1 : 1) : 1;
+      o.sy = 1 - Math.pow(Math.abs(Math.cos(b * Math.PI)), 4) * 0.1; o.sx = allowMirror ? (Math.floor(b / 2) % 2 ? -1 : 1) : 1;
       break;
     }
     case 'pout': case 'sad':
@@ -367,7 +366,6 @@ function procedural(pose, t, style, speed, allowTwirl = true) {
     case 'ready': {
       const p = Math.min(1, t / 0.5);
       o.lift += Math.sin(p * Math.PI) * 34; o.sy = 1 + Math.sin(p * Math.PI) * 0.1;
-      if (allowTwirl && p < 1) o.sx = Math.cos(p * TAU); // spin around once
       break;
     }
     case 'action': case 'throw': case 'push': case 'paint': {

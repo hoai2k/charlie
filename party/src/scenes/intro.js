@@ -56,6 +56,18 @@ export class IntroScene {
         else if (!session.partyMode) { sfx('back'); this.manager.go('gameselect'); return; } // a marathon only exits from its pause menu
       }
     }
+    // Mouse / touch: clicking a player toggles their ready; a click anywhere
+    // else readies the next human who isn't ready yet.
+    let clickUsed = false;
+    for (const p of session.players) {
+      if (p.isAI) continue;
+      const a = this.actors[p.index];
+      if (input.clicked({ x: a.x - 90, y: a.y - a.height - 90, w: 180, h: a.height + 100 })) { this.setReady(p.index, !this.ready[p.index]); clickUsed = true; break; }
+    }
+    if (input.pointer.pressed && !clickUsed) {
+      const next = session.players.find((p) => !p.isAI && !this.ready[p.index]);
+      if (next) this.setReady(next.index, true);
+    }
     // Keyboard players who aren't bound (e.g. only gamepads joined) can still nudge with Enter.
     if (this.ready.every(Boolean)) { this.go = 0; sfx('go'); }
   }
