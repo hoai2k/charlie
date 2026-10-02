@@ -3310,6 +3310,139 @@
       "height": 91,
       "bytes": 6596,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/danger-ring",
+      "ref": "prop/danger-ring.webp",
+      "maxSize": [
+        1024,
+        1024
+      ],
+      "preserveCanvas": true,
+      "suffix": "-v2",
+      "prompt": "Use case: precise-object-edit. Asset: Charlie Party Bumper Bounce hazard warning ring. Reference1 oldring style only. Make ONE1024x1024 perfectly round top-down WARNINGring transparent background and transparentcenter. Outerdiameterabout1000px; THINband only40pxthick (=8percent radius), clear red-and-pale-yellow diagonal hazardstripes followingcircularrim, crispdarknavyinneroutline andouteroutline, boldclean2Dcartooncelshading likeexistinggameart. NOTgoldrewardring. Exactlycircularnotperspectiveellipse. Hugeemptytransparentcenter, nootherobjects, letters, shadowsorglowoutsidecanvas. Atleast10pxpadding.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-3178fe4a-6506-42ba-90a2-bbcdb38fbd99.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 91390,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/hedge",
+      "ref": "prop/hedge.webp",
+      "maxSize": [
+        225,
+        46
+      ],
+      "preserveCanvas": false,
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. Editreferencehedge forCharlieParty. Preserveentirelonglowhorizontalhedgeshape, leafpattern, greenpalette, same225x46canvasandframing. Addcrispdarknavyoutline (~3px atfinal225width) aroundsilhouette plusthin darker-side-face stripalongbottom. Stillviewedslightlyabove, flatstraighttopdowncollisionbar. Transparentbackground,nootherobjects,noletters,noearthorshadowbelowhedge. Outputwidehorizontalabout5:1.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a96ad331-b10b-4150-a68f-bef3df1b0266.png",
+      "tool": "built-in imagegen",
+      "width": 225,
+      "height": 46,
+      "bytes": 9000,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/fizzle-puff",
+      "ref": "prop/fizzle-puff.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. RecolorreferenceONEcartoonwizardfizzlepuff toGREENandLIME: mintlightcloudroundedpuff, limecurlswirltips, deepgreeninner shade. Preserveshape,goldstars,navyoutlines, framing, 2Dcelshadingandtransparency. No purple, background, lettersoradditionalobjects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-99879f22-8438-4740-8010-3e5d1c6ca127.png",
+      "tool": "built-in imagegen",
+      "width": 194,
+      "height": 256,
+      "bytes": 19074,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cauldron-bubbles",
+      "ref": "prop/cauldron-bubbles.webp",
+      "maxSize": [
+        256,
+        192
+      ],
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. Referenceiscauldronbubbleoverlay. ChangeONLYgreenbubbleliquidtoNEUTRALWHITEwithpalegray/coolwhite highlights, keepdarknavyoutlinesandexactbubble clusterwiththreefloatingbubbles, placementandsilhouette. Fullytransparentbackground, no pot,noletters,nogreenorcoloredliquid. Itwillbetintedbycode.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-41da77d4-de54-4df1-8500-da49add33fe7.png",
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 143,
+      "bytes": 10974,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/potion-bottle",
+      "ref": "prop/potion-bottle.webp",
+      "maxSize": [
+        256,
+        256
+      ],
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. ChangereferencepotionbottleONLYpurpleliquidtoNEUTRALWHITE/verypalegrayliquidwithwhitebubbleandsparkle detailsforcodetinting. Preserveexactglassbottlesilhouette, cork,goldstarornament,darknavyoutlines, transparentglass blueedgesandclean2Dcartooncelshade. Transparentbackground,noletters.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-33c871b5-65ec-47c1-819a-7397948485d4.png",
+      "tool": "built-in imagegen",
+      "width": 194,
+      "height": 256,
+      "bytes": 15710,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cauldron",
+      "ref": "prop/cauldron.webp",
+      "maxSize": [
+        400,
+        320
+      ],
+      "preserveCanvas": false,
+      "suffix": "-v2",
+      "prompt": "Usecase: precise-object-edit. Referencegamecauldronstyle. CreateONElowwidemagiccauldronapproximately1.25:1widthtoheightincludinghandles: violetbody,goldrim/goldsmallsidehandles/navyoutlines, EMPTYopenpotwithNEUTRALDARKcharcoal-grayinside(notcyanwater). Viewslightlyabove rim, visiblewideovalopening. Shortlowroundbody andtinyfeet. Boldclean2Dcartooncelshading, transparentbackground,noeffects,noliquid,noshadows,notext, centeredwithsmallpadding.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4ba09bab-de53-4f12-87f3-7909f7eadf32.png",
+      "tool": "built-in imagegen",
+      "width": 400,
+      "height": 247,
+      "bytes": 23664,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/danger-ring",
+      "ref": "prop/danger-ring-v2.webp",
+      "maxSize": [
+        1024,
+        1024
+      ],
+      "preserveCanvas": true,
+      "suffix": "-v3",
+      "prompt": "Use case: precise-object-edit. Make reference warningring BAND HALF AS THICK. Keepouteredgecircularandred/yellowstripes/navyoutline/cartoonstyle, enlargeemptytransparentcentralholeuntilthecoloredrimwidthisONLY40pixelsat1024canvas, outerradius500, innerradius460. This isaverythin40pxrim NOTa fatdonut. Bothinnerouteroutlinesonly3pxat1024. Fullytransparentcenterandbackground,1024square,10pxouterpadding. Keepcameraexacttopdown.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5b4b212c-512b-4797-b65b-de9bae99b1ad.png",
+      "tool": "built-in imagegen",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 93730,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/card-back",
+      "ref": "prop/memory-card-back.webp",
+      "maxSize": [
+        300,
+        400
+      ],
+      "preserveCanvas": true,
+      "suffix": "-v2",
+      "prompt": "Use case: precise-object-edit. Preserve referenceCharliePartymemorycardbackdesign,colors,decoration,borderandcornerrounding exactly. Changeaspectto300wideby400tall (=3:4), centeredcardfillswholecanvaswithnegligibletransparentmargin. Same2Dcartoonstyle. Nofrontsymbol,numbersorletters. Actualtransparentbackgroundoutsidecardroundedcorners.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5b0e8d4b-bd9a-46de-a039-98b04f8a2926.png",
+      "tool": "built-in imagegen",
+      "width": 300,
+      "height": 400,
+      "bytes": 36640,
+      "status": "generated; inspected"
     }
   ]
 }
