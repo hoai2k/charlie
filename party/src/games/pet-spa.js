@@ -105,8 +105,17 @@ const ACCESSORIES = [
   { kind: 'gem', color: '#9b5cff' },
   { kind: 'flower', color: '#ff8fd0' },
   { kind: 'bow', color: '#ffd23f' },
+  { kind: 'bow', color: '#ff4d4d' },
+  { kind: 'bow', color: '#36d17a' },
+  { kind: 'bow', color: '#b36bff' },
+  { kind: 'bow', color: '#ff8c3a' },
+  { kind: 'bow', color: '#25d0c8' },
 ];
-const BOW_ART = { '#ff6fb1': 'prop/pet-bow-pink', '#7fd3ff': 'prop/pet-bow-blue', '#ffd23f': 'prop/pet-bow-yellow' };
+const BOW_ART = {
+  '#ff6fb1': 'prop/pet-bow-pink', '#7fd3ff': 'prop/pet-bow-blue', '#ffd23f': 'prop/pet-bow-yellow',
+  '#ff4d4d': 'prop/pet-bow-red', '#36d17a': 'prop/pet-bow-green', '#b36bff': 'prop/pet-bow-purple',
+  '#ff8c3a': 'prop/pet-bow-orange', '#25d0c8': 'prop/pet-bow-teal',
+};
 
 function drawAccessory(g, kind, color, s, t = 0) {
   if (kind === 'bow' && BOW_ART[color] && drawArt(g, BOW_ART[color], 0, 0, s * 1.55, s * 1.15)) return;
