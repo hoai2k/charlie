@@ -143,7 +143,7 @@ export class IntroScene {
     });
     if (this.go !== null) ui.banner(g, "Let's go!", this.go, { y: 520, size: 160 });
     else if (this.t > 0.6 && this.ready.some((r, i) => !r && !session.players[i].isAI)) {
-      ui.text(g, 'Press A when you are ready!', W / 2, 838, { size: 34, color: '#fff' });
+      ui.text(g, 'Press A when you are ready!', W / 2, 828, { size: 30, color: '#fff' });
     }
   }
 }

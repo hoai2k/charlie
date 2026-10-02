@@ -185,16 +185,14 @@ export function timer(g, seconds, x = W / 2, y = 64) {
  */
 export function scoreboard(g, players, values, o = {}) {
   const n = players.length;
-  const chipW = Math.min(260, (W - 120) / n - 16);
-  const total = n * chipW + (n - 1) * 16;
+  const gap = o.avoidCenter ? 220 : 0;          // room for a centered timer
+  const chipW = Math.min(260, (W - 120 - gap) / n - 16);
+  const total = n * chipW + (n - 1) * 16 + gap;
   const y = o.y ?? 40;
   let x = (W - total) / 2;
-  if (o.avoidCenter && n <= 4) {
-    // leave a gap for a centered timer
-    x = (W - total - 220) / 2;
-  }
+  const gapAt = n === 1 ? 1 : Math.ceil(n / 2);  // solo: chip sits left of the timer
   players.forEach((p, i) => {
-    if (o.avoidCenter && n <= 4 && i === Math.ceil(n / 2)) x += 220;
+    if (o.avoidCenter && i === gapAt) x += gap;
     const out = o.out && o.out[i];
     g.save();
     if (out) g.globalAlpha = 0.45;
