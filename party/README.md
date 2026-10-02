@@ -21,6 +21,10 @@ keyboard works too. Plays at `/charlie/party/`.
 | LB / RB | LB / RB | Z / C | , / . |
 | Pause | Menu (☰) | Esc | P |
 
+Whoever presses start on the title (or the first controller, if the title
+was clicked) is already joined as P1 on character select; everyone else
+presses A to join.
+
 Menus also work with a mouse or touch: click a card, tile or button hint.
 The round buttons in the bottom-left corner of the menus (and the pause
 menu) toggle sound and fullscreen; **M** and **F** do the same from the
