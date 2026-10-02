@@ -6,32 +6,28 @@ The brief remains authoritative; this file records sequencing and ownership.
 All NPC canonical designs are now user-approved, including no-blush Glimmer
 and the diverse Garden Fairies with a light olive purple fairy.
 
-## Current priorities
+## Current priorities at the pause checkpoint
 
-Completed checkpoints: approved NPC sets/cutouts and game integration; Troll
-Round 3 reactions; Felicity/Fellowfox/Bronze upgraded cycles and 14 game actions;
-all three KPop members; Cotton Candy and Fox; Marina/Scale Tier-1 core sets.
-Fox was committed as `ce6f813`. NPC omissions outside their requested vocabulary
-are intentional, while Marina/Scale still need their extended player actions.
+Completed: approved NPC sets/cutouts and integration; Troll Round 3 reactions;
+Felicity/Fellowfox/Bronze upgraded cycles plus added actions; all KPop members;
+Cotton Candy, Fox, Unicorn, Hotdog and Amber initial/optional action sets.
+Marina/Scale have core sets plus Round 3 cycles. Snowstar/Cake have core sets.
 
-1. **Remaining roster** — lighter animal agent owns Hotdog; NPC agent finishes
-   only Unicorn, then hands off. Amber, Snowstar and Birthday Cake each have
-   core, walk/run, air/reaction and celebration/ride sheets saved with specs and
-   exact prompts. Their Tier-1 core builds are reviewed; remaining actions/dance are queued.
-   The lighter animal agent takes those three next, in that order.
-2. **Mermaid extensions** — Marina/Scale still need game-action vocabulary and
-   Round 3 animation upgrades; preserve tails and use gliding locomotion.
-3. **Game art** — environment agent has delivered fashion accessories and cake
-   toppings. Existing 230-key checkpoint includes backgrounds,
-   thumbnails, priority props, plants, UI and effects. New accessory/topping art
-   is committed; narrow game hooks remain (fashion, cake, rewards).
-4. **Audit remaining requests** — compare authored poses and indexed art against
-   Round 2/3 without counting aliases as newly generated art. Round 3 extra poses
-   are currently broadest on the three pilot characters. Update coverage after
-   the remaining roster lands; do not label the entire brief complete.
+1. **Snowstar and Birthday Cake** — extend their saved core specs/sheets to the
+   initial and optional action vocabulary, including dance. Do not regenerate
+   existing core art. Respect Cake's lack of limbs.
+2. **Marina and Scale** — each needs 25 extended actions. Their new cycles are
+   authored and published; run still aliases walk intentionally. Preserve tails.
+3. **Round 2/3 extras across the roster** — inspect actual authored keys first.
+   Coverage is broadest on Felicity/Fellowfox/Bronze. Latest requests below add
+   hip-bump, knockback and two-frame dash; these remain queued.
+4. **Remaining game art/integration** — 230-key checkpoint is published. Read
+   assets/art/ART-STATUS.md for remaining icons/frame/props and code hookups.
+   Fashion accessories, lantern states and ticking present are integrated.
 
-Use `tools/sprites/AGENT-PLAYBOOK.md` for practical generation/intake/QA lessons.
-The integrator reviews visuals, shared code, browser behavior and commits.
+Use `tools/sprites/AGENT-PLAYBOOK.md` for concrete production lessons and
+`SPRITE-SESSION-HANDOFF.md` to resume. Prefer lighter agents with visual review.
+Stop new generation during this requested budget pause.
 
 ## New requests from the latest sync
 

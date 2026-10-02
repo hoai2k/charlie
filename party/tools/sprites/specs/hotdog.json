@@ -1,0 +1,2715 @@
+{
+  "asset": "hotdog",
+  "bodyHeight": 230,
+  "frameSize": [
+    800,
+    560
+  ],
+  "anchor": [
+    400,
+    520
+  ],
+  "facing": 0,
+  "quality": 82,
+  "provenance": "Every sheet references the approved Hotdog canonical at party/reference/canonical/hotdog.png. Reconstructed prompt records are explicitly marked when source prompt text was lost; the Pet Spa and portrait prompts are exact. Source images are lossless WebP; runtime frames are generated reproducibly by build.py. The idle key and all horizontal strips use reviewed left-to-right source order; closed-eye blink shares the neutral body size. The idle blink is an eye-only edit of the reviewed neutral frame so its quadruped body, head size and ground contact match exactly.",
+  "sourceFiles": [
+    "../sources/hotdog-core.webp",
+    "../sources/hotdog-celebrate.webp",
+    "../sources/hotdog-walk.webp",
+    "../sources/hotdog-run.webp",
+    "../sources/hotdog-dance.webp",
+    "../sources/hotdog-pout.webp",
+    "../sources/hotdog-ride.webp",
+    "../sources/hotdog-cheer-sad.webp",
+    "../sources/hotdog-actions-a.webp",
+    "../sources/hotdog-actions-b.webp",
+    "../sources/hotdog-actions-c.webp",
+    "../sources/hotdog-actions-d.webp",
+    "../sources/hotdog-round3-pet.webp",
+    "../sources/hotdog-portraits.webp",
+    "../sources/hotdog-idle-blink-r3.webp"
+  ],
+  "generationPrompts": {
+    "../sources/hotdog-core.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-61ae022a-5b9a-4d0f-a750-49fc4ac00aba.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "neutral/ready key poses"
+    },
+    "../sources/hotdog-celebrate.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-8dab21c2-03cb-44b4-aaaf-ce775995b7d1.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "four-frame celebration cycle"
+    },
+    "../sources/hotdog-walk.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-8b6ca040-c5ee-47b2-b32c-38d4736afc10.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "four-frame walk cycle"
+    },
+    "../sources/hotdog-run.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-5bb221d2-b790-45e9-ac96-405272f91023.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "four-frame gallop/run cycle"
+    },
+    "../sources/hotdog-dance.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-c34b5411-1dc6-49e9-9c93-d08356c8bd89.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "four-frame dance cycle"
+    },
+    "../sources/hotdog-pout.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-94829ccd-0141-4c9c-b9b5-e09dffb2288f.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "two-frame pout loop"
+    },
+    "../sources/hotdog-ride.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-fcb371d3-1bbe-4c8e-a5ce-07be37a7c644.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "two-frame ride loop"
+    },
+    "../sources/hotdog-cheer-sad.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-47ec9fe1-aa9a-4cdd-b496-e453d2a3a3b5.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "cheer and sad key poses"
+    },
+    "../sources/hotdog-actions-a.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-83d36cc5-6d46-45bb-96c3-c07d70fa3587.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "wave, hurt, dizzy, surprised, ready, jump, fall, land"
+    },
+    "../sources/hotdog-actions-b.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-a433478b-4bdd-4bb3-bb58-a1734a2b9199.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "action, throw, push, carry, paint, sleep, cast, clap"
+    },
+    "../sources/hotdog-actions-c.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-e20a8805-698d-44e1-98b1-806c9e4c2258.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "eat, bow, strikes 1-3, shake, stir, dance-up"
+    },
+    "../sources/hotdog-actions-d.webp": {
+      "accuracy": "reconstructed",
+      "originalOutput": "exec-e4c13c48-3d4e-4cea-9928-0fc8410d0168.png",
+      "prompt": "Prompt reconstructed from the reviewed generated sheet and pose order after the original prompt text was lost from the task context. Approved Hotdog canonical was the exact reference; requested true transparency, same exact Hotdog identity and stripe order, full-body separated game sprites, no scene/effects/text/props. See the source filename for the sheet role.",
+      "role": "dance-down, dance-side, look-around, high-five, crouch, dash, catch, wave-goodbye"
+    },
+    "../sources/hotdog-round3-pet.webp": {
+      "accuracy": "exact",
+      "originalOutput": "exec-59f0290b-3c56-487b-8c44-2b2100a53229.png",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent game sprite sheet\nPrimary request: Reproduce the exact Hotdog character in the reference as four clear full-body game poses in a horizontal strip, in order: think, dance-star, giggle, catch-toy. Hotdog is a very low fluffy quadruped with stripes pink, orange, yellow, lime, blue, lavender; huge gray ears edged navy; navy face mask; red forehead heart; red/orange/yellow flame tuft; tiny navy paws; long striped tail.\nStyle/medium: bold smooth dark navy outlines, expressive eyes, bright original colors, simple clean cel shading matching the supplied 2D canonical art.\nComposition/framing: four discrete equal-width cells, generous transparent gutters, full animal in every cell; same neutral head size and character scale in all cells. Think: low stance, head tilted and one tiny paw lightly touching cheek, eyes looking up. Dance-star: tiny joyous squat-hop with a friendly star-shaped silhouette made by its ears/feet/body, no actual star icon. Giggle: delighted eyes closed, mouth open, soft floppy-body wiggle while all four paws remain grounded. Catch-toy: low playful pounce, front paws and mouth reaching forward, with nothing visible to catch.\nScene/backdrop: transparent.\nConstraints: exact identity from input reference, keep character on four legs, no biped standing; never enlarge head/body in crouched poses. Keep same stripe order/colors, outline, and proportions. No baked-in props.\nAvoid: food hot dog, human hands, shuffled/missing stripes, visible toy, floating decorations, shadow, motion marks, text, watermark.",
+      "role": "think, dance-star, giggle, catch-toy"
+    },
+    "../sources/hotdog-portraits.webp": {
+      "accuracy": "exact",
+      "originalOutput": "exec-fadf371d-b421-41b3-871f-b0d14adcfad8.png",
+      "prompt": "Use case: stylized-concept\nAsset type: five transparent bust portrait sprites for a game\nPrimary request: Reproduce this exact Hotdog character from the reference as five separate square head-and-shoulders portraits in one horizontal strip, ordered neutral, happy, sad, surprised, determined. Keep the full distinctive head in every cell: giant gray ears edged navy, navy face mask, red forehead heart, red/orange/yellow flame tuft, white fluffy cheeks and exact six-color stripe order visible across the upper body (pink, orange, yellow, lime, blue, lavender).\nStyle/medium: bold smooth dark navy outlines, rounded appealing shapes, expressive eyes, bright original colors, simple cel shading matching the 2D canonical art.\nComposition/framing: five equally sized bust portraits, face large and centered, visible shoulders/upper fluffy chest reaching the lower edge; generous transparent gutters, consistent head size and camera.\nScene/backdrop: transparent.\nConstraints: Use reference as exact identity source, preserve same proportions and palette. Make emotions clear and distinct.\nAvoid: full body, added clothing, food imagery, extra animal/characters, shuffled stripes, cropped ears or tuft, effects, background, text, watermark.",
+      "role": "five expressive bust portraits"
+    },
+    "../sources/hotdog-idle-blink-r3.webp": {
+      "accuracy": "exact",
+      "role": "idle blink edited directly from the leftmost neutral key frame; all-body proportions preserved",
+      "originalOutput": "exec-39065d7a-425e-4553-b05e-22c6f9248401.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: transparent sprite blink frame for the same Hotdog animation\nInput images: Image 1 is the exact neutral sprite frame to edit. Image 2 is the approved Hotdog canonical, used only to confirm identity.\nPrimary request: Change only the two open eyes in Image 1 to a gentle blink: clean closed curved eyelid arcs, same navy outlines, with a tiny friendly smile unchanged.\nConstraints: Preserve Image 1's exact full body pose, four grounded paws, head size, ears, tuft, heart, face mask, stripe colors and order, tail, alpha silhouette, canvas size, pixel positions, and all shading. Edit only the eye pixels; keep every other part unchanged as closely as possible. Maintain true transparency.\nAvoid: changing pose or body scale, changing face shape, standing on hind legs, altering ears/tuft/tail/stripes, adding blush or tears, backdrop, effects, text, watermark."
+    }
+  },
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-core.webp",
+          "rect": [
+            5,
+            129,
+            582,
+            459
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            291,
+            455
+          ],
+          "head": [
+            233,
+            92
+          ],
+          "hand": [
+            208,
+            323
+          ],
+          "eyes": [
+            208,
+            277
+          ],
+          "neck": [
+            244,
+            340
+          ],
+          "back": [
+            244,
+            376
+          ],
+          "dur": 2.2
+        },
+        {
+          "source": "../sources/hotdog-idle-blink-r3.webp",
+          "rect": [
+            0,
+            7,
+            1390,
+            1107
+          ],
+          "isolate": true,
+          "scale": 0.456,
+          "facing": 0,
+          "anchor": [
+            695,
+            1058
+          ],
+          "head": [
+            695,
+            332
+          ],
+          "hand": [
+            695,
+            690
+          ],
+          "eyes": [
+            695,
+            620
+          ],
+          "neck": [
+            695,
+            863
+          ],
+          "back": [
+            695,
+            908
+          ],
+          "dur": 0.12
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 0
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-walk.webp",
+          "rect": [
+            0,
+            87,
+            571,
+            502
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            286,
+            498
+          ],
+          "head": [
+            257,
+            131
+          ],
+          "hand": [
+            246,
+            321
+          ],
+          "eyes": [
+            257,
+            266
+          ],
+          "neck": [
+            263,
+            361
+          ],
+          "back": [
+            240,
+            392
+          ],
+          "dur": 0.125
+        },
+        {
+          "source": "../sources/hotdog-walk.webp",
+          "rect": [
+            547,
+            107,
+            575,
+            471
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            288,
+            467
+          ],
+          "head": [
+            259,
+            122
+          ],
+          "hand": [
+            247,
+            301
+          ],
+          "eyes": [
+            259,
+            250
+          ],
+          "neck": [
+            264,
+            339
+          ],
+          "back": [
+            242,
+            367
+          ],
+          "dur": 0.125
+        },
+        {
+          "source": "../sources/hotdog-walk.webp",
+          "rect": [
+            1092,
+            106,
+            564,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            282,
+            480
+          ],
+          "head": [
+            254,
+            126
+          ],
+          "hand": [
+            243,
+            310
+          ],
+          "eyes": [
+            254,
+            257
+          ],
+          "neck": [
+            259,
+            348
+          ],
+          "back": [
+            237,
+            378
+          ],
+          "dur": 0.125
+        },
+        {
+          "source": "../sources/hotdog-walk.webp",
+          "rect": [
+            1623,
+            107,
+            549,
+            482
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            274,
+            478
+          ],
+          "head": [
+            247,
+            125
+          ],
+          "hand": [
+            236,
+            308
+          ],
+          "eyes": [
+            247,
+            255
+          ],
+          "neck": [
+            253,
+            347
+          ],
+          "back": [
+            231,
+            376
+          ],
+          "dur": 0.125
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-run.webp",
+          "rect": [
+            16,
+            237,
+            536,
+            403
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            268,
+            399
+          ],
+          "head": [
+            241,
+            105
+          ],
+          "hand": [
+            230,
+            258
+          ],
+          "eyes": [
+            241,
+            214
+          ],
+          "neck": [
+            247,
+            290
+          ],
+          "back": [
+            225,
+            314
+          ],
+          "dur": 0.125
+        },
+        {
+          "source": "../sources/hotdog-run.webp",
+          "rect": [
+            543,
+            179,
+            538,
+            446
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            269,
+            442
+          ],
+          "head": [
+            242,
+            116
+          ],
+          "hand": [
+            231,
+            285
+          ],
+          "eyes": [
+            242,
+            236
+          ],
+          "neck": [
+            247,
+            321
+          ],
+          "back": [
+            226,
+            348
+          ],
+          "dur": 0.125
+        },
+        {
+          "source": "../sources/hotdog-run.webp",
+          "rect": [
+            1020,
+            81,
+            610,
+            512
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            305,
+            508
+          ],
+          "head": [
+            274,
+            133
+          ],
+          "hand": [
+            262,
+            328
+          ],
+          "eyes": [
+            274,
+            271
+          ],
+          "neck": [
+            281,
+            369
+          ],
+          "back": [
+            256,
+            399
+          ],
+          "dur": 0.125
+        },
+        {
+          "source": "../sources/hotdog-run.webp",
+          "rect": [
+            1629,
+            279,
+            542,
+            361
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            271,
+            357
+          ],
+          "head": [
+            244,
+            94
+          ],
+          "hand": [
+            233,
+            231
+          ],
+          "eyes": [
+            244,
+            191
+          ],
+          "neck": [
+            249,
+            260
+          ],
+          "back": [
+            228,
+            282
+          ],
+          "dur": 0.125
+        }
+      ],
+      "fps": 12,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 0
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-dance.webp",
+          "rect": [
+            9,
+            98,
+            534,
+            524
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            267,
+            520
+          ],
+          "head": [
+            240,
+            136
+          ],
+          "hand": [
+            230,
+            335
+          ],
+          "eyes": [
+            240,
+            278
+          ],
+          "neck": [
+            246,
+            377
+          ],
+          "back": [
+            224,
+            409
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/hotdog-dance.webp",
+          "rect": [
+            577,
+            59,
+            509,
+            498
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            254,
+            494
+          ],
+          "head": [
+            229,
+            129
+          ],
+          "hand": [
+            219,
+            319
+          ],
+          "eyes": [
+            229,
+            264
+          ],
+          "neck": [
+            234,
+            359
+          ],
+          "back": [
+            214,
+            388
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/hotdog-dance.webp",
+          "rect": [
+            1082,
+            114,
+            547,
+            498
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            274,
+            494
+          ],
+          "head": [
+            246,
+            129
+          ],
+          "hand": [
+            235,
+            319
+          ],
+          "eyes": [
+            246,
+            264
+          ],
+          "neck": [
+            252,
+            359
+          ],
+          "back": [
+            230,
+            388
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/hotdog-dance.webp",
+          "rect": [
+            1625,
+            124,
+            544,
+            492
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            272,
+            488
+          ],
+          "head": [
+            245,
+            128
+          ],
+          "hand": [
+            234,
+            315
+          ],
+          "eyes": [
+            245,
+            261
+          ],
+          "neck": [
+            250,
+            354
+          ],
+          "back": [
+            228,
+            384
+          ],
+          "dur": 0.25
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 0
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-celebrate.webp",
+          "rect": [
+            7,
+            150,
+            579,
+            472
+          ],
+          "isolate": true,
+          "scale": 0.9998072289156628,
+          "facing": 0,
+          "anchor": [
+            290,
+            468
+          ],
+          "head": [
+            261,
+            123
+          ],
+          "hand": [
+            249,
+            302
+          ],
+          "eyes": [
+            261,
+            250
+          ],
+          "neck": [
+            266,
+            340
+          ],
+          "back": [
+            243,
+            368
+          ],
+          "dur": 0.18
+        },
+        {
+          "source": "../sources/hotdog-celebrate.webp",
+          "rect": [
+            537,
+            173,
+            554,
+            445
+          ],
+          "isolate": true,
+          "scale": 0.9998072289156628,
+          "facing": 0,
+          "anchor": [
+            277,
+            441
+          ],
+          "head": [
+            249,
+            116
+          ],
+          "hand": [
+            238,
+            285
+          ],
+          "eyes": [
+            249,
+            236
+          ],
+          "neck": [
+            255,
+            320
+          ],
+          "back": [
+            233,
+            347
+          ],
+          "dur": 0.18
+        },
+        {
+          "source": "../sources/hotdog-celebrate.webp",
+          "rect": [
+            1031,
+            54,
+            594,
+            470
+          ],
+          "isolate": true,
+          "scale": 0.9998072289156628,
+          "facing": 0,
+          "anchor": [
+            297,
+            466
+          ],
+          "head": [
+            267,
+            122
+          ],
+          "hand": [
+            255,
+            301
+          ],
+          "eyes": [
+            267,
+            249
+          ],
+          "neck": [
+            273,
+            338
+          ],
+          "back": [
+            249,
+            367
+          ],
+          "dur": 0.18
+        },
+        {
+          "source": "../sources/hotdog-celebrate.webp",
+          "rect": [
+            1603,
+            179,
+            569,
+            444
+          ],
+          "isolate": true,
+          "scale": 0.9998072289156628,
+          "facing": 0,
+          "anchor": [
+            284,
+            440
+          ],
+          "head": [
+            256,
+            115
+          ],
+          "hand": [
+            245,
+            284
+          ],
+          "eyes": [
+            256,
+            235
+          ],
+          "neck": [
+            262,
+            320
+          ],
+          "back": [
+            239,
+            346
+          ],
+          "dur": 0.18
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.8,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-pout.webp",
+          "rect": [
+            20,
+            165,
+            1048,
+            501
+          ],
+          "isolate": true,
+          "scale": 0.5433734939759036,
+          "facing": 0,
+          "anchor": [
+            524,
+            497
+          ],
+          "head": [
+            472,
+            130
+          ],
+          "hand": [
+            451,
+            321
+          ],
+          "eyes": [
+            472,
+            266
+          ],
+          "neck": [
+            482,
+            361
+          ],
+          "back": [
+            440,
+            391
+          ],
+          "dur": 0.35
+        },
+        {
+          "source": "../sources/hotdog-pout.webp",
+          "rect": [
+            1122,
+            165,
+            848,
+            511
+          ],
+          "isolate": true,
+          "scale": 0.6737831325301205,
+          "facing": 0,
+          "anchor": [
+            424,
+            507
+          ],
+          "head": [
+            382,
+            133
+          ],
+          "hand": [
+            365,
+            327
+          ],
+          "eyes": [
+            382,
+            271
+          ],
+          "neck": [
+            390,
+            368
+          ],
+          "back": [
+            356,
+            399
+          ],
+          "dur": 0.35
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.4,
+      "facing": 0
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-ride.webp",
+          "rect": [
+            8,
+            76,
+            902,
+            677
+          ],
+          "isolate": true,
+          "scale": 0.6520481927710843,
+          "facing": 0,
+          "anchor": [
+            451,
+            673
+          ],
+          "head": [
+            649,
+            190
+          ],
+          "hand": [
+            776,
+            511
+          ],
+          "eyes": [
+            776,
+            435
+          ],
+          "neck": [
+            613,
+            474
+          ],
+          "back": [
+            541,
+            433
+          ],
+          "dur": 0.4
+        },
+        {
+          "source": "../sources/hotdog-ride.webp",
+          "rect": [
+            899,
+            131,
+            875,
+            631
+          ],
+          "isolate": true,
+          "scale": 0.6737831325301205,
+          "facing": 0,
+          "anchor": [
+            438,
+            627
+          ],
+          "head": [
+            630,
+            177
+          ],
+          "hand": [
+            510,
+            500
+          ],
+          "eyes": [
+            510,
+            435
+          ],
+          "neck": [
+            595,
+            442
+          ],
+          "back": [
+            525,
+            404
+          ],
+          "dur": 0.4
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 0
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-cheer-sad.webp",
+          "rect": [
+            21,
+            7,
+            991,
+            812
+          ],
+          "isolate": true,
+          "scale": 0.5433734939759036,
+          "facing": 0,
+          "anchor": [
+            496,
+            808
+          ],
+          "head": [
+            446,
+            211
+          ],
+          "hand": [
+            426,
+            520
+          ],
+          "eyes": [
+            446,
+            430
+          ],
+          "neck": [
+            456,
+            585
+          ],
+          "back": [
+            416,
+            633
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 0
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-cheer-sad.webp",
+          "rect": [
+            930,
+            265,
+            835,
+            611
+          ],
+          "isolate": true,
+          "scale": 0.6737831325301205,
+          "facing": 0,
+          "anchor": [
+            418,
+            607
+          ],
+          "head": [
+            376,
+            159
+          ],
+          "hand": [
+            359,
+            391
+          ],
+          "eyes": [
+            376,
+            324
+          ],
+          "neck": [
+            384,
+            440
+          ],
+          "back": [
+            351,
+            477
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.7,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            10,
+            15,
+            452,
+            423
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            226,
+            419
+          ],
+          "head": [
+            203,
+            110
+          ],
+          "hand": [
+            194,
+            271
+          ],
+          "eyes": [
+            203,
+            224
+          ],
+          "neck": [
+            208,
+            305
+          ],
+          "back": [
+            190,
+            330
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            476,
+            114,
+            398,
+            323
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            199,
+            319
+          ],
+          "head": [
+            179,
+            84
+          ],
+          "hand": [
+            171,
+            207
+          ],
+          "eyes": [
+            179,
+            171
+          ],
+          "neck": [
+            183,
+            233
+          ],
+          "back": [
+            167,
+            252
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            887,
+            98,
+            465,
+            335
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            232,
+            331
+          ],
+          "head": [
+            209,
+            87
+          ],
+          "hand": [
+            200,
+            214
+          ],
+          "eyes": [
+            209,
+            178
+          ],
+          "neck": [
+            214,
+            241
+          ],
+          "back": [
+            195,
+            261
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            1343,
+            15,
+            421,
+            425
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            210,
+            421
+          ],
+          "head": [
+            189,
+            110
+          ],
+          "hand": [
+            181,
+            272
+          ],
+          "eyes": [
+            189,
+            225
+          ],
+          "neck": [
+            194,
+            306
+          ],
+          "back": [
+            177,
+            332
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            11,
+            495,
+            442,
+            341
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            221,
+            337
+          ],
+          "head": [
+            199,
+            89
+          ],
+          "hand": [
+            190,
+            218
+          ],
+          "eyes": [
+            199,
+            181
+          ],
+          "neck": [
+            203,
+            246
+          ],
+          "back": [
+            186,
+            266
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            452,
+            448,
+            439,
+            354
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            220,
+            350
+          ],
+          "head": [
+            198,
+            92
+          ],
+          "hand": [
+            189,
+            227
+          ],
+          "eyes": [
+            198,
+            188
+          ],
+          "neck": [
+            202,
+            255
+          ],
+          "back": [
+            184,
+            276
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            877,
+            522,
+            450,
+            320
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            225,
+            316
+          ],
+          "head": [
+            202,
+            83
+          ],
+          "hand": [
+            194,
+            205
+          ],
+          "eyes": [
+            202,
+            170
+          ],
+          "neck": [
+            207,
+            230
+          ],
+          "back": [
+            189,
+            250
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-a.webp",
+          "rect": [
+            1327,
+            532,
+            437,
+            313
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            218,
+            309
+          ],
+          "head": [
+            197,
+            81
+          ],
+          "hand": [
+            188,
+            200
+          ],
+          "eyes": [
+            197,
+            166
+          ],
+          "neck": [
+            201,
+            225
+          ],
+          "back": [
+            184,
+            244
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            28,
+            50,
+            422,
+            394
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            211,
+            390
+          ],
+          "head": [
+            190,
+            102
+          ],
+          "hand": [
+            181,
+            252
+          ],
+          "eyes": [
+            190,
+            209
+          ],
+          "neck": [
+            194,
+            284
+          ],
+          "back": [
+            177,
+            307
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            456,
+            25,
+            406,
+            407
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            203,
+            403
+          ],
+          "head": [
+            183,
+            106
+          ],
+          "hand": [
+            175,
+            260
+          ],
+          "eyes": [
+            183,
+            216
+          ],
+          "neck": [
+            187,
+            293
+          ],
+          "back": [
+            171,
+            317
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            899,
+            66,
+            426,
+            353
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            213,
+            349
+          ],
+          "head": [
+            192,
+            92
+          ],
+          "hand": [
+            183,
+            226
+          ],
+          "eyes": [
+            192,
+            187
+          ],
+          "neck": [
+            196,
+            254
+          ],
+          "back": [
+            179,
+            275
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            1334,
+            23,
+            433,
+            405
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            216,
+            401
+          ],
+          "head": [
+            225,
+            117
+          ],
+          "hand": [
+            193,
+            274
+          ],
+          "eyes": [
+            193,
+            238
+          ],
+          "neck": [
+            225,
+            292
+          ],
+          "back": [
+            216,
+            332
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            19,
+            463,
+            412,
+            389
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            206,
+            385
+          ],
+          "head": [
+            185,
+            101
+          ],
+          "hand": [
+            177,
+            249
+          ],
+          "eyes": [
+            185,
+            206
+          ],
+          "neck": [
+            190,
+            280
+          ],
+          "back": [
+            173,
+            303
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            430,
+            569,
+            451,
+            259
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            226,
+            255
+          ],
+          "head": [
+            203,
+            67
+          ],
+          "hand": [
+            194,
+            166
+          ],
+          "eyes": [
+            203,
+            137
+          ],
+          "neck": [
+            207,
+            186
+          ],
+          "back": [
+            189,
+            202
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            897,
+            456,
+            446,
+            381
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            223,
+            377
+          ],
+          "head": [
+            187,
+            110
+          ],
+          "hand": [
+            130,
+            250
+          ],
+          "eyes": [
+            130,
+            195
+          ],
+          "neck": [
+            196,
+            271
+          ],
+          "back": [
+            223,
+            312
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-b.webp",
+          "rect": [
+            1334,
+            463,
+            431,
+            382
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            216,
+            378
+          ],
+          "head": [
+            194,
+            99
+          ],
+          "hand": [
+            185,
+            244
+          ],
+          "eyes": [
+            194,
+            202
+          ],
+          "neck": [
+            198,
+            275
+          ],
+          "back": [
+            181,
+            298
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            10,
+            6,
+            444,
+            420
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            222,
+            416
+          ],
+          "head": [
+            200,
+            109
+          ],
+          "hand": [
+            191,
+            269
+          ],
+          "eyes": [
+            200,
+            223
+          ],
+          "neck": [
+            204,
+            302
+          ],
+          "back": [
+            186,
+            328
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            441,
+            65,
+            481,
+            349
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            240,
+            345
+          ],
+          "head": [
+            216,
+            91
+          ],
+          "hand": [
+            207,
+            223
+          ],
+          "eyes": [
+            216,
+            185
+          ],
+          "neck": [
+            221,
+            251
+          ],
+          "back": [
+            202,
+            272
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            905,
+            36,
+            435,
+            381
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            218,
+            377
+          ],
+          "head": [
+            196,
+            99
+          ],
+          "hand": [
+            187,
+            244
+          ],
+          "eyes": [
+            196,
+            202
+          ],
+          "neck": [
+            200,
+            274
+          ],
+          "back": [
+            183,
+            297
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            1348,
+            11,
+            415,
+            405
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            208,
+            401
+          ],
+          "head": [
+            187,
+            105
+          ],
+          "hand": [
+            178,
+            259
+          ],
+          "eyes": [
+            187,
+            215
+          ],
+          "neck": [
+            191,
+            292
+          ],
+          "back": [
+            174,
+            316
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            10,
+            440,
+            438,
+            425
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            219,
+            421
+          ],
+          "head": [
+            197,
+            110
+          ],
+          "hand": [
+            188,
+            272
+          ],
+          "eyes": [
+            197,
+            225
+          ],
+          "neck": [
+            201,
+            306
+          ],
+          "back": [
+            184,
+            332
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            453,
+            452,
+            459,
+            399
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            230,
+            395
+          ],
+          "head": [
+            207,
+            104
+          ],
+          "hand": [
+            197,
+            255
+          ],
+          "eyes": [
+            207,
+            211
+          ],
+          "neck": [
+            211,
+            287
+          ],
+          "back": [
+            193,
+            311
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            905,
+            455,
+            450,
+            392
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            225,
+            388
+          ],
+          "head": [
+            202,
+            102
+          ],
+          "hand": [
+            194,
+            251
+          ],
+          "eyes": [
+            202,
+            208
+          ],
+          "neck": [
+            207,
+            282
+          ],
+          "back": [
+            189,
+            306
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-c.webp",
+          "rect": [
+            1341,
+            434,
+            433,
+            406
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            216,
+            402
+          ],
+          "head": [
+            195,
+            106
+          ],
+          "hand": [
+            186,
+            260
+          ],
+          "eyes": [
+            195,
+            215
+          ],
+          "neck": [
+            199,
+            292
+          ],
+          "back": [
+            182,
+            317
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            20,
+            6,
+            394,
+            426
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            197,
+            422
+          ],
+          "head": [
+            177,
+            111
+          ],
+          "hand": [
+            169,
+            273
+          ],
+          "eyes": [
+            177,
+            226
+          ],
+          "neck": [
+            181,
+            307
+          ],
+          "back": [
+            165,
+            332
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            425,
+            6,
+            430,
+            422
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            215,
+            418
+          ],
+          "head": [
+            194,
+            110
+          ],
+          "hand": [
+            185,
+            270
+          ],
+          "eyes": [
+            194,
+            224
+          ],
+          "neck": [
+            198,
+            304
+          ],
+          "back": [
+            181,
+            329
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            884,
+            1,
+            504,
+            437
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            252,
+            433
+          ],
+          "head": [
+            227,
+            114
+          ],
+          "hand": [
+            217,
+            280
+          ],
+          "eyes": [
+            227,
+            232
+          ],
+          "neck": [
+            232,
+            315
+          ],
+          "back": [
+            212,
+            341
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            1345,
+            2,
+            408,
+            428
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            204,
+            424
+          ],
+          "head": [
+            184,
+            111
+          ],
+          "hand": [
+            175,
+            274
+          ],
+          "eyes": [
+            184,
+            227
+          ],
+          "neck": [
+            188,
+            308
+          ],
+          "back": [
+            171,
+            334
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            5,
+            472,
+            416,
+            360
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            208,
+            356
+          ],
+          "head": [
+            187,
+            94
+          ],
+          "hand": [
+            179,
+            230
+          ],
+          "eyes": [
+            187,
+            191
+          ],
+          "neck": [
+            191,
+            259
+          ],
+          "back": [
+            175,
+            281
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            434,
+            509,
+            486,
+            307
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            243,
+            303
+          ],
+          "head": [
+            219,
+            80
+          ],
+          "hand": [
+            209,
+            196
+          ],
+          "eyes": [
+            219,
+            163
+          ],
+          "neck": [
+            224,
+            221
+          ],
+          "back": [
+            204,
+            239
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            901,
+            444,
+            438,
+            395
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            219,
+            391
+          ],
+          "head": [
+            197,
+            103
+          ],
+          "hand": [
+            188,
+            253
+          ],
+          "eyes": [
+            197,
+            209
+          ],
+          "neck": [
+            201,
+            284
+          ],
+          "back": [
+            184,
+            308
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-actions-d.webp",
+          "rect": [
+            1341,
+            444,
+            397,
+            406
+          ],
+          "isolate": true,
+          "scale": 1.195421686746988,
+          "facing": 0,
+          "anchor": [
+            198,
+            402
+          ],
+          "head": [
+            179,
+            106
+          ],
+          "hand": [
+            171,
+            260
+          ],
+          "eyes": [
+            179,
+            215
+          ],
+          "neck": [
+            183,
+            292
+          ],
+          "back": [
+            167,
+            317
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-round3-pet.webp",
+          "rect": [
+            19,
+            108,
+            542,
+            512
+          ],
+          "isolate": true,
+          "scale": 0.9780722891566266,
+          "facing": 0,
+          "anchor": [
+            271,
+            508
+          ],
+          "head": [
+            244,
+            133
+          ],
+          "hand": [
+            233,
+            328
+          ],
+          "eyes": [
+            244,
+            271
+          ],
+          "neck": [
+            249,
+            369
+          ],
+          "back": [
+            228,
+            399
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-round3-pet.webp",
+          "rect": [
+            540,
+            66,
+            585,
+            558
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            292,
+            554
+          ],
+          "head": [
+            263,
+            145
+          ],
+          "hand": [
+            252,
+            357
+          ],
+          "eyes": [
+            263,
+            296
+          ],
+          "neck": [
+            269,
+            402
+          ],
+          "back": [
+            246,
+            435
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-round3-pet.webp",
+          "rect": [
+            1106,
+            125,
+            543,
+            492
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            272,
+            488
+          ],
+          "head": [
+            244,
+            128
+          ],
+          "hand": [
+            233,
+            315
+          ],
+          "eyes": [
+            244,
+            261
+          ],
+          "neck": [
+            250,
+            354
+          ],
+          "back": [
+            228,
+            384
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "catch-toy": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-round3-pet.webp",
+          "rect": [
+            1627,
+            121,
+            519,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.0867469879518072,
+          "facing": 0,
+          "anchor": [
+            260,
+            492
+          ],
+          "head": [
+            234,
+            129
+          ],
+          "hand": [
+            223,
+            317
+          ],
+          "eyes": [
+            234,
+            263
+          ],
+          "neck": [
+            239,
+            357
+          ],
+          "back": [
+            218,
+            387
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/hotdog-portraits.webp",
+      "grid": [
+        5,
+        1
+      ],
+      "cell": 0,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/hotdog-portraits.webp",
+      "grid": [
+        5,
+        1
+      ],
+      "cell": 1,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/hotdog-portraits.webp",
+      "grid": [
+        5,
+        1
+      ],
+      "cell": 2,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/hotdog-portraits.webp",
+      "grid": [
+        5,
+        1
+      ],
+      "cell": 3,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/hotdog-portraits.webp",
+      "grid": [
+        5,
+        1
+      ],
+      "cell": 4,
+      "trim": true
+    }
+  }
+}

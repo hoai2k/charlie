@@ -66,6 +66,13 @@ record, including its scale, landmarks and duration. For multi-row grids, cluste
 into the declared rows first and sort left-to-right within each row. Finally
 compare neutral and blink side by side: closing eyes must not change body pose.
 
+Do not assume a generated grid has mathematically equal cells. A fourteen-pose
+mermaid sheet used rows of 4/4/4/2 with figures crossing nominal row boundaries;
+uniform crops clipped Marina's tail. Find each connected figure's actual bounds,
+add a transparent margin, and verify every tail/crown/hand. Group the figures
+according to the prompt's row counts. Runtime alpha/path validation cannot detect
+a limb already clipped out of a source crop.
+
 The build derives one common scale from neutral idle. **Do not normalize every
 pose to neutral bounding-box height.** This made horizontal animal heads much
 too large. Compare head width and torso size; a running, sitting or curled animal
