@@ -1518,3 +1518,34 @@ in this order (most visible first): `prop/balloon` (8 colors) and
 `prop/ingredient-<id>` ×8; `prop/memory-card-back`; `prop/note-a|b|x|y`;
 `prop/cookie-1…4`; `prop/broom`, `prop/star-ring`, `prop/owl-mail`;
 `prop/vanity-mirror`. Each is drawn procedurally today, so any subset helps.
+
+---
+
+## Re-generation requests (lead's in-game review)
+
+Each item below was integrated and looked at in the running game. The code
+works around every one today, so nothing is broken. A re-generation would
+make it read better. Newest first; items move to "Resolved" once fixed.
+
+| Key | What's wrong in game | Ask |
+| --- | --- | --- |
+| `prop/podium` | One fixed 3-step image, but results show 1–8 players with a block per player (1st tallest, then 2nd, 3rd, the rest low). It is unused. | Separate blocks: `prop/podium-1`, `podium-2`, `podium-3`, `podium-4` (the shared low step), front view, ~230 px wide, heights roughly 210/140/80/30 px plus a top face. The number is drawn by code, so leave the front blank. |
+| `prop/confetti` | A loose sheet of pieces that particles can't use. Unused. | A sprite grid: 8×4 cells of 64 px, one piece per cell, centered, mixed colors and shapes (ribbon, curl, star, dot). |
+| `prop/card-back` | 356×526 (0.68), but Memory Match cards are 0.76 wide-to-tall, so it's stretched about 12%. | 300×400 with the same design. |
+| `prop/fizzle-puff` | Purple, but Wizard Quick-Draw's fizzle theme is green (ring, text, sparks). | A green/lime version. |
+| `prop/party-rug` | Drawn from a steeper angle than the flat player circle, so the code squashes it about 24%. | A flatter oval, about 2.4:1, seen from the game's ~3/4 top-down angle. |
+| `prop/cauldron` | Teal water is baked in and the code paints over it. Taller and rounder than the station layout. | Empty pot (or neutral dark liquid) with an open rim seen slightly from above, about 1.25:1 wide-to-tall. |
+| `prop/cauldron-bubbles`, `prop/potion-bottle` | Fixed lime / purple liquid that the code recolors. | White/neutral liquid versions so the recolor stays clean (keep outlines, glass and cork as is). |
+| `prop/storm-cloud-zap` | Only a startled face; no zap. | Add lightning crackle on the cloud's edge, or a bolt beneath it. |
+| `prop/balloon-<color>` | Uneven transparent padding (0–34 px), so the code measures each file. | Same canvas and position for all 8, knot at bottom center, touching the bottom edge. |
+| `prop/cookie-2`, `cookie-3`, `cookie-4` | Only choc-chip has cracked/crumbling states, so the other flavors get drawn-on cracks. | `-cracked` and `-crumbling` for each flavor, same framing as `cookie-tile-cracked`. |
+| `prop/rock` | About 10 px of empty space below the base. | Trim to the base (the shadow is drawn by code). |
+| `prop/cake-platform` (Bumper Bounce) | No crumble visuals: the platform just shrinks with a red band drawn over it. The cake looks tall. | A rounder top (height about 0.62× width, thinner side band), plus 2–3 edge-crumble overlay rings. |
+| `bg/fairy-garden` (+ night) | A side view, but the game is top-down. The code shifts it up so the fence is the back border and draws its own lawn below. Works, but the lawn is procedural. | A top-down garden ground (grass with soft paths, no plots; plots are drawn by code), fence/flower border along the top ~330 px, day and night versions. |
+| `bg/potion-class` | Has its own empty blackboard where the game's board doesn't sit (code fix in progress to use the art's board). | Re-check once the code fix lands; no change needed if it reads well. |
+| `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
+
+Engine-side notes from the same review: several keys are aliases of one
+file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
+`prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
+fine; the code uses one of each pair.
