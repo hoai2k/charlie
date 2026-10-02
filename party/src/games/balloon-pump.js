@@ -9,7 +9,8 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice, host } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art } from '../engine/art.js';
+import { art, drawArt } from '../engine/art.js';
+import { PLAYER_COLORS } from '../data/characters.js';
 import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, chance, pick, placementsFromScores, ease, TAU } from '../engine/util.js';
 
@@ -57,6 +58,12 @@ export const meta = {
     const cx = x + w * 0.62, cy = y + h * 0.7 - r;
     // pump
     const px = x + w * 0.27, py = y + h * 0.84;
+    const iconPump = art('prop/pump');
+    if (iconPump) {
+      const dip = Math.abs(Math.sin(t * 6)) * 0.06;
+      const ph = h * 0.48, pw = ph * iconPump.width / iconPump.height;
+      g.drawImage(iconPump, px - pw * 0.39, py - ph * (1 - dip), pw, ph * (1 - dip));
+    } else {
     g.fillStyle = '#9aa5c4'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02;
     ui.roundRect(g, px - w * 0.07, py - h * 0.3, w * 0.14, h * 0.3, h * 0.03); g.fill(); g.stroke();
     const dip = Math.abs(Math.sin(t * 6)) * h * 0.06;
@@ -65,9 +72,12 @@ export const meta = {
     // hose
     g.strokeStyle = NAVY; g.lineWidth = h * 0.03; g.beginPath(); g.moveTo(px + w * 0.07, py - h * 0.08);
     g.quadraticCurveTo(x + w * 0.45, py + h * 0.08, cx, cy + r + h * 0.02); g.stroke();
+    }
     // balloon
-    drawBalloonShape(g, cx, cy, r, '#ff4d6d', h * 0.022);
-    g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.ellipse(cx - r * 0.4, cy - r * 0.45, r * 0.18, r * 0.3, -0.5, 0, TAU); g.fill();
+    if (!drawArt(g, 'prop/balloon', cx, cy + r * 1.16, r * 2.4, r * 2.4, { anchor: 'bottom' })) {
+      drawBalloonShape(g, cx, cy, r, '#ff4d6d', h * 0.022);
+      g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.ellipse(cx - r * 0.4, cy - r * 0.45, r * 0.18, r * 0.3, -0.5, 0, TAU); g.fill();
+    }
     // POP star burst
     const bx = x + w * 0.2, by = y + h * 0.2;
     g.save(); g.translate(bx, by); g.rotate(Math.sin(t * 2) * 0.15);
@@ -97,6 +107,44 @@ function drawBalloonShape(g, cx, cy, r, color, lw = 5) {
   g.fillStyle = color; g.fill(); g.stroke();
   g.restore();
 }
+
+// ---- generated art helpers ---------------------------------------------------
+// Balloon art per player color (PLAYER_COLORS order), generic 'prop/balloon' as a fallback.
+const BALLOON_KEYS = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'teal', 'pink'].map((c) => `prop/balloon-${c}`);
+function balloonArt(p) {
+  const ci = PLAYER_COLORS.indexOf(p.color);
+  return art(BALLOON_KEYS[(ci >= 0 ? ci : p.index) % 8]) || art('prop/balloon');
+}
+// The balloon files have uneven transparent padding: crop to the alpha bounds
+// (measured once per image) so the knot sits exactly on the nozzle.
+const artMeta = new WeakMap();
+function artInfo(img) {
+  let m = artMeta.get(img);
+  if (m) return m;
+  m = { x: 0, y: 0, w: img.width, h: img.height, white: null };
+  try {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const cg = c.getContext('2d');
+    cg.drawImage(img, 0, 0);
+    const d = cg.getImageData(0, 0, c.width, c.height).data;
+    let x0 = c.width, y0 = c.height, x1 = -1, y1 = -1;
+    for (let y = 0; y < c.height; y++) for (let x = 0; x < c.width; x++) {
+      if (d[(y * c.width + x) * 4 + 3] > 24) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    if (x1 >= x0) m = { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1, white: null };
+    // white silhouette for the "stretched thin" wash
+    cg.globalCompositeOperation = 'source-in'; cg.fillStyle = '#ffffff'; cg.fillRect(0, 0, c.width, c.height);
+    m.white = c;
+  } catch (e) { /* tainted or no DOM: draw uncropped */ }
+  artMeta.set(img, m);
+  return m;
+}
+// Pump art slices (image px): T-handle 0..PUMP_ROD0, rod PUMP_ROD0..PUMP_ROD1 (stretched while
+// the handle is up), barrel/base below. PUMP_BX = barrel center, PUMP_FOOT = bottom of the base,
+// PUMP_HOSE = where the procedural hose leaves the coil.
+const PUMP_ROD0 = 38, PUMP_ROD1 = 52, PUMP_BX = 78, PUMP_FOOT = 212, PUMP_HOSE = [186, 176];
+const PUMP_K = 0.62, PUMP_TRAVEL = 24;
 
 // Station-local geometry (design units, scaled by the station scale).
 const CHAR_X = -158, PUMP_X = -52, BAL_X = 104, NOZZLE_Y = -150;
@@ -442,13 +490,26 @@ export class Game {
     // --- hose
     const wob = st.sputter > 0 ? Math.sin(this.t * 60) * 14 * Math.min(1, st.sputter * 4) : 0;
     g.lineCap = 'round';
-    for (const [lw, col] of [[16, NAVY], [9, flashRed ? '#ff8fa8' : '#6fe3b4']]) {
+    const pumpImg = art('prop/balloon-pump');
+    const pk = PUMP_K * PS;                      // pump art: image px -> station units
+    const hx = pumpImg ? PUMP_X + (PUMP_HOSE[0] - PUMP_BX) * pk : PUMP_X + 18 * PS;
+    const hy = pumpImg ? -4 * PS - (PUMP_FOOT - PUMP_HOSE[1]) * pk : -44 * PS;
+    for (const [lw, col] of [[16, NAVY], [9, flashRed ? '#ff8fa8' : pumpImg ? '#2f8ff2' : '#6fe3b4']]) {
       g.lineWidth = lw; g.strokeStyle = col; g.beginPath();
-      g.moveTo(PUMP_X + 18 * PS, -44 * PS);
+      g.moveTo(hx, hy);
       g.bezierCurveTo(PUMP_X + 70, 16 + wob, BAL_X - 50, 20 - wob, BAL_X, NOZZLE_Y + 100);
       g.stroke();
     }
     // --- pump
+    if (pumpImg) {
+      // handle rides up and down: draw handle, stretched rod, then barrel on top
+      const lift = (1 - clamp(st.pump, 0, 1)) * PUMP_TRAVEL;
+      const left = PUMP_X - PUMP_BX * pk, foot = -4 * PS, iw = pumpImg.width;
+      const yOf = (iy) => foot - (PUMP_FOOT - iy) * pk;
+      g.drawImage(pumpImg, 0, 0, iw, PUMP_ROD0, left, yOf(0) - lift * pk, iw * pk, PUMP_ROD0 * pk);
+      g.drawImage(pumpImg, 0, PUMP_ROD0, iw, PUMP_ROD1 - PUMP_ROD0, left, yOf(PUMP_ROD0) - lift * pk - 0.5, iw * pk, (PUMP_ROD1 - PUMP_ROD0 + lift) * pk + 1);
+      g.drawImage(pumpImg, 0, PUMP_ROD1, iw, pumpImg.height - PUMP_ROD1, left, yOf(PUMP_ROD1), iw * pk, (pumpImg.height - PUMP_ROD1) * pk);
+    } else {
     g.save(); g.translate(PUMP_X, 0); g.scale(PS, PS); g.translate(-PUMP_X, 0);
     const hdl = st.pump * 34;
     g.fillStyle = '#7b86a8'; g.strokeStyle = NAVY; g.lineWidth = 5;
@@ -463,6 +524,7 @@ export class Game {
     g.fillStyle = p.color; g.fillRect(PUMP_X - 22, -60, 44, 10); g.strokeRect(PUMP_X - 22, -60, 44, 10);
     ui.roundRect(g, PUMP_X - 44, -150 + hdl, 88, 24, 12); g.fillStyle = '#ffd23f'; g.fill(); g.stroke();
     g.restore();
+    }
     g.restore();
 
     // --- balloon
@@ -515,6 +577,17 @@ export class Game {
       g.fillStyle = '#ffffff'; g.beginPath(); g.arc(0, 0, b.r * 1.25, 0, TAU); g.fill(); g.restore();
     }
     // paler (stretched) as it gets close to popping
+    const bImg = balloonArt(p);
+    if (bImg) {
+      // art: knot bottom at the nozzle (+1.12 r), 2.4 r tall (body ~1.8 r wide)
+      const m = artInfo(bImg);
+      const dh = b.r * 2.4, dw = dh * m.w / m.h, dy = b.r * 1.12 - dh;
+      g.drawImage(bImg, m.x, m.y, m.w, m.h, -dw / 2, dy, dw, dh);
+      if (m.white && tremble > 0) {
+        g.save(); g.globalAlpha = tremble * 0.35;
+        g.drawImage(m.white, m.x, m.y, m.w, m.h, -dw / 2, dy, dw, dh); g.restore();
+      }
+    } else {
     drawBalloonShape(g, 0, 0, b.r, p.color, 5 * sc);
     g.save(); g.globalAlpha = 0.18 + tremble * 0.4; g.fillStyle = '#ffffff';
     g.beginPath(); g.ellipse(0, 0, b.r * 0.92, b.r * 1.0, 0, 0, TAU); g.fill(); g.restore();
@@ -522,6 +595,7 @@ export class Game {
     g.fillStyle = 'rgba(255,255,255,0.65)';
     g.beginPath(); g.ellipse(-b.r * 0.42, -b.r * 0.46, b.r * 0.14, b.r * 0.27, -0.55, 0, TAU); g.fill();
     g.beginPath(); g.arc(-b.r * 0.2, -b.r * 0.82, b.r * 0.05, 0, TAU); g.fill();
+    }
     // worried face when it's big
     if (size > 0.45 && b.r > 20) {
       const worry = clamp((size - 0.45) / 0.55, 0, 1);

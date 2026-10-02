@@ -3,7 +3,9 @@
 //
 // Art hooks (all optional, procedural fallbacks ship today):
 //   bg/sprinkle-catch  prop/giant-cake  prop/treat-sprinkle  prop/treat-cupcake
-//   prop/treat-golden  prop/treat-broccoli
+//   prop/golden-cupcake (or prop/treat-golden)  prop/broccoli (or prop/treat-broccoli)
+//   prop/broccoli-bonk (shown briefly when broccoli bonks someone)
+//   variety: 1-point prop/treat-candy|lollipop, 2-point prop/treat-donut|cookie|icecream
 // New-pose hooks (fall back to existing poses): 'catch' -> cheer
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSE_NAMES } from '../engine/sprites.js';
@@ -49,7 +51,8 @@ export const meta = {
       const ty = hh * 0.5 + ((tt + i * 0.37) % 1) * hh * 0.3;
       const tx = 130 + i * 35 + Math.sin(tt + i) * 6;
       g.save(); g.translate(tx, ty); g.scale(0.6, 0.6);
-      if (i === 2) drawCupcake(g, true, 0, '#ffe066', t || 0); else if (i % 2) drawCupcake(g, false, i, '#ff8fc7', t || 0); else drawSprinkle(g, i);
+      const ik = i === 2 ? 'prop/golden-cupcake' : ['prop/treat-donut', 'prop/treat-candy', null, 'prop/treat-cupcake', 'prop/treat-lollipop'][i];
+      if (!drawArt(g, ik, 0, 0, 80, 80)) { if (i === 2) drawCupcake(g, true, 0, '#ffe066', t || 0); else if (i % 2) drawCupcake(g, false, i, '#ff8fc7', t || 0); else drawSprinkle(g, i); }
       g.restore();
     }
     g.restore();
@@ -66,6 +69,16 @@ const MAX_SPEED = 560;
 const JUMP_V = 900, JUMP_G = 2300;
 const SOLO_GOAL = 30;
 const VALUE = { sprinkle: 1, cupcake: 2, golden: 5 };
+// Art per kind. 1- and 2-point treats pick a cosmetic variant by treat id (size/value
+// unchanged); the first key is the fallback when a variant file is missing. Golden and
+// broccoli use the first key, the second is an older alias kept as a fallback.
+const TREAT_ART = {
+  sprinkle: ['prop/treat-sprinkle', 'prop/treat-candy', 'prop/treat-lollipop'],
+  cupcake: ['prop/treat-cupcake', 'prop/treat-donut', 'prop/treat-cookie', 'prop/treat-icecream'],
+  golden: ['prop/golden-cupcake', 'prop/treat-golden'],
+  broc: ['prop/broccoli', 'prop/treat-broccoli'],
+};
+const BONK_FX_T = 0.6;      // how long the bonked broccoli face shows
 const WRAPPERS = ['#ff8fc7', '#7fd3ff', '#8be8b8', '#c9a0ff'];
 
 const NEW_POSE_FALLBACK = { catch: 'cheer' };
@@ -364,6 +377,7 @@ export class Game {
 
   bonk(e, t) {
     t.state = 'dead';
+    (this.bonkFx || (this.bonkFx = [])).push({ x: t.x, y: t.y + (t.yo || 0), r: t.r, t0: this.t, dir: e.x < t.x ? 1 : -1 });
     const a = e.a;
     particles.burst(t.x, t.y, { type: 'shard', count: 10, colors: ['#4fb85a', '#2e8b3e', '#8be08f'] });
     particles.burst(e.x, a.y - a.z - a.height, { type: 'star', count: 6, colors: ['#ffd23f'] });
@@ -488,6 +502,7 @@ export class Game {
       g.restore();
     }
     for (const t of this.treats) if (t.state === 'caught') this.drawTreatWorld(g, t);
+    this.drawBonkFx(g);
     for (const e of order) {
       const a = e.a;
       const top = a.y - a.z - a.height - 24 - (a.emotes.length ? 52 : 0);
@@ -545,8 +560,8 @@ export class Game {
     }
     const rot = t.kind === 'broc' ? Math.sin(t.age * 9) * 0.18 : t.kind === 'sprinkle' ? t.rot : Math.sin(t.age * 5 + t.sway) * 0.2;
     g.rotate(rot);
-    const key = 'prop/treat-' + (t.kind === 'broc' ? 'broccoli' : t.kind);
-    if (!drawArt(g, key, 0, 0, t.r * 2.8, t.r * 2.8)) {
+    const keys = TREAT_ART[t.kind], key = t.kind === 'sprinkle' || t.kind === 'cupcake' ? keys[t.id % keys.length] : keys[0];
+    if (!drawArt(g, key, 0, 0, t.r * 2.8, t.r * 2.8) && !drawArt(g, keys[0], 0, 0, t.r * 2.8, t.r * 2.8) && !(keys[1] && drawArt(g, keys[1], 0, 0, t.r * 2.8, t.r * 2.8))) {
       if (t.kind === 'sprinkle') drawSprinkle(g, t.id);
       else if (t.kind === 'cupcake') drawCupcake(g, false, t.id, t.hue, t.age);
       else if (t.kind === 'golden') drawCupcake(g, true, t.id, '#ffe066', t.age);
@@ -561,13 +576,32 @@ export class Game {
     }
   }
 
+  /** Bonked broccoli: its surprised frame pops up and away, then fades (visual only). */
+  drawBonkFx(g) {
+    if (!this.bonkFx || !this.bonkFx.length) return;
+    this.bonkFx = this.bonkFx.filter((b) => this.t - b.t0 < BONK_FX_T);
+    for (const b of this.bonkFx) {
+      const k = (this.t - b.t0) / BONK_FX_T;
+      const s = 1 + Math.sin(Math.min(1, k * 4) * Math.PI) * 0.25;
+      g.save();
+      g.translate(b.x + b.dir * k * 90, b.y - Math.sin(k * Math.PI) * 70);
+      g.rotate(b.dir * k * 1.2); g.scale(s, s);
+      drawArt(g, 'prop/broccoli-bonk', 0, 0, b.r * 2.8, b.r * 2.8, { alpha: k < 0.6 ? 1 : 1 - (k - 0.6) / 0.4 });
+      g.restore();
+    }
+  }
+
   drawCakeBig(g) {
     const c = this.cake;
     // candy cloud under the cake
     const y = 372;
     ui.cloud(g, c.x - 6, y + 24, 2.1, '#ffffff', 0.95);
     const wob = Math.sin(this.t * 3) * 0.02 + (this.rush ? Math.sin(this.t * 22) * 0.015 : 0);
-    if (!drawArt(g, 'prop/giant-cake', c.x, y + 10, 520, 420, { anchor: 'bottom' })) {
+    // same squash/wobble as the procedural cake, applied around the art (pivot at its base)
+    g.save(); g.translate(c.x, y + 10); g.rotate(wob * 1.4); g.scale(1 + c.sq * 0.6 + wob, 1 - c.sq * 0.6 - wob);
+    const cakeArt = drawArt(g, 'prop/giant-cake', 0, 0, 520, 420, { anchor: 'bottom' });
+    g.restore();
+    if (!cakeArt) {
       drawCake(g, c.x, y, 0.8, c.sq, c.mouth, this.t, this.rush, wob);
     }
   }
