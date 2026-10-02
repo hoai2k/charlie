@@ -1,0 +1,24 @@
+{
+  "tool": "built-in image_gen",
+  "groups": [
+    {
+      "name": "felicity-and-fellowfox",
+      "image": "felicity-and-fellowfox.webp",
+      "inputImages": [
+        "felicity.png",
+        "fellowfox.png"
+      ],
+      "prompt": "Use case: compositing. Asset type: canonical group reference for a children's party game. Input image 1 is approved Felicity design; input image 2 is approved Fellowfox design. Create exactly these TWO characters together in the exact same polished 2D cartoon style, preserving all distinctive face, hair, costume, flowers, colors and anatomy. Felicity is the taller fox girl with brown pigtails, teal eyes, orange fox ears, white daisy, orange/black floral dress, orange shoes and white-tipped fox tail. Fellowfox is her tiny round quadruped pet, with orange fur, cream muzzle/chest, black paws, black flower by ear, and white-tipped tail. Friendly full-body side-by-side lineup on a shared baseline. Felicity left, pet right close beside her, pet ears reach roughly her waist. Show their bond through warm expressions and a slight glance toward each other while remaining recognizable. Both complete silhouettes with space between them, no touching/overlap, all limbs and both tails visible. Preserve respective proportions. Plain genuinely transparent background, no colored glow or haze, no scenery, no text, no watermark. This group image establishes relative scale and companionship; individual sprites remain separate."
+    },
+    {
+      "name": "kpop-girls",
+      "image": "kpop-girls.webp",
+      "inputImages": [
+        "kpop-girl-left.png",
+        "kpop-girl-center.png",
+        "kpop-girl-right.png"
+      ],
+      "prompt": "Use case: compositing. Asset type: canonical trio reference for a children's party game. The THREE input images are the approved three KPop Girls in original left-to-right order. Create exactly these three distinct characters together, maintaining the exact polished 2D cartoon rendering, facial identity, skin tone, hair, colors, and outfits of each input. Left girl: light skin, brown side bun, light-blue sleeveless top/navy collar, dark blue wide trousers, pale shoes. Center girl: tan skin, purple braided hair, red earrings, orange jacket with charcoal trim and geometric badge, orange/gold paneled skirt, purple tall boots. Right girl: light skin, very long coral hair, navy tee with pink/purple abstract graphics, gold/brown paneled skirt, navy tall boots with pink knee accents. Full-body friendly performer lineup, left to right as specified, all roughly same height on shared baseline. Fun coordinated gentle greeting poses with individual expression. Each stays completely visible with a clear gap, no overlapping limbs, hair or silhouettes, no duplicate members. No new accessories or costume changes. Plain genuinely transparent background, no colored glow or haze, no stage, no scenery, no text, no watermark. Group establishes they always travel together, yet each needs independent sprites."
+    }
+  ]
+}
