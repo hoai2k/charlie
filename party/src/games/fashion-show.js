@@ -854,12 +854,12 @@ export class Game {
     for (let k = 0; k <= 12; k++) { const x = cx1 + 20 - k * ((cx1 - cx0 + 40) / 12); g.quadraticCurveTo(x + (cx1 - cx0 + 40) / 24, cy0 + 70, x, cy0 + 40); }
     g.closePath(); g.fill();
     g.strokeStyle = '#ffd23f'; g.lineWidth = 6; g.stroke();
-    // sign
-    g.save(); g.translate(W / 2, 168);
+    // sign (the photo frame brings its own ribbon)
+    if (!this.photoTaken) g.save(), g.translate(W / 2, 168); else g.save(), g.translate(-9999, 0);
     ui.panel(g, -380, -46, 760, 92, { r: 46, fill: '#ffd23f' });
     ui.text(g, 'Royal Fashion Show', 0, 4, { size: 58, color: '#ff4d8b', weight: 800, strokeWidth: 10 });
     g.restore();
-    this.drawCrownIcon(g, W / 2, 106, 30, '#ffd23f');
+    if (!this.photoTaken) this.drawCrownIcon(g, W / 2, 106, 30, '#ffd23f');
     // stage platform
     g.fillStyle = '#ffb3d9'; g.fillRect(240, 430, W - 480, 62);
     g.fillStyle = '#e07fb4'; g.fillRect(240, 492, W - 480, 26);
