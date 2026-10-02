@@ -1,0 +1,2535 @@
+{
+  "asset": "kpop-girl-left",
+  "bodyHeight": 320,
+  "frameSize": [
+    640,
+    580
+  ],
+  "anchor": [
+    320,
+    550
+  ],
+  "facing": 1,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            67,
+            8,
+            276,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            160.5,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            138.0,
+            30.419999999999998
+          ],
+          "eyes": [
+            149.04000000000002,
+            126.75
+          ],
+          "neck": [
+            140.76,
+            187.59
+          ],
+          "back": [
+            124.2,
+            258.57
+          ],
+          "hand": [
+            229.07999999999998,
+            253.5
+          ],
+          "dur": 2.4
+        },
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            418,
+            8,
+            276,
+            503
+          ],
+          "isolate": true,
+          "anchor": [
+            160.5,
+            500
+          ],
+          "scale": 1,
+          "head": [
+            138.0,
+            30.18
+          ],
+          "eyes": [
+            149.04000000000002,
+            125.75
+          ],
+          "neck": [
+            140.76,
+            186.10999999999999
+          ],
+          "back": [
+            124.2,
+            256.53000000000003
+          ],
+          "hand": [
+            229.07999999999998,
+            251.5
+          ],
+          "dur": 0.12
+        },
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            67,
+            8,
+            276,
+            507
+          ],
+          "isolate": true,
+          "anchor": [
+            160.5,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            138.0,
+            30.419999999999998
+          ],
+          "eyes": [
+            149.04000000000002,
+            126.75
+          ],
+          "neck": [
+            140.76,
+            187.59
+          ],
+          "back": [
+            124.2,
+            258.57
+          ],
+          "hand": [
+            229.07999999999998,
+            253.5
+          ],
+          "dur": 1.7
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            1179,
+            10,
+            293,
+            505
+          ],
+          "isolate": true,
+          "anchor": [
+            162.0,
+            502
+          ],
+          "scale": 1,
+          "head": [
+            146.5,
+            30.299999999999997
+          ],
+          "eyes": [
+            158.22,
+            126.25
+          ],
+          "neck": [
+            149.43,
+            186.85
+          ],
+          "back": [
+            131.85,
+            257.55
+          ],
+          "hand": [
+            243.19,
+            252.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            63,
+            524,
+            281,
+            482
+          ],
+          "isolate": true,
+          "anchor": [
+            96.5,
+            479
+          ],
+          "scale": 1,
+          "head": [
+            140.5,
+            28.919999999999998
+          ],
+          "eyes": [
+            151.74,
+            120.5
+          ],
+          "neck": [
+            143.31,
+            178.34
+          ],
+          "back": [
+            126.45,
+            245.82
+          ],
+          "hand": [
+            233.23,
+            241.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            446,
+            526,
+            257,
+            480
+          ],
+          "isolate": true,
+          "anchor": [
+            81.0,
+            477
+          ],
+          "scale": 1,
+          "head": [
+            128.5,
+            28.799999999999997
+          ],
+          "eyes": [
+            138.78,
+            120.0
+          ],
+          "neck": [
+            131.07,
+            177.6
+          ],
+          "back": [
+            115.65,
+            244.8
+          ],
+          "hand": [
+            213.31,
+            240.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            800,
+            522,
+            315,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            66.5,
+            482
+          ],
+          "scale": 1,
+          "head": [
+            157.5,
+            29.099999999999998
+          ],
+          "eyes": [
+            170.10000000000002,
+            121.25
+          ],
+          "neck": [
+            160.65,
+            179.45
+          ],
+          "back": [
+            141.75,
+            247.35
+          ],
+          "hand": [
+            261.45,
+            242.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-core-v2.webp",
+          "rect": [
+            1177,
+            523,
+            311,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            107.0,
+            480
+          ],
+          "scale": 1,
+          "head": [
+            155.5,
+            28.98
+          ],
+          "eyes": [
+            167.94,
+            120.75
+          ],
+          "neck": [
+            158.61,
+            178.71
+          ],
+          "back": [
+            139.95000000000002,
+            246.33
+          ],
+          "hand": [
+            258.13,
+            241.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            85,
+            20,
+            280,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            134.0,
+            482
+          ],
+          "scale": 1,
+          "head": [
+            140.0,
+            29.099999999999998
+          ],
+          "eyes": [
+            151.20000000000002,
+            121.25
+          ],
+          "neck": [
+            142.8,
+            179.45
+          ],
+          "back": [
+            126.0,
+            247.35
+          ],
+          "hand": [
+            232.39999999999998,
+            242.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            434,
+            16,
+            241,
+            488
+          ],
+          "isolate": true,
+          "anchor": [
+            176.0,
+            485
+          ],
+          "scale": 1,
+          "head": [
+            120.5,
+            29.279999999999998
+          ],
+          "eyes": [
+            130.14000000000001,
+            122.0
+          ],
+          "neck": [
+            122.91,
+            180.56
+          ],
+          "back": [
+            108.45,
+            248.88
+          ],
+          "hand": [
+            200.03,
+            244.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            805,
+            21,
+            293,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            146.5,
+            480
+          ],
+          "scale": 1,
+          "head": [
+            146.5,
+            28.98
+          ],
+          "eyes": [
+            158.22,
+            120.75
+          ],
+          "neck": [
+            149.43,
+            178.71
+          ],
+          "back": [
+            131.85,
+            246.33
+          ],
+          "hand": [
+            243.19,
+            241.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            1172,
+            19,
+            276,
+            483
+          ],
+          "isolate": true,
+          "anchor": [
+            218.0,
+            480
+          ],
+          "scale": 1,
+          "head": [
+            138.0,
+            28.98
+          ],
+          "eyes": [
+            149.04000000000002,
+            120.75
+          ],
+          "neck": [
+            140.76,
+            178.71
+          ],
+          "back": [
+            124.2,
+            246.33
+          ],
+          "hand": [
+            229.07999999999998,
+            241.5
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            38,
+            524,
+            371,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            281.5,
+            453
+          ],
+          "scale": 1,
+          "head": [
+            185.5,
+            27.36
+          ],
+          "eyes": [
+            200.34,
+            114.0
+          ],
+          "neck": [
+            189.21,
+            168.72
+          ],
+          "back": [
+            166.95000000000002,
+            232.56
+          ],
+          "hand": [
+            307.93,
+            228.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            427,
+            516,
+            297,
+            391
+          ],
+          "isolate": true,
+          "anchor": [
+            240.0,
+            448
+          ],
+          "scale": 1,
+          "head": [
+            148.5,
+            23.46
+          ],
+          "eyes": [
+            160.38000000000002,
+            97.75
+          ],
+          "neck": [
+            151.47,
+            144.67
+          ],
+          "back": [
+            133.65,
+            199.41
+          ],
+          "hand": [
+            246.51,
+            195.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            773,
+            524,
+            380,
+            455
+          ],
+          "isolate": true,
+          "anchor": [
+            291.5,
+            452
+          ],
+          "scale": 1,
+          "head": [
+            190.0,
+            27.3
+          ],
+          "eyes": [
+            205.20000000000002,
+            113.75
+          ],
+          "neck": [
+            193.8,
+            168.35
+          ],
+          "back": [
+            171.0,
+            232.05
+          ],
+          "hand": [
+            315.4,
+            227.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-locomotion.webp",
+          "rect": [
+            1195,
+            517,
+            284,
+            413
+          ],
+          "isolate": true,
+          "anchor": [
+            222.5,
+            470
+          ],
+          "scale": 1,
+          "head": [
+            142.0,
+            24.779999999999998
+          ],
+          "eyes": [
+            153.36,
+            103.25
+          ],
+          "neck": [
+            144.84,
+            152.81
+          ],
+          "back": [
+            127.8,
+            210.63
+          ],
+          "hand": [
+            235.72,
+            206.5
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            100,
+            49,
+            251,
+            445
+          ],
+          "isolate": true,
+          "anchor": [
+            114.5,
+            442
+          ],
+          "scale": 1.04,
+          "head": [
+            125.5,
+            26.7
+          ],
+          "eyes": [
+            135.54000000000002,
+            111.25
+          ],
+          "neck": [
+            128.01,
+            164.65
+          ],
+          "back": [
+            112.95,
+            226.95000000000002
+          ],
+          "hand": [
+            208.32999999999998,
+            222.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            401,
+            31,
+            360,
+            437
+          ],
+          "isolate": true,
+          "anchor": [
+            180.0,
+            479
+          ],
+          "scale": 1.04,
+          "head": [
+            180.0,
+            26.22
+          ],
+          "eyes": [
+            194.4,
+            109.25
+          ],
+          "neck": [
+            183.6,
+            161.69
+          ],
+          "back": [
+            162.0,
+            222.87
+          ],
+          "hand": [
+            298.8,
+            218.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            781,
+            34,
+            381,
+            411
+          ],
+          "isolate": true,
+          "anchor": [
+            189.0,
+            453
+          ],
+          "scale": 1.04,
+          "head": [
+            190.5,
+            24.66
+          ],
+          "eyes": [
+            205.74,
+            102.75
+          ],
+          "neck": [
+            194.31,
+            152.07
+          ],
+          "back": [
+            171.45000000000002,
+            209.61
+          ],
+          "hand": [
+            316.22999999999996,
+            205.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            1242,
+            64,
+            258,
+            431
+          ],
+          "isolate": true,
+          "anchor": [
+            125.5,
+            428
+          ],
+          "scale": 1.04,
+          "head": [
+            129.0,
+            25.86
+          ],
+          "eyes": [
+            139.32000000000002,
+            107.75
+          ],
+          "neck": [
+            131.58,
+            159.47
+          ],
+          "back": [
+            116.10000000000001,
+            219.81
+          ],
+          "hand": [
+            214.14,
+            215.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            99,
+            511,
+            248,
+            487
+          ],
+          "isolate": true,
+          "anchor": [
+            108.5,
+            484
+          ],
+          "scale": 1.04,
+          "head": [
+            124.0,
+            29.22
+          ],
+          "eyes": [
+            133.92000000000002,
+            121.75
+          ],
+          "neck": [
+            126.48,
+            180.19
+          ],
+          "back": [
+            111.60000000000001,
+            248.37
+          ],
+          "hand": [
+            205.84,
+            243.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            396,
+            516,
+            338,
+            475
+          ],
+          "isolate": true,
+          "anchor": [
+            197.0,
+            472
+          ],
+          "scale": 1.04,
+          "head": [
+            169.0,
+            28.5
+          ],
+          "eyes": [
+            182.52,
+            118.75
+          ],
+          "neck": [
+            172.38,
+            175.75
+          ],
+          "back": [
+            152.1,
+            242.25
+          ],
+          "hand": [
+            280.53999999999996,
+            237.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            839,
+            533,
+            301,
+            428
+          ],
+          "isolate": true,
+          "anchor": [
+            101.5,
+            425
+          ],
+          "scale": 1.04,
+          "head": [
+            165.55,
+            38.519999999999996
+          ],
+          "eyes": [
+            162.54000000000002,
+            107.0
+          ],
+          "neck": [
+            165.55,
+            184.04
+          ],
+          "back": [
+            135.45000000000002,
+            218.28
+          ],
+          "hand": [
+            264.88,
+            243.95999999999998
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-celebrate-ride.webp",
+          "rect": [
+            1202,
+            526,
+            297,
+            435
+          ],
+          "isolate": true,
+          "anchor": [
+            98.0,
+            432
+          ],
+          "scale": 1.04,
+          "head": [
+            163.35000000000002,
+            39.15
+          ],
+          "eyes": [
+            160.38000000000002,
+            108.75
+          ],
+          "neck": [
+            163.35000000000002,
+            187.04999999999998
+          ],
+          "back": [
+            133.65,
+            221.85
+          ],
+          "hand": [
+            261.36,
+            247.95
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            34,
+            48,
+            291,
+            566
+          ],
+          "isolate": true,
+          "anchor": [
+            159.0,
+            563
+          ],
+          "scale": 0.92,
+          "head": [
+            145.5,
+            33.96
+          ],
+          "eyes": [
+            157.14000000000001,
+            141.5
+          ],
+          "neck": [
+            148.41,
+            209.42
+          ],
+          "back": [
+            130.95000000000002,
+            288.66
+          ],
+          "hand": [
+            241.53,
+            283.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            349,
+            74,
+            247,
+            547
+          ],
+          "isolate": true,
+          "anchor": [
+            156.5,
+            544
+          ],
+          "scale": 0.92,
+          "head": [
+            123.5,
+            32.82
+          ],
+          "eyes": [
+            133.38,
+            136.75
+          ],
+          "neck": [
+            125.97,
+            202.39
+          ],
+          "back": [
+            111.15,
+            278.97
+          ],
+          "hand": [
+            205.01,
+            273.5
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            578,
+            72,
+            354,
+            540
+          ],
+          "isolate": true,
+          "anchor": [
+            194.0,
+            537
+          ],
+          "scale": 0.92,
+          "head": [
+            177.0,
+            32.4
+          ],
+          "eyes": [
+            191.16000000000003,
+            135.0
+          ],
+          "neck": [
+            180.54,
+            199.8
+          ],
+          "back": [
+            159.3,
+            275.4
+          ],
+          "hand": [
+            293.82,
+            270.0
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            911,
+            74,
+            309,
+            544
+          ],
+          "isolate": true,
+          "anchor": [
+            155.0,
+            541
+          ],
+          "scale": 0.92,
+          "head": [
+            154.5,
+            32.64
+          ],
+          "eyes": [
+            166.86,
+            136.0
+          ],
+          "neck": [
+            157.59,
+            201.28
+          ],
+          "back": [
+            139.05,
+            277.44
+          ],
+          "hand": [
+            256.46999999999997,
+            272.0
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            28,
+            676,
+            288,
+            458
+          ],
+          "isolate": true,
+          "anchor": [
+            187.0,
+            500
+          ],
+          "scale": 0.92,
+          "head": [
+            144.0,
+            27.48
+          ],
+          "eyes": [
+            155.52,
+            114.5
+          ],
+          "neck": [
+            146.88,
+            169.46
+          ],
+          "back": [
+            129.6,
+            233.58
+          ],
+          "hand": [
+            239.04,
+            229.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            316,
+            745,
+            345,
+            430
+          ],
+          "isolate": true,
+          "anchor": [
+            214.5,
+            472
+          ],
+          "scale": 0.92,
+          "head": [
+            172.5,
+            25.8
+          ],
+          "eyes": [
+            186.3,
+            107.5
+          ],
+          "neck": [
+            175.95000000000002,
+            159.1
+          ],
+          "back": [
+            155.25,
+            219.3
+          ],
+          "hand": [
+            286.34999999999997,
+            215.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            649,
+            857,
+            303,
+            392
+          ],
+          "isolate": true,
+          "anchor": [
+            131.5,
+            389
+          ],
+          "scale": 0.92,
+          "head": [
+            157.56,
+            31.36
+          ],
+          "eyes": [
+            166.65,
+            113.67999999999999
+          ],
+          "neck": [
+            163.62,
+            180.32000000000002
+          ],
+          "back": [
+            136.35,
+            199.92000000000002
+          ],
+          "hand": [
+            251.48999999999998,
+            196.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            960,
+            696,
+            244,
+            543
+          ],
+          "isolate": true,
+          "anchor": [
+            67.5,
+            540
+          ],
+          "scale": 0.92,
+          "head": [
+            122.0,
+            32.58
+          ],
+          "eyes": [
+            131.76000000000002,
+            135.75
+          ],
+          "neck": [
+            124.44,
+            200.91
+          ],
+          "back": [
+            109.8,
+            276.93
+          ],
+          "hand": [
+            202.51999999999998,
+            271.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            77,
+            11,
+            290,
+            486
+          ],
+          "isolate": true,
+          "anchor": [
+            112.0,
+            483
+          ],
+          "scale": 1.03,
+          "head": [
+            145.0,
+            29.16
+          ],
+          "eyes": [
+            156.60000000000002,
+            121.5
+          ],
+          "neck": [
+            147.9,
+            179.82
+          ],
+          "back": [
+            130.5,
+            247.86
+          ],
+          "hand": [
+            240.7,
+            243.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            449,
+            6,
+            263,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            116.5,
+            489
+          ],
+          "scale": 1.03,
+          "head": [
+            131.5,
+            29.52
+          ],
+          "eyes": [
+            142.02,
+            123.0
+          ],
+          "neck": [
+            134.13,
+            182.04
+          ],
+          "back": [
+            118.35000000000001,
+            250.92000000000002
+          ],
+          "hand": [
+            218.29,
+            246.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            768,
+            10,
+            364,
+            487
+          ],
+          "isolate": true,
+          "anchor": [
+            212.5,
+            484
+          ],
+          "scale": 1.03,
+          "head": [
+            182.0,
+            29.22
+          ],
+          "eyes": [
+            196.56,
+            121.75
+          ],
+          "neck": [
+            185.64000000000001,
+            180.19
+          ],
+          "back": [
+            163.8,
+            248.37
+          ],
+          "hand": [
+            320.32,
+            209.41
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            1147,
+            6,
+            358,
+            491
+          ],
+          "isolate": true,
+          "anchor": [
+            141.0,
+            488
+          ],
+          "scale": 1.03,
+          "head": [
+            179.0,
+            29.459999999999997
+          ],
+          "eyes": [
+            193.32000000000002,
+            122.75
+          ],
+          "neck": [
+            182.58,
+            181.67
+          ],
+          "back": [
+            161.1,
+            250.41
+          ],
+          "hand": [
+            315.04,
+            211.13
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            34,
+            508,
+            337,
+            471
+          ],
+          "isolate": true,
+          "anchor": [
+            152.5,
+            468
+          ],
+          "scale": 1.03,
+          "head": [
+            168.5,
+            28.259999999999998
+          ],
+          "eyes": [
+            181.98000000000002,
+            117.75
+          ],
+          "neck": [
+            171.87,
+            174.27
+          ],
+          "back": [
+            151.65,
+            240.21
+          ],
+          "hand": [
+            296.56,
+            202.53
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            433,
+            508,
+            285,
+            472
+          ],
+          "isolate": true,
+          "anchor": [
+            141.0,
+            469
+          ],
+          "scale": 1.03,
+          "head": [
+            142.5,
+            66.08000000000001
+          ],
+          "eyes": [
+            153.9,
+            118.0
+          ],
+          "neck": [
+            145.35,
+            174.64
+          ],
+          "back": [
+            128.25,
+            240.72
+          ],
+          "hand": [
+            142.5,
+            16.520000000000003
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            768,
+            514,
+            379,
+            465
+          ],
+          "isolate": true,
+          "anchor": [
+            197.5,
+            462
+          ],
+          "scale": 1.03,
+          "head": [
+            189.5,
+            27.9
+          ],
+          "eyes": [
+            204.66000000000003,
+            116.25
+          ],
+          "neck": [
+            193.29,
+            172.05
+          ],
+          "back": [
+            170.55,
+            237.15
+          ],
+          "hand": [
+            333.52,
+            199.95
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-actions.webp",
+          "rect": [
+            1208,
+            613,
+            255,
+            371
+          ],
+          "isolate": true,
+          "anchor": [
+            79.0,
+            368
+          ],
+          "scale": 1.03,
+          "head": [
+            132.6,
+            29.68
+          ],
+          "eyes": [
+            140.25,
+            107.58999999999999
+          ],
+          "neck": [
+            137.70000000000002,
+            170.66
+          ],
+          "back": [
+            114.75,
+            189.21
+          ],
+          "hand": [
+            211.64999999999998,
+            185.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            70,
+            10,
+            299,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            51.0,
+            495
+          ],
+          "scale": 1.03,
+          "head": [
+            149.5,
+            29.88
+          ],
+          "eyes": [
+            161.46,
+            124.5
+          ],
+          "neck": [
+            152.49,
+            184.26
+          ],
+          "back": [
+            134.55,
+            253.98000000000002
+          ],
+          "hand": [
+            263.12,
+            214.14
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": -1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            480,
+            11,
+            234,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            129.0,
+            490
+          ],
+          "scale": 1.03,
+          "head": [
+            117.0,
+            29.58
+          ],
+          "eyes": [
+            126.36000000000001,
+            123.25
+          ],
+          "neck": [
+            119.34,
+            182.41
+          ],
+          "back": [
+            105.3,
+            251.43
+          ],
+          "hand": [
+            194.22,
+            246.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            840,
+            8,
+            241,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            47.0,
+            494
+          ],
+          "scale": 1.03,
+          "head": [
+            120.5,
+            29.82
+          ],
+          "eyes": [
+            130.14000000000001,
+            124.25
+          ],
+          "neck": [
+            122.91,
+            183.89
+          ],
+          "back": [
+            108.45,
+            253.47
+          ],
+          "hand": [
+            72.3,
+            139.16000000000003
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            1177,
+            27,
+            253,
+            477
+          ],
+          "isolate": true,
+          "anchor": [
+            155.0,
+            474
+          ],
+          "scale": 1.03,
+          "head": [
+            126.5,
+            28.619999999999997
+          ],
+          "eyes": [
+            136.62,
+            119.25
+          ],
+          "neck": [
+            129.03,
+            176.49
+          ],
+          "back": [
+            113.85000000000001,
+            243.27
+          ],
+          "hand": [
+            209.98999999999998,
+            238.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            93,
+            510,
+            293,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            170.0,
+            497
+          ],
+          "scale": 1.03,
+          "head": [
+            146.5,
+            30.0
+          ],
+          "eyes": [
+            158.22,
+            125.0
+          ],
+          "neck": [
+            149.43,
+            185.0
+          ],
+          "back": [
+            131.85,
+            255.0
+          ],
+          "hand": [
+            243.19,
+            250.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            481,
+            515,
+            253,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            132.5,
+            491
+          ],
+          "scale": 1.03,
+          "head": [
+            126.5,
+            29.64
+          ],
+          "eyes": [
+            136.62,
+            123.5
+          ],
+          "neck": [
+            129.03,
+            182.78
+          ],
+          "back": [
+            113.85000000000001,
+            251.94
+          ],
+          "hand": [
+            209.98999999999998,
+            247.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            770,
+            514,
+            379,
+            490
+          ],
+          "isolate": true,
+          "anchor": [
+            175.0,
+            487
+          ],
+          "scale": 1.03,
+          "head": [
+            189.5,
+            29.4
+          ],
+          "eyes": [
+            204.66000000000003,
+            122.5
+          ],
+          "neck": [
+            193.29,
+            181.3
+          ],
+          "back": [
+            170.55,
+            249.9
+          ],
+          "hand": [
+            314.57,
+            245.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-performance.webp",
+          "rect": [
+            1207,
+            516,
+            276,
+            493
+          ],
+          "isolate": true,
+          "anchor": [
+            134.0,
+            490
+          ],
+          "scale": 1.03,
+          "head": [
+            138.0,
+            29.58
+          ],
+          "eyes": [
+            149.04000000000002,
+            123.25
+          ],
+          "neck": [
+            140.76,
+            182.41
+          ],
+          "back": [
+            124.2,
+            251.43
+          ],
+          "hand": [
+            162.84,
+            246.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            78,
+            15,
+            258,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            128.5,
+            489
+          ],
+          "scale": 1.0,
+          "head": [
+            129.0,
+            29.52
+          ],
+          "eyes": [
+            139.32000000000002,
+            123.0
+          ],
+          "neck": [
+            131.58,
+            182.04
+          ],
+          "back": [
+            116.10000000000001,
+            250.92000000000002
+          ],
+          "hand": [
+            152.22,
+            246.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            439,
+            11,
+            296,
+            504
+          ],
+          "isolate": true,
+          "anchor": [
+            154.5,
+            501
+          ],
+          "scale": 1.0,
+          "head": [
+            148.0,
+            30.24
+          ],
+          "eyes": [
+            159.84,
+            126.0
+          ],
+          "neck": [
+            150.96,
+            186.48
+          ],
+          "back": [
+            133.20000000000002,
+            257.04
+          ],
+          "hand": [
+            245.67999999999998,
+            252.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            836,
+            24,
+            278,
+            491
+          ],
+          "isolate": true,
+          "anchor": [
+            137.0,
+            488
+          ],
+          "scale": 1.0,
+          "head": [
+            139.0,
+            29.459999999999997
+          ],
+          "eyes": [
+            150.12,
+            122.75
+          ],
+          "neck": [
+            141.78,
+            181.67
+          ],
+          "back": [
+            125.10000000000001,
+            250.41
+          ],
+          "hand": [
+            164.01999999999998,
+            245.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            1206,
+            18,
+            286,
+            494
+          ],
+          "isolate": true,
+          "anchor": [
+            151.0,
+            491
+          ],
+          "scale": 1.0,
+          "head": [
+            143.0,
+            29.64
+          ],
+          "eyes": [
+            154.44,
+            123.5
+          ],
+          "neck": [
+            145.86,
+            182.78
+          ],
+          "back": [
+            128.70000000000002,
+            251.94
+          ],
+          "hand": [
+            237.38,
+            247.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            45,
+            518,
+            319,
+            485
+          ],
+          "isolate": true,
+          "anchor": [
+            153.5,
+            482
+          ],
+          "scale": 1.0,
+          "head": [
+            159.5,
+            29.099999999999998
+          ],
+          "eyes": [
+            172.26000000000002,
+            121.25
+          ],
+          "neck": [
+            162.69,
+            179.45
+          ],
+          "back": [
+            143.55,
+            247.35
+          ],
+          "hand": [
+            264.77,
+            242.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            380,
+            608,
+            365,
+            366
+          ],
+          "isolate": true,
+          "anchor": [
+            84.5,
+            363
+          ],
+          "scale": 1.0,
+          "head": [
+            189.8,
+            29.28
+          ],
+          "eyes": [
+            200.75000000000003,
+            106.13999999999999
+          ],
+          "neck": [
+            197.10000000000002,
+            168.36
+          ],
+          "back": [
+            164.25,
+            186.66
+          ],
+          "hand": [
+            302.95,
+            183.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            768,
+            543,
+            406,
+            439
+          ],
+          "isolate": true,
+          "anchor": [
+            311.0,
+            436
+          ],
+          "scale": 1.0,
+          "head": [
+            203.0,
+            26.34
+          ],
+          "eyes": [
+            219.24,
+            109.75
+          ],
+          "neck": [
+            207.06,
+            162.43
+          ],
+          "back": [
+            182.70000000000002,
+            223.89000000000001
+          ],
+          "hand": [
+            336.97999999999996,
+            219.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-extras.webp",
+          "rect": [
+            1200,
+            520,
+            316,
+            486
+          ],
+          "isolate": true,
+          "anchor": [
+            158.5,
+            483
+          ],
+          "scale": 1.0,
+          "head": [
+            158.0,
+            29.16
+          ],
+          "eyes": [
+            170.64000000000001,
+            121.5
+          ],
+          "neck": [
+            161.16,
+            179.82
+          ],
+          "back": [
+            142.20000000000002,
+            247.86
+          ],
+          "hand": [
+            262.28,
+            243.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            34,
+            48,
+            291,
+            566
+          ],
+          "isolate": true,
+          "anchor": [
+            159.0,
+            563
+          ],
+          "scale": 0.92,
+          "head": [
+            145.5,
+            33.96
+          ],
+          "eyes": [
+            157.14000000000001,
+            141.5
+          ],
+          "neck": [
+            148.41,
+            209.42
+          ],
+          "back": [
+            130.95000000000002,
+            288.66
+          ],
+          "hand": [
+            241.53,
+            283.0
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            349,
+            74,
+            247,
+            547
+          ],
+          "isolate": true,
+          "anchor": [
+            156.5,
+            544
+          ],
+          "scale": 0.92,
+          "head": [
+            123.5,
+            32.82
+          ],
+          "eyes": [
+            133.38,
+            136.75
+          ],
+          "neck": [
+            125.97,
+            202.39
+          ],
+          "back": [
+            111.15,
+            278.97
+          ],
+          "hand": [
+            205.01,
+            273.5
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            578,
+            72,
+            354,
+            540
+          ],
+          "isolate": true,
+          "anchor": [
+            194.0,
+            537
+          ],
+          "scale": 0.92,
+          "head": [
+            177.0,
+            32.4
+          ],
+          "eyes": [
+            191.16000000000003,
+            135.0
+          ],
+          "neck": [
+            180.54,
+            199.8
+          ],
+          "back": [
+            159.3,
+            275.4
+          ],
+          "hand": [
+            293.82,
+            270.0
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-dance-jump.webp",
+          "rect": [
+            911,
+            74,
+            309,
+            544
+          ],
+          "isolate": true,
+          "anchor": [
+            155.0,
+            541
+          ],
+          "scale": 0.92,
+          "head": [
+            154.5,
+            32.64
+          ],
+          "eyes": [
+            166.86,
+            136.0
+          ],
+          "neck": [
+            157.59,
+            201.28
+          ],
+          "back": [
+            139.05,
+            277.44
+          ],
+          "hand": [
+            256.46999999999997,
+            272.0
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/kpop-girl-left-portraits.webp",
+      "rect": [
+        19,
+        114,
+        427,
+        527
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/kpop-girl-left-portraits.webp",
+      "rect": [
+        422,
+        114,
+        426,
+        527
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/kpop-girl-left-portraits.webp",
+      "rect": [
+        816,
+        113,
+        408,
+        528
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/kpop-girl-left-portraits.webp",
+      "rect": [
+        18,
+        695,
+        427,
+        529
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/kpop-girl-left-portraits.webp",
+      "rect": [
+        417,
+        693,
+        429,
+        532
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "thinking": {
+      "source": "../sources/kpop-girl-left-portraits.webp",
+      "rect": [
+        825,
+        694,
+        399,
+        532
+      ],
+      "isolate": true,
+      "trim": true
+    }
+  },
+  "quality": 82
+}
