@@ -208,7 +208,9 @@ export class ResultsScene {
       const n = this.starsGiven[e.idx];
       if (n > 0) ui.stars(g, n, e.x, e.floor + 128, 30, { wobble: true });
       if (this.showcase && this.result.highlight === e.idx && this.revealed) {
-        ui.text(g, 'Showstopper!', e.x, e.actor.y - e.actor.height - 110, { size: 36, color: '#ffd23f' });
+        const my = e.actor.y - e.actor.height - 110;
+        drawArt(g, 'ui/medal', e.x, my - 34, 70, 78, { anchor: 'bottom' });
+        ui.text(g, 'Showstopper!', e.x, my, { size: 36, color: '#ffd23f' });
       }
     }
     particles.draw(g);

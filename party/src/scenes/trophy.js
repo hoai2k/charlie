@@ -15,6 +15,8 @@ import { TAU, ease } from '../engine/util.js';
 import { drawCrown } from './results.js';
 
 export function drawTrophy(g, x, y, s, t = 0) {
+  // Generated trophy art: same footprint as the vector cup (base at y + 50s).
+  if (drawArt(g, 'prop/trophy', x, y + 50 * s, 330 * s, 330 * s, { anchor: 'bottom' })) return;
   g.save(); g.translate(x, y); g.scale(s, s);
   g.lineWidth = 8; g.strokeStyle = '#24163f'; g.lineJoin = 'round';
   const gold = g.createLinearGradient(-100, 0, 100, 0);
