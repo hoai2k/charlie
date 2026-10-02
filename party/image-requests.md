@@ -1453,40 +1453,62 @@ rest of the roster, then the next requests.
    per-frame pose logger pattern: hook `Actor.prototype.draw` and record
    `this.pose` for your `charId`.
 
-### R3.3 Next requests, in priority order
+### R3.3 Already delivered (as of this round)
 
-**A. NPC canonicals (blocking several games' art) — needs the user's
-approval before any sprites.** None exist yet. In order of how often they
-are on screen: **Glimmer** (§8.1: every how-to screen and Fairy Count/Garden),
-**Shadow Imp** (§8.2: Spotlight Dance-Off and Pop Star Stage — the code
-already swaps to sprites when a `shadow-imp` entry exists), **Professor Hoot**
-(§8.3: Wizard Quick-Draw and Potion Class), **Garden Fairy** (§8.4). Then the
-**Troll** sprite set (§8.5, canonical already approved): `idle`, `walk`,
-`windup`, `slam`, `sleep`, `laugh`, `dizzy`, `surprised` — Troll Trouble uses
-all of them, and he is the solo opponent in Bumper Bounce and Pass the Present.
+Approved canonicals for every NPC (Glimmer, Shadow Imps ×3, Professor Hoot,
+Garden Fairies ×5, Grumpy Broccoli, Storm Cloud); sprite sets for
+**Felicity, Fellowfox, Bronze, Troll and Glimmer**; the logo, title, menu,
+how-to, results and marathon backdrops; `bg/<id>` for all 20 games (plus
+`fairy-garden-night`, `fashion-show-dressing`, `art-gallery`); `thumb/<id>`
+for all 20; props `giant-cake`, `cake-platform`, `seat-cloud`, `present`,
+`crown`. All of it renders in game with no errors (checked by the lead).
 
-**B. Felicity upgrades (small, high impact).** Multi-frame `idle` (blink),
-`celebrate`, `pout`, `dance`, `ride` per R3.2; own `cheer` and `sad` frames;
-then her most-used round-2 poses: `sing`, `water`, `count`, `look-up`,
-`hold-present`, `toss`, `sooty`, `swim`, `sit`, `balance`, `blow`, `float`.
+### R3.4 Next requests, in priority order
+
+**A. Finish the approved NPCs (they're designed but not usable in play yet).**
+- **Shadow Imp sprite set** (+ base art `assets/characters/shadow-imp.webp`
+  and the two color variants): `idle` (bounce), `dance-up`, `dance-down`,
+  `dance-side`, `dance-star` (spin), `laugh`, `surprised` (eep), `poof`.
+  Register a `SHADOW_IMP` entry in `src/data/characters.js` (shape like
+  `GLIMMER`, `motion: 'glide'`). Pop Star Stage switches to it
+  automatically; the lead will wire Spotlight Dance-Off (still procedural).
+- **Professor Hoot**: at minimum the cut-out `prop/professor-hoot`
+  (~260×340, feet at the bottom edge) from the approved canonical — both
+  Wizard Quick-Draw and Potion Class draw it today if it exists. Better: a
+  small sprite set (`idle` + blink, `talk`, `point`, `hoot`, `laugh`,
+  `lantern`, `surprised`) and the lead will switch both games to an Actor.
+- **Cut-outs from approved canonicals:** `prop/treat-broccoli` (Sprinkle
+  Catch), `prop/storm-cloud` (Broomstick Dash), `prop/fairy-pink|blue|
+  yellow|green|purple` (~128 px, wings spread; the lead will switch Fairy
+  Count and Fairy Garden from drawn fairies to these).
+- **Troll**: own `run`, `ready`, `pout`/`sad` and portraits (validate.py
+  lists them missing; he's the solo opponent in two games and loses often).
+
+**B. Felicity / Fellowfox / Bronze upgrades** (R3.2 items 1–2): multi-frame
+`idle` blink, `celebrate`, `pout`, `dance`, `ride`; own `cheer` and `sad`
+keys; then the most-used round-2 poses: `sing`, `water`, `count`,
+`look-up`, `hold-present`, `toss`, `sooty`, `swim`, `sit`, `balance`, `blow`,
+`float`. Fellowfox additionally the pet set from R3.2 item 5 (`giggle`,
+`catch-toy`).
 
 **C. Next roster sets.** Suggested order (the user may prefer another):
-1. **Fox** — simplest quadruped, appears as a player *and* a Pet Spa pet;
-   validates the animal conventions (mouth `hand`, gallop `run`).
+1. **Fox** — simplest quadruped, a player *and* a Pet Spa pet; validates the
+   animal conventions (mouth `hand`, gallop `run`).
 2. **Cotton Candy, The Last Unicorn, Hotdog** — the other pets; shared
    quadruped/pet pose list (R3.2 item 5).
 3. **KPop Girls** (three sets together, R3.2 item 4) — very visible in the
    music games.
 4. **Princess Amber, Snowstar** — humanoids, straightforward after Felicity.
 5. **Marina, Scale** — mermaid conventions (R3.2 item 7).
-6. **Bronze, Birthday Cake** — the unusual anatomies, last, with the most
-   care.
+6. **Birthday Cake** — no limbs; the most care (Bronze already proved the
+   non-humanoid `hand` convention works).
 Each set: Tier-1 poses + five portraits first, commit, then the rest.
 
-**D. Game art (no approval gate).** Start where it's seen most: `ui/logo`
-and the title backdrop (first impression), then `thumb/<id>` for all 20
-(the Game Select grid and how-to screens), then backgrounds for the games
-whose procedural backdrops are plainest: `bg/paint-party`, `bg/balloon-pump`,
-`bg/cake-bakery`, `bg/pet-spa`, `bg/memory-match`. Remember the layout
-constraints listed with each background in Round 2 (Crown Keeper's arena
-must match the code exactly).
+**D. Remaining game art.** The Round 2 prop list minus what's delivered,
+in this order (most visible first): `prop/balloon` (8 colors) and
+`prop/balloon-pump`; `prop/gem` (5 colors + gold); Pet Spa tools (`sponge`,
+`towel`, `brush`, `pet-treat`, `rubber-duck`, `shower-head`); Fairy Garden
+`prop/plant-<kind>-<stage>` (30 images) and `watering-can`; Potion Class
+`prop/ingredient-<id>` ×8; `prop/memory-card-back`; `prop/note-a|b|x|y`;
+`prop/cookie-1…4`; `prop/broom`, `prop/star-ring`, `prop/owl-mail`;
+`prop/vanity-mirror`. Each is drawn procedurally today, so any subset helps.
