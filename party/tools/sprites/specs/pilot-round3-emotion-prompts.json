@@ -1,0 +1,20 @@
+[
+  {
+    "character": "felicity",
+    "sheet": "emotions-v2",
+    "prompt": "Use case: illustration-story. Charlie Party felicity four-frame expression sprite sheet. Reference image supplies exact approved character identity and anatomy. Four separate FULL BODY figures in one row, same proportions and head size, generous transparent margins. Left to right: 1 relaxed neutral standing IDLE with eyes CLOSED mid-blink; 2 gentle supportive CHEER, happy open eyes, small encouraging gesture (distinct from jumping victory); 3 SAD, quietly drooped shoulders/ears and downcast eyes (not angry); 4 POUT grumpy playful foot stomp, slight squint. Girl only, omit the companion pet fox. Keep brown pigtails, orange fox ears/tail and orange floral dress. Clean colorful cartoon ink outlines/cel shading, no text, props, scenery, effect marks or ground shadows. Real transparent background. All extremities entirely inside each cell.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-75e0af2a-ffcb-451d-8879-0487b3add4e6.png"
+  },
+  {
+    "character": "fellowfox",
+    "sheet": "emotions-v2",
+    "prompt": "Use case: illustration-story. Charlie Party fellowfox four-frame expression sprite sheet. Reference image supplies exact approved character identity and anatomy. Four separate FULL BODY figures in one row, same proportions and head size, generous transparent margins. Left to right: 1 relaxed neutral standing IDLE with eyes CLOSED mid-blink; 2 gentle supportive CHEER, happy open eyes, small encouraging gesture (distinct from jumping victory); 3 SAD, quietly drooped shoulders/ears and downcast eyes (not angry); 4 POUT grumpy playful foot stomp, slight squint. Quadruped little orange-white fox pet; four paws, black flower accessory, no human hands/clothes. Clean colorful cartoon ink outlines/cel shading, no text, props, scenery, effect marks or ground shadows. Real transparent background. All extremities entirely inside each cell.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1a67dabb-2b80-4279-80b9-d52155e10bb9.png"
+  },
+  {
+    "character": "bronze",
+    "sheet": "emotions-v2",
+    "prompt": "Use case: illustration-story. Charlie Party bronze four-frame expression sprite sheet. Reference image supplies exact approved character identity and anatomy. Four separate FULL BODY figures in one row, same proportions and head size, generous transparent margins. Left to right: 1 relaxed neutral standing IDLE with eyes CLOSED mid-blink; 2 gentle supportive CHEER, happy open eyes, small encouraging gesture (distinct from jumping victory); 3 SAD, quietly drooped shoulders/ears and downcast eyes (not angry); 4 POUT grumpy playful foot stomp, slight squint. Bronze has NO arms and NO mouth. Express emotion with single red eye panel and leg posture; preserve yellow DIAMOND antenna and curved brass pipe. Clean colorful cartoon ink outlines/cel shading, no text, props, scenery, effect marks or ground shadows. Real transparent background. All extremities entirely inside each cell.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4a87b67d-b437-4312-a530-059d77c2aec9.png"
+  }
+]

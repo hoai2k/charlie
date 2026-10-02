@@ -1,0 +1,20 @@
+[
+  {
+    "character": "felicity",
+    "sheet": "blink-v2",
+    "prompt": "Use case: precise-object-edit. Create a blink frame for this exact game sprite. Change ONLY the eyes from open to gently closed (for the robot, a simple closed horizontal eyelid in its single circular eye). Preserve the entire original silhouette, pose, every color, clothing, appendage, relative position, camera and size. Do not redraw or redesign anything else. Same full body, transparent background. No text, shadows, glow, or extra objects. Keep original proportions and all extremities.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-cbaa82e0-0101-4642-b487-cfd2e024ad29.png"
+  },
+  {
+    "character": "fellowfox",
+    "sheet": "blink-v2",
+    "prompt": "Use case: precise-object-edit. Create a blink frame for this exact game sprite. Change ONLY the eyes from open to gently closed (for the robot, a simple closed horizontal eyelid in its single circular eye). Preserve the entire original silhouette, pose, every color, clothing, appendage, relative position, camera and size. Do not redraw or redesign anything else. Same full body, transparent background. No text, shadows, glow, or extra objects. Keep original proportions and all extremities.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-2a8ce7dd-ea7c-4406-b6de-5d909360822b.png"
+  },
+  {
+    "character": "bronze",
+    "sheet": "blink-v2",
+    "prompt": "Use case: precise-object-edit. Create a blink frame for this exact game sprite. Change ONLY the eyes from open to gently closed (for the robot, a simple closed horizontal eyelid in its single circular eye). Preserve the entire original silhouette, pose, every color, clothing, appendage, relative position, camera and size. Do not redraw or redesign anything else. Same full body, transparent background. No text, shadows, glow, or extra objects. Keep original proportions and all extremities.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4118bb91-619b-494c-a152-16d7fce69941.png"
+  }
+]

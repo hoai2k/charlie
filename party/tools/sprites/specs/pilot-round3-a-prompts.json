@@ -1,0 +1,20 @@
+[
+  {
+    "character": "felicity",
+    "sheet": "round3-a",
+    "prompt": "Use case: illustration-story. Charlie Party felicity four FULL BODY poses in a horizontal sprite strip. Reference is the actual in-game neutral sprite, match its exact colors, face, costume and anatomy. Left to right: 1 RIDE sitting forward on invisible broom, arms reaching forward if present; 2 RIDE same posture with subtle hair/ear/tail flutter for a seamless two-frame loop; 3 SING happily with head slightly tilted up; 4 WATER lean forward pouring an invisible watering-can (empty hand or mouth held in carrying position). No actual props. Fox-eared girl ONLY, omit companion pet; orange floral skirt, brown pigtails, orange tail/boots. Consistent neutral body size and head scale, whole figure inside each cell, generous gaps. Colorful cel-shaded cartoon, transparent background, no text/effects/scenery/shadows.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-817c34f7-0008-431c-9f65-74353947f9df.png"
+  },
+  {
+    "character": "fellowfox",
+    "sheet": "round3-a",
+    "prompt": "Use case: illustration-story. Charlie Party fellowfox four FULL BODY poses in a horizontal sprite strip. Reference is the actual in-game neutral sprite, match its exact colors, face, costume and anatomy. Left to right: 1 RIDE sitting forward on invisible broom, arms reaching forward if present; 2 RIDE same posture with subtle hair/ear/tail flutter for a seamless two-frame loop; 3 SING happily with head slightly tilted up; 4 WATER lean forward pouring an invisible watering-can (empty hand or mouth held in carrying position). No actual props. Small quadruped orange-white pet fox; no hands or clothing, carry point is mouth. Consistent neutral body size and head scale, whole figure inside each cell, generous gaps. Colorful cel-shaded cartoon, transparent background, no text/effects/scenery/shadows.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-877e71e7-2821-4a16-bf23-80c9361c4252.png"
+  },
+  {
+    "character": "bronze",
+    "sheet": "round3-a",
+    "prompt": "Use case: illustration-story. Charlie Party bronze four FULL BODY poses in a horizontal sprite strip. Reference is the actual in-game neutral sprite, match its exact colors, face, costume and anatomy. Left to right: 1 RIDE sitting forward on invisible broom, arms reaching forward if present; 2 RIDE same posture with subtle hair/ear/tail flutter for a seamless two-frame loop; 3 SING happily with head slightly tilted up; 4 WATER lean forward pouring an invisible watering-can (empty hand or mouth held in carrying position). No actual props. Robot has NO arms or mouth; supports props via the side pipe, expresses singing through its eye and slight tilt. Preserve PURPLE diamond antenna, grey cylindrical body with pink control panel/green button, green dome rim, asymmetric purple/plaid legs, orange-soled boots. Consistent neutral body size and head scale, whole figure inside each cell, generous gaps. Colorful cel-shaded cartoon, transparent background, no text/effects/scenery/shadows.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-8d76fb78-d785-45a6-980b-8cafeb1b0714.png"
+  }
+]

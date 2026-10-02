@@ -1,6 +1,6 @@
 {
   "asset": "felicity",
-  "bodyHeight": 320,
+  "bodyHeight": 300,
   "frameSize": [
     640,
     496
@@ -10,7 +10,7 @@
     476
   ],
   "facing": 1,
-  "provenance": "Approved canonical + ImageGen key-pose sheets; 4-frame walk; procedural overlay; run/cheer/sad/dance-star are declared compatible aliases.",
+  "provenance": "Approved canonical artwork with generated key poses and Round 3 authored blink, celebration, dance, ride and distinct expressions; per-frame landmarks and transparent WebP intake.",
   "poses": {
     "idle": {
       "frames": [
@@ -45,12 +45,42 @@
             445,
             457
           ],
-          "source": "../sources/felicity-core.webp"
+          "source": "../sources/felicity-core.webp",
+          "dur": 3.2
+        },
+        {
+          "source": "../sources/felicity-blink-v2.webp",
+          "scale": 0.5018422991893884,
+          "dur": 0.12,
+          "anchor": [
+            610,
+            1349
+          ],
+          "head": [
+            610,
+            171
+          ],
+          "eyes": [
+            630,
+            443
+          ],
+          "neck": [
+            626,
+            639
+          ],
+          "back": [
+            501,
+            797
+          ],
+          "hand": [
+            848,
+            852
+          ]
         }
       ],
       "fps": 5,
       "loop": true,
-      "motion": 0.7,
+      "motion": 0.15,
       "facing": 0
     },
     "walk": {
@@ -204,42 +234,153 @@
     "celebrate": {
       "frames": [
         {
+          "source": "../sources/felicity-celebrate-v2.webp",
           "rect": [
-            566,
-            0,
-            539,
-            724
+            19,
+            118,
+            524,
+            582
           ],
+          "isolate": true,
           "anchor": [
-            308,
-            710
+            299,
+            582
           ],
+          "scale": 1,
           "head": [
-            308,
-            110
+            299,
+            76
           ],
           "eyes": [
-            318,
-            250
+            299,
+            198
           ],
           "neck": [
-            316,
-            350
+            299,
+            268
           ],
           "back": [
-            253,
-            430
+            272,
+            326
           ],
           "hand": [
-            422,
-            253
+            377,
+            303
           ],
-          "source": "../sources/felicity-core.webp"
+          "dur": 0.16
+        },
+        {
+          "source": "../sources/felicity-celebrate-v2.webp",
+          "rect": [
+            541,
+            12,
+            524,
+            635
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            688
+          ],
+          "scale": 1,
+          "head": [
+            299,
+            83
+          ],
+          "eyes": [
+            299,
+            216
+          ],
+          "neck": [
+            299,
+            292
+          ],
+          "back": [
+            272,
+            356
+          ],
+          "hand": [
+            356,
+            286
+          ],
+          "dur": 0.15
+        },
+        {
+          "source": "../sources/felicity-celebrate-v2.webp",
+          "rect": [
+            1085,
+            14,
+            559,
+            577
+          ],
+          "isolate": true,
+          "anchor": [
+            280,
+            686
+          ],
+          "scale": 1,
+          "head": [
+            319,
+            75
+          ],
+          "eyes": [
+            319,
+            196
+          ],
+          "neck": [
+            319,
+            265
+          ],
+          "back": [
+            291,
+            323
+          ],
+          "hand": [
+            464,
+            219
+          ],
+          "dur": 0.28
+        },
+        {
+          "source": "../sources/felicity-celebrate-v2.webp",
+          "rect": [
+            1658,
+            120,
+            506,
+            584
+          ],
+          "isolate": true,
+          "anchor": [
+            283,
+            580
+          ],
+          "scale": 1,
+          "head": [
+            288,
+            76
+          ],
+          "eyes": [
+            288,
+            199
+          ],
+          "neck": [
+            288,
+            269
+          ],
+          "back": [
+            263,
+            327
+          ],
+          "hand": [
+            354,
+            310
+          ],
+          "dur": 0.22
         }
       ],
       "fps": 5,
       "loop": true,
-      "motion": 0.85,
+      "motion": 0.15,
       "facing": 0
     },
     "pout": {
@@ -275,12 +416,49 @@
             365,
             393
           ],
-          "source": "../sources/felicity-core.webp"
+          "source": "../sources/felicity-core.webp",
+          "dur": 0.8
+        },
+        {
+          "source": "../sources/felicity-emotions-v2.webp",
+          "rect": [
+            1588,
+            19,
+            562,
+            686
+          ],
+          "isolate": true,
+          "anchor": [
+            315,
+            679
+          ],
+          "scale": 1,
+          "head": [
+            315,
+            89
+          ],
+          "eyes": [
+            315,
+            233
+          ],
+          "neck": [
+            315,
+            316
+          ],
+          "back": [
+            281,
+            398
+          ],
+          "hand": [
+            309,
+            418
+          ],
+          "dur": 0.25
         }
       ],
       "fps": 5,
       "loop": true,
-      "motion": 0.85,
+      "motion": 0.2,
       "facing": 0
     },
     "wave": {
@@ -325,14 +503,90 @@
       "facing": 0
     },
     "cheer": {
-      "alias": "celebrate",
+      "frames": [
+        {
+          "source": "../sources/felicity-emotions-v2.webp",
+          "rect": [
+            568,
+            1,
+            559,
+            714
+          ],
+          "isolate": true,
+          "anchor": [
+            313,
+            707
+          ],
+          "scale": 1,
+          "head": [
+            313,
+            93
+          ],
+          "eyes": [
+            313,
+            243
+          ],
+          "neck": [
+            313,
+            328
+          ],
+          "back": [
+            280,
+            414
+          ],
+          "hand": [
+            436,
+            314
+          ]
+        }
+      ],
+      "fps": 5,
       "loop": false,
-      "motion": 1
+      "motion": 0.35,
+      "facing": 0
     },
     "sad": {
-      "alias": "pout",
+      "frames": [
+        {
+          "source": "../sources/felicity-emotions-v2.webp",
+          "rect": [
+            1118,
+            68,
+            473,
+            637
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            631
+          ],
+          "scale": 1,
+          "head": [
+            265,
+            83
+          ],
+          "eyes": [
+            265,
+            217
+          ],
+          "neck": [
+            265,
+            293
+          ],
+          "back": [
+            236,
+            369
+          ],
+          "hand": [
+            260,
+            389
+          ]
+        }
+      ],
+      "fps": 5,
       "loop": true,
-      "motion": 0.6
+      "motion": 0.35,
+      "facing": 0
     },
     "hurt": {
       "frames": [
@@ -853,45 +1107,154 @@
     "dance": {
       "frames": [
         {
-          "source": "../sources/felicity-activities.webp",
+          "source": "../sources/felicity-dance-v2.webp",
           "rect": [
-            12,
-            20,
-            537,
-            684
+            41,
+            9,
+            527,
+            700
           ],
           "isolate": true,
           "anchor": [
-            311,
-            680
+            306,
+            693
           ],
           "scale": 1,
           "head": [
             306,
-            96
+            98
           ],
           "eyes": [
-            322,
-            219
+            306,
+            252
           ],
           "neck": [
             306,
-            328
+            343
           ],
           "back": [
-            236,
-            410
+            306,
+            427
           ],
           "hand": [
-            446,
-            178
-          ]
+            343,
+            350
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/felicity-dance-v2.webp",
+          "rect": [
+            594,
+            5,
+            534,
+            701
+          ],
+          "isolate": true,
+          "anchor": [
+            267,
+            694
+          ],
+          "scale": 1,
+          "head": [
+            267,
+            98
+          ],
+          "eyes": [
+            267,
+            252
+          ],
+          "neck": [
+            267,
+            343
+          ],
+          "back": [
+            267,
+            428
+          ],
+          "hand": [
+            347,
+            350
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/felicity-dance-v2.webp",
+          "rect": [
+            1146,
+            8,
+            501,
+            700
+          ],
+          "isolate": true,
+          "anchor": [
+            230,
+            693
+          ],
+          "scale": 1,
+          "head": [
+            230,
+            98
+          ],
+          "eyes": [
+            230,
+            252
+          ],
+          "neck": [
+            230,
+            343
+          ],
+          "back": [
+            230,
+            427
+          ],
+          "hand": [
+            326,
+            350
+          ],
+          "dur": 0.25
+        },
+        {
+          "source": "../sources/felicity-dance-v2.webp",
+          "rect": [
+            1686,
+            41,
+            461,
+            667
+          ],
+          "isolate": true,
+          "anchor": [
+            240,
+            660
+          ],
+          "scale": 1,
+          "head": [
+            240,
+            93
+          ],
+          "eyes": [
+            240,
+            240
+          ],
+          "neck": [
+            240,
+            327
+          ],
+          "back": [
+            240,
+            407
+          ],
+          "hand": [
+            300,
+            334
+          ],
+          "dur": 0.25
         }
       ],
-      "fps": 5,
+      "fps": 4,
       "loop": true,
-      "motion": 0.85,
-      "facing": 1
+      "motion": 0.15,
+      "facing": 0
     },
     "paint": {
       "frames": [
@@ -1111,45 +1474,82 @@
     "ride": {
       "frames": [
         {
-          "source": "../sources/felicity-social.webp",
+          "source": "../sources/felicity-round3-a.webp",
           "rect": [
-            1126,
-            19,
-            554,
-            660
+            8,
+            44,
+            538,
+            616
           ],
           "isolate": true,
           "anchor": [
-            321,
-            656
+            296,
+            610
           ],
           "scale": 1,
           "head": [
-            316,
-            92
+            307,
+            74
           ],
           "eyes": [
-            332,
-            211
+            312,
+            209
           ],
           "neck": [
-            316,
-            317
+            312,
+            277
           ],
           "back": [
-            244,
-            396
+            269,
+            357
           ],
           "hand": [
-            432,
-            416
-          ]
+            463,
+            382
+          ],
+          "dur": 0.2
+        },
+        {
+          "source": "../sources/felicity-round3-a.webp",
+          "rect": [
+            533,
+            50,
+            542,
+            614
+          ],
+          "isolate": true,
+          "anchor": [
+            298,
+            608
+          ],
+          "scale": 1,
+          "head": [
+            309,
+            74
+          ],
+          "eyes": [
+            314,
+            209
+          ],
+          "neck": [
+            314,
+            276
+          ],
+          "back": [
+            271,
+            356
+          ],
+          "hand": [
+            466,
+            381
+          ],
+          "dur": 0.2
         }
       ],
       "fps": 5,
       "loop": true,
-      "motion": 0.85,
-      "facing": 1
+      "motion": 0.15,
+      "facing": 0
     },
     "bow": {
       "frames": [
@@ -1800,6 +2200,608 @@
       "alias": "strike3",
       "loop": false,
       "motion": 1
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-a.webp",
+          "rect": [
+            1095,
+            14,
+            475,
+            731
+          ],
+          "isolate": true,
+          "anchor": [
+            261,
+            724
+          ],
+          "scale": 1,
+          "head": [
+            271,
+            88
+          ],
+          "eyes": [
+            276,
+            249
+          ],
+          "neck": [
+            276,
+            329
+          ],
+          "back": [
+            238,
+            424
+          ],
+          "hand": [
+            399,
+            395
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-a.webp",
+          "rect": [
+            1563,
+            59,
+            476,
+            671
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            664
+          ],
+          "scale": 1,
+          "head": [
+            271,
+            81
+          ],
+          "eyes": [
+            276,
+            228
+          ],
+          "neck": [
+            276,
+            302
+          ],
+          "back": [
+            238,
+            389
+          ],
+          "hand": [
+            362,
+            450
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-b.webp",
+          "rect": [
+            9,
+            4,
+            491,
+            686
+          ],
+          "isolate": true,
+          "anchor": [
+            275,
+            679
+          ],
+          "scale": 1,
+          "head": [
+            280,
+            89
+          ],
+          "eyes": [
+            280,
+            226
+          ],
+          "neck": [
+            280,
+            309
+          ],
+          "back": [
+            255,
+            398
+          ],
+          "hand": [
+            255,
+            274
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-b.webp",
+          "rect": [
+            530,
+            0,
+            518,
+            690
+          ],
+          "isolate": true,
+          "anchor": [
+            290,
+            683
+          ],
+          "scale": 1,
+          "head": [
+            295,
+            90
+          ],
+          "eyes": [
+            295,
+            228
+          ],
+          "neck": [
+            295,
+            310
+          ],
+          "back": [
+            269,
+            400
+          ],
+          "hand": [
+            399,
+            421
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-b.webp",
+          "rect": [
+            1075,
+            2,
+            500,
+            686
+          ],
+          "isolate": true,
+          "anchor": [
+            280,
+            679
+          ],
+          "scale": 1,
+          "head": [
+            285,
+            89
+          ],
+          "eyes": [
+            285,
+            226
+          ],
+          "neck": [
+            285,
+            309
+          ],
+          "back": [
+            260,
+            398
+          ],
+          "hand": [
+            420,
+            357
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-b.webp",
+          "rect": [
+            1635,
+            2,
+            511,
+            684
+          ],
+          "isolate": true,
+          "anchor": [
+            286,
+            677
+          ],
+          "scale": 1,
+          "head": [
+            291,
+            89
+          ],
+          "eyes": [
+            291,
+            226
+          ],
+          "neck": [
+            291,
+            308
+          ],
+          "back": [
+            266,
+            397
+          ],
+          "hand": [
+            445,
+            192
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-c.webp",
+          "rect": [
+            16,
+            49,
+            473,
+            620
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            614
+          ],
+          "scale": 1,
+          "head": [
+            260,
+            87
+          ],
+          "eyes": [
+            260,
+            217
+          ],
+          "neck": [
+            260,
+            298
+          ],
+          "back": [
+            227,
+            384
+          ],
+          "hand": [
+            341,
+            273
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-c.webp",
+          "rect": [
+            502,
+            125,
+            677,
+            393
+          ],
+          "isolate": true,
+          "anchor": [
+            338,
+            432
+          ],
+          "scale": 1,
+          "head": [
+            447,
+            59
+          ],
+          "eyes": [
+            460,
+            165
+          ],
+          "neck": [
+            406,
+            232
+          ],
+          "back": [
+            278,
+            248
+          ],
+          "hand": [
+            616,
+            224
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-c.webp",
+          "rect": [
+            1201,
+            137,
+            428,
+            517
+          ],
+          "isolate": true,
+          "anchor": [
+            248,
+            512
+          ],
+          "scale": 1,
+          "head": [
+            235,
+            72
+          ],
+          "eyes": [
+            235,
+            181
+          ],
+          "neck": [
+            235,
+            248
+          ],
+          "back": [
+            205,
+            321
+          ],
+          "hand": [
+            274,
+            372
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-c.webp",
+          "rect": [
+            1672,
+            19,
+            490,
+            655
+          ],
+          "isolate": true,
+          "anchor": [
+            284,
+            648
+          ],
+          "scale": 1,
+          "head": [
+            270,
+            92
+          ],
+          "eyes": [
+            270,
+            229
+          ],
+          "neck": [
+            270,
+            314
+          ],
+          "back": [
+            235,
+            406
+          ],
+          "hand": [
+            441,
+            288
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.55,
+      "facing": 0
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-d.webp",
+          "rect": [
+            25,
+            15,
+            543,
+            692
+          ],
+          "isolate": true,
+          "anchor": [
+            299,
+            685
+          ],
+          "scale": 1,
+          "head": [
+            304,
+            83
+          ],
+          "eyes": [
+            304,
+            228
+          ],
+          "neck": [
+            304,
+            311
+          ],
+          "back": [
+            266,
+            401
+          ],
+          "hand": [
+            337,
+            284
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-d.webp",
+          "rect": [
+            574,
+            3,
+            542,
+            651
+          ],
+          "isolate": true,
+          "anchor": [
+            271,
+            703
+          ],
+          "scale": 1,
+          "head": [
+            304,
+            78
+          ],
+          "eyes": [
+            304,
+            215
+          ],
+          "neck": [
+            304,
+            293
+          ],
+          "back": [
+            266,
+            378
+          ],
+          "hand": [
+            434,
+            358
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-d.webp",
+          "rect": [
+            1127,
+            18,
+            501,
+            688
+          ],
+          "isolate": true,
+          "anchor": [
+            276,
+            681
+          ],
+          "scale": 1,
+          "head": [
+            281,
+            83
+          ],
+          "eyes": [
+            281,
+            227
+          ],
+          "neck": [
+            281,
+            310
+          ],
+          "back": [
+            245,
+            399
+          ],
+          "hand": [
+            311,
+            282
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.5,
+      "facing": 0
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/felicity-round3-d.webp",
+          "rect": [
+            1639,
+            10,
+            521,
+            691
+          ],
+          "isolate": true,
+          "anchor": [
+            287,
+            684
+          ],
+          "scale": 1,
+          "head": [
+            292,
+            83
+          ],
+          "eyes": [
+            292,
+            228
+          ],
+          "neck": [
+            292,
+            311
+          ],
+          "back": [
+            255,
+            401
+          ],
+          "hand": [
+            438,
+            228
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.5,
+      "facing": 0
     }
   },
   "portraits": {
@@ -1858,5 +2860,6 @@
       "isolate": true,
       "trim": true
     }
-  }
+  },
+  "quality": 82
 }

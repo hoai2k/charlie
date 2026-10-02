@@ -1,0 +1,20 @@
+[
+  {
+    "character": "bronze",
+    "sheet": "celebrate-v3",
+    "prompt": "Use case: precise-object-edit. Edit first reference sprite strip to match second reference's exact colors. In ALL FOUR poses replace yellow/gold diamond antenna with vivid PURPLE diamond and purple stalk. Keep domed head green rim, central body brushed GREY metal with pink control-panel and green button, brass/grey curved side pipe. Preserve every pose, facial expression, image layout, transparent background, full silhouette and proportions. Do not add arms or mouth. This is only a color-consistency correction to match the second reference neutral sprite.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7cd83e4f-dddd-4f37-ad24-465cc0e5ff7e.png"
+  },
+  {
+    "character": "bronze",
+    "sheet": "emotions-v3",
+    "prompt": "Use case: precise-object-edit. Edit first reference sprite strip to match second reference's exact colors. In ALL FOUR poses replace yellow/gold diamond antenna with vivid PURPLE diamond and purple stalk. Keep domed head green rim, central body brushed GREY metal with pink control-panel and green button, brass/grey curved side pipe. Preserve every pose, facial expression, image layout, transparent background, full silhouette and proportions. Do not add arms or mouth. This is only a color-consistency correction to match the second reference neutral sprite.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a796a9e7-8815-4aee-b39a-da3008fb3d06.png"
+  },
+  {
+    "character": "bronze",
+    "sheet": "dance-v3",
+    "prompt": "Use case: precise-object-edit. Edit first reference sprite strip to match second reference's exact colors. In ALL FOUR poses replace yellow/gold diamond antenna with vivid PURPLE diamond and purple stalk. Keep domed head green rim, central body brushed GREY metal with pink control-panel and green button, brass/grey curved side pipe. Preserve every pose, facial expression, image layout, transparent background, full silhouette and proportions. Do not add arms or mouth. This is only a color-consistency correction to match the second reference neutral sprite.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4ad9f607-22c2-406e-bc61-eece47b74412.png"
+  }
+]
