@@ -11,18 +11,30 @@
 //   B                          back to title (if available)
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { Actor, POSE_NAMES, POSES, getSpriteSet, setForceFallback, isForceFallback, loadedSpriteSets, drawPortrait } from '../engine/sprites.js';
+import { Actor, POSE_NAMES, POSES, getSpriteSet, resolvePose, pickFrame, poseDuration, setForceFallback, isForceFallback, loadedSpriteSets, drawPortrait } from '../engine/sprites.js';
 import { ALL_ENTRIES } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 
 export class SpriteViewerScene {
   enter() {
+    const params = new URLSearchParams(location.search);
     this.poseIdx = 0;
     this.walk = false;
-    this.debug = false;
-    this.zoom = 1;
+    this.debug = params.has('debug');
+    this.zoom = Math.max(.4, Math.min(2.5, Number(params.get('zoom')) || 1));
     this.t = 0;
-    this.actors = ALL_ENTRIES.map((c) => new Actor(c.id, { scale: c.npc ? 0.75 : 1 }));
+    this.paused = params.has('time');
+    this.frozenTime = Math.max(0, Number(params.get('time')) || 0);
+    const filter = params.get('chars')?.split(',');
+    this.entries = ALL_ENTRIES.filter((c) => !filter || filter.includes(c.id) || c.members.some((m) => filter.includes(m.asset)));
+    if (!this.entries.length) this.entries = ALL_ENTRIES;
+    this.actors = this.entries.map((c) => new Actor(c.id, { scale: c.npc ? 0.75 : 1 }));
+    this.onKey = (event) => {
+      if (event.repeat) return;
+      if (event.code === 'KeyP') this.paused = !this.paused;
+      if (event.code === 'Period') { this.paused = true; this.frozenTime += 1 / 12; }
+    };
+    window.addEventListener('keydown', this.onKey);
     // Debug attachment: a test crown on every head and a dot on every hand.
     for (const a of this.actors) {
       for (let mi = 0; mi < a.members.length; mi++) {
@@ -41,17 +53,20 @@ export class SpriteViewerScene {
     if (q && POSE_NAMES.includes(q)) this.poseIdx = POSE_NAMES.indexOf(q);
     this.applyPose();
   }
+  exit() { window.removeEventListener('keydown', this.onKey); }
   layout() {
-    const cols = 5, cw = W / cols, ch = 250;
+    const cols = Math.min(5, this.actors.length), cw = W / cols, rows = Math.ceil(this.actors.length / cols);
+    const ch = Math.min(250, 720 / rows);
     this.actors.forEach((a, i) => {
       a.homeX = cw * (i % cols) + cw / 2;
-      a.y = 420 + ch * Math.floor(i / cols);
+      a.y = (rows === 1 ? 720 : 420) + ch * Math.floor(i / cols);
       a.x = a.homeX; a.snap();
     });
   }
   applyPose() {
     const pose = POSE_NAMES[this.poseIdx];
     for (const a of this.actors) { a._once = null; a.setPose(pose, { restart: true }); a.clearEmotes(); }
+    this.frozenTime = new URLSearchParams(location.search).has('time') ? this.frozenTime : 0;
   }
   update(dt) {
     this.t += dt;
@@ -75,8 +90,10 @@ export class SpriteViewerScene {
         a.moveAnim(vx, 0, 140);
         if (!['walk', 'run', 'idle'].includes(POSE_NAMES[this.poseIdx])) a.setPose(POSE_NAMES[this.poseIdx]);
       }
-      a.update(dt);
+      a.update(this.paused ? 0 : dt);
+      if (this.paused) a.poseTime = this.frozenTime;
     }
+    if (!this.paused) this.frozenTime = this.actors[0].poseTime;
   }
   draw(g) {
     ui.sky(g, '#bfe9ff', '#fff3fb');
@@ -93,15 +110,24 @@ export class SpriteViewerScene {
       a.draw(g);
       if (this.debug) this.drawDebug(g, a);
       const lead = a.char.members[0];
-      const src = getSpriteSet(lead.asset) ? 'sprites' : 'base art';
+      const set = getSpriteSet(lead.asset), sp = resolvePose(set, a.pose);
+      let src = 'base art';
+      if (sp) {
+        const exact = set.poses[a.pose] === sp;
+        const definition = set.manifest.poses[a.pose];
+        const alias = typeof definition === 'string' ? definition : definition?.alias;
+        const frame = sp.frames.indexOf(pickFrame(sp, a.poseTime)) + 1;
+        src = `${exact ? alias ? `alias ${alias}` : 'authored' : 'fallback'} · ${frame}/${sp.frames.length} · ${poseDuration(sp).toFixed(2)}s`;
+      }
       ui.text(g, `${a.char.name}`, a.homeX, a.y + 34, { size: 24, color: '#24163f', stroke: false });
-      ui.text(g, src, a.homeX, a.y + 60, { size: 18, color: src === 'sprites' ? '#1b8f4f' : '#c4560f', stroke: false });
+      ui.text(g, src, a.homeX, a.y + 60, { size: 18, color: sp && set.poses[a.pose] ? '#1b8f4f' : '#c4560f', stroke: false });
     }
     const pr = 40;
-    ALL_ENTRIES.forEach((c, i) => {
+    this.entries.forEach((c, i) => {
       const x = 70 + i * (pr * 2 + 14);
-      drawPortrait(g, c.id, x, 190, pr, { expr: ['neutral', 'happy', 'sad'][Math.floor(this.t) % 3] });
+      drawPortrait(g, c.id, x, 190, pr, { expr: ['neutral', 'happy', 'sad', 'surprised', 'determined'][Math.floor(this.t) % 5] });
     });
+    ui.text(g, `${this.paused ? 'Paused' : 'Playing'} · P pause · . step · ${this.frozenTime.toFixed(2)}s`, 40, H - 22, { size: 20, align: 'left', color: '#24163f', stroke: false });
   }
   drawDebug(g, a) {
     g.save();

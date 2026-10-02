@@ -115,6 +115,7 @@ async function loadSpriteSet(asset) {
   const res = await fetch(dir + 'sprites.json', { cache: 'no-cache' });
   if (!res.ok) return null;
   const m = await res.json();
+  if (!(Number.isFinite(m.bodyHeight) && m.bodyHeight > 0)) throw new Error('bodyHeight must be positive');
   const imgCache = new Map();
   const getImg = (file) => {
     if (!imgCache.has(file)) imgCache.set(file, loadImage(dir + file));
@@ -132,8 +133,14 @@ async function loadSpriteSet(asset) {
       const fo = typeof f === 'string' ? { src: f } : Array.isArray(f) ? { rect: f } : f;
       const img = fo.src ? await getImg(fo.src) : atlas;
       if (!img) continue;
+      const rect = fo.rect || null;
+      if (rect && (rect.length !== 4 || !rect.every(Number.isFinite) || rect[0] < 0 || rect[1] < 0 || rect[2] <= 0 || rect[3] <= 0 || rect[0] + rect[2] > img.width || rect[1] + rect[3] > img.height)) {
+        console.warn('Invalid sprite rect', asset, name, rect); continue;
+      }
+      const anchor = fo.anchor || def.anchor || m.anchor;
+      if (!anchor || anchor.length !== 2 || !anchor.every(Number.isFinite)) { console.warn('Invalid sprite anchor', asset, name); continue; }
       frames.push({
-        img, rect: fo.rect || null, anchor: fo.anchor || def.anchor || m.anchor, dur: fo.dur || null,
+        img, rect, anchor, dur: Number.isFinite(fo.dur) && fo.dur > 0 ? fo.dur : null,
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,
         eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
         headAngle: fo.headAngle ?? def.headAngle ?? 0,
@@ -141,15 +148,24 @@ async function loadSpriteSet(asset) {
     }
     if (frames.length) {
       set.poses[name] = {
-        frames, fps: def.fps || 8, loop: def.loop ?? POSES[name]?.loop ?? true,
-        motion: def.motion ?? 0.25, holdLast: def.holdLast ?? true,
+        frames, fps: Number.isFinite(def.fps) && def.fps > 0 ? def.fps : 8, loop: def.loop ?? POSES[name]?.loop ?? true,
+        motion: clamp(def.motion ?? 0.25, 0, 1), holdLast: def.holdLast ?? true,
+        facing: def.facing ?? m.facing ?? 0,
         bodyHeight: def.bodyHeight || m.bodyHeight,
       };
     }
   }
-  for (const [name, def] of aliases) {
-    const target = set.poses[def.alias];
-    if (target) set.poses[name] = { ...target, fps: def.fps || target.fps, loop: def.loop ?? target.loop, motion: def.motion ?? target.motion };
+  // Resolve chains independently of manifest order; cycles stay unresolved.
+  let pending = aliases;
+  while (pending.length) {
+    const next = [];
+    for (const [name, def] of pending) {
+      const target = set.poses[def.alias];
+      if (target) set.poses[name] = { ...target, fps: def.fps > 0 ? def.fps : target.fps, loop: def.loop ?? POSES[name]?.loop ?? target.loop, motion: clamp(def.motion ?? target.motion, 0, 1), facing: def.facing ?? target.facing, holdLast: def.holdLast ?? target.holdLast };
+      else next.push([name, def]);
+    }
+    if (next.length === pending.length) { console.warn('Unresolved sprite aliases', asset, next.map(([name]) => name)); break; }
+    pending = next;
   }
   for (const [expr, file] of Object.entries(m.portraits || {})) {
     const img = await getImg(file);
@@ -211,7 +227,7 @@ function tinted(img, color) {
 
 const MOTION_FREQ = { walk: 2.4, trot: 3.2, glide: 1.4, bounce: 2.2, clunk: 2.6, hop: 2.8, stomp: 1.6 };
 
-function procedural(pose, t, style, speed) {
+function procedural(pose, t, style, speed, allowTwirl = true) {
   const o = { lift: 0, rot: 0, sx: 1, sy: 1, dx: 0, tint: null, shadowScale: 1 };
   const breathe = Math.sin(t * TAU * 0.8);
   const floaty = style === 'glide';
@@ -260,7 +276,7 @@ function procedural(pose, t, style, speed) {
       const sq = p < 0.12 ? 1 - p / 0.12 : 0;
       o.sy = 1 - 0.16 * sq + 0.1 * Math.sin(p * Math.PI); o.sx = 1 + 0.14 * sq - 0.05 * Math.sin(p * Math.PI);
       o.rot = Math.sin(t * 5) * 0.12;
-      if (n % 3 === 2) o.sx *= Math.cos(p * TAU); // twirl every third hop
+      if (allowTwirl && n % 3 === 2) o.sx *= Math.cos(p * TAU); // twirl every third hop
       break;
     }
     case 'cheer': {
@@ -272,7 +288,7 @@ function procedural(pose, t, style, speed) {
     case 'dance': {
       const b = t * 2.2;
       o.lift += Math.abs(Math.sin(b * Math.PI)) * 18; o.rot = Math.sin(b * Math.PI) * 0.16;
-      o.sy = 1 - Math.pow(Math.abs(Math.cos(b * Math.PI)), 4) * 0.1; o.sx = (Math.floor(b / 2) % 2 ? -1 : 1);
+      o.sy = 1 - Math.pow(Math.abs(Math.cos(b * Math.PI)), 4) * 0.1; o.sx = allowTwirl ? (Math.floor(b / 2) % 2 ? -1 : 1) : 1;
       break;
     }
     case 'pout': case 'sad':
@@ -292,7 +308,7 @@ function procedural(pose, t, style, speed) {
     case 'ready': {
       const p = Math.min(1, t / 0.5);
       o.lift += Math.sin(p * Math.PI) * 34; o.sy = 1 + Math.sin(p * Math.PI) * 0.1;
-      if (p < 1) o.sx = Math.cos(p * TAU); // spin around once
+      if (allowTwirl && p < 1) o.sx = Math.cos(p * TAU); // spin around once
       break;
     }
     case 'action': case 'throw': case 'push': case 'paint': {
@@ -320,7 +336,7 @@ function procedural(pose, t, style, speed) {
 
 // ---------------------------------------------------------------------------
 
-function resolvePose(set, name) {
+export function resolvePose(set, name) {
   if (!set) return null;
   if (set.poses[name]) return set.poses[name];
   const seen = new Set([name]);
@@ -391,9 +407,11 @@ export class Actor {
     return this;
   }
   /** Play a pose for `dur` seconds, then return to the pose that was active (or `then`). */
-  playOnce(name, dur = 0.5, then = null) {
+  playOnce(name, dur = null, then = null) {
     const back = then || (this._once ? this._once.then : this.pose);
-    this._once = { pose: name, left: dur, then: back };
+    const sp = getSpriteSet(this.leader.asset)?.poses[name];
+    const duration = Number.isFinite(dur) && dur > 0 ? dur : (sp ? poseDuration(sp) : 0.5);
+    this._once = { pose: name, left: duration, duration, then: back };
     this.pose = name; this.poseTime = 0;
     return this;
   }
@@ -458,7 +476,7 @@ export class Actor {
     this.poseTime += dt;
     if (this._once) {
       this._once.left -= dt;
-      if (this._once.left <= 0) { const n = this._once.then; this._once = null; this.pose = n; this.poseTime = 0; }
+      if (this._once.left <= 0) { const n = this._once.then, overshoot = -this._once.left; this._once = null; this.pose = n; this.poseTime = overshoot; }
     }
     // Squash spring.
     const s = this._spring;
@@ -553,11 +571,14 @@ export class Actor {
 
   _drawMember(g, m, sc, alpha, pose) {
     const def = m.def;
-    const t = this.poseTime + (m.i ? m.phase : 0);
     const set = getSpriteSet(def.asset);
-    const sp = set ? resolvePose(set, pose) : null;
+    let sp = set ? resolvePose(set, pose) : null;
+    // Followers vary their looping phase but start one-shots at frame zero.
+    let t = this.poseTime + (m.i && (POSES[pose]?.loop ?? sp?.loop) ? m.phase : 0);
+    if (this._once && pose === this._once.pose && sp) t = this.poseTime / this._once.duration * poseDuration(sp);
+    if (sp && !sp.loop && !sp.holdLast && t >= poseDuration(sp)) sp = set.poses.idle || sp;
     const motionW = sp ? sp.motion : 1;
-    const o = procedural(POSES[pose]?.proc || pose, t + this.seed * (pose === 'idle' ? 3 : 0), def.motion, this.speed);
+    const o = procedural(POSES[pose]?.proc || pose, this.poseTime + (m.i && POSES[pose]?.loop ? m.phase : 0) + this.seed * (pose === 'idle' ? 3 : 0), def.motion, this.speed, !sp);
 
     // Blend procedural motion toward neutral when sprite frames carry the
     // animation. A pose that fell back to a different pose's frames keeps the
@@ -566,7 +587,6 @@ export class Actor {
     const lift = o.lift * k, rot = o.rot * k, dx = o.dx * k;
     let sx = 1 + (o.sx - 1) * (sp ? Math.min(1, k) : 1);
     let sy = 1 + (o.sy - 1) * k;
-    if (sp) sx = Math.abs(sx) < 0.35 ? 1 : Math.abs(sx); // no twirl squeeze over real frames
     const sq = clamp(this._spring.p, -0.5, 0.6);
     sx *= 1 + sq * 0.5; sy *= 1 - sq * 0.5;
 
@@ -575,7 +595,7 @@ export class Actor {
     if (sp) {
       const fr = pickFrame(sp, t);
       img = fr.img; rect = fr.rect; anchor = fr.anchor || set.anchor;
-      bodyH = sp.bodyHeight || set.bodyHeight; artFacing = set.facing;
+      bodyH = sp.bodyHeight || set.bodyHeight; artFacing = sp.facing ?? set.facing;
     } else {
       img = baseImages.get(def.asset);
       if (!img) return;
@@ -640,7 +660,10 @@ export class Actor {
 /** Per-frame head tilt (radians) from the sprite set, 0 for base art. */
 function fr0Angle(sp, t) { return sp ? pickFrame(sp, t).headAngle || 0 : 0; }
 
-function pickFrame(sp, t) {
+export function poseDuration(sp) { return sp.frames.reduce((total, fr) => total + (fr.dur || 1 / sp.fps), 0); }
+
+export function pickFrame(sp, t) {
+  t = Math.max(0, Number.isFinite(t) ? t : 0);
   const n = sp.frames.length;
   if (n === 1) return sp.frames[0];
   // Per-frame durations if given, otherwise uniform fps.
