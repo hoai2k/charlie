@@ -171,3 +171,9 @@ Troll hand points passed runtime overlay and full/optimized gameplay review;
 Professor Hoot reviewed: distinct two-frame point, laugh and bravo; original
 face/wing landmarks corrected. Potion Class now selects bravo for applause
 and laugh before speech. Full and optimized game review plus validation passed.
+
+Glimmer and Garden Fairies: reviewed unique wing phases and true rear turns;
+neutral head size and approved skin colors preserved. Six stable sets pass
+validation; Glimmer decoded 13.5 MiB, each fairy 4.9–5.3 MiB. In-game review
+in Fairy Count uses both full and optimized quality. Exact wing prompts and
+source provenance are in pending/npc-wing-cycle-completion.json.

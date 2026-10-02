@@ -124,42 +124,150 @@
     "walk": {
       "frames": [
         {
-          "source": "../sources/garden-fairy-green-core.webp",
-          "grid": [
-            3,
-            2
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            102,
+            50,
+            367,
+            441
           ],
-          "cell": 2,
           "isolate": true,
           "anchor": [
-            281.6,
-            496.64
+            224,
+            470
           ],
+          "scale": 0.97,
           "head": [
-            276.48,
-            40.96
+            252,
+            20
           ],
           "eyes": [
-            286.72,
-            230.4
+            258,
+            199
           ],
           "neck": [
-            276.48,
-            302.08
+            224,
+            257
           ],
           "back": [
-            204.8,
-            317.44
+            186,
+            309
           ],
           "hand": [
-            384.0,
-            317.44
+            73,
+            293
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            554,
+            43,
+            417,
+            444
+          ],
+          "isolate": true,
+          "anchor": [
+            250,
+            477
+          ],
+          "scale": 0.97,
+          "head": [
+            275,
+            20
+          ],
+          "eyes": [
+            282,
+            201
+          ],
+          "neck": [
+            250,
+            259
+          ],
+          "back": [
+            207,
+            311
+          ],
+          "hand": [
+            99,
+            293
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            1094,
+            43,
+            392,
+            444
+          ],
+          "isolate": true,
+          "anchor": [
+            246,
+            477
+          ],
+          "scale": 0.97,
+          "head": [
+            270,
+            20
+          ],
+          "eyes": [
+            280,
+            203
+          ],
+          "neck": [
+            246,
+            263
+          ],
+          "back": [
+            208,
+            314
+          ],
+          "hand": [
+            104,
+            301
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            554,
+            43,
+            417,
+            444
+          ],
+          "isolate": true,
+          "anchor": [
+            250,
+            477
+          ],
+          "scale": 0.97,
+          "head": [
+            275,
+            20
+          ],
+          "eyes": [
+            282,
+            201
+          ],
+          "neck": [
+            250,
+            259
+          ],
+          "back": [
+            207,
+            311
+          ],
+          "hand": [
+            99,
+            293
           ]
         }
       ],
-      "fps": 6,
-      "motion": 0.85,
-      "loop": true
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     },
     "fly": {
       "alias": "walk",
@@ -202,42 +310,115 @@
           ]
         },
         {
-          "source": "../sources/garden-fairy-green-core.webp",
-          "grid": [
-            3,
-            2
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            86,
+            505,
+            360,
+            470
           ],
-          "cell": 4,
           "isolate": true,
           "anchor": [
-            281.6,
-            496.64
+            202,
+            505
           ],
+          "scale": 1.14,
           "head": [
-            276.48,
-            40.96
+            193,
+            21
           ],
           "eyes": [
-            286.72,
-            230.4
+            213,
+            186
           ],
           "neck": [
-            276.48,
-            302.08
+            202,
+            245
           ],
           "back": [
-            204.8,
-            317.44
+            190,
+            303
           ],
           "hand": [
-            384.0,
-            317.44
+            310,
+            284
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            584,
+            506,
+            368,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            504
+          ],
+          "scale": 1.14,
+          "head": [
+            171,
+            20
+          ],
+          "eyes": [
+            185,
+            183
+          ],
+          "neck": [
+            185,
+            239
+          ],
+          "back": [
+            185,
+            301
+          ],
+          "hand": [
+            318,
+            279
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-flight-twirl.webp",
+          "rect": [
+            1091,
+            505,
+            363,
+            470
+          ],
+          "isolate": true,
+          "anchor": [
+            165,
+            505
+          ],
+          "scale": 1.14,
+          "head": [
+            166,
+            21
+          ],
+          "eyes": [
+            151,
+            186
+          ],
+          "neck": [
+            165,
+            245
+          ],
+          "back": [
+            176,
+            303
+          ],
+          "hand": [
+            294,
+            283
           ]
         }
       ],
       "fps": 5,
+      "loop": true,
       "motion": 0.15,
-      "loop": true
+      "facing": 1
     },
     "surprised": {
       "frames": [

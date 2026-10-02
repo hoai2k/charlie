@@ -1,0 +1,54 @@
+{
+  "scope": "NPC-specific image-requests.md section8 and Round3 additions; player74-pose union intentionally excluded",
+  "troll": {
+    "status": "published to main: 7d11066; full and optimized in-game QA passed",
+    "landmarkFixes": [
+      "windup0/1",
+      "grab0/1/2",
+      "cheer0",
+      "wave0",
+      "dizzy0/1"
+    ],
+    "method": "desired runtime palm/fist positions inverted to source-local coordinates, then rebuilt and visually verified",
+    "qa": "/tmp/troll-hand-before.jpg (after corrections)"
+  },
+  "professor-hoot": {
+    "status": "complete; optimized",
+    "changes": [
+      "point2 genuine frames replaces present alias",
+      "laugh2 genuine frames replaces clap alias",
+      "bravo2 genuine frames; cheer/celebrate resolve bravo"
+    ],
+    "retained": "genuine wide-open-beak hoot; talk, lantern, clap, think and cast already authored",
+    "qa": "/tmp/professor-hoot-overlay-0.jpg"
+  },
+  "shadow-imps": {
+    "status": "existing all required poses covered",
+    "variants": [
+      "plum",
+      "blue",
+      "pink"
+    ],
+    "notes": "authored rhythm directions, laugh, surprise/hurt, idle blink, sneak and3stage poof; no newgeneration needed"
+  },
+  "ambient-props": {
+    "status": "existing all required states covered",
+    "assets": [
+      "broccoli",
+      "broccoli-bonk",
+      "storm-cloud",
+      "storm-cloud-zap"
+    ],
+    "notes": "storm lightning separate as user requested; these are2-state props rather than player sprite sets"
+  },
+  "glimmer": {
+    "status": "COMPLETE: runtime landmarks and wings reviewed, optimized, root accepted",
+    "changes": "four unique authored hover phases including blink; repeated wingcycle before brief blink",
+    "qa": "/tmp/glimmer-wide-0.jpg"
+  },
+  "garden-fairies": {
+    "status": "COMPLETE: all5 approvedvariants, flight3unique wingphases,4viewspin, corrected per-neutral headscale, optimized, root accepted",
+    "changes": "each approved color receives3 distinct flight wingframes and right/back/left spin views, combined with existing frontspin; skin and flower cap identities preserved",
+    "qa": "/tmp/fairy-flight-final.jpg"
+  }
+}
