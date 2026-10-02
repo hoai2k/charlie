@@ -24,8 +24,9 @@ and tiny seed stages, silver pearl tiara, separate lightning, low cake stand v3,
 broad cake platform v3, three hollow crumble overlays and neutral sponge layers
 for round/heart/star. Original versions remain available. Runtime integrations
 were reviewed in the garden, potion classroom and eight-player cake arena.
-The procedural bakery retains its configurable flavors/frosting; neutral layers
-are provided under cake-sponge and cake-layer shape aliases for future use.
+The configurable bakery now uses the round neutral sponge as a crumb texture
+with multiply blending across layer sides; flavor tints and frosting stay
+configurable. Heart/star sponge and cake-layer aliases remain available.
 
 Recent published checkpoints: 689dcbd (companion/Bronze sets and safe merge),
 256bcd0 (final prop geometry and concurrent optimizer index protection).
@@ -38,14 +39,15 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
   96 frames, preview decoded 23.3 MiB); then Cotton Candy, Unicorn and Hotdog.
   Include latest lead scale/ride-anchor/mouth-landmark corrections.
 - mermaid_all_actions: Marina/Scale rebuilt runtime attachment review and true
-  back-twirl art; then KPop trio and Amber extensions/hand/scale corrections.
-  Scale paint is generated. Marina paint is absent after three built-in output
-  refusals; exact prompts/reasons are saved in marina-paint-generation-prompt.json.
-  Do not retry indefinitely or label an alias as a delivered paint image.
+  back-twirl art; then KPop trio extensions/hand/scale corrections.
+  Scale paint is generated. Marina paint succeeded on variant five with a purple
+  painting smock, keeping her canonical identity. Source marina-paint-r5.webp and
+  exact retry records are saved; runtime intake and landmark review are underway.
 - npc_canonicals: Troll's reported hand points are corrected and reviewed;
   finish optimization. Hoot point/laugh/bravo are being authored. Complete Glimmer
   and Garden Fairy wing cycles to the NPC-specific brief. Do not apply the full
-  player pose union to NPCs.
+  player pose union to NPCs. Then complete Princess Amber
+  extension and dance-size correction.
 - Root: review actual runtime overlays and in-game behavior, validate stable
   deliveries, stage precise paths, merge main safely and push each batch.
 
@@ -72,6 +74,6 @@ Keep origin unchanged; never force-push or discard unrelated working changes.
 When two agents encode the same optimized derivative, keep reviewed originals
 and rebuild derivatives. Preserve the lead's shared consumer refinements.
 
-The image-request heartbeat remains active; its baseline is in IMAGE-WORK-QUEUE.
-Check new additions/regenerations during syncs and cancel future checks after one
-full unchanged half-hour interval. No allowance-based production pause remains.
+The image-request heartbeat was canceled after an unchanged half-hour interval
+(checkpoint in IMAGE-WORK-QUEUE). Continue checking new requests during production
+syncs. No allowance-based production pause remains.
