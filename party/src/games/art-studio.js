@@ -548,7 +548,7 @@ export class Game {
       ai.idle -= dt;
       if (ai.idle <= 0) {
         ai.cmds = this.planActivity(st);
-        ai.idle = this.cpuOnly ? rand(0.6, 1.6) : rand(2.5, 5.5);
+        ai.idle = this.cpuOnly ? rand(0.6, 1.6) : rand(3.5, 7);
         if (!ai.cmds.length) ai.idle = 0.8;
       }
       return;
