@@ -393,6 +393,7 @@ button {
 
 .title-screen {
   --parade-size: clamp(120px, 24vmin, 260px);
+  --parade-sink: -28px;
 }
 
 .title-parade {
@@ -410,7 +411,10 @@ button {
   flex: none;
   width: var(--parade-size);
   aspect-ratio: 4 / 5;
-  margin: 0 calc(var(--parade-size) * -0.24);
+  /* The portraits are cut off at the waist: sink them below the screen edge
+     by more than the bob lift (10px) plus the rotation's corner lift, so the
+     cut edge never comes into view. */
+  margin: 0 calc(var(--parade-size) * -0.24) var(--parade-sink);
   background-image: var(--portrait);
   background-position: center top;
   background-repeat: no-repeat;
@@ -422,7 +426,7 @@ button {
 }
 
 .parade-doll:nth-child(odd) {
-  margin-bottom: -4vmin;
+  margin-bottom: calc(var(--parade-sink) - 4vmin);
 }
 
 .parade-doll:nth-child(even) {
