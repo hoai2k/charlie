@@ -76,3 +76,14 @@ Last checked UTC: 2026-10-02T20:44:57+00:00.
 Heartbeat: `charlie-party-image-request-follow-up`; checks every 30 minutes and
 cancels itself after one full interval without new or changed image requests.
 Include regeneration requests as well as new assets.
+
+## Regeneration requests received at 6c9ac9e
+
+Root owns the new lead-review table at the end of image-requests.md: podium
+blocks, confetti atlas, card ratio, green fizzle, flatter rug, neutral potion
+props, balloon framing, cookie flavor states, rock crop, cake platform/rings,
+top-down garden day/night, cake stand, plant glow/seed frames and pearl tiara.
+Storm Cloud lightning stays separate per the user; supply a separate effect.
+Conditional sponge-layer art will be supplied for future configurable cakes.
+Snow/Cake agent also owns later Fox/Cotton Candy/Unicorn/Hotdog action extras;
+mermaid agent also owns later KPop trio/Amber extras. Root owns pilot extras.

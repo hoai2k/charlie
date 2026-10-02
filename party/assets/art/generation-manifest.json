@@ -3254,6 +3254,62 @@
       "height": 93,
       "bytes": 6464,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/pet-bow-green",
+      "prompt": "Use case: stylized-concept. Game asset prop/pet-bow-green: a small green satin pet grooming ribbon bow, two rounded loops, central knot, two short tails, front view. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-591ee5c3-0206-4a57-8e21-63af00a8fb6a.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 92,
+      "bytes": 6640,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/pet-bow-purple",
+      "prompt": "Use case: stylized-concept. Game asset prop/pet-bow-purple: a small purple satin pet grooming ribbon bow, two rounded loops, central knot, two short tails, front view. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-375d89a9-f455-4499-88f1-deebdbb9c964.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 105,
+      "bytes": 7382,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/pet-bow-orange",
+      "prompt": "Use case: stylized-concept. Game asset prop/pet-bow-orange: a small orange satin pet grooming ribbon bow, two rounded loops, central knot, two short tails, front view. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1e8ca7dc-de3e-4820-bc75-70b3f6458a5d.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 91,
+      "bytes": 6888,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/pet-bow-teal",
+      "prompt": "Use case: stylized-concept. Game asset prop/pet-bow-teal: a small teal satin pet grooming ribbon bow, two rounded loops, central knot, two short tails, front view. One compact readable cartoon asset for a children's party game, bold smooth dark navy outlines, rounded appealing shapes, bright colors, simple clean cel shading. Full object visible centered with generous margin. Fully transparent background, no glow, shadow, text, letters, watermark or extra objects. Crisp at 128px.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c0f508d0-baec-4434-9e43-1a9d922e5c78.png",
+      "maxSize": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 91,
+      "bytes": 6596,
+      "status": "generated; inspected"
     }
   ]
 }
