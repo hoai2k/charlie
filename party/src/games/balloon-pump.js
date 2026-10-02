@@ -99,7 +99,7 @@ function drawBalloonShape(g, cx, cy, r, color, lw = 5) {
 }
 
 // Station-local geometry (design units, scaled by the station scale).
-const CHAR_X = -168, PUMP_X = -52, BAL_X = 104, NOZZLE_Y = -150;
+const CHAR_X = -158, PUMP_X = -52, BAL_X = 104, NOZZLE_Y = -150;
 const PS = 1.4;                 // pump size multiplier
 const R_MIN = 26, R_MAX = 172;
 
@@ -125,7 +125,7 @@ export class Game {
       const a = new Actor(p.charId, { scale: s.sc, x: s.cx + CHAR_X * s.sc, y: s.by });
       // characters are drawn bigger than the station (groups a bit smaller so they fit the cell)
       const base = a.width / a.scale;
-      const chMul = clamp(this.rows === 1 ? 1.55 : 1.2, 0.8, Math.max(0.9, 270 / base * (this.rows === 1 ? 1 : 0.9)));
+      const chMul = clamp(this.rows === 1 ? 1.55 : 1.2, 0.8, Math.max(0.8, (this.rows === 1 ? 215 : 235) / base));
       a.scale = s.sc * chMul; a.snap();
       s.chMul = chMul;
       return {
