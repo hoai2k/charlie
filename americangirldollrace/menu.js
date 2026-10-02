@@ -17,6 +17,7 @@
   const COLS = 5;
   const STALL = 157;
   const MAX_CPUS = 3;
+  const SETTING_ROWS = 5;
   const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "all-dolls", "horsing", "amanda-mode"];
   const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
@@ -250,6 +251,7 @@
       ? lobby.cpus.map(() => `<div class="lb-ai-icon" style="width:${n > 2 ? 48 : 64}px"></div>`).join("")
       : `<span class="lb-none">none</span>`;
     $("#lbCpuVal").textContent = n ? String(n) : "Off";
+    $("#lbFullscreenVal").innerHTML = `${fullscreenElement() ? "On" : "Off"}${lobby.fullscreenNote ? `<span class="lb-set-note">${lobby.fullscreenNote}</span>` : ""}`;
     root.querySelectorAll(".lb-set-row").forEach(row => row.classList.toggle("focus", Number(row.dataset.row) === lobby.setRow));
   }
 
@@ -308,7 +310,8 @@
   function lock(index) {
     const slot = lobby.slots[index];
     const pick = lobby.roster[slot.cursor];
-    const pool = lobby.roster.filter(key => key !== RANDOM);
+    // Random can land on any doll, including hidden ones like Penelope.
+    const pool = ROSTER_ORDER.filter(key => characters[key]);
     slot.doll = pick === RANDOM ? pool[Math.floor(Math.random() * pool.length)] : pick;
     slot.locked = true;
     slot.aFresh = false;
@@ -371,6 +374,14 @@
       const index = Math.max(0, SPECIAL_KEYS.indexOf(state.specials));
       setSpecials(SPECIAL_KEYS[(index + d + SPECIAL_KEYS.length) % SPECIAL_KEYS.length]);
       buildGrid();
+    } else if (row === 4) {
+      lobby.fullscreenNote = "";
+      const wanted = !fullscreenElement();
+      toggleFullscreen().then(on => {
+        // Browsers refuse fullscreen from a controller button; say how instead.
+        if (wanted && !on) lobby.fullscreenNote = canFullscreen() ? "Click or tap here to switch" : "Not available in this browser";
+        renderSettings();
+      });
     } else if (row === 3) {
       const room = MAX_PLAYERS - humanCount();
       const n = clamp(lobby.cpus.length + d, 0, Math.min(MAX_CPUS, room));
@@ -433,7 +444,10 @@
     const cpus = lobby.cpus.slice(0, MAX_PLAYERS - humans.length);
     updateCharacterSelectOptions();
     [...humans.map(slot => slot.doll), ...cpus].forEach((key, index) => {
-      if (characterSelects[index]) characterSelects[index].value = key;
+      const select = characterSelects[index];
+      if (!select) return;
+      if (![...select.options].some(option => option.value === key)) select.add(new Option(characters[key].name, key));
+      select.value = key;
     });
     for (let index = 0; index < MAX_PLAYERS; index += 1) {
       const device = humans[index]?.device;
@@ -495,10 +509,12 @@
 
   $("#lbSettingsBtn").addEventListener("pointerdown", event => { event.preventDefault(); GameAudio.unlock(); openSettings(true); });
   $("#lbSetDone").addEventListener("pointerdown", event => { event.preventDefault(); openSettings(false); });
-  $("#lbFullscreen").addEventListener("click", () => { toggleFullscreen(); sound("ui_fullscreen"); });
   $("#lbSettings").addEventListener("pointerdown", event => { if (event.target.id === "lbSettings") openSettings(false); });
   root.querySelectorAll(".lb-set-row").forEach(row => {
     row.addEventListener("pointerdown", () => { lobby.setRow = Number(row.dataset.row); renderSettings(); });
+    // Fullscreen needs a real click/tap, so the whole row toggles it.
+    if (row.dataset.row === "4") row.addEventListener("click", () => changeSetting(4, 1));
+    if (row.dataset.row === "4") return;
     row.querySelectorAll(".lb-arrow").forEach(arrow => arrow.addEventListener("pointerdown", event => {
       event.preventDefault();
       event.stopPropagation();
@@ -535,7 +551,7 @@
     if (lobby.screen === "title") { startFrom(device); return; }
     if (lobby.settingsOpen) {
       if (action === "b" || action === "y" || action === "start") openSettings(false);
-      else if (action === "up" || action === "down") { lobby.setRow = (lobby.setRow + (action === "up" ? 3 : 1)) % 4; sound("ui_hover"); renderSettings(); }
+      else if (action === "up" || action === "down") { lobby.setRow = (lobby.setRow + (action === "up" ? SETTING_ROWS - 1 : 1)) % SETTING_ROWS; sound("ui_hover"); renderSettings(); }
       else if (action === "left" || action === "right" || action === "a") changeSetting(lobby.setRow, action === "left" ? -1 : 1);
       return;
     }
@@ -640,6 +656,10 @@
 
   // ---------- hooks used by game.js ----------
   window.Lobby = {
+    refreshSettings() {
+      if (fullscreenElement()) lobby.fullscreenNote = "";
+      if (lobby.settingsOpen) renderSettings();
+    },
     // Before "Main Menu" resets the race, remember who was playing so the
     // select screen comes back with the same players (unlocked to re-pick).
     captureFromRace() {
@@ -670,3 +690,6 @@
   fit();
   startLoop();
 })();
+
+document.addEventListener("fullscreenchange", () => document.querySelector("#lbFullscreenVal") && window.Lobby?.refreshSettings?.());
+document.addEventListener("webkitfullscreenchange", () => window.Lobby?.refreshSettings?.());

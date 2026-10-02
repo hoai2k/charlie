@@ -708,7 +708,8 @@ function advanceBackground() {
 
 function getSelectedCharacter(select, fallback) {
   const character = characters[select?.value];
-  if (character && (isAllDollsMode() || !character.hidden)) return character;
+  // Hidden dolls can still race when "Random" lands on them in the menu.
+  if (character) return character;
   return characters[fallback];
 }
 
@@ -1341,12 +1342,28 @@ function returnToMenu() {
   window.Lobby?.showSelect();
 }
 
+function fullscreenElement() {
+  return document.fullscreenElement || document.webkitFullscreenElement || null;
+}
+
+function canFullscreen() {
+  const target = document.querySelector(".game-frame");
+  return Boolean(target.requestFullscreen || target.webkitRequestFullscreen);
+}
+
+// Resolves to whether the frame is fullscreen afterwards. Browsers only allow
+// entering fullscreen from a click/tap/key press, not a controller button.
 function toggleFullscreen() {
   const target = document.querySelector(".game-frame");
-  if (!document.fullscreenElement) {
-    target.requestFullscreen?.();
-  } else {
-    document.exitFullscreen?.();
+  try {
+    if (!fullscreenElement()) {
+      const request = target.requestFullscreen?.() ?? target.webkitRequestFullscreen?.();
+      return Promise.resolve(request).then(() => Boolean(fullscreenElement()), () => false);
+    }
+    const exit = document.exitFullscreen?.() ?? document.webkitExitFullscreen?.();
+    return Promise.resolve(exit).then(() => Boolean(fullscreenElement()), () => Boolean(fullscreenElement()));
+  } catch (error) {
+    return Promise.resolve(Boolean(fullscreenElement()));
   }
 }
 
