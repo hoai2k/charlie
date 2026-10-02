@@ -229,10 +229,15 @@ function tinted(key, img, rgb, h0, h1, lAvg, lLift = 0) {
     const d = cg.getImageData(0, 0, c.width, c.height), px = d.data;
     const [th, ts, tl] = rgbToHsl(rgb[0], rgb[1], rgb[2]);
     const dl = (tl - lAvg) * 0.8 + lLift;
-    for (let i = 0; i < px.length; i += 4) {
+    // Neutral mode (h0 === 'neutral'): recolor the white/grey liquid (low chroma,
+    // not too dark, not the white highlights) below row h1 * height.
+    const neutral = h0 === 'neutral', i0 = neutral ? Math.floor(h1 * c.height) * c.width * 4 : 0;
+    for (let i = i0; i < px.length; i += 4) {
       if (px[i + 3] < 8) continue;
       const [h, s, l] = rgbToHsl(px[i], px[i + 1], px[i + 2]);
-      if (h < h0 || h > h1 || s < 0.25 || l < 0.2 || l > 0.93) continue;
+      if (neutral) {
+        if (Math.max(px[i], px[i + 1], px[i + 2]) - Math.min(px[i], px[i + 1], px[i + 2]) >= 28 || l < 0.45 || l > 0.965) continue;
+      } else if (h < h0 || h > h1 || s < 0.25 || l < 0.2 || l > 0.93) continue;
       const out = hslToRgb(th, clamp01(Math.max(ts * 0.9, s * 0.6)), clamp01(l + dl));
       px[i] = out[0]; px[i + 1] = out[1]; px[i + 2] = out[2];
     }
@@ -253,10 +258,10 @@ export function drawBottle(g, x, y, s, color, { glow = 0, t = 0 } = {}) {
     gr.addColorStop(0, hexA(color, 0.6 * glow)); gr.addColorStop(1, hexA(color, 0));
     g.fillStyle = gr; g.beginPath(); g.arc(0, 12, 70, 0, TAU); g.fill();
   }
-  // Generated bottle (purple liquid recolored to `color`); 100 units ~ its height.
+  // Generated bottle (white liquid recolored to `color`); 100 units ~ its height.
   const img = art('prop/potion-bottle');
   if (img) {
-    const bmp = tinted('bottle', img, hexRgb(color), 0.69, 0.92, 0.6);
+    const bmp = tinted('bottle', img, hexRgb(color), 'neutral', 0.4, 0.82);
     const sc = 104 / img.height;
     g.drawImage(bmp, -img.width * sc / 2 - 2, -img.height * sc / 2 + 2, img.width * sc, img.height * sc);
     g.restore();
@@ -371,13 +376,12 @@ export function drawCauldron(g, x, y, s, o = {}) {
   g.restore();
 }
 
-// Generated cauldron: art px -> cauldron units. The painted water (center
-// 180,87; radii 105x25 in the 358x360 image) sits on the brew point (x, y),
-// which is where ingredients land. The pot is rounder/taller than the
-// procedural one, so it is drawn a little smaller to keep its feet near the
-// shelf.
-const CA = 0.68;
-const CW = { x: 180, y: 87, rx: 105, ry: 25 };
+// Generated cauldron (prop/cauldron: an empty 400x247 pot seen slightly from
+// above): art px -> cauldron units. The rim opening (center 200,58; radii
+// 125x39) sits on the brew point (x, y), which is where ingredients land; the
+// brew is drawn a little inside it so the pot's inner wall shows as a lip.
+const CA = 0.6;
+const CW = { x: 200, y: 60, rx: 114, ry: 33 };
 const bubbleKey = (c) => c.map((v) => Math.min(255, Math.round(v / 32) * 32));
 
 function drawCauldronArt(g, img, x, y, s, o, t, brew) {
@@ -423,17 +427,17 @@ function drawCauldronArt(g, img, x, y, s, o, t, brew) {
     g.fillStyle = rgbStr(shade(brew, -0.2), 0.85);
     g.beginPath(); g.ellipse(sx, sy + 1, 11, 4, 0, 0, TAU); g.fill();
   }
-  // foam bubbling over while stirring / ready (lime art recolored to the brew)
+  // foam bubbling over while stirring / ready (white art recolored to the brew)
   const fa = clamp01((bubbling - 0.25) / 0.5);
   const foam = fa > 0 && art('prop/cauldron-bubbles');
   if (foam) {
-    const bmp = tinted('foam', foam, bubbleKey(brew), 0.12, 0.45, 0.64, 0.12);
+    const bmp = tinted('foam', foam, bubbleKey(brew), 'neutral', 0, 0.85, -0.04);
     const fw = rx * 2.05, fh = fw * foam.height / foam.width;
     const pul = 1 + Math.sin(t * 7) * 0.04 * bubbling;
     g.save(); g.globalAlpha *= fa;
     g.translate(0, ry * 0.55); g.scale(pul * (0.8 + 0.2 * fa), (2 - pul) * (0.6 + 0.4 * fa));
-    // image bottom of the foam (y 164 of 180) rests on the front of the water
-    g.drawImage(bmp, -fw / 2, -fh * 164 / 180, fw, fh);
+    // image bottom of the foam rests on the front of the water
+    g.drawImage(bmp, -fw / 2, -fh * 0.97, fw, fh);
     g.restore();
   }
   g.restore();

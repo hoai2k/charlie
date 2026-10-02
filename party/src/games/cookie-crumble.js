@@ -152,22 +152,20 @@ const CRACKS = [
 ];
 const CRACK_STAGES = [2, 4, 5];   // how many polylines are visible at stage 1,2,3
 
-// Each flavor has matching cracked and crumbling art; light cracks remain
-// procedural until stage 2, with intact art as the missing-image fallback.
+// Generated cookie art. Flavors follow the procedural types (0 choc chip, 1 pink
+// sprinkle, 2 double choc, 3 oatmeal). Every flavor has crack states:
+// stage 1 = intact art + light procedural cracks, stage 2 = cracked, stage 3 = crumbling.
+// A flavor whose crack art is missing keeps the procedural crack lines over its intact art.
 const COOKIE_ART = ['prop/cookie-tile', 'prop/cookie-2', 'prop/cookie-3', 'prop/cookie-4'];
 const ART_SIZE = 142;             // round cookie art, a hair wider than the cell so the corners stay small
 function cookieArtKey(type, stage) {
-  if (type === 0 && stage >= 3) return 'prop/cookie-tile-crumbling';
-  if (type === 0 && stage === 2) return 'prop/cookie-tile-cracked';
   if (stage >= 2) {
     const key = `${COOKIE_ART[type]}-${stage >= 3 ? 'crumbling' : 'cracked'}`;
     if (art(key)) return key;
   }
   return COOKIE_ART[type];
 }
-function cookieArtCracks(type, stage) {
-  return stage === 1 || (type !== 0 && cookieArtKey(type, stage) === COOKIE_ART[type]);
-}
+function cookieArtCracks(type, stage) { return stage === 1 || (stage >= 2 && cookieArtKey(type, stage) === COOKIE_ART[type]); }   // procedural crack lines needed on top?
 
 // ---------------------------------------------------------------------------
 
