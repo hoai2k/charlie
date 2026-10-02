@@ -7,7 +7,7 @@ import GAME_CONFIG from "./gameConfig.js";
 
 const BACKGROUNDS = {
   none: {
-    label: "None",
+    label: "Camera",
     src: null
   },
   farm: {
@@ -32,15 +32,48 @@ const BACKGROUNDS = {
   }
 };
 
+// Card colours and art for the select screen. The eight American Girl dolls
+// reuse the race portraits; the rest fall back to their reference head.
+const CHARACTER_STYLES = {
+  rumi: { color: "#7b3bb8", portrait: "./assets/portraits/rumi.webp" },
+  juliette: { color: "#c58a28", portrait: "./assets/portraits/juliette.webp" },
+  marisol: { color: "#f25ca5", portrait: "./assets/portraits/marisol.webp" },
+  kaya: { color: "#9a6426", portrait: "./assets/portraits/kaya.webp" },
+  lily: { color: "#d33b2f", portrait: "./assets/portraits/lily.webp" },
+  whirlpool: { color: "#5a3a86", portrait: "./assets/portraits/whirlpool.webp" },
+  claudia: { color: "#25897f", portrait: "./assets/portraits/claudia.webp" },
+  amanda: { color: "#263d8f", portrait: "./assets/portraits/amanda.webp" },
+  troll: { color: "#5f7a3a" },
+  kpop: { color: "#d65fb4" }
+};
+
+// Optional art from image-requests.md. Each is used once the file exists;
+// until then the CSS look stays in place.
+const OPTIONAL_ART = {
+  logo: "./assets/ui/logo.webp",
+  titleBackground: "./assets/ui/title_background.webp"
+};
+
+function loadOptionalImage(src) {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve(true);
+    image.onerror = () => resolve(false);
+    image.src = src;
+  });
+}
+
 const app = document.querySelector(".dolls-app");
 const video = document.querySelector("#camera");
 const canvas = document.querySelector("#doll-canvas");
 const pauseButton = document.querySelector("#pause-game");
-const settingsToggle = document.querySelector("#settings-toggle");
-const settingsClose = document.querySelector("#settings-close");
-const settingsPanel = document.querySelector("#settings-panel");
+const openSelectButton = document.querySelector("#open-select");
+const titleScreen = document.querySelector("#title-screen");
+const titleParade = document.querySelector("#title-parade");
+const selectScreen = document.querySelector("#select-screen");
+const selectPlayButton = document.querySelector("#select-play");
 const backgroundList = document.querySelector("#background-list");
-const characterSelect = document.querySelector("#character-select");
+const characterList = document.querySelector("#character-list");
 const debugTools = document.querySelector("#debug-tools");
 const downloadDebugButton = document.querySelector("#download-debug");
 const status = document.querySelector("#status");
@@ -68,6 +101,9 @@ let lastTrackingAt = 0;
 let lastStatusAt = 0;
 let lastState = createDemoPuppetState(0);
 let selectedBackground = "farm";
+let selectedCharacter = initialCharacterId;
+// "title" -> "select" -> "play"; the select screen can be reopened mid-game.
+let screen = "title";
 let backgroundOffset = 0;
 let backgroundVelocity = 0;
 let backgroundDrag = null;
@@ -174,7 +210,7 @@ function createDebugCapture() {
       usingCamera,
       paused,
       selectedBackground,
-      selectedCharacter: characterSelect.value,
+      selectedCharacter: selectedCharacter,
       trackingMode,
       trackingInFlight,
       lastTrackingAt,
@@ -222,8 +258,10 @@ function downloadDebugCapture() {
 }
 
 function updatePauseButton() {
-  pauseButton.textContent = paused ? "Resume" : "Pause";
+  pauseButton.querySelector(".hud-label").textContent = paused ? "Resume" : "Pause";
+  pauseButton.querySelector(".hud-icon").textContent = paused ? "▶" : "❚❚";
   pauseButton.setAttribute("aria-pressed", String(paused));
+  app.dataset.paused = String(paused);
 }
 
 function shouldUpdateStatus(now) {
@@ -464,7 +502,7 @@ async function startCameraAndTracking() {
 
 function updateUrlState(next = {}) {
   const params = new URLSearchParams(window.location.search);
-  const character = next.character ?? characterSelect.value;
+  const character = next.character ?? selectedCharacter;
   const background = next.background ?? selectedBackground;
   if (visibleDollCharacters[character]) {
     params.set("character", character);
@@ -511,8 +549,9 @@ function buildBackgroundChoices() {
     button.dataset.background = id;
     button.setAttribute("role", "option");
     const previewStyle = background.src ? ` style="--preview-image: url('${background.src}')"` : "";
+    const previewIcon = background.src ? "" : "📷";
     button.innerHTML = `
-      <span class="background-preview"${previewStyle}></span>
+      <span class="background-preview"${previewStyle}>${previewIcon}</span>
       <span class="background-name">${background.label}</span>
     `;
     button.addEventListener("click", () => {
@@ -522,34 +561,133 @@ function buildBackgroundChoices() {
   }
 }
 
+function characterArt(id) {
+  return CHARACTER_STYLES[id]?.portrait ?? `./assets/${id}/reference.webp`;
+}
+
 function buildCharacterChoices() {
-  characterSelect.replaceChildren();
+  characterList.replaceChildren();
   for (const character of Object.values(visibleDollCharacters)) {
-    const option = document.createElement("option");
-    option.value = character.id;
-    option.textContent = character.label;
-    option.selected = character.id === initialCharacterId;
-    characterSelect.append(option);
+    const style = CHARACTER_STYLES[character.id] ?? {};
+    const button = document.createElement("button");
+    button.className = "character-card";
+    button.type = "button";
+    button.dataset.character = character.id;
+    button.dataset.portrait = style.portrait ? "full" : "head";
+    button.setAttribute("role", "option");
+    button.style.setProperty("--card-color", style.color ?? "#6a3aa8");
+    button.style.setProperty("--card-image", `url("${characterArt(character.id)}")`);
+    button.innerHTML = `
+      <span class="character-art" aria-hidden="true"></span>
+      <span class="character-name">${character.label}</span>
+    `;
+    button.addEventListener("click", () => {
+      setCharacter(character.id);
+    });
+    characterList.append(button);
   }
-  characterSelect.value = visibleDollCharacters[initialCharacterId] ? initialCharacterId : "rumi";
+  setCharacter(selectedCharacter, { updateUrl: false });
 }
 
-function setSettingsOpen(open) {
-  settingsPanel.hidden = !open;
-  settingsToggle.setAttribute("aria-expanded", String(open));
+// Dolls without a race portrait pick one up from assets/portraits/ once it's drawn.
+function upgradeHeadPortraits() {
+  for (const card of characterList.querySelectorAll('.character-card[data-portrait="head"]')) {
+    const id = card.dataset.character;
+    const src = `./assets/portraits/${id}.webp`;
+    void loadOptionalImage(src).then((found) => {
+      if (found) {
+        card.dataset.portrait = "full";
+        card.style.setProperty("--card-image", `url("${src}")`);
+      }
+    });
+  }
 }
 
-settingsToggle.addEventListener("click", () => {
-  setSettingsOpen(settingsPanel.hidden);
+function applyOptionalTitleArt() {
+  void loadOptionalImage(OPTIONAL_ART.logo).then((found) => {
+    if (found) {
+      titleScreen.querySelector(".logo").style.setProperty("--logo-image", `url("${OPTIONAL_ART.logo}")`);
+      titleScreen.dataset.logoArt = "true";
+    }
+  });
+  void loadOptionalImage(OPTIONAL_ART.titleBackground).then((found) => {
+    if (found) {
+      titleScreen.style.setProperty("--title-image", `url("${OPTIONAL_ART.titleBackground}")`);
+      titleScreen.dataset.backgroundArt = "true";
+    }
+  });
+}
+
+function buildTitleParade() {
+  const ids = Object.keys(CHARACTER_STYLES).filter((id) => CHARACTER_STYLES[id].portrait && visibleDollCharacters[id]);
+  ids.forEach((id, index) => {
+    const doll = document.createElement("span");
+    doll.className = "parade-doll";
+    doll.style.setProperty("--portrait", `url("${characterArt(id)}")`);
+    doll.style.setProperty("--i", String(index));
+    titleParade.append(doll);
+  });
+}
+
+function setCharacter(characterId, { updateUrl = true } = {}) {
+  if (!visibleDollCharacters[characterId]) {
+    return;
+  }
+  selectedCharacter = characterId;
+  effect.setCharacter(characterId);
+  for (const card of characterList.querySelectorAll(".character-card")) {
+    const selected = card.dataset.character === characterId;
+    card.setAttribute("aria-selected", String(selected));
+    if (selected && screen === "select") {
+      card.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    }
+  }
+  if (updateUrl) {
+    updateUrlState({ character: characterId });
+  }
+}
+
+function stepCharacter(direction) {
+  const ids = Object.keys(visibleDollCharacters);
+  const index = ids.indexOf(selectedCharacter);
+  setCharacter(ids[(index + direction + ids.length) % ids.length]);
+}
+
+function setScreen(next) {
+  screen = next;
+  app.dataset.screen = next;
+  titleScreen.hidden = next !== "title";
+  selectScreen.hidden = next !== "select";
+  if (next === "select") {
+    if (paused) {
+      // Show the doll moving while choosing.
+      pausedForHidden = false;
+      void setPaused(false);
+    }
+    characterList.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true });
+    setCharacter(selectedCharacter, { updateUrl: false });
+  } else if (next === "play") {
+    pauseButton.focus({ preventScroll: true });
+  }
+}
+
+function startFromTitle() {
+  if (screen !== "title") {
+    return;
+  }
+  setScreen("select");
+  // Ask for the camera now, after a tap, rather than the moment the page opens.
+  void startCamera();
+}
+
+titleScreen.addEventListener("click", startFromTitle);
+
+selectPlayButton.addEventListener("click", () => {
+  setScreen("play");
 });
 
-settingsClose.addEventListener("click", () => {
-  setSettingsOpen(false);
-});
-
-characterSelect.addEventListener("change", () => {
-  effect.setCharacter(characterSelect.value);
-  updateUrlState({ character: characterSelect.value });
+openSelectButton.addEventListener("click", () => {
+  setScreen("select");
 });
 
 pauseButton.addEventListener("click", () => {
@@ -634,18 +772,35 @@ function clamp(value, min, max) {
 
 window.addEventListener("resize", resizeCanvas);
 window.addEventListener("keydown", (event) => {
-  if (event.key !== "Escape") {
+  if (event.repeat && event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
     return;
   }
 
-  event.preventDefault();
-  if (!settingsPanel.hidden) {
-    setSettingsOpen(false);
+  if (screen === "title") {
+    if (["Enter", " ", "Escape"].includes(event.key)) {
+      event.preventDefault();
+      startFromTitle();
+    }
     return;
   }
 
-  pausedForHidden = false;
-  void setPaused(!paused);
+  if (screen === "select") {
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      event.preventDefault();
+      stepCharacter(event.key === "ArrowLeft" ? -1 : 1);
+      characterList.querySelector('[aria-selected="true"]')?.focus({ preventScroll: true });
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      setScreen("play");
+    }
+    return;
+  }
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    pausedForHidden = false;
+    void setPaused(!paused);
+  }
 });
 
 canvas.addEventListener("pointerdown", beginBackgroundDrag);
@@ -655,14 +810,14 @@ canvas.addEventListener("pointercancel", endBackgroundDrag);
 
 buildBackgroundChoices();
 buildCharacterChoices();
+buildTitleParade();
+upgradeHeadPortraits();
+applyOptionalTitleArt();
 if (debugTools) {
   debugTools.hidden = !debugEnabled;
 }
 setBackground(initialBackgroundId, { updateUrl: urlParams.has("character") || urlParams.has("background") });
 resizeCanvas();
 updatePauseButton();
+setScreen("title");
 requestAnimationFrame(frame);
-
-setTimeout(() => {
-  void startCamera();
-}, 250);

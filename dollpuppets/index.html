@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <script>
       // Browsers only allow the camera on https:// pages.
       if (location.protocol === "http:" && !["localhost", "127.0.0.1"].includes(location.hostname)) {
@@ -11,52 +11,71 @@
     </script>
     <title>Doll Puppets</title>
     <link rel="icon" type="image/png" href="./favicon.png" />
-    <link rel="stylesheet" href="./site.css" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="./site.css?v=20261002a" />
   </head>
   <body>
-    <main class="dolls-app" style="--background-image: url('./assets/backgrounds/farm.webp')">
+    <main class="dolls-app" data-screen="title" style="--background-image: url('./assets/backgrounds/farm.webp')">
       <div class="scene-background" aria-hidden="true"></div>
       <video id="camera" playsinline muted aria-hidden="true"></video>
       <canvas id="doll-canvas" aria-label="AR doll scene"></canvas>
 
-      <button id="pause-game" class="pause-button" type="button" aria-pressed="false">Pause</button>
-      <p id="status" class="status" role="status"></p>
-      <button id="camera-retry" class="camera-retry" type="button" hidden>Try again</button>
+      <!-- In-game controls -->
+      <div class="game-hud">
+        <button id="open-select" class="hud-button" type="button">
+          <span class="hud-icon" aria-hidden="true">★</span><span>Dolls</span>
+        </button>
+        <button id="pause-game" class="hud-button pause-button" type="button" aria-pressed="false">
+          <span class="hud-icon" aria-hidden="true">❚❚</span><span class="hud-label">Pause</span>
+        </button>
+      </div>
+      <div class="notice-stack">
+        <p id="status" class="status" role="status"></p>
+        <button id="camera-retry" class="camera-retry" type="button" hidden>Try again</button>
+      </div>
 
-      <button
-        id="settings-toggle"
-        class="settings-button"
-        type="button"
-        aria-expanded="false"
-        aria-controls="settings-panel"
-      >
-        Settings
-      </button>
+      <!-- Title screen -->
+      <section id="title-screen" class="title-screen" aria-label="Doll Puppets">
+        <div class="title-glow" aria-hidden="true"></div>
+        <h1 class="logo" aria-label="Doll Puppets">
+          <span class="logo-small">Doll</span>
+          <span class="logo-big">Puppets</span>
+        </h1>
+        <p class="tagline">Make a face — your doll makes it too!</p>
+        <div id="title-parade" class="title-parade" aria-hidden="true"></div>
+        <button id="title-start" class="start-button" type="button">
+          <span class="start-text">Tap to start</span>
+        </button>
+        <p class="camera-note">Doll Puppets uses your camera to copy your face. Nothing is recorded.</p>
+      </section>
 
-      <section id="settings-panel" class="settings-panel" aria-label="Settings" hidden>
-        <header class="settings-header">
-          <h1>Settings</h1>
-          <button id="settings-close" class="icon-button" type="button" aria-label="Close settings">x</button>
+      <!-- Character + scene select -->
+      <section id="select-screen" class="select-screen" aria-label="Choose your doll" hidden>
+        <header class="select-banner">
+          <h2>Choose your doll</h2>
         </header>
 
-        <label class="field">
-          <span>Character</span>
-          <select id="character-select">
-            <option value="rumi" selected>Rumi</option>
-          </select>
-        </label>
+        <div class="select-tray">
+          <div id="character-list" class="character-list" role="listbox" aria-label="Dolls"></div>
 
-        <div class="field">
-          <span>Background</span>
-          <div id="background-list" class="background-list" role="listbox" aria-label="Background choices"></div>
-        </div>
+          <div class="select-footer">
+            <div class="scene-picker">
+              <span class="scene-label">Scene</span>
+              <div id="background-list" class="background-list" role="listbox" aria-label="Scenes"></div>
+            </div>
+            <button id="select-play" class="play-button" type="button">Play!</button>
+          </div>
 
-        <div id="debug-tools" class="debug-tools" hidden>
-          <button id="download-debug" class="debug-button" type="button">Download Debug Capture</button>
+          <div id="debug-tools" class="debug-tools" hidden>
+            <button id="download-debug" class="debug-button" type="button">Download Debug Capture</button>
+          </div>
         </div>
       </section>
     </main>
 
-    <script type="module" src="./site.js"></script>
-</body>
+    <script type="module" src="./site.js?v=20261002a"></script>
+  </body>
 </html>
