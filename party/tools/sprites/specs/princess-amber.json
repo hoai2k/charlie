@@ -1,0 +1,1321 @@
+{
+  "asset": "princess-amber",
+  "bodyHeight": 300,
+  "quality": 82,
+  "frameSize": [
+    640,
+    620
+  ],
+  "anchor": [
+    320,
+    540
+  ],
+  "facing": 0,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            41,
+            2,
+            313,
+            510
+          ],
+          "isolate": true,
+          "anchor": [
+            156,
+            505
+          ],
+          "scale": 1,
+          "head": [
+            160,
+            61
+          ],
+          "eyes": [
+            160,
+            143
+          ],
+          "neck": [
+            160,
+            204
+          ],
+          "back": [
+            147,
+            280
+          ],
+          "hand": [
+            263,
+            301
+          ],
+          "dur": 3.1
+        },
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            417,
+            2,
+            310,
+            509
+          ],
+          "isolate": true,
+          "anchor": [
+            155,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            158,
+            61
+          ],
+          "eyes": [
+            158,
+            143
+          ],
+          "neck": [
+            158,
+            204
+          ],
+          "back": [
+            146,
+            280
+          ],
+          "hand": [
+            260,
+            300
+          ],
+          "dur": 0.12
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.12,
+      "facing": 0
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            793,
+            3,
+            329,
+            509
+          ],
+          "isolate": true,
+          "anchor": [
+            164,
+            504
+          ],
+          "scale": 1,
+          "head": [
+            168,
+            61
+          ],
+          "eyes": [
+            168,
+            143
+          ],
+          "neck": [
+            168,
+            204
+          ],
+          "back": [
+            155,
+            280
+          ],
+          "hand": [
+            164,
+            285
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            1201,
+            1,
+            303,
+            510
+          ],
+          "isolate": true,
+          "anchor": [
+            152,
+            505
+          ],
+          "scale": 1,
+          "head": [
+            155,
+            61
+          ],
+          "eyes": [
+            155,
+            143
+          ],
+          "neck": [
+            155,
+            204
+          ],
+          "back": [
+            142,
+            280
+          ],
+          "hand": [
+            52,
+            143
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            39,
+            515,
+            318,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            159,
+            487
+          ],
+          "scale": 1,
+          "head": [
+            162,
+            59
+          ],
+          "eyes": [
+            162,
+            138
+          ],
+          "neck": [
+            162,
+            197
+          ],
+          "back": [
+            149,
+            271
+          ],
+          "hand": [
+            159,
+            276
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            430,
+            514,
+            297,
+            496
+          ],
+          "isolate": true,
+          "anchor": [
+            148,
+            491
+          ],
+          "scale": 1,
+          "head": [
+            151,
+            60
+          ],
+          "eyes": [
+            151,
+            139
+          ],
+          "neck": [
+            151,
+            198
+          ],
+          "back": [
+            140,
+            273
+          ],
+          "hand": [
+            148,
+            278
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            788,
+            511,
+            319,
+            499
+          ],
+          "isolate": true,
+          "anchor": [
+            160,
+            494
+          ],
+          "scale": 1,
+          "head": [
+            163,
+            60
+          ],
+          "eyes": [
+            163,
+            140
+          ],
+          "neck": [
+            163,
+            200
+          ],
+          "back": [
+            150,
+            274
+          ],
+          "hand": [
+            160,
+            279
+          ],
+          "dur": 0.8
+        },
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            812,
+            539,
+            325,
+            457
+          ],
+          "isolate": true,
+          "anchor": [
+            162,
+            452
+          ],
+          "scale": 1,
+          "head": [
+            162,
+            46
+          ],
+          "eyes": [
+            162,
+            123
+          ],
+          "neck": [
+            162,
+            183
+          ],
+          "back": [
+            162,
+            329
+          ],
+          "hand": [
+            195,
+            320
+          ],
+          "dur": 0.25
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-core-r3.webp",
+          "rect": [
+            1181,
+            511,
+            333,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            166,
+            497
+          ],
+          "scale": 1,
+          "head": [
+            170,
+            60
+          ],
+          "eyes": [
+            170,
+            141
+          ],
+          "neck": [
+            170,
+            201
+          ],
+          "back": [
+            157,
+            276
+          ],
+          "hand": [
+            280,
+            296
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": 0
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            105,
+            2,
+            287,
+            442
+          ],
+          "isolate": true,
+          "anchor": [
+            152,
+            438
+          ],
+          "scale": 1,
+          "head": [
+            161,
+            57
+          ],
+          "eyes": [
+            164,
+            133
+          ],
+          "neck": [
+            158,
+            194
+          ],
+          "back": [
+            138,
+            243
+          ],
+          "hand": [
+            255,
+            248
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            501,
+            2,
+            279,
+            445
+          ],
+          "isolate": true,
+          "anchor": [
+            148,
+            441
+          ],
+          "scale": 1,
+          "head": [
+            156,
+            58
+          ],
+          "eyes": [
+            159,
+            134
+          ],
+          "neck": [
+            153,
+            196
+          ],
+          "back": [
+            134,
+            245
+          ],
+          "hand": [
+            248,
+            249
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            942,
+            2,
+            290,
+            441
+          ],
+          "isolate": true,
+          "anchor": [
+            154,
+            437
+          ],
+          "scale": 1,
+          "head": [
+            162,
+            57
+          ],
+          "eyes": [
+            165,
+            132
+          ],
+          "neck": [
+            160,
+            194
+          ],
+          "back": [
+            139,
+            243
+          ],
+          "hand": [
+            258,
+            247
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            1380,
+            2,
+            267,
+            443
+          ],
+          "isolate": true,
+          "anchor": [
+            142,
+            439
+          ],
+          "scale": 1,
+          "head": [
+            150,
+            58
+          ],
+          "eyes": [
+            152,
+            133
+          ],
+          "neck": [
+            147,
+            195
+          ],
+          "back": [
+            128,
+            244
+          ],
+          "hand": [
+            238,
+            248
+          ]
+        }
+      ],
+      "fps": 7,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            47,
+            440,
+            353,
+            423
+          ],
+          "isolate": true,
+          "anchor": [
+            187,
+            419
+          ],
+          "scale": 1,
+          "head": [
+            198,
+            55
+          ],
+          "eyes": [
+            201,
+            127
+          ],
+          "neck": [
+            194,
+            186
+          ],
+          "back": [
+            169,
+            233
+          ],
+          "hand": [
+            314,
+            237
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            489,
+            448,
+            316,
+            421
+          ],
+          "isolate": true,
+          "anchor": [
+            167,
+            417
+          ],
+          "scale": 1,
+          "head": [
+            177,
+            55
+          ],
+          "eyes": [
+            180,
+            126
+          ],
+          "neck": [
+            174,
+            185
+          ],
+          "back": [
+            152,
+            232
+          ],
+          "hand": [
+            281,
+            236
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            897,
+            442,
+            378,
+            391
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            412
+          ],
+          "scale": 1,
+          "head": [
+            212,
+            51
+          ],
+          "eyes": [
+            215,
+            117
+          ],
+          "neck": [
+            208,
+            172
+          ],
+          "back": [
+            181,
+            215
+          ],
+          "hand": [
+            336,
+            219
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-move-r3.webp",
+          "rect": [
+            1377,
+            441,
+            334,
+            432
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            428
+          ],
+          "scale": 1,
+          "head": [
+            187,
+            56
+          ],
+          "eyes": [
+            190,
+            130
+          ],
+          "neck": [
+            184,
+            190
+          ],
+          "back": [
+            160,
+            238
+          ],
+          "hand": [
+            297,
+            242
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            28,
+            13,
+            348,
+            457
+          ],
+          "isolate": true,
+          "anchor": [
+            174,
+            482
+          ],
+          "scale": 1,
+          "head": [
+            181,
+            55
+          ],
+          "eyes": [
+            181,
+            137
+          ],
+          "neck": [
+            181,
+            197
+          ],
+          "back": [
+            167,
+            256
+          ],
+          "hand": [
+            313,
+            183
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            421,
+            52,
+            372,
+            430
+          ],
+          "isolate": true,
+          "anchor": [
+            186,
+            456
+          ],
+          "scale": 1,
+          "head": [
+            193,
+            52
+          ],
+          "eyes": [
+            193,
+            129
+          ],
+          "neck": [
+            193,
+            185
+          ],
+          "back": [
+            179,
+            241
+          ],
+          "hand": [
+            335,
+            172
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            839,
+            143,
+            340,
+            355
+          ],
+          "isolate": true,
+          "anchor": [
+            170,
+            351
+          ],
+          "scale": 1,
+          "head": [
+            177,
+            43
+          ],
+          "eyes": [
+            177,
+            106
+          ],
+          "neck": [
+            177,
+            153
+          ],
+          "back": [
+            163,
+            199
+          ],
+          "hand": [
+            170,
+            337
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            1229,
+            69,
+            279,
+            430
+          ],
+          "isolate": true,
+          "anchor": [
+            140,
+            426
+          ],
+          "scale": 1,
+          "head": [
+            145,
+            52
+          ],
+          "eyes": [
+            145,
+            129
+          ],
+          "neck": [
+            145,
+            185
+          ],
+          "back": [
+            134,
+            241
+          ],
+          "hand": [
+            148,
+            202
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            27,
+            522,
+            335,
+            472
+          ],
+          "isolate": true,
+          "anchor": [
+            168,
+            467
+          ],
+          "scale": 1,
+          "head": [
+            174,
+            57
+          ],
+          "eyes": [
+            174,
+            142
+          ],
+          "neck": [
+            174,
+            203
+          ],
+          "back": [
+            161,
+            264
+          ],
+          "hand": [
+            178,
+            222
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            403,
+            486,
+            283,
+            508
+          ],
+          "isolate": true,
+          "anchor": [
+            142,
+            503
+          ],
+          "scale": 1,
+          "head": [
+            147,
+            61
+          ],
+          "eyes": [
+            147,
+            152
+          ],
+          "neck": [
+            147,
+            218
+          ],
+          "back": [
+            136,
+            284
+          ],
+          "hand": [
+            150,
+            239
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            703,
+            523,
+            463,
+            457
+          ],
+          "isolate": true,
+          "anchor": [
+            232,
+            452
+          ],
+          "scale": 1,
+          "head": [
+            241,
+            55
+          ],
+          "eyes": [
+            241,
+            137
+          ],
+          "neck": [
+            241,
+            197
+          ],
+          "back": [
+            222,
+            256
+          ],
+          "hand": [
+            417,
+            183
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-air-r3.webp",
+          "rect": [
+            1176,
+            516,
+            353,
+            473
+          ],
+          "isolate": true,
+          "anchor": [
+            176,
+            468
+          ],
+          "scale": 1,
+          "head": [
+            184,
+            57
+          ],
+          "eyes": [
+            184,
+            142
+          ],
+          "neck": [
+            184,
+            203
+          ],
+          "back": [
+            169,
+            265
+          ],
+          "hand": [
+            318,
+            189
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.6,
+      "facing": 0
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            1167,
+            616,
+            357,
+            376
+          ],
+          "isolate": true,
+          "anchor": [
+            178,
+            371
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            38
+          ],
+          "eyes": [
+            178,
+            102
+          ],
+          "neck": [
+            178,
+            150
+          ],
+          "back": [
+            178,
+            271
+          ],
+          "hand": [
+            214,
+            263
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            49,
+            79,
+            332,
+            437
+          ],
+          "isolate": true,
+          "anchor": [
+            166,
+            432
+          ],
+          "scale": 1,
+          "head": [
+            166,
+            44
+          ],
+          "eyes": [
+            166,
+            118
+          ],
+          "neck": [
+            166,
+            175
+          ],
+          "back": [
+            166,
+            315
+          ],
+          "hand": [
+            199,
+            306
+          ],
+          "dur": 0.16
+        },
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            421,
+            12,
+            351,
+            502
+          ],
+          "isolate": true,
+          "anchor": [
+            176,
+            522
+          ],
+          "scale": 1,
+          "head": [
+            176,
+            50
+          ],
+          "eyes": [
+            176,
+            136
+          ],
+          "neck": [
+            176,
+            201
+          ],
+          "back": [
+            176,
+            361
+          ],
+          "hand": [
+            211,
+            351
+          ],
+          "dur": 0.15
+        },
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            811,
+            25,
+            356,
+            497
+          ],
+          "isolate": true,
+          "anchor": [
+            178,
+            517
+          ],
+          "scale": 1,
+          "head": [
+            178,
+            50
+          ],
+          "eyes": [
+            178,
+            134
+          ],
+          "neck": [
+            178,
+            199
+          ],
+          "back": [
+            178,
+            358
+          ],
+          "hand": [
+            214,
+            348
+          ],
+          "dur": 0.28
+        },
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            1205,
+            49,
+            315,
+            482
+          ],
+          "isolate": true,
+          "anchor": [
+            158,
+            477
+          ],
+          "scale": 1,
+          "head": [
+            158,
+            48
+          ],
+          "eyes": [
+            158,
+            130
+          ],
+          "neck": [
+            158,
+            193
+          ],
+          "back": [
+            158,
+            347
+          ],
+          "hand": [
+            189,
+            337
+          ],
+          "dur": 0.22
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            60,
+            536,
+            335,
+            443
+          ],
+          "isolate": true,
+          "anchor": [
+            168,
+            438
+          ],
+          "scale": 1,
+          "head": [
+            168,
+            44
+          ],
+          "eyes": [
+            168,
+            120
+          ],
+          "neck": [
+            168,
+            177
+          ],
+          "back": [
+            168,
+            319
+          ],
+          "hand": [
+            201,
+            310
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-cycles-r3.webp",
+          "rect": [
+            437,
+            538,
+            347,
+            444
+          ],
+          "isolate": true,
+          "anchor": [
+            174,
+            439
+          ],
+          "scale": 1,
+          "head": [
+            174,
+            44
+          ],
+          "eyes": [
+            174,
+            120
+          ],
+          "neck": [
+            174,
+            178
+          ],
+          "back": [
+            174,
+            320
+          ],
+          "hand": [
+            208,
+            311
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 0
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/princess-amber-portrait-neutral.webp"
+    },
+    "happy": {
+      "source": "../sources/princess-amber-portrait-happy.webp"
+    },
+    "sad": {
+      "source": "../sources/princess-amber-portrait-sad.webp"
+    },
+    "surprised": {
+      "source": "../sources/princess-amber-portrait-surprised.webp"
+    },
+    "determined": {
+      "source": "../sources/princess-amber-portrait-determined.webp"
+    }
+  }
+}

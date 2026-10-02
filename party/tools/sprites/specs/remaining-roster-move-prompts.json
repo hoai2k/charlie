@@ -1,0 +1,20 @@
+[
+  {
+    "character": "princess-amber",
+    "sheet": "move-r3",
+    "prompt": "Use case: illustration-story. Charlie Party princess-amber locomotion sprite sheet using reference EXACT appearance. 4 columns x2 rows, eight FULL BODY figures, generous transparent gutters and outer margins. Top row4 smooth WALK cycle poses left-to-right: contact, down, opposite contact, passing. Bottom row4 faster RUN cycle poses: reach, compress, airborne, opposite reach. All face slightly right, maintain SAME head/body size throughout. Preserve long auburn hair, orange flower tiara and full orange gown with black-and-white daisies/black sleeves. Gown sways modestly and small feet may peek below. Clean crisp bold cartoon cel shading, transparent background, no shadow/effects/text/labels/props/scenery. Keep every figure fully inside its cell.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-19412d2d-1ace-42a9-9227-859469fa3b01.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "move-r3",
+    "prompt": "Use case: illustration-story. Charlie Party snowstar locomotion sprite sheet using reference EXACT appearance. 4 columns x2 rows, eight FULL BODY figures, generous transparent gutters and outer margins. Top row4 smooth WALK cycle poses left-to-right: contact, down, opposite contact, passing. Bottom row4 faster RUN cycle poses: reach, compress, airborne, opposite reach. All face slightly right, maintain SAME head/body size throughout. Preserve huge round face, intricate geometric rainbow hair, bow/flowers/wisps, green turtleneck, teal pants/greenboots; hair subtly follows movement. Clean crisp bold cartoon cel shading, transparent background, no shadow/effects/text/labels/props/scenery. Keep every figure fully inside its cell.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-b9e6c2a1-89f2-43aa-a313-3251a0c62f7e.png"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "move-r3",
+    "prompt": "Use case: illustration-story. Charlie Party marshmallow-birthday-cake locomotion sprite sheet using reference EXACT appearance. 4 columns x2 rows, eight FULL BODY figures, generous transparent gutters and outer margins. Top row4 smooth WALK cycle poses left-to-right: contact, down, opposite contact, passing. Bottom row4 faster RUN cycle poses: reach, compress, airborne, opposite reach. All face slightly right, maintain SAME head/body size throughout. Cake has NO arms/legs/feet. Walk is gentle side-to-side squash-wobble; run is stronger bouncy squash/stretch and tilt, sprinkles/marshmallow piping/single candle maintained. Clean crisp bold cartoon cel shading, transparent background, no shadow/effects/text/labels/props/scenery. Keep every figure fully inside its cell.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-657add12-2133-446e-91f7-aae2767842dc.png"
+  }
+]

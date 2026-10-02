@@ -1,0 +1,20 @@
+[
+  {
+    "character": "princess-amber",
+    "sheet": "core-r3",
+    "prompt": "Use case: illustration-story. Charlie Party game sprite sheet. Character reference exact identity/colors: Amber has long auburn hair, orange-gold flower tiara, long orange dress with bold black-and-white daisies and black sleeves. Draw 8 FULL BODY separate figures in a clean 4 COLUMN by2 ROW grid, generous transparent gutters and margins. Read left-to-right top row then bottom row. Poses: 1 neutral IDLE, 2 same neutral pose eyes CLOSED blink (only eyes change), 3 READY alert, 4 friendly WAVE; bottom row 5 supportive CHEER, 6 quietly SAD, 7 playful grumpy POUT, 8 SURPRISED. Keep same head size/body proportions/character model across all8, no cropping anywhere. Bold dark outlines, bright soft cel shading matching reference, clean game-ready cartoon. Transparent background, no text/labels/boxes/scenery/floor shadows/effects or held props.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6ef6a67b-288d-4e1a-bab4-320c5067a2cd.png"
+  },
+  {
+    "character": "snowstar",
+    "sheet": "core-r3",
+    "prompt": "Use case: illustration-story. Charlie Party game sprite sheet. Character reference exact identity/colors: Snowstar has oversized round face, colorful geometric rainbow hair decorated with flowers/red bow/curly antenna wisps, huge blue-green eyes, olive green turtleneck, teal pants, green boots. Preserve her big head proportions. Draw 8 FULL BODY separate figures in a clean 4 COLUMN by2 ROW grid, generous transparent gutters and margins. Read left-to-right top row then bottom row. Poses: 1 neutral IDLE, 2 same neutral pose eyes CLOSED blink (only eyes change), 3 READY alert, 4 friendly WAVE; bottom row 5 supportive CHEER, 6 quietly SAD, 7 playful grumpy POUT, 8 SURPRISED. Keep same head size/body proportions/character model across all8, no cropping anywhere. Bold dark outlines, bright soft cel shading matching reference, clean game-ready cartoon. Transparent background, no text/labels/boxes/scenery/floor shadows/effects or held props.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-905607e9-3adc-4878-88d7-9bf24405011b.png"
+  },
+  {
+    "character": "marshmallow-birthday-cake",
+    "sheet": "core-r3",
+    "prompt": "Use case: illustration-story. Charlie Party game sprite sheet. Character reference exact identity/colors: Birthday Cake is a pink three-tier marshmallow cake, colorful sprinkles, piped white marshmallows, one red-white striped candle/flame, eyes and mouth on middle tier. NO arms, hands, feet or legs. Express poses with squash/stretch, tilt and facial expression only. Draw 8 FULL BODY separate figures in a clean 4 COLUMN by2 ROW grid, generous transparent gutters and margins. Read left-to-right top row then bottom row. Poses: 1 neutral IDLE, 2 same neutral pose eyes CLOSED blink (only eyes change), 3 READY alert, 4 friendly WAVE; bottom row 5 supportive CHEER, 6 quietly SAD, 7 playful grumpy POUT, 8 SURPRISED. Keep same head size/body proportions/character model across all8, no cropping anywhere. Bold dark outlines, bright soft cel shading matching reference, clean game-ready cartoon. Transparent background, no text/labels/boxes/scenery/floor shadows/effects or held props.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-75f31e09-695f-4184-8b9d-a47068c5cb13.png"
+  }
+]
