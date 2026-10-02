@@ -83,28 +83,28 @@
         {
           "src": "celebrate-00.webp",
           "anchor": [
-            118,
-            255
+            201,
+            366
           ],
           "head": [
             216,
-            64
+            75
           ],
           "hand": [
-            287,
-            123
+            286,
+            144
           ],
           "eyes": [
-            244,
-            113
+            243,
+            132
           ],
           "neck": [
-            220,
-            170
+            219,
+            198
           ],
           "back": [
             143,
-            177
+            207
           ],
           "dur": 0.1
         },
@@ -139,28 +139,28 @@
         {
           "src": "celebrate-02.webp",
           "anchor": [
-            201,
-            366
+            118,
+            255
           ],
           "head": [
             216,
-            75
+            64
           ],
           "hand": [
-            286,
-            144
+            287,
+            123
           ],
           "eyes": [
-            243,
-            132
+            244,
+            113
           ],
           "neck": [
-            219,
-            198
+            220,
+            170
           ],
           "back": [
             143,
-            207
+            177
           ],
           "dur": 0.1
         },
@@ -294,6 +294,33 @@
         {
           "src": "walk-01.webp",
           "anchor": [
+            158,
+            270
+          ],
+          "head": [
+            204,
+            68
+          ],
+          "hand": [
+            271,
+            131
+          ],
+          "eyes": [
+            230,
+            120
+          ],
+          "neck": [
+            208,
+            180
+          ],
+          "back": [
+            136,
+            188
+          ]
+        },
+        {
+          "src": "walk-02.webp",
+          "anchor": [
             170,
             271
           ],
@@ -319,7 +346,7 @@
           ]
         },
         {
-          "src": "walk-02.webp",
+          "src": "walk-03.webp",
           "anchor": [
             176,
             270
@@ -342,33 +369,6 @@
           ],
           "back": [
             138,
-            188
-          ]
-        },
-        {
-          "src": "walk-03.webp",
-          "anchor": [
-            158,
-            270
-          ],
-          "head": [
-            204,
-            68
-          ],
-          "hand": [
-            271,
-            131
-          ],
-          "eyes": [
-            230,
-            120
-          ],
-          "neck": [
-            208,
-            180
-          ],
-          "back": [
-            136,
             188
           ]
         }
@@ -410,6 +410,33 @@
         {
           "src": "run-01.webp",
           "anchor": [
+            182,
+            208
+          ],
+          "head": [
+            198,
+            52
+          ],
+          "hand": [
+            262,
+            101
+          ],
+          "eyes": [
+            223,
+            93
+          ],
+          "neck": [
+            201,
+            138
+          ],
+          "back": [
+            131,
+            145
+          ]
+        },
+        {
+          "src": "run-02.webp",
+          "anchor": [
             227,
             192
           ],
@@ -435,7 +462,7 @@
           ]
         },
         {
-          "src": "run-02.webp",
+          "src": "run-03.webp",
           "anchor": [
             267,
             223
@@ -460,33 +487,6 @@
             139,
             155
           ]
-        },
-        {
-          "src": "run-03.webp",
-          "anchor": [
-            182,
-            208
-          ],
-          "head": [
-            198,
-            52
-          ],
-          "hand": [
-            262,
-            101
-          ],
-          "eyes": [
-            223,
-            93
-          ],
-          "neck": [
-            201,
-            138
-          ],
-          "back": [
-            131,
-            145
-          ]
         }
       ]
     },
@@ -498,60 +498,6 @@
       "frames": [
         {
           "src": "dance-00.webp",
-          "anchor": [
-            178,
-            279
-          ],
-          "head": [
-            221,
-            71
-          ],
-          "hand": [
-            293,
-            135
-          ],
-          "eyes": [
-            250,
-            123
-          ],
-          "neck": [
-            225,
-            186
-          ],
-          "back": [
-            147,
-            194
-          ]
-        },
-        {
-          "src": "dance-01.webp",
-          "anchor": [
-            180,
-            361
-          ],
-          "head": [
-            193,
-            80
-          ],
-          "hand": [
-            256,
-            155
-          ],
-          "eyes": [
-            218,
-            142
-          ],
-          "neck": [
-            196,
-            213
-          ],
-          "back": [
-            128,
-            223
-          ]
-        },
-        {
-          "src": "dance-02.webp",
           "anchor": [
             153,
             318
@@ -578,7 +524,34 @@
           ]
         },
         {
-          "src": "dance-03.webp",
+          "src": "dance-01.webp",
+          "anchor": [
+            178,
+            279
+          ],
+          "head": [
+            221,
+            71
+          ],
+          "hand": [
+            293,
+            135
+          ],
+          "eyes": [
+            250,
+            123
+          ],
+          "neck": [
+            225,
+            186
+          ],
+          "back": [
+            147,
+            194
+          ]
+        },
+        {
+          "src": "dance-02.webp",
           "anchor": [
             177,
             305
@@ -603,6 +576,33 @@
             146,
             212
           ]
+        },
+        {
+          "src": "dance-03.webp",
+          "anchor": [
+            180,
+            361
+          ],
+          "head": [
+            193,
+            80
+          ],
+          "hand": [
+            256,
+            155
+          ],
+          "eyes": [
+            218,
+            142
+          ],
+          "neck": [
+            196,
+            213
+          ],
+          "back": [
+            128,
+            223
+          ]
         }
       ]
     },
@@ -614,33 +614,6 @@
       "frames": [
         {
           "src": "ride-00.webp",
-          "anchor": [
-            199,
-            218
-          ],
-          "head": [
-            214,
-            41
-          ],
-          "hand": [
-            283,
-            79
-          ],
-          "eyes": [
-            241,
-            73
-          ],
-          "neck": [
-            217,
-            109
-          ],
-          "back": [
-            142,
-            114
-          ]
-        },
-        {
-          "src": "ride-01.webp",
           "anchor": [
             203,
             200
@@ -664,6 +637,33 @@
           "back": [
             145,
             105
+          ]
+        },
+        {
+          "src": "ride-01.webp",
+          "anchor": [
+            199,
+            218
+          ],
+          "head": [
+            214,
+            41
+          ],
+          "hand": [
+            283,
+            79
+          ],
+          "eyes": [
+            241,
+            73
+          ],
+          "neck": [
+            217,
+            109
+          ],
+          "back": [
+            142,
+            114
           ]
         }
       ]
@@ -2006,5 +2006,5 @@
     "surprised": "portrait-surprised.webp",
     "determined": "portrait-determined.webp"
   },
-  "provenance": "Approved canonical artwork as exact ImageGen reference; authored transparent key-pose and cycle strips, one-frame isolated action cells, per-frame anchors and attachment landmarks."
+  "provenance": "Approved canonical artwork as exact ImageGen reference; authored transparent key-pose and cycle strips, one-frame isolated action cells, per-frame anchors and attachment landmarks. Horizontal strips are ordered left-to-right by source x coordinate, with per-frame anchors and durations retained."
 }
