@@ -1409,6 +1409,528 @@
       "height": 128,
       "bytes": 6862,
       "status": "reused approved art; no redraw"
+    },
+    {
+      "key": "prop/plant-rose-glow",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the exact mature plant to preserve. Create its magical night glow variant: keep exactly its geometry, colors, shape, stem, leaf locations, scale and framing, only make petals/cap luminous with soft colored light and tiny attached star glints. No dark background, keep transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-73932ca9-60b5-4b83-aec0-c1945212a7c3.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-f966d8aa-e1e1-4ae6-972e-af5d84f59cf3.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 169,
+      "height": 256,
+      "bytes": 19780,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-sunflower-glow",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the exact mature plant to preserve. Create its magical night glow variant: keep exactly its geometry, colors, shape, stem, leaf locations, scale and framing, only make petals/cap luminous with soft colored light and tiny attached star glints. No dark background, keep transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-dfdf1ed4-e025-4f35-b86c-04b4a33fcd8f.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-aaba6ca0-e334-482a-acf3-86b013791452.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 169,
+      "height": 256,
+      "bytes": 22730,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-star-bloom-glow",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the exact mature plant to preserve. Create its magical night glow variant: keep exactly its geometry, colors, shape, stem, leaf locations, scale and framing, only make petals/cap luminous with soft colored light and tiny attached star glints. No dark background, keep transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-6a0e767b-8d38-4172-926f-8032d3f05ed9.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-689bfcd8-0314-41e5-813f-ceea2deec90f.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 172,
+      "height": 256,
+      "bytes": 19800,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-rainbow-tulip-glow",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the exact mature plant to preserve. Create its magical night glow variant: keep exactly its geometry, colors, shape, stem, leaf locations, scale and framing, only make petals/cap luminous with soft colored light and tiny attached star glints. No dark background, keep transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d7f45322-946e-4b34-a114-1576b5daad5b.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-21025efe-c527-4296-b4b1-a59b05802924.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 161,
+      "height": 256,
+      "bytes": 16974,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-glow-mushroom-glow",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the exact mature plant to preserve. Create its magical night glow variant: keep exactly its geometry, colors, shape, stem, leaf locations, scale and framing, only make petals/cap luminous with soft colored light and tiny attached star glints. No dark background, keep transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-86be3e93-44ef-4dd4-93cd-ba953f888b35.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-65e40728-9d5a-4cfc-9d37-6e05dda8c0a0.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 255,
+      "bytes": 19914,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-crystal-flower-glow",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the exact mature plant to preserve. Create its magical night glow variant: keep exactly its geometry, colors, shape, stem, leaf locations, scale and framing, only make petals/cap luminous with soft colored light and tiny attached star glints. No dark background, keep transparent.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-5ecd37a0-2f5b-4e42-b4c6-d1672191976b.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2dfb9d0b-c914-4794-9cb5-f3c49d75af38.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 174,
+      "height": 256,
+      "bytes": 20034,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-rose-bud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the mature plant STYLE and IDENTITY reference. Draw its younger closed bud growth stage. A short stem with two small matching leaves and a tightly closed pink flower bud at top. No open petals. Single whole plant, baseline bottom-center, no pot, soil, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b200dfc0-2d3b-4b65-914f-a37883747216.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-f966d8aa-e1e1-4ae6-972e-af5d84f59cf3.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 166,
+      "height": 256,
+      "bytes": 12356,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-sunflower-bud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the mature plant STYLE and IDENTITY reference. Draw its younger closed bud growth stage. A short stem with two small matching leaves and a tightly closed yellow-green flower bud at top. No open petals. Single whole plant, baseline bottom-center, no pot, soil, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-82d0c245-9e7a-4f59-a142-98310e6caebc.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-aaba6ca0-e334-482a-acf3-86b013791452.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 166,
+      "height": 256,
+      "bytes": 13054,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-star-bloom-bud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the mature plant STYLE and IDENTITY reference. Draw its younger closed bud growth stage. A short stem with two small matching leaves and a tightly closed golden flower bud at top. No open petals. Single whole plant, baseline bottom-center, no pot, soil, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-bbd3b1ed-9e34-4071-b650-9afe78b8988a.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-689bfcd8-0314-41e5-813f-ceea2deec90f.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 159,
+      "height": 256,
+      "bytes": 11678,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-rainbow-tulip-bud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the mature plant STYLE and IDENTITY reference. Draw its younger closed bud growth stage. A short stem with two small matching leaves and a tightly closed rainbow flower bud at top. No open petals. Single whole plant, baseline bottom-center, no pot, soil, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-181098ab-f94a-4c0e-8f2d-134b14b4825b.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-21025efe-c527-4296-b4b1-a59b05802924.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 164,
+      "height": 256,
+      "bytes": 12468,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-glow-mushroom-bud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the mature plant STYLE and IDENTITY reference. Draw its younger closed bud growth stage. A young short cream stem with a small closed round purple mushroom cap, no expanded gills. Single whole plant, baseline bottom-center, no pot, soil, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-6d470437-d377-4f45-a071-40b32455f2fb.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-65e40728-9d5a-4cfc-9d37-6e05dda8c0a0.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 253,
+      "bytes": 12902,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-crystal-flower-bud",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image 1 is the mature plant STYLE and IDENTITY reference. Draw its younger closed bud growth stage. A short pale teal crystal stem with two little crystal leaves and one closed icy blue pointed bud. Single whole plant, baseline bottom-center, no pot, soil, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2663c93a-5b8d-4248-bdc4-3988711db728.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2dfb9d0b-c914-4794-9cb5-f3c49d75af38.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 176,
+      "height": 256,
+      "bytes": 12132,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/broccoli-bonk",
+      "source": "party/tools/sprites/sources/broccoli-bonk.webp",
+      "tool": "built-in imagegen by NPC agent; Pillow trim/resize/WebP",
+      "promptSource": "party/tools/sprites/specs/npc-extra-generation-prompts.json",
+      "width": 144,
+      "height": 150,
+      "bytes": 9502,
+      "status": "inspected; no lightning baked into cloud"
+    },
+    {
+      "key": "prop/storm-cloud-zap",
+      "source": "party/tools/sprites/sources/storm-cloud-zap-no-bolt.webp",
+      "tool": "built-in imagegen by NPC agent; Pillow trim/resize/WebP",
+      "promptSource": "party/tools/sprites/specs/npc-extra-generation-prompts.json",
+      "width": 366,
+      "height": 340,
+      "bytes": 16840,
+      "status": "inspected; no lightning baked into cloud"
+    },
+    {
+      "key": "prop/plant-rose-sprout",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 is the mature plant STYLE reference. Draw its very young sprout stage, with NO flower or bud. One very short green stem and exactly two little rounded leaves. Entire single sprout centered, stem base at bottom-center. No pot, soil mound, seed, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b88cfdad-9c96-4a23-8e25-17147440e21d.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-f966d8aa-e1e1-4ae6-972e-af5d84f59cf3.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 173,
+      "height": 256,
+      "bytes": 7880,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-sunflower-sprout",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 is the mature plant STYLE reference. Draw its very young sprout stage, with NO flower or bud. One very short green stem and exactly two little rounded leaves. Entire single sprout centered, stem base at bottom-center. No pot, soil mound, seed, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2ec0e8d4-6815-46ba-9a20-6daacc104123.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-aaba6ca0-e334-482a-acf3-86b013791452.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 210,
+      "height": 256,
+      "bytes": 9192,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-star-bloom-sprout",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 is the mature plant STYLE reference. Draw its very young sprout stage, with NO flower or bud. One very short teal stem and exactly two little rounded leaves. Entire single sprout centered, stem base at bottom-center. No pot, soil mound, seed, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-66cffa1b-5060-42aa-ad60-5cb1230c26ba.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-689bfcd8-0314-41e5-813f-ceea2deec90f.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 227,
+      "height": 256,
+      "bytes": 10010,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-rainbow-tulip-sprout",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 is the mature plant STYLE reference. Draw its very young sprout stage, with NO flower or bud. One very short green stem and exactly two little pointed leaves. Entire single sprout centered, stem base at bottom-center. No pot, soil mound, seed, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-38c54ad1-063f-429d-a76a-e1db5b3ad189.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-21025efe-c527-4296-b4b1-a59b05802924.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 207,
+      "height": 256,
+      "bytes": 9922,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-glow-mushroom-sprout",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 is the mature plant STYLE reference. Draw its very young sprout stage, with NO flower or bud. A tiny cream mushroom shoot with pinhead purple cap just emerging. Entire single sprout centered, stem base at bottom-center. No pot, soil mound, seed, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b2b67652-839a-48ec-be33-7859be656e84.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-65e40728-9d5a-4cfc-9d37-6e05dda8c0a0.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 212,
+      "bytes": 8968,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-crystal-flower-sprout",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: Input image1 is the mature plant STYLE reference. Draw its very young sprout stage, with NO flower or bud. A tiny pale teal crystalline shoot with two small faceted blue leaves. Entire single sprout centered, stem base at bottom-center. No pot, soil mound, seed, face, background or detached effects.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-462d8feb-e9ec-436d-909f-9db030a3709e.png",
+      "size": [
+        256,
+        256
+      ],
+      "inputs": [
+        "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2dfb9d0b-c914-4794-9cb5-f3c49d75af38.png"
+      ],
+      "tool": "built-in imagegen",
+      "width": 186,
+      "height": 256,
+      "bytes": 8566,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-rose-seed",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one little pink rose seed with a tiny rose spiral engraved into its shell. Single seed for magical gardening game, no roots, no leaves, no sprout, no pot, no soil, no face, centered front three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-ac6f2c2e-ea88-4268-942b-7c43ed6a20ef.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 242,
+      "height": 256,
+      "bytes": 11546,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-sunflower-seed",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one plump gray-black sunflower seed with cream stripes. Single seed for magical gardening game, no roots, no leaves, no sprout, no pot, no soil, no face, centered front three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-d1d39eb3-1b0e-487a-a7d4-1253ad00c7f4.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 239,
+      "bytes": 15080,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-star-bloom-seed",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one little gold star-shaped seed. Single seed for magical gardening game, no roots, no leaves, no sprout, no pot, no soil, no face, centered front three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-fec0cb2e-f794-448a-9b50-bcd55aa2d2db.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 237,
+      "height": 256,
+      "bytes": 13110,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-rainbow-tulip-seed",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one little tan tulip bulb with a rainbow-colored pointed tip. Single seed for magical gardening game, no roots, no leaves, no sprout, no pot, no soil, no face, centered front three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-2f38ff36-66b1-4bad-8796-f96d5eab710a.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 233,
+      "bytes": 11264,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-glow-mushroom-seed",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one little round purple mushroom spore with two turquoise spots. Single seed for magical gardening game, no roots, no leaves, no sprout, no pot, no soil, no face, centered front three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-f1336f63-92d4-4b5d-b407-67e7d656e4c1.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 256,
+      "height": 255,
+      "bytes": 10286,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/plant-crystal-flower-seed",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: one little faceted icy-blue crystal seed. Single seed for magical gardening game, no roots, no leaves, no sprout, no pot, no soil, no face, centered front three-quarter view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-69096412-c5ce-4e32-a9b2-a0efe7bc1421.png",
+      "size": [
+        256,
+        256
+      ],
+      "tool": "built-in imagegen",
+      "width": 199,
+      "height": 256,
+      "bytes": 11754,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/note-a",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One round green rhythm-game note gem, front view, glossy circular jewel with a simple white highlight, subtle faceted rim, no letters, no numbers, no musical notation.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-7baa725b-3770-4872-8a60-c8f639fd522c.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 115,
+      "bytes": 6740,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/note-b",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One round red rhythm-game note gem, front view, glossy circular jewel with a simple white highlight, subtle faceted rim, no letters, no numbers, no musical notation.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-cc5f46b1-c8af-4147-86f3-1b7aa320cff5.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 127,
+      "bytes": 6092,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/note-x",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One round blue rhythm-game note gem, front view, glossy circular jewel with a simple white highlight, subtle faceted rim, no letters, no numbers, no musical notation.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-8479835b-0357-4944-8515-dcc857ca3ab2.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 118,
+      "bytes": 7066,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/note-y",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One round yellow rhythm-game note gem, front view, glossy circular jewel with a simple white highlight, subtle faceted rim, no letters, no numbers, no musical notation.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b505c6b5-fa12-4903-ab86-778c19ada1ea.png",
+      "size": [
+        128,
+        128
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 126,
+      "bytes": 7342,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/rock",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One smooth squat lavender-gray meadow boulder, rounded polygonal silhouette, front elevated three-quarter view, plain surface.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-b15ee6cb-5bed-4968-b7fc-c817639d51e6.png",
+      "size": [
+        160,
+        140
+      ],
+      "tool": "built-in imagegen",
+      "width": 160,
+      "height": 124,
+      "bytes": 5288,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/flower",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One simple small five-petaled pink meadow flower with round yellow center, top-down view, no stem.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-3aae3342-f2a5-49af-af6b-7afc105830ac.png",
+      "size": [
+        96,
+        96
+      ],
+      "tool": "built-in imagegen",
+      "width": 96,
+      "height": 91,
+      "bytes": 4980,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/lantern-off",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One charming brass wizard lantern with round top hanging loop, glass belly and unlit candle inside, front view.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-7a0365a7-3176-4707-98cf-29f07443bb2d.png",
+      "size": [
+        160,
+        200
+      ],
+      "tool": "built-in imagegen",
+      "width": 128,
+      "height": 200,
+      "bytes": 13742,
+      "status": "generated; inspected"
+    },
+    {
+      "key": "prop/wand-wizard",
+      "prompt": "Use case: stylized-concept. Asset type: single game prop sprite for a 2D children's party video game. Style: bold smooth dark navy outlines, rounded appealing shapes, bright cheerful pastel colors, simple clean cel shading, no photorealism, no 3D. One isolated object entirely visible with a generous safe margin, transparent background, no cast shadow, no words or letters or watermark. Subject: One slender wooden wizard wand angled lower-left to upper-right, violet handle wrap and simple glowing pale blue tip, no hand, no magic trail.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-692f-7510-a2f1-1af5270543c5/exec-4c0e6c67-c7a1-4931-8a13-e5c4aa7eac33.png",
+      "size": [
+        140,
+        140
+      ],
+      "tool": "built-in imagegen",
+      "width": 140,
+      "height": 94,
+      "bytes": 3930,
+      "status": "generated; inspected"
     }
   ]
 }
