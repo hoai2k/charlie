@@ -46,6 +46,39 @@ function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (
 function mix(a, b, t) { const A = hex(a), B = hex(b); return `rgb(${A.map((x, i) => Math.round(x + (B[i] - x) * t)).join(',')})`; }
 const popK = (t) => (t < 0.4 ? 0.25 + ease.outBack(t / 0.4) * 0.75 : 1);
 
+// Only substitute matching palette variants: X must still change the outfit's
+// color. Other colors and wardrobe items retain their procedural rendering.
+const WORN_ART = {
+  Crown: { colors: { 1: 'crown-gold', 6: 'crown-silver' }, w: 0.95, h: 0.7, ay: 1 },
+  Tiara: { colors: { 6: 'tiara-pearl' }, w: 0.95, h: 0.55, ay: 1 },
+  'Flower Crown': { colors: { 0: 'crown-flower' }, w: 1.05, h: 0.55, ay: 0.8 },
+  'Big Bow': { colors: { 0: 'bow-pink', 1: 'bow-gold', 3: 'bow-blue' }, w: 0.9, h: 0.65, ay: 1 },
+  'Wizard Hat': { colors: { 2: 'hat-witch' }, w: 1.15, h: 1, ay: 1 },
+  Glasses: { colors: { 2: 'glasses-round' }, w: 1.05, h: 0.5, ay: 0.5 },
+  'Heart Shades': { colors: { 0: 'glasses-heart' }, w: 1.05, h: 0.5, ay: 0.5 },
+  Pearls: { colors: { 6: 'necklace-pearls' }, w: 0.65, h: 0.48, ay: 0 },
+  'Heart Locket': { colors: { 0: 'necklace-heart' }, w: 0.65, h: 0.48, ay: 0 },
+  'Fairy Wings': { colors: { 0: 'wings-fairy' }, w: 0.85, h: 0.65, ay: 0.57, flap: 5 },
+  'Butterfly Wings': { colors: { 2: 'wings-butterfly' }, w: 0.85, h: 0.65, ay: 0.55, flap: 5 },
+  'Angel Wings': { colors: { 6: 'wings-feather' }, w: 0.85, h: 0.6, ay: 0.65, flap: 3 },
+  'Royal Cape': { colors: { 5: 'cape-royal', 7: 'cape-rainbow' }, w: 0.65, h: 0.62, ay: 0, sway: true },
+  'Magic Wand': { colors: { 1: 'wand-star' }, w: 0.17, h: 0.38, ay: 0.88 },
+};
+
+function drawWornArt(g, item, color, S, t) {
+  const spec = WORN_ART[item.name], key = spec?.colors[color];
+  const img = key && art('prop/' + key);
+  if (!img) return false;
+  const scale = Math.min(S * spec.w / img.width, S * spec.h / img.height);
+  const w = img.width * scale, h = img.height * scale;
+  g.save();
+  if (spec.flap) g.scale(0.91 + 0.09 * Math.cos(t * spec.flap), 1);
+  if (spec.sway) g.transform(1, 0, Math.sin(t * 2) * 0.035, 1, 0, 0);
+  g.drawImage(img, -w / 2, -h * spec.ay, w, h);
+  g.restore();
+  return true;
+}
+
 /** Split-screen station rects: 1 = big center, 2 = halves, 3-4 = quadrants, 5-8 = 4x2 grid. */
 function stationRects(n) {
   const top = 112, bottom = 1068, left = 14, right = W - 14, gap = 14;
@@ -149,7 +182,7 @@ export class Game {
       g.save(); g.translate(x, y);
       if (tilt && (ci === CAT.head || ci === CAT.face)) g.rotate(tilt);
       const k = popK(st.pop[ci]); g.scale(k, k);
-      fn(g, S, col, t);
+      if (which === 'behind' || !drawWornArt(g, it, o.colors[o.item], S, t)) fn(g, S, col, t);
       g.restore();
     };
     if (behind) {

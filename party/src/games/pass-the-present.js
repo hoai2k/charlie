@@ -564,7 +564,8 @@ export class Game {
     else g.rotate(Math.sin(this.t * 30) * 0.05 * P.heat * 2);
     const size = 92 * (P.state === 'flying' ? 1 : this.holderScale());
     g.scale(big, big);
-    if (!drawArt(g, 'prop/present', 0, 0, size * 1.2, size * 1.2)) drawPresent(g, 0, 0, size, P.heat, this.t, 1);
+    const presentKey = P.heat > 0.55 && art('prop/present-ticking') ? 'prop/present-ticking' : 'prop/present';
+    if (!drawArt(g, presentKey, 0, 0, size * 1.2, size * 1.2)) drawPresent(g, 0, 0, size, P.heat, this.t, 1);
     g.restore();
     // shadow while flying
     if (P.state === 'flying') {

@@ -750,6 +750,11 @@ export class Game {
       }
     }
     g.restore();
+    // Keep the timing-critical burst and rays independent of the lantern art.
+    if (drawArt(g, go ? 'prop/lantern-on' : 'prop/lantern-off', 0, 60, 100, 140)) {
+      g.restore();
+      return;
+    }
     // cap
     g.fillStyle = '#4a3b2a'; g.strokeStyle = NAVY; g.lineWidth = 6;
     g.beginPath(); g.moveTo(-30, 14); g.lineTo(-14, -6); g.lineTo(14, -6); g.lineTo(30, 14); g.closePath(); g.fill(); g.stroke();

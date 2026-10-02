@@ -18,12 +18,31 @@ export async function loadArt() {
     const res = await fetch('assets/art/index.json', { cache: 'no-cache' });
     if (!res.ok) return;
     const idx = await res.json();
-    await Promise.all(Object.entries(idx.images || {}).map(([key, file]) => new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => { images.set(key, img); resolve(); };
-      img.onerror = () => { console.warn('Missing art', file); resolve(); };
-      img.src = 'assets/art/' + file;
-    })));
+    const files = new Map();
+    for (const [key, file] of Object.entries(idx.images || {})) {
+      if (!files.has(file)) files.set(file, []);
+      files.get(file).push(key);
+    }
+    const queue = [...files.entries()];
+    // Share one decoded image across aliases and avoid hundreds of simultaneous
+    // requests. Retry a transient failure once before retaining the fallback.
+    async function worker() {
+      while (queue.length) {
+        const [file, keys] = queue.shift();
+        let loaded = null;
+        for (let attempt = 0; attempt < 2 && !loaded; attempt++) {
+          loaded = await new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(img);
+            img.onerror = () => resolve(null);
+            img.src = 'assets/art/' + file + (attempt ? '?retry=1' : '');
+          });
+        }
+        if (loaded) for (const key of keys) images.set(key, loaded);
+        else console.warn('Missing art', file);
+      }
+    }
+    await Promise.all(Array.from({ length: Math.min(6, queue.length) }, worker));
   } catch (e) { /* no art yet */ }
 }
 

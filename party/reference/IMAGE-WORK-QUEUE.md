@@ -17,13 +17,13 @@ are intentional, while Marina/Scale still need their extended player actions.
    only Unicorn, then hands off. Amber, Snowstar and Birthday Cake each have
    core, walk/run, air/reaction and celebration/ride sheets saved with specs and
    exact prompts. Those three need QA, remaining actions/dance and registration.
-   Delegate that finishing work to a lighter agent when a slot opens.
+   The lighter animal agent takes those three next, in that order.
 2. **Mermaid extensions** — Marina/Scale still need game-action vocabulary and
    Round 3 animation upgrades; preserve tails and use gliding locomotion.
-3. **Game art** — environment agent completes fashion accessories and cake
-   toppings, then hands off. Existing 190-key checkpoint includes backgrounds,
+3. **Game art** — environment agent has delivered fashion accessories and cake
+   toppings. Existing 230-key checkpoint includes backgrounds,
    thumbnails, priority props, plants, UI and effects. New accessory/topping art
-   needs registration checkpoint and narrow game hooks (fashion, cake, rewards).
+   is committed; narrow game hooks remain (fashion, cake, rewards).
 4. **Audit remaining requests** — compare authored poses and indexed art against
    Round 2/3 without counting aliases as newly generated art. Round 3 extra poses
    are currently broadest on the three pilot characters. Update coverage after

@@ -41,7 +41,7 @@ Frame entries may repeat an image for timing; aliases and procedural overlays ar
 
 ## Registered game art
 
-The published checkpoint has **190 keys**. All 20 game thumbnails and shared/game backgrounds are present, alongside 30 plant stages, priority props, UI rewards and effects. Additional fashion accessories and cake parts are in progress and are not counted in that checkpoint. Remaining art and code hookups are recorded in the queue.
+The published checkpoint has **230 keys / 220 unique files**. All 20 game thumbnails and shared/game backgrounds are present, alongside 30 plant stages, priority props, UI rewards and effects. Fashion accessories and cake parts are included. Remaining art and code hookups are recorded in the queue.
 
 
 ## Verification

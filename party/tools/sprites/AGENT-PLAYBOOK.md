@@ -105,6 +105,7 @@ the source is opaque.
 ```sh
 python3 party/tools/sprites/validate.py
 node party/tools/sprites/runtime.test.mjs
+node party/tools/sprites/art-loading.test.mjs
 ```
 
 NPC-only sets intentionally omit player Tier-1 actions. Distinguish those
@@ -112,6 +113,11 @@ warnings from player omissions. KPop members must have matching pose vocabulary,
 bodyHeight and frame counts, while retaining distinct blink timing/personality.
 Use `ensureSpriteSet` and the existing NPC renderer for lazy loading; keep
 procedural fallback behavior until artwork is ready.
+
+Large art inventories can create bursts of image requests. The loader now limits
+concurrency to six, shares decoded images across aliases and retries once. A
+local browser warning occurred despite the file being present and decodable;
+check the file before assuming generation failed.
 
 ## Checkpoint safely with concurrent agents
 
