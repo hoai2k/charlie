@@ -1,5 +1,11 @@
 # Doll Puppets: image requests
 
+Completed 2026-10-02: all seven requested images are saved at the paths and
+sizes below. The Camera thumbnail and dismissible first-play gesture hint
+strip are wired into the game. Generated with the built-in image generator;
+the final prompt set is recorded in `assets/image-generation-prompts.json`.
+Title, selection, and hint layouts were checked at 390×844 and 1280×720.
+
 This brief is for whoever makes art for Doll Puppets (a person or an image
 agent). The game now opens on a **title screen** and then a **"Choose your
 doll" screen**, before the camera puppet starts. Both screens already work with

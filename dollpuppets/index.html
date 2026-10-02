@@ -10,12 +10,12 @@
       }
     </script>
     <title>Doll Puppets</title>
-    <link rel="icon" type="image/png" href="./favicon.png" />
-    <link rel="apple-touch-icon" href="./favicon.png" />
+    <link rel="icon" type="image/png" href="./favicon.png?v=20261002b" />
+    <link rel="apple-touch-icon" href="./favicon.png?v=20261002b" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" />
-    <link rel="stylesheet" href="./site.css?v=20261002a" />
+    <link rel="stylesheet" href="./site.css?v=20261002b" />
   </head>
   <body>
     <main class="dolls-app" data-screen="title" style="--background-image: url('./assets/backgrounds/farm.webp')">
@@ -32,6 +32,11 @@
           <span class="hud-icon" aria-hidden="true">❚❚</span><span class="hud-label">Pause</span>
         </button>
       </div>
+      <aside id="gesture-hints" class="gesture-hints" aria-label="Faces to try" hidden>
+        <strong>Try this!</strong>
+        <img src="./assets/ui/try_these.webp" width="960" height="160" alt="Smile, laugh, blow a kiss, stick out your tongue, look surprised, or make a heart with your hands." />
+        <button id="dismiss-hints" type="button" aria-label="Close face hints">×</button>
+      </aside>
       <div class="notice-stack">
         <p id="status" class="status" role="status"></p>
         <button id="camera-retry" class="camera-retry" type="button" hidden>Try again</button>
@@ -76,6 +81,6 @@
       </section>
     </main>
 
-    <script type="module" src="./site.js?v=20261002a"></script>
+    <script type="module" src="./site.js?v=20261002b"></script>
   </body>
 </html>

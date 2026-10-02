@@ -8,7 +8,8 @@ import GAME_CONFIG from "./gameConfig.js";
 const BACKGROUNDS = {
   none: {
     label: "Camera",
-    src: null
+    src: null,
+    thumbnail: "./assets/ui/scene_camera.webp"
   },
   farm: {
     label: "Farm",
@@ -78,6 +79,22 @@ const debugTools = document.querySelector("#debug-tools");
 const downloadDebugButton = document.querySelector("#download-debug");
 const status = document.querySelector("#status");
 const cameraRetryButton = document.querySelector("#camera-retry");
+const gestureHints = document.querySelector("#gesture-hints");
+let hintsDismissed = false;
+try {
+  hintsDismissed = localStorage.getItem("dollpuppets-hints-seen") === "true";
+} catch {
+  // Keep the hints usable when browser storage is unavailable.
+}
+document.querySelector("#dismiss-hints").addEventListener("click", () => {
+  hintsDismissed = true;
+  gestureHints.hidden = true;
+  try {
+    localStorage.setItem("dollpuppets-hints-seen", "true");
+  } catch {
+    // Dismiss for this visit even without persistent storage.
+  }
+});
 const ctx = canvas.getContext("2d");
 const urlParams = new URLSearchParams(window.location.search);
 const debugEnabled = urlParams.has("debug");
@@ -548,8 +565,9 @@ function buildBackgroundChoices() {
     button.type = "button";
     button.dataset.background = id;
     button.setAttribute("role", "option");
-    const previewStyle = background.src ? ` style="--preview-image: url('${background.src}')"` : "";
-    const previewIcon = background.src ? "" : "📷";
+    const preview = background.thumbnail ?? background.src;
+    const previewStyle = preview ? ` style="--preview-image: url('${preview}')"` : "";
+    const previewIcon = preview ? "" : "📷";
     button.innerHTML = `
       <span class="background-preview"${previewStyle}>${previewIcon}</span>
       <span class="background-name">${background.label}</span>
@@ -658,6 +676,7 @@ function setScreen(next) {
   app.dataset.screen = next;
   titleScreen.hidden = next !== "title";
   selectScreen.hidden = next !== "select";
+  gestureHints.hidden = next !== "play" || hintsDismissed;
   if (next === "select") {
     if (paused) {
       // Show the doll moving while choosing.

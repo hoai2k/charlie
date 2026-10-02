@@ -1,0 +1,74 @@
+{
+  "mode": "built-in image_gen",
+  "generatedOn": "2026-10-02",
+  "assets": [
+    {
+      "file": "assets/ui/logo.webp",
+      "w": 1100,
+      "h": 420,
+      "alpha": true,
+      "refs": [
+        "americangirldollrace/assets/ui/logo.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Create a wide transparent game logo reading exactly \"Doll Puppets\", and no other text. Sister logo to the provided race logo: chunky sculpted storybook toy lettering, rich golden outline, deep #2b1838 outlines and shadow, pink #e04f97 and gold #ffc94a palette, flowing ribbon banner and little gold stars. Replace horse and horseshoe motifs with a wooden marionette crossbar at the top and strings leading to letters, a subtle theatre curtain swag. Wide 1100:420 composition, all artwork inside frame with small clear padding. Clean actual alpha, no background or checkerboard. Big readable lettering for young children."
+    },
+    {
+      "file": "assets/ui/title_background.webp",
+      "w": 2172,
+      "h": 724,
+      "alpha": false,
+      "refs": [
+        "dollpuppets/assets/backgrounds/farm.webp"
+      ],
+      "prompt": "Use case: illustration-story. Wide panoramic 3:1 title screen game art. Soft painted bright storybook outdoor puppet theatre in the supplied farm meadow, with red velvet curtains pulled open on the left and right of a wide wooden stage, warm footlight glow, cheerful bunting along the top edge. Farm hills, trees, fence, barn glimpsed in the side bleed. Centre stage empty and fairly plain, no characters, no text, no logo. Logo will overlay top third and portraits bottom 35 percent, so preserve calm broad central negative space. Important theatre content inside central 1280-wide area of 2172x724 canvas; far left and right are scenic bleed. Child friendly polished painterly scenery matching reference."
+    },
+    {
+      "file": "assets/portraits/troll.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "refs": [
+        "dollpuppets/assets/troll/reference.webp",
+        "dollpuppets/assets/troll/body_pose_1.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Transparent waist-up card portrait of the exact troll from the references. Preserve recognizable olive mottled skin, broad bumpy brow, amber eyes, broad nose, lower tusks and long scraggly dark hair; same stocky body and rustic clothing. Make expression a goofy friendly lopsided grin, playful raised eyebrow, relaxed little wave, rather than frightening. Three quarters toward viewer, head fills upper 55 percent of portrait, body below, all head/hair/hands contained, 4:5 composition. Toy-like painted game portrait with soft polish. Actual alpha background. Ignore corrupt green/magenta fringe and horizontal artifacts in references; do not reproduce them. No lettering."
+    },
+    {
+      "file": "assets/portraits/kpop.webp",
+      "w": 320,
+      "h": 400,
+      "alpha": true,
+      "refs": [
+        "dollpuppets/assets/kpop/reference.webp",
+        "dollpuppets/assets/kpop/body_pose_1.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Transparent waist-up card portrait of exact K-Pop doll from face and outfit references. Preserve face and hair: fair pink skin, large reddish brown eyes, winged eyeliner, purple eyebrows, pink lips, glossy lavender/purple swept hair in a tall top bun, small earrings. Same yellow cropped stage jacket with black collar and cuffs, white crop top, silver layered necklace, black shorts with pink belt at lower edge. Three quarters facing viewer, friendly confident smile, one hand on hip, other small peace gesture within frame. Head including bun fills top 55 percent. 4:5 portrait, clean alpha, toy-like polished painted/rendered doll matching references. Ignore reference green/magenta backgrounds and corrupt horizontal artifacts. No text."
+    },
+    {
+      "file": "assets/ui/scene_camera.webp",
+      "w": 176,
+      "h": 104,
+      "alpha": false,
+      "refs": [],
+      "prompt": "Use case: stylized-concept. Landscape 176:104 game scene thumbnail, big friendly rounded cartoon camera with shiny lens, pink and gold details, a few simple sparkles, centered on rich dark purple backdrop. Bright soft-painted storybook/toy style, thick readable shapes for a 2nd grader. No words, no letters, no frame. Fully opaque."
+    },
+    {
+      "file": "assets/ui/try_these.webp",
+      "w": 960,
+      "h": 160,
+      "alpha": true,
+      "refs": [],
+      "prompt": "Create six separate ROUND cartoon expression badges, spread far apart across a single horizontal row on an actual transparent background. Each badge is a simple circular warm-tan doll face with purple hair, enclosed by a thick white circular die-cut rim. Large empty gaps between badges. NO rectangular shapes, NO grid, NO table, NO square panels, NO lines between badges. Entire white circles must be contained. Left to right expressions: big toothy smile; laughing head back eyes closed; puckered kiss with small heart; tongue sticking out; surprised wide eyes round O mouth; happy face with hands making a heart. Soft painted pink/gold/purple toy storybook cartoon style for children. Six circles of identical size aligned at same height; generous transparent space on all sides. Wide 3:1 canvas; circle diameter less than one sixth canvas width. No letters or text."
+    },
+    {
+      "file": "favicon.png",
+      "w": 128,
+      "h": 128,
+      "alpha": true,
+      "refs": [
+        "dollpuppets/assets/rumi/reference.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Square app icon of this exact Rumi doll face with marionette strings and a small wooden crossbar above. Preserve warm golden tan skin, very large friendly brown eyes, rounded vinyl doll face and rich purple braided hair swept over crown. Friendly smile. Bold simple readable at128x128, storybook toy-like polished rendering, subtle pink and gold accents matching Doll Puppets logo. Face large in frame, all hair and crossbar inside. Actual transparent background. No text, no green fringe or reference artifacts."
+    }
+  ]
+}
