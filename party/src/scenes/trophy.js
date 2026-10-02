@@ -1,3 +1,4 @@
+import { drawArt } from '../engine/art.js';
 // Party Marathon finale: the player who earned the most stars across the
 // marathon lifts the trophy; everyone else cheers.
 import { W, H } from '../engine/canvas.js';
@@ -76,6 +77,7 @@ export class TrophyScene {
     const gr = g.createRadialGradient(W / 2, 400, 50, W / 2, 500, 1100);
     gr.addColorStop(0, '#fff3b0'); gr.addColorStop(1, '#ff8fc7');
     g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    drawArt(g, 'bg/marathon', 0, 0, W, H, { anchor: 'topleft', fit: 'cover' });
     g.save(); g.translate(W / 2, 420); g.rotate(this.t * 0.1); g.fillStyle = 'rgba(255,255,255,0.3)';
     for (let i = 0; i < 18; i++) { g.rotate(TAU / 18); g.beginPath(); g.moveTo(0, 0); g.lineTo(-60, -1300); g.lineTo(60, -1300); g.fill(); }
     g.restore();

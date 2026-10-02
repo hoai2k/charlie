@@ -1,3 +1,4 @@
+import { drawArt } from '../engine/art.js';
 // How-to-play screen shown before every minigame (Mario Party style):
 // title, picture, goal, controls with button glyphs and tips, then every
 // human presses A to ready up (CPUs ready themselves).
@@ -72,6 +73,7 @@ export class IntroScene {
   draw(g) {
     const studio = this.meta.category === 'studio';
     ui.partyBackdrop(g, this.t, studio ? '#c9b3ff' : '#ffb3d9', studio ? '#d8c7ff' : '#ffc8e4');
+    drawArt(g, 'bg/howto', 0, 0, W, H, { anchor: 'topleft', fit: 'cover' });
     // Title ribbon.
     const tp = Math.min(1, this.t / 0.4);
     g.save(); g.translate(W / 2, 92); g.scale(0.6 + 0.4 * tp, 0.6 + 0.4 * tp);

@@ -1,3 +1,4 @@
+import { drawArt } from '../engine/art.js';
 // Results: podium ceremony. Winners celebrate (with a crown), the last place
 // pouts under a rain cloud, everyone's stars fly into the session tally.
 import { W, H } from '../engine/canvas.js';
@@ -152,6 +153,7 @@ export class ResultsScene {
     const gr = g.createRadialGradient(W / 2, 300, 100, W / 2, 400, 1200);
     gr.addColorStop(0, '#ffcde6'); gr.addColorStop(1, '#7b4bc9');
     g.fillStyle = gr; g.fillRect(0, 0, W, H);
+    drawArt(g, 'bg/results', 0, 0, W, H, { anchor: 'topleft', fit: 'cover' });
     // Spotlight beams.
     g.save(); g.globalAlpha = 0.18; g.fillStyle = '#fff6b0';
     for (let i = 0; i < 3; i++) {
