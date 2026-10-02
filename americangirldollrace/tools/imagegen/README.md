@@ -12,7 +12,9 @@ are recorded in `generation-manifest.json`.
   Portraits are 320×400; full-body poses are 418×418. Doll keys are whirlpool,
   juliette, claudia, kaya, lily, marisol, amanda, rumi and penelope.
 - `../../assets/ui/`: all 20 requested UI files, with names and final sizes
-  exactly matching the brief. The hero is the single `title_hero.webp` composite.
+  exactly matching the brief. The original `title_hero.webp` composite is preserved.
+  Six additional `title_hero_<key>.webp` cutouts can now be animated independently;
+  see the composition notes below.
 - All atlases use one horizontal row with fixed-size cells and the brief's order.
   Player badges contain numerals 1–8. Button glyphs contain A, B, X, Y, LB, RB.
   Track cards contain Farm, Fairy, Village, Winter, Castles.
@@ -59,3 +61,43 @@ then add local source paths to a separate manifest before exporting.
 
 These assets are ready for the title/select redesign described by the brief.
 This artwork change does not implement those new screens.
+
+## Independent title hero layers
+
+`../../assets/ui/title_hero_layout.json` describes the six new cutouts in a
+1600×640 logical composition. Its filenames are relative to the JSON's own
+directory. The `layers` array is already sorted back to front by `z`:
+
+- Claudia with her pegasus, Juliette with her unicorn, Whirlpool with her horse.
+- Lily, Rumi and Kaya running independently in front.
+
+Each rider and her mount are one image, so they move together. Hidden parts were
+reconstructed during isolation; these are independently generated variants of
+the original poses, rather than a pixel-exact disassembly of the composite.
+`title-hero-split-prompts.json` records the six final built-in ImageGen prompts.
+
+Use each layer's native `width`/`height` and `x`/`y` to reproduce the group.
+Optional motion parameters give each layer a different phase, period and entry
+delay. After loading the images into a map keyed by `layer.key`, for example:
+
+```js
+// elapsedMs is measured from animation start. Add a 16-pixel gutter around
+// the logical composition, then scale/translate the whole group into the scene.
+for (const layer of layout.layers) {
+  const localMs = elapsedMs - layer.enterDelayMs;
+  if (localMs < 0) continue;
+  const progress = Math.min(1, localMs / 700);
+  const easeOut = 1 - (1 - progress) ** 3;
+  const dx = -1800 * (1 - easeOut);
+  const dy = layer.bobAmplitude * Math.sin(
+    localMs / layer.bobPeriodMs * Math.PI * 2 + layer.phaseRadians
+  );
+  ctx.drawImage(images[layer.key],
+    16 + layer.x + dx, 16 + layer.y + dy, layer.width, layer.height);
+}
+```
+
+Keep a 16-pixel gutter around the logical composition for the bobbing motion;
+the rightmost runner and wing tips otherwise touch its bounds. Set bobAmplitude
+to zero and enterDelayMs to zero for a static composition. The original combined
+WebP remains available as the simple fallback.

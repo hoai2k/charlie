@@ -1,0 +1,71 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "file": "assets/ui/title_hero_whirlpool.webp",
+      "width": 475,
+      "height": 510,
+      "alpha": true,
+      "prompt": "Use case: background-extraction and identity-preserve. Separate this exact subject from the existing title hero reference into a single complete alpha cutout: Whirlpool: the leftmost blue/purple-streaked black-haired doll in purple dress and black vest, together with her brown horse. Keep her seated holding reins and the horse's same galloping-right pose, including entire tail and all four legs. Remove ALL other girls and ALL other mounts. The retained doll and her mount must retain the reference toy identity, proportions, materials, lighting, colours, accessories and exact pose. Do not redesign or stylize. Doll and mount are ONE inseparable cutout. Fill occluded parts naturally so the subject can move independently. Keep the entire subject visible with small transparent margin. No environment, text, decorations, shadows on ground or additional subjects. Genuinely transparent background. Crop image around the single isolated subject; final intended bounds 475x510.",
+      "refs": [
+        "assets/ui/title_hero.webp"
+      ],
+      "sha256": "24c3892130117d521f67bb6095b9ff352cbeef938afce6d900f7f9d0e16e65b6"
+    },
+    {
+      "file": "assets/ui/title_hero_juliette.webp",
+      "width": 520,
+      "height": 495,
+      "alpha": true,
+      "prompt": "Use case: background-extraction and identity-preserve. Separate this exact subject from the existing title hero reference into a single complete alpha cutout: Juliette: the blonde doll in gold star-patterned gown, together with her white rainbow-maned unicorn. Keep her seated holding reins and the unicorn's same galloping-right pose, including entire rainbow tail, horn and all four legs. Reconstruct only the small areas of horse legs/tail hidden by other dolls. Remove ALL other girls and ALL other mounts. The retained doll and her mount must retain the reference toy identity, proportions, materials, lighting, colours, accessories and exact pose. Do not redesign or stylize. Doll and mount are ONE inseparable cutout. Fill occluded parts naturally so the subject can move independently. Keep the entire subject visible with small transparent margin. No environment, text, decorations, shadows on ground or additional subjects. Genuinely transparent background. Crop image around the single isolated subject; final intended bounds 520x495.",
+      "refs": [
+        "assets/ui/title_hero.webp"
+      ],
+      "sha256": "22ecea68512c69b0380b51d3193e32983cb83a07c9e8abe83532d8c5accb1e8c"
+    },
+    {
+      "file": "assets/ui/title_hero_claudia.webp",
+      "width": 680,
+      "height": 550,
+      "alpha": true,
+      "prompt": "Use case: background-extraction and identity-preserve. Separate this exact subject from the existing title hero reference into a single complete alpha cutout: Claudia: the dark-skinned curly-haired doll with mint bow/cardigan and blue gingham dress, together with her white pegasus. Keep her seated holding reins and pegasus galloping-right pose with both wings raised, including whole wings, tail and all four legs. Reconstruct the small hidden areas behind the running dolls. Remove ALL other girls and ALL other mounts. The retained doll and her mount must retain the reference toy identity, proportions, materials, lighting, colours, accessories and exact pose. Do not redesign or stylize. Doll and mount are ONE inseparable cutout. Fill occluded parts naturally so the subject can move independently. Keep the entire subject visible with small transparent margin. No environment, text, decorations, shadows on ground or additional subjects. Genuinely transparent background. Crop image around the single isolated subject; final intended bounds 680x550.",
+      "refs": [
+        "assets/ui/title_hero.webp"
+      ],
+      "sha256": "094d9b662a6ee422e0982a1ac8c9805161fdc37cdfb8461b322b19a8c3573f8b"
+    },
+    {
+      "file": "assets/ui/title_hero_lily.webp",
+      "width": 253,
+      "height": 337,
+      "alpha": true,
+      "prompt": "Use case: background-extraction and identity-preserve. Separate this exact subject from the existing title hero reference into a single complete alpha cutout: Lily: the blonde running doll in blue cherry-pattern dress, two small hair buns with red bows and red boots, at front left. Keep EXACT same running-right stride, facial expression, arms, outfit, flowing hair, and red boot positions. Remove ALL other girls and ALL other mounts. The retained doll and running doll must retain the reference toy identity, proportions, materials, lighting, colours, accessories and exact pose. Do not redesign or stylize. No mount at all. Fill occluded parts naturally so the subject can move independently. Keep the entire subject visible with small transparent margin. No environment, text, decorations, shadows on ground or additional subjects. Genuinely transparent background. Crop image around the single isolated subject; final intended bounds 253x337.",
+      "refs": [
+        "assets/ui/title_hero.webp"
+      ],
+      "sha256": "472fb9f1ed220a4aad9be2acb549a5698870af8b27b0a17b0d85d38fdbcc5e3f"
+    },
+    {
+      "file": "assets/ui/title_hero_rumi.webp",
+      "width": 304,
+      "height": 358,
+      "alpha": true,
+      "prompt": "Use case: background-extraction and identity-preserve. Separate this exact subject from the existing title hero reference into a single complete alpha cutout: Rumi: the purple-braided running doll in yellow embroidered jacket, white crop top, dark skirt with gold chains and black boots, at front centre. Keep EXACT same running-right stride, facial expression, arms, outfit, braid, and boot positions. Remove ALL other girls and ALL other mounts. The retained doll and running doll must retain the reference toy identity, proportions, materials, lighting, colours, accessories and exact pose. Do not redesign or stylize. No mount at all. Fill occluded parts naturally so the subject can move independently. Keep the entire subject visible with small transparent margin. No environment, text, decorations, shadows on ground or additional subjects. Genuinely transparent background. Crop image around the single isolated subject; final intended bounds 304x358.",
+      "refs": [
+        "assets/ui/title_hero.webp"
+      ],
+      "sha256": "d8ac350368275ee24cf0c2cc319230928e50ee74bbf692f1e9f515060155d093"
+    },
+    {
+      "file": "assets/ui/title_hero_kaya.webp",
+      "width": 272,
+      "height": 369,
+      "alpha": true,
+      "prompt": "Use case: background-extraction and identity-preserve. Separate this exact subject from the existing title hero reference into a single complete alpha cutout: Kaya: the brown-skinned braided running doll in golden fringed dress and moccasins, at far right. Keep EXACT same running-right stride, facial expression, arms, outfit, braid, and moccasin positions. Remove ALL other girls and ALL other mounts. The retained doll and running doll must retain the reference toy identity, proportions, materials, lighting, colours, accessories and exact pose. Do not redesign or stylize. No mount at all. Fill occluded parts naturally so the subject can move independently. Keep the entire subject visible with small transparent margin. No environment, text, decorations, shadows on ground or additional subjects. Genuinely transparent background. Crop image around the single isolated subject; final intended bounds 272x369.",
+      "refs": [
+        "assets/ui/title_hero.webp"
+      ],
+      "sha256": "55431ee5f7f0c5337c65d4e3a4cb6a73c90f4cd6fb88399435ed4e12b6538220"
+    }
+  ]
+}

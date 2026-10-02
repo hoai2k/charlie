@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 1600,
+    "height": 640
+  },
+  "original": "title_hero.webp",
+  "filePathsRelativeTo": "this JSON file",
+  "coordinateSystem": "top-left; pixels in the 1600x640 hero composition",
+  "layers": [
+    {
+      "key": "claudia",
+      "file": "title_hero_claudia.webp",
+      "role": "rider_and_mount",
+      "x": 850,
+      "y": 0,
+      "width": 680,
+      "height": 550,
+      "z": 0,
+      "bobAmplitude": 5,
+      "bobPeriodMs": 1820,
+      "phaseRadians": 2.0944,
+      "enterDelayMs": 180
+    },
+    {
+      "key": "juliette",
+      "file": "title_hero_juliette.webp",
+      "role": "rider_and_mount",
+      "x": 395,
+      "y": 25,
+      "width": 520,
+      "height": 495,
+      "z": 1,
+      "bobAmplitude": 5,
+      "bobPeriodMs": 1710,
+      "phaseRadians": 1.0472,
+      "enterDelayMs": 90
+    },
+    {
+      "key": "whirlpool",
+      "file": "title_hero_whirlpool.webp",
+      "role": "rider_and_mount",
+      "x": 0,
+      "y": 42,
+      "width": 475,
+      "height": 510,
+      "z": 2,
+      "bobAmplitude": 5,
+      "bobPeriodMs": 1600,
+      "phaseRadians": 0.0,
+      "enterDelayMs": 0
+    },
+    {
+      "key": "lily",
+      "file": "title_hero_lily.webp",
+      "role": "runner",
+      "x": 522,
+      "y": 295,
+      "width": 253,
+      "height": 337,
+      "z": 3,
+      "bobAmplitude": 8,
+      "bobPeriodMs": 1930,
+      "phaseRadians": 3.1416,
+      "enterDelayMs": 270
+    },
+    {
+      "key": "rumi",
+      "file": "title_hero_rumi.webp",
+      "role": "runner",
+      "x": 800,
+      "y": 274,
+      "width": 304,
+      "height": 358,
+      "z": 4,
+      "bobAmplitude": 8,
+      "bobPeriodMs": 2040,
+      "phaseRadians": 4.1888,
+      "enterDelayMs": 360
+    },
+    {
+      "key": "kaya",
+      "file": "title_hero_kaya.webp",
+      "role": "runner",
+      "x": 1328,
+      "y": 271,
+      "width": 272,
+      "height": 369,
+      "z": 5,
+      "bobAmplitude": 8,
+      "bobPeriodMs": 2150,
+      "phaseRadians": 5.236,
+      "enterDelayMs": 450
+    }
+  ],
+  "animationPadding": 16
+}
