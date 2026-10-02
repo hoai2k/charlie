@@ -15,7 +15,7 @@ import { drawNpcSprite } from '../engine/npc-art.js';
 import { drawHost, hostBubble } from '../engine/host.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { charById } from '../data/characters.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist, later } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
 
 const NAVY = '#24163f';
@@ -511,8 +511,8 @@ export class Game {
     m.watered++;
     pl.sv += 3;
     const spout = { x: m.a.x + m.a.facing * m.a.height * 0.45, y: m.a.y - m.a.height * 0.55 };
-    for (let i = 0; i < 3; i++) setTimeout(() => particles.burst(spout.x, spout.y, { type: 'drop', count: 5, angle: Math.PI / 2 + (m.a.facing > 0 ? -0.6 : 0.6), spread: 0.35, speed: [180, 320], colors: ['#5cc8ff', '#8fe0ff'], size: [4, 8] }), i * 120);
-    setTimeout(() => { particles.burst(pl.x, pl.y - 8, { type: 'drop', count: 6, angle: -Math.PI / 2, spread: 1.1, speed: [80, 200], colors: ['#8fe0ff', '#ffffff'], size: [3, 6] }); }, 260);
+    for (let i = 0; i < 3; i++) later(() => particles.burst(spout.x, spout.y, { type: 'drop', count: 5, angle: Math.PI / 2 + (m.a.facing > 0 ? -0.6 : 0.6), spread: 0.35, speed: [180, 320], colors: ['#5cc8ff', '#8fe0ff'], size: [4, 8] }), i * 120);
+    later(() => { particles.burst(pl.x, pl.y - 8, { type: 'drop', count: 6, angle: -Math.PI / 2, spread: 1.1, speed: [80, 200], colors: ['#8fe0ff', '#ffffff'], size: [3, 6] }); }, 260);
     sfx('water');
     if (before < 0.25) { particles.popText(pl.x, pl.y - 70, 'Ahh!', '#7fd3ff', 30); }
   }
@@ -530,7 +530,7 @@ export class Game {
     const a = m.a;
     a.playOnce('sing', 1.0);
     const base = pick([60, 62, 64, 67, 69]);
-    [0, 4, 7].forEach((d, i) => setTimeout(() => sfx('note', { midi: base + 12 + d + (i === 2 && chance(0.5) ? 2 : 0), dur: 0.25, vol: 0.14, force: true }), i * 150));
+    [0, 4, 7].forEach((d, i) => later(() => sfx('note', { midi: base + 12 + d + (i === 2 && chance(0.5) ? 2 : 0), dur: 0.25, vol: 0.14, force: true }), i * 150));
     const hx = a.x, hy = a.y - a.height;
     particles.burst(hx, hy, { type: 'note', count: 6, colors: ['#ff6fb1', '#9b5cff', '#3fa7ff', '#ffd23f'] });
     particles.ring(a.x, a.y - a.height * 0.4, '#ffd6f0', 240, 0.6);
@@ -559,9 +559,9 @@ export class Game {
       a.facing = best.x >= a.x ? 1 : -1;
       for (let i = 0; i <= 8; i++) {
         const k = i / 8;
-        setTimeout(() => particles.burst(lerp(hand.x, best.x, k), lerp(hand.y, best.y - 40, k) - Math.sin(k * Math.PI) * 60, { type: 'sparkle', count: 2, colors: ['#fff6a8', '#ffc8f0', '#ffffff'], speed: [10, 60] }), i * 30);
+        later(() => particles.burst(lerp(hand.x, best.x, k), lerp(hand.y, best.y - 40, k) - Math.sin(k * Math.PI) * 60, { type: 'sparkle', count: 2, colors: ['#fff6a8', '#ffc8f0', '#ffffff'], speed: [10, 60] }), i * 30);
       }
-      setTimeout(() => {
+      later(() => {
         best.dust = 3; best.grow += 0.55; best.sv += 5;
         if (best.water < 0.3) best.water = 0.3;
         particles.burst(best.x, best.y - 40, { type: 'star', count: 8, colors: ['#ffd23f', '#fff6a8', '#ffc8f0'] });
@@ -597,7 +597,7 @@ export class Game {
           const fan = this.movers.find((m) => Math.hypot(m.a.x - pl.x, m.a.y - pl.y) < 300 && !m.a.speech);
           if (fan && chance(0.3)) fan.a.say(pick(['So pretty!', 'It bloomed!', 'Wow!', 'Ooh, sparkly!']), 1.6, null);
           // a fairy comes to visit soon
-          if (this.fairies.length < 18) setTimeout(() => { if (!this.finished) this.spawnFairy(pl); }, rand(600, 1800));
+          if (this.fairies.length < 18) later(() => { if (!this.finished) this.spawnFairy(pl); }, rand(600, 1800));
         } else sfx('collect', { step: pl.stage * 3 });
       }
       if (pl.stage >= 3) pl.grow = 1;
@@ -720,7 +720,7 @@ export class Game {
     for (const pl of this.plots) if (pl.kind >= 0 && pl.stage < 3) { pl.stage = 3; pl.open = 0.3; pl.bloomT = 0; pl.sv += 8; }
     // Fairies for any bloom without one
     let k = 0;
-    for (const pl of this.plots) if (pl.kind >= 0 && this.fairies.length < 18 && !this.fairies.some((f) => f.plot === pl)) { const p2 = pl; setTimeout(() => !this.finished && this.spawnFairy(p2), 200 + k++ * 150); }
+    for (const pl of this.plots) if (pl.kind >= 0 && this.fairies.length < 18 && !this.fairies.some((f) => f.plot === pl)) { const p2 = pl; later(() => !this.finished && this.spawnFairy(p2), 200 + k++ * 150); }
   }
 
   updateFinale(dt) {

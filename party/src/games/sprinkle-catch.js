@@ -16,7 +16,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
-import { clamp, approach, rand, randInt, pick, chance, TAU } from '../engine/util.js';
+import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 
 export const meta = {
   id: 'sprinkle-catch',
@@ -211,7 +211,7 @@ export class Game {
     c.sq = 0.1; c.mouth = 0.25;
     particles.burst(x, y - 10, { type: 'dust', count: 3, color: '#fff', speed: [20, 80], size: [8, 14] });
     if (kind === 'golden') {
-      sfx('note', { midi: 88, dur: 0.5, vol: 0.28 }); setTimeout(() => sfx('note', { midi: 95, dur: 0.6, vol: 0.22 }), 110);
+      sfx('note', { midi: 88, dur: 0.5, vol: 0.28 }); later(() => sfx('note', { midi: 95, dur: 0.6, vol: 0.22 }), 110);
       sfx('sparkle');
       this.beams.push({ x, t: 0 });
       particles.popText(x, y + 30, 'Golden cupcake!', '#ffd23f', 44);
@@ -483,7 +483,7 @@ export class Game {
     });
     const wi = this.n === 1 ? 0 : scores.indexOf(top);
     const wa = this.ents[Math.max(0, wi)].a;
-    this.api.finish({ placements, stats: scores.map((s) => `${s} pts`), focus: { x: wa.x, y: wa.y - wa.height * 0.5 } });
+    this.api.finish({ placements, stats: scores.map((s) => `${s} pts`), solo: scores[0], focus: { x: wa.x, y: wa.y - wa.height * 0.5 } });
   }
 
   // -------------------------------------------------------------------- draw

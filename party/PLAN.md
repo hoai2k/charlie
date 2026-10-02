@@ -101,7 +101,7 @@ walking.
 
 ```
 party/
-  index.html            canvas + module entry (bump ?v= on main.js when shipping)
+  index.html            canvas + module entry + import map (node tools/stamp-modules.mjs)
   src/main.js           boot, main loop, debug URL params
   src/state.js          session: players, stars, CPU level
   src/engine/           canvas, input, audio, sprites, art, particles, fx, ui, emotes, util, scenes, ai
@@ -190,19 +190,22 @@ files (it reports needed engine changes instead).
 - [ ] Music tracks (need a music-capable generator or composer)
 
 ### Known issues (not blocking)
-- Headless software rendering shows Fashion Show at ~35 ms/frame with 8
-  players (Broomstick Dash, Cake Bakery, Pet Spa ~22 ms). Expected to be
-  fine on a real GPU; if not, cache each station's static layers.
-- Small text overlaps at 8 players: Potion Class "Y POOF!" prompt, Pop Star
-  Stage "Press"/combo labels, Troll Trouble hint pill.
-- A few games schedule sparkles/sounds with setTimeout that can fire into the
-  next screen right after quitting (harmless).
-- With one player, competitive games always place the player 1st.
 - Fullscreen from a controller press alone is blocked by most browsers; a key
   press or click enables it (a tip says so).
-- Colour variants: a few raised-arm KPop Center dance frames keep orange
-  sleeve highlights, and Amber's celebrate/dance frames an orange petticoat
-  edge (mask misses). Scale's Violet and every Amber alternate change a
-  signature colour; awaiting the user's/Charlie's check.
-- Only `main.js` is cache-busted (`?v=`); other modules may be cached by Pages
-  for ~10 minutes after a deploy.
+- Colour variants: Princess Amber's big dance frames keep a darker orange hem
+  (it shares her hair colour, so the mask leaves it), and a few raised-arm
+  KPop Center dance frames keep orange sleeve highlights.
+- Headless software rendering drops to ~30 fps in places at 8 players; the
+  game's own work is ~2 ms a frame (Cake Bakery spikes to ~10-28 ms when 8
+  cakes re-render), so real GPUs should hold 60.
+
+### Fixed (October)
+- 8-player text overlaps: Troll Trouble hint pill, Pop Star Stage judgement
+  and "Press" labels, Potion Class "Ready!" over "Y POOF!".
+- Solo competitive games no longer always place you 1st: you're rated
+  against your personal best for that game (1st = beat or match it, 2nd =
+  within 75%, 3rd otherwise; saved per browser).
+- Delayed sparkles/sounds no longer fire after quitting a game (`later()` in
+  engine/util.js, cancelled by the minigame host).
+- Every module is cache-busted: `node party/tools/stamp-modules.mjs` writes a
+  content-hashed import map into index.html (run it before committing code).

@@ -1,8 +1,9 @@
 // Minigame host: builds the api object, runs 3-2-1-GO, pause menu, FINISH!
 // banner, crash safety, then hands the result to the Results scene.
+import { cancelLater } from '../engine/util.js';
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, host } from '../engine/audio.js';
+import { sfx, music, host, stopAllLoops, duckLoops } from '../engine/audio.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
@@ -54,6 +55,8 @@ export class PlayScene {
 
   exit() {
     try { this.game && this.game.destroy && this.game.destroy(); } catch (e) { console.error(e); }
+    stopAllLoops(); duckLoops(false); this._ducked = false;   // sfxLoop()s never outlive their game
+    cancelLater();                                            // nor do the game's later() timers
     for (const p of session.players) if (p.isAI) p.ctrl.reset();
   }
 
@@ -66,6 +69,26 @@ export class PlayScene {
     }
   }
 
+  /**
+   * Playing alone, a competitive game would always put you 1st. Instead rate
+   * the run against your own best for this game (games pass `solo`, a number
+   * where higher is better): beat or match it = 1st, close = 2nd, else 3rd.
+   * The first run sets the best.
+   */
+  rateSolo(score) {
+    const key = 'party.best.' + this.gameId, show = this.result.stats[0] || '';
+    let best = null;
+    try { best = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) { /* storage blocked */ }
+    let place, title;
+    if (!best || score > best.score) { place = 1; title = best ? 'New best!' : 'You did it!'; }
+    else if (score === best.score) { place = 1; title = 'You matched your best!'; }
+    else if (score >= best.score * 0.75) { place = 2; title = `So close! Best: ${best.show}`; }
+    else { place = 3; title = `Good try! Best: ${best.show}`; }
+    if (!best || score > best.score) { try { localStorage.setItem(key, JSON.stringify({ score, show })); } catch (e) { /* ignore */ } }
+    this.result.placements = [place];
+    this.result.title = title;
+  }
+
   finish(result = {}) {
     if (this.result) return;
     const n = session.players.length;
@@ -76,6 +99,7 @@ export class PlayScene {
       highlight: result.highlight ?? null,  // index of a "showstopper" in studio games
       title: result.title || null,
     };
+    if (n === 1 && result.solo !== undefined && !this.result.showcase) this.rateSolo(result.solo);
     // Zoom toward the winner (or a focus point the game gives) for the FINISH beat.
     if (this.usesCamera) {
       const f = result.focus;
@@ -87,6 +111,7 @@ export class PlayScene {
   }
 
   update(dt, inputOpen) {
+    if (!!this.paused !== !!this._ducked) { this._ducked = !!this.paused; duckLoops(this._ducked); }
     if (this.paused) { this.updatePause(); return; }
     this.t += dt; // after the pause check so a pause during 3-2-1 doesn't skip the countdown
     if (this.usesCamera) { this.camera.update(dt); this.camera.tickPunch(dt); }

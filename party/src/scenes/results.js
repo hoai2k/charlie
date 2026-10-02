@@ -82,7 +82,7 @@ export class ResultsScene {
 
   headline() {
     if (this.showcase) return this.result.title || "Everyone's a star!";
-    if (session.players.length === 1) return this.winners.length ? (this.result.title || 'You did it!') : 'So close!';
+    if (session.players.length === 1) return this.result.title || (this.winners.length ? 'You did it!' : 'So close!');
     if (!this.winners.length) return this.result.title || 'Great game!';
     if (this.winners.length === 1) return `${winsText(session.players[this.winners[0].idx])}!`;
     if (this.winners.length === session.players.length) return "It's a tie!";

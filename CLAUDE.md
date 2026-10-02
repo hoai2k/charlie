@@ -30,6 +30,9 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
   (`quality=82-90, method=6`) rather than committing large PNGs.
 - `americangirldollrace/index.html` loads its CSS and JS with a `?v=` string;
   bump it whenever those files change, since Pages caches for ~10 minutes.
+- `party/index.html` carries a content-hashed import map for every module in
+  `party/src/`; run `node party/tools/stamp-modules.mjs` after changing any
+  party code (it also stamps `main.js?v=`).
 - Audio in the race goes through the Web Audio engine in `audio.js`; don't set
   `HTMLAudioElement.volume` directly (iOS ignores it).
 

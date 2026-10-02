@@ -86,3 +86,14 @@ export class Tweens {
   }
   clear() { this.list = []; }
 }
+
+// Game-lifetime timers: like setTimeout, but the minigame host cancels any
+// still pending when the game ends, so a delayed sparkle or sound never fires
+// into the next screen.
+const pendingLater = new Set();
+export function later(fn, ms = 0) {
+  const id = setTimeout(() => { pendingLater.delete(id); fn(); }, ms);
+  pendingLater.add(id);
+  return id;
+}
+export function cancelLater() { for (const id of pendingLater) clearTimeout(id); pendingLater.clear(); }

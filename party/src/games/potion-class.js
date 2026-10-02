@@ -12,7 +12,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, makesMistake, reactionTime } from '../engine/ai.js';
-import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU } from '../engine/util.js';
+import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU, later } from '../engine/util.js';
 import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { INGREDIENTS, drawIngredient, drawBottle, drawCauldron, hexRgb, rgbStr, hexA } from './potion-class/ingredients.js';
 import { drawHoot, speechBubble } from './potion-class/hoot.js';
@@ -464,7 +464,7 @@ export class Game {
       st.readyT = 0;
       sfx('magic');
       particles.burst(this.wx(st, BREW.x), this.wy(st, BREW.y - 10), { type: 'sparkle', count: 14, colors: ['#fff', '#ffd23f', rgbStr(st.brew)] });
-      particles.popText(this.wx(st, BREW.x), this.wy(st, BREW.y - 25), 'Ready!', '#ffd23f', 40 * st.k + 8);
+      particles.popText(this.wx(st, BREW.x - 120), this.wy(st, BREW.y - 25), 'Ready!', '#ffd23f', 40 * st.k + 8); // left of the cauldron: the Y POOF! prompt sits on its right
       st.actor.playOnce('cheer', 0.45, 'idle');
       if (!this.flags.wandSaid) { this.flags.wandSaid = true; this.say('Wave your wand with Y!', 3); }
     }
@@ -571,7 +571,7 @@ export class Game {
     sfx(E.sound);
     if (result === 'good') {
       st.score++;
-      sfx('correct'); setTimeout(() => sfx('star'), 180);
+      sfx('correct'); later(() => sfx('star'), 180);
       voice(st.p.charId, 'yay');
       a.playOnce('celebrate', 1.8, 'idle');
       particles.burst(ax, ay, { type: 'star', count: 18, colors: ['#ffd23f', '#ffffff', E.color] });
@@ -581,9 +581,9 @@ export class Game {
       if (this.n <= 4) fx.flash('#fff6c2', 0.12);
     } else {
       a.playOnce('surprised', 0.55, 'idle');
-      setTimeout(() => { if (st.eff === eff) { voice(st.p.charId, 'laugh'); a.emote('happy', 1.4); a.playOnce('cheer', 0.5, 'idle'); } }, 700);
+      later(() => { if (st.eff === eff) { voice(st.p.charId, 'laugh'); a.emote('happy', 1.4); a.playOnce('cheer', 0.5, 'idle'); } }, 700);
       particles.burst(ax, ay, { type: E.good ? 'star' : 'bubble', count: 14, colors: [E.color, '#ffffff'] });
-      if (result === 'silly') { snd('fizzle', 'giggle'); if (hasSound('fizzle')) setTimeout(() => sfx('giggle'), 400); this.hootReact('silly'); }
+      if (result === 'silly') { snd('fizzle', 'giggle'); if (hasSound('fizzle')) later(() => sfx('giggle'), 400); this.hootReact('silly'); }
       else { if (E.good) a.playOnce('celebrate', 1.4, 'idle'); this.hootReact('surprise'); }
     }
     if (eff === 'hearts') a.emote('hearts', 0);
