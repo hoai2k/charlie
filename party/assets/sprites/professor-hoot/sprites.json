@@ -1,0 +1,463 @@
+{
+  "frameSize": [
+    520,
+    460
+  ],
+  "anchor": [
+    260,
+    440
+  ],
+  "bodyHeight": 320,
+  "facing": 1,
+  "poses": {
+    "idle": {
+      "fps": 4,
+      "loop": true,
+      "motion": 0.3,
+      "frames": [
+        {
+          "src": "idle-00.webp",
+          "anchor": [
+            138,
+            322
+          ],
+          "head": [
+            121,
+            14
+          ],
+          "hand": [
+            234,
+            173
+          ],
+          "eyes": [
+            154,
+            104
+          ],
+          "neck": [
+            138,
+            177
+          ],
+          "back": [
+            91,
+            187
+          ],
+          "dur": 1
+        },
+        {
+          "src": "idle-01.webp",
+          "anchor": [
+            138,
+            322
+          ],
+          "head": [
+            121,
+            14
+          ],
+          "hand": [
+            234,
+            173
+          ],
+          "eyes": [
+            154,
+            104
+          ],
+          "neck": [
+            138,
+            177
+          ],
+          "back": [
+            91,
+            187
+          ],
+          "dur": 0.12
+        },
+        {
+          "src": "idle-02.webp",
+          "anchor": [
+            138,
+            322
+          ],
+          "head": [
+            121,
+            14
+          ],
+          "hand": [
+            234,
+            173
+          ],
+          "eyes": [
+            154,
+            104
+          ],
+          "neck": [
+            138,
+            177
+          ],
+          "back": [
+            91,
+            187
+          ],
+          "dur": 0.8
+        }
+      ]
+    },
+    "talk": {
+      "fps": 7,
+      "loop": true,
+      "motion": 0.3,
+      "frames": [
+        {
+          "src": "talk-00.webp",
+          "anchor": [
+            134,
+            321
+          ],
+          "head": [
+            117,
+            13
+          ],
+          "hand": [
+            230,
+            172
+          ],
+          "eyes": [
+            150,
+            103
+          ],
+          "neck": [
+            134,
+            176
+          ],
+          "back": [
+            87,
+            186
+          ]
+        },
+        {
+          "src": "talk-01.webp",
+          "anchor": [
+            153,
+            321
+          ],
+          "head": [
+            136,
+            13
+          ],
+          "hand": [
+            249,
+            172
+          ],
+          "eyes": [
+            169,
+            103
+          ],
+          "neck": [
+            153,
+            176
+          ],
+          "back": [
+            106,
+            186
+          ]
+        }
+      ]
+    },
+    "hoot": {
+      "fps": 6,
+      "loop": false,
+      "motion": 0.9,
+      "frames": [
+        {
+          "src": "hoot-00.webp",
+          "anchor": [
+            164,
+            323
+          ],
+          "head": [
+            147,
+            15
+          ],
+          "hand": [
+            260,
+            174
+          ],
+          "eyes": [
+            180,
+            105
+          ],
+          "neck": [
+            164,
+            178
+          ],
+          "back": [
+            117,
+            188
+          ]
+        }
+      ]
+    },
+    "present": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "src": "present-00.webp",
+          "anchor": [
+            124,
+            322
+          ],
+          "head": [
+            107,
+            14
+          ],
+          "hand": [
+            220,
+            173
+          ],
+          "eyes": [
+            140,
+            104
+          ],
+          "neck": [
+            124,
+            177
+          ],
+          "back": [
+            77,
+            187
+          ]
+        }
+      ]
+    },
+    "lantern": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "src": "lantern-00.webp",
+          "anchor": [
+            117,
+            319
+          ],
+          "head": [
+            100,
+            11
+          ],
+          "hand": [
+            239,
+            86
+          ],
+          "eyes": [
+            133,
+            101
+          ],
+          "neck": [
+            117,
+            174
+          ],
+          "back": [
+            70,
+            184
+          ]
+        }
+      ]
+    },
+    "clap": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.3,
+      "frames": [
+        {
+          "src": "clap-00.webp",
+          "anchor": [
+            123,
+            318
+          ],
+          "head": [
+            106,
+            10
+          ],
+          "hand": [
+            219,
+            169
+          ],
+          "eyes": [
+            139,
+            100
+          ],
+          "neck": [
+            123,
+            173
+          ],
+          "back": [
+            76,
+            183
+          ]
+        },
+        {
+          "src": "clap-01.webp",
+          "anchor": [
+            143,
+            317
+          ],
+          "head": [
+            126,
+            9
+          ],
+          "hand": [
+            239,
+            168
+          ],
+          "eyes": [
+            159,
+            99
+          ],
+          "neck": [
+            143,
+            172
+          ],
+          "back": [
+            96,
+            182
+          ]
+        }
+      ]
+    },
+    "think": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "frames": [
+        {
+          "src": "think-00.webp",
+          "anchor": [
+            112,
+            319
+          ],
+          "head": [
+            95,
+            11
+          ],
+          "hand": [
+            208,
+            170
+          ],
+          "eyes": [
+            128,
+            101
+          ],
+          "neck": [
+            112,
+            174
+          ],
+          "back": [
+            65,
+            184
+          ]
+        }
+      ]
+    },
+    "cast": {
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "frames": [
+        {
+          "src": "cast-00.webp",
+          "anchor": [
+            167,
+            325
+          ],
+          "head": [
+            150,
+            17
+          ],
+          "hand": [
+            263,
+            176
+          ],
+          "eyes": [
+            183,
+            107
+          ],
+          "neck": [
+            167,
+            180
+          ],
+          "back": [
+            120,
+            190
+          ]
+        },
+        {
+          "src": "cast-01.webp",
+          "anchor": [
+            171,
+            319
+          ],
+          "head": [
+            154,
+            11
+          ],
+          "hand": [
+            249,
+            143
+          ],
+          "eyes": [
+            187,
+            101
+          ],
+          "neck": [
+            171,
+            174
+          ],
+          "back": [
+            124,
+            184
+          ]
+        }
+      ]
+    },
+    "surprised": {
+      "alias": "hoot",
+      "loop": false,
+      "motion": 0.85
+    },
+    "wave": {
+      "alias": "present",
+      "loop": true,
+      "motion": 0.85
+    },
+    "celebrate": {
+      "alias": "clap",
+      "loop": true,
+      "motion": 0.3
+    },
+    "cheer": {
+      "alias": "clap",
+      "loop": false,
+      "motion": 0.3
+    },
+    "point": {
+      "alias": "present",
+      "loop": false,
+      "motion": 0.85
+    },
+    "laugh": {
+      "alias": "clap",
+      "loop": true,
+      "motion": 0.35
+    }
+  },
+  "portraits": {
+    "neutral": "portrait-neutral.webp",
+    "happy": "portrait-happy.webp",
+    "sad": "portrait-sad.webp",
+    "surprised": "portrait-surprised.webp",
+    "determined": "portrait-determined.webp",
+    "talk": "portrait-talk.webp"
+  },
+  "provenance": "Built-in image_gen from approved professor-hoot.webp; exact prompts in professor-hoot-generation-prompts.json. Lantern held empty for runtime prop attachment."
+}

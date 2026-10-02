@@ -161,3 +161,38 @@ The race already has idle, walking, grab, lift, throw, falling, grounded, sleepi
 ## Decisions for the game brief
 
 The next game design pass can choose controls and collision behavior for companion groups, names for the KPop members, the movement model for mermaids on land, and shared sprite scale. Choose abilities, strengths, and personality from the suggestions only when the creator approves them. Use the separate canonical images for sprite identity and the group references for companionship and relative placement.
+
+
+## Approved party NPCs (2026-10-02)
+
+These designs were explicitly reviewed and approved in this sprite-production chat. They stay out of the playable roster. Exact generation prompts and revision history are in [the NPC manifest](canonical/npc-generation-manifest.json).
+
+### Glimmer
+
+[Canonical](canonical/glimmer.webp) · `glimmer`. A tiny hovering fairy and encouraging game-show host. Keep her **light peach skin without cheek blush** (approved revision), huge violet eyes, mint-to-teal bob, two gold star hair clips, pink/coral petal dress, gold star buckle, striped mint tights, curled gold slippers and four aqua/lilac wings. Her gold star microphone-wand has a gray grille and pink handle. She presents, talks, waves, thinks and celebrates with everyone; she never mocks losing players. Sprite `talk` alternates speaking mouths; `present`, `point` and `cast` support how-to panels.
+
+### Professor Hoot
+
+[Canonical](canonical/professor-hoot.webp) · `professor-hoot`. Warm, slightly dramatic tawny owl teacher with cream face, amber eyes, round gold spectacles, floppy purple hat with gold star band and midnight-blue robe with silver stars/crescents. Keep feather wings and orange talons. He gestures with a wooden wand; the lantern is a **separate prop** attached to the raised-wing grip so code controls its flash. Blink, talk, hoot, clap, present, think and cast support the wizard games.
+
+### Shadow Imps
+
+[Plum](canonical/shadow-imp.webp), [blue](canonical/shadow-imp-blue.webp), [pink](canonical/shadow-imp-pink.webp) · asset IDs match filenames. Playful floating pranksters: round velvety body, lighter belly, curled smoke tail instead of legs, small cat-ear nubs, stubby arms, bat-wing flaps, round yellow eyes and one tiny tooth. Never scary. Recolors preserve anatomy, yellow eyes and timing. Clear up/down/side/star dance gestures demonstrate the music sequences. `poof` dissolves to a small smoke wisp; runtime adds glitter. No death or injury.
+
+### Garden Fairies
+
+[Approved group](canonical/garden-fairies.webp). Five tiny visitors, each with an independent `garden-fairy-<color>` set. Brown bob, teal eyes, leaf collar, petal dress, flower shoes and four wings stay consistent. The approved skin/hat mapping is:
+
+| Asset suffix | Hat | Skin |
+| --- | --- | --- |
+| pink | Pink tulip | Pale peach |
+| blue | Blue bluebell | Deep brown |
+| yellow | White/yellow daisy | Light rosy beige |
+| green | Green leaf | Medium warm tan |
+| purple | Purple violet | Light olive beige |
+
+The different cap silhouettes are required for color-blind counting. Keep color and skin independent: do not recolor an entire fairy to make another. Idle blink, flying glide, celebrating and surprised poses support Fairy Count and Fairy Garden. Fly uses the `fly` alias of `walk`; purple's glide is authored facing left and declared accordingly.
+
+### Grumpy Broccoli and Storm Cloud
+
+[Broccoli](canonical/grumpy-broccoli.webp) is a green floret with a comically frowning face and folded stalk arms. He is the falling Sprinkle Catch hazard, with a separate dizzy bonk state. [Storm Cloud](canonical/storm-cloud.webp) is a gray-lavender puffy cloud with a sleepy grumpy face. **The user requested lightning separately from the final cloud sprite:** use the no-bolt prop and a runtime bolt/effect. Their approved references include both designs; these are props rather than playable characters.

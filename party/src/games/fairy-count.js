@@ -1,3 +1,4 @@
+import { drawNpcSprite } from '../engine/npc-art.js';
 // Fairy Count - moonlit garden counting game. Glowing fairies of several
 // colors zip across the sky; a question tells you which color to count. Then
 // everybody picks a number (up/down) and locks it in with A. The counted
@@ -67,6 +68,10 @@ function glow(g, x, y, r, color, alpha = 1) {
 
 /** One procedural fairy: tiny body, sparkly wings, halo. (x, y) = body center. */
 function drawFairy(g, x, y, s, col, t, dir = 1, o = {}) {
+  if (drawNpcSprite(g, 'garden-fairy-' + col.id, x, y + 25 * s, 64 * s, t, {
+    pose: 'fly', facing: dir, alpha: o.alpha ?? 1, rotation: o.rot || 0,
+  })) return;
+
   g.save(); g.translate(x, y); g.scale(s * dir, s);
   if (o.rot) g.rotate(o.rot);
   glow(g, 0, 0, 62, col.glow, o.glowAlpha ?? 0.9);

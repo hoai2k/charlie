@@ -1,3 +1,4 @@
+import { drawNpcSprite } from '../engine/npc-art.js';
 // Wizard Quick-Draw: wizard-school courtyard at night. Professor Hoot (a wise
 // owl in a wizard hat) holds a lantern. Wait for it to burst GOLD, then press A
 // to cast first. Fake-outs (flickers, ruffles, hoots, moths) tempt you to
@@ -649,7 +650,7 @@ export class Game {
     if (o.mode === 'cheer') g.translate(0, -Math.abs(Math.sin(o.t * 9)) * 22);
     if (o.mode === 'alert') g.translate(0, -6 + Math.sin(this.clock * 14) * 1.5);
     if (o.mode === 'hoot') g.scale(1 + hootAmt * 0.04, 1 - hootAmt * 0.03);
-    if (!drawArt(g, 'prop/professor-hoot', 0, 0, 260, 330, { anchor: 'bottom' })) this.drawOwlProcedural(g, o, hootAmt);
+    if (!drawNpcSprite(g, 'professor-hoot', 0, 0, 330, o.t, { pose: o.mode === 'hoot' ? 'hoot' : o.mode === 'cheer' ? 'clap' : 'idle' }) && !drawArt(g, 'prop/professor-hoot', 0, 0, 260, 330, { anchor: 'bottom' })) this.drawOwlProcedural(g, o, hootAmt);
     g.restore();
     if (o.mode === 'hoot' && o.t > 0.1) ui.text(g, 'hoo...', OWL.x - 150, OWL.y - 270 - o.t * 14, { size: 40, color: '#fff', alpha: Math.sin(clamp(o.t, 0, 1) * Math.PI) });
   }

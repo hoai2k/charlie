@@ -1,3 +1,4 @@
+import { drawNpcSprite } from '../engine/npc-art.js';
 // Pop Star Stage (Play Studio, rhythm): a K-pop idol hero concert. Every
 // player has a note highway above their character; A/B/X/Y notes slide down
 // to the hit line on the beat. Hits fire sparkle beams that poof the cute
@@ -71,6 +72,11 @@ function makeChart() {
 // Mischievous, never scary.
 const IMP_COLORS = [['#5a3591', '#2b1a56'], ['#3b3f9c', '#1d2160'], ['#7a2f86', '#3a1650']];
 function drawImp(g, x, y, r, t, o = {}) {
+  const variantIndex = Math.max(0, IMP_COLORS.findIndex((colors) => colors[0] === o.colors?.[0]));
+  const asset = ['shadow-imp', 'shadow-imp-blue', 'shadow-imp-pink'][variantIndex];
+  const pose = o.mood === 'eep' ? 'surprised' : o.mood === 'laugh' ? 'laugh' : 'dance';
+  if (drawNpcSprite(g, asset, x, y + r * 1.5, r * 2.8, t, { pose, facing: o.flip ? -1 : 1 })) return;
+
   const [c1, c2] = o.colors || IMP_COLORS[0];
   g.save(); g.translate(x, y);
   if (o.flip) g.scale(-1, 1);
