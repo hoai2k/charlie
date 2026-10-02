@@ -22,12 +22,12 @@ export class Camera {
     this.x = W / 2; this.y = H / 2; this.zoom = 1; this.rot = 0;
     this.tx = W / 2; this.ty = H / 2; this.tzoom = 1; this.rate = 5;
     this.punchState = null;
-    this.minZoom = 1; this.maxZoom = 2.2;
+    this.minZoom = 1; this.maxZoom = 2.2; // host lowers maxZoom for big parties
     this.clampToStage = true;
     return this;
   }
   /** Ease toward a framing. `rate` ~ how snappy (per second). */
-  follow(x, y, zoom = this.tzoom, rate = 5) { this.tx = x; this.ty = y; this.tzoom = zoom; this.rate = rate; return this; }
+  follow(x, y, zoom = this.tzoom, rate = 5) { this.tx = x; this.ty = y; this.tzoom = Math.min(zoom, this.maxZoom); this.rate = rate; return this; }
   /** Fit points (with padding) on screen, never zooming out past 1. */
   frame(points, pad = 220, rate = 3) {
     if (!points.length) return this;
@@ -38,7 +38,7 @@ export class Camera {
   }
   /** Temporary zoom on a point: in fast, hold, back out. */
   punch(x, y, zoom = 1.3, hold = 0.6) {
-    this.punchState = { x, y, zoom, hold, t: 0, inDur: 0.18, outDur: 0.45 };
+    this.punchState = { x, y, zoom: Math.min(zoom, this.maxZoom), hold, t: 0, inDur: 0.18, outDur: 0.45 };
     return this;
   }
   /** Start zoomed-in and settle to the normal framing (countdown fly-in). */

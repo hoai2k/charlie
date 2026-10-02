@@ -851,7 +851,11 @@ export class Game {
     const bgKey = night > 0.5 ? 'bg/fairy-garden-night' : 'bg/fairy-garden';
     const bg = art(bgKey);
     if (bg) {
-      g.drawImage(bg, 0, 0, W, H);
+      // The art is a side view (sky, fence + flowers, grass strip near
+      // y≈870). Shift it up so the fence and flowers form the garden's back
+      // border, then lay the top-down lawn for the plots over the rest.
+      g.drawImage(bg, 0, GROUND_TOP + 40 - 870, W, H);
+      this.drawLawn(g, k, false);
       if (k > 0.05 && !art('bg/fairy-garden-night')) { g.save(); g.globalAlpha = Math.min(0.55, k * 0.3); g.fillStyle = k > 1 ? '#10164a' : '#ff9f6f'; g.fillRect(0, 0, W, H); g.restore(); }
     } else {
       const [top, bot] = this.skyColors();
@@ -888,23 +892,7 @@ export class Game {
       // hills & fence
       ui.hills(g, GROUND_TOP - 20, this.mixColor('#9be58a', '#2b4a5a', k / 2), 30, 0.004, 1);
       ui.hills(g, GROUND_TOP + 10, this.mixColor('#7fd76f', '#24423f', k / 2), 18, 0.007, 3);
-      // grass field
-      const gg = g.createLinearGradient(0, GROUND_TOP, 0, H);
-      gg.addColorStop(0, this.mixColor('#8fe07a', '#2c5544', k / 2)); gg.addColorStop(1, this.mixColor('#6cc95f', '#1f4036', k / 2));
-      g.fillStyle = gg; g.fillRect(0, GROUND_TOP + 30, W, H);
-      // fence
-      const fc = this.mixColor('#ffffff', '#8a86b8', k / 2);
-      g.fillStyle = fc; g.strokeStyle = NAVY; g.lineWidth = 3;
-      g.fillRect(0, GROUND_TOP + 24, W, 10);
-      for (let x = 10; x < W; x += 54) {
-        g.beginPath(); g.moveTo(x, GROUND_TOP + 60); g.lineTo(x, GROUND_TOP); g.lineTo(x + 14, GROUND_TOP - 14); g.lineTo(x + 28, GROUND_TOP); g.lineTo(x + 28, GROUND_TOP + 60); g.closePath(); g.fill(); g.stroke();
-      }
-      // grass tufts
-      g.strokeStyle = this.mixColor('#4fb04a', '#1b3a30', k / 2); g.lineWidth = 3;
-      for (let i = 0; i < 90; i++) {
-        const x = (i * 211) % W, y = GROUND_TOP + 80 + ((i * 131) % (H - GROUND_TOP - 90));
-        g.beginPath(); g.moveTo(x - 6, y); g.lineTo(x - 2, y - 12); g.moveTo(x, y); g.lineTo(x + 2, y - 15); g.moveTo(x + 6, y); g.lineTo(x + 7, y - 10); g.stroke();
-      }
+      this.drawLawn(g, k, true);
     }
     // paths between rows
     const rows = [...new Set(this.plots.map((p) => p.y))];
@@ -1045,6 +1033,27 @@ export class Game {
       g.fillStyle = '#2b2a7a'; g.beginPath(); g.arc(0, 0, 22, 0, TAU); g.fill();
       g.fillStyle = '#fff6c8'; g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, 22, -Math.PI / 2, -Math.PI / 2 + TAU * (left / NIGHT_LEN)); g.closePath(); g.fill();
       g.restore();
+    }
+  }
+
+  drawLawn(g, k, fence) {
+    // grass field
+    const gg = g.createLinearGradient(0, GROUND_TOP, 0, H);
+    gg.addColorStop(0, this.mixColor('#8fe07a', '#2c5544', k / 2)); gg.addColorStop(1, this.mixColor('#6cc95f', '#1f4036', k / 2));
+    g.fillStyle = gg; g.fillRect(0, GROUND_TOP + 30, W, H);
+    if (fence) {
+      const fc = this.mixColor('#ffffff', '#8a86b8', k / 2);
+      g.fillStyle = fc; g.strokeStyle = NAVY; g.lineWidth = 3;
+      g.fillRect(0, GROUND_TOP + 24, W, 10);
+      for (let x = 10; x < W; x += 54) {
+        g.beginPath(); g.moveTo(x, GROUND_TOP + 60); g.lineTo(x, GROUND_TOP); g.lineTo(x + 14, GROUND_TOP - 14); g.lineTo(x + 28, GROUND_TOP); g.lineTo(x + 28, GROUND_TOP + 60); g.closePath(); g.fill(); g.stroke();
+      }
+    }
+    // grass tufts
+    g.strokeStyle = this.mixColor('#4fb04a', '#1b3a30', k / 2); g.lineWidth = 3;
+    for (let i = 0; i < 90; i++) {
+      const x = (i * 211) % W, y = GROUND_TOP + 80 + ((i * 131) % (H - GROUND_TOP - 90));
+      g.beginPath(); g.moveTo(x - 6, y); g.lineTo(x - 2, y - 12); g.moveTo(x, y); g.lineTo(x + 2, y - 15); g.moveTo(x + 6, y); g.lineTo(x + 7, y - 10); g.stroke();
     }
   }
 

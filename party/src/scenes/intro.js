@@ -53,7 +53,7 @@ export class IntroScene {
       if (p.ctrl.pressed('a') && !this.ready[i]) this.setReady(i, true);
       else if (p.ctrl.pressed('b')) {
         if (this.ready[i]) this.setReady(i, false);
-        else { sfx('back'); this.manager.go('gameselect'); return; }
+        else if (!session.partyMode) { sfx('back'); this.manager.go('gameselect'); return; } // a marathon only exits from its pause menu
       }
     }
     // Keyboard players who aren't bound (e.g. only gamepads joined) can still nudge with Enter.

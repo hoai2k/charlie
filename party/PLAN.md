@@ -166,25 +166,29 @@ files (it reports needed engine changes instead).
 
 ## Status
 
-Last updated by the lead during the first build pass.
+- [x] Engine core, sprite system (on-demand sprite loading), 2.5D camera, sprite viewer (`?scene=sprites`), audio test page (`?scene=audio`)
+- [x] Menus, how-to screens, minigame host, results podium, Party Marathon + trophy
+- [x] All 20 minigames built, audited by the lead, polished, and QA'd end to end
+      (20/20 games reach the podium at 1, 4 and 8 players; Marathon + Random
+      run 11 games in one session with no errors or leaks)
+- [x] Xbox controllers verified with simulated pads; keyboard fallback
+- [x] Image requests rounds 1–3 (`image-requests.md`), audio requests incl. round 2 (`audio-requests.md`)
+- [x] ElevenLabs SFX round 1 (wordless voices, creature sounds, jingles) — no spoken words by design
+- [x] Generated art in game: logo, menu backdrops, all 20 backgrounds and thumbnails,
+      NPC art; sprite sets for Felicity, Fellowfox, Bronze, Troll, Glimmer, Hoot, Shadow Imp, Garden Fairy
+- [ ] Remaining roster sprite sets and props (see image-requests.md Round 3)
+- [ ] Music tracks (need a music-capable generator or composer)
 
-- [x] Engine core + sprite system + sprite viewer (`?scene=sprites`)
-- [x] `image-requests.md` (round 1) and `audio-requests.md` — ready for generation
-- [x] Menus, how-to screens, minigame host, results podium, marathon trophy
-- [x] Xbox controller flow verified with simulated pads (join, pick, start, menus)
-- [ ] 12 party games — **in progress** (agents building; files may be half-done)
-- [ ] 8 studio games — **in progress**
-- [ ] Lead audit of every game, then a QA pass
-- [ ] Round 2 of image/audio requests (new poses/props/sounds the games ask for)
-
-### Known not-working yet
-- Any minigame whose file still says `PLACEHOLDER` shows a "Coming soon" stub
-  (mash A for points). Games mid-build may misbehave or crash; the host
-  catches crashes ("Oopsie!" screen, everyone gets a star) so the party
-  continues.
-- No generated sprites, portraits, NPC art, backgrounds or recorded audio
-  yet: everything uses the canonical art with procedural animation, a vector
-  stand-in for Glimmer, and synthesized sound. Host voice lines are silent
-  until recorded.
+### Known issues (not blocking)
+- Headless software rendering shows Fashion Show at ~35 ms/frame with 8
+  players (Broomstick Dash, Cake Bakery, Pet Spa ~22 ms). Expected to be
+  fine on a real GPU; if not, cache each station's static layers.
+- Small text overlaps at 8 players: Potion Class "Y POOF!" prompt, Pop Star
+  Stage "Press"/combo labels, Troll Trouble hint pill.
+- A few games schedule sparkles/sounds with setTimeout that can fire into the
+  next screen right after quitting (harmless).
+- With one player, competitive games always place the player 1st.
 - Fullscreen from a controller press alone is blocked by most browsers; a key
   press or click enables it (a tip says so).
+- Only `main.js` is cache-busted (`?v=`); other modules may be cached by Pages
+  for ~10 minutes after a deploy.

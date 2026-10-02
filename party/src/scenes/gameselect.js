@@ -202,6 +202,7 @@ export class GameSelectScene {
       for (const line of ui.wrap(g, m.goal || '', w - 70, 34, 700)) { ui.text(g, line, x + w / 2, yy, { size: 34, color: '#24163f', stroke: false, weight: 700 }); yy += 44; }
       yy += 16;
       for (const [btn, label] of (m.controls || []).slice(0, 4)) {
+        if (yy > y + h - 90) break; // keep clear of the footer line
         ui.glyph(g, btn, x + 60, yy, 40);
         ui.text(g, label, x + 96, yy + 2, { size: 28, align: 'left', color: '#24163f', stroke: false, weight: 600, maxWidth: w - 120 });
         yy += 52;
