@@ -16,6 +16,7 @@ import { art, drawArt } from '../engine/art.js';
 import { input } from '../engine/input.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, approach, rand, pick, chance, ease, TAU } from '../engine/util.js';
+import { depthScale } from '../engine/camera.js';
 
 export const meta = {
   id: 'bumper-bounce',
@@ -91,7 +92,8 @@ export class Game {
     const n = players.length;
     this.n = n;
     this.t = 0; this.playT = 0;
-    this.scale = n <= 2 ? 1.0 : n <= 4 ? 0.9 : n <= 6 ? 0.78 : 0.68;
+    this.scale = n <= 2 ? 1.12 : n <= 4 ? 1.02 : n <= 6 ? 0.8 : 0.7;
+    this.cam = api.camera; if (this.cam) { this.cam.maxZoom = 1.35; }
     this.R = R0; this.Rt = R0;
     this.stage = 0; this.tele = null; this.crumbleFlash = 0;
     this.ends = null;           // set when the round is decided
@@ -105,9 +107,10 @@ export class Game {
       const rr = n === 2 ? 190 : 250;
       const sc = this.scale * (p.charId === 'troll' ? 0.58 : 1);
       const a = new Actor(p.charId, { scale: sc });
+      const sc0 = sc;
       const r = 30 + 18 * sc;
       const e = {
-        p, a, i, x: Math.cos(ang) * rr, y: Math.sin(ang) * rr * 0.9, vx: 0, vy: 0, r, dash: 0, cd: 0, stun: 0, dirx: -Math.cos(ang), diry: -Math.sin(ang),
+        p, a, i, sc: sc0, x: Math.cos(ang) * rr, y: Math.sin(ang) * rr * 0.9, vx: 0, vy: 0, r, dash: 0, cd: 0, stun: 0, dirx: -Math.cos(ang), diry: -Math.sin(ang),
         state: 'alive', ft: 0, elimAt: Infinity, fx: 0, fy: 0, fvx: 0, fvy: 0, seat: null, seatT: 0, brain: new Brain(p),
         goal: null, dawdle: 0, edgeRisk: 0, exclaimCd: 0, ready: false, hitFlash: 0, trailT: 0,
       };
@@ -124,6 +127,7 @@ export class Game {
   placeActor(e) {
     const [sx, sy] = this.toScreen(e.x, e.y);
     e.a.x = sx; e.a.y = sy;
+    if (e.state === 'alive') e.a.scale = e.sc * depthScale(sy, { top: 190, near: 840, far: 0.88, nearScale: 1.06 });
   }
   alive() { return this.ents.filter((e) => e.state === 'alive'); }
 
@@ -159,6 +163,7 @@ export class Game {
       e.a.update(dt);
     }
 
+    this.frameCamera();
     // round decided?
     if (!this.ends) {
       const alive = this.alive();
@@ -168,6 +173,15 @@ export class Game {
       this.ends.t += dt;
       if (this.ends.t >= this.ends.wait && !this.ends.done) this.finishNow();
     }
+  }
+
+  frameCamera() {
+    const cam = this.cam; if (!cam) return;
+    const live = this.alive();
+    if (!live.length) return;
+    const pts = live.map((e) => { const [sx, sy] = this.toScreen(e.x, e.y); return { x: sx, y: sy - 50 }; });
+    if (this.ends && this.ends.winner) { cam.follow(pts[0].x, pts[0].y, 1.3, 2.5); return; }
+    cam.frame(pts, 360, 1.8);
   }
 
   postUpdate(dt) {
@@ -352,7 +366,8 @@ export class Game {
     const [sx, sy] = this.toScreen(e.x, e.y);
     e.fx = sx; e.fy = sy; e.fvx = e.vx * 0.25; e.fvy = Math.min(120, e.vy * K * 0.25);
     e.a.clearEmotes(); e.a.playOnce('surprised', 0.3, poseName('tumble'));
-    sfx('whoosh'); voice(e.p.charId, 'gasp'); if (e.p.isAI === false) e.p.ctrl.rumble(0.9, 300);
+    sfx('whoosh'); voice(e.p.charId, 'gasp');
+    if (this.cam) this.cam.punch(sx, sy - 40, 1.25, 0.4); if (e.p.isAI === false) e.p.ctrl.rumble(0.9, 300);
     fx.shake(8, 0.25);
     particles.burst(sx, sy, { type: 'shard', count: 7, colors: ['#ffe3f1', '#ff9fcd', '#f4c58a'], speed: [80, 260] });
     particles.popText(sx, sy - 120, 'Whoa!', '#ffffff', 50);
@@ -430,7 +445,9 @@ export class Game {
     }
     const stats = E.map((e, i) => (placements[i] === 1 ? (this.ends.capped ? 'Still standing!' : 'Last one on the cake!') : e.elimAt === Infinity ? 'Still standing' : `Fell at ${Math.round(e.elimAt)}s`));
     const n = this.real.length;
-    this.api.finish({ placements: placements.slice(0, n), stats: stats.slice(0, n) });
+    const wn = this.ends.winner || (this.ends.alive[0]);
+    const focus = wn ? (() => { const [sx, sy] = this.toScreen(wn.x, wn.y); return { x: sx, y: sy - 60 }; })() : undefined;
+    this.api.finish({ placements: placements.slice(0, n), stats: stats.slice(0, n), focus });
   }
 
   destroy() { if (this.npc) input.releaseAI(this.npc.ctrl); }
@@ -505,11 +522,13 @@ export class Game {
   draw(g) {
     this.drawBackground(g);
     this.drawPlatform(g);
-    // sit-out seats first (behind), then actors sorted by depth
-    for (const e of this.ents) if (e.state === 'out') this.drawSeat(g, e);
     const live = this.ents.filter((e) => e.state === 'alive').sort((a, b) => a.a.y - b.a.y);
     for (const e of live) this.drawAlive(g, e);
     for (const e of this.ents) if (e.state === 'falling') this.drawFalling(g, e);
+  }
+
+  drawHUD(g) {
+    for (const e of this.ents) if (e.state === 'out') this.drawSeat(g, e);
     this.drawHud(g);
   }
 

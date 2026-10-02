@@ -47,7 +47,7 @@ const SIZES = [{ name: 'Small', r: 6, stamp: 50 }, { name: 'Medium', r: 14, stam
 const SHAPE_STAMPS = ['star', 'heart', 'flower', 'butterfly', 'rainbow', 'crown', 'horn', 'cupcake'];
 const MAX_LIVE = 48;      // strokes kept for undo; older ones are baked
 const GRID = 50, GX = CW / GRID, GY = CH / GRID;
-const BTN = { page: { x: 250, y: 24, w: 250, h: 68, label: 'New page' }, done: { x: 1420, y: 24, w: 250, h: 68, label: 'Done!' } };
+const BTN = { page: { x: 250, y: 24, w: 290, h: 68, label: 'New page' }, done: { x: 1400, y: 24, w: 270, h: 68, label: 'Done!' } };
 const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
 
 function mulberry32(a) { return () => { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
@@ -207,6 +207,7 @@ export class Game {
     const pc = pageCanvas(id);
     this.lines = pc ? pc.canvas : null;
     this.linesAlpha = pc ? pc.alpha : null;
+    this.regions = pc ? pc.regions.filter((r) => r.size < CW * CH * 0.14) : [];
     this.clearCanvas();
     for (const st of this.stations) st.stroke = null;
     sfx('magic'); sfx('flip');
@@ -469,8 +470,8 @@ export class Game {
     return null;
   }
 
-  planActivity(st) {
-    const page = this.page !== 'blank';
+  planActivity(st, noFill = false) {
+    const page = this.page !== 'blank' && !noFill;
     const kinds = page ? ['fill', 'fill', 'fill', 'fill', 'stamp', 'stamp', 'glitter', 'rainbow', 'heart', 'flower'] : ['stamp', 'stamp', 'stamp', 'flower', 'flower', 'rainbow', 'rainbow', 'glitter', 'heart', 'heart'];
     const kind = pick(kinds);
     const cmds = [];
@@ -478,7 +479,7 @@ export class Game {
     const color = (i) => cmds.push({ t: 'color', v: i });
     const size = (i) => cmds.push({ t: 'size', v: i });
     const R = { stamp: 90, flower: 70, rainbow: 190, glitter: 90, heart: 80, fill: 30 }[kind];
-    const spot = this.findSpot(st, R);
+    const spot = kind === 'fill' ? { x: 0, y: 0 } : this.findSpot(st, R);
     if (!spot) return [];
     st.ai.spot = spot;
     const { x, y } = spot;
@@ -520,8 +521,14 @@ export class Game {
         break;
       }
       case 'fill': {
+        const humans = this.stations.filter((s) => !s.p.isAI);
+        const cands = shuffle(this.regions.filter((r) => !r.done && !this.ownedNear(r.x, r.y, 10) && !humans.some((h) => Math.hypot(h.cur.x - r.x, h.cur.y - r.y) < 250)));
+        const reg = cands[0];
+        if (!reg) return this.planActivity(st, true);
+        reg.done = true;
+        st.ai.spot = { x: reg.x, y: reg.y };
         tool('fill'); color(pick([0, 1, 2, 3, 4, 5, 6, 8, 9]));
-        cmds.push({ t: 'goto', x, y }, { t: 'fill' });
+        cmds.push({ t: 'goto', x: reg.x, y: reg.y }, { t: 'fill' });
         break;
       }
       default: break;
@@ -608,7 +615,7 @@ export class Game {
     const sp = Math.min(260, 1700 / n);
     this.stations.forEach((st, i) => {
       const a = st.actor;
-      const th = n <= 4 ? 250 : 200;
+      const th = n <= 4 ? 230 : 180;
       st.gal = { from: { x: a.x, y: a.y, s: a.scale }, to: { x: W / 2 + (i - (n - 1) / 2) * sp, y: 1040, s: Math.min(th / a.leader.h, (sp * 0.9) / Math.max(1, a.width / a.scale)) } };
     });
     fx.flash('#ffffff', 0.3);
@@ -699,6 +706,7 @@ export class Game {
   draw(g) {
     if (this.phase === 'gallery') { this.drawGallery(g); return; }
     this.drawStudio(g);
+    g.fillStyle = 'rgba(36,22,63,0.3)'; g.fillRect(FX - 16, FY - 12, FW + 52, FH + 52);
     // canvas
     g.drawImage(this.paint, FX, FY, FW, FH);
     if (this.lines) g.drawImage(this.lines, FX, FY, FW, FH);
@@ -743,7 +751,6 @@ export class Game {
 
   drawFrame(g, x, y, w, h, t, c1, c2) {
     g.save();
-    g.fillStyle = 'rgba(36,22,63,0.3)'; g.fillRect(x - t + 10, y - t + 14, w + 2 * t, h + 2 * t);
     g.lineWidth = t; g.strokeStyle = c1; g.strokeRect(x - t / 2, y - t / 2, w + t, h + t);
     g.lineWidth = 4; g.strokeStyle = c2; g.strokeRect(x - t * 0.25, y - t * 0.25, w + t * 0.5, h + t * 0.5);
     g.lineWidth = 6; g.strokeStyle = '#24163f'; g.strokeRect(x - t, y - t, w + 2 * t, h + 2 * t); g.lineWidth = 4; g.strokeRect(x, y, w, h);
@@ -758,11 +765,9 @@ export class Game {
       ui.panel(g, -b.w / 2, -b.h / 2, b.w, b.h, { r: b.h / 2, fill: k === 'done' ? (hot ? '#5ff0a0' : '#36d17a') : (hot ? '#ffe680' : '#ffd23f'), lineWidth: 5 });
       if (k === 'done') { g.save(); g.translate(-b.w / 2 + 38, 0); drawStarShape(g, 40, '#fff'); g.restore(); }
       else { g.save(); g.translate(-b.w / 2 + 38, 0); g.fillStyle = '#fff'; g.strokeStyle = '#24163f'; g.lineWidth = 3; g.fillRect(-14, -18, 28, 36); g.strokeRect(-14, -18, 28, 36); g.restore(); }
-      ui.text(g, b.label, 22, 2, { size: 38, color: k === 'done' ? '#fff' : '#24163f', stroke: k === 'done' ? '#24163f' : false, weight: 800 });
+      ui.text(g, b.label, 26, 2, { size: 36, color: k === 'done' ? '#fff' : '#24163f', stroke: k === 'done' ? '#24163f' : false, weight: 800 });
       g.restore();
     }
-    const pg = PAGES.find((p) => p.id === this.page);
-    if (pg && this.page !== 'blank') ui.text(g, pg.name, BTN.page.x + BTN.page.w + 20, 58, { size: 26, color: '#6b5a85', stroke: false, align: 'left' });
   }
 
   drawChips(g) {
@@ -822,7 +827,7 @@ export class Game {
     else drawToolIcon(g, tool, bx, by, 30, color);
     ui.text(g, st.p.tag, bx, by - 34, { size: 20, color: st.p.color, strokeWidth: 4 });
     // palette strip
-    if (st.paletteT > 0) {
+    if (st.paletteT > 0 && !st.p.isAI) {
       const a = Math.min(1, st.paletteT / 0.3);
       g.globalAlpha = a;
       if (tool === 'stamp') {
@@ -916,9 +921,9 @@ export class Game {
       for (const px of [160, W - 160]) { g.fillStyle = '#ffd23f'; g.fillRect(px - 8, 840, 16, 120); g.beginPath(); g.arc(px, 840, 16, 0, TAU); g.fill(); g.strokeStyle = '#24163f'; g.lineWidth = 3; g.stroke(); }
     }
     // the painting in a gold frame
-    const pw = 1120, ph = pw * (CH / CW);
+    const pw = 960, ph = pw * (CH / CW);
     const pop = ease.outBack(Math.min(1, t / 0.6));
-    const px = W / 2 - pw / 2, py = 90;
+    const px = W / 2 - pw / 2, py = 80;
     g.save(); g.translate(W / 2, py + ph / 2); g.scale(pop, pop); g.translate(-W / 2, -(py + ph / 2));
     g.drawImage(this.final, px, py, pw, ph);
     this.drawFrame(g, px, py, pw, ph, 40, '#ffd23f', '#d9a300');
@@ -928,10 +933,10 @@ export class Game {
     if (t > 0.5) {
       const a = Math.min(1, (t - 0.5) / 0.4);
       g.save(); g.globalAlpha = a;
-      ui.panel(g, W / 2 - 300, py + ph + 52, 600, 96, { r: 14, fill: '#ffe9a8', lineWidth: 5 });
-      ui.text(g, 'Our Masterpiece', W / 2, py + ph + 86, { size: 40, color: '#24163f', stroke: false, weight: 800 });
+      ui.panel(g, W / 2 - 300, py + ph + 56, 600, 96, { r: 14, fill: '#ffe9a8', lineWidth: 5 });
+      ui.text(g, 'Our Masterpiece', W / 2, py + ph + 90, { size: 40, color: '#24163f', stroke: false, weight: 800 });
       const names = this.stations.map((st) => charById(st.p.charId).name).join(', ');
-      ui.text(g, 'by ' + names, W / 2, py + ph + 124, { size: 22, color: '#6b5a85', stroke: false, maxWidth: 560 });
+      ui.text(g, 'by ' + names, W / 2, py + ph + 128, { size: 22, color: '#6b5a85', stroke: false, maxWidth: 560 });
       g.restore();
     }
     const order = this.stations.slice().sort((a, b) => a.actor.y - b.actor.y);

@@ -15,7 +15,7 @@ import { placementsFromScores, rand, randInt, pick, chance, clamp, lerp, damp, e
 
 const GOAL = 3;
 const NAVY = '#24163f';
-const CRYSTAL = { x: W / 2, y: 610 };
+const CRYSTAL = { x: W / 2, y: 585 };
 const OWL = { x: 700, y: 470 };            // feet on the perch
 const HANG = { x: 940, y: 190 };           // lantern hangs from the staff hook here
 const GRIP = { x: OWL.x + 100, y: OWL.y - 108 };
@@ -107,7 +107,7 @@ export class Game {
     this.n = this.players.length;
     const n = this.n;
     this.time = 0;
-    this.sc = n <= 4 ? 0.95 : n <= 6 ? 0.88 : 0.8;
+    this.sc = n <= 4 ? 1.35 : n <= 6 ? 1.2 : 1.02;
     const spacing = n > 1 ? clamp((W - 420) / (n - 1), 150, 330) : 0;
     this.base = null;
 
@@ -243,7 +243,7 @@ export class Game {
     particles.burst(tip.x, tip.y, { type: 'bubble', count: 5, speed: [30, 120], size: [8, 16] });
     particles.ring(tip.x, tip.y, '#7ae582', 90, 0.4);
     for (let k = 0; k < 4; k++) this.puffs.push({ x: tip.x + rand(-14, 14), y: tip.y + rand(-10, 8), r: rand(18, 30), t: 0, life: rand(0.9, 1.4), vx: rand(-20, 20) });
-    particles.popText(a.x, a.y - a.height * this.sc - 40, 'Fizzle!', '#7ae582', 56);
+    particles.popText(a.x, a.y - a.height - 90, 'Fizzle!', '#7ae582', 56);
     sfx('wrong'); sfx('stun'); sfx('fizzle');
     p.ctrl.rumble && p.ctrl.rumble(0.5, 200);
     if (this.ps.every((x) => x.locked)) {
@@ -265,6 +265,8 @@ export class Game {
     this.beams.push({ i, t: 0, color: p.color });
     this.owl.mode = 'cheer'; this.owl.t = 0;
     sfx('magic'); sfx('whoosh');
+    fx.slowmo(0.5, 0.45);
+    this.api.camera && this.api.camera.punch((a.x + CRYSTAL.x) / 2, (a.y - a.height * 0.6 + CRYSTAL.y) / 2 + 40, s.pts >= GOAL ? 1.35 : 1.25, 0.9);
     p.ctrl.rumble && p.ctrl.rumble(0.8, 250);
     this.ps.forEach((o, j) => {
       if (j !== i && !o.locked) this.actors[j].playOnce('surprised', 1.1, 'idle');
@@ -275,7 +277,7 @@ export class Game {
       a.setPose(winning ? pickPose('celebrate', 'cheer') : 'cheer');
       a.emote(winning ? 'hearts' : 'star', 1.6);
       sfx('cheer'); sfx('applause'); sfx('npc/hoot/bravo'); voice(p.charId, 'yay');
-      particles.popText(a.x, a.y - a.height * this.sc - 100, '+1', '#ffd23f', 64);
+      particles.popText(a.x + a.facing * 150, a.y - a.height * 0.55, '+1', '#ffd23f', 64);
     });
   }
 
@@ -350,7 +352,9 @@ export class Game {
 
   finishGame() {
     const pts = this.ps.map((s) => s.pts);
+    const wi = pts.indexOf(Math.max(...pts)), wa = this.actors[wi];
     this.api.finish({
+      focus: { x: (wa.x + CRYSTAL.x) / 2, y: wa.y - wa.height * 0.7, zoom: 1.3 },
       placements: placementsFromScores(pts),
       stats: this.ps.map((s) => `${s.pts} pt${s.pts === 1 ? '' : 's'}${s.best ? ` · best ${s.best} ms` : ''}`),
     });
@@ -572,7 +576,7 @@ export class Game {
       g.save(); g.globalAlpha = (this.st === 'go' ? 0.12 : L.burst * 0.12) + (this.st === 'go' ? Math.sin(this.clock * 12) * 0.02 : 0);
       g.fillStyle = '#ffd23f'; g.fillRect(0, 0, W, H); g.restore();
     }
-    this.drawHud(g);
+    this.drawWorldHud(g);
   }
 
   drawStars(g) {
@@ -865,32 +869,31 @@ export class Game {
     }
   }
 
-  drawHud(g) {
+  /** Tags, point pips and the reaction plate live in the world (they follow the camera). */
+  drawWorldHud(g) {
     const n = this.n;
     this.actors.forEach((a, i) => {
       const s = this.ps[i], p = this.players[i];
-      const top = a.y - a.height * this.sc - 34 - (a.pose === 'celebrate' ? 14 : 0);
+      const top = a.y - a.height - 34 - (a.pose === 'celebrate' ? 14 : 0);
       ui.playerTag(g, p, a.x, top);
       // point pips
-      const pr = 15 * (n > 6 ? 0.85 : 1), gap = pr * 2.5;
+      const pr = 17 * (n > 6 ? 0.8 : 1), gap = pr * 2.5;
       for (let k = 0; k < GOAL; k++) {
-        g.save(); g.translate(a.x + (k - (GOAL - 1) / 2) * gap, a.y + 34);
+        g.save(); g.translate(a.x + (k - (GOAL - 1) / 2) * gap, a.y + 32);
         const filled = k < s.pts;
         if (filled) drawStarShape(g, pr * 2.1, '#ffd23f');
         else { starPath(g, pr * 1.2); g.fillStyle = 'rgba(255,255,255,0.14)'; g.fill(); g.strokeStyle = 'rgba(255,255,255,0.5)'; g.lineWidth = 3; g.stroke(); }
         g.restore();
       }
       if (s.locked && (this.st === 'wait' || this.st === 'go' || this.st === 'allout')) {
-        ui.text(g, 'Fizzled!', a.x, a.y + 70, { size: 28, color: '#9dffa8', strokeWidth: 6 });
+        ui.text(g, 'Fizzled!', a.x, a.y + 64, { size: 28, color: '#9dffa8', strokeWidth: 6 });
       }
     });
-    ui.scoreboard(g, this.players, this.ps.map((s) => s.pts), { y: 30, format: (v) => `${v}/${GOAL}` });
-
     // reaction plate
     if (this.st === 'resolve' && this.res) {
       const a = this.actors[this.res.i], k = clamp(this.stT / 0.35, 0, 1), sc = ease.outBack(k);
       const word = this.res.ms < 250 ? 'Lightning!' : this.res.ms < 350 ? 'Super fast!' : this.res.ms < 500 ? 'Nice!' : 'Got it!';
-      const top = a.y - a.height * this.sc - 112;
+      const top = a.y - a.height - 135;
       g.save(); g.translate(a.x, top); g.scale(sc, sc);
       ui.panel(g, -130, -62, 260, 104, { fill: '#fff8ec', stroke: this.players[this.res.i].color });
       ui.text(g, `${this.res.ms} ms`, 0, -22, { size: 54, color: '#24163f', stroke: false, weight: 800 });
@@ -898,6 +901,11 @@ export class Game {
       g.restore();
     }
 
+  }
+
+  /** Screen-space HUD (drawn by the host after the camera). */
+  drawHUD(g) {
+    ui.scoreboard(g, this.players, this.ps.map((s) => s.pts), { y: 30, format: (v) => `${v}/${GOAL}` });
     // CAST!
     if (this.st === 'go') {
       const k = clamp(this.goT / 0.3, 0, 1), sc = ease.outElastic(k) * (1 + Math.sin(this.clock * 14) * 0.03);

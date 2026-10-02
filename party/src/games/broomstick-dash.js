@@ -44,6 +44,7 @@ export const meta = {
   minPlayers: 1,
   maxPlayers: 8,
   countdown: true,
+  flyIn: false,   // lanes need a fixed view
   drawIcon(g, x, y, w, h, t = 0) {
     const gr = g.createLinearGradient(0, y, 0, y + h);
     gr.addColorStop(0, '#3b2a86'); gr.addColorStop(0.6, '#a465cf'); gr.addColorStop(1, '#ffb7a0');
@@ -276,9 +277,13 @@ export class Game {
 
   makeLane(p, i) {
     const a = new Actor(p.charId, { scale: this.aScale, x: 0, y: 0 });
+    // thin lanes: shrink tall characters so the whole rider fits inside the band
+    a.scale = Math.min(this.aScale, (0.46 * this.laneH) / a.leader.h);
     a.snap();
+    const hgt = a.height;
     return {
       p, i, a,
+      yMin: Math.max(0.12, (0.56 * hgt + 3) / this.laneH), yMax: Math.min(0.88, 1 - (0.52 * hgt + 3) / this.laneH),
       top: this.top0 + i * this.laneH,
       y: 0.5, vy: 0, dist: 0, v: 0, sx: 380, ax: 380,
       boostT: 0, hurtT: 0, invT: 0, rings: 0, mails: 0, hits: 0, combo: 0, comboT: 0,
@@ -325,8 +330,8 @@ export class Game {
     const ay = (hold ? -2.9 : 2.1) - 3.0 * L.vy;
     L.vy += ay * dt;
     L.y += L.vy * dt;
-    if (L.y < 0.12) { L.y = 0.12; L.vy = Math.max(L.vy, 0) * 0.2; }
-    if (L.y > 0.88) { L.y = 0.88; L.vy = Math.min(L.vy, 0) * 0.2; }
+    if (L.y < L.yMin) { L.y = L.yMin; L.vy = Math.max(L.vy, 0) * 0.2; }
+    if (L.y > L.yMax) { L.y = L.yMax; L.vy = Math.min(L.vy, 0) * 0.2; }
 
     L.boostT = Math.max(0, L.boostT - dt); L.hurtT = Math.max(0, L.hurtT - dt); L.invT = Math.max(0, L.invT - dt);
     L.comboT = Math.max(0, L.comboT - dt); if (L.comboT <= 0) L.combo = 0;
@@ -504,7 +509,8 @@ export class Game {
     order.forEach((L, r) => { placements[L.i] = r + 1; });
     const stats = this.lanes.map((L) => (L.fin !== null ? `${L.fin.toFixed(1)} s` : `${Math.round(clamp(L.dist / COURSE, 0, 1) * 100)}%`) + (L.rings ? `, ${L.rings} rings` : ''));
     for (const L of this.lanes) { if (L.fin === null) { L.a.playOnce('pout', 1); L.a.setPose('pout'); } }
-    this.api.finish({ placements, stats });
+    const w = order[0];
+    this.api.finish({ placements, stats, focus: { x: w.ax, y: w.top + w.y * this.laneH, zoom: this.n > 4 ? 1.25 : 1.35 } });
   }
 
   place(L) {
@@ -518,7 +524,6 @@ export class Game {
     for (const L of this.lanes) this.drawLane(g, L);
     for (const L of this.lanes) this.drawActor(g, L);
     for (const L of this.lanes) this.drawLaneFront(g, L);
-    this.drawHud(g);
   }
 
   drawBase(g) {
@@ -707,6 +712,7 @@ export class Game {
     }
     const blink = L.invT > 0 && Math.floor(this.t * 14) % 2 === 0;
     g.save();
+    g.beginPath(); g.rect(0, L.top, W, this.laneH); g.clip();
     if (blink) g.globalAlpha = 0.55;
     g.translate(cx, feet); g.rotate(L.tilt); g.translate(-cx, -feet);
     // broom under the character's feet
@@ -748,7 +754,7 @@ export class Game {
     g.restore();
   }
 
-  drawHud(g) {
+  drawHUD(g) {
     // progress bar along the top
     const bx = 330, bw = W - 330 - 190, by = 62;
     ui.panel(g, bx - 54, by - 32, bw + 108 + 36, 64, { r: 32, fill: 'rgba(255,255,255,0.92)' });

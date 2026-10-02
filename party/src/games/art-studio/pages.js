@@ -186,7 +186,31 @@ export function pageCanvas(id) {
     d[i] = 36; d[i + 1] = 22; d[i + 2] = 63; d[i + 3] = a; alpha[j] = a;
   }
   g.putImageData(img, 0, 0);
-  const entry = { canvas: c, alpha };
+  const entry = { canvas: c, alpha, regions: labelRegions(alpha) };
   cache.set(id, entry);
   return entry;
+}
+
+/** Connected areas between the lines: [{ x, y, size }] (a sample pixel each). */
+function labelRegions(alpha) {
+  const seen = new Uint8Array(CW * CH);
+  const out = [];
+  for (let start = 0; start < alpha.length; start += 7) {
+    if (seen[start] || alpha[start] > 90) continue;
+    const stack = [start];
+    seen[start] = 1;
+    let size = 0, sx = 0, sy = 0;
+    while (stack.length) {
+      const p = stack.pop();
+      size++;
+      const x = p % CW;
+      if (size % 97 === 1) { sx = x; sy = (p - x) / CW; }
+      if (x > 0 && !seen[p - 1] && alpha[p - 1] <= 90) { seen[p - 1] = 1; stack.push(p - 1); }
+      if (x < CW - 1 && !seen[p + 1] && alpha[p + 1] <= 90) { seen[p + 1] = 1; stack.push(p + 1); }
+      if (p >= CW && !seen[p - CW] && alpha[p - CW] <= 90) { seen[p - CW] = 1; stack.push(p - CW); }
+      if (p < alpha.length - CW && !seen[p + CW] && alpha[p + CW] <= 90) { seen[p + CW] = 1; stack.push(p + CW); }
+    }
+    if (size > 500) out.push({ x: sx, y: sy, size });
+  }
+  return out;
 }
