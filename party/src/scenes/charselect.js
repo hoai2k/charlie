@@ -1,3 +1,4 @@
+import { drawArt } from '../engine/art.js';
 // Character select: "Press A to join" for every controller (and both
 // keyboard layouts), pick a character, CPUs fill empty seats.
 //   A  join / lock in / (everyone locked) start      B  unlock / leave
@@ -191,6 +192,7 @@ export class CharSelectScene {
 
   draw(g) {
     ui.partyBackdrop(g, this.t, '#a8d8ff', '#bfe3ff');
+    drawArt(g, 'bg/menu', 0, 0, W, H, { anchor: 'topleft', fit: 'cover' });
     ui.text(g, 'Choose your character!', W / 2, 78, { size: 74, color: '#ffd23f', weight: 800 });
 
     // Character cards.

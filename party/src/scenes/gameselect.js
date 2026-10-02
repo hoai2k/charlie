@@ -1,3 +1,4 @@
+import { drawArt } from '../engine/art.js';
 // Game select: Party Games and Play Studio shelves, a details panel, a
 // Random roulette and Party Marathon (5 random party games + trophy).
 // Any human can drive the shared cursor.
@@ -141,6 +142,7 @@ export class GameSelectScene {
 
   draw(g) {
     ui.partyBackdrop(g, this.t, '#ffcf8f', '#ffdba8');
+    drawArt(g, 'bg/menu', 0, 0, W, H, { anchor: 'topleft', fit: 'cover' });
     // Star tally.
     ui.scoreboard(g, session.players, session.players.map((p) => p.stars), { y: 18, format: (v) => `★ ${v}`, highlight: this.leaders() });
     // Section headers.

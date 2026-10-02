@@ -196,7 +196,8 @@ assets/sprites/<asset>/*.webp             frames, strips or atlases, and portrai
       "head": [212, 96],       // optional per-pose head point (top of head, where a hat sits)
       "hand": [262, 236],      // optional per-pose hand point (grip of the forward hand)
       "bodyHeight": 320,       // optional per-pose override (avoid; keep one scale per set)
-      "holdLast": true         // parsed but currently unused: non-looping poses always hold their last frame
+      "holdLast": true,        // false returns to idle after a non-looping clip ends
+      "facing": 1              // optional per-pose override of the set facing
     },
     "run": "walk",                                   // alias (string form)
     "wave": { "alias": "cheer", "fps": 6, "loop": true, "motion": 0.5 }   // alias with overrides
@@ -247,8 +248,9 @@ bow) mirror when the character walks left. The base art already does this, so
 it is accepted.
 
 **Aliases** copy another pose's frames with optional `fps`/`loop`/`motion`
-overrides. An alias must point at a pose that has real frames (aliases of
-aliases don't resolve).
+overrides. Aliases may point to other aliases, in any manifest order. Missing targets and
+cycles are rejected. The alias uses the named pose's loop default when available.
+Explicit per-frame `dur` remains authoritative over an alias fps override.
 
 **Custom pose names.** Any name in `poses` is loaded, even if it is not in
 `POSES`. A game can request it and it plays. It has no fallback chain or
@@ -268,11 +270,16 @@ in `procedural()` in `sprites.js`. Rules of thumb:
 | …already contain the vertical motion (a jump arc drawn in the frames) | `0–0.15` |
 | …are a walk/run cycle with drawn bob | `0.1–0.2` |
 
-Gotcha: `celebrate`, `ready` and `dance` include a procedural **twirl**
-(horizontal scale flips through zero). With sprites, the twirl is suppressed
-only while the scale is negative and `motion < 0.5`, so weights from about 0.2
-to 0.99 produce a visible partial "squeeze". Use `motion ≤ 0.15` or exactly
-`1.0` on those three poses, or fix the blend (§5.5).
+With sprites, procedural horizontal twirls are disabled **before** squash is
+blended. Celebrate, ready and dance therefore never squeeze through zero.
+Any `motion` weight is safe; choose it based on motion already in the artwork.
+
+`playOnce(name)` uses the generated clip's duration when present (0.5 seconds
+for base-art fallback). An explicit `playOnce(name, seconds)` fits the **whole**
+clip to that duration, so quick actions do not skip their follow-through.
+Follower one-shots begin at frame zero; looping poses keep their phase offsets.
+Non-looping clips normally hold their last frame; `holdLast: false` switches
+to idle. Frame durations must be positive finite seconds.
 
 Other overlays that also apply in sprite mode: the blue "sad wash" tint on
 pout/sad (at half strength), the red hit tint on hurt (half strength),
@@ -286,17 +293,12 @@ chain finds nothing, it uses the set's `idle`. If the set has no idle either,
 the member drops to base-art mode. **A partial set works.** You can ship
 idle + walk + celebrate + pout today and everything else falls back.
 
-Two consequences to know about (§5.5 proposes fixes):
-
-- When a fallback pose is used, the **resolved** pose's `motion` weight
-  applies, while the procedural shape still comes from the **requested** pose.
-  A set with only `idle` (motion 0.25) therefore shows a much weaker
-  celebrate hop than base art (motion 1.0).
-- Base-art **fallback emotes are switched off for the whole member as soon as
-  it has a sprite set** (`?` on think, `!` on surprised, star on cheer, tear on
-  sad, hearts on celebrate). Even a pose that falls back to idle loses its
-  emote. So when you ship a set, its frames must carry those expressions
-  themselves, especially `think`, `surprised`, `cheer` and `sad`.
+Fallback poses keep at least 0.9 procedural motion so a partial set still
+expresses the requested action. Fallback expression emotes are suppressed
+only when the exact requested pose/alias exists, not merely because the
+member has a sprite set. Authored aliases should be chosen for a compatible
+expression. Missing images or invalid frames are skipped without breaking
+base-art fallback.
 
 `auto` emotes are always drawn, sprites or not: sparkles on celebrate, a rain
 cloud on pout, circling dizzy stars, music notes on dance, and Zzz on sleep.
@@ -628,8 +630,7 @@ over large empty canvases.
 ### 5.5 Recommended engine improvements (yours to make or to report)
 
 Items 1–4 are **done** (the lead implemented them; documented here for
-reference). Items 5–6 are still open: fix them in `sprites.js` if you're
-working there, or list them in your report:
+reference). Item 5 is now done too; item 6 remains optional:
 
 1. **Fallback poses keep full expressiveness.** When `resolvePose` returns a
    pose other than the one requested, use `motion` 1.0 (or `max(motion,
@@ -644,12 +645,17 @@ working there, or list them in your report:
 4. **Proposed poses** (§4.3 and §8) added to `POSES` with fallbacks, so the
    viewer can show them and games can request them safely. The viewer cycles
    `POSE_NAMES`, so custom names are invisible there until they're added.
-5. Optional per-pose `facing` override (for a front-facing celebrate in an
+5. **Done:** per-pose `facing` override (for a front-facing celebrate in an
    otherwise right-facing set).
 6. Optional lazy loading of sprite sets that only NPCs use, to cut boot time.
 
 If you change engine JS, bump `?v=` on `src/main.js` in `party/index.html`.
 Bump nothing else.
+
+Reusable intake and validation are in `tools/sprites/README.md`. The viewer
+also accepts `chars`, `debug=1`, `zoom` and frozen `time` query parameters.
+Press **P** to pause and **.** to advance 1/12 second for foot/loop inspection.
+Coverage labels distinguish authored poses, aliases and fallback art.
 
 ---
 
