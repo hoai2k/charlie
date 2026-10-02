@@ -823,7 +823,6 @@ export class Game {
   }
 
   drawBoardContent(g, bw, bh) {
-
     const rd = this.rd;
     const chalk = { stroke: false, color: '#f4fff8', weight: 700 };
     if (this.phase === 'end') {
@@ -873,7 +872,6 @@ export class Game {
         if (i < n - 1) ui.text(g, '+', x + gap / 2, y, { ...chalk, size: 48, color: '#ffe58a' });
       });
     }
-    g.restore();
   }
 
   drawHootAndSpeech(g) {

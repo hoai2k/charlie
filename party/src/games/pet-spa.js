@@ -384,7 +384,17 @@ export class Game {
     s.char = new Actor(p.charId, { x: r.x + r.w * (r.w < 520 ? 0.15 : 0.14), y: s.ped.y + (compact ? 6 : r.h * 0.07) });
     const ch = s.char;
     ch.scale = clamp((r.h * (compact ? 0.3 : 0.26)) / ch.leader.h, 0.38, 1.4);
-    ch.facing = 1; ch.snap();
+    ch.facing = 1;
+    // Keep wide characters and followers (Fellowfox, the KPop trio) inside
+    // their own station instead of spilling into the neighbor's.
+    let left = 0;
+    for (const m of ch.char.members) {
+      const img = getBaseImage(m.asset);
+      const w = img ? (img.width / img.height) * m.h : m.h * 0.6;
+      left = Math.max(left, (w / 2 - m.dx) * ch.scale);
+    }
+    ch.x = Math.max(ch.x, r.x + left + 10);
+    ch.snap();
     this.rebuildPet(s, def);
     s.cursor.x = s.cursor.px = s.ped.x + r.w * 0.05;
     s.cursor.y = s.cursor.py = s.ped.y - s.pet.height * 0.55;
