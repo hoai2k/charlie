@@ -23,33 +23,18 @@ const difficultySelect = document.querySelector("#difficultySelect");
 const specialsSelect = document.querySelector("#specialsSelect");
 const settingsButton = document.querySelector("#settingsButton");
 const settingsPanel = document.querySelector("#settingsPanel");
-const playerOneCharacter = document.querySelector("#playerOneCharacter");
-const playerTwoCharacter = document.querySelector("#playerTwoCharacter");
-const playerThreeCharacter = document.querySelector("#playerThreeCharacter");
-const playerFourCharacter = document.querySelector("#playerFourCharacter");
-const playerTwoSelectLabel = document.querySelector("#playerTwoSelectLabel");
-const playerThreeSelectLabel = document.querySelector("#playerThreeSelectLabel");
-const playerFourSelectLabel = document.querySelector("#playerFourSelectLabel");
-const playerTwoSelectWrap = document.querySelector("#playerTwoSelectWrap");
-const playerThreeSelectWrap = document.querySelector("#playerThreeSelectWrap");
-const playerFourSelectWrap = document.querySelector("#playerFourSelectWrap");
-const playerOneLabel = document.querySelector("#playerOneLabel");
-const playerTwoLabel = document.querySelector("#playerTwoLabel");
-const playerThreeLabel = document.querySelector("#playerThreeLabel");
-const playerFourLabel = document.querySelector("#playerFourLabel");
-const whirlpoolStatus = document.querySelector("#whirlpoolStatus");
-const julietteStatus = document.querySelector("#julietteStatus");
-const claudiaStatus = document.querySelector("#claudiaStatus");
-const kayaStatus = document.querySelector("#kayaStatus");
-const playerHuds = [
-  document.querySelector("#playerOneHud"),
-  document.querySelector("#playerTwoHud"),
-  document.querySelector("#playerThreeHud"),
-  document.querySelector("#playerFourHud")
-];
-const playerLabels = [playerOneLabel, playerTwoLabel, playerThreeLabel, playerFourLabel];
-const playerStatuses = [whirlpoolStatus, julietteStatus, claudiaStatus, kayaStatus];
-const characterSelects = [playerOneCharacter, playerTwoCharacter, playerThreeCharacter, playerFourCharacter];
+const PLAYER_ID_WORDS = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"];
+const characterSelects = PLAYER_ID_WORDS.map(word => document.querySelector(`#player${word}Character`));
+const characterSelectWraps = characterSelects.map(select => select?.closest("label") || null);
+const characterSelectLabels = characterSelectWraps.map(wrap => wrap?.querySelector("span") || null);
+const LEGACY_STATUS_IDS = ["whirlpoolStatus", "julietteStatus", "claudiaStatus", "kayaStatus"];
+const playerHuds = PLAYER_ID_WORDS.map(word => document.querySelector(`#player${word}Hud`));
+const playerLabels = PLAYER_ID_WORDS.map(word => document.querySelector(`#player${word}Label`));
+const playerStatuses = PLAYER_ID_WORDS.map((word, index) => (
+  document.querySelector(`#${LEGACY_STATUS_IDS[index] || `player${word}Status`}`)
+));
+const hudElement = document.querySelector(".hud");
+const joinTray = document.querySelector("#joinTray");
 const controls = document.querySelector(".controls");
 const controllerPointerLayer = document.createElement("div");
 controllerPointerLayer.className = "controller-pointer-layer";
@@ -195,6 +180,14 @@ const LEGO_PANE_KEEP_VISIBLE_MARGIN = 112;
 const LEGO_SCREEN_ALIGNMENT_EPSILON = 1.5;
 const LEGO_MERGE_CROSSING_EPSILON = LEGO_SCREEN_ALIGNMENT_EPSILON * 2;
 const LEGO_CAMERA_CATCHUP_RATE = 1.5;
+const LEGO_MERGE_HYSTERESIS = 24;
+const LEGO_FORCE_MERGE_FRACTION = 0.3;
+const LEGO_FORCE_MERGE_DWELL = 0.5;
+const LEGO_ROW_EXIT_DELAY = 1.2;
+const LEGO_CROSSFADE_SECONDS = 0.3;
+const LEGO_MAX_PANES_PER_ROW = 4;
+const LEGO_TWO_ROW_ENTER = 5;
+const LEGO_TWO_ROW_EXIT = 3;
 const RACE_TRACKER_WIDTH = 250;
 const RACE_TRACKER_TOP = 94;
 const RACE_TRACKER_RIGHT = 24;
@@ -216,6 +209,9 @@ const POWERUP_ICON_RECTS = [
   { x: 2200, y: 0, w: 604, h: 561 }
 ];
 const keys = new Set();
+// Keys pressed since the join/picker code last looked, so a quick tap that
+// starts and ends between two frames still counts.
+const keysTapped = new Set();
 GameAudio.attachMusic(music, 1);
 GameAudio.attachMusic(nextMusic, 0);
 const mobileQuery = window.matchMedia("(pointer: coarse)");
@@ -229,8 +225,22 @@ const MODE_CONFIG = {
   four: { humans: 4, ais: 0 },
   "two-one-ai": { humans: 2, ais: 1 },
   "two-two-ai": { humans: 2, ais: 2 },
-  "three-one-ai": { humans: 3, ais: 1 }
+  "three-one-ai": { humans: 3, ais: 1 },
+  five: { humans: 5, ais: 0 },
+  six: { humans: 6, ais: 0 },
+  seven: { humans: 7, ais: 0 },
+  eight: { humans: 8, ais: 0 }
 };
+const MAX_PLAYERS = 8;
+// One stable colour per player slot (P1..P8), independent of the character, so
+// two players who picked the same doll can still be told apart.
+const PLAYER_SLOT_COLORS = ["#e23b5a", "#2f7de1", "#2fa84f", "#f08a1c", "#8e44c9", "#14a3b8", "#d6409f", "#8a6a2b"];
+const JOIN_BUTTONS = [0, 1, 2, 3, 9];
+const LEAVE_BUTTON = 8;
+const LEAVE_HOLD_SECONDS = 1.5;
+const DISCONNECT_LEAVE_SECONDS = 5;
+const PICKER_REPEAT_DELAY = 0.32;
+const PICKER_REPEAT_RATE = 0.16;
 const MOBILE_MODE_VALUES = new Set(["one", "one-one-ai", "one-two-ai"]);
 const DIFFICULTIES = [
   { key: "none", label: "No Monsters" },
@@ -243,10 +253,14 @@ const RACER_STARTS = [
   { x: 128, y: 502 },
   { x: 92, y: 566 },
   { x: 170, y: 624 },
-  { x: 56, y: 610 }
+  { x: 56, y: 610 },
+  { x: 206, y: 540 },
+  { x: 140, y: 650 },
+  { x: 60, y: 520 },
+  { x: 214, y: 600 }
 ];
 
-const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya"];
+const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya", "lily", "marisol", "amanda", "rumi"];
 const SPECIALS = new Set(["none", "unicorn", "pegasus", "all-dolls", "horsing", "amanda-mode"]);
 const BACKGROUNDS = [
   { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3" },
@@ -400,7 +414,27 @@ const state = {
   legoPaneCameras: [],
   legoPaneGroupKeys: [],
   legoMergeBoundarySnapshots: {},
-  legoSharedLazy: false
+  legoSharedLazy: false,
+  legoRows: 1,
+  legoRowOfRacer: {},
+  legoRowExitHold: 0,
+  legoPaneGeometry: {},
+  legoForceMergeHold: {},
+  legoForceMergeSeen: {},
+  legoCrossfadeRequested: false,
+  legoCrossfade: 0,
+  // Input bindings by player slot (= racer.playerIndex). slotPads holds a
+  // Gamepad.index, slotKeys a keyboard scheme ("wasd" | "arrows").
+  slotPads: Array(MAX_PLAYERS).fill(null),
+  slotKeys: Array(MAX_PLAYERS).fill(null),
+  preserveBindings: false,
+  joinPickers: [],
+  padButtonsDown: new Map(),
+  padLeaveHold: new Map(),
+  slotDisconnectTimers: new Map(),
+  // Controllers whose player chose to leave this race: they are not handed
+  // to other players automatically, only by pressing A to join again.
+  retiredPads: new Set()
 };
 
 const touchInput = {
@@ -419,7 +453,7 @@ let nextTrackCrossfadeTimer = null;
 const musicFadeTokens = new WeakMap();
 const musicGains = new WeakMap([[music, 1], [nextMusic, 0]]);
 
-const controllerPointers = [];
+const controllerPointers = new Map();
 const spriteAlphaCanvases = new Map();
 const menuCharacterPreview = [
   { key: "lily", x: 59, y: 430 },
@@ -451,6 +485,8 @@ function resizeCanvasToFrame() {
   W = nextWidth;
   canvas.width = W;
   canvas.height = H;
+  // Pane widths change with the canvas, so old alignment history is invalid.
+  state.legoMergeBoundarySnapshots = {};
   updateCamera();
   drawScene(0);
 }
@@ -521,6 +557,13 @@ function resetRace(mode = state.mode) {
   state.legoPaneGroupKeys = [];
   state.legoMergeBoundarySnapshots = {};
   state.legoSharedLazy = false;
+  state.legoRows = 1;
+  state.legoRowOfRacer = {};
+  state.legoRowExitHold = 0;
+  state.legoForceMergeHold = {};
+  state.legoForceMergeSeen = {};
+  state.legoCrossfadeRequested = false;
+  state.legoCrossfade = 0;
   state.winner = null;
   state.victoryStartTime = 0;
   state.obstacles = makeObstacles();
@@ -535,7 +578,8 @@ function resetRace(mode = state.mode) {
   state.paused = false;
   pausePanel.classList.add("hidden");
   state.racers = [];
-  const totalRacers = config.humans + config.ais;
+  const totalRacers = Math.min(MAX_PLAYERS, config.humans + config.ais);
+  setupSlotBindings(config.humans);
   for (let index = 0; index < totalRacers; index += 1) {
     const ai = index >= config.humans;
     const character = getSelectedCharacter(characterSelects[index], CHARACTER_FALLBACKS[index]);
@@ -704,13 +748,28 @@ function updateMobileModeAvailability() {
   }
 }
 
+function getHudRacers() {
+  return state.racers.slice().sort((a, b) => a.playerIndex - b.playerIndex);
+}
+
+function racerTag(racer) {
+  return racer.ai ? `AI ${racer.playerIndex + 1}` : `P${racer.playerIndex + 1}`;
+}
+
+function slotColor(index) {
+  return PLAYER_SLOT_COLORS[index % PLAYER_SLOT_COLORS.length];
+}
+
 function updatePlayerLabels() {
+  const racers = getHudRacers();
+  hudElement?.classList.toggle("compact", racers.length > 4);
   for (let index = 0; index < playerHuds.length; index += 1) {
-    const racer = state.racers[index];
+    const racer = racers[index];
+    if (!playerHuds[index]) continue;
     playerHuds[index].classList.toggle("hidden", !racer);
     if (!racer) continue;
-    const prefix = racer.ai ? `AI ${index + 1}` : `P${index + 1}`;
-    playerLabels[index].textContent = `${prefix}: ${racer.name}`;
+    playerHuds[index].style.setProperty("--slot-color", slotColor(racer.playerIndex));
+    playerLabels[index].textContent = `${racerTag(racer)}: ${racer.name}`;
     playerLabels[index].style.color = racer.color;
   }
 }
@@ -718,14 +777,12 @@ function updatePlayerLabels() {
 function updateModeLabels() {
   updateMobileModeAvailability();
   const config = MODE_CONFIG[gameMode.value] || MODE_CONFIG.two;
-  const totalRacers = config.humans + config.ais;
-  const labels = [null, playerTwoSelectLabel, playerThreeSelectLabel, playerFourSelectLabel];
-  const wraps = [null, playerTwoSelectWrap, playerThreeSelectWrap, playerFourSelectWrap];
+  const totalRacers = Math.min(MAX_PLAYERS, config.humans + config.ais);
   for (let index = 1; index < characterSelects.length; index += 1) {
     const visible = index < totalRacers;
-    if (wraps[index]) wraps[index].classList.toggle("hidden", !visible);
-    if (!visible || !labels[index]) continue;
-    labels[index].textContent = index < config.humans ? `Player ${index + 1}` : `AI ${index + 1}`;
+    if (characterSelectWraps[index]) characterSelectWraps[index].classList.toggle("hidden", !visible);
+    if (!visible || !characterSelectLabels[index]) continue;
+    characterSelectLabels[index].textContent = index < config.humans ? `Player ${index + 1}` : `AI ${index + 1}`;
   }
   updateControlInstructions();
 }
@@ -765,24 +822,28 @@ function updateControlInstructions() {
   }));
 }
 
+const KEYBOARD_SCHEME_LABELS = {
+  wasd: "WASD + Space + F",
+  arrows: "arrows + Enter + Shift"
+};
+
 function controlDescription(index, humanCount) {
-  if (humanCount === 1) {
-    return "controller 1 or WASD + Space + F";
+  const scheme = defaultKeyboardScheme(index, humanCount);
+  const pad = `controller ${index + 1}`;
+  return scheme ? `${pad} or ${KEYBOARD_SCHEME_LABELS[scheme]}` : pad;
+}
+
+// The two keyboard schemes go to P1/P2 in a two-player game and to the last
+// two players otherwise (the same layout the 3- and 4-player modes always had).
+function defaultKeyboardScheme(index, humanCount) {
+  if (humanCount <= 2) {
+    if (index === 0) return "wasd";
+    if (index === 1) return "arrows";
+    return null;
   }
-  if (humanCount === 2) {
-    return index === 0
-      ? "controller 1 or WASD + Space + F"
-      : "controller 2 or arrows + Enter + Shift";
-  }
-  if (humanCount === 3) {
-    if (index === 0) return "controller 1";
-    if (index === 1) return "controller 2 or WASD + Space + F";
-    return "controller 3 or arrows + Enter + Shift";
-  }
-  if (index === 0) return "controller 1";
-  if (index === 1) return "controller 2";
-  if (index === 2) return "controller 3 or WASD + Space + F";
-  return "controller 4 or arrows + Enter + Shift";
+  if (index === humanCount - 2) return "wasd";
+  if (index === humanCount - 1) return "arrows";
+  return null;
 }
 
 function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpeed, riderYOffset = DEFAULT_RIDER_Y_OFFSET, riderXOffset = DEFAULT_RIDER_X_OFFSET) {
@@ -1209,6 +1270,7 @@ function playVictoryAudio(winner) {
 }
 
 function startRace(mode = gameMode.value) {
+  clearJoinPickers();
   stopMenuAnimationLoop();
   hideControllerPointers();
   updateMobileModeAvailability();
@@ -1253,6 +1315,7 @@ function togglePause() {
 
 function returnToMenu() {
   clearNextRaceTimer();
+  clearJoinPickers();
   state.running = false;
   state.done = false;
   state.paused = false;
@@ -1285,6 +1348,8 @@ function toggleFullscreen() {
 }
 
 function finishRace(winner) {
+  clearJoinPickers();
+  compactSlotsForNextRace();
   state.running = false;
   state.done = true;
   state.winner = winner;
@@ -1428,6 +1493,7 @@ function menuAnimationLoop(time) {
   }
   const dt = Math.min(0.033, (time - (lastMenuFrameTime || time)) / 1000);
   lastMenuFrameTime = time;
+  if (assetsReady && isMenuOpen()) pollPlayerJoinAndLeave(dt);
   updateControllerPointers(dt);
   drawScene(dt);
   menuAnimationFrame = requestAnimationFrame(menuAnimationLoop);
@@ -1436,7 +1502,10 @@ function menuAnimationLoop(time) {
 function update(dt) {
   const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
   const racerCameraStartPositions = new Map(state.racers.map(racer => [racer, racer.x]));
-  const startPressed = connectedGamepads(gamepads).some(pad => pad.buttons[9]?.pressed);
+  pollPlayerJoinAndLeave(dt, gamepads);
+  // Only controllers that belong to a player pause; Start on a spare
+  // controller asks to join instead.
+  const startPressed = connectedGamepads(gamepads).some(pad => getSlotForPad(pad.index) !== -1 && pad.buttons[9]?.pressed);
   if (startPressed && !state.lastStartPressed) togglePause();
   state.lastStartPressed = startPressed;
   if (state.paused) return;
@@ -1469,6 +1538,7 @@ function update(dt) {
       }
     }
     racer.unicornBeamCooldown = Math.max(0, racer.unicornBeamCooldown - dt);
+    if (racer.joinFlashTimer > 0) racer.joinFlashTimer = Math.max(0, racer.joinFlashTimer - dt);
     if (racer.horseTimer === 0) {
       racer.horseType = "horse";
       racer.pegasusGliding = false;
@@ -2345,7 +2415,7 @@ function isWorldXVisibleInAnyView(worldX) {
 function getActiveWorldViewRanges() {
   if (state.cameraMode === "lego" && (state.legoSplitActive || state.legoSplitRendering) && state.legoPaneCameras.length > 0) {
     const groups = getActiveLegoPaneGroups();
-    const panes = getLegoPaneLayout(groups);
+    const panes = getLegoPaneLayout(groups, state.legoRows);
     const ranges = panes.map((pane, index) => {
       const camera = state.legoPaneCameras[index];
       if (!Number.isFinite(camera)) return null;
@@ -2506,6 +2576,9 @@ function updateLazySharedLegoCamera(humanRacers, desiredCamera, maxCamera, viewW
   } else {
     state.camera = clamp(state.camera, 0, maxCamera);
   }
+  // The lazy camera must never leave a player off screen while the shared
+  // view is still wide enough for everyone.
+  state.camera = cameraKeepingLegoGroupVisible(humanRacers, viewWidth, state.camera, maxCamera);
   if (Math.abs(state.camera - desiredCamera) < 2 && Math.abs(offsetFromTarget) < 8) {
     state.legoSharedLazy = false;
   }
@@ -2542,10 +2615,8 @@ function getAiHumanGap(racer) {
 }
 
 function playerInput(index, gamepads) {
-  const pads = connectedGamepads(gamepads);
-  const config = getModeConfig();
-  const keyboard = keyboardInputForPlayer(index, config.humans);
-  const pad = pads[index] || null;
+  const keyboard = keyboardInputForPlayer(index);
+  const pad = getSlotGamepad(index, gamepads);
   const up = keyboard.up;
   const down = keyboard.down;
   const right = keyboard.right;
@@ -2584,17 +2655,13 @@ function playerInput(index, gamepads) {
   };
 }
 
-function keyboardInputForPlayer(index, humanCount) {
-  if (humanCount <= 2) {
-    if (index === 0) return wasdInput();
-    if (index === 1) return arrowsInput();
-  } else if (humanCount === 3) {
-    if (index === 1) return wasdInput();
-    if (index === 2) return arrowsInput();
-  } else {
-    if (index === 2) return wasdInput();
-    if (index === 3) return arrowsInput();
-  }
+function keyboardInputForPlayer(index) {
+  return keyboardSchemeInput(state.slotKeys[index]);
+}
+
+function keyboardSchemeInput(scheme) {
+  if (scheme === "wasd") return wasdInput();
+  if (scheme === "arrows") return arrowsInput();
   return emptyKeyboardInput();
 }
 
@@ -2624,6 +2691,514 @@ function emptyKeyboardInput() {
   return { up: false, down: false, left: false, right: false, jump: false, push: false };
 }
 
+/* ── Players: bindings, drop-in join and leave ───────────────────────────────
+ * Each human racer has a slot (racer.playerIndex, 0..7). A slot is bound to a
+ * controller (state.slotPads holds its Gamepad.index) and/or a keyboard scheme
+ * (state.slotKeys). Connected controllers are handed to slots that have none,
+ * lowest slot first, which reproduces the old "controller N drives player N"
+ * behaviour. A controller left over once every slot has one is a spare:
+ * pressing A (or B/X/Y/Start) on it opens a join card where that player picks
+ * a doll. On the menu the pick adds a player to the mode; mid-race the new
+ * racer is dropped in at the back of the pack without pausing anyone else.
+ * Holding Back/View for 1.5s (or unplugging for 5s) makes a player leave.
+ * ---------------------------------------------------------------------------*/
+
+function isMenuOpen() {
+  return !startPanel.classList.contains("hidden") && !state.running;
+}
+
+function isRaceActive() {
+  return state.running && !state.paused && !state.done;
+}
+
+function getActiveHumanSlots() {
+  if (isMenuOpen()) {
+    const config = MODE_CONFIG[gameMode.value] || getModeConfig();
+    return Array.from({ length: Math.min(MAX_PLAYERS, config.humans) }, (_, index) => index);
+  }
+  return state.racers.filter(racer => !racer.ai).map(racer => racer.playerIndex).sort((a, b) => a - b);
+}
+
+function setupSlotBindings(humanCount) {
+  if (state.preserveBindings) {
+    state.preserveBindings = false;
+  } else {
+    for (let index = 0; index < MAX_PLAYERS; index += 1) {
+      state.slotKeys[index] = index < humanCount ? defaultKeyboardScheme(index, humanCount) : null;
+    }
+  }
+  for (let index = humanCount; index < MAX_PLAYERS; index += 1) {
+    state.slotPads[index] = null;
+    state.slotKeys[index] = null;
+  }
+  state.slotDisconnectTimers.clear();
+  state.padLeaveHold.clear();
+  state.retiredPads.clear();
+  const slots = Array.from({ length: humanCount }, (_, index) => index);
+  autoAssignPads(slots, connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : []));
+}
+
+function autoAssignPads(slots, pads) {
+  const connectedIds = new Set(pads.map(pad => pad.index));
+  const taken = new Set(slots.map(slot => state.slotPads[slot]).filter(id => id !== null && connectedIds.has(id)));
+  const free = pads.filter(pad => !taken.has(pad.index) && !getJoinPickerForPad(pad.index) && !state.retiredPads.has(pad.index));
+  for (const slot of slots) {
+    if (free.length === 0) break;
+    const current = state.slotPads[slot];
+    if (current !== null && connectedIds.has(current)) continue;
+    state.slotPads[slot] = free.shift().index;
+  }
+}
+
+function getSlotForPad(padIndex) {
+  return getActiveHumanSlots().find(slot => state.slotPads[slot] === padIndex) ?? -1;
+}
+
+function getSlotGamepad(slot, gamepads) {
+  const id = state.slotPads[slot];
+  if (id === null || id === undefined) return null;
+  return connectedGamepads(gamepads).find(pad => pad.index === id) || null;
+}
+
+function getLeaveHoldProgress(slot) {
+  return clamp((state.padLeaveHold.get(slot) || 0) / LEAVE_HOLD_SECONDS, 0, 1);
+}
+
+function isKeyboardSchemeBound(scheme) {
+  return getActiveHumanSlots().some(slot => state.slotKeys[slot] === scheme);
+}
+
+function keyHeldOrTapped(code) {
+  return keys.has(code) || keysTapped.has(code);
+}
+
+function keyboardJoinPressed(scheme) {
+  return keyHeldOrTapped(scheme === "wasd" ? "Space" : "Enter");
+}
+
+function pollPlayerJoinAndLeave(dt, gamepads = navigator.getGamepads ? navigator.getGamepads() : []) {
+  const pads = connectedGamepads(gamepads);
+  const slots = getActiveHumanSlots();
+  autoAssignPads(slots, pads);
+  const connectedIds = new Set(pads.map(pad => pad.index));
+
+  for (const pad of pads) {
+    const down = JOIN_BUTTONS.some(button => pad.buttons[button]?.pressed);
+    // A browser only reveals a controller after a button press, so the press
+    // that makes it appear counts as a join press.
+    const wasDown = state.padButtonsDown.get(pad.index) ?? false;
+    state.padButtonsDown.set(pad.index, down);
+    const slot = slots.find(candidate => state.slotPads[candidate] === pad.index) ?? -1;
+    if (slot === -1) {
+      if (down && !wasDown && !getJoinPickerForPad(pad.index)) openJoinPicker({ pad: pad.index });
+      continue;
+    }
+    if (pad.buttons[LEAVE_BUTTON]?.pressed) {
+      const held = (state.padLeaveHold.get(slot) || 0) + dt;
+      state.padLeaveHold.set(slot, held);
+      if (held >= LEAVE_HOLD_SECONDS) {
+        state.padLeaveHold.delete(slot);
+        removePlayerSlot(slot);
+      }
+    } else {
+      state.padLeaveHold.delete(slot);
+    }
+  }
+  for (const id of Array.from(state.padButtonsDown.keys())) {
+    if (!connectedIds.has(id)) state.padButtonsDown.delete(id);
+  }
+
+  if (isRaceActive()) {
+    state.keyJoinDown = state.keyJoinDown || {};
+    for (const scheme of ["wasd", "arrows"]) {
+      const down = keyboardJoinPressed(scheme);
+      const wasDown = (state.keyJoinDown[scheme] ?? true) && !keysTapped.has(scheme === "wasd" ? "Space" : "Enter");
+      state.keyJoinDown[scheme] = down;
+      if (down && !wasDown && !isKeyboardSchemeBound(scheme) && !getJoinPickerForKeys(scheme)) {
+        openJoinPicker({ keys: scheme });
+      }
+    }
+    for (const slot of getActiveHumanSlots()) {
+      const id = state.slotPads[slot];
+      const lostPad = id !== null && !connectedIds.has(id);
+      const hasOtherInput = Boolean(state.slotKeys[slot]) || (slot === 0 && isTouchDevice());
+      if (!lostPad || hasOtherInput) {
+        state.slotDisconnectTimers.delete(slot);
+        continue;
+      }
+      const waited = (state.slotDisconnectTimers.get(slot) || 0) + dt;
+      state.slotDisconnectTimers.set(slot, waited);
+      if (waited >= DISCONNECT_LEAVE_SECONDS) {
+        state.slotDisconnectTimers.delete(slot);
+        removePlayerSlot(slot);
+      }
+    }
+  }
+  updateJoinPickers(dt, pads);
+  keysTapped.clear();
+}
+
+function getJoinPickerForPad(padIndex) {
+  return state.joinPickers.find(picker => picker.pad === padIndex) || null;
+}
+
+function getJoinPickerForKeys(scheme) {
+  return state.joinPickers.find(picker => picker.keys === scheme) || null;
+}
+
+function countPlayersAfterPendingJoins() {
+  return getActiveHumanSlots().length + state.joinPickers.length;
+}
+
+function openJoinPicker(source) {
+  if (!assetsReady || state.done || state.paused) return null;
+  if (!isMenuOpen() && !state.running) return null;
+  if (countPlayersAfterPendingJoins() >= MAX_PLAYERS) {
+    showJoinTrayMessage("The race is full (8 players)");
+    return null;
+  }
+  const visible = getVisibleCharacterEntries().map(([key]) => key);
+  const used = new Set(state.racers.filter(racer => !racer.ai).map(racer => racer.spriteKey));
+  for (const picker of state.joinPickers) used.add(picker.character);
+  const character = visible.find(key => !used.has(key)) || visible[0];
+  const element = document.createElement("div");
+  element.className = "join-card";
+  const picker = {
+    pad: source.pad ?? null,
+    keys: source.keys ?? null,
+    character,
+    armed: false,
+    lastDirection: 0,
+    repeatTimer: 0,
+    element
+  };
+  state.joinPickers.push(picker);
+  joinTray?.appendChild(element);
+  renderJoinPickers();
+  GameAudio.unlock();
+  GameAudio.play("ui_click");
+  return picker;
+}
+
+function closeJoinPicker(picker) {
+  state.joinPickers = state.joinPickers.filter(candidate => candidate !== picker);
+  picker.element.remove();
+  // The confirm/cancel press must not immediately count as a join press.
+  if (picker.pad !== null) state.padButtonsDown.set(picker.pad, true);
+  renderJoinPickers();
+}
+
+function predictedJoinSlot(picker) {
+  const order = state.joinPickers.indexOf(picker);
+  if (isMenuOpen()) return getActiveHumanSlots().length + Math.max(0, order);
+  const used = new Set(state.racers.filter(racer => !racer.ai).map(racer => racer.playerIndex));
+  let skipped = 0;
+  for (let slot = 0; slot < MAX_PLAYERS; slot += 1) {
+    if (used.has(slot)) continue;
+    if (skipped === order) return slot;
+    skipped += 1;
+  }
+  return MAX_PLAYERS - 1;
+}
+
+function renderJoinPickers() {
+  if (!joinTray) return;
+  joinTray.classList.toggle("hidden", state.joinPickers.length === 0 && !joinTray.dataset.message);
+  for (const picker of state.joinPickers) {
+    const character = characters[picker.character];
+    const slot = predictedJoinSlot(picker);
+    const confirm = picker.keys === "wasd" ? "Space" : picker.keys === "arrows" ? "Enter" : "A";
+    const cancel = picker.keys === "wasd" ? "F" : picker.keys === "arrows" ? "Shift" : "B";
+    const signature = `${slot}|${picker.character}|${confirm}`;
+    if (picker.element.dataset.signature === signature) continue;
+    picker.element.dataset.signature = signature;
+    picker.element.style.setProperty("--slot-color", slotColor(slot));
+    picker.element.replaceChildren();
+    const title = document.createElement("div");
+    title.className = "join-card-title";
+    title.textContent = `P${slot + 1} joins!`;
+    const sprite = document.createElement("div");
+    sprite.className = "join-card-sprite";
+    sprite.style.backgroundImage = `url("${character.image().src}")`;
+    const name = document.createElement("div");
+    name.className = "join-card-name";
+    name.textContent = `◀ ${character.name} ▶`;
+    name.style.color = character.color;
+    const hint = document.createElement("div");
+    hint.className = "join-card-hint";
+    hint.textContent = `${confirm}: race · ${cancel}: cancel`;
+    picker.element.append(title, sprite, name, hint);
+  }
+}
+
+let joinTrayMessageTimer = null;
+function showJoinTrayMessage(text) {
+  if (!joinTray) return;
+  let message = joinTray.querySelector(".join-tray-message");
+  if (!message) {
+    message = document.createElement("div");
+    message.className = "join-tray-message";
+    joinTray.prepend(message);
+  }
+  message.textContent = text;
+  joinTray.dataset.message = "1";
+  joinTray.classList.remove("hidden");
+  clearTimeout(joinTrayMessageTimer);
+  joinTrayMessageTimer = setTimeout(() => {
+    message.remove();
+    delete joinTray.dataset.message;
+    renderJoinPickers();
+  }, 1800);
+}
+
+function readJoinPickerInput(picker, pads) {
+  if (picker.pad !== null) {
+    const pad = pads.find(candidate => candidate.index === picker.pad);
+    if (!pad) return null;
+    const axisX = Math.abs(pad.axes[0]) > 0.5 ? pad.axes[0] : 0;
+    const dpadX = (pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[14]?.pressed ? 1 : 0);
+    return {
+      direction: Math.sign(axisX + dpadX),
+      confirm: Boolean(pad.buttons[0]?.pressed || pad.buttons[9]?.pressed),
+      cancel: Boolean(pad.buttons[1]?.pressed)
+    };
+  }
+  const codes = picker.keys === "wasd"
+    ? { left: "KeyA", right: "KeyD", confirm: "Space", cancel: "KeyF" }
+    : { left: "ArrowLeft", right: "ArrowRight", confirm: "Enter", cancel: "ShiftLeft" };
+  const tapped = code => keysTapped.has(code) && !keys.has(code);
+  // A tap that already ended is fed through as a fresh press.
+  if (tapped(codes.left) || tapped(codes.right)) picker.lastDirection = 0;
+  return {
+    direction: (keyHeldOrTapped(codes.right) ? 1 : 0) - (keyHeldOrTapped(codes.left) ? 1 : 0),
+    confirm: keyHeldOrTapped(codes.confirm),
+    cancel: keyHeldOrTapped(codes.cancel) || (picker.keys === "arrows" && keyHeldOrTapped("ShiftRight"))
+  };
+}
+
+function updateJoinPickers(dt, pads) {
+  for (const picker of state.joinPickers.slice()) {
+    const input = readJoinPickerInput(picker, pads);
+    if (!input) {
+      closeJoinPicker(picker);
+      continue;
+    }
+    if (!picker.armed) {
+      // Wait for the button that opened the card to be released.
+      if (!input.confirm && !input.cancel) picker.armed = true;
+      picker.lastDirection = input.direction;
+      continue;
+    }
+    if (input.direction !== 0) {
+      const fresh = input.direction !== picker.lastDirection;
+      picker.repeatTimer -= dt;
+      if (fresh || picker.repeatTimer <= 0) {
+        stepJoinPickerCharacter(picker, input.direction);
+        picker.repeatTimer = fresh ? PICKER_REPEAT_DELAY : PICKER_REPEAT_RATE;
+      }
+    }
+    picker.lastDirection = input.direction;
+    if (input.cancel) {
+      GameAudio.play("ui_back");
+      closeJoinPicker(picker);
+    } else if (input.confirm) {
+      commitJoinPicker(picker);
+    }
+  }
+}
+
+function stepJoinPickerCharacter(picker, direction) {
+  const visible = getVisibleCharacterEntries().map(([key]) => key);
+  const index = Math.max(0, visible.indexOf(picker.character));
+  picker.character = visible[(index + direction + visible.length) % visible.length];
+  GameAudio.play("ui_select_character");
+  renderJoinPickers();
+}
+
+function modeKeyFor(humans, ais) {
+  const existing = Object.entries(MODE_CONFIG).find(([, config]) => config.humans === humans && config.ais === ais);
+  if (existing) return existing[0];
+  const key = `custom-${humans}-${ais}`;
+  MODE_CONFIG[key] = { humans, ais };
+  const option = document.createElement("option");
+  option.value = key;
+  option.textContent = `${humans} Player${humans === 1 ? "" : "s"}${ais > 0 ? ` + ${ais} AI${ais === 1 ? "" : "s"}` : ""}`;
+  gameMode.appendChild(option);
+  return key;
+}
+
+function commitJoinPicker(picker) {
+  closeJoinPicker(picker);
+  if (isMenuOpen()) {
+    const config = MODE_CONFIG[gameMode.value] || getModeConfig();
+    const humans = Math.min(MAX_PLAYERS, config.humans);
+    if (humans >= MAX_PLAYERS) return;
+    const ais = Math.min(config.ais, MAX_PLAYERS - (humans + 1));
+    // Shift any AI picks up a slot so they keep their dolls.
+    for (let index = Math.min(MAX_PLAYERS - 1, humans + ais); index > humans; index -= 1) {
+      if (characterSelects[index] && characterSelects[index - 1]) characterSelects[index].value = characterSelects[index - 1].value;
+    }
+    characterSelects[humans].value = picker.character;
+    state.slotPads[humans] = picker.pad;
+    const mode = modeKeyFor(humans + 1, ais);
+    gameMode.value = mode;
+    state.mode = mode;
+    updateModeLabels();
+    resetRace(mode);
+    if (picker.keys) state.slotKeys[humans] = picker.keys;
+    drawScene(0);
+    GameAudio.play("ui_select_character");
+    return;
+  }
+  if (state.running && !state.done) spawnJoinedPlayer(picker);
+}
+
+function spawnJoinedPlayer(picker) {
+  const humans = state.racers.filter(racer => !racer.ai);
+  if (humans.length >= MAX_PLAYERS) return null;
+  if (state.racers.length >= MAX_PLAYERS) {
+    const ai = state.racers.filter(racer => racer.ai).sort((a, b) => b.x - a.x)[0];
+    if (!ai) return null;
+    removeRacer(ai);
+  }
+  const used = new Set(state.racers.map(racer => racer.playerIndex));
+  let slot = 0;
+  while (used.has(slot)) slot += 1;
+  const character = characters[picker.character] || characters[CHARACTER_FALLBACKS[slot]];
+  const spawn = findJoinSpawnPoint();
+  const racer = makeRacer(
+    character.name,
+    character.spriteKey,
+    character.image(),
+    slot,
+    spawn.x,
+    spawn.y,
+    false,
+    character.color,
+    475,
+    character.riderYOffset,
+    character.riderXOffset
+  );
+  racer.joinFlashTimer = 1.4;
+  state.racers.push(racer);
+  state.retiredPads.delete(picker.pad);
+  state.slotPads[slot] = picker.pad;
+  state.slotKeys[slot] = picker.keys;
+  state.slotDisconnectTimers.delete(slot);
+  updatePlayerLabels();
+  updateHud();
+  GameAudio.play("ui_select_character");
+  racerVoice(racer, "race_start", { chance: 0.8, priority: 1 });
+  return racer;
+}
+
+// New players start just behind the last human still racing, in the lane
+// with the most room, and never inside a hurdle.
+function findJoinSpawnPoint() {
+  // Measure from players who were already racing, so several people joining
+  // at once land side by side instead of each one behind the last.
+  const settled = state.racers.filter(racer => !racer.ai && !racer.finished && !(racer.joinFlashTimer > 0));
+  const active = settled.length > 0 ? settled : state.racers.filter(racer => !racer.ai && !racer.finished);
+  const pool = active.length > 0 ? active : state.racers.filter(racer => !racer.finished);
+  const trailX = pool.length > 0 ? Math.min(...pool.map(racer => racer.x)) : RACER_STARTS[0].x;
+  let x = clamp(trailX - 90, 60, FINISH - 600);
+  for (let guard = 0; guard < 8; guard += 1) {
+    const blocked = state.obstacles.some(obstacle => Math.abs(obstacle.x - x) < HURDLE_W + 30);
+    if (!blocked) break;
+    x = Math.max(60, x - 70);
+  }
+  const lanes = [508, 540, 572, 604, 636];
+  let best = lanes[0];
+  let bestScore = -Infinity;
+  for (const y of lanes) {
+    let score = Infinity;
+    for (const racer of state.racers) {
+      score = Math.min(score, Math.hypot((racer.x - x) * 0.5, racer.y - y));
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      best = y;
+    }
+  }
+  return { x, y: best };
+}
+
+function removeRacer(racer) {
+  state.racers = state.racers.filter(candidate => candidate !== racer);
+  for (const monster of state.monsters) {
+    if (monster.target === racer) {
+      monster.target = null;
+      if (["grab", "lift", "throw"].includes(monster.state)) monster.state = "walk";
+    }
+  }
+  for (const obstacle of state.obstacles) {
+    if (obstacle.amandaTarget === racer) obstacle.amandaTarget = null;
+  }
+  for (const other of state.racers) other.pushedTargets?.delete(racer);
+  GameAudio.stopLoop(racerLoopId(racer, "mount"));
+  GameAudio.stopLoop(racerLoopId(racer, "oil"));
+  GameAudio.stopLoop(racerLoopId(racer, "frozen"));
+  updatePlayerLabels();
+  updateHud();
+}
+
+function removePlayerSlot(slot) {
+  if (isMenuOpen()) {
+    const config = MODE_CONFIG[gameMode.value] || getModeConfig();
+    if (config.humans <= 1 || slot >= config.humans) return;
+    const total = Math.min(MAX_PLAYERS, config.humans + config.ais);
+    for (let index = slot; index < total - 1; index += 1) {
+      characterSelects[index].value = characterSelects[index + 1].value;
+      state.slotPads[index] = state.slotPads[index + 1];
+    }
+    state.slotPads[total - 1] = null;
+    const mode = modeKeyFor(config.humans - 1, config.ais);
+    gameMode.value = mode;
+    state.mode = mode;
+    updateModeLabels();
+    resetRace(mode);
+    drawScene(0);
+    GameAudio.play("ui_back");
+    return;
+  }
+  const humans = state.racers.filter(racer => !racer.ai);
+  const racer = humans.find(candidate => candidate.playerIndex === slot);
+  if (!racer || humans.length <= 1 || state.done) return;
+  removeRacer(racer);
+  if (state.slotPads[slot] !== null) state.retiredPads.add(state.slotPads[slot]);
+  state.slotPads[slot] = null;
+  state.slotKeys[slot] = null;
+  state.slotDisconnectTimers.delete(slot);
+  state.padLeaveHold.delete(slot);
+  GameAudio.play("ui_back");
+}
+
+// Between races, renumber the players who are still here as P1..Pn and
+// make that the mode, so the next race keeps everyone who joined mid-race.
+function compactSlotsForNextRace() {
+  const humans = state.racers.filter(racer => !racer.ai).sort((a, b) => a.playerIndex - b.playerIndex);
+  const ais = state.racers.filter(racer => racer.ai).sort((a, b) => a.playerIndex - b.playerIndex);
+  if (humans.length === 0) return;
+  const pads = humans.map(racer => state.slotPads[racer.playerIndex] ?? null);
+  const schemes = humans.map(racer => state.slotKeys[racer.playerIndex] ?? null);
+  humans.concat(ais).forEach((racer, index) => {
+    if (characterSelects[index]) characterSelects[index].value = racer.spriteKey;
+  });
+  for (let index = 0; index < MAX_PLAYERS; index += 1) {
+    state.slotPads[index] = pads[index] ?? null;
+    state.slotKeys[index] = schemes[index] ?? null;
+  }
+  state.preserveBindings = true;
+  const mode = modeKeyFor(humans.length, Math.min(ais.length, MAX_PLAYERS - humans.length));
+  gameMode.value = mode;
+  state.mode = mode;
+  updateModeLabels();
+}
+
+function clearJoinPickers() {
+  for (const picker of state.joinPickers.slice()) closeJoinPicker(picker);
+}
+
 function connectedGamepads(gamepads) {
   return Array.from(gamepads).filter(Boolean).sort((a, b) => a.index - b.index);
 }
@@ -2632,9 +3207,15 @@ function updateControllerPointers(dt) {
   const pads = connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : []);
   const frameRect = gameFrame.getBoundingClientRect();
   controllerPointerLayer.classList.toggle("hidden", pads.length === 0 || (state.running && !state.paused));
-  for (let index = 0; index < pads.length; index += 1) {
-    const pointer = getControllerPointer(index, frameRect);
-    const pad = pads[index];
+  const shown = new Set();
+  pads.forEach((pad, order) => {
+    // A controller that is choosing a character in a join card (or is a
+    // spare that hasn't joined yet) doesn't drive a menu pointer.
+    if (getJoinPickerForPad(pad.index)) return;
+    const slot = getSlotForPad(pad.index);
+    if (slot === -1) return;
+    const pointer = getControllerPointer(pad.index, order, frameRect);
+    shown.add(pointer);
     const axisX = Math.abs(pad.axes[0]) > CONTROLLER_POINTER_DEADZONE ? pad.axes[0] : 0;
     const axisY = Math.abs(pad.axes[1]) > CONTROLLER_POINTER_DEADZONE ? pad.axes[1] : 0;
     const dpadX = (pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[14]?.pressed ? 1 : 0);
@@ -2644,42 +3225,45 @@ function updateControllerPointers(dt) {
     pointer.x = clamp(pointer.x + moveX * CONTROLLER_POINTER_SPEED * dt, 0, Math.max(0, frameRect.width - CONTROLLER_POINTER_SIZE));
     pointer.y = clamp(pointer.y + moveY * CONTROLLER_POINTER_SPEED * dt, 0, Math.max(0, frameRect.height - CONTROLLER_POINTER_SIZE));
     pointer.element.style.transform = `translate(${pointer.x}px, ${pointer.y}px) rotate(-18deg)`;
-    pointer.element.style.setProperty("--pointer-color", getControllerPointerColor(index));
+    pointer.element.style.setProperty("--pointer-color", getControllerPointerColor(slot));
     pointer.element.classList.remove("hidden");
 
     const clickPressed = Boolean(pad.buttons[0]?.pressed);
-    if (clickPressed && !pointer.clickPressed) handleControllerPointerClick(pointer, index, frameRect);
+    if (clickPressed && !pointer.clickPressed) handleControllerPointerClick(pointer, slot, frameRect);
     pointer.clickPressed = clickPressed;
-  }
-  for (let index = pads.length; index < controllerPointers.length; index += 1) {
-    controllerPointers[index].element.classList.add("hidden");
-    controllerPointers[index].clickPressed = false;
+  });
+  for (const pointer of controllerPointers.values()) {
+    if (shown.has(pointer)) continue;
+    pointer.element.classList.add("hidden");
+    pointer.clickPressed = true;
   }
 }
 
-function getControllerPointer(index, frameRect) {
-  if (controllerPointers[index]) return controllerPointers[index];
+function getControllerPointer(padIndex, order, frameRect) {
+  if (controllerPointers.has(padIndex)) return controllerPointers.get(padIndex);
   const element = document.createElement("div");
   element.className = "controller-pointer";
   controllerPointerLayer.appendChild(element);
   const pointer = {
-    x: clamp(frameRect.width * (0.44 + index * 0.06), 0, Math.max(0, frameRect.width - CONTROLLER_POINTER_SIZE)),
+    x: clamp(frameRect.width * (0.44 + (order % 8) * 0.04), 0, Math.max(0, frameRect.width - CONTROLLER_POINTER_SIZE)),
     y: clamp(frameRect.height * 0.68, 0, Math.max(0, frameRect.height - CONTROLLER_POINTER_SIZE)),
-    clickPressed: false,
+    // Start "pressed" so the A press that joined a player doesn't also click.
+    clickPressed: true,
     element
   };
-  controllerPointers[index] = pointer;
+  controllerPointers.set(padIndex, pointer);
   return pointer;
 }
 
-function getControllerPointerColor(index) {
-  const character = getSelectedCharacter(characterSelects[index], CHARACTER_FALLBACKS[index] || CHARACTER_FALLBACKS[0]);
+function getControllerPointerColor(slot) {
+  if (slot < 0) return "#7a8a94";
+  const character = getSelectedCharacter(characterSelects[slot], CHARACTER_FALLBACKS[slot] || CHARACTER_FALLBACKS[0]);
   return character.color;
 }
 
 function hideControllerPointers() {
   controllerPointerLayer.classList.add("hidden");
-  for (const pointer of controllerPointers) {
+  for (const pointer of controllerPointers.values()) {
     pointer.element.classList.add("hidden");
     pointer.clickPressed = false;
   }
@@ -2712,11 +3296,11 @@ function cycleControllerSelect(select) {
   select.dispatchEvent(new Event("change", { bubbles: true }));
 }
 
-function chooseMenuCharacterAt(clientX, clientY, controllerIndex) {
+function chooseMenuCharacterAt(clientX, clientY, slot) {
   const canvasPoint = clientToCanvasPoint(clientX, clientY);
   const item = getMenuCharacterHit(canvasPoint.x, canvasPoint.y);
   if (!item) return false;
-  const select = characterSelects[controllerIndex];
+  const select = characterSelects[slot];
   if (!select) return false;
   select.value = item.key;
   if (select.value !== item.key) return false;
@@ -2896,14 +3480,17 @@ function aiInput(racer) {
 }
 
 function updateHud() {
+  const racers = getHudRacers();
   for (let index = 0; index < playerStatuses.length; index += 1) {
-    const racer = state.racers[index];
+    const racer = racers[index];
+    if (!playerStatuses[index]) continue;
     if (!racer) {
       playerStatuses[index].textContent = "";
       continue;
     }
-    const driver = racer.ai ? `AI ${index + 1}` : `P${index + 1}`;
-    playerStatuses[index].textContent = `${driver} ${Math.round((racer.x / FINISH) * 100)}% ${racerStatus(racer)}`;
+    const leaving = getLeaveHoldProgress(racer.playerIndex);
+    const status = leaving > 0 ? `Leaving ${Math.round(leaving * 100)}%` : racerStatus(racer);
+    playerStatuses[index].textContent = `${racerTag(racer)} ${Math.round((racer.x / FINISH) * 100)}% ${status}`;
   }
 }
 
@@ -2927,9 +3514,24 @@ function racerStatus(racer) {
   return "Racing";
 }
 
+const legoCrossfadeCanvas = document.createElement("canvas");
+
 function drawScene(dt) {
-  ctx.clearRect(0, 0, W, H);
   const legoSplitRendering = updateLegoSplitState(dt);
+  if (state.legoCrossfadeRequested) {
+    // A layout change that can't be seamless: keep the last frame and fade
+    // it out over the new layout instead of cutting.
+    state.legoCrossfadeRequested = false;
+    if (legoCrossfadeCanvas.width !== canvas.width || legoCrossfadeCanvas.height !== canvas.height) {
+      legoCrossfadeCanvas.width = canvas.width;
+      legoCrossfadeCanvas.height = canvas.height;
+    }
+    const fadeCtx = legoCrossfadeCanvas.getContext("2d");
+    fadeCtx.clearRect(0, 0, legoCrossfadeCanvas.width, legoCrossfadeCanvas.height);
+    fadeCtx.drawImage(canvas, 0, 0);
+    state.legoCrossfade = 1;
+  }
+  ctx.clearRect(0, 0, W, H);
   if (legoSplitRendering) {
     drawLegoSplitScene(dt);
   } else {
@@ -2937,6 +3539,15 @@ function drawScene(dt) {
   }
   if (!legoSplitRendering && state.legoSplitLineAlpha > 0) {
     drawLegoSplitLines(getLegoLinePositionsForOverlay(), state.legoSplitLineAlpha);
+  }
+  if (state.legoCrossfade > 0) {
+    if (legoCrossfadeCanvas.width === canvas.width && state.running) {
+      ctx.save();
+      ctx.globalAlpha = state.legoCrossfade;
+      ctx.drawImage(legoCrossfadeCanvas, 0, 0);
+      ctx.restore();
+    }
+    state.legoCrossfade = Math.max(0, state.legoCrossfade - dt / LEGO_CROSSFADE_SECONDS);
   }
   if (startPanel.classList.contains("hidden")) {
     drawRaceProgressTracker();
@@ -2998,7 +3609,7 @@ function drawWorldScene() {
 }
 
 function updateLegoSplitState(dt = 0) {
-  const active = getLegoSplitActive();
+  const active = getLegoSplitActive(dt);
   const targetAlpha = active ? 1 : 0;
   if (active) state.legoSplitRendering = true;
   if (!active) state.legoSplitRendering = false;
@@ -3012,13 +3623,33 @@ function updateLegoSplitState(dt = 0) {
   return state.legoSplitRendering;
 }
 
-function getLegoSplitActive() {
-  if (state.cameraMode !== "lego" || !state.running || state.done) return false;
-  const humans = getHumanRacers();
-  if (humans.length <= 1) {
-    state.legoSplitActive = false;
+function clearLegoSplitState() {
+  state.legoSplitActive = false;
+  state.legoRowExitHold = 0;
+  state.legoForceMergeHold = {};
+  state.legoForceMergeSeen = {};
+  state.legoPaneCameras = [];
+  state.legoPaneGroupKeys = [];
+  state.legoMergeBoundarySnapshots = {};
+  state.legoRows = 1;
+  state.legoRowOfRacer = {};
+}
+
+function getLegoSplitActive(dt = 0) {
+  if (state.cameraMode !== "lego") return false;
+  if (!state.running || state.done) {
+    if (state.legoSplitActive) clearLegoSplitState();
     return false;
   }
+  const humans = getHumanRacers();
+  if (humans.length <= 1) {
+    if (state.legoSplitActive) clearLegoSplitState();
+    return false;
+  }
+  reconcileLegoGroupsWithHumans(humans);
+  advanceLegoForceMergeHolds(dt);
+  const storedCount = state.legoPaneGroupKeys.length;
+  state.legoRowExitHold = state.legoRows === 2 && storedCount <= LEGO_TWO_ROW_EXIT ? state.legoRowExitHold + dt : 0;
   const wasActive = state.legoSplitActive;
   const currentGroups = getCurrentLegoPaneGroups(humans);
   const mergedGroups = wasActive ? mergeAlignedLegoPaneGroups(currentGroups) : currentGroups;
@@ -3032,6 +3663,7 @@ function getLegoSplitActive() {
     seedLegoPaneCameras(groups);
   } else if (wasActive && state.legoSplitActive) {
     syncLegoPaneGroups(groups);
+    commitLegoRows(groups);
   }
   if (wasActive && !state.legoSplitActive) {
     rememberLegoSplitLines(currentGroups);
@@ -3039,6 +3671,34 @@ function getLegoSplitActive() {
     state.legoSharedLazy = true;
   }
   return state.legoSplitActive;
+}
+
+// Players who joined or left since last frame: drop the leavers from their
+// pane groups (and the panes that end up empty, keeping each pane's camera
+// paired with its group) and give each newcomer a pane of their own.
+function reconcileLegoGroupsWithHumans(humans) {
+  if (state.legoPaneGroupKeys.length === 0) return;
+  const ids = new Set(humans.map(racer => String(racer.playerIndex)));
+  const keys = [];
+  const cameras = [];
+  state.legoPaneGroupKeys.forEach((key, index) => {
+    const kept = key.split("-").filter(id => ids.has(id));
+    if (kept.length === 0) return;
+    keys.push(kept.join("-"));
+    cameras.push(state.legoPaneCameras[index]);
+  });
+  const known = new Set(keys.flatMap(key => key.split("-")));
+  for (const racer of humans) {
+    const id = String(racer.playerIndex);
+    if (known.has(id)) continue;
+    keys.push(id);
+    cameras.push(NaN);
+  }
+  if (keys.join("|") === state.legoPaneGroupKeys.join("|")) return;
+  if (state.legoSplitActive) requestLegoCrossfade();
+  state.legoPaneGroupKeys = keys;
+  state.legoPaneCameras = cameras;
+  state.legoMergeBoundarySnapshots = {};
 }
 
 function getLegoPaneRacers(humans) {
@@ -3075,7 +3735,7 @@ function sortLegoGroupsByTrack(groups) {
 function splitOverflowingLegoPaneGroups(groups) {
   let nextGroups = sortLegoGroupsByTrack(groups);
   let guard = 0;
-  while (guard < 12) {
+  while (guard < MAX_PLAYERS * 2) {
     guard += 1;
     const panes = getLegoPaneLayout(nextGroups);
     const splitIndex = panes.findIndex(pane => !legoGroupFitsPane(pane.group, pane.width) && pane.group.length > 1);
@@ -3100,11 +3760,14 @@ function splitLegoGroupAtLargestGap(group) {
   return [sorted.slice(0, splitAfter + 1), sorted.slice(splitAfter + 1)];
 }
 
+function legoGroupSpan(group) {
+  if (group.length <= 1) return 0;
+  return Math.max(...group.map(racer => racer.x)) - Math.min(...group.map(racer => racer.x));
+}
+
 function legoGroupFitsPane(group, paneWidth) {
   if (group.length <= 1) return true;
-  const left = Math.min(...group.map(racer => racer.x));
-  const right = Math.max(...group.map(racer => racer.x));
-  return right - left <= getLegoPaneFitDistance(paneWidth) + 0.5;
+  return legoGroupSpan(group) <= getLegoPaneFitDistance(paneWidth) + 0.5;
 }
 
 function getLegoPaneFitDistance(paneWidth) {
@@ -3112,40 +3775,105 @@ function getLegoPaneFitDistance(paneWidth) {
   return Math.max(0, paneWidth - margin * 2);
 }
 
+// Keys list player ids in id order, so racers swapping places inside a pane
+// don't look like a regroup.
 function legoGroupKey(group) {
-  return group.map(racer => racer.playerIndex).join("-");
+  return group.map(racer => racer.playerIndex).sort((a, b) => a - b).join("-");
 }
 
-function getLegoPaneLayout(groups) {
+// Up to three panes sit side by side. From five panes (and, once there, down
+// to four) the screen becomes two rows of half-height panes, each row a strip
+// of side-by-side panes drawn at half zoom; panes in the same row still merge
+// seamlessly, as in the one-row layout.
+function legoRowsFor(count) {
+  if (count >= LEGO_TWO_ROW_ENTER) return 2;
+  if (count <= 1) return 1;
+  // Leave the two-row layout only after the pane count has stayed low for a
+  // moment, so a group brushing the threshold doesn't flip the whole layout.
+  if (count <= LEGO_TWO_ROW_EXIT && state.legoRowExitHold >= LEGO_ROW_EXIT_DELAY) return 1;
+  return state.legoRows;
+}
+
+function legoTopRowCount(groups) {
+  const count = groups.length;
+  const known = groups.some(group => group.some(racer => state.legoRowOfRacer[racer.playerIndex] !== undefined));
+  let top = Math.ceil(count / 2);
+  if (known) {
+    top = 0;
+    for (const group of groups) {
+      if (state.legoRowOfRacer[group[0].playerIndex] === 1) break;
+      top += 1;
+    }
+  }
+  // Sticky rows avoid re-framing on every regroup, but not at any price: a
+  // 1-over-4 split wastes the big pane and squeezes the rest, so rebalance.
+  if (Math.abs(2 * top - count) >= 3) top = Math.ceil(count / 2);
+  const low = Math.max(1, count - LEGO_MAX_PANES_PER_ROW);
+  const high = Math.min(LEGO_MAX_PANES_PER_ROW, count - 1);
+  return clamp(top, low, high);
+}
+
+function getLegoPaneLayout(groups, rows = legoRowsFor(groups.length)) {
+  if (rows <= 1 || groups.length < 2) return layoutLegoPaneRow(groups, 0, 1);
+  const top = legoTopRowCount(groups);
+  return layoutLegoPaneRow(groups.slice(0, top), 0, 2).concat(layoutLegoPaneRow(groups.slice(top), 1, 2));
+}
+
+// pane.x and pane.width are world units within the pane's row (the row is
+// W / zoom world units wide); screenX/screenY/screenW/screenH place it on the
+// canvas.
+function layoutLegoPaneRow(groups, row, rows) {
+  const zoom = 1 / rows;
+  const rowWidth = W / zoom;
   const total = groups.reduce((sum, group) => sum + group.length, 0) || 1;
   let x = 0;
   return groups.map((group, index) => {
-    const width = index === groups.length - 1 ? W - x : W * (group.length / total);
-    const pane = { group, x, width };
+    const width = index === groups.length - 1 ? rowWidth - x : rowWidth * (group.length / total);
+    const pane = {
+      group,
+      x,
+      width,
+      row,
+      zoom,
+      screenX: x * zoom,
+      screenY: row * H * zoom,
+      screenW: width * zoom,
+      screenH: H * zoom
+    };
     x += width;
     return pane;
   });
 }
 
 function seedCameraForPane(pane) {
+  if (pane.zoom !== 1) return cameraForGroup(pane.group, pane.width);
   const sharedWorldAtPaneLeft = state.camera + pane.x / Math.max(state.cameraZoom, 0.0001);
   const aligned = clamp(sharedWorldAtPaneLeft, 0, Math.max(0, FINISH - pane.width + 260));
   return Number.isFinite(aligned) ? aligned : cameraForGroup(pane.group, pane.width || getWorldViewportWidth());
 }
 
 function getLegoLinePositions(panes) {
-  return panes.slice(0, -1).map(pane => pane.x + pane.width);
+  const lines = [];
+  for (let index = 0; index < panes.length - 1; index += 1) {
+    const pane = panes[index];
+    if (panes[index + 1].row !== pane.row) continue;
+    const x = pane.screenX + pane.screenW;
+    lines.push(pane.zoom === 1 ? x : { x1: x, y1: pane.screenY, x2: x, y2: pane.screenY + pane.screenH });
+  }
+  const rows = new Set(panes.map(pane => pane.row));
+  if (rows.size > 1) lines.push({ x1: 0, y1: H / 2, x2: W, y2: H / 2 });
+  return lines;
 }
 
 function rememberLegoSplitLines(groups) {
-  state.legoSplitLinePositions = getLegoLinePositions(getLegoPaneLayout(groups.filter(group => group.length > 0)));
+  state.legoSplitLinePositions = getLegoLinePositions(getLegoPaneLayout(groups.filter(group => group.length > 0), state.legoRows));
 }
 
 function getLegoLinePositionsForOverlay() {
   if (state.legoSplitLinePositions.length > 0) return state.legoSplitLinePositions;
   if (state.legoPaneGroupKeys.length > 0) {
     const groups = getStoredLegoPaneGroups();
-    return getLegoLinePositions(getLegoPaneLayout(groups.filter(group => group.length > 0)));
+    return getLegoLinePositions(getLegoPaneLayout(groups.filter(group => group.length > 0), state.legoRows));
   }
   const humans = getHumanRacers();
   const count = state.legoSplitLineCount || humans.length;
@@ -3155,8 +3883,11 @@ function getLegoLinePositionsForOverlay() {
 
 function drawLegoSplitScene(dt = 0) {
   const groups = getActiveLegoPaneGroups();
-  if (groups.length <= 1) return;
-  const panes = getLegoPaneLayout(groups);
+  if (groups.length <= 1) {
+    drawSharedCameraScene();
+    return;
+  }
+  const panes = getLegoPaneLayout(groups, state.legoRows);
   rememberLegoSplitLines(groups);
   updateLegoPaneCameras(panes, dt);
   const previousCamera = state.camera;
@@ -3166,19 +3897,20 @@ function drawLegoSplitScene(dt = 0) {
     const pane = panes[index];
     ctx.save();
     ctx.beginPath();
-    ctx.rect(pane.x, 0, pane.width, H);
+    ctx.rect(pane.screenX, pane.screenY, pane.screenW, pane.screenH);
     ctx.clip();
-    ctx.translate(pane.x, 0);
+    ctx.translate(pane.screenX, pane.screenY);
+    ctx.scale(pane.zoom, pane.zoom);
     state.cameraZoom = 1;
     state.renderViewportWidth = pane.width;
     state.camera = state.legoPaneCameras[index] ?? cameraForGroup(pane.group, pane.width);
     drawWorldScene();
-    drawLegoPaneLabel(pane.group[0], pane.width);
     ctx.restore();
   }
   state.camera = previousCamera;
   state.cameraZoom = previousZoom;
   state.renderViewportWidth = previousViewportWidth;
+  for (const pane of panes) drawLegoPaneLabel(pane);
   drawLegoSplitLines(getLegoLinePositions(panes), state.legoSplitLineAlpha);
 }
 
@@ -3198,32 +3930,118 @@ function cameraForGroup(group, viewWidth) {
 }
 
 function seedLegoPaneCameras(groups) {
-  const panes = getLegoPaneLayout(groups);
+  state.legoRows = legoRowsFor(groups.length);
+  if (state.legoRows === 1) state.legoRowOfRacer = {};
+  // Splitting straight into the half-zoom two-row layout can't be seamless.
+  if (state.legoRows !== 1) requestLegoCrossfade();
+  const panes = getLegoPaneLayout(groups, state.legoRows);
   state.legoPaneGroupKeys = groups.map(legoGroupKey);
   state.legoPaneCameras = panes.map(seedCameraForPane);
   state.legoSplitLineCount = groups.length;
+  state.legoMergeBoundarySnapshots = {};
+  rememberLegoRows(panes);
   rememberLegoSplitLines(groups);
+}
+
+function rememberLegoRows(panes) {
+  state.legoPaneGeometry = {};
+  for (const pane of panes) {
+    state.legoPaneGeometry[legoGroupKey(pane.group)] = { row: pane.row, x: pane.x, width: pane.width, zoom: pane.zoom };
+  }
+  state.legoRowOfRacer = {};
+  if (state.legoRows === 1) return;
+  for (const pane of panes) {
+    for (const racer of pane.group) state.legoRowOfRacer[racer.playerIndex] = pane.row;
+  }
+}
+
+// When the pane count crosses the one-row/two-row threshold every pane
+// changes size, so a seamless hand-off is impossible; keep each group at the
+// same relative spot in its new pane instead, which reads as a quick re-frame.
+function commitLegoRows(groups) {
+  const nextRows = legoRowsFor(groups.length);
+  if (nextRows === state.legoRows) {
+    const panes = getLegoPaneLayout(groups, state.legoRows);
+    // A pane that changed rows (a rebalance) can't keep its framing.
+    panes.forEach((pane, index) => {
+      const previous = state.legoPaneGeometry[legoGroupKey(pane.group)];
+      if (!previous || previous.row === pane.row) return;
+      state.legoPaneCameras[index] = reframeLegoCamera(pane.group, previous, state.legoPaneCameras[index], pane);
+      requestLegoCrossfade();
+    });
+    rememberLegoRows(panes);
+    return;
+  }
+  const previousPanes = getLegoPaneLayout(groups, state.legoRows);
+  state.legoRows = nextRows;
+  if (nextRows === 1) state.legoRowOfRacer = {};
+  else state.legoRowOfRacer = {};
+  const panes = getLegoPaneLayout(groups, nextRows);
+  requestLegoCrossfade();
+  state.legoPaneCameras = panes.map((pane, index) => (
+    reframeLegoCamera(pane.group, previousPanes[index], state.legoPaneCameras[index], pane)
+  ));
+  state.legoMergeBoundarySnapshots = {};
+  rememberLegoRows(panes);
+  rememberLegoSplitLines(groups);
+}
+
+function reframeLegoCamera(group, previousPane, previousCamera, pane) {
+  if (!previousPane || !Number.isFinite(previousCamera)) return cameraForGroup(group, pane.width);
+  const center = (Math.min(...group.map(racer => racer.x)) + Math.max(...group.map(racer => racer.x))) / 2;
+  const ratio = clamp((center - previousCamera) / Math.max(1, previousPane.width), 0, 1);
+  const maxCamera = Math.max(0, FINISH - pane.width + 260);
+  return cameraKeepingLegoGroupVisible(group, pane.width, clamp(center - ratio * pane.width, 0, maxCamera), maxCamera);
 }
 
 function mergeAlignedLegoPaneGroups(groups) {
   let nextGroups = groups.map(group => getLegoPaneRacers(group)).filter(group => group.length > 0);
   let nextCameras = state.legoPaneCameras.slice(0, nextGroups.length);
+  const rows = state.legoRows;
   let merged = false;
   let guard = 0;
-  while (guard < 12) {
+  while (guard < MAX_PLAYERS * 2) {
     guard += 1;
-    const panes = getLegoPaneLayout(nextGroups);
+    const panes = getLegoPaneLayout(nextGroups, rows);
     let mergeIndex = -1;
     let mergeCamera = 0;
     for (let index = 0; index < panes.length - 1; index += 1) {
-      const mergedGroup = getLegoPaneRacers(panes[index].group.concat(panes[index + 1].group));
-      const mergedWidth = panes[index].width + panes[index + 1].width;
-      if (!legoGroupFitsPane(mergedGroup, mergedWidth)) continue;
-      const boundaryKey = legoMergeBoundaryKey(panes[index].group, panes[index + 1].group);
+      const left = panes[index];
+      const right = panes[index + 1];
+      const mergedGroup = getLegoPaneRacers(left.group.concat(right.group));
+      const span = legoGroupSpan(mergedGroup);
+      if (left.row !== right.row) {
+        // Neighbours on the track but on different rows can't line up on
+        // screen; once they are well inside one pane's reach, just join them.
+        if (span <= getLegoPaneFitDistance(Math.max(left.width, right.width)) * LEGO_FORCE_MERGE_FRACTION
+          && legoForceMergeReady(legoMergeBoundaryKey(left.group, right.group))) {
+          requestLegoCrossfade();
+          mergeIndex = index;
+          mergeCamera = cameraForGroup(mergedGroup, left.width);
+          break;
+        }
+        continue;
+      }
+      const mergedWidth = left.width + right.width;
+      const boundaryKey = legoMergeBoundaryKey(left.group, right.group);
+      // Always called, so the boundary's alignment history stays fresh.
       const camera = cameraForAlignedLegoMerge(panes, nextCameras, index, boundaryKey);
+      const fitDistance = getLegoPaneFitDistance(mergedWidth);
+      // Hysteresis: a pair only merges a little inside the split threshold,
+      // so racers hovering at the threshold don't flicker split/merge.
+      if (span > fitDistance - LEGO_MERGE_HYSTERESIS) continue;
       if (Number.isFinite(camera)) {
         mergeIndex = index;
         mergeCamera = camera;
+        break;
+      }
+      if (span <= fitDistance * LEGO_FORCE_MERGE_FRACTION && legoForceMergeReady(boundaryKey)) {
+        // Fallback for panes that can no longer line up (e.g. after a resize
+        // or a re-frame): racers this close share a pane; a crossfade hides
+        // the re-frame.
+        requestLegoCrossfade();
+        mergeIndex = index;
+        mergeCamera = cameraForGroup(mergedGroup, mergedWidth);
         break;
       }
     }
@@ -3244,6 +4062,26 @@ function mergeAlignedLegoPaneGroups(groups) {
   return nextGroups;
 }
 
+// A non-seamless merge only happens once its condition has held for a
+// moment, so racers brushing past each other don't cause re-frames.
+function legoForceMergeReady(boundaryKey) {
+  state.legoForceMergeSeen[boundaryKey] = true;
+  return (state.legoForceMergeHold[boundaryKey] || 0) >= LEGO_FORCE_MERGE_DWELL;
+}
+
+function advanceLegoForceMergeHolds(dt) {
+  const next = {};
+  for (const key of Object.keys(state.legoForceMergeSeen)) {
+    next[key] = (state.legoForceMergeHold[key] || 0) + dt;
+  }
+  state.legoForceMergeHold = next;
+  state.legoForceMergeSeen = {};
+}
+
+function requestLegoCrossfade() {
+  state.legoCrossfadeRequested = true;
+}
+
 function legoMergeBoundaryKey(leftGroup, rightGroup) {
   return `${legoGroupKey(leftGroup)}|${legoGroupKey(rightGroup)}`;
 }
@@ -3255,7 +4093,10 @@ function cameraForAlignedLegoMerge(panes, paneCameras, index, boundaryKey = "") 
   const maxCamera = Math.max(0, FINISH - mergedWidth + 260);
   const leftCamera = legoPaneMergeCamera(leftPane, paneCameras[index], leftPane.x);
   const rightCamera = legoPaneMergeCamera(rightPane, paneCameras[index + 1], leftPane.x);
-  if (!Number.isFinite(leftCamera) || !Number.isFinite(rightCamera)) return NaN;
+  if (!Number.isFinite(leftCamera) || !Number.isFinite(rightCamera)) {
+    if (boundaryKey) delete state.legoMergeBoundarySnapshots[boundaryKey];
+    return NaN;
+  }
   const delta = rightCamera - leftCamera;
   const current = { leftCamera, rightCamera, delta };
   const previous = boundaryKey ? state.legoMergeBoundarySnapshots[boundaryKey] : null;
@@ -3264,7 +4105,11 @@ function cameraForAlignedLegoMerge(panes, paneCameras, index, boundaryKey = "") 
   if (Math.abs(delta) <= LEGO_SCREEN_ALIGNMENT_EPSILON) {
     return average < -LEGO_SCREEN_ALIGNMENT_EPSILON || average > maxCamera + LEGO_SCREEN_ALIGNMENT_EPSILON ? NaN : clamp(average, 0, maxCamera);
   }
-  if (!previous || Math.sign(previous.delta) === Math.sign(delta) || Math.abs(delta) > LEGO_MERGE_CROSSING_EPSILON) return NaN;
+  // The two views lined up somewhere between last frame and this one. A fast
+  // racer can move several pixels a frame, so any sign change counts (the old
+  // check needed |delta| <= 3px and missed fast crossings, leaving the pair
+  // split even after they met).
+  if (!previous || Math.sign(previous.delta) === Math.sign(delta)) return NaN;
   const t = previous.delta / (previous.delta - delta);
   const crossedCamera = previous.leftCamera + (leftCamera - previous.leftCamera) * t;
   return crossedCamera < -LEGO_SCREEN_ALIGNMENT_EPSILON || crossedCamera > maxCamera + LEGO_SCREEN_ALIGNMENT_EPSILON ? NaN : clamp(crossedCamera, 0, maxCamera);
@@ -3285,21 +4130,37 @@ function syncLegoPaneGroups(groups) {
   if (keys.join("|") === state.legoPaneGroupKeys.join("|")) return;
   const previousKeys = state.legoPaneGroupKeys;
   const previousCameras = state.legoPaneCameras;
-  const previousPanes = getLegoPaneLayout(getStoredLegoPaneGroups());
-  const panes = getLegoPaneLayout(groups);
+  const previousPanes = getLegoPaneLayout(getStoredLegoPaneGroups(), state.legoRows);
+  const panes = getLegoPaneLayout(groups, state.legoRows);
+  const carryCamera = (previousIndex, pane) => {
+    const previousPane = previousPanes[previousIndex];
+    const camera = previousCameras[previousIndex];
+    if (!previousPane || !Number.isFinite(camera)) return NaN;
+    if (previousPane.row === pane.row && previousPane.zoom === pane.zoom) {
+      const carried = camera + pane.x - previousPane.x;
+      // Panes that swapped order (an overtake) can't carry their framing.
+      const maxCamera = Math.max(0, FINISH - pane.width + 260);
+      const kept = cameraKeepingLegoGroupVisible(pane.group, pane.width, carried, maxCamera);
+      if (Math.abs(kept - carried) > 1) requestLegoCrossfade();
+      return kept;
+    }
+    requestLegoCrossfade();
+    return reframeLegoCamera(pane.group, previousPane, camera, pane);
+  };
   state.legoPaneGroupKeys = keys;
   state.legoPaneCameras = groups.map((group, index) => {
     const exactIndex = previousKeys.indexOf(keys[index]);
-    if (exactIndex !== -1 && Number.isFinite(previousCameras[exactIndex])) {
-      return previousCameras[exactIndex] + panes[index].x - previousPanes[exactIndex].x;
-    }
-    const overlappingIndex = previousKeys.findIndex(key => key.split("-").some(id => keys[index].split("-").includes(id)));
-    if (overlappingIndex !== -1 && Number.isFinite(previousCameras[overlappingIndex])) {
-      return previousCameras[overlappingIndex] + panes[index].x - previousPanes[overlappingIndex].x;
-    }
+    const exact = exactIndex !== -1 ? carryCamera(exactIndex, panes[index]) : NaN;
+    if (Number.isFinite(exact)) return exact;
+    const ids = keys[index].split("-");
+    const overlappingIndex = previousKeys.findIndex(key => key.split("-").some(id => ids.includes(id)));
+    const overlapping = overlappingIndex !== -1 ? carryCamera(overlappingIndex, panes[index]) : NaN;
+    if (Number.isFinite(overlapping)) return overlapping;
+    requestLegoCrossfade();
     return cameraForGroup(group, panes[index].width);
   });
   state.legoSplitLineCount = groups.length;
+  state.legoMergeBoundarySnapshots = {};
   rememberLegoSplitLines(groups);
 }
 
@@ -3319,16 +4180,24 @@ function getStoredLegoPaneGroups() {
 
 function seedSharedCameraFromLegoPanes(groups) {
   if (state.legoPaneCameras.length === 0) return;
-  state.camera = sharedCameraFromLegoPanes(groups);
+  if (state.legoRows !== 1) {
+    // Coming straight out of the two-row layout: frame the group afresh.
+    requestLegoCrossfade();
+    state.camera = cameraForGroup(groups.flat(), W);
+  } else {
+    state.camera = sharedCameraFromLegoPanes(groups);
+  }
   state.cameraZoom = 1;
   state.legoPaneCameras = [];
   state.legoPaneGroupKeys = [];
+  state.legoRows = 1;
+  state.legoRowOfRacer = {};
 }
 
 function sharedCameraFromLegoPanes(groupsOrHumans) {
   if (state.legoPaneCameras.length === 0) return state.camera;
   const groups = Array.isArray(groupsOrHumans[0]) ? groupsOrHumans : getLegoPaneGroups(groupsOrHumans, Infinity);
-  const panes = getLegoPaneLayout(groups);
+  const panes = getLegoPaneLayout(groups, 1);
   const candidates = panes.flatMap((pane, index) => {
     const paneCamera = state.legoPaneCameras[index];
     if (!Number.isFinite(paneCamera)) return [state.camera];
@@ -3399,18 +4268,31 @@ function moveToward(value, target, maxStep) {
   return value + Math.sign(target - value) * maxStep;
 }
 
-function drawLegoPaneLabel(racer, paneWidth) {
+function drawLegoPaneLabel(pane) {
+  const racer = pane.group[0];
+  if (!racer) return;
+  const text = pane.group.length > 1
+    ? pane.group.map(member => racerTag(member)).join(" + ")
+    : racer.ai ? racerTag(racer) : `${racerTag(racer)}: ${racer.name}`;
+  const compact = pane.zoom !== 1;
   ctx.save();
+  ctx.font = compact ? "800 12px system-ui" : "800 15px system-ui";
+  const boxW = Math.min(compact ? 170 : 150, pane.screenW - 24, ctx.measureText(text).width + 26);
+  const boxH = compact ? 24 : 34;
+  const boxX = pane.screenX + (compact ? 8 : 12);
+  const boxY = compact ? pane.screenY + pane.screenH - boxH - 8 : pane.screenY + 78;
   ctx.fillStyle = "rgba(255,255,255,0.86)";
-  ctx.strokeStyle = "rgba(23,33,38,0.22)";
+  ctx.strokeStyle = racer.ai ? "rgba(23,33,38,0.22)" : slotColor(racer.playerIndex);
   ctx.lineWidth = 2;
-  roundRect(12, 78, Math.min(150, paneWidth - 24), 34, 8);
+  roundRect(boxX, boxY, boxW, boxH, compact ? 6 : 8);
   ctx.fill();
   ctx.stroke();
+  ctx.beginPath();
+  ctx.rect(boxX, boxY, boxW, boxH);
+  ctx.clip();
   ctx.fillStyle = racer.color;
-  ctx.font = "800 15px system-ui";
   ctx.textAlign = "left";
-  ctx.fillText(racer.ai ? `AI ${racer.playerIndex + 1}` : `P${racer.playerIndex + 1}: ${racer.name}`, 24, 100);
+  ctx.fillText(text, boxX + (compact ? 9 : 12), boxY + (compact ? 17 : 22));
   ctx.restore();
 }
 
@@ -3421,10 +4303,15 @@ function drawLegoSplitLines(positions, alpha = 1) {
   ctx.lineWidth = LEGO_SPLIT_LINE_WIDTH;
   ctx.shadowColor = "rgba(23,33,38,0.38)";
   ctx.shadowBlur = 8;
-  for (const x of positions) {
+  for (const line of positions) {
     ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, H);
+    if (typeof line === "number") {
+      ctx.moveTo(line, 0);
+      ctx.lineTo(line, H);
+    } else {
+      ctx.moveTo(line.x1, line.y1);
+      ctx.lineTo(line.x2, line.y2);
+    }
     ctx.stroke();
   }
   ctx.restore();
@@ -3437,7 +4324,11 @@ function drawRaceProgressTracker() {
   const width = RACE_TRACKER_WIDTH;
   const height = 34;
   const x = W - RACE_TRACKER_RIGHT - width;
-  const y = RACE_TRACKER_TOP;
+  // The compact 5-8 player HUD takes two short rows at the top.
+  // The compact 5-8 player HUD takes two short rows at the top; with four
+  // racers the P4 card sits where the tracker would be, so drop below it.
+  const compactHud = hudElement?.classList.contains("compact");
+  const y = compactHud ? RACE_TRACKER_TOP - 18 : racers.length === 4 ? RACE_TRACKER_TOP + 56 : RACE_TRACKER_TOP;
   const trackX = x + 16;
   const trackY = y + height / 2;
   const trackWidth = width - 32;
@@ -3464,7 +4355,7 @@ function drawRaceProgressTracker() {
     const markerX = trackX + progress * trackWidth;
     const markerY = trackY + (index - (racers.length - 1) / 2) * 2.5;
 
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = shouldTagRacerNames() && !racer.ai ? slotColor(racer.playerIndex) : "#ffffff";
     ctx.strokeStyle = racer.color;
     ctx.lineWidth = 3;
     ctx.beginPath();
@@ -3920,6 +4811,7 @@ function drawRacer(racer) {
   ctx.restore();
 
   if (racer.frozenTimer > 0) drawElectricEffect(screenX, drawY, drawW, drawH);
+  if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
 
   if (mounted) {
     const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
@@ -3952,13 +4844,19 @@ function drawRacer(racer) {
   ctx.save();
   const labelY = mounted ? drawY - 42 : drawY - 8;
   if (racer.showLabel !== false) {
+    const label = shouldTagRacerNames() && racer.playerIndex !== undefined ? `${racerTag(racer)} ${racer.name}` : racer.name;
     ctx.fillStyle = racer.color;
     ctx.strokeStyle = "white";
     ctx.lineWidth = 4;
     ctx.font = "800 18px system-ui";
     ctx.textAlign = "center";
-    ctx.strokeText(racer.name, screenX, labelY);
-    ctx.fillText(racer.name, screenX, labelY);
+    ctx.strokeText(label, screenX, labelY);
+    ctx.fillText(label, screenX, labelY);
+    if (racer.playerIndex !== undefined && !racer.ai && shouldTagRacerNames()) {
+      const width = ctx.measureText(label).width;
+      ctx.fillStyle = slotColor(racer.playerIndex);
+      ctx.fillRect(screenX - width / 2, labelY + 4, width, 4);
+    }
   }
   const activeLabels = [
     mounted ? (racer.horseType === "horse" ? "HORSE" : racer.horseType.toUpperCase()) : "",
@@ -3992,6 +4890,28 @@ function getMountFrameCalibration(horseType, row, col) {
   const table = MOUNT_FRAME_CALIBRATION[horseType] || MOUNT_FRAME_CALIBRATION.horse;
   const entry = table[row]?.[col] || table[0][0];
   return { seatX: entry[0], seatY: entry[1], groundShift: entry[2] };
+}
+
+// More than four racers (or two players on the same doll) and the doll name
+// alone no longer identifies a player, so labels gain their P# tag.
+function shouldTagRacerNames() {
+  if (!state.running && !state.done) return false;
+  if (state.racers.length > 4) return true;
+  const names = state.racers.map(racer => racer.spriteKey);
+  return new Set(names).size !== names.length;
+}
+
+function drawJoinFlash(racer, screenX, scale) {
+  const t = racer.joinFlashTimer;
+  ctx.save();
+  ctx.globalAlpha = clamp(t / 0.6, 0, 1) * 0.85;
+  ctx.strokeStyle = slotColor(racer.playerIndex);
+  ctx.lineWidth = 6;
+  const radius = (60 + (1.4 - t) * 90) * scale * 2;
+  ctx.beginPath();
+  ctx.ellipse(screenX, racer.y + 40, radius, radius * 0.3, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
 }
 
 function drawElectricEffect(x, y, w, h) {
@@ -4108,6 +5028,7 @@ window.addEventListener("keydown", event => {
     return;
   }
   keys.add(event.code);
+  if (!event.repeat) keysTapped.add(event.code);
   if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Enter", "ShiftLeft", "ShiftRight"].includes(event.code)) {
     event.preventDefault();
   }

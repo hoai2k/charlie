@@ -6,7 +6,7 @@
     <title>American Girl Doll Race</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
-    <link rel="stylesheet" href="styles.css?v=20261002a">
+    <link rel="stylesheet" href="styles.css?v=20261002b">
   </head>
   <body>
     <main class="shell">
@@ -30,7 +30,24 @@
             <span class="label" id="playerFourLabel">Kaya</span>
             <span id="kayaStatus">Ready</span>
           </div>
+          <div class="racer-card hidden" id="playerFiveHud">
+            <span class="label" id="playerFiveLabel">Player 5</span>
+            <span id="playerFiveStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerSixHud">
+            <span class="label" id="playerSixLabel">Player 6</span>
+            <span id="playerSixStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerSevenHud">
+            <span class="label" id="playerSevenLabel">Player 7</span>
+            <span id="playerSevenStatus">Ready</span>
+          </div>
+          <div class="racer-card hidden" id="playerEightHud">
+            <span class="label" id="playerEightLabel">Player 8</span>
+            <span id="playerEightStatus">Ready</span>
+          </div>
         </div>
+        <div class="join-tray hidden" id="joinTray" aria-live="polite"></div>
         <div class="start-panel" id="startPanel">
           <h1>American Girl Doll Race</h1>
           <p>Race across the track. Jump the white picket hurdles and cross the finish first.</p>
@@ -87,6 +104,58 @@
                 <option value="rumi">Rumi</option>
               </select>
             </label>
+            <label id="playerFiveSelectWrap" class="hidden">
+              <span id="playerFiveSelectLabel">Player 5</span>
+              <select id="playerFiveCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerSixSelectWrap" class="hidden">
+              <span id="playerSixSelectLabel">Player 6</span>
+              <select id="playerSixCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerSevenSelectWrap" class="hidden">
+              <span id="playerSevenSelectLabel">Player 7</span>
+              <select id="playerSevenCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
+            <label id="playerEightSelectWrap" class="hidden">
+              <span id="playerEightSelectLabel">Player 8</span>
+              <select id="playerEightCharacter">
+                <option value="whirlpool">Whirlpool</option>
+                <option value="juliette">Juliette</option>
+                <option value="claudia">Claudia</option>
+                <option value="kaya">Kaya</option>
+                <option value="lily">Lily</option>
+                <option value="marisol">Marisol</option>
+                <option value="amanda">Amanda</option>
+                <option value="rumi">Rumi</option>
+              </select>
+            </label>
           </div>
           <div class="mode-actions">
             <button id="startButton" type="button">PLAY</button>
@@ -105,6 +174,10 @@
                 <option value="two-one-ai">2 Players + 1 AI</option>
                 <option value="two-two-ai">2 Players + 2 AIs</option>
                 <option value="three-one-ai">3 Players + 1 AI</option>
+                <option value="five">5 Players</option>
+                <option value="six">6 Players</option>
+                <option value="seven">7 Players</option>
+                <option value="eight">8 Players</option>
               </select>
             </label>
             <label class="mode-select hidden">
@@ -143,6 +216,7 @@
             <span>Player 1: controller or WASD + Space + F</span>
             <span>Player 2: arrows + Enter + Shift or controller 2</span>
             <span>Xbox: stick or D-pad, A to jump, X to push</span>
+            <span>Spare controller: press A to join (up to 8)</span>
           </div>
         </div>
         <div class="finish-panel hidden" id="finishPanel">
@@ -165,9 +239,9 @@
         <audio id="nextMusic" preload="auto" loop></audio>
       </section>
     </main>
-    <script src="config.js?v=20261002a"></script>
-    <script src="assets/audio/manifest.js?v=20261002a"></script>
-    <script src="audio.js?v=20261002a"></script>
-    <script src="game.js?v=20261002a"></script>
+    <script src="config.js?v=20261002b"></script>
+    <script src="assets/audio/manifest.js?v=20261002b"></script>
+    <script src="audio.js?v=20261002b"></script>
+    <script src="game.js?v=20261002b"></script>
   </body>
 </html>
