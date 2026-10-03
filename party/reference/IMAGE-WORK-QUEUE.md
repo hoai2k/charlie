@@ -182,3 +182,29 @@ Fox complete: 75 poses / 96 authored frames / five portraits, decoded23.3MiB.
 Ride/dance sizes corrected; crouched head/eye/neck/mouth points individually
 reviewed. Full and optimized Broomstick Dash pass with paws on broom. Source
 sheets and exact extension prompts accompany final runtime/optimized copies.
+
+## Delivery follow-up — user update 2026-10-03 00:11 UTC
+
+User requested a regeneration-feedback check half an hour after new image
+deliveries. New heartbeat charlie-party-delivered-image-review is active;
+use the delivery checkpoint below rather than code/doc commit times. Reset
+the follow-up on subsequent published image batches; stay quiet if unchanged.
+
+Latest image delivery revision: `d61adc9` (includes complete Fox c09b0a5).
+Latest image delivery UTC: 2026-10-03T00:11:35+00:00.
+
+Ownership: snow_cake_completion finishes Cotton Candy/Unicorn; npc_canonicals
+finishes Amber then Hotdog; mermaid_all_actions finishes KPop trio. Root owns
+Marina/Scale final runtime scale/point corrections, review and publication.
+
+Final semantic review: Round2 flip means reaching out to flip a memory card,
+not an acrobatic flip. Published pilot poses already fit the reaching action;
+Amber, Fox, mermaids and remaining animals/KPop receive specific replacements.
+Root owns mermaid runtime rebuilds; other agents deliver mermaid/Fox corrections
+as source-only handoffs. Neutral-pose blink edits generated for both mermaids.
+
+Princess Amber complete: 74 keys /97 authored frames /five portraits, decoded
+20.6MiB. Corrected dance size and all inherited runtime landmarks; photo is a
+peace sign and flip reaches for a memory card. Optimized copies and97 region
+masks refreshed, including rotated tumble coverage. Reviewed Spotlight Dance
+in full mode and Pop Star Stage in optimized mode with alternate dress colors.

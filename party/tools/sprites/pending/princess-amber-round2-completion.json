@@ -1,0 +1,122 @@
+{
+  "tool": "built-in image_gen",
+  "status": "COMPLETE: memory-card flip and peace-sign photo corrected; all97 runtime frames reviewed; optimized102files and97masks current",
+  "assets": [
+    {
+      "sheet": "princess-amber-round2-final-a",
+      "prompt": "Use case: stylized-concept. EXACT approved Princess Amber reference, single transparent sprite sheet FOUR COLUMNS TWO ROWS,8 fullbody poses in order. Keep copper/auburn verylonghair amber flower-star crown, ORANGE floorlength gown, BLACK sleeves/bodice, WHITE flower/star motifs edgedblack. Same headsize, generous gutters, allhair gown crown hands fullyvisible. Clean navy outlines bright cel shading. Emptyhands, NO props/tools/objects/effects/shadows/text. Top row: swim (treading water pose arms paddling, fullbody gown visible, no water); balance (armsout wide wobble worried); splat-throw (underhand low release throw, emptyhand); wand-up (raised emptygripping hand overhead anticipation). Bottom: broom-rise (seated forward lean handsforward gripping imaginary broom, knees bent undergown); broom-glide (relaxed seatedgown side saddle posture); broom-zapped (ruffledhair startled seatedrecoil); count (one raised indexfinger counting, thoughtful). Do not draw broom, wand, numbers orwater. Landscape1536x1024 canvas.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-74f6678a-2f39-4f0e-8dd5-a6145feb47e7.png",
+      "poses": [
+        "swim",
+        "balance",
+        "splat-throw",
+        "wand-up",
+        "broom-rise",
+        "broom-glide",
+        "broom-zapped",
+        "count"
+      ]
+    },
+    {
+      "sheet": "princess-amber-round2-final-b",
+      "prompt": "Use case: stylized-concept. EXACT approved Princess Amber reference, single transparent sprite sheet FOUR COLUMNS TWO ROWS,8 fullbody poses in order. Keep copper/auburn verylonghair amber flower-star crown, ORANGE floorlength gown, BLACK sleeves/bodice, WHITE flower/star motifs edgedblack. Same headsize, generous gutters, allhair gown crown hands fullyvisible. Clean navy outlines bright cel shading. Emptyhands, NO props/tools/objects/effects/shadows/text. Top row: look-up (chin raised watching sky handsrelaxed); crowned (proud chinup walkingstrut retainher existingcrown no extra); sit (sitting gown gathered legs dangling); tumble (airborne diagonal fall armsflailing worried). Bottom: hold-present (both hands overhead palms supporting invisible box); toss (twohanded underhand forwardtoss); catch-present (surprised bothhands forward catching invisiblebox); sooty (silly dazed expression slight soot smudges on cheeks, rumpled hair). No box or object or cloud, fullgown visible. Landscape1536x1024.",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-7ba57c22-a7fa-4cf5-b543-926f992f9892.png",
+      "poses": [
+        "look-up",
+        "crowned",
+        "sit",
+        "tumble",
+        "hold-present",
+        "toss",
+        "catch-present",
+        "sooty"
+      ]
+    },
+    {
+      "sheet": "princess-amber-round2-final-c",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-1566fd25-497b-40c5-b26d-5fb3500836e1.png",
+      "prompt": "Use case: stylized-concept. Reference is exact approved Princess Amber. Transparent sprite sheet FOUR COLUMNS TWO ROWS with eight full-body poses, even spaced generous gutters. Keep long copper hair, amber flower crown, orange floor-length gown with black sleeves/bodice and white flowers edged black, clean thick navy outlines and cel shading. Identical HEAD SIZE in all cells even crouched or horizontal. Complete crown, hands, hair and gown visible. Top row: drink (empty fist near mouth miming sipping); float (gently airborne upright arms relaxed spread); hiccup (surprised puffed cheeks hand to chest); giggle (eyes closed hand over smiling mouth). Bottom row: stomp-giant (powerful forward stomp gown lifted slightly by step, determined); squeak-tiny (shy crouch shoulders hunched); flip (playful diagonal airborne somersault midway gown covering body); blow (pursed lips, empty hand palm raised near mouth). No props, no cup, no effects, no text, no floor shadows. Landscape1536x1024.",
+      "poses": [
+        "drink",
+        "float",
+        "hiccup",
+        "giggle",
+        "stomp-giant",
+        "squeak-tiny",
+        "flip",
+        "blow"
+      ]
+    },
+    {
+      "sheet": "princess-amber-round2-final-d",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-67279a73-5a73-4562-a03b-b0af1956d470.png",
+      "prompt": "Use case: stylized-concept. Exact approved Princess Amber reference; transparent sprite sheet FOUR COLUMNS TWO ROWS, eight full-body poses with generous clear gutters. Same copper longhair flowercrown orange floorlength gown black sleeves white black-edged flower motifs, navy outlines cel shading. Same head size each cell; keep crown hands gown complete. Top: sing (mouth open singing empty fist near mouth); water (leans forward empty hand lowered in pouring grip, NO wateringcan); shake-sprinkles (empty pinching hand shaking downward); photo (cheerful confident hands on hips facingcamera). Bottom: dash1 (crouched forward launch, hair back); dash2 (forward low fast stride, hair trailing); hip1 (hip cocked left anticipation hands up elbowsbent); hip2 (hip swung right followthrough laughing). No tools objects props effects text shadows. Landscape1536x1024.",
+      "poses": [
+        "sing",
+        "water",
+        "shake-sprinkles",
+        "photo",
+        "dash1",
+        "dash2",
+        "hip1",
+        "hip2"
+      ]
+    },
+    {
+      "sheet": "princess-amber-round2-final-e",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-71b5d8d4-2e2d-4acc-a8d2-6089aea1acc1.png",
+      "prompt": "Use case: stylized-concept. Exact approved Princess Amber reference; transparent sprite sheet THREE COLUMNS TWO ROWS, six full-body poses with generous gutters. Same copper longhair flowercrown orange floorlength gown black sleeves white black-edged flower motifs, navy outlines cel shading. Identical HEAD SIZE each cell, complete crown hands gown hair. Top: knockback1 (startled recoiling backwards arms flung forward); knockback2 (recovering stumble backward, arms wide). Top third: twirl front facing camera cheerful gown swept outward. Bottom: twirl right profile facing right gown flared; twirl TRUE REAR VIEW, no face/eyes visible, back of flowing copper hair and back of crown and orange gown; twirl left three-quarter facing left gown flared. Four turntable rotation frames aligned neutral headheight and base, same scale. Empty hands. No props effects sparkles text shadows. Landscape1536x1024.",
+      "poses": [
+        "knock1",
+        "knock2",
+        "twirl1",
+        "twirl2",
+        "twirl3",
+        "twirl4"
+      ]
+    },
+    {
+      "sheet": "princess-amber-photo-peace",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-b1beac78-5f94-4f38-a693-e954b5335337.png",
+      "prompt": "Use case: stylized-concept. Exact approved Princess Amber reference, ONE fullbody sprite on transparentbackground. Facing camera with happy smile and right hand raised next to face making clearly recognizable V PEACE SIGN (two fingers extended). Other hand relaxed. Preserve long copperhair, amber flower crown, orange floorlength gown, black sleeves/bodice, white black-edged floral motifs. Clean navy outlines bright celshading same childlike proportions. Entire crown hair gown hands visible with generous transparent margin. No object, no camera, no text, no effects, no shadow. Portrait1024x1536.",
+      "poses": [
+        "photo"
+      ]
+    },
+    {
+      "sheet": "princess-amber-card-flip",
+      "source": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-19e76a7a-daad-4d19-a0f6-cc960a3d88ad.png",
+      "prompt": "Use case: stylized-concept. Exact approved Princess Amber reference. One fullbody game sprite transparentbackground. MEMORY CARD FLIP action: standing normally, bending slightly forward and reaching her right empty hand forward and down, fingertips lightly pinching as if turning over a tabletop card. Other hand held near waist. Looking at the reaching fingertips with thoughtful smile. No actual card or table or prop. Absolutely upright feet down, NOT an acrobatic flip. Copper long hair amber flowercrown orange floorlengthgown black sleeves white black-edged flowers, navy outlines bright celshading. Full crown hands hair gown complete with transparent margins. Portrait1024x1536.",
+      "poses": [
+        "flip"
+      ]
+    }
+  ],
+  "intake": {
+    "poses": 74,
+    "frames": 97,
+    "portraits": 5,
+    "newDrawings": 40,
+    "bodyHeight": 270,
+    "danceScale": 0.72,
+    "landmarks": "All 97 runtime frame landmarks individually reviewed; 55 original frames corrected using inverse runtime-to-source mapping. New/dance frames manually authored source points verified on runtime overlays.",
+    "qa": [
+      "/tmp/amber-final-overlay-0.jpg through -7.jpg",
+      "/tmp/amber-original-overlay-0.jpg through -8.jpg"
+    ],
+    "photoCorrection": "Original hands-on-hips sheet cell superseded by dedicated peace-sign source.",
+    "flipCorrection": "Somersault sheet cell superseded by dedicated forward-reaching memory-card flip."
+  },
+  "validation": {
+    "runtimeTests": "passed",
+    "validatorErrors": 0,
+    "softWarnings": [
+      "1650KiB exceeds1.5MiB member download guideline; decoded20.6MiB below25MiB hardlimit"
+    ],
+    "optimizedScale": 0.88889,
+    "maskReview": "/tmp/amber-mask-sample.jpg",
+    "photoReview": "/tmp/amber-final-overlay-0.jpg",
+    "flipReview": "/tmp/amber-final-overlay-1.jpg",
+    "masksStale": null
+  }
+}

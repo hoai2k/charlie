@@ -84,13 +84,19 @@ def classify_felicity(st, fr, bodyH):
 
 def classify_amber(st, fr, bodyH):
     neck = fr['neck']
+    head = fr['head']
+    dx, dy = neck[0] - head[0], neck[1] - head[1]
+    length = float(np.hypot(dx, dy))
+    dx, dy = (dx / length, dy / length) if length else (0, 1)
     out = {}
     for k, c in st.items():
         if c['area'] < 6: continue
-        if 27 <= c['h'] <= 45 and c['s'] > 0.75 and c['cy'] > neck[1] + 0.02 * bodyH: out[k] = 1
+        # Follow the torso direction, including sideways and upside-down flips.
+        depth = (c['cx'] - neck[0]) * dx + (c['cy'] - neck[1]) * dy
+        if 27 <= c['h'] <= 45 and c['s'] > 0.75 and depth > 0.02 * bodyH: out[k] = 1
         # the petticoat/underside: a little redder than the gown but much lighter
         # than her copper hair (hair: hue ~17, lightness ~0.3)
-        elif 21 <= c['h'] < 27 and c['s'] > 0.85 and c['l'] > 0.4 and c['cy'] > neck[1] + 0.2 * bodyH: out[k] = 1
+        elif 21 <= c['h'] < 27 and c['s'] > 0.85 and c['l'] > 0.4 and depth > 0.2 * bodyH: out[k] = 1
     return out
 
 

@@ -1543,7 +1543,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| sprite `princess-amber` `dance` (4 frames) | About 1.4× too big (head-to-neck 118 px vs 86 in idle); she swells whenever she dances in Spotlight and Pop Star. | Re-intake at `scale` ≈ 0.72, or re-generate at idle head size. |
 | sprite `cotton-candy` `run` (4) | About 0.7× size; she shrinks when running. | Scale ≈ 1.4 on head size. |
 | sprite `cotton-candy` `ride` | Anchor below the hooves; floats above the broom. | Anchor at the belly/hoof line. |
 | sprite `cotton-candy` `giggle` | About 1.35× too big (Pet Spa). | Scale ≈ 0.75. |
@@ -1589,3 +1588,5 @@ fine; the code uses one of each pair.
 - Glimmer and all five Garden Fairies: unique wing cycles, blink and fairy rear turns; head size/skin colors preserved, reviewed in both quality modes, published 4a6343a.
 
 - Fox ride/dance/think/dance-star: head scales matched and ride anchor on belly/paws; eat/catch/look-around/strike2/strike3/fall/bow attachment points individually corrected. Full 75-key set reviewed with optimized copies in Broomstick Dash.
+
+- Princess Amber: four-frame dance scale corrected; original landmarks re-annotated. Full 74-key set includes card-reaching flip and peace-sign photo, with refreshed color masks and both-quality rhythm-game review.

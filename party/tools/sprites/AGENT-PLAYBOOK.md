@@ -228,3 +228,15 @@ The color-variant system requires `make_masks.py` after final sprite changes to
 Felicity, KPop center and Princess Amber. The masks are classified from existing
 pixels; no extra generated recolor artwork is required. Include them in the
 same reviewed character delivery and validate their source fingerprints.
+
+Read action descriptions before writing sheet prompts: Round2 `flip` means
+reaching out to flip a memory card, and `photo` means a camera-facing peace sign.
+Short pose keys alone are ambiguous. Review the actual requested gesture, not
+only the generated pose label; a correct label can hide the wrong action.
+
+Use `review_frames.py ASSET --poses idle water photo paint --points --out /tmp/review.png`
+to compare built pixels at their actual sizes on a shared ground baseline.
+It resolves aliases and includes every frame, so an idle blink that changes
+body pose or head size is easy to spot. Avoid review layouts that rescale each
+cell separately or clip wide/airborne sprites. Head=red, eyes=cyan, neck=yellow,
+hand=green, back=orange, anchor=white.

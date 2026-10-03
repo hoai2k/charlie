@@ -17,6 +17,7 @@ const html = path.join(root, 'index.html');
 
 function modules(dir) {
   return readdirSync(dir).flatMap((name) => {
+    if (name.startsWith('._')) return [];
     const p = path.join(dir, name);
     if (statSync(p).isDirectory()) return modules(p);
     return name.endsWith('.js') ? [p] : [];

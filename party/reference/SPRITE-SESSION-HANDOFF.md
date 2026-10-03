@@ -8,7 +8,7 @@ main regularly. The whole brief is not yet complete.
 ## Published
 
 Main includes the full action vocabulary for Snowstar, Birthday Cake, Felicity,
-Fellowfox, Bronze and Fox. Cake has 74 keys / 95 authored frames / five portraits;
+Fellowfox, Bronze, Fox and Princess Amber. Cake has 74 keys / 95 authored frames / five portraits;
 Felicity and Bronze have 74 / 91 / five; Fellowfox has 75 / 91 / five, including
 catch-toy. Expanded sets include two-frame dash, hip-bump and knockback and an
 authored four-view twirl. Reviewed optimized copies accompany the full originals.
@@ -35,8 +35,8 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
 
 ## Active ownership and remaining work
 
-- snow_cake_completion: Fox is reviewed and ready to publish (75 keys,
-  96 frames, decoded 23.3 MiB); finish Cotton Candy, Unicorn and Hotdog.
+- snow_cake_completion: Fox is published at c09b0a5 via d61adc9 (75 keys,
+  96 frames, decoded 23.3 MiB); finish Cotton Candy and Unicorn.
   Include latest lead scale/ride-anchor/mouth-landmark corrections.
 - mermaid_all_actions: Marina/Scale rebuilt runtime attachment review and true
   back-twirl art; then KPop trio extensions/hand/scale corrections.
@@ -45,7 +45,8 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
   exact retry records are saved; runtime intake and landmark review are underway.
 - npc_canonicals: Hoot, Troll, Glimmer and all five Garden Fairy updates are
   reviewed and published (7d11066, fb24927, 4a6343a). Complete Princess Amber
-  extension and dance-size correction, then rebuild her color-variant masks.
+  Amber is reviewed and ready to publish (74 keys/97 frames, refreshed masks).
+  Own the Hotdog full extension next.
 - Root: review actual runtime overlays and in-game behavior, validate stable
   deliveries, stage precise paths, merge main safely and push each batch.
 
@@ -72,6 +73,8 @@ Keep origin unchanged; never force-push or discard unrelated working changes.
 When two agents encode the same optimized derivative, keep reviewed originals
 and rebuild derivatives. Preserve the lead's shared consumer refinements.
 
-The image-request heartbeat was canceled after an unchanged half-hour interval
-(checkpoint in IMAGE-WORK-QUEUE). Continue checking new requests during production
-syncs. No allowance-based production pause remains.
+The earlier heartbeat was canceled after an unchanged interval. The user then
+requested a new regeneration-feedback check half an hour after image deliveries;
+charlie-party-delivered-image-review is active. Record delivery UTC/revision in
+IMAGE-WORK-QUEUE and reset this follow-up with each published image batch.
+Continue checking requests during syncs. No allowance pause remains.
