@@ -103,11 +103,23 @@ function itemArt(name, color) {
 function sideCapeArt(color) {
   const src = art('prop/cape-royal-side'), col = PALETTE[color];
   if (!src) return null;
-  if (!col || col.rainbow || color === 5) return src;   // Ruby = the art's own red
+  if (!col || color === 5) return src;   // Ruby = the art's own red
   const ck = `cape-royal-side|${color}`;
   if (!recolored.has(ck)) {
+    const rule = (to) => [{ from: '#d90e22', to, hue: [335, 20], feather: 10, sat: [0.35, 1], lit: [0.08, 0.9] }];
     let c = src;
-    try { c = recolorFrame(src, null, [{ from: '#d90e22', to: col.c, hue: [335, 20], feather: 10, sat: [0.35, 1], lit: [0.08, 0.9] }]); } catch (e) { /* unreadable canvas */ }
+    try {
+      if (!col.rainbow) c = recolorFrame(src, null, rule(col.c));
+      else {
+        // Rainbow: vertical stripes, like the upright rainbow cape art.
+        c = document.createElement('canvas'); c.width = src.width; c.height = src.height;
+        const cg = c.getContext('2d'), n = RAINBOW.length, sw = src.width / n;
+        RAINBOW.forEach((hue, i) => {
+          const band = recolorFrame(src, null, rule(hue));
+          cg.drawImage(band, Math.floor(i * sw), 0, Math.ceil(sw), src.height, Math.floor(i * sw), 0, Math.ceil(sw), src.height);
+        });
+      }
+    } catch (e) { c = src; /* unreadable canvas */ }
     recolored.set(ck, c);
   }
   return recolored.get(ck);
