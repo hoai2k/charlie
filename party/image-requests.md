@@ -1543,6 +1543,7 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `prop/cape-royal-side` (new, Fashion Show) | Four-legged characters (Fox, Unicorn, Cotton Candy) wear the upright `prop/cape-royal`, which hangs under their body like a skirt. Other cape colours are now recoloured from the red art in code. | A side view of the same royal cape (red velvet, white ermine trim with black spots) draped over an animal's back: about 520×300, transparent, the neck/front edge on the **right** and the hem hanging down on both sides of the body. Same red as `cape-royal` (it's recoloured for other colours), navy outline. The code anchors it at the back point and draws it over the body. |
 | sprite `princess-amber` `dance` (4 frames) | About 1.4× too big (head-to-neck 118 px vs 86 in idle); she swells whenever she dances in Spotlight and Pop Star. | Re-intake at `scale` ≈ 0.72, or re-generate at idle head size. |
 | sprite `cotton-candy` `run` (4) | About 0.7× size; she shrinks when running. | Scale ≈ 1.4 on head size. |
 | sprite `cotton-candy` `ride` | Anchor below the hooves; floats above the broom. | Anchor at the belly/hoof line. |
