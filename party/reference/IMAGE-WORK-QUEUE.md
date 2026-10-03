@@ -190,8 +190,8 @@ deliveries. New heartbeat charlie-party-delivered-image-review is active;
 use the delivery checkpoint below rather than code/doc commit times. Reset
 the follow-up on subsequent published image batches; stay quiet if unchanged.
 
-Latest image delivery revision: `07ba7fa` (royal side cape; Amber is also published).
-Latest image delivery UTC: 2026-10-03T00:39:23+00:00.
+Latest image delivery revision: `8b37665` (includes Marina/Scale/Hotdog batch520f9a4).
+Latest image delivery UTC: 2026-10-03T01:10:53+00:00.
 
 Ownership: snow_cake_completion finishes Cotton Candy/Unicorn; npc_canonicals
 finishes Amber then Hotdog; mermaid_all_actions finishes KPop trio. Root owns

@@ -236,11 +236,13 @@ function drawJar(g, x, y, s, count, t) {
 /** Tiny procedural garden fairy (Garden Fairy NPC stand-in). */
 const FAIRY_COLORS = ['#ff8fd0', '#7fd3ff', '#ffd23f', '#7fe0a8', '#c49bff'];
 const FAIRY_SETS = ['garden-fairy-pink', 'garden-fairy-blue', 'garden-fairy-yellow', 'garden-fairy-green', 'garden-fairy-purple'];
-function drawFairy(g, x, y, s, t, color, glowK = 0.4, facing = 1) {
+function drawFairy(g, x, y, s, t, color, glowK = 0.4, facing = 1, twirl = 0) {
   // Garden Fairy sprite set for this color (procedural fairy until it loads).
   const set = FAIRY_SETS[FAIRY_COLORS.indexOf(color)] || FAIRY_SETS[0];
   glow(g, color, x, y, s * 1.6, 0.35 + glowK * 0.5);
-  if (drawNpcSprite(g, set, x, y + s * 1.15, s * 2.8, t, { pose: 'fly', facing })) return;
+  if (drawNpcSprite(g, set, x, y + s * 1.15, s * 2.8, twirl > 0 ? 1.2 - twirl : t, {
+    pose: twirl > 0 ? 'celebrate' : 'fly', facing,
+  })) return;
   g.save(); g.translate(x, y); g.scale(facing, 1);
   // wings
   const flap = Math.abs(Math.sin(t * 22));
@@ -1158,7 +1160,7 @@ export class Game {
         g.restore();
       }
     }
-    for (const f of this.fairies) drawFairy(g, f.x, f.y + Math.sin(f.t * 4) * 4, 24, f.t, f.color, clamp(this.tod - 0.8, 0, 1), f.facing);
+    for (const f of this.fairies) drawFairy(g, f.x, f.y + Math.sin(f.t * 4) * 4, 24, f.t, f.color, clamp(this.tod - 0.8, 0, 1), f.facing, f.twirl);
     for (const f of this.fireflies) drawFirefly(g, f.x, f.y, f.t, f.ph, 1.4);
     // tags at the start so everyone finds themselves
     if (this.t < 5 && this.phase === 'day') for (const m of this.movers) ui.playerTag(g, m.p, m.a.x, m.a.y - m.a.height - 26);
