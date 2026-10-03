@@ -9,7 +9,7 @@ import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
-import { sfx, voice, music, hasSound } from '../engine/audio.js';
+import { sfx, sfxLoop, voice, music, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
@@ -58,6 +58,7 @@ const SONG = [
   [77, 0.75], [77, 0.25], [76, 1], [72, 1], [74, 1], [72, 2.5],
 ];
 const BEAT = 0.3;
+const JINGLE_BEAT = 60 / 112;   // jingle/happy-birthday is the same tune at 112 BPM (13.9 s)
 const BASS = { 0: 48, 6: 43, 12: 48, 19: 53, 22: 48 };
 
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
@@ -494,13 +495,22 @@ export class Game {
       if (c.pressed('a')) { st.tab++; st.tabBump = 0.18; sfx('select'); }
       if (c.pressed('b') && st.tab > 0) { st.tab--; sfx('back'); }
     }
+    for (const st of this.stations) this.shakeSound(st);
     if (this.stations.every((s) => s.ready && s.readyT > 0.6)) this.startFinale();
+  }
+
+  // sprinkle-jar rattle loop while A is held on the sprinkles
+  shakeSound(st) {
+    const on = !this.finale && !st.ready && !!st.shaking && st.p.ctrl.held('a') && TABS[st.tab].id === 'deco' && DECOS[st.decoSel].id === 'sprinkles';
+    if (on && !st.shakeLoop) st.shakeLoop = sfxLoop('sprinkle-shake', { vol: this.n > 4 ? 0.6 : 0.85 });
+    else if (!on && st.shakeLoop) { st.shakeLoop.stop(); st.shakeLoop = null; }
   }
 
   // --- finale: candles, song, blow, taste ---------------------------------------
   startFinale() {
     if (this.finale) return;
     this.phase = 'finale'; this.phaseT = 0;
+    for (const st of this.stations) this.shakeSound(st);
     this.finale = { stage: 'light', litQueue: [], song: { i: 0, t: 0 }, blowT: 0, tasteT: 0 };
     for (const st of this.stations) {
       st.ready = true;
@@ -534,15 +544,21 @@ export class Game {
           particles.burst(s.x + d.x * k, s.y + (d.y - 64) * k, { type: 'spark', count: 8, colors: ['#ffd23f', '#ff9f1c', '#fff'] });
           sfx('pop');
         }
-        if (!F.litQueue.length && (F.lightT ?? 0) <= -0.5) { F.stage = 'song'; F.song = { i: 0, t: 0.2 }; music.stop(0.4); }
+        if (!F.litQueue.length && (F.lightT ?? 0) <= -0.5) {
+          // the recorded song plays once instead of the synth notes; the note clock below keeps its time
+          F.stage = 'song'; F.song = { i: 0, t: 0.2, jingle: hasSound('jingle/happy-birthday') }; music.stop(0.4);
+        }
       }
     } else if (F.stage === 'song') {
       F.song.t -= dt;
       if (F.song.t <= 0) {
         const [m, b] = SONG[F.song.i];
-        sfx('note', { midi: m, dur: Math.min(0.5, b * BEAT * 0.95), vol: 0.3, wave: 'triangle', force: true });
-        if (BASS[F.song.i] !== undefined) sfx('note', { midi: BASS[F.song.i], dur: 1.2, vol: 0.18, wave: 'sine', force: true });
-        F.song.t += b * BEAT;
+        if (F.song.jingle) { if (F.song.i === 0) sfx('jingle/happy-birthday', { vol: 0.9 }); }
+        else {
+          sfx('note', { midi: m, dur: Math.min(0.5, b * BEAT * 0.95), vol: 0.3, wave: 'triangle', force: true });
+          if (BASS[F.song.i] !== undefined) sfx('note', { midi: BASS[F.song.i], dur: 1.2, vol: 0.18, wave: 'sine', force: true });
+        }
+        F.song.t += b * (F.song.jingle ? JINGLE_BEAT : BEAT);
         F.song.i++;
         for (const st of this.stations) {
           const a = st.actor;
@@ -599,7 +615,7 @@ export class Game {
     if (frac >= 1 || st.items.every((d) => d.kind !== 'candle' || d.out)) {
       st.out = true;
       for (const d of st.items) if (d.kind === 'candle' && !d.out) { d.out = true; particles.burst(s.x + d.x * k, s.y + (d.y - 70) * k, { type: 'smoke', count: 5, speed: [20, 70] }); }
-      sfx('yay'); a.playOnce('cheer', 0.6, 'idle');
+      sfx('candle-blow'); sfx('yay'); a.playOnce('cheer', 0.6, 'idle');
       particles.burst(top.x, top.y - 60 * k, { type: 'confetti', count: 24, speed: [200, 480] });
       particles.popText(top.x, top.y - 120 * k, 'Yay!', st.p.color, 56);
       a.say('Whoosh!', 1, st.p.isAI ? null : 'woo');
@@ -648,6 +664,8 @@ export class Game {
     snd('applause', 'cheer');
     this.api.finish({ showcase: true, highlight: null, stats, title: 'Delicious!' });
   }
+
+  destroy() { for (const st of this.stations) if (st.shakeLoop) st.shakeLoop.stop(); }
 
   onDone() {
     if (!this.finale) { this.startFinale(); return; }

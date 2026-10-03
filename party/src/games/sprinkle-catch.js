@@ -101,6 +101,7 @@ export class Game {
     this.goldenT = rand(6, 9);
     this.showerT = rand(5, 8);
     this.showerLeft = 0; this.showerGap = 0;
+    this.blorpAt = -1; this.bounceAt = -1;   // sound gates for the busy plop/bounce sounds
     this.cake = { x: W / 2, vx: 0, sq: 0, mouth: 0, blink: 0 };
     this.rush = false; this.rushT = 0;
     this.done = false;
@@ -181,7 +182,7 @@ export class Game {
     if (this.showerT <= 0 && this.showerLeft <= 0) { this.showerLeft = randInt(4, 6); this.showerT = rand(7, 10); this.showerGap = 0; }
     if (this.showerLeft > 0) {
       this.showerGap -= dt;
-      if (this.showerGap <= 0) { this.spawnTreat('sprinkle', { fan: (this.showerLeft - 3) * 0.12 }); this.showerLeft--; this.showerGap = 0.1; }
+      if (this.showerGap <= 0) { this.spawnTreat('sprinkle', { fan: (this.showerLeft - 3) * 0.12 }); this.blorp(); this.showerLeft--; this.showerGap = 0.1; }
     }
     this.spawnT -= dt;
     if (this.spawnT <= 0) {
@@ -189,9 +190,17 @@ export class Game {
       const r = Math.random();
       const broc = this.t - this.startT > 3 && r < 0.14;
       this.spawnTreat(broc ? 'broc' : r < 0.6 ? 'sprinkle' : 'cupcake');
+      this.blorp();
     }
     this.goldenT -= dt;
-    if (this.goldenT <= 0) { this.goldenT = this.rush ? rand(3.5, 5) : rand(8, 11); this.spawnTreat('golden'); }
+    if (this.goldenT <= 0) { this.goldenT = this.rush ? rand(3.5, 5) : rand(8, 11); this.spawnTreat('golden'); this.blorp(); }
+  }
+
+  // the cake plops a treat out (gated: treats can come every 0.1 s)
+  blorp() {
+    if (this.t - this.blorpAt < 0.22) return;
+    this.blorpAt = this.t;
+    sfx('cake-blorp', { vol: 0.5, rate: rand(0.9, 1.12) });
   }
 
   spawnTreat(kind, o = {}) {
@@ -309,6 +318,7 @@ export class Game {
           sfx('stomp');
         } else if (t.bounces > 0) {
           t.vy = -BOUNCE_V * (t.bounces > 1 ? 1 : 0.78); t.bounces--; t.sq = 0.3;
+          if (this.t - this.bounceAt > 0.12) { this.bounceAt = this.t; sfx('rubber-bounce', { vol: 0.45, rate: rand(0.95, 1.15) }); }
           particles.burst(t.x, GROUND_Y, { type: 'dust', count: 3, color: '#fff', speed: [30, 90], size: [8, 14] });
         } else {
           t.state = 'ground'; t.life = t.kind === 'golden' ? 2 : 1.1; t.vy = 0; t.vx *= 0.1; t.sq = 0.4;
@@ -347,7 +357,7 @@ export class Game {
     const col = t.kind === 'golden' ? '#ffd23f' : t.kind === 'cupcake' ? '#ff6fb1' : '#ffffff';
     this.pop(e, '+' + val, col, t.kind === 'golden' ? 68 : 50);
     if (t.kind === 'golden') {
-      sfx('star'); sfx('sparkle'); voice(e.p.charId, 'yay');
+      sfx('golden-chime', { fallback: 'star' }); sfx('sparkle'); voice(e.p.charId, 'yay');
       particles.burst(e.x, top + a.height * 0.4, { type: 'star', count: 14, colors: ['#ffd23f', '#fff6a8', '#fff'] });
       fx.flash('#fff3b0', 0.12); fx.shake(5, 0.18);
       this.api.camera && this.api.camera.punch(e.x, a.y - a.height * 0.6, 1.1, 0.3);

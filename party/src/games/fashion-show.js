@@ -16,6 +16,7 @@ import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '..
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { CATS, CAT, PALETTE, NAVY, drawItemIcon, heartPath, starAt } from './fashion-show/items.js';
+import { recolorFrame } from '../engine/recolor.js';
 
 export const meta = {
   id: 'fashion-show',
@@ -76,11 +77,46 @@ const WORN_ART = {
 WORN_ART.Tiara.colors[0] = 'tiara-star';
 WORN_ART['Royal Cape'].colors[3] = 'cape-starry';
 
+// Items whose art can be recoloured for colours without their own file: the
+// drawn fallback for these looks wrong (a flat trapezoid cape on a unicorn),
+// so the base art's main colour is remapped to the palette colour instead.
+const RECOLOR_BASE = { 'Royal Cape': { key: 'cape-royal', from: '#d90e22', hue: [335, 20] } };
+const recolored = new Map();   // `${key}|${color}` -> canvas
+function itemArt(name, color) {
+  const spec = WORN_ART[name], key = spec?.colors[color];
+  const img = key && art('prop/' + key);
+  if (img) return img;
+  const base = RECOLOR_BASE[name], col = PALETTE[color], src = base && art('prop/' + base.key);
+  if (!src || !col || col.rainbow) return null;
+  const ck = `${base.key}|${color}`;
+  if (!recolored.has(ck)) {
+    let c = null;
+    try { c = recolorFrame(src, null, [{ from: base.from, to: col.c, hue: base.hue, feather: 10, sat: [0.35, 1], lit: [0.08, 0.9] }]); } catch (e) { /* unreadable canvas */ }
+    recolored.set(ck, c);
+  }
+  return recolored.get(ck);
+}
+
+// Four-legged characters (Fox, Unicorn, Cotton Candy, Fellowfox) wear the
+// cape draped over the back from the side (prop/cape-royal-side, recoloured
+// like the upright cape). Without that art they keep the upright cape.
+function sideCapeArt(color) {
+  const src = art('prop/cape-royal-side'), col = PALETTE[color];
+  if (!src) return null;
+  if (!col || col.rainbow || color === 5) return src;   // Ruby = the art's own red
+  const ck = `cape-royal-side|${color}`;
+  if (!recolored.has(ck)) {
+    let c = src;
+    try { c = recolorFrame(src, null, [{ from: '#d90e22', to: col.c, hue: [335, 20], feather: 10, sat: [0.35, 1], lit: [0.08, 0.9] }]); } catch (e) { /* unreadable canvas */ }
+    recolored.set(ck, c);
+  }
+  return recolored.get(ck);
+}
+
 /** Menu icon: the item's art when this color has one, else the vector icon. */
 function drawItemIconArt(g, ci, ii, colIdx, cx, cy, size, t) {
   const it = CATS[ci].items[ii];
-  const key = WORN_ART[it.name]?.colors[colIdx ?? it.color ?? 0];
-  const img = key && art('prop/' + key);
+  const img = itemArt(it.name, colIdx ?? it.color ?? 0);
   if (img) {
     const k = ci === CAT.back ? 0.95 : ci === CAT.hand ? 0.9 : 0.82;
     const s = Math.min(size * k / img.width, size * k / img.height);
@@ -91,8 +127,7 @@ function drawItemIconArt(g, ci, ii, colIdx, cx, cy, size, t) {
 }
 
 function drawWornArt(g, item, color, S, t) {
-  const spec = WORN_ART[item.name], key = spec?.colors[color];
-  const img = key && art('prop/' + key);
+  const spec = WORN_ART[item.name], img = spec && itemArt(item.name, color);
   if (!img) return false;
   const scale = Math.min(S * spec.w / img.width, S * spec.h / img.height);
   const w = img.width * scale, h = img.height * scale;
@@ -142,6 +177,7 @@ export class Game {
     this.flashes = [];
     this.curtain = 0;
     this.lastCheer = -9;
+    this.flashSndT = -9; this.awwT = -9;   // gates for the long camera-flash / crowd-aww clips
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
@@ -210,10 +246,19 @@ export class Game {
       if (which === 'behind' || !drawWornArt(g, it, o.colors[o.item], S, t)) fn(g, S, col, t);
       g.restore();
     };
+    const bo = st.outfit[CAT.back];
+    const sideCape = def.motion === 'trot' && CATS[CAT.back].items[bo.item]?.name === 'Royal Cape' ? sideCapeArt(bo.colors[bo.item]) : null;
     if (behind) {
       put(CAT.aura, 0, -h * 0.5, h, 'behind');
-      put(CAT.back, back.x, back.y, h, 'draw');
+      if (!sideCape) put(CAT.back, back.x, back.y, h, 'draw');
     } else {
+      if (sideCape) {
+        // draped over the back, in front of the body; art faces right like the sprites' forward space
+        const k = popK(st.pop[CAT.back]), sw = h * 0.95 * k, sh = sw * sideCape.height / sideCape.width;
+        g.save(); g.translate(back.x, back.y); g.transform(1, 0, Math.sin(t * 2) * 0.03, 1, 0, 0);
+        g.drawImage(sideCape, -sw / 2, -sh * 0.25, sw, sh);
+        g.restore();
+      }
       put(CAT.neck, neck.x, neck.y, faceW, 'draw');
       put(CAT.face, eyes.x, eyes.y, faceW, 'draw');
       put(CAT.head, hx, hy + headW * 0.1, headW, 'draw');
@@ -402,7 +447,7 @@ export class Game {
     st.poseIdx = (st.poseIdx + 1 + randInt(0, 2)) % POSE_SET.length;
     a.playOnce(POSE_SET[st.poseIdx], 0.75, 'idle'); a.squash(0.22); a.flash('#fff6d0', 0.07);
     a.facing = chance(0.5) ? 1 : -1;
-    sfx('shutter');
+    this.photoSnd('shutter');
     if (this.t - this.lastCheer > 1.1) { this.lastCheer = this.t; snd('crowd-ooh', 'cheer'); }
     const head = a.anchor('head');
     particles.burst(head.x, head.y + a.height * 0.2, { type: 'heart', count: 5, speed: [120, 300] });
@@ -410,6 +455,12 @@ export class Game {
     particles.popText(a.x, head.y - 40, pick(COMPLIMENTS), st.p.color, 46);
     for (let i = 0; i < 4; i++) this.cameraFlash(a.x);
     for (const m of this.crowd) if (chance(0.25) && m.jump <= 0) m.jv = rand(160, 260);
+  }
+
+  // recorded crowd of camera clicks for runway photos (gated, it is 0.7 s long); else `fallback`
+  photoSnd(fallback) {
+    if (hasSound('camera-flash') && this.t - this.flashSndT > 0.6) { this.flashSndT = this.t; sfx('camera-flash', { vol: 0.7 }); }
+    else if (fallback) sfx(fallback);
   }
 
   cameraFlash(nearX) {
@@ -444,6 +495,8 @@ export class Game {
         if (u >= 1) {
           rw.state = 'pose'; a.setPose('idle'); a.playOnce(pick(['strike1', 'strike2', 'strike3']), 0.7, 'idle'); a.facing = 1;
           snd('applause', 'cheer'); for (let i = 0; i < 6; i++) this.cameraFlash(a.x);
+          this.photoSnd(null);
+          if (this.t - this.awwT > 1.5) { this.awwT = this.t; sfx('crowd-aww', { vol: 0.7 }); }   // the crowd melts at the end-of-runway pose
           for (const m of this.crowd) if (chance(0.5)) m.jv = rand(160, 280);
           rw.aiT = rand(0.4, 0.9);
         }
@@ -523,7 +576,7 @@ export class Game {
     if (t >= 3.4 && t - dt < 3.4) sfx('tock');
     if (t >= 3.6 && !this.photoTaken) {
       this.photoTaken = true;
-      fx.flash('#ffffff', 0.45); sfx('shutter'); sfx('fanfare'); snd('applause', 'cheer');
+      fx.flash('#ffffff', 0.45); this.photoSnd('shutter'); sfx('fanfare'); snd('applause', 'cheer');
       particles.confettiRain(W, 160);
       this.stations.forEach((st, i) => st.actor.playOnce(i % 2 ? 'bow' : 'strike3', 0.8, 'celebrate'));
       for (const m of this.crowd) m.jv = rand(180, 300);

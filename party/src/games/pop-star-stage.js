@@ -333,6 +333,7 @@ export class Game {
     });
     this.imps = [];
     this.beams = [];
+    this.beamSndAt = -9;     // sparkle-beam sound gate (beams fly on every hit)
     this.boss = null;
     this.clock = 0;          // seconds since GO (own clock)
     this.preT = 0;
@@ -480,7 +481,10 @@ export class Game {
     if (grade === 'perfect') particles.ring(x, y, '#ffffff', this.noteSize * 1.4, 0.3);
     // Narrow 6-8 player lanes: a smaller label that sits just above the ring.
     this.judgeText(L, x, y - this.noteSize * (this.n > 5 ? 0.75 : 1), grade === 'perfect' ? 'Perfect!' : 'Good!', grade === 'perfect' ? '#ffd23f' : '#7dffb4', this.n > 5 ? 28 : 42);
-    sfx('note', { midi: BTN_MIDI[nn.btn] + (grade === 'perfect' ? 12 : 0), dur: 0.18, vol: 0.12 });
+    // recorded hit notes sit at BTN_MIDI, so a perfect (an octave up) is rate 2
+    const hitKey = 'note-hit-' + nn.btn;
+    if (hasSound(hitKey)) sfx(hitKey, { vol: this.n > 4 ? 0.3 : 0.45, rate: grade === 'perfect' ? 2 : 1 });
+    else sfx('note', { midi: BTN_MIDI[nn.btn] + (grade === 'perfect' ? 12 : 0), dur: 0.18, vol: 0.12 });
     const a = L.actor;
     if (!this.finale) a.playOnce(L.fever ? pick(['dance-star', 'dance-up']) : pick(['dance-up', 'dance-side', 'dance-down']), 0.3, 'dance');
     // fire a sparkle beam at an imp (or the boss)
@@ -489,7 +493,7 @@ export class Game {
       L.fever = true; L.feverT = 0;
       particles.popText(x, y - this.noteSize * 2, 'FEVER!', '#ff6fd0', 60);
       particles.burst(x, HIT_Y, { type: 'confetti', count: 30 });
-      sfx('magic'); sfx('star'); fx.flash('#ffe6ff', 0.12);
+      sfx('magic'); sfx('fever', { fallback: 'star' }); fx.flash('#ffe6ff', 0.12);
       a.emote('sparkle', 2);
       if (!L.p.isAI) { try { L.p.ctrl.rumble(0.5, 200); } catch (e) { /* ignore */ } }
     } else if (L.combo > 0 && L.combo % 10 === 0) {
@@ -568,6 +572,7 @@ export class Game {
       }
     }
     this.beams.push({ from, to, color: BTN_COLOR[btn], t: 0, dur: 0.22, hitAt: 0.08, onHit, fever: L.fever });
+    if (this.clock - this.beamSndAt > 0.35) { this.beamSndAt = this.clock; sfx('sparkle-beam', { vol: 0.35 }); }
   }
 
   updateBeams(dt) {
@@ -617,7 +622,7 @@ export class Game {
     particles.burst(B.x, B.y, { type: 'smoke', count: 16 });
     particles.ring(B.x, B.y, '#ffffff', 420, 0.5);
     sfx('bigpop'); sfx('fanfare');
-    if (hasSound('npc/imp/poof')) sfx('npc/imp/poof');
+    snd('big-imp-poof', 'npc/imp/poof');
     fx.shake(14, 0.35); fx.flash('#ffffff', 0.25); fx.slowmo(0.5, 0.4);
     this.banner(won ? 'Shadows banished!' : 'Bye-bye, imp!', 2.2, '#ffd23f', 90);
     for (const L of this.lanes) L.actor.playOnce('cheer', 0.5, 'dance');

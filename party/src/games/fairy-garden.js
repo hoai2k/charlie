@@ -9,7 +9,7 @@ import { Actor, getBaseImage } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
-import { sfx, voice, hasSound } from '../engine/audio.js';
+import { sfx, sfxLoop, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { drawNpcSprite } from '../engine/npc-art.js';
 import { drawHost, hostBubble } from '../engine/host.js';
@@ -431,6 +431,10 @@ export class Game {
     } else if (this.phase === 'finale') {
       this.updateFinale(dt);
     }
+    // crickets fade in with the dark (sunset -> night) and play until the end
+    const nightK = clamp(this.tod - 1, 0, 1);
+    if (nightK > 0 && !this.crickets && !this.finished) this.crickets = sfxLoop('night-crickets', { vol: 0 });
+    if (this.crickets && nightK !== this.cricketK) { this.cricketK = nightK; this.crickets.setVol(0.9 * nightK); }
 
     for (const m of this.movers) this.updateMover(m, dt);
     for (const pl of this.plots) this.updatePlot(pl, dt);
@@ -500,7 +504,7 @@ export class Game {
     particles.burst(pl.x, pl.y - 10, { type: 'dust', count: 8 });
     particles.burst(pl.x, pl.y - 20, { type: 'sparkle', count: 6, colors: [SEEDS[m.seed].color, '#ffffff'] });
     particles.popText(pl.x, pl.y - 60, SEEDS[m.seed].name + '!', SEEDS[m.seed].color, 34);
-    sfx('pop'); sfx('collect', { step: m.planted % 8 });
+    snd('plant-seed', 'pop'); sfx('collect', { step: m.planted % 8 });
   }
 
   water(m, pl) {
@@ -696,7 +700,7 @@ export class Game {
     m.a.playOnce('action', 0.35); m.a.squash(0.2);
     particles.burst(f.x, f.y, { type: 'sparkle', count: 8, colors: ['#fff6a0', '#ffffff'] });
     particles.popText(f.x, f.y - 30, 'Got one!', '#fff6a0', 32);
-    sfx('sparkle'); sfx('pop');
+    sfx('sparkle'); snd('firefly-catch', 'pop');
     if (!m.p.isAI && m.jar % 5 === 4) voice(m.p.charId, 'yay');
   }
 
@@ -749,7 +753,7 @@ export class Game {
       const x = rand(220, W - 220), y = rand(120, 340);
       particles.burst(x, y, { type: 'petal', count: 34, speed: [160, 420], colors: pick([['#ff8fd0', '#ffffff', '#ffc8f0'], ['#ffd23f', '#fff6a8', '#ff9f1c'], ['#7fd3ff', '#c49bff', '#ffffff'], RAINBOW]) });
       particles.burst(x, y, { type: 'sparkle', count: 10 });
-      sfx('pop'); if (chance(0.5)) sfx('sparkle');
+      snd('petal-firework', 'pop'); if (chance(0.5)) sfx('sparkle');
     }
     if (t > 4.5 && !this.cheered) {
       this.cheered = true; snd('applause', 'cheer');
@@ -762,6 +766,7 @@ export class Game {
   finishGame() {
     if (this.finished) return;
     this.finished = true;
+    if (this.crickets) { this.crickets.stop(1.2); this.crickets = null; }
     const stats = this.movers.map((m) => {
       const bits = [`${m.planted} planted`];
       if (m.jar) bits.push(`${m.jar} firefl${m.jar === 1 ? 'y' : 'ies'}`);
@@ -776,6 +781,8 @@ export class Game {
     this.updateFairies(dt);
     this.updateFireflies(dt);
   }
+
+  destroy() { if (this.crickets) this.crickets.stop(); }
 
   onDone() {
     if (this.phase === 'finale') this.finishGame();

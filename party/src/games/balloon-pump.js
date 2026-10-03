@@ -8,7 +8,7 @@ import { Actor } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice, host } from '../engine/audio.js';
+import { sfx, voice, host, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { PLAYER_COLORS } from '../data/characters.js';
@@ -260,7 +260,9 @@ export class Game {
         const h = this.hosePos(st);
         particles.burst(h.x + 10, h.y - 8, { type: 'smoke', count: 3, angle: -1.2, spread: 1.0, speed: [60, 160], size: [14, 26] });
         if (chance(0.45)) particles.popText(h.x + rand(-20, 30), h.y - 50 * s.sc, pick(['pfft!', 'pffft!', 'psst!', 'blrrt!']), '#ff8fa8', 38 * clamp(s.sc, 0.8, 1.2));
-        sfx('whoosh', { vol: 0.5 });
+        // the recorded sputter is long, so it plays at most every 0.55 s
+        if (!hasSound('hose-sputter')) sfx('whoosh', { vol: 0.5 });
+        else if (!(st.hoseAt > this.t - 0.55)) { st.hoseAt = this.t; sfx('hose-sputter', { vol: 0.7, rate: rand(0.95, 1.08) }); }
       }
       st.a.emote('sweat', 0.6);
     } else {

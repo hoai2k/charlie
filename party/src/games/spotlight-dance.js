@@ -8,7 +8,7 @@ import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice, music, host } from '../engine/audio.js';
+import { sfx, voice, music, host, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
@@ -27,6 +27,12 @@ const MOVE = {
   R: { color: '#7be04d', dark: '#3d9e1c', name: 'Right', pose: 'dance-side', midi: 75, rot: Math.PI / 2 },
   A: { color: '#b673ff', dark: '#7a35c9', name: 'Sparkle', pose: 'dance-star', midi: 79, rot: 0 },
 };
+// Recorded move notes (pitched to MOVE[].midi); the synth note when a file is missing.
+const NOTE_KEY = { U: 'note-u', D: 'note-d', L: 'note-l', R: 'note-r', A: 'note-star' };
+function moveNote(mv, fileVol, synth) {
+  if (hasSound(NOTE_KEY[mv])) sfx(NOTE_KEY[mv], { vol: fileVol });
+  else sfx('note', synth);
+}
 const IMP_EYES = ['#7dfff0', '#ffe66d', '#ff9be8', '#a9ff7d', '#8fb4ff', '#ffb07d'];
 
 export const meta = {
@@ -432,7 +438,7 @@ export class Game {
     }
     const mv = this.seq[this.showIdx];
     this.showT = this.showDur() + 0.14; this.showMoveT = 0;
-    sfx('note', { midi: MOVE[mv].midi, dur: 0.35, vol: 0.32 });
+    moveNote(mv, 0.7, { midi: MOVE[mv].midi, dur: 0.35, vol: 0.32 });
     if (mv === 'A') sfx('sparkle');
     this.imps.forEach((im, i) => { if (im.alive) { im.move = mv; im.mt = -i * 0.04; } });
     particles.burst(W / 2, this.L.promptY, { type: 'sparkle', count: 6, colors: [MOVE[mv].color, '#ffffff'], speed: [100, 300] });
@@ -505,7 +511,7 @@ export class Game {
     if (mv === 'L') pl.a.facing = -1; else if (mv === 'R') pl.a.facing = 1;
     pl.a.playOnce(m.pose, 0.3, 'idle');
     pl.a.squash(0.15);
-    sfx('note', { midi: m.midi, dur: 0.18, vol: this.n > 3 ? 0.07 : 0.14 });
+    moveNote(mv, this.n > 3 ? 0.3 : 0.45, { midi: m.midi, dur: 0.18, vol: this.n > 3 ? 0.07 : 0.14 });
     const sx = this.slotX(pl, i, this.seq.length), sy = this.slotY(pl);
     particles.burst(sx, sy, { type: 'sparkle', count: 3, colors: [m.color, '#ffffff'], speed: [40, 120], size: [10, 16] });
     if (pl.entered.length === this.seq.length) this.succeed(pl);
@@ -557,6 +563,7 @@ export class Game {
   updateBeams(dt) {
     for (const b of this.beams) {
       b.t += dt;
+      if (b.t >= 0 && !b.zapped) { b.zapped = true; sfx('sparkle-beam', { vol: 0.7 }); }   // the beam leaves the idol
       if (b.t >= b.dur && !b.done) {
         b.done = true;
         const im = b.imp;

@@ -7,7 +7,7 @@ import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice, host, hasSound } from '../engine/audio.js';
+import { sfx, sfxLoop, voice, host, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { drawHost } from '../engine/host.js';
@@ -239,6 +239,12 @@ export class Game {
 
   setPhase(ph) { this.phase = ph; this.pt = 0; }
 
+  // wing-twinkle loop while fairies are flying (watch phase and the reveal fly-in)
+  wings(on) {
+    if (on && !this.wingLoop) this.wingLoop = sfxLoop('wing-twinkle', { fadeIn: 0.4 });
+    else if (!on && this.wingLoop) { this.wingLoop.stop(0.4); this.wingLoop = null; }
+  }
+
   startGuess() {
     this.setPhase('guess');
     for (const a of this.actors) a.setPose(POSE.pick);
@@ -256,6 +262,7 @@ export class Game {
       this.ai[i] = { guess, lockAt: rand(lo, hi), stepAt: reactionTime(p) + rand(0.2, 0.8), wrongStep: lvl === 0 && chance(0.3), prof };
     });
     sfx('whoosh', { vol: 0.4 });
+    this.wings(false);
   }
 
   step(i, d) {
@@ -288,7 +295,7 @@ export class Game {
     for (const f of this.fireflies) { f.x += Math.sin(this.t * 0.5 + f.ph) * 12 * dt; f.y += Math.cos(this.t * 0.4 + f.ph * 2) * 10 * dt; }
     switch (this.phase) {
       case 'intro': if (this.pt > 1.5) this.setPhase('ask'); break;
-      case 'ask': if (this.pt > 2.9) { this.setPhase('watch'); sfx('magic', { vol: 0.5 }); for (const a of this.actors) a.setPose('look-up'); } break;
+      case 'ask': if (this.pt > 2.9) { this.setPhase('watch'); sfx('magic', { vol: 0.5 }); this.wings(true); for (const a of this.actors) a.setPose('look-up'); } break;
       case 'watch': this.updateFairies(dt); if (this.pt > this.watchLen) this.startGuess(); break;
       case 'guess': this.updateGuess(dt); break;
       case 'reveal': this.updateReveal(dt); break;
@@ -372,6 +379,7 @@ export class Game {
     };
     this.choice.forEach((ch) => { ch.state = 'locked'; });
     sfx('magic', { vol: 0.5 });
+    this.wings(true);
   }
 
   updateReveal(dt) {
@@ -385,13 +393,14 @@ export class Game {
       if (!r.arrived && age >= r.dur) {
         r.arrived = true; r.popT = this.pt; rv.count++;
         const step = SCALE_STEPS[Math.min(rv.count - 1, SCALE_STEPS.length - 1)];
-        sfx('collect', { step }); if (hasSound('npc/fairy/chime')) sfx('npc/fairy/chime');
+        sfx('count-chime', { rate: 2 ** (step / 12), fallback: 'collect', step }); if (hasSound('npc/fairy/chime')) sfx('npc/fairy/chime');
         particles.burst(r.tx, r.ty, { type: 'sparkle', count: 10, colors: [r.col.glow, '#fff', r.col.c], speed: [60, 280], size: [10, 22] });
         particles.ring(r.tx, r.ty, r.col.glow, 80, 0.45);
       }
     }
     if (rv.stage === 'fly' && this.pt >= rv.totalAt) {
       rv.stage = 'total'; rv.totalT = this.pt;
+      this.wings(false);
       sfx('correct'); fx.flash(this.target.glow, 0.12);
       if (this.api.camera) this.api.camera.punch(W / 2, 430, 1.15, 0.9);
       particles.burst(W / 2, 410, { type: 'star', count: 14, colors: [this.target.c, '#fff6a8', this.target.glow], speed: [200, 520] });
@@ -444,12 +453,15 @@ export class Game {
   endGame() {
     if (this.over) return;
     this.over = true;
+    this.wings(false);
     const score = this.points.map((pt, i) => pt * 1000 - this.totalErr[i] * 10);
     const placements = placementsFromScores(score);
     const stats = this.points.map((p, i) => `${p} pts, ${this.exacts[i]} exact`);
     const best = placements.indexOf(1), wa = this.actors[best];
     this.api.finish({ placements, stats, solo: score[0], focus: { x: wa.x, y: wa.y - wa.height / 2, zoom: 1.35 } });
   }
+
+  destroy() { this.wings(false); }
 
   // --- drawing ----------------------------------------------------------------
   draw(g) {

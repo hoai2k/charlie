@@ -6,7 +6,7 @@ import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
-import { sfx, voice, hasSound } from '../engine/audio.js';
+import { sfx, sfxLoop, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
@@ -18,6 +18,7 @@ const BASE_V = 0.62;      // course units per second
 const TIME_CAP = 60;
 const LANES_TOP = 124, LANES_BOT = 990;
 const NAVY = '#24163f';
+const RING_STEPS = [0, 2, 4, 5, 7, 9, 11, 12];   // ring-combo pitch steps (semitones)
 
 // Poses. New poses we would love (see report); until they exist we map to the
 // nearest current pose and add emotes/particles.
@@ -215,6 +216,7 @@ export class Game {
     this.finCount = 0;
     this.buildCourse();
     this.lanes = this.players.map((p, i) => this.makeLane(p, i));
+    this.windK = 1 / Math.sqrt(Math.max(1, this.lanes.filter((L) => !L.p.isAI).length));   // wind loops share one modest level
     this.rank = this.lanes.map((_, i) => i + 1);
   }
 
@@ -422,8 +424,21 @@ export class Game {
         type: 'sparkle', count: 1, colors: ['#fff6a8', '#ffd23f', L.p.color], vx: -L.v * hx * 0.9, vy: rand(-30, 30), speed: [10, 60], life: [0.3, 0.6], size: [8, 16], gravity: 0,
       });
     }
+    this.windLoops(L, live);
     void prev;
   }
+
+  // Wind loops, human riders only: whoosh while boosting, softer glide while gliding down.
+  windLoops(L, live) {
+    if (L.p.isAI) return;
+    if (!live || L.fin !== null) { this.stopWind(L); return; }
+    if (!L.wind) L.wind = { whoosh: sfxLoop('broom-whoosh', { vol: 0 }), glide: sfxLoop('broom-glide', { vol: 0 }), w: 0, g: 0 };
+    const boosting = L.boostT > 0.1, w = boosting ? 0.55 * this.windK : 0, gl = !boosting && L.vy >= -0.1 ? 0.7 * this.windK : 0;
+    if (w !== L.wind.w) { L.wind.w = w; L.wind.whoosh.setVol(w); }
+    if (gl !== L.wind.g) { L.wind.g = gl; L.wind.glide.setVol(gl); }
+  }
+
+  stopWind(L) { if (L.wind) { L.wind.whoosh.stop(0.4); L.wind.glide.stop(0.4); L.wind = null; } }
 
   px(L) { return { x: L.ax, y: L.top + L.y * this.laneH }; }
 
@@ -434,7 +449,9 @@ export class Game {
     particles.burst(sp.x + 20, sp.y, { type: 'star', count: 6 + this.n < 6 ? 10 : 8, colors: [col, '#fff6a8', '#ffffff'], size: [10, 20], speed: [150, 400] });
     particles.burst(sp.x + 20, sp.y, { type: 'sparkle', count: 12, colors: [col, '#fff6a8', L.p.color], speed: [100, 420], size: [12, 26] });
     particles.ring(sp.x + 10, sp.y, col, 110 * this.k * (this.laneH / 430 + 0.3), 0.4);
-    sfx('collect', { step: Math.min(L.combo - 1, 7) * 2 });
+    // recorded ding is one tone (MIDI 79): pitch it up a major scale per ring in a row
+    const k = Math.min(L.combo - 1, 7);
+    sfx('ring-combo', { rate: 2 ** (RING_STEPS[k] / 12), fallback: 'collect', step: k * 2 });
     sfx(hasSound('ring') ? 'ring' : 'sparkle');
     if (!L.p.isAI || true) sfx('whoosh', { vol: 0.5 });
     L.a.playOnce('cheer', 0.35); L.a.squash(0.25);
@@ -518,6 +535,7 @@ export class Game {
   endRace() {
     if (this.over) return;
     this.over = true;
+    for (const L of this.lanes) this.stopWind(L);
     const order = this.lanes.slice().sort((a, b) => (a.fin !== null ? 0 : 1) - (b.fin !== null ? 0 : 1) || (a.fin !== null && b.fin !== null ? a.fin - b.fin : b.dist - a.dist));
     const placements = new Array(this.n);
     order.forEach((L, r) => { placements[L.i] = r + 1; });
@@ -531,6 +549,8 @@ export class Game {
     const h = L.a.height;
     L.a.x = L.ax; L.a.y = L.top + L.y * this.laneH + 0.44 * h;
   }
+
+  destroy() { for (const L of this.lanes) this.stopWind(L); }
 
   // --- drawing -----------------------------------------------------------------------
   draw(g) {
