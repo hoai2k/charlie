@@ -241,7 +241,7 @@ export class Game {
         if (left <= 0) this.crumble(st[1]);
       }
     } else if (pt >= SUDDEN_AT) {
-      if (!this.sudden) { this.sudden = true; sfx('crumble'); fx.shake(10, 0.5); particles.popText(W / 2, 250, 'Sudden death!', '#ff4d6d', 70); }
+      if (!this.sudden) { this.sudden = true; sfx('frosting-crumble', { fallback: 'crumble' }); fx.shake(10, 0.5); particles.popText(W / 2, 250, 'Sudden death!', '#ff4d6d', 70); }
       const k = clamp((pt - SUDDEN_AT) / (TIME_CAP - SUDDEN_AT), 0, 1);
       const target = lerp(STAGES[STAGES.length - 1][1], SUDDEN_R, k);
       this.Rt = this.R = Math.min(this.R, target);
@@ -257,7 +257,7 @@ export class Game {
   crumble(newR) {
     const oldR = this.Rt;
     this.Rt = newR; this.stage++; this.tele = null; this.crumbleFlash = 0.4;
-    sfx('crumble'); sfx('boom'); fx.shake(16, 0.6); fx.flash('#ffffff', 0.1);
+    sfx('frosting-crumble', { fallback: 'crumble' }); sfx('boom'); fx.shake(16, 0.6); fx.flash('#ffffff', 0.1);
     for (let i = 0; i < 46; i++) {
       const a = (i / 46) * TAU, rr = rand(newR, oldR);
       const [sx, sy] = this.toScreen(Math.cos(a) * rr, Math.sin(a) * rr);
@@ -405,7 +405,7 @@ export class Game {
     particles.ring(mx, my, '#ffffff', 80 + s * 90, 0.35);
     fx.shake(5 + 14 * s, 0.14 + 0.15 * s);
     if (big) {
-      fx.hitstop(0.06 + 0.05 * s); sfx('hit'); sfx('bounce');
+      fx.hitstop(0.06 + 0.05 * s); sfx('hit'); sfx('boing', { fallback: 'bounce' });
       this.pows.push({ x: mx, y: my, t: 0, r: 58 + 42 * s, rot: rand(TAU), word: pick(['BUMP!', 'BONK!', 'BOING!', 'POW!']), jag: Array.from({ length: 14 }, () => rand(0.8, 1.15)) });
     }
     else sfx('bonk');
@@ -425,7 +425,7 @@ export class Game {
     const [sx, sy] = this.toScreen(e.x, e.y);
     e.fx = sx; e.fy = sy; e.fvx = e.vx * 0.25; e.fvy = Math.min(120, e.vy * K * 0.25);
     e.a.clearEmotes(); e.a.playOnce('surprised', 0.3, poseName('tumble'));
-    sfx('whoosh'); voice(e.p.charId, 'gasp');
+    sfx('wheee-fall', { fallback: 'whoosh' }); voice(e.p.charId, 'gasp');
     if (this.cam) this.cam.punch(sx, sy - 40, 1.25, 0.4); if (e.p.isAI === false) e.p.ctrl.rumble(0.9, 300);
     fx.shake(8, 0.25);
     particles.burst(sx, sy, { type: 'shard', count: 7, colors: ['#ffe3f1', '#ff9fcd', '#f4c58a'], speed: [80, 260] });

@@ -303,7 +303,7 @@ export class Game {
         if (Math.hypot(gm.x - pl.x, gm.y - (pl.y - 28)) < rr) {
           gm.collected = true;
           pl.gems += gm.v; pl.chain++; pl.chainT = 1.1;
-          sfx(gm.big ? 'coin' : 'collect', { step: Math.min(pl.chain - 1, 9) });
+          if (gm.big) sfx('golden-chime', { fallback: 'coin' }); else sfx('collect', { step: Math.min(pl.chain - 1, 9) });
           particles.burst(gm.x, gm.y, { type: 'sparkle', count: gm.big ? 8 : 4, colors: ['#ffffff', GEM_COLORS[gm.kind % 5][0]], speed: [60, 200] });
           particles.popText(pl.x, pl.y - a.height - 50, `+${gm.v}`, gm.big ? '#ffd23f' : '#ffffff', gm.big ? 64 : 48);
           a.squash(0.15);

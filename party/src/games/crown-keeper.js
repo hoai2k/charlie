@@ -193,7 +193,7 @@ export class Game {
       g.restore();
     });
     U.a.playOnce('cheer', 0.6); U.a.squash(0.35); U.a.emote('sparkle', 1.0);
-    sfx('collect', { step: 4 }); sfx('star'); sfx('magic', { vol: 0.5 });
+    sfx('collect', { step: 4 }); sfx('crown-sting', { fallback: 'star' }); sfx('magic', { vol: 0.5 });
     voice(U.p.charId, 'yay');
     const hp = U.a.anchor('head');
     particles.burst(hp.x, hp.y, { type: 'star', count: 10, colors: ['#ffd23f', '#fff6a8', '#ffffff'], speed: [200, 480] });
@@ -224,7 +224,7 @@ export class Game {
     const left = DURATION - this.t;
     if (!this.double && this.t >= DOUBLE_AT) {
       this.double = true; this.bannerT = this.t;
-      sfx('fanfare'); fx.flash('#fff3b0', 0.2);
+      sfx('double-time', { fallback: 'fanfare' }); fx.flash('#fff3b0', 0.2);
     }
     if (this.waitCrown) {
       this.waitCrown = false;
@@ -269,7 +269,7 @@ export class Game {
       c.z = Math.sin(u * Math.PI) * 170 + (1 - u) * 0;
       if (c.u >= 1) {
         c.state = 'ground'; c.z = 0;
-        sfx('bounce'); sfx('sparkle');
+        sfx('crown-land', { fallback: 'bounce' }); sfx('sparkle');
         particles.burst(c.x, c.y, { type: 'sparkle', count: 14, colors: ['#ffd23f', '#fff6a8', '#fff'], speed: [80, 320], size: [12, 26] });
         particles.burst(c.x, c.y + 10, { type: 'dust', count: 6 });
       }
@@ -374,7 +374,7 @@ export class Game {
       particles.burst(mx, my, { type: 'star', count: 10, colors: ['#ffd23f', '#fff', '#ff9fd0'], speed: [200, 520], size: [16, 30] });
       particles.ring(mx, my, '#ffffff', 130, 0.35);
       particles.popText(mx, my - 50, 'BONK!', '#ff6fb1', 62);
-      sfx('bonk'); sfx('hit'); voice(T.p.charId, 'ouch');
+      sfx('bonk'); sfx('boing', { fallback: 'hit' }); voice(T.p.charId, 'ouch');
       fx.shake(this.n > 4 ? 6 : 12, 0.25); fx.hitstop(0.06);
       if (this.api.camera) this.api.camera.punch(mx, my + 20, 1.2, 0.35);
       if (!T.p.isAI) T.p.ctrl.rumble(0.8, 260);

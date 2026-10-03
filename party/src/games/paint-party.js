@@ -251,7 +251,7 @@ export class Game {
 
     if (!this.doubleShown && this.t >= DOUBLE_AT) {
       this.doubleShown = true; this.msg = { text: 'Double brush!', t: 0 };
-      sfx('grow'); sfx('star'); fx.shake(10, 0.35); fx.flash('#ffffff', 0.12);
+      sfx('grow'); sfx('double-time', { fallback: 'star' }); fx.shake(10, 0.35); fx.flash('#ffffff', 0.12);
       particles.confettiRain(W, 60);
     }
     if (this.msg) { this.msg.t += dt; if (this.msg.t > 2.4) this.msg = null; }
@@ -313,7 +313,7 @@ export class Game {
     for (const pk of this.pickups) {
       if (!pk.taken && Math.hypot(pk.x - s.x, pk.y - s.y) < 58) {
         pk.taken = true; s.roller = ROLLER_T;
-        sfx('grow'); sfx('star'); voice(p.charId, 'woo');
+        sfx('grow'); sfx('roller-ding', { fallback: 'star' }); voice(p.charId, 'woo');
         particles.burst(pk.x, pk.y, { type: 'star', count: 14, colors: RAINBOW, speed: [120, 420] });
         particles.ring(pk.x, pk.y, '#ffffff', 220, 0.5);
         particles.popText(s.x, s.y - s.a.height - 70, 'Rainbow roller!', '#ffffff', 48);
@@ -348,7 +348,7 @@ export class Game {
     this.splats.push({ x: b.tx, y: b.ty, r, color: b.color, t: 0, lobes, drops });
     particles.burst(b.tx, b.ty, { type: 'drop', count: 26, colors: [b.color, this.shades[b.i][1], '#ffffff'], speed: [200, 620], angle: -Math.PI / 2, spread: 1.5, gravity: 1100, life: [0.4, 0.8], size: [6, 12] });
     particles.ring(b.tx, b.ty, b.color, 260, 0.45);
-    sfx('splat'); sfx('pop');
+    sfx('paint-splat-wet', { fallback: 'splat' }); sfx('pop');
     fx.shake(changed > 25 ? 9 : 5, 0.18);
     if (this.api.camera && changed > 20) this.api.camera.punch(b.tx, b.ty, 1.05, 0.05);
     if (changed > 12) particles.popText(b.tx, b.ty - 40, `+${changed}`, '#ffffff', 46);

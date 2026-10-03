@@ -214,7 +214,7 @@ export class Game {
       if (this.stateT > 0.9 && !this.flippedBack) {
         this.flippedBack = true;
         for (const cd of this.picks) { cd.flipTarget = 0; cd.state = 'down'; }
-        sfx('flip'); later(() => sfx('flip'), 70);
+        snd('card-flip', 'flip'); later(() => snd('card-flip', 'flip'), 70);
       }
       if (this.stateT > 1.2) this.nextTurn();
     } else if (this.state === 'end') {
@@ -244,7 +244,7 @@ export class Game {
     }
     card.state = 'up'; card.flipTarget = 1; card.lift = 1;
     this.picks.push(card);
-    sfx('flip'); later(() => sfx('sparkle'), 120);
+    snd('card-flip', 'flip'); later(() => sfx('sparkle'), 120);
     particles.burst(card.x, card.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ffe066', card.face.color] });
     this.cur.actor.playOnce('flip', 0.3, 'think');
     this.remember(card);
@@ -272,7 +272,7 @@ export class Game {
       this.state = 'match'; this.stateT = 0;
       s.pairs++;
       for (const m of this.mem) { m.delete(a.i); m.delete(b.i); }
-      sfx('correct'); later(() => sfx('star'), 150);
+      sfx('match-chime', { fallback: 'correct' }); later(() => sfx('star'), 150);
       voice(s.p.charId, 'yay');
       s.actor.playOnce('cheer', 0.6, 'think');
       for (const o of this.seats) if (o !== s) o.actor.playOnce('clap', 1.1, 'idle');
@@ -330,6 +330,7 @@ export class Game {
       if (cd.fly) {
         const f = cd.fly;
         f.t += dt;
+        if (f.t >= 0 && !f.whoosh) { f.whoosh = true; sfx('card-whoosh', { vol: 0.8 }); }   // off to the pile
         if (f.t >= f.dur) {
           const s = this.seats[cd.owner];
           s.pileBump = 1;

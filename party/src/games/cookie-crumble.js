@@ -260,7 +260,7 @@ export class Game {
     particles.burst(t.x, t.y, { type: 'drop', count: 12, colors: ['#ffffff', '#e4f3ff', '#c4e4ff'], speed: [140, 420], angle: -Math.PI / 2, spread: 1.3 });
     particles.burst(t.x, t.y, { type: 'dust', count: 5, speed: [30, 120] });
     this.ripples.push({ x: t.x, y: t.y, t: 0 }, { x: t.x, y: t.y, t: -0.18 });
-    if (this.sounds.crumble <= 0) { sfx('crumble'); this.sounds.crumble = 0.08; }
+    if (this.sounds.crumble <= 0) { sfx('crumble-plop', { fallback: 'crumble' }); this.sounds.crumble = 0.08; }
     if (this.sounds.splash <= 0) { sfx('splash'); this.sounds.splash = 0.3; }
     fx.shake(5, 0.15);
   }
@@ -315,10 +315,10 @@ export class Game {
         const stage = t.cr >= CRACK_T[2] ? 3 : t.cr >= CRACK_T[1] ? 2 : t.cr >= CRACK_T[0] + 0.01 ? 1 : 0;
         if (stage !== t.stage) {
           t.stage = stage;
-          if (stage === 1 && this.sounds.crack <= 0) { sfx('crack'); this.sounds.crack = 0.12; }
+          if (stage === 1 && this.sounds.crack <= 0) { sfx('cookie-snap', { fallback: 'crack' }); this.sounds.crack = 0.12; }
           if (stage >= 2) {
             particles.burst(t.x, t.y, { type: 'dust', count: 3, speed: [20, 90] });
-            if (stage === 2) sfx('crack');
+            if (stage === 2) sfx('cookie-snap', { fallback: 'crack' });
           }
           // warn anyone standing on it
           for (const s of this.ps) if (s.state === 'play' && !s.hop && this.tileAt(s.x, s.y) === t && stage >= 2) { s.a.playOnce('surprised', 0.5, 'idle'); s.a.emote('exclaim', 0.8); }
@@ -377,7 +377,7 @@ export class Game {
     particles.burst(s.x, s.y, { type: 'bubble', count: 8, speed: [60, 220] });
     particles.ring(s.x, s.y, '#ffffff', 220, 0.6);
     this.ripples.push({ x: s.x, y: s.y, t: 0 }, { x: s.x, y: s.y, t: -0.2 }, { x: s.x, y: s.y, t: -0.4 });
-    sfx('splash'); sfx('bubble'); sfx('crowd-ooh');
+    sfx('splash'); sfx('crumble-plop', { fallback: 'bubble' }); sfx('crowd-ooh');
     voice(this.players[i].charId, 'ouch');
     fx.shake(10, 0.25);
     this.lastOut = { x: s.x, y: s.y - 60 };

@@ -1011,35 +1011,35 @@ lead or the game's owner).
 | Key | Sound | Game | Status |
 | --- | --- | --- | --- |
 | `tick-tock` *(wired)* | Distinct tick/tock pair for the ticking present | Pass the Present | delivered (round 1) |
-| `fuse-sizzle` | Fuse sizzle loop rising in pitch as the present heats | Pass the Present | delivered, loop |
-| `golden-chime` | Short sparkly 2-note chime (golden cupcake / golden gem) | Sprinkle Catch, Troll Trouble | delivered |
-| `cake-blorp` | Cake plops a treat out | Sprinkle Catch | delivered |
-| `rubber-bounce` | Soft rubbery bounce for treats | Sprinkle Catch | delivered (2) |
-| `boing` | Cartoon boing for dash bumps | Bumper Bounce, Crown Keeper | delivered (2) |
-| `frosting-crumble` | Frosting crumble/crack for the edge stages | Bumper Bounce | delivered |
-| `wheee-fall` | Falling "wheee"-style whoosh (no words) | Bumper Bounce | delivered (no voice) |
+| `fuse-sizzle` | Fuse sizzle loop rising in pitch as the present heats | Pass the Present | delivered, loop, wired |
+| `golden-chime` | Short sparkly 2-note chime (golden cupcake / golden gem) | Sprinkle Catch, Troll Trouble | delivered, wired |
+| `cake-blorp` | Cake plops a treat out | Sprinkle Catch | delivered, wired |
+| `rubber-bounce` | Soft rubbery bounce for treats | Sprinkle Catch | delivered (2), wired |
+| `boing` | Cartoon boing for dash bumps | Bumper Bounce, Crown Keeper | delivered (2), wired |
+| `frosting-crumble` | Frosting crumble/crack for the edge stages | Bumper Bounce | delivered, wired |
+| `wheee-fall` | Falling "wheee"-style whoosh (no words) | Bumper Bounce | delivered (no voice), wired |
 | `balloon-stretch` *(wired)* | Rubbery creak at 50/75/90% size | Balloon Pump | delivered (round 1) |
-| `hose-sputter` | Comic sputter/raspberry for the red-zone hose | Balloon Pump | delivered |
+| `hose-sputter` | Comic sputter/raspberry for the red-zone hose | Balloon Pump | delivered, wired |
 | `npc/troll/*` *(wired)* | grumble, windup, yawn, laugh (delivered round 1) | Troll Trouble | delivered (round 1) |
-| `note-u`, `note-d`, `note-l`, `note-r`, `note-star` | Five dance-move notes (now synth midi 72/67/70/75/79) | Spotlight Dance-Off | delivered, exact pitches |
-| `sparkle-beam` | Sparkle-beam zap | Spotlight Dance-Off, Pop Star Stage, Wizard Quick-Draw | delivered |
-| `cookie-snap`, `crumble-plop` | Cookie crack snap; crumble and milk plop | Cookie Crumble | delivered (2 + 2) |
-| `paint-splat-wet`, `roller-ding` | Squishy splat with drip; roller pickup ding | Paint Party | delivered (2 + 1) |
-| `crown-sting`, `crown-land`, `bonk` | Royal sting on pickup; boing/thunk on landing; bonk on bump | Crown Keeper | delivered (1 + 1 + 2) |
-| `ring-combo` | Sparkly ding in 6–8 pitch steps | Broomstick Dash | delivered, one base tone (MIDI 79) |
-| `broom-whoosh` | Short whoosh loop (boost and glide variants) | Broomstick Dash | delivered, plus `broom-glide` loop |
-| `wing-twinkle` | Magical wing-twinkle loop | Fairy Count | delivered, loop |
-| `count-chime` | Soft counting chime in 12 pitch steps | Fairy Count | delivered, one base tone (MIDI 79) |
-| `double-time` | "Double time!" style instrumental sting (no words) | Crown Keeper, Paint Party | delivered (instrumental) |
-| `cauldron-plop`, `hic`, `giant-stomp`, `tiny-squeak` | Potion effects (hic = cute non-word hiccup) | Potion Class | delivered (1 + 1 + 2 + 2) |
-| `card-flip`, `card-whoosh`, `match-chime` | Paper card flip; whoosh into the pile; match chime | Memory Match | delivered (2 + 1 + 1) |
-| `camera-flash` | Crowd of camera clicks | Fashion Show | delivered (2) |
-| `sprinkle-shake`, `candle-blow` | Sprinkle-jar rattle loop; "fwoo" breath | Cake Bakery | delivered (loop + 1) |
-| `crowd-aww` | Crowd "awww" (wordless) | Fashion Show, results | delivered (2) |
-| `jingle/happy-birthday` | Instrumental Happy Birthday (public-domain tune) | Cake Bakery | delivered (rendered, not generated) |
-| `scrub`, `shower`, `pet-shake` | Soapy squeak scrub; short spray; wet-fur flap | Pet Spa | delivered (2 + 1 + 2) |
-| `note-hit-a`, `note-hit-b`, `note-hit-x`, `note-hit-y`, `fever`, `big-imp-poof` | Pitched hit chimes, fever riser, big imp poof | Pop Star Stage | delivered (exact pitches) + 1 + 1 |
-| `plant-seed`, `firefly-catch`, `petal-firework`, `night-crickets` | Soil pat; twinkly bloop; soft pop + shimmer; ambience loop | Fairy Garden | delivered (3 + 3 + 2 + loop) |
+| `note-u`, `note-d`, `note-l`, `note-r`, `note-star` | Five dance-move notes (now synth midi 72/67/70/75/79) | Spotlight Dance-Off | delivered, exact pitches, wired |
+| `sparkle-beam` | Sparkle-beam zap | Spotlight Dance-Off, Pop Star Stage, Wizard Quick-Draw | delivered, wired |
+| `cookie-snap`, `crumble-plop` | Cookie crack snap; crumble and milk plop | Cookie Crumble | delivered (2 + 2), wired |
+| `paint-splat-wet`, `roller-ding` | Squishy splat with drip; roller pickup ding | Paint Party | delivered (2 + 1), wired |
+| `crown-sting`, `crown-land`, `bonk` | Royal sting on pickup; boing/thunk on landing; bonk on bump | Crown Keeper | delivered (1 + 1 + 2), wired |
+| `ring-combo` | Sparkly ding in 6–8 pitch steps | Broomstick Dash | delivered, one base tone (MIDI 79), wired |
+| `broom-whoosh` | Short whoosh loop (boost and glide variants) | Broomstick Dash | delivered, plus `broom-glide` loop, wired |
+| `wing-twinkle` | Magical wing-twinkle loop | Fairy Count | delivered, loop, wired |
+| `count-chime` | Soft counting chime in 12 pitch steps | Fairy Count | delivered, one base tone (MIDI 79), wired |
+| `double-time` | "Double time!" style instrumental sting (no words) | Crown Keeper, Paint Party | delivered (instrumental), wired |
+| `cauldron-plop`, `hic`, `giant-stomp`, `tiny-squeak` | Potion effects (hic = cute non-word hiccup) | Potion Class | delivered (1 + 1 + 2 + 2), wired |
+| `card-flip`, `card-whoosh`, `match-chime` | Paper card flip; whoosh into the pile; match chime | Memory Match | delivered (2 + 1 + 1), wired |
+| `camera-flash` | Crowd of camera clicks | Fashion Show | delivered (2), wired |
+| `sprinkle-shake`, `candle-blow` | Sprinkle-jar rattle loop; "fwoo" breath | Cake Bakery | delivered (loop + 1), wired |
+| `crowd-aww` | Crowd "awww" (wordless) | Fashion Show, results | delivered (2), wired (Fashion Show; results already has a pout sound) |
+| `jingle/happy-birthday` | Instrumental Happy Birthday (public-domain tune) | Cake Bakery | delivered (rendered, not generated), wired |
+| `scrub`, `shower`, `pet-shake` | Soapy squeak scrub; short spray; wet-fur flap | Pet Spa | delivered (2 + 1 + 2), wired |
+| `note-hit-a`, `note-hit-b`, `note-hit-x`, `note-hit-y`, `fever`, `big-imp-poof` | Pitched hit chimes, fever riser, big imp poof | Pop Star Stage | delivered (exact pitches) + 1 + 1, wired |
+| `plant-seed`, `firefly-catch`, `petal-firework`, `night-crickets` | Soil pat; twinkly bloop; soft pop + shimmer; ambience loop | Fairy Garden | delivered (3 + 3 + 2 + loop), wired |
 
 
 ## 11. Delivery log: round 2 (§10 sound wishes)

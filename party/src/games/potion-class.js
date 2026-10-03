@@ -484,7 +484,7 @@ export class Game {
     st.splash = 1;
     const ing = INGREDIENTS.find((x) => x.id === f.id);
     const bx = this.wx(st, BREW.x), by = this.wy(st, BREW.y);
-    snd('cauldron', 'splash'); sfx('collect', { step: st.added.length * 2 });
+    snd(hasSound('cauldron-plop') ? 'cauldron-plop' : 'cauldron', 'splash'); sfx('collect', { step: st.added.length * 2 });
     particles.burst(bx, by, { type: 'drop', count: 12, colors: [ing.color, rgbStr(st.brew)], angle: -Math.PI / 2, spread: 0.9, speed: [200, 420] });
     particles.burst(bx, by - 10, { type: 'sparkle', count: 6, colors: [ing.color, '#ffffff'] });
     particles.ring(bx, by, ing.color, 90 * st.k, 0.35);
@@ -587,7 +587,8 @@ export class Game {
       else { if (E.good) a.playOnce('celebrate', 1.4, 'idle'); this.hootReact('surprise'); }
     }
     if (eff === 'hearts') a.emote('hearts', 0);
-    if (eff === 'giant') { fx.shake(this.n > 4 ? 5 : 10, 0.3); sfx('stomp'); }
+    if (eff === 'giant') { fx.shake(this.n > 4 ? 5 : 10, 0.3); snd('giant-stomp', 'stomp'); }
+    if (eff === 'tiny') later(() => { if (st.eff === eff) sfx('tiny-squeak'); }, 350);   // squeak after the shrink
   }
 
   updateEffect(st, dt) {
@@ -614,7 +615,7 @@ export class Game {
       if (st.hicT <= 0) {
         st.hicT = rand(0.9, 1.5);
         st.hopZ = 34 * st.k; a.squash(-0.45);
-        sfx('bubble'); sfx('pop');
+        sfx('bubble'); snd('hic', 'pop');
         particles.burst(a.x + 20 * st.k, cy - hh * 0.6, { type: 'bubble', count: 4, speed: [60, 160] });
         particles.popText(a.x + 40 * st.k, cy - hh - 10, 'hic!', '#7fd3ff', 30 * st.k + 6);
       }

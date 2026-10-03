@@ -574,7 +574,7 @@ export class Game {
       if (on) {
         s.useT += dt;
         if (s.useT > 0.07) { s.useT = 0; this.addSuds(s, ip.x + rand(-30, 30) / px * s.k, ip.y + rand(-24, 24) / px * s.k); }
-        if (s.sfxT <= 0) { sfx('bubble'); s.sfxT = 0.13; }
+        if (s.sfxT <= 0) { if (hasSound('scrub')) { sfx('scrub', { vol: 0.6 }); s.sfxT = 0.25; } else { sfx('bubble'); s.sfxT = 0.13; } }
         if (chance(dt * 10)) particles.burst(cur.x, cur.y, { type: 'bubble', count: 1, speed: [40, 120], size: [5, 12] });
         if (any && s.giggleT <= 0) { s.giggleT = rand(1.8, 3); pet.squash(0.12); if (this.mudLeft(s) < 0.6) sfx('giggle'); }
       }
@@ -590,7 +590,7 @@ export class Game {
     } else if (hold && tool === 'shower') {
       const hx = cur.x, hy = cur.y + 30 * s.k;
       if (chance(dt * 40)) particles.burst(cur.x + rand(-14, 14) * s.k, cur.y + 16 * s.k, { type: 'drop', count: 1, angle: Math.PI / 2, spread: 0.25, speed: [260, 420], colors: ['#5cc8ff', '#8fe0ff', '#ffffff'], size: [4, 8] });
-      if (s.sfxT <= 0) { sfx('water'); s.sfxT = 0.22; }
+      if (s.sfxT <= 0) { if (hasSound('shower')) { sfx('shower', { vol: 0.8 }); s.sfxT = 0.42; } else { sfx('water'); s.sfxT = 0.22; } }
       const rad = (80 * s.k) / px;
       const ih = this.toImage(s, hx, hy);
       for (const u of s.suds) {
@@ -719,7 +719,7 @@ export class Game {
     const pet = s.pet, c = pet.anchor('center');
     pet.playOnce('shake', 0.9, 'idle');
     for (const side of [-1, 1]) particles.burst(c.x + side * 30, c.y, { type: 'drop', count: 18, angle: side > 0 ? -0.3 : Math.PI + 0.3, spread: 0.9, speed: [260, 560], colors: ['#5cc8ff', '#8fe0ff', '#ffffff'], size: [4, 9] });
-    sfx('splash'); sfx('whoosh');
+    sfx('splash'); snd('pet-shake', 'whoosh');
     particles.popText(c.x, c.y - 60, 'Fluffy dry!', '#ff9ecf', 44 * s.k);
     s.char.playOnce('surprised', 0.4, 'idle');
     later(() => { if (!this.finished) s.char.playOnce('cheer', 0.5); }, 450);

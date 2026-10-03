@@ -265,7 +265,7 @@ export class Game {
     a.playOnce('throw', 0.45, pickPose('cast', 'cheer')); a.squash(0.3);
     this.beams.push({ i, t: 0, color: p.color });
     this.owl.mode = 'cheer'; this.owl.t = 0;
-    sfx('magic'); sfx('whoosh');
+    sfx('magic'); sfx('sparkle-beam', { fallback: 'whoosh' });
     fx.slowmo(0.5, 0.45);
     this.api.camera && this.api.camera.punch((a.x + CRYSTAL.x) / 2, (a.y - a.height * 0.6 + CRYSTAL.y) / 2 + 40, s.pts >= GOAL ? 1.35 : 1.25, 0.9);
     p.ctrl.rumble && p.ctrl.rumble(0.8, 250);

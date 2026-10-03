@@ -11,7 +11,7 @@ import { Actor, POSE_NAMES, drawPortrait } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
-import { sfx, voice } from '../engine/audio.js';
+import { sfx, sfxLoop, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { input } from '../engine/input.js';
@@ -197,6 +197,8 @@ export class Game {
     P.state = 'held'; P.holder = h; P.from = null; P.fuse = rand(lo, hi); P.fuseMax = P.fuse; P.tickT = 0.5; P.tick = 0; P.heat = 0; P.pass = 0; P.spawnT = 0;
     h.holdT = 0; h.ai = null; h.aim = null; h.noBack = null; h.noBackT = 0;
     sfx('magic'); sfx('note', { midi: 84, dur: 0.3, vol: 0.2 });
+    if (this.fuseLoop) this.fuseLoop.stop();
+    this.fuseLoop = sfxLoop('fuse-sizzle');   // fizzes while the present ticks
     const px = h.x, py = h.y - h.a.height - 40;
     particles.burst(px, py, { type: 'sparkle', count: 12, colors: ['#fff', '#ffe066', '#ff9fcd'] });
     particles.popText(CX, CY - 40, this.round === 1 ? 'Pass it on!' : `Round ${this.round}`, '#ffffff', 64);
@@ -228,6 +230,7 @@ export class Game {
     const rem = Math.max(0, P.fuse);
     P.heat = clamp(1 - rem / HOT, 0, 1);
     P.heat = Math.pow(P.heat, 0.85);
+    if (this.fuseLoop) this.fuseLoop.setRate(1 + 0.6 * P.heat);   // fizz rises as it heats
     P.tickT -= dt;
     if (P.tickT <= 0) {
       P.tickT = lerp(0.8, 0.12, P.heat);
@@ -318,6 +321,7 @@ export class Game {
   pop(h) {
     const P = this.pres;
     P.state = 'popping'; P.heat = 1;
+    if (this.fuseLoop) { this.fuseLoop.stop(0.05); this.fuseLoop = null; }
     const a = h.a;
     const hp = { x: h.x, y: h.y - h.a.height - 30 };
     if (this.cam) this.cam.punch(h.x, h.y - h.a.height * 0.7, 1.28, 0.45);
@@ -387,6 +391,7 @@ export class Game {
   decide(winner) {
     if (this.ends) return;
     this.ends = { t: 0, winner, done: false };
+    if (this.fuseLoop) { this.fuseLoop.stop(); this.fuseLoop = null; }
     if (winner) {
       winner.a.clearEmotes(); winner.a.setPose('celebrate');
       sfx('win'); sfx('fanfare'); particles.confettiRain(W, 120); fx.slowmo(0.5, 0.7);
@@ -406,7 +411,10 @@ export class Game {
     this.api.finish({ placements: place.slice(0, k), stats: stats.slice(0, k), focus: w ? { x: w.x, y: w.y - w.a.height * 0.6 } : undefined });
   }
 
-  destroy() { if (this.npc) input.releaseAI(this.npc.ctrl); }
+  destroy() {
+    if (this.npc) input.releaseAI(this.npc.ctrl);
+    if (this.fuseLoop) this.fuseLoop.stop();
+  }
 
   // -------------------------------------------------------------------- AI
   aiThink(e, dt) {

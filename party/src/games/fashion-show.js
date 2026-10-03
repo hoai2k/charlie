@@ -142,6 +142,7 @@ export class Game {
     this.flashes = [];
     this.curtain = 0;
     this.lastCheer = -9;
+    this.flashSndT = -9; this.awwT = -9;   // gates for the long camera-flash / crowd-aww clips
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
@@ -402,7 +403,7 @@ export class Game {
     st.poseIdx = (st.poseIdx + 1 + randInt(0, 2)) % POSE_SET.length;
     a.playOnce(POSE_SET[st.poseIdx], 0.75, 'idle'); a.squash(0.22); a.flash('#fff6d0', 0.07);
     a.facing = chance(0.5) ? 1 : -1;
-    sfx('shutter');
+    this.photoSnd('shutter');
     if (this.t - this.lastCheer > 1.1) { this.lastCheer = this.t; snd('crowd-ooh', 'cheer'); }
     const head = a.anchor('head');
     particles.burst(head.x, head.y + a.height * 0.2, { type: 'heart', count: 5, speed: [120, 300] });
@@ -410,6 +411,12 @@ export class Game {
     particles.popText(a.x, head.y - 40, pick(COMPLIMENTS), st.p.color, 46);
     for (let i = 0; i < 4; i++) this.cameraFlash(a.x);
     for (const m of this.crowd) if (chance(0.25) && m.jump <= 0) m.jv = rand(160, 260);
+  }
+
+  // recorded crowd of camera clicks for runway photos (gated, it is 0.7 s long); else `fallback`
+  photoSnd(fallback) {
+    if (hasSound('camera-flash') && this.t - this.flashSndT > 0.6) { this.flashSndT = this.t; sfx('camera-flash', { vol: 0.7 }); }
+    else if (fallback) sfx(fallback);
   }
 
   cameraFlash(nearX) {
@@ -444,6 +451,8 @@ export class Game {
         if (u >= 1) {
           rw.state = 'pose'; a.setPose('idle'); a.playOnce(pick(['strike1', 'strike2', 'strike3']), 0.7, 'idle'); a.facing = 1;
           snd('applause', 'cheer'); for (let i = 0; i < 6; i++) this.cameraFlash(a.x);
+          this.photoSnd(null);
+          if (this.t - this.awwT > 1.5) { this.awwT = this.t; sfx('crowd-aww', { vol: 0.7 }); }   // the crowd melts at the end-of-runway pose
           for (const m of this.crowd) if (chance(0.5)) m.jv = rand(160, 280);
           rw.aiT = rand(0.4, 0.9);
         }
@@ -523,7 +532,7 @@ export class Game {
     if (t >= 3.4 && t - dt < 3.4) sfx('tock');
     if (t >= 3.6 && !this.photoTaken) {
       this.photoTaken = true;
-      fx.flash('#ffffff', 0.45); sfx('shutter'); sfx('fanfare'); snd('applause', 'cheer');
+      fx.flash('#ffffff', 0.45); this.photoSnd('shutter'); sfx('fanfare'); snd('applause', 'cheer');
       particles.confettiRain(W, 160);
       this.stations.forEach((st, i) => st.actor.playOnce(i % 2 ? 'bow' : 'strike3', 0.8, 'celebrate'));
       for (const m of this.crowd) m.jv = rand(180, 300);
