@@ -147,7 +147,8 @@ export const RECOLOR = {
   'princess-amber': {
     regions: {
       'princess-amber': [
-        { id: 'gown', mask: 1, from: '#fc9f1f', hue: [26, 50], feather: 6, sat: [0.72, 1], satFeather: 0.08, lit: [0.18, 0.85], below: { at: 'neck', dy: 0.02 } },
+        // the mask already follows the torso (flips and tumbles too), so no row gate
+        { id: 'gown', mask: 1, from: '#fc9f1f', hue: [21, 50], feather: 6, sat: [0.72, 1], satFeather: 0.08, lit: [0.18, 0.85] },
       ],
     },
     palettes: [
