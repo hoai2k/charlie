@@ -46,6 +46,34 @@ export function text(g, str, x, y, o = {}) {
   g.restore();
 }
 
+/**
+ * Text that must stay readable in a tight spot (long names like "Marshmallow
+ * Birthday Cake"): one line if it fits; else shrink up to `minScale` (default
+ * 0.8); else two lines (balanced, centered on y) at a size that fits; only
+ * then squash. Same options as text(), with maxWidth required (+ wrapShift).
+ */
+export function fitText(g, str, x, y, o) {
+  const size = o.size || 40, w = o.maxWidth, weight = o.weight || 700;
+  const width = measure(g, str, size, weight);
+  if (width <= w) { text(g, str, x, y, o); return; }
+  if (width * (o.minScale ?? 0.8) <= w) { text(g, str, x, y, { ...o, size: size * w / width }); return; }
+  const words = String(str).split(' ');
+  if (words.length > 1) {
+    let best = null;
+    for (let i = 1; i < words.length; i++) {
+      const l1 = words.slice(0, i).join(' '), l2 = words.slice(i).join(' ');
+      const m = Math.max(measure(g, l1, size, weight), measure(g, l2, size, weight));
+      if (!best || m < best.m) best = { l1, l2, m };
+    }
+    const s2 = Math.min(size * 0.86, size * w / best.m);
+    const dy = s2 * 0.56, yy = y + (o.wrapShift || 0);   // wrapShift: move a two-line name (e.g. up, off a row below)
+    text(g, best.l1, x, yy - dy, { ...o, size: s2 });
+    text(g, best.l2, x, yy + dy, { ...o, size: s2 });
+    return;
+  }
+  text(g, str, x, y, o);
+}
+
 /** Measure text width with the game font. */
 export function measure(g, str, size, weight = 700) {
   g.save(); g.font = `${weight} ${size}px ${FONT}`; const w = g.measureText(str).width; g.restore(); return w;
@@ -158,7 +186,8 @@ export function banner(g, str, t, o = {}) {
   g.translate(o.x ?? W / 2, o.y ?? H / 2);
   g.rotate((o.tilt ?? -0.04) * sc);
   g.scale(sc, sc);
-  text(g, str, 0, 0, { size: o.size || 150, color: o.color || COLORS.yellow, strokeWidth: o.strokeWidth || 26, weight: 800 });
+  // Long names: shrink to fit the screen (keeping 80 px margins), else two lines.
+  fitText(g, str, 0, 0, { size: o.size || 150, color: o.color || COLORS.yellow, strokeWidth: o.strokeWidth || 26, weight: 800, maxWidth: o.maxWidth || W - 160, minScale: 0.6 });
   g.restore();
 }
 

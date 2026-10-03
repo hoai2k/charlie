@@ -63,7 +63,7 @@ export const CHARACTERS = [
     members: [{ asset: 'scale', h: 178, face: [0.23, 0.22, 0.14], top: 0.92, facing: 0, motion: 'glide' }],
   },
   {
-    id: 'marshmallow-birthday-cake', lines: { hello: "Let's celebrate!", win: 'Cake-tastic!', lose: "My frosting's sad…" }, name: 'Birthday Cake', subtitle: 'Marshmallow', color: '#ff8fb6',
+    id: 'marshmallow-birthday-cake', lines: { hello: "Let's celebrate!", win: 'Cake-tastic!', lose: "My frosting's sad…" }, name: 'Marshmallow Birthday Cake', subtitle: 'Marshmallow', color: '#ff8fb6',
     blurb: 'A happy cake that bounces everywhere',
     members: [{ asset: 'marshmallow-birthday-cake', h: 140, face: [0.47, 0.52, 0.42], top: 0.92, facing: 0, motion: 'bounce' }],
   },

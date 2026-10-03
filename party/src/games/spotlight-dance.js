@@ -1,3 +1,4 @@
+import { loadRhythmSongs, chooseSong, rhythmOptions, musicKey } from './rhythm/songs.js';
 import { drawNpcSprite } from '../engine/npc-art.js';
 // Spotlight Dance-Off - memory game.
 // Cute Shadow Imps stole the spotlight! They perform a dance sequence (arrows +
@@ -35,6 +36,8 @@ function moveNote(mv, fileVol, synth) {
 }
 const IMP_EYES = ['#7dfff0', '#ffe66d', '#ff9be8', '#a9ff7d', '#8fb4ff', '#ffb07d'];
 
+loadRhythmSongs();
+
 export const meta = {
   id: 'spotlight-dance',
   title: 'Spotlight Dance-Off',
@@ -48,6 +51,7 @@ export const meta = {
     'Careful! A wrong move or running out of time costs a heart.',
   ],
   music: 'dance',
+  options: rhythmOptions('spotlight-dance', { level: false }),
   duration: '~1.5 min',
   minPlayers: 1,
   maxPlayers: 8,
@@ -256,6 +260,10 @@ function drawImp(g, x, y, s, o = {}) {
 export class Game {
   constructor(api) {
     this.api = api;
+    // Background song: the chosen rhythm song (only the stage lights follow its beat).
+    const song = chooseSong('spotlight-dance');
+    this.musicKey = song ? musicKey(song) : 'dance';
+    try { music.preload(this.musicKey); } catch (e) { /* optional */ }
     this.players = api.players;
     this.n = this.players.length;
     this.solo = this.n === 1;

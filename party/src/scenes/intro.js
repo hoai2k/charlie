@@ -1,7 +1,10 @@
 import { drawArt } from '../engine/art.js';
 // How-to-play screen shown before every minigame (Mario Party style):
 // title, picture, goal, controls with button glyphs and tips, then every
-// human presses A to ready up (CPUs ready themselves).
+// human presses A to ready up (CPUs ready themselves). A game may declare
+// meta.options ([{ id, label, choices(), get(), set(v) }], e.g. the rhythm
+// games' song and difficulty): shown on the picture card, changed with the
+// D-pad (left/right = first option, up/down = second) or by clicking.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host } from '../engine/audio.js';
@@ -47,6 +50,14 @@ export class IntroScene {
       if (!this.ready[i] && this.t > this.aiReadyAt[i]) this.setReady(i, true);
     });
     if (!inputOpen) return;
+    const opts = this.meta.options || [];
+    for (const p of session.players) {
+      if (p.isAI) continue;
+      const nav = p.ctrl.nav;
+      if (nav.x && opts[0]) this.stepOption(opts[0], nav.x);
+      if (nav.y && opts[1]) this.stepOption(opts[1], -nav.y);
+    }
+    for (const r of this.optionRects || []) if (input.clicked(r)) { this.stepOption(r.opt, r.dir); return; }
     for (const p of session.players) {
       if (p.isAI) continue;
       const i = p.index;
@@ -70,6 +81,33 @@ export class IntroScene {
     }
     // Keyboard players who aren't bound (e.g. only gamepads joined) can still nudge with Enter.
     if (this.ready.every(Boolean)) { this.go = 0; sfx('go'); }
+  }
+
+  stepOption(opt, dir) {
+    const ch = opt.choices();
+    if (ch.length < 2) { sfx('error'); return; }
+    const i = Math.max(0, ch.findIndex((c) => c.value === opt.get()));
+    opt.set(ch[(i + dir + ch.length) % ch.length].value);
+    sfx('move');
+  }
+
+  drawOptions(g) {
+    const opts = this.meta.options || [];
+    this.optionRects = [];
+    if (!opts.length) return;
+    const y = 742, h = 60, gap = 16, w = (860 - gap * (opts.length - 1)) / opts.length;
+    opts.forEach((opt, k) => {
+      const x = 90 + k * (w + gap), ch = opt.choices();
+      const cur = ch.find((c) => c.value === opt.get()) || ch[0];
+      ui.panel(g, x, y - h / 2, w, h, { r: 30, fill: 'rgba(255,248,236,0.94)', lineWidth: 4, shadow: false });
+      ui.text(g, `${opt.label}: ${cur ? cur.label : '-'}`, x + w / 2, y + 2, { size: 28, color: '#24163f', stroke: false, weight: 800, maxWidth: w - 120 });
+      for (const dir of [-1, 1]) {
+        const ax = dir < 0 ? x + 34 : x + w - 34;
+        ui.text(g, dir < 0 ? '◀' : '▶', ax, y + 2, { size: 28, color: '#ff6fb1', stroke: false });
+        this.optionRects.push({ x: ax - 30, y: y - h / 2, w: 60, h, opt, dir });
+      }
+    });
+    ui.text(g, opts.length > 1 ? `D-pad ◀ ▶ ${opts[0].label.toLowerCase()} · ▲ ▼ ${opts[1].label.toLowerCase()}` : `D-pad ◀ ▶ ${opts[0].label.toLowerCase()}`, 520, y - 46, { size: 22, color: '#fff', strokeWidth: 5 });
   }
 
   setReady(i, on) {
@@ -97,6 +135,7 @@ export class IntroScene {
     // Picture card.
     ui.panel(g, 70, 212, 900, 590, { fill: '#ffffff' });
     drawGameIcon(g, this.meta, 90, 232, 860, 550, this.t);
+    this.drawOptions(g);
 
     // How to play card: goal, controls, then as many tips as fit (tips that
     // don't fit rotate through the last slot).

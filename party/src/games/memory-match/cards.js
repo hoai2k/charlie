@@ -202,11 +202,22 @@ function paintFace(g, w, h, face, frame) {
   const maxW = frame ? w * 0.72 : w * 0.86;
   let size = Math.min(h * (frame ? 0.095 : 0.11), w * 0.16);
   g.font = `800 ${size}px ${FONT}`;
-  const tw = g.measureText(face.name).width;
+  // Long names (Marshmallow Birthday Cake): two lines rather than tiny text.
+  let lines = [face.name];
+  const words = face.name.split(' ');
+  if (g.measureText(face.name).width * 0.75 > maxW && words.length > 1) {
+    const cut = Math.ceil(words.length / 2);
+    lines = [words.slice(0, cut).join(' '), words.slice(cut).join(' ')];
+    size *= 0.85; g.font = `800 ${size}px ${FONT}`;
+  }
+  const tw = Math.max(...lines.map((l) => g.measureText(l).width));
   if (tw > maxW) { size *= maxW / tw; g.font = `800 ${size}px ${FONT}`; }
   g.textAlign = 'center'; g.textBaseline = 'middle';
-  g.lineJoin = 'round'; g.lineWidth = size * 0.28; g.strokeStyle = NAVY; g.strokeText(face.name, w / 2, ny);
-  g.fillStyle = face.color; g.fillText(face.name, w / 2, ny);
+  g.lineJoin = 'round'; g.lineWidth = size * 0.28; g.strokeStyle = NAVY;
+  lines.forEach((l, i) => {
+    const ly = ny + (i - (lines.length - 1) / 2) * size * 1.05;
+    g.strokeText(l, w / 2, ly); g.fillStyle = face.color; g.fillText(l, w / 2, ly);
+  });
 }
 
 export { charById };

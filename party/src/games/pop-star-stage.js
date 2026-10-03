@@ -5,7 +5,10 @@ import { drawNpcSprite } from '../engine/npc-art.js';
 // Shadow Imps creeping in from the dark edges. Combo 20+ = FEVER (rainbow
 // lights, double points). Finale: a BIG Shadow Imp everyone blasts together.
 //
-// Sync: the host starts music 'dance' at the countdown; our first update()
+// Songs: the chosen rhythm song (rhythm/songs.js: notes built from the song's
+// own beats and melody, at the chosen difficulty), else the classic 'dance'
+// song with its hand-made chart.
+// Sync: the host starts the song at the countdown; our first update()
 // restarts it so beat 0 = GO. While audio runs we read music.beat(); headless
 // (no audio) we run our own clock at 120 bpm.
 import { W, H } from '../engine/canvas.js';
@@ -18,15 +21,16 @@ import { art, drawArt } from '../engine/art.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, ease, TAU, placementsFromScores } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
+import { loadRhythmSongs, chooseSong, rhythmChoice, rhythmOptions, buildChart, songLength, musicKey } from './rhythm/songs.js';
+import { musicReady } from '../engine/audio.js';
+
+loadRhythmSongs();
 
 const NAVY = '#24163f';
-const BPM = 120;
-const SPB = 60 / BPM;
 const TRAVEL = 2.5;                    // beats a note is visible before the hit line
-const PERFECT = 0.08 / SPB;           // window in beats (±)
-const GOOD = 0.16 / SPB;
-const SONG_END = 130;                 // beats (65 s)
-const BOSS_BEAT = 96;
+const PERFECT_S = 0.08, GOOD_S = 0.16; // hit windows (± seconds)
+// The classic song: 120 BPM, 130 beats (65 s), boss at beat 96.
+const CLASSIC = { bpm: 120, end: 130, phases: { ab: 36, all: 68, boss: 96 } };
 const FEVER_COMBO = 20;
 const BTNS = ['a', 'b', 'x', 'y'];
 const BTN_COLOR = ui.BUTTON_COLORS;
@@ -260,6 +264,7 @@ export const meta = {
   controls: [['a', 'Green notes'], ['b', 'Red notes'], ['x', 'Blue notes'], ['y', 'Yellow notes']],
   tips: ['Press right when the note touches the circle!', 'Hit 20 in a row for rainbow FEVER — double points!', 'At the end, everyone zaps the BIG Shadow Imp together.'],
   music: 'dance',
+  options: rhythmOptions('pop-star-stage'),
   duration: '65 sec',
   minPlayers: 1, maxPlayers: 8,
   countdown: true,
@@ -313,7 +318,7 @@ export class Game {
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
-    this.chart = makeChart();
+    this.setSong(chooseSong('pop-star-stage'));
     this.spacing = Math.min(n === 1 ? 600 : 330, (W - 120) / n);
     this.laneW = Math.min(n === 1 ? 300 : 250, this.spacing - 30);
     this.noteSize = clamp(this.laneW * (n > 5 ? 0.3 : 0.34), 46, 70);
@@ -348,21 +353,42 @@ export class Game {
     this.finale = false;
     this.lights = Array.from({ length: 14 }, (_, i) => ({ x: (i + 0.5) * (W / 14), ph: rand(TAU) }));
     this.crowd = Array.from({ length: 46 }, (_, i) => ({ x: (i / 45) * W + rand(-12, 12), h: rand(26, 44), ph: rand(TAU), c: pick(['#ff6fd0', '#3fd3ff', '#ffd23f', '#7dff9a', '#c49bff']) }));
-    try { music.preload && music.preload('dance'); } catch (e) { /* optional */ }
+    try { music.preload && music.preload(this.musicKey); } catch (e) { /* optional */ }
     // A couple of imps peek in during the countdown.
     for (let i = 0; i < Math.min(4, 1 + n); i++) this.spawnImp(true);
+  }
+
+  /** Song + chart: a rhythm song (chart from its onsets), or null = the classic song. */
+  setSong(song) {
+    this.song = song;
+    const bpm = song ? song.bpm : CLASSIC.bpm;
+    this.spb = 60 / bpm;
+    this.perfect = PERFECT_S / this.spb; this.good = GOOD_S / this.spb;   // in beats
+    if (song) {
+      const end = songLength(bpm), r = end / CLASSIC.end, round4 = (x) => Math.round(x / 4) * 4;
+      this.songEnd = end;
+      this.phases = { ab: round4(CLASSIC.phases.ab * r), all: round4(CLASSIC.phases.all * r), boss: round4(CLASSIC.phases.boss * r) };
+      this.chart = buildChart(song, rhythmChoice('pop-star-stage').level, end - 6, this.phases);
+      this.musicKey = musicKey(song);
+    } else {
+      this.songEnd = CLASSIC.end; this.phases = { ...CLASSIC.phases };
+      this.chart = makeChart();
+      this.musicKey = 'dance';
+    }
+    this.bossBeat = this.phases.boss;
+    if (this.lanes) for (const L of this.lanes) L.notes = this.chart.map((c) => ({ ...c, judged: null, jt: 0, flub: false, ai: null }));
   }
 
   // ---- time ----------------------------------------------------------------
   computeBeat(dt) {
     this.clock += dt;
-    if (this.useAudio && music.name === 'dance' && audioRunning()) return music.beat();
-    return this.clock / SPB;
+    if (this.useAudio && music.name === this.musicKey && audioRunning()) return music.beat();
+    return this.clock / this.spb;
   }
 
   preUpdate(dt) {
     this.preT += dt;
-    this.beatNow = (this.preT - 3) / SPB;  // negative during 3-2-1
+    this.beatNow = (this.preT - 3) / this.spb;  // negative during 3-2-1
     for (const L of this.lanes) {
       const a = L.actor;
       if (this.preT > 0.5 && a.pose === 'idle') a.playOnce('ready', 0.6, 'idle');
@@ -375,7 +401,9 @@ export class Game {
     if (!this.started) {
       this.started = true;
       this.useAudio = audioRunning();
-      if (this.useAudio) music.play('dance', { restart: true });
+      // A song that hasn't finished loading by GO: play the classic song instead.
+      if (this.song && this.useAudio && !musicReady(this.musicKey)) this.setSong(null);
+      if (this.useAudio) music.play(this.musicKey, { restart: true });
       this.clock = 0;
       this.lastBeat = 0;
       for (const L of this.lanes) L.actor.setPose('dance');
@@ -385,7 +413,7 @@ export class Game {
     this.dtBeat = Math.max(0, b - this.lastBeat);
     // Pause / tab switch: the music kept going. Skip notes we flew past without penalty.
     if (b - this.lastBeat > 1.2) {
-      for (const L of this.lanes) for (const nn of L.notes) if (!nn.judged && nn.beat < b - GOOD) nn.judged = 'skip';
+      for (const L of this.lanes) for (const nn of L.notes) if (!nn.judged && nn.beat < b - this.good) nn.judged = 'skip';
     }
     this.lastBeat = b;
     this.beatNow = b;
@@ -399,7 +427,7 @@ export class Game {
       while (L.next < L.notes.length) {
         const nn = L.notes[L.next];
         if (nn.judged) { L.next++; continue; }
-        if (nn.beat < b - GOOD) { this.miss(L, nn); L.next++; continue; }
+        if (nn.beat < b - this.good) { this.miss(L, nn); L.next++; continue; }
         break;
       }
       L.flash = Math.max(0, L.flash - dt * 4);
@@ -417,9 +445,9 @@ export class Game {
     this.banners = this.banners.filter((bn) => bn.t < bn.dur);
 
     // Imps keep creeping in (more with more players, more as the song goes on).
-    if (b > 2 && b < BOSS_BEAT - 2) {
+    if (b > 2 && b < this.bossBeat - 2) {
       this.spawnT -= dt;
-      const prog = clamp(b / BOSS_BEAT, 0, 1);
+      const prog = clamp(b / this.bossBeat, 0, 1);
       if (this.spawnT <= 0) {
         this.spawnT = lerp(2.8, 1.5, prog) / (0.7 + 0.3 * this.n);
         if (this.imps.filter((m) => m.state !== 'poof').length < 4 + this.n) this.spawnImp();
@@ -427,9 +455,9 @@ export class Game {
     }
 
     // Finale
-    if (b >= 124.5 && !this.finale) this.startFinale();
+    if (b >= this.songEnd - 5.5 && !this.finale) this.startFinale();
     if (this.finale) this.updateFinale(dt, b);
-    if (b >= SONG_END && !this.finished) this.finishGame();
+    if (b >= this.songEnd && !this.finished) this.finishGame();
   }
 
   postUpdate(dt) {
@@ -445,9 +473,9 @@ export class Game {
 
   updateCalls(b) {
     const call = (key, at, fn) => { if (b >= at && !this.calls[key]) { this.calls[key] = true; fn(); } };
-    call('b', 33.5, () => { this.banner('Now B joins in!', 1.8, BTN_COLOR.b); sfx('magic'); });
-    call('xy', 65.5, () => { this.banner('X and Y too!', 1.8, '#7fd3ff'); sfx('magic'); });
-    call('boss', BOSS_BEAT - 2, () => this.spawnBoss());
+    call('b', this.phases.ab - 2.5, () => { this.banner('Now B joins in!', 1.8, BTN_COLOR.b); sfx('magic'); });
+    call('xy', this.phases.all - 2.5, () => { this.banner('X and Y too!', 1.8, '#7fd3ff'); sfx('magic'); });
+    call('boss', this.bossBeat - 2, () => this.spawnBoss());
   }
 
   // ---- judging ---------------------------------------------------------------
@@ -455,8 +483,8 @@ export class Game {
     let target = null;
     for (let k = L.next; k < L.notes.length; k++) {
       const nn = L.notes[k];
-      if (nn.beat - b > GOOD) break;
-      if (!nn.judged && Math.abs(nn.beat - b) <= GOOD) { target = nn; break; }
+      if (nn.beat - b > this.good) break;
+      if (!nn.judged && Math.abs(nn.beat - b) <= this.good) { target = nn; break; }
     }
     if (!target) { L.hitPulse = 0.4; return; }    // a little whiff pulse, no penalty
     if (target.btn !== btn) {
@@ -465,7 +493,7 @@ export class Game {
       return;
     }
     const d = Math.abs(target.beat - b);
-    this.hit(L, target, d <= PERFECT && !target.flub ? 'perfect' : 'good');
+    this.hit(L, target, d <= this.perfect && !target.flub ? 'perfect' : 'good');
   }
 
   hit(L, nn, grade) {
@@ -691,7 +719,7 @@ export class Game {
         const g = (Math.random() + Math.random() + Math.random() - 1.5) / 0.5 * errS;
         // later in the song (harder patterns) easy CPUs slip a little more
         const extra = nn.btn === 'x' || nn.btn === 'y' ? 0.06 * (2 - lvl) / 2 : 0;
-        nn.ai = { skip: chance(missRate + extra), at: nn.beat + g / SPB, wrong: chance(wrongRate), done: false };
+        nn.ai = { skip: chance(missRate + extra), at: nn.beat + g / this.spb, wrong: chance(wrongRate), done: false };
       }
       if (nn.ai.skip || nn.ai.done) continue;
       // Presses register on the next frame, so press half a frame early.
@@ -1009,7 +1037,7 @@ export class Game {
       if (this.beatNow < 8) ui.playerTag(g, L.p, L.x, FLOOR_Y - L.actor.height - 40);
     }
     // song progress (thin line along the very top)
-    const prog = clamp(this.beatNow / SONG_END, 0, 1);
+    const prog = clamp(this.beatNow / this.songEnd, 0, 1);
     g.fillStyle = 'rgba(255,255,255,0.15)'; g.fillRect(0, 0, W, 8);
     g.fillStyle = this.anyFever ? RAINBOW[Math.floor(this.clock * 10) % RAINBOW.length] : '#ff6fd0'; g.fillRect(0, 0, W * prog, 8);
     // banners

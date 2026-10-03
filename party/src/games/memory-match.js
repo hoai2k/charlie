@@ -534,7 +534,7 @@ export class Game {
     // name pill
     const tagY = y0 + 28;
     const label = `${p.isAI ? 'CPU' : p.tag} · ${playerName(p)}`;
-    ui.text(g, label, x0 + w / 2, tagY, { size: s.sh < 260 ? 24 : 28, color: p.color, strokeWidth: 6, maxWidth: w - 30 });
+    ui.fitText(g, label, x0 + w / 2, tagY, { size: s.sh < 260 ? 24 : 28, color: p.color, strokeWidth: 6, maxWidth: w - 30, minScale: 0.72, wrapShift: 8 });
     a.draw(g, { ring: p.color });
     if (isTurn && this.state === 'pick') {
       const ax = a.x, ay = a.y - a.height - 30 + Math.sin(this.t * 6) * 6;

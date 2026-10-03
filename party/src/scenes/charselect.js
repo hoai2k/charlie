@@ -327,7 +327,7 @@ export class CharSelectScene {
       g.fillStyle = ch.color; g.globalAlpha = 0.28; g.fillRect(0, 0, r.w, r.h); g.globalAlpha = 1;
       this.drawCardArt(g, ch, r.w / 2, r.h - 64, r.h - 80, r.w - 24, hovered.length > 0);
       g.restore();
-      ui.text(g, ch.name, r.w / 2, r.h - 32, { size: ch.name.length > 12 ? 26 : 30, color: '#24163f', stroke: false, weight: 700, maxWidth: r.w - 16 });
+      ui.fitText(g, ch.name, r.w / 2, r.h - 32, { size: ch.name.length > 12 ? 26 : 30, color: '#24163f', stroke: false, weight: 700, maxWidth: r.w - 16 });
       if (lockedBy) {
         // Still pickable (in another colour) until every scheme is taken.
         if (full) { g.fillStyle = 'rgba(255,255,255,0.35)'; ui.roundRect(g, 0, 0, r.w, r.h, 24); g.fill(); }
@@ -385,7 +385,7 @@ export class CharSelectScene {
     const taken = this.reservedVariants(ch.id, h);
     const label = pal ? `${pal.name} ${ch.name}` : ch.name;
     const cy = y0 + sh - (big ? 46 : 40);
-    ui.text(g, label, x + sw / 2, cy, { size: big ? 30 : 21, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - (h.locked ? (big ? 110 : 64) : 20) });
+    ui.fitText(g, label, x + sw / 2, cy, { size: big ? 30 : 21, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - (h.locked ? (big ? 110 : 64) : 20), wrapShift: big ? -8 : -6 });
     // swatch dots: 0 = the character's own colours
     const dr = big ? 9 : 6, gap = dr * 2.8, dy = y0 + sh - (big ? 18 : 15);
     const x0 = x + sw / 2 - (nv * gap) / 2;
@@ -473,7 +473,7 @@ export class CharSelectScene {
       if (isH) this.slotRects.set(s.h, { x, y: y0, w: sw, h: sh });
       const nv = variantCount(ch.id);
       if (isH && nv) this.drawColourPicker(g, s.h, ch, x, y0, sw, sh, n <= 4);
-      else ui.text(g, ch.name, x + sw / 2, y0 + sh - 38, { size: n <= 4 ? 34 : 24, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - 20 });
+      else ui.fitText(g, ch.name, x + sw / 2, y0 + sh - 38, { size: n <= 4 ? 34 : 24, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - 20 });
       if (isH && s.h.locked) {
         ui.panel(g, x + sw - 120, y0 - 18, 110, 44, { r: 22, fill: '#36d17a', lineWidth: 4, shadow: false });
         ui.text(g, 'Ready!', x + sw - 65, y0 + 4, { size: 24, strokeWidth: 5 });

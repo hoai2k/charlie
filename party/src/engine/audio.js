@@ -94,6 +94,18 @@ function loadMusic(name) {
   return musicLoading.get(name);
 }
 
+/**
+ * Add a recorded song at runtime (the rhythm games' song list): entry is a
+ * music manifest entry plus its bpm. Such songs have no synth version; until
+ * decoded, play() waits silently (use musicReady/preload before relying on it).
+ */
+export function registerMusic(name, entry) {
+  manifest.music[name] = entry;
+  if (!SONGS[name]) SONGS[name] = { bpm: entry.bpm, recordedOnly: true };
+}
+/** True once a recorded song is decoded and can start instantly. */
+export function musicReady(name) { return fileBuffers.has('music:' + name); }
+
 /** True if a recorded file exists for this sfx key. */
 export function hasSound(key) { return fileBuffers.has(key); }
 
@@ -461,16 +473,18 @@ class Music {
     }
     if (fileBuf) {
       const src = ctx.createBufferSource(); src.buffer = fileBuf[0]; src.loop = true;
+      // Start at loopStart (past the encoder's leading padding) so beat 0 is the downbeat.
       if (entry.loopEnd) { src.loopStart = entry.loopStart || 0; src.loopEnd = entry.loopEnd; }
-      src.connect(this.gain); src.start();
+      src.connect(this.gain); src.start(0, entry.loopEnd ? entry.loopStart || 0 : 0);
       this.fileSrc = src; this.start = ctx.currentTime + (entry.offset || 0); this.song = { bpm: def.bpm };
       return;
     }
     if (entry) {
       // Play the synth version now; swap to the recording once it decodes
       // (except 'dance', whose beat clock must not jump mid-song).
-      loadMusic(name).then((b) => { if (b && this.name === name && name !== 'dance') this.play(name, { restart: true }); });
+      loadMusic(name).then((b) => { if (b && this.name === name && (name !== 'dance' || def.recordedOnly)) this.play(name, { restart: true }); });
     }
+    if (def.recordedOnly) return;   // no synth version: silent until the file decodes
     this.song = buildSong(def);
     this.step = 0;
     this.start = ctx.currentTime + 0.08;
