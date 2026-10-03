@@ -9,8 +9,8 @@ approved artwork just because older checkpoints had incomplete coverage.
 
 Latest image delivery revision: `35c8a94` (Unicorn, final required image set).
 Latest image delivery UTC: 2026-10-03T02:34:11+00:00.
-Last checked revision: `35c8a94`.
-Last checked UTC: 2026-10-03T02:34:11+00:00.
+Last checked revision: `a4a79b0141bb89546f101ef51394494d6d3fe3f6`.
+Last checked UTC: 2026-10-03T03:05:55+00:00.
 
 All 15 player/companion sets are reviewed and published: Felicity, Fellowfox,
 Bronze, Fox, Cotton Candy, Princess Amber, Snowstar, Birthday Cake, Hotdog,
@@ -59,14 +59,13 @@ with individual blink timings and poses. Refresh masks after final builds.
 
 ## Delivery follow-up
 
-Heartbeat: `charlie-party-delivered-image-review`. Check regeneration feedback
-30 minutes after the latest published image delivery. Reset after each new
-batch. Fetch and safely integrate main, preserve concurrent work, and compare
-new/changed requests with the last checked revision/time above. Include
-regenerations. Stay quiet unchanged; notify on new requests, approval, blocker
-or completion. Cancel after one full half-hour interval without new requests
-since the latest delivery. Continue production until requests are complete;
-there is no allowance pause.
+The scheduled delivery review ran more than30minutes after the final image
+batch. Main and local image-requests.md have no changes since the delivery
+checkpoint. No new assets or regeneration requests are queued.
+
+Heartbeat `charlie-party-delivered-image-review` was canceled after this
+unchanged interval, as requested. No future checks remain scheduled. All
+required production remains complete; there is no allowance pause.
 
 See `ASSET-COVERAGE.md`, `SPRITE-SESSION-HANDOFF.md` and
 `RECOMMENDED-ACTIONS.md` for the current inventory and future game actions.
