@@ -1,0 +1,23 @@
+{
+  "asset": "kpop-girl-center",
+  "source": "../sources/kpop-girl-center-full-actions-c.webp",
+  "input_image_1": "../../../reference/canonical/kpop-girl-center.webp",
+  "poses": [
+    "flip",
+    "giggle",
+    "photo",
+    "sooty",
+    "splat-throw",
+    "squeak-tiny",
+    "stomp-giant",
+    "swim"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "status": "Corrected flip sheet generated from the saved exact prompt with approved canonical reference; saved lossless WebP, inspected all 4x2 cells and added to spec with manually entered source-local landmarks.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical kpop-girl-center reference; reproduce this exact character. Subject: purple side braids, red drop earrings, orange jacket with charcoal trim and geometric badge, orange-gold paneled skirt, tall purple boots, warm brown eyes. Personality: crisp, confident, precise beat accents and a cool bright smile. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: draw exactly 8 distinct full-body figures in a 4 columns by 2 rows transparent grid, in row-major order. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 flip: standing with feet planted, lean forward and reach one empty hand straight ahead to flip an imaginary memory card; keep the other hand relaxed, no card, text or effects, full silhouette visible. 2 giggle: shoulders lifted in a bright laugh, one hand near the mouth. 3 photo: cheerful still portrait pose with a peace sign, no phone or camera. 4 sooty: surprised reaction to imaginary soot, hands near cheeks; keep face and clothes clean with no marks. 5 splat-throw: energetic empty-handed throwing follow-through, no paint, splash or prop. 6 squeak-tiny: tiny startled recoil silhouette with shoulders tucked, do not alter character scale. 7 stomp-giant: bold grounded stomp pose with one foot planted and arms braced, no size change or effects. 8 swim: horizontal swimming mime in open air, arms sweeping and legs extended, no water.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet.",
+  "output": "../../sources/kpop-girl-center-full-actions-c.webp",
+  "generation_output": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-f614bdc2-79a3-4f34-b369-3f3f9c9dcd9b.png"
+}

@@ -1,222 +1,69 @@
 # Image work queue
 
-Synced with main through `721b9ed` (including the Bumper Bounce request update,
-2026-10-02), merged at `e3cfde0`.
-The brief remains authoritative; this file records sequencing and ownership.
-All NPC canonical designs are now user-approved, including no-blush Glimmer
-and the diverse Garden Fairies with a light olive purple fairy.
+The authoritative brief is `party/image-requests.md`. Production is active;
+the user revoked the former 40% allowance pause for Sol. Completed batches
+are reviewed, committed to main and pushed regularly. Do not regenerate
+approved artwork just because older checkpoints had incomplete coverage.
 
-## Current priorities (production resumed)
+## Current delivery
 
-Completed: approved NPC sets/cutouts and integration; Troll Round 3 reactions;
-Felicity/Fellowfox/Bronze upgraded cycles plus added actions; all KPop members;
-Cotton Candy, Fox, Unicorn, Hotdog and Amber initial/optional action sets.
-Marina/Scale have core sets plus Round 3 cycles. Snowstar/Cake have core sets.
+Latest image delivery revision: `c196cf6` (Cotton Candy complete set).
+Latest image delivery UTC: 2026-10-03T01:50:29+00:00.
+Last checked revision: `c196cf6`.
+Last checked UTC: 2026-10-03T02:10:14+00:00.
 
-1. **Snowstar and Birthday Cake** — extend their saved core specs/sheets to the
-   initial and optional action vocabulary, including dance. Do not regenerate
-   existing core art. Respect Cake's lack of limbs.
-2. **Marina and Scale** — each needs 25 extended actions. Their new cycles are
-   authored and published; run still aliases walk intentionally. Preserve tails.
-3. **Round 2/3 extras across the roster** — inspect actual authored keys first.
-   Coverage is broadest on Felicity/Fellowfox/Bronze. Latest requests below add
-   hip-bump, knockback and two-frame dash; these remain queued.
-4. **Remaining game art/integration** — 230-key checkpoint is published. Read
-   assets/art/ART-STATUS.md for remaining icons/frame/props and code hookups.
-   Fashion accessories, lantern states and ticking present are integrated.
+Fourteen player/companion sets are reviewed and published: Felicity, Fellowfox,
+Bronze, Fox, Cotton Candy, Princess Amber, Snowstar, Birthday Cake, Hotdog,
+Marina, Scale and all three KPop members. All cover the current 74-key action union, plus anatomy-
+appropriate extras. Full and optimized copies, sources and prompt records are
+published. Fox's 28 legacy source-order swaps were repaired in c6d2e78.
 
-Use `tools/sprites/AGENT-PLAYBOOK.md` for concrete production lessons and
-`SPRITE-SESSION-HANDOFF.md` to resume. Prefer lighter agents with visual review.
-Production resumed by the user; generate the remaining assets and publish reviewed batches regularly.
+All requested NPC canonicals are approved, including no-blush Glimmer and the
+diverse Garden Fairies with a light olive purple fairy. Requested NPC sets,
+wing cycles, true rear turns, Troll/Hoot landmarks and game consumers are
+published. Storm Cloud lightning is a separate effect.
 
-## New requests from the latest sync
+General art is complete for current required requests: 288 indexed keys /268
+files, including20 thumbnails, revised garden/cake/potion assets and the royal
+animal-back cape. Optional future parallax background is documented in the
+coverage report. Original unused ingredients and neutral cake shapes remain
+available for future game use.
 
-- `hip-bump`: two authored frames at 10 fps, hip cocked then swung toward facing,
-  arms balancing, cheeky grin, `holdLast`, motion 0.3. Bumper Bounce now requests
-  this instead of push. Adapt for quadrupeds/tails and Cake without new limbs.
-- `knockback`: two frames at 8 fps, leaning back and windmilling/skidding away
-  from the hit, motion 0.3. Bumper Bounce holds this about 0.7 seconds. The engine
-  already supplies fallback lean, wobble, flash and dust; authored images remain
-  queued across the roster.
-- `dash`: upgrade to two frames (launch and held lunge) with `holdLast` for Crown
-  Keeper. Existing single-frame dash artwork remains usable until upgraded.
-- No fake paper-width twirls. Actual spins in celebrate/ready/pose-twirl require
-  front/three-quarter/back/three-quarter artwork; the engine fallback now hops.
+## Remaining export and review
 
-These are additive follow-ups after the remaining roster's initial vocabulary;
-they must not cause completed unrelated sheets to be regenerated.
+All remaining source artwork has been generated. Do not duplicate generation.
+KPop3 now reviewed: each74keys/96frames/sixportraits, fresh optimizer/center
+masks, complete boot crops, full/optimized stage reviews passed.
 
-## Quality and verification
+| Owner | Set | Remaining work |
+| --- | --- | --- |
+| snow_cake_completion | Unicorn | Final source-local mouth/horn/face landmarks, export, optimizer, validation and root gameplay review |
+| Root | Integration | Publish reviewed sets, update final coverage/handoff, safely sync main for new requests and run final all-roster checks |
 
-- Match the approved canonical; no new anatomy for Cake, Bronze or animals.
-- Supply ground anchor and head/hand/eyes/neck/back on every frame. Keep
-  neutral bodyHeight and trim alpha; preserve airborne anchors.
-- Use authored key poses plus procedural motion for short actions; spend
-  additional frames on Round 3's long-held or recurring poses.
-- Keep a set near 1.5 MB compressed and under 25 MB decoded. Check tiny
-  60 px portraits, attachments and motion in actual games.
-- KPop members share bodyHeight, pose keys and frame counts, with varied
-  blink timing and individual celebration/dance personalities.
-- Validate all paths, alpha, manifests and timing; run the runtime tests.
-  Use lighter agents for inventory checks and root review for visual quality.
-- Merge teammates' changes frequently. Preserve both sides of additive
-  image-request changes and adapt integrations to lazy sprite loading.
+## Verification and reusable lessons
 
-## Budget checkpoint
+Read `tools/sprites/AGENT-PLAYBOOK.md` and `tools/sprites/README.md`. Root reviews
+actual-scale frame comparisons and representative games in full/optimized
+quality. Source points are crop-local; convert runtime corrections back using
+the documented inverse transform. A point within image bounds is not proof it
+is on the character. Grid boundaries can clip complete source figures.
 
-At approximately 40% remaining account allowance, stop starting new assets,
-finish in-flight work, commit/push safe checkpoints and save a handoff with
-exact remaining requests. Do not treat aliases or procedural fallbacks as
-newly authored images in coverage reports.
+Decoded memory must stay under25 MiB per member; the1.5 MiB encoded target is
+soft. Preserve requested frames, approved anatomy and individual expression.
+Memory Match `flip` reaches for a card. Hold props separately using actual
+palm/mouth/horn/fin landmarks. KPop shares body height/action/frame vocabulary
+with individual blink timings and poses. Refresh masks after final builds.
 
-## Request monitor checkpoint
+## Delivery follow-up
 
-Last checked revision: `630c728b6ca38d98d7c39405fde84453983a35ec`.
-Last checked UTC: 2026-10-02T20:44:57+00:00.
-Heartbeat: `charlie-party-image-request-follow-up`; checks every 30 minutes and
-cancels itself after one full interval without new or changed image requests.
-Include regeneration requests as well as new assets.
+Heartbeat: `charlie-party-delivered-image-review`. Check regeneration feedback
+30 minutes after the latest published image delivery. Reset after each new
+batch. Fetch and safely integrate main, preserve concurrent work, and compare
+new/changed requests with the last checked revision/time above. Include
+regenerations. Stay quiet unchanged; notify on new requests, approval, blocker
+or completion. Cancel after one full half-hour interval without new requests
+since the latest delivery. Continue production until requests are complete;
+there is no allowance pause.
 
-## Regeneration requests received at 6c9ac9e
-
-Root owns the new lead-review table at the end of image-requests.md: podium
-blocks, confetti atlas, card ratio, green fizzle, flatter rug, neutral potion
-props, balloon framing, cookie flavor states, rock crop, cake platform/rings,
-top-down garden day/night, cake stand, plant glow/seed frames and pearl tiara.
-Storm Cloud lightning stays separate per the user; supply a separate effect.
-Conditional sponge-layer art will be supplied for future configurable cakes.
-Snow/Cake agent also owns later Fox/Cotton Candy/Unicorn/Hotdog action extras;
-mermaid agent also owns later KPop trio/Amber extras. Root owns pilot extras.
-
-## Pause checkpoint at 40% remaining
-
-Production paused after the account check reached 60% used. No new generation
-should start until the user resumes. The half-hour monitor may queue requests,
-but must honor this production pause and cancel after an unchanged interval.
-
-Last checked revision: `6fa3543e7d72c8991d3ffde2c226bb429b090845`.
-Last checked UTC: 2026-10-02T21:08:58.672036+00:00.
-
-New lead-review requests from 76b86f1 / 6fa3543: Amber dance size; Fox ride size/
-anchor and dance/think/dance-star size plus head/mouth points; Cotton Candy run
-size, ride anchor and giggle size; Unicorn mouth/horn points; KPop left/center
-hand points; mermaid head/neck/eyes points; Troll hand points. Snowstar/Cake and
-mermaid carry/cast/dance additions should be compared to their new sets before
-duplicating generation. All requests in the regeneration table remain queued
-unless explicitly checked against delivered outputs.
-
-Latest sync also requests a 1024px thin hazard-striped danger ring, four outlined
-256px arena-cake crumb variants, and a navy-outlined hedge with darker side face.
-These supersede the small soft ring/crumbs delivered earlier.
-
-Last checked revision: `381256aa006fb8a8f66e458baa047cfff2a08dcc`.
-Last checked UTC: 2026-10-02T21:12:21.868344+00:00.
-
-## Scheduled check — 2026-10-02 21:28 UTC
-
-Synced main; no changed Charlie Party image requests since the previous check.
-Production remains paused; no image generations were started. The previous
-check was at 21:12 UTC, so a full unchanged 30-minute interval has not yet
-elapsed. Keep the monitor active for its next check.
-
-Last checked revision: `85b7d2e92a82adbae333fd5e8cc68a145d7b1fe5`.
-Last checked UTC: 2026-10-02T21:29:53.396518+00:00.
-
-## Production resumed — Sol
-
-The user explicitly revoked the 40% allowance pause for Sol. Complete all requested
-assets and regenerations, checking new requests and publishing reviewed batches.
-Cake/animals and mermaid/KPop/Amber agents resumed; lighter agents own character batches, and root reviews and integrates them.
-Last checked revision: `06127696957f7437feb62a83e905a551784936dc`.
-Last checked UTC: 2026-10-02T21:35:49.123002+00:00.
-
-Reviewed regeneration batch: thin1024hazardring (BumperBounce radius updated),
-outlinedhedge, greenfizzle, neutralbubbles/bottle, emptycauldron,3:4cardback.
-Correspondingruntimekeys pointto versionedfiles; originalsremainavailable.
-
-## Request check — 2026-10-02 22:44 UTC
-
-Main update `7ebc997` adds mandatory optimized copies and in-game checks in both
-quality modes. This intake requirement is queued for every current delivery.
-No additional image generation requests were added in that revision.
-Production remains active; the former Astra allowance threshold is revoked.
-
-Last checked revision: `68e0a8a0c4abfa5cbceac65eabf16dd9bcc2c2f2`.
-Last checked UTC: 2026-10-02T22:43:57+00:00.
-
-Reviewed: bottom-anchored seed stages, overhead garden day/night, four outlined
-cake crumbs, three transparent crumble overlays, and plain round/heart/star
-sponge layers. Runtime integrations include cookie flavor damage, confetti atlas,
-separate Storm Cloud lightning and individual podium blocks.
-
-## Request check — 2026-10-02 23:22 UTC
-
-Synced main at d9084ed; no new or changed generation requests since the 22:44
-check. The half-hour heartbeat is canceled after this unchanged interval, as
-requested. Active asset production continues and main syncs still check requests.
-
-Last checked revision: `d9084ed0069dc854013a0aaa3154c0db081725d5`.
-Last checked UTC: 2026-10-02T23:22:00+00:00.
-
-Marina paint variant five succeeded with a purple painting smock; canonical
-identity is preserved. Source and exact retry records are saved in sprites
-sources/specs and the mermaid agent owns runtime intake. NPC agent owns Amber
-after finishing Hoot/Troll/Glimmer/fairy review; mermaid agent owns KPop trio.
-
-Main update b5b1cc1 adds color-variant masks: rebuild masks for Felicity, KPop
-center and Amber after sprite changes. No extra image generation is requested.
-Troll hand points passed runtime overlay and full/optimized gameplay review;
-19 poses, 37 authored frames, 5 portraits, 14.5 MiB decoded.
-
-Professor Hoot reviewed: distinct two-frame point, laugh and bravo; original
-face/wing landmarks corrected. Potion Class now selects bravo for applause
-and laugh before speech. Full and optimized game review plus validation passed.
-
-Glimmer and Garden Fairies: reviewed unique wing phases and true rear turns;
-neutral head size and approved skin colors preserved. Six stable sets pass
-validation; Glimmer decoded 13.5 MiB, each fairy 4.9–5.3 MiB. In-game review
-in Fairy Count uses both full and optimized quality. Exact wing prompts and
-source provenance are in pending/npc-wing-cycle-completion.json.
-
-Fox complete: 75 poses / 96 authored frames / five portraits, decoded23.3MiB.
-Ride/dance sizes corrected; crouched head/eye/neck/mouth points individually
-reviewed. Full and optimized Broomstick Dash pass with paws on broom. Source
-sheets and exact extension prompts accompany final runtime/optimized copies.
-
-## Delivery follow-up — user update 2026-10-03 00:11 UTC
-
-User requested a regeneration-feedback check half an hour after new image
-deliveries. New heartbeat charlie-party-delivered-image-review is active;
-use the delivery checkpoint below rather than code/doc commit times. Reset
-the follow-up on subsequent published image batches; stay quiet if unchanged.
-
-Latest image delivery revision: `c6d2e78` (corrected Fox action mapping and attachment landmarks).
-Latest image delivery UTC: 2026-10-03T01:39:23+00:00.
-
-Ownership: snow_cake_completion finishes Cotton Candy/Unicorn; npc_canonicals
-finishes Amber then Hotdog; mermaid_all_actions finishes KPop trio. Root owns
-Marina/Scale final runtime scale/point corrections, review and publication.
-
-Final semantic review: Round2 flip means reaching out to flip a memory card,
-not an acrobatic flip. Published pilot poses already fit the reaching action;
-Amber, Fox, mermaids and remaining animals/KPop receive specific replacements.
-Root owns mermaid runtime rebuilds; other agents deliver mermaid/Fox corrections
-as source-only handoffs. Neutral-pose blink edits generated for both mermaids.
-
-Princess Amber complete: 74 keys /97 authored frames /five portraits, decoded
-20.6MiB. Corrected dance size and all inherited runtime landmarks; photo is a
-peace sign and flip reaches for a memory card. Optimized copies and97 region
-masks refreshed, including rotated tumble coverage. Reviewed Spotlight Dance
-in full mode and Pop Star Stage in optimized mode with alternate dress colors.
-
-New main request 9a65978 checked 2026-10-03T00:33:18+00:00: root generating prop/cape-royal-side; Amber publication confirmed on origin/main.
-
-Royal side cape complete: prop/cape-royal-side 520x300 transparent WebP, existing Fashion Show consumer automatically selects it for trotting quadrupeds. General art inventory now288 keys /268 files.
-
-Marina/Scale final reviewed set: each75keys/92frames/fiveportraits; decoded20.9/20.5MiB. Hotdog complete75keys/96frames/fiveportraits,19.3MiBdecoded. Root reviews passed; publishing stable batches. KPop3, Cotton Candy and Unicorn remain.
-
-Fox final semantic/landmark audit complete:28 legacy action-source swaps repaired to exact prompts; all96 frame attachment points reviewed, memory card reaches withfrontpaw, head scales normalized. Reviewed full Broomstick Dash and optimized Memory Match,23.5MiBdecode, fresh optimizer.
-
-Main checked at c6d2e78 on 2026-10-03T01:39:23+00:00; no new image requests. Fox corrections confirmed pushed. Remaining production: Cotton Candy, Unicorn and the three KPop girls, with final landmark/mask reviews in progress.
-
-Cotton Candy reviewed:75keys/96frames/fiveportraits; run and memory-card reach size corrected, ride anchor on belly, final cast point corrected in source coordinates. Publishing next. Remaining Unicorn and KPop3.
+See `ASSET-COVERAGE.md`, `SPRITE-SESSION-HANDOFF.md` and
+`RECOMMENDED-ACTIONS.md` for the current inventory and future game actions.

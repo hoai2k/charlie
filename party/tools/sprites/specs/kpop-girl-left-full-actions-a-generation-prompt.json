@@ -1,0 +1,21 @@
+{
+  "asset": "kpop-girl-left",
+  "source": "../sources/kpop-girl-left-full-actions-a.webp",
+  "input_image_1": "../../../reference/canonical/kpop-girl-left.webp",
+  "poses": [
+    "balance",
+    "blow",
+    "count",
+    "drink",
+    "look-up",
+    "sit",
+    "float",
+    "water"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "status": "Generated from the exact prompt with approved canonical reference; saved lossless WebP, inspected 4x2 cells and added to spec with manually entered source-local landmarks.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical kpop-girl-left reference; reproduce this exact character. Subject: brown side bun, light-blue sleeveless top with navy collar, wide dark-blue trousers, pale shoes, amber-brown eyes. Personality: light, easy-going, relaxed movement with broad friendly gestures. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: draw exactly 8 distinct full-body figures in a 4 columns by 2 rows transparent grid, in row-major order. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 balance: one foot lifted slightly while both arms counterbalance, steady focused face. 2 blow: gentle breath gesture with hands open near chest, no bubbles. 3 count: one hand raised with clearly separated fingers counting, other hand relaxed. 4 drink: mime one small sip from an imaginary cup, empty hand, no cup. 5 look-up: chin and eyes clearly turned upward, one hand shading brow. 6 sit: compact seated pose on the floor with legs arranged naturally and hands resting, no chair. 7 float: light lifted pose with feet just off the ground and arms relaxed outward, no glow. 8 water: mime tilting and pouring from an imaginary watering can, empty hands, no can or water.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet."
+}

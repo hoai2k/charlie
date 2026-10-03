@@ -8,7 +8,7 @@ main regularly. The whole brief is not yet complete.
 ## Published
 
 Main includes the full action vocabulary for Snowstar, Birthday Cake, Felicity,
-Fellowfox, Bronze, Fox, Princess Amber, Marina, Scale, Hotdog and Cotton Candy. Cake has 74 keys / 95 authored frames / five portraits;
+Fellowfox, Bronze, Fox, Princess Amber, Marina, Scale, Hotdog, Cotton Candy and all three KPop members. Cake has 74 keys / 95 authored frames / five portraits;
 Felicity and Bronze have 74 / 91 / five; Fellowfox has 75 / 91 / five, including
 catch-toy. Expanded sets include two-frame dash, hip-bump and knockback and an
 authored four-view twirl. Reviewed optimized copies accompany the full originals.
@@ -37,8 +37,8 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
 
 - snow_cake_completion: Unicorn full action extension and review. Cotton Candy
   is reviewed and ready for publication with corrected source-local mouth point.
-- mermaid_all_actions: KPop trio final exports, center color masks, semantic
-  review and validation. All requested action artwork is generated.
+- mermaid_all_actions: KPop complete and reviewed; original/new hand points,
+  full boot crops and96 center masks are refreshed, with both-quality stage checks.
 - npc_canonicals: final coverage/documentation audit. Fox action order and
   attachment repairs are published in c6d2e78.
 - Root: review stable sets in both quality modes, validate, stage precise paths,

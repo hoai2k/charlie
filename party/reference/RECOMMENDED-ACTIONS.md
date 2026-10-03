@@ -1,6 +1,6 @@
 # Optional character actions
 
-The engine supports the six actions below in `src/engine/sprites.js`, with authored art in the reviewed expanded sets and procedural fallback chains for partial sets. They are part of the current 74-key coverage checklist. Cotton Candy, Unicorn and KPop's latest revisions still require final review; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md).
+The engine supports the six actions below in `src/engine/sprites.js`, with authored art in the reviewed expanded sets and procedural fallback chains for partial sets. They are part of the current 74-key coverage checklist. Unicorn's latest revision still requires final review; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md).
 
 These actions enable optional game features. Installing artwork does not change controls, movement, collisions or scoring.
 

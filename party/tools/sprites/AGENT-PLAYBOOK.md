@@ -192,6 +192,9 @@ new work while paused, without launching generation automatically.
 Inspect landmarks on the built runtime pixels. If a point needs correction,
 convert it back to source-crop coordinates using:
 `sourceAnchor + (desiredRuntimePoint - runtimeFrameAnchor) / (commonScale * itemScale)`.
+Never paste a runtime pixel coordinate directly into a source-local spec. Rebuild
+and inspect the resulting marker on the actual mouth, palm or hoof. A point
+inside the canvas can still float far outside the character.
 Full-sheet coordinates must first have the crop origin subtracted. Source-sheet
 overlays alone cannot prove runtime attachment placement.
 
@@ -250,3 +253,9 @@ Check the idle frame itself: a correct non-idle neck cannot fix a stale idle eye
 Use the normal builder after landmark edits. New builds record hashes of the rendered art and encoded file. Subsequent builds update coordinates while reusing unchanged raster bytes; changed source art, alpha/crop/scale, encoding quality, missing files or file corruption force encoding. The first rebuild of older sets has no hashes and encodes normally. Do not manually copy coordinate metadata between different drawings. Run `python3 party/tools/sprites/build_test.py` after pipeline changes, then optimize the character and refresh its masks.
 
 Audit every action against the exact sheet prompt and crop order: valid filenames do not prove the action is correct. Fox’s legacy rows had reciprocal sleep/clap and other swaps; reading the prompt and actual source sheet caught them. Check all inherited actions before declaring a full set complete.
+
+Generated grids can exceed their nominal cell boundaries. Before accepting a
+fixed-grid intake, inspect top-row feet and bottom-row heads against the full
+source sheet. Expand a cell to include the complete connected figure and use
+alpha isolation; move a standing anchor to the actual sole line. A cropped boot
+in the runtime export does not necessarily require regenerating the source.

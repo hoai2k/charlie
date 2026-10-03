@@ -1,0 +1,12 @@
+{
+  "asset": "kpop-girl-right",
+  "source": "../sources/kpop-girl-right-hiccup.webp",
+  "input_image_1": "../../../reference/canonical/kpop-girl-right.webp",
+  "poses": [
+    "hiccup"
+  ],
+  "status": "Generated from the exact prompt with approved canonical reference; transparent background inspected, saved lossless WebP, and ready for per-frame landmark intake.",
+  "prompt": "Use case: stylized-concept. Asset type: single full-body transparent action sprite for Charlie Party. Input image 1 is the approved canonical kpop-girl-right reference; reproduce this exact character. Subject: very long coral hair, navy tee with pink and purple abstract graphic, golden skirt with brown panels, tall navy boots with pink knee accents, warm brown eyes. Personality: bouncy, playful, flowing motion with expressive long hair. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading, same face, hair, body proportions and outfit. Pose: a small sudden hiccup reaction, shoulders and upper torso make a brief upward twitch, one hand rests lightly at the upper chest, eyes briefly wide and mouth a small surprised O; keep the other arm relaxed and feet grounded. No sound marks, bubbles, text, props or effects. Draw exactly one complete full-body figure with consistent canonical head size, generous transparent margins around hair, hands and shoes, true transparent alpha and no background or shadow.",
+  "output": "../../sources/kpop-girl-right-hiccup.webp",
+  "generation_output": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-808153ec-cb41-4f4e-9296-2ecdd53af185.png"
+}

@@ -106,7 +106,7 @@ def classify_kpopc(st, fr, bodyH, skinL=0.62):
     neck = fr['neck']
     out = {}
     for k, c in st.items():
-        ex, ey = fr['eyes']
+        ex, ey = fr.get('eyes') or fr['head']
         if c['area'] < 6 or ((c['cx'] - ex) ** 2 + (c['cy'] - ey) ** 2) ** 0.5 < 0.15 * bodyH: continue
         if 10 <= c['h'] <= 46 and c['s'] > 0.62 and c['l'] < skinL - 0.07: out[k] = 1     # jacket + skirt
         elif 245 <= c['h'] <= 300 and c['s'] > 0.3 and c['cy'] > neck[1] + 0.25 * bodyH: out[k] = 2  # boots
@@ -118,7 +118,7 @@ def pixel_kpopc(mask, h, s, l, opaque, fr, bodyH):
     cheek sample, face circle protected, small specks dropped."""
     H, W = h.shape
     yy, xx = np.mgrid[0:H, 0:W]
-    ex, ey = fr['eyes']; neck = fr['neck']
+    ex, ey = fr.get('eyes') or fr['head']; neck = fr['neck']
     cheek = (np.abs(xx - ex) < 0.06 * bodyH) & (yy > ey + 0.03 * bodyH) & (yy < ey + 0.1 * bodyH) & opaque & (l > 0.3) & (h > 10) & (h < 45)
     skin_s = np.percentile(s[cheek], 95) if cheek.sum() > 20 else 0.8
     thr = max(0.84, skin_s + 0.05)
@@ -137,7 +137,7 @@ def pixel_kpopc(mask, h, s, l, opaque, fr, bodyH):
 def add_kpopc_pixels(mask, h, s, l, opaque, fr, bodyH, skinL):
     H, W = h.shape
     yy, xx = np.mgrid[0:H, 0:W]
-    ex, ey = fr['eyes']; neck = fr['neck']
+    ex, ey = fr.get('eyes') or fr['head']; neck = fr['neck']
     cheek = (np.abs(xx - ex) < 0.06 * bodyH) & (yy > ey + 0.03 * bodyH) & (yy < ey + 0.1 * bodyH) & opaque & (l > 0.3) & (h > 10) & (h < 45)
     skin_s = float(np.median(s[cheek])) if cheek.sum() > 20 else 0.8
     face = np.hypot(xx - ex, yy - ey) < 0.17 * bodyH
@@ -196,7 +196,7 @@ def build(asset, review=None):
         else:
             kw = {}
             if asset == 'kpop-girl-center':
-                H_, W_ = h.shape; yy, xx = np.mgrid[0:H_, 0:W_]; ex, ey = fr['eyes']
+                H_, W_ = h.shape; yy, xx = np.mgrid[0:H_, 0:W_]; ex, ey = fr.get('eyes') or fr['head']
                 cheek = opaque & (h > 10) & (h < 45) & (l > 0.3) & (np.abs(xx - ex) < 0.06 * bodyH) & (yy > ey + 0.03 * bodyH) & (yy < ey + 0.1 * bodyH)
                 if cheek.sum() > 20: kw['skinL'] = float(np.median(l[cheek]))
             cls = CLASSIFY[asset](st, fr, bodyH, **kw)
