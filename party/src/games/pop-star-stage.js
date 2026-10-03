@@ -367,7 +367,7 @@ export class Game {
     if (song) {
       // The song's own timeline: it plays once (or ~65 s of a loop), and its
       // sections decide when B and X/Y join and when the finale starts.
-      const plan = songPlan(song);
+      const plan = songPlan(song, rhythmChoice('pop-star-stage').level);
       this.songEnd = plan.end;
       this.phases = plan.phases;
       this.chart = buildChart(song, rhythmChoice('pop-star-stage').level, plan);
@@ -475,8 +475,8 @@ export class Game {
 
   updateCalls(b) {
     const call = (key, at, fn) => { if (b >= at && !this.calls[key]) { this.calls[key] = true; fn(); } };
-    call('b', this.phases.ab - 2.5, () => { this.banner('Now B joins in!', 1.8, BTN_COLOR.b); sfx('magic'); });
-    call('xy', this.phases.all - 2.5, () => { this.banner('X and Y too!', 1.8, '#7fd3ff'); sfx('magic'); });
+    if (this.phases.ab > 4) call('b', this.phases.ab - 2.5, () => { this.banner('Now B joins in!', 1.8, BTN_COLOR.b); sfx('magic'); });
+    if (this.phases.all > 4) call('xy', this.phases.all - 2.5, () => { this.banner('X and Y too!', 1.8, '#7fd3ff'); sfx('magic'); });
     call('boss', this.bossBeat - 2, () => this.spawnBoss());
   }
 

@@ -99,7 +99,7 @@ export function rhythmOptions(gameId, { level = true } = {}) {
  * phases (A only -> A+B -> all four -> golden finale vs the big imp) start
  * with the song's groove sections where it has them.
  */
-export function songPlan(song) {
+export function songPlan(song, level = 0) {
   const bpb = song.beatsPerBar || 4, bar = (x) => Math.round(x / bpb) * bpb;
   const end = song.loop ? Math.round((65 * song.bpm) / 60 / 4) * 4 + 2 : Math.ceil(song.lengthBeats / bpb) * bpb + 2;
   const grooves = (song.sections || []).filter((s) => s.kind !== 'breath' && s.end - s.start >= 8);
@@ -111,6 +111,10 @@ export function songPlan(song) {
     const r = end / 130;
     ab = bar(36 * r); all = bar(68 * r); boss = bar(96 * r);
   }
+  // Easy teaches A, then B, then X/Y; Normal starts with A+B (X/Y from the
+  // 2nd groove); Hard uses all four buttons from the start.
+  if (level >= 1) { all = ab; ab = 0; }
+  if (level >= 2) all = 0;
   return { end, phases: { ab, all, boss } };
 }
 
@@ -155,7 +159,13 @@ export function buildChart(song, level, plan) {
   const cands = [];
   for (const e of events) {
     const sec = sectionAt(song, (e.pos % (span || Infinity)) / div);
-    if (sec && sec.kind === 'breath') continue;         // breathing space between sections
+    // Breathing space between sections: short breathers stay empty; a long
+    // intro/breather keeps a gentle pulse (one note per bar, on its downbeat).
+    if (sec && sec.kind === 'breath') {
+      if (sec.end - sec.start <= 2 * bpb || (e.pos / div) % bpb !== 0) continue;
+      if (Math.max(e.low, e.high, e.mel) >= 0.2) cands.push({ ...e, score: 0.2, role: 'low', breath: true });
+      continue;
+    }
     const inBeat = e.pos % div;
     const onBeat = inBeat === 0;
     const onEighth = inBeat % 6 === 0, onSixteenth = inBeat % 3 === 0, onTriplet = inBeat % 4 === 0;
