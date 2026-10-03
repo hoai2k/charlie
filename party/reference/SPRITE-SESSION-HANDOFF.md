@@ -8,7 +8,7 @@ main regularly. The whole brief is not yet complete.
 ## Published
 
 Main includes the full action vocabulary for Snowstar, Birthday Cake, Felicity,
-Fellowfox, Bronze, Fox and Princess Amber. Cake has 74 keys / 95 authored frames / five portraits;
+Fellowfox, Bronze, Fox, Princess Amber, Marina, Scale and Hotdog. Cake has 74 keys / 95 authored frames / five portraits;
 Felicity and Bronze have 74 / 91 / five; Fellowfox has 75 / 91 / five, including
 catch-toy. Expanded sets include two-frame dash, hip-bump and knockback and an
 authored four-view twirl. Reviewed optimized copies accompany the full originals.
@@ -16,7 +16,7 @@ Companion sets were checked in Crown Keeper and Pass the Present in both image
 quality modes. Decoded member sizes remain below 25 MiB; Felicity and Cake exceed
 the soft 1.5 MiB encoded target because their full requested frames are retained.
 
-General art now has 287 keys pointing to 267 files. Regenerations include all
+General art now has 288 keys pointing to 268 files, including the animal side cape. Regenerations include all
 podium blocks, confetti atlas, card ratio, green fizzle, flat rug, neutral potion
 props, aligned balloons, cookie flavor damage, rock crop, outlined hedge, thin
 1024 hazard ring, four outlined crumbs, overhead garden day/night, plant glow
@@ -35,20 +35,21 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
 
 ## Active ownership and remaining work
 
-- snow_cake_completion: Fox is published at c09b0a5 via d61adc9 (75 keys,
-  96 frames, decoded 23.3 MiB); finish Cotton Candy and Unicorn.
-  Include latest lead scale/ride-anchor/mouth-landmark corrections.
-- mermaid_all_actions: Marina/Scale rebuilt runtime attachment review and true
-  back-twirl art; then KPop trio extensions/hand/scale corrections.
-  Scale paint is generated. Marina paint succeeded on variant five with a purple
-  painting smock, keeping her canonical identity. Source marina-paint-r5.webp and
-  exact retry records are saved; runtime intake and landmark review are underway.
-- npc_canonicals: Hoot, Troll, Glimmer and all five Garden Fairy updates are
-  reviewed and published (7d11066, fb24927, 4a6343a). Complete Princess Amber
-  Amber is reviewed and ready to publish (74 keys/97 frames, refreshed masks).
-  Own the Hotdog full extension next.
-- Root: review actual runtime overlays and in-game behavior, validate stable
-  deliveries, stage precise paths, merge main safely and push each batch.
+- snow_cake_completion: Cotton Candy final scale/landmark review; Unicorn full
+  action extension. Preserve neutral head size and correct memory-card reach.
+- mermaid_all_actions: KPop trio final exports, center color masks, semantic
+  review and validation. All requested action artwork is generated.
+- npc_canonicals: final Fox source-order and landmark audit; legacy swapped
+  actions are being restored to their intended drawings before republishing.
+- Root: review stable sets in both quality modes, validate, stage precise paths,
+  safely merge concurrent main, and push reviewed batches. Marina/Scale/Hotdog
+  published in520f9a4 via8b37665; Fairy Garden twirl integration9cf88d8.
+
+Princess Amber is published in f3ea583 via9e7de1d, with refreshed rotated dress
+masks. Marina paint succeeded with a purple smock, preserving her identity.
+Both mermaids now have75keys/92frames/fiveportraits, matching neutral blink,
+actual memory-card reach and fully reviewed per-frame attachment coordinates.
+Hotdog has75keys/96frames/fiveportraits and repaired original dance tail crops.
 
 ## Intake and checks
 

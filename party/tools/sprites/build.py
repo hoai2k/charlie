@@ -6,6 +6,7 @@ Only crops, alpha cleanup, scales, places, and encodes supplied artwork.
 See README.md for the reproducible input spec and manual landmark overrides.
 """
 import argparse
+import hashlib
 import json
 import os
 import tempfile
@@ -90,6 +91,10 @@ def contact(image, bbox):
 def build(spec, base, output):
     output.mkdir(parents=True, exist_ok=True)
     quality = int(spec.get('quality', 86))
+    try:
+        previous = json.loads((output / 'sprites.json').read_text())
+    except (OSError, ValueError):
+        previous = {}
     prepared = {}
     sources = {}
     for pose, definition in spec['poses'].items():
@@ -142,8 +147,19 @@ def build(spec, base, output):
             crop = canvas.getchannel('A').getbbox()
             frame_image = canvas.crop(crop)
             filename = f'{pose}-{i:02}.webp'
-            save_webp(frame_image, output / filename, quality)
+            path = output / filename
+            art_hash = hashlib.sha256(
+                f'{frame_image.size}:{quality}:method6'.encode() + frame_image.tobytes()
+            ).hexdigest()
+            old_pose = previous.get('poses', {}).get(pose, {})
+            old_frames = old_pose.get('frames', []) if isinstance(old_pose, dict) else []
+            old = old_frames[i] if i < len(old_frames) else {}
+            current_hash = hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None
+            if old.get('artHash') != art_hash or old.get('fileHash') != current_hash:
+                save_webp(frame_image, path, quality)
+                current_hash = hashlib.sha256(path.read_bytes()).hexdigest()
             frame = {'src': filename, 'anchor': [anchor[0] - crop[0], anchor[1] - crop[1]]}
+            frame.update(artHash=art_hash, fileHash=current_hash)
             for point in POINTS:
                 pt = item.get(point)
                 if pt is not None:

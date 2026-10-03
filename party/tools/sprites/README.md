@@ -26,6 +26,11 @@ basename and generation prompt/provenance so someone can reproduce the intake.
 ```
 
 Run `python3 party/tools/sprites/build.py /tmp/spec.json`. Override destination with `--output`.
+The builder writes each WebP atomically and records rendered-art/file hashes.
+Later landmark-only edits reuse valid unchanged raster files; changed artwork,
+geometry, quality or corrupted files are encoded again. Old manifests without
+hashes get a normal full build. Verify pipeline edits with
+`python3 party/tools/sprites/build_test.py`.
 The default destination is `party/assets/sprites/<asset>`. Source rectangles `[x,y,w,h]` can replace
 `cell` + `grid` for irregular sheets. Per-pose `sourceDefaults` override top-level defaults;
 per-frame fields override both. The script deliberately leaves the shared index to the integrator.

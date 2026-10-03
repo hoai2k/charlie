@@ -244,3 +244,9 @@ hand=green, back=orange, anchor=white.
 ### Final runtime review lessons
 
 Check the idle frame itself: a correct non-idle neck cannot fix a stale idle eye/neck marker (Scale needed25px upward correction). Compare all frames at their original pixel scale on a shared anchor baseline using review_frames.py; per-cell auto-fit hides head-size jumps. Correct source coordinates by the runtime anchor/scale inverse, then rebuild manifest and optimized fingerprint. Review card flip as a reaching gesture, photograph as peace sign, and full rear view in twirls. Large crouching/curled bodies need head-scale matching, not total-height matching. The builder now encodes to a temporary .tmp file and atomically replaces each WebP, preventing transient empty frames in preview or Git.
+
+### Incremental rebuilds
+
+Use the normal builder after landmark edits. New builds record hashes of the rendered art and encoded file. Subsequent builds update coordinates while reusing unchanged raster bytes; changed source art, alpha/crop/scale, encoding quality, missing files or file corruption force encoding. The first rebuild of older sets has no hashes and encodes normally. Do not manually copy coordinate metadata between different drawings. Run `python3 party/tools/sprites/build_test.py` after pipeline changes, then optimize the character and refresh its masks.
+
+Audit every action against the exact sheet prompt and crop order: valid filenames do not prove the action is correct. Fox’s legacy rows had reciprocal sleep/clap and other swaps; reading the prompt and actual source sheet caught them. Check all inherited actions before declaring a full set complete.

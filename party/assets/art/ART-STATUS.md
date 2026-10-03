@@ -1,61 +1,37 @@
 # Charlie Party art delivery and handoff
 
-Updated 2026-10-02 at the requested 40% remaining usage pause.
-**263 indexed keys / 245 unique files / 8,116,502 bytes**.
-Every indexed file decoded successfully at this checkpoint.
-`index.json` is the exact runtime inventory; `generation-manifest.json` contains
-saved prompts, generated source paths and intake metadata. Runtime art is WebP.
+Updated 2026-10-03. Production is active; the user revoked the former allowance pause.
+**288 indexed keys / 268 unique WebP files / 9,020,858 bytes**.
+All indexed files were decoded in the final inventory audit. `index.json` is the
+runtime inventory; `generation-manifest.json` records prompts, master paths and
+intake metadata. Earlier versions remain available alongside latest pointers.
 
-## Delivered this resumed session
+## Delivered art
 
-Gold transparent-center gallery frame; all eight art-tool icons; candle flame;
-sprinkles; rainbow feather/stardust jar/moon drop; matching 454×300 bathtub front
-with transparent opening; all eight pet-bow color keys; fountain; hedge;
-top-down arena cake, crumb and danger ring. Matching legacy ingredients and
-pink/blue/yellow bows reuse semantic aliases. Previous backgrounds, thumbnails,
-plant stages, fashion accessories, NPC cutouts and other props remain indexed.
+All requested title/menu/results backdrops, 20 game backgrounds and thumbnails,
+plant stages, fashion accessories, cake layers/toppers, studio tools, pet-spa
+pieces, UI rewards and effects are present. Completed regeneration requests
+include podium blocks, confetti atlas, corrected card aspect, flat rug, neutral
+potion props, aligned balloons, cookie damage states, cropped rock, outlined
+hedge/crumbs, thin danger ring, broad cake arena and transparent crumble rings,
+overhead garden day/night, luminous plant stages, tiny seed stages, pearl tiara,
+low cake stand, neutral sponge shapes and quadruped royal side cape.
 
-All NPC canonicals remain approved. Storm Cloud lightning must remain a separate
-effect per the user. Normal/zap cloud art does not bake in lightning.
+Storm Cloud lightning is a separate effect; cloud normal/zap art has no baked
+lightning. Approved NPC cutouts remain available in addition to their animation
+sets. The bakery uses neutral sponge texture with configurable flavor tints;
+heart/star aliases and extra potion ingredients are preserved for future use.
 
-## Outstanding generation and regeneration
+## Integration and follow-up
 
-The authoritative review table is at the end of `../../image-requests.md`.
-These requests arrived after delivery, so earlier existence is not completion:
+The latest lead code selects the animal side cape and recolors it for every
+cape palette. Reviewed integrations cover the garden, potion classroom, bakery,
+Fashion Show and eight-player cake arena. Runtime alpha and prop anchors are
+preserved. The optional distant Broomstick Dash parallax background was not
+required for the current renderer; it remains an optional future enhancement.
 
-- Separate podium blocks 1–4, confetti 8×4 atlas, 300×400 card back.
-- Green/lime fizzle, flatter rug, neutral cauldron/bubbles/potion bottle.
-- Separate cloud lightning effect, aligned balloon canvases, cookie flavor 2–4
-  cracked/crumbling states, rock base crop.
-- Rounder cake platform plus crumble overlay rings; top-down fairy garden day/night.
-- Low cake stand, visibly luminous plants and smaller seed variants.
-- Plain neutral sponge layers for round/heart/star; white/silver pearl tiara.
-- 1024px thin warning danger ring, outlined crumb variants 1–4 and outlined hedge.
-
-Potion Class blackboard needs re-check after code integration before deciding
-on art replacement. Feather/jar/moon-drop are preserved for future recipes and
-explicitly do not need regeneration. Optional requests remain in the queue.
-
-## Integration and resume
-
-Concurrent game agents have been integrating art on main. Inspect current code
-before duplicating hooks; recent changes include all pet bows and arena props.
-Keep actor attachments anchored to head/eyes/neck/back/hand, procedural tinting
-and game collision geometry intact. Bath front shares the original draw box.
-Use a fresh no-cache preview (port 8141) after merging imported modules.
-
-Production is paused at 60% used. The half-hour request monitor may record new
-requests while paused; it must not generate until the user resumes and cancels
-itself after one unchanged interval. See `../../reference/SPRITE-SESSION-HANDOFF.md`
-and `../../tools/sprites/AGENT-PLAYBOOK.md` for saved work and production lessons.
-
-## Sol regeneration delivery
-
-All general regeneration images are now delivered: overhead garden day/night,
-seed/glow plant stages, aligned balloons, neutral potion props, four podiums,
-confetti atlas, outlined crumbs, three crumble rings, and the low cake stand v3.
-Plain neutral layers have both `prop/cake-sponge-<shape>` and
-`prop/cake-layer-<shape>` aliases for round/heart/star; the procedural bakery
-continues handling its configurable frosting and flavor options. Original
-versions are preserved. Generation prompts and source masters are recorded in
-`generation-manifest.json`. Latest runtime pointers are in `index.json`.
+Current character work and new regeneration feedback are tracked separately in
+`../../reference/IMAGE-WORK-QUEUE.md` and `../../image-requests.md`. The delivery
+follow-up checks for new requests 30 minutes after the most recent published
+image batch and cancels after a full unchanged interval. Do not reintroduce the
+revoked usage pause. Read the sprite agent playbook before further intake.
