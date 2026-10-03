@@ -1,0 +1,8 @@
+{
+  "character": "fox",
+  "asset": "flip",
+  "source": "../sources/fox-memory-card-flip.webp",
+  "reference": "../../../reference/canonical/fox.png",
+  "method": "built-in image_gen",
+  "prompt": "Use the exact orange quadruped Fox in reference image 1: white muzzle, chest and tail tip, very large orange-and-white tail, tall black-tipped ears, big brown eyes, pink tongue, bold navy outlines. Create one isolated full-body transparent sprite, three-quarter side view facing right. Fox lowers the head and leans forward, watching the ground. Keep three paws planted and extend the near-side front paw forward and down, with the paw clearly lifted, bent at the wrist and reaching just past the muzzle as if tapping and turning over a separate memory card. Keep the paw empty; show the toes gently curled for a grip-like card-flip gesture, but preserve animal paw anatomy with no human fingers or arms. This is a small card-flipping reach, absolutely not a somersault, roll, tumble, jump, or rear. Keep the full tail, ears, paws and body visible at idle scale. No card, floor, table, prop, shadow, background, scene, effects, text, labels or border; true transparent background."
+}

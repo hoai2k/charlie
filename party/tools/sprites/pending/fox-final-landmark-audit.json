@@ -1,0 +1,106 @@
+{
+  "status": "COMPLETE: all96 runtime frames reviewed, source-order repaired, build and optimizer current",
+  "task": "Final Fox attachment/scale and source-order audit",
+  "masterPolicy": "No new generation; existing approved generated source sheets preserved unchanged.",
+  "manualFrames": 96,
+  "reviewMethod": "Every built frame reviewed using review_frames at actual scale and shared baseline. Head, eye center, under-chin neck and lip/mouth hand coordinates inverse-transformed to crop-local source points. Paw-grip flip kept at reaching paw.",
+  "sourceOrderCorrections": {
+    "hurt": "dizzy",
+    "dizzy": "surprised",
+    "surprised": "hurt",
+    "ready": "jump",
+    "jump": "ready",
+    "throw": "carry",
+    "carry": "throw",
+    "paint": "cast",
+    "sleep": "clap",
+    "cast": "sleep",
+    "clap": "paint",
+    "eat": "bow",
+    "bow": "eat",
+    "strike3": "shake",
+    "shake": "stir",
+    "stir": "dance-up",
+    "dance-up": "strike3",
+    "dance-down": "look-around",
+    "dance-side": "dance-down",
+    "look-around": "high-five",
+    "high-five": "dance-side",
+    "crouch": "catch",
+    "catch": "crouch",
+    "think": "dance-star",
+    "dance-star": "think",
+    "giggle": "catch-toy",
+    "catch-toy": "giggle"
+  },
+  "scaleCorrections": {
+    "flip": {
+      "before": 0.38,
+      "after": 0.49
+    },
+    "run": {
+      "before": 1,
+      "after": 1.18
+    },
+    "ride": {
+      "before": 0.77,
+      "after": 0.65
+    }
+  },
+  "anchorPolicy": "Existing correct grounded/crouched/ride anchors preserved. Remapped ready restored ground contact, jump anchor below airborne feet.",
+  "restoredOmittedCell": "fox-actions-d.webp bottom-right wave-goodbye, no new art",
+  "reviewContacts": [
+    "/private/tmp/fox-audit-0.png",
+    "/private/tmp/fox-audit-1.png",
+    "/private/tmp/fox-audit-2.png",
+    "/private/tmp/fox-audit-3.png",
+    "/private/tmp/fox-audit-4.png",
+    "/private/tmp/fox-audit-5.png",
+    "/private/tmp/fox-audit-6.png",
+    "/private/tmp/fox-audit-7.png",
+    "/private/tmp/fox-audit-8.png",
+    "/private/tmp/fox-audit-9.png",
+    "/private/tmp/fox-audit-10.png",
+    "/private/tmp/fox-audit-11.png",
+    "/private/tmp/fox-audit-12.png"
+  ],
+  "finalReview": {
+    "core": "/private/tmp/fox-final-core.png",
+    "pets": "/private/tmp/fox-final-pet.png",
+    "allFrames": [
+      "/private/tmp/fox-audit-0.png",
+      "/private/tmp/fox-audit-1.png",
+      "/private/tmp/fox-audit-2.png",
+      "/private/tmp/fox-audit-3.png",
+      "/private/tmp/fox-audit-4.png",
+      "/private/tmp/fox-audit-5.png",
+      "/private/tmp/fox-audit-6.png",
+      "/private/tmp/fox-audit-7.png",
+      "/private/tmp/fox-audit-8.png",
+      "/private/tmp/fox-audit-9.png",
+      "/private/tmp/fox-audit-10.png",
+      "/private/tmp/fox-audit-11.png",
+      "/private/tmp/fox-audit-12.png"
+    ]
+  },
+  "additionalScaleCorrections": {
+    "giggle": 0.86,
+    "catch-toy": 0.86,
+    "wave-goodbye": 1.12
+  },
+  "anchorRefinement": "Giggle remapped from formerly-airborne catch-toy uses true foot contact; overhead carry hand on upper back.",
+  "validation": {
+    "poses": 75,
+    "frameEntries": 96,
+    "portraits": 5,
+    "encodedKiB": 1780,
+    "decodedMiB": 23.5,
+    "errors": [],
+    "warnings": [
+      "Encoded 1.74MiB exceeds1.5MiB soft target; decoded below25MiB"
+    ],
+    "runtimeTests": "passed",
+    "optimizedFiles": 101,
+    "fingerprint": "a5d8873e3ca7853e"
+  }
+}

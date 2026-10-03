@@ -214,3 +214,5 @@ New main request 9a65978 checked 2026-10-03T00:33:18+00:00: root generating prop
 Royal side cape complete: prop/cape-royal-side 520x300 transparent WebP, existing Fashion Show consumer automatically selects it for trotting quadrupeds. General art inventory now288 keys /268 files.
 
 Marina/Scale final reviewed set: each75keys/92frames/fiveportraits; decoded20.9/20.5MiB. Hotdog complete75keys/96frames/fiveportraits,19.3MiBdecoded. Root reviews passed; publishing stable batches. KPop3, Cotton Candy and Unicorn remain.
+
+Fox final semantic/landmark audit complete:28 legacy action-source swaps repaired to exact prompts; all96 frame attachment points reviewed, memory card reaches withfrontpaw, head scales normalized. Reviewed full Broomstick Dash and optimized Memory Match,23.5MiBdecode, fresh optimizer.
