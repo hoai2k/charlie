@@ -1,0 +1,21 @@
+{
+  "asset": "princess-amber",
+  "source": "../sources/princess-amber-full-actions-d.webp",
+  "input_image_1": "../../../reference/canonical/princess-amber.webp",
+  "poses": [
+    "dash",
+    "dash",
+    "hip-bump",
+    "hip-bump",
+    "knockback",
+    "knockback",
+    "pose-twirl",
+    "pose-twirl"
+  ],
+  "grid": [
+    4,
+    2
+  ],
+  "status": "exact prompt saved before built-in image_gen; not yet generated. Crop each actual connected figure, inspect and hand-annotate all landmarks before build.",
+  "prompt": "Use case: stylized-concept. Asset type: transparent full-body sprite sheet for Charlie Party. Input image 1 is the approved canonical princess-amber reference; reproduce this exact character. Subject: long copper-auburn hair, amber flower-star crown, floor-length orange gown, black sleeves and bodice accents, white flower-star motifs outlined in black, warm brown eyes. Personality: graceful and expressive princess gestures with flowing hair and gown. Style: match the canonical 2D cartoon with bold smooth navy outlines, clean cel shading and the same face, hair, body proportions and outfit. Primary request: draw exactly 8 distinct full-body figures in a 4 columns by 2 rows transparent grid, in row-major order. Each cell has one pose only; generous transparent gutters; consistent head size and figure scale in every cell; leave clear margins around hair, hands and shoes. Never add another character. Exact row-major pose order: 1 dash launch: low forward launch with lead knee lifted and arms driving. 2 dash held: sustained forward lunge, same head size, clear run silhouette. 3 hip-bump preparation: cock one hip toward facing, arms counterbalancing and playful grin. 4 hip-bump swing: swing the hip toward facing with a short decisive follow-through. 5 knockback start: recoil from an unseen hit, torso leaning back, arms beginning to windmill. 6 knockback continuation: skid farther backward with balance arms spread, no injury marks. 7 pose-twirl angle one: exact front-facing view, poised arms and flowing cloth. 8 pose-twirl angle two: clean three-quarter view turned to the character’s right, continuing the same spin.. Constraints: preserve the complete canonical identity and colors in every pose; normal human anatomy; true transparent alpha; keep props and effects separate when instructions call for an imaginary held object. Avoid: backdrop, scenery, shadows, cell borders, text, labels, extra accessories, props, watermark, detached marks, clipped hair, hands or feet."
+}

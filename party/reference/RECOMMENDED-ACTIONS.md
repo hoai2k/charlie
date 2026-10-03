@@ -1,6 +1,6 @@
 # Optional character actions
 
-The engine supports the six actions below in `src/engine/sprites.js`, with authored art in the reviewed expanded sets and procedural fallback chains for partial sets. They are part of the current 74-key coverage checklist. Unicorn's latest revision still requires final review; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md).
+All15 roster member sets now have authored art for the six actions below, supported by `src/engine/sprites.js`. They are part of the complete74-key coverage checklist; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md). Compatible aliases and procedural motion remain available for graceful runtime fallback.
 
 These actions enable optional game features. Installing artwork does not change controls, movement, collisions or scoring.
 

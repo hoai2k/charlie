@@ -1,0 +1,96 @@
+{
+  "character": "unicorn",
+  "reference": "../../../reference/canonical/unicorn.png",
+  "round": "round5",
+  "sheets": [
+    {
+      "name": "actions-a",
+      "source": "../sources/unicorn-round5-actions-a.webp",
+      "poses": [
+        "swim",
+        "balance",
+        "splat-throw",
+        "wand-up",
+        "broom-rise",
+        "broom-glide",
+        "broom-zapped",
+        "count"
+      ],
+      "prompt": "Use reference image 1 as the exact Unicorn character. Create a real-transparent 4-column by 2-row sheet with eight separate full-body poses of the same white quadruped unicorn. Preserve her long spiral lavender horn, flowing pale lavender mane and tail, large blue eye with dark lashes, white coat, navy outline, and simple cel shading; no new clothes, crown, flower or wings. Exactly four equine legs ending in hooves; no human arms, hands or fingers. Keep consistent head/body size, full horn/mane/tail visible, clear transparent gutters, face right in every cell. Ordered left-right top row then bottom row: (1) swim, floating prone and paddling with four hooves; (2) balance, wobble on three hooves and lift one forehoof, standalone with no platform; (3) splat-throw, playful forward toss gesture with an empty forehoof, no object; (4) wand-up, rear slightly and raise an empty forehoof as if holding a separate wand; (5) broom-rise, airborne rising diagonally as if on a separate external broom, tuck all hooves; (6) broom-glide, level forward flight as if on an external broom, hooves tucked; (7) broom-zapped, startled midair recoil with mane briefly fluffed but no lightning or effects; (8) count, standing and thoughtfully lifting one forehoof. Keep the horn clear and anatomically attached in all poses. Smooth bold dark navy linework, bright faithful lavender and white colors. No background, floor, shadow, props, effects, labels, text, border or extra characters.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-f6d54e22-ad03-4def-ab0f-ee9f3cae4a50.png"
+    },
+    {
+      "name": "actions-b",
+      "source": "../sources/unicorn-round5-actions-b.webp",
+      "poses": [
+        "look-up",
+        "crowned",
+        "dash-0",
+        "dash-1",
+        "hip-bump-0",
+        "hip-bump-1",
+        "knockback-0",
+        "knockback-1"
+      ],
+      "prompt": "Use reference image 1 as the exact white Unicorn character, preserving her long spiral lavender horn, flowing pale lavender mane and tail, blue eye with dark lashes, navy outline and cel-shaded white coat. Asset: transparent 4-column by 2-row action sheet with eight full-body pony cells, consistent head/body size and complete horn/mane/tail. Four equine legs and hooves only; no hands, fingers, human anatomy, wings, crown or extra accessories. Keep every pose right-facing. Ordered left-right top row then bottom row: (1) look-up, standing and gazing upward; (2) crowned, proud regal head-up stance with horn raised, do not add a crown; (3-4) dash, two linked gallop beats, first limbs fully reaching, second gathering under the body, mane flowing; (5-6) hip-bump, two linked playful quadruped poses shifting rump and shoulder sideways then rebounding, no other character; (7-8) knockback, startled recoil with hooves braced and mane swept back, then recovery, no impact marks. Full body separately framed with generous true-transparent gutters. No floor, shadows, scenery, props, effects, text, labels, borders or extra figures.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-7689892d-d383-443b-be45-c2a6df191ad6.png"
+    },
+    {
+      "name": "actions-b2",
+      "source": "../sources/unicorn-round5-actions-b2.webp",
+      "poses": [
+        "sit",
+        "tumble",
+        "hold-present"
+      ],
+      "prompt": "Use the exact white Unicorn in reference image 1: long spiral lavender horn, flowing pale lavender mane and tail, large blue eye and dark lashes, white coat, clean navy outline and cel shading. Make one true-transparent 3-cell horizontal action strip, each full-body and separately spaced, with consistent idle head size. Four equine legs and hooves only, no human hands, fingers, wings or extra costume. Left to right: (1) sit low on hindquarters with forehooves resting in front and tail curled alongside, horn visible; (2) tumble safely onto her side/back with four hooves visible and mane flowing, horn attached and unobstructed; (3) hold-present, stand and gently open muzzle at her mouth attachment point as if holding a separate present, no present drawn. Keep right-facing orientation where possible, preserve the exact lavender mane and horn, all art crisp. Real transparent background. No props, floor, shadows, scene, effects, text, labels, borders or extra characters.",
+      "master": "/Users/hoai/.codex/generated_images/01a0fe43-8f12-73d3-abe9-df901b7f71db/exec-70d781f8-1f91-499d-9d7c-c15c3d15b15a.png"
+    },
+    {
+      "name": "actions-c",
+      "source": "../sources/unicorn-round5-actions-c.webp",
+      "poses": [
+        "toss",
+        "catch-present",
+        "sooty",
+        "drink",
+        "float",
+        "hiccup",
+        "stomp-giant",
+        "squeak-tiny"
+      ],
+      "prompt": "Use reference image 1 as the exact approved Unicorn character: white quadruped pony, long spiral lavender horn, flowing pale lavender mane and tail, large blue eye with dark lashes. No crown, flower, wings, clothes, or extra markings. Create a transparent 4-column by 2-row sprite sheet with eight isolated full-body pony poses, identical scale, even spacing, no overlap, no labels/borders/shadows or scene. Order left-to-right then row: 1 toss (gently tossing a small imaginary object upward with a forehoof; empty hoof), 2 catch-present (eagerly catch an imaginary present with both forehooves; no present), 3 sooty (light soot smudges on face/mane after a harmless puff, startled but unharmed; no smoke), 4 drink (head lowered as if sipping, no cup), 5 float (levitating gently with all hooves lifted, no magic effects or props), 6 hiccup (small startled hiccup with head and shoulders popping up), 7 stomp-giant (comically giant body and head, preserve unicorn anatomy/horn), 8 squeak-tiny (very tiny full-body unicorn, preserve horn and recognizability). Keep one character per cell, full horn/mane/tail/hooves in frame, crisp outlines and cel shading, clear alpha."
+    },
+    {
+      "name": "actions-d",
+      "source": "../sources/unicorn-round5-actions-d.webp",
+      "poses": [
+        "blow",
+        "shake-sprinkles",
+        "photo",
+        "sing",
+        "water"
+      ],
+      "prompt": "Use reference image 1 as the exact approved Unicorn: white quadruped pony, long spiral lavender horn, flowing pale lavender mane and tail, large blue eye with dark lashes. No crown, flower, wings, clothing, or extra markings. Create a transparent 3-column by 2-row sheet with five isolated full-body poses and the bottom-right cell left completely empty; same scale and spacing, no overlap, border, labels, props, or scene. Order left-to-right then row: 1 blow (gentle puff from muzzle, no visible effect), 2 shake-sprinkles (shake mane/head as if scattering imaginary sprinkles, but no sprinkles or props), 3 photo (neat camera-ready pose, no camera), 4 sing (cheerful singing pose with mouth open), 5 water (carefully gesture as if watering a plant, no watering can or plant). Full body and horn visible, crisp dark outlines, cel shading, clean transparent background."
+    },
+    {
+      "name": "pose-twirl",
+      "source": "../sources/unicorn-round5-pose-twirl.webp",
+      "poses": [
+        "pose-twirl-0",
+        "pose-twirl-1",
+        "pose-twirl-2",
+        "pose-twirl-3"
+      ],
+      "prompt": "Use reference image 1 as the exact approved Unicorn: white quadruped pony, spiral lavender horn, flowing pale lavender mane and tail, blue eyes with dark lashes. Create four authored full-body views in one transparent 4-column sprite sheet, same scale and centered stance, no overlap, no labels/background/border. Order: front view, front three-quarter turned to her right, true back view showing rear mane/tail and body with no visible eyes, opposite three-quarter return toward front. These are distinct body orientations, not a spin effect or repeated front views; preserve the horn in correct perspective and character motifs."
+    },
+    {
+      "name": "card-flip",
+      "source": "../sources/unicorn-round5-card-flip.webp",
+      "poses": [
+        "flip"
+      ],
+      "prompt": "Use reference image 1 as the exact approved Unicorn: white quadruped pony, spiral lavender horn, flowing pale lavender mane and tail, large blue eye with dark lashes. No crown, flower, wings, clothes, or extra markings. One isolated full-body pose on transparent background, facing right in a three-quarter profile. Lower the neck and muzzle toward the ground. Keep three hooves planted; clearly lift and bend the near front leg, extend its empty hoof diagonally forward and down just past the muzzle as if gently tapping and turning a separate memory card. The eye looks down at that same point. Keep a clear silhouette gap around the hoof. This is card-flipping, NOT somersault, tumble, roll, jump, wave, or rear. Empty hooves and muzzle, no card/table/floor/shadow/props/text/border. Keep full horn, mane, tail and hooves, idle-size body."
+    }
+  ]
+}

@@ -1,0 +1,4143 @@
+{
+  "asset": "unicorn",
+  "bodyHeight": 230,
+  "frameSize": [
+    560,
+    460
+  ],
+  "anchor": [
+    295,
+    432
+  ],
+  "facing": 1,
+  "quality": 82,
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-core.webp",
+          "rect": [
+            40,
+            16,
+            421,
+            482
+          ],
+          "isolate": true,
+          "anchor": [
+            261,
+            479
+          ],
+          "scale": 1,
+          "head": [
+            328.38,
+            81.94000000000001
+          ],
+          "eyes": [
+            345.21999999999997,
+            115.67999999999999
+          ],
+          "neck": [
+            319.96,
+            207.26
+          ],
+          "back": [
+            227.34,
+            274.73999999999995
+          ],
+          "hand": [
+            395.73999999999995,
+            154.24
+          ],
+          "dur": 2.0
+        },
+        {
+          "source": "../sources/unicorn-core.webp",
+          "rect": [
+            559,
+            10,
+            424,
+            488
+          ],
+          "isolate": true,
+          "anchor": [
+            263,
+            485
+          ],
+          "scale": 0.988,
+          "head": [
+            330.72,
+            82.96000000000001
+          ],
+          "eyes": [
+            347.68,
+            117.11999999999999
+          ],
+          "neck": [
+            322.24,
+            209.84
+          ],
+          "back": [
+            228.96,
+            278.15999999999997
+          ],
+          "hand": [
+            398.56,
+            156.16
+          ],
+          "dur": 0.6
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-core.webp",
+          "rect": [
+            1028,
+            6,
+            436,
+            489
+          ],
+          "isolate": true,
+          "anchor": [
+            270,
+            486
+          ],
+          "scale": 1,
+          "head": [
+            340.08,
+            83.13000000000001
+          ],
+          "eyes": [
+            357.52,
+            117.36
+          ],
+          "neck": [
+            331.36,
+            210.27
+          ],
+          "back": [
+            235.44000000000003,
+            278.72999999999996
+          ],
+          "hand": [
+            409.84,
+            156.48
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-core.webp",
+          "rect": [
+            41,
+            504,
+            432,
+            481
+          ],
+          "isolate": true,
+          "anchor": [
+            268,
+            478
+          ],
+          "scale": 1,
+          "head": [
+            336.96000000000004,
+            81.77000000000001
+          ],
+          "eyes": [
+            354.23999999999995,
+            115.44
+          ],
+          "neck": [
+            328.32,
+            206.82999999999998
+          ],
+          "back": [
+            233.28000000000003,
+            274.16999999999996
+          ],
+          "hand": [
+            406.08,
+            153.92000000000002
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-core.webp",
+          "rect": [
+            531,
+            515,
+            467,
+            473
+          ],
+          "isolate": true,
+          "anchor": [
+            290,
+            470
+          ],
+          "scale": 1,
+          "head": [
+            364.26,
+            80.41000000000001
+          ],
+          "eyes": [
+            382.94,
+            113.52
+          ],
+          "neck": [
+            354.92,
+            203.39
+          ],
+          "back": [
+            252.18,
+            269.60999999999996
+          ],
+          "hand": [
+            438.97999999999996,
+            151.36
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-core.webp",
+          "rect": [
+            1042,
+            618,
+            488,
+            372
+          ],
+          "isolate": true,
+          "anchor": [
+            303,
+            369
+          ],
+          "scale": 1,
+          "head": [
+            378.57,
+            89.51
+          ],
+          "eyes": [
+            378.69,
+            104.26
+          ],
+          "neck": [
+            316.84,
+            196.24
+          ],
+          "back": [
+            258.64,
+            163.68
+          ],
+          "hand": [
+            394.31,
+            142.19
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            10,
+            18,
+            412,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            255,
+            419
+          ],
+          "scale": 1.15,
+          "head": [
+            321.36,
+            70.72
+          ],
+          "eyes": [
+            337.84,
+            99.84
+          ],
+          "neck": [
+            313.12,
+            178.88
+          ],
+          "back": [
+            222.48000000000002,
+            237.11999999999998
+          ],
+          "hand": [
+            387.28,
+            133.12
+          ]
+        },
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            458,
+            18,
+            398,
+            412
+          ],
+          "isolate": true,
+          "anchor": [
+            247,
+            419
+          ],
+          "scale": 1.15,
+          "head": [
+            310.44,
+            70.04
+          ],
+          "eyes": [
+            326.35999999999996,
+            98.88
+          ],
+          "neck": [
+            302.48,
+            177.16
+          ],
+          "back": [
+            214.92000000000002,
+            234.83999999999997
+          ],
+          "hand": [
+            374.12,
+            131.84
+          ]
+        },
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            897,
+            19,
+            407,
+            418
+          ],
+          "isolate": true,
+          "anchor": [
+            252,
+            418
+          ],
+          "scale": 1.15,
+          "head": [
+            317.46000000000004,
+            71.06
+          ],
+          "eyes": [
+            333.73999999999995,
+            100.32
+          ],
+          "neck": [
+            309.32,
+            179.74
+          ],
+          "back": [
+            219.78,
+            238.26
+          ],
+          "hand": [
+            382.58,
+            133.76
+          ]
+        },
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            1341,
+            13,
+            405,
+            420
+          ],
+          "isolate": true,
+          "anchor": [
+            251,
+            424
+          ],
+          "scale": 1.15,
+          "head": [
+            315.90000000000003,
+            71.4
+          ],
+          "eyes": [
+            332.09999999999997,
+            100.8
+          ],
+          "neck": [
+            307.8,
+            180.6
+          ],
+          "back": [
+            218.70000000000002,
+            239.39999999999998
+          ],
+          "hand": [
+            380.7,
+            134.4
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            15,
+            471,
+            475,
+            351
+          ],
+          "isolate": true,
+          "anchor": [
+            294,
+            364
+          ],
+          "scale": 1.4,
+          "head": [
+            370.5,
+            59.67
+          ],
+          "eyes": [
+            361.35,
+            99.05
+          ],
+          "neck": [
+            361.0,
+            150.93
+          ],
+          "back": [
+            256.5,
+            200.07
+          ],
+          "hand": [
+            410.95,
+            109.35
+          ]
+        },
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            455,
+            465,
+            420,
+            363
+          ],
+          "isolate": true,
+          "anchor": [
+            260,
+            370
+          ],
+          "scale": 1.4,
+          "head": [
+            327.6,
+            61.71000000000001
+          ],
+          "eyes": [
+            344.4,
+            87.11999999999999
+          ],
+          "neck": [
+            319.2,
+            156.09
+          ],
+          "back": [
+            226.8,
+            206.90999999999997
+          ],
+          "hand": [
+            369.61,
+            96.9
+          ]
+        },
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            900,
+            472,
+            448,
+            358
+          ],
+          "isolate": true,
+          "anchor": [
+            278,
+            363
+          ],
+          "scale": 1.4,
+          "head": [
+            349.44,
+            60.86000000000001
+          ],
+          "eyes": [
+            367.35999999999996,
+            85.92
+          ],
+          "neck": [
+            340.48,
+            153.94
+          ],
+          "back": [
+            241.92000000000002,
+            204.05999999999997
+          ],
+          "hand": [
+            397.41,
+            110.12
+          ]
+        },
+        {
+          "source": "../sources/unicorn-locomotion.webp",
+          "rect": [
+            1342,
+            469,
+            408,
+            299
+          ],
+          "isolate": true,
+          "anchor": [
+            253,
+            366
+          ],
+          "scale": 1.4,
+          "head": [
+            318.24,
+            50.830000000000005
+          ],
+          "eyes": [
+            334.56,
+            71.75999999999999
+          ],
+          "neck": [
+            310.08,
+            128.57
+          ],
+          "back": [
+            220.32000000000002,
+            170.42999999999998
+          ],
+          "hand": [
+            358.33,
+            88.27
+          ]
+        }
+      ],
+      "fps": 12,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-celebrate-pout.webp",
+          "rect": [
+            6,
+            176,
+            480,
+            326
+          ],
+          "isolate": true,
+          "anchor": [
+            298,
+            323
+          ],
+          "scale": 1,
+          "head": [
+            374.40000000000003,
+            55.42
+          ],
+          "eyes": [
+            393.59999999999997,
+            78.24
+          ],
+          "neck": [
+            364.8,
+            140.18
+          ],
+          "back": [
+            259.20000000000005,
+            185.82
+          ],
+          "hand": [
+            424.24,
+            102.25
+          ]
+        },
+        {
+          "source": "../sources/unicorn-celebrate-pout.webp",
+          "rect": [
+            532,
+            17,
+            444,
+            474
+          ],
+          "isolate": true,
+          "anchor": [
+            275,
+            521
+          ],
+          "scale": 1,
+          "head": [
+            346.32,
+            80.58000000000001
+          ],
+          "eyes": [
+            364.08,
+            113.75999999999999
+          ],
+          "neck": [
+            337.44,
+            203.82
+          ],
+          "back": [
+            239.76000000000002,
+            270.17999999999995
+          ],
+          "hand": [
+            392.47,
+            141.31
+          ]
+        },
+        {
+          "source": "../sources/unicorn-celebrate-pout.webp",
+          "rect": [
+            1039,
+            54,
+            468,
+            368
+          ],
+          "isolate": true,
+          "anchor": [
+            290,
+            415
+          ],
+          "scale": 1,
+          "head": [
+            365.04,
+            62.56
+          ],
+          "eyes": [
+            383.76,
+            88.32
+          ],
+          "neck": [
+            355.68,
+            158.24
+          ],
+          "back": [
+            252.72000000000003,
+            209.76
+          ],
+          "hand": [
+            412.96,
+            113.6
+          ]
+        },
+        {
+          "source": "../sources/unicorn-celebrate-pout.webp",
+          "rect": [
+            9,
+            639,
+            504,
+            342
+          ],
+          "isolate": true,
+          "anchor": [
+            312,
+            339
+          ],
+          "scale": 1,
+          "head": [
+            393.12,
+            58.14000000000001
+          ],
+          "eyes": [
+            413.28,
+            82.08
+          ],
+          "neck": [
+            383.04,
+            147.06
+          ],
+          "back": [
+            272.16,
+            194.93999999999997
+          ],
+          "hand": [
+            446.8,
+            111.51
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-celebrate-pout.webp",
+          "rect": [
+            559,
+            531,
+            417,
+            463
+          ],
+          "isolate": true,
+          "anchor": [
+            259,
+            460
+          ],
+          "scale": 1,
+          "head": [
+            325.26,
+            78.71000000000001
+          ],
+          "eyes": [
+            341.94,
+            111.11999999999999
+          ],
+          "neck": [
+            316.92,
+            199.09
+          ],
+          "back": [
+            225.18,
+            263.90999999999997
+          ],
+          "hand": [
+            391.97999999999996,
+            148.16
+          ]
+        },
+        {
+          "source": "../sources/unicorn-celebrate-pout.webp",
+          "rect": [
+            1090,
+            531,
+            420,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            260,
+            461
+          ],
+          "scale": 1,
+          "head": [
+            327.6,
+            78.88000000000001
+          ],
+          "eyes": [
+            344.4,
+            111.36
+          ],
+          "neck": [
+            319.2,
+            199.52
+          ],
+          "back": [
+            226.8,
+            264.47999999999996
+          ],
+          "hand": [
+            394.79999999999995,
+            148.48
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            16,
+            19,
+            423,
+            479
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            476
+          ],
+          "scale": 1,
+          "head": [
+            329.94,
+            81.43
+          ],
+          "eyes": [
+            346.85999999999996,
+            114.96
+          ],
+          "neck": [
+            321.48,
+            205.97
+          ],
+          "back": [
+            228.42000000000002,
+            273.03
+          ],
+          "hand": [
+            364.44,
+            315.05
+          ]
+        },
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            537,
+            9,
+            456,
+            490
+          ],
+          "isolate": true,
+          "anchor": [
+            283,
+            487
+          ],
+          "scale": 1,
+          "head": [
+            355.68,
+            83.30000000000001
+          ],
+          "eyes": [
+            373.91999999999996,
+            117.6
+          ],
+          "neck": [
+            346.56,
+            210.7
+          ],
+          "back": [
+            246.24,
+            279.29999999999995
+          ],
+          "hand": [
+            393.38,
+            357.97
+          ]
+        },
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            1079,
+            9,
+            420,
+            491
+          ],
+          "isolate": true,
+          "anchor": [
+            260,
+            488
+          ],
+          "scale": 1,
+          "head": [
+            327.6,
+            83.47000000000001
+          ],
+          "eyes": [
+            344.4,
+            117.83999999999999
+          ],
+          "neck": [
+            319.2,
+            211.13
+          ],
+          "back": [
+            226.8,
+            279.86999999999995
+          ],
+          "hand": [
+            353.32,
+            316.82
+          ]
+        },
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            29,
+            512,
+            408,
+            499
+          ],
+          "isolate": true,
+          "anchor": [
+            253,
+            496
+          ],
+          "scale": 1,
+          "head": [
+            318.24,
+            84.83000000000001
+          ],
+          "eyes": [
+            334.56,
+            119.75999999999999
+          ],
+          "neck": [
+            310.08,
+            214.57
+          ],
+          "back": [
+            220.32000000000002,
+            284.42999999999995
+          ],
+          "hand": [
+            362.78,
+            259.22
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            508,
+            638,
+            473,
+            336
+          ],
+          "isolate": true,
+          "anchor": [
+            293,
+            333
+          ],
+          "scale": 1,
+          "head": [
+            378.40000000000003,
+            80.64
+          ],
+          "eyes": [
+            397.32,
+            114.24000000000001
+          ],
+          "neck": [
+            364.21000000000004,
+            201.6
+          ],
+          "back": [
+            250.69000000000003,
+            228.48000000000002
+          ],
+          "hand": [
+            444.61999999999995,
+            144.48
+          ]
+        },
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            1031,
+            637,
+            475,
+            331
+          ],
+          "isolate": true,
+          "anchor": [
+            294,
+            328
+          ],
+          "scale": 1,
+          "head": [
+            380.0,
+            79.44
+          ],
+          "eyes": [
+            399.0,
+            112.54
+          ],
+          "neck": [
+            365.75,
+            198.6
+          ],
+          "back": [
+            251.75,
+            225.08
+          ],
+          "hand": [
+            446.5,
+            142.32999999999998
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            13,
+            13,
+            387,
+            484
+          ],
+          "isolate": true,
+          "anchor": [
+            248,
+            531
+          ],
+          "scale": 1.2,
+          "head": [
+            301.86,
+            82.28
+          ],
+          "eyes": [
+            317.34,
+            116.16
+          ],
+          "neck": [
+            294.12,
+            208.12
+          ],
+          "back": [
+            208.98000000000002,
+            275.88
+          ],
+          "hand": [
+            343.04,
+            137.6
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            406,
+            45,
+            395,
+            453
+          ],
+          "isolate": true,
+          "anchor": [
+            245,
+            500
+          ],
+          "scale": 1.2,
+          "head": [
+            308.1,
+            77.01
+          ],
+          "eyes": [
+            323.9,
+            108.72
+          ],
+          "neck": [
+            300.2,
+            194.79
+          ],
+          "back": [
+            213.3,
+            258.21
+          ],
+          "hand": [
+            371.29999999999995,
+            144.96
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            777,
+            242,
+            415,
+            266
+          ],
+          "isolate": true,
+          "anchor": [
+            257,
+            263
+          ],
+          "scale": 1.2,
+          "head": [
+            323.7,
+            101.08
+          ],
+          "eyes": [
+            306.77,
+            107.21
+          ],
+          "neck": [
+            301.22,
+            157.87
+          ],
+          "back": [
+            219.95000000000002,
+            117.04
+          ],
+          "hand": [
+            332.72,
+            143.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            1186,
+            123,
+            340,
+            385
+          ],
+          "isolate": true,
+          "anchor": [
+            211,
+            382
+          ],
+          "scale": 1.2,
+          "head": [
+            265.2,
+            65.45
+          ],
+          "eyes": [
+            278.8,
+            92.39999999999999
+          ],
+          "neck": [
+            258.4,
+            165.55
+          ],
+          "back": [
+            183.60000000000002,
+            219.45
+          ],
+          "hand": [
+            319.59999999999997,
+            123.2
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            16,
+            575,
+            377,
+            401
+          ],
+          "isolate": true,
+          "anchor": [
+            234,
+            398
+          ],
+          "scale": 1.2,
+          "head": [
+            294.06,
+            152.38
+          ],
+          "eyes": [
+            305.37,
+            208.52
+          ],
+          "neck": [
+            275.21,
+            240.6
+          ],
+          "back": [
+            199.81,
+            176.44
+          ],
+          "hand": [
+            343.07,
+            280.7
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            386,
+            522,
+            335,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            208,
+            461
+          ],
+          "scale": 1.2,
+          "head": [
+            261.3,
+            78.88000000000001
+          ],
+          "eyes": [
+            274.7,
+            111.36
+          ],
+          "neck": [
+            254.6,
+            199.52
+          ],
+          "back": [
+            180.9,
+            264.47999999999996
+          ],
+          "hand": [
+            314.9,
+            148.48
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            736,
+            526,
+            359,
+            456
+          ],
+          "isolate": true,
+          "anchor": [
+            223,
+            453
+          ],
+          "scale": 1.2,
+          "head": [
+            280.02,
+            77.52000000000001
+          ],
+          "eyes": [
+            294.38,
+            109.44
+          ],
+          "neck": [
+            272.84,
+            196.07999999999998
+          ],
+          "back": [
+            193.86,
+            259.91999999999996
+          ],
+          "hand": [
+            337.46,
+            145.92000000000002
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-reactions.webp",
+          "rect": [
+            1123,
+            793,
+            401,
+            200
+          ],
+          "isolate": true,
+          "anchor": [
+            249,
+            197
+          ],
+          "scale": 1.2,
+          "head": [
+            320.8,
+            48.0
+          ],
+          "eyes": [
+            336.84,
+            68.0
+          ],
+          "neck": [
+            308.77,
+            120.0
+          ],
+          "back": [
+            212.53,
+            136.0
+          ],
+          "hand": [
+            376.94,
+            86.0
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            11,
+            127,
+            420,
+            360
+          ],
+          "isolate": true,
+          "anchor": [
+            260,
+            357
+          ],
+          "scale": 1.2,
+          "head": [
+            312.05,
+            57.3
+          ],
+          "eyes": [
+            309.09,
+            88.69
+          ],
+          "neck": [
+            277.22,
+            196.99
+          ],
+          "back": [
+            210.5,
+            173.95
+          ],
+          "hand": [
+            330.35,
+            132.75
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            399,
+            51,
+            337,
+            432
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            429
+          ],
+          "scale": 1.2,
+          "head": [
+            262.86,
+            73.44000000000001
+          ],
+          "eyes": [
+            276.34,
+            103.67999999999999
+          ],
+          "neck": [
+            256.12,
+            185.76
+          ],
+          "back": [
+            181.98000000000002,
+            246.23999999999998
+          ],
+          "hand": [
+            306.41,
+            124.42
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            771,
+            147,
+            444,
+            336
+          ],
+          "isolate": true,
+          "anchor": [
+            275,
+            333
+          ],
+          "scale": 1.2,
+          "head": [
+            346.32,
+            57.120000000000005
+          ],
+          "eyes": [
+            364.08,
+            80.64
+          ],
+          "neck": [
+            337.44,
+            144.48
+          ],
+          "back": [
+            239.76000000000002,
+            191.51999999999998
+          ],
+          "hand": [
+            417.35999999999996,
+            107.52
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            1176,
+            31,
+            338,
+            450
+          ],
+          "isolate": true,
+          "anchor": [
+            210,
+            447
+          ],
+          "scale": 1.2,
+          "head": [
+            263.64,
+            76.5
+          ],
+          "eyes": [
+            277.15999999999997,
+            108.0
+          ],
+          "neck": [
+            256.88,
+            193.5
+          ],
+          "back": [
+            189.28000000000003,
+            238.5
+          ],
+          "hand": [
+            189.28000000000003,
+            238.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            19,
+            682,
+            385,
+            279
+          ],
+          "isolate": true,
+          "anchor": [
+            239,
+            276
+          ],
+          "scale": 1.2,
+          "head": [
+            300.3,
+            106.02
+          ],
+          "eyes": [
+            311.85,
+            145.08
+          ],
+          "neck": [
+            281.05,
+            167.4
+          ],
+          "back": [
+            204.05,
+            122.76
+          ],
+          "hand": [
+            334.95,
+            192.51
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            409,
+            621,
+            407,
+            343
+          ],
+          "isolate": true,
+          "anchor": [
+            252,
+            340
+          ],
+          "scale": 1.2,
+          "head": [
+            317.46000000000004,
+            130.34
+          ],
+          "eyes": [
+            329.67,
+            178.36
+          ],
+          "neck": [
+            297.11,
+            205.79999999999998
+          ],
+          "back": [
+            215.71,
+            150.92
+          ],
+          "hand": [
+            394.78999999999996,
+            37.73
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            787,
+            533,
+            360,
+            431
+          ],
+          "isolate": true,
+          "anchor": [
+            223,
+            428
+          ],
+          "scale": 1.2,
+          "head": [
+            280.8,
+            73.27000000000001
+          ],
+          "eyes": [
+            295.2,
+            103.44
+          ],
+          "neck": [
+            273.6,
+            185.32999999999998
+          ],
+          "back": [
+            194.4,
+            245.67
+          ],
+          "hand": [
+            338.4,
+            137.92000000000002
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-actions.webp",
+          "rect": [
+            1196,
+            491,
+            310,
+            484
+          ],
+          "isolate": true,
+          "anchor": [
+            198,
+            481
+          ],
+          "scale": 1.2,
+          "head": [
+            241.8,
+            82.28
+          ],
+          "eyes": [
+            254.2,
+            116.16
+          ],
+          "neck": [
+            235.6,
+            208.12
+          ],
+          "back": [
+            167.4,
+            275.88
+          ],
+          "hand": [
+            291.4,
+            154.88
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            9,
+            202,
+            425,
+            311
+          ],
+          "isolate": true,
+          "anchor": [
+            264,
+            308
+          ],
+          "scale": 1.18,
+          "head": [
+            317.44,
+            91.82
+          ],
+          "eyes": [
+            310.86,
+            126.57
+          ],
+          "neck": [
+            310.25,
+            186.6
+          ],
+          "back": [
+            225.25,
+            136.84
+          ],
+          "hand": [
+            325.24,
+            159.7
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            397,
+            17,
+            362,
+            495
+          ],
+          "isolate": true,
+          "anchor": [
+            224,
+            492
+          ],
+          "scale": 1.18,
+          "head": [
+            282.36,
+            84.15
+          ],
+          "eyes": [
+            277.51,
+            101.22
+          ],
+          "neck": [
+            275.12,
+            212.85
+          ],
+          "back": [
+            195.48000000000002,
+            282.15
+          ],
+          "hand": [
+            310.4,
+            128.53
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            783,
+            71,
+            351,
+            437
+          ],
+          "isolate": true,
+          "anchor": [
+            218,
+            434
+          ],
+          "scale": 1.18,
+          "head": [
+            273.78000000000003,
+            74.29
+          ],
+          "eyes": [
+            287.82,
+            104.88
+          ],
+          "neck": [
+            266.76,
+            187.91
+          ],
+          "back": [
+            189.54000000000002,
+            249.08999999999997
+          ],
+          "hand": [
+            329.94,
+            139.84
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            1159,
+            9,
+            369,
+            510
+          ],
+          "isolate": true,
+          "anchor": [
+            236,
+            507
+          ],
+          "scale": 1.18,
+          "head": [
+            287.82,
+            86.7
+          ],
+          "eyes": [
+            302.58,
+            122.39999999999999
+          ],
+          "neck": [
+            280.44,
+            219.29999999999998
+          ],
+          "back": [
+            199.26000000000002,
+            290.7
+          ],
+          "hand": [
+            325.76,
+            143.87
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            12,
+            711,
+            467,
+            275
+          ],
+          "isolate": true,
+          "anchor": [
+            290,
+            272
+          ],
+          "scale": 1.18,
+          "head": [
+            366.02,
+            111.53
+          ],
+          "eyes": [
+            371.24,
+            167.61
+          ],
+          "neck": [
+            340.90999999999997,
+            165.0
+          ],
+          "back": [
+            247.51000000000002,
+            121.0
+          ],
+          "hand": [
+            389.82,
+            192.5
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            448,
+            523,
+            375,
+            475
+          ],
+          "isolate": true,
+          "anchor": [
+            232,
+            472
+          ],
+          "scale": 1.18,
+          "head": [
+            292.5,
+            80.75
+          ],
+          "eyes": [
+            307.5,
+            114.0
+          ],
+          "neck": [
+            285.0,
+            204.25
+          ],
+          "back": [
+            202.5,
+            270.75
+          ],
+          "hand": [
+            324.38,
+            132.67
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            840,
+            542,
+            338,
+            458
+          ],
+          "isolate": true,
+          "anchor": [
+            210,
+            455
+          ],
+          "scale": 1.18,
+          "head": [
+            223.08,
+            91.60000000000001
+          ],
+          "eyes": [
+            212.94,
+            132.82
+          ],
+          "neck": [
+            250.12,
+            206.1
+          ],
+          "back": [
+            182.52,
+            261.06
+          ],
+          "hand": [
+            185.9,
+            160.29999999999998
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-performance.webp",
+          "rect": [
+            1181,
+            526,
+            346,
+            471
+          ],
+          "isolate": true,
+          "anchor": [
+            215,
+            468
+          ],
+          "scale": 1.18,
+          "head": [
+            269.88,
+            80.07000000000001
+          ],
+          "eyes": [
+            283.71999999999997,
+            113.03999999999999
+          ],
+          "neck": [
+            262.96,
+            202.53
+          ],
+          "back": [
+            186.84,
+            268.46999999999997
+          ],
+          "hand": [
+            305.9,
+            127.87
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            12,
+            46,
+            356,
+            435
+          ],
+          "isolate": true,
+          "anchor": [
+            221,
+            432
+          ],
+          "scale": 1.2,
+          "head": [
+            277.68,
+            73.95
+          ],
+          "eyes": [
+            291.91999999999996,
+            104.39999999999999
+          ],
+          "neck": [
+            270.56,
+            187.04999999999998
+          ],
+          "back": [
+            192.24,
+            247.95
+          ],
+          "hand": [
+            341.76,
+            169.65
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            383,
+            243,
+            394,
+            228
+          ],
+          "isolate": true,
+          "anchor": [
+            244,
+            225
+          ],
+          "scale": 1.2,
+          "head": [
+            307.32,
+            86.64
+          ],
+          "eyes": [
+            312.23,
+            115.1
+          ],
+          "neck": [
+            287.62,
+            136.79999999999998
+          ],
+          "back": [
+            208.82000000000002,
+            100.32000000000001
+          ],
+          "hand": [
+            339.53,
+            150.96
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            819,
+            104,
+            533,
+            335
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            391,
+            70
+          ],
+          "eyes": [
+            411,
+            92
+          ],
+          "neck": [
+            355,
+            151
+          ],
+          "back": [
+            235,
+            179
+          ],
+          "hand": [
+            461,
+            118
+          ],
+          "anchor": [
+            278,
+            338
+          ]
+        },
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            1321,
+            136,
+            453,
+            315
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            307,
+            54
+          ],
+          "eyes": [
+            329,
+            75
+          ],
+          "neck": [
+            287,
+            129
+          ],
+          "back": [
+            140,
+            165
+          ],
+          "hand": [
+            389,
+            99
+          ],
+          "anchor": [
+            199,
+            318
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            1197,
+            45,
+            308,
+            439
+          ],
+          "isolate": true,
+          "anchor": [
+            191,
+            436
+          ],
+          "scale": 1.2,
+          "head": [
+            240.24,
+            74.63000000000001
+          ],
+          "eyes": [
+            252.55999999999997,
+            105.36
+          ],
+          "neck": [
+            234.08,
+            188.77
+          ],
+          "back": [
+            166.32000000000002,
+            250.23
+          ],
+          "hand": [
+            289.52,
+            140.48
+          ]
+        },
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            18,
+            535,
+            323,
+            424
+          ],
+          "isolate": true,
+          "anchor": [
+            200,
+            421
+          ],
+          "scale": 1.2,
+          "head": [
+            251.94,
+            72.08
+          ],
+          "eyes": [
+            264.85999999999996,
+            101.75999999999999
+          ],
+          "neck": [
+            245.48,
+            182.32
+          ],
+          "back": [
+            174.42000000000002,
+            241.67999999999998
+          ],
+          "hand": [
+            303.62,
+            135.68
+          ]
+        },
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            377,
+            530,
+            364,
+            428
+          ],
+          "isolate": true,
+          "anchor": [
+            226,
+            425
+          ],
+          "scale": 1.2,
+          "head": [
+            283.92,
+            72.76
+          ],
+          "eyes": [
+            298.47999999999996,
+            102.72
+          ],
+          "neck": [
+            276.64,
+            184.04
+          ],
+          "back": [
+            196.56,
+            243.95999999999998
+          ],
+          "hand": [
+            342.15999999999997,
+            136.96
+          ]
+        }
+      ],
+      "fps": 12,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            763,
+            544,
+            339,
+            396
+          ],
+          "isolate": true,
+          "anchor": [
+            210,
+            393
+          ],
+          "scale": 0.75,
+          "head": [
+            264.42,
+            67.32000000000001
+          ],
+          "eyes": [
+            277.97999999999996,
+            95.03999999999999
+          ],
+          "neck": [
+            257.64,
+            170.28
+          ],
+          "back": [
+            183.06,
+            225.71999999999997
+          ],
+          "hand": [
+            318.65999999999997,
+            126.72
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch-toy": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-extras-pet.webp",
+          "rect": [
+            1126,
+            528,
+            400,
+            416
+          ],
+          "isolate": true,
+          "anchor": [
+            256,
+            463
+          ],
+          "scale": 1.2,
+          "head": [
+            312.0,
+            70.72
+          ],
+          "eyes": [
+            328.0,
+            99.84
+          ],
+          "neck": [
+            304.0,
+            178.88
+          ],
+          "back": [
+            216.0,
+            237.11999999999998
+          ],
+          "hand": [
+            376.0,
+            133.12
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            16,
+            19,
+            423,
+            479
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            476
+          ],
+          "scale": 1,
+          "head": [
+            329.94,
+            81.43
+          ],
+          "eyes": [
+            346.85999999999996,
+            114.96
+          ],
+          "neck": [
+            321.48,
+            205.97
+          ],
+          "back": [
+            228.42000000000002,
+            273.03
+          ],
+          "hand": [
+            397.62,
+            153.28
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            537,
+            9,
+            456,
+            490
+          ],
+          "isolate": true,
+          "anchor": [
+            283,
+            487
+          ],
+          "scale": 1,
+          "head": [
+            355.68,
+            83.30000000000001
+          ],
+          "eyes": [
+            373.91999999999996,
+            117.6
+          ],
+          "neck": [
+            346.56,
+            210.7
+          ],
+          "back": [
+            246.24,
+            279.29999999999995
+          ],
+          "hand": [
+            428.64,
+            156.8
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            1079,
+            9,
+            420,
+            491
+          ],
+          "isolate": true,
+          "anchor": [
+            260,
+            488
+          ],
+          "scale": 1,
+          "head": [
+            327.6,
+            83.47000000000001
+          ],
+          "eyes": [
+            344.4,
+            117.83999999999999
+          ],
+          "neck": [
+            319.2,
+            211.13
+          ],
+          "back": [
+            226.8,
+            279.86999999999995
+          ],
+          "hand": [
+            394.79999999999995,
+            157.12
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-dance-ride.webp",
+          "rect": [
+            29,
+            512,
+            408,
+            499
+          ],
+          "isolate": true,
+          "anchor": [
+            253,
+            496
+          ],
+          "scale": 1,
+          "head": [
+            318.24,
+            84.83000000000001
+          ],
+          "eyes": [
+            334.56,
+            119.75999999999999
+          ],
+          "neck": [
+            310.08,
+            214.57
+          ],
+          "back": [
+            220.32000000000002,
+            284.42999999999995
+          ],
+          "hand": [
+            383.52,
+            159.68
+          ]
+        }
+      ],
+      "fps": 4,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            4,
+            102,
+            458,
+            310
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            376,
+            113
+          ],
+          "eyes": [
+            385,
+            129
+          ],
+          "neck": [
+            340,
+            190
+          ],
+          "back": [
+            224,
+            148
+          ],
+          "hand": [
+            428,
+            151
+          ],
+          "anchor": [
+            231,
+            312
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            421,
+            25,
+            349,
+            468
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            191,
+            95
+          ],
+          "eyes": [
+            232,
+            129
+          ],
+          "neck": [
+            176,
+            214
+          ],
+          "back": [
+            105,
+            246
+          ],
+          "hand": [
+            277,
+            158
+          ],
+          "anchor": [
+            166,
+            462
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            774,
+            60,
+            480,
+            428
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            312,
+            81
+          ],
+          "eyes": [
+            341,
+            107
+          ],
+          "neck": [
+            276,
+            187
+          ],
+          "back": [
+            135,
+            199
+          ],
+          "hand": [
+            386,
+            127
+          ],
+          "anchor": [
+            285,
+            424
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            1197,
+            4,
+            339,
+            504
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            174,
+            101
+          ],
+          "eyes": [
+            201,
+            134
+          ],
+          "neck": [
+            158,
+            229
+          ],
+          "back": [
+            98,
+            285
+          ],
+          "hand": [
+            253,
+            173
+          ],
+          "anchor": [
+            173,
+            496
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            2,
+            513,
+            368,
+            478
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            269,
+            146
+          ],
+          "eyes": [
+            283,
+            175
+          ],
+          "neck": [
+            265,
+            244
+          ],
+          "back": [
+            188,
+            277
+          ],
+          "hand": [
+            331,
+            213
+          ],
+          "anchor": [
+            188,
+            497
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            351,
+            598,
+            457,
+            265
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            366,
+            95
+          ],
+          "eyes": [
+            392,
+            118
+          ],
+          "neck": [
+            349,
+            175
+          ],
+          "back": [
+            227,
+            191
+          ],
+          "hand": [
+            424,
+            149
+          ],
+          "anchor": [
+            219,
+            282
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            800,
+            518,
+            396,
+            433
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            265,
+            108
+          ],
+          "eyes": [
+            294,
+            147
+          ],
+          "neck": [
+            238,
+            256
+          ],
+          "back": [
+            120,
+            267
+          ],
+          "hand": [
+            360,
+            177
+          ],
+          "anchor": [
+            183,
+            452
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-a.webp",
+          "rect": [
+            1165,
+            525,
+            361,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            211,
+            93
+          ],
+          "eyes": [
+            241,
+            130
+          ],
+          "neck": [
+            200,
+            228
+          ],
+          "back": [
+            122,
+            277
+          ],
+          "hand": [
+            306,
+            175
+          ],
+          "anchor": [
+            175,
+            475
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            9,
+            4,
+            353,
+            458
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            278,
+            96
+          ],
+          "eyes": [
+            284,
+            129
+          ],
+          "neck": [
+            271,
+            240
+          ],
+          "back": [
+            195,
+            311
+          ],
+          "hand": [
+            331,
+            154
+          ],
+          "anchor": [
+            201,
+            455
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            405,
+            4,
+            386,
+            456
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            262,
+            87
+          ],
+          "eyes": [
+            291,
+            128
+          ],
+          "neck": [
+            253,
+            237
+          ],
+          "back": [
+            154,
+            303
+          ],
+          "hand": [
+            350,
+            161
+          ],
+          "anchor": [
+            199,
+            454
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            20,
+            461,
+            383,
+            398
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            233,
+            92
+          ],
+          "eyes": [
+            249,
+            131
+          ],
+          "neck": [
+            225,
+            199
+          ],
+          "back": [
+            125,
+            232
+          ],
+          "hand": [
+            306,
+            157
+          ],
+          "anchor": [
+            189,
+            397
+          ]
+        },
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            431,
+            471,
+            402,
+            385
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            223,
+            86
+          ],
+          "eyes": [
+            247,
+            130
+          ],
+          "neck": [
+            201,
+            196
+          ],
+          "back": [
+            97,
+            233
+          ],
+          "hand": [
+            341,
+            155
+          ],
+          "anchor": [
+            193,
+            385
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            870,
+            477,
+            445,
+            372
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            300,
+            91
+          ],
+          "eyes": [
+            333,
+            134
+          ],
+          "neck": [
+            294,
+            213
+          ],
+          "back": [
+            155,
+            239
+          ],
+          "hand": [
+            375,
+            170
+          ],
+          "anchor": [
+            212,
+            373
+          ]
+        },
+        {
+          "source": "../sources/unicorn-round5-actions-b.webp",
+          "rect": [
+            1329,
+            458,
+            410,
+            406
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            256,
+            98
+          ],
+          "eyes": [
+            281,
+            143
+          ],
+          "neck": [
+            251,
+            222
+          ],
+          "back": [
+            141,
+            258
+          ],
+          "hand": [
+            374,
+            177
+          ],
+          "anchor": [
+            206,
+            406
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b2.webp",
+          "rect": [
+            26,
+            59,
+            552,
+            660
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            334,
+            115
+          ],
+          "eyes": [
+            376,
+            156
+          ],
+          "neck": [
+            345,
+            323
+          ],
+          "back": [
+            236,
+            386
+          ],
+          "hand": [
+            489,
+            219
+          ],
+          "anchor": [
+            302,
+            656
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b2.webp",
+          "rect": [
+            604,
+            261,
+            840,
+            430
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            610,
+            69
+          ],
+          "eyes": [
+            594,
+            136
+          ],
+          "neck": [
+            651,
+            199
+          ],
+          "back": [
+            411,
+            154
+          ],
+          "hand": [
+            511,
+            102
+          ],
+          "anchor": [
+            434,
+            450
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": -1
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-b2.webp",
+          "rect": [
+            1482,
+            4,
+            623,
+            716
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            358,
+            124
+          ],
+          "eyes": [
+            399,
+            175
+          ],
+          "neck": [
+            363,
+            296
+          ],
+          "back": [
+            207,
+            338
+          ],
+          "hand": [
+            556,
+            203
+          ],
+          "anchor": [
+            293,
+            714
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            16,
+            16,
+            401,
+            467
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            274,
+            69
+          ],
+          "eyes": [
+            284,
+            114
+          ],
+          "neck": [
+            256,
+            209
+          ],
+          "back": [
+            169,
+            268
+          ],
+          "hand": [
+            380,
+            177
+          ],
+          "anchor": [
+            206,
+            462
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            411,
+            8,
+            333,
+            475
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            197,
+            65
+          ],
+          "eyes": [
+            203,
+            97
+          ],
+          "neck": [
+            179,
+            208
+          ],
+          "back": [
+            116,
+            278
+          ],
+          "hand": [
+            264,
+            159
+          ],
+          "anchor": [
+            155,
+            468
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            755,
+            40,
+            382,
+            439
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            273,
+            68
+          ],
+          "eyes": [
+            291,
+            106
+          ],
+          "neck": [
+            257,
+            196
+          ],
+          "back": [
+            174,
+            250
+          ],
+          "hand": [
+            300,
+            127
+          ],
+          "anchor": [
+            190,
+            428
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            1135,
+            215,
+            397,
+            268
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            316,
+            141
+          ],
+          "eyes": [
+            306,
+            147
+          ],
+          "neck": [
+            277,
+            190
+          ],
+          "back": [
+            157,
+            77
+          ],
+          "hand": [
+            319,
+            205
+          ],
+          "anchor": [
+            184,
+            255
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            22,
+            506,
+            341,
+            409
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            247,
+            90
+          ],
+          "eyes": [
+            248,
+            107
+          ],
+          "neck": [
+            233,
+            178
+          ],
+          "back": [
+            167,
+            231
+          ],
+          "hand": [
+            311,
+            315
+          ],
+          "anchor": [
+            170,
+            400
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            405,
+            533,
+            288,
+            453
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            182,
+            62
+          ],
+          "eyes": [
+            181,
+            90
+          ],
+          "neck": [
+            162,
+            167
+          ],
+          "back": [
+            110,
+            237
+          ],
+          "hand": [
+            224,
+            99
+          ],
+          "anchor": [
+            155,
+            445
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            724,
+            504,
+            523,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            366,
+            90
+          ],
+          "eyes": [
+            356,
+            129
+          ],
+          "neck": [
+            280,
+            211
+          ],
+          "back": [
+            176,
+            237
+          ],
+          "hand": [
+            420,
+            396
+          ],
+          "anchor": [
+            276,
+            488
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-c.webp",
+          "rect": [
+            1275,
+            763,
+            182,
+            241
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            130,
+            34
+          ],
+          "eyes": [
+            132,
+            52
+          ],
+          "neck": [
+            113,
+            93
+          ],
+          "back": [
+            75,
+            137
+          ],
+          "hand": [
+            151,
+            70
+          ],
+          "anchor": [
+            88,
+            234
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-d.webp",
+          "rect": [
+            35,
+            11,
+            425,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            331,
+            88
+          ],
+          "eyes": [
+            320,
+            96
+          ],
+          "neck": [
+            285,
+            218
+          ],
+          "back": [
+            214,
+            276
+          ],
+          "hand": [
+            387,
+            132
+          ],
+          "anchor": [
+            190,
+            490
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-d.webp",
+          "rect": [
+            528,
+            8,
+            478,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            281,
+            90
+          ],
+          "eyes": [
+            250,
+            108
+          ],
+          "neck": [
+            250,
+            230
+          ],
+          "back": [
+            141,
+            280
+          ],
+          "hand": [
+            389,
+            146
+          ],
+          "anchor": [
+            222,
+            490
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-d.webp",
+          "rect": [
+            1046,
+            11,
+            411,
+            498
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            276,
+            82
+          ],
+          "eyes": [
+            275,
+            102
+          ],
+          "neck": [
+            234,
+            231
+          ],
+          "back": [
+            132,
+            293
+          ],
+          "hand": [
+            346,
+            144
+          ],
+          "anchor": [
+            212,
+            490
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-d.webp",
+          "rect": [
+            42,
+            512,
+            433,
+            489
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            311,
+            88
+          ],
+          "eyes": [
+            294,
+            108
+          ],
+          "neck": [
+            267,
+            212
+          ],
+          "back": [
+            206,
+            280
+          ],
+          "hand": [
+            370,
+            133
+          ],
+          "anchor": [
+            219,
+            481
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-actions-d.webp",
+          "rect": [
+            532,
+            557,
+            524,
+            436
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            334,
+            84
+          ],
+          "eyes": [
+            335,
+            94
+          ],
+          "neck": [
+            310,
+            204
+          ],
+          "back": [
+            148,
+            243
+          ],
+          "hand": [
+            474,
+            254
+          ],
+          "anchor": [
+            272,
+            428
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-pose-twirl.webp",
+          "rect": [
+            47,
+            14,
+            345,
+            693
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            216,
+            150
+          ],
+          "eyes": [
+            218.3,
+            174.93
+          ],
+          "neck": [
+            193,
+            278
+          ],
+          "back": [
+            160,
+            423
+          ],
+          "hand": [
+            257,
+            645
+          ],
+          "anchor": [
+            185,
+            687
+          ]
+        },
+        {
+          "source": "../sources/unicorn-round5-pose-twirl.webp",
+          "rect": [
+            540,
+            25,
+            458,
+            679
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            304,
+            125
+          ],
+          "eyes": [
+            318,
+            151
+          ],
+          "neck": [
+            255,
+            280
+          ],
+          "back": [
+            155,
+            390
+          ],
+          "hand": [
+            363,
+            649
+          ],
+          "anchor": [
+            216,
+            678
+          ]
+        },
+        {
+          "source": "../sources/unicorn-round5-pose-twirl.webp",
+          "rect": [
+            1241,
+            14,
+            261,
+            688
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            133,
+            187
+          ],
+          "neck": [
+            136,
+            374
+          ],
+          "back": [
+            132,
+            430
+          ],
+          "hand": [
+            196,
+            656
+          ],
+          "anchor": [
+            127,
+            686
+          ]
+        },
+        {
+          "source": "../sources/unicorn-round5-pose-twirl.webp",
+          "rect": [
+            1716,
+            25,
+            444,
+            678
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            90,
+            127
+          ],
+          "eyes": [
+            106,
+            151
+          ],
+          "neck": [
+            107,
+            288
+          ],
+          "back": [
+            215,
+            398
+          ],
+          "hand": [
+            77,
+            645
+          ],
+          "anchor": [
+            224,
+            675
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-round5-card-flip.webp",
+          "rect": [
+            31,
+            195,
+            1177,
+            1016
+          ],
+          "isolate": true,
+          "scale": 0.47,
+          "head": [
+            901.35,
+            210.29
+          ],
+          "eyes": [
+            887.94,
+            268.0
+          ],
+          "neck": [
+            869,
+            485
+          ],
+          "back": [
+            569,
+            485
+          ],
+          "hand": [
+            1119,
+            805
+          ],
+          "anchor": [
+            700,
+            1016
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.15,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/unicorn-portraits.webp",
+      "rect": [
+        75,
+        8,
+        412,
+        505
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/unicorn-portraits.webp",
+      "rect": [
+        564,
+        7,
+        392,
+        506
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/unicorn-portraits.webp",
+      "rect": [
+        1041,
+        14,
+        439,
+        503
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/unicorn-portraits.webp",
+      "rect": [
+        69,
+        507,
+        392,
+        509
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/unicorn-portraits.webp",
+      "rect": [
+        549,
+        504,
+        409,
+        512
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "thinking": {
+      "source": "../sources/unicorn-portraits.webp",
+      "rect": [
+        1045,
+        506,
+        388,
+        515
+      ],
+      "isolate": true,
+      "trim": true
+    }
+  },
+  "provenance": "Built-in image_gen from approved Unicorn canonical; exact round-5 prompts in unicorn-extension-generation-prompts.json. New poses use manually inspected per-pose runtime anatomy points.",
+  "sourceFiles": [
+    "../sources/unicorn-round5-actions-a.webp",
+    "../sources/unicorn-round5-actions-b.webp",
+    "../sources/unicorn-round5-actions-c.webp",
+    "../sources/unicorn-round5-actions-d.webp",
+    "../sources/unicorn-round5-actions-b2.webp",
+    "../sources/unicorn-round5-pose-twirl.webp",
+    "../sources/unicorn-round5-card-flip.webp"
+  ],
+  "status": "Draft required action union and hand-landmark corrections; awaiting full runtime QA."
+}

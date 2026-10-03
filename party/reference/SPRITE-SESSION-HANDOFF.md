@@ -1,82 +1,71 @@
-# Sprite production checkpoint — Sol, 2026-10-02
+# Sprite production completion — 2026-10-03
 
-Production is active. The user revoked the former 40% allowance pause for Sol.
-Continue all remaining image requests and regenerations. Preserve approved
-canonicals, coordinate disjoint character work, and publish reviewed batches on
-main regularly. The whole brief is not yet complete.
+All current required Charlie Party images and sprite sets are generated and
+reviewed. The former40% allowance pause was revoked by the user for Sol.
+Completed changes are committed to main and pushed; new requests use the same
+workflow without routine confirmation.
 
-## Published
+## Delivered
 
-Main includes the full action vocabulary for Snowstar, Birthday Cake, Felicity,
-Fellowfox, Bronze, Fox, Princess Amber, Marina, Scale, Hotdog, Cotton Candy and all three KPop members. Cake has 74 keys / 95 authored frames / five portraits;
-Felicity and Bronze have 74 / 91 / five; Fellowfox has 75 / 91 / five, including
-catch-toy. Expanded sets include two-frame dash, hip-bump and knockback and an
-authored four-view twirl. Reviewed optimized copies accompany the full originals.
-Companion sets were checked in Crown Keeper and Pass the Present in both image
-quality modes. Decoded member sizes remain below 25 MiB; Felicity and Cake exceed
-the soft 1.5 MiB encoded target because their full requested frames are retained.
+All15 roster member sets cover the complete74-key player action union, plus
+character extras. Felicity/Fellowfox and the KPop trio remain independently
+animated while travelling together. Animal, mermaid, robot and cake anatomy
+matches approved references. Troll is NPC-only and has his requested action set.
 
-General art now has 288 keys pointing to 268 files, including the animal side cape. Regenerations include all
-podium blocks, confetti atlas, card ratio, green fizzle, flat rug, neutral potion
-props, aligned balloons, cookie flavor damage, rock crop, outlined hedge, thin
-1024 hazard ring, four outlined crumbs, overhead garden day/night, plant glow
-and tiny seed stages, silver pearl tiara, separate lightning, low cake stand v3,
-broad cake platform v3, three hollow crumble overlays and neutral sponge layers
-for round/heart/star. Original versions remain available. Runtime integrations
-were reviewed in the garden, potion classroom and eight-player cake arena.
-The configurable bakery now uses the round neutral sponge as a crumb texture
-with multiply blending across layer sides; flavor tints and frosting stay
-configurable. Heart/star sponge and cake-layer aliases remain available.
+All26 indexed sprite sets have full and optimized copies, portraits, timed
+frames, ground anchors and attachment points. Extended sets include two-frame
+dash/hip-bump/knockback and true four-view twirls. Longer recurring actions use
+authored cycles plus smooth procedural motion. Other short verbs remain strong
+key poses with procedural movement; these are not represented as fully drawn
+frame-by-frame animation.
 
-Recent published checkpoints: 689dcbd (companion/Bronze), 256bcd0 (prop geometry),
-7d11066 (Troll), fb24927 (Hoot actions/game integration), 4a6343a (wing cycles).
-Exact prompts/master paths are in art/generation-manifest.json and the character
-specs/pending prompt records. QA images outside runtime folders are not shipped.
+NPC wing cycles, rear fairy turns, Hoot reactions and Troll hands are reviewed.
+Garden Fairies preserve approved diverse skin tones, including light olive for
+the purple fairy. Storm Cloud's lightning is separate from his body images.
+Hoot and Fairy Garden consumers use the new authored reactions and turns.
 
-## Active ownership and remaining work
+General game art has288 indexed keys referencing268 files, including all20
+thumbnails and required backgrounds, props, tools, effects and UI art. The
+requested in-game regenerations are resolved in image-requests.md. Original
+unused ingredients and neutral cake shapes remain available. Optional future
+parallax art is documented in ASSET-COVERAGE.md.
 
-- snow_cake_completion: Unicorn full action extension and review. Cotton Candy
-  is reviewed and ready for publication with corrected source-local mouth point.
-- mermaid_all_actions: KPop complete and reviewed; original/new hand points,
-  full boot crops and96 center masks are refreshed, with both-quality stage checks.
-- npc_canonicals: final coverage/documentation audit. Fox action order and
-  attachment repairs are published in c6d2e78.
-- Root: review stable sets in both quality modes, validate, stage precise paths,
-  safely merge concurrent main, and push reviewed batches. Marina/Scale/Hotdog
-  published in520f9a4 via8b37665; Fairy Garden twirl integration9cf88d8.
+Reproducible specs, source WebPs and prompt records are in tools/sprites;
+canonical character information and paired/group references are in reference.
+See ASSET-COVERAGE.md for final counts/memory, RECOMMENDED-ACTIONS.md for future
+game actions already supported by sprites/code, and tools/sprites/AGENT-PLAYBOOK.md
+for practical generation/intake lessons.
 
-Princess Amber is published in f3ea583 via9e7de1d, with refreshed rotated dress
-masks. Marina paint succeeded with a purple smock, preserving her identity.
-Both mermaids now have75keys/92frames/fiveportraits, matching neutral blink,
-actual memory-card reach and fully reviewed per-frame attachment coordinates.
-Hotdog has75keys/96frames/fiveportraits and repaired original dance tail crops.
+## Checks and limits
 
-## Intake and checks
+All required player keys, indexed paths, WebP alpha, timings and per-member
+memory budgets are validated. Reviewed optimized copies and Felicity/KPop-center/
+Amber masks have current source fingerprints. Runtime/art-loading Node tests
+and builder cache/atomic-output Python tests pass. Representative gameplay
+reviews cover both quality modes and alternate outfit colors.
 
-Read tools/sprites/AGENT-PLAYBOOK.md and README.md. Source points are crop-local;
-review head/eyes/neck/hand/back on built pixels. Convert corrections back with
-sourceAnchor + (runtimePoint - runtimeAnchor) / (commonScale * itemScale).
-Keep neutral head scale and airborne anchors; never shrink only the new poses.
+Sets load on demand. Every member stays below the25 MiB decoded limit; some
+complete sets exceed the soft1.5 MiB download target. Snowstar and Birthday Cake
+are close to the decoded limit, so additional frames need a fresh budget check.
 
-Run optimize.py CHARACTER after final rebuild and commit optimized files and
-sprites-opt/index.json with the original set. The optimizer filters macOS sidecars
-and locks its shared index after encoding so concurrent jobs preserve entries.
-The builder caches sheet decoding but copies pixels before alpha cleanup.
+Use tools/sprites/review_frames.py for actual-scale attachment comparisons.
+Convert desired runtime points back to source-local coordinates with the
+inverse transform in the playbook. Inspect actual anatomy, not only bounds;
+nominal grid cells can clip figures extending into the gutter. Builder output
+is atomic and unchanged frame art is cached. Rebuild, optimize and refresh masks
+after final spec changes before publishing.
 
-Validate stable sets while other agents are rebuilding. The builder now publishes
-individual WebPs atomically and caches unchanged art; manifests and optimized
-sets still need their final owner handoff before review. Final checks: validate.py and node --test on
-runtime.test.mjs and art-loading.test.mjs. Both picture-quality modes need real
-in-game review; use quality=full for originals. No-cache preview port is 8141.
+## Main sync and follow-up
 
-SSH equivalent remote works while HTTPS credentials do not. Remove only .git/._*
-metadata sidecars before/after fetch if misleading pack-index errors recur.
-Keep origin unchanged; never force-push or discard unrelated working changes.
-When two agents encode the same optimized derivative, keep reviewed originals
-and rebuild derivatives. Preserve the lead's shared consumer refinements.
+Read IMAGE-WORK-QUEUE.md for the exact latest delivery/check revision and UTC.
+The delivery review heartbeat checks regeneration feedback30 minutes after new
+images are delivered. It stays quiet unchanged and cancels after a full
+half-hour interval without new/changed requests. New requests restart production
+and reset the delivery checkpoint; preserve approved canonical designs.
 
-The earlier heartbeat was canceled after an unchanged interval. The user then
-requested a new regeneration-feedback check half an hour after image deliveries;
-charlie-party-delivered-image-review is active. Record delivery UTC/revision in
-IMAGE-WORK-QUEUE and reset this follow-up with each published image batch.
-Continue checking requests during syncs. No allowance pause remains.
+Safely fetch/integrate main and stage only owned files. Never discard teammate
+work or force-push. Equivalent SSH remote works when HTTPS credentials are
+unavailable; keep origin unchanged. Remove only .git/._* AppleDouble metadata
+when false pack-index errors recur. Disable merge.autostash for integrations
+while other agents are writing files. Shared optimized index updates must
+preserve other entries; its normal optimizer uses a short lock for merging.
