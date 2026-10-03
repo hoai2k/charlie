@@ -262,9 +262,15 @@ const SYNTH = {
 
 const lastPlayed = new Map();
 
-/** Play a sound effect by name. Unknown names are ignored. */
+/**
+ * Play a sound effect by name. Unknown names are ignored.
+ * opts: vol, rate (recorded files), semi (semitones up/down, recorded files),
+ * fallback (key to play instead when this one has neither a file nor a synth
+ * version, e.g. sfx('boing', { fallback: 'bonk' })), force, plus synth options.
+ */
 export function sfx(name, opts = {}) {
   if (!ctx || ctx.state !== 'running' || muted) return;
+  if (opts.fallback && !fileBuffers.has(name) && !SYNTH[name]) { sfx(opts.fallback, { ...opts, fallback: null }); return; }
   // Avoid machine-gunning the same sound in a single frame.
   const now = ctx.currentTime;
   if (!opts.force && lastPlayed.get(name) > now - 0.025) return;
@@ -273,7 +279,8 @@ export function sfx(name, opts = {}) {
   if (bufs) {
     const src = ctx.createBufferSource();
     src.buffer = bufs[Math.floor(Math.random() * bufs.length)];
-    if (opts.rate) src.playbackRate.value = opts.rate;
+    const rate = (opts.rate || 1) * (opts.semi ? Math.pow(2, opts.semi / 12) : 1);
+    if (rate !== 1) src.playbackRate.value = rate;
     const g = ctx.createGain(); g.gain.value = opts.vol ?? 1;
     src.connect(g); g.connect(sfxBus); src.start();
     return;
@@ -288,6 +295,44 @@ export function sfx(name, opts = {}) {
   try { fn(opts); } finally { callBus = null; }
 }
 export const SFX_NAMES = Object.keys(SYNTH);
+
+/**
+ * Looping recorded sound (fizzing fuse, broom whoosh, crickets...). Returns a
+ * handle { stop(fade = 0.15), setVol(v), setRate(r) }; with no file (or no
+ * sound) it's a silent handle, so callers never need to check.
+ */
+const activeLoops = new Set();
+export function sfxLoop(name, { vol = 1, rate = 1, fadeIn = 0.1 } = {}) {
+  const silent = { stop() {}, setVol() {}, setRate() {}, playing: false };
+  const bufs = fileBuffers.get(name);
+  if (!ctx || ctx.state !== 'running' || muted || !bufs) return silent;
+  const src = ctx.createBufferSource();
+  src.buffer = bufs[0]; src.loop = true; src.playbackRate.value = rate;
+  const g = ctx.createGain(), now = ctx.currentTime;
+  g.gain.setValueAtTime(0, now); g.gain.linearRampToValueAtTime(vol, now + fadeIn);
+  src.connect(g); g.connect(sfxBus); src.start();
+  let stopped = false, level = vol;
+  const h = {
+    playing: true,
+    stop(fade = 0.15) {
+      if (stopped) return; stopped = true; this.playing = false; activeLoops.delete(h);
+      const t = ctx.currentTime;
+      g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); g.gain.linearRampToValueAtTime(0, t + fade);
+      try { src.stop(t + fade + 0.02); } catch (e) { /* already stopped */ }
+    },
+    setVol(v) { level = v; if (!stopped && !loopsDucked) g.gain.setTargetAtTime(v, ctx.currentTime, 0.05); },
+    setRate(r) { if (!stopped) src.playbackRate.setTargetAtTime(r, ctx.currentTime, 0.05); },
+    _duck(on) { if (!stopped) g.gain.setTargetAtTime(on ? 0 : level, ctx.currentTime, 0.04); },
+  };
+  activeLoops.add(h);
+  if (loopsDucked) h._duck(true);
+  return h;
+}
+let loopsDucked = false;
+/** Stop every running sfxLoop (the minigame host calls this when a game ends). */
+export function stopAllLoops() { for (const h of [...activeLoops]) h.stop(0.1); }
+/** Silence running loops while a game is paused (and bring them back). */
+export function duckLoops(on) { loopsDucked = on; for (const h of activeLoops) h._duck(on); }
 
 // Character voice clips: manifest keys "voice/<charId>/<kind>". These are
 // NON-WORD vocalizations only (giggles, yips, beeps, gasps); anything with

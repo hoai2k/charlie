@@ -12,7 +12,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
-import { clamp, lerp, damp, ease, rand, pick, shuffle, chance, placementsFromScores, TAU } from '../engine/util.js';
+import { clamp, lerp, damp, ease, rand, pick, shuffle, chance, placementsFromScores, TAU, later } from '../engine/util.js';
 import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { allFaces, drawCardBack, drawCardFace, drawUnicornHead } from './memory-match/cards.js';
@@ -214,7 +214,7 @@ export class Game {
       if (this.stateT > 0.9 && !this.flippedBack) {
         this.flippedBack = true;
         for (const cd of this.picks) { cd.flipTarget = 0; cd.state = 'down'; }
-        sfx('flip'); setTimeout(() => sfx('flip'), 70);
+        sfx('flip'); later(() => sfx('flip'), 70);
       }
       if (this.stateT > 1.2) this.nextTurn();
     } else if (this.state === 'end') {
@@ -244,13 +244,13 @@ export class Game {
     }
     card.state = 'up'; card.flipTarget = 1; card.lift = 1;
     this.picks.push(card);
-    sfx('flip'); setTimeout(() => sfx('sparkle'), 120);
+    sfx('flip'); later(() => sfx('sparkle'), 120);
     particles.burst(card.x, card.y, { type: 'sparkle', count: 8, colors: ['#ffffff', '#ffe066', card.face.color] });
     this.cur.actor.playOnce('flip', 0.3, 'think');
     this.remember(card);
     // "That's me!" — the pictured character waves from the sidelines.
     for (const me of this.seats.filter((o) => o.p.charId === card.face.charId && card.face.key === o.p.charId)) {
-      setTimeout(() => { me.actor.playOnce('wave', 0.9); me.actor.emote('heart', 1); }, 260);
+      later(() => { me.actor.playOnce('wave', 0.9); me.actor.emote('heart', 1); }, 260);
     }
     if (this.picks.length === 2) {
       this.state = 'reveal'; this.stateT = 0;
@@ -272,7 +272,7 @@ export class Game {
       this.state = 'match'; this.stateT = 0;
       s.pairs++;
       for (const m of this.mem) { m.delete(a.i); m.delete(b.i); }
-      sfx('correct'); setTimeout(() => sfx('star'), 150);
+      sfx('correct'); later(() => sfx('star'), 150);
       voice(s.p.charId, 'yay');
       s.actor.playOnce('cheer', 0.6, 'think');
       for (const o of this.seats) if (o !== s) o.actor.playOnce('clap', 1.1, 'idle');

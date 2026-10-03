@@ -88,6 +88,9 @@ def classify_amber(st, fr, bodyH):
     for k, c in st.items():
         if c['area'] < 6: continue
         if 27 <= c['h'] <= 45 and c['s'] > 0.75 and c['cy'] > neck[1] + 0.02 * bodyH: out[k] = 1
+        # the petticoat/underside: a little redder than the gown but much lighter
+        # than her copper hair (hair: hue ~17, lightness ~0.3)
+        elif 21 <= c['h'] < 27 and c['s'] > 0.85 and c['l'] > 0.4 and c['cy'] > neck[1] + 0.2 * bodyH: out[k] = 1
     return out
 
 

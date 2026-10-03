@@ -577,7 +577,7 @@ export class Game {
     });
     this.troll.state = 'recover'; this.troll.t = 99; this.troll.a.setPose('laugh'); this.troll.a.z = 0; sfx('npc/troll/laugh');
     const win = this.pl.filter((q) => q.gems === best)[0];
-    this.api.finish({ placements, stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`), focus: win && best > 0 ? { x: win.x, y: win.y - 80 } : undefined });
+    this.api.finish({ placements, solo: scores[0], stats: scores.map((s) => `${s} gem${s === 1 ? '' : 's'}`), focus: win && best > 0 ? { x: win.x, y: win.y - 80 } : undefined });
   }
 
   // ---- drawing -----------------------------------------------------------------
@@ -758,10 +758,12 @@ export class Game {
     ui.timer(g, this.left);
     if (this.hint > 0) {
       g.save(); g.globalAlpha = clamp(this.hint, 0, 1);
-      ui.panel(g, W / 2 - 520, 130, 1040, 66, { r: 33, fill: '#fff8ec' });
-      ui.text(g, 'Grab gems!  Run from the growing shadow!', W / 2 - 60, 164, { size: 34, color: NAVY, stroke: false, weight: 700 });
-      ui.glyph(g, 'a', W / 2 + 380, 164, 46, { pulse: true });
-      ui.text(g, 'Dash', W / 2 + 415, 164, { size: 30, color: NAVY, stroke: false, align: 'left', weight: 700 });
+      // Left-aligned message, then the A Dash hint in its own space at the right
+      // (the centred version ran into the button with 8 HUD chips).
+      ui.panel(g, W / 2 - 560, 130, 1120, 66, { r: 33, fill: '#fff8ec' });
+      ui.text(g, 'Grab gems!  Run from the growing shadow!', W / 2 - 530, 164, { size: 34, color: NAVY, stroke: false, weight: 700, align: 'left', maxWidth: 820 });
+      ui.glyph(g, 'a', W / 2 + 395, 164, 46, { pulse: true });
+      ui.text(g, 'Dash', W / 2 + 430, 164, { size: 30, color: NAVY, stroke: false, align: 'left', weight: 700 });
       g.restore();
     }
     if (this.angerBanner > 0) {

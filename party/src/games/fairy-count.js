@@ -448,7 +448,7 @@ export class Game {
     const placements = placementsFromScores(score);
     const stats = this.points.map((p, i) => `${p} pts, ${this.exacts[i]} exact`);
     const best = placements.indexOf(1), wa = this.actors[best];
-    this.api.finish({ placements, stats, focus: { x: wa.x, y: wa.y - wa.height / 2, zoom: 1.35 } });
+    this.api.finish({ placements, stats, solo: score[0], focus: { x: wa.x, y: wa.y - wa.height / 2, zoom: 1.35 } });
   }
 
   // --- drawing ----------------------------------------------------------------

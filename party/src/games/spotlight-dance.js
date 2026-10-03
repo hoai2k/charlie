@@ -601,7 +601,7 @@ export class Game {
     const wpl = this.pl.filter((q) => keys[q.i] === best)[0];
     this.api.finish({
       focus: wpl ? { x: wpl.x, y: wpl.y - 100 } : undefined,
-      placements,
+      placements, solo: keys[0],
       stats: this.pl.map((q) => `${q.score} imp${q.score === 1 ? '' : 's'}, ${q.hearts} heart${q.hearts === 1 ? '' : 's'}`),
     });
   }

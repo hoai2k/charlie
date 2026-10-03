@@ -478,7 +478,8 @@ export class Game {
     const x = L.x, y = HIT_Y;
     particles.burst(x, y, { type: grade === 'perfect' ? 'star' : 'sparkle', count: grade === 'perfect' ? 8 : 5, colors: [BTN_COLOR[nn.btn], '#ffffff', '#fff6a8'] });
     if (grade === 'perfect') particles.ring(x, y, '#ffffff', this.noteSize * 1.4, 0.3);
-    this.judgeText(L, x, y - this.noteSize, grade === 'perfect' ? 'Perfect!' : 'Good!', grade === 'perfect' ? '#ffd23f' : '#7dffb4', this.n > 5 ? 34 : 42);
+    // Narrow 6-8 player lanes: a smaller label that sits just above the ring.
+    this.judgeText(L, x, y - this.noteSize * (this.n > 5 ? 0.75 : 1), grade === 'perfect' ? 'Perfect!' : 'Good!', grade === 'perfect' ? '#ffd23f' : '#7dffb4', this.n > 5 ? 28 : 42);
     sfx('note', { midi: BTN_MIDI[nn.btn] + (grade === 'perfect' ? 12 : 0), dur: 0.18, vol: 0.12 });
     const a = L.actor;
     if (!this.finale) a.playOnce(L.fever ? pick(['dance-star', 'dance-up']) : pick(['dance-up', 'dance-side', 'dance-down']), 0.3, 'dance');
@@ -510,7 +511,7 @@ export class Game {
     L.combo = 0; L.misses++;
     if (L.fever) { L.fever = false; particles.popText(L.x, HIT_Y - 60, 'Fever over', '#c9b6ff', 34); }
     if (!this.finale) L.actor.playOnce('hurt', 0.32, 'dance');
-    this.judgeText(L, L.x + this.laneW * 0.22, HIT_Y + this.noteSize * 0.55, 'Miss', '#b9a8d9', this.n > 5 ? 26 : 30);
+    this.judgeText(L, L.x + this.laneW * (this.n > 5 ? 0.28 : 0.22), HIT_Y + this.noteSize * 0.55, 'Miss', '#b9a8d9', this.n > 5 ? 22 : 30);
     if (hadCombo >= 5) sfx('aww');
     // A cheeky imp sneaks a little closer and giggles.
     const near = this.imps.filter((m) => m.state === 'creep').sort((p, q) => Math.abs(p.x - L.x) - Math.abs(q.x - L.x))[0];
@@ -667,7 +668,7 @@ export class Game {
     const best = Math.max(...scores);
     const win = this.lanes.filter((L) => L.score === best);
     const focus = win.length === 1 ? { x: win[0].actor.x, y: FLOOR_Y - win[0].actor.height * 0.6, zoom: 1.3 } : { x: W / 2, y: 780, zoom: 1.15 };
-    this.api.finish({ placements: placementsFromScores(scores), stats, focus });
+    this.api.finish({ placements: placementsFromScores(scores), stats, focus, solo: scores[0] });
   }
 
   // ---- CPU -------------------------------------------------------------------------------
@@ -861,8 +862,8 @@ export class Game {
         ui.bar(g, x - w * 0.35, HIT_Y + ns * 0.95 + 30, w * 0.7, 12, k, '#ff6fd0', { lineWidth: 2 });
       }
     }
-    // first-notes helper
-    if (b < 10 && b > -2) {
+    // first-notes helper (until a combo counter takes that spot)
+    if (b < 10 && b > -2 && L.combo < 3) {
       ui.text(g, 'Press', x, HIT_Y + ns * 1.25, { size: 28, color: '#fff' });
       ui.glyph(g, 'a', x, HIT_Y + ns * 1.25 + 44, 44, { pulse: true });
     }

@@ -15,7 +15,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, later } from '../engine/util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 
 const NAVY = '#24163f';
@@ -722,7 +722,7 @@ export class Game {
     sfx('splash'); sfx('whoosh');
     particles.popText(c.x, c.y - 60, 'Fluffy dry!', '#ff9ecf', 44 * s.k);
     s.char.playOnce('surprised', 0.4, 'idle');
-    setTimeout(() => { if (!this.finished) s.char.playOnce('cheer', 0.5); }, 450);
+    later(() => { if (!this.finished) s.char.playOnce('cheer', 0.5); }, 450);
     this.rumble(s.p, 0.4, 150);
   }
 
@@ -751,7 +751,7 @@ export class Game {
       onLand: () => {
         s.treats++; s.care += 2;
         pet.playOnce('eat', 0.8); pet.squash(0.25); pet.emote('hearts', 1.6);
-        sfx('munch'); setTimeout(() => sfx('munch', { force: true }), 260);
+        sfx('munch'); later(() => sfx('munch', { force: true }), 260);
         particles.burst(to.x, to.y, { type: 'heart', count: 7 });
         particles.burst(to.x, to.y, { type: 'spark', count: 6, colors: ['#e0a060', '#ff9ecf'] });
         particles.popText(to.x, to.y - 50, s.treats === 1 ? 'Yummy!' : pick(['Nom nom!', 'Yum!', 'Crunch!']), '#ffb067', 42 * s.k);
@@ -781,7 +781,7 @@ export class Game {
         snd('squeak', 'bounce');
       },
     });
-    setTimeout(() => {
+    later(() => {
       if (this.finished) return;
       s.jumpT = 0; pet.playOnce('cheer', 0.6); voice(s.def.char || 'fox', 'woo');
     }, 180);

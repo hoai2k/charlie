@@ -206,7 +206,7 @@ function drawLayer(g, cake, i) {
       cg.fill();
     }
   };
-  if (!drawCrumbSide(g, L, sideSlices)) sideSlices(g);
+  if (!drawCrumbSide(g, L, sideSlices, `${cake.shape}|${i}|${cake.flavors[i] ?? 0}|${cake.frosting}|${cake.style}`)) sideSlices(g);
   // filling stripe
   g.save(); facePath(g, sh, 0, L.yb - L.h * 0.42, L.w * 1.0); g.lineWidth = 5; g.strokeStyle = 'rgba(255,255,255,0.45)'; g.stroke(); g.restore();
   // top face
@@ -295,11 +295,18 @@ function crumbTexture() {
   } catch (e) { /* unreadable canvas: plain sides */ }
   return crumbTex;
 }
-function drawCrumbSide(g, L, sideSlices) {
+// Finished sides are cached by what they depend on (shape, layer, flavour,
+// frosting, style, scale): decorations change the cake often, its sides rarely.
+const sideCache = new Map();
+const SIDE_CACHE_MAX = 64;
+function drawCrumbSide(g, L, sideSlices, key) {
   const tex = crumbTexture();
   if (!tex) return false;
   const k = Math.hypot(g.getTransform().a, g.getTransform().b) || 1;
   const x0 = -L.w / 2 - 12, y0 = L.yt - L.w * KY / 2 - 12, bw = L.w + 24, bh = L.yb - L.yt + L.w * KY + 24;
+  const ck = `${key}|${k.toFixed(3)}`;
+  const hit = sideCache.get(ck);
+  if (hit) { sideCache.delete(ck); sideCache.set(ck, hit); g.drawImage(hit, x0, y0, bw, bh); return true; }
   const c = document.createElement('canvas');
   c.width = Math.ceil(bw * k); c.height = Math.ceil(bh * k);
   const cg = c.getContext('2d');
@@ -317,6 +324,8 @@ function drawCrumbSide(g, L, sideSlices) {
   cg.setTransform(k, 0, 0, k, -x0 * k, -y0 * k); cg.globalCompositeOperation = 'source-over'; cg.globalAlpha = 1;
   sideSlices(cg, 'frost');
   g.drawImage(c, x0, y0, bw, bh);
+  sideCache.set(ck, c);
+  if (sideCache.size > SIDE_CACHE_MAX) sideCache.delete(sideCache.keys().next().value);
   return true;
 }
 

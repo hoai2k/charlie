@@ -10,8 +10,8 @@
 //   tools/sprites/make_masks.py), minArea (drop specks) }
 // palettes: [{ name, swatch, to: { regionId: '#target' } }]
 //
-// Two palettes change a colour the character sheet calls a signature (Scale's
-// red tail -> Violet, Amber's orange gown in all three); check with Charlie.
+// Scale's Violet (red tail -> violet) and Amber's non-orange gowns change a
+// signature colour on purpose; the user approved them.
 const EYES = { at: 'eyes', r: 0.13 };
 
 export const RECOLOR = {

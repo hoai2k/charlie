@@ -389,6 +389,7 @@ export class Game {
     const total = COLS * ROWS;
     const wi = this.counts.indexOf(Math.max(...this.counts)), ws = this.ps[wi];
     this.api.finish({
+      solo: this.counts[0],
       focus: { x: ws.x, y: ws.y - 70, zoom: 1.3 },
       placements,
       stats: this.counts.map((c) => `${Math.round((c / total) * 100)}% painted`),

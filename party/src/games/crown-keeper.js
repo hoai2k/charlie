@@ -463,7 +463,7 @@ export class Game {
     sfx('whistle');
     for (const u of this.units) u.a.playOnce(placements[u.i] === 1 ? 'celebrate' : 'idle', 1);
     const fu = this.holder >= 0 ? this.units[this.holder] : this.units[placements.indexOf(1)];
-    this.api.finish({ placements, stats, focus: { x: fu.x, y: fu.y - fu.a.height / 2, zoom: 1.35 } });
+    this.api.finish({ placements, stats, solo: scores[0], focus: { x: fu.x, y: fu.y - fu.a.height / 2, zoom: 1.35 } });
   }
 
   // --- drawing -------------------------------------------------------------------------

@@ -542,7 +542,7 @@ export class Game {
     const stats = this.ps.map((s) => (s.rank === 1 && s.outAt === null ? 'Survived!' : `Out at ${Math.round(s.outAt ?? this.t)}s`));
     const w = this.ps.find((s) => s.state === 'play');
     const focus = w ? { x: w.x, y: w.y - 70, zoom: 1.35 } : this.lastOut ? { x: this.lastOut.x, y: this.lastOut.y, zoom: 1.2 } : undefined;
-    this.api.finish({ placements, stats, focus });
+    this.api.finish({ placements, stats, focus, solo: this.ps[0].outAt === null ? 9999 : this.ps[0].outAt });
   }
 
   // ----- CPU brain -------------------------------------------------------

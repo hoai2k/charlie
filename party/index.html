@@ -19,6 +19,74 @@
   <body>
     <canvas id="game" tabindex="0"></canvas>
     <noscript>Charlie Party needs JavaScript.</noscript>
-    <script type="module" src="src/main.js?v=14"></script>
+    <script type="importmap">
+    {
+      "imports": {
+        "./src/data/characters.js": "./src/data/characters.js?v=ca68d986",
+        "./src/data/variants.js": "./src/data/variants.js?v=a98579e4",
+        "./src/engine/ai.js": "./src/engine/ai.js?v=bffa9867",
+        "./src/engine/art.js": "./src/engine/art.js?v=a5c255fe",
+        "./src/engine/audio.js": "./src/engine/audio.js?v=9a3a0d23",
+        "./src/engine/camera.js": "./src/engine/camera.js?v=2b22e06e",
+        "./src/engine/canvas.js": "./src/engine/canvas.js?v=a8877686",
+        "./src/engine/corner.js": "./src/engine/corner.js?v=619c9a62",
+        "./src/engine/emotes.js": "./src/engine/emotes.js?v=32eed1c7",
+        "./src/engine/fx.js": "./src/engine/fx.js?v=e61c9f0d",
+        "./src/engine/host.js": "./src/engine/host.js?v=934d8670",
+        "./src/engine/input.js": "./src/engine/input.js?v=8cf6b247",
+        "./src/engine/npc-art.js": "./src/engine/npc-art.js?v=3057e97f",
+        "./src/engine/particles.js": "./src/engine/particles.js?v=4c25ff3c",
+        "./src/engine/recolor.js": "./src/engine/recolor.js?v=05df2ced",
+        "./src/engine/scenes.js": "./src/engine/scenes.js?v=47a1109b",
+        "./src/engine/settings.js": "./src/engine/settings.js?v=7c662428",
+        "./src/engine/shell.js": "./src/engine/shell.js?v=e2cf63fd",
+        "./src/engine/sprites.js": "./src/engine/sprites.js?v=ba32441f",
+        "./src/engine/ui.js": "./src/engine/ui.js?v=edffa165",
+        "./src/engine/util.js": "./src/engine/util.js?v=003e2e57",
+        "./src/games/_placeholder.js": "./src/games/_placeholder.js?v=df29b46b",
+        "./src/games/art-studio.js": "./src/games/art-studio.js?v=1e7d8408",
+        "./src/games/art-studio/pages.js": "./src/games/art-studio/pages.js?v=9e160526",
+        "./src/games/balloon-pump.js": "./src/games/balloon-pump.js?v=a2d07cc8",
+        "./src/games/broomstick-dash.js": "./src/games/broomstick-dash.js?v=d0a2cc1f",
+        "./src/games/bumper-bounce.js": "./src/games/bumper-bounce.js?v=40f32a97",
+        "./src/games/cake-bakery.js": "./src/games/cake-bakery.js?v=0bfb8ee0",
+        "./src/games/cake-bakery/cake.js": "./src/games/cake-bakery/cake.js?v=e9ed1efd",
+        "./src/games/cookie-crumble.js": "./src/games/cookie-crumble.js?v=fb240fa4",
+        "./src/games/crown-keeper.js": "./src/games/crown-keeper.js?v=0cd1f113",
+        "./src/games/fairy-count.js": "./src/games/fairy-count.js?v=c61d5c56",
+        "./src/games/fairy-garden.js": "./src/games/fairy-garden.js?v=2826229c",
+        "./src/games/fashion-show.js": "./src/games/fashion-show.js?v=b01dd405",
+        "./src/games/fashion-show/items.js": "./src/games/fashion-show/items.js?v=32955136",
+        "./src/games/index.js": "./src/games/index.js?v=c97203dd",
+        "./src/games/memory-match.js": "./src/games/memory-match.js?v=fd4942f0",
+        "./src/games/memory-match/cards.js": "./src/games/memory-match/cards.js?v=abd1d154",
+        "./src/games/paint-party.js": "./src/games/paint-party.js?v=4d10fd3b",
+        "./src/games/pass-the-present.js": "./src/games/pass-the-present.js?v=4fe21453",
+        "./src/games/pet-spa.js": "./src/games/pet-spa.js?v=08f9bae8",
+        "./src/games/pop-star-stage.js": "./src/games/pop-star-stage.js?v=170a251b",
+        "./src/games/potion-class.js": "./src/games/potion-class.js?v=f9ff28cf",
+        "./src/games/potion-class/hoot.js": "./src/games/potion-class/hoot.js?v=253cc044",
+        "./src/games/potion-class/ingredients.js": "./src/games/potion-class/ingredients.js?v=ad868396",
+        "./src/games/spotlight-dance.js": "./src/games/spotlight-dance.js?v=77221b98",
+        "./src/games/sprinkle-catch.js": "./src/games/sprinkle-catch.js?v=70526bbb",
+        "./src/games/troll-trouble.js": "./src/games/troll-trouble.js?v=0024c4f6",
+        "./src/games/wizard-quickdraw.js": "./src/games/wizard-quickdraw.js?v=0e45421c",
+        "./src/main.js": "./src/main.js?v=a4350cda",
+        "./src/scenes/audiotest.js": "./src/scenes/audiotest.js?v=ffc140da",
+        "./src/scenes/charselect.js": "./src/scenes/charselect.js?v=02bee704",
+        "./src/scenes/common.js": "./src/scenes/common.js?v=2f5e19e3",
+        "./src/scenes/gameselect.js": "./src/scenes/gameselect.js?v=8569bcf1",
+        "./src/scenes/index.js": "./src/scenes/index.js?v=4f8a4f0c",
+        "./src/scenes/intro.js": "./src/scenes/intro.js?v=69eb2314",
+        "./src/scenes/play.js": "./src/scenes/play.js?v=974f4c7b",
+        "./src/scenes/results.js": "./src/scenes/results.js?v=6d666eb5",
+        "./src/scenes/spriteviewer.js": "./src/scenes/spriteviewer.js?v=538de0ab",
+        "./src/scenes/title.js": "./src/scenes/title.js?v=b69a0fec",
+        "./src/scenes/trophy.js": "./src/scenes/trophy.js?v=438b571e",
+        "./src/state.js": "./src/state.js?v=90cbe611"
+      }
+    }
+    </script>
+    <script type="module" src="src/main.js?v=a4350cda"></script>
   </body>
 </html>

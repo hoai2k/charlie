@@ -524,7 +524,7 @@ export class Game {
     const stats = this.lanes.map((L) => (L.fin !== null ? `${L.fin.toFixed(1)} s` : `${Math.round(clamp(L.dist / COURSE, 0, 1) * 100)}%`) + (L.rings ? `, ${L.rings} rings` : ''));
     for (const L of this.lanes) { if (L.fin === null) { L.a.playOnce('pout', 1); L.a.setPose('pout'); } }
     const w = order[0];
-    this.api.finish({ placements, stats, focus: { x: w.ax, y: w.top + w.y * this.laneH, zoom: this.n > 4 ? 1.25 : 1.35 } });
+    this.api.finish({ placements, stats, solo: this.lanes[0].fin !== null ? 1000 - this.lanes[0].fin : clamp(this.lanes[0].dist / COURSE, 0, 1) * 100, focus: { x: w.ax, y: w.top + w.y * this.laneH, zoom: this.n > 4 ? 1.25 : 1.35 } });
   }
 
   place(L) {

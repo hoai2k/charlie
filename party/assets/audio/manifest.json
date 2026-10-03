@@ -9,14 +9,25 @@
    "sfx/aww-2.mp3"
   ],
   "balloon-stretch": "sfx/balloon-stretch.mp3",
+  "big-imp-poof": "sfx/big-imp-poof.mp3",
   "bigpop": [
    "sfx/bigpop-1.wav",
    "sfx/bigpop-2.wav"
+  ],
+  "boing": [
+   "sfx/boing-1.mp3",
+   "sfx/boing-2.mp3"
+  ],
+  "bonk": [
+   "sfx/bonk-1.wav",
+   "sfx/bonk-2.wav"
   ],
   "boom": [
    "sfx/boom-1.wav",
    "sfx/boom-2.mp3"
   ],
+  "broom-glide": "sfx/broom-glide.wav",
+  "broom-whoosh": "sfx/broom-whoosh.wav",
   "brush": [
    "sfx/brush-1.wav",
    "sfx/brush-2.wav",
@@ -27,25 +38,59 @@
    "sfx/bubble-3.wav",
    "sfx/bubble-4.wav"
   ],
+  "cake-blorp": "sfx/cake-blorp.wav",
+  "camera-flash": [
+   "sfx/camera-flash-1.mp3",
+   "sfx/camera-flash-2.mp3"
+  ],
+  "candle-blow": "sfx/candle-blow.mp3",
+  "card-flip": [
+   "sfx/card-flip-1.wav",
+   "sfx/card-flip-2.wav"
+  ],
+  "card-whoosh": "sfx/card-whoosh.wav",
   "cauldron": "sfx/cauldron.wav",
+  "cauldron-plop": "sfx/cauldron-plop.mp3",
   "cheer": [
    "sfx/cheer-1.mp3",
    "sfx/cheer-2.mp3",
    "sfx/cheer-3.mp3"
   ],
+  "cookie-snap": [
+   "sfx/cookie-snap-1.wav",
+   "sfx/cookie-snap-2.wav"
+  ],
+  "count-chime": "sfx/count-chime.wav",
   "crack": [
    "sfx/crack-1.wav",
    "sfx/crack-2.wav",
    "sfx/crack-3.wav"
   ],
+  "crowd-aww": [
+   "sfx/crowd-aww-1.mp3",
+   "sfx/crowd-aww-2.mp3"
+  ],
   "crowd-gasp": "sfx/crowd-gasp.mp3",
   "crowd-ooh": "sfx/crowd-ooh.mp3",
+  "crown-land": "sfx/crown-land.mp3",
+  "crown-sting": "sfx/crown-sting.mp3",
   "crumble": [
    "sfx/crumble-1.mp3",
    "sfx/crumble-2.wav"
   ],
+  "crumble-plop": [
+   "sfx/crumble-plop-1.mp3",
+   "sfx/crumble-plop-2.wav"
+  ],
+  "double-time": "sfx/double-time.mp3",
   "drumroll": "sfx/drumroll.mp3",
   "fanfare": "sfx/fanfare.mp3",
+  "fever": "sfx/fever.mp3",
+  "firefly-catch": [
+   "sfx/firefly-catch-1.wav",
+   "sfx/firefly-catch-2.mp3",
+   "sfx/firefly-catch-3.wav"
+  ],
   "fizzle": [
    "sfx/fizzle-1.mp3",
    "sfx/fizzle-2.mp3"
@@ -54,17 +99,54 @@
    "sfx/flip-1.wav",
    "sfx/flip-2.wav"
   ],
+  "frosting-crumble": "sfx/frosting-crumble.wav",
+  "fuse-sizzle": "sfx/fuse-sizzle.wav",
+  "giant-stomp": [
+   "sfx/giant-stomp-1.mp3",
+   "sfx/giant-stomp-2.wav"
+  ],
   "giggle": [
    "sfx/giggle-1.mp3",
    "sfx/giggle-2.mp3",
    "sfx/giggle-3.mp3"
   ],
+  "golden-chime": "sfx/golden-chime.mp3",
   "grow-flower": "sfx/grow-flower.mp3",
+  "hic": "sfx/hic.wav",
+  "hose-sputter": "sfx/hose-sputter.mp3",
   "lose": "sfx/lose.mp3",
+  "match-chime": "sfx/match-chime.wav",
   "munch": [
    "sfx/munch-1.wav",
    "sfx/munch-2.wav",
    "sfx/munch-3.wav"
+  ],
+  "night-crickets": "sfx/night-crickets.wav",
+  "note-d": "sfx/note-d.wav",
+  "note-hit-a": "sfx/note-hit-a.wav",
+  "note-hit-b": "sfx/note-hit-b.wav",
+  "note-hit-x": "sfx/note-hit-x.wav",
+  "note-hit-y": "sfx/note-hit-y.wav",
+  "note-l": "sfx/note-l.wav",
+  "note-r": "sfx/note-r.wav",
+  "note-star": "sfx/note-star.wav",
+  "note-u": "sfx/note-u.wav",
+  "paint-splat-wet": [
+   "sfx/paint-splat-wet-1.wav",
+   "sfx/paint-splat-wet-2.wav"
+  ],
+  "pet-shake": [
+   "sfx/pet-shake-1.mp3",
+   "sfx/pet-shake-2.mp3"
+  ],
+  "petal-firework": [
+   "sfx/petal-firework-1.mp3",
+   "sfx/petal-firework-2.mp3"
+  ],
+  "plant-seed": [
+   "sfx/plant-seed-1.wav",
+   "sfx/plant-seed-2.wav",
+   "sfx/plant-seed-3.wav"
   ],
   "pump": [
    "sfx/pump-1.wav",
@@ -75,10 +157,21 @@
    "sfx/ring-1.mp3",
    "sfx/ring-2.mp3"
   ],
+  "ring-combo": "sfx/ring-combo.wav",
   "roar": [
    "sfx/troll-roar-1.mp3",
    "sfx/troll-roar-2.mp3"
   ],
+  "roller-ding": "sfx/roller-ding.wav",
+  "rubber-bounce": [
+   "sfx/rubber-bounce-1.wav",
+   "sfx/rubber-bounce-2.wav"
+  ],
+  "scrub": [
+   "sfx/scrub-1.mp3",
+   "sfx/scrub-2.wav"
+  ],
+  "shower": "sfx/shower.mp3",
   "shutter": [
    "sfx/shutter-1.mp3",
    "sfx/shutter-2.mp3"
@@ -87,6 +180,7 @@
    "sfx/troll-snore-1.mp3",
    "sfx/troll-snore-2.mp3"
   ],
+  "sparkle-beam": "sfx/sparkle-beam.mp3",
   "splash": [
    "sfx/splash-1.mp3",
    "sfx/splash-2.mp3"
@@ -96,6 +190,7 @@
    "sfx/splat-2.wav",
    "sfx/splat-3.wav"
   ],
+  "sprinkle-shake": "sfx/sprinkle-shake.wav",
   "squeak": [
    "sfx/squeak-1.wav",
    "sfx/squeak-2.wav"
@@ -109,16 +204,22 @@
   ],
   "thunder": "sfx/thunder.mp3",
   "tick-tock": "sfx/tick-tock.wav",
+  "tiny-squeak": [
+   "sfx/tiny-squeak-1.mp3",
+   "sfx/tiny-squeak-2.wav"
+  ],
   "towel": "sfx/towel.wav",
   "water": [
    "sfx/water-1.mp3",
    "sfx/water-2.mp3"
   ],
+  "wheee-fall": "sfx/wheee-fall.mp3",
   "whistle": "sfx/whistle.mp3",
   "win": [
    "sfx/win-1.mp3",
    "sfx/win-2.mp3"
   ],
+  "wing-twinkle": "sfx/wing-twinkle.wav",
   "yay": [
    "sfx/yay-1.mp3",
    "sfx/yay-2.mp3",
@@ -155,6 +256,7 @@
   ],
   "npc/troll/windup": "npc/troll/windup.mp3",
   "npc/troll/yawn": "npc/troll/yawn.mp3",
+  "jingle/happy-birthday": "jingle/happy-birthday.mp3",
   "jingle/marathon-start": "jingle/marathon-start.mp3",
   "jingle/results": "jingle/results.mp3",
   "jingle/round": "jingle/round.mp3",

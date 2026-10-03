@@ -506,7 +506,7 @@ export class Game {
     const n = this.real.length;
     const wn = this.ends.winner || (this.ends.alive[0]);
     const focus = wn ? (() => { const [sx, sy] = this.toScreen(wn.x, wn.y); return { x: sx, y: sy - 60 }; })() : undefined;
-    this.api.finish({ placements: placements.slice(0, n), stats: stats.slice(0, n), focus });
+    this.api.finish({ placements: placements.slice(0, n), stats: stats.slice(0, n), focus, solo: E[0].elimAt === Infinity ? 9999 : E[0].elimAt });
   }
 
   destroy() { if (this.npc) input.releaseAI(this.npc.ctrl); }

@@ -356,7 +356,7 @@ export class Game {
     const wi = pts.indexOf(Math.max(...pts)), wa = this.actors[wi];
     this.api.finish({
       focus: { x: (wa.x + CRYSTAL.x) / 2, y: wa.y - wa.height * 0.7, zoom: 1.3 },
-      placements: placementsFromScores(pts),
+      placements: placementsFromScores(pts), solo: pts[0],
       stats: this.ps.map((s) => `${s.pts} pt${s.pts === 1 ? '' : 's'}${s.best ? ` · best ${s.best} ms` : ''}`),
     });
   }

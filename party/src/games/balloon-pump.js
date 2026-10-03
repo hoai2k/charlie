@@ -13,7 +13,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { PLAYER_COLORS } from '../data/characters.js';
 import { aiProfile } from '../engine/ai.js';
-import { clamp, lerp, damp, rand, chance, pick, placementsFromScores, ease, TAU } from '../engine/util.js';
+import { clamp, lerp, damp, rand, chance, pick, placementsFromScores, ease, TAU, later } from '../engine/util.js';
 
 const NAVY = ui.NAVY;
 const ROUNDS = 3;
@@ -346,7 +346,7 @@ export class Game {
       const b = this.balloonPos(winner);
       const col = winner.p.color;
       fx.shake(16, 0.35); fx.flash(col, 0.22); fx.hitstop(0.07);
-      sfx('bigpop'); setTimeout(() => sfx('fanfare'), 220);
+      sfx('bigpop'); later(() => sfx('fanfare'), 220);
       particles.burst(b.x, b.y, { type: 'confetti', count: 70, colors: [col, '#ffffff', '#ffd23f', col], speed: [300, 900] });
       particles.burst(b.x, b.y, { type: 'shard', count: 14, colors: [col], speed: [250, 650], size: [10, 20] });
       particles.burst(b.x, b.y, { type: 'star', count: 10, colors: ['#ffd23f', '#ffffff'] });
@@ -419,7 +419,7 @@ export class Game {
     const stats = this.st.map((st) => (this.solo ? `${st.wins} of ${ROUNDS} popped` : `${st.wins} round win${st.wins === 1 ? '' : 's'}`));
     const w = this.lastWinner >= 0 ? this.st[this.lastWinner] : null;
     const focus = w ? { x: w.a.x, y: w.a.y - 80 } : undefined;
-    this.api.finish({ placements, stats, focus });
+    this.api.finish({ placements, stats, focus, solo: scores[0] });
   }
 
   // ---- drawing ------------------------------------------------------------
