@@ -177,3 +177,8 @@ neutral head size and approved skin colors preserved. Six stable sets pass
 validation; Glimmer decoded 13.5 MiB, each fairy 4.9–5.3 MiB. In-game review
 in Fairy Count uses both full and optimized quality. Exact wing prompts and
 source provenance are in pending/npc-wing-cycle-completion.json.
+
+Fox complete: 75 poses / 96 authored frames / five portraits, decoded23.3MiB.
+Ride/dance sizes corrected; crouched head/eye/neck/mouth points individually
+reviewed. Full and optimized Broomstick Dash pass with paws on broom. Source
+sheets and exact extension prompts accompany final runtime/optimized copies.
