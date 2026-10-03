@@ -177,3 +177,19 @@ def plan(sid, take):
 
 def total_ms(sid, take=1):
     return sum(c['duration_ms'] for c in plan(sid, take)['chunks'])
+
+# Third takes (2026-10-03, after measuring takes 1-2): explicit stops in the breathers, crisp percussion.
+import copy as _copy
+for _sid, _extra in [('rh-bossa', ["crisp clear percussion", "clear pulse", "distinct sections"]),
+                     ('rh-flamenco', ["crisp clear palmas on the beat", "clear pulse", "distinct sections"])]:
+    _t = _copy.deepcopy(SONGS[_sid]['takes'][0])
+    _t['genre'] = _t['genre'] + _extra
+    _secs = []
+    for nm, bars, kind, text, pos in _t['sections']:
+        if kind == 'breath' and nm.startswith('breath'):
+            text = text.replace('{', '{all drums stop; ', 1); pos = pos + ["drums stop"]
+        if kind == 'groove':
+            pos = pos + ["crisp percussion", "steady beat"]
+        _secs.append((nm, bars, kind, text, pos))
+    _t['sections'] = _secs
+    SONGS[_sid]['takes'].append(_t)

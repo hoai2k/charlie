@@ -42,11 +42,12 @@ def phase_windows(xm, bpm, win=6.0, hop=3.0):
 
 
 T0, con0, band0 = tempo(xm, tgt)
+if len(sys.argv) > 2: T0, band0 = float(sys.argv[2]), 'onset-regression'
 log['bpm_raw'] = round(float(T0), 4); log['bpm_raw_band'] = band0
 print(f'{name}: raw tempo {T0:.4f} ({band0}), target {tgt}')
 if abs(T0 / tgt - 1) > 0.06: print('REJECT tempo'); sys.exit(2)
 drift_ms = abs(1 - tgt / T0) * dur * 1000
-if drift_ms > 4:
+if drift_ms > 2:
     st = os.path.join(D, 'work', name + '-stretch.wav'); os.makedirs(os.path.dirname(st), exist_ok=True)
     mlib.stretch(raw, st, tgt / T0)
     x = mlib.decode(st, SR, 2); xm = mlib.mono(x); dur = len(xm) / SR

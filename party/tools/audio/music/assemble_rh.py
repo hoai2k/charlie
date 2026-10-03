@@ -33,10 +33,12 @@ chosen = dict(a.split('=') for a in sys.argv[2:])
 notes = json.load(open(f'{D}/rh_notes.json'))
 songs = []
 tk = json.load(open(f'{A}/music/takes/index.json'))
-tk['takes'] = [e for e in tk['takes'] if not e['song'].startswith('rh-')]
+tk['takes'] = [e for e in tk['takes'] if e['song'] not in chosen]
 os.makedirs(f'{A}/music/rhythm', exist_ok=True)
 for sid, S in SONGS.items():
-    for k in (1, 2):
+    if sid not in chosen: continue
+    for k in (1, 2, 3):
+        if not os.path.exists(f'{D}/results/rh2-{sid}-{k}.json'): continue
         t = f'{sid}-{k}'
         r = json.load(open(f'{D}/results/{t}.json')); v2 = json.load(open(f'{D}/results/rh2-{t}.json'))
         st = json.load(open(f'{D}/results/rh2stats-{t}.json'))
@@ -65,7 +67,14 @@ vv = json.load(open(f'{D}/results/verify.json'))['dance-1']
 dance = dict(id='dance', name='Shadow Banish', style='K-pop dance', file='music/takes/dance-1.mp3', bpm=120, start=vv['loopStart'],
              lengthBeats=128, beatsPerBar=4, loop=True, loopStart=vv['loopStart'], loopEnd=vv['loopEnd'], sections=dv['sections'],
              div=12, onsets=dv['onsets'], tags=dv['tags'], key='C minor', lufs=vv['lufs'])
-out = {'version': 2, 'songs': [dance] + songs}
+prev = {}
+try:
+    pj = json.load(open(f'{A}/music/rhythm/index.json'))
+    if pj.get('version') == 2: prev = {x['id']: x for x in pj['songs'] if x['id'] != 'dance' and x['id'] not in chosen}
+except Exception: pass
+allsongs = list(prev.values()) + songs
+allsongs.sort(key=lambda x: list(SONGS).index(x['id']))
+out = {'version': 2, 'songs': [dance] + allsongs}
 s = json.dumps(out, separators=(',', ':'))
 open(f'{A}/music/rhythm/index.json', 'w').write(s + '\n')
 json.dump(tk, open(f'{A}/music/takes/index.json', 'w'), indent=1); open(f'{A}/music/takes/index.json', 'a').write('\n')

@@ -14,8 +14,8 @@ deliver in any order and in partial batches.
 > **Status, round 1 (ElevenLabs sound generation):** SFX, NPC sounds, extra SFX,
 > jingles and all 12 characters' voice clips are delivered and wired in the
 > manifest (marked in the tables below). Host lines are no longer wanted. **Music
-> (2026-10-03):** `dance`, `menu` and `chill` are ElevenLabs loops (§12); the
-> other songs are blocked on ElevenLabs quota (§12.5).
+> (2026-10-03):** every synth song except `title`/`party` is now an ElevenLabs
+> loop, and there are 7 full rhythm-game songs plus *Shadow Banish* (§12, §12.8).
 > Details, prompts and the listening checklist are in **§9**. Audition
 > everything at `?scene=audio`.
 
@@ -365,26 +365,28 @@ the feel, and it is **required for `dance`**. Usage is the lead's suggestion
 
 | Song | BPM | Key (synth) | Mood and use | Instrumentation ideas | Loop | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `title` | **124** | C major | **The theme of Charlie Party.** Joyful, inviting, "the party is starting!" A memorable 4-bar hook that kids will hum. Title screen | Bright synth-pop with glockenspiel lead, claps, plucky bass, a big but friendly chorus lift | 16–32 bars (31–62 s) | Bubblegum Radar (licensed, streamed) stays in use; an original ElevenLabs theme is **blocked on ElevenLabs quota** (§12.5) |
+| `title` | **124** | C major | **The theme of Charlie Party.** Joyful, inviting, "the party is starting!" A memorable 4-bar hook that kids will hum. Title screen | Bright synth-pop with glockenspiel lead, claps, plucky bass, a big but friendly chorus lift | 16–32 bars (31–62 s) | Bubblegum Radar (licensed, streamed) stays in use; two original ElevenLabs title themes are in `takes/` to audition (`title-2` is the better seam) (§12) |
 | `menu` | **112** | F major | Relaxed, happy browsing. Character and game select (people chat over it) | Soft ukulele/marimba, light shaker, warm pad, gentle bass; low energy, no busy lead | 16–24 bars (34–51 s) | ✅ ElevenLabs, take 1 in game (16 bars, 34.3 s); takes 2 and 3 (an alternate 24-bar cut) to audition (§12) |
 | `party` | **138** | D major | Energetic, bouncy competition: the default for party minigames (Sprinkle Catch, Cookie Crumble, Paint Party, Crown Keeper…) | Chiptune-pop: square-wave arps plus real drums, slap bass, brass stabs | 32 bars (≈56 s) | Bubblegum Radar (licensed, streamed) stays in use |
-| `chase` | **156** | A minor | Playful-urgent "run!", **comic, not scary**. Troll Trouble, Bumper Bounce, Broomstick Dash | Galloping bass, pizzicato strings, tom fills, a cheeky bassoon/tuba line, staccato synth | 32 bars (≈49 s) | blocked: ElevenLabs quota ran out (§12.5) |
-| `tense` | **120** | G minor | Suspenseful but cute: "ooh, who will it be?" Pass the Present, Wizard Quick-Draw, Balloon Pump | Ticking percussion, plucked low strings, celesta motif, sparse; builds without peaking (gameplay provides the peaks) | 24–32 bars (48–64 s) | blocked: ElevenLabs quota ran out (§12.5) |
+| `chase` | **156** | A minor | Playful-urgent "run!", **comic, not scary**. Troll Trouble, Bumper Bounce, Broomstick Dash | Galloping bass, pizzicato strings, tom fills, a cheeky bassoon/tuba line, staccato synth | 32 bars (≈49 s) | ✅ ElevenLabs, take 1 in game (24 bars, 36.9 s); take 2 to audition (§12) |
+| `tense` | **120** | G minor | Suspenseful but cute: "ooh, who will it be?" Pass the Present, Wizard Quick-Draw, Balloon Pump | Ticking percussion, plucked low strings, celesta motif, sparse; builds without peaking (gameplay provides the peaks) | 24–32 bars (48–64 s) | ✅ ElevenLabs, take 1 in game (16 bars, 32.0 s); take 2 to audition (§12) |
 | `chill` | **92** | E major | Cozy, dreamy, creative. Fairy Garden, Pet Spa, Art Studio, Memory Match, Fairy Count | Music box, soft Rhodes, felt piano, acoustic guitar, light brushes, gentle chimes | 16–24 bars (42–63 s) | ✅ ElevenLabs, take 1 in game (24 bars, 62.6 s); the only take (§12) |
 | `dance` | **120 (exact)** | **C minor** | **Drives the rhythm games** (Pop Star Stage, Spotlight Dance-Off): a catchy, empowering K-pop-style idol anthem with heroes banishing shadows with music. Sparkly and confident | Four-on-the-floor kick **on every beat**, claps on 2 and 4, punchy synth bass, bright synth lead, sparkle FX | **Exactly 16 or 32 bars (32.000 s or 64.000 s)**. See §6.3 | ✅ ElevenLabs, take 1 in game (32 bars, exactly 64.000 s, beat grid verified); takes 2 and 3 to audition; chart data in `music/rhythm/index.json` as "Shadow Banish" (§12) |
-| `bouncy` | **128** | G major | Silly and boingy, cartoon fun: Balloon Pump, Cake Bakery, Sprinkle Catch (alternative) | Bouncy tuba/bass, xylophone, slide whistle accents (sparingly), kazoo-ish lead, woodblocks | 16–32 bars (30–60 s) | blocked: ElevenLabs quota ran out (§12.5) |
-| `victory` | **132** | C major | Triumphant celebration. Results podium, after the fanfare | Brass fanfare-pop, drum-corps snare, bells, a big major-key chorus | 16 bars (≈29 s) | blocked: ElevenLabs quota ran out (§12.5) |
+| `bouncy` | **128** | G major | Silly and boingy, cartoon fun: Balloon Pump, Cake Bakery, Sprinkle Catch (alternative) | Bouncy tuba/bass, xylophone, slide whistle accents (sparingly), kazoo-ish lead, woodblocks | 16–32 bars (30–60 s) | ✅ ElevenLabs, take 1 in game (24 bars, 45.0 s); take 2 to audition (§12) |
+| `victory` | **132** | C major | Triumphant celebration. Results podium, after the fanfare | Brass fanfare-pop, drum-corps snare, bells, a big major-key chorus | 16 bars (≈29 s) | ✅ ElevenLabs, take 2 in game (24 bars, 43.6 s); take 1 to audition (§12) |
 
-Rhythm-game songs (Pop Star Stage, Spotlight Dance-Off; requested by the user on 2026-10-03). Ids `rhythm-1`…`rhythm-5`, files `music/rhythm/<id>.mp3`, listed with chart data in `music/rhythm/index.json` (§12.4). Straight 16ths only, constant tempo, 16 or 32 bars (about 60–75 s), a clear lead melody with distinct note onsets and drums with a clear pulse.
+Rhythm-game songs (Pop Star Stage, Spotlight Dance-Off), round 2 (2026-10-03; it replaces the earlier `rhythm-1`…`rhythm-5` briefs, which were never generated). **Full songs played once, not loops**, about 80–100 s at one constant tempo (90–120 BPM), instrumental, with a catchy lead. Each has a structure: intro (breathing space) → groove A → breather → groove B with a clearly different rhythm → breather → groove C (the most energetic) → a real ending with a final hit. Styles are African, island, hip hop, reggae, bossa nova, tango and flamenco. Files are `music/rhythm/<id>.mp3`, with onset data in `music/rhythm/index.json` (format v2, §12.8.3). Delivery details are in §12.8; "Sections" is what was **measured** in the audio.
 
-| Id | Name | BPM | Style | Status |
-| --- | --- | --- | --- | --- |
-| `rhythm-1` | Sparkle Pop | 112 | Bright K-pop-style idol pop, four-on-the-floor, simple catchy hook (the easiest, most regular) | blocked: ElevenLabs quota ran out (§12.5) |
-| `rhythm-2` | Bubble Bounce | 100 | Bouncy funk/disco-lite, syncopated bass, handclaps, playful plucky lead | blocked: ElevenLabs quota (§12.5) |
-| `rhythm-3` | Moonlight March | 96 | Half-time stomp-stomp-clap with a marching snare and a sparkly celesta/bell melody (spacious, for beginners) | blocked: ElevenLabs quota (§12.5) |
-| `rhythm-4` | Starfish Groove | 108 | Tropical/reggaeton-lite (gentle dembow kick-snare), steel drum/marimba lead, more unusual syncopation | blocked: ElevenLabs quota (§12.5) |
-| `rhythm-5` | Rainbow Run | 124 | Chiptune-pop with arpeggios and a call-and-response lead (the busiest, still not fast) | blocked: ElevenLabs quota (§12.5) |
-| `dance` | Shadow Banish | 120 | The `dance` song above, shared with the rhythm games | ✅ in `rhythm/index.json` (§12.4) |
+| Id | Name | BPM | Style | Sections (bars, measured) | Status |
+| --- | --- | --- | --- | --- | --- |
+| `rh-afro` | Sunbird Dance | 104 | West African / afrobeat: djembe + shekere, highlife guitar + bell, full polyrhythmic drums with call-and-response kalimba | intro 5, A 7, breath 4, B 8, breath 1, C 14, ending 1 | ✅ take 2 |
+| `rh-island` | Coconut Calypso | 108 | Calypso / soca with steel-pan lead: calypso strum + clave, soca push, carnival percussion | intro 4, A 8, breath 2, B 9, breath 1, C 13 | ✅ take 1 |
+| `rh-hiphop` | Block Party Bounce | 92 | Kid-friendly boom bap (swung): scratches, half-time 808 rolls, funk break with horns | intro 4, A 8, breath 2, B 8, breath 4, C 8, ending 1 (swing) | ✅ take 2 |
+| `rh-reggae` | Sunshine Skank | 96 | Reggae: one drop + skank with melodica, steppers, ska | intro 7, A 17 (one drop → steppers, no breather), B 9 (ska), ending 1 | ✅ take 1 |
+| `rh-bossa` | Moonlit Bossa | 110 | Bossa nova, samba batucada, bossa + samba with flute | intro 5, A 9, breath 1, B 8 (batucada), breath 1, C 13, ending 1 | ✅ take 3 |
+| `rh-tango` | Twirling Tango | 112 | Playful tango: habanera + bandoneón, marcato with pizzicato, milonga 3-3-2 | intro 3, A 9, breath 1, B 9, breath 1, C 15 | ✅ take 1 |
+| `rh-flamenco` | Fiesta Fan | 112 | Rumba flamenca: strum + palmas + cajón, contratiempo palmas + castanets | intro 4, A 19, breath 1, B 15 (no separate C in any of 3 takes) | ✅ take 3 |
+| `dance` | Shadow Banish | 120 | The `dance` loop above, shared with the rhythm games (`loop: true`) | A 7, B 25 (one steady groove) | ✅ in `rhythm/index.json` |
 
 ### 6.3 `dance` precision requirements (rhythm game sync)
 
@@ -1350,21 +1352,24 @@ the next variant). Listen to these first:
 Generated on 2026-10-03 with the ElevenLabs **music** API (`POST /v1/music`,
 `model_id: music_v2_5`, `force_instrumental: true`, `output_format:
 mp3_44100_192`, 90 s per request), then measured, cut into seamless loops,
-loudness-matched and re-encoded. **The account ran out of credits after 6
-generations**, so only `dance` (3 takes), `menu` (2 takes plus an alternate
-cut) and `chill` (1 take) exist. Everything else is blocked (§12.5). **Nobody
-has listened to these yet; every check below is a measurement** (§12.7 lists
-what to listen for). Audition all takes on the **Takes** tab of `?scene=audio`.
+loudness-matched and re-encoded. The first session ran out of credits after 6
+generations (`dance`, `menu`, `chill`). After the user topped up the credits,
+`chase`, `bouncy`, `tense`, `victory` and an optional original `title` theme
+were added (2 takes each, §12.1), plus the full-song rhythm set (`rh-*`, §12.8).
+**Nobody has listened to these yet; every check below is a measurement** (§12.7
+lists what to listen for). Audition all takes on the **Takes** tab of
+`?scene=audio`. The scripts are in `party/tools/audio/music/` (they read the
+API key from a file outside the repo).
 
 ### 12.1 What was delivered
 
 Files are in `assets/audio/music/takes/`, listed in `takes/index.json`
 (`song`, `take`, `file`, `bpm`, `bars`, `loopStart`, `loopEnd`, `lufs`,
 `truePeak`, `seamScore`, `bpmMeasured`, `bpmFinal`, `notes`, and `inGame: true`
-on the chosen take). The manifest's `music.dance`, `music.menu` and
-`music.chill` point at the chosen takes as `{ "file", "loopStart", "loopEnd" }`.
-`title` and `party` still stream *Bubblegum Radar*. The other songs keep the
-synth.
+on the chosen take). The manifest's `music.dance`, `menu`, `chill`, `chase`,
+`bouncy`, `tense` and `victory` point at the chosen takes as `{ "file",
+"loopStart", "loopEnd" }`. `title` and `party` still stream *Bubblegum Radar*;
+the original title themes are only in `takes/` for auditioning.
 
 | Take | Loop | Tempo raw → final (BPM) | Loudness | Seam score | Beat grid (2–8 kHz attacks vs grid) | Size | In game |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -1375,8 +1380,18 @@ synth.
 | `takes/menu-2.mp3` | 16 bars, 34.286 s (start bar 20) | 112.000 → 111.999 | -16.3 LUFS, -6.1 dBTP | 1.18 | median +1.4 ms, p95 7.7 ms, max 8.8 ms (100.0 % within ±10 ms) | 0.83 MB |  |
 | `takes/menu-3.mp3` (cut of take 1) | 24 bars, 51.429 s (start bar 8) | 111.996 → 111.999 | -16.2 LUFS, -3.2 dBTP | 1.17 | median +1.6 ms, p95 5.4 ms, max 22.1 ms (99.0 % within ±10 ms) | 1.25 MB |  |
 | `takes/chill-1.mp3` | 24 bars, 62.609 s (start bar 3) | 92.002 → 92.000 | -16.2 LUFS, -2.6 dBTP | 1.12 | median +1.5 ms, p95 5.2 ms, max 28.4 ms (98.7 % within ±10 ms) | 1.51 MB | **yes** |
+| `takes/chase-1.mp3` | 24 bars, 36.923 s (start bar 6) | 155.992 → 156.000 | -16.2 LUFS, -3.5 dBTP | 0.92 | median +3.2 ms, p95 6.3 ms (97.9 % within ±10 ms) | 0.90 MB | **yes** |
+| `takes/chase-2.mp3` | 24 bars, 36.923 s (start bar 22) | 155.994 → 156.000 | -16.1 LUFS, -4.4 dBTP | 1.12 | median +1.4 ms, p95 2.8 ms (100.0 % within ±10 ms) | 0.90 MB |  |
+| `takes/bouncy-1.mp3` | 24 bars, 45.000 s (start bar 9) | 127.999 → 128.000 | -16.3 LUFS, -3.0 dBTP | 0.97 | median +1.3 ms, p95 3.0 ms (100.0 % within ±10 ms) | 1.09 MB | **yes** |
+| `takes/bouncy-2.mp3` | 24 bars, 45.000 s (start bar 16) | 127.990 → 128.000 | -16.3 LUFS, -4.2 dBTP | 1.16 | median +2.6 ms, p95 21.6 ms (82.7 % within ±10 ms) | 1.09 MB |  |
+| `takes/tense-1.mp3` | 16 bars, 32.000 s (start bar 20) | 119.996 → 120.000 | -16.3 LUFS, -2.2 dBTP | 0.83 | median +2.3 ms, p95 5.9 ms (100.0 % within ±10 ms) | 0.78 MB | **yes** |
+| `takes/tense-2.mp3` | 16 bars, 32.000 s (start bar 17) | 120.000 → 120.000 | -16.3 LUFS, -2.2 dBTP | 1.12 | median +0.9 ms, p95 15.3 ms (93.6 % within ±10 ms) | 0.78 MB |  |
+| `takes/victory-1.mp3` | 24 bars, 43.636 s (start bar 14) | 131.998 → 132.000 | -16.3 LUFS, -5.9 dBTP | 0.91 | median -0.2 ms, p95 31.4 ms (62.3 % within ±10 ms) | 1.06 MB |  |
+| `takes/victory-2.mp3` | 24 bars, 43.636 s (start bar 7) | 132.000 → 132.000 | -16.2 LUFS, -6.0 dBTP | 1.02 | median +0.9 ms, p95 11.8 ms (93.7 % within ±10 ms) | 1.06 MB | **yes** |
+| `takes/title-1.mp3` | 24 bars, 46.452 s (start bar 4) | 123.996 → 124.000 | -16.3 LUFS, -5.1 dBTP | 1.19 | median -0.6 ms, p95 11.4 ms (92.7 % within ±10 ms) | 1.13 MB | audition |
+| `takes/title-2.mp3` | 24 bars, 46.452 s (start bar 17) | 124.001 → 124.000 | -16.2 LUFS, -4.7 dBTP | 0.81 | median +1.5 ms, p95 2.5 ms (100.0 % within ±10 ms) | 1.13 MB | audition |
 
-Total 9.07 MB for 7 files (each 0.83–1.55 MB at 192 kbps; over the 1.2 MB of
+Round 1: 9.07 MB for 7 files (each 0.83–1.55 MB at 192 kbps; over the 1.2 MB of
 §2 for the 64 s loops, as the brief for this round allowed). **Seam score** is
 the spectral change across the loop seam (100 ms before vs after) divided by
 the median change across all the other bar lines of the same loop: 1.0 means
@@ -1403,6 +1418,19 @@ the PCM that Chromium's `decodeAudioData` returns for the MP3.
   that drop feels natural.
 - `chill-1`: the only chill take. It is a steady 4-bar cycle throughout, cut as
   24 bars (62.6 s).
+- Round 2 loops (9.90 MB for 10 files). They are picked by seam score, plus the
+  level step at the seam staying inside the range of the loop's other bar lines:
+  - `chase-1`: seam 0.92.
+  - `bouncy-1`: seam 0.97. `bouncy-2` is brighter, with small gaps.
+  - `tense-1`: seam 0.83.
+  - `victory-2`: seam 1.02. `victory-1` has a seam level jump of 15.1 dB against
+    9.6–13.6 dB at its other bar lines, so it would likely bump.
+  - `title-2`: seam 0.81, the better original title theme.
+
+  Every take came out on an exact grid (the 2–8 kHz attack phase is constant
+  across the loop), so none needed more than a 0.01 % stretch. The fold phase
+  in `chase` and `victory-1` sits half a beat off because their brightest
+  attacks are the off-beat "pah"/snare.
 
 ### 12.2 Prompts used (for regenerating)
 
@@ -1421,20 +1449,25 @@ the PCM that Chromium's `decodeAudioData` returns for the MP3.
 Shared suffix: "Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending."
 
 The `menu-3` *file* is the alternate cut of `menu-1` described above. Its own
-prompt was refused for lack of credit. Prompts written but never sent (quota),
-first take of each:
+prompt was refused for lack of credit. Round 2 loop prompts (same shared suffix, `music_length_ms` 80–90 s):
 
-| Not generated (quota) | Prompt prepared (in the generating session scratchpad `prompts.py`) |
+| Take | Prompt |
 | --- | --- |
-| `chase` | Playful, urgent comic chase music for a cartoon, 156 BPM, A minor. Galloping bass, pizzicato strings, tom fills, a cheeky bassoon and tuba line, staccato synth stabs, driving drums. Run! Funny and mischievous, comic, never scary. |
-| `bouncy` | Silly, boingy cartoon fun music, 128 BPM, G major. Bouncy tuba bass, xylophone melody, woodblocks, a kazoo-like lead, occasional slide whistle accents used sparingly, light drums. Goofy, cheerful and bouncy, like baking a wobbly cake. |
-| `tense` | Suspenseful but cute game-show music, 120 BPM, G minor. Ticking clock percussion on every beat, plucked low pizzicato strings, a curious celesta motif, sparse and light, slowly building tension without a big climax. 'Ooh, who will it be?' Playful, not scary. |
-| `victory` | Triumphant celebration music for winning a game, 132 BPM, C major. Brass fanfare pop, drum-corps snare cadence, bright bells, a big happy major-key chorus, confident bass. Joyful and proud, kid-friendly. |
-| `title` | Joyful, inviting theme song for a kids' party game title screen, 124 BPM, C major. Bright synth-pop with a glockenspiel lead playing a catchy, memorable four-bar hook, claps, plucky bass, a big but friendly chorus lift. The party is starting! |
-| `rhythm-1` | Bright, catchy K-pop style idol pop instrumental for a kids' rhythm game, 112 BPM, E-flat major. Steady four-on-the-floor kick on every beat, crisp claps on 2 and 4, bouncy synth bass, a simple catchy plucked synth lead hook with clear separate notes, sparkly bells. Very regular and easy to clap along to, cheerful and confident. |
+| `chase-1` | Playful, urgent comic chase music for a cartoon, 156 BPM, A minor. Galloping bass, pizzicato strings, tom fills, a cheeky bassoon and tuba line, staccato synth stabs, driving drums. Run! Funny and mischievous, comic, never scary. |
+| `chase-2` | Silly cartoon chase scene, fast 156 BPM in A minor. Bouncy galloping bassline, plucky pizzicato strings, cheeky staccato clarinet and bassoon melody, playful xylophone runs, snappy snare and tom fills. Urgent but goofy and kid-friendly, not dark, not scary. |
+| `bouncy-1` | Silly, boingy cartoon fun music, 128 BPM, G major. Bouncy tuba bass, xylophone melody, woodblocks, a kazoo-like lead, occasional slide whistle accents used sparingly, light drums. Goofy, cheerful and bouncy, like baking a wobbly cake. |
+| `bouncy-2` | Goofy happy cartoon bounce at 128 BPM in G major. Oom-pah tuba and bouncy bassoon, plinky xylophone and marimba tune, woodblocks and claps, a playful muted trumpet, a rare cartoon boing accent. Cheerful, silly and light, kid-friendly. |
+| `tense-1` | Suspenseful but cute game-show music, 120 BPM, G minor. Ticking clock percussion on every beat, plucked low pizzicato strings, a curious celesta motif, sparse and light, slowly building tension without a big climax. 'Ooh, who will it be?' Playful, not scary. |
+| `tense-2` | Cute, curious suspense music for a kids' party game, 120 BPM in G minor. Steady tick-tock woodblock pulse on every beat, soft pizzicato bass and strings, sneaky celesta and glockenspiel notes, light muted kick, a gentle simmering build that never peaks. Anticipation, playful and friendly. |
+| `victory-1` | Triumphant celebration music for winning a game, 132 BPM, C major. Brass fanfare pop, drum-corps snare cadence, bright bells, a big happy major-key chorus, confident bass. Joyful and proud, kid-friendly. |
+| `victory-2` | Joyful victory party anthem at 132 BPM in C major. Bold brass section hits and a soaring trumpet melody, marching snare rolls, glockenspiel and tubular bells, claps, punchy pop drums and bass. Celebrating the champion, bright and uplifting. |
+| `title-1` | Joyful, inviting theme song for a kids' party game title screen, 124 BPM, C major. Bright synth-pop with a glockenspiel lead playing a catchy, memorable four-bar hook, claps, plucky bass, a big but friendly chorus lift. The party is starting! |
+| `title-2` | Catchy, sparkling main theme for a children's party video game, 124 BPM in C major. Glockenspiel and bright synth pluck hook, bouncy plucked bass, hand claps and pop drums, shimmering chords, a friendly uplifting chorus. Welcoming and fun. |
+
+`rhythm-1` (the old rhythm brief) was never generated; the `rh-*` set in §12.8 replaced it.
 
 
-### 12.3 Processing (scripts in the generating session's scratchpad `music/`)
+### 12.3 Processing (scripts in `party/tools/audio/music/`)
 
 1. **Tempo and grid.** The 2 ms amplitude envelope (full band, and 2–8 kHz
    for the hats and kick clicks) is folded over one beat period at a candidate
@@ -1498,53 +1531,26 @@ first take of each:
    Spectra are soft (2–5 kHz holds 0.2–3 % of the energy, centroid 226–398 Hz),
    so nothing should sound harsh.
 
-### 12.4 Rhythm-game chart data (`music/rhythm/index.json`)
+### 12.4 Rhythm-game chart data, v1 (replaced)
 
-`{"songs":[{"id","name","file","bpm","bars","loopStart","loopEnd","lufs","key","grid":{"div":4,"steps":N,"kick":[…],"snare":[…],"melody":[…],"pitch":[…]},"sections":[{"startStep","endStep","energy"}]}]}`,
-with one entry per 16th step of the loop (`steps = bars × 16`, step 0 =
-`loopStart`). Currently there is one song: `dance` → **"Shadow Banish"**
-(`music/takes/dance-1.mp3`, 120 BPM, 32 bars, 512 steps, C minor). The
-`rhythm-1`…`rhythm-5` songs are blocked (§12.5). Measured on the
-Chromium-decoded final loop (three cycles analysed, the middle one kept):
+The first `rhythm/index.json` used a 16th-step grid (`grid.kick/snare/melody/pitch`).
+It has been replaced by **format v2** (onset events on a 1/12-beat grid, with
+sections), described in §12.8.3. *Shadow Banish* (`dance-1`) was converted by
+re-measuring it with the v2 extractor.
 
-- **kick** (0–1): the steepest 10 ms rise of the 40–130 Hz envelope near each
-  step, scaled from the song's median step (0) to its 95th percentile (1), with
-  values under 0.1 set to 0. The kick is timed by the broadband attack next to it
-  (the low band itself peaks 10–40 ms late). Dance: 129 kick onsets (value
-  ≥ 0.25), 98.4 % on beats, 126 of them ≥ 0.5, 99.2 % within ±25 ms of their
-  step (median +0.8 ms). The 16th right after some beats carries 0.1–0.3
-  (the synth bass).
-- **snare** (0–1): percussive part (median-filter harmonic/percussive
-  separation) of the 1.5–5 kHz band, spectral-flux onsets. **It is "high
-  percussion" rather than a pure clap**: the kick's click and the claps give
-  0.8–1.0 on every beat, and the hats give 0.3–0.6 on the other steps. Dance:
-  503 onsets, 99.2 % within ±25 ms (median −1.0 ms).
-- **melody** (0–1): flux onsets of the harmonic part, 400–3000 Hz. Dance:
-  307 onsets, 94.8 % within ±25 ms raw, 98.7 % after removing the constant
-  +12.3 ms lag of the harmonic filter.
-- **pitch**: the strongest harmonic-sum pitch (MIDI 55–96, fundamental
-  200–2000 Hz) just after each melody onset. It is `null` where there's no
-  melody onset or no clear pitch (244 of 512 steps carry a pitch, MIDI 56–94).
-  It's rough: it mixes the lead hook (about MIDI 84–89) with chord tones (about
-  56–64), so use it for contour only.
-- **sections**: 8-bar blocks with RMS relative to the loudest block (dance:
-  0.99, 1.00, 1.00, 0.99; this loop has no breakdown).
+### 12.5 ElevenLabs credits and API calls
 
-### 12.5 Blocked: ElevenLabs quota
-
-- **API calls:** 31 in total. 6 succeeded (dance 1–3, menu 1–2, chill 1;
-  10.6–35 s each). 6 got HTTP 429 (too many concurrent requests) and were
-  retried successfully. 19 were refused with HTTP 401: 18 `quota_exceeded`
-  ("quota of 10000 … 525 credits remaining, while 549–618 credits are
-  required") and the last, a 72 s `rhythm-1` take, `insufficient_credits`. No
-  moderation refusals. Pricing seen: about 6.9 credits per second of
-  requested music (618 for 90 s).
-- **Still to generate** (with the same prompts and pipeline): `chase`,
-  `bouncy`, `tense`, `victory`, an original `title` theme (3 takes each, 80–90
-  s), `menu-3`, `chill-2`, `chill-3` (90 s), and the rhythm set `rhythm-1`…`rhythm-5`
-  (2 takes each, 85–105 s so a 32-bar loop at 96–124 BPM fits): roughly
-  **10,700 credits for the songs plus 6,500 for the rhythm set, about 17,000
-  credits**, which is 1.7 times this account's 10,000-credit quota.
+- **Round 1:** 6 generations succeeded. 6 HTTP 429 responses (too many
+  concurrent requests) were retried successfully. 19 calls were refused (HTTP 401
+  `quota_exceeded` / `insufficient_credits`), which blocked the other songs.
+- **After the top-up:** 26 generations, all successful: 14 rhythm-song
+  composition plans (85–94 s each), 10 loop takes (80–90 s) and 2 third
+  rhythm takes (`rh-bossa-3`, `rh-flamenco-3`). That is 2,281 s of requested
+  music, about **15,700 credits** at the observed ~6.9 credits per second.
+  The key can't read the balance (`GET /v1/user/subscription` returned 401
+  `missing_permissions: user_read`), so the remaining balance is unknown. No
+  further call has been refused.
+- **Total:** 57 music API calls, 32 successful generations (2,821 s requested).
 
 ### 12.6 Doubtful or worth knowing
 
@@ -1563,6 +1569,10 @@ Chromium-decoded final loop (three cycles analysed, the middle one kept):
   early or late feel in Pop Star Stage, which a calibration offset can fix.
 - §1 still says music files loop as a whole; the engine now uses
   `loopStart`/`loopEnd` from the manifest (§8).
+- Round 2 loops: `tense-1` is sparse (no kick on 18 of 64 beats, by design).
+  `chase` and `victory` loops start on the downbeat their bass marks, but
+  their brightest attacks are on the off-beat. `title-1`/`title-2` are not
+  used by the game (title keeps Bubblegum Radar).
 
 ### 12.7 Listening checklist
 
@@ -1581,5 +1591,119 @@ to jump to 4 s before `loopEnd` and hear the loop seam:
 - [ ] `chill-1`: cozy and dreamy, music box not too tinkly? The loop is a quiet
   steady cycle: check that it doesn't sound like it "restarts" at the seam.
 - [ ] In game, the music sits under the SFX and voices (bus levels from §1).
-- [ ] If possible, on an iPad/Safari: seams of all three in-game songs, and
+- [ ] If possible, on an iPad/Safari: seams of all the in-game songs, and
   `dance` sync in a rhythm game.
+- [ ] Round 2 loops: `chase-1` comic, not scary; `bouncy-1` silly, not
+  annoying; `tense-1` suspenseful but cute; `victory-2` triumphant. Compare
+  with take 2 (`victory-1`: listen for a bump at the seam). Original title
+  themes `title-1`/`title-2`: worth replacing Bubblegum Radar?
+- [ ] Rhythm songs (`rh-*`, Takes tab plays each whole song; then in Pop Star
+  Stage / Spotlight Dance-Off): no vocals; sections audibly different; the
+  breathers feel like breathing space; a clear final hit. Check especially
+  `rh-tango` (silent one-bar stops), `rh-reggae` (no breathers), `rh-hiphop`
+  (swing vs the note chart) and `rh-flamenco` (only two grooves).
+- [ ] Rhythm sync: notes land on audible hits in every section, including
+  after the breathers, with no early or late feel that grows through a song.
+
+### 12.8 Rhythm-game song set (`rh-*`, full songs)
+
+Seven full songs (not loops) for Pop Star Stage and Spotlight Dance-Off, generated with **composition plans** (`POST /v1/music` with `composition_plan.chunks`, `model_id: music_v2_5`, `force_instrumental: true`). Two takes per song, plus a third for `rh-bossa` and `rh-flamenco`. The chosen take is `music/rhythm/<id>.mp3`; the others are `music/takes/<id>-<n>.mp3`. All are listed in `takes/index.json` (`kind: "song"`, `loopStart` = the first downbeat, `loopEnd` = the end of the file, so the Takes tab loops the whole song).
+
+#### 12.8.1 Plans
+
+Each plan has 7 chunks of whole bars at the song's tempo: intro 4, A 8, breather 2, B 8, breather 2, C 12 (8 for the 92 and 96 BPM songs), ending 4. That totals 85.7–93.9 s. Each chunk's `text` is `[Section] {directions}`, and `context_adherence` is `high`. The first chunk carries the genre styles (style, `<N> BPM`, key, "steady constant tempo", instruments); later chunks carry `<N> BPM`, the style, their instruments and "instrumental". Every chunk has these negative styles: vocals, lyrics, singing, rap, spoken word, choir, voice samples, humming, tempo change, ritardando, accelerando, fade out, key change, dark, scary, aggressive distortion. Take 3 (bossa, flamenco) is take 1's plan with "crisp clear percussion / clear pulse / distinct sections" added, and "all drums stop" in the breathers. The exact plans are in `party/tools/audio/music/plans.py`.
+
+| Take | Genre styles (first chunk) | Section texts |
+| --- | --- | --- |
+| `rh-afro-1` | West African afrobeat, joyful kids music, instrumental, 104 BPM, G major, 4/4, steady constant tempo, live percussion | intro 4b: sparse: soft shaker and a single kalimba phrase, warm pad, breathing space / A 8b: djembe and shekere groove with talking drum calls, bright marimba-like kalimba hook / breath1 2b: drums drop out, only a soft pad and one talking drum fill / B 8b: highlife guitar picking with a gankogui bell pattern, light bass, kalimba melody / breath2 2b: only bell and shaker, breathing space / C 12b: full polyrhythmic African drums, djembe, talking drum, bells, call-and-response kalimba and marimba melody, most energetic / ending 4b: band plays a short closing phrase and stops on one big unison hit, then silence |
+| `rh-afro-2` **(chosen)** | afrobeat, West African highlife, happy children's dance music, instrumental, 104 BPM, G major, 4/4, steady tempo | intro 4b: gentle balafon notes over a soft pad, no drums yet / A 8b: djembe and shekere groove, talking drum answers, cheerful balafon melody / breath1 2b: just shaker and a held chord / B 8b: highlife guitar with an African bell pattern, warm bass, horn-like synth riff / breath2 2b: talking drum alone plays a short call / C 12b: full polyrhythmic drum ensemble with call-and-response kalimba and balafon melody, big and joyful / ending 4b: everyone lands on a final unison hit and stops |
+| `rh-island-1` **(chosen)** | Caribbean calypso, soca, steel pan lead, happy kids music, instrumental, 108 BPM, C major, steady constant tempo | intro 4b: solo steel pan plays a gentle phrase with light shaker / A 8b: calypso guitar strum and clave pattern, bouncy bass, catchy steel pan melody / breath1 2b: drums stop, steel pan holds a chord / B 8b: soca push with strong off-beat accents, cowbell, steel pan riff / breath2 2b: only shakers and a short tom fill / C 12b: carnival percussion breakdown building into the full band, steel pans and brass stabs, most energetic / ending 4b: the band finishes with a final unison hit |
+| `rh-island-2` | calypso, soca, tropical island party music for kids, instrumental, 108 BPM, C major, steady tempo | intro 4b: marimba and steel pan trade a soft phrase, no drums / A 8b: ukulele calypso strum, wooden clave, round bass, sunny steel pan tune / breath1 2b: only a held organ chord and a shaker / B 8b: soca drive with off-beat claps and cowbell, steel pan answers / breath2 2b: just congas, quiet / C 12b: carnival drums, samba-like percussion, horns and steel pans together, big finale energy / ending 4b: ends with a clean final chord hit |
+| `rh-hiphop-1` | kid-friendly boom bap hip hop instrumental, 92 BPM, F minor, light swing, vinyl warmth, steady constant tempo, no rap | intro 4b: mellow electric piano chords with vinyl crackle, no drums / A 8b: classic boom bap drums, record scratches, playful glockenspiel melody / breath1 2b: drums drop, only the piano chord rings / B 8b: half-time beat with syncopated 808 rolls, plucky synth melody / breath2 2b: a single scratch and a bass note / C 8b: funky breakbeat with horn stabs and a bright brass melody, most energetic / ending 4b: the beat stops on a final horn hit |
+| `rh-hiphop-2` **(chosen)** | playful boom bap hip hop beat for kids, instrumental only, 92 BPM, F minor, light swing, steady tempo, no rap | intro 4b: soft Rhodes and a warm bass note, breathing space / A 8b: dusty boom bap kick and snare, turntable scratches, toy piano hook / breath1 2b: only vinyl crackle and a held chord / B 8b: half-time groove with rolling 808 hi-hats and bass, marimba melody / breath2 2b: a short drum fill alone / C 8b: funk break drums, wah guitar, horn section stabs and melody / ending 4b: stop on one last horn stab |
+| `rh-reggae-1` **(chosen)** | sunny reggae instrumental for kids, 96 BPM, D major, melodica lead, steady constant tempo | intro 4b: melodica plays a soft phrase over an organ, no drums / A 8b: one-drop reggae drums, off-beat guitar skank, deep bass, melodica melody / breath1 2b: only the bass and a rimshot / B 8b: steppers beat with four-on-the-floor kick, organ bubble, melodica answers / breath2 2b: echoing melodica note alone / C 8b: upbeat ska section with fast off-beat guitar and horns, same tempo, most energetic / ending 4b: band stops on a final unison hit |
+| `rh-reggae-2` | happy reggae and ska, instrumental only, 96 BPM, D major, children's music, steady tempo | intro 4b: soft organ chords and a gentle guitar strum / A 8b: laid-back one drop groove, off-beat skank guitar, warm bass, whistle-like flute melody / breath1 2b: bass alone plays a short line / B 8b: steppers rhythm with kick on every beat, bubbling organ, melodica / breath2 2b: just hand drums / C 8b: bouncy ska with trumpet and trombone melody and off-beat chops / ending 4b: final horn hit and stop |
+| `rh-bossa-1` | bossa nova, Brazilian samba, gentle kids music, instrumental, 110 BPM, A major, steady constant tempo | intro 4b: solo nylon-string guitar chords, very gentle / A 8b: gentle bossa nova with nylon guitar, soft brushes, upright bass, vibraphone melody / breath1 2b: only a held guitar chord and a shaker / B 8b: samba batucada percussion: surdo, tamborim, agogo bells, joyful / breath2 2b: surdo alone keeps the pulse softly / C 12b: bossa guitar and samba percussion together with a bright flute melody, most energetic / ending 4b: a final chord hit together and stop |
+| `rh-bossa-2` | playful bossa nova and samba, instrumental only, 110 BPM, A major, children's music, steady tempo | intro 4b: soft Rhodes and nylon guitar, no drums / A 8b: bossa nova groove, rim clicks and brushes, nylon guitar, flute melody / breath1 2b: just the guitar / B 8b: samba school percussion, surdo, tamborim, agogo, pandeiro / breath2 2b: pandeiro alone, quiet / C 12b: full samba with bossa guitar, piano and flute melody, festive / ending 4b: stop on one final chord hit |
+| `rh-bossa-3` **(chosen)** | bossa nova, Brazilian samba, gentle kids music, instrumental, 110 BPM, A major, steady constant tempo, crisp clear percussion, clear pulse, distinct sections | intro 4b: solo nylon-string guitar chords, very gentle / A 8b: gentle bossa nova with nylon guitar, soft brushes, upright bass, vibraphone melody / breath1 2b: all drums stop; only a held guitar chord and a shaker / B 8b: samba batucada percussion: surdo, tamborim, agogo bells, joyful / breath2 2b: all drums stop; surdo alone keeps the pulse softly / C 12b: bossa guitar and samba percussion together with a bright flute melody, most energetic / ending 4b: a final chord hit together and stop |
+| `rh-tango-1` **(chosen)** | playful tango, Argentine tango, light and cheerful, kids music, instrumental, 112 BPM, D minor, steady constant tempo, not dark | intro 4b: solo bandoneon plays a short playful phrase / A 8b: habanera rhythm in the bass and piano, bandoneon melody / breath1 2b: only a held bandoneon chord / B 8b: marcato four-beat tango with violin pizzicato and piano / breath2 2b: a short piano run alone / C 12b: milonga syncopation 3-3-2 with piano, staccato strings and bandoneon, most energetic / ending 4b: classic tango ending: two final accented chords and stop |
+| `rh-tango-2` | cheerful tango for children, instrumental only, 112 BPM, D minor, accordion and strings, steady tempo, playful | intro 4b: accordion and piano trade two soft notes / A 8b: habanera bass rhythm, accordion melody, light strings / breath1 2b: violin holds a note / B 8b: strong four-beat marcato tango, pizzicato violins, piano chords / breath2 2b: only double bass / C 12b: milonga 3-3-2 syncopated rhythm, staccato strings, accordion and piano together / ending 4b: tango-style final two chord hits |
+| `rh-flamenco-1` | rumba flamenca, flamenco-inspired, cheerful kids music, instrumental, 112 BPM, A minor, 4/4, steady constant tempo | intro 4b: solo Spanish guitar plays a short phrase / A 8b: rumba guitar strum with palmas handclaps and cajon, guitar melody / breath1 2b: only soft palmas / B 8b: off-beat contratiempo palmas, cajon, castanets, guitar melody / breath2 2b: guitar rasgueado chord alone / C 12b: intense rasgueado rumba with accents 3+3+2+2+2, palmas, cajon, castanets, most energetic / ending 4b: final strummed chord and stop |
+| `rh-flamenco-2` | Spanish rumba flamenca for kids, instrumental only, 112 BPM, A minor, acoustic guitars and percussion, steady tempo, joyful | intro 4b: two guitars play a gentle duet, no percussion / A 8b: rumba strum, handclaps on the beat, cajon, nylon guitar lead / breath1 2b: just a cajon tap / B 8b: off-beat handclaps, castanets, guitar picking melody / breath2 2b: single guitar strum rings / C 12b: full rumba fiesta, fast rasgueado strums, accented claps, castanets and cajon / ending 4b: big final strum together |
+| `rh-flamenco-3` **(chosen)** | rumba flamenca, flamenco-inspired, cheerful kids music, instrumental, 112 BPM, A minor, 4/4, steady constant tempo, crisp clear palmas on the beat, clear pulse, distinct sections | intro 4b: solo Spanish guitar plays a short phrase / A 8b: rumba guitar strum with palmas handclaps and cajon, guitar melody / breath1 2b: all drums stop; only soft palmas / B 8b: off-beat contratiempo palmas, cajon, castanets, guitar melody / breath2 2b: all drums stop; guitar rasgueado chord alone / C 12b: intense rasgueado rumba with accents 3+3+2+2+2, palmas, cajon, castanets, most energetic / ending 4b: final strummed chord and stop |
+
+#### 12.8.2 Processing and checks
+
+1. **Tempo.** The model keeps the plan's bar grid from the file start (the first beat is 18–30 ms after 0). Tempo is first measured by fold contrast. It is then **re-measured from the onsets**: a robust linear fit of the strong on-beat onsets' timing error against beat number on the decoded MP3. Five takes drifted 10–41 ms over the song (`rh-tango-1`, `rh-flamenco-1`, `rh-hiphop-1/2`, `rh-bossa-1/3`). They were re-stretched from the raw take with rubberband (ratios 0.9999–1.0002, pitch kept) to the regressed tempo. After that, every chosen song drifts **1.4–3 ms over the whole song**, with these exceptions: `rh-afro` 2 ms, `rh-island` 5 ms and `rh-reggae` 0.6 ms (not stretched).
+2. **Beat and bar.** Beat phase is the attack of the folded envelope. On-beat vs off-beat is settled by the low band (afrobeat, reggae and soca accent off-beats). The bar line comes from the plan grid; the rhythm-novelty vote never disagreed clearly.
+3. **Sections are measured, not copied from the plan**, because the model often stretches the intro to 5–8 bars and moves later sections. For each bar the script measures level, onset density and a 16-step × 3-band onset pattern plus band energies. A bar counts as a breather if it is 6 dB below the loud bars or has under 45 % of their onset density. Grooves are split at strong 2-bar pattern-novelty peaks (at least 6 bars apart). `pattern` is filled only where a measured groove overlaps a planned one by 60 % or more.
+4. **Ending.** The final hit is the last strong attack in the last 30 % of the song. `lengthBeats` runs to the end of the bar that contains it, and the audio is kept up to 6 s after the hit, with a 0.3 s fade.
+5. **Levels.** Breathers more than 7 dB below the groove level are raised by up to 6 dB (0.4 s smoothing), never above the groove. Then gain to −16 LUFS integrated and a 4× oversampled peak limiter at −2 dBTP (1–4 dB on the drum peaks). The MP3s measure −16.1 to −16.3 LUFS with true peak −1.2 to −4 dBTP. Each file is stereo 44.1 kHz, 192 kbps, with 0.2 s before the first downbeat (`start`).
+6. **Verification.** Every take decodes in Chromium (44.1 and 48 kHz contexts) with no errors, to exactly the master's length, at 0 samples of offset (cross-correlation; the decoded file matches the master at 26–29 dB SNR).
+
+#### 12.8.3 Rhythm data format v2 (`music/rhythm/index.json`)
+
+`{"version":2,"songs":[{id, name, style, file, bpm, start, lengthBeats, beatsPerBar:4, loop, sections, div:12, onsets, tags, key, lufs}]}`. Times are in beats from `start` (the first downbeat, in file seconds). `dance` (*Shadow Banish*) has `loop: true` plus `loopStart`/`loopEnd`.
+
+- `sections`: `{name, start, end, kind: "breath"|"groove", feel: "straight"|"triplet"|"swing", pattern?, late16?, late8?, swing16?, swing8?}` with start/end in beats. Feel is measured from where the strong onsets fall within the beat:
+  - `triplet`: positions 1/3 and 2/3 dominate.
+  - `swing`: the "&" sits at 0.6 of a beat or later, or the "e" at 0.29 or later.
+  - `straight`: anything else.
+  - `late16`/`late8` (ms) give the median lateness of the off-beat 16ths/8ths in straight grooves (laid-back feel). `swing16`/`swing8` give the measured "e"/"&" position in swung grooves.
+- `onsets`: `[pos, low, high, mel, pitch]`, one entry per onset event.
+  - `pos`: the nearest 1/12-beat step.
+  - `low`: dB rise of the percussive 40–150 Hz band.
+  - `high`: dB rise of the percussive 1.5–8 kHz band.
+  - `mel`: harmonic-flux strength in 400–3000 Hz.
+  - Each band is normalized to its 95th percentile (0–1).
+  - `pitch`: harmonic-sum MIDI estimate (fundamental 200–2000 Hz), or null.
+
+  Onsets come from median-filter harmonic/percussive separation. A percussive event is timed at its broadband attack (25 % point of a 2 ms envelope). Melodic events within 25 ms of it are merged in. Events with every value below 0.15 are dropped.
+- `tags`: over strong onsets (any value ≥ 0.5), `onBeat` = share at pos % 12 == 0, `offBeat` = share at pos % 12 == 6, and `melodic` = share with mel ≥ 0.5.
+- **Start calibration:** if the median offset of the strong on-beat onsets is over 8 ms, `start` is moved by that amount. Only `rh-tango` needed it (−14.3 ms, so `start` = 0.185652).
+
+#### 12.8.4 Measurements of the chosen songs
+
+**Onset fit, for reading these numbers:** at 92–120 BPM a 1/12-beat step is 42–54 ms, so "within ±25 ms of the nearest 1/12 step" is nearly automatic (and is 93–100 % for every song). The more telling number is the fit to the section's **own** grid (straight 16ths, triplets, or the measured swing grid). On the quantized *Shadow Banish* loop, the v2 detector puts events seen by both bands within 1.8 ms (median) of the grid. Its misfits there are real 32nd-note hat rolls, so lower fits on the new songs reflect the music (flams, shaker ghost notes, scratches, laid-back melody), not detection error.
+
+| Song | Take | BPM | lengthBeats | Drift over song | Onsets (low/high/mel ≥ 0.15) | Within ±25 ms of 1/12 step | Own grid, all / strong | Strong on-beat within ±25 ms | Tags on/off/mel |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `rh-afro` Sunbird Dance | 2 | 104 | 160 | +2.0 ms | 562 (472/505/340) | 100.0 % | 88.1 % / 91.5 % | 89.7 % | 0.31/0.28/0.58 |
+| `rh-island` Coconut Calypso | 1 | 108 | 148 | −5.2 ms | 469 (418/454/295) | 100.0 % | 94.0 % / 96.2 % | 98.4 % | 0.34/0.35/0.67 |
+| `rh-hiphop` Block Party Bounce | 2 | 92 | 140 | +0.1 ms | 470 (399/364/255) | 93.4 % | 57.0 % / 70.4 % | 60.1 % | 0.29/0.27/0.49 |
+| `rh-reggae` Sunshine Skank | 1 | 96 | 136 | −0.6 ms | 358 (311/305/321) | 98.3 % | 85.5 % / 95.4 % | 98.0 % | 0.33/0.41/0.96 |
+| `rh-bossa` Moonlit Bossa | 3 | 110 | 152 | −2.6 ms | 373 (318/288/232) | 100.0 % | 71.8 % / 83.0 % | 81.8 % | 0.38/0.4/0.71 |
+| `rh-tango` Twirling Tango | 1 | 112 | 152 | −1.4 ms | 374 (302/305/316) | 100.0 % | 70.3 % / 88.1 % | 93.3 % | 0.47/0.39/0.91 |
+| `rh-flamenco` Fiesta Fan | 3 | 112 | 156 | ≈5 ms (not re-stretched) | 608 (532/557/407) | 100.0 % | 91.0 % / 92.6 % | 91.7 % | 0.25/0.19/0.71 |
+
+Per section (beats; *offset* = median timing of the strong on-beat percussion relative to the grid, which should stay constant through a song; *fit* = % of the section's onsets within ±25 ms of its own grid):
+
+| Song | Sections: name beats kind feel (offset ms, fit %) |
+| --- | --- |
+| `rh-afro` | intro 0–20 breath straight (+3.2, 94.2); A 20–48 groove straight late16 +6 (+6.1, 89.4); breath 48–64 breath straight (-2.2, 89.4); B 64–96 groove straight late16 +10 (+7.3, 82.7); breath 96–100 breath straight (–, 90.0); C 100–156 groove straight late16 +4 (+4.6, 89.6); ending 156–160 breath straight (–, 60.0) |
+| `rh-island` | intro 0–16 breath straight (+5.4, 87.5); A 16–48 groove straight late16 +2 (+0.5, 94.6); breath 48–56 breath straight (–, 100.0); B 56–92 groove straight late16 -2 (+0.7, 98.2); breath 92–96 breath straight (–, None); C 96–148 groove straight late16 -5 (+0.0, 92.7) |
+| `rh-hiphop` | intro 0–16 breath triplet (–, 36.8); A 16–48 groove swing e@0.326, &@0.506 (-3.0, 60.7); breath 48–56 breath swing (–, 42.9); B 56–88 groove swing e@0.338, &@0.509 (+4.0, 59.8); breath 88–104 breath swing (+18.1, 44.4); C 104–136 groove swing e@0.316, &@0.504 (-0.1, 58.4); ending 136–140 breath straight (–, 33.3) |
+| `rh-reggae` | intro 0–28 breath straight (–, 77.5); A 28–96 groove straight late16 +0 (+1.8, 88.2); B 96–132 groove straight late16 -1 (+1.3, 83.6); ending 132–136 breath straight (–, 100.0) |
+| `rh-bossa` | intro 0–20 breath straight (+3.8, 86.7); A 20–56 groove straight late16 +7 (+6.8, 70.2); breath 56–60 breath straight (–, 57.1); B 60–92 groove swing e@0.318, &@0.514 (+8.5, 75.3); breath 92–96 breath straight (–, 50.0); C 96–148 groove straight late16 +10 (+1.1, 68.3); ending 148–152 breath straight (–, 100.0) |
+| `rh-tango` | intro 0–12 breath straight (+6.2, 96.0); A 12–48 groove straight late16 +0 (+1.7, 69.4); breath 48–52 breath straight (–, None); B 52–88 groove straight late16 -4 (-1.5, 66.3); breath 88–92 breath straight (–, None); C 92–152 groove straight late16 -43 (-0.4, 69.2) |
+| `rh-flamenco` | intro 0–16 breath straight (–, 44.4); A 16–92 groove straight late16 +4 (-2.2, 91.1); breath 92–96 breath straight (–, 40.0); B 96–156 groove straight late16 -1 (+0.6, 93.4) |
+
+#### 12.8.5 Takes not chosen, and why
+
+- `rh-afro-1`: 8-bar intro and only one 1-bar breather (no A/B break); strong-onset fit 83.8 % vs 91.5 %.
+- `rh-island-2`: second half is one 22-bar section; beat phase wanders 30 ms in the breathers.
+- `rh-hiphop-1`: no C (funk break) section; 7.7 ms residual drift after re-stretching (take 2: 0.1 ms).
+- `rh-reggae-2`: one long groove after an 8-bar intro, no section changes; on-beat fit 80 %.
+- `rh-bossa-1`: soft pulse: residual timing wobble of ±14 ms per 16 beats; B and C merged.
+- `rh-bossa-2`: steady beat but no section changes at all (intro + 31-bar groove).
+- `rh-tango-2`: many 4-bar fragments with rubato: beat offsets −33 → +14 ms, strong-onset fit 52 %; not usable.
+- `rh-flamenco-1`: same form as take 3 with a lower fit (89.8 % vs 92.6 %) and 17 ms drift before re-stretching.
+- `rh-flamenco-2`: one long groove; beat hard to follow (strong on-beat fit 46 %).
+
+#### 12.8.6 Doubtful or worth knowing
+
+- Sections differ from the plan: the model stretched several intros (afro 5, reggae 7 bars), and **`rh-reggae` has no breathers** (the one drop runs straight into steppers). **`rh-flamenco` has only two grooves**: no take produced a separate C or the 12-count compás, so section C is missing for it.
+- `rh-tango`'s breathers are full stops: near silence for one bar (−40 dB), which levelling can't lift. Musically that is a tango pause; check that it doesn't feel like the song ended.
+- `rh-hiphop` is swung (the "e" at about a triplet). The 1/12 grid represents it (the 4/12 step), but the game should allow swing positions in those sections.
+- The `pitch` values are rough (lead mixed with chord tones). Use them for contour only.
+- `start` is the measured attack of the first downbeat. On Safari, if the MP3 gapless header is ignored, every song would sit about 25–50 ms later than the beat clock (constant, so calibratable).

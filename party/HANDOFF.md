@@ -4,11 +4,11 @@ Keep this file current while long jobs run. A new session (or a session whose
 context was compacted) should read this, `PLAN.md` (status + known issues),
 `image-requests.md` and `audio-requests.md` before continuing.
 
-_Last updated: 2026-10-03, during music generation round 2._
+_Last updated: 2026-10-03, after music generation round 2 finished._
 
 ## In progress right now
 
-### Music generation (ElevenLabs Eleven Music, `music_v2_5`)
+### Music generation (ElevenLabs Eleven Music, `music_v2_5`): finished
 - The user topped up ElevenLabs credits and asked to finish all songs.
 - **Order:** rhythm songs first, then the background songs.
 - **Rhythm set (7 full songs, played once, ~80–100 s, 2 takes each):**
@@ -36,8 +36,15 @@ _Last updated: 2026-10-03, during music generation round 2._
     tense-2, victory-1) and two original title themes (title-1, title-2, the
     agent prefers title-2) are for auditioning only. Title and party still
     use Bubblegum Radar.
-  - **Still to come:** the agent's doc updates (`audio-requests.md`,
-    `CREDITS.md`). After that, all music generation is done. The music agent drops raw takes
+  - **Generation is done.** The details are in `audio-requests.md` §6.2
+    and §12 (§12.8 has the measurements and why each take was rejected).
+    The ElevenLabs credit balance is unknown, because the key lacks the
+    `user_read` permission.
+  - **Waiting on the user:** pick takes, then prune the rest. The music MP3s
+    total about 52 MB; pruning brings that to about 25 MB. Also: switch the
+    title theme to title-2 or keep Bubblegum Radar.
+  - **Swing:** in sections with feel `swing`, the Hard chart also allows the
+    swung 16th at 10/12 of a beat. The music agent drops raw takes
     in `takes/` while it works. Audition them on the Takes tab of the audio test page
   (`?scene=audio`).
 - **Commit rule (user's request):** commit each batch of finished rhythm

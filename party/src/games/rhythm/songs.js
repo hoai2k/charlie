@@ -169,6 +169,8 @@ export function buildChart(song, level, plan) {
     const inBeat = e.pos % div;
     const onBeat = inBeat === 0;
     const onEighth = inBeat % 6 === 0, onSixteenth = inBeat % 3 === 0, onTriplet = inBeat % 4 === 0;
+    // Swung 16ths land on the triplet grid (e at 4/12, a at 10/12).
+    const swung = sec && sec.feel === 'swing' && (inBeat === 4 || inBeat === 10);
     let score, role;
     if (L.name === 'easy') {
       if (!onBeat) continue;
@@ -180,11 +182,11 @@ export function buildChart(song, level, plan) {
       score = onBeat ? Math.max(e.low, e.high * 0.85) : e.high * 1.1 + 0.08;
       if (e.mel > score) { score = e.mel * 0.8; role = 'mel'; } else role = onBeat && e.low >= e.high ? 'low' : 'high';
     } else {
-      if (!onSixteenth && !onTriplet) continue;
+      if (!onSixteenth && !onTriplet && !swung) continue;
       // The melody's rhythm leads; percussion fills where the melody rests.
       const perc = Math.max(e.low, e.high) * (onBeat ? 0.9 : 0.7);
       if (e.mel * 1.1 >= perc) { score = e.mel * 1.1 + (onEighth ? 0.05 : 0); role = 'mel'; } else { score = perc; role = e.low >= e.high ? 'low' : 'high'; }
-      if (!onEighth && !onTriplet) score -= 0.08;     // 16th pickups only when clear
+      if (!onEighth && !onTriplet && !swung) score -= 0.08;     // 16th pickups only when clear
     }
     if (score >= L.thresh) cands.push({ ...e, score, role });
   }

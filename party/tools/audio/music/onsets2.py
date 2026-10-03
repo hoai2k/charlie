@@ -112,20 +112,42 @@ def analyse(x, t_first, bpm, n_beats, a_t, b_t):
 
 
 def feel(evs):
+    """straight | triplet | swing (swung 8ths: '&' at >= 0.6 beat; swung 16ths: 'e' at >= 0.29 beat)."""
     fr = np.array([e['beat'] % 1 for e in evs if max(e['low'], e['high'], e['mel']) >= 0.3])
     near = lambda c: int(np.sum(np.abs(((fr - c + 0.5) % 1) - 0.5) < 0.06))
     c = {q: near(q) for q in (0.25, 0.5, 0.75, 1 / 3, 2 / 3)}
+    ew = fr[(fr > 0.18) & (fr < 0.42)]; aw = fr[(fr > 0.42) & (fr < 0.72)]
+    e_pos = float(np.median(ew)) if len(ew) >= 5 else None
+    a_pos = float(np.median(aw)) if len(aw) >= 5 else None
     straight = c[0.25] + c[0.5] + c[0.75]; trip = c[1 / 3] + c[2 / 3]
-    if trip > 1.5 * straight: fl = 'triplet' if c[1 / 3] >= 0.5 * c[2 / 3] else 'swing'
-    elif c[2 / 3] > 1.5 * c[0.5] and c[1 / 3] < 0.5 * c[2 / 3] and c[2 / 3] >= 5: fl = 'swing'
+    if trip > 1.5 * straight and c[1 / 3] >= 0.5 * c[2 / 3] and c[0.5] < 0.5 * trip: fl = 'triplet'
+    elif (a_pos is not None and a_pos >= 0.6) or (e_pos is not None and e_pos >= 0.29): fl = 'swing'
     else: fl = 'straight'
-    return fl, {('1/3' if abs(k - 1 / 3) < 1e-6 else '2/3' if abs(k - 2 / 3) < 1e-6 else str(k)): v for k, v in c.items()}
+    info = {('1/3' if abs(k - 1 / 3) < 1e-6 else '2/3' if abs(k - 2 / 3) < 1e-6 else str(k)): v for k, v in c.items()}
+    info['e_pos'] = round(e_pos, 3) if e_pos is not None else None; info['and_pos'] = round(a_pos, 3) if a_pos is not None else None
+    return fl, info
+
+
+def swing_grid(evs):
+    _, info = feel(evs)
+    e = info['e_pos'] if info['e_pos'] is not None else 0.25
+    a = info['and_pos'] if info['and_pos'] is not None else 0.5
+    # swung pairs: first 16th of each 8th on time, second one late by the measured ratio
+    return [0.0, e, a, a + e * (1 - a) / 0.5, 1.0]
+
+
+def err_to_grid(beat, per, fl, grid=None):
+    if fl == 'swing' and grid is not None:
+        f = beat % 1
+        return min(abs(f - g) for g in grid) * per * 1000
+    div = 4 if fl == 'straight' else 3
+    return abs(beat * div - round(beat * div)) / div * per * 1000
 
 
 def microtiming(evs, per, fl):
     """Median signed offset (ms) of onsets per grid class, and % within 25 ms after removing those offsets."""
     if len(evs) < 8: return {}, None
-    div = 4 if fl == 'straight' else 3
+    div = 4 if fl in ('straight', 'swing') else 3
     cls = {}
     for e in evs:
         q = round(e['beat'] * div); c = q % div; err = (e['beat'] * div - q) / div * per * 1000
@@ -138,8 +160,8 @@ def microtiming(evs, per, fl):
 def grid_fit(evs, per, fl):
     """% of onsets within 25 ms of the section's own grid (16ths for straight, 1/3 beat for triplet/swing)."""
     if not evs: return None
-    div = 4 if fl == 'straight' else 3
-    errs = [abs(e['beat'] * div - round(e['beat'] * div)) / div * per * 1000 for e in evs]
+    g = swing_grid(evs) if fl == 'swing' else None
+    errs = [err_to_grid(e['beat'], per, fl, g) for e in evs]
     return round(float(np.mean(np.array(errs) <= 25) * 100), 1)
 
 
@@ -157,6 +179,19 @@ if __name__ == '__main__':
     else:
         start = r['start']; nbeats = r['lengthBeats']
         evs, lag = analyse(x, start, bpm, nbeats, 0.0, len(x) / SR)
+        # calibrate the grid start on strong percussive on-beat onsets (median offset -> 0)
+        ob = np.array([(e['beat'] - round(e['beat'])) * per for e in evs if max(e['low'], e['high']) >= 0.4 and abs(e['beat'] - round(e['beat'])) < 0.12])
+        cal = 0.0
+        for _ in range(3):  # median of the main cluster around the current estimate (+-30 ms)
+            m = ob[np.abs(ob - cal) < 0.030]
+            if len(m) >= 20: cal = float(np.median(m))
+        if abs(cal) > 0.008:
+            start += cal
+            for e in evs:
+                e['beat'] -= cal / per
+                e['pos'] = int(round(e['beat'] * 12)); e['err'] = (e['beat'] * 12 - e['pos']) / 12 * per * 1000
+            evs = [e for e in evs if -1 / 24 <= e['beat'] < nbeats]
+        r['start_calibration_ms'] = round(cal * 1000, 1)
     # sections (beats) with measured feel
     secs = r.get('sections_v2') or r['sections']
     sec_out = []; stats_sec = []
@@ -169,6 +204,9 @@ if __name__ == '__main__':
         mt, fit_c = microtiming(se, per, fl)
         if s['kind'] == 'groove' and fl == 'straight' and mt:
             d['late16'] = round(np.mean([mt.get(1, 0), mt.get(3, 0)]), 0); d['late8'] = round(mt.get(2, 0), 0)
+        if s['kind'] == 'groove' and fl == 'swing' and isinstance(counts, dict):
+            if counts.get('e_pos') is not None: d['swing16'] = counts['e_pos']
+            if counts.get('and_pos') is not None: d['swing8'] = counts['and_pos']
         if s.get('pattern'): d['pattern'] = s['pattern']
         sec_out.append(d)
         stats_sec.append(dict(name=s['name'], bars=(eb - sb) // 4, kind=s['kind'], feel=fl, onsets=len(se),
@@ -179,19 +217,21 @@ if __name__ == '__main__':
     mel = np.mean([e['mel'] >= 0.5 for e in strong])
     errs = np.array([abs(e['err']) for e in evs])
     feel_of = lambda b: next((s['feel'] for s in sec_out if s['start'] <= b < s['end']), 'straight')
-    own = [abs(e['beat'] * (4 if feel_of(e['beat']) == 'straight' else 3) - round(e['beat'] * (4 if feel_of(e['beat']) == 'straight' else 3))) / (4 if feel_of(e['beat']) == 'straight' else 3) * per * 1000 for e in evs]
+    sgrid = {sd['name'] + str(sd['start']): swing_grid([e for e in evs if sd['start'] <= e['beat'] < sd['end']]) for sd in sec_out if sd['feel'] == 'swing'}
+    sec_of = lambda b: next((sd for sd in sec_out if sd['start'] <= b < sd['end']), None)
+    own = [err_to_grid(e['beat'], per, feel_of(e['beat']), sgrid.get((sec_of(e['beat']) or {}).get('name', '') + str((sec_of(e['beat']) or {}).get('start', '')))) for e in evs]
     allfit = []
     for sd in sec_out:
         se = [e for e in evs if sd['start'] <= e['beat'] < sd['end']]
         mt, _ = microtiming(se, per, sd['feel'])
-        div = 4 if sd['feel'] == 'straight' else 3
+        div = 4 if sd['feel'] in ('straight', 'swing') else 3
         for e in se:
             q = round(e['beat'] * div); allfit.append(abs((e['beat'] * div - q) / div * per * 1000 - mt.get(q % div, 0)) <= 25)
     sfit = []
     for e in strong:
-        fl_ = feel_of(e['beat']); dv = 4 if fl_ == 'straight' else 3
-        sfit.append(abs(e['beat'] * dv - round(e['beat'] * dv)) / dv * per * 1000 <= 25)
-    stats = dict(strong_within25_of_section_grid_pct=round(float(np.mean(sfit) * 100), 1) if sfit else None,
+        sd_ = sec_of(e['beat']) or {}
+        sfit.append(err_to_grid(e['beat'], per, feel_of(e['beat']), sgrid.get(sd_.get('name', '') + str(sd_.get('start', '')))) <= 25)
+    stats = dict(start_calibration_ms=r.get('start_calibration_ms', 0.0), strong_within25_of_section_grid_pct=round(float(np.mean(sfit) * 100), 1) if sfit else None,
                  strong_onbeat_within25_pct=round(float(np.mean([abs(e['beat'] - round(e['beat'])) * per * 1000 <= 25 for e in strong if abs(e['beat'] - round(e['beat'])) < 0.2]) * 100), 1),
                  within25_section_grid_after_microtiming_pct=round(float(np.mean(allfit) * 100), 1) if allfit else None, onsets=len(evs), within25_of_12th_pct=round(float(np.mean(errs <= 25) * 100), 1),
                  median_abs_err_ms=round(float(np.median(errs)), 1), within25_of_section_grid_pct=round(float(np.mean(np.array(own) <= 25) * 100), 1),
