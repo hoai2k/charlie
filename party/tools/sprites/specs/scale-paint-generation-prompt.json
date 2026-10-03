@@ -1,6 +1,6 @@
 {
   "asset": "scale",
-  "source": "../sources/scale-paint-pending.webp",
+  "source": "../sources/scale-paint.webp",
   "input_image_1": "../../../reference/canonical/scale.webp",
   "poses": [
     "paint"
@@ -9,6 +9,20 @@
     1,
     1
   ],
-  "status": "pending-generation: paused at usage threshold; resume with the built-in image_gen tool, save lossless source WebP, add one real paint frame with per-frame landmarks to the intake spec, rebuild runtime at quality 82, and rerun validate.py.",
-  "prompt": "Use case: illustration-story. Asset type: one transparent full-body mermaid paint pose for Charlie Party. Input image 1 is the approved canonical scale reference; reproduce this exact character. Scale\u2019s blonde hair, teal eyes, gold crown with teal fin flourishes, dark green layered top with blue flowers and a red dotted edge, red lattice tail and teal fins. Exactly two arms and one continuous fish tail, no legs or feet. Pose: focused painting action, one hand holding an implied small brush and making a clear forward brush stroke across an imaginary surface, other arm balancing, concentrated expression. Three-quarter view. Preserve canonical colors, face and scale, bold navy outline and clean cel shading. No brush, paint, canvas, surface, ground, water, scenery, shadow, glow, particles, text or watermark. Actual alpha transparency."
+  "status": "complete: built-in image_gen from approved canonical, followed by a hand-only edit to form the pinch grip. Source saved losslessly as WebP; one authored frame added and built. Manually annotated landmarks.",
+  "prompt": "Use case: illustration-story. Asset type: one transparent full-body mermaid paint pose for Charlie Party. Input image 1 is the approved canonical scale reference; reproduce this exact character. Scale’s blonde hair, teal eyes, gold crown with teal fin flourishes, dark green layered top with blue flowers and a red dotted edge, red lattice tail and teal fins. Exactly two arms and one continuous fish tail, no legs or feet. Pose: focused painting action, one hand holding an implied small brush and making a clear forward brush stroke across an imaginary surface, other arm balancing, concentrated expression. Three-quarter view. Preserve canonical colors, face and scale, bold navy outline and clean cel shading. No brush, paint, canvas, surface, ground, water, scenery, shadow, glow, particles, text or watermark. Actual alpha transparency.",
+  "prompt_retry": "Recreate the approved Scale character shown in reference image 1, preserving her exact existing outfit, face, hairstyle, crown and colors. Make one transparent-background full-body sprite in the same three-quarter view and art style. Show a clear mime action: one hand makes a short forward painting stroke through the air while the other arm balances. Calm, focused expression. Keep both arms and her single continuous fish tail; no legs. Keep the entire figure inside the image. No held object, paint marks, canvas, surface, water, scenery, shadow, particles, text, or watermark. True transparent alpha.",
+  "edit_prompt": "Edit only the hand at the end of the outstretched arm. Change its pointing gesture to a relaxed thumb-and-index-finger pinch with the remaining fingers gently curved, as if holding an imaginary thin paintbrush. Do not draw any tool or object. Keep the character, face, pose, colors, outlines, transparent background, and every other pixel unchanged.",
+  "source_rect": [
+    21,
+    6,
+    1108,
+    1358
+  ],
+  "source_frame_scale": 0.51,
+  "source_png": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-005dc00d-55aa-43de-a585-b5e65d9b04e4.png",
+  "output_pngs": [
+    "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-005dc00d-55aa-43de-a585-b5e65d9b04e4.png"
+  ],
+  "edit_output_png": "/Users/hoai/.codex/generated_images/01a0fe43-c681-7392-88c4-b71670e6a1a4/exec-...png"
 }

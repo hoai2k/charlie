@@ -240,3 +240,7 @@ It resolves aliases and includes every frame, so an idle blink that changes
 body pose or head size is easy to spot. Avoid review layouts that rescale each
 cell separately or clip wide/airborne sprites. Head=red, eyes=cyan, neck=yellow,
 hand=green, back=orange, anchor=white.
+
+### Final runtime review lessons
+
+Check the idle frame itself: a correct non-idle neck cannot fix a stale idle eye/neck marker (Scale needed25px upward correction). Compare all frames at their original pixel scale on a shared anchor baseline using review_frames.py; per-cell auto-fit hides head-size jumps. Correct source coordinates by the runtime anchor/scale inverse, then rebuild manifest and optimized fingerprint. Review card flip as a reaching gesture, photograph as peace sign, and full rear view in twirls. Large crouching/curled bodies need head-scale matching, not total-height matching. The builder now encodes to a temporary .tmp file and atomically replaces each WebP, preventing transient empty frames in preview or Git.

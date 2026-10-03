@@ -190,8 +190,8 @@ deliveries. New heartbeat charlie-party-delivered-image-review is active;
 use the delivery checkpoint below rather than code/doc commit times. Reset
 the follow-up on subsequent published image batches; stay quiet if unchanged.
 
-Latest image delivery revision: `9e7de1d` (includes complete Amber f3ea583).
-Latest image delivery UTC: 2026-10-03T00:33:18+00:00.
+Latest image delivery revision: `07ba7fa` (royal side cape; Amber is also published).
+Latest image delivery UTC: 2026-10-03T00:39:23+00:00.
 
 Ownership: snow_cake_completion finishes Cotton Candy/Unicorn; npc_canonicals
 finishes Amber then Hotdog; mermaid_all_actions finishes KPop trio. Root owns
@@ -212,3 +212,5 @@ in full mode and Pop Star Stage in optimized mode with alternate dress colors.
 New main request 9a65978 checked 2026-10-03T00:33:18+00:00: root generating prop/cape-royal-side; Amber publication confirmed on origin/main.
 
 Royal side cape complete: prop/cape-royal-side 520x300 transparent WebP, existing Fashion Show consumer automatically selects it for trotting quadrupeds. General art inventory now288 keys /268 files.
+
+Marina/Scale final reviewed set: each75keys/92frames/fiveportraits; decoded20.9/20.5MiB. Hotdog complete75keys/96frames/fiveportraits,19.3MiBdecoded. Root reviews passed; publishing stable batches. KPop3, Cotton Candy and Unicorn remain.

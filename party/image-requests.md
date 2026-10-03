@@ -1548,8 +1548,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | sprite `cotton-candy` `giggle` | About 1.35× too big (Pet Spa). | Scale ≈ 0.75. |
 | sprite `unicorn` `sad`, `run`, `celebrate`, `jump`, `land`, `action`, `throw`, `bow`, `strike1/3`, `stir`, `catch`, `look-around` | `hand` lands off the art. | Re-annotate `hand` (mouth, or horn tip for cast). |
 | sprite `kpop-girl-left` / `kpop-girl-center` (`ready`, `celebrate`, `dance`, `pout`, `sad`, `think`, `clap`, `strike*`) | `hand` 16 px or more from the actual hand. | Re-annotate `hand`. |
-| sprite `marina`, `scale` (all non-idle poses) | `head`/`neck` landmarks inconsistent with idle (~1.26×) though the art is fine; necklaces drift in Fashion Show. | Re-check `neck`/`eyes`/`head` landmarks. |
-| sprite `marina`, `scale` | No `carry`, `cast`, `action`, `clap`, `bow`, `sing`. | Add `carry` and `cast` first (Pass the Present, Wizard Quick-Draw, Potion Class). |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one
@@ -1592,3 +1590,6 @@ fine; the code uses one of each pair.
 - Princess Amber: four-frame dance scale corrected; original landmarks re-annotated. Full 74-key set includes card-reaching flip and peace-sign photo, with refreshed color masks and both-quality rhythm-game review.
 
 - `prop/cape-royal-side`: 520x300 red velvet animal-back cape with right collar and ermine trim; integrated Fashion Show consumer and reviewed on Fox in full mode; optimized loader regression checks passed.
+
+- Marina and Scale: complete75-key/92-frame/five-portrait sets, matching neutral blink and full per-frame attachment landmark review; paint and card-reach art included, optimized export fresh.
+- Hotdog: complete75-key/96-frame/five-portrait set, repaired original dance tails and all attachment points, reviewed Spotlight Dance full and Pop Star Stage optimized.

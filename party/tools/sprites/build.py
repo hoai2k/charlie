@@ -7,10 +7,24 @@ See README.md for the reproducible input spec and manual landmark overrides.
 """
 import argparse
 import json
+import os
+import tempfile
 from pathlib import Path
 from PIL import Image, ImageChops, ImageDraw
 
 POINTS = ('head', 'hand', 'eyes', 'neck', 'back')
+
+
+def save_webp(image, path, quality):
+    """Replace a frame only after encoding, keeping live previews readable."""
+    fd, temporary = tempfile.mkstemp(prefix='.build-', suffix='.tmp', dir=path.parent)
+    os.close(fd)
+    try:
+        image.save(temporary, 'WEBP', quality=quality, method=6)
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
 
 
 def read_image(spec, base, sources=None):
@@ -128,7 +142,7 @@ def build(spec, base, output):
             crop = canvas.getchannel('A').getbbox()
             frame_image = canvas.crop(crop)
             filename = f'{pose}-{i:02}.webp'
-            frame_image.save(output / filename, 'WEBP', quality=quality, method=6)
+            save_webp(frame_image, output / filename, quality)
             frame = {'src': filename, 'anchor': [anchor[0] - crop[0], anchor[1] - crop[1]]}
             for point in POINTS:
                 pt = item.get(point)
@@ -153,7 +167,7 @@ def build(spec, base, output):
         portrait.alpha_composite(image, ((384 - image.width) // 2, 384 - image.height))
         image = portrait
         filename = f'portrait-{expr}.webp'
-        image.save(output / filename, 'WEBP', quality=quality, method=6)
+        save_webp(image, output / filename, quality)
         manifest['portraits'][expr] = filename
     (output / 'sprites.json').write_text(json.dumps(manifest, indent=2) + '\n')
     # QA generated separately from shipped art; optional and easy to inspect.
