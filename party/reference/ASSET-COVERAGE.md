@@ -4,9 +4,9 @@ Snapshot: 2026-10-02. [image-requests.md](../image-requests.md) is the authorita
 
 ## Current status
 
-Fourteen player/companion sets have completed their expanded action and attachment review: Felicity, Fellowfox, Bronze, Marina, Scale, Fox, Hotdog, Princess Amber, Snowstar, Birthday Cake, Cotton Candy and all three KPop members. Their manifests cover the 74-key player action union, plus any character-specific extras. Fox's final source-order and landmark corrections are published in `c6d2e78`.
+All 15 player/companion sets have completed their expanded action, attachment and game review: Felicity, Fellowfox, Bronze, Marina, Scale, Fox, Hotdog, Princess Amber, Snowstar, Birthday Cake, Cotton Candy, Unicorn and all three KPop members. Every set covers the 74-key player action union, plus character-specific extras. All five pets include `catch-toy`.
 
-Unicorn remains pending final landmark review and publication of its expanded set. Its complete source artwork is generated; the final export is in progress.
+The final read-only audit checked all 26 stable manifests, their referenced images, optimizer fingerprints and three color-mask fingerprints. No blocking coverage, path, alpha, alias, decoded-memory or freshness issue remains. This inventory describes the reviewed delivery; individual actions still combine authored key poses with procedural motion rather than having full drawn cycles for every verb.
 
 All requested NPC canonicals are approved. Troll, Glimmer, Professor Hoot, the three Shadow Imps and five Garden Fairies have their requested NPC action sets and game integrations. Garden Fairy twirls now select their authored `celebrate` animation. Grumpy Broccoli and Storm Cloud use two-state props, as requested; cloud lightning is a separate asset.
 
@@ -27,10 +27,10 @@ Counts below describe saved manifests at this snapshot. Frame entries can repeat
 | `snowstar` | 75 | 96 | 5 | 24.72 | Reviewed |
 | `marshmallow-birthday-cake` | 74 | 95 | 5 | 24.79 | Reviewed |
 | `cotton-candy` | 75 | 96 | 5 | 20.74 | Reviewed |
-| `unicorn` | 45 | 62 | 6 | 20.03 | Pending final review |
+| `unicorn` | 75 | 98 | 6 | 21.16 | Reviewed |
 | `kpop-girl-left` | 74 | 96 | 6 | 19.53 | Reviewed |
-| `kpop-girl-center` | 74 | 96 | 6 | 19.04 | Reviewed |
-| `kpop-girl-right` | 74 | 96 | 6 | 21.47 | Reviewed |
+| `kpop-girl-center` | 74 | 96 | 6 | 19.08 | Reviewed |
+| `kpop-girl-right` | 74 | 96 | 6 | 21.48 | Reviewed |
 
 ## NPC manifests
 
@@ -63,8 +63,8 @@ All indexed art paths decoded successfully in the latest read-only audit. Origin
 - Full originals live in `assets/sprites/<id>/`; default optimized copies live in `assets/sprites-opt/<id>/`. Both retain per-frame ground and attachment landmarks. Sets load on demand.
 - Reproducible intake specs and source sheets live in `tools/sprites/specs/` and `tools/sprites/sources/`. Prompt records also live beside specs, in `tools/sprites/pending/`, and in canonical manifests. A `pending` filename alone does not mean its recorded work is unfinished. Hotdog's 12 earliest prompt records are explicitly reconstructed; their masters are preserved.
 - `flip` means reaching to turn a memory card, not a somersault. `photo` means a camera-facing peace sign for humanoids, with approved anatomy-appropriate variants for animals and limbless characters. The reviewed stable sets were checked for these meanings. Fox's legacy pose assignments were restored to each source sheet's declared row order.
-- The latest audit found all reviewed sets below the 25 MiB decoded limit, with current optimizer fingerprints. Some long sets exceed the 1.5 MiB encoded soft target. Birthday Cake and Snowstar are close to the decoded limit, so further frames require another budget check.
-- Felicity and Princess Amber color masks are current. KPop center masks are refreshed and reviewed, including rear views without visible eyes. Unicorn optimized copies will be refreshed after its final build.
-- Completed checkpoints have passed path/alpha/memory validation and runtime timing/landmark tests, with representative full/optimized game reviews by the integrator. All three KPop sets share bodyHeight275,74keys and96frames, with individual blink timing and coordinated poses.
+- The final audit found all 26 sets below the 25  MiB decoded limit, with current optimizer fingerprints. Some long sets exceed the 1.5  MiB encoded soft target. Birthday Cake and Snowstar are close to the decoded limit, so further frames require another budget check.
+- Felicity, KPop center and Princess Amber color-mask fingerprints are current. All 26 optimized copies match their full originals.
+- Completed checkpoints have passed path/alpha/memory validation and runtime timing/landmark tests, with representative full/optimized game reviews by the integrator. All three KPop sets share bodyHeight275,74 keys and96 frames, with individual blink timing and coordinated poses.
 
-Final acceptance still requires Unicorn's reviewed export, then the all-roster validator and runtime/art-loading tests against stable files. Update this snapshot after publication.
+All 15 player sets and 11 NPC sets are reviewed and published. The integrator reports the final Node and Python test suites passed; a final main fetch found no new requests. Future changes must refresh optimized copies and applicable masks and repeat attachment, semantics and budget checks.

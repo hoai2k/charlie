@@ -1568,8 +1568,8 @@
             116
           ],
           "hand": [
-            54,
-            249
+            144,
+            214
           ],
           "eyes": [
             246,
@@ -4104,5 +4104,6 @@
     }
   },
   "quality": 82,
-  "status": "Draft complete required action union with reviewed scale/ride-anchor adjustments; awaiting visual runtime QA."
+  "status": "Draft complete required action union with reviewed scale/ride-anchor adjustments; awaiting visual runtime QA.",
+  "reviewStatus": "Complete; synchronized to reviewed shipping spec after final runtime landmark corrections"
 }

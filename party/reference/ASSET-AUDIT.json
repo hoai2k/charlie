@@ -1,0 +1,1392 @@
+{
+  "auditedUtc": "2026-10-03T02:34:11+00:00",
+  "latestImageRevision": "35c8a94",
+  "summary": {
+    "player_sets": 15,
+    "required_pose_keys_per_player": 74,
+    "npc_sets": 11,
+    "stable_sets": 26,
+    "optimizer_fingerprints_current": 26,
+    "mask_fingerprints_current": 3,
+    "art_keys": 288,
+    "unique_art_files": 268,
+    "all_decodable": true,
+    "new_master_or_prompt_gaps": false,
+    "test_suites": "Final Node runtime/art-loading (2 suites) and Python builder (2 tests) passed; root ran after final exports."
+  },
+  "blockingFindings": [],
+  "sets": {
+    "felicity": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 22.62,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 24,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              113,
+              273
+            ],
+            "head": [
+              106,
+              49
+            ],
+            "hand": [
+              45,
+              215
+            ],
+            "eyes": [
+              109,
+              99
+            ],
+            "neck": [
+              135,
+              132
+            ],
+            "back": [
+              130,
+              169
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              105,
+              278
+            ],
+            "head": [
+              106,
+              50
+            ],
+            "hand": [
+              56,
+              114
+            ],
+            "eyes": [
+              109,
+              91
+            ],
+            "neck": [
+              111,
+              125
+            ],
+            "back": [
+              117,
+              166
+            ]
+          }
+        ]
+      }
+    },
+    "fellowfox": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 11.51,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 23,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": -1,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              80,
+              147
+            ],
+            "head": [
+              50,
+              46
+            ],
+            "hand": [
+              35,
+              106
+            ],
+            "eyes": [
+              38,
+              88
+            ],
+            "neck": [
+              61,
+              114
+            ],
+            "back": [
+              106,
+              87
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              54,
+              159
+            ],
+            "head": [
+              51,
+              37
+            ],
+            "hand": [
+              37,
+              78
+            ],
+            "eyes": [
+              48,
+              68
+            ],
+            "neck": [
+              46,
+              99
+            ],
+            "back": [
+              78,
+              119
+            ]
+          }
+        ]
+      }
+    },
+    "troll": {
+      "active": false,
+      "pose_count": 19,
+      "missing_required": [],
+      "decoded_mib": 14.52,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 13,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "glimmer": {
+      "active": false,
+      "pose_count": 14,
+      "missing_required": [],
+      "decoded_mib": 13.52,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 6,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "bronze": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 20.27,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 27,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              139,
+              240
+            ],
+            "head": [
+              114,
+              55
+            ],
+            "hand": [
+              201,
+              201
+            ],
+            "eyes": [
+              147,
+              103
+            ],
+            "neck": [
+              112,
+              126
+            ],
+            "back": [
+              105,
+              154
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              93,
+              273
+            ],
+            "head": [
+              80,
+              66
+            ],
+            "hand": [
+              133,
+              55
+            ],
+            "eyes": [
+              81,
+              104
+            ],
+            "neck": [
+              81,
+              137
+            ],
+            "back": [
+              82,
+              172
+            ]
+          }
+        ]
+      }
+    },
+    "professor-hoot": {
+      "active": false,
+      "pose_count": 15,
+      "missing_required": [],
+      "decoded_mib": 9.68,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 9,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "shadow-imp": {
+      "active": false,
+      "pose_count": 13,
+      "missing_required": [],
+      "decoded_mib": 7.34,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 4,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "shadow-imp-blue": {
+      "active": false,
+      "pose_count": 13,
+      "missing_required": [],
+      "decoded_mib": 7.34,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 0,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "shadow-imp-pink": {
+      "active": false,
+      "pose_count": 13,
+      "missing_required": [],
+      "decoded_mib": 7.34,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 0,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "garden-fairy-pink": {
+      "active": false,
+      "pose_count": 5,
+      "missing_required": [],
+      "decoded_mib": 5.11,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 7,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "garden-fairy-blue": {
+      "active": false,
+      "pose_count": 5,
+      "missing_required": [],
+      "decoded_mib": 4.88,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 7,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "garden-fairy-yellow": {
+      "active": false,
+      "pose_count": 5,
+      "missing_required": [],
+      "decoded_mib": 5.03,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 7,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "garden-fairy-green": {
+      "active": false,
+      "pose_count": 5,
+      "missing_required": [],
+      "decoded_mib": 5.06,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 7,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "garden-fairy-purple": {
+      "active": false,
+      "pose_count": 5,
+      "missing_required": [],
+      "decoded_mib": 5.29,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 7,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": null,
+      "photo": null
+    },
+    "marina": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 20.88,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 22,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "motion": 0.85,
+        "fps": 8,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              99,
+              243
+            ],
+            "head": [
+              91,
+              31
+            ],
+            "hand": [
+              27,
+              108
+            ],
+            "eyes": [
+              86,
+              71
+            ],
+            "neck": [
+              86,
+              102
+            ],
+            "back": [
+              97,
+              153
+            ],
+            "dur": 0.45
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": true,
+        "motion": 0.2,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              99,
+              213
+            ],
+            "head": [
+              73,
+              32
+            ],
+            "hand": [
+              17,
+              74
+            ],
+            "eyes": [
+              70,
+              70
+            ],
+            "neck": [
+              73,
+              108
+            ],
+            "back": [
+              103,
+              143
+            ]
+          }
+        ]
+      }
+    },
+    "scale": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 20.5,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 22,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "motion": 0.85,
+        "fps": 8,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              102,
+              228
+            ],
+            "head": [
+              58,
+              37
+            ],
+            "hand": [
+              21,
+              110
+            ],
+            "eyes": [
+              67,
+              74
+            ],
+            "neck": [
+              76,
+              100
+            ],
+            "back": [
+              88,
+              142
+            ],
+            "dur": 0.45
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": true,
+        "motion": 0.2,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              88,
+              214
+            ],
+            "head": [
+              73,
+              43
+            ],
+            "hand": [
+              37,
+              90
+            ],
+            "eyes": [
+              75,
+              76
+            ],
+            "neck": [
+              83,
+              104
+            ],
+            "back": [
+              92,
+              144
+            ]
+          }
+        ]
+      }
+    },
+    "kpop-girl-left": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 19.53,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 14,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 7,
+        "loop": false,
+        "motion": 0.8,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              70,
+              290
+            ],
+            "artHash": "7d4e5712cef2ae0e55d3b306cf23f35e9c0b33849f83bb79182a1de911930b77",
+            "fileHash": "a0bfd9f59f96df1b3cf7ee32a400f0bd47a30e0dc0a07091a4a6f6fca536a391",
+            "head": [
+              78,
+              44
+            ],
+            "hand": [
+              7,
+              95
+            ],
+            "eyes": [
+              83,
+              66
+            ],
+            "neck": [
+              72,
+              98
+            ],
+            "back": [
+              69,
+              144
+            ],
+            "dur": 0.12
+          }
+        ]
+      },
+      "photo": {
+        "fps": 7,
+        "loop": false,
+        "motion": 0.8,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              71,
+              287
+            ],
+            "artHash": "11be9b39747006bf593a3459b240246f48cdb7aa0aa1c17b713474f73559737e",
+            "fileHash": "acba50d80878ba94c61ec8b77ed6d34f40d471868f6ab47a7319e67298848477",
+            "head": [
+              63,
+              41
+            ],
+            "hand": [
+              -3,
+              85
+            ],
+            "eyes": [
+              56,
+              42
+            ],
+            "neck": [
+              65,
+              85
+            ],
+            "back": [
+              68,
+              135
+            ],
+            "dur": 0.12
+          }
+        ]
+      }
+    },
+    "cotton-candy": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 20.74,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 26,
+      "generation_prompt_records": 25,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 8,
+        "loop": false,
+        "holdLast": true,
+        "motion": 0.3,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              123,
+              221
+            ],
+            "artHash": "2529217a3607a87f9e43fa3586440d7c6f8b8b6057d2266247d0a6d3dff3dbad",
+            "fileHash": "675dd6d1949f88afde5fb17f0be5f86fe97c054ff47080bb60a235c60435c36b",
+            "head": [
+              185,
+              62
+            ],
+            "hand": [
+              224,
+              197
+            ],
+            "eyes": [
+              194,
+              81
+            ],
+            "neck": [
+              170,
+              119
+            ],
+            "back": [
+              130,
+              134
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 8,
+        "loop": false,
+        "holdLast": true,
+        "motion": 0.3,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              132,
+              288
+            ],
+            "artHash": "8a53d410b13703dbe79f663a1deae14d0f143fcaadd8da4e4bb94dfd944e3bb0",
+            "fileHash": "4740f6360c92bd3c9f1e9450bb0b082dc1fa23e44aa61c9a252ade536170f8ea",
+            "head": [
+              145,
+              78
+            ],
+            "hand": [
+              176,
+              141
+            ],
+            "eyes": [
+              162,
+              114
+            ],
+            "neck": [
+              174,
+              167
+            ],
+            "back": [
+              131,
+              191
+            ]
+          }
+        ]
+      }
+    },
+    "kpop-girl-center": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 19.08,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 14,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 7,
+        "loop": false,
+        "motion": 0.8,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              73,
+              290
+            ],
+            "artHash": "87f6ee65028aceae14c28258c2d815a65fbb77ca048adbfa8b7a096fe72895af",
+            "fileHash": "90dfc1ee90e179731b4d76c7c03f0f22cfb86a0b0279a212370e21e11a9fb2f5",
+            "head": [
+              67,
+              43
+            ],
+            "hand": [
+              11,
+              115
+            ],
+            "eyes": [
+              82,
+              62
+            ],
+            "neck": [
+              68,
+              98
+            ],
+            "back": [
+              75,
+              142
+            ],
+            "dur": 0.12
+          }
+        ]
+      },
+      "photo": {
+        "fps": 7,
+        "loop": false,
+        "motion": 0.8,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              77,
+              291
+            ],
+            "artHash": "3b83e5069f3143f11b562ba07815e21528a94e61afb468cb1b5599b11ae31126",
+            "fileHash": "51b58c1703271a68b2cc28a1be5f796e67b6f178360feb3f176f8b9c7f67b8a0",
+            "head": [
+              69,
+              43
+            ],
+            "hand": [
+              1,
+              99
+            ],
+            "eyes": [
+              56,
+              62
+            ],
+            "neck": [
+              71,
+              87
+            ],
+            "back": [
+              73,
+              136
+            ],
+            "dur": 0.12
+          }
+        ]
+      }
+    },
+    "kpop-girl-right": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 21.48,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 15,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 7,
+        "loop": false,
+        "motion": 0.8,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              76,
+              288
+            ],
+            "artHash": "753aa48be1ea38506d7d4eed03f51a8f2c84529b00fa3eaa82a221d09bd3801c",
+            "fileHash": "e85c854d5918e63a9c107469ab331d3d3eaf6793b1de4acc092108402940dd9c",
+            "head": [
+              70,
+              50
+            ],
+            "hand": [
+              18,
+              95
+            ],
+            "eyes": [
+              80,
+              59
+            ],
+            "neck": [
+              70,
+              104
+            ],
+            "back": [
+              75,
+              144
+            ],
+            "dur": 0.12
+          }
+        ]
+      },
+      "photo": {
+        "fps": 7,
+        "loop": false,
+        "motion": 0.8,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              81,
+              290
+            ],
+            "artHash": "6125a752908e9584a42b6bc83f66e36d7c9aa135b7a6b29b2e9f6e1119a20fdd",
+            "fileHash": "b09be07362e22fe5bff280d3679a78a5a9e168c0491dc6d397c6aff31c383aa4",
+            "head": [
+              75,
+              48
+            ],
+            "hand": [
+              4,
+              81
+            ],
+            "eyes": [
+              78,
+              64
+            ],
+            "neck": [
+              75,
+              91
+            ],
+            "back": [
+              78,
+              140
+            ],
+            "dur": 0.12
+          }
+        ]
+      }
+    },
+    "fox": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 23.54,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 21,
+      "generation_prompt_records": 15,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              192,
+              283
+            ],
+            "head": [
+              285,
+              138
+            ],
+            "hand": [
+              312,
+              252
+            ],
+            "eyes": [
+              286,
+              167
+            ],
+            "neck": [
+              257,
+              215
+            ],
+            "back": [
+              189,
+              184
+            ],
+            "dur": 0.45
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              108,
+              210
+            ],
+            "head": [
+              166,
+              48
+            ],
+            "hand": [
+              164,
+              96
+            ],
+            "eyes": [
+              168,
+              74
+            ],
+            "neck": [
+              163,
+              115
+            ],
+            "back": [
+              52,
+              134
+            ]
+          }
+        ]
+      }
+    },
+    "princess-amber": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 20.61,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 20,
+      "generation_prompt_records": 4,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.3,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              92,
+              307
+            ],
+            "head": [
+              78,
+              59
+            ],
+            "hand": [
+              13,
+              146
+            ],
+            "eyes": [
+              75,
+              80
+            ],
+            "neck": [
+              93,
+              109
+            ],
+            "back": [
+              95,
+              135
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.3,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              90,
+              303
+            ],
+            "head": [
+              90,
+              57
+            ],
+            "hand": [
+              50,
+              98
+            ],
+            "eyes": [
+              90,
+              76
+            ],
+            "neck": [
+              88,
+              108
+            ],
+            "back": [
+              84,
+              138
+            ]
+          }
+        ]
+      }
+    },
+    "snowstar": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 24.72,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 20,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              116,
+              287
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              106,
+              287
+            ]
+          }
+        ]
+      }
+    },
+    "marshmallow-birthday-cake": {
+      "active": false,
+      "pose_count": 74,
+      "missing_required": [],
+      "decoded_mib": 24.79,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 18,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              109,
+              236
+            ],
+            "head": [
+              135,
+              31
+            ],
+            "hand": [
+              139,
+              60
+            ],
+            "eyes": [
+              105,
+              146
+            ],
+            "neck": [
+              111,
+              167
+            ],
+            "back": [
+              43,
+              143
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.85,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              120,
+              277
+            ],
+            "head": [
+              120,
+              36
+            ],
+            "hand": [
+              120,
+              67
+            ],
+            "eyes": [
+              120,
+              165
+            ],
+            "neck": [
+              120,
+              193
+            ],
+            "back": [
+              48,
+              165
+            ]
+          }
+        ]
+      }
+    },
+    "unicorn": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 21.16,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 16,
+      "generation_prompt_records": 0,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 8,
+        "loop": false,
+        "holdLast": true,
+        "motion": 0.15,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              159,
+              230
+            ],
+            "artHash": "583e409e2c2853da1c5be4cee140959ce550aca1d07f3e2206fa4a84f4f84c74",
+            "fileHash": "d00a2e47594529c97a6d22330fde881f4212d36e5726357feb08de9a29772e8a",
+            "head": [
+              204,
+              48
+            ],
+            "hand": [
+              254,
+              182
+            ],
+            "eyes": [
+              201,
+              61
+            ],
+            "neck": [
+              197,
+              110
+            ],
+            "back": [
+              129,
+              110
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 8,
+        "loop": false,
+        "holdLast": true,
+        "motion": 0.25,
+        "facing": 1,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              102,
+              236
+            ],
+            "artHash": "a68712f128e3c9733b2a75444a45e18696033e12a2c4cca67503cc4333d780e4",
+            "fileHash": "6a161e3b742eb5add0888678aeb44b66ce3c92d52f418044dd673532f7a74a30",
+            "head": [
+              133,
+              40
+            ],
+            "hand": [
+              167,
+              69
+            ],
+            "eyes": [
+              133,
+              49
+            ],
+            "neck": [
+              113,
+              111
+            ],
+            "back": [
+              64,
+              141
+            ]
+          }
+        ]
+      }
+    },
+    "hotdog": {
+      "active": false,
+      "pose_count": 75,
+      "missing_required": [],
+      "decoded_mib": 19.31,
+      "bad_files": [],
+      "missing_source_files": [],
+      "source_count": 21,
+      "generation_prompt_records": 21,
+      "optimized_fresh": true,
+      "mask_stale": null,
+      "flip": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.5,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "flip-00.webp",
+            "anchor": [
+              127,
+              223
+            ],
+            "head": [
+              99,
+              118
+            ],
+            "hand": [
+              62,
+              203
+            ],
+            "eyes": [
+              95,
+              143
+            ],
+            "neck": [
+              109,
+              177
+            ],
+            "back": [
+              163,
+              145
+            ]
+          }
+        ]
+      },
+      "photo": {
+        "fps": 5,
+        "loop": false,
+        "motion": 0.5,
+        "facing": 0,
+        "frames": [
+          {
+            "src": "photo-00.webp",
+            "anchor": [
+              123,
+              228
+            ],
+            "head": [
+              115,
+              103
+            ],
+            "hand": [
+              123,
+              148
+            ],
+            "eyes": [
+              119,
+              130
+            ],
+            "neck": [
+              121,
+              168
+            ],
+            "back": [
+              124,
+              189
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "Encoded1.5MiB target is soft; someexpandedsets exceed it.",
+    "Cake24.79MiB and Snowstar24.72MiB near25MiB decoded cap.",
+    "Hotdog12historical prompt records reconstructed, clearly labeled."
+  ]
+}

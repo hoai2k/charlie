@@ -7,12 +7,12 @@ workflow without routine confirmation.
 
 ## Delivered
 
-All15 roster member sets cover the complete74-key player action union, plus
+All 15 roster member sets cover the complete74-key player action union, plus
 character extras. Felicity/Fellowfox and the KPop trio remain independently
 animated while travelling together. Animal, mermaid, robot and cake anatomy
 matches approved references. Troll is NPC-only and has his requested action set.
 
-All26 indexed sprite sets have full and optimized copies, portraits, timed
+All 26 indexed sprite sets have full and optimized copies, portraits, timed
 frames, ground anchors and attachment points. Extended sets include two-frame
 dash/hip-bump/knockback and true four-view twirls. Longer recurring actions use
 authored cycles plus smooth procedural motion. Other short verbs remain strong
@@ -24,7 +24,7 @@ Garden Fairies preserve approved diverse skin tones, including light olive for
 the purple fairy. Storm Cloud's lightning is separate from his body images.
 Hoot and Fairy Garden consumers use the new authored reactions and turns.
 
-General game art has288 indexed keys referencing268 files, including all20
+General game art has288 indexed keys referencing268 files, including all 20
 thumbnails and required backgrounds, props, tools, effects and UI art. The
 requested in-game regenerations are resolved in image-requests.md. Original
 unused ingredients and neutral cake shapes remain available. Optional future
@@ -44,8 +44,8 @@ Amber masks have current source fingerprints. Runtime/art-loading Node tests
 and builder cache/atomic-output Python tests pass. Representative gameplay
 reviews cover both quality modes and alternate outfit colors.
 
-Sets load on demand. Every member stays below the25 MiB decoded limit; some
-complete sets exceed the soft1.5 MiB download target. Snowstar and Birthday Cake
+Sets load on demand. Every member stays below the25  MiB decoded limit; some
+complete sets exceed the soft1.5  MiB download target. Snowstar and Birthday Cake
 are close to the decoded limit, so additional frames need a fresh budget check.
 
 Use tools/sprites/review_frames.py for actual-scale attachment comparisons.

@@ -1,20 +1,20 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. Production is active;
-the user revoked the former 40% allowance pause for Sol. Completed batches
-are reviewed, committed to main and pushed regularly. Do not regenerate
+The authoritative brief is `party/image-requests.md`. Current production is complete;
+the user revoked the former40% allowance pause for Sol. Reviewed batches
+are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
 ## Current delivery
 
-Latest image delivery revision: `c196cf6` (Cotton Candy complete set).
-Latest image delivery UTC: 2026-10-03T01:50:29+00:00.
-Last checked revision: `c196cf6`.
-Last checked UTC: 2026-10-03T02:10:14+00:00.
+Latest image delivery revision: `35c8a94` (Unicorn, final required image set).
+Latest image delivery UTC: 2026-10-03T02:34:11+00:00.
+Last checked revision: `35c8a94`.
+Last checked UTC: 2026-10-03T02:34:11+00:00.
 
-Fourteen player/companion sets are reviewed and published: Felicity, Fellowfox,
+All 15 player/companion sets are reviewed and published: Felicity, Fellowfox,
 Bronze, Fox, Cotton Candy, Princess Amber, Snowstar, Birthday Cake, Hotdog,
-Marina, Scale and all three KPop members. All cover the current 74-key action union, plus anatomy-
+Marina, Scale, Unicorn and all three KPop members. All cover the current 74-key action union, plus anatomy-
 appropriate extras. Full and optimized copies, sources and prompt records are
 published. Fox's 28 legacy source-order swaps were repaired in c6d2e78.
 
@@ -29,16 +29,19 @@ animal-back cape. Optional future parallax background is documented in the
 coverage report. Original unused ingredients and neutral cake shapes remain
 available for future game use.
 
-## Remaining export and review
+## Completion
 
-All remaining source artwork has been generated. Do not duplicate generation.
-KPop3 now reviewed: each74keys/96frames/sixportraits, fresh optimizer/center
-masks, complete boot crops, full/optimized stage reviews passed.
+No required generation, export, regeneration or review work remains. All 15
+players cover74 required action keys. The final audit verifies26 valid indexed
+sets,26 current optimized fingerprints,3 current mask fingerprints,288 art keys
+and268 decodable art files. All spec masters and new prompt records exist.
+Node runtime/art-loading and Python builder tests pass. Final main sync added
+no requests. Source-local candidate snapshots match the final shipping specs.
 
-| Owner | Set | Remaining work |
-| --- | --- | --- |
-| snow_cake_completion | Unicorn | Final source-local mouth/horn/face landmarks, export, optimizer, validation and root gameplay review |
-| Root | Integration | Publish reviewed sets, update final coverage/handoff, safely sync main for new requests and run final all-roster checks |
+Root reviewed representative full/optimized gameplay for each completed batch.
+Unicorn's final75-key/98-frame/six-portrait set is reviewed in Wizard Quickdraw
+full and Broomstick Dash optimized. KPop each74 keys/96 frames/sixportraits is
+reviewed in both quality modes with alternate outfits and complete boot crops.
 
 ## Verification and reusable lessons
 
@@ -48,7 +51,7 @@ quality. Source points are crop-local; convert runtime corrections back using
 the documented inverse transform. A point within image bounds is not proof it
 is on the character. Grid boundaries can clip complete source figures.
 
-Decoded memory must stay under25 MiB per member; the1.5 MiB encoded target is
+Decoded memory must stay under25  MiB per member; the1.5  MiB encoded target is
 soft. Preserve requested frames, approved anatomy and individual expression.
 Memory Match `flip` reaches for a card. Hold props separately using actual
 palm/mouth/horn/fin landmarks. KPop shares body height/action/frame vocabulary

@@ -1,6 +1,6 @@
 # Optional character actions
 
-All15 roster member sets now have authored art for the six actions below, supported by `src/engine/sprites.js`. They are part of the complete74-key coverage checklist; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md). Compatible aliases and procedural motion remain available for graceful runtime fallback.
+All 15 roster member sets now have authored art for the six actions below, supported by `src/engine/sprites.js`. They are part of the complete74-key coverage checklist; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md). Compatible aliases and procedural motion remain available for graceful runtime fallback.
 
 These actions enable optional game features. Installing artwork does not change controls, movement, collisions or scoring.
 
