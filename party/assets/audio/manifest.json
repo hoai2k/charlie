@@ -676,6 +676,21 @@
   "party": {
    "file": "music/bubblegum-radar.mp3",
    "stream": true
+  },
+  "dance": {
+   "file": "music/takes/dance-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 64.2
+  },
+  "menu": {
+   "file": "music/takes/menu-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 34.485714
+  },
+  "chill": {
+   "file": "music/takes/chill-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 62.808685
   }
  }
 }

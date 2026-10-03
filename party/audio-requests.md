@@ -13,7 +13,9 @@ deliver in any order and in partial batches.
 
 > **Status, round 1 (ElevenLabs sound generation):** SFX, NPC sounds, extra SFX,
 > jingles and all 12 characters' voice clips are delivered and wired in the
-> manifest (marked in the tables below). Host lines and music are still open.
+> manifest (marked in the tables below). Host lines are no longer wanted. **Music
+> (2026-10-03):** `dance`, `menu` and `chill` are ElevenLabs loops (§12); the
+> other songs are blocked on ElevenLabs quota (§12.5).
 > Details, prompts and the listening checklist are in **§9**. Audition
 > everything at `?scene=audio`.
 
@@ -363,15 +365,26 @@ the feel, and it is **required for `dance`**. Usage is the lead's suggestion
 
 | Song | BPM | Key (synth) | Mood and use | Instrumentation ideas | Loop | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `title` | **124** | C major | **The theme of Charlie Party.** Joyful, inviting, "the party is starting!" A memorable 4-bar hook that kids will hum. Title screen | Bright synth-pop with glockenspiel lead, claps, plucky bass, a big but friendly chorus lift | 16–32 bars (31–62 s) | skipped: needs music permission or a composer (§9.3) |
-| `menu` | **112** | F major | Relaxed, happy browsing. Character and game select (people chat over it) | Soft ukulele/marimba, light shaker, warm pad, gentle bass; low energy, no busy lead | 16–24 bars (34–51 s) | skipped: needs music permission or a composer (§9.3) |
-| `party` | **138** | D major | Energetic, bouncy competition: the default for party minigames (Sprinkle Catch, Cookie Crumble, Paint Party, Crown Keeper…) | Chiptune-pop: square-wave arps plus real drums, slap bass, brass stabs | 32 bars (≈56 s) | skipped: needs music permission or a composer (§9.3) |
-| `chase` | **156** | A minor | Playful-urgent "run!", **comic, not scary**. Troll Trouble, Bumper Bounce, Broomstick Dash | Galloping bass, pizzicato strings, tom fills, a cheeky bassoon/tuba line, staccato synth | 32 bars (≈49 s) | skipped: needs music permission or a composer (§9.3) |
-| `tense` | **120** | G minor | Suspenseful but cute: "ooh, who will it be?" Pass the Present, Wizard Quick-Draw, Balloon Pump | Ticking percussion, plucked low strings, celesta motif, sparse; builds without peaking (gameplay provides the peaks) | 24–32 bars (48–64 s) | skipped: needs music permission or a composer (§9.3) |
-| `chill` | **92** | E major | Cozy, dreamy, creative. Fairy Garden, Pet Spa, Art Studio, Memory Match, Fairy Count | Music box, soft Rhodes, felt piano, acoustic guitar, light brushes, gentle chimes | 16–24 bars (42–63 s) | skipped: needs music permission or a composer (§9.3) |
-| `dance` | **120 (exact)** | **C minor** | **Drives the rhythm games** (Pop Star Stage, Spotlight Dance-Off): a catchy, empowering K-pop-style idol anthem with heroes banishing shadows with music. Sparkly and confident | Four-on-the-floor kick **on every beat**, claps on 2 and 4, punchy synth bass, bright synth lead, sparkle FX | **Exactly 16 or 32 bars (32.000 s or 64.000 s)**. See §6.3 | skipped: needs music permission or a composer (§9.3) |
-| `bouncy` | **128** | G major | Silly and boingy, cartoon fun: Balloon Pump, Cake Bakery, Sprinkle Catch (alternative) | Bouncy tuba/bass, xylophone, slide whistle accents (sparingly), kazoo-ish lead, woodblocks | 16–32 bars (30–60 s) | skipped: needs music permission or a composer (§9.3) |
-| `victory` | **132** | C major | Triumphant celebration. Results podium, after the fanfare | Brass fanfare-pop, drum-corps snare, bells, a big major-key chorus | 16 bars (≈29 s) | skipped: needs music permission or a composer (§9.3) |
+| `title` | **124** | C major | **The theme of Charlie Party.** Joyful, inviting, "the party is starting!" A memorable 4-bar hook that kids will hum. Title screen | Bright synth-pop with glockenspiel lead, claps, plucky bass, a big but friendly chorus lift | 16–32 bars (31–62 s) | Bubblegum Radar (licensed, streamed) stays in use; an original ElevenLabs theme is **blocked on ElevenLabs quota** (§12.5) |
+| `menu` | **112** | F major | Relaxed, happy browsing. Character and game select (people chat over it) | Soft ukulele/marimba, light shaker, warm pad, gentle bass; low energy, no busy lead | 16–24 bars (34–51 s) | ✅ ElevenLabs, take 1 in game (16 bars, 34.3 s); takes 2 and 3 (an alternate 24-bar cut) to audition (§12) |
+| `party` | **138** | D major | Energetic, bouncy competition: the default for party minigames (Sprinkle Catch, Cookie Crumble, Paint Party, Crown Keeper…) | Chiptune-pop: square-wave arps plus real drums, slap bass, brass stabs | 32 bars (≈56 s) | Bubblegum Radar (licensed, streamed) stays in use |
+| `chase` | **156** | A minor | Playful-urgent "run!", **comic, not scary**. Troll Trouble, Bumper Bounce, Broomstick Dash | Galloping bass, pizzicato strings, tom fills, a cheeky bassoon/tuba line, staccato synth | 32 bars (≈49 s) | blocked: ElevenLabs quota ran out (§12.5) |
+| `tense` | **120** | G minor | Suspenseful but cute: "ooh, who will it be?" Pass the Present, Wizard Quick-Draw, Balloon Pump | Ticking percussion, plucked low strings, celesta motif, sparse; builds without peaking (gameplay provides the peaks) | 24–32 bars (48–64 s) | blocked: ElevenLabs quota ran out (§12.5) |
+| `chill` | **92** | E major | Cozy, dreamy, creative. Fairy Garden, Pet Spa, Art Studio, Memory Match, Fairy Count | Music box, soft Rhodes, felt piano, acoustic guitar, light brushes, gentle chimes | 16–24 bars (42–63 s) | ✅ ElevenLabs, take 1 in game (24 bars, 62.6 s); the only take (§12) |
+| `dance` | **120 (exact)** | **C minor** | **Drives the rhythm games** (Pop Star Stage, Spotlight Dance-Off): a catchy, empowering K-pop-style idol anthem with heroes banishing shadows with music. Sparkly and confident | Four-on-the-floor kick **on every beat**, claps on 2 and 4, punchy synth bass, bright synth lead, sparkle FX | **Exactly 16 or 32 bars (32.000 s or 64.000 s)**. See §6.3 | ✅ ElevenLabs, take 1 in game (32 bars, exactly 64.000 s, beat grid verified); takes 2 and 3 to audition; chart data in `music/rhythm/index.json` as "Shadow Banish" (§12) |
+| `bouncy` | **128** | G major | Silly and boingy, cartoon fun: Balloon Pump, Cake Bakery, Sprinkle Catch (alternative) | Bouncy tuba/bass, xylophone, slide whistle accents (sparingly), kazoo-ish lead, woodblocks | 16–32 bars (30–60 s) | blocked: ElevenLabs quota ran out (§12.5) |
+| `victory` | **132** | C major | Triumphant celebration. Results podium, after the fanfare | Brass fanfare-pop, drum-corps snare, bells, a big major-key chorus | 16 bars (≈29 s) | blocked: ElevenLabs quota ran out (§12.5) |
+
+Rhythm-game songs (Pop Star Stage, Spotlight Dance-Off; requested by the user on 2026-10-03). Ids `rhythm-1`…`rhythm-5`, files `music/rhythm/<id>.mp3`, listed with chart data in `music/rhythm/index.json` (§12.4). Straight 16ths only, constant tempo, 16 or 32 bars (about 60–75 s), a clear lead melody with distinct note onsets and drums with a clear pulse.
+
+| Id | Name | BPM | Style | Status |
+| --- | --- | --- | --- | --- |
+| `rhythm-1` | Sparkle Pop | 112 | Bright K-pop-style idol pop, four-on-the-floor, simple catchy hook (the easiest, most regular) | blocked: ElevenLabs quota ran out (§12.5) |
+| `rhythm-2` | Bubble Bounce | 100 | Bouncy funk/disco-lite, syncopated bass, handclaps, playful plucky lead | blocked: ElevenLabs quota (§12.5) |
+| `rhythm-3` | Moonlight March | 96 | Half-time stomp-stomp-clap with a marching snare and a sparkly celesta/bell melody (spacious, for beginners) | blocked: ElevenLabs quota (§12.5) |
+| `rhythm-4` | Starfish Groove | 108 | Tropical/reggaeton-lite (gentle dembow kick-snare), steel drum/marimba lead, more unusual syncopation | blocked: ElevenLabs quota (§12.5) |
+| `rhythm-5` | Rainbow Run | 124 | Chiptune-pop with arpeggios and a call-and-response lead (the busiest, still not fast) | blocked: ElevenLabs quota (§12.5) |
+| `dance` | Shadow Banish | 120 | The `dance` song above, shared with the rhythm games | ✅ in `rhythm/index.json` (§12.4) |
 
 ### 6.3 `dance` precision requirements (rhythm game sync)
 
@@ -938,8 +951,9 @@ Columns: file, final duration in seconds, final peak in dBFS, and the exact prom
 - **Host Glimmer lines (§5.1, all `host/*` keys): skipped.** Spoken lines need
   text-to-speech (the key has only the sound-generation permission) or a
   human recording. The test page lists every `host/*` key as "no file".
-- **Music (§6.1 to 6.3, all nine songs): skipped.** Needs the music-generation
+- **Music (§6.1 to 6.3, all nine songs): skipped in round 1.** Needs the music-generation
   permission or a composer. `dance` has the exact-tempo requirements in §6.3.
+  *Update 2026-10-03:* `dance`, `menu` and `chill` were generated with ElevenLabs Music (§12).
 - **`npc/hoot/ready` ("Wands at the ready…") and `npc/hoot/bravo`
   ("Splendid!"/"Bravo!"): skipped.** They are spoken lines, and sound
   generation can't be trusted to say exact words. They need TTS or a recording.
@@ -1329,3 +1343,243 @@ the next variant). Listen to these first:
   gappy? `hose-sputter`: comic, not rude.
 - [ ] `golden-chime`/`match-chime` (two rising notes), `roller-ding`,
   `firefly-catch`: cheerful and soft.
+
+
+## 12. Delivery log: music (ElevenLabs Eleven Music)
+
+Generated on 2026-10-03 with the ElevenLabs **music** API (`POST /v1/music`,
+`model_id: music_v2_5`, `force_instrumental: true`, `output_format:
+mp3_44100_192`, 90 s per request), then measured, cut into seamless loops,
+loudness-matched and re-encoded. **The account ran out of credits after 6
+generations**, so only `dance` (3 takes), `menu` (2 takes plus an alternate
+cut) and `chill` (1 take) exist. Everything else is blocked (§12.5). **Nobody
+has listened to these yet; every check below is a measurement** (§12.7 lists
+what to listen for). Audition all takes on the **Takes** tab of `?scene=audio`.
+
+### 12.1 What was delivered
+
+Files are in `assets/audio/music/takes/`, listed in `takes/index.json`
+(`song`, `take`, `file`, `bpm`, `bars`, `loopStart`, `loopEnd`, `lufs`,
+`truePeak`, `seamScore`, `bpmMeasured`, `bpmFinal`, `notes`, and `inGame: true`
+on the chosen take). The manifest's `music.dance`, `music.menu` and
+`music.chill` point at the chosen takes as `{ "file", "loopStart", "loopEnd" }`.
+`title` and `party` still stream *Bubblegum Radar*. The other songs keep the
+synth.
+
+| Take | Loop | Tempo raw → final (BPM) | Loudness | Seam score | Beat grid (2–8 kHz attacks vs grid) | Size | In game |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `takes/dance-1.mp3` | 32 bars, 64.000 s (start bar 8) | 119.999 → 120.000 | -16.3 LUFS, -4.3 dBTP | 0.79 | median -0.2 ms, p95 1.6 ms, max 3.7 ms (100.0 % within ±10 ms) | 1.55 MB | **yes** |
+| `takes/dance-2.mp3` | 32 bars, 64.000 s (start bar 3) | 120.000 → 120.000 | -16.1 LUFS, -3.6 dBTP | 0.98 | median -0.7 ms, p95 7.2 ms, max 8.3 ms (100.0 % within ±10 ms) | 1.55 MB |  |
+| `takes/dance-3.mp3` | 32 bars, 64.000 s (start bar 5) | 119.999 → 120.000 | -16.2 LUFS, -3.6 dBTP | 1.51 | median +0.4 ms, p95 1.5 ms, max 1.9 ms (100.0 % within ±10 ms) | 1.55 MB |  |
+| `takes/menu-1.mp3` | 16 bars, 34.286 s (start bar 20) | 111.996 → 112.000 | -16.2 LUFS, -3.6 dBTP | 1.04 | median +2.5 ms, p95 5.8 ms, max 7.0 ms (100.0 % within ±10 ms) | 0.83 MB | **yes** |
+| `takes/menu-2.mp3` | 16 bars, 34.286 s (start bar 20) | 112.000 → 111.999 | -16.3 LUFS, -6.1 dBTP | 1.18 | median +1.4 ms, p95 7.7 ms, max 8.8 ms (100.0 % within ±10 ms) | 0.83 MB |  |
+| `takes/menu-3.mp3` (cut of take 1) | 24 bars, 51.429 s (start bar 8) | 111.996 → 111.999 | -16.2 LUFS, -3.2 dBTP | 1.17 | median +1.6 ms, p95 5.4 ms, max 22.1 ms (99.0 % within ±10 ms) | 1.25 MB |  |
+| `takes/chill-1.mp3` | 24 bars, 62.609 s (start bar 3) | 92.002 → 92.000 | -16.2 LUFS, -2.6 dBTP | 1.12 | median +1.5 ms, p95 5.2 ms, max 28.4 ms (98.7 % within ±10 ms) | 1.51 MB | **yes** |
+
+Total 9.07 MB for 7 files (each 0.83–1.55 MB at 192 kbps; over the 1.2 MB of
+§2 for the 64 s loops, as the brief for this round allowed). **Seam score** is
+the spectral change across the loop seam (100 ms before vs after) divided by
+the median change across all the other bar lines of the same loop: 1.0 means
+the seam looks like an ordinary bar line, and below 1 means smoother. Measured on
+the PCM that Chromium's `decodeAudioData` returns for the MP3.
+
+**Why these takes are in the game:**
+
+- `dance-1`: the best seam (0.79), the steadiest grid (every beat's attack
+  within 3.7 ms over two full loop cycles, including the seam), a kick on every
+  one of the 128 beats (onset rise at least 14.5 dB at the 5th percentile), the
+  first attack 0.7 ms after `loopStart`, and an exact tempo (119.9998 BPM over 3
+  cycles). `dance-2` has a busy off-beat bass that makes the pulse less clear;
+  `dance-3` has the tightest grid but a less smooth seam (1.51).
+- `menu-1`: a better seam than `menu-2` (1.04 vs 1.18) and a steady kick and
+  shaker. `menu-2` is the softest take (it drops the kick on 14 of 64 beats).
+  Both menu takes are a lighter 16-bar section followed by a fuller 24-bar
+  section built on a 4-bar cycle, which runs into the ending. A 24-bar loop
+  inside one section doesn't fit, so both in-game candidates are 16-bar loops of
+  the fuller section (34.3 s, the shortest length §6.2 allows). `menu-3` is an
+  **alternate cut of `menu-1`** (not a new generation): 8 bars of the lighter
+  section plus 16 of the fuller one (51.4 s, more variety). Its seam falls back
+  from the fuller to the lighter section (score 1.17), so listen for whether
+  that drop feels natural.
+- `chill-1`: the only chill take. It is a steady 4-bar cycle throughout, cut as
+  24 bars (62.6 s).
+
+### 12.2 Prompts used (for regenerating)
+
+| Take | Prompt (each one ended with the shared suffix below) |
+| --- | --- |
+| `dance-1` | Upbeat K-pop style idol dance anthem, 120 BPM, C minor. Four-on-the-floor kick drum on every beat, claps on beats 2 and 4, punchy synth bass, bright catchy synth lead, sparkly bell and glitter effects. Confident and empowering, heroes banishing shadows with music. Quantized electronic production with a lighter breakdown where the kick keeps going. |
+| `dance-2` | Sparkly, confident girl-group pop dance track at exactly 120 BPM in C minor. Steady four-on-the-floor kick on every single beat, handclaps on 2 and 4, plucky octave synth bass, shimmering synth chords, a bright plucked synth hook, glittery chimes and risers. Empowering and magical, quantized to the grid, kick never drops out. |
+| `dance-3` | Bright electro-pop dance groove for a kids' rhythm game, 120 BPM, key of C minor. Kick drum on every beat all the way through, snappy claps on 2 and 4, bouncy synth bass, glossy square-wave lead riff, twinkling arpeggios and sparkle effects, a short softer section that still keeps the kick. Tight, quantized, energetic and friendly. |
+| `menu-1` | Relaxed, happy background music for a children's game menu, 112 BPM, F major. Soft ukulele strums and gentle marimba, light shaker, warm pad, round mellow bass. Low energy and cheerful, no busy lead melody, leaves space for people chatting. |
+| `menu-2` | Cozy, sunny menu music for a kids' party game at 112 BPM in F major. Warm marimba pattern, soft kalimba and a little glockenspiel, brushed shaker and light finger snaps, soft upright-style bass, airy pad. Calm and smiling, simple and uncluttered, no prominent lead. |
+| `menu-3` (refused: quota) | Easygoing cheerful lounge groove for a children's game selection screen, 112 BPM, F major. Gentle plucked acoustic guitar and ukulele, soft vibraphone chords, light tambourine and shaker on a relaxed beat, warm bass. Happy, laid-back and uncluttered, no busy melody. |
+| `chill-1` | Cozy, dreamy, creative background music, 92 BPM, E major. Music box melody, soft Rhodes electric piano, felt piano, gentle acoustic guitar, light brushed drums, gentle chimes. Calm and warm like painting in a fairy garden. |
+| `chill-2` (refused: quota) | Gentle, magical lo-fi lullaby groove for a children's art and garden game, 92 BPM in E major. Felt piano chords, a soft celesta and music box motif, fingerpicked acoustic guitar, soft brushes and a quiet kick, warm bass, twinkling chimes. Peaceful and cozy, soft and round, not sleepy. |
+| `chill-3` (refused: quota) | Soft, warm and dreamy instrumental at 92 BPM, E major, for a cozy pet spa and fairy garden game. Mellow Rhodes piano, kalimba and music box sparkles, gentle nylon-string guitar, soft shaker and brushed snare, round bass, airy pad. Relaxed, happy and creative. |
+
+Shared suffix: "Instrumental only, no vocals, no choir, no spoken words. Original melody, kid-friendly, pleasant on repeat. Steady tempo throughout, straight sixteenths, no swing, no tempo or key change. Seamless loop: no intro, no fade-out, no ending."
+
+The `menu-3` *file* is the alternate cut of `menu-1` described above. Its own
+prompt was refused for lack of credit. Prompts written but never sent (quota),
+first take of each:
+
+| Not generated (quota) | Prompt prepared (in the generating session scratchpad `prompts.py`) |
+| --- | --- |
+| `chase` | Playful, urgent comic chase music for a cartoon, 156 BPM, A minor. Galloping bass, pizzicato strings, tom fills, a cheeky bassoon and tuba line, staccato synth stabs, driving drums. Run! Funny and mischievous, comic, never scary. |
+| `bouncy` | Silly, boingy cartoon fun music, 128 BPM, G major. Bouncy tuba bass, xylophone melody, woodblocks, a kazoo-like lead, occasional slide whistle accents used sparingly, light drums. Goofy, cheerful and bouncy, like baking a wobbly cake. |
+| `tense` | Suspenseful but cute game-show music, 120 BPM, G minor. Ticking clock percussion on every beat, plucked low pizzicato strings, a curious celesta motif, sparse and light, slowly building tension without a big climax. 'Ooh, who will it be?' Playful, not scary. |
+| `victory` | Triumphant celebration music for winning a game, 132 BPM, C major. Brass fanfare pop, drum-corps snare cadence, bright bells, a big happy major-key chorus, confident bass. Joyful and proud, kid-friendly. |
+| `title` | Joyful, inviting theme song for a kids' party game title screen, 124 BPM, C major. Bright synth-pop with a glockenspiel lead playing a catchy, memorable four-bar hook, claps, plucky bass, a big but friendly chorus lift. The party is starting! |
+| `rhythm-1` | Bright, catchy K-pop style idol pop instrumental for a kids' rhythm game, 112 BPM, E-flat major. Steady four-on-the-floor kick on every beat, crisp claps on 2 and 4, bouncy synth bass, a simple catchy plucked synth lead hook with clear separate notes, sparkly bells. Very regular and easy to clap along to, cheerful and confident. |
+
+
+### 12.3 Processing (scripts in the generating session's scratchpad `music/`)
+
+1. **Tempo and grid.** The 2 ms amplitude envelope (full band, and 2–8 kHz
+   for the hats and kick clicks) is folded over one beat period at a candidate
+   tempo (beat-synchronous averaging). The tempo that gives the sharpest fold is
+   refined with the phase drift between 10 s windows. Every take came out of the
+   model on an exact grid: 119.999–120.000, 111.996–112.000 and 92.002 BPM, with
+   the beat phase constant to ±1–2 ms across the whole 90 s (no drift). That's
+   why **no time-stretch was applied**. Rubberband was ready (`rubberband` with
+   crisp transients and `channels=together`), but the remaining tempo error would
+   move a beat by at most 2.4 ms over a whole loop, less than the stretch
+   artifacts would cost. (One early run mis-measured `menu-2` because its hats
+   switch from off-beats to on-beats halfway through. The final measurement
+   uses fold contrast first and only accepts the drift refinement when it is
+   consistent.)
+2. **Beat 0 and the downbeat.** Beat 0 is the attack of the folded envelope
+   (the 25 % point of the rise; for `dance` the full-band kick attack). The
+   off-beat ambiguity is settled by the low-band energy, and the bar line by the
+   beat whose chroma (chord) change is largest (dance and chill: beat 0 of the
+   model's grid; menu: one beat later).
+3. **Loop choice.** Per-bar features (12-bin chroma plus 24 log bands, per
+   beat). The first 2 and last 3 bars and any fade are excluded. Candidates
+   are 16/24/32 bars (dance 16/32, menu 16/24/32, chill 16/24). The cost is the
+   distance between the bars around the end and the bars around the start
+   (bar before the end vs bar before the start, bar after the end vs the start
+   bar), plus the waveform correlation of the crossfaded beats, plus a penalty
+   for a non-preferred length.
+4. **Seam.** The loop is cut at the downbeat. Its **last beat** is
+   crossfaded into the beat that originally preceded the loop start
+   (correlation-aware equal-power law, 1 beat long), so the end runs into the
+   start the way the original ran into it, and the **downbeat at the start is
+   untouched** (crossfading at the start instead would have partly cancelled the
+   kick: those beats were anti-correlated in `dance-1`).
+5. **Loudness.** Gain to −16 LUFS integrated (measured over two loop cycles),
+   then a circular (seam-safe) 4× oversampled peak limiter at −2 dBTP. It wasn't
+   needed after the gain change: all loops peak between −2.6 and −6.1 dBTP. The
+   MP3s measure −16.1 to −16.3 LUFS.
+6. **File layout and loop points.** Each MP3 is `[last 0.2 s of the loop] +
+   loop + [first 0.2 s of the loop]`, stereo 44.1 kHz, LAME 192 kbps CBR with
+   the gapless (LAME/Xing) header. `loopStart = 0.2` is the downbeat and
+   `loopEnd = 0.2 + bars × 4 × 60 / bpm` (`dance`: 0.2 to 64.2, exactly 32
+   bars). Chromium decodes each file to exactly the WAV's length with **0
+   samples of offset** (found by cross-correlating the decoded PCM against
+   the WAV). Music.play starts the buffer at `loopStart`, so beat 0 is the
+   downbeat, and **no `offset` is set**. The 0.2 s pads mean the loop stays
+   seamless even in a decoder that ignores the gapless header and shifts the
+   audio by the usual 25–50 ms of encoder priming. Only the beat clock would
+   then be off by that much.
+7. **Verification on the decoded MP3** (Chromium `decodeAudioData` at 44.1 and
+   48 kHz: all 7 files decode with no errors, at the expected lengths; then
+   played through the game's `Music` class on the local server, which used the
+   file path, set loop points 0.2 → loopEnd, and showed a running beat clock).
+   For each loop, measured over two cycles including the seam: per-beat attack
+   deviation from the grid, kick presence on every beat, beat-phase drift per
+   10 s (all within ±2 ms), final tempo over three cycles, seam spectral score,
+   the level step at the seam against the range of level steps at all the other
+   bar lines (inside or below that range for every take), sample jump at the
+   wrap (an ordinary step), and the crossfaded beat's level against the loop's
+   5–95 % range. `dance` meets §6.3: 120.000 BPM, 32 bars = exactly
+   2,822,400 samples at 44.1 kHz, a kick on every beat, every beat's attack within
+   ±3.7 ms of the 0.5 s grid, and the first transient 0.7 ms after `loopStart`.
+   Spectra are soft (2–5 kHz holds 0.2–3 % of the energy, centroid 226–398 Hz),
+   so nothing should sound harsh.
+
+### 12.4 Rhythm-game chart data (`music/rhythm/index.json`)
+
+`{"songs":[{"id","name","file","bpm","bars","loopStart","loopEnd","lufs","key","grid":{"div":4,"steps":N,"kick":[…],"snare":[…],"melody":[…],"pitch":[…]},"sections":[{"startStep","endStep","energy"}]}]}`,
+with one entry per 16th step of the loop (`steps = bars × 16`, step 0 =
+`loopStart`). Currently there is one song: `dance` → **"Shadow Banish"**
+(`music/takes/dance-1.mp3`, 120 BPM, 32 bars, 512 steps, C minor). The
+`rhythm-1`…`rhythm-5` songs are blocked (§12.5). Measured on the
+Chromium-decoded final loop (three cycles analysed, the middle one kept):
+
+- **kick** (0–1): the steepest 10 ms rise of the 40–130 Hz envelope near each
+  step, scaled from the song's median step (0) to its 95th percentile (1), with
+  values under 0.1 set to 0. The kick is timed by the broadband attack next to it
+  (the low band itself peaks 10–40 ms late). Dance: 129 kick onsets (value
+  ≥ 0.25), 98.4 % on beats, 126 of them ≥ 0.5, 99.2 % within ±25 ms of their
+  step (median +0.8 ms). The 16th right after some beats carries 0.1–0.3
+  (the synth bass).
+- **snare** (0–1): percussive part (median-filter harmonic/percussive
+  separation) of the 1.5–5 kHz band, spectral-flux onsets. **It is "high
+  percussion" rather than a pure clap**: the kick's click and the claps give
+  0.8–1.0 on every beat, and the hats give 0.3–0.6 on the other steps. Dance:
+  503 onsets, 99.2 % within ±25 ms (median −1.0 ms).
+- **melody** (0–1): flux onsets of the harmonic part, 400–3000 Hz. Dance:
+  307 onsets, 94.8 % within ±25 ms raw, 98.7 % after removing the constant
+  +12.3 ms lag of the harmonic filter.
+- **pitch**: the strongest harmonic-sum pitch (MIDI 55–96, fundamental
+  200–2000 Hz) just after each melody onset. It is `null` where there's no
+  melody onset or no clear pitch (244 of 512 steps carry a pitch, MIDI 56–94).
+  It's rough: it mixes the lead hook (about MIDI 84–89) with chord tones (about
+  56–64), so use it for contour only.
+- **sections**: 8-bar blocks with RMS relative to the loudest block (dance:
+  0.99, 1.00, 1.00, 0.99; this loop has no breakdown).
+
+### 12.5 Blocked: ElevenLabs quota
+
+- **API calls:** 31 in total. 6 succeeded (dance 1–3, menu 1–2, chill 1;
+  10.6–35 s each). 6 got HTTP 429 (too many concurrent requests) and were
+  retried successfully. 19 were refused with HTTP 401: 18 `quota_exceeded`
+  ("quota of 10000 … 525 credits remaining, while 549–618 credits are
+  required") and the last, a 72 s `rhythm-1` take, `insufficient_credits`. No
+  moderation refusals. Pricing seen: about 6.9 credits per second of
+  requested music (618 for 90 s).
+- **Still to generate** (with the same prompts and pipeline): `chase`,
+  `bouncy`, `tense`, `victory`, an original `title` theme (3 takes each, 80–90
+  s), `menu-3`, `chill-2`, `chill-3` (90 s), and the rhythm set `rhythm-1`…`rhythm-5`
+  (2 takes each, 85–105 s so a 32-bar loop at 96–124 BPM fits): roughly
+  **10,700 credits for the songs plus 6,500 for the rhythm set, about 17,000
+  credits**, which is 1.7 times this account's 10,000-credit quota.
+
+### 12.6 Doubtful or worth knowing
+
+- Nobody has heard these. The prompts asked for no vocals and
+  `force_instrumental` was on, but only listening can rule out vocal-like
+  synth leads.
+- `menu` loops are 34.3 s (16 bars). They repeat sooner than the 45–75 s
+  preferred in §6.1, because of the takes' two-section form (§12.1); `menu-3`
+  is the longer option.
+- The `dance` loop is steady throughout (energy 0.99–1.00 per 8 bars, LRA
+  0.9 LU). There is no lighter breakdown inside the 32 bars.
+- The `pitch` row in the chart data is approximate (see §12.4).
+- Safari/iOS hasn't been tested. If its MP3 decoder ignores the gapless header,
+  the seam stays clean (thanks to the 0.2 s pads), but `dance` beats would sit
+  about 25–50 ms late against the beat clock. That would show up as a constant
+  early or late feel in Pop Star Stage, which a calibration offset can fix.
+- §1 still says music files loop as a whole; the engine now uses
+  `loopStart`/`loopEnd` from the manifest (§8).
+
+### 12.7 Listening checklist
+
+Open `?scene=audio`, go to the **Takes** tab, play each take, and press **Y**
+to jump to 4 s before `loopEnd` and hear the loop seam:
+
+- [ ] **All takes:** no vocals or word-like sounds. Kid-friendly, cheerful,
+  not annoying after 3–4 loops. No click, bump, doubled note or chord clash at
+  the seam.
+- [ ] `dance-1` (in game) vs `dance-2`/`dance-3`: catchy and "empowering idol
+  anthem"? Is the kick felt on every beat? Clap along in Pop Star Stage and
+  Spotlight Dance-Off: notes should land on the beat, not early or late.
+- [ ] `menu-1` (in game) vs `menu-2` (softer) vs `menu-3` (longer cut, with a
+  drop back to the lighter section at the seam): calm enough to chat over? Does
+  `menu-3`'s seam feel like a natural section change?
+- [ ] `chill-1`: cozy and dreamy, music box not too tinkly? The loop is a quiet
+  steady cycle: check that it doesn't sound like it "restarts" at the seam.
+- [ ] In game, the music sits under the SFX and voices (bus levels from §1).
+- [ ] If possible, on an iPad/Safari: seams of all three in-game songs, and
+  `dance` sync in a rhythm game.
