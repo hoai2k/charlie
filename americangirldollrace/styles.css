@@ -633,9 +633,11 @@ button:focus-visible {
 }
 
 /* title */
-#lbTitleSky { inset: 0; background: url(assets/ui/title_sky.webp) center / cover; }
-#lbTitleClouds { left: 0; right: 0; top: 10px; height: 230px; opacity: 0.95; background: url(assets/ui/title_clouds.webp) 0 0 / auto 230px repeat-x; }
-#lbTitleHills { left: 0; right: 0; bottom: 0; height: 330px; background: url(assets/ui/title_hills.webp) 0 0 / auto 330px repeat-x; }
+/* The sky is the panel's own background (it fills any screen shape); clouds
+   and hills run far past the stage edges so wide screens never see an end. */
+#lbTitleSky { display: none; }
+#lbTitleClouds { left: -1400px; right: -1400px; top: 10px; height: 230px; opacity: 0.95; background: url(assets/ui/title_clouds.webp) 0 0 / auto 230px repeat-x; }
+#lbTitleHills { left: -1400px; right: -1400px; bottom: -600px; height: 930px; background: url(assets/ui/title_hills.webp) 0 0 / auto 330px repeat-x, linear-gradient(transparent 320px, #6aa83f 320px); }
 #lbTitleHero { left: 160px; bottom: 96px; width: 960px; height: 384px; background: center / contain no-repeat; filter: drop-shadow(0 14px 10px rgba(40, 60, 20, 0.35)); }
 /* The single-picture group is only a fallback for when the separate layers can't load. */
 #lbTitleHero.fallback { background-image: url(assets/ui/title_hero.webp); }
@@ -661,7 +663,7 @@ button:focus-visible {
 .lb-cursors { position: absolute; left: -10px; right: -10px; top: -18px; height: 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 2px; pointer-events: none; }
 
 #lbSlots { left: 0; right: 0; bottom: 0; height: 330px; }
-.lb-slot { position: absolute; bottom: 8px; width: 152px; height: 318px; cursor: pointer; transition: left 0.35s ease; }
+.lb-slot { position: absolute; bottom: 8px; width: 152px; height: 318px; cursor: pointer; transition: left 0.35s ease, bottom 0.35s ease; }
 .lb-slot.enter { animation: lb-slot-in 0.35s ease; }
 @keyframes lb-slot-in { from { opacity: 0; transform: translateY(30px); } }
 .lb-empty { position: absolute; left: 6px; bottom: 34px; width: 140px; height: 191px; opacity: 0.92; background: url(assets/ui/slot_empty.webp) center / contain no-repeat; }
@@ -1214,3 +1216,17 @@ button:focus-visible {
 .lb-slot .lb-ribbon {
   bottom: 14px;
 }
+
+/* ── Phones held upright: a tall 720×1280 stage (menu.js sets .portrait) ── */
+.start-panel.lobby.portrait #lbTitleLogo { left: 30px; top: 170px; width: 660px; height: 252px; }
+.start-panel.lobby.portrait #lbTitleClouds { top: 60px; }
+.start-panel.lobby.portrait #lbTitleHero { left: 0; bottom: 300px; width: 720px; height: 288px; }
+/* Bigger hills so the fence sits behind the racers' feet and grass fills the rest. */
+.start-panel.lobby.portrait #lbTitleHills { bottom: -600px; height: 1300px; background-size: auto 800px, auto; background-image: url(assets/ui/title_hills.webp), linear-gradient(transparent 790px, #4f8f2c 790px); }
+.start-panel.lobby.portrait #lbPressStart { left: -90px; bottom: 80px; width: 900px; height: 170px; font-size: 30px; }
+.start-panel.lobby.portrait #lbSelectLogo { left: 50%; top: 28px; width: 380px; height: 145px; margin-left: -190px; }
+.start-panel.lobby.portrait #lbTopRight { top: 182px; left: 0; right: 0; flex-direction: row; justify-content: center; align-items: center; }
+.start-panel.lobby.portrait #lbGrid { left: 62px; top: 246px; }
+.start-panel.lobby.portrait #lbRaceBar { left: 110px; top: 612px; width: 500px; height: 50px; }
+.start-panel.lobby.portrait #lbSetPanel { width: 690px; }
+.start-panel.lobby.portrait .lb-toast { top: 560px; }

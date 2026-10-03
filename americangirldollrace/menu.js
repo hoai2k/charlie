@@ -129,11 +129,24 @@
   }
 
   // ---------- layout: a 1280×720 stage scaled to fit the game frame ----------
+  // Phones held upright get a tall 720×1280 stage with its own layout
+  // (styles under .portrait), so nothing is shrunk to a sliver.
+  lobby.stageW = 1280;
+  lobby.stageH = 720;
   function fit() {
     const rect = root.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
-    const scale = Math.min(rect.width / 1280, rect.height / 720);
+    const portrait = rect.height > rect.width * 1.15;
+    const changed = portrait !== root.classList.contains("portrait");
+    lobby.stageW = portrait ? 720 : 1280;
+    lobby.stageH = portrait ? 1280 : 720;
+    root.classList.toggle("portrait", portrait);
+    stage.style.width = `${lobby.stageW}px`;
+    stage.style.height = `${lobby.stageH}px`;
+    const scale = Math.min(rect.width / lobby.stageW, rect.height / lobby.stageH);
+    lobby.scale = scale;
     stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    if (changed && lobby.screen === "select") renderStalls();
   }
   new ResizeObserver(fit).observe(root);
 
@@ -282,10 +295,17 @@
       el.remove();
       lobby.stallEls.delete(id);
     }
-    const x0 = (1280 - (order.length * STALL - 5)) / 2;
+    // As many stalls per row as fit (8 in landscape, 4 in portrait); extra
+    // rows stack upward, each row centred.
+    const perRow = Math.max(1, Math.floor((lobby.stageW + 5) / STALL));
+    const rows = Math.ceil(order.length / perRow);
     order.forEach((id, n) => {
       const el = stallEl(id);
-      el.style.left = `${x0 + n * STALL}px`;
+      const row = Math.floor(n / perRow);
+      const inRow = Math.min(perRow, order.length - row * perRow);
+      const x0 = (lobby.stageW - (inRow * STALL - 5)) / 2;
+      el.style.left = `${x0 + (n - row * perRow) * STALL}px`;
+      el.style.bottom = `${8 + (rows - 1 - row) * (lobby.stageH > lobby.stageW ? 255 : 300)}px`;
       if (id === "join") {
         const prompt = touchOnly() ? "Tap to join" : `Press <span class="lb-glyph" data-g="A"></span> to join`;
         el.innerHTML = `<div class="lb-empty"></div><div class="lb-pnum">P${nextFree() + 1}</div><div class="lb-join">${prompt}</div>`;
@@ -439,6 +459,8 @@
 
   function renderAll() {
     root.classList.toggle("touch-only", touchOnly());
+    $("#lbPressStart").innerHTML = touchOnly() ? "Tap to start" : `Press <span class="lb-glyph" data-g="A"></span> to start`;
+    glyphs($("#lbPressStart"));
     renderStalls();
     renderCursors();
     renderRaceBar();
@@ -455,12 +477,13 @@
   function burstAt(el) {
     if (!el) return;
     const x = parseFloat(el.style.left) + 76;
+    const y = lobby.stageH - parseFloat(el.style.bottom || 8) - 200;
     for (let k = 0; k < 26; k += 1) {
       const piece = document.createElement("div");
       piece.className = "lb-confetti";
       piece.style.backgroundPosition = `${-(k % 6) * 26}px 0`;
       stage.appendChild(piece);
-      lobby.confetti.push({ el: piece, x, y: 520, vx: (Math.random() - 0.5) * 520, vy: -260 - Math.random() * 420, r: Math.random() * 360, vr: (Math.random() - 0.5) * 720, t: 0 });
+      lobby.confetti.push({ el: piece, x, y, vx: (Math.random() - 0.5) * 520, vy: -260 - Math.random() * 420, r: Math.random() * 360, vr: (Math.random() - 0.5) * 720, t: 0 });
     }
   }
 
@@ -920,6 +943,7 @@
 
   loadTitleHero();
   buildGrid();
+  if (touchOnly()) $("#lbPressStart").textContent = "Tap to start";
   glyphs();
   root.dataset.screen = "title";
   fit();
