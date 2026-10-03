@@ -691,6 +691,26 @@
    "file": "music/takes/chill-1.mp3",
    "loopStart": 0.2,
    "loopEnd": 62.808685
+  },
+  "chase": {
+   "file": "music/takes/chase-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 37.123084
+  },
+  "bouncy": {
+   "file": "music/takes/bouncy-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 45.2
+  },
+  "tense": {
+   "file": "music/takes/tense-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 32.2
+  },
+  "victory": {
+   "file": "music/takes/victory-2.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 43.836372
   }
  }
 }

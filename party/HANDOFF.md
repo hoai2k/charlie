@@ -31,8 +31,13 @@ _Last updated: 2026-10-03, during music generation round 2._
     swung), `rh-bossa` Moonlit Bossa (110), `rh-tango` Twirling Tango (112,
     start 0.1857) and `rh-flamenco` Fiesta Fan (112, only grooves A and B).
     The alternate takes are in `takes/`.
-  - **Still to come:** the background loops (chase, bouncy, tense, victory,
-    optional title). The music agent drops raw takes
+  - **Background loops (committed):** chase-1, bouncy-1, tense-1 and
+    victory-2 are in the manifest. The alternates (chase-2, bouncy-2,
+    tense-2, victory-1) and two original title themes (title-1, title-2, the
+    agent prefers title-2) are for auditioning only. Title and party still
+    use Bubblegum Radar.
+  - **Still to come:** the agent's doc updates (`audio-requests.md`,
+    `CREDITS.md`). After that, all music generation is done. The music agent drops raw takes
     in `takes/` while it works. Audition them on the Takes tab of the audio test page
   (`?scene=audio`).
 - **Commit rule (user's request):** commit each batch of finished rhythm
