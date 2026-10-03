@@ -1543,7 +1543,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/cape-royal-side` (new, Fashion Show) | Four-legged characters (Fox, Unicorn, Cotton Candy) wear the upright `prop/cape-royal`, which hangs under their body like a skirt. Other cape colours are now recoloured from the red art in code. | A side view of the same royal cape (red velvet, white ermine trim with black spots) draped over an animal's back: about 520×300, transparent, the neck/front edge on the **right** and the hem hanging down on both sides of the body. Same red as `cape-royal` (it's recoloured for other colours), navy outline. The code anchors it at the back point and draws it over the body. |
 | sprite `cotton-candy` `run` (4) | About 0.7× size; she shrinks when running. | Scale ≈ 1.4 on head size. |
 | sprite `cotton-candy` `ride` | Anchor below the hooves; floats above the broom. | Anchor at the belly/hoof line. |
 | sprite `cotton-candy` `giggle` | About 1.35× too big (Pet Spa). | Scale ≈ 0.75. |
@@ -1591,3 +1590,5 @@ fine; the code uses one of each pair.
 - Fox ride/dance/think/dance-star: head scales matched and ride anchor on belly/paws; eat/catch/look-around/strike2/strike3/fall/bow attachment points individually corrected. Full 75-key set reviewed with optimized copies in Broomstick Dash.
 
 - Princess Amber: four-frame dance scale corrected; original landmarks re-annotated. Full 74-key set includes card-reaching flip and peace-sign photo, with refreshed color masks and both-quality rhythm-game review.
+
+- `prop/cape-royal-side`: 520x300 red velvet animal-back cape with right collar and ermine trim; integrated Fashion Show consumer and reviewed on Fox in full mode; optimized loader regression checks passed.

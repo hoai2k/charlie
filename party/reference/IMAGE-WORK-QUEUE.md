@@ -190,8 +190,8 @@ deliveries. New heartbeat charlie-party-delivered-image-review is active;
 use the delivery checkpoint below rather than code/doc commit times. Reset
 the follow-up on subsequent published image batches; stay quiet if unchanged.
 
-Latest image delivery revision: `d61adc9` (includes complete Fox c09b0a5).
-Latest image delivery UTC: 2026-10-03T00:11:35+00:00.
+Latest image delivery revision: `9e7de1d` (includes complete Amber f3ea583).
+Latest image delivery UTC: 2026-10-03T00:33:18+00:00.
 
 Ownership: snow_cake_completion finishes Cotton Candy/Unicorn; npc_canonicals
 finishes Amber then Hotdog; mermaid_all_actions finishes KPop trio. Root owns
@@ -208,3 +208,7 @@ Princess Amber complete: 74 keys /97 authored frames /five portraits, decoded
 peace sign and flip reaches for a memory card. Optimized copies and97 region
 masks refreshed, including rotated tumble coverage. Reviewed Spotlight Dance
 in full mode and Pop Star Stage in optimized mode with alternate dress colors.
+
+New main request 9a65978 checked 2026-10-03T00:33:18+00:00: root generating prop/cape-royal-side; Amber publication confirmed on origin/main.
+
+Royal side cape complete: prop/cape-royal-side 520x300 transparent WebP, existing Fashion Show consumer automatically selects it for trotting quadrupeds. General art inventory now288 keys /268 files.

@@ -4263,6 +4263,27 @@
       "height": 680,
       "bytes": 92042,
       "status": "generated; inspected"
+    },
+    {
+      "key": "prop/cape-royal-side",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-58128148-c159-42ae-b465-3b1f8229b776.png",
+      "prompt": "Create a transparent-background 2D cartoon game prop: a royal cape draped over the back of a four-legged animal, shown from the side. Use the supplied upright cape solely as the style/color/material reference: rich bright red velvet folds, thick navy outlines, white ermine trim with black spots. Draw the cape alone, no animal or person or other objects. Wide low silhouette, approximately 520:300 aspect ratio. The collar and neck/front edge are at the RIGHT, the long cape flows toward the LEFT over an animal's horizontal back, with the hem hanging down along the sides. A gently curved horizontal upper back edge with a small white ermine collar on the right. White spotted trim around the left and lower hem, visible fabric folds, clean readable silhouette, playful polished Charlie Party cartoon style. Full cape fits completely in frame, transparent everywhere outside the cape, no lettering, no cast shadow, no ground.",
+      "references": [
+        "party/assets/art/prop/cape-royal.webp"
+      ],
+      "maxSize": [
+        520,
+        300
+      ],
+      "exactSize": [
+        520,
+        300
+      ],
+      "status": "reviewed; matching side-view red velvet cape, collar right, transparent",
+      "tool": "built-in imagegen",
+      "width": 520,
+      "height": 300,
+      "bytes": 31376
     }
   ]
 }
