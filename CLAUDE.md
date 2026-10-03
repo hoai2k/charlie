@@ -50,6 +50,9 @@ See `AGENTS.md` for the shared agent instructions and push recovery guidance.
 
 ## Game notes
 
+- `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
+  and resume notes, then `party/PLAN.md`.
+
 - `swingers/` is a copy of the separate repo `hoai2k/swingers` (commit
   `95e7218`), which is still developed there and also deployed on its own at
   `games.hoai.net/swingers/`. To update it, copy `index.html`, `lib/`, `src/`
