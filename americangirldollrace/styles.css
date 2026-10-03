@@ -1230,3 +1230,24 @@ button:focus-visible {
 .start-panel.lobby.portrait #lbRaceBar { left: 110px; top: 612px; width: 500px; height: 50px; }
 .start-panel.lobby.portrait #lbSetPanel { width: 690px; }
 .start-panel.lobby.portrait .lb-toast { top: 560px; }
+
+/* ── Phone, one player (touch only, held upright): .solo ────────────────── */
+#lbCpuChip { display: none; }
+.start-panel.lobby.solo #lbCpuChip { position: absolute; left: 50%; top: 730px; display: flex; align-items: center; gap: 12px; padding: 6px 10px; transform: translateX(-50%); font-size: 26px; font-weight: 700; white-space: nowrap; }
+.lb-cpu-btn { width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #2a6fdb; color: #fff; font-size: 34px; line-height: 1; cursor: pointer; box-shadow: 0 4px 0 #1d4f9c; }
+.lb-cpu-btn.off { opacity: 0.3; pointer-events: none; }
+.lb-ai-mini { width: 44px; height: 44px; background: url(assets/ui/ai_badge.webp) center / contain no-repeat; }
+.start-panel.lobby.solo #lbSelectLogo { top: 20px; }
+.start-panel.lobby.solo #lbTopRight { top: 170px; }
+.start-panel.lobby.solo #lbGrid { top: 236px; transform: scale(1.12); transform-origin: 50% 0; }
+.start-panel.lobby.solo #lbRaceBar { top: 652px; height: 60px; }
+.start-panel.lobby.solo #lbRaceText { font-size: 28px; }
+.start-panel.lobby.solo .lb-slot.solo-player { transform: scale(1.45); transform-origin: 50% 100%; z-index: 2; }
+.start-panel.lobby.solo .lb-slot.solo-cpu { transform: scale(0.9); transform-origin: 50% 100%; z-index: 1; }
+/* Bigger outfit dots: they're tapped with a finger here. */
+.start-panel.lobby.solo .lb-outfits { gap: 4px; bottom: -14px; left: -30px; right: -30px; }
+.start-panel.lobby.solo .lb-outfit { width: 16px; height: 16px; }
+.start-panel.lobby.solo .lb-outfit.current { width: 22px; height: 22px; }
+.start-panel.lobby.solo .lb-outfit-arrow { font-size: 18px; padding: 0 3px; }
+.start-panel.lobby.solo .lb-device { display: none; }
+.start-panel.lobby.solo .lb-slot.solo-player .lb-label { bottom: -8px; }

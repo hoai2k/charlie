@@ -299,13 +299,26 @@
     // rows stack upward, each row centred.
     const perRow = Math.max(1, Math.floor((lobby.stageW + 5) / STALL));
     const rows = Math.ceil(order.length / perRow);
+    // Phone held upright with no controller: one player, maybe a few
+    // computer racers. The player stands big in the middle and the computers
+    // stand smaller on either side.
+    const solo = isSoloLayout();
+    const cpuSpots = [[-1, 0], [1, 0], [-2, 1], [2, 1]];
     order.forEach((id, n) => {
       const el = stallEl(id);
-      const row = Math.floor(n / perRow);
-      const inRow = Math.min(perRow, order.length - row * perRow);
-      const x0 = (lobby.stageW - (inRow * STALL - 5)) / 2;
-      el.style.left = `${x0 + (n - row * perRow) * STALL}px`;
-      el.style.bottom = `${8 + (rows - 1 - row) * (lobby.stageH > lobby.stageW ? 255 : 300)}px`;
+      el.classList.toggle("solo-player", solo && id[0] === "p");
+      el.classList.toggle("solo-cpu", solo && id[0] === "c");
+      if (solo) {
+        const spot = id[0] === "c" ? cpuSpots[Number(id.slice(1)) % cpuSpots.length] : [0, 0];
+        el.style.left = `${lobby.stageW / 2 - 76 + spot[0] * 150}px`;
+        el.style.bottom = `${60 + spot[1] * 40}px`;
+      } else {
+        const row = Math.floor(n / perRow);
+        const inRow = Math.min(perRow, order.length - row * perRow);
+        const x0 = (lobby.stageW - (inRow * STALL - 5)) / 2;
+        el.style.left = `${x0 + (n - row * perRow) * STALL}px`;
+        el.style.bottom = `${8 + (rows - 1 - row) * (lobby.stageH > lobby.stageW ? 255 : 300)}px`;
+      }
       if (id === "join") {
         const prompt = touchOnly() ? "Tap to join" : `Press <span class="lb-glyph" data-g="A"></span> to join`;
         el.innerHTML = `<div class="lb-empty"></div><div class="lb-pnum">P${nextFree() + 1}</div><div class="lb-join">${prompt}</div>`;
@@ -457,8 +470,21 @@
     root.querySelectorAll(".lb-set-row").forEach(row => row.classList.toggle("focus", Number(row.dataset.row) === lobby.setRow));
   }
 
+  function isSoloLayout() {
+    return touchOnly() && root.classList.contains("portrait");
+  }
+
+  function renderCpuChip() {
+    const n = lobby.cpus.length;
+    $("#lbCpuCount").textContent = n === 0 ? "Race by myself" : `${n} computer racer${n > 1 ? "s" : ""}`;
+    $("#lbCpuLess").classList.toggle("off", n === 0);
+    $("#lbCpuMore").classList.toggle("off", n >= Math.min(MAX_CPUS, MAX_PLAYERS - humanCount()));
+  }
+
   function renderAll() {
     root.classList.toggle("touch-only", touchOnly());
+    root.classList.toggle("solo", isSoloLayout());
+    renderCpuChip();
     $("#lbPressStart").innerHTML = touchOnly() ? "Tap to start" : `Press <span class="lb-glyph" data-g="A"></span> to start`;
     glyphs($("#lbPressStart"));
     renderStalls();
@@ -774,6 +800,8 @@
       changeSetting(lobby.setRow, Number(arrow.dataset.d));
     }));
   });
+  $("#lbCpuLess").addEventListener("pointerdown", event => { event.preventDefault(); changeSetting(3, -1); });
+  $("#lbCpuMore").addEventListener("pointerdown", event => { event.preventDefault(); changeSetting(3, 1); });
   $("#lbRaceBar").addEventListener("pointerdown", event => { event.preventDefault(); startRaceFromLobby(); });
 
   // ---------- keyboard + gamepad ----------
