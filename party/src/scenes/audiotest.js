@@ -4,6 +4,8 @@
 //   LB / RB (or click a tab) switch category        X                   play the next file variant on its own
 //   B                        stop music             Start / Esc         back to the title (if available)
 //   Mouse wheel / drag       scroll                 Click / tap a cell  play it
+//   Takes tab: every generated music take (assets/audio/music/takes/index.json),
+//   looping at its loop points; Y jumps to just before the loop seam.
 //
 // Every key in assets/audio/manifest.json is listed, plus the keys the audio
 // brief (audio-requests.md) still expects, so a missing recording shows up as
@@ -41,6 +43,7 @@ const TABS = [
   { id: 'voice', label: 'Voices', cols: KINDS.length },
   { id: 'synth', label: 'Synth', cols: 4 },
   { id: 'music', label: 'Music', cols: 3 },
+  { id: 'takes', label: 'Takes', cols: 3 },
 ];
 
 const GRID = { x: 60, y: 250, w: W - 120, h: 730, gap: 10, cellH: 62 };
@@ -60,6 +63,11 @@ export class AudioTestScene {
     this.variantIdx = new Map();  // key -> next variant index for X
     this.fileBuf = new Map();     // file -> AudioBuffer (own decode, for single-variant playback)
     this.drag = null;
+    this.takes = [];
+    this.take = null;             // { it, src, gain, buf, t0 } while a take plays
+    fetch('assets/audio/music/takes/index.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).then((j) => {
+      if (j && Array.isArray(j.takes)) { this.takes = j.takes; this.build(); }
+    }).catch(() => {});
     fetch('assets/audio/manifest.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).then((m) => {
       if (m) { this.manifest = { sfx: m.sfx || {}, music: m.music || {} }; }
       this.build();
@@ -72,6 +80,7 @@ export class AudioTestScene {
   exit() {
     window.removeEventListener('wheel', this._wheel);
     music.stop();
+    this.stopTake();
   }
 
   filesOf(key) {
@@ -98,12 +107,17 @@ export class AudioTestScene {
     items.synth = SFX_NAMES.map((n) => mk('synth:' + n, n, 'synth', { key: n }));
     const songs = new Set([...SONG_NAMES, ...Object.keys(this.manifest.music)]);
     items.music = [...songs].map((n) => mk('music:' + n, n, 'music', { key: n }));
+    items.takes = this.takes.map((tk) => mk('take:' + tk.file, `${tk.song} ${tk.take}`, 'take', { key: tk.file, tk }));
     this.items = TABS.map((t) => items[t.id]);
     this.sel = this.sel.map((s, i) => Math.min(s, Math.max(0, this.items[i].length - 1)));
     this.loaded = true;
   }
 
   status(it) {
+    if (it.kind === 'take') {
+      const cur = this.manifest.music[it.tk.song], used = cur && (cur.file || cur) === it.tk.file;
+      return used ? { text: 'in game', col: '#1b8f4f', bg: '#c8f5d9' } : { text: 'take', col: '#5a4a7a', bg: '#e6e1ef' };
+    }
     if (it.kind === 'music') {
       const f = this.manifest.music[it.key];
       return f ? { text: 'file', col: '#1b8f4f', bg: '#c8f5d9' } : { text: 'synth', col: '#a4570a', bg: '#ffe2b8' };
@@ -162,7 +176,9 @@ export class AudioTestScene {
     if (!audioRunning()) { this.last = 'Audio is locked: press a key or click once, then try again'; return; }
     this.flash.set(it.id, 0.35);
     const files = this.filesOf(it.key);
+    if (it.kind === 'take') { this.toggleTake(it); return; }
     if (it.kind === 'music') {
+      this.stopTake();
       if (music.name === it.key) { music.stop(); this.last = `Stopped music "${it.key}"`; }
       else { music.play(it.key); this.last = `Music "${it.key}" (${this.manifest.music[it.key] ? 'recorded file' : 'synth'}) - press A again or B to stop`; }
       return;
@@ -174,6 +190,46 @@ export class AudioTestScene {
     if (it.key === 'collect') { opts.step = Math.floor(Math.random() * 6); }
     sfx(it.key, opts);
     this.last = files.length ? `sfx("${it.key}") -> random of ${files.length} file(s)` : (SFX_NAMES.includes(it.key) ? `sfx("${it.key}") -> synth` : `"${it.key}" has no file yet (silent)`);
+  }
+
+  // Generated music takes play on their own (not through the game's music
+  // player), looping between their loop points like the game would.
+  async toggleTake(it) {
+    if (this.take && this.take.it === it) { this.stopTake(); this.last = `Stopped ${it.label}`; return; }
+    this.stopTake(); music.stop();
+    const ctx = audioCtx(), tk = it.tk;
+    try {
+      let b = this.fileBuf.get(tk.file);
+      if (!b) {
+        this.last = `Loading ${tk.file}...`;
+        const res = await fetch('assets/audio/' + tk.file);
+        b = await ctx.decodeAudioData(await res.arrayBuffer());
+        this.fileBuf.set(tk.file, b);
+      }
+      this.startTake(it, b, tk.loopStart || 0);
+      this.last = `${it.label}: ${tk.notes || ''}`;
+    } catch (e) { this.last = `Could not play ${tk.file}: ${e.message}`; }
+  }
+  startTake(it, b, at) {
+    const ctx = audioCtx(), tk = it.tk;
+    const src = ctx.createBufferSource(); src.buffer = b; src.loop = true;
+    if (tk.loopEnd) { src.loopStart = tk.loopStart || 0; src.loopEnd = tk.loopEnd; }
+    const gain = ctx.createGain(); gain.gain.value = 0.7;
+    src.connect(gain); gain.connect(ctx.destination); src.start(0, at);
+    this.take = { it, src, gain, buf: b, t0: ctx.currentTime - (at - (tk.loopStart || 0)) };
+  }
+  stopTake() {
+    if (!this.take) return;
+    try { this.take.src.stop(); } catch (e) { /* already stopped */ }
+    this.take.gain.disconnect(); this.take = null;
+  }
+  /** Jump to 4 s before the loop seam, to hear the loop join. */
+  seamTake() {
+    if (!this.take) { this.last = 'Play a take first, then press Y to hear its loop seam'; return; }
+    const { it, buf } = this.take, tk = it.tk, end = tk.loopEnd || buf.duration;
+    this.stopTake();
+    this.startTake(it, buf, Math.max(tk.loopStart || 0, end - 4));
+    this.last = `${it.label}: 4 s before the loop seam (listen for a bump or click)`;
   }
 
   async playVariant(it, files) {
@@ -215,7 +271,8 @@ export class AudioTestScene {
       if (s !== this.sel[ti]) { this.sel[ti] = s; this.reveal(); }
       if (c.pressed('a')) this.play(list[this.sel[ti]]);
       if (c.pressed('x')) this.play(list[this.sel[ti]], { variant: true });
-      if (c.pressed('b')) { music.stop(); this.last = 'Stopped music'; }
+      if (c.pressed('b')) { music.stop(); this.stopTake(); this.last = 'Stopped music'; }
+      if (c.pressed('y') && TABS[ti].id === 'takes') this.seamTake();
       if (c.pressed('start') && this.manager && this.manager.get('title')) this.manager.go('title');
     }
     // Pointer: tabs, cells, drag-scroll.
@@ -281,7 +338,7 @@ export class AudioTestScene {
       const sel = i === this.sel[ti];
       const st = this.status(it);
       const fl = this.flash.get(it.id) || 0;
-      const isPlayingSong = it.kind === 'music' && music.name === it.key;
+      const isPlayingSong = (it.kind === 'music' && music.name === it.key) || (it.kind === 'take' && this.take && this.take.it === it);
       g.save();
       if (sel) { g.translate(r.x + r.w / 2, r.y + r.h / 2); const k = 1.03 + Math.sin(this.t * 6) * 0.01; g.scale(k, k); g.translate(-(r.x + r.w / 2), -(r.y + r.h / 2)); }
       ui.roundRect(g, r.x, r.y, r.w, r.h, 18);
@@ -316,12 +373,18 @@ export class AudioTestScene {
     const it = list[this.sel[ti]];
     if (it) {
       const files = this.filesOf(it.key);
-      const detail = it.kind === 'music'
+      const tk = it.tk;
+      const detail = tk ? `${tk.file}  ·  ${tk.bpm} BPM, ${tk.bars} bars, loop ${(tk.loopEnd - tk.loopStart).toFixed(1)} s${tk.lufs ? `, ${tk.lufs} LUFS` : ''}`
+        : it.kind === 'music'
         ? `music/${it.key}: ${this.manifest.music[it.key] ? (typeof this.manifest.music[it.key] === 'string' ? this.manifest.music[it.key] : this.manifest.music[it.key].file) : 'built-in synth song'}`
         : `${it.key}: ${files.length ? files.join(',  ') : (it.kind === 'voice' ? 'no file, generic synth stand-in plays' : SFX_NAMES.includes(it.key) ? 'no file, built-in synth plays' : 'no file yet (silent)')}`;
       ui.text(g, detail, 60, 1000, { size: 24, align: 'left', color: '#fff', strokeWidth: 5, maxWidth: W - 120 });
     }
     ui.text(g, this.last || 'Pick a sound and press A', 60, 1036, { size: 22, align: 'left', color: '#ffe58a', strokeWidth: 5, maxWidth: 1000 });
-    ui.hints(g, [['a', 'Play'], ['x', 'Next file'], ['b', 'Stop music'], ['lb', 'Tab'], ['rb', 'Tab'], ['start', 'Title']], W - 40, 1040, { size: 30, align: 'right' });
+    const hintList = tab.id === 'takes'
+      ? [['a', 'Play / stop'], ['y', 'Hear loop seam'], ['b', 'Stop'], ['lb', 'Tab'], ['rb', 'Tab']]
+      : [['a', 'Play'], ['x', 'Next file'], ['b', 'Stop music'], ['lb', 'Tab'], ['rb', 'Tab'], ['start', 'Title']];
+    ui.hints(g, hintList, W - 40, 1040, { size: 30, align: 'right' });
+    if (tab.id === 'takes' && !list.length) ui.text(g, 'No music takes yet (assets/audio/music/takes/index.json)', W / 2, GRID.y + 80, { size: 30, color: '#fff', strokeWidth: 6 });
   }
 }
