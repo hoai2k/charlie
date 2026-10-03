@@ -27,8 +27,12 @@ _Last updated: 2026-10-03, during music generation round 2._
   - **Rhythm batch 1 (committed):** `rh-afro` Sunbird Dance (104 BPM),
     `rh-island` Coconut Calypso (108), `rh-reggae` Sunshine Skank (96). The
     alternate takes are `takes/rh-afro-1`, `rh-island-2` and `rh-reggae-2`.
-  - **Still to come:** `rh-hiphop`, `rh-bossa`, `rh-tango` and
-    `rh-flamenco`, then the background loops. The music agent drops raw takes
+  - **Rhythm batch 2 (committed):** `rh-hiphop` Block Party Bounce (92 BPM,
+    swung), `rh-bossa` Moonlit Bossa (110), `rh-tango` Twirling Tango (112,
+    start 0.1857) and `rh-flamenco` Fiesta Fan (112, only grooves A and B).
+    The alternate takes are in `takes/`.
+  - **Still to come:** the background loops (chase, bouncy, tense, victory,
+    optional title). The music agent drops raw takes
     in `takes/` while it works. Audition them on the Takes tab of the audio test page
   (`?scene=audio`).
 - **Commit rule (user's request):** commit each batch of finished rhythm
