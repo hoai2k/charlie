@@ -8,7 +8,7 @@ main regularly. The whole brief is not yet complete.
 ## Published
 
 Main includes the full action vocabulary for Snowstar, Birthday Cake, Felicity,
-Fellowfox, Bronze, Fox, Princess Amber, Marina, Scale and Hotdog. Cake has 74 keys / 95 authored frames / five portraits;
+Fellowfox, Bronze, Fox, Princess Amber, Marina, Scale, Hotdog and Cotton Candy. Cake has 74 keys / 95 authored frames / five portraits;
 Felicity and Bronze have 74 / 91 / five; Fellowfox has 75 / 91 / five, including
 catch-toy. Expanded sets include two-frame dash, hip-bump and knockback and an
 authored four-view twirl. Reviewed optimized copies accompany the full originals.
@@ -35,12 +35,12 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
 
 ## Active ownership and remaining work
 
-- snow_cake_completion: Cotton Candy final scale/landmark review; Unicorn full
-  action extension. Preserve neutral head size and correct memory-card reach.
+- snow_cake_completion: Unicorn full action extension and review. Cotton Candy
+  is reviewed and ready for publication with corrected source-local mouth point.
 - mermaid_all_actions: KPop trio final exports, center color masks, semantic
   review and validation. All requested action artwork is generated.
-- npc_canonicals: final Fox source-order and landmark audit; legacy swapped
-  actions are being restored to their intended drawings before republishing.
+- npc_canonicals: final coverage/documentation audit. Fox action order and
+  attachment repairs are published in c6d2e78.
 - Root: review stable sets in both quality modes, validate, stage precise paths,
   safely merge concurrent main, and push reviewed batches. Marina/Scale/Hotdog
   published in520f9a4 via8b37665; Fairy Garden twirl integration9cf88d8.
@@ -63,8 +63,9 @@ sprites-opt/index.json with the original set. The optimizer filters macOS sideca
 and locks its shared index after encoding so concurrent jobs preserve entries.
 The builder caches sheet decoding but copies pixels before alpha cleanup.
 
-Validate only stable sets while other agents are rebuilding: zero-byte frames can
-appear briefly during encoding. Final checks: validate.py and node --test on
+Validate stable sets while other agents are rebuilding. The builder now publishes
+individual WebPs atomically and caches unchanged art; manifests and optimized
+sets still need their final owner handoff before review. Final checks: validate.py and node --test on
 runtime.test.mjs and art-loading.test.mjs. Both picture-quality modes need real
 in-game review; use quality=full for originals. No-cache preview port is 8141.
 

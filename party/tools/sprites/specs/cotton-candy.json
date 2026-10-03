@@ -1,16 +1,16 @@
 {
   "asset": "cotton-candy",
-  "bodyHeight": 300,
+  "bodyHeight": 250,
   "frameSize": [
     620,
-    480
+    500
   ],
   "anchor": [
     310,
-    450
+    420
   ],
   "facing": -1,
-  "provenance": "Approved Cotton Candy canonical + ImageGen sprite/action sheets. Lossless WebP sources; 43 authored pose names, 4-frame walk and gallop run, 3\u20134-frame idle/celebrate/dance, 2-frame pout/ride, five portraits, and Pet Spa giggle/catch-toy. Source-space anchors reviewed; mouth is hand point.",
+  "provenance": "Built-in image_gen from approved Cotton Candy canonical. Round-5 exact prompts: cotton-candy-extension-generation-prompts.json; new card-flip frame is an empty-hoof reach to turn a separate memory card.",
   "sourceFiles": [
     "../sources/cotton-candy-core.webp",
     "../sources/cotton-candy-walk.webp",
@@ -30,7 +30,14 @@
     "../sources/cotton-candy-dance.webp",
     "../sources/cotton-candy-ride.webp",
     "../sources/cotton-candy-run.webp",
-    "../sources/cotton-candy-pet-actions.webp"
+    "../sources/cotton-candy-pet-actions.webp",
+    "../sources/cotton-candy-round5-actions-a.webp",
+    "../sources/cotton-candy-round5-actions-b.webp",
+    "../sources/cotton-candy-round5-actions-c.webp",
+    "../sources/cotton-candy-round5-actions-d.webp",
+    "../sources/cotton-candy-round5-pose-twirl.webp",
+    "../sources/cotton-candy-round5-actions-b2.webp",
+    "../sources/cotton-candy-round5-card-flip.webp"
   ],
   "generationPrompts": {
     "core": "Use case: stylized-concept. Asset type: four-pose horizontal sprite strip for a children's party game, to be cut into four independent transparent character frames. Input image 1 is the approved Cotton Candy canonical: reproduce this exact character and preserve her identity precisely. Make exactly four separate, full-body white pony poses in one horizontal row, equal scale, even generous transparent gutters, no overlap, each entirely visible with margin: (1) calm friendly idle standing on four hooves, (2) graceful ready pose with head slightly lifted, (3) joyful celebration hop with all four legs lifted and flowing mane/tail, (4) funny pout with lowered head and one forehoof stomp. Every frame has exactly the canonical small yellow crown with blue accents, large blue eye, long flowing pink/lavender/sky-blue striped mane and tail, yellow flank flower, white pony silhouette, lavender shading. Never add a horn, wings, rainbow mane, hands, human arms, clothing, or extra accessories. Keep all poses anatomically equine and on four legs; no hands. Full figures face right, identical proportions, consistent outline and palette. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no 3D. Transparent background. No floor/shadows/effects, no text, no borders, no extra characters or decorations. Horizontal transparent canvas, 4 evenly separated figures, equal height and ground line except the airborne celebration pose.",
@@ -51,7 +58,13 @@
     "danceMulti": "Use case: stylized-concept. Asset type: four-frame looping dance animation strip for the exact approved Cotton Candy pony. Input image 1 is the canonical: reproduce exactly. Show four consecutive full-body dance frames in one horizontal row, same scale and facing left, transparent gaps, cycle reads smoothly and lasts one second at 4 fps: (1) front hoof lifts with a gentle sway; (2) graceful side step with head tilt and tail swish; (3) playful bounce with forelegs light and mane flying; (4) settle into the first-step silhouette with a different flowing mane position. Keep her white pony, blue eye, small yellow crown with blue accents, long pink/lavender/sky-blue mane and tail, yellow flank flower, lavender shading. Four equine legs only, no hands/arms, no horn or wings. Bold navy outline, bright clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, effects, props, text, border, scenery or other characters.",
     "rideMulti": "Use case: stylized-concept. Asset type: two-frame ride animation strip for the exact approved Cotton Candy pony in a children's racing minigame. Input image 1 is her approved canonical: reproduce exactly. Exactly two full-body frames side by side, same size and pose facing left, transparent gap, consistent hoof baseline: Cotton Candy leans forward in a graceful racing gallop as if riding fast; frame 2 repeats the same ride pose with ears back and her striped mane/tail flowing farther behind. She remains alone; no broom, rider, saddle, reins or other object. Preserve white pony, small yellow crown with blue accents, blue eye, long pink/lavender/sky-blue mane and tail, yellow flank flower, lavender hoof shading. Four equine legs and hooves, no hands or arms, no horn or wings. Bold navy outline and clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, text, border, or extra characters.",
     "runMulti": "Use case: stylized-concept. Asset type: four-frame galloping run animation strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Four distinct consecutive full-body gallop frames in one horizontal row, same scale, facing left, transparent gutters, consistent virtual ground line: extended bound, gathered flight, opposite extended bound, gathered flight. Make this read clearly faster and more airborne than a walk, with legs alternating in a horse gallop and mane/tail flowing behind. Preserve white pony, yellow crown with blue accents, blue eye, pink/lavender/sky-blue long mane and tail, yellow flank flower and lavender shading. Exactly four equine legs and hooves in every frame; no hands, no human arms, no horn or wings, no props. Bold smooth dark navy lines, clean cel shading, no 3D. True transparent background, no shadow, floor, motion lines, effects, text, border, scenery or extra characters.",
-    "petActions": "Use case: stylized-concept. Asset type: two-pose Pet Spa sprite strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Show exactly two separate full-body poses side by side at equal scale, facing left, transparent gap: (1) giggle: squirming happily during a bath, curled partly onto her side with eyes closed and a delighted smile; (2) catch-toy: playful springing leap with front hooves reaching up to catch an imaginary rubber duck, but draw no toy. Keep full horse anatomy and all four legs visible. Preserve white pony, blue eye, small yellow crown with blue accents, pink/lavender/sky-blue long mane and tail, yellow flank flower, lavender shading. No horn, wings, hands, human arms, bubbles, water, brush or other objects. Bold navy outlines, rounded bright clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, text, frames, scenery or other characters."
+    "petActions": "Use case: stylized-concept. Asset type: two-pose Pet Spa sprite strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Show exactly two separate full-body poses side by side at equal scale, facing left, transparent gap: (1) giggle: squirming happily during a bath, curled partly onto her side with eyes closed and a delighted smile; (2) catch-toy: playful springing leap with front hooves reaching up to catch an imaginary rubber duck, but draw no toy. Keep full horse anatomy and all four legs visible. Preserve white pony, blue eye, small yellow crown with blue accents, pink/lavender/sky-blue long mane and tail, yellow flank flower, lavender shading. No horn, wings, hands, human arms, bubbles, water, brush or other objects. Bold navy outlines, rounded bright clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, text, frames, scenery or other characters.",
+    "../../sources/cotton-candy-round5-actions-a.webp": "The ONLY character is the exact small pony shown in reference image 1; it is not a person. Create a clean transparent sprite sheet for a children's party game, 4 columns by 2 rows, eight separate full-body poses of that same pony. Preserve exact reference identity: a white quadruped pony with enormous flowing pastel pink, lavender, and cyan mane and tail, a small gold crown with three blue gems, very large blue eyes, and a yellow flower cutie mark. Four short pony legs and four hooves only; no hands, no fingers, no human anatomy, no wing, no unicorn horn. The mane and tail are cotton-candy colors. Bold dark navy outlines and smooth cel shading like reference. Use the reference as the strongest authority for character design. All figures face right, same head/torso scale, full mane and tail visible, generous transparent gutters. Ordered left to right, top row then bottom row: swim floating prone and paddling; balance wobble standing on three hooves with one foreleg raised, no platform; splat-throw playful forward toss gesture, empty hoof; wand-up rearing and lifting one empty hoof; broom-rise angled airborne ascent as though riding a separate broom, no broom drawn; broom-glide level forward flight, hooves tucked, no broom drawn; broom-zapped startled midair pose, no lightning or effects; count thoughtfully lifting a forehoof. Keep all art crisp, simple, and individually separated. Real alpha transparency. No backgrounds, glow, shadows, props, platforms, text, labels, borders, or other figures.",
+    "../sources/cotton-candy-round5-actions-b.webp": "Use reference image 1 as the exact Cotton Candy character. Asset: one transparent 4-by-2 sheet of eight separate full-body quadruped pony frames, preserving her white coat, huge flowing pink-lavender-cyan mane and tail, gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outline and smooth cel shading. Four pony legs and hooves only, no hands or human anatomy, no wings or horn. Keep right-facing profile, same idle-sized head and body in every cell, full crown/mane/tail visible with clear transparent gutters. Ordered left-right, top row then bottom row: (1) look-up, standing and gazing high above; (2) crowned, proudly lifting her chin while the same small crown stays on her head; (3-4) dash cycle, two distinct fast quadruped gallop beats, mane streaming, legs extending then gathering, both on the same scale; (5-6) hip-bump cycle, two playful quadruped poses that shift her rump and shoulder sideways then rebound, no other character; (7-8) knockback cycle, startled recoil with mane flicking back and hooves bracing, then recovery, no impact marks. No new crown, no extra accessory, no prop or other figure. True transparent background, no scene, floor, shadows, glow, motion lines, labels or text.",
+    "../sources/cotton-candy-round5-actions-b2.webp": "Use reference image 1 to reproduce the same Cotton Candy pony exactly: white quadruped with large blue eyes, gold crown with blue gems, yellow flower cutie mark, huge flowing pastel pink-lavender-cyan mane and tail, dark navy outline and clean soft cel shading. Create one real-transparent horizontal 3-cell action strip, full body and mane visible in each separated cell, all facing right at consistent idle head size. Only four pony legs and hooves; no hands, no human anatomy, no wings or horn. Left to right: (1) sit, politely seated low on her hindquarters with forehooves resting in front, tail curled beside her; (2) tumble, a playful sideways rolling pose on her back with all four hooves visible, keep crown on; (3) hold-present, standing and leaning forward with her muzzle gently open at the mouth attachment point as if holding a separate present, no present drawn. Keep identity, crown, flower and mane patterns consistent. No props, floor, shadow, scene, effects, text, labels, borders or extra characters.",
+    "../sources/cotton-candy-round5-actions-c.webp": "Use the approved Cotton Candy pony in reference image 1 exactly: small white quadruped pony, huge flowing pink-lavender-cyan mane and tail, gold crown set with blue gems, expressive blue eyes, yellow flower cutie mark, bold navy outlines and simple cel shading. Create one transparent 4-column by 2-row sheet of eight separated full-body poses. Four legs and hooves only, no hands, fingers, human anatomy, wings or horn; keep head size consistent and face right except a natural tumble. Order left-to-right top row then bottom row: (1) toss, lift her muzzle and one forehoof in a gentle upward toss gesture, empty mouth and hoof, no object; (2) catch-present, look up with muzzle open at the mouth attachment point as if catching a separate present, no present drawn; (3) sooty, same pony with two small soft gray soot smudges on muzzle and cheek, no explosion; (4) drink, tip head toward an absent cup at the mouth attachment point, no cup or liquid; (5) float, drift weightlessly with all four hooves lifted and mane hanging softly; (6) hiccup, startled little jolt with puffed cheeks and a tiny head bob; (7) stomp-giant, proud wide quadruped stance with one forehoof planted strongly, not enlarged; (8) squeak-tiny, a startled little hop with legs tucked, keep normal body size. Preserve her crown, flower and pastel mane consistently. Real transparent background. No floor, shadow, scenery, props, effects, lettering, borders or extra figures.",
+    "../sources/cotton-candy-round5-actions-d.webp": "Use the exact Cotton Candy pony from reference image 1: white quadruped, enormous flowing pastel pink-lavender-cyan mane and tail, small gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outlines and cel shading. Make a transparent 3-column by 2-row sheet with six distinct full-body poses, generous clear gutters, consistent head/body scale, four legs and hooves only; no hands, fingers, human anatomy, wings or horn. Keep her identity, crown and mane pattern consistent; all face right unless the photo pose naturally faces the viewer. Order left to right top then bottom: flip, a compact safe-looking sideways somersault with all hooves visible; blow, standing with lips pursed at the muzzle as if blowing gently, no bubbles or effects; shake-sprinkles, vigorous head/mane shake with loose mane motion but no particles or sprinkles drawn; photo, cheerful square stance turned slightly toward camera with a bright smile, no camera or flash; sing, joyful open-mouth singing stance with one forehoof lifted, no microphone or notes; water, lean forward with an empty mouth/forehoof attachment pose as if tipping a separate watering can, no can or water drawn. Real alpha transparency. No floor, shadow, scene, props, effects, text, labels, borders or extra figures.",
+    "../sources/cotton-candy-round5-pose-twirl.webp": "Use the exact Cotton Candy pony from reference image 1: white pony, gold crown with blue gems, huge flowing cotton-candy pink/lavender/cyan mane and tail, large blue eyes, yellow flower cutie mark, clean dark navy outline and soft cel shading. Create one true-transparent horizontal strip with exactly four separate full-body views of the same pony, equal head/body size, crown and entire mane/tail visible in every cell, all four hooves grounded at a consistent baseline. This is a real 4-angle turning cycle, not a paper-thin spin: left to right (1) front view looking toward camera, (2) three-quarter view turned to her right, (3) full back view showing her mane, tail and flower mark, (4) three-quarter view returning toward front from the opposite side. Smooth naturally linked rotation while the body remains in place; no walk steps. Four pony legs and hooves only, no human arms/hands, no wings or horn. Keep mane color bands and crown identical in every view. Transparent background, no floor, shadows, scene, motion trails, props, text, labels or borders."
   },
   "poses": {
     "idle": {
@@ -70,20 +83,20 @@
             613
           ],
           "head": [
-            265,
-            138
+            283,
+            129
           ],
           "hand": [
-            126,
-            231
+            192,
+            245
           ],
           "eyes": [
-            226,
-            206
+            236,
+            186
           ],
           "neck": [
-            213,
-            354
+            266,
+            314
           ],
           "back": [
             390,
@@ -105,20 +118,20 @@
             854
           ],
           "head": [
-            424,
-            189
+            410,
+            198
           ],
           "hand": [
-            204,
-            335
+            352,
+            349
           ],
           "eyes": [
-            357,
-            275
+            379,
+            284
           ],
           "neck": [
-            340,
-            489
+            465,
+            470
           ],
           "back": [
             620,
@@ -149,20 +162,20 @@
             610
           ],
           "head": [
-            300,
-            118
+            274,
+            173
           ],
           "hand": [
-            204,
-            224
+            402,
+            237
           ],
           "eyes": [
-            254,
-            198
+            274,
+            240
           ],
           "neck": [
-            279,
-            352
+            316,
+            348
           ],
           "back": [
             411,
@@ -192,20 +205,20 @@
             477
           ],
           "head": [
-            276,
+            217,
             106
           ],
           "hand": [
-            133,
-            188
+            99,
+            185
           ],
           "eyes": [
-            232,
-            154
+            184,
+            148
           ],
           "neck": [
-            221,
-            274
+            236,
+            236
           ],
           "back": [
             404,
@@ -227,20 +240,20 @@
             636
           ],
           "head": [
-            290,
-            132
+            195,
+            137
           ],
           "hand": [
-            139,
-            234
+            73,
+            336
           ],
           "eyes": [
-            243,
-            192
+            195,
+            190
           ],
           "neck": [
-            232,
-            342
+            229,
+            278
           ],
           "back": [
             423,
@@ -262,20 +275,20 @@
             606
           ],
           "head": [
-            290,
+            187,
             125
           ],
           "hand": [
-            139,
-            222
+            48,
+            246
           ],
           "eyes": [
-            243,
-            182
+            182,
+            173
           ],
           "neck": [
-            232,
-            325
+            203,
+            271
           ],
           "back": [
             423,
@@ -297,20 +310,20 @@
             541
           ],
           "head": [
-            250,
-            120
+            191,
+            107
           ],
           "hand": [
-            120,
-            213
+            100,
+            203
           ],
           "eyes": [
-            210,
-            174
+            185,
+            155
           ],
           "neck": [
-            200,
-            311
+            224,
+            273
           ],
           "back": [
             366,
@@ -340,20 +353,20 @@
             820
           ],
           "head": [
-            425,
-            181
+            274,
+            207
           ],
           "hand": [
-            204,
-            321
+            168,
+            372
           ],
           "eyes": [
-            357,
-            264
+            248,
+            286
           ],
           "neck": [
-            340,
-            470
+            366,
+            477
           ],
           "back": [
             620,
@@ -375,20 +388,20 @@
             858
           ],
           "head": [
-            418,
-            190
+            318,
+            206
           ],
           "hand": [
-            201,
-            336
+            180,
+            399
           ],
           "eyes": [
-            351,
-            276
+            307,
+            293
           ],
           "neck": [
-            334,
-            491
+            397,
+            506
           ],
           "back": [
             610,
@@ -418,24 +431,24 @@
             610
           ],
           "head": [
-            300,
-            102
+            317,
+            153
           ],
           "hand": [
-            170,
-            232
+            401,
+            264
           ],
           "eyes": [
-            250,
-            188
+            327,
+            208
           ],
           "neck": [
-            272,
-            349
+            337,
+            339
           ],
           "back": [
-            400,
-            392
+            176,
+            368
           ],
           "scale": 1
         },
@@ -453,24 +466,24 @@
             614
           ],
           "head": [
-            300,
-            104
+            351,
+            145
           ],
           "hand": [
-            170,
-            234
+            415,
+            259
           ],
           "eyes": [
-            250,
-            190
+            364,
+            202
           ],
           "neck": [
-            272,
-            350
+            354,
+            335
           ],
           "back": [
-            400,
-            392
+            191,
+            357
           ],
           "scale": 1
         },
@@ -488,24 +501,24 @@
             616
           ],
           "head": [
-            300,
-            102
+            351,
+            145
           ],
           "hand": [
-            170,
-            230
+            418,
+            263
           ],
           "eyes": [
-            250,
-            188
+            366,
+            201
           ],
           "neck": [
-            272,
-            349
+            354,
+            342
           ],
           "back": [
-            400,
-            393
+            196,
+            362
           ],
           "scale": 1
         },
@@ -523,24 +536,24 @@
             614
           ],
           "head": [
-            300,
-            102
+            349,
+            143
           ],
           "hand": [
-            170,
-            230
+            413,
+            261
           ],
           "eyes": [
-            250,
-            188
+            359,
+            199
           ],
           "neck": [
-            272,
-            349
+            346,
+            340
           ],
           "back": [
-            400,
-            392
+            193,
+            360
           ],
           "scale": 1
         }
@@ -566,26 +579,26 @@
             400
           ],
           "head": [
-            287,
-            89
+            162,
+            100
           ],
           "hand": [
-            138,
-            158
+            85,
+            191
           ],
           "eyes": [
-            241,
-            129
+            139,
+            140
           ],
           "neck": [
-            230,
-            230
+            226,
+            223
           ],
           "back": [
-            419,
-            250
+            396,
+            248
           ],
-          "scale": 1.0
+          "scale": 1.4
         },
         {
           "source": "../sources/cotton-candy-run.webp",
@@ -601,26 +614,26 @@
             391
           ],
           "head": [
-            257,
-            87
+            111,
+            85
           ],
           "hand": [
-            123,
-            154
+            54,
+            170
           ],
           "eyes": [
-            216,
+            108,
             126
           ],
           "neck": [
-            206,
-            225
+            157,
+            184
           ],
           "back": [
-            375,
-            245
+            267,
+            217
           ],
-          "scale": 1.0
+          "scale": 1.4
         },
         {
           "source": "../sources/cotton-candy-run.webp",
@@ -636,26 +649,26 @@
             427
           ],
           "head": [
-            294,
-            95
+            125,
+            88
           ],
           "hand": [
-            141,
-            168
+            79,
+            175
           ],
           "eyes": [
-            247,
-            138
+            120,
+            127
           ],
           "neck": [
-            235,
-            246
+            205,
+            205
           ],
           "back": [
-            429,
-            267
+            381,
+            256
           ],
-          "scale": 1.0
+          "scale": 1.4
         },
         {
           "source": "../sources/cotton-candy-run.webp",
@@ -671,26 +684,26 @@
             390
           ],
           "head": [
-            268,
+            123,
             87
           ],
           "hand": [
-            129,
-            154
+            62,
+            179
           ],
           "eyes": [
-            225,
-            126
+            110,
+            128
           ],
           "neck": [
-            214,
-            225
+            170,
+            202
           ],
           "back": [
-            391,
-            244
+            349,
+            237
           ],
-          "scale": 1.0
+          "scale": 1.4
         }
       ],
       "fps": 12.0,
@@ -715,20 +728,20 @@
           ],
           "scale": 0.8916184971098265,
           "head": [
-            264,
-            152
+            275,
+            141
           ],
           "hand": [
-            127,
-            270
+            62,
+            296
           ],
           "eyes": [
-            222,
-            221
+            281,
+            197
           ],
           "neck": [
-            212,
-            394
+            341,
+            343
           ],
           "back": [
             386,
@@ -758,20 +771,20 @@
           ],
           "scale": 1.0547008547008547,
           "head": [
-            270,
-            129
+            205,
+            134
           ],
           "hand": [
-            129,
-            228
+            135,
+            260
           ],
           "eyes": [
-            226,
-            187
+            196,
+            186
           ],
           "neck": [
-            216,
-            333
+            273,
+            307
           ],
           "back": [
             393,
@@ -801,20 +814,20 @@
           ],
           "scale": 0.9595645412130638,
           "head": [
-            248,
-            141
+            260,
+            140
           ],
           "hand": [
-            119,
-            251
+            373,
+            235
           ],
           "eyes": [
-            208,
-            206
+            262,
+            197
           ],
           "neck": [
-            198,
-            367
+            339,
+            302
           ],
           "back": [
             361,
@@ -844,20 +857,20 @@
           ],
           "scale": 1.0601374570446735,
           "head": [
-            242,
-            128
+            251,
+            133
           ],
           "hand": [
-            116,
-            227
+            246,
+            229
           ],
           "eyes": [
-            203,
-            186
+            253,
+            189
           ],
           "neck": [
-            193,
-            332
+            300,
+            292
           ],
           "back": [
             353,
@@ -887,20 +900,20 @@
           ],
           "scale": 0.9640625,
           "head": [
-            248,
-            141
+            250,
+            137
           ],
           "hand": [
-            119,
-            250
+            130,
+            249
           ],
           "eyes": [
-            209,
-            205
+            250,
+            196
           ],
           "neck": [
-            199,
-            365
+            312,
+            290
           ],
           "back": [
             363,
@@ -930,20 +943,20 @@
           ],
           "scale": 0.9536321483771252,
           "head": [
-            258,
-            142
+            228,
+            120
           ],
           "hand": [
-            124,
-            252
+            150,
+            296
           ],
           "eyes": [
-            217,
-            207
+            235,
+            175
           ],
           "neck": [
-            207,
-            369
+            295,
+            288
           ],
           "back": [
             377,
@@ -973,20 +986,20 @@
           ],
           "scale": 1.234,
           "head": [
-            313,
-            110
+            166,
+            90
           ],
           "hand": [
-            150,
-            195
+            106,
+            268
           ],
           "eyes": [
-            263,
-            160
+            162,
+            124
           ],
           "neck": [
-            250,
-            285
+            222,
+            192
           ],
           "back": [
             457,
@@ -1016,20 +1029,20 @@
           ],
           "scale": 1.1177536231884058,
           "head": [
-            266,
-            121
+            254,
+            228
           ],
           "hand": [
-            127,
-            215
+            170,
+            323
           ],
           "eyes": [
-            223,
-            177
+            252,
+            277
           ],
           "neck": [
-            212,
-            315
+            274,
+            325
           ],
           "back": [
             388,
@@ -1059,20 +1072,20 @@
           ],
           "scale": 1.2003891050583657,
           "head": [
-            284,
-            113
+            198,
+            119
           ],
           "hand": [
-            136,
-            200
+            104,
+            191
           ],
           "eyes": [
-            239,
-            164
+            190,
+            175
           ],
           "neck": [
-            227,
-            293
+            233,
+            247
           ],
           "back": [
             415,
@@ -1102,20 +1115,20 @@
           ],
           "scale": 1.033500837520938,
           "head": [
-            230,
-            131
+            196,
+            115
           ],
           "hand": [
-            110,
-            233
+            93,
+            223
           ],
           "eyes": [
-            193,
-            191
+            194,
+            173
           ],
           "neck": [
-            184,
-            340
+            253,
+            287
           ],
           "back": [
             335,
@@ -1145,20 +1158,20 @@
           ],
           "scale": 1.0,
           "head": [
-            306,
-            102
+            219,
+            110
           ],
           "hand": [
-            147,
-            181
+            133,
+            216
           ],
           "eyes": [
-            257,
-            148
+            224,
+            159
           ],
           "neck": [
-            245,
-            264
+            286,
+            258
           ],
           "back": [
             447,
@@ -1189,19 +1202,19 @@
           "scale": 1.0300500834724542,
           "head": [
             241,
-            132
+            125
           ],
           "hand": [
-            116,
-            234
+            134,
+            207
           ],
           "eyes": [
-            202,
-            192
+            241,
+            173
           ],
           "neck": [
-            193,
-            341
+            256,
+            279
           ],
           "back": [
             352,
@@ -1231,20 +1244,20 @@
           ],
           "scale": 1.0,
           "head": [
-            302,
-            106
+            208,
+            112
           ],
           "hand": [
-            145,
-            188
+            97,
+            373
           ],
           "eyes": [
-            253,
-            154
+            178,
+            168
           ],
           "neck": [
-            241,
-            274
+            240,
+            282
           ],
           "back": [
             440,
@@ -1274,20 +1287,20 @@
           ],
           "scale": 1.0,
           "head": [
-            268,
-            136
+            267,
+            137
           ],
           "hand": [
-            129,
-            241
+            104,
+            376
           ],
           "eyes": [
-            225,
-            197
+            274,
+            198
           ],
           "neck": [
-            214,
-            352
+            284,
+            309
           ],
           "back": [
             391,
@@ -1316,20 +1329,20 @@
             631
           ],
           "head": [
-            268,
-            140
+            238,
+            115
           ],
           "hand": [
-            129,
-            248
+            198,
+            390
           ],
           "eyes": [
-            226,
-            203
+            236,
+            169
           ],
           "neck": [
-            215,
-            362
+            284,
+            303
           ],
           "back": [
             392,
@@ -1351,20 +1364,20 @@
             608
           ],
           "head": [
-            262,
-            135
+            201,
+            121
           ],
           "hand": [
-            126,
-            239
+            248,
+            385
           ],
           "eyes": [
-            220,
-            196
+            196,
+            182
           ],
           "neck": [
-            210,
-            349
+            250,
+            309
           ],
           "back": [
             383,
@@ -1386,20 +1399,20 @@
             620
           ],
           "head": [
-            290,
-            137
+            206,
+            113
           ],
           "hand": [
-            139,
-            243
+            76,
+            365
           ],
           "eyes": [
-            243,
-            200
+            206,
+            166
           ],
           "neck": [
-            232,
-            356
+            264,
+            276
           ],
           "back": [
             423,
@@ -1421,20 +1434,20 @@
             638
           ],
           "head": [
-            273,
-            141
+            240,
+            117
           ],
           "hand": [
-            131,
-            250
+            199,
+            394
           ],
           "eyes": [
-            229,
-            205
+            238,
+            171
           ],
           "neck": [
-            218,
-            366
+            287,
+            307
           ],
           "back": [
             399,
@@ -1465,20 +1478,20 @@
           ],
           "scale": 1.0,
           "head": [
-            255,
-            102
+            198,
+            87
           ],
           "hand": [
-            122,
-            181
+            82,
+            391
           ],
           "eyes": [
-            214,
-            148
+            188,
+            151
           ],
           "neck": [
-            204,
-            264
+            250,
+            240
           ],
           "back": [
             372,
@@ -1508,20 +1521,20 @@
           ],
           "scale": 1.0,
           "head": [
-            290,
-            86
+            218,
+            110
           ],
           "hand": [
-            139,
-            153
+            181,
+            258
           ],
           "eyes": [
-            244,
-            126
+            188,
+            209
           ],
           "neck": [
-            232,
-            224
+            295,
+            288
           ],
           "back": [
             423,
@@ -1551,20 +1564,20 @@
           ],
           "scale": 0.9250374812593704,
           "head": [
-            286,
-            147
+            241,
+            116
           ],
           "hand": [
-            137,
-            260
+            144,
+            214
           ],
           "eyes": [
-            240,
-            213
+            246,
+            169
           ],
           "neck": [
-            229,
-            380
+            292,
+            308
           ],
           "back": [
             418,
@@ -1594,20 +1607,20 @@
           ],
           "scale": 0.9348484848484848,
           "head": [
-            244,
-            145
+            208,
+            120
           ],
           "hand": [
-            117,
-            257
+            79,
+            286
           ],
           "eyes": [
-            205,
-            211
+            169,
+            202
           ],
           "neck": [
-            195,
-            376
+            232,
+            315
           ],
           "back": [
             356,
@@ -1637,20 +1650,20 @@
           ],
           "scale": 1.5580808080808082,
           "head": [
-            254,
-            87
+            112,
+            82
           ],
           "hand": [
-            122,
-            154
+            88,
+            177
           ],
           "eyes": [
-            213,
-            127
+            88,
+            129
           ],
           "neck": [
-            203,
-            226
+            172,
+            229
           ],
           "back": [
             370,
@@ -1676,27 +1689,27 @@
           "isolate": true,
           "anchor": [
             469,
-            742
+            535
           ],
           "head": [
-            451,
-            164
+            273,
+            184
           ],
           "hand": [
-            216,
-            291
+            124,
+            347
           ],
           "eyes": [
-            379,
-            239
+            238,
+            255
           ],
           "neck": [
-            361,
-            425
+            354,
+            412
           ],
           "back": [
-            658,
-            463
+            645,
+            456
           ],
           "scale": 0.75
         },
@@ -1711,26 +1724,26 @@
           "isolate": true,
           "anchor": [
             535,
-            740
+            535
           ],
           "head": [
-            514,
-            164
+            238,
+            184
           ],
           "hand": [
-            247,
-            290
+            102,
+            356
           ],
           "eyes": [
-            432,
-            238
+            202,
+            258
           ],
           "neck": [
-            412,
-            424
+            369,
+            411
           ],
           "back": [
-            751,
+            777,
             461
           ],
           "scale": 0.75
@@ -1758,20 +1771,20 @@
           ],
           "scale": 1.2315369261477045,
           "head": [
-            272,
-            110
+            145,
+            96
           ],
           "hand": [
-            131,
-            195
+            85,
+            200
           ],
           "eyes": [
-            229,
+            133,
             160
           ],
           "neck": [
-            218,
-            286
+            199,
+            238
           ],
           "back": [
             398,
@@ -1801,20 +1814,20 @@
           ],
           "scale": 0.9640625,
           "head": [
-            262,
-            141
+            198,
+            116
           ],
           "hand": [
-            126,
-            250
+            98,
+            398
           ],
           "eyes": [
-            220,
-            205
+            203,
+            168
           ],
           "neck": [
-            210,
-            365
+            259,
+            285
           ],
           "back": [
             383,
@@ -1844,20 +1857,20 @@
           ],
           "scale": 0.9903691813804173,
           "head": [
-            226,
-            137
+            213,
+            126
           ],
           "hand": [
-            108,
-            243
+            208,
+            310
           ],
           "eyes": [
-            189,
-            199
+            223,
+            183
           ],
           "neck": [
-            180,
-            355
+            277,
+            305
           ],
           "back": [
             329,
@@ -1887,20 +1900,20 @@
           ],
           "scale": 0.9181547619047619,
           "head": [
-            286,
-            148
+            241,
+            125
           ],
           "hand": [
-            137,
-            262
+            136,
+            418
           ],
           "eyes": [
-            240,
-            215
+            238,
+            187
           ],
           "neck": [
-            228,
-            383
+            294,
+            327
           ],
           "back": [
             417,
@@ -1930,20 +1943,20 @@
           ],
           "scale": 0.9809220985691574,
           "head": [
-            291,
-            138
+            230,
+            190
           ],
           "hand": [
-            140,
-            245
+            94,
+            238
           ],
           "eyes": [
-            244,
-            201
+            180,
+            230
           ],
           "neck": [
-            233,
-            359
+            280,
+            318
           ],
           "back": [
             425,
@@ -1973,20 +1986,20 @@
           ],
           "scale": 1.0601374570446735,
           "head": [
-            294,
-            128
+            186,
+            117
           ],
           "hand": [
-            141,
-            227
+            93,
+            357
           ],
           "eyes": [
-            247,
-            186
+            193,
+            171
           ],
           "neck": [
-            235,
-            332
+            254,
+            275
           ],
           "back": [
             429,
@@ -2016,20 +2029,20 @@
           ],
           "scale": 0.8903318903318903,
           "head": [
-            252,
-            152
+            229,
+            124
           ],
           "hand": [
-            121,
-            270
+            54,
+            276
           ],
           "eyes": [
-            212,
-            222
+            226,
+            173
           ],
           "neck": [
-            202,
-            395
+            279,
+            293
           ],
           "back": [
             368,
@@ -2059,20 +2072,20 @@
           ],
           "scale": 1.0404721753794266,
           "head": [
-            263,
-            130
+            215,
+            107
           ],
           "hand": [
-            126,
-            231
+            238,
+            437
           ],
           "eyes": [
-            221,
-            190
+            215,
+            186
           ],
           "neck": [
-            210,
-            338
+            283,
+            281
           ],
           "back": [
             384,
@@ -2102,20 +2115,20 @@
           ],
           "scale": 0.9762658227848101,
           "head": [
-            310,
-            139
+            211,
+            120
           ],
           "hand": [
-            149,
-            246
+            148,
+            368
           ],
           "eyes": [
-            260,
-            202
+            198,
+            183
           ],
           "neck": [
-            248,
-            360
+            264,
+            277
           ],
           "back": [
             452,
@@ -2145,20 +2158,20 @@
           ],
           "scale": 0.9506933744221879,
           "head": [
-            264,
-            143
+            214,
+            134
           ],
           "hand": [
-            126,
-            253
+            142,
+            243
           ],
           "eyes": [
-            221,
-            208
+            212,
+            193
           ],
           "neck": [
-            211,
-            370
+            261,
+            313
           ],
           "back": [
             385,
@@ -2188,20 +2201,20 @@
           ],
           "scale": 0.9521604938271605,
           "head": [
-            262,
-            143
+            215,
+            128
           ],
           "hand": [
-            126,
-            253
+            26,
+            266
           ],
           "eyes": [
-            220,
-            207
+            210,
+            188
           ],
           "neck": [
-            210,
-            369
+            262,
+            310
           ],
           "back": [
             383,
@@ -2231,20 +2244,20 @@
           ],
           "scale": 1,
           "head": [
-            235,
-            77
+            160,
+            98
           ],
           "hand": [
-            113,
-            136
+            103,
+            291
           ],
           "eyes": [
-            197,
-            112
+            140,
+            143
           ],
           "neck": [
-            188,
-            199
+            197,
+            204
           ],
           "back": [
             343,
@@ -2260,45 +2273,81 @@
     "dash": {
       "frames": [
         {
-          "source": "../sources/cotton-candy-actions-i.webp",
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
           "rect": [
-            443,
-            183,
-            543,
-            404
+            864,
+            66,
+            469,
+            373
           ],
           "isolate": true,
-          "anchor": [
-            282,
-            440
-          ],
           "scale": 1.0,
           "head": [
-            272,
-            89
-          ],
-          "hand": [
-            130,
-            158
+            394,
+            108
           ],
           "eyes": [
-            228,
-            129
+            387,
+            155
           ],
           "neck": [
-            217,
-            230
+            360,
+            202
           ],
           "back": [
-            396,
-            250
+            214,
+            224
+          ],
+          "hand": [
+            429,
+            298
+          ],
+          "anchor": [
+            251,
+            372
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            1326,
+            60,
+            428,
+            360
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            309,
+            118
+          ],
+          "eyes": [
+            307,
+            170
+          ],
+          "neck": [
+            287,
+            244
+          ],
+          "back": [
+            151,
+            247
+          ],
+          "hand": [
+            317,
+            308
+          ],
+          "anchor": [
+            218,
+            370
           ]
         }
       ],
-      "fps": 5,
+      "fps": 10,
       "loop": false,
-      "motion": 0.82,
-      "facing": -1
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
     },
     "catch": {
       "frames": [
@@ -2317,20 +2366,20 @@
           ],
           "scale": 1.052901023890785,
           "head": [
-            206,
-            129
+            195,
+            111
           ],
           "hand": [
-            99,
-            229
+            34,
+            214
           ],
           "eyes": [
-            173,
-            188
+            188,
+            160
           ],
           "neck": [
-            164,
-            334
+            240,
+            266
           ],
           "back": [
             300,
@@ -2360,24 +2409,24 @@
           ],
           "scale": 1.0901060070671378,
           "head": [
-            170,
-            125
+            186,
+            182
           ],
           "hand": [
-            82,
-            221
+            295,
+            254
           ],
           "eyes": [
-            143,
-            181
+            175,
+            234
           ],
           "neck": [
-            136,
-            323
+            193,
+            329
           ],
           "back": [
             249,
-            351
+            394
           ]
         }
       ],
@@ -2403,20 +2452,20 @@
           ],
           "scale": 1.052901023890785,
           "head": [
-            222,
-            129
+            308,
+            130
           ],
           "hand": [
-            107,
-            229
+            39,
+            282
           ],
           "eyes": [
-            186,
-            188
+            315,
+            186
           ],
           "neck": [
-            178,
-            334
+            299,
+            284
           ],
           "back": [
             324,
@@ -2445,25 +2494,26 @@
             791
           ],
           "head": [
-            398,
-            175
+            355,
+            156
           ],
           "hand": [
-            191,
-            310
+            299,
+            343
           ],
           "eyes": [
-            334,
-            254
+            325,
+            238
           ],
           "neck": [
-            318,
-            453
+            411,
+            422
           ],
           "back": [
             581,
             493
-          ]
+          ],
+          "scale": 0.75
         }
       ],
       "fps": 5,
@@ -2487,20 +2537,20 @@
             858
           ],
           "head": [
-            448,
-            182
+            314,
+            164
           ],
           "hand": [
-            215,
-            322
+            61,
+            340
           ],
           "eyes": [
-            376,
-            264
+            301,
+            256
           ],
           "neck": [
-            358,
-            471
+            379,
+            442
           ],
           "back": [
             653,
@@ -2513,6 +2563,1487 @@
       "loop": false,
       "motion": 0.82,
       "facing": -1
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            14,
+            94,
+            471,
+            272
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            381,
+            53
+          ],
+          "eyes": [
+            375,
+            89
+          ],
+          "neck": [
+            331,
+            143
+          ],
+          "back": [
+            223,
+            135
+          ],
+          "hand": [
+            423,
+            102
+          ],
+          "anchor": [
+            233,
+            258
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            498,
+            10,
+            367,
+            424
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            202,
+            94
+          ],
+          "eyes": [
+            246,
+            141
+          ],
+          "neck": [
+            231,
+            206
+          ],
+          "back": [
+            134,
+            236
+          ],
+          "hand": [
+            294,
+            172
+          ],
+          "anchor": [
+            185,
+            417
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            901,
+            44,
+            458,
+            387
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            369,
+            82
+          ],
+          "eyes": [
+            401,
+            110
+          ],
+          "neck": [
+            337,
+            187
+          ],
+          "back": [
+            198,
+            208
+          ],
+          "hand": [
+            432,
+            146
+          ],
+          "anchor": [
+            299,
+            379
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            1398,
+            1,
+            358,
+            447
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            226,
+            100
+          ],
+          "eyes": [
+            229,
+            149
+          ],
+          "neck": [
+            183,
+            216
+          ],
+          "back": [
+            101,
+            260
+          ],
+          "hand": [
+            292,
+            176
+          ],
+          "anchor": [
+            210,
+            438
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            11,
+            433,
+            452,
+            401
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            334,
+            137
+          ],
+          "eyes": [
+            351,
+            161
+          ],
+          "neck": [
+            313,
+            208
+          ],
+          "back": [
+            183,
+            237
+          ],
+          "hand": [
+            398,
+            177
+          ],
+          "anchor": [
+            214,
+            429
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            472,
+            504,
+            484,
+            258
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            384,
+            98
+          ],
+          "eyes": [
+            407,
+            121
+          ],
+          "neck": [
+            345,
+            179
+          ],
+          "back": [
+            200,
+            191
+          ],
+          "hand": [
+            452,
+            149
+          ],
+          "anchor": [
+            238,
+            292
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            954,
+            446,
+            424,
+            373
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            324,
+            129
+          ],
+          "eyes": [
+            341,
+            164
+          ],
+          "neck": [
+            293,
+            230
+          ],
+          "back": [
+            135,
+            230
+          ],
+          "hand": [
+            397,
+            179
+          ],
+          "anchor": [
+            214,
+            404
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            1393,
+            457,
+            370,
+            420
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            251,
+            132
+          ],
+          "eyes": [
+            267,
+            163
+          ],
+          "neck": [
+            224,
+            226
+          ],
+          "back": [
+            114,
+            236
+          ],
+          "hand": [
+            337,
+            179
+          ],
+          "anchor": [
+            202,
+            414
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            10,
+            9,
+            398,
+            437
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            265,
+            133
+          ],
+          "eyes": [
+            290,
+            164
+          ],
+          "neck": [
+            260,
+            226
+          ],
+          "back": [
+            175,
+            255
+          ],
+          "hand": [
+            334,
+            201
+          ],
+          "anchor": [
+            210,
+            429
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            440,
+            9,
+            408,
+            436
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            238,
+            135
+          ],
+          "eyes": [
+            269,
+            170
+          ],
+          "neck": [
+            236,
+            230
+          ],
+          "back": [
+            152,
+            260
+          ],
+          "hand": [
+            308,
+            204
+          ],
+          "anchor": [
+            204,
+            429
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            24,
+            453,
+            383,
+            404
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            236,
+            109
+          ],
+          "eyes": [
+            254,
+            144
+          ],
+          "neck": [
+            231,
+            207
+          ],
+          "back": [
+            106,
+            243
+          ],
+          "hand": [
+            293,
+            167
+          ],
+          "anchor": [
+            184,
+            399
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            453,
+            453,
+            369,
+            407
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            200,
+            109
+          ],
+          "eyes": [
+            221,
+            143
+          ],
+          "neck": [
+            183,
+            208
+          ],
+          "back": [
+            57,
+            243
+          ],
+          "hand": [
+            261,
+            167
+          ],
+          "anchor": [
+            175,
+            402
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            887,
+            448,
+            417,
+            410
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            288,
+            114
+          ],
+          "eyes": [
+            316,
+            152
+          ],
+          "neck": [
+            280,
+            232
+          ],
+          "back": [
+            135,
+            248
+          ],
+          "hand": [
+            369,
+            170
+          ],
+          "anchor": [
+            203,
+            407
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            1334,
+            448,
+            430,
+            408
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            312,
+            114
+          ],
+          "eyes": [
+            338,
+            152
+          ],
+          "neck": [
+            287,
+            232
+          ],
+          "back": [
+            136,
+            248
+          ],
+          "hand": [
+            386,
+            169
+          ],
+          "anchor": [
+            222,
+            407
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b2.webp",
+          "rect": [
+            8,
+            6,
+            672,
+            673
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            375,
+            249
+          ],
+          "eyes": [
+            411,
+            300
+          ],
+          "neck": [
+            350,
+            421
+          ],
+          "back": [
+            234,
+            448
+          ],
+          "hand": [
+            467,
+            334
+          ],
+          "anchor": [
+            353,
+            668
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b2.webp",
+          "rect": [
+            712,
+            142,
+            745,
+            568
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            518,
+            173
+          ],
+          "eyes": [
+            558,
+            232
+          ],
+          "neck": [
+            478,
+            333
+          ],
+          "back": [
+            293,
+            326
+          ],
+          "hand": [
+            412,
+            262
+          ],
+          "anchor": [
+            378,
+            569
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b2.webp",
+          "rect": [
+            1453,
+            0,
+            719,
+            699
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            439,
+            152
+          ],
+          "eyes": [
+            474,
+            224
+          ],
+          "neck": [
+            437,
+            373
+          ],
+          "back": [
+            242,
+            366
+          ],
+          "hand": [
+            572,
+            288
+          ],
+          "anchor": [
+            432,
+            705
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            8,
+            14,
+            418,
+            481
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            265,
+            139
+          ],
+          "eyes": [
+            279,
+            171
+          ],
+          "neck": [
+            259,
+            273
+          ],
+          "back": [
+            152,
+            320
+          ],
+          "hand": [
+            322,
+            204
+          ],
+          "anchor": [
+            202,
+            475
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            399,
+            15,
+            372,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            190,
+            115
+          ],
+          "eyes": [
+            213,
+            161
+          ],
+          "neck": [
+            179,
+            251
+          ],
+          "back": [
+            102,
+            303
+          ],
+          "hand": [
+            253,
+            193
+          ],
+          "anchor": [
+            197,
+            474
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            746,
+            15,
+            399,
+            479
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            218,
+            122
+          ],
+          "eyes": [
+            248,
+            160
+          ],
+          "neck": [
+            210,
+            251
+          ],
+          "back": [
+            101,
+            299
+          ],
+          "hand": [
+            294,
+            189
+          ],
+          "anchor": [
+            212,
+            473
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            1133,
+            20,
+            398,
+            474
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            222,
+            124
+          ],
+          "eyes": [
+            241,
+            155
+          ],
+          "neck": [
+            215,
+            247
+          ],
+          "back": [
+            96,
+            299
+          ],
+          "hand": [
+            297,
+            192
+          ],
+          "anchor": [
+            198,
+            468
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            4,
+            507,
+            440,
+            417
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            303,
+            131
+          ],
+          "eyes": [
+            320,
+            162
+          ],
+          "neck": [
+            292,
+            239
+          ],
+          "back": [
+            166,
+            264
+          ],
+          "hand": [
+            358,
+            193
+          ],
+          "anchor": [
+            214,
+            455
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            421,
+            518,
+            379,
+            454
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            203,
+            131
+          ],
+          "eyes": [
+            222,
+            172
+          ],
+          "neck": [
+            200,
+            279
+          ],
+          "back": [
+            88,
+            314
+          ],
+          "hand": [
+            273,
+            199
+          ],
+          "anchor": [
+            195,
+            451
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            786,
+            493,
+            380,
+            489
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            222,
+            133
+          ],
+          "eyes": [
+            248,
+            180
+          ],
+          "neck": [
+            219,
+            295
+          ],
+          "back": [
+            92,
+            326
+          ],
+          "hand": [
+            326,
+            215
+          ],
+          "anchor": [
+            195,
+            486
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            1165,
+            512,
+            371,
+            421
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            234,
+            127
+          ],
+          "eyes": [
+            263,
+            163
+          ],
+          "neck": [
+            227,
+            246
+          ],
+          "back": [
+            104,
+            267
+          ],
+          "hand": [
+            310,
+            195
+          ],
+          "anchor": [
+            187,
+            438
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-card-flip.webp",
+          "rect": [
+            17,
+            119,
+            1174,
+            1055
+          ],
+          "isolate": true,
+          "scale": 0.52,
+          "head": [
+            879,
+            296
+          ],
+          "eyes": [
+            922,
+            383
+          ],
+          "neck": [
+            808,
+            565
+          ],
+          "back": [
+            616,
+            634
+          ],
+          "hand": [
+            1063,
+            933
+          ],
+          "anchor": [
+            583,
+            1051
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            485,
+            12,
+            479,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            323,
+            137
+          ],
+          "eyes": [
+            367,
+            166
+          ],
+          "neck": [
+            324,
+            252
+          ],
+          "back": [
+            219,
+            302
+          ],
+          "hand": [
+            443,
+            193
+          ],
+          "anchor": [
+            243,
+            470
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            987,
+            32,
+            534,
+            461
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            378,
+            126
+          ],
+          "eyes": [
+            396,
+            155
+          ],
+          "neck": [
+            359,
+            248
+          ],
+          "back": [
+            188,
+            290
+          ],
+          "hand": [
+            434,
+            173
+          ],
+          "anchor": [
+            268,
+            448
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            23,
+            509,
+            446,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            244,
+            131
+          ],
+          "eyes": [
+            271,
+            191
+          ],
+          "neck": [
+            292,
+            278
+          ],
+          "back": [
+            220,
+            318
+          ],
+          "hand": [
+            294,
+            236
+          ],
+          "anchor": [
+            222,
+            477
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            510,
+            512,
+            476,
+            479
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            283,
+            133
+          ],
+          "eyes": [
+            322,
+            176
+          ],
+          "neck": [
+            287,
+            262
+          ],
+          "back": [
+            184,
+            306
+          ],
+          "hand": [
+            342,
+            187
+          ],
+          "anchor": [
+            234,
+            474
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            1000,
+            527,
+            514,
+            455
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            358,
+            111
+          ],
+          "eyes": [
+            383,
+            159
+          ],
+          "neck": [
+            352,
+            245
+          ],
+          "back": [
+            215,
+            287
+          ],
+          "hand": [
+            452,
+            181
+          ],
+          "anchor": [
+            256,
+            455
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            4,
+            17,
+            498,
+            720
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            251,
+            179
+          ],
+          "eyes": [
+            255,
+            239
+          ],
+          "neck": [
+            247,
+            367
+          ],
+          "back": [
+            227,
+            450
+          ],
+          "hand": [
+            252,
+            315
+          ],
+          "anchor": [
+            248,
+            712
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            495,
+            16,
+            567,
+            723
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            264,
+            174
+          ],
+          "eyes": [
+            321,
+            241
+          ],
+          "neck": [
+            280,
+            378
+          ],
+          "back": [
+            178,
+            428
+          ],
+          "hand": [
+            221,
+            311
+          ],
+          "anchor": [
+            285,
+            715
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            1062,
+            16,
+            403,
+            727
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            198,
+            174
+          ],
+          "neck": [
+            190,
+            373
+          ],
+          "back": [
+            118,
+            410
+          ],
+          "anchor": [
+            198,
+            719
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            1463,
+            18,
+            602,
+            722
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            295,
+            175
+          ],
+          "eyes": [
+            337,
+            240
+          ],
+          "neck": [
+            299,
+            376
+          ],
+          "back": [
+            183,
+            423
+          ],
+          "hand": [
+            358,
+            311
+          ],
+          "anchor": [
+            297,
+            714
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.05,
+      "facing": 1
     }
   },
   "portraits": {
@@ -2572,5 +4103,6 @@
       "trim": true
     }
   },
-  "quality": 82
+  "quality": 82,
+  "status": "Draft complete required action union with reviewed scale/ride-anchor adjustments; awaiting visual runtime QA."
 }

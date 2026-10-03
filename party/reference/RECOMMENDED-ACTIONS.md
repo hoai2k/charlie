@@ -1,21 +1,19 @@
 # Optional character actions
 
-These are suggested game features, not established character lore. Felicity supplies the
-first authored set for the six new actions below. The engine exposes the names for every
-character with expressive fallback behavior until their authored art is available. They
-are optional: no minigame rules, controls, collisions or balance change when a set is installed.
+The engine supports the six actions below in `src/engine/sprites.js`, with authored art in the reviewed expanded sets and procedural fallback chains for partial sets. They are part of the current 74-key coverage checklist. Cotton Candy, Unicorn and KPop's latest revisions still require final review; see [ASSET-COVERAGE.md](ASSET-COVERAGE.md).
 
-| Pose | Suggested use | Suggested duration | Game responsibility |
+These actions enable optional game features. Installing artwork does not change controls, movement, collisions or scoring.
+
+| Pose | Suggested use | Timing | Game responsibility |
 | --- | --- | --- | --- |
-| `look-around` | Waiting-room curiosity, looking for companions, preview a counting round | Loop until interaction | Call `setPose`; do not change player facing or aiming |
-| `high-five` | Cooperative success, greeting a teammate, Felicity/Fellowfox paw tap | 0.45 s | Place characters facing each other and align the `hand` landmarks; play both together |
-| `crouch` | Duck beneath an obstacle, playful hide-and-seek, anticipation | Loop while held | Any smaller hitbox must be explicit game logic; art alone never makes a player invulnerable |
-| `dash` | Burst of speed in Crown Keeper or Bumper Bounce | 0.3 s | Movement, cooldown and collision belong to the game; the pose supplies only visual anticipation/stretch |
-| `catch` | Receiving the present or a shared pickup | 0.35 s | Transfer ownership exactly once, then animate the receiver; use the `hand` point for the item |
-| `wave-goodbye` | End-of-session exit or NPC farewell | 0.6 s | Keep companions together; scene transition follows the animation |
+| `look-around` | Waiting-room curiosity or finding a companion | Loop | Choose facing without changing aiming |
+| `high-five` | Cooperative success or a teammate greeting | About 0.45 s | Position both characters and coordinate the gesture |
+| `crouch` | Hide-and-seek or ducking an obstacle | While held | Explicitly implement any hitbox change |
+| `dash` | Crown Keeper or Bumper Bounce burst | About 0.3 s | Apply travel, cooldown and collision |
+| `catch` | Receiving a present or shared pickup | About 0.35 s | Transfer ownership once and position the separate item |
+| `wave-goodbye` | Session exit or NPC farewell | About 0.6 s | Keep companions together and schedule the transition |
 
 ```js
-// Optional animation calls. Existing Actor API stays compatible.
 actor.playOnce('catch', 0.35, 'carry');
 actor.playOnce('high-five', 0.45, 'idle');
 actor.setPose('look-around');
@@ -24,43 +22,29 @@ actor.playOnce('dash', 0.3, 'run');
 actor.playOnce('wave-goodbye', 0.6, 'walk');
 ```
 
-Each optional action has procedural motion and a fallback chain in `engine/sprites.js`.
-`Actor.anchor('hand')` reads the current sprite frame's landmark when supplied; as before,
-world anchors deliberately exclude procedural rotation/squash. Use `attach()` when a prop
-must track those transforms exactly. One-shot duration fitting plays the entire authored
-clip even if the game requests a shorter time. Never apply travel inside the sprite engine.
+## Attachments and anatomy
 
-For anatomy without hands, use a friendly paw/nose/fin tap, not invented limbs. Bronze
-uses its pipe or eye panel; the cake wiggles its top edge. Preserve the mermaids' tails.
-Do not use high-five or catch art that adds limbs to characters whose canonicals have none.
+Use `Actor.anchor('hand')` for the current frame's world attachment location. It deliberately excludes procedural rotation/squash; use `attach()` when a held item must follow the complete draw transform. One-shot duration fitting plays the full authored clip within the requested time. The game remains responsible for physical travel.
 
-Next animation polish worth doing after all characters have broad coverage: add a second
-blink/idle frame, alternating wave hands, an anticipation/impact/recovery sequence for
-throw and catch, and a second celebratory leap. Current authored key poses combine with
-smooth procedural breathing, hops, lean and squash; they are not being represented as
-fully drawn frame-by-frame cycles. Walk has a real four-frame cycle, and explicitly declared
-aliases reuse compatible art (`run` from walk, `cheer` from celebrate, `sad` from pout,
-`dance-star` from the runway star pose). Keep distinct new actions authored separately.
+Keep objects separate from the character images. Ordinary pet item grips use the mouth, while overhead carrying uses the back; individual action gestures may provide a reviewed paw grip. Bronze uses its pipe or a floating panel, Cake supports objects on top, and mermaids keep their tails. A friendly paw, fin or pipe tap can replace a human high-five. Do not add limbs to perform an action.
 
-Review optional actions in `?scene=sprites&chars=felicity&pose=high-five&debug=1&zoom=2`.
-P pauses; period steps time; A compares canonical fallback. Check both facings and inspect
-the transparent borders against dark and light scenes before enabling a new game mechanic.
+Read the full action description before adding art: `flip` is a memory-card reach; `tumble` is an acrobatic fall. `photo` is a peace-sign camera pose for humanoids, with an anatomy-appropriate expression for animals, Bronze and Cake. A matching key alone does not prove the drawing matches the action.
 
-## KPop performance references
+## KPop performance options
 
-All three KPop members now provide the six optional actions above plus an authored `sing`
-key pose. `sing` is already exposed by the engine, loops with procedural dance motion,
-and can be selected with `actor.setPose('sing')`. Attach a separate microphone at `hand`
-when desired; the artwork keeps props separate. The right member sings with an open arm
-and hand over her heart, while the other two mime holding a microphone near their mouths.
+Each KPop member has an independent set. Their latest builds use `bodyHeight: 275`, the same 74 pose names and 96 frame entries, with six portraits each; final attachment, mask and game review is pending. Validate these invariants again after the final intake. Different idle blink timing keeps the trio lively while waiting.
 
-The three independent sets share bodyHeight 320, the same 44 pose names, the same frame
-counts per pose, and six expressions. Dance uses four frames at 4 fps for a one-second
-shared beat; start all three at the same pose time for synchronized choreography. Their
-idle blink schedules deliberately differ, so waiting together does not look mechanical.
-Celebration has four frames, pout two, ride two, and walk/run four each. The other actions
-remain individual authored key poses with procedural movement, rather than full drawn cycles.
+For synchronized choreography, start their four-frame `dance` loops at the same time and keep 4 fps, giving a one-second cycle at 120 bpm. An optional call-and-response sequence can alternate `sing` on the lead with `clap` on the other two before returning everyone to `dance`. Attach microphones separately; game code controls music timing and rewards.
 
-For an optional call-and-response stage moment, alternate `sing` on the lead member with
-`clap` on the other two, then switch all three to `dance`. The game controls music timing
-and rewards; these poses do not introduce scoring or movement rules.
+## Further polish worth considering
+
+The reviewed roster already has authored blink, celebration, pout, dance and ride cycles, plus broad action coverage. Further work should target visible transitions rather than duplicating those deliveries:
+
+- Add anticipation/contact/recovery drawings to frequently repeated single-key throws, catches and casts where playtesting shows an abrupt change.
+- Add a second idle fidget with a long, irregular interval so groups feel less synchronized.
+- Stage paired high-fives with deliberate spacing and timing; existing generic mouth/item landmarks are not automatically the correct paw-to-paw contact point.
+- Add explicit transitions into and out of sitting or broom riding if scene changes need them.
+
+These are optional future refinements, not missing gameplay rules. Keep source masters and exact prompts, preserve neutral head size, and recheck decoded memory before adding frames.
+
+Review with `?scene=sprites&chars=felicity&pose=high-five&debug=1&zoom=2`; P pauses and period steps time. Check both facings, both image qualities, actual attachment positions, and alternate-color masks where applicable. Rebuild optimized copies after any changed frame or manifest. Enable new mechanics only after their game behavior is implemented and tested.

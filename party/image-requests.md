@@ -1543,9 +1543,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| sprite `cotton-candy` `run` (4) | About 0.7× size; she shrinks when running. | Scale ≈ 1.4 on head size. |
-| sprite `cotton-candy` `ride` | Anchor below the hooves; floats above the broom. | Anchor at the belly/hoof line. |
-| sprite `cotton-candy` `giggle` | About 1.35× too big (Pet Spa). | Scale ≈ 0.75. |
 | sprite `unicorn` `sad`, `run`, `celebrate`, `jump`, `land`, `action`, `throw`, `bow`, `strike1/3`, `stir`, `catch`, `look-around` | `hand` lands off the art. | Re-annotate `hand` (mouth, or horn tip for cast). |
 | sprite `kpop-girl-left` / `kpop-girl-center` (`ready`, `celebrate`, `dance`, `pout`, `sad`, `think`, `clap`, `strike*`) | `hand` 16 px or more from the actual hand. | Re-annotate `hand`. |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
@@ -1594,3 +1591,5 @@ fine; the code uses one of each pair.
 
 - Marina and Scale: complete75-key/92-frame/five-portrait sets, matching neutral blink and full per-frame attachment landmark review; paint and card-reach art included, optimized export fresh.
 - Hotdog: complete75-key/96-frame/five-portrait set, repaired original dance tails and all attachment points, reviewed Spotlight Dance full and Pop Star Stage optimized.
+
+- Cotton Candy: full75-key/96-frame/five-portrait set, repaired run size, broom anchors, Pet Spa giggle scale and source-local mouth attachments; full Broomstick Dash and optimized Pet Spa reviewed.

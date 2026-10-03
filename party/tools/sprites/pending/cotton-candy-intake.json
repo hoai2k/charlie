@@ -1,0 +1,4108 @@
+{
+  "asset": "cotton-candy",
+  "bodyHeight": 250,
+  "frameSize": [
+    620,
+    500
+  ],
+  "anchor": [
+    310,
+    420
+  ],
+  "facing": -1,
+  "provenance": "Built-in image_gen from approved Cotton Candy canonical. Round-5 exact prompts: cotton-candy-extension-generation-prompts.json; new card-flip frame is an empty-hoof reach to turn a separate memory card.",
+  "sourceFiles": [
+    "../sources/cotton-candy-core.webp",
+    "../sources/cotton-candy-walk.webp",
+    "../sources/cotton-candy-portraits.webp",
+    "../sources/cotton-candy-actions-a.webp",
+    "../sources/cotton-candy-actions-b.webp",
+    "../sources/cotton-candy-actions-c.webp",
+    "../sources/cotton-candy-actions-d.webp",
+    "../sources/cotton-candy-actions-e.webp",
+    "../sources/cotton-candy-actions-f.webp",
+    "../sources/cotton-candy-actions-g.webp",
+    "../sources/cotton-candy-actions-h.webp",
+    "../sources/cotton-candy-actions-i.webp",
+    "../sources/cotton-candy-idle-blink.webp",
+    "../sources/cotton-candy-celebrate.webp",
+    "../sources/cotton-candy-pout.webp",
+    "../sources/cotton-candy-dance.webp",
+    "../sources/cotton-candy-ride.webp",
+    "../sources/cotton-candy-run.webp",
+    "../sources/cotton-candy-pet-actions.webp",
+    "../sources/cotton-candy-round5-actions-a.webp",
+    "../sources/cotton-candy-round5-actions-b.webp",
+    "../sources/cotton-candy-round5-actions-c.webp",
+    "../sources/cotton-candy-round5-actions-d.webp",
+    "../sources/cotton-candy-round5-pose-twirl.webp",
+    "../sources/cotton-candy-round5-actions-b2.webp",
+    "../sources/cotton-candy-round5-card-flip.webp"
+  ],
+  "generationPrompts": {
+    "core": "Use case: stylized-concept. Asset type: four-pose horizontal sprite strip for a children's party game, to be cut into four independent transparent character frames. Input image 1 is the approved Cotton Candy canonical: reproduce this exact character and preserve her identity precisely. Make exactly four separate, full-body white pony poses in one horizontal row, equal scale, even generous transparent gutters, no overlap, each entirely visible with margin: (1) calm friendly idle standing on four hooves, (2) graceful ready pose with head slightly lifted, (3) joyful celebration hop with all four legs lifted and flowing mane/tail, (4) funny pout with lowered head and one forehoof stomp. Every frame has exactly the canonical small yellow crown with blue accents, large blue eye, long flowing pink/lavender/sky-blue striped mane and tail, yellow flank flower, white pony silhouette, lavender shading. Never add a horn, wings, rainbow mane, hands, human arms, clothing, or extra accessories. Keep all poses anatomically equine and on four legs; no hands. Full figures face right, identical proportions, consistent outline and palette. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no 3D. Transparent background. No floor/shadows/effects, no text, no borders, no extra characters or decorations. Horizontal transparent canvas, 4 evenly separated figures, equal height and ground line except the airborne celebration pose.",
+    "walk": "Use case: stylized-concept. Asset type: 4-frame looping walk sprite strip for the approved Cotton Candy pony in a children's party game. Input image 1 is the exact approved Cotton Candy canonical: reproduce this exact character and preserve identity. Show exactly four consecutive walk-cycle frames in a single horizontal row, full-body and equally scaled, all facing right, on the same ground line, evenly separated by transparent gaps. White pony with four equine legs and hooves, small yellow crown with blue accents, one large blue eye, long flowing mane and tail with pink, lavender, and sky-blue stripes, yellow flower on flank, lavender shading. Walking naturally with clear alternating hoof positions across the four frames; mane and tail swing subtly. Keep anatomy horse-like on four legs, no hands, no horn, no wings, no rainbow mane, no extra accessories. Bold smooth dark navy outlines, rounded shapes, bright colors, simple clean cel shading, no 3D. True transparent background. No floor or shadow, no effects, no text, no borders, no other characters. Exact four separated figures only.",
+    "portraits": "Use case: stylized-concept. Asset type: five expression portrait strip for the approved Cotton Candy character in a children's party game HUD. Input image 1 is the exact approved Cotton Candy canonical: reproduce this exact character. Make exactly five independent square head-and-shoulders bust portraits in one horizontal row, evenly spaced, with transparent gaps and consistent scale. Each includes the same small yellow crown with blue accents, one visible upright ear, large blue eye, white pony face and long flowing mane striped pink, lavender, sky blue; pale lavender shading. Expressions left to right: (1) warm neutral smile, (2) huge happy open-mouth grin with joyful eye arcs, (3) comically sad pout with wobbly lip and gentle tears, (4) wide surprised eye and small O mouth, (5) focused determined brows with confident smirk. Preserve pony anatomy and exact identity: no horn, no wings, no second eye, no rainbow mane, no human features. Crown and full face fully inside each bust with margin, shoulders/neck extend off bottom edge. Bold smooth dark navy outlines, rounded shapes, bright colors, clean cel shading, no 3D. True transparent background, no circles, frames, text, other characters or decorations.",
+    "actionsA": "Use case: stylized-concept. Asset type: four-action horizontal sprite strip of the approved Cotton Candy pony for a children's party game. Input image 1 is the approved canonical: reproduce this exact character. Exactly four separated full-body poses, same scale, facing left, generous transparent gutters, in order: (1) cheer: joyful forelegs raised, bright open smile; (2) sad: lowered head, droopy ears, gentle teary eyes; (3) hurt: recoiling to one side with a startled grimace; (4) dizzy: wobbly tilted stance with crossed eyes, but no stars/effects. Preserve white pony, small yellow crown with blue accents, big blue eye, long mane and tail with pink/lavender/sky-blue stripes, yellow flank flower, lavender shading. Exactly four horse legs and hooves in every pose; no hands or human arms; no horn, wings, rainbow mane, clothing or extra ornaments. Smooth bold dark navy outline, rounded appealing shapes, bright palette, clean cel shading, no 3D. True transparent background, no shadow, floor, motion lines, symbols, text, frame, scenery or other characters. Entire character visible with margin.",
+    "actionsB": "Use case: stylized-concept. Asset type: four-action horizontal sprite strip of the approved Cotton Candy pony for a children's party game. Input image 1 is the approved canonical: reproduce this exact character. Exactly four separate full-body poses at equal scale, facing left, with transparent gutters, in order: (1) surprised: wide blue eye, small O mouth, quick upward hop; (2) ready: poised, confident stance with chin raised and one forehoof slightly lifted; (3) jump: clear takeoff leap, all four hooves off the ground, mane flowing; (4) fall: descending airborne pose, body angled down, legs tucked safely, startled but unharmed. Preserve the exact white pony silhouette, one blue eye, yellow crown with blue accents, pink/lavender/sky-blue flowing mane and tail, yellow flank flower and lavender shading. Four equine legs and hooves only; no hands, no human arms, no horn, no wings, no rainbow mane or extra ornaments. Bold smooth navy outlines, rounded clean cel-shaded cartoon, no 3D. Truly transparent background. No ground, shadow, motion lines, symbols, text, frame, other characters or scenery.",
+    "actionsC": "Use case: stylized-concept. Asset type: four-action horizontal sprite strip of approved Cotton Candy pony for a children's party game. Input image 1 is the exact approved canonical; reproduce this exact character. Exactly four full-body figures in a single row, facing left, equal scale, separated by transparent gutters, in order: (1) land: soft four-hoof landing squash, mane settling, cheerful relief; (2) think: thoughtful head tilt and one forehoof at chin, gentle inquisitive expression; (3) action: lean forward to tap or nudge an unseen prop with muzzle; (4) throw: perform an underhand toss gesture by tossing a small imaginary item upward from the muzzle, no item visible. Preserve white pony, one blue eye, yellow crown with blue accents, flowing pink/lavender/sky-blue mane and tail, yellow flank flower, lavender shading. Exactly four horse legs and hooves, quadruped, no hands or arms, no horn, no wings or extra accessories. Bold smooth navy outline, bright colors, simple cel shading, no 3D. True transparent background; no shadows, floor, effects, particles, text, borders, other characters or props. Each pose fully visible with margin.",
+    "actionsD": "Use case: stylized-concept. Asset type: four-action horizontal sprite strip of approved Cotton Candy pony. Input image 1 is the canonical: reproduce this exact character. Exactly four separate, equally scaled, full-body figures facing left with transparent gutters, in order: (1) push: lean shoulder-first forward, braced on four hooves as if pushing a heavy unseen object; (2) carry: careful balanced walk, head turned to check an imaginary small parcel riding on her back, no parcel drawn; (3) dance: buoyant elegant pony dance with lifted foreleg and swishing tail; (4) paint: lower head and reach one forehoof toward the ground in a careful painting action, no brush or paint shown. Preserve her white horse body, big blue eye, small yellow crown with blue accents, long pink/lavender/sky-blue mane and tail, yellow flank flower and lavender shading. Keep four horse legs and hooves, no human arms or hands, no horn or wings, no extra accessories. Bold smooth dark navy outlines, rounded bright cel-shaded cartoon, no 3D. True transparent background; no props, shadows, floor, effects, text, borders, scenery or other characters.",
+    "actionsE": "Use case: stylized-concept. Asset type: four-action sprite strip for the approved Cotton Candy pony in a children's game. Input image 1 is her approved canonical: reproduce exactly. Exactly four separate full-body figures, equally scaled, facing left, in one horizontal row with transparent gutters, in order: (1) sleep: curled comfortably on the ground, eyes closed, mane draped around her; (2) cast: graceful magical spellcasting stance, one forehoof raised and head lifted, no horn and no magic effects; (3) clap: standing and happily tapping her two front hooves together in a horse-like clap; (4) eat: lower her muzzle as if taking a small bite, cheerful relaxed expression. Preserve white pony, one blue eye when open, small yellow crown with blue accents, long pink/lavender/sky-blue flowing mane and tail, yellow flank flower, lavender shading. Four equine legs/hooves only, no hands, no human arms, absolutely no horn or wings. Bold dark navy outlines, rounded shapes, clean bright cel shading, no 3D. True transparent background; no shadows, props, food, floor, particles, text, border, scene or extra characters.",
+    "actionsF": "Use case: stylized-concept. Asset type: four-action sprite strip of the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce the same character. Show exactly four separate full-body poses in a horizontal row, facing left, equally scaled with transparent gaps, in order: (1) ride: lean forward in a fast gallop as if riding a mount, but she remains alone and no tack is visible; (2) bow: graceful lowered-head bow, forelegs gently bent, serene smile; (3) strike1: confident runway pose with one forehoof forward, chin up, tail fanned elegantly; (4) strike2: playful runway pose with head tilted and one forehoof lifted near her chest, full horse anatomy. Preserve her white pony silhouette, yellow crown with blue accents, blue eye, long flowing pink/lavender/sky-blue mane and tail, yellow flank flower, lavender hoof shading. Four equine legs and hooves only; no hands, no human arms, no horn or wings, no clothes or other accessories. Bold smooth dark navy outline, rounded bright clean cel shading, no 3D. True transparent background, no props, shadows, floor, effects, text, border, scenery or other characters.",
+    "actionsG": "Use case: stylized-concept. Asset type: four-action sprite strip of the approved Cotton Candy pony for a children's party game. Input image 1 is the canonical: reproduce exactly. Four separate full-body figures in a single horizontal strip, consistent scale and colors, facing left with transparent gutters, in order: (1) strike3: bold runway finale, proudly arched neck and dramatic flowing tail, all four hooves grounded; (2) shake: playful full-body shake, mane and tail rippling, but no water or droplets; (3) stir: careful stirring gesture, one forehoof lightly lifted and muzzle angled down toward an unseen bowl, no bowl shown; (4) dance-up: graceful joyful rear-up dance with both forelegs lifted and flowing mane. Keep the white horse silhouette, blue eye, small yellow crown with blue accents, long pink/lavender/sky-blue mane and tail, yellow flank flower and lavender hoof shading. Exactly four equine legs, no hands or human arms, no horn, wings, clothing or added ornaments. Bold smooth dark navy outlines, rounded appealing shapes, bright clean cel shading, no 3D. True transparent background; no floor, shadow, effects, props, text, frames, scenery or extra characters.",
+    "actionsH": "Use case: stylized-concept. Asset type: four-action horizontal sprite strip of the approved Cotton Candy pony. Input image 1 is her exact canonical: reproduce this character. Exactly four separate full-body poses in one row, equal scale and facing left, transparent gutters, ordered: (1) dance-down: graceful dip and bounce with forelegs lowered and head tucked, mane swishing; (2) dance-side: playful sideways step with body tilted and tail swaying; (3) look-around: turn her head back over her shoulder, curious blue eye looking behind; (4) high-five: friendly raised forehoof offered forward for a hoof tap. Preserve white pony, blue eye, small yellow crown with blue accents, long pink/lavender/sky-blue mane and tail, yellow flank flower and lavender shading. Horse anatomy only: four legs and hooves, no hands, no human arms, no horn, no wings or added accessories. Bold smooth navy outlines, clean bright cel shading, no 3D. True transparent background, no props, floor, shadows, effects, text, frames, scenery or other characters.",
+    "actionsI": "Use case: stylized-concept. Asset type: five-action horizontal sprite strip of the exact approved Cotton Candy pony for a children's party game. Input image 1 is the canonical: reproduce this exact character. Exactly five separate full-body figures, equal scale, facing left, evenly spaced in one row with transparent gaps, in order: (1) crouch: low playful crouch on four bent hooves, poised to spring; (2) dash: energetic forward gallop lunge, mane and tail swept behind; (3) catch: upright playful catch pose, both forehooves raised and muzzle open, catching an imaginary object with no object shown; (4) wave-goodbye: turn partly away to leave, glance back with a friendly smile and lift one forehoof; (5) dance-star: joyful airborne star leap, all four legs spread safely, mane and tail flying. Preserve her white pony silhouette, blue eye, small yellow crown with blue accents, pink/lavender/sky-blue flowing mane and tail, yellow flank flower and lavender shading. Four horse legs and hooves only, no human arms or hands, no horn, no wings, no extra accessories. Bold smooth navy outlines, rounded bright cel shading, no 3D. True transparent background. No shadows, floor, effects, particles, text, borders, props, scenery or other characters. All five entire figures visible with margin.",
+    "idleBlink": "Use case: stylized-concept. Asset type: two-frame full-body idle blink sprite strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Show exactly two nearly identical full-body idle poses, side by side at equal scale and position, facing left, separated by a small transparent gutter: frame 1 eyes open, calm friendly smile; frame 2 same stance and expression with her blue eye gently closed in a blink. Keep body, four hooves, crown, flower, mane, tail, ground placement and proportions identical between frames; only eyelid closure changes. Preserve white pony, small yellow crown with blue accents, one blue eye, long pink/lavender/sky-blue mane and tail, yellow flank flower. No horn, wings, rainbow mane, human features, accessories, shadows, floor, effects, text, border or other characters. Bold navy outlines, clean cel shading, true transparent background.",
+    "celebrateMulti": "Use case: stylized-concept. Asset type: four-frame victory celebration sprite strip for approved Cotton Candy. Image 1 is exact canonical; reproduce exactly. Four full-body animation frames in left-to-right order, same scale, transparent spaces, facing left, exact common foot baseline when grounded: (1) anticipation crouch, eyes excited; (2) launching in a joyful leap; (3) peak with all four hooves airborne, huge smile and happy closed eye; (4) land on four hooves in a delighted pose. Each frame must be a distinct animation moment. Preserve white pony, yellow crown with blue accents, one blue eye, long pink/lavender/sky-blue mane and tail, yellow flank flower, lavender shading. Four equine legs/hooves, no human hands or arms, no horn or wings. Bold dark navy outlines, bright rounded cel-shaded art, no 3D. True transparent background; no shadow, floor, sparkles, motion lines, effects, text, props, frame, or other characters.",
+    "poutMulti": "Use case: stylized-concept. Asset type: two-frame funny pout animation sprite strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Two separate full-body frames side by side, same scale and facing left, consistent hoof baseline, with transparent gap: (1) melodramatic slumped pout, lowered head, one big blue eye teary and lower lip wobbling; (2) comic foot-stomp with head turned away in a huff, mane bouncing. Keep pony anatomy and four hooves; no arms to cross. Preserve white body, small yellow crown with blue accents, blue eye, pink/lavender/sky-blue mane and tail, yellow flank flower, lavender shading. No horn, wings, human hands, rainbow mane, props, or extra accessories. Bold dark navy outlines, rounded bright cel shading, no 3D. True transparent background. No tears as floating symbols, no shadow, floor, motion marks, text, border, scene or other characters.",
+    "danceMulti": "Use case: stylized-concept. Asset type: four-frame looping dance animation strip for the exact approved Cotton Candy pony. Input image 1 is the canonical: reproduce exactly. Show four consecutive full-body dance frames in one horizontal row, same scale and facing left, transparent gaps, cycle reads smoothly and lasts one second at 4 fps: (1) front hoof lifts with a gentle sway; (2) graceful side step with head tilt and tail swish; (3) playful bounce with forelegs light and mane flying; (4) settle into the first-step silhouette with a different flowing mane position. Keep her white pony, blue eye, small yellow crown with blue accents, long pink/lavender/sky-blue mane and tail, yellow flank flower, lavender shading. Four equine legs only, no hands/arms, no horn or wings. Bold navy outline, bright clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, effects, props, text, border, scenery or other characters.",
+    "rideMulti": "Use case: stylized-concept. Asset type: two-frame ride animation strip for the exact approved Cotton Candy pony in a children's racing minigame. Input image 1 is her approved canonical: reproduce exactly. Exactly two full-body frames side by side, same size and pose facing left, transparent gap, consistent hoof baseline: Cotton Candy leans forward in a graceful racing gallop as if riding fast; frame 2 repeats the same ride pose with ears back and her striped mane/tail flowing farther behind. She remains alone; no broom, rider, saddle, reins or other object. Preserve white pony, small yellow crown with blue accents, blue eye, long pink/lavender/sky-blue mane and tail, yellow flank flower, lavender hoof shading. Four equine legs and hooves, no hands or arms, no horn or wings. Bold navy outline and clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, text, border, or extra characters.",
+    "runMulti": "Use case: stylized-concept. Asset type: four-frame galloping run animation strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Four distinct consecutive full-body gallop frames in one horizontal row, same scale, facing left, transparent gutters, consistent virtual ground line: extended bound, gathered flight, opposite extended bound, gathered flight. Make this read clearly faster and more airborne than a walk, with legs alternating in a horse gallop and mane/tail flowing behind. Preserve white pony, yellow crown with blue accents, blue eye, pink/lavender/sky-blue long mane and tail, yellow flank flower and lavender shading. Exactly four equine legs and hooves in every frame; no hands, no human arms, no horn or wings, no props. Bold smooth dark navy lines, clean cel shading, no 3D. True transparent background, no shadow, floor, motion lines, effects, text, border, scenery or extra characters.",
+    "petActions": "Use case: stylized-concept. Asset type: two-pose Pet Spa sprite strip for the exact approved Cotton Candy pony. Input image 1 is her canonical: reproduce exactly. Show exactly two separate full-body poses side by side at equal scale, facing left, transparent gap: (1) giggle: squirming happily during a bath, curled partly onto her side with eyes closed and a delighted smile; (2) catch-toy: playful springing leap with front hooves reaching up to catch an imaginary rubber duck, but draw no toy. Keep full horse anatomy and all four legs visible. Preserve white pony, blue eye, small yellow crown with blue accents, pink/lavender/sky-blue long mane and tail, yellow flank flower, lavender shading. No horn, wings, hands, human arms, bubbles, water, brush or other objects. Bold navy outlines, rounded bright clean cel shading, no 3D. True transparent background, no shadows, floor, motion marks, text, frames, scenery or other characters.",
+    "../../sources/cotton-candy-round5-actions-a.webp": "The ONLY character is the exact small pony shown in reference image 1; it is not a person. Create a clean transparent sprite sheet for a children's party game, 4 columns by 2 rows, eight separate full-body poses of that same pony. Preserve exact reference identity: a white quadruped pony with enormous flowing pastel pink, lavender, and cyan mane and tail, a small gold crown with three blue gems, very large blue eyes, and a yellow flower cutie mark. Four short pony legs and four hooves only; no hands, no fingers, no human anatomy, no wing, no unicorn horn. The mane and tail are cotton-candy colors. Bold dark navy outlines and smooth cel shading like reference. Use the reference as the strongest authority for character design. All figures face right, same head/torso scale, full mane and tail visible, generous transparent gutters. Ordered left to right, top row then bottom row: swim floating prone and paddling; balance wobble standing on three hooves with one foreleg raised, no platform; splat-throw playful forward toss gesture, empty hoof; wand-up rearing and lifting one empty hoof; broom-rise angled airborne ascent as though riding a separate broom, no broom drawn; broom-glide level forward flight, hooves tucked, no broom drawn; broom-zapped startled midair pose, no lightning or effects; count thoughtfully lifting a forehoof. Keep all art crisp, simple, and individually separated. Real alpha transparency. No backgrounds, glow, shadows, props, platforms, text, labels, borders, or other figures.",
+    "../sources/cotton-candy-round5-actions-b.webp": "Use reference image 1 as the exact Cotton Candy character. Asset: one transparent 4-by-2 sheet of eight separate full-body quadruped pony frames, preserving her white coat, huge flowing pink-lavender-cyan mane and tail, gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outline and smooth cel shading. Four pony legs and hooves only, no hands or human anatomy, no wings or horn. Keep right-facing profile, same idle-sized head and body in every cell, full crown/mane/tail visible with clear transparent gutters. Ordered left-right, top row then bottom row: (1) look-up, standing and gazing high above; (2) crowned, proudly lifting her chin while the same small crown stays on her head; (3-4) dash cycle, two distinct fast quadruped gallop beats, mane streaming, legs extending then gathering, both on the same scale; (5-6) hip-bump cycle, two playful quadruped poses that shift her rump and shoulder sideways then rebound, no other character; (7-8) knockback cycle, startled recoil with mane flicking back and hooves bracing, then recovery, no impact marks. No new crown, no extra accessory, no prop or other figure. True transparent background, no scene, floor, shadows, glow, motion lines, labels or text.",
+    "../sources/cotton-candy-round5-actions-b2.webp": "Use reference image 1 to reproduce the same Cotton Candy pony exactly: white quadruped with large blue eyes, gold crown with blue gems, yellow flower cutie mark, huge flowing pastel pink-lavender-cyan mane and tail, dark navy outline and clean soft cel shading. Create one real-transparent horizontal 3-cell action strip, full body and mane visible in each separated cell, all facing right at consistent idle head size. Only four pony legs and hooves; no hands, no human anatomy, no wings or horn. Left to right: (1) sit, politely seated low on her hindquarters with forehooves resting in front, tail curled beside her; (2) tumble, a playful sideways rolling pose on her back with all four hooves visible, keep crown on; (3) hold-present, standing and leaning forward with her muzzle gently open at the mouth attachment point as if holding a separate present, no present drawn. Keep identity, crown, flower and mane patterns consistent. No props, floor, shadow, scene, effects, text, labels, borders or extra characters.",
+    "../sources/cotton-candy-round5-actions-c.webp": "Use the approved Cotton Candy pony in reference image 1 exactly: small white quadruped pony, huge flowing pink-lavender-cyan mane and tail, gold crown set with blue gems, expressive blue eyes, yellow flower cutie mark, bold navy outlines and simple cel shading. Create one transparent 4-column by 2-row sheet of eight separated full-body poses. Four legs and hooves only, no hands, fingers, human anatomy, wings or horn; keep head size consistent and face right except a natural tumble. Order left-to-right top row then bottom row: (1) toss, lift her muzzle and one forehoof in a gentle upward toss gesture, empty mouth and hoof, no object; (2) catch-present, look up with muzzle open at the mouth attachment point as if catching a separate present, no present drawn; (3) sooty, same pony with two small soft gray soot smudges on muzzle and cheek, no explosion; (4) drink, tip head toward an absent cup at the mouth attachment point, no cup or liquid; (5) float, drift weightlessly with all four hooves lifted and mane hanging softly; (6) hiccup, startled little jolt with puffed cheeks and a tiny head bob; (7) stomp-giant, proud wide quadruped stance with one forehoof planted strongly, not enlarged; (8) squeak-tiny, a startled little hop with legs tucked, keep normal body size. Preserve her crown, flower and pastel mane consistently. Real transparent background. No floor, shadow, scenery, props, effects, lettering, borders or extra figures.",
+    "../sources/cotton-candy-round5-actions-d.webp": "Use the exact Cotton Candy pony from reference image 1: white quadruped, enormous flowing pastel pink-lavender-cyan mane and tail, small gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outlines and cel shading. Make a transparent 3-column by 2-row sheet with six distinct full-body poses, generous clear gutters, consistent head/body scale, four legs and hooves only; no hands, fingers, human anatomy, wings or horn. Keep her identity, crown and mane pattern consistent; all face right unless the photo pose naturally faces the viewer. Order left to right top then bottom: flip, a compact safe-looking sideways somersault with all hooves visible; blow, standing with lips pursed at the muzzle as if blowing gently, no bubbles or effects; shake-sprinkles, vigorous head/mane shake with loose mane motion but no particles or sprinkles drawn; photo, cheerful square stance turned slightly toward camera with a bright smile, no camera or flash; sing, joyful open-mouth singing stance with one forehoof lifted, no microphone or notes; water, lean forward with an empty mouth/forehoof attachment pose as if tipping a separate watering can, no can or water drawn. Real alpha transparency. No floor, shadow, scene, props, effects, text, labels, borders or extra figures.",
+    "../sources/cotton-candy-round5-pose-twirl.webp": "Use the exact Cotton Candy pony from reference image 1: white pony, gold crown with blue gems, huge flowing cotton-candy pink/lavender/cyan mane and tail, large blue eyes, yellow flower cutie mark, clean dark navy outline and soft cel shading. Create one true-transparent horizontal strip with exactly four separate full-body views of the same pony, equal head/body size, crown and entire mane/tail visible in every cell, all four hooves grounded at a consistent baseline. This is a real 4-angle turning cycle, not a paper-thin spin: left to right (1) front view looking toward camera, (2) three-quarter view turned to her right, (3) full back view showing her mane, tail and flower mark, (4) three-quarter view returning toward front from the opposite side. Smooth naturally linked rotation while the body remains in place; no walk steps. Four pony legs and hooves only, no human arms/hands, no wings or horn. Keep mane color bands and crown identical in every view. Transparent background, no floor, shadows, scene, motion trails, props, text, labels or borders."
+  },
+  "poses": {
+    "idle": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-core.webp",
+          "rect": [
+            25,
+            57,
+            534,
+            617
+          ],
+          "isolate": true,
+          "anchor": [
+            278,
+            613
+          ],
+          "head": [
+            283,
+            129
+          ],
+          "hand": [
+            192,
+            245
+          ],
+          "eyes": [
+            236,
+            186
+          ],
+          "neck": [
+            266,
+            314
+          ],
+          "back": [
+            390,
+            382
+          ],
+          "dur": 1.45
+        },
+        {
+          "source": "../sources/cotton-candy-idle-blink.webp",
+          "rect": [
+            925,
+            15,
+            849,
+            858
+          ],
+          "isolate": true,
+          "anchor": [
+            441,
+            854
+          ],
+          "head": [
+            410,
+            198
+          ],
+          "hand": [
+            352,
+            349
+          ],
+          "eyes": [
+            379,
+            284
+          ],
+          "neck": [
+            465,
+            470
+          ],
+          "back": [
+            620,
+            532
+          ],
+          "scale": 0.7191142191142191,
+          "dur": 0.12
+        }
+      ],
+      "fps": 1.0,
+      "loop": true,
+      "motion": 0.3,
+      "facing": -1
+    },
+    "wave": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-core.webp",
+          "rect": [
+            583,
+            53,
+            487,
+            614
+          ],
+          "isolate": true,
+          "anchor": [
+            249,
+            610
+          ],
+          "head": [
+            274,
+            173
+          ],
+          "hand": [
+            402,
+            237
+          ],
+          "eyes": [
+            274,
+            240
+          ],
+          "neck": [
+            316,
+            348
+          ],
+          "back": [
+            411,
+            386
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.65,
+      "facing": -1
+    },
+    "celebrate": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-celebrate.webp",
+          "rect": [
+            9,
+            205,
+            553,
+            481
+          ],
+          "isolate": true,
+          "anchor": [
+            288,
+            477
+          ],
+          "head": [
+            217,
+            106
+          ],
+          "hand": [
+            99,
+            185
+          ],
+          "eyes": [
+            184,
+            148
+          ],
+          "neck": [
+            236,
+            236
+          ],
+          "back": [
+            404,
+            298
+          ],
+          "scale": 1.2827442827442828
+        },
+        {
+          "source": "../sources/cotton-candy-celebrate.webp",
+          "rect": [
+            526,
+            65,
+            579,
+            600
+          ],
+          "isolate": true,
+          "anchor": [
+            301,
+            636
+          ],
+          "head": [
+            195,
+            137
+          ],
+          "hand": [
+            73,
+            336
+          ],
+          "eyes": [
+            195,
+            190
+          ],
+          "neck": [
+            229,
+            278
+          ],
+          "back": [
+            423,
+            372
+          ],
+          "scale": 1.0283333333333333
+        },
+        {
+          "source": "../sources/cotton-candy-celebrate.webp",
+          "rect": [
+            1075,
+            11,
+            579,
+            570
+          ],
+          "isolate": true,
+          "anchor": [
+            301,
+            606
+          ],
+          "head": [
+            187,
+            125
+          ],
+          "hand": [
+            48,
+            246
+          ],
+          "eyes": [
+            182,
+            173
+          ],
+          "neck": [
+            203,
+            271
+          ],
+          "back": [
+            423,
+            353
+          ],
+          "scale": 1.0824561403508772
+        },
+        {
+          "source": "../sources/cotton-candy-celebrate.webp",
+          "rect": [
+            1664,
+            142,
+            501,
+            545
+          ],
+          "isolate": true,
+          "anchor": [
+            261,
+            541
+          ],
+          "head": [
+            191,
+            107
+          ],
+          "hand": [
+            100,
+            203
+          ],
+          "eyes": [
+            185,
+            155
+          ],
+          "neck": [
+            224,
+            273
+          ],
+          "back": [
+            366,
+            338
+          ],
+          "scale": 1.1321100917431193
+        }
+      ],
+      "fps": 8.0,
+      "loop": true,
+      "motion": 0.12,
+      "facing": -1
+    },
+    "pout": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-pout.webp",
+          "rect": [
+            66,
+            48,
+            850,
+            824
+          ],
+          "isolate": true,
+          "anchor": [
+            442,
+            820
+          ],
+          "head": [
+            274,
+            207
+          ],
+          "hand": [
+            168,
+            372
+          ],
+          "eyes": [
+            248,
+            286
+          ],
+          "neck": [
+            366,
+            477
+          ],
+          "back": [
+            620,
+            511
+          ],
+          "scale": 0.7487864077669902
+        },
+        {
+          "source": "../sources/cotton-candy-pout.webp",
+          "rect": [
+            930,
+            10,
+            836,
+            862
+          ],
+          "isolate": true,
+          "anchor": [
+            435,
+            858
+          ],
+          "head": [
+            318,
+            206
+          ],
+          "hand": [
+            180,
+            399
+          ],
+          "eyes": [
+            307,
+            293
+          ],
+          "neck": [
+            397,
+            506
+          ],
+          "back": [
+            610,
+            534
+          ],
+          "scale": 0.7157772621809745
+        }
+      ],
+      "fps": 3.0,
+      "loop": true,
+      "motion": 0.15,
+      "facing": -1
+    },
+    "walk": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-walk.webp",
+          "rect": [
+            14,
+            27,
+            527,
+            616
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            610
+          ],
+          "head": [
+            317,
+            153
+          ],
+          "hand": [
+            401,
+            264
+          ],
+          "eyes": [
+            327,
+            208
+          ],
+          "neck": [
+            337,
+            339
+          ],
+          "back": [
+            176,
+            368
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/cotton-candy-walk.webp",
+          "rect": [
+            562,
+            30,
+            520,
+            617
+          ],
+          "isolate": true,
+          "anchor": [
+            260,
+            614
+          ],
+          "head": [
+            351,
+            145
+          ],
+          "hand": [
+            415,
+            259
+          ],
+          "eyes": [
+            364,
+            202
+          ],
+          "neck": [
+            354,
+            335
+          ],
+          "back": [
+            191,
+            357
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/cotton-candy-walk.webp",
+          "rect": [
+            1104,
+            28,
+            521,
+            621
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            616
+          ],
+          "head": [
+            351,
+            145
+          ],
+          "hand": [
+            418,
+            263
+          ],
+          "eyes": [
+            366,
+            201
+          ],
+          "neck": [
+            354,
+            342
+          ],
+          "back": [
+            196,
+            362
+          ],
+          "scale": 1
+        },
+        {
+          "source": "../sources/cotton-candy-walk.webp",
+          "rect": [
+            1644,
+            28,
+            525,
+            618
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            614
+          ],
+          "head": [
+            349,
+            143
+          ],
+          "hand": [
+            413,
+            261
+          ],
+          "eyes": [
+            359,
+            199
+          ],
+          "neck": [
+            346,
+            340
+          ],
+          "back": [
+            193,
+            360
+          ],
+          "scale": 1
+        }
+      ],
+      "fps": 9,
+      "loop": true,
+      "motion": 0.25,
+      "facing": -1
+    },
+    "run": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-run.webp",
+          "rect": [
+            5,
+            131,
+            574,
+            404
+          ],
+          "isolate": true,
+          "anchor": [
+            298,
+            400
+          ],
+          "head": [
+            162,
+            100
+          ],
+          "hand": [
+            85,
+            191
+          ],
+          "eyes": [
+            139,
+            140
+          ],
+          "neck": [
+            226,
+            223
+          ],
+          "back": [
+            396,
+            248
+          ],
+          "scale": 1.4
+        },
+        {
+          "source": "../sources/cotton-candy-run.webp",
+          "rect": [
+            548,
+            138,
+            514,
+            395
+          ],
+          "isolate": true,
+          "anchor": [
+            267,
+            391
+          ],
+          "head": [
+            111,
+            85
+          ],
+          "hand": [
+            54,
+            170
+          ],
+          "eyes": [
+            108,
+            126
+          ],
+          "neck": [
+            157,
+            184
+          ],
+          "back": [
+            267,
+            217
+          ],
+          "scale": 1.4
+        },
+        {
+          "source": "../sources/cotton-candy-run.webp",
+          "rect": [
+            1058,
+            132,
+            588,
+            431
+          ],
+          "isolate": true,
+          "anchor": [
+            306,
+            427
+          ],
+          "head": [
+            125,
+            88
+          ],
+          "hand": [
+            79,
+            175
+          ],
+          "eyes": [
+            120,
+            127
+          ],
+          "neck": [
+            205,
+            205
+          ],
+          "back": [
+            381,
+            256
+          ],
+          "scale": 1.4
+        },
+        {
+          "source": "../sources/cotton-candy-run.webp",
+          "rect": [
+            1629,
+            134,
+            536,
+            394
+          ],
+          "isolate": true,
+          "anchor": [
+            279,
+            390
+          ],
+          "head": [
+            123,
+            87
+          ],
+          "hand": [
+            62,
+            179
+          ],
+          "eyes": [
+            110,
+            128
+          ],
+          "neck": [
+            170,
+            202
+          ],
+          "back": [
+            349,
+            237
+          ],
+          "scale": 1.4
+        }
+      ],
+      "fps": 12.0,
+      "loop": true,
+      "motion": 0.1,
+      "facing": -1
+    },
+    "cheer": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-a.webp",
+          "rect": [
+            20,
+            10,
+            529,
+            692
+          ],
+          "isolate": true,
+          "anchor": [
+            275,
+            728
+          ],
+          "scale": 0.8916184971098265,
+          "head": [
+            275,
+            141
+          ],
+          "hand": [
+            62,
+            296
+          ],
+          "eyes": [
+            281,
+            197
+          ],
+          "neck": [
+            341,
+            343
+          ],
+          "back": [
+            386,
+            429
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "sad": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-a.webp",
+          "rect": [
+            576,
+            113,
+            539,
+            585
+          ],
+          "isolate": true,
+          "anchor": [
+            280,
+            581
+          ],
+          "scale": 1.0547008547008547,
+          "head": [
+            205,
+            134
+          ],
+          "hand": [
+            135,
+            260
+          ],
+          "eyes": [
+            196,
+            186
+          ],
+          "neck": [
+            273,
+            307
+          ],
+          "back": [
+            393,
+            363
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "hurt": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-a.webp",
+          "rect": [
+            1150,
+            45,
+            495,
+            643
+          ],
+          "isolate": true,
+          "anchor": [
+            257,
+            639
+          ],
+          "scale": 0.9595645412130638,
+          "head": [
+            260,
+            140
+          ],
+          "hand": [
+            373,
+            235
+          ],
+          "eyes": [
+            262,
+            197
+          ],
+          "neck": [
+            339,
+            302
+          ],
+          "back": [
+            361,
+            399
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dizzy": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-a.webp",
+          "rect": [
+            1675,
+            107,
+            483,
+            582
+          ],
+          "isolate": true,
+          "anchor": [
+            251,
+            578
+          ],
+          "scale": 1.0601374570446735,
+          "head": [
+            251,
+            133
+          ],
+          "hand": [
+            246,
+            229
+          ],
+          "eyes": [
+            253,
+            189
+          ],
+          "neck": [
+            300,
+            292
+          ],
+          "back": [
+            353,
+            361
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "surprised": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-b.webp",
+          "rect": [
+            19,
+            13,
+            497,
+            640
+          ],
+          "isolate": true,
+          "anchor": [
+            258,
+            636
+          ],
+          "scale": 0.9640625,
+          "head": [
+            250,
+            137
+          ],
+          "hand": [
+            130,
+            249
+          ],
+          "eyes": [
+            250,
+            196
+          ],
+          "neck": [
+            312,
+            290
+          ],
+          "back": [
+            363,
+            397
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "ready": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-b.webp",
+          "rect": [
+            513,
+            47,
+            517,
+            647
+          ],
+          "isolate": true,
+          "anchor": [
+            269,
+            643
+          ],
+          "scale": 0.9536321483771252,
+          "head": [
+            228,
+            120
+          ],
+          "hand": [
+            150,
+            296
+          ],
+          "eyes": [
+            235,
+            175
+          ],
+          "neck": [
+            295,
+            288
+          ],
+          "back": [
+            377,
+            401
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "jump": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-b.webp",
+          "rect": [
+            989,
+            55,
+            626,
+            500
+          ],
+          "isolate": true,
+          "anchor": [
+            326,
+            536
+          ],
+          "scale": 1.234,
+          "head": [
+            166,
+            90
+          ],
+          "hand": [
+            106,
+            268
+          ],
+          "eyes": [
+            162,
+            124
+          ],
+          "neck": [
+            222,
+            192
+          ],
+          "back": [
+            457,
+            310
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "fall": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-b.webp",
+          "rect": [
+            1637,
+            26,
+            531,
+            552
+          ],
+          "isolate": true,
+          "anchor": [
+            276,
+            588
+          ],
+          "scale": 1.1177536231884058,
+          "head": [
+            254,
+            228
+          ],
+          "hand": [
+            170,
+            323
+          ],
+          "eyes": [
+            252,
+            277
+          ],
+          "neck": [
+            274,
+            325
+          ],
+          "back": [
+            388,
+            342
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "land": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-c.webp",
+          "rect": [
+            24,
+            132,
+            568,
+            514
+          ],
+          "isolate": true,
+          "anchor": [
+            295,
+            510
+          ],
+          "scale": 1.2003891050583657,
+          "head": [
+            198,
+            119
+          ],
+          "hand": [
+            104,
+            191
+          ],
+          "eyes": [
+            190,
+            175
+          ],
+          "neck": [
+            233,
+            247
+          ],
+          "back": [
+            415,
+            319
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "think": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-c.webp",
+          "rect": [
+            593,
+            54,
+            459,
+            597
+          ],
+          "isolate": true,
+          "anchor": [
+            239,
+            593
+          ],
+          "scale": 1.033500837520938,
+          "head": [
+            196,
+            115
+          ],
+          "hand": [
+            93,
+            223
+          ],
+          "eyes": [
+            194,
+            173
+          ],
+          "neck": [
+            253,
+            287
+          ],
+          "back": [
+            335,
+            370
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "action": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-c.webp",
+          "rect": [
+            1051,
+            186,
+            612,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            318,
+            460
+          ],
+          "scale": 1.0,
+          "head": [
+            219,
+            110
+          ],
+          "hand": [
+            133,
+            216
+          ],
+          "eyes": [
+            224,
+            159
+          ],
+          "neck": [
+            286,
+            258
+          ],
+          "back": [
+            447,
+            288
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "throw": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-c.webp",
+          "rect": [
+            1674,
+            53,
+            482,
+            599
+          ],
+          "isolate": true,
+          "anchor": [
+            251,
+            595
+          ],
+          "scale": 1.0300500834724542,
+          "head": [
+            241,
+            125
+          ],
+          "hand": [
+            134,
+            207
+          ],
+          "eyes": [
+            241,
+            173
+          ],
+          "neck": [
+            256,
+            279
+          ],
+          "back": [
+            352,
+            371
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "push": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-d.webp",
+          "rect": [
+            9,
+            170,
+            603,
+            481
+          ],
+          "isolate": true,
+          "anchor": [
+            314,
+            477
+          ],
+          "scale": 1.0,
+          "head": [
+            208,
+            112
+          ],
+          "hand": [
+            97,
+            373
+          ],
+          "eyes": [
+            178,
+            168
+          ],
+          "neck": [
+            240,
+            282
+          ],
+          "back": [
+            440,
+            298
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "carry": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-d.webp",
+          "rect": [
+            583,
+            45,
+            536,
+            617
+          ],
+          "isolate": true,
+          "anchor": [
+            279,
+            613
+          ],
+          "scale": 1.0,
+          "head": [
+            267,
+            137
+          ],
+          "hand": [
+            104,
+            376
+          ],
+          "eyes": [
+            274,
+            198
+          ],
+          "neck": [
+            284,
+            309
+          ],
+          "back": [
+            391,
+            383
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dance": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-dance.webp",
+          "rect": [
+            14,
+            34,
+            537,
+            635
+          ],
+          "isolate": true,
+          "anchor": [
+            279,
+            631
+          ],
+          "head": [
+            238,
+            115
+          ],
+          "hand": [
+            198,
+            390
+          ],
+          "eyes": [
+            236,
+            169
+          ],
+          "neck": [
+            284,
+            303
+          ],
+          "back": [
+            392,
+            394
+          ],
+          "scale": 0.9716535433070866
+        },
+        {
+          "source": "../sources/cotton-candy-dance.webp",
+          "rect": [
+            554,
+            61,
+            524,
+            612
+          ],
+          "isolate": true,
+          "anchor": [
+            272,
+            608
+          ],
+          "head": [
+            201,
+            121
+          ],
+          "hand": [
+            248,
+            385
+          ],
+          "eyes": [
+            196,
+            182
+          ],
+          "neck": [
+            250,
+            309
+          ],
+          "back": [
+            383,
+            379
+          ],
+          "scale": 1.0081699346405228
+        },
+        {
+          "source": "../sources/cotton-candy-dance.webp",
+          "rect": [
+            1062,
+            24,
+            579,
+            624
+          ],
+          "isolate": true,
+          "anchor": [
+            301,
+            620
+          ],
+          "head": [
+            206,
+            113
+          ],
+          "hand": [
+            76,
+            365
+          ],
+          "eyes": [
+            206,
+            166
+          ],
+          "neck": [
+            264,
+            276
+          ],
+          "back": [
+            423,
+            387
+          ],
+          "scale": 0.9887820512820513
+        },
+        {
+          "source": "../sources/cotton-candy-dance.webp",
+          "rect": [
+            1616,
+            31,
+            546,
+            642
+          ],
+          "isolate": true,
+          "anchor": [
+            284,
+            638
+          ],
+          "head": [
+            240,
+            117
+          ],
+          "hand": [
+            199,
+            394
+          ],
+          "eyes": [
+            238,
+            171
+          ],
+          "neck": [
+            287,
+            307
+          ],
+          "back": [
+            399,
+            398
+          ],
+          "scale": 0.9610591900311527
+        }
+      ],
+      "fps": 4.0,
+      "loop": true,
+      "motion": 0.12,
+      "facing": -1
+    },
+    "paint": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-d.webp",
+          "rect": [
+            1657,
+            199,
+            510,
+            464
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            460
+          ],
+          "scale": 1.0,
+          "head": [
+            198,
+            87
+          ],
+          "hand": [
+            82,
+            391
+          ],
+          "eyes": [
+            188,
+            151
+          ],
+          "neck": [
+            250,
+            240
+          ],
+          "back": [
+            372,
+            288
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "sleep": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-e.webp",
+          "rect": [
+            8,
+            292,
+            580,
+            393
+          ],
+          "isolate": true,
+          "anchor": [
+            302,
+            389
+          ],
+          "scale": 1.0,
+          "head": [
+            218,
+            110
+          ],
+          "hand": [
+            181,
+            258
+          ],
+          "eyes": [
+            188,
+            209
+          ],
+          "neck": [
+            295,
+            288
+          ],
+          "back": [
+            423,
+            244
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "cast": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-e.webp",
+          "rect": [
+            572,
+            11,
+            572,
+            667
+          ],
+          "isolate": true,
+          "anchor": [
+            297,
+            663
+          ],
+          "scale": 0.9250374812593704,
+          "head": [
+            241,
+            116
+          ],
+          "hand": [
+            54,
+            249
+          ],
+          "eyes": [
+            246,
+            169
+          ],
+          "neck": [
+            292,
+            308
+          ],
+          "back": [
+            418,
+            414
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "clap": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-e.webp",
+          "rect": [
+            1151,
+            16,
+            487,
+            660
+          ],
+          "isolate": true,
+          "anchor": [
+            253,
+            656
+          ],
+          "scale": 0.9348484848484848,
+          "head": [
+            208,
+            120
+          ],
+          "hand": [
+            79,
+            286
+          ],
+          "eyes": [
+            169,
+            202
+          ],
+          "neck": [
+            232,
+            315
+          ],
+          "back": [
+            356,
+            409
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "eat": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-e.webp",
+          "rect": [
+            1656,
+            280,
+            507,
+            396
+          ],
+          "isolate": true,
+          "anchor": [
+            264,
+            392
+          ],
+          "scale": 1.5580808080808082,
+          "head": [
+            112,
+            82
+          ],
+          "hand": [
+            88,
+            177
+          ],
+          "eyes": [
+            88,
+            129
+          ],
+          "neck": [
+            172,
+            229
+          ],
+          "back": [
+            370,
+            246
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "ride": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-ride.webp",
+          "rect": [
+            31,
+            17,
+            902,
+            746
+          ],
+          "isolate": true,
+          "anchor": [
+            469,
+            535
+          ],
+          "head": [
+            273,
+            184
+          ],
+          "hand": [
+            124,
+            347
+          ],
+          "eyes": [
+            238,
+            255
+          ],
+          "neck": [
+            354,
+            412
+          ],
+          "back": [
+            645,
+            456
+          ],
+          "scale": 0.75
+        },
+        {
+          "source": "../sources/cotton-candy-ride.webp",
+          "rect": [
+            903,
+            22,
+            1029,
+            744
+          ],
+          "isolate": true,
+          "anchor": [
+            535,
+            535
+          ],
+          "head": [
+            238,
+            184
+          ],
+          "hand": [
+            102,
+            356
+          ],
+          "eyes": [
+            202,
+            258
+          ],
+          "neck": [
+            369,
+            411
+          ],
+          "back": [
+            777,
+            461
+          ],
+          "scale": 0.75
+        }
+      ],
+      "fps": 6.0,
+      "loop": true,
+      "motion": 0.12,
+      "facing": -1
+    },
+    "bow": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-f.webp",
+          "rect": [
+            629,
+            130,
+            545,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            283,
+            497
+          ],
+          "scale": 1.2315369261477045,
+          "head": [
+            145,
+            96
+          ],
+          "hand": [
+            85,
+            200
+          ],
+          "eyes": [
+            133,
+            160
+          ],
+          "neck": [
+            199,
+            238
+          ],
+          "back": [
+            398,
+            311
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "strike1": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-f.webp",
+          "rect": [
+            1173,
+            22,
+            524,
+            640
+          ],
+          "isolate": true,
+          "anchor": [
+            272,
+            636
+          ],
+          "scale": 0.9640625,
+          "head": [
+            198,
+            116
+          ],
+          "hand": [
+            98,
+            398
+          ],
+          "eyes": [
+            203,
+            168
+          ],
+          "neck": [
+            259,
+            285
+          ],
+          "back": [
+            383,
+            397
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "strike2": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-f.webp",
+          "rect": [
+            1707,
+            40,
+            451,
+            623
+          ],
+          "isolate": true,
+          "anchor": [
+            235,
+            619
+          ],
+          "scale": 0.9903691813804173,
+          "head": [
+            213,
+            126
+          ],
+          "hand": [
+            208,
+            310
+          ],
+          "eyes": [
+            223,
+            183
+          ],
+          "neck": [
+            277,
+            305
+          ],
+          "back": [
+            329,
+            386
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "strike3": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-g.webp",
+          "rect": [
+            16,
+            24,
+            571,
+            672
+          ],
+          "isolate": true,
+          "anchor": [
+            297,
+            668
+          ],
+          "scale": 0.9181547619047619,
+          "head": [
+            241,
+            125
+          ],
+          "hand": [
+            136,
+            418
+          ],
+          "eyes": [
+            238,
+            187
+          ],
+          "neck": [
+            294,
+            327
+          ],
+          "back": [
+            417,
+            417
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "shake": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-g.webp",
+          "rect": [
+            549,
+            63,
+            582,
+            629
+          ],
+          "isolate": true,
+          "anchor": [
+            303,
+            625
+          ],
+          "scale": 0.9809220985691574,
+          "head": [
+            230,
+            190
+          ],
+          "hand": [
+            94,
+            238
+          ],
+          "eyes": [
+            180,
+            230
+          ],
+          "neck": [
+            280,
+            318
+          ],
+          "back": [
+            425,
+            390
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "stir": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-g.webp",
+          "rect": [
+            1109,
+            103,
+            587,
+            582
+          ],
+          "isolate": true,
+          "anchor": [
+            305,
+            578
+          ],
+          "scale": 1.0601374570446735,
+          "head": [
+            186,
+            117
+          ],
+          "hand": [
+            93,
+            357
+          ],
+          "eyes": [
+            193,
+            171
+          ],
+          "neck": [
+            254,
+            275
+          ],
+          "back": [
+            429,
+            361
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dance-up": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-g.webp",
+          "rect": [
+            1658,
+            13,
+            504,
+            693
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            689
+          ],
+          "scale": 0.8903318903318903,
+          "head": [
+            229,
+            124
+          ],
+          "hand": [
+            54,
+            276
+          ],
+          "eyes": [
+            226,
+            173
+          ],
+          "neck": [
+            279,
+            293
+          ],
+          "back": [
+            368,
+            430
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dance-down": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-h.webp",
+          "rect": [
+            4,
+            95,
+            526,
+            593
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            589
+          ],
+          "scale": 1.0404721753794266,
+          "head": [
+            215,
+            107
+          ],
+          "hand": [
+            238,
+            437
+          ],
+          "eyes": [
+            215,
+            186
+          ],
+          "neck": [
+            283,
+            281
+          ],
+          "back": [
+            384,
+            368
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dance-side": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-h.webp",
+          "rect": [
+            508,
+            49,
+            619,
+            632
+          ],
+          "isolate": true,
+          "anchor": [
+            322,
+            628
+          ],
+          "scale": 0.9762658227848101,
+          "head": [
+            211,
+            120
+          ],
+          "hand": [
+            148,
+            368
+          ],
+          "eyes": [
+            198,
+            183
+          ],
+          "neck": [
+            264,
+            277
+          ],
+          "back": [
+            452,
+            392
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "look-around": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-h.webp",
+          "rect": [
+            1117,
+            39,
+            527,
+            649
+          ],
+          "isolate": true,
+          "anchor": [
+            274,
+            645
+          ],
+          "scale": 0.9506933744221879,
+          "head": [
+            214,
+            134
+          ],
+          "hand": [
+            142,
+            243
+          ],
+          "eyes": [
+            212,
+            193
+          ],
+          "neck": [
+            261,
+            313
+          ],
+          "back": [
+            385,
+            402
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "high-five": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-h.webp",
+          "rect": [
+            1646,
+            35,
+            524,
+            648
+          ],
+          "isolate": true,
+          "anchor": [
+            272,
+            644
+          ],
+          "scale": 0.9521604938271605,
+          "head": [
+            215,
+            128
+          ],
+          "hand": [
+            26,
+            266
+          ],
+          "eyes": [
+            210,
+            188
+          ],
+          "neck": [
+            262,
+            310
+          ],
+          "back": [
+            383,
+            402
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "crouch": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-i.webp",
+          "rect": [
+            16,
+            287,
+            470,
+            349
+          ],
+          "isolate": true,
+          "anchor": [
+            244,
+            345
+          ],
+          "scale": 1,
+          "head": [
+            160,
+            98
+          ],
+          "hand": [
+            103,
+            291
+          ],
+          "eyes": [
+            140,
+            143
+          ],
+          "neck": [
+            197,
+            204
+          ],
+          "back": [
+            343,
+            216
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dash": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            864,
+            66,
+            469,
+            373
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            394,
+            108
+          ],
+          "eyes": [
+            387,
+            155
+          ],
+          "neck": [
+            360,
+            202
+          ],
+          "back": [
+            214,
+            224
+          ],
+          "hand": [
+            429,
+            298
+          ],
+          "anchor": [
+            251,
+            372
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            1326,
+            60,
+            428,
+            360
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            309,
+            118
+          ],
+          "eyes": [
+            307,
+            170
+          ],
+          "neck": [
+            287,
+            244
+          ],
+          "back": [
+            151,
+            247
+          ],
+          "hand": [
+            317,
+            308
+          ],
+          "anchor": [
+            218,
+            370
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "holdLast": true
+    },
+    "catch": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-i.webp",
+          "rect": [
+            932,
+            59,
+            411,
+            586
+          ],
+          "isolate": true,
+          "anchor": [
+            214,
+            622
+          ],
+          "scale": 1.052901023890785,
+          "head": [
+            195,
+            111
+          ],
+          "hand": [
+            34,
+            214
+          ],
+          "eyes": [
+            188,
+            160
+          ],
+          "neck": [
+            240,
+            266
+          ],
+          "back": [
+            300,
+            363
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "wave-goodbye": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-i.webp",
+          "rect": [
+            1349,
+            81,
+            341,
+            566
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            562
+          ],
+          "scale": 1.0901060070671378,
+          "head": [
+            186,
+            182
+          ],
+          "hand": [
+            295,
+            254
+          ],
+          "eyes": [
+            175,
+            234
+          ],
+          "neck": [
+            193,
+            329
+          ],
+          "back": [
+            249,
+            394
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "dance-star": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-actions-i.webp",
+          "rect": [
+            1719,
+            61,
+            444,
+            586
+          ],
+          "isolate": true,
+          "anchor": [
+            231,
+            622
+          ],
+          "scale": 1.052901023890785,
+          "head": [
+            308,
+            130
+          ],
+          "hand": [
+            39,
+            282
+          ],
+          "eyes": [
+            315,
+            186
+          ],
+          "neck": [
+            299,
+            284
+          ],
+          "back": [
+            324,
+            363
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "giggle": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-pet-actions.webp",
+          "rect": [
+            18,
+            79,
+            796,
+            795
+          ],
+          "isolate": true,
+          "anchor": [
+            414,
+            791
+          ],
+          "head": [
+            355,
+            156
+          ],
+          "hand": [
+            299,
+            343
+          ],
+          "eyes": [
+            325,
+            238
+          ],
+          "neck": [
+            411,
+            422
+          ],
+          "back": [
+            581,
+            493
+          ],
+          "scale": 0.75
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "catch-toy": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-pet-actions.webp",
+          "rect": [
+            866,
+            13,
+            895,
+            826
+          ],
+          "isolate": true,
+          "anchor": [
+            465,
+            858
+          ],
+          "head": [
+            314,
+            164
+          ],
+          "hand": [
+            61,
+            340
+          ],
+          "eyes": [
+            301,
+            256
+          ],
+          "neck": [
+            379,
+            442
+          ],
+          "back": [
+            653,
+            512
+          ],
+          "scale": 0.8
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.82,
+      "facing": -1
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            14,
+            94,
+            471,
+            272
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            381,
+            53
+          ],
+          "eyes": [
+            375,
+            89
+          ],
+          "neck": [
+            331,
+            143
+          ],
+          "back": [
+            223,
+            135
+          ],
+          "hand": [
+            423,
+            102
+          ],
+          "anchor": [
+            233,
+            258
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            498,
+            10,
+            367,
+            424
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            202,
+            94
+          ],
+          "eyes": [
+            246,
+            141
+          ],
+          "neck": [
+            231,
+            206
+          ],
+          "back": [
+            134,
+            236
+          ],
+          "hand": [
+            294,
+            172
+          ],
+          "anchor": [
+            185,
+            417
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            901,
+            44,
+            458,
+            387
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            369,
+            82
+          ],
+          "eyes": [
+            401,
+            110
+          ],
+          "neck": [
+            337,
+            187
+          ],
+          "back": [
+            198,
+            208
+          ],
+          "hand": [
+            432,
+            146
+          ],
+          "anchor": [
+            299,
+            379
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            1398,
+            1,
+            358,
+            447
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            226,
+            100
+          ],
+          "eyes": [
+            229,
+            149
+          ],
+          "neck": [
+            183,
+            216
+          ],
+          "back": [
+            101,
+            260
+          ],
+          "hand": [
+            292,
+            176
+          ],
+          "anchor": [
+            210,
+            438
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            11,
+            433,
+            452,
+            401
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            334,
+            137
+          ],
+          "eyes": [
+            351,
+            161
+          ],
+          "neck": [
+            313,
+            208
+          ],
+          "back": [
+            183,
+            237
+          ],
+          "hand": [
+            398,
+            177
+          ],
+          "anchor": [
+            214,
+            429
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            472,
+            504,
+            484,
+            258
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            384,
+            98
+          ],
+          "eyes": [
+            407,
+            121
+          ],
+          "neck": [
+            345,
+            179
+          ],
+          "back": [
+            200,
+            191
+          ],
+          "hand": [
+            452,
+            149
+          ],
+          "anchor": [
+            238,
+            292
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            954,
+            446,
+            424,
+            373
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            324,
+            129
+          ],
+          "eyes": [
+            341,
+            164
+          ],
+          "neck": [
+            293,
+            230
+          ],
+          "back": [
+            135,
+            230
+          ],
+          "hand": [
+            397,
+            179
+          ],
+          "anchor": [
+            214,
+            404
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.4,
+      "facing": 1,
+      "holdLast": true
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-a.webp",
+          "rect": [
+            1393,
+            457,
+            370,
+            420
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            251,
+            132
+          ],
+          "eyes": [
+            267,
+            163
+          ],
+          "neck": [
+            224,
+            226
+          ],
+          "back": [
+            114,
+            236
+          ],
+          "hand": [
+            337,
+            179
+          ],
+          "anchor": [
+            202,
+            414
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            10,
+            9,
+            398,
+            437
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            265,
+            133
+          ],
+          "eyes": [
+            290,
+            164
+          ],
+          "neck": [
+            260,
+            226
+          ],
+          "back": [
+            175,
+            255
+          ],
+          "hand": [
+            334,
+            201
+          ],
+          "anchor": [
+            210,
+            429
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            440,
+            9,
+            408,
+            436
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            238,
+            135
+          ],
+          "eyes": [
+            269,
+            170
+          ],
+          "neck": [
+            236,
+            230
+          ],
+          "back": [
+            152,
+            260
+          ],
+          "hand": [
+            308,
+            204
+          ],
+          "anchor": [
+            204,
+            429
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            24,
+            453,
+            383,
+            404
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            236,
+            109
+          ],
+          "eyes": [
+            254,
+            144
+          ],
+          "neck": [
+            231,
+            207
+          ],
+          "back": [
+            106,
+            243
+          ],
+          "hand": [
+            293,
+            167
+          ],
+          "anchor": [
+            184,
+            399
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            453,
+            453,
+            369,
+            407
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            200,
+            109
+          ],
+          "eyes": [
+            221,
+            143
+          ],
+          "neck": [
+            183,
+            208
+          ],
+          "back": [
+            57,
+            243
+          ],
+          "hand": [
+            261,
+            167
+          ],
+          "anchor": [
+            175,
+            402
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            887,
+            448,
+            417,
+            410
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            288,
+            114
+          ],
+          "eyes": [
+            316,
+            152
+          ],
+          "neck": [
+            280,
+            232
+          ],
+          "back": [
+            135,
+            248
+          ],
+          "hand": [
+            369,
+            170
+          ],
+          "anchor": [
+            203,
+            407
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-actions-b.webp",
+          "rect": [
+            1334,
+            448,
+            430,
+            408
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            312,
+            114
+          ],
+          "eyes": [
+            338,
+            152
+          ],
+          "neck": [
+            287,
+            232
+          ],
+          "back": [
+            136,
+            248
+          ],
+          "hand": [
+            386,
+            169
+          ],
+          "anchor": [
+            222,
+            407
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b2.webp",
+          "rect": [
+            8,
+            6,
+            672,
+            673
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            375,
+            249
+          ],
+          "eyes": [
+            411,
+            300
+          ],
+          "neck": [
+            350,
+            421
+          ],
+          "back": [
+            234,
+            448
+          ],
+          "hand": [
+            467,
+            334
+          ],
+          "anchor": [
+            353,
+            668
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b2.webp",
+          "rect": [
+            712,
+            142,
+            745,
+            568
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            518,
+            173
+          ],
+          "eyes": [
+            558,
+            232
+          ],
+          "neck": [
+            478,
+            333
+          ],
+          "back": [
+            293,
+            326
+          ],
+          "hand": [
+            412,
+            262
+          ],
+          "anchor": [
+            378,
+            569
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-b2.webp",
+          "rect": [
+            1453,
+            0,
+            719,
+            699
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            439,
+            152
+          ],
+          "eyes": [
+            474,
+            224
+          ],
+          "neck": [
+            437,
+            373
+          ],
+          "back": [
+            242,
+            366
+          ],
+          "hand": [
+            572,
+            288
+          ],
+          "anchor": [
+            432,
+            705
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            8,
+            14,
+            418,
+            481
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            265,
+            139
+          ],
+          "eyes": [
+            279,
+            171
+          ],
+          "neck": [
+            259,
+            273
+          ],
+          "back": [
+            152,
+            320
+          ],
+          "hand": [
+            322,
+            204
+          ],
+          "anchor": [
+            202,
+            475
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            399,
+            15,
+            372,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            190,
+            115
+          ],
+          "eyes": [
+            213,
+            161
+          ],
+          "neck": [
+            179,
+            251
+          ],
+          "back": [
+            102,
+            303
+          ],
+          "hand": [
+            253,
+            193
+          ],
+          "anchor": [
+            197,
+            474
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            746,
+            15,
+            399,
+            479
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            218,
+            122
+          ],
+          "eyes": [
+            248,
+            160
+          ],
+          "neck": [
+            210,
+            251
+          ],
+          "back": [
+            101,
+            299
+          ],
+          "hand": [
+            294,
+            189
+          ],
+          "anchor": [
+            212,
+            473
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            1133,
+            20,
+            398,
+            474
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            222,
+            124
+          ],
+          "eyes": [
+            241,
+            155
+          ],
+          "neck": [
+            215,
+            247
+          ],
+          "back": [
+            96,
+            299
+          ],
+          "hand": [
+            297,
+            192
+          ],
+          "anchor": [
+            198,
+            468
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            4,
+            507,
+            440,
+            417
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            303,
+            131
+          ],
+          "eyes": [
+            320,
+            162
+          ],
+          "neck": [
+            292,
+            239
+          ],
+          "back": [
+            166,
+            264
+          ],
+          "hand": [
+            358,
+            193
+          ],
+          "anchor": [
+            214,
+            455
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            421,
+            518,
+            379,
+            454
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            203,
+            131
+          ],
+          "eyes": [
+            222,
+            172
+          ],
+          "neck": [
+            200,
+            279
+          ],
+          "back": [
+            88,
+            314
+          ],
+          "hand": [
+            273,
+            199
+          ],
+          "anchor": [
+            195,
+            451
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            786,
+            493,
+            380,
+            489
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            222,
+            133
+          ],
+          "eyes": [
+            248,
+            180
+          ],
+          "neck": [
+            219,
+            295
+          ],
+          "back": [
+            92,
+            326
+          ],
+          "hand": [
+            326,
+            215
+          ],
+          "anchor": [
+            195,
+            486
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-c.webp",
+          "rect": [
+            1165,
+            512,
+            371,
+            421
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            234,
+            127
+          ],
+          "eyes": [
+            263,
+            163
+          ],
+          "neck": [
+            227,
+            246
+          ],
+          "back": [
+            104,
+            267
+          ],
+          "hand": [
+            310,
+            195
+          ],
+          "anchor": [
+            187,
+            438
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": true,
+      "holdLast": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-card-flip.webp",
+          "rect": [
+            17,
+            119,
+            1174,
+            1055
+          ],
+          "isolate": true,
+          "scale": 0.52,
+          "head": [
+            879,
+            296
+          ],
+          "eyes": [
+            922,
+            383
+          ],
+          "neck": [
+            808,
+            565
+          ],
+          "back": [
+            616,
+            634
+          ],
+          "hand": [
+            1063,
+            933
+          ],
+          "anchor": [
+            583,
+            1051
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            485,
+            12,
+            479,
+            480
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            323,
+            137
+          ],
+          "eyes": [
+            367,
+            166
+          ],
+          "neck": [
+            324,
+            252
+          ],
+          "back": [
+            219,
+            302
+          ],
+          "hand": [
+            443,
+            193
+          ],
+          "anchor": [
+            243,
+            470
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            987,
+            32,
+            534,
+            461
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            378,
+            126
+          ],
+          "eyes": [
+            396,
+            155
+          ],
+          "neck": [
+            359,
+            248
+          ],
+          "back": [
+            188,
+            290
+          ],
+          "hand": [
+            434,
+            173
+          ],
+          "anchor": [
+            268,
+            448
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            23,
+            509,
+            446,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            244,
+            131
+          ],
+          "eyes": [
+            271,
+            191
+          ],
+          "neck": [
+            292,
+            278
+          ],
+          "back": [
+            220,
+            318
+          ],
+          "hand": [
+            294,
+            236
+          ],
+          "anchor": [
+            222,
+            477
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            510,
+            512,
+            476,
+            479
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            283,
+            133
+          ],
+          "eyes": [
+            322,
+            176
+          ],
+          "neck": [
+            287,
+            262
+          ],
+          "back": [
+            184,
+            306
+          ],
+          "hand": [
+            342,
+            187
+          ],
+          "anchor": [
+            234,
+            474
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-actions-d.webp",
+          "rect": [
+            1000,
+            527,
+            514,
+            455
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            358,
+            111
+          ],
+          "eyes": [
+            383,
+            159
+          ],
+          "neck": [
+            352,
+            245
+          ],
+          "back": [
+            215,
+            287
+          ],
+          "hand": [
+            452,
+            181
+          ],
+          "anchor": [
+            256,
+            455
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "holdLast": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            4,
+            17,
+            498,
+            720
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            251,
+            179
+          ],
+          "eyes": [
+            255,
+            239
+          ],
+          "neck": [
+            247,
+            367
+          ],
+          "back": [
+            227,
+            450
+          ],
+          "hand": [
+            252,
+            315
+          ],
+          "anchor": [
+            248,
+            712
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            495,
+            16,
+            567,
+            723
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            264,
+            174
+          ],
+          "eyes": [
+            321,
+            241
+          ],
+          "neck": [
+            280,
+            378
+          ],
+          "back": [
+            178,
+            428
+          ],
+          "hand": [
+            221,
+            311
+          ],
+          "anchor": [
+            285,
+            715
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            1062,
+            16,
+            403,
+            727
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            198,
+            174
+          ],
+          "neck": [
+            190,
+            373
+          ],
+          "back": [
+            118,
+            410
+          ],
+          "anchor": [
+            198,
+            719
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-round5-pose-twirl.webp",
+          "rect": [
+            1463,
+            18,
+            602,
+            722
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            295,
+            175
+          ],
+          "eyes": [
+            337,
+            240
+          ],
+          "neck": [
+            299,
+            376
+          ],
+          "back": [
+            183,
+            423
+          ],
+          "hand": [
+            358,
+            311
+          ],
+          "anchor": [
+            297,
+            714
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.05,
+      "facing": 1
+    }
+  },
+  "portraits": {
+    "neutral": {
+      "source": "../sources/cotton-candy-portraits.webp",
+      "rect": [
+        15,
+        74,
+        430,
+        573
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "happy": {
+      "source": "../sources/cotton-candy-portraits.webp",
+      "rect": [
+        450,
+        75,
+        423,
+        572
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "sad": {
+      "source": "../sources/cotton-candy-portraits.webp",
+      "rect": [
+        875,
+        73,
+        424,
+        575
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "surprised": {
+      "source": "../sources/cotton-candy-portraits.webp",
+      "rect": [
+        1303,
+        74,
+        427,
+        574
+      ],
+      "isolate": true,
+      "trim": true
+    },
+    "determined": {
+      "source": "../sources/cotton-candy-portraits.webp",
+      "rect": [
+        1731,
+        73,
+        434,
+        575
+      ],
+      "isolate": true,
+      "trim": true
+    }
+  },
+  "quality": 82,
+  "status": "Draft complete required action union with reviewed scale/ride-anchor adjustments; awaiting visual runtime QA."
+}

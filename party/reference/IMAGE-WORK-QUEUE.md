@@ -190,8 +190,8 @@ deliveries. New heartbeat charlie-party-delivered-image-review is active;
 use the delivery checkpoint below rather than code/doc commit times. Reset
 the follow-up on subsequent published image batches; stay quiet if unchanged.
 
-Latest image delivery revision: `8b37665` (includes Marina/Scale/Hotdog batch520f9a4).
-Latest image delivery UTC: 2026-10-03T01:10:53+00:00.
+Latest image delivery revision: `c6d2e78` (corrected Fox action mapping and attachment landmarks).
+Latest image delivery UTC: 2026-10-03T01:39:23+00:00.
 
 Ownership: snow_cake_completion finishes Cotton Candy/Unicorn; npc_canonicals
 finishes Amber then Hotdog; mermaid_all_actions finishes KPop trio. Root owns
@@ -216,3 +216,7 @@ Royal side cape complete: prop/cape-royal-side 520x300 transparent WebP, existin
 Marina/Scale final reviewed set: each75keys/92frames/fiveportraits; decoded20.9/20.5MiB. Hotdog complete75keys/96frames/fiveportraits,19.3MiBdecoded. Root reviews passed; publishing stable batches. KPop3, Cotton Candy and Unicorn remain.
 
 Fox final semantic/landmark audit complete:28 legacy action-source swaps repaired to exact prompts; all96 frame attachment points reviewed, memory card reaches withfrontpaw, head scales normalized. Reviewed full Broomstick Dash and optimized Memory Match,23.5MiBdecode, fresh optimizer.
+
+Main checked at c6d2e78 on 2026-10-03T01:39:23+00:00; no new image requests. Fox corrections confirmed pushed. Remaining production: Cotton Candy, Unicorn and the three KPop girls, with final landmark/mask reviews in progress.
+
+Cotton Candy reviewed:75keys/96frames/fiveportraits; run and memory-card reach size corrected, ride anchor on belly, final cast point corrected in source coordinates. Publishing next. Remaining Unicorn and KPop3.
