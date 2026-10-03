@@ -449,7 +449,11 @@ function streamFor(file) {
 
 class Music {
   constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; }
-  play(name, { restart = false } = {}) {
+  /**
+   * opts.loop: false plays a recorded song once (rhythm-game songs, entry.once
+   * songs default to this); true loops a once-song as a whole (from its start).
+   */
+  play(name, { restart = false, loop = null } = {}) {
     if (!ctx) return;
     // A streamed song never needs restarting: just make sure it is playing.
     if (this.name === name && (!restart || this.stream)) { this._kick(); return; }
@@ -472,10 +476,13 @@ class Music {
       return;
     }
     if (fileBuf) {
-      const src = ctx.createBufferSource(); src.buffer = fileBuf[0]; src.loop = true;
-      // Start at loopStart (past the encoder's leading padding) so beat 0 is the downbeat.
-      if (entry.loopEnd) { src.loopStart = entry.loopStart || 0; src.loopEnd = entry.loopEnd; }
-      src.connect(this.gain); src.start(0, entry.loopEnd ? entry.loopStart || 0 : 0);
+      const buf = fileBuf[0], looping = loop ?? !entry.once;
+      const src = ctx.createBufferSource(); src.buffer = buf; src.loop = looping;
+      // Start at the first downbeat (past the pre-roll / encoder padding) so beat 0 is the downbeat.
+      const at = entry.start ?? (entry.loopEnd ? entry.loopStart || 0 : 0);
+      if (looping && entry.loopEnd) { src.loopStart = entry.loopStart || 0; src.loopEnd = entry.loopEnd; }
+      else if (looping && entry.once) { src.loopStart = at; src.loopEnd = buf.duration; }
+      src.connect(this.gain); src.start(0, at);
       this.fileSrc = src; this.start = ctx.currentTime + (entry.offset || 0); this.song = { bpm: def.bpm };
       return;
     }

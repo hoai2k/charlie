@@ -49,7 +49,7 @@ export class PlayScene {
     this.usesCamera = !!(this.game && this.game.drawHUD);
     this.drawsParticles = true; // particles go inside the camera (or right after the game)
     if (this.usesCamera && this.state === 'countdown' && this.meta.flyIn !== false) this.camera.flyIn();
-    music.play((this.game && this.game.musicKey) || this.meta.music || 'party');   // a game may pick its song (rhythm games)
+    music.play((this.game && this.game.musicKey) || this.meta.music || 'party', { loop: this.game?.musicLoop ?? null });   // a game may pick its song (rhythm games)
     this.lastCount = -1;
   }
 

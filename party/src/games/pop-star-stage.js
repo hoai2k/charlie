@@ -21,7 +21,7 @@ import { art, drawArt } from '../engine/art.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, ease, TAU, placementsFromScores } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
-import { loadRhythmSongs, chooseSong, rhythmChoice, rhythmOptions, buildChart, songLength, musicKey } from './rhythm/songs.js';
+import { loadRhythmSongs, chooseSong, rhythmChoice, rhythmOptions, buildChart, songPlan, musicKey } from './rhythm/songs.js';
 import { musicReady } from '../engine/audio.js';
 
 loadRhythmSongs();
@@ -365,10 +365,12 @@ export class Game {
     this.spb = 60 / bpm;
     this.perfect = PERFECT_S / this.spb; this.good = GOOD_S / this.spb;   // in beats
     if (song) {
-      const end = songLength(bpm), r = end / CLASSIC.end, round4 = (x) => Math.round(x / 4) * 4;
-      this.songEnd = end;
-      this.phases = { ab: round4(CLASSIC.phases.ab * r), all: round4(CLASSIC.phases.all * r), boss: round4(CLASSIC.phases.boss * r) };
-      this.chart = buildChart(song, rhythmChoice('pop-star-stage').level, end - 6, this.phases);
+      // The song's own timeline: it plays once (or ~65 s of a loop), and its
+      // sections decide when B and X/Y join and when the finale starts.
+      const plan = songPlan(song);
+      this.songEnd = plan.end;
+      this.phases = plan.phases;
+      this.chart = buildChart(song, rhythmChoice('pop-star-stage').level, plan);
       this.musicKey = musicKey(song);
     } else {
       this.songEnd = CLASSIC.end; this.phases = { ...CLASSIC.phases };

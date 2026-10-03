@@ -263,6 +263,7 @@ export class Game {
     // Background song: the chosen rhythm song (only the stage lights follow its beat).
     const song = chooseSong('spotlight-dance');
     this.musicKey = song ? musicKey(song) : 'dance';
+    this.musicLoop = true;   // rounds can outlast a song: loop it as a whole
     try { music.preload(this.musicKey); } catch (e) { /* optional */ }
     this.players = api.players;
     this.n = this.players.length;
