@@ -8,7 +8,7 @@ main regularly. The whole brief is not yet complete.
 ## Published
 
 Main includes the full action vocabulary for Snowstar, Birthday Cake, Felicity,
-Fellowfox and Bronze. Cake has 74 keys / 95 authored frames / five portraits;
+Fellowfox, Bronze and Fox. Cake has 74 keys / 95 authored frames / five portraits;
 Felicity and Bronze have 74 / 91 / five; Fellowfox has 75 / 91 / five, including
 catch-toy. Expanded sets include two-frame dash, hip-bump and knockback and an
 authored four-view twirl. Reviewed optimized copies accompany the full originals.
@@ -35,8 +35,8 @@ specs/pending prompt records. QA images outside runtime folders are not shipped.
 
 ## Active ownership and remaining work
 
-- snow_cake_completion: Fox full extension is in final intake/review (75 keys,
-  96 frames, preview decoded 23.3 MiB); then Cotton Candy, Unicorn and Hotdog.
+- snow_cake_completion: Fox is reviewed and ready to publish (75 keys,
+  96 frames, decoded 23.3 MiB); finish Cotton Candy, Unicorn and Hotdog.
   Include latest lead scale/ride-anchor/mouth-landmark corrections.
 - mermaid_all_actions: Marina/Scale rebuilt runtime attachment review and true
   back-twirl art; then KPop trio extensions/hand/scale corrections.

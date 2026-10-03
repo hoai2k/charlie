@@ -1544,9 +1544,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
 | sprite `princess-amber` `dance` (4 frames) | About 1.4× too big (head-to-neck 118 px vs 86 in idle); she swells whenever she dances in Spotlight and Pop Star. | Re-intake at `scale` ≈ 0.72, or re-generate at idle head size. |
-| sprite `fox` `ride` (2 frames) | About 0.6× size, and the anchor sits ~27 source px below the paws, so the fox floats above the broom in Broomstick Dash. | Scale ≈ 1.4; anchor at the belly/paw line where the broom goes. |
-| sprite `fox` `dance` (4), `think`, `dance-star` | About 1.2× too big. | Scale ≈ 0.83. |
-| sprite `fox` `eat`, `catch`, `look-around`, `strike2`, `strike3`, `fall`, `bow` | `head`/`hand` points off the art (look copied from another frame). | Re-annotate `head` (top of skull) and `hand` (mouth). |
 | sprite `cotton-candy` `run` (4) | About 0.7× size; she shrinks when running. | Scale ≈ 1.4 on head size. |
 | sprite `cotton-candy` `ride` | Anchor below the hooves; floats above the broom. | Anchor at the belly/hoof line. |
 | sprite `cotton-candy` `giggle` | About 1.35× too big (Pet Spa). | Scale ≈ 0.75. |
@@ -1590,3 +1587,5 @@ fine; the code uses one of each pair.
 - Troll windup/grab/cheer/wave/dizzy: hand points corrected to actual fists/palms, reviewed in full and optimized gameplay; published 7d11066.
 - Professor Hoot: distinct two-frame point/laugh/bravo and corrected original face/wing points; Potion Class uses the new reactions, published fb24927.
 - Glimmer and all five Garden Fairies: unique wing cycles, blink and fairy rear turns; head size/skin colors preserved, reviewed in both quality modes, published 4a6343a.
+
+- Fox ride/dance/think/dance-star: head scales matched and ride anchor on belly/paws; eat/catch/look-around/strike2/strike3/fall/bow attachment points individually corrected. Full 75-key set reviewed with optimized copies in Broomstick Dash.

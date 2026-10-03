@@ -610,7 +610,7 @@
             582
           ],
           "isolate": true,
-          "scale": 1.0,
+          "scale": 0.83,
           "head": [
             366,
             146
@@ -641,7 +641,7 @@
             510
           ],
           "isolate": true,
-          "scale": 1.0,
+          "scale": 0.83,
           "head": [
             402,
             128
@@ -672,7 +672,7 @@
             557
           ],
           "isolate": true,
-          "scale": 1.0,
+          "scale": 0.83,
           "head": [
             400,
             139
@@ -703,7 +703,7 @@
             585
           ],
           "isolate": true,
-          "scale": 1.0,
+          "scale": 0.83,
           "head": [
             351,
             146
@@ -746,7 +746,7 @@
             501
           ],
           "isolate": true,
-          "scale": 0.55,
+          "scale": 0.77,
           "head": [
             721,
             125
@@ -768,8 +768,8 @@
             346
           ],
           "anchor": [
-            671,
-            661
+            579,
+            391
           ]
         },
         {
@@ -781,7 +781,7 @@
             546
           ],
           "isolate": true,
-          "scale": 0.55,
+          "scale": 0.77,
           "head": [
             706,
             136
@@ -803,8 +803,8 @@
             377
           ],
           "anchor": [
-            657,
-            721
+            567,
+            426
           ]
         }
       ],
@@ -1142,24 +1142,24 @@
           "isolate": true,
           "scale": 1.0,
           "head": [
-            297,
-            88
+            293,
+            219
           ],
           "hand": [
-            394,
-            170
+            373,
+            223
           ],
           "eyes": [
-            335,
-            156
+            327,
+            255
           ],
           "neck": [
-            302,
-            234
+            247,
+            219
           ],
           "back": [
-            197,
-            244
+            163,
+            127
           ],
           "anchor": [
             277,
@@ -1536,24 +1536,24 @@
           "isolate": true,
           "scale": 1.12,
           "head": [
-            285,
-            100
+            302,
+            236
           ],
           "hand": [
-            378,
-            191
+            377,
+            308
           ],
           "eyes": [
-            322,
-            175
+            314,
+            290
           ],
           "neck": [
-            289,
-            263
+            258,
+            336
           ],
           "back": [
-            189,
-            275
+            153,
+            187
           ]
         }
       ],
@@ -1575,24 +1575,24 @@
           "isolate": true,
           "scale": 1.12,
           "head": [
-            310,
-            94
+            323,
+            255
           ],
           "hand": [
-            411,
-            180
+            392,
+            348
           ],
           "eyes": [
-            350,
-            165
+            344,
+            304
           ],
           "neck": [
-            315,
-            248
+            300,
+            327
           ],
           "back": [
-            205,
-            259
+            175,
+            180
           ]
         }
       ],
@@ -1653,24 +1653,24 @@
           "isolate": true,
           "scale": 1.12,
           "head": [
-            303,
-            89
+            318,
+            201
           ],
           "hand": [
-            401,
-            171
+            356,
+            282
           ],
           "eyes": [
-            342,
-            157
+            347,
+            244
           ],
           "neck": [
-            307,
-            235
+            293,
+            295
           ],
           "back": [
-            201,
-            246
+            171,
+            196
           ]
         }
       ],
@@ -1692,24 +1692,24 @@
           "isolate": true,
           "scale": 1.12,
           "head": [
-            104,
-            111
+            212,
+            71
           ],
           "hand": [
-            22,
-            213
+            287,
+            164
           ],
           "eyes": [
-            72,
-            195
+            233,
+            129
           ],
           "neck": [
-            101,
-            293
+            215,
+            209
           ],
           "back": [
-            190,
-            306
+            133,
+            262
           ]
         }
       ],
@@ -1926,24 +1926,24 @@
           "isolate": true,
           "scale": 1.12,
           "head": [
-            302,
-            108
+            298,
+            269
           ],
           "hand": [
-            400,
-            208
+            358,
+            356
           ],
           "eyes": [
-            341,
-            191
+            304,
+            315
           ],
           "neck": [
-            307,
-            286
+            252,
+            365
           ],
           "back": [
-            200,
-            299
+            166,
+            195
           ]
         }
       ],
@@ -2033,44 +2033,80 @@
     "dash": {
       "frames": [
         {
-          "source": "../sources/fox-actions-d.webp",
+          "source": "../sources/fox-round4-actions-b.webp",
           "rect": [
-            1386,
-            451,
-            382,
-            424
+            861,
+            148,
+            468,
+            267
           ],
           "isolate": true,
-          "scale": 1.0,
-          "head": [
-            271,
-            106
+          "anchor": [
+            262,
+            259
           ],
-          "hand": [
-            359,
-            204
+          "scale": 1,
+          "head": [
+            360,
+            91
           ],
           "eyes": [
-            306,
-            187
+            393,
+            125
           ],
           "neck": [
-            275,
-            280
+            351,
+            160
           ],
           "back": [
-            180,
-            293
+            201,
+            174
           ],
+          "hand": [
+            454,
+            134
+          ]
+        },
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            1326,
+            131,
+            439,
+            237
+          ],
+          "isolate": true,
           "anchor": [
-            252,
-            517
+            246,
+            230
+          ],
+          "scale": 1,
+          "head": [
+            351,
+            83
+          ],
+          "eyes": [
+            382,
+            114
+          ],
+          "neck": [
+            342,
+            142
+          ],
+          "back": [
+            193,
+            152
+          ],
+          "hand": [
+            426,
+            116
           ]
         }
       ],
-      "fps": 12,
+      "fps": 10,
       "loop": false,
-      "motion": 0.9,
+      "motion": 0.3,
+      "holdLast": true,
       "facing": 1
     },
     "catch": {
@@ -2086,24 +2122,24 @@
           "isolate": true,
           "scale": 1.12,
           "head": [
-            293,
-            96
+            304,
+            230
           ],
           "hand": [
-            388,
-            185
+            363,
+            324
           ],
           "eyes": [
-            330,
-            170
+            324,
+            287
           ],
           "neck": [
-            297,
-            255
+            260,
+            343
           ],
           "back": [
-            194,
-            266
+            161,
+            178
           ]
         }
       ],
@@ -2162,7 +2198,7 @@
             570
           ],
           "isolate": true,
-          "scale": 1.0,
+          "scale": 0.83,
           "head": [
             365,
             142
@@ -2201,7 +2237,7 @@
             578
           ],
           "isolate": true,
-          "scale": 1.0,
+          "scale": 0.83,
           "head": [
             361,
             144
@@ -2310,6 +2346,1473 @@
       "loop": false,
       "motion": 0.9,
       "facing": 1
+    },
+    "swim": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            87,
+            112,
+            330,
+            293
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            258
+          ],
+          "scale": 1,
+          "head": [
+            224,
+            62
+          ],
+          "eyes": [
+            251,
+            111
+          ],
+          "neck": [
+            224,
+            161
+          ],
+          "back": [
+            122,
+            185
+          ],
+          "hand": [
+            310,
+            144
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "balance": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            450,
+            7,
+            384,
+            428
+          ],
+          "isolate": true,
+          "anchor": [
+            230,
+            419
+          ],
+          "scale": 1,
+          "head": [
+            242,
+            68
+          ],
+          "eyes": [
+            257,
+            141
+          ],
+          "neck": [
+            238,
+            197
+          ],
+          "back": [
+            154,
+            257
+          ],
+          "hand": [
+            300,
+            167
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "splat-throw": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            881,
+            51,
+            442,
+            385
+          ],
+          "isolate": true,
+          "anchor": [
+            265,
+            358
+          ],
+          "scale": 1,
+          "head": [
+            301,
+            77
+          ],
+          "eyes": [
+            340,
+            146
+          ],
+          "neck": [
+            301,
+            216
+          ],
+          "back": [
+            172,
+            254
+          ],
+          "hand": [
+            415,
+            185
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "wand-up": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            1352,
+            13,
+            412,
+            420
+          ],
+          "isolate": true,
+          "anchor": [
+            239,
+            403
+          ],
+          "scale": 1,
+          "head": [
+            272,
+            67
+          ],
+          "eyes": [
+            309,
+            143
+          ],
+          "neck": [
+            272,
+            206
+          ],
+          "back": [
+            161,
+            256
+          ],
+          "hand": [
+            379,
+            189
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "broom-rise": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            14,
+            499,
+            429,
+            278
+          ],
+          "isolate": true,
+          "anchor": [
+            240,
+            228
+          ],
+          "scale": 1,
+          "head": [
+            326,
+            95
+          ],
+          "eyes": [
+            360,
+            133
+          ],
+          "neck": [
+            322,
+            167
+          ],
+          "back": [
+            180,
+            183
+          ],
+          "hand": [
+            412,
+            142
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "broom-glide": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            455,
+            502,
+            439,
+            269
+          ],
+          "isolate": true,
+          "anchor": [
+            246,
+            221
+          ],
+          "scale": 1,
+          "head": [
+            334,
+            89
+          ],
+          "eyes": [
+            369,
+            129
+          ],
+          "neck": [
+            325,
+            164
+          ],
+          "back": [
+            189,
+            178
+          ],
+          "hand": [
+            421,
+            137
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "broom-zapped": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            896,
+            466,
+            432,
+            387
+          ],
+          "isolate": true,
+          "anchor": [
+            242,
+            317
+          ],
+          "scale": 1,
+          "head": [
+            298,
+            77
+          ],
+          "eyes": [
+            341,
+            143
+          ],
+          "neck": [
+            298,
+            213
+          ],
+          "back": [
+            181,
+            244
+          ],
+          "hand": [
+            410,
+            190
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "count": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-a.webp",
+          "rect": [
+            1378,
+            448,
+            386,
+            417
+          ],
+          "isolate": true,
+          "anchor": [
+            224,
+            409
+          ],
+          "scale": 1,
+          "head": [
+            259,
+            67
+          ],
+          "eyes": [
+            293,
+            146
+          ],
+          "neck": [
+            259,
+            221
+          ],
+          "back": [
+            151,
+            267
+          ],
+          "hand": [
+            359,
+            192
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "look-up": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            37,
+            62,
+            368,
+            377
+          ],
+          "isolate": true,
+          "anchor": [
+            221,
+            369
+          ],
+          "scale": 1,
+          "head": [
+            258,
+            68
+          ],
+          "eyes": [
+            287,
+            121
+          ],
+          "neck": [
+            258,
+            204
+          ],
+          "back": [
+            144,
+            226
+          ],
+          "hand": [
+            350,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "crowned": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            457,
+            56,
+            384,
+            378
+          ],
+          "isolate": true,
+          "anchor": [
+            230,
+            370
+          ],
+          "scale": 1,
+          "head": [
+            261,
+            68
+          ],
+          "eyes": [
+            296,
+            129
+          ],
+          "neck": [
+            265,
+            208
+          ],
+          "back": [
+            150,
+            231
+          ],
+          "hand": [
+            361,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hip-bump": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            43,
+            444,
+            366,
+            401
+          ],
+          "isolate": true,
+          "anchor": [
+            201,
+            393
+          ],
+          "scale": 1,
+          "head": [
+            234,
+            68
+          ],
+          "eyes": [
+            256,
+            132
+          ],
+          "neck": [
+            227,
+            200
+          ],
+          "back": [
+            139,
+            249
+          ],
+          "hand": [
+            300,
+            160
+          ]
+        },
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            462,
+            444,
+            359,
+            398
+          ],
+          "isolate": true,
+          "anchor": [
+            197,
+            390
+          ],
+          "scale": 1,
+          "head": [
+            244,
+            72
+          ],
+          "eyes": [
+            280,
+            135
+          ],
+          "neck": [
+            233,
+            211
+          ],
+          "back": [
+            144,
+            251
+          ],
+          "hand": [
+            337,
+            179
+          ]
+        }
+      ],
+      "fps": 10,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true,
+      "facing": 1
+    },
+    "knockback": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            892,
+            458,
+            437,
+            376
+          ],
+          "isolate": true,
+          "anchor": [
+            240,
+            368
+          ],
+          "scale": 1,
+          "head": [
+            271,
+            60
+          ],
+          "eyes": [
+            302,
+            117
+          ],
+          "neck": [
+            271,
+            192
+          ],
+          "back": [
+            162,
+            237
+          ],
+          "hand": [
+            345,
+            147
+          ]
+        },
+        {
+          "source": "../sources/fox-round4-actions-b.webp",
+          "rect": [
+            1358,
+            465,
+            388,
+            339
+          ],
+          "isolate": true,
+          "anchor": [
+            213,
+            332
+          ],
+          "scale": 1,
+          "head": [
+            248,
+            54
+          ],
+          "eyes": [
+            275,
+            108
+          ],
+          "neck": [
+            244,
+            176
+          ],
+          "back": [
+            144,
+            214
+          ],
+          "hand": [
+            314,
+            136
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.3,
+      "holdLast": true,
+      "facing": 1
+    },
+    "sit": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            17,
+            70,
+            334,
+            408
+          ],
+          "isolate": true,
+          "anchor": [
+            190,
+            396
+          ],
+          "scale": 1,
+          "head": [
+            217,
+            82
+          ],
+          "eyes": [
+            244,
+            151
+          ],
+          "neck": [
+            217,
+            224
+          ],
+          "back": [
+            134,
+            245
+          ],
+          "hand": [
+            307,
+            192
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "tumble": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            421,
+            19,
+            373,
+            396
+          ],
+          "isolate": true,
+          "anchor": [
+            205,
+            388
+          ],
+          "scale": 1,
+          "head": [
+            265,
+            277
+          ],
+          "eyes": [
+            265,
+            325
+          ],
+          "neck": [
+            224,
+            285
+          ],
+          "back": [
+            142,
+            158
+          ],
+          "hand": [
+            313,
+            337
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "hold-present": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            785,
+            60,
+            310,
+            413
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            401
+          ],
+          "scale": 1,
+          "head": [
+            198,
+            83
+          ],
+          "eyes": [
+            223,
+            149
+          ],
+          "neck": [
+            198,
+            227
+          ],
+          "back": [
+            121,
+            248
+          ],
+          "hand": [
+            285,
+            194
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "toss": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            1142,
+            55,
+            377,
+            430
+          ],
+          "isolate": true,
+          "anchor": [
+            215,
+            417
+          ],
+          "scale": 1,
+          "head": [
+            256,
+            77
+          ],
+          "eyes": [
+            290,
+            146
+          ],
+          "neck": [
+            253,
+            237
+          ],
+          "back": [
+            155,
+            267
+          ],
+          "hand": [
+            354,
+            194
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "catch-present": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            17,
+            523,
+            369,
+            460
+          ],
+          "isolate": true,
+          "anchor": [
+            210,
+            446
+          ],
+          "scale": 1,
+          "head": [
+            232,
+            83
+          ],
+          "eyes": [
+            266,
+            152
+          ],
+          "neck": [
+            236,
+            244
+          ],
+          "back": [
+            148,
+            276
+          ],
+          "hand": [
+            336,
+            198
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "sooty": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            389,
+            575,
+            388,
+            391
+          ],
+          "isolate": true,
+          "anchor": [
+            221,
+            379
+          ],
+          "scale": 1,
+          "head": [
+            256,
+            74
+          ],
+          "eyes": [
+            291,
+            145
+          ],
+          "neck": [
+            256,
+            215
+          ],
+          "back": [
+            155,
+            235
+          ],
+          "hand": [
+            361,
+            184
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "drink": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            795,
+            573,
+            375,
+            390
+          ],
+          "isolate": true,
+          "anchor": [
+            214,
+            378
+          ],
+          "scale": 1,
+          "head": [
+            248,
+            74
+          ],
+          "eyes": [
+            281,
+            144
+          ],
+          "neck": [
+            248,
+            215
+          ],
+          "back": [
+            150,
+            234
+          ],
+          "hand": [
+            349,
+            183
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "float": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-c.webp",
+          "rect": [
+            1171,
+            540,
+            360,
+            387
+          ],
+          "isolate": true,
+          "anchor": [
+            202,
+            310
+          ],
+          "scale": 1,
+          "head": [
+            259,
+            93
+          ],
+          "eyes": [
+            288,
+            147
+          ],
+          "neck": [
+            259,
+            221
+          ],
+          "back": [
+            148,
+            248
+          ],
+          "hand": [
+            342,
+            190
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "hiccup": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            25,
+            36,
+            397,
+            368
+          ],
+          "isolate": true,
+          "anchor": [
+            222,
+            357
+          ],
+          "scale": 1,
+          "head": [
+            278,
+            74
+          ],
+          "eyes": [
+            314,
+            140
+          ],
+          "neck": [
+            274,
+            202
+          ],
+          "back": [
+            159,
+            228
+          ],
+          "hand": [
+            377,
+            177
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "stomp-giant": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            466,
+            2,
+            434,
+            408
+          ],
+          "isolate": true,
+          "anchor": [
+            243,
+            396
+          ],
+          "scale": 1,
+          "head": [
+            282,
+            65
+          ],
+          "eyes": [
+            326,
+            139
+          ],
+          "neck": [
+            286,
+            216
+          ],
+          "back": [
+            169,
+            249
+          ],
+          "hand": [
+            408,
+            184
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "squeak-tiny": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            950,
+            48,
+            337,
+            321
+          ],
+          "isolate": true,
+          "anchor": [
+            189,
+            311
+          ],
+          "scale": 1,
+          "head": [
+            236,
+            64
+          ],
+          "eyes": [
+            263,
+            116
+          ],
+          "neck": [
+            229,
+            173
+          ],
+          "back": [
+            135,
+            196
+          ],
+          "hand": [
+            317,
+            148
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "flip": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            22,
+            416,
+            395,
+            372
+          ],
+          "isolate": true,
+          "anchor": [
+            221,
+            361
+          ],
+          "scale": 1,
+          "head": [
+            261,
+            89
+          ],
+          "eyes": [
+            300,
+            145
+          ],
+          "neck": [
+            261,
+            208
+          ],
+          "back": [
+            154,
+            238
+          ],
+          "hand": [
+            371,
+            190
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "blow": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            458,
+            426,
+            399,
+            358
+          ],
+          "isolate": true,
+          "anchor": [
+            223,
+            347
+          ],
+          "scale": 1,
+          "head": [
+            271,
+            79
+          ],
+          "eyes": [
+            307,
+            140
+          ],
+          "neck": [
+            271,
+            200
+          ],
+          "back": [
+            160,
+            222
+          ],
+          "hand": [
+            375,
+            172
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "shake-sprinkles": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            917,
+            426,
+            374,
+            349
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            339
+          ],
+          "scale": 1,
+          "head": [
+            262,
+            70
+          ],
+          "eyes": [
+            295,
+            129
+          ],
+          "neck": [
+            258,
+            195
+          ],
+          "back": [
+            150,
+            216
+          ],
+          "hand": [
+            355,
+            164
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "photo": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            28,
+            788,
+            392,
+            394
+          ],
+          "isolate": true,
+          "anchor": [
+            196,
+            382
+          ],
+          "scale": 1,
+          "head": [
+            196,
+            63
+          ],
+          "eyes": [
+            196,
+            146
+          ],
+          "neck": [
+            196,
+            221
+          ],
+          "back": [
+            94,
+            244
+          ],
+          "hand": [
+            204,
+            189
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 0
+    },
+    "sing": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            473,
+            785,
+            391,
+            385
+          ],
+          "isolate": true,
+          "anchor": [
+            219,
+            373
+          ],
+          "scale": 1,
+          "head": [
+            258,
+            65
+          ],
+          "eyes": [
+            297,
+            135
+          ],
+          "neck": [
+            262,
+            208
+          ],
+          "back": [
+            152,
+            235
+          ],
+          "hand": [
+            368,
+            173
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "water": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-actions-d.webp",
+          "rect": [
+            898,
+            811,
+            392,
+            354
+          ],
+          "isolate": true,
+          "anchor": [
+            220,
+            343
+          ],
+          "scale": 1,
+          "head": [
+            274,
+            71
+          ],
+          "eyes": [
+            314,
+            138
+          ],
+          "neck": [
+            274,
+            202
+          ],
+          "back": [
+            157,
+            223
+          ],
+          "hand": [
+            372,
+            170
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.85,
+      "facing": 1
+    },
+    "pose-twirl": {
+      "frames": [
+        {
+          "source": "../sources/fox-round4-pose-twirl.webp",
+          "rect": [
+            20,
+            59,
+            518,
+            626
+          ],
+          "isolate": true,
+          "anchor": [
+            269,
+            613
+          ],
+          "scale": 0.62,
+          "head": [
+            259,
+            106
+          ],
+          "eyes": [
+            259,
+            225
+          ],
+          "neck": [
+            259,
+            357
+          ],
+          "back": [
+            145,
+            382
+          ],
+          "hand": [
+            259,
+            300
+          ]
+        },
+        {
+          "source": "../sources/fox-round4-pose-twirl.webp",
+          "rect": [
+            565,
+            55,
+            568,
+            627
+          ],
+          "isolate": true,
+          "anchor": [
+            312,
+            614
+          ],
+          "scale": 0.62,
+          "head": [
+            386,
+            107
+          ],
+          "eyes": [
+            432,
+            219
+          ],
+          "neck": [
+            386,
+            351
+          ],
+          "back": [
+            216,
+            382
+          ],
+          "hand": [
+            534,
+            270
+          ]
+        },
+        {
+          "source": "../sources/fox-round4-pose-twirl.webp",
+          "rect": [
+            1199,
+            60,
+            456,
+            624
+          ],
+          "isolate": true,
+          "anchor": [
+            237,
+            612
+          ],
+          "scale": 0.62,
+          "head": [
+            228,
+            112
+          ],
+          "eyes": [
+            228,
+            250
+          ],
+          "neck": [
+            228,
+            362
+          ],
+          "back": [
+            114,
+            374
+          ],
+          "hand": [
+            228,
+            293
+          ]
+        },
+        {
+          "source": "../sources/fox-round4-pose-twirl.webp",
+          "rect": [
+            1672,
+            54,
+            496,
+            622
+          ],
+          "isolate": true,
+          "anchor": [
+            273,
+            610
+          ],
+          "scale": 0.62,
+          "head": [
+            337,
+            106
+          ],
+          "eyes": [
+            377,
+            218
+          ],
+          "neck": [
+            337,
+            348
+          ],
+          "back": [
+            188,
+            379
+          ],
+          "hand": [
+            466,
+            267
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.05,
+      "facing": 1
     }
   },
   "portraits": {
@@ -2363,5 +3866,6 @@
       ],
       "trim": true
     }
-  }
+  },
+  "status": "Draft full requested set with R3 scale/landmark corrections; awaiting full build QA."
 }
