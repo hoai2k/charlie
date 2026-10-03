@@ -69,29 +69,50 @@ export function unlockAudio() {
 }
 export function audioRunning() { return !!ctx && ctx.state === 'running'; }
 
+// Song tags (Settings): while on, a corner tag names the song playing, and
+// songs with alternate takes (manifest entry "takes": [{ file, take, ... }])
+// play a random one each time they start, so takes can be judged in play.
+const AUDITION_KEY = 'party.songTags';
+let audition = true;
+try { const v = localStorage.getItem(AUDITION_KEY); if (v != null) audition = v === '1'; } catch (e) { /* private mode */ }
+export const songTagsOn = () => audition;
+export function setSongTags(on) {
+  audition = !!on; takePicks.clear();
+  try { localStorage.setItem(AUDITION_KEY, audition ? '1' : '0'); } catch (e) { /* private mode */ }
+}
+const takePicks = new Map();   // name -> the take chosen for this playing of it
 const musicEntry = (name) => {
   const e = manifest.music[name];
   if (!e) return null;
-  return typeof e === 'string' ? { file: e } : e; // { file, loopStart, loopEnd, offset, stream }
+  const base = typeof e === 'string' ? { file: e } : e; // { file, loopStart, loopEnd, offset, stream, take, label, takes }
+  if (!audition || !base.takes || !base.takes.length) return base;
+  if (!takePicks.has(name)) {
+    const all = [base, ...base.takes.map((t) => ({ ...base, stream: false, ...t }))];
+    takePicks.set(name, all[Math.floor(Math.random() * all.length)]);
+  }
+  return takePicks.get(name);
 };
+// Decoded songs are cached per file (a song's takes are different files).
+const musicKey = (name) => { const e = musicEntry(name); return e ? 'music:' + e.file : ''; };
 const musicLoading = new Map();
 const MUSIC_CACHE = 3;
 const musicLRU = [];
 function loadMusic(name) {
   const e = musicEntry(name);
   if (!e || !ctx) return Promise.resolve(null);
-  if (fileBuffers.has('music:' + name)) return Promise.resolve(fileBuffers.get('music:' + name)[0]);
-  if (!musicLoading.has(name)) {
-    musicLoading.set(name, loadBuffer(e.file).then((b) => {
-      musicLoading.delete(name);
+  const key = 'music:' + e.file;
+  if (fileBuffers.has(key)) return Promise.resolve(fileBuffers.get(key)[0]);
+  if (!musicLoading.has(key)) {
+    musicLoading.set(key, loadBuffer(e.file).then((b) => {
+      musicLoading.delete(key);
       if (!b) return null;
-      fileBuffers.set('music:' + name, [b]);
-      musicLRU.push(name);
-      while (musicLRU.length > MUSIC_CACHE) { const old = musicLRU.shift(); if (old !== music.name) fileBuffers.delete('music:' + old); }
+      fileBuffers.set(key, [b]);
+      musicLRU.push(key);
+      while (musicLRU.length > MUSIC_CACHE) { const old = musicLRU.shift(); if (old !== musicKey(music.name)) fileBuffers.delete(old); }
       return b;
     }));
   }
-  return musicLoading.get(name);
+  return musicLoading.get(key);
 }
 
 /**
@@ -104,7 +125,7 @@ export function registerMusic(name, entry) {
   if (!SONGS[name]) SONGS[name] = { bpm: entry.bpm, recordedOnly: true };
 }
 /** True once a recorded song is decoded and can start instantly. */
-export function musicReady(name) { return fileBuffers.has('music:' + name); }
+export function musicReady(name) { return fileBuffers.has(musicKey(name)); }
 
 /** True if a recorded file exists for this sfx key. */
 export function hasSound(key) { return fileBuffers.has(key); }
@@ -447,6 +468,8 @@ function streamFor(file) {
   return streams.get(file);
 }
 
+const songLabel = (name, e) => (e && e.label) || name.charAt(0).toUpperCase() + name.slice(1);
+
 class Music {
   constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; }
   /**
@@ -457,6 +480,7 @@ class Music {
     if (!ctx) return;
     // A streamed song never needs restarting: just make sure it is playing.
     if (this.name === name && (!restart || this.stream)) { this._kick(); return; }
+    if (this.name && this.name !== name) takePicks.delete(this.name); // next time it starts, roll a take again
     this.stop(0.25);
     const def = SONGS[name];
     this.name = name;
@@ -465,8 +489,9 @@ class Music {
     this.gain.gain.value = 0.0001;
     this.gain.gain.exponentialRampToValueAtTime(1, ctx.currentTime + 0.4);
     this.gain.connect(musicBus);
-    const fileBuf = fileBuffers.get('music:' + name);
     const entry = musicEntry(name);
+    const fileBuf = fileBuffers.get(musicKey(name));
+    this.entry = entry;
     if (entry && entry.stream) {
       const st = streamFor(entry.file);
       st.out.connect(this.gain);
@@ -517,7 +542,14 @@ class Music {
         if (this.stream !== st) st.el.pause();
       }, fade * 1000 + 50);
     }
-    this.gain = null; this.song = null; this.name = null; this.stream = null;
+    this.gain = null; this.song = null; this.name = null; this.stream = null; this.entry = null;
+  }
+  /** What's playing, for the song tag: "Chase · take 2" (null when silent). */
+  get tag() {
+    if (!this.name) return null;
+    const e = this.entry, recorded = e && (this.fileSrc || this.stream);
+    if (!recorded) return `${songLabel(this.name, e)} (synth)`;
+    return songLabel(this.name, e) + (e.take ? ` · take ${e.take}` : '');
   }
   /** (Re)start a streamed song; play() can be refused until a user gesture. */
   _kick() {

@@ -68,6 +68,11 @@ export class AudioTestScene {
     fetch('assets/audio/music/takes/index.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).then((j) => {
       if (j && Array.isArray(j.takes)) { this.takes = j.takes; this.build(); }
     }).catch(() => {});
+    this.mixFiles = new Set();    // alternate rhythm takes played at random while song tags are on
+    fetch('assets/audio/music/rhythm/takes.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).then((j) => {
+      for (const t of (j && j.takes) || []) this.mixFiles.add(t.file);
+      this.build();
+    }).catch(() => {});
     fetch('assets/audio/manifest.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).then((m) => {
       if (m) { this.manifest = { sfx: m.sfx || {}, music: m.music || {} }; }
       this.build();
@@ -115,8 +120,11 @@ export class AudioTestScene {
 
   status(it) {
     if (it.kind === 'take') {
-      const cur = this.manifest.music[it.tk.song], used = cur && (cur.file || cur) === it.tk.file;
-      return used ? { text: 'in game', col: '#1b8f4f', bg: '#c8f5d9' } : { text: 'take', col: '#5a4a7a', bg: '#e6e1ef' };
+      // in game = the song's main take; in mix = also played at random while
+      // Settings > Song tags is on (manifest "takes" / rhythm/takes.json).
+      const cur = this.manifest.music[it.tk.song], used = it.tk.inGame || (cur && (cur.file || cur) === it.tk.file);
+      const mix = (cur && (cur.takes || []).some((t) => t.file === it.tk.file)) || this.mixFiles.has(it.tk.file);
+      return used ? { text: 'in game', col: '#1b8f4f', bg: '#c8f5d9' } : mix ? { text: 'in mix', col: '#1b5f9f', bg: '#cfe6ff' } : { text: 'take', col: '#5a4a7a', bg: '#e6e1ef' };
     }
     if (it.kind === 'music') {
       const f = this.manifest.music[it.key];

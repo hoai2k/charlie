@@ -40,6 +40,20 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
     and §12 (§12.8 has the measurements and why each take was rejected).
     The ElevenLabs credit balance is unknown, because the key lacks the
     `user_read` permission.
+  - **Song tags (Settings, default On):**
+    - A bottom-right tag names the song and take playing ("Chase · take 2").
+    - Songs with alternates play a random take each time they start.
+    - Background alternates are listed under `"takes"` in the manifest music
+      entries. Rhythm alternates, with their own onsets, are in
+      `music/rhythm/takes.json`.
+    - The Takes tab marks each take "in game", "in mix" or plain "take".
+    - Left out of the mix: dance-2/3 (Shadow Banish's beat drives Spotlight
+      Dance-Off), victory-1 (bump at the seam), rh-bossa-1, rh-tango-2 and
+      rh-flamenco-2 (the beat wanders).
+    - When the user has decided: set the chosen takes as the main entries,
+      delete the `takes` lists and rhythm/takes.json, delete the unused MP3s,
+      and consider defaulting song tags to Off (`audition` in
+      `engine/audio.js`).
   - **Waiting on the user:** pick takes, then prune the rest. The music MP3s
     total about 52 MB; pruning brings that to about 25 MB. Also: switch the
     title theme to title-2 or keep Bubblegum Radar.

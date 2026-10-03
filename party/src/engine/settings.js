@@ -2,13 +2,14 @@
 // button, or O on the keyboard). It sits on top of whichever menu screen is
 // showing, so opening it never resets that screen (e.g. players who joined).
 //   Sound: On / Off        Full screen: On / Off        Images: Optimized / Full
+//   Song tags: On / Off (song name in the corner + random takes, for choosing takes)
 // Up/down picks a row, A or left/right changes it, B / Start / View closes.
 // Full screen can only change inside a real key press or click (browser rule),
 // so keyboard and mouse toggles run inside the DOM event; a controller press
 // arms it and the next key/click completes it.
 import { W, H } from './canvas.js';
 import { input } from './input.js';
-import { isMuted, toggleMuted, unlockAudio, sfx } from './audio.js';
+import { isMuted, toggleMuted, unlockAudio, sfx, songTagsOn, setSongTags } from './audio.js';
 import { shell } from './shell.js';
 import { getImageQuality, setImageQuality } from './sprites.js';
 import * as ui from './ui.js';
@@ -28,6 +29,8 @@ export const settings = {
     if (shell.canFullscreen()) r.push({ id: 'full', label: 'Full screen', value: shell.isFullscreen() ? 'On' : 'Off', on: shell.isFullscreen() });
     const q = getImageQuality();
     r.push({ id: 'quality', label: 'Pictures', value: q === 'full' ? 'Full' : 'Optimized', on: q === 'full', hint: q === 'full' ? 'Original art: sharpest, uses more memory' : 'Smaller art: faster on tablets (recommended)' });
+    const tags = songTagsOn();
+    r.push({ id: 'tags', label: 'Song tags', value: tags ? 'On' : 'Off', on: tags, hint: tags ? 'Shows the song playing; mixes in other takes' : 'Each song plays its chosen take' });
     r.push({ id: 'close', label: 'Done' });
     return r;
   },
@@ -45,6 +48,7 @@ export const settings = {
       else { shell.toggleFullscreen(); }
       sfx('select');
     } else if (id === 'quality') { setImageQuality(getImageQuality() === 'full' ? 'optimized' : 'full'); sfx('select'); }
+    else if (id === 'tags') { setSongTags(!songTagsOn()); sfx('select'); }
     else if (id === 'close') this.close();
   },
 

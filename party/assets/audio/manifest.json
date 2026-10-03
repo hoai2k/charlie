@@ -671,46 +671,116 @@
  "music": {
   "title": {
    "file": "music/bubblegum-radar.mp3",
-   "stream": true
+   "stream": true,
+   "label": "Bubblegum Radar",
+   "takes": [
+    {
+     "file": "music/takes/title-1.mp3",
+     "take": 1,
+     "loopStart": 0.2,
+     "loopEnd": 46.65161,
+     "label": "New title theme"
+    },
+    {
+     "file": "music/takes/title-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 46.65161,
+     "label": "New title theme"
+    }
+   ]
   },
   "party": {
    "file": "music/bubblegum-radar.mp3",
-   "stream": true
+   "stream": true,
+   "label": "Bubblegum Radar"
   },
   "dance": {
    "file": "music/takes/dance-1.mp3",
    "loopStart": 0.2,
-   "loopEnd": 64.2
+   "loopEnd": 64.2,
+   "label": "Shadow Banish",
+   "take": 1
   },
   "menu": {
    "file": "music/takes/menu-1.mp3",
    "loopStart": 0.2,
-   "loopEnd": 34.485714
+   "loopEnd": 34.485714,
+   "label": "Menu",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/menu-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 34.485714
+    },
+    {
+     "file": "music/takes/menu-3.mp3",
+     "take": 3,
+     "loopStart": 0.2,
+     "loopEnd": 51.628571
+    }
+   ]
   },
   "chill": {
    "file": "music/takes/chill-1.mp3",
    "loopStart": 0.2,
-   "loopEnd": 62.808685
+   "loopEnd": 62.808685,
+   "label": "Chill",
+   "take": 1
   },
   "chase": {
    "file": "music/takes/chase-1.mp3",
    "loopStart": 0.2,
-   "loopEnd": 37.123084
+   "loopEnd": 37.123084,
+   "label": "Chase",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/chase-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 37.123084
+    }
+   ]
   },
   "bouncy": {
    "file": "music/takes/bouncy-1.mp3",
    "loopStart": 0.2,
-   "loopEnd": 45.2
+   "loopEnd": 45.2,
+   "label": "Bouncy",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/bouncy-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 45.2
+    }
+   ]
   },
   "tense": {
    "file": "music/takes/tense-1.mp3",
    "loopStart": 0.2,
-   "loopEnd": 32.2
+   "loopEnd": 32.2,
+   "label": "Tense",
+   "take": 1,
+   "takes": [
+    {
+     "file": "music/takes/tense-2.mp3",
+     "take": 2,
+     "loopStart": 0.2,
+     "loopEnd": 32.2
+    }
+   ]
   },
   "victory": {
    "file": "music/takes/victory-2.mp3",
    "loopStart": 0.2,
-   "loopEnd": 43.836372
+   "loopEnd": 43.836372,
+   "label": "Victory",
+   "take": 2
   }
  }
 }

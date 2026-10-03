@@ -7,30 +7,42 @@
 //   Hard    the melody's rhythm too (syncopations, triplets, quick pairs)
 // Songs have sections (data format v2): grooves with different rhythmic
 // patterns and short "breath" sections between them, which stay (almost) empty.
-import { registerMusic } from '../../engine/audio.js';
+import { registerMusic, songTagsOn } from '../../engine/audio.js';
 import { session } from '../../state.js';
 import { pick } from '../../engine/util.js';
 
 let songs = null, loading = null;
+const altTakes = new Map();   // song id -> [alternate takes with their own onsets] (rhythm/takes.json)
 const DIV = 12;   // onset positions in 1/12 beat: 16ths = 3, triplet 8ths = 4
 
 /** Load the song list once (resolves to [] when there are no songs yet). */
 export function loadRhythmSongs() {
   if (!loading) {
-    loading = fetch('assets/audio/music/rhythm/index.json', { cache: 'no-cache' })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => {
+    const get = (f) => fetch('assets/audio/music/rhythm/' + f, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    loading = Promise.all([get('index.json'), get('takes.json')])
+      .then(([j, t]) => {
         songs = ((j && j.songs) || []).map(normalize).filter(Boolean);
-        for (const s of songs) {
-          registerMusic(musicKey(s), s.loop
-            ? { file: s.file, loopStart: s.start, loopEnd: s.loopEnd, bpm: s.bpm }
-            : { file: s.file, start: s.start, once: true, bpm: s.bpm });
+        for (const s of songs) register(s);
+        for (const a of (t && t.takes) || []) {
+          const base = songs.find((s) => s.id === a.id);
+          const alt = base && normalize({ ...base, loopEnd: undefined, ...a, alt: true });
+          if (!alt) continue;
+          if (!altTakes.has(a.id)) altTakes.set(a.id, []);
+          altTakes.get(a.id).push(alt);
+          register(alt);
         }
         return songs;
       })
       .catch(() => { songs = []; return songs; });
   }
   return loading;
+}
+
+function register(s) {
+  const label = s.name, take = s.take;
+  registerMusic(musicKey(s), s.loop
+    ? { file: s.file, loopStart: s.start, loopEnd: s.loopEnd, bpm: s.bpm, label, take }
+    : { file: s.file, start: s.start, once: true, bpm: s.bpm, label, take });
 }
 
 /** Bring a song entry to format v2 (v1 = a looping 16th-note grid). */
@@ -55,7 +67,7 @@ function normalize(s) {
 }
 
 export const rhythmSongs = () => songs || [];
-export const musicKey = (song) => 'rhythm:' + song.id;
+export const musicKey = (song) => 'rhythm:' + song.id + (song.alt ? '-' + song.take : '');
 
 export const LEVELS = ['Easy', 'Normal', 'Hard'];
 
@@ -64,16 +76,22 @@ export function rhythmChoice(gameId) {
   session.gameOptions = session.gameOptions || {};
   return (session.gameOptions[gameId] = session.gameOptions[gameId] || { song: 'random', level: 0 });
 }
-/** The song to play for this game (random picks a different one than last time). */
+/**
+ * The song to play for this game (random picks a different one than last
+ * time). With song tags on, a song that has alternate takes plays one of
+ * them at random (each take has its own onsets, so its chart matches it).
+ */
 export function chooseSong(gameId) {
   const list = rhythmSongs(), c = rhythmChoice(gameId);
   if (!list.length) return null;
-  const fixed = list.find((s) => s.id === c.song);
-  if (fixed) return fixed;
-  const pool = list.length > 1 ? list.filter((s) => s.id !== c.last) : list;
-  const s = pick(pool);
-  c.last = s.id;
-  return s;
+  let s = list.find((x) => x.id === c.song);
+  if (!s) {
+    const pool = list.length > 1 ? list.filter((x) => x.id !== c.last) : list;
+    s = pick(pool);
+    c.last = s.id;
+  }
+  const alts = altTakes.get(s.id);
+  return songTagsOn() && alts ? pick([s, ...alts]) : s;
 }
 
 /** Song options for the how-to screen (games' meta.options). */
