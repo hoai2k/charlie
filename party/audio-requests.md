@@ -1377,11 +1377,11 @@ the original title themes are only in `takes/` for auditioning.
 | `takes/dance-2.mp3` | 32 bars, 64.000 s (start bar 3) | 120.000 → 120.000 | -16.1 LUFS, -3.6 dBTP | 0.98 | median -0.7 ms, p95 7.2 ms, max 8.3 ms (100.0 % within ±10 ms) | 1.55 MB |  |
 | `takes/dance-3.mp3` | 32 bars, 64.000 s (start bar 5) | 119.999 → 120.000 | -16.2 LUFS, -3.6 dBTP | 1.51 | median +0.4 ms, p95 1.5 ms, max 1.9 ms (100.0 % within ±10 ms) | 1.55 MB |  |
 | `takes/menu-1.mp3` | 16 bars, 34.286 s (start bar 20) | 111.996 → 112.000 | -16.2 LUFS, -3.6 dBTP | 1.04 | median +2.5 ms, p95 5.8 ms, max 7.0 ms (100.0 % within ±10 ms) | 0.83 MB | **yes** |
-| `takes/menu-2.mp3` | 16 bars, 34.286 s (start bar 20) | 112.000 → 111.999 | -16.3 LUFS, -6.1 dBTP | 1.18 | median +1.4 ms, p95 7.7 ms, max 8.8 ms (100.0 % within ±10 ms) | 0.83 MB |  |
+| `takes/menu-2.mp3` | 16 bars, 34.286 s (start bar 20) | 112.000 → 111.999 | -16.3 LUFS, -6.1 dBTP | 1.18 | median +1.4 ms, p95 7.7 ms, max 8.8 ms (100.0 % within ±10 ms) | 0.83 MB || removed: user found it too repetitive |
 | `takes/menu-3.mp3` (cut of take 1) | 24 bars, 51.429 s (start bar 8) | 111.996 → 111.999 | -16.2 LUFS, -3.2 dBTP | 1.17 | median +1.6 ms, p95 5.4 ms, max 22.1 ms (99.0 % within ±10 ms) | 1.25 MB |  |
 | `takes/chill-1.mp3` | 24 bars, 62.609 s (start bar 3) | 92.002 → 92.000 | -16.2 LUFS, -2.6 dBTP | 1.12 | median +1.5 ms, p95 5.2 ms, max 28.4 ms (98.7 % within ±10 ms) | 1.51 MB | **yes** |
 | `takes/chase-1.mp3` | 24 bars, 36.923 s (start bar 6) | 155.992 → 156.000 | -16.2 LUFS, -3.5 dBTP | 0.92 | median +3.2 ms, p95 6.3 ms (97.9 % within ±10 ms) | 0.90 MB | **yes** |
-| `takes/chase-2.mp3` | 24 bars, 36.923 s (start bar 22) | 155.994 → 156.000 | -16.1 LUFS, -4.4 dBTP | 1.12 | median +1.4 ms, p95 2.8 ms (100.0 % within ±10 ms) | 0.90 MB |  |
+| `takes/chase-2.mp3` | 24 bars, 36.923 s (start bar 22) | 155.994 → 156.000 | -16.1 LUFS, -4.4 dBTP | 1.12 | median +1.4 ms, p95 2.8 ms (100.0 % within ±10 ms) | 0.90 MB || removed: user found it too repetitive |
 | `takes/bouncy-1.mp3` | 24 bars, 45.000 s (start bar 9) | 127.999 → 128.000 | -16.3 LUFS, -3.0 dBTP | 0.97 | median +1.3 ms, p95 3.0 ms (100.0 % within ±10 ms) | 1.09 MB | **yes** |
 | `takes/bouncy-2.mp3` | 24 bars, 45.000 s (start bar 16) | 127.990 → 128.000 | -16.3 LUFS, -4.2 dBTP | 1.16 | median +2.6 ms, p95 21.6 ms (82.7 % within ±10 ms) | 1.09 MB |  |
 | `takes/tense-1.mp3` | 16 bars, 32.000 s (start bar 20) | 119.996 → 120.000 | -16.3 LUFS, -2.2 dBTP | 0.83 | median +2.3 ms, p95 5.9 ms (100.0 % within ±10 ms) | 0.78 MB | **yes** |
@@ -1585,9 +1585,9 @@ to jump to 4 s before `loopEnd` and hear the loop seam:
 - [ ] `dance-1` (in game) vs `dance-2`/`dance-3`: catchy and "empowering idol
   anthem"? Is the kick felt on every beat? Clap along in Pop Star Stage and
   Spotlight Dance-Off: notes should land on the beat, not early or late.
-- [ ] `menu-1` (in game) vs `menu-2` (softer) vs `menu-3` (longer cut, with a
-  drop back to the lighter section at the seam): calm enough to chat over? Does
-  `menu-3`'s seam feel like a natural section change?
+- [x] `menu-1` (in game) vs `menu-2` (softer) vs `menu-3` (longer cut, with a
+  drop back to the lighter section at the seam): the user removed `menu-2` and
+  `chase-2` (too repetitive). `menu-1` and `menu-3` stay in the mix.
 - [ ] `chill-1`: cozy and dreamy, music box not too tinkly? The loop is a quiet
   steady cycle: check that it doesn't sound like it "restarts" at the seam.
 - [ ] In game, the music sits under the SFX and voices (bus levels from §1).

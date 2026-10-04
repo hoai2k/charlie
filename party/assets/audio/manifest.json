@@ -710,12 +710,6 @@
    "take": 1,
    "takes": [
     {
-     "file": "music/takes/menu-2.mp3",
-     "take": 2,
-     "loopStart": 0.2,
-     "loopEnd": 34.485714
-    },
-    {
      "file": "music/takes/menu-3.mp3",
      "take": 3,
      "loopStart": 0.2,
@@ -735,15 +729,7 @@
    "loopStart": 0.2,
    "loopEnd": 37.123084,
    "label": "Chase",
-   "take": 1,
-   "takes": [
-    {
-     "file": "music/takes/chase-2.mp3",
-     "take": 2,
-     "loopStart": 0.2,
-     "loopEnd": 37.123084
-    }
-   ]
+   "take": 1
   },
   "bouncy": {
    "file": "music/takes/bouncy-1.mp3",

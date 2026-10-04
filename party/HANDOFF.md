@@ -32,7 +32,7 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
     start 0.1857) and `rh-flamenco` Fiesta Fan (112, only grooves A and B).
     The alternate takes are in `takes/`.
   - **Background loops (committed):** chase-1, bouncy-1, tense-1 and
-    victory-2 are in the manifest. The alternates (chase-2, bouncy-2,
+    victory-2 are in the manifest. The alternates (bouncy-2,
     tense-2, victory-1) and two original title themes (title-1, title-2, the
     agent prefers title-2) are for auditioning only. Title and party still
     use Bubblegum Radar.
@@ -47,6 +47,8 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
       entries. Rhythm alternates, with their own onsets, are in
       `music/rhythm/takes.json`.
     - The Takes tab marks each take "in game", "in mix" or plain "take".
+    - User feedback so far: `menu-2` and `chase-2` were too repetitive and are
+      deleted. Everything else heard so far sounds good.
     - Left out of the mix: dance-2/3 (Shadow Banish's beat drives Spotlight
       Dance-Off), victory-1 (bump at the seam), rh-bossa-1, rh-tango-2 and
       rh-flamenco-2 (the beat wanders).

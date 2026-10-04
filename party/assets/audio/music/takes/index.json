@@ -64,21 +64,6 @@
   },
   {
    "song": "menu",
-   "take": 2,
-   "file": "music/takes/menu-2.mp3",
-   "bpm": 112,
-   "bars": 16,
-   "loopStart": 0.2,
-   "loopEnd": 34.485714,
-   "lufs": -16.3,
-   "truePeak": -6.1,
-   "seamScore": 1.18,
-   "bpmMeasured": 112.0,
-   "bpmFinal": 111.9993,
-   "notes": "Softest, quietest menu take (kalimba/marimba, light snaps, gentle bass); 16-bar loop, kick drops out at times"
-  },
-  {
-   "song": "menu",
    "take": 3,
    "file": "music/takes/menu-3.mp3",
    "bpm": 112,
@@ -124,21 +109,6 @@
    "bpmFinal": 155.9999,
    "notes": "Comic chase: galloping bass, pizzicato, bassoon/tuba; 24 bars; smoothest seam",
    "inGame": true
-  },
-  {
-   "song": "chase",
-   "take": 2,
-   "file": "music/takes/chase-2.mp3",
-   "bpm": 156,
-   "bars": 24,
-   "loopStart": 0.2,
-   "loopEnd": 37.123084,
-   "lufs": -16.1,
-   "truePeak": -4.4,
-   "seamScore": 1.12,
-   "bpmMeasured": 155.9943,
-   "bpmFinal": 156.0,
-   "notes": "Silly cartoon chase with clarinet/bassoon and xylophone runs; 24 bars"
   },
   {
    "song": "bouncy",
