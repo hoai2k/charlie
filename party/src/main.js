@@ -17,7 +17,7 @@
 
 import { setupCanvas, beginFrame, endFrame, W, H } from './engine/canvas.js';
 import { input } from './engine/input.js';
-import { initAudio, unlockAudio, setMuted, preloadVoices, music, songTagsOn } from './engine/audio.js';
+import { initAudio, unlockAudio, setMuted, preloadVoices } from './engine/audio.js';
 import { loadSprites } from './engine/sprites.js';
 import { loadArt, requestedKeys } from './engine/art.js';
 import { particles } from './engine/particles.js';
@@ -26,6 +26,7 @@ import { scenes } from './engine/scenes.js';
 import { shell } from './engine/shell.js';
 import { corner } from './engine/corner.js';
 import { settings } from './engine/settings.js';
+import { songTag } from './engine/songtag.js';
 import * as ui from './engine/ui.js';
 import { session, makePlayer, newAIController, randomFreeCharacter, assignGlows } from './state.js';
 import { variantCount } from './data/variants.js';
@@ -102,18 +103,6 @@ function setupDebugPlayers() {
   setTimeout(() => preloadVoices(session.players.map((p) => p.charId)), 500);
 }
 
-// Song tag (Settings > Song tags): names the song and take playing, so takes
-// can be judged during play. Bottom right, small, out of the way.
-function drawSongTag(g) {
-  const tag = songTagsOn() && music.tag;
-  if (!tag) return;
-  const str = '♪ ' + tag, size = 22, w = ui.measure(g, str, size, 700) + 36;
-  g.save(); g.globalAlpha = 0.85;
-  ui.panel(g, W - 16 - w, H - 58, w, 42, { r: 21, fill: 'rgba(36,22,63,0.82)', stroke: false, shadow: false });
-  ui.text(g, str, W - 16 - w / 2, H - 36, { size, color: '#fff', stroke: false, weight: 700 });
-  g.restore();
-}
-
 let last = performance.now();
 function frame(now) {
   const rawDt = Math.min(0.05, (now - last) / 1000);
@@ -138,6 +127,7 @@ function frame(now) {
       if (i < steps - 1) input.update(0);
     }
     corner.visible = showCorner();
+    songTag.update(rawDt);
     corner.update(rawDt);
     ui.resetHotspots();
     g.save();
@@ -145,7 +135,7 @@ function frame(now) {
     scenes.draw(g);
     g.restore();
     fx.drawFlash(g, W, H);
-    drawSongTag(g);
+    songTag.draw(g);
     settings.draw(g);
     corner.draw(g);
   }

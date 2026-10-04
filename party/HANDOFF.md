@@ -43,6 +43,10 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   - **Song tags (Settings, default On):**
     - A bottom-right tag names the song and take playing ("Chase · take 2").
     - Songs with alternates play a random take each time they start.
+      Clicking the tag (it shows ⟳ when a song has alternates) cycles to the
+      next take; `engine/songtag.js` takes the click before the scene sees
+      it. Rhythm-game songs can't switch mid-song, because the chart is built
+      from the take.
     - Background alternates are listed under `"takes"` in the manifest music
       entries. Rhythm alternates, with their own onsets, are in
       `music/rhythm/takes.json`.

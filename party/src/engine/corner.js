@@ -8,6 +8,7 @@ import { input } from './input.js';
 import { isMuted, toggleMuted, unlockAudio, sfx } from './audio.js';
 import { shell } from './shell.js';
 import { settings, drawGear } from './settings.js';
+import { songTag } from './songtag.js';
 import { NAVY } from './ui.js';
 import { TAU } from './util.js';
 
@@ -49,6 +50,7 @@ export const corner = {
     settings.init();
     input.onPointerButton = (x, y) => {
       if (settings.isOpen && !this.hit(x, y)) return settings.pointer(x, y);
+      if (songTag.hit(x, y)) return true;
       const b = this.hit(x, y);
       if (b) this.activate(b.id);
       return !!b;

@@ -81,13 +81,14 @@ export function setSongTags(on) {
   try { localStorage.setItem(AUDITION_KEY, audition ? '1' : '0'); } catch (e) { /* private mode */ }
 }
 const takePicks = new Map();   // name -> the take chosen for this playing of it
+const baseEntry = (name) => { const e = manifest.music[name]; return !e ? null : typeof e === 'string' ? { file: e } : e; };
+/** Every take of a song: the main entry first, then its alternates. */
+const allTakes = (name) => { const b = baseEntry(name); return b ? [b, ...(b.takes || []).map((t) => ({ ...b, stream: false, ...t }))] : []; };
 const musicEntry = (name) => {
-  const e = manifest.music[name];
-  if (!e) return null;
-  const base = typeof e === 'string' ? { file: e } : e; // { file, loopStart, loopEnd, offset, stream, take, label, takes }
-  if (!audition || !base.takes || !base.takes.length) return base;
+  const base = baseEntry(name); // { file, loopStart, loopEnd, offset, stream, take, label, takes }
+  if (!base || !audition || !base.takes || !base.takes.length) return base;
   if (!takePicks.has(name)) {
-    const all = [base, ...base.takes.map((t) => ({ ...base, stream: false, ...t }))];
+    const all = allTakes(name);
     takePicks.set(name, all[Math.floor(Math.random() * all.length)]);
   }
   return takePicks.get(name);
@@ -481,6 +482,7 @@ class Music {
     // A streamed song never needs restarting: just make sure it is playing.
     if (this.name === name && (!restart || this.stream)) { this._kick(); return; }
     if (this.name && this.name !== name) takePicks.delete(this.name); // next time it starts, roll a take again
+    this.switching = null;
     this.stop(0.25);
     const def = SONGS[name];
     this.name = name;
@@ -544,10 +546,32 @@ class Music {
     }
     this.gain = null; this.song = null; this.name = null; this.stream = null; this.entry = null;
   }
+  /** True if the playing song has another take to switch to (song tags on). */
+  get canSwitchTake() { return !!(audition && this.name && allTakes(this.name).length > 1); }
+  /**
+   * Song tag click: switch the playing song to its next take. The current
+   * take keeps playing until the next one has decoded.
+   */
+  nextTake() {
+    if (!this.canSwitchTake) return false;
+    const name = this.name, all = allTakes(name), cur = this.entry ? this.entry.file : null;
+    const next = all[(Math.max(0, all.findIndex((t) => t.file === cur)) + 1) % all.length];
+    takePicks.set(name, next);
+    this.switching = next;
+    const go = () => {
+      if (this.name !== name || this.switching !== next) return;
+      this.switching = null;
+      this.stop(0.2);
+      this.play(name);
+    };
+    if (next.stream) go(); else loadMusic(name).then(go);
+    return true;
+  }
   /** What's playing, for the song tag: "Chase · take 2" (null when silent). */
   get tag() {
     if (!this.name) return null;
     const e = this.entry, recorded = e && (this.fileSrc || this.stream);
+    if (this.switching) return `${songLabel(this.name, this.switching)}${this.switching.take ? ` · take ${this.switching.take}` : ''} (loading…)`;
     if (!recorded) return `${songLabel(this.name, e)} (synth)`;
     return songLabel(this.name, e) + (e.take ? ` · take ${e.take}` : '');
   }
