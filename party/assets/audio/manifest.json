@@ -731,7 +731,14 @@
   "cush-boing": "sfx/cush-boing.mp3",
   "cush-out": "sfx/cush-out.mp3",
   "cush-fakeout": "sfx/cush-fakeout.mp3",
-  "cush-needle": "sfx/cush-needle.wav"
+  "cush-needle": "sfx/cush-needle.wav",
+  "pancake-flip": "sfx/pancake-flip.mp3",
+  "pancake-plop": "sfx/pancake-plop.wav",
+  "pancake-perfect": "sfx/pancake-perfect.mp3",
+  "pancake-crash": "sfx/pancake-crash.mp3",
+  "syrup-pour": "sfx/syrup-pour.mp3",
+  "tower-wobble": "sfx/tower-wobble.mp3",
+  "topping-squish": "sfx/topping-squish.mp3"
  },
  "music": {
   "title": {
