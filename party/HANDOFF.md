@@ -109,6 +109,25 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   - **Teaching order:** B joins at groove 2, X and Y at groove 3. The last
     groove is the golden finale.
 
+### Four new Play Studio games (agents, in progress)
+- The user asked for 4 more studio games to fill the second Play Studio row
+  (12 party + 12 studio).
+- Four agents build them in separate git worktrees on their own branches.
+  They don't push; the lead reviews and merges each branch.
+  - `dream-room`: Dream Room, decorating a bedroom.
+  - `melody-maker`: Melody Maker, a step sequencer plus a concert.
+  - `seek-and-find`: Hide & Seek Picnic, an I-spy game.
+  - `bead-bracelets`: Sparkle Bead Shop, pattern beads plus free design.
+- Each agent adds its game to the end of `src/games/index.js` and a
+  `## New Play Studio game: <id>` section to the end of
+  `image-requests.md` (maybe also `audio-requests.md`).
+- To merge:
+  1. Resolve `index.js` by keeping every import.
+  2. For `index.html`, take ours and re-run stamp-modules.
+  3. Concatenate the request sections.
+  4. Test each game headless and push.
+  5. Tell the user which images to generate.
+
 ## Open items (not started or waiting)
 - **Music:** the user chooses takes per song on the Takes tab. Then move the
   chosen takes into the manifest and delete the others (the takes total about
@@ -125,6 +144,16 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   in the colour variants.
 
 ## Conventions that bite
+- Corner "i" button: shown during play. Its how-to card comes from the game's
+  meta goal, controls and tips. Use `meta.infoAt: 'tl'|'tr'|'br'` when the
+  bottom-left holds game UI. `meta.cornerControls: { at, items }` draws a
+  compact legend in a corner during play.
+- `ctrl.sx` / `ctrl.sy`: the left stick without the d-pad, for games that
+  give the d-pad its own job (Art Studio).
+- Fashion Show: per-character `FIT` table in `fashion-show.js`. Re-check
+  with the fit audit render after adding a character.
+- Long one-shot sfx (over 2 s) are stopped when a game is left, and quieted
+  when it's paused.
 - After changing any `party/src` code, run
   `node party/tools/stamp-modules.mjs` (content-hashed import map in
   `index.html`). If `index.html` conflicts in a merge, take ours and re-run it.
