@@ -1860,3 +1860,41 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: snowball-splat
+
+### snowball-splat — Snowball Splat   (requested by the snowball-splat agent, 2026-10-05, priority: nice-to-have)
+
+A top-down snowball free-for-all in a snowy cottage garden: players pack
+snowballs, throw them across the yard, hide behind snow-fort walls and
+snowmen (which crumble when hit and pop back up), and grab a giant rolling
+snowball or a red triple-throw mitten. Everything below has a procedural
+fallback that ships today (`party/src/games/snowball-splat/art.js`); the code
+already looks up every key, so a file listed in `assets/art/index.json` drops
+in with no code change. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text** in any image. Characters use
+existing poses (`crouch` while scooping, `throw`, `carry` with the giant
+snowball overhead, `knockback` → `dizzy` when splatted, `cheer`, `celebrate`,
+`clap`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/snowball-splat` | 1920×1080, opaque | Full screen, 1:1 (the camera zooms up to ~1.2×). **Layout must match:** sky and backdrop above y≈200, a wooden picket fence along y≈200–245, open snowy ground below. Players walk in x 90–1830, y 262–1028. A **frozen pond** sits exactly at the centre: ellipse centre (960, 652), radii 205×88, with a ~20 px snowy rim. Keep the top ~110 px calm (scoreboard chips) and the ground plain — the code draws the walls, snowmen, splats and scoop dents | A cozy winter cottage garden seen from a high 3/4 top-down angle: pale blue sky with soft clouds, snowy hills, two candy-coloured cottages with thick snow on the roofs and warm yellow windows, snow-tipped pine trees, a honey-wood picket fence with snow caps and a string of colourful party lights; below it a wide smooth field of fresh snow with gentle blue-shaded drifts and tiny sparkles, a small oval frozen pond (pale cyan ice with white streaks) in the middle, snowbanks and pines along the left, right and bottom edges |
+| `thumb/snowball-splat` | 800×500, opaque | Game-select shelf and how-to screen (`drawIcon` is the fallback) | Two cheerful roster characters mid snowball fight in a snowy garden: one ducking behind a snow-fort wall, a snowball flying in a dotted arc toward a snowman with a red scarf, a white splat burst, a giant snowball and a red knitted mitten in the corners, falling snowflakes. Subject centred |
+| `prop/snowball` | 64×64, transparent | Centred on the ball, drawn at 2.3 × its radius (7–12 px radius: in hands, in flight, and as the 3 ammo pips over each head). The ball should fill ~87% of the canvas | A single round packed snowball: white with soft blue shading at the lower right, a small white highlight at the upper left, a few tiny lumps, thin navy outline |
+| `prop/giant-snowball` | 256×256, transparent | Centred on the ball, drawn at 2.15 × its radius (26–66 px). The code does not rotate it, so keep it nearly round | A huge round snowball, lumpy packed snow with blue cel shading and a big white highlight, navy outline |
+| `prop/powerup-giant` | 192×192, transparent | Centred inside the floating pickup bubble, ~97 px wide; the code draws the glow and the bubble around it | Power-up icon: a giant sparkly snowball with a little gold star twinkle on it, cheerful and chunky |
+| `prop/triple-mitten` | 160×160, transparent | Centred, drawn 30–100 px tall: on the pickup bubble (the code adds "x3" beside it), in the player's hand, and next to the ammo pips | A red knitted mitten with a yellow and a white stripe and a fluffy white cuff, upright, thumb on the left |
+| `prop/snow-splat` | 256×256, transparent | Ground decal centred where a snowball landed; **the code squashes it vertically to 42%** and fades it out. Drawn 36–150 px wide, so paint it as a round splat seen from straight above | A white snow splat seen from above: a star-shaped burst of packed snow with little round blobs flung around it, faint blue shading, thin soft-blue outline |
+| `prop/face-splat` | 128×128, transparent | Centred on a character's eyes for ~2 s after a hit, drawn at 2.4 × (15% of the character's height), fades out | A cartoony blob of white snow stuck on a face: a round splat with three bumps and two little drips, navy outline, light blue shading |
+| `prop/snow-wall` | 460×256 (ratio 230:128), transparent | **Stretched** over a horizontal fort-wall block: footprint 230×44 plus an 84 px front face, so the **top 34%** of the image is the top face and the **bottom 66%** the front face. Damage lowers it to ~60% height (stretched) and the code adds cracks | A packed-snow fort wall made of stacked snow bricks, seen from a high 3/4 angle: flat white top face with a slightly lumpy edge, blue-shaded front face with brick seams, navy outline |
+| `prop/snow-wall-side` | 176×1016 (ratio 44:254), transparent | Same, for the two walls that run away from the viewer at the sides: footprint 44 wide × 170 deep plus the 84 px front face, so the **top 67%** is the top face and the **bottom 33%** the front face | The same snow-brick fort wall seen end-on: a long narrow white top face and a short blue-shaded front end with brick seams |
+| `prop/snow-rubble` | 520×120, transparent | Bottom-centre anchored at the wall's front edge, fitted into (wall length + 30)×60 px; shown while a crumbled wall waits to rebuild | A low pile of broken snow bricks and lumps, white with blue shading, navy outline |
+| `prop/snowman` | 300×420, transparent | Bottom-centre (base of the bottom ball) on the snowman's foot point, fitted into 150×210 px. Hit 1 swaps to `-nohat`, hit 2 to `-body`, hit 3 to `-pile` | A friendly three-ball snowman: coal eyes and smile, carrot nose, pink cheeks, twig arms, a red knitted scarf, a blue bobble hat |
+| `prop/snowman-nohat` | 300×420, transparent | Same canvas, scale and placement as `prop/snowman` | The same snowman without its hat |
+| `prop/snowman-body` | 300×420, transparent | Same canvas, scale and placement as `prop/snowman` | The same snowman with only the two lower balls, the scarf and twig arms (its head has been knocked off) |
+| `prop/snowman-pile` | 260×140, transparent | Bottom-centre on the snowman's foot point, fitted into 130×70 px, until it rebuilds | A flattened snowman: a lumpy snow heap with the red scarf and the carrot on top |
+
+Optional future pose (the game reads fine without it): `snow-scoop` (loop,
+fallback `crouch` → `land`): crouched, both hands (or paws) packing a
+snowball on the ground. The game uses `crouch` for scooping today.
