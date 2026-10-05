@@ -22,6 +22,8 @@
             109,
             289
           ],
+          "artHash": "755a74e19d72543b75d9ba90a6a3e719153508faa3f64abb67da3d1cf6524bd9",
+          "fileHash": "4805e44241178d51b9a2f528fca6fd3cc24d07c442d2316bd13bd717b09d049d",
           "head": [
             109,
             35
@@ -50,6 +52,8 @@
             108,
             290
           ],
+          "artHash": "3e900ce3a6ea452c1249cd62ca70813ed42d7f7c3d42b4d6dfb089223db80ca0",
+          "fileHash": "36e2bf469c423b96fb3855cfcc24e4b093bed71e328009542cc008242a608a65",
           "head": [
             108,
             35
@@ -86,6 +90,8 @@
             108,
             283
           ],
+          "artHash": "e2c572ba052bfe5f2860d99ff6fab981a44af9cf9b69cc3519ef3bc8704ab530",
+          "fileHash": "dcd221f31c33f6677eef66269c95d7a5a2b59784c4ee355682e5df842fbe617a",
           "head": [
             108,
             34
@@ -121,6 +127,8 @@
             106,
             285
           ],
+          "artHash": "4192c68594b035ce860975280351eaacbfe32cd38cf6d9fcb9daf0c4f8c39190",
+          "fileHash": "a53000f32200a9900e940df38be5ebe3464f70f4eea95cd2293b0e121fa7a1cd",
           "head": [
             106,
             34
@@ -156,6 +164,8 @@
             108,
             288
           ],
+          "artHash": "c5514dd0897e200fa1871c1e56778d024c30cdf374c25546a44d4c4126fe21cc",
+          "fileHash": "304412c37cfe27bb69420e197d6be3207c3c545eecd5ea968942f61452c16080",
           "head": [
             108,
             35
@@ -191,6 +201,8 @@
             105,
             278
           ],
+          "artHash": "7b48dca8b3dfa9cfe95705cf40a4637ca1086a15ff224bac41893bc9925cf65c",
+          "fileHash": "5abc0616bd1b2c3289b69e8aacd04808170a0aaee7ff770d05068e51b2b34f86",
           "head": [
             105,
             34
@@ -226,6 +238,8 @@
             107,
             281
           ],
+          "artHash": "87217ab321c299939494e98d80afe7f9f05698c58fa7de7647f65f9091b16a36",
+          "fileHash": "48876af70dd61aff2bb142ae6d104732c09d2601919739fec2b3792d71d27a85",
           "head": [
             107,
             34
@@ -254,6 +268,8 @@
             103,
             275
           ],
+          "artHash": "d6fe6e38556e49d730b2d32ed1f1060ba5d2f613779e82d5639514885eca57b3",
+          "fileHash": "93ae91c75cd0093bad74be3cda191dec1d4efcf8e3fd6b1e592bd9e45e534579",
           "head": [
             103,
             28
@@ -290,6 +306,8 @@
             109,
             283
           ],
+          "artHash": "ab9ed363dac09ff888c5333a90dccacc9e633c28bdaf9adda6416b525e3a1b14",
+          "fileHash": "fba5e6e5d708bb8754208531e4978dc9c45c438cf6b722a24b07f3dddfa7e494",
           "head": [
             109,
             34
@@ -325,6 +343,8 @@
             102,
             287
           ],
+          "artHash": "18cb9625d9ed2650d5171a5a348718fa38538faf05caeebdfb2b39ddcd1fec51",
+          "fileHash": "c7ed8914fcc010cc061f6ddf45bf3fa3c5118a4eebbf6b66b5606f836f11fe02",
           "head": [
             102,
             35
@@ -352,6 +372,8 @@
             101,
             286
           ],
+          "artHash": "48b0f8780950033c5e2f17ec089e660028a64dea0822e42f39b0a3f0836a9391",
+          "fileHash": "7834c9e948428f7c58b93b304285bb9dcb9379b6d4e179f567b85864621d134c",
           "head": [
             101,
             34
@@ -379,6 +401,8 @@
             100,
             286
           ],
+          "artHash": "f5e429e26d7ec257d20cb8ee181838c76fe81cc9b71cf264af03c02c9ff93c64",
+          "fileHash": "e4df3dacfafd300ba16ca04b8c354fc1f2ce5c428f995029d38116df7b3b34cc",
           "head": [
             100,
             35
@@ -406,6 +430,8 @@
             98,
             288
           ],
+          "artHash": "328562d50aaee9f71db299462343105d61aaf5b655383fe034d203f83394c286",
+          "fileHash": "f5cec7a38e486d46af083193b03df2e0b1c9cc5cc2c13b9403484f87ed1067e0",
           "head": [
             98,
             35
@@ -441,6 +467,8 @@
             102,
             271
           ],
+          "artHash": "11dd9821edc7469224b01057915820d7dea8450e3ae8b9b659505f87df907be8",
+          "fileHash": "2ba804ca66d752bce9bcc68651d723b7c76b91fcde1a25193c256cc110d45f75",
           "head": [
             102,
             33
@@ -468,6 +496,8 @@
             100,
             269
           ],
+          "artHash": "3ba9e6e21f665e70cf4df6f3030760606ff7ad50b98db4746eb4478f085c0fca",
+          "fileHash": "72610f35527dd302df0c456ec8e9e1d84e61abb9fd067a68d5d7f4e02e688317",
           "head": [
             100,
             33
@@ -495,6 +525,8 @@
             103,
             266
           ],
+          "artHash": "842154ef4729aabb5a1119c3c3d60ae98895437e29be09d57c1d0cbb28a99743",
+          "fileHash": "243fae4106a0ee83aed312029f1d5eaaab9b1f678f31d7b6d8764eca21daed4e",
           "head": [
             103,
             30
@@ -522,6 +554,8 @@
             102,
             268
           ],
+          "artHash": "b7359d7bca15d80501d45a1f318e34b0428e4f2ad3dc0dc1fc835598948be07a",
+          "fileHash": "f51f775282e0d4664881d2165e70c1c62feac01b0623356e7ce972bb817bebee",
           "head": [
             102,
             33
@@ -557,6 +591,8 @@
             102,
             306
           ],
+          "artHash": "edf676f166b4c1f58adb339d846d6ebdeb945545fa30b79343eef4c190a1611a",
+          "fileHash": "74bc23077a38439b5f97f76a9710ebf4daca5544c103b534fb62edb34b77c163",
           "head": [
             102,
             35
@@ -592,6 +628,8 @@
             112,
             288
           ],
+          "artHash": "0df4cc3613c0746c1d835441725c0356315c58f2472ed9d9ba71ae8d3f60f473",
+          "fileHash": "8d761911877b7d1f6e9c8118fc99eca341962130ac519fe203ec502f7a1af995",
           "head": [
             112,
             33
@@ -627,6 +665,8 @@
             108,
             232
           ],
+          "artHash": "5de559244103b097fa6696991ddbcff46c76222f79bb0aa3e6ee5702cd4dfcb6",
+          "fileHash": "11e4d380cdc48a13570263060ed872072e7c730d89adc33990718c8cc64a3fba",
           "head": [
             108,
             28
@@ -662,6 +702,8 @@
             103,
             283
           ],
+          "artHash": "36f8abe1b6114f6c1c567180d999ec0e8b864e8a8abaa7c98ac40e097209e2e8",
+          "fileHash": "9a18c4cca795b10f3eef3651b4db5baa8f2ae2ed566985b2f1355fe7954c8939",
           "head": [
             103,
             34
@@ -697,6 +739,8 @@
             106,
             270
           ],
+          "artHash": "dc22586426d48c39016065e3cdebff41ed1a8d126636da80115ae6abd14cb8d3",
+          "fileHash": "71e9babf956b8ce87cace9d02a0973dd1847c755770854c8f99bcafae1075f7d",
           "head": [
             106,
             33
@@ -732,6 +776,8 @@
             97,
             282
           ],
+          "artHash": "2e1e2b269d5fe89a02e165a38f43d2332ae29fb84b89935cad5901b59f1203c0",
+          "fileHash": "6a85aecda63aa56cb64eb474ed1431e28306ef499f8e4a8481a2e5e6cf22ce5c",
           "head": [
             97,
             34
@@ -767,6 +813,8 @@
             109,
             265
           ],
+          "artHash": "939fb16b251c23361125dd47ed0b14d4db8894b421c8e0d79e97b03f1676a368",
+          "fileHash": "1ad3b2ad9a4a3a7705e9e1619cd9dfc205d2fe18c9eb1376da2fb7c14786de70",
           "head": [
             109,
             32
@@ -802,6 +850,8 @@
             106,
             282
           ],
+          "artHash": "0dde4f1bf005d2a04ee46684dae7e7511b8b67ab7f3ed92f655163ff7f0f8162",
+          "fileHash": "9c65a59ea7a3b3e6b7c555559411a71a7fc95e8e012bcbc7880a2530a3c6b02b",
           "head": [
             106,
             34
@@ -837,6 +887,8 @@
             100,
             231
           ],
+          "artHash": "c5751f9b220e57c7980060c7f1bec5ea68c7905624ec12db392c1378a8ba861a",
+          "fileHash": "2b2d11a4ad84adcac82185011d2d6b7217c9a586e603c2e43a3d5c1b588e53eb",
           "head": [
             100,
             23
@@ -872,6 +924,8 @@
             104,
             251
           ],
+          "artHash": "7dd9c2eea14aa8ee0620a657c0177fc221c56f76a484626d654aabcfa1558702",
+          "fileHash": "d745de60cd8e799b37fa59c327d9d05cfd7c8ec52727fad65f0e1ae2928971db",
           "head": [
             104,
             25
@@ -900,6 +954,8 @@
             105,
             307
           ],
+          "artHash": "2e629e968e7f22b154d9ad77206bba2a82b20ca83a48e82ce41cd02125d623bb",
+          "fileHash": "b3a74891169974b9da6614ef2466dcd47afebab210349763e7c2e3d725cdf346",
           "head": [
             105,
             30
@@ -928,6 +984,8 @@
             111,
             290
           ],
+          "artHash": "8a9f9c1db71078708fce7fd6f1da58e4fb828ac6a17d3a7c26e1b25a9fce01c1",
+          "fileHash": "770acc9900b950e82c117b9173165f4431b1d9effeccf974466bf5506dbca75b",
           "head": [
             111,
             28
@@ -956,6 +1014,8 @@
             106,
             269
           ],
+          "artHash": "62023cb368ae5f68773c1aeb2ed46a70bd787bcf138f976edd0a7192292ce722",
+          "fileHash": "fc7bcd3c201edf77cfc781269f96fba30ab085d0a9fc2d510cd07a4546b1cd01",
           "head": [
             106,
             27
@@ -992,6 +1052,8 @@
             95,
             268
           ],
+          "artHash": "bdcc380f95203bf1e004cd3ac3e7864aa1fa0638122ffe9745b1b40c407c8933",
+          "fileHash": "5811e7123ddfa6a412f830ced015c69107e8587905a7f1693dc837411bea8f23",
           "head": [
             95,
             27
@@ -1019,6 +1081,8 @@
             104,
             269
           ],
+          "artHash": "84243152dde952d1279d9a9901056f8b8a450e4984e2a569a06dd2fdd336a0ba",
+          "fileHash": "c1720a08cb68309f90bb934734edbe52f387043e35abb594f5720c717f38af42",
           "head": [
             104,
             27
@@ -1053,7 +1117,9 @@
           "anchor": [
             108,
             283
-          ]
+          ],
+          "artHash": "5014c785b7e5b19ceb1751309b184c77cad3704cc8c1dc32a6b03004e7ea059e",
+          "fileHash": "99b3b68e690607162833bebd6ac540bb175e906bc29a45e6cad96b67104bb70b"
         }
       ]
     },
@@ -1068,7 +1134,9 @@
           "anchor": [
             102,
             277
-          ]
+          ],
+          "artHash": "a4ade02ace3b98d3cd7456be291d26bec4a9a7c43ff16d13916211e16b755e6a",
+          "fileHash": "6919daa644eb54b0f861b377f1060ad34a89b63d40a5b80d54f5e3492c7deaaa"
         }
       ]
     },
@@ -1083,7 +1151,9 @@
           "anchor": [
             107,
             286
-          ]
+          ],
+          "artHash": "6506181179458b73787899114f60ef0a33390d3e96915df1a013de97ce8fc40c",
+          "fileHash": "33f04287b6ccf2987e53d70f1c9151a1c82d18c35dd85d5200ce21c63da0b905"
         }
       ]
     },
@@ -1098,7 +1168,9 @@
           "anchor": [
             102,
             279
-          ]
+          ],
+          "artHash": "f40f9766a2ad2947fe009731d8a519d52de279a05ca21e75933d277d9bc3c6be",
+          "fileHash": "8a89b883b9c58a7b7d313e3ae9fa242cc2b4b90880488a76496da3f5ec1f54da"
         }
       ]
     },
@@ -1113,7 +1185,9 @@
           "anchor": [
             103,
             286
-          ]
+          ],
+          "artHash": "0505985127f87cf29f02e214631ab521bdef9dace9db6f5de2159ad4596fd71e",
+          "fileHash": "d57e57b067679fd111df4de36b8a303a76a132e269b37c1b9d4ad28f0a8c2ac9"
         }
       ]
     },
@@ -1128,7 +1202,9 @@
           "anchor": [
             100,
             285
-          ]
+          ],
+          "artHash": "cc231eb92254caf0a6487cf14e0424cd91f90bedddcd7ad613a80a0f08682ea9",
+          "fileHash": "df0c67949b62531cdd9a2eb506d923eee3f8d6eae8265cb80f1720ec1ef72715"
         }
       ]
     },
@@ -1143,7 +1219,9 @@
           "anchor": [
             109,
             272
-          ]
+          ],
+          "artHash": "81ec95cb36f0ad3118a8d7ad8f5152f117ec363154c4a7c008a161401436c4bd",
+          "fileHash": "879da920ddddfcd06bd9b8924b73fc7e248cfbb97560a2b4febc394e7d89ddb4"
         }
       ]
     },
@@ -1158,7 +1236,9 @@
           "anchor": [
             100,
             289
-          ]
+          ],
+          "artHash": "080e2b119c97fb607e9c08d2fe1f6c5be5f65ad375273ad678d07d80f3329b0c",
+          "fileHash": "44d3ab0bb4ca02c0da2db8440126dd3d0d68feced72123663d4ef41dc2186fb3"
         }
       ]
     },
@@ -1173,7 +1253,9 @@
           "anchor": [
             109,
             286
-          ]
+          ],
+          "artHash": "393cd7508b85fc2b73eb2e759471b843618e0f8c6b790ddc6bc7f21b4137ad3a",
+          "fileHash": "8663e9e786efa284d484052a8a59f460d6aebbcbe804c8570cdbaac217e2a63e"
         }
       ]
     },
@@ -1188,7 +1270,9 @@
           "anchor": [
             109,
             286
-          ]
+          ],
+          "artHash": "921536672feea39c44eb294869ec12c348900b1527556fc996eb8c438e63a3a7",
+          "fileHash": "0c5b80452e14e9f4ee7c668d518ce47f51e4018e000491747bf76adb6ecf938d"
         }
       ]
     },
@@ -1203,7 +1287,9 @@
           "anchor": [
             108,
             287
-          ]
+          ],
+          "artHash": "4e6fcc8c51b63710a917cd79d3dde4dfa30329b1abac7edba714c20de554647b",
+          "fileHash": "8e5b1e792d07f12dda8500125c120a3aa3a88c9f38f1912962cd7153ee6451d3"
         }
       ]
     },
@@ -1218,7 +1304,9 @@
           "anchor": [
             107,
             239
-          ]
+          ],
+          "artHash": "d365c46f5001017662946f99da1c48648fef2985f832f215275e73fde0952bc9",
+          "fileHash": "a6c16cec3772269e46e850d7f7d43a8171314a64c18cf1c2abd65442280e9a61"
         }
       ]
     },
@@ -1233,7 +1321,9 @@
           "anchor": [
             109,
             282
-          ]
+          ],
+          "artHash": "5a6d77d61895a654adea97e81eda6735d4f2746c32ba589954639276d53df472",
+          "fileHash": "7c7059685f1d39d16bcf9494fcbd60288e07ec747651d8677c1ceb12c0562797"
         }
       ]
     },
@@ -1248,7 +1338,9 @@
           "anchor": [
             105,
             237
-          ]
+          ],
+          "artHash": "e96711909540a2df92cd56052f70af9a59c0894cb1c4c7b7c151238be33f64c2",
+          "fileHash": "69773d946634aefeec06a61b04ddedefdc44b19ad8cbe1a92c96e646d2f42189"
         }
       ]
     },
@@ -1263,7 +1355,9 @@
           "anchor": [
             117,
             274
-          ]
+          ],
+          "artHash": "940b5674d281481a8cc2e27a8c8988725ed80e5f34a5e1581a1b25f175a1ffd1",
+          "fileHash": "be312f779587f7c025c3df95b6f4428f6b58af5f8b49a9d7d882a3fa1d856306"
         }
       ]
     },
@@ -1278,7 +1372,9 @@
           "anchor": [
             104,
             283
-          ]
+          ],
+          "artHash": "b5c71d1b91f80dbd8d54312e2098b09bd0d7e8b9dbbf6545beef67356b76417b",
+          "fileHash": "d7a08808cb01e5ddc023ee3a89b33da88e3c717c523f243482823113b8ff142d"
         }
       ]
     },
@@ -1293,7 +1389,9 @@
           "anchor": [
             119,
             210
-          ]
+          ],
+          "artHash": "fc8610ada209de9a2bb789af65ec07bf8a5f0f6224dea63b51cabff802726b03",
+          "fileHash": "3644be526ff8296a5f3d94e14bdad3f94d00275ffffec88e1cd31a2b3e5d6681"
         }
       ]
     },
@@ -1309,6 +1407,8 @@
             91,
             257
           ],
+          "artHash": "f5d026d073ad6bb066a4f75bffcb284d943efa87c71d01828a97694ce8873cea",
+          "fileHash": "9f9b5455bb1380cd02ea21196b3e80410c33b8e1031cc4f5c808273d47960816",
           "head": [
             87,
             32
@@ -1343,7 +1443,9 @@
           "anchor": [
             104,
             260
-          ]
+          ],
+          "artHash": "13af2163ca677868d298929176c20cf0bbbf52460c3cd7b1160a6ccd32e961e2",
+          "fileHash": "103c97f8d15aea20155dd2d2196c917f05a75f3db68f2b4bb35d7111440609c9"
         }
       ]
     },
@@ -1358,7 +1460,9 @@
           "anchor": [
             100,
             284
-          ]
+          ],
+          "artHash": "11f8f6a77279ab07bdc976de73f9d4d029b30cacc85b32eae4a5279899299afd",
+          "fileHash": "ff62a70921672e8da5290928db64caf90dbac786f67cc092affae5ac75de1023"
         }
       ]
     },
@@ -1373,7 +1477,9 @@
           "anchor": [
             117,
             243
-          ]
+          ],
+          "artHash": "615e4592ea4dbeabb2a203423c28386ee32389de151358a7bf2d58f0c1b6d96a",
+          "fileHash": "f68804d155fa7fd86bd81ccba8b70dfc17e7d9b01ac0b07839db439c03fabf7d"
         }
       ]
     },
@@ -1388,7 +1494,9 @@
           "anchor": [
             104,
             276
-          ]
+          ],
+          "artHash": "284d60a09cb604069f5dcb3b7ca1f9b6859c0ccf10d1d507a6c3aeba678b10c8",
+          "fileHash": "edf5f895bd0e838123efb25f3756c45060ad0e267d5bac49cd8e63f9e7c93506"
         }
       ]
     },
@@ -1403,7 +1511,9 @@
           "anchor": [
             127,
             261
-          ]
+          ],
+          "artHash": "f200381b448e5e668e251d8c222073f96c949542c5d2d1e92c3ac073a0cd8c46",
+          "fileHash": "3f37500e0e35e2b2965a8dfa38a7ab957b483b1674a7f533a8fe2a81bc5eadb2"
         }
       ]
     },
@@ -1418,7 +1528,9 @@
           "anchor": [
             100,
             277
-          ]
+          ],
+          "artHash": "7830f6c28238ea4f0fc2c90c16027da43aa0cdedca59c2a3807e9a4e9e909f01",
+          "fileHash": "ae4a924dc4749f190b903fd28ef33da2021b0a53e4ca756ac8e20751befe09ee"
         }
       ]
     },
@@ -1433,7 +1545,9 @@
           "anchor": [
             107,
             282
-          ]
+          ],
+          "artHash": "9bdcbbfad63aee464011a2fc6e814775dd91b62cd809a1f3d62ae1db67134aa1",
+          "fileHash": "674f610e2a7534cd95256d9a945bdec7afaa48bc0d465e82a85a0e85f29051d0"
         }
       ]
     },
@@ -1448,7 +1562,9 @@
           "anchor": [
             100,
             279
-          ]
+          ],
+          "artHash": "71c3da387c0ff92a09a9b498c9bc6c82fb4114ec555e38b4f6d7a930d7661d88",
+          "fileHash": "c37c7676d69365165aab3e27538f764ecea26ab39eb7cc8f1c99d6f2b30cbf2c"
         }
       ]
     },
@@ -1463,7 +1579,9 @@
           "anchor": [
             95,
             287
-          ]
+          ],
+          "artHash": "0312383d4b573a380e0de602ef843b74a78c01e64e11508da478cab340ba5dfa",
+          "fileHash": "4a6830e248c516f8909a3e47b49f159fbbec82d09af675656b2599a0f2bbca11"
         }
       ]
     },
@@ -1478,7 +1596,9 @@
           "anchor": [
             86,
             272
-          ]
+          ],
+          "artHash": "d3d7bf97a385eff4d955ef7870e29bed6c81aee3ba85147d6c9a94e005edcb94",
+          "fileHash": "df9682923901f1743b762a6969bd88c1b7d727d82c96002afc85d2436fdeb71c"
         }
       ]
     },
@@ -1493,7 +1613,9 @@
           "anchor": [
             120,
             259
-          ]
+          ],
+          "artHash": "08a89a278d56eea1ddbe4d78e6ecc886a23f89dac98e12028687d3f439f7384f",
+          "fileHash": "557addc8d120c010b35b12c7b52f1b5224577b59f417a5dc1fee6e6112f8f6ce"
         }
       ]
     },
@@ -1508,7 +1630,9 @@
           "anchor": [
             96,
             308
-          ]
+          ],
+          "artHash": "536619795623e18f0a8275a2fac1cd67e5efa2870cc44909ad3129eeb3dc72ba",
+          "fileHash": "cca1de053da1f6af2ba5d9ad9050b24880a621101424c4f1b111f60fff6b555a"
         }
       ]
     },
@@ -1523,7 +1647,9 @@
           "anchor": [
             107,
             297
-          ]
+          ],
+          "artHash": "d1815f56caec93456f589119d4c6e8702ca6fd68d1c8d7370c6d5446069aee09",
+          "fileHash": "e57db3360b2b30e292c5020d47abb79d1a1f62b17d4e26d245b40927989faca4"
         }
       ]
     },
@@ -1538,7 +1664,9 @@
           "anchor": [
             90,
             295
-          ]
+          ],
+          "artHash": "339ebd95b9a48dda2506c22e64335016f2a5b1723a650adefc51c31187d6bfb3",
+          "fileHash": "41cda4553d956240cc0b55fa667e236fe264c6b9b71091dd3662b0fe928ab9a5"
         }
       ]
     },
@@ -1553,7 +1681,9 @@
           "anchor": [
             100,
             235
-          ]
+          ],
+          "artHash": "7431877ccb491a97677bfe918786b373c9b26f0efdb00d0577aecb1f7be29343",
+          "fileHash": "41f927046ded8e9ea6a89c19afa3580e62e3d6b373fcb4174cc1cc8b9c4bc67e"
         }
       ]
     },
@@ -1568,7 +1698,9 @@
           "anchor": [
             90,
             305
-          ]
+          ],
+          "artHash": "63e7180d92dc1414184a7eb4b710073350b862ef30303605d145f3830e06b9f7",
+          "fileHash": "730946fd5ebdb24d3841346905e168cfb4ea8ed87c392dc20e25000dbe51dcc0"
         }
       ]
     },
@@ -1583,7 +1715,9 @@
           "anchor": [
             117,
             292
-          ]
+          ],
+          "artHash": "e925329b9861ec6a5736ba91d8a52e5fe1412827375a1b837f8b5ba71cd9d471",
+          "fileHash": "153bd51835b45cf2660fa1a7edef69bcc0e765c2d7985c549e50b3479464e438"
         }
       ]
     },
@@ -1598,7 +1732,9 @@
           "anchor": [
             105,
             291
-          ]
+          ],
+          "artHash": "ef84195665ffe19446abbe17c39b115d1760e95c84a5162f3183e8dfd42cdbeb",
+          "fileHash": "d82b9250fa0ae5bfdec9fe0334597b423d75606860529782eb963b1bd13ecba8"
         }
       ]
     },
@@ -1613,7 +1749,9 @@
           "anchor": [
             115,
             286
-          ]
+          ],
+          "artHash": "7c8e0e6ed987ed4ef84685facd55823ffd4b6a61f395f05935819a9cdea42648",
+          "fileHash": "1ccc7b1d13a08e170653b9c7fdb399a9d3e91326cc2a8c54e5ee7f0cecc1805c"
         }
       ]
     },
@@ -1628,7 +1766,9 @@
           "anchor": [
             109,
             288
-          ]
+          ],
+          "artHash": "df64601a361dbdf2ba8d581f7fc31307a0ec543615536f1dfebbf15448ac67c0",
+          "fileHash": "122cb0d82a2b37b44a009f652245880becf37d057ffe93d1b83efc07be67f627"
         }
       ]
     },
@@ -1643,7 +1783,9 @@
           "anchor": [
             107,
             251
-          ]
+          ],
+          "artHash": "2f62faccecb11270e07c24157e551a3517b95f0464cf29a3189b655d8fc1596a",
+          "fileHash": "baa8060d73721a9f3eb66ef5beb06c070a755dd0a55e20879bef57ab23988fd3"
         }
       ]
     },
@@ -1658,7 +1800,9 @@
           "anchor": [
             116,
             287
-          ]
+          ],
+          "artHash": "b35c6bc49381b5abc048667fcb6e1798406dc4dc4e19676e5df61678329d3ade",
+          "fileHash": "8810cb30318b3e95ae111c04071a134299c4109958dc67f5270c61d73385f8f0"
         }
       ]
     },
@@ -1673,7 +1817,9 @@
           "anchor": [
             116,
             277
-          ]
+          ],
+          "artHash": "fbdc1a27b848f584772442c44a884740c3f6c4311916a7a5e9e219179975e10b",
+          "fileHash": "64029e603ed6270c7ded1cc0ec8a1c6870ce430e405d392c83395a592fb80a54"
         }
       ]
     },
@@ -1688,7 +1834,9 @@
           "anchor": [
             113,
             286
-          ]
+          ],
+          "artHash": "ad90c1f2aae0da17c31e3a8bac1f1b1ab9497ada289790c3722076527216d399",
+          "fileHash": "b0b414ce2b6077321e5b5fb6a54ca8b96bed806cf5cc0cb992749b00bcd30294"
         }
       ]
     },
@@ -1704,6 +1852,8 @@
             114,
             290
           ],
+          "artHash": "16df83fbe3ef59a8eeb642777db95001c799e410e6a7c7de3f382a897ff50817",
+          "fileHash": "50af0516246286b236651943afaa50cb7bbf48dc68cf306030313b42053bc09f",
           "head": [
             110,
             33
@@ -1731,6 +1881,8 @@
             95,
             289
           ],
+          "artHash": "23972be90f51e781e1091da8b74caa1550cd993fc42d6bdb0554023655858de3",
+          "fileHash": "8b06fd05eee85b9400e94d02de3fbd001dc9d5937714e710ae1d4093fa4681d0",
           "head": [
             94,
             29
@@ -1758,6 +1910,8 @@
             105,
             287
           ],
+          "artHash": "39205fa94d132c0915869194cf0c6bfb8a3917cff7d7cd5a9cdf722ebbfdd073",
+          "fileHash": "8c652c85cb5e81e73593ddd06fa1cf09f5173a0482ca950735992a56e1ea54a4",
           "head": [
             98,
             29
@@ -1785,6 +1939,8 @@
             100,
             290
           ],
+          "artHash": "96ab9cb9e0749c75ffee51ba68c52ea73f73d2b583d1d0b5c13c7e4cb11ae24a",
+          "fileHash": "642335d0dffc97e727e3c49ef24c1b03edea1eadcaefbc6f37ae8b61b6fd6c48",
           "head": [
             98,
             29
@@ -1819,7 +1975,9 @@
           "anchor": [
             106,
             287
-          ]
+          ],
+          "artHash": "a487a3d7fbfabff998b95f3a2714bf2d6a9e21cd7c0c0e08b559b43868d9111f",
+          "fileHash": "d7e9007c48a1e8138d962d069c76e73e919fce9a4146c1bc3a36ea3acff3514b"
         }
       ]
     },
@@ -1834,7 +1992,9 @@
           "anchor": [
             106,
             285
-          ]
+          ],
+          "artHash": "8f611738953150549f7bff1de2ffb085de2771db6687cb5086c63cad5fe2867e",
+          "fileHash": "7a5e5fbee57ccb798e43f07f662ace1ede9c4dabf566bc00b6084115d4c235d3"
         }
       ]
     },
@@ -1849,7 +2009,9 @@
           "anchor": [
             102,
             282
-          ]
+          ],
+          "artHash": "004a1cf7c01aef51fb9c11279b61ffd7d61a00ce92d28afe94441e9a2d77676f",
+          "fileHash": "f640c168f256468ed92ac4fbacd723869a04e804d501697dbe0dc203beeba665"
         }
       ]
     },
@@ -1864,7 +2026,9 @@
           "anchor": [
             104,
             263
-          ]
+          ],
+          "artHash": "2969546a644470dd83da24916d013b8ee1b978768a37cf5cb47192df3221cc9b",
+          "fileHash": "09ae25d51bcddc068cd6f10d229c410c07c4855b7b3a54cb867178d6e312ba5f"
         }
       ]
     },
@@ -1879,7 +2043,9 @@
           "anchor": [
             106,
             279
-          ]
+          ],
+          "artHash": "62b3970237b32592b194a62a56349784d9a57c7213eb330e163f879375ff6179",
+          "fileHash": "2ac06f56648ae4daf3ffa5c95f8fcc002d4377bf3cf46b90d669c7a6fb8282e2"
         }
       ]
     },
@@ -1894,7 +2060,9 @@
           "anchor": [
             106,
             279
-          ]
+          ],
+          "artHash": "dee8c20fe1aba237ed437f148b515941a195e10caf9d85384dfbee1bc27d3f2b",
+          "fileHash": "09dd5eda0d936437a7296fcc641100e716ca6c2fb72be983ae784893436facf4"
         }
       ]
     },
@@ -1909,7 +2077,9 @@
           "anchor": [
             102,
             277
-          ]
+          ],
+          "artHash": "8c897c32bfb1ae2fca317b6c820812c88f1eb74d6b66fe012259038cef5c514e",
+          "fileHash": "12df62daccc923befe7283dcdf72bdf5a494fe3832b54dc57a28368ea706f68b"
         }
       ]
     },
@@ -1924,14 +2094,18 @@
           "anchor": [
             111,
             262
-          ]
+          ],
+          "artHash": "b694db86568df0aa15b8d47477e6170fa023fb4dd007bedad954dfa74130d5f7",
+          "fileHash": "607010889072b43ffd2ad589fd0520e1d489eda0c4a60a1e6fad59b381239d4e"
         },
         {
           "src": "dash-01.webp",
           "anchor": [
             125,
             251
-          ]
+          ],
+          "artHash": "05a1748f129742568cb0975f923c51d3c5bf75b131e25b761e21c3b0c887d79d",
+          "fileHash": "53f7bc4230e6342d3fdd84ac296c815b331cd2eaa2806364efabdbef96db8ead"
         }
       ]
     },
@@ -1946,14 +2120,18 @@
           "anchor": [
             94,
             279
-          ]
+          ],
+          "artHash": "1a7ad9888f31be3c772ab4f9e6ed2e7b5f949778ee6f71c4100df9533c399044",
+          "fileHash": "8ff575f0df8c884bc68bb483a9ae4c9b1ab0eac0bdbadc576c99d499bb58903a"
         },
         {
           "src": "hip-bump-01.webp",
           "anchor": [
             97,
             282
-          ]
+          ],
+          "artHash": "40b50ed017566e42672002474ed5b607c91a1e95d2bb3d0bcb5e6064ed93e10c",
+          "fileHash": "8401895fc217884d0a8f8eb75ac262219d844b70c0ad90f6d2ed239780b76c14"
         }
       ]
     },
@@ -1968,14 +2146,18 @@
           "anchor": [
             138,
             275
-          ]
+          ],
+          "artHash": "265e5fa1d35d0229287dda52e39d5a0f8f05d3a62ffdc1e1f6bad71ba6eb7a6c",
+          "fileHash": "9402c4771bc604dd15af9d43bfd35e1c299d5b3c36e0b5f8384666a1c52c3e63"
         },
         {
           "src": "knockback-01.webp",
           "anchor": [
             131,
             276
-          ]
+          ],
+          "artHash": "264f5883e78069c600985ff518488948e87d2fed90eed7f42b457155518d2034",
+          "fileHash": "08b4310d49fbba1b92f32c44ffa2e4d3a715330c8e6add25c209ae780d10ba7e"
         }
       ]
     },
@@ -1989,28 +2171,36 @@
           "anchor": [
             152,
             385
-          ]
+          ],
+          "artHash": "548b3ff5aefd4868d459deece33d92e62d7d62abefac88c5d761452b1b5206be",
+          "fileHash": "f2ca2c4ed3e9e9a00696182a22d776ecba299bdbbc3bffb189bbedc5853dc426"
         },
         {
           "src": "dance-01.webp",
           "anchor": [
             165,
             397
-          ]
+          ],
+          "artHash": "0cb73f0aa6b33a5a1125183259a28b26b64ffd7ff37ee496587a4c07079f76e6",
+          "fileHash": "fac6eb2fd1c2f0e868d4b48370506a721fc333a8a53bd90e147f8323dcc09660"
         },
         {
           "src": "dance-02.webp",
           "anchor": [
             157,
             389
-          ]
+          ],
+          "artHash": "8e1824dd50cd1f1a6f325c0c1a0e708c57355c13ac74f1934201406c6f9aac75",
+          "fileHash": "2fe3a0d01b015b8f84361a7421555f6cbdfcba13e1b1cf6c566bab397204a05c"
         },
         {
           "src": "dance-03.webp",
           "anchor": [
             157,
             396
-          ]
+          ],
+          "artHash": "1984fc157bc66d54a2961bba4c9fc2109622c2276332647e7da480c2098aa455",
+          "fileHash": "1427a30e7119868909308c12d88ede4902ba49c7c897736f5779c0062cd62e34"
         }
       ]
     },
@@ -2025,6 +2215,75 @@
           "anchor": [
             90,
             238
+          ],
+          "artHash": "3c262d43a08cf0cbea9c5dab610e110897d9067d0718189e6975a8349d6a4be2",
+          "fileHash": "9431fef2316b189011e0be5b10e8e9512cd2235c1d78ce7e9f89aa849c64eba2"
+        }
+      ]
+    },
+    "pump": {
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1,
+      "bodyHeight": 216.0,
+      "frames": [
+        {
+          "src": "pump-00.webp",
+          "anchor": [
+            88,
+            222
+          ],
+          "artHash": "9a944c955d9b34b775d55095a476cb9b0b74bf80fe6226960946b6bf198cd794",
+          "fileHash": "b14df734f4db30ce148152c189ebda440d307d489cdfd2761f8921f3f36c5561",
+          "head": [
+            81,
+            19
+          ],
+          "hand": [
+            122,
+            141
+          ],
+          "eyes": [
+            83,
+            88
+          ],
+          "neck": [
+            83,
+            126
+          ],
+          "back": [
+            81,
+            152
+          ]
+        },
+        {
+          "src": "pump-01.webp",
+          "anchor": [
+            89,
+            211
+          ],
+          "artHash": "06a1659a837e95bc2e007e699e99fe9f6054f48f74f6327a050c5c1b33280201",
+          "fileHash": "5954e21d568452df3ae37fa2ef3e617d6b7b124723f7704ff54f420d0cdc9686",
+          "head": [
+            83,
+            20
+          ],
+          "hand": [
+            110,
+            153
+          ],
+          "eyes": [
+            86,
+            90
+          ],
+          "neck": [
+            77,
+            130
+          ],
+          "back": [
+            73,
+            148
           ]
         }
       ]

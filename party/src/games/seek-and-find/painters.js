@@ -14,7 +14,7 @@
 // the night scene) replace the drawn versions, fitted to `box` with the
 // bottom edge on the base.
 import { TAU } from '../../engine/util.js';
-import { drawArt } from '../../engine/art.js';
+import { drawArt, hasArt } from '../../engine/art.js';
 import { drawSparkleShape, starPath } from '../../engine/emotes.js';
 
 export const NAVY = '#24163f';
@@ -479,7 +479,33 @@ export function occluderBox(oc) {
 
 /** Hiding spots of an occluder in scene coordinates. */
 export function occluderSpots(oc) {
-  return PAINTERS[oc.type].spots(oc).map((sp) => ({
+  let localSpots = PAINTERS[oc.type].spots(oc);
+  const artKey = `prop/seek-${oc.type}${oc.night && DAY_AND_NIGHT.has(oc.type) ? '-night' : ''}`;
+  if (hasArt(artKey)) {
+    // Generated openings were measured after fitting each 2× source into its
+    // painter box. Keep the original spot geometry for procedural art.
+    if (oc.type === 'tree' || oc.type === 'log') {
+      const hole = oc.type === 'tree'
+        ? spot(-1, -170, 0, 0, 0, 46, ['hole'], 'top')
+        : spot(102, -30, 0, 0, 0, 32, ['hole', 'small'], 'top');
+      localSpots = [...localSpots.filter((sp) => !sp.tags.includes('hole')), hole];
+    } else if (oc.type === 'dollhouse') {
+      const windowsAndDoor = [
+        spot(-60.5, -177, 0, 0, 0, 38, ['hole', 'shelf'], 'top'),
+        spot(61, -177, 0, 0, 0, 38, ['hole', 'shelf'], 'top'),
+        spot(-60.75, -79.5, 0, 0, 0, 38, ['hole', 'shelf'], 'top'),
+        spot(58.25, -64.5, 0, 0, 0, 70, ['hole', 'ground'], 'top'),
+      ];
+      localSpots = [...localSpots.filter((sp) => !sp.tags.includes('hole')), ...windowsAndDoor];
+    } else if (oc.type === 'basket') {
+      const openings = [spot(-24, -61, 0, -1, 40, 60, ['basket']), spot(28, -61, 0, -1, 40, 60, ['basket'])];
+      localSpots = [...localSpots.filter((sp) => !sp.tags.includes('basket')), ...openings];
+    } else if (oc.type === 'chest') {
+      const openings = [spot(-60, -89, 0, -1, 55, 90, ['ground', 'basket', 'peek']), spot(56, -89, 0, -1, 55, 90, ['ground', 'basket', 'peek'])];
+      localSpots = [...localSpots.filter((sp) => !sp.tags.includes('basket')), ...openings];
+    }
+  }
+  return localSpots.map((sp) => ({
     ...sp, x: oc.x + sp.x * oc.s * oc.flip, y: oc.y + sp.y * oc.s, dx: sp.dx * oc.flip, t: sp.t * oc.s, size: sp.size * oc.s, oc,
   }));
 }

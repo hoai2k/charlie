@@ -3792,6 +3792,84 @@
       "loop": true,
       "motion": 0.3,
       "facing": 0
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-pump.webp",
+          "rect": [
+            148,
+            18,
+            736,
+            774
+          ],
+          "isolate": true,
+          "anchor": [
+            422,
+            760
+          ],
+          "scale": 0.8,
+          "hand": [
+            656,
+            437
+          ],
+          "head": [
+            477,
+            129
+          ],
+          "eyes": [
+            493,
+            301
+          ],
+          "neck": [
+            466,
+            422
+          ],
+          "back": [
+            437,
+            509
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-pump.webp",
+          "rect": [
+            997,
+            117,
+            774,
+            675
+          ],
+          "isolate": true,
+          "anchor": [
+            436,
+            661
+          ],
+          "scale": 0.8,
+          "hand": [
+            655,
+            522
+          ],
+          "head": [
+            547,
+            110
+          ],
+          "eyes": [
+            605,
+            282
+          ],
+          "neck": [
+            546,
+            397
+          ],
+          "back": [
+            473,
+            456
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

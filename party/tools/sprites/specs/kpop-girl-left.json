@@ -3931,6 +3931,84 @@
           "dur": 0.12
         }
       ]
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-pump.webp",
+          "rect": [
+            164,
+            18,
+            556,
+            993
+          ],
+          "isolate": true,
+          "anchor": [
+            294,
+            986
+          ],
+          "scale": 0.63,
+          "hand": [
+            448,
+            426
+          ],
+          "head": [
+            259,
+            134
+          ],
+          "eyes": [
+            295,
+            199
+          ],
+          "neck": [
+            266,
+            316
+          ],
+          "back": [
+            271,
+            472
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-pump.webp",
+          "rect": [
+            885,
+            97,
+            519,
+            914
+          ],
+          "isolate": true,
+          "anchor": [
+            254,
+            907
+          ],
+          "scale": 0.62,
+          "hand": [
+            425,
+            520
+          ],
+          "head": [
+            255,
+            143
+          ],
+          "eyes": [
+            297,
+            211
+          ],
+          "neck": [
+            257,
+            314
+          ],
+          "back": [
+            176,
+            445
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

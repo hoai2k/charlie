@@ -3819,6 +3819,84 @@
           ]
         }
       ]
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/scale-pump.webp",
+          "rect": [
+            91,
+            3,
+            776,
+            865
+          ],
+          "isolate": true,
+          "anchor": [
+            443,
+            851
+          ],
+          "scale": 0.82,
+          "hand": [
+            708,
+            452
+          ],
+          "head": [
+            573,
+            222
+          ],
+          "eyes": [
+            576,
+            271
+          ],
+          "neck": [
+            566,
+            358
+          ],
+          "back": [
+            486,
+            490
+          ]
+        },
+        {
+          "source": "../sources/scale-pump.webp",
+          "rect": [
+            943,
+            62,
+            784,
+            815
+          ],
+          "isolate": true,
+          "anchor": [
+            445,
+            802
+          ],
+          "scale": 0.82,
+          "hand": [
+            650,
+            545
+          ],
+          "head": [
+            601,
+            276
+          ],
+          "eyes": [
+            612,
+            304
+          ],
+          "neck": [
+            570,
+            376
+          ],
+          "back": [
+            488,
+            485
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

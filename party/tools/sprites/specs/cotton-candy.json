@@ -4044,6 +4044,84 @@
       "loop": true,
       "motion": 0.05,
       "facing": 1
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-pump.webp",
+          "rect": [
+            85,
+            7,
+            759,
+            851
+          ],
+          "isolate": true,
+          "anchor": [
+            397,
+            843
+          ],
+          "scale": 0.76,
+          "hand": [
+            679,
+            418
+          ],
+          "head": [
+            472,
+            182
+          ],
+          "eyes": [
+            480,
+            257
+          ],
+          "neck": [
+            444,
+            343
+          ],
+          "back": [
+            377,
+            532
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-pump.webp",
+          "rect": [
+            938,
+            80,
+            731,
+            778
+          ],
+          "isolate": true,
+          "anchor": [
+            447,
+            770
+          ],
+          "scale": 0.76,
+          "hand": [
+            643,
+            504
+          ],
+          "head": [
+            461,
+            180
+          ],
+          "eyes": [
+            481,
+            255
+          ],
+          "neck": [
+            441,
+            343
+          ],
+          "back": [
+            375,
+            508
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

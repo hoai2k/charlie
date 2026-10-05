@@ -3784,6 +3784,84 @@
       "loop": true,
       "motion": 0.3,
       "facing": 1
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/felicity-pump.webp",
+          "rect": [
+            88,
+            4,
+            750,
+            877
+          ],
+          "isolate": true,
+          "anchor": [
+            410,
+            865
+          ],
+          "scale": 0.81,
+          "hand": [
+            576,
+            446
+          ],
+          "head": [
+            433,
+            121
+          ],
+          "eyes": [
+            439,
+            292
+          ],
+          "neck": [
+            415,
+            401
+          ],
+          "back": [
+            362,
+            493
+          ]
+        },
+        {
+          "source": "../sources/felicity-pump.webp",
+          "rect": [
+            926,
+            82,
+            822,
+            799
+          ],
+          "isolate": true,
+          "anchor": [
+            414,
+            784
+          ],
+          "scale": 0.81,
+          "hand": [
+            571,
+            560
+          ],
+          "head": [
+            514,
+            121
+          ],
+          "eyes": [
+            527,
+            292
+          ],
+          "neck": [
+            500,
+            405
+          ],
+          "back": [
+            411,
+            493
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

@@ -1,0 +1,233 @@
+{
+  "count": 27,
+  "totalBytes": 997236,
+  "checks": {
+    "dollhouseBackExternalLeakPixels": 0,
+    "jarBackMaxAlpha": 38,
+    "jarFrontInteriorMaxAlpha": 1,
+    "treeDayNightAlphaEqual": true,
+    "bushDayNightAlphaEqual": true,
+    "rockDayNightAlphaEqual": true,
+    "logDayNightAlphaEqual": true,
+    "tuftDayNightAlphaEqual": true,
+    "reedsDayNightAlphaEqual": true
+  },
+  "assets": [
+    {
+      "key": "prop/seek-tree",
+      "size": [
+        860,
+        1104
+      ],
+      "bytes": 151460
+    },
+    {
+      "key": "prop/seek-bush",
+      "size": [
+        552,
+        296
+      ],
+      "bytes": 37838
+    },
+    {
+      "key": "prop/seek-rock",
+      "size": [
+        368,
+        184
+      ],
+      "bytes": 13472
+    },
+    {
+      "key": "prop/seek-log",
+      "size": [
+        512,
+        168
+      ],
+      "bytes": 23802
+    },
+    {
+      "key": "prop/seek-tuft",
+      "size": [
+        192,
+        124
+      ],
+      "bytes": 8446
+    },
+    {
+      "key": "prop/seek-reeds",
+      "size": [
+        440,
+        312
+      ],
+      "bytes": 57440
+    },
+    {
+      "key": "prop/seek-tree-night",
+      "size": [
+        860,
+        1104
+      ],
+      "bytes": 131038
+    },
+    {
+      "key": "prop/seek-bush-night",
+      "size": [
+        552,
+        296
+      ],
+      "bytes": 34712
+    },
+    {
+      "key": "prop/seek-rock-night",
+      "size": [
+        368,
+        184
+      ],
+      "bytes": 12692
+    },
+    {
+      "key": "prop/seek-log-night",
+      "size": [
+        512,
+        168
+      ],
+      "bytes": 20098
+    },
+    {
+      "key": "prop/seek-tuft-night",
+      "size": [
+        192,
+        124
+      ],
+      "bytes": 7406
+    },
+    {
+      "key": "prop/seek-reeds-night",
+      "size": [
+        440,
+        312
+      ],
+      "bytes": 54194
+    },
+    {
+      "key": "prop/seek-fern",
+      "size": [
+        400,
+        252
+      ],
+      "bytes": 39272
+    },
+    {
+      "key": "prop/seek-basket",
+      "size": [
+        400,
+        272
+      ],
+      "bytes": 32552
+    },
+    {
+      "key": "prop/seek-books",
+      "size": [
+        320,
+        200
+      ],
+      "bytes": 21340
+    },
+    {
+      "key": "prop/seek-blocks",
+      "size": [
+        360,
+        308
+      ],
+      "bytes": 22740
+    },
+    {
+      "key": "prop/seek-jar",
+      "size": [
+        176,
+        232
+      ],
+      "bytes": 17738
+    },
+    {
+      "key": "prop/seek-chest",
+      "size": [
+        520,
+        432
+      ],
+      "bytes": 19058
+    },
+    {
+      "key": "prop/seek-curtain",
+      "size": [
+        360,
+        1208
+      ],
+      "bytes": 56714
+    },
+    {
+      "key": "prop/seek-dollhouse",
+      "size": [
+        600,
+        668
+      ],
+      "bytes": 75352
+    },
+    {
+      "key": "prop/seek-bigteddy",
+      "size": [
+        480,
+        512
+      ],
+      "bytes": 49036
+    },
+    {
+      "key": "prop/seek-presents",
+      "size": [
+        480,
+        348
+      ],
+      "bytes": 40580
+    },
+    {
+      "key": "prop/seek-drum",
+      "size": [
+        320,
+        228
+      ],
+      "bytes": 20588
+    },
+    {
+      "key": "prop/seek-basket-back",
+      "size": [
+        400,
+        272
+      ],
+      "bytes": 8308
+    },
+    {
+      "key": "prop/seek-jar-back",
+      "size": [
+        176,
+        232
+      ],
+      "bytes": 7174
+    },
+    {
+      "key": "prop/seek-chest-back",
+      "size": [
+        520,
+        432
+      ],
+      "bytes": 21508
+    },
+    {
+      "key": "prop/seek-dollhouse-back",
+      "size": [
+        600,
+        668
+      ],
+      "bytes": 12678
+    }
+  ]
+}

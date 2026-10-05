@@ -1,11 +1,11 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. Current production is complete;
+The authoritative brief is `party/image-requests.md`. Current production has new requests queued (2026-10-05);
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
-## Current delivery
+## Previous delivery (October 3)
 
 Latest image delivery revision: `35c8a94` (Unicorn, final required image set).
 Latest image delivery UTC: 2026-10-03T02:34:11+00:00.
@@ -29,7 +29,7 @@ animal-back cape. Optional future parallax background is documented in the
 coverage report. Original unused ingredients and neutral cake shapes remain
 available for future game use.
 
-## Completion
+## Previous completion (October 3)
 
 No required generation, export, regeneration or review work remains. All 15
 players cover74 required action keys. The final audit verifies26 valid indexed
@@ -57,7 +57,7 @@ Memory Match `flip` reaches for a card. Hold props separately using actual
 palm/mouth/horn/fin landmarks. KPop shares body height/action/frame vocabulary
 with individual blink timings and poses. Refresh masks after final builds.
 
-## Delivery follow-up
+## Previous delivery follow-up
 
 The scheduled delivery review ran more than30minutes after the final image
 batch. Main and local image-requests.md have no changes since the delivery
@@ -69,3 +69,9 @@ required production remains complete; there is no allowance pause.
 
 See `ASSET-COVERAGE.md`, `SPRITE-SESSION-HANDOFF.md` and
 `RECOMMENDED-ACTIONS.md` for the current inventory and future game actions.
+
+## October 5 production
+
+Synced main at 2913e62. New requests: pump cycles for all15 player/companion members, Melody Maker art (33 keys), Sparkle Bead Shop art (16 keys) and Dream Room art (30 keys). Root owns pump sprites and integration. melody_new_art, beads_new_art, room_new_art own disjoint art families and prompt records; shared art index is integrated by root. Canonicals stay approved. Generation in progress; fallback art is not a finished delivery.
+
+Main resync found Hide & Seek Picnic requests (43 keys: 3 scenes, 1 thumbnail, 27 occluder layers, 12 hideable props). room_new_art owns occluders, beads_new_art owns creatures, melody_new_art aligns scene/occluder geometry and reviews studio integration. Root generated the scenes/thumbnail and integrates shared indexes. Bead Shop is published in72fd189; Melody Maker and Dream Room are published in4d5f9b9. Pump sets are reviewed, with per-character grips and in-game handle alignment. Snowstar pump and Birthday Cake pump/twirl use lower-resolution frames with proportional pose bodyHeight, preserving world size while meeting decoded-memory limits.

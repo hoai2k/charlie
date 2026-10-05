@@ -3931,6 +3931,84 @@
           "dur": 0.12
         }
       ]
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-center-pump.webp",
+          "rect": [
+            324,
+            16,
+            396,
+            983
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            978
+          ],
+          "scale": 0.55,
+          "hand": [
+            294,
+            397
+          ],
+          "head": [
+            170,
+            142
+          ],
+          "eyes": [
+            175,
+            205
+          ],
+          "neck": [
+            183,
+            310
+          ],
+          "back": [
+            175,
+            452
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-center-pump.webp",
+          "rect": [
+            891,
+            71,
+            417,
+            925
+          ],
+          "isolate": true,
+          "anchor": [
+            198,
+            923
+          ],
+          "scale": 0.59,
+          "hand": [
+            311,
+            511
+          ],
+          "head": [
+            189,
+            155
+          ],
+          "eyes": [
+            211,
+            214
+          ],
+          "neck": [
+            209,
+            308
+          ],
+          "back": [
+            119,
+            424
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {
