@@ -27,4 +27,10 @@ import * as g23 from './seek-and-find.js';
 export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23].map((m) => ({ ...m.meta, module: m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
+// Party Games shows 11 games at a time; the 12th tile is "More Games", which
+// swaps in the second page. Page 2 = every party game after the first 11,
+// with Crown Keeper moved to the end of it.
+const LAST = 'crown-keeper';
+const partyRest = PARTY_GAMES.filter((g) => g.id !== LAST);
+export const PARTY_PAGES = [partyRest.slice(0, 11), [...partyRest.slice(11), ...PARTY_GAMES.filter((g) => g.id === LAST)]];
 export const gameById = (id) => GAMES.find((g) => g.id === id);
