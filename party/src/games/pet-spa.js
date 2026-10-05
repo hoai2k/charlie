@@ -23,6 +23,7 @@ const NAVY = '#24163f';
 /** Play a recorded sound when it exists, else a synth stand-in. */
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
 const SPRAY_LEN = 240;   // how far the shower's water falls (px at station scale 1)
+const NEARLY_T = 1.5;       // a step with only a tiny bit left finishes itself after this long
 const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'prop/towel', brush: 'prop/brush', treat: 'prop/pet-treat' };
 
 // ---------------------------------------------------------------------------
@@ -580,15 +581,7 @@ export class Game {
         if (chance(dt * 10)) particles.burst(cur.x, cur.y, { type: 'bubble', count: 1, speed: [40, 120], size: [5, 12] });
         if (any && s.giggleT <= 0) { s.giggleT = rand(1.8, 3); pet.squash(0.12); if (this.mudLeft(s) < 0.6) sfx('giggle'); }
       }
-      if (this.mudLeft(s) <= 0.015 && !s.events.clean) {
-        s.events.clean = true;
-        for (const b of s.mud) b.amt = 0; s.mudDirty = true;
-        const head = pet.anchor('center');
-        particles.burst(head.x, head.y, { type: 'sparkle', count: 18, colors: ['#ffffff', '#fff6a8', '#bff3ff'] });
-        particles.popText(head.x, head.y - 40, 'Squeaky clean!', '#7fd3ff', 44 * s.k);
-        sfx('correct'); pet.playOnce('surprised', 0.4, 'idle'); pet.emote('sparkle', 1.2);
-        s.char.playOnce('cheer', 0.5); this.rumble(p, 0.3, 80);
-      }
+      if (this.mudLeft(s) <= 0.015) this.allClean(s);
     } else if (hold && tool === 'shower') {
       // The water falls straight down from the shower head, so it rinses the
       // first bit of pet underneath it (anywhere along the spray), not only
@@ -615,12 +608,7 @@ export class Game {
         if (!s.wasWet) { s.wasWet = true; pet.playOnce('surprised', 0.4); pet.say(pick(['Brrr!', 'Splish!', 'Eek, wet!']), 1.2, 'gasp'); }
         s.wet = Math.min(1, s.wet + 0.45 * dt);
       }
-      if (this.parts(s).clean > 0.98 && s.sudsPeak > 0 && this.sudsTotal(s) <= 0.15 && !s.events.rinse) {
-        s.events.rinse = true;
-        const cpt = pet.anchor('center');
-        particles.popText(cpt.x, cpt.y - 40, 'All rinsed!', '#5cc8ff', 42 * s.k);
-        sfx('splash'); s.char.playOnce('cheer', 0.5);
-      }
+      if (this.parts(s).clean > 0.98 && s.sudsPeak > 0 && this.sudsTotal(s) <= 0.15) this.allRinsed(s);
     } else if (hold && tool === 'towel') {
       if (on && s.wet > 0) {
         s.wet = Math.max(0, s.wet - 0.3 * motion * dt);
@@ -635,12 +623,7 @@ export class Game {
         s.fluff = Math.min(1, s.fluff + (s.wet > 0.3 ? 0.12 : 0.22) * motion * dt);
         if (s.sfxT <= 0) { sfx('brush'); s.sfxT = 0.14; }
         if (s.sparkleT <= 0) { s.sparkleT = 0.09; particles.burst(cur.x + rand(-20, 20), cur.y + rand(-20, 20), { type: 'sparkle', count: 1, colors: ['#ffffff', '#fff6a8', '#ffc8f0'] }); }
-        if (before < 1 && s.fluff >= 1) {
-          const cpt = pet.anchor('center');
-          particles.burst(cpt.x, cpt.y, { type: 'star', count: 14 });
-          particles.popText(cpt.x, cpt.y - 50, 'So shiny!', '#ffd23f', 44 * s.k);
-          sfx('sparkle'); sfx('star'); s.char.playOnce('cheer', 0.5);
-        }
+        if (before < 1 && s.fluff >= 1) this.allShiny(s);
       }
     } else if (tap && tool === 'bow') {
       if (on) this.placeAccessory(s, ip.x, ip.y);
@@ -673,6 +656,8 @@ export class Game {
       pet.z = jp < 1 ? Math.sin(jp * Math.PI) * 90 * s.k : 0;
       if (jp >= 1) { s.jumpT = -1; pet.z = 0; pet.squash(0.3); sfx('land'); }
     }
+
+    this.finishNearlyDone(s, dt);
 
     // Mood poses
     if (brushing) pet.setPose('dance');
@@ -718,6 +703,54 @@ export class Game {
     else if (s.suds.length < 44) s.suds.push({ x, y, r: s.mask.ih * rand(0.035, 0.06), amt: 0.6, ph: rand(TAU) });
     else { const u = pick(s.suds); u.amt = Math.min(1.4, u.amt + 0.2); }
     s.sudsPeak = Math.max(s.sudsPeak, this.sudsTotal(s));
+  }
+
+  // ---- step finishers (also used when a step is nearly done) -----------------
+  allClean(s) {
+    if (s.events.clean) return;
+    s.events.clean = true;
+    for (const b of s.mud) b.amt = 0; s.mudDirty = true;
+    const pet = s.pet, head = pet.anchor('center');
+    particles.burst(head.x, head.y, { type: 'sparkle', count: 18, colors: ['#ffffff', '#fff6a8', '#bff3ff'] });
+    particles.popText(head.x, head.y - 40, 'Squeaky clean!', '#7fd3ff', 44 * s.k);
+    sfx('correct'); pet.playOnce('surprised', 0.4, 'idle'); pet.emote('sparkle', 1.2);
+    s.char.playOnce('cheer', 0.5); this.rumble(s.p, 0.3, 80);
+  }
+
+  allRinsed(s) {
+    // the last few bubbles pop
+    for (const u of s.suds) { const sp = this.toScreen(s, u.x, u.y); particles.burst(sp.x, sp.y, { type: 'bubble', count: 2, size: [6, 12] }); }
+    s.suds = [];
+    if (s.events.rinse) return;
+    s.events.rinse = true;
+    const cpt = s.pet.anchor('center');
+    particles.popText(cpt.x, cpt.y - 40, 'All rinsed!', '#5cc8ff', 42 * s.k);
+    sfx('splash'); s.char.playOnce('cheer', 0.5);
+  }
+
+  allShiny(s) {
+    s.fluff = 1;
+    const cpt = s.pet.anchor('center');
+    particles.burst(cpt.x, cpt.y, { type: 'star', count: 14 });
+    particles.popText(cpt.x, cpt.y - 50, 'So shiny!', '#ffd23f', 44 * s.k);
+    sfx('sparkle'); sfx('star'); s.char.playOnce('cheer', 0.5);
+  }
+
+  /**
+   * Mostly done is good enough: when a step only has a tiny bit left (a speck
+   * of mud, a few bubbles, a damp patch, nearly full shine) for NEARLY_T
+   * seconds, it finishes by itself, so nobody hunts for an invisible bubble.
+   */
+  finishNearlyDone(s, dt) {
+    const q = this.parts(s), n = s.nearly || (s.nearly = {});
+    const tick = (id, nearly, finish) => {
+      n[id] = nearly ? (n[id] || 0) + dt : 0;
+      if (n[id] >= NEARLY_T) { n[id] = 0; finish(); }
+    };
+    tick('sponge', q.clean < 0.985 && q.clean >= 0.95, () => this.allClean(s));
+    tick('shower', s.wasWet && q.clean >= 0.985 && s.suds.length > 0 && q.rinse >= 0.85, () => this.allRinsed(s));
+    tick('towel', s.wasWet && this.stepDone(s, 'shower') && s.wet > 0 && s.wet <= 0.15, () => { s.wet = 0; this.shakeOff(s); });
+    tick('brush', s.fluff < 1 && s.fluff >= 0.9, () => this.allShiny(s));
   }
 
   shakeOff(s) {
@@ -1071,9 +1104,10 @@ export class Game {
     const base = g.globalAlpha;
     const foamArt = art('prop/bubbles');
     for (const u of s.suds) {
-      if (u.amt < 0.03) continue;
-      const k = Math.min(1, u.amt) * (1 + 0.06 * Math.sin(tt * 3 + u.ph));
-      g.globalAlpha = base * Math.min(1, u.amt * 1.6);
+      // Every clump that still counts stays clearly visible (it shrinks, but
+      // never below 3/4 size or 60% opacity) so nothing hides on the pet.
+      const k = Math.max(0.75, Math.min(1, u.amt)) * (1 + 0.06 * Math.sin(tt * 3 + u.ph));
+      g.globalAlpha = base * Math.max(0.6, Math.min(1, u.amt * 1.6));
       const r = u.r * k * 1.25;
       const v = Math.floor(u.ph * 10) % 3;
       if (foamArt) {
