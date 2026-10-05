@@ -259,3 +259,25 @@ fixed-grid intake, inspect top-row feet and bottom-row heads against the full
 source sheet. Expand a cell to include the complete connected figure and use
 alpha isolation; move a standing anchor to the actual sole line. A cropped boot
 in the runtime export does not necessarily require regenerating the source.
+
+### Interactive props and new studio art
+
+For a two-frame `pump`, put `hand` at the grip, forward paw/hoof, pipe tip or
+body contact point, and compare head width against idle. A game button press
+can select the down frame instead of letting the loop run independently.
+Separate handles should follow the transformed grip; include any squash
+applied during drawing. Keep companion phase offsets off for coordinated
+pump loops. Preserve approved anatomy and keep tools outside character art.
+
+If adding frames crosses the decoded-memory budget, reduce a pose's frame
+scales and its `bodyHeight` by the same factor. This lowers raster resolution
+while preserving the on-screen dimensions and attachment coordinates. Rebuild,
+optimize, refresh applicable masks, validate and review the resulting pixels.
+
+Hide & Seek fronts and backs must retain identical full canvases, even where
+one layer is mostly empty. Independent alpha trimming makes their geometry
+drift when fitted into the same box. Hiding surfaces need opaque interiors;
+window and door openings need true alpha holes. Measure the actual generated
+holes, rims, plates, lily pads and shelf boards, then align gameplay spots to
+the art while preserving procedural fallback geometry. A convincing standalone
+picture is insufficient: review the composite with hidden things in place.

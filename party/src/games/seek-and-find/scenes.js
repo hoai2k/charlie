@@ -37,9 +37,8 @@ const PICNIC = {
     ['tuft', 1820, 740, 0.9], ['tuft', 70, 790, 1], ['tuft', 1210, 600, 0.8], ['tuft', 1640, 610, 0.8], ['tuft', 760, 640, 0.7],
   ],
   extra: [
-    // on the blanket and its plates
+    // Procedural blanket and pond locations. Art-backed positions are aligned below.
     spot(780, 700, 44, ['perch']), spot(905, 786, 46, ['perch']), spot(1010, 676, 44, ['perch']), spot(720, 782, 40, ['perch', 'small']),
-    // lily pads
     spot(250, 792, 44, ['water', 'perch']), spot(436, 774, 40, ['water', 'perch']),
   ],
   decoys: [['cupcake', 840, 718, 46], ['cupcake', 878, 708, 44], ['cupcake', 805, 728, 44], ['cookie', 1020, 772, 34], ['cookie', 1050, 762, 32]],
@@ -232,6 +231,7 @@ const FOREST = {
     ['flowers', 1000, 900, 0.75, 1, 0], ['flowers', 560, 800, 0.66, -1, 1], ['flowers', 1880, 760, 0.7, -1, 2],
     ['tuft', 1200, 880, 0.9], ['tuft', 940, 640, 0.8], ['tuft', 260, 900, 0.9], ['tuft', 1830, 600, 0.8], ['tuft', 610, 900, 0.9],
   ],
+  // Procedural pond coordinates; art-backed pads are aligned below.
   extra: [spot(1400, 792, 44, ['water', 'perch']), spot(1540, 764, 40, ['water', 'perch'])],
   decoys: [],
   pool: {
@@ -343,14 +343,43 @@ function teapot(g, x, y) {
  */
 export function buildScene(def, mirror, seed) {
   const X = (x) => (mirror ? W - x : x);
+  const hasArt = !!art(def.bg);
   const pal = PALETTES[def.night ? 'night' : 'day'];
-  const occ = def.occ.map(([type, x, y, s = 1, flip = 1, v = 0], i) => ({
-    type, x: X(x), y, s, flip: flip * (mirror ? -1 : 1), v: v + (seed % 3), pal, night: def.night, i,
-  })).sort((a, b) => a.y - b.y);
+  const occ = def.occ.map(([type, x, y, s = 1, flip = 1, v = 0], i) => {
+    let artX = x, artY = y;
+    if (hasArt && def.id === 'toyshop' && ['books', 'jar', 'blocks'].includes(type)) {
+      // Generated shelves sit at y≈394 and y≈526; fallback boards stay y=336/512.
+      if (y === 336) artY = 398;
+      else if (y === 512) artY = 532;
+    } else if (hasArt && def.id === 'forest' && type === 'reeds') {
+      [artX, artY] = i === 15 ? [1090, 662] : [990, 698];
+    } else if (hasArt && def.id === 'forest') {
+      if (type === 'tree' && i === 1) artY = 830;
+      else if (type === 'tuft' && i === 23) artY = 820;
+    } else if (hasArt && def.id === 'picnic') {
+      if (type === 'reeds') [artX, artY] = i === 11 ? [110, 548] : [510, 554];
+      else if (type === 'tree' && i === 0) artY = 760;
+      else if (type === 'rock' && i === 7) artY = 725;
+    }
+    return {
+      type, x: X(artX), y: artY, s, flip: flip * (mirror ? -1 : 1),
+      v: v + (seed % 3), pal, night: def.night, i,
+    };
+  }).sort((a, b) => a.y - b.y);
   const spots = [];
   for (const oc of occ) spots.push(...occluderSpots(oc));
-  for (const sp of def.extra) spots.push({ ...sp, x: X(sp.x), dx: sp.dx * (mirror ? -1 : 1) });
-  const decoys = def.decoys.map(([id, x, y, h], i) => ({ id, x: X(x), y, h, seed: i * 1.7, variant: i }));
+  const artExtra = hasArt && def.id === 'picnic'
+      ? [spot(700, 756, 44, ['perch']), spot(820, 756, 46, ['perch']), spot(1070, 768, 44, ['perch']), spot(1215, 780, 40, ['perch', 'small']), spot(100, 642, 44, ['water', 'perch']), spot(270, 610, 40, ['water', 'perch'])]
+    : hasArt && def.id === 'forest'
+      ? [spot(1590, 704, 44, ['water', 'perch']), spot(1720, 660, 40, ['water', 'perch'])]
+    : hasArt && def.id === 'toyshop'
+      ? [spot(860, 454, 44, ['shelf', 'perch']), spot(1060, 454, 44, ['shelf', 'perch']), spot(250, 398, 40, ['shelf']), spot(470, 532, 40, ['shelf']), spot(250, 657, 40, ['shelf']), spot(1620, 398, 40, ['shelf']), spot(1830, 532, 40, ['shelf', 'small']), spot(1620, 657, 40, ['shelf']), ...def.extra.slice(6)]
+      : def.extra;
+  for (const sp of artExtra) spots.push({ ...sp, x: X(sp.x), dx: sp.dx * (mirror ? -1 : 1) });
+  const artDecoys = hasArt && def.id === 'picnic'
+    ? [['cupcake', 802, 744, 46], ['cupcake', 822, 754, 44], ['cupcake', 840, 744, 44], ['cookie', 1060, 768, 34], ['cookie', 1080, 770, 32]]
+    : def.decoys;
+  const decoys = artDecoys.map(([id, x, y, h], i) => ({ id, x: X(x), y, h, seed: i * 1.7, variant: i }));
   return {
     def, occ, spots, decoys, mirror,
     paintBg(g) {
