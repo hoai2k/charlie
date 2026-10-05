@@ -22,6 +22,7 @@ const NAVY = '#24163f';
 
 /** Play a recorded sound when it exists, else a synth stand-in. */
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
+const SPRAY_LEN = 240;   // how far the shower's water falls (px at station scale 1)
 const TOOL_ART = { sponge: 'prop/sponge', shower: 'prop/shower-head', towel: 'prop/towel', brush: 'prop/brush', treat: 'prop/pet-treat' };
 
 // ---------------------------------------------------------------------------
@@ -588,10 +589,16 @@ export class Game {
         s.char.playOnce('cheer', 0.5); this.rumble(p, 0.3, 80);
       }
     } else if (hold && tool === 'shower') {
-      const hx = cur.x, hy = cur.y + 30 * s.k;
+      // The water falls straight down from the shower head, so it rinses the
+      // first bit of pet underneath it (anywhere along the spray), not only
+      // right at the hand; the spray widens as it falls.
+      let hx = cur.x, hy = cur.y + 30 * s.k, reach = 0;
+      for (let d = 30 * s.k; d <= SPRAY_LEN * s.k; d += 10 * s.k) {
+        if (this.onPet(s, cur.x, cur.y + d, 12 * s.k)) { hy = cur.y + d + 18 * s.k; reach = d; break; }
+      }
       if (chance(dt * 40)) particles.burst(cur.x + rand(-14, 14) * s.k, cur.y + 16 * s.k, { type: 'drop', count: 1, angle: Math.PI / 2, spread: 0.25, speed: [260, 420], colors: ['#5cc8ff', '#8fe0ff', '#ffffff'], size: [4, 8] });
       if (s.sfxT <= 0) { if (hasSound('shower')) { sfx('shower', { vol: 0.8 }); s.sfxT = 0.42; } else { sfx('water'); s.sfxT = 0.22; } }
-      const rad = (80 * s.k) / px;
+      const rad = ((80 + reach * 0.25) * s.k) / px;
       const ih = this.toImage(s, hx, hy);
       for (const u of s.suds) {
         if (Math.hypot(u.x - ih.x, u.y - ih.y) < rad + u.r) {
@@ -603,7 +610,7 @@ export class Game {
       s.suds = s.suds.filter((u) => u.amt > 0.02);
       // a little rinse helps the last bits of mud too
       for (const b of s.mud) if (b.amt > 0 && Math.hypot(b.x - ih.x, b.y - ih.y) < rad + b.r) { b.amt = Math.max(0, b.amt - 0.25 * dt); s.mudDirty = true; }
-      if (this.onPet(s, hx, hy, 30 * s.k)) {
+      if (reach > 0 || this.onPet(s, hx, hy, 30 * s.k)) {
         if (!s.wasWet) { s.wasWet = true; pet.playOnce('surprised', 0.4); pet.say(pick(['Brrr!', 'Splish!', 'Eek, wet!']), 1.2, 'gasp'); }
         s.wet = Math.min(1, s.wet + 0.45 * dt);
       }
@@ -1318,14 +1325,16 @@ export class Game {
       if (tool === 'brush') { oy = Math.sin(this.t * 24) * 9; }
     }
     if (using && tool === 'shower') {
-      const grd = g.createLinearGradient(0, -size * 0.2, 0, size * 1.3);
+      // spray as long as the rinse reaches (SPRAY_LEN), fading as it falls
+      const L = (SPRAY_LEN / 74) * size;
+      const grd = g.createLinearGradient(0, -size * 0.2, 0, L);
       grd.addColorStop(0, 'rgba(143,224,255,0.75)'); grd.addColorStop(1, 'rgba(143,224,255,0)');
       g.fillStyle = grd;
-      g.beginPath(); g.moveTo(-size * 0.28, -size * 0.25); g.lineTo(size * 0.28, -size * 0.25); g.lineTo(size * 0.6, size * 1.3); g.lineTo(-size * 0.6, size * 1.3); g.closePath(); g.fill();
+      g.beginPath(); g.moveTo(-size * 0.28, -size * 0.25); g.lineTo(size * 0.28, -size * 0.25); g.lineTo(size * 0.9, L); g.lineTo(-size * 0.9, L); g.closePath(); g.fill();
       g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = 3;
-      for (let i = 0; i < 5; i++) {
-        const xx = (i - 2) * size * 0.12, ph = (this.t * 3 + i * 0.37) % 1;
-        g.beginPath(); g.moveTo(xx * (1 + ph), -size * 0.1 + ph * size * 1.2); g.lineTo(xx * (1 + ph) * 1.1, ph * size * 1.2 + size * 0.12); g.stroke();
+      for (let i = 0; i < 6; i++) {
+        const xx = (i - 2.5) * size * 0.12, ph = (this.t * 2.2 + i * 0.37) % 1;
+        g.beginPath(); g.moveTo(xx * (1 + ph * 2), -size * 0.1 + ph * L * 0.9); g.lineTo(xx * (1 + ph * 2) * 1.05, ph * L * 0.9 + size * 0.14); g.stroke();
       }
     }
     g.translate(ox, oy); g.rotate(rot);

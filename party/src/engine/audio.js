@@ -317,6 +317,18 @@ export function sfx(name, opts = {}) {
     if (rate !== 1) src.playbackRate.value = rate;
     const g = ctx.createGain(); g.gain.value = opts.vol ?? 1;
     src.connect(g); g.connect(sfxBus); src.start();
+    // Long one-shots (a whole song, a crowd) are tracked like loops, so leaving
+    // or pausing a game stops/quiets them too.
+    if (src.buffer.duration / rate > 2) {
+      const vol = g.gain.value;
+      const h = {
+        stop(fade = 0.1) { activeLoops.delete(h); const t = ctx.currentTime; g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); g.gain.linearRampToValueAtTime(0, t + fade); try { src.stop(t + fade + 0.02); } catch (e) { /* done */ } },
+        _duck(on) { g.gain.setTargetAtTime(on ? 0 : vol, ctx.currentTime, 0.04); },
+      };
+      activeLoops.add(h);
+      if (loopsDucked) h._duck(true);
+      src.onended = () => activeLoops.delete(h);
+    }
     return;
   }
   const fn = SYNTH[name];
@@ -363,8 +375,9 @@ export function sfxLoop(name, { vol = 1, rate = 1, fadeIn = 0.1 } = {}) {
   return h;
 }
 let loopsDucked = false;
-/** Stop every running sfxLoop (the minigame host calls this when a game ends). */
+/** Stop every running sfxLoop and long one-shot (the minigame host calls this when a game ends or is left). */
 export function stopAllLoops() { for (const h of [...activeLoops]) h.stop(0.1); }
+export const activeLoopCount = () => activeLoops.size;   // (tests)
 /** Silence running loops while a game is paused (and bring them back). */
 export function duckLoops(on) { loopsDucked = on; for (const h of activeLoops) h._duck(on); }
 
