@@ -666,7 +666,23 @@
    "voice/unicorn/yay-1.mp3",
    "voice/unicorn/yay-2.mp3",
    "voice/unicorn/yay-3.mp3"
-  ]
+  ],
+  "bead-click": [
+   "sfx/bead-click-1.wav",
+   "sfx/bead-click-2.wav",
+   "sfx/bead-click-3.wav"
+  ],
+  "bead-zip": [
+   "sfx/bead-zip-1.wav",
+   "sfx/bead-zip-2.wav"
+  ],
+  "inst/bells": "sfx/inst/bells.mp3",
+  "inst/piano": "sfx/inst/piano.mp3",
+  "inst/marimba": "sfx/inst/marimba.mp3",
+  "inst/choir": "sfx/inst/choir.mp3",
+  "inst/kick": "sfx/inst/kick.wav",
+  "inst/clap": "sfx/inst/clap.wav",
+  "inst/shaker": "sfx/inst/shaker.wav"
  },
  "music": {
   "title": {

@@ -1719,6 +1719,13 @@ Earlier production notes in §12 describe the previous title configuration.
 
 ## Melody Maker instrument samples (optional) — 2026-10-05
 
+> **Delivered 2026-10-05 (ElevenLabs sound effects, `tools/audio/sfx/round3.py`):**
+> every key below is in the manifest. The pitched notes are re-tuned to the
+> base pitch within 5 cents: bells from an F6 take, piano from a C4 take,
+> marimba from an F4, choir from an F#4 (raised about a tritone). Drums are
+> trimmed one-shots. To go back to the synth sound for any of them, remove
+> its key from the manifest.
+
 Melody Maker (`src/games/melody-maker.js`) synthesizes every note with Web
 Audio and needs no files. Short recorded one-shots would make the piano and
 the "la la" choir sound much nicer. If an sfx key below exists in
@@ -1742,6 +1749,10 @@ a 4th down. Keep each file small (< 60 KB): they are decoded at startup like
 the other sfx.
 
 ## 13. Sparkle Bead Shop (`bead-bracelets`): new sound wishes (wordless)
+
+> **Delivered 2026-10-05:** `bead-click` (3 variations, 0.07–0.12 s) and
+> `bead-zip` (2 variations, about 0.35 s), ElevenLabs sound effects, now in
+> the manifest.
 
 Both keys are **wired**: the game plays the file as soon as the key is in
 `assets/audio/manifest.json`, and plays the synth stand-in (in brackets)
