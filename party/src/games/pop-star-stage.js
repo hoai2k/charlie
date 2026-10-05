@@ -316,6 +316,9 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
+    // With a human playing, CPU lanes keep their cheers and "aww"s to
+    // themselves (and their notes quiet) so they don't sound like yours.
+    this.hasHuman = this.players.some((p) => !p.isAI);
     const n = this.players.length;
     this.n = n;
     this.setSong(chooseSong('pop-star-stage'));
@@ -513,8 +516,9 @@ export class Game {
     this.judgeText(L, x, y - this.noteSize * (this.n > 5 ? 0.75 : 1), grade === 'perfect' ? 'Perfect!' : 'Good!', grade === 'perfect' ? '#ffd23f' : '#7dffb4', this.n > 5 ? 28 : 42);
     // recorded hit notes sit at BTN_MIDI, so a perfect (an octave up) is rate 2
     const hitKey = 'note-hit-' + nn.btn;
-    if (hasSound(hitKey)) sfx(hitKey, { vol: this.n > 4 ? 0.3 : 0.45, rate: grade === 'perfect' ? 2 : 1 });
-    else sfx('note', { midi: BTN_MIDI[nn.btn] + (grade === 'perfect' ? 12 : 0), dur: 0.18, vol: 0.12 });
+    const quiet = L.p.isAI && this.hasHuman, k = quiet ? 0.3 : 1;
+    if (hasSound(hitKey)) sfx(hitKey, { vol: (this.n > 4 ? 0.3 : 0.45) * k, rate: grade === 'perfect' ? 2 : 1 });
+    else sfx('note', { midi: BTN_MIDI[nn.btn] + (grade === 'perfect' ? 12 : 0), dur: 0.18, vol: 0.12 * k });
     const a = L.actor;
     if (!this.finale) a.playOnce(L.fever ? pick(['dance-star', 'dance-up']) : pick(['dance-up', 'dance-side', 'dance-down']), 0.3, 'dance');
     // fire a sparkle beam at an imp (or the boss)
@@ -523,12 +527,12 @@ export class Game {
       L.fever = true; L.feverT = 0;
       particles.popText(x, y - this.noteSize * 2, 'FEVER!', '#ff6fd0', 60);
       particles.burst(x, HIT_Y, { type: 'confetti', count: 30 });
-      sfx('magic'); sfx('fever', { fallback: 'star' }); fx.flash('#ffe6ff', 0.12);
+      if (!quiet) { sfx('magic'); sfx('fever', { fallback: 'star' }); fx.flash('#ffe6ff', 0.12); }
       a.emote('sparkle', 2);
       if (!L.p.isAI) { try { L.p.ctrl.rumble(0.5, 200); } catch (e) { /* ignore */ } }
     } else if (L.combo > 0 && L.combo % 10 === 0) {
       particles.popText(x, y + 80, `${L.combo} combo!`, '#ffffff', 40);
-      sfx('collect', { step: Math.min(12, L.combo / 10 * 2) });
+      if (!quiet) sfx('collect', { step: Math.min(12, L.combo / 10 * 2) });
       a.emote('star', 1);
     }
   }
@@ -546,10 +550,11 @@ export class Game {
     if (L.fever) { L.fever = false; particles.popText(L.x, HIT_Y - 60, 'Fever over', '#c9b6ff', 34); }
     if (!this.finale) L.actor.playOnce('hurt', 0.32, 'dance');
     this.judgeText(L, L.x + this.laneW * (this.n > 5 ? 0.28 : 0.22), HIT_Y + this.noteSize * 0.55, 'Miss', '#b9a8d9', this.n > 5 ? 22 : 30);
-    if (hadCombo >= 5) sfx('aww');
+    const quiet = L.p.isAI && this.hasHuman;
+    if (hadCombo >= 5 && !quiet) sfx('aww');
     // A cheeky imp sneaks a little closer and giggles.
     const near = this.imps.filter((m) => m.state === 'creep').sort((p, q) => Math.abs(p.x - L.x) - Math.abs(q.x - L.x))[0];
-    if (near) { near.mood = 'giggle'; near.moodT = 0.8; if (chance(0.5)) snd('npc/imp/giggle', 'giggle'); }
+    if (near) { near.mood = 'giggle'; near.moodT = 0.8; if (!quiet && chance(0.5)) snd('npc/imp/giggle', 'giggle'); }
   }
 
   // ---- imps and beams -----------------------------------------------------------

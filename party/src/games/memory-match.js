@@ -19,7 +19,8 @@ import { allFaces, drawCardBack, drawCardFace, drawUnicornHead } from './memory-
 
 const NAVY = '#24163f';
 const SIDE_W = 340;
-const REMEMBER = [0.5, 0.75, 0.9];   // chance a CPU remembers a revealed card (Easy/Normal/Hard)
+const REMEMBER = [0.35, 0.55, 0.75];  // chance a CPU remembers a revealed card (Easy/Normal/Hard)
+const FORGET = [0.18, 0.1, 0.05];      // ...and forgets each remembered card after every turn
 const snd = (key, fallback, o) => (hasSound(key) ? sfx(key, o) : fallback && sfx(fallback, o));
 
 export const meta = {
@@ -73,7 +74,13 @@ const possessive = (p) => {
 export class Game {
   constructor(api) {
     this.api = api;
-    this.players = api.players;
+    // CPUs never outnumber the humans: 1 player gets 1 CPU, 2-3 players are
+    // topped up to 4 with CPUs, 4+ players play without CPUs. The others
+    // watch this one (and are ranked after everyone who played).
+    const all = api.players, humans = all.filter((p) => !p.isAI).length, cpus = all.filter((p) => p.isAI);
+    const keep = humans === 0 ? Math.min(cpus.length, 4) : humans === 1 ? Math.min(1, cpus.length) : Math.max(0, Math.min(cpus.length, 4 - humans, humans));
+    const seated = new Set(cpus.slice(0, keep));
+    this.players = all.filter((p) => !p.isAI || seated.has(p));
     this.n = this.players.length;
     this.solo = this.n === 1;
     this.t = 0;
@@ -181,7 +188,15 @@ export class Game {
     s.p.ctrl.rumble(0.3, 100);
   }
 
-  nextTurn() { this.startTurn((this.turn + 1) % this.n); }
+  nextTurn() {
+    // CPUs forget a little between turns (the cards are face down again).
+    this.players.forEach((p, i) => {
+      if (!p.isAI) return;
+      const f = FORGET[clamp(p.aiLevel ?? 0, 0, 2)];
+      for (const k of [...this.mem[i].keys()]) if (chance(f)) this.mem[i].delete(k);
+    });
+    this.startTurn((this.turn + 1) % this.n);
+  }
 
   update(dt) {
     this.t += dt;
@@ -308,10 +323,14 @@ export class Game {
     if (this.done) return;
     this.done = true;
     const pairs = this.seats.map((s) => s.pairs);
-    if (this.solo) {
+    if (this.solo && this.api.players.length === 1) {
       this.api.finish({ placements: [1], stats: [`${this.tries} tries · ${'★'.repeat(this.rating())}`], title: ['Good try!', 'Great memory!', 'Super memory!'][this.rating() - 1] });
     } else {
-      this.api.finish({ placements: placementsFromScores(pairs), stats: pairs.map((n) => `${n} pair${n === 1 ? '' : 's'}`), title: 'Great memory!' });
+      // Back to every party member: CPUs who sat this one out come after the players.
+      const pl = placementsFromScores(pairs), last = Math.max(Math.max(...pl) + 1, this.api.players.length);
+      const placements = this.api.players.map((p) => { const i = this.players.indexOf(p); return i < 0 ? last : pl[i]; });
+      const stats = this.api.players.map((p) => { const i = this.players.indexOf(p); return i < 0 ? 'Watched' : `${pairs[i]} pair${pairs[i] === 1 ? '' : 's'}`; });
+      this.api.finish({ placements, stats, title: 'Great memory!' });
     }
   }
 
@@ -351,7 +370,7 @@ export class Game {
     ai.t -= dt;
     if (ai.t > 0) return;
     if (!ai.target) {
-      ai.target = this.aiChoose(p.index);
+      ai.target = this.aiChoose(this.turn);
       if (!ai.target) return;
     }
     const tc = ai.target.c, tr = ai.target.r;
