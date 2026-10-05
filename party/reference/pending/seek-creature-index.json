@@ -1,0 +1,16 @@
+{
+  "images": {
+    "prop/seek-ladybug": "prop/seek-ladybug.webp",
+    "prop/seek-bunny": "prop/seek-bunny.webp",
+    "prop/seek-butterfly": "prop/seek-butterfly.webp",
+    "prop/seek-snail": "prop/seek-snail.webp",
+    "prop/seek-mouse": "prop/seek-mouse.webp",
+    "prop/seek-bird": "prop/seek-bird.webp",
+    "prop/seek-frog": "prop/seek-frog.webp",
+    "prop/seek-owl": "prop/seek-owl.webp",
+    "prop/seek-scarf": "prop/seek-scarf.webp",
+    "prop/seek-teddy": "prop/seek-teddy.webp",
+    "prop/seek-block": "prop/seek-block.webp",
+    "prop/seek-ball": "prop/seek-ball.webp"
+  }
+}
