@@ -11,7 +11,7 @@
 export const PW = 200;           // a plain pancake's width
 export const PERFECT = 13;       // |offset| at or under this snaps to a perfect drop
 export const PLATE_HALF = 150;   // the plate's support half-width
-export const GRIP = 1.08;        // pancakes are a bit sticky: support reaches a little past the edge
+export const GRIP = 1.15;        // pancakes are a bit sticky: support reaches a little past the edge
 
 // value = points it adds to the tower; support = support half-width for the
 // items stacked on it (toppings squish flat and wide when covered).

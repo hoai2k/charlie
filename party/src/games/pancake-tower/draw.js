@@ -185,13 +185,15 @@ export function drawPlate(g, color, pw = 300, ph = 20) {
  * right. look: -1..1 eye direction, t: time, happy: smile size.
  */
 export function drawPan(g, t, look = 0, happy = 0.5, color = '#ff6fb1') {
-  if (drawArt(g, 'prop/chef-pan', 35, 0, 300, 110, { anchor: 'bottom', fit: 'stretch' })) return;
+  if (drawArt(g, 'prop/chef-pan', 22.5, 0, 295, 105, { anchor: 'bottom', fit: 'stretch' })) return;
   g.lineJoin = 'round'; g.lineCap = 'round';
-  // handle
+  // short handle, angled up
+  g.save(); g.translate(108, -30); g.rotate(-0.45);
   g.lineWidth = 4; g.strokeStyle = NAVY;
-  g.fillStyle = '#5b6182'; ui.roundRect(g, 104, -34, 50, 13, 6); g.fill(); g.stroke();
-  g.fillStyle = '#c98a4b'; ui.roundRect(g, 146, -38, 50, 20, 9); g.fill(); g.stroke();
-  g.fillStyle = color; g.beginPath(); g.arc(186, -28, 5, 0, TAU); g.fill();
+  g.fillStyle = '#5b6182'; ui.roundRect(g, -4, -6, 32, 12, 6); g.fill(); g.stroke();
+  g.fillStyle = '#c98a4b'; ui.roundRect(g, 22, -10, 40, 20, 9); g.fill(); g.stroke();
+  g.fillStyle = color; g.beginPath(); g.arc(52, 0, 5, 0, TAU); g.fill();
+  g.restore();
   // bowl (front face)
   g.beginPath();
   g.moveTo(-118, -36); g.lineTo(118, -36); g.lineTo(98, -2); g.quadraticCurveTo(96, 0, 90, 0); g.lineTo(-90, 0); g.quadraticCurveTo(-96, 0, -98, -2); g.closePath();
@@ -212,7 +214,7 @@ export function drawPan(g, t, look = 0, happy = 0.5, color = '#ff6fb1') {
   g.fillStyle = 'rgba(255,120,170,0.55)';
   for (const sx of [-1, 1]) { g.beginPath(); g.ellipse(sx * 44 + ex, -11, 7, 4, 0, 0, TAU); g.fill(); }
   // little chef hat perched on the handle end
-  g.save(); g.translate(176, -40); g.rotate(0.25 + Math.sin(t * 3) * 0.06);
+  g.save(); g.translate(160, -62); g.rotate(0.2 + Math.sin(t * 3) * 0.06);
   g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 3;
   ui.roundRect(g, -13, -10, 26, 12, 3); g.fill(); g.stroke();
   g.beginPath(); g.arc(-8, -16, 9, 0, TAU); g.arc(8, -16, 9, 0, TAU); g.arc(0, -24, 10, 0, TAU); g.fill();

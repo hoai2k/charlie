@@ -92,8 +92,8 @@ export class Game {
     this.slotW = slot;
     this.lanes = this.players.map((p, i) => {
       const lx = W / 2 + (i - (n - 1) / 2) * slot;
-      const s = Math.min(1.3, slot / 480);
-      const cx = lx + (n <= 3 ? 50 : 30) * s;
+      const s = Math.min(1.25, slot / 480);
+      const cx = lx + 20 * s;
       const a = new Actor(p, { scale: 1, x: 0, y: BASE_Y });
       const w1 = a.width || 120;
       const charScale = Math.min(s * 0.92, (s * 150) / w1);
@@ -705,7 +705,7 @@ export class Game {
       highlight: vals.map((v) => best > 0 && v === best),
       expr: this.lanes.map((L) => (L.dizzyT > 0 ? 'sad' : L.streak >= 2 ? 'happy' : 'neutral')),
     });
-    ui.timer(g, Math.max(0, DURATION - this.time), W / 2, 62);
+    ui.timer(g, Math.max(0, DURATION - this.time), this.timerX(), 62);
     if (this.time < 4.5 && !this.ending) {
       g.save(); g.globalAlpha = clamp(4.5 - this.time, 0, 1);
       const y = 190;
@@ -716,6 +716,16 @@ export class Game {
     }
     if (this.msg) ui.banner(g, this.msg.text, this.msg.t, { size: 96, y: 300, color: this.msg.color, strokeWidth: 20 });
     if (this.ending && !this.finished) ui.banner(g, 'Time!', this.endT, { size: 120, y: 320, color: '#ffffff' });
+  }
+
+  /** Centre of the gap ui.scoreboard leaves for the timer (it is off-centre for odd counts). */
+  timerX() {
+    const n = this.n, gap = 220;
+    const chipW = Math.min(260, (W - 120 - gap) / n - 16);
+    if (n === 1) return W / 2;
+    const total = n * chipW + (n - 1) * 16 + gap;
+    const gapAt = Math.ceil(n / 2);
+    return (W - total) / 2 + gapAt * (chipW + 16) + gap / 2 - 8;
   }
 
   destroy() {
