@@ -24,8 +24,8 @@ export const meta = {
   category: 'studio',
   type: 'Dress up · Everyone wins',
   goal: 'Dress up like royalty, then strut down the runway and strike your best poses!',
-  controls: [['lb', 'Pick a spot (head, face, wings...)'], ['stick', 'Up/down: try on items'], ['x', 'Change color'], ['y', 'Surprise me!'], ['a', 'Ready! / Strike a pose']],
-  tips: ['Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, press A to pose for the cameras!', 'Press B if you want to change your outfit again.'],
+  controls: [['lb', 'Pick a spot (head, face, wings...)'], ['stick', 'Up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Surprise me!'], ['x', "I'm ready! (A on the runway: pose)"]],
+  tips: ['Press A to pick an item, and A again to change its color.', 'Press X when you love your look!', 'Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, press A to pose for the cameras!', 'Press B if you want to change your outfit again.'],
   music: 'chill',
   duration: 'about 2 min',
   minPlayers: 1,
@@ -138,11 +138,12 @@ function drawItemIconArt(g, ci, ii, colIdx, cx, cy, size, t) {
   drawItemIcon(g, ci, ii, colIdx, cx, cy, size, t);
 }
 
-function drawWornArt(g, item, color, S, t) {
+function drawWornArt(g, item, color, S, t, box = null) {
   const spec = WORN_ART[item.name], img = spec && itemArt(item.name, color);
   if (!img) return false;
+  // box: an exact size to stretch to (capes fitted to the body); else fit spec w x h of S.
   const scale = Math.min(S * spec.w / img.width, S * spec.h / img.height);
-  const w = img.width * scale, h = img.height * scale;
+  const w = box ? box.w : img.width * scale, h = box ? box.h : img.height * scale;
   g.save();
   if (spec.flap) g.scale(0.91 + 0.09 * Math.cos(t * spec.flap), 1);
   if (spec.sway) g.transform(1, 0, Math.sin(t * 2) * 0.035, 1, 0, 0);
@@ -150,6 +151,27 @@ function drawWornArt(g, item, color, S, t) {
   g.restore();
   return true;
 }
+
+// Per-character fit, as fractions of the character's height (same space as
+// the sprite attachment points: feet at 0, up is negative, x toward the way
+// the character faces). Most sprite sets don't mark a back or a hand, so
+// they get the engine's generic points, which miss on four-legged, round and
+// wide characters (wings on a fox's rump, a bowtie over the cake's mouth).
+//   back: [x, y]   where wings attach (and capes are centred)
+//   wings: scale of wings (wide bodies need bigger wings to show)
+//   capeTop / capeW: upright cape: top edge y and width (default: just
+//     under the neck point, 0.9 of the height wide, hanging to the floor)
+//   sideCape: { x, y, w }  four-legged characters: cape over the back
+//   neck: [x, y], neckS: necklace/bowtie/scarf scale
+//   hand: [x, y]   where held items go
+const FIT = {
+  fox: { back: [0.04, -0.46], wings: 0.72, sideCape: { x: -0.06, y: -0.47, w: 0.58 } },
+  unicorn: { back: [0.08, -0.53], wings: 0.72, sideCape: { x: 0.0, y: -0.53, w: 0.58 } },
+  'cotton-candy': { back: [-0.04, -0.52], wings: 0.72, sideCape: { x: -0.04, y: -0.52, w: 0.5 } },
+  'marshmallow-birthday-cake': { back: [0, -0.62], wings: 1.45, capeTop: -0.82, capeW: 1.75, neck: [0, -0.29], neckS: 1.0, hand: [0.36, -0.24] },
+  hotdog: { back: [-0.1, -0.6], wings: 1.6, capeTop: -0.62, capeW: 2.3, neck: [-0.15, -0.2], hand: [0.3, -0.24] },
+  snowstar: { hand: [0.4, -0.36] },   // big head: keep held things (parasol pole) off the face
+};
 
 /** Split-screen station rects: 1 = big center, 2 = halves, 3-4 = quadrants, 5-8 = 4x2 grid. */
 function stationRects(n) {
@@ -242,12 +264,16 @@ export class Game {
     const hx = info.head.x, hy = info.head.y;
     const fy = hy + ((def.top ?? 1) - (1 - def.face[1])) * h;
     const eyes = info.eyes || { x: hx, y: fy };
-    const neck = info.neck || { x: hx, y: fy + faceW * 0.5 };
+    const fit = FIT[def.asset] || {};
+    const at = (v) => ({ x: v[0] * h, y: v[1] * h });
+    const neck = fit.neck ? at(fit.neck) : info.neck || { x: hx, y: fy + faceW * 0.5 };
     // Front-facing art: center wings/capes on the body (the engine default leans backward for side views).
     let back = info.back || { x: -0.12 * h, y: -h * 0.58 };
     if (def.facing === 0 && Math.abs(back.x + 0.12 * h) < 0.5) back = { x: hx * 0.25, y: back.y };
+    if (fit.back) back = at(fit.back);
+    const hand = fit.hand ? at(fit.hand) : info.hand;
     const tilt = info.headAngle || 0;
-    const put = (ci, x, y, S, which) => {
+    const put = (ci, x, y, S, which, box = null) => {
       const o = st.outfit[ci], it = CATS[ci].items[o.item];
       const fn = which === 'behind' ? it.behind : it.draw;
       if (!fn) return;
@@ -255,26 +281,31 @@ export class Game {
       g.save(); g.translate(x, y);
       if (tilt && (ci === CAT.head || ci === CAT.face)) g.rotate(tilt);
       const k = popK(st.pop[ci]); g.scale(k, k);
-      if (which === 'behind' || !drawWornArt(g, it, o.colors[o.item], S, t)) fn(g, S, col, t);
+      if (which === 'behind' || !drawWornArt(g, it, o.colors[o.item], S, t, box)) fn(g, S, col, t);
       g.restore();
     };
-    const bo = st.outfit[CAT.back];
-    const sideCape = def.motion === 'trot' && CATS[CAT.back].items[bo.item]?.name === 'Royal Cape' ? sideCapeArt(bo.colors[bo.item]) : null;
+    const bo = st.outfit[CAT.back], backName = CATS[CAT.back].items[bo.item]?.name;
+    const sideCape = def.motion === 'trot' && backName === 'Royal Cape' ? sideCapeArt(bo.colors[bo.item]) : null;
     if (behind) {
       put(CAT.aura, 0, -h * 0.5, h, 'behind');
-      if (!sideCape) put(CAT.back, back.x, back.y, h, 'draw');
+      if (backName === 'Royal Cape' && !sideCape) {
+        // Hangs from just under the neck to the floor, wider than the body so it shows.
+        const top = fit.capeTop != null ? fit.capeTop * h : neck.y + 0.02 * h;
+        put(CAT.back, back.x, top, h, 'draw', { w: (fit.capeW || 0.9) * h, h: Math.max(0.25 * h, -top) });
+      } else if (!sideCape) put(CAT.back, back.x, back.y, h * (fit.wings || 1), 'draw');
     } else {
       if (sideCape) {
         // draped over the back, in front of the body; art faces right like the sprites' forward space
-        const k = popK(st.pop[CAT.back]), sw = h * 0.95 * k, sh = sw * sideCape.height / sideCape.width;
-        g.save(); g.translate(back.x, back.y); g.transform(1, 0, Math.sin(t * 2) * 0.03, 1, 0, 0);
+        const sc = fit.sideCape || { x: back.x / h, y: back.y / h, w: 0.95 };
+        const k = popK(st.pop[CAT.back]), sw = h * sc.w * k, sh = sw * sideCape.height / sideCape.width;
+        g.save(); g.translate(sc.x * h, sc.y * h); g.transform(1, 0, Math.sin(t * 2) * 0.03, 1, 0, 0);
         g.drawImage(sideCape, -sw / 2, -sh * 0.25, sw, sh);
         g.restore();
       }
-      put(CAT.neck, neck.x, neck.y, faceW, 'draw');
+      put(CAT.neck, neck.x, neck.y, faceW * (fit.neckS || 1), 'draw');
       put(CAT.face, eyes.x, eyes.y, faceW, 'draw');
       put(CAT.head, hx, hy + headW * 0.1, headW, 'draw');
-      put(CAT.hand, info.hand.x, info.hand.y, h, 'draw');
+      put(CAT.hand, hand.x, hand.y, h, 'draw');
       put(CAT.aura, 0, -h * 0.5, h, 'draw');
     }
   }
@@ -297,6 +328,19 @@ export class Game {
     const col = PALETTE[o.colors[o.item]];
     sfx('swap');
     particles.burst(pos.x, pos.y, { type: 'sparkle', count: 8, colors: col.rainbow ? RAINBOW : [col.c, '#fff'] });
+    st.actor.playOnce('cheer', 0.45, 'idle'); st.actor.squash(0.15);
+  }
+
+  /** A: pick the item being tried on; A again on a picked item changes its color. */
+  pickItem(st) {
+    const ci = st.tab, o = st.outfit[ci], it = CATS[ci].items[o.item];
+    st.picked = st.picked || CATS.map(() => -1);
+    if (!it.draw) { sfx('blip'); st.listBump = 0.1; return; }
+    if (st.picked[ci] === o.item) { this.cycleColor(st); return; }
+    st.picked[ci] = o.item; st.pop[ci] = 0.1; st.listBump = 0.15;
+    const pos = this.itemWorldPos(st, ci), col = PALETTE[o.colors[o.item]];
+    sfx('select');
+    particles.burst(pos.x, pos.y, { type: 'sparkle', count: 10, colors: col.rainbow ? RAINBOW : [col.c, '#fff', '#ffd23f'] });
     st.actor.playOnce('cheer', 0.45, 'idle'); st.actor.squash(0.15);
   }
 
@@ -362,11 +406,11 @@ export class Game {
     ai.t = rand(0.28, 0.6) / slow * (hurry ? 0.45 : 1);
     if (ai.surprise && !ai.didSurprise && ai.step === 0) { ai.didSurprise = true; c.press('y'); ai.t += 1.2; return; }
     const goal = ai.plan[ai.step];
-    if (!goal) { c.press('a'); return; }
+    if (!goal) { c.press('x'); return; }
     if (st.tab !== goal.ci) { c.press(goal.ci > st.tab ? 'rb' : 'lb'); return; }
     const o = st.outfit[goal.ci];
     if (o.item !== goal.item) { c.move(0, goal.item > o.item ? 1 : -1); st.aiStick = 0.05; return; }
-    if (o.colors[o.item] !== goal.color) { c.press('x'); return; }
+    if (o.colors[o.item] !== goal.color) { c.press('a'); return; }
     ai.step++; ai.t += rand(0.5, 1.2) * (hurry ? 0.4 : 1);
     if (chance(0.5)) st.actor.emote('heart', 1);
   }
@@ -383,9 +427,9 @@ export class Game {
       const step = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + c.nav.x;
       if (step) { st.tab = (st.tab + Math.sign(step) + CATS.length) % CATS.length; st.tabBump = 0.18; sfx('move'); }
       if (c.nav.y) this.changeItem(st, c.nav.y);
-      if (c.pressed('x')) this.cycleColor(st);
+      if (c.pressed('a')) this.pickItem(st);
       if (c.pressed('y')) this.surprise(st);
-      if (c.pressed('a')) this.setReady(st, true);
+      if (c.pressed('x')) this.setReady(st, true);
     }
     if (this.stations.every((s) => s.ready && s.readyT > 0.5)) this.startShowtime();
   }
@@ -838,7 +882,7 @@ export class Game {
     x += tw + 12;
     if (wide) drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
     const o = st.outfit[st.tab], col = PALETTE[o.colors[o.item]];
-    const items = [['x', wide ? 'Color' : ''], ['y', wide ? 'Surprise!' : ''], ['a', 'Ready!']];
+    const items = [['a', wide ? 'Pick / color' : ''], ['y', wide ? 'Surprise!' : ''], ['x', 'Ready!']];
     const avail = r.x + r.w - 16 - x;
     const lab = sz * 0.62;
     let need = 0;
@@ -847,7 +891,7 @@ export class Game {
     x += Math.max(0, (avail - need * k) / 2);
     g.save(); g.translate(x, y); g.scale(k, k); x = 0;
     for (const [b, l] of items) {
-      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'a' && !st.ready && st.outfit.some((oo) => oo.item) });
+      ui.glyph(g, b, x + sz / 2, 0, sz, { pulse: b === 'x' && !st.ready && st.outfit.some((oo) => oo.item) });
       x += sz + 6;
       if (b === 'x' && CATS[st.tab].items[o.item].draw) {
         g.beginPath(); g.arc(x + sz * 0.3, 0, sz * 0.3, 0, TAU);
