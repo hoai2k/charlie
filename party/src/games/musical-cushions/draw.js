@@ -189,7 +189,9 @@ export function drawCushion(g, x, y, w, ci, { z = 0, sq = 0, glow = 0, t = 0, al
   }
   const sx = 1 + sq * 0.22, sy = 1 - sq * 0.35;
   g.translate(x, y - z); g.scale(sx, sy);
-  if (drawArt(g, 'prop/cushion-' + (ci % CUSHION_COLORS.length), 0, th * 0.5, w * 1.12, w * 1.12 * 0.8, { anchor: 'bottom' })) { g.restore(); return; }
+  // the delivered art has ~13% clear space under the cushion, so drop it by that much to sit on its shadow
+  const ah = w * 1.12 * 0.8;
+  if (drawArt(g, 'prop/cushion-' + (ci % CUSHION_COLORS.length), 0, th * 0.5 + ah * 0.13, w * 1.12, ah, { anchor: 'bottom' })) { g.restore(); return; }
   g.lineJoin = 'round';
   const pillow = (oy, ww, hh2, bulge) => {
     const l = -ww / 2, r = ww / 2, tp = oy - hh2 / 2, bt = oy + hh2 / 2;
