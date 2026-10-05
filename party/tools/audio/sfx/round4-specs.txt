@@ -1,0 +1,107 @@
+# key | prompt | dur | kind | fallback
+## snowball-splat
+snow-throw | quick soft whoosh of a snowball leaving a mitten | 0.3 | hit | whoosh
+snow-splat | wet fluffy snow splat of a snowball bursting on a puffy coat, cartoony | 0.4 | hit | splat
+snow-land | soft muffled snow pff of a snowball landing on snow | 0.25 | ui | splat
+snow-thud | dull packed-snow thump of a snowball hitting a snow wall | 0.3 | hit | hit
+snow-scoop | crunchy gloved hands scooping fresh snow | 0.3 | ui | brush
+snow-pack | short squeaky snow-packing pat-pat | 0.25 | ui | pop
+snow-rebuild | magical sparkly poof of snow growing back | 0.6 | ui | grow
+snow-powerup | twinkly icy chime falling from the sky | 0.6 | ui | sparkle
+snow-powerup-get | bright frosty magic pickup jingle | 0.6 | ui | magic
+snow-giant-roll | big heavy snowball rumbling and rolling over snow | 1.2 | hit | whoosh
+snow-burst | huge fluffy playful snow explosion | 0.8 | hit | bigpop
+snow-frenzy | short wintry fanfare with sleigh bells | 1.2 | hit | fanfare
+## fishing-frenzy   (pose request: reel | loop | fallback pump, action)
+fish-cast | quick light fishing-line whip whoosh with a tiny reel zip | 0.4 | ui | whoosh
+fish-plop | small cute fishing bobber plop into water with a soft bloop | 0.4 | ui | water
+fish-nibble | tiny soft underwater bubble blip | 0.2 | ui | bubble
+fish-bite | punchy cartoon bobber yanked under water, sharp bloop with a bright ding accent | 0.5 | hit | pop
+fish-hook | satisfying zip-pop of a fishing line going taut | 0.4 | hit | pop
+fish-reel | short plastic fishing-reel click ratchet tick | 0.1 | ui | tick
+fish-tug | quick fish thrashing splash with a fishing line twang | 0.5 | hit | splash
+fish-creak | tight fishing line creaking and stretching under strain | 0.4 | ui | tock
+fish-snap | comic fishing line snap ptoing with a little twang, cartoony | 0.5 | hit | crack
+fish-catch | big happy water splash with a whooshing leap of a fish out of the water | 0.7 | hit | jump
+fish-missed | soft descending bloop of a fish swimming away underwater | 0.4 | ui | back
+fish-scare | quick startled fish swish away with bubbles | 0.4 | ui | wrong
+fish-boot | silly squelchy wet boot glorp with a cartoon boing | 0.6 | hit | boing
+fish-duck | single rubber duck squeak | 0.3 | ui | pop
+## tug-of-war   (pose request: pull | loop | fallback knockback, balance)
+tug-heave | short springy rope stretch fwump with a tight creak, playful | 0.3 | hit | bounce
+tug-team-heave | bright rising sparkly chime burst with a rope twang | 0.6 | hit | star
+tug-superpull | short exciting cartoon drum build-up into a whoosh sting | 1.0 | hit | drumroll
+tug-yank | big cartoon rope yank whoosh with a taut thwang | 0.5 | hit | whoosh
+tug-splash | goopy wobbly jelly splash, sploosh with a bouncy jiggle tail, cute | 0.7 | hit | splash
+tug-pop-out | light squelchy suction pop like a cork pulled out of jelly | 0.3 | ui | pop
+tug-banana | cartoon boing with a slide whistle uh-oh blip | 0.5 | ui | boing
+tug-slip | cartoon slip, quick shoe squeak and a slide whistle going down | 0.5 | hit | squeak
+tug-hop | light springy cartoon hop boing | 0.3 | ui | jump
+tug-plop | small soft jelly plop | 0.3 | ui | bubble
+## jump-rope
+jr-slap | a jump rope lightly slapping a sandy playground floor, soft thwap, one hit | 0.25 | ui | tock
+jr-whoosh | a quick airy whoosh of a jump rope swinging past overhead | 0.35 | ui | whoosh
+jr-hop | a light cute springy cartoon hop boop | 0.2 | ui | jump
+jr-tangle | cartoon tangle, a rope zwip wrapping up then a soft bouncy tumble thud | 0.6 | hit | bonk
+jr-double | two quick jump rope whooshes crossing, playful and bright | 0.6 | ui | swap
+jr-slowdown | silly cartoon slow-motion wind-down with the pitch dropping, sleepy | 1.0 | ui | shrink
+jr-speedup | fast excited cartoon zip rev-up rising in pitch | 0.6 | hit | whoosh
+## musical-cushions
+cush-scratch | vinyl record scratch, a quick back-and-forth scratch then the record grinding to a stop | 0.4 | hit | stamp
+cush-plop | soft puffy cushion plop, a body landing on a fluffy pillow, a whump with a little air puff | 0.35 | hit | stamp
+cush-boing | silly springy cartoon cushion boing, bouncy, rising then wobbling | 0.5 | hit | bounce
+cush-out | gentle cute sad but sweet sting, two soft descending notes on a toy xylophone | 0.8 | ui | aww
+cush-fakeout | playful vinyl record speeding back up to normal pitch, ending in a tiny cheeky toy horn toot | 0.6 | ui | giggle
+cush-needle | vinyl needle drop, a soft thump and a short crackle | 0.3 | ui | tick
+## pancake-tower
+pancake-flip | a light springy fwip of a pancake flipped from a frying pan, soft air whoosh | 0.4 | ui | flip
+pancake-plop | a soft squishy plop of a fluffy pancake landing on another pancake | 0.3 | ui | land
+pancake-perfect | a bright sparkly bell ding with a tiny shimmer | 0.5 | ui | collect
+pancake-crash | comedic cartoon tumble, a wobbly plate rattle, several soft pancake flops and a light clatter | 1.2 | hit | crumble
+syrup-pour | thick gooey glug glug of syrup pouring from a bottle | 0.9 | ui | bubble
+tower-wobble | comic creaky wobble wub wub wub like a jelly tower teetering | 0.6 | ui | tock
+topping-squish | a soft wet squish like whipped cream being pressed | 0.3 | ui | squeak
+## treasure-dig
+td-beep | a tiny soft clean electronic bip from a toy treasure detector, sine-like and cute | 0.1 | ui | note
+td-dig | a short dry sand scoop with a little toy spade, sand swish and patter | 0.3 | ui | brush
+td-treasure | a bright sparkly ta-ding chime of discovery with a magical twinkle | 0.7 | hit | golden-chime
+td-jackpot | a triumphant short brass and bells jackpot flourish with sparkles | 1.5 | hit | fanfare
+td-crab | a cartoony little crab claw snip-snip clack followed by a tiny boing | 0.5 | hit | bonk
+td-seaweed | a wet squelchy cartoon splorp | 0.4 | hit | splat
+td-sock | a silly springy cartoon boing-oing | 0.5 | hit | boing
+td-wave | a gentle ocean wave rushing up the sand with foamy fizz | 2.0 | hit | water
+td-chest-thunk | a hollow wooden thunk of a toy spade hitting a wooden chest | 0.3 | hit | hit
+td-chest-open | a creaky treasure chest lid pop followed by a shower of jingling gold coins | 1.2 | hit | fanfare
+td-goldrush | an exciting short rising sparkle and coins sting | 1.2 | hit | fanfare
+## cloud-hop
+cloudhop-bounce | soft fluffy fwump boing of landing on a pillowy cloud, light and airy | 0.25 | ui | bounce
+cloudhop-spring | big playful cartoon spring boi-oi-oing with a rising pitch | 0.6 | hit | bounce
+cloudhop-poof | soft cartoon cloud poof with a tiny sprinkle of water drops | 0.4 | ui | pop
+cloudhop-flutter | quick sparkly upward flutter whoosh like tiny fairy wings | 0.3 | ui | jump
+cloudhop-star | bright twinkly magical chime ping | 0.4 | ui | star
+cloudhop-rocket | gentle rising magical whoosh with sparkles like a firework taking off, no bang | 1.0 | hit | whoosh
+cloudhop-bubble | soft bubbly bloop of a soap bubble forming | 0.4 | ui | bubble
+cloudhop-bonk | silly cartoon rubbery head bonk boing | 0.3 | hit | bonk
+cloudhop-finish | short triumphant sparkly fanfare flourish with chimes | 1.5 | hit | fanfare
+## pinata-party   (pose request: swing | no loop | fallback action)
+pinata-swish | soft cartoon whoosh of a foam bat swung through the air | 0.3 | ui | whoosh
+pinata-whack | muffled crinkly papery thump of a foam bat hitting a papier-mache pinata | 0.3 | hit | hit
+pinata-crack | crisp satisfying papier-mache crack with a crinkle of crepe paper | 0.4 | hit | crack
+pinata-burst | big happy papery burst with wrapped candy rattling out and a confetti pop | 1.0 | hit | bigpop
+pinata-candy-bounce | small hard candy tick bouncing on grass | 0.15 | ui | bounce
+pinata-rope | quick rope zip with a soft wooden creak | 0.6 | ui | whoosh
+## mini-golf
+golf-putt | soft wooden putter tap on a golf ball, a clean tok | 0.3 | hit | hit
+golf-clack | two hard plastic golf balls clacking together, bright and short | 0.25 | hit | bonk
+golf-rail | small glassy hard candy knock, tink-tock | 0.25 | hit | tock
+golf-gumdrop | squishy rubbery springy cartoon gumdrop boing | 0.4 | hit | boing
+golf-whack | cartoony candy stick whack with a little whoosh, not harsh | 0.35 | hit | bonk
+golf-jelly | wobbly jelly boing-oing with a wet jiggle | 0.6 | hit | bounce
+golf-cup | golf ball plunking into a cup with a short rattle and a sparkly chime | 0.7 | hit | collect
+golf-hio | short triumphant fanfare sting with bells and sparkles | 1.8 | hit | fanfare
+golf-lip | quick golf ball rim rattle clink-clink, a near miss | 0.4 | ui | tock
+golf-choc-splash | cute thick gloopy chocolate plop splash | 0.6 | hit | splash
+golf-warp | magical sparkly swirly whoop going down | 0.5 | ui | magic
+golf-warp-out | sparkly bwip pop going up | 0.35 | ui | pop
+golf-charge | tiny soft tick click as a golf swing winds up | 0.15 | ui | tick
+golf-wipe | fast airy swoosh across | 0.6 | ui | whoosh

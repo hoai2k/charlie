@@ -125,6 +125,27 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
 - The corner "i" can be placed per game: `meta.infoAt` is a corner or
   `[x, y]` (Dream Room and Hide & Seek use `[x, y]`).
 
+### Ten new Party Games, page 2 (merged 2026-10-05)
+- Party Games now has two pages. The 12th tile on page 1 is **More Games**; it
+  flips to page 2: Piñata Party, Musical Cushions, Snowball Splat, Jump Rope
+  Jamboree, Fishing Frenzy, Rainbow Tug-of-War (first team game), Cloud Hop,
+  Pancake Tower, Treasure Dig, Candy Mini-Golf, then Crown Keeper.
+  `PARTY_PAGES` in `games/index.js` defines the pages; Random and Marathon
+  cover both (the roulette switches to the target's page).
+- Each game's art requests: `## New Party game: <id>` in `image-requests.md`.
+  Every art key falls back to procedural drawing, so art drops in.
+- Sounds: 130 ElevenLabs sfx (snow-*, fish-*, tug-*, jr-*, cush-*,
+  pancake-*, td-*, cloudhop-*, pinata-*, golf-*). Specs and the build script:
+  `tools/audio/sfx/round4.py` + `round4-specs.txt`. Not yet heard by a person.
+- New poses `reel` and `pull` are registered (fall back to pump / knockback).
+  Optional future poses listed per game: `swing`, `dig`, `putt`,
+  `spring-jump`, `skip-hop`, `snow-scoop`.
+- Musical Cushions plays its own tune (inst/* samples) because the music
+  engine can't pause or slow a song; `music.pause/resume/setRate` would let
+  it use real songs.
+- `ui.scoreboard` now centres its timer gap for odd player counts and
+  returns chip rects (several games had copied its layout).
+
 ## Open items (not started or waiting)
 - **Music:** the user chooses takes per song on the Takes tab. Then move the
   chosen takes into the manifest and delete the others (the takes total about
