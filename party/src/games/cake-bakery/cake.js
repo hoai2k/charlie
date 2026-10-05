@@ -329,8 +329,20 @@ function drawCrumbSide(g, L, sideSlices, key) {
   return true;
 }
 
+// prop/cake-stand (500x200): its top plate is an ellipse centred at (250, 76)
+// with radii 244 x 74 px. It's stretched to the cake's plate (250 x 250*KY)
+// so layers and toppings sit on it exactly like on the drawn stand.
+const STAND_ART = { cx: 250, cy: 76, rx: 244, ry: 74 };
+
 function drawStand(g) {
   const rx = 250, ry = rx * KY;
+  const img = art('prop/cake-stand');
+  if (img) {
+    const u = img.width / 500, A = STAND_ART;
+    const sx = rx / (A.rx * u), sy = ry / (A.ry * u);
+    g.drawImage(img, -A.cx * u * sx, -A.cy * u * sy, img.width * sx, img.height * sy);
+    return;
+  }
   g.lineWidth = 5; g.strokeStyle = NAVY;
   g.beginPath(); g.moveTo(-40, 14); g.lineTo(-70, 70); g.lineTo(70, 70); g.lineTo(40, 14); g.closePath();
   g.fillStyle = '#e9e2f5'; g.fill(); g.stroke();
