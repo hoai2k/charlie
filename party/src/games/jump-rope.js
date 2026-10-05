@@ -107,6 +107,7 @@ export class Game {
     this.scriptI = 0;
     this.banner = null;
     this.tutorial = 3;            // show "JUMP!" for the first passes
+    this.practice = 3;            // the first two passes are free (counted down at each slap, judged just after)
     this.cueText = null;
     this.burst = false; this.slow = false;
     this.lastBeat = -1; this.beatOk = false;
@@ -313,6 +314,7 @@ export class Game {
     for (let i = 0; i < 6; i++) particles.burst(rand(520, 1400), GROUND + rand(-10, 10), { type: 'dust', count: 1, colors: ['#fff6dd', '#f2d79a'], speed: [40, 120], size: [10, 18] });
     if (r.gold) particles.burst(960, GROUND - 10, { type: 'sparkle', count: 14, colors: ['#ffd23f', '#fff6a8', '#fff'], speed: [80, 360], jitter: 300 });
     if (this.tutorial > 0) this.tutorial--;
+    if (ri === 0 && this.practice > 0) this.practice--;
   }
 
   // --- players -----------------------------------------------------------------
@@ -323,7 +325,7 @@ export class Game {
     if (U.tangled > 0) {
       U.tangled -= dt;
       if (U.tangled <= 0) {
-        if (U.alive) { a.setPose('idle'); a.clearEmotes(); a.squash(0.3); particles.popText(U.x, U.y - a.height - 30, 'Back in!', '#ffffff', 34); }
+        if (U.alive) { a.setPose('idle'); a.clearEmotes(); a.squash(0.3); if (!U.stumble) particles.popText(U.x, U.y - a.height - 30, 'Back in!', '#ffffff', 34); U.stumble = false; }
         else this.goSit(U);
       }
     }
@@ -414,6 +416,14 @@ export class Game {
 
   caught(U, ri) {
     if (this.over) return;
+    if (this.practice > 0) {
+      // Warm-up pass: a little stumble and a hint, no heart lost.
+      U.streak = 0; U.tangled = 0.5; U.immune = 0.6; U.stumble = true; U.jt = -1; U.z = 0; U.tagT = U.p.isAI ? 0 : 2;
+      U.a.playOnce('surprised', 0.4, 'idle'); U.a.squash(0.3);
+      particles.popText(U.x, U.y - U.a.height - 40, 'Practice! Hop!', '#9fe8ff', 40);
+      sfx('bonk', { vol: 0.35 });
+      return;
+    }
     U.hearts = Math.max(0, U.hearts - 1); U.streak = 0; U.heartFlash = 1;
     U.tangled = 1.15; U.immune = 1.4; U.coil = 1.15; U.buffer = 0;
     U.jt = -1; U.z = 0; U.tagT = U.p.isAI ? 0 : 2;
