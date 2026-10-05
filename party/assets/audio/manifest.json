@@ -738,7 +738,27 @@
   "pancake-crash": "sfx/pancake-crash.mp3",
   "syrup-pour": "sfx/syrup-pour.mp3",
   "tower-wobble": "sfx/tower-wobble.mp3",
-  "topping-squish": "sfx/topping-squish.mp3"
+  "topping-squish": "sfx/topping-squish.mp3",
+  "td-beep": "sfx/td-beep.wav",
+  "td-dig": "sfx/td-dig.mp3",
+  "td-treasure": "sfx/td-treasure.mp3",
+  "td-jackpot": "sfx/td-jackpot.mp3",
+  "td-crab": "sfx/td-crab.mp3",
+  "td-seaweed": "sfx/td-seaweed.mp3",
+  "td-sock": "sfx/td-sock.mp3",
+  "td-wave": "sfx/td-wave.mp3",
+  "td-chest-thunk": "sfx/td-chest-thunk.wav",
+  "td-chest-open": "sfx/td-chest-open.mp3",
+  "td-goldrush": "sfx/td-goldrush.mp3",
+  "cloudhop-bounce": "sfx/cloudhop-bounce.wav",
+  "cloudhop-spring": "sfx/cloudhop-spring.mp3",
+  "cloudhop-poof": "sfx/cloudhop-poof.wav",
+  "cloudhop-flutter": "sfx/cloudhop-flutter.mp3",
+  "cloudhop-star": "sfx/cloudhop-star.mp3",
+  "cloudhop-rocket": "sfx/cloudhop-rocket.mp3",
+  "cloudhop-bubble": "sfx/cloudhop-bubble.mp3",
+  "cloudhop-bonk": "sfx/cloudhop-bonk.wav",
+  "cloudhop-finish": "sfx/cloudhop-finish.mp3"
  },
  "music": {
   "title": {
