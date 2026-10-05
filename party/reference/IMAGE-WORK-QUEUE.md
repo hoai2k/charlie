@@ -15,7 +15,7 @@ Last checked revision: `a2b5009`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
 Last checked UTC: 2026-10-05T23:40:13Z.
 
-New briefs add119 art keys across10 games. Owners:
+New briefs add119 art keys across10 games. Musical Cushions12 art keys are reviewed and delivered in the next family commit;107 art keys and roster-action expansions remain in production. Owners:
 - beads_new_art: mini-golf11, treasure-dig16, fishing-frenzy16.
 - melody_new_art: musical-cushions12, pancake-tower11, tug-of-war10.
 - room_new_art: cloud-hop12, pinata-party10, snowball-splat15, jump-rope6.
