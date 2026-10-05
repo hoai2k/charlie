@@ -287,6 +287,22 @@
     "prop/cake-layer-round": "prop/cake-sponge-round.webp",
     "prop/cake-layer-heart": "prop/cake-sponge-heart.webp",
     "prop/cake-layer-star": "prop/cake-sponge-star.webp",
-    "prop/cape-royal-side": "prop/cape-royal-side.webp"
+    "prop/cape-royal-side": "prop/cape-royal-side.webp",
+    "bg/bead-bracelets": "bg/bead-bracelets.webp",
+    "bg/bead-bracelets-station": "bg/bead-bracelets-station.webp",
+    "bg/bead-bracelets-mirror": "bg/bead-bracelets-mirror.webp",
+    "thumb/bead-bracelets": "thumb/bead-bracelets.webp",
+    "prop/bead-atlas": "prop/bead-atlas.webp",
+    "prop/charm-heart": "prop/charm-heart.webp",
+    "prop/charm-star": "prop/charm-star.webp",
+    "prop/charm-crown": "prop/charm-crown.webp",
+    "prop/charm-butterfly": "prop/charm-butterfly.webp",
+    "prop/charm-shell": "prop/charm-shell.webp",
+    "prop/charm-cupcake": "prop/charm-cupcake.webp",
+    "prop/charm-rainbow": "prop/charm-rainbow.webp",
+    "prop/charm-horn": "prop/charm-horn.webp",
+    "prop/bead-tray": "prop/bead-tray.webp",
+    "prop/pattern-card": "prop/pattern-card.webp",
+    "prop/bead-shelf": "prop/bead-shelf.webp"
   }
 }
