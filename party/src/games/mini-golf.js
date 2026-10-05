@@ -741,13 +741,8 @@ export class Game {
   }
 
   /** Centre of the gap ui.scoreboard leaves for the timer (it is off-centre for odd player counts). */
-  timerX() {
-    const n = this.n, gap = 220, chipW = Math.min(260, (W - 120 - gap) / n - 16);
-    const total = n * chipW + (n - 1) * 16 + gap;
-    const x0 = n === 1 ? W / 2 - gap / 2 - chipW : (W - total) / 2;
-    const gapAt = n === 1 ? 1 : Math.ceil(n / 2);
-    return x0 + gapAt * (chipW + 16) - 8 + gap / 2;
-  }
+  timerX() { return W / 2; }   // ui.scoreboard centres its gap
+
 
   drawMiniFlag(g, x, y) {
     g.save(); g.strokeStyle = NAVY; g.lineWidth = 4; g.lineCap = 'round';

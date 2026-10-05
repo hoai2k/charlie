@@ -764,7 +764,21 @@
   "pinata-crack": "sfx/pinata-crack.mp3",
   "pinata-burst": "sfx/pinata-burst.mp3",
   "pinata-candy-bounce": "sfx/pinata-candy-bounce.wav",
-  "pinata-rope": "sfx/pinata-rope.mp3"
+  "pinata-rope": "sfx/pinata-rope.mp3",
+  "golf-putt": "sfx/golf-putt.wav",
+  "golf-clack": "sfx/golf-clack.wav",
+  "golf-rail": "sfx/golf-rail.wav",
+  "golf-gumdrop": "sfx/golf-gumdrop.wav",
+  "golf-whack": "sfx/golf-whack.wav",
+  "golf-jelly": "sfx/golf-jelly.mp3",
+  "golf-cup": "sfx/golf-cup.mp3",
+  "golf-hio": "sfx/golf-hio.mp3",
+  "golf-lip": "sfx/golf-lip.wav",
+  "golf-choc-splash": "sfx/golf-choc-splash.mp3",
+  "golf-warp": "sfx/golf-warp.mp3",
+  "golf-warp-out": "sfx/golf-warp-out.wav",
+  "golf-charge": "sfx/golf-charge.wav",
+  "golf-wipe": "sfx/golf-wipe.mp3"
  },
  "music": {
   "title": {
