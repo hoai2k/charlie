@@ -109,24 +109,21 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   - **Teaching order:** B joins at groove 2, X and Y at groove 3. The last
     groove is the golden finale.
 
-### Four new Play Studio games (agents, in progress)
-- The user asked for 4 more studio games to fill the second Play Studio row
-  (12 party + 12 studio).
-- Four agents build them in separate git worktrees on their own branches.
-  They don't push; the lead reviews and merges each branch.
-  - `dream-room`: Dream Room, decorating a bedroom.
-  - `melody-maker`: Melody Maker, a step sequencer plus a concert.
-  - `seek-and-find`: Hide & Seek Picnic, an I-spy game.
-  - `bead-bracelets`: Sparkle Bead Shop, pattern beads plus free design.
-- Each agent adds its game to the end of `src/games/index.js` and a
-  `## New Play Studio game: <id>` section to the end of
-  `image-requests.md` (maybe also `audio-requests.md`).
-- To merge:
-  1. Resolve `index.js` by keeping every import.
-  2. For `index.html`, take ours and re-run stamp-modules.
-  3. Concatenate the request sections.
-  4. Test each game headless and push.
-  5. Tell the user which images to generate.
+### Four new Play Studio games (merged 2026-10-05)
+- Merged and live; the game list now has 24 games (12 party, 12 studio).
+  - Melody Maker `melody-maker`
+  - Sparkle Bead Shop `bead-bracelets`
+  - Dream Room `dream-room`
+  - Hide & Seek Picnic `seek-and-find`
+- Each has a `## New Play Studio game: <id>` section at the end of
+  `image-requests.md` for the user to generate.
+- Sounds delivered with ElevenLabs (`tools/audio/sfx/round3.py`):
+  - `bead-click`, `bead-zip`
+  - Melody Maker's `inst/*` (bells, piano, marimba, choir, kick, clap, shaker)
+- Unverified by ear: whether the bells and choir samples sound right. If
+  not, remove their keys from the manifest and the synth plays again.
+- The corner "i" can be placed per game: `meta.infoAt` is a corner or
+  `[x, y]` (Dream Room and Hide & Seek use `[x, y]`).
 
 ## Open items (not started or waiting)
 - **Music:** the user chooses takes per song on the Takes tab. Then move the

@@ -84,7 +84,7 @@ walking.
 | 11 | `fairy-count` | Fairy Count | Counting | Fairies of different colors zip across a moonlit garden. Count the pink ones! Pick your number with up/down, lock with **A**. Exact = 3 points, off-by-one = 1. 3 rounds. | think, cheer, pout |
 | 12 | `crown-keeper` | Crown Keeper | Keep-away, 45 s | Princess theme. Grab the crown and keep it as long as you can; **A** dashes to bump it loose. Crown holder is a bit slower. Most crown-seconds wins. | run, carry (crown on head), push, hurt |
 
-### Play Studio (8, creative / gentle)
+### Play Studio (12, creative / gentle)
 
 | # | id | Name | Players | How it plays |
 |---|---|---|---|---|
@@ -96,6 +96,10 @@ walking.
 | 18 | `fairy-garden` | Fairy Garden | 1–4 cooperative | Plant magic seeds, water them, watch them grow into giant glowing flowers; fairies come to visit; catch fireflies. Day → night sky finale. |
 | 19 | `potion-class` | Potion Class | 1–4 | Wizard-school. Professor Hoot shows a recipe card; add ingredients in order, stir (rotate the stick), wave the wand. Right recipe = sparkly transformation (giant, tiny, rainbow, floaty); wrong = silly fizz. |
 | 20 | `memory-match` | Unicorn Memory Match | 1–4 turns | Flip two cards; match pairs of characters. Matching gives a star burst and an extra turn. Most pairs wins. |
+| 21 | `seek-and-find` | Hide & Seek Picnic | 1–4 cooperative (CPUs help a little) | I-spy in three busy scenes (picnic meadow, toy shop, starry forest). A picture list shows what to find: 3 of something, one player's character peeking out, creatures and treats. Steer a magnifying glass (zoom bubble), **A** spots, **Y** hint ripple (3 per round), **X** big glass, **LB/RB** zoom; click/tap spots directly. Wrong spots just wobble. Everyone waves from hiding spots at the end; 1★ each, 🏅 to the top finder. |
+| 22 | `melody-maker` | Melody Maker | 1–8 shared grid | Compose a looping tune on a grid of singing flowers (C pentatonic, nothing sounds wrong) plus a drum lane. Each player has their own sound (bells, piano, marimba, "la la" choir); 4 pages, preset songs, tortoise/hare speed. **A** note, **X** sound, **Y** sparkle phrase, **LB/RB** page, **B** undo. "Concert!" plays the song while the characters dance on stage. CPUs add a few harmony notes. |
+| 23 | `bead-bracelets` | Sparkle Bead Shop | 1–8 (each own station) | Customers show a pattern card (AB, AAB, ABC, then AABB, ABCB, growing patterns); thread the beads that continue it. Wrong beads wiggle off, **Y** hints. Then free design (bracelet, necklace, anklet, charms) worn by your character, and a mirror twirl and group photo. |
+| 24 | `dream-room` | Dream Room | 1–8 shared room | Decorate a cut-away dollhouse bedroom: 41 items, wallpapers and floors. **LB/RB** browse, **X** Place / Move / Paint, **B** remove, **Y** surprise present. A light switch turns on night mode, a pet bed brings a kitty, a music box makes everyone dance. "Tour!" sends the characters in to play, then a group photo. |
 
 ## Architecture
 
@@ -169,7 +173,7 @@ files (it reports needed engine changes instead).
 
 - [x] Engine core, sprite system (on-demand sprite loading), 2.5D camera, sprite viewer (`?scene=sprites`), audio test page (`?scene=audio`)
 - [x] Menus, how-to screens, minigame host, results podium, Party Marathon + trophy
-- [x] All 20 minigames built, audited by the lead, polished, and QA'd end to end
+- [x] All 20 original minigames built, audited by the lead, polished, and QA'd end to end
       (20/20 games reach the podium at 1, 4 and 8 players; Marathon + Random
       run 11 games in one session with no errors or leaks)
 - [x] Xbox controllers verified with simulated pads; keyboard fallback
