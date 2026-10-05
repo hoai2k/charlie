@@ -62,6 +62,15 @@ export const POSES = {
   throw:     { loop: false, fallback: ['action'], desc: 'Throwing something forward.' },
   push:      { loop: false, fallback: ['action'], desc: 'Shove / bump forward.' },
   pump:      { loop: true,  fallback: ['action'], desc: 'Pumping a balloon pump: both hands on the T-handle, pushing it down (held while mashing).' },
+  pull:      { loop: true, fallback: ['knockback', 'balance'], desc: 'Lean back and heave a rope with the grip held forward.' },
+  reel:      { loop: true, fallback: ['pump', 'action'], desc: 'Hold the fishing rod forward and crank its reel.' },
+  swing:     { loop: false, fallback: ['action'], desc: 'Cheerful two-handed overhead bat swing.' },
+  putt:      { loop: true, fallback: ['crouch', 'idle'], desc: 'Look down with the putter grip held low in front.' },
+  'putt-swing': { loop: false, fallback: ['action'], desc: 'Gentle forward putting stroke and hopeful follow-through.' },
+  'spring-jump': { loop: false, fallback: ['dance-star', 'jump'], desc: 'Spring upward with arms raised and knees tucked.' },
+  'snow-scoop': { loop: true, fallback: ['crouch', 'land'], desc: 'Crouch and pack snow with hands or paws close to the ground.' },
+  dig:       { loop: true, fallback: ['crouch', 'action'], desc: 'Crouch and scoop sand back between the legs.' },
+  'skip-hop': { loop: false, fallback: ['jump', 'fall'], desc: 'Light two-footed rope hop with arms extended sideways.' },
   carry:     { loop: true,  fallback: ['walk'], desc: 'Walking while holding something overhead.' },
   dance:     { loop: true,  fallback: ['celebrate'], auto: 'note', desc: 'Dancing on the beat.' },
   paint:     { loop: true,  fallback: ['action'], desc: 'Painting / crafting with a brush.' },
@@ -193,12 +202,16 @@ async function loadSpriteSet(asset) {
   const imgDir = opt ? `assets/sprites-opt/${asset}/` : dir;
   const k = opt ? opt.scale || 1 : 1;
   const imgCache = new Map();
-  const getImg = (file) => {
-    if (!imgCache.has(file)) imgCache.set(file, loadImage(imgDir + file));
-    return imgCache.get(file);
+  const versioned = (file, hash) => file + (hash ? `?v=${encodeURIComponent(hash)}` : '');
+  const getImg = (file, hash = opt?.source) => {
+    const key = versioned(file, hash);
+    if (!imgCache.has(key)) imgCache.set(key, loadImage(imgDir + key));
+    return imgCache.get(key);
   };
   // Optimized frame missing (copy not rebuilt yet)? Use the original instead.
-  const getFrameImg = (file) => getImg(file).then((img) => (img || !opt ? { img, k } : loadImage(dir + file).then((o) => ({ img: o, k: 1 }))));
+  // Raster changes must not reuse cached pixels with newly scaled landmarks.
+  // Optimized copies share their source fingerprint; full frames use file hashes.
+  const getFrameImg = (file, hash) => getImg(file, opt?.source || hash).then((img) => (img || !opt ? { img, k } : loadImage(dir + versioned(file, hash)).then((o) => ({ img: o, k: 1 }))));
   const atlas = m.atlas ? await loadImage(dir + m.atlas) : null; // atlases are never optimized
   const set = { manifest: m, poses: {}, portraits: {}, anchor: m.anchor, bodyHeight: m.bodyHeight, facing: m.facing ?? 0, quality: opt ? 'optimized' : 'full' };
   const aliases = [];
@@ -224,7 +237,7 @@ async function loadSpriteSet(asset) {
         eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
         headAngle: fo.headAngle ?? def.headAngle ?? 0,
       };
-      if (fr.src) fr.load = () => fr.loading || (fr.loading = getFrameImg(fr.src).then(({ img, k: fk }) => {
+      if (fr.src) fr.load = () => fr.loading || (fr.loading = getFrameImg(fr.src, fo.fileHash).then(({ img, k: fk }) => {
         if (!img) { fr.failed = true; return; }
         fr.k = fk; fr.img = img; fr.w = (img.naturalWidth || img.width) / fk; fr.h = (img.naturalHeight || img.height) / fk;
       }));
@@ -294,7 +307,8 @@ function takeBakeBudget(force) {
 function frameMask(fr, asset) {
   if (fr.mask === undefined) {
     fr.mask = null;
-    loadImage(`assets/sprites/${asset}/masks/${fr.src}`).then((img) => { fr.mask = img || false; });
+    const version = optIndex[asset]?.source;
+    loadImage(`assets/sprites/${asset}/masks/${fr.src}` + (version ? `?v=${encodeURIComponent(version)}` : '')).then((img) => { fr.mask = img || false; });
   }
   return fr.mask;
 }

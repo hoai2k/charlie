@@ -17,13 +17,14 @@ assert.equal(resolvePose({ poses: { idle, walk } }, 'carry'), walk);
 assert.equal(resolvePose({ poses: { idle } }, 'run'), idle); // cyclic walk/run fallback terminates
 
 // Simulated image/network boundary; exercises the actual production loader.
+const loadedImageURLs = [];
 globalThis.Image = class {
   constructor() { this.width = 100; this.height = 120; }
-  set src(_) { queueMicrotask(() => this.onload()); }
+  set src(url) { loadedImageURLs.push(url); queueMicrotask(() => this.onload()); }
 };
 const manifest = { bodyHeight: 100, anchor: [50, 120], facing: 1, poses: {
   run: { alias: 'jog', fps: 12 }, jog: 'walk',
-  idle: { frames: ['idle.webp'], fps: 5 },
+  idle: { frames: [{ src: 'idle.webp', fileHash: 'pixels-v1' }, { src: 'idle.webp', fileHash: 'pixels-v2' }], fps: 5 },
   walk: { frames: ['a.webp', 'b.webp'], fps: 4 },
   throw: { frames: [{ src: 'a.webp', dur: .1 }, { src: 'b.webp', dur: .3 }], loop: false, facing: -1 },
 } };
@@ -32,6 +33,9 @@ await loadSprites();
 assert.equal(getSpriteSet('felicity'), undefined); // sets load on demand
 await ensureSpriteSet('felicity');
 const set = getSpriteSet('felicity');
+assert(loadedImageURLs.includes('assets/sprites/felicity/idle.webp?v=pixels-v1'));
+assert(loadedImageURLs.includes('assets/sprites/felicity/idle.webp?v=pixels-v2'));
+assert.notEqual(set.poses.idle.frames[0].img, set.poses.idle.frames[1].img); // changed pixels cannot reuse the old image
 assert.equal(set.poses.run.frames, set.poses.walk.frames);
 assert.equal(set.poses.run.fps, 12);
 assert.equal(set.poses.throw.facing, -1);

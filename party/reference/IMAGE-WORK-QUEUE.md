@@ -24,6 +24,8 @@ New briefs add119 art keys across10 games. Musical Cushions12 art keys are revie
   reel, skip-hop). Future-marked pose upgrades are included in this production
   pass; anatomy and grip points must stay correct for each15 roster member.
 
+Felicity now has all9 new actions,12 real new frames (84 poses/105 totalframes), refreshed optimized copies and105 masks; decoded footprint21.3MiB. Root reviewed frame landmarks and optimized/full sprite viewer, with no browser errors. Fourteen roster expansions remain.
+
 All current canonical approvals carry forward. Ship completed families promptly,
 fetch main regularly, and immediately recheck for new requests after generation.
 Only then start a fresh quiet window, check again15 minutes later, and cancel

@@ -1,13 +1,13 @@
 {
   "asset": "felicity",
-  "bodyHeight": 270,
+  "bodyHeight": 243.0,
   "frameSize": [
-    576,
-    446
+    518,
+    401
   ],
   "anchor": [
-    288,
-    428
+    259,
+    385
   ],
   "facing": 1,
   "provenance": "Approved canonical artwork with generated key poses and Round 3 authored blink, celebration, dance, ride and distinct expressions; per-frame landmarks and transparent WebP intake.",
@@ -3861,6 +3861,498 @@
       "fps": 8,
       "loop": true,
       "motion": 0.15,
+      "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            12,
+            6,
+            396,
+            477
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            261,
+            470
+          ],
+          "head": [
+            233,
+            95
+          ],
+          "eyes": [
+            230,
+            167
+          ],
+          "neck": [
+            238,
+            239
+          ],
+          "back": [
+            199,
+            294
+          ],
+          "hand": [
+            333,
+            268
+          ]
+        },
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            399,
+            16,
+            399,
+            467
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            255,
+            460
+          ],
+          "head": [
+            211,
+            87
+          ],
+          "eyes": [
+            216,
+            165
+          ],
+          "neck": [
+            221,
+            234
+          ],
+          "back": [
+            179,
+            295
+          ],
+          "hand": [
+            330,
+            259
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            796,
+            0,
+            363,
+            493
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            217,
+            486
+          ],
+          "head": [
+            208,
+            96
+          ],
+          "eyes": [
+            218,
+            155
+          ],
+          "neck": [
+            225,
+            249
+          ],
+          "back": [
+            185,
+            310
+          ],
+          "hand": [
+            324,
+            207
+          ]
+        },
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            1182,
+            0,
+            348,
+            488
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            214,
+            481
+          ],
+          "head": [
+            182,
+            95
+          ],
+          "eyes": [
+            210,
+            153
+          ],
+          "neck": [
+            200,
+            243
+          ],
+          "back": [
+            165,
+            302
+          ],
+          "hand": [
+            270,
+            211
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            13,
+            490,
+            387,
+            505
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            213,
+            498
+          ],
+          "head": [
+            192,
+            105
+          ],
+          "eyes": [
+            219,
+            153
+          ],
+          "neck": [
+            208,
+            248
+          ],
+          "back": [
+            175,
+            313
+          ],
+          "hand": [
+            73,
+            164
+          ]
+        },
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            422,
+            491,
+            347,
+            503
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            192,
+            496
+          ],
+          "head": [
+            180,
+            107
+          ],
+          "eyes": [
+            205,
+            149
+          ],
+          "neck": [
+            202,
+            248
+          ],
+          "back": [
+            158,
+            313
+          ],
+          "hand": [
+            322,
+            124
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            803,
+            510,
+            362,
+            490
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            230,
+            483
+          ],
+          "head": [
+            197,
+            118
+          ],
+          "eyes": [
+            251,
+            158
+          ],
+          "neck": [
+            210,
+            274
+          ],
+          "back": [
+            171,
+            330
+          ],
+          "hand": [
+            270,
+            320
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-a.webp",
+          "rect": [
+            1190,
+            493,
+            330,
+            509
+          ],
+          "isolate": true,
+          "scale": 1.45,
+          "anchor": [
+            200,
+            502
+          ],
+          "head": [
+            183,
+            112
+          ],
+          "eyes": [
+            212,
+            150
+          ],
+          "neck": [
+            191,
+            273
+          ],
+          "back": [
+            135,
+            324
+          ],
+          "hand": [
+            283,
+            311
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-b.webp",
+          "rect": [
+            6,
+            7,
+            566,
+            622
+          ],
+          "isolate": true,
+          "scale": 0.97,
+          "anchor": [
+            351,
+            693
+          ],
+          "head": [
+            338,
+            91
+          ],
+          "eyes": [
+            351,
+            193
+          ],
+          "neck": [
+            352,
+            274
+          ],
+          "back": [
+            286,
+            353
+          ],
+          "hand": [
+            483,
+            152
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-b.webp",
+          "rect": [
+            530,
+            133,
+            575,
+            547
+          ],
+          "isolate": true,
+          "scale": 0.97,
+          "anchor": [
+            319,
+            540
+          ],
+          "head": [
+            371,
+            74
+          ],
+          "eyes": [
+            397,
+            218
+          ],
+          "neck": [
+            374,
+            286
+          ],
+          "back": [
+            293,
+            324
+          ],
+          "hand": [
+            425,
+            446
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-b.webp",
+          "rect": [
+            1060,
+            156,
+            579,
+            540
+          ],
+          "isolate": true,
+          "scale": 0.97,
+          "anchor": [
+            289,
+            533
+          ],
+          "head": [
+            313,
+            73
+          ],
+          "eyes": [
+            376,
+            207
+          ],
+          "neck": [
+            315,
+            275
+          ],
+          "back": [
+            220,
+            332
+          ],
+          "hand": [
+            259,
+            456
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/felicity-new-games-b.webp",
+          "rect": [
+            1632,
+            10,
+            540,
+            643
+          ],
+          "isolate": true,
+          "scale": 0.97,
+          "anchor": [
+            277,
+            693
+          ],
+          "head": [
+            288,
+            110
+          ],
+          "eyes": [
+            306,
+            199
+          ],
+          "neck": [
+            297,
+            302
+          ],
+          "back": [
+            218,
+            397
+          ],
+          "hand": [
+            466,
+            355
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
       "facing": 1
     }
   },
