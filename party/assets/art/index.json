@@ -409,6 +409,18 @@
     "prop/seek-scarf": "prop/seek-scarf.webp",
     "prop/seek-teddy": "prop/seek-teddy.webp",
     "prop/seek-block": "prop/seek-block.webp",
-    "prop/seek-ball": "prop/seek-ball.webp"
+    "prop/seek-ball": "prop/seek-ball.webp",
+    "bg/musical-cushions": "bg/musical-cushions.webp",
+    "thumb/musical-cushions": "thumb/musical-cushions.webp",
+    "prop/record-player": "prop/record-player.webp",
+    "prop/party-speaker": "prop/party-speaker.webp",
+    "prop/cushion-0": "prop/cushion-0.webp",
+    "prop/cushion-1": "prop/cushion-1.webp",
+    "prop/cushion-2": "prop/cushion-2.webp",
+    "prop/cushion-3": "prop/cushion-3.webp",
+    "prop/cushion-4": "prop/cushion-4.webp",
+    "prop/cushion-5": "prop/cushion-5.webp",
+    "prop/cushion-6": "prop/cushion-6.webp",
+    "prop/cushion-7": "prop/cushion-7.webp"
   }
 }

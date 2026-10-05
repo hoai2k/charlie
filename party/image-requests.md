@@ -1968,7 +1968,7 @@ key. House style: navy `#24163f` outlines, soft cel shading, bright candy
 colours, **no text** in any image. Stack items are seen **from the side,
 very slightly from above** (a thin sliver of the top surface shows), so
 they stack flush on each other. All props are transparent WebP, trimmed to
-the object with no padding. Lane scale is 0.48× (8 players) to 1.3× (1–3
+the object with no padding. Lane scale is 0.48× (8 players) to 1.25× (1–3
 players) of the design sizes below, and the whole scene zooms out further
 as towers grow, so props must read when small.
 
@@ -2077,7 +2077,7 @@ second-choice fallbacks.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
-| `bg/treasure-dig` | 1920×1080, opaque | Full screen. **The layout must match:** sea from y=0 to y≈262 (the code animates lapping foam at y≈262 and big waves that wash down to y≈560–680), a darker wet-sand band at y≈262–330, dry sand below. Players walk in x 130–1790, y 350–1030, so keep that area flat sand with only faint ripples (the code draws holes, chests and starfish). The top ~200 px sit under the score chips and timer. Put edge decor only outside the play area: a striped beach umbrella and a towel at the right edge, a sandcastle and a towel at the left edge, a palm tree in the bottom-right corner. Keep the bottom-left 120×120 plain | A bright, sunny cartoon beach seen from above at a gentle angle: turquoise sea with soft white wave lines at the top, a scalloped foam line, warm golden sand with faint wind ripples and a few pebbles, and cheerful beach decor along the far left and right edges. No shells or treasure on the sand (those are gameplay) |
+| `bg/treasure-dig` | 1920×1080, opaque | Full screen. **The layout must match:** sea from y=0 to y≈262 (the code animates lapping foam at y≈262 and big waves that wash down to y≈560–680), a darker wet-sand band at y≈262–330, dry sand below. Players walk in x 130–1790, y 350–1030, so keep that area flat sand with only faint ripples (the code draws holes, chests and starfish). The top ~200 px sit under the score chips and timer. Put edge decor only at the far left and right edges: a sandcastle (left, y≈640) and a towel (left, y≈900), a towel (right, y≈640) and a striped beach umbrella (bottom-right corner). Keep the bottom-left 120×120 plain and nothing tall above y≈720 (the waves wash over the top part) | A bright, sunny cartoon beach seen from above at a gentle angle: turquoise sea with soft white wave lines at the top, a scalloped foam line, warm golden sand with faint wind ripples and a few pebbles, and cheerful beach decor along the far left and right edges. No shells or treasure on the sand (those are gameplay) |
 | `thumb/treasure-dig` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A half-dug-out wooden treasure chest glowing gold on a sunny beach with gold coins flying out, a pink scallop-shell gadget with an antenna beaming red "hot" ripple rings, a cute crab peeking out of a sand hole, sea at the top. Subject centred |
 | `prop/treasure-shell` | 192×192, transparent | Centred, fitted into a 70 px box when held up over the finder's head | A peach-and-pink scallop seashell with ridges and a soft shine |
 | `prop/treasure-pearl` | 192×192, transparent | Centred, 70 px box | A small open lilac clam shell holding a big glowing white pearl |
