@@ -1,4 +1,5 @@
-// Minigame registry. Order here is the order on the Game Select screen.
+// Minigame registry. Order here is the order on the Game Select screen
+// (party games: page 1 = the first 11, page 2 = the rest, Crown Keeper last; see PARTY_PAGES).
 import * as g0 from './sprinkle-catch.js';
 import * as g1 from './bumper-bounce.js';
 import * as g2 from './pass-the-present.js';
@@ -11,20 +12,28 @@ import * as g8 from './paint-party.js';
 import * as g9 from './broomstick-dash.js';
 import * as g10 from './fairy-count.js';
 import * as g11 from './crown-keeper.js';
-import * as g12 from './fashion-show.js';
-import * as g13 from './art-studio.js';
-import * as g14 from './cake-bakery.js';
-import * as g15 from './pet-spa.js';
-import * as g16 from './pop-star-stage.js';
-import * as g17 from './fairy-garden.js';
-import * as g18 from './potion-class.js';
-import * as g19 from './memory-match.js';
-import * as g20 from './melody-maker.js';
-import * as g21 from './bead-bracelets.js';
-import * as g22 from './dream-room.js';
-import * as g23 from './seek-and-find.js';
+import * as g12 from './musical-cushions.js';
+import * as g13 from './snowball-splat.js';
+import * as g14 from './jump-rope.js';
+import * as g15 from './fishing-frenzy.js';
+import * as g16 from './tug-of-war.js';
+import * as g17 from './cloud-hop.js';
+import * as g18 from './pancake-tower.js';
+import * as g19 from './treasure-dig.js';
+import * as g20 from './fashion-show.js';
+import * as g21 from './art-studio.js';
+import * as g22 from './cake-bakery.js';
+import * as g23 from './pet-spa.js';
+import * as g24 from './pop-star-stage.js';
+import * as g25 from './fairy-garden.js';
+import * as g26 from './potion-class.js';
+import * as g27 from './memory-match.js';
+import * as g28 from './melody-maker.js';
+import * as g29 from './bead-bracelets.js';
+import * as g30 from './dream-room.js';
+import * as g31 from './seek-and-find.js';
 
-export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23].map((m) => ({ ...m.meta, module: m }));
+export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31].map((m) => ({ ...m.meta, module: m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
