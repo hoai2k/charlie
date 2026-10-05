@@ -19,6 +19,7 @@ import { aiProfile, makesMistake } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { CHARACTERS } from '../data/characters.js';
+import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   NAVY, SHAPES, BEAD_COLORS, CHARMS, TYPES, ROUND_KINDS, FREE_TRAY, CHARM_TRAY, charmAt,
   sameTok, drawToken, drawCharm, drawGlint, drawLoop, strandPoints, drawTypeIcon, makeOrder, endsGroup, trayFor, autoDesign,
@@ -256,15 +257,15 @@ export class Game {
     sfx('whoosh'); sfx('magic');
   }
 
-  /** "Say cheese!": run (stick), jump (A), pose (X), twirl (Y), cheer (B) until the photo. */
+  /** "Say cheese!": move (stick), jump (A) and pose (every other button) until the photo. */
   cheeseMove(st, dt) {
     const a = st.actor, c = st.p.ctrl, hop = st.hop, base = st.show.to;
     st.poseCD = Math.max(0, st.poseCD - dt);
-    let mx = c.x, jump = c.pressed('a'), pose = c.pressed('x') ? 'x' : c.pressed('y') ? 'y' : c.pressed('b') ? 'b' : null;
+    let mx = photoMove(c).x, jump = c.pressed('a'), pose = photoPosePressed(c);
     if (st.p.isAI) {
       // CPUs ham it up a little: shuffle, hop and pose at random
       st.aiT = (st.aiT ?? rand(0.2, 0.8)) - dt;
-      if (st.aiT <= 0) { st.aiT = rand(0.5, 1.3); st.aiMx = chance(0.4) ? rand(-0.8, 0.8) : 0; if (chance(0.35)) jump = true; else if (chance(0.5)) pose = pick(['x', 'y', 'b']); }
+      if (st.aiT <= 0) { st.aiT = rand(0.5, 1.3); st.aiMx = chance(0.4) ? rand(-0.8, 0.8) : 0; if (chance(0.35)) jump = true; else if (chance(0.6)) pose = randomPhotoPose(); }
       mx = st.aiMx || 0;
       if (Math.abs(a.x - base.x) > base.sp * 0.6) mx = Math.sign(base.x - a.x) * 0.6;
     }
@@ -276,12 +277,20 @@ export class Game {
     if (hop.h <= 0 && hop.v < 0) { if (hop.v < -200) a.squash(0.2); hop.v = 0; }
     a.y = base.y - hop.h * (a.scale / (st.show.toScale || 1));
     if (pose && st.poseCD <= 0) {
-      st.poseCD = 0.5;
-      if (pose === 'x') a.playOnce(pick(['strike1', 'strike2', 'strike3', 'photo']), 0.9, 'idle');
-      else if (pose === 'y') { a.playOnce('pose-twirl', 1.0, 'idle'); sfx('sparkle', { vol: 0.5 }); }
-      else a.playOnce('cheer', 0.7, 'idle');
+      st.poseCD = 0.35;
+      strikePhotoPose(a, pose, { onBump: (who) => this.bumpNeighbours(st, who) });
     }
     if (!a._once) a.setPose(hop.h > 0 ? 'jump' : Math.abs(mx) > 0.2 ? 'walk' : 'idle');
+  }
+
+  /** The bump pose nudges whoever is standing close by (they stumble a little). */
+  bumpNeighbours(st, a) {
+    for (const o of this.stations) {
+      if (o === st || !o.hop) continue;
+      const b = o.actor, dx = b.x - a.x;
+      if (Math.abs(dx) < (a.width + b.width) * 0.45) { b.x = clamp(b.x + Math.sign(dx || 1) * 70, 230, W - 230); b.playOnce('surprised', 0.8, 'idle'); b.squash(0.2); o.hop.v = Math.max(o.hop.v, 300); }
+    }
+    sfx('boing', { vol: 0.4 });
   }
 
   /** Render the stage (no HUD) into a small canvas: the photo. */
@@ -1333,7 +1342,11 @@ export class Game {
     if (!this.photoTaken && t > ch) {
       if (t < shot - 3) ui.banner(g, 'Say cheese!', t - ch, { y: 300, size: 130, color: '#fff' });
       else { const n = Math.ceil(shot - t), f = 1 - (shot - t - (n - 1)); g.save(); g.translate(W / 2, 300); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6; ui.text(g, String(n), 0, 0, { size: 200, color: '#ffd23f', strokeWidth: 12 }); g.restore(); }
-      if (this.stations.some((s) => !s.p.isAI)) ui.hints(g, [['stick', 'Move'], ['a', 'Jump'], ['x', 'Pose'], ['y', 'Twirl']], W / 2, H - 48, { size: 40 });
+      const humans = this.stations.filter((s) => !s.p.isAI);
+      if (humans.length) {
+        const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
+        ui.hints(g, r1, W / 2, H - 104, { size: 36 }); ui.hints(g, r2, W / 2, H - 50, { size: 36 });
+      }
     }
     if (!this.photoTaken && t < this.twirlStart + 0.3) ui.banner(g, 'Mirror, mirror!', t, { y: 170, size: 110, color: '#ff7ac6' });
     if (this.photoTaken && this.photoT < PHOTO_PIN + PHOTO_FLY) {
