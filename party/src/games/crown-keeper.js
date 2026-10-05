@@ -14,7 +14,9 @@ import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores 
 const NAVY = '#24163f';
 const DURATION = 45;
 const DOUBLE_AT = 35;                 // last 10 s count double
-const ARENA = { x0: 160, y0: 290, x1: 1760, y1: 985 };
+// Where feet can go: the paving inside the rose border (the top keeps heads
+// clear of the scoreboard).
+const ARENA = { x0: 70, y0: 215, x1: 1850, y1: 1035 };
 const C = { x: 960, y: 640 };         // fountain center
 const FOUNTAIN_R = 104;
 const HEDGES = [
@@ -37,8 +39,8 @@ export const meta = {
   category: 'party',
   type: 'Keep-away',
   goal: 'Wear the crown for the most seconds - bump the holder to steal it!',
-  controls: [['stick', 'Run around the garden'], ['a', 'Dash to bump the crown loose']],
-  tips: ['The crown holder runs a little slower - and earns points.', 'Dash into the holder to knock the crown off!', 'The last 10 seconds count DOUBLE!'],
+  controls: [['stick', 'Run around the garden'], ['a', 'Dash: bump the crown loose (or get away with it)']],
+  tips: ['The crown holder runs a little slower - and earns points.', 'Dash into the holder to knock the crown off!', 'Wearing the crown? Dash away from the chasers!', 'A bonk sends the crown flying the way you hit it.', 'The last 10 seconds count DOUBLE!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -163,11 +165,13 @@ export class Game {
     c.state = 'air'; c.holder = -1; c.sx = fx0; c.sy = fy0; c.tx = tx; c.ty = ty; c.u = 0; c.dur = dur; c.x = fx0; c.y = fy0;
   }
 
-  landingSpot(x, y, dirAng, dmin, dmax) {
+  landingSpot(x, y, dirAng, dmin, dmax, spread = 0.9) {
     for (let k = 0; k < 14; k++) {
-      const ang = dirAng + rand(-0.9, 0.9) * (k < 8 ? 1 : 3);
+      const ang = dirAng + rand(-spread, spread) * (k < 8 ? 1 : 3);
       const d = rand(dmin, dmax);
-      const tx = clamp(x + Math.cos(ang) * d, ARENA.x0 + 50, ARENA.x1 - 50), ty = clamp(y + Math.sin(ang) * d, ARENA.y0 + 50, ARENA.y1 - 50);
+      // Past a wall, it bounces back off it (instead of stopping dead against it).
+      const bounce = (v, lo, hi) => (v < lo ? Math.min(hi, 2 * lo - v) : v > hi ? Math.max(lo, 2 * hi - v) : v);
+      const tx = bounce(x + Math.cos(ang) * d, ARENA.x0 + 50, ARENA.x1 - 50), ty = bounce(y + Math.sin(ang) * d, ARENA.y0 + 50, ARENA.y1 - 50);
       if (!this.blocked(tx, ty, 50)) return { x: tx, y: ty };
     }
     return { x: C.x + 200, y: C.y };
@@ -208,8 +212,9 @@ export class Game {
   dropCrown(U, fromAng) {
     if (U.crownAtt) { U.a.detach(U.crownAtt); U.crownAtt = null; }
     const hp = U.a.anchor('head');
-    const spot = this.landingSpot(U.x, U.y, fromAng, 190, 330);
-    this.launchCrown(hp.x, hp.y, spot.x, spot.y, 0.75);
+    // Knocked well away, the way it was hit, so the crowd has to split up to chase it.
+    const spot = this.landingSpot(U.x, U.y, fromAng, 380, 580, 0.35);
+    this.launchCrown(hp.x, hp.y, spot.x, spot.y, 0.9);
     this.holder = -1; U.immune = 1.0;
   }
 
@@ -291,7 +296,8 @@ export class Game {
     if (mag > 0.2) U.aim = Math.atan2(my, mx);
     if (U.stun > 0) { mx = my = 0; }
     // dash
-    if (p.ctrl.pressed('a') && !holder && U.stun <= 0 && U.dashCd <= 0 && U.dashT <= 0) {
+    // (the crown holder can dash too: to get away)
+    if (p.ctrl.pressed('a') && U.stun <= 0 && U.dashCd <= 0 && U.dashT <= 0) {
       U.dashT = DASH_TIME; U.dashCd = DASH_CD; U.dashed++;
       U.dvx = Math.cos(U.aim); U.dvy = Math.sin(U.aim);
       a.playOnce(POSE.dash, 0.3); a.squash(0.3);
@@ -429,6 +435,19 @@ export class Game {
     a = this.avoid(U, a);
     const k = this.holder === U.i ? speedK : clamp(d / 50, 0, 1) * speedK;
     p.ctrl.move(Math.cos(a) * k, Math.sin(a) * k);
+    // wearing the crown: dash away when a chaser gets close
+    if (this.holder === U.i && U.stun <= 0 && U.dashCd <= 0 && U.dashT <= 0 && U.shield <= 0) {
+      let near = null, nd = 1e9;
+      for (const o of this.units) { if (o === U || o.stun > 0) continue; const dd = Math.hypot(o.x - U.x, o.y - U.y); if (dd < nd) { nd = dd; near = o; } }
+      if (near && nd < [150, 190, 230][lvl]) {
+        if (U.dashAt < 0) U.dashAt = this.t + reactionTime(p) * [1.2, 0.8, 0.5][lvl];
+        if (this.t >= U.dashAt) {
+          if (chance([0.35, 0.6, 0.85][lvl])) { const away = this.avoid(U, Math.atan2(U.y - near.y, U.x - near.x)); U.aim = away; p.ctrl.move(Math.cos(away), Math.sin(away)); p.ctrl.press('a'); }
+          else U.dashCd = 0.4;   // skipped this chance: wait a moment before the next
+          U.dashAt = -1;
+        }
+      } else U.dashAt = -1;
+    }
     // dash at the holder
     if (this.holder >= 0 && this.holder !== U.i && U.stun <= 0 && U.dashCd <= 0 && U.dashT <= 0) {
       const H2 = this.units[this.holder];
