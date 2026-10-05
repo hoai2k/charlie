@@ -1860,3 +1860,23 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: musical-cushions
+
+### musical-cushions — Musical Cushions   (requested by the musical-cushions agent, 2026-10-05, priority: nice-to-have)
+
+Musical chairs at a cosy party: fluffy cushions sit in a ring on a big round
+rug, everyone dances around while the record player plays, and when the
+needle lifts they race to plop down. Everything below has a procedural
+fallback that ships today; the code already looks up every key. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Characters use the existing `sit`, `dance`, `hip-bump`, `knockback`, `dizzy`,
+`clap`, `pout` and `celebrate` poses.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/musical-cushions` | 1920×1080, opaque | Full screen under everything. **Layout must match:** back wall from y=0 to y=400 (floor line at y=400); a big round rug centred at (960, 735), radius 640×300 (ellipse); cheer mats on the far left (x 16–196) and far right (x 1724–1904), y 460–980. Keep the wall centre (x 620–1300, y 180–400) plain: the code draws the record-player table and two speakers there. Keep the top 110 px calm (score chips) | A cosy pastel party room seen from a high 3/4 angle: pink-and-lilac striped wallpaper with tiny hearts, two windows with an evening sky and pink curtains, balloon bunches in the top corners, rainbow bunting across the wall, a white wainscot; honey-wood floorboards; a huge round scalloped rug in pink, mint and cream rings with polka dots and a yellow star in the middle; small fluffy mats with pom-poms along the left and right edges. No furniture in the middle, no characters |
+| `thumb/musical-cushions` | 800×500, opaque | Game-select shelf and how-to screen | Four fluffy pastel cushions in a ring on a round rug, two characters mid-dance about to dive for them, a pink record player with music notes flying out, party bunting. Subject centred |
+| `prop/cushion-0` … `prop/cushion-7` | 280×224 each, transparent | Drawn bottom-anchored: the image bottom = the bottom of the cushion's front side, centred horizontally; fitted to 1.12× the cushion width (118 px at 1–4 players, smaller with more). The code squashes it when someone sits and hops it on the beat. Players sit on the top face | A plump square floor cushion seen from a high 3/4 angle (top face plus a thin front side), puffy bulging edges, a tufted button in the centre with soft creases, little tassels at the two back corners. Colours (top / button): 0 pink / yellow, 1 mint / pink, 2 lilac / yellow, 3 lemon / pink, 4 sky blue / white, 5 peach / mint, 6 coral / cream, 7 lime / lilac. All eight identical except colour |
+| `prop/record-player` | 560×380, transparent | Drawn bottom-anchored on top of the code's little wooden table, fitted to 280×190 px, centre x 960, bottom y 316. The code draws the **tone arm** itself (pivot at the back right, needle resting on the disc left of centre), so leave the arm out | A cute retro pink suitcase record player, lid open behind, a black vinyl record with a yellow label on the platter, three candy-coloured knobs and a little speaker grille on the front. 3/4 view from slightly above |
+| `prop/party-speaker` | 240×340, transparent | Bottom-anchored on the floor at (735, 408) and (1185, 408), fitted to 120×170; the code pulses it on the beat | A rounded lilac party speaker box with two round cones (small tweeter on top, big woofer below) with pink centres, a soft highlight on the left edge |
