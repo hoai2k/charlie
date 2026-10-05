@@ -177,6 +177,7 @@ class KeyboardController extends Controller {
 /**
  * Virtual controller driven by AI code. Minigame AI calls these each update:
  *   ai.move(x, y)       set stick (persistent until changed)
+ *   ai.aim(x, y)        set the right stick (persistent until changed)
  *   ai.press('a')       tap a button (down for exactly one frame)
  *   ai.hold('a', true)  keep a button down
  */
@@ -184,6 +185,7 @@ export class AIController extends Controller {
   constructor(n) {
     super('ai' + n, 'ai', 'CPU');
     this._axis = { x: 0, y: 0 };
+    this._raxis = { x: 0, y: 0 };
     this._hold = new Set();
     this._tap = new Set();
   }
@@ -192,11 +194,17 @@ export class AIController extends Controller {
     if (m > 1) { x /= m; y /= m; }
     this._axis.x = x; this._axis.y = y;
   }
+  aim(x, y) {
+    const m = Math.hypot(x, y);
+    if (m > 1) { x /= m; y /= m; }
+    this._raxis.x = x; this._raxis.y = y;
+  }
   press(b) { this._tap.add(b); }
   hold(b, on = true) { if (on) this._hold.add(b); else this._hold.delete(b); }
-  reset() { this._axis.x = this._axis.y = 0; this._hold.clear(); this._tap.clear(); }
+  reset() { this._axis.x = this._axis.y = 0; this._raxis.x = this._raxis.y = 0; this._hold.clear(); this._tap.clear(); }
   poll(s) {
     s.lx = this._axis.x; s.ly = this._axis.y;
+    s.rx = this._raxis.x; s.ry = this._raxis.y;
     for (const b of this._hold) s[b] = true;
     // A tap is down for one frame; tapping every frame looks like holding, so
     // mash AI should leave at least one frame between taps.

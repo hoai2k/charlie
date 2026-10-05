@@ -250,8 +250,11 @@ export class Game {
     st.pump = 1;
     st.sqv += 4.5;
     st.gauge = Math.min(1, st.gauge + PRESS);
-    st.a.playOnce('action', 0.11);
-    st.a.squash(0.12);
+    // Hold the pumping pose while the player keeps mashing (a one-shot per
+    // press flipped between two pictures many times a second: it looked like
+    // vibrating). The push itself is drawn as a dip in sync with the handle.
+    st.pumping = 0.4;
+    if (st.a.currentPose !== 'pump') st.a.setPose('pump');
     if (st.gauge > RED) {
       // Too fast: the hose sputters and the air is wasted.
       st.sputter = 0.35;
@@ -293,6 +296,10 @@ export class Game {
     for (const st of this.st) {
       st.a.update(dt);
       st.pump = Math.max(0, st.pump - dt * 9);
+      if (st.pumping > 0) {
+        st.pumping = this.phase === 'play' ? st.pumping - dt : 0;   // a pop/celebration takes over the pose
+        if (st.pumping <= 0 && this.phase === 'play' && st.a.currentPose === 'pump') st.a.setPose('idle');
+      }
       st.puffCd -= dt;
       st.sputter = Math.max(0, st.sputter - dt);
       st.starPop = Math.max(0, st.starPop - dt);
@@ -398,7 +405,7 @@ export class Game {
     for (const st of this.st) {
       st.size = 0; st.shownSize = 0; st.gauge = 0; st.gaugeShown = 0; st.popped = false; st.deflating = false;
       st.appear = 0; st.stretchMark = 0; st.timeLeft = SOLO_TIME; st.sputter = 0; st.popTime = 0;
-      st.a.setPose('idle'); st.a.clearEmotes();
+      st.a.setPose('idle'); st.a.clearEmotes(); st.pumping = 0;
       st.ai.paused = false; st.ai.nextPanic = this.t + rand(2, 4.5); st.ai.panicUntil = 0; st.ai.next = rand(0.2, 0.6);
     }
     sfx('swap');
@@ -540,7 +547,11 @@ export class Game {
     // keep trailing group members (Fellowfox, KPop girls) on screen at the left edge
     const lo = Math.min(...a.members.map((m) => m.def.dx * a.facing * a.scale - a._memberSize(m).w * a.scale * 0.55));
     a.x = Math.max(a.x, 26 - lo);
+    // Pushing down on the pump: the body dips with the handle (from the feet).
+    const dip = st.pumping > 0 ? clamp(st.pump, 0, 1) : 0;
+    g.save(); g.translate(a.x, a.y); g.scale(1 + 0.035 * dip, 1 - 0.085 * dip); g.translate(-a.x, -a.y);
     a.draw(g, { ring: p.color });
+    g.restore();
 
     // --- front stuff in station space
     g.save();

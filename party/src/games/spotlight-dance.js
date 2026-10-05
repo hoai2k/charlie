@@ -1,4 +1,4 @@
-import { loadRhythmSongs, chooseSong, rhythmOptions, musicKey } from './rhythm/songs.js';
+import { loadRhythmSongs, chooseSong, rhythmChoice, rhythmOptions, musicKey } from './rhythm/songs.js';
 import { drawNpcSprite } from '../engine/npc-art.js';
 // Spotlight Dance-Off - memory game.
 // Cute Shadow Imps stole the spotlight! They perform a dance sequence (arrows +
@@ -19,6 +19,10 @@ import { clamp, lerp, rand, randInt, chance, pick, placementsFromScores, ease, T
 const NAVY = ui.NAVY;
 const TOTAL_ROUNDS = 6;
 const START_LEN = 3;
+// Dance length per round, by level (Easy, Normal, Hard). Normal stays at 5
+// moves or fewer (6 in the last round) and gets trickier instead of longer;
+// see trickiness().
+const LENGTHS = [[3, 3, 4, 4, 5, 5], [3, 4, 4, 5, 5, 6], [4, 5, 6, 7, 8, 9]];
 const HEARTS = 3;
 const MOVES = ['U', 'D', 'L', 'R', 'A'];
 const MOVE = {
@@ -46,12 +50,12 @@ export const meta = {
   goal: 'Watch the Shadow Imps dance, then copy their moves from memory!',
   controls: [['dpad', 'Arrow moves (or the stick)'], ['a', 'Sparkle move']],
   tips: [
-    'Watch closely - the dance gets one move longer every round!',
+    'Watch closely - the dances get longer and trickier every round!',
     'A perfect copy zaps an imp with a sparkle beam: +1 point.',
     'Careful! A wrong move or running out of time costs a heart.',
   ],
   music: 'dance',
-  options: rhythmOptions('spotlight-dance', { level: false }),
+  options: rhythmOptions('spotlight-dance', { levelLabel: 'Dance', defaultLevel: 1 }),
   duration: '~1.5 min',
   minPlayers: 1,
   maxPlayers: 8,
@@ -257,11 +261,45 @@ function drawImp(g, x, y, s, o = {}) {
 
 // ---------------------------------------------------------------------------
 
+/**
+ * A dance of `len` moves. Simple dances (trick near 0) use the four arrows and
+ * often repeat a little pattern (L R L R, U U D D); tricky ones (near 1) add
+ * the Sparkle move, never repeat a move twice in a row, and mix in more
+ * different moves.
+ */
+function makeDance(len, trick) {
+  const moves = trick < 0.3 ? ['U', 'D', 'L', 'R'] : MOVES;
+  const want = Math.min(len, moves.length, Math.round(2 + trick * 3));   // different moves wanted
+  let seq = [];
+  for (let tries = 0; tries < 300; tries++) {
+    seq = [];
+    if (trick < 0.45 && chance(0.55 - trick)) {
+      // A repeating motif: two or three moves, played over and over.
+      const motif = [];
+      const mlen = len >= 5 && chance(0.5) ? 3 : 2;
+      while (motif.length < mlen) { const m = pick(moves); if (m !== motif[motif.length - 1]) motif.push(m); }
+      if (mlen === 2 && chance(0.3)) motif.splice(1, 0, motif[0]);   // e.g. U U D
+      while (seq.length < len) seq.push(motif[seq.length % motif.length]);
+      return seq;
+    } else {
+      while (seq.length < len) {
+        const m = pick(moves), prev = seq[seq.length - 1];
+        if (trick >= 0.5 && m === prev) continue;
+        if (seq.length >= 2 && prev === m && seq[seq.length - 2] === m) continue;
+        seq.push(m);
+      }
+    }
+    if (new Set(seq).size >= want) return seq;
+  }
+  return seq;
+}
+
 export class Game {
   constructor(api) {
     this.api = api;
     // Background song: the chosen rhythm song (only the stage lights follow its beat).
     const song = chooseSong('spotlight-dance');
+    this.level = rhythmChoice('spotlight-dance').level;
     this.musicKey = song ? musicKey(song) : 'dance';
     this.musicLoop = true;   // rounds can outlast a song: loop it as a whole
     try { music.preload(this.musicKey); } catch (e) { /* optional */ }
@@ -334,14 +372,8 @@ export class Game {
 
   startRound() {
     this.round++;
-    const len = START_LEN + this.round - 1;
-    // Build a sequence with no more than 2 of the same move in a row.
-    const seq = [];
-    while (seq.length < len) {
-      const m = pick(MOVES);
-      if (seq.length >= 2 && seq[seq.length - 1] === m && seq[seq.length - 2] === m) continue;
-      seq.push(m);
-    }
+    const lens = LENGTHS[this.level] || LENGTHS[1];
+    const seq = makeDance(lens[Math.min(this.round, lens.length) - 1], this.trickiness());
     this.seq = seq;
     this.isz = clamp((this.cw - 34) / seq.length - 5, 26, this.rows === 1 ? 74 : 54);
     for (const pl of this.pl) {
@@ -357,7 +389,14 @@ export class Game {
     if (this.round > 1) host(this.round >= TOTAL_ROUNDS ? 'final-round' : 'next-round');
   }
 
-  showDur() { return clamp(0.82 - 0.04 * (this.seq.length - START_LEN), 0.52, 0.82); }
+  /** 0 (simple) .. 1 (tricky): Easy stays simple, Normal builds up over the rounds, Hard is tricky throughout. */
+  trickiness() {
+    const r = clamp((this.round - 1) / (TOTAL_ROUNDS - 1), 0, 1);
+    return this.level >= 2 ? 1 : this.level === 1 ? r : r * 0.35;
+  }
+
+  // The imps dance a little faster as the dances get trickier.
+  showDur() { return clamp(0.82 - 0.03 * (this.seq.length - START_LEN) - 0.14 * this.trickiness(), 0.5, 0.82); }
 
   beginInput() {
     this.setPhase('input');
@@ -377,7 +416,7 @@ export class Game {
   planAI(pl) {
     const p = pl.p, lvl = p.aiLevel ?? 0, L = this.seq.length;
     const base = [0.9, 0.96, 0.99][lvl], drop = [0.12, 0.07, 0.04][lvl];
-    const pSucc = clamp(base - drop * (L - START_LEN), 0.04, 1);
+    const pSucc = clamp(base - drop * (L - START_LEN) - 0.08 * this.trickiness(), 0.04, 1);
     const ok = chance(pSucc);
     const pace = [[0.6, 0.95], [0.45, 0.72], [0.32, 0.5]][lvl];
     pl.ai = {

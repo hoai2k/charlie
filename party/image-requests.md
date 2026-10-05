@@ -1543,6 +1543,7 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `pump` pose (all characters) | Balloon Pump holds the generic one-frame `action` pose while a player mashes A, with a code-side dip in time with the pump handle. Nobody actually holds the handle, and the user noticed it doesn't read as pumping (it used to flicker between idle and action, which looked like vibrating). | New pose `pump` (already in `POSES`: loop, fallback `action`): 2 frames @ 8. Frame 1: both hands on the pump's T-handle at chest height, standing tall. Frame 2: handle pushed down to the hips, knees bent, cheeks puffed. Put `hand` on the handle grip. Quadrupeds press with both front hooves/paws; the cake leans its whole body on it. Keep the dip transform: the game squashes the body from the feet as the handle goes down. |
 | `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one

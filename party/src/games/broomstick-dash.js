@@ -404,9 +404,16 @@ export class Game {
     const center = L.top + L.y * laneH;
     a.x = L.ax; a.y = center + 0.44 * h; a.facing = 1;
     if (this.n > 0) {
-      if (fin) a.setPose(POSE.win);
-      else if (L.vy < -0.1) a.setPose(POSE.rise);
-      else a.setPose(POSE.glide);
+      // Rise while clearly climbing, glide otherwise. The climb speed hovers
+      // around any single threshold (CPUs tap A to hold height; holding A
+      // against the ceiling stops and restarts the climb every frame), which
+      // flickered between the two pictures, so there's a band between the
+      // two thresholds and a new pose has to last 0.2 s before it shows.
+      const climbing = L.vy < (L.flyPose === POSE.rise ? -0.05 : -0.3) && L.y > L.yMin + 0.02;
+      const want = fin ? POSE.win : climbing ? POSE.rise : POSE.glide;
+      if (want === L.flyPose) L.poseWait = 0;
+      else if ((L.poseWait = (L.poseWait || 0) + dt) > 0.2 || fin || !L.flyPose) { L.flyPose = want; L.poseWait = 0; }
+      a.setPose(L.flyPose);
     }
     a.update(dt);
     L.tilt = damp(L.tilt, clamp(L.vy * 0.3, -0.3, 0.3), 8, dt);

@@ -72,9 +72,10 @@ export const musicKey = (song) => 'rhythm:' + song.id + (song.alt ? '-' + song.t
 export const LEVELS = ['Easy', 'Normal', 'Hard'];
 
 // Per-game choices, kept for the session: { song: id | 'random', level: 0..2 }.
+const defaultLevel = {};   // gameId -> starting level (rhythmOptions' defaultLevel)
 export function rhythmChoice(gameId) {
   session.gameOptions = session.gameOptions || {};
-  return (session.gameOptions[gameId] = session.gameOptions[gameId] || { song: 'random', level: 0 });
+  return (session.gameOptions[gameId] = session.gameOptions[gameId] || { song: 'random', level: defaultLevel[gameId] || 0 });
 }
 /**
  * The song to play for this game (random picks a different one than last
@@ -95,7 +96,8 @@ export function chooseSong(gameId) {
 }
 
 /** Song options for the how-to screen (games' meta.options). */
-export function rhythmOptions(gameId, { level = true } = {}) {
+export function rhythmOptions(gameId, { level = true, levelLabel = 'Notes', defaultLevel: start = 0 } = {}) {
+  defaultLevel[gameId] = start;
   const opts = [{
     id: 'song', label: 'Song',
     choices: () => { loadRhythmSongs(); return [{ value: 'random', label: 'Surprise me!' }, ...rhythmSongs().map((s) => ({ value: s.id, label: s.style ? `${s.name} (${s.style})` : s.name }))]; },
@@ -103,7 +105,7 @@ export function rhythmOptions(gameId, { level = true } = {}) {
     set: (v) => { rhythmChoice(gameId).song = v; },
   }];
   if (level) opts.push({
-    id: 'level', label: 'Notes',
+    id: 'level', label: levelLabel,
     choices: () => LEVELS.map((l, i) => ({ value: i, label: l })),
     get: () => rhythmChoice(gameId).level,
     set: (v) => { rhythmChoice(gameId).level = v; },

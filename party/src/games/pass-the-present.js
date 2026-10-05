@@ -1,5 +1,8 @@
-// Pass the Present - hot potato at a birthday party. Aim with the stick, toss
-// with A, and don't be holding the present when it pops!
+// Pass the Present - hot potato at a birthday party. Run around the rug with
+// the left stick, aim with the right stick and throw with RT (A also throws).
+// The present flies straight: whoever it touches catches it; if it touches no
+// one (or they dash out of the way with LT / B) it flies back to the thrower.
+// Don't be holding it when it pops! Keyboard players aim where they walk.
 //
 // Art hooks (optional; procedural fallbacks ship today):
 //   bg/pass-the-present  prop/present  prop/party-rug
@@ -24,9 +27,9 @@ export const meta = {
   title: 'Pass the Present',
   category: 'party',
   type: 'Hot potato',
-  goal: "Toss the present away before it pops on you!",
-  controls: [['stick', 'Aim at a friend'], ['a', 'Toss the present']],
-  tips: ['Listen: the ticking gets faster and the present turns red!', 'You cannot toss it straight back for a moment.', 'Lose all your hearts and you cheer from the side.'],
+  goal: "Throw the present at a friend before it pops on you!",
+  controls: [['stick', 'Run around'], ['rstick', 'Aim'], ['rt', 'Throw the present (or A)'], ['lt', 'Dash out of the way (or B)']],
+  tips: ['Miss, and the present flies right back to you!', 'Dash when it comes your way to dodge it.', 'Listen: the ticking gets faster and the present turns red!', 'No right stick? You throw the way you walk.', 'Lose all your hearts and you cheer from the side.'],
   music: 'tense',
   duration: 'About 45 sec',
   minPlayers: 1,
@@ -57,10 +60,18 @@ export const meta = {
 // --- tuning -----------------------------------------------------------------
 // RY leaves room between the back and front rows for name tags + the overhead present.
 const CX = 960, CY = 645, RX = 545, RY = 222, RUG_RY = 190;
-const FLIGHT = 0.42;
 const MIN_HOLD = 0.25;
-const NO_BACK = 1.0;
 const HOT = 4.2;           // seconds of "heating up" before a pop
+// Running around: players stay inside an oval around the rug (feet positions).
+const AREA = { cx: CX, cy: 702, rx: RX + 110, ry: 236 };
+const SPEED = 340;         // run speed, px/s
+const HOLD_SLOW = 0.82;    // the holder runs a little slower
+const DASH_V = 1150, DASH_T = 0.22, DASH_CD = 0.9;
+// Throwing: straight along the aim, caught by whoever it touches.
+const THROW_V = 1300, RANGE = 900, RETURN_T = 0.55;
+const CATCH_R = 80;        // catch radius at scale 1 (ground distance, y counts x1.6)
+const ASSIST = 0.3;        // radians: the aim snaps to a friend within this angle
+const BODY_R = 70;         // players push each other apart
 
 const NEW_POSE_FALLBACK = { 'hold-present': 'carry', toss: 'throw', 'catch-present': 'surprised', sooty: 'dizzy' };
 const poseName = (n) => (POSE_NAMES.includes(n) ? n : NEW_POSE_FALLBACK[n] || 'idle');
@@ -94,12 +105,13 @@ export class Game {
       const sc = this.baseScale * (p.charId === 'troll' ? 0.58 : 1);
       const a = new Actor(p, { scale: sc });
       return {
-        p, a, i, sc, hearts: this.hearts0, state: 'ring', x: CX, y: CY, tx: CX, ty: CY, holdT: 0, aim: null, noBack: null, noBackT: 0,
-        dizzy: 0, elimIdx: -1, brain: new Brain(p), ai: null, spot: null, mood: 0, soot: null, aimAng: 0, heartShake: 0,
+        p, a, i, sc, hearts: this.hearts0, state: 'ring', x: CX, y: CY, tx: CX, ty: CY, holdT: 0,
+        aimX: 1, aimY: 0, vx: 0, vy: 0, dashT: 0, dashCd: 0, dashX: 0, dashY: 0,
+        dizzy: 0, elimIdx: -1, brain: new Brain(p), ai: null, spot: null, mood: 0, soot: null, heartShake: 0,
       };
     });
     this.layout(true);
-    for (const e of this.ents) { e.a.x = e.x; e.a.y = e.y; e.a.snap(); }
+    for (const e of this.ents) { e.a.x = e.x; e.a.y = e.y; e.a.snap(); e.aimX = CX - e.x; e.aimY = CY - e.y; const m = Math.hypot(e.aimX, e.aimY) || 1; e.aimX /= m; e.aimY /= m; }
     this.confettiDots = Array.from({ length: 90 }, () => ({ a: rand(TAU), d: Math.sqrt(rand()), c: pick(RAINBOW), r: rand(TAU) }));
     this.bulbs = Array.from({ length: 7 }, (_, i) => ({ x: 120 + i * 280 + rand(-40, 40), p: rand(TAU) }));
   }
@@ -115,19 +127,58 @@ export class Game {
       e.tx = CX + Math.cos(ang) * RX; e.ty = CY + Math.sin(ang) * RY;
       e.ringAng = ang;
     });
+    // Players start spread around the rug, then run freely (layout only
+    // depth-scales them: nearer the bottom of the screen = a bit bigger).
     for (const e of this.ents) {
       if (e.state === 'ring' || e.state === 'elimWait') {
-        if (snap) { e.x = e.tx; e.y = e.ty; } else { e.x = damp(e.x, e.tx, 4, dt); e.y = damp(e.y, e.ty, 4, dt); }
+        if (snap) { e.x = e.tx; e.y = e.ty; }
         const depth = 0.9 + 0.16 * clamp((e.y - (CY - RY)) / (2 * RY), 0, 1);
         e.a.scale = e.sc * depth;
       }
     }
+    void dt;
   }
 
   // ---------------------------------------------------------------- update
   preUpdate(dt) {
     this.t += dt;
     for (const e of this.ents) { this.faceCenter(e); e.a.setPose('idle'); e.a.update(dt); }
+  }
+
+  /** Stick, aim, throw and dash (humans and CPUs alike: CPUs drive a virtual controller). */
+  playerInput(e, dt) {
+    const ctrl = e.p.ctrl, P = this.pres;
+    const holder = P.holder === e && P.state === 'held';
+    const mx = ctrl.x, my = ctrl.y, mm = Math.hypot(mx, my);
+    const sp = SPEED * (holder ? HOLD_SLOW : 1) * Math.min(1, mm);
+    if (e.dashT > 0) { e.dashT -= dt; e.vx = e.dashX * DASH_V; e.vy = e.dashY * DASH_V; }
+    else { e.vx = damp(e.vx, mm > 0.15 ? (mx / mm) * sp : 0, 12, dt); e.vy = damp(e.vy, mm > 0.15 ? (my / mm) * sp : 0, 12, dt); }
+    // Aim: the right stick; without one (keyboard), the way you're running.
+    const rx = ctrl.rx, ry = ctrl.ry, rm = Math.hypot(rx, ry);
+    if (rm > 0.35) { e.aimX = rx / rm; e.aimY = ry / rm; }
+    else if (mm > 0.35 && e.p.ctrl.kind !== 'pad') { e.aimX = mx / mm; e.aimY = my / mm; }
+    // Dash: a quick burst the way you're running (or away from where you aim).
+    if ((ctrl.pressed('lt') || ctrl.pressed('b')) && e.dashCd <= 0 && e.dashT <= 0) {
+      const dx = mm > 0.2 ? mx / mm : -e.aimY, dy = mm > 0.2 ? my / mm : e.aimX;
+      e.dashX = dx; e.dashY = dy; e.dashT = DASH_T; e.dashCd = DASH_CD;
+      sfx('whoosh', { vol: 0.6 }); e.a.squash(0.2);
+      particles.burst(e.x, e.y - 10, { type: 'dust', count: 6, speed: [60, 160], size: [12, 20] });
+    }
+    if (holder && (ctrl.pressed('rt') || ctrl.pressed('a')) && e.holdT >= MIN_HOLD) this.throwPresent(e);
+  }
+
+  /** Move with the current velocity: stay in the play area, don't overlap friends. */
+  moveEnt(e, dt) {
+    e.x += e.vx * dt; e.y += e.vy * dt;
+    for (const o of this.ents) {
+      if (o === e || (o.state !== 'ring' && o.state !== 'elimWait')) continue;
+      const dx = e.x - o.x, dy = (e.y - o.y) * 1.6, d = Math.hypot(dx, dy), min = BODY_R * (e.a.scale + o.a.scale) * 0.5;
+      if (d > 0.01 && d < min) { const push = (min - d) * 0.5; e.x += (dx / d) * push; e.y += (dy / d) * push / 1.6; }
+    }
+    const nx = (e.x - AREA.cx) / AREA.rx, ny = (e.y - AREA.cy) / AREA.ry, r = Math.hypot(nx, ny);
+    if (r > 1) { e.x = AREA.cx + (nx / r) * AREA.rx; e.y = AREA.cy + (ny / r) * AREA.ry; }
+    const depth = 0.9 + 0.16 * clamp((e.y - (CY - RY)) / (2 * RY), 0, 1);
+    e.a.scale = e.sc * depth;
   }
 
   faceCenter(e) { e.a.facing = e.x < CX ? 1 : -1; if (Math.abs(e.x - CX) < 60) e.a.facing = e.y < CY ? 1 : -1; }
@@ -137,7 +188,7 @@ export class Game {
     const P = this.pres;
     this.layout(false, dt);
     for (const e of this.ents) {
-      e.noBackT = Math.max(0, e.noBackT - dt);
+      e.dashCd = Math.max(0, e.dashCd - dt);
       if (e.dizzy > 0) { e.dizzy -= dt; if (e.dizzy <= 0) this.afterDizzy(e); }
       e.heartShake = Math.max(0, e.heartShake - dt);
     }
@@ -160,15 +211,20 @@ export class Game {
   updateEnt(e, dt) {
     const a = e.a, P = this.pres;
     if (e.state === 'ring' || e.state === 'elimWait') {
-      this.faceCenter(e);
       const holder = P.holder === e && (P.state === 'held');
-      if (e.dizzy > 0) { if (!a._once && a.pose !== 'dizzy') a.setPose(poseName('sooty')); }
+      const free = e.state === 'ring' && e.dizzy <= 0 && !this.ends;
+      if (e.p.isAI && free) this.aiThink(e, dt);
+      if (free) this.playerInput(e, dt); else { e.vx = damp(e.vx, 0, 10, dt); e.vy = damp(e.vy, 0, 10, dt); e.dashT = 0; }
+      this.moveEnt(e, dt);
+      const moving = Math.hypot(e.vx, e.vy) > 40;
+      if (e.dashT > 0) { if (!a._once) a.setPose('dash'); }
+      else if (e.dizzy > 0) { if (!a._once && a.pose !== 'dizzy') a.setPose(poseName('sooty')); }
       else if (this.ends && this.ends.winner === e) { if (a.pose !== 'celebrate') { a.clearEmotes(); a.setPose('celebrate'); } }
-      else if (holder) { if (!a._once) a.setPose(poseName('hold-present')); a.speed = 0.35 + P.heat * 0.9; }
-      else if (!a._once) { a.speed = 0; a.setPose('idle'); }
-      if (e.p.isAI && !this.ends) this.aiThink(e, dt);
-      if (!e.p.isAI && holder && !this.ends) this.humanInput(e);
-      else if (!e.p.isAI && holder === false) { /* nothing */ }
+      else if (holder) { if (!a._once) a.setPose(moving ? 'carry' : poseName('hold-present')); a.speed = moving ? 1 : 0.35 + P.heat * 0.9; }
+      else if (!a._once) { a.setPose(moving ? 'walk' : 'idle'); a.speed = moving ? clamp(Math.hypot(e.vx, e.vy) / SPEED, 0.5, 1.2) : 0; }
+      // Face where you're aiming while holding, otherwise where you run.
+      const fx_ = holder ? e.aimX : Math.abs(e.vx) > 30 ? e.vx : 0;
+      if (fx_) a.facing = fx_ > 0 ? 1 : -1;
     } else if (e.state === 'leaving') {
       const s = e.spot;
       const dx = s.x - e.x, dy = s.y - e.y, d = Math.hypot(dx, dy);
@@ -195,24 +251,27 @@ export class Game {
     this.round++;
     const [lo, hi] = this.t > 85 ? [2.5, 4.5] : this.fuseRange;
     P.state = 'held'; P.holder = h; P.from = null; P.fuse = rand(lo, hi); P.fuseMax = P.fuse; P.tickT = 0.5; P.tick = 0; P.heat = 0; P.pass = 0; P.spawnT = 0;
-    h.holdT = 0; h.ai = null; h.aim = null; h.noBack = null; h.noBackT = 0;
+    h.holdT = 0; h.ai = null;
     sfx('magic'); sfx('note', { midi: 84, dur: 0.3, vol: 0.2 });
     if (this.fuseLoop) this.fuseLoop.stop();
     this.fuseLoop = sfxLoop('fuse-sizzle');   // fizzes while the present ticks
     const px = h.x, py = h.y - h.a.height - 40;
     particles.burst(px, py, { type: 'sparkle', count: 12, colors: ['#fff', '#ffe066', '#ff9fcd'] });
     particles.popText(CX, CY - 40, this.round === 1 ? 'Pass it on!' : `Round ${this.round}`, '#ffffff', 64);
-    this.defaultAim(h);
   }
 
-  defaultAim(h) {
-    const ring = this.ents.filter((e) => e.state === 'ring' && e !== h);
-    if (!ring.length) { h.aim = null; return; }
-    ring.sort((a, b) => Math.hypot(a.x - h.x, a.y - h.y) - Math.hypot(b.x - h.x, b.y - h.y));
-    h.aim = ring.find((e) => this.canToss(h, e)) || ring[0];
+  /** The friend the holder's aim would hit (aim assist: within ASSIST radians and in range). */
+  aimTarget(h) {
+    let best = null, bestAng = ASSIST;
+    for (const o of this.ents) {
+      if (o === h || o.state !== 'ring') continue;
+      const dx = o.x - h.x, dy = o.y - h.y, d = Math.hypot(dx, dy);
+      if (d < 1 || d > RANGE + 60) continue;
+      const ang = Math.acos(clamp((dx * h.aimX + dy * h.aimY) / d, -1, 1));
+      if (ang < bestAng) { bestAng = ang; best = o; }
+    }
+    return best;
   }
-
-  canToss(h, t) { return t.state === 'ring' && t !== h && !(h.noBack === t && h.noBackT > 0); }
 
   stepPresent(dt) {
     const P = this.pres;
@@ -245,8 +304,22 @@ export class Game {
       if (P.fuse <= 0) { this.pop(h); return; }
       if (P.heat > 0.5 && Math.random() < dt * 2) h.a.emote('sweat', 0.8);
     } else if (P.state === 'flying') {
+      // Straight out along the aim; the first friend it touches catches it
+      // (unless they're mid-dash: that's a dodge).
+      const step = THROW_V * dt;
+      P.gx += P.ux * step; P.gy += P.uy * step; P.dist += step;
       P.ft += dt;
-      if (P.ft >= FLIGHT) this.land();
+      if (P.fuse <= 0) { this.pop(P.from); return; }
+      for (const o of this.ents) {
+        if (o === P.from || o.state !== 'ring' || o.dashT > 0 || o.dizzy > 0) continue;
+        if (Math.hypot(o.x - P.gx, (o.y - P.gy) * 1.6) < CATCH_R * o.a.scale) { this.land(o); return; }
+      }
+      const nx = (P.gx - AREA.cx) / (AREA.rx + 120), ny = (P.gy - AREA.cy) / (AREA.ry + 120);
+      if (P.dist >= RANGE || Math.hypot(nx, ny) > 1) this.missed();
+    } else if (P.state === 'returning') {
+      P.ft += dt;
+      if (P.fuse <= 0) { this.pop(P.from); return; }
+      if (P.ft >= RETURN_T) this.land(P.from, true);
     }
     // nervous friends
     if (P.heat > 0.55) {
@@ -262,59 +335,56 @@ export class Game {
   presPos() {
     const P = this.pres;
     if (P.state === 'flying') {
-      const f = P.from, t = P.to, k = clamp(P.ft / FLIGHT, 0, 1);
-      const fx_ = f.x, fy = f.y - f.a.height * 0.75, tx = t.x, ty = t.y - t.a.height * 0.75;
-      const dist = Math.hypot(tx - fx_, ty - fy);
-      return { x: lerp(fx_, tx, ease.inOutQuad(k)), y: lerp(fy, ty, k) - Math.sin(k * Math.PI) * (110 + dist * 0.16), k };
+      // Flies at chest height with a gentle arc; (gx, gy) is the spot below it.
+      const k = clamp(P.dist / RANGE, 0, 1);
+      return { x: P.gx, y: P.gy - P.z - Math.sin(k * Math.PI) * 90, k, gx: P.gx, gy: P.gy };
+    }
+    if (P.state === 'returning') {
+      // Boomerangs back to the thrower, wherever they've run to.
+      const f = P.from, k = clamp(P.ft / RETURN_T, 0, 1), e = ease.inOutQuad(k);
+      const gx = lerp(P.gx, f.x, e), gy = lerp(P.gy, f.y, e);
+      const z = lerp(P.z, f.a.height + 44 * (f.a.scale / f.sc || 1), e);
+      return { x: gx, y: gy - z - Math.sin(k * Math.PI) * 140, k: k * 2, gx, gy };
     }
     const h = P.holder;
     if (!h) return { x: CX, y: CY };
     return { x: h.x + (h.a.facing || 1) * 6, y: h.y - h.a.height - 44 * (h.a.scale / h.sc || 1) };
   }
 
-  humanInput(e) {
-    const ctrl = e.p.ctrl;
-    // aim by stick direction
-    const sx = ctrl.x, sy = ctrl.y, m = Math.hypot(sx, sy);
-    if (m > 0.35) this.aimToward(e, sx / m, sy / m);
-    if (!e.aim || !this.canToss(e, e.aim)) this.defaultAim(e);
-    if (ctrl.pressed('a') && e.holdT >= MIN_HOLD && e.aim && this.canToss(e, e.aim)) this.toss(e, e.aim);
-  }
-
-  aimToward(e, ux, uy) {
-    let best = null, bd = -2;
-    for (const o of this.ents) {
-      if (o === e || o.state !== 'ring') continue;
-      const dx = o.x - e.x, dy = o.y - e.y, d = Math.hypot(dx, dy) || 1;
-      const dot = (dx * ux + dy * uy) / d;
-      const pen = this.canToss(e, o) ? 0 : 5;   // blocked targets lose
-      if (dot - pen > bd) { bd = dot - pen; best = o; }
-    }
-    if (best) e.aim = best;
-  }
-
-  toss(e, target) {
+  throwPresent(e) {
     const P = this.pres;
-    P.state = 'flying'; P.from = e; P.to = target; P.ft = 0; P.pass++;
+    // Aim assist: a throw close enough to a friend goes straight at them.
+    const t = this.aimTarget(e);
+    let ux = e.aimX, uy = e.aimY;
+    if (t) { const dx = t.x - e.x, dy = t.y - e.y, d = Math.hypot(dx, dy) || 1; ux = dx / d; uy = dy / d; }
+    P.state = 'flying'; P.from = e; P.ft = 0; P.pass++;
+    P.gx = e.x + ux * 40; P.gy = e.y + uy * 40; P.ux = ux; P.uy = uy; P.dist = 0;
+    P.z = e.a.height * 0.8;
     e.a.playOnce(poseName('toss'), 0.32, 'idle'); e.a.squash(0.25);
-    e.a.facing = target.x > e.x ? 1 : -1;
+    if (Math.abs(ux) > 0.1) e.a.facing = ux > 0 ? 1 : -1;
     sfx('swap'); sfx('whoosh');
     const hp = this.presPos();
     particles.burst(hp.x, hp.y, { type: 'dust', count: 4, speed: [40, 120], size: [10, 16] });
-    // no tossing straight back for a moment (the catcher gets the restriction)
-    target.noBack = e; target.noBackT = NO_BACK + FLIGHT;
   }
 
-  land() {
-    const P = this.pres, t = P.to;
+  /** Nobody caught it: it flies back to the thrower. */
+  missed() {
+    const P = this.pres, pos = this.presPos();
+    P.state = 'returning'; P.ft = 0; P.z = P.gy - pos.y;
+    sfx('boing');
+    particles.popText(pos.x, pos.y - 40, pick(['Missed!', 'Whoops!', 'Boomerang!']), '#ffffff', 52);
+  }
+
+  land(t, returned = false) {
+    const P = this.pres;
     P.holder = t; P.state = 'held'; P.ft = 0;
-    t.holdT = 0; t.ai = null; t.aim = null;
+    t.holdT = 0; t.ai = null;
     t.a.playOnce(poseName('catch-present'), 0.3, poseName('hold-present')); t.a.squash(0.3);
     sfx('pop');
     const hp = this.presPos();
     particles.burst(hp.x, hp.y + 30, { type: 'spark', count: 6, colors: ['#fff', '#ffe066'], speed: [100, 240] });
     particles.ring(t.x, t.y - t.a.height * 0.5, t.p.color, 90, 0.3);
-    this.defaultAim(t);
+    if (returned) t.a.emote('sweat', 0.8);
     if (P.fuse <= 0) this.pop(t);
   }
 
@@ -419,33 +489,57 @@ export class Game {
   // -------------------------------------------------------------------- AI
   aiThink(e, dt) {
     const P = this.pres, p = e.p, prof = aiProfile(p), ctrl = p.ctrl;
-    if (P.holder !== e || P.state !== 'held') { ctrl.move(0, 0); return; }
-    if (!e.ai) {
-      const lvl = clamp(p.aiLevel ?? 0, 0, 2);
-      let wait = reactionTime(p);
-      let dither = false;
-      if (lvl === 0 && chance(0.4)) { wait += rand(1.0, 2.4); dither = true; }     // Easy dithers: risky and funny
-      e.ai = { wait, dither, t: 0, want: null, announced: false, mode: chance(0.5) ? 'near' : 'random' };
-    }
+    const lvl = clamp(p.aiLevel ?? 0, 0, 2);
+    if (!e.ai) e.ai = { t: 0, plan: null, wanderT: 0, wx: e.x, wy: e.y, dodged: false };
     const ai = e.ai;
     ai.t += dt;
-    if (ai.dither && !ai.announced && ai.t > 0.4) { ai.announced = true; e.a.emote('question', 1.4); }
-    // hot present makes sharper bots hurry
-    const hurry = prof.mistake < 0.2 ? 1 - P.heat * 0.55 : 1;
-    // pick who to throw to once
-    if (!ai.want && ai.t > 0.15) {
-      const opts = this.ents.filter((o) => this.canToss(e, o));
-      if (!opts.length) { ctrl.move(0, 0); return; }
-      if (ai.mode === 'near') { opts.sort((a, b) => Math.hypot(a.x - e.x, a.y - e.y) - Math.hypot(b.x - e.x, b.y - e.y)); ai.want = opts[Math.min(opts.length - 1, chance(0.3) ? 1 : 0)]; }
-      else ai.want = pick(opts);
+    if (P.holder === e && P.state === 'held') {
+      // Holding: pick a friend, walk a little closer if they're far, aim (with
+      // a level-dependent wobble) and throw after a short think.
+      if (!ai.plan || ai.plan.target.state !== 'ring') {
+        const opts = this.ents.filter((o) => o !== e && o.state === 'ring');
+        if (!opts.length) { ctrl.move(0, 0); return; }
+        opts.sort((a, b) => Math.hypot(a.x - e.x, a.y - e.y) - Math.hypot(b.x - e.x, b.y - e.y));
+        let wait = reactionTime(p) + rand(0.15, 0.5);
+        const dither = lvl === 0 && chance(0.4);
+        if (dither) { wait += rand(1.0, 2.2); e.a.emote('question', 1.4); }   // Easy dithers: risky and funny
+        ai.plan = { target: chance(0.6) ? opts[0] : pick(opts), wait, err: rand(-1, 1) * [0.32, 0.16, 0.06][lvl], t: 0 };
+      }
+      const pl = ai.plan, t = pl.target;
+      pl.t += dt;
+      const dx = t.x - e.x, dy = t.y - e.y, d = Math.hypot(dx, dy) || 1;
+      if (d > 520) ctrl.move(dx / d, dy / d); else ctrl.move(0, 0);
+      const c = Math.cos(pl.err), sn = Math.sin(pl.err);
+      ctrl.aim((dx / d) * c - (dy / d) * sn, (dx / d) * sn + (dy / d) * c);
+      const hurry = prof.mistake < 0.2 ? 1 - P.heat * 0.55 : 1;
+      if (pl.t >= pl.wait * hurry && e.holdT >= MIN_HOLD && d <= RANGE) { ctrl.press('rt'); ai.plan = null; ctrl.move(0, 0); }
+      return;
     }
-    if (ai.want) {
-      if (!this.canToss(e, ai.want)) { ai.want = null; return; }
-      const dx = ai.want.x - e.x, dy = ai.want.y - e.y, d = Math.hypot(dx, dy) || 1;
-      ctrl.move(dx / d, dy / d);
-      const ready = ai.t >= ai.wait * hurry && e.holdT >= MIN_HOLD && e.aim === ai.want;
-      if (ready) { ctrl.press('a'); ctrl.move(0, 0); }
-    } else ctrl.move(0, 0);
+    ai.plan = null;
+    // Not holding. If the present is flying at me, maybe dash out of its way.
+    if (P.state === 'flying' && P.from !== e) {
+      const rx = e.x - P.gx, ry = e.y - P.gy, along = rx * P.ux + ry * P.uy;
+      const side = Math.abs(rx * P.uy - ry * P.ux);
+      if (!ai.dodged && along > 0 && along / THROW_V < 0.32 && side < CATCH_R * e.a.scale * 1.2) {
+        ai.dodged = true;
+        if (e.dashCd <= 0 && chance([0.12, 0.3, 0.5][lvl])) {
+          const sx = rx * P.uy - ry * P.ux >= 0 ? 1 : -1;   // dash sideways, away from the line
+          ctrl.move(P.uy * sx, -P.ux * sx); ctrl.press('lt');
+          return;
+        }
+      }
+    } else ai.dodged = false;
+    // Otherwise wander, keeping some distance from whoever has the present.
+    ai.wanderT -= dt;
+    const h = P.holder && P.holder !== e && P.holder.state === 'ring' ? P.holder : null;
+    if (ai.wanderT <= 0) {
+      ai.wanderT = rand(0.8, 2.0);
+      let wx = AREA.cx + rand(-0.85, 0.85) * AREA.rx, wy = AREA.cy + rand(-0.8, 0.8) * AREA.ry;
+      if (h) { const ax = e.x - h.x, ay = e.y - h.y, ad = Math.hypot(ax, ay) || 1; wx = e.x + (ax / ad) * rand(120, 260) + rand(-120, 120); wy = e.y + (ay / ad) * rand(60, 140) + rand(-60, 60); }
+      ai.wx = wx; ai.wy = wy;
+    }
+    const dx = ai.wx - e.x, dy = ai.wy - e.y, d = Math.hypot(dx, dy);
+    if (d > 30) ctrl.move((dx / d) * 0.7, (dy / d) * 0.7); else ctrl.move(0, 0);
   }
 
   // ------------------------------------------------------------------ draw
@@ -487,7 +581,7 @@ export class Game {
     const cam = this.cam; if (!cam) return;
     const P = this.pres;
     if (this.ends && this.ends.winner) { const w = this.ends.winner; cam.follow(w.x, w.y - 80, 1.25, 2.5); return; }
-    if (P.state === 'held' || P.state === 'flying') {
+    if (P.state === 'held' || P.state === 'flying' || P.state === 'returning') {
       const pos = this.presPos();
       cam.follow(lerp(CX, pos.x, 0.22), lerp(CY - 40, pos.y, 0.22), 1.06 + 0.05 * P.heat, 1.4);
     } else cam.follow(CX, H / 2, 1.0, 1.4);
@@ -508,15 +602,8 @@ export class Game {
       // hearts above the head
       this.drawHearts(g, e, a.x, top - emo - 6 - (isHolder ? 78 : 0));
       ui.playerTag(g, e.p, a.x, top - emo - 34 - (isHolder ? 78 : 0));
-      // "can't toss back" badge
-      if (P.state === 'held' && P.holder && P.holder.noBack === e && P.holder.noBackT > 0 && !this.ends) {
-        const k = clamp(P.holder.noBackT / NO_BACK, 0, 1);
-        g.save(); g.translate(a.x, a.y - a.height * 0.55); g.globalAlpha = 0.6 + 0.4 * k;
-        g.strokeStyle = '#ff4d6d'; g.lineWidth = 9; g.beginPath(); g.arc(0, 0, 34, 0, TAU); g.moveTo(-24, 24); g.lineTo(24, -24); g.stroke();
-        g.restore();
-      }
       if (isHolder && !e.p.isAI && e.holdT > 0.6 && !this.ends) {
-        ui.glyph(g, 'a', a.x + 92, a.y - a.height - 28, 54, { pulse: true });
+        ui.glyph(g, e.p.ctrl.kind === 'pad' ? 'rt' : 'a', a.x + 92, a.y - a.height - 28, 54, { pulse: true });
       }
     } else {
       ui.playerTag(g, e.p, a.x, top - emo - 8);
@@ -537,7 +624,7 @@ export class Game {
   }
 
   drawTargetRing(g, h) {
-    const t = h.aim;
+    const t = this.aimTarget(h);
     if (!t || t.state !== 'ring') return;
     const pul = 0.5 + 0.5 * Math.sin(this.t * 8);
     const rx = Math.max(60, t.a.width * 0.55) * (t.a.scale / t.sc);
@@ -550,32 +637,31 @@ export class Game {
     g.restore();
   }
 
+  /** Dashed arrow along the aim: to the friend it would hit, or its full range (a miss). */
   drawAimArrow(g, h) {
-    const t = h.aim;
-    if (!t || t.state !== 'ring') return;
-    const hp = this.presPos();
-    const x0 = h.x, y0 = h.y - h.a.height * 0.55, x1 = t.x, y1 = t.y - t.a.height * 0.55;
-    const dx = x1 - x0, dy = y1 - y0, d = Math.hypot(dx, dy) || 1, ux = dx / d, uy = dy / d;
-    const sx = x0 + ux * 70, sy = y0 + uy * 50, ex = x1 - ux * 80, ey = y1 - uy * 60;
+    const t = this.aimTarget(h);
+    const x0 = h.x, y0 = h.y - h.a.height * 0.55;
+    let ux = h.aimX, uy = h.aimY, len = RANGE * 0.55;
+    if (t) { const dx = t.x - h.x, dy = t.y - h.y, d = Math.hypot(dx, dy) || 1; ux = dx / d; uy = dy / d; len = Math.max(0, d - 80); }
+    const sx = x0 + ux * 70, sy = y0 + uy * 50, ex = x0 + ux * len, ey = y0 + uy * len * (t ? 1 : 0.8);
+    if (Math.hypot(ex - sx, ey - sy) < 30) return;
     const ang = Math.atan2(ey - sy, ex - sx);
-    const len = Math.hypot(ex - sx, ey - sy);
     g.save();
     g.lineCap = 'round'; g.lineJoin = 'round';
-    // soft glow + outlined dashed shaft
-    g.strokeStyle = '#24163f'; g.lineWidth = 22; g.globalAlpha = 0.9;
+    g.globalAlpha = t ? 1 : 0.55;   // faint when the throw would miss
+    g.strokeStyle = '#24163f'; g.lineWidth = 22; g.globalAlpha *= 0.9;
     g.beginPath(); g.moveTo(sx, sy); g.lineTo(ex, ey); g.stroke();
+    g.globalAlpha = t ? 1 : 0.6;
     g.setLineDash([26, 16]); g.lineDashOffset = -this.t * 90;
-    g.strokeStyle = '#ffffff'; g.lineWidth = 12; g.globalAlpha = 1;
+    g.strokeStyle = '#ffffff'; g.lineWidth = 12;
     g.beginPath(); g.moveTo(sx, sy); g.lineTo(ex, ey); g.stroke();
     g.setLineDash([]);
-    // arrow head
     g.translate(ex, ey); g.rotate(ang);
     const pul = 1 + Math.sin(this.t * 10) * 0.08;
     g.scale(pul, pul);
     g.beginPath(); g.moveTo(44, 0); g.lineTo(-10, -34); g.lineTo(-10, 34); g.closePath();
     g.fillStyle = h.p.color; g.fill(); g.lineWidth = 8; g.strokeStyle = '#24163f'; g.stroke();
     g.restore();
-    void len; void hp;
   }
 
   drawPresentWorld(g) {
@@ -583,12 +669,13 @@ export class Game {
     if (P.state === 'rest' || P.state === 'popping') return;
     const pos = this.presPos();
     const sh = P.heat * 6;
-    const big = P.state === 'flying' ? 1.0 : 1 + Math.sin(this.t * (6 + P.heat * 20)) * 0.03 * (1 + P.heat * 2);
+    const flying = P.state === 'flying' || P.state === 'returning';
+    const big = flying ? 1.0 : 1 + Math.sin(this.t * (6 + P.heat * 20)) * 0.03 * (1 + P.heat * 2);
     g.save();
     g.translate(pos.x + Math.sin(this.t * 48) * sh * 0.5, pos.y + Math.cos(this.t * 41) * sh * 0.4);
-    if (P.state === 'flying') g.rotate(P.spin * 3.2 * 0.3 + pos.k * 7);
+    if (flying) g.rotate(P.spin * 3.2 * 0.3 + pos.k * 7);
     else g.rotate(Math.sin(this.t * 30) * 0.05 * P.heat * 2);
-    const size = 92 * (P.state === 'flying' ? 1 : this.holderScale());
+    const size = 92 * (flying ? 1 : this.holderScale());
     g.scale(big, big);
     const presentKey = P.heat > 0.55 && art('prop/present-ticking') ? 'prop/present-ticking' : 'prop/present';
     const pimg = art(presentKey);
@@ -609,10 +696,9 @@ export class Game {
     } else drawPresent(g, 0, 0, size, P.heat, this.t, 1);
     g.restore();
     // shadow while flying
-    if (P.state === 'flying') {
-      const f = P.from, t = P.to, k = pos.k;
+    if (flying) {
       g.save(); g.globalAlpha = 0.2; g.fillStyle = '#24163f';
-      g.beginPath(); g.ellipse(lerp(f.x, t.x, k), lerp(f.y, t.y, k), 34, 10, 0, 0, TAU); g.fill(); g.restore();
+      g.beginPath(); g.ellipse(pos.gx, pos.gy, 34, 10, 0, 0, TAU); g.fill(); g.restore();
     }
   }
 
@@ -638,13 +724,13 @@ export class Game {
       x += chipW + 16;
     });
     const P = this.pres;
-    if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) ui.text(g, 'Aim with the stick, press A to toss!', W / 2, 1010, { size: 40, color: '#ffffff' });
+    if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) ui.text(g, 'Run with the left stick, aim with the right stick, RT to throw!', W / 2, 1010, { size: 40, color: '#ffffff' });
     if (this.ends && this.ends.winner) {
       const nm = playerName(this.ends.winner.p);
       ui.banner(g, `${nm} ${(charById(this.ends.winner.p.charId) || {}).plural ? 'win' : 'wins'}!`, this.ends.t, { y: 300, size: 110, color: '#ffd23f' });
     }
     // red vignette as the fuse runs low
-    if (P.heat > 0.3 && (P.state === 'held' || P.state === 'flying')) {
+    if (P.heat > 0.3 && (P.state === 'held' || P.state === 'flying' || P.state === 'returning')) {
       const k = (P.heat - 0.3) / 0.7, pul = 0.5 + 0.5 * Math.sin(this.t * (8 + 14 * P.heat));
       const gr = g.createRadialGradient(W / 2, H / 2, H * 0.45, W / 2, H / 2, H * 0.95);
       gr.addColorStop(0, 'rgba(255,40,60,0)'); gr.addColorStop(1, `rgba(255,40,60,${0.45 * k * (0.6 + 0.4 * pul)})`);

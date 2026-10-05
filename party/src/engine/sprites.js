@@ -61,6 +61,7 @@ export const POSES = {
   action:    { loop: false, fallback: ['cheer'], desc: 'Generic quick action: grab, tap, swing, throw, pump.' },
   throw:     { loop: false, fallback: ['action'], desc: 'Throwing something forward.' },
   push:      { loop: false, fallback: ['action'], desc: 'Shove / bump forward.' },
+  pump:      { loop: true,  fallback: ['action'], desc: 'Pumping a balloon pump: both hands on the T-handle, pushing it down (held while mashing).' },
   carry:     { loop: true,  fallback: ['walk'], desc: 'Walking while holding something overhead.' },
   dance:     { loop: true,  fallback: ['celebrate'], auto: 'note', desc: 'Dancing on the beat.' },
   paint:     { loop: true,  fallback: ['action'], desc: 'Painting / crafting with a brush.' },
