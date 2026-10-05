@@ -1,9 +1,43 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. Current production has new requests queued (2026-10-05);
+The authoritative brief is `party/image-requests.md`. Current production is complete (2026-10-05);
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
+
+## Current delivery (October 5)
+
+Latest image delivery revision: `03d1d11130b2ed03ea7e9fb441401aff8bac26d9`.
+Latest image delivery UTC: 2026-10-05T19:27:32+00:00.
+Last checked revision: `6d0f7b95839b7b06ea5ee17349474f012768934b`.
+Last checked UTC: 2026-10-05T19:27:32+00:00.
+
+No current image or regeneration requests remain queued. The latest main check
+found no further changes to `party/image-requests.md`.
+
+Delivered 122 new art keys: Melody Maker33, Sparkle Bead Shop16, Dream Room30
+and Hide & Seek Picnic43. All are registered:410 total keys /390 decodable
+WebP files. Exact prompts, PNG provenance and intake maps live under
+`reference/pending/` and are registered in `assets/art/generation-manifest.json`.
+The directory name is retained for compatibility; these records are delivered.
+
+All15 player/companion sets now have two authored pump frames (30 new frames),
+full and optimized copies, accurate grip points and refreshed applicable masks.
+Button presses drive the pumping poses and the separate handle follows the
+actual grip. Snowstar and Birthday Cake use proportionally reduced pose raster
+resolution/bodyHeight to preserve displayed size below the decoded-memory cap.
+
+All26 sprite sets validate with no errors; existing soft encoded-size and
+NPC fallback warnings remain. Node runtime/art-loading and Python builder tests
+pass. Hide & Seek checks cover mirroring, unchanged procedural fallback
+geometry, measured openings and scene alignment. Root reviewed full/optimized
+pump gameplay, art contact sheets and layer composites; the automatic Hide &
+Seek run completed all three scenes without browser errors. Day/night hiding
+silhouettes match; jar glass is below40% alpha; dollhouse back leakage is zero.
+
+Published batches:72fd189 beads,4d5f9b9 melody/room,06857a6 pumping,
+6d0f7b9 seek scenes/layers,03d1d11 seek creatures/toys. Reusable lessons were
+added to `tools/sprites/AGENT-PLAYBOOK.md`. No future check is scheduled.
 
 ## Previous delivery (October 3)
 
@@ -70,8 +104,10 @@ required production remains complete; there is no allowance pause.
 See `ASSET-COVERAGE.md`, `SPRITE-SESSION-HANDOFF.md` and
 `RECOMMENDED-ACTIONS.md` for the current inventory and future game actions.
 
-## October 5 production
+## October 5 production history
 
-Synced main at 2913e62. New requests: pump cycles for all15 player/companion members, Melody Maker art (33 keys), Sparkle Bead Shop art (16 keys) and Dream Room art (30 keys). Root owns pump sprites and integration. melody_new_art, beads_new_art, room_new_art own disjoint art families and prompt records; shared art index is integrated by root. Canonicals stay approved. Generation in progress; fallback art is not a finished delivery.
-
-Main resync found Hide & Seek Picnic requests (43 keys: 3 scenes, 1 thumbnail, 27 occluder layers, 12 hideable props). room_new_art owns occluders, beads_new_art owns creatures, melody_new_art aligns scene/occluder geometry and reviews studio integration. Root generated the scenes/thumbnail and integrates shared indexes. Bead Shop is published in72fd189; Melody Maker and Dream Room are published in4d5f9b9. Pump sets are reviewed, with per-character grips and in-game handle alignment. Snowstar pump and Birthday Cake pump/twirl use lower-resolution frames with proportional pose bodyHeight, preserving world size while meeting decoded-memory limits.
+Initial main sync at2913e62 queued the pump, Melody Maker, Bead Shop and Dream
+Room additions. An incremental main sync then found the Hide & Seek Picnic
+brief. Disjoint art families were delegated; root reviewed, registered and
+published each batch. The current delivery checkpoint above supersedes the
+older completion counts below it.

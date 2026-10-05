@@ -1,5 +1,22 @@
 # Charlie Party asset coverage
 
+## October 5 additions
+
+Delivery `03d1d11` completes every new request found through main `6d0f7b9`.
+Added122 general art keys: Melody Maker33, Bead Shop16, Dream Room30 and Hide &
+Seek43. Current total is410 registered keys /390 decodable WebPs. All15 players
+and companions also gained two authored pump frames with full/optimized exports
+and refreshed masks where applicable. All26 sets remain under25 MiB decoded;
+all current intake paths and generation records are present.
+
+Gameplay geometry follows the generated grips, shelf surfaces, lily pads,
+container rims and window holes. Day/night occluders share exact silhouettes;
+layered fronts/backs retain matching canvases. Runtime/loading, geometry,
+mirroring, fallback, alpha, dimensions and decode checks passed. Representative
+pump gameplay and a complete automatic Hide & Seek run produced no browser errors.
+
+The following October2/3 inventory is retained as a historical baseline.
+
 Snapshot: 2026-10-02. [image-requests.md](../image-requests.md) is the authoritative brief. This inventory replaces the earlier incremental snapshots. Built files, visual acceptance and publication are separate milestones.
 
 ## Current status
