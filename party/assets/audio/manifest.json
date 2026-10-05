@@ -718,7 +718,20 @@
   "tug-banana": "sfx/tug-banana.mp3",
   "tug-slip": "sfx/tug-slip.wav",
   "tug-hop": "sfx/tug-hop.wav",
-  "tug-plop": "sfx/tug-plop.wav"
+  "tug-plop": "sfx/tug-plop.wav",
+  "jr-slap": "sfx/jr-slap.wav",
+  "jr-whoosh": "sfx/jr-whoosh.mp3",
+  "jr-hop": "sfx/jr-hop.wav",
+  "jr-tangle": "sfx/jr-tangle.mp3",
+  "jr-double": "sfx/jr-double.mp3",
+  "jr-slowdown": "sfx/jr-slowdown.mp3",
+  "jr-speedup": "sfx/jr-speedup.mp3",
+  "cush-scratch": "sfx/cush-scratch.mp3",
+  "cush-plop": "sfx/cush-plop.wav",
+  "cush-boing": "sfx/cush-boing.mp3",
+  "cush-out": "sfx/cush-out.mp3",
+  "cush-fakeout": "sfx/cush-fakeout.mp3",
+  "cush-needle": "sfx/cush-needle.wav"
  },
  "music": {
   "title": {
