@@ -4015,6 +4015,84 @@
       "loop": true,
       "motion": 0.3,
       "facing": 0
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-pump.webp",
+          "rect": [
+            37,
+            6,
+            666,
+            996
+          ],
+          "isolate": true,
+          "anchor": [
+            328,
+            987
+          ],
+          "scale": 0.49,
+          "hand": [
+            559,
+            441
+          ],
+          "head": [
+            340,
+            192
+          ],
+          "eyes": [
+            352,
+            268
+          ],
+          "neck": [
+            337,
+            359
+          ],
+          "back": [
+            311,
+            489
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-pump.webp",
+          "rect": [
+            806,
+            77,
+            704,
+            926
+          ],
+          "isolate": true,
+          "anchor": [
+            344,
+            916
+          ],
+          "scale": 0.49,
+          "hand": [
+            605,
+            529
+          ],
+          "head": [
+            475,
+            212
+          ],
+          "eyes": [
+            485,
+            288
+          ],
+          "neck": [
+            445,
+            357
+          ],
+          "back": [
+            345,
+            503
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

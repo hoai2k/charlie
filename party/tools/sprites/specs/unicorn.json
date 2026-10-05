@@ -4059,6 +4059,84 @@
       "holdLast": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-pump.webp",
+          "rect": [
+            43,
+            4,
+            819,
+            861
+          ],
+          "isolate": true,
+          "anchor": [
+            368,
+            852
+          ],
+          "scale": 0.56,
+          "hand": [
+            779,
+            336
+          ],
+          "head": [
+            533,
+            160
+          ],
+          "eyes": [
+            536,
+            185
+          ],
+          "neck": [
+            503,
+            262
+          ],
+          "back": [
+            408,
+            436
+          ]
+        },
+        {
+          "source": "../sources/unicorn-pump.webp",
+          "rect": [
+            911,
+            84,
+            821,
+            780
+          ],
+          "isolate": true,
+          "anchor": [
+            448,
+            773
+          ],
+          "scale": 0.56,
+          "hand": [
+            755,
+            532
+          ],
+          "head": [
+            583,
+            193
+          ],
+          "eyes": [
+            595,
+            209
+          ],
+          "neck": [
+            550,
+            279
+          ],
+          "back": [
+            417,
+            430
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

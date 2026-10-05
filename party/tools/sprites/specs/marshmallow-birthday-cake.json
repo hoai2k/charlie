@@ -3121,7 +3121,7 @@
             267,
             635
           ],
-          "scale": 0.68,
+          "scale": 0.544,
           "head": [
             267,
             83
@@ -3156,7 +3156,7 @@
             256,
             645
           ],
-          "scale": 0.68,
+          "scale": 0.544,
           "head": [
             256,
             84
@@ -3191,7 +3191,7 @@
             262,
             647
           ],
-          "scale": 0.68,
+          "scale": 0.544,
           "head": [
             262,
             85
@@ -3226,7 +3226,7 @@
             261,
             641
           ],
-          "scale": 0.68,
+          "scale": 0.544,
           "head": [
             261,
             84
@@ -3252,7 +3252,8 @@
       "fps": 4,
       "loop": true,
       "motion": 0.05,
-      "facing": 0
+      "facing": 0,
+      "bodyHeight": 208.0
     },
     "look-around": {
       "frames": [
@@ -3939,6 +3940,85 @@
       "motion": 0.3,
       "holdLast": true,
       "facing": 0
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-pump.webp",
+          "rect": [
+            165,
+            10,
+            753,
+            751
+          ],
+          "isolate": true,
+          "anchor": [
+            380,
+            742
+          ],
+          "scale": 0.375,
+          "hand": [
+            700,
+            290
+          ],
+          "head": [
+            385,
+            319
+          ],
+          "eyes": [
+            389,
+            414
+          ],
+          "neck": [
+            381,
+            542
+          ],
+          "back": [
+            266,
+            527
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-pump.webp",
+          "rect": [
+            1138,
+            73,
+            817,
+            690
+          ],
+          "isolate": true,
+          "anchor": [
+            404,
+            679
+          ],
+          "scale": 0.375,
+          "hand": [
+            739,
+            318
+          ],
+          "head": [
+            457,
+            287
+          ],
+          "eyes": [
+            460,
+            419
+          ],
+          "neck": [
+            415,
+            513
+          ],
+          "back": [
+            302,
+            515
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1,
+      "bodyHeight": 195.0
     }
   },
   "portraits": {

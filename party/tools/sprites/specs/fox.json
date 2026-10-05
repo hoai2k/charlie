@@ -3807,6 +3807,84 @@
       "loop": true,
       "motion": 0.05,
       "facing": 1
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/fox-pump.webp",
+          "rect": [
+            22,
+            6,
+            832,
+            864
+          ],
+          "isolate": true,
+          "anchor": [
+            488,
+            855
+          ],
+          "scale": 0.65,
+          "hand": [
+            737,
+            436
+          ],
+          "head": [
+            528,
+            176
+          ],
+          "eyes": [
+            543,
+            260
+          ],
+          "neck": [
+            532,
+            360
+          ],
+          "back": [
+            464,
+            551
+          ]
+        },
+        {
+          "source": "../sources/fox-pump.webp",
+          "rect": [
+            945,
+            74,
+            794,
+            796
+          ],
+          "isolate": true,
+          "anchor": [
+            440,
+            787
+          ],
+          "scale": 0.65,
+          "hand": [
+            711,
+            576
+          ],
+          "head": [
+            558,
+            196
+          ],
+          "eyes": [
+            593,
+            280
+          ],
+          "neck": [
+            555,
+            391
+          ],
+          "back": [
+            425,
+            515
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

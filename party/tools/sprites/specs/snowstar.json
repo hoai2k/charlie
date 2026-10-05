@@ -2798,6 +2798,85 @@
       "loop": true,
       "motion": 0.85,
       "facing": 0
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-pump.webp",
+          "rect": [
+            34,
+            0,
+            723,
+            1006
+          ],
+          "isolate": true,
+          "anchor": [
+            394,
+            992
+          ],
+          "scale": 0.39,
+          "hand": [
+            546,
+            630
+          ],
+          "head": [
+            364,
+            83
+          ],
+          "eyes": [
+            372,
+            395
+          ],
+          "neck": [
+            372,
+            563
+          ],
+          "back": [
+            364,
+            681
+          ]
+        },
+        {
+          "source": "../sources/snowstar-pump.webp",
+          "rect": [
+            786,
+            49,
+            725,
+            957
+          ],
+          "isolate": true,
+          "anchor": [
+            397,
+            943
+          ],
+          "scale": 0.39,
+          "hand": [
+            493,
+            684
+          ],
+          "head": [
+            370,
+            91
+          ],
+          "eyes": [
+            384,
+            403
+          ],
+          "neck": [
+            347,
+            580
+          ],
+          "back": [
+            325,
+            663
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1,
+      "bodyHeight": 216.0
     }
   },
   "portraits": {

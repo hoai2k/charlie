@@ -4,7 +4,7 @@
 // and wastes the air (comic puffs). First balloon to POP wins the round.
 import { winsText } from '../state.js';
 import { W, H } from '../engine/canvas.js';
-import { Actor } from '../engine/sprites.js';
+import { Actor, getSpriteSet } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
@@ -484,6 +484,37 @@ export class Game {
   drawStation(g, st) {
     const s = st.s, p = st.p, sc = s.sc;
     const flashRed = st.gauge > RED;
+    const a = st.a;
+    const pumping = st.pumping > 0 && a.currentPose === 'pump';
+    const authoredPump = getSpriteSet(a.members[0].def.asset)?.poses.pump?.frames?.length === 2;
+    const dip = pumping ? clamp(st.pump, 0, 1) : 0;
+    a.x = s.cx + CHAR_X * sc; a.y = s.by + 6 * sc;
+    a.scale = sc * (s.chMul || 1);
+    // Each button press drives the down frame; release returns to the up frame.
+    // Keep the original foot-based dip, and put the separate handle at the grip.
+    if (pumping && authoredPump) a.poseTime = dip > 0.45 ? 0.125 : 0;
+    a.snap();
+    let grip = null;
+    let pumpScale = PUMP_K * PS;
+    if (authoredPump) {
+      const savedPose = a.pose;
+      const downTime = a.poseTime;
+      a.pose = 'pump';
+      a.poseTime = 0.125;
+      const down = a.anchor('hand');
+      pumpScale = Math.min(pumpScale, Math.max(0.2, (a.y - down.y) / sc * 0.8 / (PUMP_FOOT - PUMP_ROD1)));
+      a.pose = savedPose;
+      a.poseTime = downTime;
+    }
+    if (pumping && authoredPump) {
+      const hand = a.anchor('hand');
+      a.x += s.cx + PUMP_X * sc - hand.x;
+      a.snap();
+      grip = (a.y + (hand.y - a.y) * (1 - 0.085 * dip) - s.by) / sc;
+    }
+    const lo = Math.min(...a.members.map((m) => m.def.dx * a.facing * a.scale - a._memberSize(m).w * a.scale * 0.55));
+    if (grip === null) a.x = Math.max(a.x, 26 - lo);
+    a.snap();
     g.save();
     g.translate(s.cx, s.by); g.scale(sc, sc);
     // --- mat
@@ -501,7 +532,7 @@ export class Game {
     const wob = st.sputter > 0 ? Math.sin(this.t * 60) * 14 * Math.min(1, st.sputter * 4) : 0;
     g.lineCap = 'round';
     const pumpImg = art('prop/balloon-pump');
-    const pk = PUMP_K * PS;                      // pump art: image px -> station units
+    const pk = pumpScale;                      // pump art: image px -> station units
     const hx = pumpImg ? PUMP_X + (PUMP_HOSE[0] - PUMP_BX) * pk : PUMP_X + 18 * PS;
     const hy = pumpImg ? -4 * PS - (PUMP_FOOT - PUMP_HOSE[1]) * pk : -44 * PS;
     for (const [lw, col] of [[16, NAVY], [9, flashRed ? '#ff8fa8' : pumpImg ? '#2f8ff2' : '#6fe3b4']]) {
@@ -513,11 +544,11 @@ export class Game {
     // --- pump
     if (pumpImg) {
       // handle rides up and down: draw handle, stretched rod, then barrel on top
-      const lift = (1 - clamp(st.pump, 0, 1)) * PUMP_TRAVEL;
+      const lift = grip === null ? (1 - clamp(st.pump, 0, 1)) * PUMP_TRAVEL : (-4 * PS - PUMP_FOOT * pk + 20 * pk - grip) / pk;
       const left = PUMP_X - PUMP_BX * pk, foot = -4 * PS, iw = pumpImg.width;
       const yOf = (iy) => foot - (PUMP_FOOT - iy) * pk;
       g.drawImage(pumpImg, 0, 0, iw, PUMP_ROD0, left, yOf(0) - lift * pk, iw * pk, PUMP_ROD0 * pk);
-      g.drawImage(pumpImg, 0, PUMP_ROD0, iw, PUMP_ROD1 - PUMP_ROD0, left, yOf(PUMP_ROD0) - lift * pk - 0.5, iw * pk, (PUMP_ROD1 - PUMP_ROD0 + lift) * pk + 1);
+      g.drawImage(pumpImg, 0, PUMP_ROD0, iw, PUMP_ROD1 - PUMP_ROD0, left, yOf(PUMP_ROD0) - lift * pk - 0.5, iw * pk, Math.max(1, (PUMP_ROD1 - PUMP_ROD0 + lift) * pk + 1));
       g.drawImage(pumpImg, 0, PUMP_ROD1, iw, pumpImg.height - PUMP_ROD1, left, yOf(PUMP_ROD1), iw * pk, (pumpImg.height - PUMP_ROD1) * pk);
     } else {
     g.save(); g.translate(PUMP_X, 0); g.scale(PS, PS); g.translate(-PUMP_X, 0);
@@ -541,14 +572,6 @@ export class Game {
     this.drawBalloon(g, st);
 
     // --- character
-    const a = st.a;
-    a.x = s.cx + CHAR_X * sc; a.y = s.by + 6 * sc;
-    a.scale = sc * (st.s.chMul || 1);
-    // keep trailing group members (Fellowfox, KPop girls) on screen at the left edge
-    const lo = Math.min(...a.members.map((m) => m.def.dx * a.facing * a.scale - a._memberSize(m).w * a.scale * 0.55));
-    a.x = Math.max(a.x, 26 - lo);
-    // Pushing down on the pump: the body dips with the handle (from the feet).
-    const dip = st.pumping > 0 ? clamp(st.pump, 0, 1) : 0;
     g.save(); g.translate(a.x, a.y); g.scale(1 + 0.035 * dip, 1 - 0.085 * dip); g.translate(-a.x, -a.y);
     a.draw(g, { ring: p.color });
     g.restore();

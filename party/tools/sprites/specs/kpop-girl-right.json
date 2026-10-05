@@ -3930,6 +3930,84 @@
           "dur": 0.12
         }
       ]
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-pump.webp",
+          "rect": [
+            143,
+            8,
+            526,
+            1009
+          ],
+          "isolate": true,
+          "anchor": [
+            280,
+            999
+          ],
+          "scale": 0.58,
+          "hand": [
+            424,
+            410
+          ],
+          "head": [
+            266,
+            154
+          ],
+          "eyes": [
+            266,
+            198
+          ],
+          "neck": [
+            260,
+            300
+          ],
+          "back": [
+            255,
+            452
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-right-pump.webp",
+          "rect": [
+            871,
+            127,
+            529,
+            885
+          ],
+          "isolate": true,
+          "anchor": [
+            262,
+            880
+          ],
+          "scale": 0.59,
+          "hand": [
+            417,
+            526
+          ],
+          "head": [
+            300,
+            154
+          ],
+          "eyes": [
+            300,
+            196
+          ],
+          "neck": [
+            283,
+            292
+          ],
+          "back": [
+            204,
+            426
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

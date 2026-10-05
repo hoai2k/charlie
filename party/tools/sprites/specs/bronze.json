@@ -3794,6 +3794,84 @@
       "loop": true,
       "motion": 0.3,
       "facing": 1
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-pump.webp",
+          "rect": [
+            42,
+            6,
+            725,
+            981
+          ],
+          "isolate": true,
+          "anchor": [
+            316,
+            970
+          ],
+          "scale": 0.72,
+          "hand": [
+            670,
+            522
+          ],
+          "head": [
+            306,
+            212
+          ],
+          "eyes": [
+            306,
+            354
+          ],
+          "neck": [
+            296,
+            463
+          ],
+          "back": [
+            264,
+            580
+          ]
+        },
+        {
+          "source": "../sources/bronze-pump.webp",
+          "rect": [
+            809,
+            91,
+            651,
+            897
+          ],
+          "isolate": true,
+          "anchor": [
+            330,
+            885
+          ],
+          "scale": 0.72,
+          "hand": [
+            581,
+            610
+          ],
+          "head": [
+            289,
+            205
+          ],
+          "eyes": [
+            309,
+            347
+          ],
+          "neck": [
+            271,
+            456
+          ],
+          "back": [
+            271,
+            554
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

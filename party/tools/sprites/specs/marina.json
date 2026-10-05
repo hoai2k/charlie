@@ -3818,6 +3818,84 @@
           ]
         }
       ]
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/marina-pump.webp",
+          "rect": [
+            107,
+            3,
+            731,
+            873
+          ],
+          "isolate": true,
+          "anchor": [
+            392,
+            848
+          ],
+          "scale": 0.82,
+          "hand": [
+            653,
+            413
+          ],
+          "head": [
+            432,
+            187
+          ],
+          "eyes": [
+            449,
+            238
+          ],
+          "neck": [
+            442,
+            329
+          ],
+          "back": [
+            370,
+            488
+          ]
+        },
+        {
+          "source": "../sources/marina-pump.webp",
+          "rect": [
+            1015,
+            68,
+            673,
+            808
+          ],
+          "isolate": true,
+          "anchor": [
+            365,
+            783
+          ],
+          "scale": 0.82,
+          "hand": [
+            597,
+            522
+          ],
+          "head": [
+            466,
+            191
+          ],
+          "eyes": [
+            483,
+            233
+          ],
+          "neck": [
+            464,
+            326
+          ],
+          "back": [
+            342,
+            448
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {

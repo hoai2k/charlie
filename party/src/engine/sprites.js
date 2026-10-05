@@ -857,7 +857,7 @@ export class Actor {
     const set = getSpriteSet(m.def.asset);
     let sp = set ? resolvePose(set, pose) : null;
     // Followers vary their looping phase but start one-shots at frame zero.
-    let t = this.poseTime + (m.i && (POSES[pose]?.loop ?? sp?.loop) ? m.phase : 0);
+    let t = this.poseTime + (m.i && pose !== 'pump' && (POSES[pose]?.loop ?? sp?.loop) ? m.phase : 0);
     if (this._once && pose === this._once.pose && sp) t = this.poseTime / this._once.duration * poseDuration(sp);
     if (sp && !sp.loop && !sp.holdLast && t >= poseDuration(sp)) sp = set.poses.idle || sp;
     sp = usablePose(set, sp);

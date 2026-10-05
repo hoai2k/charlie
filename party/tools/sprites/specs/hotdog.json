@@ -4203,6 +4203,84 @@
       "loop": true,
       "motion": 0.3,
       "facing": 0
+    },
+    "pump": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-pump.webp",
+          "rect": [
+            38,
+            3,
+            815,
+            875
+          ],
+          "isolate": true,
+          "anchor": [
+            528,
+            863
+          ],
+          "scale": 0.7,
+          "hand": [
+            744,
+            547
+          ],
+          "head": [
+            550,
+            322
+          ],
+          "eyes": [
+            575,
+            421
+          ],
+          "neck": [
+            549,
+            557
+          ],
+          "back": [
+            483,
+            675
+          ]
+        },
+        {
+          "source": "../sources/hotdog-pump.webp",
+          "rect": [
+            879,
+            87,
+            866,
+            787
+          ],
+          "isolate": true,
+          "anchor": [
+            525,
+            779
+          ],
+          "scale": 0.7,
+          "hand": [
+            775,
+            642
+          ],
+          "head": [
+            634,
+            327
+          ],
+          "eyes": [
+            638,
+            449
+          ],
+          "neck": [
+            599,
+            569
+          ],
+          "back": [
+            468,
+            631
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {
