@@ -2040,7 +2040,7 @@ snowball overhead, `knockback` → `dizzy` when splatted, `cheer`, `celebrate`,
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
-| `bg/snowball-splat` | 1920×1080, opaque | Full screen, 1:1 (the camera zooms up to ~1.2×). **Layout must match:** sky and backdrop above y≈200, a wooden picket fence along y≈200–245, open snowy ground below. Players walk in x 90–1830, y 262–1028. A **frozen pond** sits exactly at the centre: ellipse centre (960, 652), radii 205×88, with a ~20 px snowy rim. Keep the top ~110 px calm (scoreboard chips) and the ground plain — the code draws the walls, snowmen, splats and scoop dents | A cozy winter cottage garden seen from a high 3/4 top-down angle: pale blue sky with soft clouds, snowy hills, two candy-coloured cottages with thick snow on the roofs and warm yellow windows, snow-tipped pine trees, a honey-wood picket fence with snow caps and a string of colourful party lights; below it a wide smooth field of fresh snow with gentle blue-shaded drifts and tiny sparkles, a small oval frozen pond (pale cyan ice with white streaks) in the middle, snowbanks and pines along the left, right and bottom edges |
+| `bg/snowball-splat` | 1920×1080, opaque | Full screen, 1:1 (the camera zooms up to ~1.2×). **Layout must match:** sky and backdrop above y≈200, a wooden picket fence along y≈200–245, open snowy ground below. Players walk in x 90–1830, y 280–1028. A **frozen pond** sits exactly at the centre: ellipse centre (960, 652), radii 205×88, with a ~20 px snowy rim. Keep the top ~110 px calm (scoreboard chips) and the ground plain — the code draws the walls, snowmen, splats and scoop dents | A cozy winter cottage garden seen from a high 3/4 top-down angle: pale blue sky with soft clouds, snowy hills, two candy-coloured cottages with thick snow on the roofs and warm yellow windows, snow-tipped pine trees, a honey-wood picket fence with snow caps and a string of colourful party lights; below it a wide smooth field of fresh snow with gentle blue-shaded drifts and tiny sparkles, a small oval frozen pond (pale cyan ice with white streaks) in the middle, snowbanks and pines along the left, right and bottom edges |
 | `thumb/snowball-splat` | 800×500, opaque | Game-select shelf and how-to screen (`drawIcon` is the fallback) | Two cheerful roster characters mid snowball fight in a snowy garden: one ducking behind a snow-fort wall, a snowball flying in a dotted arc toward a snowman with a red scarf, a white splat burst, a giant snowball and a red knitted mitten in the corners, falling snowflakes. Subject centred |
 | `prop/snowball` | 64×64, transparent | Centred on the ball, drawn at 2.3 × its radius (7–12 px radius: in hands, in flight, and as the 3 ammo pips over each head). The ball should fill ~87% of the canvas | A single round packed snowball: white with soft blue shading at the lower right, a small white highlight at the upper left, a few tiny lumps, thin navy outline |
 | `prop/giant-snowball` | 256×256, transparent | Centred on the ball, drawn at 2.15 × its radius (26–66 px). The code does not rotate it, so keep it nearly round | A huge round snowball, lumpy packed snow with blue cel shading and a big white highlight, navy outline |
@@ -2131,3 +2131,69 @@ when `POSES.pull` exists and falls back to `knockback` meanwhile):
 | Pose | Loop | Fallback | Description |
 | --- | --- | --- | --- |
 | `pull` | yes | `knockback`, `balance` | Tug-of-war heave: side-on, leaning far back away from the facing direction, both hands (paws, fins, mouth for the cake) gripping a rope held out in front at waist height, feet dug in, determined happy grin (not scared). Hand anchor = the grip point |
+
+## New Party game: fishing-frenzy
+
+### fishing-frenzy — Fishing Frenzy   (requested by the fishing-frenzy agent, 2026-10-05, priority: nice-to-have)
+
+Everyone fishes in one sparkling pond seen in 3/4 top-down view. Every key
+below has a procedural fallback that ships today, and the code already looks
+each one up, so a file in `assets/art/index.json` drops in with no code
+change. **Pond geometry (must match):** an ellipse centred at (960, 580) with
+radii 700 × 280 (water from x 260–1660, y 300–860), ringed by a ~40 px
+pebble/sand rim. The code draws the player docks (they change with the
+player count), lily pads, frog, fish, bobbers, rods and baskets on top.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Characters use existing poses (`cast`,
+`pump`, `balance`, `catch`, `cheer`, `celebrate`, `laugh`, `hurt`, `sad`,
+`surprised`); the new `reel` pose is listed at the end.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/fishing-frenzy` | 1920×1080, opaque | Full screen. The pond ellipse above must sit exactly there; keep the top ~110 px calm (scoreboard + timer). Players stand on docks along the bottom shore (y≈975) and the left/right banks, so keep those shore areas plain grass/sand. No docks, no characters | A sunny meadow pond in 3/4 top-down view: blue sky with puffy clouds and soft green hills at the top, a row of round lollipop trees (some pink-blossom) behind the pond, cattails and reeds on the far bank, a large oval pond of clear sparkling turquoise water (deeper blue in the middle, light near the edges, faint water weeds and pebbles visible underwater) ringed by cream sand and pebbles, bright green grass with tiny flowers around it |
+| `thumb/fishing-frenzy` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A golden fish leaping out of a sparkling pond in an arc with water droplets, a red-and-white bobber with ripples, a fishing rod reaching in from the lower left with its line, a lily pad with a pink flower, a big yellow "!" burst shape (no letters) near the bobber. Subject centred |
+| `prop/fishing-sunny` | 320×240, transparent | One catch, side view **facing right**, centred, nose and tail tip spanning the full width (drawn into a 1.25 L × 0.94 L box, contain; flipped by code to face left). Same for all `prop/fishing-*` catches below | A small round cheerful yellow fish with an orange tail and fins, pale belly, big friendly eye, pink cheek, tiny smile |
+| `prop/fishing-darty` | 320×240, transparent | as above | A slim speedy pink minnow with purple fins and a white stripe along its side, sleek and quick-looking |
+| `prop/fishing-puffy` | 320×240, transparent | as above | A shy round purple pufferfish with little soft pink nubs along its back, pink cheeks, big shy eye |
+| `prop/fishing-bubba` | 320×240, transparent | as above (drawn bigger by code) | A big chubby teal fish with yellow spots, orange fins, pink pouty lips, happy goofy face |
+| `prop/fishing-golden` | 320×240, transparent | as above (code adds a glow) | A shining golden fish with flowing pale-gold fins and tail, sparkly highlights, sweet smile |
+| `prop/fishing-boot` | 320×240, transparent | as above; standing upright, toe to the right | An old blue-grey rain boot with a pink patch, a white daisy with a yellow centre growing out of the top (silly catch) |
+| `prop/fishing-duck` | 320×240, transparent | as above; floats on the surface (code adds the water line) | A classic yellow rubber duck with an orange beak, side view facing right |
+| `prop/fishing-chest` | 320×240, transparent | as above | A small wooden treasure chest with gold bands and lock, lid slightly open with golden glow and coins peeking out |
+| `prop/fishing-bobber` | 96×128, transparent | Drawn centred 12 px above the water line in a 30×40 box; code sinks it on a bite and draws the water line over its base | A round fishing bobber: red top half, white bottom half, a short stick with a yellow ball on top, glossy highlight |
+| `prop/fishing-rod` | 512×64, transparent | Straight rod, **butt at the left edge, tip at the right edge**, reel ~18% from the left; code rotates it from the character's hand (20% behind the hand) when the rod is not bent | A kid's fishing rod: wooden cork handle, a yellow reel, a white rod with pink stripes, pink tip |
+| `prop/fishing-basket` | 240×176, transparent | Bottom-centre at the basket spot, drawn 120×88 (× player scale). The code draws caught fish poking up out of the top **before** it, so the opening must be at the top ~25% and the front must cover them | A woven wicker fishing basket, front view, open top with a rolled rim, warm honey colour |
+| `prop/fishing-lilypad` | 240×160, transparent | Centred on the pad, drawn into a 2.2 r × 1.5 r box (r = 34–52 px), seen from 3/4 top-down | A round green lily pad with a notch, light veins, seen at an angle from above |
+| `prop/fishing-lilypad-flower` | 240×160, transparent | as above | The same lily pad with a pink water-lily flower on it |
+| `prop/fishing-frog` | 180×152, transparent | Bottom-centre, drawn 90×76 × 0.8, sits on a lily pad | A cute little green frog sitting, front view, big eyes, pink cheeks, tiny smile |
+
+New pose (optional): `reel` (loop) — holding a fishing rod up with both
+hands, leaning back and cranking the reel (code draws the rod from the
+hand anchor). Fallback chain: `pump`, `action`.
+
+## New Party game: jump-rope
+
+### jump-rope — Jump Rope Jamboree   (requested by the jump-rope agent, 2026-10-05, priority: nice-to-have)
+
+Two friendly bunnies turn a giant candy-striped jump rope in a sunny park;
+the players stand in a row on a sandy mat in the middle and hop as the rope
+sweeps under their feet; out players sit on a picnic blanket in front and
+cheer. Everything below has a procedural fallback that ships today, and the
+code already looks up every key. The rope itself, the bunnies' arms and the
+timing rings stay procedural (they animate with the rope). House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text** in
+any image. Reused as they are: the roster sprites (`jump`, `fall`, `land`,
+`tumble`, `dizzy`, `clap`, `cheer`, `celebrate`, `walk`, `ready`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/jump-rope` | 1920×1080, opaque | Full screen behind everything (when present, it replaces the whole procedural park, so it must contain the mat and blanket). **Layout must match:** horizon/fence band around y≈580–640; a flat sandy oval jump mat centred at (960, 796), about 1500 px wide and 250 px tall (players stand on y≈735–845); a pink gingham picnic blanket (trapezoid) spanning x≈500–1420, y≈948–1068 where out players sit. Keep the top ~150 px calm (HUD chips + timer) and the far left/right ~300 px of ground plain (the bunnies stand at x≈150 and x≈1770) | A sunny kids' park: bright blue sky with a soft sun at the upper right, rolling green hills, round blossom trees along the horizon (open sky in the middle), a white picket fence, a string of candy-coloured bunting flags sagging across the sky, lush striped lawn, a big flat sandy oval play mat with a dashed white chalk border and faint chalk heart/star doodles, flowers in the foreground grass, and a pink-and-white gingham picnic blanket at the bottom centre. No characters |
+| `thumb/jump-rope` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two cute bunnies (one pink in a polka-dot pinafore, one mint in blue overalls) turning a big red-and-white candy-striped jump rope in a park; the rope arcs high overhead and a happy kid character is mid-hop in the middle, sparkles and motion swooshes. Subject centred |
+| `prop/jump-rope-bunny-pink` | 600×660, transparent | Fitted into a 300×330 box, **bottom-centre anchored at the feet**, drawn at x≈150 facing right (toward the middle). **No arms**: the code draws both arms from the shoulders to the rope handles — near shoulder at about (368, 316) and far shoulder at about (308, 308) in image pixels — so leave the sides of the body clean there | A big friendly standing bunny, three-quarter view facing right: pale pink fur, tall ears (one slightly floppy) with pink insides, a yellow bow between the ears, big shiny dark eyes, rosy cheeks, little pink nose and smile, a hot-pink polka-dot pinafore with yellow buttons, fluffy white tail, big soft feet. Arms omitted |
+| `prop/jump-rope-bunny-mint` | 600×660, transparent | Same size, anchor and shoulder points as the pink bunny; drawn at x≈1770 and **mirrored by the code** to face left, so draw it facing right | The pink bunny's friend: mint-white fur, tall ears with pink insides, a purple bow, big shiny eyes, rosy cheeks, sky-blue overalls with yellow dots and yellow buttons, fluffy white tail, big soft feet. Arms omitted |
+| `prop/jump-rope-handle` | 210×78, transparent | Drawn centred on the paw at 63×23 px, rotated so the **rope end points right** (turned 180° for the right-hand bunny). Used for both ropes and the golden rope | A chunky wooden jump-rope handle lying horizontally: rounded honey-wood grip with a pink painted band, a small yellow bead cap at the right end where the rope comes out |
+| `prop/jump-rope-blanket` | 1920×300, transparent | Only used when `bg/jump-rope` is missing: stretched over 960×150 at (960, 1008), under the seated out players | A pink-and-white gingham picnic blanket seen from the front at a low angle, a gentle trapezoid (wider at the bottom), soft folds, navy outline |
+
+Optional sprite pose (later upgrade, the game reads fine without it): `skip-hop`
+(loop: no; fallback `jump` → `fall`) — a light two-footed jump-rope hop, knees
+tucked, arms out to the sides, happy face.
