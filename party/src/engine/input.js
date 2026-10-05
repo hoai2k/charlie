@@ -243,7 +243,8 @@ class InputManager {
       this.onUserGesture && this.onUserGesture('pointer');
     });
     window.addEventListener('pointermove', setPos);
-    window.addEventListener('pointerup', (e) => { setPos(e); p.down = false; p._pu = true; });
+    // A touch only counts as a user gesture (fullscreen, audio) when it lifts.
+    window.addEventListener('pointerup', (e) => { setPos(e); p.down = false; p._pu = true; this.onUserGesture && this.onUserGesture('pointerup'); });
     window.addEventListener('gamepadconnected', () => { this.lastDeviceKind = 'pad'; });
     // Legacy Edge on Xbox: stop the controller from driving a mouse cursor.
     try { if ('gamepadInputEmulation' in navigator) navigator.gamepadInputEmulation = 'gamepad'; } catch (e) { /* ignore */ }

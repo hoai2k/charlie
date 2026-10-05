@@ -31,6 +31,16 @@ menu) toggle sound and fullscreen; **M** and **F** do the same from the
 keyboard. Sound mutes itself while the tab is hidden or the window isn't
 focused, and the mute setting is remembered.
 
+On phones and tablets (`src/engine/shell.js`, the same approach as Widow's
+Bay in `hoai2k/mini`):
+- **Android, iPad:** the first tap with the device in landscape goes
+  fullscreen, unless the player turned fullscreen off themselves.
+- **iPhone Safari:** it has no fullscreen, so the page scrolls a little
+  instead. Swiping up hides Safari's bars, and a hint says so on the menus.
+  The page doesn't scroll during play.
+- **Add to Home Screen:** `manifest.webmanifest` and `icons/` install the game
+  as a fullscreen landscape app with the cake icon.
+
 ## Testing URLs
 
 - `?scene=sprites` — sprite viewer (all characters, every pose)

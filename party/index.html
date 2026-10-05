@@ -4,6 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
     <meta name="theme-color" content="#2a1650">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Charlie Party">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icons/icon-180.png">
     <title>Charlie Party</title>
     <link rel="icon" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,12 +18,26 @@
     <style>
       html, body { margin: 0; height: 100%; background: #1b1030; overflow: hidden; }
       body { touch-action: none; user-select: none; -webkit-user-select: none; }
-      canvas { display: block; outline: none; }
+      canvas { display: block; outline: none; position: fixed; left: 0; top: 0; }
+      /* iPhone Safari has no fullscreen, but it hides its bars when the page
+         scrolls in landscape, so there the page is made taller than the screen
+         (src/engine/shell.js). The canvas is fixed and follows what's visible. */
+      html.ios-scroll, html.ios-scroll body { height: auto; overflow-x: hidden; overflow-y: auto; }
+      html.ios-scroll body { touch-action: pan-y; }
+      html.ios-scroll body::after { content: ''; display: block; height: calc(100lvh + 160px); }
+      html.ios-scroll.ios-scroll-play, html.ios-scroll.ios-scroll-play body { overflow: hidden; touch-action: none; }
+      #bars-hint { position: fixed; left: 50%; top: max(8px, env(safe-area-inset-top)); transform: translateX(-50%); z-index: 5;
+        background: #2a1650ee; border: 2px solid #ffd23f; color: #fff; padding: 8px 16px; border-radius: 20px;
+        font: 600 15px Fredoka, system-ui, sans-serif; white-space: nowrap; pointer-events: none; }
+      #bars-hint[hidden] { display: none; }
+      #bars-hint .arrow { display: inline-block; animation: nudge 1.4s ease-in-out infinite; color: #ffd23f; font-weight: 700; }
+      @keyframes nudge { 50% { transform: translateY(-4px); } }
       noscript { color: #fff; font: 20px system-ui, sans-serif; position: absolute; inset: 40px; }
     </style>
   </head>
   <body>
     <canvas id="game" tabindex="0"></canvas>
+    <div id="bars-hint" hidden><span class="arrow" aria-hidden="true">↑</span> Swipe up to hide Safari’s bars · or Share → Add to Home Screen</div>
     <noscript>Charlie Party needs JavaScript.</noscript>
     <script type="importmap">
     {
@@ -28,18 +48,18 @@
         "./src/engine/art.js": "./src/engine/art.js?v=a5c255fe",
         "./src/engine/audio.js": "./src/engine/audio.js?v=7ff40655",
         "./src/engine/camera.js": "./src/engine/camera.js?v=2b22e06e",
-        "./src/engine/canvas.js": "./src/engine/canvas.js?v=a8877686",
+        "./src/engine/canvas.js": "./src/engine/canvas.js?v=9f9b279d",
         "./src/engine/corner.js": "./src/engine/corner.js?v=8e54d0a3",
         "./src/engine/emotes.js": "./src/engine/emotes.js?v=32eed1c7",
         "./src/engine/fx.js": "./src/engine/fx.js?v=e61c9f0d",
         "./src/engine/host.js": "./src/engine/host.js?v=934d8670",
-        "./src/engine/input.js": "./src/engine/input.js?v=8cf6b247",
+        "./src/engine/input.js": "./src/engine/input.js?v=57df413f",
         "./src/engine/npc-art.js": "./src/engine/npc-art.js?v=3057e97f",
         "./src/engine/particles.js": "./src/engine/particles.js?v=4c25ff3c",
         "./src/engine/recolor.js": "./src/engine/recolor.js?v=05df2ced",
         "./src/engine/scenes.js": "./src/engine/scenes.js?v=47a1109b",
         "./src/engine/settings.js": "./src/engine/settings.js?v=e0e97e3a",
-        "./src/engine/shell.js": "./src/engine/shell.js?v=e2cf63fd",
+        "./src/engine/shell.js": "./src/engine/shell.js?v=bf8b4116",
         "./src/engine/songtag.js": "./src/engine/songtag.js?v=c92d272a",
         "./src/engine/sprites.js": "./src/engine/sprites.js?v=ba32441f",
         "./src/engine/ui.js": "./src/engine/ui.js?v=a5263022",
@@ -73,7 +93,7 @@
         "./src/games/sprinkle-catch.js": "./src/games/sprinkle-catch.js?v=35fcbcf8",
         "./src/games/troll-trouble.js": "./src/games/troll-trouble.js?v=20cea108",
         "./src/games/wizard-quickdraw.js": "./src/games/wizard-quickdraw.js?v=625293b8",
-        "./src/main.js": "./src/main.js?v=89278738",
+        "./src/main.js": "./src/main.js?v=09984c64",
         "./src/scenes/audiotest.js": "./src/scenes/audiotest.js?v=503d79a2",
         "./src/scenes/charselect.js": "./src/scenes/charselect.js?v=c6bb657c",
         "./src/scenes/common.js": "./src/scenes/common.js?v=2f5e19e3",
@@ -89,6 +109,6 @@
       }
     }
     </script>
-    <script type="module" src="src/main.js?v=89278738"></script>
+    <script type="module" src="src/main.js?v=09984c64"></script>
   </body>
 </html>

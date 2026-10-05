@@ -52,6 +52,8 @@ input.onUserGesture = () => {
 // Screens that show the sound / fullscreen corner buttons (play: only while paused).
 const MENU_SCENES = new Set(['title', 'charselect', 'gameselect', 'intro', 'results', 'trophy']);
 const showCorner = () => MENU_SCENES.has(scenes.name) || (scenes.name === 'play' && !!scenes.current.paused);
+// Phones/tablets: fullscreen on a tap in landscape, iPhone's swipe-up bars.
+shell.initMobile({ isPlaying: () => scenes.name === 'play' && !scenes.current.paused });
 
 let loadProgress = 0;
 let loaded = false;
