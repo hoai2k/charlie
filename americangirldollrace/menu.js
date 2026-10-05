@@ -639,6 +639,13 @@
       buildGrid();
     } else if (row === 4) {
       lobby.fullscreenNote = "";
+      // iPhone Safari can't go fullscreen: point at the swipe-up hint instead.
+      if (window.BrowserChrome?.scrollTrick) {
+        lobby.fullscreenNote = "Swipe up, or Share → Add to Home Screen";
+        window.BrowserChrome.flashHint();
+        renderSettings();
+        return;
+      }
       const wanted = !fullscreenElement();
       toggleFullscreen().then(on => {
         // Browsers refuse fullscreen from a controller button; say how instead.
