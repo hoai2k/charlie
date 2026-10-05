@@ -96,6 +96,7 @@ walking.
 | 18 | `fairy-garden` | Fairy Garden | 1–4 cooperative | Plant magic seeds, water them, watch them grow into giant glowing flowers; fairies come to visit; catch fireflies. Day → night sky finale. |
 | 19 | `potion-class` | Potion Class | 1–4 | Wizard-school. Professor Hoot shows a recipe card; add ingredients in order, stir (rotate the stick), wave the wand. Right recipe = sparkly transformation (giant, tiny, rainbow, floaty); wrong = silly fizz. |
 | 20 | `memory-match` | Unicorn Memory Match | 1–4 turns | Flip two cards; match pairs of characters. Matching gives a star burst and an extra turn. Most pairs wins. |
+| 21 | `seek-and-find` | Hide & Seek Picnic | 1–4 cooperative (CPUs help a little) | I-spy in three busy scenes (picnic meadow, toy shop, starry forest). A picture list shows what to find: 3 of something, one player's character peeking out, creatures and treats. Steer a magnifying glass (zoom bubble), **A** spots, **Y** hint ripple (3 per round), **X** big glass, **LB/RB** zoom; click/tap spots directly. Wrong spots just wobble. Everyone waves from hiding spots at the end; 1★ each, 🏅 to the top finder. |
 
 ## Architecture
 

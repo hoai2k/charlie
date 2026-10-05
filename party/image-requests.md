@@ -1596,3 +1596,100 @@ fine; the code uses one of each pair.
 - KPop trio: each74 keys/96frames/sixportraits; corrected original and new hand/eye points, preserved complete boot crops, fresh center recolor masks including true rear turn. Reviewed full Pop Star Stage and optimized Spotlight Dance with alternate outfits.
 
 - Unicorn: full75-key/98-frame/six-portrait set, reviewed source-local muzzle/horn attachments and turned/low-face points, fresh optimized copy; full Wizard Quickdraw and optimized Broomstick Dash reviewed.
+
+## New Play Studio game: seek-and-find
+
+_Hide & Seek Picnic_ (requested by the seek-and-find agent, 2026-10-05,
+priority: nice-to-have). The game is fully playable today: every scene,
+occluder and creature is drawn in code, and the objects already use existing
+props (`prop/golden-cupcake`, `prop/treat-cupcake`, `prop/rubber-duck`,
+`prop/gem-blue|purple|green`, `prop/topper-strawberry`, `prop/topper-star`,
+`prop/crown-gold`, `prop/tiara-star`, `prop/wand-star`, `prop/treat-lollipop`,
+`prop/treat-donut`, `prop/owl-mail`, `prop/present`, `prop/lantern-on`,
+`prop/potion-bottle`, `prop/ing-snow-crystal`, `prop/ing-moon-drop`,
+`prop/fairy-pink|blue|yellow`, `prop/firefly`, `prop/cookie-1`, the
+`prop/balloon-<color>` set, `prop/plant-*-bloom` / `prop/plant-*-glow` for
+flower clumps and `prop/plant-glow-mushroom-glow` for the big forest
+mushrooms). The friends who hide are the players' own characters plus
+Fellowfox, Glimmer and Professor Hoot (their sprite sets).
+
+**How a scene is built (read before drawing anything).** Each round has three
+layers: (1) a **back layer** `bg/seek-and-find-<scene>` with no hiding places
+in it; (2) the hidden things, drawn by code; (3) **occluders**: separate props
+(`prop/seek-<type>`) that the code places on top at the positions below, and
+that the hidden things peek out from behind. The code measures how much of
+each hidden thing shows past the occluder's actual pixels, so occluder art
+can have any silhouette. It must be **opaque** wherever it should hide things
+(soft or semi-transparent edges count as see-through). Half the time a scene
+is **mirrored left-right**, so nothing may contain text and the back layer
+must look fine flipped. Positions are in the 1920x1080 canvas, unmirrored.
+"Base" = the bottom center of an occluder. Keep the top 120 px calm (player
+chips and round icons sit there) and the bottom 170 px plain (the picture
+list and the controls legend cover it).
+
+### Backgrounds (`bg/<key>`, 1920x1080, opaque, WebP q80-85, <= 350 KB)
+
+| Key | Prompt-style description | Must line up with (unmirrored px) |
+| --- | --- | --- |
+| `bg/seek-and-find-picnic` | Sunny spring meadow for a picnic, gentle three-quarter view: soft blue sky with 3-4 puffy clouds and a cheerful sun in the top-right corner, rolling pale-green hills with tiny round trees on the horizon (y about 470-540), a bright meadow sprinkled with tiny daisies, a winding sandy path from the bottom right up to the hills, a small blue pond on the left with two lily pads, and a red-and-white gingham picnic blanket in the middle with a large plate, a smaller plate, a blue flowered teapot and two cups. No bushes, trees, rocks, logs or tall grass (code adds those). | Blanket corners (690,640) (1190,640) (1270,822) (610,822). Plates centered at (842,734) rx 70 and (1036,780) rx 54 (code draws cupcakes and cookies on them). Teapot at (960,690). Pond ellipse center (330,770), radii 250x86. Lily pads at (250,792) and (436,774) (things sit on them). Sun near (1760,112). |
+| `bg/seek-and-find-toyshop` | Cozy pastel toy shop, straight-on: pink-and-cream striped wallpaper with little white stars, a mint wainscot band, bunting along the very top, a big four-pane window in the top center showing sky, clouds and a green hill, a white window sill, two tall empty wooden shelf units (left and right) with three shelf boards each, two small framed star pictures and a round wall clock, a warm wooden plank floor, and a big oval lilac rug in the middle of the floor. The shelves are empty except for a couple of small balls at the ends (code places books, jars and block towers on them). | Wall/floor line y = 710. Window frame (770,120)-(1150,410); sill top y = 400 from x 740 to 1180 (things sit on it at (860,404) and (1060,404)). Shelf units x 60-500 and x 1400-1860, y 150-710; tops of the shelf boards at y = 336, 512 and 690. Rug center (960,830), radii 440x96. Curtains are code props hung at x 735 and 1185, so keep the sides of the window plain. |
+| `bg/seek-and-find-forest` | Magical starry forest at night, three-quarter view: deep indigo-to-violet sky with soft stars, a big friendly yellow moon with a halo top-left, a row of soft dark-blue pine silhouettes on the horizon (y about 450-540), dark teal mossy ground with faint glowing specks, a path of softly glowing stepping stones winding up the middle, and a calm dark-blue pond on the right reflecting the moon, with two lily pads. Gentle and cozy, not scary; keep the middle readable (things hide there). **No fireflies anywhere** (finding fireflies is a task). No trees, bushes, mushrooms or ferns in the foreground (code adds those). | Moon center (330,170), r 68. Pond ellipse center (1460,775), radii 244x82; lily pads at (1400,792) and (1540,764). The ground starts around y = 556. |
+
+### Thumbnail
+
+| Key | Size | Description |
+| --- | --- | --- |
+| `thumb/seek-and-find` | 800x500, opaque, WebP q85, <= 90 KB | A sunny picnic meadow with a gingham blanket. A giant magnifying glass with a pink handle in the right half shows a golden cupcake hidden in the grass, magnified. A white bunny's ears and eyes peek over a round bush on the left, and a ladybug sits on the blanket edge. Optionally Felicity peeking from behind a tree trunk (use her canonical). No text. |
+
+### Occluder props (`prop/seek-<type>`, transparent, bottom center = base)
+
+The code fits each image (contain) into the box and stands it on the base,
+so match the box aspect. Sizes are the box at scale 1; deliver at 1.5-2x,
+because the zoom glass magnifies up to 2.4x. House style: bold navy outlines,
+cel shading, soft colors. Types that also appear in the night forest need a
+`-night` twin with the same silhouette in moonlit colors (dark teal leaves,
+violet-grey rocks, glowing cyan/yellow accents).
+
+| Key | Box (w x h) | Anchor / layout notes | Description |
+| --- | --- | --- | --- |
+| `prop/seek-tree` + `prop/seek-tree-night` | 430 x 552 | Base = middle of the trunk foot; roots reach 12 px below it. Trunk about 70 wide, with a dark round **hollow** centered 150 px above the base (an owl or a gem sits in it). Big round canopy from 230 to 540 px up, about 400 wide. | Big friendly cartoon oak: a round lumpy canopy of overlapping leaf clusters with a few red apples (night: dark teal leaves with tiny glowing yellow fruit), and a sturdy brown trunk with root flares and a round knot-hole. |
+| `prop/seek-bush` + `prop/seek-bush-night` | 276 x 148 | Bottom center; dome shape, flat bottom. | Round leafy bush made of 5-6 overlapping puffs, with a few tiny pink flowers or yellow berries (night: dark teal with glowing berries). |
+| `prop/seek-rock` + `prop/seek-rock-night` | 184 x 92 | Flat bottom; the top is fairly flat so a snail can sit on it (92 px up). | Smooth lavender-grey boulder with two crack lines (night: violet-grey with a cap of glowing green moss). |
+| `prop/seek-log` + `prop/seek-log-night` | 256 x 84 | Lying on its side. The cut end, with a dark **hole**, is on the right, centered about 100 px right of and 34 px above the base. | Fallen log with bark lines, a ring-cut end with a dark hollow, and two tiny mushrooms on top (night: mossy, with glowing mushrooms). |
+| `prop/seek-tuft` + `prop/seek-tuft-night` | 96 x 62 | Flat bottom. | Small clump of 6 pointy grass blades fanning out. |
+| `prop/seek-reeds` + `prop/seek-reeds-night` | 220 x 156 | Flat bottom (stands on the back edge of the pond). | Cluster of tall pond reeds and 4 cattails. |
+| `prop/seek-fern` | 200 x 126 | Flat bottom (night forest only). | Six arching dark-green fern fronds fanning out, with moonlit edges. |
+| `prop/seek-basket` + `prop/seek-basket-back` | 200 x 136 (both) | The front is the woven body, the front half of the rim and the handle. The **back** image is only the dark inside and the back half of the rim, with a pink napkin corner. Things peek up out of the basket between the two, so the front must be opaque below the rim line (74 px up). | Classic wicker picnic basket, open, with an arched handle. |
+| `prop/seek-books` | 160 x 100 | Stands on a shelf board; uneven top edge. | A row of 7-8 chunky colorful picture books standing upright, in different heights. |
+| `prop/seek-blocks` | 180 x 154 | Stands on the base: a stepped pyramid of 6 cubes (3-2-1). | Wooden toy blocks with painted stars and dots in bright colors. |
+| `prop/seek-jar` + `prop/seek-jar-back` | 88 x 116 (both) | A **see-through** glass candy jar: the glass must be mostly transparent (alpha under 40%), so a hidden lollipop shows through. The lid and the sweets are opaque. | Round glass sweet jar with a colored lid and three gumballs at the bottom. |
+| `prop/seek-chest` + `prop/seek-chest-back` | 260 x 216 (both) | Front = the chest body (bottom 116 px) with its rim. **Back** = the open lid leaning back, and the dark inside. Things and friends peek up out of the chest between the two. | Pastel striped toy chest with a gold rim and a star on the front, lid open. |
+| `prop/seek-curtain` | 180 x 604 | Hangs from the top (600 px up) to the floor. The **inner edge** (the right side, unmirrored) bows inward, with a gold tie-back 330 px up. Used twice (once mirrored) beside the window. | Soft pink velvet curtain with vertical folds and a gold tie-back. |
+| `prop/seek-dollhouse` + `prop/seek-dollhouse-back` | 300 x 334 (both) | Front = walls and roof with **transparent window and door holes** at these rectangles, relative to the base: windows (-100,-200)-(-36,-144), (36,-200)-(100,-144) and (-100,-96)-(-36,-40); door (32,-100)-(88,0). Things are seen through them. Back = the warm interior wall (only needed behind the holes). | Cute two-storey dollhouse with a pink roof, a round attic window and flower boxes. |
+| `prop/seek-bigteddy` | 240 x 256 | Sitting, flat bottom. | Giant sitting teddy bear with a red bow tie, cuddly and soft. |
+| `prop/seek-presents` | 240 x 174 | Flat bottom. | Stack of three gift boxes (blue, pink, lilac) with ribbons and bows. |
+| `prop/seek-drum` | 160 x 114 | Flat bottom; a drumstick rests on top at the right. | Toy drum with a zigzag pattern and a cream drumhead. |
+
+### Hideable creature and toy props (`prop/seek-<id>`, transparent, centered)
+
+Each one replaces a drawn version. Hidden things are small in the scene (the
+height below, in px) and are also drawn big (about 80 px) on the picture
+cards, so they need a clear, chunky silhouette that reads at both sizes.
+Deliver at about 3x the scene height. The drawn versions animate (ears
+twitch, tails swish, wings flap); with art, the code adds a gentle wobble,
+hop or flap instead.
+
+| Key | Scene height | Description |
+| --- | --- | --- |
+| `prop/seek-ladybug` | 28 | Top-down ladybug facing right: red shell with black spots and a center line, black head with two white eyes and curly antennae. |
+| `prop/seek-bunny` | 74 | Sitting white bunny, front view: tall pink-lined ears, rosy cheeks, pink nose. The ears are the part that peeks out, so keep them long. |
+| `prop/seek-butterfly` | 40 | Butterfly seen from above with wings open: pink upper wings with purple spots. |
+| `prop/seek-snail` | 36 | Side-view snail facing right: pink spiral shell, pale yellow-green body, eyes on stalks, a smile. |
+| `prop/seek-mouse` | 36 | Side-view grey mouse facing right: big round pink-lined ear, long pink tail curling up behind. |
+| `prop/seek-bird` | 44 | Round little bluebird facing right: pale belly, orange beak, tiny head tuft. |
+| `prop/seek-frog` | 42 | Sitting green frog, front view: big eyes on top, wide smile, pale throat. |
+| `prop/seek-owl` | 58 | Small round purple owl, front view: ear tufts, big amber eyes (not Professor Hoot). |
+| `prop/seek-scarf` | 46 | **Fox's lost scarf**: a knitted orange-and-cream striped scarf lying in a loose S-curve, with fringed ends. |
+| `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
+| `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
+| `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
