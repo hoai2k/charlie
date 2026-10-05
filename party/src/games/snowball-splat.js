@@ -200,7 +200,7 @@ export class Game {
     const lead = m > 0 && sc.filter((s) => s === m).length === 1 ? sc.indexOf(m) : -1;
     if (lead >= 0 && lead !== this.leader && this.leader !== -2 && m >= 3) {
       const L = this.units[lead];
-      particles.popText(L.x, L.y - L.a.height - 70, 'Top splatter!', '#ffd23f', 40);
+      particles.popText(L.x, Math.max(330, L.y - L.a.height - 70), 'Top splatter!', '#ffd23f', 40);
     }
     this.leader = lead;
     this.frameCamera();
@@ -292,7 +292,7 @@ export class Game {
           snd('snow-pack', 'pop', { vol: 0.7 }); sfx('collect', { step: U.ammo, vol: 0.5 });
           const hp = a.anchor('hand');
           particles.burst(hp.x, hp.y, { type: 'sparkle', count: 4, colors: ['#ffffff', '#cfe9ff'], speed: [40, 140], size: [10, 18] });
-          if (U.ammo === MAX_AMMO) particles.popText(U.x, U.y - a.height - 30, 'Full!', '#ffffff', 34);
+          if (U.ammo === MAX_AMMO && !p.isAI) particles.popText(U.x, U.y - a.height - 30, 'Full!', '#ffffff', 34);
         }
       }
     }
