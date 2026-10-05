@@ -61,8 +61,9 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
       and consider defaulting song tags to Off (`audition` in
       `engine/audio.js`).
   - **Waiting on the user:** pick takes, then prune the rest. The music MP3s
-    total about 52 MB; pruning brings that to about 25 MB. Also: switch the
-    title theme to title-2 or keep Bubblegum Radar.
+    total about 52 MB; pruning brings that to about 25 MB. The title screen
+    now plays the user's own *Charlie's Party* (fixed). Bubblegum Radar and
+    the new title-1/2 themes rotate as the `party` music.
   - **Swing:** in sections with feel `swing`, the Hard chart also allows the
     swung 16th at 10/12 of a beat. The music agent drops raw takes
     in `takes/` while it works. Audition them on the Takes tab of the audio test page
