@@ -53,12 +53,9 @@ See `AGENTS.md` for the shared agent instructions and push recovery guidance.
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
   and resume notes, then `party/PLAN.md`.
 
-- `swingers/` is a copy of the separate repo `hoai2k/swingers` (commit
-  `95e7218`), which is still developed there and also deployed on its own at
-  `games.hoai.net/swingers/`. To update it, copy `index.html`, `lib/`, `src/`
-  and `assets/` from that repo over `swingers/` (keep `swingers/favicon.svg`,
-  which is only for the library card). It runs Matter.js from `lib/`; there
-  is no build step.
+- Swingers is the one exception to "every game is a subdirectory": it lives
+  in its own repo, `hoai2k/swingers`, deployed at `games.hoai.net/swingers/`.
+  The library card just links there (`../swingers/`); don't copy it in here.
 - `dollpuppets/` was flattened from `messenger/dolls/` on hoai.net: the shared
   `messenger/src/{core,workers}` modules now live in `dollpuppets/src/`. Keep
   the game self-contained — never import from outside its own directory.

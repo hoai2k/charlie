@@ -13,7 +13,7 @@ Every game lives in its own subdirectory and is deployed with GitHub Pages, so
 | American Girl Doll Race (1–8 players, drop-in Xbox controllers) | [`americangirldollrace/`](americangirldollrace/) | `/charlie/americangirldollrace/` |
 | Doll Puppets (camera puppet — your face drives a doll) | [`dollpuppets/`](dollpuppets/) | `/charlie/dollpuppets/` |
 | Charlie Party (Mario-Party-style minigames, 1–8 players, Xbox controllers) | [`party/`](party/) | `/charlie/party/` |
-| Swingers (Heave-Ho-style grabby robot physics party game, up to 4 Xbox controllers) | [`swingers/`](swingers/) | `/charlie/swingers/` |
+| Swingers (Heave-Ho-style grabby robot physics party game, up to 4 Xbox controllers) — lives in its own repo; the library just links to it | [hoai2k/swingers](https://github.com/hoai2k/swingers) | `/swingers/` |
 
 ## Adding a game
 
