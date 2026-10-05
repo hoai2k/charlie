@@ -1716,3 +1716,17 @@ music bus. The `title` entry has no alternate takes, so song-tag auditioning
 cannot substitute a different song on the title screen. Bubblegum Radar stays
 on `party`, whose audition alternates now include the two generated title themes.
 Earlier production notes in §12 describe the previous title configuration.
+
+## 13. Sparkle Bead Shop (`bead-bracelets`): new sound wishes (wordless)
+
+Both keys are **wired**: the game plays the file as soon as the key is in
+`assets/audio/manifest.json`, and plays the synth stand-in (in brackets)
+until then. Everything else in the game reuses existing keys: the `note`
+synth for the pitched bead chimes, `sparkle`, `boing`, `match-chime`,
+`golden-chime`, `card-flip`, `crowd-ooh`, `applause`, `camera-flash` and
+`jingle/round`.
+
+| Key | Sound | When | Notes |
+| --- | --- | --- | --- |
+| `bead-click` | One crisp click of plastic or glass beads, like two craft beads tapping together (~0.08 s) | Taking a bead from the tray (every thread press) | 2–3 variations, quiet and bright; must not get tiring after 100 plays [synth `tick`] |
+| `bead-zip` | A short soft "zzip" of a bead sliding down a cord, rising slightly (~0.2–0.3 s) | The bead sliding down the string to its spot | Gentle, no squeak; 2 variations [synth `brush`] |
