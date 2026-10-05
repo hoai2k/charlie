@@ -1860,3 +1860,42 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: fishing-frenzy
+
+### fishing-frenzy — Fishing Frenzy   (requested by the fishing-frenzy agent, 2026-10-05, priority: nice-to-have)
+
+Everyone fishes in one sparkling pond seen in 3/4 top-down view. Every key
+below has a procedural fallback that ships today, and the code already looks
+each one up, so a file in `assets/art/index.json` drops in with no code
+change. **Pond geometry (must match):** an ellipse centred at (960, 580) with
+radii 700 × 280 (water from x 260–1660, y 300–860), ringed by a ~40 px
+pebble/sand rim. The code draws the player docks (they change with the
+player count), lily pads, frog, fish, bobbers, rods and baskets on top.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Characters use existing poses (`cast`,
+`pump`, `balance`, `catch`, `cheer`, `celebrate`, `laugh`, `hurt`, `sad`,
+`surprised`); the new `reel` pose is listed at the end.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/fishing-frenzy` | 1920×1080, opaque | Full screen. The pond ellipse above must sit exactly there; keep the top ~110 px calm (scoreboard + timer). Players stand on docks along the bottom shore (y≈975) and the left/right banks, so keep those shore areas plain grass/sand. No docks, no characters | A sunny meadow pond in 3/4 top-down view: blue sky with puffy clouds and soft green hills at the top, a row of round lollipop trees (some pink-blossom) behind the pond, cattails and reeds on the far bank, a large oval pond of clear sparkling turquoise water (deeper blue in the middle, light near the edges, faint water weeds and pebbles visible underwater) ringed by cream sand and pebbles, bright green grass with tiny flowers around it |
+| `thumb/fishing-frenzy` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A golden fish leaping out of a sparkling pond in an arc with water droplets, a red-and-white bobber with ripples, a fishing rod reaching in from the lower left with its line, a lily pad with a pink flower, a big yellow "!" burst shape (no letters) near the bobber. Subject centred |
+| `prop/fishing-sunny` | 320×240, transparent | One catch, side view **facing right**, centred, nose and tail tip spanning the full width (drawn into a 1.25 L × 0.94 L box, contain; flipped by code to face left). Same for all `prop/fishing-*` catches below | A small round cheerful yellow fish with an orange tail and fins, pale belly, big friendly eye, pink cheek, tiny smile |
+| `prop/fishing-darty` | 320×240, transparent | as above | A slim speedy pink minnow with purple fins and a white stripe along its side, sleek and quick-looking |
+| `prop/fishing-puffy` | 320×240, transparent | as above | A shy round purple pufferfish with little soft pink nubs along its back, pink cheeks, big shy eye |
+| `prop/fishing-bubba` | 320×240, transparent | as above (drawn bigger by code) | A big chubby teal fish with yellow spots, orange fins, pink pouty lips, happy goofy face |
+| `prop/fishing-golden` | 320×240, transparent | as above (code adds a glow) | A shining golden fish with flowing pale-gold fins and tail, sparkly highlights, sweet smile |
+| `prop/fishing-boot` | 320×240, transparent | as above; standing upright, toe to the right | An old blue-grey rain boot with a pink patch, a white daisy with a yellow centre growing out of the top (silly catch) |
+| `prop/fishing-duck` | 320×240, transparent | as above; floats on the surface (code adds the water line) | A classic yellow rubber duck with an orange beak, side view facing right |
+| `prop/fishing-chest` | 320×240, transparent | as above | A small wooden treasure chest with gold bands and lock, lid slightly open with golden glow and coins peeking out |
+| `prop/fishing-bobber` | 96×128, transparent | Drawn centred 12 px above the water line in a 30×40 box; code sinks it on a bite and draws the water line over its base | A round fishing bobber: red top half, white bottom half, a short stick with a yellow ball on top, glossy highlight |
+| `prop/fishing-rod` | 512×64, transparent | Straight rod, **butt at the left edge, tip at the right edge**, reel ~18% from the left; code rotates it from the character's hand (20% behind the hand) when the rod is not bent | A kid's fishing rod: wooden cork handle, a yellow reel, a white rod with pink stripes, pink tip |
+| `prop/fishing-basket` | 240×176, transparent | Bottom-centre at the basket spot, drawn 120×88 (× player scale). The code draws caught fish poking up out of the top **before** it, so the opening must be at the top ~25% and the front must cover them | A woven wicker fishing basket, front view, open top with a rolled rim, warm honey colour |
+| `prop/fishing-lilypad` | 240×160, transparent | Centred on the pad, drawn into a 2.2 r × 1.5 r box (r = 34–52 px), seen from 3/4 top-down | A round green lily pad with a notch, light veins, seen at an angle from above |
+| `prop/fishing-lilypad-flower` | 240×160, transparent | as above | The same lily pad with a pink water-lily flower on it |
+| `prop/fishing-frog` | 180×152, transparent | Bottom-centre, drawn 90×76 × 0.8, sits on a lily pad | A cute little green frog sitting, front view, big eyes, pink cheeks, tiny smile |
+
+New pose (optional): `reel` (loop) — holding a fishing rod up with both
+hands, leaning back and cranking the reel (code draws the rod from the
+hand anchor). Fallback chain: `pump`, `action`.
