@@ -1251,3 +1251,27 @@ button:focus-visible {
 .start-panel.lobby.solo .lb-outfit-arrow { font-size: 18px; padding: 0 3px; }
 .start-panel.lobby.solo .lb-device { display: none; }
 .start-panel.lobby.solo .lb-slot.solo-player .lb-label { bottom: -8px; }
+
+/* ── iPhone Safari: let a swipe up tuck the bars away (chrome.js) ─────────
+   The page is a little taller than the screen; the game itself is fixed and
+   takes no height. During a race nothing scrolls (touch controls own it). */
+html.ios-scroll, html.ios-scroll body { height: auto; overflow-x: hidden; overflow-y: auto; }
+html.ios-scroll body { display: block; min-height: 0; touch-action: pan-y; }
+html.ios-scroll .shell { position: fixed; inset: 0; width: auto; height: auto; }
+html.ios-scroll body::after { content: ""; display: block; height: calc(100lvh + 160px); }
+html.ios-scroll:not(.ios-scroll-play) .game-frame { touch-action: pan-y; }
+html.ios-scroll.ios-scroll-play, html.ios-scroll.ios-scroll-play body { overflow: hidden; touch-action: none; }
+
+#barsHint { position: fixed; left: 50%; top: max(8px, env(safe-area-inset-top)); z-index: 60; transform: translateX(-50%); padding: 7px 14px; border-radius: 14px; background: rgba(43, 26, 58, 0.9); color: #fff; font: 600 14px "Fredoka", system-ui, sans-serif; white-space: nowrap; pointer-events: none; }
+#barsHint[hidden] { display: none; }
+#barsHint .bars-arrow { display: inline-block; color: #ffd84d; font-weight: 700; animation: bars-nudge 1.4s ease-in-out infinite; }
+@keyframes bars-nudge { 50% { transform: translateY(-4px); } }
+#barsHint.flash { animation: bars-flash 0.9s ease-in-out 2; }
+@keyframes bars-flash { 50% { background: #b6427b; } }
+@media (prefers-reduced-motion: reduce) { #barsHint .bars-arrow { animation: none; } }
+
+/* Phones in landscape: use every pixel (no page margin or frame border). */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 520px) {
+  .shell { padding: 0; width: 100vw; }
+  .game-frame { border: 0; border-radius: 0; box-shadow: none; }
+}
