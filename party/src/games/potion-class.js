@@ -14,7 +14,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, makesMistake, reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU, later } from '../engine/util.js';
 import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
-import { INGREDIENTS, drawIngredient, drawBottle, drawCauldron, hexRgb, rgbStr, hexA } from './potion-class/ingredients.js';
+import { INGREDIENTS, SHELF_SIZE, drawIngredient, drawBottle, drawCauldron, hexRgb, rgbStr, hexA } from './potion-class/ingredients.js';
 import { drawHoot, speechBubble } from './potion-class/hoot.js';
 import { charById } from '../data/characters.js';
 
@@ -125,9 +125,11 @@ export class Game {
     this.n = this.players.length;
     this.t = 0;
 
+    // Today's shelf: a random SHELF_SIZE of the ingredients (kept in their usual order).
+    this.shelf = shuffle(INGREDIENTS).slice(0, SHELF_SIZE).sort((x, y) => INGREDIENTS.indexOf(x) - INGREDIENTS.indexOf(y));
     // Recipes: three good potions (3, 3 and 4 ingredients), then a free experiment.
     const effs = shuffle(GOOD).slice(0, 3);
-    this.rounds = effs.map((eff, i) => ({ eff, ings: shuffle(INGREDIENTS.map((x) => x.id)).slice(0, i === 2 ? 4 : 3) }));
+    this.rounds = effs.map((eff, i) => ({ eff, ings: shuffle(this.shelf.map((x) => x.id)).slice(0, i === 2 ? 4 : 3) }));
     this.rounds.push({ experiment: true, ings: [null, null, null] });
 
     this.layout();
@@ -214,7 +216,7 @@ export class Game {
     a.snap();
     const st = {
       p, i, box, k, actor: a,
-      sel: (i * 3) % INGREDIENTS.length, selBump: 0,
+      sel: (i * 3) % this.shelf.length, selBump: 0,
       added: [], flying: [], slots: 3,
       brew: WATER.slice(), brewTarget: WATER.slice(), splash: 0,
       phase: 'add', phaseT: 0, stir: 0, stirAng: 2.3, swirl: 0, lastAng: null, lastAngT: 0, halfTurns: 0,
@@ -403,7 +405,7 @@ export class Game {
 
     if (st.phase === 'add') {
       if (c.nav.x && st.navCool <= 0) {
-        st.sel = (st.sel + c.nav.x + INGREDIENTS.length) % INGREDIENTS.length;
+        st.sel = (st.sel + c.nav.x + this.shelf.length) % this.shelf.length;
         st.selBump = 1; st.selShow = 1.6; st.navCool = 0.07; sfx('move');
       }
       if (active && st.cool <= 0 && c.pressed('a')) {
@@ -471,7 +473,7 @@ export class Game {
   }
 
   toss(st) {
-    const id = INGREDIENTS[st.sel].id;
+    const id = this.shelf[st.sel].id;
     st.flying.push({ id, t: 0, dur: 0.48, fx: SHELF_X(st.sel), fy: SHELF_Y, spin: rand(-8, 8) });
     st.cool = 0.12;
     st.actor.playOnce('toss', 0.35, 'idle');
@@ -636,11 +638,11 @@ export class Game {
       if (!active || st.flying.length) return;
       if (!ai.plan) {
         const rd = this.rd;
-        if (rd.experiment) ai.plan = shuffle(INGREDIENTS.map((x) => x.id)).slice(0, st.slots);
+        if (rd.experiment) ai.plan = shuffle(this.shelf.map((x) => x.id)).slice(0, st.slots);
         else {
           ai.plan = rd.ings.slice();
           if (makesMistake(p)) {
-            const wrong = INGREDIENTS.map((x) => x.id).filter((id) => !rd.ings.includes(id));
+            const wrong = this.shelf.map((x) => x.id).filter((id) => !rd.ings.includes(id));
             ai.plan[Math.floor(rand(ai.plan.length))] = pick(wrong);
           }
         }
@@ -648,7 +650,7 @@ export class Game {
       }
       const want = ai.plan[st.added.length];
       if (!want || ai.t > 0) return;
-      const target = INGREDIENTS.findIndex((x) => x.id === want);
+      const target = this.shelf.findIndex((x) => x.id === want);
       if (st.sel !== target) {
         c.move(Math.sign(target - st.sel), 0);
         ai.t = rand(0.18, 0.3) / prof.speed;
@@ -974,7 +976,7 @@ export class Game {
     g.beginPath(); g.roundRect(12, 372, 456, 18, 6); g.fill(); g.stroke();
     g.fillStyle = '#7a4f2e'; g.fillRect(40, 390, 14, 6); g.fillRect(426, 390, 14, 6);
     const canPick = st.phase === 'add';
-    INGREDIENTS.forEach((ing, j) => {
+    this.shelf.forEach((ing, j) => {
       const sel = j === st.sel && canPick;
       const x = SHELF_X(j);
       let y = SHELF_Y, s = 46;
@@ -1008,7 +1010,7 @@ export class Game {
     const p = st.p;
     const active = this.phase === 'brew';
     if (st.phase === 'add') {
-      const name = INGREDIENTS[st.sel].name;
+      const name = this.shelf[st.sel].name;
       const showA = active && st.added.length + st.flying.length < st.slots;
       const x = SHELF_X(st.sel);
       // Name tag under the shelf, always shown while picking.

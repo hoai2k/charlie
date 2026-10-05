@@ -15,7 +15,12 @@ export const INGREDIENTS = [
   { id: 'rainbowdew', name: 'Rainbow Dew', color: '#8fdcff' },
   { id: 'snowcrystal', name: 'Snow Crystal', color: '#e9f6ff' },
   { id: 'mushroom', name: 'Giggle Mushroom', color: '#ff9f6a' },
+  { id: 'rainbowfeather', name: 'Rainbow Feather', color: '#ff6f91' },
+  { id: 'stardust', name: 'Stardust', color: '#3d47c8' },
+  { id: 'moondrop', name: 'Moon Drop', color: '#6fb8ff' },
 ];
+/** How many ingredients fit on a shelf; each class stocks a random SHELF_SIZE of them. */
+export const SHELF_SIZE = 8;
 
 const RAINBOW = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff'];
 
@@ -23,11 +28,12 @@ const RAINBOW = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff
 const cache = new Map();
 const CACHE_PX = 160;
 
-// Round-3 keys (prop/ing-*) for the same ingredients, used if the ingredient-* file is missing.
-// ing-rainbow-feather / ing-stardust-jar / ing-moon-drop match no ingredient here, so they stay unused.
+// Round-3 keys (prop/ing-*): the art for the last three ingredients, and a
+// stand-in for the others if their ingredient-* file is missing.
 const ING_ALIAS = {
   moonberry: 'ing-bubble-berries', starflower: 'ing-sparkle-flower', dragonpepper: 'ing-sneezy-pepper',
   snowcrystal: 'ing-snow-crystal', mushroom: 'ing-glow-mushroom',
+  rainbowfeather: 'ing-rainbow-feather', stardust: 'ing-stardust-jar', moondrop: 'ing-moon-drop',
 };
 
 /** Draw ingredient `id` centered at (x, y), about `s` px across. */
@@ -187,7 +193,13 @@ function paintIngredient(g, id) {
       for (const [sx, sy, r] of [[-22, -14, 7], [4, -26, 8], [24, -10, 6], [-4, -8, 4]]) { g.beginPath(); g.arc(sx, sy, r, 0, TAU); g.fill(); }
       break;
     }
-    default: break;
+    default: {   // (art-only ingredients) a glossy drop in the ingredient's colour
+      const ing = INGREDIENTS.find((i) => i.id === id);
+      g.fillStyle = ing ? ing.color : '#cccccc';
+      g.beginPath(); g.moveTo(0, -42); g.bezierCurveTo(26, -10, 34, 8, 34, 18); g.arc(0, 18, 34, 0, Math.PI); g.bezierCurveTo(-34, 8, -26, -10, 0, -42); g.fill(); g.stroke();
+      g.fillStyle = 'rgba(255,255,255,0.75)'; g.beginPath(); g.ellipse(-12, 10, 7, 12, 0.3, 0, TAU); g.fill();
+      break;
+    }
   }
 }
 

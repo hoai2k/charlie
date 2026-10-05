@@ -1543,7 +1543,6 @@ make it read better. Newest first; items move to "Resolved" once fixed.
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop` | Match no ingredient in Potion Class (unused). | No re-generation needed. Either keep them for a future recipe, or tell the lead to add them as ingredients. |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
@@ -1553,6 +1552,8 @@ fine; the code uses one of each pair.
 
 ### Resolved (integrated and checked in game)
 
+- `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop`: now Potion Class ingredients (Rainbow Feather, Stardust, Moon Drop). Each class stocks a random 8 of the 11 on its shelf.
+- `prop/cake-stand` v3: Cake Bakery's stand (plate stretched to the code's plate ellipse; the drawn stand is the fallback).
 - `pump` pose (all 15 playable characters, 2 frames): Balloon Pump plays it while a player pumps; checked in game with 4 CPUs (2026-10-05).
 - `prop/podium-1..4`: results podium blocks; the top face keeps its shape and only the front stretches to each place's height.
 - `prop/confetti`: 8x4 atlas used by every confetti particle (column picked by the particle's hue; greys keep drawn rectangles).
