@@ -1860,3 +1860,30 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: jump-rope
+
+### jump-rope — Jump Rope Jamboree   (requested by the jump-rope agent, 2026-10-05, priority: nice-to-have)
+
+Two friendly bunnies turn a giant candy-striped jump rope in a sunny park;
+the players stand in a row on a sandy mat in the middle and hop as the rope
+sweeps under their feet; out players sit on a picnic blanket in front and
+cheer. Everything below has a procedural fallback that ships today, and the
+code already looks up every key. The rope itself, the bunnies' arms and the
+timing rings stay procedural (they animate with the rope). House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text** in
+any image. Reused as they are: the roster sprites (`jump`, `fall`, `land`,
+`tumble`, `dizzy`, `clap`, `cheer`, `celebrate`, `walk`, `ready`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/jump-rope` | 1920×1080, opaque | Full screen behind everything (when present, it replaces the whole procedural park, so it must contain the mat and blanket). **Layout must match:** horizon/fence band around y≈580–640; a flat sandy oval jump mat centred at (960, 796), about 1500 px wide and 250 px tall (players stand on y≈735–845); a pink gingham picnic blanket (trapezoid) spanning x≈500–1420, y≈948–1068 where out players sit. Keep the top ~150 px calm (HUD chips + timer) and the far left/right ~300 px of ground plain (the bunnies stand at x≈150 and x≈1770) | A sunny kids' park: bright blue sky with a soft sun at the upper right, rolling green hills, round blossom trees along the horizon (open sky in the middle), a white picket fence, a string of candy-coloured bunting flags sagging across the sky, lush striped lawn, a big flat sandy oval play mat with a dashed white chalk border and faint chalk heart/star doodles, flowers in the foreground grass, and a pink-and-white gingham picnic blanket at the bottom centre. No characters |
+| `thumb/jump-rope` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two cute bunnies (one pink in a polka-dot pinafore, one mint in blue overalls) turning a big red-and-white candy-striped jump rope in a park; the rope arcs high overhead and a happy kid character is mid-hop in the middle, sparkles and motion swooshes. Subject centred |
+| `prop/jump-rope-bunny-pink` | 600×660, transparent | Fitted into a 300×330 box, **bottom-centre anchored at the feet**, drawn at x≈150 facing right (toward the middle). **No arms**: the code draws both arms from the shoulders to the rope handles — near shoulder at about (368, 316) and far shoulder at about (308, 308) in image pixels — so leave the sides of the body clean there | A big friendly standing bunny, three-quarter view facing right: pale pink fur, tall ears (one slightly floppy) with pink insides, a yellow bow between the ears, big shiny dark eyes, rosy cheeks, little pink nose and smile, a hot-pink polka-dot pinafore with yellow buttons, fluffy white tail, big soft feet. Arms omitted |
+| `prop/jump-rope-bunny-mint` | 600×660, transparent | Same size, anchor and shoulder points as the pink bunny; drawn at x≈1770 and **mirrored by the code** to face left, so draw it facing right | The pink bunny's friend: mint-white fur, tall ears with pink insides, a purple bow, big shiny eyes, rosy cheeks, sky-blue overalls with yellow dots and yellow buttons, fluffy white tail, big soft feet. Arms omitted |
+| `prop/jump-rope-handle` | 210×78, transparent | Drawn centred on the paw at 63×23 px, rotated so the **rope end points right** (turned 180° for the right-hand bunny). Used for both ropes and the golden rope | A chunky wooden jump-rope handle lying horizontally: rounded honey-wood grip with a pink painted band, a small yellow bead cap at the right end where the rope comes out |
+| `prop/jump-rope-blanket` | 1920×300, transparent | Only used when `bg/jump-rope` is missing: stretched over 960×150 at (960, 1008), under the seated out players | A pink-and-white gingham picnic blanket seen from the front at a low angle, a gentle trapezoid (wider at the bottom), soft folds, navy outline |
+
+Optional sprite pose (later upgrade, the game reads fine without it): `skip-hop`
+(loop: no; fallback `jump` → `fall`) — a light two-footed jump-rope hop, knees
+tucked, arms out to the sides, happy face.
