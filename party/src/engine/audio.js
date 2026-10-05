@@ -387,6 +387,20 @@ export function sfxLoop(name, { vol = 1, rate = 1, fadeIn = 0.1 } = {}) {
   if (loopsDucked) h._duck(true);
   return h;
 }
+/**
+ * Instrument games (Melody Maker) schedule their own notes ahead of time with
+ * audioCtx(). sfxInput() gives them a gain node that feeds the sfx bus, so
+ * mute, focus suspend and the master compressor still apply. Fade it and
+ * disconnect it when the game ends to silence anything still scheduled.
+ */
+export function sfxInput(vol = 1) {
+  if (!ctx) return null;
+  const g = ctx.createGain(); g.gain.value = vol; g.connect(sfxBus);
+  return g;
+}
+/** The decoded recording for an sfx key (its first file), or null. */
+export function soundBuffer(name) { const b = fileBuffers.get(name); return b ? b[0] : null; }
+
 let loopsDucked = false;
 /** Stop every running sfxLoop and long one-shot (the minigame host calls this when a game ends or is left). */
 export function stopAllLoops() { for (const h of [...activeLoops]) h.stop(0.1); }

@@ -1596,3 +1596,45 @@ fine; the code uses one of each pair.
 - KPop trio: each74 keys/96frames/sixportraits; corrected original and new hand/eye points, preserved complete boot crops, fresh center recolor masks including true rear turn. Reviewed full Pop Star Stage and optimized Spotlight Dance with alternate outfits.
 
 - Unicorn: full75-key/98-frame/six-portrait set, reviewed source-local muzzle/horn attachments and turned/low-face points, fresh optimized copy; full Wizard Quickdraw and optimized Broomstick Dash reviewed.
+
+## New Play Studio game: melody-maker
+
+### melody-maker — Melody Maker   (requested by the melody-maker agent, 2026-10-05, priority: nice-to-have)
+
+A step-sequencer music garden (`src/games/melody-maker.js`). Everything below
+is drawn procedurally today and each key drops in with no code change
+(`art()` / `drawArt()` lookups are already in place). Use the §10.5
+background and §10.6 prop templates; sizes are logical px at 1080p.
+
+**Pitch-row colours** (the flowers and notes use these; low → high, key
+number in brackets): red `#ff5a6e` (1), orange `#ff9f1c` (2), yellow
+`#ffd23f` (3), green `#6fdc5a` (4), teal `#2fd3c0` (5), blue `#3fa7ff` (6),
+purple `#9b6bff` (7), pink `#ff6fd0` (8).
+
+#### Backgrounds and thumbnail
+
+| Key | Size | What | Layout constraints |
+| --- | --- | --- | --- |
+| `bg/melody-maker` | 1920×1080, opaque | Front view of a sunny garden bandstand at golden hour: pastel pink-to-lavender sky, soft clouds, rolling green hills, a string of fairy lights along the very top, and a **wooden stage floor from y≈812 to the bottom** (warm honey planks with a darker front lip at y≈812). | The code draws the button bar (y 16–100), a big cream music panel (x 22–1636, y 118–798) and a legend card (x 1650–1898, y 118–798) on top, so the area above the stage may stay simple. Characters stand on the stage at y≈1064 and speakers sit at both stage ends. When this art exists the code stops drawing its own stage planks. No characters, no text. |
+| `bg/melody-maker-concert` | 1920×1080, opaque | Front view of a cosy evening concert stage in the garden: dark plum backdrop with twinkly stars and fairy lights, a warm wooden stage floor from y≈860 down. | Code draws red curtains at both sides (~100 px each, plus a valance in the top 34 px), a strip of song cards at y 54–224, performers centre stage with feet at y≈900, and a row of singing flowers along the front at y≈1030. Keep the middle uncluttered; no characters, no text, no curtains. |
+| `thumb/melody-maker` | 800×500, opaque | Two characters (e.g. Felicity and the Unicorn) on a garden stage beside a giant rainbow music grid of bells and singing flowers, music notes floating up, golden playhead glow. | Matches the other `thumb/<id>` cards; no text. |
+
+#### Props and icons (transparent PNG → WebP, centred unless noted)
+
+| Key | Size | What / anchor | Used for |
+| --- | --- | --- | --- |
+| `prop/melody-flower-1` … `prop/melody-flower-8` | 160×160 | A round smiling flower head (6 petals, cream face, rosy cheeks, closed-mouth smile, eyes open) in the row colour above (1 = red … 8 = pink). Head only, no stem; centred on the face; fills ~90% of the canvas. | The singer at the left of each pitch row (drawn at ~60 px) and the flower chorus in the concert (~96 px). |
+| `prop/melody-flower-1-sing` … `prop/melody-flower-8-sing` | 160×160 | Same flower and framing, singing: eyes happily closed, mouth open in an "O" / "la". | Shown for ~0.4 s each time its row's note plays (falls back to the idle art). |
+| `prop/melody-note-bells`, `prop/melody-note-piano`, `prop/melody-note-marimba`, `prop/melody-note-choir` | 128×128 | Note tokens drawn in **neutral white/light grey with soft grey shading** and navy outlines; the code multiplies them with the row colour. Bells: a small handbell with a clapper. Piano: a single rounded piano key with a little black key on top. Marimba: a short rounded wooden bar with two pins (wide, ~2:1). Choir: a round smiley face singing "la" (eyes closed, open O mouth). | Every placed note (drawn at ~56 px, bounces when it plays). |
+| `prop/melody-kick`, `prop/melody-clap`, `prop/melody-shaker` | 128×128, full colour | Kick: a small coral bass drum, side view, white zigzag lacing. Clap: two clapping hands with a yellow burst behind. Shaker: a green spotted maraca. | Drum-lane notes (~46 px) and the drum players in the concert (~110 px). |
+| `prop/melody-speaker` | 150×220, bottom-centre anchor | A cute purple stage speaker cabinet with two yellow cones (no face needed). | Both ends of the stage in the editor. (The cones thump by code only when drawn procedurally.) |
+| `icon/inst-bells`, `icon/inst-piano`, `icon/inst-marimba`, `icon/inst-choir` | 128×128, full colour | Instrument badges: a gold handbell with a wooden handle; a mini keyboard (white keys, 3 black keys); a rainbow xylophone with a mallet; a pink singing face with a music note. | Each player's "sound" badge on their cursor, above their character, and held in their hand during the concert (24–44 px). |
+| `icon/tortoise`, `icon/hare` | 128×128, full colour, facing right | A friendly green tortoise; a white bunny mid-hop. | The Speed button (slow / fast). |
+
+**Reused, no new art needed:** `icon/eraser` (Clear button), `icon/undo`
+(undo badge), `prop/confetti` (concert confetti), `applause` sfx.
+
+**Prompt lines** (fill the §10.6 template):
+- Flower: "A single round cartoon flower head with six soft <colour> petals and a cream face with rosy cheeks, two dot eyes and a small smile (sing version: eyes closed in happy arcs, mouth open in a round O, singing). Front view, centered, entirely visible with margin, no stem."
+- Note tokens: "A single <handbell | rounded piano key with a small black key on top | short rounded wooden marimba bar with two pins | round smiley face singing with an open O mouth>, rendered in plain white and light grey only (it will be recolored in code), bold navy outline. Front view, centered."
+- Instrument badge: "A single <object> as a chunky game icon, front view, centered, fills the canvas."
