@@ -22,11 +22,13 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, sfxLoop, voice, hasSound } from '../engine/audio.js';
 import { input } from '../engine/input.js';
+import { corner } from '../engine/corner.js';
 import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { playerName } from '../state.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, TAU, later } from '../engine/util.js';
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../engine/emotes.js';
+import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   ITEMS, ITEM, GROUPS, NAVY, shade, drawItem, paintItem, drawItemGlow, drawItemFront, drawIconOf, localBox, CHAR_IDS,
 } from './dream-room/items.js';
@@ -58,6 +60,10 @@ const LEGEND = { x: 14, y: 14, w: 244 };
 const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Items'], [['a'], 'Use tool'], [['x'], 'Tool'], [['b'], 'Remove'], [['y'], 'Surprise!']];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
 const BUILD_TIME = 180, CPU_TIME = 48;
+// Group photo: line up (LINEUP s), "Say cheese!" (CHEESE_TIME s, ending 3-2-1),
+// then the photo shows big for PHOTO_PIN s and flies PHOTO_FLY s to its pin on the roof.
+const LINEUP = 0.9, CHEESE_TIME = 6, PHOTO_PIN = 2.4, PHOTO_FLY = 0.8;
+const PIN = { x: 960, y: 128, w: 250, rot: 0.04 };
 const GLOW_STARS = [[470, 240], [560, 300], [690, 232], [850, 276], [1040, 238], [1200, 290], [1330, 236], [1450, 300], [760, 330], [1120, 336]];
 
 // Soft light pools (one cached radial gradient per colour).
@@ -878,6 +884,7 @@ export class Game {
     }
     for (const gft of this.gifts) gft.t = Math.max(gft.t, 1.05);
     this.banner = { text: 'Room tour!', t: 0 };
+    corner.infoAt = 'bl';   // the legend is gone; keep the "i" off the tour polaroids
     sfx('fanfare'); snd('applause', 'cheer');
     this.assignTourSpots();
     // One photo per character (up to 4); small groups also get photos of the room's best bits.
@@ -982,13 +989,16 @@ export class Game {
         T.t += dt; arrived++;
         this.doAct(st, dt);
       } else if (T.state === 'group') {
-        const G = T.group, p = clamp(this.groupT / 0.9, 0, 1), e = ease.inOutQuad(p);
+        const G = T.group, p = clamp(this.groupT / LINEUP, 0, 1), e = ease.inOutQuad(p);
         const px = a.x;
         a.x = lerp(G.x0, G.x, e); a.y = lerp(G.y0, G.y, e);
         a.z = lerp(G.z0, 0, e) + Math.sin(p * Math.PI) * 50 * depthAt(a.y);
         a.scale = T.base * depthAt(a.y);
         if (p < 1) { if (Math.abs(a.x - px) > 0.5) a.facing = a.x > px ? 1 : -1; a.setPose('jump'); }
-        else if (!T.posed) { T.posed = true; a.facing = a.x < 960 ? 1 : -1; a.playOnce('photo', 3); a.setPose('celebrate'); particles.burst(a.x, a.y - a.height, { type: 'star', count: 5 }); }
+        else { T.state = 'cheese'; T.vz = 0; T.poseCD = 0; a.z = 0; a.facing = a.x < 960 ? 1 : -1; a.setPose('wave'); particles.burst(a.x, a.y - a.height, { type: 'star', count: 5 }); }
+      } else if (T.state === 'cheese') {
+        if (!this.bigPhoto) this.cheeseMove(st, dt);
+        else { T.vz -= 2800 * dt; a.z = Math.max(0, a.z + T.vz * dt); if (a.z <= 0) T.vz = 0; }
       }
     }
     // Photos: one of each character's spot, then the group photo.
@@ -1011,7 +1021,7 @@ export class Game {
       } else if (this.groupT < 0) {
         this.groupT = 0;
         cam.follow(W / 2, H / 2, 1, 3);
-        this.banner = { text: 'Say cheese!', t: 0 };
+        this.banner = { text: 'Group photo!', t: 0 };
         // Everyone lines up at the front of the room for the group photo.
         const n = this.n, sp = Math.min(200, 1180 / n), rows = n > 5 ? 2 : 1;
         this.stations.forEach((st, i) => {
@@ -1020,20 +1030,69 @@ export class Game {
           st.tour.state = 'group';
         });
       } else {
+        const g0 = this.groupT;
         this.groupT += dt;
-        if (this.groupT > 2.4 && !this.bigPhoto) {
-          this.bigPhoto = { img: this.renderPhoto(W / 2, 505, 1.3, 1040, 585), t: 0 };
+        // "Say cheese!": until the shutter clicks everyone can move, jump and pose.
+        if (g0 < LINEUP && this.groupT >= LINEUP) { this.banner = { text: 'Say cheese!', t: 0 }; sfx('giggle'); }
+        const shot = LINEUP + CHEESE_TIME;
+        for (const d of [3, 2, 1]) if (g0 < shot - d && this.groupT >= shot - d) sfx(d === 1 ? 'tock' : 'tick');
+        if (this.groupT >= shot && !this.bigPhoto) {
+          this.banner = null;
+          this.bigPhoto = { img: this.renderPhoto(W / 2, 520, 1.2, 1040, 585), t: 0 };
           snd('camera-flash', 'shutter'); fx.flash('#ffffff', 0.45);
           later(() => { if (!this.finished) { particles.confettiRain(W, 150); snd('applause', 'cheer'); sfx('yay'); } }, 350);
         }
         if (this.bigPhoto) {
+          const before = this.bigPhoto.t;
           this.bigPhoto.t += dt;
-          if (this.bigPhoto.t > 4.2 || (this.bigPhoto.t > 1.5 && this.players.some((p) => !p.isAI && p.ctrl.pressed('a')))) this.finishGame();
+          if (before < PHOTO_PIN + PHOTO_FLY && this.bigPhoto.t >= PHOTO_PIN + PHOTO_FLY) { sfx('pop'); particles.burst(PIN.x, PIN.y - 80, { type: 'sparkle', count: 10, colors: ['#fff', '#ffd23f'] }); }
+          if (this.bigPhoto.t > PHOTO_PIN + PHOTO_FLY + 1.6 || (this.bigPhoto.t > 1.5 && this.players.some((p) => !p.isAI && p.ctrl.pressed('a')))) this.finishGame();
         }
       }
     }
     for (const ph of this.photos) ph.t += dt;
-    if (t > 40) this.finishGame();
+    if (t > 50) this.finishGame();
+  }
+
+  /** "Say cheese!": stick moves around the floor, A jumps, every other button strikes a pose. */
+  cheeseMove(st, dt) {
+    const T = st.tour, a = st.actor, c = st.p.ctrl, G = T.group;
+    T.poseCD = Math.max(0, T.poseCD - dt);
+    let { x: mx, y: my } = photoMove(c), jump = c.pressed('a'), pose = photoPosePressed(c);
+    if (st.p.isAI) {
+      // CPUs ham it up: shuffle about near their spot, hop and pose at random
+      T.aiT = (T.aiT ?? rand(0.2, 0.8)) - dt;
+      if (T.aiT <= 0) { T.aiT = rand(0.5, 1.3); T.aiM = chance(0.4) ? [rand(-0.8, 0.8), rand(-0.5, 0.5)] : [0, 0]; if (chance(0.35)) jump = true; else if (chance(0.6)) pose = randomPhotoPose(); }
+      [mx, my] = T.aiM || [0, 0];
+      if (Math.abs(a.x - G.x) > 110) mx = Math.sign(G.x - a.x) * 0.6;
+      if (Math.abs(a.y - G.y) > 60) my = Math.sign(G.y - a.y) * 0.6;
+    }
+    const d = Math.hypot(mx, my); if (d > 1) { mx /= d; my /= d; }
+    const sp = 460 * depthAt(a.y);
+    a.y = clamp(a.y + my * sp * 0.7 * dt, FLOOR_Y0 + 40, FLOOR_Y1 - 16);
+    const half = floorHalf(a.y) - 90;
+    a.x = clamp(a.x + mx * sp * dt, 960 - half, 960 + half);
+    a.scale = T.base * depthAt(a.y);
+    if (jump && a.z <= 0) { T.vz = 980 * depthAt(a.y); snd('boing', 'jump', { vol: 0.35 }); a.squash(-0.25); }
+    T.vz -= 2800 * dt; a.z = Math.max(0, a.z + T.vz * dt);
+    if (a.z <= 0 && T.vz < 0) { if (T.vz < -200) a.squash(0.2); T.vz = 0; }
+    if (pose && T.poseCD <= 0) { T.poseCD = 0.35; strikePhotoPose(a, pose, { onBump: (who) => this.bumpNeighbours(st, who) }); }
+    if (a.z > 0) { if (Math.abs(mx) > 0.2) a.facing = mx > 0 ? 1 : -1; if (!a._once) a.setPose('jump'); }
+    else a.moveAnim(mx * sp, my * sp, sp);
+  }
+
+  /** The bump pose nudges whoever is standing close by (they stumble a little). */
+  bumpNeighbours(st, a) {
+    for (const o of this.stations) {
+      if (o === st || !o.tour || o.tour.state !== 'cheese') continue;
+      const b = o.actor, dx = b.x - a.x;
+      if (Math.abs(dx) < (a.width + b.width) * 0.45 && Math.abs(b.y - a.y) < 60) {
+        const half = floorHalf(b.y) - 90;
+        b.x = clamp(b.x + Math.sign(dx || 1) * 70 * depthAt(b.y), 960 - half, 960 + half);
+        b.playOnce('surprised', 0.8, 'idle'); b.squash(0.2); o.tour.vz = Math.max(o.tour.vz, 300);
+      }
+    }
+    sfx('boing', { vol: 0.4 });
   }
 
   startAct(st) {
@@ -1112,6 +1171,7 @@ export class Game {
 
   onDone() {
     if (this.phase === 'build') this.startTour();
+    else if (this.groupT >= LINEUP && !this.bigPhoto) this.groupT = Math.max(this.groupT, LINEUP + CHEESE_TIME - 0.5);
     else this.finishGame();
   }
 
@@ -1410,6 +1470,7 @@ export class Game {
     }
     for (const gft of this.gifts) this.drawGift(g, gft);
     for (const ph of this.photos) this.drawPolaroid(g, ph);
+    if (this.phase === 'tour') this.drawCheeseHUD(g);
     if (this.bigPhoto) this.drawBigPhoto(g);
     if (this.banner) ui.banner(g, this.banner.text, this.banner.t, { size: 110, y: this.phase === 'tour' ? 140 : H / 2 - 60, color: '#ff8fd0' });
     if (this.toast) {
@@ -1688,18 +1749,34 @@ export class Game {
     g.restore();
   }
 
+  /** Group photo countdown (3-2-1) and the move/jump/pose hints. */
+  drawCheeseHUD(g) {
+    const t = this.groupT, shot = LINEUP + CHEESE_TIME;
+    if (t < LINEUP || this.bigPhoto) return;
+    if (t >= shot - 3) { const n = Math.ceil(shot - t), f = 1 - (shot - t - (n - 1)); g.save(); g.translate(W / 2, 300); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6; ui.text(g, String(n), 0, 0, { size: 200, color: '#ffd23f', strokeWidth: 12 }); g.restore(); }
+    const humans = this.stations.filter((s) => !s.p.isAI);
+    if (!humans.length) return;
+    const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
+    ui.hints(g, r1, W / 2, H - 92, { size: 34 }); ui.hints(g, r2, W / 2, H - 40, { size: 34 });
+  }
+
   drawBigPhoto(g) {
     const B = this.bigPhoto, t = B.t, p = ease.outBack(clamp(t / 0.6, 0, 1));
-    g.save(); g.fillStyle = `rgba(36,22,63,${0.45 * clamp(t / 0.4, 0, 1)})`; g.fillRect(0, 0, W, H); g.restore();
-    const w = 1120, h = 820;
-    g.save(); g.translate(W / 2, H / 2 + 10); g.rotate(-0.03 * p); g.scale(p, p);
+    const k = ease.inOutQuad(clamp((t - PHOTO_PIN) / PHOTO_FLY, 0, 1));   // 0 big in the middle .. 1 pinned
+    g.save(); g.fillStyle = `rgba(36,22,63,${0.45 * clamp(t / 0.4, 0, 1) * (1 - k)})`; g.fillRect(0, 0, W, H); g.restore();
+    const w = 1120, h = 820, sc = p * lerp(1, PIN.w / w, k);
+    g.save(); g.translate(lerp(W / 2, PIN.x, k), lerp(H / 2 + 10, PIN.y, k)); g.rotate(lerp(-0.03 * p, PIN.rot, k)); g.scale(sc, sc);
     ui.panel(g, -w / 2, -h / 2, w, h, { r: 10, fill: '#ffffff', lineWidth: 6 });
     g.drawImage(B.img, -w / 2 + 40, -h / 2 + 40, 1040, 585);
     g.strokeStyle = NAVY; g.lineWidth = 3; g.strokeRect(-w / 2 + 40, -h / 2 + 40, 1040, 585);
     ui.text(g, 'Our Dream Room', 0, h / 2 - 118, { size: 64, color: '#ff6fb1', weight: 800 });
     const names = this.players.map((pl) => playerName(pl)).join(', ');
     ui.text(g, names, 0, h / 2 - 54, { size: 30, color: NAVY, stroke: false, maxWidth: w - 120 });
-    for (const [sx, sy] of [[-1, -1], [1, -1]]) { g.save(); g.translate(sx * (w / 2 - 30), sy * (h / 2 - 4)); g.rotate(sx * 0.6); g.fillStyle = 'rgba(255,240,180,0.9)'; g.fillRect(-50, -14, 100, 28); g.restore(); }
+    if (k < 1) for (const [sx, sy] of [[-1, -1], [1, -1]]) { g.save(); g.translate(sx * (w / 2 - 30), sy * (h / 2 - 4)); g.rotate(sx * 0.6); g.fillStyle = 'rgba(255,240,180,0.9)'; g.fillRect(-50, -14, 100, 28); g.restore(); }
+    else {   // the pin
+      g.beginPath(); g.arc(0, -h / 2 + 14, 40, 0, TAU); g.fillStyle = '#ff4d6d'; g.fill(); g.lineWidth = 12; g.strokeStyle = NAVY; g.stroke();
+      g.beginPath(); g.arc(-12, -h / 2 + 2, 12, 0, TAU); g.fillStyle = '#ffffff'; g.fill();
+    }
     g.restore();
   }
 

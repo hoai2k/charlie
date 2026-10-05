@@ -145,6 +145,11 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   meta goal, controls and tips. Use `meta.infoAt: 'tl'|'tr'|'br'` when the
   bottom-left holds game UI. `meta.cornerControls: { at, items }` draws a
   compact legend in a corner during play.
+- Photo scenes ("Say cheese!" in Bead Shop and Dream Room) share
+  `engine/photo-poses.js`: left stick moves, A jumps, and every other button
+  (B/X/Y, bumpers, triggers, stick clicks, and the d-pad on a gamepad)
+  strikes a pose. Reuse it for any new photo moment. The photo is rendered
+  offscreen, shown big, then flies to a pin.
 - `ctrl.sx` / `ctrl.sy`: the left stick without the d-pad, for games that
   give the d-pad its own job (Art Studio).
 - Fashion Show: per-character `FIT` table in `fashion-show.js`. Re-check
