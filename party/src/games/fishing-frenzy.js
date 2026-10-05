@@ -349,7 +349,7 @@ export class Game {
     particles.burst(U.bob.x, U.bob.y - 4, { type: 'bubble', count: 2, colors: ['#ffffff'], speed: [20, 60], size: [5, 9] });
     if (U.p.isAI) {
       const lvl = clamp(U.p.aiLevel ?? 0, 0, 2);
-      if (U.ai.jumpAt < 0 && chance([0.2, 0.07, 0.02][lvl])) U.ai.jumpAt = this.t + rand(0.08, 0.25);
+      if (U.ai.jumpAt < 0 && chance([0.14, 0.06, 0.02][lvl])) U.ai.jumpAt = this.t + rand(0.08, 0.25);
     }
   }
 
@@ -989,7 +989,7 @@ export class Game {
     g.strokeStyle = '#3fa7ff'; g.beginPath(); g.moveTo(w / 2 - 10, py); g.lineTo(w / 2 - 10 - (w - 20) * clamp(R.prog, 0, 1), py); g.stroke();
     const fxp = w / 2 - 10 - (w - 20) * clamp(R.prog, 0, 1);
     g.save(); g.translate(fxp, py); g.scale(-1, 1); g.rotate(pulling ? Math.sin(this.clock * 30) * 0.3 : 0);
-    drawCatch(g, R.f.kind === 'golden' ? 'golden' : R.f.K.junk ? R.f.kind : 'sunny', 28, this.clock); g.restore();
+    drawCatch(g, R.f.kind, 28, this.clock); g.restore();
     // the basket at the end
     g.fillStyle = '#d9a35c'; g.strokeStyle = NAVY; g.lineWidth = 3;
     g.beginPath(); g.moveTo(-w / 2 - 6, py - 9); g.lineTo(-w / 2 + 14, py - 9); g.lineTo(-w / 2 + 10, py + 9); g.lineTo(-w / 2 - 2, py + 9); g.closePath(); g.fill(); g.stroke();
