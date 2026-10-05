@@ -1716,3 +1716,27 @@ music bus. The `title` entry has no alternate takes, so song-tag auditioning
 cannot substitute a different song on the title screen. Bubblegum Radar stays
 on `party`, whose audition alternates now include the two generated title themes.
 Earlier production notes in §12 describe the previous title configuration.
+
+## Melody Maker instrument samples (optional) — 2026-10-05
+
+Melody Maker (`src/games/melody-maker.js`) synthesizes every note with Web
+Audio and needs no files. Short recorded one-shots would make the piano and
+the "la la" choir sound much nicer. If an sfx key below exists in
+`assets/audio/manifest.json`, the game plays it instead of the synth,
+re-pitched with `playbackRate` (so record **one** note, dry, no reverb tail
+longer than ~1.5 s, trimmed tight at the attack, mono, -3 dBFS peak).
+
+| Key | Note recorded | Sound |
+| --- | --- | --- |
+| `inst/bells` | C5 (MIDI 72) | Glockenspiel / music-box bell, bright, ~1.5 s ring |
+| `inst/piano` | C4 (MIDI 60) | Soft upright piano, medium velocity, ~1.2 s |
+| `inst/marimba` | C4 (MIDI 60) | Warm marimba, soft mallet, ~0.6 s |
+| `inst/choir` | C5 (MIDI 72) | One child-like voice singing "la" (a sung syllable, no words), gentle vibrato, ~0.8 s with a soft release |
+| `inst/kick` | — | Soft round kick drum (not boomy), ~0.25 s |
+| `inst/clap` | — | Light hand clap, ~0.2 s |
+| `inst/shaker` | — | Single egg-shaker shake, ~0.08 s |
+
+Pitches used: G4–C6 for bells and choir; G3–C5 for piano and marimba
+(written an octave lower), so a sample is stretched at most ~1 octave up and
+a 4th down. Keep each file small (< 60 KB): they are decoded at startup like
+the other sfx.
