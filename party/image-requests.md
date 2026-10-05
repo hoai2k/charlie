@@ -1860,3 +1860,37 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: tug-of-war
+
+### tug-of-war — Rainbow Tug-of-War   (requested by the tug-of-war agent, 2026-10-05, priority: nice-to-have)
+
+A team game in side view: Pink Team (left) and Blue Team (right) pull a
+rainbow rope across a little puddle of wobbly rainbow jelly; the losers
+slide in with a splash and pop out giggling. Everything below has a
+procedural fallback that ships today, and the code already looks up every
+key, so a file listed in `assets/art/index.json` drops in with no code
+change. The rope itself stays procedural (it bends through every
+character's hands). House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text** in any image. Reused as they
+are: the roster sprites (`knockback` as the pulling stance until `pull`
+exists, `run`, `jump`, `tumble`, `swim`, `giggle`, `dizzy`, `surprised`,
+`celebrate`, `cheer`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/tug-of-war` | 1920×1080, opaque | Full screen, static. The meadow's grass line sits at y≈790; characters stand on y≈862 across the whole width; the jelly puddle is drawn by code at the centre (x 750–1170, y 830–940), so keep that patch plain grass. Team mats are drawn on the ground at x 10–740 and 1180–1910, y 812–904. Keep the top ~230 px calm (team panels, timer and tug meter) and the centre band y 250–420 calm (the beat heart) | A sunny spring meadow: soft blue sky with a few puffy clouds, a big gentle pastel rainbow arching over the whole scene from behind rolling green hills, round cartoon trees on the far hills, a strip of bright grass with tiny flowers across the bottom third, and two cream party poles at the far left and right edges with a string of pink, yellow and blue bunting sagging between them. Left half has a faint pink tint in the flowers, right half faint blue |
+| `thumb/tug-of-war` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two cute characters from opposite sides (one in pink, one in blue) leaning back and pulling a thick rainbow-striped rope over a small glossy puddle of rainbow jelly, a pink bow tied at the rope's middle, a splash of jelly droplets and sparkles, rainbow in the sky. Subject centred |
+| `prop/tug-jelly-pool` | 960×280, transparent | Centred on the puddle centre (960, 884) and drawn 2.3 × 205 px wide (≈470 px, height by aspect). The code squashes it on splashes (wobble), draws characters sunk to the chest in it and adds its own ripple rings, so keep the surface clean | A shallow oval puddle of glossy rainbow jelly set into the grass, seen from a low side angle: concentric bands from pink at the rim through orange, yellow, green, blue to purple in the middle, a sugary pale-pink crust rim, bright white highlights and a few tiny bubbles. The oval fills ~88% of the width |
+| `prop/tug-mat-pink`, `prop/tug-mat-blue` | 1460×184 each, transparent | Stretched (fit: stretch) over each team's zone, 730×92 on screen, top edge at y≈812. Characters stand on its middle | A long picnic blanket on the grass seen from the front at a low angle: gingham check in pink and white (blue and white for the blue one), a soft fringe along the bottom edge, slightly wrinkled. Plain, no objects on it |
+| `prop/tug-flag-pink`, `prop/tug-flag-blue` | 220×300 each, transparent | Bottom-centre anchored (foot of the pole) at the puddle rim, x 785 (pink) and x 1135 (blue), fitted into 110×150. The pink pennant points left, the blue one right. These are the "finish lines" the bow must reach | A small cream wooden pole stuck in the grass with a triangular cloth pennant waving at the top: hot pink with a white heart (pink), sky blue with a white star (blue) |
+| `prop/tug-bow` | 300×300, transparent | Drawn centred 40 px below the rope point at x = 960 + rope offset, fitted into 150×150, so the knot of the bow sits at about (150, 70) in the image and the pennant hangs below. It rides the rope and sways | A big glossy hot-pink ribbon bow with a gold button knot and two ribbon tails, with a small three-stripe pennant (pink, yellow, blue) hanging straight down under the knot |
+| `prop/tug-banana` | 220×160, transparent | Centred ~18 px above the ground point, fitted into 110×80; the code spins it as it slides along the ground under one team's feet | A cartoon banana peel lying flat with three floppy yellow peel petals splayed out and a little brown stem, glossy and cute (not mushy) |
+| `prop/tug-beat-heart` | 256×256, transparent | HUD at screen centre (960, 330), fitted into 2.1 × 64 px and scaled up on every beat; the code draws the shrinking timing ring around it | A chunky glossy candy-pink heart with a navy outline and a white shine at the upper left, slightly puffy like a sticker |
+
+New sprite pose wished for (registered by the lead; the code already uses it
+when `POSES.pull` exists and falls back to `knockback` meanwhile):
+
+| Pose | Loop | Fallback | Description |
+| --- | --- | --- | --- |
+| `pull` | yes | `knockback`, `balance` | Tug-of-war heave: side-on, leaning far back away from the facing direction, both hands (paws, fins, mouth for the cake) gripping a rope held out in front at waist height, feet dug in, determined happy grin (not scared). Hand anchor = the grip point |
