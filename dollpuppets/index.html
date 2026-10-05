@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#6a3aa8" />
+    <!-- Add to Home Screen opens full screen, with no browser bars. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Doll Puppets" />
+    <link rel="manifest" href="./manifest.webmanifest" />
     <script>
       // Browsers only allow the camera on https:// pages.
       if (location.protocol === "http:" && !["localhost", "127.0.0.1"].includes(location.hostname)) {
@@ -11,11 +18,11 @@
     </script>
     <title>Doll Puppets</title>
     <link rel="icon" type="image/png" href="./favicon.png?v=20261002b" />
-    <link rel="apple-touch-icon" href="./favicon.png?v=20261002b" />
+    <link rel="apple-touch-icon" href="./assets/icons/icon-180.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" />
-    <link rel="stylesheet" href="./site.css?v=20261002e" />
+    <link rel="stylesheet" href="./site.css?v=20261005a" />
   </head>
   <body>
     <main class="dolls-app" data-screen="title" style="--background-image: url('./assets/backgrounds/farm.webp')">
@@ -31,6 +38,10 @@
         <button id="pause-game" class="hud-button pause-button" type="button" aria-pressed="false">
           <span class="hud-icon" aria-hidden="true">❚❚</span><span class="hud-label">Pause</span>
         </button>
+      </div>
+      <button id="fullscreen-toggle" class="fullscreen-button" type="button" aria-label="Full screen" hidden>⛶</button>
+      <div id="bars-hint" class="bars-hint" hidden>
+        <span class="arrow" aria-hidden="true">↑</span> Swipe up to hide Safari's bars · or Share → Add to Home Screen
       </div>
       <aside id="gesture-hints" class="gesture-hints" aria-label="Faces to try" hidden>
         <strong>Try this!</strong>
@@ -66,6 +77,6 @@
       </section>
     </main>
 
-    <script type="module" src="./site.js?v=20261002e"></script>
+    <script type="module" src="./site.js?v=20261005a"></script>
   </body>
 </html>

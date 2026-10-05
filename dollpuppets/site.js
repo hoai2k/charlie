@@ -1,5 +1,6 @@
 import { createCamera } from "./src/core/camera.js";
 import { createFaceStabilizer } from "./src/core/face-stabilizer.js";
+import { createScreenChrome, fullscreenElement, toggleFullscreen } from "./src/core/screen-chrome.js";
 import { createDemoPuppetState, createPuppetState } from "./src/core/puppet-state.js";
 import { createWorkerTracker, TRACKING_MODES } from "./src/core/worker-tracker.js";
 import { DOLL_CHARACTERS, renderDollsEffect } from "./effect/render.js";
@@ -118,6 +119,8 @@ let selectedBackground = "farm";
 let selectedCharacter = initialCharacterId;
 // "title" (pick a doll) -> "play"; the Dolls button returns to the title.
 let screen = "title";
+// Browser-bar handling (fullscreen, iPhone swipe-up), set up further down.
+let screenChrome = null;
 let backgroundOffset = 0;
 let backgroundVelocity = 0;
 let backgroundDrag = null;
@@ -747,6 +750,8 @@ function setScreen(next) {
   app.dataset.screen = next;
   titleScreen.hidden = next !== "title";
   gestureHints.hidden = next !== "play" || hintsDismissed;
+  // Scrolling the bars away is only allowed off the play screen (iPhone Safari).
+  screenChrome?.update();
   if (next === "title") {
     // Coming back from a game: keyboard focus starts on the current doll.
     if (characterList.dataset.picked === "true") {
@@ -767,6 +772,7 @@ function playAs(characterId) {
   characterList.dataset.picked = "true";
   setCharacter(characterId);
   setScreen("play");
+  screenChrome.enterGame();
   if (!usingCamera && !cameraStarting) {
     void startCamera();
   }
@@ -856,7 +862,31 @@ function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
-window.addEventListener("resize", resizeCanvas);
+// Browser bars: full screen on touch devices when a doll is picked (and on the
+// first tap in landscape); on iPhone Safari, a swipe-up hint instead.
+const fullscreenButton = document.querySelector("#fullscreen-toggle");
+screenChrome = createScreenChrome({
+  app,
+  isPlaying: () => screen === "play",
+  hintEl: document.querySelector("#bars-hint"),
+  onResize: resizeCanvas
+});
+fullscreenButton.hidden = screenChrome.fullscreenMode === "none";
+function updateFullscreenButton() {
+  const on = Boolean(fullscreenElement());
+  fullscreenButton.textContent = on ? "✕" : "⛶";
+  fullscreenButton.setAttribute("aria-label", on ? "Leave full screen" : "Full screen");
+}
+fullscreenButton.addEventListener("click", () => {
+  if (screenChrome.fullscreenMode === "hint") {
+    screenChrome.flashHint();
+  } else {
+    toggleFullscreen();
+  }
+});
+document.addEventListener("fullscreenchange", updateFullscreenButton);
+document.addEventListener("webkitfullscreenchange", updateFullscreenButton);
+updateFullscreenButton();
 window.addEventListener("keydown", (event) => {
   if (event.repeat && event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
     return;
