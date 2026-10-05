@@ -28,7 +28,8 @@ export const corner = {
     const y = H - PAD - SIZE / 2;
     if (this.mode === 'info') {
       if (!this.infoFn) return [];
-      const at = this.infoAt || 'bl';   // a game can move it off its own UI (meta.infoAt)
+      const at = this.infoAt || 'bl';   // a game can move it off its own UI (meta.infoAt: a corner or [x, y])
+      if (Array.isArray(at)) return [{ id: 'info', x: at[0], y: at[1], small: true }];
       return [{ id: 'info', x: at.endsWith('r') ? W - PAD - SIZE / 2 : PAD + SIZE / 2, y: at.startsWith('t') ? PAD + SIZE / 2 : y, small: true }];
     }
     const list = [{ id: 'sound', x: PAD + SIZE / 2, y }];
