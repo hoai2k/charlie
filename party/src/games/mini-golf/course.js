@@ -13,7 +13,7 @@ export const VMIN = 110, VMAX = 1700;
 const FRIC_K = 0.9, FRIC_A = 150;  // speed' = speed * e^(-K dt) - A dt
 const STOP_V = 7;
 const WALL_E = 0.78, BALL_E = 0.93, BUMP_BOOST = 170;
-const SINK_V = 980;                // faster than this over the cup: lip-out
+const SINK_V = 640;                // faster than this over the cup: lip-out
 const MAGNET_R = 70;
 const JELLY_VZ = 520, GRAV = 1800;
 
@@ -59,7 +59,7 @@ export const HOLES = [
     tee: { x: 340, y: 752, sp: 66, sp1: 88 },
     cup: { x: 330, y: 418 },
     gallery: { x: 330, step: 118 },
-    bumpers: [{ x: 560, y: 335, r: 32, c: 2 }, { x: 560, y: 505, r: 32, c: 4 }, { x: 1000, y: 330, r: 36, c: 0 }, { x: 1150, y: 480, r: 34, c: 1 }, { x: 1560, y: 760, r: 34, c: 3 }],
+    bumpers: [{ x: 560, y: 335, r: 32, c: 2 }, { x: 560, y: 505, r: 32, c: 4 }, { x: 1000, y: 330, r: 36, c: 0 }, { x: 1150, y: 480, r: 34, c: 1 }, { x: 1120, y: 690, r: 32, c: 3 }],
     slope: { x0: 1265, y0: 600, x1: 1810, y1: 920, ax: 0, ay: -330 },
     donut: { a: { x: 930, y: 805 }, b: { x: 780, y: 418, dir: Math.PI } },
   },
@@ -158,9 +158,9 @@ export function stepBall(b, h, ctx) {
   const air = b.z > 0 || b.vz > 0;
   // forces
   if (!air) {
-    if (hole.slope && onSlope(hole, b.x, b.y)) { b.vx += hole.slope.ax * h; b.vy += hole.slope.ay * h; }
+    if (hole.slope && !b.pinned && onSlope(hole, b.x, b.y)) { b.vx += hole.slope.ax * h; b.vy += hole.slope.ay * h; }
     const cdx = hole.cup.x - b.x, cdy = hole.cup.y - b.y, cd = Math.hypot(cdx, cdy);
-    if (cd < MAGNET_R && cd > 0.5 && Math.hypot(b.vx, b.vy) < 360) {
+    if (cd < MAGNET_R && cd > 0.5 && Math.hypot(b.vx, b.vy) < 300) {
       const k = (260 + 900 * (1 - cd / MAGNET_R)) * h;
       b.vx += (cdx / cd) * k; b.vy += (cdy / cd) * k;
     }
@@ -211,7 +211,7 @@ export function stepBall(b, h, ctx) {
     if (s > 0) {
       const ns = Math.max(0, s * Math.exp(-FRIC_K * h) - FRIC_A * h);
       const cd = Math.hypot(hole.cup.x - b.x, hole.cup.y - b.y);
-      if (ns < STOP_V && !(hole.slope && onSlope(hole, b.x, b.y)) && cd > CUP_R + 6) { b.vx = 0; b.vy = 0; }
+      if (ns < STOP_V && (b.pinned || !(hole.slope && onSlope(hole, b.x, b.y))) && cd > CUP_R + 6) { b.vx = 0; b.vy = 0; }
       else { b.vx *= ns / s; b.vy *= ns / s; }
     }
   }

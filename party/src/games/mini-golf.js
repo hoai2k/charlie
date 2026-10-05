@@ -252,7 +252,7 @@ export class Game {
   putt(U) {
     const b = U.ball, p = Math.max(0.03, U.power), v = powerToSpeed(p);
     b.vx = Math.cos(U.aim) * v; b.vy = Math.sin(U.aim) * v;
-    U.strokes++; U.lastShot = { x: b.x, y: b.y };
+    U.strokes++; U.lastShot = { x: b.x, y: b.y }; b.pinned = false;
     U.charging = false; U.power = 0; U.swingT = 0.22; U.shotPow = p;
     U.a.playOnce('action', 0.35); U.a.squash(0.22);
     snd('golf-putt', 'hit', { vol: 0.45 + 0.55 * p });
@@ -367,7 +367,7 @@ export class Game {
         b.hideT -= dt;
         if (b.hideT <= 0) {
           if (b.mode === 'warp') {
-            warpOut(b, this.hole, rand(-0.22, 0.22)); b.mode = 'play';
+            warpOut(b, this.hole, rand(-0.3, 0.3)); b.mode = 'play';
             const o = this.hole.donut.b;
             particles.burst(o.x, o.y, { type: 'sparkle', count: 18, colors: ['#fff6c0', '#ffd23f', '#ffffff'], speed: [80, 300] });
             particles.ring(o.x, o.y, '#ffd23f', 130, 0.4);
@@ -382,6 +382,10 @@ export class Game {
         }
       } else if (b.mode === 'play') {
         const s = Math.hypot(b.vx, b.vy);
+        // safety net: a ball that jiggles for ages (pinned between the slope and
+        // something) is settled where it is, so its owner can putt again
+        b.slowT = s > 0 && s < 140 ? (b.slowT || 0) + dt : 0;
+        if (b.slowT > 2.5 && !b.pinned) { b.pinned = true; b.vx = b.vy = 0; b.slowT = 0; }
         if (s > 450 && Math.random() < dt * 22) particles.trail(b.x, b.y - b.z, { type: 'sparkle', colors: [U.p.color, '#ffffff'], size: [6, 12], speed: [0, 30], life: [0.2, 0.4] });
       }
     }
@@ -711,8 +715,8 @@ export class Game {
   drawHUD(g) {
     const hole = this.hole;
     ui.scoreboard(g, this.players, this.units.map((U) => U.pts), { y: 18, avoidCenter: true, format: (v) => String(v), highlight: this.units.map((U) => U.done) });
-    const left = this.phase === 'play' ? HOLE_T - this.ht : this.phase === 'holeEnd' ? Math.max(0, HOLE_T - this.ht) : HOLE_T;
-    ui.timer(g, left, W / 2, 60);
+    const left = this.phase === 'play' || this.phase === 'holeEnd' || this.phase === 'over' ? Math.max(0, HOLE_T - this.ht) : HOLE_T;
+    ui.timer(g, left, this.timerX(), 60);
     // hole pill
     const label = `Hole ${this.holeIdx + 1} of ${HOLES.length}: ${hole.name}`;
     g.save(); g.font = `700 30px ${ui.FONT}`;
@@ -734,6 +738,15 @@ export class Game {
     if (hk >= 0 && hk < 2.2) ui.banner(g, 'HOLE IN ONE!', hk, { y: 400, size: 140, color: '#ffd23f' });
     if (this.phase === 'holeEnd') this.drawSummary(g);
     if (this.phase === 'wipe') this.drawWipe(g, this.pt / 0.9);
+  }
+
+  /** Centre of the gap ui.scoreboard leaves for the timer (it is off-centre for odd player counts). */
+  timerX() {
+    const n = this.n, gap = 220, chipW = Math.min(260, (W - 120 - gap) / n - 16);
+    const total = n * chipW + (n - 1) * 16 + gap;
+    const x0 = n === 1 ? W / 2 - gap / 2 - chipW : (W - total) / 2;
+    const gapAt = n === 1 ? 1 : Math.ceil(n / 2);
+    return x0 + gapAt * (chipW + 16) - 8 + gap / 2;
   }
 
   drawMiniFlag(g, x, y) {
