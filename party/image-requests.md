@@ -1596,3 +1596,100 @@ fine; the code uses one of each pair.
 - KPop trio: each74 keys/96frames/sixportraits; corrected original and new hand/eye points, preserved complete boot crops, fresh center recolor masks including true rear turn. Reviewed full Pop Star Stage and optimized Spotlight Dance with alternate outfits.
 
 - Unicorn: full75-key/98-frame/six-portrait set, reviewed source-local muzzle/horn attachments and turned/low-face points, fresh optimized copy; full Wizard Quickdraw and optimized Broomstick Dash reviewed.
+
+## New Play Studio game: dream-room
+
+_Requested by the dream-room agent, 2026-10-05. Priority: nice-to-have. The
+game is fully playable without any of this: every key below has a
+procedural fallback, and the code picks the art up automatically once the
+key is in `assets/art/index.json`._
+
+**How the room is built.** A cut-away dollhouse bedroom: back wall
+x 420–1500, y 200–590; floor from y 590 (back) to y 930 (front, x 270–1650);
+two side walls in perspective (door and light switch on the right one); a
+pink roof with the title ribbon above. Wallpapers and floors are drawn by
+code (they are swappable patterns), so they are **not** requested. Items
+stand on the floor (bottom-centre anchor) or hang on the wall (centre
+anchor) and are scaled by depth (×0.78 at the back wall, ×1 at the front).
+
+**Item art rules (all `prop/room-<id>`).**
+- Transparent WebP, quality 86, lossless alpha, ≤ 60 KB each. House style:
+  navy outlines, cel shading, cute and rounded, soft pastel colours. No text.
+- The code fits each image into the item's box (listed below) keeping its
+  aspect ratio. Floor items are **bottom-centre anchored** (feet or legs on
+  the bottom edge of the canvas). Wall items and rugs are **centred**. Trim
+  to the object, with no extra padding.
+- Paint the main fabric or paint in the colour listed. The Paint tool
+  recolours the art in code (the new colour's hue and saturation over the
+  art's own shading), so keep the colourable part in that one colour and
+  the other parts (wood, metal, white trim) neutral.
+- Draw items from the front and a little above, like the room. Not top-down.
+- Items that animate stay procedural and are not requested: fairy lights,
+  lava lamp, fish bowl, music box, balloon, butterflies, mirror, bunting,
+  rainbow rug, plushies, and the character poster and picture.
+
+### Backdrop and thumbnail
+
+| Key | Size | Description |
+| --- | --- | --- |
+| `bg/dream-room` | 1920×1080, opaque, ≤ 350 KB | The playroom **around** the dollhouse: a soft pastel lilac or pink wall with faint stars or polka dots, a blurred toy shelf or window light at the far left and right edges, and a light wooden table top from y≈930 to the bottom. Keep x 250–1670 and y 20–950 plain and soft, because the dollhouse, roof and title are drawn on top. The top-left (x 0–260, y 0–350) and top-right (x 1660–1920, y 0–200) corners hold UI panels, and the characters stand in the bottom corners. |
+| `thumb/dream-room` | 800×500 (16:10), opaque, ≤ 90 KB | Menu card: a cozy pink-striped bedroom seen from the front: a window with pink curtains, a white bed with a pink polka-dot blanket and a heart headboard, a unicorn plushie on the pillow, a nightstand with a glowing yellow lamp, a round purple rug, a teddy bear, a potted plant, fairy lights and a framed picture. Warm and sparkly. No text. The code's `drawIcon` shows this layout today. |
+
+### Furniture (`floor`, bottom-centre anchored)
+
+| Key | Canvas | Box in game | Colour to paint | Notes / prompt |
+| --- | --- | --- | --- | --- |
+| `prop/room-bed` | 720×424 | 360×212 | blanket **pink #ff8fc2** | Side view, headboard on the **left** (the code flips it). Cream wooden frame, a tall rounded headboard with a heart cut-out, a lower rounded footboard, a white mattress and pillow, and a pink polka-dot blanket over the right two-thirds with a folded top edge. The mattress top must sit about **54% of the height up from the bottom**, because characters bounce on it and plushies sit there. |
+| `prop/room-nightstand` | 232×252 | 116×126 | paint **cream #fff1e2** | Small two-drawer bedside table with gold round knobs and short legs. Flat top at the very top of the canvas, since small items sit on it. |
+| `prop/room-armchair` | 380×332 | 190×166 | fabric **pink #ff8fc2** | Front view: a puffy rounded armchair with tufted back buttons, a plump seat cushion, round arms and little wooden legs. Seat cushion top at about 50% of the height. |
+| `prop/room-beanbag` | 320×224 | 160×112 | fabric **pink #ff8fc2** | Squishy teardrop beanbag with a dent where you sit and a shiny highlight. |
+| `prop/room-dresser` | 428×332 | 214×166 | paint **cream #fff1e2** | Three-drawer dresser with two gold knobs per drawer and a flat top, since items sit on it. |
+| `prop/room-bookshelf` | 320×512 | 160×256 | paint **cream #fff1e2** | Tall bookcase with three shelves full of rainbow books (a few leaning) and a flat top. |
+| `prop/room-toychest` | 372×240 | 186×120 | paint **cream #fff1e2** | Toy chest with a rounded lid, two wooden straps and a big gold star on the front. |
+| `prop/room-desk` | 472×296 | 236×148 | paint **cream #fff1e2** | Simple writing desk with two legs on the left, a two-drawer unit on the right and a flat top. |
+| `prop/room-rockinghorse` | 440×340 | 220×170 | mane and saddle **pink #ff8fc2** | Side view, head on the **right**: a cream wooden rocking horse on curved wooden rockers, with a pink curly mane, tail and saddle and a happy face. The bottom of the rockers sits on the canvas bottom, because the code rocks it around that point. |
+| `prop/room-dollhouse` | 300×320 | 150×160 | roof **pink #ff8fc2** | A tiny toy dollhouse: cream walls, a pink roof with a white heart, blue windows and a little door. |
+| `prop/room-petbed` | 320×140 | 160×70 | cushion **pink #ff8fc2** | Round, plump pet bed seen from the front and above: the **back half** of the rim plus the soft inner cushion. The code draws a kitty curled up on the cushion. |
+| `prop/room-petbed-front` | 320×140 | 160×70 | cushion **pink #ff8fc2** | The **front half of the rim only**, aligned pixel for pixel with `room-petbed`, with a small paw print. It is drawn over the sleeping kitty. |
+
+### Lights (the code adds the night glow)
+
+| Key | Canvas | Box | Colour | Notes / prompt |
+| --- | --- | --- | --- | --- |
+| `prop/room-lamp` | 144×212 | 72×106 | shade **pink #ff8fc2** | Table lamp with a round cream base, a gold stem and a flared pleated shade. Bottom-centre anchored (it stands on tables and on the floor). |
+| `prop/room-floorlamp` | 200×524 | 100×262 | shade **pink #ff8fc2** | Tall floor lamp with a thin pole, a round base and a flared shade at the top. |
+| `prop/room-nightlight` | 128×144 | 64×72 | star **yellow #ffd23f** | A star-shaped night light with a sleepy smiling face (closed eyes) on a small round base. |
+
+### Wall decorations (centre anchored)
+
+| Key | Canvas | Box | Colour | Notes / prompt |
+| --- | --- | --- | --- | --- |
+| `prop/room-window` | 512×464 | 256×232 | curtains **pink #ff8fc2** | White window frame with a cross bar, a sill, a gold curtain rod and two pink curtains tied back with gold bands. **The glass must be transparent**: the code draws the day or night sky behind it in the rectangle x 84–428, y 64–384 of the 512×464 canvas (window centre at 256, 232). |
+| `prop/room-poster` | 300×392 | 150×196 | paper **cream #fffaf0** | Taped-on poster: a rainbow arching over two fluffy clouds, with a few stars, hearts and sparkles. |
+| `prop/room-clock` | 232×248 | 116×124 | body **pink #ff9ec4** | Round alarm clock with two gold bells on top and little feet. **No hands**: the code draws them at the real time, and the face centre is at (116, 136). |
+| `prop/room-shelf` | 428×120 | 214×60 | paint **cream #fff1e2** | A floating wall shelf: a plank with two little brackets underneath. The top of the plank must be at **y≈36** of 120, because plushies and lamps sit there. |
+
+### Plants, toys and rugs
+
+| Key | Canvas | Box | Colour | Notes / prompt |
+| --- | --- | --- | --- | --- |
+| `prop/room-plant` | 260×412 | 130×206 | pot **pink #ff9ec4** | Big leafy house plant (monstera-like) in a pot with a white heart. Bottom-centre anchored. |
+| `prop/room-flowers` | 140×216 | 70×108 | vase **pink #ff9ec4** | Little vase with a daisy, a pink tulip and a purple flower. |
+| `prop/room-cactus` | 128×192 | 64×96 | pot **pink #ff9ec4** | Cute cactus with two arms, a smiling face, blush and a pink flower on top, in a small pot. |
+| `prop/room-teddy` | 172×188 | 86×94 | fur **brown #c98a5a** | Sitting teddy bear with a pink bow tie. |
+| `prop/room-ball` | 120×120 | 60×60 | **red #ff4d6d** stripes | Beach ball with red, white and yellow wedges. |
+| `prop/room-blocks` | 200×180 | 100×90 | **pink #ff6fb1** | Three toy blocks, two on the bottom and one on top, with heart, star and circle symbols (no letters). |
+| `prop/room-rug-round` | 660×280 | 330×140 | **pink #ff9ec4** | Round rug seen at a low angle (a wide 2.4:1 oval) with pink, white and light-pink rings. Centred. |
+| `prop/room-rug-heart` | 660×300 | 330×150 | **pink #ff9ec4** | Heart-shaped fluffy rug, flattened by the same low angle, with a lighter inner heart. |
+| `prop/room-rug-star` | 740×320 | 370×160 | **pink #ff9ec4** | Star-shaped rug, flattened the same way, with a lighter inner star. |
+
+**Reused existing art (no new image needed):** `prop/rubber-duck` (the
+rubber duck toy, recoloured), `prop/present` (the present toy and the
+surprise box, recoloured), `prop/balloon-<colour>` (the balloon toy, 8
+colours), every character's base art (plushies with a stitched white
+outline, and the star poster) and the portraits (the framed picture).
+
+**Poses the room tour uses** (already in `POSES`, with fallbacks): `sit`
+(in the armchair or beanbag), `jump` and `fall` (bouncing on the bed),
+`dance`, `wave`, `cheer`, and `photo` (a peace sign for the group photo).
+Authored frames for `sit` and `photo` would help the most.
