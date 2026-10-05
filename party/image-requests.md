@@ -1638,3 +1638,30 @@ purple `#9b6bff` (7), pink `#ff6fd0` (8).
 - Flower: "A single round cartoon flower head with six soft <colour> petals and a cream face with rosy cheeks, two dot eyes and a small smile (sing version: eyes closed in happy arcs, mouth open in a round O, singing). Front view, centered, entirely visible with margin, no stem."
 - Note tokens: "A single <handbell | rounded piano key with a small black key on top | short rounded wooden marimba bar with two pins | round smiley face singing with an open O mouth>, rendered in plain white and light grey only (it will be recolored in code), bold navy outline. Front view, centered."
 - Instrument badge: "A single <object> as a chunky game icon, front view, centered, fills the canvas."
+
+## New Play Studio game: bead-bracelets
+
+### bead-bracelets — Sparkle Bead Shop   (requested by the bead-bracelets agent, 2026-10-05, priority: nice-to-have)
+
+Everything below has a procedural fallback that ships today (glossy vector
+beads, drawn charms, trays, cards and shop). The code already looks up every
+key, so a file listed in `assets/art/index.json` drops in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, glossy
+highlights, **no text** in any image. Reused as they are: the roster sprites
+(`pose-twirl`, `photo`, `strike2`, `strike3`, `cheer`, `celebrate`, `think`,
+`action`, `wave`), and Glimmer, Professor Hoot and Fellowfox as customers.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/bead-bracelets` | 1920×1080, opaque | Full screen behind the split stations. It shows as side columns at 1 player and as top/bottom bands at 2–8 players. Keep the top ~110 px calm (the HUD band sits there) | A cozy pastel bead boutique wall: pink-and-cream vertical stripes, wooden shelves along the far left and right edges holding glass jars full of colourful beads, a swag of giant beads hanging across the top, a warm wooden floor strip at the bottom. Low detail in the centre (stations cover it) |
+| `bg/bead-bracelets-station` | 1290×900 (ratio 860:600), opaque | Stretched over one station. **The layout must match:** wall from y=0 to about y=37% (222/600), a rounded wooden counter edge at 37%, wooden counter top below. The customer stands at the far left behind the counter; the code draws the pattern card and display shelf on the wall | A bead-shop counter seen from the shopkeeper's side: soft pastel wallpaper with tiny polka dots on the upper 37%, a honey-wood counter lip, then a light wooden counter top with faint grain. Nothing on the counter (the code draws the string, tray and beads) |
+| `bg/bead-bracelets-mirror` | 1920×1080, opaque | Full screen for the finale. Characters stand on the floor band from y≈740 to y≈960; a camera punch zooms in up to 1.18× | A boutique dressing nook with a giant arched gold mirror (rounded top, bulb lights around the frame) filling almost the whole picture. The glass is pale blue-lilac with soft diagonal sheen streaks, with a pink carpet floor reflected at the bottom. No characters |
+| `thumb/bead-bracelets` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Cotton Candy at a bead-shop table holding up a finished bead bracelet (hearts, stars, a gold heart charm), a strand of pink-heart and blue-star beads with a needle in the foreground, sparkles. Subject centred |
+| `prop/bead-atlas` | 768×576 (8 columns × 6 rows of 96 px cells), transparent | One cell per bead, drawn centred at 2.3 × the bead radius. **Columns are colours, in this order:** pink `#ff7ac6`, red `#ff4d5e`, orange `#ff9f1c`, yellow `#ffd23f`, mint `#4fd98a`, sky `#4fb8ff`, purple `#a77bff`, pearl `#f3ecfa`. **Rows are shapes:** heart, star, round, flower, moon (crescent opening to the upper right), gem (faceted, table at the top). Each bead fills ~85% of its cell, centred, front view, upright | Glossy plastic/glass craft beads for kids: chunky and candy-bright, with a navy outline, a white highlight at the upper left and a tiny string hole on the round bead. All 48 must share lighting, outline weight and scale so a mixed bracelet looks uniform |
+| `prop/charm-heart`, `prop/charm-star`, `prop/charm-crown`, `prop/charm-butterfly`, `prop/charm-shell`, `prop/charm-cupcake`, `prop/charm-rainbow`, `prop/charm-horn` | 128×128 each, transparent | Drawn centred, fitted to 2.5 × the bead radius. On the string the code hangs it from its own jump ring, so the image needs **no ring** and should be centred in the canvas | Little jewellery charms: a gold heart locket with a pink gem; a gold star; a gold crown with three gems; a pink-and-purple butterfly; a peachy scallop seashell; a cupcake with a blue wrapper, pink frosting and a cherry; a small four-stripe rainbow with clouds; a gold-and-pearl spiral unicorn horn |
+| `prop/bead-tray` | 1300×392 (ratio 650:196), transparent | Stretched over the tray rect. The code draws the bead dimples and beads on top, so the inner area must be plain (from 36 px in at the sides and 14 px at the top and bottom, in 650×196 units) | A shallow wooden craft tray with a rounded honey-wood rim and a deep purple velvet lining, seen from above at a slight angle |
+| `prop/pattern-card` | 812×376 (ratio 406:188), transparent | Stretched over the customer's order card; the code draws a speech tail on the left. Keep the top 30 px band and the centre plain: beads go across the middle, and a Y hint glyph sits at the lower right | A cream recipe-style card with a pink washi-tape band at the top, a red pushpin at the top centre and slightly curled corners |
+| `prop/bead-shelf` | 448×288 (ratio 224:144), transparent | Stretched under the display of finished bracelets. The pegs are at fixed spots (two rows of three) and the code draws the bracelets on them | A small honey-wood pegboard display stand: a plain board with a pale pattern of pegboard holes |
+
+Optional: the game already asks for the `pose-twirl` pose. Frames for it
+for every roster character would replace the code's horizontal squash-spin.
