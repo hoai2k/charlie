@@ -1860,3 +1860,41 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: cloud-hop
+
+### cloud-hop — Cloud Hop   (requested by the cloud-hop agent, 2026-10-05, priority: nice-to-have)
+
+A vertical platformer race: everyone bounces up one shared sky tower of
+clouds (side view) to a golden rainbow summit. The camera scrolls up; the sky
+colour shifts with altitude in code (morning blue → lavender → sunset pink →
+twilight purple with stars), so the background art is tinted over by the
+code and should stay a calm, neutral sky. Every key below has a procedural
+fallback that ships today and is picked up automatically once it is in
+`assets/art/index.json`. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text**. Characters are drawn at 0.56–0.7
+scale (≈ 75–130 px tall), so platforms are sized to match. Clouds are
+squashed/stretched by code when bounced on, so keep them as single objects
+with no cast shadows.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/cloud-hop` | 1920×1080, opaque | Screen-fixed behind everything (it does not scroll), then washed 35% toward the altitude colour by code. Code draws the sun/moon, parallax clouds, hot-air balloons and twinkles on top. Keep the top ~120 px and the right 140 px calm (HUD chips and the height track) | A soft, dreamy open sky with no ground and no horizon: a gentle pastel gradient (light blue at the top to pale pink-peach at the bottom) with a few very faint, wispy far-away clouds and tiny pale sparkles. Low contrast and low detail so foreground clouds and characters read clearly |
+| `thumb/cloud-hop` | 800×500, opaque | Game-select shelf and how-to screen, drawn with `cover` fit (procedural `drawIcon` is the fallback) | A cheerful character bouncing high off a fluffy white cloud with motion lines, a stack of clouds climbing up the picture (a pink springy cloud, a grey sleepy rain cloud, a trampoline), a glowing gold star, and a big rainbow arch with a gold star on top at the summit, against a sunset-pink-to-lavender sky. Subject centred |
+| `prop/cloudhop-cloud` | 512×200, transparent | A normal cloud platform, **stretched** (not aspect-kept) into a box (platform width + 20) × (≈96 px) for widths 160–250 px. The landing line (where feet touch) is about **16% down from the top edge** of the image; the puffy bumps rise slightly above it, the rounded body hangs below | A fluffy white cartoon cloud seen from the side: a row of round puffs on top, a soft rounded underside with pale periwinkle cel shading, navy outline, a small highlight on the top-left puffs. Optional tiny happy closed-eye face with pink cheeks on the lower body. Wide and fairly flat (about 2.6:1) |
+| `prop/cloudhop-cloud-pink` | 512×200, transparent | Same box and landing line as `prop/cloudhop-cloud`. The super-bouncy cloud (launches you very high) | The same cloud shape in bubblegum pink with deeper pink shading, a surprised "ooh" face, little gold coil springs peeking out underneath, and a white sparkle. Looks bouncy and fun |
+| `prop/cloudhop-cloud-rain` | 512×200, transparent | Same box and landing line as `prop/cloudhop-cloud`. Puffs away after one bounce (code fades/scales it and adds drops) | The same cloud shape in soft blue-grey, with a sleepy, content closed-eye face (not grumpy, not scary), two or three tiny light-blue raindrops dangling underneath |
+| `prop/cloudhop-cloud-drift` | 512×200, transparent | Same box and landing line as `prop/cloudhop-cloud`. Slides left and right (code adds wind swooshes) | The same cloud shape in pale lavender with white highlights and a couple of tiny curly wind swirls on its sides |
+| `prop/cloudhop-trampoline` | 384×200, transparent | Bottom-centre anchored 70 px below the landing line, fitted (aspect kept) into (≈190)×100 px. The **top of the trampoline mat is 30% down from the top edge** | A small round party trampoline on a little white cloud: a pink-and-white striped stretchy mat, yellow ball rims at the ends, short sky-blue legs, side view |
+| `prop/cloudhop-bridge` | 1440×280, transparent | A wide rainbow bridge platform, **stretched** into 720×140 px centred 40 px below the landing line. The landing line is **21% down from the top edge**, flat across | A short, gently sagging rainbow-striped bridge (red, orange, yellow, green, blue, purple bands) with a navy outline and a white shine stripe, resting on a fluffy white cloud puff at each end. Side view, flat top |
+| `prop/cloudhop-star` | 256×256, transparent | Collectible star, drawn centred and fitted into 72×72 px (code adds a soft glow and a gentle wobble) | A chubby glossy gold five-point star with rounded tips, navy outline, a white shine on the upper left. Optional tiny happy face |
+| `prop/cloudhop-bubble` | 256×256, transparent | The rescue bubble that floats a fallen player back up, drawn centred over the character and fitted to ≈2.1 × the bubble radius (≈ 150–220 px). The character must show through it | A big round soap bubble: mostly transparent centre, an iridescent pink-blue-lilac rim, a white curved highlight at the upper left, a thin white outline |
+| `prop/cloudhop-summit` | 1640×520, transparent | The goal, bottom-centre anchored 60 px below the summit landing line and fitted into 1640×520; the code draws a full-width golden cloud bank over the bottom ~70 px | A huge, glowing rainbow arch (seven bands with a navy outline and a white shimmer) spanning almost the full width, with a big chubby gold star on top at the centre and golden sparkles around. No ground: the arch feet are hidden by clouds drawn in code |
+| `prop/cloudhop-balloon` | 260×360, transparent | Background decoration, centred and fitted into ≈ 75–110 × 100–155 px, drawn at 85% opacity drifting slowly | A cute hot-air balloon with candy stripes (pink and white), a little woven basket on ropes, navy outline, soft shading. Empty basket |
+
+New sprite pose wished for (optional; the game reads fine with the
+fallbacks): `spring-jump` (one-shot; fallback `dance-star` → `jump`) —
+launching upward off a trampoline, arms straight up, knees tucked, big grin.
+The game already uses the existing poses `jump`, `fall`, `dance-star`
+(flutter hop / rocket), `float` (in the rescue bubble), `hurt`, `dizzy`,
+`cheer`, `celebrate` and `pout`.
