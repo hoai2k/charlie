@@ -100,6 +100,19 @@ Sizes are final pixel sizes. The game scales art down but never up.
 | 6 | `assets/ui/try_these.webp` | 6 cells × 160×160, one row, alpha | **"Try this!" sticker icons**, for a hint strip shown the first time someone plays. In order: a big smile, a laugh (head back), a kiss or pucker (with a heart), tongue out, a surprised "O" mouth, and making a heart with the hands. Draw each one as a cute cartoon face on a round sticker with a white die-cut border. These match the gestures the game already reacts to. |
 | 7 | `favicon.png` (replace) | 128×128 | A new icon matching the logo, such as Rumi's face with puppet strings. It's also used on the library landing page card. |
 
+### Round 2 (2026-10-05): home-screen app icons
+
+The game can now be added to a phone or tablet home screen
+(`manifest.webmanifest`), and from there it opens full screen. The icons
+below are stand-ins made from Rumi's face art, and the purple hair
+disappears into the purple background. They are picked up by path, so
+replacing a file needs no code change.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| 8 | `assets/icons/icon-512.png`, `icon-192.png`, `icon-180.png` | 512×512, 192×192, 180×180, PNG, no alpha | **Home-screen app icon.** Use the same art as the favicon (#7), such as Rumi's face hanging from a small marionette cross-bar, on a solid background that contrasts with her purple hair (pink `#e04f97` or gold `#ffc94a`). Fill the whole square with no rounded corners, because the phone rounds them itself. Make one master at 1024 and scale it down for each size. |
+| 9 | `assets/icons/icon-maskable-512.png` | 512×512, PNG, no alpha | The same icon for Android's shaped icons. Keep everything important inside the centre circle (about 80% of the width), and let the background fill to the edges. |
+
 ---
 
 ## 4. Checking your work

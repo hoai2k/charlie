@@ -76,3 +76,8 @@ See `AGENTS.md` for the shared agent instructions and push recovery guidance.
   in `CHARACTER_STYLES` in `site.js`. Optional art listed in
   `dollpuppets/image-requests.md` is picked up automatically when the file
   exists. Bump the `?v=` on `site.css`/`site.js` in its `index.html` on change.
+- `dollpuppets/src/core/screen-chrome.js` (ported from hoai2k/mini widowsbay)
+  gets the browser bars out of the way: fullscreen on touch devices when a doll
+  is picked or on the first tap in landscape; the iPhone Safari swipe-up
+  scroll trick with a hint; and it sizes `.dolls-app` to the visual
+  viewport. `manifest.webmanifest` makes Add to Home Screen open full screen.

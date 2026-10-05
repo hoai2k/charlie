@@ -39,14 +39,97 @@ button {
   display: none !important;
 }
 
+/* Fixed to the visual viewport; src/core/screen-chrome.js sets the exact
+   left/top/width/height (CSS vh is wrong on phones with browser bars). */
 .dolls-app {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 100vw;
   height: 100vh;
   height: 100svh;
   overflow: hidden;
   color: var(--ink);
   isolation: isolate;
+}
+
+/* ---------- Browser bars (src/core/screen-chrome.js) ---------- */
+
+/* iPhone Safari: the page is a little taller than the screen so a swipe up
+   tucks Safari's bars away. During play the canvas owns every gesture, so
+   nothing scrolls. */
+html.ios-scroll,
+html.ios-scroll body {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.ios-scroll body {
+  touch-action: pan-y;
+}
+
+/* The game is fixed and takes no height, so a spacer makes the page taller
+   than the screen (100lvh: as tall as the screen with the bars hidden). */
+html.ios-scroll body::after {
+  content: "";
+  display: block;
+  height: calc(100lvh + 160px);
+}
+
+html.ios-scroll.ios-scroll-play,
+html.ios-scroll.ios-scroll-play body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.bars-hint {
+  position: fixed;
+  left: 50%;
+  top: max(8px, env(safe-area-inset-top));
+  z-index: 20;
+  padding: 7px 16px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(106, 58, 168, 0.94);
+  box-shadow: var(--shadow);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.bars-hint .arrow {
+  display: inline-block;
+  color: var(--gold);
+  font-weight: 700;
+  animation: nudge 1.4s ease-in-out infinite;
+}
+
+.bars-hint.flash {
+  animation: hint-flash 0.9s ease-in-out 2;
+}
+
+.fullscreen-button {
+  position: absolute;
+  top: max(14px, env(safe-area-inset-top));
+  right: max(14px, env(safe-area-inset-right));
+  z-index: 9;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(106, 58, 168, 0.85);
+  box-shadow: var(--shadow);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
 }
 
 /* ---------- Scene ---------- */
@@ -604,6 +687,18 @@ button:focus-visible {
   }
 }
 
+@keyframes nudge {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes hint-flash {
+  50% {
+    background: var(--pink-deep);
+  }
+}
+
 @keyframes card-in {
   from {
     opacity: 0;
@@ -655,6 +750,16 @@ button:focus-visible {
 }
 
 @media (max-height: 520px) {
+  .gesture-hints {
+    bottom: calc(max(12px, env(safe-area-inset-bottom)) + 62px);
+    width: min(360px, 50vw);
+    padding: 4px 34px 6px 8px;
+  }
+
+  .gesture-hints strong {
+    font-size: 15px;
+  }
+
   .title-screen {
     --cols: 10;
     --card: clamp(56px, 7.6vw, 80px);
