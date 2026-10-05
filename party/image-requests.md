@@ -1860,3 +1860,41 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: treasure-dig
+
+### treasure-dig — Treasure Dig   (requested by the treasure-dig agent, 2026-10-05, priority: nice-to-have)
+
+A hot/cold treasure hunt on a sunny beach (2.5D top-down). Everything below
+has a procedural fallback that ships today. The code already looks up every
+key, so a file listed in `assets/art/index.json` drops in with no code change.
+House style: navy `#24163f` outlines, soft cel shading, bright candy colours,
+**no text** in any image. Props are seen from a slight front three-quarter
+view (like the roster sprites) and centred in a transparent canvas unless the
+anchor says otherwise. Reused as they are: the roster sprites (`crouch`,
+`action`, `cheer`, `celebrate`, `surprised`, `hurt`, `walk`, `run`), plus
+`prop/crown`, `prop/rubber-duck`, `prop/gem-blue` and `prop/charm-shell` as
+second-choice fallbacks.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/treasure-dig` | 1920×1080, opaque | Full screen. **The layout must match:** sea from y=0 to y≈262 (the code animates lapping foam at y≈262 and big waves that wash down to y≈560–680), a darker wet-sand band at y≈262–330, dry sand below. Players walk in x 130–1790, y 350–1030, so keep that area flat sand with only faint ripples (the code draws holes, chests and starfish). The top ~200 px sit under the score chips and timer. Put edge decor only outside the play area: a striped beach umbrella and a towel at the right edge, a sandcastle and a towel at the left edge, a palm tree in the bottom-right corner. Keep the bottom-left 120×120 plain | A bright, sunny cartoon beach seen from above at a gentle angle: turquoise sea with soft white wave lines at the top, a scalloped foam line, warm golden sand with faint wind ripples and a few pebbles, and cheerful beach decor along the far left and right edges. No shells or treasure on the sand (those are gameplay) |
+| `thumb/treasure-dig` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A half-dug-out wooden treasure chest glowing gold on a sunny beach with gold coins flying out, a pink scallop-shell gadget with an antenna beaming red "hot" ripple rings, a cute crab peeking out of a sand hole, sea at the top. Subject centred |
+| `prop/treasure-shell` | 192×192, transparent | Centred, fitted into a 70 px box when held up over the finder's head | A peach-and-pink scallop seashell with ridges and a soft shine |
+| `prop/treasure-pearl` | 192×192, transparent | Centred, 70 px box | A small open lilac clam shell holding a big glowing white pearl |
+| `prop/treasure-gem` | 192×192, transparent | Centred, 70 px box | A faceted sky-blue gem (brilliant cut, table on top) with white glints |
+| `prop/treasure-coins` | 192×192, transparent | Centred, 70 px box | A little stack of shiny gold coins with one coin standing up in front showing a star |
+| `prop/treasure-crown` | 192×192, transparent | Centred, 96 px box (the jackpot). Falls back to `prop/crown` | A sparkly golden crown with a big pink jewel, just dug up (a few sand grains), extra shiny |
+| `prop/treasure-chest` | 300×240, transparent | Bottom-centre anchored at the chest's base, drawn 150 px wide. The code clips it at the sand line, raises it out of a hole as players dig, and draws a sand lip over the bottom | A closed wooden treasure chest (friendly, not scary): honey-brown planks, gold bands, a gold lock, a rounded lid |
+| `prop/treasure-chest-open` | 300×300, transparent | Bottom-centre anchored, drawn 150 px wide (taller because the lid stands open) | The same chest with the lid flipped open, heaped with gold coins and a pearl necklace, warm golden glow inside |
+| `prop/shell-detector` | 128×128, transparent | Centred, drawn 50 px, floating beside each character. **The code draws a round coloured light (blue → yellow → red) over the centre** (about a third of the width), so leave the middle a plain rounded dome | A cute treasure-detector gadget shaped like a pink scallop shell, with a little curly antenna with a ball tip on top and a round lens in the middle |
+| `prop/beach-crab` | 192×192, transparent | Centred, drawn 76 px. It pops out of a hole, snaps its claws, then scuttles sideways | A round, friendly red-orange crab, front view, eyes on stalks, a big smile and rosy cheeks, both claws raised |
+| `prop/beach-seaweed` | 160×160, transparent | Centred, drawn 74 px and draped on a character's head (the top of the image sits at the top of the head) | A soft clump of three wavy green seaweed ribbons hanging down, glossy and silly |
+| `prop/beach-sock` | 160×160, transparent | Centred, 70 px box, held up over the head | A single lost striped sock (pink, blue and yellow stripes) with a pink toe |
+| `prop/beach-duck` | 160×160, transparent | Centred, 70 px box. Optional: falls back to `prop/rubber-duck` | A yellow rubber duck, a little sandy |
+| `prop/beach-starfish` | 128×128, transparent | Centred, drawn 56 px. Waves wash it up; it bobs with a glow | A cheerful orange starfish with tiny dots and a small happy face |
+| `prop/sand-hole` | 256×128, transparent | Centred on the dig spot, drawn 2.6r × 1.3r (r ≈ 30 px). It fades out when the waves smooth it | A freshly dug hole in golden sand, seen from above at an angle: dark damp inside, with a little rim of scooped sand around it |
+
+Optional pose: the game digs with `crouch` + `action` today. A dedicated
+`dig` pose (crouched, scooping sand back between the legs; loop; fallback
+`crouch`, `action`) for every roster character would replace that later.
