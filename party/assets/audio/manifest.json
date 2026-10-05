@@ -758,7 +758,13 @@
   "cloudhop-rocket": "sfx/cloudhop-rocket.mp3",
   "cloudhop-bubble": "sfx/cloudhop-bubble.mp3",
   "cloudhop-bonk": "sfx/cloudhop-bonk.wav",
-  "cloudhop-finish": "sfx/cloudhop-finish.mp3"
+  "cloudhop-finish": "sfx/cloudhop-finish.mp3",
+  "pinata-swish": "sfx/pinata-swish.wav",
+  "pinata-whack": "sfx/pinata-whack.wav",
+  "pinata-crack": "sfx/pinata-crack.mp3",
+  "pinata-burst": "sfx/pinata-burst.mp3",
+  "pinata-candy-bounce": "sfx/pinata-candy-bounce.wav",
+  "pinata-rope": "sfx/pinata-rope.mp3"
  },
  "music": {
   "title": {
