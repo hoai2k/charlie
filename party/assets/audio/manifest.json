@@ -670,6 +670,11 @@
  },
  "music": {
   "title": {
+   "file": "music/charlies-party.mp3",
+   "stream": true,
+   "label": "Charlie's Party"
+  },
+  "party": {
    "file": "music/bubblegum-radar.mp3",
    "stream": true,
    "label": "Bubblegum Radar",
@@ -689,11 +694,6 @@
      "label": "New title theme"
     }
    ]
-  },
-  "party": {
-   "file": "music/bubblegum-radar.mp3",
-   "stream": true,
-   "label": "Bubblegum Radar"
   },
   "dance": {
    "file": "music/takes/dance-1.mp3",
