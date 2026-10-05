@@ -1,0 +1,302 @@
+[
+  {
+    "key": "bg/dream-room",
+    "size": [
+      1920,
+      1080
+    ],
+    "description": "The playroom around the dollhouse: a soft pastel lilac or pink wall with faint stars or polka dots, a blurred toy shelf or window light at the far left and right edges, and a light wooden table top from y\u2248930 to the bottom. Keep x 250\u20131670 and y 20\u2013950 plain and soft, because the dollhouse, roof and title are drawn on top. The top-left (x 0\u2013260, y 0\u2013350) and top-right (x 1660\u20131920, y 0\u2013200) corners hold UI panels, and the characters stand in the bottom corners.",
+    "transparent": false,
+    "budget": 350
+  },
+  {
+    "key": "thumb/dream-room",
+    "size": [
+      800,
+      500
+    ],
+    "description": "Menu card: a cozy pink-striped bedroom seen from the front: a window with pink curtains, a white bed with a pink polka-dot blanket and a heart headboard, a unicorn plushie on the pillow, a nightstand with a glowing yellow lamp, a round purple rug, a teddy bear, a potted plant, fairy lights and a framed picture. Warm and sparkly. No text. The code's drawIcon shows this layout today.",
+    "transparent": false,
+    "budget": 90
+  },
+  {
+    "key": "prop/room-bed",
+    "size": [
+      720,
+      424
+    ],
+    "description": "360\u00d7212 | blanket pink #ff8fc2 | Side view, headboard on the left (the code flips it). Cream wooden frame, a tall rounded headboard with a heart cut-out, a lower rounded footboard, a white mattress and pillow, and a pink polka-dot blanket over the right two-thirds with a folded top edge. The mattress top must sit about 54% of the height up from the bottom, because characters bounce on it and plushies sit there.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-nightstand",
+    "size": [
+      232,
+      252
+    ],
+    "description": "116\u00d7126 | paint cream #fff1e2 | Small two-drawer bedside table with gold round knobs and short legs. Flat top at the very top of the canvas, since small items sit on it.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-armchair",
+    "size": [
+      380,
+      332
+    ],
+    "description": "190\u00d7166 | fabric pink #ff8fc2 | Front view: a puffy rounded armchair with tufted back buttons, a plump seat cushion, round arms and little wooden legs. Seat cushion top at about 50% of the height.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-beanbag",
+    "size": [
+      320,
+      224
+    ],
+    "description": "160\u00d7112 | fabric pink #ff8fc2 | Squishy teardrop beanbag with a dent where you sit and a shiny highlight.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-dresser",
+    "size": [
+      428,
+      332
+    ],
+    "description": "214\u00d7166 | paint cream #fff1e2 | Three-drawer dresser with two gold knobs per drawer and a flat top, since items sit on it.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-bookshelf",
+    "size": [
+      320,
+      512
+    ],
+    "description": "160\u00d7256 | paint cream #fff1e2 | Tall bookcase with three shelves full of rainbow books (a few leaning) and a flat top.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-toychest",
+    "size": [
+      372,
+      240
+    ],
+    "description": "186\u00d7120 | paint cream #fff1e2 | Toy chest with a rounded lid, two wooden straps and a big gold star on the front.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-desk",
+    "size": [
+      472,
+      296
+    ],
+    "description": "236\u00d7148 | paint cream #fff1e2 | Simple writing desk with two legs on the left, a two-drawer unit on the right and a flat top.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-rockinghorse",
+    "size": [
+      440,
+      340
+    ],
+    "description": "220\u00d7170 | mane and saddle pink #ff8fc2 | Side view, head on the right: a cream wooden rocking horse on curved wooden rockers, with a pink curly mane, tail and saddle and a happy face. The bottom of the rockers sits on the canvas bottom, because the code rocks it around that point.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-dollhouse",
+    "size": [
+      300,
+      320
+    ],
+    "description": "150\u00d7160 | roof pink #ff8fc2 | A tiny toy dollhouse: cream walls, a pink roof with a white heart, blue windows and a little door.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-petbed",
+    "size": [
+      320,
+      140
+    ],
+    "description": "160\u00d770 | cushion pink #ff8fc2 | Round, plump pet bed seen from the front and above: the back half of the rim plus the soft inner cushion. The code draws a kitty curled up on the cushion.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-petbed-front",
+    "size": [
+      320,
+      140
+    ],
+    "description": "160\u00d770 | cushion pink #ff8fc2 | The front half of the rim only, aligned pixel for pixel with room-petbed, with a small paw print. It is drawn over the sleeping kitty.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-lamp",
+    "size": [
+      144,
+      212
+    ],
+    "description": "72\u00d7106 | shade pink #ff8fc2 | Table lamp with a round cream base, a gold stem and a flared pleated shade. Bottom-centre anchored (it stands on tables and on the floor).",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-floorlamp",
+    "size": [
+      200,
+      524
+    ],
+    "description": "100\u00d7262 | shade pink #ff8fc2 | Tall floor lamp with a thin pole, a round base and a flared shade at the top.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-nightlight",
+    "size": [
+      128,
+      144
+    ],
+    "description": "64\u00d772 | star yellow #ffd23f | A star-shaped night light with a sleepy smiling face (closed eyes) on a small round base.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-window",
+    "size": [
+      512,
+      464
+    ],
+    "description": "256\u00d7232 | curtains pink #ff8fc2 | White window frame with a cross bar, a sill, a gold curtain rod and two pink curtains tied back with gold bands. The glass must be transparent: the code draws the day or night sky behind it in the rectangle x 84\u2013428, y 64\u2013384 of the 512\u00d7464 canvas (window centre at 256, 232).",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-poster",
+    "size": [
+      300,
+      392
+    ],
+    "description": "150\u00d7196 | paper cream #fffaf0 | Taped-on poster: a rainbow arching over two fluffy clouds, with a few stars, hearts and sparkles.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-clock",
+    "size": [
+      232,
+      248
+    ],
+    "description": "116\u00d7124 | body pink #ff9ec4 | Round alarm clock with two gold bells on top and little feet. No hands: the code draws them at the real time, and the face centre is at (116, 136).",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-shelf",
+    "size": [
+      428,
+      120
+    ],
+    "description": "214\u00d760 | paint cream #fff1e2 | A floating wall shelf: a plank with two little brackets underneath. The top of the plank must be at y\u224836 of 120, because plushies and lamps sit there.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-plant",
+    "size": [
+      260,
+      412
+    ],
+    "description": "130\u00d7206 | pot pink #ff9ec4 | Big leafy house plant (monstera-like) in a pot with a white heart. Bottom-centre anchored.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-flowers",
+    "size": [
+      140,
+      216
+    ],
+    "description": "70\u00d7108 | vase pink #ff9ec4 | Little vase with a daisy, a pink tulip and a purple flower.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-cactus",
+    "size": [
+      128,
+      192
+    ],
+    "description": "64\u00d796 | pot pink #ff9ec4 | Cute cactus with two arms, a smiling face, blush and a pink flower on top, in a small pot.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-teddy",
+    "size": [
+      172,
+      188
+    ],
+    "description": "86\u00d794 | fur brown #c98a5a | Sitting teddy bear with a pink bow tie.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-ball",
+    "size": [
+      120,
+      120
+    ],
+    "description": "60\u00d760 | red #ff4d6d stripes | Beach ball with red, white and yellow wedges.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-blocks",
+    "size": [
+      200,
+      180
+    ],
+    "description": "100\u00d790 | pink #ff6fb1 | Three toy blocks, two on the bottom and one on top, with heart, star and circle symbols (no letters).",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-rug-round",
+    "size": [
+      660,
+      280
+    ],
+    "description": "330\u00d7140 | pink #ff9ec4 | Round rug seen at a low angle (a wide 2.4:1 oval) with pink, white and light-pink rings. Centred.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-rug-heart",
+    "size": [
+      660,
+      300
+    ],
+    "description": "330\u00d7150 | pink #ff9ec4 | Heart-shaped fluffy rug, flattened by the same low angle, with a lighter inner heart.",
+    "transparent": true,
+    "budget": 60
+  },
+  {
+    "key": "prop/room-rug-star",
+    "size": [
+      740,
+      320
+    ],
+    "description": "370\u00d7160 | pink #ff9ec4 | Star-shaped rug, flattened the same way, with a lighter inner star.",
+    "transparent": true,
+    "budget": 60
+  }
+]
