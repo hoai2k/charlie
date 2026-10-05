@@ -1860,3 +1860,36 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: pinata-party
+
+### pinata-party — Piñata Party   (requested by the pinata-party agent, 2026-10-05, priority: nice-to-have)
+
+A backyard birthday party: big crepe-paper piñatas swing on ropes from a
+striped wooden frame, players whack them with padded party bats, and a
+shower of candy bursts out for everyone to scramble after. Everything below
+has a procedural fallback that ships today; the code already looks up every
+key, so a file listed in `assets/art/index.json` drops in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Piñatas are cute and friendly (they giggle
+when hit); keep them cheerful, never scary. Characters reuse the roster
+sprites (`action`, `cheer`, `celebrate`, `pout`, `hurt`, `dizzy`, `walk`, `run`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pinata-party` | 1920×1080, opaque | Full screen, drawn as is. **Layout must match:** keep the top ~110 px calm (score chips sit there); a wooden crossbar spans the width at y≈145–170 (x 40–1880) on two candy-cane striped posts at x≈64 and x≈1856 that stand on the lawn at y≈470 (the ropes hang from the crossbar, the code draws ropes and knots); sky and trees above a white picket fence at y≈300–410; lawn from y≈400 to the bottom. The play area (x 100–1820, y 455–1035) must stay open, plain grass | A sunny backyard birthday party seen from a slightly raised angle: soft blue sky with puffy clouds and a sun at the upper right, round green trees behind a white picket fence with balloon bunches tied to it, a party table with a striped cloth, a small cake and presents at the back right just behind the fence line, rainbow triangle bunting hanging under a honey-wood crossbar held up by red-and-white striped posts at both edges, and a wide bright striped lawn with a few daisies |
+| `thumb/pinata-party` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A rainbow star piñata with crepe-paper fringe and tassels swinging on a rope over a backyard lawn, a cute character swinging a striped padded party bat at it, wrapped candies, lollipops and one glowing golden candy bursting out with confetti. Subject centred |
+| `prop/pinata-star` | 520×520, transparent | Body centre at pixel (260, 280); fills ~70% of the width; drawn rotated/squashed/twirled as it swings (scale ~0.7–1.1). The rope ties on at the **top point**, pixel ≈ (260, 100). The code adds the rainbow tassels on the four lower points, cracks over the middle and nothing else, so **include a cute face** (two eyes, smile, pink cheeks) | A classic five-pointed star piñata covered in horizontal rows of rainbow crepe-paper fringe (pink, orange, yellow, green, blue, purple), cute smiling face in the middle, front view |
+| `prop/pinata-unicorn` | 520×520, transparent | Body centre (middle of the torso) at pixel (260, 280), facing **right**, spanning about x 80–480. The rope ties on the middle of the back, pixel ≈ (240, 232). The code draws the rainbow tail tassel at the rump (left) | A unicorn piñata in side view: pastel white, pink, lilac and sky crepe-paper fringe rows, a rainbow curly mane, a gold spiral horn, lilac hooves, a cute happy eye and smile |
+| `prop/pinata-llama` | 520×520, transparent | Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back ≈ (240, 245) | A llama piñata in side view with a long neck and banana ears: cream, pink, mint and yellow fringe rows, a woven red/yellow/teal blanket with pom-poms on its back, a cute happy eye and smile |
+| `prop/pinata-donkey` | 520×520, transparent | Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back ≈ (244, 238). The code draws the tail tassel at the rump | A classic donkey (burro) piñata in side view with tall ears: bright rainbow crepe-paper fringe rows, a pink spiky fringe mane, a cute happy eye and smile |
+| `prop/party-bat` | 480×120, transparent | Horizontal, knob at the left edge, the hand's grip point 20% in (x=96, vertical centre), padded barrel out to the right edge. Drawn rotated in the character's hand at 1.2 × 0.6 × the character's height long (≈120–150 px), swung overhead | A soft padded party bat for kids: a blue grip-taped handle with a yellow knob and a fat rounded foam barrel with pink-and-white candy stripes. Clearly soft and toy-like |
+| `prop/candy-wrapped` | 128×128, transparent | Centred, drawn at 72×72 (contain); bounces and spins on the lawn | A twist-wrapped round sweet (bow-tie wrapper ends), glossy pink wrapper with white diagonal stripes |
+| `prop/candy-lollipop` | 128×128, transparent | Centred, drawn at 72×72 (contain) | A round swirl lollipop (blue and white spiral) on a short white stick |
+| `prop/candy-golden` | 128×128, transparent | Centred, drawn at 72×72 (contain); the code adds a pulsing glow behind it | A shiny golden twist-wrapped candy with a white sparkle on it, extra glossy (worth 5 points) |
+
+New pose wanted (the game already asks for it; until it exists it falls back
+to `action`): **`swing`** — one-shot, a two-handed overhead swing of a bat
+from behind the shoulder forward and up (as if hitting something just above
+head height), cheerful face. Quadrupeds can rear up on the hind legs; the
+cake can do a big hop forward.
