@@ -1874,7 +1874,7 @@ key. House style: navy `#24163f` outlines, soft cel shading, bright candy
 colours, **no text** in any image. Stack items are seen **from the side,
 very slightly from above** (a thin sliver of the top surface shows), so
 they stack flush on each other. All props are transparent WebP, trimmed to
-the object with no padding. Lane scale is 0.48× (8 players) to 1.3× (1–3
+the object with no padding. Lane scale is 0.48× (8 players) to 1.25× (1–3
 players) of the design sizes below, and the whole scene zooms out further
 as towers grow, so props must read when small.
 
