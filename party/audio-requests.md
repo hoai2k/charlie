@@ -61,8 +61,8 @@ deliver in any order and in partial batches.
   engine fades it in over 0.4 s. A long song can instead be listed as
   `{ "file": "music/x.mp3", "stream": true }`: it plays through an `<audio>`
   element routed into the music bus, so it isn't decoded into memory (the
-  loop-length budget below doesn't apply). The title and `party` songs use this
-  for *Bubblegum Radar*.
+  loop-length budget below doesn't apply). The title song uses this for *Charlie's Party*; the `party` song streams
+  *Bubblegum Radar* and retains the generated title themes as audition alternates.
 - Everything in the manifest is fetched and decoded when audio starts (after
   the first key or button press). A file that is missing or fails to decode
   is **silently skipped**, and the synth keeps playing for that name. That's
@@ -365,7 +365,7 @@ the feel, and it is **required for `dance`**. Usage is the lead's suggestion
 
 | Song | BPM | Key (synth) | Mood and use | Instrumentation ideas | Loop | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `title` | **124** | C major | **The theme of Charlie Party.** Joyful, inviting, "the party is starting!" A memorable 4-bar hook that kids will hum. Title screen | Bright synth-pop with glockenspiel lead, claps, plucky bass, a big but friendly chorus lift | 16–32 bars (31–62 s) | Bubblegum Radar (licensed, streamed) stays in use; two original ElevenLabs title themes are in `takes/` to audition (`title-2` is the better seam) (§12) |
+| `title` | **124** | C major | **The theme of Charlie Party.** Joyful, inviting, "the party is starting!" A memorable 4-bar hook that kids will hum. Title screen | Bright synth-pop with glockenspiel lead, claps, plucky bass, a big but friendly chorus lift | 16–32 bars (31–62 s) | User-provided *Charlie's Party* streams as the fixed title song; original title themes remain `party` audition alternates (§12) |
 | `menu` | **112** | F major | Relaxed, happy browsing. Character and game select (people chat over it) | Soft ukulele/marimba, light shaker, warm pad, gentle bass; low energy, no busy lead | 16–24 bars (34–51 s) | ✅ ElevenLabs, take 1 in game (16 bars, 34.3 s); takes 2 and 3 (an alternate 24-bar cut) to audition (§12) |
 | `party` | **138** | D major | Energetic, bouncy competition: the default for party minigames (Sprinkle Catch, Cookie Crumble, Paint Party, Crown Keeper…) | Chiptune-pop: square-wave arps plus real drums, slap bass, brass stabs | 32 bars (≈56 s) | Bubblegum Radar (licensed, streamed) stays in use |
 | `chase` | **156** | A minor | Playful-urgent "run!", **comic, not scary**. Troll Trouble, Bumper Bounce, Broomstick Dash | Galloping bass, pizzicato strings, tom fills, a cheeky bassoon/tuba line, staccato synth | 32 bars (≈49 s) | ✅ ElevenLabs, take 1 in game (24 bars, 36.9 s); take 2 to audition (§12) |
@@ -1707,3 +1707,12 @@ Per section (beats; *offset* = median timing of the strong on-beat percussion re
 - `rh-hiphop` is swung (the "e" at about a triplet). The 1/12 grid represents it (the 4/12 step), but the game should allow swing positions in those sections.
 - The `pitch` values are rough (lead mixed with chord tones). Use them for contour only.
 - `start` is the measured attack of the first downbeat. On Safari, if the MP3 gapless header is ignored, every song would sit about 25–50 ms later than the beat clock (constant, so calibratable).
+
+## Title song update — 2026-10-04
+
+The user supplied `Charlie's Party.mp3` and selected it as the main title song.
+`music/charlies-party.mp3` is copied unchanged and streams through the existing
+music bus. The `title` entry has no alternate takes, so song-tag auditioning
+cannot substitute a different song on the title screen. Bubblegum Radar stays
+on `party`, whose audition alternates now include the two generated title themes.
+Earlier production notes in §12 describe the previous title configuration.
