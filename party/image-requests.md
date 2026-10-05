@@ -1860,3 +1860,39 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: mini-golf
+
+### mini-golf — Candy Mini-Golf   (requested by the mini-golf agent, 2026-10-05, priority: nice-to-have)
+
+Everyone putts at the same time on a top-down candyland mini-golf green (3
+short holes: gumdrop bumpers + a spinning lollipop spinner; a chocolate river
+with a cookie bridge and a jelly bounce pad; a hairpin with a slope and a
+donut warp). Every key below has a procedural fallback that ships today; the
+code already looks each one up, so a file listed in `assets/art/index.json`
+drops in with no code change. The course itself (mint felt, candy-cane rails,
+the river, the slope) is drawn by code because its shape changes per hole.
+The balls are drawn by code in each player's colour. House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text** in any
+image. Props are seen **from above** (top-down, a slight 3/4 tilt is fine).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/mini-golf` | 1920×1080, opaque | Full screen, behind everything. The code paints the course over the middle (x 100–1820, y 240–935), so keep that area plain pink meadow. Top ~110 px sits under the scoreboard (keep calm). The bottom strip y 960–1080 is the sidewalk where finished players stand and cheer | A candyland meadow seen from above: soft pink cotton-candy grass with pastel sprinkles, lollipop trees, gumdrop bushes, candy-cane posts and ice-cream-cone shrubs around the edges, and a pastel rainbow-tiled sidewalk along the bottom edge. Low detail in the middle |
+| `thumb/mini-golf` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A mint mini-golf green with candy-cane rails, a pink flag in the cup, three colourful golf balls rolling toward it, a gumdrop bumper and a spinning lollipop, a candy-cane putter in the foreground, sparkles. Subject centred |
+| `prop/golf-gumdrop` | 128×128, transparent | Centred on each round bumper, fitted to 2.3 × its radius (≈ 70–92 px). Squashes when hit | A big shiny gumdrop seen from above at a slight tilt: a sugar-crystal dome (pink), round footprint, navy outline, white highlight |
+| `prop/golf-lollipop` | 96×96, transparent | The candy at the end of each spinner blade, centred on the blade tip, drawn 62 px and **rotated with the blade** (the code draws the stick) | A round swirl lollipop seen straight from above: pink-and-white spiral, navy outline, glossy highlight. Perfectly round, centred |
+| `prop/golf-spinner-hub` | 96×96, transparent | Centred on the spinner's axle, 68 px, rotated with the blades | A round peppermint-candy hub seen from above: red-and-white pinwheel stripes, a small gold cap in the middle |
+| `prop/golf-donut` | 160×160, transparent | The warp entrance, centred, 120×120. The ball disappears into the hole (hole diameter ≈ 47% of the donut) | A pink-frosted donut seen from above with rainbow sprinkles; the hole is a deep magical purple swirl with tiny stars |
+| `prop/golf-donut-exit` | 160×160, transparent | The warp exit by the cup, centred, 120×120 (same layout as `prop/golf-donut`) | The same donut with chocolate frosting and white sprinkles; the hole is a bright sparkly swirl |
+| `prop/golf-jelly` | 160×160, transparent | The bounce pad, centred, 2.2 × its radius (≈ 132 px). The code wobbles it when a ball bounces | A round wobbly strawberry jelly pad seen from above: translucent red-pink, glossy highlights, a little heart in the middle |
+| `prop/golf-cookie-bridge` | 440×230, transparent | Stretched over the bridge rectangle (220×115 in game units), crossing a chocolate river from left to right | A bridge made of a long golden graham-cracker cookie with chocolate chips, seen from above, slightly rounded corners, little crumbs on the edges |
+| `prop/golf-flag` | 96×200, transparent | Bottom-anchored at the cup centre (pole foot = bottom centre of the image), drawn 64×134 | A golf flag on a red-and-white candy-cane pole with a pink pennant with a white star, slight 3/4 view (pole upright) |
+| `prop/golf-cup` | 64×64, transparent | Centred on the hole, 56 px | A round mini-golf cup seen from above: dark inside, white rim, light felt edge |
+
+New sprite poses (optional; the game works with existing poses today):
+
+| Pose | Loop | Fallback (existing) | Description |
+| --- | --- | --- | --- |
+| `putt` | yes | `crouch` → `idle` | Standing side-on over the ball holding a putter low with both hands, knees bent, looking down (the code draws the putter) |
+| `putt-swing` | no | `action` | A gentle putting stroke: arms swing the putter forward, then look up hopefully |
