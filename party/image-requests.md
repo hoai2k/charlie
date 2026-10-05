@@ -1860,3 +1860,37 @@ hop or flap instead.
 | `prop/seek-teddy` | 62 | Small sitting brown teddy bear with a pink nose. |
 | `prop/seek-block` | 40 | One toy block in three-quarter view, pink with a yellow star on the front. |
 | `prop/seek-ball` | 44 | Beach ball with red, white, blue and yellow segments. |
+
+## New Party game: pancake-tower
+
+### pancake-tower — Pancake Tower   (requested by the pancake-tower agent, 2026-10-05, priority: nice-to-have)
+
+A diner-kitchen stacking game. Every player has a plate on a long pink
+counter (one lane each, 1–8 lanes side by side) and a flying chef pan that
+slides back and forth above the tower; A drops what is in the pan. Badly
+stacked towers wobble and topple in a cartoon crash. Everything below has
+a procedural fallback that ships today, and the code already looks up every
+key. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Stack items are seen **from the side,
+very slightly from above** (a thin sliver of the top surface shows), so
+they stack flush on each other. All props are transparent WebP, trimmed to
+the object with no padding. Lane scale is 0.48× (8 players) to 1.3× (1–3
+players) of the design sizes below, and the whole scene zooms out further
+as towers grow, so props must read when small.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pancake-tower` | 1920×1080, opaque | Full screen behind the lanes. The counter top edge is at y=920 (plates and characters stand on it); the counter front fills y 920–1080. The top ~120 px hold the scoreboard and timer; the middle is mostly covered by translucent lane columns, so keep it low-detail | A bright, cozy pastel diner kitchen: butter-yellow wall with soft white vertical stripes, a big round window with blue sky and clouds at the top centre, copper pans and whisks hanging along the upper left and right edges, a shelf with syrup bottles and a jar of strawberries at the far sides. A long counter across the bottom: pink marble top edge at y≈920, mint-and-white checker tiles on the counter front. Warm morning light |
+| `thumb/pancake-tower` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A tall, slightly leaning stack of fluffy pancakes on a white plate with butter, strawberries and syrup dripping down, a smiling frying pan with a tiny chef hat flipping one more pancake high in the air above it, sparkles, pastel diner background. Subject centred |
+| `prop/pancake` | 520×98, transparent | Bottom-centre anchored, **stretched** to the item box (pancake 200×30 design units → box 208×39). Stacks of these sit flush on each other | One fluffy golden-brown pancake seen from the side: a thick rounded slab with a darker cooked edge, a lighter fluffy top sliver, a few tiny bubbles on the rim |
+| `prop/pancake-golden` | 754×104, transparent | Same as `prop/pancake`, box 302×42 (the extra-wide bonus pancake; the code adds twinkles) | An extra-wide magical golden pancake from the side: shiny gold-yellow, glowing edge, a few sparkles on its rim |
+| `prop/waffle` | 458×130, transparent | Same, box 183×52 | A thick square Belgian waffle seen straight from the side: golden grid pockets on its front face, crisp edges |
+| `prop/butter-pat` | 188×65, transparent | Same, box 75×26. Squashed flat (×0.45 tall, ×1.2 wide) by code when covered | A small pale-yellow butter pat block with soft rounded corners and a tiny melting drip |
+| `prop/strawberries` | 322×110, transparent | Same, box 129×44. Squashed when covered | Three cute red strawberries with green leaf tops in a little cluster, seen from the side, sitting on a flat bottom |
+| `prop/cream-swirl` | 291×150, transparent | Same, box 116×60. Squashed when covered | A white whipped-cream swirl in three tiers with a pointed tip and a red cherry on top, flat bottom |
+| `prop/pancake-plate` | 780×80, transparent | Bottom-centre anchored on the counter (box 312×32 design units); the code adds a player-colour band at the bottom, so keep the plate white/pale | A plain round white diner plate seen from the side, slightly from above: a thin oval rim on top of a short tapered foot, soft blue-grey shading |
+| `prop/chef-pan` | 750×275, transparent | Bottom-centre anchored at a point **38% from the left edge** of the image (the bowl's centre); box 300×110 design units. The pancake sits in the bowl; the handle points right. The code tilts it to drop the pancake | A cute flying frying pan character: dark blue-grey non-stick bowl seen from the side with a friendly face (big eyes, rosy cheeks, smile) on its front, a lighter rim, a wooden handle to the right with a tiny white chef hat perched on the handle end |
+| `prop/syrup-bottle` | 320×480, transparent | Centred, box 100×150; the code rotates it to pour from the spout (spout up at rotation 0) | A cartoon maple-syrup bottle: rounded amber glass bottle full of syrup with a red cap, a cream label with a pink heart (no text), glossy highlight |
+
+Poses: existing ones only (`idle`, `balance` while the tower wobbles,
+`cheer`, `action`, `surprised`, `dizzy`, `celebrate`, `clap`).
