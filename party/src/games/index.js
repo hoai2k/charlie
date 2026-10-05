@@ -23,8 +23,9 @@ import * as g20 from './melody-maker.js';
 import * as g21 from './bead-bracelets.js';
 import * as g22 from './dream-room.js';
 import * as g23 from './seek-and-find.js';
+import * as g24 from './musical-cushions.js';
 
-export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23].map((m) => ({ ...m.meta, module: m }));
+export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24].map((m) => ({ ...m.meta, module: m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 export const gameById = (id) => GAMES.find((g) => g.id === id);
