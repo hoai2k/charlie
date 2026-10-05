@@ -276,6 +276,7 @@ export const meta = {
   type: 'Caring · Everyone together',
   goal: 'Give your muddy pet a bubbly bath and make it super happy!',
   controls: [['stick', 'Move your hand'], ['a', 'Hold to use the tool'], ['rb', 'Change tool (LB / RB)'], ['x', 'Pick the next step'], ['b', 'Cuddle'], ['y', 'Squeaky duck']],
+  infoAt: 'tl',   // corner "i" (how to play): the bottom-left holds this game's tool bar
   tips: ['Scrub off the mud, then rinse the bubbles.', 'Towel your pet dry — watch it shake!', 'Fill the heart meter for a happy dance. Then put on a show!'],
   music: 'chill',
   duration: '1–2 min',

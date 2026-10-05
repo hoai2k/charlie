@@ -51,9 +51,12 @@ input.onUserGesture = () => {
 
 // Screens that show the sound / fullscreen corner buttons (play: only while paused).
 const MENU_SCENES = new Set(['title', 'charselect', 'gameselect', 'intro', 'results', 'trophy']);
-const showCorner = () => MENU_SCENES.has(scenes.name) || (scenes.name === 'play' && !!scenes.current.paused);
+const inGame = () => scenes.name === 'play' && scenes.current && scenes.current.state === 'play';
+const showCorner = () => MENU_SCENES.has(scenes.name) || (scenes.name === 'play' && !!(scenes.current.paused || scenes.current.howto));
+// During play only the "i" (how to play) shows; paused / menus get the full set.
+const cornerMode = () => (showCorner() ? 'full' : 'info');
 // Phones/tablets: fullscreen on a tap in landscape, iPhone's swipe-up bars.
-shell.initMobile({ isPlaying: () => scenes.name === 'play' && !scenes.current.paused });
+shell.initMobile({ isPlaying: () => scenes.name === 'play' && !scenes.current.paused && !scenes.current.howto });
 
 let loadProgress = 0;
 let loaded = false;
@@ -121,14 +124,15 @@ function frame(now) {
       // Settings overlay pauses the screen underneath (it keeps its state).
       if (settings.isOpen) settings.update(dt);
       else {
-        if (corner.visible && input.humans().some((c) => c.pressed('back'))) settings.open();
+        if (corner.visible && corner.mode === 'full' && input.humans().some((c) => c.pressed('back'))) settings.open();
         else scenes.update(wdt);
       }
       particles.update(wdt);
       fx.update(dt);
       if (i < steps - 1) input.update(0);
     }
-    corner.visible = showCorner();
+    corner.mode = cornerMode();
+    corner.visible = showCorner() || (inGame() && !!corner.infoFn);
     songTag.update(rawDt);
     corner.update(rawDt);
     ui.resetHotspots();

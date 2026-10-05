@@ -27,6 +27,7 @@ export const meta = {
   type: 'Bake & decorate · Everyone wins',
   goal: 'Bake the most beautiful birthday cake, then blow out the candles and taste it!',
   controls: [['lb', 'Next / previous step'], ['stick', 'Pick, or move your topping hand'], ['x', 'Change (layer, style, topping)'], ['a', 'Add topping (hold for sprinkles!)'], ['y', 'Surprise me!']],
+  infoAt: 'tl',   // corner "i" (how to play): the bottom-left holds this game's tool bar
   tips: ['Hold A over your cake to shake sprinkles.', 'Candles and your Me Topper go on top!', 'B takes back your last topping.'],
   music: 'bouncy',
   duration: 'about 2 min',

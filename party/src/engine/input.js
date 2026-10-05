@@ -5,6 +5,7 @@
 //
 //   ctrl.x, ctrl.y        left stick / d-pad / WASD, each in [-1, 1] (y down = +1)
 //   ctrl.rx, ctrl.ry      right stick
+//   ctrl.sx, ctrl.sy      left stick only (no d-pad), for games that give the d-pad its own job
 //   ctrl.held('a')        button is down       (a b x y lb rb lt rt back start ls rs up down left right)
 //   ctrl.pressed('a')     went down this frame
 //   ctrl.released('a')    went up this frame
@@ -74,6 +75,9 @@ export class Controller {
   get x() { return this.cur.lx; }
   get y() { return this.cur.ly; }
   get rx() { return this.cur.rx; }
+  /** The left stick alone (x/y also include the d-pad). */
+  get sx() { return this.cur.sx || 0; }
+  get sy() { return this.cur.sy || 0; }
   get ry() { return this.cur.ry; }
   held(b) { return !!this.cur[b]; }
   pressed(b) { return !!this.cur[b] && !this.prev[b]; }
@@ -97,7 +101,8 @@ export class Controller {
     this.poll(s);
     for (const b of this._inject) s[b] = true;
     this._inject.clear();
-    // D-pad also drives the move axes.
+    // D-pad also drives the move axes (sx/sy keep the stick alone).
+    s.sx = s.lx; s.sy = s.ly;
     if (s.left) s.lx = -1; if (s.right) s.lx = 1;
     if (s.up) s.ly = -1; if (s.down) s.ly = 1;
     if (this.anyPressed() || Math.abs(s.lx) > 0.5 || Math.abs(s.ly) > 0.5) this.lastActive = now;

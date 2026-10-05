@@ -3,7 +3,7 @@
 // input.onPointerButton, because fullscreen only works inside a real gesture.
 //   M toggles sound, F toggles fullscreen, O (or a controller's View button)
 //   opens Settings (engine/settings.js), which also has these and image quality.
-import { H } from './canvas.js';
+import { W, H } from './canvas.js';
 import { input } from './input.js';
 import { isMuted, toggleMuted, unlockAudio, sfx } from './audio.js';
 import { shell } from './shell.js';
@@ -16,14 +16,25 @@ const SIZE = 78, PAD = 24, GAP = 18;
 
 export const corner = {
   visible: false,
+  // 'full': sound / fullscreen / settings (+ info); 'info': only the "i"
+  // (how to play), shown in a corner during a game.
+  mode: 'full',
+  infoFn: null,   // set by the play scene: opens the how-to-play card
+  infoAt: 'bl',
   _press: 0,      // seconds of "pressed" squash left
   _pressId: null,
 
   buttons() {
     const y = H - PAD - SIZE / 2;
+    if (this.mode === 'info') {
+      if (!this.infoFn) return [];
+      const at = this.infoAt || 'bl';   // a game can move it off its own UI (meta.infoAt)
+      return [{ id: 'info', x: at.endsWith('r') ? W - PAD - SIZE / 2 : PAD + SIZE / 2, y: at.startsWith('t') ? PAD + SIZE / 2 : y, small: true }];
+    }
     const list = [{ id: 'sound', x: PAD + SIZE / 2, y }];
     if (shell.canFullscreen()) list.push({ id: 'full', x: PAD + SIZE * 1.5 + GAP, y });
     list.push({ id: 'settings', x: PAD + SIZE / 2 + list.length * (SIZE + GAP), y });
+    if (this.infoFn) list.push({ id: 'info', x: PAD + SIZE / 2 + list.length * (SIZE + GAP), y });
     return list;
   },
 
@@ -42,6 +53,8 @@ export const corner = {
       sfx('select');
     } else if (id === 'settings') {
       settings.toggle();
+    } else if (id === 'info') {
+      if (this.infoFn) this.infoFn();
     }
     this._press = 0.15; this._pressId = id;
   },
@@ -84,6 +97,7 @@ export const corner = {
       const k = this._pressId === b.id && this._press > 0 ? 0.9 : hover ? 1.08 : 1;
       g.save();
       g.translate(b.x, b.y); g.scale(k, k);
+      if (b.small && !hover) g.globalAlpha = 0.75;   // in-game "i": a little quieter
       const r = SIZE / 2;
       g.fillStyle = 'rgba(36,22,63,0.3)';
       g.beginPath(); g.arc(3, 6, r, 0, TAU); g.fill();
@@ -92,11 +106,19 @@ export const corner = {
       g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.stroke();
       if (b.id === 'sound') drawSpeaker(g, isMuted());
       else if (b.id === 'full') drawFullscreen(g, shell.isFullscreen());
+      else if (b.id === 'info') drawInfo(g);
       else drawGear(g, 0, 0, 24, 0, hover ? '#ffd23f' : '#ffffff');
       g.restore();
     }
   },
 };
+
+function drawInfo(g) {
+  g.fillStyle = NAVY;
+  g.beginPath(); g.arc(0, -15, 6, 0, TAU); g.fill();
+  g.beginPath(); g.roundRect ? g.roundRect(-5.5, -4, 11, 26, 4) : g.rect(-5.5, -4, 11, 26); g.fill();
+  g.fillRect(-11, -4, 8, 6); g.fillRect(-11, 17, 22, 6);
+}
 
 function drawSpeaker(g, muted) {
   g.fillStyle = NAVY; g.strokeStyle = NAVY; g.lineCap = 'round'; g.lineJoin = 'round';

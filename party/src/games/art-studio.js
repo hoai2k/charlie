@@ -1,7 +1,8 @@
 // Art Studio (Play Studio). One shared easel canvas (1600x900 offscreen,
 // shown in a wooden frame). Every player has a cursor in their color: stick
 // moves it (with acceleration, right stick fine-adjusts), hold A to paint,
-// LB/RB tools, X color (or stamp in the stamp tool), Y size, B undoes your
+// X (or d-pad up/down) changes tool, LB/RB (or d-pad left/right) step the color
+// (or stamp in the stamp tool), Y size, B undoes your
 // own last stroke. Optional coloring pages (fill bucket stops at the lines).
 // "Done!" (or the pause menu) hangs the painting in a gold frame on the
 // museum wall; X there saves it as a PNG.
@@ -25,7 +26,8 @@ export const meta = {
   category: 'studio',
   type: 'Paint together · Everyone wins',
   goal: 'Paint a masterpiece together on one big canvas, then hang it in the museum!',
-  controls: [['stick', 'Move your paintbrush'], ['a', 'Hold to paint'], ['lb', 'Change tool (glitter, stamps, fill...)'], ['x', 'Change color / stamp'], ['y', 'Brush size']],
+  controls: [['stick', 'Move your paintbrush'], ['a', 'Hold to paint'], ['x', 'Change tool (or D-pad up/down)'], ['rb', 'Color / stamp (LB/RB or D-pad left/right)'], ['y', 'Brush size']],
+  cornerControls: { at: 'br', items: [['a', 'Paint'], ['x', 'Tool'], ['rb', 'Color'], ['y', 'Size'], ['b', 'Undo']] },
   tips: ['B takes back your last stroke.', 'Go to "Done!" at the top when your picture is finished.', 'In the museum, press X to save your picture.'],
   music: 'chill',
   duration: 'as long as you like',
@@ -359,8 +361,10 @@ export class Game {
     const accel = 0.32 + 0.68 * clamp(st.hold / 0.7, 0, 1);
     const sp = 1000 * accel;
     const cur = st.cur;
-    cur.x = clamp(cur.x + (c.x * sp + c.rx * 160) * dt, 0, CW - 1);
-    cur.y = clamp(cur.y + (c.y * sp + c.ry * 160) * dt, st.p.isAI ? 0 : -66, CH - 1);
+    // On a gamepad the d-pad picks tools and colors, so only the stick moves the brush.
+    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    cur.x = clamp(cur.x + (mx * sp + c.rx * 160) * dt, 0, CW - 1);
+    cur.y = clamp(cur.y + (my * sp + c.ry * 160) * dt, st.p.isAI ? 0 : -66, CH - 1);
     st.paletteT = Math.max(0, st.paletteT - dt);
     st.soundT -= dt;
     const scr = toScreen(cur.x, cur.y);
@@ -373,11 +377,14 @@ export class Game {
       if (c.pressed('b') || (st.overBtn !== 'done' && st.confirm.t > 0.3)) { st.confirm = null; sfx('back'); }
       return;
     }
-    if (c.pressed('rb')) { st.tool = (st.tool + 1) % TOOLS.length; this.toolFx(st); }
-    if (c.pressed('lb')) { st.tool = (st.tool + TOOLS.length - 1) % TOOLS.length; this.toolFx(st); }
-    if (c.pressed('x')) {
-      if (this.toolOf(st) === 'stamp') { st.stamp = (st.stamp + 1) % this.stampKinds.length; sfx('stamp'); }
-      else { st.color = (st.color + 1) % COLORS.length; sfx('collect', { step: st.color }); }
+    // X (or d-pad up/down) changes the tool; LB/RB (or d-pad left/right)
+    // step through the colors or stamps, along the strip shown on screen.
+    const toolStep = (c.pressed('x') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
+    if (toolStep) { st.tool = (st.tool + toolStep + TOOLS.length) % TOOLS.length; this.toolFx(st); }
+    const pick = (c.pressed('rb') ? 1 : 0) - (c.pressed('lb') ? 1 : 0) + (pad ? (c.pressed('right') ? 1 : 0) - (c.pressed('left') ? 1 : 0) : 0);
+    if (pick) {
+      if (this.toolOf(st) === 'stamp') { st.stamp = (st.stamp + pick + this.stampKinds.length) % this.stampKinds.length; sfx('stamp'); }
+      else { st.color = (st.color + pick + COLORS.length) % COLORS.length; sfx('collect', { step: st.color }); }
       st.paletteT = 1.4;
     }
     if (c.pressed('y')) { st.size = (st.size + 1) % SIZES.length; sfx(st.size === 2 ? 'grow' : 'shrink'); }
@@ -564,10 +571,10 @@ export class Game {
     const cmd = ai.cmds[0], prof = aiProfile(st.p);
     const done = (w = 0.12) => { ai.cmds.shift(); ai.wait = w / prof.speed; };
     switch (cmd.t) {
-      case 'tool': if (st.tool === cmd.v) done(0.1); else { c.press('rb'); ai.wait = 0.24; } break;
-      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.17; } break;
+      case 'tool': if (st.tool === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.24; } break;
+      case 'color': if (st.color === cmd.v) done(0.1); else { c.press('rb'); ai.wait = 0.17; } break;
       case 'size': if (st.size === cmd.v) done(0.05); else { c.press('y'); ai.wait = 0.2; } break;
-      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('x'); ai.wait = 0.17; } break;
+      case 'stamp': if (st.stamp === cmd.v) done(0.1); else { c.press('rb'); ai.wait = 0.17; } break;
       case 'goto': {
         const d = steer(st.p, st.cur.x, st.cur.y, cmd.x, cmd.y, { arrive: 140, wobble: false });
         cmd.t2 = (cmd.t2 || 0) + dt;

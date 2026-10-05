@@ -10,6 +10,7 @@ import * as ui from '../engine/ui.js';
 import { session } from '../state.js';
 import { gameById } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
+import { corner } from '../engine/corner.js';
 
 const COUNTDOWN = 3.6;
 
@@ -24,6 +25,8 @@ export class PlayScene {
     this.t = 0;
     this.playTime = 0;
     this.paused = null;
+    this.howto = null;    // the how-to-play card (corner "i" or the pause menu); pauses the game
+    corner.infoFn = () => this.openHowto(); corner.infoAt = this.meta.infoAt || 'bl';
     this.error = null;
     this.leaving = false; // the scene object is reused: without this every game after the first sticks on FINISH
     const host = this;
@@ -54,6 +57,7 @@ export class PlayScene {
   }
 
   exit() {
+    corner.infoFn = null; this.howto = null;
     try { this.game && this.game.destroy && this.game.destroy(); } catch (e) { console.error(e); }
     stopAllLoops(); duckLoops(false); this._ducked = false;   // sfxLoop()s never outlive their game
     cancelLater();                                            // nor do the game's later() timers
@@ -111,7 +115,9 @@ export class PlayScene {
   }
 
   update(dt, inputOpen) {
-    if (!!this.paused !== !!this._ducked) { this._ducked = !!this.paused; duckLoops(this._ducked); }
+    const held = !!(this.paused || this.howto);
+    if (held !== !!this._ducked) { this._ducked = held; duckLoops(held); }
+    if (this.howto) { this.updateHowto(dt); return; }
     if (this.paused) { this.updatePause(); return; }
     this.t += dt; // after the pause check so a pause during 3-2-1 doesn't skip the countdown
     if (this.usesCamera) { this.camera.update(dt); this.camera.tickPunch(dt); }
@@ -144,8 +150,70 @@ export class PlayScene {
 
   safe(fn) { if (this.error) return; try { fn(); } catch (e) { this.crash(e); } }
 
+  openHowto() {
+    if (this.state === 'finish' || this.state === 'error' || this.howto) return;
+    this.paused = null; this.howto = { t: 0 }; sfx('select');
+  }
+
+  updateHowto(dt) {
+    this.howto.t += dt;
+    if (this.howto.t < 0.25) return;
+    const closer = input.humans().some((c) => c.pressed('a') || c.pressed('b') || c.pressed('start'));
+    if (closer || input.pointer.pressed) { this.howto = null; sfx('back'); }
+  }
+
+  /** The intro screen's goal, controls and tips, on a card over the paused game. */
+  drawHowto(g) {
+    const m = this.meta;
+    g.save(); g.fillStyle = 'rgba(36,22,63,0.62)'; g.fillRect(0, 0, W, H); g.restore();
+    const pw = 1180, controls = m.controls || [], tips = (m.tips || []).slice(0, 3);
+    const goal = ui.wrap(g, m.goal || '', pw - 120, 38, 700);
+    const rowH = 60;
+    const ph = 150 + goal.length * 46 + 20 + controls.length * rowH + (tips.length ? 20 + tips.length * 40 : 0) + 90;
+    const px = W / 2 - pw / 2, py = Math.max(30, H / 2 - ph / 2);
+    ui.panel(g, px, py, pw, ph, { fill: '#fff8ec' });
+    ui.text(g, m.title, W / 2, py + 62, { size: 62, color: '#ff6fb1', maxWidth: pw - 80 });
+    let y = py + 132;
+    for (const l of goal) { ui.text(g, l, px + 60, y, { size: 38, align: 'left', color: '#24163f', stroke: false, weight: 700 }); y += 46; }
+    y += 20;
+    for (const [btn, label] of controls) {
+      ui.glyph(g, btn, px + 90, y, rowH - 10);
+      ui.text(g, label, px + 140, y + 2, { size: 34, align: 'left', color: '#24163f', stroke: false, weight: 600, maxWidth: pw - 200 });
+      y += rowH;
+    }
+    if (tips.length) {
+      y += 14;
+      for (const tip of tips) { ui.text(g, '★ ' + tip, px + 70, y, { size: 28, align: 'left', color: '#6b5a85', stroke: false, weight: 600, maxWidth: pw - 120 }); y += 40; }
+    }
+    ui.hints(g, [['a', 'Back to the game']], W / 2, py + ph - 40, { size: 36 });
+  }
+
+  /** A compact controls legend in a free corner during play (meta.cornerControls). */
+  drawCornerControls(g) {
+    const cc = this.meta.cornerControls;
+    if (!cc || !cc.items || !cc.items.length) return;
+    const size = 34, rowH = 42, pad = 14;
+    g.save();
+    let w = 0;
+    for (const [, l] of cc.items) w = Math.max(w, ui.measure(g, l, 24, 700));
+    w += size + pad * 3;
+    const h = cc.items.length * rowH + pad;
+    const at = cc.at || 'bl';
+    // bottom-left leaves room for the corner "i" button
+    const x = at.endsWith('l') ? (at === 'bl' ? 122 : 16) : W - 16 - w;
+    const y = at.startsWith('t') ? (cc.top ?? 120) : H - 16 - h - (at === 'br' ? 52 : 0);
+    g.globalAlpha = 0.9;
+    ui.panel(g, x, y, w, h, { r: 18, fill: 'rgba(255,248,236,0.88)', lineWidth: 3, shadow: false });
+    cc.items.forEach(([btn, label], i) => {
+      const cy = y + pad / 2 + rowH * i + rowH / 2;
+      ui.glyph(g, btn, x + pad + size / 2, cy, size);
+      ui.text(g, label, x + pad * 2 + size, cy + 1, { size: 24, align: 'left', color: '#24163f', stroke: false, weight: 700 });
+    });
+    g.restore();
+  }
+
   pauseItems() {
-    const items = [['Keep playing', 'resume'], ['Start over', 'restart']];
+    const items = [['Keep playing', 'resume'], ['How to play', 'howto'], ['Start over', 'restart']];
     if (this.meta.category === 'studio') items.push(['All done!', 'done']);
     items.push(['Pick another game', 'quit']);
     return items;
@@ -168,7 +236,8 @@ export class PlayScene {
 
   choosePause(act) {
     this.paused = null; sfx('select');
-    if (act === 'restart') { this.manager.go('play', { gameId: this.gameId }); }
+    if (act === 'howto') { this.openHowto(); }
+    else if (act === 'restart') { this.manager.go('play', { gameId: this.gameId }); }
     else if (act === 'quit') { music.play('menu'); this.manager.go('gameselect'); }
     else if (act === 'done') { this.safe(() => (this.game.onDone ? this.game.onDone() : this.finish({ showcase: true }))); }
   }
@@ -210,7 +279,9 @@ export class PlayScene {
       ui.banner(g, 'Oopsie!', this.t, { size: 150, color: '#ff6fb1' });
       ui.text(g, 'This game tripped over its shoelaces. Everyone gets a star!', W / 2, H / 2 + 130, { size: 40 });
     }
+    if (this.state === 'play' && !this.paused && !this.howto) this.drawCornerControls(g);
     if (this.paused) this.drawPause(g);
+    if (this.howto) this.drawHowto(g);
   }
 
   drawPause(g) {
