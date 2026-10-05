@@ -1,6 +1,6 @@
 # Charlie Party
 
-A Mario-Party-style collection of 20 minigames starring the characters from
+A Mario-Party-style collection of 24 minigames starring the characters from
 Charlie's drawings. 1–8 players (best with 2–4), Xbox controllers first,
 keyboard works too. Plays at `/charlie/party/`.
 
