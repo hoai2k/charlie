@@ -228,14 +228,17 @@ export function timer(g, seconds, x = W / 2, y = 64) {
 export function scoreboard(g, players, values, o = {}) {
   const n = players.length;
   const gap = o.avoidCenter ? 220 : 0;          // room for a centered timer
-  const chipW = Math.min(260, (W - 120 - gap) / n - 16);
+  const gapAt = n === 1 ? 1 : Math.ceil(n / 2);  // solo: chip sits left of the timer
+  // With a gap it is always centred on W/2 (an odd count puts the extra chip on
+  // the left), so chips are sized to fit the longer left side.
+  const chipW = Math.min(260, (W - 120 - gap) / n - 16, o.avoidCenter ? (W / 2 - gap / 2 + 8 - 60) / gapAt - 16 : Infinity);
   const total = n * chipW + (n - 1) * 16 + gap;
   const y = o.y ?? 40;
-  let x = (W - total) / 2;
-  const gapAt = n === 1 ? 1 : Math.ceil(n / 2);  // solo: chip sits left of the timer
-  if (o.avoidCenter && n === 1) x = W / 2 - gap / 2 - chipW;
+  let x = o.avoidCenter ? W / 2 - (gap - 16) / 2 - gapAt * (chipW + 16) : (W - total) / 2;
+  const rects = [];
   players.forEach((p, i) => {
     if (o.avoidCenter && i === gapAt) x += gap;
+    rects.push({ x, y, w: chipW, h: 76 });
     const out = o.out && o.out[i];
     g.save();
     if (out) g.globalAlpha = 0.45;
@@ -250,6 +253,7 @@ export function scoreboard(g, players, values, o = {}) {
     g.restore();
     x += chipW + 16;
   });
+  return rects;   // chip rects, for games that decorate them
 }
 
 /** Floating "P1" style marker above a character's head. */

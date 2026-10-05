@@ -1017,13 +1017,7 @@ export class Game {
   }
 
   /** Centre of the scoreboard's timer gap (off-centre for odd player counts). */
-  timerX() {
-    const n = this.n;
-    if (n === 1 || n % 2 === 0) return W / 2;
-    const gap = 220, chipW = Math.min(260, (W - 120 - gap) / n - 16);
-    const x0 = (W - (n * chipW + (n - 1) * 16 + gap)) / 2;
-    return x0 + Math.ceil(n / 2) * (chipW + 16) + gap / 2 - 8;
-  }
+  timerX() { return W / 2; }   // ui.scoreboard centres its gap
 
   drawHUD(g) {
     const scores = this.units.map((u) => u.score);

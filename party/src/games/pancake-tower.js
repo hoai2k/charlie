@@ -719,14 +719,7 @@ export class Game {
   }
 
   /** Centre of the gap ui.scoreboard leaves for the timer (it is off-centre for odd counts). */
-  timerX() {
-    const n = this.n, gap = 220;
-    const chipW = Math.min(260, (W - 120 - gap) / n - 16);
-    if (n === 1) return W / 2;
-    const total = n * chipW + (n - 1) * 16 + gap;
-    const gapAt = Math.ceil(n / 2);
-    return (W - total) / 2 + gapAt * (chipW + 16) + gap / 2 - 8;
-  }
+  timerX() { return W / 2; }   // ui.scoreboard centres its gap
 
   destroy() {
     for (const L of this.lanes) if (L.hatAtt) L.a.detach(L.hatAtt);

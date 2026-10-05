@@ -1051,7 +1051,7 @@ export class Game {
   // -------------------------------------------------------------------- HUD
   drawHUD(g) {
     const vals = this.ents.map((e) => e);
-    ui.scoreboard(g, this.players, vals, {
+    this.chips = ui.scoreboard(g, this.players, vals, {
       y: 14, avoidCenter: true,
       format: (e) => (e.state === 'done' ? ordinal(e.place) : `${this.heightM(e)} m`),
       highlight: this.ents.map((e) => e.place === 1),
@@ -1075,22 +1075,16 @@ export class Game {
 
   /** Three little star slots under each scoreboard chip (3 = rocket). Mirrors ui.scoreboard's layout. */
   drawStarPips(g) {
-    const n = this.n, gap = 220;
-    const chipW = Math.min(260, (W - 120 - gap) / n - 16);
-    const total = n * chipW + (n - 1) * 16 + gap;
-    let x = (W - total) / 2;
-    const gapAt = n === 1 ? 1 : Math.ceil(n / 2);
-    if (n === 1) x = W / 2 - gap / 2 - chipW;
     this.ents.forEach((e, i) => {
-      if (i === gapAt) x += gap;
-      const cx = x + chipW / 2 + 20, y = 104;
+      const c = this.chips && this.chips[i];
+      if (!c) return;
+      const cx = c.x + c.w / 2 + 20, y = 104;
       for (let k = 0; k < STARS_FOR_ROCKET; k++) {
         g.save(); g.translate(cx + (k - 1) * 30, y);
         if (k < e.stars) drawStarShape(g, 13, '#ffd23f');
         else { g.globalAlpha = 0.55; drawStarShape(g, 11, 'rgba(255,255,255,0.75)'); }
         g.restore();
       }
-      x += chipW + 16;
     });
   }
 
