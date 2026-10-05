@@ -42,18 +42,31 @@ export function initAudio() {
   window.addEventListener('blur', onFocusChange);
   window.addEventListener('focus', onFocusChange);
   window.addEventListener('pagehide', onFocusChange);
+  // Safety net: background tabs still run timers (about once a second).
+  setInterval(() => { if (pageAway() && ctx.state === 'running') goAway(); }, 1000);
   return ctx;
 }
 
 const pageAway = () => document.hidden || (document.hasFocus && !document.hasFocus());
+// Resume, then check again once it has happened: coming back to the browser
+// focuses this tab for a moment before a click switches to another tab, and
+// a resume that finishes after that switch would otherwise play in the
+// background (the old check only suspended a context that was already
+// "running", so it missed the one still resuming).
+function resumeCtx() {
+  ctx.resume().then(() => { if (pageAway()) goAway(); }).catch(() => {});
+}
+function goAway() {
+  if (!ctx || ctx.state === 'closed') return;
+  if (ctx.state !== 'suspended' || !awaySuspended) { awaySuspended = true; ctx.suspend().catch(() => {}); }
+  music._pauseStream();
+}
 function onFocusChange() {
   if (!ctx) return;
-  if (pageAway()) {
-    if (ctx.state === 'running') { awaySuspended = true; ctx.suspend().catch(() => {}); }
-    music._pauseStream();
-  } else if (awaySuspended) {
+  if (pageAway()) goAway();
+  else if (awaySuspended) {
     awaySuspended = false;
-    ctx.resume().catch(() => {});
+    resumeCtx();
     music._kick();
   }
 }
@@ -63,7 +76,7 @@ export function unlockAudio() {
   initAudio();
   if (pageAway()) return false;
   awaySuspended = false;
-  if (ctx && ctx.state !== 'running') ctx.resume().catch(() => {});
+  if (ctx && ctx.state !== 'running') resumeCtx();
   music._kick(); // streamed songs need play() inside a gesture on some browsers
   return ctx && ctx.state === 'running';
 }
