@@ -8,7 +8,7 @@
 // jewellery, twirls in the big mirror and poses for a photo.
 import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
-import { Actor, drawPortrait } from '../engine/sprites.js';
+import { Actor, drawPortrait, getSpriteSet } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { input } from '../engine/input.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -256,6 +256,44 @@ export class Game {
     sfx('whoosh'); sfx('magic');
   }
 
+  /** "Say cheese!": run (stick), jump (A), pose (X), twirl (Y), cheer (B) until the photo. */
+  cheeseMove(st, dt) {
+    const a = st.actor, c = st.p.ctrl, hop = st.hop, base = st.show.to;
+    st.poseCD = Math.max(0, st.poseCD - dt);
+    let mx = c.x, jump = c.pressed('a'), pose = c.pressed('x') ? 'x' : c.pressed('y') ? 'y' : c.pressed('b') ? 'b' : null;
+    if (st.p.isAI) {
+      // CPUs ham it up a little: shuffle, hop and pose at random
+      st.aiT = (st.aiT ?? rand(0.2, 0.8)) - dt;
+      if (st.aiT <= 0) { st.aiT = rand(0.5, 1.3); st.aiMx = chance(0.4) ? rand(-0.8, 0.8) : 0; if (chance(0.35)) jump = true; else if (chance(0.5)) pose = pick(['x', 'y', 'b']); }
+      mx = st.aiMx || 0;
+      if (Math.abs(a.x - base.x) > base.sp * 0.6) mx = Math.sign(base.x - a.x) * 0.6;
+    }
+    const minX = 230, maxX = W - 230;
+    a.x = clamp(a.x + mx * 560 * dt, minX, maxX);
+    if (Math.abs(mx) > 0.2) a.facing = mx > 0 ? 1 : -1;
+    if (jump && hop.h <= 0) { hop.v = 980; sfx('boing', { vol: 0.35 }); a.squash(-0.25); }
+    hop.v -= 2800 * dt; hop.h = Math.max(0, hop.h + hop.v * dt);
+    if (hop.h <= 0 && hop.v < 0) { if (hop.v < -200) a.squash(0.2); hop.v = 0; }
+    a.y = base.y - hop.h * (a.scale / (st.show.toScale || 1));
+    if (pose && st.poseCD <= 0) {
+      st.poseCD = 0.5;
+      if (pose === 'x') a.playOnce(pick(['strike1', 'strike2', 'strike3', 'photo']), 0.9, 'idle');
+      else if (pose === 'y') { a.playOnce('pose-twirl', 1.0, 'idle'); sfx('sparkle', { vol: 0.5 }); }
+      else a.playOnce('cheer', 0.7, 'idle');
+    }
+    if (!a._once) a.setPose(hop.h > 0 ? 'jump' : Math.abs(mx) > 0.2 ? 'walk' : 'idle');
+  }
+
+  /** Render the stage (no HUD) into a small canvas: the photo. */
+  snapshot() {
+    try {
+      const c = document.createElement('canvas'); c.width = W / 2; c.height = H / 2;
+      const g = c.getContext('2d'); g.scale(0.5, 0.5);
+      this.drawShow(g, true);
+      return c;
+    } catch (e) { return null; }
+  }
+
   finishGame() {
     if (this.finished) return;
     this.finished = true;
@@ -270,7 +308,7 @@ export class Game {
   }
 
   onDone() {
-    if (this.phase === 'show') { if (!this.photoTaken) this.phaseT = Math.max(this.phaseT, this.cheeseAt + 1.5); else this.finishGame(); return; }
+    if (this.phase === 'show') { if (!this.photoTaken) this.phaseT = Math.max(this.phaseT, this.cheeseAt + CHEESE_TIME - 0.5); else this.finishGame(); return; }
     this.startShow();
   }
 
@@ -665,18 +703,26 @@ export class Game {
     }
     for (const st of this.stations) if (st.spotT !== undefined) st.spotT += dt;
     const ch = this.cheeseAt;
-    if (t >= ch && !this.cheese) { this.cheese = true; sfx('giggle'); for (const st of this.stations) st.actor.setPose('wave'); }
-    for (const [d, s] of [[0.7, 'tick'], [1.15, 'tick'], [1.6, 'tock']]) if (t >= ch + d && t - dt < ch + d) sfx(s);
-    if (t >= ch + 1.8 && !this.photoTaken) {
+    if (t >= ch && !this.cheese) { this.cheese = true; sfx('giggle'); for (const st of this.stations) { st.actor.setPose('wave'); st.hop = { h: 0, v: 0 }; st.poseCD = 0; } }
+    // Until the shutter clicks everyone can run, jump and pose for the photo.
+    if (this.cheese && !this.photoTaken) for (const st of this.stations) this.cheeseMove(st, dt);
+    const shot = ch + CHEESE_TIME;
+    for (const d of [3, 2, 1]) if (t >= shot - d && t - dt < shot - d) sfx(d === 1 ? 'tock' : 'tick');
+    if (t >= shot && !this.photoTaken) {
       this.photoTaken = true; this.photoT = 0;
+      this.photo = this.snapshot();   // exactly what the stage looked like at the click
       fx.flash('#ffffff', 0.45);
       if (hasSound('camera-flash')) sfx('camera-flash', { vol: 0.7 }); else sfx('shutter');
       sfx('fanfare'); snd('applause', 'cheer');
       particles.confettiRain(W, 140);
-      this.stations.forEach((st, i) => st.actor.playOnce(i % 2 ? 'photo' : 'strike3', 1.0, 'celebrate'));
+      this.stations.forEach((st, i) => { st.hop = null; st.actor.y = st.show.to.y; st.actor.playOnce(i % 2 ? 'photo' : 'strike3', 1.0, 'celebrate'); });
     }
-    if (this.photoTaken) this.photoT += dt;
-    if (this.photoTaken && this.photoT > 4.2) this.finishGame();
+    if (this.photoTaken) {
+      const before = this.photoT;
+      this.photoT += dt;
+      if (before < PHOTO_PIN + PHOTO_FLY && this.photoT >= PHOTO_PIN + PHOTO_FLY) { sfx('pop'); particles.burst(PIN.x, PIN.y - 120, { type: 'sparkle', count: 10, colors: ['#fff', '#ffd23f'] }); }
+    }
+    if (this.photoTaken && this.photoT > PHOTO_PIN + PHOTO_FLY + 1.6) this.finishGame();
     if (cam && !cam.punchState) cam.follow(W / 2, H / 2, 1, 3);
   }
 
@@ -1192,7 +1238,9 @@ export class Game {
   }
 
   drawActorTwirl(g, a, twirlT, opts) {
-    if (twirlT >= 0 && twirlT < 1) {
+    // Characters with real twirl frames (pose-twirl) just play them; only a
+    // character without them gets the flipping-card fake spin.
+    if (twirlT >= 0 && twirlT < 1 && !getSpriteSet(a.leader.asset)?.poses['pose-twirl']) {
       const ang = ease.inOutQuad(clamp(twirlT, 0, 1)) * TAU * 2, sx = Math.cos(ang);
       const s = Math.abs(sx) < 0.08 ? (sx < 0 ? -0.08 : 0.08) : sx;
       g.save(); g.translate(a.x, 0); g.scale(s, 1); g.translate(-a.x, 0);
@@ -1204,7 +1252,7 @@ export class Game {
   }
 
   // --- the mirror showcase ------------------------------------------------------------
-  drawShow(g) {
+  drawShow(g, forPhoto = false) {
     const t = this.t;
     const bg = art('bg/bead-bracelets-mirror');
     if (bg) g.drawImage(bg, 0, 0, W, H);
@@ -1243,9 +1291,28 @@ export class Game {
       g.beginPath(); g.moveTo(a.x - 30, 0); g.lineTo(a.x + 30, 0); g.lineTo(a.x + a.width * 0.8 + 40, a.y); g.lineTo(a.x - a.width * 0.8 - 40, a.y); g.closePath(); g.fill();
       g.restore();
     }
+    if (!forPhoto && this.photo && this.photoT >= PHOTO_PIN + PHOTO_FLY) this.drawPinnedPhoto(g, 1);
     for (const st of this.showOrder) {
       this.drawActorTwirl(g, st.actor, st.twirlT, { ring: st.p.color });
     }
+  }
+
+  /** The photo pinned to the wall: k = 0 (big, centre) .. 1 (small, on its pin). */
+  drawPinnedPhoto(g, k) {
+    const e = ease.inOutQuad(clamp(k, 0, 1));
+    const w = lerp(W * 0.7, PIN.w, e), h = w * (H / W), x = lerp(W / 2, PIN.x, e), y = lerp(H / 2 - 55, PIN.y, e), rot = lerp(0, PIN.rot, e);
+    const m = Math.max(8, w * 0.035), mb = m * 3.2;
+    g.save(); g.translate(x, y); g.rotate(rot);
+    g.fillStyle = 'rgba(36,22,63,0.25)'; g.fillRect(-w / 2 - m + 8, -h / 2 - m + 10, w + m * 2, h + m + mb);
+    g.fillStyle = '#ffffff'; g.fillRect(-w / 2 - m, -h / 2 - m, w + m * 2, h + m + mb);
+    if (this.photo) g.drawImage(this.photo, -w / 2, -h / 2, w, h);
+    g.lineWidth = Math.max(2, w * 0.004); g.strokeStyle = NAVY; g.strokeRect(-w / 2 - m, -h / 2 - m, w + m * 2, h + m + mb);
+    ui.text(g, 'Sparkle Stars!', 0, h / 2 + mb * 0.5, { size: Math.max(16, mb * 0.55), color: '#ff7ac6', stroke: false, weight: 800 });
+    if (e > 0.98) {   // the pin
+      g.beginPath(); g.arc(0, -h / 2 - m * 0.4, Math.max(9, w * 0.03), 0, TAU); g.fillStyle = '#ff4d6d'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+      g.beginPath(); g.arc(-3, -h / 2 - m * 0.4 - 3, Math.max(3, w * 0.009), 0, TAU); g.fillStyle = '#ffffff'; g.fill();
+    }
+    g.restore();
   }
 
   drawShowHUD(g) {
@@ -1262,10 +1329,23 @@ export class Game {
       ui.text(g, playerName(st.p), 0, R + 40, { size: 44, color: '#fff', maxWidth: 440 });
       g.restore();
     }
-    const ch = this.cheeseAt;
-    if (!this.photoTaken && t > ch) ui.banner(g, 'Say cheese!', t - ch, { y: 300, size: 130, color: '#fff' });
+    const ch = this.cheeseAt, shot = ch + CHEESE_TIME;
+    if (!this.photoTaken && t > ch) {
+      if (t < shot - 3) ui.banner(g, 'Say cheese!', t - ch, { y: 300, size: 130, color: '#fff' });
+      else { const n = Math.ceil(shot - t), f = 1 - (shot - t - (n - 1)); g.save(); g.translate(W / 2, 300); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6; ui.text(g, String(n), 0, 0, { size: 200, color: '#ffd23f', strokeWidth: 12 }); g.restore(); }
+      if (this.stations.some((s) => !s.p.isAI)) ui.hints(g, [['stick', 'Move'], ['a', 'Jump'], ['x', 'Pose'], ['y', 'Twirl']], W / 2, H - 48, { size: 40 });
+    }
     if (!this.photoTaken && t < this.twirlStart + 0.3) ui.banner(g, 'Mirror, mirror!', t, { y: 170, size: 110, color: '#ff7ac6' });
-    if (this.photoTaken) this.drawPhoto(g);
+    if (this.photoTaken && this.photoT < PHOTO_PIN + PHOTO_FLY) {
+      if (this.photo) {
+        const k = Math.max(0, this.photoT - PHOTO_PIN) / PHOTO_FLY;
+        g.save(); g.fillStyle = `rgba(36,22,63,${0.45 * clamp(this.photoT / 0.4, 0, 1) * (1 - k)})`; g.fillRect(0, 0, W, H); g.restore();
+        const pop = this.photoT < 0.4 ? ease.outBack(this.photoT / 0.4) : 1;
+        g.save(); g.translate(W / 2, H / 2); g.scale(pop, pop); g.translate(-W / 2, -H / 2);
+        this.drawPinnedPhoto(g, k);
+        g.restore();
+      } else this.drawPhoto(g);
+    }
   }
 
   /** The design drawn large (magnifier bubble + photo strip). */
@@ -1312,6 +1392,11 @@ export class Game {
     }
   }
 }
+
+// "Say cheese!" lasts this long (seconds, ending with 3-2-1), then the photo
+// shows big for PHOTO_PIN s, flies PHOTO_FLY s to its pin on the wall.
+const CHEESE_TIME = 6, PHOTO_PIN = 2.4, PHOTO_FLY = 0.8;
+const PIN = { x: 260, y: 230, w: 300, rot: -0.09 };
 
 // --- menu / how-to thumbnail ------------------------------------------------------
 function drawIcon(g, x, y, w, h, t) {
