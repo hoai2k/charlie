@@ -1,27 +1,27 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. Current production has new requests in progress (2026-10-05);
+The authoritative brief is `party/image-requests.md`. All current image requests are completed and published;
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
-## Active monitoring and production (October 5 evening)
+## Completed production and monitoring (October 5 evening)
 
-Automation: `charlie-party-image-request-monitor` (15-minute heartbeat).
+Automation: `charlie-party-image-request-monitor` cancelled at 2026-10-06T04:03:47Z after a full quiet hour; no future checks remain.
 Monitoring session start UTC: 2026-10-05T23:20:26Z.
 Latest request activity UTC: 2026-10-05T23:37:46Z.
 Quiet-window start UTC: 2026-10-06T03:01:04Z.
 Latest image delivery revision: `da25965a43154a07b21ef0c1e92d645630502aaa`.
 Latest image delivery UTC: 2026-10-06T03:01:04Z.
-Last checked revision: `797dcf33e78b608a77f672c4c7f19bab5ce1e5b9`.
+Last checked revision: `bcbaab3167cadcb4db1d736a8fdd8e2ccfdef213`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
-Last checked UTC: 2026-10-06T03:48:47Z.
+Last checked UTC: 2026-10-06T04:03:47Z.
 
 All 119 new minigame art keys across ten games are reviewed, registered and published in separate family batches. Inventory: 529 art keys backed by 509 decodable WebP files. All 15 roster members gained nine authored actions / twelve new frames each (180 total). Every character batch is reviewed and published with full/optimized rasters, exact contacts, approved source sheets, intake provenance and applicable palette masks.
 
 All 26 sets validate without missing files, stale copies or decoded-memory errors. Existing soft encoded/download guidelines remain warnings; characters load on demand. Builder, runtime/loading and action-registration regression checks pass. Representative live Pancake, Fishing, Tug of War and Mini Golf previews showed no browser errors. Exact pixel reviews include full and optimized sets, and the three palette variants of Felicity and KPop Centre.
 
-The immediate post-delivery fetch/check found no further semantic image requests. No current generation work remains queued. The monitor continues every 15 minutes and cancels only after 60 continuous clear minutes starting at the delivery UTC above. Preserve this checkpoint rather than using the earlier afternoon delivery.
+The immediate post-delivery fetch/check found no further semantic image requests. No current generation work remains queued. Clear checks through 2026-10-06T04:03:47Z established 62 minutes 43 seconds without new requests after delivery. The monitor was cancelled as requested. Preserve this checkpoint rather than using the earlier afternoon delivery.
 
 All current canonical approvals carry forward. Ship completed families promptly,
 fetch main regularly, and immediately recheck for new requests after generation.
