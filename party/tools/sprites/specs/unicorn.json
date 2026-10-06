@@ -4137,6 +4137,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            11,
+            30,
+            382,
+            460
+          ],
+          "isolate": true,
+          "anchor": [
+            243,
+            452
+          ],
+          "scale": 1.3,
+          "head": [
+            168.339,
+            99.804
+          ],
+          "eyes": [
+            172.487,
+            103.952
+          ],
+          "neck": [
+            187.004,
+            166.17
+          ],
+          "back": [
+            164.191,
+            271.939
+          ],
+          "hand": [
+            340.474,
+            236.683
+          ]
+        },
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            397,
+            53,
+            379,
+            444
+          ],
+          "isolate": true,
+          "anchor": [
+            226,
+            436
+          ],
+          "scale": 1.3,
+          "head": [
+            95.343,
+            96.248
+          ],
+          "eyes": [
+            95.343,
+            96.248
+          ],
+          "neck": [
+            126.452,
+            152.243
+          ],
+          "back": [
+            157.561,
+            249.717
+          ],
+          "hand": [
+            296.513,
+            183.352
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            792,
+            1,
+            351,
+            501
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            493
+          ],
+          "scale": 1.3,
+          "head": [
+            202.517,
+            95.104
+          ],
+          "eyes": [
+            204.591,
+            97.178
+          ],
+          "neck": [
+            206.665,
+            161.47
+          ],
+          "back": [
+            156.891,
+            254.796
+          ],
+          "hand": [
+            326.952,
+            184.283
+          ]
+        },
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            1159,
+            1,
+            345,
+            495
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            487
+          ],
+          "scale": 1.3,
+          "head": [
+            195.37,
+            95.326
+          ],
+          "eyes": [
+            197.443,
+            99.474
+          ],
+          "neck": [
+            203.665,
+            157.543
+          ],
+          "back": [
+            158.039,
+            265.387
+          ],
+          "hand": [
+            317.73,
+            174.135
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            23,
+            506,
+            315,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            163,
+            490
+          ],
+          "scale": 1.3,
+          "head": [
+            225.217,
+            91.03
+          ],
+          "eyes": [
+            229.365,
+            88.957
+          ],
+          "neck": [
+            235.587,
+            140.804
+          ],
+          "back": [
+            210.7,
+            252.796
+          ],
+          "hand": [
+            136.039,
+            43.33
+          ]
+        },
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            403,
+            494,
+            313,
+            508
+          ],
+          "isolate": true,
+          "anchor": [
+            163,
+            500
+          ],
+          "scale": 1.3,
+          "head": [
+            167.148,
+            100.03
+          ],
+          "eyes": [
+            171.296,
+            100.03
+          ],
+          "neck": [
+            183.739,
+            139.435
+          ],
+          "back": [
+            189.961,
+            261.796
+          ],
+          "hand": [
+            285.361,
+            60.626
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            774,
+            575,
+            390,
+            406
+          ],
+          "isolate": true,
+          "anchor": [
+            185,
+            398
+          ],
+          "scale": 1.3,
+          "head": [
+            294.917,
+            89.357
+          ],
+          "eyes": [
+            299.065,
+            85.209
+          ],
+          "neck": [
+            276.252,
+            141.204
+          ],
+          "back": [
+            197.443,
+            184.757
+          ],
+          "hand": [
+            313.583,
+            350.67
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-a.webp",
+          "rect": [
+            1154,
+            495,
+            368,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            177,
+            490
+          ],
+          "scale": 1.3,
+          "head": [
+            266.178,
+            99.474
+          ],
+          "eyes": [
+            268.252,
+            97.4
+          ],
+          "neck": [
+            272.4,
+            157.543
+          ],
+          "back": [
+            203.961,
+            255.017
+          ],
+          "hand": [
+            334.617,
+            398.117
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-b.webp",
+          "rect": [
+            4,
+            2,
+            492,
+            644
+          ],
+          "isolate": true,
+          "anchor": [
+            243,
+            698
+          ],
+          "scale": 0.85,
+          "head": [
+            305.217,
+            144.265
+          ],
+          "eyes": [
+            311.439,
+            135.97
+          ],
+          "neck": [
+            321.809,
+            225.148
+          ],
+          "back": [
+            261.665,
+            351.657
+          ],
+          "hand": [
+            427.578,
+            357.878
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-b.webp",
+          "rect": [
+            495,
+            244,
+            580,
+            453
+          ],
+          "isolate": true,
+          "anchor": [
+            268,
+            445
+          ],
+          "scale": 0.9,
+          "head": [
+            411.1,
+            159.243
+          ],
+          "eyes": [
+            415.248,
+            148.874
+          ],
+          "neck": [
+            402.804,
+            225.609
+          ],
+          "back": [
+            231.983,
+            153.174
+          ],
+          "hand": [
+            512.722,
+            424.704
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-b.webp",
+          "rect": [
+            1043,
+            290,
+            583,
+            413
+          ],
+          "isolate": true,
+          "anchor": [
+            253,
+            405
+          ],
+          "scale": 0.9,
+          "head": [
+            429.283,
+            147.204
+          ],
+          "eyes": [
+            437.578,
+            143.057
+          ],
+          "neck": [
+            404.396,
+            194.904
+          ],
+          "back": [
+            255.074,
+            140.983
+          ],
+          "hand": [
+            535.052,
+            389.852
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-new-games-b.webp",
+          "rect": [
+            1638,
+            19,
+            534,
+            636
+          ],
+          "isolate": true,
+          "anchor": [
+            268,
+            688
+          ],
+          "scale": 0.9,
+          "head": [
+            288.739,
+            165.374
+          ],
+          "eyes": [
+            292.887,
+            161.226
+          ],
+          "neck": [
+            305.33,
+            231.739
+          ],
+          "back": [
+            282.517,
+            347.878
+          ],
+          "hand": [
+            460.874,
+            432.909
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
     }
   },
   "portraits": {
@@ -4217,5 +4709,9 @@
     "../sources/unicorn-round5-pose-twirl.webp",
     "../sources/unicorn-round5-card-flip.webp"
   ],
-  "status": "Draft required action union and hand-landmark corrections; awaiting full runtime QA."
+  "status": "Unicorn nine new actions, 12 authored frames precisely reviewed on sources and native runtime grids; whole swing records correctly ordered windup/followthrough; source A scale 1.3 and B .85/.9 match idle head size; hoof/muzzle/head/eye/neck/body-back attachments individually corrected; full figures and alpha margins preserved; grounded anchors set to actual sole line, airborne virtual ground retained; held loops motion=0.",
+  "generationPrompts": {
+    "newGamesA": "../pending/unicorn-new-games-intake.json#new-games-a",
+    "newGamesB": "../pending/unicorn-new-games-intake.json#new-games-b"
+  }
 }
