@@ -1,135 +1,135 @@
 {
- "sets": {
-  "felicity": {
-   "scale": 0.98765,
-   "portrait": 192,
-   "source": "ec318407c1191f96"
+  "sets": {
+    "felicity": {
+      "scale": 0.98765,
+      "portrait": 192,
+      "source": "ec318407c1191f96"
+    },
+    "fellowfox": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "8c9da038dac23382"
+    },
+    "troll": {
+      "scale": 0.75,
+      "portrait": 192,
+      "source": "67549dd021895bfd"
+    },
+    "glimmer": {
+      "scale": 0.75,
+      "portrait": 192,
+      "source": "d291b6a89188e888"
+    },
+    "bronze": {
+      "scale": 0.85714,
+      "portrait": 192,
+      "source": "90058a730e63e97f"
+    },
+    "professor-hoot": {
+      "scale": 0.75,
+      "portrait": 192,
+      "source": "9ef732e18d913623"
+    },
+    "shadow-imp": {
+      "scale": 0.92308,
+      "portrait": 192,
+      "source": "cb0ff9db7f69d6ee"
+    },
+    "shadow-imp-blue": {
+      "scale": 0.92308,
+      "portrait": 192,
+      "source": "6e8c40479826415b"
+    },
+    "shadow-imp-pink": {
+      "scale": 0.92308,
+      "portrait": 192,
+      "source": "d01c5994ffcd0aaa"
+    },
+    "garden-fairy-pink": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "d99888ed6a55446a"
+    },
+    "garden-fairy-blue": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "d707a999f4001528"
+    },
+    "garden-fairy-yellow": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "9d0071a01e7d49b1"
+    },
+    "garden-fairy-green": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "6469075eb92d39db"
+    },
+    "garden-fairy-purple": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "e9ec1780a534ea1e"
+    },
+    "marina": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "0008357ff95c2b08"
+    },
+    "scale": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "62f0643702d83681"
+    },
+    "kpop-girl-left": {
+      "scale": 0.87273,
+      "portrait": 192,
+      "source": "6104dee8245b16e8"
+    },
+    "cotton-candy": {
+      "scale": 0.96,
+      "portrait": 192,
+      "source": "dcd3b46a058f0021"
+    },
+    "kpop-girl-center": {
+      "scale": 0.87273,
+      "portrait": 192,
+      "source": "7c0eca8ad5ce42dc"
+    },
+    "kpop-girl-right": {
+      "scale": 0.87273,
+      "portrait": 192,
+      "source": "062fa2d906c4c55d"
+    },
+    "fox": {
+      "scale": 0.92308,
+      "portrait": 192,
+      "source": "83a7e34d61083c8a"
+    },
+    "princess-amber": {
+      "scale": 0.88889,
+      "portrait": 192,
+      "source": "e52278c3f2046308"
+    },
+    "snowstar": {
+      "scale": 0.92593,
+      "portrait": 192,
+      "source": "934ca757dad2ebfe"
+    },
+    "marshmallow-birthday-cake": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "22744dcb3a9f1ef6"
+    },
+    "unicorn": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "8b1a2d51e8b97193"
+    },
+    "hotdog": {
+      "scale": 1.0,
+      "portrait": 192,
+      "source": "621c2d824676ba9a"
+    }
   },
-  "fellowfox": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "8c9da038dac23382"
-  },
-  "troll": {
-   "scale": 0.75,
-   "portrait": 192,
-   "source": "67549dd021895bfd"
-  },
-  "glimmer": {
-   "scale": 0.75,
-   "portrait": 192,
-   "source": "d291b6a89188e888"
-  },
-  "bronze": {
-   "scale": 0.85714,
-   "portrait": 192,
-   "source": "90058a730e63e97f"
-  },
-  "professor-hoot": {
-   "scale": 0.75,
-   "portrait": 192,
-   "source": "9ef732e18d913623"
-  },
-  "shadow-imp": {
-   "scale": 0.92308,
-   "portrait": 192,
-   "source": "cb0ff9db7f69d6ee"
-  },
-  "shadow-imp-blue": {
-   "scale": 0.92308,
-   "portrait": 192,
-   "source": "6e8c40479826415b"
-  },
-  "shadow-imp-pink": {
-   "scale": 0.92308,
-   "portrait": 192,
-   "source": "d01c5994ffcd0aaa"
-  },
-  "garden-fairy-pink": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "d99888ed6a55446a"
-  },
-  "garden-fairy-blue": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "d707a999f4001528"
-  },
-  "garden-fairy-yellow": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "9d0071a01e7d49b1"
-  },
-  "garden-fairy-green": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "6469075eb92d39db"
-  },
-  "garden-fairy-purple": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "e9ec1780a534ea1e"
-  },
-  "marina": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "8c76f42e33d58bd5"
-  },
-  "scale": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "62f0643702d83681"
-  },
-  "kpop-girl-left": {
-   "scale": 0.87273,
-   "portrait": 192,
-   "source": "6104dee8245b16e8"
-  },
-  "cotton-candy": {
-   "scale": 0.96,
-   "portrait": 192,
-   "source": "dcd3b46a058f0021"
-  },
-  "kpop-girl-center": {
-   "scale": 0.87273,
-   "portrait": 192,
-   "source": "7c0eca8ad5ce42dc"
-  },
-  "kpop-girl-right": {
-   "scale": 0.87273,
-   "portrait": 192,
-   "source": "062fa2d906c4c55d"
-  },
-  "fox": {
-   "scale": 0.92308,
-   "portrait": 192,
-   "source": "83a7e34d61083c8a"
-  },
-  "princess-amber": {
-   "scale": 0.88889,
-   "portrait": 192,
-   "source": "e52278c3f2046308"
-  },
-  "snowstar": {
-   "scale": 0.92593,
-   "portrait": 192,
-   "source": "934ca757dad2ebfe"
-  },
-  "marshmallow-birthday-cake": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "22744dcb3a9f1ef6"
-  },
-  "unicorn": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "8b1a2d51e8b97193"
-  },
-  "hotdog": {
-   "scale": 1.0,
-   "portrait": 192,
-   "source": "621c2d824676ba9a"
-  }
- },
- "note": "Generated by tools/sprites/optimize.py; do not edit by hand."
+  "note": "Generated by tools/sprites/optimize.py; do not edit by hand."
 }

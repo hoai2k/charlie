@@ -3896,6 +3896,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            14,
+            10,
+            360,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            149,
+            76
+          ],
+          "eyes": [
+            149,
+            125
+          ],
+          "neck": [
+            162,
+            188
+          ],
+          "back": [
+            131,
+            332
+          ],
+          "hand": [
+            271,
+            266
+          ],
+          "anchor": [
+            180,
+            468
+          ]
+        },
+        {
+          "source": "../sources/marina-new-games-pull-heave.webp",
+          "rect": [
+            34,
+            19,
+            1081,
+            1325
+          ],
+          "isolate": true,
+          "scale": 0.58,
+          "head": [
+            704,
+            259
+          ],
+          "eyes": [
+            713,
+            341
+          ],
+          "neck": [
+            704,
+            504
+          ],
+          "back": [
+            656,
+            911
+          ],
+          "hand": [
+            1019,
+            728
+          ],
+          "anchor": [
+            635,
+            1268
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            797,
+            6,
+            353,
+            510
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            157,
+            79
+          ],
+          "eyes": [
+            168,
+            133
+          ],
+          "neck": [
+            165,
+            194
+          ],
+          "back": [
+            117,
+            333
+          ],
+          "hand": [
+            314,
+            168
+          ],
+          "anchor": [
+            174,
+            482
+          ]
+        },
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            1186,
+            10,
+            337,
+            503
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            169,
+            77
+          ],
+          "eyes": [
+            182,
+            132
+          ],
+          "neck": [
+            178,
+            191
+          ],
+          "back": [
+            131,
+            337
+          ],
+          "hand": [
+            239,
+            231
+          ],
+          "anchor": [
+            182,
+            470
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            26,
+            501,
+            361,
+            502
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            142,
+            89
+          ],
+          "eyes": [
+            148,
+            136
+          ],
+          "neck": [
+            134,
+            183
+          ],
+          "back": [
+            121,
+            336
+          ],
+          "hand": [
+            49,
+            63
+          ],
+          "anchor": [
+            170,
+            473
+          ]
+        },
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            394,
+            500,
+            372,
+            502
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            160,
+            89
+          ],
+          "eyes": [
+            158,
+            128
+          ],
+          "neck": [
+            156,
+            175
+          ],
+          "back": [
+            127,
+            328
+          ],
+          "hand": [
+            275,
+            65
+          ],
+          "anchor": [
+            185,
+            469
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            775,
+            537,
+            381,
+            457
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            190,
+            84
+          ],
+          "eyes": [
+            189,
+            137
+          ],
+          "neck": [
+            171,
+            191
+          ],
+          "back": [
+            128,
+            299
+          ],
+          "hand": [
+            202,
+            313
+          ],
+          "anchor": [
+            197,
+            435
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-a.webp",
+          "rect": [
+            1172,
+            522,
+            361,
+            485
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            150,
+            91
+          ],
+          "eyes": [
+            158,
+            144
+          ],
+          "neck": [
+            168,
+            195
+          ],
+          "back": [
+            124,
+            324
+          ],
+          "hand": [
+            272,
+            312
+          ],
+          "anchor": [
+            178,
+            452
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-b.webp",
+          "rect": [
+            33,
+            12,
+            484,
+            614
+          ],
+          "isolate": true,
+          "scale": 0.94,
+          "head": [
+            210,
+            104
+          ],
+          "eyes": [
+            209,
+            180
+          ],
+          "neck": [
+            207,
+            262
+          ],
+          "back": [
+            199,
+            412
+          ],
+          "hand": [
+            439,
+            182
+          ],
+          "anchor": [
+            208,
+            692
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-b.webp",
+          "rect": [
+            554,
+            91,
+            473,
+            609
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            312,
+            113
+          ],
+          "eyes": [
+            327,
+            193
+          ],
+          "neck": [
+            303,
+            284
+          ],
+          "back": [
+            185,
+            434
+          ],
+          "hand": [
+            378,
+            452
+          ],
+          "anchor": [
+            296,
+            564
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-b.webp",
+          "rect": [
+            1065,
+            123,
+            507,
+            576
+          ],
+          "isolate": true,
+          "scale": 1.0,
+          "head": [
+            335,
+            113
+          ],
+          "eyes": [
+            357,
+            205
+          ],
+          "neck": [
+            319,
+            273
+          ],
+          "back": [
+            179,
+            413
+          ],
+          "hand": [
+            418,
+            462
+          ],
+          "anchor": [
+            323,
+            535
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/marina-new-games-b.webp",
+          "rect": [
+            1618,
+            18,
+            513,
+            621
+          ],
+          "isolate": true,
+          "scale": 0.94,
+          "head": [
+            295,
+            116
+          ],
+          "eyes": [
+            298,
+            196
+          ],
+          "neck": [
+            306,
+            289
+          ],
+          "back": [
+            223,
+            426
+          ],
+          "hand": [
+            485,
+            331
+          ],
+          "anchor": [
+            292,
+            691
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {
@@ -3916,5 +4408,10 @@
     }
   },
   "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added. Added authored Round 2 action sheets from built-in image_gen using the approved canonical as input; each source is lossless WebP, cropped to each figure\u2019s actual alpha bounds, runtime encoded at quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82. Added a Marina paint pose in a purple smock using the approved canonical identity; exact prompt and retry history are in marina-paint-generation-prompt.json.",
-  "quality": 82
+  "quality": 82,
+  "sourceFiles": [
+    "../sources/marina-new-games-a.webp",
+    "../sources/marina-new-games-b.webp",
+    "../sources/marina-new-games-pull-heave.webp"
+  ]
 }
