@@ -3870,6 +3870,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            27,
+            32,
+            356,
+            452
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            213,
+            448
+          ],
+          "head": [
+            218,
+            81
+          ],
+          "eyes": [
+            239.02,
+            161.15
+          ],
+          "neck": [
+            248.48,
+            243.94
+          ],
+          "back": [
+            201.17,
+            314.9
+          ],
+          "hand": [
+            320,
+            287
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            399,
+            44,
+            378,
+            441
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            261,
+            437
+          ],
+          "head": [
+            187.67,
+            85.28
+          ],
+          "eyes": [
+            201.86,
+            163.34
+          ],
+          "neck": [
+            242.08,
+            234.3
+          ],
+          "back": [
+            218.42,
+            312.36
+          ],
+          "hand": [
+            336,
+            255
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            798,
+            32,
+            346,
+            453
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            215,
+            449
+          ],
+          "head": [
+            198.44,
+            80.72
+          ],
+          "eyes": [
+            224.46,
+            161.15
+          ],
+          "neck": [
+            238.65,
+            241.57
+          ],
+          "back": [
+            172,
+            313
+          ],
+          "hand": [
+            319.08,
+            215.55
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            1184,
+            32,
+            318,
+            453
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            214,
+            450
+          ],
+          "head": [
+            199.81,
+            75.99
+          ],
+          "eyes": [
+            223.46,
+            158.78
+          ],
+          "neck": [
+            237.65,
+            241.57
+          ],
+          "back": [
+            190.35,
+            307.8
+          ],
+          "hand": [
+            268.4,
+            248.67
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            25,
+            495,
+            353,
+            465
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            202,
+            461
+          ],
+          "head": [
+            220.92,
+            86.99
+          ],
+          "eyes": [
+            254.04,
+            172.15
+          ],
+          "neck": [
+            202.0,
+            245.48
+          ],
+          "back": [
+            237.48,
+            316.44
+          ],
+          "hand": [
+            102.65,
+            127.2
+          ]
+        },
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            430,
+            510,
+            334,
+            454
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            188,
+            450
+          ],
+          "head": [
+            173.81,
+            76.36
+          ],
+          "eyes": [
+            192.73,
+            149.69
+          ],
+          "neck": [
+            204.56,
+            234.84
+          ],
+          "back": [
+            154.88,
+            310.54
+          ],
+          "hand": [
+            299.18,
+            128.4
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            810,
+            559,
+            335,
+            410
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            204,
+            407
+          ],
+          "head": [
+            253.67,
+            72.94
+          ],
+          "eyes": [
+            267.87,
+            181.75
+          ],
+          "neck": [
+            260.77,
+            224.32
+          ],
+          "back": [
+            173.25,
+            274.0
+          ],
+          "hand": [
+            267.87,
+            300.02
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-a.webp",
+          "rect": [
+            1185,
+            516,
+            323,
+            452
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            213,
+            448
+          ],
+          "head": [
+            191.71,
+            75.82
+          ],
+          "eyes": [
+            227.19,
+            163.34
+          ],
+          "neck": [
+            239.02,
+            253.23
+          ],
+          "back": [
+            201.17,
+            312.36
+          ],
+          "hand": [
+            285,
+            315
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-b.webp",
+          "rect": [
+            29,
+            64,
+            512,
+            522
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "anchor": [
+            319,
+            618
+          ],
+          "head": [
+            350.93,
+            110.26
+          ],
+          "eyes": [
+            379.67,
+            180.51
+          ],
+          "neck": [
+            395.64,
+            289.09
+          ],
+          "back": [
+            280.68,
+            391.27
+          ],
+          "hand": [
+            433.96,
+            343.37
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-b.webp",
+          "rect": [
+            545,
+            226,
+            530,
+            421
+          ],
+          "isolate": true,
+          "scale": 1.25,
+          "anchor": [
+            388,
+            417
+          ],
+          "head": [
+            381.61,
+            137.02
+          ],
+          "eyes": [
+            413.55,
+            261.56
+          ],
+          "neck": [
+            359.26,
+            350.97
+          ],
+          "back": [
+            205.98,
+            293.49
+          ],
+          "hand": [
+            419.93,
+            398.87
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-b.webp",
+          "rect": [
+            1088,
+            197,
+            545,
+            458
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "anchor": [
+            367,
+            454
+          ],
+          "head": [
+            373.39,
+            137.28
+          ],
+          "eyes": [
+            398.93,
+            290.56
+          ],
+          "neck": [
+            354.23,
+            354.43
+          ],
+          "back": [
+            210.53,
+            300.14
+          ],
+          "hand": [
+            296.75,
+            402.33
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.25,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/fellowfox-new-games-b.webp",
+          "rect": [
+            1646,
+            43,
+            479,
+            591
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "anchor": [
+            289,
+            632
+          ],
+          "head": [
+            282.61,
+            111.49
+          ],
+          "eyes": [
+            333.71,
+            229.64
+          ],
+          "neck": [
+            317.74,
+            360.57
+          ],
+          "back": [
+            228.33,
+            421.24
+          ],
+          "hand": [
+            464.63,
+            347.79
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.25,
+      "facing": 1
     }
   },
   "portraits": {
