@@ -1,14 +1,14 @@
 {
   "asset": "marshmallow-birthday-cake",
-  "bodyHeight": 260,
+  "bodyHeight": 240,
   "quality": 82,
   "frameSize": [
-    555,
-    537
+    512,
+    496
   ],
   "anchor": [
-    277,
-    468
+    256,
+    432
   ],
   "facing": 0,
   "poses": {
@@ -3253,7 +3253,7 @@
       "loop": true,
       "motion": 0.05,
       "facing": 0,
-      "bodyHeight": 208.0
+      "bodyHeight": 192.0
     },
     "look-around": {
       "frames": [
@@ -4018,7 +4018,499 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1,
-      "bodyHeight": 195.0
+      "bodyHeight": 180.0
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            23,
+            80,
+            351,
+            409
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            95,
+            83
+          ],
+          "eyes": [
+            222.5,
+            203.5
+          ],
+          "neck": [
+            182,
+            290
+          ],
+          "back": [
+            187,
+            336
+          ],
+          "hand": [
+            269,
+            237.5
+          ],
+          "anchor": [
+            175,
+            403
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            397,
+            102,
+            385,
+            380
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            93,
+            77
+          ],
+          "eyes": [
+            240.75,
+            162
+          ],
+          "neck": [
+            215,
+            249
+          ],
+          "back": [
+            189,
+            301
+          ],
+          "hand": [
+            287.5,
+            189
+          ],
+          "anchor": [
+            193,
+            375
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            796,
+            71,
+            355,
+            414
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            119,
+            93
+          ],
+          "eyes": [
+            223.75,
+            205.25
+          ],
+          "neck": [
+            209,
+            294
+          ],
+          "back": [
+            182,
+            347
+          ],
+          "hand": [
+            269.5,
+            232.5
+          ],
+          "anchor": [
+            181,
+            408
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            1186,
+            74,
+            337,
+            426
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            130,
+            96
+          ],
+          "eyes": [
+            229.5,
+            231.5
+          ],
+          "neck": [
+            211,
+            306
+          ],
+          "back": [
+            191,
+            353
+          ],
+          "hand": [
+            267,
+            263
+          ],
+          "anchor": [
+            174,
+            420
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            41,
+            525,
+            370,
+            426
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            61,
+            91
+          ],
+          "eyes": [
+            220.5,
+            161.5
+          ],
+          "neck": [
+            184,
+            290
+          ],
+          "back": [
+            191,
+            337
+          ],
+          "hand": [
+            269.5,
+            175.5
+          ],
+          "anchor": [
+            184,
+            420
+          ]
+        },
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            437,
+            494,
+            339,
+            409
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            131,
+            87
+          ],
+          "eyes": [
+            244.75,
+            195
+          ],
+          "neck": [
+            193,
+            297
+          ],
+          "back": [
+            159,
+            348
+          ],
+          "hand": [
+            280,
+            211.5
+          ],
+          "anchor": [
+            172,
+            454
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            776,
+            586,
+            368,
+            364
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            243,
+            102
+          ],
+          "eyes": [
+            250.75,
+            258.25
+          ],
+          "neck": [
+            221,
+            329
+          ],
+          "back": [
+            135,
+            333
+          ],
+          "hand": [
+            266,
+            301.5
+          ],
+          "anchor": [
+            184,
+            360
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-a.webp",
+          "rect": [
+            1159,
+            594,
+            358,
+            360
+          ],
+          "isolate": true,
+          "scale": 1.1,
+          "head": [
+            237,
+            89
+          ],
+          "eyes": [
+            247.5,
+            250.5
+          ],
+          "neck": [
+            211,
+            314
+          ],
+          "back": [
+            133,
+            312
+          ],
+          "hand": [
+            273.5,
+            285
+          ],
+          "anchor": [
+            178,
+            354
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-b.webp",
+          "rect": [
+            24,
+            27,
+            506,
+            625
+          ],
+          "isolate": true,
+          "scale": 0.78,
+          "head": [
+            295,
+            125
+          ],
+          "eyes": [
+            264,
+            310
+          ],
+          "neck": [
+            264,
+            413
+          ],
+          "back": [
+            266,
+            513
+          ],
+          "hand": [
+            271.5,
+            366.5
+          ],
+          "anchor": [
+            258,
+            686
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-b.webp",
+          "rect": [
+            561,
+            177,
+            519,
+            524
+          ],
+          "isolate": true,
+          "scale": 0.78,
+          "head": [
+            324,
+            125
+          ],
+          "eyes": [
+            311.5,
+            334.75
+          ],
+          "neck": [
+            259,
+            412
+          ],
+          "back": [
+            215,
+            450
+          ],
+          "hand": [
+            319,
+            379.5
+          ],
+          "anchor": [
+            259,
+            519
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-b.webp",
+          "rect": [
+            1103,
+            197,
+            516,
+            503
+          ],
+          "isolate": true,
+          "scale": 0.78,
+          "head": [
+            335,
+            115
+          ],
+          "eyes": [
+            324.75,
+            331
+          ],
+          "neck": [
+            240,
+            406
+          ],
+          "back": [
+            197,
+            438
+          ],
+          "hand": [
+            317.5,
+            379
+          ],
+          "anchor": [
+            257,
+            498
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/marshmallow-birthday-cake-new-games-b.webp",
+          "rect": [
+            1649,
+            84,
+            510,
+            557
+          ],
+          "isolate": true,
+          "scale": 0.78,
+          "head": [
+            315,
+            156
+          ],
+          "eyes": [
+            285.5,
+            313
+          ],
+          "neck": [
+            251,
+            386
+          ],
+          "back": [
+            251,
+            456
+          ],
+          "hand": [
+            295.5,
+            352
+          ],
+          "anchor": [
+            261,
+            626
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {
@@ -4038,5 +4530,9 @@
       "source": "../sources/marshmallow-birthday-cake-portrait-determined.webp"
     }
   },
-  "provenance": "Generated from approved Marshmallow Birthday Cake canonical; full requested action set; all new frames have source-local reviewed landmarks; 260 px common bodyHeight keeps decoded memory below 25 MiB."
+  "provenance": "Generated from approved Marshmallow Birthday Cake canonical; full requested action set; all new frames have source-local reviewed landmarks; 260 px common bodyHeight keeps decoded memory below 25 MiB.",
+  "sourceFiles": [
+    "../sources/marshmallow-birthday-cake-new-games-a.webp",
+    "../sources/marshmallow-birthday-cake-new-games-b.webp"
+  ]
 }
