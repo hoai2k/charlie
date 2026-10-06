@@ -3872,6 +3872,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            46,
+            5,
+            353,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            130,
+            135
+          ],
+          "eyes": [
+            139,
+            179
+          ],
+          "neck": [
+            134,
+            258
+          ],
+          "back": [
+            144,
+            315
+          ],
+          "hand": [
+            332,
+            255
+          ],
+          "anchor": [
+            174,
+            489
+          ]
+        },
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            411,
+            24,
+            389,
+            476
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            105,
+            126
+          ],
+          "eyes": [
+            135,
+            163
+          ],
+          "neck": [
+            127,
+            252
+          ],
+          "back": [
+            149,
+            307
+          ],
+          "hand": [
+            339,
+            236
+          ],
+          "anchor": [
+            220,
+            468
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            812,
+            4,
+            328,
+            496
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            127,
+            139
+          ],
+          "eyes": [
+            142,
+            176
+          ],
+          "neck": [
+            143,
+            266
+          ],
+          "back": [
+            155,
+            332
+          ],
+          "hand": [
+            307,
+            176
+          ],
+          "anchor": [
+            165,
+            486
+          ]
+        },
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            1215,
+            5,
+            304,
+            495
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            127,
+            128
+          ],
+          "eyes": [
+            140,
+            173
+          ],
+          "neck": [
+            142,
+            261
+          ],
+          "back": [
+            145,
+            319
+          ],
+          "hand": [
+            278,
+            254
+          ],
+          "anchor": [
+            163,
+            485
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            59,
+            509,
+            343,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            131,
+            140
+          ],
+          "eyes": [
+            142,
+            178
+          ],
+          "neck": [
+            132,
+            258
+          ],
+          "back": [
+            152,
+            307
+          ],
+          "hand": [
+            200,
+            64
+          ],
+          "anchor": [
+            169,
+            476
+          ]
+        },
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            455,
+            518,
+            353,
+            470
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            123,
+            132
+          ],
+          "eyes": [
+            147,
+            160
+          ],
+          "neck": [
+            128,
+            244
+          ],
+          "back": [
+            160,
+            297
+          ],
+          "hand": [
+            286,
+            54
+          ],
+          "anchor": [
+            181,
+            463
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            831,
+            521,
+            299,
+            476
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            125,
+            139
+          ],
+          "eyes": [
+            171,
+            196
+          ],
+          "neck": [
+            134,
+            243
+          ],
+          "back": [
+            122,
+            308
+          ],
+          "hand": [
+            256,
+            355
+          ],
+          "anchor": [
+            154,
+            470
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-a.webp",
+          "rect": [
+            1203,
+            524,
+            303,
+            470
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "head": [
+            127,
+            132
+          ],
+          "eyes": [
+            181,
+            185
+          ],
+          "neck": [
+            140,
+            254
+          ],
+          "back": [
+            118,
+            306
+          ],
+          "hand": [
+            257,
+            331
+          ],
+          "anchor": [
+            145,
+            463
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            25,
+            6,
+            388,
+            657
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "head": [
+            199,
+            158
+          ],
+          "eyes": [
+            200,
+            233
+          ],
+          "neck": [
+            185,
+            334
+          ],
+          "back": [
+            183,
+            417
+          ],
+          "hand": [
+            337,
+            89
+          ],
+          "anchor": [
+            198,
+            694
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            516,
+            105,
+            539,
+            594
+          ],
+          "isolate": true,
+          "scale": 1.05,
+          "head": [
+            311,
+            172
+          ],
+          "eyes": [
+            371,
+            257
+          ],
+          "neck": [
+            308,
+            345
+          ],
+          "back": [
+            275,
+            423
+          ],
+          "hand": [
+            509,
+            530
+          ],
+          "anchor": [
+            232,
+            588
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            1097,
+            170,
+            496,
+            526
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "head": [
+            308,
+            160
+          ],
+          "eyes": [
+            346,
+            235
+          ],
+          "neck": [
+            284,
+            318
+          ],
+          "back": [
+            238,
+            397
+          ],
+          "hand": [
+            241,
+            466
+          ],
+          "anchor": [
+            248,
+            522
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/bronze-new-games-b.webp",
+          "rect": [
+            1680,
+            4,
+            461,
+            649
+          ],
+          "isolate": true,
+          "scale": 1.15,
+          "head": [
+            174,
+            166
+          ],
+          "eyes": [
+            187,
+            246
+          ],
+          "neck": [
+            188,
+            344
+          ],
+          "back": [
+            203,
+            420
+          ],
+          "hand": [
+            428,
+            336
+          ],
+          "anchor": [
+            240,
+            696
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {
@@ -3892,5 +4384,9 @@
     }
   },
   "provenance": "Approved canonical artwork with generated key poses and Round 3 authored blink, celebration, dance, ride and distinct expressions; per-frame landmarks and transparent WebP intake.",
-  "quality": 78
+  "quality": 78,
+  "sourceFiles": [
+    "../sources/bronze-new-games-a.webp",
+    "../sources/bronze-new-games-b.webp"
+  ]
 }
