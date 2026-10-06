@@ -3897,6 +3897,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            12,
+            6,
+            399,
+            489
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            156,
+            124
+          ],
+          "eyes": [
+            158,
+            164
+          ],
+          "neck": [
+            164,
+            220
+          ],
+          "back": [
+            143,
+            347
+          ],
+          "hand": [
+            302,
+            261
+          ],
+          "anchor": [
+            186,
+            482
+          ]
+        },
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            358,
+            3,
+            423,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            152,
+            127
+          ],
+          "eyes": [
+            156,
+            169
+          ],
+          "neck": [
+            177,
+            217
+          ],
+          "back": [
+            142,
+            346
+          ],
+          "hand": [
+            282,
+            263
+          ],
+          "anchor": [
+            207,
+            485
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            727,
+            8,
+            447,
+            486
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            146,
+            125
+          ],
+          "eyes": [
+            175,
+            160
+          ],
+          "neck": [
+            177,
+            214
+          ],
+          "back": [
+            139,
+            342
+          ],
+          "hand": [
+            270,
+            172
+          ],
+          "anchor": [
+            204,
+            476
+          ]
+        },
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            1127,
+            6,
+            409,
+            499
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            152,
+            134
+          ],
+          "eyes": [
+            154,
+            162
+          ],
+          "neck": [
+            158,
+            224
+          ],
+          "back": [
+            146,
+            339
+          ],
+          "hand": [
+            253,
+            195
+          ],
+          "anchor": [
+            222,
+            480
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            18,
+            501,
+            407,
+            487
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            151,
+            122
+          ],
+          "eyes": [
+            156,
+            162
+          ],
+          "neck": [
+            144,
+            211
+          ],
+          "back": [
+            127,
+            343
+          ],
+          "hand": [
+            51,
+            115
+          ],
+          "anchor": [
+            177,
+            478
+          ]
+        },
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            411,
+            496,
+            416,
+            499
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            173,
+            137
+          ],
+          "eyes": [
+            174,
+            181
+          ],
+          "neck": [
+            183,
+            225
+          ],
+          "back": [
+            133,
+            354
+          ],
+          "hand": [
+            286,
+            111
+          ],
+          "anchor": [
+            189,
+            487
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            819,
+            517,
+            387,
+            485
+          ],
+          "isolate": true,
+          "scale": 1.4,
+          "head": [
+            163,
+            150
+          ],
+          "eyes": [
+            183,
+            203
+          ],
+          "neck": [
+            174,
+            251
+          ],
+          "back": [
+            120,
+            341
+          ],
+          "hand": [
+            218,
+            357
+          ],
+          "anchor": [
+            195,
+            461
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-a.webp",
+          "rect": [
+            1200,
+            497,
+            331,
+            512
+          ],
+          "isolate": true,
+          "scale": 1.3,
+          "head": [
+            165,
+            126
+          ],
+          "eyes": [
+            161,
+            175
+          ],
+          "neck": [
+            178,
+            221
+          ],
+          "back": [
+            150,
+            358
+          ],
+          "hand": [
+            280,
+            350
+          ],
+          "anchor": [
+            169,
+            482
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-b.webp",
+          "rect": [
+            14,
+            12,
+            474,
+            629
+          ],
+          "isolate": true,
+          "scale": 0.94,
+          "head": [
+            246,
+            131
+          ],
+          "eyes": [
+            248,
+            188
+          ],
+          "neck": [
+            238,
+            275
+          ],
+          "back": [
+            241,
+            422
+          ],
+          "hand": [
+            387,
+            129
+          ],
+          "anchor": [
+            254,
+            695
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-b.webp",
+          "rect": [
+            465,
+            120,
+            567,
+            576
+          ],
+          "isolate": true,
+          "scale": 0.94,
+          "head": [
+            398,
+            180
+          ],
+          "eyes": [
+            397,
+            248
+          ],
+          "neck": [
+            386,
+            308
+          ],
+          "back": [
+            282,
+            414
+          ],
+          "hand": [
+            471,
+            452
+          ],
+          "anchor": [
+            358,
+            570
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-dig-repair.webp",
+          "rect": [
+            5,
+            6,
+            1204,
+            1230
+          ],
+          "isolate": true,
+          "scale": 0.42,
+          "head": [
+            781,
+            428
+          ],
+          "eyes": [
+            790,
+            542
+          ],
+          "neck": [
+            715,
+            679
+          ],
+          "back": [
+            527,
+            904
+          ],
+          "hand": [
+            898,
+            1080
+          ],
+          "anchor": [
+            790,
+            1224
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0.15,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/scale-new-games-b.webp",
+          "rect": [
+            1669,
+            13,
+            492,
+            623
+          ],
+          "isolate": true,
+          "scale": 0.94,
+          "head": [
+            275,
+            127
+          ],
+          "eyes": [
+            276,
+            194
+          ],
+          "neck": [
+            281,
+            268
+          ],
+          "back": [
+            241,
+            441
+          ],
+          "hand": [
+            464,
+            324
+          ],
+          "anchor": [
+            286,
+            690
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.15,
+      "facing": 1
     }
   },
   "portraits": {
@@ -3917,5 +4409,10 @@
     }
   },
   "provenance": "Built-in image_gen extension sheet from approved canonical; source sheet is lossless WebP. Existing Marina/Scale core art and portraits are retained; new blink, celebration, pout, cheer, sad, dance, and ride frames are added. Added authored Round 2 action sheets from built-in image_gen using the approved canonical as input; each source is lossless WebP, cropped to each figure\u2019s actual alpha bounds, runtime encoded at quality 82. Added authored Tier 2/3 action sheets from built-in image_gen using the approved canonical as input; source sheets are lossless WebP, cropped by alpha-connected figure bounds, runtime quality 82.",
-  "quality": 82
+  "quality": 82,
+  "sourceFiles": [
+    "../sources/scale-new-games-a.webp",
+    "../sources/scale-new-games-b.webp",
+    "../sources/scale-new-games-dig-repair.webp"
+  ]
 }
