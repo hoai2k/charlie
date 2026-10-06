@@ -4009,6 +4009,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            149.0,
+            602.39
+          ],
+          "head": [
+            163.57,
+            13.94
+          ],
+          "eyes": [
+            130.78,
+            132.36
+          ],
+          "neck": [
+            134.43,
+            196.12
+          ],
+          "back": [
+            97.99,
+            256.24
+          ],
+          "hand": [
+            238.27,
+            307.25
+          ],
+          "rect": [
+            3,
+            6,
+            340,
+            602
+          ],
+          "scale": 0.9
+        },
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            111.0,
+            605.03
+          ],
+          "head": [
+            131.04,
+            11.12
+          ],
+          "eyes": [
+            114.64,
+            124.07
+          ],
+          "neck": [
+            107.36,
+            195.12
+          ],
+          "back": [
+            76.39,
+            251.6
+          ],
+          "hand": [
+            187.52,
+            306.25
+          ],
+          "rect": [
+            347,
+            7,
+            276,
+            604
+          ],
+          "scale": 0.9
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            127.0,
+            611.67
+          ],
+          "head": [
+            132.47,
+            14.12
+          ],
+          "eyes": [
+            97.85,
+            130.71
+          ],
+          "neck": [
+            108.78,
+            203.59
+          ],
+          "back": [
+            81.45,
+            265.53
+          ],
+          "hand": [
+            236.31,
+            205.41
+          ],
+          "rect": [
+            636,
+            4,
+            289,
+            617
+          ],
+          "scale": 0.9
+        },
+        {
+          "source": "../sources/kpop-girl-left-reel-crank-repaired.webp",
+          "isolate": true,
+          "anchor": [
+            352,
+            1413
+          ],
+          "head": [
+            322,
+            25
+          ],
+          "eyes": [
+            281.93,
+            268.52
+          ],
+          "neck": [
+            276,
+            451
+          ],
+          "back": [
+            211.86,
+            590.85
+          ],
+          "hand": [
+            526,
+            513
+          ],
+          "rect": [
+            178,
+            28,
+            675,
+            1421
+          ],
+          "scale": 0.425
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            144.0,
+            634.29
+          ],
+          "head": [
+            165.86,
+            13.05
+          ],
+          "eyes": [
+            153.11,
+            129.65
+          ],
+          "neck": [
+            134.89,
+            189.77
+          ],
+          "back": [
+            167.68,
+            253.53
+          ],
+          "hand": [
+            38.33,
+            107.79
+          ],
+          "rect": [
+            8,
+            624,
+            320,
+            631
+          ],
+          "scale": 0.9
+        },
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            139.0,
+            636.94
+          ],
+          "head": [
+            135.36,
+            13.88
+          ],
+          "eyes": [
+            142.64,
+            103.15
+          ],
+          "neck": [
+            142.64,
+            185.13
+          ],
+          "back": [
+            164.51,
+            237.96
+          ],
+          "hand": [
+            271.99,
+            53.96
+          ],
+          "rect": [
+            319,
+            625,
+            306,
+            637
+          ],
+          "scale": 0.9
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            145.0,
+            623.85
+          ],
+          "head": [
+            161.4,
+            22.65
+          ],
+          "eyes": [
+            172.33,
+            141.07
+          ],
+          "neck": [
+            146.82,
+            197.55
+          ],
+          "back": [
+            103.1,
+            250.38
+          ],
+          "hand": [
+            181.44,
+            366.97
+          ],
+          "rect": [
+            618,
+            634,
+            297,
+            631
+          ],
+          "scale": 0.9
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-a.webp",
+          "isolate": true,
+          "anchor": [
+            130.0,
+            628.67
+          ],
+          "head": [
+            150.04,
+            22.01
+          ],
+          "eyes": [
+            164.61,
+            114.92
+          ],
+          "neck": [
+            159.15,
+            191.44
+          ],
+          "back": [
+            128.18,
+            255.2
+          ],
+          "hand": [
+            230.2,
+            362.69
+          ],
+          "rect": [
+            938,
+            631,
+            281,
+            638
+          ],
+          "scale": 0.9
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-b.webp",
+          "isolate": true,
+          "anchor": [
+            227,
+            837
+          ],
+          "head": [
+            247.04,
+            19.0
+          ],
+          "eyes": [
+            228.82,
+            162.93
+          ],
+          "neck": [
+            223.36,
+            268.59
+          ],
+          "back": [
+            166.88,
+            341.47
+          ],
+          "hand": [
+            445.62,
+            148.35
+          ],
+          "rect": [
+            31,
+            13,
+            516,
+            703
+          ],
+          "scale": 0.67
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-b.webp",
+          "isolate": true,
+          "anchor": [
+            226.0,
+            565.93
+          ],
+          "head": [
+            229.64,
+            17.56
+          ],
+          "eyes": [
+            174.99,
+            172.42
+          ],
+          "neck": [
+            193.21,
+            265.33
+          ],
+          "back": [
+            136.73,
+            299.95
+          ],
+          "hand": [
+            326.2,
+            491.24
+          ],
+          "rect": [
+            548,
+            165,
+            425,
+            583
+          ],
+          "scale": 0.67
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-b.webp",
+          "isolate": true,
+          "anchor": [
+            271.0,
+            594.04
+          ],
+          "head": [
+            289.22,
+            18.35
+          ],
+          "eyes": [
+            245.49,
+            180.49
+          ],
+          "neck": [
+            241.85,
+            273.4
+          ],
+          "back": [
+            178.09,
+            318.95
+          ],
+          "hand": [
+            258.25,
+            506.59
+          ],
+          "rect": [
+            1019,
+            146,
+            492,
+            602
+          ],
+          "scale": 0.67
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-new-games-b.webp",
+          "isolate": true,
+          "anchor": [
+            306,
+            800
+          ],
+          "head": [
+            280.49,
+            22.08
+          ],
+          "eyes": [
+            233.13,
+            167.83
+          ],
+          "neck": [
+            249.52,
+            264.39
+          ],
+          "back": [
+            254.99,
+            326.33
+          ],
+          "hand": [
+            524.62,
+            373.69
+          ],
+          "rect": [
+            1501,
+            12,
+            549,
+            701
+          ],
+          "scale": 0.67
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
     }
   },
   "portraits": {
@@ -4080,5 +4572,9 @@
     }
   },
   "quality": 82,
-  "provenance": "Built-in image_gen from approved canonical; authored action sets use saved exact prompts. Group A source inspected, irregular cells isolated and source-local landmarks entered manually. Added group B actions from saved exact prompt; group B edge-reaching poses use expanded source rectangles and connected-component isolation to preserve full silhouettes."
+  "provenance": "Built-in image_gen from approved canonical; authored action sets use saved exact prompts. Group A source inspected, irregular cells isolated and source-local landmarks entered manually. Added group B actions from saved exact prompt; group B edge-reaching poses use expanded source rectangles and connected-component isolation to preserve full silhouettes.",
+  "sourceFiles": [
+    "../sources/kpop-girl-left-new-games-a.webp",
+    "../sources/kpop-girl-left-new-games-b.webp"
+  ]
 }
