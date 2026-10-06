@@ -4093,6 +4093,474 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            192,
+            480
+          ],
+          "head": [
+            190,
+            82
+          ],
+          "eyes": [
+            202,
+            149
+          ],
+          "neck": [
+            193,
+            210
+          ],
+          "back": [
+            174,
+            225
+          ],
+          "hand": [
+            325,
+            248
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            205,
+            480
+          ],
+          "head": [
+            193,
+            70
+          ],
+          "eyes": [
+            179,
+            145
+          ],
+          "neck": [
+            195,
+            203
+          ],
+          "back": [
+            172,
+            223
+          ],
+          "hand": [
+            325,
+            230
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            192,
+            488
+          ],
+          "head": [
+            190,
+            75
+          ],
+          "eyes": [
+            177,
+            146
+          ],
+          "neck": [
+            192,
+            195
+          ],
+          "back": [
+            170,
+            220
+          ],
+          "hand": [
+            292,
+            156
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            192,
+            488
+          ],
+          "head": [
+            190,
+            75
+          ],
+          "eyes": [
+            177,
+            146
+          ],
+          "neck": [
+            192,
+            195
+          ],
+          "back": [
+            170,
+            220
+          ],
+          "hand": [
+            292,
+            156
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            198,
+            480
+          ],
+          "head": [
+            190,
+            85
+          ],
+          "eyes": [
+            200,
+            120
+          ],
+          "neck": [
+            194,
+            168
+          ],
+          "back": [
+            165,
+            190
+          ],
+          "hand": [
+            78,
+            106
+          ]
+        },
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            198,
+            480
+          ],
+          "head": [
+            193,
+            83
+          ],
+          "eyes": [
+            193,
+            111
+          ],
+          "neck": [
+            195,
+            165
+          ],
+          "back": [
+            164,
+            187
+          ],
+          "hand": [
+            305,
+            70
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 6,
+          "isolate": true,
+          "anchor": [
+            192,
+            481
+          ],
+          "head": [
+            175,
+            99
+          ],
+          "eyes": [
+            193,
+            151
+          ],
+          "neck": [
+            190,
+            200
+          ],
+          "back": [
+            168,
+            230
+          ],
+          "hand": [
+            211,
+            300
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 7,
+          "isolate": true,
+          "anchor": [
+            192,
+            481
+          ],
+          "head": [
+            171,
+            88
+          ],
+          "eyes": [
+            174,
+            144
+          ],
+          "neck": [
+            190,
+            200
+          ],
+          "back": [
+            168,
+            230
+          ],
+          "hand": [
+            282,
+            288
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            270,
+            780
+          ],
+          "head": [
+            270,
+            100
+          ],
+          "eyes": [
+            312,
+            175
+          ],
+          "neck": [
+            300,
+            280
+          ],
+          "back": [
+            290,
+            340
+          ],
+          "hand": [
+            440,
+            95
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            300,
+            700
+          ],
+          "head": [
+            300,
+            235
+          ],
+          "eyes": [
+            348,
+            315
+          ],
+          "neck": [
+            330,
+            390
+          ],
+          "back": [
+            250,
+            435
+          ],
+          "hand": [
+            365,
+            573
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            315,
+            700
+          ],
+          "head": [
+            300,
+            245
+          ],
+          "eyes": [
+            340,
+            350
+          ],
+          "neck": [
+            330,
+            425
+          ],
+          "back": [
+            265,
+            468
+          ],
+          "hand": [
+            330,
+            653
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/princess-amber-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            300,
+            780
+          ],
+          "head": [
+            280,
+            68
+          ],
+          "eyes": [
+            285,
+            170
+          ],
+          "neck": [
+            300,
+            270
+          ],
+          "back": [
+            255,
+            320
+          ],
+          "hand": [
+            500,
+            310
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
     }
   },
   "portraits": {
@@ -4140,18 +4608,7 @@
   },
   "provenance": "Approved Princess Amber canonical used as exact reference for all new Round 3 extension sheets. Existing reviewed core and cycle art remains intact. New 8-pose action grids and four-frame dance are lossless WebP sources with per-frame anchors and landmarks.",
   "sourceFiles": [
-    "../sources/princess-amber-actions-a-r3.webp",
-    "../sources/princess-amber-actions-b-r3.webp",
-    "../sources/princess-amber-actions-c-r3.webp",
-    "../sources/princess-amber-air-r3.webp",
-    "../sources/princess-amber-core-r3.webp",
-    "../sources/princess-amber-cycles-r3.webp",
-    "../sources/princess-amber-dance-r3.webp",
-    "../sources/princess-amber-move-r3.webp",
-    "../sources/princess-amber-portrait-determined.webp",
-    "../sources/princess-amber-portrait-happy.webp",
-    "../sources/princess-amber-portrait-neutral.webp",
-    "../sources/princess-amber-portrait-sad.webp",
-    "../sources/princess-amber-portrait-surprised.webp"
+    "../sources/princess-amber-new-games-a.webp",
+    "../sources/princess-amber-new-games-b.webp"
   ]
 }
