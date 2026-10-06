@@ -3,7 +3,7 @@
 // vector drawing below, which is what ships today.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
-import { art, drawArt } from '../../engine/art.js';
+import { drawArt } from '../../engine/art.js';
 import { TAU, clamp, lerp } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
@@ -211,16 +211,11 @@ export function drawBobber(g, x, y, s, sink = 0, color = '#ff4d6d') {
  * (px, sideways toward +y of the rod direction). Returns nothing.
  */
 export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
+  // Always procedural: the rod bends with every nibble and tug (the tension
+  // feedback), and the player-coloured stripes tell rods apart. The delivered
+  // `prop/fishing-rod` (a 2-3 px realistic rod in the middle 37% of its canvas)
+  // read as a hairline in game and swapped style on every bite, so it is unused.
   const len = Math.hypot(tx - hx, ty - hy), ang = Math.atan2(ty - hy, tx - hx);
-  const rod = art('prop/fishing-rod');
-  if (rod && Math.abs(bend) < 6) {
-    // Generated rod: 512x64, butt at the left edge, tip at the right edge, reel ~18% in.
-    g.save(); g.translate(hx, hy); g.rotate(ang);
-    const k = (len * 1.2) / rod.width;
-    g.drawImage(rod, -len * 0.2, -rod.height * k / 2, rod.width * k, rod.height * k);
-    g.restore();
-    return;
-  }
   const bx = hx - Math.cos(ang) * len * 0.18, by = hy - Math.sin(ang) * len * 0.18;
   const nx = -Math.sin(ang), ny = Math.cos(ang);
   const cx = (hx + tx) / 2 + nx * bend, cy = (hy + ty) / 2 + ny * bend;

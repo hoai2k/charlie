@@ -810,10 +810,12 @@ export class Game {
       for (let x = POND.x - POND.rx; x <= POND.x + POND.rx; x += 40) { const yy = y + Math.sin(x * 0.012 + t * 1.2 + i) * 8; if (x === POND.x - POND.rx) g.moveTo(x, yy); else g.lineTo(x, yy); }
       g.stroke();
     }
-    const under = this.fish.filter((f) => !f.K.surface && f.state !== 'hooked').sort((a, b) => a.y - b.y);
+    // The golden fish skips the water tint: its pale-gold art turns olive-grey under it.
+    const under = this.fish.filter((f) => !f.K.surface && f.state !== 'hooked' && f.kind !== 'golden').sort((a, b) => a.y - b.y);
     for (const f of under) this.drawFish(g, f, true);
     // water tint over the fish
     g.fillStyle = 'rgba(70,180,235,0.22)'; g.fillRect(POND.x - POND.rx, POND.y - POND.ry, POND.rx * 2, POND.ry * 2);
+    for (const f of this.fish) if (f.kind === 'golden' && f.state !== 'hooked') this.drawFish(g, f, true);
     // surface sparkles
     for (const s of this.sparkles) {
       const k = Math.max(0, Math.sin(t * s.sp + s.ph));

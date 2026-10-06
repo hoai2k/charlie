@@ -131,10 +131,37 @@ export function drawMat(g, team, x0, x1, y, t) {
   g.restore();
 }
 
+// Generated flags (220x300): measured pole centre x per team, and the plain
+// pole between the pennant and the foot (source rows 150-270).
+const FLAG_POLE_X = { pink: 152, blue: 79 };
+const FLAG_LIFT = 80;   // extra pole so the pennant flies above the rope at 2-3 players
+
+// Mirrored so the pennant points in over the jelly: pointing out, it sat in the
+// front puller's hands at 2 players (their grip reaches the flag's x).
+function drawFlagArt(g, img, poleX, x, y, glow) {
+  g.save(); g.translate(x, 0); g.scale(-1, 1); g.translate(-x, 0);
+  const k = Math.min(110 / img.width, 150 / img.height);
+  const sy = [0, 150 * img.height / 300, 270 * img.height / 300, img.height];
+  const dh = [(sy[1] - sy[0]) * k, (sy[2] - sy[1]) * k + FLAG_LIFT, (sy[3] - sy[2]) * k];
+  const dx = x - poleX * img.width / 220 * k, dw = img.width * k;
+  let dy = y - dh[0] - dh[1] - dh[2];
+  for (let i = 0; i < 3; i++) {
+    g.drawImage(img, 0, sy[i], img.width, sy[i + 1] - sy[i], dx, dy, dw, dh[i]);
+    if (i === 0 && glow > 0) {
+      g.save(); g.globalAlpha = glow * 0.7; g.globalCompositeOperation = 'lighter';
+      g.drawImage(img, 0, sy[0], img.width, sy[1] - sy[0], dx, dy, dw, dh[0]);
+      g.restore();
+    }
+    dy += dh[i];
+  }
+  g.restore();
+}
+
 export function drawGoalFlag(g, team, x, y, t, glow = 0) {
   const T = TEAMS[team];
-  const key = `prop/tug-flag-${T.key}`;
-  if (drawArt(g, key, x, y + 4, 110, 150, { anchor: 'bottom' })) return;
+  const img = art(`prop/tug-flag-${T.key}`);
+  // Foot of the pole at (x, y + 4), pole lengthened so the pennant clears the rope.
+  if (img) { drawFlagArt(g, img, FLAG_POLE_X[T.key], x, y + 4, glow); return; }
   g.save();
   g.translate(x, y);
   g.strokeStyle = NAVY; g.lineWidth = 4; g.fillStyle = '#fff4e0';
