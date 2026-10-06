@@ -5540,6 +5540,94 @@
       "tool": "built-in imagegen",
       "bytes": 3602,
       "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "bg/pancake-tower",
+      "prompt": "Use case: stylized-concept. Asset type: full-screen 16:9 game background for a children's pancake stacking game. Canvas 1920x1080. Bright butter-yellow kitchen with soft white vertical stripes, large round window with blue sky and clouds high at center, copper pans and whisks at the far left and right top edges, small upper side shelves with syrup bottles and strawberries. Warm morning light, smooth rounded cartoon art, soft cel shading, navy outlines, no text or characters. CRITICAL layout: nearly the entire image, 90% of its height, is uninterrupted yellow striped wall. The counter is ONLY a short foreground strip along the extreme bottom: its pink marble top begins at about 90% canvas height; mint-and-white checker tiled front occupies only the final 10% of pixels down to the bottom. Wall fills everything above the counter. Do not put any surface or ledge at mid-height. The top 120px is calm for scoreboard/timer and central wall stays low detail.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-df6573c1-381f-4c85-a705-a2a36b3f5568.png",
+      "tool": "built-in imagegen",
+      "bytes": 88120,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "thumb/pancake-tower",
+      "prompt": "Use case: illustration-story. Asset type: 16:10 game-select thumbnail, target 800x500. A cheerful polished cartoon scene for a children's pancake tower stacking game. In the center foreground, a tall slightly leaning stack of fluffy golden pancakes on a clean white plate, with butter pat, strawberries and syrup dripping down. Above it, a smiling dark blue-grey frying pan character with big eyes and rosy cheeks, a short wooden handle angled upward to the right with a tiny white chef hat at its end, flipping one more pancake high in the air. Add bright sparkles and a soft pastel diner background with warm yellow and mint tones. Clear centered composition, no text, no watermark, smooth rounded shapes, navy outlines and soft cel shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-e88a1bbb-3d4f-4076-92c8-c054dd238f16.png",
+      "tool": "built-in imagegen",
+      "bytes": 66238,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/pancake",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent game stack item, target canvas 520x98. Subject: One single fluffy golden-brown pancake seen strictly from the side, a very thin sliver of its top surface visible. Long low rounded slab, darker cooked edge along the front, light fluffy top, a few tiny bubbles on the rim. Flat level top and bottom so it stacks flush with other layers. Bold clean navy #24163f outlines, soft cel shading, bright edible colors, simple readable silhouette at small game scale. Center one object and show its entire contour. No text, no label, no extra objects, no plate, no shadow, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-baa493f1-1e58-482b-81f4-d899de3d4634.png",
+      "tool": "built-in imagegen",
+      "bytes": 57006,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/pancake-golden",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent game stack item, target canvas 754x104. Subject: One extra-wide magical golden pancake, strictly from the side, thin sliver of top surface, shiny gold-yellow with softly glowing edge, a few tiny sparkles limited to its rim. Long low rounded slab with flat level bottom and level top; no plate. Bold clean navy #24163f outlines, soft cel shading, bright edible colors, simple readable silhouette at small game scale. Center one object and show its entire contour. No text, no label, no extra objects, no plate, no shadow, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-9484f094-3b94-463d-94ca-a2f7cbaec291.png",
+      "tool": "built-in imagegen",
+      "bytes": 73636,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/waffle",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent game stack item, target canvas 458x130. Subject: One thick square Belgian waffle seen straight from the side, with only a thin top sliver visible. Golden grid pockets across its front face, crisp rounded edges, flat level bottom and top so it stacks flush. Bold clean navy #24163f outlines, soft cel shading, bright edible colors, simple readable silhouette at small game scale. Center one object and show its entire contour. No text, no label, no extra objects, no plate, no shadow, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-cade255b-285c-4322-b907-846abbf2e6b0.png",
+      "tool": "built-in imagegen",
+      "bytes": 68432,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/butter-pat",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent game stack item, target canvas 188x65. Subject: One small pale-yellow butter pat block with soft rounded corners and a tiny melting drip. Side view with flat bottom, compact and broad. Bold clean navy #24163f outlines, soft cel shading, bright edible colors, simple readable silhouette at small game scale. Center one object and show its entire contour. No text, no label, no extra objects, no plate, no shadow, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-37fbf18f-fc63-4041-bef6-2a21c2259a52.png",
+      "tool": "built-in imagegen",
+      "bytes": 12904,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/strawberries",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent game stack item, target canvas 322x110. Subject: A tight cluster of exactly three cute red strawberries with green leaf tops, side view, sitting on a single flat bottom. Small navy outlines and gentle candy cel shading. Bold clean navy #24163f outlines, soft cel shading, bright edible colors, simple readable silhouette at small game scale. Center one object and show its entire contour. No text, no label, no extra objects, no plate, no shadow, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-b96352bf-2a51-4900-9476-ac16fcd01849.png",
+      "tool": "built-in imagegen",
+      "bytes": 45386,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/cream-swirl",
+      "prompt": "Use case: stylized-concept. Asset type: isolated transparent game stack item, target canvas 291x150. Subject: A white whipped-cream swirl with exactly three soft tiers and a pointed tip, topped by one bright red cherry. Side view, compact, no plate. Bold clean navy #24163f outlines, soft cel shading, bright edible colors, simple readable silhouette at small game scale. Center one object and show its entire contour. No text, no label, no extra objects, no plate, no shadow, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-8aa6bf5e-5816-42b4-b463-3dda5b58b05d.png",
+      "tool": "built-in imagegen",
+      "bytes": 32978,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/pancake-plate",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop, target 780x80. A plain white diner plate viewed exactly from the side, with a very thin oval rim seen slightly above and a short tapered foot visible underneath; soft blue-grey shading and navy #24163f outline. Long low horizontal silhouette to fit a 9.75:1 canvas. No food, no band, no shadow, no text, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-4130b7a2-5349-45a9-963a-96edb014225c.png",
+      "tool": "built-in imagegen",
+      "bytes": 41186,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/chef-pan",
+      "prompt": "Use case: stylized-concept. Asset type: transparent character prop for a children's pancake game, target 740x264. A cute flying frying-pan character viewed from the side: a dark blue-grey nonstick bowl with big friendly eyes, rosy cheeks and a smile on its front; pale metal rim; bowl occupies left 0..83% of the canvas and its visual center is precisely at x=42% of full image width. Short wooden handle extends to the right, angled up about 25 degrees; a tiny white chef hat perches on the handle end. Entire pan horizontal, complete silhouette with generous canvas clearance, bold navy outline, soft cel shading, colorful and expressive. Transparent background. Do not put pancake in the pan, no arms, no extra objects, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-171a01fa-ad37-42c5-91aa-f52b73e7755e.png",
+      "tool": "built-in imagegen",
+      "bytes": 134058,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "prop/syrup-bottle",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop, target 320x480. One cartoon maple-syrup bottle, upright and centered, rounded amber glass full of syrup, red cap at the top/spout pointing straight up at zero rotation, cream label with a simple pink heart and absolutely no writing, glossy highlight. Bold navy outline, gentle cel shading. Transparent background, no plate, no pouring stream, no text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-88031ac0-e3f8-4686-8485-54d986e80c16.png",
+      "tool": "built-in imagegen",
+      "bytes": 144566,
+      "record": "party/reference/pending/pancake-tower-art-prompts.json"
     }
   ]
 }

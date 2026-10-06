@@ -24,7 +24,7 @@ import {
   KINDS, PERFECT, PLATE_HALF, makeItem, itemH, towerHeight, towerValue, stability, drop, aiTarget,
   makeSequence, supportHalf,
 } from './pancake-tower/stack.js';
-import { drawItem, drawPlate, drawPan, drawSyrupBottle, drawCrown, drawIconScene } from './pancake-tower/draw.js';
+import { drawItem, drawPlate, drawPan, panItemLift, drawSyrupBottle, drawCrown, drawIconScene } from './pancake-tower/draw.js';
 
 const NAVY = ui.NAVY;
 const DURATION = 50;
@@ -264,7 +264,7 @@ export class Game {
     if (!L.item) return;
     // what you see is what you get: aim relative to the swaying top you can see
     L.item.x = L.panX - this.offTop(L);
-    L.fall = { y: L.panY + 10, vy: 0, vx: L.panX };
+    L.fall = { y: L.panY + panItemLift() - 2, vy: 0, vx: L.panX };
     L.state = 'fall'; L.stT = 0;
     L.panTilt = 1;
     L.a.playOnce('action', 0.28);
@@ -676,7 +676,7 @@ export class Game {
       if (it) {
         let lift = 0, rot = 0;
         if (L.state === 'flip') { const u = clamp(L.stT / FLIP_T, 0, 1); lift = 4 * u * (1 - u) * 140; rot = u * TAU; }
-        g.save(); g.translate(0, -12 - lift - it.h / 2); g.rotate(rot); g.translate(0, it.h / 2); drawItem(g, it, t); g.restore();
+        g.save(); g.translate(0, -panItemLift() - lift - it.h / 2); g.rotate(rot); g.translate(0, it.h / 2); drawItem(g, it, t); g.restore();
       }
       drawPan(g, t, clamp(L.panDir * 0.8, -1, 1), L.streak > 0 ? 1 : 0.5, L.p.color);
       g.restore();
@@ -802,4 +802,3 @@ function paintKitchen(g) {
   }
   g.fillStyle = 'rgba(36,22,63,0.12)'; g.fillRect(0, BASE_Y + 31, W, 12);
 }
-

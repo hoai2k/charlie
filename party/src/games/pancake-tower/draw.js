@@ -3,7 +3,7 @@
 // Items are drawn in lane design units with the origin at their
 // bottom-centre (canvas y down, so the item spans y = -h..0).
 import * as ui from '../../engine/ui.js';
-import { drawArt } from '../../engine/art.js';
+import { art, drawArt } from '../../engine/art.js';
 import { TAU } from '../../engine/util.js';
 import { KINDS } from './stack.js';
 
@@ -184,8 +184,12 @@ export function drawPlate(g, color, pw = 300, ph = 20) {
  * The flying chef pan (origin = bottom centre of the bowl). Handle to the
  * right. look: -1..1 eye direction, t: time, happy: smile size.
  */
+// The trimmed generated pan has its bowl center at 34.8% of the canvas.
+// Keep the falling item centered over that bowl and just inside its high rim.
+export function panItemLift() { return art('prop/chef-pan') ? 65 : 12; }
+
 export function drawPan(g, t, look = 0, happy = 0.5, color = '#ff6fb1') {
-  if (drawArt(g, 'prop/chef-pan', 22.5, 0, 295, 105, { anchor: 'bottom', fit: 'stretch' })) return;
+  if (drawArt(g, 'prop/chef-pan', (0.5 - 0.348) * 295, 0, 295, 105, { anchor: 'bottom', fit: 'stretch' })) return;
   g.lineJoin = 'round'; g.lineCap = 'round';
   // short handle, angled up
   g.save(); g.translate(108, -30); g.rotate(-0.45);
