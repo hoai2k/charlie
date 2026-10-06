@@ -412,7 +412,7 @@ export function drawBat(g, x, y, ang, L, color) {
 // ---------------------------------------------------------------------------
 // Backyard
 // ---------------------------------------------------------------------------
-export const BAR_Y = 158;      // crossbar the ropes hang from
+export const BAR_Y = 152;      // crossbar the ropes hang from (centre of the painted bar in bg/pinata-party)
 export const LAWN_Y = 400;
 
 function balloon(g, x, y, r, color, stringTo) {

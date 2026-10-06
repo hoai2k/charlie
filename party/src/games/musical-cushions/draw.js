@@ -1,9 +1,9 @@
 // Musical Cushions - procedural art: the cosy party room, fluffy cushions, the
 // record player and the menu thumbnail. Every piece first asks for generated
-// art (art()/drawArt()) and falls back to the drawing here.
+// art (art()) and falls back to the drawing here.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
-import { art, drawArt } from '../../engine/art.js';
+import { art } from '../../engine/art.js';
 import { TAU, clamp, lerp } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
@@ -20,6 +20,31 @@ export const CUSHION_COLORS = [
 ];
 
 const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
+
+// Visible (alpha) bounds of a generated image, measured once, so art with
+// transparent padding can be anchored by what is actually painted.
+const boxCache = new WeakMap();
+function artBox(img) {
+  let b = boxCache.get(img);
+  if (b) return b;
+  b = { x: 0, y: 0, w: img.width, h: img.height };
+  try {
+    const cv = document.createElement('canvas');
+    cv.width = img.width; cv.height = img.height;
+    const c = cv.getContext('2d', { willReadFrequently: true });
+    c.drawImage(img, 0, 0);
+    const d = c.getImageData(0, 0, cv.width, cv.height).data;
+    let x0 = cv.width, y0 = cv.height, x1 = -1, y1 = -1;
+    for (let y = 0; y < cv.height; y++) {
+      for (let x = 0; x < cv.width; x++) {
+        if (d[(y * cv.width + x) * 4 + 3] > 24) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      }
+    }
+    if (x1 >= x0 && y1 >= y0) b = { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+  } catch (e) { /* tainted or unavailable: use the whole image */ }
+  boxCache.set(img, b);
+  return b;
+}
 
 // --- the room (cached) -----------------------------------------------------------
 let bgCache = null;
@@ -174,11 +199,15 @@ function bunting(g, x0, y0, x1, y1, seed) {
 export function drawCushion(g, x, y, w, ci, { z = 0, sq = 0, glow = 0, t = 0, alpha = 1 } = {}) {
   const [top, side, btn] = CUSHION_COLORS[ci % CUSHION_COLORS.length];
   const h = w * 0.62, th = w * 0.2;
+  const img = art('prop/cushion-' + (ci % CUSHION_COLORS.length));
   g.save();
   g.globalAlpha *= alpha;
-  // shadow
+  // shadow (the art's front edge sits at y + th/2, so its contact shadow is tighter)
   g.fillStyle = 'rgba(70,30,50,0.25)';
-  g.beginPath(); g.ellipse(x + 4, y + h * 0.18, w * 0.56 * (1 + z * 0.002), h * 0.46, 0, 0, TAU); g.fill();
+  g.beginPath();
+  if (img) g.ellipse(x + 4, y + th * 0.15, w * 0.6 * (1 + z * 0.002), h * 0.32, 0, 0, TAU);
+  else g.ellipse(x + 4, y + h * 0.18, w * 0.56 * (1 + z * 0.002), h * 0.46, 0, 0, TAU);
+  g.fill();
   if (glow > 0) {
     g.save(); g.globalCompositeOperation = 'lighter';
     const r = w * (0.95 + 0.08 * Math.sin(t * 8));
@@ -189,9 +218,15 @@ export function drawCushion(g, x, y, w, ci, { z = 0, sq = 0, glow = 0, t = 0, al
   }
   const sx = 1 + sq * 0.22, sy = 1 - sq * 0.35;
   g.translate(x, y - z); g.scale(sx, sy);
-  // the delivered art has ~13% clear space under the cushion, so drop it by that much to sit on its shadow
-  const ah = w * 1.12 * 0.8;
-  if (drawArt(g, 'prop/cushion-' + (ci % CUSHION_COLORS.length), 0, th * 0.5 + ah * 0.13, w * 1.12, ah, { anchor: 'bottom' })) { g.restore(); return; }
+  if (img) {
+    // Generated cushion: scaled as if its whole canvas were 1.12 w wide, then the
+    // painted part (each file has a different transparent margin, 10-16% at the
+    // bottom) is centred with its bottom on the front edge of the cushion.
+    const b = artBox(img), k = (w * 1.12) / img.width;
+    g.drawImage(img, b.x, b.y, b.w, b.h, -b.w * k / 2, th * 0.5 - b.h * k, b.w * k, b.h * k);
+    g.restore();
+    return;
+  }
   g.lineJoin = 'round';
   const pillow = (oy, ww, hh2, bulge) => {
     const l = -ww / 2, r = ww / 2, tp = oy - hh2 / 2, bt = oy + hh2 / 2;
@@ -237,12 +272,9 @@ export function drawRecordPlayer(g, spin, arm, t, { wobble = 0, glow = 0 } = {})
   for (const lx of [-120, 120]) { g.beginPath(); g.rect(x + lx - 9, y - 70, 18, 70); g.fill(); g.stroke(); }
   g.fillStyle = '#e0a36a'; ui.roundRect(g, x - 160, y - 92, 320, 30, 12); g.fill(); g.stroke();
   g.fillStyle = '#efb985'; g.beginPath(); g.ellipse(x, y - 92, 160, 18, 0, 0, TAU); g.fill(); g.stroke();
-  if (drawArt(g, 'prop/record-player', x, y - 96, 280, 190, { anchor: 'bottom' })) {
-    drawArm(g, x, y - 96, arm);
-    g.restore();
-    return;
-  }
   const by = y - 96 + Math.sin(t * 40) * wobble * 2;
+  const rpImg = art('prop/record-player');
+  if (rpImg) { drawRecordPlayerArt(g, rpImg, x, by, spin, arm, glow); g.restore(); return; }
   // box
   g.fillStyle = '#ff7ab8'; ui.roundRect(g, x - 130, by - 58, 260, 58, 14); g.fill(); g.stroke();
   g.fillStyle = '#ffb3d9'; g.beginPath();
@@ -273,26 +305,74 @@ export function drawRecordPlayer(g, spin, arm, t, { wobble = 0, glow = 0 } = {})
   g.restore();
 }
 
+// Landmarks in prop/record-player, as fractions of its painted (alpha) box:
+// the vinyl disc, a pivot on the deck right of the platter, where the needle
+// rests on the record and where it goes when lifted off.
+const RP_ART = {
+  disc: [0.477, 0.505, 0.326, 0.159], label: [0.477, 0.495, 0.114, 0.055],
+  pivot: [0.877, 0.544], rest: [0.654, 0.604], lifted: [0.957, 0.396],
+};
+
+function drawRecordPlayerArt(g, img, x, by, spin, arm, glow) {
+  const b = artBox(img);
+  const s = Math.min(280 / b.w, 190 / b.h), dw = b.w * s, dh = b.h * s;
+  const x0 = x - dw / 2, y0 = by - dh;
+  const P = (fx, fy) => [x0 + fx * dw, y0 + fy * dh];
+  const [dcx, dcy] = P(RP_ART.disc[0], RP_ART.disc[1]);
+  const drx = RP_ART.disc[2] * dw, dry = RP_ART.disc[3] * dh;
+  if (glow > 0) {
+    g.save(); g.globalCompositeOperation = 'lighter';
+    const gr = g.createRadialGradient(dcx, dcy, 5, dcx, dcy, 140);
+    gr.addColorStop(0, `rgba(255,240,170,${0.6 * glow})`); gr.addColorStop(1, 'rgba(255,200,120,0)');
+    g.fillStyle = gr; g.fillRect(dcx - 150, dcy - 150, 300, 300); g.restore();
+  }
+  g.drawImage(img, b.x, b.y, b.w, b.h, x0, y0, dw, dh);
+  // the record visibly spins: two rotating glints on the vinyl, a dot on the label
+  g.save();
+  g.strokeStyle = 'rgba(255,255,255,0.4)'; g.lineWidth = 3; g.lineCap = 'round';
+  for (const off of [0, Math.PI]) { const a = spin + off; g.beginPath(); g.ellipse(dcx, dcy, drx * 0.78, dry * 0.78, 0, a, a + 0.6); g.stroke(); }
+  const [lx, ly] = P(RP_ART.label[0], RP_ART.label[1]);
+  g.fillStyle = '#ff6fb1';
+  g.beginPath(); g.ellipse(lx + Math.cos(spin) * RP_ART.label[2] * dw * 0.6, ly + Math.sin(spin) * RP_ART.label[3] * dh * 0.6, 3.5, 2, 0, 0, TAU); g.fill();
+  g.restore();
+  const k = clamp(arm, 0, 1);
+  const [px, py] = P(...RP_ART.pivot), [rx, ry] = P(...RP_ART.rest), [ux, uy] = P(...RP_ART.lifted);
+  toneArm(g, px, py, lerp(rx, ux, k), lerp(ry, uy, k) - Math.sin(k * Math.PI) * 10, 0.75);
+}
+
+function toneArm(g, px, py, ex, ey, s = 1) {
+  g.strokeStyle = NAVY; g.lineWidth = 11 * s;
+  g.beginPath(); g.moveTo(px, py); g.lineTo(ex, ey); g.stroke();
+  g.strokeStyle = '#e6e2f2'; g.lineWidth = 6 * s;
+  g.beginPath(); g.moveTo(px, py); g.lineTo(ex, ey); g.stroke();
+  g.fillStyle = '#ff6fb1'; g.strokeStyle = NAVY; g.lineWidth = 3.5 * s;
+  g.beginPath(); g.arc(px, py, 12 * s, 0, TAU); g.fill(); g.stroke();
+  g.fillStyle = '#ffd23f'; ui.roundRect(g, ex - 10 * s, ey - 7 * s, 20 * s, 14 * s, 4 * s); g.fill(); g.stroke();
+}
+
 function drawArm(g, x, by, arm) {
   // pivot at the back right of the deck; the needle rests on the disc at arm = 0
   // and swings up and off it as arm goes to 1
   const k = clamp(arm, 0, 1);
   const px = x + 98, py = by - 84;
   const ex = lerp(x + 26, x + 126, k), ey = lerp(by - 68, by - 122, k) - Math.sin(k * Math.PI) * 16;
-  g.strokeStyle = NAVY; g.lineWidth = 11;
-  g.beginPath(); g.moveTo(px, py); g.lineTo(ex, ey); g.stroke();
-  g.strokeStyle = '#e6e2f2'; g.lineWidth = 6;
-  g.beginPath(); g.moveTo(px, py); g.lineTo(ex, ey); g.stroke();
-  g.fillStyle = '#ff6fb1'; g.strokeStyle = NAVY; g.lineWidth = 3.5;
-  g.beginPath(); g.arc(px, py, 12, 0, TAU); g.fill(); g.stroke();
-  g.fillStyle = '#ffd23f'; ui.roundRect(g, ex - 10, ey - 7, 20, 14, 4); g.fill(); g.stroke();
+  toneArm(g, px, py, ex, ey);
 }
 
 /** A speaker on the floor next to the table; pulse 0..1 pumps the cone. */
 export function drawSpeaker(g, x, y, pulse) {
   g.save(); g.lineJoin = 'round';
   g.fillStyle = 'rgba(70,30,50,0.25)'; g.beginPath(); g.ellipse(x, y + 2, 60, 12, 0, 0, TAU); g.fill();
-  if (drawArt(g, 'prop/party-speaker', x, y, 120, 170, { anchor: 'bottom' })) { g.restore(); return; }
+  const img = art('prop/party-speaker');
+  if (img) {
+    // generated speaker: painted box (padding trimmed) stands on the floor and
+    // pumps on the beat, stretching up from its feet
+    const b = artBox(img), s = Math.min(120 / b.w, 170 / b.h);
+    g.translate(x, y); g.scale(1 + pulse * 0.04, 1 + pulse * 0.07);
+    g.drawImage(img, b.x, b.y, b.w, b.h, -b.w * s / 2, -b.h * s, b.w * s, b.h * s);
+    g.restore();
+    return;
+  }
   g.strokeStyle = NAVY; g.lineWidth = 5; g.fillStyle = '#9b7bff';
   ui.roundRect(g, x - 52, y - 160, 104, 160, 16); g.fill(); g.stroke();
   g.fillStyle = 'rgba(255,255,255,0.18)'; ui.roundRect(g, x - 44, y - 152, 30, 144, 10); g.fill();
