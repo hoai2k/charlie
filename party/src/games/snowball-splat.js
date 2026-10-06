@@ -318,9 +318,9 @@ export class Game {
 
     // animation
     if (stunned) { if (!a._once && a.pose !== 'dizzy') a.setPose('dizzy'); }
-    else if (scooping) { if (!a._once) a.setPose('crouch'); a.facing = Math.cos(U.face) >= 0 ? 1 : -1; }
+    else if (scooping) { if (!a._once) a.setPose('snow-scoop'); a.facing = Math.cos(U.face) >= 0 ? 1 : -1; }
     else {
-      if (a.pose === 'dizzy' || a.pose === 'crouch') a.setPose('idle');
+      if (a.pose === 'dizzy' || a.pose === 'snow-scoop') a.setPose('idle');
       if (U.giant && !a._once) { a.setPose('carry'); a.speed = clamp(Math.hypot(U.vx, U.vy) / WALK, 0, 1); if (Math.abs(U.vx) > 10) a.facing = U.vx > 0 ? 1 : -1; }
       else a.moveAnim(U.vx, U.vy, WALK, { run: Math.hypot(U.vx, U.vy) > WALK * 0.92 });
       // with nothing to do, face the way you aim

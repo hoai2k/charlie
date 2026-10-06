@@ -411,6 +411,7 @@ export class Game {
     pl.sqv += spring ? 9 : 5.5;
     a.squash(spring ? 0.45 : 0.3);
     if (spring) {
+      a.playOnce('spring-jump', 0.5, 'jump');   // falls back to dance-star / jump
       snd('cloudhop-spring', 'boing', { vol: human ? 0.8 : 0.45, fallback: 'bounce' });
       particles.burst(e.x, pl.y, { type: 'heart', count: 4, colors: ['#ff6fb1', '#ff9ccf', '#fff'], speed: [80, 220] });
       particles.ring(e.x, pl.y, '#ff9ccf', 120, 0.35);
