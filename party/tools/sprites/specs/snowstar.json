@@ -1,14 +1,14 @@
 {
   "asset": "snowstar",
-  "bodyHeight": 288,
+  "bodyHeight": 259.2,
   "quality": 82,
   "frameSize": [
-    614,
-    595
+    553,
+    536
   ],
   "anchor": [
-    307,
-    518
+    276,
+    466
   ],
   "facing": 0,
   "poses": {
@@ -2876,7 +2876,479 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1,
-      "bodyHeight": 216.0
+      "bodyHeight": 194.4
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            501.12
+          ],
+          "head": [
+            193.94,
+            58.67
+          ],
+          "eyes": [
+            213.35,
+            211.97
+          ],
+          "neck": [
+            209.47,
+            277.95
+          ],
+          "back": [
+            195.88,
+            320.64
+          ],
+          "hand": [
+            312.32,
+            314.82
+          ]
+        },
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            495.3
+          ],
+          "head": [
+            192.0,
+            68.37
+          ],
+          "eyes": [
+            215.29,
+            208.09
+          ],
+          "neck": [
+            213.35,
+            277.95
+          ],
+          "back": [
+            199.76,
+            314.82
+          ],
+          "hand": [
+            312.32,
+            310.94
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            495.3
+          ],
+          "head": [
+            203.64,
+            56.72
+          ],
+          "eyes": [
+            223.05,
+            198.39
+          ],
+          "neck": [
+            201.7,
+            262.43
+          ],
+          "back": [
+            197.82,
+            303.18
+          ],
+          "hand": [
+            329.78,
+            202.27
+          ]
+        },
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            499.18
+          ],
+          "head": [
+            201.7,
+            60.61
+          ],
+          "eyes": [
+            219.17,
+            206.15
+          ],
+          "neck": [
+            203.64,
+            268.25
+          ],
+          "back": [
+            195.88,
+            312.88
+          ],
+          "hand": [
+            271.56,
+            305.12
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 4,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            485.51
+          ],
+          "head": [
+            197.82,
+            52.75
+          ],
+          "eyes": [
+            221.11,
+            184.71
+          ],
+          "neck": [
+            223.05,
+            252.64
+          ],
+          "back": [
+            224.99,
+            295.33
+          ],
+          "hand": [
+            67.8,
+            180.83
+          ]
+        },
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 5,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            485.51
+          ],
+          "head": [
+            199.76,
+            46.93
+          ],
+          "eyes": [
+            221.11,
+            178.89
+          ],
+          "neck": [
+            213.35,
+            252.64
+          ],
+          "back": [
+            250.22,
+            279.8
+          ],
+          "hand": [
+            327.84,
+            161.43
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 6,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            491.42
+          ],
+          "head": [
+            209.47,
+            62.55
+          ],
+          "eyes": [
+            226.93,
+            219.73
+          ],
+          "neck": [
+            195.88,
+            262.43
+          ],
+          "back": [
+            162.89,
+            299.3
+          ],
+          "hand": [
+            219.17,
+            359.46
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-a.webp",
+          "grid": [
+            4,
+            2
+          ],
+          "cell": 7,
+          "isolate": true,
+          "anchor": [
+            192.0,
+            483.5
+          ],
+          "head": [
+            209.47,
+            54.63
+          ],
+          "eyes": [
+            230.81,
+            180.76
+          ],
+          "neck": [
+            221.11,
+            254.51
+          ],
+          "back": [
+            207.52,
+            293.32
+          ],
+          "hand": [
+            290.97,
+            320.49
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 0,
+          "isolate": true,
+          "anchor": [
+            271,
+            840
+          ],
+          "head": [
+            274.88,
+            92.87
+          ],
+          "eyes": [
+            294.29,
+            275.29
+          ],
+          "neck": [
+            292.35,
+            374.26
+          ],
+          "back": [
+            259.36,
+            434.42
+          ],
+          "hand": [
+            474.76,
+            298.58
+          ],
+          "scale": 0.72
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 1,
+          "isolate": true,
+          "anchor": [
+            271.0,
+            700.36
+          ],
+          "head": [
+            284.58,
+            188.04
+          ],
+          "eyes": [
+            313.69,
+            401.51
+          ],
+          "neck": [
+            311.75,
+            486.89
+          ],
+          "back": [
+            199.2,
+            523.76
+          ],
+          "hand": [
+            366.09,
+            605.27
+          ],
+          "scale": 0.72
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 2,
+          "isolate": true,
+          "anchor": [
+            271.0,
+            690.59
+          ],
+          "head": [
+            286.52,
+            187.98
+          ],
+          "eyes": [
+            317.57,
+            403.39
+          ],
+          "neck": [
+            305.93,
+            486.83
+          ],
+          "back": [
+            230.25,
+            517.88
+          ],
+          "hand": [
+            294.29,
+            601.33
+          ],
+          "scale": 0.72
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-new-games-b.webp",
+          "grid": [
+            4,
+            1
+          ],
+          "cell": 3,
+          "isolate": true,
+          "anchor": [
+            271,
+            775
+          ],
+          "head": [
+            286.52,
+            93.85
+          ],
+          "eyes": [
+            307.87,
+            284.03
+          ],
+          "neck": [
+            309.81,
+            379.12
+          ],
+          "back": [
+            269.06,
+            437.34
+          ],
+          "hand": [
+            476.7,
+            414.05
+          ],
+          "scale": 0.72
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
     }
   },
   "portraits": {
@@ -2896,5 +3368,9 @@
       "source": "../sources/snowstar-portrait-determined.webp"
     }
   },
-  "portraitNotes": "Portrait sources derive from isolated core-r3 idle/cheer/sad/surprised/ready frames, top 64 percent of each alpha bounding box, bottom-aligned on a transparent square to exclude leg fragments."
+  "portraitNotes": "Portrait sources derive from isolated core-r3 idle/cheer/sad/surprised/ready frames, top 64 percent of each alpha bounding box, bottom-aligned on a transparent square to exclude leg fragments.",
+  "sourceFiles": [
+    "../sources/snowstar-new-games-a.webp",
+    "../sources/snowstar-new-games-b.webp"
+  ]
 }
