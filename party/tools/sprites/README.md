@@ -75,6 +75,12 @@ and are resized to 384×384. Supply intentional portrait crops with shoulders re
    These outfits share their hue with skin or fur, so the alternate colour
    schemes (`src/data/variants.js`) need a region mask per frame; a frame
    without one keeps its canonical outfit colour in the alternates.
+   Reviewed source-local corrections are applied automatically by this normal
+   command from `mask_overrides/`: Center's new actions preserve fists/thighs
+   and complete bright sleeves; Felicity's lifted spring shoes keep their
+   alternate outfit colours even above the grounded classifier's row gate.
+   The guards follow the build's anchor and scale transform, so proportional
+   raster resizing retains their placement.
 5. **Validate:** `python3 party/tools/sprites/validate.py` (no stale/missing
    optimized-copy or mask warnings) and `node party/tools/sprites/runtime.test.mjs`.
 6. **Test in game, both qualities**, e.g.

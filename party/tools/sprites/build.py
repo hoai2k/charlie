@@ -119,6 +119,11 @@ def build(spec, base, output):
     manifest = {'frameSize': size, 'anchor': anchor, 'bodyHeight': body_height,
                 'facing': spec.get('facing', 1), 'poses': {}, 'portraits': {},
                 'provenance': spec.get('provenance', 'Generated from approved canonical; normalized by tools/sprites/build.py')}
+    mask_override = Path(__file__).resolve().parent / 'mask_overrides' / f"{spec.get('asset', '')}-new-games.json"
+    if spec.get('asset') and mask_override.exists():
+        # Mask control metadata participates in the shipping fingerprint so
+        # changed skin guards invalidate optimized and image/mask caches.
+        manifest['maskOverrideRevision'] = hashlib.sha256(mask_override.read_bytes()).hexdigest()[:16]
     qa = []
     idle_normalized = None
     for pose, definition in spec['poses'].items():

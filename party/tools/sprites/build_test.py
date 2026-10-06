@@ -14,6 +14,36 @@ import build
 
 
 class BuildTests(unittest.TestCase):
+    def test_mask_metadata_versions_manifest_without_reencoding_art(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            image = Image.new('RGBA', (16, 24))
+            ImageDraw.Draw(image).rectangle((2, 2, 13, 21), fill=(90, 120, 200, 255))
+            image.save(base / 'source.webp')
+            overrides = base / 'mask_overrides'
+            overrides.mkdir()
+            metadata = overrides / 'test-new-games.json'
+            metadata.write_text('{"guard": 1}')
+            spec = {'asset': 'test', 'bodyHeight': 20, 'frameSize': [30, 30],
+                    'anchor': [15, 25], 'poses': {'idle': {'frames': [
+                        {'source': 'source.webp', 'anchor': [8, 22]}]}}}
+            output = base / 'out'
+            with patch.object(build, '__file__', str(base / 'build.py')), \
+                 patch.object(build, 'save_webp', wraps=build.save_webp) as encode, \
+                 contextlib.redirect_stdout(io.StringIO()):
+                build.build(spec, base, output)
+                art = (output / 'idle-00.webp').read_bytes()
+                before = json.loads((output / 'sprites.json').read_text())['maskOverrideRevision']
+                metadata.write_text('{"guard": 2}')
+                build.build(spec, base, output)
+                after = json.loads((output / 'sprites.json').read_text())['maskOverrideRevision']
+                self.assertNotEqual(before, after)
+                self.assertEqual(encode.call_count, 1)
+                self.assertEqual(art, (output / 'idle-00.webp').read_bytes())
+                metadata.unlink()
+                build.build(spec, base, output)
+                self.assertNotIn('maskOverrideRevision', json.loads((output / 'sprites.json').read_text()))
+
     def test_landmark_edit_reuses_pixels_and_damage_is_repaired(self):
         with tempfile.TemporaryDirectory() as directory:
             base = Path(directory)

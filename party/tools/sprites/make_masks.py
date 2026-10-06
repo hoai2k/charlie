@@ -224,6 +224,22 @@ def build(asset, review=None):
         if f.name not in keep: f.unlink()
     from optimize import fingerprint
     (outdir / 'index.json').write_text(json.dumps({'source': fingerprint(asset), 'note': 'made by tools/sprites/make_masks.py'}) + '\n')
+    # Reviewed source-local skin guards prevent connected-region spill in the
+    # expanded Center action set. Ordinary rebuilds retain those corrections.
+    override = HERE / 'mask_overrides' / f'{asset}-new-games.json'
+    if override.exists():
+        from apply_mask_overrides import apply
+        apply(asset)
+        if review:
+            tiles = []
+            for _, fr in frames_of(m):
+                rv = Image.open(SPR / asset / fr['src']).convert('RGBA')
+                mr = np.asarray(Image.open(outdir / fr['src']).convert('RGB'))
+                ova = np.zeros((rv.height, rv.width, 4), np.uint8)
+                ova[mr[..., 0] > 0] = (255, 0, 200, 170)
+                ova[mr[..., 1] > 0] = (0, 220, 255, 170)
+                rv.alpha_composite(Image.fromarray(ova))
+                tiles.append(rv)
     print(f'{asset}: {len(keep)} masks, {total/1024:.1f} KB total, {time.time()-t0:.1f}s')
     if not review: return
     # contact sheet
