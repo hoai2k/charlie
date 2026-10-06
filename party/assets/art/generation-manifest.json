@@ -5788,6 +5788,126 @@
       "tool": "built-in imagegen",
       "bytes": 5352,
       "record": "party/reference/pending/pinata-party-generation.json"
+    },
+    {
+      "key": "bg/snowball-splat",
+      "prompt": "Use case: illustration-story. Asset: bg/snowball-splat. Request: A cozy winter cottage garden seen from a high 3/4 top-down angle: pale blue sky with soft clouds, snowy hills, two candy-coloured cottages with thick snow on the roofs and warm yellow windows, snow-tipped pine trees, a honey-wood picket fence with snow caps and a string of colourful party lights; below it a wide smooth field of fresh snow with gentle blue-shaded drifts and tiny sparkles, a small oval frozen pond (pale cyan ice with white streaks) in the middle, snowbanks and pines along the left, right and bottom edges. Game layout: Full screen, 1:1 (the camera zooms up to ~1.2\u00d7). Layout must match: sky and backdrop above y\u2248200, a wooden picket fence along y\u2248200\u2013245, open snowy ground below. Players walk in x 90\u20131830, y 280\u20131028. A frozen pond sits exactly at the centre: ellipse centre (960, 652), radii 205\u00d788, with a ~20 px snowy rim. Keep the top ~110 px calm (scoreboard chips) and the ground plain \u2014 the code draws the walls, snowmen, splats and scoop dents.  Target 1920\u00d71080, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. Opaque full-frame composition. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-536d29e2-da3d-4cda-81be-f8343bc2493c.png",
+      "tool": "built-in imagegen",
+      "bytes": 207328,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "thumb/snowball-splat",
+      "prompt": "Use case: illustration-story. Asset: thumb/snowball-splat. Request: Two cheerful roster characters mid snowball fight in a snowy garden: one ducking behind a snow-fort wall, a snowball flying in a dotted arc toward a snowman with a red scarf, a white splat burst, a giant snowball and a red knitted mitten in the corners, falling snowflakes. Subject centred. Game layout: Game-select shelf and how-to screen (`drawIcon` is the fallback).  Target 800\u00d7500, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. Opaque full-frame composition. No text or watermark. Reference images are approved Cotton Candy and Unicorn. Show these two exact quadruped pony characters in the friendly snowball fight. Preserve Cotton Candy's yellow crown with blue tips, yellow flower emblem and pink/blue/lilac hair, and Unicorn's plain white/lilac mane and spiral horn. No human limbs.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-2adc7b3b-6c27-4b30-8ff5-c58ed1c9ebed.png",
+      "tool": "built-in imagegen",
+      "bytes": 92376,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snowball",
+      "prompt": "Use case: illustration-story. Asset: prop/snowball. Request: A single round packed snowball: white with soft blue shading at the lower right, a small white highlight at the upper left, a few tiny lumps, thin navy outline. Game layout: Centred on the ball, drawn at 2.3 \u00d7 its radius (7\u201312 px radius: in hands, in flight, and as the 3 ammo pips over each head). The ball should fill ~87% of the canvas. Nearly round ball filling87% of square canvas, centered. White packed snow and lightblue shading, no face or background. Target 64\u00d764, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-62370b0f-722c-49a0-9bf0-35ca697e1e7f.png",
+      "tool": "built-in imagegen",
+      "bytes": 1940,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/giant-snowball",
+      "prompt": "Use case: illustration-story. Asset: prop/giant-snowball. Request: A huge round snowball, lumpy packed snow with blue cel shading and a big white highlight, navy outline. Game layout: Centred on the ball, drawn at 2.15 \u00d7 its radius (26\u201366 px). The code does not rotate it, so keep it nearly round.  Target 256\u00d7256, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-6cb72310-bf64-44c9-a9e0-9b7cc9e85a40.png",
+      "tool": "built-in imagegen",
+      "bytes": 14832,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/powerup-giant",
+      "prompt": "Use case: illustration-story. Asset: prop/powerup-giant. Request: Power-up icon: a giant sparkly snowball with a little gold star twinkle on it, cheerful and chunky. Game layout: Centred inside the floating pickup bubble, ~97 px wide; the code draws the glow and the bubble around it.  Target 192\u00d7192, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-03d1af6e-18ce-43f6-97f8-938a12de64a8.png",
+      "tool": "built-in imagegen",
+      "bytes": 11890,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/triple-mitten",
+      "prompt": "Use case: illustration-story. Asset: prop/triple-mitten. Request: A red knitted mitten with a yellow and a white stripe and a fluffy white cuff, upright, thumb on the left. Game layout: Centred, drawn 30\u2013100 px tall: on the pickup bubble (the code adds \"x3\" beside it), in the player's hand, and next to the ammo pips.  Target 160\u00d7160, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-44dc4733-a4f7-4223-b7c0-19b8e8fc4bcd.png",
+      "tool": "built-in imagegen",
+      "bytes": 8028,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snow-splat",
+      "prompt": "Use case: illustration-story. Asset: prop/snow-splat. Request: A white snow splat seen from above: a star-shaped burst of packed snow with little round blobs flung around it, faint blue shading, thin soft-blue outline. Game layout: Ground decal centred where a snowball landed; the code squashes it vertically to 42% and fades it out. Drawn 36\u2013150 px wide, so paint it as a round splat seen from straight above.  Target 256\u00d7256, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-3fe03382-307f-45f5-a1f9-3cdb530f21bd.png",
+      "tool": "built-in imagegen",
+      "bytes": 21162,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/face-splat",
+      "prompt": "Use case: illustration-story. Asset: prop/face-splat. Request: A cartoony blob of white snow stuck on a face: a round splat with three bumps and two little drips, navy outline, light blue shading. Game layout: Centred on a character's eyes for ~2 s after a hit, drawn at 2.4 \u00d7 (15% of the character's height), fades out. Draw ONLY the isolated white snow blob itself. No face, head, eyes, character, hands or background behind it. Target 128\u00d7128, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-d558c2b1-6b93-4838-beaa-a73d7f1188a4.png",
+      "tool": "built-in imagegen",
+      "bytes": 4946,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snow-wall",
+      "prompt": "Use case: illustration-story. Asset: prop/snow-wall. Request: A packed-snow fort wall made of stacked snow bricks, seen from a high 3/4 angle: flat white top face with a slightly lumpy edge, blue-shaded front face with brick seams, navy outline. Game layout: Stretched over a horizontal fort-wall block: footprint 230\u00d744 plus an 84 px front face, so the top 34% of the image is the top face and the bottom 66% the front face. Damage lowers it to ~60% height (stretched) and the code adds cracks. GEOMETRY: target460\u00d7256. Horizontal wide snow-brick wall; front view from high three-quarter angle. Top WHITE face occupies the upper34% (y0..87); clearly separate blue-shadowed FRONT face occupies y87..256, lower66%. Flat support edge, entire brick wall opaque, thin navy outline. Target 460\u00d7256, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-0f5f3b9a-ea3f-4907-bb14-82828ce8e902.png",
+      "tool": "built-in imagegen",
+      "bytes": 25704,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snow-wall-side",
+      "prompt": "Use case: illustration-story. Asset: prop/snow-wall-side. Request: The same snow-brick fort wall seen end-on: a long narrow white top face and a short blue-shaded front end with brick seams. Game layout: Same, for the two walls that run away from the viewer at the sides: footprint 44 wide \u00d7 170 deep plus the 84 px front face, so the top 67% is the top face and the bottom 33% the front face. GEOMETRY: very tall narrow target176\u00d71016. This is an END-ON wall running away toward the top of the image: one long narrow WHITE TOP rectangle occupies y0..680, upper67%; one much shorter BLUE-SHADOWED FRONT END below it occupiesy680..1016, lower33%. Narrow strip, NOT a horizontal broad wall and not an upright pillar. Same width through both sections, slightly rounded corners, brick seams in blue front end. Target 176\u00d71016, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-6f20a3a2-c6a6-4569-9528-70a27971957e.png",
+      "tool": "built-in imagegen",
+      "bytes": 25138,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snow-rubble",
+      "prompt": "Use case: illustration-story. Asset: prop/snow-rubble. Request: A low pile of broken snow bricks and lumps, white with blue shading, navy outline. Game layout: Bottom-centre anchored at the wall's front edge, fitted into (wall length + 30)\u00d760 px; shown while a crumbled wall waits to rebuild.  Target 520\u00d7120, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-693c5a52-a28e-4908-a5b4-9b6d02b827c6.png",
+      "tool": "built-in imagegen",
+      "bytes": 19562,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snowman",
+      "prompt": "Use case: illustration-story. Asset: prop/snowman. Request: A friendly three-ball snowman: coal eyes and smile, carrot nose, pink cheeks, twig arms, a red knitted scarf, a blue bobble hat. Game layout: Bottom-centre (base of the bottom ball) on the snowman's foot point, fitted into 150\u00d7210 px. Hit 1 swaps to `-nohat`, hit 2 to `-body`, hit 3 to `-pile`. Exact 300\u00d7420 framing: entire snowman with hat near topy0..55, head aroundy75..170, middle ball aroundy200..290 and big bottom ball aroundy280..420. Foot/base center=(150,420). Three stacked snowballs, twig arms out, scarf at neck. This is reference master for matching damage states, so simple flat-front camera and consistent shading. Target 300\u00d7420, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-e2fc5383-09b7-47a7-b47b-5021d3c13c68.png",
+      "tool": "built-in imagegen",
+      "bytes": 26330,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snowman-pile",
+      "prompt": "Use case: illustration-story. Asset: prop/snowman-pile. Request: A flattened snowman: a lumpy snow heap with the red scarf and the carrot on top. Game layout: Bottom-centre on the snowman's foot point, fitted into 130\u00d770 px, until it rebuilds.  Target 260\u00d7140, respect framing and aspect. Bold smooth navy #24163f outlines, rounded appealing shapes, bright candy colors, simple clean cel shading, no photorealism, no 3D. One complete isolated prop on genuinely transparent background, no cast shadow, scenery or characters. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-32b6174b-e9c3-4db3-b62d-9c03efb58ec4.png",
+      "tool": "built-in imagegen",
+      "bytes": 11854,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snowman-nohat",
+      "prompt": "Use case: precise-object-edit. Edit target is the normalized 300\u00d7420 snowman sprite. Remove ONLY the blue bobble hat. Keep the head's round white snow surface and its eyes, carrot nose, smile and cheeks. The hat's former area becomes transparent; do not move the snowman upward. Preserve exact original canvas dimensions, bottom snowball/base at bottom-center, body scale, camera, silhouette of retained parts, shading, scarf and twig arms pixel for pixel. Do NOT crop, recenter or enlarge the remaining figure. Genuinely transparent background, no scenery, shadow, other objects, text or watermark. Clean navy outlines and bright soft cel shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-6d5ba5a7-25fd-4501-8327-e44cf6e4f9ba.png",
+      "tool": "built-in imagegen",
+      "bytes": 22674,
+      "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "prop/snowman-body",
+      "prompt": "Use case: precise-object-edit. Edit target is the normalized 300\u00d7420 snowman sprite. Remove the ENTIRE HEAD and the blue hat. Keep ONLY the same two lower snowballs, the red scarf and twig arms in their existing pixel positions. The former head and hat area must be transparent empty space. No new face on the body. Preserve exact original canvas dimensions, bottom snowball/base at bottom-center, body scale, camera, silhouette of retained parts, shading, scarf and twig arms pixel for pixel. Do NOT crop, recenter or enlarge the remaining figure. Genuinely transparent background, no scenery, shadow, other objects, text or watermark. Clean navy outlines and bright soft cel shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-112b3619-2a01-4222-a91c-91e3ac7e4c76.png",
+      "tool": "built-in imagegen",
+      "bytes": 18064,
+      "record": "party/reference/pending/snowball-splat-generation.json"
     }
   ]
 }
