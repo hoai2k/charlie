@@ -145,14 +145,11 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   it use real songs.
 - `ui.scoreboard` now centres its timer gap for odd player counts and
   returns chip rects (several games had copied its layout).
-- Art status (2026-10-06 02:10 UTC): delivered and checked in game for
-  Musical Cushions, Cloud Hop, Candy Mini-Golf, Pancake Tower and Rainbow
-  Tug-of-War. Still to come: Piñata Party, Snowball Splat, Jump Rope,
-  Fishing Frenzy, Treasure Dig. New-game poses (reel, pull, swing, dig,
-  putt, putt-swing, spring-jump, snow-scoop, skip-hop) are registered and
-  wired into the games; only Felicity has frames so far. When art lands:
-  merge, screenshot the game at 3 and 8 players, check anchors (the
-  cushion art needed a 13% offset for its transparent padding).
+- Art status: all 113 requested images for the ten games are delivered and
+  checked in game, and all 15 playable characters have the new-game poses
+  (reel, pull, swing, dig, putt, putt-swing, spring-jump, snow-scoop,
+  skip-hop). The image agent also fitted the pond background to the game's
+  ellipse (Fishing Frenzy) and the bunny shoulders to the rope (Jump Rope).
 
 ## Open items (not started or waiting)
 - **Music:** the user chooses takes per song on the Takes tab. Then move the
