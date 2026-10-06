@@ -126,7 +126,7 @@ export class Game {
     for (const L of this.lanes) {
       const S = this.S(L);
       const half = (L.a.width || 100) / 2;
-      L.a.x = L.cx - (PLATE_HALF + 14) * S - half * 0.8;
+      L.a.x = Math.max(half + 6, L.cx - (PLATE_HALF + 14) * S - half * 0.8);   // never off the left screen edge
       L.a.y = BASE_Y + 4;
     }
   }
