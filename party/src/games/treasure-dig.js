@@ -40,6 +40,7 @@ const BANG = 0.972;                // "!" on the detector: d < ~58, always insid
 const RUSH_AT = 48;                // Gold Rush: last 12 seconds
 const WAVE_TIMES = [14, 29, 43];
 const WAVE_WARN = 2.2;
+const PAINTED_SHORE = 280;        // where bg/treasure-dig paints the foam line
 const CHEST_TIMES = [17, 35];
 const CHEST_PTS = 8;
 const WEIGHTS = { shell: 34, pearl: 26, gem: 20, coins: 14, crown: 6 };
@@ -693,6 +694,9 @@ export class Game {
     const t = this.t + this.t0;
     const bg = art('bg/treasure-dig');
     if (bg) g.drawImage(bg, 0, 0, W, H); else g.drawImage(this.bg, 0, 0);
+    // The painted beach's foam meets the sand at y ~255-300 (mean ~283), a bit
+    // below the procedural SHORE; the lapping foam follows the painting.
+    this.shoreY = bg ? PAINTED_SHORE : SHORE;
     this.drawShoreline(g, t);
     for (const h of this.holes) drawHole(g, h.x, h.y, h.r * (0.35 + 0.65 * ease.outCubic(h.grow)), 1 - clamp(h.fill, 0, 1));
     if (this.wave) this.drawWave(g, t);
@@ -708,12 +712,13 @@ export class Game {
 
   drawShoreline(g, t) {
     // lapping foam along the shore
-    const edge = (x) => SHORE + 6 + Math.sin(t * 1.3) * 10 + Math.sin(x * 0.006 + t * 0.8) * 8 + Math.sin(x * 0.019 - t) * 4;
+    const S = this.shoreY || SHORE;
+    const edge = (x) => S + 6 + Math.sin(t * 1.3) * 10 + Math.sin(x * 0.006 + t * 0.8) * 8 + Math.sin(x * 0.019 - t) * 4;
     g.save();
     g.fillStyle = 'rgba(127,224,240,0.55)';
-    g.beginPath(); g.moveTo(0, SHORE - 30);
+    g.beginPath(); g.moveTo(0, S - 30);
     for (let x = 0; x <= W; x += 40) g.lineTo(x, edge(x));
-    g.lineTo(W, SHORE - 30); g.closePath(); g.fill();
+    g.lineTo(W, S - 30); g.closePath(); g.fill();
     g.strokeStyle = 'rgba(255,255,255,0.9)'; g.lineWidth = 6; g.lineJoin = 'round';
     g.beginPath(); for (let x = 0; x <= W; x += 40) g.lineTo(x, edge(x)); g.stroke();
     // sea twinkles
@@ -732,12 +737,20 @@ export class Game {
     const w = this.wave, e = w.edge;
     const edge = (x) => e + Math.sin(x * 0.008 + t * 2) * 14 + Math.sin(x * 0.021 - t * 3) * 6;
     g.save();
-    const gr = g.createLinearGradient(0, SHORE - 40, 0, e + 20);
-    gr.addColorStop(0, 'rgba(69,192,236,0.85)'); gr.addColorStop(1, 'rgba(140,228,245,0.75)');
+    // Over the painted sea the wave body fades in from the open water, so its
+    // top edge doesn't show as a hard horizontal seam across the painting.
+    const painted = (this.shoreY || SHORE) !== SHORE;
+    const top = painted ? 120 : SHORE - 40;
+    const gr = g.createLinearGradient(0, top, 0, Math.max(e + 20, top + 1));
+    if (painted) {
+      const k = clamp((SHORE - top) / Math.max(1, e + 20 - top), 0, 1);
+      gr.addColorStop(0, 'rgba(69,192,236,0)'); gr.addColorStop(k, 'rgba(69,192,236,0.8)');
+    } else gr.addColorStop(0, 'rgba(69,192,236,0.85)');
+    gr.addColorStop(1, 'rgba(140,228,245,0.75)');
     g.fillStyle = gr;
-    g.beginPath(); g.moveTo(0, SHORE - 40);
+    g.beginPath(); g.moveTo(0, top);
     for (let x = 0; x <= W; x += 30) g.lineTo(x, edge(x));
-    g.lineTo(W, SHORE - 40); g.closePath(); g.fill();
+    g.lineTo(W, top); g.closePath(); g.fill();
     // foam edge
     g.fillStyle = '#ffffff';
     for (let x = 0; x <= W; x += 46) { g.beginPath(); g.arc(x + Math.sin(x + t * 4) * 6, edge(x) - 4, 16 + Math.sin(x * 0.3 + t * 5) * 4, 0, TAU); g.fill(); }

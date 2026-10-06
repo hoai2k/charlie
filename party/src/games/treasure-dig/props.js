@@ -323,7 +323,9 @@ export function drawDetector(g, s, heat, pulse, t, bang = false) {
   const rg = g.createRadialGradient(0, 0, 2, 0, 0, r);
   rg.addColorStop(0, heatColor(heat, 30, 0.55 + pulse * 0.4)); rg.addColorStop(1, heatColor(heat, 0, 0));
   g.fillStyle = rg; g.fillRect(-r, -r, r * 2, r * 2); g.restore();
-  if (!drawArt(g, 'prop/shell-detector', 0, 0, s, s)) {
+  // The art's lens is centred ~8% below the image centre (r ~18%): put the light there.
+  let ly = s * 0.02, lr = s * 0.16;
+  if (drawArt(g, 'prop/shell-detector', 0, 0, s, s)) { ly = s * 0.08; lr = s * 0.17; } else {
     // antenna
     outline(g, s);
     g.lineWidth = Math.max(2, s * 0.06);
@@ -335,8 +337,8 @@ export function drawDetector(g, s, heat, pulse, t, bang = false) {
   g.save(); outline(g, s);
   g.lineWidth = Math.max(2, s * 0.05);
   g.fillStyle = pulse > 0.5 ? '#ffffff' : col;
-  g.beginPath(); g.arc(0, s * 0.02, s * 0.16, 0, TAU); g.fill(); g.stroke();
-  g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.arc(-s * 0.05, -s * 0.03, s * 0.05, 0, TAU); g.fill();
+  g.beginPath(); g.arc(0, ly, lr, 0, TAU); g.fill(); g.stroke();
+  g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.arc(-s * 0.05, ly - s * 0.05, s * 0.05, 0, TAU); g.fill();
   g.restore();
 }
 

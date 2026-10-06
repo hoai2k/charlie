@@ -12,6 +12,53 @@ const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s
 export const GUM_COLORS = [['#ff7ac6', '#ffc2e4'], ['#a77bff', '#d9c6ff'], ['#ff9f1c', '#ffd49a'], ['#4fd98a', '#b8f5cf'], ['#ffd23f', '#fff0a8']];
 const SPRINKLES = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#5ddc6a', '#b36bff', '#ffffff'];
 
+/** Opaque bounding box of an image (cached): generated art often has transparent padding. */
+const trimCache = new WeakMap();
+function trimBox(img) {
+  let b = trimCache.get(img);
+  if (b) return b;
+  b = { x: 0, y: 0, w: img.width, h: img.height };
+  try {
+    const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+    const c = cv.getContext('2d'); c.drawImage(img, 0, 0);
+    const d = c.getImageData(0, 0, img.width, img.height).data;
+    let x0 = img.width, y0 = img.height, x1 = -1, y1 = -1;
+    for (let y = 0; y < img.height; y++) for (let x = 0; x < img.width; x++) {
+      if (d[(y * img.width + x) * 4 + 3] > 8) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    if (x1 >= x0) b = { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1 };
+  } catch (e) { /* keep the full image */ }
+  trimCache.set(img, b);
+  return b;
+}
+
+/** Draw art with its transparent padding trimmed: the visible part fills (w, h) centred on (x, y) ('contain'), or stretches over it. */
+function drawTrimmed(g, key, x, y, w, h, stretch = false) {
+  const img = art(key);
+  if (!img) return false;
+  const b = trimBox(img);
+  let dw = w, dh = h;
+  if (!stretch) { const k = Math.min(w / b.w, h / b.h); dw = b.w * k; dh = b.h * k; }
+  g.drawImage(img, b.x, b.y, b.w, b.h, x - dw / 2, y - dh / 2, dw, dh);
+  return true;
+}
+
+/** prop/golf-gumdrop is pink; the other bumper colours are hue-shifted copies (cached; plain pink where canvas filters are unsupported). */
+const GUM_FILTERS = [null, 'hue-rotate(-75deg)', 'hue-rotate(70deg) saturate(1.3)', 'hue-rotate(175deg)', 'hue-rotate(85deg) brightness(1.25) saturate(1.2)'];
+const gumCache = new Map();
+function gumdropArt(c) {
+  const img = art('prop/golf-gumdrop');
+  if (!img) return null;
+  const f = GUM_FILTERS[c % GUM_FILTERS.length];
+  if (!f) return img;
+  const hit = gumCache.get(c);
+  if (hit && hit.src === img) return hit.cv;
+  const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
+  const cg = cv.getContext('2d'); cg.filter = f; cg.drawImage(img, 0, 0);
+  gumCache.set(c, { src: img, cv });
+  return cv;
+}
+
 function polyPath(g, pts) { g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); }
 
 // --- scenery (outside the course) ----------------------------------------------
@@ -190,7 +237,8 @@ export function drawRiver(g, hole, t) {
 export function drawBridge(g, b) {
   const w = b.x1 - b.x0, h = b.y1 - b.y0;
   g.save(); g.fillStyle = 'rgba(40,10,0,0.35)'; ui.roundRect(g, b.x0 + 6, b.y0 + 12, w, h, 18); g.fill(); g.restore();
-  if (drawArt(g, 'prop/golf-cookie-bridge', b.x0, b.y0, w, h, { anchor: 'topleft', fit: 'stretch' })) return;
+  // the art's cookie is a thin strip inside a padded canvas: trim it so it covers the whole bridge
+  if (drawTrimmed(g, 'prop/golf-cookie-bridge', b.x0 + w / 2, b.y0 + h / 2, w, h, true)) return;
   g.save();
   g.fillStyle = NAVY; ui.roundRect(g, b.x0 - 4, b.y0 - 4, w + 8, h + 8, 20); g.fill();
   const gr = g.createLinearGradient(0, b.y0, 0, b.y1); gr.addColorStop(0, '#f4c477'); gr.addColorStop(1, '#d99a48');
@@ -245,7 +293,8 @@ export function drawJelly(g, j, wob, t) {
 export function drawDonut(g, x, y, exit, t) {
   g.save(); g.translate(x, y);
   g.fillStyle = 'rgba(80,20,40,0.22)'; g.beginPath(); g.ellipse(6, 10, 60, 54, 0, 0, TAU); g.fill();
-  if (!drawArt(g, exit ? 'prop/golf-donut-exit' : 'prop/golf-donut', 0, 0, 120, 120)) {
+  const drawn = drawArt(g, exit ? 'prop/golf-donut-exit' : 'prop/golf-donut', 0, 0, 120, 120);
+  if (!drawn) {
     g.fillStyle = NAVY; g.beginPath(); g.arc(0, 0, 60, 0, TAU); g.fill();
     g.fillStyle = '#e8a560'; g.beginPath(); g.arc(0, 0, 56, 0, TAU); g.fill();
     // frosting with drippy edge
@@ -262,10 +311,12 @@ export function drawDonut(g, x, y, exit, t) {
     g.fillStyle = 'rgba(255,255,255,0.35)'; g.beginPath(); g.ellipse(-22, -30, 16, 7, -0.6, 0, TAU); g.fill();
     g.fillStyle = NAVY; g.beginPath(); g.arc(0, 0, 29, 0, TAU); g.fill();
   }
-  // portal swirl in the hole
-  const gr = g.createRadialGradient(0, 0, 2, 0, 0, 26);
-  gr.addColorStop(0, exit ? '#fff6c0' : '#d9a8ff'); gr.addColorStop(1, exit ? '#ffb43a' : '#5a2a9e');
-  g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 25, 0, TAU); g.fill();
+  // portal swirl in the hole (the art paints its own swirl; only the turning rings go on top)
+  if (!drawn) {
+    const gr = g.createRadialGradient(0, 0, 2, 0, 0, 26);
+    gr.addColorStop(0, exit ? '#fff6c0' : '#d9a8ff'); gr.addColorStop(1, exit ? '#ffb43a' : '#5a2a9e');
+    g.fillStyle = gr; g.beginPath(); g.arc(0, 0, 25, 0, TAU); g.fill();
+  }
   g.strokeStyle = 'rgba(255,255,255,0.6)'; g.lineWidth = 3;
   for (let k = 0; k < 3; k++) { g.beginPath(); g.arc(0, 0, 8 + k * 6, t * (exit ? -4 : 4) + k * 2, t * (exit ? -4 : 4) + k * 2 + 2.2); g.stroke(); }
   g.restore();
@@ -308,7 +359,8 @@ export function drawGumdrop(g, bp, sq) {
   g.fillStyle = 'rgba(60,20,50,0.25)'; g.beginPath(); g.ellipse(8, 12, bp.r * 1.05, bp.r * 0.95, 0, 0, TAU); g.fill();
   const k = 1 + sq * 0.25;
   g.scale(k, k);
-  if (!drawArt(g, 'prop/golf-gumdrop', 0, -4, bp.r * 2.3, bp.r * 2.3)) {
+  const gum = gumdropArt(bp.c);
+  if (gum) { const s = bp.r * 2.3; g.drawImage(gum, -s / 2, -4 - s / 2, s, s); } else {
     g.fillStyle = NAVY; g.beginPath(); g.arc(0, 0, bp.r + 4, 0, TAU); g.fill();
     const gr = g.createRadialGradient(-bp.r * 0.35, -bp.r * 0.45, 3, 0, 0, bp.r);
     gr.addColorStop(0, c[1]); gr.addColorStop(1, c[0]);
@@ -323,7 +375,8 @@ export function drawGumdrop(g, bp, sq) {
 }
 
 export function drawCup(g, cup) {
-  if (drawArt(g, 'prop/golf-cup', cup.x, cup.y, CUP_R * 2 + 10, CUP_R * 2 + 10)) return;
+  // trimmed: the art's cup fills only 69% of its canvas
+  if (drawTrimmed(g, 'prop/golf-cup', cup.x, cup.y, CUP_R * 2 + 12, CUP_R * 2 + 12)) return;
   g.save(); g.translate(cup.x, cup.y);
   g.fillStyle = '#ffffff'; g.beginPath(); g.ellipse(0, 0, CUP_R + 6, CUP_R + 5, 0, 0, TAU); g.fill();
   g.strokeStyle = NAVY; g.lineWidth = 3; g.stroke();
@@ -335,7 +388,9 @@ export function drawCup(g, cup) {
 /** Flag on a candy-cane pole, foot at the cup centre. */
 export function drawFlag(g, cup, t, alpha = 1) {
   g.save(); g.globalAlpha = alpha;
-  if (drawArt(g, 'prop/golf-flag', cup.x, cup.y + 2, 64, 134, { anchor: 'bottom' })) { g.restore(); return; }
+  // The art's pole stands 13% left of the image centre and its foot (the grass
+  // tuft) sits 7% above the bottom edge: shift so the pole foot is in the cup.
+  if (drawArt(g, 'prop/golf-flag', cup.x + 64 * 0.13, cup.y + 134 * 0.07, 64, 134, { anchor: 'bottom' })) { g.restore(); return; }
   g.translate(cup.x, cup.y);
   const top = -132;
   g.lineCap = 'round';
