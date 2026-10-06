@@ -1,0 +1,56 @@
+{
+  "asset": "cotton-candy",
+  "reference": "../../../reference/canonical/cotton-candy.webp",
+  "batches": [
+    {
+      "batch": "new-games-a",
+      "sourcePNG": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-198a2d8e-0d0f-44b0-bd00-c106b7b4aacd.png",
+      "sourceWebP": "party/tools/sprites/sources/cotton-candy-new-games-a.webp",
+      "grid": [
+        4,
+        2
+      ],
+      "poses": [
+        "pull",
+        "pull",
+        "reel",
+        "reel",
+        "swing",
+        "swing",
+        "putt",
+        "putt-swing"
+      ],
+      "prompt": "Use case: illustration-story. Create a true-transparent PNG sprite sheet for Charlie Party using the exact approved Cotton Candy pony in reference image 1; preserve her white pony body, very long flowing pastel pink/lavender/sky-blue mane and tail, tiny gold crown with three blue gems, very large blue eye, yellow-and-blue flower mark on her flank, and graceful slim pony proportions. This is a pony, not a person: exactly four elegant horse legs and four hooves, no arms, hands, fingers, wings or unicorn horn. Use the reference as the strongest identity authority. Exactly EIGHT separate full-body poses, four columns by two rows, ordered left to right then next row, consistent head size and body scale in every cell, clean bold navy outline and smooth cel shading to match the reference, three-quarter view facing RIGHT, generous transparent gutters; every complete hoof, flowing mane curl, crown and tail visible inside each pose. ROW 1: (1) tug ready: rearing on hind hooves, torso leaning back toward left, both forehooves held together forward to the right at chest height as empty grips, determined happy face; (2) tug heave: lean farther back, hind legs braced and bent, both empty forehooves still gripping forward, cheerful exertion; (3) fishing reel ready: balanced rearing pose, leaning back slightly, near forehoof held forward above chest height as if gripping an invisible fishing rod, far forehoof beside it ready to crank, focused happy gaze right; (4) fishing reel crank: same rearing balance, near forehoof grips forward, far forehoof moved inward and down as if cranking an invisible reel, bright grin. ROW 2: (5) bat swing windup: rearing and braced on hind hooves, both empty forehooves lifted together above the right shoulder, gleeful face; (6) bat swing follow-through: both forehooves carried forward-right and upward above the face, gentle overhead swing finished, cheerful grin; (7) putt ready: side-on facing right on four hooves in a low gentle crouch, head looking down-right, both empty forehooves reaching low together forward toward an imaginary ball, natural pony joints; (8) putt follow-through: same low four-hoof stance, both forehooves sweep slightly forward, head looks up-right hopefully. No tools or objects whatsoever: no rope, rod, fishing line, bat, putter or balls. No snow, ground, shadows, effects, labels, words, borders or scenery.",
+      "review": "Precise final audit complete: all original connectedfigurebounds inside expandedexistingcrops, noalpha>=32 onanymastersheetedge; fullmane/tail/crown/all4hooves preserved. Finalpointsoverlay /tmp/cotton-new-games-point-final.png; source artwork unchanged."
+    },
+    {
+      "batch": "new-games-b",
+      "sourcePNG": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-6d958df5-3ea6-480f-be58-6dda3f97bd05.png",
+      "sourceWebP": "party/tools/sprites/sources/cotton-candy-new-games-b.webp",
+      "grid": [
+        4,
+        1
+      ],
+      "poses": [
+        "spring-jump",
+        "snow-scoop",
+        "dig",
+        "skip-hop"
+      ],
+      "prompt": "Use case: illustration-story. Use the exact approved Cotton Candy pony in reference image 1. Preserve her white pony identity, very long flowing pastel pink/lavender/sky-blue mane and tail, tiny gold crown with three blue gems, large blue eye and yellow-and-blue flank flower; same slim four-legged pony proportions in all cells. This is a pony, not a human: four natural horse legs and hooves only, no arms, hands, fingers, wings or extra limbs. True-transparent sprite strip, exactly FOUR separate full-body poses in ONE horizontal row, left to right, equal head and body scale, three-quarter view facing RIGHT, smooth bold navy outlines and cel shading, generous transparent gutters; keep complete crown, all flowing hair, tail and hooves inside every pose. 1 spring-jump: joyful upward leap, all four legs naturally tucked and clearly airborne, long mane and tail lift with motion, big grin and happy upward gaze; 2 snow-scoop: deeply crouched close to the imaginary ground, hind legs bent supporting the body, both forehooves together low in front/right as if packing an INVISIBLE snowball, focused cheerful face; 3 dig: low crouch with hind legs braced, body leaning forward/right, both forehooves scooping down toward the ground between forelegs then back slightly left, playful focused face, digging gesture; 4 skip-hop: light two-hoofed bounding hop with all four hooves lifted, forelegs gently held out to the sides for balance, knees bent, joyful face. Do not draw snowball, tools, rope, clouds, ground, shadows, effects, labels, words, borders or scenery.",
+      "review": "Precise final audit complete: all original connectedfigurebounds inside expandedexistingcrops, noalpha>=32 onanymastersheetedge; fullmane/tail/crown/all4hooves preserved. Finalpointsoverlay /tmp/cotton-new-games-point-final.png; source artwork unchanged."
+    }
+  ],
+  "cropLocalLandmarks": "Individually audited enlarged native runtime pixel grids; points corrected via sourceAnchor+(desiredRuntimePoint-runtimeFrameAnchor)/(commonScale*itemScale), then rebuilt and visually checked. All12 grips actualpurple distalhooves, eyesmeanvisiblecenters/closedeyelids, pose-specific neck/back/skull.",
+  "runtimeReview": {
+    "file": "/tmp/cotton-new-games-point-final.png",
+    "scaleAdjustment": "A1.5 retained; B1.05 corrects originallyoversizedheads, matchedtoidleactualskull/eye proportions. GlobalbodyHeight250 preserved. GroundedAsoleanchors corrected; airborne virtualfloors retained.",
+    "heldLoops": "pull/reel/putt motion0",
+    "decodedMemory": {
+      "fullMiB": 23.779,
+      "optimizedMiB": 20.018,
+      "budgetMiB": 25
+    },
+    "status": "reviewed-built-optimized-budget-passed"
+  }
+}

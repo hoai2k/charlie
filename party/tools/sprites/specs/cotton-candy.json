@@ -3,14 +3,14 @@
   "bodyHeight": 250,
   "frameSize": [
     620,
-    500
+    700
   ],
   "anchor": [
     310,
-    420
+    620
   ],
   "facing": -1,
-  "provenance": "Built-in image_gen from approved Cotton Candy canonical. Round-5 exact prompts: cotton-candy-extension-generation-prompts.json; new card-flip frame is an empty-hoof reach to turn a separate memory card.",
+  "provenance": "Built-in image_gen from approved Cotton Candy canonical. Round-5 exact prompts: cotton-candy-extension-generation-prompts.json; new card-flip frame is an empty-hoof reach to turn a separate memory card. New game A/B action sets generated from the approved Cotton Candy canonical with animal-only hoof anatomy; exact prompts and source PNG paths are recorded in party/tools/sprites/pending/cotton-candy-new-games-intake.json.",
   "sourceFiles": [
     "../sources/cotton-candy-core.webp",
     "../sources/cotton-candy-walk.webp",
@@ -37,7 +37,9 @@
     "../sources/cotton-candy-round5-actions-d.webp",
     "../sources/cotton-candy-round5-pose-twirl.webp",
     "../sources/cotton-candy-round5-actions-b2.webp",
-    "../sources/cotton-candy-round5-card-flip.webp"
+    "../sources/cotton-candy-round5-card-flip.webp",
+    "../sources/cotton-candy-new-games-a.webp",
+    "../sources/cotton-candy-new-games-b.webp"
   ],
   "generationPrompts": {
     "core": "Use case: stylized-concept. Asset type: four-pose horizontal sprite strip for a children's party game, to be cut into four independent transparent character frames. Input image 1 is the approved Cotton Candy canonical: reproduce this exact character and preserve her identity precisely. Make exactly four separate, full-body white pony poses in one horizontal row, equal scale, even generous transparent gutters, no overlap, each entirely visible with margin: (1) calm friendly idle standing on four hooves, (2) graceful ready pose with head slightly lifted, (3) joyful celebration hop with all four legs lifted and flowing mane/tail, (4) funny pout with lowered head and one forehoof stomp. Every frame has exactly the canonical small yellow crown with blue accents, large blue eye, long flowing pink/lavender/sky-blue striped mane and tail, yellow flank flower, white pony silhouette, lavender shading. Never add a horn, wings, rainbow mane, hands, human arms, clothing, or extra accessories. Keep all poses anatomically equine and on four legs; no hands. Full figures face right, identical proportions, consistent outline and palette. Bold smooth dark navy outlines, rounded appealing shapes, bright original colors, simple clean cel shading, no 3D. Transparent background. No floor/shadows/effects, no text, no borders, no extra characters or decorations. Horizontal transparent canvas, 4 evenly separated figures, equal height and ground line except the airborne celebration pose.",
@@ -64,7 +66,9 @@
     "../sources/cotton-candy-round5-actions-b2.webp": "Use reference image 1 to reproduce the same Cotton Candy pony exactly: white quadruped with large blue eyes, gold crown with blue gems, yellow flower cutie mark, huge flowing pastel pink-lavender-cyan mane and tail, dark navy outline and clean soft cel shading. Create one real-transparent horizontal 3-cell action strip, full body and mane visible in each separated cell, all facing right at consistent idle head size. Only four pony legs and hooves; no hands, no human anatomy, no wings or horn. Left to right: (1) sit, politely seated low on her hindquarters with forehooves resting in front, tail curled beside her; (2) tumble, a playful sideways rolling pose on her back with all four hooves visible, keep crown on; (3) hold-present, standing and leaning forward with her muzzle gently open at the mouth attachment point as if holding a separate present, no present drawn. Keep identity, crown, flower and mane patterns consistent. No props, floor, shadow, scene, effects, text, labels, borders or extra characters.",
     "../sources/cotton-candy-round5-actions-c.webp": "Use the approved Cotton Candy pony in reference image 1 exactly: small white quadruped pony, huge flowing pink-lavender-cyan mane and tail, gold crown set with blue gems, expressive blue eyes, yellow flower cutie mark, bold navy outlines and simple cel shading. Create one transparent 4-column by 2-row sheet of eight separated full-body poses. Four legs and hooves only, no hands, fingers, human anatomy, wings or horn; keep head size consistent and face right except a natural tumble. Order left-to-right top row then bottom row: (1) toss, lift her muzzle and one forehoof in a gentle upward toss gesture, empty mouth and hoof, no object; (2) catch-present, look up with muzzle open at the mouth attachment point as if catching a separate present, no present drawn; (3) sooty, same pony with two small soft gray soot smudges on muzzle and cheek, no explosion; (4) drink, tip head toward an absent cup at the mouth attachment point, no cup or liquid; (5) float, drift weightlessly with all four hooves lifted and mane hanging softly; (6) hiccup, startled little jolt with puffed cheeks and a tiny head bob; (7) stomp-giant, proud wide quadruped stance with one forehoof planted strongly, not enlarged; (8) squeak-tiny, a startled little hop with legs tucked, keep normal body size. Preserve her crown, flower and pastel mane consistently. Real transparent background. No floor, shadow, scenery, props, effects, lettering, borders or extra figures.",
     "../sources/cotton-candy-round5-actions-d.webp": "Use the exact Cotton Candy pony from reference image 1: white quadruped, enormous flowing pastel pink-lavender-cyan mane and tail, small gold crown with blue gems, large blue eyes, yellow flower cutie mark, navy outlines and cel shading. Make a transparent 3-column by 2-row sheet with six distinct full-body poses, generous clear gutters, consistent head/body scale, four legs and hooves only; no hands, fingers, human anatomy, wings or horn. Keep her identity, crown and mane pattern consistent; all face right unless the photo pose naturally faces the viewer. Order left to right top then bottom: flip, a compact safe-looking sideways somersault with all hooves visible; blow, standing with lips pursed at the muzzle as if blowing gently, no bubbles or effects; shake-sprinkles, vigorous head/mane shake with loose mane motion but no particles or sprinkles drawn; photo, cheerful square stance turned slightly toward camera with a bright smile, no camera or flash; sing, joyful open-mouth singing stance with one forehoof lifted, no microphone or notes; water, lean forward with an empty mouth/forehoof attachment pose as if tipping a separate watering can, no can or water drawn. Real alpha transparency. No floor, shadow, scene, props, effects, text, labels, borders or extra figures.",
-    "../sources/cotton-candy-round5-pose-twirl.webp": "Use the exact Cotton Candy pony from reference image 1: white pony, gold crown with blue gems, huge flowing cotton-candy pink/lavender/cyan mane and tail, large blue eyes, yellow flower cutie mark, clean dark navy outline and soft cel shading. Create one true-transparent horizontal strip with exactly four separate full-body views of the same pony, equal head/body size, crown and entire mane/tail visible in every cell, all four hooves grounded at a consistent baseline. This is a real 4-angle turning cycle, not a paper-thin spin: left to right (1) front view looking toward camera, (2) three-quarter view turned to her right, (3) full back view showing her mane, tail and flower mark, (4) three-quarter view returning toward front from the opposite side. Smooth naturally linked rotation while the body remains in place; no walk steps. Four pony legs and hooves only, no human arms/hands, no wings or horn. Keep mane color bands and crown identical in every view. Transparent background, no floor, shadows, scene, motion trails, props, text, labels or borders."
+    "../sources/cotton-candy-round5-pose-twirl.webp": "Use the exact Cotton Candy pony from reference image 1: white pony, gold crown with blue gems, huge flowing cotton-candy pink/lavender/cyan mane and tail, large blue eyes, yellow flower cutie mark, clean dark navy outline and soft cel shading. Create one true-transparent horizontal strip with exactly four separate full-body views of the same pony, equal head/body size, crown and entire mane/tail visible in every cell, all four hooves grounded at a consistent baseline. This is a real 4-angle turning cycle, not a paper-thin spin: left to right (1) front view looking toward camera, (2) three-quarter view turned to her right, (3) full back view showing her mane, tail and flower mark, (4) three-quarter view returning toward front from the opposite side. Smooth naturally linked rotation while the body remains in place; no walk steps. Four pony legs and hooves only, no human arms/hands, no wings or horn. Keep mane color bands and crown identical in every view. Transparent background, no floor, shadows, scene, motion trails, props, text, labels or borders.",
+    "newGamesA": "Use case: illustration-story. Create a true-transparent PNG sprite sheet for Charlie Party using the exact approved Cotton Candy pony in reference image 1; preserve her white pony body, very long flowing pastel pink/lavender/sky-blue mane and tail, tiny gold crown with three blue gems, very large blue eye, yellow-and-blue flower mark on her flank, and graceful slim pony proportions. This is a pony, not a person: exactly four elegant horse legs and four hooves, no arms, hands, fingers, wings or unicorn horn. Use the reference as the strongest identity authority. Exactly EIGHT separate full-body poses, four columns by two rows, ordered left to right then next row, consistent head size and body scale in every cell, clean bold navy outline and smooth cel shading to match the reference, three-quarter view facing RIGHT, generous transparent gutters; every complete hoof, flowing mane curl, crown and tail visible inside each pose. ROW 1: (1) tug ready: rearing on hind hooves, torso leaning back toward left, both forehooves held together forward to the right at chest height as empty grips, determined happy face; (2) tug heave: lean farther back, hind legs braced and bent, both empty forehooves still gripping forward, cheerful exertion; (3) fishing reel ready: balanced rearing pose, leaning back slightly, near forehoof held forward above chest height as if gripping an invisible fishing rod, far forehoof beside it ready to crank, focused happy gaze right; (4) fishing reel crank: same rearing balance, near forehoof grips forward, far forehoof moved inward and down as if cranking an invisible reel, bright grin. ROW 2: (5) bat swing windup: rearing and braced on hind hooves, both empty forehooves lifted together above the right shoulder, gleeful face; (6) bat swing follow-through: both forehooves carried forward-right and upward above the face, gentle overhead swing finished, cheerful grin; (7) putt ready: side-on facing right on four hooves in a low gentle crouch, head looking down-right, both empty forehooves reaching low together forward toward an imaginary ball, natural pony joints; (8) putt follow-through: same low four-hoof stance, both forehooves sweep slightly forward, head looks up-right hopefully. No tools or objects whatsoever: no rope, rod, fishing line, bat, putter or balls. No snow, ground, shadows, effects, labels, words, borders or scenery.",
+    "newGamesB": "Use case: illustration-story. Use the exact approved Cotton Candy pony in reference image 1. Preserve her white pony identity, very long flowing pastel pink/lavender/sky-blue mane and tail, tiny gold crown with three blue gems, large blue eye and yellow-and-blue flank flower; same slim four-legged pony proportions in all cells. This is a pony, not a human: four natural horse legs and hooves only, no arms, hands, fingers, wings or extra limbs. True-transparent sprite strip, exactly FOUR separate full-body poses in ONE horizontal row, left to right, equal head and body scale, three-quarter view facing RIGHT, smooth bold navy outlines and cel shading, generous transparent gutters; keep complete crown, all flowing hair, tail and hooves inside every pose. 1 spring-jump: joyful upward leap, all four legs naturally tucked and clearly airborne, long mane and tail lift with motion, big grin and happy upward gaze; 2 snow-scoop: deeply crouched close to the imaginary ground, hind legs bent supporting the body, both forehooves together low in front/right as if packing an INVISIBLE snowball, focused cheerful face; 3 dig: low crouch with hind legs braced, body leaning forward/right, both forehooves scooping down toward the ground between forelegs then back slightly left, playful focused face, digging gesture; 4 skip-hop: light two-hoofed bounding hop with all four hooves lifted, forelegs gently held out to the sides for balance, knees bent, joyful face. Do not draw snowball, tools, rope, clouds, ground, shadows, effects, labels, words, borders or scenery."
   },
   "poses": {
     "idle": {
@@ -4121,6 +4125,498 @@
       "fps": 8,
       "loop": true,
       "motion": 0.15,
+      "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            9,
+            0,
+            338,
+            487
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            240,
+            476
+          ],
+          "head": [
+            185.7,
+            85.22
+          ],
+          "eyes": [
+            182.41,
+            129.64
+          ],
+          "neck": [
+            215.32,
+            241.53
+          ],
+          "back": [
+            216.97,
+            274.43
+          ],
+          "hand": [
+            304.17,
+            190.52
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            380,
+            69,
+            401,
+            414
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            290,
+            403
+          ],
+          "head": [
+            161.66,
+            86.39
+          ],
+          "eyes": [
+            161.66,
+            122.58
+          ],
+          "neck": [
+            245.58,
+            214.72
+          ],
+          "back": [
+            265.32,
+            250.92
+          ],
+          "hand": [
+            313.03,
+            181.82
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            778,
+            0,
+            332,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            230,
+            472
+          ],
+          "head": [
+            178.99,
+            81.93
+          ],
+          "eyes": [
+            180.64,
+            129.64
+          ],
+          "neck": [
+            220.13,
+            228.36
+          ],
+          "back": [
+            210.26,
+            266.21
+          ],
+          "hand": [
+            305.69,
+            113.19
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            1161,
+            0,
+            323,
+            484
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            230,
+            472
+          ],
+          "head": [
+            180.64,
+            80.28
+          ],
+          "eyes": [
+            180.64,
+            123.06
+          ],
+          "neck": [
+            220.13,
+            226.72
+          ],
+          "back": [
+            210.26,
+            266.21
+          ],
+          "hand": [
+            289.23,
+            180.65
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            10,
+            487,
+            338,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            230,
+            485
+          ],
+          "head": [
+            185.58,
+            81.77
+          ],
+          "eyes": [
+            197.09,
+            127.83
+          ],
+          "neck": [
+            228.35,
+            256.17
+          ],
+          "back": [
+            208.61,
+            285.79
+          ],
+          "hand": [
+            85.21,
+            103.15
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            381,
+            487,
+            361,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            230,
+            486
+          ],
+          "head": [
+            216.84,
+            81.77
+          ],
+          "eyes": [
+            218.48,
+            124.54
+          ],
+          "neck": [
+            256.33,
+            229.85
+          ],
+          "back": [
+            234.94,
+            277.56
+          ],
+          "hand": [
+            325.43,
+            124.54
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            727,
+            580,
+            419,
+            397
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            225,
+            385
+          ],
+          "head": [
+            310.56,
+            101.58
+          ],
+          "eyes": [
+            323.72,
+            157.53
+          ],
+          "neck": [
+            274.36,
+            223.34
+          ],
+          "back": [
+            201.97,
+            201.95
+          ],
+          "hand": [
+            318.78,
+            354.97
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-a.webp",
+          "rect": [
+            1137,
+            513,
+            399,
+            464
+          ],
+          "isolate": true,
+          "scale": 1.5,
+          "anchor": [
+            230,
+            452
+          ],
+          "head": [
+            294.17,
+            87.77
+          ],
+          "eyes": [
+            318.85,
+            130.55
+          ],
+          "neck": [
+            294.17,
+            258.89
+          ],
+          "back": [
+            230.0,
+            272.05
+          ],
+          "hand": [
+            335.3,
+            423.42
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-b.webp",
+          "rect": [
+            1,
+            0,
+            560,
+            687
+          ],
+          "isolate": true,
+          "scale": 1.05,
+          "anchor": [
+            280,
+            750
+          ],
+          "head": [
+            400.11,
+            123.13
+          ],
+          "eyes": [
+            441.24,
+            177.42
+          ],
+          "neck": [
+            416.56,
+            337.02
+          ],
+          "back": [
+            360.62,
+            383.09
+          ],
+          "hand": [
+            418.21,
+            430.81
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-b.webp",
+          "rect": [
+            501,
+            226,
+            610,
+            460
+          ],
+          "isolate": true,
+          "scale": 1.05,
+          "anchor": [
+            380,
+            440
+          ],
+          "head": [
+            493.53,
+            142.19
+          ],
+          "eyes": [
+            514.92,
+            216.23
+          ],
+          "neck": [
+            434.3,
+            306.73
+          ],
+          "back": [
+            355.32,
+            277.11
+          ],
+          "hand": [
+            495.17,
+            425.19
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-b.webp",
+          "rect": [
+            1105,
+            197,
+            573,
+            501
+          ],
+          "isolate": true,
+          "scale": 1.05,
+          "anchor": [
+            260,
+            485
+          ],
+          "head": [
+            408.08,
+            192.13
+          ],
+          "eyes": [
+            437.7,
+            280.98
+          ],
+          "neck": [
+            368.59,
+            330.34
+          ],
+          "back": [
+            292.91,
+            294.14
+          ],
+          "hand": [
+            419.6,
+            460.32
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-new-games-b.webp",
+          "rect": [
+            1679,
+            3,
+            493,
+            636
+          ],
+          "isolate": true,
+          "scale": 1.05,
+          "anchor": [
+            250,
+            710
+          ],
+          "head": [
+            333.91,
+            130.84
+          ],
+          "eyes": [
+            343.78,
+            181.85
+          ],
+          "neck": [
+            337.2,
+            321.7
+          ],
+          "back": [
+            320.75,
+            400.68
+          ],
+          "hand": [
+            455.67,
+            384.22
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
       "facing": 1
     }
   },

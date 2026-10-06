@@ -1,11 +1,11 @@
 {
   "frameSize": [
     620,
-    500
+    700
   ],
   "anchor": [
     310,
-    420
+    620
   ],
   "bodyHeight": 250,
   "facing": -1,
@@ -3478,6 +3478,426 @@
           ]
         }
       ]
+    },
+    "pull": {
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "pull-00.webp",
+          "anchor": [
+            141,
+            286
+          ],
+          "artHash": "a776c6acf57ff7f0b18bb034281ba56a11b5a61da46c9ffe0fd1f25ddcd47a61",
+          "fileHash": "d6074aaa038ae1e2d4ded61cfdd999eff2f1b17e92563ec68267d04b0abbab43",
+          "head": [
+            108,
+            49
+          ],
+          "hand": [
+            180,
+            113
+          ],
+          "eyes": [
+            106,
+            76
+          ],
+          "neck": [
+            126,
+            144
+          ],
+          "back": [
+            127,
+            164
+          ]
+        },
+        {
+          "src": "pull-01.webp",
+          "anchor": [
+            171,
+            241
+          ],
+          "artHash": "3106fa18e88f7c1f8e1b724f76585ef202ea3f32791aa0d1dc707d4442df4634",
+          "fileHash": "47de5c6f798e196b0d315a72a419276a7dea3b715b0fb48475170d100420a2f6",
+          "head": [
+            93,
+            49
+          ],
+          "hand": [
+            185,
+            107
+          ],
+          "eyes": [
+            93,
+            71
+          ],
+          "neck": [
+            144,
+            127
+          ],
+          "back": [
+            156,
+            149
+          ]
+        }
+      ]
+    },
+    "reel": {
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "reel-00.webp",
+          "anchor": [
+            135,
+            283
+          ],
+          "artHash": "ac4cd858472456992d245a6462c350eee2537bc4f5f23eed02899593245ebe74",
+          "fileHash": "cd65e9a42d6649884ce18f905d1acb5fb4332d061088eb226cb0def0d02b4e23",
+          "head": [
+            104,
+            46
+          ],
+          "hand": [
+            181,
+            65
+          ],
+          "eyes": [
+            105,
+            75
+          ],
+          "neck": [
+            129,
+            135
+          ],
+          "back": [
+            123,
+            158
+          ]
+        },
+        {
+          "src": "reel-01.webp",
+          "anchor": [
+            135,
+            283
+          ],
+          "artHash": "8fec0a97b1f832d8e7a7537749476e0594b0d82a5b8e639f722e7819223d5b54",
+          "fileHash": "a1f8ebe2dc8be1b728340474bbadff2fd7327eee5886c2136c0bfeca42e5f77d",
+          "head": [
+            105,
+            45
+          ],
+          "hand": [
+            171,
+            106
+          ],
+          "eyes": [
+            105,
+            71
+          ],
+          "neck": [
+            129,
+            134
+          ],
+          "back": [
+            123,
+            158
+          ]
+        }
+      ]
+    },
+    "swing": {
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "swing-00.webp",
+          "anchor": [
+            135,
+            290
+          ],
+          "artHash": "ee5e3b77c9be1592260ffbd0842876c2fcfb1848da53a8e0cfee38d33adef585",
+          "fileHash": "b341ec1f84907d9245ba0b8285db40fab55ee9f61d2adde415ac44f1a1c757de",
+          "head": [
+            108,
+            45
+          ],
+          "hand": [
+            47,
+            58
+          ],
+          "eyes": [
+            115,
+            73
+          ],
+          "neck": [
+            134,
+            151
+          ],
+          "back": [
+            122,
+            169
+          ]
+        },
+        {
+          "src": "swing-01.webp",
+          "anchor": [
+            135,
+            290
+          ],
+          "artHash": "d496ef2c3a9d492023704b7186e48e3eb6d08b4d82a33f9d701215a805c1c26e",
+          "fileHash": "e2e71756325b62774c91d3ad447e3f5d921cb4db7893e4486327a1ffc23a9b9d",
+          "head": [
+            127,
+            45
+          ],
+          "hand": [
+            193,
+            71
+          ],
+          "eyes": [
+            128,
+            71
+          ],
+          "neck": [
+            151,
+            135
+          ],
+          "back": [
+            138,
+            164
+          ]
+        }
+      ]
+    },
+    "putt": {
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "putt-00.webp",
+          "anchor": [
+            132,
+            230
+          ],
+          "artHash": "bd6b69f9125b3f200a1dd60e2f2c37b1b8e4dec4276462f71889f14704dc9680",
+          "fileHash": "cffc3cae6af40dc0c8da6273ca2c701e5a6cf8567ec02463b64958205113f771",
+          "head": [
+            184,
+            58
+          ],
+          "hand": [
+            189,
+            212
+          ],
+          "eyes": [
+            192,
+            92
+          ],
+          "neck": [
+            162,
+            132
+          ],
+          "back": [
+            118,
+            119
+          ]
+        }
+      ]
+    },
+    "putt-swing": {
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "putt-swing-00.webp",
+          "anchor": [
+            135,
+            270
+          ],
+          "artHash": "89b2952755daf5a984ef357a309effc9b2518c7baca6beef027206732ef61cc7",
+          "fileHash": "c7d8e4759e3c169b2d345555087ff3def520d9893acdb1ef4aab3f450ed987b5",
+          "head": [
+            174,
+            48
+          ],
+          "hand": [
+            199,
+            252
+          ],
+          "eyes": [
+            189,
+            74
+          ],
+          "neck": [
+            174,
+            152
+          ],
+          "back": [
+            135,
+            160
+          ]
+        }
+      ]
+    },
+    "spring-jump": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "spring-jump-00.webp",
+          "anchor": [
+            116,
+            319
+          ],
+          "artHash": "a0c256584ab0ef513c9ef321686aaf1b509b5625a7e96c7470ae1374494afa02",
+          "fileHash": "47f29a67e9feb5228c9f55232f4a4292beea85f1471eb7d0f1382c13429e5780",
+          "head": [
+            167,
+            52
+          ],
+          "hand": [
+            175,
+            183
+          ],
+          "eyes": [
+            185,
+            75
+          ],
+          "neck": [
+            174,
+            143
+          ],
+          "back": [
+            150,
+            163
+          ]
+        }
+      ]
+    },
+    "snow-scoop": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "snow-scoop-00.webp",
+          "anchor": [
+            160,
+            184
+          ],
+          "artHash": "46990de0ca977ee7dfb41586d20bb04baaa87e39aca916e3ea88a8085d5b121f",
+          "fileHash": "1424fa3a7f439e0493297c37305964e90787c2c88340bebad17e92724ef37b76",
+          "head": [
+            208,
+            57
+          ],
+          "hand": [
+            209,
+            178
+          ],
+          "eyes": [
+            217,
+            89
+          ],
+          "neck": [
+            183,
+            127
+          ],
+          "back": [
+            149,
+            115
+          ]
+        }
+      ]
+    },
+    "dig": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "dig-00.webp",
+          "anchor": [
+            109,
+            203
+          ],
+          "artHash": "3c638723542a0efbdc60b6de67e38115d5d4beedc3184de0d4a4a11b2e060762",
+          "fileHash": "05757400a062427f84d027f7ace514c52bac0a61db26c3052b8d6e0d880a279d",
+          "head": [
+            172,
+            79
+          ],
+          "hand": [
+            177,
+            193
+          ],
+          "eyes": [
+            184,
+            117
+          ],
+          "neck": [
+            155,
+            138
+          ],
+          "back": [
+            123,
+            122
+          ]
+        }
+      ]
+    },
+    "skip-hop": {
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "skip-hop-00.webp",
+          "anchor": [
+            103,
+            299
+          ],
+          "artHash": "cd30b6576026524633e210463ae22dfee4662115a21951d3c4eef18a12eb1f19",
+          "fileHash": "3e0099868e9c98d2802da0b7b7c788b889c6b65eacd1bd466352899aba65db67",
+          "head": [
+            139,
+            53
+          ],
+          "hand": [
+            191,
+            160
+          ],
+          "eyes": [
+            143,
+            74
+          ],
+          "neck": [
+            140,
+            134
+          ],
+          "back": [
+            133,
+            167
+          ]
+        }
+      ]
     }
   },
   "portraits": {
@@ -3487,5 +3907,5 @@
     "surprised": "portrait-surprised.webp",
     "determined": "portrait-determined.webp"
   },
-  "provenance": "Built-in image_gen from approved Cotton Candy canonical. Round-5 exact prompts: cotton-candy-extension-generation-prompts.json; new card-flip frame is an empty-hoof reach to turn a separate memory card."
+  "provenance": "Built-in image_gen from approved Cotton Candy canonical. Round-5 exact prompts: cotton-candy-extension-generation-prompts.json; new card-flip frame is an empty-hoof reach to turn a separate memory card. New game A/B action sets generated from the approved Cotton Candy canonical with animal-only hoof anatomy; exact prompts and source PNG paths are recorded in party/tools/sprites/pending/cotton-candy-new-games-intake.json."
 }
