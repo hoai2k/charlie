@@ -13,9 +13,9 @@ Latest request activity UTC: 2026-10-05T23:37:46Z.
 Quiet-window start UTC: 2026-10-06T03:01:04Z.
 Latest image delivery revision: `da25965a43154a07b21ef0c1e92d645630502aaa`.
 Latest image delivery UTC: 2026-10-06T03:01:04Z.
-Last checked revision: `600a3f5024e463db6e416598b1e74ca9539aa5f6`.
+Last checked revision: `797dcf33e78b608a77f672c4c7f19bab5ce1e5b9`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
-Last checked UTC: 2026-10-06T03:33:47Z.
+Last checked UTC: 2026-10-06T03:48:47Z.
 
 All 119 new minigame art keys across ten games are reviewed, registered and published in separate family batches. Inventory: 529 art keys backed by 509 decodable WebP files. All 15 roster members gained nine authored actions / twelve new frames each (180 total). Every character batch is reviewed and published with full/optimized rasters, exact contacts, approved source sheets, intake provenance and applicable palette masks.
 
