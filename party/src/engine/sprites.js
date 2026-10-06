@@ -62,6 +62,8 @@ export const POSES = {
   throw:     { loop: false, fallback: ['action'], desc: 'Throwing something forward.' },
   push:      { loop: false, fallback: ['action'], desc: 'Shove / bump forward.' },
   pump:      { loop: true,  fallback: ['action'], desc: 'Pumping a balloon pump: both hands on the T-handle, pushing it down (held while mashing).' },
+  pull:      { loop: true, fallback: ['knockback', 'balance'], proc: 'knockback', desc: 'Lean back and heave a rope with the grip held forward.' },
+  reel:      { loop: true, fallback: ['pump', 'action'], proc: 'action', desc: 'Hold the fishing rod forward and crank its reel.' },
   swing:     { loop: false, fallback: ['action'], desc: 'Cheerful two-handed overhead bat swing.' },
   putt:      { loop: true, fallback: ['crouch', 'idle'], desc: 'Look down with the putter grip held low in front.' },
   'putt-swing': { loop: false, fallback: ['action'], desc: 'Gentle forward putting stroke and hopeful follow-through.' },
