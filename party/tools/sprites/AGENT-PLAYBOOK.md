@@ -283,3 +283,23 @@ window and door openings need true alpha holes. Measure the actual generated
 holes, rims, plates, lily pads and shelf boards, then align gameplay spots to
 the art while preserving procedural fallback geometry. A convincing standalone
 picture is insufficient: review the composite with hidden things in place.
+
+### Publishing concurrent character batches
+
+Do not stage the entire live optimized index while another character is being
+rebuilt. Read the index from HEAD, replace only the reviewed character's `sets`
+entry with the working entry, then stage that merged JSON blob with
+`git hash-object -w --stdin` and `git update-index --cacheinfo`. Leave the live
+working index intact for other agents. Commit only explicit character, source,
+intake, mask and spec paths. Push every finished batch before reviewing the next.
+
+Inspect every contact point on runtime pixels. A plausible generic coordinate
+can land on hair, empty space or a thigh. Animal grips belong on the actual
+paw/hoof/mouth; limbless characters use their pipe or body. Check full decoded
+memory separately from optimized memory. Keep all existing pose-level bodyHeight
+overrides proportional when lowering common resolution. Held pull/reel/putt
+loops should use authored contact changes without extra procedural body tilt.
+
+After merging main, assert all nine new action names remain registered; broad
+runtime tests alone do not establish vocabulary coverage. New requests include
+spring-jump, putt, putt-swing, swing, snow-scoop, dig, pull, reel and skip-hop.

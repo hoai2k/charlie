@@ -1,7 +1,11 @@
 // Focused regression tests for frame timing and the legacy Actor API.
 import assert from 'node:assert/strict';
 globalThis.location = { search: '' };
-const { Actor, pickFrame, poseDuration, resolvePose, loadSprites, getSpriteSet, ensureSpriteSet } = await import('../../src/engine/sprites.js');
+const { POSES, Actor, pickFrame, poseDuration, resolvePose, loadSprites, getSpriteSet, ensureSpriteSet } = await import('../../src/engine/sprites.js');
+// New minigames rely on these names even when the broad timing suite passes.
+for (const name of ['pull', 'reel', 'putt', 'putt-swing', 'swing', 'spring-jump', 'snow-scoop', 'dig', 'skip-hop']) {
+  assert.ok(POSES[name], `missing new-minigame action ${name}`);
+}
 const frames = [{ id: 'a', dur: .1 }, { id: 'b', dur: .2 }, { id: 'c' }];
 const pose = { frames, fps: 10, loop: true };
 assert.equal(poseDuration(pose), .4);
