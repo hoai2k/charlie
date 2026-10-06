@@ -1,5 +1,13 @@
 # Charlie Party asset coverage
 
+## October 5 evening delivery
+
+Delivery `da25965` completes all requests through the immediate post-delivery main check at 2026-10-06T03:01:04Z (request blob `d7e6380`). Added 119 art keys: Cloud Hop12, Mini Golf11, Musical Cushions12, Pancake Tower11, Piñata Party10, Snowball Splat15, Treasure Dig16, Tug of War10, Fishing Frenzy16 and Jump Rope6. Current inventory: 529 keys /509 decodable WebPs.
+
+All15 player/companion members gained nine new authored actions and twelve frames each: pull2, reel2, swing2, putt, putt-swing, spring-jump, snow-scoop, dig and skip-hop. All180 full frames, optimized copies, applicable masks, exact intake points and source sheets were published in reviewed character batches. All26 sets remain below25 MiB full decoded with current optimized fingerprints; original encoded-size targets remain soft warnings.
+
+Generated prop geometry is integrated with gameplay; held loops keep authored grips stable. Runtime/loading and builder regressions pass, as do exact action coverage checks and representative live gameplay previews. No current requests remain queued. The15-minute monitor now starts a fresh60-minute quiet window after this completed delivery.
+
 ## October 5 additions
 
 Delivery `03d1d11` completes every new request found through main `6d0f7b9`.

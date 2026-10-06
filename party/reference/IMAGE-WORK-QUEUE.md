@@ -10,16 +10,18 @@ approved artwork just because older checkpoints had incomplete coverage.
 Automation: `charlie-party-image-request-monitor` (15-minute heartbeat).
 Monitoring session start UTC: 2026-10-05T23:20:26Z.
 Latest request activity UTC: 2026-10-05T23:37:46Z.
-Quiet-window start UTC: pending delivery completion; do not cancel while producing.
-Last checked revision: `c819b79bd86f753e7e12e334f410668ae0cf2c06`.
+Quiet-window start UTC: 2026-10-06T03:01:04Z.
+Latest image delivery revision: `da25965a43154a07b21ef0c1e92d645630502aaa`.
+Latest image delivery UTC: 2026-10-06T03:01:04Z.
+Last checked revision: `da25965a43154a07b21ef0c1e92d645630502aaa`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
-Last checked UTC: 2026-10-05T23:40:13Z.
+Last checked UTC: 2026-10-06T03:01:04Z.
 
-All 119 new minigame art keys across ten games are reviewed, registered and published in separate family batches. Published checkpoint: `1b765fb` (2026-10-06T02:37:18Z). Inventory: 529 art keys backed by 509 decodable WebP files.
+All 119 new minigame art keys across ten games are reviewed, registered and published in separate family batches. Inventory: 529 art keys backed by 509 decodable WebP files. All 15 roster members gained nine authored actions / twelve new frames each (180 total). Every character batch is reviewed and published with full/optimized rasters, exact contacts, approved source sheets, intake provenance and applicable palette masks.
 
-Eleven roster expansions are reviewed and published: Felicity, Fellowfox, Snowstar, KPop Left/Centre/Right, Princess Amber, Bronze, Birthday Cake, Marina and Cotton Candy. Each adds nine actions with twelve authored frames. Four remain in production or exact landmark review: Fox, Unicorn, Hotdog and Scale. The precision audit owns Fox/Unicorn; hotdog_precision owns Hotdog; room_new_art owns Scale. Approved canonicals carry forward.
+All 26 sets validate without missing files, stale copies or decoded-memory errors. Existing soft encoded/download guidelines remain warnings; characters load on demand. Builder, runtime/loading and action-registration regression checks pass. Representative live Pancake, Fishing, Tug of War and Mini Golf previews showed no browser errors. Exact pixel reviews include full and optimized sets, and the three palette variants of Felicity and KPop Centre.
 
-Completed character batches include full and optimized rasters, exact contact landmarks, applicable palette masks, source sheets and intake provenance. The full decoded sprite budget is 25 MiB per set. Publish only the reviewed character entry in the optimized index while other agents are rebuilding.
+The immediate post-delivery fetch/check found no further semantic image requests. No current generation work remains queued. The monitor continues every 15 minutes and cancels only after 60 continuous clear minutes starting at the delivery UTC above. Preserve this checkpoint rather than using the earlier afternoon delivery.
 
 All current canonical approvals carry forward. Ship completed families promptly,
 fetch main regularly, and immediately recheck for new requests after generation.

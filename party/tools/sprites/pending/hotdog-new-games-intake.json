@@ -582,6 +582,7 @@
         }
       }
     ],
-    "browserReview": "Pending integrator representative game checks; source/runtime pixel anatomy audit complete."
+    "browserReview": "Pending integrator representative game checks; source/runtime pixel anatomy audit complete.",
+    "integratorBrowserReview": "Mini Golf with Hotdog and Unicorn: putting sprites present, no browser errors/warnings; root also inspected all-action full-resolution contact sheet."
   }
 }
