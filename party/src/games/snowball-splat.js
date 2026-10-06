@@ -66,6 +66,7 @@ const SNOWMEN = [
   { x: 1265, y: 655, scarf: '#9b5cff', hat: '#ff9f1c' },
 ];
 const SM_R = 40;
+const ARENA_TOP = 280, ARENA_TOP_ART = 345;
 
 const inIce = (x, y) => ((x - POND.x) / POND.rx) ** 2 + ((y - POND.y) / POND.ry) ** 2 < 1;
 const angDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
@@ -107,6 +108,10 @@ export class Game {
     this.R = n <= 4 ? 32 : n <= 6 ? 30 : 27;
     this.cam = api.camera;
     if (this.cam) this.cam.maxZoom = Math.min(this.cam.maxZoom, n <= 2 ? 1.22 : 1.14);
+    // The painted background's fence base sits at y~365 (the procedural one at
+    // ~250): keep feet below it so nobody stands on the fence rail.
+    ARENA.y0 = art('bg/snowball-splat') ? ARENA_TOP_ART : ARENA_TOP;
+    this.hatArt = !!art('prop/snowman');   // the art's hat is always blue
     this.walls = WALLS.map((w, i) => ({ ...w, kind: 'wall', hp: WALL_HP, state: 'up', downT: 0, grow: 1, wob: 0, seed: i * 13 + 5 }));
     this.snowmen = SNOWMEN.map((s, i) => ({ ...s, kind: 'snowman', r: SM_R, hp: SNOWMAN_HP, state: 'up', downT: 0, grow: 1, wob: 0, seed: i * 7 + 2 }));
     this.obstacles = [...this.walls, ...this.snowmen];
@@ -425,7 +430,7 @@ export class Game {
     particles.burst(bx, Math.min(by, topY + 40), { type: 'spark', count: 8, colors: ['#ffffff', '#e3f1ff'], speed: [80, 260], size: [4, 9], gravity: 700 });
     if (o.kind === 'snowman' && o.hp === 2) {
       // the hat pops off and flies away
-      this.flyers.push({ kind: 'hat', color: o.hat, x: o.x, y: o.y, z: 168, vx: rand(-160, 160), vz: 520, rot: 0, vr: rand(-9, 9), t: 0 });
+      this.flyers.push({ kind: 'hat', color: this.hatArt ? '#2f97f5' : o.hat, x: o.x, y: o.y, z: 168, vx: rand(-160, 160), vz: 520, rot: 0, vr: rand(-9, 9), t: 0 });
       sfx('boing', { vol: 0.6 });
     } else if (o.kind === 'snowman' && o.hp === 1) {
       this.flyers.push({ kind: 'head', x: o.x, y: o.y, z: 148, vx: rand(-200, 200), vz: 380, rot: 0, vr: rand(-7, 7), t: 0 });

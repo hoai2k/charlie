@@ -4,7 +4,7 @@
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
 import { art, drawArt } from '../../engine/art.js';
-import { drawHeartShape, starPath } from '../../engine/emotes.js';
+import { drawHeartShape, starPath, drawEmote } from '../../engine/emotes.js';
 import { TAU, clamp } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
@@ -46,8 +46,15 @@ export function drawBunny(g, x, y, s, o) {
   if (hands[1]) drawArm(g, sh2, hands[1], s, pal, true);
 
   // Generated art faces right; mirrored for the right-hand bunny.
+  // Mood faces: an optional variant (`<key>-cheer|sneaky|oops`, same canvas)
+  // replaces the body; otherwise the plain body is drawn and the mood reads
+  // from the emote added after the near arm (the painted face never changes).
   let drewArt = false;
-  if (art(pal.key)) { g.save(); g.translate(x, bodyY + 4 * s); g.scale(f, 1); drewArt = drawArt(g, pal.key, 0, 0, 300 * s, 330 * s, { anchor: 'bottom' }); g.restore(); }
+  if (generated) {
+    const moodKey = mood === 'excited' ? 'cheer' : mood;
+    const key = mood !== 'happy' && art(pal.key + '-' + moodKey) ? pal.key + '-' + moodKey : pal.key;
+    g.save(); g.translate(x, bodyY + 4 * s); g.scale(f, 1); drewArt = drawArt(g, key, 0, 0, 300 * s, 330 * s, { anchor: 'bottom' }); g.restore();
+  }
   if (!drewArt) {
     g.save(); g.translate(x, bodyY); g.scale(s * f, s);
     g.lineJoin = 'round'; g.lineCap = 'round';
@@ -136,6 +143,22 @@ export function drawBunny(g, x, y, s, o) {
   }
   // near arm (in front of the body)
   if (hands[0]) drawArm(g, sh, hands[0], s, pal, false);
+  if (drewArt) drawMoodEmote(g, x, bodyY + 4 * s, s, f, mood, o.moodAge ?? t);
+}
+
+// Emote beside a generated bunny's head. (x, y) = feet on the ground; image
+// coords are in the 600x660 canvas (head ~x 180-410, y 170-360, facing right).
+const MOOD_EMOTES = {
+  sneaky: ['zzz', 425, 150, 66],      // "Sooo sleepy..." before the Gotcha! snap
+  excited: ['sweat', 200, 215, 52],   // Super Speed
+  oops: ['sweat', 200, 215, 52],      // a player got tangled
+  cheer: ['sparkle', 320, 105, 76],
+};
+function drawMoodEmote(g, x, y, s, f, mood, age) {
+  const e = MOOD_EMOTES[mood];
+  if (!e) return;
+  const [kind, ix, iy, size] = e;
+  drawEmote(g, kind, x + (ix - 300) * 0.5 * s * f, y - (660 - iy) * 0.5 * s, size * s, age);
 }
 
 function drawArm(g, from, to, s, pal, far) {

@@ -158,8 +158,7 @@ export function drawWall(g, wl, k, dmg, t) {
   const key = horiz ? 'prop/snow-wall' : 'prop/snow-wall-side';
   const img = art(key);
   if (img) {
-    // Stretched over the block silhouette: x0..x1, (y0 - h)..y1.
-    g.drawImage(img, x0, y0 - h, wl.w, wl.d + h);
+    drawWallArt(g, img, horiz, x0, y0, wl.w, wl.d, h);
     if (dmg > 0) drawCracks(g, x0, y1 - h, wl.w, h, dmg, wl.seed);
     g.restore(); return;
   }
@@ -202,6 +201,51 @@ export function drawWall(g, wl, k, dmg, t) {
   g.restore();
 }
 
+// Wall art is drawn in two slices: the top face always covers the footprint
+// (w x d, raised by h) and only the front face (height h) shrinks with damage
+// and grows back on a rebuild, so the top never squashes. Fractions of the
+// image height that are the top face (see image-requests.md):
+const WALL_TOP = { h: 0.34, v: 0.67 };
+const STRIPS = 32;
+const rowSpans = new WeakMap();
+/** Opaque [left, right) of each of STRIPS rows over the top face (null if unreadable). */
+function topSpans(img, srcTop) {
+  if (rowSpans.has(img)) return rowSpans.get(img);
+  let spans = null;
+  try {
+    const cv = document.createElement('canvas'); cv.width = img.width; cv.height = Math.ceil(srcTop);
+    const c = cv.getContext('2d', { willReadFrequently: true });
+    c.drawImage(img, 0, 0);
+    const d = c.getImageData(0, 0, cv.width, cv.height).data, iw = cv.width;
+    spans = [];
+    for (let i = 0; i < STRIPS; i++) {
+      const y = Math.min(cv.height - 1, Math.floor(((i + 0.5) / STRIPS) * srcTop));
+      let l = 0, r = iw - 1;
+      while (l < r && d[(y * iw + l) * 4 + 3] < 128) l++;
+      while (r > l && d[(y * iw + r) * 4 + 3] < 128) r--;
+      spans.push(r - l > 8 ? [l, r + 1] : [0, iw]);
+    }
+  } catch (e) { spans = null; }
+  rowSpans.set(img, spans);
+  return spans;
+}
+function drawWallArt(g, img, horiz, x0, y0, w, d, h) {
+  const iw = img.width, ih = img.height, top = ih * (horiz ? WALL_TOP.h : WALL_TOP.v);
+  const yTop = y0 - h;
+  const spans = horiz ? null : topSpans(img, top);
+  if (spans) {
+    // The side wall's top face narrows toward the far end in the art (a
+    // vanishing point the game's camera doesn't have): crop each strip to its
+    // opaque width so the wall keeps straight sides over its footprint.
+    for (let i = 0; i < STRIPS; i++) {
+      const [l, r] = spans[i];
+      const sy = (i / STRIPS) * top, sh = top / STRIPS;
+      g.drawImage(img, l, sy, r - l, sh, x0, yTop + (i / STRIPS) * d, w, d / STRIPS + 0.6);
+    }
+  } else g.drawImage(img, 0, 0, iw, top, x0, yTop, w, d);
+  if (h > 0.5) g.drawImage(img, 0, top, iw, ih - top, x0, yTop + d, w, h);
+}
+
 function drawCracks(g, x, y, w, h, dmg, seed) {
   g.save(); g.strokeStyle = 'rgba(70,100,160,0.75)'; g.lineWidth = 3; g.lineCap = 'round';
   const n = Math.ceil(dmg * 4);
@@ -221,7 +265,12 @@ export function drawRubble(g, wl, k) {
     g.save(); g.globalAlpha = (k - 0.55) / 0.45 * 0.5; g.setLineDash([10, 10]); g.strokeStyle = '#ffffff'; g.lineWidth = 4;
     ui.roundRect(g, x0, wl.y - wl.d / 2 - WALL_H, wl.w, wl.d + WALL_H, 10); g.stroke(); g.restore();
   }
-  if (drawArt(g, 'prop/snow-rubble', wl.x, y1 + 4, Math.max(wl.w, wl.d) + 30, 60, { anchor: 'bottom' })) return;
+  if (wl.w >= wl.d) { if (drawArt(g, 'prop/snow-rubble', wl.x, y1 + 4, wl.w + 30, 60, { anchor: 'bottom' })) return; }
+  else if (art('prop/snow-rubble')) {
+    // A side wall runs away from the camera: a line of smaller heaps along it.
+    for (let i = 1; i <= 3; i++) drawArt(g, 'prop/snow-rubble', wl.x + (i - 2) * 6, wl.y - wl.d / 2 + (i * wl.d) / 3 + 4, wl.w + 64, 40, { anchor: 'bottom' });
+    return;
+  }
   g.save(); g.strokeStyle = NAVY; g.lineWidth = 4;
   const n = Math.max(3, Math.round(Math.max(wl.w, wl.d) / 45));
   for (let i = 0; i < n; i++) {
