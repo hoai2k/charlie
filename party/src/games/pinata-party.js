@@ -106,7 +106,9 @@ export class Game {
       dizzy: 0, immune: 0, spinT: 0, score: 0, streak: 0, streakT: 0, brain: new Brain(p), goal: null, seen: null,
       checkT: 0, popN: 0, popT: 0, offA: i * 2.39 + rand(0.5),
     };
-    a.attach((g, info) => this.drawBatAttach(g, info, U));
+    // the bat rests over the shoulder behind the head and comes round in front for the hit
+    a.attach((g, info) => this.drawBatAttach(g, info, U, true), { behind: true });
+    a.attach((g, info) => this.drawBatAttach(g, info, U, false));
     return U;
   }
 
@@ -605,9 +607,12 @@ export class Game {
   }
 
   // --- drawing ---------------------------------------------------------------------------------
-  drawBatAttach(g, info, U) {
+  drawBatAttach(g, info, U, behindLayer) {
     const L = Math.max(72, info.h * 0.6);
-    const REST = -2.05, BACK = -2.75, END = -0.25;
+    // Rest: held out ready in front (clear of the face). A sprite whose hand point
+    // is behind its face (e.g. the far hand) rests the bat up over its back instead.
+    const rear = info.hand.x < info.eyes.x - info.h * 0.04;
+    const REST = rear ? -2.15 : -0.75, BACK = -2.8, END = -0.25;
     let ang = REST + Math.sin(this.t * 3 + U.i) * 0.05;
     const s = U.swingT;
     if (U.dizzy > 0) ang = REST + Math.sin(this.t * 12) * 0.45;
@@ -615,6 +620,11 @@ export class Game {
       if (s < HIT_FROM) ang = lerp(REST, BACK, ease.outQuad(s / HIT_FROM));
       else if (s < HIT_TO) ang = lerp(BACK, END, ease.outCubic((s - HIT_FROM) / (HIT_TO - HIT_FROM)));
       else ang = lerp(END, REST, ease.inOutQuad(clamp((s - HIT_TO) / (SWING_T - HIT_TO), 0, 1)));
+    }
+    // Pointing up and back (resting, winding up, dizzy wobble) the bat goes behind
+    // the character, so it never covers a face; past upright it is drawn in front.
+    if ((ang < (rear ? -2.45 : -1.75)) !== behindLayer) return;
+    if (U.dizzy <= 0 && s >= 0) {
       if (s > HIT_FROM * 0.7 && s < HIT_TO + 0.06) {
         const k = 1 - clamp((s - HIT_TO) / 0.06, 0, 1);
         g.save(); g.globalAlpha = 0.55 * k; g.strokeStyle = '#ffffff'; g.lineCap = 'round'; g.lineWidth = L * 0.2;
