@@ -8,8 +8,8 @@
 //   bg/mini-golf  thumb/mini-golf  prop/golf-gumdrop  prop/golf-lollipop
 //   prop/golf-spinner-hub  prop/golf-donut  prop/golf-donut-exit  prop/golf-jelly
 //   prop/golf-cookie-bridge  prop/golf-flag  prop/golf-cup
-// Wish poses (requested; existing fallbacks used today): 'putt' (address the
-// ball; uses 'crouch' while charging) and 'putt-swing' (uses 'action').
+// Poses: 'putt' while charging and 'putt-swing' on the stroke; characters
+// without those frames yet fall back to crouch / action.
 import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -254,7 +254,7 @@ export class Game {
     b.vx = Math.cos(U.aim) * v; b.vy = Math.sin(U.aim) * v;
     U.strokes++; U.lastShot = { x: b.x, y: b.y }; b.pinned = false;
     U.charging = false; U.power = 0; U.swingT = 0.22; U.shotPow = p;
-    U.a.playOnce('action', 0.35); U.a.squash(0.22);
+    U.a.playOnce('putt-swing', 0.35); U.a.squash(0.22);   // falls back to action
     snd('golf-putt', 'hit', { vol: 0.45 + 0.55 * p });
     if (p > 0.6) sfx('whoosh', { vol: 0.5 * p });
     particles.burst(b.x, b.y, { type: 'dust', count: 4 + Math.round(p * 6), colors: ['#ffffff', '#d8ffe4'], angle: U.aim + Math.PI, spread: 0.7, speed: [60, 200] });
@@ -473,7 +473,7 @@ export class Game {
         const s = Math.hypot(b.vx, b.vy);
         if (s < 260 || this.phase !== 'play') { const sp = this.standSpot(U); tx = sp.x; ty = sp.y; face = -U.side; }
         else face = b.x > a.x ? 1 : -1;
-        if (U.charging) rest = 'crouch';
+        if (U.charging) rest = 'putt';   // falls back to crouch
       } else if (b.mode === 'splash') {
         const sx = U.lastShot.x + U.side * (34 + Math.min(70, a.width * 0.3)); tx = sx; ty = U.lastShot.y - 6;
       } else if (b.mode === 'warp') {

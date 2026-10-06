@@ -47,7 +47,7 @@ const RUSH_WEIGHTS = { shell: 6, pearl: 24, gem: 28, coins: 28, crown: 14 };
 const SILLY = [['crab', 26], ['seaweed', 20], ['sock', 18], ['duck', 14], ['sand', 22]];
 const SAND = ['#f3d394', '#e8c27e', '#d9ae66', '#fbe6b8'];
 // Poses: all existing. WISH (see report): 'dig' (crouched, scooping sand back between the legs).
-const POSE = { dig: 'action', digBase: 'crouch', found: 'cheer', jackpot: 'celebrate', pinch: 'hurt', silly: 'surprised' };
+const POSE = { dig: 'dig', digBase: 'dig', found: 'cheer', jackpot: 'celebrate', pinch: 'hurt', silly: 'surprised' };
 
 const snd = (k, fb, o = {}) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const weighted = (table) => {

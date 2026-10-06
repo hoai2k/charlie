@@ -357,7 +357,7 @@ export class Game {
   hop(U) {
     U.jt = 0; U.buffer = 0;
     const a = U.a;
-    a.setPose('jump'); a.squash(-0.35);
+    a.setPose('skip-hop'); a.squash(-0.35);   // falls back to jump
     snd('jr-hop', 'jump', { vol: U.p.isAI ? 0.12 : 0.45 });
     particles.burst(U.x, U.y, { type: 'dust', count: 3, colors: ['#fff6dd'], speed: [40, 120], angle: -Math.PI / 2, spread: 1.2 });
   }
@@ -366,7 +366,7 @@ export class Game {
     U.jt = -1; U.z = 0; U.lag = LAG;
     const a = U.a;
     a.squash(0.32);
-    if (a.pose === 'fall' || a.pose === 'jump') a.setPose('idle');
+    if (a.pose === 'fall' || a.pose === 'jump' || a.pose === 'skip-hop') a.setPose('idle');
     a.playOnce('land', 0.14, 'idle');
     if (!U.p.isAI) sfx('land', { vol: 0.25 });
   }

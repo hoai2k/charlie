@@ -142,9 +142,6 @@ export const POSES = {
   sing:        { loop: true,  fallback: ['dance'], proc: 'dance', desc: 'Holding a mic and singing.' },
   water:       { loop: false, fallback: ['action'], proc: 'action', desc: 'Tilting a watering can.' },
   'catch-toy': { loop: false, fallback: ['jump', 'catch'], proc: 'cheer', desc: 'Leap to catch a toy.' },
-  // Requested by the second page of party games (2026-10-05):
-  reel:      { loop: true,  fallback: ['pump', 'action'], proc: 'action', desc: 'Fishing Frenzy: both hands on a fishing rod held up, leaning back and cranking the reel (hand = rod grip).' },
-  pull:      { loop: true,  fallback: ['knockback', 'balance'], proc: 'knockback', desc: 'Tug-of-War: side-on, leaning far back, both hands gripping a rope held out at waist height, feet dug in (hand = grip).' },
 };
 export const POSE_NAMES = Object.keys(POSES);
 
