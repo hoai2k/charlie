@@ -161,7 +161,9 @@
       "prompt": "Use case: precise-object-edit. Repair the referenced Hotdog four-frame dance sprite sheet. Preserve the four exact dance poses and character design/style. Rearrange the four sprites into TWO COLUMNS TWO ROWS in original reading order, square1536x1536, with wide transparent gutters and margins so no tail or ear touches any other sprite or canvas edge. All four character drawings same head size and complete flame tuft, ears, fourpaws and whole tail. Frame1 little leftpaw lifted happy; frame2 bouncing allpaws tucked; frame3 frontpaw down leaning toward viewer; frame4 rightpaw lifted opposite bounce. Keep low quadruped same character, same rainbow stripes, whitechest navy mask grayears redheart flame tuft. No new props/effects/shadows/text. True transparent background.",
       "originalOutput": "/Users/hoai/.codex/generated_images/01a0fd20-f8ae-7683-af05-23c2462e85d8/exec-bb9fbdad-2af6-4967-b2e5-9b76d20f9e9d.png",
       "role": "dance1,dance2,dance3,dance4"
-    }
+    },
+    "newGamesA": "../pending/hotdog-new-games-intake.json#new-games-a",
+    "newGamesB": "../pending/hotdog-new-games-intake.json#new-games-b"
   },
   "poses": {
     "idle": {
@@ -4281,6 +4283,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            17,
+            56,
+            421,
+            444
+          ],
+          "isolate": true,
+          "anchor": [
+            213,
+            429
+          ],
+          "scale": 1.4,
+          "head": [
+            256.143,
+            206.095
+          ],
+          "eyes": [
+            265.131,
+            213.286
+          ],
+          "neck": [
+            274.119,
+            260.024
+          ],
+          "back": [
+            200.417,
+            349.905
+          ],
+          "hand": [
+            360.405,
+            278.0
+          ]
+        },
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            380,
+            52,
+            473,
+            448
+          ],
+          "isolate": true,
+          "anchor": [
+            238,
+            433
+          ],
+          "scale": 1.4,
+          "head": [
+            248.786,
+            208.298
+          ],
+          "eyes": [
+            268.56,
+            208.298
+          ],
+          "neck": [
+            306.31,
+            325.143
+          ],
+          "back": [
+            257.774,
+            353.905
+          ],
+          "hand": [
+            365.631,
+            274.81
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            798,
+            6,
+            360,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            483
+          ],
+          "scale": 1.4,
+          "head": [
+            238.333,
+            220.548
+          ],
+          "eyes": [
+            240.131,
+            227.738
+          ],
+          "neck": [
+            259.905,
+            272.679
+          ],
+          "back": [
+            182.607,
+            369.75
+          ],
+          "hand": [
+            304.845,
+            279.869
+          ]
+        },
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            1157,
+            6,
+            356,
+            498
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            483
+          ],
+          "scale": 1.4,
+          "head": [
+            258.107,
+            222.345
+          ],
+          "eyes": [
+            259.905,
+            233.131
+          ],
+          "neck": [
+            268.893,
+            312.226
+          ],
+          "back": [
+            205.976,
+            387.726
+          ],
+          "hand": [
+            322.821,
+            294.25
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            10,
+            494,
+            379,
+            475
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            460
+          ],
+          "scale": 1.4,
+          "head": [
+            279.679,
+            199.345
+          ],
+          "eyes": [
+            279.679,
+            202.94
+          ],
+          "neck": [
+            312.036,
+            289.226
+          ],
+          "back": [
+            204.179,
+            353.94
+          ],
+          "hand": [
+            179.012,
+            211.929
+          ]
+        },
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            422,
+            493,
+            363,
+            478
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            460
+          ],
+          "scale": 1.4,
+          "head": [
+            243.726,
+            199.345
+          ],
+          "eyes": [
+            240.131,
+            195.75
+          ],
+          "neck": [
+            292.262,
+            303.607
+          ],
+          "back": [
+            198.786,
+            348.548
+          ],
+          "hand": [
+            328.214,
+            179.571
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            769,
+            574,
+            409,
+            391
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            368
+          ],
+          "scale": 1.4,
+          "head": [
+            315.631,
+            231.381
+          ],
+          "eyes": [
+            304.845,
+            231.381
+          ],
+          "neck": [
+            294.06,
+            294.298
+          ],
+          "back": [
+            188.0,
+            279.917
+          ],
+          "hand": [
+            310.238,
+            346.429
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-a.webp",
+          "rect": [
+            1150,
+            574,
+            380,
+            389
+          ],
+          "isolate": true,
+          "anchor": [
+            188,
+            368
+          ],
+          "scale": 1.4,
+          "head": [
+            295.857,
+            195.429
+          ],
+          "eyes": [
+            290.464,
+            177.452
+          ],
+          "neck": [
+            310.238,
+            263.738
+          ],
+          "back": [
+            196.988,
+            278.119
+          ],
+          "hand": [
+            331.81,
+            337.44
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.0,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-b.webp",
+          "rect": [
+            4,
+            34,
+            543,
+            558
+          ],
+          "isolate": true,
+          "anchor": [
+            258,
+            610
+          ],
+          "scale": 1.0,
+          "head": [
+            373.767,
+            272.767
+          ],
+          "eyes": [
+            373.767,
+            270.25
+          ],
+          "neck": [
+            398.933,
+            365.883
+          ],
+          "back": [
+            270.583,
+            428.8
+          ],
+          "hand": [
+            358.667,
+            383.5
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-b.webp",
+          "rect": [
+            524,
+            130,
+            570,
+            492
+          ],
+          "isolate": true,
+          "anchor": [
+            258,
+            473
+          ],
+          "scale": 1.0,
+          "head": [
+            421.583,
+            306.9
+          ],
+          "eyes": [
+            421.583,
+            311.933
+          ],
+          "neck": [
+            416.55,
+            402.533
+          ],
+          "back": [
+            245.417,
+            347.167
+          ],
+          "hand": [
+            464.367,
+            450.35
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-b.webp",
+          "rect": [
+            1088,
+            133,
+            609,
+            496
+          ],
+          "isolate": true,
+          "anchor": [
+            268,
+            477
+          ],
+          "scale": 1.0,
+          "head": [
+            431.583,
+            315.933
+          ],
+          "eyes": [
+            434.1,
+            323.483
+          ],
+          "neck": [
+            436.617,
+            416.6
+          ],
+          "back": [
+            268.0,
+            348.65
+          ],
+          "hand": [
+            454.233,
+            461.9
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-new-games-b.webp",
+          "rect": [
+            1671,
+            26,
+            495,
+            579
+          ],
+          "isolate": true,
+          "anchor": [
+            238,
+            628
+          ],
+          "scale": 1.0,
+          "head": [
+            353.767,
+            275.667
+          ],
+          "eyes": [
+            353.767,
+            278.183
+          ],
+          "neck": [
+            373.9,
+            373.817
+          ],
+          "back": [
+            273.233,
+            434.217
+          ],
+          "hand": [
+            341.183,
+            398.983
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
     }
   },
   "portraits": {
@@ -4329,5 +4823,6 @@
       "cell": 4,
       "trim": true
     }
-  }
+  },
+  "status": "Hotdog nine new actions, 12 authored frames reviewed individually at native runtime size and on source sheets. Head/eye/white-neck/body-back/paw points corrected by runtime inverse; complete alpha bounds preserved with crop margin; held loops motion=0; source B scale=1.0 matches idle head size, source A scale=1.4 preserved."
 }
