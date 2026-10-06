@@ -150,6 +150,15 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   (reel, pull, swing, dig, putt, putt-swing, spring-jump, snow-scoop,
   skip-hop). The image agent also fitted the pond background to the game's
   ellipse (Fishing Frenzy) and the bunny shoulders to the rope (Jump Rope).
+- Art QA (2026-10-06): six agents checked every delivered image and pose in
+  game and fixed placement/padding/layering in the games' own files. Open
+  items are rows in image-requests.md "Re-generation requests": needed —
+  `bg/snowball-splat` (fence/trees in the play area; the code starts the
+  arena at y 345 until it lands, then set `ARENA_TOP_ART` back to 280),
+  `prop/snow-wall-side` (no taper), Princess Amber's dig/spring-jump/
+  snow-scoop/skip-hop at idle scale, the cake's idle/walk hand point;
+  optional — bunny mood faces, open chest view, cookie bridge, fishing rod
+  handle, Cloud Hop thumbnail, Hotdog pull paws.
 
 ## Open items (not started or waiting)
 - **Music:** the user chooses takes per song on the Takes tab. Then move the
