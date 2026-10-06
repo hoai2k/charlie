@@ -17,7 +17,7 @@ Last checked UTC: 2026-10-05T23:40:13Z.
 
 All 119 new minigame art keys across ten games are reviewed, registered and published in separate family batches. Published checkpoint: `1b765fb` (2026-10-06T02:37:18Z). Inventory: 529 art keys backed by 509 decodable WebP files.
 
-Ten roster expansions are reviewed and published: Felicity, Fellowfox, Snowstar, KPop Left/Centre/Right, Princess Amber, Bronze, Birthday Cake and Marina. Each adds nine actions with twelve authored frames. Five remain in production or exact landmark review: Cotton Candy, Fox, Unicorn, Hotdog and Scale. The precision audit owns the four animal sets; room_new_art owns Scale. Approved canonicals carry forward.
+Eleven roster expansions are reviewed and published: Felicity, Fellowfox, Snowstar, KPop Left/Centre/Right, Princess Amber, Bronze, Birthday Cake, Marina and Cotton Candy. Each adds nine actions with twelve authored frames. Four remain in production or exact landmark review: Fox, Unicorn, Hotdog and Scale. The precision audit owns Fox/Unicorn; hotdog_precision owns Hotdog; room_new_art owns Scale. Approved canonicals carry forward.
 
 Completed character batches include full and optimized rasters, exact contact landmarks, applicable palette masks, source sheets and intake provenance. The full decoded sprite budget is 25 MiB per set. Publish only the reviewed character entry in the optimized index while other agents are rebuilding.
 
