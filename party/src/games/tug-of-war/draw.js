@@ -259,7 +259,8 @@ export function ropeYAt(pts, x) {
 
 /** The centre marker: a big rainbow bow tied on the rope with a pennant. */
 export function drawBow(g, x, y, t, sway = 0, s = 1) {
-  if (drawArt(g, 'prop/tug-bow', x, y + 40 * s, 150 * s, 150 * s)) return;
+  // Measured knot at (148,89) in the 300px canvas: pin it to the rope.
+  if (drawArt(g, 'prop/tug-bow', x + s, y + 30.5 * s, 150 * s, 150 * s)) return;
   g.save();
   g.translate(x, y); g.scale(s, s);
   g.rotate(sway * 0.4);

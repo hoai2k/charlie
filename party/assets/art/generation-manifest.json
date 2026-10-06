@@ -5628,6 +5628,86 @@
       "tool": "built-in imagegen",
       "bytes": 144566,
       "record": "party/reference/pending/pancake-tower-art-prompts.json"
+    },
+    {
+      "key": "bg/tug-of-war",
+      "prompt": "Generate a full-bleed opaque 1920x1080 background for a polished children's party game, sunny spring meadow in soft cel-shaded cartoon style with navy #24163f outlines. Soft blue sky with a few puffy clouds, large gentle pastel rainbow behind rolling green hills, rounded cartoon trees on far hills, vivid grass strip with tiny flowers across bottom third, cream party poles at far left and right with sagging pink yellow blue bunting. Faint pink tint in flowers on left, faint blue tint on right. Important layout: level grass/horizon boundary at y=790 pixels exactly; flat clear grass from y=790 to bottom, especially plain area x=750..1170 and y=812..940 for future puddle, and clear flat team-mat zones x=10..740 and x=1180..1910, y=812..904. Calm uncluttered top 230 pixels for HUD, calm center band y=250..420 for beat heart. No characters, no text, no watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-1bd6f9bd-396a-4cdf-acd2-e38e054a6024.png",
+      "tool": "built-in imagegen",
+      "bytes": 157592,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "thumb/tug-of-war",
+      "prompt": "Edit the first image, preserving the composition, meadow, rainbow, rope, center bow, jelly puddle, sparkles, and the teal-haired fairy on the right. Correct only the fox-girl character on the left to faithfully match the supplied canonical Felicity reference: brown pigtails tied with yellow flowers, small daisy at one ear, orange fox ears and cream muzzle, teal eyes, orange-purple floral dress and orange shoes, cream-tipped fluffy fox tail. Remove the current orange ponytail hairstyle and sporty pink clothing; preserve Felicity's canonical fox-girl identity and outfit exactly as shown in her reference, while keeping her in the same backward-leaning rope-pulling pose. Maintain the same polished painterly cel-shaded style and 800x500 thumbnail layout. Do not alter Glimmer's face, teal updo, wings, pink dress or identity. No text.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-b3076e03-6d73-4f01-ac80-ff9a4a814cf7.png",
+      "tool": "built-in imagegen",
+      "bytes": 91616,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-jelly-pool",
+      "prompt": "Transparent-background prop: a shallow oval puddle of glossy rainbow jelly set into grass, low side angle, wide oval fills about 88% of a 960x280 canvas. Concentric rainbow bands from pink rim through orange, yellow, green, blue to purple center, sugary pale-pink crust rim, bright white highlights and a few tiny bubbles. Clean isolated silhouette, no grass/background, no text, no shadow outside silhouette, cute polished soft cel shading and navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-c2908af2-88b5-43a7-a016-0fc77d1ade78.png",
+      "tool": "built-in imagegen",
+      "bytes": 303218,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-mat-pink",
+      "prompt": "Transparent isolated long picnic blanket prop on a 1460x184 canvas, front low angle, pink and white gingham checks, soft fringe along bottom edge, slightly wrinkled fabric. Empty surface, clean readable edges, centered full object, no props, no background, no text, polished cartoon cel shading and navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-ebb9e59f-1034-4f47-8ef5-d3525890a9e2.png",
+      "tool": "built-in imagegen",
+      "bytes": 123650,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-mat-blue",
+      "prompt": "Transparent isolated long picnic blanket prop on a 1460x184 canvas, front low angle, blue and white gingham checks, soft fringe along bottom edge, slightly wrinkled fabric. Empty surface, clean readable edges, centered full object, no props, no background, no text, polished cartoon cel shading and navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-a3ba53b2-cb75-446a-b1fb-afc19d393041.png",
+      "tool": "built-in imagegen",
+      "bytes": 148186,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-flag-pink",
+      "prompt": "Transparent isolated small party finish-line flag on a 220x300 canvas: a cream wooden pole with a hot-pink triangular cloth pennant at top, pennant clearly pointing left, simple white heart centered on cloth. Entire pole and flag visible, pole foot at bottom center, no ground, no text, clean polished children's cartoon prop with navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-4c3aae91-12b3-4a84-9fb9-83e15f1c7aff.png",
+      "tool": "built-in imagegen",
+      "bytes": 20918,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-flag-blue",
+      "prompt": "Transparent isolated small party finish-line flag on a 220x300 canvas: a cream wooden pole with a sky-blue triangular cloth pennant at top, pennant clearly pointing right, simple white star centered on cloth. Entire pole and flag visible, pole foot at bottom center, no ground, no text, clean polished children's cartoon prop with navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-b3005086-819a-4e73-ac4d-b0ec8134db0b.png",
+      "tool": "built-in imagegen",
+      "bytes": 19214,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-bow",
+      "prompt": "Transparent isolated oversized glossy hot-pink ribbon bow prop on a 300x300 canvas. Knot centered at x=150,y=70; two broad loops and two ribbon tails below/aside the knot, gold button knot, and a small three-stripe pink/yellow/blue pennant hanging straight down beneath it. Clear silhouette and transparent margin, no pole, no background, no text, polished candy-colored cartoon cel shading with navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-c45fb430-7c01-4e5a-9f24-a7c1157c4792.png",
+      "tool": "built-in imagegen",
+      "bytes": 72728,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-banana",
+      "prompt": "Transparent isolated cartoon banana peel lying flat on a 220x160 canvas, three floppy bright-yellow peel petals splayed outward, little brown stem, glossy cute appearance, not mushy. Entire peel visible, centered, no ground or cast shadow, no text, polished children's cartoon with navy #24163f outline.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-7b8bbfd4-1880-4b55-8933-f0c2b9b1ffd8.png",
+      "tool": "built-in imagegen",
+      "bytes": 20182,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
+    },
+    {
+      "key": "prop/tug-beat-heart",
+      "prompt": "Transparent isolated chunky puffy candy-pink heart sticker on a 256x256 canvas, smooth symmetrical silhouette, thick navy #24163f outline, bright white shine at upper left, subtle glossy shading. Centered with transparent margin, no text, no extra ring or background.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-0ce5-7e20-9a0b-e5fa4f1ce383/exec-9764941e-0546-4479-996a-e362b8260dbb.png",
+      "tool": "built-in imagegen",
+      "bytes": 30164,
+      "record": "party/reference/pending/tug-of-war-art-prompts.json"
     }
   ]
 }

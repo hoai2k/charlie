@@ -455,6 +455,16 @@
     "prop/cream-swirl": "prop/cream-swirl.webp",
     "prop/pancake-plate": "prop/pancake-plate.webp",
     "prop/chef-pan": "prop/chef-pan.webp",
-    "prop/syrup-bottle": "prop/syrup-bottle.webp"
+    "prop/syrup-bottle": "prop/syrup-bottle.webp",
+    "bg/tug-of-war": "bg/tug-of-war.webp",
+    "thumb/tug-of-war": "thumb/tug-of-war.webp",
+    "prop/tug-jelly-pool": "prop/tug-jelly-pool.webp",
+    "prop/tug-mat-pink": "prop/tug-mat-pink.webp",
+    "prop/tug-mat-blue": "prop/tug-mat-blue.webp",
+    "prop/tug-flag-pink": "prop/tug-flag-pink.webp",
+    "prop/tug-flag-blue": "prop/tug-flag-blue.webp",
+    "prop/tug-bow": "prop/tug-bow.webp",
+    "prop/tug-banana": "prop/tug-banana.webp",
+    "prop/tug-beat-heart": "prop/tug-beat-heart.webp"
   }
 }
