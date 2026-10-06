@@ -15,16 +15,11 @@ Last checked revision: `c819b79bd86f753e7e12e334f410668ae0cf2c06`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
 Last checked UTC: 2026-10-05T23:40:13Z.
 
-New briefs add119 art keys across10 games. Musical Cushions12 (6030957), Cloud Hop12 and Mini Golf11 are reviewed and delivered;Pancake Tower11 is also reviewed after alpha trimming and pan/spawn alignment;Tug-of-War10 is reviewed, with corrected canonical thumbnail and measured bow-knot alignment;All119 new minigame art keys are reviewed/registered in separate family batches;14 roster-action expansions are generated or in production, awaiting exact point/scale/mask QA. Active owners are updated in per-character source records. Felicity example65e03c8 is included in the safe mergeb3ddea9. Owners:
-- beads_new_art: mini-golf11, treasure-dig16, fishing-frenzy16.
-- melody_new_art: musical-cushions12, pancake-tower11, tug-of-war10.
-- room_new_art: cloud-hop12, pinata-party10, snowball-splat15, jump-rope6.
-- root: intake/indexes, reviewed family commits, runtime integration and requested
-  new roster actions (spring-jump, putt, putt-swing, swing, snow-scoop, dig, pull,
-  reel, skip-hop). Future-marked pose upgrades are included in this production
-  pass; anatomy and grip points must stay correct for each15 roster member.
+All 119 new minigame art keys across ten games are reviewed, registered and published in separate family batches. Published checkpoint: `1b765fb` (2026-10-06T02:37:18Z). Inventory: 529 art keys backed by 509 decodable WebP files.
 
-Felicity now has all9 new actions,12 real new frames (84 poses/105 totalframes), refreshed optimized copies and105 masks; decoded footprint21.3MiB. Root reviewed frame landmarks and optimized/full sprite viewer, with no browser errors. Fourteen roster expansions remain.
+Ten roster expansions are reviewed and published: Felicity, Fellowfox, Snowstar, KPop Left/Centre/Right, Princess Amber, Bronze, Birthday Cake and Marina. Each adds nine actions with twelve authored frames. Five remain in production or exact landmark review: Cotton Candy, Fox, Unicorn, Hotdog and Scale. The precision audit owns the four animal sets; room_new_art owns Scale. Approved canonicals carry forward.
+
+Completed character batches include full and optimized rasters, exact contact landmarks, applicable palette masks, source sheets and intake provenance. The full decoded sprite budget is 25 MiB per set. Publish only the reviewed character entry in the optimized index while other agents are rebuilding.
 
 All current canonical approvals carry forward. Ship completed families promptly,
 fetch main regularly, and immediately recheck for new requests after generation.

@@ -158,7 +158,7 @@ external volume, macOS `._*` sidecars inside `.git` caused misleading pack-index
 warnings. Remove only those sidecar files if they recur; do not delete real Git
 pack/index files. Git mutations may require the tool's sandbox escalation.
 
-When approaching the user's usage threshold, stop starting new generations,
+If the user imposes a new usage threshold, honor it and stop starting generations,
 finish and save in-flight outputs, commit reviewed work, and write exact pending
 tasks and file paths. Leave unreviewed partial sets explicitly marked as partial.
 Do not rely on tool-result memory as the only copy of a prompt or output path.
@@ -183,9 +183,11 @@ exact prompts and clear unreviewed landmarks. Restore the shipping spec so a
 future blanket build cannot silently intake draft geometry. Never label draft
 points as visually verified.
 
-The request heartbeat checks new and changed requests every 30 minutes and
-cancels after one unchanged interval. It must honor the user's usage pause: queue
-new work while paused, without launching generation automatically.
+The current request heartbeat checks every 15 minutes. After a completed delivery,
+sync and check immediately, then start a new quiet window and schedule the next
+check 15 minutes later. Cancel only after 60 continuous minutes without new or
+changed asset requests. Completed-status edits alone do not reset that window.
+The user revoked the former allowance pause; production is authorized to continue.
 
 ## Runtime landmark and optimizer checks
 
