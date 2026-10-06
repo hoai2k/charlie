@@ -11,11 +11,11 @@ Automation: `charlie-party-image-request-monitor` (15-minute heartbeat).
 Monitoring session start UTC: 2026-10-05T23:20:26Z.
 Latest request activity UTC: 2026-10-05T23:37:46Z.
 Quiet-window start UTC: pending delivery completion; do not cancel while producing.
-Last checked revision: `a2b5009`.
+Last checked revision: `c819b79bd86f753e7e12e334f410668ae0cf2c06`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
 Last checked UTC: 2026-10-05T23:40:13Z.
 
-New briefs add119 art keys across10 games. Musical Cushions12 art keys are reviewed and delivered in the next family commit;107 art keys and roster-action expansions remain in production. Owners:
+New briefs add119 art keys across10 games. Musical Cushions12 (6030957), Cloud Hop12 and Mini Golf11 are reviewed and delivered;84 art keys and14 roster-action expansions remain in production. Felicity example65e03c8 is included in the safe mergeb3ddea9. Owners:
 - beads_new_art: mini-golf11, treasure-dig16, fishing-frenzy16.
 - melody_new_art: musical-cushions12, pancake-tower11, tug-of-war10.
 - room_new_art: cloud-hop12, pinata-party10, snowball-splat15, jump-rope6.

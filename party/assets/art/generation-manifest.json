@@ -5356,6 +5356,190 @@
       "tool": "built-in imagegen",
       "bytes": 38222,
       "record": "party/reference/pending/musical-cushions-art-prompts.json"
+    },
+    {
+      "key": "bg/cloud-hop",
+      "prompt": "Use case: illustration-story. Asset: bg/cloud-hop. Request: A soft, dreamy open sky with no ground and no horizon: a gentle pastel gradient (light blue at the top to pale pink-peach at the bottom) with a few very faint, wispy far-away clouds and tiny pale sparkles. Low contrast and low detail so foreground clouds and characters read clearly. Game layout: Screen-fixed behind everything (it does not scroll), then washed 35% toward the altitude colour by code. Code draws the sun/moon, parallax clouds, hot-air balloons and twinkles on top. Keep the top ~120 px and the right 140 px calm (HUD chips and the height track).  Target 1920x1080, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, clean simple cel shading, no photorealism, no3D. Opaque fullframe image. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-767908d9-7c00-40c5-9427-fb67f42fbe20.png",
+      "tool": "built-in imagegen",
+      "bytes": 21026,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "thumb/cloud-hop",
+      "prompt": "Use case: illustration-story. Asset: thumb/cloud-hop. Request: A cheerful character bouncing high off a fluffy white cloud with motion lines, a stack of clouds climbing up the picture (a pink springy cloud, a grey sleepy rain cloud, a trampoline), a glowing gold star, and a big rainbow arch with a gold star on top at the summit, against a sunset-pink-to-lavender sky. Subject centred. Game layout: Game-select shelf and how-to screen, drawn with `cover` fit (procedural `drawIcon` is the fallback).  Target 800x500, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, clean simple cel shading, no photorealism, no3D. Opaque fullframe image. No text or watermark. Reference is approved Cotton Candy: preserve white quadruped pony anatomy, yellow crown tippedblue, pink/blue/lilac mane and tail, blueeyes and yellowflower flank emblem; show her happily bouncing off the cloud.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-08bff867-3d20-4f97-b325-c5f641835a42.png",
+      "tool": "built-in imagegen",
+      "bytes": 62134,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-cloud",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-cloud. Request: A fluffy white cartoon cloud seen from the side: a row of round puffs on top, a soft rounded underside with pale periwinkle cel shading, navy outline, a small highlight on the top-left puffs. Optional tiny happy closed-eye face with pink cheeks on the lower body. Wide and fairly flat (about 2.6:1). Game layout: A normal cloud platform, stretched (not aspect-kept) into a box (platform width + 20) \u00d7 (\u224896 px) for widths 160\u2013250 px. The landing line (where feet touch) is about 16% down from the top edge of the image; the puffy bumps rise slightly above it, the rounded body hangs below. CRITICAL canvas512x200. Landing surface is a near-horizontal line at y32 (16%down). Small rounded bumps rise from this line to y0..25; bulk of cloud hangs below y32 to abouty190. The top is shallow, NOT a huge single high dome. Entire cloud spans the fullwidth. Target 512x200, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, clean simple cel shading, no photorealism, no3D. Genuinely transparent background, no cast shadow, one complete isolated object. No text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-e6768ccf-5476-443f-9b11-ccd56b86468f.png",
+      "tool": "built-in imagegen",
+      "bytes": 14728,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-cloud-pink",
+      "prompt": "Use case: precise-object-edit. Edit the provided normal cloud platform into prop/cloudhop-cloud-pink. The same cloud shape in bubblegum pink with deeper pink shading, a surprised \"ooh\" face, little gold coil springs peeking out underneath, and a white sparkle. Looks bouncy and fun. Preserve the exact existing cloud silhouette, overall position, top edge puffs, canvas dimensions, camera and line weight. Its shallow top must retain the same landing line as the normal cloud; change body colors and face as requested, and add only the small specified springs/drops/swirl details below or beside the cloud. Keep any additions compact and fully visible. Genuine transparent background, no cast shadow, no scenery, text or watermark. Clean navy outlines and soft candy-colored cel shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-f55c73e1-f514-41eb-85fb-d8a6e57c0439.png",
+      "tool": "built-in imagegen",
+      "bytes": 20060,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-cloud-rain",
+      "prompt": "Use case: precise-object-edit. Edit the provided normal cloud platform into prop/cloudhop-cloud-rain. The same cloud shape in soft blue-grey, with a sleepy, content closed-eye face (not grumpy, not scary), two or three tiny light-blue raindrops dangling underneath. Preserve the exact existing cloud silhouette, overall position, top edge puffs, canvas dimensions, camera and line weight. Its shallow top must retain the same landing line as the normal cloud; change body colors and face as requested, and add only the small specified springs/drops/swirl details below or beside the cloud. Keep any additions compact and fully visible. Genuine transparent background, no cast shadow, no scenery, text or watermark. Clean navy outlines and soft candy-colored cel shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-3f847238-e153-4cee-a848-5db6bf097c5f.png",
+      "tool": "built-in imagegen",
+      "bytes": 17544,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-cloud-drift",
+      "prompt": "Use case: precise-object-edit. Edit the provided normal cloud platform into prop/cloudhop-cloud-drift. The same cloud shape in pale lavender with white highlights and a couple of tiny curly wind swirls on its sides. Preserve the exact existing cloud silhouette, overall position, top edge puffs, canvas dimensions, camera and line weight. Its shallow top must retain the same landing line as the normal cloud; change body colors and face as requested, and add only the small specified springs/drops/swirl details below or beside the cloud. Keep any additions compact and fully visible. Genuine transparent background, no cast shadow, no scenery, text or watermark. Clean navy outlines and soft candy-colored cel shading.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-f56fa020-c938-4b97-badf-84cc835e3149.png",
+      "tool": "built-in imagegen",
+      "bytes": 17668,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-trampoline",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-trampoline. Request: A small round party trampoline on a little white cloud: a pink-and-white striped stretchy mat, yellow ball rims at the ends, short sky-blue legs, side view. Game layout: Bottom-centre anchored 70 px below the landing line, fitted (aspect kept) into (\u2248190)\u00d7100 px. The top of the trampoline mat is 30% down from the top edge. GEOMETRY: target 384\u00d7200 canvas. Top surface of trampoline mat must be at y60, 30% down from the top. Shallow elliptical top, short legs, small cloud underneath. Do not center the mat vertically. Target 384\u00d7200, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, simple clean cel shading, no photorealism, no 3D. Genuine transparent background, one complete isolated object, no cast shadow, scenery, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-d5283ef8-e9a4-4805-a4b2-681cc5556325.png",
+      "tool": "built-in imagegen",
+      "bytes": 18296,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-bridge",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-bridge. Request: A short, gently sagging rainbow-striped bridge (red, orange, yellow, green, blue, purple bands) with a navy outline and a white shine stripe, resting on a fluffy white cloud puff at each end. Side view, flat top. Game layout: A wide rainbow bridge platform, stretched into 720\u00d7140 px centred 40 px below the landing line. The landing line is 21% down from the top edge, flat across. GEOMETRY: target 1440\u00d7280 canvas. Top landing surface is perfectly level across the bridge at y59, 21% down from top. White end puffs rise above y59; rainbow body sags only BELOW the level top. Side view. Target 1440\u00d7280, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, simple clean cel shading, no photorealism, no 3D. Genuine transparent background, one complete isolated object, no cast shadow, scenery, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-9b430f5d-6569-4906-8788-86486fe8a253.png",
+      "tool": "built-in imagegen",
+      "bytes": 52738,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-star",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-star. Request: A chubby glossy gold five-point star with rounded tips, navy outline, a white shine on the upper left. Optional tiny happy face. Game layout: Collectible star, drawn centred and fitted into 72\u00d772 px (code adds a soft glow and a gentle wobble).  Target 256\u00d7256, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, simple clean cel shading, no photorealism, no 3D. Genuine transparent background, one complete isolated object, no cast shadow, scenery, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-35bdce24-8647-4fad-b60e-6e7e90a256d6.png",
+      "tool": "built-in imagegen",
+      "bytes": 14298,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-bubble",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-bubble. Request: A big round soap bubble: mostly transparent centre, an iridescent pink-blue-lilac rim, a white curved highlight at the upper left, a thin white outline. Game layout: The rescue bubble that floats a fallen player back up, drawn centred over the character and fitted to \u22482.1 \u00d7 the bubble radius (\u2248 150\u2013220 px). The character must show through it. The center is genuinely transparent, completely empty alpha. Only a thin iridescent outline/rim and small highlights, no opaque white or blue disk. A character behind it must remain clearly visible. Target 256\u00d7256, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, simple clean cel shading, no photorealism, no 3D. Genuine transparent background, one complete isolated object, no cast shadow, scenery, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-31cb4909-9f27-413a-8234-15485644ee1e.png",
+      "tool": "built-in imagegen",
+      "bytes": 16604,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-summit",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-summit. Request: A huge, glowing rainbow arch (seven bands with a navy outline and a white shimmer) spanning almost the full width, with a big chubby gold star on top at the centre and golden sparkles around. No ground: the arch feet are hidden by clouds drawn in code. Game layout: The goal, bottom-centre anchored 60 px below the summit landing line and fitted into 1640\u00d7520; the code draws a full-width golden cloud bank over the bottom ~70 px.  Target 1640\u00d7520, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, simple clean cel shading, no photorealism, no 3D. Genuine transparent background, one complete isolated object, no cast shadow, scenery, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-be9c16a5-6671-4562-a17d-fdc45693915f.png",
+      "tool": "built-in imagegen",
+      "bytes": 136996,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "prop/cloudhop-balloon",
+      "prompt": "Use case: illustration-story. Asset: prop/cloudhop-balloon. Request: A cute hot-air balloon with candy stripes (pink and white), a little woven basket on ropes, navy outline, soft shading. Empty basket. Game layout: Background decoration, centred and fitted into \u2248 75\u2013110 \u00d7 100\u2013155 px, drawn at 85% opacity drifting slowly.  Target 260\u00d7360, respect aspect ratio and positioning. Bold smooth dark navy outlines #24163f, rounded appealing shapes, candy colors, simple clean cel shading, no photorealism, no 3D. Genuine transparent background, one complete isolated object, no cast shadow, scenery, text or watermark.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-3eee-7070-ba58-0e1ec657aaee/exec-0f131f25-983c-4134-b9a2-d44bb1b535f5.png",
+      "tool": "built-in imagegen",
+      "bytes": 23422,
+      "record": "party/reference/pending/cloud-hop-generation.json"
+    },
+    {
+      "key": "bg/mini-golf",
+      "prompt": "Create an opaque exact 16:9, 1920x1080 full-screen background for a children's Candy Mini-Golf game, no characters and no text. Strict vertical layout: top 0\u2013110 px is calm pale blue/pink sky; side/top border decor only. From y=220 to y=955, keep the entire broad middle x=100\u20131820 a flat low-detail pink cotton-candy meadow with extremely faint pastel sprinkles, for the game to draw its golf course over. Around the extreme left and right borders, add partial lollipop trees, small gumdrop bushes, candy-cane posts and ice-cream cone shrubs, but keep them out of the central rectangle. At exactly y\u2248960 begin a narrow distinct pastel rainbow-tiled sidewalk strip, only the bottom 120 px high (y 960\u20131080), full width, where finished players stand. Do not make the sidewalk deeper or move it higher. Gentle top-down view, smooth navy outlines, soft cel shading, bright pastel candy colors.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-9864d54e-db35-4b40-83e3-07e34eb3b0a2.png",
+      "tool": "built-in imagegen",
+      "bytes": 107864,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "thumb/mini-golf",
+      "prompt": "Opaque exact 800x500 landscape game-select illustration for Candy Mini-Golf, no text and no characters. Centre a mint felt mini-golf green with candy-cane rails and a pink flag in a cup, three colourful golf balls rolling toward it, one gumdrop bumper, a spinning pink-and-white lollipop obstacle, and a candy-cane putter in the foreground. Add a few bright sparkles. Keep all subjects centered with clean margins; polished children's game art, bold navy #24163f outlines, soft cel shading, bright candy colours.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-f0f1c769-2075-4022-929e-e4a32cd1b92e.png",
+      "tool": "built-in imagegen",
+      "bytes": 72878,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-gumdrop",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 128x128 canvas, no text. A big shiny pink gumdrop candy seen from above at a slight tilt, round footprint, crystalline sugar sparkle dome, deep navy #24163f outline and crisp white highlight. Entire object visible with breathing margin, smooth bold cel shading, bright candy color, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-cb9a27d9-a5a0-4ec1-92fd-100bff1a2c0e.png",
+      "tool": "built-in imagegen",
+      "bytes": 17858,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-lollipop",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 96x96 canvas, no text. A perfectly round pink-and-white spiral lollipop seen straight from above; show only the flat candy disc, not the stick. Deep navy #24163f outline, glossy white highlight, clean circular silhouette. Entire object visible with breathing margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-16eb8148-b8d7-4dad-b8eb-b05a5d525325.png",
+      "tool": "built-in imagegen",
+      "bytes": 9152,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-spinner-hub",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 96x96 canvas, no text. A round peppermint-candy spinner hub seen from directly above: red-and-white pinwheel stripes radiating to the edge and a small gold cap in the exact middle. Deep navy #24163f outline, crisp glossy highlights, symmetric circular shape. Entire object visible with breathing margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-f2bcf2c5-5485-482f-8391-3f1baf14706c.png",
+      "tool": "built-in imagegen",
+      "bytes": 9576,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-donut",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 160x160 canvas, no text. Pink-frosted ring donut viewed straight down, pink icing with colourful rainbow sprinkles and a deep magical purple swirling portal in its central hole with tiny stars. Make the hole diameter about 47 percent of the donut's outside diameter, a clearly open ring. Deep navy #24163f outline, glossy icing, entire object visible with breathing margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-47f09f56-b437-4102-b037-f0bacbd14d02.png",
+      "tool": "built-in imagegen",
+      "bytes": 33852,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-donut-exit",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 160x160 canvas, no text. A ring-shaped donut identical in shape and layout to a pink-frosted portal donut, but covered in glossy chocolate frosting with small white sprinkles; central hole has a bright sparkly magical swirl portal. Preserve a large clearly open hole about 47 percent of donut diameter. Deep navy #24163f outline, entire object visible with breathing margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-0165f046-4166-4432-810d-3804d1dd785e.png",
+      "tool": "built-in imagegen",
+      "bytes": 29550,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-jelly",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 160x160 canvas, no text. A round, softly wobbly strawberry jelly bounce pad seen from above, translucent red-pink with glossy highlights and a tiny heart embedded in the middle. Slightly domed circular footprint, deep navy #24163f outline. Entire object visible with breathing margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-6e6f964b-2f0d-4f55-a53a-8e5353c5e852.png",
+      "tool": "built-in imagegen",
+      "bytes": 22488,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-cookie-bridge",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, wide 440x230 canvas, no text. A long golden graham-cracker cookie bridge viewed from directly above, horizontal and spanning left to right; rounded corners, several chocolate chips, a few tiny crumbs near the edges. Deep navy #24163f outline, bright warm cookie tones, entire bridge visible with transparent margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-d664d1a1-a255-44bd-881c-6a973ee4727c.png",
+      "tool": "built-in imagegen",
+      "bytes": 63552,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-flag",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, tall 96x200 canvas, no text. An upright mini-golf flag seen from a slight 3/4 angle, on a straight red-and-white candy-cane striped pole. A pink triangular pennant with one white star flies near the top. Pole foot lands exactly at the bottom centre of the image for bottom anchoring. Deep navy #24163f outline, entire flag visible with transparent margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-1de878ce-5308-4b7f-9c2d-0ee051d81524.png",
+      "tool": "built-in imagegen",
+      "bytes": 11280,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
+    },
+    {
+      "key": "prop/golf-cup",
+      "prompt": "Single isolated centered prop sprite on a fully transparent background, square 64x64 canvas, no text. A perfectly round mini-golf cup viewed straight down: dark navy-purple hole inside a clean white rim with a thin light mint felt edge. Centered circular shape, crisp navy #24163f outline and soft highlights. Entire object visible with transparent margin, smooth bold cel shading, polished children's game art.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-d62f0bbc-7ef7-47ab-8541-f0d5217ab94e.png",
+      "tool": "built-in imagegen",
+      "bytes": 3602,
+      "record": "party/reference/pending/mini-golf-art-prompts.md"
     }
   ]
 }

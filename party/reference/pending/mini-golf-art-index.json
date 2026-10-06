@@ -1,0 +1,19 @@
+{
+  "family": "mini-golf",
+  "generated_at": "2026-10-05",
+  "generator": "built-in imagegen",
+  "prompt_record": "party/reference/pending/mini-golf-art-prompts.md",
+  "assets": {
+    "bg/mini-golf": "party/assets/art/bg/mini-golf.webp",
+    "thumb/mini-golf": "party/assets/art/thumb/mini-golf.webp",
+    "prop/golf-gumdrop": "party/assets/art/prop/golf-gumdrop.webp",
+    "prop/golf-lollipop": "party/assets/art/prop/golf-lollipop.webp",
+    "prop/golf-spinner-hub": "party/assets/art/prop/golf-spinner-hub.webp",
+    "prop/golf-donut": "party/assets/art/prop/golf-donut.webp",
+    "prop/golf-donut-exit": "party/assets/art/prop/golf-donut-exit.webp",
+    "prop/golf-jelly": "party/assets/art/prop/golf-jelly.webp",
+    "prop/golf-cookie-bridge": "party/assets/art/prop/golf-cookie-bridge.webp",
+    "prop/golf-flag": "party/assets/art/prop/golf-flag.webp",
+    "prop/golf-cup": "party/assets/art/prop/golf-cup.webp"
+  }
+}
