@@ -435,6 +435,10 @@ export class Game {
     }
     if (best) { const dx = this.gx(best) - U.x; if (Math.abs(dx) > 14) U.a.facing = Math.sign(dx); }
     U.a.playOnce(poseName('swing'), SWING_T); U.a.squash(-0.15);
+    // The 2-frame 'swing' art (backswing, follow-through) splits the one-shot in half; start
+    // partway in so the follow-through frame arrives as the bat sweeps forward (just after
+    // HIT_FROM) instead of the bat crossing the face from the backswing hands.
+    U.a.poseTime = Math.max(0, SWING_T / 2 - (HIT_FROM + 0.02));
     snd('pinata-swish', 'whoosh', { vol: 0.4, rate: rand(0.95, 1.1) });
   }
 
