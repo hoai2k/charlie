@@ -664,7 +664,8 @@ export class Game {
       let gx = a.x + dx * c - dy * s, gy = a.y + dx * s + dy * c;
       const fwd = clamp((gx - a.x) * -m.side, 6, h * 0.42);
       gx = a.x - m.side * fwd;
-      gy = clamp(gy, a.y - a.z - h * 0.6, a.y - a.z - h * 0.3);
+      // 0.72: the rearing pony/unicorn 'pull' frames hold their hooves up to ~0.7h.
+      gy = clamp(gy, a.y - a.z - h * 0.72, a.y - a.z - h * 0.3);
       if (m.state === 'jelly') gy = Math.min(gy, m.py - 8);
       if (m.gx === null || !dt) { m.gx = gx; m.gy = gy; } else { m.gx = damp(m.gx, gx, 22, dt); m.gy = damp(m.gy, gy, 22, dt); }
     }
