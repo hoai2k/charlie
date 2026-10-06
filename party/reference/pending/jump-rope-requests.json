@@ -1,0 +1,62 @@
+[
+  {
+    "key": "bg/jump-rope",
+    "size": [
+      1920,
+      1080
+    ],
+    "layout": "Full screen behind everything (when present, it replaces the whole procedural park, so it must contain the mat and blanket). Layout must match: horizon/fence band around y\u2248580\u2013640; a flat sandy oval jump mat centred at (960, 796), about 1500 px wide and 250 px tall (players stand on y\u2248735\u2013845); a pink gingham picnic blanket (trapezoid) spanning x\u2248500\u20131420, y\u2248948\u20131068 where out players sit. Keep the top ~150 px calm (HUD chips + timer) and the far left/right ~300 px of ground plain (the bunnies stand at x\u2248150 and x\u22481770)",
+    "description": "A sunny kids' park: bright blue sky with a soft sun at the upper right, rolling green hills, round blossom trees along the horizon (open sky in the middle), a white picket fence, a string of candy-coloured bunting flags sagging across the sky, lush striped lawn, a big flat sandy oval play mat with a dashed white chalk border and faint chalk heart/star doodles, flowers in the foreground grass, and a pink-and-white gingham picnic blanket at the bottom centre. No characters",
+    "transparent": false
+  },
+  {
+    "key": "thumb/jump-rope",
+    "size": [
+      800,
+      500
+    ],
+    "layout": "Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback)",
+    "description": "Two cute bunnies (one pink in a polka-dot pinafore, one mint in blue overalls) turning a big red-and-white candy-striped jump rope in a park; the rope arcs high overhead and a happy kid character is mid-hop in the middle, sparkles and motion swooshes. Subject centred",
+    "transparent": false
+  },
+  {
+    "key": "prop/jump-rope-bunny-pink",
+    "size": [
+      600,
+      660
+    ],
+    "layout": "Fitted into a 300\u00d7330 box, bottom-centre anchored at the feet, drawn at x\u2248150 facing right (toward the middle). No arms: the code draws both arms from the shoulders to the rope handles \u2014 near shoulder at about (368, 316) and far shoulder at about (308, 308) in image pixels \u2014 so leave the sides of the body clean there",
+    "description": "A big friendly standing bunny, three-quarter view facing right: pale pink fur, tall ears (one slightly floppy) with pink insides, a yellow bow between the ears, big shiny dark eyes, rosy cheeks, little pink nose and smile, a hot-pink polka-dot pinafore with yellow buttons, fluffy white tail, big soft feet. Arms omitted",
+    "transparent": true
+  },
+  {
+    "key": "prop/jump-rope-bunny-mint",
+    "size": [
+      600,
+      660
+    ],
+    "layout": "Same size, anchor and shoulder points as the pink bunny; drawn at x\u22481770 and mirrored by the code to face left, so draw it facing right",
+    "description": "The pink bunny's friend: mint-white fur, tall ears with pink insides, a purple bow, big shiny eyes, rosy cheeks, sky-blue overalls with yellow dots and yellow buttons, fluffy white tail, big soft feet. Arms omitted",
+    "transparent": true
+  },
+  {
+    "key": "prop/jump-rope-handle",
+    "size": [
+      210,
+      78
+    ],
+    "layout": "Drawn centred on the paw at 63\u00d723 px, rotated so the rope end points right (turned 180\u00b0 for the right-hand bunny). Used for both ropes and the golden rope",
+    "description": "A chunky wooden jump-rope handle lying horizontally: rounded honey-wood grip with a pink painted band, a small yellow bead cap at the right end where the rope comes out",
+    "transparent": true
+  },
+  {
+    "key": "prop/jump-rope-blanket",
+    "size": [
+      1920,
+      300
+    ],
+    "layout": "Only used when `bg/jump-rope` is missing: stretched over 960\u00d7150 at (960, 1008), under the seated out players",
+    "description": "A pink-and-white gingham picnic blanket seen from the front at a low angle, a gentle trapezoid (wider at the bottom), soft folds, navy outline",
+    "transparent": true
+  }
+]

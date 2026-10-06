@@ -35,8 +35,11 @@ export function drawBunny(g, x, y, s, o) {
   g.beginPath(); g.ellipse(x, y + 4, 95 * s, 18 * s, 0, 0, TAU); g.fill(); g.restore();
 
   const bodyY = y - bob * s;
-  const sh = { x: x + 34 * f * s, y: bodyY - 168 * s };     // near shoulder
-  const sh2 = { x: x + 4 * f * s, y: bodyY - 172 * s };      // far shoulder
+  const generated = !!art(pal.key);
+  // Generated 600x660 bodies: shoulders (343,370)/(249,367), feet (300,660).
+  // Include the same 4px body offset used by the image below.
+  const sh = { x: x + (generated ? 21.5 : 34) * f * s, y: bodyY - (generated ? 141 : 168) * s };
+  const sh2 = { x: x + (generated ? -25.5 : 4) * f * s, y: bodyY - (generated ? 142.5 : 172) * s };
   const hands = o.hands || [];
 
   // far arm (behind the body)
