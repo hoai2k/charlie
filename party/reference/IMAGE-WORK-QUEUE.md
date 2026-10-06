@@ -15,7 +15,7 @@ Last checked revision: `c819b79bd86f753e7e12e334f410668ae0cf2c06`.
 Last checked request blob: `d7e6380dea394d88a7ddad7fcb57ce03e61db8b7`.
 Last checked UTC: 2026-10-05T23:40:13Z.
 
-New briefs add119 art keys across10 games. Musical Cushions12 (6030957), Cloud Hop12 and Mini Golf11 are reviewed and delivered;Pancake Tower11 is also reviewed after alpha trimming and pan/spawn alignment;Tug-of-War10 is reviewed, with corrected canonical thumbnail and measured bow-knot alignment;63 art keys and14 roster-action expansions remain in production. Felicity example65e03c8 is included in the safe mergeb3ddea9. Owners:
+New briefs add119 art keys across10 games. Musical Cushions12 (6030957), Cloud Hop12 and Mini Golf11 are reviewed and delivered;Pancake Tower11 is also reviewed after alpha trimming and pan/spawn alignment;Tug-of-War10 is reviewed, with corrected canonical thumbnail and measured bow-knot alignment;All119 new minigame art keys are reviewed/registered in separate family batches;14 roster-action expansions are generated or in production, awaiting exact point/scale/mask QA. Active owners are updated in per-character source records. Felicity example65e03c8 is included in the safe mergeb3ddea9. Owners:
 - beads_new_art: mini-golf11, treasure-dig16, fishing-frenzy16.
 - melody_new_art: musical-cushions12, pancake-tower11, tug-of-war10.
 - room_new_art: cloud-hop12, pinata-party10, snowball-splat15, jump-rope6.

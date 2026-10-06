@@ -15,7 +15,7 @@ import { aiProfile, reactionTime, mash } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, POND, inPond, clampPond, edgeY, edgeX, pondDepth, hh, drawCatch, drawBobber, drawRod, drawBasket,
-  drawLilyPad, drawFrog, buildBackground, buildDocks, drawIconArt, drawBang,
+  drawLilyPad, drawFrog, drawPondBackground, buildBackground, buildDocks, drawIconArt, drawBang,
 } from './fishing-frenzy/art.js';
 
 const DURATION = 60;
@@ -797,7 +797,7 @@ export class Game {
   // --- drawing ------------------------------------------------------------------------
   draw(g) {
     const bg = art('bg/fishing-frenzy');
-    if (bg) g.drawImage(bg, 0, 0, W, H); else g.drawImage(this.bg, 0, 0);
+    if (bg) drawPondBackground(g, bg); else g.drawImage(this.bg, 0, 0);
     const t = this.clock;
     // under the water
     g.save();

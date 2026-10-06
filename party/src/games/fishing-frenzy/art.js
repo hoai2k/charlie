@@ -10,6 +10,20 @@ export const NAVY = '#24163f';
 /** The pond: an ellipse (the generated background must match it). */
 export const POND = { x: 960, y: 580, rx: 700, ry: 280 };
 
+/** Fit the measured generated pond to the same ellipse used by fish and docks.
+ * Stretch its middle, then fit the surrounding sky/banks without cropping them.
+ */
+export function drawPondBackground(g, image) {
+  const sourceX = [0, 333, 1592, W].map((x) => x * image.width / W);
+  const sourceY = [0, 293, 905, H].map((y) => y * image.height / H);
+  const destX = [0, POND.x - POND.rx, POND.x + POND.rx, W];
+  const destY = [0, POND.y - POND.ry, POND.y + POND.ry, H];
+  for (let row = 0; row < 3; row++) for (let col = 0; col < 3; col++) {
+    g.drawImage(image, sourceX[col], sourceY[row], sourceX[col + 1] - sourceX[col], sourceY[row + 1] - sourceY[row],
+      destX[col], destY[row], destX[col + 1] - destX[col], destY[row + 1] - destY[row]);
+  }
+}
+
 export const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 
 /** Inside the pond ellipse scaled by k? */
