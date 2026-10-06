@@ -23,7 +23,8 @@ export function drawItem(g, it, t = 0, sq = 0) {
   if (it.topping && it.covered) { sy *= k.squishH / k.h; sx *= 1.22; }
   g.save();
   g.scale(sx, sy);
-  if (!drawArt(g, ITEM_ART[it.kind], 0, 0, w * ART_BOX.w, h * ART_BOX.h, { anchor: 'bottom', fit: 'stretch' })) {
+  const drawn = drawArt(g, ITEM_ART[it.kind], 0, 0, w * ART_BOX.w, h * ART_BOX.h, { anchor: 'bottom', fit: 'stretch' });
+  if (!drawn) {
     switch (it.kind) {
       case 'golden': drawPancake(g, w, h, true, t); break;
       case 'waffle': drawWaffle(g, w, h); break;
@@ -34,7 +35,8 @@ export function drawItem(g, it, t = 0, sq = 0) {
     }
   }
   g.restore();
-  if (it.glaze) drawGlaze(g, w * sx, h * sy, it.syrup, t, it.seed || 0);
+  // the art's top face sits ART_BOX.h above the base, so pour the syrup over that
+  if (it.glaze) drawGlaze(g, w * sx, h * sy * (drawn ? ART_BOX.h : 1), it.syrup, t, it.seed || 0);
 }
 
 export function drawPancake(g, w, h, golden = false, t = 0) {
@@ -137,7 +139,7 @@ export function drawCream(g, w, h) {
 /** Amber syrup over an item's top with drips down the sides. live = still sticky. */
 export function drawGlaze(g, w, h, live, t, seed) {
   g.save();
-  g.fillStyle = live ? 'rgba(201,110,24,0.92)' : 'rgba(190,100,20,0.75)';
+  g.fillStyle = live ? 'rgba(170,78,8,0.95)' : 'rgba(160,76,12,0.85)';
   g.strokeStyle = NAVY; g.lineWidth = 3;
   const hw = Math.min(w * 0.46, 120);
   g.beginPath();
