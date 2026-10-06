@@ -16,6 +16,7 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice, music, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
+import { art } from '../engine/art.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import {
@@ -115,6 +116,7 @@ export class Game {
     this.punchT = -10;
     this.bunnies = [0, 1].map((i) => ({ pal: BUNNIES[i], x: BUNNY_X[i], facing: i ? -1 : 1, mood: 'happy', moodT: 0, say: null }));
     this.bg = buildBackground(GROUND, BLANKET);
+    this.bgArt = !!art('bg/jump-rope');
     this.units = this.players.map((p, i) => this.makeUnit(p, i));
     this.slap = 0;                // ground-slap flash
     this.lineSeed = Array.from({ length: 10 }, (_, i) => ({ y: 360 + i * 55, x: Math.random() * W, l: rand(120, 260) }));
@@ -529,6 +531,7 @@ export class Game {
   updateBunnies(dt) {
     for (const b of this.bunnies) {
       if (b.moodT > 0) { b.moodT -= dt; if (b.moodT <= 0) b.mood = 'happy'; }
+      if (b.mood !== b.lastMood) { b.lastMood = b.mood; b.moodAge = 0; } else b.moodAge = (b.moodAge || 0) + dt;
       if (b.say) { b.say.t += dt; if (b.say.t > b.say.dur) b.say = null; }
     }
   }
@@ -569,7 +572,7 @@ export class Game {
   draw(g) {
     const t = this.t + this.pre;
     g.drawImage(this.bg, 0, 0);
-    drawClouds(g, t);
+    if (!this.bgArt) drawClouds(g, t);   // the painted park has its own clouds (and bunting they'd cover)
     // beat pulse on the mat
     if (this.slap > 0) {
       g.save(); g.globalAlpha = this.slap * 0.25; g.fillStyle = this.ropes[0].gold ? '#ffe66d' : '#ffffff';
@@ -624,7 +627,7 @@ export class Game {
       const r2 = this.ropes[1];
       const hands = [h0, r2.alpha > 0.3 ? this.handPos(1, i) : { x: h0.x - b.facing * 12, y: h0.y + 10 }];
       const bob = Math.max(0, Math.sin(this.ropes[0].th)) * 6 + (b.mood === 'cheer' ? Math.abs(Math.sin(t * 9)) * 10 : 0);
-      drawBunny(g, b.x, GROUND - 4, 1, { pal: b.pal, facing: b.facing, t: t + i, mood: b.mood, hands, bob });
+      drawBunny(g, b.x, GROUND - 4, 1, { pal: b.pal, facing: b.facing, t: t + i, mood: b.mood, moodAge: b.moodAge || 0, hands, bob });
     }
   }
 
