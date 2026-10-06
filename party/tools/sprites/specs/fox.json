@@ -1,13 +1,13 @@
 {
   "asset": "fox",
-  "bodyHeight": 260,
+  "bodyHeight": 244.4,
   "frameSize": [
-    640,
-    560
+    602,
+    526
   ],
   "anchor": [
-    320,
-    480
+    301,
+    451
   ],
   "facing": 1,
   "quality": 82,
@@ -44,7 +44,9 @@
     "../sources/fox-actions-c.webp": "Use case: stylized-concept. Asset type: transparent sprite grid, 4 columns by 2 rows, with eight separate full-body pose cells in row-major order. Image 1 is the exact approved Fox canonical; preserve its slender orange quadruped body, cream muzzle/chest, white socks, huge bushy white-tipped tail, dark-tipped pink ears, brown eyes, red tongue, navy outlines, and cel shading. Top row: 1 eat, lowered head and gentle mouth nibble on an invisible separate treat; 2 polite bow, forelegs bending and head lowering; 3 playful strike 1, quick front-paw swipe while balanced on four legs; 4 strike 2, low forward paw reach with body stretched. Bottom row: 5 strike 3, quick turning kick with one hind paw lifted naturally; 6 full-body shake with ears and tail rippling; 7 stir pose, careful front paw circling an invisible separate bowl; 8 upbeat dance-up pose, brief joyful rear-up bounce with forepaws lifted and tail high. Every cell is a distinct pose, one Fox only, same head size and body scale, all facing right. Do not draw hands, human arms, objects, props, flower, collar, Fellowfox roundness, backgrounds, floors, shadows, text, borders, panels or extra characters. Four fox legs/paws only, no extra limbs. True transparent background.",
     "../sources/fox-actions-d.webp": "Use case: stylized-concept. Asset type: transparent 4-column by 2-row sprite grid of eight separate Fox interaction/dance poses, one full-body pose per equal cell in row-major order. Use canonical image 1 as the exact Fox identity and style reference. Top row: 1 dance-down, low playful dip with tail raised; 2 dance-side, a jaunty sideways step with tail swishing; 3 look-around, head tilted and ears swiveling while glancing behind; 4 high-five, lift one front paw toward an unseen partner (paw shape stays a fox paw). Bottom row: 5 compact four-paw crouch, ears alert; 6 dash, forward low lunge with all limbs reaching in a fast burst; 7 catch, head and open mouth angled upward with forepaws lifted to receive something (draw no object); 8 wave-goodbye, turn head slightly back and lift one forepaw in a friendly wave. Same slender orange Fox, white-tipped huge bushy tail, white socks, cream muzzle/chest, black-tipped pink-inner ears, large brown eyes, tiny red tongue, consistent navy outlines and cel shading. No human arms or hands, four fox legs/paws only. No flower, collar, Fellowfox body, props, objects, effects, floor, shadow, text, frames, scenery or extra characters. Clear transparent cell spacing, no overlap or clipping, consistent head scale.",
     "../sources/fox-round3-pet.webp": "Use case: stylized-concept. Asset type: four-pose horizontal transparent strip for a children's party game and pet-spa mini-game. Input image 1 is the approved Fox canonical; preserve Fox's exact slender orange quadruped identity, cream muzzle/chest, white socks, huge bushy white-tipped tail, pink-inner black-tipped ears, big brown eyes, little red tongue, dark navy outline and clean shading. Exactly four separate full-body poses, same scale, facing right, clear transparent gutters: (1) thoughtful Fox with a slight head tilt and one paw raised near the muzzle, still a fox paw; (2) a jubilant star-dance pose with eyes happy and tail high, four-legged spring; (3) giggling during grooming, eyes closed, mouth smiling and whole body wiggling happily; (4) catch-toy, low playful pounce with both front paws reaching and mouth open to catch an invisible toy (draw no toy). Keep four fox legs/paws; no human hands or arms. No flower, collar, Fellowfox round body, objects or props. True transparent background, no floor, shadow, effects, text, border, setting or extra characters.",
-    "../sources/fox-portraits.webp": "Use case: stylized-concept. Asset type: five square-ready transparent Fox HUD portrait busts in one left-to-right strip, for a tiny 60px circle. Use approved Fox canonical image 1 as exact identity/style reference. Exactly five separate head-and-shoulders bust portraits with shoulders visible to the bottom, same three-quarter view facing right and same crop/scale. Expressions left-to-right: neutral-friendly, happy with tongue slightly out, sad with drooping ears and worried brows, surprised with wide eyes and perked ears, determined with focused brown eyes. Keep slender Fox identity in the face: orange fur, cream muzzle and cheeks, black ear tips with pink inner ears, big warm brown eyes, little red tongue where appropriate, navy outline and smooth cel shading. Face fills most of each square without clipping ear tips; eyes about 45% down from top. Do not make a cat, dog, or Fellowfox; no flower or collar. True transparent backgrounds, no props, scenery, text, frames, shadows, or extra characters."
+    "../sources/fox-portraits.webp": "Use case: stylized-concept. Asset type: five square-ready transparent Fox HUD portrait busts in one left-to-right strip, for a tiny 60px circle. Use approved Fox canonical image 1 as exact identity/style reference. Exactly five separate head-and-shoulders bust portraits with shoulders visible to the bottom, same three-quarter view facing right and same crop/scale. Expressions left-to-right: neutral-friendly, happy with tongue slightly out, sad with drooping ears and worried brows, surprised with wide eyes and perked ears, determined with focused brown eyes. Keep slender Fox identity in the face: orange fur, cream muzzle and cheeks, black ear tips with pink inner ears, big warm brown eyes, little red tongue where appropriate, navy outline and smooth cel shading. Face fills most of each square without clipping ear tips; eyes about 45% down from top. Do not make a cat, dog, or Fellowfox; no flower or collar. True transparent backgrounds, no props, scenery, text, frames, shadows, or extra characters.",
+    "newGamesA": "../pending/fox-new-games-intake.json#new-games-a",
+    "newGamesB": "../pending/fox-new-games-intake.json#new-games-b"
   },
   "poses": {
     "idle": {
@@ -3885,6 +3887,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            1,
+            61,
+            423,
+            424
+          ],
+          "isolate": true,
+          "anchor": [
+            194,
+            420
+          ],
+          "scale": 1.12,
+          "head": [
+            258.84,
+            74.48
+          ],
+          "eyes": [
+            263.7,
+            131.21
+          ],
+          "neck": [
+            255.59,
+            209.01
+          ],
+          "back": [
+            241.01,
+            294.92
+          ],
+          "hand": [
+            331.77,
+            247.91
+          ]
+        },
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            387,
+            76,
+            438,
+            402
+          ],
+          "isolate": true,
+          "anchor": [
+            209,
+            397
+          ],
+          "scale": 1.12,
+          "head": [
+            252.76,
+            68.07
+          ],
+          "eyes": [
+            264.11,
+            119.93
+          ],
+          "neck": [
+            260.87,
+            196.12
+          ],
+          "back": [
+            257.63,
+            282.02
+          ],
+          "hand": [
+            348.4,
+            230.15
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            808,
+            24,
+            353,
+            472
+          ],
+          "isolate": true,
+          "anchor": [
+            194,
+            467
+          ],
+          "scale": 1.12,
+          "head": [
+            221.55,
+            67.37
+          ],
+          "eyes": [
+            245.87,
+            124.1
+          ],
+          "neck": [
+            255.59,
+            206.76
+          ],
+          "back": [
+            202.1,
+            289.43
+          ],
+          "hand": [
+            320.43,
+            201.9
+          ]
+        },
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            1172,
+            21,
+            341,
+            473
+          ],
+          "isolate": true,
+          "anchor": [
+            195,
+            469
+          ],
+          "scale": 1.12,
+          "head": [
+            224.18,
+            71.61
+          ],
+          "eyes": [
+            230.66,
+            126.72
+          ],
+          "neck": [
+            240.38,
+            204.52
+          ],
+          "back": [
+            198.24,
+            292.05
+          ],
+          "hand": [
+            313.32,
+            206.14
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            22,
+            514,
+            340,
+            475
+          ],
+          "isolate": true,
+          "anchor": [
+            194,
+            471
+          ],
+          "scale": 1.12,
+          "head": [
+            213.45,
+            70.99
+          ],
+          "eyes": [
+            241.01,
+            119.62
+          ],
+          "neck": [
+            213.45,
+            212.01
+          ],
+          "back": [
+            260.46,
+            294.67
+          ],
+          "hand": [
+            108.09,
+            122.86
+          ]
+        },
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            399,
+            511,
+            355,
+            476
+          ],
+          "isolate": true,
+          "anchor": [
+            199,
+            471
+          ],
+          "scale": 1.12,
+          "head": [
+            200.62,
+            65.13
+          ],
+          "eyes": [
+            218.45,
+            116.99
+          ],
+          "neck": [
+            241.14,
+            227.21
+          ],
+          "back": [
+            215.21,
+            277.46
+          ],
+          "hand": [
+            312.46,
+            99.16
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            751,
+            602,
+            393,
+            366
+          ],
+          "isolate": true,
+          "anchor": [
+            183,
+            361
+          ],
+          "scale": 1.12,
+          "head": [
+            309.43,
+            86.42
+          ],
+          "eyes": [
+            341.85,
+            162.6
+          ],
+          "neck": [
+            299.7,
+            206.36
+          ],
+          "back": [
+            225.14,
+            201.5
+          ],
+          "hand": [
+            346.71,
+            339.27
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-a.webp",
+          "rect": [
+            1154,
+            591,
+            375,
+            386
+          ],
+          "isolate": true,
+          "anchor": [
+            193,
+            382
+          ],
+          "scale": 1.12,
+          "head": [
+            252.97,
+            68.52
+          ],
+          "eyes": [
+            282.15,
+            109.04
+          ],
+          "neck": [
+            283.77,
+            206.29
+          ],
+          "back": [
+            205.97,
+            219.26
+          ],
+          "hand": [
+            345.36,
+            306.79
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-b.webp",
+          "rect": [
+            14,
+            30,
+            578,
+            596
+          ],
+          "isolate": true,
+          "anchor": [
+            303,
+            662
+          ],
+          "scale": 0.8,
+          "head": [
+            393.77,
+            110.9
+          ],
+          "eyes": [
+            440.77,
+            164.39
+          ],
+          "neck": [
+            450.5,
+            284.34
+          ],
+          "back": [
+            359.73,
+            347.55
+          ],
+          "hand": [
+            516.96,
+            300.54
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-b.webp",
+          "rect": [
+            598,
+            164,
+            532,
+            511
+          ],
+          "isolate": true,
+          "anchor": [
+            250,
+            507
+          ],
+          "scale": 0.8,
+          "head": [
+            392.64,
+            196.76
+          ],
+          "eyes": [
+            431.54,
+            285.91
+          ],
+          "neck": [
+            399.12,
+            373.43
+          ],
+          "back": [
+            324.56,
+            305.36
+          ],
+          "hand": [
+            431.54,
+            477.17
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-b.webp",
+          "rect": [
+            1135,
+            170,
+            470,
+            513
+          ],
+          "isolate": true,
+          "anchor": [
+            225,
+            508
+          ],
+          "scale": 0.8,
+          "head": [
+            372.5,
+            211.73
+          ],
+          "eyes": [
+            377.36,
+            294.39
+          ],
+          "neck": [
+            346.57,
+            375.43
+          ],
+          "back": [
+            260.66,
+            265.21
+          ],
+          "hand": [
+            370.88,
+            467.82
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/fox-new-games-b.webp",
+          "rect": [
+            1628,
+            34,
+            527,
+            571
+          ],
+          "isolate": true,
+          "anchor": [
+            279,
+            635
+          ],
+          "scale": 0.8,
+          "head": [
+            374.63,
+            101.73
+          ],
+          "eyes": [
+            397.32,
+            173.05
+          ],
+          "neck": [
+            403.81,
+            288.13
+          ],
+          "back": [
+            340.59,
+            356.21
+          ],
+          "hand": [
+            486.47,
+            369.18
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
     }
   },
   "portraits": {
@@ -3939,5 +4433,5 @@
       "trim": true
     }
   },
-  "status": "Draft full requested set with R3 scale/landmark corrections; awaiting full build QA."
+  "status": "Fox new-game poses added; visual runtime landmark and decoded-budget QA pending."
 }
