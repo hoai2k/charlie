@@ -1,0 +1,66 @@
+[
+  {
+    "asset": "kpop-girl-right",
+    "batch": "new-games-a",
+    "prompt": "Use case: illustration-story. Transparent game sprite sheet of approved KPop RIGHT girl in image1. Preserve long coral-pink side-parted hair, warm fair skin, amber eyes, navy-blue shirt with pink/lilac swirl motifs and striped sleeve trim, yellow-gold pleated skirt, blue knee-high boots with pink heart/shield knee panels. Human anatomy exactly2arms2legs, no animal ears or tail. Exact approved outfit/colors. Exactly EIGHT full-body poses, four columns and two rows, read left to right then next row. Consistent head size, clean navy outlines/cel shading, camera three-quarter facing RIGHT, generous transparent gutters all sides, all hair/clothing/feet/raised hands completely inside each cell. ROW1: 1 tug-of-war ready: feet planted, torso leaning BACK to left, both EMPTY gripping hands held together out FRONT to right at waist height, determined happy grin; 2 tug heave: leaning farther BACK left, knees bent, same forward empty rope grip, cheerful exertion; 3 fishing reel ready: leaning back slightly, near hand gripping an invisible rod just above chest height forward right, other hand beside it preparing to crank, happy focused gaze right; 4 fishing reel crank: same planted feet and forward gripping hand, other hand moved inward/down to crank invisible reel, bright grin. ROW2: 5 overhead bat-swing windup: both EMPTY gripping hands together over right shoulder/above head, legs braced, gleeful face; 6 bat-swing followthrough: both empty hands moved FORWARD right and upward above face, gentle overhead strike finished, cheerful grin; 7 putting ready: side-on facing right, knees softly bent, looking down-right, BOTH empty gripping hands low together forward right at thigh height holding an INVISIBLE putter; 8 putting followthrough: same stance, low empty hands swung slightly forward right, looking up-right hopefully. Do not draw rope, rod, fishing line, bat, putter, balls, scenery, shadows, ground, words, labels or effects. Transparent background. Keep VERY generous transparent margins around all hair and boots, including lastcolumn rightedge; no silhouette may touch any sheetedge.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-bc363bbc-0f78-4719-93b6-6ad4498af7a5.png",
+    "poses": [
+      "pull",
+      "pull",
+      "reel",
+      "reel",
+      "swing",
+      "swing",
+      "putt",
+      "putt-swing"
+    ],
+    "status": "reviewed-built-optimized-budget-passed",
+    "sourceWebP": "party/tools/sprites/sources/kpop-girl-right-new-games-a.webp",
+    "spec": "party/tools/sprites/specs/kpop-girl-right.json",
+    "cropMethod": "Largest alpha>=32 connected figure bounds, A clustered into top4/bottom4 then sorted left-to-right, B sorted left-to-right; expanded5px and builder alpha-isolation preserves full flowing hair/fingers/boots.",
+    "landmarks": "Native crop-grid points individually inspected then corrected against enlarged runtime pixel grids using sourceAnchor+(desiredRuntimePoint-runtimeAnchor)/(commonScale*frameScale). Rebuilt markers reviewed at actual scale.",
+    "scale": 1.12,
+    "review": {
+      "actualScaleOverlay": "/tmp/right-new-actions-final.png",
+      "headSize": "A1.12/B.86 based on actual skull width against idle, not total pose bbox height. Shared ground baseline preserves bodyHeight275 and lifted jump/hop virtual floors.",
+      "attachments": "Raised forward reel grip, both clasped swing hands, actual low putting grip, jump right palm, hop right palm, dig visible right palm; eyes use visible eye-center mean.",
+      "crop": "Complete long coral hair and all fingers/full boots within every source crop. No baked props.",
+      "memory": {
+        "fullDecodedMiB": 24.698,
+        "optimizedDecodedMiB": 17.083,
+        "budgetMiB": 25
+      },
+      "roster": "All3KPop members bodyHeight275, same84pose keys and110authored frame counts; each has individually inspected source coordinates and identity."
+    }
+  },
+  {
+    "asset": "kpop-girl-right",
+    "batch": "new-games-b",
+    "prompt": "Use case: illustration-story. Transparent sprite sheet of approved KPop RIGHT girl, image1. Preserve long coral-pink side-parted hair, warm fair skin, amber eyes, navy-blue shirt with pink/lilac swirl motifs and striped sleeve trim, yellow-gold pleated skirt, blue knee-high boots with pink heart/shield knee panels. Exact approved human design, 2arms2legs, no animal features. Exactly FOUR full-body poses in ONE horizontal row, left to right, consistent head size, generous transparent gutters and complete ears, hair, hands, clothing, feet. Three-quarter view facing RIGHT. 1 spring-jump: launching joyfully upward, BOTH arms straight up, knees tucked, feet lifted, big grin, happy upward gaze. 2 snow-scoop: deeply crouched close to ground, both hands low together in front/right, palms curved to pack an INVISIBLE snowball, focused cheerful face, feet planted. 3 dig: low crouch, legs spread slightly, torso leaning forward/right, both hands scooping down between legs then back toward left, gleeful focused face, digging gesture, feet planted. 4 skip-hop: light two-footed jump-rope hop, knees tucked a little, BOTH arms extended out to sides around waist/chest height, joyful face, feet lifted. No snowball, tools, rope, clouds, ground, shadows, effects, labels, words or background. Keep very generous transparent margins around all hair, fingers and complete boots. No clipping.",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-45824385-908a-48a3-8c28-1070972355b6.png",
+    "poses": [
+      "spring-jump",
+      "snow-scoop",
+      "dig",
+      "skip-hop"
+    ],
+    "status": "reviewed-built-optimized-budget-passed",
+    "sourceWebP": "party/tools/sprites/sources/kpop-girl-right-new-games-b.webp",
+    "spec": "party/tools/sprites/specs/kpop-girl-right.json",
+    "cropMethod": "Largest alpha>=32 connected figure bounds, A clustered into top4/bottom4 then sorted left-to-right, B sorted left-to-right; expanded5px and builder alpha-isolation preserves full flowing hair/fingers/boots.",
+    "landmarks": "Native crop-grid points individually inspected then corrected against enlarged runtime pixel grids using sourceAnchor+(desiredRuntimePoint-runtimeAnchor)/(commonScale*frameScale). Rebuilt markers reviewed at actual scale.",
+    "scale": 0.86,
+    "review": {
+      "actualScaleOverlay": "/tmp/right-new-actions-final.png",
+      "headSize": "A1.12/B.86 based on actual skull width against idle, not total pose bbox height. Shared ground baseline preserves bodyHeight275 and lifted jump/hop virtual floors.",
+      "attachments": "Raised forward reel grip, both clasped swing hands, actual low putting grip, jump right palm, hop right palm, dig visible right palm; eyes use visible eye-center mean.",
+      "crop": "Complete long coral hair and all fingers/full boots within every source crop. No baked props.",
+      "memory": {
+        "fullDecodedMiB": 24.698,
+        "optimizedDecodedMiB": 17.083,
+        "budgetMiB": 25
+      },
+      "roster": "All3KPop members bodyHeight275, same84pose keys and110authored frame counts; each has individually inspected source coordinates and identity."
+    }
+  }
+]

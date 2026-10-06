@@ -4008,6 +4008,498 @@
       "loop": true,
       "motion": 0.15,
       "facing": 1
+    },
+    "pull": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            36,
+            8,
+            354,
+            497
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            140,
+            12
+          ],
+          "eyes": [
+            151.71,
+            98.36
+          ],
+          "neck": [
+            150,
+            167
+          ],
+          "back": [
+            141,
+            218
+          ],
+          "hand": [
+            284,
+            239
+          ],
+          "anchor": [
+            178,
+            491
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            390,
+            36,
+            364,
+            470
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            104,
+            12
+          ],
+          "eyes": [
+            138.36,
+            89.43
+          ],
+          "neck": [
+            145,
+            155
+          ],
+          "back": [
+            146,
+            209
+          ],
+          "hand": [
+            309,
+            211
+          ],
+          "anchor": [
+            209,
+            464
+          ]
+        }
+      ],
+      "fps": 4,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "reel": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            808,
+            5,
+            311,
+            506
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            157,
+            14
+          ],
+          "eyes": [
+            170.86,
+            101.71
+          ],
+          "neck": [
+            158,
+            165
+          ],
+          "back": [
+            137,
+            230
+          ],
+          "hand": [
+            274,
+            177
+          ],
+          "anchor": [
+            161,
+            496
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            1168,
+            6,
+            321,
+            505
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            137,
+            14
+          ],
+          "eyes": [
+            153.86,
+            102.07
+          ],
+          "neck": [
+            146,
+            164
+          ],
+          "back": [
+            134.14,
+            240.07
+          ],
+          "hand": [
+            272,
+            154
+          ],
+          "anchor": [
+            167,
+            498
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "swing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            44,
+            501,
+            335,
+            503
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            188,
+            14
+          ],
+          "eyes": [
+            211.07,
+            110.29
+          ],
+          "neck": [
+            194,
+            153
+          ],
+          "back": [
+            201.21,
+            208.86
+          ],
+          "hand": [
+            102,
+            66
+          ],
+          "anchor": [
+            170,
+            498
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            427,
+            510,
+            311,
+            504
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            127,
+            14
+          ],
+          "eyes": [
+            163.57,
+            93.86
+          ],
+          "neck": [
+            159,
+            145
+          ],
+          "back": [
+            171.79,
+            197.36
+          ],
+          "hand": [
+            282,
+            53
+          ],
+          "anchor": [
+            180,
+            498
+          ]
+        }
+      ],
+      "fps": 6,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "putt": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            825,
+            507,
+            262,
+            507
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            178,
+            14
+          ],
+          "eyes": [
+            195,
+            117
+          ],
+          "neck": [
+            161,
+            158
+          ],
+          "back": [
+            122.07,
+            221.36
+          ],
+          "hand": [
+            201,
+            307
+          ],
+          "anchor": [
+            150,
+            499
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": true,
+      "motion": 0,
+      "facing": 1
+    },
+    "putt-swing": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-a.webp",
+          "rect": [
+            1203,
+            506,
+            262,
+            508
+          ],
+          "isolate": true,
+          "scale": 1.12,
+          "head": [
+            145,
+            13
+          ],
+          "eyes": [
+            172.36,
+            91.57
+          ],
+          "neck": [
+            165,
+            155
+          ],
+          "back": [
+            132,
+            212
+          ],
+          "hand": [
+            233,
+            281
+          ],
+          "anchor": [
+            151,
+            499
+          ]
+        }
+      ],
+      "fps": 8,
+      "loop": false,
+      "motion": 0.2,
+      "facing": 1
+    },
+    "spring-jump": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-b.webp",
+          "rect": [
+            28,
+            13,
+            540,
+            644
+          ],
+          "isolate": true,
+          "scale": 0.86,
+          "head": [
+            296,
+            41
+          ],
+          "eyes": [
+            262.74,
+            157.11
+          ],
+          "neck": [
+            270.0,
+            249.11
+          ],
+          "back": [
+            236,
+            301
+          ],
+          "hand": [
+            490.32,
+            130.47
+          ],
+          "anchor": [
+            270,
+            743
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "snow-scoop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-b.webp",
+          "rect": [
+            564,
+            134,
+            449,
+            577
+          ],
+          "isolate": true,
+          "scale": 0.86,
+          "head": [
+            290,
+            13
+          ],
+          "eyes": [
+            309.68,
+            170.53
+          ],
+          "neck": [
+            248,
+            237
+          ],
+          "back": [
+            184,
+            292
+          ],
+          "hand": [
+            377,
+            438
+          ],
+          "anchor": [
+            208,
+            570
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "dig": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-b.webp",
+          "rect": [
+            1074,
+            105,
+            533,
+            603
+          ],
+          "isolate": true,
+          "scale": 0.86,
+          "head": [
+            300,
+            14
+          ],
+          "eyes": [
+            321.26,
+            155.37
+          ],
+          "neck": [
+            299.47,
+            242.53
+          ],
+          "back": [
+            209.89,
+            295.79
+          ],
+          "hand": [
+            369.68,
+            436.21
+          ],
+          "anchor": [
+            268,
+            596
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.3,
+      "facing": 1
+    },
+    "skip-hop": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-right-new-games-b.webp",
+          "rect": [
+            1605,
+            27,
+            549,
+            648
+          ],
+          "isolate": true,
+          "scale": 0.86,
+          "head": [
+            290,
+            15
+          ],
+          "eyes": [
+            264.53,
+            143.74
+          ],
+          "neck": [
+            280,
+            221
+          ],
+          "back": [
+            228.21,
+            296.26
+          ],
+          "hand": [
+            511.47,
+            264.79
+          ],
+          "anchor": [
+            296,
+            749
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": false,
+      "motion": 0.3,
+      "facing": 1
     }
   },
   "portraits": {
@@ -4079,5 +4571,9 @@
     }
   },
   "quality": 82,
-  "provenance": "Built-in image_gen from approved canonical; authored action sets use saved exact prompts. Group A source cells were reviewed, isolated and hand-annotated with source-local landmarks. Added group B actions from saved exact prompt; broad right-member flying-hair/action cells use inspected explicit rectangles and connected-component isolation."
+  "provenance": "Built-in image_gen from approved canonical; authored action sets use saved exact prompts. Group A source cells were reviewed, isolated and hand-annotated with source-local landmarks. Added group B actions from saved exact prompt; broad right-member flying-hair/action cells use inspected explicit rectangles and connected-component isolation.",
+  "sourceFiles": [
+    "../sources/kpop-girl-right-new-games-a.webp",
+    "../sources/kpop-girl-right-new-games-b.webp"
+  ]
 }
