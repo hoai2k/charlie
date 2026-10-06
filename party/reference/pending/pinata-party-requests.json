@@ -1,0 +1,102 @@
+[
+  {
+    "key": "bg/pinata-party",
+    "size": [
+      1920,
+      1080
+    ],
+    "layout": "Full screen, drawn as is. Layout must match: keep the top ~110 px calm (score chips sit there); a wooden crossbar spans the width at y\u2248145\u2013170 (x 40\u20131880) on two candy-cane striped posts at x\u224864 and x\u22481856 that stand on the lawn at y\u2248470 (the ropes hang from the crossbar, the code draws ropes and knots); sky and trees above a white picket fence at y\u2248300\u2013410; lawn from y\u2248400 to the bottom. The play area (x 100\u20131820, y 455\u20131035) must stay open, plain grass",
+    "description": "A sunny backyard birthday party seen from a slightly raised angle: soft blue sky with puffy clouds and a sun at the upper right, round green trees behind a white picket fence with balloon bunches tied to it, a party table with a striped cloth, a small cake and presents at the back right just behind the fence line, rainbow triangle bunting hanging under a honey-wood crossbar held up by red-and-white striped posts at both edges, and a wide bright striped lawn with a few daisies",
+    "transparent": false
+  },
+  {
+    "key": "thumb/pinata-party",
+    "size": [
+      800,
+      500
+    ],
+    "layout": "Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback)",
+    "description": "A rainbow star pi\u00f1ata with crepe-paper fringe and tassels swinging on a rope over a backyard lawn, a cute character swinging a striped padded party bat at it, wrapped candies, lollipops and one glowing golden candy bursting out with confetti. Subject centred",
+    "transparent": false
+  },
+  {
+    "key": "prop/pinata-star",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Body centre at pixel (260, 280); fills ~70% of the width; drawn rotated/squashed/twirled as it swings (scale ~0.7\u20131.1). The rope ties on at the top point, pixel \u2248 (260, 100). The code adds the rainbow tassels on the four lower points, cracks over the middle and nothing else, so include a cute face (two eyes, smile, pink cheeks)",
+    "description": "A classic five-pointed star pi\u00f1ata covered in horizontal rows of rainbow crepe-paper fringe (pink, orange, yellow, green, blue, purple), cute smiling face in the middle, front view",
+    "transparent": true
+  },
+  {
+    "key": "prop/pinata-unicorn",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Body centre (middle of the torso) at pixel (260, 280), facing right, spanning about x 80\u2013480. The rope ties on the middle of the back, pixel \u2248 (240, 232). The code draws the rainbow tail tassel at the rump (left)",
+    "description": "A unicorn pi\u00f1ata in side view: pastel white, pink, lilac and sky crepe-paper fringe rows, a rainbow curly mane, a gold spiral horn, lilac hooves, a cute happy eye and smile",
+    "transparent": true
+  },
+  {
+    "key": "prop/pinata-llama",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back \u2248 (240, 245)",
+    "description": "A llama pi\u00f1ata in side view with a long neck and banana ears: cream, pink, mint and yellow fringe rows, a woven red/yellow/teal blanket with pom-poms on its back, a cute happy eye and smile",
+    "transparent": true
+  },
+  {
+    "key": "prop/pinata-donkey",
+    "size": [
+      520,
+      520
+    ],
+    "layout": "Same placement as the unicorn: torso centre at (260, 280), facing right, rope on the middle of the back \u2248 (244, 238). The code draws the tail tassel at the rump",
+    "description": "A classic donkey (burro) pi\u00f1ata in side view with tall ears: bright rainbow crepe-paper fringe rows, a pink spiky fringe mane, a cute happy eye and smile",
+    "transparent": true
+  },
+  {
+    "key": "prop/party-bat",
+    "size": [
+      480,
+      120
+    ],
+    "layout": "Horizontal, knob at the left edge, the hand's grip point 20% in (x=96, vertical centre), padded barrel out to the right edge. Drawn rotated in the character's hand at 1.2 \u00d7 0.6 \u00d7 the character's height long (\u2248120\u2013150 px), swung overhead",
+    "description": "A soft padded party bat for kids: a blue grip-taped handle with a yellow knob and a fat rounded foam barrel with pink-and-white candy stripes. Clearly soft and toy-like",
+    "transparent": true
+  },
+  {
+    "key": "prop/candy-wrapped",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred, drawn at 72\u00d772 (contain); bounces and spins on the lawn",
+    "description": "A twist-wrapped round sweet (bow-tie wrapper ends), glossy pink wrapper with white diagonal stripes",
+    "transparent": true
+  },
+  {
+    "key": "prop/candy-lollipop",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred, drawn at 72\u00d772 (contain)",
+    "description": "A round swirl lollipop (blue and white spiral) on a short white stick",
+    "transparent": true
+  },
+  {
+    "key": "prop/candy-golden",
+    "size": [
+      128,
+      128
+    ],
+    "layout": "Centred, drawn at 72\u00d772 (contain); the code adds a pulsing glow behind it",
+    "description": "A shiny golden twist-wrapped candy with a white sparkle on it, extra glossy (worth 5 points)",
+    "transparent": true
+  }
+]
