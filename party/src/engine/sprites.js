@@ -62,8 +62,6 @@ export const POSES = {
   throw:     { loop: false, fallback: ['action'], desc: 'Throwing something forward.' },
   push:      { loop: false, fallback: ['action'], desc: 'Shove / bump forward.' },
   pump:      { loop: true,  fallback: ['action'], desc: 'Pumping a balloon pump: both hands on the T-handle, pushing it down (held while mashing).' },
-  pull:      { loop: true, fallback: ['knockback', 'balance'], desc: 'Lean back and heave a rope with the grip held forward.' },
-  reel:      { loop: true, fallback: ['pump', 'action'], desc: 'Hold the fishing rod forward and crank its reel.' },
   swing:     { loop: false, fallback: ['action'], desc: 'Cheerful two-handed overhead bat swing.' },
   putt:      { loop: true, fallback: ['crouch', 'idle'], desc: 'Look down with the putter grip held low in front.' },
   'putt-swing': { loop: false, fallback: ['action'], desc: 'Gentle forward putting stroke and hopeful follow-through.' },
@@ -144,6 +142,9 @@ export const POSES = {
   sing:        { loop: true,  fallback: ['dance'], proc: 'dance', desc: 'Holding a mic and singing.' },
   water:       { loop: false, fallback: ['action'], proc: 'action', desc: 'Tilting a watering can.' },
   'catch-toy': { loop: false, fallback: ['jump', 'catch'], proc: 'cheer', desc: 'Leap to catch a toy.' },
+  // Requested by the second page of party games (2026-10-05):
+  reel:      { loop: true,  fallback: ['pump', 'action'], proc: 'action', desc: 'Fishing Frenzy: both hands on a fishing rod held up, leaning back and cranking the reel (hand = rod grip).' },
+  pull:      { loop: true,  fallback: ['knockback', 'balance'], proc: 'knockback', desc: 'Tug-of-War: side-on, leaning far back, both hands gripping a rope held out at waist height, feet dug in (hand = grip).' },
 };
 export const POSE_NAMES = Object.keys(POSES);
 

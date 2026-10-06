@@ -67,7 +67,7 @@ walking.
 
 ## Minigames
 
-### Party Games (12, competitive)
+### Party Games (22, competitive; two pages)
 
 | # | id | Name | Type | How it plays | Key actions |
 |---|---|---|---|---|---|
@@ -83,6 +83,21 @@ walking.
 | 10 | `broomstick-dash` | Broomstick Dash | Race | Side-scrolling flying race through the wizard-school sky. Hold **A** to rise, release to glide down; fly through star rings to boost, avoid storm clouds. | jump/fall (flying), hurt, cheer |
 | 11 | `fairy-count` | Fairy Count | Counting | Fairies of different colors zip across a moonlit garden. Count the pink ones! Pick your number with up/down, lock with **A**. Exact = 3 points, off-by-one = 1. 3 rounds. | think, cheer, pout |
 | 12 | `crown-keeper` | Crown Keeper | Keep-away, 45 s | Princess theme. Grab the crown and keep it as long as you can; **A** dashes to bump it loose. Crown holder is a bit slower. Most crown-seconds wins. | run, carry (crown on head), push, hurt |
+
+Page 2 of Party Games (the 12th tile on page 1 is **More Games**; Crown Keeper moved to the end of page 2). Built by ten agents on 2026-10-05; their art requests are the `## New Party game: <id>` sections of `image-requests.md`, their sounds the round-4 ElevenLabs sfx.
+
+| # | id | Name | Type | How it plays | Key actions |
+|---|---|---|---|---|---|
+| 13 | `pinata-party` | Piñata Party | Whack + scramble, ~50 s | Swing a party bat (A) at swinging piñatas; timed hits crack them, the final hit bursts it into a candy scramble. 3 piñatas (MEGA last). Most candy wins. | action (swing), dizzy, cheer |
+| 14 | `musical-cushions` | Musical Cushions | Elimination | Musical chairs: dance round the turning cushion ring; when the music stops (fair wind-down warning, fake-outs later) press A on a free cushion. Left standing = out. | dance, sit, hip-bump, dizzy |
+| 15 | `snowball-splat` | Snowball Splat | FFA battle, 50 s | Hold A to pack snowballs, tap to throw; forts and snowmen crumble and rebuild. Giant snowball and triple mitten power-ups, Snow Frenzy finale. Most splats wins. | crouch, throw, dizzy |
+| 16 | `jump-rope` | Jump Rope Jamboree | Timing survival, 50 s | Two bunnies turn a giant rope in time with the music; press A to hop. 3 hearts; Double Dutch, sneaky slow-down, Super Speed. Last one jumping wins. | jump, tumble, clap |
+| 17 | `fishing-frenzy` | Fishing Frenzy | Patience + timing, 60 s | Aim and cast, wait for the real bite, then reel without snapping the line. Fish by size, golden fish, silly junk. Most points wins. | cast, reel (new), catch |
+| 18 | `tug-of-war` | Rainbow Tug-of-War | **Team**, best of 3 | Pink vs Blue pull a rainbow rope over a jelly puddle. A on the beat pulls hard (mashing is weak); Super Pull (mash X) and banana peels (B to hop). | pull (new), tumble |
+| 19 | `cloud-hop` | Cloud Hop | Climbing race, ≤60 s | Auto-bouncing climb up a sky tower; steer, A for a flutter hop. Springy, rain and drifting clouds, stars and rocket bounces, head bonks. First to the rainbow wins. | jump, fall, float |
+| 20 | `pancake-tower` | Pancake Tower | Stacking, 50 s | A drops the pancake the flying pan carries; centre-of-mass wobble and topples. Waffles, golden pancakes, syrup. Tallest tower wins. | balance, dizzy |
+| 21 | `treasure-dig` | Treasure Dig | Hot/cold search, 60 s | Shell detector rings warm up near buried treasure; A digs. Crabs and socks for wrong spots, team chests, waves, Gold Rush. Most points wins. | crouch, dig, cheer |
+| 22 | `mini-golf` | Candy Mini-Golf | Aim + power, 3 holes | Everyone putts at once: aim with the stick, hold and release A. Gumdrops, lollipop spinner, chocolate river, jelly pad, donut warp. Points by finish order. | crouch, action, cheer |
 
 ### Play Studio (12, creative / gentle)
 
