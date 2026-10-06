@@ -490,6 +490,22 @@
     "prop/snowman": "prop/snowman.webp",
     "prop/snowman-pile": "prop/snowman-pile.webp",
     "prop/snowman-nohat": "prop/snowman-nohat.webp",
-    "prop/snowman-body": "prop/snowman-body.webp"
+    "prop/snowman-body": "prop/snowman-body.webp",
+    "bg/treasure-dig": "bg/treasure-dig.webp",
+    "thumb/treasure-dig": "thumb/treasure-dig.webp",
+    "prop/treasure-shell": "prop/treasure-shell.webp",
+    "prop/treasure-pearl": "prop/treasure-pearl.webp",
+    "prop/treasure-gem": "prop/treasure-gem.webp",
+    "prop/treasure-coins": "prop/treasure-coins.webp",
+    "prop/treasure-crown": "prop/treasure-crown.webp",
+    "prop/treasure-chest": "prop/treasure-chest.webp",
+    "prop/treasure-chest-open": "prop/treasure-chest-open.webp",
+    "prop/shell-detector": "prop/shell-detector.webp",
+    "prop/beach-crab": "prop/beach-crab.webp",
+    "prop/beach-seaweed": "prop/beach-seaweed.webp",
+    "prop/beach-sock": "prop/beach-sock.webp",
+    "prop/beach-duck": "prop/beach-duck.webp",
+    "prop/beach-starfish": "prop/beach-starfish.webp",
+    "prop/sand-hole": "prop/sand-hole.webp"
   }
 }

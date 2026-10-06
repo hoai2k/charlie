@@ -5908,6 +5908,134 @@
       "tool": "built-in imagegen",
       "bytes": 18064,
       "record": "party/reference/pending/snowball-splat-generation.json"
+    },
+    {
+      "key": "bg/treasure-dig",
+      "prompt": "Opaque full-screen 16:9 background, intended for exact 1920x1080 export, children's Treasure Dig game. Strict beach bands: turquoise sea from y=0 to y=262, with soft horizontal white wave lines; a scalloped white foam edge exactly around y=262; a darker wet-sand band from y=262 to y=330; warm golden dry sand begins y=330 and fills below. Keep the top 200 px calm. Most important: keep x=130\u20131790 and y=350\u20131030 as plain low-detail dry sand with faint wind ripples only, no objects. Decor only on extreme far left/right borders: partial sandcastle on left around y=640, small folded towel on left around y=900, folded towel on right around y=640, striped beach umbrella in bottom-right corner. Keep bottom-left 120x120 empty, and no tall decor above y=720. No shells, treasure, holes, people, or text. Gentle high 3/4 top-down view, bright sunny children's illustration, bold navy #24163f outlines, soft cel shading.\nEdit this beach background while preserving its sea, scalloped foam boundary, wet-sand band, colors, and plain central play field. Correct only the edge decorations to match these screen coordinates on a 1920x1080 canvas: sandcastle on far left centered around y=640; small blue-and-white folded beach towel at far left around y=900; small red-and-white folded towel at far right around y=640; striped beach umbrella tucked into bottom-right corner, mostly in the bottom-right 250x260 area. Keep the bottom-left 120x120 plain. Leave all decor off the middle x=130\u20131790, y=350\u20131030 play area. Keep sea top to y\u2248262, foam line at y\u2248262, wet sand to y\u2248330, dry sand below. No text or new objects.\nKeep all beach layers, colors, and other decorations exactly as they are. Move only the blue-and-white folded beach towel on the far left down to the bottom-left edge so its center is at y=900 of a 1920x1080 frame. Do not leave a towel at the current y\u2248700 position. Preserve the lower-left corner play-safe area: towel must stay within x=0\u2013120 and y=850\u2013960, leaving the bottom-left 120x120 (x=0\u2013120,y=960\u20131080) plain. Keep the central sand clear. No new objects or text.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-36758ef3-1b59-48e0-a320-bd784320cdd0.png",
+      "tool": "built-in imagegen",
+      "bytes": 110198,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "thumb/treasure-dig",
+      "prompt": "Opaque exact 800x500 landscape game-select illustration for a children's Treasure Dig beach game, no text. Centre a half-dug friendly wooden treasure chest glowing gold with gold coins flying out, a pink scallop-shell treasure detector gadget with small antenna beaming concentric hot ripple rings, a cute orange crab peeking from a dark sand hole; turquoise sea and foam visible only across the top background. Bold navy #24163f outlines, warm bright candy colours, soft cel shading, polished game art; keep subjects fully visible and centred with clear margins.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-b617cf2d-ba25-4166-9ec0-643c94ffce4f.png",
+      "tool": "built-in imagegen",
+      "bytes": 106942,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-shell",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 192x192 canvas, no text. Peach-and-pink scallop seashell viewed from a gentle front three-quarter angle, ridged fan shell with soft pearly shine, friendly collectible look. Deep navy #24163f outline, soft cel shading, bright candy colours, full silhouette visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-bfec4290-5366-4078-9cfb-d2b93a1a0267.png",
+      "tool": "built-in imagegen",
+      "bytes": 33212,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-pearl",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 192x192 canvas, no text. A small open lilac clam shell in a gentle front three-quarter view, two ridged lavender shell halves holding one large glowing white pearl. Pearl and shell fully visible; deep navy #24163f outline, soft cel shading, bright candy colours, transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-c47db936-0792-47bb-afe6-a758b6dac894.png",
+      "tool": "built-in imagegen",
+      "bytes": 24922,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-gem",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 192x192 canvas, no text. A brilliant-cut sky-blue gemstone with a flat table facet on top, crisp geometric facets and a few bright white glints. Slight front three-quarter view; deep navy #24163f outline, soft cel shading, polished children's game collectible, full gem visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-b60ed0f8-9296-4b16-a879-13e6bf258781.png",
+      "tool": "built-in imagegen",
+      "bytes": 24174,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-coins",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 192x192 canvas, no text. A little stack of shiny gold coins in a gentle front three-quarter view, with one coin standing upright at the front showing a simple embossed star (not letters or numbers). Deep navy #24163f outline, warm gold gleams, soft cel shading, full stack visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-fcdd69ee-83a2-4ccc-8058-0574cbd8a85f.png",
+      "tool": "built-in imagegen",
+      "bytes": 22876,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-crown",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 192x192 canvas, no text. A sparkly golden royal crown just dug up, friendly rounded points, one large pink jewel at the center, a few little grains of sand clinging to its base, extra shiny highlights. Gentle front three-quarter view, deep navy #24163f outline, bright cel shading, full crown visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-e63dc604-d2e1-4620-b63b-724d18f79ae1.png",
+      "tool": "built-in imagegen",
+      "bytes": 39468,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-chest",
+      "prompt": "Single isolated prop on transparent RGBA background, wide 300x240 canvas, no text. A friendly closed wooden treasure chest seen from front three-quarter view, rounded honey-brown plank lid, broad gold bands, centered gold lock, visible wood grain, not scary. Bottom-centre anchored: chest base rests exactly at the bottom edge. Deep navy #24163f outline, soft cel shading, entire chest visible with transparent margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-ee15266f-f0b0-4f8d-a75e-60a86adf41ad.png",
+      "tool": "built-in imagegen",
+      "bytes": 71442,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/treasure-chest-open",
+      "prompt": "Single isolated prop on transparent RGBA background, square 300x300 canvas, no text. The same friendly honey-brown wooden treasure chest with gold bands and lock, now open with lid flipped up; heaped with shiny gold coins and a pearl necklace, warm golden glow inside. Front three-quarter view. Bottom-centre anchored: chest base rests exactly at the bottom edge. Deep navy #24163f outline, soft cel shading, whole open chest visible with transparent margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-ba8a1625-b379-4d26-845f-ffa89c577959.png",
+      "tool": "built-in imagegen",
+      "bytes": 97238,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/shell-detector",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 128x128 canvas, no text. Cute treasure detector gadget shaped like a pink scallop shell, with a small curly antenna and ball tip rising from top and a large plain smooth rounded lens dome at center. Keep center lens blank and unobstructed so code can draw a light on it. Deep navy #24163f outline, soft cel shading, transparent margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-de27f015-753d-4835-bc11-7514dfc0eecc.png",
+      "tool": "built-in imagegen",
+      "bytes": 15026,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/beach-crab",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 192x192 canvas, no text. A round friendly red-orange crab facing front, two eyes on short stalks, big cheerful smile, rosy cheeks and both claws raised in a welcoming pose; cute not scary. Deep navy #24163f outline, soft cel shading, full crab silhouette visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-bfd5acf0-1309-4827-a370-b62d4b2d43a9.png",
+      "tool": "built-in imagegen",
+      "bytes": 35956,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/beach-seaweed",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 160x160 canvas, no text. A soft clump of exactly three long wavy green seaweed ribbons, glossy and silly, hanging down from a small connected top bunch like a loose headpiece. Deep navy #24163f outline, soft cel shading, full shape visible with transparent margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-0c67a86c-435f-4c65-b50d-1f87eb1a1783.png",
+      "tool": "built-in imagegen",
+      "bytes": 20276,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/beach-sock",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 160x160 canvas, no text. A single lost ankle sock floating upright with toe pointing down, bold clean stripes in pink, blue and yellow, solid pink toe and cuff. Slight front three-quarter view, deep navy #24163f outline, soft cel shading, whole sock visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-916aa613-da98-46f1-b280-23353f654b3a.png",
+      "tool": "built-in imagegen",
+      "bytes": 14430,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/beach-duck",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 160x160 canvas, no text. A sweet yellow rubber duck toy with orange beak and small black eyes, slightly sandy with a few grains and one subtle sand smudge, still clean and cheerful. Gentle front three-quarter view, deep navy #24163f outline, soft cel shading, full duck visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-f6af3ba5-9f13-4e31-8ade-ec4b6954d12e.png",
+      "tool": "built-in imagegen",
+      "bytes": 19506,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/beach-starfish",
+      "prompt": "Single isolated centered prop, transparent RGBA background, square 128x128 canvas, no text. A cheerful bright orange five-armed starfish with tiny pale dots and a small happy face, softly rounded tips and a faint warm glow. Top-down slight angle, deep navy #24163f outline, soft cel shading, entire starfish visible with transparent breathing margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-25925c6b-5831-4795-b96a-24ff1d133b40.png",
+      "tool": "built-in imagegen",
+      "bytes": 13306,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
+    },
+    {
+      "key": "prop/sand-hole",
+      "prompt": "Single isolated wide prop, transparent RGBA background, horizontal 256x128 canvas, no text. A freshly dug oval hole in warm golden beach sand seen from above at a gentle angle: dark damp brown interior with soft depth shading and a small raised rim of scooped sand around it, few tiny sand grains nearby. Hole remains clearly empty with no treasure. Deep navy #24163f outline, soft cel shading, centered with transparent margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a10d4b-2696-7c80-a945-30312dc0c01c/exec-e54f4fd4-b301-46df-ae18-b92008fb42f8.png",
+      "tool": "built-in imagegen",
+      "bytes": 21920,
+      "record": "party/reference/pending/treasure-dig-art-prompts.md"
     }
   ]
 }
