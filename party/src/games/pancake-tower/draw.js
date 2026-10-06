@@ -1,5 +1,5 @@
 // Pancake Tower: procedural art. Every piece first tries generated art
-// (prop/... keys, see image-requests.md) and falls back to vector drawing.
+// (prop/... keys, see image-requests-history.md) and falls back to vector drawing.
 // Items are drawn in lane design units with the origin at their
 // bottom-centre (canvas y down, so the item spans y = -h..0).
 import * as ui from '../../engine/ui.js';

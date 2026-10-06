@@ -4,7 +4,7 @@
 // candy-cane rails and knock each other around. 3 short holes; the first
 // ball in the cup scores the most, a hole in one earns a bonus.
 //
-// Art hooks (procedural fallbacks ship today; see image-requests.md):
+// Art hooks (procedural fallbacks ship today; see image-requests-history.md):
 //   bg/mini-golf  thumb/mini-golf  prop/golf-gumdrop  prop/golf-lollipop
 //   prop/golf-spinner-hub  prop/golf-donut  prop/golf-donut-exit  prop/golf-jelly
 //   prop/golf-cookie-bridge  prop/golf-flag  prop/golf-cup

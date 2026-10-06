@@ -1,5 +1,5 @@
 // Candy Mini-Golf: procedural art. Every prop first tries its generated art
-// key (see image-requests.md, "New Party game: mini-golf") and falls back to
+// key (see image-requests-history.md, "New Party game: mini-golf") and falls back to
 // the vector drawing here.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';

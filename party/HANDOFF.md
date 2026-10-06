@@ -115,8 +115,8 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   - Sparkle Bead Shop `bead-bracelets`
   - Dream Room `dream-room`
   - Hide & Seek Picnic `seek-and-find`
-- Each has a `## New Play Studio game: <id>` section at the end of
-  `image-requests.md` for the user to generate.
+- Each had a `New Play Studio game: <id>` section (delivered; now archived in
+  `image-requests-history.md`).
 - Sounds delivered with ElevenLabs (`tools/audio/sfx/round3.py`):
   - `bead-click`, `bead-zip`
   - Melody Maker's `inst/*` (bells, piano, marimba, choir, kick, clap, shaker)
@@ -132,7 +132,8 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   Pancake Tower, Treasure Dig, Candy Mini-Golf, then Crown Keeper.
   `PARTY_PAGES` in `games/index.js` defines the pages; Random and Marathon
   cover both (the roulette switches to the target's page).
-- Each game's art requests: `## New Party game: <id>` in `image-requests.md`.
+- Each game's art requests: `New Party game: <id>` (now archived in
+  `image-requests-history.md`).
   Every art key falls back to procedural drawing, so art drops in.
 - Sounds: 130 ElevenLabs sfx (snow-*, fish-*, tug-*, jr-*, cush-*,
   pancake-*, td-*, cloudhop-*, pinata-*, golf-*). Specs and the build script:
@@ -176,6 +177,11 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   in the colour variants.
 
 ## Conventions that bite
+- Image requests: `image-requests.md` holds only standing guidance and
+  **open** requests. Whenever a request is fielded (delivered and checked in
+  game, or resolved/dropped), move its section or table row to
+  `image-requests-history.md` (newest at the top, dated, with the outcome).
+  Keep useful context (style rules, specs, lessons) in the main file.
 - Corner "i" button: shown during play. Its how-to card comes from the game's
   meta goal, controls and tips. Use `meta.infoAt: 'tl'|'tr'|'br'` when the
   bottom-left holds game UI. `meta.cornerControls: { at, items }` draws a

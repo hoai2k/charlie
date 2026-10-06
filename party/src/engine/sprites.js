@@ -75,7 +75,7 @@ export const POSES = {
   dance:     { loop: true,  fallback: ['celebrate'], auto: 'note', desc: 'Dancing on the beat.' },
   paint:     { loop: true,  fallback: ['action'], desc: 'Painting / crafting with a brush.' },
   sleep:     { loop: true,  fallback: ['idle'], auto: 'zzz', desc: 'Sleeping (Troll naps).' },
-  // Added for the minigames (image-requests.md §4.3).
+  // Added for the minigames (image-requests-history.md, §4.3 archive).
   cast:      { loop: false, fallback: ['throw', 'action'], proc: 'action', desc: 'Wand/spell thrust forward (wand in hand).' },
   clap:      { loop: true,  fallback: ['wave', 'cheer'], proc: 'clap', desc: 'Spectator clapping / looping cheer.' },
   eat:       { loop: false, fallback: ['action'], proc: 'eat', autoFallback: 'heart', desc: 'Taste / munch with happy cheeks.' },
@@ -111,7 +111,7 @@ export const POSES = {
   knockback: { loop: true, fallback: ['balance', 'hurt'], proc: 'knockback', desc: 'Bumped: skidding backward, leaning back, arms windmilling, teetering.' },
   catch:     { loop: false, fallback: ['carry', 'action'], proc: 'catch', desc: 'Receive a present or pickup with a soft recoil.' },
   'wave-goodbye': { loop: false, fallback: ['wave'], proc: 'wave', desc: 'Warm farewell while turning to leave.' },
-  // Round-2 wish poses requested by the minigames (image-requests.md). Games
+  // Round-2 wish poses requested by the minigames (image-requests-history.md). Games
   // ask for these names directly; until a character has frames for one, the
   // fallback chain picks the closest pose that character does have.
   swim:        { loop: true,  fallback: ['walk'], proc: 'swim', desc: 'Treading water, head and shoulders up, paddling.' },

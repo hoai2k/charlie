@@ -1,5 +1,5 @@
 // Treasure Dig - procedural props and the beach background. Every prop first
-// tries generated art (see the treasure-dig section of image-requests.md) and
+// tries generated art (see the treasure-dig section of image-requests-history.md) and
 // falls back to the drawing here. Sizes: `s` is the box the prop fits in.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';

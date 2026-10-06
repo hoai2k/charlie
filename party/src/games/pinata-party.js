@@ -7,7 +7,7 @@
 //
 // Art hooks (procedural fallbacks ship today): bg/pinata-party,
 //   prop/pinata-star|unicorn|llama|donkey, prop/party-bat,
-//   prop/candy-wrapped|lollipop|golden (see image-requests.md).
+//   prop/candy-wrapped|lollipop|golden (see image-requests-history.md).
 // New-pose hook: 'swing' -> action.
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSE_NAMES } from '../engine/sprites.js';

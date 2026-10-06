@@ -1,5 +1,5 @@
 // Rainbow Tug-of-War: procedural art. Every piece first asks for generated art
-// (art()/drawArt(), keys listed in image-requests.md) and falls back to the
+// (art()/drawArt(), keys listed in image-requests-history.md) and falls back to the
 // vector drawing below, which is what ships today.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';

@@ -52,6 +52,9 @@ See `AGENTS.md` for the shared agent instructions and push recovery guidance.
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
   and resume notes, then `party/PLAN.md`.
+- `party/image-requests.md` keeps only standing guidance and open requests.
+  Fielded requests (delivered and checked in game, or resolved/dropped)
+  always move to `party/image-requests-history.md`, newest first.
 
 - Swingers is the one exception to "every game is a subdirectory": it lives
   in its own repo, `hoai2k/swingers`, deployed at `games.hoai.net/swingers/`.

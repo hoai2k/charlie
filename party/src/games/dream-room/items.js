@@ -1,6 +1,6 @@
 // Dream Room item catalog: every piece of furniture, light, toy and decoration,
 // each with a procedural drawing (what ships today) and an optional art key
-// (prop/room-<id>, see image-requests.md) that replaces it when it exists.
+// (prop/room-<id>, see image-requests-history.md) that replaces it when it exists.
 //
 // Item drawings use local coordinates at scale 1:
 //   cat 'floor' / 'small'  (0, 0) = bottom centre, the item stands on y = 0

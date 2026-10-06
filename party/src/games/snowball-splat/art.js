@@ -1,5 +1,5 @@
 // Snowball Splat - procedural art. Every piece first asks for generated art
-// (art()/drawArt(), see image-requests.md "New Party game: snowball-splat")
+// (art()/drawArt(), see image-requests-history.md "New Party game: snowball-splat")
 // and falls back to the vector drawing here, which is what ships today.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
