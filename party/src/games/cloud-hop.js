@@ -703,7 +703,8 @@ export class Game {
       a.clearEmotes();
       if (this.n > 1 && placements[i] === last && last > 1) a.playOnce('pout', 1.9, 'pout');
     });
-    const stats = this.ents.map((e) => (e.state === 'done' ? `${ordinal(e.place)} up · ${e.finishT.toFixed(1)} s` : `${this.heightM(e)} m high`));
+    // 6+ players share narrow results columns: keep the line short there
+    const stats = this.ents.map((e) => (e.state === 'done' ? (this.n > 5 ? `${e.finishT.toFixed(1)} s` : `${ordinal(e.place)} up · ${e.finishT.toFixed(1)} s`) : `${this.heightM(e)} m high`));
     const wi = placements.indexOf(1);
     const w = this.ents[Math.max(0, wi)];
     const solo = this.ents[0].state === 'done' ? 1000 + Math.round((DURATION - this.ents[0].finishT) * 10) : this.heightM(this.ents[0]);
@@ -751,7 +752,8 @@ export class Game {
     if (bg) {
       g.drawImage(bg, v.l, v.t, v.r - v.l, v.b - v.t);
       // tint toward the altitude colour so the climb still changes the sky
-      g.save(); g.globalAlpha = 0.35;
+      // (light near the ground, stronger higher up so dusk reads over the art)
+      g.save(); g.globalAlpha = 0.3 + 0.35 * clamp((pt + pb) / 2, 0, 1);
     }
     const gr = g.createLinearGradient(0, v.t, 0, v.b);
     gr.addColorStop(0, skyAt(pt)); gr.addColorStop(1, skyAt(pb));
@@ -773,8 +775,10 @@ export class Game {
     const moonA = clamp((midAlt - 0.65) * 3, 0, 1);
     if (moonA > 0) {
       g.globalAlpha = moonA; g.fillStyle = '#fff6d6';
+      g.save();
+      g.beginPath(); g.rect(v.l + 200, v.t + 120, 260, 260); g.arc(v.l + 356, v.t + 232, 52, 0, TAU); g.clip('evenodd');
       g.beginPath(); g.arc(v.l + 330, v.t + 250, 60, 0, TAU); g.fill();
-      g.fillStyle = skyAt(pt); g.beginPath(); g.arc(v.l + 356, v.t + 232, 52, 0, TAU); g.fill();
+      g.restore();
     }
     g.restore();
     // twinkling stars high up
@@ -803,7 +807,7 @@ export class Game {
   }
 
   drawBalloon(g, x, y, b) {
-    if (drawArt(g, 'prop/cloudhop-balloon', x, y, 130 * b.s, 180 * b.s)) return;
+    if (drawArt(g, 'prop/cloudhop-balloon', x, y, 130 * b.s, 180 * b.s, { alpha: 0.85 })) return;
     g.save(); g.translate(x, y); g.scale(b.s, b.s); g.globalAlpha = 0.85;
     g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 4;
     // ropes + basket
@@ -869,7 +873,9 @@ export class Game {
     const gl = g.createRadialGradient(cx, sy, 40, cx, sy, 820);
     gl.addColorStop(0, 'rgba(255,230,120,0.55)'); gl.addColorStop(1, 'rgba(255,230,120,0)');
     g.fillStyle = gl; g.fillRect(cx - 900, sy - 820, 1800, 900);
-    if (!drawArt(g, 'prop/cloudhop-summit', cx, sy + 60, 1640, 520, { anchor: 'bottom' })) {
+    // the art sits 50 px lower than requested so its star clears the timer chip at the top
+    // clamp; its own golden cloud feet stay hidden in the bank drawn by drawPlat
+    if (!drawArt(g, 'prop/cloudhop-summit', cx, sy + 110, 1640, 520, { anchor: 'bottom' })) {
       // the golden rainbow arch
       const cols = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff', '#ff6fd0'];
       g.lineWidth = 34;
@@ -912,6 +918,8 @@ export class Game {
     if (pl.type === 'rain' && pl.gone > 0) {
       // puffed away: a fading puff right after, a faint dotted ghost while it regrows
       const since = 4.5 - pl.gone;
+      const ghost = since < 0.35 ? [1 + since * 1.4, 1 - since / 0.35] : pl.gone < 1.2 ? [0.5 + 0.5 * (1 - pl.gone / 1.2), 0.35 * (1 - pl.gone / 1.2)] : null;
+      if (ghost && this.drawCloudArt(g, pl, 'prop/cloudhop-cloud-rain', 0, ghost[0], ghost[1])) return;
       if (since < 0.35) puffShape(g, pl.x, pl.y, pl.w * (1 + since * 1.4), PAL.rain, 0, pl.puffs, 1 - since / 0.35, false);
       else if (pl.gone < 1.2) puffShape(g, pl.x, pl.y, pl.w * (0.5 + 0.5 * (1 - pl.gone / 1.2)), PAL.rain, 0, pl.puffs, 0.35 * (1 - pl.gone / 1.2), false);
       return;
@@ -920,11 +928,7 @@ export class Game {
     if (pl.type === 'tramp') { this.drawTramp(g, pl, sq); return; }
     const key = { cloud: 'prop/cloudhop-cloud', pink: 'prop/cloudhop-cloud-pink', rain: 'prop/cloudhop-cloud-rain', move: 'prop/cloudhop-cloud-drift' }[pl.type];
     const bodyH = clamp(pl.w * 0.26, 38, 74);
-    g.save();
-    g.translate(pl.x, pl.y); g.scale(1 + sq * 0.1, 1 - sq * 0.2);
-    const drawn = drawArt(g, key, 0, -10 + (bodyH + 26) / 2, pl.w + 20, bodyH + 36, { fit: 'stretch' });
-    g.restore();
-    if (!drawn) {
+    if (!this.drawCloudArt(g, pl, key, sq)) {
       if (pl.type === 'pink') {
         // springs peeking out underneath
         g.save(); g.strokeStyle = NAVY; g.lineWidth = 5; g.lineJoin = 'round';
@@ -953,6 +957,16 @@ export class Game {
         g.restore();
       }
     }
+  }
+
+  /** Cloud art in the platform box (landing line 16% down); ws scales it (puff-away, regrow), alpha fades it. */
+  drawCloudArt(g, pl, key, sq, ws = 1, alpha = 1) {
+    const bodyH = clamp(pl.w * 0.26, 38, 74);
+    g.save();
+    g.translate(pl.x, pl.y); g.scale((1 + sq * 0.1) * ws, (1 - sq * 0.2) * ws);
+    const drawn = drawArt(g, key, 0, -10 + (bodyH + 26) / 2, pl.w + 20, bodyH + 36, { fit: 'stretch', alpha });
+    g.restore();
+    return drawn;
   }
 
   drawTramp(g, pl, sq) {
