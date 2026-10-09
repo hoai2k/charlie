@@ -4,9 +4,42 @@ Keep this file current while long jobs run. A new session (or a session whose
 context was compacted) should read this, `PLAN.md` (status + known issues),
 `image-requests.md` and `audio-requests.md` before continuing.
 
-_Last updated: 2026-10-03, after music generation round 2 finished._
+_Last updated: 2026-10-09, during the sprite-size audit (see "Session log" below)._
 
 ## In progress right now
+
+### Session log 2026-10-09 (update this as work proceeds)
+Standing rules: after every change commit, then push `main` AND the branch
+`claude/festive-planck-7ik6bk`; run `node party/tools/stamp-modules.mjs` after
+any `party/src` change; fielded image requests move to
+`image-requests-history.md` (newest first).
+
+Done and pushed this session (all tested headless in Playwright):
+- Golf: aim with a target marker (stick moves it; distance = strength; A putts).
+- Results screen: fanfare/cheer/lose sting follow human players only.
+- Skip to the end: elimination games report `humansOut()`; play scene shows
+  "B Skip to the end" bottom right and fast-forwards muted.
+- Jump rope: the nearer rope draws in front (sorted by `sin(th)`).
+- Snowball Splat: A (or B) holds to pack, RT/RB/X throws.
+- Musical Cushions: X bumps, B dashes; both cost 1/3 energy, earned by walking
+  around the ring with the arrows; energy bar under unseated players.
+- Piñata Party: B dashes, X also swings.
+- Cloud Hop: "Air Hop (double jump)" label.
+- Music: title anthem carries over the menus once (`music.carryTitle()`,
+  `music.menu()`), then the menu loop.
+
+In progress:
+- **Sprite size audit** (user: "audit the sprite sizes for all the characters
+  across the games, and ensure that they maintain a consistent character
+  size"; trigger was Fox shrinking on `hip-bump` in Musical Cushions; Amber's
+  dig/spring-jump/snow-scoop/skip-hop are ~1.45x). A background agent works in
+  worktree branch `worktree-agent-aa758eadd38bed57e`
+  (`.claude/worktrees/agent-aa758eadd38bed57e`). If the session restarts and
+  the agent is gone: check that branch for commits; merge it (take ours for
+  `party/index.html`, then restamp), verify Fox hip-bump and Amber poses in
+  game, add regen rows for art that must be redrawn, push. If nothing was
+  committed, redo the audit: measure each pose frame's head size vs idle per
+  character and fix scale in data or with a per-pose scale in the engine.
 
 ### Music generation (ElevenLabs Eleven Music, `music_v2_5`): finished
 - The user topped up ElevenLabs credits and asked to finish all songs.
