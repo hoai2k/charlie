@@ -105,7 +105,14 @@ export class ResultsScene {
     }
     if (!this.revealed && this.t > this.revealAt) {
       this.revealed = true;
-      sfx('fanfare'); setTimeout(() => sfx('cheer'), 600);
+      // Sounds follow the human players: you only hear your own win or loss
+      // (CPUs still emote and show bubbles, silently). All-CPU games keep it all.
+      const humans = this.entries.filter((e) => !session.players[e.idx].isAI);
+      const heard = (e) => !humans.length || !session.players[e.idx].isAI;
+      const humanWon = !humans.length || this.showcase || humans.some((e) => e.winner);
+      const humanLost = humans.length ? humans.some((e) => e.loser) : this.entries.some((e) => e.loser);
+      if (humanWon) { sfx('fanfare'); setTimeout(() => sfx('cheer'), 600); }
+      else if (!humanLost) sfx('cheer', { vol: 0.6 });
       if (this.showcase) host('everyone-star', { interrupt: true });
       else if (this.winners.length === 1) host('name/' + session.players[this.winners[0].idx].charId, { interrupt: true });
       else host('tie', { interrupt: true });
@@ -121,12 +128,12 @@ export class ResultsScene {
       for (const e of this.entries) {
         const p = session.players[e.idx];
         const lines = charById(p.charId).lines || {};
-        if (e.winner) { e.actor.setPose('celebrate'); if (!this.showcase || e.idx === this.result.highlight) e.actor.say(lines.win || 'Yay!', 2.6, 'yay'); else voice(p.charId, 'yay'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); }
+        if (e.winner) { e.actor.setPose('celebrate'); if (!this.showcase || e.idx === this.result.highlight) e.actor.say(lines.win || 'Yay!', 2.6, heard(e) ? 'yay' : null); else if (heard(e)) voice(p.charId, 'yay'); particles.burst(e.actor.x, e.actor.y - 120, { type: 'star', count: 14 }); }
         else if (e.loser) { e.actor.setPose('pout'); }
         else e.actor.setPose('cheer');
-        if (e.loser) setTimeout(() => e.actor.say(lines.lose || 'Aww…', 2.4, 'aww'), 900);
+        if (e.loser) setTimeout(() => e.actor.say(lines.lose || 'Aww…', 2.4, heard(e) ? 'aww' : null), 900);
       }
-      if (this.entries.some((e) => e.loser)) setTimeout(() => sfx('lose'), 1300);
+      if (humanLost) setTimeout(() => sfx('lose'), 1300);
     }
     // Non-winners who aren't last give little hops now and then.
     if (this.revealed) {
