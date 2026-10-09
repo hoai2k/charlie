@@ -33,6 +33,9 @@ const SCRAMBLE_MAX = 6;
 const OUT_T = 2.7;
 const BUMP_T = 0.15, BUMP_SPEED = 560, BUMP_CD = 1.4;
 const DASH_T = 0.15, DASH_SPEED = 800, DASH_CD = 0.9;
+// Energy: starts empty, fills only while walking round the ring the way the
+// arrows go (standing by a cushion earns nothing); a dash or a bump costs one third.
+const STAM_MAX = 1, STAM_COST = 1 / 3, STAM_GAIN = 0.3;   // full bar after ~3.3 s of walking with the arrows
 const STUN_T = 0.8;
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const ds = (y) => depthScale(y, { top: ROOM.y0, near: ROOM.y1, far: 0.88, nearScale: 1.04 });
@@ -44,8 +47,8 @@ export const meta = {
   category: 'party',
   type: 'Musical chairs',
   goal: 'Dance around the cushions - when the music stops, plop down on one! Last one sitting wins.',
-  controls: [['stick', 'Dance around the ring'], ['a', 'Sit on a cushion (only when the music stops!)'], ['b', 'Hip-bump a friend out of the way']],
-  tips: ['Watch the record player: when the needle lifts, get ready!', 'Sitting while the music plays makes you dizzy - and sometimes it only pretends to stop!', 'Bump friends with B before they sit (sitting friends are safe).'],
+  controls: [['stick', 'Dance around the ring the way the arrows go'], ['a', 'Sit on a cushion (only when the music stops!)'], ['b', 'Dash (uses energy)'], ['x', 'Hip-bump a friend (uses energy)']],
+  tips: ['Watch the record player: when the needle lifts, get ready!', 'Sitting while the music plays makes you dizzy - and sometimes it only pretends to stop!', 'Follow the arrows round the ring to fill your energy bar, then B dashes and X bumps!'],
   music: 'bouncy',
   duration: '30-60 sec',
   minPlayers: 1,
@@ -123,7 +126,7 @@ export class Game {
     return {
       p, i, a, x, y, z: 0, vx: 0, vy: 0, aim: Math.atan2(C.y - y, C.x - x),
       state: 'in', seat: null, sitT: 0, sitFrom: null, standT: 0, standFrom: null, standTo: null,
-      stun: 0, kb: 0, dashT: 0, dashCd: 0, bumpT: 0, bumpCd: 0, bumpDir: 0, bumpHit: null, danceCd: 0, cheerCd: 0,
+      stun: 0, kb: 0, stam: 0, stamFlash: 0, needT: 0, dashT: 0, dashCd: 0, bumpT: 0, bumpCd: 0, bumpDir: 0, bumpHit: null, danceCd: 0, cheerCd: 0,
       outRound: 0, outOrder: -1, wins: 0, sits: 0, spot: null, outT: 0, boingCd: 0,
       brain: new Brain(p), ai: { margin: 100 },
     };
@@ -503,7 +506,8 @@ export class Game {
     const free = U.stun <= 0 && U.kb <= 0;
 
     if (free && p.ctrl.pressed('a')) this.pressA(U, sitters);
-    if (free && p.ctrl.pressed('b') && U.bumpCd <= 0 && this.phase !== 'out') this.startBump(U);
+    if (free && p.ctrl.pressed('b') && U.dashCd <= 0 && this.phase !== 'out' && this.spend(U)) this.startDash(U);
+    if (free && p.ctrl.pressed('x') && U.bumpCd <= 0 && this.phase !== 'out' && this.spend(U)) this.startBump(U);
 
     if (U.bumpT > 0) { U.vx = Math.cos(U.bumpDir) * BUMP_SPEED; U.vy = Math.sin(U.bumpDir) * BUMP_SPEED; this.bumpHits(U); }
     else if (U.dashT > 0) { U.vx = Math.cos(U.aim) * DASH_SPEED; U.vy = Math.sin(U.aim) * DASH_SPEED; }
@@ -515,17 +519,52 @@ export class Game {
     }
     U.x += U.vx * dt; U.y += U.vy * dt;
     U.z = damp(U.z, 0, 14, dt);
+    this.gainEnergy(U, dt);
+  }
+
+  /** Walking round the ring in the arrows' direction fills the energy bar. */
+  gainEnergy(U, dt) {
+    U.stamFlash = Math.max(0, U.stamFlash - dt); U.needT = Math.max(0, U.needT - dt);
+    if (U.state !== 'in' || U.seat || U.dashT > 0 || U.bumpT > 0 || U.kb > 0) return;
+    if (this.phase !== 'music' && this.phase !== 'tell') return;
+    const dx = U.x - C.x, dy = (U.y - C.y) * 2.2;             // the ring is a squashed ellipse
+    const r = Math.hypot(dx, dy);
+    if (r < 40) return;
+    // tangent along the arrows (walkDir) at the player's spot
+    const tx = (-dy / r) * this.walkDir, ty = (dx / r) * this.walkDir / 2.2;
+    const tl = Math.hypot(tx, ty) || 1;
+    const along = (U.vx * tx + U.vy * ty) / tl / WALK;           // 1 = full speed with the arrows
+    if (along <= 0.15) return;
+    const before = U.stam;
+    U.stam = Math.min(STAM_MAX, U.stam + along * STAM_GAIN * dt);
+    // a little sparkle each time a third fills
+    if (Math.floor(before / STAM_COST + 1e-6) < Math.floor(U.stam / STAM_COST + 1e-6)) {
+      U.stamFlash = 0.35;
+      particles.burst(U.x, U.y - U.a.height * 0.5, { type: 'sparkle', count: 4, colors: ['#ffe36e', '#ffffff'], speed: [40, 120] });
+      if (!U.p.isAI) sfx('collect', { step: Math.round(U.stam / STAM_COST), vol: 0.35 });
+    }
+  }
+
+  /** Pay for a dash or bump; not enough energy -> a little "need energy" nudge. */
+  spend(U) {
+    if (U.stam + 1e-6 >= STAM_COST) { U.stam = Math.max(0, U.stam - STAM_COST); return true; }
+    if (U.needT <= 0 && !U.p.isAI) {
+      U.needT = 1.2; sfx('error', { vol: 0.35 });
+      particles.popText(U.x, U.y - U.a.height - 20, 'Need energy! Follow the arrows', '#ffb02e', 30);
+    }
+    return false;
+  }
+
+  startDash(U) {
+    U.dashT = DASH_T; U.dashCd = DASH_CD;
+    U.a.playOnce('dash', 0.3); U.a.squash(0.25); sfx('dash', { vol: 0.6 });
+    particles.burst(U.x, U.y - 10, { type: 'dust', count: 6, angle: U.aim + Math.PI, spread: 0.5, speed: [100, 240] });
   }
 
   pressA(U, sitters) {
     if (this.phase === 'scramble') {
       const nf = this.nearestFree(U);
       if (nf && nf.d <= this.reach()) { sitters.push({ U, c: nf.c, d: nf.d }); return; }
-      if (U.dashCd <= 0) {   // too far: a quick scoot
-        U.dashT = DASH_T; U.dashCd = DASH_CD;
-        U.a.playOnce('dash', 0.3); U.a.squash(0.25); sfx('dash', { vol: 0.6 });
-        particles.burst(U.x, U.y - 10, { type: 'dust', count: 6, angle: U.aim + Math.PI, spread: 0.5, speed: [100, 240] });
-      }
       return;
     }
     if (this.phase === 'out') return;
@@ -729,9 +768,9 @@ export class Game {
     if (this.phase === 'music') {
       const na = this.nearestAny(U);
       if (U.danceCd <= 0 && chance(dt * 0.12) && (!na || na.d > this.reach() + 50)) p.ctrl.press('a');
-      if (U.bumpCd <= 0 && chance(dt * [0.05, 0.08, 0.1][lvl])) {
+      if (U.bumpCd <= 0 && U.stam >= 2 * STAM_COST && chance(dt * [0.05, 0.08, 0.1][lvl])) {   // keep one for the scramble
         const r = this.nearestRival(U, 95);
-        if (r) { A.bumpAim = Math.atan2(r.y - U.y, r.x - U.x); p.ctrl.press('b'); }
+        if (r) { A.bumpAim = Math.atan2(r.y - U.y, r.x - U.x); p.ctrl.press('x'); }
       }
     }
   }
@@ -776,14 +815,14 @@ export class Game {
     if (d < this.reach() * 0.85) {
       if (A.sitAt == null) A.sitAt = this.t + [rand(0.08, 0.25), rand(0, 0.08), 0][lvl];
       if (this.t >= A.sitAt) { p.ctrl.press('a'); A.sitAt = null; }
-    } else if (lvl >= 1 && d > 280 && U.dashCd <= 0 && chance(dt * 4)) {
+    } else if (lvl >= 1 && d > 280 && U.dashCd <= 0 && U.stam >= STAM_COST && chance(dt * 4)) {
       U.aim = Math.atan2(c.y - U.y, c.x - U.x);
-      p.ctrl.press('a');
+      p.ctrl.press('b');
     }
     if (U.bumpCd <= 0 && U.brain.ready(dt)) {
       U.brain.think();
       const r = this.nearestRival(U, 110);
-      if (r && this.cdist(r, c) < d && chance([0.12, 0.3, 0.45][lvl])) { A.bumpAim = Math.atan2(r.y - U.y, r.x - U.x); p.ctrl.press('b'); }
+      if (r && U.stam >= STAM_COST && this.cdist(r, c) < d && chance([0.12, 0.3, 0.45][lvl])) { A.bumpAim = Math.atan2(r.y - U.y, r.x - U.x); p.ctrl.press('x'); }
     }
   }
 
@@ -876,6 +915,7 @@ export class Game {
     const a = U.a, p = U.p;
     const showRing = U.state === 'in' && !U.seat && U.standT <= 0;
     a.draw(g, { ring: showRing ? p.color : null, shadow: !U.seat });
+    if (U.state === 'in' && !U.seat && this.phase !== 'end') this.drawEnergy(g, U);
     // player tags: everyone at the start; humans while racing for a seat
     const early = this.round <= 1 && this.t < 4.5;
     if (U.state === 'in' && (early || (!p.isAI && (this.phase === 'scramble' || this.phase === 'tell')))) {
@@ -891,6 +931,19 @@ export class Game {
         g.restore();
       }
     }
+  }
+
+  /** Three-segment energy bar under the player (one segment = one dash or bump). */
+  drawEnergy(g, U) {
+    const w = 84, h = 12, x = U.x - w / 2, y = U.y + 24;
+    g.save();
+    if (U.needT > 0) g.translate(Math.sin(this.t * 60) * 3 * (U.needT / 1.2), 0);
+    ui.roundRect(g, x - 3, y - 3, w + 6, h + 6, 7); g.fillStyle = 'rgba(36,22,63,0.75)'; g.fill();
+    const fill = U.stam / STAM_MAX;
+    if (fill > 0) { ui.roundRect(g, x, y, Math.max(h, w * fill), h, 5); g.fillStyle = U.stamFlash > 0 ? '#ffffff' : '#ffd23f'; g.fill(); }
+    g.fillStyle = 'rgba(36,22,63,0.85)';
+    for (let k = 1; k < 3; k++) g.fillRect(x + (w * k) / 3 - 1, y, 2, h);
+    g.restore();
   }
 
   drawHUD(g) {
