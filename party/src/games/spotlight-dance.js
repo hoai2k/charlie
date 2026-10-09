@@ -449,6 +449,12 @@ export class Game {
     if (this.banner) this.banner.t += dt;
   }
 
+  /** Every human player is out (the host then offers "B: skip to the end"). */
+  humansOut() {
+    const hs = this.pl.filter((e, i) => e && !e.p.isAI);
+    return hs.length > 0 && hs.every((e) => !e.alive);
+  }
+
   update(dt) {
     this.t += dt;
     this.phaseT += dt;

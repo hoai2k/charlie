@@ -189,6 +189,12 @@ export class Game {
     this.updateBunnies(dt);
   }
 
+  /** Every human player is out (the host then offers "B: skip to the end"). */
+  humansOut() {
+    const hs = this.units.filter((e, i) => e && !e.p.isAI);
+    return hs.length > 0 && hs.every((e) => !e.alive);
+  }
+
   update(dt) {
     this.t += dt;
     if (this.t >= DURATION && !this.over) { this.endGame('time'); return; }
@@ -581,7 +587,9 @@ export class Game {
     if (this.burst && !this.over) this.drawSpeedLines(g, t);
 
     const ropes = [0, 1].filter((ri) => this.ropes[ri].alpha > 0.01);
-    const geo = ropes.map((ri) => ({ ri, pts: this.ropePoints(ri) }));
+    // Each rope sits at one depth at a time (sin(th): +1 in front of the jumpers,
+    // -1 behind), so draw them back to front: the nearer rope is always on top.
+    const geo = ropes.map((ri) => ({ ri, pts: this.ropePoints(ri) })).sort((p, q) => Math.sin(this.ropes[p.ri].th) - Math.sin(this.ropes[q.ri].th));
     // turners (behind everything in the middle)
     this.drawTurners(g, t);
     // rope shadows + timing cues on the ground

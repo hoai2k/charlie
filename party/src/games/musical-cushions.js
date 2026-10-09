@@ -330,6 +330,12 @@ export class Game {
     this.arm = damp(this.arm, this.armTo, 6, dt);
   }
 
+  /** Every human player is out (the host then offers "B: skip to the end"). */
+  humansOut() {
+    const hs = this.units.filter((e, i) => e && !e.p.isAI);
+    return hs.length > 0 && hs.every((e) => e.state === 'out');
+  }
+
   update(dt) {
     this.t += dt; this.pt += dt;
     if (!this.stoppedHostMusic) { this.stoppedHostMusic = true; if (music.name) music.stop(0.1); }

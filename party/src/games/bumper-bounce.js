@@ -156,6 +156,12 @@ export class Game {
     for (const e of this.ents) { e.a.moveAnim(0, 0, 1); e.a.update(dt); }
   }
 
+  /** Every human player is out (the host then offers "B: skip to the end"). */
+  humansOut() {
+    const hs = this.ents.filter((e, i) => e && !e.p.isAI);
+    return hs.length > 0 && hs.every((e) => e.state === 'out');
+  }
+
   update(dt) {
     this.t += dt;
     if (!this.ends) this.playT += dt;

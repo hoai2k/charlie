@@ -273,6 +273,12 @@ export class Game {
   preUpdate(dt) { this.ambient(dt); }
   postUpdate(dt) { this.ambient(dt); }
 
+  /** Every human player is out (the host then offers "B: skip to the end"). */
+  humansOut() {
+    const hs = this.ps.filter((e, i) => e && !this.players[i].isAI);
+    return hs.length > 0 && hs.every((e) => e.outAt != null);
+  }
+
   update(dt) {
     this.ambient(dt);
     if (this.ended) {

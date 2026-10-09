@@ -177,6 +177,12 @@ _Last updated: 2026-10-03, after music generation round 2 finished._
   in the colour variants.
 
 ## Conventions that bite
+- Elimination games implement `humansOut()` (true once every human is out).
+  The play scene then shows "B Skip to the end"; B fast-forwards the game
+  itself (fixed 1/60 steps, sound muted) until it calls finish, so results
+  are real. Done in Bumper Bounce, Cookie Crumble, Jump Rope, Musical
+  Cushions, Pass the Present and Spotlight Dance-Off; add it to any new
+  elimination game.
 - Image requests: `image-requests.md` holds only standing guidance and
   **open** requests. Whenever a request is fielded (delivered and checked in
   game, or resolved/dropped), move its section or table row to

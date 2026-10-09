@@ -30,6 +30,8 @@ export class Game {
   draw(g) {}            // draw everything incl. HUD; always called
   drawHUD(g) {}         // optional: screen-space HUD; enables the camera (see below)
   onDone() {}           // optional (studio): pause menu "All done!" chosen
+  humansOut() {}        // optional (elimination games): true once every human is out; the host
+                        // then shows "B Skip to the end" and fast-forwards the game (muted) to its finish
   destroy() {}          // optional cleanup
 }
 ```

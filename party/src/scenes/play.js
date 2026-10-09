@@ -3,7 +3,7 @@
 import { cancelLater } from '../engine/util.js';
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { sfx, music, host, stopAllLoops, duckLoops } from '../engine/audio.js';
+import { sfx, music, host, stopAllLoops, duckLoops, setMuted, isMuted } from '../engine/audio.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
@@ -24,6 +24,7 @@ export class PlayScene {
     this.state = this.meta.countdown === false ? 'play' : 'countdown';
     this.t = 0;
     this.playTime = 0;
+    this.canSkip = false; this.skipping = null;   // "B: skip to the end" once every human is out
     this.paused = null;
     this.howto = null;    // the how-to-play card (corner "i" or the pause menu); pauses the game
     corner.infoFn = () => this.openHowto(); corner.infoAt = this.meta.infoAt || 'bl';
@@ -132,13 +133,38 @@ export class PlayScene {
       if (this.t >= 3) { this.state = 'play'; }
     }
     if (this.state === 'play') {
+      if (this.skipping) { this.fastForward(); return; }
       this.playTime += dt;
       this.safe(() => this.game.update(dt));
+      // Every human is out: offer to skip to the end (the game plays on, fast and silent).
+      this.canSkip = this.state === 'play' && session.players.some((p) => !p.isAI) && !!this.game?.humansOut && (() => { try { return this.game.humansOut(); } catch (e) { return false; } })();
+      if (this.canSkip && inputOpen && input.humans().some((c) => c.pressed('b'))) {
+        this.skipping = { muted: isMuted(), t0: performance.now() };
+        setMuted(true); sfx('select');
+      }
     } else if (this.state === 'finish') {
       this.safe(() => this.game.postUpdate && this.game.postUpdate(dt));
       if (this.t > 1.9) this.toResults();
     } else if (this.state === 'error') {
       if (this.t > 2.5 || input.anyHumanPressed('a')) this.toResults();
+    }
+  }
+
+  /** Run the game many fixed steps per frame (sound off) until it calls finish. */
+  fastForward() {
+    const step = 1 / 60, t0 = performance.now();
+    while (this.state === 'play' && !this.error && performance.now() - t0 < 12) {
+      for (let k = 0; k < 10 && this.state === 'play' && !this.error; k++) {
+        this.playTime += step;
+        this.safe(() => this.game.update(step));
+        input.update(0);   // one-frame taps (CPU presses) last one step, as in the main loop
+      }
+    }
+    // Done (or a safety limit for a game that never ends): sound back on, clear the fast-forwarded particles.
+    if (this.state !== 'play' || this.error || performance.now() - this.skipping.t0 > 20000) {
+      setMuted(this.skipping.muted); this.skipping = null; this.canSkip = false;
+      particles.clear();
+      if (this.state === 'finish') sfx('whistle');
     }
   }
 
@@ -280,6 +306,17 @@ export class PlayScene {
       ui.text(g, 'This game tripped over its shoelaces. Everyone gets a star!', W / 2, H / 2 + 130, { size: 40 });
     }
     if (this.state === 'play' && !this.paused && !this.howto) this.drawCornerControls(g);
+    if (this.state === 'play' && this.skipping) {
+      g.save(); g.fillStyle = 'rgba(36,22,63,0.35)'; g.fillRect(0, 0, W, H); g.restore();
+      ui.text(g, 'Skipping to the end…', W / 2, H / 2, { size: 72 });
+    } else if (this.state === 'play' && this.canSkip && !this.paused && !this.howto) {
+      // bottom right, above the song tag
+      const pulse = 1 + Math.sin(this.t * 4) * 0.04;
+      g.save(); g.translate(W - 210, H - 112); g.scale(pulse, pulse);
+      ui.panel(g, -170, -34, 340, 68, { r: 34, fill: '#fff8ec', lineWidth: 5 });
+      ui.hints(g, [['b', 'Skip to the end']], 0, 2, { size: 34 });
+      g.restore();
+    }
     if (this.paused) this.drawPause(g);
     if (this.howto) this.drawHowto(g);
   }

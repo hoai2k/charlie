@@ -184,6 +184,12 @@ export class Game {
 
   faceCenter(e) { e.a.facing = e.x < CX ? 1 : -1; if (Math.abs(e.x - CX) < 60) e.a.facing = e.y < CY ? 1 : -1; }
 
+  /** Every human player is out (the host then offers "B: skip to the end"). */
+  humansOut() {
+    const hs = this.ents.filter((e, i) => e && !e.p.isAI);
+    return hs.length > 0 && hs.every((e) => e.state === 'out');
+  }
+
   update(dt) {
     this.t += dt;
     const P = this.pres;
