@@ -32,6 +32,7 @@ const DURATION = 50;
 const ARENA = { x0: 100, y0: 455, x1: 1820, y1: 1035 };
 const REST_Y = 735;                 // where a piñata hangs at rest (its ground point)
 const WALK = 390;
+const DASH_T = 0.16, DASH_SPEED = 980, DASH_CD = 0.8;   // B: a quick burst (great for the candy scramble)
 const SWING_T = 0.36, HIT_FROM = 0.09, HIT_TO = 0.22, SWING_CD = 0.5;
 const SWEET = 0.45;                 // inside this fraction of your reach = CRACK! (2 damage)
 const DIZZY_T = 0.95, IMMUNE_T = 2.4;
@@ -49,7 +50,7 @@ export const meta = {
   category: 'party',
   type: 'Free-for-all',
   goal: 'Whack the swinging piñatas, then grab the most candy!',
-  controls: [['stick', 'Run around the yard'], ['a', 'Swing your party bat']],
+  controls: [['stick', 'Run around the yard'], ['a', 'Swing your party bat (X works too)'], ['b', 'Dash!']],
   tips: [
     'Swing when the piñata is over your ring - right in the middle is a big CRACK!',
     'The hit that bursts it open gets +5 and a candy shower!',
@@ -102,7 +103,7 @@ export class Game {
     const a = new Actor(p, { scale: this.scale, x, y });
     a.facing = x < W / 2 ? 1 : -1; a.snap();
     const U = {
-      p, i, a, x, y, vx: 0, vy: 0, swingT: -1, swingCd: 0, hitIds: new Set(), hitAny: false, whiffChecked: false,
+      p, i, a, x, y, vx: 0, vy: 0, swingT: -1, swingCd: 0, dashT: 0, dashCd: 0, dashA: 0, hitIds: new Set(), hitAny: false, whiffChecked: false,
       dizzy: 0, immune: 0, spinT: 0, score: 0, streak: 0, streakT: 0, brain: new Brain(p), goal: null, seen: null,
       checkT: 0, popN: 0, popT: 0, offA: i * 2.39 + rand(0.5),
     };
@@ -451,9 +452,17 @@ export class Game {
     const mag = Math.hypot(mx, my);
     if (mag > 1) { mx /= mag; my /= mag; }
     if (U.dizzy > 0) { mx = my = 0; }
-    if (!this.over && p.ctrl.pressed('a') && U.swingCd <= 0 && U.dizzy <= 0) this.startSwing(U);
+    if (!this.over && (p.ctrl.pressed('a') || p.ctrl.pressed('x')) && U.swingCd <= 0 && U.dizzy <= 0) this.startSwing(U);
+    U.dashCd = Math.max(0, U.dashCd - dt); U.dashT = Math.max(0, U.dashT - dt);
+    if (!this.over && p.ctrl.pressed('b') && U.dashCd <= 0 && U.dizzy <= 0 && U.swingT < 0) {
+      U.dashT = DASH_T; U.dashCd = DASH_CD;
+      U.dashA = mag > 0.2 ? Math.atan2(my, mx) : (a.facing > 0 ? 0 : Math.PI);
+      a.playOnce('dash', 0.3); a.squash(0.25); sfx('dash', { vol: p.isAI ? 0.25 : 0.6 });
+      particles.burst(U.x, U.y - 8, { type: 'dust', count: 6, angle: U.dashA + Math.PI, spread: 0.5, speed: [100, 240] });
+    }
     const speed = WALK * (U.swingT >= 0 ? 0.55 : 1) * (0.9 + 0.1 * this.ds(U.y));
-    U.vx = damp(U.vx, mx * speed, 12, dt); U.vy = damp(U.vy, my * speed * 0.8, 12, dt);
+    if (U.dashT > 0) { U.vx = Math.cos(U.dashA) * DASH_SPEED; U.vy = Math.sin(U.dashA) * DASH_SPEED * 0.8; }
+    else { U.vx = damp(U.vx, mx * speed, 12, dt); U.vy = damp(U.vy, my * speed * 0.8, 12, dt); }
     U.x += U.vx * dt; U.y += U.vy * dt;
     if (U.swingT >= 0) {
       U.swingT += dt;
@@ -579,6 +588,8 @@ export class Game {
       const ang = Math.atan2(dy, dx) + Math.sin(this.t * 2.1 + U.i) * prof.aimError * 0.3;
       const k = clamp(d / 60, 0, 1) * prof.speed;
       ctrl.move(Math.cos(ang) * k, Math.sin(ang) * k);
+      // dash toward far-away candy (Normal and Hard)
+      if (G && G.kind === 'candy' && d > 260 && U.dashCd <= 0 && (p.aiLevel ?? 0) >= 1 && chance(dt * 3)) ctrl.press('b');
     }
     // swing timing: look a little ahead (with a level-based timing error) and swing when it'll be in reach
     U.checkT -= dt;
