@@ -520,7 +520,11 @@ class Music {
   play(name, { restart = false, loop = null } = {}) {
     if (!ctx) return;
     // A streamed song never needs restarting: just make sure it is playing.
-    if (this.name === name && (!restart || this.stream)) { this._kick(); return; }
+    if (this.name === name && (!restart || this.stream)) {
+      if (name === 'title' && restart && this.stream) { this.titleCarry = false; this.stream.el.loop = true; this.stream.el.onended = null; }
+      this._kick(); return;
+    }
+    this.titleCarry = false;
     if (this.name && this.name !== name) takePicks.delete(this.name); // next time it starts, roll a take again
     this.switching = null;
     this.stop(0.25);
@@ -537,7 +541,7 @@ class Music {
     if (entry && entry.stream) {
       const st = streamFor(entry.file);
       st.out.connect(this.gain);
-      st.el.currentTime = 0;
+      st.el.currentTime = 0; st.el.loop = true; st.el.onended = null;
       this.stream = st; this.start = ctx.currentTime; this.song = { bpm: def.bpm };
       this._kick();
       return;
@@ -565,6 +569,23 @@ class Music {
     this.nextTime = this.start;
     this.timer = setInterval(() => this._schedule(), 25);
     this._schedule();
+  }
+  /**
+   * Menu screens: if the title anthem is still going from the title screen,
+   * let it play out (once); the menu loop starts when it ends. Otherwise the
+   * menu loop.
+   */
+  menu() {
+    if (this.name === 'title' && this.titleCarry) { this._kick(); return; }
+    this.play('menu');
+  }
+  /** Leaving the title screen: the streamed anthem plays to its end, then the menu loop. */
+  carryTitle() {
+    if (this.name !== 'title' || !this.stream) return;   // synth title: menus just switch to the menu loop
+    this.titleCarry = true;
+    const st = this.stream;
+    st.el.loop = false;
+    st.el.onended = () => { if (this.name === 'title' && this.titleCarry && this.stream === st) this.play('menu'); };
   }
   stop(fade = 0.3) {
     if (this.timer) clearInterval(this.timer);

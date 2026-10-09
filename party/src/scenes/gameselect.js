@@ -46,7 +46,7 @@ export class GameSelectScene {
     this.roulette = null;
     this.chosen = null;
     session.partyMode = null;
-    music.play('menu');
+    music.menu();
     if (session.lastGameId && pageOf(session.lastGameId) >= 0 && pageOf(session.lastGameId) !== this.page) this.setPage(pageOf(session.lastGameId));
     this.layout();
     if (session.lastGameId) {

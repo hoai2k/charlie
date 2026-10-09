@@ -27,7 +27,7 @@ export class CharSelectScene {
   enter({ starter = null } = {}) {
     this.t = 0;
     this.starting = null;
-    music.play('menu');
+    music.menu();
     // Slots: humans in join order, then CPUs.
     this.humans = [];  // { ctrl, cursor, charId, variant, locked, actor, stars }
     this.cpus = [];    // { ctrl, charId, actor, stars }

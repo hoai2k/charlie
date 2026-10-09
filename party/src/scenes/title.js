@@ -64,6 +64,7 @@ export class TitleScene {
     shell.tryFullscreen();
     unlockAudio();
     music.play('title', { restart: true });
+    music.carryTitle();   // the anthem plays out on the menus (then the menu loop)
     sfx('join'); setTimeout(() => sfx('star'), 120);
     setTimeout(() => host('charlie-party'), 150);
     fx.flash('#ffffff', 0.3);

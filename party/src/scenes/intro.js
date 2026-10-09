@@ -25,7 +25,7 @@ export class IntroScene {
     this.ready = session.players.map(() => false);
     this.aiReadyAt = session.players.map((p) => (p.isAI ? rand(0.8, 2.2) : Infinity));
     this.go = null;
-    music.play('menu');
+    music.menu();
     const n = session.players.length;
     const spacing = Math.min(220, (W - 160) / n);
     this.actors = session.players.map((p, i) => {
