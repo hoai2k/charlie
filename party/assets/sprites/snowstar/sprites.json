@@ -260,7 +260,8 @@
             91,
             181
           ],
-          "dur": 0.8
+          "dur": 0.8,
+          "bodyHeight": 251.4
         },
         {
           "src": "pout-01.webp",
@@ -290,7 +291,8 @@
             93,
             180
           ],
-          "dur": 0.25
+          "dur": 0.25,
+          "bodyHeight": 219.3
         }
       ]
     },
@@ -488,7 +490,8 @@
           "back": [
             86,
             175
-          ]
+          ],
+          "bodyHeight": 241.3
         },
         {
           "src": "run-01.webp",
@@ -517,7 +520,8 @@
           "back": [
             84,
             174
-          ]
+          ],
+          "bodyHeight": 219.3
         },
         {
           "src": "run-02.webp",
@@ -546,7 +550,8 @@
           "back": [
             88,
             162
-          ]
+          ],
+          "bodyHeight": 227.1
         },
         {
           "src": "run-03.webp",
@@ -575,7 +580,8 @@
           "back": [
             86,
             173
-          ]
+          ],
+          "bodyHeight": 219.3
         }
       ]
     },
@@ -725,7 +731,8 @@
             186
           ]
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "dizzy": {
       "fps": 5,
@@ -836,7 +843,8 @@
             173
           ]
         }
-      ]
+      ],
+      "bodyHeight": 217.9
     },
     "throw": {
       "fps": 5,
@@ -873,7 +881,8 @@
             184
           ]
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "sleep": {
       "fps": 5,
@@ -910,7 +919,8 @@
             152
           ]
         }
-      ]
+      ],
+      "bodyHeight": 199.3
     },
     "celebrate": {
       "fps": 5,
@@ -1104,7 +1114,8 @@
             176
           ]
         }
-      ]
+      ],
+      "bodyHeight": 220.2
     },
     "carry": {
       "fps": 5,
@@ -1138,7 +1149,8 @@
           "artHash": "571c342d4b3fb1ed9e0f6652db7866ba990b152945d51963b605d21f25d68d60",
           "fileHash": "08e6040fb00689f7f50d24cb46ce3e0cb7988b1fcd27b2993e4646af79c23c28"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "paint": {
       "fps": 5,
@@ -1155,7 +1167,8 @@
           "artHash": "e9734c2bd91bd8c090f508877062cbe9522ca0e901691f7a9d1a5372aea10ad9",
           "fileHash": "7db76d5fbbf385a89beb5339c8ac5ff494b380096bd76c5adde8d197425dbc35"
         }
-      ]
+      ],
+      "bodyHeight": 218.6
     },
     "cast": {
       "fps": 5,
@@ -1172,7 +1185,8 @@
           "artHash": "f3bc569bf6eeefc2f8044b0b67ea9fc6a76d0e6790b6738424692d419fad7eef",
           "fileHash": "450e833568ba4a2f996ffff24d9076f25b1260febf589da709ae810a7480a314"
         }
-      ]
+      ],
+      "bodyHeight": 199.3
     },
     "clap": {
       "fps": 5,
@@ -1189,7 +1203,8 @@
           "artHash": "b24e9bf0129bf1b0cec0b34f5795d75968b79b2f6bf3241d2c078261ed600f4b",
           "fileHash": "477294797b778e66a0775d72df5a0bc7db7bcf6727c83a885170487e443461b8"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "eat": {
       "fps": 5,
@@ -1206,7 +1221,8 @@
           "artHash": "8259610ef8f78fdd1dcbc0b3de4973ea6586ab1674fb97d20476fd96ed626680",
           "fileHash": "70b059a9824141f703921d75ca6ab18fbf96f7a544b76297d2ba469b76854447"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "bow": {
       "fps": 5,
@@ -1223,7 +1239,8 @@
           "artHash": "c546e353aa2b3dc6c65eb8e23a47cf0b1068184a9e143e07dc7b67562711bace",
           "fileHash": "1d70ca83afc4202d6fd339af377f9715be6c4a82cc13223cca1f43afdcf394c7"
         }
-      ]
+      ],
+      "bodyHeight": 207.4
     },
     "strike1": {
       "fps": 5,
@@ -1240,7 +1257,8 @@
           "artHash": "1cfeaceaf0cc9e2a678389beb71c5e2cf2b36a64173f17b89f4ea3b554270c03",
           "fileHash": "6e015fb74ab2fc1d9bb7549473349679991ea1a39012661000d1de64b3102fef"
         }
-      ]
+      ],
+      "bodyHeight": 218.7
     },
     "strike2": {
       "fps": 5,
@@ -1342,7 +1360,8 @@
           "artHash": "035bef5bbb2743685294beee4264e032410b8efc0beaf26d367b3de2e6d8b574",
           "fileHash": "64c1b3d96244bd7d3b860540eadb31240b6c1e7c0fe2a502589a828c7fbb1112"
         }
-      ]
+      ],
+      "bodyHeight": 218.7
     },
     "shake": {
       "fps": 5,
@@ -1376,7 +1395,8 @@
           "artHash": "bc5574d09cc3a3354bbbe467f4a3a0260ebe5c51aaed864e640d3d072e4c2873",
           "fileHash": "d26eaae790e94478782d5034b65060a691055dd165a8e0048b65c23a99df6c89"
         }
-      ]
+      ],
+      "bodyHeight": 226.3
     },
     "swim": {
       "fps": 5,
@@ -1430,7 +1450,8 @@
             159
           ]
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "splat-throw": {
       "fps": 5,
@@ -1447,7 +1468,8 @@
           "artHash": "b347cfc99397c5dd82e49a91c0ba48fe55e0b50131bc4d8405e62a7813c8905e",
           "fileHash": "0ac071b831cd9fd64892cfcb2184ba008439b8df71ea23ec499b6b585c96df62"
         }
-      ]
+      ],
+      "bodyHeight": 197.6
     },
     "wand-up": {
       "fps": 5,
@@ -1464,7 +1486,8 @@
           "artHash": "35b38760cacde55083cbd0e0f111bca03607119c4aaf186efd4bb318f364d5f5",
           "fileHash": "aaba7901b1b26af075a5ee364fa1abf2600068b54ac09b15f17d4c029ec069f5"
         }
-      ]
+      ],
+      "bodyHeight": 202.2
     },
     "broom-rise": {
       "fps": 5,
@@ -1481,7 +1504,8 @@
           "artHash": "bf853bc3f7a7606c3f0fcb6fc9965dc885120b3c443917add1267cfe79654cfc",
           "fileHash": "80a6bed982cb9ca82dec3d719eaec58e9b586cd00b38731d75abdc86afa5eba9"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "broom-glide": {
       "fps": 5,
@@ -1498,7 +1522,8 @@
           "artHash": "7a988b389842964baa9664d11a450c33f87cd7fb77bf5c72dc3a5480083f7441",
           "fileHash": "d23905de3c44a530b2f67b49cee2545c083bdf4120cc670b5caf7a20e5e65efb"
         }
-      ]
+      ],
+      "bodyHeight": 216.4
     },
     "broom-zapped": {
       "fps": 5,
@@ -1515,7 +1540,8 @@
           "artHash": "442c6ebf643cb7745b499d2bf029d7f37b7edcd03a8f811a5500e730d68ef55e",
           "fileHash": "5881733ab370922e6fd4d4f64099ab9b610a32d535739e560c3a2b41a0a32040"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "count": {
       "fps": 5,
@@ -1532,7 +1558,8 @@
           "artHash": "7a3e1647a77311a9fdaaed805510d7c4e5ffaea21266092ea58db77a14a83566",
           "fileHash": "bfc20bd9565acd4be7acc311ba1d4e49b162e7d6020cf721b0bf269f24178105"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "look-up": {
       "fps": 5,
@@ -1549,7 +1576,8 @@
           "artHash": "d084fc7b49a253da7225b2e40edb8cb0c84ccc2701196031f5e91e1307da315c",
           "fileHash": "dc178bda332e49c54097bc45e4e2b8df4a5222d1200a7ac0fc54524a9a5fe72e"
         }
-      ]
+      ],
+      "bodyHeight": 222.8
     },
     "crowned": {
       "fps": 5,
@@ -1583,7 +1611,8 @@
           "artHash": "7f0ebfa82b9252353d04d99883680b858a2df397e0850fa5c63e9004258956c6",
           "fileHash": "e6b8021e27db41b06caa3f1119e3032358509a72facdb297ad75bb0f8ce25332"
         }
-      ]
+      ],
+      "bodyHeight": 216.5
     },
     "sit": {
       "fps": 5,
@@ -1600,7 +1629,8 @@
           "artHash": "71aa21dba7b45a10f38c2b997183b289d95f04191b4108b75a6536926d25825d",
           "fileHash": "37be32b4c48777b81c19a9378bd9d899882a9429aff8926a654be8a347d8ae9c"
         }
-      ]
+      ],
+      "bodyHeight": 190.0
     },
     "tumble": {
       "fps": 5,
@@ -1634,7 +1664,8 @@
           "artHash": "83de2c74ac15c9b95bd4ee994f38873f4f0c5c0b4d70bca2774e56cff2a1dfbd",
           "fileHash": "608885b7fc6357955aadd2d1b6cc14d79f6a690a49544546ce6a0520d4cb2ef9"
         }
-      ]
+      ],
+      "bodyHeight": 199.3
     },
     "toss": {
       "fps": 5,
@@ -1651,7 +1682,8 @@
           "artHash": "cd2d0a4acc86b050e273222faed8c46a17c6e71454737a0fd94e0eeb9a04144f",
           "fileHash": "25c2276770706ab041affa162d21f3ea0781ff6a704f0e60d770341da09a1ad2"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "catch-present": {
       "fps": 5,
@@ -1668,7 +1700,8 @@
           "artHash": "0f1627f1526406d55ac64fee113151e9dd61824130b6b7f8facade76772c4128",
           "fileHash": "15a245009e859700c86c8c21865b0544ad69c830bdb460748cfb48c78c9f62cc"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "sooty": {
       "fps": 5,
@@ -1685,7 +1718,8 @@
           "artHash": "5b86450d6186fca045dfdb693a76d57a789668c83087e3dda1304b083c339d12",
           "fileHash": "7d9ff8271df1a1a2a6afe7e3b69915128751e098e4507f3ece001c7900081b6d"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "drink": {
       "fps": 5,
@@ -1702,7 +1736,8 @@
           "artHash": "cbc5513fe8e3871751f2029eea1cf64c7c928ab5311518e60640a98c58b0be24",
           "fileHash": "1def9247dc05601308e8e8170df1f0d852a0e159e1d89289e3101c89e5e757d5"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "float": {
       "fps": 5,
@@ -1873,7 +1908,8 @@
           "back": [
             103,
             173
-          ]
+          ],
+          "bodyHeight": 253.5
         },
         {
           "src": "pose-twirl-01.webp",
@@ -1902,7 +1938,8 @@
           "back": [
             66,
             169
-          ]
+          ],
+          "bodyHeight": 219.3
         },
         {
           "src": "pose-twirl-02.webp",
@@ -1931,7 +1968,8 @@
           "back": [
             88,
             166
-          ]
+          ],
+          "bodyHeight": 243.1
         },
         {
           "src": "pose-twirl-03.webp",
@@ -1960,7 +1998,8 @@
           "back": [
             99,
             169
-          ]
+          ],
+          "bodyHeight": 246.3
         }
       ]
     },
@@ -2013,7 +2052,8 @@
           "artHash": "3a0d0bfc7a2b0dc59d0a1f46f1990b8c44328d3b7d1746d6011783017c26b9e9",
           "fileHash": "937bf561420689654f5a602f4607df1d357a4b576d423f62954251fd19ce9c62"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "catch-toy": {
       "fps": 5,
@@ -2030,7 +2070,8 @@
           "artHash": "41c31e1603d3232d84401b2c9c8601cdf63379547a7a999ff042ca50b6b9a2ff",
           "fileHash": "388617cf906036869d739239ea835fee8236db57759d9ae6b529484211e41d98"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "look-around": {
       "fps": 5,
@@ -2064,7 +2105,8 @@
           "artHash": "6deedf58a7ab9f201f06a6b1c4db25adaf7874d80c830a800e407d02bea382f0",
           "fileHash": "75f75b3e9fa617d87084ad719b32a90fe8c1b67a3143dfe683b741a97edaad54"
         }
-      ]
+      ],
+      "bodyHeight": 211.4
     },
     "wave-goodbye": {
       "fps": 5,
@@ -2081,7 +2123,8 @@
           "artHash": "617055550beb749ba78c9cf4984b76d8baa5156304f84a193f16a6e5758cd3e0",
           "fileHash": "023fc939a19c778a8b4d9bf67fa129630944319706d1c00162378c7f10a6c4de"
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "dash": {
       "fps": 10,
@@ -2107,7 +2150,8 @@
           "artHash": "d5c912a031105ff2d91583a1204eb4ae6266d8a9dae283f73eea75be69beb6ad",
           "fileHash": "ca4e80ed32176d79313422b55a3b8354641aa6d5236393beaa412d27bac8c2a0"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "hip-bump": {
       "fps": 10,
@@ -2133,7 +2177,8 @@
           "artHash": "4a7ec0458899738f13e92f421ef9ff2ffd0f653fb55a8570b6bb4bdd9d25ecb4",
           "fileHash": "729fb4ead155bbeb4fa17f4a54140ad136310f3325984c37ab435d879d7984ef"
         }
-      ]
+      ],
+      "bodyHeight": 207.4
     },
     "knockback": {
       "fps": 8,
@@ -2159,7 +2204,8 @@
           "artHash": "53a70fbd187efeb932e1135d27867f557b21fe9037362c5b43370768d917ef33",
           "fileHash": "f8ce44b4d79a68d2e83c268f032f79281dec5ba43e8c1c9508e4a47d4b1a7b01"
         }
-      ]
+      ],
+      "bodyHeight": 220.3
     },
     "dance": {
       "fps": 4,
@@ -2202,7 +2248,8 @@
           "artHash": "383ccfbdbf5fb63b22fe2b882d08cdb93f2d7a0c8c5da4c5914e924a6a771de5",
           "fileHash": "444d26c360c2fdf0607bee8df5b2ea4fb28cb9c7e872249f379b92c5af5746d6"
         }
-      ]
+      ],
+      "bodyHeight": 333.4
     },
     "crouch": {
       "fps": 5,
@@ -2219,7 +2266,8 @@
           "artHash": "4c48b700911f97ee6bae3eb5eade169a32cdc0717d5cd15535f8c9efe65efb23",
           "fileHash": "3e920d811864c14c2c6edfbb0edb144d6c461bf3faee6a9003109fd7b545e1bf"
         }
-      ]
+      ],
+      "bodyHeight": 209.0
     },
     "pump": {
       "fps": 8,
@@ -2352,7 +2400,8 @@
             153
           ]
         }
-      ]
+      ],
+      "bodyHeight": 219.3
     },
     "reel": {
       "fps": 8,
@@ -2418,7 +2467,8 @@
             154
           ]
         }
-      ]
+      ],
+      "bodyHeight": 218.7
     },
     "swing": {
       "fps": 6,
@@ -2484,7 +2534,8 @@
             144
           ]
         }
-      ]
+      ],
+      "bodyHeight": 208.8
     },
     "putt": {
       "fps": 8,
@@ -2521,7 +2572,8 @@
             153
           ]
         }
-      ]
+      ],
+      "bodyHeight": 198.7
     },
     "putt-swing": {
       "fps": 8,
@@ -2558,7 +2610,8 @@
             149
           ]
         }
-      ]
+      ],
+      "bodyHeight": 213.7
     },
     "spring-jump": {
       "fps": 5,
@@ -2706,7 +2759,8 @@
             159
           ]
         }
-      ]
+      ],
+      "bodyHeight": 227.2
     }
   },
   "portraits": {

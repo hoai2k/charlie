@@ -196,7 +196,7 @@ assets/sprites/<asset>/*.webp             frames, strips or atlases, and portrai
       "anchor": [200, 424],    // optional per-pose default anchor
       "head": [212, 96],       // optional per-pose head point (top of head, where a hat sits)
       "hand": [262, 236],      // optional per-pose hand point (grip of the forward hand)
-      "bodyHeight": 320,       // optional per-pose override (avoid; keep one scale per set)
+      "bodyHeight": 320,       // optional per-pose size correction (a frame object may carry its own; see Scale)
       "holdLast": true,        // false returns to idle after a non-looping clip ends
       "facing": 1              // optional per-pose override of the set facing
     },
@@ -228,8 +228,18 @@ so `bodyHeight` should equal **the height in frame pixels of the
 idle/neutral figure, from the lowest foot pixel to the highest pixel** (ear
 tip, antenna jewel, crown point, candle flame). Measure it exactly the way the
 base art is cropped. Then toggling sprites ↔ base art in the viewer shows
-**no size jump**. Keep `bodyHeight` the same for every pose. Poses that reach
+**no size jump**. Poses that reach
 higher (arms up, jumping) simply extend above it.
+
+**Size corrections.** Generated frames are not always drawn at idle's scale.
+When a pose's head/face is a different size from idle's, fix it in data: give
+the pose (or one frame object) its own `bodyHeight` = set `bodyHeight` ×
+(that frame's head size ÷ idle's head size), in frame pixels. The engine draws
+that frame, its anchor and its landmarks with it (frame `bodyHeight`, then pose,
+then set). Judge by head/face size, never by total height: crouches and jumps
+legitimately change height. The October size audit set these for every
+playable set (Fox's `hip-bump` was drawn at 0.7× idle, Amber's dig/snow-scoop/
+spring-jump/skip-hop at 1.36×).
 
 **Anchor.** In base-art mode the anchor is the bottom-center of the cropped
 base image. Match that: `anchor.x` is the horizontal center of the body's
@@ -1067,7 +1077,6 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `sprites/princess-amber`: `dig`, `spring-jump`, `snow-scoop`, `skip-hop` (frames dig-00, spring-jump-00, snow-scoop-00, skip-hop-00) | Drawn about 1.45× too big: the eyes are about 1.45× as far apart as in idle and `reel`, so in game she looks much bigger than everyone else (Treasure Dig, Snowball Splat, Jump Rope, Cloud Hop). Feet are on the anchor and the poses read fine. | Re-export these 4 frames at idle's scale (scale by about 0.69), or give these poses their own `bodyHeight` of about 390 in `sprites.json` (now 270). Keep the pose, anchor and landmarks. |
 | `sprites/marshmallow-birthday-cake`: `hand` point on idle and walk frames | The idle/walk `hand` is at the top centre of the head, so the Mini-Golf putter and the Piñata Party bat (drawn while aiming or walking) come out of its head and the putter crosses its face. | Move the `hand` landmark on the cake's idle and walk frames to its front edge at mid-body height (where its `reel`/`putt` frames hold things). Landmark data only; no new pixels needed. |
 | `sprites/hotdog`: `pull` (frames pull-00, pull-01) (low priority) | The paws (hand point, about 0.47× height) sit right under the mouth, so the Tug-of-War rope covers the lower face and part of the eyes. | Redraw with the paws held at chest or belly height (about 0.30–0.35× height above the feet) so the face stays clear above the rope. |
 | `prop/fishing-rod` (optional) | The rod fills only the middle 37% of its canvas (x 161–350 of 512) with a 2–3 px shaft, so in game it was a near-invisible hairline. A static rod also can't bend, and the rod bends on every nibble and tug as tension feedback, so the game now always draws the rod itself and this file is unused. | Only if rod art is wanted: 512×64, transparent, a chunky kid's rod **handle only** (cork grip plus a big yellow reel), butt at the left edge, the shaft's start at the right edge, filling the full width, about 24 px thick, navy outline. The code would draw it from the butt to the hand and keep its own bending shaft. Otherwise drop the key. |

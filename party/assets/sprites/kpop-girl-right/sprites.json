@@ -2454,7 +2454,8 @@
             114
           ]
         }
-      ]
+      ],
+      "bodyHeight": 233.8
     },
     "broom-glide": {
       "fps": 5,
@@ -2562,7 +2563,8 @@
             138
           ]
         }
-      ]
+      ],
+      "bodyHeight": 220.0
     },
     "hold-present": {
       "fps": 5,
@@ -2598,7 +2600,8 @@
             128
           ]
         }
-      ]
+      ],
+      "bodyHeight": 220.0
     },
     "catch-present": {
       "fps": 5,
@@ -2634,7 +2637,8 @@
             133
           ]
         }
-      ]
+      ],
+      "bodyHeight": 220.0
     },
     "toss": {
       "fps": 5,
@@ -2670,7 +2674,8 @@
             150
           ]
         }
-      ]
+      ],
+      "bodyHeight": 220.0
     },
     "crowned": {
       "fps": 5,
@@ -2706,7 +2711,8 @@
             121
           ]
         }
-      ]
+      ],
+      "bodyHeight": 220.0
     },
     "flip": {
       "fps": 7,
@@ -3002,7 +3008,8 @@
           ],
           "dur": 0.12
         }
-      ]
+      ],
+      "bodyHeight": 220.0
     },
     "hip-bump": {
       "fps": 7,

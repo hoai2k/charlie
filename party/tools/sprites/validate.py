@@ -62,6 +62,8 @@ def validate(root, strict=False):
             if definition.get('fps', 8) <= 0: error(label + f'{name} fps must be positive')
             if not 0 <= definition.get('motion', .25) <= 1: error(label + f'{name} motion outside 0..1')
             if not definition.get('frames'): error(label + f'{name} empty frames')
+            bad_bh = lambda v: v is not None and (not isinstance(v, (int, float)) or v <= 0)
+            if bad_bh(definition.get('bodyHeight')): error(label + f'{name} invalid pose bodyHeight')
             for entry in definition.get('frames', []):
                 nframes += 1
                 frame = {'src': entry} if isinstance(entry, str) else {'rect': entry} if isinstance(entry, list) else entry
@@ -70,6 +72,7 @@ def validate(root, strict=False):
                 if not isinstance(anchor, list) or len(anchor) != 2 or not all(isinstance(v, (float, int)) for v in anchor):
                     error(label + f'{name} invalid anchor')
                 if frame.get('dur', 1) <= 0: error(label + f'{name} duration must be positive')
+                if bad_bh(frame.get('bodyHeight')): error(label + f'{name} invalid frame bodyHeight')
                 rect = frame.get('rect')
                 if rect and im:
                     if len(rect) != 4 or min(rect[:2]) < 0 or min(rect[2:]) <= 0 or rect[0] + rect[2] > im.width or rect[1] + rect[3] > im.height:

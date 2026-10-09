@@ -30,7 +30,7 @@ const manifest = { bodyHeight: 100, anchor: [50, 120], facing: 1, poses: {
   run: { alias: 'jog', fps: 12 }, jog: 'walk',
   idle: { frames: [{ src: 'idle.webp', fileHash: 'pixels-v1' }, { src: 'idle.webp', fileHash: 'pixels-v2' }], fps: 5 },
   walk: { frames: ['a.webp', 'b.webp'], fps: 4 },
-  throw: { frames: [{ src: 'a.webp', dur: .1 }, { src: 'b.webp', dur: .3 }], loop: false, facing: -1 },
+  throw: { frames: [{ src: 'a.webp', dur: .1 }, { src: 'b.webp', dur: .3, bodyHeight: 80 }], loop: false, facing: -1 },
 } };
 globalThis.fetch = async (url) => ({ ok: true, json: async () => url.endsWith('index.json') ? { sets: ['felicity'] } : manifest });
 await loadSprites();
@@ -43,6 +43,9 @@ assert.notEqual(set.poses.idle.frames[0].img, set.poses.idle.frames[1].img); // 
 assert.equal(set.poses.run.frames, set.poses.walk.frames);
 assert.equal(set.poses.run.fps, 12);
 assert.equal(set.poses.throw.facing, -1);
+assert.equal(set.poses.throw.frames[1].bodyHeight, 80); // per-frame size correction is loaded
+assert.equal(set.poses.throw.frames[0].bodyHeight, null);
+set.poses.throw.frames[1].bodyHeight = null;
 const actor = new Actor('felicity');
 actor.setPose('walk').playOnce('throw');
 assert.equal(actor._once.duration, .4);
@@ -68,4 +71,8 @@ assert.equal(drawn[0], set.poses.throw.frames[1].img);
 set.poses.throw.frames[1].hand = [70, 60];
 actor.snap();
 assert.deepEqual(actor.anchor('hand'), { x: actor.x - 20 * 178 / 100, y: actor.y - 60 * 178 / 100 });
+// A per-frame bodyHeight rescales that frame (and its landmarks) only.
+set.poses.throw.frames[1].bodyHeight = 50;
+assert.deepEqual(actor.anchor('hand'), { x: actor.x - 20 * 178 / 50, y: actor.y - 60 * 178 / 50 });
+set.poses.throw.frames[1].bodyHeight = null;
 console.log('Draw timing and sprite landmark tests passed.');

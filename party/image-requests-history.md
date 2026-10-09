@@ -621,6 +621,7 @@ tucked, arms out to the sides, happy face.
 
 ##### Resolved (integrated and checked in game)
 
+- `sprites/princess-amber` `dig`, `spring-jump`, `snow-scoop`, `skip-hop` drawn ~1.36× too big: fixed in data with per-pose `bodyHeight` (the October size audit, which also normalized head size across all 15 playable sets); no new art needed.
 - `prop/ing-rainbow-feather`, `ing-stardust-jar`, `ing-moon-drop`: now Potion Class ingredients (Rainbow Feather, Stardust, Moon Drop). Each class stocks a random 8 of the 11 on its shelf.
 - `prop/cake-stand` v3: Cake Bakery's stand (plate stretched to the code's plate ellipse; the drawn stand is the fallback).
 - `pump` pose (all 15 playable characters, 2 frames): Balloon Pump plays it while a player pumps; checked in game with 4 CPUs (2026-10-05).
