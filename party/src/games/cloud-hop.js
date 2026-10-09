@@ -1,6 +1,6 @@
 // Cloud Hop - everyone races up one shared sky tower of fluffy clouds. You
 // bounce automatically every time you land; steer left/right and press A in
-// the air for one extra flutter hop. Pink clouds and trampolines are super
+// the air for one extra Air Hop (double jump). Pink clouds and trampolines are super
 // springy, sleepy rain clouds puff away after one bounce, lavender clouds
 // drift. Grab 3 stars for a Rocket Bounce, bonk off friends' heads for a
 // boost, and land on the golden rainbow summit first. Fall off the bottom of
@@ -34,7 +34,7 @@ const ROWS = 76;              // cloud rows between the floor and the summit
 const G = 2500;               // gravity px/s^2
 const BOUNCE_V = 1140;        // normal cloud bounce  (apex ~260 px)
 const SPRING_V = 1760;        // pink cloud / trampoline (apex ~620 px)
-const HOP_V = 900;            // the one mid-air flutter hop
+const HOP_V = 900;            // the one mid-air Air Hop (double jump)
 const BONK_V = 1280;          // bouncing off someone's head
 const ROCKET_V = 2350;        // 3 stars
 const TERM = 1500;            // max fall speed
@@ -77,7 +77,7 @@ export const meta = {
   category: 'party',
   type: 'Race',
   goal: 'Bounce up the sky tower of clouds and reach the golden rainbow first!',
-  controls: [['stick', 'Steer left and right'], ['a', 'Flutter hop (in the air)']],
+  controls: [['stick', 'Steer left and right'], ['a', 'Air Hop (double jump)']],
   tips: ['You bounce by yourself! Pink clouds and trampolines bounce you super high.', 'Grab 3 stars for a ROCKET BOUNCE!', 'Grey rain clouds puff away after one bounce. Bonk off heads for a boost!'],
   music: 'bouncy',
   duration: '45 sec',
