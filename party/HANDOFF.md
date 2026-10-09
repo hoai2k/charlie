@@ -28,18 +28,15 @@ Done and pushed this session (all tested headless in Playwright):
 - Music: title anthem carries over the menus once (`music.carryTitle()`,
   `music.menu()`), then the menu loop.
 
-In progress:
-- **Sprite size audit** (user: "audit the sprite sizes for all the characters
-  across the games, and ensure that they maintain a consistent character
-  size"; trigger was Fox shrinking on `hip-bump` in Musical Cushions; Amber's
-  dig/spring-jump/snow-scoop/skip-hop are ~1.45x). A background agent works in
-  worktree branch `worktree-agent-aa758eadd38bed57e`
-  (`.claude/worktrees/agent-aa758eadd38bed57e`). If the session restarts and
-  the agent is gone: check that branch for commits; merge it (take ours for
-  `party/index.html`, then restamp), verify Fox hip-bump and Amber poses in
-  game, add regen rows for art that must be redrawn, push. If nothing was
-  committed, redo the audit: measure each pose frame's head size vs idle per
-  character and fix scale in data or with a per-pose scale in the engine.
+- Sprite size audit: merged (agent branch `worktree-agent-aa758eadd38bed57e`).
+  Frames/poses in the 15 `sprites/<set>/sprites.json` now carry their own
+  `bodyHeight` (frame > pose > set, `frameBodyHeight()` in `sprites.js`) so
+  every pose keeps idle head size; 449 frames rescaled in data, no art
+  changed. New art that comes in at a different scale: add a pose/frame
+  `bodyHeight` instead of asking for a redraw (documented in
+  image-requests.md 3.3).
+
+In progress: nothing.
 
 ### Music generation (ElevenLabs Eleven Music, `music_v2_5`): finished
 - The user topped up ElevenLabs credits and asked to finish all songs.
