@@ -1,5 +1,5 @@
 // Snowball Splat - a top-down snowball free-for-all in a snowy garden.
-// Hold A on the snow to pack snowballs (up to 3), tap A to throw the way you
+// Hold A on the snow to pack snowballs (up to 3), press RT to throw the way you
 // face (or aim with the right stick). Every splat on a friend is +1. Hide
 // behind snow-fort walls and snowmen: they crumble when hit, then pop back up.
 // Power-ups: a GIANT snowball that rolls over everyone in its path, and the
@@ -77,7 +77,7 @@ export const meta = {
   category: 'party',
   type: 'Free-for-all',
   goal: 'Splat your friends with snowballs! Most splats wins.',
-  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs - Tap: throw!'], ['rstick', 'Aim (or just throw the way you face)']],
+  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs'], ['rt', 'Throw!'], ['rstick', 'Aim (or just throw the way you face)']],
   tips: ['Hide behind snow walls and snowmen - they crumble, then pop back up!', 'Grab the GIANT snowball - it rolls over everyone!', 'The red mitten throws three at once. No snow on the ice!'],
   music: 'chase',
   duration: '50 sec',
@@ -267,15 +267,9 @@ export class Game {
     const raw = rmag > 0.35 ? Math.atan2(c.ry, c.rx) : U.face;
     U.aim = p.isAI ? raw : this.assist(U, raw, rmag > 0.35 ? 0.14 : 0.42);
 
-    // scooping: hold A with no snowballs (or hold B any time)
+    // packing: hold A (B works too); throwing is only RT (RB / X too), so the two never mix
     const stunned = U.stun > 0;
-    // (holding A always ends up scooping: right away when you're out, or after
-    // a short hold when the tap already threw one)
-    U.aHeld = c.held('a') ? (U.aHeld || 0) + dt : 0;
-    if (c.pressed('a') && U.ammo === 0 && !U.giant) U.scoopMode = true;
-    if (c.held('a') && !U.giant && (U.ammo === 0 || U.aHeld >= 0.32)) U.scoopMode = true;
-    if (!c.held('a')) U.scoopMode = false;
-    const wantScoop = !stunned && !U.giant && U.ammo < MAX_AMMO && ((U.scoopMode && c.held('a')) || c.held('b'));
+    const wantScoop = !stunned && !U.giant && U.ammo < MAX_AMMO && (c.held('a') || c.held('b'));
     let scooping = false;
     if (wantScoop) {
       if (onIce) {
@@ -303,8 +297,8 @@ export class Game {
     }
     if (!scooping) U.scoopT = Math.max(0, U.scoopT - dt * 0.5);
 
-    // throw: tap A (when you have snowballs) or RT
-    const throwPress = (c.pressed('a') && !U.scoopMode) || c.pressed('rt') || c.pressed('rb');
+    // throw: RT (or RB / X, e.g. L or E on a keyboard)
+    const throwPress = c.pressed('rt') || c.pressed('rb') || c.pressed('x');
     if (throwPress && !stunned && (U.giant || U.ammo > 0)) this.doThrow(U);
 
     // movement
@@ -1047,8 +1041,7 @@ export class Game {
       const al = this.t < 5 ? 1 : 1 - (this.t - 5);
       g.save(); g.globalAlpha = clamp(al, 0, 1);
       ui.panel(g, W / 2 - 520, 994, 1040, 70, { r: 35 });
-      ui.glyph(g, 'a', W / 2 - 470, 1029, 46, { pulse: true });
-      ui.text(g, 'Hold A to make snowballs  -  tap A to throw!', W / 2 + 25, 1030, { size: 36, color: NAVY, stroke: false, maxWidth: 900 });
+      ui.hints(g, [['a', 'Hold to make snowballs'], ['rt', 'Throw!'], ['rstick', 'Aim']], W / 2, 1030, { size: 36 });
       g.restore();
     }
   }
