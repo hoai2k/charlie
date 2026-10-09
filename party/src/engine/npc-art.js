@@ -1,6 +1,6 @@
 // Stateless rendering for the small NPCs owned by minigame simulations.
 // Their game code keeps movement, lightning, glitter and collision timing.
-import { getSpriteSet, ensureSpriteSet, resolvePose, pickFrame, usablePose } from './sprites.js';
+import { getSpriteSet, ensureSpriteSet, resolvePose, pickFrame, usablePose, frameBodyHeight } from './sprites.js';
 
 export function drawNpcSprite(g, asset, x, y, height, time, {
   pose = 'idle', facing = 1, alpha = 1, rotation = 0, bob = 0,
@@ -10,7 +10,7 @@ export function drawNpcSprite(g, asset, x, y, height, time, {
   const animation = set && usablePose(set, resolvePose(set, pose) || set.poses.idle);
   if (!animation) return false;
   const frame = pickFrame(animation, Math.max(0, time));
-  const scale = height / (animation.bodyHeight || set.bodyHeight);
+  const scale = height / frameBodyHeight(animation, frame, set.bodyHeight);
   const anchor = frame.anchor || set.anchor;
   const direction = facing * ((animation.facing ?? set.facing) === -1 ? -1 : 1);
   g.save();

@@ -236,6 +236,9 @@ async function loadSpriteSet(asset) {
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,
         eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
         headAngle: fo.headAngle ?? def.headAngle ?? 0,
+        // Per-frame size correction: a frame drawn at a different scale than
+        // idle names its own bodyHeight (frame px for the member's h).
+        bodyHeight: Number.isFinite(fo.bodyHeight) && fo.bodyHeight > 0 ? fo.bodyHeight : null,
       };
       if (fr.src) fr.load = () => fr.loading || (fr.loading = getFrameImg(fr.src, fo.fileHash).then(({ img, k: fk }) => {
         if (!img) { fr.failed = true; return; }
@@ -272,6 +275,9 @@ async function loadSpriteSet(asset) {
   }
   return set;
 }
+
+/** Frame pixels that map to the member's h: frame, then pose, then set bodyHeight. */
+export function frameBodyHeight(sp, fr, fallback) { return (fr && fr.bodyHeight) || sp.bodyHeight || fallback; }
 
 function loadPose(sp) { return Promise.all(sp.frames.map((f) => (f.load ? f.load() : null))); }
 const poseReady = (sp) => sp.frames.every((f) => f.img || f.failed) && !sp.frames.some((f) => f.failed);
@@ -323,7 +329,7 @@ function variantImg(fr, sp, asset, charId, v, force = false) {
   const mask = MASK_SETS.has(asset) && rules.some((r) => r.mask) ? frameMask(fr, asset) : false;
   if (mask === null || !takeBakeBudget(force)) return null;
   const k = fr.k || 1, sc = (pt) => (pt ? [pt[0] * k, pt[1] * k] : null);
-  const land = { eyes: sc(fr.eyes), neck: sc(fr.neck), head: sc(fr.head), anchor: sc(fr.anchor), bodyH: (sp.bodyHeight || 1) * k, k };
+  const land = { eyes: sc(fr.eyes), neck: sc(fr.neck), head: sc(fr.head), anchor: sc(fr.anchor), bodyH: frameBodyHeight(sp, fr, 1) * k, k };
   const t0 = performance.now();
   let out;
   try { out = recolorFrame(fr.img, null, rules, land, mask || null); } catch (e) { out = fr.img; } // unreadable canvas
@@ -727,7 +733,7 @@ export class Actor {
     if (sp) {
       const fr = pickFrame(sp, t), point = fr[name];
       if (point) {
-        const a = fr.anchor || set.anchor, scale = h / (sp.bodyHeight || set.bodyHeight);
+        const a = fr.anchor || set.anchor, scale = h / frameBodyHeight(sp, fr, set.bodyHeight);
         const flip = (sp.facing ?? set.facing) === -1 ? -1 : 1;
         return { x: m.x + (point[0] - a[0]) * scale * flip * m.facing, y: m.y - this.z + (point[1] - a[1]) * scale };
       }
@@ -906,7 +912,7 @@ export class Actor {
       const fr = pickFrame(sp, t);
       img = fr.img; rect = fr.rect; anchor = fr.anchor || set.anchor;
       if (this.variant) img = variantImg(fr, sp, def.asset, this.charId, this.variant, true) || fr.img;
-      bodyH = sp.bodyHeight || set.bodyHeight; artFacing = sp.facing ?? set.facing;
+      bodyH = frameBodyHeight(sp, fr, set.bodyHeight); artFacing = sp.facing ?? set.facing;
     } else {
       img = baseImages.get(def.asset);
       if (!img) return;
