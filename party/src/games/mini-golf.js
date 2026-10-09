@@ -1,6 +1,7 @@
 // Candy Mini-Golf - everyone putts at the same time on the same candyland
-// hole. Aim with the stick (the dots show where the ball will roll), hold A
-// to swing the power meter, let go to putt. Balls bounce off gumdrops and
+// hole. Move the target marker with the stick: the line from the ball shows
+// the direction and its length the strength (the ball rolls about that far on
+// flat felt). Press A to putt. Balls bounce off gumdrops and
 // candy-cane rails and knock each other around. 3 short holes; the first
 // ball in the cup scores the most, a hole in one earns a bonus.
 //
@@ -8,7 +9,7 @@
 //   bg/mini-golf  thumb/mini-golf  prop/golf-gumdrop  prop/golf-lollipop
 //   prop/golf-spinner-hub  prop/golf-donut  prop/golf-donut-exit  prop/golf-jelly
 //   prop/golf-cookie-bridge  prop/golf-flag  prop/golf-cup
-// Poses: 'putt' while charging and 'putt-swing' on the stroke; characters
+// Poses: 'putt' while lining up and 'putt-swing' on the stroke; characters
 // without those frames yet fall back to crouch / action.
 import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
@@ -19,13 +20,16 @@ import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
 import { clamp, lerp, rand, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import {
-  HOLES, BALL_R, stepBall, pointInPoly, substeps, simulate, buildField, teeSpots, powerToSpeed, powerForDistance, warpOut,
+  HOLES, BALL_R, stepBall, pointInPoly, substeps, simulate, buildField, teeSpots, powerToSpeed, powerForDistance, rollDistance, warpOut,
 } from './mini-golf/course.js';
 import * as D from './mini-golf/draw.js';
 
 const NAVY = D.NAVY;
 const HOLE_T = 20;                 // seconds per hole
-const METER_T = 1.0;               // power meter: empty to full
+const METER_T = 1.0;               // (CPU planning only: time it used to take to line up)
+const AIM_MIN = 45;                 // shortest target distance (px)
+const AIM_MAX = 620;                // longest: a full-power putt
+const AIM_SPEED = 560;              // target marker speed at full stick (px/s)
 const PTS = [5, 4, 3, 2, 2, 1, 1, 1];
 const HIO_BONUS = 2;
 const WALK = 660;
@@ -33,7 +37,6 @@ const ORD = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const angDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
 const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) * 2;
-const tri = (t) => { const u = (t / METER_T) % 2; return u <= 1 ? u : 2 - u; };
 
 // CPU tuning per level (Easy, Normal, Hard)
 const AI_THINK = [[0.8, 1.6], [0.5, 1.0], [0.3, 0.6]];
@@ -47,8 +50,8 @@ export const meta = {
   category: 'party',
   type: 'Everyone putts at once',
   goal: 'Putt your ball into the cup before everyone else - 3 candy holes!',
-  controls: [['stick', 'Aim (follow the dots)'], ['a', 'Hold to power up, let go to putt']],
-  tips: ['The first ball in the cup gets the most points!', 'Watch the dots - they show where your ball will roll.', 'A hole in one wins a bonus!'],
+  controls: [['stick', 'Move the target: the longer the line, the harder the putt'], ['a', 'Putt!']],
+  tips: ['The first ball in the cup gets the most points!', 'Put the target on the cup to roll right up to it. Watch out for bumpers!', 'A hole in one wins a bonus!'],
   music: 'bouncy',
   duration: '3 holes, about 60 sec',
   minPlayers: 1,
@@ -103,7 +106,7 @@ export class Game {
       U.lastShot = { x: s.x, y: s.y };
       U.aim = 0; U.side = -1; U.turnHold = 0;
       U.done = false; U.rank = 0; U.holePts = 0; U.holeHio = false; U.strokes = 0; U.sinkTime = null;
-      U.charging = false; U.power = 0; U.meterT = 0; U.swingT = 0; U.celebT = 0; U.gallery = null; U.guide = null;
+      U.charging = false; U.power = 0; U.meterT = 0; U.swingT = 0; U.celebT = 0; U.gallery = null; U.guide = null; U.tgt = null; U.wasReady = false;
       U.ai = { phase: 'idle' };
       U.ctx.hole = hole;
       if (U.p.isAI) { U.p.ctrl.hold('a', false); U.p.ctrl.move(0, 0); }
@@ -197,63 +200,50 @@ export class Game {
       this.collideBalls();
     }
     for (const U of this.units) if (U.ball.mode === 'play' && !pointInPoly(U.ball.x, U.ball.y, this.hole.outline)) this.ballEvent(U, 'oob');
-    // guides for humans (and the CPU aim arrow) are recomputed every frame
-    for (const U of this.units) {
-      const ready = this.canPutt(U);
-      U.guide = null;
-      if (ready && U.charging && !U.p.isAI) {
-        const b = U.ball, v = powerToSpeed(Math.max(0.03, U.power));
-        U.guide = simulate(this.hole, b.x, b.y, Math.cos(U.aim) * v, Math.sin(U.aim) * v, { record: 24, maxT: 4 });
-      }
-    }
+  }
+
+  /** Aim with a target marker relative to the ball: direction = aim, distance = strength. */
+  resetTarget(U) {
+    const b = U.ball, cup = this.hole.cup;
+    const d = clamp(Math.hypot(cup.x - b.x, cup.y - b.y) * 0.7, AIM_MIN + 60, 340);
+    const a = Math.atan2(cup.y - b.y, cup.x - b.x);
+    U.tgt = { dx: Math.cos(a) * d, dy: Math.sin(a) * d };
   }
 
   updateAim(U, dt) {
     if (U.done || this.phase !== 'play') return;
+    const ready = this.canPutt(U);
+    if (!ready) { U.wasReady = false; return; }
+    if (!U.wasReady || !U.tgt) { U.wasReady = true; this.resetTarget(U); }
     const c = U.p.ctrl;
-    const mx = c.x, my = c.y, mag = Math.hypot(mx, my);
-    if (mag > 0.3) {
-      const target = Math.atan2(my, mx);
-      let rate;
-      if (c.kind === 'pad' && Math.hypot(c.sx, c.sy) > 0.3) rate = 12;      // analog stick: point it
-      else if (c.kind === 'ai') rate = 4.5;
-      else { U.turnHold += dt; rate = Math.min(3.6, 0.7 + U.turnHold * 3); } // keys / d-pad: swing toward
-      const d = angDiff(target, U.aim), step = rate * dt;
-      U.aim += clamp(d, -step, step);
+    let mx = c.x, my = c.y;
+    const mag = Math.hypot(mx, my);
+    if (mag > 0.15) {
+      // analog sticks move it by how far they're tilted; keys/d-pad speed up the longer they're held
+      const analog = c.kind === 'pad' && Math.hypot(c.sx, c.sy) > 0.15;
+      if (!analog) { U.turnHold += dt; const k = Math.min(1, 0.35 + U.turnHold * 1.1); mx = (mx / mag) * k; my = (my / mag) * k; }
+      U.tgt.dx += mx * AIM_SPEED * dt; U.tgt.dy += my * AIM_SPEED * dt;
     } else U.turnHold = 0;
+    let d = Math.hypot(U.tgt.dx, U.tgt.dy);
+    if (d < AIM_MIN) { const a = d > 0.01 ? Math.atan2(U.tgt.dy, U.tgt.dx) : U.aim; U.tgt.dx = Math.cos(a) * AIM_MIN; U.tgt.dy = Math.sin(a) * AIM_MIN; d = AIM_MIN; }
+    if (d > AIM_MAX) { U.tgt.dx *= AIM_MAX / d; U.tgt.dy *= AIM_MAX / d; d = AIM_MAX; }
+    U.aim = Math.atan2(U.tgt.dy, U.tgt.dx);
+    U.power = clamp(powerForDistance(d), 0.03, 1);
     const cs = Math.cos(U.aim);
     if (cs > 0.25) U.side = -1; else if (cs < -0.25) U.side = 1;
   }
 
   updateShot(U, dt) {
     U.swingT = Math.max(0, U.swingT - dt);
-    const c = U.p.ctrl;
-    if (c.pressed('a')) U.aFresh = true;            // a press made just before the ball is ready still counts
-    else if (!c.held('a')) U.aFresh = false;
-    const ready = this.canPutt(U);
-    if (!ready) {
-      if (U.charging) { U.charging = false; U.power = 0; }
-      return;
-    }
-    if (!U.charging && U.aFresh && c.held('a')) {
-      U.aFresh = false;
-      U.charging = true; U.meterT = 0; U.power = 0;
-      U.a.squash(0.12);
-      snd('golf-charge', 'tick', { vol: 0.35 });
-    }
-    if (U.charging) {
-      if (!c.held('a')) { this.putt(U); return; }
-      const before = U.meterT;
-      U.meterT += dt; U.power = tri(U.meterT);
-      if (Math.floor(before / METER_T) !== Math.floor(U.meterT / METER_T) && Math.floor(U.meterT / METER_T) % 2 === 1) sfx('tick', { vol: 0.25 });
-    }
+    if (!this.canPutt(U) || !U.tgt) return;
+    if (U.p.ctrl.pressed('a')) this.putt(U);
   }
 
   putt(U) {
     const b = U.ball, p = Math.max(0.03, U.power), v = powerToSpeed(p);
     b.vx = Math.cos(U.aim) * v; b.vy = Math.sin(U.aim) * v;
     U.strokes++; U.lastShot = { x: b.x, y: b.y }; b.pinned = false;
-    U.charging = false; U.power = 0; U.swingT = 0.22; U.shotPow = p;
+    U.charging = false; U.swingT = 0.22; U.shotPow = p; U.wasReady = false;
     U.a.playOnce('putt-swing', 0.35); U.a.squash(0.22);   // falls back to action
     snd('golf-putt', 'hit', { vol: 0.45 + 0.55 * p });
     if (p > 0.6) sfx('whoosh', { vol: 0.5 * p });
@@ -473,7 +463,7 @@ export class Game {
         const s = Math.hypot(b.vx, b.vy);
         if (s < 260 || this.phase !== 'play') { const sp = this.standSpot(U); tx = sp.x; ty = sp.y; face = -U.side; }
         else face = b.x > a.x ? 1 : -1;
-        if (U.charging) rest = 'putt';   // falls back to crouch
+        if (this.canPutt(U)) rest = 'putt';   // lining up; falls back to crouch
       } else if (b.mode === 'splash') {
         const sx = U.lastShot.x + U.side * (34 + Math.min(70, a.width * 0.3)); tx = sx; ty = U.lastShot.y - 6;
       } else if (b.mode === 'warp') {
@@ -533,22 +523,19 @@ export class Game {
         ang += gauss() * AI_AIM_ERR[lvl];
         pow *= lvl === 0 ? (chance(0.7) ? rand(1.02, 1.3) : rand(0.85, 1.0)) : lvl === 1 ? rand(0.93, 1.1) : rand(0.97, 1.03);
         A.ang = ang; A.pow = clamp(pow, 0.03, 1);
-        A.lag = lvl === 0 ? rand(0.03, 0.14) : lvl === 1 ? rand(0.01, 0.06) : rand(0, 0.03);
-        A.comp = [0, 0.02, 0.015][lvl];
-        A.phase = 'aim';
+        // where to put the target marker for that shot (distance = how far it rolls on flat felt)
+        const td = clamp(rollDistance(powerToSpeed(A.pow)), AIM_MIN, AIM_MAX);
+        A.tx = Math.cos(ang) * td; A.ty = Math.sin(ang) * td;
+        A.phase = 'aim'; A.ct = 0;
       }
     }
     if (A.phase === 'aim') {
-      c.move(Math.cos(A.ang), Math.sin(A.ang));
-      if (Math.abs(angDiff(U.aim, A.ang)) < 0.012) { U.aim = A.ang; c.move(0, 0); c.hold('a', true); A.phase = 'charge'; A.rel = null; A.ct = 0; }
-    } else if (A.phase === 'charge') {
+      // slide the marker to the chosen spot like a player would, then putt
       A.ct += dt;
-      if (U.charging) {
-        const rising = (U.meterT % (2 * METER_T)) < METER_T;
-        const goal = Math.min(0.985, A.pow) - A.comp;
-        if (A.rel === null && rising && U.power >= goal) A.rel = this.t + A.lag;
-        if ((A.rel !== null && this.t >= A.rel) || A.ct > 4) { c.hold('a', false); A.phase = 'wait'; }
-      } else if (A.ct > 0.3) { c.hold('a', false); A.phase = 'aim'; }
+      if (!U.tgt) return budget;
+      const ex = A.tx - U.tgt.dx, ey = A.ty - U.tgt.dy, e = Math.hypot(ex, ey);
+      if (e < 8 || A.ct > 5) { c.move(0, 0); U.tgt.dx = A.tx; U.tgt.dy = A.ty; c.press('a'); A.phase = 'wait'; }
+      else { const k = clamp(e / 120, 0.2, 1); c.move((ex / e) * k, (ey / e) * k); }
     }
     return budget;
   }
@@ -643,49 +630,34 @@ export class Game {
     const b = U.ball;
     if (!this.canPutt(U)) return;
     const human = !U.p.isAI;
-    const ca = Math.cos(U.aim), sa = Math.sin(U.aim);
     g.save();
-    if (U.charging && U.guide && human) {
-      // predicted roll: dots that grow and shrink with the power meter
-      const path = U.guide.path;
-      let n = 0;
-      for (let i = 1; i < path.length; i++) {
-        const q = path[i];
-        if (Number.isNaN(q.x)) continue;
-        n++;
-        const fade = clamp(1 - n / 70, 0.35, 1);
-        g.globalAlpha = fade;
-        g.fillStyle = NAVY; g.beginPath(); g.arc(q.x, q.y - q.z, 7.5, 0, TAU); g.fill();
-        g.fillStyle = i % 2 ? '#ffffff' : U.p.color; g.beginPath(); g.arc(q.x, q.y - q.z, 5, 0, TAU); g.fill();
-      }
-      const end = path[path.length - 1];
-      g.globalAlpha = 0.9;
-      g.strokeStyle = NAVY; g.lineWidth = 7; g.beginPath(); g.ellipse(end.x, end.y, 22, 13, 0, 0, TAU); g.stroke();
-      g.strokeStyle = U.guide.end === 'sink' ? '#ffd23f' : U.p.color; g.lineWidth = 4; g.beginPath(); g.ellipse(end.x, end.y, 22, 13, 0, 0, TAU); g.stroke();
-      g.globalAlpha = 1;
-    } else {
-      // aim arrow
-      const len = human ? 150 : 90;
-      g.globalAlpha = human ? 0.95 : 0.6;
-      for (let k = 1; k <= (human ? 6 : 3); k++) {
-        const d = BALL_R + 12 + (k * len) / (human ? 6 : 3);
-        const x = b.x + ca * d, y = b.y + sa * d;
-        g.fillStyle = NAVY; g.beginPath(); g.arc(x, y, 6.5, 0, TAU); g.fill();
-        g.fillStyle = '#ffffff'; g.beginPath(); g.arc(x, y, 4.2, 0, TAU); g.fill();
-      }
-      const tx = b.x + ca * (BALL_R + 30 + len), ty = b.y + sa * (BALL_R + 30 + len);
-      g.fillStyle = U.p.color; g.strokeStyle = NAVY; g.lineWidth = 4;
-      g.beginPath(); g.moveTo(tx + ca * 16, ty + sa * 16); g.lineTo(tx - sa * 12, ty + ca * 12); g.lineTo(tx + sa * 12, ty - ca * 12); g.closePath(); g.fill(); g.stroke();
-      g.globalAlpha = 1;
+    if (!U.tgt) { g.restore(); return; }
+    // straight line from the ball to the target marker; its length is the strength
+    const tx = b.x + U.tgt.dx, ty = b.y + U.tgt.dy, d = Math.hypot(U.tgt.dx, U.tgt.dy);
+    const k = clamp((d - AIM_MIN) / (AIM_MAX - AIM_MIN), 0, 1);
+    const col = `hsl(${Math.round(130 - 130 * k)}, 85%, 55%)`;   // green (soft) .. red (full power)
+    const dots = Math.max(2, Math.round(d / 34));
+    g.globalAlpha = human ? 0.95 : 0.5;
+    for (let i = 1; i < dots; i++) {
+      const u = i / dots, x = b.x + U.tgt.dx * u, y = b.y + U.tgt.dy * u;
+      if (Math.hypot(x - b.x, y - b.y) < BALL_R + 8) continue;
+      g.fillStyle = NAVY; g.beginPath(); g.arc(x, y, human ? 6.5 : 5, 0, TAU); g.fill();
+      g.fillStyle = col; g.beginPath(); g.arc(x, y, human ? 4.3 : 3.2, 0, TAU); g.fill();
     }
-    // power ring around the ball
-    if (U.charging) {
-      const r = 34;
-      g.lineCap = 'round';
-      g.strokeStyle = 'rgba(36,22,63,0.45)'; g.lineWidth = 12; g.beginPath(); g.arc(b.x, b.y, r, 0, TAU); g.stroke();
-      g.strokeStyle = `hsl(${Math.round(130 - 130 * U.power)}, 90%, 55%)`; g.lineWidth = 8;
-      g.beginPath(); g.arc(b.x, b.y, r, -Math.PI / 2, -Math.PI / 2 + Math.max(0.05, U.power) * TAU); g.stroke();
+    // the marker: a ring with a cross, gold when it's on the cup
+    const cup = this.hole.cup, onCup = Math.hypot(tx - cup.x, ty - cup.y) < 26;
+    const pulse = 1 + Math.sin(this.t * 6) * 0.06, rr = (human ? 26 : 18) * pulse;
+    g.lineWidth = 7; g.strokeStyle = NAVY; g.beginPath(); g.ellipse(tx, ty, rr, rr * 0.62, 0, 0, TAU); g.stroke();
+    g.lineWidth = 4; g.strokeStyle = onCup ? '#ffd23f' : U.p.color; g.beginPath(); g.ellipse(tx, ty, rr, rr * 0.62, 0, 0, TAU); g.stroke();
+    g.lineWidth = 3; g.beginPath(); g.moveTo(tx - rr * 0.45, ty); g.lineTo(tx + rr * 0.45, ty); g.moveTo(tx, ty - rr * 0.3); g.lineTo(tx, ty + rr * 0.3); g.stroke();
+    if (human) {
+      // strength bar next to the ball
+      const bx = b.x - 40, by = b.y - 64, bw = 80, bh = 12;
+      g.globalAlpha = 0.95;
+      ui.roundRect(g, bx - 3, by - 3, bw + 6, bh + 6, 8); g.fillStyle = NAVY; g.fill();
+      ui.roundRect(g, bx, by, Math.max(bh, bw * k), bh, 6); g.fillStyle = col; g.fill();
     }
+    g.globalAlpha = 1;
     g.restore();
   }
 
@@ -699,7 +671,7 @@ export class Game {
         const hand = a.anchor('hand');
         const ca = Math.cos(U.aim), sa = Math.sin(U.aim);
         let back = 12;
-        if (U.charging) back = 14 + U.power * 46 + Math.sin(this.t * 10) * 1.5;
+        if (this.canPutt(U)) back = 14 + (U.power || 0.3) * 46 + Math.sin(this.t * 4) * 1.5;
         else if (U.swingT > 0) { const k = 1 - U.swingT / 0.22; back = lerp(14 + (U.shotPow || 0.5) * 46, -14, ease.outCubic(Math.min(1, k * 2))); }
         const d = BALL_R + 8 + back;
         D.drawPutter(g, hand.x, hand.y + 6, b.x - ca * d, b.y - sa * d, U.aim);
@@ -727,7 +699,7 @@ export class Game {
     g.restore();
     // hints
     if (this.phase === 'play') {
-      if (this.holeIdx === 0 && this.ht < 6) this.hintPanel(g, 'Aim with the stick - hold A, let go to putt!', 'a', this.ht, 6);
+      if (this.holeIdx === 0 && this.ht < 6) this.hintPanel(g, 'Move the target with the stick - press A to putt!', 'a', this.ht, 6);
       else if (this.holeIdx > 0 && this.ht < 4.5) this.hintPanel(g, hole.tip, null, this.ht, 4.5);
     }
     if (this.phase === 'intro') {
