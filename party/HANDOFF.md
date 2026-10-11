@@ -36,7 +36,21 @@ Done and pushed this session (all tested headless in Playwright):
   `bodyHeight` instead of asking for a redraw (documented in
   image-requests.md 3.3).
 
-In progress: nothing.
+In progress (user request 2026-10-11, tasks #17-19):
+1. D-pad also does UI selection (left/right or up/down choices) in games
+   where the left stick positions something (Fashion Show / Cake Bakery
+   were the examples). D-pad selects, never positions; stick positions.
+   Pattern from art-studio.js:365: pads use `c.sx/c.sy` for the cursor and
+   `c.pressed('left'...)` for UI; keyboard (WASD = d-pad) keeps `c.x/c.y`.
+2. Any placement (e.g. a bow in Pet Spa's bath) can be moved or removed
+   after it's placed.
+3. Fashion Show: on the runway players walk around and do poses on
+   different buttons (shared photo pose map), runway time longer while
+   humans are on stage so they can play and take photos.
+   Split: worktree agents do pet-spa, cake-bakery, fashion-show (brief in
+   the session scratchpad `dpad-brief.md`); the lead does dream-room,
+   bead-bracelets, potion-class, melody-maker, fairy-garden itself. If the
+   agents are lost, check `git branch | grep worktree-agent` for their work.
 
 ### Music generation (ElevenLabs Eleven Music, `music_v2_5`): finished
 - The user topped up ElevenLabs credits and asked to finish all songs.
