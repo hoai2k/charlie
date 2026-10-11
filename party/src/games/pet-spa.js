@@ -276,9 +276,9 @@ export const meta = {
   category: 'studio',
   type: 'Caring · Everyone together',
   goal: 'Give your muddy pet a bubbly bath and make it super happy!',
-  controls: [['stick', 'Move your hand'], ['a', 'Hold to use the tool'], ['rb', 'Change tool (LB / RB)'], ['x', 'Pick the next step'], ['b', 'Cuddle'], ['y', 'Squeaky duck']],
+  controls: [['stick', 'Move your hand'], ['a', 'Hold to use the tool'], ['dpad', 'Change tool ← → (or LB / RB)'], ['x', 'Pick the next step'], ['b', 'Cuddle'], ['y', 'Squeaky duck']],
   infoAt: 'tl',   // corner "i" (how to play): the bottom-left holds this game's tool bar
-  tips: ['Scrub off the mud, then rinse the bubbles.', 'Towel your pet dry — watch it shake!', 'Fill the heart meter for a happy dance. Then put on a show!'],
+  tips: ['Scrub off the mud, then rinse the bubbles.', 'Towel your pet dry — watch it shake!', 'Bows: D-pad ↑ ↓ picks one. Press A on a bow to move it, B to take it off.', 'Fill the heart meter for a happy dance. Then put on a show!'],
   music: 'chill',
   duration: '1–2 min',
   minPlayers: 1, maxPlayers: 8,
@@ -385,6 +385,7 @@ export class Game {
       k: Math.min(1.25, Math.max(0.6, Math.min(r.w / 460, r.h / 700))),
       cursor: { x: 0, y: 0, px: 0, py: 0, speed: 0 },
       tool: 0, accIdx: randInt(0, ACCESSORIES.length - 1),
+      held: null, hover: null, accPop: 0,   // bow being moved / bow under the hand
       done: false, doneT: 0, happy: 0, happyTarget: 0, care: 0,
       treats: 0, cuddles: 0, toys: 0,
       shakeT: 0, jumpT: -1, useT: 0, sfxT: 0, giggleT: 2, cooldown: 0, sparkleT: 0, dripT: 0,
@@ -535,29 +536,45 @@ export class Game {
     // Cursor
     const sp = 820 * s.k;
     const cur = s.cursor;
+    // On a gamepad only the stick moves the hand; the d-pad picks tools
+    // (left / right, like the tool bar) and bows (up / down).
+    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
     cur.px = cur.x; cur.py = cur.y;
-    cur.x = clamp(cur.x + c.x * sp * dt, r.x + 30, r.x + r.w - 30);
-    cur.y = clamp(cur.y + c.y * sp * dt, r.y + s.headerH + 10, r.y + r.h - s.toolH - 10);
+    cur.x = clamp(cur.x + mx * sp * dt, r.x + 30, r.x + r.w - 30);
+    cur.y = clamp(cur.y + my * sp * dt, r.y + s.headerH + 10, r.y + r.h - s.toolH - 10);
     cur.speed = damp(cur.speed, Math.hypot(cur.x - cur.px, cur.y - cur.py) / Math.max(dt, 1e-3), 12, dt);
     const motion = 1 + Math.min(1, cur.speed / (420 * s.k)) * 0.7;
 
     // Tool switching
-    if (c.pressed('rb')) this.setTool(s, (s.tool + 1) % TOOLS.length);
-    if (c.pressed('lb')) this.setTool(s, (s.tool + TOOLS.length - 1) % TOOLS.length);
+    if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % TOOLS.length);
+    if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + TOOLS.length - 1) % TOOLS.length);
+    if (pad && (c.pressed('up') || c.pressed('down'))) {
+      // Bow picker: jump to the Bows tool, or step through the bows when there.
+      if (TOOLS[s.tool].id !== 'bow') this.setTool(s, TOOL_IDX.bow);
+      else this.cycleAccessory(s, c.pressed('down') ? 1 : -1);
+    }
     if (c.pressed('x')) {
       const nt = this.nextTool(s);
       if (nt) this.setTool(s, TOOL_IDX[nt]); else { sfx('blip'); }
     }
     s.toolPop = Math.max(0, s.toolPop - dt * 3);
     s.cooldown -= dt; s.sfxT -= dt; s.giggleT -= dt; s.sparkleT -= dt;
-    if (c.pressed('b') && s.cooldown <= 0) this.cuddle(s);
-    if (c.pressed('y') && s.cooldown <= 0) this.squeaky(s);
+    s.accPop = Math.max(0, s.accPop - dt * 3);
 
     const tool = TOOLS[s.tool].id;
     const hold = c.held('a'), tap = c.pressed('a');
     s.using = hold;
     const on = this.onPet(s, cur.x, cur.y, 14 * s.k);
     const ip = this.toImage(s, cur.x, cur.y);
+    // Placed bows can be picked up again with the Bows tool: A on a bow moves
+    // it (it follows the hand, A again drops it), B on a bow takes it off.
+    if (s.held && (tool !== 'bow' || !s.acc.includes(s.held))) this.dropHeld(s, on, ip);
+    if (s.held) { s.held.x = ip.x; s.held.y = ip.y; }
+    s.hover = tool === 'bow' && !s.held && !p.isAI ? this.accAt(s, ip.x, ip.y) : null;
+    let bowB = false;
+    if (tool === 'bow' && c.pressed('b') && (s.held || s.hover)) { this.removeAccessory(s, s.held || s.hover); bowB = true; }
+    if (!bowB && c.pressed('b') && s.cooldown <= 0) this.cuddle(s);
+    if (c.pressed('y') && s.cooldown <= 0) this.squeaky(s);
     const px = this.petPx(s);
     let brushing = false;
 
@@ -626,7 +643,9 @@ export class Game {
         if (before < 1 && s.fluff >= 1) this.allShiny(s);
       }
     } else if (tap && tool === 'bow') {
-      if (on) this.placeAccessory(s, ip.x, ip.y);
+      if (s.held) this.dropHeld(s, on, ip);
+      else if (s.hover) this.pickUpAccessory(s, s.hover);
+      else if (on) this.placeAccessory(s, ip.x, ip.y);
       else { sfx('blip'); particles.burst(cur.x, cur.y, { type: 'spark', count: 4, colors: ['#ffffff'] }); }
     } else if (tap && tool === 'treat' && s.cooldown <= 0) {
       this.giveTreat(s);
@@ -770,7 +789,7 @@ export class Game {
   placeAccessory(s, ix, iy) {
     const a = ACCESSORIES[s.accIdx % ACCESSORIES.length];
     s.acc.push({ x: ix, y: iy, kind: a.kind, color: a.color, rot: rand(-0.35, 0.35), t: 0 });
-    if (s.acc.length > 7) s.acc.shift();
+    if (s.acc.length > 7) s.acc.splice(s.acc.findIndex((b) => b !== s.held), 1);
     s.accIdx = (s.accIdx + 1) % ACCESSORIES.length;
     const cur = s.cursor;
     particles.burst(cur.x, cur.y, { type: 'sparkle', count: 8 });
@@ -779,6 +798,52 @@ export class Game {
     s.pet.playOnce('cheer', 0.45); s.pet.emote('heart', 1);
     s.care++;
     if (s.acc.length === 1) particles.popText(cur.x, cur.y - 40, 'So cute!', '#ff6fb1', 42 * s.k);
+  }
+
+  cycleAccessory(s, d) {
+    s.accIdx = (s.accIdx + d + ACCESSORIES.length) % ACCESSORIES.length;
+    s.accPop = 1; s.toolPop = Math.max(s.toolPop, 0.4); sfx('swap');
+  }
+
+  /** The placed accessory under image point (ix, iy), nearest first (or null). */
+  accAt(s, ix, iy) {
+    const rad = s.mask.ih * 0.085;
+    let best = null, bd = rad;
+    for (const a of s.acc) {
+      const d = Math.hypot(a.x - ix, a.y - iy);
+      if (d <= bd) { bd = d; best = a; }
+    }
+    return best;
+  }
+
+  pickUpAccessory(s, a) {
+    s.held = a; s.hover = null; a.home = { x: a.x, y: a.y };
+    // carry it on top of the others
+    s.acc.splice(s.acc.indexOf(a), 1); s.acc.push(a);
+    sfx('pop'); this.rumble(s.p, 0.15, 40);
+  }
+
+  /** Let go of the bow being moved: it sticks where the hand is, or (off the pet) goes back to where it was. */
+  dropHeld(s, on, ip) {
+    const a = s.held;
+    s.held = null;
+    if (!a || !s.acc.includes(a)) return;
+    if (on) { a.x = ip.x; a.y = ip.y; } else if (a.home) { a.x = a.home.x; a.y = a.home.y; }
+    a.t = 0;   // little pop as it lands
+    particles.burst(s.cursor.x, s.cursor.y, { type: 'sparkle', count: 6 });
+    sfx('stamp');
+    s.pet.emote('heart', 0.8);
+  }
+
+  removeAccessory(s, a) {
+    const i = s.acc.indexOf(a);
+    if (i < 0) return;
+    s.acc.splice(i, 1);
+    if (s.held === a) s.held = null;
+    if (s.hover === a) s.hover = null;
+    const sp2 = this.toScreen(s, a.x, a.y);
+    particles.burst(sp2.x, sp2.y, { type: 'spark', count: 8, colors: [a.color, '#ffffff'] });
+    sfx('pop');
   }
 
   giveTreat(s) {
@@ -948,7 +1013,7 @@ export class Game {
       pet.facing = 1; pet.z = 0;
       pet.x = -200 - i * 260; pet.y = 752; pet.snap();
       pet.setPose('walk');
-      s.shakeT = 0; s.jumpT = -1;
+      s.shakeT = 0; s.jumpT = -1; s.held = null; s.hover = null;
       s.paradeX = W / 2 + (i - (n - 1) / 2) * spacing;
       s.arrived = false;
       // Every pet is show-ready for the parade (a little spa magic).
@@ -1132,8 +1197,15 @@ export class Game {
     // accessories (constant size relative to the pet)
     for (const a of s.acc) {
       a.t += 1 / 60;
-      const pop = a.t < 0.25 ? ease.outBack(a.t / 0.25) : 1;
-      g.save(); g.translate(a.x, a.y); g.scale(flip, 1); g.rotate(a.rot);
+      let pop = a.t < 0.25 ? ease.outBack(a.t / 0.25) : 1;
+      const held = a === s.held, hover = a === s.hover;
+      if (held) pop *= 1.18 + Math.sin(tt * 8) * 0.04;
+      g.save(); g.translate(a.x, a.y); g.scale(flip, 1); g.rotate(a.rot + (held ? Math.sin(tt * 6) * 0.12 : 0));
+      if (hover || held) {
+        // soft glow so it's clear which bow the hand is on
+        g.save(); g.globalAlpha = 0.55 + Math.sin(tt * 6) * 0.2; g.fillStyle = '#ffffff';
+        g.beginPath(); g.arc(0, 0, m.ih * 0.1 * pop, 0, TAU); g.fill(); g.restore();
+      }
       g.scale(pop, pop);
       drawAccessory(g, a.kind, a.color, m.ih * 0.13, tt + a.x);
       g.restore();
@@ -1170,10 +1242,10 @@ export class Game {
   }
 
   drawHeader(g) {
-    ui.panel(g, W / 2 - 330, 16, 660, 76, { r: 38, fill: '#ffffff' });
-    ui.text(g, 'Pet Spa', W / 2 - 190, 55, { size: 50, color: '#ff6fb1' });
-    ui.glyph(g, 'lb', W / 2 - 34, 54, 34); ui.glyph(g, 'rb', W / 2 + 18, 54, 34);
-    ui.text(g, 'Tools', W / 2 + 46, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
+    ui.panel(g, W / 2 - 360, 16, 720, 76, { r: 38, fill: '#ffffff' });
+    ui.text(g, 'Pet Spa', W / 2 - 230, 55, { size: 50, color: '#ff6fb1' });
+    ui.glyph(g, 'lb', W / 2 - 84, 54, 34); ui.glyph(g, 'rb', W / 2 - 32, 54, 34); ui.glyph(g, 'dpad', W / 2 + 14, 54, 34);
+    ui.text(g, 'Tools', W / 2 + 40, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
     ui.glyph(g, 'x', W / 2 + 160, 54, 36);
     ui.text(g, 'Next step', W / 2 + 184, 55, { size: 30, color: NAVY, align: 'left', stroke: false });
   }
@@ -1330,6 +1402,15 @@ export class Game {
         g.fillStyle = '#36d17a'; g.beginPath(); g.arc(cx, cy, rr, 0, TAU); g.fill(); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
         g.strokeStyle = '#fff'; g.lineWidth = 3; g.beginPath(); g.moveTo(cx - rr * 0.45, cy); g.lineTo(cx - rr * 0.1, cy + rr * 0.4); g.lineTo(cx + rr * 0.5, cy - rr * 0.4); g.stroke();
       }
+      if (sel && tl.id === 'bow' && p.ctrl.kind === 'pad') {
+        // d-pad up / down steps through the bows
+        const ax = x + 2, ay = ty - lift + th / 2, aw = Math.max(7, slot * 0.13), bob = s.accPop * 4;
+        g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 2.5;
+        for (const d of [-1, 1]) {
+          const yy = ay + d * (th * 0.5 + 4 + bob);
+          g.beginPath(); g.moveTo(ax - aw, yy - d * aw * 0.5); g.lineTo(ax + aw, yy - d * aw * 0.5); g.lineTo(ax, yy + d * aw * 0.7); g.closePath(); g.fill(); g.stroke();
+        }
+      }
       if (suggest === tl.id && !sel) {
         const bob = Math.abs(Math.sin(this.t * 5)) * 6;
         ui.glyph(g, 'x', x + slot / 2, ty - 18 - bob, Math.min(30, slot * 0.5));
@@ -1373,11 +1454,28 @@ export class Game {
       }
     }
     g.translate(ox, oy); g.rotate(rot);
-    const pop = 1 + s.toolPop * 0.25;
+    const pop = 1 + Math.max(s.toolPop, s.accPop) * 0.25;
     g.scale(pop, pop);
-    drawTool(g, tool, 0, tool === 'shower' ? -size * 0.25 : 0, size, this.t, { on: using, acc: ACCESSORIES[s.accIdx % ACCESSORIES.length] });
+    // While moving or pointing at a placed bow, the hand shows just its ring.
+    const bowMode = tool === 'bow' && this.phase === 'spa' && (s.held || s.hover);
+    if (!bowMode) drawTool(g, tool, 0, tool === 'shower' ? -size * 0.25 : 0, size, this.t, { on: using, acc: ACCESSORIES[s.accIdx % ACCESSORIES.length] });
     g.restore();
     ui.playerTag(g, p, c.x + 34 * k, c.y - 40 * k);
+    if (bowMode) {
+      // small hint under the hand: [A] Move / Drop   [B] Take off
+      const gs = Math.round(26 * Math.max(0.8, k)), fs = gs * 0.8;
+      const items = [['a', s.held ? 'Drop' : 'Move'], ['b', 'Take off']];
+      const widths = items.map(([, t]) => gs * 1.1 + ui.measure(g, t, fs, 700) + 14);
+      let x = c.x - (widths.reduce((a, b) => a + b, 0) - 14) / 2;
+      const y = c.y + 44 * k;
+      g.save(); g.fillStyle = 'rgba(36,22,63,0.55)';
+      ui.roundRect(g, x - 10, y - gs * 0.7, widths.reduce((a, b) => a + b, 0) + 6, gs * 1.4, gs * 0.7); g.fill(); g.restore();
+      items.forEach(([b, t], i) => {
+        ui.glyph(g, b, x + gs / 2, y, gs);
+        ui.text(g, t, x + gs * 1.05, y + 1, { size: fs, align: 'left', color: '#ffffff', strokeWidth: 4 });
+        x += widths[i];
+      });
+    }
   }
 
   drawFlying(g) {
