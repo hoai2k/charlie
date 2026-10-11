@@ -1,8 +1,13 @@
 // Royal Fashion Show (Play Studio). Phase 1: every player dresses their
-// character at a split-screen dressing-room station (LB/RB category tabs,
-// up/down item, X color, Y surprise, A ready). Phase 2: models strut down the
-// runway one group at a time while the crowd flashes cameras; A strikes a
-// pose. Finale: a group photo, confetti, and everyone gets a star.
+// character at a split-screen dressing-room station (LB/RB or d-pad left/right
+// category tabs, stick or d-pad up/down item, A pick / color, Y surprise,
+// X ready). Phase 2: models strut down the runway one group at a time while
+// the crowd flashes cameras. A group with a human in it gets a long free
+// turn at the end of the runway: the stick walks anywhere on the runway and
+// stage, A jumps and every other button strikes a photo pose (the shared
+// map in engine/photo-poses.js); View (or the Done hint) ends it early.
+// All-CPU groups keep the short turn where A strikes a pose.
+// Finale: a group photo, confetti, and everyone gets a star.
 import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
 import { Actor, drawPortrait } from '../engine/sprites.js';
@@ -17,6 +22,7 @@ import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { CATS, CAT, PALETTE, NAVY, drawItemIcon, heartPath, starAt } from './fashion-show/items.js';
 import { recolorFrame } from '../engine/recolor.js';
+import { photoPosePressed, photoMove, strikePhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 
 export const meta = {
   id: 'fashion-show',
@@ -24,8 +30,8 @@ export const meta = {
   category: 'studio',
   type: 'Dress up · Everyone wins',
   goal: 'Dress up like royalty, then strut down the runway and strike your best poses!',
-  controls: [['lb', 'Pick a spot (head, face, wings...)'], ['stick', 'Up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Surprise me!'], ['x', "I'm ready! (A on the runway: pose)"]],
-  tips: ['Press A to pick an item, and A again to change its color.', 'Press X when you love your look!', 'Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, press A to pose for the cameras!', 'Press B if you want to change your outfit again.'],
+  controls: [['lb', 'LB / RB or D-pad left/right: pick a spot'], ['dpad', 'D-pad or stick up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Surprise me!'], ['x', "I'm ready!"], ['stick', 'Runway: walk around, A jumps, other buttons pose']],
+  tips: ['Press A to pick an item, and A again to change its color.', 'Press X when you love your look!', 'Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, walk around with the stick and press different buttons for different poses!', 'Press the View button when you are done on the runway.', 'Press B if you want to change your outfit again.'],
   music: 'chill',
   duration: 'about 2 min',
   minPlayers: 1,
@@ -43,6 +49,8 @@ const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallb
 const RW = { backY: 492, frontY: 1080, backHW: 150, frontHW: 540, startY: 505, stopY: 905 };
 const hwAt = (y) => lerp(RW.backHW, RW.frontHW, (y - RW.backY) / (RW.frontY - RW.backY));
 const WALK = 2.6, POSE = 4.6, EXIT = 1.5;
+const HUMAN_POSE = 18;   // a group with a human in it plays around on the runway this long
+const DONE_BTN = 'back'; // View: "I'm done" on the runway
 
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
 function mix(a, b, t) { const A = hex(a), B = hex(b); return `rgb(${A.map((x, i) => Math.round(x + (B[i] - x) * t)).join(',')})`; }
@@ -469,6 +477,9 @@ export class Game {
     if (this.gi >= this.groups.length) { this.startFinale(); return; }
     this.group = this.groups[this.gi];
     this.groupT = 0;
+    this.humanGroup = this.group.some((st) => !st.p.isAI);
+    this.poseDur = this.humanGroup ? HUMAN_POSE : POSE;
+    this.snapT = 0;
     const k = this.group.length;
     this.group.forEach((st, j) => {
       st.rw = { state: 'walk', lane: j - (k - 1) / 2, k };
@@ -484,10 +495,16 @@ export class Game {
     return lerp(165, base, clamp((y - RW.startY) / (RW.stopY - RW.startY), 0, 1));
   }
 
+  /** A model's scale at depth y (the same at every lane). */
+  runwayScale(st, y) {
+    const a = st.actor, { k } = st.rw;
+    const th = this.modelHeight(k, y);
+    return Math.min(th / a.leader.h, (k === 1 ? 600 : k === 2 ? 380 : 270) * (th / this.modelHeight(k, RW.stopY)) / Math.max(1, a.width / a.scale));
+  }
+
   placeOnRunway(st, y) {
     const a = st.actor, { lane, k } = st.rw;
-    const th = this.modelHeight(k, y);
-    a.scale = Math.min(th / a.leader.h, (k === 1 ? 600 : k === 2 ? 380 : 270) * (th / this.modelHeight(k, RW.stopY)) / Math.max(1, a.width / a.scale));
+    a.scale = this.runwayScale(st, y);
     a.x = W / 2 + lane * Math.min(hwAt(y) * (k === 3 ? 0.72 : 0.6), k === 3 ? 270 : 240);
     a.y = y;
   }
@@ -561,14 +578,16 @@ export class Game {
           rw.aiT -= dt;
           if (rw.aiT <= 0) { c.press('a'); rw.aiT = rand(0.55, 1.1) / aiProfile(st.p).speed; }
         }
-        if (c.pressed('a') && st.poseCD <= 0) this.strikePose(st);
-        if (t >= WALK + POSE) {
+        if (st.p.isAI || !this.humanGroup) { if (c.pressed('a') && st.poseCD <= 0) this.strikePose(st); }
+        else this.freeMove(st, dt);
+        if (t >= WALK + this.poseDur) {
+          a.z = 0; rw.free = false;
           rw.state = 'exit'; rw.from = { x: a.x, y: a.y, s: a.scale };
           rw.spot = this.sideSpot(this.walkedCount++);
           a.setPose('walk');
         }
       } else if (rw.state === 'exit') {
-        const u = clamp((t - WALK - POSE) / EXIT, 0, 1), e = ease.inOutQuad(u);
+        const u = clamp((t - WALK - this.poseDur) / EXIT, 0, 1), e = ease.inOutQuad(u);
         const tx = rw.spot.x, ty = rw.spot.y;
         a.x = lerp(rw.from.x, tx, e); a.y = lerp(rw.from.y, ty, e);
         a.scale = lerp(rw.from.s, 150 / a.leader.h, e);
@@ -583,7 +602,88 @@ export class Game {
       }
       a.update(dt);
     }
-    if (t >= WALK + POSE + EXIT + 0.05) this.nextGroup();
+    if (this.phase === 'runway' && this.group && this.group[0].rw.state === 'pose' && this.humanGroup) this.updateFreeTurn(dt);
+    if (t >= WALK + this.poseDur + EXIT + 0.05) this.nextGroup();
+  }
+
+  // --- free runway turn (groups with humans) -------------------------------------
+  /** How far from the middle feet may go: the runway narrows toward the back (the
+   *  crowd hides anyone at its edge), the top of the stairs behind it is wider. */
+  runwayHalfW(y, w = 0) { return Math.max(0, hwAt(y) - 60 - w * 0.5, y <= RW.startY + 25 ? 330 - w * 0.5 : 0); }
+
+  /** Human on the runway: stick walks anywhere on runway + stage, A jumps, other buttons pose. */
+  freeMove(st, dt) {
+    const a = st.actor, c = st.p.ctrl, rw = st.rw;
+    if (!rw.free) { rw.free = true; rw.vz = 0; rw.fy = a.y; }
+    if (c.pressed(DONE_BTN)) this.toggleDone(st);
+    let { x: mx, y: my } = photoMove(c);
+    const d = Math.hypot(mx, my); if (d > 1) { mx /= d; my /= d; }
+    const depth = 0.55 + 0.45 * clamp((rw.fy - RW.startY) / (RW.stopY - RW.startY), 0, 1);
+    const sp = 620 * depth;
+    // up/down first, then sideways
+    const ny = clamp(rw.fy + my * sp * 0.6 * dt, RW.startY, RW.stopY + 30);
+    const bodyW = a.width / Math.max(0.01, a.scale);   // unscaled; times the scale at the new depth below
+    const wAt = (y) => bodyW * this.runwayScale(st, y);
+    // slide along the sloped edge; stepping off the wide stairs walks in toward the middle first
+    if (Math.abs(a.x - W / 2) - this.runwayHalfW(ny, wAt(ny)) <= sp * dt + 1) rw.fy = ny;
+    else if (!mx) mx = -Math.sign(a.x - W / 2) * Math.abs(my);
+    const half = this.runwayHalfW(rw.fy, wAt(rw.fy));
+    // depth scale from the same formula as the walk, x stays where the player put it
+    const nx = clamp(a.x + mx * sp * dt, W / 2 - half, W / 2 + half);
+    this.placeOnRunway(st, rw.fy); a.x = nx;
+    if (c.pressed('a') && a.z <= 0) { rw.vz = 1000 * depth; sfx('boing', { vol: 0.35 }); a.squash(-0.25); this.snap(st, 2); }
+    rw.vz -= 2800 * dt; a.z = Math.max(0, a.z + rw.vz * dt);
+    if (a.z <= 0 && rw.vz < 0) { if (rw.vz < -200) a.squash(0.2); rw.vz = 0; }
+    const pose = photoPosePressed(c);
+    if (pose && st.poseCD <= 0) {
+      st.poseCD = 0.35; st.poses++;
+      strikePhotoPose(a, pose, { onBump: (who) => this.bumpNeighbours(st, who) });
+      this.snap(st, 4, true);
+    }
+    if (a.z > 0) { if (Math.abs(mx) > 0.2) a.facing = mx > 0 ? 1 : -1; if (!a._once) a.setPose('jump'); }
+    else a.moveAnim(mx * sp, my * sp, sp);
+  }
+
+  /** The crowd snaps photos of a model: flashes near them (+ a compliment for a pose). */
+  snap(st, n, pose = false) {
+    const a = st.actor;
+    for (let i = 0; i < n; i++) this.cameraFlash(a.x);
+    this.photoSnd(pose ? 'shutter' : null);
+    if (!pose) return;
+    const head = a.anchor('head');
+    particles.burst(head.x, head.y + a.height * 0.3, { type: 'sparkle', count: 6, colors: ['#fff', '#fff6a8'] });
+    if (this.t - (st.complimentT ?? -9) > 1.4) { st.complimentT = this.t; particles.popText(a.x, head.y - 40, pick(COMPLIMENTS), st.p.color, 42); }
+    if (this.t - this.lastCheer > 1.6) { this.lastCheer = this.t; snd('crowd-ooh', 'cheer'); }
+    for (const m of this.crowd) if (chance(0.15) && m.jump <= 0) m.jv = rand(160, 260);
+  }
+
+  /** The bump pose nudges whoever stands next to them on the runway. */
+  bumpNeighbours(st, a) {
+    for (const o of this.group || []) {
+      if (o === st) continue;
+      const b = o.actor, dx = b.x - a.x;
+      if (Math.abs(dx) < (a.width + b.width) * 0.45 && Math.abs(b.y - a.y) < 60) {
+        const half = this.runwayHalfW(b.y, b.width);
+        b.x = clamp(b.x + Math.sign(dx || 1) * 70, W / 2 - half, W / 2 + half);
+        b.playOnce('surprised', 0.8, 'idle'); b.squash(0.2);
+      }
+    }
+    sfx('boing', { vol: 0.4 });
+  }
+
+  toggleDone(st) {
+    st.rw.done = !st.rw.done;
+    if (st.rw.done) { sfx('ready'); st.actor.say('Done!', 1.2, 'ready'); } else sfx('back');
+  }
+
+  /** Crowd keeps snapping while humans play; everyone done ends the turn early. */
+  updateFreeTurn(dt) {
+    const humans = this.group.filter((s) => !s.p.isAI);
+    if (ui.clickedHint() === DONE_BTN) for (const s of humans) if (!s.rw.done) this.toggleDone(s);
+    this.snapT -= dt;
+    if (this.snapT <= 0) { this.snapT = rand(0.35, 0.8); this.cameraFlash(pick(this.group).actor.x); if (chance(0.3)) this.photoSnd(null); }
+    const endAt = WALK + this.poseDur;
+    if (humans.length && humans.every((s) => s.rw.done) && this.groupT < endAt - 0.5) this.groupT = endAt - 0.5;
   }
 
   // --- finale ------------------------------------------------------------------
@@ -608,7 +708,7 @@ export class Game {
       const a = st.actor, sp = spots[i];
       st.fin = { from: { x: a.visible ? a.x : W / 2 + rand(-200, 200), y: a.visible ? a.y : RW.startY, s: a.visible ? a.scale : 160 / a.leader.h }, to: sp };
       st.fin.toScale = Math.min(sp.th / a.leader.h, (sp.sp * 0.95) / Math.max(1, a.width / a.scale));
-      a.visible = true; a.alpha = 1; a.setPose('walk');
+      a.visible = true; a.alpha = 1; a.z = 0; a.setPose('walk');
       if (!st.rw) st.rw = {};
       st.rw.state = 'finale';
     });
@@ -693,7 +793,10 @@ export class Game {
     if (!cam) return;
     if (this.phase === 'runway' && this.group) {
       const st0 = this.group[0];
-      if (st0.rw.state === 'pose') {
+      if (st0.rw.state === 'pose' && this.humanGroup) {
+        const xs = this.group.map((s) => s.actor.x), cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+        cam.follow(W / 2 + (cx - W / 2) * 0.5, 560, 1.1, 2.2);
+      } else if (st0.rw.state === 'pose') {
         const xs = this.group.map((s) => s.actor.x), cx = (Math.min(...xs) + Math.max(...xs)) / 2;
         const top = Math.min(...this.group.map((s) => s.actor.y - s.actor.height));
         cam.follow(cx, (top + RW.stopY) / 2 + 40, this.group.length === 1 ? 1.25 : 1.12, 2.2);
@@ -726,7 +829,7 @@ export class Game {
     this.drawCrownIcon(g, W / 2 - 470, 58, 30, '#ffd23f');
     this.drawCrownIcon(g, W / 2 + 470, 58, 30, '#ffd23f');
     if (this.n <= 2) {
-      ui.hints(g, [['lb', ''], ['rb', 'Pick a spot']], 230, 56, { size: 34 });
+      ui.hints(g, [['lb', ''], ['rb', ''], ['dpad', 'Pick a spot']], 250, 56, { size: 34 });
       ui.hints(g, [['y', 'Surprise!']], W - 210, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
@@ -882,7 +985,7 @@ export class Game {
     x += tw + 12;
     if (wide) drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
     const o = st.outfit[st.tab], col = PALETTE[o.colors[o.item]];
-    const items = [['a', wide ? 'Pick / color' : ''], ['y', wide ? 'Surprise!' : ''], ['x', 'Ready!']];
+    const items = [['dpad', wide ? 'Spot / item' : ''], ['a', wide ? 'Pick / color' : ''], ['y', wide ? 'Surprise!' : ''], ['x', 'Ready!']];
     const avail = r.x + r.w - 16 - x;
     const lab = sz * 0.62;
     let need = 0;
@@ -967,7 +1070,7 @@ export class Game {
         const head = st.actor.anchor('head');
         ui.playerTag(g, st.p, st.actor.x, head.y - 60);
         this.poseBadge(g, st, st.actor.x, st.actor.y + 40, 1);
-        if (st.rw.state === 'pose' && !st.p.isAI) ui.glyph(g, 'a', st.actor.x + 64, head.y - 80, 52, { pulse: true });
+        if (st.rw.done) ui.text(g, 'Done!', st.actor.x, head.y - 112, { size: 36, color: '#36d17a', weight: 800 });
       }
     }
     if (this.phase !== 'finale') this.drawCrowd(g);
@@ -985,11 +1088,19 @@ export class Game {
   drawRunwayHUD(g) {
     if (this.phase === 'runway' && this.group) {
       const st0 = this.group[0];
-      if (st0.rw.state === 'pose') {
-        const anyHuman = this.group.some((s) => !s.p.isAI);
+      if (st0.rw.state === 'pose' && this.humanGroup) {
+        // free turn: move/jump/pose hints at the top, then the timer and Done
+        const humans = this.group.filter((s) => !s.p.isAI);
+        const left = Math.max(0, WALK + this.poseDur - this.groupT);
+        g.save(); ui.roundRect(g, W / 2 - 880, 12, 1760, 214, 30); g.fillStyle = 'rgba(36,22,63,0.6)'; g.fill(); g.restore();
+        const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
+        ui.hints(g, r1, W / 2, 56, { size: 36 }); ui.hints(g, r2, W / 2, 112, { size: 36 });
+        ui.text(g, 'Strike a pose for the cameras!', W / 2 - 330, 180, { size: 40, color: '#ffd23f', weight: 800 });
+        ui.bar(g, W / 2 + 20, 170, 300, 20, left / this.poseDur, '#ff7ac6');
+        ui.hints(g, [[DONE_BTN, 'Done']], W / 2 + 500, 180, { size: 36 });
+      } else if (st0.rw.state === 'pose') {
         const left = Math.max(0, WALK + POSE - this.groupT);
-        const msg = anyHuman ? 'Strike a pose! Press A!' : 'Strike a pose!';
-        ui.text(g, msg, W / 2, 1040, { size: 52, color: '#ffd23f', weight: 800 });
+        ui.text(g, 'Strike a pose!', W / 2, 1040, { size: 52, color: '#ffd23f', weight: 800 });
         ui.bar(g, W / 2 - 200, 990, 400, 18, left / POSE, '#ff7ac6');
       } else if (st0.rw.state === 'walk') {
         const names = this.group.map((s) => playerName(s.p)).join(' & ');
