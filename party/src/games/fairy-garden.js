@@ -301,7 +301,7 @@ export const meta = {
   category: 'studio',
   type: 'Cooperative · Grow it together',
   goal: 'Plant magic seeds, water them and watch them bloom — then catch fireflies at night!',
-  controls: [['stick', 'Walk'], ['a', 'Plant / water / catch'], ['rb', 'Pick a seed (LB / RB)'], ['x', 'Sing to plants'], ['y', 'Fairy dust']],
+  controls: [['stick', 'Walk'], ['a', 'Plant / water / catch'], ['rb', 'Pick a seed (LB / RB or D-pad)'], ['x', 'Sing to plants'], ['y', 'Fairy dust']],
   cornerControls: { at: 'bl', items: [['a', 'Plant / water'], ['rb', 'Seed'], ['x', 'Sing'], ['y', 'Fairy dust']] },
   tips: ['A blue drop means a plant is thirsty — water it!', 'Singing and fairy dust make plants grow faster.', 'When night falls, press A next to a firefly to catch it.'],
   music: 'chill',
@@ -453,7 +453,9 @@ export class Game {
     if (p.isAI) this.ai(m, dt);
     // walk
     const sp = SPEED;
-    let vx = c.x * sp, vy = c.y * sp * 0.85;
+    // Controllers walk with the stick; their d-pad picks seeds (keyboard: WASD walks).
+    const pad = c.kind === 'pad';
+    let vx = (pad ? c.sx : c.x) * sp, vy = (pad ? c.sy : c.y) * sp * 0.85;
     if (m.canT > 0.35) { vx *= 0.3; vy *= 0.3; }
     a.x = clamp(a.x + vx * dt, 60, W - 60);
     a.y = clamp(a.y + vy * dt, MOVE_TOP, MOVE_BOTTOM);
@@ -461,8 +463,8 @@ export class Game {
     if (Math.hypot(vx, vy) > 60 && chance(dt * 4)) particles.burst(a.x, a.y, { type: 'dust', count: 1, size: [6, 12] });
 
     // seed choice
-    if (c.pressed('rb')) this.setSeed(m, (m.seed + 1) % SEEDS.length);
-    if (c.pressed('lb')) this.setSeed(m, (m.seed + SEEDS.length - 1) % SEEDS.length);
+    if (c.pressed('rb') || (pad && c.pressed('right'))) this.setSeed(m, (m.seed + 1) % SEEDS.length);
+    if (c.pressed('lb') || (pad && c.pressed('left'))) this.setSeed(m, (m.seed + SEEDS.length - 1) % SEEDS.length);
 
     m.target = this.phase === 'night' ? null : this.nearestPlot(m);
     if (c.pressed('a')) this.actionA(m);
