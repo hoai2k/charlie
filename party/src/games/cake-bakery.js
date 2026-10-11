@@ -26,9 +26,9 @@ export const meta = {
   category: 'studio',
   type: 'Bake & decorate · Everyone wins',
   goal: 'Bake the most beautiful birthday cake, then blow out the candles and taste it!',
-  controls: [['lb', 'Next / previous step'], ['stick', 'Pick, or move your topping hand'], ['x', 'Change (layer, style, topping)'], ['a', 'Add topping (hold for sprinkles!)'], ['y', 'Surprise me!']],
+  controls: [['lb', 'Next / previous step (LB / RB)'], ['dpad', 'Pick: shape, flavor, topping...'], ['stick', 'Move your topping hand'], ['a', 'Add topping, or pick one up to move it'], ['b', 'Take a topping off'], ['y', 'Surprise me!']],
   infoAt: 'tl',   // corner "i" (how to play): the bottom-left holds this game's tool bar
-  tips: ['Hold A over your cake to shake sprinkles.', 'Candles and your Me Topper go on top!', 'B takes back your last topping.'],
+  tips: ['Hold A over your cake to shake sprinkles.', 'Press A on a topping to pick it up, then A again to put it somewhere new!', 'B over a topping takes it off.'],
   music: 'bouncy',
   duration: 'about 2 min',
   minPlayers: 1,
@@ -49,6 +49,8 @@ const TABS = [
 const TAB = Object.fromEntries(TABS.map((t, i) => [t.id, i]));
 const RATINGS = ['Yummy!', 'Delicious!', 'Best cake ever!', 'Sooo sweet!', '10 out of 10!', 'Magical!', 'Scrumptious!', 'Mmm-mmm!'];
 const MAX_SPRINKLES = 520;
+// Pick-up box per placed topping (cake-local): [half width, height above its base].
+const ITEM_BOX = { cherry: [18, 50], strawberry: [18, 40], star: [26, 54], heart: [26, 54], flower: [22, 40], gummy: [20, 46], candle: [14, 72], unicorn: [20, 80], topper: [38, 170] };
 const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
 
 // Happy Birthday (public domain melody): [midi, beats]
@@ -195,7 +197,7 @@ export class Game {
     switch (TABS[st.tab].id) {
       case 'flavor': st.layerSel = (st.layerSel + 1) % c.layers; sfx('move'); st.listBump = 0.12; break;
       case 'frost': c.style = (c.style + 1) % STYLES.length; c.version++; sfx('splat'); this.bump(st); break;
-      case 'deco': st.decoSel = (st.decoSel + 1) % DECOS.length; sfx('move'); st.listBump = 0.15; break;
+      case 'deco': this.stepDeco(st, 1); break;
       case 'shape': case 'layers': case 'drizzle': this.changeOption(st, 1); break;
       default: sfx('blip');
     }
@@ -209,16 +211,72 @@ export class Game {
       st.items = st.items.filter((d) => d.kind !== 'topper');
       for (const h of st.history) for (let j = h.length - 1; j >= 0; j--) if (old.includes(h[j])) h.splice(j, 1);
     }
-    const ld = landing(c, lx, ly, { topOnly: !!def?.topOnly });
-    const d = makeDeco(kind, ld.x, Math.min(ly, ld.y) - drop, { ty: ld.y, surface: ld.surface, depth: 0.5 });
-    if (ld.surface === 'top') { const fr = faceRange(c, ld.layer, ld.x); if (fr) d.depth = clamp((ld.y - fr[0]) / Math.max(1, fr[1] - fr[0]), 0, 1); }
+    const d = makeDeco(kind, lx, ly, { depth: 0.5 });
+    this.settle(st, d, lx, ly, drop);
     if (kind === 'star') { d.color = pick(CANDY); d.rot = rand(-0.4, 0.4); }
     if (kind === 'gummy') d.color = pick(CANDY);
     if (kind === 'candle') d.color = pick(CANDY);
-    d.vy = 0; d.state = 'fall';
     st.items.push(d);
     if (group) group.push(d);
     return d;
+  }
+
+  // Drop item d from hand position (lx, ly): it falls onto whatever is below.
+  settle(st, d, lx, ly, drop = 0) {
+    const c = st.cake, def = DECOS[DECO[d.kind]];
+    const ld = landing(c, lx, ly, { topOnly: !!def?.topOnly });
+    d.x = ld.x; d.y = Math.min(ly, ld.y) - drop; d.ty = ld.y; d.surface = ld.surface; d.depth = 0.5;
+    if (ld.surface === 'top') { const fr = faceRange(c, ld.layer, ld.x); if (fr) d.depth = clamp((ld.y - fr[0]) / Math.max(1, fr[1] - fr[0]), 0, 1); }
+    d.vy = 0; d.state = 'fall';
+  }
+
+  // --- moving / removing placed toppings (sprinkles are a spray and stay put) ---
+  /** The placed topping under the hand (cake-local), nearest first, or null. */
+  itemAt(st) {
+    const cur = st.cursor;
+    let best = null, bd = Infinity;
+    for (const d of st.items) {
+      if (d.state !== 'stuck') continue;
+      const [hw, h] = ITEM_BOX[d.kind] || [24, 50];
+      const cy = d.y - h / 2;
+      const dx = Math.abs(cur.x - d.x), dy = Math.abs(cur.y - cy);
+      if (dx > hw + 14 || dy > h / 2 + 16) continue;
+      const dd = dx * dx + dy * dy;
+      if (dd < bd) { bd = dd; best = d; }
+    }
+    return best;
+  }
+  grab(st, d) {
+    st.held = d; d.state = 'held'; d.surface = 'held'; d.vy = 0; d.lit = false;
+    this.followHand(st);
+    sfx('pop'); st.actor.squash(0.1);
+    const k = st.L.k, s = st.L.stand;
+    particles.burst(s.x + d.x * k, s.y + (d.y - 20) * k, { type: 'sparkle', count: 6, colors: ['#fff', st.p.color] });
+  }
+  followHand(st) {
+    const d = st.held; if (!d) return;
+    const h = (ITEM_BOX[d.kind] || [24, 50])[1];
+    d.x = st.cursor.x; d.y = st.cursor.y + h * 0.45;
+  }
+  dropHeld(st) {
+    const d = st.held; if (!d) return;
+    st.held = null;
+    this.settle(st, d, st.cursor.x, st.cursor.y);
+    sfx('whoosh');
+  }
+  removeItem(st, d) {
+    if (st.held === d) st.held = null;
+    st.items = st.items.filter((x) => x !== d);
+    for (const h of st.history) for (let j = h.length - 1; j >= 0; j--) if (h[j] === d) h.splice(j, 1);
+    st.history = st.history.filter((h) => h.length);
+    const k = st.L.k, s = st.L.stand;
+    sfx('back');
+    particles.burst(s.x + d.x * k, s.y + (d.y - 20) * k, { type: 'smoke', count: 7, speed: [40, 130] });
+    particles.burst(s.x + d.x * k, s.y + (d.y - 20) * k, { type: 'sparkle', count: 5, colors: ['#fff'] });
+  }
+  stepDeco(st, dir) {
+    st.decoSel = (st.decoSel + dir + DECOS.length) % DECOS.length; sfx('move'); st.listBump = 0.15;
+    if (st.shaking) st.shaking = null;
   }
 
   addSprinkles(st, lx, ly, count, group, spread = 26) {
@@ -280,9 +338,28 @@ export class Game {
   updateCursor(st, dt) {
     const c = st.p.ctrl, cur = st.cursor;
     const sp = 640;
-    cur.x = clamp(cur.x + (c.x * sp + c.rx * 180) * dt, -300, 300);
-    cur.y = clamp(cur.y + (c.y * sp + c.ry * 180) * dt, -600, 100);
+    // Pads: the stick moves the hand and the d-pad picks the topping. Keyboards
+    // (arrows = d-pad) and CPUs keep moving with x/y and pick with X.
+    const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
+    cur.x = clamp(cur.x + (mx * sp + c.rx * 180) * dt, -300, 300);
+    cur.y = clamp(cur.y + (my * sp + c.ry * 180) * dt, -600, 100);
+    if (pad) {
+      const step = (c.pressed('down') || c.pressed('right') ? 1 : 0) - (c.pressed('up') || c.pressed('left') ? 1 : 0);
+      if (step) this.stepDeco(st, step);
+    }
     const kind = DECOS[st.decoSel].id;
+    // Carrying a placed topping: it rides on the hand; A puts it down, B takes it off.
+    if (st.held) {
+      this.followHand(st);
+      if (c.pressed('a')) this.dropHeld(st);
+      else if (c.pressed('b')) this.removeItem(st, st.held);
+      st.hover = null;
+      return;
+    }
+    const canGrab = !st.p.isAI;
+    st.hover = canGrab ? this.itemAt(st) : null;
+    if (st.hover && c.pressed('b')) { this.removeItem(st, st.hover); st.hover = null; return; }
+    if (st.hover && kind !== 'sprinkles' && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
     if (kind === 'sprinkles') {
       if (c.pressed('a')) {
         st.shaking = []; st.history.push(st.shaking); st.shakeT = 0;
@@ -310,7 +387,7 @@ export class Game {
     c.frosting = randInt(0, 7); c.style = randInt(0, 2);
     c.drizzle = chance(0.7) ? randInt(1, DRIZZLES.length - 1) : 0;
     c.version++;
-    st.items = []; st.sprinkles = []; st.history = [];
+    st.items = []; st.sprinkles = []; st.history = []; st.held = null; st.hover = null;
     const grp = [];
     const T = topLayer(c), ti = c.layers - 1;
     // sprinkles rain
@@ -473,6 +550,7 @@ export class Game {
       if (tabStep) {
         st.tab = clamp(st.tab + tabStep, 0, TABS.length - 1); st.tabBump = 0.18; sfx('move');
         if (st.shaking) st.shaking = null;
+        this.dropHeld(st); st.hover = null;
         continue;
       }
       const tab = TABS[st.tab].id;
@@ -514,7 +592,7 @@ export class Game {
     for (const st of this.stations) this.shakeSound(st);
     this.finale = { stage: 'light', litQueue: [], song: { i: 0, t: 0 }, blowT: 0, tasteT: 0 };
     for (const st of this.stations) {
-      st.ready = true;
+      st.ready = true; this.dropHeld(st); st.hover = null;
       st.actor.setPose('idle'); st.actor.facing = 1;
       c_release(st.p);
       if (!st.items.some((d) => d.kind === 'candle')) {
@@ -778,7 +856,16 @@ export class Game {
     }
     g.save(); g.translate(s.x, s.y); g.scale(k, k);
     drawSprinkles(g, st.sprinkles);
-    const items = st.items.slice().sort((a, b2) => a.y - b2.y);
+    const items = st.items.slice().sort((a, b2) => (a === st.held) - (b2 === st.held) || a.y - b2.y);
+    const hv = !this.finale && !st.ready && TABS[st.tab].id === 'deco' ? st.hover : null;
+    if (hv) {
+      // soft glow under the topping the hand is over
+      const [hw, h] = ITEM_BOX[hv.kind] || [24, 50];
+      g.save(); g.globalAlpha = 0.55 + 0.25 * Math.sin(this.t * 8);
+      g.beginPath(); g.ellipse(hv.x, hv.y - h / 2, hw + 14, h / 2 + 12, 0, 0, TAU);
+      g.fillStyle = 'rgba(255,255,255,0.55)'; g.fill(); g.lineWidth = 5; g.setLineDash([10, 8]); g.strokeStyle = st.p.color; g.stroke();
+      g.restore();
+    }
     for (const d of items) drawDecoShape(g, d, this.t, { lit: !!d.lit, flame: d.flame ?? 1, charId: st.p, ring: st.p.color });
     g.restore();
     g.restore();
@@ -786,7 +873,8 @@ export class Game {
 
   drawCursor(g, st) {
     const { L } = st, k = L.k, s = L.stand, cur = st.cursor;
-    const kind = DECOS[st.decoSel].id, def = DECOS[st.decoSel];
+    const held = st.held;
+    const kind = held ? held.kind : DECOS[st.decoSel].id, def = DECOS[DECO[kind]];
     const x = s.x + cur.x * k, y = s.y + cur.y * k;
     // landing guide
     const ld = landing(st.cake, cur.x, cur.y, { topOnly: !!def.topOnly });
@@ -799,10 +887,33 @@ export class Game {
     }
     const shakeX = kind === 'sprinkles' && st.p.ctrl.held('a') ? Math.sin(this.t * 50) * 6 : 0;
     const sz = clamp(70 * k, 34, 70);
-    g.beginPath(); g.arc(x + shakeX, y, sz * 0.62, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.85)'; g.fill();
-    g.lineWidth = 5; g.strokeStyle = st.p.color; g.stroke();
-    drawDecoIcon(g, kind, x + shakeX, y - 2, sz * 0.9, this.t);
+    if (held) {
+      // the carried topping is drawn on the cake; the hand is just a ring around it
+      g.beginPath(); g.arc(x, y, sz * 0.62, 0, TAU); g.lineWidth = 5; g.setLineDash([9, 7]); g.strokeStyle = st.p.color; g.stroke(); g.setLineDash([]);
+    } else {
+      g.beginPath(); g.arc(x + shakeX, y, sz * 0.62, 0, TAU); g.fillStyle = 'rgba(255,255,255,0.85)'; g.fill();
+      g.lineWidth = 5; g.strokeStyle = st.p.color; g.stroke();
+      drawDecoIcon(g, kind, x + shakeX, y - 2, sz * 0.9, this.t);
+    }
     if (this.players.filter((pp) => !pp.isAI).length > 1 || st.p.isAI) ui.text(g, st.p.tag, x, y - sz * 0.62 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
+    // little hint bubble next to the hand when it is over (or carrying) a topping
+    const tip = held ? [['a', 'Put down'], ['b', 'Take off']] : st.hover ? (kind === 'sprinkles' ? [['b', 'Take off']] : [['a', 'Move'], ['b', 'Take off']]) : null;
+    if (tip) {
+      const fs = clamp(28 * k + 6, 18, 28), gsz = fs * 1.15;
+      let w = 14;
+      for (const [, l] of tip) w += gsz + 6 + ui.measure(g, l, fs, 800) + 12;
+      // centred above the hand (and its player tag), kept inside the cake area
+      const bx = clamp(x - w / 2, L.ca.x + 8, L.ca.x + L.ca.w - w - 8);
+      const by = Math.max(L.ca.y + 4, y - sz * 0.62 - 34 - gsz * 1.6);
+      ui.panel(g, bx, by, w, gsz * 1.6, { r: gsz * 0.8, fill: 'rgba(255,255,255,0.94)', lineWidth: 3, shadow: false });
+      let tx = bx + 10;
+      for (const [b, l] of tip) {
+        ui.glyph(g, b, tx + gsz / 2, by + gsz * 0.8, gsz);
+        tx += gsz + 6;
+        ui.text(g, l, tx, by + gsz * 0.8 + 1, { size: fs, color: NAVY, stroke: false, align: 'left', weight: 800 });
+        tx += ui.measure(g, l, fs, 800) + 12;
+      }
+    }
     g.restore();
   }
 
@@ -951,7 +1062,7 @@ export class Game {
     if (footH) {
       const fy = lr.y + lr.h - footH / 2 - 6, fs = footH * 0.62;
       const label = tab.id === 'flavor' ? 'Next layer' : tab.id === 'frost' ? STYLES[st.cake.style] : 'Next';
-      ui.glyph(g, 'x', lr.x + 16 + fs / 2, fy, fs);
+      ui.glyph(g, tab.id === 'deco' && st.p.ctrl.kind === 'pad' ? 'dpad' : 'x', lr.x + 16 + fs / 2, fy, fs);
       ui.text(g, label, lr.x + 26 + fs, fy + 1, { size: fs * 0.72, color: NAVY, stroke: false, align: 'left', weight: 800, maxWidth: lr.w - fs - 40 });
     }
   }
@@ -969,9 +1080,12 @@ export class Game {
     if (wide) { drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }); x += sz * 1.4; }
     const tab = TABS[st.tab].id;
     let items;
-    if (tab === 'deco') items = [['stick', 'Move'], ['a', DECOS[st.decoSel].id === 'sprinkles' ? 'Shake!' : 'Add'], ['x', 'Topping'], ['b', 'Undo']];
-    else if (tab === 'done') items = [['a', 'Ready!'], ['b', 'Back'], ['y', 'Surprise!']];
-    else items = [['stick', 'Pick'], ['a', 'Next'], ['y', 'Surprise!']];
+    const pad = p.ctrl.kind === 'pad';
+    if (tab === 'deco') {
+      if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
+      else items = [['stick', 'Move'], ['a', DECOS[st.decoSel].id === 'sprinkles' ? 'Shake!' : st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Topping'], ['b', st.hover ? 'Take off' : 'Undo']];
+    } else if (tab === 'done') items = [['a', 'Ready!'], ['b', 'Back'], ['y', 'Surprise!']];
+    else items = [[pad ? 'dpad' : 'stick', 'Pick'], ['a', 'Next'], ['y', 'Surprise!']];
     if (!wide) items = items.map(([b, l]) => [b, l === 'Surprise!' ? '' : l]);
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
