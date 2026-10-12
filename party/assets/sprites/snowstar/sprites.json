@@ -29,8 +29,8 @@
             31
           ],
           "hand": [
-            98,
-            200
+            131,
+            186
           ],
           "eyes": [
             98,
@@ -59,8 +59,8 @@
             31
           ],
           "hand": [
-            97,
-            200
+            131,
+            186
           ],
           "eyes": [
             97,
@@ -97,8 +97,8 @@
             31
           ],
           "hand": [
-            97,
-            195
+            126,
+            166
           ],
           "eyes": [
             97,
@@ -171,8 +171,8 @@
             31
           ],
           "hand": [
-            97,
-            199
+            153,
+            135
           ],
           "eyes": [
             97,
@@ -315,8 +315,8 @@
             31
           ],
           "hand": [
-            98,
-            196
+            124,
+            140
           ],
           "eyes": [
             98,
@@ -439,8 +439,8 @@
             31
           ],
           "hand": [
-            131,
-            183
+            113,
+            170
           ],
           "eyes": [
             89,
@@ -476,8 +476,8 @@
             29
           ],
           "hand": [
-            136,
-            173
+            137,
+            145
           ],
           "eyes": [
             92,
@@ -506,8 +506,8 @@
             29
           ],
           "hand": [
-            132,
-            171
+            135,
+            144
           ],
           "eyes": [
             90,
@@ -567,7 +567,7 @@
           ],
           "hand": [
             136,
-            171
+            144
           ],
           "eyes": [
             92,
@@ -682,12 +682,12 @@
             205
           ],
           "eyes": [
-            97,
-            93
+            98,
+            124
           ],
           "neck": [
-            97,
-            131
+            96,
+            153
           ],
           "back": [
             93,
@@ -715,8 +715,8 @@
             31
           ],
           "hand": [
-            95,
-            173
+            128,
+            155
           ],
           "eyes": [
             93,
@@ -865,8 +865,8 @@
             31
           ],
           "hand": [
-            161,
-            154
+            179,
+            121
           ],
           "eyes": [
             96,
@@ -903,12 +903,12 @@
             21
           ],
           "hand": [
-            107,
-            147
+            80,
+            187
           ],
           "eyes": [
-            90,
-            85
+            91,
+            120
           ],
           "neck": [
             90,
@@ -941,12 +941,12 @@
             23
           ],
           "hand": [
-            113,
-            160
+            111,
+            198
           ],
           "eyes": [
-            94,
-            92
+            90,
+            118
           ],
           "neck": [
             94,
@@ -971,12 +971,12 @@
             27
           ],
           "hand": [
-            113,
-            187
+            171,
+            87
           ],
           "eyes": [
-            95,
-            107
+            104,
+            115
           ],
           "neck": [
             95,
@@ -1001,12 +1001,12 @@
             25
           ],
           "hand": [
-            120,
-            175
+            174,
+            141
           ],
           "eyes": [
-            99,
-            100
+            100,
+            107
           ],
           "neck": [
             99,
@@ -1032,11 +1032,11 @@
           ],
           "hand": [
             115,
-            171
+            159
           ],
           "eyes": [
-            96,
-            98
+            95,
+            112
           ],
           "neck": [
             96,
@@ -1069,12 +1069,12 @@
             24
           ],
           "hand": [
-            103,
-            171
+            141,
+            176
           ],
           "eyes": [
-            86,
-            97
+            89,
+            104
           ],
           "neck": [
             86,
@@ -1098,12 +1098,12 @@
             24
           ],
           "hand": [
-            112,
-            171
+            146,
+            176
           ],
           "eyes": [
-            94,
-            98
+            114,
+            104
           ],
           "neck": [
             94,
@@ -1130,7 +1130,27 @@
             255
           ],
           "artHash": "6b85b81f2715869a548e6ead0184e7d523741cc49b4e8f8ca906c170a89ad29b",
-          "fileHash": "24081444b8a05a050eb7f4c0237b715c115d86ebed4da7c0cc0bc46116294f3f"
+          "fileHash": "24081444b8a05a050eb7f4c0237b715c115d86ebed4da7c0cc0bc46116294f3f",
+          "head": [
+            97,
+            37
+          ],
+          "eyes": [
+            97,
+            108
+          ],
+          "neck": [
+            97,
+            151
+          ],
+          "back": [
+            94,
+            179
+          ],
+          "hand": [
+            97,
+            57
+          ]
         }
       ]
     },
@@ -1147,7 +1167,27 @@
             249
           ],
           "artHash": "571c342d4b3fb1ed9e0f6652db7866ba990b152945d51963b605d21f25d68d60",
-          "fileHash": "08e6040fb00689f7f50d24cb46ce3e0cb7988b1fcd27b2993e4646af79c23c28"
+          "fileHash": "08e6040fb00689f7f50d24cb46ce3e0cb7988b1fcd27b2993e4646af79c23c28",
+          "head": [
+            98,
+            36
+          ],
+          "eyes": [
+            105,
+            112
+          ],
+          "neck": [
+            108,
+            148
+          ],
+          "back": [
+            95,
+            174
+          ],
+          "hand": [
+            161,
+            135
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -1165,7 +1205,27 @@
             258
           ],
           "artHash": "e9734c2bd91bd8c090f508877062cbe9522ca0e901691f7a9d1a5372aea10ad9",
-          "fileHash": "7db76d5fbbf385a89beb5339c8ac5ff494b380096bd76c5adde8d197425dbc35"
+          "fileHash": "7db76d5fbbf385a89beb5339c8ac5ff494b380096bd76c5adde8d197425dbc35",
+          "head": [
+            100,
+            37
+          ],
+          "eyes": [
+            81,
+            109
+          ],
+          "neck": [
+            85,
+            153
+          ],
+          "back": [
+            78,
+            181
+          ],
+          "hand": [
+            88,
+            160
+          ]
         }
       ],
       "bodyHeight": 218.6
@@ -1183,7 +1243,27 @@
             251
           ],
           "artHash": "f3bc569bf6eeefc2f8044b0b67ea9fc6a76d0e6790b6738424692d419fad7eef",
-          "fileHash": "450e833568ba4a2f996ffff24d9076f25b1260febf589da709ae810a7480a314"
+          "fileHash": "450e833568ba4a2f996ffff24d9076f25b1260febf589da709ae810a7480a314",
+          "head": [
+            86,
+            36
+          ],
+          "eyes": [
+            100,
+            106
+          ],
+          "neck": [
+            96,
+            150
+          ],
+          "back": [
+            93,
+            180
+          ],
+          "hand": [
+            123,
+            153
+          ]
         }
       ],
       "bodyHeight": 199.3
@@ -1201,7 +1281,27 @@
             258
           ],
           "artHash": "b24e9bf0129bf1b0cec0b34f5795d75968b79b2f6bf3241d2c078261ed600f4b",
-          "fileHash": "477294797b778e66a0775d72df5a0bc7db7bcf6727c83a885170487e443461b8"
+          "fileHash": "477294797b778e66a0775d72df5a0bc7db7bcf6727c83a885170487e443461b8",
+          "head": [
+            78,
+            31
+          ],
+          "eyes": [
+            93,
+            102
+          ],
+          "neck": [
+            95,
+            143
+          ],
+          "back": [
+            92,
+            170
+          ],
+          "hand": [
+            126,
+            150
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -1219,7 +1319,27 @@
             256
           ],
           "artHash": "8259610ef8f78fdd1dcbc0b3de4973ea6586ab1674fb97d20476fd96ed626680",
-          "fileHash": "70b059a9824141f703921d75ca6ab18fbf96f7a544b76297d2ba469b76854447"
+          "fileHash": "70b059a9824141f703921d75ca6ab18fbf96f7a544b76297d2ba469b76854447",
+          "head": [
+            77,
+            31
+          ],
+          "eyes": [
+            76,
+            98
+          ],
+          "neck": [
+            77,
+            140
+          ],
+          "back": [
+            77,
+            169
+          ],
+          "hand": [
+            67,
+            118
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -1237,7 +1357,27 @@
             245
           ],
           "artHash": "c546e353aa2b3dc6c65eb8e23a47cf0b1068184a9e143e07dc7b67562711bace",
-          "fileHash": "1d70ca83afc4202d6fd339af377f9715be6c4a82cc13223cca1f43afdcf394c7"
+          "fileHash": "1d70ca83afc4202d6fd339af377f9715be6c4a82cc13223cca1f43afdcf394c7",
+          "head": [
+            94,
+            35
+          ],
+          "eyes": [
+            95,
+            123
+          ],
+          "neck": [
+            94,
+            146
+          ],
+          "back": [
+            94,
+            168
+          ],
+          "hand": [
+            94,
+            178
+          ]
         }
       ],
       "bodyHeight": 207.4
@@ -1255,7 +1395,27 @@
             260
           ],
           "artHash": "1cfeaceaf0cc9e2a678389beb71c5e2cf2b36a64173f17b89f4ea3b554270c03",
-          "fileHash": "6e015fb74ab2fc1d9bb7549473349679991ea1a39012661000d1de64b3102fef"
+          "fileHash": "6e015fb74ab2fc1d9bb7549473349679991ea1a39012661000d1de64b3102fef",
+          "head": [
+            79,
+            32
+          ],
+          "eyes": [
+            82,
+            103
+          ],
+          "neck": [
+            82,
+            144
+          ],
+          "back": [
+            79,
+            172
+          ],
+          "hand": [
+            130,
+            179
+          ]
         }
       ],
       "bodyHeight": 218.7
@@ -1273,7 +1433,27 @@
             258
           ],
           "artHash": "37d636ead68903691ad537621963a8c89ba2e1ece6de3e9b1d3beb99f14c28ae",
-          "fileHash": "bbdebd3251c63ca870832f48f162306dd268ec18777c476b2ca5b150b3deed76"
+          "fileHash": "bbdebd3251c63ca870832f48f162306dd268ec18777c476b2ca5b150b3deed76",
+          "head": [
+            78,
+            31
+          ],
+          "eyes": [
+            95,
+            105
+          ],
+          "neck": [
+            99,
+            146
+          ],
+          "back": [
+            95,
+            174
+          ],
+          "hand": [
+            119,
+            181
+          ]
         }
       ]
     },
@@ -1290,7 +1470,27 @@
             258
           ],
           "artHash": "178dbc6bae43d656e34e2da6248a2d127136e65f07bd4111b7dbd0964cdaf15a",
-          "fileHash": "273a1264fe22e0d0c53d61c0042e4582ab6936778a2e5432a252801b7e8be2b0"
+          "fileHash": "273a1264fe22e0d0c53d61c0042e4582ab6936778a2e5432a252801b7e8be2b0",
+          "head": [
+            85,
+            31
+          ],
+          "eyes": [
+            92,
+            105
+          ],
+          "neck": [
+            95,
+            146
+          ],
+          "back": [
+            95,
+            174
+          ],
+          "hand": [
+            160,
+            133
+          ]
         }
       ]
     },
@@ -1307,7 +1507,27 @@
             259
           ],
           "artHash": "ceb718fb8d18ca617e2e68dca16804bdc31835e3688a31a3535ef47c9ee5300f",
-          "fileHash": "e5cf6b32c4b0d3de04d624579812a8df0064ede91d45f4134a2380c9defeb25a"
+          "fileHash": "e5cf6b32c4b0d3de04d624579812a8df0064ede91d45f4134a2380c9defeb25a",
+          "head": [
+            82,
+            32
+          ],
+          "eyes": [
+            95,
+            102
+          ],
+          "neck": [
+            95,
+            144
+          ],
+          "back": [
+            95,
+            171
+          ],
+          "hand": [
+            168,
+            89
+          ]
         }
       ]
     },
@@ -1324,7 +1544,27 @@
             215
           ],
           "artHash": "84ce7798cfc4ec5ba392fbfad2dc52c9edb3ba7d0f188e7e5c955e4b40bcb11e",
-          "fileHash": "d5c71dcdd4249a714b7157df480d9459d5ad67666615fc85443c6e3079153950"
+          "fileHash": "d5c71dcdd4249a714b7157df480d9459d5ad67666615fc85443c6e3079153950",
+          "head": [
+            91,
+            37
+          ],
+          "eyes": [
+            97,
+            105
+          ],
+          "neck": [
+            94,
+            145
+          ],
+          "back": [
+            94,
+            162
+          ],
+          "hand": [
+            116,
+            171
+          ]
         }
       ]
     },
@@ -1341,7 +1581,27 @@
             254
           ],
           "artHash": "acee0c982f313b540aa8da35c6bae94ccf78aa6f1e5252eb105423b90736ef5b",
-          "fileHash": "22752c33f3d2e1ede92ba84bfe46f14c77ca4c63575404526445c3c65c225e9b"
+          "fileHash": "22752c33f3d2e1ede92ba84bfe46f14c77ca4c63575404526445c3c65c225e9b",
+          "head": [
+            77,
+            30
+          ],
+          "eyes": [
+            92,
+            107
+          ],
+          "neck": [
+            97,
+            144
+          ],
+          "back": [
+            90,
+            171
+          ],
+          "hand": [
+            174,
+            114
+          ]
         }
       ]
     },
@@ -1358,7 +1618,27 @@
             213
           ],
           "artHash": "035bef5bbb2743685294beee4264e032410b8efc0beaf26d367b3de2e6d8b574",
-          "fileHash": "64c1b3d96244bd7d3b860540eadb31240b6c1e7c0fe2a502589a828c7fbb1112"
+          "fileHash": "64c1b3d96244bd7d3b860540eadb31240b6c1e7c0fe2a502589a828c7fbb1112",
+          "head": [
+            81,
+            31
+          ],
+          "eyes": [
+            96,
+            101
+          ],
+          "neck": [
+            96,
+            138
+          ],
+          "back": [
+            96,
+            161
+          ],
+          "hand": [
+            166,
+            110
+          ]
         }
       ],
       "bodyHeight": 218.7
@@ -1376,7 +1656,27 @@
             247
           ],
           "artHash": "7fd6a02fa00454fe781ed8bf52c309d66fb25fe00ce1bd298c287d52d92a1938",
-          "fileHash": "85e03264024a9df307fed1dab35b795f47d227689f1611b4c08d60f87343125e"
+          "fileHash": "85e03264024a9df307fed1dab35b795f47d227689f1611b4c08d60f87343125e",
+          "head": [
+            91,
+            29
+          ],
+          "eyes": [
+            94,
+            101
+          ],
+          "neck": [
+            94,
+            140
+          ],
+          "back": [
+            91,
+            166
+          ],
+          "hand": [
+            121,
+            144
+          ]
         }
       ]
     },
@@ -1393,7 +1693,27 @@
             255
           ],
           "artHash": "bc5574d09cc3a3354bbbe467f4a3a0260ebe5c51aaed864e640d3d072e4c2873",
-          "fileHash": "d26eaae790e94478782d5034b65060a691055dd165a8e0048b65c23a99df6c89"
+          "fileHash": "d26eaae790e94478782d5034b65060a691055dd165a8e0048b65c23a99df6c89",
+          "head": [
+            77,
+            30
+          ],
+          "eyes": [
+            94,
+            101
+          ],
+          "neck": [
+            91,
+            145
+          ],
+          "back": [
+            91,
+            172
+          ],
+          "hand": [
+            57,
+            151
+          ]
         }
       ],
       "bodyHeight": 226.3
@@ -1411,7 +1731,27 @@
             189
           ],
           "artHash": "279383e2d175b382b042fe1a61fb4a8a48401bd263d6da8f908e6f395e90dffb",
-          "fileHash": "ebf388f4fdd5814a1d9f6aabcf0a6a2fd58cacea57a335d29501be3192e9d2d2"
+          "fileHash": "ebf388f4fdd5814a1d9f6aabcf0a6a2fd58cacea57a335d29501be3192e9d2d2",
+          "head": [
+            97,
+            40
+          ],
+          "eyes": [
+            92,
+            127
+          ],
+          "neck": [
+            92,
+            170
+          ],
+          "back": [
+            83,
+            178
+          ],
+          "hand": [
+            127,
+            178
+          ]
         }
       ]
     },
@@ -1466,7 +1806,27 @@
             234
           ],
           "artHash": "b347cfc99397c5dd82e49a91c0ba48fe55e0b50131bc4d8405e62a7813c8905e",
-          "fileHash": "0ac071b831cd9fd64892cfcb2184ba008439b8df71ea23ec499b6b585c96df62"
+          "fileHash": "0ac071b831cd9fd64892cfcb2184ba008439b8df71ea23ec499b6b585c96df62",
+          "head": [
+            74,
+            34
+          ],
+          "eyes": [
+            108,
+            102
+          ],
+          "neck": [
+            108,
+            139
+          ],
+          "back": [
+            102,
+            164
+          ],
+          "hand": [
+            142,
+            155
+          ]
         }
       ],
       "bodyHeight": 197.6
@@ -1484,7 +1844,27 @@
             256
           ],
           "artHash": "35b38760cacde55083cbd0e0f111bca03607119c4aaf186efd4bb318f364d5f5",
-          "fileHash": "aaba7901b1b26af075a5ee364fa1abf2600068b54ac09b15f17d4c029ec069f5"
+          "fileHash": "aaba7901b1b26af075a5ee364fa1abf2600068b54ac09b15f17d4c029ec069f5",
+          "head": [
+            81,
+            33
+          ],
+          "eyes": [
+            98,
+            101
+          ],
+          "neck": [
+            101,
+            142
+          ],
+          "back": [
+            98,
+            169
+          ],
+          "hand": [
+            152,
+            101
+          ]
         }
       ],
       "bodyHeight": 202.2
@@ -1502,7 +1882,27 @@
             218
           ],
           "artHash": "bf853bc3f7a7606c3f0fcb6fc9965dc885120b3c443917add1267cfe79654cfc",
-          "fileHash": "80a6bed982cb9ca82dec3d719eaec58e9b586cd00b38731d75abdc86afa5eba9"
+          "fileHash": "80a6bed982cb9ca82dec3d719eaec58e9b586cd00b38731d75abdc86afa5eba9",
+          "head": [
+            104,
+            34
+          ],
+          "eyes": [
+            124,
+            104
+          ],
+          "neck": [
+            127,
+            142
+          ],
+          "back": [
+            119,
+            165
+          ],
+          "hand": [
+            154,
+            168
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -1520,7 +1920,27 @@
             248
           ],
           "artHash": "7a988b389842964baa9664d11a450c33f87cd7fb77bf5c72dc3a5480083f7441",
-          "fileHash": "d23905de3c44a530b2f67b49cee2545c083bdf4120cc670b5caf7a20e5e65efb"
+          "fileHash": "d23905de3c44a530b2f67b49cee2545c083bdf4120cc670b5caf7a20e5e65efb",
+          "head": [
+            95,
+            36
+          ],
+          "eyes": [
+            100,
+            95
+          ],
+          "neck": [
+            101,
+            134
+          ],
+          "back": [
+            95,
+            161
+          ],
+          "hand": [
+            114,
+            170
+          ]
         }
       ],
       "bodyHeight": 216.4
@@ -1538,7 +1958,27 @@
             234
           ],
           "artHash": "442c6ebf643cb7745b499d2bf029d7f37b7edcd03a8f811a5500e730d68ef55e",
-          "fileHash": "5881733ab370922e6fd4d4f64099ab9b610a32d535739e560c3a2b41a0a32040"
+          "fileHash": "5881733ab370922e6fd4d4f64099ab9b610a32d535739e560c3a2b41a0a32040",
+          "head": [
+            80,
+            43
+          ],
+          "eyes": [
+            115,
+            102
+          ],
+          "neck": [
+            127,
+            146
+          ],
+          "back": [
+            121,
+            171
+          ],
+          "hand": [
+            177,
+            121
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -1556,7 +1996,27 @@
             249
           ],
           "artHash": "7a3e1647a77311a9fdaaed805510d7c4e5ffaea21266092ea58db77a14a83566",
-          "fileHash": "bfc20bd9565acd4be7acc311ba1d4e49b162e7d6020cf721b0bf269f24178105"
+          "fileHash": "bfc20bd9565acd4be7acc311ba1d4e49b162e7d6020cf721b0bf269f24178105",
+          "head": [
+            79,
+            32
+          ],
+          "eyes": [
+            79,
+            105
+          ],
+          "neck": [
+            79,
+            141
+          ],
+          "back": [
+            79,
+            168
+          ],
+          "hand": [
+            118,
+            188
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -1574,7 +2034,27 @@
             254
           ],
           "artHash": "d084fc7b49a253da7225b2e40edb8cb0c84ccc2701196031f5e91e1307da315c",
-          "fileHash": "dc178bda332e49c54097bc45e4e2b8df4a5222d1200a7ac0fc54524a9a5fe72e"
+          "fileHash": "dc178bda332e49c54097bc45e4e2b8df4a5222d1200a7ac0fc54524a9a5fe72e",
+          "head": [
+            90,
+            36
+          ],
+          "eyes": [
+            107,
+            87
+          ],
+          "neck": [
+            104,
+            144
+          ],
+          "back": [
+            97,
+            171
+          ],
+          "hand": [
+            127,
+            178
+          ]
         }
       ],
       "bodyHeight": 222.8
@@ -1592,7 +2072,27 @@
             251
           ],
           "artHash": "e616d1888da4b15addef867cf3174dc52303268f0faf886c4fa6be42bbc97fb1",
-          "fileHash": "44ee4c3b20f700e52d89044eb51d7c03333e9d5db426358328a1dac12e50883c"
+          "fileHash": "44ee4c3b20f700e52d89044eb51d7c03333e9d5db426358328a1dac12e50883c",
+          "head": [
+            86,
+            36
+          ],
+          "eyes": [
+            106,
+            93
+          ],
+          "neck": [
+            103,
+            143
+          ],
+          "back": [
+            103,
+            170
+          ],
+          "hand": [
+            126,
+            166
+          ]
         }
       ]
     },
@@ -1609,7 +2109,27 @@
             259
           ],
           "artHash": "7f0ebfa82b9252353d04d99883680b858a2df397e0850fa5c63e9004258956c6",
-          "fileHash": "e6b8021e27db41b06caa3f1119e3032358509a72facdb297ad75bb0f8ce25332"
+          "fileHash": "e6b8021e27db41b06caa3f1119e3032358509a72facdb297ad75bb0f8ce25332",
+          "head": [
+            75,
+            30
+          ],
+          "eyes": [
+            99,
+            102
+          ],
+          "neck": [
+            99,
+            147
+          ],
+          "back": [
+            95,
+            171
+          ],
+          "hand": [
+            116,
+            140
+          ]
         }
       ],
       "bodyHeight": 216.5
@@ -1627,7 +2147,27 @@
             245
           ],
           "artHash": "71aa21dba7b45a10f38c2b997183b289d95f04191b4108b75a6536926d25825d",
-          "fileHash": "37be32b4c48777b81c19a9378bd9d899882a9429aff8926a654be8a347d8ae9c"
+          "fileHash": "37be32b4c48777b81c19a9378bd9d899882a9429aff8926a654be8a347d8ae9c",
+          "head": [
+            81,
+            29
+          ],
+          "eyes": [
+            77,
+            94
+          ],
+          "neck": [
+            77,
+            136
+          ],
+          "back": [
+            77,
+            159
+          ],
+          "hand": [
+            110,
+            172
+          ]
         }
       ],
       "bodyHeight": 190.0
@@ -1645,7 +2185,27 @@
             233
           ],
           "artHash": "9940809bb9351bd8bdb5a02dd5a75ec7b15aeb2531d5e2522fe9f9ba4ef8e2a1",
-          "fileHash": "aeeb640ab803385586592b12ae7bd3a8e2cdadc1ae5d1fd7403977e68f17fdb0"
+          "fileHash": "aeeb640ab803385586592b12ae7bd3a8e2cdadc1ae5d1fd7403977e68f17fdb0",
+          "head": [
+            46,
+            111
+          ],
+          "eyes": [
+            95,
+            145
+          ],
+          "neck": [
+            132,
+            117
+          ],
+          "back": [
+            145,
+            98
+          ],
+          "hand": [
+            191,
+            101
+          ]
         }
       ]
     },
@@ -1662,7 +2222,27 @@
             277
           ],
           "artHash": "83de2c74ac15c9b95bd4ee994f38873f4f0c5c0b4d70bca2774e56cff2a1dfbd",
-          "fileHash": "608885b7fc6357955aadd2d1b6cc14d79f6a690a49544546ce6a0520d4cb2ef9"
+          "fileHash": "608885b7fc6357955aadd2d1b6cc14d79f6a690a49544546ce6a0520d4cb2ef9",
+          "head": [
+            76,
+            32
+          ],
+          "eyes": [
+            87,
+            80
+          ],
+          "neck": [
+            84,
+            124
+          ],
+          "back": [
+            84,
+            153
+          ],
+          "hand": [
+            84,
+            25
+          ]
         }
       ],
       "bodyHeight": 199.3
@@ -1680,7 +2260,27 @@
             267
           ],
           "artHash": "cd2d0a4acc86b050e273222faed8c46a17c6e71454737a0fd94e0eeb9a04144f",
-          "fileHash": "25c2276770706ab041affa162d21f3ea0781ff6a704f0e60d770341da09a1ad2"
+          "fileHash": "25c2276770706ab041affa162d21f3ea0781ff6a704f0e60d770341da09a1ad2",
+          "head": [
+            56,
+            35
+          ],
+          "eyes": [
+            99,
+            95
+          ],
+          "neck": [
+            102,
+            138
+          ],
+          "back": [
+            95,
+            170
+          ],
+          "hand": [
+            159,
+            141
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -1698,7 +2298,27 @@
             266
           ],
           "artHash": "0f1627f1526406d55ac64fee113151e9dd61824130b6b7f8facade76772c4128",
-          "fileHash": "15a245009e859700c86c8c21865b0544ad69c830bdb460748cfb48c78c9f62cc"
+          "fileHash": "15a245009e859700c86c8c21865b0544ad69c830bdb460748cfb48c78c9f62cc",
+          "head": [
+            59,
+            38
+          ],
+          "eyes": [
+            80,
+            95
+          ],
+          "neck": [
+            80,
+            133
+          ],
+          "back": [
+            77,
+            162
+          ],
+          "hand": [
+            119,
+            140
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -1716,7 +2336,27 @@
             212
           ],
           "artHash": "5b86450d6186fca045dfdb693a76d57a789668c83087e3dda1304b083c339d12",
-          "fileHash": "7d9ff8271df1a1a2a6afe7e3b69915128751e098e4507f3ece001c7900081b6d"
+          "fileHash": "7d9ff8271df1a1a2a6afe7e3b69915128751e098e4507f3ece001c7900081b6d",
+          "head": [
+            70,
+            39
+          ],
+          "eyes": [
+            98,
+            104
+          ],
+          "neck": [
+            104,
+            135
+          ],
+          "back": [
+            98,
+            157
+          ],
+          "hand": [
+            154,
+            171
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -1734,7 +2374,27 @@
             274
           ],
           "artHash": "cbc5513fe8e3871751f2029eea1cf64c7c928ab5311518e60640a98c58b0be24",
-          "fileHash": "1def9247dc05601308e8e8170df1f0d852a0e159e1d89289e3101c89e5e757d5"
+          "fileHash": "1def9247dc05601308e8e8170df1f0d852a0e159e1d89289e3101c89e5e757d5",
+          "head": [
+            72,
+            28
+          ],
+          "eyes": [
+            76,
+            94
+          ],
+          "neck": [
+            76,
+            126
+          ],
+          "back": [
+            76,
+            155
+          ],
+          "hand": [
+            39,
+            101
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -1752,7 +2412,27 @@
             263
           ],
           "artHash": "b319e42f4b8a335210a68d78099713c3349693d5600c330ca76cae500ecc15ac",
-          "fileHash": "fbc8f1da38094bcc36ced0ce5c61e3219cc10229cdeeddcab0912be1e0d538a1"
+          "fileHash": "fbc8f1da38094bcc36ced0ce5c61e3219cc10229cdeeddcab0912be1e0d538a1",
+          "head": [
+            83,
+            41
+          ],
+          "eyes": [
+            118,
+            111
+          ],
+          "neck": [
+            118,
+            156
+          ],
+          "back": [
+            114,
+            184
+          ],
+          "hand": [
+            184,
+            156
+          ]
         }
       ]
     },
@@ -1769,7 +2449,27 @@
             262
           ],
           "artHash": "0dea13ca48b0109db9afbcd3656ed1ac197ca8e8e74bd9fe238000b0761137aa",
-          "fileHash": "33225e3148c144e20e3160f005bec5850f22900597a3211cbac10521593b7ad4"
+          "fileHash": "33225e3148c144e20e3160f005bec5850f22900597a3211cbac10521593b7ad4",
+          "head": [
+            86,
+            41
+          ],
+          "eyes": [
+            79,
+            124
+          ],
+          "neck": [
+            76,
+            159
+          ],
+          "back": [
+            72,
+            187
+          ],
+          "hand": [
+            86,
+            173
+          ]
         }
       ]
     },
@@ -1786,7 +2486,27 @@
             258
           ],
           "artHash": "1876e7b7607bdee0e512fcd670c2bc377d2b6eb7eaba094cc6f63ae928f1b592",
-          "fileHash": "13f6aa9e9f7fb5830d28b7ad6e050b5ddfd5420821f44a3a85778fad1fb2d799"
+          "fileHash": "13f6aa9e9f7fb5830d28b7ad6e050b5ddfd5420821f44a3a85778fad1fb2d799",
+          "head": [
+            81,
+            37
+          ],
+          "eyes": [
+            112,
+            102
+          ],
+          "neck": [
+            109,
+            150
+          ],
+          "back": [
+            109,
+            177
+          ],
+          "hand": [
+            164,
+            177
+          ]
         }
       ]
     },
@@ -1803,7 +2523,27 @@
             259
           ],
           "artHash": "08872eed87fea6e544cd84ba0bdaf5adeacf090474b89f2e0c425cb0b2c11632",
-          "fileHash": "6afe4def95fa71089505f3d54783d8155f337b823b3e9540279ffa08751d34ea"
+          "fileHash": "6afe4def95fa71089505f3d54783d8155f337b823b3e9540279ffa08751d34ea",
+          "head": [
+            78,
+            30
+          ],
+          "eyes": [
+            92,
+            113
+          ],
+          "neck": [
+            95,
+            150
+          ],
+          "back": [
+            95,
+            178
+          ],
+          "hand": [
+            130,
+            178
+          ]
         }
       ]
     },
@@ -1820,7 +2560,27 @@
             226
           ],
           "artHash": "a719060768288b40450e15210c12f5a3bc03eb6f1a44f1e54ce1587f06966720",
-          "fileHash": "509b5ed247b618328c1d1a5483390632672f0707e46b45285be963ac6b42c138"
+          "fileHash": "509b5ed247b618328c1d1a5483390632672f0707e46b45285be963ac6b42c138",
+          "head": [
+            80,
+            26
+          ],
+          "eyes": [
+            107,
+            101
+          ],
+          "neck": [
+            107,
+            137
+          ],
+          "back": [
+            104,
+            158
+          ],
+          "hand": [
+            119,
+            146
+          ]
         }
       ]
     },
@@ -1837,7 +2597,27 @@
             258
           ],
           "artHash": "35336f3867e6e05010be9cfce9feee8a0fb9b06676f26834869ae3ede53dd881",
-          "fileHash": "ac45a6a01ceea2c031a3a6886d0f5057d9c28e2e8da6d5f4bbcb0340126de1d5"
+          "fileHash": "ac45a6a01ceea2c031a3a6886d0f5057d9c28e2e8da6d5f4bbcb0340126de1d5",
+          "head": [
+            71,
+            30
+          ],
+          "eyes": [
+            95,
+            109
+          ],
+          "neck": [
+            99,
+            153
+          ],
+          "back": [
+            95,
+            181
+          ],
+          "hand": [
+            167,
+            160
+          ]
         }
       ]
     },
@@ -1854,7 +2634,27 @@
             249
           ],
           "artHash": "02401e7f8c50b0e27bbf988b16f281ef2efe80fd68d4a08bf92e1a270350b44d",
-          "fileHash": "5a2232281b9eb9e6c03b46f00d5e8120f0048c1b2a2d21f4e35a3a91daf7771a"
+          "fileHash": "5a2232281b9eb9e6c03b46f00d5e8120f0048c1b2a2d21f4e35a3a91daf7771a",
+          "head": [
+            92,
+            32
+          ],
+          "eyes": [
+            115,
+            118
+          ],
+          "neck": [
+            108,
+            155
+          ],
+          "back": [
+            105,
+            181
+          ],
+          "hand": [
+            131,
+            148
+          ]
         }
       ]
     },
@@ -1871,7 +2671,27 @@
             257
           ],
           "artHash": "1d0b60972245c6c1d09e453399115110955b6ec9b09d08f93d5d763987f6e0bb",
-          "fileHash": "06f97725257d7f6f86f9a11eca43408396ad7ab54c06a3208602b9ddd9943253"
+          "fileHash": "06f97725257d7f6f86f9a11eca43408396ad7ab54c06a3208602b9ddd9943253",
+          "head": [
+            88,
+            37
+          ],
+          "eyes": [
+            98,
+            105
+          ],
+          "neck": [
+            98,
+            149
+          ],
+          "back": [
+            98,
+            177
+          ],
+          "hand": [
+            159,
+            156
+          ]
         }
       ]
     },
@@ -1928,8 +2748,8 @@
             171
           ],
           "eyes": [
-            110,
-            96
+            113,
+            113
           ],
           "neck": [
             85,
@@ -1988,8 +2808,8 @@
             169
           ],
           "eyes": [
-            61,
-            96
+            54,
+            110
           ],
           "neck": [
             88,
@@ -2016,7 +2836,27 @@
             259
           ],
           "artHash": "875f95a7d2d6fcf76307425bdce7bcd1872c09942fb231fe281a4eadda0003c1",
-          "fileHash": "ae7f915aa5e512851b0d02fc519f8f313a3f1be44503cfe78e20a3e0343832f5"
+          "fileHash": "ae7f915aa5e512851b0d02fc519f8f313a3f1be44503cfe78e20a3e0343832f5",
+          "head": [
+            78,
+            34
+          ],
+          "eyes": [
+            102,
+            109
+          ],
+          "neck": [
+            99,
+            154
+          ],
+          "back": [
+            99,
+            181
+          ],
+          "hand": [
+            65,
+            141
+          ]
         }
       ]
     },
@@ -2033,7 +2873,27 @@
             257
           ],
           "artHash": "0ddae3c9328e71c06cb3c6e1e074b341c6b9eed1e29c334e9b7aa2ed3c0dfa64",
-          "fileHash": "678748440885bd51ecf8fb5673f304f29b2cb130365a5813612714884b419419"
+          "fileHash": "678748440885bd51ecf8fb5673f304f29b2cb130365a5813612714884b419419",
+          "head": [
+            85,
+            33
+          ],
+          "eyes": [
+            81,
+            108
+          ],
+          "neck": [
+            85,
+            153
+          ],
+          "back": [
+            85,
+            180
+          ],
+          "hand": [
+            47,
+            129
+          ]
         }
       ]
     },
@@ -2050,7 +2910,27 @@
             254
           ],
           "artHash": "3a0d0bfc7a2b0dc59d0a1f46f1990b8c44328d3b7d1746d6011783017c26b9e9",
-          "fileHash": "937bf561420689654f5a602f4607df1d357a4b576d423f62954251fd19ce9c62"
+          "fileHash": "937bf561420689654f5a602f4607df1d357a4b576d423f62954251fd19ce9c62",
+          "head": [
+            77,
+            33
+          ],
+          "eyes": [
+            84,
+            107
+          ],
+          "neck": [
+            84,
+            151
+          ],
+          "back": [
+            84,
+            174
+          ],
+          "hand": [
+            57,
+            178
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -2068,7 +2948,27 @@
             237
           ],
           "artHash": "41c31e1603d3232d84401b2c9c8601cdf63379547a7a999ff042ca50b6b9a2ff",
-          "fileHash": "388617cf906036869d739239ea835fee8236db57759d9ae6b529484211e41d98"
+          "fileHash": "388617cf906036869d739239ea835fee8236db57759d9ae6b529484211e41d98",
+          "head": [
+            75,
+            34
+          ],
+          "eyes": [
+            106,
+            106
+          ],
+          "neck": [
+            103,
+            144
+          ],
+          "back": [
+            97,
+            169
+          ],
+          "hand": [
+            160,
+            147
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -2086,7 +2986,27 @@
             251
           ],
           "artHash": "af715a5cc2aee194cdb3c1fcab2ded99c6bf14b8e7423da47f3c38cf0c4147bc",
-          "fileHash": "ad42a13d5322a6b40c3bd006fb6aeac86401eabb510e4a169323e2430dc0fdce"
+          "fileHash": "ad42a13d5322a6b40c3bd006fb6aeac86401eabb510e4a169323e2430dc0fdce",
+          "head": [
+            76,
+            33
+          ],
+          "eyes": [
+            100,
+            106
+          ],
+          "neck": [
+            100,
+            150
+          ],
+          "back": [
+            100,
+            176
+          ],
+          "hand": [
+            130,
+            180
+          ]
         }
       ]
     },
@@ -2103,7 +3023,27 @@
             251
           ],
           "artHash": "6deedf58a7ab9f201f06a6b1c4db25adaf7874d80c830a800e407d02bea382f0",
-          "fileHash": "75f75b3e9fa617d87084ad719b32a90fe8c1b67a3143dfe683b741a97edaad54"
+          "fileHash": "75f75b3e9fa617d87084ad719b32a90fe8c1b67a3143dfe683b741a97edaad54",
+          "head": [
+            86,
+            33
+          ],
+          "eyes": [
+            89,
+            106
+          ],
+          "neck": [
+            89,
+            146
+          ],
+          "back": [
+            86,
+            172
+          ],
+          "hand": [
+            13,
+            73
+          ]
         }
       ],
       "bodyHeight": 211.4
@@ -2121,7 +3061,27 @@
             249
           ],
           "artHash": "617055550beb749ba78c9cf4984b76d8baa5156304f84a193f16a6e5758cd3e0",
-          "fileHash": "023fc939a19c778a8b4d9bf67fa129630944319706d1c00162378c7f10a6c4de"
+          "fileHash": "023fc939a19c778a8b4d9bf67fa129630944319706d1c00162378c7f10a6c4de",
+          "head": [
+            82,
+            30
+          ],
+          "eyes": [
+            95,
+            105
+          ],
+          "neck": [
+            98,
+            131
+          ],
+          "back": [
+            95,
+            158
+          ],
+          "hand": [
+            29,
+            59
+          ]
         }
       ],
       "bodyHeight": 219.3
@@ -2139,7 +3099,27 @@
             236
           ],
           "artHash": "5cf0a582e20b80483c5c7c9b3ab186bc45bb5928929309608fe08298e7f5a909",
-          "fileHash": "c59b29600c997f4bc31db63df3f9347267148948e7ebb8bac078343854161d5c"
+          "fileHash": "c59b29600c997f4bc31db63df3f9347267148948e7ebb8bac078343854161d5c",
+          "head": [
+            106,
+            34
+          ],
+          "eyes": [
+            115,
+            112
+          ],
+          "neck": [
+            115,
+            150
+          ],
+          "back": [
+            106,
+            165
+          ],
+          "hand": [
+            140,
+            153
+          ]
         },
         {
           "src": "dash-01.webp",
@@ -2148,7 +3128,27 @@
             226
           ],
           "artHash": "d5c912a031105ff2d91583a1204eb4ae6266d8a9dae283f73eea75be69beb6ad",
-          "fileHash": "ca4e80ed32176d79313422b55a3b8354641aa6d5236393beaa412d27bac8c2a0"
+          "fileHash": "ca4e80ed32176d79313422b55a3b8354641aa6d5236393beaa412d27bac8c2a0",
+          "head": [
+            116,
+            38
+          ],
+          "eyes": [
+            131,
+            107
+          ],
+          "neck": [
+            131,
+            143
+          ],
+          "back": [
+            125,
+            161
+          ],
+          "hand": [
+            200,
+            119
+          ]
         }
       ],
       "bodyHeight": 209.0
@@ -2166,7 +3166,27 @@
             251
           ],
           "artHash": "eeabf8316ec359f86abacd62b22343f7dfa0c53f2875389d52f2474c2dab8cb4",
-          "fileHash": "2299d9057cf9d3ba4498f8c4631af2a44ec33fc90ea9599af799a2afa309515b"
+          "fileHash": "2299d9057cf9d3ba4498f8c4631af2a44ec33fc90ea9599af799a2afa309515b",
+          "head": [
+            63,
+            33
+          ],
+          "eyes": [
+            56,
+            89
+          ],
+          "neck": [
+            56,
+            126
+          ],
+          "back": [
+            56,
+            149
+          ],
+          "hand": [
+            16,
+            132
+          ]
         },
         {
           "src": "hip-bump-01.webp",
@@ -2175,7 +3195,27 @@
             254
           ],
           "artHash": "4a7ec0458899738f13e92f421ef9ff2ffd0f653fb55a8570b6bb4bdd9d25ecb4",
-          "fileHash": "729fb4ead155bbeb4fa17f4a54140ad136310f3325984c37ab435d879d7984ef"
+          "fileHash": "729fb4ead155bbeb4fa17f4a54140ad136310f3325984c37ab435d879d7984ef",
+          "head": [
+            87,
+            33
+          ],
+          "eyes": [
+            77,
+            100
+          ],
+          "neck": [
+            84,
+            131
+          ],
+          "back": [
+            80,
+            158
+          ],
+          "hand": [
+            134,
+            131
+          ]
         }
       ],
       "bodyHeight": 207.4
@@ -2193,7 +3233,27 @@
             248
           ],
           "artHash": "cba6f0ef3b46c89aacd87f9d8609d307c5b742d88d15336b5c7743c4936add5e",
-          "fileHash": "197116be417170f67f04b11d0c243f0ffda5ce7f92c9132c2d0fe666cdd8e892"
+          "fileHash": "197116be417170f67f04b11d0c243f0ffda5ce7f92c9132c2d0fe666cdd8e892",
+          "head": [
+            82,
+            39
+          ],
+          "eyes": [
+            108,
+            91
+          ],
+          "neck": [
+            114,
+            134
+          ],
+          "back": [
+            121,
+            154
+          ],
+          "hand": [
+            187,
+            82
+          ]
         },
         {
           "src": "knockback-01.webp",
@@ -2202,7 +3262,27 @@
             248
           ],
           "artHash": "53a70fbd187efeb932e1135d27867f557b21fe9037362c5b43370768d917ef33",
-          "fileHash": "f8ce44b4d79a68d2e83c268f032f79281dec5ba43e8c1c9508e4a47d4b1a7b01"
+          "fileHash": "f8ce44b4d79a68d2e83c268f032f79281dec5ba43e8c1c9508e4a47d4b1a7b01",
+          "head": [
+            78,
+            42
+          ],
+          "eyes": [
+            105,
+            95
+          ],
+          "neck": [
+            121,
+            134
+          ],
+          "back": [
+            128,
+            154
+          ],
+          "hand": [
+            197,
+            105
+          ]
         }
       ],
       "bodyHeight": 220.3
@@ -2219,7 +3299,27 @@
             346
           ],
           "artHash": "77f6fc9fabe36275cd3b0ac1512b44ed944e6b15bcb7cbf0037693b5a5dd4e9c",
-          "fileHash": "44adea11aaa3d8238f3a11c7cdf8b619cb8b8ce12c1c748fd22dabc61c4786c6"
+          "fileHash": "44adea11aaa3d8238f3a11c7cdf8b619cb8b8ce12c1c748fd22dabc61c4786c6",
+          "head": [
+            118,
+            49
+          ],
+          "eyes": [
+            136,
+            155
+          ],
+          "neck": [
+            136,
+            214
+          ],
+          "back": [
+            136,
+            251
+          ],
+          "hand": [
+            155,
+            223
+          ]
         },
         {
           "src": "dance-01.webp",
@@ -2228,7 +3328,27 @@
             357
           ],
           "artHash": "2bedc23d674d4e4532e6ed6414f3b7ebc21c0c651f1851023a79604e22275e5d",
-          "fileHash": "364aff9a1647f6c813406b9d42760585b8cb957991707c3903331e477b0b6350"
+          "fileHash": "364aff9a1647f6c813406b9d42760585b8cb957991707c3903331e477b0b6350",
+          "head": [
+            141,
+            56
+          ],
+          "eyes": [
+            122,
+            145
+          ],
+          "neck": [
+            127,
+            202
+          ],
+          "back": [
+            127,
+            240
+          ],
+          "hand": [
+            197,
+            235
+          ]
         },
         {
           "src": "dance-02.webp",
@@ -2237,7 +3357,27 @@
             350
           ],
           "artHash": "c6ebfbdc9dbadbc1fea8b5f498372bc07bc4d435149de3d590721943f1926cc8",
-          "fileHash": "240e74870d989174733c348690592c88f6fc673ee5632d50d201948a1fd65560"
+          "fileHash": "240e74870d989174733c348690592c88f6fc673ee5632d50d201948a1fd65560",
+          "head": [
+            129,
+            50
+          ],
+          "eyes": [
+            138,
+            147
+          ],
+          "neck": [
+            143,
+            207
+          ],
+          "back": [
+            138,
+            245
+          ],
+          "hand": [
+            254,
+            115
+          ]
         },
         {
           "src": "dance-03.webp",
@@ -2246,7 +3386,27 @@
             356
           ],
           "artHash": "383ccfbdbf5fb63b22fe2b882d08cdb93f2d7a0c8c5da4c5914e924a6a771de5",
-          "fileHash": "444d26c360c2fdf0607bee8df5b2ea4fb28cb9c7e872249f379b92c5af5746d6"
+          "fileHash": "444d26c360c2fdf0607bee8df5b2ea4fb28cb9c7e872249f379b92c5af5746d6",
+          "head": [
+            131,
+            51
+          ],
+          "eyes": [
+            136,
+            150
+          ],
+          "neck": [
+            136,
+            206
+          ],
+          "back": [
+            136,
+            244
+          ],
+          "hand": [
+            239,
+            202
+          ]
         }
       ],
       "bodyHeight": 333.4
@@ -2264,7 +3424,27 @@
             214
           ],
           "artHash": "4c48b700911f97ee6bae3eb5eade169a32cdc0717d5cd15535f8c9efe65efb23",
-          "fileHash": "3e920d811864c14c2c6edfbb0edb144d6c461bf3faee6a9003109fd7b545e1bf"
+          "fileHash": "3e920d811864c14c2c6edfbb0edb144d6c461bf3faee6a9003109fd7b545e1bf",
+          "head": [
+            67,
+            33
+          ],
+          "eyes": [
+            67,
+            87
+          ],
+          "neck": [
+            70,
+            126
+          ],
+          "back": [
+            67,
+            146
+          ],
+          "hand": [
+            106,
+            160
+          ]
         }
       ],
       "bodyHeight": 209.0
