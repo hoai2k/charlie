@@ -237,7 +237,7 @@ export function drawRiver(g, hole, t) {
 export function drawBridge(g, b) {
   const w = b.x1 - b.x0, h = b.y1 - b.y0;
   g.save(); g.fillStyle = 'rgba(40,10,0,0.35)'; ui.roundRect(g, b.x0 + 6, b.y0 + 12, w, h, 18); g.fill(); g.restore();
-  // the art's cookie is a thin strip inside a padded canvas: trim it so it covers the whole bridge
+  // The replacement matches the bridge aspect ratio; trim only its tiny alpha margin.
   if (drawTrimmed(g, 'prop/golf-cookie-bridge', b.x0 + w / 2, b.y0 + h / 2, w, h, true)) return;
   g.save();
   g.fillStyle = NAVY; ui.roundRect(g, b.x0 - 4, b.y0 - 4, w + 8, h + 8, 20); g.fill();

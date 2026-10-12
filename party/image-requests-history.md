@@ -1,5 +1,17 @@
 # Charlie Party: image request history
 
+## 2026-10-12 — Remaining prop revisions delivered
+
+Cloud thumbnail now has content smile and striped trampoline; open chest isfront-on; cookiebridge has two rows at correctaspect; fishinghandle art now joins proceduralbending shaft. Fishing complete CPUrun hasno newconsoleerrors afterimportfix; handle/fallbackregression test passes. Exactprompts/sources: reference/pending/OCT12-PROP-REVISIONS.json.
+
+| Key | Previous issue | Completed request |
+| --- | --- | --- |
+| `prop/fishing-rod` (optional) | The rod fills only the middle 37% of its canvas (x 161–350 of 512) with a 2–3 px shaft, so in game it was a near-invisible hairline. A static rod also can't bend, and the rod bends on every nibble and tug as tension feedback, so the game now always draws the rod itself and this file is unused. | Only if rod art is wanted: 512×64, transparent, a chunky kid's rod **handle only** (cork grip plus a big yellow reel), butt at the left edge, the shaft's start at the right edge, filling the full width, about 24 px thick, navy outline. The code would draw it from the butt to the hand and keep its own bending shaft. Otherwise drop the key. |
+| `thumb/cloud-hop` (optional) | The rain cloud frowns (the request asked for sleepy and content) and the trampoline is blue instead of the in-game pink-and-white stripes. | Same composition; make the rain cloud sleepy and content, and the trampoline pink-and-white striped like `prop/cloudhop-trampoline`. 800×500, opaque. |
+| `prop/treasure-chest-open` (optional) | Drawn in 3/4 view (lid hinged to the right) while `prop/treasure-chest` is straight front-on, so the chest seems to turn when it opens. | Same front-on view, scale and outline as `prop/treasure-chest` (same plank and band layout and lock position), lid flipped up behind, heaped coins and a pearl necklace; 300×300, transparent, bottom-centre at the base, a few px of padding below the base. |
+| `prop/golf-cookie-bridge` (optional) | The visible cookie is a thin 3.3:1 strip (411×123) inside the 440×230 canvas; the code trims it and stretches it to the 1.9:1 bridge, so the crackers become tall planks and the chips stretch. | Fill the 440×230 canvas edge to edge (≤8 px padding) at the requested 1.9:1: a wide graham-cracker bridge seen from above (e.g. two rows of square crackers, or one big cracker with perforations), chocolate chips, crumbs only inside the canvas. |
+
+
 ## 2026-10-12 — Fashion Show and dress-up accessories delivered
 
 All32 new props generated with built-in imagegen, alpha/anchor/eyehole audited and reviewed on actual Actor/outfit renderer in everycategory. Three headband attachment fractions adjusted to measured seating points whilepreserving fullsilhouettes. Sources/geometry/prompts: reference/pending/OCT12-FASHION-HEAD.json and OCT12-FASHION-OTHER.json; runtime gallery: OCT12-WEARABLE-REVIEW.html.
