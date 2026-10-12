@@ -1114,3 +1114,46 @@ fine; the code uses one of each pair.
 
 
 No open image or re-generation requests remain as of 2026-10-12.
+
+## New Play Studio game: sandcastle-beach
+
+### sandcastle-beach — Sandcastle Beach   (requested by the sandcastle-beach agent, 2026-10-05, priority: nice-to-have)
+
+Everyone builds a sandcastle on their own patch of a sunny beach: bucket
+molds (round towers, pointy towers, walls, domes), moats dug with a spade
+that fill with sea water, and shells, starfish and flags. Friendly crabs
+wander across the sand. The finale is a gentle wave (it fills the moats and
+leaves a present, it never knocks anything down) and a sunset tour of every
+castle. Everything below has a procedural fallback that ships today; the
+code already looks up every key. House style: navy `#24163f` outlines, soft
+cel shading, bright candy colours, **no text**. Castle pieces are seen in a
+gentle three-quarter view from the front and slightly above (we see the top
+of each mold as an ellipse about 0.45 × as deep as it is wide).
+
+"Units" below are the game's world units; on screen they are scaled by the
+plot zoom k (about 0.75 at 8 players, 1.25 at 1–2 players). Props are
+drawn with `drawArt(..., { anchor: 'bottom' })`, so the **bottom centre of
+the image is the front edge of the piece's footprint on the sand** (the
+lowest point of its base ellipse). Leave no empty margin at the bottom.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/sandcastle-beach` | 1920×1080, opaque | Full screen. **Layout must match:** sky from y=0 to the horizon at y=150, calm sea from 150 to the foamy shoreline at about y=330, a band of darker wet sand to y≈370, then dry sand to the bottom. The players' plots are drawn on the dry sand (y 360–1066), so keep it plain and low-contrast; a few beach things (umbrella, towel, ball, bucket) only at the far left/right edges between y 380 and 600. Keep the top 110 px calm (HUD) | A sunny cartoon beach seen from the sand looking out to sea: pale blue sky with two soft clouds, a turquoise sea with gentle sparkles, a lacy white foam line, smooth golden sand with a faint ripple texture. A striped umbrella at the far left and a towel at the far right |
+| `bg/sandcastle-beach-sunset` | 1920×1080, opaque | Same layout as `bg/sandcastle-beach` (horizon y=150, shoreline y≈330); crossfaded over it during the sunset tour. The code draws the sun itself (setting at the horizon around x=960), so leave the sun out | The same beach at sunset: peach-pink-lilac sky with soft orange clouds, a deep coral-and-violet sea with a golden glitter path down the middle, sand washed warm apricot with long soft shadows |
+| `thumb/sandcastle-beach` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A big cheerful sandcastle with round towers, a pointy tower, little pink and blue flags, shells and an orange starfish, a blue moat around it, a smiling red crab waving a claw in the front corner, a sand bucket and spade, blue sea and sky behind. Subject centred |
+| `prop/sandcastle-tower` | 192×256, transparent | Round bucket tower, footprint radius 40 units; drawn in a 96×128-unit box. Its flat top (the stacking surface, which the code uses at 104 units up) has square battlements around the rim | A round sandcastle tower made with a bucket: packed golden sand with faint horizontal bucket ridges, little square battlements on top, soft shading on the right side |
+| `prop/sandcastle-tower-window` | 192×256, transparent | Same as `prop/sandcastle-tower` (style 2) | The same tower with a small arched dark window in the middle and a shell pressed above it |
+| `prop/sandcastle-tower-door` | 192×256, transparent | Same as `prop/sandcastle-tower` (style 3) | The same tower with an arched wooden-brown door at the base and two tiny windows |
+| `prop/sandcastle-pointy` | 160×320, transparent | Pointy tower, footprint radius 28 units; drawn in a 70×150-unit box. Nothing stacks on it | A slim sand turret with a cone roof made with a cone mold, drippy sand rings on the cone, a tiny round window |
+| `prop/sandcastle-wall` | 256×176, transparent | Wall running left-right, footprint 120×34 units; drawn in a 128×84-unit box. Top at 58 units | A straight sand wall with square battlements along the top, packed golden sand with a few pressed-in pebbles |
+| `prop/sandcastle-wall-side` | 128×208, transparent | The same wall turned to run away from the viewer (style 2), footprint 34 wide × 100 deep; drawn in a 60×100-unit box. Top at 58 units | The same sand wall seen end-on, receding into the distance (a narrow slab with battlements, longer top than front) |
+| `prop/sandcastle-dome` | 224×160, transparent | Round sand dome (bowl mold), footprint radius 50 units; drawn in a 110×80-unit box. Top at 52 units | A smooth half-sphere of packed sand like an upside-down bowl, with a scalloped pattern pressed around its middle |
+| `prop/beach-shell-scallop`, `prop/beach-shell-conch`, `prop/beach-shell-clam` | 96×80 each, transparent | Decorations, drawn in a 40×34-unit box on the sand or on top of a piece | A pink scallop shell; a cream-and-peach spiral conch; a lilac clam shell slightly open with a tiny pearl |
+| `prop/beach-starfish-orange`, `prop/beach-starfish-pink`, `prop/beach-starfish-purple` | 96×96 each, transparent | Decoration, drawn in a 44×44-unit box, slightly tilted toward the viewer | A friendly five-armed starfish with little bumps (dots) on its arms, in orange / bubblegum pink / lavender. No face |
+| `prop/sandcastle-flag-pink`, `-blue`, `-yellow`, `-mint` | 96×192 each, transparent | Flag on a stick, drawn in a 40×80-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing | A thin wooden stick with a triangular pennant flag in pink / sky blue / sunny yellow / mint, with a small white star on the pennant |
+| `prop/beach-crab` | 256×192, transparent | The wandering crab NPC, drawn in a 64×48-unit box (bottom = its feet). The code bobs it, squashes it and tilts it while it walks sideways | A small round friendly red-coral crab, front view, two big claws raised happily, eyes on stalks, rosy cheeks and a smile, six little legs |
+| `prop/sand-bucket` | 192×192, transparent | UI: the mold tools' icon on the tool bar and the hand cursor (drawn at 40–60 px) | A bright pink plastic beach bucket with a yellow handle and a little sand on the rim |
+| `prop/sand-spade` | 160×192, transparent | UI: the moat tool's icon and the cursor while digging (40–60 px) | A blue plastic beach spade with a yellow handle |
+
+No new sprite poses are needed: the code uses `dig`, `action`, `cheer`,
+`surprised`, `giggle`, `celebrate`, `jump` and the shared photo poses.
