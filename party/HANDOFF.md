@@ -74,7 +74,7 @@ Done and pushed this session (all tested headless in Playwright):
   pottery-wheel); their image requests are on main; `STUDIO_PAGES` + "More
   Play" tile in game select. New POSES registered with fallbacks: mold,
   tuck, roll-push. SFX: `party/tools/audio/sfx/round5.py` (specs in
-  round5-specs.txt): `gen` then `build` (raw takes cached in the scratchpad).
+  round5-specs.txt): generated and built 2026-10-13 (100 sounds).
   Optional future poses: point-up (star-maker), show-nails, snip.
 - Art QA of the 2026-10-12 deliveries: done (fixes merged; regen rows:
   teddy backpack wrong side, optional shorter rod handle).
