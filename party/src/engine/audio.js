@@ -512,20 +512,24 @@ function streamFor(file) {
 const songLabel = (name, e) => (e && e.label) || name.charAt(0).toUpperCase() + name.slice(1);
 
 class Music {
-  constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; }
+  constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; this.titleCarry = false; this.titleResume = null; }
   /**
    * opts.loop: false plays a recorded song once (rhythm-game songs, entry.once
    * songs default to this); true loops a once-song as a whole (from its start).
    */
-  play(name, { restart = false, loop = null } = {}) {
+  play(name, { restart = false, loop = null, fadeIn = 1.5 } = {}) {
     if (!ctx) return;
     // A streamed song never needs restarting: just make sure it is playing.
     if (this.name === name && (!restart || this.stream)) {
       if (name === 'title' && restart && this.stream) { this.titleCarry = false; this.stream.el.loop = true; this.stream.el.onended = null; }
       this._kick(); return;
     }
+    // Leaving the anthem mid-song (a game's music takes over): remember where
+    // it was, so the menus can fade it back in from there (see menu()).
+    if (this.name === 'title' && this.titleCarry && this.stream) this.titleResume = { file: this.entry && this.entry.file, take: takePicks.get('title'), t: this.stream.el.currentTime };
     this.titleCarry = false;
     if (this.name && this.name !== name) takePicks.delete(this.name); // next time it starts, roll a take again
+    if (name === 'title' && this.titleResume && this.titleResume.take) takePicks.set('title', this.titleResume.take); // resume the same take
     this.switching = null;
     this.stop(0.25);
     const def = SONGS[name];
@@ -541,7 +545,12 @@ class Music {
     if (entry && entry.stream) {
       const st = streamFor(entry.file);
       st.out.connect(this.gain);
-      st.el.currentTime = 0; st.el.loop = true; st.el.onended = null;
+      // The anthem picks up where it was left (if it hadn't finished).
+      const res = name === 'title' ? this.titleResume : null;
+      const from = res && res.file === entry.file ? res.t : 0;
+      if (name === 'title') this.titleResume = null;
+      if (from > 0) { this.gain.gain.cancelScheduledValues(ctx.currentTime); this.gain.gain.setValueAtTime(0.0001, ctx.currentTime); this.gain.gain.exponentialRampToValueAtTime(1, ctx.currentTime + fadeIn); }
+      st.el.currentTime = from; st.el.loop = true; st.el.onended = null;
       this.stream = st; this.start = ctx.currentTime; this.song = { bpm: def.bpm };
       this._kick();
       return;
@@ -577,6 +586,18 @@ class Music {
    */
   menu() {
     if (this.name === 'title' && this.titleCarry) { this._kick(); return; }
+    // Back from a game before the anthem finished: fade it back in where it
+    // left off and let it play out (then the menu loop).
+    const res = this.titleResume;
+    if (res && res.file && ctx) {
+      const st = streams.get(res.file), dur = st ? st.el.duration : 0;
+      if (st && (!(dur > 0) || res.t < dur - 3)) {
+        this.play('title', { fadeIn: 2 });
+        this.carryTitle();
+        return;
+      }
+      this.titleResume = null;
+    }
     this.play('menu');
   }
   /** Leaving the title screen: the streamed anthem plays to its end, then the menu loop. */
@@ -585,7 +606,7 @@ class Music {
     this.titleCarry = true;
     const st = this.stream;
     st.el.loop = false;
-    st.el.onended = () => { if (this.name === 'title' && this.titleCarry && this.stream === st) this.play('menu'); };
+    st.el.onended = () => { if (this.name === 'title' && this.titleCarry && this.stream === st) { this.titleCarry = false; this.titleResume = null; this.play('menu'); } };
   }
   stop(fade = 0.3) {
     if (this.timer) clearInterval(this.timer);

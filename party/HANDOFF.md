@@ -26,7 +26,10 @@ Done and pushed this session (all tested headless in Playwright):
 - Piñata Party: B dashes, X also swings.
 - Cloud Hop: "Air Hop (double jump)" label.
 - Music: title anthem carries over the menus once (`music.carryTitle()`,
-  `music.menu()`), then the menu loop.
+  `music.menu()`), then the menu loop. If a game interrupts it, its file and
+  position are kept in `music.titleResume`; the next `music.menu()` fades it
+  back in from there (2 s) and lets it finish; the title screen also resumes
+  it (looping). Once it has finished it's cleared and the title restarts at 0.
 
 - Sprite size audit: merged (agent branch `worktree-agent-aa758eadd38bed57e`).
   Frames/poses in the 15 `sprites/<set>/sprites.json` now carry their own
