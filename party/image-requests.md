@@ -1114,3 +1114,43 @@ fine; the code uses one of each pair.
 
 
 No open image or re-generation requests remain as of 2026-10-12.
+
+## New Play Studio game: puppet-theater
+
+### puppet-theater — Puppet Theater   (requested by the puppet-theater agent, 2026-10-05, priority: nice-to-have)
+
+A little puppet booth on a 1920×1080 screen. Players pick a painted
+backdrop and stand cardboard props on the stage, then act out a two-act
+show with their puppets (their character on a wooden stick, or a sock
+puppet), and the audience in the front rows laughs and claps. Everything
+below has a procedural fallback that ships today; the code already looks up
+every key, so a file listed in `assets/art/index.json` drops in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image.
+
+**Layout the art must match.** The booth fills the screen: stage window
+(where the backdrop shows) x 270–1650, y 150–740; scalloped valance across
+the top (y 40–175); the front playboard (the ledge the puppets pop up from)
+y 720–820, x 220–1700; a fabric skirt below it to the floor; three rows of
+audience heads (backs of heads) along the bottom, y 900–1080. Sock
+puppets, sticks and sparkles are drawn by code.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/puppet-theater` | 1920×1080, opaque | Full screen, behind everything. Only the edges show (x < 220 and x > 1700, and above y 40); the booth covers the middle | A cosy little playroom theatre: warm plum wallpaper with gold stars, a string of round party bulbs across the top, a wooden floor. Calm, low detail in the middle |
+| `prop/pt-booth` | 1920×1080, transparent | Drawn full screen **in front of** the backdrop and the puppets. Must be fully transparent inside the stage window (x 270–1650, y 150–720) and outside the booth (x < 200, x > 1720). The playboard top edge sits at exactly y = 720 | A front-view wooden puppet booth: a deep pink scalloped valance with gold fringe and gold stars across the top, thin red velvet curtains tied back at each side of the window, a chunky honey-wood playboard ledge painted with little stars, and a purple fabric skirt below it to the floor |
+| `prop/pt-curtain` | 760×1000, transparent | The **left** curtain panel (the code mirrors it for the right one) when it closes between scenes. Drawn stretched over x 230–960 (left half) by y 120–760, sliding sideways | A tall red velvet theatre curtain panel with soft vertical folds, a gold rope trim along the inner edge and gold tassel fringe at the bottom |
+| `bg/puppet-theater-castle` | 1380×590, opaque | Stretched over the stage window. The bottom ~120 px is hidden behind the playboard, so keep the horizon/ground around 60–75% height | A painted stage backdrop (gouache / cut-paper look): a pastel fairy-tale castle on a green hill, blue sky, puffy clouds |
+| `bg/puppet-theater-sea` | 1380×590, opaque | Same as above | Painted backdrop under the sea: turquoise water with light rays, coral, swaying seaweed, bubbles, sandy floor |
+| `bg/puppet-theater-forest` | 1380×590, opaque | Same as above | Painted backdrop of a friendly sunny forest clearing: round green trees, mushrooms, flowers, soft sunbeams |
+| `bg/puppet-theater-space` | 1380×590, opaque | Same as above | Painted backdrop of cute outer space: deep purple-blue sky with stars, a ringed planet, a smiling crescent moon, a grey cratered ground strip |
+| `bg/puppet-theater-candy` | 1380×590, opaque | Same as above | Painted backdrop of Candy Land: pink sky, candy-cane trees, gumdrop hills, a chocolate river, lollipop flowers |
+| `bg/puppet-theater-beach` | 1380×590, opaque | Same as above | Painted backdrop of a sunny beach: bright sky, sea with small waves, sand, a palm tree at the edge, a sailboat far away |
+| `prop/pt-tree`, `prop/pt-flower`, `prop/pt-castle`, `prop/pt-house`, `prop/pt-mushroom`, `prop/pt-palm`, `prop/pt-lollipop`, `prop/pt-rocket` | 512×512 each, transparent | **Bottom-centre anchored** (the object's base on the bottom edge of the canvas), fitted into a box of about 240, 120, 280, 220, 130, 260, 180, 240 px tall respectively. They wobble a little around the base | Stage props as **painted cardboard cut-outs** (flat, a thin pale cardboard edge showing around the outline, a little wooden stand foot at the base): a round green tree; a big pink flower on a stem; a pastel castle tower with a flag; a cottage with a heart window; a red spotted mushroom; a palm tree; a giant swirl lollipop; a red-and-white cartoon rocket |
+| `prop/pt-cloud`, `prop/pt-sun`, `prop/pt-moon`, `prop/pt-star`, `prop/pt-rainbow`, `prop/pt-fish` | 512×512 each, transparent | **Centre anchored**, fitted into a box of about 170, 150, 140, 110, 300 (wide), 130 (wide) px; they hang in the sky on a thin string (the code draws the string) | Matching cardboard cut-outs: a puffy cloud; a smiling sun with rays; a smiling crescent moon; a yellow star with a face; a rainbow arch with cloud ends; a smiling orange fish |
+| `prop/pt-audience-bunny`, `prop/pt-audience-bear`, `prop/pt-audience-cat`, `prop/pt-audience-duck` | 256×256 each, transparent | **Bottom-centre anchored**, drawn about 140–180 px tall in the audience rows, bobbing when they laugh. Seen **from behind** (back of the head and shoulders, no faces) | Cute audience members seen from behind: a white bunny with tall ears and a pink bow; a brown teddy bear; a grey kitten with pointy ears; a yellow duckling with a little tuft |
+| `prop/pt-rose` | 128×128, transparent | Centre anchored, ~70 px, thrown onto the stage at the curtain call (spins in flight) | A single red rose with a short green stem and one leaf |
+| `thumb/puppet-theater` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A tiny puppet booth with the curtains open: Fox on a wooden stick and a striped sock puppet with googly eyes waving on stage in front of a castle backdrop, a heart speech bubble, the backs of bunny ears in the audience. Subject centred |
+
+No new sprite poses are needed (stick puppets use existing poses: wave,
+laugh, celebrate, dance, surprised, think, sad, sleep, bow, cheer, jump).
