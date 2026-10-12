@@ -218,10 +218,9 @@ they interrupted my log check, so wait for them before touching it).
 - Art QA (2026-10-06): six agents checked every delivered image and pose in
   game and fixed placement/padding/layering in the games' own files. Open
   items are rows in image-requests.md "Re-generation requests": needed —
-  `bg/snowball-splat` (fence/trees in the play area; the code starts the
-  arena at y 345 until it lands, then set `ARENA_TOP_ART` back to 280),
-  `prop/snow-wall-side` (no taper), Princess Amber's dig/spring-jump/
-  snow-scoop/skip-hop at idle scale, the cake's idle/walk hand point;
+  (2026-10-12: `bg/snowball-splat` and `prop/snow-wall-side` were
+  regenerated and wired in with `ARENA_TOP_ART` 280; Amber's pose scale
+  and the cake's hand point were fixed in sprite data);
   optional — bunny mood faces, open chest view, cookie bridge, fishing rod
   handle, Cloud Hop thumbnail, Hotdog pull paws.
 
