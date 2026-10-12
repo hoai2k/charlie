@@ -112,7 +112,7 @@ export class Game {
     const span = WIN.x1 - WIN.x0 - 200;
     const x = WIN.x0 + 100 + (this.n === 1 ? span / 2 : (span * i) / (this.n - 1));
     a.x = x; a.y = FEET_Y + this.puppetH * 0.6; a.facing = x < W / 2 ? 1 : -1; a.snap();
-    const sock = p.isAI ? chance(0.35) : false;
+    const sock = p.isAI ? chance(0.3) : false;
     return {
       p, i, a, kind: sock ? 'sock' : 'stick',
       x, baseY: a.y, liftV: 0, z: 0, vz: 0, vx: 0, tilt: 0, spinT: 0, spin: 1,
@@ -455,9 +455,9 @@ export class Game {
     if (!A.plan) {
       const plan = [];
       if (!this.humans.length && pp.i === 0) plan.push({ kind: 'card', k: randInt(0, BACKDROPS.length - 1) });
-      const nProps = Math.min(this.propLimit, this.n >= 6 ? randInt(1, 2) : randInt(2, 3));
+      const nProps = Math.min(this.propLimit, this.n >= 6 ? randInt(1, 2) : this.n <= 2 ? randInt(3, 4) : randInt(2, 3));
       for (let k = 0; k < nProps; k++) plan.push({ kind: 'prop' });
-      if (chance(0.25)) plan.push({ kind: 'swap' });
+      if (chance(0.15)) plan.push({ kind: 'swap' });
       plan.push({ kind: 'ready' });
       A.plan = plan; A.wait = rand(0.5, 1.5) + pp.i * 0.3;
     }
