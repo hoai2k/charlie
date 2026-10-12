@@ -78,14 +78,14 @@ Done and pushed this session (all tested headless in Playwright):
   lead items: no auto-open closet on the Dress up slot; Fashion Show saves
   each human's look as their dress-up look; Fashion Show Y clears first,
   randomizes when empty.
-- In progress (user request 2026-10-13): (a) verify all images delivered
-  2026-10-12 work in game (art-QA agents: cake toppings + fashion/dress-up
-  accessories; the rest: bunny faces, fishing handle, cloud-hop thumb,
-  chest, cookie bridge, snowball bg/wall, cake/hotdog grips); (b) build
-  `party/workbench/` (agent): view every sprite frame with its landmarks
-  and accessories, drag anchors / item positions, rotate items, undo/redo,
-  zoom/pan, export a JSON of edits (+ a tool to apply it). If the session
-  restarts: `git branch | grep worktree-agent` for their branches.
+- Art QA of the 2026-10-12 deliveries: done (fixes merged; regen rows:
+  teddy backpack wrong side, optional shorter rod handle).
+- Workbench (`party/workbench/`, README there): view/edit landmarks and
+  outfit item fit per set/pose/frame, undo/redo, export JSON. Apply a
+  user's JSON with `node party/tools/apply-workbench-edits.mjs edits.json`
+  (landmarks -> sprites.json; items -> `src/data/outfit-fit.js`, read by
+  `engine/outfit-fit.js` from `outfits.js`). Felicity/KPop centre/Amber
+  masks need `--rebuild-masks` after landmark edits.
 - Party marathon how-to screen (user request 2026-10-12): B (when not
   ready) sits that one game out, A joins back in, Y twice skips the game.
   The last human (or the game's minPlayers) can't sit out. `play.enter`
