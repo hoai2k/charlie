@@ -57,6 +57,8 @@ sprites are better (neck, hand, etc)". Three worktree agents:
 - Cake Bakery: new toppings (procedural + image requests).
 - Landmark data audit: head/hand/eyes/neck/back per frame in the 15
   `sprites/<set>/sprites.json` (like the size audit), fixed in data.
+  If the session restarts: `git branch | grep worktree-agent` shows their
+  branches; merge what was committed (ours for party/index.html, restamp).
 Also open: the Pages deploy for 21e5760 failed (user made the repo public;
 they interrupted my log check, so wait for them before touching it).
 
