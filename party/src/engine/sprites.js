@@ -25,7 +25,8 @@
 //   a.detach(h);
 // The callback draws in "forward space": origin at the member's feet, +x is
 // the direction the character faces, -y is up, units are screen px. info has
-// { h, w, head, hand, eyes, neck, back (each {x, y}), headAngle, pose, facing }.
+// { h, w, head, hand, eyes, neck, back (each {x, y}), headAngle, pose, facing,
+// frame (the sprite frame record: its .pose / .index in sprites.json, or null) }.
 // Sprite sets can supply per-pose/per-frame head, hand, eyes, neck, back
 // points and headAngle so attachments track the art.
 
@@ -221,7 +222,7 @@ async function loadSpriteSet(asset) {
     if (typeof def === 'string') { aliases.push([name, { alias: def }]); continue; }
     if (def.alias) { aliases.push([name, def]); continue; }
     const frames = [];
-    for (const f of def.frames || []) {
+    for (const [index, f] of (def.frames || []).entries()) {
       // Frame forms: "file.webp" | [x,y,w,h] (atlas) | {src|rect, anchor?, dur?}
       const fo = typeof f === 'string' ? { src: f } : Array.isArray(f) ? { rect: f } : f;
       if (!fo.src && !atlas) continue;
@@ -233,6 +234,7 @@ async function loadSpriteSet(asset) {
       if (!anchor || anchor.length !== 2 || !anchor.every(Number.isFinite)) { console.warn('Invalid sprite anchor', asset, name); continue; }
       const fr = {
         img: fo.src ? null : atlas, src: fo.src || null, k: fo.src ? k : 1, w: 0, h: 0, failed: false, loading: null,
+        pose: name, index,   // where it is defined in sprites.json (outfit fit adjustments key on it)
         rect, anchor, dur: Number.isFinite(fo.dur) && fo.dur > 0 ? fo.dur : null,
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,
         eyes: fo.eyes || def.eyes || null, neck: fo.neck || def.neck || null, back: fo.back || def.back || null,
@@ -990,7 +992,7 @@ export class Actor {
       if (fr.neck) neck = conv(fr.neck);
       if (fr.back) back = conv(fr.back);
     }
-    return { h, w: aspect * h, head, hand, eyes, neck, back, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i };
+    return { h, w: aspect * h, head, hand, eyes, neck, back, headAngle: fr0Angle(sp, t), pose, facing: m.facing, member: m.i, frame: sp ? pickFrame(sp, t) : null };
   }
 }
 

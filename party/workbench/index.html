@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <!-- Everything (engine modules, sprites, art) resolves from party/, like the game page. -->
+    <base href="../">
+    <title>Sprite Workbench</title>
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="workbench/workbench.css?v=d8c9aba3">
+    <script type="importmap">
+    {
+      "imports": {
+        "./src/data/characters.js": "./src/data/characters.js?v=307bd301",
+        "./src/data/outfit-fit.js": "./src/data/outfit-fit.js?v=0c4c66b3",
+        "./src/data/variants.js": "./src/data/variants.js?v=92f29ad1",
+        "./src/engine/ai.js": "./src/engine/ai.js?v=bffa9867",
+        "./src/engine/art.js": "./src/engine/art.js?v=a8d15726",
+        "./src/engine/audio.js": "./src/engine/audio.js?v=2c892da3",
+        "./src/engine/camera.js": "./src/engine/camera.js?v=2b22e06e",
+        "./src/engine/canvas.js": "./src/engine/canvas.js?v=9f9b279d",
+        "./src/engine/corner.js": "./src/engine/corner.js?v=69ffbad2",
+        "./src/engine/emotes.js": "./src/engine/emotes.js?v=32eed1c7",
+        "./src/engine/fx.js": "./src/engine/fx.js?v=e61c9f0d",
+        "./src/engine/host.js": "./src/engine/host.js?v=934d8670",
+        "./src/engine/input.js": "./src/engine/input.js?v=7003d1f0",
+        "./src/engine/npc-art.js": "./src/engine/npc-art.js?v=47e6a6f8",
+        "./src/engine/outfit-fit.js": "./src/engine/outfit-fit.js?v=351d4668",
+        "./src/engine/outfits.js": "./src/engine/outfits.js?v=7a993abd",
+        "./src/engine/particles.js": "./src/engine/particles.js?v=4c25ff3c",
+        "./src/engine/photo-poses.js": "./src/engine/photo-poses.js?v=2ccec2ca",
+        "./src/engine/recolor.js": "./src/engine/recolor.js?v=05df2ced",
+        "./src/engine/scenes.js": "./src/engine/scenes.js?v=47a1109b",
+        "./src/engine/settings.js": "./src/engine/settings.js?v=e0e97e3a",
+        "./src/engine/shell.js": "./src/engine/shell.js?v=bf8b4116",
+        "./src/engine/songtag.js": "./src/engine/songtag.js?v=c92d272a",
+        "./src/engine/sprites.js": "./src/engine/sprites.js?v=3671ef91",
+        "./src/engine/ui.js": "./src/engine/ui.js?v=4e425141",
+        "./src/engine/util.js": "./src/engine/util.js?v=003e2e57",
+        "./src/games/_placeholder.js": "./src/games/_placeholder.js?v=df29b46b",
+        "./src/games/art-studio.js": "./src/games/art-studio.js?v=6994cb13",
+        "./src/games/art-studio/pages.js": "./src/games/art-studio/pages.js?v=9e160526",
+        "./src/games/balloon-pump.js": "./src/games/balloon-pump.js?v=547f6c88",
+        "./src/games/bead-bracelets.js": "./src/games/bead-bracelets.js?v=efea9392",
+        "./src/games/bead-bracelets/beads.js": "./src/games/bead-bracelets/beads.js?v=c15019d1",
+        "./src/games/broomstick-dash.js": "./src/games/broomstick-dash.js?v=4e76e2f5",
+        "./src/games/bumper-bounce.js": "./src/games/bumper-bounce.js?v=405dfacf",
+        "./src/games/cake-bakery.js": "./src/games/cake-bakery.js?v=706ab9eb",
+        "./src/games/cake-bakery/cake.js": "./src/games/cake-bakery/cake.js?v=3c15b88f",
+        "./src/games/cloud-hop.js": "./src/games/cloud-hop.js?v=8664b52b",
+        "./src/games/cookie-crumble.js": "./src/games/cookie-crumble.js?v=c3546a1e",
+        "./src/games/crown-keeper.js": "./src/games/crown-keeper.js?v=f9266121",
+        "./src/games/dream-room.js": "./src/games/dream-room.js?v=00d4f205",
+        "./src/games/dream-room/items.js": "./src/games/dream-room/items.js?v=626406b3",
+        "./src/games/dream-room/room.js": "./src/games/dream-room/room.js?v=c99ead4f",
+        "./src/games/fairy-count.js": "./src/games/fairy-count.js?v=62fb4f28",
+        "./src/games/fairy-garden.js": "./src/games/fairy-garden.js?v=e4eadfbd",
+        "./src/games/fashion-show.js": "./src/games/fashion-show.js?v=27bc9058",
+        "./src/games/fishing-frenzy.js": "./src/games/fishing-frenzy.js?v=33cecddf",
+        "./src/games/fishing-frenzy/art.js": "./src/games/fishing-frenzy/art.js?v=62a92ac6",
+        "./src/games/index.js": "./src/games/index.js?v=30bc98bc",
+        "./src/games/jump-rope.js": "./src/games/jump-rope.js?v=8a0bdc5d",
+        "./src/games/jump-rope/art.js": "./src/games/jump-rope/art.js?v=30e35d69",
+        "./src/games/melody-maker.js": "./src/games/melody-maker.js?v=c7c6d5fd",
+        "./src/games/memory-match.js": "./src/games/memory-match.js?v=2216589d",
+        "./src/games/memory-match/cards.js": "./src/games/memory-match/cards.js?v=ebd77afe",
+        "./src/games/mini-golf.js": "./src/games/mini-golf.js?v=6fab810e",
+        "./src/games/mini-golf/course.js": "./src/games/mini-golf/course.js?v=beeed10d",
+        "./src/games/mini-golf/draw.js": "./src/games/mini-golf/draw.js?v=3cbc6317",
+        "./src/games/musical-cushions.js": "./src/games/musical-cushions.js?v=d51f2232",
+        "./src/games/musical-cushions/draw.js": "./src/games/musical-cushions/draw.js?v=33a892ba",
+        "./src/games/musical-cushions/tune.js": "./src/games/musical-cushions/tune.js?v=16020a9f",
+        "./src/games/paint-party.js": "./src/games/paint-party.js?v=925e13d8",
+        "./src/games/pancake-tower.js": "./src/games/pancake-tower.js?v=b35b92f5",
+        "./src/games/pancake-tower/draw.js": "./src/games/pancake-tower/draw.js?v=d6a239c9",
+        "./src/games/pancake-tower/stack.js": "./src/games/pancake-tower/stack.js?v=b189f9da",
+        "./src/games/pass-the-present.js": "./src/games/pass-the-present.js?v=5b6f85f4",
+        "./src/games/pet-spa.js": "./src/games/pet-spa.js?v=4b777e98",
+        "./src/games/pinata-party.js": "./src/games/pinata-party.js?v=46f6a627",
+        "./src/games/pinata-party/draw.js": "./src/games/pinata-party/draw.js?v=4b2424e4",
+        "./src/games/pop-star-stage.js": "./src/games/pop-star-stage.js?v=7e1876e8",
+        "./src/games/potion-class.js": "./src/games/potion-class.js?v=df5d678c",
+        "./src/games/potion-class/hoot.js": "./src/games/potion-class/hoot.js?v=253cc044",
+        "./src/games/potion-class/ingredients.js": "./src/games/potion-class/ingredients.js?v=74b185b1",
+        "./src/games/rhythm/songs.js": "./src/games/rhythm/songs.js?v=67fde91c",
+        "./src/games/seek-and-find.js": "./src/games/seek-and-find.js?v=6f099b48",
+        "./src/games/seek-and-find/painters.js": "./src/games/seek-and-find/painters.js?v=2f185fe5",
+        "./src/games/seek-and-find/scenes.js": "./src/games/seek-and-find/scenes.js?v=819de86d",
+        "./src/games/seek-and-find/things.js": "./src/games/seek-and-find/things.js?v=fb5d5161",
+        "./src/games/snowball-splat.js": "./src/games/snowball-splat.js?v=360427d3",
+        "./src/games/snowball-splat/art.js": "./src/games/snowball-splat/art.js?v=6ebfc3b9",
+        "./src/games/spotlight-dance.js": "./src/games/spotlight-dance.js?v=9012cd41",
+        "./src/games/sprinkle-catch.js": "./src/games/sprinkle-catch.js?v=35fcbcf8",
+        "./src/games/treasure-dig.js": "./src/games/treasure-dig.js?v=ecf2cd2a",
+        "./src/games/treasure-dig/props.js": "./src/games/treasure-dig/props.js?v=3c64e05c",
+        "./src/games/troll-trouble.js": "./src/games/troll-trouble.js?v=20cea108",
+        "./src/games/tug-of-war.js": "./src/games/tug-of-war.js?v=8bccd331",
+        "./src/games/tug-of-war/draw.js": "./src/games/tug-of-war/draw.js?v=f2fe0b82",
+        "./src/games/wizard-quickdraw.js": "./src/games/wizard-quickdraw.js?v=625293b8",
+        "./src/main.js": "./src/main.js?v=cacc9575",
+        "./src/scenes/audiotest.js": "./src/scenes/audiotest.js?v=503d79a2",
+        "./src/scenes/charselect.js": "./src/scenes/charselect.js?v=fd55fe28",
+        "./src/scenes/closet.js": "./src/scenes/closet.js?v=57b2a5a9",
+        "./src/scenes/common.js": "./src/scenes/common.js?v=2f5e19e3",
+        "./src/scenes/gameselect.js": "./src/scenes/gameselect.js?v=7703701b",
+        "./src/scenes/index.js": "./src/scenes/index.js?v=4f8a4f0c",
+        "./src/scenes/intro.js": "./src/scenes/intro.js?v=58dba942",
+        "./src/scenes/play.js": "./src/scenes/play.js?v=349b2de4",
+        "./src/scenes/results.js": "./src/scenes/results.js?v=642fbb1a",
+        "./src/scenes/spriteviewer.js": "./src/scenes/spriteviewer.js?v=538de0ab",
+        "./src/scenes/title.js": "./src/scenes/title.js?v=82330f2a",
+        "./src/scenes/trophy.js": "./src/scenes/trophy.js?v=a9c8679f",
+        "./src/state.js": "./src/state.js?v=e2e7e321",
+        "./workbench/app.js": "./workbench/app.js?v=6e293e5c",
+        "./workbench/edits.js": "./workbench/edits.js?v=71da1cf8",
+        "./workbench/main.js": "./workbench/main.js?v=bb3502fe"
+      }
+    }
+    </script>
+    <script type="module" src="workbench/main.js?v=bb3502fe"></script>
+  </head>
+  <body>
+    <header class="bar">
+      <h1>Sprite Workbench</h1>
+      <label class="pick">Set <select id="set" aria-label="Sprite set"></select></label>
+      <label class="pick">Pose <select id="pose" aria-label="Pose"></select></label>
+      <div class="group" role="group" aria-label="Frames">
+        <button id="prev" title="Previous frame (,)">&#9664;</button>
+        <button id="play" title="Play / pause (Space)">Play</button>
+        <button id="next" title="Next frame (.)">&#9654;</button>
+      </div>
+      <div class="group" role="group" aria-label="View">
+        <button id="zoom-out" title="Zoom out (-)">&minus;</button>
+        <button id="zoom-fit" title="Fit (F)">Fit</button>
+        <button id="zoom-1" title="Game size (0)">1:1</button>
+        <button id="zoom-in" title="Zoom in (+)">+</button>
+        <button id="flip" title="Flip facing (M)" aria-pressed="false">Facing &rarr;</button>
+        <button id="backdrop" title="Backdrop (B)">Checker</button>
+        <button id="toggle-lm" title="Landmarks (L)" aria-pressed="true">Landmarks</button>
+        <button id="toggle-outfit" title="Outfit (O)" aria-pressed="true">Outfit</button>
+      </div>
+      <div class="group" role="group" aria-label="History">
+        <button id="undo" title="Undo (Ctrl/Cmd+Z)">Undo</button>
+        <button id="redo" title="Redo (Ctrl/Cmd+Shift+Z, Ctrl+Y)">Redo</button>
+      </div>
+      <div class="group end" role="group" aria-label="Edits file">
+        <button id="download" class="primary" title="Download edits JSON (Ctrl/Cmd+S)">Download edits</button>
+        <button id="load" title="Load an edits JSON to continue">Load&hellip;</button>
+        <input id="load-file" type="file" accept="application/json,.json" hidden>
+        <button id="help" title="Keyboard shortcuts (?)">?</button>
+      </div>
+    </header>
+
+    <div id="restore" class="banner" hidden>
+      <span id="restore-text"></span>
+      <button id="restore-yes" class="primary">Restore</button>
+      <button id="restore-no">Discard</button>
+    </div>
+
+    <main class="layout">
+      <section class="viewer" id="viewer">
+        <canvas id="view" tabindex="0" aria-label="Sprite viewer"></canvas>
+        <div class="hud" id="hud"></div>
+        <div class="status" id="status" aria-live="polite"></div>
+      </section>
+
+      <aside class="side">
+        <details open class="panel">
+          <summary>Selected</summary>
+          <div id="inspector" class="inspector"></div>
+        </details>
+        <details open class="panel">
+          <summary>Outfit</summary>
+          <div class="row buttons">
+            <button id="outfit-random">Random outfit</button>
+            <button id="outfit-clear">Clear</button>
+          </div>
+          <div id="outfit" class="outfit"></div>
+        </details>
+        <details open class="panel">
+          <summary>Edits <span id="edit-count" class="count">0</span></summary>
+          <div class="row buttons">
+            <label class="check"><input type="checkbox" id="edits-here"> This set only</label>
+            <button id="edits-clear" class="danger">Clear all</button>
+          </div>
+          <ol id="edits" class="edits"></ol>
+        </details>
+      </aside>
+
+      <section class="strip" id="strip" aria-label="Frames"></section>
+    </main>
+
+    <div id="help-dlg" class="modal" hidden>
+      <div class="card" role="dialog" aria-modal="true" aria-labelledby="help-title">
+        <h2 id="help-title">Workbench shortcuts</h2>
+        <div class="keys">
+          <div><kbd>,</kbd> <kbd>.</kbd></div><div>Previous / next frame (also <kbd>&larr;</kbd> <kbd>&rarr;</kbd> with nothing selected)</div>
+          <div><kbd>&uarr;</kbd> <kbd>&darr;</kbd></div><div>Previous / next pose (with nothing selected)</div>
+          <div><kbd>Space</kbd></div><div>Play / pause (hold and drag to pan)</div>
+          <div><kbd>Tab</kbd> <kbd>Shift+Tab</kbd></div><div>Select next / previous handle or item</div>
+          <div><kbd>Esc</kbd></div><div>Deselect / close</div>
+          <div><kbd>Arrows</kbd></div><div>Nudge the selection 1 px (<kbd>Shift</kbd> 10 px)</div>
+          <div><kbd>[</kbd> <kbd>]</kbd></div><div>Rotate the selected item 1&deg; (<kbd>Shift</kbd> 10&deg;)</div>
+          <div><kbd>;</kbd> <kbd>'</kbd></div><div>Shrink / grow the selected item 1% (<kbd>Shift</kbd> 10%)</div>
+          <div><kbd>Del</kbd> <kbd>Backspace</kbd></div><div>Reset the selection (landmark to original, item fit at the current scope)</div>
+          <div><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd></div><div>Item scope: this frame / all frames of the pose / whole set</div>
+          <div><kbd>+</kbd> <kbd>-</kbd> <kbd>F</kbd> <kbd>0</kbd></div><div>Zoom in / out / fit / game size (wheel and pinch zoom too)</div>
+          <div><kbd>M</kbd> <kbd>B</kbd> <kbd>L</kbd> <kbd>O</kbd> <kbd>G</kbd></div><div>Flip facing, backdrop, landmarks, outfit, original-position ghosts</div>
+          <div><kbd>R</kbd></div><div>Random outfit</div>
+          <div><kbd>Ctrl/Cmd+Z</kbd></div><div>Undo</div>
+          <div><kbd>Ctrl/Cmd+Shift+Z</kbd> <kbd>Ctrl+Y</kbd></div><div>Redo</div>
+          <div><kbd>Ctrl/Cmd+S</kbd></div><div>Download edits JSON</div>
+          <div><kbd>?</kbd></div><div>This help</div>
+        </div>
+        <p class="note">Drag a landmark handle to move it (frame pixels, whole numbers). Drag an item to offset it, its round handle to rotate and its square handle to scale.
+          Drag the background (or two fingers) to pan; wheel or pinch to zoom. Edits autosave in this browser; <b>Download edits</b> makes the file to hand over
+          (see <code>party/workbench/README.md</code>).</p>
+        <button id="help-close" class="primary">Close</button>
+      </div>
+    </div>
+  </body>
+</html>

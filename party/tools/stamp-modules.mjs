@@ -31,7 +31,8 @@ for (const file of modules(path.join(root, 'src')).sort()) {
   imports[rel] = `${rel}?v=${hash(file)}`;
 }
 
-const map = `<script type="importmap">\n${JSON.stringify({ imports }, null, 2).split('\n').map((l) => '    ' + l).join('\n')}\n    </script>`;
+const mapOf = (imports) => `<script type="importmap">\n${JSON.stringify({ imports }, null, 2).split('\n').map((l) => '    ' + l).join('\n')}\n    </script>`;
+const map = mapOf(imports);
 let page = readFileSync(html, 'utf8');
 const block = /<script type="importmap">[\s\S]*?<\/script>/;
 const main = /<script type="module" src="src\/main\.js(\?v=[^"]*)?"><\/script>/;
@@ -40,3 +41,21 @@ page = block.test(page) ? page.replace(block, () => map.trimStart()) : page.repl
 page = page.replace(main, `<script type="module" src="src/main.js?v=${hash(path.join(root, 'src/main.js'))}"></script>`);
 writeFileSync(html, page);
 console.log(`Stamped ${Object.keys(imports).length} modules in index.html`);
+
+// The sprite workbench (workbench/index.html, <base href="../">) shares the
+// game's modules: give it the same map plus its own modules, and stamp its entry.
+const wbHtml = path.join(root, 'workbench', 'index.html');
+try { statSync(wbHtml); } catch (e) { process.exit(0); }
+const wbImports = { ...imports };
+for (const file of modules(path.join(root, 'workbench')).sort()) {
+  const rel = './' + path.relative(root, file).split(path.sep).join('/');
+  wbImports[rel] = `${rel}?v=${hash(file)}`;
+}
+const wbMain = /<script type="module" src="workbench\/main\.js(\?v=[^"]*)?"><\/script>/;
+let wb = readFileSync(wbHtml, 'utf8');
+if (!wbMain.test(wb)) throw new Error('workbench/main.js <script> not found in workbench/index.html');
+wb = block.test(wb) ? wb.replace(block, () => mapOf(wbImports).trimStart()) : wb.replace(wbMain, (m) => `${mapOf(wbImports).trimStart()}\n    ${m}`);
+wb = wb.replace(wbMain, `<script type="module" src="workbench/main.js?v=${hash(path.join(root, 'workbench/main.js'))}"></script>`);
+wb = wb.replace(/href="workbench\/workbench\.css(\?v=[^"]*)?"/, `href="workbench/workbench.css?v=${hash(path.join(root, 'workbench/workbench.css'))}"`);
+writeFileSync(wbHtml, wb);
+console.log(`Stamped ${Object.keys(wbImports).length} modules in workbench/index.html`);

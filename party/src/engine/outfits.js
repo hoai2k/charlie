@@ -49,6 +49,8 @@
 // fitted cape (top edge at the origin), when worn.
 // Art: prop/<key> from WORN_ART replaces the drawing for the colours it lists
 // (see image-requests.md); everything else keeps the procedural drawing.
+// Fit: per set/pose/frame nudges from data/outfit-fit.js (engine/outfit-fit.js,
+// made with party/workbench/) apply on top in outfitAttach and drawOutfit.
 
 import { RAINBOW } from './particles.js';
 import { starPath, drawSparkleShape } from './emotes.js';
@@ -56,6 +58,7 @@ import { TAU, clamp, lerp } from './util.js';
 import { art } from './art.js';
 import { recolorFrame } from './recolor.js';
 import { getSpriteSet } from './sprites.js';
+import { outfitFit, adjustSlot } from './outfit-fit.js';
 
 export const NAVY = '#24163f';
 
@@ -1609,6 +1612,15 @@ export function outfitAnchors(def, info) {
  * over the shoulders in front of the body).
  */
 export function outfitAttach(def, info, slot, item = null) {
+  const at = baseAttach(def, info, slot, item), adj = fitOf(def, info, slot, item);
+  if (!adj) return at;
+  const a = adjustSlot({ x: at.x, y: at.y, rot: at.rot, S: at.scale }, adj);
+  return { ...at, x: a.x, y: a.y, rot: a.rot, scale: a.S, ...(at.box ? { box: { w: at.box.w * adj.scale, h: at.box.h * adj.scale } } : {}) };
+}
+// Per-sprite fit adjustments (engine/outfit-fit.js, data/outfit-fit.js) for the frame being drawn.
+const fitOf = (def, info, slot, item) => outfitFit(def.asset, info.frame || (info.pose ? { pose: info.pose, index: null } : null), slot, item ? item.id : null);
+/** outfitAttach without the per-sprite fit adjustment (the workbench edits on top of it). */
+export function baseAttach(def, info, slot, item = null) {
   const A = outfitAnchors(def, info), s = A.slots[slot], h = A.h, fit = A.fit;
   const at = { x: s.x, y: s.y, rot: s.rot, scale: s.S, behind: slot === 'back', hidden: slot === 'face' && A.faceHidden };
   if (slot === 'back' && item && item.cape) {
@@ -1682,6 +1694,8 @@ export function drawOutfit(g, def, info, outfit, { layer = 'front', t = 0, pop =
   const put = (slot, at = A.slots[slot], box = null) => {
     const w = wear[slot];
     if (!w) return;
+    const adj = fitOf(def, info, slot, w.item);
+    if (adj) { at = adjustSlot(at, adj); if (box) box = { w: box.w * adj.scale, h: box.h * adj.scale }; }
     g.save(); g.translate(at.x, at.y);
     if (at.rot) g.rotate(at.rot);
     const k = pop ? pop(slot) : 1; if (k !== 1) g.scale(k, k);
@@ -1694,7 +1708,7 @@ export function drawOutfit(g, def, info, outfit, { layer = 'front', t = 0, pop =
     if (bk && !quadCape) {
       if (bk.item.cape) {
         // hangs from just under the neck to the floor, wider than the body so it shows
-        const at = outfitAttach(def, info, 'back', bk.item);
+        const at = baseAttach(def, info, 'back', bk.item);
         put('back', { x: at.x, y: at.y, rot: 0, S: h }, at.box);
       } else put('back');
     }
@@ -1702,9 +1716,10 @@ export function drawOutfit(g, def, info, outfit, { layer = 'front', t = 0, pop =
   }
   if (quadCape) {
     // draped over the shoulders, in front of the body; art faces right like the sprites' forward space
-    const k = pop ? pop('back') : 1, sw = h * (fit.sideCape?.w || 0.6) * k;
+    const q = adjustSlot({ x: A.back.x, y: A.back.y + 0.01 * h, rot: A.bodyTilt, S: h * (fit.sideCape?.w || 0.6) }, fitOf(def, info, 'back', bk.item));
+    const k = pop ? pop('back') : 1, sw = q.S * k;
     const sideArt = bk.item.name === 'Royal Cape' ? sideCapeArt(bk.colour) : null;
-    g.save(); g.translate(A.back.x, A.back.y + 0.01 * h); g.rotate(A.bodyTilt); g.transform(1, 0, Math.sin(t * 2) * 0.03, 1, 0, 0);
+    g.save(); g.translate(q.x, q.y); g.rotate(q.rot); g.transform(1, 0, Math.sin(t * 2) * 0.03, 1, 0, 0);
     if (sideArt) { const sh = sw * sideArt.height / sideArt.width; g.drawImage(sideArt, -sw / 2, -sh * 0.25, sw, sh); }
     else drawSideCape(g, sw, PALETTE[bk.colour] || PALETTE[0], t, bk.item);
     g.restore();

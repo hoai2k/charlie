@@ -13,13 +13,15 @@
 
 const images = new Map();
 
-export async function loadArt() {
+/** Load the art listed in assets/art/index.json; only(key) can limit it (e.g. tools that need just props). */
+export async function loadArt({ only = null } = {}) {
   try {
     const res = await fetch('assets/art/index.json', { cache: 'no-cache' });
     if (!res.ok) return;
     const idx = await res.json();
     const files = new Map();
     for (const [key, file] of Object.entries(idx.images || {})) {
+      if (only && !only(key)) continue;
       if (!files.has(file)) files.set(file, []);
       files.get(file).push(key);
     }
