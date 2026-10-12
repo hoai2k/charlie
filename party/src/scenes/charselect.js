@@ -104,8 +104,7 @@ export class CharSelectScene {
     if (next === 'dress') {
       this.setDress(h, true);
       if (sl) particles.burst(sl.x + sl.w / 2, sl.y + sl.h * 0.45, { type: 'star', count: 12 });
-      sfx('magic');
-      if (!h.actor.outfit) this.openCloset(h);   // nothing saved yet: straight into the closet
+      sfx('magic');   // the closet opens only with the d-pad (up/down), on purpose
       return;
     }
     this.setDress(h, false);
@@ -214,8 +213,7 @@ export class CharSelectScene {
       if (h.closet) {
         if (h.closet.update(dt)) {
           h.closet = null;
-          if (!h.actor.outfit) this.setDress(h, false);   // came out with nothing on: back to plain colours
-          else { h.actor.playOnce('celebrate', 1, 'idle'); h.actor.say('Ta-da!', 1.4, 'yay'); }
+          if (h.actor.outfit) { h.actor.playOnce('celebrate', 1, 'idle'); h.actor.say('Ta-da!', 1.4, 'yay'); }
         }
         continue;
       }
@@ -448,7 +446,7 @@ export class CharSelectScene {
     for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + (i * Math.PI) / 5, rr = i % 2 ? sr * 0.45 : sr; g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
     g.closePath(); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = h.dress ? 3 : 2; g.strokeStyle = '#24163f'; g.stroke();
     g.restore();
-    if (h.locked && h.dress && !h.closet && big) ui.hints(g, [['dpad', 'Change look']], x + sw / 2, y0 + 44, { size: 26 });
+    if (h.locked && h.dress && !h.closet) ui.hints(g, [['dpad', big ? 'Change look' : 'Dress']], x + sw / 2, y0 + 44, { size: big ? 26 : 20 });
     if (!h.locked) return;
     const pulse = 1 + Math.sin(this.t * 6) * 0.08, as = big ? 34 : 24;
     for (const side of [-1, 1]) {

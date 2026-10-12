@@ -20,7 +20,7 @@ import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
-import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem } from '../engine/outfits.js';
+import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem, saveLook } from '../engine/outfits.js';
 import { photoPosePressed, photoMove, strikePhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 
 export const meta = {
@@ -29,7 +29,7 @@ export const meta = {
   category: 'studio',
   type: 'Dress up · Everyone wins',
   goal: 'Dress up like royalty, then strut down the runway and strike your best poses!',
-  controls: [['lb', 'LB / RB or D-pad left/right: pick a spot'], ['dpad', 'D-pad or stick up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Surprise me!'], ['x', "I'm ready!"], ['stick', 'Runway: walk around, A jumps, other buttons pose']],
+  controls: [['lb', 'LB / RB or D-pad left/right: pick a spot'], ['dpad', 'D-pad or stick up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Take it all off (again: surprise me!)'], ['x', "I'm ready!"], ['stick', 'Runway: walk around, A jumps, other buttons pose']],
   tips: ['Press A to pick an item, and A again to change its color.', 'Press X when you love your look!', 'Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, walk around with the stick and press different buttons for different poses!', 'Press the View button when you are done on the runway.', 'Press B if you want to change your outfit again.'],
   music: 'chill',
   duration: 'about 2 min',
@@ -202,6 +202,24 @@ export class Game {
     st.actor.squash(0.12);
   }
 
+  /** Y with something on: take everything off (Y again on an empty look = surprise). */
+  clearOutfit(st) {
+    st.outfit.forEach((o, ci) => { if (o.item) st.pop[ci] = -0.2; o.item = 0; });
+    const a = st.actor, c = a.anchor('center');
+    sfx('whoosh'); sfx('pop');
+    particles.burst(c.x, c.y, { type: 'sparkle', count: 16, colors: ['#fff', '#ffc4e6'], speed: [100, 320] });
+    a.playOnce('surprised', 0.5, 'idle'); a.squash(0.2);
+  }
+
+  /** The look a player is wearing, saved as their character's dress-up look (character select). */
+  saveLook(st) {
+    if (st.p.isAI) return;
+    const look = [];
+    st.outfit.forEach((o, ci) => { if (o.item) look.push({ id: CATS[ci].items[o.item].id, colour: o.colors[o.item] }); });
+    saveLook(st.p.charId, look);
+    if (st.p.outfit) st.p.outfit = look.length ? look : null;   // already playing dressed up: keep wearing this one
+  }
+
   surprise(st) {
     const theme = shuffle([0, 1, 2, 3, 4, 5, 7]).slice(0, 2);
     CATS.forEach((c, ci) => {
@@ -223,6 +241,7 @@ export class Game {
     st.ready = on; st.readyT = 0;
     const a = st.actor;
     if (on) {
+      this.saveLook(st);
       sfx('ready'); a.playOnce('ready', 0.6, 'wave'); a.squash(-0.25);
       const c = a.anchor('head');
       particles.burst(c.x, c.y, { type: 'confetti', count: 26, speed: [200, 500] });
@@ -273,7 +292,7 @@ export class Game {
       if (step) { st.tab = (st.tab + Math.sign(step) + CATS.length) % CATS.length; st.tabBump = 0.18; sfx('move'); }
       if (c.nav.y) this.changeItem(st, c.nav.y);
       if (c.pressed('a')) this.pickItem(st);
-      if (c.pressed('y')) this.surprise(st);
+      if (c.pressed('y')) { if (st.outfit.some((o) => o.item)) this.clearOutfit(st); else this.surprise(st); }
       if (c.pressed('x')) this.setReady(st, true);
     }
     if (this.stations.every((s) => s.ready && s.readyT > 0.5)) this.startShowtime();
@@ -580,6 +599,7 @@ export class Game {
 
   finishGame() {
     this.finished = true;
+    for (const st of this.stations) this.saveLook(st);
     const poses = this.stations.map((s) => s.poses);
     const max = Math.max(...poses);
     const top = poses.filter((v) => v === max).length;
@@ -669,7 +689,7 @@ export class Game {
     this.drawCrownIcon(g, W / 2 + 470, 58, 30, '#ffd23f');
     if (this.n <= 2) {
       ui.hints(g, [['lb', ''], ['rb', ''], ['dpad', 'Pick a spot']], 250, 56, { size: 34 });
-      ui.hints(g, [['y', 'Surprise!']], W - 210, 56, { size: 34 });
+      ui.hints(g, [['y', 'Clear / Surprise!']], W - 260, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
   }
@@ -824,7 +844,7 @@ export class Game {
     x += tw + 12;
     if (wide) drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
     const o = st.outfit[st.tab], col = PALETTE[o.colors[o.item]];
-    const items = [['dpad', wide ? 'Spot / item' : ''], ['a', wide ? 'Pick / color' : ''], ['y', wide ? 'Surprise!' : ''], ['x', 'Ready!']];
+    const items = [['dpad', wide ? 'Spot / item' : ''], ['a', wide ? 'Pick / color' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ['x', 'Ready!']];
     const avail = r.x + r.w - 16 - x;
     const lab = sz * 0.62;
     let need = 0;

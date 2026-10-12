@@ -108,8 +108,8 @@ export class Game {
     this.R = n <= 4 ? 32 : n <= 6 ? 30 : 27;
     this.cam = api.camera;
     if (this.cam) this.cam.maxZoom = Math.min(this.cam.maxZoom, n <= 2 ? 1.22 : 1.14);
-    // The painted background's fence base sits at y~365 (the procedural one at
-    // ~250): keep feet below it so nobody stands on the fence rail.
+    // Both the painted background's fence base and the procedural one sit at
+    // y~250: feet stay below 280 so nobody stands on the fence rail.
     ARENA.y0 = art('bg/snowball-splat') ? ARENA_TOP_ART : ARENA_TOP;
     this.hatArt = !!art('prop/snowman');   // the art's hat is always blue
     this.walls = WALLS.map((w, i) => ({ ...w, kind: 'wall', hp: WALL_HP, state: 'up', downT: 0, grow: 1, wob: 0, seed: i * 13 + 5 }));

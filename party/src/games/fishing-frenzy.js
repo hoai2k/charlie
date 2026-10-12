@@ -1047,7 +1047,7 @@ export class Game {
       ui.panel(g, W / 2 - 520, 168, 1040, 70, { r: 35, fill: '#fff8ec' });
       ui.glyph(g, 'stick', W / 2 - 486, 203, 46);
       ui.glyph(g, 'a', W / 2 - 432, 203, 46, { pulse: true });
-      ui.text(g, 'Aim and cast!  Wait for the big !  then press A', W / 2 + 56, 204, { size: 34, color: NAVY, stroke: false, maxWidth: 820 });
+      ui.text(g, 'Aim and cast!  When a big "!" pops up, press A', W / 2 + 56, 204, { size: 34, color: NAVY, stroke: false, maxWidth: 820 });
       g.restore();
     }
   }
