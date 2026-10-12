@@ -6283,6 +6283,216 @@
         "parallelWidths": "final alpha widths within natural lumpy edge variation"
       },
       "bytes": 28690
+    },
+    {
+      "key": "prop/topper-macaron",
+      "file": "party/assets/art/prop/topper-macaron.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-3e4b5ede-8306-4313-b853-7cb955fec370.png",
+      "size": [
+        112,
+        96
+      ],
+      "anchor": "bottom-centre; source alpha cropped and uniformly fitted, alpha bbox ends at y=96; centre contact alpha 253",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent game prop sprite for Charlie Party Cake Bakery\nPrimary request: Create one French macaron seen from the front, slightly from above: two smooth domed shells with a ruffled foot, a thick white cream filling between them, and a soft highlight on the top shell. Match the existing topper-heart reference image's illustration style: cute polished candy-colour game art, bold dark navy #24163f outline, soft cel shading, glossy highlights.\nComposition/framing: Isolated centered object filling most of a 112\u00d796 landscape canvas; whole macaron visible. The lowest point of the macaron touches the exact bottom-center canvas edge with absolutely no transparent padding below, because it attaches to cake there. Transparent pixels around it. Keep proportions compact and front-facing.\nColor palette: shell pink #ff9fd0 as the main tinted region; cream filling white; small navy outline and soft white highlights. Main shell should be predominantly pink so code hue rotation affects the shells only.\nConstraints: genuinely transparent background, no ground shadow, no text, no extra objects, no border, no crop, no flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 13528
+    },
+    {
+      "key": "prop/topper-choco-drop",
+      "file": "party/assets/art/prop/topper-choco-drop.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-e944aa25-b32e-4646-bf70-04382b21df1c.png",
+      "size": [
+        96,
+        96
+      ],
+      "anchor": "bottom-centre; alpha bbox ends at y=96; centre contact alpha 59 (antialiased boundary)",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. Create a single chocolate drop candy (kiss shape), centered and front-on: a glossy milk-chocolate cone with flat round base and curled tip, darker shading on the right and a cream highlight on the left. Match the existing topper-heart reference's polished candy-colour illustration: bold dark navy #24163f outline, soft cel shading and glossy highlights. Composition: fill most of a square 96\u00d796 canvas while keeping the entire object visible; transparent pixels around it. The flat base must touch the exact bottom-center canvas edge, no transparent padding below, for cake attachment. Palette: milk chocolate browns, cream highlight, navy outline. No shadow, no text, no other objects, no flame. Genuinely transparent background.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8962
+    },
+    {
+      "key": "prop/topper-butterfly",
+      "file": "party/assets/art/prop/topper-butterfly.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-82b1daa5-a0ee-4df9-82ff-f99254d8025f.png",
+      "size": [
+        112,
+        96
+      ],
+      "anchor": "bottom-centre/body; alpha bbox ends at y=96; centre contact alpha 136",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. Sugar butterfly seen from the front, four rounded symmetric wings (big upper, small lower) with white polka dots, plum body down the centre and two curly antennae; bottom of body touches exact bottom-centre edge. Pink #ff6fd0 wings as dominant tintable colour. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 112\u00d796 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14974
+    },
+    {
+      "key": "prop/topper-bow",
+      "file": "party/assets/art/prop/topper-bow.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-ed69ebdb-0158-4b71-b206-cac17845bbb9.png",
+      "size": [
+        128,
+        80
+      ],
+      "anchor": "bottom-centre/tail tips; alpha bbox ends at y=80; centre contact alpha 142",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. Chunky candy ribbon bow, front view: two puffy loops, round centre knot, two short tails pointing down; white polka dots on the pink #ff6fd0 ribbon loops (dominant tintable colour); bottom-centre tail tips touch exact bottom canvas edge. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 128\u00d780 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14078
+    },
+    {
+      "key": "prop/topper-pearls",
+      "file": "party/assets/art/prop/topper-pearls.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-6c32c079-f762-41d1-b0ef-c41d92d86f22.png",
+      "size": [
+        96,
+        80
+      ],
+      "anchor": "bottom-centre; lower two pearls contact canvas at y=80; bottom-centre itself is a transparent gap (pyramid support contact is split)",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A little pyramid of three shiny sugar pearls (two below, one on top), pearly white with faint lilac shade and bright highlight on each; bottom-centre pearl touches exact bottom canvas edge. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 96\u00d780 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8258
+    },
+    {
+      "key": "prop/topper-lollipop",
+      "file": "party/assets/art/prop/topper-lollipop.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-2413e4ae-c5b1-4b17-8c19-f58d2e59536e.png",
+      "size": [
+        80,
+        160
+      ],
+      "anchor": "bottom-centre stick; exact bottom contact, centre alpha 254",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A round lollipop on a straight white stick, flat disc with a bold pink #ff6fd0 and white spiral, glossy upper-left highlight; stick runs straight down to the exact bottom-centre canvas edge. Dominant swirl is tintable pink. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 80\u00d7160 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 9456
+    },
+    {
+      "key": "prop/topper-candy-cane",
+      "file": "party/assets/art/prop/topper-candy-cane.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-f34d6c04-fe2b-4bf3-a4d3-cdd5bf0cb21d.png",
+      "size": [
+        80,
+        160
+      ],
+      "anchor": "straight bottom tip centred at x=40.2 after horizontal-only 0.8 scale; exact bottom contact; hook bends right",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. One upright red-and-white striped candy cane, straight end down, hook curls to the right, diagonal stripes and soft highlight down one side; straight bottom tip touches exact bottom-centre edge. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 80\u00d7160 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 11594
+    },
+    {
+      "key": "prop/topper-cupcake",
+      "file": "party/assets/art/prop/topper-cupcake.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-ff3431d3-5d90-4af1-9e9f-69a6da0ea2ca.png",
+      "size": [
+        96,
+        112
+      ],
+      "anchor": "wrapper bottom-centre; exact bottom contact; centre alpha 201",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A tiny cupcake with sky-blue pleated paper wrapper, three-tier swirl of pink frosting with a few rainbow sprinkles, and red cherry with stem on top. Wrapper base bottom-centre touches exact canvas bottom. Dominant colours are sky-blue wrapper and pink frosting; keep a clean navy outline. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 96\u00d7112 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 12556
+    },
+    {
+      "key": "prop/topper-crown",
+      "file": "party/assets/art/prop/topper-crown.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-ec0b1c84-d87d-4605-8945-a5f376a4eb81.png",
+      "size": [
+        112,
+        96
+      ],
+      "anchor": "bottom-centre band support; lower band outline reaches bottom edge, but exact center is transparent in final row; full band visibly touches lower edge at both sides",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A small gold princess crown, front view: band with three gems (red, blue, green), three tall points each topped with a white pearl, bright gold with a shine stripe. Bottom centre of crown band touches exact canvas bottom. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 112\u00d796 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14970
+    },
+    {
+      "key": "prop/topper-rainbow",
+      "file": "party/assets/art/prop/topper-rainbow.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-533d86fd-aad0-4617-9c1d-6f804afb660e.png",
+      "size": [
+        192,
+        112
+      ],
+      "anchor": "canvas anchor bottom-centre; both cloud bottoms reach bottom edge, centre gap expected for arched silhouette",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A chunky arched rainbow with six distinct bands red, orange, yellow, green, blue, purple, and fluffy white cloud at each end. Wide composition. Both cloud bottoms touch the exact bottom edge; symmetric, front view. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 192\u00d7112 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 24124
+    },
+    {
+      "key": "prop/topper-shooting-star",
+      "file": "party/assets/art/prop/topper-shooting-star.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-560e9b86-7aa4-4a22-893f-72ca1a9535cd.png",
+      "size": [
+        112,
+        192
+      ],
+      "anchor": "gold stick bottom-centre x=55.5 after horizontal-only 0.771 scale; exact bottom contact; full vertical size preserved",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A cake pick: thin gold stick with a plump yellow star at the top, a curved rainbow trail (pink, blue, green) streaming down-left from the star, and a tiny twinkle beside it. Stick bottom centred and touches exact canvas bottom. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 112\u00d7192 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14782
+    },
+    {
+      "key": "prop/topper-fairy",
+      "file": "party/assets/art/prop/topper-fairy.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-373072b9-3a24-4591-a885-01d9c8a70221.png",
+      "size": [
+        112,
+        176
+      ],
+      "anchor": "feet/dress hem bottom-centre; exact bottom contact; centre alpha 48 at antialiased edge",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A tiny sugar fairy figurine standing on cake: blonde bun, rosy cheeks, closed happy eyes, pink bell-shaped dress, pale-blue translucent wings, holding up a wand with a gold star. Toy-like, original generic sugar figurine, not a roster character. Feet/dress hem centred and touch exact bottom edge. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 112\u00d7176 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 24848
+    },
+    {
+      "key": "prop/candle-swirl",
+      "file": "party/assets/art/prop/candle-swirl.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-cee525f1-69d2-45b6-9c71-1b2495231ef5.png",
+      "size": [
+        48,
+        160
+      ],
+      "anchor": "wick tip centered at x=24, topmost alpha y=3 exactly; base reaches y=159/edge; true alpha retained. Cropped using alpha>1 bounds to exclude a disconnected near-transparent artifact while preserving original PNG source.",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite/icon for Charlie Party Cake Bakery. A single tall thin twisted birthday candle, straight and vertical: white wax with one pink spiral stripe, a small gold drip-catcher ring at the bottom, and a short dark wick on top. NO flame. The centered wick tip sits exactly 3 pixels below the top edge of the 48\u00d7160 transparent canvas; the candle base touches the bottom edge. Slim silhouette with clear readable wax and spiral. Match existing topper-heart reference: cute polished candy-colour game art, bold dark navy #24163f outlines, soft cel shading, glossy highlights. Render the complete subject centered on the exact 48\u00d7160 transparent canvas. Preserve actual transparency. No shadow, text, scenery, border, clipping, or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8214
+    },
+    {
+      "key": "prop/sprinkles-stars",
+      "file": "party/assets/art/prop/sprinkles-stars.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-71bbfd15-e47d-49d9-a814-8c64c331a56e.png",
+      "size": [
+        128,
+        128
+      ],
+      "anchor": "centered scatter icon; alpha bbox (24,23)-(104,107); background true transparent.",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite/icon for Charlie Party Cake Bakery. A loose scatter of tiny individual star-shaped sugar sprinkles in gold, pale yellow, white, pink and sky blue. Stars are separated and irregularly scattered across a centered 128\u00d7128 icon area, with empty transparent space around the perimeter. No jar, no plate, no background. Match existing topper-heart reference: cute polished candy-colour game art, bold dark navy #24163f outlines, soft cel shading, glossy highlights. Render the complete subject centered on the exact 128\u00d7128 transparent canvas. Preserve actual transparency. No shadow, text, scenery, border, clipping, or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8726
+    },
+    {
+      "key": "prop/sprinkles-dots",
+      "file": "party/assets/art/prop/sprinkles-dots.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-4b74f8d6-3e68-438a-9d5c-3f38b2847e1b.png",
+      "size": [
+        128,
+        128
+      ],
+      "anchor": "centered scatter icon; alpha bbox (18,19)-(113,106); background true transparent.",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite/icon for Charlie Party Cake Bakery. A loose scatter of tiny round nonpareil sugar dots in rainbow colours: red, orange, yellow, green, blue, purple. Dots are separated and irregularly scattered across a centered 128\u00d7128 icon area, with empty transparent space around the perimeter. No jar, no plate, no background. Match existing topper-heart reference: cute polished candy-colour game art, bold dark navy #24163f outlines, soft cel shading, glossy highlights. Render the complete subject centered on the exact 128\u00d7128 transparent canvas. Preserve actual transparency. No shadow, text, scenery, border, clipping, or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8236
     }
   ]
 }

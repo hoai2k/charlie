@@ -528,6 +528,21 @@
     "prop/fishing-basket": "prop/fishing-basket.webp",
     "prop/fishing-lilypad": "prop/fishing-lilypad.webp",
     "prop/fishing-lilypad-flower": "prop/fishing-lilypad-flower.webp",
-    "prop/fishing-frog": "prop/fishing-frog.webp"
+    "prop/fishing-frog": "prop/fishing-frog.webp",
+    "prop/topper-macaron": "prop/topper-macaron.webp",
+    "prop/topper-choco-drop": "prop/topper-choco-drop.webp",
+    "prop/topper-butterfly": "prop/topper-butterfly.webp",
+    "prop/topper-bow": "prop/topper-bow.webp",
+    "prop/topper-pearls": "prop/topper-pearls.webp",
+    "prop/topper-lollipop": "prop/topper-lollipop.webp",
+    "prop/topper-candy-cane": "prop/topper-candy-cane.webp",
+    "prop/topper-cupcake": "prop/topper-cupcake.webp",
+    "prop/topper-crown": "prop/topper-crown.webp",
+    "prop/topper-rainbow": "prop/topper-rainbow.webp",
+    "prop/topper-shooting-star": "prop/topper-shooting-star.webp",
+    "prop/topper-fairy": "prop/topper-fairy.webp",
+    "prop/candle-swirl": "prop/candle-swirl.webp",
+    "prop/sprinkles-stars": "prop/sprinkles-stars.webp",
+    "prop/sprinkles-dots": "prop/sprinkles-dots.webp"
   }
 }

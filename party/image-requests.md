@@ -1119,41 +1119,6 @@ file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
 
-## Cake Bakery: new toppings (2026-10-12)
-
-New Decorate choices in `src/games/cake-bakery/cake.js`. Every one already
-has a procedural drawing that ships today, and the code looks up each key
-below, so a file listed in `assets/art/index.json` drops in with no code
-change. Same family as the existing `prop/topper-*` art (about 96 px tall,
-transparent, navy `#24163f` outline, soft cel shading, glossy candy colours,
-**no text**). All are drawn in cake-local units at the station's scale: the
-code fits the image inside *H* tall × 2.2*H* wide (H given per row),
-**bottom-centre on the point where it touches the cake**, and sinks it the
-given few units into the frosting, so the base must touch the canvas's bottom
-edge with no padding and no shadow. They sit on the top face, and the ones
-marked "sides too" also stick on a layer's side, so they must read
-front-on. Rows marked **tinted** get a random colour per topping by
-hue-rotating the whole image: paint the main colour in the given hue and
-keep everything else white, cream or navy so only that part changes.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `prop/topper-macaron` | 112×96, transparent | H 32, sink 2; sides too. **Tinted**: shells pink `#ff9fd0` | One French macaron seen from the front, slightly from above: two smooth domed shells with a ruffled "foot", a thick white cream filling between them, a soft highlight on the top shell |
-| `prop/topper-choco-drop` | 96×96, transparent | H 34, sink 2; sides too | A chocolate drop (kiss shape): a glossy milk-chocolate cone with a flat round base and a little curled tip, darker shading on the right, a cream-coloured highlight on the left |
-| `prop/topper-butterfly` | 112×96, transparent | H 40, sink 2; sides too. **Tinted**: wings pink `#ff6fd0`. The code squashes it sideways (x scale 0.72–1) to flap the wings, so draw it front-on, wings fully open and symmetric about the centre | A sugar butterfly seen from the front: four rounded wings (big upper, small lower) with white polka dots, a plum body down the centre and two curly antennae; the bottom of the body touches the bottom edge |
-| `prop/topper-bow` | 128×80, transparent | H 30, sink 2; sides too. **Tinted**: ribbon pink `#ff6fd0` | A chunky candy ribbon bow, front view: two puffy loops, a round knot in the middle, two short tails pointing down, white polka dots on the loops |
-| `prop/topper-pearls` | 96×80, transparent | H 26, sink 2; sides too | A little pyramid of three shiny sugar pearls (two below, one on top), pearly white with a faint lilac shade and a bright highlight on each |
-| `prop/topper-lollipop` | 80×160, transparent | H 88, sink 4 (the stick end is pushed into the cake); top only. **Tinted**: swirl pink `#ff6fd0` | A round swirl lollipop on a white stick: a flat disc with a pink-and-white spiral, a glossy highlight at the upper left, the stick straight down to the bottom edge |
-| `prop/topper-candy-cane` | 80×160, transparent | H 74, sink 4; top only. The hook bends to the right | A red-and-white striped candy cane standing upright on its straight end, the hook at the top curling to the right, diagonal stripes, a soft highlight down one side |
-| `prop/topper-cupcake` | 96×112, transparent | H 58, sink 3; top only | A tiny cupcake: a sky-blue pleated paper wrapper, a three-tier swirl of pink frosting with a few rainbow sprinkles, and a red cherry with a stem on top |
-| `prop/topper-crown` | 112×96, transparent | H 44, sink 3; top only | A small gold princess crown, front view: a band with three gems (red, blue, green), three tall points each topped with a white pearl, bright gold with a shine stripe |
-| `prop/topper-rainbow` | 192×112, transparent | H 52, sink 4; top only. Wide: both cloud bottoms touch the bottom edge | A chunky arched rainbow (red, orange, yellow, green, blue, purple bands) with a fluffy white cloud at each end, standing on the clouds |
-| `prop/topper-shooting-star` | 112×192, transparent | H 92, sink 4; top only. The stick's bottom is at the bottom centre | A cake pick: a thin gold stick with a plump yellow star at the top, a curved rainbow trail (pink, blue, green) streaming down-left from the star, a tiny twinkle beside it |
-| `prop/topper-fairy` | 112×176, transparent | H 78, sink 3; top only. The feet/skirt hem are at the bottom centre | A tiny sugar fairy figurine standing on the cake: blonde bun, rosy cheeks, closed happy eyes, a pink bell-shaped dress, pale-blue translucent wings, holding up a wand with a gold star. Toy-like, not a roster character |
-| `prop/candle-swirl` | 48×160, transparent | Same as `prop/candle` (tinted from its pink, hue 334), drawn 82 tall, bottom-centre on the cake; the **wick tip must be about 3 px below the top edge, centred**, because the code draws the flame (`prop/candle-flame`) there | A tall thin twisted birthday candle: white wax with a pink spiral stripe, a little gold drip-catcher ring at the bottom, a short dark wick on top, no flame |
-| `prop/sprinkles-stars` | 128×128, transparent | Menu and hand-cursor icon for Star Sprinkles, drawn centred like `prop/sprinkles` (fallback: a shaker jar) | A loose scatter of tiny star-shaped sprinkles in gold, pale yellow, white, pink and sky blue |
-| `prop/sprinkles-dots` | 128×128, transparent | Menu and hand-cursor icon for Rainbow Dots, drawn centred like `prop/sprinkles` | A loose scatter of tiny round nonpareil dots in rainbow colours (red, orange, yellow, green, blue, purple) |
-
 ## Fashion Show: new items (2026-10-12)
 
 New wardrobe items for `fashion-show` (requested by the Fashion Show agent, priority: nice-to-have). Every item already ships with a procedural drawing (the wardrobe lives in `src/engine/outfits.js`, shared with the game-wide dress-up look); the code looks up `prop/<key>` and uses the art **only for the item's default colour** (the colour named in the description), so the other palette colours keep the drawing. Same conventions as the existing fashion-show props: transparent background, WebP-able PNG, no text, bold navy (#24163f) outlines, cel shading, candy colours, front view unless stated, art facing right where it has a side (the game mirrors it). "S" below is the code's size unit for the category (head items: head width; face/neck: face width; back, hand: body height); the code fits the image into the given box and puts the anchor on the character's landmark for every frame.
