@@ -68,6 +68,14 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- In progress (user request 2026-10-13): (a) verify all images delivered
+  2026-10-12 work in game (art-QA agents: cake toppings + fashion/dress-up
+  accessories; the rest: bunny faces, fishing handle, cloud-hop thumb,
+  chest, cookie bridge, snowball bg/wall, cake/hotdog grips); (b) build
+  `party/workbench/` (agent): view every sprite frame with its landmarks
+  and accessories, drag anchors / item positions, rotate items, undo/redo,
+  zoom/pan, export a JSON of edits (+ a tool to apply it). If the session
+  restarts: `git branch | grep worktree-agent` for their branches.
 - Party marathon how-to screen (user request 2026-10-12): B (when not
   ready) sits that one game out, A joins back in, Y twice skips the game.
   The last human (or the game's minPlayers) can't sit out. `play.enter`
