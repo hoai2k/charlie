@@ -26,9 +26,10 @@ let aiSerial = 0;
  * Pass the player itself to new Actor(p) / drawPortrait(g, p, ...) so its
  * colour scheme shows.
  */
-export function makePlayer(index, charId, ctrl, isAI, variant = 0) {
+export function makePlayer(index, charId, ctrl, isAI, variant = 0, outfit = null) {
   return {
     index, charId, ctrl, isAI, variant, glow: null,
+    outfit,   // dress-up look worn in every game ([{ id, colour }], engine/outfits.js) or null
     color: PLAYER_COLORS[index],
     get tag() { return this.isAI ? 'CPU' : 'P' + (this.index + 1); },
     aiLevel: session.cpuLevel,

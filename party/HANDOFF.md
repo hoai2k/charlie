@@ -59,15 +59,14 @@ sprites are better (neck, hand, etc)". Three worktree agents:
   `sprites/<set>/sprites.json` (like the size audit), fixed in data.
   If the session restarts: `git branch | grep worktree-agent` shows their
   branches; merge what was committed (ours for party/index.html, restamp).
-Next (user request 2026-10-12, after the agents above): a game-wide
-"dress up": in character select, a custom "colour" slot = the character
-with accessories (saved, e.g. localStorage per character), worn in every
-game. Plan: the Fashion Show agent puts the item catalog + attach math in
-`src/engine/outfits.js` (`outfitAttach`, `drawOutfitItem`, `drawOutfit`);
-the lead then gives Actor an `outfit` (from `player.outfit`, like
-`variant`), draws back-layer items before the body and the rest after in
-`Actor.draw`, and adds the custom slot + a dress-up panel to
-`scenes/charselect.js`.
+- Dress up (user request 2026-10-12): done. In character select the last
+  "colour" (a star dot) is Dress up: `scenes/closet.js` edits a look from
+  the Fashion Show wardrobe (`engine/outfits.js`), saved per character in
+  localStorage (`loadLook`/`saveLook`, key `charlie-party-looks`).
+  `player.outfit` -> `Actor` wears it on every frame (`setOutfit`, via
+  `wearOutfit` attachments). A game that draws its own outfit must create
+  its actors with `outfit: null` (Fashion Show does, and starts its
+  wardrobe from the player's look).
 Also open: the Pages deploy for 21e5760 failed (user made the repo public;
 they interrupted my log check, so wait for them before touching it).
 
@@ -240,6 +239,7 @@ they interrupted my log check, so wait for them before touching it).
   in the colour variants.
 
 ## Conventions that bite
+- Actors wear `player.outfit` automatically; pass `outfit: null` to opt out.
 - Elimination games implement `humansOut()` (true once every human is out).
   The play scene then shows "B Skip to the end"; B fast-forwards the game
   itself (fixed 1/60 steps, sound muted) until it calls finish, so results

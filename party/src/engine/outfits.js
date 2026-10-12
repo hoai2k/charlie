@@ -1732,3 +1732,20 @@ export function wearOutfit(actor, getOutfit, { time = () => performance.now() / 
   return handles;
 }
 export function unwearOutfit(actor, handles) { for (const h of handles || []) actor.detach(h); }
+
+// --- saved "dress up" looks (character select) --------------------------------
+// One look per character, kept in this browser: [{ id, colour }].
+const LOOKS_KEY = 'charlie-party-looks';
+function readLooks() {
+  try { return JSON.parse(localStorage.getItem(LOOKS_KEY) || '{}') || {}; } catch (e) { return {}; }
+}
+/** The saved look for a character ([] when none), keeping only items that still exist. */
+export function loadLook(charId) {
+  const l = readLooks()[charId];
+  return Array.isArray(l) ? l.filter((e) => e && outfitItem(e.id)).map((e) => ({ id: e.id, colour: e.colour | 0 })) : [];
+}
+export function saveLook(charId, look) {
+  const all = readLooks();
+  all[charId] = (look || []).map((e) => ({ id: e.id, colour: e.colour | 0 }));
+  try { localStorage.setItem(LOOKS_KEY, JSON.stringify(all)); } catch (e) { /* private mode: this visit only */ }
+}

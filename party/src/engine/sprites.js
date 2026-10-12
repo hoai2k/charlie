@@ -35,6 +35,7 @@ import { voice } from './audio.js';
 import { clamp, damp, TAU } from './util.js';
 import { recolorFrame } from './recolor.js';
 import { rulesFor, variantPalette, MASK_SETS, PORTRAIT_SAFE } from '../data/variants.js';
+import { wearOutfit, unwearOutfit } from './outfits.js';   // (imports this file back; both only call each other at runtime)
 
 // ---------------------------------------------------------------------------
 // Pose vocabulary. `fallback` lists poses to try, in order, when a sprite set
@@ -628,7 +629,9 @@ export class Actor {
    * @param {string|object} who  party entry id from data/characters.js (or 'troll'),
    *                             or a player (uses its charId, colour variant and glow)
    * @param {object} opts    { scale = 1, x, y, load = true (false: don't fetch the sprite set; use it only if already loaded),
-   *                           variant (colour scheme, 0 = canonical), glow (outline colour) }
+   *                           variant (colour scheme, 0 = canonical), glow (outline colour),
+   *                           outfit ([{ id, colour }] dress-up look from engine/outfits.js; default the
+   *                           player's own look, null = none) }
    */
   constructor(who, opts = {}) {
     const player = who && typeof who === 'object' ? who : null;
@@ -654,6 +657,8 @@ export class Actor {
     this._autoEmoteT = 0;
     this._history = [];         // leader trail for followers
     this.attachments = [];      // { fn, member, behind }
+    this._outfitHandles = null;
+    this.setOutfit(opts.outfit !== undefined ? opts.outfit : player?.outfit || null);
     if (opts.load !== false) for (const m of this.char.members) ensureSpriteSet(m.asset);
     this.members = this.char.members.map((m, i) => ({
       def: m, i, x: this.x + m.dx * this.facing * this.scale, y: this.y + m.dy * this.scale, facing: this.facing,
@@ -712,6 +717,14 @@ export class Actor {
   say(text, dur = 1.6, kind = 'laugh') {
     this.speech = text ? { text, t: 0, dur } : null;
     if (text && kind) voice(this.charId, kind);
+    return this;
+  }
+
+  /** Wear a dress-up look ([{ id, colour }], see engine/outfits.js) on every frame; null/[] takes it off. */
+  setOutfit(outfit) {
+    this.outfit = outfit && outfit.length ? outfit : null;
+    if (this.outfit && !this._outfitHandles) this._outfitHandles = wearOutfit(this, () => this.outfit || [], { time: () => this.time + this.seed * 3 });
+    else if (!this.outfit && this._outfitHandles) { unwearOutfit(this, this._outfitHandles); this._outfitHandles = null; }
     return this;
   }
 

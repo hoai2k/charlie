@@ -7,6 +7,8 @@ import { drawArt } from '../engine/art.js';
 // Several players may pick the same character: each one locked in gets its
 // own colour scheme (the lowest one nobody else locked in has), and flipping
 // through colours skips the schemes other locked-in players are using.
+// The last "colour" is Dress up: the character in its own colours plus a
+// saved look (scenes/closet.js), worn in every game.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host, preloadVoices } from '../engine/audio.js';
@@ -18,6 +20,8 @@ import { session, makePlayer, newAIController, assignGlows, MAX_PLAYERS, AI_LEVE
 import { variantCount, variantPalette } from '../data/variants.js';
 import { shell } from '../engine/shell.js';
 import { shuffle, TAU, clamp } from '../engine/util.js';
+import { loadLook } from '../engine/outfits.js';
+import { Closet } from './closet.js';
 
 const COLS = 6;
 const CARD_W = 236, CARD_H = 250, GAP = 18;
@@ -40,7 +44,11 @@ export class CharSelectScene {
     for (const p of session.players) {
       const idx = CHARACTERS.findIndex((c) => c.id === p.charId);
       if (p.isAI) this.cpus.push({ ctrl: p.ctrl, charId: p.charId, actor: this.makeActor(p.charId), stars: p.stars });
-      else this.humans.push({ ctrl: p.ctrl, cursor: Math.max(0, idx), charId: p.charId, variant: p.variant || 0, locked: true, actor: this.makeActor(p.charId, p.variant || 0), stars: p.stars });
+      else {
+        const h = { ctrl: p.ctrl, cursor: Math.max(0, idx), charId: p.charId, variant: p.variant || 0, locked: true, actor: this.makeActor(p.charId, p.variant || 0), stars: p.stars, dress: !!p.outfit };
+        if (h.dress) h.actor.setOutfit(loadLook(h.charId));
+        this.humans.push(h);
+      }
     }
     if (session.players.length) { this.wantTotal = session.players.length; this.manualCpu = true; }
     this.cardBounce = CHARACTERS.map(() => 0);
@@ -85,23 +93,40 @@ export class CharSelectScene {
   }
   /** Locked in: flip to the next free colour scheme in direction dir. */
   cycleVariant(h, dir) {
-    const n = variantCount(h.charId) + 1, taken = this.reservedVariants(h.charId, h);
-    for (let k = 1; k < n; k++) {
-      const v = (((h.variant + dir * k) % n) + n) % n;
-      if (taken.has(v)) continue;
-      this.setVariant(h, v);
-      h.actor.playOnce('cheer', 0.5, 'idle');
-      const sl = this.slotRects && this.slotRects.get(h);
-      if (sl) particles.burst(sl.x + sl.w / 2, sl.y + sl.h * 0.45, { type: 'sparkle', count: 10, colors: [variantPalette(h.charId, v)?.swatch || CHARACTERS[h.cursor].color, '#ffffff'] });
-      sfx('select');
+    // Options: the free colour schemes, then Dress up ('dress').
+    const taken = this.reservedVariants(h.charId, h), opts = [];
+    for (let v = 0; v <= variantCount(h.charId); v++) if (!taken.has(v)) opts.push(v);
+    opts.push('dress');
+    const cur = h.dress ? opts.length - 1 : Math.max(0, opts.indexOf(h.variant));
+    const next = opts[(((cur + dir) % opts.length) + opts.length) % opts.length];
+    const sl = this.slotRects && this.slotRects.get(h);
+    if (next === 'dress') {
+      this.setDress(h, true);
+      if (sl) particles.burst(sl.x + sl.w / 2, sl.y + sl.h * 0.45, { type: 'star', count: 12 });
+      sfx('magic');
+      if (!h.actor.outfit) this.openCloset(h);   // nothing saved yet: straight into the closet
       return;
     }
-    sfx('error');
+    this.setDress(h, false);
+    this.setVariant(h, next);
+    h.actor.playOnce('cheer', 0.5, 'idle');
+    if (sl) particles.burst(sl.x + sl.w / 2, sl.y + sl.h * 0.45, { type: 'sparkle', count: 10, colors: [variantPalette(h.charId, next)?.swatch || CHARACTERS[h.cursor].color, '#ffffff'] });
+    sfx('select');
+  }
+  /** Dress up on/off: wears the character's saved look (in the lowest free colour scheme). */
+  setDress(h, on) {
+    h.dress = on;
+    if (on) this.setVariant(h, Math.max(0, this.freeVariant(h.charId, h)));
+    h.actor.setOutfit(on ? loadLook(h.charId) : null);
+  }
+  openCloset(h) {
+    h.closet = new Closet(h);
+    h.actor.playOnce('wave', 0.7, 'idle');
   }
   /** Players still choosing preview the scheme they'd get if they locked in now. */
   updatePreviews() {
     for (const h of this.humans) {
-      if (h.locked) continue;
+      if (h.locked || h.dress) continue;
       const v = this.freeVariant(h.charId, h);
       this.setVariant(h, Math.max(0, v));
     }
@@ -185,6 +210,14 @@ export class CharSelectScene {
     for (const h of [...this.humans]) {
       const c = h.ctrl;
       if (joinedNow.has(c)) continue;
+      if (h.closet) {
+        if (h.closet.update(dt)) {
+          h.closet = null;
+          if (!h.actor.outfit) this.setDress(h, false);   // came out with nothing on: back to plain colours
+          else { h.actor.playOnce('celebrate', 1, 'idle'); h.actor.say('Ta-da!', 1.4, 'yay'); }
+        }
+        continue;
+      }
       if (!h.locked) {
         const nav = c.nav;
         if (nav.x || nav.y) {
@@ -200,8 +233,9 @@ export class CharSelectScene {
           this.fitCpus();
         }
       } else {
-        if (c.pressed('b')) { h.locked = false; h.actor.setPose('idle'); sfx('back'); }
+        if (c.pressed('b')) { h.locked = false; this.setDress(h, false); h.actor.setPose('idle'); sfx('back'); }
         else if (c.nav.x) this.cycleVariant(h, c.nav.x);
+        else if (c.nav.y && h.dress) { this.openCloset(h); sfx('select'); }
         else if (c.pressed('a') || c.pressed('start')) {
           if (this.allReady()) { this.start(); return; }
         }
@@ -220,6 +254,7 @@ export class CharSelectScene {
     h.cursor = i;
     h.charId = CHARACTERS[i].id;
     h.variant = Math.max(0, this.freeVariant(h.charId, h));
+    h.dress = false; h.closet = null;
     h.actor = this.makeActor(h.charId, h.variant);
     h.actor.playOnce('wave', 0.7, 'idle');
     this.cardBounce[i] = 1;
@@ -274,14 +309,14 @@ export class CharSelectScene {
     return false;
   }
 
-  allReady() { return this.humans.length > 0 && this.humans.every((h) => h.locked); }
+  allReady() { return this.humans.length > 0 && this.humans.every((h) => h.locked && !h.closet); }
 
   start() {
     this.starting = 0;
     sfx('fanfare');
     const old = new Map(session.players.map((p) => [p.ctrl, p.stars]));
     const players = [];
-    this.humans.forEach((h) => players.push(makePlayer(players.length, h.charId, h.ctrl, false, h.variant)));
+    this.humans.forEach((h) => players.push(makePlayer(players.length, h.charId, h.ctrl, false, h.variant, h.dress ? h.actor.outfit : null)));
     this.cpus.forEach((c) => players.push(makePlayer(players.length, c.charId, c.ctrl, true)));
     assignGlows(players);
     // Keep stars only if the same controllers kept the same seats.
@@ -366,13 +401,22 @@ export class CharSelectScene {
       ui.text(g, 'Start the party!', 30, 2, { size: 46, weight: 800 });
       g.restore();
     } else if (this.humans.length) {
-      const colours = this.humans.some((h) => h.locked && variantCount(h.charId));
-      ui.hints(g, [['a', 'Pick'], ['b', 'Back'], ...(colours ? [['dpad', 'Colour']] : []), ['x', 'Add CPU'], ['y', 'Remove CPU'], ['rb', `CPU: ${AI_LEVELS[session.cpuLevel]}`]], W / 2, 1040, { size: 34 });
+      const colours = this.humans.some((h) => h.locked && !h.closet);
+      ui.hints(g, [['a', 'Pick'], ['b', 'Back'], ...(colours ? [['dpad', 'Colour / Dress up']] : []), ['x', 'Add CPU'], ['y', 'Remove CPU'], ['rb', `CPU: ${AI_LEVELS[session.cpuLevel]}`]], W / 2, 1040, { size: 34 });
     }
     if (this.starting !== null) ui.banner(g, "Let's party!", this.starting, { size: 150, y: 470 });
     if (shell.wantFullscreen && !shell.isFullscreen() && shell.canFullscreen() && this.t > 1) {
       ui.text(g, 'Tip: press any key or click for full screen', W - 24, 1060, { size: 22, align: 'right', color: '#fff', strokeWidth: 5 });
     }
+  }
+
+  /** Open closets, side by side above the player slots. */
+  drawClosets(g) {
+    const open = this.humans.filter((h) => h.closet);
+    if (!open.length) return;
+    g.fillStyle = 'rgba(36,22,63,0.35)'; g.fillRect(0, 0, W, 690);
+    const k = open.length, gap = 20, w = Math.min(640, (W - 40 - (k - 1) * gap) / k), x0 = (W - (k * w + (k - 1) * gap)) / 2;
+    open.forEach((h, i) => h.closet.draw(g, x0 + i * (w + gap), 130, w, 550, this.colorOf(h), this.tagOf(h)));
   }
 
   colorOf(h) { return PLAYER_COLORS[this.humans.indexOf(h)]; }
@@ -381,21 +425,29 @@ export class CharSelectScene {
   /** Name + colour scheme row under a human's slot: swatch dots (taken ones
    *  crossed out) and, once locked in, arrows to flip through the free ones. */
   drawColourPicker(g, h, ch, x, y0, sw, sh, big) {
-    const nv = variantCount(ch.id), pal = variantPalette(ch.id, h.variant);
+    const nv = variantCount(ch.id), pal = h.dress ? null : variantPalette(ch.id, h.variant);
     const taken = this.reservedVariants(ch.id, h);
-    const label = pal ? `${pal.name} ${ch.name}` : ch.name;
+    const label = h.dress ? `Dressed-up ${ch.name}` : pal ? `${pal.name} ${ch.name}` : ch.name;
     const cy = y0 + sh - (big ? 46 : 40);
     ui.fitText(g, label, x + sw / 2, cy, { size: big ? 30 : 21, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - (h.locked ? (big ? 110 : 64) : 20), wrapShift: big ? -8 : -6 });
     // swatch dots: 0 = the character's own colours
     const dr = big ? 9 : 6, gap = dr * 2.8, dy = y0 + sh - (big ? 18 : 15);
-    const x0 = x + sw / 2 - (nv * gap) / 2;
+    const x0 = x + sw / 2 - ((nv + 1) * gap) / 2;
     for (let v = 0; v <= nv; v++) {
-      const dx = x0 + v * gap;
-      g.beginPath(); g.arc(dx, dy, v === h.variant ? dr * 1.25 : dr, 0, TAU);
+      const dx = x0 + v * gap, cur = v === h.variant && !h.dress;
+      g.beginPath(); g.arc(dx, dy, cur ? dr * 1.25 : dr, 0, TAU);
       g.fillStyle = v ? variantPalette(ch.id, v).swatch : ch.color; g.globalAlpha = taken.has(v) ? 0.35 : 1; g.fill(); g.globalAlpha = 1;
-      g.lineWidth = v === h.variant ? 3 : 2; g.strokeStyle = '#24163f'; g.stroke();
+      g.lineWidth = cur ? 3 : 2; g.strokeStyle = '#24163f'; g.stroke();
       if (taken.has(v)) { g.beginPath(); g.moveTo(dx - dr, dy - dr); g.lineTo(dx + dr, dy + dr); g.stroke(); }
     }
+    // the Dress up slot: a little star
+    g.save(); g.translate(x0 + (nv + 1) * gap, dy); g.rotate(this.t * 0.8);
+    const sr = (h.dress ? 1.5 : 1.15) * dr;
+    g.beginPath();
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + (i * Math.PI) / 5, rr = i % 2 ? sr * 0.45 : sr; g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+    g.closePath(); g.fillStyle = '#ffd23f'; g.fill(); g.lineWidth = h.dress ? 3 : 2; g.strokeStyle = '#24163f'; g.stroke();
+    g.restore();
+    if (h.locked && h.dress && !h.closet && big) ui.hints(g, [['dpad', 'Change look']], x + sw / 2, y0 + 44, { size: 26 });
     if (!h.locked) return;
     const pulse = 1 + Math.sin(this.t * 6) * 0.08, as = big ? 34 : 24;
     for (const side of [-1, 1]) {
@@ -472,7 +524,7 @@ export class CharSelectScene {
       ui.text(g, tag, x + 56, y0 + 4, { size: 26, strokeWidth: 5 });
       if (isH) this.slotRects.set(s.h, { x, y: y0, w: sw, h: sh });
       const nv = variantCount(ch.id);
-      if (isH && nv) this.drawColourPicker(g, s.h, ch, x, y0, sw, sh, n <= 4);
+      if (isH) this.drawColourPicker(g, s.h, ch, x, y0, sw, sh, n <= 4);
       else ui.fitText(g, ch.name, x + sw / 2, y0 + sh - 38, { size: n <= 4 ? 34 : 24, color: '#24163f', stroke: false, weight: 700, maxWidth: sw - 20 });
       if (isH && s.h.locked) {
         ui.panel(g, x + sw - 120, y0 - 18, 110, 44, { r: 22, fill: '#36d17a', lineWidth: 4, shadow: false });
@@ -482,6 +534,7 @@ export class CharSelectScene {
       }
     }
     for (const b of bubbles) drawSpeech(g, ...b);
+    this.drawClosets(g);
     if (this.humans.length === 0) {
       ui.text(g, 'Everyone who wants to play: press A!', W / 2, 1040, { size: 40, color: '#fff' });
     }

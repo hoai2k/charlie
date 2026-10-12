@@ -20,7 +20,7 @@ import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
-import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit } from '../engine/outfits.js';
+import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem } from '../engine/outfits.js';
 import { photoPosePressed, photoMove, strikePhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 
 export const meta = {
@@ -105,15 +105,19 @@ export class Game {
   // --- setup ---------------------------------------------------------------
   makeStation(p, i, r) {
     const L = layoutStation(r, this.n);
-    const a = new Actor(p, { x: L.foot.x, y: L.foot.y, facing: 1 });
+    const a = new Actor(p, { x: L.foot.x, y: L.foot.y, facing: 1, outfit: null });   // the wardrobe below draws the look
     a.scale = Math.min(L.charH / a.leader.h, L.charW / Math.max(1, a.width));
     a.snap();
     const st = {
       p, i, r, L, actor: a, baseScale: a.scale,
-      outfit: CATS.map((c) => ({ item: 0, colors: c.items.map((it) => it.color ?? 0) })),
+      outfit: CATS.map((c) => ({ item: 0, colors: c.items.map((it) => it.color ?? 0) })),   // starts from the player's dress-up look (below)
       pop: CATS.map(() => 9), tab: 0, ready: false, readyT: 0, poses: 0, poseCD: 0, poseIdx: 0, tabBump: 0, listBump: 0,
       ai: null, aiStick: 0,
     };
+    for (const e of p.outfit || []) {
+      const it = outfitItem(e.id), ci = it ? CAT[it.slot] : -1, ii = ci >= 0 ? CATS[ci].items.indexOf(it) : -1;
+      if (ii > 0) { st.outfit[ci].item = ii; st.outfit[ci].colors[ii] = e.colour | 0; }
+    }
     a.char.members.forEach((def, mi) => {
       a.attach((g, info) => this.drawWorn(g, st, def, info, true), { member: mi, behind: true });
       a.attach((g, info) => this.drawWorn(g, st, def, info, false), { member: mi });
