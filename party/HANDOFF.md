@@ -47,7 +47,18 @@ Done and pushed this session (all tested headless in Playwright):
   18 s free turn (stick moves, A jumps, other buttons = photo poses, View =
   Done); all-CPU groups keep 4.6 s.
 
-In progress: nothing.
+In progress (user request 2026-10-12): "create more varieties of
+accessories for the cake game as well as the fashion game, and also ensure
+that when accessories are shown in animations that their anchors on the
+sprites are better (neck, hand, etc)". Three worktree agents:
+- Fashion Show: new items + attach by the right landmark (it only used
+  head/hand/center; face should use `eyes`, necklaces `neck`, wings/capes
+  `back`), checked across runway/photo poses.
+- Cake Bakery: new toppings (procedural + image requests).
+- Landmark data audit: head/hand/eyes/neck/back per frame in the 15
+  `sprites/<set>/sprites.json` (like the size audit), fixed in data.
+Also open: the Pages deploy for 21e5760 failed (user made the repo public;
+they interrupted my log check, so wait for them before touching it).
 
 ### Music generation (ElevenLabs Eleven Music, `music_v2_5`): finished
 - The user topped up ElevenLabs credits and asked to finish all songs.
