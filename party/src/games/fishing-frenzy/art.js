@@ -214,7 +214,15 @@ export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
   // The flexible shaft stays procedural for bite/tension feedback. The
   // regenerated handle ends at the grip, so it can share that bending shaft.
   const len = Math.hypot(tx - hx, ty - hy), ang = Math.atan2(ty - hy, tx - hx);
-  const bx = hx - Math.cos(ang) * len * 0.18, by = hy - Math.sin(ang) * len * 0.18;
+  // The handle art is a long 8:1 cork grip with the reel at its front end.
+  // Drawn undistorted at a chunky thickness it would be longer than the rod,
+  // so it is shortened by skipping the middle of the cork: the butt cap
+  // slice plus the front slice (cork end + reel), reel at the hand.
+  const handle = art('prop/fishing-rod');
+  const iw = handle ? handle.width || 512 : 0, ih = handle ? handle.height || 64 : 0;
+  const hk = handle ? (17 * s) / ih : 0, capW = iw * 0.1, frontW = iw * 0.4;
+  const butt = handle ? (capW + frontW) * hk * 0.97 : len * 0.18;
+  const bx = hx - Math.cos(ang) * butt, by = hy - Math.sin(ang) * butt;
   const nx = -Math.sin(ang), ny = Math.cos(ang);
   const cx = (hx + tx) / 2 + nx * bend, cy = (hy + ty) / 2 + ny * bend;
   g.save(); g.lineCap = 'round';
@@ -222,11 +230,11 @@ export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
   g.strokeStyle = '#ffffff'; g.lineWidth = 5.5 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(hx, hy); g.quadraticCurveTo(cx, cy, tx, ty); g.stroke();
   g.strokeStyle = color; g.lineWidth = 5.5 * s; g.setLineDash([10 * s, 10 * s]); g.beginPath(); g.moveTo(hx, hy); g.quadraticCurveTo(cx, cy, tx, ty); g.stroke(); g.setLineDash([]);
   // grip + reel
-  const handle = art('prop/fishing-rod');
   if (handle) {
-    g.save(); g.translate(bx, by); g.rotate(ang);
-    const width = Math.hypot(hx - bx, hy - by), height = Math.max(16 * s, width / 8);
-    g.drawImage(handle, 0, -height * 0.5, width, height);
+    g.save(); g.translate(hx, hy); g.rotate(ang);
+    const dh = ih * hk;
+    g.drawImage(handle, 0, 0, capW, ih, -butt, -dh * 0.5, capW * hk, dh);
+    g.drawImage(handle, iw - frontW, 0, frontW, ih, -frontW * hk, -dh * 0.5, frontW * hk, dh);
     g.restore();
   } else {
     g.strokeStyle = NAVY; g.lineWidth = 13 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + (hx - bx) * 0.7, by + (hy - by) * 0.7); g.stroke();
