@@ -1,6 +1,44 @@
-// Royal Fashion Show: the wardrobe. Every item is drawn procedurally as
-// vector shapes around a category anchor, in "forward space" (+x = facing,
-// -y = up), with S = the category's size unit:
+// Outfits: wearable accessories for any character (the Fashion Show wardrobe,
+// shared so a "dress up" look can be worn in every game).
+//
+// Catalog
+//   OUTFIT_SLOTS            ['head', 'face', 'neck', 'back', 'hand', 'aura']
+//   OUTFIT_ITEMS            [{ id, slot, name, color (default PALETTE index), art, draw, ... }]
+//   outfitItem(id)          item by id (e.g. 'crown', 'fairy-wings', 'magic-wand')
+//   PALETTE                 the 8 colours (index = `colour` everywhere); CATS/CAT: slots with
+//                           their item lists in menu order (index 0 = "None")
+//   drawItemIconArt(g, slotIdx, itemIdx, colour, cx, cy, size, t)   menu icon (art or vector)
+//
+// Wearing (inside Actor attachments, so items ride every frame and all motion)
+//   const handles = wearOutfit(actor, () => outfit);    outfit = [{ id, colour }], one per slot
+//   unwearOutfit(actor, handles);
+//   or by hand: actor.attach((g, info) => drawOutfit(g, def, info, outfit, { layer: 'back', t }), { member, behind: true })
+//               actor.attach((g, info) => drawOutfit(g, def, info, outfit, { layer: 'front', t }), { member })
+//   drawOutfit(g, def, info, outfit, { layer, t, pop })   returns the anchors (outfitAnchors)
+//   drawOutfitItem(g, item, colour, S, t, { layer, box }) one item at the current origin
+//   outfitAttach(def, info, slot, item?) -> { x, y, rot, scale, behind, box?, sideCape? }  forward space
+//   outfitAttachWorld(actor, slot)       -> { x, y, scale, rot, flip, behind }               world space
+//   outfitAnchors(def, info)             -> landmarks, tilts and slots[slot] = { x, y, rot, S }
+//
+// Every item follows a landmark of the frame being drawn (attachment info,
+// forward space: feet at 0, -y up, +x the way the character faces, already
+// scaled by the frame's bodyHeight, the actor's scale and depth, and inside
+// the actor's procedural lean/tumble/squash and mirroring):
+//   head (hats, crowns, bows)    -> head   (+ head tilt)
+//   face (glasses, masks, paint) -> eyes   (+ head tilt; hidden on frames turned away)
+//   neck (necklaces, bowties)    -> neck   (+ half the head tilt)
+//   back (wings, capes, packs)   -> back   (behind the body; four-legged: shoulders + body tilt,
+//                                           capes drape over the back in front)
+//   hand (wands, balloons, bags) -> hand   (four-legged: the mouth)
+//   aura (sparkles around)       -> body centre, once per character
+// Special characters (see FIT): Fox, Unicorn, Cotton Candy, Fellowfox are
+// four-legged; the armless Marshmallow Cake "holds" things beside its body
+// and wears wings behind its top tier; Hotdog's hats sit up on its crest;
+// Snowstar holds things beside its big head; KPop trio members wear smaller
+// wings. Group characters wear the outfit on every member.
+//
+// Item drawings are vector shapes around the slot anchor with S = the slot's
+// size unit:
 //   head  origin = top of the head,         S = head width
 //   face  origin = face center (eye line),  S = face width
 //   neck  origin = just under the chin,     S = face width
@@ -9,10 +47,15 @@
 //   aura  origin = body center,             S = body height
 // Items with `cape: true` get draw(g, S, col, t, box): box = { w, h } of the
 // fitted cape (top edge at the origin), when worn.
-import { RAINBOW } from '../../engine/particles.js';
-import { starPath, drawSparkleShape } from '../../engine/emotes.js';
-import { TAU } from '../../engine/util.js';
-import { art } from '../../engine/art.js';
+// Art: prop/<key> from WORN_ART replaces the drawing for the colours it lists
+// (see image-requests.md); everything else keeps the procedural drawing.
+
+import { RAINBOW } from './particles.js';
+import { starPath, drawSparkleShape } from './emotes.js';
+import { TAU, clamp, lerp } from './util.js';
+import { art } from './art.js';
+import { recolorFrame } from './recolor.js';
+import { getSpriteSet } from './sprites.js';
 
 export const NAVY = '#24163f';
 
@@ -1283,3 +1326,409 @@ export function drawItemIcon(g, catIdx, itemIdx, colIdx, cx, cy, size, t) {
   }
   g.restore();
 }
+
+// ===========================================================================
+// Art and fitting
+// ===========================================================================
+
+// Only substitute matching palette variants: X must still change the outfit's
+// color. Other colors and wardrobe items retain their procedural rendering.
+const WORN_ART = {
+  Crown: { colors: { 1: 'crown-gold', 6: 'crown-silver' }, w: 0.95, h: 0.7, ay: 1 },
+  Tiara: { colors: { 6: 'tiara-pearl' }, w: 0.95, h: 0.55, ay: 1 },
+  'Flower Crown': { colors: { 0: 'crown-flower' }, w: 1.05, h: 0.55, ay: 0.8 },
+  'Big Bow': { colors: { 0: 'bow-pink', 1: 'bow-gold', 3: 'bow-blue' }, w: 0.9, h: 0.65, ay: 1 },
+  'Wizard Hat': { colors: { 2: 'hat-witch' }, w: 1.15, h: 1, ay: 1 },
+  Glasses: { colors: { 2: 'glasses-round' }, w: 1.05, h: 0.5, ay: 0.5 },
+  'Heart Shades': { colors: { 0: 'glasses-heart' }, w: 1.05, h: 0.5, ay: 0.5 },
+  Pearls: { colors: { 6: 'necklace-pearls' }, w: 0.65, h: 0.48, ay: 0 },
+  'Heart Locket': { colors: { 0: 'necklace-heart' }, w: 0.65, h: 0.48, ay: 0 },
+  'Fairy Wings': { colors: { 0: 'wings-fairy' }, w: 0.85, h: 0.65, ay: 0.57, flap: 5 },
+  'Butterfly Wings': { colors: { 2: 'wings-butterfly' }, w: 0.85, h: 0.65, ay: 0.55, flap: 5 },
+  'Angel Wings': { colors: { 6: 'wings-feather' }, w: 0.85, h: 0.6, ay: 0.65, flap: 3 },
+  'Royal Cape': { colors: { 5: 'cape-royal', 7: 'cape-rainbow' }, w: 0.65, h: 0.62, ay: 0, sway: true },
+  'Magic Wand': { colors: { 1: 'wand-star', 0: 'wand-heart' }, w: 0.17, h: 0.38, ay: 0.88 },
+  'Top Hat': { colors: { 2: 'hat-top' }, w: 1.0, h: 0.95, ay: 0.82 },
+  'Party Hat': { colors: { 7: 'hat-party' }, w: 0.62, h: 0.85, ay: 0.95 },
+  'Sun Hat': { colors: { 1: 'hat-sun' }, w: 1.35, h: 0.82, ay: 0.78 },
+  Beret: { colors: { 5: 'hat-beret' }, w: 1.0, h: 0.72, ay: 0.85 },
+  'Star Glasses': { colors: { 1: 'glasses-star' }, w: 1.05, h: 0.5, ay: 0.5 },
+  Sunglasses: { colors: { 2: 'glasses-sun' }, w: 1.0, h: 0.48, ay: 0.5 },
+  'Flower Lei': { colors: { 0: 'necklace-lei' }, w: 0.85, h: 0.85, ay: 0.04 },
+};
+// The newer items: art for their default colour (other colours keep the drawing).
+// w, h: fit box in S (the category's size unit); ay: anchor height from the
+// top of the image (fraction of its height); dx: sideways shift in S.
+Object.assign(WORN_ART, {
+  'Unicorn Horn': { colors: { 6: 'headband-unicorn' }, w: 1.0, h: 0.85, ay: 0.78 },
+  'Kitty Ears': { colors: { 0: 'headband-kitty' }, w: 1.0, h: 0.55, ay: 0.7 },
+  'Princess Cone': { colors: { 0: 'hat-princess' }, w: 0.85, h: 0.9, ay: 0.88 },
+  'Heart Headband': { colors: { 5: 'headband-hearts' }, w: 1.0, h: 0.75, ay: 0.8 },
+  'Fairy Halo': { colors: { 1: 'halo-fairy' }, w: 1.0, h: 0.35, ay: 1.4 },
+  'Masquerade Mask': { colors: { 2: 'mask-masquerade' }, w: 1.1, h: 0.6, ay: 0.55 },
+  Monocle: { colors: { 1: 'glasses-monocle' }, w: 0.42, h: 0.75, ay: 0.22, dx: 0.24 },
+  'Kitty Whiskers': { colors: { 0: 'face-whiskers' }, w: 1.0, h: 0.5, ay: 0.2 },
+  'Butterfly Paint': { colors: { 3: 'face-butterfly' }, w: 1.0, h: 0.5, ay: 0.2 },
+  'Party Goggles': { colors: { 4: 'glasses-goggles' }, w: 1.05, h: 0.45, ay: 0.5 },
+  'Royal Pendant': { colors: { 3: 'necklace-pendant' }, w: 0.7, h: 0.55, ay: 0.1 },
+  'Ruffle Collar': { colors: { 6: 'collar-ruffle' }, w: 0.85, h: 0.35, ay: 0.25 },
+  'Candy Necklace': { colors: { 7: 'necklace-candy' }, w: 0.85, h: 0.35, ay: 0.1 },
+  'Star Medal': { colors: { 1: 'medal-star' }, w: 0.75, h: 0.55, ay: 0.15 },
+  'Feather Boa': { colors: { 0: 'boa-feather' }, w: 1.0, h: 0.85, ay: 0.2 },
+  'Dragonfly Wings': { colors: { 4: 'wings-dragonfly' }, w: 0.9, h: 0.55, ay: 0.55, flap: 7 },
+  'Petal Wings': { colors: { 0: 'wings-petal' }, w: 0.75, h: 0.6, ay: 0.5, flap: 4 },
+  'Dragon Wings': { colors: { 4: 'wings-dragon' }, w: 0.95, h: 0.5, ay: 0.6, flap: 3.5 },
+  'Big Back Bow': { colors: { 5: 'bow-back' }, w: 0.75, h: 0.55, ay: 0.4 },
+  'Star Cape': { colors: { 2: 'cape-star' }, w: 0.65, h: 0.62, ay: 0, sway: true },
+  'Teddy Backpack': { colors: { 0: 'backpack-teddy' }, w: 0.3, h: 0.42, ay: 0.75 },
+  'Royal Scepter': { colors: { 1: 'scepter-royal' }, w: 0.15, h: 0.5, ay: 0.84 },
+  Lollipop: { colors: { 0: 'lollipop-swirl' }, w: 0.2, h: 0.45, ay: 0.88 },
+  Handbag: { colors: { 2: 'handbag' }, w: 0.22, h: 0.26, ay: 0.05 },
+  'Lace Fan': { colors: { 6: 'fan-lace' }, w: 0.42, h: 0.24, ay: 0.9 },
+  'Star Balloon': { colors: { 1: 'balloon-star' }, w: 0.3, h: 0.8, ay: 0.98 },
+  'Bubble Wand': { colors: { 3: 'wand-bubble' }, w: 0.18, h: 0.32, ay: 0.9 },
+});
+// Extra palette variants that have their own art.
+WORN_ART.Tiara.colors[0] = 'tiara-star';
+WORN_ART['Royal Cape'].colors[3] = 'cape-starry';
+
+// Items whose art can be recoloured for colours without their own file: the
+// drawn fallback for these looks wrong (a flat trapezoid cape on a unicorn),
+// so the base art's main colour is remapped to the palette colour instead.
+const RECOLOR_BASE = { 'Royal Cape': { key: 'cape-royal', from: '#d90e22', hue: [335, 20] } };
+const recolored = new Map();   // `${key}|${color}` -> canvas
+function itemArt(name, color) {
+  const spec = WORN_ART[name], key = spec?.colors[color];
+  const img = key && art('prop/' + key);
+  if (img) return img;
+  const base = RECOLOR_BASE[name], col = PALETTE[color], src = base && art('prop/' + base.key);
+  if (!src || !col || col.rainbow) return null;
+  const ck = `${base.key}|${color}`;
+  if (!recolored.has(ck)) {
+    let c = null;
+    try { c = recolorFrame(src, null, [{ from: base.from, to: col.c, hue: base.hue, feather: 10, sat: [0.35, 1], lit: [0.08, 0.9] }]); } catch (e) { /* unreadable canvas */ }
+    recolored.set(ck, c);
+  }
+  return recolored.get(ck);
+}
+
+// Four-legged characters (Fox, Unicorn, Cotton Candy, Fellowfox) wear the
+// cape draped over the back from the side (prop/cape-royal-side, recoloured
+// like the upright cape). Without that art they keep the upright cape.
+function sideCapeArt(color) {
+  const src = art('prop/cape-royal-side'), col = PALETTE[color];
+  if (!src) return null;
+  if (!col || color === 5) return src;   // Ruby = the art's own red
+  const ck = `cape-royal-side|${color}`;
+  if (!recolored.has(ck)) {
+    const rule = (to) => [{ from: '#d90e22', to, hue: [335, 20], feather: 10, sat: [0.35, 1], lit: [0.08, 0.9] }];
+    let c = src;
+    try {
+      if (!col.rainbow) c = recolorFrame(src, null, rule(col.c));
+      else {
+        // Rainbow: vertical stripes, like the upright rainbow cape art.
+        c = document.createElement('canvas'); c.width = src.width; c.height = src.height;
+        const cg = c.getContext('2d'), n = RAINBOW.length, sw = src.width / n;
+        RAINBOW.forEach((hue, i) => {
+          const band = recolorFrame(src, null, rule(hue));
+          cg.drawImage(band, Math.floor(i * sw), 0, Math.ceil(sw), src.height, Math.floor(i * sw), 0, Math.ceil(sw), src.height);
+        });
+      }
+    } catch (e) { c = src; /* unreadable canvas */ }
+    recolored.set(ck, c);
+  }
+  return recolored.get(ck);
+}
+
+/** Menu icon: the item's art when this color has one, else the vector icon. */
+export function drawItemIconArt(g, ci, ii, colIdx, cx, cy, size, t) {
+  const it = CATS[ci].items[ii];
+  const img = itemArt(it.name, colIdx ?? it.color ?? 0);
+  if (img) {
+    const k = ci === CAT.back ? 0.95 : ci === CAT.hand ? 0.9 : 0.82;
+    const s = Math.min(size * k / img.width, size * k / img.height);
+    g.drawImage(img, cx - img.width * s / 2, cy - img.height * s / 2, img.width * s, img.height * s);
+    return;
+  }
+  drawItemIcon(g, ci, ii, colIdx, cx, cy, size, t);
+}
+
+function drawWornArt(g, item, color, S, t, box = null) {
+  const spec = WORN_ART[item.name], img = spec && itemArt(item.name, color);
+  if (!img) return false;
+  // box: an exact size to stretch to (capes fitted to the body); else fit spec w x h of S.
+  const scale = Math.min(S * spec.w / img.width, S * spec.h / img.height);
+  const w = box ? box.w : img.width * scale, h = box ? box.h : img.height * scale;
+  g.save();
+  if (spec.flap) g.scale(0.91 + 0.09 * Math.cos(t * spec.flap), 1);
+  if (spec.sway) g.transform(1, 0, Math.sin(t * 2) * 0.035, 1, 0, 0);
+  g.drawImage(img, (spec.dx || 0) * S - w / 2, -h * spec.ay, w, h);
+  g.restore();
+  return true;
+}
+
+// Where each category sits on a character (see the header). Every item follows a sprite
+// landmark of the frame being drawn (attachment info, forward space: feet at
+// 0, -y up, +x the way the character faces, already scaled by the frame's
+// bodyHeight, the actor's scale and any procedural lean/tumble/squash):
+//   head (hats, crowns, bows)    -> head   (+ head tilt)
+//   face (glasses, masks, paint) -> eyes   (+ head tilt)
+//   neck (necklaces, bowties)    -> neck   (+ half the head tilt)
+//   back (wings, capes, packs)   -> back   (drawn behind the body; + body tilt on four-legged characters)
+//   hand (wands, balloons, bags) -> hand
+// The head tilt comes from the frame's eyes -> head line compared with the
+// idle frame's, so hats roll with a tumble or a tilted giggle.
+// FIT tweaks characters whose landmark means something else for clothes,
+// as offsets in body heights from another landmark of the same frame (so the
+// tweak still follows every frame):
+//   quad: four-legged; wings/side cape sit on the shoulders, between neck and back
+//   head / back / neck / hand: { from: landmark, d: [x, y] }
+//   wings: scale of wings (wide bodies need bigger wings to show)
+//   capeTop / capeW: upright cape: top edge (offset from `eyes`) and width
+//   sideCape: { w }  four-legged characters: width of the cape over the back
+//   neckS: necklace/bowtie/scarf scale
+const FIT = {
+  fox: { quad: true, wings: 0.72, sideCape: { w: 0.58 } },
+  fellowfox: { quad: true, wings: 0.8, sideCape: { w: 0.6 }, hand: { from: 'eyes', d: [0.12, 0.14] } },
+  unicorn: { quad: true, wings: 0.72, sideCape: { w: 0.58 } },
+  'cotton-candy': { quad: true, wings: 0.72, sideCape: { w: 0.5 } },
+  // round, armless cake: wings behind the top tier, things "held" beside it
+  'marshmallow-birthday-cake': { back: { from: 'eyes', d: [0, -0.16] }, neck: { from: 'eyes', d: [0, 0.17] }, wings: 1.45, capeTop: -0.36, capeW: 1.75, neckS: 1.0, hand: { from: 'eyes', d: [0.36, 0.22] } },
+  // the head point sits under the flame crest: hats go up onto it
+  hotdog: { head: { from: 'head', d: [0, -0.05] }, back: { from: 'eyes', d: [0.09, -0.19] }, wings: 1.6, capeTop: -0.21, capeW: 2.3, hand: { from: 'eyes', d: [0.49, 0.17] } },
+  snowstar: { hand: { from: 'neck', d: [0.3, 0.12] } },
+  'kpop-girl-center': { wings: 0.75 }, 'kpop-girl-left': { wings: 0.75 }, 'kpop-girl-right': { wings: 0.75 },   // big head: keep held things (parasol pole) off the face
+};
+
+// Idle-frame reference directions per sprite set (eyes -> head, back -> neck).
+const refCache = new Map();
+function idleRef(asset) {
+  if (refCache.has(asset)) return refCache.get(asset);
+  const set = getSpriteSet(asset), idle = set && set.poses.idle, fr = idle && idle.frames[0];
+  if (!set) return null;   // not loaded (yet): no cache
+  let r = null;
+  if (fr && fr.head && fr.eyes) {
+    const flip = (idle.facing ?? set.facing) === -1 ? -1 : 1;
+    const v = (p, q) => (p && q ? Math.atan2(p[1] - q[1], (p[0] - q[0]) * flip) : null);
+    r = { head: v(fr.head, fr.eyes), body: v(fr.neck, fr.back) };
+  }
+  refCache.set(asset, r);
+  return r;
+}
+const wrapAng = (a) => Math.atan2(Math.sin(a), Math.cos(a));
+/** Small tilts are landmark noise (and base art has none): ease in past a dead zone. */
+const deadZone = (a, z = 0.1) => (Math.abs(a) <= z ? 0 : a - Math.sign(a) * z);
+const rot = (x, y, a) => ({ x: x * Math.cos(a) - y * Math.sin(a), y: x * Math.sin(a) + y * Math.cos(a) });
+
+/** Category anchor points for one member in the current frame (forward space). */
+function wornAnchors(def, info) {
+  const h = info.h, fit = FIT[def.asset] || {}, ref = idleRef(def.asset);
+  const { eyes } = info;
+  let head = info.head, neck = info.neck, back = info.back, hand = info.hand;
+  // A frame that marks its head but not its eyes (or hand) gets the engine's
+  // base-art guess for those, which floats off a turned head: no eyes means
+  // the face is turned away (twirl from behind), so face items hide; a
+  // missing hand falls back to the neck.
+  const near = (p, x, y) => Math.abs(p.x - x) < 0.5 && Math.abs(p.y - y) < 0.5;
+  const aspect = info.w / h, fx = (def.face[0] - aspect / 2) * h;
+  const guessed = (p, y) => near(p, fx, y) || near(p, -fx, y);
+  const headData = !guessed(head, -(def.top ?? 1) * h);
+  const faceHidden = headData && guessed(eyes, -(1 - def.face[1]) * h);
+  if (headData && near(hand, 0.28 * h, -0.5 * h)) hand = neck;
+  let headTilt = info.headAngle || 0;
+  const hv = { x: head.x - eyes.x, y: head.y - eyes.y };
+  if (!headTilt && !faceHidden && ref && ref.head != null && Math.hypot(hv.x, hv.y) > 0.04 * h) headTilt = deadZone(wrapAng(Math.atan2(hv.y, hv.x) - ref.head));
+  let bodyTilt = 0;
+  if (fit.quad && ref && ref.body != null) {
+    const bv = { x: neck.x - back.x, y: neck.y - back.y };
+    if (Math.hypot(bv.x, bv.y) > 0.06 * h) bodyTilt = clamp(deadZone(wrapAng(Math.atan2(bv.y, bv.x) - ref.body), 0.12), -0.8, 0.8);
+  }
+  const pts = { head, eyes, neck, back, hand };
+  const rel = (spec, tilt) => { const o = pts[spec.from], d = rot(spec.d[0] * h, spec.d[1] * h, tilt); return { x: o.x + d.x, y: o.y + d.y }; };
+  if (fit.quad) {
+    // their "hand" is the mouth: a hand point down by the hooves is a data slip
+    if (hand.y > neck.y + 0.15 * h) hand = { x: lerp(head.x, neck.x, 0.6) + 0.06 * h, y: lerp(head.y, neck.y, 0.6) };
+    // shoulders: 45% of the way from the neck to the back point, a little up
+    const up = rot(0, -0.05 * h, bodyTilt);
+    back = { x: lerp(neck.x, back.x, 0.45) + up.x, y: lerp(neck.y, back.y, 0.45) + up.y };
+  }
+  if (fit.head) head = rel(fit.head, headTilt);
+  if (fit.back) back = rel(fit.back, headTilt);
+  if (fit.neck) neck = rel(fit.neck, headTilt);
+  if (fit.hand) hand = rel(fit.hand, headTilt);
+  const capeTop = fit.capeTop != null ? eyes.y + fit.capeTop * h : neck.y + 0.02 * h;
+  return { h, head, eyes, neck, back, hand, headTilt, bodyTilt, capeTop, fit, faceHidden };
+}
+
+// ===========================================================================
+// Public API: catalog, attachment and drawing
+// ===========================================================================
+
+/** Slot ids in tab order: head face neck back hand aura. */
+export const OUTFIT_SLOTS = CATS.map((c) => c.id);
+const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+/** Every wearable item (not the "None" entries), each with id, slot, name, color (default palette index), art. */
+export const OUTFIT_ITEMS = [];
+CATS.forEach((c) => c.items.forEach((it, i) => {
+  it.slot = c.id;
+  it.id = i ? slug(it.name) : null;
+  it.art = WORN_ART[it.name] || null;
+  if (i) OUTFIT_ITEMS.push(it);
+}));
+const BY_ID = new Map(OUTFIT_ITEMS.map((it) => [it.id, it]));
+/** The item with this id, or null. */
+export const outfitItem = (id) => BY_ID.get(id) || null;
+
+/**
+ * Where every slot goes on one member in the current frame, in the
+ * attachment's forward space. Returns the anchors (`head eyes neck back hand`,
+ * `headTilt`, `bodyTilt`, `faceHidden`, `fit`, `h`, `faceW`, `headW`) plus
+ * `slots[slot]` = { x, y, rot, S } (S = the slot's size unit for the drawings).
+ */
+export function outfitAnchors(def, info) {
+  const A = wornAnchors(def, info), h = A.h, fit = A.fit;
+  const faceW = clamp(def.face[2] * h * 2, h * 0.2, h * 0.5), headW = faceW * 1.08;
+  // hats sit a touch into the hair: down along the head's own axis
+  const hd = rot(0, headW * 0.1, A.headTilt);
+  A.faceW = faceW; A.headW = headW;
+  A.slots = {
+    head: { x: A.head.x + hd.x, y: A.head.y + hd.y, rot: A.headTilt, S: headW },
+    face: { x: A.eyes.x, y: A.eyes.y, rot: A.headTilt, S: faceW },
+    neck: { x: A.neck.x, y: A.neck.y, rot: A.headTilt * 0.5, S: faceW * (fit.neckS || 1) },
+    back: { x: A.back.x, y: A.back.y, rot: A.bodyTilt, S: h * (fit.wings || 1) },
+    hand: { x: A.hand.x, y: A.hand.y, rot: 0, S: h },
+    aura: { x: 0, y: -h * 0.5, rot: 0, S: h },
+  };
+  return A;
+}
+
+/**
+ * Forward-space placement of one slot's item for a member:
+ * { x, y, rot, scale (= S), behind, box?, sideCape? }. Capes get `box`
+ * ({ w, h } hanging from y) or, on four-legged characters, `sideCape` (draped
+ * over the shoulders in front of the body).
+ */
+export function outfitAttach(def, info, slot, item = null) {
+  const A = outfitAnchors(def, info), s = A.slots[slot], h = A.h, fit = A.fit;
+  const at = { x: s.x, y: s.y, rot: s.rot, scale: s.S, behind: slot === 'back', hidden: slot === 'face' && A.faceHidden };
+  if (slot === 'back' && item && item.cape) {
+    if (fit.quad) return { x: A.back.x, y: A.back.y + 0.01 * h, rot: A.bodyTilt, scale: h * (fit.sideCape?.w || 0.6), behind: false, sideCape: true };
+    const top = A.capeTop;
+    return { x: A.back.x, y: top, rot: 0, scale: h, behind: true, box: { w: (fit.capeW || 0.9) * h, h: Math.max(0.25 * h, -top) } };
+  }
+  return at;
+}
+
+/**
+ * World-space placement of a slot on an actor's leader, from the current
+ * frame's landmarks (Actor.anchor): { x, y, scale, rot, flip, behind }.
+ * It ignores the procedural squash/tilt the actor adds while drawing, so use
+ * it for particles and HUD, and draw items with drawOutfit inside an
+ * attachment (wearOutfit) so they ride every bit of motion.
+ */
+export function outfitAttachWorld(actor, slot) {
+  const m = actor.members[0], def = m.def, h = def.h * actor.scale, f = m.facing || 1;
+  const fwd = (p) => ({ x: (p.x - m.x) * f, y: p.y - (m.y - actor.z) });
+  const feet = { x: m.x, y: m.y - actor.z };
+  const get = (name) => { const p = actor.anchor(name); return p.x === feet.x && p.y === feet.y ? null : fwd(p); };
+  const head = get('head'), eyes = get('eyes') || { x: head.x, y: head.y + 0.15 * h };
+  const center = { x: 0, y: -0.5 * h };
+  const info = {
+    h, w: actor.members.length === 1 ? actor.width : h * 0.6,
+    head, eyes, hand: get('hand') || { x: 0.28 * h, y: -0.5 * h },
+    neck: get('neck') || { x: eyes.x, y: lerp(eyes.y, center.y, 0.35) },
+    back: get('back') || center, headAngle: 0, member: 0,
+  };
+  const at = outfitAttach(def, info, slot);
+  return { x: m.x + at.x * f, y: m.y - actor.z + at.y, scale: at.scale, rot: at.rot * f, flip: f, behind: at.behind };
+}
+
+/**
+ * Draw one item at the current origin (already translated/rotated to its
+ * attach point) with size unit S: its art for this colour if loaded, else the
+ * procedural drawing. layer 'back' draws an aura's glow (other items ignore it).
+ */
+export function drawOutfitItem(g, item, colour, S, t = 0, { layer = 'front', box = null } = {}) {
+  if (!item) return;
+  const col = PALETTE[colour ?? item.color ?? 0] || PALETTE[0];
+  if (layer === 'back' && item.slot === 'aura') { if (item.behind) item.behind(g, S, col, t); return; }
+  if (!item.draw) return;
+  if (!drawWornArt(g, item, colour ?? item.color ?? 0, S, t, box)) item.draw(g, S, col, t, box);
+}
+
+/** [{ id | item, colour }] or { slot: { id | item, colour } } -> { slot: { item, colour } } */
+function normalizeOutfit(outfit) {
+  const out = {};
+  const list = Array.isArray(outfit) ? outfit : Object.values(outfit || {});
+  for (const e of list) {
+    if (!e) continue;
+    const item = e.item || outfitItem(e.id);
+    if (item && item.draw) out[item.slot] = { item, colour: e.colour ?? e.color ?? item.color ?? 0 };
+  }
+  return out;
+}
+
+/**
+ * Draw a member's outfit inside an Actor attachment callback (forward space).
+ *   outfit: [{ id, colour }] (one per slot; colour = PALETTE index) or entries with `item`
+ *   layer:  'back' (attach with behind: true: wings, upright capes, aura glow)
+ *           | 'front' (everything else)
+ *   t:      animation time (flapping, sparkles); pop(slot) -> extra scale (pop-in)
+ * Auras draw once per character (on member 0). Returns the anchors
+ * (outfitAnchors) so callers can place sparkles on items.
+ */
+export function drawOutfit(g, def, info, outfit, { layer = 'front', t = 0, pop = null } = {}) {
+  const A = outfitAnchors(def, info), h = A.h, fit = A.fit, wear = normalizeOutfit(outfit);
+  const put = (slot, at = A.slots[slot], box = null) => {
+    const w = wear[slot];
+    if (!w) return;
+    g.save(); g.translate(at.x, at.y);
+    if (at.rot) g.rotate(at.rot);
+    const k = pop ? pop(slot) : 1; if (k !== 1) g.scale(k, k);
+    drawOutfitItem(g, w.item, w.colour, at.S, t, { layer, box });
+    g.restore();
+  };
+  const bk = wear.back, quadCape = !!(bk && fit.quad && bk.item.cape);
+  if (layer === 'back') {
+    if (info.member === 0) put('aura');
+    if (bk && !quadCape) {
+      if (bk.item.cape) {
+        // hangs from just under the neck to the floor, wider than the body so it shows
+        const at = outfitAttach(def, info, 'back', bk.item);
+        put('back', { x: at.x, y: at.y, rot: 0, S: h }, at.box);
+      } else put('back');
+    }
+    return A;
+  }
+  if (quadCape) {
+    // draped over the shoulders, in front of the body; art faces right like the sprites' forward space
+    const k = pop ? pop('back') : 1, sw = h * (fit.sideCape?.w || 0.6) * k;
+    const sideArt = bk.item.name === 'Royal Cape' ? sideCapeArt(bk.colour) : null;
+    g.save(); g.translate(A.back.x, A.back.y + 0.01 * h); g.rotate(A.bodyTilt); g.transform(1, 0, Math.sin(t * 2) * 0.03, 1, 0, 0);
+    if (sideArt) { const sh = sw * sideArt.height / sideArt.width; g.drawImage(sideArt, -sw / 2, -sh * 0.25, sw, sh); }
+    else drawSideCape(g, sw, PALETTE[bk.colour] || PALETTE[0], t, bk.item);
+    g.restore();
+  }
+  put('neck');
+  if (!A.faceHidden) put('face');
+  put('head');
+  put('hand');
+  if (info.member === 0) put('aura');
+  return A;
+}
+
+/**
+ * Dress an Actor: attaches both layers to every member. `getOutfit()` is
+ * called every frame (so changes show at once) and returns the outfit for
+ * drawOutfit; opts.time() gives the animation time (default: seconds since
+ * page load). Returns handles for unwearOutfit(actor, handles).
+ */
+export function wearOutfit(actor, getOutfit, { time = () => performance.now() / 1000 } = {}) {
+  const handles = [];
+  actor.char.members.forEach((def, mi) => {
+    handles.push(actor.attach((g, info) => drawOutfit(g, def, info, getOutfit(), { layer: 'back', t: time() }), { member: mi, behind: true }));
+    handles.push(actor.attach((g, info) => drawOutfit(g, def, info, getOutfit(), { layer: 'front', t: time() }), { member: mi }));
+  });
+  return handles;
+}
+export function unwearOutfit(actor, handles) { for (const h of handles || []) actor.detach(h); }
