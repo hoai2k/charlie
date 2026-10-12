@@ -59,6 +59,15 @@ sprites are better (neck, hand, etc)". Three worktree agents:
   `sprites/<set>/sprites.json` (like the size audit), fixed in data.
   If the session restarts: `git branch | grep worktree-agent` shows their
   branches; merge what was committed (ours for party/index.html, restamp).
+Next (user request 2026-10-12, after the agents above): a game-wide
+"dress up": in character select, a custom "colour" slot = the character
+with accessories (saved, e.g. localStorage per character), worn in every
+game. Plan: the Fashion Show agent puts the item catalog + attach math in
+`src/engine/outfits.js` (`outfitAttach`, `drawOutfitItem`, `drawOutfit`);
+the lead then gives Actor an `outfit` (from `player.outfit`, like
+`variant`), draws back-layer items before the body and the rest after in
+`Actor.draw`, and adds the custom slot + a dress-up panel to
+`scenes/charselect.js`.
 Also open: the Pages deploy for 21e5760 failed (user made the repo public;
 they interrupted my log check, so wait for them before touching it).
 
