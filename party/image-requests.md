@@ -1115,3 +1115,108 @@ fine; the code uses one of each pair.
 
 
 No open image or re-generation requests remain as of 2026-10-12.
+
+## New Play Studio game: puppet-theater
+
+### puppet-theater — Puppet Theater   (requested by the puppet-theater agent, 2026-10-05, priority: nice-to-have)
+
+A little puppet booth on a 1920×1080 screen. Players pick a painted
+backdrop and stand cardboard props on the stage, then act out a two-act
+show with their puppets (their character on a wooden stick, or a sock
+puppet), and the audience in the front rows laughs and claps. Everything
+below has a procedural fallback that ships today; the code already looks up
+every key, so a file listed in `assets/art/index.json` drops in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image.
+
+**Layout the art must match.** The booth fills the screen: stage window
+(where the backdrop shows) x 270–1650, y 150–740; scalloped valance across
+the top (y 40–175); the front playboard (the ledge the puppets pop up from)
+y 720–820, x 220–1700; a fabric skirt below it to the floor; three rows of
+audience heads (backs of heads) along the bottom, y 900–1080. Sock
+puppets, sticks and sparkles are drawn by code.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/puppet-theater` | 1920×1080, opaque | Full screen, behind everything. Only the edges show (x < 220 and x > 1700, and above y 40); the booth covers the middle | A cosy little playroom theatre: warm plum wallpaper with gold stars, a string of round party bulbs across the top, a wooden floor. Calm, low detail in the middle |
+| `prop/pt-booth` | 1920×1080, transparent | Drawn full screen **in front of** the backdrop and the puppets. Must be fully transparent inside the stage window (x 270–1650, y 150–720) and outside the booth (x < 200, x > 1720). The playboard top edge sits at exactly y = 720 | A front-view wooden puppet booth: a deep pink scalloped valance with gold fringe and gold stars across the top, thin red velvet curtains tied back at each side of the window, a chunky honey-wood playboard ledge painted with little stars, and a purple fabric skirt below it to the floor |
+| `prop/pt-curtain` | 760×1000, transparent | The **left** curtain panel (the code mirrors it for the right one) when it closes between scenes. Drawn stretched over x 230–960 (left half) by y 120–760, sliding sideways | A tall red velvet theatre curtain panel with soft vertical folds, a gold rope trim along the inner edge and gold tassel fringe at the bottom |
+| `bg/puppet-theater-castle` | 1380×590, opaque | Stretched over the stage window. The bottom ~120 px is hidden behind the playboard, so keep the horizon/ground around 60–75% height | A painted stage backdrop (gouache / cut-paper look): a pastel fairy-tale castle on a green hill, blue sky, puffy clouds |
+| `bg/puppet-theater-sea` | 1380×590, opaque | Same as above | Painted backdrop under the sea: turquoise water with light rays, coral, swaying seaweed, bubbles, sandy floor |
+| `bg/puppet-theater-forest` | 1380×590, opaque | Same as above | Painted backdrop of a friendly sunny forest clearing: round green trees, mushrooms, flowers, soft sunbeams |
+| `bg/puppet-theater-space` | 1380×590, opaque | Same as above | Painted backdrop of cute outer space: deep purple-blue sky with stars, a ringed planet, a smiling crescent moon, a grey cratered ground strip |
+| `bg/puppet-theater-candy` | 1380×590, opaque | Same as above | Painted backdrop of Candy Land: pink sky, candy-cane trees, gumdrop hills, a chocolate river, lollipop flowers |
+| `bg/puppet-theater-beach` | 1380×590, opaque | Same as above | Painted backdrop of a sunny beach: bright sky, sea with small waves, sand, a palm tree at the edge, a sailboat far away |
+| `prop/pt-tree`, `prop/pt-flower`, `prop/pt-castle`, `prop/pt-house`, `prop/pt-mushroom`, `prop/pt-palm`, `prop/pt-lollipop`, `prop/pt-rocket` | 512×512 each, transparent | **Bottom-centre anchored** (the object's base on the bottom edge of the canvas), fitted into a box of about 240, 120, 280, 220, 130, 260, 180, 240 px tall respectively. They wobble a little around the base | Stage props as **painted cardboard cut-outs** (flat, a thin pale cardboard edge showing around the outline, a little wooden stand foot at the base): a round green tree; a big pink flower on a stem; a pastel castle tower with a flag; a cottage with a heart window; a red spotted mushroom; a palm tree; a giant swirl lollipop; a red-and-white cartoon rocket |
+| `prop/pt-cloud`, `prop/pt-sun`, `prop/pt-moon`, `prop/pt-star`, `prop/pt-rainbow`, `prop/pt-fish` | 512×512 each, transparent | **Centre anchored**, fitted into a box of about 170, 150, 140, 110, 300 (wide), 130 (wide) px; they hang in the sky on a thin string (the code draws the string) | Matching cardboard cut-outs: a puffy cloud; a smiling sun with rays; a smiling crescent moon; a yellow star with a face; a rainbow arch with cloud ends; a smiling orange fish |
+| `prop/pt-audience-bunny`, `prop/pt-audience-bear`, `prop/pt-audience-cat`, `prop/pt-audience-duck` | 256×256 each, transparent | **Bottom-centre anchored**, drawn about 140–180 px tall in the audience rows, bobbing when they laugh. Seen **from behind** (back of the head and shoulders, no faces) | Cute audience members seen from behind: a white bunny with tall ears and a pink bow; a brown teddy bear; a grey kitten with pointy ears; a yellow duckling with a little tuft |
+| `prop/pt-rose` | 128×128, transparent | Centre anchored, ~70 px, thrown onto the stage at the curtain call (spins in flight) | A single red rose with a short green stem and one leaf |
+| `thumb/puppet-theater` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A tiny puppet booth with the curtains open: Fox on a wooden stick and a striped sock puppet with googly eyes waving on stage in front of a castle backdrop, a heart speech bubble, the backs of bunny ears in the audience. Subject centred |
+
+No new sprite poses are needed (stick puppets use existing poses: wave,
+laugh, celebrate, dance, surprised, think, sad, sleep, bow, cheer, jump).
+
+## New Play Studio game: nail-studio
+
+### nail-studio — Sparkle Nails   (requested by the nail-studio agent, 2026-10-05, priority: nice-to-have)
+
+Everyone runs a nail-salon table (split stations, 1–8 players). A client
+(a roster character, Glimmer, Professor Hoot or Fellowfox) peeks over the
+table and rests a big cartoon hand, or a paw for animal clients, on a
+cushion. Steps: polish colours, designs (glitter, stripes, dots, hearts,
+stars, tips, rainbow tips), gems and stickers (place, move, remove), then a
+little hand fan dries the nails. Finale: a nail gallery with every hand on a
+pedestal and a photo. Everything below has a procedural fallback that ships
+today; the code already looks up every key. The hand/paw, the nails and the
+polish bottles stay procedural on purpose (the paint is clipped to exact
+nail shapes). House style: navy `#24163f` outlines, soft cel shading, bright
+candy colours, **no text** in any image. Reused as they are: roster sprites
+(`paint`, `action`, `cheer`, `celebrate`, `present`, `clap`, `laugh`,
+`surprised`, `wave`, `pose-twirl`, the photo poses) and the NPCs as clients.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/nail-studio` | 1920×1080, opaque | Full screen behind the split stations; shows as side columns at 1 player and as thin bands between stations at 2–8 players. Keep the top ~110 px calm (player chips sit there) | A bright pastel nail salon: lilac-and-pink wallpaper with tiny hearts, white shelves along the far left and right edges with rows of colourful nail polish bottles, a string of round bulb lights across the top, a pink-and-white checker floor strip at the bottom. Low detail in the centre |
+| `bg/nail-studio-station` | 1290×900 (ratio 860:600), opaque | Stretched over one station. **Layout must match:** wall from y=0 to 36% (215/600), a rounded white table edge at 36%, a pink marble table top below. The client peeks over the table at the far left; the code draws the hand, tray and step list on top | One salon table seen from the manicurist's side: soft mint wallpaper with tiny white polka dots and a little round mirror on the upper 36%, then a white rounded table lip and a pale pink marble table top with faint veins. Nothing on the table |
+| `bg/nail-studio-show` | 1920×1080, opaque | Full screen for the finale (the nail gallery). Pedestals stand on the floor band from y≈700 to y≈1000; a gentle camera punch zooms up to 1.15× | A small sparkly gallery stage: pink velvet curtains at both sides and a scalloped valance at the top, a lilac back wall with soft spotlight circles, a glossy pink stage floor in the lower third. No characters, no pedestals |
+| `thumb/nail-studio` | 800×500, opaque | Game-select shelf and how-to screen (`drawIcon` is the fallback) | A cute cartoon hand on a pink velvet cushion with five freshly painted nails (pink with white polka dots, a rainbow tip, a gold glitter nail, a heart nail, a nail with a tiny gem), a little nail polish bottle and a mini hand fan beside it, sparkles. Subject centred |
+| `prop/nail-cushion` | 512×256, transparent | The hand rests on it: drawn centred under the palm, 400 units wide in hand space (about 400 px at 1 player). Top edge of the cushion at 30% of the image | A plump pink velvet hand-rest cushion with a button tuft in the middle and gold piping, seen slightly from above |
+| `prop/nail-pedestal` | 400×480, transparent | Finale: anchor **bottom-centre** on the floor; the code puts the hand on the cushion top, which must be at 12–20% from the top of the image | A white-and-gold display column with a small pink velvet cushion on top, like a jewellery display stand |
+| `prop/nail-fan` | 256×256, transparent | Dry step: follows the player's cursor, blade hub at (50%, 36%) of the image, drawn ~110 units tall; the code adds a spinning blur ring over the blades | A cute handheld mini fan: round pastel-mint cage with three soft pink blades, a short rounded handle below, a tiny heart button on the handle. Front view |
+| `prop/nail-sticker-gem-pink`, `prop/nail-sticker-gem-blue`, `prop/nail-sticker-gem-purple`, `prop/nail-sticker-pearl`, `prop/nail-sticker-star`, `prop/nail-sticker-heart`, `prop/nail-sticker-flower`, `prop/nail-sticker-butterfly`, `prop/nail-sticker-bow`, `prop/nail-sticker-crown` | 128×128 each, transparent | Placed on nails: drawn centred at ~44 units (about the width of a nail), slightly rotated; also shown in the tray. Centre each in its canvas with a little margin | Tiny nail-art decorations, front view, glossy: a faceted pink rhinestone (round brilliant cut); a faceted blue rhinestone; a purple heart-shaped rhinestone; a round white pearl; a gold star stud; a red heart sticker; a white daisy sticker with a yellow centre; a pink-and-purple butterfly sticker; a little pink ribbon bow; a tiny gold crown with gems |
+
+Possible later sprite pose (not needed now; the game uses `present` →
+`cheer`): `show-nails` (one-shot, about 1 s): the character holds one hand
+up in front of the face, fingers spread, admiring their nails, with a happy
+face. Fallback chain: `present` → `cheer` → `idle`.
+
+## New Play Studio game: dance-studio
+
+### dance-studio — Dance Studio   (requested by the dance-studio agent, 2026-10-05, priority: nice-to-have)
+
+A creative choreography toy: every player builds an 8-count dance from move
+cards at their own rehearsal station (with a mini stage preview), picks the
+music, the stage lights and a backdrop, then the whole group performs each
+player's dance together on a big stage with a mirror ball and a shiny mirror
+floor, ending in a free dance and a "Freeze!" photo. Everything below has a
+procedural fallback that ships today; the code already looks up every key.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Reused as they are: the roster sprites
+(`dance-up`, `dance-side`, `dance-down`, `dance-star`, `pose-twirl`, `clap`,
+`wave`, `hip-bump`, `swim`, `dash`, `photo`, `strike3`, `balance`, `bow`,
+`spring-jump`, `float`, `dance`, `celebrate`, `cheer` and the photo poses).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/dance-studio` | 1920×1080, opaque | Full screen behind the rehearsal stations (setup phase). It shows as side columns at 1 player and as thin gaps/bands at 2–8 players. Keep the top ~110 px calm (title band) | A bright dance rehearsal studio: a long wall of mirrors with a pastel-pink frame, a wooden ballet barre in front of it, a honey-wood floor at the bottom, fairy lights strung across the top, a few pom-poms and a boombox on a bench at the far edges. Low detail in the centre |
+| `bg/dance-studio-stage-stars` | 1920×1080, opaque | Stage backdrop "Starry Night", full screen behind the dancers. **The code covers y > 780 with the stage floor** and puts curtains over the left/right ~200 px and the top ~90 px, so keep the interesting part in the centre band y≈90–780. Also shown cover-fitted, tiny, in each station's preview | A deep-indigo night sky full of twinkly stars, a big smiling crescent moon at the upper right, soft purple clouds near the bottom, a few shooting stars |
+| `bg/dance-studio-stage-candy` | 1920×1080, opaque | Same layout as above ("Candy Land") | A pastel candy landscape: lollipop trees, gumdrop hills, a wavy pink frosting river, cotton-candy clouds in a mint sky |
+| `bg/dance-studio-stage-sea` | 1920×1080, opaque | Same layout as above ("Under the Sea") | A cheerful underwater scene: turquoise water with light rays from the top, pink coral and swaying seaweed at the bottom, bubbles, a few smiling little fish and a starfish |
+| `bg/dance-studio-stage-rainbow` | 1920×1080, opaque | Same layout as above ("Rainbow Sky") | A sunny sky-blue background with a huge rainbow arc across the middle, fluffy white clouds at both ends of the rainbow, small sparkles |
+| `bg/dance-studio-stage-castle` | 1920×1080, opaque | Same layout as above ("Castle Ballroom") | A fairy-tale ballroom: tall arched windows with a twilight view, pink marble pillars, gold chandeliers at the top, heart-shaped garlands |
+| `bg/dance-studio-stage-city` | 1920×1080, opaque | Same layout as above ("Neon City") | A friendly night-time city skyline in purples and blues with glowing pastel windows, rounded buildings, a big round moon, colourful glowing shapes (stars, hearts, musical notes as shapes only, no letters) |
+| `prop/dance-studio-curtains` | 1920×1080, transparent | Drawn full screen over the stage backdrop and lights, under the dancers. Velvet curtains fill the left ~200 px and right ~200 px (gathered with gold tie-backs) and a scalloped valance the top ~90 px; **everything else transparent** | Plush magenta-red velvet theatre curtains with gold fringe and gold tassel tie-backs, a scalloped valance across the top with gold trim |
+| `prop/dance-studio-floor` | 1920×300, opaque | Stretched across the bottom of the stage from y=780 to 1080. The code draws translucent dancer reflections and coloured light pools on top, so keep it fairly plain and glossy | A glossy polished stage floor in dark plum wood planks seen at a low angle, with a gold edge strip along the top and soft shine streaks; slightly darker toward the bottom |
+| `prop/mirror-ball` | 256×256, transparent | Hangs from the valance at the top centre, drawn centred at 170 px; the code spins its sparkle highlights and casts light specks on top | A shiny disco mirror ball made of small silver-and-lilac square mirror tiles, a few bright glints, a short chain loop at the top |
+| `prop/dance-move-up`, `prop/dance-move-point`, `prop/dance-move-knees`, `prop/dance-move-star`, `prop/dance-move-twirl`, `prop/dance-move-clap`, `prop/dance-move-wave`, `prop/dance-move-bump`, `prop/dance-move-swim`, `prop/dance-move-slide`, `prop/dance-move-peace`, `prop/dance-move-tada`, `prop/dance-move-wobble`, `prop/dance-move-bow`, `prop/dance-move-hop`, `prop/dance-move-float` | 160×160 each, transparent | Move cards: fitted (contain) into a square card in the 4×4 move palette (≈60–110 px) and in the 8 timeline slots (≈40–90 px); the code draws the card, its colour and a label below | One chunky friendly dancer pictogram per card, the same simple round-headed kid figure each time (white body with a navy outline, rosy cheeks, motion swooshes in candy colours): arms straight up / pointing up and to the side while leaning / hands on bent knees / jumping in a star shape / spinning on one foot with a swirl / clapping with little clap lines / waving one hand / bumping a hip out to the side / doing "the swim" (one arm forward like a stroke, wavy lines) / sliding sideways with speed lines / peace sign by the face / ta-da arms out wide with sparkles / wobbling with both arms out / a polite bow / a little hop with feet tucked / floating on tiptoes with arms out like wings |
+| `thumb/dance-studio` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Felicity and Fellowfox dancing together on a small stage under a sparkling mirror ball, pink and blue spotlights, a row of colourful dance-move cards along the bottom like a filmstrip, confetti. Subject centred |
