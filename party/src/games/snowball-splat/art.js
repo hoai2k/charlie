@@ -206,43 +206,10 @@ export function drawWall(g, wl, k, dmg, t) {
 // and grows back on a rebuild, so the top never squashes. Fractions of the
 // image height that are the top face (see image-requests.md):
 const WALL_TOP = { h: 0.34, v: 0.67 };
-const STRIPS = 32;
-const rowSpans = new WeakMap();
-/** Opaque [left, right) of each of STRIPS rows over the top face (null if unreadable). */
-function topSpans(img, srcTop) {
-  if (rowSpans.has(img)) return rowSpans.get(img);
-  let spans = null;
-  try {
-    const cv = document.createElement('canvas'); cv.width = img.width; cv.height = Math.ceil(srcTop);
-    const c = cv.getContext('2d', { willReadFrequently: true });
-    c.drawImage(img, 0, 0);
-    const d = c.getImageData(0, 0, cv.width, cv.height).data, iw = cv.width;
-    spans = [];
-    for (let i = 0; i < STRIPS; i++) {
-      const y = Math.min(cv.height - 1, Math.floor(((i + 0.5) / STRIPS) * srcTop));
-      let l = 0, r = iw - 1;
-      while (l < r && d[(y * iw + l) * 4 + 3] < 128) l++;
-      while (r > l && d[(y * iw + r) * 4 + 3] < 128) r--;
-      spans.push(r - l > 8 ? [l, r + 1] : [0, iw]);
-    }
-  } catch (e) { spans = null; }
-  rowSpans.set(img, spans);
-  return spans;
-}
 function drawWallArt(g, img, horiz, x0, y0, w, d, h) {
   const iw = img.width, ih = img.height, top = ih * (horiz ? WALL_TOP.h : WALL_TOP.v);
   const yTop = y0 - h;
-  const spans = horiz ? null : topSpans(img, top);
-  if (spans) {
-    // The side wall's top face narrows toward the far end in the art (a
-    // vanishing point the game's camera doesn't have): crop each strip to its
-    // opaque width so the wall keeps straight sides over its footprint.
-    for (let i = 0; i < STRIPS; i++) {
-      const [l, r] = spans[i];
-      const sy = (i / STRIPS) * top, sh = top / STRIPS;
-      g.drawImage(img, l, sy, r - l, sh, x0, yTop + (i / STRIPS) * d, w, d / STRIPS + 0.6);
-    }
-  } else g.drawImage(img, 0, 0, iw, top, x0, yTop, w, d);
+  g.drawImage(img, 0, 0, iw, top, x0, yTop, w, d);
   if (h > 0.5) g.drawImage(img, 0, top, iw, ih - top, x0, yTop + d, w, h);
 }
 
