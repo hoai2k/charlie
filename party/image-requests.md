@@ -1114,3 +1114,79 @@ fine; the code uses one of each pair.
 
 
 No open image or re-generation requests remain as of 2026-10-12.
+
+## New Play Studio game: aquarium
+
+### aquarium — Dream Aquarium   (requested by the aquarium agent, 2026-10-05, priority: nice-to-have)
+
+Everyone shares one big fish tank: pick a sand colour, place plants,
+castles, shells, bubblers and glow lights on the sand, then add and name
+fish that swim around with their own personalities. The finale is a night
+show (lights out, glowing decorations) with fish close-ups and a group
+photo. Everything below has a procedural fallback that ships today, and the
+code already looks up every key, so a file listed in
+`assets/art/index.json` drops in with no code change.
+
+**How the tank is laid out (1920×1080 screen).** Title ribbon above the
+tank (y 20–110); lid y 118–176; water x 290–1630, y 190–890 (surface line
+at y 196); sand floor from y 730 (back) to y 890 (front), drawn by code
+(the colour is swappable, so sand is **not** requested); a wooden cabinet
+y 890–950; the players' item bars cover y 950–1074. Characters stand on
+the floor left (x < 260) and right (x > 1660) of the tank while building,
+and in a row in front of the cabinet during the show.
+
+**Decor props** stand on the sand: anchor = bottom centre, drawn at the
+listed world size × a depth scale of 0.78 (back of the sand) to 1.05
+(front). The code adds sway (a gentle skew from the base) to plants, the
+bubbles, and all night-time glows on top, so images are **daytime, no glow
+halos, no bubbles**. Request size is 2× the world size. Keys with a colour
+suffix are one image per colour (the code recolours nothing).
+
+**Fish** are side views facing **right**, centred in the canvas, drawn at
+the listed size × 0.72–1.05; the code mirrors them to swim left and adds a
+tail wiggle (horizontal squash), so the tail should be a separate-looking
+fan at the left end and the body plain enough to wiggle. Friendly, big
+eyes, closed smiling mouths, nothing scary. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/aquarium` | 1920×1080, opaque | Full screen behind everything. The tank (code-drawn frame, water, sand, cabinet) covers x 270–1650, y 110–950, so that area can be plain; the title ribbon sits at the top centre; characters stand on the floor at both sides (y ≈ 760–940) | A cozy pastel playroom wall: soft aqua-and-cream striped wallpaper with tiny bubbles and starfish, a round porthole-style window at the upper left showing a sunny sky, a little shelf with plants and books at the upper right, a warm honey-wood floor from y≈930 down. Calm in the centre |
+| `bg/aquarium-water` | 1340×700, opaque | Stretched over the water rect (x 290–1630, y 190–890), behind all decor and fish. The code draws the sand over the bottom ~160 px, and adds light rays, caustics, the surface line and the night overlay | A printed aquarium backdrop: a soft turquoise-to-deep-blue underwater scene with faint, low-contrast distant rocks, coral and seaweed silhouettes near the bottom, gentle light from the top. No fish, no bubbles, no sand in front |
+| `thumb/aquarium` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A bright, happy fish tank seen from the front: a pink sandcastle on golden sand, swaying green seaweed, a bubbling diver helmet, a smiling goldfish, a striped clownfish by a pink anemone, a yellow pufferfish and a little seahorse; bubbles and sparkles. Centred |
+| `prop/aq-kelp-green`, `-teal`, `-plum` | 240×720, transparent | World 120×360, bottom anchor; swayed by a skew that grows toward the top | Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple |
+| `prop/aq-fern-green`, `-lime`, `-red` | 400×340 | World 200×170, bottom anchor, sways | A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red |
+| `prop/aq-anemone-pink`, `-purple`, `-orange` | 360×300 | World 180×150, bottom anchor; tentacle tips sway; clownfish nestle in it | A friendly sea anemone: a round squat body with a crown of soft, fat, rounded tentacles with lighter tips, in pink / purple / orange |
+| `prop/aq-coral-pink`, `-orange`, `-purple` | 380×380 | World 190×190, bottom anchor | Branching coral with rounded, knobby fingers on a small rock base, in pink / orange / purple |
+| `prop/aq-seagrass-green`, `-gold`, `-blue` | 340×300 | World 170×150, bottom anchor, sways | A clump of slender grass blades from a small mound, in green / golden yellow / blue |
+| `prop/aq-castle-pink`, `-lilac`, `-sky` | 660×660 | World 330×330, bottom anchor. Fish "swim through" the arched door at the bottom centre (they are hidden for a moment and pop out of a window) | A storybook aquarium castle: two round towers with cone roofs and a taller centre keep, a round arched doorway at the bottom centre (dark inside), round windows, little flags, cute stone texture, in pink / lilac / sky blue |
+| `prop/aq-tower-pink`, `-lilac`, `-sky` | 300×520 | World 150×260, bottom anchor | A single slim castle turret with a cone roof, a round window and a small arched door, matching the castle |
+| `prop/aq-shellhouse-pink`, `-peach`, `-lilac` | 460×460 | World 230×230, bottom anchor | A cute house made from a giant spiral seashell lying on its side: a round front door, a round window with a flower box, a little chimney, in pink / peach / lilac |
+| `prop/aq-arch-grey`, `-sand`, `-pink` | 600×400 | World 300×200, bottom anchor. Fish swim through the opening (centre, lower 60 %) | A smooth rounded rock arch, wide opening, with a few small pebbles at the feet and a tuft of moss, in soft grey / sandstone / pink |
+| `prop/aq-boat` | 680×460 | World 340×230, bottom anchor, slightly tilted already | A cute little sunken sailboat resting on the sand: round wooden hull with portholes, a short mast with a patched pastel sail, a heart on the bow. Friendly, not spooky |
+| `prop/aq-scallop-peach`, `-pink`, `-white` | 180×160 | World 90×80, bottom anchor | A scallop shell standing up like a fan, ridged, in peach / pink / pearly white |
+| `prop/aq-conch-pink`, `-cream`, `-lilac` | 220×160 | World 110×80, bottom anchor | A spiral conch shell lying on its side with a glossy pink opening, in pink / cream / lilac |
+| `prop/aq-starfish-orange`, `-pink`, `-purple`, `-yellow` | 180×160 | World 90×80, bottom anchor, standing upright and slightly tilted | A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow |
+| `prop/aq-clam-white`, `-pink`, `-blue` | 240×180 | World 120×90, bottom anchor. **Shell only, open**: the code draws the pearl in the middle | An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue |
+| `prop/aq-pebbles-rainbow`, `-ocean`, `-candy` | 280×120 | World 140×60, bottom anchor | A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs |
+| `prop/aq-rock-grey`, `-sand`, `-slate` | 400×280 | World 200×140, bottom anchor | A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate |
+| `prop/aq-airstone-blue`, `-pink` | 140×80 | World 70×40, bottom anchor. Bubbles stream up from its top centre (code) | A small round aquarium air stone on a tiny disc, porous texture, in blue / pink |
+| `prop/aq-diver-brass`, `-silver` | 280×300 | World 140×150, bottom anchor. Bubbles puff from the top valve (code) | A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver |
+| `prop/aq-volcano-red`, `-purple` | 360×320 | World 180×160, bottom anchor. The code adds bubbles from the crater and a lava glow at night | A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava |
+| `prop/aq-chest` | 300×240 | World 150×120, bottom anchor. **Closed chest only**: the code draws the lid popping open (a burst of bubbles and sparkles) by itself | A treasure chest with a rounded wooden lid, gold bands, a heart-shaped lock and a few gold coins and pearls peeking out at the seam |
+| `prop/aq-glowstone-blue`, `-pink`, `-green` | 200×240 | World 100×120, bottom anchor; glows at night (code) | A cluster of 3–4 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green |
+| `prop/aq-lantern` | 160×280 | World 80×140, bottom anchor; the code lights the glass at night | A little underwater lantern on a short post: round glass globe in a brass frame with a ring handle |
+| `prop/aq-glowshroom-teal`, `-pink`, `-purple` | 240×220 | World 120×110, bottom anchor; caps glow at night (code) | Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple |
+| `prop/aq-moonlight` | 200×300 | World 100×150, bottom anchor; glows at night | A smiling crescent-moon lamp on a curly stand with a little star hanging from its tip, pale yellow |
+| `prop/aq-goldfish-orange`, `-gold`, `-calico`, `-red` | 220×160 | Fish, world 110×80, centred, facing right | A chubby goldfish with a big double fan tail, round eyes, rosy cheeks: orange / gold / calico (white with orange and black patches) / red |
+| `prop/aq-clownfish-orange`, `-pink`, `-purple`, `-blue` | 200×128 | Fish, world 100×64 | A round clownfish with three white navy-edged stripes and rounded fins: orange / pink / purple / blue |
+| `prop/aq-angelfish-lilac`, `-gold`, `-sky`, `-pink` | 220×260 | Fish, world 110×130 (tall) | A tall triangular angelfish with long trailing top and bottom fins and soft vertical stripes: lilac / gold / sky / pink |
+| `prop/aq-puffer-yellow`, `-sky`, `-pink`, `-mint` (+ `-puffed` for each, e.g. `prop/aq-puffer-yellow-puffed`) | 200×168 normal, 260×260 puffed | Fish, world 100×84 (puffed 130×130). Puffed = a round ball with soft little spikes and a surprised-happy face | A plump pufferfish with tiny fins, round body, freckled back: yellow / sky / pink / mint |
+| `prop/aq-betta-blue`, `-red`, `-purple`, `-pink` | 260×220 | Fish, world 130×110 | A betta fish with huge flowing veil fins and tail like a ballgown: royal blue / red / purple / pink |
+| `prop/aq-tetra-neon`, `-rainbow`, `-pink`, `-gold` | 108×52 | Fish, world 54×26 (they swim in threes) | A tiny slim tetra with a glowing stripe along its side: neon blue-and-red / rainbow / pink / gold |
+| `prop/aq-seahorse-yellow`, `-pink`, `-orange`, `-purple` | 120×240 | Upright, world 60×120, centred, facing right; the code bobs and sways it | A cute seahorse with a curled tail, little back fin, snout and a crown-like crest: yellow / pink / orange / purple |
+| `prop/aq-jellyfish-pink`, `-lilac`, `-blue`, `-peach` | 180×280 | World 90×140, centred on the bell's centre (bell in the top 45 %); the code pulses it (squash) and glows it at night | A friendly translucent jellyfish with a round bell, a sweet face and soft frilly ribbon tentacles: pink / lilac / blue / peach |
+
+No new sprite poses are needed: the game uses `cheer`, `point`, `toss`,
+`surprised`, `giggle`, `wave`, `dance`, `celebrate` and the shared photo
+poses.
