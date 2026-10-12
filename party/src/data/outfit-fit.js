@@ -12,4 +12,15 @@
 //   rot    extra rotation in degrees (clockwise when facing right)
 //   scale  size multiplier (1 = unchanged)
 // The most specific matching entry wins (frame > pose > set, then exact item > "*").
-export const OUTFIT_FIT = [];
+export const OUTFIT_FIT = [
+  {"set": "bronze", "pose": "*", "frame": "*", "slot": "face", "item": "monocle", "dx": -0.24, "dy": 0, "rot": 0, "scale": 1.35},
+  {"set": "bronze", "pose": "*", "frame": "*", "slot": "head", "item": "heart-headband", "dx": 0, "dy": -0.22, "rot": 0, "scale": 1},
+  {"set": "fox", "pose": "*", "frame": "*", "slot": "head", "item": "heart-headband", "dx": -0.13, "dy": -0.16, "rot": 0, "scale": 0.8},
+  {"set": "hotdog", "pose": "*", "frame": "*", "slot": "head", "item": "heart-headband", "dx": 0, "dy": -0.19, "rot": 0, "scale": 1},
+  {"set": "hotdog", "pose": "*", "frame": "*", "slot": "head", "item": "kitty-ears", "dx": 0, "dy": -0.24, "rot": 0, "scale": 1},
+  {"set": "hotdog", "pose": "*", "frame": "*", "slot": "head", "item": "unicorn-horn", "dx": 0, "dy": -0.28, "rot": 0, "scale": 1},
+  {"set": "hotdog", "pose": "*", "frame": "*", "slot": "neck", "item": "feather-boa", "dx": 0, "dy": -0.03, "rot": 0, "scale": 0.52},
+  {"set": "marshmallow-birthday-cake", "pose": "*", "frame": "*", "slot": "face", "item": "monocle", "dx": 0.11, "dy": 0, "rot": 0, "scale": 1},
+  {"set": "marshmallow-birthday-cake", "pose": "*", "frame": "*", "slot": "neck", "item": "feather-boa", "dx": 0, "dy": -0.03, "rot": 0, "scale": 0.48},
+  {"set": "unicorn", "pose": "*", "frame": "*", "slot": "head", "item": "heart-headband", "dx": -0.15, "dy": -0.14, "rot": 0, "scale": 0.75}
+];

@@ -44,6 +44,9 @@ Bay in `hoai2k/mini`):
 ## Testing URLs
 
 - `?scene=sprites` — sprite viewer (all characters, every pose)
+- `workbench/` (`/charlie/party/workbench/`) — sprite workbench: landmarks and
+  outfit fit per frame, edits downloaded as JSON and applied with
+  `node party/tools/apply-workbench-edits.mjs` (see `workbench/README.md`)
 - `?game=<id>&players=4&humans=1` — jump into a minigame (`&auto=1` for all
   CPUs, `&skipintro=1`, `&speed=3`, `&level=0..2`)
 - `?nosprites=1` — ignore generated sprites
