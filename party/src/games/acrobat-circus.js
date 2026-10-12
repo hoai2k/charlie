@@ -256,7 +256,7 @@ export class Game {
     const head = this.toScreen(st, a.x, a.y - a.z - a.height * 1.05);
     if (!res.clean) {
       particles.popText(head.x, head.y, 'Whoops!', '#ffffff', 34);
-      snd('crowd-aww', null, { vol: 0.25 });
+      if (!(this.oohT > this.t)) { snd('crowd-ooh', null, { vol: 0.2 }); this.oohT = this.t + 2.5; }
     }
     if (res.score <= 0) return;
     st.claps += res.score; st.clapBump = 0.35; st.tricks++;
@@ -1151,7 +1151,8 @@ export class Game {
   drawBalance(g, st) {
     const s = st.s;
     if (s.mode !== 'walk' || st.p.isAI && this.n > 2) return;
-    const x = st.vw / 2, y = 150, R = 54;
+    const a = st.actor, R = 40;
+    const x = clamp(a.x, 70, st.vw - 70), y = Math.max(R + 24, a.y - a.height - 66);
     g.save();
     g.lineCap = 'round';
     g.lineWidth = 14; g.strokeStyle = NAVY;
@@ -1165,7 +1166,7 @@ export class Game {
     g.fillStyle = '#fff'; g.beginPath(); g.arc(x, y, 7, 0, TAU); g.fill(); g.lineWidth = 3; g.stroke();
     // push-this-way arrow
     if (Math.abs(s.lean) > 0.4 && !st.p.isAI) {
-      const d = -Math.sign(s.lean), ax = x + d * (R + 40);
+      const d = -Math.sign(s.lean), ax = x + d * (R + 36);
       g.globalAlpha = 0.6 + 0.4 * Math.sin(this.t * 14);
       g.fillStyle = '#7dff8a'; g.strokeStyle = NAVY; g.lineWidth = 4;
       g.beginPath(); g.moveTo(ax + d * 22, y - 18); g.lineTo(ax - d * 6, y - 38); g.lineTo(ax - d * 6, y - 26); g.lineTo(ax - d * 24, y - 26); g.lineTo(ax - d * 24, y - 10); g.lineTo(ax - d * 6, y - 10); g.lineTo(ax - d * 6, y + 2); g.closePath();
