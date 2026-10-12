@@ -1106,6 +1106,7 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `prop/fishing-rod` (optional) | Even drawn undistorted, the 8:1 handle is too long for a 110–175 px rod, so the code skips the middle of the cork to shorten it. | 256×64, transparent: a short chunky cork grip (about 2.5× as long as it is thick) with the big yellow reel at the right end, butt at the left edge, shaft start at the right edge, so the code can draw it whole. |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
