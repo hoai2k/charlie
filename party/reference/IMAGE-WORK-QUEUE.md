@@ -5,6 +5,21 @@ the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
+## October 12 delivery — complete
+
+Synced main through `d16cc16`, then preserved concurrent Pop Star Stage and handoff changes. Published reviewed batches: Snowball revisions `799442f`, bakery15 `77f272d` (merged/pushed `0257c8f`), bunnyfaces6 `4c248e0`, spritefixes `fd8d477`, fashion32 `2abb12a`, remainingprop revisions `1ec90ae`.
+
+Latest image delivery revision: `1ec90ae9f050c2ebbd84bfbafe95e8e37a36c3a3`.
+Latest image delivery UTC: 2026-10-12T20:54:06Z.
+Last checked revision: `1ec90ae9f050c2ebbd84bfbafe95e8e37a36c3a3`.
+Last checked request blob: `6cd22ea86491ca40fe0c864281b29a7b515fd0e9`.
+Last checked UTC: 2026-10-12T20:54:06Z.
+No open image/regeneration requests remain; immediate post-delivery main check was clear. The earlier monitor remains cancelled; no new timer was requested for this run.
+
+Delivered53 new art keys (bakery15, fashion32, bunnyfaces6), six replacementgeneral images and two replacementHotdog pullframes. Cake six idle/walk hands corrected without newpixels. Full inventory582keys/562decodable runtimeartfiles. All26 sprite sets validate without hard errors or stale copies; original soft encoded/download warnings remain. Three Node regression suites and three Python builder tests pass. CPU Snowball, Bakery, Jump Rope, Tug, Mini Golf and Fishing checked; all32wearables inspected with actualActor/outfit renderer. Fishing import defect caught and corrected beforepublication.
+
+Exactbuilt-in prompts, sourcepaths, crop/anchor measurements and QA are in `reference/pending/OCT12-*.json`; fielded briefs moved to `image-requests-history.md`. Native accessorysources saved as losslessWebP. Runtime review gallery: `reference/pending/OCT12-WEARABLE-REVIEW.html`.
+
 ## Completed production and monitoring (October 5 evening)
 
 Automation: `charlie-party-image-request-monitor` cancelled at 2026-10-06T04:03:47Z after a full quiet hour; no future checks remain.

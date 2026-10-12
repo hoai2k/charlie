@@ -1,5 +1,12 @@
 # Charlie Party asset coverage
 
+## October 12 delivery
+
+All currentopen requests completed through `1ec90ae`; immediatepost-delivery main checkclear. Added53keys:15bakerytoppings,32fashionaccessories,6bunnyfaces. RegeneratedSnowball background/sidewall, CloudHopthumbnail, openchest, cookiebridge and fishinghandle; Hotdogpulltwoframes replaced and Cakesix handlandmarks corrected. Current582keys/562decodableruntimefiles.
+
+All32wearables reviewed with actualActor/outfitrenderer; measuredanchors and transparenteyeholes verified. Fishinghandle shares a tested proceduralbendingshaft. Fullspritevalidation, runtime/loading/handle regressions and buildertests pass. All26sets below25MiBdecoded;softencoded/downloadwarningsremain. Exactprompts and intakegeometry saved under reference/pending/OCT12-*.json. No pendinggeneration orapproval.
+
+
 ## October 5 evening delivery
 
 Delivery `da25965` completes all requests through the immediate post-delivery main check at 2026-10-06T03:01:04Z (request blob `d7e6380`). Added 119 art keys: Cloud Hop12, Mini Golf11, Musical Cushions12, Pancake Tower11, Piñata Party10, Snowball Splat15, Treasure Dig16, Tug of War10, Fishing Frenzy16 and Jump Rope6. Current inventory: 529 keys /509 decodable WebPs.
