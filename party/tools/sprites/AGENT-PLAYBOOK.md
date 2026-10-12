@@ -303,3 +303,29 @@ loops should use authored contact changes without extra procedural body tilt.
 After merging main, assert all nine new action names remain registered; broad
 runtime tests alone do not establish vocabulary coverage. New requests include
 spring-jump, putt, putt-swing, swing, snow-scoop, dig, pull, reel and skip-hop.
+
+### October 12: preserve audited shipping data and fit accessory art
+
+Shipping manifests may contain a later landmark audit than their intake specs.
+Compare before rebuilding. Synchronize every point and pose/frame bodyHeight,
+including eyes:null on rear views. Exact inverse with builder integer placement:
+sourcePoint=(runtimePoint-runtimeFrameAnchor+round(sourceAnchor*scale))/scale.
+Preserve source crops/scales and compare all unaffected runtime fields after
+rebuild; Cake 109 frames and Hotdog 108 unaffected frames were exactly preserved.
+The builder passes through explicit null points and framebodyHeight, covered by
+its incremental regression test.
+
+Generated alpha can have nearly invisible residues far outside visible art.
+Meaningful-alpha bounds (8–32) plus a small antialias margin avoid shrinking an
+accessory to fit those residues. Alpha-extrema and exactcanvas alone do not
+prove a valid anchor. Measure actual lens centres, wing roots, grips, ribbon or
+chain tops. Preserve full source RGBA as lossless WebP before intake cropping.
+Three horseshoe headbands needed measured consumeranchor fractions so their
+seating arcs land on hair without shrinking the full silhouette. Review actual
+Actor outfits, not only isolated props; OCT12-WEARABLE-REVIEW.html is a reusable
+example. Preserve original prompt and sourcepaths in the intake record.
+
+When main advances, compare each branch from its merge-base. A direct local
+HEAD-to-remote diff can show unpublished local assets as deletions even though
+the remote never deleted them. Verify reviewed assets survive the merge before
+pushing. Stage only reviewed index/manifest entries when batches overlap.

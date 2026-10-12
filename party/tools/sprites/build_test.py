@@ -52,7 +52,8 @@ class BuildTests(unittest.TestCase):
             image.save(base / 'source.webp')
             spec = {'bodyHeight': 20, 'frameSize': [30, 30], 'anchor': [15, 25],
                     'poses': {'idle': {'frames': [{'source': 'source.webp',
-                        'anchor': [8, 22], 'head': [8, 4]}]}}}
+                        'anchor': [8, 22], 'head': [8, 4], 'eyes': None,
+                        'bodyHeight': 18}]}}}
             output = base / 'out'
             with patch.object(build, 'save_webp', wraps=build.save_webp) as encode, contextlib.redirect_stdout(io.StringIO()):
                 build.build(spec, base, output)
@@ -63,6 +64,8 @@ class BuildTests(unittest.TestCase):
                 self.assertEqual((output / 'idle-00.webp').read_bytes(), before)
                 manifest = json.loads((output / 'sprites.json').read_text())
                 self.assertEqual(manifest['poses']['idle']['frames'][0]['head'], [5, 1])
+                self.assertIsNone(manifest['poses']['idle']['frames'][0]['eyes'])
+                self.assertEqual(manifest['poses']['idle']['frames'][0]['bodyHeight'], 18)
                 (output / 'idle-00.webp').write_bytes(b'broken')
                 build.build(spec, base, output)
                 self.assertEqual(encode.call_count, 2)

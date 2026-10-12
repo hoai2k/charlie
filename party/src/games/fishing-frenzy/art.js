@@ -3,7 +3,7 @@
 // vector drawing below, which is what ships today.
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
-import { drawArt } from '../../engine/art.js';
+import { art, drawArt } from '../../engine/art.js';
 import { TAU, clamp, lerp } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
@@ -211,10 +211,8 @@ export function drawBobber(g, x, y, s, sink = 0, color = '#ff4d6d') {
  * (px, sideways toward +y of the rod direction). Returns nothing.
  */
 export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
-  // Always procedural: the rod bends with every nibble and tug (the tension
-  // feedback), and the player-coloured stripes tell rods apart. The delivered
-  // `prop/fishing-rod` (a 2-3 px realistic rod in the middle 37% of its canvas)
-  // read as a hairline in game and swapped style on every bite, so it is unused.
+  // The flexible shaft stays procedural for bite/tension feedback. The
+  // regenerated handle ends at the grip, so it can share that bending shaft.
   const len = Math.hypot(tx - hx, ty - hy), ang = Math.atan2(ty - hy, tx - hx);
   const bx = hx - Math.cos(ang) * len * 0.18, by = hy - Math.sin(ang) * len * 0.18;
   const nx = -Math.sin(ang), ny = Math.cos(ang);
@@ -224,11 +222,19 @@ export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
   g.strokeStyle = '#ffffff'; g.lineWidth = 5.5 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(hx, hy); g.quadraticCurveTo(cx, cy, tx, ty); g.stroke();
   g.strokeStyle = color; g.lineWidth = 5.5 * s; g.setLineDash([10 * s, 10 * s]); g.beginPath(); g.moveTo(hx, hy); g.quadraticCurveTo(cx, cy, tx, ty); g.stroke(); g.setLineDash([]);
   // grip + reel
-  g.strokeStyle = NAVY; g.lineWidth = 13 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + (hx - bx) * 0.7, by + (hy - by) * 0.7); g.stroke();
-  g.strokeStyle = '#8b5a2b'; g.lineWidth = 8 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + (hx - bx) * 0.7, by + (hy - by) * 0.7); g.stroke();
-  const rx = bx + (hx - bx) * 0.55 + nx * 9 * s, ry = by + (hy - by) * 0.55 + ny * 9 * s;
-  g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = 3 * s; g.beginPath(); g.arc(rx, ry, 8 * s, 0, TAU); g.fill(); g.stroke();
-  g.fillStyle = NAVY; g.beginPath(); g.arc(rx, ry, 2.5 * s, 0, TAU); g.fill();
+  const handle = art('prop/fishing-rod');
+  if (handle) {
+    g.save(); g.translate(bx, by); g.rotate(ang);
+    const width = Math.hypot(hx - bx, hy - by), height = Math.max(16 * s, width / 8);
+    g.drawImage(handle, 0, -height * 0.5, width, height);
+    g.restore();
+  } else {
+    g.strokeStyle = NAVY; g.lineWidth = 13 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + (hx - bx) * 0.7, by + (hy - by) * 0.7); g.stroke();
+    g.strokeStyle = '#8b5a2b'; g.lineWidth = 8 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + (hx - bx) * 0.7, by + (hy - by) * 0.7); g.stroke();
+    const rx = bx + (hx - bx) * 0.55 + nx * 9 * s, ry = by + (hy - by) * 0.55 + ny * 9 * s;
+    g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = 3 * s; g.beginPath(); g.arc(rx, ry, 8 * s, 0, TAU); g.fill(); g.stroke();
+    g.fillStyle = NAVY; g.beginPath(); g.arc(rx, ry, 2.5 * s, 0, TAU); g.fill();
+  }
   g.fillStyle = '#ff6fb1'; g.beginPath(); g.arc(tx, ty, 4 * s, 0, TAU); g.fill(); g.stroke();
   g.restore();
 }

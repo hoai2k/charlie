@@ -1,10 +1,17 @@
 # Charlie Party asset coverage
 
+## October 12 delivery
+
+All current open requests completed through `1ec90ae`; immediate post-delivery main checkclear. Added 53 keys: 15 bakery toppings, 32 fashion accessories and 6 bunny faces. Regenerated Snowball background/sidewall, Cloud Hop thumbnail, open chest, cookie bridge and fishing handle; Hotdog two pull frames replaced and Cake six hand landmarks corrected. Current inventory: 582 keys / 562 decodable runtime files.
+
+All 32 wearables reviewed with actual Actor/outfitrenderer; measured anchors and transparent eye holes verified. Fishinghandle shares a tested procedural bending shaft. Full sprite validation, runtime/loading/handle regressions and builder tests pass. All 26sets below 25 MiB decoded; soft encoded/download warnings remain. Exact prompts and intakegeometry saved under reference/pending/OCT12-*.json. No pending generation or approval.
+
+
 ## October 5 evening delivery
 
 Delivery `da25965` completes all requests through the immediate post-delivery main check at 2026-10-06T03:01:04Z (request blob `d7e6380`). Added 119 art keys: Cloud Hop12, Mini Golf11, Musical Cushions12, Pancake Tower11, Piñata Party10, Snowball Splat15, Treasure Dig16, Tug of War10, Fishing Frenzy16 and Jump Rope6. Current inventory: 529 keys /509 decodable WebPs.
 
-All15 player/companion members gained nine new authored actions and twelve frames each: pull2, reel2, swing2, putt, putt-swing, spring-jump, snow-scoop, dig and skip-hop. All180 full frames, optimized copies, applicable masks, exact intake points and source sheets were published in reviewed character batches. All26 sets remain below25 MiB full decoded with current optimized fingerprints; original encoded-size targets remain soft warnings.
+All15 player/companion members gained nine new authored actions and twelve frames each: pull2, reel2, swing2, putt, putt-swing, spring-jump, snow-scoop, dig and skip-hop. All180 full frames, optimized copies, applicable masks, exact intake points and source sheets were published in reviewed character batches. All 26 sets remain below25 MiB full decoded with current optimized fingerprints; original encoded-size targets remain soft warnings.
 
 Generated prop geometry is integrated with gameplay; held loops keep authored grips stable. Runtime/loading and builder regressions pass, as do exact action coverage checks and representative live gameplay previews. No current requests remain queued. The15-minute monitor now starts a fresh60-minute quiet window after this completed delivery.
 
@@ -14,7 +21,7 @@ Delivery `03d1d11` completes every new request found through main `6d0f7b9`.
 Added122 general art keys: Melody Maker33, Bead Shop16, Dream Room30 and Hide &
 Seek43. Current total is410 registered keys /390 decodable WebPs. All15 players
 and companions also gained two authored pump frames with full/optimized exports
-and refreshed masks where applicable. All26 sets remain under25 MiB decoded;
+and refreshed masks where applicable. All 26 sets remain under25 MiB decoded;
 all current intake paths and generation records are present.
 
 Gameplay geometry follows the generated grips, shelf surfaces, lily pads,

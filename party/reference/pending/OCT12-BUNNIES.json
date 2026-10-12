@@ -1,0 +1,164 @@
+[
+  {
+    "key": "prop/jump-rope-bunny-pink-cheer",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-2da1d791-42ea-44d7-afdb-d3a35f556833.png",
+    "prompt": "Precise face-only edit of this exact pink Jump Rope bunny. Keep canvas600x660, full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors and shading EXACTLY unchanged. NO arms. Change ONLY face expression to eyes closed in happy arcs and a big open smile. Keep eyes in the same face position and same pinknose. Transparentbackground. Preserve feetbottomcenter(300,660) and shoulderpoints(343,370)/(249,367). No emote,sweat,zzz,stars,sparkles,text. Character identity locked; thisis a facevariant for animation.",
+    "width": 600,
+    "height": 660,
+    "preserveCanvas": true,
+    "geometry": {
+      "feet": [
+        300,
+        660
+      ],
+      "shoulders": [
+        [
+          343,
+          370
+        ],
+        [
+          249,
+          367
+        ]
+      ]
+    },
+    "tool": "built-in imagegen",
+    "bytes": 51098,
+    "status": "visually reviewed expression; truealpha and full canvas preserved"
+  },
+  {
+    "key": "prop/jump-rope-bunny-mint-cheer",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c7f26209-829c-4793-b059-2467042f874d.png",
+    "prompt": "Precise face-only edit of this exact mint Jump Rope bunny. Keep canvas600x660, full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors and shading EXACTLY unchanged. NO arms. Change ONLY face expression to eyes closed in happy arcs and a big open smile. Keep eyes in the same face position and same pinknose. Transparentbackground. Preserve feetbottomcenter(300,660) and shoulderpoints(343,370)/(249,367). No emote,sweat,zzz,stars,sparkles,text. Character identity locked; thisis a facevariant for animation.",
+    "width": 600,
+    "height": 660,
+    "preserveCanvas": true,
+    "geometry": {
+      "feet": [
+        300,
+        660
+      ],
+      "shoulders": [
+        [
+          343,
+          370
+        ],
+        [
+          249,
+          367
+        ]
+      ]
+    },
+    "tool": "built-in imagegen",
+    "bytes": 50256,
+    "status": "visually reviewed expression; truealpha and full canvas preserved"
+  },
+  {
+    "key": "prop/jump-rope-bunny-pink-sneaky",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d4fd7fc4-b945-488b-ab9f-8462dcf3ca4d.png",
+    "prompt": "Precise FACE-ONLY edit of this exact pink Jump Rope bunny. Lock canvas600x660 and full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors,shading EXACTLY unchanged. No arms. Change ONLY eyes and mouth: sleepy half-closed sly eyes and a little smirk. Keep eyes in samefaceposition, pinknose unchanged. Transparentbackground. Preserve feetbottomcenter(300,660), shoulders(343,370)/(249,367). Noemote,sweat,zzz,stars,sparkles,text. Same bunny, slyexpressionvariant.",
+    "width": 600,
+    "height": 660,
+    "preserveCanvas": true,
+    "geometry": {
+      "feet": [
+        300,
+        660
+      ],
+      "shoulders": [
+        [
+          343,
+          370
+        ],
+        [
+          249,
+          367
+        ]
+      ]
+    },
+    "tool": "built-in imagegen",
+    "bytes": 51140,
+    "status": "visually reviewed expression; truealpha and full canvas preserved"
+  },
+  {
+    "key": "prop/jump-rope-bunny-mint-sneaky",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-11a2413d-5256-4fd9-a49b-ce18b903a84e.png",
+    "prompt": "Precise FACE-ONLY edit of this exact mint Jump Rope bunny. Lock canvas600x660 and full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors,shading EXACTLY unchanged. No arms. Change ONLY eyes and mouth: sleepy half-closed sly eyes and a little smirk. Keep eyes in samefaceposition, pinknose unchanged. Transparentbackground. Preserve feetbottomcenter(300,660), shoulders(343,370)/(249,367). Noemote,sweat,zzz,stars,sparkles,text. Same bunny, slyexpressionvariant.",
+    "width": 600,
+    "height": 660,
+    "preserveCanvas": true,
+    "geometry": {
+      "feet": [
+        300,
+        660
+      ],
+      "shoulders": [
+        [
+          343,
+          370
+        ],
+        [
+          249,
+          367
+        ]
+      ]
+    },
+    "tool": "built-in imagegen",
+    "bytes": 50286,
+    "status": "visually reviewed expression; truealpha and full canvas preserved"
+  },
+  {
+    "key": "prop/jump-rope-bunny-pink-oops",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1f0cd274-32be-4135-9a50-7db604172b16.png",
+    "prompt": "Precise FACE-ONLY edit of this exact pink Jump Rope bunny. Lock canvas600x660, full silhouette,ears,bow,body,outfit,feet,tail,pose,scale,navyoutline,color,shading unchanged. No arms. Change ONLY eyes and mouth to a funny oops expression: squeezed-shut wince eyes (small inwardpinched arcs), smallround O mouth. Eyes sameposition, pinknoseunchanged. Transparentbackground. Feetbottomcenter(300,660), shoulderpoints(343,370)/(249,367) unchanged. Noemote,sweat,zzz,stars,sparkles,text. Do not reposition or reinventbody.",
+    "width": 600,
+    "height": 660,
+    "preserveCanvas": true,
+    "geometry": {
+      "feet": [
+        300,
+        660
+      ],
+      "shoulders": [
+        [
+          343,
+          370
+        ],
+        [
+          249,
+          367
+        ]
+      ]
+    },
+    "tool": "built-in imagegen",
+    "bytes": 50350,
+    "status": "visually reviewed expression; truealpha and full canvas preserved"
+  },
+  {
+    "key": "prop/jump-rope-bunny-mint-oops",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-817006f6-b36d-4303-afaa-9a90a8d41674.png",
+    "prompt": "Precise FACE-ONLY edit of this exact mint Jump Rope bunny. Lock canvas600x660, full silhouette,ears,bow,body,outfit,feet,tail,pose,scale,navyoutline,color,shading unchanged. No arms. Change ONLY eyes and mouth to a funny oops expression: squeezed-shut wince eyes (small inwardpinched arcs), smallround O mouth. Eyes sameposition, pinknoseunchanged. Transparentbackground. Feetbottomcenter(300,660), shoulderpoints(343,370)/(249,367) unchanged. Noemote,sweat,zzz,stars,sparkles,text. Do not reposition or reinventbody.",
+    "width": 600,
+    "height": 660,
+    "preserveCanvas": true,
+    "geometry": {
+      "feet": [
+        300,
+        660
+      ],
+      "shoulders": [
+        [
+          343,
+          370
+        ],
+        [
+          249,
+          367
+        ]
+      ]
+    },
+    "tool": "built-in imagegen",
+    "bytes": 50146,
+    "status": "visually reviewed expression; truealpha and full canvas preserved"
+  }
+]

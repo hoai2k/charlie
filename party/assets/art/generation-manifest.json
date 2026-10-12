@@ -6283,6 +6283,3336 @@
         "parallelWidths": "final alpha widths within natural lumpy edge variation"
       },
       "bytes": 28690
+    },
+    {
+      "key": "prop/topper-macaron",
+      "file": "party/assets/art/prop/topper-macaron.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-3e4b5ede-8306-4313-b853-7cb955fec370.png",
+      "size": [
+        112,
+        96
+      ],
+      "anchor": "bottom-centre; source alpha cropped and uniformly fitted, alpha bbox ends at y=96; centre contact alpha 253",
+      "prompt": "Use case: stylized-concept\nAsset type: transparent game prop sprite for Charlie Party Cake Bakery\nPrimary request: Create one French macaron seen from the front, slightly from above: two smooth domed shells with a ruffled foot, a thick white cream filling between them, and a soft highlight on the top shell. Match the existing topper-heart reference image's illustration style: cute polished candy-colour game art, bold dark navy #24163f outline, soft cel shading, glossy highlights.\nComposition/framing: Isolated centered object filling most of a 112\u00d796 landscape canvas; whole macaron visible. The lowest point of the macaron touches the exact bottom-center canvas edge with absolutely no transparent padding below, because it attaches to cake there. Transparent pixels around it. Keep proportions compact and front-facing.\nColor palette: shell pink #ff9fd0 as the main tinted region; cream filling white; small navy outline and soft white highlights. Main shell should be predominantly pink so code hue rotation affects the shells only.\nConstraints: genuinely transparent background, no ground shadow, no text, no extra objects, no border, no crop, no flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 13528
+    },
+    {
+      "key": "prop/topper-choco-drop",
+      "file": "party/assets/art/prop/topper-choco-drop.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-e944aa25-b32e-4646-bf70-04382b21df1c.png",
+      "size": [
+        96,
+        96
+      ],
+      "anchor": "bottom-centre; alpha bbox ends at y=96; centre contact alpha 59 (antialiased boundary)",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. Create a single chocolate drop candy (kiss shape), centered and front-on: a glossy milk-chocolate cone with flat round base and curled tip, darker shading on the right and a cream highlight on the left. Match the existing topper-heart reference's polished candy-colour illustration: bold dark navy #24163f outline, soft cel shading and glossy highlights. Composition: fill most of a square 96\u00d796 canvas while keeping the entire object visible; transparent pixels around it. The flat base must touch the exact bottom-center canvas edge, no transparent padding below, for cake attachment. Palette: milk chocolate browns, cream highlight, navy outline. No shadow, no text, no other objects, no flame. Genuinely transparent background.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8962
+    },
+    {
+      "key": "prop/topper-butterfly",
+      "file": "party/assets/art/prop/topper-butterfly.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-82b1daa5-a0ee-4df9-82ff-f99254d8025f.png",
+      "size": [
+        112,
+        96
+      ],
+      "anchor": "bottom-centre/body; alpha bbox ends at y=96; centre contact alpha 136",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. Sugar butterfly seen from the front, four rounded symmetric wings (big upper, small lower) with white polka dots, plum body down the centre and two curly antennae; bottom of body touches exact bottom-centre edge. Pink #ff6fd0 wings as dominant tintable colour. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 112\u00d796 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14974
+    },
+    {
+      "key": "prop/topper-bow",
+      "file": "party/assets/art/prop/topper-bow.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-ed69ebdb-0158-4b71-b206-cac17845bbb9.png",
+      "size": [
+        128,
+        80
+      ],
+      "anchor": "bottom-centre/tail tips; alpha bbox ends at y=80; centre contact alpha 142",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. Chunky candy ribbon bow, front view: two puffy loops, round centre knot, two short tails pointing down; white polka dots on the pink #ff6fd0 ribbon loops (dominant tintable colour); bottom-centre tail tips touch exact bottom canvas edge. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 128\u00d780 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14078
+    },
+    {
+      "key": "prop/topper-pearls",
+      "file": "party/assets/art/prop/topper-pearls.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-6c32c079-f762-41d1-b0ef-c41d92d86f22.png",
+      "size": [
+        96,
+        80
+      ],
+      "anchor": "bottom-centre; lower two pearls contact canvas at y=80; bottom-centre itself is a transparent gap (pyramid support contact is split)",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A little pyramid of three shiny sugar pearls (two below, one on top), pearly white with faint lilac shade and bright highlight on each; bottom-centre pearl touches exact bottom canvas edge. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 96\u00d780 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8258
+    },
+    {
+      "key": "prop/topper-lollipop",
+      "file": "party/assets/art/prop/topper-lollipop.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-2413e4ae-c5b1-4b17-8c19-f58d2e59536e.png",
+      "size": [
+        80,
+        160
+      ],
+      "anchor": "bottom-centre stick; exact bottom contact, centre alpha 254",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A round lollipop on a straight white stick, flat disc with a bold pink #ff6fd0 and white spiral, glossy upper-left highlight; stick runs straight down to the exact bottom-centre canvas edge. Dominant swirl is tintable pink. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 80\u00d7160 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 9456
+    },
+    {
+      "key": "prop/topper-candy-cane",
+      "file": "party/assets/art/prop/topper-candy-cane.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-f34d6c04-fe2b-4bf3-a4d3-cdd5bf0cb21d.png",
+      "size": [
+        80,
+        160
+      ],
+      "anchor": "straight bottom tip centred at x=40.2 after horizontal-only 0.8 scale; exact bottom contact; hook bends right",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. One upright red-and-white striped candy cane, straight end down, hook curls to the right, diagonal stripes and soft highlight down one side; straight bottom tip touches exact bottom-centre edge. Match existing topper-heart reference: cute polished candy-colour art, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, whole object visible and filling most of its exact 80\u00d7160 canvas; genuinely transparent around object. Anchor: described bottom part touches exact bottom-centre canvas edge with zero padding. No ground shadow, text, extra objects, scenery, crop or flame.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 11594
+    },
+    {
+      "key": "prop/topper-cupcake",
+      "file": "party/assets/art/prop/topper-cupcake.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-ff3431d3-5d90-4af1-9e9f-69a6da0ea2ca.png",
+      "size": [
+        96,
+        112
+      ],
+      "anchor": "wrapper bottom-centre; exact bottom contact; centre alpha 201",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A tiny cupcake with sky-blue pleated paper wrapper, three-tier swirl of pink frosting with a few rainbow sprinkles, and red cherry with stem on top. Wrapper base bottom-centre touches exact canvas bottom. Dominant colours are sky-blue wrapper and pink frosting; keep a clean navy outline. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 96\u00d7112 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 12556
+    },
+    {
+      "key": "prop/topper-crown",
+      "file": "party/assets/art/prop/topper-crown.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-ec0b1c84-d87d-4605-8945-a5f376a4eb81.png",
+      "size": [
+        112,
+        96
+      ],
+      "anchor": "bottom-centre band support; lower band outline reaches bottom edge, but exact center is transparent in final row; full band visibly touches lower edge at both sides",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A small gold princess crown, front view: band with three gems (red, blue, green), three tall points each topped with a white pearl, bright gold with a shine stripe. Bottom centre of crown band touches exact canvas bottom. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 112\u00d796 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14970
+    },
+    {
+      "key": "prop/topper-rainbow",
+      "file": "party/assets/art/prop/topper-rainbow.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-533d86fd-aad0-4617-9c1d-6f804afb660e.png",
+      "size": [
+        192,
+        112
+      ],
+      "anchor": "canvas anchor bottom-centre; both cloud bottoms reach bottom edge, centre gap expected for arched silhouette",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A chunky arched rainbow with six distinct bands red, orange, yellow, green, blue, purple, and fluffy white cloud at each end. Wide composition. Both cloud bottoms touch the exact bottom edge; symmetric, front view. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 192\u00d7112 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 24124
+    },
+    {
+      "key": "prop/topper-shooting-star",
+      "file": "party/assets/art/prop/topper-shooting-star.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-560e9b86-7aa4-4a22-893f-72ca1a9535cd.png",
+      "size": [
+        112,
+        192
+      ],
+      "anchor": "gold stick bottom-centre x=55.5 after horizontal-only 0.771 scale; exact bottom contact; full vertical size preserved",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A cake pick: thin gold stick with a plump yellow star at the top, a curved rainbow trail (pink, blue, green) streaming down-left from the star, and a tiny twinkle beside it. Stick bottom centred and touches exact canvas bottom. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 112\u00d7192 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 14782
+    },
+    {
+      "key": "prop/topper-fairy",
+      "file": "party/assets/art/prop/topper-fairy.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-373072b9-3a24-4591-a885-01d9c8a70221.png",
+      "size": [
+        112,
+        176
+      ],
+      "anchor": "feet/dress hem bottom-centre; exact bottom contact; centre alpha 48 at antialiased edge",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite for Charlie Party Cake Bakery. A tiny sugar fairy figurine standing on cake: blonde bun, rosy cheeks, closed happy eyes, pink bell-shaped dress, pale-blue translucent wings, holding up a wand with a gold star. Toy-like, original generic sugar figurine, not a roster character. Feet/dress hem centred and touch exact bottom edge. Match existing topper-heart reference: cute polished candy-colour illustration, bold dark navy #24163f outline, soft cel shading and glossy highlights. Centered front view, entire object visible, filling most of exact 112\u00d7176 canvas; transparent around it. The stated cake attachment/base contact is precisely at the bottom edge, no padding beneath and no ground shadow. Genuinely transparent background. No text, scenery or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 24848
+    },
+    {
+      "key": "prop/candle-swirl",
+      "file": "party/assets/art/prop/candle-swirl.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-cee525f1-69d2-45b6-9c71-1b2495231ef5.png",
+      "size": [
+        48,
+        160
+      ],
+      "anchor": "wick tip centered at x=24, topmost alpha y=3 exactly; base reaches y=159/edge; true alpha retained. Cropped using alpha>1 bounds to exclude a disconnected near-transparent artifact while preserving original PNG source.",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite/icon for Charlie Party Cake Bakery. A single tall thin twisted birthday candle, straight and vertical: white wax with one pink spiral stripe, a small gold drip-catcher ring at the bottom, and a short dark wick on top. NO flame. The centered wick tip sits exactly 3 pixels below the top edge of the 48\u00d7160 transparent canvas; the candle base touches the bottom edge. Slim silhouette with clear readable wax and spiral. Match existing topper-heart reference: cute polished candy-colour game art, bold dark navy #24163f outlines, soft cel shading, glossy highlights. Render the complete subject centered on the exact 48\u00d7160 transparent canvas. Preserve actual transparency. No shadow, text, scenery, border, clipping, or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8214
+    },
+    {
+      "key": "prop/sprinkles-stars",
+      "file": "party/assets/art/prop/sprinkles-stars.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-71bbfd15-e47d-49d9-a814-8c64c331a56e.png",
+      "size": [
+        128,
+        128
+      ],
+      "anchor": "centered scatter icon; alpha bbox (24,23)-(104,107); background true transparent.",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite/icon for Charlie Party Cake Bakery. A loose scatter of tiny individual star-shaped sugar sprinkles in gold, pale yellow, white, pink and sky blue. Stars are separated and irregularly scattered across a centered 128\u00d7128 icon area, with empty transparent space around the perimeter. No jar, no plate, no background. Match existing topper-heart reference: cute polished candy-colour game art, bold dark navy #24163f outlines, soft cel shading, glossy highlights. Render the complete subject centered on the exact 128\u00d7128 transparent canvas. Preserve actual transparency. No shadow, text, scenery, border, clipping, or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8726
+    },
+    {
+      "key": "prop/sprinkles-dots",
+      "file": "party/assets/art/prop/sprinkles-dots.webp",
+      "source": "/Users/hoai/.codex/generated_images/01a131bd-60c3-7b42-acc8-6c462c56ad41/exec-4b74f8d6-3e68-438a-9d5c-3f38b2847e1b.png",
+      "size": [
+        128,
+        128
+      ],
+      "anchor": "centered scatter icon; alpha bbox (18,19)-(113,106); background true transparent.",
+      "prompt": "Use case: stylized-concept. Asset type: transparent game prop sprite/icon for Charlie Party Cake Bakery. A loose scatter of tiny round nonpareil sugar dots in rainbow colours: red, orange, yellow, green, blue, purple. Dots are separated and irregularly scattered across a centered 128\u00d7128 icon area, with empty transparent space around the perimeter. No jar, no plate, no background. Match existing topper-heart reference: cute polished candy-colour game art, bold dark navy #24163f outlines, soft cel shading, glossy highlights. Render the complete subject centered on the exact 128\u00d7128 transparent canvas. Preserve actual transparency. No shadow, text, scenery, border, clipping, or unrelated objects.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8236
+    },
+    {
+      "key": "prop/jump-rope-bunny-pink-cheer",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-2da1d791-42ea-44d7-afdb-d3a35f556833.png",
+      "prompt": "Precise face-only edit of this exact pink Jump Rope bunny. Keep canvas600x660, full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors and shading EXACTLY unchanged. NO arms. Change ONLY face expression to eyes closed in happy arcs and a big open smile. Keep eyes in the same face position and same pinknose. Transparentbackground. Preserve feetbottomcenter(300,660) and shoulderpoints(343,370)/(249,367). No emote,sweat,zzz,stars,sparkles,text. Character identity locked; thisis a facevariant for animation.",
+      "width": 600,
+      "height": 660,
+      "preserveCanvas": true,
+      "geometry": {
+        "feet": [
+          300,
+          660
+        ],
+        "shoulders": [
+          [
+            343,
+            370
+          ],
+          [
+            249,
+            367
+          ]
+        ]
+      },
+      "tool": "built-in imagegen",
+      "bytes": 51098,
+      "status": "visually reviewed expression; truealpha and full canvas preserved"
+    },
+    {
+      "key": "prop/jump-rope-bunny-mint-cheer",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c7f26209-829c-4793-b059-2467042f874d.png",
+      "prompt": "Precise face-only edit of this exact mint Jump Rope bunny. Keep canvas600x660, full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors and shading EXACTLY unchanged. NO arms. Change ONLY face expression to eyes closed in happy arcs and a big open smile. Keep eyes in the same face position and same pinknose. Transparentbackground. Preserve feetbottomcenter(300,660) and shoulderpoints(343,370)/(249,367). No emote,sweat,zzz,stars,sparkles,text. Character identity locked; thisis a facevariant for animation.",
+      "width": 600,
+      "height": 660,
+      "preserveCanvas": true,
+      "geometry": {
+        "feet": [
+          300,
+          660
+        ],
+        "shoulders": [
+          [
+            343,
+            370
+          ],
+          [
+            249,
+            367
+          ]
+        ]
+      },
+      "tool": "built-in imagegen",
+      "bytes": 50256,
+      "status": "visually reviewed expression; truealpha and full canvas preserved"
+    },
+    {
+      "key": "prop/jump-rope-bunny-pink-sneaky",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d4fd7fc4-b945-488b-ab9f-8462dcf3ca4d.png",
+      "prompt": "Precise FACE-ONLY edit of this exact pink Jump Rope bunny. Lock canvas600x660 and full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors,shading EXACTLY unchanged. No arms. Change ONLY eyes and mouth: sleepy half-closed sly eyes and a little smirk. Keep eyes in samefaceposition, pinknose unchanged. Transparentbackground. Preserve feetbottomcenter(300,660), shoulders(343,370)/(249,367). Noemote,sweat,zzz,stars,sparkles,text. Same bunny, slyexpressionvariant.",
+      "width": 600,
+      "height": 660,
+      "preserveCanvas": true,
+      "geometry": {
+        "feet": [
+          300,
+          660
+        ],
+        "shoulders": [
+          [
+            343,
+            370
+          ],
+          [
+            249,
+            367
+          ]
+        ]
+      },
+      "tool": "built-in imagegen",
+      "bytes": 51140,
+      "status": "visually reviewed expression; truealpha and full canvas preserved"
+    },
+    {
+      "key": "prop/jump-rope-bunny-mint-sneaky",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-11a2413d-5256-4fd9-a49b-ce18b903a84e.png",
+      "prompt": "Precise FACE-ONLY edit of this exact mint Jump Rope bunny. Lock canvas600x660 and full silhouette,ear/bow,hair,body,outfit,feet,tail,pose,scale,outline,colors,shading EXACTLY unchanged. No arms. Change ONLY eyes and mouth: sleepy half-closed sly eyes and a little smirk. Keep eyes in samefaceposition, pinknose unchanged. Transparentbackground. Preserve feetbottomcenter(300,660), shoulders(343,370)/(249,367). Noemote,sweat,zzz,stars,sparkles,text. Same bunny, slyexpressionvariant.",
+      "width": 600,
+      "height": 660,
+      "preserveCanvas": true,
+      "geometry": {
+        "feet": [
+          300,
+          660
+        ],
+        "shoulders": [
+          [
+            343,
+            370
+          ],
+          [
+            249,
+            367
+          ]
+        ]
+      },
+      "tool": "built-in imagegen",
+      "bytes": 50286,
+      "status": "visually reviewed expression; truealpha and full canvas preserved"
+    },
+    {
+      "key": "prop/jump-rope-bunny-pink-oops",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-1f0cd274-32be-4135-9a50-7db604172b16.png",
+      "prompt": "Precise FACE-ONLY edit of this exact pink Jump Rope bunny. Lock canvas600x660, full silhouette,ears,bow,body,outfit,feet,tail,pose,scale,navyoutline,color,shading unchanged. No arms. Change ONLY eyes and mouth to a funny oops expression: squeezed-shut wince eyes (small inwardpinched arcs), smallround O mouth. Eyes sameposition, pinknoseunchanged. Transparentbackground. Feetbottomcenter(300,660), shoulderpoints(343,370)/(249,367) unchanged. Noemote,sweat,zzz,stars,sparkles,text. Do not reposition or reinventbody.",
+      "width": 600,
+      "height": 660,
+      "preserveCanvas": true,
+      "geometry": {
+        "feet": [
+          300,
+          660
+        ],
+        "shoulders": [
+          [
+            343,
+            370
+          ],
+          [
+            249,
+            367
+          ]
+        ]
+      },
+      "tool": "built-in imagegen",
+      "bytes": 50350,
+      "status": "visually reviewed expression; truealpha and full canvas preserved"
+    },
+    {
+      "key": "prop/jump-rope-bunny-mint-oops",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-817006f6-b36d-4303-afaa-9a90a8d41674.png",
+      "prompt": "Precise FACE-ONLY edit of this exact mint Jump Rope bunny. Lock canvas600x660, full silhouette,ears,bow,body,outfit,feet,tail,pose,scale,navyoutline,color,shading unchanged. No arms. Change ONLY eyes and mouth to a funny oops expression: squeezed-shut wince eyes (small inwardpinched arcs), smallround O mouth. Eyes sameposition, pinknoseunchanged. Transparentbackground. Feetbottomcenter(300,660), shoulderpoints(343,370)/(249,367) unchanged. Noemote,sweat,zzz,stars,sparkles,text. Do not reposition or reinventbody.",
+      "width": 600,
+      "height": 660,
+      "preserveCanvas": true,
+      "geometry": {
+        "feet": [
+          300,
+          660
+        ],
+        "shoulders": [
+          [
+            343,
+            370
+          ],
+          [
+            249,
+            367
+          ]
+        ]
+      },
+      "tool": "built-in imagegen",
+      "bytes": 50146,
+      "status": "visually reviewed expression; truealpha and full canvas preserved"
+    },
+    {
+      "key": "prop/headband-unicorn",
+      "output": "party/assets/art/prop/headband-unicorn.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/headband-unicorn.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: pearl-white headband with centered spiral unicorn horn striped pastel pink and blue, small pink flower at one side, yellow flower at the other, tiny sparkle at horn tip. Front view, centered complete silhouette. Polished children's game art with bold dark navy outlines, cel shading, candy colors. True transparent background. Intended 160x136 canvas, band bottom center at 78% height. No character/head/model, scenery, text, watermark.",
+      "targetSizePx": [
+        160,
+        136
+      ],
+      "measuredSourceSizePx": [
+        1358,
+        1158
+      ],
+      "measuredSourceAlphaBBox": [
+        49,
+        13,
+        1334,
+        1102
+      ],
+      "measuredOutputSizePx": [
+        160,
+        136
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.85 S; band bottom-centre at 78% height",
+      "measuredOutputAlphaBBox": [
+        22,
+        2,
+        139,
+        136
+      ],
+      "normalizedAnchorXY": [
+        0.49961911357340716,
+        0.5587013198631253
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "16ad324167a8f0cf982aec6f9562f83ede2ccdd091a636815a98bab5a06eb118",
+      "measuredSourceVisibleAlphaBBox": [
+        219,
+        18,
+        1138,
+        1097
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.78
+      ],
+      "sourceAttachmentPointPx": [
+        678,
+        623
+      ],
+      "sourceAttachmentPointMeaning": "underside of central white band at x678 (last opaque pixel y623)",
+      "sourceCropPx": [
+        217,
+        16,
+        1140,
+        1099
+      ],
+      "uniformScale": 0.12188365650969529,
+      "sourceToOutputOffsetPx": [
+        -2.2590027700831072,
+        0.48891966759003214
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        24,
+        3,
+        137,
+        135
+      ],
+      "measuredOutputAttachmentPointPx": [
+        79.93905817174515,
+        75.98337950138504
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "runtimeAnchorChange": "WORN_ART ay matches measured crown underside; preserves complete horseshoe arms at full useful size.",
+      "measuredOutputVisibleFractionXY": [
+        0.70625,
+        0.9705882352941176
+      ],
+      "measuredOutputPixelSha256": "f9eb647ab5065cee71a278f9cfdfcf3d32571442f9bed9b98ccf5f2d515aa41b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.558701
+      ],
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 16704
+    },
+    {
+      "key": "prop/headband-kitty",
+      "output": "party/assets/art/prop/headband-kitty.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/headband-kitty.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: pink kitty-ear headband, curved pink band, two pointed ears with light-pink inner panels, small white bow with gold center on right. Front view, centered complete silhouette. Match polished children's game art: bold dark navy outlines, cel shading, candy colors, crisp edges. Transparent background true alpha. No head, character, mannequin, scenery, artificial background, text, watermark. Intended canvas 160x88, band bottom at 70% height.",
+      "targetSizePx": [
+        160,
+        88
+      ],
+      "measuredSourceSizePx": [
+        1691,
+        930
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        21,
+        1661,
+        920
+      ],
+      "measuredOutputSizePx": [
+        160,
+        88
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.55 S; band bottom at 70%",
+      "measuredOutputAlphaBBox": [
+        15,
+        0,
+        146,
+        88
+      ],
+      "normalizedAnchorXY": [
+        0.4996677215189873,
+        0.371921749136939
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "d67e29489080f4593d227eba52748b484839dc64f25fef1c71395c60e27e4e22",
+      "measuredSourceVisibleAlphaBBox": [
+        252,
+        49,
+        1439,
+        835
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.7
+      ],
+      "sourceAttachmentPointPx": [
+        845,
+        336
+      ],
+      "sourceAttachmentPointMeaning": "underside of central pink band at x845 (last opaque pixel y336)",
+      "sourceCropPx": [
+        250,
+        47,
+        1441,
+        837
+      ],
+      "uniformScale": 0.10632911392405063,
+      "sourceToOutputOffsetPx": [
+        -9.454430379746833,
+        -2.5506329113924067
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        17,
+        2,
+        144,
+        87
+      ],
+      "measuredOutputAttachmentPointPx": [
+        79.94683544303797,
+        32.72911392405063
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "runtimeAnchorChange": "WORN_ART ay matches measured crown underside; preserves complete horseshoe arms at full useful size.",
+      "measuredOutputVisibleFractionXY": [
+        0.79375,
+        0.9659090909090909
+      ],
+      "measuredOutputPixelSha256": "6764308f5ff3ec6e16d7070d7bacfc373f8f8b6cf9215a5d4630a2c9edb00b22",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.371922
+      ],
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 11954
+    },
+    {
+      "key": "prop/hat-princess",
+      "output": "party/assets/art/prop/hat-princess.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/hat-princess.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Tall pink princess hennin cone hat, gold band, three small gold stars up one side, pale pink veil streaming back from tip. Front three-quarter facing right. Centered complete silhouette, canvas proportion 160x174, all edges inside frame. Match polished children's game art: bold dark navy outlines, cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        174
+      ],
+      "measuredSourceSizePx": [
+        1202,
+        1308
+      ],
+      "measuredSourceAlphaBBox": [
+        67,
+        39,
+        1172,
+        1246
+      ],
+      "measuredOutputSizePx": [
+        160,
+        174
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 0.85x0.9 S; brim at 88%",
+      "measuredOutputAlphaBBox": [
+        0,
+        47,
+        116,
+        171
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.88
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "e5f1040f7b92c82399fc17c47d9ed6759b5ec4ff9dfea48896c341c9425d5fad",
+      "measuredSourceVisibleAlphaBBox": [
+        70,
+        67,
+        1169,
+        1244
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.88
+      ],
+      "sourceAttachmentPointPx": [
+        845,
+        1100
+      ],
+      "sourceAttachmentPointMeaning": "centre of sloping oval hat brim, inspected on native image",
+      "sourceCropPx": [
+        68,
+        65,
+        1171,
+        1246
+      ],
+      "uniformScale": 0.10038610038610038,
+      "sourceToOutputOffsetPx": [
+        -4.376447876447875,
+        43.14509652509654
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        49,
+        113,
+        168
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        153.12
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.69375,
+        0.6839080459770115
+      ],
+      "measuredOutputPixelSha256": "a7e309c5f8d156d0a5e77198a1c1ac7d44e2ebea43197e85959339014c80fc8c",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 16464
+    },
+    {
+      "key": "prop/headband-hearts",
+      "output": "party/assets/art/prop/headband-hearts.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/headband-hearts.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Ruby-red headband with two bobbing heart antennae on springy stalks. Front view. Centered complete silhouette, canvas proportion 160x120, all edges inside frame. Match polished children's game art: bold dark navy outlines, cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        120
+      ],
+      "measuredSourceSizePx": [
+        1448,
+        1086
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        37,
+        1426,
+        1086
+      ],
+      "measuredOutputSizePx": [
+        160,
+        120
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.75 S; band bottom at 80%",
+      "measuredOutputAlphaBBox": [
+        13,
+        0,
+        148,
+        120
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.533315659243549
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "8ea9ba1dec4e2b7a889a93586386685e7fc298e7f3452dd5b19bb755e770e287",
+      "measuredSourceVisibleAlphaBBox": [
+        193,
+        63,
+        1255,
+        1002
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.8
+      ],
+      "sourceAttachmentPointPx": [
+        724,
+        565
+      ],
+      "sourceAttachmentPointMeaning": "underside of central red band at x724 (last opaque pixel y565)",
+      "sourceCropPx": [
+        191,
+        61,
+        1257,
+        1004
+      ],
+      "uniformScale": 0.12301166489925769,
+      "sourceToOutputOffsetPx": [
+        -8.621951219512201,
+        -5.065217391304347
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        15,
+        2,
+        146,
+        119
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        63.99787910922588
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "runtimeAnchorChange": "WORN_ART ay matches measured crown underside; preserves complete horseshoe arms at full useful size.",
+      "measuredOutputVisibleFractionXY": [
+        0.81875,
+        0.975
+      ],
+      "measuredOutputPixelSha256": "9dbe6c8d79e8bbbba28906257c2eb56911c58353d6b11f6257c6fd55e8aee4a8",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.533316
+      ],
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 13530
+    },
+    {
+      "key": "prop/halo-fairy",
+      "output": "party/assets/art/prop/halo-fairy.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/halo-fairy.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Golden fairy halo ring seen slightly from above as an oval, gentle yellow glow close to ring and two or three tiny sparkles. Front view. Centered complete silhouette, canvas proportion 160x56, all edges inside frame. Match polished children's game art: bold dark navy outlines, cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        56
+      ],
+      "measuredSourceSizePx": [
+        2119,
+        742
+      ],
+      "measuredSourceAlphaBBox": [
+        49,
+        28,
+        2073,
+        742
+      ],
+      "measuredOutputSizePx": [
+        160,
+        56
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.35 S; anchor y=1.4 canvas heights from top",
+      "measuredOutputAlphaBBox": [
+        6,
+        2,
+        155,
+        55
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        1.4
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "92e6c759c8b75dbf0860dedaf28b92804f1674d63341d0aebc4d89662f0272be",
+      "measuredSourceVisibleAlphaBBox": [
+        502,
+        175,
+        1589,
+        555
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        1.4
+      ],
+      "sourceAttachmentPointPx": [
+        1045.5,
+        365
+      ],
+      "sourceAttachmentPointMeaning": "ring visual centre; head attachment is deliberately below the canvas; consumer head attachment at (canvas centre x, 1.4 canvas heights)",
+      "sourceCropPx": [
+        500,
+        173,
+        1591,
+        557
+      ],
+      "uniformScale": 0.13541666666666666,
+      "sourceToOutputOffsetPx": [
+        -61.145833333333336,
+        -20.99479166666666
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        7,
+        3,
+        154,
+        54
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        78.39999999999999
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.91875,
+        0.9107142857142857
+      ],
+      "measuredOutputPixelSha256": "9a27bfb604987b23be566b6365008c56e8a51955034d34ebc1b802b101e4565b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 16290
+    },
+    {
+      "key": "prop/mask-masquerade",
+      "output": "party/assets/art/prop/mask-masquerade.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/mask-masquerade.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Lilac masquerade eye mask with gold-rimmed eye holes, two large open holes showing fully transparent background through them, a red gem between eyes, sky-blue feather plume on right. Front view. Centered complete silhouette in canvas ratio 140x76, eye-line/face details positioned to leave clear space above as appropriate. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. Any holes or lens openings must be fully transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        76
+      ],
+      "measuredSourceSizePx": [
+        1703,
+        924
+      ],
+      "measuredSourceAlphaBBox": [
+        25,
+        21,
+        1660,
+        900
+      ],
+      "measuredOutputSizePx": [
+        140,
+        76
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.1x0.6 S; eye line at 55%; both eye holes transparent",
+      "measuredOutputAlphaBBox": [
+        29,
+        0,
+        134,
+        60
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.5501304915180514
+      ],
+      "transparentOpeningVerified": true,
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "5ec67fd5078c4bd9e41e8f68fad12cc74e5fa7c8c827a67e633c0e203a1d3674",
+      "measuredSourceVisibleAlphaBBox": [
+        220,
+        67,
+        1657,
+        854
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.55
+      ],
+      "sourceAttachmentPointPx": [
+        776.9516214938385,
+        639.4164854239409
+      ],
+      "sourceAttachmentPointMeaning": "midpoint of the two transparent eye-hole centroids",
+      "sourceCropPx": [
+        218,
+        65,
+        1659,
+        856
+      ],
+      "uniformScale": 0.06928770501881767,
+      "sourceToOutputOffsetPx": [
+        16.632161383533425,
+        -2.038344678732554
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        31,
+        2,
+        132,
+        58
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        41.8099173553719
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredTransparentOpenings": [
+        {
+          "areaPx": 121,
+          "bboxPx": [
+            44,
+            38,
+            63,
+            47
+          ],
+          "centroidPx": [
+            53.01652892561984,
+            41.8099173553719
+          ],
+          "coreMaxAlpha": 1,
+          "centreAlpha": 0
+        },
+        {
+          "areaPx": 121,
+          "bboxPx": [
+            78,
+            38,
+            97,
+            47
+          ],
+          "centroidPx": [
+            86.98347107438016,
+            41.8099173553719
+          ],
+          "coreMaxAlpha": 1,
+          "centreAlpha": 0
+        }
+      ],
+      "measuredOutputVisibleFractionXY": [
+        0.7214285714285714,
+        0.7368421052631579
+      ],
+      "measuredOutputPixelSha256": "d965c3c0403e452638e2fb227db2d8c43f208d33ed2ee018d388828355972b4b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.55
+      ],
+      "anchorMeasurementNote": "Output attachment measured from transparent opening centroid(s); anti-aliased rim can contain alpha1\u20132 around otherwise fully transparent hole cores.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 9936
+    },
+    {
+      "key": "prop/glasses-monocle",
+      "output": "party/assets/art/prop/glasses-monocle.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/glasses-monocle.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Single gold monocle accessory: one round glass lens with thick gold rim and a fine gold chain curling downward. Centered, transparent lens interior and no second lens. Centered complete silhouette in canvas ratio 60x106, eye-line/face details positioned to leave clear space above as appropriate. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. Any holes or lens openings must be fully transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        60,
+        106
+      ],
+      "measuredSourceSizePx": [
+        943,
+        1668
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        55,
+        907,
+        1626
+      ],
+      "measuredOutputSizePx": [
+        60,
+        106
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 0.42x0.75 S; lens centre (forward side x=0.74, y=0.22)",
+      "measuredOutputAlphaBBox": [
+        7,
+        1,
+        60,
+        100
+      ],
+      "normalizedAnchorXY": [
+        0.500441329179647,
+        0.22086051842708518
+      ],
+      "transparentOpeningVerified": true,
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "db908031f5d3bb06f098c39ec5b0f2011328c9e3ecf7b7b71f0d1db579ceffae",
+      "measuredSourceVisibleAlphaBBox": [
+        138,
+        144,
+        860,
+        1531
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.22
+      ],
+      "sourceAttachmentPointPx": [
+        445.3799853357639,
+        437.2534356690726
+      ],
+      "sourceAttachmentPointMeaning": "centroid of the transparent lens opening",
+      "sourceCropPx": [
+        136,
+        142,
+        862,
+        1533
+      ],
+      "uniformScale": 0.06720752487747345,
+      "sourceToOutputOffsetPx": [
+        0.5335097931791536,
+        -5.600324917928666
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        9,
+        4,
+        59,
+        98
+      ],
+      "measuredOutputAttachmentPointPx": [
+        30.02647975077882,
+        23.411214953271028
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredTransparentOpenings": [
+        {
+          "areaPx": 642,
+          "bboxPx": [
+            16,
+            10,
+            45,
+            38
+          ],
+          "centroidPx": [
+            30.02647975077882,
+            23.411214953271028
+          ],
+          "coreMaxAlpha": 2,
+          "centreAlpha": 0
+        }
+      ],
+      "measuredOutputVisibleFractionXY": [
+        0.8333333333333334,
+        0.8867924528301887
+      ],
+      "measuredOutputPixelSha256": "4b83bc9410f6ac757adcb69b542c75e84b947162d409b76de9e460ea96fd4559",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.22
+      ],
+      "anchorMeasurementNote": "Output attachment measured from transparent opening centroid(s); anti-aliased rim can contain alpha1\u20132 around otherwise fully transparent hole cores.",
+      "runtimeFacingOffsetS": 0.24,
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 5418
+    },
+    {
+      "key": "prop/face-whiskers",
+      "output": "party/assets/art/prop/face-whiskers.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/face-whiskers.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Kitty face-paint overlay only: pink heart nose in center and exactly three navy whisker strokes on each cheek; no face, no head, no eyes. Centered complete silhouette in canvas ratio 140x70, eye-line/face details positioned to leave clear space above as appropriate. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. Any holes or lens openings must be fully transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        70
+      ],
+      "measuredSourceSizePx": [
+        1774,
+        887
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        53,
+        1756,
+        867
+      ],
+      "measuredOutputSizePx": [
+        140,
+        70
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.0x0.5 S; eye line at 20%",
+      "measuredOutputAlphaBBox": [
+        0,
+        23,
+        140,
+        67
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "cae273a9ae2d78c0602d91ad2b5f2df33b9d321d836c76454518087aae993329",
+      "measuredSourceVisibleAlphaBBox": [
+        106,
+        253,
+        1668,
+        703
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourceAttachmentPointPx": [
+        887,
+        130
+      ],
+      "sourceAttachmentPointMeaning": "virtual eye-line point above the paint, retaining cheek/nose offset",
+      "sourceCropPx": [
+        104,
+        251,
+        1670,
+        705
+      ],
+      "uniformScale": 0.08684546615581099,
+      "sourceToOutputOffsetPx": [
+        -6.575351213282248,
+        3.166666666666666
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        25,
+        139,
+        65
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        14.0
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "anchorMeasurementNote": "Eye line is a virtual attachment point, because face-paint artwork intentionally contains no eyes.",
+      "measuredOutputVisibleFractionXY": [
+        0.9785714285714285,
+        0.5714285714285714
+      ],
+      "measuredOutputPixelSha256": "0b637c6a231c390cd3194c01e6434f1aeee15a6b8240b9faf3a48a3af382986b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 7616
+    },
+    {
+      "key": "prop/face-butterfly",
+      "output": "party/assets/art/prop/face-butterfly.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/face-butterfly.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Face-paint overlay only: small sky-blue butterfly on right cheek and two tiny white sparkles on left cheek, leave eyes/nose area empty. No face or head. Centered complete silhouette on transparent canvas ratio 140x70. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background; open eyewear/lens interior should remain transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        70
+      ],
+      "measuredSourceSizePx": [
+        1774,
+        887
+      ],
+      "measuredSourceAlphaBBox": [
+        356,
+        198,
+        1734,
+        774
+      ],
+      "measuredOutputSizePx": [
+        140,
+        70
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.0x0.5 S; eye line at 20%",
+      "measuredOutputAlphaBBox": [
+        2,
+        33,
+        139,
+        70
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "9293402bcbf053760b784dbdd12099c052d94c4d8c0108c68a095f9e095501f0",
+      "measuredSourceVisibleAlphaBBox": [
+        359,
+        372,
+        1431,
+        636
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourceAttachmentPointPx": [
+        895,
+        200
+      ],
+      "sourceAttachmentPointMeaning": "virtual eye-line point between cheek decorations, above paint",
+      "sourceCropPx": [
+        357,
+        370,
+        1433,
+        638
+      ],
+      "uniformScale": 0.1232876712328767,
+      "sourceToOutputOffsetPx": [
+        -39.904109589041084,
+        -10.21917808219178
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        4,
+        35,
+        137,
+        69
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        14.0
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "anchorMeasurementNote": "Eye line is a virtual attachment point, because face-paint artwork intentionally contains no eyes.",
+      "measuredOutputVisibleFractionXY": [
+        0.95,
+        0.4857142857142857
+      ],
+      "measuredOutputPixelSha256": "e7f6c35aec18c3738fad44d8c5404543d0832f3973adca6a381c4bfccd8cb4d7",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 3670
+    },
+    {
+      "key": "prop/glasses-goggles",
+      "output": "party/assets/art/prop/glasses-goggles.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/glasses-goggles.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Mint party goggles: one wide wrap-around translucent mint lens with navy strap extending to both sides, large glossy shine streak, no character behind it. Front view. Centered complete silhouette on transparent canvas ratio 140x60. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background; open eyewear/lens interior should remain transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        60
+      ],
+      "measuredSourceSizePx": [
+        1916,
+        821
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        17,
+        1916,
+        807
+      ],
+      "measuredOutputSizePx": [
+        140,
+        60
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.05x0.45 S; centered on eye line",
+      "measuredOutputAlphaBBox": [
+        0,
+        9,
+        140,
+        52
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.5
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "4e56d5e2270b7011e59a4b24d2160824ac31fb566188d03e166103256ccedc54",
+      "measuredSourceVisibleAlphaBBox": [
+        12,
+        147,
+        1905,
+        675
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.5
+      ],
+      "sourceAttachmentPointPx": [
+        958,
+        411
+      ],
+      "sourceAttachmentPointMeaning": "midpoint of visible goggles height and horizontal lens span",
+      "sourceCropPx": [
+        10,
+        145,
+        1907,
+        677
+      ],
+      "uniformScale": 0.07165437302423604,
+      "sourceToOutputOffsetPx": [
+        1.8192834562697628,
+        1.0142255005268703
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        11,
+        139,
+        50
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        30.0
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.9785714285714285,
+        0.65
+      ],
+      "measuredOutputPixelSha256": "9cbc13954a8c24b6378e652348ebaa2595e4c5797638580afe9837e995861257",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 9440
+    },
+    {
+      "key": "prop/necklace-pendant",
+      "output": "party/assets/art/prop/necklace-pendant.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/necklace-pendant.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Gold chain necklace with round royal pendant: large sky-blue cut gem in gold setting ringed with tiny pearls, delicate chain draped in a shallow V. Centered complete silhouette on transparent canvas ratio 160x126. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        126
+      ],
+      "measuredSourceSizePx": [
+        1413,
+        1113
+      ],
+      "measuredSourceAlphaBBox": [
+        25,
+        19,
+        1383,
+        1089
+      ],
+      "measuredOutputSizePx": [
+        160,
+        126
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.7x0.55 S; chain top at 10%",
+      "measuredOutputAlphaBBox": [
+        7,
+        11,
+        154,
+        126
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "99e537f3f106477820cd3f1cf710573d3a4babe61075e2a4e6f9eee01dfefe05",
+      "measuredSourceVisibleAlphaBBox": [
+        49,
+        36,
+        1364,
+        1061
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourceAttachmentPointPx": [
+        706.5,
+        36
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of two chain ends at their visible top",
+      "sourceCropPx": [
+        47,
+        34,
+        1366,
+        1063
+      ],
+      "uniformScale": 0.10847127555988316,
+      "sourceToOutputOffsetPx": [
+        3.810808179162604,
+        9.140798442064266
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        9,
+        13,
+        152,
+        125
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        12.600000000000001
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.89375,
+        0.8888888888888888
+      ],
+      "measuredOutputPixelSha256": "bca32aa2bb0fea410439b54257ceb3cd740ef83b83e8674aae9307027f5e28a3",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 12382
+    },
+    {
+      "key": "prop/collar-ruffle",
+      "output": "party/assets/art/prop/collar-ruffle.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/collar-ruffle.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Pearl-white royal ruffled collar, ring of soft gathered ruffles, small red gem centered in front. Front view, open center. Centered complete silhouette on transparent canvas ratio 160x66. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        66
+      ],
+      "measuredSourceSizePx": [
+        1952,
+        806
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        50,
+        1910,
+        780
+      ],
+      "measuredOutputSizePx": [
+        160,
+        66
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.85x0.35 S; top at 25%",
+      "measuredOutputAlphaBBox": [
+        18,
+        14,
+        143,
+        66
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.25
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "fa7001f460c1a17a664bfe24f10a21504079524ccdd1ee8d1d838fc3b91d25ea",
+      "measuredSourceVisibleAlphaBBox": [
+        159,
+        52,
+        1794,
+        701
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.25
+      ],
+      "sourceAttachmentPointPx": [
+        976,
+        52
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of collar at its visible top",
+      "sourceCropPx": [
+        157,
+        50,
+        1796,
+        703
+      ],
+      "uniformScale": 0.07296466973886329,
+      "sourceToOutputOffsetPx": [
+        9.250000000000002,
+        13.169354838709678
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        20,
+        16,
+        141,
+        65
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        16.5
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.75625,
+        0.7424242424242424
+      ],
+      "measuredOutputPixelSha256": "ed1f12db37660d943bb1efd82c5329772f0174c79f00f3216459b5fef4ae3d77",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 11046
+    },
+    {
+      "key": "prop/necklace-candy",
+      "output": "party/assets/art/prop/necklace-candy.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/necklace-candy.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Candy necklace: shallow U-shaped string of small round candy beads in rainbow pastel colors, evenly spaced. Centered complete silhouette on transparent canvas ratio 160x66. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        66
+      ],
+      "measuredSourceSizePx": [
+        1954,
+        805
+      ],
+      "measuredSourceAlphaBBox": [
+        107,
+        44,
+        1906,
+        749
+      ],
+      "measuredOutputSizePx": [
+        160,
+        66
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.85x0.35 S; top at 10%",
+      "measuredOutputAlphaBBox": [
+        0,
+        5,
+        160,
+        65
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "9c0ae5cf4b60176dcf5f5eaf43e8c96191a6146e611c164741c17c1e1580591a",
+      "measuredSourceVisibleAlphaBBox": [
+        110,
+        94,
+        1844,
+        713
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourceAttachmentPointPx": [
+        977,
+        94
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of two bead ends at their visible top",
+      "sourceCropPx": [
+        108,
+        92,
+        1846,
+        715
+      ],
+      "uniformScale": 0.08975834292289989,
+      "sourceToOutputOffsetPx": [
+        -7.238780207134643,
+        -1.3821634062140382
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        7,
+        159,
+        63
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        6.6000000000000005
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.98125,
+        0.8484848484848485
+      ],
+      "measuredOutputPixelSha256": "b963f2edd8b0a8a9a903c8bf1fe5c1e34e2d91aa9bb17372a5e79a7243a2b7c6",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 9758
+    },
+    {
+      "key": "prop/medal-star",
+      "output": "party/assets/art/prop/medal-star.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/medal-star.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Champion medal: blue-and-red ribbon descending in a V, round gold medal at the bottom center with a raised five-point star. Centered complete silhouette on transparent canvas ratio 160x117. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        117
+      ],
+      "measuredSourceSizePx": [
+        1467,
+        1072
+      ],
+      "measuredSourceAlphaBBox": [
+        33,
+        8,
+        1415,
+        1040
+      ],
+      "measuredOutputSizePx": [
+        160,
+        117
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.75x0.55 S; ribbon top at 15%",
+      "measuredOutputAlphaBBox": [
+        40,
+        15,
+        121,
+        117
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.15
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "e530168b5d7d20d6c68dcd469f16d7ba12af47647f30f0451a81baff0ff1cee5",
+      "measuredSourceVisibleAlphaBBox": [
+        331,
+        10,
+        1134,
+        1036
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.15
+      ],
+      "sourceAttachmentPointPx": [
+        732.5,
+        10
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of two ribbon ends at their visible top",
+      "sourceCropPx": [
+        329,
+        8,
+        1136,
+        1038
+      ],
+      "uniformScale": 0.09479571984435797,
+      "sourceToOutputOffsetPx": [
+        11.014737354085602,
+        17.054644941634244
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        42,
+        17,
+        119,
+        116
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        17.55
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.48125,
+        0.8461538461538461
+      ],
+      "measuredOutputPixelSha256": "babc366852dced0930dc8d17f49a828c57410b8c6c0fda3667cff1fd51035cf4",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 14204
+    },
+    {
+      "key": "prop/boa-feather",
+      "output": "party/assets/art/prop/boa-feather.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/boa-feather.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Fluffy pink feather boa looped around the neck, full soft ring with one end hanging down the front on the right. No neck or body. Centered complete silhouette on transparent canvas ratio 160x136. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        136
+      ],
+      "measuredSourceSizePx": [
+        1360,
+        1156
+      ],
+      "measuredSourceAlphaBBox": [
+        41,
+        32,
+        1340,
+        1156
+      ],
+      "measuredOutputSizePx": [
+        160,
+        136
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 1.0x0.85 S; top at 20%",
+      "measuredOutputAlphaBBox": [
+        32,
+        25,
+        129,
+        136
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "558b086596ba0359107229253ff02d2463ebc799deff3efa235caf5b89a22a2e",
+      "measuredSourceVisibleAlphaBBox": [
+        217,
+        35,
+        1156,
+        1127
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourceAttachmentPointPx": [
+        686,
+        35
+      ],
+      "sourceAttachmentPointMeaning": "top of the feather ring, horizontally centred on the neck opening",
+      "sourceCropPx": [
+        215,
+        33,
+        1158,
+        1129
+      ],
+      "uniformScale": 0.0976234003656307,
+      "sourceToOutputOffsetPx": [
+        13.481535648994518,
+        24.234369287020115
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        34,
+        27,
+        127,
+        135
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        27.200000000000003
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.58125,
+        0.7941176470588235
+      ],
+      "measuredOutputPixelSha256": "0a4d4c7643baf17a248c8f8f5c5020d0b2979d778bccb8970199a261b5088b07",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; precise measuredattachment audit",
+      "bytes": 16266
+    },
+    {
+      "key": "prop/wings-dragonfly",
+      "canvas": [
+        300,
+        183
+      ],
+      "anchor": [
+        150.0,
+        100.65
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/wings-dragonfly-source.webp",
+      "source_dimensions": [
+        1605,
+        980
+      ],
+      "source_alpha_bbox": [
+        0,
+        20,
+        1591,
+        980
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/wings-dragonfly.webp",
+      "output_alpha_bbox": [
+        11,
+        22,
+        293,
+        178
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 300\u00d7183 transparent canvas. Primary request: Two pairs of long slim mint dragonfly wings spreading symmetrically from a single centered root; pale translucent membranes with darker mint vein lines, narrow elegant elongated lobes. Style: match Charlie Party props, bold smooth dark navy (#24163f) outlines, rounded shapes, candy colors, simple clean cel shading; no photorealism, no 3D. Centered, whole prop visible with margin. Constraints: true transparency, no character/body/hands, scenery, shadow, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.55
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        20,
+        1591,
+        980
+      ],
+      "source_visible_bbox_alpha32": [
+        53,
+        159,
+        1553,
+        801
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        50,
+        156,
+        1556,
+        804
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        37,
+        298,
+        164
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        37,
+        298,
+        164
+      ],
+      "visible_art_dimensions": [
+        296,
+        127
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.5
+      ],
+      "actual_root_point_after_canvas_fit": [
+        150.0,
+        100.5
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        -0.15
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 36914
+    },
+    {
+      "key": "prop/wings-petal",
+      "canvas": [
+        300,
+        240
+      ],
+      "anchor": [
+        150.0,
+        120.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/wings-petal-source.webp",
+      "source_dimensions": [
+        1402,
+        1122
+      ],
+      "source_alpha_bbox": [
+        49,
+        112,
+        1318,
+        1081
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/wings-petal.webp",
+      "output_alpha_bbox": [
+        10,
+        8,
+        296,
+        215
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 300\u00d7240 transparent canvas. Primary request: Flower-petal fairy wings: pink and light-pink rounded petals fanning out symmetrically from a small white flower at centered root. Style: match Charlie Party props, bold smooth dark navy (#24163f) outlines, rounded shapes, candy colors, simple clean cel shading; no photorealism, no 3D. Centered, whole prop visible with margin. Constraints: true transparency, no character/body/hands, scenery, shadow, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.5
+      ],
+      "source_alpha_bbox_any": [
+        49,
+        112,
+        1318,
+        1081
+      ],
+      "source_visible_bbox_alpha32": [
+        87,
+        116,
+        1314,
+        1000
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        84,
+        113,
+        1317,
+        1003
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        13,
+        298,
+        227
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        13,
+        298,
+        227
+      ],
+      "visible_art_dimensions": [
+        296,
+        214
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.5
+      ],
+      "actual_root_point_after_canvas_fit": [
+        150.0,
+        120.0
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.0
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 53354
+    },
+    {
+      "key": "prop/wings-dragon",
+      "canvas": [
+        300,
+        158
+      ],
+      "anchor": [
+        150.0,
+        94.8
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/wings-dragon-source.webp",
+      "source_dimensions": [
+        1727,
+        911
+      ],
+      "source_alpha_bbox": [
+        34,
+        29,
+        1695,
+        871
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/wings-dragon.webp",
+      "output_alpha_bbox": [
+        4,
+        22,
+        296,
+        140
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 300\u00d7158 transparent canvas. Primary request: Cute mint baby-dragon wings, symmetrical, rounded scalloped edges, light finger struts and small pearl claw tips; friendly and sweet, not scary. Style: match Charlie Party props, bold smooth dark navy (#24163f) outlines, rounded shapes, candy colors, simple clean cel shading; no photorealism, no 3D. Centered, whole prop visible with margin. Constraints: true transparency, no character/body/hands, scenery, shadow, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.6
+      ],
+      "source_alpha_bbox_any": [
+        34,
+        29,
+        1695,
+        871
+      ],
+      "source_visible_bbox_alpha32": [
+        37,
+        122,
+        1690,
+        754
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        34,
+        119,
+        1693,
+        757
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        32,
+        298,
+        146
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        32,
+        298,
+        146
+      ],
+      "visible_art_dimensions": [
+        296,
+        114
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.55
+      ],
+      "actual_root_point_after_canvas_fit": [
+        150.0,
+        94.7
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        -0.1
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 30604
+    },
+    {
+      "key": "prop/bow-back",
+      "canvas": [
+        300,
+        220
+      ],
+      "anchor": [
+        150.0,
+        88.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/bow-back-source.webp",
+      "source_dimensions": [
+        1464,
+        1074
+      ],
+      "source_alpha_bbox": [
+        0,
+        8,
+        1448,
+        1074
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/bow-back.webp",
+      "output_alpha_bbox": [
+        8,
+        0,
+        293,
+        209
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 300\u00d7220 transparent canvas. Primary request: Huge ruby-red satin ribbon bow, centered knot, large loops and two long tails hanging downward, glossy soft highlights. Style: match Charlie Party props, bold smooth dark navy (#24163f) outlines, rounded shapes, candy colors, simple clean cel shading; no photorealism, no 3D. Centered, whole prop visible with margin. Constraints: true transparency, no character/body/hands, scenery, shadow, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.4
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        8,
+        1448,
+        1074
+      ],
+      "source_visible_bbox_alpha32": [
+        118,
+        11,
+        1346,
+        1032
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        115,
+        8,
+        1349,
+        1035
+      ],
+      "output_visible_bbox_alpha32": [
+        20,
+        2,
+        280,
+        218
+      ],
+      "output_alpha_bbox_any": [
+        20,
+        2,
+        280,
+        218
+      ],
+      "visible_art_dimensions": [
+        260,
+        216
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.4
+      ],
+      "actual_root_point_after_canvas_fit": [
+        150.0,
+        88.4
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.4
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 48970
+    },
+    {
+      "key": "prop/cape-star",
+      "canvas": [
+        300,
+        292
+      ],
+      "anchor": [
+        150.0,
+        8.76
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/cape-star-source.webp",
+      "source_dimensions": [
+        1271,
+        1238
+      ],
+      "source_alpha_bbox": [
+        0,
+        37,
+        1201,
+        1238
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/cape-star.webp",
+      "output_alpha_bbox": [
+        20,
+        6,
+        292,
+        273
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 300\u00d7292 transparent canvas. Primary request: Lilac velvet cape, broad shoulders narrowing to scalloped hem, scattered small white and pale-yellow stars, light-lilac collar. Style: match Charlie Party props, bold smooth dark navy (#24163f) outlines, rounded shapes, candy colors, simple clean cel shading; no photorealism, no 3D. Centered, whole prop visible with margin. Constraints: true transparency, no character/body/hands, scenery, shadow, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.03
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        37,
+        1201,
+        1238
+      ],
+      "source_visible_bbox_alpha32": [
+        72,
+        73,
+        1198,
+        1155
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        69,
+        70,
+        1201,
+        1158
+      ],
+      "output_visible_bbox_alpha32": [
+        3,
+        1,
+        297,
+        284
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        0,
+        298,
+        284
+      ],
+      "visible_art_dimensions": [
+        294,
+        283
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.03
+      ],
+      "actual_root_point_after_canvas_fit": [
+        150.0,
+        8.52
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        -0.24
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 67358
+    },
+    {
+      "key": "prop/backpack-teddy",
+      "canvas": [
+        140,
+        200
+      ],
+      "anchor": [
+        70.0,
+        150.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/backpack-teddy-source.webp",
+      "source_dimensions": [
+        1049,
+        1499
+      ],
+      "source_alpha_bbox": [
+        50,
+        150,
+        1001,
+        1402
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/backpack-teddy.webp",
+      "output_alpha_bbox": [
+        4,
+        25,
+        136,
+        174
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 140\u00d7200 transparent canvas. Primary request: A small pink backpack with a darker pink flap, and a little brown teddy bear sitting inside; teddy head and rounded ears peek over the top-right corner. Cute simple school accessory, bag front visible. Style: match Charlie Party wardrobe props, bold smooth dark navy (#24163f) outlines, rounded appealing shapes, candy colors, clean cel shading. Composition: centered, whole object visible with margin; honor attachment grip/root placement for this prop. Constraints: true transparent background, no people/characters/hands, scenery, shadows, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.75
+      ],
+      "source_alpha_bbox_any": [
+        50,
+        150,
+        1001,
+        1402
+      ],
+      "source_visible_bbox_alpha32": [
+        53,
+        202,
+        997,
+        1243
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        50,
+        199,
+        1000,
+        1246
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        38,
+        138,
+        188
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        38,
+        138,
+        188
+      ],
+      "visible_art_dimensions": [
+        136,
+        150
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.75
+      ],
+      "actual_root_point_after_canvas_fit": [
+        70.0,
+        150.5
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.5
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 27574
+    },
+    {
+      "key": "prop/scepter-royal",
+      "canvas": [
+        60,
+        200
+      ],
+      "anchor": [
+        30.0,
+        168.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/scepter-royal-source.webp",
+      "source_dimensions": [
+        887,
+        1774
+      ],
+      "source_alpha_bbox": [
+        51,
+        85,
+        784,
+        1695
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/scepter-royal.webp",
+      "output_alpha_bbox": [
+        19,
+        72,
+        44,
+        186
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 60\u00d7200 transparent canvas. Primary request: A slim gold royal scepter with two decorative rings on the rod and a round gold orb topped by a tiny crown; straight vertical presentation. Style: match Charlie Party wardrobe props, bold smooth dark navy (#24163f) outlines, rounded appealing shapes, candy colors, clean cel shading. Composition: centered, whole object visible with margin; honor attachment grip/root placement for this prop. Constraints: true transparent background, no people/characters/hands, scenery, shadows, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.84
+      ],
+      "source_alpha_bbox_any": [
+        51,
+        85,
+        784,
+        1695
+      ],
+      "source_visible_bbox_alpha32": [
+        306,
+        88,
+        581,
+        1693
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        303,
+        85,
+        584,
+        1696
+      ],
+      "output_visible_bbox_alpha32": [
+        13,
+        3,
+        47,
+        199
+      ],
+      "output_alpha_bbox_any": [
+        13,
+        3,
+        47,
+        199
+      ],
+      "visible_art_dimensions": [
+        34,
+        196
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.84
+      ],
+      "actual_root_point_after_canvas_fit": [
+        30.0,
+        167.64
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        -0.36
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 8976
+    },
+    {
+      "key": "prop/lollipop-swirl",
+      "canvas": [
+        90,
+        200
+      ],
+      "anchor": [
+        45.0,
+        176.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/lollipop-swirl-source.webp",
+      "source_dimensions": [
+        841,
+        1870
+      ],
+      "source_alpha_bbox": [
+        58,
+        104,
+        776,
+        1846
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/lollipop-swirl.webp",
+      "output_alpha_bbox": [
+        6,
+        15,
+        85,
+        189
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 90\u00d7200 transparent canvas. Primary request: A big round pink-and-white swirl lollipop on a white stick, with a small red ribbon bow tied directly under the candy. Style: match Charlie Party wardrobe props, bold smooth dark navy (#24163f) outlines, rounded appealing shapes, candy colors, clean cel shading. Composition: centered, whole object visible with margin; honor attachment grip/root placement for this prop. Constraints: true transparent background, no people/characters/hands, scenery, shadows, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.88
+      ],
+      "source_alpha_bbox_any": [
+        58,
+        104,
+        776,
+        1846
+      ],
+      "source_visible_bbox_alpha32": [
+        68,
+        197,
+        773,
+        1734
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        65,
+        194,
+        776,
+        1737
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        11,
+        88,
+        198
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        11,
+        88,
+        198
+      ],
+      "visible_art_dimensions": [
+        86,
+        187
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.88
+      ],
+      "actual_root_point_after_canvas_fit": [
+        45.0,
+        175.56
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        -0.44
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 16708
+    },
+    {
+      "key": "prop/handbag",
+      "canvas": [
+        120,
+        140
+      ],
+      "anchor": [
+        60.0,
+        7.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/handbag-source.webp",
+      "source_dimensions": [
+        1161,
+        1355
+      ],
+      "source_alpha_bbox": [
+        0,
+        41,
+        1147,
+        1355
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/handbag.webp",
+      "output_alpha_bbox": [
+        11,
+        6,
+        111,
+        124
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 120\u00d7140 transparent canvas. Primary request: Little lilac handbag with a gold arched handle, darker lilac flap, and a small gold heart clasp; bag hangs below its handle. Style: match Charlie Party wardrobe props, bold smooth dark navy (#24163f) outlines, rounded appealing shapes, candy colors, clean cel shading. Composition: centered, whole object visible with margin; honor attachment grip/root placement for this prop. Constraints: true transparent background, no people/characters/hands, scenery, shadows, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.05
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        41,
+        1147,
+        1355
+      ],
+      "source_visible_bbox_alpha32": [
+        95,
+        122,
+        1066,
+        1161
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        92,
+        119,
+        1069,
+        1164
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        1,
+        118,
+        125
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        1,
+        118,
+        125
+      ],
+      "visible_art_dimensions": [
+        116,
+        124
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.05
+      ],
+      "actual_root_point_after_canvas_fit": [
+        60.0,
+        7.2
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.2
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 16184
+    },
+    {
+      "key": "prop/fan-lace",
+      "canvas": [
+        200,
+        114
+      ],
+      "anchor": [
+        100.0,
+        102.6
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/fan-lace-source.webp",
+      "source_dimensions": [
+        1660,
+        948
+      ],
+      "source_alpha_bbox": [
+        0,
+        21,
+        1624,
+        932
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/fan-lace.webp",
+      "output_alpha_bbox": [
+        6,
+        7,
+        195,
+        113
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: standalone 2D fashion-game prop sprite on 200\u00d7114 transparent canvas. Primary request: Open pearl-white lace hand fan, half-circle shape with clear pleats, scalloped edge decorated with tiny pearls, and a small gold pivot at bottom center. Style: match Charlie Party wardrobe props, bold smooth dark navy (#24163f) outlines, rounded appealing shapes, candy colors, clean cel shading. Composition: centered, whole object visible with margin; honor attachment grip/root placement for this prop. Constraints: true transparent background, no people/characters/hands, scenery, shadows, glow, text or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.9
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        21,
+        1624,
+        932
+      ],
+      "source_visible_bbox_alpha32": [
+        53,
+        24,
+        1608,
+        930
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        50,
+        21,
+        1611,
+        933
+      ],
+      "output_visible_bbox_alpha32": [
+        6,
+        4,
+        194,
+        114
+      ],
+      "output_alpha_bbox_any": [
+        6,
+        4,
+        194,
+        114
+      ],
+      "visible_art_dimensions": [
+        188,
+        110
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.9
+      ],
+      "actual_root_point_after_canvas_fit": [
+        100.0,
+        103.0
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.4
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 29156
+    },
+    {
+      "key": "prop/balloon-star",
+      "canvas": [
+        120,
+        320
+      ],
+      "anchor": [
+        60.0,
+        313.6
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/balloon-star-source.webp",
+      "source_dimensions": [
+        768,
+        2048
+      ],
+      "source_alpha_bbox": [
+        81,
+        146,
+        687,
+        2013
+      ],
+      "source_alpha_extrema": [
+        0,
+        254
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/balloon-star.webp",
+      "output_alpha_bbox": [
+        10,
+        8,
+        111,
+        311
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 120\u00d7320 transparent canvas. Primary request: One shiny metallic gold star-shaped foil balloon on a long thin dark navy string attached to the bottom point; small clean highlight on the foil. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow (except explicitly requested soft trail), text, or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.98
+      ],
+      "source_alpha_bbox_any": [
+        81,
+        146,
+        687,
+        2013
+      ],
+      "source_visible_bbox_alpha32": [
+        83,
+        149,
+        685,
+        1944
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        80,
+        146,
+        688,
+        1947
+      ],
+      "output_visible_bbox_alpha32": [
+        6,
+        4,
+        113,
+        320
+      ],
+      "output_alpha_bbox_any": [
+        6,
+        4,
+        113,
+        320
+      ],
+      "visible_art_dimensions": [
+        107,
+        316
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.98
+      ],
+      "actual_root_point_after_canvas_fit": [
+        59.5,
+        313.68
+      ],
+      "root_delta_from_requested_anchor": [
+        -0.5,
+        0.08
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 17730
+    },
+    {
+      "key": "prop/wand-bubble",
+      "canvas": [
+        110,
+        200
+      ],
+      "anchor": [
+        55.0,
+        180.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/wand-bubble-source.webp",
+      "source_dimensions": [
+        930,
+        1691
+      ],
+      "source_alpha_bbox": [
+        25,
+        61,
+        863,
+        1667
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/wand-bubble.webp",
+      "output_alpha_bbox": [
+        10,
+        15,
+        103,
+        185
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 110\u00d7200 transparent canvas. Primary request: Sky-blue bubble wand with a circular ring at the top and a short slim handle, three small translucent soap bubbles floating up and to the right. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow, text, or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.9
+      ],
+      "source_alpha_bbox_any": [
+        25,
+        61,
+        863,
+        1667
+      ],
+      "source_visible_bbox_alpha32": [
+        232,
+        149,
+        826,
+        1528
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        229,
+        146,
+        829,
+        1531
+      ],
+      "output_visible_bbox_alpha32": [
+        12,
+        4,
+        97,
+        200
+      ],
+      "output_alpha_bbox_any": [
+        12,
+        4,
+        97,
+        200
+      ],
+      "visible_art_dimensions": [
+        85,
+        196
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.9
+      ],
+      "actual_root_point_after_canvas_fit": [
+        54.5,
+        180.4
+      ],
+      "root_delta_from_requested_anchor": [
+        -0.5,
+        0.4
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 16952
+    },
+    {
+      "key": "prop/aura-butterfly",
+      "canvas": [
+        96,
+        96
+      ],
+      "anchor": [
+        48.0,
+        48.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/aura-butterfly-source.webp",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "source_alpha_bbox": [
+        0,
+        33,
+        1232,
+        1230
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aura-butterfly.webp",
+      "output_alpha_bbox": [
+        12,
+        21,
+        86,
+        74
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 96\u00d796 transparent canvas. Primary request: One small lilac butterfly seen from the front with wings open, simple cute symmetrical silhouette. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow, text, or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.5
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        33,
+        1232,
+        1230
+      ],
+      "source_visible_bbox_alpha32": [
+        144,
+        293,
+        1110,
+        952
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        141,
+        290,
+        1113,
+        955
+      ],
+      "output_visible_bbox_alpha32": [
+        2,
+        16,
+        94,
+        79
+      ],
+      "output_alpha_bbox_any": [
+        2,
+        16,
+        94,
+        79
+      ],
+      "visible_art_dimensions": [
+        92,
+        63
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.5
+      ],
+      "actual_root_point_after_canvas_fit": [
+        48.0,
+        47.5
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        -0.5
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 10342
+    },
+    {
+      "key": "prop/aura-shooting-star",
+      "canvas": [
+        160,
+        80
+      ],
+      "anchor": [
+        19.2,
+        32.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/aura-shooting-star-source.webp",
+      "source_dimensions": [
+        1774,
+        887
+      ],
+      "source_alpha_bbox": [
+        303,
+        53,
+        1526,
+        798
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aura-shooting-star.webp",
+      "output_alpha_bbox": [
+        10,
+        17,
+        119,
+        67
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 160\u00d780 transparent canvas. Primary request: One small gold shooting star at the left end with a soft pale white trail rising diagonally to the right. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow (except explicitly requested soft trail), text, or watermark.",
+      "anchor_fraction": [
+        0.12,
+        0.4
+      ],
+      "source_alpha_bbox_any": [
+        303,
+        53,
+        1526,
+        798
+      ],
+      "source_visible_bbox_alpha32": [
+        382,
+        221,
+        1477,
+        689
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        379,
+        218,
+        1480,
+        692
+      ],
+      "output_visible_bbox_alpha32": [
+        0,
+        5,
+        155,
+        72
+      ],
+      "output_alpha_bbox_any": [
+        0,
+        5,
+        156,
+        72
+      ],
+      "visible_art_dimensions": [
+        155,
+        67
+      ],
+      "root_fraction_in_visible_art": [
+        0.12,
+        0.4
+      ],
+      "actual_root_point_after_canvas_fit": [
+        18.72,
+        31.8
+      ],
+      "root_delta_from_requested_anchor": [
+        -0.48,
+        -0.2
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 6452
+    },
+    {
+      "key": "prop/aura-snowflake",
+      "canvas": [
+        96,
+        96
+      ],
+      "anchor": [
+        48.0,
+        48.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/aura-snowflake-source.webp",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "source_alpha_bbox": [
+        0,
+        37,
+        1240,
+        1254
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aura-snowflake.webp",
+      "output_alpha_bbox": [
+        13,
+        8,
+        84,
+        85
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 96\u00d796 transparent canvas. Primary request: One sky-blue and white six-pointed snowflake, crisp symmetrical branches, centered. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow, text, or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.5
+      ],
+      "source_alpha_bbox_any": [
+        0,
+        37,
+        1240,
+        1254
+      ],
+      "source_visible_bbox_alpha32": [
+        164,
+        113,
+        1089,
+        1137
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        161,
+        110,
+        1092,
+        1140
+      ],
+      "output_visible_bbox_alpha32": [
+        6,
+        2,
+        89,
+        94
+      ],
+      "output_alpha_bbox_any": [
+        6,
+        2,
+        89,
+        94
+      ],
+      "visible_art_dimensions": [
+        83,
+        92
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.5
+      ],
+      "actual_root_point_after_canvas_fit": [
+        47.5,
+        48.0
+      ],
+      "root_delta_from_requested_anchor": [
+        -0.5,
+        0.0
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 13302
+    },
+    {
+      "key": "prop/aura-note",
+      "canvas": [
+        96,
+        96
+      ],
+      "anchor": [
+        48.0,
+        48.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/aura-note-source.webp",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "source_alpha_bbox": [
+        208,
+        55,
+        1234,
+        1174
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aura-note.webp",
+      "output_alpha_bbox": [
+        18,
+        17,
+        80,
+        81
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 96\u00d796 transparent canvas. Primary request: One lilac eighth music note with a dark navy stem, centered. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow, text, or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.5
+      ],
+      "source_alpha_bbox_any": [
+        208,
+        55,
+        1234,
+        1174
+      ],
+      "source_visible_bbox_alpha32": [
+        370,
+        254,
+        939,
+        1004
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        367,
+        251,
+        942,
+        1007
+      ],
+      "output_visible_bbox_alpha32": [
+        13,
+        2,
+        83,
+        94
+      ],
+      "output_alpha_bbox_any": [
+        13,
+        2,
+        83,
+        94
+      ],
+      "visible_art_dimensions": [
+        70,
+        92
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.5
+      ],
+      "actual_root_point_after_canvas_fit": [
+        48.0,
+        48.0
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.0
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 5664
+    },
+    {
+      "key": "prop/aura-petal",
+      "canvas": [
+        64,
+        64
+      ],
+      "anchor": [
+        32.0,
+        32.0
+      ],
+      "anchor_description": "Requested attachment root/grip/midpoint aligned on the exact canvas after cropping meaningful source alpha (>=32).",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/source/aura-petal-source.webp",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "source_alpha_bbox": [
+        121,
+        383,
+        985,
+        1094
+      ],
+      "source_alpha_extrema": [
+        0,
+        255
+      ],
+      "output": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aura-petal.webp",
+      "output_alpha_bbox": [
+        22,
+        9,
+        56,
+        42
+      ],
+      "prompt": "Use case: stylized-concept. Asset type: isolated 2D game prop particle sprite on 64\u00d764 transparent canvas. Primary request: One small pink cherry-blossom petal, simple curved petal silhouette, centered. Style: Charlie Party art, bold smooth dark navy (#24163f) outlines, bright candy colors, clean cel shading, readable at small size. Composition: center the complete single object; preserve empty margin. Constraints: true transparent background; only the requested one object, no characters, scenery, added decorations, ground shadow, glow, text, or watermark.",
+      "anchor_fraction": [
+        0.5,
+        0.5
+      ],
+      "source_alpha_bbox_any": [
+        121,
+        383,
+        985,
+        1094
+      ],
+      "source_visible_bbox_alpha32": [
+        438,
+        397,
+        879,
+        854
+      ],
+      "source_crop_alpha32_with_3px_edge_pad": [
+        435,
+        394,
+        882,
+        857
+      ],
+      "output_visible_bbox_alpha32": [
+        3,
+        2,
+        61,
+        62
+      ],
+      "output_alpha_bbox_any": [
+        3,
+        2,
+        61,
+        62
+      ],
+      "visible_art_dimensions": [
+        58,
+        60
+      ],
+      "root_fraction_in_visible_art": [
+        0.5,
+        0.5
+      ],
+      "actual_root_point_after_canvas_fit": [
+        32.0,
+        32.0
+      ],
+      "root_delta_from_requested_anchor": [
+        0.0,
+        0.0
+      ],
+      "source_note": "Lossless WebP master retained from the built-in ImageGen output; temporary PNG materialization used for alpha crop/measurement was removed.",
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; exactcanvas and meaningfulalpha intake",
+      "bytes": 4762
+    },
+    {
+      "key": "thumb/cloud-hop",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-887b6f0e-0a80-46c7-aea1-380107d6b7b0.png",
+      "prompt": "Change ONLY grey cloud MOUTH in this image. Grey raincloud currently has a frown curved like \u2229. Replace it with a HAPPY SMILE curved like U: CORNERS UP, middleDOWN, small cheerful upwardsmile. Closedeye sleepinglids unchanged. Cloudlookscontentandpeacefullyhappy, NOTsad. Nootherchanges whatsoever: exactCottonCandycharacter,pinkstripedtrampoline,rainbow,goldstar,allbackground preserved. Opaque800x500.",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "bytes": 73780,
+      "status": "root visually reviewed generated revision and intake dimensions",
+      "revisions": [
+        {
+          "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c991f37f-1fa9-41a9-a322-90a70a8e12fc.png",
+          "prompt": "Edit FIRST exact Cloud Hop thumbnail only two details. Keep Cotton Candy character, colors,composition, clouds,rainbow,star,springs,outline and cel shading unchanged. Grey raincloud should have sleepy closed eyelids and a tiny CONTENT relaxed upward smile instead of frown. Replace blue trampoline surface with pink-and-white alternating radialstripes and gold rim EXACTLY like SECOND reference trampoline; retain its location/size onclouds. Opaque800x500 landscape. No text."
+        }
+      ]
+    },
+    {
+      "key": "prop/treasure-chest-open",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-9afe20ca-f6ad-431f-b610-0c40b9075209.png",
+      "prompt": "Recreate FIRST reference treasure chest in OPEN state, strict FRONT-ON symmetricview, no perspective rotation, lidhinge horizontal at BACK, notright. Keep exactclosedchest width/plankcolors/goldbands/rivetsand goldkeyholelock position alignedfirstreference. Matching bold smooth navyoutlines andclean cel shading. Lid swings UP BEHIND the frontbody; interior heapedglossygoldcoins andpearlnecklace asSECOND reference. Bodyfront rectanglemaintainsexactclosedshape. Fullobject centered300x300transparentcanvas,bottom-centerbase fewpxpadding. Noeffects,groundshadow,text.",
+      "width": 300,
+      "height": 300,
+      "tool": "built-in imagegen",
+      "bytes": 28256,
+      "status": "root visually reviewed generated revision and intake dimensions"
+    },
+    {
+      "key": "prop/golf-cookie-bridge",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6275c7ae-d24c-4c45-b26b-503f3a5f43f5.png",
+      "prompt": "Recreate this cute grahamcracker bridge top-down orthographic but FIXaspectratio. Desired440x230canvas transparent with cookie fillingALLbut4pxedges, a wide1.9:1 rectangle (notthinstrip). TWO ROWS of squaregolden grahamcrackers, threecrackersperrow, makeswide rectangularbridge; chocolatechips dottedoncrackers, littlecrumbsONLYinsidecanvas. Boldnavyoutlines, roundededges, warmgoldcrunchy texture, celshading sameexistingart. No perspective, legs, groundshadow,scenery,text. Fillingfullheightcritical: two fullcrackerrows.",
+      "width": 440,
+      "height": 230,
+      "tool": "built-in imagegen",
+      "bytes": 34626,
+      "status": "root visually reviewed generated revision and intake dimensions"
+    },
+    {
+      "key": "prop/fishing-rod",
+      "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e182fd90-47b9-4805-a8d3-b2aaeedaf99e.png",
+      "prompt": "Create ONLY a chunky child's fishing rod HANDLE, horizontal, 512x64transparentcanvas. Corkgrip longthickrounded golden tanhandle, bigroundbrightyellowreel near RIGHT end, simple lilacmount, thicknavyoutline andbrightclean celshading candycartoongamestyle. HandlebuttatLEFTedge, shaftconnectionatRIGHTedge. Entireobjectalmostfillswhole512width, corkbodyabout24pxthick, reelfitswithin64pxheight. NOrodshaft, nofishingline, nobobber, nofish, scenery orshadow,text. Thishandle will beattached to a separatelydrawn bendingrodshaft.",
+      "width": 512,
+      "height": 64,
+      "tool": "built-in imagegen",
+      "bytes": 12496,
+      "status": "root visually reviewed generated revision and intake dimensions"
     }
   ]
 }

@@ -1,0 +1,1361 @@
+{
+  "batch": "OCT12-FASHION-HEAD",
+  "status": "frozen_geometry_verified",
+  "items": [
+    {
+      "key": "headband-unicorn",
+      "output": "party/assets/art/prop/headband-unicorn.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/headband-unicorn.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: pearl-white headband with centered spiral unicorn horn striped pastel pink and blue, small pink flower at one side, yellow flower at the other, tiny sparkle at horn tip. Front view, centered complete silhouette. Polished children's game art with bold dark navy outlines, cel shading, candy colors. True transparent background. Intended 160x136 canvas, band bottom center at 78% height. No character/head/model, scenery, text, watermark.",
+      "targetSizePx": [
+        160,
+        136
+      ],
+      "measuredSourceSizePx": [
+        1358,
+        1158
+      ],
+      "measuredSourceAlphaBBox": [
+        49,
+        13,
+        1334,
+        1102
+      ],
+      "measuredOutputSizePx": [
+        160,
+        136
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.85 S; band bottom-centre at 78% height",
+      "measuredOutputAlphaBBox": [
+        22,
+        2,
+        139,
+        136
+      ],
+      "normalizedAnchorXY": [
+        0.49961911357340716,
+        0.5587013198631253
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "16ad324167a8f0cf982aec6f9562f83ede2ccdd091a636815a98bab5a06eb118",
+      "measuredSourceVisibleAlphaBBox": [
+        219,
+        18,
+        1138,
+        1097
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.78
+      ],
+      "sourceAttachmentPointPx": [
+        678,
+        623
+      ],
+      "sourceAttachmentPointMeaning": "underside of central white band at x678 (last opaque pixel y623)",
+      "sourceCropPx": [
+        217,
+        16,
+        1140,
+        1099
+      ],
+      "uniformScale": 0.12188365650969529,
+      "sourceToOutputOffsetPx": [
+        -2.2590027700831072,
+        0.48891966759003214
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        24,
+        3,
+        137,
+        135
+      ],
+      "measuredOutputAttachmentPointPx": [
+        79.93905817174515,
+        75.98337950138504
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "runtimeAnchorChange": "WORN_ART ay matches measured crown underside; preserves complete horseshoe arms at full useful size.",
+      "measuredOutputVisibleFractionXY": [
+        0.70625,
+        0.9705882352941176
+      ],
+      "measuredOutputPixelSha256": "f9eb647ab5065cee71a278f9cfdfcf3d32571442f9bed9b98ccf5f2d515aa41b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.558701
+      ],
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "headband-kitty",
+      "output": "party/assets/art/prop/headband-kitty.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/headband-kitty.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: pink kitty-ear headband, curved pink band, two pointed ears with light-pink inner panels, small white bow with gold center on right. Front view, centered complete silhouette. Match polished children's game art: bold dark navy outlines, cel shading, candy colors, crisp edges. Transparent background true alpha. No head, character, mannequin, scenery, artificial background, text, watermark. Intended canvas 160x88, band bottom at 70% height.",
+      "targetSizePx": [
+        160,
+        88
+      ],
+      "measuredSourceSizePx": [
+        1691,
+        930
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        21,
+        1661,
+        920
+      ],
+      "measuredOutputSizePx": [
+        160,
+        88
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.55 S; band bottom at 70%",
+      "measuredOutputAlphaBBox": [
+        15,
+        0,
+        146,
+        88
+      ],
+      "normalizedAnchorXY": [
+        0.4996677215189873,
+        0.371921749136939
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "d67e29489080f4593d227eba52748b484839dc64f25fef1c71395c60e27e4e22",
+      "measuredSourceVisibleAlphaBBox": [
+        252,
+        49,
+        1439,
+        835
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.7
+      ],
+      "sourceAttachmentPointPx": [
+        845,
+        336
+      ],
+      "sourceAttachmentPointMeaning": "underside of central pink band at x845 (last opaque pixel y336)",
+      "sourceCropPx": [
+        250,
+        47,
+        1441,
+        837
+      ],
+      "uniformScale": 0.10632911392405063,
+      "sourceToOutputOffsetPx": [
+        -9.454430379746833,
+        -2.5506329113924067
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        17,
+        2,
+        144,
+        87
+      ],
+      "measuredOutputAttachmentPointPx": [
+        79.94683544303797,
+        32.72911392405063
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "runtimeAnchorChange": "WORN_ART ay matches measured crown underside; preserves complete horseshoe arms at full useful size.",
+      "measuredOutputVisibleFractionXY": [
+        0.79375,
+        0.9659090909090909
+      ],
+      "measuredOutputPixelSha256": "6764308f5ff3ec6e16d7070d7bacfc373f8f8b6cf9215a5d4630a2c9edb00b22",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.371922
+      ],
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "hat-princess",
+      "output": "party/assets/art/prop/hat-princess.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/hat-princess.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Tall pink princess hennin cone hat, gold band, three small gold stars up one side, pale pink veil streaming back from tip. Front three-quarter facing right. Centered complete silhouette, canvas proportion 160x174, all edges inside frame. Match polished children's game art: bold dark navy outlines, cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        174
+      ],
+      "measuredSourceSizePx": [
+        1202,
+        1308
+      ],
+      "measuredSourceAlphaBBox": [
+        67,
+        39,
+        1172,
+        1246
+      ],
+      "measuredOutputSizePx": [
+        160,
+        174
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 0.85x0.9 S; brim at 88%",
+      "measuredOutputAlphaBBox": [
+        0,
+        47,
+        116,
+        171
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.88
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "e5f1040f7b92c82399fc17c47d9ed6759b5ec4ff9dfea48896c341c9425d5fad",
+      "measuredSourceVisibleAlphaBBox": [
+        70,
+        67,
+        1169,
+        1244
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.88
+      ],
+      "sourceAttachmentPointPx": [
+        845,
+        1100
+      ],
+      "sourceAttachmentPointMeaning": "centre of sloping oval hat brim, inspected on native image",
+      "sourceCropPx": [
+        68,
+        65,
+        1171,
+        1246
+      ],
+      "uniformScale": 0.10038610038610038,
+      "sourceToOutputOffsetPx": [
+        -4.376447876447875,
+        43.14509652509654
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        49,
+        113,
+        168
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        153.12
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.69375,
+        0.6839080459770115
+      ],
+      "measuredOutputPixelSha256": "a7e309c5f8d156d0a5e77198a1c1ac7d44e2ebea43197e85959339014c80fc8c",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "headband-hearts",
+      "output": "party/assets/art/prop/headband-hearts.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/headband-hearts.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Ruby-red headband with two bobbing heart antennae on springy stalks. Front view. Centered complete silhouette, canvas proportion 160x120, all edges inside frame. Match polished children's game art: bold dark navy outlines, cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        120
+      ],
+      "measuredSourceSizePx": [
+        1448,
+        1086
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        37,
+        1426,
+        1086
+      ],
+      "measuredOutputSizePx": [
+        160,
+        120
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.75 S; band bottom at 80%",
+      "measuredOutputAlphaBBox": [
+        13,
+        0,
+        148,
+        120
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.533315659243549
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "8ea9ba1dec4e2b7a889a93586386685e7fc298e7f3452dd5b19bb755e770e287",
+      "measuredSourceVisibleAlphaBBox": [
+        193,
+        63,
+        1255,
+        1002
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.8
+      ],
+      "sourceAttachmentPointPx": [
+        724,
+        565
+      ],
+      "sourceAttachmentPointMeaning": "underside of central red band at x724 (last opaque pixel y565)",
+      "sourceCropPx": [
+        191,
+        61,
+        1257,
+        1004
+      ],
+      "uniformScale": 0.12301166489925769,
+      "sourceToOutputOffsetPx": [
+        -8.621951219512201,
+        -5.065217391304347
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        15,
+        2,
+        146,
+        119
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        63.99787910922588
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "runtimeAnchorChange": "WORN_ART ay matches measured crown underside; preserves complete horseshoe arms at full useful size.",
+      "measuredOutputVisibleFractionXY": [
+        0.81875,
+        0.975
+      ],
+      "measuredOutputPixelSha256": "9dbe6c8d79e8bbbba28906257c2eb56911c58353d6b11f6257c6fd55e8aee4a8",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.533316
+      ],
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "halo-fairy",
+      "output": "party/assets/art/prop/halo-fairy.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/halo-fairy.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Golden fairy halo ring seen slightly from above as an oval, gentle yellow glow close to ring and two or three tiny sparkles. Front view. Centered complete silhouette, canvas proportion 160x56, all edges inside frame. Match polished children's game art: bold dark navy outlines, cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        56
+      ],
+      "measuredSourceSizePx": [
+        2119,
+        742
+      ],
+      "measuredSourceAlphaBBox": [
+        49,
+        28,
+        2073,
+        742
+      ],
+      "measuredOutputSizePx": [
+        160,
+        56
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "head; fit 1.0x0.35 S; anchor y=1.4 canvas heights from top",
+      "measuredOutputAlphaBBox": [
+        6,
+        2,
+        155,
+        55
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        1.4
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "92e6c759c8b75dbf0860dedaf28b92804f1674d63341d0aebc4d89662f0272be",
+      "measuredSourceVisibleAlphaBBox": [
+        502,
+        175,
+        1589,
+        555
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        1.4
+      ],
+      "sourceAttachmentPointPx": [
+        1045.5,
+        365
+      ],
+      "sourceAttachmentPointMeaning": "ring visual centre; head attachment is deliberately below the canvas; consumer head attachment at (canvas centre x, 1.4 canvas heights)",
+      "sourceCropPx": [
+        500,
+        173,
+        1591,
+        557
+      ],
+      "uniformScale": 0.13541666666666666,
+      "sourceToOutputOffsetPx": [
+        -61.145833333333336,
+        -20.99479166666666
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        7,
+        3,
+        154,
+        54
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        78.39999999999999
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.91875,
+        0.9107142857142857
+      ],
+      "measuredOutputPixelSha256": "9a27bfb604987b23be566b6365008c56e8a51955034d34ebc1b802b101e4565b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "mask-masquerade",
+      "output": "party/assets/art/prop/mask-masquerade.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/mask-masquerade.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Lilac masquerade eye mask with gold-rimmed eye holes, two large open holes showing fully transparent background through them, a red gem between eyes, sky-blue feather plume on right. Front view. Centered complete silhouette in canvas ratio 140x76, eye-line/face details positioned to leave clear space above as appropriate. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. Any holes or lens openings must be fully transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        76
+      ],
+      "measuredSourceSizePx": [
+        1703,
+        924
+      ],
+      "measuredSourceAlphaBBox": [
+        25,
+        21,
+        1660,
+        900
+      ],
+      "measuredOutputSizePx": [
+        140,
+        76
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.1x0.6 S; eye line at 55%; both eye holes transparent",
+      "measuredOutputAlphaBBox": [
+        29,
+        0,
+        134,
+        60
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.5501304915180514
+      ],
+      "transparentOpeningVerified": true,
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "5ec67fd5078c4bd9e41e8f68fad12cc74e5fa7c8c827a67e633c0e203a1d3674",
+      "measuredSourceVisibleAlphaBBox": [
+        220,
+        67,
+        1657,
+        854
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.55
+      ],
+      "sourceAttachmentPointPx": [
+        776.9516214938385,
+        639.4164854239409
+      ],
+      "sourceAttachmentPointMeaning": "midpoint of the two transparent eye-hole centroids",
+      "sourceCropPx": [
+        218,
+        65,
+        1659,
+        856
+      ],
+      "uniformScale": 0.06928770501881767,
+      "sourceToOutputOffsetPx": [
+        16.632161383533425,
+        -2.038344678732554
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        31,
+        2,
+        132,
+        58
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        41.8099173553719
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredTransparentOpenings": [
+        {
+          "areaPx": 121,
+          "bboxPx": [
+            44,
+            38,
+            63,
+            47
+          ],
+          "centroidPx": [
+            53.01652892561984,
+            41.8099173553719
+          ],
+          "coreMaxAlpha": 1,
+          "centreAlpha": 0
+        },
+        {
+          "areaPx": 121,
+          "bboxPx": [
+            78,
+            38,
+            97,
+            47
+          ],
+          "centroidPx": [
+            86.98347107438016,
+            41.8099173553719
+          ],
+          "coreMaxAlpha": 1,
+          "centreAlpha": 0
+        }
+      ],
+      "measuredOutputVisibleFractionXY": [
+        0.7214285714285714,
+        0.7368421052631579
+      ],
+      "measuredOutputPixelSha256": "d965c3c0403e452638e2fb227db2d8c43f208d33ed2ee018d388828355972b4b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.55
+      ],
+      "anchorMeasurementNote": "Output attachment measured from transparent opening centroid(s); anti-aliased rim can contain alpha1\u20132 around otherwise fully transparent hole cores.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "glasses-monocle",
+      "output": "party/assets/art/prop/glasses-monocle.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/glasses-monocle.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Single gold monocle accessory: one round glass lens with thick gold rim and a fine gold chain curling downward. Centered, transparent lens interior and no second lens. Centered complete silhouette in canvas ratio 60x106, eye-line/face details positioned to leave clear space above as appropriate. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. Any holes or lens openings must be fully transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        60,
+        106
+      ],
+      "measuredSourceSizePx": [
+        943,
+        1668
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        55,
+        907,
+        1626
+      ],
+      "measuredOutputSizePx": [
+        60,
+        106
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 0.42x0.75 S; lens centre (forward side x=0.74, y=0.22)",
+      "measuredOutputAlphaBBox": [
+        7,
+        1,
+        60,
+        100
+      ],
+      "normalizedAnchorXY": [
+        0.500441329179647,
+        0.22086051842708518
+      ],
+      "transparentOpeningVerified": true,
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "db908031f5d3bb06f098c39ec5b0f2011328c9e3ecf7b7b71f0d1db579ceffae",
+      "measuredSourceVisibleAlphaBBox": [
+        138,
+        144,
+        860,
+        1531
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.22
+      ],
+      "sourceAttachmentPointPx": [
+        445.3799853357639,
+        437.2534356690726
+      ],
+      "sourceAttachmentPointMeaning": "centroid of the transparent lens opening",
+      "sourceCropPx": [
+        136,
+        142,
+        862,
+        1533
+      ],
+      "uniformScale": 0.06720752487747345,
+      "sourceToOutputOffsetPx": [
+        0.5335097931791536,
+        -5.600324917928666
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        9,
+        4,
+        59,
+        98
+      ],
+      "measuredOutputAttachmentPointPx": [
+        30.02647975077882,
+        23.411214953271028
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredTransparentOpenings": [
+        {
+          "areaPx": 642,
+          "bboxPx": [
+            16,
+            10,
+            45,
+            38
+          ],
+          "centroidPx": [
+            30.02647975077882,
+            23.411214953271028
+          ],
+          "coreMaxAlpha": 2,
+          "centreAlpha": 0
+        }
+      ],
+      "measuredOutputVisibleFractionXY": [
+        0.8333333333333334,
+        0.8867924528301887
+      ],
+      "measuredOutputPixelSha256": "4b83bc9410f6ac757adcb69b542c75e84b947162d409b76de9e460ea96fd4559",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "runtimeNormalizedAnchorXY": [
+        0.5,
+        0.22
+      ],
+      "anchorMeasurementNote": "Output attachment measured from transparent opening centroid(s); anti-aliased rim can contain alpha1\u20132 around otherwise fully transparent hole cores.",
+      "runtimeFacingOffsetS": 0.24,
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "face-whiskers",
+      "output": "party/assets/art/prop/face-whiskers.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/face-whiskers.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Kitty face-paint overlay only: pink heart nose in center and exactly three navy whisker strokes on each cheek; no face, no head, no eyes. Centered complete silhouette in canvas ratio 140x70, eye-line/face details positioned to leave clear space above as appropriate. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. Any holes or lens openings must be fully transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        70
+      ],
+      "measuredSourceSizePx": [
+        1774,
+        887
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        53,
+        1756,
+        867
+      ],
+      "measuredOutputSizePx": [
+        140,
+        70
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.0x0.5 S; eye line at 20%",
+      "measuredOutputAlphaBBox": [
+        0,
+        23,
+        140,
+        67
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "cae273a9ae2d78c0602d91ad2b5f2df33b9d321d836c76454518087aae993329",
+      "measuredSourceVisibleAlphaBBox": [
+        106,
+        253,
+        1668,
+        703
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourceAttachmentPointPx": [
+        887,
+        130
+      ],
+      "sourceAttachmentPointMeaning": "virtual eye-line point above the paint, retaining cheek/nose offset",
+      "sourceCropPx": [
+        104,
+        251,
+        1670,
+        705
+      ],
+      "uniformScale": 0.08684546615581099,
+      "sourceToOutputOffsetPx": [
+        -6.575351213282248,
+        3.166666666666666
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        25,
+        139,
+        65
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        14.0
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "anchorMeasurementNote": "Eye line is a virtual attachment point, because face-paint artwork intentionally contains no eyes.",
+      "measuredOutputVisibleFractionXY": [
+        0.9785714285714285,
+        0.5714285714285714
+      ],
+      "measuredOutputPixelSha256": "0b637c6a231c390cd3194c01e6434f1aeee15a6b8240b9faf3a48a3af382986b",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "face-butterfly",
+      "output": "party/assets/art/prop/face-butterfly.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/face-butterfly.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Face-paint overlay only: small sky-blue butterfly on right cheek and two tiny white sparkles on left cheek, leave eyes/nose area empty. No face or head. Centered complete silhouette on transparent canvas ratio 140x70. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background; open eyewear/lens interior should remain transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        70
+      ],
+      "measuredSourceSizePx": [
+        1774,
+        887
+      ],
+      "measuredSourceAlphaBBox": [
+        356,
+        198,
+        1734,
+        774
+      ],
+      "measuredOutputSizePx": [
+        140,
+        70
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.0x0.5 S; eye line at 20%",
+      "measuredOutputAlphaBBox": [
+        2,
+        33,
+        139,
+        70
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "9293402bcbf053760b784dbdd12099c052d94c4d8c0108c68a095f9e095501f0",
+      "measuredSourceVisibleAlphaBBox": [
+        359,
+        372,
+        1431,
+        636
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourceAttachmentPointPx": [
+        895,
+        200
+      ],
+      "sourceAttachmentPointMeaning": "virtual eye-line point between cheek decorations, above paint",
+      "sourceCropPx": [
+        357,
+        370,
+        1433,
+        638
+      ],
+      "uniformScale": 0.1232876712328767,
+      "sourceToOutputOffsetPx": [
+        -39.904109589041084,
+        -10.21917808219178
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        4,
+        35,
+        137,
+        69
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        14.0
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "anchorMeasurementNote": "Eye line is a virtual attachment point, because face-paint artwork intentionally contains no eyes.",
+      "measuredOutputVisibleFractionXY": [
+        0.95,
+        0.4857142857142857
+      ],
+      "measuredOutputPixelSha256": "e7f6c35aec18c3738fad44d8c5404543d0832f3973adca6a381c4bfccd8cb4d7",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "glasses-goggles",
+      "output": "party/assets/art/prop/glasses-goggles.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/glasses-goggles.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Mint party goggles: one wide wrap-around translucent mint lens with navy strap extending to both sides, large glossy shine streak, no character behind it. Front view. Centered complete silhouette on transparent canvas ratio 140x60. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background; open eyewear/lens interior should remain transparent. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        140,
+        60
+      ],
+      "measuredSourceSizePx": [
+        1916,
+        821
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        17,
+        1916,
+        807
+      ],
+      "measuredOutputSizePx": [
+        140,
+        60
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "eyes; fit 1.05x0.45 S; centered on eye line",
+      "measuredOutputAlphaBBox": [
+        0,
+        9,
+        140,
+        52
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.5
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "4e56d5e2270b7011e59a4b24d2160824ac31fb566188d03e166103256ccedc54",
+      "measuredSourceVisibleAlphaBBox": [
+        12,
+        147,
+        1905,
+        675
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.5
+      ],
+      "sourceAttachmentPointPx": [
+        958,
+        411
+      ],
+      "sourceAttachmentPointMeaning": "midpoint of visible goggles height and horizontal lens span",
+      "sourceCropPx": [
+        10,
+        145,
+        1907,
+        677
+      ],
+      "uniformScale": 0.07165437302423604,
+      "sourceToOutputOffsetPx": [
+        1.8192834562697628,
+        1.0142255005268703
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        11,
+        139,
+        50
+      ],
+      "measuredOutputAttachmentPointPx": [
+        70.0,
+        30.0
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.9785714285714285,
+        0.65
+      ],
+      "measuredOutputPixelSha256": "9cbc13954a8c24b6378e652348ebaa2595e4c5797638580afe9837e995861257",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "necklace-pendant",
+      "output": "party/assets/art/prop/necklace-pendant.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/necklace-pendant.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Gold chain necklace with round royal pendant: large sky-blue cut gem in gold setting ringed with tiny pearls, delicate chain draped in a shallow V. Centered complete silhouette on transparent canvas ratio 160x126. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        126
+      ],
+      "measuredSourceSizePx": [
+        1413,
+        1113
+      ],
+      "measuredSourceAlphaBBox": [
+        25,
+        19,
+        1383,
+        1089
+      ],
+      "measuredOutputSizePx": [
+        160,
+        126
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.7x0.55 S; chain top at 10%",
+      "measuredOutputAlphaBBox": [
+        7,
+        11,
+        154,
+        126
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "99e537f3f106477820cd3f1cf710573d3a4babe61075e2a4e6f9eee01dfefe05",
+      "measuredSourceVisibleAlphaBBox": [
+        49,
+        36,
+        1364,
+        1061
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourceAttachmentPointPx": [
+        706.5,
+        36
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of two chain ends at their visible top",
+      "sourceCropPx": [
+        47,
+        34,
+        1366,
+        1063
+      ],
+      "uniformScale": 0.10847127555988316,
+      "sourceToOutputOffsetPx": [
+        3.810808179162604,
+        9.140798442064266
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        9,
+        13,
+        152,
+        125
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        12.600000000000001
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.89375,
+        0.8888888888888888
+      ],
+      "measuredOutputPixelSha256": "bca32aa2bb0fea410439b54257ceb3cd740ef83b83e8674aae9307027f5e28a3",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "collar-ruffle",
+      "output": "party/assets/art/prop/collar-ruffle.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/collar-ruffle.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Pearl-white royal ruffled collar, ring of soft gathered ruffles, small red gem centered in front. Front view, open center. Centered complete silhouette on transparent canvas ratio 160x66. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        66
+      ],
+      "measuredSourceSizePx": [
+        1952,
+        806
+      ],
+      "measuredSourceAlphaBBox": [
+        0,
+        50,
+        1910,
+        780
+      ],
+      "measuredOutputSizePx": [
+        160,
+        66
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.85x0.35 S; top at 25%",
+      "measuredOutputAlphaBBox": [
+        18,
+        14,
+        143,
+        66
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.25
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "fa7001f460c1a17a664bfe24f10a21504079524ccdd1ee8d1d838fc3b91d25ea",
+      "measuredSourceVisibleAlphaBBox": [
+        159,
+        52,
+        1794,
+        701
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.25
+      ],
+      "sourceAttachmentPointPx": [
+        976,
+        52
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of collar at its visible top",
+      "sourceCropPx": [
+        157,
+        50,
+        1796,
+        703
+      ],
+      "uniformScale": 0.07296466973886329,
+      "sourceToOutputOffsetPx": [
+        9.250000000000002,
+        13.169354838709678
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        20,
+        16,
+        141,
+        65
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        16.5
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.75625,
+        0.7424242424242424
+      ],
+      "measuredOutputPixelSha256": "ed1f12db37660d943bb1efd82c5329772f0174c79f00f3216459b5fef4ae3d77",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "necklace-candy",
+      "output": "party/assets/art/prop/necklace-candy.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/necklace-candy.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Candy necklace: shallow U-shaped string of small round candy beads in rainbow pastel colors, evenly spaced. Centered complete silhouette on transparent canvas ratio 160x66. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        66
+      ],
+      "measuredSourceSizePx": [
+        1954,
+        805
+      ],
+      "measuredSourceAlphaBBox": [
+        107,
+        44,
+        1906,
+        749
+      ],
+      "measuredOutputSizePx": [
+        160,
+        66
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.85x0.35 S; top at 10%",
+      "measuredOutputAlphaBBox": [
+        0,
+        5,
+        160,
+        65
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "9c0ae5cf4b60176dcf5f5eaf43e8c96191a6146e611c164741c17c1e1580591a",
+      "measuredSourceVisibleAlphaBBox": [
+        110,
+        94,
+        1844,
+        713
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.1
+      ],
+      "sourceAttachmentPointPx": [
+        977,
+        94
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of two bead ends at their visible top",
+      "sourceCropPx": [
+        108,
+        92,
+        1846,
+        715
+      ],
+      "uniformScale": 0.08975834292289989,
+      "sourceToOutputOffsetPx": [
+        -7.238780207134643,
+        -1.3821634062140382
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        2,
+        7,
+        159,
+        63
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        6.6000000000000005
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.98125,
+        0.8484848484848485
+      ],
+      "measuredOutputPixelSha256": "b963f2edd8b0a8a9a903c8bf1fe5c1e34e2d91aa9bb17372a5e79a7243a2b7c6",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "medal-star",
+      "output": "party/assets/art/prop/medal-star.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/medal-star.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Champion medal: blue-and-red ribbon descending in a V, round gold medal at the bottom center with a raised five-point star. Centered complete silhouette on transparent canvas ratio 160x117. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        117
+      ],
+      "measuredSourceSizePx": [
+        1467,
+        1072
+      ],
+      "measuredSourceAlphaBBox": [
+        33,
+        8,
+        1415,
+        1040
+      ],
+      "measuredOutputSizePx": [
+        160,
+        117
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 0.75x0.55 S; ribbon top at 15%",
+      "measuredOutputAlphaBBox": [
+        40,
+        15,
+        121,
+        117
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.15
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "e530168b5d7d20d6c68dcd469f16d7ba12af47647f30f0451a81baff0ff1cee5",
+      "measuredSourceVisibleAlphaBBox": [
+        331,
+        10,
+        1134,
+        1036
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.15
+      ],
+      "sourceAttachmentPointPx": [
+        732.5,
+        10
+      ],
+      "sourceAttachmentPointMeaning": "virtual midpoint of two ribbon ends at their visible top",
+      "sourceCropPx": [
+        329,
+        8,
+        1136,
+        1038
+      ],
+      "uniformScale": 0.09479571984435797,
+      "sourceToOutputOffsetPx": [
+        11.014737354085602,
+        17.054644941634244
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        42,
+        17,
+        119,
+        116
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        17.55
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.48125,
+        0.8461538461538461
+      ],
+      "measuredOutputPixelSha256": "babc366852dced0930dc8d17f49a828c57410b8c6c0fda3667cff1fd51035cf4",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    },
+    {
+      "key": "boa-feather",
+      "output": "party/assets/art/prop/boa-feather.webp",
+      "source": "party/reference/pending/OCT12-FASHION-HEAD/sources/boa-feather.webp",
+      "prompt": "Isolated Fashion Show game accessory sprite: Fluffy pink feather boa looped around the neck, full soft ring with one end hanging down the front on the right. No neck or body. Centered complete silhouette on transparent canvas ratio 160x136. Match polished children's game art: bold dark navy outlines, clean cel shading, candy colors. True transparent background. No character/head/mannequin, scenery, text or watermark.",
+      "targetSizePx": [
+        160,
+        136
+      ],
+      "measuredSourceSizePx": [
+        1360,
+        1156
+      ],
+      "measuredSourceAlphaBBox": [
+        41,
+        32,
+        1340,
+        1156
+      ],
+      "measuredOutputSizePx": [
+        160,
+        136
+      ],
+      "measuredOutputAlphaExtrema": [
+        0,
+        255
+      ],
+      "normalizedAnchorGeometry": "neck; fit 1.0x0.85 S; top at 20%",
+      "measuredOutputAlphaBBox": [
+        32,
+        25,
+        129,
+        136
+      ],
+      "normalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourcePreservation": "Native generated RGBA pixels preserved exactly in lossless WebP; original prompt unchanged.",
+      "sourcePixelSha256": "558b086596ba0359107229253ff02d2463ebc799deff3efa235caf5b89a22a2e",
+      "measuredSourceVisibleAlphaBBox": [
+        217,
+        35,
+        1156,
+        1127
+      ],
+      "requestedNormalizedAnchorXY": [
+        0.5,
+        0.2
+      ],
+      "sourceAttachmentPointPx": [
+        686,
+        35
+      ],
+      "sourceAttachmentPointMeaning": "top of the feather ring, horizontally centred on the neck opening",
+      "sourceCropPx": [
+        215,
+        33,
+        1158,
+        1129
+      ],
+      "uniformScale": 0.0976234003656307,
+      "sourceToOutputOffsetPx": [
+        13.481535648994518,
+        24.234369287020115
+      ],
+      "measuredOutputVisibleAlphaBBox": [
+        34,
+        27,
+        127,
+        135
+      ],
+      "measuredOutputAttachmentPointPx": [
+        80.0,
+        27.200000000000003
+      ],
+      "postprocessing": "Crop to visible alpha silhouette, uniformly resize at maximum safe scale, transparent pad; no regenerated or repainted pixels. Supersampled fractional landmark positioning.",
+      "measuredOutputVisibleFractionXY": [
+        0.58125,
+        0.7941176470588235
+      ],
+      "measuredOutputPixelSha256": "0a4d4c7643baf17a248c8f8f5c5020d0b2979d778bccb8970199a261b5088b07",
+      "sourceCoordinateConvention": "Source attachment points use native pixel centres (integer pixel indices). Transform: output = scale * (source + 0.5) + offset - 0.5.",
+      "verification": "Native/source and output decoded RGBA SHA-256 verified; exact requested canvas dimensions; transparent background and full visible silhouette preserved."
+    }
+  ],
+  "geometryAudit": "Measured native source points and maximum safe silhouette fits; requested anchors recorded separately from measured/runtime anchors."
+}

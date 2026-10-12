@@ -1,0 +1,15 @@
+<!doctype html><meta charset="utf-8"><base href="../../"><title>October 12 wearable review</title>
+<style>body{margin:20px;background:#e9e5ef;color:#24163f;font:16px system-ui}#grid{display:grid;grid-template-columns:repeat(auto-fill,280px);gap:10px}canvas{background:#f7f4fa;border-radius:14px}select{font:inherit}</style>
+<h1>October 12 wearable review</h1><p>Actual Actor and outfit renderer, approved Felicity sprites, default accessory colours.</p>
+<label>Category <select id="category"><option value="all">All</option><option>head</option><option>face</option><option>neck</option><option>back</option><option>hand</option><option>aura</option></select></label><div id="status">Loading…</div><div id="grid"></div>
+<script type="module">
+import {loadArt} from './src/engine/art.js';
+import {Actor,loadSprites,ensureSpriteSet} from './src/engine/sprites.js';
+import {OUTFIT_ITEMS} from './src/engine/outfits.js';
+await Promise.all([loadArt(),loadSprites()]);await Promise.all([ensureSpriteSet('felicity'),ensureSpriteSet('fellowfox')]);
+const keys=new Set(['headband-unicorn','headband-kitty','hat-princess','headband-hearts','halo-fairy','mask-masquerade','glasses-monocle','face-whiskers','face-butterfly','glasses-goggles','necklace-pendant','collar-ruffle','necklace-candy','medal-star','boa-feather','wings-dragonfly','wings-petal','wings-dragon','bow-back','cape-star','backpack-teddy','scepter-royal','lollipop-swirl','handbag','fan-lace','balloon-star','wand-bubble','aura-butterfly','aura-shooting-star','aura-snowflake','aura-note','aura-petal']);
+const items=OUTFIT_ITEMS.filter(it=>Object.values(it.art?.colors||{}).some(key=>keys.has(key))||['Butterflies','Shooting Stars','Snowflakes','Music Notes','Flower Petals'].includes(it.name));let actors=[];
+function render(){document.querySelector('#grid').replaceChildren();actors=[];const slot=document.querySelector('#category').value;for(const item of items.filter(it=>slot==='all'||it.slot===slot)){const cv=document.createElement('canvas');cv.width=280;cv.height=360;document.querySelector('#grid').append(cv);const actor=new Actor('felicity',{x:140,y:320,scale:1.15,outfit:[{id:item.id,colour:item.color}]});actor.poseTime=0;actors.push({actor,cv,item});}document.querySelector('#status').textContent=actors.length+' items';}
+document.querySelector('#category').addEventListener('change',render);render();
+function tick(){for(const {actor,cv,item} of actors){const g=cv.getContext('2d');g.clearRect(0,0,280,360);g.fillStyle='#24163f';g.font='15px system-ui';g.fillText(item.name,12,22);actor.draw(g);}requestAnimationFrame(tick);}tick();
+</script>

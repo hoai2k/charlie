@@ -8,6 +8,13 @@ _Last updated: 2026-10-09, during the sprite-size audit (see "Session log" below
 
 ## In progress right now
 
+### Image delivery 2026-10-12: complete
+
+All open image requests are generated, reviewed, archived and pushed through `1ec90ae`: bakery (15 assets), fashion (32 assets), bunny faces (6 assets), six prop replacements, two Hotdog pull frames and six Cake hand point fixes. All 26sets validate without hard errors; art inventory: 582 keys / 562 files. Three headband anchors follow measured art seating; generatedfishing handle retains bendingproceduralshaft. Actual wearable gallery: reference/pending/OCT12-WEARABLE-REVIEW.html. Queue has exact delivery/check revision and UTC. No image work or approval pending; the old monitor remains cancelled.
+
+Cake/Hotdog specs now reproduce all October landmark-audit points exactly. Other older specs may still lag shipping manifests; synchronize current runtime landmarks before rebuilding them. Builder now preserves explicit eyes: null and framebodyHeight. Exact inverse/provenance lessons in spriteplaybook.
+
+
 ### Session log 2026-10-09 (update this as work proceeds)
 Standing rules: after every change commit, then push `main` AND the branch
 `claude/festive-planck-7ik6bk`; run `node party/tools/stamp-modules.mjs` after

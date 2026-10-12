@@ -1106,89 +1106,11 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `sprites/marshmallow-birthday-cake`: `hand` point on idle and walk frames | The idle/walk `hand` is at the top centre of the head, so the Mini-Golf putter and the Piñata Party bat (drawn while aiming or walking) come out of its head and the putter crosses its face. | Move the `hand` landmark on the cake's idle and walk frames to its front edge at mid-body height (where its `reel`/`putt` frames hold things). Landmark data only; no new pixels needed. |
-| `sprites/hotdog`: `pull` (frames pull-00, pull-01) (low priority) | The paws (hand point, about 0.47× height) sit right under the mouth, so the Tug-of-War rope covers the lower face and part of the eyes. | Redraw with the paws held at chest or belly height (about 0.30–0.35× height above the feet) so the face stays clear above the rope. |
-| `prop/fishing-rod` (optional) | The rod fills only the middle 37% of its canvas (x 161–350 of 512) with a 2–3 px shaft, so in game it was a near-invisible hairline. A static rod also can't bend, and the rod bends on every nibble and tug as tension feedback, so the game now always draws the rod itself and this file is unused. | Only if rod art is wanted: 512×64, transparent, a chunky kid's rod **handle only** (cork grip plus a big yellow reel), butt at the left edge, the shaft's start at the right edge, filling the full width, about 24 px thick, navy outline. The code would draw it from the butt to the hand and keep its own bending shaft. Otherwise drop the key. |
-| `thumb/cloud-hop` (optional) | The rain cloud frowns (the request asked for sleepy and content) and the trampoline is blue instead of the in-game pink-and-white stripes. | Same composition; make the rain cloud sleepy and content, and the trampoline pink-and-white striped like `prop/cloudhop-trampoline`. 800×500, opaque. |
-| `prop/treasure-chest-open` (optional) | Drawn in 3/4 view (lid hinged to the right) while `prop/treasure-chest` is straight front-on, so the chest seems to turn when it opens. | Same front-on view, scale and outline as `prop/treasure-chest` (same plank and band layout and lock position), lid flipped up behind, heaped coins and a pearl necklace; 300×300, transparent, bottom-centre at the base, a few px of padding below the base. |
-| `prop/golf-cookie-bridge` (optional) | The visible cookie is a thin 3.3:1 strip (411×123) inside the 440×230 canvas; the code trims it and stretches it to the 1.9:1 bridge, so the crackers become tall planks and the chips stretch. | Fill the 440×230 canvas edge to edge (≤8 px padding) at the requested 1.9:1: a wide graham-cracker bridge seen from above (e.g. two rows of square crackers, or one big cracker with perforations), chocolate chips, crumbs only inside the canvas. |
-| `prop/jump-rope-bunny-pink-cheer`, `-sneaky`, `-oops`; `prop/jump-rope-bunny-mint-cheer`, `-sneaky`, `-oops` (optional) | The painted face never changes, so the bunnies' moods only show through an emote the code adds next to the head. The code already looks up these keys (`excited` uses `-cheer`). | 6 images, each 600×660, transparent: the same canvas, pose, outfit, feet point (300, 660) and shoulder points (343, 370) / (249, 367) as the base bunny, no arms; only the face changes. **cheer:** eyes closed in happy arcs, big open smile. **sneaky:** sleepy half-closed sly eyes, a little smirk. **oops:** squeezed-shut wince eyes, a small round "o" mouth. No sweat drops, zzz or sparkles (the code draws those). |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
 
-## Cake Bakery: new toppings (2026-10-12)
 
-New Decorate choices in `src/games/cake-bakery/cake.js`. Every one already
-has a procedural drawing that ships today, and the code looks up each key
-below, so a file listed in `assets/art/index.json` drops in with no code
-change. Same family as the existing `prop/topper-*` art (about 96 px tall,
-transparent, navy `#24163f` outline, soft cel shading, glossy candy colours,
-**no text**). All are drawn in cake-local units at the station's scale: the
-code fits the image inside *H* tall × 2.2*H* wide (H given per row),
-**bottom-centre on the point where it touches the cake**, and sinks it the
-given few units into the frosting, so the base must touch the canvas's bottom
-edge with no padding and no shadow. They sit on the top face, and the ones
-marked "sides too" also stick on a layer's side, so they must read
-front-on. Rows marked **tinted** get a random colour per topping by
-hue-rotating the whole image: paint the main colour in the given hue and
-keep everything else white, cream or navy so only that part changes.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `prop/topper-macaron` | 112×96, transparent | H 32, sink 2; sides too. **Tinted**: shells pink `#ff9fd0` | One French macaron seen from the front, slightly from above: two smooth domed shells with a ruffled "foot", a thick white cream filling between them, a soft highlight on the top shell |
-| `prop/topper-choco-drop` | 96×96, transparent | H 34, sink 2; sides too | A chocolate drop (kiss shape): a glossy milk-chocolate cone with a flat round base and a little curled tip, darker shading on the right, a cream-coloured highlight on the left |
-| `prop/topper-butterfly` | 112×96, transparent | H 40, sink 2; sides too. **Tinted**: wings pink `#ff6fd0`. The code squashes it sideways (x scale 0.72–1) to flap the wings, so draw it front-on, wings fully open and symmetric about the centre | A sugar butterfly seen from the front: four rounded wings (big upper, small lower) with white polka dots, a plum body down the centre and two curly antennae; the bottom of the body touches the bottom edge |
-| `prop/topper-bow` | 128×80, transparent | H 30, sink 2; sides too. **Tinted**: ribbon pink `#ff6fd0` | A chunky candy ribbon bow, front view: two puffy loops, a round knot in the middle, two short tails pointing down, white polka dots on the loops |
-| `prop/topper-pearls` | 96×80, transparent | H 26, sink 2; sides too | A little pyramid of three shiny sugar pearls (two below, one on top), pearly white with a faint lilac shade and a bright highlight on each |
-| `prop/topper-lollipop` | 80×160, transparent | H 88, sink 4 (the stick end is pushed into the cake); top only. **Tinted**: swirl pink `#ff6fd0` | A round swirl lollipop on a white stick: a flat disc with a pink-and-white spiral, a glossy highlight at the upper left, the stick straight down to the bottom edge |
-| `prop/topper-candy-cane` | 80×160, transparent | H 74, sink 4; top only. The hook bends to the right | A red-and-white striped candy cane standing upright on its straight end, the hook at the top curling to the right, diagonal stripes, a soft highlight down one side |
-| `prop/topper-cupcake` | 96×112, transparent | H 58, sink 3; top only | A tiny cupcake: a sky-blue pleated paper wrapper, a three-tier swirl of pink frosting with a few rainbow sprinkles, and a red cherry with a stem on top |
-| `prop/topper-crown` | 112×96, transparent | H 44, sink 3; top only | A small gold princess crown, front view: a band with three gems (red, blue, green), three tall points each topped with a white pearl, bright gold with a shine stripe |
-| `prop/topper-rainbow` | 192×112, transparent | H 52, sink 4; top only. Wide: both cloud bottoms touch the bottom edge | A chunky arched rainbow (red, orange, yellow, green, blue, purple bands) with a fluffy white cloud at each end, standing on the clouds |
-| `prop/topper-shooting-star` | 112×192, transparent | H 92, sink 4; top only. The stick's bottom is at the bottom centre | A cake pick: a thin gold stick with a plump yellow star at the top, a curved rainbow trail (pink, blue, green) streaming down-left from the star, a tiny twinkle beside it |
-| `prop/topper-fairy` | 112×176, transparent | H 78, sink 3; top only. The feet/skirt hem are at the bottom centre | A tiny sugar fairy figurine standing on the cake: blonde bun, rosy cheeks, closed happy eyes, a pink bell-shaped dress, pale-blue translucent wings, holding up a wand with a gold star. Toy-like, not a roster character |
-| `prop/candle-swirl` | 48×160, transparent | Same as `prop/candle` (tinted from its pink, hue 334), drawn 82 tall, bottom-centre on the cake; the **wick tip must be about 3 px below the top edge, centred**, because the code draws the flame (`prop/candle-flame`) there | A tall thin twisted birthday candle: white wax with a pink spiral stripe, a little gold drip-catcher ring at the bottom, a short dark wick on top, no flame |
-| `prop/sprinkles-stars` | 128×128, transparent | Menu and hand-cursor icon for Star Sprinkles, drawn centred like `prop/sprinkles` (fallback: a shaker jar) | A loose scatter of tiny star-shaped sprinkles in gold, pale yellow, white, pink and sky blue |
-| `prop/sprinkles-dots` | 128×128, transparent | Menu and hand-cursor icon for Rainbow Dots, drawn centred like `prop/sprinkles` | A loose scatter of tiny round nonpareil dots in rainbow colours (red, orange, yellow, green, blue, purple) |
-
-## Fashion Show: new items (2026-10-12)
-
-New wardrobe items for `fashion-show` (requested by the Fashion Show agent, priority: nice-to-have). Every item already ships with a procedural drawing (the wardrobe lives in `src/engine/outfits.js`, shared with the game-wide dress-up look); the code looks up `prop/<key>` and uses the art **only for the item's default colour** (the colour named in the description), so the other palette colours keep the drawing. Same conventions as the existing fashion-show props: transparent background, WebP-able PNG, no text, bold navy (#24163f) outlines, cel shading, candy colours, front view unless stated, art facing right where it has a side (the game mirrors it). "S" below is the code's size unit for the category (head items: head width; face/neck: face width; back, hand: body height); the code fits the image into the given box and puts the anchor on the character's landmark for every frame.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `prop/headband-unicorn` | 160×136, transparent | `head` point; fit 1.0×0.85 S, band bottom-centre at 78% of the height (horn rises above) | Pearl-white headband with a spiral unicorn horn in the middle, pastel stripes on the horn, a pink and a yellow flower at the sides, a tiny sparkle at the tip |
-| `prop/headband-kitty` | 160×88, transparent | `head`; fit 1.0×0.55 S, band bottom-centre at 70% | Pink headband with two pointed kitty ears (light pink insides) and a small white bow with a gold centre on the right |
-| `prop/hat-princess` | 160×174, transparent | `head`; fit 0.85×0.9 S, brim at 88% | Tall pink princess cone hat (hennin) with a gold band, three little gold stars up the side and a soft pale-pink veil streaming back from the tip |
-| `prop/headband-hearts` | 160×120, transparent | `head`; fit 1.0×0.75 S, band bottom at 80% | Ruby-red headband with two bobbing heart antennae on springy stalks |
-| `prop/halo-fairy` | 160×56, transparent | floats above `head`: fit 1.0×0.35 S, anchor 1.4× the height below the top (the ring hovers about a third of a head-width over the hair) | Glowing golden fairy halo ring seen slightly from above, soft yellow glow, two or three tiny sparkles on the ring |
-| `prop/mask-masquerade` | 140×76, transparent | `eyes` point (eye line); fit 1.1×0.6 S, eye line at 55% | Lilac masquerade eye mask with gold-rimmed eye holes, a red gem between the eyes and a sky-blue feather plume on the right; eye holes see-through |
-| `prop/glasses-monocle` | 60×106, transparent | `eyes`; fit 0.42×0.75 S, lens centre at 22% from the top, shifted 0.24 S toward the facing side (over the forward eye) | Gold monocle: one round glass lens with a thick gold rim and a gold chain curling down from it |
-| `prop/face-whiskers` | 140×70, transparent | `eyes`; fit 1.0×0.5 S, eye line at the top 20% of the canvas (the paint sits below it) | Kitty face paint: a pink heart nose in the centre and three navy whisker strokes on each cheek, nothing else |
-| `prop/face-butterfly` | 140×70, transparent | `eyes`; fit 1.0×0.5 S, eye line at 20% | Face paint: a small sky-blue butterfly on the right cheek and two white sparkles on the left cheek |
-| `prop/glasses-goggles` | 140×60, transparent | `eyes`; fit 1.05×0.45 S, centred on the eye line | Mint party goggles: one wide wrap-around tinted mint lens with a navy strap, big glossy shine streak |
-| `prop/necklace-pendant` | 160×126, transparent | `neck` point; fit 0.7×0.55 S, chain top at 10% | Gold chain with a round royal pendant: a big sky-blue cut gem in a gold setting ringed with tiny pearls |
-| `prop/collar-ruffle` | 160×66, transparent | `neck`; fit 0.85×0.35 S, top at 25% | Pearl-white ruffled royal collar (a ring of soft ruffles) with a small red gem in front |
-| `prop/necklace-candy` | 160×66, transparent | `neck`; fit 0.85×0.35 S, top at 10% | Candy necklace: a string of little round candy beads in rainbow pastel colours |
-| `prop/medal-star` | 160×117, transparent | `neck`; fit 0.75×0.55 S, ribbon top at 15% | Champion medal: a blue-and-red ribbon V with a round gold medal with a raised star |
-| `prop/boa-feather` | 160×136, transparent | `neck`; fit 1.0×0.85 S, top at 20% | Fluffy pink feather boa looped around the neck with one end hanging down the front on the right |
-| `prop/wings-dragonfly` | 300×183, transparent | `back` point, drawn behind the body; fit 0.9×0.55 S, root (centre) at 55%; the code flaps it by squashing horizontally | Two pairs of long slim mint dragonfly wings, see-through with darker vein lines, spreading left and right from the centre |
-| `prop/wings-petal` | 300×240, transparent | `back`, behind; fit 0.75×0.6 S, centre at 50% | Flower-petal fairy wings: pink and light-pink petals fanning out on both sides from a small white flower in the middle |
-| `prop/wings-dragon` | 300×158, transparent | `back`, behind; fit 0.95×0.5 S, centre at 60% | Cute mint baby-dragon wings, rounded scalloped edges, light finger struts, small pearl claw tips; friendly, not scary |
-| `prop/bow-back` | 300×220, transparent | `back`, behind; fit 0.75×0.55 S, knot at 40% | Huge ruby-red ribbon bow (like a present bow) with two long tails hanging down, glossy satin shine |
-| `prop/cape-star` | 300×292, transparent | like `cape-royal`: top-centre at the neck, stretched to the fitted cape box (behind the body, hanging to the floor) | Lilac velvet cape scattered with little white and pale-yellow stars, scalloped hem, light-lilac collar |
-| `prop/backpack-teddy` | 140×200, transparent | `back`, behind; fit 0.3×0.42 S, the `back` point at 75% of the height (the pack rides high); the teddy's head must reach the top-right corner so it peeks over the shoulder | Small pink backpack with a darker flap, and a little brown teddy bear sitting in it, its head and ears peeking out of the top right |
-| `prop/scepter-royal` | 60×200, transparent | `hand` point = grip; fit 0.15×0.5 S, grip at 84% of the height | Gold royal scepter: a slim gold rod with two rings and a round gold orb with a tiny crown on top |
-| `prop/lollipop-swirl` | 90×200, transparent | `hand`; fit 0.2×0.45 S, grip at 88% | Big round pink swirl lollipop on a white stick with a red ribbon bow under the candy |
-| `prop/handbag` | 120×140, transparent | `hand`; fit 0.22×0.26 S, top of the handle at 5% (the bag hangs below the hand) | Little lilac handbag with a gold handle, a darker flap and a gold heart clasp |
-| `prop/fan-lace` | 200×114, transparent | `hand`; fit 0.42×0.24 S, pivot (bottom centre) at 90% | Open pearl-white lace hand fan, half circle with pleats, a scalloped edge of tiny pearls and a gold pivot |
-| `prop/balloon-star` | 120×320, transparent | `hand`; fit 0.3×0.8 S, string end at the bottom (98%) | Gold star-shaped foil balloon on a long thin navy string, shiny highlight |
-| `prop/wand-bubble` | 110×200, transparent | `hand`; fit 0.18×0.32 S, grip at 90% | Sky-blue bubble wand: a ring on a short handle with three soap bubbles floating up to the right |
-| `prop/aura-butterfly` | 96×96, transparent | one particle of the Butterflies aura (lilac default); drawn about 0.1 body heights wide, the code flaps it | A single small lilac butterfly seen from the front, wings open |
-| `prop/aura-shooting-star` | 160×80, transparent | one particle of the Shooting Stars aura (gold default); star at the left end, trail rising to the right | A small gold shooting star with a soft white trail |
-| `prop/aura-snowflake` | 96×96, transparent | one particle of the Snowflakes aura (sky default), rotated by the code | A single sky-blue and white six-pointed snowflake |
-| `prop/aura-note` | 96×96, transparent | one particle of the Music Notes aura (lilac default) | A single lilac eighth music note with a navy stem |
-| `prop/aura-petal` | 64×64, transparent | one particle of the Flower Petals aura (pink default), rotated by the code | A single pink cherry-blossom petal |
+No open image or re-generation requests remain as of 2026-10-12.
