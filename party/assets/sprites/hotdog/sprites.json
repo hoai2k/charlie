@@ -2616,8 +2616,8 @@
           "artHash": "10cf0768ada1d5aeca01f763463bc9e20828a4ccedee324ac189c7e5d1ff180c",
           "fileHash": "47bc73551844f1efdcaa8d2e0475b41250a94564601f98432a8fcbf497d47b0c",
           "head": [
-            103,
-            111
+            93,
+            99
           ],
           "hand": [
             125,
@@ -2657,8 +2657,8 @@
             88
           ],
           "hand": [
-            128,
-            128
+            122,
+            82
           ],
           "eyes": [
             126,
@@ -2694,8 +2694,8 @@
             91
           ],
           "hand": [
-            198,
-            128
+            245,
+            140
           ],
           "eyes": [
             187,
@@ -2732,8 +2732,8 @@
             91
           ],
           "hand": [
-            119,
-            132
+            137,
+            148
           ],
           "eyes": [
             116,
@@ -3412,10 +3412,7 @@
             86,
             133
           ],
-          "eyes": [
-            92,
-            112
-          ],
+          "eyes": null,
           "neck": [
             92,
             142
@@ -3473,8 +3470,8 @@
           "artHash": "82d33932cbee65dd27227ddf2cecd42c07419863ff267a7a26f76ef5e043807a",
           "fileHash": "04452edd3cdb1ed23892fd283d71f2b4c81e01b2eb0782b5f0919d2155df092b",
           "head": [
-            153,
-            90
+            140,
+            92
           ],
           "hand": [
             207,
@@ -3502,8 +3499,8 @@
           "artHash": "0dccc9b73aca3c0dae93d85eb3ae16d2b10f3c1186a1cbd76e7f9253b524c325",
           "fileHash": "f4471f8e34b69acc9e5d7e6dc1ded9dee86c42cab37e9c469b8487704ed6d253",
           "head": [
-            176,
-            91
+            183,
+            101
           ],
           "hand": [
             216,
@@ -3539,8 +3536,8 @@
           "artHash": "f0620932f44029634aa80fe6cea3310b828464f72a00fa28d9d0f688ae00cd0f",
           "fileHash": "1ced48bfcf8bff2c5c61cb3446ab491e35c742b3b2a5c02f55b6a81fc84527c9",
           "head": [
-            140,
-            113
+            145,
+            92
           ],
           "hand": [
             198,
@@ -3569,8 +3566,8 @@
           "artHash": "cd73c8995e1ca610e700f4f59e941c3d558cbdf97fb64ea986c8c2fa97242a26",
           "fileHash": "4f8c05af95f517e9365433bca3f56db952a288ab42c344583c8070a1b183c4d2",
           "head": [
-            136,
-            114
+            146,
+            85
           ],
           "hand": [
             201,
@@ -3608,7 +3605,7 @@
           "fileHash": "514d83bc36318e13eb64a525104ce734a4f3906f289da4169cae274430d38689",
           "head": [
             130,
-            121
+            100
           ],
           "hand": [
             167,
@@ -3636,8 +3633,8 @@
           "artHash": "020917e3db8b1bf62105ce8dbaaf332d2eb2b7df906dccd35c2ace99095d2f4d",
           "fileHash": "a06b8bfd9347ca573a9beb9a991e3b34960eb0ccec604f09c735a5dc9c7e4a38",
           "head": [
-            142,
-            122
+            143,
+            102
           ],
           "hand": [
             178,
@@ -3673,8 +3670,8 @@
           "artHash": "a7f67bd6cb9ad0784ddb84cfebb7cfb7a4778103d7ae4c1ffe2e62aadc6baa3f",
           "fileHash": "74a641f9d5e55653002ca7ba62c7507c4e9d0f6d5acf0cf668e051966e9fd65d",
           "head": [
-            154,
-            109
+            150,
+            85
           ],
           "hand": [
             98,
@@ -3702,8 +3699,8 @@
           "artHash": "23c140e7ad8c1cd6204b86dd6d8acdfefece280a89c5061001279ecfdb2e0856",
           "fileHash": "9b521d12c6537891d87d9768abaca2ba7df6172a57fa1ef3c60b92912b62bb22",
           "head": [
-            134,
-            108
+            140,
+            82
           ],
           "hand": [
             181,
@@ -3740,8 +3737,8 @@
           "artHash": "bd20bea2a080a08a4cbcee0238c898879bc2a248bfdf23d40dbb6b7914018a82",
           "fileHash": "21b2a935a88f4953c8b6f2655bdf8b9a61e11d16c0fd549fd634394d1277e361",
           "head": [
-            174,
-            126
+            173,
+            108
           ],
           "hand": [
             171,
@@ -3778,8 +3775,8 @@
           "artHash": "f63f4460969892bd7e0d3ea45e1843ccc95cfde44b702d601e4e1b777aeba02b",
           "fileHash": "f0cab75cc4fb03046f3b358d59061dc815c2d04e849cf4ba6292a041609c660c",
           "head": [
-            163,
-            107
+            161,
+            78
           ],
           "hand": [
             183,
@@ -3816,8 +3813,8 @@
           "artHash": "524b63bb46b532affa24d91040077b3afc6d206b5ce03b330dfd1bde05d8ccf2",
           "fileHash": "5bcbd737376cbb3e7a1e68262055b84362b1701842beb12ef1420731d48098ee",
           "head": [
-            148,
-            107
+            146,
+            82
           ],
           "hand": [
             142,
@@ -3855,15 +3852,15 @@
           "fileHash": "5105d95bafa665d8b8f05a75e2cbdaae346f727fb73d0b19d61bd765250b22c7",
           "head": [
             167,
-            121
+            103
           ],
           "hand": [
             184,
             178
           ],
           "eyes": [
-            167,
-            123
+            163,
+            126
           ],
           "neck": [
             165,
@@ -3892,8 +3889,8 @@
           "artHash": "7a857f420aeb50a406e9093c9f9d98ed2a98f4c60168c839ea3fdbae0869eec4",
           "fileHash": "7fe88b0343a777d29ca95b3a8006ef90c701ce1d1321ecfcbfe154f1e058c509",
           "head": [
-            170,
-            125
+            179,
+            105
           ],
           "hand": [
             179,
@@ -3931,15 +3928,15 @@
           "fileHash": "b7781768e1d840dd2bba162c7fe5a2a5fdea354fb267f7879ab7cd1d521d4ff9",
           "head": [
             140,
-            109
+            86
           ],
           "hand": [
             135,
             158
           ],
           "eyes": [
-            140,
-            110
+            137,
+            106
           ],
           "neck": [
             148,
