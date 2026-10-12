@@ -1,5 +1,19 @@
 # Charlie Party: image request history
 
+## 2026-10-12 — Snowball Splat revisions delivered
+
+Regenerated the clear snow arena and parallel side wall with built-in imagegen.
+Geometric intake aligns the fence above250 and pond to(960,652); restored
+ARENA_TOP_ART280 and removed the old taper correction. Running three-player
+CPU game reviewed with no console errors. Exact prompts/sources in
+reference/pending/OCT12-REGENERATIONS.json.
+
+| Key | Previous issue | Completed request |
+| --- | --- | --- |
+| `bg/snowball-splat` | The fence is painted at y≈270–365, not the requested 200–245, so players at the top of the play area stood on the fence rail. The code now starts the play area at y 345 while this background is in use (about 65 px of field lost). Pine trees and snowbanks also come well into the play area (x 90–1830, y 280–1028): bottom-left trees from y≈870, a bush at x 1110–1300 from y≈940, bottom-right trees from x≈1550 / y≈830, right-edge trees at x>1700 / y 380–760; players walk over them. The pond is perfect. | 1920×1080, opaque. Keep the cottages, pond (centre (960, 652), 205×88 plus a ~20 px rim) and style exactly. Move the fence up so its snowy base line is at y ≤ 250, with only sky, cottages and trees above it. Keep x 90–1830, y 260–1028 plain open snow (gentle drifts only); trees and banks only outside that box (x < 90, x > 1830, or y > 1028). When it lands, set `ARENA_TOP_ART` back to 280 in `snowball-splat.js`. |
+| `prop/snow-wall-side` | The top face narrows from 170 px at the front to 60 px at the far end (a vanishing point), but the game has no perspective (front walls don't narrow), so it read as a tall white obelisk. The code now crops each row of the top face to its painted width, which leaves thin side outlines. | 176×1016, transparent, same style as `prop/snow-wall`. The top face (top 67%) must be a straight-sided strip **as wide as the front end the whole way up** (no taper), with a lumpy snow edge and a navy outline on both long sides and the far end. Bottom 33%: the front end with brick seams, as now. |
+
+
 Fielded image requests (delivered and checked in game, or resolved or dropped),
 moved out of [`image-requests.md`](image-requests.md) to keep that file to
 standing guidance and open requests. **Newest at the top.** When you field a

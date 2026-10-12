@@ -66,7 +66,7 @@ const SNOWMEN = [
   { x: 1265, y: 655, scarf: '#9b5cff', hat: '#ff9f1c' },
 ];
 const SM_R = 40;
-const ARENA_TOP = 280, ARENA_TOP_ART = 345;
+const ARENA_TOP = 280, ARENA_TOP_ART = 280;
 
 const inIce = (x, y) => ((x - POND.x) / POND.rx) ** 2 + ((y - POND.y) / POND.ry) ** 2 < 1;
 const angDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
