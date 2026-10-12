@@ -9,7 +9,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawEmote } from '../engine/emotes.js';
-import { GAMES, PARTY_GAMES, STUDIO_GAMES, PARTY_PAGES } from '../games/index.js';
+import { GAMES, PARTY_GAMES, PARTY_PAGES, STUDIO_PAGES } from '../games/index.js';
 import { session, restoreRoster } from '../state.js';
 import { drawGameIcon } from './common.js';
 import { shuffle, pick, ease, clamp } from '../engine/util.js';
@@ -17,28 +17,46 @@ import { shuffle, pick, ease, clamp } from '../engine/util.js';
 const TILE_W = 196, TILE_H = 138, GAP = 16, X0 = 50;
 const PANEL_X = 1340;
 
-// Party Games has two pages of 11; the last tile ("More Games") flips between them.
-const pageOf = (id) => PARTY_PAGES.findIndex((pg) => pg.some((g) => g.id === id));
+// Party Games and Play Studio each have two pages of 11; the last tile of a
+// shelf ("More Games" / "More Play") flips between its pages.
+const SHELVES = { party: PARTY_PAGES, studio: STUDIO_PAGES };
+const SHELF_LABEL = { party: 'More Games', studio: 'More Play' };
+const SHELF_COLOR = { party: ['#ff7ab8', '#ff4d6d'], studio: ['#b48cff', '#9b5cff'] };
+/** { shelf, page } of a game, or null. */
+function pageOf(id) {
+  for (const [shelf, pages] of Object.entries(SHELVES)) {
+    const page = pages.findIndex((pg) => pg.some((g) => g.id === id));
+    if (page >= 0) return { shelf, page };
+  }
+  return null;
+}
 
-function buildRows(page) {
+function buildRows(pages) {
   const rows = [];
   const chunk = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
-  const party = PARTY_PAGES[page].map((g) => ({ kind: 'game', game: g }));
-  party.push({ kind: 'more' });
-  chunk(party, 6).forEach((r) => rows.push(r));
-  rows.partyRows = rows.length;
-  chunk(STUDIO_GAMES, 6).forEach((r) => rows.push(r.map((g) => ({ kind: 'game', game: g }))));
+  for (const shelf of ['party', 'studio']) {
+    if (shelf === 'studio') rows.partyRows = rows.length;
+    const list = SHELVES[shelf][pages[shelf]].map((g) => ({ kind: 'game', game: g, shelf }));
+    if (SHELVES[shelf].length > 1) list.push({ kind: 'more', shelf });
+    chunk(list, 6).forEach((r) => rows.push(r));
+  }
+  rows.studioRows = rows.length - rows.partyRows;
   rows.push([{ kind: 'random' }, { kind: 'marathon' }]);
   return rows;
 }
 
 export class GameSelectScene {
-  constructor() { this.page = 0; this.rows = buildRows(0); this.row = 0; this.col = 0; }
+  constructor() { this.pages = { party: 0, studio: 0 }; this.rows = buildRows(this.pages); this.row = 0; this.col = 0; }
 
-  setPage(page) {
-    this.page = page;
-    this.rows = buildRows(page);
+  setPage(shelf, page) {
+    this.pages = { ...this.pages, [shelf]: page };
+    this.rows = buildRows(this.pages);
     this.layout();
+  }
+  /** Show the page holding game `id` (if it's on the other page of its shelf). */
+  showGame(id) {
+    const at = pageOf(id);
+    if (at && this.pages[at.shelf] !== at.page) this.setPage(at.shelf, at.page);
   }
 
   enter() {
@@ -48,7 +66,7 @@ export class GameSelectScene {
     this.chosen = null;
     session.partyMode = null;
     music.menu();
-    if (session.lastGameId && pageOf(session.lastGameId) >= 0 && pageOf(session.lastGameId) !== this.page) this.setPage(pageOf(session.lastGameId));
+    if (session.lastGameId) this.showGame(session.lastGameId);
     this.layout();
     if (session.lastGameId) {
       this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.game && it.game.id === session.lastGameId) { this.row = ri; this.col = ci; } }));
@@ -119,16 +137,16 @@ export class GameSelectScene {
   choose() {
     const it = this.current;
     if (it.kind === 'game') { this.chosen = { id: it.game.id, t: 0 }; sfx('select'); this.burst(it); }
-    else if (it.kind === 'more') this.flipPage();
+    else if (it.kind === 'more') this.flipPage(it.shelf);
     else if (it.kind === 'random') this.startRoulette(GAMES.map((g) => g.id), false);
     else if (it.kind === 'marathon') this.startRoulette(shuffle(PARTY_GAMES.map((g) => g.id)).slice(0, 5), true);
   }
 
-  /** "More Games": swap the other page of party games in; the cursor stays on the tile. */
-  flipPage() {
-    this.setPage(1 - this.page);
-    this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.kind === 'more') { this.row = ri; this.col = ci; } }));
-    this.flip = { t: 0 };
+  /** "More Games" / "More Play": swap the other page of that shelf in; the cursor stays on the tile. */
+  flipPage(shelf) {
+    this.setPage(shelf, 1 - this.pages[shelf]);
+    this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.kind === 'more' && it.shelf === shelf) { this.row = ri; this.col = ci; } }));
+    this.flip = { t: 0, shelf };
     sfx('swap'); sfx('whoosh', { vol: 0.5 });
     const it = this.current;
     particles.burst(it.x + it.w / 2, it.y + it.h / 2, { type: 'sparkle', count: 14 });
@@ -144,7 +162,7 @@ export class GameSelectScene {
     if (marathon) { sfx('jingle/marathon-start'); host('marathon'); } else host('random');
     const fresh = pool.filter((id) => id !== session.lastGameId);
     const target = marathon ? pool[0] : pick(fresh.length ? fresh : pool);
-    if (pageOf(target) >= 0 && pageOf(target) !== this.page) this.setPage(pageOf(target));
+    this.showGame(target);
     const tiles = this.rows.flat().filter((it) => it.kind === 'game');
     this.roulette = { t: 0, hop: 0, nextHop: 0.05, tiles, target, marathon, pool, landed: false, idx: Math.floor(Math.random() * tiles.length) };
   }
@@ -188,12 +206,16 @@ export class GameSelectScene {
     ui.scoreboard(g, session.players, session.players.map((p) => p.stars), { y: 18, format: (v) => `★ ${v}`, highlight: this.leaders() });
     // Section headers.
     ui.text(g, 'Party Games', X0 + 8, 142, { size: 40, align: 'left', color: '#ff4d6d' });
-    for (let i = 0; i < PARTY_PAGES.length; i++) {   // page dots
-      g.beginPath(); g.arc(X0 + 318 + i * 30, 132, i === this.page ? 10 : 7, 0, Math.PI * 2);
-      g.fillStyle = i === this.page ? '#ff4d6d' : 'rgba(36,22,63,0.25)'; g.fill();
-      if (i === this.page) { g.lineWidth = 3; g.strokeStyle = '#24163f'; g.stroke(); }
-    }
     ui.text(g, 'Play Studio', X0 + 8, this.studioHeaderY, { size: 40, align: 'left', color: '#9b5cff' });
+    for (const [shelf, hy, hx] of [['party', 132, 318], ['studio', this.studioHeaderY - 10, 290]]) {   // page dots
+      const pages = SHELVES[shelf], cur = this.pages[shelf];
+      if (pages.length < 2) continue;
+      for (let i = 0; i < pages.length; i++) {
+        g.beginPath(); g.arc(X0 + hx + i * 30, hy, i === cur ? 10 : 7, 0, Math.PI * 2);
+        g.fillStyle = i === cur ? SHELF_COLOR[shelf][1] : 'rgba(36,22,63,0.25)'; g.fill();
+        if (i === cur) { g.lineWidth = 3; g.strokeStyle = '#24163f'; g.stroke(); }
+      }
+    }
     const played = new Set(session.played);
     const rIdx = this.roulette ? this.roulette.tiles[this.roulette.idx] : null;
     for (const [ri, row] of this.rows.entries()) {
@@ -201,7 +223,8 @@ export class GameSelectScene {
         const sel = this.roulette ? it === rIdx : (ri === this.row && ci === this.col);
         const bounce = sel ? 1.06 + Math.sin(this.t * 6) * 0.015 : 1;
         // party tiles pop in one after another when the page flips
-        const pop = this.flip && ri < this.rows.partyRows ? ease.outBack(clamp((this.flip.t - (ri * 6 + ci) * 0.025) / 0.25, 0, 1)) : 1;
+        const inShelf = this.flip && (this.flip.shelf === 'party' ? ri < this.rows.partyRows : ri >= this.rows.partyRows && ri < this.rows.length - 1);
+        const pop = inShelf ? ease.outBack(clamp((this.flip.t - ((ri % 2) * 6 + ci) * 0.025) / 0.25, 0, 1)) : 1;
         g.save();
         g.translate(it.x + it.w / 2, it.y + it.h / 2); g.scale(bounce * pop, bounce * pop); g.translate(-it.w / 2, -it.h / 2);
         if (it.kind === 'more') this.drawMoreTile(g, it, sel);
@@ -229,10 +252,10 @@ export class GameSelectScene {
     }
   }
 
-  /** The "More Games" tile: a peek at the other page's games and the page dots. */
+  /** The "More Games" / "More Play" tile: a peek at the other page's games. */
   drawMoreTile(g, it, sel) {
-    ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: '#ff7ab8', stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
-    const other = PARTY_PAGES[1 - this.page];
+    ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: SHELF_COLOR[it.shelf][0], stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
+    const page = this.pages[it.shelf], other = SHELVES[it.shelf][1 - page];
     const mw = 52, mh = 36;
     other.slice(0, 3).forEach((m, i) => {
       const x = 14 + i * (mw + 8), y = 12 + Math.sin(this.t * 3 + i) * (sel ? 3 : 0);
@@ -241,9 +264,9 @@ export class GameSelectScene {
       drawGameIcon(g, m, 2, 2, mw - 4, mh - 4, 0);
       g.restore();
     });
-    ui.text(g, 'More Games', it.w / 2, 82, { size: 30, weight: 800, maxWidth: it.w - 16 });
+    ui.text(g, SHELF_LABEL[it.shelf], it.w / 2, 82, { size: 30, weight: 800, maxWidth: it.w - 16 });
     const ax = it.w / 2 + Math.sin(this.t * 5) * (sel ? 6 : 0);
-    ui.text(g, this.page === 0 ? '▶ ▶' : '◀ ◀', ax, 116, { size: 22, color: '#fff6a8', strokeWidth: 5 });
+    ui.text(g, page === 0 ? '▶ ▶' : '◀ ◀', ax, 116, { size: 22, color: '#fff6a8', strokeWidth: 5 });
   }
 
   leaders() {
@@ -256,9 +279,10 @@ export class GameSelectScene {
     const x = PANEL_X, y = 130, w = 540, h = 870;
     ui.panel(g, x, y, w, h, { fill: '#fff8ec' });
     if (it.kind === 'more') {
-      ui.text(g, 'More Games!', x + w / 2, y + 70, { size: 60, color: '#ff4d6d' });
-      for (const [i, line] of [this.page === 0 ? 'Swap in a whole new' : 'Back to the first', 'page of party games!'].entries()) ui.text(g, line, x + w / 2, y + 140 + i * 44, { size: 34, color: '#24163f', stroke: false, weight: 700 });
-      const other = PARTY_PAGES[1 - this.page];
+      const page = this.pages[it.shelf];
+      ui.text(g, SHELF_LABEL[it.shelf] + '!', x + w / 2, y + 70, { size: 60, color: SHELF_COLOR[it.shelf][1] });
+      for (const [i, line] of [page === 0 ? 'Swap in a whole new' : 'Back to the first', it.shelf === 'party' ? 'page of party games!' : 'page of Play Studio!'].entries()) ui.text(g, line, x + w / 2, y + 140 + i * 44, { size: 34, color: '#24163f', stroke: false, weight: 700 });
+      const other = SHELVES[it.shelf][1 - page];
       const cols = 3, tw = 150, th = 100, gx = 18, gy = 16, x0 = x + (w - (cols * tw + (cols - 1) * gx)) / 2;
       other.forEach((m, i) => {
         const cx = x0 + (i % cols) * (tw + gx), cy = y + 250 + Math.floor(i / cols) * (th + gy);

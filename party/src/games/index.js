@@ -44,4 +44,7 @@ export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 const LAST = 'crown-keeper';
 const partyRest = PARTY_GAMES.filter((g) => g.id !== LAST);
 export const PARTY_PAGES = [partyRest.slice(0, 11), [...partyRest.slice(11), ...PARTY_GAMES.filter((g) => g.id === LAST)]];
+// Play Studio works the same way once it has more than 12 games: 11 per page
+// and a "More Play" tile.
+export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];
 export const gameById = (id) => GAMES.find((g) => g.id === id);
