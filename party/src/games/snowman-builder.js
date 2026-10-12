@@ -776,7 +776,7 @@ export class Game {
       const bits = [`${its[i]} decoration${its[i] === 1 ? '' : 's'}`];
       if (this.n > 1 && hs[i] === maxH) bits.push('Tallest!');
       else if (this.n > 1 && its[i] === maxI && maxI > 0) bits.push('Fanciest!');
-      else bits.push(`Rolled ${Math.max(1, Math.round(st.rolled / 60))} steps`);
+      else { const n = Math.max(1, Math.round(st.rolled / 60)); bits.push(`Rolled ${n} step${n === 1 ? '' : 's'}`); }
       return bits.join(' · ');
     });
     this.api.finish({ showcase: true, highlight: null, stats, title: 'Snow-tastic!' });
@@ -967,7 +967,7 @@ export class Game {
     } });
     // the player
     const a = st.actor;
-    list.push({ y: a.y, draw: () => a.draw(g, { ring: st.p.color }) });
+    if (this.phase === 'build') list.push({ y: a.y, draw: () => a.draw(g, { ring: st.p.color }) });
     // the rolling snowball
     const b = st.ball;
     if (b) list.push({ y: b.y + 0.5, draw: () => {
