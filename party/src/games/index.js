@@ -34,8 +34,9 @@ import * as g30 from './melody-maker.js';
 import * as g31 from './bead-bracelets.js';
 import * as g32 from './dream-room.js';
 import * as g33 from './seek-and-find.js';
+import * as g34 from './dance-studio.js';
 
-export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33].map((m) => ({ ...m.meta, module: m }));
+export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34].map((m) => ({ ...m.meta, module: m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
