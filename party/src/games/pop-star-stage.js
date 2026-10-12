@@ -32,6 +32,25 @@ const PERFECT_S = 0.08, GOOD_S = 0.16; // hit windows (± seconds)
 // The classic song: 120 BPM, 130 beats (65 s), boss at beat 96.
 const CLASSIC = { bpm: 120, end: 130, phases: { ab: 36, all: 68, boss: 96 } };
 const FEVER_COMBO = 20;
+// Adaptive levels: every performer has their own note track. Doing really
+// well steps it up a level; missing a few steps it down. Harder levels are
+// worth more points, so reaching (and staying at) them wins.
+//   0 Easy-peasy: A/B only, a note every other beat or so
+//   1 Easy:       A/B only (X/Y fold onto them)
+//   2 Normal:     all four buttons, on the beat
+//   3 Tricky:     + off-beat notes
+//   4 Superstar:  + the quickest patterns
+const TIERS = 5;
+const TIER_NAMES = ['Easy-peasy', 'Easy', 'Normal', 'Tricky', 'Superstar'];
+const TIER_PTS = [0.6, 0.8, 1, 1.3, 1.6];
+const UP_WINDOW = 12, UP_HITS = 11, DOWN_WINDOW = 8, DOWN_HITS = 5;
+const foldXY = (list) => list.map((n) => ({ ...n, btn: n.btn === 'x' ? 'a' : n.btn === 'y' ? 'b' : n.btn }));
+/** Keep notes at least `gap` beats apart. */
+function thin(list, gap) {
+  const out = [];
+  for (const n of list) if (!out.length || n.beat - out[out.length - 1].beat >= gap - 1e-6) out.push(n);
+  return out;
+}
 const BTNS = ['a', 'b', 'x', 'y'];
 const BTN_COLOR = ui.BUTTON_COLORS;
 const BTN_MIDI = { a: 72, b: 75, x: 79, y: 82 };   // C minor pentatonic-ish: always sounds nice
@@ -262,7 +281,7 @@ export const meta = {
   type: 'Rhythm · Highest score wins',
   goal: 'Press the matching button when each note reaches the line — your music poofs the Shadow Imps!',
   controls: [['a', 'Green notes'], ['b', 'Red notes'], ['x', 'Blue notes'], ['y', 'Yellow notes']],
-  tips: ['Press right when the note touches the circle!', 'Hit 20 in a row for rainbow FEVER — double points!', 'At the end, everyone zaps the BIG Shadow Imp together.'],
+  tips: ['Press right when the note touches the circle!', 'Play really well and your stars go up: trickier notes, more points! Miss a few and it gets easier.', 'Hit 20 in a row for rainbow FEVER — double points!'],
   music: 'dance',
   options: rhythmOptions('pop-star-stage'),
   duration: '65 sec',
@@ -334,8 +353,9 @@ export class Game {
       a.facing = 1; a.snap(); a.setPose('idle');
       return {
         p, i, x, actor: a,
-        notes: this.chart.map((c) => ({ ...c, judged: null, jt: 0, flub: false, ai: null })),
+        notes: [],
         next: 0, score: 0, combo: 0, maxCombo: 0, perfects: 0, goods: 0, misses: 0, imps: 0,
+        tier: this.startTier, peakTier: this.startTier, committed: -Infinity, hist: [], tierFlash: 0,
         fever: false, feverT: 0, flash: 0, flashColor: '#fff', wrong: 0, hitPulse: 0,
       };
     });
@@ -367,21 +387,71 @@ export class Game {
     const bpm = song ? song.bpm : CLASSIC.bpm;
     this.spb = 60 / bpm;
     this.perfect = PERFECT_S / this.spb; this.good = GOOD_S / this.spb;   // in beats
+    // The how-to "Notes" choice only sets where everyone starts (Easy / Normal / Hard).
+    const level = rhythmChoice('pop-star-stage').level | 0;
+    this.startTier = [1, 2, 3][clamp(level, 0, 2)];
     if (song) {
       // The song's own timeline: it plays once (or ~65 s of a loop), and its
       // sections decide when B and X/Y join and when the finale starts.
-      const plan = songPlan(song, rhythmChoice('pop-star-stage').level);
+      const plan = songPlan(song, level);
       this.songEnd = plan.end;
       this.phases = plan.phases;
-      this.chart = buildChart(song, rhythmChoice('pop-star-stage').level, plan);
+      const [easy, normal, hard] = [0, 1, 2].map((lv) => buildChart(song, lv, plan));
+      this.charts = [thin(foldXY(easy), 2), foldXY(easy), easy, normal, hard];
       this.musicKey = musicKey(song);
     } else {
       this.songEnd = CLASSIC.end; this.phases = { ...CLASSIC.phases };
-      this.chart = makeChart();
+      const full = makeChart(), quarters = full.filter((n) => Math.abs(n.beat - Math.round(n.beat)) < 1e-6);
+      const calm = thin(quarters, 1.5);
+      this.charts = [thin(foldXY(quarters), 2), foldXY(calm), calm, quarters, full];
       this.musicKey = 'dance';
     }
     this.bossBeat = this.phases.boss;
-    if (this.lanes) for (const L of this.lanes) L.notes = this.chart.map((c) => ({ ...c, judged: null, jt: 0, flub: false, ai: null }));
+    if (this.lanes) for (const L of this.lanes) this.resetTrack(L);
+  }
+
+  /** A lane's own track: notes are taken from its level's chart as they come into view. */
+  resetTrack(L) {
+    L.notes = []; L.next = 0; L.committed = -Infinity;
+    L.tier = L.tier ?? this.startTier; L.peakTier = Math.max(L.peakTier ?? 0, L.tier);
+    L.hist = []; L.tierFlash = 0;
+  }
+
+  commitNotes(L, b) {
+    const horizon = b + TRAVEL + 0.6;
+    if (horizon <= L.committed) return;
+    let last = L.notes.length ? L.notes[L.notes.length - 1].beat : -Infinity;
+    for (const c of this.charts[L.tier]) {
+      if (c.beat <= L.committed) continue;
+      if (c.beat > horizon) break;
+      if (c.beat - last < 0.24) continue;   // a level change mid-pattern: no crowding at the seam
+      L.notes.push({ ...c, tier: L.tier, judged: null, jt: 0, flub: false, ai: null });
+      last = c.beat;
+    }
+    L.committed = horizon;
+  }
+
+  /** After each hit or miss: step the lane's level up (doing really well) or down (struggling). */
+  adapt(L, hit, perfect) {
+    L.hist.push({ hit, perfect });
+    if (L.hist.length > UP_WINDOW) L.hist.shift();
+    const lastN = (n) => L.hist.slice(-n);
+    const hits = (list) => list.filter((h) => h.hit).length;
+    if (L.hist.length >= DOWN_WINDOW && hits(lastN(DOWN_WINDOW)) < DOWN_HITS && L.tier > 0) this.setTier(L, L.tier - 1);
+    else if (L.hist.length >= UP_WINDOW && hits(L.hist) >= UP_HITS && L.hist.filter((h) => h.perfect).length >= UP_WINDOW / 2 && L.tier < TIERS - 1) this.setTier(L, L.tier + 1);
+  }
+
+  setTier(L, t) {
+    const up = t > L.tier;
+    L.tier = t; L.hist = []; L.tierFlash = 1;
+    L.peakTier = Math.max(L.peakTier, t);
+    // Notes already on screen stay; the new level starts with the next ones.
+    const quiet = L.p.isAI && this.hasHuman;
+    if (up) {
+      particles.popText(L.x, HIT_Y - this.noteSize * 2.4, 'Level up!', '#ffd23f', this.n > 5 ? 34 : 48);
+      particles.burst(L.x, TOP + 30, { type: 'star', count: 10 });
+      if (!quiet) sfx('star');
+    } else if (!quiet) sfx('whoosh', { vol: 0.4 });
   }
 
   // ---- time ----------------------------------------------------------------
@@ -425,6 +495,8 @@ export class Game {
     this.updateCalls(b);
 
     for (const L of this.lanes) {
+      this.commitNotes(L, b);
+      L.tierFlash = Math.max(0, L.tierFlash - dt * 1.5);
       if (L.p.isAI) this.ai(L, b);
       const c = L.p.ctrl;
       for (const btn of BTNS) if (c.pressed(btn)) this.press(L, btn, b);
@@ -478,8 +550,9 @@ export class Game {
 
   updateCalls(b) {
     const call = (key, at, fn) => { if (b >= at && !this.calls[key]) { this.calls[key] = true; fn(); } };
+    const anyAll = this.lanes.some((L) => L.tier >= 2);
     if (this.phases.ab > 4) call('b', this.phases.ab - 2.5, () => { this.banner('Now B joins in!', 1.8, BTN_COLOR.b); sfx('magic'); });
-    if (this.phases.all > 4) call('xy', this.phases.all - 2.5, () => { this.banner('X and Y too!', 1.8, '#7fd3ff'); sfx('magic'); });
+    if (this.phases.all > 4 && anyAll) call('xy', this.phases.all - 2.5, () => { this.banner('X and Y too!', 1.8, '#7fd3ff'); sfx('magic'); });
     call('boss', this.bossBeat - 2, () => this.spawnBoss());
   }
 
@@ -506,9 +579,10 @@ export class Game {
     L.combo++; L.maxCombo = Math.max(L.maxCombo, L.combo);
     if (grade === 'perfect') L.perfects++; else L.goods++;
     const base = grade === 'perfect' ? 100 : 60;
-    const pts = base * (L.fever ? 2 : 1) * (nn.gold ? 2 : 1);
+    const pts = Math.round(base * TIER_PTS[nn.tier ?? 2]) * (L.fever ? 2 : 1) * (nn.gold ? 2 : 1);
     L.score += pts;
     L.flash = 1; L.flashColor = BTN_COLOR[nn.btn]; L.hitPulse = 1;
+    this.adapt(L, true, grade === 'perfect');
     const x = L.x, y = HIT_Y;
     particles.burst(x, y, { type: grade === 'perfect' ? 'star' : 'sparkle', count: grade === 'perfect' ? 8 : 5, colors: [BTN_COLOR[nn.btn], '#ffffff', '#fff6a8'] });
     if (grade === 'perfect') particles.ring(x, y, '#ffffff', this.noteSize * 1.4, 0.3);
@@ -547,6 +621,7 @@ export class Game {
     nn.judged = 'miss'; nn.jt = this.clock;
     const hadCombo = L.combo;
     L.combo = 0; L.misses++;
+    this.adapt(L, false, false);
     if (L.fever) { L.fever = false; particles.popText(L.x, HIT_Y - 60, 'Fever over', '#c9b6ff', 34); }
     if (!this.finale) L.actor.playOnce('hurt', 0.32, 'dance');
     this.judgeText(L, L.x + this.laneW * (this.n > 5 ? 0.28 : 0.22), HIT_Y + this.noteSize * 0.55, 'Miss', '#b9a8d9', this.n > 5 ? 22 : 30);
@@ -704,7 +779,7 @@ export class Game {
   finishGame() {
     this.finished = true;
     const scores = this.lanes.map((L) => L.score);
-    const stats = this.lanes.map((L) => `${L.score} pts · best combo ${L.maxCombo}`);
+    const stats = this.lanes.map((L) => `${L.score} pts · top level: ${TIER_NAMES[L.peakTier]}`);
     const best = Math.max(...scores);
     const win = this.lanes.filter((L) => L.score === best);
     const focus = win.length === 1 ? { x: win[0].actor.x, y: FLOOR_Y - win[0].actor.height * 0.6, zoom: 1.3 } : { x: W / 2, y: 780, zoom: 1.15 };
@@ -860,6 +935,16 @@ export class Game {
     }
     g.globalAlpha = 1;
     g.restore();
+    // level stars under the lane (pop when the level changes)
+    {
+      const k = 1 + L.tierFlash * 0.5, sr = (this.n > 5 ? 9 : 12) * k, gap = sr * 2.3;
+      for (let i = 0; i < TIERS; i++) {
+        g.save(); g.translate(x + (i - (TIERS - 1) / 2) * gap, HIT_Y + ns * 0.95 + 66);
+        g.globalAlpha = i <= L.tier ? 1 : 0.28;
+        drawStarShape(g, sr * 2, i <= L.tier ? '#ffd23f' : '#ffffff');
+        g.restore();
+      }
+    }
     // hit target
     const pulse = Math.pow(1 - (((b % 1) + 1) % 1), 3);
     g.save();
