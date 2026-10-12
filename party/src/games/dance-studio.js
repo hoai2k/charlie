@@ -1179,6 +1179,7 @@ export class Game {
     const S = this.stage, t = this.t;
     if (S.sub === 'intro') {
       if (S.t > 0.8) ui.banner(g, 'Showtime!', S.t - 0.8, { y: 330, size: 150, color: '#ffd23f' });
+      if (S.t > 1.4) this.drawTags(g, 40);
       return;
     }
     if (S.sub === 'switch' || S.sub === 'count' || S.sub === 'dance' || S.sub === 'bow') {
@@ -1206,7 +1207,7 @@ export class Game {
         g.save(); g.translate(W / 2, 330); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6;
         ui.text(g, String(n), 0, 0, { size: 200, color: '#ffd23f', strokeWidth: 12 }); g.restore();
       }
-      if (S.t < 3) for (const st of this.stations) if (!st.p.isAI) ui.playerTag(g, st.p, st.actor.x, st.actor.y - st.actor.height - 40);
+      if (S.t < 3) this.drawTags(g, 40);
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
         const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
@@ -1215,6 +1216,17 @@ export class Game {
     }
     if (S.sub === 'photo') this.drawPhoto(g);
     void t;
+  }
+
+  /** P1/P2 tags over the human players' dancers (screen space). */
+  drawTags(g, up) {
+    const cam = this.api.camera;
+    for (const st of this.stations) {
+      if (st.p.isAI) continue;
+      const a = st.actor, x = a.x, y = a.y - a.z - a.height - up;
+      const p = cam ? cam.toScreen(x, y) : { x, y };
+      ui.playerTag(g, st.p, p.x, p.y);
+    }
   }
 
   /** "<Name>'s dance" card at the top. */
