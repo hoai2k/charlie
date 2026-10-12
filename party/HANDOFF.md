@@ -72,6 +72,10 @@ Done and pushed this session (all tested headless in Playwright):
   worktree agents (brief: session scratchpad `studio-brief.md`): hair-salon,
   dance-studio, acrobat-circus, nail-studio, sandcastle-beach,
   puppet-theater, snowman-builder, aquarium, star-maker, pottery-wheel.
+  Merged so far: star-maker, sandcastle-beach, puppet-theater (merge with
+  scratchpad `merge_game.sh <branch> <id>`, then `register_game.py <id>`,
+  `copy_reqs.py`, restamp). SFX requests collect in scratchpad
+  `sfx-studio.md`; generate them with ElevenLabs once all 10 are in.
   Each commits its image-request section first ("Image requests: <id>");
   the lead copies those to main early. Then Play Studio gets two pages
   with a "More Play" last tile (like Party Games' PARTY_PAGES). Small
