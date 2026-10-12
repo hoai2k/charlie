@@ -1,5 +1,14 @@
 # Charlie Party: image request history
 
+## 2026-10-12 — Jump Rope bunny expressions delivered
+
+Six face variants generated and registered, same600x660 canvas retained. Runtime Jump Rope shoulder/handle alignment and console checked. Exact prompts/sources: reference/pending/OCT12-BUNNIES.json.
+
+| Key | Previous issue | Completed request |
+| --- | --- | --- |
+| `prop/jump-rope-bunny-pink-cheer`, `-sneaky`, `-oops`; `prop/jump-rope-bunny-mint-cheer`, `-sneaky`, `-oops` (optional) | The painted face never changes, so the bunnies' moods only show through an emote the code adds next to the head. The code already looks up these keys (`excited` uses `-cheer`). | 6 images, each 600×660, transparent: the same canvas, pose, outfit, feet point (300, 660) and shoulder points (343, 370) / (249, 367) as the base bunny, no arms; only the face changes. **cheer:** eyes closed in happy arcs, big open smile. **sneaky:** sleepy half-closed sly eyes, a little smirk. **oops:** squeezed-shut wince eyes, a small round "o" mouth. No sweat drops, zzz or sparkles (the code draws those). |
+
+
 ## 2026-10-12 — Cake Bakery toppings delivered
 
 All15 built-in imagegen assets reviewed, registered and checked in a complete three-player CPU bakery run with no console warnings/errors. Bottom contacts and candle wick verified. Prompts/sources: reference/pending/OCT12-TOPPINGS.json.
