@@ -102,7 +102,7 @@ export class Game {
     this.serial = 0;
     this.sand = 0; this.sandFx = null;
     this.night = false; this.nightK = 0; this.switchUsed = false; this.switchBump = -9;
-    this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME;
+    this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME + (this.n <= 2 ? 16 : 0);
     this.prompt = null; this.toast = null; this.banner = null;
     this.photos = []; this.bigPhoto = null; this.finished = false;
     this.playT = 4; this.bubbleSnd = 0; this.reactT = 0;
@@ -415,7 +415,7 @@ export class Game {
       // hunger: find the nearest flake
       if (!show && f.full < 4 && (f.state === 'swim' || f.state === 'look') && this.flakes.length && f.hungryAt !== undefined && this.t >= f.hungryAt) {
         let best = null, bd = 650;
-        for (const fl of this.flakes) { if (fl.target && fl.target !== f) continue; const d = Math.hypot(fl.x - f.x, fl.y - f.y); if (d < bd) { bd = d; best = fl; } }
+        for (const fl of this.flakes) { if (fl.target && fl.target !== f && fl.target.food === fl && fl.target.state === 'eat' && this.fish.includes(fl.target)) continue; const d = Math.hypot(fl.x - f.x, fl.y - f.y); if (d < bd) { bd = d; best = fl; } }
         if (best) { f.state = 'eat'; f.food = best; best.target = f; emote(f, 'exclaim', 0.8); }
         f.hungryAt = this.t + rand(0.4, 0.9);
       }
@@ -1042,7 +1042,7 @@ export class Game {
       A.idle -= dt;
       if (A.idle > 0) return;
       A.cmds = this.planFor(st);
-      A.idle = this.humans ? rand(6, 11) / prof.speed : rand(0.5, 1.3);
+      A.idle = this.humans ? rand(6, 11) / prof.speed : rand(0.3, 0.8);
       if (!A.cmds.length) A.idle = this.humans ? 5 : rand(1.5, 3);
       return;
     }
@@ -1053,7 +1053,7 @@ export class Game {
         if (st.sel === cmd.v) { done(0.2); break; }
         const N = PALETTE.length, r = (cmd.v - st.sel + N) % N;
         c.press(r <= N / 2 ? 'rb' : 'lb');
-        A.wait = rand(0.09, 0.15) / prof.speed;
+        A.wait = (this.humans ? rand(0.09, 0.15) : rand(0.05, 0.08)) / prof.speed;
         break;
       }
       case 'col': {
@@ -1332,7 +1332,7 @@ export class Game {
     const k = w / (W / zoom);
     g.setTransform(k, 0, 0, k, w / 2 - cx * k, h / 2 - cy * k);
     const nk = this.nightK;
-    this.nightK = nk * 0.7;   // the flash lights the tank up a little
+    this.nightK = nk * 0.55;   // the flash lights the tank up a little
     try { this.drawWorld(g, { photo: true }); } catch (e) { console.warn(e); }
     this.nightK = nk;
     return c;
