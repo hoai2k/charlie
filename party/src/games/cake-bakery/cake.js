@@ -59,11 +59,27 @@ function samplePoly(poly, count) {
   return out;
 }
 
+function squarePoly(n) {
+  // rounded square (superellipse), width 1
+  return Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * TAU, c = Math.cos(a), s = Math.sin(a), e = 2 / 5;
+    return [Math.sign(c) * Math.abs(c) ** e * 0.5, Math.sign(s) * Math.abs(s) ** e * 0.5];
+  });
+}
+function flowerPoly(n) {
+  // six round petals (scalloped edge), normalized to width 1
+  const pts = Array.from({ length: n }, (_, i) => { const a = (i / n) * TAU, r = 0.86 + 0.14 * Math.abs(Math.cos(a * 3)); return [Math.cos(a) * r, Math.sin(a) * r]; });
+  const xs = pts.map((p) => p[0]), sx = Math.max(...xs) - Math.min(...xs);
+  return pts.map(([x, y]) => [x / sx, y / sx]);
+}
+
 export const SHAPES = [
   { id: 'round', name: 'Round', poly: circlePoly(48) },
   { id: 'heart', name: 'Heart', poly: heartPoly(72) },
   { id: 'star', name: 'Star', poly: starPoly() },
   { id: 'tower', name: 'Tall Tower', poly: circlePoly(48), tower: true },
+  { id: 'square', name: 'Square', poly: squarePoly(64) },
+  { id: 'flower', name: 'Flower', poly: flowerPoly(96) },
 ];
 for (const s of SHAPES) { s.range = buildRange(s.poly); s.rim = samplePoly(s.poly, 44); }
 
@@ -76,6 +92,8 @@ export const FLAVORS = [
   { name: 'Lemon', c: '#fff38a', d: '#e2c94a' },
   { name: 'Red Velvet', c: '#e8546b', d: '#b72d47' },
   { name: 'Rainbow', c: '#ffc4e6', d: '#d98ac0', rainbow: true },
+  { name: 'Orange', c: '#ffc988', d: '#ec9a4c' },
+  { name: 'Cookies & Cream', c: '#ebe6df', d: '#a99d90', cookies: true },
 ];
 export const FROSTINGS = [
   { name: 'Pink', c: '#ff9fd0', d: '#e070ad' },
@@ -86,31 +104,68 @@ export const FROSTINGS = [
   { name: 'Mint', c: '#a5f2cd', d: '#6fd3a5' },
   { name: 'Lemon', c: '#fff29e', d: '#e8d164' },
   { name: 'Rainbow', c: '#ffd6ef', d: '#e6a8d3', rainbow: true },
+  { name: 'Peach', c: '#ffcaa6', d: '#f29d74' },
+  { name: 'Cherry', c: '#ff7d93', d: '#e04d69' },
 ];
-export const STYLES = ['Smooth', 'Drips', 'Swirls'];
+export const STYLES = ['Smooth', 'Drips', 'Swirls', 'Pearls', 'Ruffles'];
 export const DRIZZLES = [
   { name: 'None' },
   { name: 'Chocolate', c: '#5a321c' },
   { name: 'Caramel', c: '#d98a2b' },
   { name: 'Strawberry', c: '#ff5c8a' },
   { name: 'White', c: '#ffffff' },
+  { name: 'Honey', c: '#ffbf2e' },
+  { name: 'Blue Raspberry', c: '#3f8cff' },
   { name: 'Rainbow', c: '#ff9fd8', rainbow: true },
 ];
+export const CANDY = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#36d17a', '#b36bff', '#ff8c3a', '#ff6fd0', '#25d0c8'];
+const PASTEL = ['#ff9fd0', '#ffd27a', '#9fd8ff', '#9ff0c4', '#cfa8ff', '#ffb38a'];
+// spray: shaken out as little stuck bits (A held), never picked up.
+// topOnly: only lands on the top face. candle: lit in the finale.
+// colors: each placed one gets a random colour from this list.
 export const DECOS = [
-  { id: 'sprinkles', name: 'Sprinkles' },
+  { id: 'sprinkles', name: 'Sprinkles', spray: 'line' },
+  { id: 'starsprinkles', name: 'Star Sprinkles', spray: 'star' },
+  { id: 'dots', name: 'Rainbow Dots', spray: 'dot' },
   { id: 'cherry', name: 'Cherry' },
   { id: 'strawberry', name: 'Strawberry' },
-  { id: 'star', name: 'Candy Star' },
+  { id: 'macaron', name: 'Macaron', colors: PASTEL },
+  { id: 'chocdrop', name: 'Choco Drop' },
+  { id: 'star', name: 'Candy Star', colors: CANDY },
   { id: 'heart', name: 'Candy Heart' },
   { id: 'flower', name: 'Sugar Flower' },
-  { id: 'gummy', name: 'Gummy Bear' },
-  { id: 'candle', name: 'Candle', topOnly: true },
+  { id: 'butterfly', name: 'Butterfly', colors: CANDY },
+  { id: 'bow', name: 'Candy Bow', colors: CANDY },
+  { id: 'pearls', name: 'Sugar Pearls' },
+  { id: 'gummy', name: 'Gummy Bear', colors: CANDY },
+  { id: 'lollipop', name: 'Lollipop', topOnly: true, colors: CANDY },
+  { id: 'candycane', name: 'Candy Cane', topOnly: true },
+  { id: 'cupcake', name: 'Mini Cupcake', topOnly: true },
+  { id: 'crown', name: 'Mini Crown', topOnly: true },
+  { id: 'rainbow', name: 'Rainbow', topOnly: true },
+  { id: 'shootingstar', name: 'Shooting Star', topOnly: true },
+  { id: 'fairy', name: 'Sugar Fairy', topOnly: true },
+  { id: 'candle', name: 'Candle', topOnly: true, candle: true, colors: CANDY },
+  { id: 'swirlcandle', name: 'Swirl Candle', topOnly: true, candle: true, colors: CANDY },
   { id: 'unicorn', name: 'Unicorn Horn', topOnly: true },
   { id: 'topper', name: 'Me Topper!', topOnly: true },
 ];
 export const DECO = Object.fromEntries(DECOS.map((d, i) => [d.id, i]));
-export const CANDY = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#36d17a', '#b36bff', '#ff8c3a', '#ff6fd0', '#25d0c8'];
+export const decoDef = (kind) => DECOS[DECO[kind]];
+export const isSpray = (kind) => !!decoDef(kind)?.spray;
+export const isCandle = (kind) => !!decoDef(kind)?.candle;
+// Pick-up box per placed topping (cake-local): [half width, height above its base].
+export const DECO_BOX = {
+  cherry: [18, 50], strawberry: [18, 40], star: [26, 54], heart: [26, 54], flower: [22, 40], gummy: [20, 46],
+  candle: [14, 72], unicorn: [20, 80], topper: [38, 170],
+  macaron: [20, 32], chocdrop: [16, 34], butterfly: [26, 40], bow: [26, 30], pearls: [18, 26],
+  lollipop: [22, 88], candycane: [22, 74], cupcake: [22, 58], crown: [24, 44], rainbow: [40, 52],
+  shootingstar: [30, 92], fairy: [26, 78], swirlcandle: [12, 92],
+};
+/** How far above its base a candle's flame sits (cake-local). */
+export const candleTop = (kind) => (kind === 'swirlcandle' ? 84 : 64);
 const SPRINKLE_COLORS = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#36d17a', '#b36bff', '#ffffff', '#ff8fd0', '#ff9f1c'];
+const STAR_SPRINKLE_COLORS = ['#ffd23f', '#fff6a8', '#ffffff', '#ff9fd0', '#9fd8ff'];
 
 export function newCake() {
   return { shape: 0, layers: 2, flavors: [0, 2, 0], frosting: 0, style: 0, drizzle: 0, decos: [], version: 0 };
@@ -207,6 +262,17 @@ function drawLayer(g, cake, i) {
     }
   };
   if (!drawCrumbSide(g, L, sideSlices, `${cake.shape}|${i}|${cake.flavors[i] ?? 0}|${cake.frosting}|${cake.style}`)) sideSlices(g);
+  // cookie crumbs speckled over the front of the sponge
+  if (fl.cookies) {
+    g.fillStyle = '#3b2a26';
+    for (let k = 0; k < 46; k++) {
+      const u = -0.46 + hash(k * 3 + i) * 0.92, r = rangeAt(sh, u);
+      if (!r) continue;
+      const x = u * L.w, front = r[1] * L.w * KY, f = hash(k * 7 + 11 + i);
+      const y = L.yt + front + rimK * L.h + 4 + f * (L.h * (1 - rimK) - 8);
+      g.beginPath(); g.ellipse(x, y, 2.5 + hash(k + 5) * 2.5, 2 + hash(k + 9) * 1.5, hash(k) * 3, 0, TAU); g.fill();
+    }
+  }
   // filling stripe
   g.save(); facePath(g, sh, 0, L.yb - L.h * 0.42, L.w * 1.0); g.lineWidth = 5; g.strokeStyle = 'rgba(255,255,255,0.45)'; g.stroke(); g.restore();
   // top face
@@ -237,6 +303,29 @@ function drawLayer(g, cake, i) {
       g.beginPath(); g.moveTo(p.x - 3, p.y - 13); g.quadraticCurveTo(p.x, p.y - 22, p.x + 2, p.y - 15); g.fill(); g.stroke();
       g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.arc(p.x - 4, p.y - 6, 2.5, 0, TAU); g.fill();
     }
+  } else if (cake.style === 3) {
+    // piped pearl dots around the top edge and the front of the bottom edge
+    const pearl = (x, y, k) => {
+      g.beginPath(); g.arc(x, y, 7, 0, TAU);
+      g.fillStyle = fr.rainbow ? RAINBOW[k % 7] : fr.name === 'Vanilla' ? '#ffd6ef' : '#fffaf5'; g.fill();
+      g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+      g.fillStyle = 'rgba(255,255,255,0.85)'; g.beginPath(); g.arc(x - 2.5, y - 2.5, 2.2, 0, TAU); g.fill();
+    };
+    for (const p of rim.filter((q) => q.front)) pearl(p.x, L.yb + (p.y - L.yt) - 2, p.k);
+    for (const p of rim.slice().sort((a, b) => a.y - b.y)) pearl(p.x, p.y - 2, p.k);
+  } else if (cake.style === 4) {
+    // ruffled frill hanging over the front edge
+    for (const p of rim) {
+      if (!p.front) continue;
+      g.beginPath(); g.ellipse(p.x, p.y + 6, 11, 10, 0, 0, TAU);
+      g.fillStyle = fr.rainbow ? RAINBOW[p.k % 7] : fr.c; g.fill(); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+      g.beginPath(); g.moveTo(p.x, p.y + 4); g.lineTo(p.x, p.y + 13); g.lineWidth = 2; g.strokeStyle = fr.d; g.stroke();
+    }
+    facePath(g, sh, 0, L.yt, L.w); g.fillStyle = fr.rainbow ? rainbowGrad(g, -L.w / 2, L.w / 2) : fr.c; g.fill(); g.lineWidth = 5; g.strokeStyle = NAVY; g.stroke();
+    g.save(); facePath(g, sh, 0, L.yt, L.w); g.clip();
+    g.globalAlpha = 0.35; g.fillStyle = '#fff';
+    g.beginPath(); g.ellipse(-L.w * 0.12, L.yt - L.w * KY * 0.12, L.w * 0.22, L.w * KY * 0.12, -0.2, 0, TAU); g.fill();
+    g.restore();
   }
 }
 
@@ -398,14 +487,16 @@ export function drawBody(g, cake, sx, sy, k) {
 export function makeDeco(kind, x, y, extra = {}) {
   return { kind, x, y, vy: 0, state: 'fall', ...extra };
 }
-export function sprinkle(x, y) {
-  return { kind: 'sprinkle', x, y, vy: rand(-120, 40), vx: rand(-90, 90), rot: rand(TAU), color: pick(SPRINKLE_COLORS), state: 'fall', spin: rand(-12, 12) };
+export function sprinkle(x, y, shape = 'line') {
+  const color = pick(shape === 'star' ? STAR_SPRINKLE_COLORS : shape === 'dot' ? RAINBOW : SPRINKLE_COLORS);
+  return { kind: 'sprinkle', shape, x, y, vy: rand(-120, 40), vx: rand(-90, 90), rot: rand(TAU), color, state: 'fall', spin: rand(-12, 12) };
 }
 
 function ol(g, w = 3) { g.lineWidth = w; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.stroke(); }
 
 // Generated topping art (cake-local units; (x, y) = where it touches the cake).
-// [art key, drawn height, how far the pick/base sinks below the landing point]
+// [art key, drawn height, how far the pick/base sinks below the landing point,
+//  main colour of the art (toppings with random colours get a hue-shifted copy)]
 const TOPPING_ART = {
   cherry: ['prop/topper-cherry', 48, 3],
   strawberry: ['prop/topper-strawberry', 40, 4],
@@ -413,10 +504,24 @@ const TOPPING_ART = {
   heart: ['prop/topper-heart', 54, 6],
   flower: ['prop/topper-flower', 36, 4],
   unicorn: ['prop/topper-unicorn-horn', 78, 4],
+  macaron: ['prop/topper-macaron', 32, 2, '#ff9fd0'],
+  chocdrop: ['prop/topper-choco-drop', 34, 2],
+  butterfly: ['prop/topper-butterfly', 40, 2, '#ff6fd0'],
+  bow: ['prop/topper-bow', 30, 2, '#ff6fd0'],
+  pearls: ['prop/topper-pearls', 26, 2],
+  lollipop: ['prop/topper-lollipop', 88, 4, '#ff6fd0'],
+  candycane: ['prop/topper-candy-cane', 74, 4],
+  cupcake: ['prop/topper-cupcake', 58, 3],
+  crown: ['prop/topper-crown', 44, 3],
+  rainbow: ['prop/topper-rainbow', 52, 4],
+  shootingstar: ['prop/topper-shooting-star', 92, 4],
+  fairy: ['prop/topper-fairy', 78, 3],
 };
 // The candle art is pink; other candy colors get a hue-shifted copy, built once.
-const CANDLE_HUE = 334, CANDLE_H = 62;
-const candleCache = new Map();
+const CANDLE_HUE = 334;
+// [art key, drawn height]; both images have the wick tip ~3 px below the top edge
+const CANDLE_ART = { candle: ['prop/candle', 62], swirlcandle: ['prop/candle-swirl', 82] };
+const tintCache = new Map();
 function hueOf(hex) {
   const n = parseInt(hex.slice(1), 16), r = (n >> 16) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
   const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
@@ -424,32 +529,45 @@ function hueOf(hex) {
   const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
   return (h * 60 + 360) % 360;
 }
-function candleArt(color) {
-  const img = art('prop/candle');
+/** Art for `key`, hue-rotated from its base hue to `color`'s hue (cached). */
+function tintedArt(key, baseHue, color) {
+  const img = art(key);
   if (!img) return null;
-  if (!color || color === '#ff6fd0') return img;
-  let c = candleCache.get(color);
+  if (!color) return img;
+  const shift = Math.round(hueOf(color) - baseHue);
+  if (Math.abs(shift) < 6) return img;
+  const ck = `${key}|${shift}`;
+  let c = tintCache.get(ck);
   if (c === undefined) {
     c = img;
     try {
       const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
       const x = cv.getContext('2d');
-      if ('filter' in x) { x.filter = `hue-rotate(${Math.round(hueOf(color) - CANDLE_HUE)}deg)`; x.drawImage(img, 0, 0); c = cv; }
+      if ('filter' in x) { x.filter = `hue-rotate(${shift}deg)`; x.drawImage(img, 0, 0); c = cv; }
     } catch (e) { c = img; }
-    candleCache.set(color, c);
+    tintCache.set(ck, c);
   }
   return c;
 }
+
+// Gentle wing flap for butterflies and fairies (x scale of the wings).
+const flap = (t, x) => 0.72 + 0.28 * Math.abs(Math.sin(t * 5 + x * 0.05));
 
 export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, ring = null } = {}) { // charId: a character id or the player (for its colour scheme)
   const x = d.x, y = d.y;
   const ta = TOPPING_ART[d.kind];
   if (ta) {
-    const [key, h, sink] = ta;
-    g.save(); g.translate(x, y + sink); if (d.rot) g.rotate(d.rot * 0.5);
-    const ok = drawArt(g, key, 0, 0, h * 1.6, h, { anchor: 'bottom' });
-    g.restore();
-    if (ok) return;
+    const [key, h, sink, base] = ta;
+    const img = base ? tintedArt(key, hueOf(base), d.color) : art(key);
+    if (img) {
+      // fit inside h tall x 2.2h wide, bottom-centre on the landing point
+      const s = Math.min(h / img.height, (h * 2.2) / img.width), w = img.width * s, hh = img.height * s;
+      g.save(); g.translate(x, y + sink); if (d.rot) g.rotate(d.rot * 0.5);
+      if (d.kind === 'butterfly') g.scale(flap(t, x), 1);
+      g.drawImage(img, -w / 2, -hh, w, hh);
+      g.restore();
+      return;
+    }
   }
   switch (d.kind) {
     case 'cherry': {
@@ -486,23 +604,183 @@ export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, 
       g.restore();
       break;
     }
-    case 'candle': {
-      const cimg = candleArt(d.color);
+    case 'candle': case 'swirlcandle': {
+      const swirl = d.kind === 'swirlcandle';
+      const [ckey, ch0] = CANDLE_ART[d.kind];
+      const cimg = tintedArt(ckey, CANDLE_HUE, d.color);
       if (cimg) {
-        // image is 64x95 with the wick tip ~3 px from the top edge
-        const ch = CANDLE_H, cw = ch * cimg.width / cimg.height;
+        // wick tip ~3 px below the image's top edge
+        const ch = ch0, cw = ch * cimg.width / cimg.height;
         g.drawImage(cimg, x - cw / 2, y + 2 - ch, cw, ch);
         if (lit && flame > 0.02) drawFlame(g, x, y + 2 - ch + 1, t, flame);
         break;
       }
-      const h = 54;
-      g.beginPath(); g.rect(x - 6, y - h, 12, h); g.fillStyle = '#fffaf2'; g.fill();
-      g.save(); g.clip(); g.strokeStyle = d.color || '#ff6fd0'; g.lineWidth = 5;
-      for (let k = -2; k < 8; k++) { g.beginPath(); g.moveTo(x - 8, y - k * 10); g.lineTo(x + 8, y - k * 10 - 10); g.stroke(); }
+      const h = swirl ? 72 : 54, hw = swirl ? 5 : 6;
+      g.beginPath(); g.rect(x - hw, y - h, hw * 2, h); g.fillStyle = '#fffaf2'; g.fill();
+      g.save(); g.clip(); g.strokeStyle = d.color || '#ff6fd0'; g.lineWidth = swirl ? 3.5 : 5;
+      const step = swirl ? 7 : 10;
+      for (let k = -2; k < h / step + 2; k++) { g.beginPath(); g.moveTo(x - 8, y - k * step); g.lineTo(x + 8, y - k * step - (swirl ? 14 : 10)); g.stroke(); }
+      if (swirl) { g.strokeStyle = 'rgba(255,255,255,0.7)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x - 2, y); g.lineTo(x - 2, y - h); g.stroke(); }
       g.restore();
-      g.beginPath(); g.rect(x - 6, y - h, 12, h); ol(g, 2.5);
+      g.beginPath(); g.rect(x - hw, y - h, hw * 2, h); ol(g, 2.5);
+      if (swirl) { g.beginPath(); g.ellipse(x, y - 3, hw + 5, 4, 0, 0, TAU); g.fillStyle = '#ffd23f'; g.fill(); ol(g, 2); }
       g.beginPath(); g.moveTo(x, y - h); g.lineTo(x, y - h - 8); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
       if (lit && flame > 0.02) drawFlame(g, x, y - h - 10, t, flame);
+      break;
+    }
+    case 'macaron': {
+      const c = d.color || '#ff9fd0';
+      g.beginPath(); g.ellipse(x, y - 8, 17, 8, 0, 0, TAU); g.fillStyle = c; g.fill(); ol(g);
+      g.beginPath(); g.ellipse(x, y - 15, 16, 5, 0, 0, TAU); g.fillStyle = '#fff8ee'; g.fill(); ol(g, 2.5);
+      g.beginPath(); g.ellipse(x, y - 22, 17, 9, 0, 0, TAU); g.fillStyle = c; g.fill(); ol(g);
+      g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.ellipse(x - 6, y - 25, 6, 2.6, -0.2, 0, TAU); g.fill();
+      g.strokeStyle = 'rgba(36,22,63,0.3)'; g.lineWidth = 1.5;
+      for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(x + k * 6, y - 13.5); g.lineTo(x + k * 6 + 2, y - 11.5); g.stroke(); }
+      break;
+    }
+    case 'chocdrop': {
+      g.beginPath(); g.moveTo(x - 16, y - 2);
+      g.bezierCurveTo(x - 17, y - 14, x - 6, y - 18, x - 2, y - 30); g.quadraticCurveTo(x + 3, y - 34, x + 6, y - 31);
+      g.quadraticCurveTo(x + 2, y - 26, x + 3, y - 22); g.bezierCurveTo(x + 8, y - 16, x + 17, y - 13, x + 16, y - 2);
+      g.quadraticCurveTo(x, y + 3, x - 16, y - 2); g.closePath();
+      g.fillStyle = '#7a4a2e'; g.fill(); ol(g);
+      g.save(); g.clip(); g.fillStyle = '#5a321c'; g.beginPath(); g.ellipse(x + 10, y - 6, 12, 14, 0, 0, TAU); g.fill(); g.restore();
+      g.fillStyle = 'rgba(255,240,220,0.7)'; g.beginPath(); g.ellipse(x - 7, y - 13, 3, 6, 0.5, 0, TAU); g.fill();
+      break;
+    }
+    case 'butterfly': {
+      const c = d.color || '#ff6fd0', f = flap(t, x);
+      g.save(); g.translate(x, y - 20);
+      g.save(); g.scale(f, 1);
+      for (const sx of [-1, 1]) {
+        g.beginPath(); g.ellipse(sx * 11, -6, 12, 10, sx * 0.5, 0, TAU); g.fillStyle = c; g.fill(); ol(g, 2.5);
+        g.beginPath(); g.ellipse(sx * 9, 8, 8, 7, -sx * 0.4, 0, TAU); g.fill(); ol(g, 2.5);
+        g.fillStyle = '#fff'; g.beginPath(); g.arc(sx * 13, -7, 3.2, 0, TAU); g.arc(sx * 9, 9, 2.2, 0, TAU); g.fill();
+        g.fillStyle = c;
+      }
+      g.restore();
+      g.beginPath(); g.ellipse(0, 1, 3.5, 14, 0, 0, TAU); g.fillStyle = '#5a3a8a'; g.fill(); ol(g, 2);
+      g.beginPath(); g.moveTo(-1, -12); g.quadraticCurveTo(-6, -20, -9, -20); g.moveTo(1, -12); g.quadraticCurveTo(6, -20, 9, -20); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke();
+      g.restore();
+      break;
+    }
+    case 'bow': {
+      const c = d.color || '#ff6fd0';
+      g.save(); g.translate(x, y - 15);
+      g.fillStyle = c;
+      for (const sx of [-1, 1]) {
+        g.beginPath(); g.moveTo(sx * 4, 2); g.lineTo(sx * 10, 15); g.lineTo(sx * 5, 13); g.lineTo(sx * 2, 16); g.closePath(); g.fill(); ol(g, 2.5);
+        g.beginPath(); g.moveTo(0, 0); g.bezierCurveTo(sx * 8, -14, sx * 24, -14, sx * 22, 0); g.bezierCurveTo(sx * 24, 12, sx * 8, 10, 0, 0); g.fill(); ol(g, 2.5);
+      }
+      g.fillStyle = 'rgba(255,255,255,0.8)';
+      for (const [dx, dy] of [[-15, -4], [-9, 3], [14, -5], [10, 3]]) { g.beginPath(); g.arc(dx, dy, 2, 0, TAU); g.fill(); }
+      g.beginPath(); g.ellipse(0, 0, 5, 6, 0, 0, TAU); g.fillStyle = c; g.fill(); ol(g, 2.5);
+      g.restore();
+      break;
+    }
+    case 'pearls': {
+      for (const [dx, dy, r] of [[-8, -7, 7], [8, -7, 7], [0, -17, 7.5]]) {
+        const gr = g.createRadialGradient(x + dx - 2, y + dy - 3, 1, x + dx, y + dy, r);
+        gr.addColorStop(0, '#ffffff'); gr.addColorStop(1, '#e6d8f5');
+        g.beginPath(); g.arc(x + dx, y + dy, r, 0, TAU); g.fillStyle = gr; g.fill(); ol(g, 2.5);
+        g.fillStyle = '#fff'; g.beginPath(); g.arc(x + dx - 2.5, y + dy - 2.5, 2, 0, TAU); g.fill();
+      }
+      break;
+    }
+    case 'lollipop': {
+      const c = d.color || '#ff6fd0';
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x, y - 54); g.lineWidth = 7; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = 4; g.strokeStyle = '#ffffff'; g.stroke();
+      g.save(); g.translate(x, y - 68);
+      g.beginPath(); g.arc(0, 0, 19, 0, TAU); g.fillStyle = '#ffffff'; g.fill();
+      g.save(); g.clip(); g.beginPath();
+      for (let a = 0; a < TAU * 3; a += 0.2) { const r = 1 + a * 2.5; a ? g.lineTo(Math.cos(a) * r, Math.sin(a) * r) : g.moveTo(0, 0); }
+      g.lineWidth = 6; g.strokeStyle = c; g.stroke(); g.restore();
+      g.beginPath(); g.arc(0, 0, 19, 0, TAU); ol(g);
+      g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.ellipse(-7, -8, 5, 3, -0.6, 0, TAU); g.fill();
+      g.restore();
+      break;
+    }
+    case 'candycane': {
+      g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
+      const path = () => { g.beginPath(); g.moveTo(x, y); g.lineTo(x, y - 52); g.arc(x + 11, y - 52, 11, Math.PI, 0); g.lineTo(x + 22, y - 44); };
+      path(); g.lineWidth = 13; g.strokeStyle = NAVY; g.stroke();
+      path(); g.lineWidth = 8; g.strokeStyle = '#ffffff'; g.stroke();
+      path(); g.setLineDash([6, 7]); g.lineCap = 'butt'; g.strokeStyle = '#ff3b5c'; g.stroke();
+      g.restore();
+      break;
+    }
+    case 'cupcake': {
+      g.beginPath(); g.moveTo(x - 14, y); g.lineTo(x + 14, y); g.lineTo(x + 19, y - 22); g.lineTo(x - 19, y - 22); g.closePath();
+      g.fillStyle = '#7fc8ff'; g.fill(); ol(g);
+      g.strokeStyle = 'rgba(36,22,63,0.35)'; g.lineWidth = 2;
+      for (let k = -2; k <= 2; k++) { g.beginPath(); g.moveTo(x + k * 5.5, y - 2); g.lineTo(x + k * 7, y - 20); g.stroke(); }
+      g.fillStyle = '#ff9fd0';
+      g.beginPath(); g.ellipse(x, y - 25, 21, 8, 0, 0, TAU); g.fill(); ol(g, 2.5);
+      g.beginPath(); g.ellipse(x, y - 33, 15, 7, 0, 0, TAU); g.fill(); ol(g, 2.5);
+      g.beginPath(); g.ellipse(x, y - 40, 9, 5, 0, 0, TAU); g.fill(); ol(g, 2.5);
+      const sc = ['#ffd23f', '#3fa7ff', '#36d17a', '#ffffff'];
+      for (let k = 0; k < 6; k++) { g.fillStyle = sc[k % 4]; g.fillRect(x - 14 + k * 5.5, y - 28 - (k % 2) * 6, 3, 2); }
+      g.beginPath(); g.arc(x, y - 49, 6, 0, TAU); g.fillStyle = '#e8213f'; g.fill(); ol(g, 2);
+      g.beginPath(); g.moveTo(x, y - 54); g.quadraticCurveTo(x + 2, y - 60, x + 6, y - 61); g.lineWidth = 2; g.strokeStyle = '#3d8b3d'; g.stroke();
+      break;
+    }
+    case 'crown': {
+      g.beginPath(); g.moveTo(x - 20, y - 2); g.lineTo(x - 22, y - 34); g.lineTo(x - 10, y - 20); g.lineTo(x, y - 38); g.lineTo(x + 10, y - 20); g.lineTo(x + 22, y - 34); g.lineTo(x + 20, y - 2); g.closePath();
+      g.fillStyle = '#ffd23f'; g.fill(); ol(g);
+      g.fillStyle = '#e8a91e'; g.fillRect(x - 19, y - 12, 38, 4);
+      g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.moveTo(x - 17, y - 26); g.lineTo(x - 15, y - 8); g.lineTo(x - 13, y - 8); g.closePath(); g.fill();
+      for (const [dx, c] of [[-10, '#ff4d6d'], [0, '#3fa7ff'], [10, '#36d17a']]) { g.beginPath(); g.arc(x + dx, y - 9, 3.5, 0, TAU); g.fillStyle = c; g.fill(); ol(g, 1.5); }
+      for (const [dx, dy] of [[-22, -36], [0, -40], [22, -36]]) { g.beginPath(); g.arc(x + dx, y + dy, 3.5, 0, TAU); g.fillStyle = '#fffaf2'; g.fill(); ol(g, 1.5); }
+      break;
+    }
+    case 'rainbow': {
+      g.save(); g.lineCap = 'butt';
+      const cols = ['#ff4d6d', '#ff9f1c', '#ffd23f', '#36d17a', '#3fa7ff', '#b36bff'];
+      g.beginPath(); g.arc(x, y - 8, 33, Math.PI, 0); g.arc(x, y - 8, 13, 0, Math.PI, true); g.closePath(); g.fillStyle = NAVY; g.fill(); ol(g, 3);
+      cols.forEach((c, k) => { g.beginPath(); g.arc(x, y - 8, 30 - k * 3.2 - 1.6, Math.PI, 0); g.lineWidth = 3.4; g.strokeStyle = c; g.stroke(); });
+      g.restore();
+      for (const sx of [-1, 1]) {
+        g.fillStyle = '#ffffff';
+        g.beginPath(); g.arc(x + sx * 23, y - 6, 8, 0, TAU); g.arc(x + sx * 31, y - 4, 6, 0, TAU); g.arc(x + sx * 16, y - 3, 6, 0, TAU); g.fill(); ol(g, 2.5);
+        g.beginPath(); g.arc(x + sx * 23, y - 6, 8, Math.PI, TAU); g.fill();
+      }
+      break;
+    }
+    case 'shootingstar': {
+      g.beginPath(); g.moveTo(x, y); g.lineTo(x, y - 60); g.lineWidth = 6; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = 3; g.strokeStyle = '#ffd23f'; g.stroke();
+      g.save(); g.lineCap = 'round';
+      ['#ff6fd0', '#3fa7ff', '#36d17a'].forEach((c, k) => {
+        g.beginPath(); g.moveTo(x - 4, y - 68 + (k - 1) * 7); g.quadraticCurveTo(x - 22, y - 62 + k * 6, x - 34, y - 46 + k * 7);
+        g.lineWidth = 7; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = 4; g.strokeStyle = c; g.stroke();
+      });
+      g.restore();
+      g.save(); g.translate(x + 2, y - 72); g.rotate(0.25); starPath(g, 18, 0.5); g.restore();
+      g.fillStyle = '#ffd23f'; g.fill(); ol(g);
+      g.fillStyle = 'rgba(255,255,255,0.75)'; g.beginPath(); g.arc(x - 3, y - 77, 3.5, 0, TAU); g.fill();
+      g.save(); g.translate(x + 22, y - 88); g.globalAlpha *= 0.5 + 0.5 * Math.sin(t * 5 + x); drawSparkleShape(g, 12, '#fff6a8'); g.restore();
+      break;
+    }
+    case 'fairy': {
+      const f = flap(t, x + 9);
+      // wings (behind)
+      g.save(); g.translate(x, y - 40); g.scale(f, 1);
+      g.globalAlpha *= 0.85;
+      for (const sx of [-1, 1]) {
+        g.beginPath(); g.ellipse(sx * 13, -6, 12, 8, sx * -0.5, 0, TAU); g.fillStyle = '#c9ecff'; g.fill(); ol(g, 2);
+        g.beginPath(); g.ellipse(sx * 10, 6, 8, 5, sx * 0.5, 0, TAU); g.fill(); ol(g, 2);
+      }
+      g.restore();
+      // dress, head, hair
+      g.beginPath(); g.moveTo(x - 14, y - 2); g.quadraticCurveTo(x, y + 3, x + 14, y - 2); g.lineTo(x + 4, y - 34); g.lineTo(x - 4, y - 34); g.closePath();
+      g.fillStyle = '#ff9fd0'; g.fill(); ol(g, 2.5);
+      g.beginPath(); g.arc(x, y - 46, 10, 0, TAU); g.fillStyle = '#ffdcc4'; g.fill(); ol(g, 2.5);
+      g.beginPath(); g.arc(x, y - 48, 10.5, Math.PI * 1.05, Math.PI * 1.95); g.lineTo(x + 9, y - 44); g.quadraticCurveTo(x + 2, y - 50, x - 9, y - 44); g.closePath(); g.fillStyle = '#ffcf5a'; g.fill(); ol(g, 2);
+      g.fillStyle = NAVY; g.beginPath(); g.arc(x - 3.5, y - 44, 1.4, 0, TAU); g.arc(x + 3.5, y - 44, 1.4, 0, TAU); g.fill();
+      g.fillStyle = 'rgba(255,111,176,0.5)'; g.beginPath(); g.arc(x - 6, y - 41, 2, 0, TAU); g.arc(x + 6, y - 41, 2, 0, TAU); g.fill();
+      // wand
+      g.beginPath(); g.moveTo(x + 5, y - 28); g.lineTo(x + 18, y - 54); g.lineWidth = 2.5; g.strokeStyle = NAVY; g.stroke();
+      g.save(); g.translate(x + 19, y - 58); g.rotate(t * 2); starPath(g, 7, 0.5); g.restore();
+      g.fillStyle = '#ffd23f'; g.fill(); ol(g, 1.5);
       break;
     }
     case 'heart': {
@@ -577,40 +855,95 @@ function drawFlame(g, x, base, t, flame) {
 
 /** Sprinkles are drawn in color batches (cheap even with hundreds). */
 export function drawSprinkles(g, list) {
-  const byColor = new Map();
-  for (const s of list) { if (!byColor.has(s.color)) byColor.set(s.color, []); byColor.get(s.color).push(s); }
-  g.lineCap = 'round';
-  g.lineWidth = 6.5; g.strokeStyle = 'rgba(36,22,63,0.55)';
-  g.beginPath();
-  for (const s of list) { const dx = Math.cos(s.rot) * 5, dy = Math.sin(s.rot) * 5 * (s.state === 'fall' ? 1 : 0.5); g.moveTo(s.x - dx, s.y - dy); g.lineTo(s.x + dx, s.y + dy); }
-  g.stroke();
-  g.lineWidth = 4;
-  for (const [c, arr] of byColor) {
-    g.beginPath(); g.strokeStyle = c;
-    for (const s of arr) { const dx = Math.cos(s.rot) * 5, dy = Math.sin(s.rot) * 5 * (s.state === 'fall' ? 1 : 0.5); g.moveTo(s.x - dx, s.y - dy); g.lineTo(s.x + dx, s.y + dy); }
+  const lines = [], dots = [], stars = [];
+  for (const s of list) (s.shape === 'dot' ? dots : s.shape === 'star' ? stars : lines).push(s);
+  const byColor = (arr) => { const m = new Map(); for (const s of arr) { if (!m.has(s.color)) m.set(s.color, []); m.get(s.color).push(s); } return m; };
+  if (lines.length) {
+    g.lineCap = 'round';
+    g.lineWidth = 6.5; g.strokeStyle = 'rgba(36,22,63,0.55)';
+    g.beginPath();
+    for (const s of lines) { const dx = Math.cos(s.rot) * 5, dy = Math.sin(s.rot) * 5 * (s.state === 'fall' ? 1 : 0.5); g.moveTo(s.x - dx, s.y - dy); g.lineTo(s.x + dx, s.y + dy); }
     g.stroke();
+    g.lineWidth = 4;
+    for (const [c, arr] of byColor(lines)) {
+      g.beginPath(); g.strokeStyle = c;
+      for (const s of arr) { const dx = Math.cos(s.rot) * 5, dy = Math.sin(s.rot) * 5 * (s.state === 'fall' ? 1 : 0.5); g.moveTo(s.x - dx, s.y - dy); g.lineTo(s.x + dx, s.y + dy); }
+      g.stroke();
+    }
+  }
+  if (dots.length) {
+    // round nonpareils: one navy rim pass, then the colours
+    g.fillStyle = 'rgba(36,22,63,0.6)'; g.beginPath();
+    for (const s of dots) { g.moveTo(s.x + 4.6, s.y); g.arc(s.x, s.y, 4.6, 0, TAU); }
+    g.fill();
+    for (const [c, arr] of byColor(dots)) {
+      g.fillStyle = c; g.beginPath();
+      for (const s of arr) { g.moveTo(s.x + 3.2, s.y); g.arc(s.x, s.y, 3.2, 0, TAU); }
+      g.fill();
+    }
+  }
+  if (stars.length) {
+    const star = (s, r) => {
+      const sq = s.state === 'fall' ? 1 : 0.6;
+      for (let i = 0; i < 10; i++) {
+        const a = s.rot + (i * Math.PI) / 5, rr = i % 2 ? r * 0.45 : r;
+        const X = s.x + Math.cos(a) * rr, Y = s.y + Math.sin(a) * rr * sq;
+        i ? g.lineTo(X, Y) : g.moveTo(X, Y);
+      }
+      g.closePath();
+    };
+    // navy rim pass (a slightly bigger star), then the colours on top
+    g.fillStyle = 'rgba(36,22,63,0.55)'; g.beginPath();
+    for (const s of stars) star(s, 9.5);
+    g.fill();
+    for (const [c, arr] of byColor(stars)) {
+      g.fillStyle = c; g.beginPath();
+      for (const s of arr) star(s, 7.5);
+      g.fill();
+    }
   }
 }
+
+const SPRAY_ICON = { sprinkles: 'prop/sprinkles', starsprinkles: 'prop/sprinkles-stars', dots: 'prop/sprinkles-dots' };
+/** A sprinkle shaker jar for spray `kind`, centred at (0, 0) in a 60-unit box, cap up. */
+export function drawShaker(g, kind) {
+  const cap = kind === 'starsprinkles' ? '#ffd23f' : kind === 'dots' ? '#3fa7ff' : '#ff6fd0';
+  g.beginPath(); g.rect(-14, -16, 28, 34); g.fillStyle = 'rgba(255,255,255,0.88)'; g.fill(); ol(g);
+  g.beginPath(); g.rect(-16, -26, 32, 12); g.fillStyle = cap; g.fill(); ol(g);
+  g.fillStyle = 'rgba(36,22,63,0.6)';
+  for (const dx of [-8, 0, 8]) { g.beginPath(); g.arc(dx, -20, 1.6, 0, TAU); g.fill(); }
+  const cs = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#36d17a', '#b36bff'];
+  for (let k = 0; k < 9; k++) {
+    const x = -9 + (k % 3) * 9, y = -6 + Math.floor(k / 3) * 8, c = cs[k % 5];
+    if (kind === 'dots') { g.beginPath(); g.arc(x, y, 3, 0, TAU); g.fillStyle = c; g.fill(); }
+    else if (kind === 'starsprinkles') { g.save(); g.translate(x, y); starPath(g, 4.5, 0.45); g.fillStyle = ['#ffd23f', '#ff9fd0', '#9fd8ff'][k % 3]; g.fill(); g.lineWidth = 1.2; g.strokeStyle = NAVY; g.stroke(); g.restore(); }
+    else { g.beginPath(); g.moveTo(x - 3, y + (k % 2 ? 2 : -2)); g.lineTo(x + 3, y - (k % 2 ? 2 : -2)); g.lineWidth = 3; g.strokeStyle = c; g.stroke(); }
+  }
+}
+
+// Menu icon fit for toppings drawn base-down: whole box visible inside 60 units.
+const FIT_ICON = new Set(['macaron', 'chocdrop', 'butterfly', 'bow', 'pearls', 'lollipop', 'candycane', 'cupcake', 'crown', 'rainbow', 'shootingstar', 'fairy', 'swirlcandle']);
+const ICON_COLOR = { gummy: '#36d17a', star: '#ffd23f', macaron: '#9fd8ff', butterfly: '#b36bff', bow: '#ff4d6d', lollipop: '#ff6fd0' };
 
 /** Little icon for the decoration menu (centered at cx, cy, about `size` px). */
 export function drawDecoIcon(g, kind, cx, cy, size, t) {
   // generated sprinkle-scatter art (125x128) for the Sprinkles menu / cursor icon
-  if (kind === 'sprinkles' && drawArt(g, 'prop/sprinkles', cx, cy, size * 0.95, size * 0.95)) return;
+  if (SPRAY_ICON[kind] && drawArt(g, SPRAY_ICON[kind], cx, cy, size * 0.95, size * 0.95)) return;
   g.save(); g.translate(cx, cy); const s = size / 60; g.scale(s, s);
-  if (kind === 'sprinkles') {
-    // shaker jar
-    g.beginPath(); g.rect(-14, -16, 28, 34); g.fillStyle = 'rgba(255,255,255,0.85)'; g.fill(); ol(g);
-    g.beginPath(); g.rect(-16, -26, 32, 12); g.fillStyle = '#ff6fd0'; g.fill(); ol(g);
-    const cs = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#36d17a', '#b36bff'];
-    for (let k = 0; k < 9; k++) { g.beginPath(); const x = -9 + (k % 3) * 9, y = -6 + Math.floor(k / 3) * 8; g.moveTo(x - 3, y + (k % 2 ? 2 : -2)); g.lineTo(x + 3, y - (k % 2 ? 2 : -2)); g.lineWidth = 3; g.strokeStyle = cs[k % 5]; g.stroke(); }
+  if (SPRAY_ICON[kind]) {
+    drawShaker(g, kind);
   } else if (kind === 'topper') {
     g.beginPath(); g.moveTo(0, 26); g.lineTo(0, -6); g.lineWidth = 4; g.strokeStyle = '#ffd23f'; g.stroke();
     g.beginPath(); g.arc(0, -14, 16, 0, TAU); g.fillStyle = '#ffd6ef'; g.fill(); ol(g);
     g.fillStyle = NAVY; g.beginPath(); g.arc(-5, -16, 2, 0, TAU); g.arc(5, -16, 2, 0, TAU); g.fill();
     g.beginPath(); g.arc(0, -11, 5, 0.2, Math.PI - 0.2); g.lineWidth = 2; g.stroke();
+  } else if (FIT_ICON.has(kind)) {
+    const [hw, h] = DECO_BOX[kind], f = Math.min(1.3, 54 / h, 54 / (hw * 2));
+    g.translate(0, (h * f) / 2); g.scale(f, f);
+    drawDecoShape(g, { kind, x: 0, y: 0, color: ICON_COLOR[kind] || '#ff6fd0' }, t, { lit: isCandle(kind), flame: 0.8 });
   } else {
     if (kind === 'unicorn') { g.translate(0, 6); g.scale(0.72, 0.72); }
-    const d = { kind, x: 0, y: kind === 'candle' || kind === 'unicorn' ? 26 : 18, rot: 0.2, color: kind === 'gummy' ? '#36d17a' : kind === 'star' ? '#ffd23f' : '#ff6fd0' };
+    const d = { kind, x: 0, y: kind === 'candle' || kind === 'unicorn' ? 26 : 18, rot: 0.2, color: ICON_COLOR[kind] || '#ff6fd0' };
     drawDecoShape(g, d, t, { lit: kind === 'candle', flame: 0.8 });
   }
   g.restore();

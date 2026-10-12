@@ -17,7 +17,8 @@ import { drawSparkleShape, drawHeartShape, drawStarShape } from '../engine/emote
 import {
   NAVY, KY, SHAPES, FLAVORS, FROSTINGS, STYLES, DRIZZLES, DECOS, DECO, CANDY,
   newCake, layerGeom, topLayer, faceRange, landing, drawBody, biteBody,
-  makeDeco, sprinkle, drawDecoShape, drawSprinkles, drawDecoIcon,
+  makeDeco, sprinkle, drawDecoShape, drawSprinkles, drawDecoIcon, drawShaker,
+  decoDef, isSpray, isCandle, candleTop, DECO_BOX,
 } from './cake-bakery/cake.js';
 
 export const meta = {
@@ -50,7 +51,13 @@ const TAB = Object.fromEntries(TABS.map((t, i) => [t.id, i]));
 const RATINGS = ['Yummy!', 'Delicious!', 'Best cake ever!', 'Sooo sweet!', '10 out of 10!', 'Magical!', 'Scrumptious!', 'Mmm-mmm!'];
 const MAX_SPRINKLES = 520;
 // Pick-up box per placed topping (cake-local): [half width, height above its base].
-const ITEM_BOX = { cherry: [18, 50], strawberry: [18, 40], star: [26, 54], heart: [26, 54], flower: [22, 40], gummy: [20, 46], candle: [14, 72], unicorn: [20, 80], topper: [38, 170] };
+const ITEM_BOX = DECO_BOX;
+// What CPU bakers and Surprise reach for.
+const TOP_RING = ['cherry', 'strawberry', 'star', 'macaron', 'chocdrop', 'pearls', 'flower'];
+const SIDE_BITS = ['star', 'gummy', 'butterfly', 'bow', 'pearls', 'macaron', 'heart', 'chocdrop'];
+const CENTERPIECES = ['crown', 'rainbow', 'shootingstar', 'fairy', 'lollipop', 'candycane', 'cupcake', 'unicorn'];
+const SPRAYS = ['sprinkles', 'sprinkles', 'starsprinkles', 'dots'];
+const CANDLES = ['candle', 'candle', 'swirlcandle'];
 const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
 
 // Happy Birthday (public domain melody): [midi, beats]
@@ -124,8 +131,36 @@ export class Game {
       cakeBump: 0, listBump: 0, tabBump: 0, cheerCD: 0, ai: null, aiStick: 0,
       sprinkles: [], items: [], blow: 0, blowNeed: 8, out: false, rating: null, bites: 0,
     };
+    // things the baker holds ride the hand landmark of the current frame
+    a.attach((g, info) => this.drawHeld(g, st, info));
     if (p.isAI) this.planAI(st);
     return st;
+  }
+
+  /** Attachment (forward space, origin at the feet): the sprinkle shaker while shaking, a bite of cake while tasting. */
+  drawHeld(g, st, info) {
+    const { hand, h } = info;
+    if (info.pose === 'shake-sprinkles') {
+      const kind = DECOS[st.decoSel].id;
+      // gripped near its base at the hand point (a muzzle's or the cake's
+      // hand point too), cap tipped forward-down over the cake, rattling
+      g.translate(hand.x, hand.y);
+      g.rotate(2.25 + Math.sin(this.t * 32) * 0.3);
+      const k = (h * 0.26) / 60; g.scale(k, k);
+      g.translate(0, -12);
+      drawShaker(g, isSpray(kind) ? kind : 'sprinkles');
+    } else if (info.pose === 'eat' && this.finale && st.bites > 0) {
+      // a bite of this cake at the mouth, just under the eyes landmark (eat
+      // frames hold the hands there; the cake's hand point is on its top)
+      const c = st.cake, u = h / 200, fr = FROSTINGS[c.frosting];
+      g.translate(info.eyes.x + h * 0.04, info.eyes.y + h * 0.08); g.rotate(-0.2); g.scale(u, u);
+      g.lineWidth = 3; g.strokeStyle = NAVY; g.lineJoin = 'round';
+      g.fillStyle = FLAVORS[c.flavors[c.layers - 1] ?? 0].c;
+      g.beginPath(); g.moveTo(-14, -8); g.lineTo(14, -8); g.lineTo(12, 12); g.lineTo(-12, 12); g.closePath(); g.fill(); g.stroke();
+      g.fillStyle = fr.rainbow ? '#ffd6ef' : fr.c;
+      ui.roundRect(g, -15, -16, 30, 10, 5); g.fill(); g.stroke();
+      g.fillStyle = '#e8213f'; g.beginPath(); g.arc(3, -20, 5, 0, TAU); g.fill(); g.lineWidth = 2; g.stroke();
+    }
   }
 
   // --- cake edits -----------------------------------------------------------------
@@ -213,9 +248,8 @@ export class Game {
     }
     const d = makeDeco(kind, lx, ly, { depth: 0.5 });
     this.settle(st, d, lx, ly, drop);
-    if (kind === 'star') { d.color = pick(CANDY); d.rot = rand(-0.4, 0.4); }
-    if (kind === 'gummy') d.color = pick(CANDY);
-    if (kind === 'candle') d.color = pick(CANDY);
+    if (def?.colors) d.color = pick(def.colors);
+    if (kind === 'star') d.rot = rand(-0.4, 0.4);
     st.items.push(d);
     if (group) group.push(d);
     return d;
@@ -279,12 +313,12 @@ export class Game {
     if (st.shaking) st.shaking = null;
   }
 
-  addSprinkles(st, lx, ly, count, group, spread = 26) {
+  addSprinkles(st, lx, ly, count, group, spread = 26, shape = 'line') {
     const c = st.cake;
     for (let j = 0; j < count; j++) {
       const x = lx + rand(-spread, spread);
       const ld = landing(c, x, ly + rand(-6, 6), { jitterDepth: true });
-      const s = sprinkle(x, ly + rand(-8, 8));
+      const s = sprinkle(x, ly + rand(-8, 8), shape);
       s.ty = ld.surface === 'side' ? s.y + rand(0, 8) : ld.y; s.surface = ld.surface;
       if (ld.surface === 'top') { const fr = faceRange(c, ld.layer, x); if (fr) s.depth = clamp((ld.y - fr[0]) / Math.max(1, fr[1] - fr[0]), 0, 1); }
       st.sprinkles.push(s);
@@ -359,14 +393,15 @@ export class Game {
     const canGrab = !st.p.isAI;
     st.hover = canGrab ? this.itemAt(st) : null;
     if (st.hover && c.pressed('b')) { this.removeItem(st, st.hover); st.hover = null; return; }
-    if (st.hover && kind !== 'sprinkles' && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
-    if (kind === 'sprinkles') {
+    const spray = decoDef(kind).spray;
+    if (st.hover && !spray && c.pressed('a')) { this.grab(st, st.hover); st.hover = null; return; }
+    if (spray) {
       if (c.pressed('a')) {
         st.shaking = []; st.history.push(st.shaking); st.shakeT = 0;
-        this.addSprinkles(st, cur.x, cur.y, 12, st.shaking); sfx('brush');
+        this.addSprinkles(st, cur.x, cur.y, 12, st.shaking, 26, spray); sfx('brush');
       } else if (c.held('a') && st.shaking) {
         st.shakeT += dt;
-        if (st.shakeT > 0.07) { st.shakeT = 0; this.addSprinkles(st, cur.x, cur.y, 4, st.shaking); }
+        if (st.shakeT > 0.07) { st.shakeT = 0; this.addSprinkles(st, cur.x, cur.y, 4, st.shaking, 26, spray); }
         if (Math.floor(this.t * 7) !== Math.floor((this.t - dt) * 7)) sfx('brush');
       }
       if (c.released('a') && st.shaking) { if (st.shaking.length > 20) this.bump(st); st.shaking = null; }
@@ -383,17 +418,19 @@ export class Game {
     const c = st.cake;
     c.shape = randInt(0, SHAPES.length - 1);
     c.layers = pick([2, 2, 3, 3, 1]);
-    c.flavors = [randInt(0, 7), randInt(0, 7), randInt(0, 7)];
-    c.frosting = randInt(0, 7); c.style = randInt(0, 2);
+    const nf = FLAVORS.length - 1;
+    c.flavors = [randInt(0, nf), randInt(0, nf), randInt(0, nf)];
+    c.frosting = randInt(0, FROSTINGS.length - 1); c.style = randInt(0, STYLES.length - 1);
     c.drizzle = chance(0.7) ? randInt(1, DRIZZLES.length - 1) : 0;
     c.version++;
     st.items = []; st.sprinkles = []; st.history = []; st.held = null; st.hover = null;
     const grp = [];
     const T = topLayer(c), ti = c.layers - 1;
     // sprinkles rain
-    for (let j = 0; j < 4; j++) this.addSprinkles(st, rand(-0.3, 0.3) * T.w, T.yt - rand(150, 320), 14, grp, 50);
-    // berries around the rim of the top
-    const berry = pick(['cherry', 'strawberry']);
+    const spray = decoDef(pick(SPRAYS)).spray;
+    for (let j = 0; j < 4; j++) this.addSprinkles(st, rand(-0.3, 0.3) * T.w, T.yt - rand(150, 320), 14, grp, 50, spray);
+    // berries (or macarons, pearls...) around the rim of the top
+    const berry = pick(TOP_RING);
     const nb = randInt(4, 6);
     for (let j = 0; j < nb; j++) {
       const a = (j / nb) * TAU + 0.3;
@@ -404,15 +441,16 @@ export class Game {
       const d = this.addItem(st, berry, x, y, { group: grp, drop: rand(200, 420) });
       d.vy = rand(-100, 0);
     }
-    const nc = randInt(2, 5);
+    const nc = randInt(2, 5), ck = pick(CANDLES);
     for (let j = 0; j < nc; j++) {
       const x = (j - (nc - 1) / 2) * Math.min(40, T.w * 0.5 / nc);
       const fr = faceRange(c, ti, x) || [T.yt, T.yt];
-      this.addItem(st, 'candle', x, lerp(fr[0], fr[1], 0.45 + (j % 2) * 0.12), { group: grp, drop: rand(300, 500) });
+      this.addItem(st, ck, x, lerp(fr[0], fr[1], 0.45 + (j % 2) * 0.12), { group: grp, drop: rand(300, 500) });
     }
-    if (chance(0.6)) this.addItem(st, 'topper', T.w * 0.18, T.yt, { group: grp, drop: 520 });
+    if (chance(0.5)) this.addItem(st, 'topper', T.w * 0.18, T.yt, { group: grp, drop: 520 });
+    else if (chance(0.7)) this.addItem(st, pick(CENTERPIECES), -T.w * 0.2, T.yt, { group: grp, drop: 520 });
     const B = layerGeom(c, 0);
-    const ns = randInt(3, 5), sk = pick(['star', 'gummy']);
+    const ns = randInt(3, 5), sk = pick(SIDE_BITS);
     for (let j = 0; j < ns; j++) {
       const x = (j - (ns - 1) / 2) * (B.w * 0.62 / ns);
       const fr = faceRange(c, 0, x);
@@ -440,10 +478,10 @@ export class Game {
 
   // --- CPU bakers ------------------------------------------------------------------
   planAI(st) {
-    const shape = randInt(0, 3), layers = pick([2, 2, 3, 3, 1]);
+    const shape = randInt(0, SHAPES.length - 1), layers = pick([2, 2, 3, 3, 1]), nf = FLAVORS.length - 1;
     const plan = {
-      shape, layers, flavors: [randInt(0, 7), randInt(0, 7), randInt(0, 7)],
-      frosting: randInt(0, 7), style: randInt(0, 2), drizzle: chance(0.65) ? randInt(1, 5) : 0,
+      shape, layers, flavors: [randInt(0, nf), randInt(0, nf), randInt(0, nf)],
+      frosting: randInt(0, FROSTINGS.length - 1), style: randInt(0, STYLES.length - 1), drizzle: chance(0.65) ? randInt(1, DRIZZLES.length - 1) : 0,
       decos: null, surprise: chance(0.25),
     };
     st.ai = { plan, t: rand(0.8, 1.8), di: 0, holdT: 0, mode: 'tick' };
@@ -454,14 +492,16 @@ export class Game {
     const list = [];
     const above = T.yt - 70;
     const ns = randInt(1, 2);
-    for (let j = 0; j < ns; j++) list.push({ kind: 'sprinkles', x: rand(-0.25, 0.1) * T.w, y: above - rand(0, 40), hold: rand(0.5, 0.9), dx: rand(70, 120) });
-    const berry = pick(['cherry', 'strawberry', 'star']);
+    for (let j = 0; j < ns; j++) list.push({ kind: pick(SPRAYS), x: rand(-0.25, 0.1) * T.w, y: above - rand(0, 40), hold: rand(0.5, 0.9), dx: rand(70, 120) });
+    const berry = pick(TOP_RING);
     const nb = randInt(2, 4);
     for (let j = 0; j < nb; j++) { const a = (j / nb) * TAU + rand(0.5); list.push({ kind: berry, x: Math.cos(a) * T.w * 0.3, y: T.yt + Math.sin(a) * T.w * KY * 0.25 }); }
     const nc = randInt(1, 4);
-    for (let j = 0; j < nc; j++) list.push({ kind: 'candle', x: (j - (nc - 1) / 2) * 34, y: T.yt });
-    if (chance(0.5)) list.push({ kind: pick(['star', 'gummy']), x: rand(-0.3, 0.3) * B.w, y: B.yb - B.h * 0.4 + B.w * KY * 0.35 });
-    if (chance(0.55)) list.push({ kind: 'topper', x: rand(-0.15, 0.15) * T.w, y: T.yt });
+    const ck = pick(CANDLES);
+    for (let j = 0; j < nc; j++) list.push({ kind: ck, x: (j - (nc - 1) / 2) * 34, y: T.yt });
+    if (chance(0.5)) list.push({ kind: pick(SIDE_BITS), x: rand(-0.3, 0.3) * B.w, y: B.yb - B.h * 0.4 + B.w * KY * 0.35 });
+    if (chance(0.45)) list.push({ kind: pick(CENTERPIECES), x: rand(-0.3, -0.15) * T.w, y: T.yt });
+    if (chance(0.5)) list.push({ kind: 'topper', x: rand(0, 0.15) * T.w, y: T.yt });
     return list;
   }
 
@@ -483,7 +523,7 @@ export class Game {
       const d = steer(st.p, st.cursor.x, st.cursor.y, goal.x, goal.y, { arrive: 70 });
       if (d < 18) {
         c.move(0, 0);
-        if (goal.kind === 'sprinkles') { c.hold('a', true); ai.holdT = goal.hold; }
+        if (isSpray(goal.kind)) { c.hold('a', true); ai.holdT = goal.hold; }
         else { c.press('a'); ai.di++; ai.mode = 'tick'; ai.t = rand(0.45, 0.9) / aiProfile(st.p).speed; }
       }
       return;
@@ -516,7 +556,13 @@ export class Game {
         if (!ai.decos) { ai.decos = this.buildDecoPlan(st); if (ai.skipToDeco) ai.decos = ai.decos.slice(0, 2); ai.di = 0; }
         const goal = ai.decos[ai.di];
         if (!goal) { next(); break; }
-        if (DECOS[st.decoSel].id !== goal.kind) { c.press('x'); break; }
+        if (DECOS[st.decoSel].id !== goal.kind) {
+          // step the short way round the (long) topping list
+          const fwd = (DECO[goal.kind] - st.decoSel + DECOS.length) % DECOS.length;
+          if (fwd <= DECOS.length / 2) c.press('x'); else this.stepDeco(st, -1);
+          ai.t *= 0.6;
+          break;
+        }
         ai.mode = 'move';
         break;
       }
@@ -560,7 +606,7 @@ export class Game {
         if (c.pressed('x')) this.xAction(st);
         const kind = DECOS[st.decoSel].id;
         a.facing = 1;
-        if (c.held('a') && kind === 'sprinkles') { if (a.pose !== 'shake-sprinkles' && !a._once) a.setPose('shake-sprinkles'); } else if (a.pose === 'shake-sprinkles') a.setPose('idle');
+        if (c.held('a') && isSpray(kind)) { if (a.pose !== 'shake-sprinkles' && !a._once) a.setPose('shake-sprinkles'); } else if (a.pose === 'shake-sprinkles') a.setPose('idle');
         continue;
       }
       if (tab === 'done') {
@@ -580,7 +626,7 @@ export class Game {
 
   // sprinkle-jar rattle loop while A is held on the sprinkles
   shakeSound(st) {
-    const on = !this.finale && !st.ready && !!st.shaking && st.p.ctrl.held('a') && TABS[st.tab].id === 'deco' && DECOS[st.decoSel].id === 'sprinkles';
+    const on = !this.finale && !st.ready && !!st.shaking && st.p.ctrl.held('a') && TABS[st.tab].id === 'deco' && isSpray(DECOS[st.decoSel].id);
     if (on && !st.shakeLoop) st.shakeLoop = sfxLoop('sprinkle-shake', { vol: this.n > 4 ? 0.6 : 0.85 });
     else if (!on && st.shakeLoop) { st.shakeLoop.stop(); st.shakeLoop = null; }
   }
@@ -595,12 +641,12 @@ export class Game {
       st.ready = true; this.dropHeld(st); st.hover = null;
       st.actor.setPose('idle'); st.actor.facing = 1;
       c_release(st.p);
-      if (!st.items.some((d) => d.kind === 'candle')) {
+      if (!st.items.some((d) => isCandle(d.kind))) {
         const T = topLayer(st.cake), fr = faceRange(st.cake, st.cake.layers - 1, 0) || [T.yt, T.yt];
         this.addItem(st, 'candle', 0, lerp(fr[0], fr[1], 0.5), { drop: 400 });
       }
-      for (const d of st.items) if (d.kind === 'candle') { d.lit = false; d.flame = 0; this.finale.litQueue.push([st, d]); }
-      st.blowNeed = Math.min(14, 6 + st.items.filter((d) => d.kind === 'candle').length);
+      for (const d of st.items) if (isCandle(d.kind)) { d.lit = false; d.flame = 0; this.finale.litQueue.push([st, d]); }
+      st.blowNeed = Math.min(14, 6 + st.items.filter((d) => isCandle(d.kind)).length);
     }
     this.finale.litQueue = shuffle(this.finale.litQueue);
     sfx('whoosh');
@@ -611,7 +657,7 @@ export class Game {
     for (const st of this.stations) {
       st.actor.update(dt); this.updateDecos(st, dt);
       st.cakeBump = Math.max(0, st.cakeBump - dt);
-      for (const d of st.items) if (d.kind === 'candle' && d.lit) d.flame = Math.min(d.out ? 0 : 1, (d.flame || 0) + dt * 4) - (d.out ? dt * 6 : 0);
+      for (const d of st.items) if (isCandle(d.kind) && d.lit) d.flame = Math.min(d.out ? 0 : 1, (d.flame || 0) + dt * 4) - (d.out ? dt * 6 : 0);
     }
     if (F.stage === 'light') {
       if (t > 0.9) {
@@ -620,7 +666,7 @@ export class Game {
           const [st, d] = F.litQueue.shift();
           d.lit = true; F.lightT = Math.max(0.05, 0.9 / (F.litQueue.length + 3));
           const k = st.L.k, s = st.L.stand;
-          particles.burst(s.x + d.x * k, s.y + (d.y - 64) * k, { type: 'spark', count: 8, colors: ['#ffd23f', '#ff9f1c', '#fff'] });
+          particles.burst(s.x + d.x * k, s.y + (d.y - candleTop(d.kind)) * k, { type: 'spark', count: 8, colors: ['#ffd23f', '#ff9f1c', '#fff'] });
           sfx('pop');
         }
         if (!F.litQueue.length && (F.lightT ?? 0) <= -0.5) {
@@ -675,25 +721,27 @@ export class Game {
     const a = st.actor, k = st.L.k, s = st.L.stand;
     st.blow++;
     a.playOnce('blow', 0.25, 'idle');
-    const mouth = a.anchor('head');
-    const my = mouth.y + a.height * 0.2;
+    // mouth: just under the eyes landmark of the blow frame
+    const eyes = a.anchor('eyes');
+    const mouth = { x: eyes.x + a.height * 0.03 * a.facing, y: eyes.y + a.height * 0.06 };
+    const my = mouth.y;
     sfx('whoosh');
     const top = this.cakeTop(st);
     const ang = Math.atan2(top.y - 30 * k - my, top.x - mouth.x);
-    particles.burst(mouth.x + 20, my, { type: 'bubble', count: 4, angle: ang, spread: 0.25, speed: [300, 520], life: [0.35, 0.55] });
-    particles.burst(mouth.x + 20, my, { type: 'dust', count: 3, angle: ang, spread: 0.2, speed: [260, 420] });
-    const candles = st.items.filter((d) => d.kind === 'candle' && !d.out);
+    particles.burst(mouth.x, my, { type: 'bubble', count: 4, angle: ang, spread: 0.25, speed: [300, 520], life: [0.35, 0.55] });
+    particles.burst(mouth.x, my, { type: 'dust', count: 3, angle: ang, spread: 0.2, speed: [260, 420] });
+    const candles = st.items.filter((d) => isCandle(d.kind) && !d.out);
     const frac = st.blow / st.blowNeed;
     for (const d of candles) {
       d.flame = Math.max(0.2, 1 - frac) * rand(0.6, 1);
       if (frac >= 1 || chance(frac * 0.35)) {
         d.out = true;
-        particles.burst(s.x + d.x * k, s.y + (d.y - 70) * k, { type: 'smoke', count: 4, speed: [20, 70] });
+        particles.burst(s.x + d.x * k, s.y + (d.y - candleTop(d.kind) - 6) * k, { type: 'smoke', count: 4, speed: [20, 70] });
       }
     }
-    if (frac >= 1 || st.items.every((d) => d.kind !== 'candle' || d.out)) {
+    if (frac >= 1 || st.items.every((d) => !isCandle(d.kind) || d.out)) {
       st.out = true;
-      for (const d of st.items) if (d.kind === 'candle' && !d.out) { d.out = true; particles.burst(s.x + d.x * k, s.y + (d.y - 70) * k, { type: 'smoke', count: 5, speed: [20, 70] }); }
+      for (const d of st.items) if (isCandle(d.kind) && !d.out) { d.out = true; particles.burst(s.x + d.x * k, s.y + (d.y - candleTop(d.kind) - 6) * k, { type: 'smoke', count: 5, speed: [20, 70] }); }
       sfx('candle-blow'); sfx('yay'); a.playOnce('cheer', 0.6, 'idle');
       particles.burst(top.x, top.y - 60 * k, { type: 'confetti', count: 24, speed: [200, 480] });
       particles.popText(top.x, top.y - 120 * k, 'Yay!', st.p.color, 56);
@@ -885,7 +933,7 @@ export class Game {
       g.beginPath(); g.moveTo(x, y + 16); g.lineTo(lx, ly); g.stroke(); g.setLineDash([]);
       g.beginPath(); g.ellipse(lx, ly, 16 * k + 6, 6 * k + 3, 0, 0, TAU); g.fillStyle = st.p.color; g.globalAlpha = 0.5; g.fill(); g.globalAlpha = 1;
     }
-    const shakeX = kind === 'sprinkles' && st.p.ctrl.held('a') ? Math.sin(this.t * 50) * 6 : 0;
+    const shakeX = isSpray(kind) && st.p.ctrl.held('a') ? Math.sin(this.t * 50) * 6 : 0;
     const sz = clamp(70 * k, 34, 70);
     if (held) {
       // the carried topping is drawn on the cake; the hand is just a ring around it
@@ -897,7 +945,7 @@ export class Game {
     }
     if (this.players.filter((pp) => !pp.isAI).length > 1 || st.p.isAI) ui.text(g, st.p.tag, x, y - sz * 0.62 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
     // little hint bubble next to the hand when it is over (or carrying) a topping
-    const tip = held ? [['a', 'Put down'], ['b', 'Take off']] : st.hover ? (kind === 'sprinkles' ? [['b', 'Take off']] : [['a', 'Move'], ['b', 'Take off']]) : null;
+    const tip = held ? [['a', 'Put down'], ['b', 'Take off']] : st.hover ? (isSpray(kind) ? [['b', 'Take off']] : [['a', 'Move'], ['b', 'Take off']]) : null;
     if (tip) {
       const fs = clamp(28 * k + 6, 18, 28), gsz = fs * 1.15;
       let w = 14;
@@ -1083,7 +1131,7 @@ export class Game {
     const pad = p.ctrl.kind === 'pad';
     if (tab === 'deco') {
       if (st.held) items = [['stick', 'Move'], ['a', 'Put down'], ['b', 'Take off']];
-      else items = [['stick', 'Move'], ['a', DECOS[st.decoSel].id === 'sprinkles' ? 'Shake!' : st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Topping'], ['b', st.hover ? 'Take off' : 'Undo']];
+      else items = [['stick', 'Move'], ['a', isSpray(DECOS[st.decoSel].id) ? 'Shake!' : st.hover ? 'Pick up' : 'Add'], [pad ? 'dpad' : 'x', 'Topping'], ['b', st.hover ? 'Take off' : 'Undo']];
     } else if (tab === 'done') items = [['a', 'Ready!'], ['b', 'Back'], ['y', 'Surprise!']];
     else items = [[pad ? 'dpad' : 'stick', 'Pick'], ['a', 'Next'], ['y', 'Surprise!']];
     if (!wide) items = items.map(([b, l]) => [b, l === 'Surprise!' ? '' : l]);
@@ -1158,8 +1206,8 @@ export class Game {
       for (const st of this.stations) {
         const k = st.L.k, s = st.L.stand;
         for (const d of st.items) {
-          if (d.kind !== 'candle' || !d.lit || d.out) continue;
-          const x = s.x + d.x * k, y = s.y + (d.y - 72) * k;
+          if (!isCandle(d.kind) || !d.lit || d.out) continue;
+          const x = s.x + d.x * k, y = s.y + (d.y - candleTop(d.kind) - 8) * k;
           const rr = 90 * k * (d.flame ?? 1);
           const gl = g.createRadialGradient(x, y, 1, x, y, rr);
           gl.addColorStop(0, `rgba(255,200,110,${dim * 1.1})`); gl.addColorStop(1, 'rgba(255,180,80,0)');
