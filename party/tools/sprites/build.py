@@ -167,9 +167,12 @@ def build(spec, base, output):
             frame.update(artHash=art_hash, fileHash=current_hash)
             for point in POINTS:
                 pt = item.get(point)
+                if point in item and pt is None:
+                    frame[point] = None
+                    continue
                 if pt is not None:
                     frame[point] = [round(pt[j] * scale + offset[j] - crop[j]) for j in range(2)]
-            for prop in ('dur', 'headAngle'):
+            for prop in ('dur', 'headAngle', 'bodyHeight'):
                 if prop in item:
                     frame[prop] = item[prop]
             dest['frames'].append(frame)

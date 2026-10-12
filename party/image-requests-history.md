@@ -1,5 +1,15 @@
 # Charlie Party: image request history
 
+## 2026-10-12 — Cake grips and Hotdog pulling revised
+
+Cake six idle/walk hands moved to body front; Hotdog two pull frames regenerated with paws34–35%height abovefeet. Tug of War rope and Mini Golf club checked in-game. Allunaffected runtimepoints and rasters preserved; source specs synchronized with Octoberlandmark audit. Builder now retains explicit eyes:null and framebodyHeight, regressiontested. Prompts/data: reference/pending/OCT12-SPRITE-FIXES.json.
+
+| Key | Previous issue | Completed request |
+| --- | --- | --- |
+| `sprites/marshmallow-birthday-cake`: `hand` point on idle and walk frames | The idle/walk `hand` is at the top centre of the head, so the Mini-Golf putter and the Piñata Party bat (drawn while aiming or walking) come out of its head and the putter crosses its face. | Move the `hand` landmark on the cake's idle and walk frames to its front edge at mid-body height (where its `reel`/`putt` frames hold things). Landmark data only; no new pixels needed. |
+| `sprites/hotdog`: `pull` (frames pull-00, pull-01) (low priority) | The paws (hand point, about 0.47× height) sit right under the mouth, so the Tug-of-War rope covers the lower face and part of the eyes. | Redraw with the paws held at chest or belly height (about 0.30–0.35× height above the feet) so the face stays clear above the rope. |
+
+
 ## 2026-10-12 — Jump Rope bunny expressions delivered
 
 Six face variants generated and registered, same600x660 canvas retained. Runtime Jump Rope shoulder/handle alignment and console checked. Exact prompts/sources: reference/pending/OCT12-BUNNIES.json.

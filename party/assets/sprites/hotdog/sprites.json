@@ -599,6 +599,7 @@
       "loop": true,
       "motion": 0.4,
       "facing": 0,
+      "bodyHeight": 126.0,
       "frames": [
         {
           "src": "pout-00.webp",
@@ -660,14 +661,14 @@
           ],
           "dur": 0.35
         }
-      ],
-      "bodyHeight": 126.0
+      ]
     },
     "ride": {
       "fps": 5,
       "loop": true,
       "motion": 0.25,
       "facing": 0,
+      "bodyHeight": 150.3,
       "frames": [
         {
           "src": "ride-00.webp",
@@ -729,14 +730,14 @@
           ],
           "dur": 0.4
         }
-      ],
-      "bodyHeight": 150.3
+      ]
     },
     "cheer": {
       "fps": 5,
       "loop": true,
       "motion": 0.7,
       "facing": 0,
+      "bodyHeight": 145.4,
       "frames": [
         {
           "src": "cheer-00.webp",
@@ -767,14 +768,14 @@
             130
           ]
         }
-      ],
-      "bodyHeight": 145.4
+      ]
     },
     "sad": {
       "fps": 5,
       "loop": true,
       "motion": 0.7,
       "facing": 0,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "sad-00.webp",
@@ -805,14 +806,14 @@
             126
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "wave": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 152.3,
       "frames": [
         {
           "src": "wave-00.webp",
@@ -843,14 +844,14 @@
             146
           ]
         }
-      ],
-      "bodyHeight": 152.3
+      ]
     },
     "hurt": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 144.0,
       "frames": [
         {
           "src": "hurt-00.webp",
@@ -881,8 +882,7 @@
             112
           ]
         }
-      ],
-      "bodyHeight": 144.0
+      ]
     },
     "dizzy": {
       "fps": 5,
@@ -963,6 +963,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "ready-00.webp",
@@ -993,14 +994,14 @@
             123
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "jump": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 142.4,
       "frames": [
         {
           "src": "jump-00.webp",
@@ -1031,14 +1032,14 @@
             124
           ]
         }
-      ],
-      "bodyHeight": 142.4
+      ]
     },
     "fall": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 153.0,
       "frames": [
         {
           "src": "fall-00.webp",
@@ -1069,8 +1070,7 @@
             98
           ]
         }
-      ],
-      "bodyHeight": 153.0
+      ]
     },
     "land": {
       "fps": 5,
@@ -1114,6 +1114,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 153.4,
       "frames": [
         {
           "src": "action-00.webp",
@@ -1144,8 +1145,7 @@
             143
           ]
         }
-      ],
-      "bodyHeight": 153.4
+      ]
     },
     "throw": {
       "fps": 5,
@@ -1189,6 +1189,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "push-00.webp",
@@ -1219,8 +1220,7 @@
             138
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "carry": {
       "fps": 5,
@@ -1264,6 +1264,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 138.4,
       "frames": [
         {
           "src": "paint-00.webp",
@@ -1294,8 +1295,7 @@
             150
           ]
         }
-      ],
-      "bodyHeight": 138.4
+      ]
     },
     "sleep": {
       "fps": 5,
@@ -1339,6 +1339,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 152.3,
       "frames": [
         {
           "src": "cast-00.webp",
@@ -1369,14 +1370,14 @@
             135
           ]
         }
-      ],
-      "bodyHeight": 152.3
+      ]
     },
     "clap": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 153.0,
       "frames": [
         {
           "src": "clap-00.webp",
@@ -1407,8 +1408,7 @@
             147
           ]
         }
-      ],
-      "bodyHeight": 153.0
+      ]
     },
     "eat": {
       "fps": 5,
@@ -1452,6 +1452,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 153.0,
       "frames": [
         {
           "src": "bow-00.webp",
@@ -1482,8 +1483,7 @@
             134
           ]
         }
-      ],
-      "bodyHeight": 153.0
+      ]
     },
     "strike1": {
       "fps": 5,
@@ -1527,6 +1527,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 138.4,
       "frames": [
         {
           "src": "strike2-00.webp",
@@ -1557,14 +1558,14 @@
             140
           ]
         }
-      ],
-      "bodyHeight": 138.4
+      ]
     },
     "strike3": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "strike3-00.webp",
@@ -1595,14 +1596,14 @@
             128
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "shake": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 152.3,
       "frames": [
         {
           "src": "shake-00.webp",
@@ -1633,14 +1634,14 @@
             140
           ]
         }
-      ],
-      "bodyHeight": 152.3
+      ]
     },
     "stir": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 149.7,
       "frames": [
         {
           "src": "stir-00.webp",
@@ -1671,14 +1672,14 @@
             145
           ]
         }
-      ],
-      "bodyHeight": 149.7
+      ]
     },
     "dance-up": {
       "fps": 5,
       "loop": true,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 151.3,
       "frames": [
         {
           "src": "dance-up-00.webp",
@@ -1709,8 +1710,7 @@
             136
           ]
         }
-      ],
-      "bodyHeight": 151.3
+      ]
     },
     "dance-down": {
       "fps": 5,
@@ -1791,6 +1791,7 @@
       "loop": true,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 147.9,
       "frames": [
         {
           "src": "look-around-00.webp",
@@ -1821,8 +1822,7 @@
             151
           ]
         }
-      ],
-      "bodyHeight": 147.9
+      ]
     },
     "high-five": {
       "fps": 5,
@@ -1866,6 +1866,7 @@
       "loop": true,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 154.2,
       "frames": [
         {
           "src": "crouch-00.webp",
@@ -1896,8 +1897,7 @@
             143
           ]
         }
-      ],
-      "bodyHeight": 154.2
+      ]
     },
     "dash": {
       "fps": 10,
@@ -1905,6 +1905,7 @@
       "motion": 0.3,
       "facing": 0,
       "holdLast": true,
+      "bodyHeight": 144.6,
       "frames": [
         {
           "src": "dash-00.webp",
@@ -1964,14 +1965,14 @@
             117
           ]
         }
-      ],
-      "bodyHeight": 144.6
+      ]
     },
     "catch": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 144.0,
       "frames": [
         {
           "src": "catch-00.webp",
@@ -2002,14 +2003,14 @@
             141
           ]
         }
-      ],
-      "bodyHeight": 144.0
+      ]
     },
     "wave-goodbye": {
       "fps": 5,
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 140.4,
       "frames": [
         {
           "src": "wave-goodbye-00.webp",
@@ -2040,8 +2041,7 @@
             142
           ]
         }
-      ],
-      "bodyHeight": 140.4
+      ]
     },
     "think": {
       "fps": 5,
@@ -2159,6 +2159,7 @@
       "loop": false,
       "motion": 0.85,
       "facing": 0,
+      "bodyHeight": 154.5,
       "frames": [
         {
           "src": "catch-toy-00.webp",
@@ -2189,8 +2190,7 @@
             164
           ]
         }
-      ],
-      "bodyHeight": 154.5
+      ]
     },
     "swim": {
       "fps": 5,
@@ -2308,6 +2308,7 @@
       "loop": false,
       "motion": 0.5,
       "facing": 0,
+      "bodyHeight": 154.7,
       "frames": [
         {
           "src": "wand-up-00.webp",
@@ -2338,8 +2339,7 @@
             181
           ]
         }
-      ],
-      "bodyHeight": 154.7
+      ]
     },
     "broom-rise": {
       "fps": 5,
@@ -2420,6 +2420,7 @@
       "loop": false,
       "motion": 0.5,
       "facing": 0,
+      "bodyHeight": 222.4,
       "frames": [
         {
           "src": "broom-zapped-00.webp",
@@ -2450,8 +2451,7 @@
             178
           ]
         }
-      ],
-      "bodyHeight": 222.4
+      ]
     },
     "count": {
       "fps": 5,
@@ -2680,6 +2680,7 @@
       "loop": false,
       "motion": 0.5,
       "facing": 0,
+      "bodyHeight": 154.5,
       "frames": [
         {
           "src": "toss-00.webp",
@@ -2710,8 +2711,7 @@
             158
           ]
         }
-      ],
-      "bodyHeight": 154.5
+      ]
     },
     "catch-present": {
       "fps": 5,
@@ -2866,6 +2866,7 @@
       "loop": false,
       "motion": 0.5,
       "facing": 0,
+      "bodyHeight": 202.8,
       "frames": [
         {
           "src": "hiccup-00.webp",
@@ -2896,8 +2897,7 @@
             186
           ]
         }
-      ],
-      "bodyHeight": 202.8
+      ]
     },
     "stomp-giant": {
       "fps": 5,
@@ -3201,6 +3201,7 @@
       "motion": 0.3,
       "facing": 0,
       "holdLast": true,
+      "bodyHeight": 152.6,
       "frames": [
         {
           "src": "hip-bump-00.webp",
@@ -3260,8 +3261,7 @@
             153
           ]
         }
-      ],
-      "bodyHeight": 152.6
+      ]
     },
     "knockback": {
       "fps": 8,
@@ -3524,68 +3524,68 @@
     "pull": {
       "fps": 5,
       "loop": true,
-      "motion": 0.0,
+      "motion": 0,
       "facing": 1,
       "frames": [
         {
           "src": "pull-00.webp",
           "anchor": [
-            116,
-            237
+            138,
+            224
           ],
-          "artHash": "f0620932f44029634aa80fe6cea3310b828464f72a00fa28d9d0f688ae00cd0f",
-          "fileHash": "1ced48bfcf8bff2c5c61cb3446ab491e35c742b3b2a5c02f55b6a81fc84527c9",
+          "artHash": "d79b9bcee1300ce05759d60037a7131ac293f3f59c89ed99a9246057bc0a12c7",
+          "fileHash": "e1aed2e85a8aa95d54fbd1799f248486a734dc3abd24a0d0b7e6956fabd7ced4",
           "head": [
-            145,
-            92
+            135,
+            77
           ],
           "hand": [
-            198,
-            153
+            200,
+            159
           ],
           "eyes": [
-            145,
-            117
+            137,
+            103
           ],
           "neck": [
-            150,
-            143
+            147,
+            135
           ],
           "back": [
-            109,
-            193
+            110,
+            181
           ],
           "bodyHeight": 185.8
         },
         {
           "src": "pull-01.webp",
           "anchor": [
-            130,
-            239
+            155,
+            225
           ],
-          "artHash": "cd73c8995e1ca610e700f4f59e941c3d558cbdf97fb64ea986c8c2fa97242a26",
-          "fileHash": "4f8c05af95f517e9365433bca3f56db952a288ab42c344583c8070a1b183c4d2",
+          "artHash": "0aa326b3235cca827db84fe8facd19ab7fb368bc55de92790648d9c5751524d1",
+          "fileHash": "72a33b578bc57ea5b1bbc1247ddb7fa0b590c7e7ca24bf8a5114744f0f82d53e",
           "head": [
-            146,
-            85
+            135,
+            75
           ],
           "hand": [
-            201,
-            151
+            190,
+            162
           ],
           "eyes": [
-            147,
-            114
+            128,
+            99
           ],
           "neck": [
-            168,
-            179
+            145,
+            131
           ],
           "back": [
-            141,
-            195
+            116,
+            183
           ],
-          "bodyHeight": 152.3
+          "bodyHeight": 185.8
         }
       ]
     },
@@ -3660,6 +3660,7 @@
       "loop": false,
       "motion": 0.0,
       "facing": 1,
+      "bodyHeight": 153.8,
       "frames": [
         {
           "src": "swing-00.webp",
@@ -3719,14 +3720,14 @@
             191
           ]
         }
-      ],
-      "bodyHeight": 153.8
+      ]
     },
     "putt": {
       "fps": 5,
       "loop": true,
       "motion": 0.0,
       "facing": 1,
+      "bodyHeight": 153.0,
       "frames": [
         {
           "src": "putt-00.webp",
@@ -3757,14 +3758,14 @@
             153
           ]
         }
-      ],
-      "bodyHeight": 153.0
+      ]
     },
     "putt-swing": {
       "fps": 5,
       "loop": false,
       "motion": 0.0,
       "facing": 1,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "putt-swing-00.webp",
@@ -3795,14 +3796,14 @@
             153
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "spring-jump": {
       "fps": 5,
       "loop": false,
       "motion": 0.2,
       "facing": 1,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "spring-jump-00.webp",
@@ -3833,14 +3834,14 @@
             169
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "snow-scoop": {
       "fps": 5,
       "loop": true,
       "motion": 0.2,
       "facing": 1,
+      "bodyHeight": 145.2,
       "frames": [
         {
           "src": "snow-scoop-00.webp",
@@ -3871,14 +3872,14 @@
             137
           ]
         }
-      ],
-      "bodyHeight": 145.2
+      ]
     },
     "dig": {
       "fps": 5,
       "loop": true,
       "motion": 0.2,
       "facing": 1,
+      "bodyHeight": 157.1,
       "frames": [
         {
           "src": "dig-00.webp",
@@ -3909,14 +3910,14 @@
             138
           ]
         }
-      ],
-      "bodyHeight": 157.1
+      ]
     },
     "skip-hop": {
       "fps": 5,
       "loop": false,
       "motion": 0.2,
       "facing": 1,
+      "bodyHeight": 144.0,
       "frames": [
         {
           "src": "skip-hop-00.webp",
@@ -3947,8 +3948,7 @@
             172
           ]
         }
-      ],
-      "bodyHeight": 144.0
+      ]
     }
   },
   "portraits": {
