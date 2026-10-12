@@ -27,6 +27,12 @@ const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s
 // The arms reach from the shoulders to the hand points (world space), so the
 // rope handles stay glued to the paws.
 
+// Measured offset (600x660 canvas px) of each mood variant's feet/shoulders
+// from the base bunny's (the generated faces moved the body slightly).
+const MOOD_SHIFT = {
+  'pink-cheer': [-7, -7], 'pink-sneaky': [-1, 0], 'pink-oops': [-4, -12],
+  'mint-cheer': [-8, -4], 'mint-sneaky': [-2, 0], 'mint-oops': [-8, -7],
+};
 export function drawBunny(g, x, y, s, o) {
   const pal = o.pal, f = o.facing || 1, t = o.t || 0, mood = o.mood || 'happy';
   const bob = o.bob || 0;
@@ -53,7 +59,11 @@ export function drawBunny(g, x, y, s, o) {
   if (generated) {
     const moodKey = mood === 'excited' ? 'cheer' : mood;
     const key = mood !== 'happy' && art(pal.key + '-' + moodKey) ? pal.key + '-' + moodKey : pal.key;
-    g.save(); g.translate(x, bodyY + 4 * s); g.scale(f, 1); drewArt = drawArt(g, key, 0, 0, 300 * s, 330 * s, { anchor: 'bottom' }); g.restore();
+    // The variants' bodies sit a few px off the base canvas: shift them back
+    // so the feet stay on the shadow and the arms on the shoulders.
+    const [ox, oy] = MOOD_SHIFT[key.slice(key.lastIndexOf('bunny-') + 6)] || [0, 0];
+    g.save(); g.translate(x, bodyY + 4 * s); g.scale(f, 1); g.translate(-ox * 0.5 * s, -oy * 0.5 * s);
+    drewArt = drawArt(g, key, 0, 0, 300 * s, 330 * s, { anchor: 'bottom' }); g.restore();
   }
   if (!drewArt) {
     g.save(); g.translate(x, bodyY); g.scale(s * f, s);
