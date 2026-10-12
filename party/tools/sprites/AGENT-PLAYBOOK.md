@@ -311,19 +311,19 @@ Compare before rebuilding. Synchronize every point and pose/frame bodyHeight,
 including eyes:null on rear views. Exact inverse with builder integer placement:
 sourcePoint=(runtimePoint-runtimeFrameAnchor+round(sourceAnchor*scale))/scale.
 Preserve source crops/scales and compare all unaffected runtime fields after
-rebuild; Cake109frames and Hotdog108unaffectedframes were exactly preserved.
-The builder passes through explicit nullpoints and framebodyHeight, covered by
+rebuild; Cake 109 frames and Hotdog 108 unaffected frames were exactly preserved.
+The builder passes through explicit null points and framebodyHeight, covered by
 its incremental regression test.
 
 Generated alpha can have nearly invisible residues far outside visible art.
 Meaningful-alpha bounds (8–32) plus a small antialias margin avoid shrinking an
 accessory to fit those residues. Alpha-extrema and exactcanvas alone do not
-prove a valid anchor. Measure actual lens centres, wingroots, grips, ribbon or
-chain tops. Preserve full source RGBA as losslessWebP before intake cropping.
+prove a valid anchor. Measure actual lens centres, wing roots, grips, ribbon or
+chain tops. Preserve full source RGBA as lossless WebP before intake cropping.
 Three horseshoe headbands needed measured consumeranchor fractions so their
 seating arcs land on hair without shrinking the full silhouette. Review actual
 Actor outfits, not only isolated props; OCT12-WEARABLE-REVIEW.html is a reusable
-example. Preserve originalprompt and sourcepaths in the intake record.
+example. Preserve original prompt and sourcepaths in the intake record.
 
 When main advances, compare each branch from its merge-base. A direct local
 HEAD-to-remote diff can show unpublished local assets as deletions even though

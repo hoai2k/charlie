@@ -10,9 +10,9 @@ _Last updated: 2026-10-09, during the sprite-size audit (see "Session log" below
 
 ### Image delivery 2026-10-12: complete
 
-All open image requests are generated, reviewed, archived and pushed through `1ec90ae`: bakery15, fashion32, bunnyfaces6, sixprop replacements, twoHotdog pullframes and sixCake handpoint fixes. All26sets validate without harderrors; artinventory582keys/562files. Threeheadbandanchors followmeasuredart seating; generatedfishinghandle retains bendingproceduralshaft. Actualwearable gallery: reference/pending/OCT12-WEARABLE-REVIEW.html. Queue has exactdelivery/checkrevision andUTC. No image work orapproval pending; oldmonitorremainscancelled.
+All open image requests are generated, reviewed, archived and pushed through `1ec90ae`: bakery (15 assets), fashion (32 assets), bunny faces (6 assets), six prop replacements, two Hotdog pull frames and six Cake hand point fixes. All 26sets validate without hard errors; art inventory: 582 keys / 562 files. Three headband anchors follow measured art seating; generatedfishing handle retains bendingproceduralshaft. Actual wearable gallery: reference/pending/OCT12-WEARABLE-REVIEW.html. Queue has exact delivery/check revision and UTC. No image work or approval pending; the old monitor remains cancelled.
 
-Cake/Hotdog specs now reproduce allOctoberlandmark-audit points exactly. Otherolder specs may still lag shippingmanifests; synchronize current runtime landmarks before rebuilding them. Builder now preserves explicit eyes:null and framebodyHeight. Exactinverse/provenance lessons in spriteplaybook.
+Cake/Hotdog specs now reproduce all October landmark-audit points exactly. Other older specs may still lag shipping manifests; synchronize current runtime landmarks before rebuilding them. Builder now preserves explicit eyes: null and framebodyHeight. Exact inverse/provenance lessons in spriteplaybook.
 
 
 ### Session log 2026-10-09 (update this as work proceeds)
