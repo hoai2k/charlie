@@ -649,7 +649,7 @@ export class Game {
       const inRow = row === 0 ? Math.min(perRow, n) : n - perRow;
       const ox = (perRow - inRow) * slotW / 2;
       const w = 2 * maxRadius(pot) + pot.handles * 90;
-      const ks = Math.min(rows === 1 ? 1.3 : 0.75, (slotW * 0.78) / Math.max(200, w), (rows === 1 ? 440 : 265) / (pot.h + 30));
+      const ks = Math.min(rows === 1 ? 1.3 : 0.75, (slotW * 0.78) / Math.max(200, w), (rows === 1 ? 400 : 265) / (pot.h + 30));
       st.slot = { x: 110 + ox + (j + 0.5) * slotW, y: this.show.shelves[row], k: ks, row };
       st.award = this.awards[i];
       // the potter stands on the gallery floor
@@ -1621,11 +1621,11 @@ export class Game {
   }
 
   drawShowHUD(g, t) {
-    if (!this.cheese && t < this.spotStart + 0.2) ui.banner(g, 'Pottery Show!', t, { y: 120, size: 110, color: '#ff9f5a' });
+    if (!this.cheese && t < this.spotStart + 0.2) ui.banner(g, 'Pottery Show!', t, { y: 110, size: 100, color: '#ff9f5a' });
     const ch = this.cheeseAt, shot = ch + CHEESE_TIME;
     if (!this.photoTaken && this.cheese) {
-      if (t < shot - 3) ui.banner(g, 'Say cheese!', t - ch, { y: 130, size: 110, color: '#fff' });
-      else { const n = Math.ceil(shot - t), f = 1 - (shot - t - (n - 1)); g.save(); g.translate(W / 2, 130); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6; ui.text(g, String(Math.max(1, n)), 0, 0, { size: 170, color: '#ffd23f', strokeWidth: 12 }); g.restore(); }
+      if (t < shot - 3) ui.banner(g, 'Say cheese!', t - ch, { y: 110, size: 100, color: '#fff' });
+      else { const n = Math.ceil(shot - t), f = 1 - (shot - t - (n - 1)); g.save(); g.translate(W / 2, 110); g.scale(1 + f * 0.4, 1 + f * 0.4); g.globalAlpha = 1 - f * 0.6; ui.text(g, String(Math.max(1, n)), 0, 0, { size: 170, color: '#ffd23f', strokeWidth: 12 }); g.restore(); }
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
         const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
@@ -1635,7 +1635,7 @@ export class Game {
     }
     if (this.photoTaken) {
       const pt = t - shot;
-      if (pt < 2.2) ui.banner(g, 'Masterpieces!', pt, { y: 130, size: 120, color: '#ffd23f' });
+      if (pt < 2.2) ui.banner(g, 'Masterpieces!', pt, { y: 110, size: 100, color: '#ffd23f' });
     }
   }
 }
