@@ -68,6 +68,16 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- In progress (user request 2026-10-13, 2): 10 new Play Studio games by
+  worktree agents (brief: session scratchpad `studio-brief.md`): hair-salon,
+  dance-studio, acrobat-circus, nail-studio, sandcastle-beach,
+  puppet-theater, snowman-builder, aquarium, star-maker, pottery-wheel.
+  Each commits its image-request section first ("Image requests: <id>");
+  the lead copies those to main early. Then Play Studio gets two pages
+  with a "More Play" last tile (like Party Games' PARTY_PAGES). Small
+  lead items: no auto-open closet on the Dress up slot; Fashion Show saves
+  each human's look as their dress-up look; Fashion Show Y clears first,
+  randomizes when empty.
 - In progress (user request 2026-10-13): (a) verify all images delivered
   2026-10-12 work in game (art-QA agents: cake toppings + fashion/dress-up
   accessories; the rest: bunny faces, fishing handle, cloud-hop thumb,
