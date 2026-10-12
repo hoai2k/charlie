@@ -3239,10 +3239,7 @@
             179
           ],
           "dur": 0.12,
-          "eyes": [
-            100,
-            65
-          ]
+          "eyes": null
         },
         {
           "src": "pose-twirl-03.webp",

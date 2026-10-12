@@ -11,6 +11,7 @@ from PIL import Image
 
 TIER1 = ('idle', 'walk', 'run', 'jump', 'fall', 'land', 'celebrate', 'cheer', 'pout', 'sad', 'hurt', 'dizzy', 'surprised', 'think', 'wave', 'ready')
 EXPRESSIONS = ('neutral', 'happy', 'sad', 'surprised', 'determined')
+LANDMARKS = ('head', 'hand', 'eyes', 'neck', 'back')
 
 
 def validate(root, strict=False):
@@ -74,6 +75,18 @@ def validate(root, strict=False):
                 if frame.get('dur', 1) <= 0: error(label + f'{name} duration must be positive')
                 if bad_bh(frame.get('bodyHeight')): error(label + f'{name} invalid frame bodyHeight')
                 rect = frame.get('rect')
+                # Attachment landmarks (image-requests.md 3.6): every frame
+                # names all five in frame pixels. Only a true back view may
+                # set "eyes": null (the face is hidden, so face items hide).
+                fw, fh = (rect[2], rect[3]) if rect else (im.width, im.height) if im else (None, None)
+                for key in LANDMARKS:
+                    has = key in frame or key in definition
+                    pt = frame[key] if key in frame else definition.get(key)
+                    if key == 'eyes' and has and pt is None: continue
+                    if not (isinstance(pt, list) and len(pt) == 2 and all(isinstance(v, (int, float)) for v in pt)):
+                        error(label + f'{name} frame {nframes} missing/invalid {key} landmark'); continue
+                    if fw and not (0 <= pt[0] <= fw and 0 <= pt[1] <= fh):
+                        warnings.append(label + f'{name} frame {nframes} {key} {pt} outside the {fw}x{fh} frame')
                 if rect and im:
                     if len(rect) != 4 or min(rect[:2]) < 0 or min(rect[2:]) <= 0 or rect[0] + rect[2] > im.width or rect[1] + rect[3] > im.height:
                         error(label + f'{name} rect outside {frame.get("src", m.get("atlas"))}')
