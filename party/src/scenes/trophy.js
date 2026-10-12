@@ -9,7 +9,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawStarShape } from '../engine/emotes.js';
-import { session } from '../state.js';
+import { session, restoreRoster } from '../state.js';
 import { charById } from '../data/characters.js';
 import { TAU, ease } from '../engine/util.js';
 import { drawCrown } from './results.js';
@@ -34,6 +34,7 @@ export function drawTrophy(g, x, y, s, t = 0) {
 
 export class TrophyScene {
   enter() {
+    restoreRoster();
     this.t = 0;
     const pm = session.partyMode || { startStars: session.players.map(() => 0) };
     this.gained = session.players.map((p, i) => p.stars - (pm.startStars[i] || 0));

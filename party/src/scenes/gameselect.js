@@ -10,7 +10,7 @@ import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawEmote } from '../engine/emotes.js';
 import { GAMES, PARTY_GAMES, STUDIO_GAMES, PARTY_PAGES } from '../games/index.js';
-import { session } from '../state.js';
+import { session, restoreRoster } from '../state.js';
 import { drawGameIcon } from './common.js';
 import { shuffle, pick, ease, clamp } from '../engine/util.js';
 
@@ -42,6 +42,7 @@ export class GameSelectScene {
   }
 
   enter() {
+    restoreRoster();
     this.t = 0;
     this.roulette = null;
     this.chosen = null;

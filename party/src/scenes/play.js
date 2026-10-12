@@ -7,7 +7,7 @@ import { sfx, music, host, stopAllLoops, duckLoops, setMuted, isMuted } from '..
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
-import { session } from '../state.js';
+import { session, sitOut } from '../state.js';
 import { gameById } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
 import { corner } from '../engine/corner.js';
@@ -15,7 +15,8 @@ import { corner } from '../engine/corner.js';
 const COUNTDOWN = 3.6;
 
 export class PlayScene {
-  enter({ gameId }) {
+  enter({ gameId, playing = null }) {
+    if (playing) sitOut(playing);   // some players sat this one out (how-to screen); restoreRoster() on the way back
     this.meta = gameById(gameId);
     if (!this.meta) throw new Error('Unknown game ' + gameId);
     this.gameId = gameId;

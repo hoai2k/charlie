@@ -1043,7 +1043,7 @@ export class Game {
     P.t += dt;
     const c = P.owner.ctrl;
     const choose = (i) => {
-      this.loadPreset(i, P.first ? null : this.stations[P.owner.index]);
+      this.loadPreset(i, P.first ? null : this.stations.find((st) => st.p === P.owner));
       this.picker = null;
       sfx('select'); sfx('magic');
       fx.flash('#ffffff', 0.15);

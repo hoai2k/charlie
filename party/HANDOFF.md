@@ -61,6 +61,12 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- Party marathon how-to screen (user request 2026-10-12): B (when not
+  ready) sits that one game out, A joins back in, Y twice skips the game.
+  The last human (or the game's minPlayers) can't sit out. `play.enter`
+  gets `playing` and calls `sitOut()` (session.players = who plays,
+  session.roster = everyone); intro/gameselect/charselect/trophy call
+  `restoreRoster()`. Outside a marathon B on the how-to still goes back.
 - Dress up (user request 2026-10-12): done. In character select the last
   "colour" (a star dot) is Dress up: `scenes/closet.js` edits a look from
   the Fashion Show wardrobe (`engine/outfits.js`), saved per character in
@@ -240,6 +246,8 @@ they interrupted my log check, so wait for them before touching it).
   in the colour variants.
 
 ## Conventions that bite
+- During a game `session.players` may be a subset (players sitting out);
+  never index it by `p.index`.
 - Actors wear `player.outfit` automatically; pass `outfit: null` to opt out.
 - Elimination games implement `humansOut()` (true once every human is out).
   The play scene then shows "B Skip to the end"; B fast-forwards the game

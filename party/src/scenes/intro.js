@@ -5,6 +5,8 @@ import { drawArt } from '../engine/art.js';
 // meta.options ([{ id, label, choices(), get(), set(v) }], e.g. the rhythm
 // games' song and difficulty): shown on the picture card, changed with the
 // D-pad (left/right = first option, up/down = second) or by clicking.
+// In a party marathon: B (not ready) sits this one game out, A joins back
+// in, and Y (twice) skips the game for everyone.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host } from '../engine/audio.js';
@@ -13,16 +15,20 @@ import * as ui from '../engine/ui.js';
 import { drawHost, hostBubble } from '../engine/host.js';
 import { rand } from '../engine/util.js';
 import { particles } from '../engine/particles.js';
-import { session } from '../state.js';
+import { session, restoreRoster } from '../state.js';
 import { gameById } from '../games/index.js';
 import { drawGameIcon } from './common.js';
 
 export class IntroScene {
   enter({ gameId }) {
+    restoreRoster();
     this.meta = gameById(gameId);
     this.gameId = gameId;
     this.t = 0;
     this.ready = session.players.map(() => false);
+    this.out = session.players.map(() => false);   // sitting this game out (party marathon)
+    this.skipAsk = null;                           // time Y was pressed once (press again to skip)
+    this.note = null;                              // { text, t } short message under the players
     this.aiReadyAt = session.players.map((p) => (p.isAI ? rand(0.8, 2.2) : Infinity));
     this.go = null;
     music.menu();
@@ -41,7 +47,9 @@ export class IntroScene {
     for (const a of this.actors) a.update(dt);
     if (this.go !== null) {
       this.go += dt;
-      if (this.go > 0.9) this.manager.go('play', { gameId: this.gameId });
+      if (this.go > 0.9) {
+        this.manager.go('play', { gameId: this.gameId, playing: session.players.filter((p, i) => !this.out[i]) });
+      }
       return;
     }
     if (this.said === 0 && this.t > 0.3) { this.said = 1; const last = session.partyMode && session.partyMode.round === session.partyMode.games.length - 1; host(last ? 'last-game' : 'title/' + this.gameId); }
@@ -58,13 +66,22 @@ export class IntroScene {
       if (nav.y && opts[1]) this.stepOption(opts[1], -nav.y);
     }
     for (const r of this.optionRects || []) if (input.clicked(r)) { this.stepOption(r.opt, r.dir); return; }
+    if (this.note) { this.note.t += dt; if (this.note.t > 2.4) this.note = null; }
+    if (this.skipAsk !== null && this.t - this.skipAsk > 3) this.skipAsk = null;
     for (const p of session.players) {
       if (p.isAI) continue;
       const i = p.index;
-      if (p.ctrl.pressed('a') && !this.ready[i]) this.setReady(i, true);
+      if (session.partyMode && p.ctrl.pressed('y')) {
+        if (this.skipAsk !== null) { this.skipGame(); return; }
+        this.skipAsk = this.t; sfx('select');
+        continue;
+      }
+      if (p.ctrl.pressed('a') && this.out[i]) this.setOut(i, false);
+      else if (p.ctrl.pressed('a') && !this.ready[i]) this.setReady(i, true);
       else if (p.ctrl.pressed('b')) {
         if (this.ready[i]) this.setReady(i, false);
-        else if (!session.partyMode) { sfx('back'); this.manager.go('gameselect'); return; } // a marathon only exits from its pause menu
+        else if (session.partyMode) { if (!this.out[i]) this.setOut(i, true); }   // a marathon only exits from its pause menu
+        else { sfx('back'); this.manager.go('gameselect'); return; }
       }
     }
     // Mouse / touch: clicking a player toggles their ready; a click anywhere
@@ -73,14 +90,40 @@ export class IntroScene {
     for (const p of session.players) {
       if (p.isAI) continue;
       const a = this.actors[p.index];
-      if (input.clicked({ x: a.x - 90, y: a.y - a.height - 90, w: 180, h: a.height + 100 })) { this.setReady(p.index, !this.ready[p.index]); clickUsed = true; break; }
+      if (input.clicked({ x: a.x - 90, y: a.y - a.height - 90, w: 180, h: a.height + 100 })) { if (this.out[p.index]) this.setOut(p.index, false); else this.setReady(p.index, !this.ready[p.index]); clickUsed = true; break; }
     }
     if (input.pointer.pressed && !clickUsed) {
-      const next = session.players.find((p) => !p.isAI && !this.ready[p.index]);
+      const next = session.players.find((p) => !p.isAI && !this.ready[p.index] && !this.out[p.index]);
       if (next) this.setReady(next.index, true);
     }
     // Keyboard players who aren't bound (e.g. only gamepads joined) can still nudge with Enter.
-    if (this.ready.every(Boolean)) { this.go = 0; sfx('go'); }
+    if (this.ready.every((r, i) => r || this.out[i])) { this.go = 0; sfx('go'); }
+  }
+
+  /** Sit this game out (B) or join back in (A). Someone human has to play, and the game needs its minimum. */
+  setOut(i, on) {
+    const a = this.actors[i];
+    if (on) {
+      const left = session.players.filter((p, j) => j !== i && !this.out[j]);
+      if (!left.some((p) => !p.isAI)) { sfx('error'); this.note = { text: 'Somebody has to play! (Y Y skips this game)', t: 0 }; return; }
+      if (left.length < (this.meta.minPlayers || 1)) { sfx('error'); this.note = { text: `This game needs ${this.meta.minPlayers} players`, t: 0 }; return; }
+      this.out[i] = true; this.ready[i] = false;
+      a.setPose('sit'); sfx('back');
+    } else {
+      this.out[i] = false;
+      a.playOnce('wave', 0.6, 'idle');
+      this.setReady(i, true);
+    }
+  }
+
+  /** Y twice: skip this game and go to the next one in the marathon. */
+  skipGame() {
+    const pm = session.partyMode;
+    sfx('whoosh');
+    pm.round++;
+    const next = pm.games[pm.round];
+    if (next) this.manager.go('intro', { gameId: next });
+    else this.manager.go('trophy');
   }
 
   stepOption(opt, dir) {
@@ -174,15 +217,21 @@ export class IntroScene {
     // Host.
     drawHost(g, 170, 215, 150, this.t, this.go !== null ? 'cheer' : 'talk');
     // Glimmer talks in a speech bubble (no spoken audio).
-    const line = this.go !== null ? "Here we go!" : this.t < 2.6 ? `Let's play ${this.meta.title}!` : this.ready.every((r, i) => r || session.players[i].isAI) ? 'Ready? Ready!' : "Press A when you're ready!";
+    const line = this.go !== null ? "Here we go!" : this.t < 2.6 ? `Let's play ${this.meta.title}!` : this.ready.every((r, i) => r || this.out[i] || session.players[i].isAI) ? 'Ready? Ready!' : "Press A when you're ready!";
     drawSpeech(g, line, 240, 186, 0.8, this.t < 2.6 ? this.t : this.t - 2.6, 0, 1, 'left');
 
     // Players + ready state.
     this.actors.forEach((a, i) => {
       const p = session.players[i];
-      a.draw(g, { ring: p.color });
+      a.alpha = this.out[i] ? 0.45 : 1;
+      a.draw(g, { ring: this.out[i] ? null : p.color });
       const ty = a.y - a.height - 34;
-      if (this.ready[i]) {
+      if (this.out[i]) {
+        ui.panel(g, a.x - 82, ty - 40, 164, 52, { r: 26, fill: '#b9b0c9', lineWidth: 4, shadow: false });
+        ui.text(g, 'Sitting out', a.x, ty - 13, { size: 26, strokeWidth: 5 });
+        ui.glyph(g, 'a', a.x - 34, ty + 34, 36);
+        ui.text(g, 'Join', a.x + 14, ty + 36, { size: 24, color: p.color, strokeWidth: 5 });
+      } else if (this.ready[i]) {
         ui.panel(g, a.x - 70, ty - 40, 140, 52, { r: 26, fill: '#36d17a', lineWidth: 4, shadow: false });
         ui.text(g, 'Ready!', a.x, ty - 13, { size: 30, strokeWidth: 5 });
       } else if (p.isAI) {
@@ -193,7 +242,11 @@ export class IntroScene {
       }
     });
     if (this.go !== null) ui.banner(g, "Let's go!", this.go, { y: 520, size: 160 });
-    else if (this.t > 0.6 && this.ready.some((r, i) => !r && !session.players[i].isAI)) {
+    else if (this.note) ui.text(g, this.note.text, W / 2, 828, { size: 32, color: '#ffd23f' });
+    else if (this.skipAsk !== null) ui.hints(g, [['y', 'Press Y again to skip this game']], W / 2, 828, { size: 34 });
+    else if (session.partyMode && this.t > 0.6) {
+      ui.hints(g, [['a', 'Ready'], ['b', 'Sit this one out'], ['y', 'Skip this game']], W / 2, 828, { size: 30 });
+    } else if (this.t > 0.6 && this.ready.some((r, i) => !r && !session.players[i].isAI)) {
       ui.text(g, 'Press A when you are ready!', W / 2, 828, { size: 30, color: '#fff' });
     }
   }

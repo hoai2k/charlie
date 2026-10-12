@@ -14,7 +14,18 @@ export const session = {
   played: [],           // minigame ids in order
   lastGameId: null,
   partyMode: null,      // { games: [...ids], round } when playing a party marathon
+  roster: null,         // the whole party while some players sit out one game (players = who plays it)
 };
+
+/** Players who sat out a game (how-to screen, B) are back in the party. */
+export function restoreRoster() {
+  if (session.roster) { session.players = session.roster; session.roster = null; }
+}
+/** Only `playing` take part in the next game; restoreRoster() brings everyone back. */
+export function sitOut(playing) {
+  restoreRoster();
+  if (playing.length < session.players.length) { session.roster = session.players; session.players = playing; }
+}
 
 let aiSerial = 0;
 

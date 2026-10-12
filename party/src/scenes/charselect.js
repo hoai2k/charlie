@@ -16,7 +16,7 @@ import { Actor, getBaseImage, drawSpeech, preloadCharacters, releaseSpriteSets, 
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
 import { CHARACTERS, PLAYER_COLORS } from '../data/characters.js';
-import { session, makePlayer, newAIController, assignGlows, MAX_PLAYERS, AI_LEVELS } from '../state.js';
+import { session, makePlayer, newAIController, assignGlows, MAX_PLAYERS, AI_LEVELS, restoreRoster } from '../state.js';
 import { variantCount, variantPalette } from '../data/variants.js';
 import { shell } from '../engine/shell.js';
 import { shuffle, TAU, clamp } from '../engine/util.js';
@@ -29,6 +29,7 @@ const GRID_X = (W - (COLS * CARD_W + (COLS - 1) * GAP)) / 2, GRID_Y = 150;
 
 export class CharSelectScene {
   enter({ starter = null } = {}) {
+    restoreRoster();
     this.t = 0;
     this.starting = null;
     music.menu();
