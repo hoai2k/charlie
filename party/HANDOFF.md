@@ -47,18 +47,14 @@ Done and pushed this session (all tested headless in Playwright):
   18 s free turn (stick moves, A jumps, other buttons = photo poses, View =
   Done); all-CPU groups keep 4.6 s.
 
-In progress (user request 2026-10-12): "create more varieties of
-accessories for the cake game as well as the fashion game, and also ensure
-that when accessories are shown in animations that their anchors on the
-sprites are better (neck, hand, etc)". Three worktree agents:
-- Fashion Show: new items + attach by the right landmark (it only used
-  head/hand/center; face should use `eyes`, necklaces `neck`, wings/capes
-  `back`), checked across runway/photo poses.
-- Cake Bakery: new toppings (procedural + image requests).
-- Landmark data audit: head/hand/eyes/neck/back per frame in the 15
-  `sprites/<set>/sprites.json` (like the size audit), fixed in data.
-  If the session restarts: `git branch | grep worktree-agent` shows their
-  branches; merge what was committed (ours for party/index.html, restamp).
+- Accessories (user request 2026-10-12): done. Cake Bakery: 13 toppings, 2
+  sprays, more shapes/flavours/frostings/styles/drizzles. Fashion Show: 32
+  new items; the wardrobe and landmark attachment live in
+  `engine/outfits.js`. Landmark audit: all 1,629 frames of the 15 playable
+  sets have head/hand/eyes/neck/back (conventions in image-requests.md
+  3.6; quadruped hand = mouth; `eyes: null` only on twirl back views);
+  validate.py errors on a missing one. Rebuilding a set from its intake
+  spec (`tools/sprites/specs`, build.py) would undo these fixes.
 - Dress up (user request 2026-10-12): done. In character select the last
   "colour" (a star dot) is Dress up: `scenes/closet.js` edits a look from
   the Fashion Show wardrobe (`engine/outfits.js`), saved per character in
