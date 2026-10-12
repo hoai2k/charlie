@@ -92,6 +92,7 @@ export const POSES = {
   'dance-star': { loop: false, fallback: ['celebrate'], proc: 'ready', desc: 'Dance move: jump into a star shape.' },
   shake:     { loop: false, fallback: ['dizzy'], proc: 'shake', desc: 'Wet-dog shake (pets after a bath).' },
   stir:      { loop: true,  fallback: ['paint'], proc: 'paint', desc: 'Stirring a cauldron with a big spoon.' },
+  mold:      { loop: true,  fallback: ['stir', 'paint'], proc: 'paint', desc: 'Leaning in, both hands (or paws/hooves) cupped forward at waist height around something round, shaping clay.' },
   // NPC poses (Glimmer, Shadow Imps, Professor Hoot, Troll).
   talk:      { loop: true,  fallback: ['idle'], proc: 'talk', desc: 'NPC talking to camera.' },
   present:   { loop: true,  fallback: ['wave'], proc: 'wave', desc: 'NPC "ta-da!" presenting to the side.' },
@@ -108,6 +109,8 @@ export const POSES = {
   'look-around': { loop: true, fallback: ['think'], proc: 'look-around', desc: 'Curious scouting and looking for a friend.' },
   'high-five': { loop: false, fallback: ['wave', 'cheer'], proc: 'high-five', desc: 'Open-palm friendly team high-five (paw tap for pets).' },
   crouch:    { loop: true, fallback: ['land'], proc: 'crouch', desc: 'Low playful hiding or obstacle duck.' },
+  tuck:      { loop: true, fallback: ['crouch', 'jump'], proc: 'crouch', desc: 'Knees hugged to the chest in a tight somersault ball, eyes happily shut (side-on; games spin it).' },
+  'roll-push': { loop: true, fallback: ['walk'], desc: 'Walking bent forward with both hands (paws, or the head for armless characters) pressed against a big snowball, pushing it along.' },
   dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
   'hip-bump': { loop: false, fallback: ['idle'], proc: 'hip-bump', desc: 'Hip-first bump: side-on, hip swung out toward the target, arms up, cheeky grin.' },
   knockback: { loop: true, fallback: ['balance', 'hurt'], proc: 'knockback', desc: 'Bumped: skidding backward, leaning back, arms windmilling, teetering.' },
