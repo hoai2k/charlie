@@ -1,5 +1,49 @@
 # Charlie Party: image request history
 
+## 2026-10-12 — Fashion Show and dress-up accessories delivered
+
+All32 new props generated with built-in imagegen, alpha/anchor/eyehole audited and reviewed on actual Actor/outfit renderer in everycategory. Three headband attachment fractions adjusted to measured seating points whilepreserving fullsilhouettes. Sources/geometry/prompts: reference/pending/OCT12-FASHION-HEAD.json and OCT12-FASHION-OTHER.json; runtime gallery: OCT12-WEARABLE-REVIEW.html.
+
+## Fashion Show: new items (2026-10-12)
+
+New wardrobe items for `fashion-show` (requested by the Fashion Show agent, priority: nice-to-have). Every item already ships with a procedural drawing (the wardrobe lives in `src/engine/outfits.js`, shared with the game-wide dress-up look); the code looks up `prop/<key>` and uses the art **only for the item's default colour** (the colour named in the description), so the other palette colours keep the drawing. Same conventions as the existing fashion-show props: transparent background, WebP-able PNG, no text, bold navy (#24163f) outlines, cel shading, candy colours, front view unless stated, art facing right where it has a side (the game mirrors it). "S" below is the code's size unit for the category (head items: head width; face/neck: face width; back, hand: body height); the code fits the image into the given box and puts the anchor on the character's landmark for every frame.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `prop/headband-unicorn` | 160×136, transparent | `head` point; fit 1.0×0.85 S, band bottom-centre at 78% of the height (horn rises above) | Pearl-white headband with a spiral unicorn horn in the middle, pastel stripes on the horn, a pink and a yellow flower at the sides, a tiny sparkle at the tip |
+| `prop/headband-kitty` | 160×88, transparent | `head`; fit 1.0×0.55 S, band bottom-centre at 70% | Pink headband with two pointed kitty ears (light pink insides) and a small white bow with a gold centre on the right |
+| `prop/hat-princess` | 160×174, transparent | `head`; fit 0.85×0.9 S, brim at 88% | Tall pink princess cone hat (hennin) with a gold band, three little gold stars up the side and a soft pale-pink veil streaming back from the tip |
+| `prop/headband-hearts` | 160×120, transparent | `head`; fit 1.0×0.75 S, band bottom at 80% | Ruby-red headband with two bobbing heart antennae on springy stalks |
+| `prop/halo-fairy` | 160×56, transparent | floats above `head`: fit 1.0×0.35 S, anchor 1.4× the height below the top (the ring hovers about a third of a head-width over the hair) | Glowing golden fairy halo ring seen slightly from above, soft yellow glow, two or three tiny sparkles on the ring |
+| `prop/mask-masquerade` | 140×76, transparent | `eyes` point (eye line); fit 1.1×0.6 S, eye line at 55% | Lilac masquerade eye mask with gold-rimmed eye holes, a red gem between the eyes and a sky-blue feather plume on the right; eye holes see-through |
+| `prop/glasses-monocle` | 60×106, transparent | `eyes`; fit 0.42×0.75 S, lens centre at 22% from the top, shifted 0.24 S toward the facing side (over the forward eye) | Gold monocle: one round glass lens with a thick gold rim and a gold chain curling down from it |
+| `prop/face-whiskers` | 140×70, transparent | `eyes`; fit 1.0×0.5 S, eye line at the top 20% of the canvas (the paint sits below it) | Kitty face paint: a pink heart nose in the centre and three navy whisker strokes on each cheek, nothing else |
+| `prop/face-butterfly` | 140×70, transparent | `eyes`; fit 1.0×0.5 S, eye line at 20% | Face paint: a small sky-blue butterfly on the right cheek and two white sparkles on the left cheek |
+| `prop/glasses-goggles` | 140×60, transparent | `eyes`; fit 1.05×0.45 S, centred on the eye line | Mint party goggles: one wide wrap-around tinted mint lens with a navy strap, big glossy shine streak |
+| `prop/necklace-pendant` | 160×126, transparent | `neck` point; fit 0.7×0.55 S, chain top at 10% | Gold chain with a round royal pendant: a big sky-blue cut gem in a gold setting ringed with tiny pearls |
+| `prop/collar-ruffle` | 160×66, transparent | `neck`; fit 0.85×0.35 S, top at 25% | Pearl-white ruffled royal collar (a ring of soft ruffles) with a small red gem in front |
+| `prop/necklace-candy` | 160×66, transparent | `neck`; fit 0.85×0.35 S, top at 10% | Candy necklace: a string of little round candy beads in rainbow pastel colours |
+| `prop/medal-star` | 160×117, transparent | `neck`; fit 0.75×0.55 S, ribbon top at 15% | Champion medal: a blue-and-red ribbon V with a round gold medal with a raised star |
+| `prop/boa-feather` | 160×136, transparent | `neck`; fit 1.0×0.85 S, top at 20% | Fluffy pink feather boa looped around the neck with one end hanging down the front on the right |
+| `prop/wings-dragonfly` | 300×183, transparent | `back` point, drawn behind the body; fit 0.9×0.55 S, root (centre) at 55%; the code flaps it by squashing horizontally | Two pairs of long slim mint dragonfly wings, see-through with darker vein lines, spreading left and right from the centre |
+| `prop/wings-petal` | 300×240, transparent | `back`, behind; fit 0.75×0.6 S, centre at 50% | Flower-petal fairy wings: pink and light-pink petals fanning out on both sides from a small white flower in the middle |
+| `prop/wings-dragon` | 300×158, transparent | `back`, behind; fit 0.95×0.5 S, centre at 60% | Cute mint baby-dragon wings, rounded scalloped edges, light finger struts, small pearl claw tips; friendly, not scary |
+| `prop/bow-back` | 300×220, transparent | `back`, behind; fit 0.75×0.55 S, knot at 40% | Huge ruby-red ribbon bow (like a present bow) with two long tails hanging down, glossy satin shine |
+| `prop/cape-star` | 300×292, transparent | like `cape-royal`: top-centre at the neck, stretched to the fitted cape box (behind the body, hanging to the floor) | Lilac velvet cape scattered with little white and pale-yellow stars, scalloped hem, light-lilac collar |
+| `prop/backpack-teddy` | 140×200, transparent | `back`, behind; fit 0.3×0.42 S, the `back` point at 75% of the height (the pack rides high); the teddy's head must reach the top-right corner so it peeks over the shoulder | Small pink backpack with a darker flap, and a little brown teddy bear sitting in it, its head and ears peeking out of the top right |
+| `prop/scepter-royal` | 60×200, transparent | `hand` point = grip; fit 0.15×0.5 S, grip at 84% of the height | Gold royal scepter: a slim gold rod with two rings and a round gold orb with a tiny crown on top |
+| `prop/lollipop-swirl` | 90×200, transparent | `hand`; fit 0.2×0.45 S, grip at 88% | Big round pink swirl lollipop on a white stick with a red ribbon bow under the candy |
+| `prop/handbag` | 120×140, transparent | `hand`; fit 0.22×0.26 S, top of the handle at 5% (the bag hangs below the hand) | Little lilac handbag with a gold handle, a darker flap and a gold heart clasp |
+| `prop/fan-lace` | 200×114, transparent | `hand`; fit 0.42×0.24 S, pivot (bottom centre) at 90% | Open pearl-white lace hand fan, half circle with pleats, a scalloped edge of tiny pearls and a gold pivot |
+| `prop/balloon-star` | 120×320, transparent | `hand`; fit 0.3×0.8 S, string end at the bottom (98%) | Gold star-shaped foil balloon on a long thin navy string, shiny highlight |
+| `prop/wand-bubble` | 110×200, transparent | `hand`; fit 0.18×0.32 S, grip at 90% | Sky-blue bubble wand: a ring on a short handle with three soap bubbles floating up to the right |
+| `prop/aura-butterfly` | 96×96, transparent | one particle of the Butterflies aura (lilac default); drawn about 0.1 body heights wide, the code flaps it | A single small lilac butterfly seen from the front, wings open |
+| `prop/aura-shooting-star` | 160×80, transparent | one particle of the Shooting Stars aura (gold default); star at the left end, trail rising to the right | A small gold shooting star with a soft white trail |
+| `prop/aura-snowflake` | 96×96, transparent | one particle of the Snowflakes aura (sky default), rotated by the code | A single sky-blue and white six-pointed snowflake |
+| `prop/aura-note` | 96×96, transparent | one particle of the Music Notes aura (lilac default) | A single lilac eighth music note with a navy stem |
+| `prop/aura-petal` | 64×64, transparent | one particle of the Flower Petals aura (pink default), rotated by the code | A single pink cherry-blossom petal |
+
+
 ## 2026-10-12 — Cake grips and Hotdog pulling revised
 
 Cake six idle/walk hands moved to body front; Hotdog two pull frames regenerated with paws34–35%height abovefeet. Tug of War rope and Mini Golf club checked in-game. Allunaffected runtimepoints and rasters preserved; source specs synchronized with Octoberlandmark audit. Builder now retains explicit eyes:null and framebodyHeight, regressiontested. Prompts/data: reference/pending/OCT12-SPRITE-FIXES.json.

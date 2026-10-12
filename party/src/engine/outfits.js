@@ -1360,10 +1360,10 @@ const WORN_ART = {
 // w, h: fit box in S (the category's size unit); ay: anchor height from the
 // top of the image (fraction of its height); dx: sideways shift in S.
 Object.assign(WORN_ART, {
-  'Unicorn Horn': { colors: { 6: 'headband-unicorn' }, w: 1.0, h: 0.85, ay: 0.78 },
-  'Kitty Ears': { colors: { 0: 'headband-kitty' }, w: 1.0, h: 0.55, ay: 0.7 },
+  'Unicorn Horn': { colors: { 6: 'headband-unicorn' }, w: 1.0, h: 0.85, ay: 0.558701 },
+  'Kitty Ears': { colors: { 0: 'headband-kitty' }, w: 1.0, h: 0.55, ay: 0.371922 },
   'Princess Cone': { colors: { 0: 'hat-princess' }, w: 0.85, h: 0.9, ay: 0.88 },
-  'Heart Headband': { colors: { 5: 'headband-hearts' }, w: 1.0, h: 0.75, ay: 0.8 },
+  'Heart Headband': { colors: { 5: 'headband-hearts' }, w: 1.0, h: 0.75, ay: 0.533316 },
   'Fairy Halo': { colors: { 1: 'halo-fairy' }, w: 1.0, h: 0.35, ay: 1.4 },
   'Masquerade Mask': { colors: { 2: 'mask-masquerade' }, w: 1.1, h: 0.6, ay: 0.55 },
   Monocle: { colors: { 1: 'glasses-monocle' }, w: 0.42, h: 0.75, ay: 0.22, dx: 0.24 },
