@@ -359,6 +359,35 @@ paint, celebrate, cheer, plus the new cast, eat and ride). Definitions:
 | `marshmallow-birthday-cake` | Top of the cake beside the candle. Things balance on the cake |
 | `marina`, `scale` | Normal hands |
 
+**All five points on every frame** (`head`, `hand`, `eyes`, `neck`, `back`,
+frame pixels, inside the frame). `validate.py` rejects a frame that lacks
+one. The October landmark audit (all 15 playable sets, every frame) settled
+these conventions:
+
+- `eyes`: the point **between the eyes** (bridge of the nose), not one eye
+  or the nose tip. A **true back view** (the `pose-twirl` back frame) sets
+  `"eyes": null`: the face is hidden, so games hide glasses and face items.
+  Never null it for a side or three-quarter view.
+- `neck`: the base of the neck / collar line where a necklace hangs, below
+  the chin. Quadrupeds: the throat below the jaw. Cake: just under the mouth.
+  Bronze: the rim under the dome.
+- `back`: between the shoulder blades (the top of the spine for
+  quadrupeds), where wings or a cape attach. Fashion Show draws quadruped
+  wings 45% of the way from `neck` to `back`.
+- `head` with an existing crown or tiara: on that crown (Marina, Scale,
+  Cotton Candy: the top of the crown band; Amber: the tiara band). Upside
+  down or tumbling: still the crown of the skull (between downward ears),
+  wherever it points. The cake's `head` is the base of the candle.
+- `hand` for quadrupeds (Fox, Fellowfox, Unicorn, Cotton Candy) is the
+  mouth in every pose, except poses whose art grips a tool in a front
+  paw/hoof (pump, pull, reel, swing, putt, putt-swing, dig, snow-scoop,
+  flip), which keep the paw. Hotdog uses its front paws (it holds things
+  like a squirrel). The cake's hand is the cake top just under the candle,
+  except tool poses where the drawn grip is used.
+- Poses drawn looking the other way set the pose `facing` (Cotton Candy
+  `sit` -1, Fox `strike3` 1, KPop right `swim` -1), so `hand` is still the
+  forward side.
+
 ### 3.7 Groups, followers and special anatomy
 
 - **Members are independent sets.** The KPop Girls are three sets
