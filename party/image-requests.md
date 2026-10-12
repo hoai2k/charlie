@@ -1114,3 +1114,40 @@ fine; the code uses one of each pair.
 
 
 No open image or re-generation requests remain as of 2026-10-12.
+
+## New Play Studio game: pottery-wheel
+
+### pottery-wheel — Pottery Wheel   (requested by the pottery-wheel agent, 2026-10-05, priority: nice-to-have)
+
+Every player throws a pot at their own wheel (the clay is a smooth spinning
+profile drawn by code), fires it in a little brick kiln (doors burst open for
+a reveal), then glazes and decorates it on a slowly turning wheel with stripes,
+dots and stickers. Finale: all pots on a gallery shelf with ribbons and a
+photo. Everything below has a procedural fallback that ships today and is
+looked up with `art()`/`drawArt()`, so a file in `assets/art/index.json` drops
+in with no code change. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text** in any image. The pots themselves
+are always drawn by code (their shape and paint are the player's), so they
+are **not** requested. In the table, `k` is the station's pot scale
+(pot units to pixels; about 0.44 at 8 players, 1.25 at 1 player).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pottery-wheel` | 1920×1080, opaque | Full screen behind the split stations (shows as side columns at 1 player, thin gutters at 2–8). Keep the top ~110 px calm (title band) | A sunny pottery studio: whitewashed brick walls, wooden shelves along the far left and right edges with rows of colourful finished pots and bowls, hanging plants, a big window with soft daylight, a warm wooden floor strip at the bottom. Low detail in the centre |
+| `bg/pottery-wheel-station` | 1200×900, opaque | Stretched (not cropped) over one station, so keep it simple and stretch-safe. The code paints its own wooden floor over the bottom ~22%, so that part is never seen | A cosy studio wall corner: soft cream plaster with a pastel tile strip, a small shelf high on the left with two tiny clay pots, a pegboard with clay tools (wire, sponges, ribs) at the upper right. No floor, no furniture in the middle |
+| `bg/pottery-wheel-gallery` | 1920×1080, opaque | Full screen for the showcase. The code draws 1–2 long shelves across it (plank tops at y≈620 for 1–4 players, y≈430 and y≈760 for 5–8) and the characters stand on the floor band y≈930–1060 | A bright little craft gallery: pale lilac wall with a soft wainscot, two spotlights on a ceiling track at the top, potted plants in the corners, honey wooden floor from y≈930 down. Wall area kept plain (shelves and pots go on it) |
+| `thumb/pottery-wheel` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A cute character (Cotton Candy) at a potter's wheel shaping a tall wet clay vase with both hands, clay splashes, a finished glazed pink-and-blue striped vase with heart stickers and a little brick kiln glowing in the background, sparkles |
+| `prop/pottery-wheel` | 1040×520 (2:1), transparent | `drawArt(..., wheelX, floorY, 520k, 260k, { anchor: 'bottom' })`. **The wheel head's flat top surface is centred at x 50%, y 46% from the top**, as an ellipse 73% of the image wide and ~16% tall (the pot base sits on its centre). Above the head is empty. The code draws its own spin streaks on the head | A chunky kid-friendly electric potter's wheel seen from the front, slightly above: a round grey-blue metal wheel head on a rounded pastel-mint body with a splash pan ring, a little foot pedal on a cord on the floor at the right, small rubber feet |
+| `prop/pottery-kiln` | 1280×1240, transparent | `drawArt(..., cx, floorY, 640s, 620s, { anchor: 'bottom' })`. The code draws the pot *inside* the door opening and the two doors on top, so the **opening must be an empty (transparent) arch**: centred at x 50%, 75% of the width wide, from y 18% (top of the arch) to y 87% (the inner floor, where the pot stands). Walls around it are the kiln | A cute rounded beehive kiln made of warm red-orange bricks with a navy outline, a little chimney on top-right puffing nothing (code adds smoke), a stone base with a glowing grate slot below the door, two small round vents on the sides |
+| `prop/pottery-kiln-door` | 256×560, transparent | One door leaf, drawn twice (mirrored for the right one), hinged at its outer edge and squashed horizontally as it swings open; stretched to half the opening | A tall arched-top iron kiln door half: dark plum metal with rivets, a round porthole window near the top that glows orange, a gold handle on the inner edge |
+| `prop/pottery-shelf` | 1800×160, transparent | Stretched over each showcase shelf, x 80–1840. **The plank's top surface line is at 25% from the top**; the pots stand on it | A long honey-wood display shelf plank seen from the front, slightly above, with two curly wrought-iron brackets underneath |
+| `prop/pottery-rib` | 96×256, transparent | The shaping-tool cursor: drawn with its **working tip at the bottom centre** on the cursor, rotated ~25°, about 50k×130k | A wooden potter's rib/shaping stick: a smooth pale wood paddle with a rounded tip and a hole near the top |
+| `prop/pottery-sponge` | 128×128, transparent | Cursor while smoothing (B held), centred on the cursor, ~60k | A soft round yellow craft sponge with little holes, a bit wet and shiny |
+| `prop/pottery-brush` | 96×256, transparent | Paint cursor: **bristle tip at the bottom centre** on the cursor, rotated ~25°. The code tints a blob of the current colour over the tip, so keep the bristles light | A chubby paintbrush with a pink wooden handle, silver ferrule and pale cream bristles |
+| `prop/pottery-sticker-heart`, `-star`, `-flower`, `-butterfly`, `-rainbow`, `-moon`, `-cat`, `-fish`, `-sun`, `-strawberry` | 128×128 each, transparent | Stuck on the turning pot: drawn centred, fitted to a ~44-unit box and squashed horizontally as the pot turns. Fill ~90% of the canvas, front view, flat sticker look | Glossy kawaii stickers with a thin white sticker border outside the navy outline: a pink heart; a yellow star; a five-petal pink flower with a yellow centre; a lilac butterfly; a rainbow arc with clouds; a smiling yellow crescent moon; an orange cat face; a sky-blue fish; a smiling sun; a strawberry |
+| `prop/pottery-rosette` | 192×256, transparent | Award ribbon pinned under each pot on the shelf: drawn with the rosette's round centre at x 50%, y 38%; the code writes nothing on it | A gold prize rosette: a pleated gold ring around a plain cream centre disc, two short gold ribbon tails below |
+
+Sprite pose (optional upgrade): `mold` (loop) — fallback `stir` → `paint`.
+Leaning in, both hands (or paws/hooves) cupped forward at waist height around
+something round, shaping it; used all through the shaping step. The game
+reads fine with the fallback.
