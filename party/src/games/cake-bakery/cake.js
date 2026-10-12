@@ -5,6 +5,7 @@ import { RAINBOW } from '../../engine/particles.js';
 import { starPath, drawSparkleShape, drawHeartShape } from '../../engine/emotes.js';
 import { drawPortrait } from '../../engine/sprites.js';
 import { art, drawArt } from '../../engine/art.js';
+import { recolorFrame } from '../../engine/recolor.js';
 import { clamp, lerp, rand, pick, TAU } from '../../engine/util.js';
 
 export const NAVY = '#24163f';
@@ -496,7 +497,7 @@ function ol(g, w = 3) { g.lineWidth = w; g.strokeStyle = NAVY; g.lineJoin = 'rou
 
 // Generated topping art (cake-local units; (x, y) = where it touches the cake).
 // [art key, drawn height, how far the pick/base sinks below the landing point,
-//  main colour of the art (toppings with random colours get a hue-shifted copy)]
+//  main colour of the art (toppings with random colours get a recoloured copy)]
 const TOPPING_ART = {
   cherry: ['prop/topper-cherry', 48, 3],
   strawberry: ['prop/topper-strawberry', 40, 4],
@@ -504,12 +505,12 @@ const TOPPING_ART = {
   heart: ['prop/topper-heart', 54, 6],
   flower: ['prop/topper-flower', 36, 4],
   unicorn: ['prop/topper-unicorn-horn', 78, 4],
-  macaron: ['prop/topper-macaron', 32, 2, '#ff9fd0'],
+  macaron: ['prop/topper-macaron', 32, 2, '#f794c4'],
   chocdrop: ['prop/topper-choco-drop', 34, 2],
-  butterfly: ['prop/topper-butterfly', 40, 2, '#ff6fd0'],
-  bow: ['prop/topper-bow', 30, 2, '#ff6fd0'],
+  butterfly: ['prop/topper-butterfly', 40, 2, '#f78ac8'],
+  bow: ['prop/topper-bow', 30, 2, '#f784c4'],
   pearls: ['prop/topper-pearls', 26, 2],
-  lollipop: ['prop/topper-lollipop', 88, 4, '#ff6fd0'],
+  lollipop: ['prop/topper-lollipop', 88, 4, '#f774b8'],
   candycane: ['prop/topper-candy-cane', 74, 4],
   cupcake: ['prop/topper-cupcake', 58, 3],
   crown: ['prop/topper-crown', 44, 3],
@@ -517,8 +518,8 @@ const TOPPING_ART = {
   shootingstar: ['prop/topper-shooting-star', 92, 4],
   fairy: ['prop/topper-fairy', 78, 3],
 };
-// The candle art is pink; other candy colors get a hue-shifted copy, built once.
-const CANDLE_HUE = 334;
+// The candle art is pink; other candy colors get a recoloured copy, built once.
+const CANDLE_PINK = '#f784b8';
 // [art key, drawn height]; both images have the wick tip ~3 px below the top edge
 const CANDLE_ART = { candle: ['prop/candle', 62], swirlcandle: ['prop/candle-swirl', 82] };
 const tintCache = new Map();
@@ -529,22 +530,22 @@ function hueOf(hex) {
   const h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
   return (h * 60 + 360) % 360;
 }
-/** Art for `key`, hue-rotated from its base hue to `color`'s hue (cached). */
-function tintedArt(key, baseHue, color) {
+/**
+ * Art for `key` with its pink parts (`base` = the art's main pink) recoloured
+ * to `color` (cached). A per-pixel palette remap (engine recolor) keeps the
+ * cel shading at the target colour's own lightness, leaves the navy outline,
+ * whites and golds alone and works on every Safari (a canvas hue-rotate
+ * filter turned pink into a muddy brown for yellow and is missing on older iOS).
+ */
+function tintedArt(key, base, color) {
   const img = art(key);
   if (!img) return null;
-  if (!color) return img;
-  const shift = Math.round(hueOf(color) - baseHue);
-  if (Math.abs(shift) < 6) return img;
-  const ck = `${key}|${shift}`;
+  if (!color || Math.abs(((hueOf(color) - hueOf(base) + 540) % 360) - 180) < 6) return img;
+  const ck = `${key}|${color}`;
   let c = tintCache.get(ck);
   if (c === undefined) {
     c = img;
-    try {
-      const cv = document.createElement('canvas'); cv.width = img.width; cv.height = img.height;
-      const x = cv.getContext('2d');
-      if ('filter' in x) { x.filter = `hue-rotate(${shift}deg)`; x.drawImage(img, 0, 0); c = cv; }
-    } catch (e) { c = img; }
+    try { c = recolorFrame(img, null, [{ from: base, to: color, hue: [292, 16], feather: 12, sat: [0.3, 1], lit: [0.14, 0.97] }]); } catch (e) { c = img; }
     tintCache.set(ck, c);
   }
   return c;
@@ -558,7 +559,7 @@ export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, 
   const ta = TOPPING_ART[d.kind];
   if (ta) {
     const [key, h, sink, base] = ta;
-    const img = base ? tintedArt(key, hueOf(base), d.color) : art(key);
+    const img = base ? tintedArt(key, base, d.color) : art(key);
     if (img) {
       // fit inside h tall x 2.2h wide, bottom-centre on the landing point
       const s = Math.min(h / img.height, (h * 2.2) / img.width), w = img.width * s, hh = img.height * s;
@@ -607,7 +608,7 @@ export function drawDecoShape(g, d, t, { lit = false, flame = 1, charId = null, 
     case 'candle': case 'swirlcandle': {
       const swirl = d.kind === 'swirlcandle';
       const [ckey, ch0] = CANDLE_ART[d.kind];
-      const cimg = tintedArt(ckey, CANDLE_HUE, d.color);
+      const cimg = tintedArt(ckey, CANDLE_PINK, d.color);
       if (cimg) {
         // wick tip ~3 px below the image's top edge
         const ch = ch0, cw = ch * cimg.width / cimg.height;
@@ -922,7 +923,7 @@ export function drawShaker(g, kind) {
 }
 
 // Menu icon fit for toppings drawn base-down: whole box visible inside 60 units.
-const FIT_ICON = new Set(['macaron', 'chocdrop', 'butterfly', 'bow', 'pearls', 'lollipop', 'candycane', 'cupcake', 'crown', 'rainbow', 'shootingstar', 'fairy', 'swirlcandle']);
+const FIT_ICON = new Set(['macaron', 'chocdrop', 'butterfly', 'bow', 'pearls', 'lollipop', 'candycane', 'cupcake', 'crown', 'rainbow', 'shootingstar', 'fairy', 'candle', 'swirlcandle']);
 const ICON_COLOR = { gummy: '#36d17a', star: '#ffd23f', macaron: '#9fd8ff', butterfly: '#b36bff', bow: '#ff4d6d', lollipop: '#ff6fd0' };
 
 /** Little icon for the decoration menu (centered at cx, cy, about `size` px). */
