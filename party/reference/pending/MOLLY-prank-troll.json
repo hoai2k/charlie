@@ -81,7 +81,7 @@
       ]
     },
     {
-      "key": "prop/pt-troll-asleep",
+      "key": "prop/ptroll-troll-asleep",
       "size": [
         900,
         760
@@ -169,10 +169,12 @@
           510
         ]
       },
-      "overlayCoordinatesFit": "The actual face and attachments are substantially above target template landmarks. Root should align overlays to recorded actual landmarks."
+      "overlayCoordinatesFit": "The actual face and attachments are substantially above target template landmarks. Root should align overlays to recorded actual landmarks.",
+      "originalRequestedKey": "prop/pt-troll-asleep",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-troll-awake",
+      "key": "prop/ptroll-troll-awake",
       "size": [
         900,
         760
@@ -268,10 +270,12 @@
           "sourceNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6bb32262-436c-43b1-9bee-84b2b2f5e226.png",
           "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f1ea6be7-a805-4349-bafa-2d42ac4932df.png"
         }
-      ]
+      ],
+      "originalRequestedKey": "prop/pt-troll-awake",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-basket",
+      "key": "prop/ptroll-basket",
       "size": [
         256,
         192
@@ -300,10 +304,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-basket.webp",
       "width": 256,
-      "height": 192
+      "height": 192,
+      "originalRequestedKey": "prop/pt-basket",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-crayon",
+      "key": "prop/ptroll-crayon",
       "size": [
         128,
         128
@@ -332,10 +338,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-crayon.webp",
       "width": 128,
-      "height": 128
+      "height": 128,
+      "originalRequestedKey": "prop/pt-crayon",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-moustache",
+      "key": "prop/ptroll-moustache",
       "size": [
         256,
         128
@@ -364,10 +372,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-moustache.webp",
       "width": 256,
-      "height": 128
+      "height": 128,
+      "originalRequestedKey": "prop/pt-moustache",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-flower",
+      "key": "prop/ptroll-flower",
       "size": [
         128,
         128
@@ -396,10 +406,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-flower.webp",
       "width": 128,
-      "height": 128
+      "height": 128,
+      "originalRequestedKey": "prop/pt-flower",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-bow",
+      "key": "prop/ptroll-bow",
       "size": [
         160,
         128
@@ -428,10 +440,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-bow.webp",
       "width": 160,
-      "height": 128
+      "height": 128,
+      "originalRequestedKey": "prop/pt-bow",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-party-hat",
+      "key": "prop/ptroll-party-hat",
       "size": [
         192,
         256
@@ -460,10 +474,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-party-hat.webp",
       "width": 192,
-      "height": 256
+      "height": 256,
+      "originalRequestedKey": "prop/pt-party-hat",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-feather",
+      "key": "prop/ptroll-feather",
       "size": [
         192,
         128
@@ -492,10 +508,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-feather.webp",
       "width": 192,
-      "height": 128
+      "height": 128,
+      "originalRequestedKey": "prop/pt-feather",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-glitter",
+      "key": "prop/ptroll-glitter",
       "size": [
         128,
         160
@@ -524,10 +542,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-glitter.webp",
       "width": 128,
-      "height": 160
+      "height": 160,
+      "originalRequestedKey": "prop/pt-glitter",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-polish",
+      "key": "prop/ptroll-polish",
       "size": [
         96,
         160
@@ -556,10 +576,12 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-polish.webp",
       "width": 96,
-      "height": 160
+      "height": 160,
+      "originalRequestedKey": "prop/pt-polish",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-bush",
+      "key": "prop/ptroll-bush",
       "size": [
         320,
         300
@@ -598,10 +620,12 @@
           "sourceNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d1e198fd-3568-487e-90ad-ed4a05157e94.png",
           "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-db4ce910-498f-4c0f-a4b4-d6e77f18c5aa.png"
         }
-      ]
+      ],
+      "originalRequestedKey": "prop/pt-bush",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     },
     {
-      "key": "prop/pt-mirror",
+      "key": "prop/ptroll-mirror",
       "size": [
         192,
         256
@@ -630,7 +654,9 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-mirror.webp",
       "width": 192,
-      "height": 256
+      "height": 256,
+      "originalRequestedKey": "prop/pt-mirror",
+      "namespaceReason": "Main separates Prank Troll props from Puppet Theatre pt-* keys; reuse existing reviewed raster."
     }
   ],
   "contactSheet": "/private/tmp/pt-final-contact.jpg"

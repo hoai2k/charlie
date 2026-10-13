@@ -12,7 +12,7 @@
 // "pranks together" tally.
 //
 // Art hooks (procedural fallbacks ship today): bg/prank-troll, thumb/prank-troll,
-//   prop/pt-troll-asleep pt-troll-awake pt-basket pt-crayon pt-moustache pt-flower
+//   prop/ptroll-troll-asleep pt-troll-awake pt-basket pt-crayon pt-moustache pt-flower
 //   pt-bow pt-party-hat pt-feather pt-glitter pt-polish pt-bush pt-mirror
 // Sounds (optional files, fallbacks today): pt-pick pt-prank pt-scribble pt-tickle
 //   pt-achoo pt-big-snore pt-stir pt-swat pt-mumble pt-freeze pt-roar-laugh pt-yawn
@@ -27,7 +27,6 @@ import { art } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, TAU, placementsFromScores } from '../engine/util.js';
-import { CHARACTERS } from '../data/characters.js';
 import {
   NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, configureTrollArt, toScreen, meadowBackground, drawTroll, drawBasket,
   drawItem, drawBush, drawSwat, drawMirror, drawIcon,
@@ -52,7 +51,7 @@ const STATIONS = [
   { kind: 'feather', x: 560, y: 965 }, { kind: 'glitter', x: 1360, y: 965 },
   { kind: 'polish', x: 960, y: 925 },
 ];
-const ITEM_ART = { crayon: 'prop/pt-crayon', flower: 'prop/pt-flower', bow: 'prop/pt-bow', hat: 'prop/pt-party-hat', feather: 'prop/pt-feather', glitter: 'prop/pt-glitter', polish: 'prop/pt-polish' };
+const ITEM_ART = { crayon: 'prop/ptroll-crayon', flower: 'prop/ptroll-flower', bow: 'prop/ptroll-bow', hat: 'prop/ptroll-party-hat', feather: 'prop/ptroll-feather', glitter: 'prop/ptroll-glitter', polish: 'prop/ptroll-polish' };
 
 export const meta = {
   id: 'prank-troll',
@@ -77,7 +76,7 @@ const inZone = (x, y, z = ZONE, k = 1) => ((x - z.x) / (z.rx * k)) ** 2 + ((y - 
 
 export class Game {
   constructor(api) {
-    configureTrollArt(!!(art('prop/pt-troll-asleep') && art('prop/pt-troll-awake')));
+    configureTrollArt(!!(art('prop/ptroll-troll-asleep') && art('prop/ptroll-troll-awake')));
     this.api = api;
     this.players = api.players;
     const n = this.players.length;
@@ -122,8 +121,8 @@ export class Game {
     this.banner = null;
     this.finished = false;
     // the mirror fairy: a garden fairy nobody is playing as
-    const used = new Set(this.players.map((p) => p.charId));
-    const fairyId = ['garden-fairy-pink', 'garden-fairy-yellow', 'garden-fairy-blue', 'garden-fairy-purple', 'garden-fairy-green'].find((id) => !used.has(id) && CHARACTERS.some((c) => c.id === id)) || null;
+    const used = new Set(this.players.map((p) => p.charId.replace(/^molly-/, '')));
+    const fairyId = ['garden-fairy-pink', 'garden-fairy-yellow', 'garden-fairy-blue', 'garden-fairy-purple', 'garden-fairy-green'].find((id) => !used.has(id)) || null;
     this.fairy = { asset: fairyId || 'garden-fairy-pink', x: -100, y: 470, z: 120, pose: 'walk' };
     ensureSpriteSet(this.fairy.asset);
     this.fairyOn = false;
@@ -685,7 +684,7 @@ export class Game {
         g.fillStyle = '#ffe0c8'; g.beginPath(); g.arc(0, -16, 16, 0, TAU); g.fill();
         g.restore();
       }
-      const mImg = art('prop/pt-mirror');
+      const mImg = art('prop/ptroll-mirror');
       const mx = f.x - 70, my = fy - fh * 0.55;
       if (mImg) g.drawImage(mImg, mx - 50, my - 65, 100, 130); else drawMirror(g, mx, my, 1.1, t);
     }
@@ -693,7 +692,7 @@ export class Game {
 
   drawTrollAll(g, t) {
     const tr = this.tr;
-    drawTroll(g, { ...tr, awake: this.phase === 'finale' || this.phase === 'end' }, this.P, t, art('prop/pt-troll-asleep'), art('prop/pt-troll-awake'));
+    drawTroll(g, { ...tr, awake: this.phase === 'finale' || this.phase === 'end' }, this.P, t, art('prop/ptroll-troll-asleep'), art('prop/ptroll-troll-awake'));
     // Zzz
     if (this.sleeping) {
       const m = toScreen(A.face);
@@ -728,7 +727,7 @@ export class Game {
   }
 
   drawStation(g, st, t) {
-    const img = art('prop/pt-basket');
+    const img = art('prop/ptroll-basket');
     if (img) g.drawImage(img, st.x - 75, st.y - 56, 150, 112); else drawBasket(g, st.x, st.y, 1);
     const bob = Math.sin(t * 3 + st.x) * 8;
     this.drawItemAt(g, st.kind, st.x, st.y - 100 + bob, 1.0);
@@ -741,7 +740,7 @@ export class Game {
     const a = U.a;
     a.draw(g, { ring: U.p.color });
     if (U.bush > 0.02) {
-      const img = art('prop/pt-bush');
+      const img = art('prop/ptroll-bush');
       const w = Math.max(110, a.width * 1.2), h = a.height * 0.95;
       if (img) { g.save(); g.translate(U.x, U.y + 6); g.scale(U.bush, U.bush); g.drawImage(img, -w / 2, -h, w, h); g.restore(); }
       else drawBush(g, U.x, U.y + 6, w, h, U.bush, t, U.i);

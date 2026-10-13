@@ -1114,18 +1114,6 @@
     "prop/bigsnowman-6": "prop/bigsnowman-6.webp",
     "bg/prank-troll": "bg/prank-troll.webp",
     "thumb/prank-troll": "thumb/prank-troll.webp",
-    "prop/pt-troll-asleep": "prop/pt-troll-asleep.webp",
-    "prop/pt-troll-awake": "prop/pt-troll-awake.webp",
-    "prop/pt-basket": "prop/pt-basket.webp",
-    "prop/pt-crayon": "prop/pt-crayon.webp",
-    "prop/pt-moustache": "prop/pt-moustache.webp",
-    "prop/pt-bow": "prop/pt-bow.webp",
-    "prop/pt-party-hat": "prop/pt-party-hat.webp",
-    "prop/pt-feather": "prop/pt-feather.webp",
-    "prop/pt-glitter": "prop/pt-glitter.webp",
-    "prop/pt-polish": "prop/pt-polish.webp",
-    "prop/pt-bush": "prop/pt-bush.webp",
-    "prop/pt-mirror": "prop/pt-mirror.webp",
     "bg/bed-bounce": "bg/bed-bounce.webp",
     "thumb/bed-bounce": "thumb/bed-bounce.webp",
     "prop/bb-bed": "prop/bb-bed.webp",
@@ -1138,7 +1126,20 @@
     "prop/bb-star": "prop/bb-star.webp",
     "prop/bb-glowstar": "prop/bb-glowstar.webp",
     "prop/bb-teddy": "prop/bb-teddy.webp",
-    "prop/bb-cat": "prop/bb-cat.webp"
+    "prop/bb-cat": "prop/bb-cat.webp",
+    "prop/ptroll-troll-asleep": "prop/pt-troll-asleep.webp",
+    "prop/ptroll-troll-awake": "prop/pt-troll-awake.webp",
+    "prop/ptroll-basket": "prop/pt-basket.webp",
+    "prop/ptroll-crayon": "prop/pt-crayon.webp",
+    "prop/ptroll-moustache": "prop/pt-moustache.webp",
+    "prop/ptroll-flower": "prop/pt-flower.webp",
+    "prop/ptroll-bow": "prop/pt-bow.webp",
+    "prop/ptroll-party-hat": "prop/pt-party-hat.webp",
+    "prop/ptroll-feather": "prop/pt-feather.webp",
+    "prop/ptroll-glitter": "prop/pt-glitter.webp",
+    "prop/ptroll-polish": "prop/pt-polish.webp",
+    "prop/ptroll-bush": "prop/pt-bush.webp",
+    "prop/ptroll-mirror": "prop/pt-mirror.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1478,6 +1479,9 @@
       "prop/df-music",
       "thumb/dance-freeze"
     ],
+    "sneaky-dance": [
+      "prop/df-disco-ball"
+    ],
     "bubble-pop": [
       "bg/bubble-pop",
       "prop/bubble-machine",
@@ -1506,6 +1510,9 @@
       "prop/balloon-mint"
     ],
     "ballet-butterflies": [
+      "bg/ballet-butterflies"
+    ],
+    "opposite-ballet": [
       "bg/ballet-butterflies"
     ],
     "wand-shapes": [
@@ -1734,19 +1741,19 @@
     ],
     "prank-troll": [
       "bg/prank-troll",
-      "prop/pt-troll-asleep",
-      "prop/pt-troll-awake",
-      "prop/pt-basket",
-      "prop/pt-crayon",
-      "prop/pt-moustache",
-      "prop/pt-flower",
-      "prop/pt-bow",
-      "prop/pt-party-hat",
-      "prop/pt-feather",
-      "prop/pt-glitter",
-      "prop/pt-polish",
-      "prop/pt-bush",
-      "prop/pt-mirror"
+      "prop/ptroll-troll-asleep",
+      "prop/ptroll-troll-awake",
+      "prop/ptroll-basket",
+      "prop/ptroll-crayon",
+      "prop/ptroll-moustache",
+      "prop/ptroll-flower",
+      "prop/ptroll-bow",
+      "prop/ptroll-party-hat",
+      "prop/ptroll-feather",
+      "prop/ptroll-glitter",
+      "prop/ptroll-polish",
+      "prop/ptroll-bush",
+      "prop/ptroll-mirror"
     ]
   }
 }

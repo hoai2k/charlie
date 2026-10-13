@@ -19,10 +19,11 @@ SFX: round 6 (194, the 17 kept games) done; round 7 (96, the cheeky six) done
 tongue-out, hose-spray, silly-pose, tiptoe. Fairy playable request lists 56 poses for the 23
 games (scratchpad molly-poses.txt). `?chars=` accepts NPC ids (glimmer, garden-fairy-*).
 Molly intro = fairy picker (scenes/molly-seats.js, 2026-10-13): every Molly game's how-to
-screen seats players as fairies (glimmer + garden-fairy-*), picked per game; A join/ready, B
+screen seats players as fairies (MOLLY_FAIRIES in data/characters.js: molly-glimmer,
+molly-garden-fairy-*; same sprites at player size h 138/122), picked per game; A join/ready, B
 unready/leave; fairy players' stars proxy to the party seat; memo keeps seats for the next
-Molly intro. Charlie random/marathon exclude Molly (gameselect). Molly art QA: 3 worktree
-agents (brief scratchpad molly-art-qa-brief.md): A = fairy-hide-seek cupcake-stack bubble-pop
+Molly intro. Charlie random/marathon exclude Molly (gameselect). Molly art QA: group A merged (fixes in 5 games; regen rows filed for thumb/cupcake-stack,
+prop/cupcake-gold, bg/unicorn-jump). Still running: (brief scratchpad molly-art-qa-brief.md): A = fairy-hide-seek cupcake-stack bubble-pop
 balloon-float unicorn-jump ghost-giggles kitten-yarn; B = sock-match garden-grow fairy-flutter
 wand-shapes sneaky-dance opposite-ballet muddy-mayhem; C = trick-or-treat duckling-parade.
 Merge with scratchpad merge_game.sh-style merges (no register needed), then restamp/push.

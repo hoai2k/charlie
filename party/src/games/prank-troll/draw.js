@@ -1,6 +1,6 @@
 // Procedural art for Prank the Sleeping Troll (prank-troll). Every piece has an
 // art() hook in the game file; these are the fallbacks that ship today.
-// The troll is drawn in "image space" (900 x 760, like prop/pt-troll-asleep)
+// The troll is drawn in "image space" (900 x 760, like prop/ptroll-troll-asleep)
 // so pranks land on the same spots whether the art is procedural or generated.
 import { W, H } from '../../engine/canvas.js';
 import { TAU, clamp } from '../../engine/util.js';
@@ -231,7 +231,7 @@ function bodyArt(g, st, t) {
 
 function flower(g, x, y, r, col, t) {
   g.save(); g.translate(x, y); g.rotate(Math.sin(t * 2 + x) * 0.15);
-  if (drawArt(g, 'prop/pt-flower', 0, 0, r * 2.1, r * 2.1)) { g.restore(); return; }
+  if (drawArt(g, 'prop/ptroll-flower', 0, 0, r * 2.1, r * 2.1)) { g.restore(); return; }
   g.fillStyle = col;
   for (let p = 0; p < 6; p++) { const a = (p / 6) * TAU; g.beginPath(); g.ellipse(Math.cos(a) * r * 0.6, Math.sin(a) * r * 0.6, r * 0.5, r * 0.32, a, 0, TAU); g.fill(); }
   g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, r * 1.05, 0, TAU); g.globalAlpha = 0; g.stroke(); g.globalAlpha = 1;
@@ -242,7 +242,7 @@ export function drawFlower(g, x, y, r, col, t) { flower(g, x, y, r, col, t); }
 
 export function drawBow(g, x, y, s, rot = 0, col = '#ff7ac6') {
   g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s);
-  if (drawArt(g, 'prop/pt-bow', 0, 0, 120, 96)) { g.restore(); return; }
+  if (drawArt(g, 'prop/ptroll-bow', 0, 0, 120, 96)) { g.restore(); return; }
   g.fillStyle = col;
   for (const sd of [-1, 1]) { g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(sd * 40, -36, sd * 56, -8); g.quadraticCurveTo(sd * 50, 30, 0, 0); g.fill(); ink(g, 4); }
   g.fillStyle = '#ffffff';
@@ -254,7 +254,7 @@ export function drawBow(g, x, y, s, rot = 0, col = '#ff7ac6') {
 export function drawHat(g, x, y, s, rot, t) {
   g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s);
   // The elastic hangs below the cone; seat the cone's rim on the hair.
-  if (drawArt(g, 'prop/pt-party-hat', 0, 30, 144, 192, { anchor: 'bottom' })) { g.restore(); return; }
+  if (drawArt(g, 'prop/ptroll-party-hat', 0, 30, 144, 192, { anchor: 'bottom' })) { g.restore(); return; }
   g.fillStyle = '#ff7ac6';
   g.beginPath(); g.moveTo(-60, 0); g.lineTo(0, -170); g.lineTo(60, 0); g.closePath(); g.fill();
   g.save(); g.clip();
@@ -267,7 +267,7 @@ export function drawHat(g, x, y, s, rot, t) {
 }
 
 export function drawTache(g, x, y, w, t) {
-  if (drawArt(g, 'prop/pt-moustache', x, y, w, w / 2)) return;
+  if (drawArt(g, 'prop/ptroll-moustache', x, y, w, w / 2)) return;
   g.save(); g.translate(x, y); g.scale(w / 250, w / 250);
   g.strokeStyle = '#3a2214'; g.lineCap = 'round'; g.lineJoin = 'round';
   for (const sd of [-1, 1]) {
@@ -283,7 +283,7 @@ export function drawTache(g, x, y, w, t) {
 
 export function drawFeatherItem(g, x, y, s, rot) {
   g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s);
-  if (drawArt(g, 'prop/pt-feather', 50, -20, 110, 74)) { g.restore(); return; }
+  if (drawArt(g, 'prop/ptroll-feather', 50, -20, 110, 74)) { g.restore(); return; }
   const cols = ['#ff7ac6', '#ffd23f', '#7fe3a0', '#7fc8ff', '#c58bff'];
   for (let k = 0; k < 5; k++) {
     g.fillStyle = cols[k];

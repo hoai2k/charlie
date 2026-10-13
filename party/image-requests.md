@@ -1104,6 +1104,9 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `thumb/cupcake-stack` (Molly, 2026-10-13) | Plain white background with no scene; the only blank-white tile on the Molly shelf and how-to screen | Same subject, opaque 800×500 with a garden-party background (lawn, bunting, sky) like the other Molly thumbnails |
+| `prop/cupcake-gold` (Molly, 2026-10-13) | Looks almost the same as `prop/cupcake-lemon`, so the golden super-cupcake doesn't stand out (the code only adds a glow) | 256×224, same anchor: shiny gold-foil wrapper, glittery gold frosting, sparkles, a little star or crown on top |
+| `bg/unicorn-jump` (Molly, 2026-10-13) | Too busy behind the lanes: big gumdrops, lollipops and flowers fill the middle and bottom, so riders are hard to read (the code adds a milky wash for now) | Same seamless 1920×1080 tile; candy detail mostly in the top ~250 px, the lane area (y 260–1000) a soft, low-contrast meadow |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
@@ -1262,69 +1265,6 @@ calm (timer) and the bottom 120 px plain grass (scoreboard).
 | `prop/puppy-1` … `prop/puppy-4` | 220×180 each, transparent | Bottom-centre anchor (feet), drawn ~100 px tall, mirrored for left; the code adds mud splotches, wag, hop and squash. 1 cream golden-retriever pup, 2 white fluffy poodle pup, 3 brown-and-white beagle pup, 4 black-and-white spotty pup | A cute fluffy puppy, side view facing right, standing on four legs, tongue out, tail up, big shiny eyes, clean and soft |
 | `prop/mud-puddle` | 320×170, transparent | Centred, drawn ~260 px wide flat on the grass | A wide flat glossy brown mud puddle with a few splashes at the edge, seen from above at an angle |
 
-## New Molly Party game: fairy-flutter
-
-### fairy-flutter — Fairy Flutter   (requested by the fairy-flutter agent, 2026-10-13, priority: nice-to-have)
-
-Everyone flies as a fairy (each character wears fancy wings from the shared
-wardrobe) through a dreamy flower sky, zooming after sparkles, dewdrops and
-petals, booping giggling bumblebees and surfing rainbow wind streams. Every
-pickup flies up into the Moon's sparkle jar (top centre); when it is full the
-Moon cheers and the jar bursts into a sparkle-firework finale. Every key below
-has a procedural fallback that ships today, and the code already looks each
-one up. House style: navy `#24163f` outlines, soft cel shading, bright candy
-colours, **no text** in any image. Reused as they are: the players' own avatar sprites
-(`float`, `tuck`, `cheer`, `celebrate`, `high-five`, `surprised`) and the
-garden fairy NPC sets (flying friends in the background). No Charlie Party
-player characters appear in any of these images.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/fairy-flutter` | 1920×1080, opaque | Full screen, static (the code drifts its own clouds and rainbow streams on top). Keep the top-centre area (x 700–1220, y 0–260) calm: the Moon and jar sit there. Fairies fly everywhere from y≈170 to y≈980 | A dreamy pastel twilight sky: lavender to peach to soft pink gradient, a few big puffy pink-gold clouds, faint stars high up, and a band of giant glowing flowers (tulips, daisies, bluebells, taller than houses) along the bottom ~20%, softly blurred. Magical, no characters |
-| `thumb/fairy-flutter` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two of the garden fairy NPCs (the pink Tulip Fairy and the blue Bluebell Fairy, no Charlie Party player characters) with big sparkly wings zooming through a pastel flower sky past a smiling crescent Moon holding a glowing jar of sparkles, a rainbow ribbon swooping across, a chubby bumblebee giggling. Subject centred |
-| `prop/ff-moon` | 512×512, transparent | Drawn centred at ~230 px, top centre (x 960, y 110), gently bobbing | A friendly smiling crescent Moon face (pale gold, rosy cheeks, happy eyes), soft glow edge |
-| `prop/ff-moon-happy` | 512×512, transparent | Same placement; swapped in when the jar fills (finale) | The same Moon, eyes squeezed shut in a huge open-mouthed laugh, little sparkles around |
-| `prop/ff-jar` | 320×400, transparent | Drawn centred under the Moon at 128×160 px. The code draws the glowing sparkle fill **behind** it, clipped to the jar's inside, so the glass must be mostly see-through (pale highlights only) and the inner area plain | A round glass mason jar with a cork stopper tied with a pink ribbon bow, clear glass with white highlight streaks, front view |
-| `prop/ff-sparkle` | 128×128, transparent | Pickup (worth 1), drawn centred at 64 px, spinning | A chunky golden four-point sparkle star with a white glint, soft glow |
-| `prop/ff-dewdrop` | 128×128, transparent | Pickup (worth 2), centred at 70 px, bobbing | A big shiny water dewdrop, pale aqua with a rainbow sheen and a white highlight |
-| `prop/ff-petal` | 128×128, transparent | Pickup (worth 1), centred at 64 px, tumbles (rotates) as it drifts | A single soft pink flower petal with a deeper pink base, slightly curled |
-| `prop/ff-star` | 192×192, transparent | Rare big pickup (worth 5), centred at 110 px, pulsing | A plump shiny golden star with a happy little face and a short rainbow sparkle trail on the left |
-| `prop/ff-bee` | 256×256, transparent | Bumblebee NPC, centred at 120 px, facing right (the code mirrors it), wings flap by a code squash | A chubby round cartoon bumblebee with soft yellow and brown stripes, tiny clear wings, big shiny eyes and a happy smile |
-| `prop/ff-bee-giggle` | 256×256, transparent | Same placement, shown for ~1 s after someone boops the bee (the code spins it) | The same bee, eyes squeezed shut, giggling with an open smile, tiny hearts |
-
-## New Molly Party game: unicorn-jump
-
-### unicorn-jump — Unicorn Hop   (requested by the unicorn-jump agent, 2026-10-05, priority: nice-to-have)
-
-A fast, bouncy side-scroller for 4–5 year olds: every player rides a unicorn
-(four-legged characters gallop themselves wearing the wardrobe Unicorn Horn)
-along a candy meadow that scrolls to the left, faster and faster. A = hop over
-puddles, bouncy mushrooms and sleeping bunnies; grab stars and rainbow
-candies; a rainbow trail streams behind riders who keep hopping cleanly. 1–4
-lanes stacked top to bottom (5–8 players share lanes, two riders each).
-Everything has a procedural fallback that ships today; the code already looks
-up every key below. House style: navy `#24163f` outlines, soft cel shading,
-bright candy colours, **no text**, and no Charlie Party roster characters in any image (the mount is a generic pastel cartoon unicorn; the code tints it per player). Side view; riders face right and the
-props scroll in from the right.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/unicorn-jump` | 1920×1080, opaque, **seamless left-right tile** | Drawn twice side by side, scrolling left at ~0.2× the ground speed (parallax). The lanes (thin grass paths drawn by code) sit in bands between y≈260 and y≈1000, so the top 250 px and the overall colour matter most; keep the middle low-detail | A dreamy candy meadow: pastel pink-to-lilac sky with puffy clouds and a faint rainbow arc, far rolling hills in mint and pink with gumdrop trees and lollipop flowers, a tiny castle silhouette on one hill. Soft, bright, cheerful |
-| `thumb/unicorn-jump` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A tiny garden fairy with petal wings riding a chubby pastel-pink cartoon unicorn with a rainbow mane mid-hop over a puddle, a rainbow trail streaming behind, stars and swirl candies floating ahead, candy meadow background. Subject centred |
-| `prop/uj-mount` | 512×384, transparent | The unicorn the riders sit on, side view **facing right**, mid-gallop. Anchor: bottom centre at the hooves; drawn ~1.1× the rider's height wide. The code seats the rider at ~62% of the image height (the saddle, a bit left of centre) and bobs/tilts the whole image | A cute chubby pale-pink cartoon unicorn (a generic mount, not any roster character) with a flowing rainbow mane and tail, gold spiral horn, pink hooves, a little pink saddle blanket with a heart, big friendly eye, galloping (front legs forward, back legs back). No rider |
-| `prop/uj-mount-jump` | 512×384, transparent | Same as above, shown while hopping. Same anchor and scale so it swaps cleanly | The same unicorn leaping: legs tucked up under its body, mane and tail streaming back, joyful face |
-| `prop/uj-puddle` | 320×96, transparent | Anchor bottom centre on the lane ground; ~170 px wide at lane scale 1 | A shallow sky-blue rain puddle seen from the side at a low angle, with a white shine and two small ripples, a tiny rubber duck floating in it |
-| `prop/uj-mushroom` | 256×256, transparent | Anchor bottom centre; ~120 px tall at lane scale 1. The code squashes it when it boings a rider | A bouncy red-and-white spotted mushroom with a cheeky smile, round fat cap like a trampoline |
-| `prop/uj-bunny` | 256×192, transparent | Anchor bottom centre; ~90 px tall. Sleeping; the code draws the Zz | A fluffy white bunny curled up asleep on the grass, pink ears, closed happy eyes |
-| `prop/uj-bunny-awake` | 256×256, transparent | Same anchor; shown when a rider hops over (it pops up) or bumps it | The same bunny sitting up wide awake, surprised-happy face, one paw waving |
-| `prop/uj-star` | 128×128, transparent | Centred; floats at hop height, ~70 px. The code spins and bobs it | A chunky glossy golden star with a cute smile and a white highlight |
-| `prop/uj-candy` | 128×128, transparent | Centred; just above the lane ground, ~64 px | A round wrapped swirl candy with rainbow stripes, twisted pink wrapper ends |
-| `prop/uj-lollipop` | 192×256, transparent | Anchor bottom centre; the rare 3-point treat at hop height, ~110 px tall | A giant rainbow-spiral lollipop on a white stick with a pink ribbon bow, sparkling |
-
-Optional pose (the code asks for it; it falls back to `sit`, then `ride`):
-`ride-sit` (loop) — sitting astride a mount, side-on facing right, both hands
-(paws) holding imaginary reins forward, happy bouncy posture.
-
 ## New Molly Party game: mermaid-pearls
 
 ### mermaid-pearls — Mermaid Pearls   (requested by the mermaid-pearls agent, 2026-10-05, priority: nice-to-have)
@@ -1391,63 +1331,6 @@ centre.
 New pose (optional, the code falls back to `high-five` → `action`): `boop`,
 one-shot, a quick friendly poke forward with one finger (paw or nose for
 four-legged characters), happy face.
-
-## New Molly Party game: ghost-giggles
-
-### ghost-giggles — Ghost Giggles   (requested by the ghost-giggles agent, 2026-10-05, priority: nice-to-have)
-
-Little white sheet ghosts zoom around a cosy, cute haunted house. Players
-(in Halloween costumes from the shared wardrobe) tickle them with A; they
-giggle and turn rainbow colours. Shy ghosts hide behind the curtains and
-peek out. When every ghost is colourful, a disco ball drops and the ghosts
-throw a dance party. Cute and funny, **never scary**. Every key has a
-procedural fallback that ships today. House style: navy `#24163f` outlines,
-soft cel shading, bright candy colours, no text.
-
-Layout: back wall y 0–470, floor y 470–1080. Three tall windows on the back
-wall centred at x = 330, 1260, 1620 (y 120–420); the code draws curtains over
-them. A fireplace centred at x = 780 (base on y 470). A chandelier at the top
-centre (x 960) where the disco ball comes down. Two costume trunks on the
-floor at x = 150 and 1770, y ≈ 590. Ghosts float anywhere over the floor;
-scoreboard chips along the bottom (y ≈ 985).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/ghost-giggles` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm. **Must match the layout above**: the three windows (frames with a moonlit night view, no curtains), the fireplace at x 780 and a big plain floor (the code draws a rug, trunks, ghosts and players) | A cute cosy "haunted" parlour at night: lilac-and-plum striped wallpaper with tiny stars, three tall arched windows showing a starry sky and a big friendly moon, a stone fireplace with a cheerful orange fire, two smiling carved pumpkins and candles on the mantel, smiling portraits of a cat and a pumpkin, a little cobweb in one corner with a smiling spider, warm honey-wood floorboards. Warm, inviting, more birthday party than spooky |
-| `thumb/ghost-giggles` | 800×500, opaque | Game-select shelf and how-to screen | Three little sheet ghosts giggling in a cosy parlour, one white, one pink, one rainbow-striped, one of them tickled by a little hand in a purple wizard-robe sleeve; a disco ball and sparkles above. Subject centred |
-| `prop/gg-ghost` | 256×320, transparent | Drawn centred, ~150×190 px, bobbing and squashing. **Keep it pure white with light-grey/lavender shading**: the code tints it pink, sky, mint, gold, lilac or rainbow | A cute little sheet ghost with a round top, a wavy hem, two tiny stubby arms, big shiny black eyes and a small happy smile with pink cheeks. Front view |
-| `prop/gg-ghost-giggle` | 256×320, transparent | Same anchor, size and tinting; shown while it is being tickled | The same ghost laughing: eyes squeezed into happy arcs, big open laughing mouth, arms hugging its tummy, wiggly hem |
-| `prop/gg-ghost-peek` | 160×200, transparent | A shy ghost peeking from behind a curtain edge; drawn at the curtain's side (mirrored on the other side), ~110×140 | Half of the ghost (its left half cut off by the image edge as if behind a curtain), one big eye and a tiny hand curled around the edge, shy blushing smile |
-| `prop/gg-curtain` | 160×340, transparent | One curtain panel (the left one; the code mirrors it for the right), stretched over half a window and squeezed sideways to open | A plum velvet theatre-style curtain panel with soft folds, a gold fringe at the bottom and a gold rope tassel |
-| `prop/gg-trunk` | 300×240, transparent | Anchor bottom centre at the trunk spot, drawn 210 px wide; it bounces when a costume pops out | An open wooden dress-up trunk with brass corners overflowing with costume bits: a purple wizard hat, a star cape, a pair of fairy wings and a cat-ear headband |
-| `prop/gg-disco-ball` | 200×200, transparent | Drawn centred, ~150 px, hanging from a line and spinning (the code adds light beams) | A sparkly mirror disco ball with pink and lilac glints |
-
-## New Molly Party game: kitten-yarn
-
-### kitten-yarn — Kitten Cuddles   (requested by the kitten-yarn agent, 2026-10-13, priority: nice-to-have)
-
-Side-view living room. Kittens tumble off two cat trees and roll in on yarn
-balls; each player stands behind a cosy basket, catches kittens in it and
-presses A to cuddle them, then the kittens hop onto a big cushion bed where
-a nap pile grows. Everything below has a procedural fallback that ships
-today and the code already looks up every key. House style: navy `#24163f`
-outlines, soft cel shading, bright candy colours, **no text**. Floor line
-(players' feet) is y = 900.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/kitten-yarn` | 1920×1080, opaque | Full screen. The wooden floor / rug starts at about y=840 (feet at y=900); the wall is above it. The two cat trees stand at the far left and right (x≈150 and x≈1770) and the cushion bed sits on the floor in the centre, all drawn by code, so keep those spots plain. Keep the top ~120 px calm (timer) | A cosy pastel living room in afternoon sun: soft peach-and-cream striped wallpaper, a big window in the upper middle with sunbeams and a view of blue sky, framed paw-print pictures, a few potted plants, a honey-wood floor with a big round pink rug, bunting across the top. No cats or furniture in the middle |
-| `thumb/kitten-yarn` | 800×500, opaque | Game-select shelf and how-to screen | A little garden fairy (pink tulip fairy with petal wings, no Charlie Party characters) hugging a fluffy ginger kitten inside a wicker basket, more kittens tumbling down from a cat tree and one riding a pink yarn ball, hearts flying. Lively and bouncy. Subject centred |
-| `prop/kitten-cattree` | 680×1520 (ratio 340:760), transparent | Drawn bottom-anchored at (150, 910) in a 340×760 box; the right-hand tree is the same image mirrored. **Three round platforms stick out toward the right (screen centre) with their top surfaces at 34%, 63% and 92% of the height measured from the bottom**; kittens peek out and leap off at the right edge of each platform | A tall pastel cat tree: sisal-rope posts, three round lilac carpeted platforms stepping up and out to the right, a little cubby house on the middle level, a dangling pom-pom toy. Front view, no cats |
-| `prop/kitten-atlas` | 1152×960 (6 columns × 5 rows of 192 px cells), transparent | One kitten per cell, drawn centred and fitted to about 110 px. **Columns are coats, in this order:** ginger tabby, silver-grey tabby, snowy white, black-and-white tuxedo, calico, cream. **Rows are states:** sit (front view, sitting, big smile), tumble (curled into a ball, paws tucked, for spinning), pounce (side view, leaping to the right, paws forward), sleep (curled up asleep, eyes shut, tail around), cuddle (eyes closed, blissful, paws up, as if being hugged) | Super cute chibi kittens with big sparkly eyes, pink noses and fluffy cheeks; all 30 share lighting, outline weight and scale so mixed kittens look like one set |
-| `prop/kitten-fairy` | 256×256, transparent | The rare sparkly kitten (worth 3). Drawn centred at about 130 px; the code flaps it with a small squash | A white kitten with shimmering pastel fairy wings (lilac and pink, with dots), a tiny flower crown, sitting and smiling, faint sparkles around it |
-| `prop/yarn-ball-pink`, `prop/yarn-ball-blue`, `prop/yarn-ball-yellow` | 128×128 each, transparent | Drawn centred at 76 px and spun by the code while it rolls; the loose thread trail is drawn by code | A fluffy round ball of wool yarn with visible wound strands and a short loose end, in candy pink / sky blue / lemon yellow |
-| `prop/kitten-basket`, `prop/kitten-basket-front` | 600×360 each (ratio 5:3), transparent, **same canvas** | Drawn bottom-anchored just below the player's feet in a 170×102 box (smaller with many players): the back layer first, then the kittens, then the front layer, so kittens sit inside. The back layer is the far rim plus the inside with a blanket; the front layer is the near half of the weave and rim only | A round wicker picnic basket with a soft pink gingham blanket inside and a red bow on the front, seen from the front at a slight top-down angle |
-| `prop/kitten-bed` | 1120×440 (ratio 280:110), transparent | Drawn bottom-anchored at (960, 885) in a 560×220 box; the sleeping kittens are stacked by the code inside the middle 70%, from about 35% height upward | A huge round plush pet bed: a puffy lavender cushion rim with a soft mint pillow inside, little stars embroidered on the rim, front view |
-
-New pose (until registered it falls back to `catch`, then `cheer`): `cuddle`
-(one-shot) — hugging something small held against the chest with both arms
-(or paws / chin for armless characters), eyes closed, happy, a tiny sway.
 
 ## New Molly Party game: snowflake-catch
 
@@ -1582,19 +1465,19 @@ colours, **no text**. The mirror fairy is a `garden-fairy-*` NPC sprite.
 | --- | --- | --- | --- |
 | `bg/prank-troll` | 1920×1080, opaque | Full screen. A big tree trunk centred at x=960 with its base at y≈560 (the troll sits against it; the code draws him, so leave the trunk base clear). Players walk everywhere below y≈540. Keep the top 110 px calm (HUD) | A sunny summer meadow from a high 3/4 view: a huge old friendly oak in the top middle with a wide leafy crown, soft green grass with mowed stripes, daisies, buttercups and clover, a few tall flowers and bushes framing the left and right edges, butterflies, blue sky peeking at the top corners |
 | `thumb/prank-troll` | 800×500, opaque | Game-select shelf and how-to screen | A big friendly troll snoring against a tree with a curly drawn-on moustache, flowers in his hair, a party hat and bows on his ears, little giggling fairies tiptoeing up with a feather and a crayon, Zzz bubbles. Subject centred |
-| `prop/pt-troll-asleep` | 900×760, transparent | Anchor bottom-centre at (960, 640), drawn 640×540 (front view, sitting against the tree with legs stretched out towards the viewer, big bare feet at the bottom). **Positions (fractions of the image, x / y):** face centre 0.50 / 0.27; eyes at 0.44 and 0.56 / 0.24; nose 0.50 / 0.30 (moustache sits just under it at 0.50 / 0.34); ears at 0.31 and 0.69 / 0.26; top of the head 0.50 / 0.06; hair sides 0.36 and 0.64 / 0.16; beard/chin 0.50 / 0.42; big toes at 0.27 and 0.73 / 0.92. Eyes **closed**, mouth open snoring, no moustache, no beard decorations | The big friendly troll from Charlie Party (olive-green spotted skin, long shaggy dark-brown hair, a scruffy short brown beard, brown ragged loincloth, big bare feet), sitting asleep against a tree trunk, arms folded on his round belly, head tilted, mouth open snoring, front view, legs stretched towards the viewer with the soles of his big feet showing |
-| `prop/pt-troll-awake` | 900×760, transparent | Same size, anchor and face/ear/toe positions as `pt-troll-asleep` (the pranks stay on). Used in the finale; the code bobs and sways it | The same troll, same sitting framing, eyes wide open and a huge belly-laugh with mouth wide open, arms flung up, tears of laughter |
-| `prop/pt-basket` | 256×192, transparent | Anchor bottom-centre; drawn 150 px wide at each prank station; the code draws the item floating above it | A small woven wicker picnic basket with a gingham cloth, front view |
-| `prop/pt-crayon` | 128×128, transparent | Anchor centre; drawn 70 px (carried overhead, station item) | A chunky dark-brown wax crayon with a paper wrapper, tilted |
-| `prop/pt-moustache` | 256×128, transparent | Anchor centre at the moustache point; drawn 170 px wide (grows to 230 px for the second level) | A big curly hand-drawn cartoon moustache with twirly ends, dark brown, looking like crayon |
-| `prop/pt-flower` | 128×128, transparent | Anchor centre; drawn 56 px, stuck in the troll's hair (several, tinted pink/yellow/blue by code) | A cheerful daisy-like flower with white petals and a yellow centre |
-| `prop/pt-bow` | 160×128, transparent | Anchor centre; drawn 90 px on each ear | A big glossy pink ribbon bow with white polka dots |
-| `prop/pt-party-hat` | 192×256, transparent | Anchor bottom-centre at the top of the head; drawn 120×160, slightly tilted | A striped cone party hat (pink, yellow, blue stripes) with a fluffy pompom and an elastic string |
-| `prop/pt-feather` | 192×128, transparent | Anchor at the quill end; drawn 110 px, wiggling at his nose | A long fluffy rainbow tickle feather |
-| `prop/pt-glitter` | 128×160, transparent | Anchor centre; drawn 60 px (station item / carried) | A small round shaker jar of rainbow glitter with a pink lid, sparkles |
-| `prop/pt-polish` | 96×160, transparent | Anchor centre; drawn 50 px (station item / carried) | A tiny bottle of bubblegum-pink nail polish with a silver cap |
-| `prop/pt-bush` | 320×300, transparent | Anchor bottom-centre on a frozen player; drawn about 1.2× the player's width. The code shows the player's eyes peeking through | A round leafy cartoon bush with a few little flowers on it, front view, with two small gaps in the leaves near the top |
-| `prop/pt-mirror` | 192×256, transparent | Anchor centre; drawn 130 px, held up by the fairy in the finale | An oval hand mirror with a golden curly frame and a handle, the glass shining pale blue with a sparkle |
+| `prop/ptroll-troll-asleep` | 900×760, transparent | Anchor bottom-centre at (960, 640), drawn 640×540 (front view, sitting against the tree with legs stretched out towards the viewer, big bare feet at the bottom). **Positions (fractions of the image, x / y):** face centre 0.50 / 0.27; eyes at 0.44 and 0.56 / 0.24; nose 0.50 / 0.30 (moustache sits just under it at 0.50 / 0.34); ears at 0.31 and 0.69 / 0.26; top of the head 0.50 / 0.06; hair sides 0.36 and 0.64 / 0.16; beard/chin 0.50 / 0.42; big toes at 0.27 and 0.73 / 0.92. Eyes **closed**, mouth open snoring, no moustache, no beard decorations | The big friendly troll from Charlie Party (olive-green spotted skin, long shaggy dark-brown hair, a scruffy short brown beard, brown ragged loincloth, big bare feet), sitting asleep against a tree trunk, arms folded on his round belly, head tilted, mouth open snoring, front view, legs stretched towards the viewer with the soles of his big feet showing |
+| `prop/ptroll-troll-awake` | 900×760, transparent | Same size, anchor and face/ear/toe positions as `pt-troll-asleep` (the pranks stay on). Used in the finale; the code bobs and sways it | The same troll, same sitting framing, eyes wide open and a huge belly-laugh with mouth wide open, arms flung up, tears of laughter |
+| `prop/ptroll-basket` | 256×192, transparent | Anchor bottom-centre; drawn 150 px wide at each prank station; the code draws the item floating above it | A small woven wicker picnic basket with a gingham cloth, front view |
+| `prop/ptroll-crayon` | 128×128, transparent | Anchor centre; drawn 70 px (carried overhead, station item) | A chunky dark-brown wax crayon with a paper wrapper, tilted |
+| `prop/ptroll-moustache` | 256×128, transparent | Anchor centre at the moustache point; drawn 170 px wide (grows to 230 px for the second level) | A big curly hand-drawn cartoon moustache with twirly ends, dark brown, looking like crayon |
+| `prop/ptroll-flower` | 128×128, transparent | Anchor centre; drawn 56 px, stuck in the troll's hair (several, tinted pink/yellow/blue by code) | A cheerful daisy-like flower with white petals and a yellow centre |
+| `prop/ptroll-bow` | 160×128, transparent | Anchor centre; drawn 90 px on each ear | A big glossy pink ribbon bow with white polka dots |
+| `prop/ptroll-party-hat` | 192×256, transparent | Anchor bottom-centre at the top of the head; drawn 120×160, slightly tilted | A striped cone party hat (pink, yellow, blue stripes) with a fluffy pompom and an elastic string |
+| `prop/ptroll-feather` | 192×128, transparent | Anchor at the quill end; drawn 110 px, wiggling at his nose | A long fluffy rainbow tickle feather |
+| `prop/ptroll-glitter` | 128×160, transparent | Anchor centre; drawn 60 px (station item / carried) | A small round shaker jar of rainbow glitter with a pink lid, sparkles |
+| `prop/ptroll-polish` | 96×160, transparent | Anchor centre; drawn 50 px (station item / carried) | A tiny bottle of bubblegum-pink nail polish with a silver cap |
+| `prop/ptroll-bush` | 320×300, transparent | Anchor bottom-centre on a frozen player; drawn about 1.2× the player's width. The code shows the player's eyes peeking through | A round leafy cartoon bush with a few little flowers on it, front view, with two small gaps in the leaves near the top |
+| `prop/ptroll-mirror` | 192×256, transparent | Anchor centre; drawn 130 px, held up by the fairy in the finale | An oval hand mirror with a golden curly frame and a handle, the glass shining pale blue with a sparkle |
 
 ## New Molly Party game: opposite-ballet
 

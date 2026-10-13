@@ -479,7 +479,17 @@ export class Game {
     this.topper = { y: this.topY - 900, vy: 0, sq: 0, landed: false };
     const nC = clamp(4 + this.n * 2 + Math.floor(this.ents.reduce((s, e) => s + e.candles, 0) / 2), 6, 16);
     this.candles = [];
-    for (let i = 0; i < nC; i++) {
+    if (art('prop/cupcake-topper-cake')) {
+      // The art's lower tier only shows a thin ledge behind the top tier (and
+      // its face), so every candle stands on the top tier's icing: a back row
+      // and a front row, staggered.
+      const nB = Math.floor(nC / 2);
+      for (let i = 0; i < nC; i++) {
+        const back = i < nB, m = back ? nB : nC - nB, j = back ? i : i - nB, w = back ? 140 : 180;
+        this.candles.push({ dx: -w / 2 + (w * (j + 0.5)) / m, dy: back ? -194 : -180, lit: false, col: RAINBOW[i % RAINBOW.length], target: false, sm: 0 });
+      }
+    }
+    else for (let i = 0; i < nC; i++) {
       const tier = i < Math.ceil(nC * 0.45) ? 1 : 0;   // 1 = top tier
       const m = tier ? Math.ceil(nC * 0.45) : nC - Math.ceil(nC * 0.45);
       const j = tier ? i : i - Math.ceil(nC * 0.45);
@@ -738,15 +748,21 @@ export class Game {
     if (br.y < 0) return;
     const bg = art('bg/cupcake-stack');
     if (bg) {
-      g.drawImage(bg, 0, 0, W, H);
+      // Zoomed out (z < 1) the view is wider than the plate: alternate mirrored
+      // copies continue the trees, fence and lawn without a hard edge.
+      const k0 = Math.floor(tl.x / W), k1 = Math.floor(br.x / W);
+      for (let k = k0; k <= k1; k++) {
+        if (k % 2 === 0) { g.drawImage(bg, k * W, 0, W, H); continue; }
+        g.save(); g.translate((k + 1) * W, 0); g.scale(-1, 1); g.drawImage(bg, 0, 0, W, H); g.restore();
+      }
+      const x0 = k0 * W, x1 = (k1 + 1) * W;
       // The climbing sky behind this ground-level plate is #8fd6ff. Blend the
       // background's top edge into that exact continuation colour so the seam
       // stays invisible as the camera rises past y=0.
       const topBlend = g.createLinearGradient(0, 0, 0, 72);
       topBlend.addColorStop(0, '#8fd6ff');
       topBlend.addColorStop(1, 'rgba(143,214,255,0)');
-      g.fillStyle = topBlend; g.fillRect(0, 0, W, 72);
-      if (tl.x < 0 || br.x > W) { g.fillStyle = '#7ed68a'; g.fillRect(tl.x, 900, -tl.x, br.y - 900); g.fillRect(W, 900, br.x - W, br.y - 900); }
+      g.fillStyle = topBlend; g.fillRect(x0, 0, x1 - x0, 72);
       if (br.y > H) { g.fillStyle = '#6cc77a'; g.fillRect(tl.x, H, br.x - tl.x, br.y - H); }
       return;
     }
