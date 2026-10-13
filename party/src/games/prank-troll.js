@@ -27,7 +27,6 @@ import { art } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, TAU, placementsFromScores } from '../engine/util.js';
-import { CHARACTERS } from '../data/characters.js';
 import {
   NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, toScreen, meadowBackground, drawTroll, drawBasket,
   drawItem, drawBush, drawSwat, drawMirror, drawIcon,
@@ -121,8 +120,8 @@ export class Game {
     this.banner = null;
     this.finished = false;
     // the mirror fairy: a garden fairy nobody is playing as
-    const used = new Set(this.players.map((p) => p.charId));
-    const fairyId = ['garden-fairy-pink', 'garden-fairy-yellow', 'garden-fairy-blue', 'garden-fairy-purple', 'garden-fairy-green'].find((id) => !used.has(id) && CHARACTERS.some((c) => c.id === id)) || null;
+    const used = new Set(this.players.map((p) => p.charId.replace(/^molly-/, '')));
+    const fairyId = ['garden-fairy-pink', 'garden-fairy-yellow', 'garden-fairy-blue', 'garden-fairy-purple', 'garden-fairy-green'].find((id) => !used.has(id)) || null;
     this.fairy = { asset: fairyId || 'garden-fairy-pink', x: -100, y: 470, z: 120, pose: 'walk' };
     ensureSpriteSet(this.fairy.asset);
     this.fairyOn = false;

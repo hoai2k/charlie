@@ -102,7 +102,7 @@ export class Game {
       const col = i % 4, row = Math.floor(i / 4);
       const x = n === 1 ? 560 : lerp(380, W - 380, n <= 4 ? (n === 1 ? 0.5 : i / (n - 1)) : col / 3);
       const y = n <= 4 ? 640 : 520 + row * 260;
-      const fairy = /^garden-fairy/.test(p.charId);   // tiny NPC fairies already have wings
+      const fairy = /garden-fairy|glimmer/.test(p.charId);   // fairies already have wings
       const a = new Actor(p, { scale: this.sc, x, y, outfit: fairy ? undefined : wingOutfit(p, i) });
       a.scale *= clamp(150 / a.leader.h, 1, 2.8);       // small avatars (garden fairies) drawn bigger
       a.setPose('float'); a.snap?.();
