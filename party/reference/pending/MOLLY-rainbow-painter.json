@@ -1,0 +1,436 @@
+[
+  {
+    "key": "bg/rainbow-painter",
+    "prompt": "Precise recolour only. Convert this exact Rainbow Painter landscape to flat quiet sleepy GREYS. Preserve every cloud/hill/daisy contour, shape, position, crop and canvas dimensions pixel-aligned. No new objects, no removals, no expression changes. Light grey overcast sky, darker grey rolling hills. Keep outlined2D style. Opaque background, no text.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/bg-rainbow-painter.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-60c4b6d8-1ffd-405c-8e15-a9f55e743887.png",
+    "nativeOutputSize": [
+      1672,
+      941
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/bg/rainbow-painter.webp",
+    "file": "party/assets/art/bg/rainbow-painter.webp",
+    "width": 1920,
+    "height": 1080,
+    "size": [
+      1920,
+      1080
+    ],
+    "runtimeBytes": 46710,
+    "intakeMethod": "full opaque canvas resize",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "bg/rainbow-painter-color",
+    "prompt": "Use case: 2D illustrated game backdrop, opaque16:9 final1920x1080. Rainbow Painter COLOUR world background only: bright sky blue fading gently to pale pink at horizon, softly rounded fluffy white clouds, lush gentle rolling green hills along bottom starting at y880 on final1080 canvas, tiny daisies in grass. Very low detail large open sky. No rainbow, trees, castle, flowers, sun, birds, characters or foreground objects; all drawn separately. Calm top110px for HUD. Strict house style: bold smooth navy #24163f contours, simple clean candy-colour blocks and soft cel shading, no3D, no photorealism or brush textures, no text or watermark.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/bg-rainbow-painter-colour.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-08288d1d-2d9d-442c-b209-65652012d040.png",
+    "nativeOutputSize": [
+      1672,
+      941
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/bg/rainbow-painter-color.webp",
+    "file": "party/assets/art/bg/rainbow-painter-color.webp",
+    "width": 1920,
+    "height": 1080,
+    "size": [
+      1920,
+      1080
+    ],
+    "runtimeBytes": 71520,
+    "intakeMethod": "full opaque canvas resize",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "thumb/rainbow-painter",
+    "prompt": "Use case: opaque8:5 landscape game thumbnail800x500 for Rainbow Painter. Image1 approved pink tulip Garden Fairy identity. Show this fairy standing/riding a small plump white cloud, joyfully raining colourful rainbow paint drops downward onto a huge rainbow arc that is HALF sleepygrey and HALF brilliantly coloured. A smiling golden sun peeks in a corner, a few sparkles. Low-detail blue/pink sky and greenmeadow, centered lively clear composition. Preserve shortbrownhair/tealeyes/tulipcap/pink petal dress/ornate pinkwings. No Charlie Party rostercharacters. Strict2D clean candycartoon, bold smooth navy #24163f contours and simple softcelshading, no3D or painterlytextures, no text, letters, watermark or border.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/thumb-rainbow-painter.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-88653c07-2e7b-4fe1-9473-e58cfee07665.png",
+    "nativeOutputSize": [
+      1586,
+      992
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/thumb/rainbow-painter.webp",
+    "file": "party/assets/art/thumb/rainbow-painter.webp",
+    "width": 800,
+    "height": 500,
+    "size": [
+      800,
+      500
+    ],
+    "runtimeBytes": 75298,
+    "intakeMethod": "full opaque canvas resize",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-cloud",
+    "prompt": "Use case: transparent 2D Rainbow Painter mount prop. ONE plump soft white cartoon cloud, flatter top surface so a small fairy can stand on it, faint lilac shaded underside, two soft pink blush spots, NO face (no eyes or mouth). Wide rounded silhouette final400x220 ratio20:11, centered with safe margins. Bold smooth navy #24163f contour and simple clean soft cel shading, candy cartoon. No scenery, floor/shadow, characters, text or watermark; true transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-cloud.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4c1be0b9-ead4-4d5c-b515-88a032661749.png",
+    "nativeOutputSize": [
+      1691,
+      930
+    ],
+    "tool": "built-in imagegen",
+    "sourceCrop": [
+      68,
+      163,
+      1625,
+      791
+    ],
+    "runtimeFile": "party/assets/art/prop/rp-cloud.webp",
+    "file": "party/assets/art/prop/rp-cloud.webp",
+    "width": 400,
+    "height": 220,
+    "size": [
+      400,
+      220
+    ],
+    "runtimeBytes": 10846,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-tree",
+    "prompt": "Use case: transparent 2D game prop for Rainbow Painter. ONE round lollipop-style cartoon tree, big fluffy rounded green canopy with a few red apples, short sturdy brown trunk. Bottom-centre anchored; trunk foot at canvas bottom with small safe margins. Full tree centered, final420x560 portrait ratio3:4. Friendly soft forms. Bold smooth dark navy #24163f outline, bright candy colours, clean simple soft cel shading. No ground or cast shadow, no people/animals, no scenery, no text/watermark, fully transparent background.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-tree.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-a015c37d-8f71-4c7b-b6c8-a1cdd780c9f1.png",
+    "nativeOutputSize": [
+      1086,
+      1448
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-tree.webp",
+    "file": "party/assets/art/prop/rp-tree.webp",
+    "width": 420,
+    "height": 560,
+    "size": [
+      420,
+      560
+    ],
+    "runtimeBytes": 43392,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-tree-grey",
+    "prompt": "Precise recolour only of exact supplied tree game sprite. Replace green canopy/red apples/brown trunk colours with flat quiet GREYS. Preserve every navy contour, apple/leaf silhouette, trunk/roots position, scale, crop and exact canvas dimensions pixel aligned. No added or removed features, no ground/shadow/scenery/text. Keep true transparency unchanged.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-tree-grey.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-36305662-fcf7-4840-be1e-0a4edae9dfd3.png",
+    "nativeOutputSize": [
+      1086,
+      1448
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-tree-grey.webp",
+    "file": "party/assets/art/prop/rp-tree-grey.webp",
+    "width": 420,
+    "height": 560,
+    "size": [
+      420,
+      560
+    ],
+    "runtimeBytes": 31696,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-castle",
+    "prompt": "Use case: one transparent 2D Rainbow Painter game castle prop, final720x680 ratio18:17. Small fairytale castle: pink walls, lilac cone roofs on TWO side towers and a taller central tower, big round doorway and heart windows. Front view, symmetric. Both side-tower tips exactly around25%/75%canvas width and6%canvas height, central roof a little taller; safe margins and castlebase bottom centre. No flags: code adds waving flags on side tips, keep them empty. Bright candy colours, bold smooth navy #24163f outlines, clean simple soft cel shading. No3D, no ground or castshadow, no characters/scenery, no text/watermark. Full true alpha.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-castle.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-31226033-97b1-48e1-8d92-ed1d8b9888c0.png",
+    "nativeOutputSize": [
+      1291,
+      1218
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-castle.webp",
+    "file": "party/assets/art/prop/rp-castle.webp",
+    "width": 720,
+    "height": 680,
+    "size": [
+      720,
+      680
+    ],
+    "runtimeBytes": 85036,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-castle-grey",
+    "prompt": "Precise recolour only of this exact castle sprite. Replace pink walls, lilac roofs, golden trim, blue windows and brown doors with quiet flat GREYS while preserving all outlines, shapes, positions, silhouettes, margins, canvas dimensions and alpha exactly pixel-aligned. No added/removal of details, no flags or new objects, no shadows/scenery/text. Keep true transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-castle-grey.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-fefd315e-e12d-4f46-8352-8bd10d7ecf7d.png",
+    "nativeOutputSize": [
+      1292,
+      1218
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-castle-grey.webp",
+    "file": "party/assets/art/prop/rp-castle-grey.webp",
+    "width": 720,
+    "height": 680,
+    "size": [
+      720,
+      680
+    ],
+    "runtimeBytes": 69188,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-flower-1",
+    "prompt": "Use case: transparent 2D Rainbow Painter game prop. One pink daisy with rounded petals, a happy small face in its centre, green stem with TWO leaves, bottom-centre anchored at canvasbase. Full flower centered final200x260 ratio10:13. Bold smooth dark navy #24163f outlines, clean bright candy colours and simple soft cel shading. No pot, no ground, no shadows, scenery, other flowers, characters, text or watermark. True transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-flower-1.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d40f3218-8560-40d3-add0-fe463ba55795.png",
+    "nativeOutputSize": [
+      1100,
+      1430
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-flower-1.webp",
+    "file": "party/assets/art/prop/rp-flower-1.webp",
+    "width": 200,
+    "height": 260,
+    "size": [
+      200,
+      260
+    ],
+    "runtimeBytes": 15436,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-flower-2",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-flower-2.webp",
+    "prompt": "Use case: transparent 2D Rainbow Painter game prop. One yellow tulip with an upright cup-shaped bloom, a happy small face in its centre, green stem with TWO leaves, bottom-centre anchored at canvasbase. Full flower centered final200x260 ratio10:13. Bold smooth dark navy #24163f outlines, clean bright candy colours and simple soft cel shading. No pot, no ground, no shadows, scenery, other flowers, characters, text or watermark. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-60328678-38c8-474c-b9da-b0a3c2f30963.png",
+    "nativeOutputSize": [
+      1100,
+      1430
+    ],
+    "tool": "built-in imagegen",
+    "provenanceRecovery": "matched decoded visible RGBA source hash after concurrent metadata overwrite",
+    "sourceCrop": [
+      138,
+      42,
+      964,
+      1393
+    ],
+    "runtimeFile": "party/assets/art/prop/rp-flower-2.webp",
+    "file": "party/assets/art/prop/rp-flower-2.webp",
+    "width": 200,
+    "height": 260,
+    "size": [
+      200,
+      260
+    ],
+    "runtimeBytes": 14706,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-flower-3",
+    "prompt": "Use case: transparent 2D Rainbow Painter game prop. One blue bell-flower with a softly hanging bell-shaped bloom, a happy small face in its centre, green stem with TWO leaves, bottom-centre anchored at canvasbase. Full flower centered final200x260 ratio10:13. Bold smooth dark navy #24163f outlines, clean bright candy colours and simple soft cel shading. No pot, no ground, no shadows, scenery, other flowers, characters, text or watermark. True transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-flower-3.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-bbac9144-b868-4621-baa6-136a469c7aa3.png",
+    "nativeOutputSize": [
+      1100,
+      1430
+    ],
+    "tool": "built-in imagegen",
+    "sourceCrop": [
+      109,
+      62,
+      1004,
+      1368
+    ],
+    "runtimeFile": "party/assets/art/prop/rp-flower-3.webp",
+    "file": "party/assets/art/prop/rp-flower-3.webp",
+    "width": 200,
+    "height": 260,
+    "size": [
+      200,
+      260
+    ],
+    "runtimeBytes": 15732,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-flower-grey",
+    "prompt": "Precise recolour/expression edit of this exact pink daisy flower game sprite. Replace all coloured fills with pale quiet flat GREYS. Keep outline/navy, entire silhouette, size, all contours, crop, canvas and transparent alpha exactly pixel-aligned. Eyes closed peacefully (for the daisy change ONLY eyes from open to shut, retain smile and all petals/leaves/stem). No added/removed features or scenery, no text, true transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-flower-grey.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4b1f69c7-e23f-4718-a844-050823c4dbc2.png",
+    "nativeOutputSize": [
+      1100,
+      1430
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-flower-grey.webp",
+    "file": "party/assets/art/prop/rp-flower-grey.webp",
+    "width": 200,
+    "height": 260,
+    "size": [
+      200,
+      260
+    ],
+    "runtimeBytes": 14402,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-sun-grey",
+    "prompt": "Precise recolour/expression edit of this exact sleeping sun face game sprite. Replace all coloured fills with pale quiet flat GREYS. Keep outline/navy, entire silhouette, size, all contours, crop, canvas and transparent alpha exactly pixel-aligned. Eyes closed peacefully (for the daisy change ONLY eyes from open to shut, retain smile and all petals/leaves/stem). No added/removed features or scenery, no text, true transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-sun-grey.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-4ea8e10d-789d-46b6-b481-a08235a05b18.png",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-sun-grey.webp",
+    "file": "party/assets/art/prop/rp-sun-grey.webp",
+    "width": 400,
+    "height": 400,
+    "size": [
+      400,
+      400
+    ],
+    "runtimeBytes": 20780,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-sun-sleep",
+    "prompt": "Use case: transparent 2D game character expression sprite sheet of ONE round cartoon SUN FACE, two ordered frames side by side in a single row, generous gutter. Left frame: golden-yellow sun disk, sleepy eyes closed in peaceful arcs, soft rosy cheeks and a little content smile. Right frame: EXACT SAME disk, size and design, golden yellow with huge happy smile and sparkly open eyes, rosy cheeks. Each frame full centered circle with same diameter and face placement, no rays: code adds rotating rays separately. No limbs, hats, background, shadows, text/labels or other objects. Bold smooth dark navy #24163f outline, clean bright candy colours and soft simple cel shading. Fully transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-sun-sleep.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6a05e813-5ee1-4521-94cc-8c641d735aa1.png",
+    "nativeOutputSize": [
+      773,
+      773
+    ],
+    "tool": "built-in imagegen",
+    "sourceSheet": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-sun-sheet.webp",
+    "sourceCrop": [
+      69,
+      68,
+      817,
+      805
+    ],
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "runtimeFile": "party/assets/art/prop/rp-sun-sleep.webp",
+    "file": "party/assets/art/prop/rp-sun-sleep.webp",
+    "width": 400,
+    "height": 400,
+    "size": [
+      400,
+      400
+    ],
+    "runtimeBytes": 20664,
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-sun-awake",
+    "prompt": "Use case: transparent 2D game character expression sprite sheet of ONE round cartoon SUN FACE, two ordered frames side by side in a single row, generous gutter. Left frame: golden-yellow sun disk, sleepy eyes closed in peaceful arcs, soft rosy cheeks and a little content smile. Right frame: EXACT SAME disk, size and design, golden yellow with huge happy smile and sparkly open eyes, rosy cheeks. Each frame full centered circle with same diameter and face placement, no rays: code adds rotating rays separately. No limbs, hats, background, shadows, text/labels or other objects. Bold smooth dark navy #24163f outline, clean bright candy colours and soft simple cel shading. Fully transparentbackground.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-sun-awake.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6a05e813-5ee1-4521-94cc-8c641d735aa1.png",
+    "nativeOutputSize": [
+      773,
+      773
+    ],
+    "tool": "built-in imagegen",
+    "sourceSheet": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-sun-sheet.webp",
+    "sourceCrop": [
+      957,
+      68,
+      1706,
+      805
+    ],
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "runtimeFile": "party/assets/art/prop/rp-sun-awake.webp",
+    "file": "party/assets/art/prop/rp-sun-awake.webp",
+    "width": 400,
+    "height": 400,
+    "size": [
+      400,
+      400
+    ],
+    "runtimeBytes": 24574,
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-bird",
+    "prompt": "Reuse approved bluebird exact canonical; geometric full-canvas resize in paired wings-up/down frames.",
+    "source": "party/reference/canonical/molly-bluebird.webp",
+    "tool": "approved built-in imagegen canonical reuse",
+    "nativeOutputSize": [
+      1222,
+      1287
+    ],
+    "runtimeFile": "party/assets/art/prop/rp-bird.webp",
+    "file": "party/assets/art/prop/rp-bird.webp",
+    "width": 128,
+    "height": 128,
+    "size": [
+      128,
+      128
+    ],
+    "runtimeBytes": 8442,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-bird-flap",
+    "prompt": "Precise animation edit of approved bluebird reference. Preserve exact canvas size and transparency, exact bluebird head/body/eyes/beak/tail/feet positions and size. Change ONLY the wings to a DOWNSTROKE, folded downward beside body rather than lifted above. Blue wings, same feather design. Face right with open singing beak and same eye highlights. Full figure unclipped, exact identity, navy outlines/celshading unchanged. No background, shadow, text or added effects. This is paired flap frame to original; body stays fixed.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-bird-flap.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-2cb280bf-0747-43f5-90fc-015c1a5bcd3c.png",
+    "nativeOutputSize": [
+      1222,
+      1287
+    ],
+    "tool": "built-in imagegen",
+    "runtimeFile": "party/assets/art/prop/rp-bird-flap.webp",
+    "file": "party/assets/art/prop/rp-bird-flap.webp",
+    "width": 128,
+    "height": 128,
+    "size": [
+      128,
+      128
+    ],
+    "runtimeBytes": 6426,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  },
+  {
+    "key": "prop/rp-paint-star",
+    "prompt": "Use case: one transparent Rainbow Painter game reward prop256x256. A plump golden five-point cartoon STAR with a happy smiling face, a few glossy rainbow paint drips running off its points (pink, blue, green, lilac). Friendly roundedpoints and simple readable face, centered complete star with small safe margins. Bold smooth dark navy #24163f outline, clean bright candy colours, simple soft cel shading, no3D, scenery, castshadow, glow, text or watermark. True transparentbackground; code adds glow.",
+    "source": "party/reference/pending/molly-sources/rainbow-painter/prop-rp-paint-star.webp",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-580e39e3-8689-41f9-b261-fc0474ebed27.png",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "tool": "built-in imagegen",
+    "sourceCrop": [
+      39,
+      41,
+      1217,
+      1187
+    ],
+    "runtimeFile": "party/assets/art/prop/rp-paint-star.webp",
+    "file": "party/assets/art/prop/rp-paint-star.webp",
+    "width": 256,
+    "height": 256,
+    "size": [
+      256,
+      256
+    ],
+    "runtimeBytes": 16724,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "reviewed native and runtime image; actual Rainbow Painter gameplay checked, no browser errors; grayscale reveal and castle flags aligned"
+  }
+]

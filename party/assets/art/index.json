@@ -1139,7 +1139,25 @@
     "prop/ptroll-glitter": "prop/pt-glitter.webp",
     "prop/ptroll-polish": "prop/pt-polish.webp",
     "prop/ptroll-bush": "prop/pt-bush.webp",
-    "prop/ptroll-mirror": "prop/pt-mirror.webp"
+    "prop/ptroll-mirror": "prop/pt-mirror.webp",
+    "bg/rainbow-painter": "bg/rainbow-painter.webp",
+    "bg/rainbow-painter-color": "bg/rainbow-painter-color.webp",
+    "thumb/rainbow-painter": "thumb/rainbow-painter.webp",
+    "prop/rp-cloud": "prop/rp-cloud.webp",
+    "prop/rp-tree": "prop/rp-tree.webp",
+    "prop/rp-tree-grey": "prop/rp-tree-grey.webp",
+    "prop/rp-castle": "prop/rp-castle.webp",
+    "prop/rp-castle-grey": "prop/rp-castle-grey.webp",
+    "prop/rp-flower-1": "prop/rp-flower-1.webp",
+    "prop/rp-flower-2": "prop/rp-flower-2.webp",
+    "prop/rp-flower-3": "prop/rp-flower-3.webp",
+    "prop/rp-flower-grey": "prop/rp-flower-grey.webp",
+    "prop/rp-sun-grey": "prop/rp-sun-grey.webp",
+    "prop/rp-sun-sleep": "prop/rp-sun-sleep.webp",
+    "prop/rp-sun-awake": "prop/rp-sun-awake.webp",
+    "prop/rp-bird": "prop/rp-bird.webp",
+    "prop/rp-bird-flap": "prop/rp-bird-flap.webp",
+    "prop/rp-paint-star": "prop/rp-paint-star.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1724,7 +1742,25 @@
       "prop/bigsnowman-5",
       "prop/bigsnowman-6"
     ],
-    "rainbow-painter": [],
+    "rainbow-painter": [
+      "bg/rainbow-painter",
+      "bg/rainbow-painter-color",
+      "prop/rp-cloud",
+      "prop/rp-tree",
+      "prop/rp-tree-grey",
+      "prop/rp-castle",
+      "prop/rp-castle-grey",
+      "prop/rp-flower-1",
+      "prop/rp-flower-2",
+      "prop/rp-flower-3",
+      "prop/rp-flower-grey",
+      "prop/rp-sun-grey",
+      "prop/rp-sun-sleep",
+      "prop/rp-sun-awake",
+      "prop/rp-bird",
+      "prop/rp-bird-flap",
+      "prop/rp-paint-star"
+    ],
     "bed-bounce": [
       "bg/bed-bounce",
       "prop/bb-bed",
