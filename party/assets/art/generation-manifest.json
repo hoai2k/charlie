@@ -20807,6 +20807,284 @@
       "actualTransparency": true,
       "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-jar.webp",
       "game": "fairy-flutter"
+    },
+    {
+      "key": "bg/dance-freeze",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full screen; top 110px calm for HUD; code booth at x960 y\u2248470 and disco ball at x960 y150; tile floor overlays y\u2248560\u20131040 so bottom floor plain.",
+      "description": "Sparkly kids' disco party hall: deep purple walls, big rounded arch windows, pink/gold curtains at sides, string lights and paper stars, speakers at far left/right, glossy plain floor bottom.",
+      "prompt": "Use case: illustration-story. Asset type: 16:9 opaque background for a kids' disco game, final 1920\u00d71080. Primary request: A sparkly children's disco party hall with deep purple walls, big rounded arch windows, pink and gold stage curtains framing both sides, small string lights and paper stars in upper corners, large speakers at far left and far right. Keep the top 110px calm for HUD; leave a clear centered space at x\u2248960 y\u2248470 for a booth and at x\u2248960 y\u2248150 for a disco ball. The entire lower floor area from y\u2248560 to y\u22481040 must be a plain glossy purple floor with no tiles or decorations, because game tiles render over it. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, clean soft cel shading, bright kid-friendly colors. No 3D, photorealism, people, disco ball, booth, tiles, text or watermark.",
+      "source": "party/reference/pending/molly-sources/dance-freeze/bg-dance-freeze.webp",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/dance-freeze.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "sourceCrop": null,
+      "actualGeometry": "Scaled from 1672x941 (16:9) to exact requested canvas; evaluated as a full-canvas opaque scene.",
+      "bytes": 148678,
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-63514764-3baf-40ad-b915-95950ab89949.png",
+      "originalNativePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-63514764-3baf-40ad-b915-95950ab89949.png",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-63514764-3baf-40ad-b915-95950ab89949.png",
+      "editTarget": "party/assets/art/bg/dance-freeze.webp",
+      "editStyleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "editPrompt": "Use case: style-transfer. Image 1 is the existing scene target. Image 2 is an approved Aquarium fish illustration and style reference only. Change only the rendering style and the expressly described removals; preserve target layout, colors, spatial placement and requested background elements. Redraw as clean polished 2D children's game art: bold smooth dark navy #24163f outlines around all major shapes, rounded friendly forms, simple crisp color blocks, soft clean cel shading, bright candy palette. No 3D, no photorealism, no painterly brush texture or blurry gradients; do not add objects. Keep the same empty kids' disco hall composition with deep purple walls, arch windows, curtains at both sides, upper corner lights and stars, far-side speakers and broad empty floor. Preserve open booth space at upper center and disco-ball space above it; keep top HUD calm and bottom floor undecorated for code tiles. No people or new foreground props. Opaque background, no text, watermark or border.",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeFile": "party/assets/art/bg/dance-freeze.webp",
+      "runtimeBytes": 148678,
+      "outputFormat": "WEBP RGB q86 method6",
+      "sourceBytes": 1239422,
+      "sourceFormat": "WEBP RGBA lossless"
+    },
+    {
+      "key": "prop/df-disco-ball",
+      "size": [
+        256,
+        320
+      ],
+      "geometry": "Hangs from top; anchored top-centre at chain top, drawn about 170 px.",
+      "description": "A big sparkly mirror disco ball on a short gold chain, pink and blue reflections.",
+      "prompt": "Use case: stylized-concept. Asset type: standalone transparent game prop for Dance & Freeze. Primary request: A large round mirror disco ball tiled with shiny little mirror squares, suspended from a short gold chain with a small gold cap, a few pink and blue reflections on the tiles. Keep the ball and chain complete, front view, centered, full object in frame. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, clean bright flat colors with soft cel-shaded highlights. Transparent background. No room, no light beams, no text, no watermark, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/dance-freeze/prop-df-disco-ball.webp",
+      "sourceSize": [
+        1145,
+        1374
+      ],
+      "file": "party/assets/art/prop/df-disco-ball.webp",
+      "width": 256,
+      "height": 320,
+      "tool": "built-in imagegen",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "sourceAlphaBBox": [
+        104,
+        0,
+        1041,
+        1337
+      ],
+      "actualAlphaBBox": [
+        16,
+        0,
+        240,
+        320
+      ],
+      "cropPolicy": "alpha>=16 bbox; preserve top chain anchor; 2px side/bottom margin; proportional fit, top-centred",
+      "bytes": 23268,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cfb3cd4d-e05a-4994-965b-f0e731efaf79.png",
+      "sourceBytes": 832196,
+      "sourceFormat": "WEBP RGBA lossless"
+    },
+    {
+      "key": "prop/df-dj-booth",
+      "size": [
+        560,
+        300
+      ],
+      "geometry": "Bottom-centred, full-width console base; draw 520 px wide, Glimmer stands behind; open controls along top.",
+      "prompt": "Use case: illustration-story. Asset type: standalone game prop, transparent background. A rounded pastel DJ booth with rainbow light strips across its front, two turntables visible on top and a heart-shaped speaker grille centered on the front. No character and no background. Friendly preschool style: clean polished 2D candy cartoon, bold smooth dark navy #24163f outline, rounded clear shapes, bright colors and soft clean cel shading. No 3D, no photorealism, no lettering, no watermark, no border. Canvas 560x300, full object with correct anchor.\n",
+      "source": "party/reference/pending/molly-sources/dance-freeze/prop-df-dj-booth.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-bc2ef791-baf9-4f66-aecb-bfc12b46aa45.png",
+      "sourceSize": [
+        1712,
+        919
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-bc2ef791-baf9-4f66-aecb-bfc12b46aa45.png",
+      "file": "party/assets/art/prop/df-dj-booth.webp",
+      "runtimeFile": "party/assets/art/prop/df-dj-booth.webp",
+      "width": 560,
+      "height": 300,
+      "tool": "built-in imagegen",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "sourceCrop": [
+        47,
+        83,
+        1665,
+        839
+      ],
+      "actualAlphaBBox": [
+        0,
+        38,
+        560,
+        300
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 45214,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/df-feather",
+      "size": [
+        160,
+        420
+      ],
+      "geometry": "Quill end at bottom-centre; complete long feather; rotates around quill.",
+      "prompt": "Use case: illustration-story. Asset type: standalone game prop, transparent background. A very large fluffy pink-and-purple tickle feather with a slender curved gold quill, complete silhouette and soft layered barbs. No hands or background. Friendly preschool style: clean polished 2D candy cartoon, bold smooth dark navy #24163f outline, rounded clear shapes, bright colors and soft clean cel shading. No 3D, no photorealism, no lettering, no watermark, no border. Canvas 160x420, full object with correct anchor.\n",
+      "source": "party/reference/pending/molly-sources/dance-freeze/prop-df-feather.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-373afec3-a410-4f14-90f6-a9b14cae75fe.png",
+      "sourceSize": [
+        774,
+        2032
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-373afec3-a410-4f14-90f6-a9b14cae75fe.png",
+      "file": "party/assets/art/prop/df-feather.webp",
+      "runtimeFile": "party/assets/art/prop/df-feather.webp",
+      "width": 160,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "sourceCrop": [
+        19,
+        24,
+        769,
+        2015
+      ],
+      "actualAlphaBBox": [
+        1,
+        0,
+        159,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 22132,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/df-snowflake",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Centred icon; chunky silhouette remains readable when reduced to 60 px.",
+      "prompt": "Use case: illustration-story. Asset type: standalone game prop, transparent background. A chunky shiny ice-blue six-point snowflake icon with a tiny cute smiling face, rosy cheeks and a few small frosty sparkles close to its points. Symmetrical, no shadow cloud. Friendly preschool style: clean polished 2D candy cartoon, bold smooth dark navy #24163f outline, rounded clear shapes, bright colors and soft clean cel shading. No 3D, no photorealism, no lettering, no watermark, no border. Canvas 256x256, full object centered.\n",
+      "source": "party/reference/pending/molly-sources/dance-freeze/prop-df-snowflake.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6feb5fdf-bdd5-4d4e-9620-b03df309c930.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6feb5fdf-bdd5-4d4e-9620-b03df309c930.png",
+      "file": "party/assets/art/prop/df-snowflake.webp",
+      "runtimeFile": "party/assets/art/prop/df-snowflake.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "sourceCrop": [
+        80,
+        32,
+        1174,
+        1221
+      ],
+      "actualAlphaBBox": [
+        10,
+        0,
+        246,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 24508,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/df-music",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Centred icon; two-note arrangement remains legible at small HUD size.",
+      "prompt": "Use case: illustration-story. Asset type: standalone game prop, transparent background. Two bouncing rainbow music notes, one taller than the other, with a few small bright sparkles. No words or staff lines. Friendly preschool style: clean polished 2D candy cartoon, bold smooth dark navy #24163f outline, rounded clear shapes, bright colors and soft clean cel shading. No 3D, no photorealism, no lettering, no watermark, no border. Canvas 256x256, full object centered.\n",
+      "source": "party/reference/pending/molly-sources/dance-freeze/prop-df-music.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-89a94c5b-7997-4881-8c81-97c28148058e.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-89a94c5b-7997-4881-8c81-97c28148058e.png",
+      "file": "party/assets/art/prop/df-music.webp",
+      "runtimeFile": "party/assets/art/prop/df-music.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "sourceCrop": [
+        144,
+        56,
+        1164,
+        1210
+      ],
+      "actualAlphaBBox": [
+        15,
+        0,
+        241,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 21726,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "thumb/dance-freeze",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque game-select thumbnail; two fairies full body on rainbow disco floor, Professor Hoot at booth, disco ball overhead.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail for a preschool party game, 800x500 composition. Show exactly two small garden fairies matching the existing yellow and purple garden-fairy character designs (Image 1 and Image 2 are their identity references); no Charlie Party player characters. One fairy is frozen in a silly flamingo balance pose with cute icy sparkles, the other is laughing as a giant pink-purple feather tickles them. Include Professor Hoot, the friendly brown owl from Image 3, behind a rounded pastel DJ booth, and a shiny disco ball overhead. They dance on a bright glowing rainbow tile floor in a deep-purple disco hall. Energetic, readable central composition, all figures full body and clear at small size, kid-friendly. Polished 2D candy-cartoon with bold smooth navy #24163f outlines, soft clean cel shading, no 3D, no photorealism. Opaque background, no text, no logos, no border, no watermark.\n",
+      "source": "party/reference/pending/molly-sources/dance-freeze/thumb-dance-freeze.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-88591064-1a82-4570-adfb-da2e3938ee1a.png",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-88591064-1a82-4570-adfb-da2e3938ee1a.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "file": "party/assets/art/thumb/dance-freeze.webp",
+      "runtimeFile": "party/assets/art/thumb/dance-freeze.webp",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "inputReferences": [
+        "party/reference/canonical/garden-fairy-yellow.webp",
+        "party/reference/canonical/garden-fairy-purple.webp",
+        "party/reference/canonical/professor-hoot.webp"
+      ],
+      "transform": "native 1586x1058 resized to 800x500; mild proportional x-stretch to preserve full overhead ball and full figures",
+      "status": "reviewed dimensions/alpha/style; game art ready, actual gameplay QA waits for module",
+      "bytes": 105222,
+      "sourceBytes": 1815916,
+      "sourceFormat": "WEBP RGBA lossless",
+      "outputFormat": "WEBP RGB q86 method6",
+      "opaque": true
     }
   ]
 }
