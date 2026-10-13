@@ -1285,7 +1285,9 @@
     "prop/whoopee-guest-kitty-scold": "prop/whoopee-guest-kitty-scold.webp",
     "prop/whoopee-guest-kitty-huff": "prop/whoopee-guest-kitty-huff.webp",
     "prop/whoopee-duchess-scold": "prop/whoopee-duchess-scold.webp",
-    "prop/whoopee-butler-scold": "prop/whoopee-butler-scold.webp"
+    "prop/whoopee-butler-scold": "prop/whoopee-butler-scold.webp",
+    "prop/whoopee-duchess-shock": "prop/whoopee-duchess-shock.webp",
+    "prop/whoopee-duchess-huff": "prop/whoopee-duchess-huff.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -2032,7 +2034,9 @@
       "prop/whoopee-guest-kitty-scold",
       "prop/whoopee-guest-kitty-huff",
       "prop/whoopee-duchess-scold",
-      "prop/whoopee-butler-scold"
+      "prop/whoopee-butler-scold",
+      "prop/whoopee-duchess-shock",
+      "prop/whoopee-duchess-huff"
     ],
     "muddy-mayhem": [
       "bg/muddy-mayhem",

@@ -5,6 +5,14 @@ the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
+## October 13 Duchess extra reactions — complete (authoritative current checkpoint)
+
+The two new requested optional Duchess props from main `97f81570` are delivered: `prop/whoopee-duchess-shock` and `prop/whoopee-duchess-huff`. Shock received a targeted expression edit after comparison to the old gasp; huff preserves her prim pose with eyes closed and a reluctant smirk. Exact360x460 runtime canvases, true alpha and full-native lossless source RGBA identity verified. Original master and exact edit target are archived separately. Exact prompts, sources and checks: `reference/pending/OCT13-DUCHESS-EXTRA.json`; consumer review gallery: `OCT13-DUCHESS-EXTRA-REVIEW.html`.
+
+Both poses use existing game support; no gameplay code changes were needed. Whoopee backdrop runtime is1408x792, resized from unchanged original lossless source, preserving16:9 composition and game geometry. Complete decoded group24.984314MiB. Group/reuse/loading/fallback and sprite runtime tests pass; actual Whoopee run reached results with no errors/warnings; game-renderer comparison confirms seat scale and removal of extra huff tilt.
+
+Final publication and clear-main check checkpoint follow after the batch push. No approval or allowance pause applies. No open requests remain in the brief. No timer has been created for this requested sync/generation run. Older checkpoints below remain historical.
+
 ## October 13 grown-up reactions — complete (authoritative current checkpoint)
 
 All24 new reaction props from main `c38db6ba` are delivered: Granny Goose3, Professor Hoot2, Nanny Moo2, Troll1, Madame Papillon2, four Whoopee guest trios12, Duchess1 and butler1. Batches published as reviewed: Troll/Papillon `5724e042`, Granny `40373325`, first nine Whoopee guests `3c6a017e`, Hoot/Nanny `d237eea0`; final Kitty/Duchess/butler batch `cc180ead`. No approval gates or allowance pause apply.

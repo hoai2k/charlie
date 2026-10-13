@@ -1104,8 +1104,6 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/whoopee-duchess-shock` (Molly whoopee-tea, NEW key, optional, 2026-10-13) | Her PFFFT jolt uses the plain `-gasp` art, which reads milder than the guests' new scandalised shock faces | Same canvas/anchor/framing as `prop/whoopee-duchess-gasp.webp`: Duchess Teddy seated, utterly scandalised — eyes huge, mouth a wide "O", pearls clutched, monocle popping off, fur standing on end; hoity-toity and funny, not scary |
-| `prop/whoopee-duchess-huff` (Molly whoopee-tea, NEW key, optional, 2026-10-13) | Her end-of-finale "...hee!" soften is her sit art tilted back by code | Same canvas/anchor/framing as `prop/whoopee-duchess-sit.webp`: seated, nose high in the air, eyes closed, a tiny reluctant smirk, paws folded primly — the proper lady pretending she didn't find it funny |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,

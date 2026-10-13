@@ -1,3 +1,12 @@
+## 2026-10-13: Duchess Teddy shock and reluctant huff — delivered
+
+Final alpha, canvas/framing and gameplay consumers reviewed. Exact prompts and lossless source paths: `reference/pending/OCT13-DUCHESS-EXTRA.json`.
+
+| Key | Previous issue | Delivered brief |
+| --- | --- | --- |
+| `prop/whoopee-duchess-shock` (Molly whoopee-tea, NEW key, optional, 2026-10-13) | Her PFFFT jolt uses the plain `-gasp` art, which reads milder than the guests' new scandalised shock faces | Same canvas/anchor/framing as `prop/whoopee-duchess-gasp.webp`: Duchess Teddy seated, utterly scandalised — eyes huge, mouth a wide "O", pearls clutched, monocle popping off, fur standing on end; hoity-toity and funny, not scary |
+| `prop/whoopee-duchess-huff` (Molly whoopee-tea, NEW key, optional, 2026-10-13) | Her end-of-finale "...hee!" soften is her sit art tilted back by code | Same canvas/anchor/framing as `prop/whoopee-duchess-sit.webp`: seated, nose high in the air, eyes closed, a tiny reluctant smirk, paws folded primly — the proper lady pretending she didn't find it funny |
+
 ## 2026-10-13: Whoopee Tea hoity-toity reactions — delivered
 
 All14 requested reactions generated, checked in the actual seated/hat/glove renderers and game, and published in family batches. The Duchess rises from the throne; the butler’s glove is attached to his flipper. Exact prompts, edit lineage and full native lossless sources are in OCT13-REACTIONS-WHOOPEE per-family records; exact coverage/hashes and complete decoded budgets are in `reference/pending/OCT13-REACTIONS-AUDIT.json`. Whoopee group24.53 MiB; unused laugh variants are deferred separately and backdrop resolution optimized from unchanged source.

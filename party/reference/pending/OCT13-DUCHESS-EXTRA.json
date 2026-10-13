@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea Duchess extra poses",
+  "assets": [
+    {
+      "key": "prop/whoopee-duchess-shock",
+      "game": "whoopee-tea",
+      "size": [
+        360,
+        460
+      ],
+      "prompt": "Use case: illustration-story\nAsset type: transparent full-body video-game prop sprite, final art on a 360\u00d7460 canvas.\nPrimary request: Create a new dramatic \u201cutterly scandalised\u201d reaction pose of Duchess Teddy for Charlie Party.\nInput images: Image 1 is the approved Duchess gasp sprite and identity reference. Preserve this exact teddy bear, lavender gown, pearls, purple jewel, monocle on its chain, face proportions, palette, line weight, and seated camera/framing. Image 2 is the approved Duchess sit sprite and exact seated-scale/placement reference.\nScene/backdrop: genuinely transparent, no scenery.\nSubject: One seated golden-brown teddy bear duchess in the same voluminous lavender ruffled ballgown, pearl necklaces and purple brooch; both legs and paw pads visible in the same lower position as the references.\nStyle/medium: match the supplied polished 2D children\u2019s game illustration exactly, bold smooth dark navy outlines, rounded shapes, expressive eyes, bright original colors, clean cel shading, no photorealism or 3D.\nComposition/framing: single full-body character centered, entirely visible, same portrait canvas, scale, seated anchor, silhouette bounds and camera crop as Image 1. Keep body/dress/legs in the same seated arrangement. Paws clutching pearls against chest; eyes enormous and round, mouth wide shocked O; monocle popping to the side on its chain; fur lightly bristled for comic surprise.\nMood: funny, hoity-toity scandal, kid-safe and not scary.\nPalette: preserve exact warm golden-brown fur, lilac-purple gown, creamy pearls, gold monocle chain and navy outlines.\nConstraints: reproduce this exact character. Change expression and upper-paw pose only; preserve identity, body, gown, necklace/brooch, seated size/placement and framing. Keep all character pixels inside canvas and preserve real transparency.\nAvoid: background, ground shadow, motion marks, floating effects, extra objects, text, watermark, scary anger, different character, changed outfit, clipping, opaque/checkerboard background.",
+      "source": "party/reference/pending/duchess-extra/native/whoopee-duchess-shock-master-v2.webp",
+      "sourcePath": "party/reference/pending/duchess-extra/native/whoopee-duchess-shock-master-v2.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135fe-61d6-7861-9517-adfb44270717/exec-2d7c2563-c8f4-4768-8e29-2f76fbd42d16.png",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-shock.webp",
+      "runtimeBytes": 48682,
+      "references": [
+        "party/assets/art/prop/whoopee-duchess-gasp.webp",
+        "party/assets/art/prop/whoopee-duchess-sit.webp"
+      ],
+      "sourceSize": [
+        1110,
+        1417
+      ],
+      "sourceAlphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeAlphaExtrema": [
+        0,
+        255
+      ],
+      "encoding": "Native v2: lossless WebP, RGBA, exact=True, method=6; runtime: WebP q86, method=6, 360x460",
+      "tool": "built-in imagegen",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        360,
+        455
+      ],
+      "sourcePixelIdenticalToNative": true,
+      "runtimeSha256": "c2a7605a9720fd7dbc83595740b698f807e5835f7db41691f3f05cb34a81d47e",
+      "editPrompt": "Use case: illustration-story\nAsset type: transparent full-body game sprite, targeted expression edit.\nInput image: Image 1 is the exact current Duchess Teddy shock sprite and edit target. Reproduce this exact character and composition.\nPrimary request: Make her scandalised shock read unmistakably stronger and funnier by changing only the face expression details requested below.\nPreserve exactly: same full seated figure and 360\u00d7460 aspect composition; same outer silhouette, head and muzzle identity/proportions, ears, lavender gown and ruffles, pearl necklace and purple brooch, both paws clutching the pearls, monocle and chain positions, feet and paw pads, palette, line weight, shading and truly transparent background. Keep every body and prop position fixed.\nEdit only these face details: enlarge both round eye whites by about 20%, with small dark pupils so the eyes read huge and astonished; raise the eyebrows much higher in an unmistakable surprised arch; make the mouth a much wider and taller rounded O, still centered beneath the same nose and inside the cream muzzle; add visibly bristled short fur tufts across the forehead and cheeks while preserving her bear face shape.\nMood: comical aristocratic scandal, delightedly startled, kid-safe. She must look funny and surprised, never frightened or angry.\nAvoid: any change to body, pose, paws, gown, pearls, jewel, monocle position, chain path, feet, frame, or canvas. No extra objects, tears, sweat, marks, motion effects, shadows, text, watermark, scenery, or background. Preserve transparent alpha.",
+      "editInputPNG": "party/reference/pending/duchess-extra/native/whoopee-duchess-shock-edit-input.png",
+      "sourceBytes": 1116920,
+      "editInputArchive": "party/reference/pending/duchess-extra/native/whoopee-duchess-shock-edit-input.webp",
+      "sourceHistory": [
+        "party/reference/pending/duchess-extra/native/whoopee-duchess-shock-master.webp"
+      ],
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135fe-61d6-7861-9517-adfb44270717/exec-cc1d5d42-69c9-4a7e-ae3d-257c068ba5bf.png"
+    },
+    {
+      "key": "prop/whoopee-duchess-huff",
+      "game": "whoopee-tea",
+      "size": [
+        360,
+        460
+      ],
+      "prompt": "Use case: illustration-story\nAsset type: transparent full-body video-game prop sprite, final art on a 360\u00d7460 canvas.\nPrimary request: Create Duchess Teddy\u2019s prim, reluctant \u201chuff\u201d reaction pose for Charlie Party.\nInput images: Image 1 is the approved Duchess gasp sprite and identity reference. Image 2 is the approved Duchess sit sprite and exact seated-scale, paws-folded placement, silhouette and framing reference.\nScene/backdrop: genuinely transparent, no scenery.\nSubject: One seated golden-brown teddy bear duchess wearing the same lavender ruffled ballgown, layered creamy pearl necklaces with purple brooch, and gold monocle on its chain. She holds her paws folded primly over her lap.\nStyle/medium: match the supplied polished 2D children\u2019s game illustration exactly, bold smooth dark navy outlines, rounded shapes, expressive eyes, bright original colors and clean cel shading, no photorealism or 3D.\nComposition/framing: single full-body character centered, entirely visible, same 360\u00d7460 portrait canvas, scale, seated anchor, dress outline, paw/leg placement and camera crop as Image 2. Keep the silhouette and body pose unchanged. Raise her nose just a little; close both eyes with relaxed lids; give her a tiny, reluctant, amused smirk. She is pretending she did not find it funny, looking prim and self-possessed.\nMood: dignified, gently comic, fondly embarrassed, not stern or angry.\nPalette: preserve exact warm golden-brown fur, lilac-purple gown, creamy pearls, gold monocle and navy outlines.\nConstraints: reproduce this exact character. Preserve identity, body, gown, pearls/brooch, monocle position, seated size/placement and framing. Only subtly alter head tilt/expression; paws remain neatly folded in the same pose. Keep all character pixels inside canvas and preserve real transparency.\nAvoid: background, ground shadow, motion marks, floating effects, extra objects, text, watermark, sternness, angry frown, raised paw, changed outfit, clipping, opaque/checkerboard background.",
+      "source": "party/reference/pending/duchess-extra/native/whoopee-duchess-huff-master.webp",
+      "sourcePath": "party/reference/pending/duchess-extra/native/whoopee-duchess-huff-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135fe-61d6-7861-9517-adfb44270717/exec-8061fa12-6008-4487-a46f-4083237545ed.png",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-huff.webp",
+      "runtimeBytes": 39068,
+      "references": [
+        "party/assets/art/prop/whoopee-duchess-gasp.webp",
+        "party/assets/art/prop/whoopee-duchess-sit.webp"
+      ],
+      "sourceSize": [
+        1110,
+        1417
+      ],
+      "sourceAlphaExtrema": [
+        0,
+        255
+      ],
+      "runtimeAlphaExtrema": [
+        0,
+        255
+      ],
+      "encoding": "Native source: lossless WebP, RGBA, exact=True, method=6; runtime: WebP q86, method=6, 360x460",
+      "tool": "built-in imagegen",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        360,
+        460
+      ],
+      "sourcePixelIdenticalToNative": true,
+      "runtimeSha256": "f1c632d0340146d9d568a5ed54020a7c2ae70e6043902032d45d87b16675348a",
+      "sourceBytes": 948732
+    }
+  ],
+  "decodedGameArtMiB": 24.984314,
+  "qa": "Exact canvases, true alpha, full native archives and source RGBA identity pass. Final native/runtime expressions and framing compared to approved gasp/sit. Actual Whoopee run reached results without browser warnings/errors; direct renderer checks both poses."
+}

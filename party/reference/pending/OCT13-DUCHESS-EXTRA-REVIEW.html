@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../../"><title>Duchess reaction review</title><style>body{margin:0;background:#fff3e7;color:#24163f;font:18px sans-serif}h1,p{margin:18px}canvas{display:block;width:100%;height:auto}</style></head><body><h1>Duchess Teddy: shock and reluctant huff</h1><p>Existing seated references beside the new poses, drawn using the game’s renderer with the same seat baseline.</p><canvas width="1920" height="850"></canvas><script type="module">
+import {loadArt} from './src/engine/art.js';
+import {drawGuest,drawThrone} from './src/games/whoopee-tea/art.js';
+await loadArt({only:k=>k.startsWith('prop/whoopee-duchess')||k==='prop/whoopee-throne'});
+const g=document.querySelector('canvas').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,850);g.fillStyle='#24163f';g.font='28px sans-serif';
+for(const [x,state,label] of [[250,'gasp','Existing gasp'],[720,'shock','New shock'],[1200,'sit','Existing sit'],[1670,'huff','New reluctant huff']]){g.fillText(label,x-140,65);drawThrone(g,x,750);drawGuest(g,'duchess',x,650,520,state,{hat:false,t:0,tilt:state==='huff'?-0.08:0});}
+document.body.dataset.ready='true';
+</script></body></html>
