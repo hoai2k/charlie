@@ -20,7 +20,7 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art } from '../engine/art.js';
+import { art, hasArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, approach, rand, pick, chance, shuffle, TAU, placementsFromScores, ease } from '../engine/util.js';
@@ -642,6 +642,12 @@ export class Game {
       }
     }
     g.restore();
+    if (pl.state === 'grown' && pl.kind === 'carrot' && hasArt('prop/gg-dirt')) {
+      // the front half of the mound in front of the carrot, so it rises out of the hole
+      g.save(); g.translate(pl.x, pl.y); g.scale(1 + pl.sq * 0.12, 1 - pl.sq * 0.12);
+      g.beginPath(); g.rect(-110, 4, 220, 60); g.clip(); drawDirt(g, pl.wet, 0);
+      g.restore();
+    }
   }
 
   drawLeaver(g, L) {
