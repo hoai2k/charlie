@@ -885,7 +885,12 @@
     "prop/wand-sparkle": "prop/wand-sparkle.webp",
     "prop/wand-heart-balloon": "prop/wand-heart-balloon.webp",
     "prop/wand-rainbow": "prop/wand-rainbow.webp",
-    "prop/ff-jar": "prop/ff-jar.webp"
+    "prop/ff-jar": "prop/ff-jar.webp",
+    "prop/df-dj-booth": "prop/df-dj-booth.webp",
+    "prop/df-feather": "prop/df-feather.webp",
+    "prop/df-snowflake": "prop/df-snowflake.webp",
+    "prop/df-music": "prop/df-music.webp",
+    "thumb/dance-freeze": "thumb/dance-freeze.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1206,7 +1211,12 @@
     ],
     "dance-freeze": [
       "bg/dance-freeze",
-      "prop/df-disco-ball"
+      "prop/df-disco-ball",
+      "prop/df-dj-booth",
+      "prop/df-feather",
+      "prop/df-snowflake",
+      "prop/df-music",
+      "thumb/dance-freeze"
     ],
     "bubble-pop": [
       "bg/bubble-pop"
