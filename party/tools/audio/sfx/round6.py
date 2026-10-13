@@ -51,7 +51,8 @@ def build(games):
         for i in range(1, TAKES + 1):
             f = f"{L.RAW}/{stem(s['key'], i)}.mp3"
             if not os.path.exists(f): continue
-            x = L.trim(L.load(f), tail_rel=40)
+            try: x = L.trim(L.load(f), tail_rel=40)
+            except (IndexError, ValueError): continue   # silent take
             if len(x) == 0: continue
             cands.append((score(x, s['dur']), i, x))
         if not cands: print('MISSING', s['key']); continue
