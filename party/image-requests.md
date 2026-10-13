@@ -1793,7 +1793,7 @@ New pose (until registered it falls back to `look-up`, then `think`):
 `tongue-out` (loop) — head tipped back looking up, mouth open with the
 tongue stuck out to catch snowflakes, a silly happy face.
 
-## Molly Party: the five garden fairies as playable characters (requested 2026-10-13, priority: high, after Molly Party games land)
+## Molly Party: Glimmer and the five garden fairies as playable characters (requested 2026-10-13, priority: high, after Molly Party games land)
 
 The user wants the five garden fairies (`garden-fairy-pink`, `-blue`,
 `-yellow`, `-green`, `-purple`; today tiny ~54 px NPCs with only
@@ -1803,8 +1803,14 @@ Molly Party** (a shelf of simple, lively games for a 4–5 year old; see the
 games, so they need **only the poses the Molly Party games use** (list
 below; the lead finalises it from the merged games' code).
 
+**Glimmer counts as one of them** (user, 2026-10-13): the host fairy
+`glimmer` (canonical already approved; sprite set has `idle, walk, talk,
+point, cast, present, ready, wave, cheer, celebrate, think, surprised, sad,
+pout`) becomes the sixth Molly Party player. She needs only the missing
+Molly poses below, at the same playable resolution and with all landmarks.
+
 **Step 1 — canonical first (§8 rules, user approval):** one canonical per
-fairy at playable resolution (same family look: round-faced garden fairy,
+garden fairy at playable resolution (same family look: round-faced garden fairy,
 flower cap, dragonfly wings, glowing outfit), but each now a distinct,
 lovable character with her own personality, outfit details and wing shape,
 while keeping her colour + flower cap so the existing NPC uses stay
