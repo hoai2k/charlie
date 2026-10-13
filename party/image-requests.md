@@ -1115,3 +1115,51 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: ballet-butterflies
+
+### ballet-butterflies — Butterfly Ballet   (requested by the ballet-butterflies agent, 2026-10-13, priority: nice-to-have)
+
+A follow-the-leader ballet class on a flower stage. A butterfly-fairy teacher
+hovers at the top centre and shows a move (arms up, twirl, plié, side step)
+next to a big picture card; everyone copies it, and each good copy sends
+butterflies swirling round the dancer. Everything below has a procedural
+fallback that ships today; the code already looks up every key. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Reused as they are: the roster sprites (`dance-up`, `dance-down`,
+`dance-side`, `pose-twirl`, `bow`, `cheer`, `celebrate`, `balance`) and the
+shared wardrobe (`butterfly-wings`, `fairy-wings`, `petal-wings`, `tiara`,
+`flower-crown`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/ballet-butterflies` | 1920×1080, opaque | Full screen. The stage floor runs from y≈600 to the bottom; dancers stand on it at y≈760–1010. The teacher hovers at the top centre (x 960, y 120–460) and the move card sits to her right (x≈1300–1640, y≈130–470): keep those areas calm. Top ~120 px stays calm for the HUD chips | A magical garden ballet stage at golden hour: a big round stage floor made of a giant pale-pink flower (petal-edged, glossy), framed by arching rose-and-vine curtains on the left and right, a soft lilac sky with fluffy clouds behind, tall tulips and daisies at the stage edges, tiny fairy lights strung across the top corners |
+| `thumb/ballet-butterflies` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Princess Amber in a pink tutu and butterfly wings doing a ballet twirl on a flower stage, a butterfly-fairy teacher with huge rainbow wings above her, colourful butterflies swirling around, petals in the air. Subject centred |
+| `prop/ballet-teacher` | 512×640, transparent | The teacher idle. Anchor: bottom centre = her feet (she hovers; the code adds a bob and a soft shadow). Drawn 330 px tall, facing the viewer | Madame Papillon, a friendly butterfly fairy ballet teacher: tall graceful fairy with a lilac bun, a sparkly pink tutu leotard, ballet slippers, huge monarch-meets-rainbow butterfly wings, a tiny wand, warm smile. Standing in first position |
+| `prop/ballet-teacher-up`, `prop/ballet-teacher-twirl`, `prop/ballet-teacher-plie`, `prop/ballet-teacher-side`, `prop/ballet-teacher-bow` | 512×640 each, transparent | Same anchor/size as `prop/ballet-teacher`; shown while she demonstrates each move (code still adds a spin for twirl and a dip for plié) | The same teacher, same scale: arms raised in a high round fifth position; mid-pirouette on one toe with the tutu flaring; deep plié with knees bent out and arms rounded low; a big side step with one leg pointed out and arms open to the side; a graceful curtsy-bow |
+| `prop/ballet-move-up`, `prop/ballet-move-twirl`, `prop/ballet-move-plie`, `prop/ballet-move-side` | 256×256 each, transparent | Drawn centred inside the white move card (fitted to 240 px); the code draws the card, an arrow/button glyph under it and the animation | Simple bold pictograms a 4-year-old reads instantly: a little ballerina silhouette (pink, round head) with both arms straight up; spinning on one toe with swirl lines; knees bent low with a down-motion bounce line; stepping sideways with motion lines. Flat colours, navy outline |
+| `prop/ballet-butterfly-pink`, `prop/ballet-butterfly-blue`, `prop/ballet-butterfly-yellow`, `prop/ballet-butterfly-purple` | 128×128 each, transparent | Seen from above, wings fully open, body vertical, centred. The code flaps it by squashing x and draws it 44–70 px wide | Cute cartoon butterflies with big rounded wings: pink with white polka dots; sky blue with lilac edges; lemon yellow with orange tips; purple with a pink heart pattern. Tiny dark body, curly antennae |
+| `prop/ballet-petal` | 64×64, transparent | Centred, spun and drifted by the code for the final bow shower, drawn 22–34 px | A single soft pink rose petal, slightly curled, gentle gradient |
+
+## New Molly Party game: wand-shapes
+
+### wand-shapes — Magic Wand Shapes   (requested by the wand-shapes agent, 2026-10-13, priority: nice-to-have)
+
+A big dotted shape appears in the twilight sky; everyone traces it together
+with their wand sparkle (stick moves the sparkle). Finishing it casts a
+spell and the shape comes alive. Everything has a procedural fallback; the
+code already looks up every key. House style: navy `#24163f` outlines, soft
+cel shading, bright candy colours, **no text**. Reused: roster sprites
+(`wand-up`, `cast`, `cheer`, `celebrate`, `look-up`) and the wardrobe
+`magic-wand`.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/wand-shapes` | 1920×1080, opaque | Full screen. Characters stand on a cloud ledge along the bottom (feet at y≈1010, ledge top y≈900). The dotted shapes fill the centre (circle of radius ~330 around x 960, y 480): keep it calm and darkish so glowing dots read. Top ~120 px calm for the HUD | A dreamy twilight sky: deep violet at the top fading to rose and peach at the horizon, a few soft stars, wispy pastel clouds at the sides, a row of big fluffy pink-lilac clouds along the bottom forming a standing ledge |
+| `thumb/wand-shapes` | 800×500, opaque | Game-select shelf and how-to screen | Felicity waving a glowing wand that draws a sparkly golden heart in the twilight sky, the heart turning into a pink balloon, a frog in a bubble and a sleepy moon nearby. Subject centred |
+| `prop/wand-sparkle` | 128×128, transparent | Each player's cursor, centred, drawn 70–90 px and spun; the code draws a player-coloured glow ring behind it | A chunky four-point magic sparkle star, white-gold core, soft glow edges |
+| `prop/wand-bubble-frog` | 400×400, transparent | The circle spell, centred, drawn at 2× the circle's radius then shrunk as it floats | A big shiny soap bubble (rainbow sheen, highlight at upper left) with a cheerful little green frog sitting inside it, waving |
+| `prop/wand-heart-balloon` | 360×480, transparent | The heart spell. Anchor: the heart's centre at (180, 180); the string hangs down from it | A glossy pink heart-shaped balloon with a white shine and a curly string with a little bow |
+| `prop/wand-shooting-star` | 256×256, transparent | The star spell, centred, spun; the code draws its rainbow trail | A plump golden star with a happy face (closed smiling eyes, rosy cheeks), sparkles round its tips |
+| `prop/wand-sleepy-moon` | 400×400, transparent | The moon spell, centred; the code bobs it and draws the Zzz | A smiling crescent moon (opening to the right) asleep, wearing a blue polka-dot nightcap with a pom-pom, eyes closed, rosy cheek |
+| `prop/wand-rainbow` | 1000×520, transparent | The rainbow spell. Anchor: bottom centre; drawn ~800 px wide over the dotted arc | A bright seven-stripe rainbow arc with a smiling fluffy cloud at each foot |
