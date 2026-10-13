@@ -1792,3 +1792,48 @@ outlines, soft cel shading, bright candy colours, **no text**.
 New pose (until registered it falls back to `look-up`, then `think`):
 `tongue-out` (loop) — head tipped back looking up, mouth open with the
 tongue stuck out to catch snowflakes, a silly happy face.
+
+## Molly Party: Glimmer and the five garden fairies as playable characters (requested 2026-10-13, priority: high, after Molly Party games land)
+
+The user wants the five garden fairies (`garden-fairy-pink`, `-blue`,
+`-yellow`, `-green`, `-purple`; today tiny ~54 px NPCs with only
+`idle/walk/fly/celebrate/surprised`) developed into **playable characters for
+Molly Party** (a shelf of simple, lively games for a 4–5 year old; see the
+`## New Molly Party game:` sections). They are not used in Charlie Party
+games, so they need **only the poses the Molly Party games use** (list
+below; the lead finalises it from the merged games' code).
+
+**Glimmer counts as one of them** (user, 2026-10-13): the host fairy
+`glimmer` (canonical already approved; sprite set has `idle, walk, talk,
+point, cast, present, ready, wave, cheer, celebrate, think, surprised, sad,
+pout`) becomes the sixth Molly Party player. She needs only the missing
+Molly poses below, at the same playable resolution and with all landmarks.
+
+**Step 1 — canonical first (§8 rules, user approval):** one canonical per
+garden fairy at playable resolution (same family look: round-faced garden fairy,
+flower cap, dragonfly wings, glowing outfit), but each now a distinct,
+lovable character with her own personality, outfit details and wing shape,
+while keeping her colour + flower cap so the existing NPC uses stay
+recognisable: pink (tulip), blue (bluebell), yellow (daisy), green (leaf),
+purple (violet). Fancy, beautiful wings and dresses; cute, expressive faces.
+Save to `reference/canonical/garden-fairy-<colour>.webp`, record prompts,
+**show the user, stop for approval.**
+
+**Step 2 — playable sprite sets (after approval):** for each fairy a full
+sprite set in `assets/sprites/garden-fairy-<colour>/` at roster resolution
+(`bodyHeight` like the other playables, ~260–300 px tall art), with all five
+landmarks on every frame (`head/hand/eyes/neck/back`; `back` = between the
+wings so dress-up wings/capes sit right; §3.6), portraits (§7), and a
+`motion` that suits fluttering (`glide` or a gentle bob). Keep the existing
+NPC pose names working (`idle`, `walk`, `fly`, `celebrate`, `surprised`).
+
+**Poses (provisional; final list follows when the games are merged):**
+`idle` (hovering, wings fluttering), `walk`, `run`, `fly`, `jump`, `land`,
+`cheer`, `celebrate`, `wave`, `surprised`, `giggle`, `laugh`, `dizzy`
+(funny bump), `sad` (gentle), `catch`, `toss`, `carry`, `cast` (wand
+flourish), `dance`, `dance-star`, `pose-twirl`, `bow`, `sit`, `sleep`,
+`clap`, plus the shared photo poses (`photo`, `strike3`, `high-five`).
+
+**Step 3 — character data (lead):** the lead registers them as a Molly Party
+roster (character select shows fairies when playing Molly Party) once the
+user confirms the decision after trying the games.
