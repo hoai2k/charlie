@@ -25,7 +25,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, TAU, ease, later, placementsFromScores } from '../engine/util.js';
 import {
-  NAVY, GROUND_Y, WALK, HOUSE_X, DOOR, CANDY_COLS, VISITORS, streetBackground, drawHouse, drawDoor, drawLantern,
+  NAVY, GROUND_Y, WALK, HOUSE_X, DOOR, CANDY_COLS, VISITORS, streetBackground, drawHouse, drawDoor, drawLantern, paintedHouse, porchLight,
   drawCandy, drawBucket, drawVisitor, drawChicken, drawJack, drawCandyGhost, drawCandyPile, drawIcon,
 } from './trick-or-treat/draw.js';
 
@@ -350,7 +350,8 @@ export class Game {
           d.light = damp(d.light, 0, 8, dt);
           if (d.st >= d.restT && this.phase === 'play') {
             d.state = 'ready'; d.st = 0;
-            particles.burst(d.x + DOOR.w / 2 + 24, GROUND_Y + DOOR.top + 10, { type: 'sparkle', count: 6, colors: ['#fff0a8', '#ffffff'], speed: [40, 140] });
+            const pl = porchLight(d.x, d.i);
+            particles.burst(pl.x, pl.y, { type: 'sparkle', count: 6, colors: ['#fff0a8', '#ffffff'], speed: [40, 140] });
             sfx('sparkle', { vol: 0.25 });
           }
           break;
@@ -583,15 +584,16 @@ export class Game {
     this.doors.forEach((d, i) => {
       drawHouse(g, i, d.x);
       const lit = d.state === 'ready' ? 1 : d.light;
-      drawDoor(g, d.x, d.open, lit, t, { gold: d.gold ? 1 : 0, shake: d.state === 'knock' ? 1 : 0 });
+      drawDoor(g, d.x, d.open, lit, t, { gold: d.gold ? 1 : 0, shake: d.state === 'knock' ? 1 : 0, house: i });
       if (d.visitor && d.k > 0.01) {
         const vy = GROUND_Y + DOOR.bottom;
         if (d.visitor === 'jack') drawJack(g, d.x, vy, d.jack, d.st < 1.4 ? 1 : 0.3, t);
         else if (d.visitor === 'troll' && this.troll) { this.troll.alpha = d.k; this.troll.draw(g, { shadow: false }); }
         else drawVisitor(g, d.visitor, d.x, vy, t, d.k, d.st > 0.5);
       }
-      drawLantern(g, d.x - 100, GROUND_Y + 2, 0.95, lit, t);
-      drawLantern(g, d.x + 104, GROUND_Y + 2, 0.75, lit, t);
+      const painted = paintedHouse(i);
+      drawLantern(g, d.x - 100, GROUND_Y + 2, 0.95, lit, t, painted);
+      drawLantern(g, d.x + 104, GROUND_Y + 2, 0.75, lit, t, painted);
       this.drawDoorCue(g, d, t);
     });
     // y-sorted: players, candies on the ground, the finale pile
