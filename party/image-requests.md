@@ -1896,7 +1896,7 @@ timer).
 | `prop/mm-rug` | 420×220, transparent | Flat on the lawn, centred, drawn 330 px wide | A fancy cream-white rug with a tasselled fringe and a pale-pink rose border, lying flat on the grass, seen from a high angle |
 | `prop/mm-basket` | 260×220, transparent | Bottom-centre anchor, drawn 180 px wide | A wicker laundry basket piled high with neatly folded white towels and a frilly white pillowcase on top |
 | `prop/mm-fence` | 420×220, transparent | Bottom-centre anchor, drawn 300 px wide | A short section of freshly painted white picket fence (five pickets with pointed tops), standing on the grass |
-| `prop/mm-mega-puddle` | 640×300, transparent | Centred at (960, 690), drawn up to 470 px wide (the code scales it up while it bubbles) | A huge glossy chocolate-brown mud puddle with big bubbles and ripples, seen from a high angle |
+| `prop/mm-mega-puddle` | 640×300, transparent | Centred at (960, 748), drawn up to 450 px wide (the code scales it up while it bubbles) | A huge glossy chocolate-brown mud puddle with big bubbles and ripples, seen from a high angle |
 | `prop/mm-splat` | 160×160, transparent | Centred, drawn 40–110 px wide and rotated by the code; drawn on the sheets, rug, basket and fence | A single wet brown mud splat with a few round droplets around it, glossy highlight |
 
 Player poses used: `run`, `walk`, `idle`, `shake` (the mud shake, A),
@@ -1926,23 +1926,25 @@ with stars and moons; match `assets/sprites/professor-hoot`).
 
 **Layout (the bg must match):** a library seen from the front. Back wall
 with tall bookshelves from y=0 to ≈560; Hoot's armchair stands at the top
-centre (x 960, seat ≈y 470, chair bottom y≈585, ~420 px wide; the code
-draws the chair); a reading lamp prop at x≈1430; the dancers move over a big
-round rug on the wooden floor from y≈600 to the bottom. Keep the top 110 px
-calm (HUD chips + timer) and the area right above the chair (x 760–1160,
-y 120–330) calm for the "?" and "Zzz".
+centre (x 960, seat ≈y 520, chair bottom y≈612, ~420 px wide; the code
+draws the chair); a reading lamp prop at x≈1440; the dancers move over a big
+round rug on the wooden floor from y≈610 to the bottom (they stand at
+y 680–1030). Keep the top 110 px calm (HUD chips + timer), the area to the
+upper right of the chair (x 1050–1250, y 120–290) calm for the "Zzz"/"?"
+bubble, and x 1760–1840, y 90–460 calm for the party meter. The disco ball
+comes down at x≈520.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/sneaky-dance` | 1920×1080, opaque | Full screen, layout above. No chair, no lamp, no owl, no books in the air (all drawn by the code) | A cosy old library at night from the front: tall dark-wood bookshelves stuffed with colourful books across the back wall, a rolling ladder, a round window with a crescent moon, warm candle-coloured light, a big round plum-and-gold patterned rug on a honey wooden floor in the foreground, potted fern in a corner. Calm and cosy, nothing spooky |
 | `thumb/sneaky-dance` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Professor Hoot the owl asleep in a big red wingback armchair with a book on his tummy and "Zzz" bubbles (no letters: just bubbles), while in front of him a little garden fairy and a puppy dance wildly on tiptoe with music notes, a dancing lamp and flying books around them; cosy night library. No Charlie Party player characters. Subject centred |
-| `prop/sd-armchair` | 560×520, transparent | Bottom-centre anchor at (960, 585), drawn 420 px wide; Hoot is drawn sitting in it | A big plush red-velvet wingback armchair with gold buttons and tassels, front view, empty, a small patchwork cushion |
-| `prop/sd-hoot-sleep` | 420×460, transparent | Hoot sitting asleep in the chair. Bottom-centre anchor = his seat on the cushion (960, 480); drawn 280 px tall; the code adds breathing squash, "Zzz" and nods | Professor Hoot sitting slumped and fast asleep: eyes shut as happy curved lines, wizard hat tipped over one eye, glasses slipped down his beak, an open book lying on his round tummy, wings folded, a little drool-free smile |
+| `prop/sd-armchair` | 560×520, transparent | Bottom-centre anchor at (960, 612), drawn 420 px wide; Hoot is drawn sitting in it | A big plush red-velvet wingback armchair with gold buttons and tassels, front view, empty, a small patchwork cushion |
+| `prop/sd-hoot-sleep` | 420×460, transparent | Hoot sitting asleep in the chair. Bottom-centre anchor = his seat on the cushion (960, 520); drawn ~360 px tall; the code adds breathing squash, "Zzz" and nods | Professor Hoot sitting slumped and fast asleep: eyes shut as happy curved lines, wizard hat tipped over one eye, glasses slipped down his beak, an open book lying on his round tummy, wings folded, a little drool-free smile |
 | `prop/sd-hoot-peek` | 420×460, transparent | Same anchor/size; shown while he stirs (the code also shows a big "?") | The same owl, still slumped, with ONE eye popped wide open (big round suspicious eye) and the other still shut, one eyebrow feather raised |
 | `prop/sd-hoot-stare` | 420×460, transparent | Same anchor/size; the look: both eyes wide, used for the "Hmm?!" stare at wigglers | The same owl sitting up straight, both eyes huge and narrowed in a pompous suspicious stare, one wing pointing forward, beak pursed, glasses pushed up |
 | `prop/sd-hoot-yawn` | 420×460, transparent | Same anchor/size; the fake-out (he yawns and dozes off again) | The same owl stretching both wings up in an enormous yawn, beak wide open, eyes squeezed shut |
-| `prop/sd-hoot-party` | 420×520, transparent | Finale. Bottom-centre anchor = his feet standing on the chair seat; drawn 320 px tall; the code bounces and sways him | The same owl standing up on the chair dancing: cool pink star-shaped sunglasses, wizard hat jauntily tilted, one wing pointing up disco-style, the other on his hip, robe swirling, huge grin |
-| `prop/sd-lamp` | 220×440, transparent | Bottom-centre anchor at (1430, 600), drawn 300 px tall; the code makes it hop, sway and squash when it "dances" | A tall brass reading lamp with a frilly pink fringed lampshade, a cute little face on the shade (two dot eyes and a smile), curved neck, round base |
+| `prop/sd-hoot-party` | 420×520, transparent | Finale. Bottom-centre anchor = his feet standing on the chair seat; drawn ~400 px tall; the code bounces and sways him | The same owl standing up on the chair dancing: cool pink star-shaped sunglasses, wizard hat jauntily tilted, one wing pointing up disco-style, the other on his hip, robe swirling, huge grin |
+| `prop/sd-lamp` | 220×440, transparent | Bottom-centre anchor at (1440, 640), drawn 300 px tall; the code makes it hop, sway and squash when it "dances" | A tall brass reading lamp with a frilly pink fringed lampshade, a cute little face on the shade (two dot eyes and a smile), curved neck, round base |
 | `prop/sd-book-1`, `prop/sd-book-2`, `prop/sd-book-3` | 160×120 each, transparent | Flying books: centred, drawn ~80 px wide, the code flaps them open and shut | An open hardback book flapping like a bird, pages fanned: red with gold corners; teal with a star; purple with a moon |
 | `prop/sd-disguise-book` | 200×160, transparent | Held in front of a frozen player's face (centred at the eyes anchor), drawn ~90 px wide | An open storybook held up, seen from the front cover side: bright yellow cover with a simple duck picture, a little crooked |
 | `prop/sd-lampshade` | 180×150, transparent | Worn on a frozen player's head (bottom centre at the head anchor), drawn ~100 px wide | A pink pleated lampshade with a fringe, worn like a hat, slightly tilted |
