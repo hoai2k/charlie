@@ -1,0 +1,92 @@
+{
+  "assets": [
+    {
+      "key": "prop/ptroll-troll-shock",
+      "size": [
+        900,
+        760
+      ],
+      "game": "prank-troll",
+      "prompt": "Use case: identity-preserve. Edit target: the supplied seated troll sprite. Create prop/ptroll-troll-shock for Charlie Party. Reproduce this exact friendly troll, same olive spotted skin, shaggy brown hair, fangs, huge belly, ragged brown loincloth, broad nose, and seated frontal anatomy. Keep the canvas aspect ratio 900x760 and the EXACT body scale and positions of nose, face centre, crown of head, belly, feet and toes so existing prank overlays align. Change only expression and arms: wide scandalised eyes, lifted eyebrows, mouth a big surprised O rather than laughter, both hands pressed to the sides of his cheeks, hair slightly bristling. No tear drops, no joy/laughter, no extra effects, no text, scenery, shadows or accessories. Bold smooth navy #24163f outlines and soft clean cel shading; match reference palette and rendering. Entire figure visible, transparent background with true alpha. Preserve existing feet and body framing.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d1619bda-2cdf-400e-9de2-92d3ffa71eae.png",
+      "status": "reviewed; exact canvas and alpha validated; game consumer and separate prank overlay checked",
+      "source": "party/reference/pending/reaction-sources/ptroll-troll-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/ptroll-troll-shock.webp",
+      "runtimeFile": "party/assets/art/prop/ptroll-troll-shock.webp",
+      "runtimeBytes": 111308,
+      "nativeOutputSize": [
+        1366,
+        1152
+      ],
+      "actualAlphaBBox": [
+        8,
+        1,
+        892,
+        760
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "key": "prop/oballet-teacher-huff",
+      "size": [
+        512,
+        640
+      ],
+      "game": "opposite-ballet",
+      "prompt": "Use case: identity-preserve. Edit target: supplied Madame Papillon flustered sprite. Create prop/oballet-teacher-huff. Reproduce this exact butterfly fairy teacher, same warm golden-brown skin, lilac bun and curls, antennae and tiara, multicoloured navy-bordered butterfly wings, pink heart bodice with gold trim, pink petal tutu, pale pink tights and ballet shoes. Same 512x640 portrait canvas ratio, EXACT head size, wingspan, body framing and feet anchor as reference. Change expression/gesture to a grand offended huff: arms folded firmly over chest, chin and nose held high, eyes closed in prim offended dignity, pursed lips, one pointe shoe stamping slightly with the other grounded. Antennae bristling. Comic pompous adult fairy, preserve proportions. Smooth dark navy #24163f outlines, clean soft cel shading and exact reference palette. No steam, effects, text, scenery or ground shadow. True transparent background, entire figure and wings visible.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5692430f-570c-4f68-9e11-3bce085b5de9.png",
+      "status": "reviewed; exact canvas and alpha validated; game consumer and separate prank overlay checked",
+      "source": "party/reference/pending/reaction-sources/oballet-teacher-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/oballet-teacher-huff.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-huff.webp",
+      "runtimeBytes": 81718,
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "actualAlphaBBox": [
+        24,
+        5,
+        500,
+        640
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "key": "prop/oballet-teacher-shock",
+      "size": [
+        512,
+        640
+      ],
+      "game": "opposite-ballet",
+      "prompt": "Use case: identity-preserve. Edit target: supplied Madame Papillon flustered sprite. Create prop/oballet-teacher-shock. Reproduce this exact butterfly fairy teacher with identical warm golden-brown skin, antennae, multicoloured navy-bordered butterfly wings, pink heart bodice with gold trim, pink petal tutu, pale pink tights and ballet shoes. Same 512x640 portrait canvas ratio, head size, wingspan, body framing and ground anchor as reference. Her lilac wig has just flown off: remove the entire lilac bun and lilac curls, revealing a little bald head with only one tiny curl; gold tiara slipping on the bald head. No detached wig in this image. Hands clapped to cheeks, huge horrified eyes, eyebrows up, mouth a comic surprised O, stiff wings. Scandalised and prim, never laughing or smiling. Preserve body scale and anatomy. Smooth navy #24163f outlines, clean soft cel shading, exact reference palette. No shock lines, text, effects, scenery, ground shadows. True transparent background, entire figure visible.",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-8edcdc6f-f670-414e-ba76-ff5da2b9a2be.png",
+      "status": "reviewed; exact canvas and alpha validated; game consumer and separate prank overlay checked",
+      "source": "party/reference/pending/reaction-sources/oballet-teacher-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/oballet-teacher-shock.webp",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-shock.webp",
+      "runtimeBytes": 75244,
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "actualAlphaBBox": [
+        22,
+        12,
+        486,
+        637
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ]
+    }
+  ],
+  "qa": "Opposite Ballet and Prank Troll gameplay loaded without browser errors; direct game draw functions reviewed both Papillon reactions and Troll shock with moustache, flowers, bows, hat and nail overlays. Group decoded MiB: opposite-ballet 24.47; prank-troll 17.23."
+}

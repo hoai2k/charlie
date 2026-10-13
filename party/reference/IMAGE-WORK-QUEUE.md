@@ -5,6 +5,10 @@ the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
+## October 13 grown-up reactions — in progress
+
+Main `c38db6ba` adds 24 reaction props across six Molly games. Root owns Troll shock and two Papillon reactions (reviewed and publishing); grownup_reactions owns Granny Goose, Professor Hoot and Nanny Moo (7); whoopee_reactions owns four guest trios, Duchess and butler (14). Approved identities remain fixed; no Molly approval gates. Publish reviewed character batches promptly. Quiet-window monitoring starts only after all outstanding requests are delivered. Previous completed delivery checkpoints below are historical.
+
 ## Molly Party delivery — complete (authoritative current checkpoint)
 
 All currently requested Molly game artwork and regeneration feedback are delivered and checked. All six playable fairies have the 59 required poses, 83 body frames per set, five landmarks on every frame and optimized copies. There are 498 body frames and 31 portraits overall. Glimmer preserves all 30 original frames and six portraits pixel-identically, plus five extra host poses.

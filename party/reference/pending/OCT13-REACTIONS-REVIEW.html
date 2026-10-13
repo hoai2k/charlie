@@ -1,0 +1,10 @@
+<!doctype html><html><head><meta charset="utf-8"><base href="../../"><title>Molly reaction art review</title><style>body{margin:0;background:#fff3e7;color:#24163f;font:18px sans-serif}h1,p{margin:16px}canvas{display:block;width:100%;height:auto}</style></head><body><h1>Molly grown-up reactions</h1><p>Final runtime images rendered by the game's own drawing functions. Troll decorations remain separate.</p><canvas id="review" width="1920" height="1080"></canvas><script type="module">
+import {loadArt,art} from './src/engine/art.js';
+import {drawTeacher} from './src/games/opposite-ballet/art.js';
+import {drawTroll,configureTrollArt} from './src/games/prank-troll/draw.js';
+await loadArt({only:k=>k.startsWith('prop/oballet-teacher-')||k.startsWith('prop/ptroll-')});
+const g=document.querySelector('canvas').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,1080);g.fillStyle='#24163f';g.font='28px sans-serif';
+for(const [x,react] of [[290,'huff'],[780,'shock']]){g.fillText('Madame Papillon: '+react,x-180,70);drawTeacher(g,x,780,630,0,null,0,1,{react,fluster:1});}
+configureTrollArt(true);g.fillText('Troll: shock + separate pranks',1200,70);g.save();g.translate(460,50);drawTroll(g,{awake:true,breath:0,sway:0,bob:0},{tache:1,flowers:['#ff7ac6','#ffd23f','#7fc8ff'],bows:2,hats:1,glitter:0,toes:10},0,null,art('prop/ptroll-troll-shock'));g.restore();
+document.body.dataset.ready='true';
+</script></body></html>

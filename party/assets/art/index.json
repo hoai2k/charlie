@@ -1261,7 +1261,10 @@
     "thumb/muddy-mayhem": "thumb/muddy-mayhem.webp",
     "bg/puppy-splash": "bg/puppy-splash.webp",
     "prop/bb-teddy-sleep": "prop/bb-teddy-sleep.webp",
-    "prop/bb-cat-sleep": "prop/bb-cat-sleep.webp"
+    "prop/bb-cat-sleep": "prop/bb-cat-sleep.webp",
+    "prop/ptroll-troll-shock": "prop/ptroll-troll-shock.webp",
+    "prop/oballet-teacher-huff": "prop/oballet-teacher-huff.webp",
+    "prop/oballet-teacher-shock": "prop/oballet-teacher-shock.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1688,7 +1691,9 @@
       "prop/ballet-butterfly-blue",
       "prop/ballet-butterfly-yellow",
       "prop/ballet-butterfly-purple",
-      "prop/ballet-petal"
+      "prop/ballet-petal",
+      "prop/oballet-teacher-huff",
+      "prop/oballet-teacher-shock"
     ],
     "wand-shapes": [
       "bg/wand-shapes",
@@ -1951,7 +1956,8 @@
       "prop/ptroll-glitter",
       "prop/ptroll-polish",
       "prop/ptroll-bush",
-      "prop/ptroll-mirror"
+      "prop/ptroll-mirror",
+      "prop/ptroll-troll-shock"
     ],
     "whoopee-tea": [
       "bg/whoopee-tea",
