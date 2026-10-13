@@ -7,9 +7,9 @@
         1920,
         1080
       ],
-      "geometry": "Full screen; top 110px calm for HUD; code booth at x960 y\u2248470 and disco ball at x960 y150; tile floor overlays y\u2248560\u20131040 so bottom floor plain.",
+      "geometry": "Full screen; top 110px calm for HUD; code booth at x960 y≈470 and disco ball at x960 y150; tile floor overlays y≈560–1040 so bottom floor plain.",
       "description": "Sparkly kids' disco party hall: deep purple walls, big rounded arch windows, pink/gold curtains at sides, string lights and paper stars, speakers at far left/right, glossy plain floor bottom.",
-      "prompt": "Use case: illustration-story. Asset type: 16:9 opaque background for a kids' disco game, final 1920\u00d71080. Primary request: A sparkly children's disco party hall with deep purple walls, big rounded arch windows, pink and gold stage curtains framing both sides, small string lights and paper stars in upper corners, large speakers at far left and far right. Keep the top 110px calm for HUD; leave a clear centered space at x\u2248960 y\u2248470 for a booth and at x\u2248960 y\u2248150 for a disco ball. The entire lower floor area from y\u2248560 to y\u22481040 must be a plain glossy purple floor with no tiles or decorations, because game tiles render over it. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, clean soft cel shading, bright kid-friendly colors. No 3D, photorealism, people, disco ball, booth, tiles, text or watermark.",
+      "prompt": "Use case: illustration-story. Asset type: 16:9 opaque background for a kids' disco game, final 1920×1080. Primary request: A sparkly children's disco party hall with deep purple walls, big rounded arch windows, pink and gold stage curtains framing both sides, small string lights and paper stars in upper corners, large speakers at far left and far right. Keep the top 110px calm for HUD; leave a clear centered space at x≈960 y≈470 for a booth and at x≈960 y≈150 for a disco ball. The entire lower floor area from y≈560 to y≈1040 must be a plain glossy purple floor with no tiles or decorations, because game tiles render over it. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, clean soft cel shading, bright kid-friendly colors. No 3D, photorealism, people, disco ball, booth, tiles, text or watermark.",
       "source": "party/reference/pending/molly-sources/dance-freeze/bg-dance-freeze.webp",
       "sourceSize": [
         1672,
@@ -47,7 +47,8 @@
       "runtimeBytes": 148678,
       "outputFormat": "WEBP RGB q86 method6",
       "sourceBytes": 1239422,
-      "sourceFormat": "WEBP RGBA lossless"
+      "sourceFormat": "WEBP RGBA lossless",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-63514764-3baf-40ad-b915-95950ab89949.png"
     },
     {
       "key": "prop/df-disco-ball",
@@ -84,7 +85,8 @@
       "bytes": 23268,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cfb3cd4d-e05a-4994-965b-f0e731efaf79.png",
       "sourceBytes": 832196,
-      "sourceFormat": "WEBP RGBA lossless"
+      "sourceFormat": "WEBP RGBA lossless",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cfb3cd4d-e05a-4994-965b-f0e731efaf79.png"
     },
     {
       "key": "prop/df-dj-booth",
