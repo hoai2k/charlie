@@ -68,6 +68,13 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- In progress (user request 2026-10-13, 3): **Molly Party** — Fairy Count's
+  tile on Party Games page 1 becomes a "Molly Party" tile that opens a
+  separate shelf of 23 new games for age 4–5 (+ a "Charlie Party" tile
+  back). 12 worktree agents build 2 games each (brief: scratchpad
+  `molly-brief.md`, category 'molly'); image requests copied to main early
+  (`copy_reqs.py` handles "## New Molly Party game:" too once updated).
+  Lead: game select molly view, MOLLY list, fairy-count hidden.
 - Fashion Show item nudge (user request 2026-10-13): right stick moves the
   current spot's item from its anchor, RS held + up/down sizes it (limits
   `ADJ_LIMITS` in outfits.js: ±0.6 slot, 0.6–1.6×), a tap of RS resets.
