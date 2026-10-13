@@ -122,6 +122,9 @@ export function drawGuest(g, kind, x, y, h, state, o = {}) {
 
 /** Head-top y (screen) of a guest drawn by drawGuest, for hats and bubbles. */
 export function guestHeadTop(kind, y, h, state) {
+  const key = (kind === 'duchess' ? 'prop/whoopee-duchess' : 'prop/whoopee-guest-' + kind) + (state === 'walk' ? '' : '-' + state);
+  // Authored guests occupy the same full-height box in every state.
+  if (art(key)) return y - h * 0.91;
   const s = h / 200, sitting = state !== 'walk';
   const top = sitting ? -86 : -112, hr = kind === 'duchess' ? 40 : 36;
   return y + (top - 34 - hr + (state === 'gasp' ? -10 : 0)) * s;
@@ -131,7 +134,9 @@ function drawHatOn(g, kind, x, y, h, state, o) {
   const ty = guestHeadTop(kind, y, h, state);
   const rot = state === 'laugh' ? Math.sin((o.t || 0) * 14) * 0.12 : 0;
   const w = (kind === 'duchess' ? 130 : 78) * h / 200;
-  drawHat(g, kind, x + (kind === 'duchess' ? 0 : 6 * (o.facing || 1)) * h / 200, ty + w * 0.18, w, rot - 0.08 * (o.facing || 1));
+  const key = kind === 'duchess' ? 'prop/whoopee-duchess-hat' : 'prop/whoopee-hat-' + kind;
+  const hatOffset = art(key) ? -w * 0.18 : w * 0.18;
+  drawHat(g, kind, x + (kind === 'duchess' ? 0 : 6 * (o.facing || 1)) * h / 200, ty + hatOffset, w, rot - 0.08 * (o.facing || 1));
 }
 
 function drawHeadFeatures(g, kind, C, hy, hr, state, t, front) {
@@ -245,7 +250,11 @@ export function drawHat(g, kind, x, y, w, rot = 0) {
 /** Round garden tea table, (x, y) = its feet. jump 0..1 makes the cups hop, jelly 0..1 wobble. */
 export function drawTable(g, x, y, t, jump = 0, jelly = 0, frog = null) {
   const hop = Math.sin(clamp(jump, 0, 1) * Math.PI) * 50;
-  if (!drawArt(g, 'prop/whoopee-table', x, y, 230, 200, { anchor: 'bottom' })) {
+  const tableArt = !!art('prop/whoopee-table');
+  if (tableArt) {
+    g.save(); g.translate(x, y - hop * 0.25); g.rotate(Math.sin(jump * 20) * jump * 0.025);
+    drawArt(g, 'prop/whoopee-table', 0, 0, 230, 200, { anchor: 'bottom' }); g.restore();
+  } else {
     g.save(); g.translate(x, y);
     g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 5;
     // leg
@@ -264,7 +273,9 @@ export function drawTable(g, x, y, t, jump = 0, jelly = 0, frog = null) {
   // things on top (they hop when a cushion goes off)
   g.save(); g.translate(x, y - 124);
   g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 3.5;
-  // teapot (procedural even with table art, so it can hop)
+  // Authored table already includes its teapot and cups; bounce it as one piece.
+  if (!tableArt) {
+  // procedural teapot
   g.save(); g.translate(-46, -hop * 0.8); g.rotate(Math.sin(jump * 20) * 0.2 * jump);
   g.fillStyle = '#fff'; g.beginPath(); g.ellipse(0, -18, 24, 20, 0, 0, TAU); g.fill(); g.stroke();
   g.beginPath(); g.moveTo(22, -22); g.quadraticCurveTo(38, -26, 40, -40); g.stroke();
@@ -279,6 +290,7 @@ export function drawTable(g, x, y, t, jump = 0, jelly = 0, frog = null) {
     g.beginPath(); g.moveTo(-11, -14); g.lineTo(11, -14); g.lineTo(8, 0); g.lineTo(-8, 0); g.closePath(); g.fill(); g.stroke();
     g.fillStyle = '#c98a4a'; g.beginPath(); g.ellipse(0, -14, 10, 3, 0, 0, TAU); g.fill();
     g.restore();
+  }
   }
   // jelly
   {

@@ -34215,6 +34215,1697 @@
       "intakeMethod": "opaque full canvas resize",
       "tool": "built-in imagegen",
       "status": "native and runtime reviewed; gameplay QA pending"
+    },
+    {
+      "key": "bg/whoopee-tea",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full-screen garden, hedge gate from x~170 and x~1750, lawn open from y330, calm HUD band.",
+      "prompt": "Use case: illustration-story. Asset type: opaque 16:9 garden-game background, exact 1920x1080 composition. Posh storybook garden tea-party lawn viewed from slightly elevated three-quarter angle. A tall neatly clipped green hedge spans the back, with white arched garden gates at far left and far right; pastel striped bunting hangs high between them. Smooth striped mowed lawn fills from y\u2248330 to bottom, leaving wide clear open play space. Add only topiary balls in pots and rose bushes tucked to side edges. Soft blue sky with a couple clouds peeking over hedge. Keep upper 110px calm for HUD. No tables, chairs, throne, baskets, cushions, characters, animals or props. Bright clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, colorful, no text, no 3D, no photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/bg-whoopee-tea.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e266413a-4b3e-4bc3-b2be-03b0140ea2b2.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e266413a-4b3e-4bc3-b2be-03b0140ea2b2.png",
+      "file": "party/assets/art/bg/whoopee-tea.webp",
+      "runtimeFile": "party/assets/art/bg/whoopee-tea.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "generated, aspect-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 204842,
+      "outputFormat": "WEBP RGB q86 method6"
+    },
+    {
+      "key": "prop/whoopee-cushion",
+      "size": [
+        192,
+        144
+      ],
+      "geometry": "Centered pink rubber cushion with visible nozzle, no shadow beyond clean edge.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 192x144 landscape canvas. A classic cartoon whoopee cushion made of shiny pink rubber: soft puffy round bladder, small short nozzle projecting at the front, bright highlight, slight oval top-down three-quarter view. Centered, full object and nozzle within frame, clear silhouette. Bright 2D candy-cartoon, bold smooth navy #24163f outline, soft cel shading. Genuine transparent background. No text, no 3D, photorealism or extra props.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-cushion.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f89d7ad6-d235-452b-bcb8-553b57396203.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f89d7ad6-d235-452b-bcb8-553b57396203.png",
+      "file": "party/assets/art/prop/whoopee-cushion.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-cushion.webp",
+      "width": 192,
+      "height": 144,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        177,
+        83,
+        1271,
+        1004
+      ],
+      "actualAlphaBBox": [
+        10,
+        0,
+        181,
+        144
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7984,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-cushion-flat",
+      "size": [
+        192,
+        144
+      ],
+      "geometry": "Same pink cushion deflated low and wrinkled, centered, transparent background.",
+      "prompt": "Use case: illustration-story. Asset type: identity-preserving transparent game-sprite action variant, exact 192x144 landscape canvas. Edit the visible pink whoopee cushion: preserve its bright pink rubber color, short front nozzle, thick navy outline, overall shape, scale and center placement. Change only state: completely flattened and wrinkly after use, squashed into a low deflated oval with soft creases, still clearly the same cushion. Keep full object in frame and retain genuine transparent background. Bright 2D candy-cartoon with soft cel shading; no text, extra objects, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-cushion-flat.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7d8d055b-ee37-40f5-9179-6943fa47a3c0.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7d8d055b-ee37-40f5-9179-6943fa47a3c0.png",
+      "file": "party/assets/art/prop/whoopee-cushion-flat.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-cushion-flat.webp",
+      "width": 192,
+      "height": 144,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        138,
+        370,
+        1331,
+        762
+      ],
+      "actualAlphaBBox": [
+        0,
+        40,
+        192,
+        103
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 5680,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "editReference": "party/assets/art/prop/whoopee-cushion.webp",
+      "sourceType": "identity-preserving post-use variant"
+    },
+    {
+      "key": "prop/whoopee-golden",
+      "size": [
+        480,
+        320
+      ],
+      "geometry": "Large golden cushion prop with nozzle and bow, centered.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 480x320 landscape canvas. A giant shiny GOLD super-whoopee cushion, clearly a puffy rubber cushion with a little gold bow attached near the nozzle and several sparkles floating close to it. Three-quarter view, centered, full item visible, rounded oval body, nozzle visible. Rich warm metallic yellow-gold surfaces, bright highlights, navy #24163f outline, soft cel shading, 2D candy-cartoon. Genuine transparent background. No words or text, no 3D, photorealism, or extra objects.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-golden.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-03253d82-42a3-4328-a32e-3fd68eb7710a.png",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-03253d82-42a3-4328-a32e-3fd68eb7710a.png",
+      "file": "party/assets/art/prop/whoopee-golden.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-golden.webp",
+      "width": 480,
+      "height": 320,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        124,
+        26,
+        1471,
+        944
+      ],
+      "actualAlphaBBox": [
+        5,
+        1,
+        475,
+        319
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 36196,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-basket",
+      "size": [
+        320,
+        240
+      ],
+      "geometry": "Basket bottom anchored with multiple pink/lilac cushions visible above rim.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 320x240 landscape. A small woven wicker picnic basket overflowing with pink and lilac whoopee cushions, at least three soft rubber cushions visibly poking out, one nozzle visible. Front three-quarter view, basket body and handle clear, centered, full item in frame, bottom-centered visual anchor at basket base. Bright candy-cartoon 2D, bold navy #24163f outline, soft cel shading. Genuine transparent background. No text, characters, extra objects, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-basket.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-11991a27-db24-422e-a93f-7e88a2bfed53.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-11991a27-db24-422e-a93f-7e88a2bfed53.png",
+      "file": "party/assets/art/prop/whoopee-basket.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-basket.webp",
+      "width": 320,
+      "height": 240,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        195,
+        25,
+        1258,
+        1070
+      ],
+      "actualAlphaBBox": [
+        38,
+        0,
+        282,
+        240
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 23190,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-table",
+      "size": [
+        320,
+        280
+      ],
+      "geometry": "Bottom-anchored small round tea table with top surface and two cups visible.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 320x280 portrait canvas. A small round garden tea table with elegant carved white legs and a white lace tablecloth draped over the top, rose-pattern teapot and exactly two teacups on saucers arranged neatly on top. Front three-quarter view with the top clearly visible, centered, full legs visible, bottom-center anchor at feet. Bright 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading. Genuine transparent background. No people, text, extra clutter, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-table.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-382f7b79-70ff-4bf0-b390-669f8a2e77a2.png",
+      "sourceSize": [
+        1340,
+        1174
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-382f7b79-70ff-4bf0-b390-669f8a2e77a2.png",
+      "file": "party/assets/art/prop/whoopee-table.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-table.webp",
+      "width": 320,
+      "height": 280,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        116,
+        9,
+        1224,
+        1132
+      ],
+      "actualAlphaBBox": [
+        22,
+        0,
+        298,
+        280
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27194,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-chair",
+      "size": [
+        220,
+        300
+      ],
+      "geometry": "Bottom-anchored white wrought-iron heart-back chair, blue seatpad, clear seat landmark.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 220x300 portrait canvas. Dainty white wrought-iron garden chair seen three-quarter from the front, curled heart-shaped iron back, simple pale sky-blue seat pad (not pink), slender curved legs. Keep seat area clearly open and unobstructed for an overlay cushion and sitter; seat center around 42% up from bottom. Full chair visible, bottom-center anchor at feet. Bright 2D candy-cartoon, bold smooth navy #24163f outline and soft cel shading. Genuine transparent background. No person, text, extra objects, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-chair.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d0ce78a9-59b7-4a7e-b4ce-7fe41e32febe.png",
+      "sourceSize": [
+        1074,
+        1464
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d0ce78a9-59b7-4a7e-b4ce-7fe41e32febe.png",
+      "file": "party/assets/art/prop/whoopee-chair.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-chair.webp",
+      "width": 220,
+      "height": 300,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        156,
+        23,
+        943,
+        1444
+      ],
+      "actualAlphaBBox": [
+        27,
+        0,
+        193,
+        300
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 25666,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-throne",
+      "size": [
+        360,
+        440
+      ],
+      "geometry": "Regal high-backed pink and gold throne, bottom anchor, open seat.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 360x440 portrait canvas. A grand royal high-backed armchair for a teddy-bear Duchess: sumptuous pink velvet upholstery, ornate gold-painted carved frame, little crown ornament centered at top of chair back, elegant tassels at the sides. Front three-quarter view, broad clear seat for a sitter, seat center about 40% up from bottom. Full chair legs and back visible, bottom-center anchor at feet. Bright 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading. Genuine transparent background. No character, text, clutter, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-throne.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-eb7b5acb-3cc4-454b-bae8-d775b567caa8.png",
+      "sourceSize": [
+        1134,
+        1387
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-eb7b5acb-3cc4-454b-bae8-d775b567caa8.png",
+      "file": "party/assets/art/prop/whoopee-throne.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-throne.webp",
+      "width": 360,
+      "height": 440,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        72,
+        3,
+        1071,
+        1367
+      ],
+      "actualAlphaBBox": [
+        19,
+        0,
+        341,
+        440
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 43756,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-frog",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Centered full wind-up frog on spring, prop to jump out of sugar bowl.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 160x160 square. A green wind-up toy frog perched on a large silly silver spring, googly eyes, cheerful wide grin, small wind-up key on its side, spring fully visible. Centered, full object fits with margin. Bright 2D candy-cartoon, bold smooth navy #24163f outline, soft cel shading. Genuine transparent background. No bowl, no text, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-frog.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9595b4fe-13c5-4a78-9118-d94ba92cf3da.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9595b4fe-13c5-4a78-9118-d94ba92cf3da.png",
+      "file": "party/assets/art/prop/whoopee-frog.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-frog.webp",
+      "width": 160,
+      "height": 160,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        299,
+        58,
+        1042,
+        1202
+      ],
+      "actualAlphaBBox": [
+        28,
+        0,
+        132,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9982,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-sugarbowl",
+      "size": [
+        128,
+        112
+      ],
+      "geometry": "Centered porcelain sugar bowl with pink roses and closed lid.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 128x112 landscape canvas. A little white porcelain sugar bowl with delicate pink rose decorations, tiny matching lid with a knob resting on top, rounded and charming. Front three-quarter view, centered, full bowl and lid visible. Bright 2D candy-cartoon, bold navy #24163f outline, soft cel shading. Genuine transparent background. No spoon, text, other props, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-sugarbowl.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2c8addc0-60b2-41bd-8255-07c9b94beb44.png",
+      "sourceSize": [
+        1340,
+        1174
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2c8addc0-60b2-41bd-8255-07c9b94beb44.png",
+      "file": "party/assets/art/prop/whoopee-sugarbowl.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-sugarbowl.webp",
+      "width": 128,
+      "height": 112,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        24,
+        35,
+        1317,
+        1142
+      ],
+      "actualAlphaBBox": [
+        0,
+        1,
+        128,
+        111
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8002,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-jelly",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Plate with shiny strawberry jelly and one cherry, centered.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 128x128 square. A shiny wobbly strawberry jelly dessert on a small white plate, red-pink translucent dome with a single bright red cherry on top and tiny green leaf. Slightly trembling shape but visually stable; centered, full plate visible. Bright 2D candy-cartoon, bold navy #24163f outline, soft cel shading. Genuine transparent background. No text, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-jelly.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cfcc8667-0d6c-49b2-8c0e-496967027bc8.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cfcc8667-0d6c-49b2-8c0e-496967027bc8.png",
+      "file": "party/assets/art/prop/whoopee-jelly.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-jelly.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        36,
+        72,
+        1219,
+        1136
+      ],
+      "actualAlphaBBox": [
+        0,
+        6,
+        128,
+        121
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7668,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-moon",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Centered smiling crescent moon with rosy cheeks and small sparkles.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game prop, exact 256x256 square. A big friendly golden crescent moon with a sweet smiling face, rosy cheeks and a few little sparkles around it, tilted gently. Centered, full moon visible and readable. Bright 2D candy-cartoon, bold smooth navy #24163f outline, soft cel shading. Genuine transparent background. No text, extra characters or objects, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-moon.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6ee5d5f1-529c-44b1-b26b-12c64da4c6da.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6ee5d5f1-529c-44b1-b26b-12c64da4c6da.png",
+      "file": "party/assets/art/prop/whoopee-moon.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-moon.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        99,
+        55,
+        1193,
+        1169
+      ],
+      "actualAlphaBBox": [
+        3,
+        0,
+        253,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 19232,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-guest-poodle",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Full-body front-facing pink poodle guest, bottom center at paws, no hat.",
+      "prompt": "Use case: illustration-story. Asset type: new-character transparent game sprite, exact 320x420 portrait. A prim and proper lovable party guest: a small graceful pink poodle with a rounded pom-pom hairdo, soft curly pink fur, long pearls and a modest pastel party dress. Front-facing standing with paws at sides, slightly pompous chin-up posture and sweet smile. No hat, no cup, no props; hat is drawn separately. Full body and paws visible, bottom-center feet anchor. Bright clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, candy colors. Genuine transparent background. No text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-poodle.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f6dd9b11-0e3f-4268-82d1-7c3e14cb4491.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f6dd9b11-0e3f-4268-82d1-7c3e14cb4491.png",
+      "file": "party/assets/art/prop/whoopee-guest-poodle.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        182,
+        14,
+        899,
+        1420
+      ],
+      "actualAlphaBBox": [
+        53,
+        0,
+        267,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 29998,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-sit",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Poodle seated primly, legs together, paws in lap; bottom anchored on seat.",
+      "prompt": "Edit this sprite non-destructively. Keep the pink poodle herself pixel identity, color, size, face, hairstyle, pearls, dress, paws, pose, transparent background and exact 320x420 canvas unchanged. Remove the entire chair behind/under her. Keep the same seated posture and her feet/legs, but make her seated pose read as sitting on an invisible chair; leave empty transparent pixels around her. No new objects or accessories, no background. Preserve full alpha transparency.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-poodle-sit.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d36ad4f2-c37a-4be1-8a3e-5a233a4d12f0.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d36ad4f2-c37a-4be1-8a3e-5a233a4d12f0.png",
+      "file": "party/assets/art/prop/whoopee-guest-poodle-sit.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-sit.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "edited to remove chair; alpha-cropped and repackaged",
+      "sourceCrop": [
+        196,
+        8,
+        959,
+        1397
+      ],
+      "actualAlphaBBox": [
+        44,
+        0,
+        275,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 25278,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-poodle-sit.webp",
+      "sourceType": "identity-preserving seated character pose",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a7b9aa4c-4dbf-4597-9015-c15c2cd312ff.png",
+          "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-poodle-sit-withchair.webp",
+          "change": "Remove AI-added chair; preserve seated character only."
+        }
+      ]
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-gasp",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Poodle startled upright with huge eyes and O mouth, no hat.",
+      "prompt": "Use case: illustration-story. Asset type: identity-preserving transparent sprite reaction variant, exact 320x420 portrait. Use the visible pink poodle guest as identity reference. Preserve curly pink fur and pom-pom ears, pearl necklace, pastel frilly dress, face identity and proportions. Show the instant she is startled by a cushion puff: jolted upright, huge wide eyes and small O mouth, ears and curls bouncing upward, cheeks blushing, paws lifted near chest. No hat, no props, no chair, no background. Same scale and framing as the seated reaction, full guest visible and centered. Bright 2D candy-cartoon with bold navy #24163f outlines and soft cel shading. Genuine transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-poodle-gasp.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4a2347a8-6d59-4adc-aa3c-b1118d2bffd0.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4a2347a8-6d59-4adc-aa3c-b1118d2bffd0.png",
+      "file": "party/assets/art/prop/whoopee-guest-poodle-gasp.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-gasp.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged; bottom anchor corrected",
+      "sourceCrop": [
+        40,
+        1,
+        1033,
+        1436
+      ],
+      "actualAlphaBBox": [
+        14,
+        0,
+        305,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 38724,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-poodle.webp",
+      "sourceType": "identity-preserving startled character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-laugh",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Poodle doubled over laughing, eyes closed paws on tummy, seated frame.",
+      "prompt": "Use case: illustration-story. Asset type: identity-preserving transparent sprite reaction variant, exact 320x420 portrait. Use the visible pink poodle guest as the exact identity reference; preserve curly pink pom-pom fur, pearls, frilly pastel dress, face, colors and proportions. Change expression and pose to collapsing with laughter after the surprise: eyes squeezed shut, paws holding her tummy, shoulders hunched, mouth open in a joyful laugh, a couple tiny tears of joy. No hat or props, no chair, no background. Full guest centered in matching frame; bottom center sits on chair seat. Bright 2D candy-cartoon, bold navy #24163f outlines, soft cel shading. Genuine transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-poodle-laugh.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b601f22a-e8b9-4bed-bad6-19954a4d0603.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b601f22a-e8b9-4bed-bad6-19954a4d0603.png",
+      "file": "party/assets/art/prop/whoopee-guest-poodle-laugh.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-laugh.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        124,
+        11,
+        994,
+        1426
+      ],
+      "actualAlphaBBox": [
+        31,
+        0,
+        289,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 34060,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-poodle.webp",
+      "sourceType": "identity-preserving laughter character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-bunny",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Front-facing standing white bunny with upright pink-lined ears and lace collar, bottom anchored.",
+      "prompt": "Use case: illustration-story. Asset type: new-character transparent game sprite, exact 320x420 portrait. A prim, lovable white bunny guest at a garden tea party, soft white fur, long upright ears with pale-pink inner ears, lace collar and simple elegant pastel outfit, holding a small closed parasol at her side. Front-facing standing with a reserved chin-up smile. No hat; hats are drawn separately. Full body and feet visible, bottom-center foot anchor. Bright clean 2D candy-cartoon, bold navy #24163f outline, soft cel shading. Genuine transparent background, no text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-bunny.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a4d466dd-4b5f-4e24-a733-f6a0748b2857.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a4d466dd-4b5f-4e24-a733-f6a0748b2857.png",
+      "file": "party/assets/art/prop/whoopee-guest-bunny.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        207,
+        0,
+        887,
+        1437
+      ],
+      "actualAlphaBBox": [
+        60,
+        0,
+        259,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 28008,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-sit",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Bunny seated primly on chair, legs together, paws in lap, bottom anchor.",
+      "prompt": "Create an illustrated sprite variant based on the visible 2D cartoon bunny art; exact same charming outlined candy-cartoon style (do not become a photograph or realistic painting). Preserve the same fluffy white rabbit, big expressive eyes, long pink-lined upright ears, lace collar, light blue floral dress, pink bow, folded parasol, and navy outlines. Transparent 320x420 portrait. Change only pose to sitting primly: legs together with feet forward, paws folded neatly in lap, eyes closed in a sweet posh smile. Bunny only, no chair and no scenery; keep parasol small and folded like the reference. Bottom-center anchor at her seated bottom. Bright pastel colors, clean smooth navy #24163f contour, soft cel shading, genuine transparent background.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-bunny-sit.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-546db7c6-d7cd-41fa-870b-44ac748b9916.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-546db7c6-d7cd-41fa-870b-44ac748b9916.png",
+      "file": "party/assets/art/prop/whoopee-guest-bunny-sit.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-sit.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "regenerated to restore 2D style and remove chair; packaged",
+      "sourceCrop": [
+        162,
+        10,
+        957,
+        1405
+      ],
+      "actualAlphaBBox": [
+        40,
+        0,
+        279,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 32216,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-bunny.webp",
+      "sourceType": "identity-preserving seated character pose",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-12466f9c-bbbf-4ade-b5c0-9dfb6372313e.png",
+          "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-bunny-sit-withchair.webp",
+          "change": "Remove AI-added chair; preserve seated bunny and open parasol."
+        },
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f36f3a1d-bab1-411d-a2c7-5626bc2795a9.png",
+          "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-bunny-sit-photo-edit.webp",
+          "change": "Prior no-chair edit shifted to realistic style; replaced using canonical original as target."
+        }
+      ]
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-gasp",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Bunny jolted upright shocked, ears straight up, same seated reaction anchor.",
+      "prompt": "Identity-preserving transparent reaction variant of the visible white bunny guest, exact 320x420 portrait. Preserve her soft white fur, long pink-lined ears, lace collar, pastel-blue floral dress, parasol and face. Show instant comic shock: jolted upright, huge eyes, small round O mouth, long ears sticking straight up, cheeks blushing, paws lifted near chest. Keep hat absent, no chair or background. Match original scale and centered full-body framing, seated-bottom anchor like sibling seated frame. Bright 2D candy-cartoon, smooth navy #24163f outlines, soft cel shading. Transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-bunny-gasp.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-06eb8546-145d-4c10-b7c3-280310623b1f.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-06eb8546-145d-4c10-b7c3-280310623b1f.png",
+      "file": "party/assets/art/prop/whoopee-guest-bunny-gasp.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-gasp.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        44,
+        4,
+        981,
+        1426
+      ],
+      "actualAlphaBBox": [
+        21,
+        0,
+        298,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 38868,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-bunny.webp",
+      "sourceType": "identity-preserving startled character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-laugh",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Bunny laughing heartily with eyes shut and paws on tummy, seated anchor.",
+      "prompt": "Identity-preserving transparent laughter variant of the visible white bunny guest, exact 320x420 portrait. Preserve her long pink-lined ears, white fur, lace collar, pastel-blue floral dress, parasol, face and proportions. She collapses with laughter after the surprise, eyes squeezed shut, paws clutching her tummy, mouth wide in joyful laugh, shoulders hunched, a couple of tiny tears of joy. Keep hat absent, no chair or background. Match sibling scale and bottom-center seated anchor; full character in frame. Bright 2D candy-cartoon, navy #24163f outline, soft cel shading. Genuine transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-bunny-laugh.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-db2ab767-f6e3-4f52-83ca-59dc6d123875.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-db2ab767-f6e3-4f52-83ca-59dc6d123875.png",
+      "file": "party/assets/art/prop/whoopee-guest-bunny-laugh.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-laugh.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        10,
+        5,
+        1084,
+        1420
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        319,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 47190,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-bunny.webp",
+      "sourceType": "identity-preserving laughter character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-pig",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Full-body round pink pig guest in lilac frilly dress, prim posture, no hat.",
+      "prompt": "Use case: illustration-story. Asset type: new-character transparent game sprite, exact 320x420 portrait. A round pink fancy pig at a posh garden tea party, lovable and slightly pompous, wearing an elegant lilac frilly dress with a lace collar; soft pink snout, small perked ears, one hoof lifted delicately, chin turned up. Front-facing standing with sweet prim expression. No hat; drawn separately. Full body and hooves visible, bottom-center feet anchor. Bright clean 2D candy-cartoon, bold navy #24163f outlines, soft cel shading. Genuine transparent background, no text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-pig.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7c5eef8a-51c0-4ab4-b005-77764d36067b.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7c5eef8a-51c0-4ab4-b005-77764d36067b.png",
+      "file": "party/assets/art/prop/whoopee-guest-pig.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        20,
+        18,
+        1074,
+        1413
+      ],
+      "actualAlphaBBox": [
+        1,
+        0,
+        318,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 39250,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-guest-pig-sit",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Pig primly seated, hooves in lap, eyes closed, bottom center seat anchor.",
+      "prompt": "Use the visible pink pig guest as exact identity reference, transparent 320x420 portrait. Preserve her round pink snout, perked ears, face, lilac frilly dress and lace collar, proportions/colors/outlines. Change to a prim seated pose on chair: legs together, front hooves neat in lap, eyes closed with proud posh smile. No hat, no chair or background. Full guest visible, same visual scale, bottom-center seated bottom anchor. Bright 2D candy-cartoon with navy #24163f outlines, soft cel shading. Genuine transparent background.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-pig-sit.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d8d19c41-d36a-4459-a370-d4be0f166a6b.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d8d19c41-d36a-4459-a370-d4be0f166a6b.png",
+      "file": "party/assets/art/prop/whoopee-guest-pig-sit.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-sit.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        220,
+        70,
+        905,
+        1381
+      ],
+      "actualAlphaBBox": [
+        50,
+        0,
+        269,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27932,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-pig.webp",
+      "sourceType": "identity-preserving seated character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-pig-gasp",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Pig jolted upright surprised, wide eyes, raised hooves, bottom anchor.",
+      "prompt": "Use the visible pink pig guest as exact identity reference, transparent 320x420 portrait. Preserve her round snout, pink fur, perked ears, face and lilac frilly dress/lace collar. Change only expression/action to comic shock: jolted upright, huge eyes, round O mouth, ears pointed straight up, cheeks flushed, hooves lifted near chest. No hat, props, chair, background. Full character in matching seated-reaction frame, same scale and bottom-center seat anchor. Bright 2D candy-cartoon, bold smooth navy #24163f outline and soft cel shading. Transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-pig-gasp.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7e5a9b63-2815-4d5d-a450-dd9dac538147.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7e5a9b63-2815-4d5d-a450-dd9dac538147.png",
+      "file": "party/assets/art/prop/whoopee-guest-pig-gasp.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-gasp.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        119,
+        3,
+        977,
+        1420
+      ],
+      "actualAlphaBBox": [
+        33,
+        0,
+        287,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 30208,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-pig.webp",
+      "sourceType": "identity-preserving startled character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-pig-laugh",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Pig laughing with eyes closed and hooves holding tummy, seated frame.",
+      "prompt": "Use the visible pink pig guest as the exact identity reference, transparent 320x420 portrait. Preserve her round pink snout, face, ears, lilac frilly dress and lace collar. Change only expression/action to full joyful laughter: eyes squeezed shut, hooves clutching her tummy, shoulders hunched, wide laughing mouth, a couple little tears of joy. Keep hat absent, no chair or background. Full pig centered, same scale and bottom-center seated anchor as sibling states. Bright 2D candy-cartoon, bold navy #24163f outlines and soft cel shading. Genuine transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-pig-laugh.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8a79bfc3-229b-4e7f-af2a-215383f9bd9e.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8a79bfc3-229b-4e7f-af2a-215383f9bd9e.png",
+      "file": "party/assets/art/prop/whoopee-guest-pig-laugh.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-laugh.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        77,
+        101,
+        1042,
+        1343
+      ],
+      "actualAlphaBBox": [
+        0,
+        8,
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 38862,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-pig.webp",
+      "sourceType": "identity-preserving laughter character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-kitty",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Full-body fluffy white kitty guest, blue bow and tiny tea cup, no hat.",
+      "prompt": "Use case: illustration-story. Asset type: new-character transparent game sprite, exact 320x420 portrait. A prim fluffy white kitty at a garden tea party, soft white fur, delicate whiskers, big blue bow near one ear, holding a tiny white teacup carefully with one paw and pinkie extended in refined manner, sweet slightly pompous smile. Front-facing full body standing, no hat (drawn separately). Bottom-center feet anchor, full paws visible. Bright clean 2D candy-cartoon, bold navy #24163f outline, soft cel shading. Genuine transparent background. No text, extra props, chair, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-kitty.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-3a29a987-2cd0-47d7-b06f-62979c9bbd94.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-3a29a987-2cd0-47d7-b06f-62979c9bbd94.png",
+      "file": "party/assets/art/prop/whoopee-guest-kitty.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        116,
+        15,
+        969,
+        1408
+      ],
+      "actualAlphaBBox": [
+        31,
+        0,
+        288,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 31078,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-sit",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Kitty seated primly with teacup, legs together, no chair.",
+      "prompt": "Use the visible white kitty guest as exact identity reference, transparent 320x420 portrait. Preserve fluffy white fur, face, whiskers, blue ear bow, pinkie-out tea cup, outfit, colors and proportions. Change pose only to seated primly on an invisible chair: legs together, tea cup held neatly, eyes gently closed in a refined satisfied smile. No hat, chair or background. Full character centered and same scale; bottom center anchor at seated bottom. Bright 2D candy-cartoon, navy #24163f outlines, soft cel shading. Genuine transparent background, no text, no 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-kitty-sit.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-393b706b-7af2-40de-adea-1e3c09dc9650.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-393b706b-7af2-40de-adea-1e3c09dc9650.png",
+      "file": "party/assets/art/prop/whoopee-guest-kitty-sit.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-sit.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        163,
+        12,
+        996,
+        1431
+      ],
+      "actualAlphaBBox": [
+        36,
+        0,
+        283,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 33426,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-kitty.webp",
+      "sourceType": "identity-preserving seated character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-gasp",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Kitty startled, wide eyes, cup held close, seated reaction anchor.",
+      "prompt": "Use the visible fluffy white kitty guest as exact identity reference in a transparent 320x420 portrait. Preserve white fur, blue bow, face, whiskers, tea cup and design. Change expression/action to comic surprise: jolted upright, huge wide eyes and small O mouth, fur and bow bouncing upward, cheeks pink, paws lift cup close to chest (cup remains held). No hat, chair, background or new objects. Full character centered, same scale and bottom-center seated anchor. Bright 2D candy-cartoon, bold navy #24163f outlines, soft cel shading. Genuine transparent background.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-kitty-gasp.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-04931ff9-5cc6-44dd-b4a3-6adb06eabdcb.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-04931ff9-5cc6-44dd-b4a3-6adb06eabdcb.png",
+      "file": "party/assets/art/prop/whoopee-guest-kitty-gasp.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-gasp.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        49,
+        5,
+        1059,
+        1398
+      ],
+      "actualAlphaBBox": [
+        7,
+        0,
+        311,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 42860,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-kitty.webp",
+      "sourceType": "identity-preserving startled character pose"
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-laugh",
+      "size": [
+        320,
+        420
+      ],
+      "geometry": "Kitty laughing, eyes closed, one paw on tummy and other holding teacup.",
+      "prompt": "Use the visible fluffy white kitty guest as exact identity reference in a transparent 320x420 portrait. Preserve white fur, blue bow, face, whiskers, outfit, teacup and colors. Change only to collapsing with joyful laughter after the surprise: eyes squeezed shut, one paw clutching tummy, shoulders bent forward, laughing mouth, tiny tears of joy; keep the cup carefully in the other paw. No hat, chair or backdrop. Full character centered, same scale and bottom-center seated anchor. Bright 2D candy-cartoon with navy #24163f outlines and soft cel shading. Genuine transparent background, no text or 3D.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-guest-kitty-laugh.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-36f7474f-2167-4ec9-9072-743fff7816ae.png",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-36f7474f-2167-4ec9-9072-743fff7816ae.png",
+      "file": "party/assets/art/prop/whoopee-guest-kitty-laugh.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-laugh.webp",
+      "width": 320,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        26,
+        36,
+        1081,
+        1388
+      ],
+      "actualAlphaBBox": [
+        0,
+        10,
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 39566,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-guest-kitty.webp",
+      "sourceType": "identity-preserving laughter character pose"
+    },
+    {
+      "key": "prop/whoopee-hat-poodle",
+      "size": [
+        160,
+        120
+      ],
+      "geometry": "Standalone tiny pink feathered pillbox hat for the poodle guest.",
+      "prompt": "Use case: illustration-story. Transparent 160x120 landscape game accessory. A tiny elegant pink party hat for a fluffy poodle: rounded pink pillbox cap with a soft cream ribbon and one small white feather, charming refined style. Front view, centered, full accessory visible and sized to be worn on a small animal's head. Bold navy #24163f outline, clean 2D candy-cartoon, soft cel shading. Genuine transparent background. No character, text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-hat-poodle.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ff8584de-0a80-4f8a-8f36-7fc8bfd89eb1.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ff8584de-0a80-4f8a-8f36-7fc8bfd89eb1.png",
+      "file": "party/assets/art/prop/whoopee-hat-poodle.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-hat-poodle.webp",
+      "width": 160,
+      "height": 120,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        198,
+        91,
+        1314,
+        973
+      ],
+      "actualAlphaBBox": [
+        4,
+        0,
+        156,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7980,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-hat-bunny",
+      "size": [
+        160,
+        120
+      ],
+      "geometry": "Standalone straw bonnet with pink ribbons for the bunny guest.",
+      "prompt": "Use case: illustration-story. Transparent exact 160x120 landscape game accessory. A dainty straw bonnet sized for a small bunny guest, woven pale-golden straw crown, wide curved brim, soft pink ribbon tied in a bow under chin with trailing ribbons. Front view, centered, full hat only, clearly readable. Bright clean 2D candy-cartoon, navy #24163f outline, soft cel shading. Genuine transparent background. No animal, text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-hat-bunny.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-50aaeca3-04e1-427d-9e52-4800ce912e27.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-50aaeca3-04e1-427d-9e52-4800ce912e27.png",
+      "file": "party/assets/art/prop/whoopee-hat-bunny.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-hat-bunny.webp",
+      "width": 160,
+      "height": 120,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        95,
+        10,
+        1353,
+        1075
+      ],
+      "actualAlphaBBox": [
+        9,
+        0,
+        151,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9046,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-hat-pig",
+      "size": [
+        160,
+        120
+      ],
+      "geometry": "Standalone lavender wide-brim hat with roses and ribbons for pig guest.",
+      "prompt": "Use case: illustration-story. Transparent exact 160x120 landscape accessory. A flowery wide-brim hat for a fancy pink pig guest: soft lavender brim, crown topped with pink roses, lilac ribbons and tiny leaves, cheerful elegant Sunday hat. Front view, centered, hat alone, brim full in frame. Bright 2D candy-cartoon, bold navy #24163f outline, soft cel shading. Genuine transparent background. No character, text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-hat-pig.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7b57f8eb-99d4-47b7-8393-9ffade057b47.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7b57f8eb-99d4-47b7-8393-9ffade057b47.png",
+      "file": "party/assets/art/prop/whoopee-hat-pig.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-hat-pig.webp",
+      "width": 160,
+      "height": 120,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        13,
+        118,
+        1435,
+        985
+      ],
+      "actualAlphaBBox": [
+        0,
+        11,
+        160,
+        109
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7910,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-hat-kitty",
+      "size": [
+        160,
+        120
+      ],
+      "geometry": "Standalone bright blue pillbox hat with blue bow for kitty guest.",
+      "prompt": "Use case: illustration-story. Transparent exact 160x120 landscape accessory. A small elegant bright-blue pillbox party hat for a fluffy white kitty, smooth rounded cap with one neat blue bow and tiny pearl detail. Front view, centered, full accessory only. Sized to sit on a kitty's head, clean silhouette. Bright 2D candy-cartoon with navy #24163f outline, soft cel shading. Genuine transparent background. No cat, no text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-hat-kitty.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d005c8de-7362-4392-91ed-d78f257cb876.png",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d005c8de-7362-4392-91ed-d78f257cb876.png",
+      "file": "party/assets/art/prop/whoopee-hat-kitty.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-hat-kitty.webp",
+      "width": 160,
+      "height": 120,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        119,
+        240,
+        1342,
+        855
+      ],
+      "actualAlphaBBox": [
+        0,
+        20,
+        160,
+        100
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7196,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/whoopee-duchess",
+      "size": [
+        360,
+        460
+      ],
+      "geometry": "Full body Duchess walking/standing, monocle and pearls, no hat, bottom anchored.",
+      "prompt": "Use case: illustration-story. Asset type: new-character transparent game sprite, exact 360x460 portrait. Duchess Teddy: a plump honey-brown teddy bear, soft stitched plush texture, dressed in a lovely lavender ball gown with tiny gold details. Long white pearl necklace, a monocle over one eye on a fine gold chain, prim chin lifted, charmingly pompous but lovable front-facing smile. Full body in gown, paws visible, no hat because her enormous hat is separate. Bottom-center feet anchor, centered. Bright 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading. Genuine transparent background, no text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-duchess.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-61597aa1-3840-4d77-bbed-d02eb9755083.png",
+      "sourceSize": [
+        1109,
+        1418
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-61597aa1-3840-4d77-bbed-d02eb9755083.png",
+      "file": "party/assets/art/prop/whoopee-duchess.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess.webp",
+      "width": 360,
+      "height": 460,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        5,
+        11,
+        1104,
+        1404
+      ],
+      "actualAlphaBBox": [
+        0,
+        4,
+        360,
+        460
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 49342,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-duchess-sit",
+      "size": [
+        360,
+        460
+      ],
+      "geometry": "Duchess Teddy sitting regally, paws resting on gown, no chair, no hat.",
+      "prompt": "Use the visible Duchess Teddy as exact identity reference, transparent exact 360x460 portrait. Preserve honey-brown teddy fur, muzzle, eye design, gold monocle chain and monocle, long pearls, lavender gown, colors and proportions. Change to sitting regally on an invisible throne: seated upright, paws resting on gown, calm proud smile, feet/hem below seat. Do not draw the chair or hat, no background. Full Duchess centered, matching scale and bottom-center seated-bottom anchor. Bright 2D candy-cartoon, navy #24163f outlines, soft cel shading. Genuine transparent background.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-duchess-sit.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-62314ed3-7d28-4cbf-9311-49f35d6fa4b2.png",
+      "sourceSize": [
+        1109,
+        1418
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-62314ed3-7d28-4cbf-9311-49f35d6fa4b2.png",
+      "file": "party/assets/art/prop/whoopee-duchess-sit.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-sit.webp",
+      "width": 360,
+      "height": 460,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1109,
+        1418
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        360,
+        460
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 43086,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-duchess.webp",
+      "sourceType": "identity-preserving seated Duchess pose"
+    },
+    {
+      "key": "prop/whoopee-duchess-gasp",
+      "size": [
+        360,
+        460
+      ],
+      "geometry": "Duchess sitting, jolted in surprise, monocle pops outward while tethered by chain.",
+      "prompt": "Use the visible Duchess Teddy as exact identity reference, exact 360x460 transparent portrait. Preserve her honey-brown teddy face, lavender ball gown, pearls, body scale, monocle on gold chain and visual style. This is the seated-on-throne gasp frame: same sitting position, suddenly jolted upright, eyes huge, mouth open O, one paw raised, the monocle popping away from one eye but still attached by its chain. No hat or throne/chair drawn, no background. Full figure framed consistently with seated sister sprite, bottom-center anchor at seated bottom. 2D candy-cartoon, bold navy #24163f outlines, soft cel shading. Genuine transparency.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-duchess-gasp.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a18d196f-80db-4c19-9cd0-dd303e8b71e1.png",
+      "sourceSize": [
+        1110,
+        1417
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a18d196f-80db-4c19-9cd0-dd303e8b71e1.png",
+      "file": "party/assets/art/prop/whoopee-duchess-gasp.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-gasp.webp",
+      "width": 360,
+      "height": 460,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1109,
+        1417
+      ],
+      "actualAlphaBBox": [
+        1,
+        0,
+        360,
+        460
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 51184,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-duchess.webp",
+      "sourceType": "identity-preserving seated gasp pose"
+    },
+    {
+      "key": "prop/whoopee-duchess-laugh",
+      "size": [
+        360,
+        460
+      ],
+      "geometry": "Duchess seated laughing uncontrollably, paws lifted, eyes shut.",
+      "prompt": "Use the visible Duchess Teddy as exact identity reference, transparent exact 360x460 portrait. Preserve honey-brown fur, teddy face, lavender gown, pearls, monocle and chain, proportions/colors. Seated-on-throne finale reaction: she rocks back laughing hard, eyes squeezed shut, huge joyful open mouth, paws lifted, shoulders shaking, a few tears of joy. No hat, no chair/throne drawn and no background. Match seated frame scale and bottom-center anchor at her seated bottom. Bright clean 2D candy-cartoon, navy #24163f outlines, soft cel shading, genuine transparency.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-duchess-laugh.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cb8b6e2a-b8aa-42e2-a64c-489c4126114b.png",
+      "sourceSize": [
+        1109,
+        1418
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cb8b6e2a-b8aa-42e2-a64c-489c4126114b.png",
+      "file": "party/assets/art/prop/whoopee-duchess-laugh.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-laugh.webp",
+      "width": 360,
+      "height": 460,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        4,
+        14,
+        1107,
+        1405
+      ],
+      "actualAlphaBBox": [
+        0,
+        6,
+        359,
+        460
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 48718,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-duchess.webp",
+      "sourceType": "identity-preserving laughter Duchess pose"
+    },
+    {
+      "key": "prop/whoopee-butler",
+      "size": [
+        280,
+        420
+      ],
+      "geometry": "Penguin butler side-view facing right, tray and teapot high, bottom anchor.",
+      "prompt": "Use case: illustration-story. Asset type: new-character transparent game sprite, exact 280x420 portrait. A very proper penguin butler in side view facing right, elegant black-and-white plumage, black tail-coat, crisp white shirt, bow tie and white gloves; beak held slightly up, polished manners. One flipper carries a silver tray high with a small teapot balanced on it. Full body and feet visible, bottom-center anchor; centered with side-facing silhouette. Bright clean 2D candy-cartoon, navy #24163f outline, soft cel shading. Genuine transparent background. No text, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-butler.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ff3ae8db-229a-4274-99c3-9de071050865.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ff3ae8db-229a-4274-99c3-9de071050865.png",
+      "file": "party/assets/art/prop/whoopee-butler.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-butler.webp",
+      "width": 280,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        173,
+        172,
+        1007,
+        1477
+      ],
+      "actualAlphaBBox": [
+        6,
+        0,
+        274,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 24894,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/whoopee-butler-ahem",
+      "size": [
+        280,
+        420
+      ],
+      "geometry": "Same penguin butler leaning forward, eyebrow up, flipper lifted to politely ahem.",
+      "prompt": "Use the visible penguin butler as exact identity reference on a transparent 280x420 portrait. Preserve same black-and-white plumage, tail-coat, white gloves, bow tie, beak, tray and teapot, colors and proportions. Change pose/expression only: he leans forward slightly, one eyebrow raised, lifts one flipper as if about to politely clear his throat, beak gives a discreet knowing look. Still side view facing right, full figure/feet visible, bottom-center anchor and matching scale. No text, no extra objects or background. Bright 2D candy-cartoon, navy #24163f outline, soft cel shading. Genuine transparent background.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-butler-ahem.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5a31c19b-70ba-4034-89bc-cf805cc0380f.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5a31c19b-70ba-4034-89bc-cf805cc0380f.png",
+      "file": "party/assets/art/prop/whoopee-butler-ahem.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-butler-ahem.webp",
+      "width": 280,
+      "height": 420,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        142,
+        185,
+        937,
+        1439
+      ],
+      "actualAlphaBBox": [
+        7,
+        0,
+        272,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 23346,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/assets/art/prop/whoopee-butler.webp",
+      "sourceType": "identity-preserving polite-warning pose"
+    },
+    {
+      "key": "prop/whoopee-duchess-hat",
+      "size": [
+        320,
+        200
+      ],
+      "geometry": "Oversized lilac hat, wide brim, layered roses, feathers, ribbons.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game accessory, exact 320x200 landscape. An enormous lilac Sunday hat for a teddy-bear Duchess, wide curved brim, layered roses, soft feathers and flowing ribbons, grand but charming. Front three-quarter view, centered, full hat only and entire brim/ribbons within frame, sized to fit atop a large teddy head. Bright clean 2D candy-cartoon, bold navy #24163f outlines, soft cel shading. Genuine transparent background. No teddy, text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/prop-whoopee-duchess-hat.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-24219e88-e2ff-4f59-8150-4c0f6020181b.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-24219e88-e2ff-4f59-8150-4c0f6020181b.png",
+      "file": "party/assets/art/prop/whoopee-duchess-hat.webp",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-hat.webp",
+      "width": 320,
+      "height": 200,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        8,
+        7,
+        1580,
+        989
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        320,
+        200
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 25258,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "thumb/whoopee-tea",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Central Duchess Teddy whoopee cushion scene, monocle and hat popping, fairy helper giggling.",
+      "prompt": "Use case: illustration-story. Opaque 800x500 thumbnail, central clear action scene. Image 1 provides the small pink Garden Fairy helper's identity/style; Image 2 provides Duchess Teddy's character identity. Show Duchess Teddy sitting on a pink whoopee cushion: big comic white puff cloud, her gold monocle popping outward on its chain, enormous lilac flower hat flying upward, two teacups jumping off the tea table. Behind her chair the tiny pink garden fairy giggles with one hand over her mouth. Compose the Duchess/chair/table as dominant central subjects with faces visible, sunny garden behind. Preserve the fairy and Duchess designs; no additional people/animals. Bright 2D candy-cartoon, thick navy #24163f outlines, soft cel shading, no text, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/thumb-whoopee-tea.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-890154df-0849-4c89-a2df-2a56bf5bb21d.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-890154df-0849-4c89-a2df-2a56bf5bb21d.png",
+      "file": "party/assets/art/thumb/whoopee-tea.webp",
+      "runtimeFile": "party/assets/art/thumb/whoopee-tea.webp",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "status": "generated, aspect-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 117618,
+      "outputFormat": "WEBP RGB q86 method6"
     }
   ]
 }

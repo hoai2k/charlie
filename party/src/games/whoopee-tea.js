@@ -834,7 +834,7 @@ export class Game {
       ui.panel(g, c.x - 44, by - 50, 88, 96, { r: 30, fill: '#fff', stroke: col, lineWidth: 5 });
       g.beginPath(); g.moveTo(c.x - 12, by + 44); g.lineTo(c.x, by + 62); g.lineTo(c.x + 12, by + 44); g.fillStyle = '#fff'; g.fill();
       g.beginPath(); g.rect(c.x - 40, by - 46, 80, 88); g.clip();
-      drawGuest(g, gu.kind, c.x, by + 72, 150, 'walk', { t, step: 0, hat: true });
+      drawGuest(g, gu.kind, c.x, by + 100, 150, 'walk', { t, step: 0, hat: true });
       g.restore();
     }
   }
