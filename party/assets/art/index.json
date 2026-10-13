@@ -890,7 +890,19 @@
     "prop/df-feather": "prop/df-feather.webp",
     "prop/df-snowflake": "prop/df-snowflake.webp",
     "prop/df-music": "prop/df-music.webp",
-    "thumb/dance-freeze": "thumb/dance-freeze.webp"
+    "thumb/dance-freeze": "thumb/dance-freeze.webp",
+    "prop/wand-shooting-star": "prop/wand-shooting-star.webp",
+    "prop/ff-sparkle": "prop/ff-sparkle.webp",
+    "prop/ff-dewdrop": "prop/ff-dewdrop.webp",
+    "prop/ff-petal": "prop/ff-petal.webp",
+    "prop/ff-star": "prop/ff-star.webp",
+    "bg/fairy-hide-seek": "bg/fairy-hide-seek.webp",
+    "bg/garden-grow": "bg/garden-grow.webp",
+    "prop/gg-dirt": "prop/gg-dirt.webp",
+    "prop/gg-sprout": "prop/gg-sprout.webp",
+    "prop/gg-bud": "prop/gg-bud.webp",
+    "prop/gg-sunflower-giggle": "prop/gg-sunflower-giggle.webp",
+    "prop/gg-sunflower": "prop/gg-sunflower.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1231,10 +1243,26 @@
       "bg/wand-shapes",
       "prop/wand-sparkle",
       "prop/wand-heart-balloon",
-      "prop/wand-rainbow"
+      "prop/wand-rainbow",
+      "prop/wand-shooting-star"
     ],
     "fairy-flutter": [
-      "prop/ff-jar"
+      "prop/ff-jar",
+      "prop/ff-sparkle",
+      "prop/ff-dewdrop",
+      "prop/ff-petal",
+      "prop/ff-star"
+    ],
+    "fairy-hide-seek": [
+      "bg/fairy-hide-seek"
+    ],
+    "garden-grow": [
+      "bg/garden-grow",
+      "prop/gg-dirt",
+      "prop/gg-sprout",
+      "prop/gg-bud",
+      "prop/gg-sunflower-giggle",
+      "prop/gg-sunflower"
     ]
   }
 }
