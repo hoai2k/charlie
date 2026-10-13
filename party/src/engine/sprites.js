@@ -111,6 +111,12 @@ export const POSES = {
   crouch:    { loop: true, fallback: ['land'], proc: 'crouch', desc: 'Low playful hiding or obstacle duck.' },
   tuck:      { loop: true, fallback: ['crouch', 'jump'], proc: 'crouch', desc: 'Knees hugged to the chest in a tight somersault ball, eyes happily shut (side-on; games spin it).' },
   'roll-push': { loop: true, fallback: ['walk'], desc: 'Walking bent forward with both hands (paws, or the head for armless characters) pressed against a big snowball, pushing it along.' },
+  // Molly Party poses (games already fall back on their own until art lands)
+  'ride-sit':  { loop: true,  fallback: ['sit', 'ride'], desc: 'Sitting astride a unicorn, legs either side, hands forward holding the mane, happy.' },
+  boop:        { loop: false, fallback: ['high-five', 'action'], desc: 'One finger (paw, hoof) poking forward to boop something on the nose, cheeky grin.' },
+  cuddle:      { loop: false, fallback: ['catch', 'cheer'], desc: 'Both arms wrapped round something held against the chest in a big squeezy hug, eyes shut, smiling.' },
+  'tongue-out': { loop: true, fallback: ['look-up', 'think'], desc: 'Head tipped back looking up, tongue stuck out to catch a snowflake.' },
+  'hose-spray': { loop: true, fallback: ['action'], desc: 'Holding a garden-hose nozzle forward in both hands and spraying (paws or mouth for armless characters).' },
   dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
   'hip-bump': { loop: false, fallback: ['idle'], proc: 'hip-bump', desc: 'Hip-first bump: side-on, hip swung out toward the target, arms up, cheeky grin.' },
   knockback: { loop: true, fallback: ['balance', 'hurt'], proc: 'knockback', desc: 'Bumped: skidding backward, leaning back, arms windmilling, teetering.' },
