@@ -379,3 +379,16 @@ use measured source-image crops for a lid, and redraw the authored silhouette
 at the same fit/anchor for night effects instead of painting a second differently
 shaped procedural object. Match jellyfish world position to bell centre rather
 than the whole canvas centre; test the landmark through scale, tilt and pulse.
+
+
+### Molly production lessons (2026-10-13)
+
+- Molly character approval prompts are waived by the user. Review native masters and runtime contacts, refine problems, then proceed. Preserve approved identities across every expression: check hair colour, skin tone, wing pattern, outfit and proportions side by side. A matching pose label does not prove character consistency.
+- Movement sheets must include actual alternating strides and contact/pass phases. Four nearly identical airborne poses create a bob, not a walk/run cycle. Stable body scale and ground anchors prevent jitter.
+- Keep full-resolution archival source WebPs. Per-frame physical height (usually240px for Molly bodies) and optimizer `frameScales` retain display scale and landmarks while reducing decoded memory. Check full and optimized decoded RGBA budgets separately; download size alone is insufficient.
+- Build QA contact sheets from the actual final runtime paths. A stale source/background can cause a false geometry report. Check the real game using the Molly IDs (`molly-garden-fairy-*`, `molly-glimmer`) which have playable sizes; original IDs remain NPC sizes.
+- Match attachments to measured generated landmarks only when authored art is loaded; preserve procedural fallback geometry. Keep hats, nail polish, window curtains, mattress contact and emitters on the depicted features.
+- Preserve shared key namespaces. Prank the Troll uses `ptroll-*`; `pt-*` belongs to Puppet Theatre. A requested rename can map a new key to already-reviewed art without regenerating pixels.
+- Exact recolour edits can still drift in contour. For Rainbow Painter, drawing the same colour raster with a grayscale filter before reveal keeps identical silhouettes; authored grey variants remain available as fallback. Never manually paint replacement pixels.
+- Concurrent provenance JSON writes require a lock around read/modify/write; image saves should use atomic rename before runtime inspection. Record exact prompts and native paths immediately.
+- Stage only each finished batch's index/provenance rows and source files. HTML import-map hashes must match staged module content, including after merges. Run shell commit sequences with `set -e` so a missing file cannot silently publish a partial code batch. AppleDouble `._*` files inside `.git/objects/pack` are metadata, not Git objects; remove only those sidecars when they cause pack warnings.

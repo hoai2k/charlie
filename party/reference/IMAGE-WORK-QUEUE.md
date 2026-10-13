@@ -7,11 +7,15 @@ approved artwork just because older checkpoints had incomplete coverage.
 
 ## Molly Party delivery — in progress
 
-User waived all future Molly Party character approval gates. Self-review and refine new designs; preserve existing approved identities. Eight completed game batches have now been published and checked in game, through `2ad4cda9`: Garden Grow, Dance and Freeze, Wand Shapes, Sock Match, Fairy Hide and Seek, Cupcake Stack, Bubble Pop and Balloon Float. Sprite pipeline per-file physical scaling is published at `5742eea9` / merge `d6a30d12`, with Python and runtime regressions passing.
+The user reaffirmed that Molly Party characters need no approval prompts. Self-review and refine new designs while preserving approved identities.
 
-All six replacement briefs have landed: bed-bounce, prank-troll, opposite-ballet, whoopee-tea, muddy-mayhem, sneaky-dance. The playable fairy union now contains 56 brief poses plus preserved fly. No further generation for the dropped originals; completed assets remain reusable.
+Published and checked game batches now include Garden Grow, Dance and Freeze, Wand Shapes, Sock Match, Fairy Hide and Seek, Cupcake Stack, Bubble Pop, Balloon Float, Fairy Flutter, Unicorn Jump, Ghost Giggles, Kitten Yarn, Trick-or-Treat, Duckling Parade, Mermaid Pearls, Pumpkin Peekaboo, Snowflake Catch, Bed Bounce, Prank the Troll, Rainbow Painter and Sneaky Dance. Ladybug's completed assets are published for reuse. Latest art delivery: `ef7e695c` (Sneaky Dance); Rainbow art `f3865360` and alignment code `4866edfb`; Snowflake/Bed/Prank integrated and pushed through `904cafd0`.
 
-Current ownership: structural agent six playable fairy expansions; performance agent Unicorn/Ghost/Pumpkin/Snowflake then Bed/Prank/Sneaky; tools agent Trick/Duck/Mermaid then Opposite/Whoopee/Muddy; root Kitten/Rainbow, shared integration, browser QA and publishing. Kitten30-frame atlas extracted and reviewed; layered basket and rare fairy kitten generated, final intake pending. Ladybug old batch finished but held for reuse publication.
+Pink Garden Fairy's full playable set is published at `4bfe72df`: 59 poses, 83 body frames and five portraits, with landmarks and optimized assets. Other five fairy expansions remain in progress. The union is the merged 56-pose brief plus preserved fly, clap and hose-spray; this brief applies to the six Molly fairies, not the original Charlie roster.
+
+Current ownership: structural agent Blue/Purple/Yellow playable fairies; performance agent Green/Glimmer playable fairies; tools agent Whoopee Tea, Muddy Mayhem plus six Puppy reuse assets, Ballet/Opposite consistency fixes and three new QA props; root integration, browser QA, batch publication and Pumpkin witch-cat ring removal. Ballet/Opposite art is generated but held for Madame Papillon identity consistency corrections.
+
+Latest sync `904cafd0` includes new QA requests from `6650f180`: dp-mushroom, duckling-golden, mp-ledge and two ring-free witch-cat expressions. All queued. Earlier dropped original briefs are not expanded, but explicitly kept reuse rows remain required. Completed-status edits and archival changes alone do not trigger regeneration.
 
 The older counts/checkpoints below are production history and will be replaced by a final request inventory after delivery.
 
