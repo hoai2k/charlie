@@ -8,6 +8,11 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Molly Party image delivery — in progress
+
+Synced main through61b9323a;23 new game briefs,317 keys/346 authored frames. Backgrounds/props in production across3 delegated agents; first6 new character designs await user approval at `reference/pending/molly-canonicals/REVIEW.html`. Full ownership/scope/checkpoint in IMAGE-WORK-QUEUE.md and pending/MOLLY-REQUEST-INVENTORY.json. New game modules have not landed; retain open requests until actual gameplay QA. Preserve existing generic shared art; use Molly-specific sibling keys for incompatible dimensions/designs. Publish finished reviewed game batches to main regularly.
+
+
 ### Play Studio image delivery — complete
 
 All ten studio art requests are delivered through `4e6dd8ed`, committed/pushed in minigame/family batches:293 new art images, two accessory replacements and18 approved creature references. Inventory875 keys/855 WebPs. All294 request keys (including reused beach crab) have valid dimensions/alpha and decode. Aquarium fish/colour/puffed variants and all65 environment/decor keys are complete. There is no image work or canonical approval pending; immediate main check was clear. No new timer was requested.
