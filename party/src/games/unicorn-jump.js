@@ -509,12 +509,9 @@ export class Game {
   drawBackground(g) {
     const bg = art('bg/unicorn-jump');
     if (bg) {
+      // The backdrop keeps its decoration above the lanes and a plain meadow
+      // below, so it needs no readability wash.
       drawMirroredScroll(g, bg, W, H, this.dist * 0.2);
-      // The art's big candy hills sit right behind the lanes; a soft milky
-      // wash over the lane area keeps the riders and treats readable.
-      const wash = g.createLinearGradient(0, TOP - 60, 0, TOP + 60);
-      wash.addColorStop(0, 'rgba(255,248,252,0)'); wash.addColorStop(1, 'rgba(255,248,252,0.32)');
-      g.fillStyle = wash; g.fillRect(0, TOP - 60, W, H - TOP + 60);
       if (this.rush) this.drawRushTint(g);
       return;
     }

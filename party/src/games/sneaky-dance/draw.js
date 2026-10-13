@@ -11,9 +11,11 @@ import * as ui from '../../engine/ui.js';
 
 export const NAVY = '#24163f';
 export const FLOOR_Y = 610;
-export const CHAIR = { x: 960, y: 612, w: 420 };
-export const SEAT = { x: 960, y: 520 };
-export const LAMP = { x: 1440, y: 640 };
+// The library backdrop's floor meets the back wall at y ~668: chair legs and
+// the lamp base stand just in front of that line, not on the wainscot.
+export const CHAIR = { x: 960, y: 690, w: 420 };
+export const SEAT = { x: 960, y: 598 };
+export const LAMP = { x: 1440, y: 684 };
 export const BALL = { x: 520 };
 export const BOOK_COLS = ['#ff5a7a', '#3fc1c9', '#9b6bff', '#ffb02e', '#5ccf6b'];
 
