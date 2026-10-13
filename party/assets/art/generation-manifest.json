@@ -13594,6 +13594,1162 @@
       "status": "generated; pending visual integration review",
       "tool": "built-in imagegen",
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0b40c93e-37d2-48db-81e3-a5706fd72d72.png"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "bg/sandcastle-beach",
+      "width": 1920,
+      "height": 1080,
+      "transparent": false,
+      "geometry": "Full screen. **Layout must match:** sky from y=0 to the horizon at y=150, calm sea from 150 to the foamy shoreline at about y=330, a band of darker wet sand to y\u2248370, then dry sand to the bottom. The players' plots are drawn on the dry sand (y 360\u20131066), so keep it plain and low-contrast; a few beach things (umbrella, towel, ball, bucket) only at the far left/right edges between y 380 and 600. Keep the top 110 px calm (HUD)",
+      "description": "A sunny cartoon beach seen from the sand looking out to sea: pale blue sky with two soft clouds, a turquoise sea with gentle sparkles, a lacy white foam line, smooth golden sand with a faint ripple texture. A striped umbrella at the far left and a towel at the far right",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game bg/sandcastle-beach. Primary request: A sunny cartoon beach seen from the sand looking out to sea: pale blue sky with two soft clouds, a turquoise sea with gentle sparkles, a lacy white foam line, smooth golden sand with a faint ripple texture. A striped umbrella at the far left and a towel at the far right. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas1920\u00d71080. Functional geometry:Full screen. **Layout must match:** sky from y=0 to the horizon at y=150, calm sea from 150 to the foamy shoreline at about y=330, a band of darker wet sand to y\u2248370, then dry sand to the bottom. The players' plots are drawn on the dry sand (y 360\u20131066), so keep it plain and low-contrast; a few beach things (umbrella, towel, ball, bucket) only at the far left/right edges between y 380 and 600. Keep the top 110 px calm (HUD). CRITICAL LAYOUT: overwhelmingly EMPTY SAND FOREGROUND fills lower TWO THIRDS of canvas. Sky only top14%(horizon y150of1080), ocean only next17%(150..330), wet sand330..370, dry sand370..1080. Horizon is straight, shoreline horizontal, front-on view. NO SUN. Umbrella and towel tiny at extreme left/right edges between y380..600 only. No castles or animals or people. No foreground props in center. Keep colors quiet. Opaque illustration. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-ef730758-8a16-4902-b0d0-1a02b8f4ff4f.png",
+      "bottom": false,
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/sandcastle-beach.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 84592,
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "sha256": "4f2c13e14c14593b27006c7ffe6a1264e83db54b3f8bb84fa6cbe4f71159781a",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true,
+        "alphaRoundTripVerified": true
+      },
+      "measuredGeometry": {
+        "horizonY": 156,
+        "shorelineY": 330,
+        "wetSandEndY": 400,
+        "pairedGeometryVerified": true,
+        "sunDiscAbsent": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "bg/sandcastle-beach-sunset",
+      "width": 1920,
+      "height": 1080,
+      "transparent": false,
+      "geometry": "Same layout as `bg/sandcastle-beach` (horizon y=150, shoreline y\u2248330); crossfaded over it during the sunset tour. The code draws the sun itself (setting at the horizon around x=960), so leave the sun out",
+      "description": "The same beach at sunset: peach-pink-lilac sky with soft orange clouds, a deep coral-and-violet sea with a golden glitter path down the middle, sand washed warm apricot with long soft shadows",
+      "prompt": "Use case: lighting-weather. Asset type: children'svideo game bg/sandcastle-beach-sunset. Primary request: The same beach at sunset: peach-pink-lilac sky with soft orange clouds, a deep coral-and-violet sea with a golden glitter path down the middle, sand washed warm apricot with long soft shadows. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas1920\u00d71080. Functional geometry:Same layout as `bg/sandcastle-beach` (horizon y=150, shoreline y\u2248330); crossfaded over it during the sunset tour. The code draws the sun itself (setting at the horizon around x=960), so leave the sun out. This is a time-of-day variant of input DAY beach. Change COLORS AND LIGHTING ONLY. Preserve exact horizon, shoreline, wet/dry sand boundaries, every umbrella/towel/object location, framing and geometry. NO SUN DISC (game draws it). Sky peach-pink-lilac, coral/violet sea with middle golden glitter reflection, warm apricot sand; retain extremely subtle foreground texture. No added scenery. Opaque illustration. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-c3402fbd-b4e2-4e2f-995c-320929c319f4.png",
+      "bottom": false,
+      "sourceDimensions": [
+        1672,
+        941
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/sandcastle-beach-sunset.webp",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 110582,
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "sha256": "27ac6521113e50f37c35742d6685c4e367520bcc986a635c03a65d4ea6c7d0e6",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true,
+        "alphaRoundTripVerified": true
+      },
+      "measuredGeometry": {
+        "horizonY": 156,
+        "shorelineY": 330,
+        "wetSandEndY": 400,
+        "pairedGeometryVerified": true,
+        "sunDiscAbsent": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "thumb/sandcastle-beach",
+      "width": 800,
+      "height": 500,
+      "transparent": false,
+      "geometry": "Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback)",
+      "description": "A big cheerful sandcastle with round towers, a pointy tower, little pink and blue flags, shells and an orange starfish, a blue moat around it, a smiling red crab waving a claw in the front corner, a sand bucket and spade, blue sea and sky behind. Subject centred",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game thumb/sandcastle-beach. Primary request: A big cheerful sandcastle with round towers, a pointy tower, little pink and blue flags, shells and an orange starfish, a blue moat around it, a smiling red crab waving a claw in the front corner, a sand bucket and spade, blue sea and sky behind. Subject centred. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas800\u00d7500. Functional geometry:Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback).  Opaque illustration. No text/watermark. Inputimage is approvedcrab IDENTITY reference: preserve round red-coralcrab, stalkeyes, raisedtwo claws, exactlysix littlewalkinglegs; place smallcrab infrontcorner.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-ce4a3d37-e042-431a-afaa-3e2ec77d91b8.png",
+      "bottom": false,
+      "sourceDimensions": [
+        1586,
+        992
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1586,
+        992
+      ],
+      "file": "party/assets/art/thumb/sandcastle-beach.webp",
+      "dimensions": [
+        800,
+        500
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 74556,
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "sha256": "5552b5787b12293f79b0a4df25b2f35a3218f122a56ae55b3c729e4754ba9793",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true,
+        "alphaRoundTripVerified": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-tower",
+      "width": 192,
+      "height": 256,
+      "transparent": true,
+      "geometry": "Round bucket tower, footprint radius 40 units; drawn in a 96\u00d7128-unit box. Its flat top (the stacking surface, which the code uses at 104 units up) has square battlements around the rim",
+      "description": "A round sandcastle tower made with a bucket: packed golden sand with faint horizontal bucket ridges, little square battlements on top, soft shading on the right side",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game prop/sandcastle-tower. Primary request: A round sandcastle tower made with a bucket: packed golden sand with faint horizontal bucket ridges, little square battlements on top, soft shading on the right side. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas192\u00d7256. Functional geometry:Round bucket tower, footprint radius 40 units; drawn in a 96\u00d7128-unit box. Its flat top (the stacking surface, which the code uses at 104 units up) has square battlements around the rim. One ROUND CYLINDRICAL bucket sand tower, not a castle scene. Flat top stacking ellipse centered19%fromtop (y48on256canvas), square battlements above. Front-and-slightly-above view, ellipse depth45%width. Base touchingbottomcanvas, no empty bottom margin. Packedgoldensand, soft right-side shading. True transparent background, no groundshadow or floating effects. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-a00e9294-95e7-4ce3-924a-e440446c5a52.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1086,
+        1448
+      ],
+      "sourceAlphaBounds": [
+        13,
+        37,
+        1072,
+        1432
+      ],
+      "file": "party/assets/art/prop/sandcastle-tower.webp",
+      "dimensions": [
+        192,
+        256
+      ],
+      "alphaBounds": [
+        0,
+        12,
+        192,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15718,
+      "sha256": "dc48532efb24a6536eadf74a89233c548144d3f2e605ae07b14c5a9af739c372",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true,
+        "alphaRoundTripVerified": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "stackingSurfaceCenter": [
+          96,
+          64
+        ],
+        "runtimeStackHeight": 96,
+        "bottomFootprintY": 256,
+        "requestedStackHeight": 104,
+        "runtimeStackHeightFromFrontFootprint": 96,
+        "runtimeStackHeightFromGroundCenter": 78,
+        "proceduralStackHeight": 92
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-tower-window",
+      "width": 192,
+      "height": 256,
+      "transparent": true,
+      "geometry": "Same as `prop/sandcastle-tower` (style 2)",
+      "description": "The same tower with a small arched dark window in the middle and a shell pressed above it",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game prop/sandcastle-tower-window. Primary request: The same tower with a small arched dark window in the middle and a shell pressed above it. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas192\u00d7256. Functional geometry:Same as `prop/sandcastle-tower` (style 2). One ROUND CYLINDRICAL bucket sand tower, not a castle scene. Flat top stacking ellipse centered19%fromtop (y48on256canvas), square battlements above. Front-and-slightly-above view, ellipse depth45%width. Base touchingbottomcanvas, no empty bottom margin. Packedgoldensand, soft right-side shading.Match input tower's exact shape, battlements and golden color; change only requested window/door decorations. True transparent background, no groundshadow or floating effects. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-0ddad793-3299-4a5d-b170-5f06aedaf8fd.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1086,
+        1448
+      ],
+      "sourceAlphaBounds": [
+        0,
+        30,
+        1086,
+        1400
+      ],
+      "file": "party/assets/art/prop/sandcastle-tower-window.webp",
+      "dimensions": [
+        192,
+        256
+      ],
+      "alphaBounds": [
+        0,
+        16,
+        192,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15996,
+      "sha256": "90ce8d7b663b10d5c580e3c65e8cbcfc1286f8b520f79a3794b91ca829853b8e",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "stackingSurfaceCenter": [
+          96,
+          64
+        ],
+        "runtimeStackHeight": 96,
+        "bottomFootprintY": 256,
+        "requestedStackHeight": 104,
+        "runtimeStackHeightFromFrontFootprint": 96,
+        "runtimeStackHeightFromGroundCenter": 78,
+        "proceduralStackHeight": 92
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-tower-door",
+      "width": 192,
+      "height": 256,
+      "transparent": true,
+      "geometry": "Same as `prop/sandcastle-tower` (style 3)",
+      "description": "The same tower with an arched wooden-brown door at the base and two tiny windows",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game prop/sandcastle-tower-door. Primary request: The same tower with an arched wooden-brown door at the base and two tiny windows. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas192\u00d7256. Functional geometry:Same as `prop/sandcastle-tower` (style 3). One ROUND CYLINDRICAL bucket sand tower, not a castle scene. Flat top stacking ellipse centered19%fromtop (y48on256canvas), square battlements above. Front-and-slightly-above view, ellipse depth45%width. Base touchingbottomcanvas, no empty bottom margin. Packedgoldensand, soft right-side shading.Match input tower's exact shape, battlements and golden color; change only requested window/door decorations. True transparent background, no groundshadow or floating effects. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-cc1b18a6-3af0-42f0-8406-b4867af80cd8.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1086,
+        1448
+      ],
+      "sourceAlphaBounds": [
+        0,
+        38,
+        1086,
+        1432
+      ],
+      "file": "party/assets/art/prop/sandcastle-tower-door.webp",
+      "dimensions": [
+        192,
+        256
+      ],
+      "alphaBounds": [
+        0,
+        12,
+        192,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17730,
+      "sha256": "7f7d046d6ec3ba91b8d52b3cc972ed0a69145280e2229c2764b5af3de27952b5",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "stackingSurfaceCenter": [
+          96,
+          64
+        ],
+        "runtimeStackHeight": 96,
+        "bottomFootprintY": 256,
+        "requestedStackHeight": 104,
+        "runtimeStackHeightFromFrontFootprint": 96,
+        "runtimeStackHeightFromGroundCenter": 78,
+        "proceduralStackHeight": 92
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-pointy",
+      "width": 160,
+      "height": 320,
+      "transparent": true,
+      "geometry": "Pointy tower, footprint radius 28 units; drawn in a 70\u00d7150-unit box. Nothing stacks on it",
+      "description": "A slim sand turret with a cone roof made with a cone mold, drippy sand rings on the cone, a tiny round window",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game prop/sandcastle-pointy. Primary request: A slim sand turret with a cone roof made with a cone mold, drippy sand rings on the cone, a tiny round window. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas160\u00d7320. Functional geometry:Pointy tower, footprint radius 28 units; drawn in a 70\u00d7150-unit box. Nothing stacks on it. One sand mold piece only, no scene; gentle three-quarter view front and slightly above. Base ellipse depth45%width; bottomcenter at front footprint edge, no bottom margin. True transparent background, no groundshadow or floating effects. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f94dc7e5-7fb3-4453-a0de-c6a638799495.png",
+      "bottom": true,
+      "sourceDimensions": [
+        858,
+        1834
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        828,
+        1756
+      ],
+      "file": "party/assets/art/prop/sandcastle-pointy.webp",
+      "dimensions": [
+        160,
+        320
+      ],
+      "alphaBounds": [
+        11,
+        0,
+        149,
+        320
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 12260,
+      "sha256": "2ceaae35246a018a371248f66d3db378d2381e73fa89be58f698b2df6972a5d3",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-wall",
+      "width": 256,
+      "height": 176,
+      "transparent": true,
+      "geometry": "Wall running left-right, footprint 120\u00d734 units; drawn in a 128\u00d784-unit box. Top at 58 units",
+      "description": "A straight sand wall with square battlements along the top, packed golden sand with a few pressed-in pebbles",
+      "prompt": "Use case: stylized-concept. Asset type: children'svideo game prop/sandcastle-wall. Primary request: A straight sand wall with square battlements along the top, packed golden sand with a few pressed-in pebbles. House style navy #24163f outlines, rounded appealing forms, bright candy colors, soft clean celshading, no photorealism, no3D. Canvas256\u00d7176. Functional geometry:Wall running left-right, footprint 120\u00d734 units; drawn in a 128\u00d784-unit box. Top at 58 units. One sand mold piece only, no scene; gentle three-quarter view front and slightly above. Base ellipse depth45%width; bottomcenter at front footprint edge, no bottom margin. True transparent background, no groundshadow or floating effects. No text/watermark. ",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-7974077d-7567-43ea-a33d-63e37cc1e26d.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1511,
+        1041
+      ],
+      "sourceAlphaBounds": [
+        52,
+        228,
+        1477,
+        945
+      ],
+      "file": "party/assets/art/prop/sandcastle-wall.webp",
+      "dimensions": [
+        256,
+        176
+      ],
+      "alphaBounds": [
+        0,
+        48,
+        256,
+        176
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9800,
+      "sha256": "2177a38227264ef64a9c726964bbf72dc8e69ba25961cffbafa6c239c4676376",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-wall-side",
+      "width": 128,
+      "height": 208,
+      "transparent": true,
+      "geometry": "The same wall turned to run away from the viewer (style 2), footprint 34 wide \u00d7 100 deep; drawn in a 60\u00d7100-unit box. Top at 58 units",
+      "description": "The same sand wall seen end-on, receding into the distance (a narrow slab with battlements, longer top than front)",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: The same sand wall seen end-on, receding into the distance (a narrow slab with battlements, longer top than front). House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 128\u00d7208. Functional geometry: The same wall turned to run away from the viewer (style 2), footprint 34 wide \u00d7 100 deep; drawn in a 60\u00d7100-unit box. Top at 58 units. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin. Match wall reference's golden sand style and pebbles; TURN the wall90degrees so it runs away from viewer, narrow end facing viewer and top receding up-right. Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-29af04a5-39d3-4f7c-a4ac-f21401cbb692.png",
+      "bottom": true,
+      "sourceDimensions": [
+        984,
+        1599
+      ],
+      "sourceAlphaBounds": [
+        0,
+        120,
+        950,
+        1563
+      ],
+      "file": "party/assets/art/prop/sandcastle-wall-side.webp",
+      "dimensions": [
+        128,
+        208
+      ],
+      "alphaBounds": [
+        3,
+        0,
+        125,
+        208
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8086,
+      "sha256": "47855c5b21739bbbeb8d7e53fa14a0d9874aec1d449c17279ac7428c29f47665",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "frontFootprintCenter": [
+          30,
+          208
+        ],
+        "drawCanvasCenterX": 64,
+        "frontAnchorHorizontalOffsetUnits": -15.94,
+        "notes": "End-on wall recedes diagonally right; authored front footprint is left of canvas centre"
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-dome",
+      "width": 224,
+      "height": 160,
+      "transparent": true,
+      "geometry": "Round sand dome (bowl mold), footprint radius 50 units; drawn in a 110\u00d780-unit box. Top at 52 units",
+      "description": "A smooth half-sphere of packed sand like an upside-down bowl, with a scalloped pattern pressed around its middle",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: A smooth half-sphere of packed sand like an upside-down bowl, with a scalloped pattern pressed around its middle. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 224\u00d7160. Functional geometry: Round sand dome (bowl mold), footprint radius 50 units; drawn in a 110\u00d780-unit box. Top at 52 units. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin. One squat smooth half-sphere sand mound, width224 height104 within lower104px of160px canvas; no cone or battlements. Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f91e5987-80e9-4d80-bb98-10541f53c887.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1484,
+        1060
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        1358,
+        1046
+      ],
+      "file": "party/assets/art/prop/sandcastle-dome.webp",
+      "dimensions": [
+        224,
+        160
+      ],
+      "alphaBounds": [
+        0,
+        11,
+        224,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8262,
+      "sha256": "9739f8da89c8bc5a187c4f49c09eaeb1892cb893ef643724afd7c024e6009e08",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "apexY": 11,
+        "runtimeApexUpFromGround": 52,
+        "bottomFootprintY": 160
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/beach-shell-scallop",
+      "width": 96,
+      "height": 80,
+      "transparent": true,
+      "geometry": "Decorations, drawn in a 40\u00d734-unit box on the sand or on top of a piece",
+      "description": "A pink scallop shell; a cream-and-peach spiral conch; a lilac clam shell slightly open with a tiny pearl",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: One pink scallop shell. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 96\u00d780. Functional geometry: Decorations, drawn in a 40\u00d734-unit box on the sand or on top of a piece. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin.  Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-2f4c4454-f0d9-4d71-9373-b3dc6aa0ca86.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1374,
+        1145
+      ],
+      "sourceAlphaBounds": [
+        57,
+        18,
+        1326,
+        1126
+      ],
+      "file": "party/assets/art/prop/beach-shell-scallop.webp",
+      "dimensions": [
+        96,
+        80
+      ],
+      "alphaBounds": [
+        2,
+        0,
+        93,
+        80
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4264,
+      "sha256": "56b203b81b2c1f35745dce20819874ab9e42115587a14260e2caf9dcac284db0",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/beach-shell-conch",
+      "width": 96,
+      "height": 80,
+      "transparent": true,
+      "geometry": "Decorations, drawn in a 40\u00d734-unit box on the sand or on top of a piece",
+      "description": "A pink scallop shell; a cream-and-peach spiral conch; a lilac clam shell slightly open with a tiny pearl",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: One cream-and-peach spiral conch shell. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 96\u00d780. Functional geometry: Decorations, drawn in a 40\u00d734-unit box on the sand or on top of a piece. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin.  Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-78267501-955b-4dab-bff3-667792f75ab5.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1374,
+        1145
+      ],
+      "sourceAlphaBounds": [
+        47,
+        54,
+        1327,
+        1114
+      ],
+      "file": "party/assets/art/prop/beach-shell-conch.webp",
+      "dimensions": [
+        96,
+        80
+      ],
+      "alphaBounds": [
+        0,
+        0,
+        96,
+        80
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4940,
+      "sha256": "ba93b1ed6836b06b230ec2fd96fd4f6eea9d7a7e30303ea6a26fb529b2641991",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/beach-shell-clam",
+      "width": 96,
+      "height": 80,
+      "transparent": true,
+      "geometry": "Decorations, drawn in a 40\u00d734-unit box on the sand or on top of a piece",
+      "description": "A pink scallop shell; a cream-and-peach spiral conch; a lilac clam shell slightly open with a tiny pearl",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: One lilac clam shell slightly open with one tiny pearl. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 96\u00d780. Functional geometry: Decorations, drawn in a 40\u00d734-unit box on the sand or on top of a piece. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin.  Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-a9f2da05-9fe8-4c51-8e61-f37a2f5e71cf.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1374,
+        1145
+      ],
+      "sourceAlphaBounds": [
+        0,
+        25,
+        1356,
+        1127
+      ],
+      "file": "party/assets/art/prop/beach-shell-clam.webp",
+      "dimensions": [
+        96,
+        80
+      ],
+      "alphaBounds": [
+        3,
+        0,
+        93,
+        80
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4690,
+      "sha256": "4c47d517c7a94f42aa416ed51ef61d19838474a67838dfe35103b98e50245055",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/beach-starfish-orange",
+      "width": 96,
+      "height": 96,
+      "transparent": true,
+      "geometry": "Decoration, drawn in a 44\u00d744-unit box, slightly tilted toward the viewer",
+      "description": "A friendly five-armed starfish with little bumps (dots) on its arms, in orange / bubblegum pink / lavender. No face",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: One orange five-armed starfish with little dotted bumps on its arms, NO FACE. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 96\u00d796. Functional geometry: Decoration, drawn in a 44\u00d744-unit box, slightly tilted toward the viewer. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin.  Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f02972e6-4c31-447b-9ec5-888e5857bfeb.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceAlphaBounds": [
+        0,
+        17,
+        1254,
+        1254
+      ],
+      "file": "party/assets/art/prop/beach-starfish-orange.webp",
+      "dimensions": [
+        96,
+        96
+      ],
+      "alphaBounds": [
+        0,
+        8,
+        96,
+        96
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4686,
+      "sha256": "03241c63a738736ff5ae94de65534975584bf5d9ec92c16cbeb3d3efaaca51d9",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/beach-starfish-pink",
+      "width": 96,
+      "height": 96,
+      "transparent": true,
+      "geometry": "Decoration, drawn in a 44\u00d744-unit box, slightly tilted toward the viewer",
+      "description": "A friendly five-armed starfish with little bumps (dots) on its arms, in orange / bubblegum pink / lavender. No face",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: One bubblegum pink five-armed starfish with little dotted bumps on its arms, NO FACE. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 96\u00d796. Functional geometry: Decoration, drawn in a 44\u00d744-unit box, slightly tilted toward the viewer. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin.  Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-4f55d2cc-3fa9-405f-9764-7ad80ffbcf46.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceAlphaBounds": [
+        22,
+        41,
+        1236,
+        1254
+      ],
+      "file": "party/assets/art/prop/beach-starfish-pink.webp",
+      "dimensions": [
+        96,
+        96
+      ],
+      "alphaBounds": [
+        0,
+        14,
+        96,
+        96
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4108,
+      "sha256": "95d47c2550ac6713c600b31fb0c781c90799774964b067d3738d1a09a28e21b3",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/beach-starfish-purple",
+      "width": 96,
+      "height": 96,
+      "transparent": true,
+      "geometry": "Decoration, drawn in a 44\u00d744-unit box, slightly tilted toward the viewer",
+      "description": "A friendly five-armed starfish with little bumps (dots) on its arms, in orange / bubblegum pink / lavender. No face",
+      "prompt": "Use case: stylized-concept. Asset type: single isolated children's video game beach prop. Primary request: One lavender five-armed starfish with little dotted bumps on its arms, NO FACE. House style: bold smooth dark navy #24163f outlines, rounded appealing shapes, bright candy colors, soft clean cel shading. Requested canvas 96\u00d796. Functional geometry: Decoration, drawn in a 44\u00d744-unit box, slightly tilted toward the viewer. Gentle three-quarter view from front and slightly above. Bottom-center is lowest footprint edge, base touching bottom edge; no empty bottom margin.  Genuine transparent background; no scene, ground shadow, floating effects, text, watermark, or additional objects. No photorealism or3D.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e2455852-1c94-47f1-8a3f-d4ee869d4ee7.png",
+      "bottom": true,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceAlphaBounds": [
+        36,
+        15,
+        1226,
+        1254
+      ],
+      "file": "party/assets/art/prop/beach-starfish-purple.webp",
+      "dimensions": [
+        96,
+        96
+      ],
+      "alphaBounds": [
+        0,
+        20,
+        96,
+        96
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4096,
+      "sha256": "b0f2878f715542be39b7f9de6215fd950fb41634a2a9e4039301f69976bcbda9",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-flag-pink",
+      "width": 96,
+      "height": 192,
+      "transparent": true,
+      "geometry": "Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing",
+      "description": "A thin wooden stick with a triangular pennant flag in pink / sky blue / sunny yellow / mint, with a small white star on the pennant",
+      "prompt": "Use case: stylized-concept. Asset type: one isolated children's video game beach prop. Primary request: One thin straight wooden stick with a small triangular pink pennant at its top, one little white star on the pennant. Pole long and vertical, bottom tip centered on bottom edge. Single pennant points right.. House style: bold smooth navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colors, no photorealism or3D. Canvas 96\u00d7192. Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing. Keep the stick vertical, not diagonal; bottom of pole touches bottom canvas, no stand. Pennant width45px compared with poleheight180px.  True transparent background; no scene, ground shadow, floating effects, text, watermarks, or other objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-712c12ef-f928-495a-a4a3-c3fb2ab3a168.png",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        271,
+        12,
+        768,
+        1774
+      ],
+      "file": "party/assets/art/prop/sandcastle-flag-pink.webp",
+      "dimensions": [
+        96,
+        192
+      ],
+      "alphaBounds": [
+        21,
+        0,
+        75,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 2570,
+      "sha256": "6957ab1946a4ed4ce10f061b5b650ed09ca690e5753129f9cf4323c08b36c846",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "poleTip": [
+          26.513,
+          192
+        ],
+        "runtimeDrawOffsetX": 8.953,
+        "bottomAnchorVerified": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-flag-blue",
+      "width": 96,
+      "height": 192,
+      "transparent": true,
+      "geometry": "Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing",
+      "description": "A thin wooden stick with a triangular pennant flag in pink / sky blue / sunny yellow / mint, with a small white star on the pennant",
+      "prompt": "Use case: stylized-concept. Asset type: one isolated children's video game beach prop. Primary request: One thin straight wooden stick with a small triangular sky-blue pennant at its top, one little white star on the pennant. Pole long and vertical, bottom tip centered on bottom edge. Single pennant points right.. House style: bold smooth navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colors, no photorealism or3D. Canvas 96\u00d7192. Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing. Keep the stick vertical, not diagonal; bottom of pole touches bottom canvas, no stand. Pennant width45px compared with poleheight180px. Change only pink pennant to requested color; preserve exact shape, pole, white star, framing. True transparent background; no scene, ground shadow, floating effects, text, watermarks, or other objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-9397f22a-7879-44a1-98b3-a4066afd4588.png",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        17,
+        0,
+        841,
+        1774
+      ],
+      "file": "party/assets/art/prop/sandcastle-flag-blue.webp",
+      "dimensions": [
+        96,
+        192
+      ],
+      "alphaBounds": [
+        21,
+        0,
+        74,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 2654,
+      "sha256": "3206a164d861a7092589fd94433a9f41c60faa3e8676aea60f2791426518e2a8",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "poleTip": [
+          26.885,
+          192
+        ],
+        "runtimeDrawOffsetX": 8.798,
+        "bottomAnchorVerified": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-flag-yellow",
+      "width": 96,
+      "height": 192,
+      "transparent": true,
+      "geometry": "Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing",
+      "description": "A thin wooden stick with a triangular pennant flag in pink / sky blue / sunny yellow / mint, with a small white star on the pennant",
+      "prompt": "Use case: stylized-concept. Asset type: one isolated children's video game beach prop. Primary request: One thin straight wooden stick with a small triangular sunny-yellow pennant at its top, one little white star on the pennant. Pole long and vertical, bottom tip centered on bottom edge. Single pennant points right.. House style: bold smooth navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colors, no photorealism or3D. Canvas 96\u00d7192. Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing. Keep the stick vertical, not diagonal; bottom of pole touches bottom canvas, no stand. Pennant width45px compared with poleheight180px. Change only pink pennant to requested color; preserve exact shape, pole, white star, framing. True transparent background; no scene, ground shadow, floating effects, text, watermarks, or other objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-7cb35523-8341-42f1-8f29-787692ea3e4b.png",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        55,
+        0,
+        693,
+        1774
+      ],
+      "file": "party/assets/art/prop/sandcastle-flag-yellow.webp",
+      "dimensions": [
+        96,
+        192
+      ],
+      "alphaBounds": [
+        22,
+        0,
+        74,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 2632,
+      "sha256": "d072dac7aa5b3f18d294a729f02772aee4ef73df9351380f3de6d3d356046e01",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "poleTip": [
+          27.394,
+          192
+        ],
+        "runtimeDrawOffsetX": 8.586,
+        "bottomAnchorVerified": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sandcastle-flag-mint",
+      "width": 96,
+      "height": 192,
+      "transparent": true,
+      "geometry": "Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing",
+      "description": "A thin wooden stick with a triangular pennant flag in pink / sky blue / sunny yellow / mint, with a small white star on the pennant",
+      "prompt": "Use case: stylized-concept. Asset type: one isolated children's video game beach prop. Primary request: One thin straight wooden stick with a small triangular mint-green pennant at its top, one little white star on the pennant. Pole long and vertical, bottom tip centered on bottom edge. Single pennant points right.. House style: bold smooth navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colors, no photorealism or3D. Canvas 96\u00d7192. Flag on a stick, drawn in a 40\u00d780-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing. Keep the stick vertical, not diagonal; bottom of pole touches bottom canvas, no stand. Pennant width45px compared with poleheight180px. Change only pink pennant to requested color; preserve exact shape, pole, white star, framing. True transparent background; no scene, ground shadow, floating effects, text, watermarks, or other objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e4134a34-358c-4482-a802-9bb09aa2fb51.png",
+      "bottom": true,
+      "sourceDimensions": [
+        887,
+        1774
+      ],
+      "sourceAlphaBounds": [
+        0,
+        0,
+        754,
+        1774
+      ],
+      "file": "party/assets/art/prop/sandcastle-flag-mint.webp",
+      "dimensions": [
+        96,
+        192
+      ],
+      "alphaBounds": [
+        21,
+        0,
+        75,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 2580,
+      "sha256": "5571330d5e1d92d18153c5b3873b0e99006630fa3302487512356e2a9a3567df",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "measuredGeometry": {
+        "poleTip": [
+          26.696,
+          192
+        ],
+        "runtimeDrawOffsetX": 8.877,
+        "bottomAnchorVerified": true
+      },
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sand-bucket",
+      "width": 192,
+      "height": 192,
+      "transparent": true,
+      "geometry": "UI: the mold tools' icon on the tool bar and the hand cursor (drawn at 40\u201360 px)",
+      "description": "A bright pink plastic beach bucket with a yellow handle and a little sand on the rim",
+      "prompt": "Use case: stylized-concept. Asset type: one isolated children's video game beach prop. Primary request: A bright pink plastic beach bucket with a yellow handle and a little sand on the rim. House style: bold smooth navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colors, no photorealism or3D. Canvas 192\u00d7192. UI: the mold tools' icon on the tool bar and the hand cursor (drawn at 40\u201360 px). Single chunky toy-like icon centered and entirely visible. True transparent background; no scene, ground shadow, floating effects, text, watermarks, or other objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-12bfd4f6-c8ae-49b0-9104-6f3838e8446c.png",
+      "bottom": false,
+      "sourceDimensions": [
+        1254,
+        1254
+      ],
+      "sourceAlphaBounds": [
+        155,
+        153,
+        1216,
+        1182
+      ],
+      "file": "party/assets/art/prop/sand-bucket.webp",
+      "dimensions": [
+        192,
+        192
+      ],
+      "alphaBounds": [
+        1,
+        0,
+        190,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 13498,
+      "sha256": "eaa5f816accf66defbdd1e1e71c149b1fb8187d2f417afbd353da8e2153fcdf1",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
+    },
+    {
+      "game": "sandcastle-beach",
+      "key": "prop/sand-spade",
+      "width": 160,
+      "height": 192,
+      "transparent": true,
+      "geometry": "UI: the moat tool's icon and the cursor while digging (40\u201360 px)",
+      "description": "A blue plastic beach spade with a yellow handle",
+      "prompt": "Use case: stylized-concept. Asset type: one isolated children's video game beach prop. Primary request: A blue plastic beach spade with a yellow handle. House style: bold smooth navy #24163f outlines, rounded appealing shapes, soft clean cel shading, bright candy colors, no photorealism or3D. Canvas 160\u00d7192. UI: the moat tool's icon and the cursor while digging (40\u201360 px). Single chunky toy-like icon centered and entirely visible. True transparent background; no scene, ground shadow, floating effects, text, watermarks, or other objects.",
+      "sourcePath": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-9c955098-d177-4260-bdfb-60bbc0da67c9.png",
+      "bottom": false,
+      "sourceDimensions": [
+        1145,
+        1374
+      ],
+      "sourceAlphaBounds": [
+        82,
+        28,
+        1107,
+        1345
+      ],
+      "file": "party/assets/art/prop/sand-spade.webp",
+      "dimensions": [
+        160,
+        192
+      ],
+      "alphaBounds": [
+        10,
+        0,
+        150,
+        192
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7812,
+      "sha256": "798fb9e20f782d4204ef22ce3fa8b7474a7c399207a099831dc7c9891e4f1395",
+      "encoding": {
+        "format": "WebP",
+        "quality": 86,
+        "method": 6,
+        "losslessAlpha": true
+      },
+      "status": "visually reviewed; root gameplay integration pending",
+      "previousVersions": [],
+      "tool": "built-in imagegen"
     }
   ]
 }

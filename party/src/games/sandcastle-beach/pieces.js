@@ -6,7 +6,7 @@
 // is an ellipse KY as deep as it is wide). `z` lifts a stacked piece off the
 // ground. Every piece looks up generated art first (bottom-centre anchored at
 // the front edge of its footprint) and falls back to procedural drawing.
-import { drawArt } from '../../engine/art.js';
+import { art, drawArt } from '../../engine/art.js';
 import * as ui from '../../engine/ui.js';
 import { starPath } from '../../engine/emotes.js';
 import { TAU, clamp } from '../../engine/util.js';
@@ -54,7 +54,11 @@ export function silhouette(p) {
   const vh = p.type === 'wall' && p.style === 1 ? d.vh + SIDE_WALL.hd : d.vh;
   return [p.x - hw, p.x + hw, p.y - p.z - vh - (p.type === 'wall' && p.style === 1 ? 0 : f.hd), p.y - p.z + f.hd + 4];
 }
-export function topHeight(p) { return DEFS[p.type].top; }
+export function topHeight(p) {
+  // Authored tower: surface y=64/256; its front footprint is drawn 18 units below the ground point.
+  if (p.type === 'tower' && art(artKey(p))) return 128 - 64 / 2 - foot(p).hd;
+  return DEFS[p.type].top;
+}
 export function canStack(p) { return DEFS[p.type].top !== null; }
 
 // --- helpers ----------------------------------------------------------------------
@@ -321,7 +325,9 @@ export function drawPiece(g, p, t, opts = {}) {
   }
   const box = p.type === 'wall' && p.style === 1 ? SIDE_WALL.box : d.box;
   const key = artKey(p);
-  if (!drawArt(g, key, p.x, by + f.hd, box[0], box[1], { anchor: 'bottom' })) {
+  // The receding wall's front footprint is at source x=30, rather than canvas centre x=64.
+  const artX = p.x + (p.type === 'wall' && p.style === 1 ? (64 - 30) / 128 * box[0] : 0);
+  if (!drawArt(g, key, artX, by + f.hd, box[0], box[1], { anchor: 'bottom' })) {
     switch (p.type) {
       case 'tower': drawTower(g, p, by); break;
       case 'pointy': drawPointy(g, p, by); break;
@@ -349,7 +355,10 @@ export function drawPiece(g, p, t, opts = {}) {
 function drawArtSkew(g, key, box, t, seed) {
   const w = Math.sin(t * 6 + seed * 5) * 0.06;
   g.save(); g.transform(1, 0, w, 1, 0, 0);
-  const ok = drawArt(g, key, 0, 0, box[0], box[1], { anchor: 'bottom' });
+  // Measured pole-tip x coordinates on the 96px flag canvases; the pennant makes their bounds asymmetric.
+  const poleX = { pink: 26.513, blue: 26.885, yellow: 27.394, mint: 26.696 }[key?.split('-').pop()];
+  const dx = poleX === undefined ? 0 : (48 - poleX) / 96 * box[0];
+  const ok = drawArt(g, key, dx, 0, box[0], box[1], { anchor: 'bottom' });
   g.restore();
   return ok;
 }
