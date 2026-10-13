@@ -1157,7 +1157,22 @@
     "prop/rp-sun-awake": "prop/rp-sun-awake.webp",
     "prop/rp-bird": "prop/rp-bird.webp",
     "prop/rp-bird-flap": "prop/rp-bird-flap.webp",
-    "prop/rp-paint-star": "prop/rp-paint-star.webp"
+    "prop/rp-paint-star": "prop/rp-paint-star.webp",
+    "bg/sneaky-dance": "bg/sneaky-dance.webp",
+    "thumb/sneaky-dance": "thumb/sneaky-dance.webp",
+    "prop/sd-armchair": "prop/sd-armchair.webp",
+    "prop/sd-hoot-sleep": "prop/sd-hoot-sleep.webp",
+    "prop/sd-hoot-peek": "prop/sd-hoot-peek.webp",
+    "prop/sd-hoot-stare": "prop/sd-hoot-stare.webp",
+    "prop/sd-hoot-yawn": "prop/sd-hoot-yawn.webp",
+    "prop/sd-hoot-party": "prop/sd-hoot-party.webp",
+    "prop/sd-lamp": "prop/sd-lamp.webp",
+    "prop/sd-book-1": "prop/sd-book-1.webp",
+    "prop/sd-book-2": "prop/sd-book-2.webp",
+    "prop/sd-book-3": "prop/sd-book-3.webp",
+    "prop/sd-disguise-book": "prop/sd-disguise-book.webp",
+    "prop/sd-lampshade": "prop/sd-lampshade.webp",
+    "prop/sd-sunglasses": "prop/sd-sunglasses.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1498,7 +1513,20 @@
       "thumb/dance-freeze"
     ],
     "sneaky-dance": [
-      "prop/df-disco-ball"
+      "bg/sneaky-dance",
+      "prop/sd-armchair",
+      "prop/sd-hoot-sleep",
+      "prop/sd-hoot-peek",
+      "prop/sd-hoot-stare",
+      "prop/sd-hoot-yawn",
+      "prop/sd-hoot-party",
+      "prop/sd-lamp",
+      "prop/sd-book-1",
+      "prop/sd-book-2",
+      "prop/sd-book-3",
+      "prop/sd-disguise-book",
+      "prop/sd-lampshade",
+      "prop/sd-sunglasses"
     ],
     "bubble-pop": [
       "bg/bubble-pop",
