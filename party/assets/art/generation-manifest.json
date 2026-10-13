@@ -38260,6 +38260,138 @@
         }
       ],
       "bytes": 5750
+    },
+    {
+      "key": "prop/ballet-move-up",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Preserve original front-view centered ballerina in both-arms-up pose, full figure; add side/twirl-consistent eyes and smile; exact 256x256 transparent square.",
+      "prompt": "Edit the up-pose card only. Preserve the exact ballerina pose, body, pink leotard and tutu, bun, proportions, centered framing, navy #24163f outline, transparent square canvas, and all existing details. The sole correction is her face: add the same friendly little face used on the supplied side/twirl cards: two open dark brown oval eyes with small white highlights, tiny soft brows, and a small cheerful curved smile. Match their simple 2D candy-cartoon line weight and skin tone. Keep facial features legible at thumbnail size. Do not alter pose or add any other character/object/text. True transparent background.",
+      "tool": "built-in imagegen edit",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e66eca0c-c9fd-43f8-be55-a12073d359c2.png",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "referencePaths": [
+        "party/assets/art/prop/ballet-move-up.webp",
+        "party/assets/art/prop/ballet-move-side.webp",
+        "party/assets/art/prop/ballet-move-twirl.webp"
+      ],
+      "previousSourcePath": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-move-up.webp",
+      "source": "party/reference/pending/molly-sources/review-round2/ballet-move-up.webp",
+      "sourcePath": "party/reference/pending/molly-sources/review-round2/ballet-move-up.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-move-up.webp",
+      "width": 256,
+      "height": 256,
+      "bytes": 14206,
+      "runtimeBytes": 14206,
+      "sourceBytes": 445742,
+      "actualAlphaBBox": [
+        59,
+        1,
+        197,
+        255
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "status": "regenerated; self-reviewed; awaiting root intake",
+      "actualGeometry": "Uniform square resize of native 1254x1254, no crop or reposition; alpha>8 runtime bbox [59, 1, 197, 255].",
+      "editPrompt": "Edit the up-pose card only. Preserve the exact ballerina pose, body, pink leotard and tutu, bun, proportions, centered framing, navy #24163f outline, transparent square canvas, and all existing details. The sole correction is her face: add the same friendly little face used on the supplied side/twirl cards: two open dark brown oval eyes with small white highlights, tiny soft brows, and a small cheerful curved smile. Match their simple 2D candy-cartoon line weight and skin tone. Keep facial features legible at thumbnail size. Do not alter pose or add any other character/object/text. True transparent background."
+    },
+    {
+      "key": "prop/ballet-move-plie",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Preserve original centered, front-view deep pli\u00e9 with knees bent outward and arms rounded low; full figure and side/twirl-consistent face; exact 256x256 transparent square.",
+      "prompt": "Edit this pli\u00e9-pose card while preserving its exact deep crouched pose, bent knees, low rounded arms, pink tutu/leotard, bun, centered framing, navy #24163f outline and transparent square canvas. Add to its blank face the same friendly simple face shown on the supplied side/twirl ballerina cards: two open dark brown oval eyes with tiny white highlights, small soft brows, and a cheerful curved smile, matching their skin tone and 2D candy-cartoon style. Keep all of the pose and composition unchanged; no extra character, object or text. True transparent background.",
+      "tool": "built-in imagegen edit",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-03384b16-6408-4c46-8879-f281e53f8fcf.png",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "referencePaths": [
+        "party/assets/art/prop/ballet-move-plie.webp",
+        "party/assets/art/prop/ballet-move-side.webp",
+        "party/assets/art/prop/ballet-move-twirl.webp"
+      ],
+      "previousSourcePath": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-move-plie.webp",
+      "source": "party/reference/pending/molly-sources/review-round2/ballet-move-plie.webp",
+      "sourcePath": "party/reference/pending/molly-sources/review-round2/ballet-move-plie.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-move-plie.webp",
+      "width": 256,
+      "height": 256,
+      "bytes": 17982,
+      "runtimeBytes": 17982,
+      "sourceBytes": 576954,
+      "actualAlphaBBox": [
+        38,
+        0,
+        218,
+        252
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "status": "regenerated; self-reviewed; awaiting root intake",
+      "actualGeometry": "Uniform square resize of native 1254x1254, no crop or reposition; alpha>8 runtime bbox [38, 0, 218, 252].",
+      "editPrompt": "Edit this pli\u00e9-pose card while preserving its exact deep crouched pose, bent knees, low rounded arms, pink tutu/leotard, bun, centered framing, navy #24163f outline and transparent square canvas. Add to its blank face the same friendly simple face shown on the supplied side/twirl ballerina cards: two open dark brown oval eyes with tiny white highlights, small soft brows, and a cheerful curved smile, matching their skin tone and 2D candy-cartoon style. Keep all of the pose and composition unchanged; no extra character, object or text. True transparent background."
+    },
+    {
+      "key": "prop/duckling-golden",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Same canonical duckling pose and 160x160 bottom-aligned frame as prop/duckling, with unmistakable bright reflective gold/amber foil feather surface and preserved face/beak/feet.",
+      "prompt": "Repaint only the feather material on this exact 160x160 duckling-golden sprite. Preserve the same duckling identity, face, eyes, orange beak, feet, pose, silhouette, scale, framing, bottom alignment, navy outline and transparent canvas. The body and head must read unmistakably as polished metallic GOLD/AMBER foil, not ordinary yellow feathers: rich deep amber-gold base, darker bronze-orange reflected shadow bands, bright pale champagne specular streaks and crisp white-gold highlights across head, cheeks, wings and belly, with clear high-contrast shiny metal reflections. Keep the existing tiny gold sparkle marks if present but they are secondary; metallic reflective material must be obvious even without sparkles. 2D candy-cartoon cel-shaded illustration, smooth navy #24163f outline, no 3D render, no photorealism, no extra props, words or background. Match exact framing of the normal approved duckling.",
+      "tool": "built-in imagegen edit",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-01edeccd-2e28-41dd-852a-19da5a573462.png",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "referencePaths": [
+        "party/assets/art/prop/duckling-golden.webp",
+        "party/assets/art/prop/duckling.webp",
+        "party/reference/canonical/molly-duckling.webp"
+      ],
+      "previousSourcePath": "party/reference/pending/molly-sources/duckling-parade/prop-duckling-golden.webp",
+      "source": "party/reference/pending/molly-sources/review-round2/duckling-golden.webp",
+      "sourcePath": "party/reference/pending/molly-sources/review-round2/duckling-golden.webp",
+      "runtimeFile": "party/assets/art/prop/duckling-golden.webp",
+      "width": 160,
+      "height": 160,
+      "bytes": 10010,
+      "runtimeBytes": 10010,
+      "sourceBytes": 732982,
+      "actualAlphaBBox": [
+        34,
+        0,
+        130,
+        158
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "status": "regenerated; self-reviewed; awaiting root intake",
+      "actualGeometry": "Uniform square resize of native 1254x1254, no crop or reposition; alpha>8 runtime bbox [34, 0, 130, 158].",
+      "editPrompt": "Repaint only the feather material on this exact 160x160 duckling-golden sprite. Preserve the same duckling identity, face, eyes, orange beak, feet, pose, silhouette, scale, framing, bottom alignment, navy outline and transparent canvas. The body and head must read unmistakably as polished metallic GOLD/AMBER foil, not ordinary yellow feathers: rich deep amber-gold base, darker bronze-orange reflected shadow bands, bright pale champagne specular streaks and crisp white-gold highlights across head, cheeks, wings and belly, with clear high-contrast shiny metal reflections. Keep the existing tiny gold sparkle marks if present but they are secondary; metallic reflective material must be obvious even without sparkles. 2D candy-cartoon cel-shaded illustration, smooth navy #24163f outline, no 3D render, no photorealism, no extra props, words or background. Match exact framing of the normal approved duckling."
     }
   ]
 }
