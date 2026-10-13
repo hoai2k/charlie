@@ -708,7 +708,21 @@
     "prop/acrobat-balloon-mint": "prop/acrobat-balloon-mint.webp",
     "bg/acrobat-circus": "bg/acrobat-circus.webp",
     "bg/acrobat-circus-ring": "bg/acrobat-circus-ring.webp",
-    "thumb/acrobat-circus": "thumb/acrobat-circus.webp"
+    "thumb/acrobat-circus": "thumb/acrobat-circus.webp",
+    "prop/star-maker-moon": "prop/star-maker-moon.webp",
+    "prop/star-maker-bunny": "prop/star-maker-bunny.webp",
+    "prop/star-maker-kitty": "prop/star-maker-kitty.webp",
+    "prop/star-maker-bird": "prop/star-maker-bird.webp",
+    "prop/star-maker-butterfly": "prop/star-maker-butterfly.webp",
+    "prop/star-maker-fish": "prop/star-maker-fish.webp",
+    "prop/star-maker-whale": "prop/star-maker-whale.webp",
+    "prop/star-maker-unicorn": "prop/star-maker-unicorn.webp",
+    "prop/star-maker-dragon": "prop/star-maker-dragon.webp",
+    "prop/star-maker-moon-wow": "prop/star-maker-moon-wow.webp",
+    "prop/star-maker-moon-wink": "prop/star-maker-moon-wink.webp",
+    "prop/star-maker-moon-sleepy": "prop/star-maker-moon-sleepy.webp",
+    "bg/star-maker": "bg/star-maker.webp",
+    "thumb/star-maker": "thumb/star-maker.webp"
   },
   "groups": {
     "puppet-theater": [

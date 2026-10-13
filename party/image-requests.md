@@ -1155,38 +1155,6 @@ puppets, sticks and sparkles are drawn by code.
 No new sprite poses are needed (stick puppets use existing poses: wave,
 laugh, celebrate, dance, surprised, think, sad, sleep, bow, cheer, jump).
 
-## New Play Studio game: star-maker
-
-### star-maker — Star Maker   (requested by the star-maker agent, 2026-10-05, priority: nice-to-have)
-
-A cosy night sky on a hilltop: players place stars, join them into
-constellations, and each finished constellation comes alive as a glowing
-"star spirit" animal that plays in the sky. A friendly Moon in a nightcap
-crosses the sky as the clock. Everything below has a procedural fallback that
-ships today; the code already looks up every key, so a file listed in
-`assets/art/index.json` drops in with no code change. House style: navy
-`#24163f` outlines (except the glowing spirits, see below), soft cel shading,
-bright candy colours, **no text** in any image. The stars, constellation
-lines, shooting stars and the twinkling star field stay procedural (they are
-tinted per player and animated). Reused as they are: the roster sprites
-(`look-up`, `cast`, `cheer`, `celebrate`, `wave`, `photo`, `strike3` and the
-shared photo poses).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/star-maker` | 1920×1080, opaque | Full screen, drawn at 0,0. The sky (y 0–840) must stay calm: the code draws ~250 twinkling stars, the players' constellations, the Moon and the spirits on top. The hill crest runs across the width at about y 930–960; characters stand on it with their feet at y≈1040. Keep the bottom-left 120×120 plain (an "i" button sits there) and the top ~100 px calm (HUD band) | A cosy hilltop under a deep night sky: a smooth gradient from deep indigo at the top to soft violet-plum near the horizon, a faint pink-teal milky-way haze running diagonally, only a handful of tiny painted stars. Below, soft rolling hills in layered indigo/purple with a gentle moonlit rim, a few round silhouetted trees at the far left and right edges, a small striped tent with a warm glowing lantern at the left, a little brass telescope on a tripod at the right, a long picnic blanket along the crest, fireflies. Cosy and calm, not dark or spooky |
-| `thumb/star-maker` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Night sky over a little hill: a glowing star-line constellation of a bunny with its luminous pastel bunny spirit hopping out of it, a smiling crescent Moon wearing a pink striped nightcap, a shooting star, and a girl character on the hill pointing up with a star wand. Subject centred, candy-bright on deep indigo |
-| `prop/star-maker-moon` | 400×400, transparent | The Moon friend. Drawn centred on the moon position, fitted to a 190×190 box (the moon disc is ~150 px across). Bobs and tilts in code. Disc centred, about 70% of the canvas; the nightcap may poke out at the top-right | A round, pale buttery-yellow full Moon with a soft cratered texture, a sweet sleepy-happy face (closed happy arc eyes, rosy cheeks, small smile) and a pink-and-white striped nightcap with a white pompom flopping to the right, soft glow edge |
-| `prop/star-maker-moon-wow` | 400×400, transparent | Same framing as `prop/star-maker-moon`; shown for ~1 s when a constellation comes alive or a wish is caught | Same Moon and nightcap, delighted: big open sparkly eyes and a round "oo" mouth, cheeks extra rosy |
-| `prop/star-maker-moon-wink` | 400×400, transparent | Same framing; shown when the Moon talks (text bubbles) | Same Moon and nightcap, winking with one eye and a big smile |
-| `prop/star-maker-moon-sleepy` | 400×400, transparent | Same framing; shown at the end of the night (showcase) | Same Moon and nightcap, eyes half closed, a tiny yawn, very cosy |
-| `prop/star-maker-bunny`, `prop/star-maker-kitty`, `prop/star-maker-bird`, `prop/star-maker-butterfly`, `prop/star-maker-fish`, `prop/star-maker-whale`, `prop/star-maker-unicorn`, `prop/star-maker-dragon` | 512×512 each, transparent | The star spirits. Drawn centred on the creature, fitted to a square of 2 × its size (the constellation's size), mirrored in code to face left, with code-side hop, bob, squash, spin and a soft coloured halo drawn underneath in the owner's colour. So: **facing right, side view (butterfly: front view), centred, filling ~85% of the canvas**, no ground, no shadow | Luminous constellation spirits, like a star chart drawing come to life: a cute <bunny / kitty / little songbird / butterfly / round fish / friendly whale / unicorn / small friendly dragon with tiny wings> made of soft glowing white-to-pastel light with a bright white glowing outline (instead of the navy outline), a translucent pale lilac-blue body with tiny star sparkles inside, a few bright star points at its joints (eye, paws, tail tip), happy closed-arc or dot eyes. Gentle and cuddly, never scary |
-
-Optional future upgrade (no code change needed until frames exist): a
-`point-up` pose (loop: no; fallback `cast` → `action`) of the character
-pointing a finger or paw up at the sky, would sell placing a star better than
-`cast`.
-
 ## New Play Studio game: aquarium
 
 ### aquarium — Dream Aquarium   (requested by the aquarium agent, 2026-10-05, priority: nice-to-have)

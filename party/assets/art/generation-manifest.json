@@ -13226,6 +13226,374 @@
       "alpha_bounds_px": null,
       "status": "generated; pending visual integration review",
       "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/star-maker-moon",
+      "output_path": "party/assets/art/prop/star-maker-moon.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its bold smooth deep-navy outlines, rounded appealing shapes, expressive face, bright colors and soft cel shading, without copying Felicity's anatomy or outfit. Subject: an original friendly full round buttery-yellow Moon character, softly cratered, with a sleepy-happy face (closed happy arc eyes, rosy cheeks, small smile) and a pink-and-white striped nightcap with a white pompom flopping to the right. The Moon disc is round and full, never crescent-shaped. Composition: one single centered character, front three-quarter view, entire moon and nightcap visible with generous transparent margin. Style: polished clean storybook game illustration, consistent with Felicity. Background: genuinely transparent. Constraints: preserve a simple circular silhouette, clear warm expression, no scenery, no floating stars, no text, no watermark, no other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-moon.webp",
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "target_size_px": [
+        400,
+        400
+      ],
+      "actual_geometry": "direct square resize; preserves moon framing/identity and alpha",
+      "format": "webp",
+      "bytes": 24652,
+      "alpha_bounds_px": [
+        28,
+        22,
+        397,
+        374
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-moon.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-moon.webp"
+    },
+    {
+      "key": "prop/star-maker-bunny",
+      "output_path": "party/assets/art/prop/star-maker-bunny.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: cute bunny, side view facing right, with long soft ears and a tiny star at its tail tip. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bunny.webp",
+      "source_size_px": [
+        1402,
+        1122
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 37094,
+      "alpha_bounds_px": [
+        26,
+        51,
+        502,
+        461
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-bunny.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bunny.webp"
+    },
+    {
+      "key": "prop/star-maker-kitty",
+      "output_path": "party/assets/art/prop/star-maker-kitty.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: cute kitten, side view facing right, with a curled tail and tiny star points at its paws. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-kitty.webp",
+      "source_size_px": [
+        1374,
+        1145
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 43612,
+      "alpha_bounds_px": [
+        15,
+        48,
+        506,
+        463
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-kitty.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-kitty.webp"
+    },
+    {
+      "key": "prop/star-maker-bird",
+      "output_path": "party/assets/art/prop/star-maker-bird.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: little songbird, side view facing right, with a rounded body, small beak and tiny wing. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bird.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 25306,
+      "alpha_bounds_px": [
+        24,
+        85,
+        425,
+        420
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-bird.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bird.webp"
+    },
+    {
+      "key": "prop/star-maker-butterfly",
+      "output_path": "party/assets/art/prop/star-maker-butterfly.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: butterfly, front view, with four rounded luminous wings and a tiny body. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-butterfly.webp",
+      "source_size_px": [
+        1230,
+        1278
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 64606,
+      "alpha_bounds_px": [
+        9,
+        4,
+        502,
+        499
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-butterfly.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-butterfly.webp"
+    },
+    {
+      "key": "prop/star-maker-fish",
+      "output_path": "party/assets/art/prop/star-maker-fish.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: round little fish, side view facing right, with small fins and a softly curved tail. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-fish.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 28380,
+      "alpha_bounds_px": [
+        0,
+        112,
+        477,
+        381
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-fish.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-fish.webp"
+    },
+    {
+      "key": "prop/star-maker-whale",
+      "output_path": "party/assets/art/prop/star-maker-whale.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: friendly small whale, side view facing right, with a rounded body, little fins and a tiny upward water spout. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-whale.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 31276,
+      "alpha_bounds_px": [
+        19,
+        85,
+        512,
+        412
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-whale.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-whale.webp"
+    },
+    {
+      "key": "prop/star-maker-unicorn",
+      "output_path": "party/assets/art/prop/star-maker-unicorn.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: cute unicorn, side view facing right, with a flowing mane, small horn and tiny star at its tail tip. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-unicorn.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 37812,
+      "alpha_bounds_px": [
+        0,
+        85,
+        473,
+        422
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-unicorn.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-unicorn.webp"
+    },
+    {
+      "key": "prop/star-maker-dragon",
+      "output_path": "party/assets/art/prop/star-maker-dragon.webp",
+      "prompt": "Runtime prop populated directly from approved canonical character art; no new generation. Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: small friendly dragon with tiny wings, side view facing right, round snout, little horns, curved tail. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-dragon.webp",
+      "source_size_px": [
+        1374,
+        1145
+      ],
+      "target_size_px": [
+        512,
+        512
+      ],
+      "actual_geometry": "proportional contain into square 512\u00d7512 transparent canvas; preserves canonical glow/identity",
+      "format": "webp",
+      "bytes": 44630,
+      "alpha_bounds_px": [
+        0,
+        63,
+        503,
+        462
+      ],
+      "canonical_reference": "party/reference/canonical/star-maker-dragon.webp",
+      "status": "approved canonical used as base prop",
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-dragon.webp"
+    },
+    {
+      "key": "prop/star-maker-moon-wow",
+      "output_path": "party/assets/art/prop/star-maker-moon-wow.webp",
+      "prompt": "Using the supplied approved full Moon character as the exact visual identity and composition reference, create a transparent-background expression variant of the same character. Preserve the centered complete round buttery-yellow full Moon disc, exact pink-and-white striped floppy nightcap with pompom, crater texture, outline, palette, soft glow edge, and same scale/placement/framing. Only change the face to this expression: same Moon and nightcap, delighted: big open sparkly eyes and a round \"oo\" mouth, cheeks extra rosy. Square 400x400 composition, no extra objects, no text, no background.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c19df41-a855-4b27-b1e2-65672fb72478.png",
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "target_size_px": [
+        400,
+        400
+      ],
+      "actual_geometry": "direct square resize; preserves moon framing/identity and alpha",
+      "format": "webp",
+      "bytes": 25926,
+      "alpha_bounds_px": [
+        13,
+        21,
+        397,
+        375
+      ],
+      "canonical_reference": null,
+      "status": "generated; pending visual integration review",
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c19df41-a855-4b27-b1e2-65672fb72478.png"
+    },
+    {
+      "key": "prop/star-maker-moon-wink",
+      "output_path": "party/assets/art/prop/star-maker-moon-wink.webp",
+      "prompt": "Using the supplied approved full Moon character as the exact visual identity and composition reference, create a transparent-background expression variant of the same character. Preserve the centered complete round buttery-yellow full Moon disc, exact pink-and-white striped floppy nightcap with pompom, crater texture, outline, palette, soft glow edge, and same scale/placement/framing. Only change the face to this expression: same Moon and nightcap, winking with one eye and a big smile. Square 400x400 composition, no extra objects, no text, no background.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-04b41648-f75f-4ae5-aa1d-231a7d7b1082.png",
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "target_size_px": [
+        400,
+        400
+      ],
+      "actual_geometry": "direct square resize; preserves moon framing/identity and alpha",
+      "format": "webp",
+      "bytes": 25500,
+      "alpha_bounds_px": [
+        27,
+        22,
+        397,
+        393
+      ],
+      "canonical_reference": null,
+      "status": "generated; pending visual integration review",
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-04b41648-f75f-4ae5-aa1d-231a7d7b1082.png"
+    },
+    {
+      "key": "prop/star-maker-moon-sleepy",
+      "output_path": "party/assets/art/prop/star-maker-moon-sleepy.webp",
+      "prompt": "Using the supplied approved full Moon character as the exact visual identity and composition reference, create a transparent-background expression variant of the same character. Preserve the centered complete round buttery-yellow full Moon disc, exact pink-and-white striped floppy nightcap with pompom, crater texture, outline, palette, soft glow edge, and same scale/placement/framing. Only change the face to this expression: same Moon and nightcap, eyes half closed, a tiny yawn, very cosy. Square 400x400 composition, no extra objects, no text, no background.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6064acb3-a7de-4a93-8aec-f246271c7e04.png",
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "target_size_px": [
+        400,
+        400
+      ],
+      "actual_geometry": "direct square resize; preserves moon framing/identity and alpha",
+      "format": "webp",
+      "bytes": 25858,
+      "alpha_bounds_px": [
+        24,
+        22,
+        397,
+        375
+      ],
+      "canonical_reference": null,
+      "status": "generated; pending visual integration review",
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6064acb3-a7de-4a93-8aec-f246271c7e04.png"
+    },
+    {
+      "key": "bg/star-maker",
+      "output_path": "party/assets/art/bg/star-maker.webp",
+      "prompt": "Use case: illustration-story. Asset type: full-screen background layer for a children's party game. Primary request: A cosy hilltop under a deep night sky, smooth gradient from deep indigo at the top to soft violet-plum near the horizon, faint pink-teal Milky Way haze running diagonally, only a handful of tiny painted stars. Below, soft rolling hills in layered indigo/purple with a gentle moonlit rim, a few round silhouetted trees at far left and right edges, a small striped tent with warm glowing lantern at left, little brass telescope on a tripod at right, long picnic blanket along the crest, tiny fireflies. Composition: 16:9; hill crest across width at y\u2248930\u2013960, characters stand with feet at y\u22481040; sky y=0\u2013840 stays calm and uncluttered, top ~100px calm for HUD; bottom-left 120\u00d7120 remains plain for an info button. Cozy and calm, not dark or spooky, no characters, no large stars, no text, no UI, no watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6acc87ff-65ce-489a-adf1-b8425a5fbe27.png",
+      "source_size_px": [
+        1672,
+        941
+      ],
+      "target_size_px": [
+        1920,
+        1080
+      ],
+      "actual_geometry": "opaque center cover to 1920\u00d71080",
+      "format": "webp",
+      "bytes": 144836,
+      "alpha_bounds_px": null,
+      "canonical_reference": null,
+      "status": "generated; pending visual integration review",
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6acc87ff-65ce-489a-adf1-b8425a5fbe27.png"
+    },
+    {
+      "key": "thumb/star-maker",
+      "output_path": "party/assets/art/thumb/star-maker.webp",
+      "prompt": "Create an 800x500 landscape, opaque, candy-bright storybook game-select thumbnail over a cosy deep indigo night sky and little hill. Use the supplied approved Felicity character reference as exact identity for the girl, shown standing on the hill pointing up with a star wand. Include the approved round full Moon character (not crescent) wearing its same pink striped nightcap, and the approved luminous white-pastel bunny spirit hopping out of a glowing star-line bunny constellation. Add one shooting star. Keep subject centered and readable with warm magical glow. Match their approved visual identities and shapes, no extra characters, no text.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0b40c93e-37d2-48db-81e3-a5706fd72d72.png",
+      "source_size_px": [
+        1586,
+        992
+      ],
+      "target_size_px": [
+        800,
+        500
+      ],
+      "actual_geometry": "opaque center cover to 800\u00d7500",
+      "format": "webp",
+      "bytes": 82256,
+      "alpha_bounds_px": null,
+      "canonical_reference": null,
+      "status": "generated; pending visual integration review",
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0b40c93e-37d2-48db-81e3-a5706fd72d72.png"
     }
   ]
 }
