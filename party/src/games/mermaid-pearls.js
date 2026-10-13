@@ -1047,7 +1047,6 @@ function drawStarfish(g, x, y, s, color) {
 }
 
 function drawFishArt(g, x, y, s, col, face, t) {
-  if (drawArt(g, `prop/mp-fish-${(col % 3) + 1}`, 0, 0, 0, 0) && false) return;
   const key = `prop/mp-fish-${(col % 3) + 1}`;
   if (art(key)) {
     g.save(); g.translate(x, y); g.scale(face, 1); g.rotate(Math.sin(t * 6) * 0.08);
