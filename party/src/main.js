@@ -4,7 +4,7 @@
 //   ?scene=sprites                     sprite viewer (all characters x all poses)
 //   ?game=<id>                         jump straight to a minigame's intro
 //     &players=4 &humans=1             player count / how many are human (rest CPU)
-//     &chars=fox,bronze                characters for P1, P2... (repeats get the next colour scheme)
+//     &chars=fox,bronze                characters for P1, P2... (repeats get the next colour scheme; NPC ids such as glimmer work for testing)
 //     &auto=1                          every player is CPU (watch the AI play)
 //     &skipintro=1                     skip the how-to-play screen
 //     &level=0..2                      CPU difficulty
@@ -30,7 +30,7 @@ import { songTag } from './engine/songtag.js';
 import * as ui from './engine/ui.js';
 import { session, makePlayer, newAIController, randomFreeCharacter, assignGlows } from './state.js';
 import { variantCount } from './data/variants.js';
-import { CHARACTERS } from './data/characters.js';
+import { ALL_ENTRIES } from './data/characters.js';
 
 import { SpriteViewerScene } from './scenes/spriteviewer.js';
 
@@ -93,7 +93,7 @@ function setupDebugPlayers() {
   const n = Math.max(1, Math.min(8, parseInt(params.get('players') || '4', 10)));
   const auto = params.has('auto');
   const humans = auto ? 0 : Math.min(n, parseInt(params.get('humans') || '1', 10));
-  const chars = (params.get('chars') || '').split(',').filter((c) => CHARACTERS.some((x) => x.id === c));
+  const chars = (params.get('chars') || '').split(',').filter((c) => ALL_ENTRIES.some((x) => x.id === c));   // NPCs too (testing)
   session.cpuLevel = parseInt(params.get('level') || '0', 10) || 0;
   const humanCtrls = [input.keyboards[0], input.keyboards[1]];
   session.players = [];

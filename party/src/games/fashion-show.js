@@ -53,7 +53,7 @@ const DONE_BTN = 'back'; // View: "I'm done" on the runway
 
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
 function mix(a, b, t) { const A = hex(a), B = hex(b); return `rgb(${A.map((x, i) => Math.round(x + (B[i] - x) * t)).join(',')})`; }
-const popK = (t) => (t < 0.4 ? 0.25 + ease.outBack(t / 0.4) * 0.75 : 1);
+const popK = (t) => (t <= 0 ? 0.25 : t < 0.4 ? 0.25 + ease.outBack(t / 0.4) * 0.75 : 1);
 
 /** Split-screen station rects: 1 = big center, 2 = halves, 3-4 = quadrants, 5-8 = 4x2 grid. */
 function stationRects(n) {
