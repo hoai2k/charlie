@@ -1852,3 +1852,181 @@ New Molly poses (descriptions in `POSES`, src/engine/sprites.js): `ride-sit` (un
 **Step 3 — character data (lead):** the lead registers them as a Molly Party
 roster (character select shows fairies when playing Molly Party) once the
 user confirms the decision after trying the games.
+
+## New Molly Party game: bed-bounce
+
+### bed-bounce — No Jumping on the Bed!   (requested by the bed-bounce agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Choo-Choo Shapes (`shape-train`); it reuses none of its art. A huge
+fluffy bed in a cosy bedroom at night, seen from the side. Nanny Moo (a NEW
+character: a kindly, slightly pompous cow in a nightcap and a pink dressing
+gown) says goodnight and shuts the door. BOUNCE! Players hold A to bounce
+higher and higher (stick steers left/right), grab stars and feathers in the
+air, bonk each other with pillows (feather explosions) and touch the
+glow-star stickers on the ceiling. When the hallway light shows under the
+door, thump-thump footsteps come and the handle wiggles, everyone lets go
+and flops under the duvet fake-snoring before Nanny Moo peeks in. Anyone
+still bouncing gets a pompous stare and a few stars wobble out. Teddies and
+the cat start bouncing too; feathers fill the room. Finale: Nanny Moo comes
+in, sighs at the feather storm... and jumps on the bed herself. Every key has
+a procedural fallback that ships today. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, cosy night palette (deep
+blue-violet with warm lamp-glow accents), **no text** in any image. Player
+avatars use existing poses (see the bed-bounce final report for the list).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/bed-bounce` | 1920×1080, opaque | Full screen. **No bed and no door in it** (both are drawn by code). The code draws the bed over x≈90–1490, y≈440–1040, the door in the right wall at x≈1580–1820, y≈380–930 (keep that wall area plain, wallpaper only), glow-star stickers along the ceiling at y≈150–200. Floor line at y≈930. Keep the top 110 px calm (HUD) | A cosy child's bedroom at night, side view: deep blue-violet wallpaper with tiny pale stars, a round window on the upper left with a big smiling crescent moon and twinkling stars outside, a toy shelf with books and toys, a fluffy round rug on a warm wooden floor, a little night-light glow. Calm and dreamy, soft lamp-glow highlights |
+| `thumb/bed-bounce` | 800×500, opaque | Game-select shelf and how-to screen | A giant fluffy bed with kids'-party energy: a cartoon fairy and a teddy bear bouncing sky-high with pillows, feathers exploding everywhere, a cow in a nightcap peeking round a door with one eyebrow raised, a moonlit window. Subject centred, no recognisable roster characters |
+| `prop/bb-bed` | 1400×600, transparent | Drawn at x=90, y=440 at 1400×600 (top-left anchor); the code squashes it slightly when people land. Headboard on the LEFT (0–14% of the width, full height). **The mattress top where feet land is at 53% from the top (y≈760 on screen), flat from 14% to 100% of the width**; the duvet covers it (code draws sleeper lumps on top). Legs reach the bottom edge | A huge puffy cartoon bed, side view: a tall rounded wooden headboard with a heart cut-out on the left, a thick bouncy mattress, a fluffy pastel-pink quilted duvet with a star pattern draped over the side, two big pillows by the headboard, short stubby legs |
+| `prop/bb-door` | 240×550, transparent | Anchor top-left at (1580, 380), drawn 240×550 when shut. When peeking the code squeezes it horizontally towards the hinge (right side) to swing it open | A rounded-top wooden bedroom door, front view, painted cream with a little moon-and-star decoration, a round brass knob on the LEFT side |
+| `prop/nanny-moo` | 512×640, transparent | Anchor bottom-centre on the floor (y≈930); drawn 400 px tall, facing left. Used for the goodnight wave and the finale walk-in | Nanny Moo: a kindly, slightly prim cartoon cow standing upright, white with soft black patches, pink snout, little curved horns, a long droopy blue-striped nightcap with a pompom, a fluffy pink dressing gown with a belt, bunny slippers, holding a small glowing night-light lantern (electric, no flame). Raised eyebrow, warm smile |
+| `prop/nanny-moo-peek` | 400×480, transparent | Anchor bottom-RIGHT; drawn 300 px wide with its right edge at the door's opening edge (x≈1600, bottom at y≈800) so she leans out round the door frame | Nanny Moo leaning in sideways to peek: just her head with the nightcap, one shoulder and a hand holding the night-light lantern, one eyebrow raised suspiciously, looking left |
+| `prop/nanny-moo-jump` | 512×640, transparent | Anchor centre; drawn 420 px tall in the finale, bouncing high above the bed (the code moves and squashes her) | Nanny Moo mid-bounce with delight: arms flung up, dressing gown flapping, nightcap flying up, slippers kicked off, eyes shut laughing |
+| `prop/bb-pillow` | 256×192, transparent | Anchor centre; drawn 90 px wide in each player's hand (code rotates it for swings) | A fluffy white rectangular pillow with soft puffy corners and a tiny lace edge |
+| `prop/bb-feather` | 128×128, transparent | Anchor centre; drawn 40–70 px, drifting and spinning | A single soft white downy feather with a faint pink tip |
+| `prop/bb-star` | 128×128, transparent | Anchor centre; drawn 70 px, floating collectible (golden variant tinted by code) | A plump golden five-point star with a happy face, rosy cheeks and a white shine |
+| `prop/bb-glowstar` | 128×128, transparent | Anchor centre; drawn 60 px, stuck to the ceiling in a row (code makes them glow when touched) | A pale yellow-green glow-in-the-dark plastic star sticker, softly glowing |
+| `prop/bb-teddy` | 256×256, transparent | Anchor bottom-centre; drawn 120 px tall, bouncing on the bed | A cuddly brown teddy bear with a red bow tie, arms up, mid-bounce, happy face |
+| `prop/bb-cat` | 256×256, transparent | Anchor bottom-centre; drawn 110 px tall, bouncing on the bed | A fluffy ginger cat leaping with all four paws spread out and a delighted face, tail up |
+
+## New Molly Party game: prank-troll
+
+### prank-troll — Prank the Sleeping Troll   (requested by the prank-troll agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Ladybug Spots (`ladybug-spots`). Reuses: nothing from it (the
+meadow is new because of the big tree). The big friendly troll (the Charlie
+Party NPC, same look as `assets/sprites/troll`) is snoring against a big
+tree in a sunny meadow. Players tiptoe to prank baskets around the meadow
+(a crayon, flowers, bows, a party hat, a tickle feather, glitter, nail
+polish), carry one to the troll and press A: a curly moustache appears,
+flowers in his hair, bows on his ears, a party hat, glitter in his beard,
+pink toenails. Feather tickles build to a huge flower-shower SNEEZE. When he
+stirs (snore stops, an eye cracks open, a big "!"), everyone freezes and
+turns into a bush; anyone wiggling gets a sleepy swat and tumbles away
+giggling. Finale: he wakes, a garden fairy holds up a mirror, he ROARS with
+laughter and dances in his prank outfit. **The code draws every prank on top
+of the troll art,** so the troll images must match the face/hair/feet
+positions below. Every key has a procedural fallback that ships today.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text**. The mirror fairy is a `garden-fairy-*` NPC sprite.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/prank-troll` | 1920×1080, opaque | Full screen. A big tree trunk centred at x=960 with its base at y≈560 (the troll sits against it; the code draws him, so leave the trunk base clear). Players walk everywhere below y≈540. Keep the top 110 px calm (HUD) | A sunny summer meadow from a high 3/4 view: a huge old friendly oak in the top middle with a wide leafy crown, soft green grass with mowed stripes, daisies, buttercups and clover, a few tall flowers and bushes framing the left and right edges, butterflies, blue sky peeking at the top corners |
+| `thumb/prank-troll` | 800×500, opaque | Game-select shelf and how-to screen | A big friendly troll snoring against a tree with a curly drawn-on moustache, flowers in his hair, a party hat and bows on his ears, little giggling fairies tiptoeing up with a feather and a crayon, Zzz bubbles. Subject centred |
+| `prop/pt-troll-asleep` | 900×760, transparent | Anchor bottom-centre at (960, 640), drawn 640×540 (front view, sitting against the tree with legs stretched out towards the viewer, big bare feet at the bottom). **Positions (fractions of the image, x / y):** face centre 0.50 / 0.27; eyes at 0.44 and 0.56 / 0.24; nose 0.50 / 0.30 (moustache sits just under it at 0.50 / 0.34); ears at 0.31 and 0.69 / 0.26; top of the head 0.50 / 0.06; hair sides 0.36 and 0.64 / 0.16; beard/chin 0.50 / 0.42; big toes at 0.27 and 0.73 / 0.92. Eyes **closed**, mouth open snoring, no moustache, no beard decorations | The big friendly troll from Charlie Party (olive-green spotted skin, long shaggy dark-brown hair, a scruffy short brown beard, brown ragged loincloth, big bare feet), sitting asleep against a tree trunk, arms folded on his round belly, head tilted, mouth open snoring, front view, legs stretched towards the viewer with the soles of his big feet showing |
+| `prop/pt-troll-awake` | 900×760, transparent | Same size, anchor and face/ear/toe positions as `pt-troll-asleep` (the pranks stay on). Used in the finale; the code bobs and sways it | The same troll, same sitting framing, eyes wide open and a huge belly-laugh with mouth wide open, arms flung up, tears of laughter |
+| `prop/pt-basket` | 256×192, transparent | Anchor bottom-centre; drawn 150 px wide at each prank station; the code draws the item floating above it | A small woven wicker picnic basket with a gingham cloth, front view |
+| `prop/pt-crayon` | 128×128, transparent | Anchor centre; drawn 70 px (carried overhead, station item) | A chunky dark-brown wax crayon with a paper wrapper, tilted |
+| `prop/pt-moustache` | 256×128, transparent | Anchor centre at the moustache point; drawn 170 px wide (grows to 230 px for the second level) | A big curly hand-drawn cartoon moustache with twirly ends, dark brown, looking like crayon |
+| `prop/pt-flower` | 128×128, transparent | Anchor centre; drawn 56 px, stuck in the troll's hair (several, tinted pink/yellow/blue by code) | A cheerful daisy-like flower with white petals and a yellow centre |
+| `prop/pt-bow` | 160×128, transparent | Anchor centre; drawn 90 px on each ear | A big glossy pink ribbon bow with white polka dots |
+| `prop/pt-party-hat` | 192×256, transparent | Anchor bottom-centre at the top of the head; drawn 120×160, slightly tilted | A striped cone party hat (pink, yellow, blue stripes) with a fluffy pompom and an elastic string |
+| `prop/pt-feather` | 192×128, transparent | Anchor at the quill end; drawn 110 px, wiggling at his nose | A long fluffy rainbow tickle feather |
+| `prop/pt-glitter` | 128×160, transparent | Anchor centre; drawn 60 px (station item / carried) | A small round shaker jar of rainbow glitter with a pink lid, sparkles |
+| `prop/pt-polish` | 96×160, transparent | Anchor centre; drawn 50 px (station item / carried) | A tiny bottle of bubblegum-pink nail polish with a silver cap |
+| `prop/pt-bush` | 320×300, transparent | Anchor bottom-centre on a frozen player; drawn about 1.2× the player's width. The code shows the player's eyes peeking through | A round leafy cartoon bush with a few little flowers on it, front view, with two small gaps in the leaves near the top |
+| `prop/pt-mirror` | 192×256, transparent | Anchor centre; drawn 130 px, held up by the fairy in the finale | An oval hand mirror with a golden curly frame and a handle, the glass shining pale blue with a sparkle |
+
+## New Molly Party game: opposite-ballet
+
+### opposite-ballet — Opposite Ballet   (requested by the opposite-ballet agent, 2026-10-13, priority: nice-to-have)
+
+The cheeky flip of Butterfly Ballet. Madame Papillon, the butterfly-fairy
+ballet teacher, is VERY serious: she shows a move on a big picture card, then
+a cheeky little imp pops up and flips the card round to the OPPOSITE move
+(arms up ↔ plié down, step left ↔ step right, twirl ↔ stand still like a
+statue), and that's what everyone does. Every correct opposite is a silly
+flamboyant pose with butterflies and giggles, and Madame gets more and more
+flustered (antennae droop, her tiara spins off, she stamps her foot, her tutu
+sproings). Every few moves a golden "copy me for real!" card (golden sparkle,
+the imp is shooed away) swaps back to normal. At the end Madame gives up,
+laughs and does the silliest dance of all. Every key has a procedural
+fallback that ships today; the code looks up every key with `art()`. House
+style: navy `#24163f` outlines, soft cel shading, bright candy colours,
+**no text**.
+
+Reuses (keep alive): `bg/ballet-butterflies` (fallback background when
+`bg/opposite-ballet` is missing), `prop/ballet-teacher`,
+`prop/ballet-teacher-up`, `-twirl`, `-plie`, `-side`, `-bow`,
+`prop/ballet-move-up`, `-twirl`, `-plie`, `-side`,
+`prop/ballet-butterfly-pink`, `-blue`, `-yellow`, `-purple`,
+`prop/ballet-petal`, and the shared wardrobe (`butterfly-wings`,
+`fairy-wings`, `petal-wings`, `tiara`, `flower-crown`). Player poses used:
+`dance-up`, `dance-down`, `dance-side`, `pose-twirl`, `balance`, `bow`,
+`celebrate`, `cheer`, `dance`, `laugh`, `surprised`, plus the new pose below.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/opposite-ballet` | 1920×1080, opaque | Full screen, same layout as `bg/ballet-butterflies`: stage floor from y≈600 down (dancers at y≈760–1010), Madame at top centre (x 960, y 120–460), the move card to her right (x≈1300–1640, y≈130–470) and the control hint on the left (x≈300–580, y≈160–440): keep those calm. Top ~120 px calm for the HUD | The same magical flower ballet stage at golden hour, but topsy-turvy and cheeky: a few things upside down (a potted tulip hanging upside down from the vine arch, a ballet barre bent into a wiggle, a mirror on a stand that shows a rainbow), giant pale-pink flower stage floor, rose-and-vine arches left and right, lilac sky with clouds, fairy lights |
+| `thumb/opposite-ballet` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Madame Papillon the butterfly-fairy teacher (see `prop/ballet-teacher`) pointing her arms UP, looking flustered with her tiara spinning off, while a little pink garden fairy in a tutu does a deep silly plié DOWN with her tongue out and a cheeky grin; a tiny purple imp holds a big curly "flip" arrow between them; butterflies everywhere. No Charlie Party player characters. Subject centred |
+| `prop/oballet-imp` | 256×256, transparent | The card-flipping imp. Anchor: centre. Drawn ~150 px tall peeking up from behind the move card's bottom-left corner, then hops over it; the code tilts, bounces and flips it horizontally | A tiny cheeky purple imp (friendly, round, big grin, little horns that are really just curls, a striped jester collar), one hand reaching up as if grabbing a card edge, the other hand covering a giggle. Cute, not scary |
+| `prop/oballet-imp-shoo` | 256×256, transparent | Same anchor/size; shown when a golden card comes and the imp is shooed off | The same imp tumbling away backwards with a pouty "aww" face, little stars round its head |
+| `prop/oballet-flip-arrow` | 256×256, transparent | Centred badge on the flipped card's corner (90–120 px), the code spins it | A chunky curved two-headed swirl arrow (like a U-turn loop), rainbow gradient, sparkly, navy outline |
+| `prop/oballet-move-statue` | 256×256, transparent | Drawn centred inside the white move card (fitted to 240 px), like the reused `prop/ballet-move-*` pictograms | The same little pink ballerina silhouette (round head, bun) standing perfectly still like a statue: arms by her sides, feet together, a small pedestal under her feet, two tiny "still" lines either side |
+| `prop/oballet-card-gold` | 360×360, transparent | The golden "copy me for real!" card frame, drawn 300×300 centred behind the pictogram (the code adds the sparkles) | A rounded square card with a shiny gold frame, cream centre (empty), little gold stars on the corners |
+| `prop/oballet-teacher-statue` | 512×640, transparent | Same anchor and size as `prop/ballet-teacher` (bottom centre = her feet, drawn 330 px tall); shown while she demonstrates the new "statue" move | Madame Papillon frozen like an elegant garden statue: chin up, arms in a graceful low fifth, standing very straight on her toes, eyes closed, very proud |
+| `prop/oballet-teacher-flustered` | 512×640, transparent | Same anchor/size; shown between moves once she is flustered | Madame Papillon flustered and pompous: antennae drooping, bun coming loose, cheeks pink, hands on hips, one foot stamping, tutu sproinging out, eyebrows up in exasperation (comic, not angry). No tiara (the code draws/spins it) |
+| `prop/oballet-teacher-silly` | 512×640, transparent | Same anchor/size; finale (the code spins and bounces it) | Madame Papillon giving up and laughing: doing the silliest dance, one leg kicked up, arms flapping like a chicken, tongue out, wings flapping wildly, big belly laugh |
+| `prop/oballet-tiara` | 128×96, transparent | Centred; sits on Madame's bun, pops off and spins as she gets flustered (drawn ~70 px wide) | A small sparkly gold ballet tiara with pink gems |
+
+New player pose (for every playable incl. the garden fairies): `silly-pose`
+| loop: no | fallback: `strike3`, `dance-star` | A flamboyant goofy ta-da: one leg
+kicked up behind, arms flung wide, tongue poking out with a cheeky grin.
+
+## New Molly Party game: whoopee-tea
+
+### whoopee-tea — Whoopee Tea Party   (requested by the whoopee-tea agent, 2026-10-13, priority: nice-to-have)
+
+The cheeky flip of Teddy Tea Party. The very posh Duchess Teddy (monocle,
+pearls, enormous hat) is having a garden tea party, and her prim guests (a
+poodle, a bunny, a fancy pig, a kitty) stroll in through the garden gates and
+head for a chair (the chair glows in their colour and dotted pawprints lead
+to it). Players grab whoopee cushions from a basket and sneak them onto
+chairs before the guest sits: PFFFT! The guest gasps, their hat flies off,
+the teacups and jelly on that table jump, then everybody collapses giggling.
+A penguin butler patrols and politely confiscates any cushion he catches you
+carrying (you just grab another). A spring toy frog can be hidden in a
+table's sugar bowl. The finale is a giant golden super-whoopee that everyone
+pushes onto the Duchess's throne: a huge slow-motion PFFFT, and she laughs so
+hard her hat flies to the moon. Every key has a procedural fallback that
+ships today; the code looks up every key with `art()`. House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text**. No
+Charlie Party player characters anywhere (the guests, the Duchess and the
+butler are new characters).
+
+Reuses: nothing from `tea-party` (its art keys can move to history as
+dropped). Player poses used: `idle`, `walk`, `run`, `carry`, `catch`,
+`action`, `push`, `surprised`, `giggle`, `laugh`, `cheer`, `celebrate`,
+`clap`, plus the new pose below.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/whoopee-tea` | 1920×1080, opaque | Full screen. A tall garden hedge runs across the back (top of the lawn at y≈330) with an arched garden gate in it at the left (x≈170) and the right (x≈1750) where guests walk in. Lawn from y≈330 to the bottom (players run on y 380–1040). The code draws the tea tables, chairs, the throne at the top centre (x 960, y≈430), the cushion baskets and everyone. Top ~110 px calm for the HUD | A posh storybook garden tea party lawn: neatly clipped tall green hedge with two white arched garden gates, a striped pastel bunting garland, topiary balls in pots, rose bushes, a smooth striped mowed lawn, soft blue sky with a couple of clouds peeping over the hedge. No tables, chairs or characters |
+| `thumb/whoopee-tea` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A very posh teddy bear Duchess with a monocle, pearls and a giant flowery hat just sat on a pink whoopee cushion: a huge comic puff cloud, her monocle popping out, hat flying up, teacups jumping off the table, a little garden fairy behind the chair giggling with a hand over her mouth. Subject centred |
+| `prop/whoopee-cushion` | 192×144, transparent | Centred; drawn ~110×80 on a chair seat, carried overhead, in the basket. Code squashes it | A classic cartoon whoopee cushion: round pink rubber bladder with a little nozzle at the front, a shiny highlight, slightly puffy |
+| `prop/whoopee-cushion-flat` | 192×144, transparent | Same anchor; shown for a moment after it goes off | The same cushion completely flattened and wrinkly after use |
+| `prop/whoopee-golden` | 480×320, transparent | Centred, the giant golden super-whoopee, drawn ~300×200; the code adds sparkles and a squash | A giant shiny GOLD whoopee cushion with sparkles and a little gold bow on the nozzle |
+| `prop/whoopee-basket` | 320×240, transparent | Bottom-anchored on the lawn (bottom centre at the basket's feet), drawn 220×165 | A wicker picnic basket overflowing with pink and lilac whoopee cushions |
+| `prop/whoopee-table` | 320×280, transparent | Small round garden tea table, bottom-anchored (bottom centre = its feet), drawn 230×200. The code draws the jelly and sugar bowl on the top surface (≈62% up from the bottom) | A small round tea table with a white lace tablecloth, a rose-pattern teapot and two teacups with saucers |
+| `prop/whoopee-chair` | 220×300, transparent | A garden chair seen 3/4 from the front, bottom-anchored, drawn 140×190. The seat is ≈42% up from the bottom (the code places the cushion and the sitter there) | A dainty white wrought-iron garden chair with a curly heart-shaped back and a pale sky-blue seat pad (NOT pink, so the pink whoopee cushion stands out on it) |
+| `prop/whoopee-throne` | 360×440, transparent | The Duchess's chair at the top centre, bottom-anchored at (960, 430), drawn 230×280; seat ≈40% up from the bottom | A grand pink-velvet high-backed armchair with gold frame, a crown on top of the back, tassels |
+| `prop/whoopee-guest-poodle`, `prop/whoopee-guest-bunny`, `prop/whoopee-guest-pig`, `prop/whoopee-guest-kitty` | 320×420 each, transparent | Full body standing, front-facing (bottom centre = feet), drawn ~200 px tall; the code bobs and flips it for walking. **No hat** (drawn separately) | Prim and proper party guests, a little pompous and very lovable: a pink poodle with a pom-pom hairdo and pearls; a white bunny with a lace collar and a parasol; a round pink pig in a frilly dress, nose in the air; a fluffy white kitty with a big blue bow, holding a teacup with pinkie out |
+| `prop/whoopee-guest-<kind>-sit` (poodle, bunny, pig, kitty) | 320×420 each, transparent | Same size; drawn sitting on a chair seat (bottom centre = their bottom on the seat) | The same four guests sitting very primly, legs together, sipping tea, eyes closed in a posh way. No hat |
+| `prop/whoopee-guest-<kind>-gasp` (poodle, bunny, pig, kitty) | 320×420 each, transparent | Same framing as `-sit`; shown the instant the cushion goes off | The same guests jolted upright, eyes huge, mouth an "O" of shock, ears/fur sticking straight up, cheeks blushing. No hat |
+| `prop/whoopee-guest-<kind>-laugh` (poodle, bunny, pig, kitty) | 320×420 each, transparent | Same framing; shown after the gasp | The same guests collapsing with laughter: eyes squeezed shut, holding their tummies, tears of laughter. No hat |
+| `prop/whoopee-hat-<kind>` (poodle, bunny, pig, kitty) | 160×120 each, transparent | Centred; sits on the guest's head and flies off spinning when the cushion goes off (drawn ~90 px) | Each guest's hat on its own: tiny feathered pink hat; straw bonnet with ribbons; flowery wide hat; blue pillbox hat |
+| `prop/whoopee-duchess` | 360×460, transparent | The Duchess walking in (bottom centre = feet, drawn ~250 px tall) | Duchess Teddy: a plump honey-brown teddy bear in a lavender ball gown, long pearl necklace, a monocle on a gold chain, nose in the air, very grand and pompous but lovable, front view. **No hat** (drawn separately) |
+| `prop/whoopee-duchess-sit`, `prop/whoopee-duchess-gasp`, `prop/whoopee-duchess-laugh` | 360×460 each, transparent | Same framing, sitting on the throne (bottom centre = her bottom on the seat) | The Duchess sitting regally; the same jolted upright with her monocle popping out and mouth wide open; the same rocking back in a huge belly laugh, eyes shut, tears of joy. No hat |
+| `prop/whoopee-duchess-hat` | 320×200, transparent | Centred; drawn ~200 px wide on her head, then rockets to the moon spinning | An enormous lilac Sunday hat piled with roses, feathers and ribbons |
+| `prop/whoopee-butler` | 280×420, transparent | The penguin butler, bottom centre = feet, drawn ~210 px tall, side view facing right (the code flips him) | A very proper penguin butler in a tail-coat and white gloves, a bow tie, holding a silver tray with a teapot high on one flipper, beak in the air |
+| `prop/whoopee-butler-ahem` | 280×420, transparent | Same framing; shown when he has spotted someone carrying a cushion | The same penguin butler leaning forward with one eyebrow raised, flipper up as if about to clear his throat, comic and polite (no text) |
+| `prop/whoopee-frog` | 160×160, transparent | Centred, drawn ~90 px; carried overhead, then springs out of a sugar bowl | A green wind-up toy frog on a big silly spring, googly eyes, wide grin |
+| `prop/whoopee-sugarbowl` | 128×112, transparent | Centred on a tea table top, drawn ~64 px; its lid jumps when the frog springs out | A little white porcelain sugar bowl with pink roses and a lid |
+| `prop/whoopee-jelly` | 128×128, transparent | Bottom-anchored on a tea table, drawn ~70 px; the code wobbles and hops it | A shiny wobbly strawberry jelly on a plate with a cherry on top |
+| `prop/whoopee-moon` | 256×256, transparent | Top-right of the screen in the finale (centred ~(1620, 240), drawn 200 px) with the Duchess's hat landing on it | A big smiling crescent moon with rosy cheeks, laughing, sparkles around it |
+
+New player pose (for every playable incl. the garden fairies): `tiptoe` |
+loop: yes | fallback: `carry`, `walk` | Sneaking on tiptoe, hunched, holding
+something hidden overhead, cheeky sideways grin.
