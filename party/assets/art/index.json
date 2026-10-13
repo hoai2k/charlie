@@ -1241,7 +1241,25 @@
     "thumb/opposite-ballet": "thumb/opposite-ballet.webp",
     "prop/dp-mushroom": "prop/dp-mushroom.webp",
     "prop/duckling-golden": "prop/duckling-golden.webp",
-    "prop/mp-ledge": "prop/mp-ledge.webp"
+    "prop/mp-ledge": "prop/mp-ledge.webp",
+    "bg/muddy-mayhem": "bg/muddy-mayhem.webp",
+    "prop/mm-granny": "prop/mm-granny.webp",
+    "prop/mm-granny-spray": "prop/mm-granny-spray.webp",
+    "prop/mm-granny-gasp": "prop/mm-granny-gasp.webp",
+    "prop/mm-granny-muddy": "prop/mm-granny-muddy.webp",
+    "prop/mm-sheet": "prop/mm-sheet.webp",
+    "prop/puppy-1": "prop/puppy-1.webp",
+    "prop/puppy-2": "prop/puppy-2.webp",
+    "prop/puppy-3": "prop/puppy-3.webp",
+    "prop/puppy-4": "prop/puppy-4.webp",
+    "prop/mud-puddle": "prop/mud-puddle.webp",
+    "prop/mm-rug": "prop/mm-rug.webp",
+    "prop/mm-basket": "prop/mm-basket.webp",
+    "prop/mm-fence": "prop/mm-fence.webp",
+    "prop/mm-mega-puddle": "prop/mm-mega-puddle.webp",
+    "prop/mm-splat": "prop/mm-splat.webp",
+    "thumb/muddy-mayhem": "thumb/muddy-mayhem.webp",
+    "bg/puppy-splash": "bg/puppy-splash.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1972,6 +1990,33 @@
       "prop/whoopee-butler",
       "prop/whoopee-butler-ahem",
       "prop/whoopee-duchess-hat"
+    ],
+    "muddy-mayhem": [
+      "bg/muddy-mayhem",
+      "prop/mm-granny",
+      "prop/mm-granny-spray",
+      "prop/mm-granny-gasp",
+      "prop/mm-granny-muddy",
+      "prop/mm-sheet",
+      "prop/puppy-1",
+      "prop/puppy-2",
+      "prop/puppy-3",
+      "prop/puppy-4",
+      "prop/mud-puddle",
+      "prop/mm-rug",
+      "prop/mm-basket",
+      "prop/mm-fence",
+      "prop/mm-mega-puddle",
+      "prop/mm-splat",
+      "bg/puppy-splash"
+    ],
+    "puppy-splash": [
+      "bg/puppy-splash",
+      "prop/puppy-1",
+      "prop/puppy-2",
+      "prop/puppy-3",
+      "prop/puppy-4",
+      "prop/mud-puddle"
     ]
   }
 }

@@ -1,0 +1,260 @@
+{
+  "game": "puppy-splash",
+  "assets": [
+    {
+      "key": "bg/puppy-splash",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Blue house with pink door; porch deck band y170\u2013330; open lawn below; fences far edges.",
+      "prompt": "Molly Party Puppy Splash background, exact opaque wide 1920\u00d71080 canvas, high three-quarter sunny backyard view. Along the top y=0\u2013170 show the bottom part of a cheerful pastel-blue house with simple windows and a distinctive pink door; across y\u2248170\u2013330 a continuous honey-wood porch deck spans the full width; below y\u2248330 is a broad bright green lawn with a few tiny daisies. Add a low white picket fence only along the far left and far right edges, and a few flower beds in far corners. Keep the top 110 px calm/open for timer HUD and the bottom 120 px mostly plain grass for score. Leave the lawn center open for gameplay. Crisp polished 2D candy-cartoon, smooth navy #24163f outlines, soft cel shading, bright colors. No puppies, characters, washing line, pool, mud puddles, beds, props, text, watermark or border. No 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/puppy-splash/bg-puppy-splash.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-50e60970-f4bb-43d9-bc36-b2c3ac4caeaf.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-50e60970-f4bb-43d9-bc36-b2c3ac4caeaf.png",
+      "file": "party/assets/art/bg/puppy-splash.webp",
+      "runtimeFile": "party/assets/art/bg/puppy-splash.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors",
+      "sourceCrop": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 190958,
+      "outputFormat": "WEBP RGB q86 method6"
+    },
+    {
+      "key": "prop/puppy-1",
+      "size": [
+        220,
+        180
+      ],
+      "geometry": "Bottom-centre feet anchor; small clean canine matching its approved breed canonical, mirrored if desired; no costumes or effects.",
+      "description": "Reused the approved Molly puppy-cream canonical; no new image generation.",
+      "prompt": "Existing approved canonical reuse. Preserve the approved puppy identity, coat markings, outline and proportions; alpha-cropped and repackaged to the requested 220\u00d7180 bottom-anchored canvas.",
+      "source": "party/reference/pending/molly-sources/muddy-mayhem/prop-puppy-1.webp",
+      "sourceInput": "party/reference/canonical/molly-puppy-cream.webp",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "file": "party/assets/art/prop/puppy-1.webp",
+      "runtimeFile": "party/assets/art/prop/puppy-1.webp",
+      "width": 220,
+      "height": 180,
+      "tool": "existing approved canonical reuse",
+      "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors",
+      "sourceCrop": [
+        37,
+        22,
+        1334,
+        1116
+      ],
+      "actualAlphaBBox": [
+        3,
+        0,
+        216,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 16644,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true,
+      "sharedWith": "muddy-mayhem"
+    },
+    {
+      "key": "prop/puppy-2",
+      "size": [
+        220,
+        180
+      ],
+      "geometry": "Bottom-centre feet anchor; small clean canine matching its approved breed canonical, mirrored if desired; no costumes or effects.",
+      "description": "Reused the approved Molly puppy-poodle canonical; no new image generation.",
+      "prompt": "Existing approved canonical reuse. Preserve the approved puppy identity, coat markings, outline and proportions; alpha-cropped and repackaged to the requested 220\u00d7180 bottom-anchored canvas.",
+      "source": "party/reference/pending/molly-sources/muddy-mayhem/prop-puppy-2.webp",
+      "sourceInput": "party/reference/canonical/molly-puppy-poodle.webp",
+      "sourceSize": [
+        1355,
+        1161
+      ],
+      "file": "party/assets/art/prop/puppy-2.webp",
+      "runtimeFile": "party/assets/art/prop/puppy-2.webp",
+      "width": 220,
+      "height": 180,
+      "tool": "existing approved canonical reuse",
+      "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors",
+      "sourceCrop": [
+        82,
+        18,
+        1331,
+        1151
+      ],
+      "actualAlphaBBox": [
+        11,
+        0,
+        209,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15584,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true,
+      "sharedWith": "muddy-mayhem"
+    },
+    {
+      "key": "prop/puppy-3",
+      "size": [
+        220,
+        180
+      ],
+      "geometry": "Bottom-centre feet anchor; small clean canine matching its approved breed canonical, mirrored if desired; no costumes or effects.",
+      "description": "Reused the approved Molly puppy-beagle canonical; no new image generation.",
+      "prompt": "Existing approved canonical reuse. Preserve the approved puppy identity, coat markings, outline and proportions; alpha-cropped and repackaged to the requested 220\u00d7180 bottom-anchored canvas.",
+      "source": "party/reference/pending/molly-sources/muddy-mayhem/prop-puppy-3.webp",
+      "sourceInput": "party/reference/canonical/molly-puppy-beagle.webp",
+      "sourceSize": [
+        1315,
+        1196
+      ],
+      "file": "party/assets/art/prop/puppy-3.webp",
+      "runtimeFile": "party/assets/art/prop/puppy-3.webp",
+      "width": 220,
+      "height": 180,
+      "tool": "existing approved canonical reuse",
+      "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors",
+      "sourceCrop": [
+        90,
+        82,
+        1283,
+        1142
+      ],
+      "actualAlphaBBox": [
+        8,
+        0,
+        211,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15516,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true,
+      "sharedWith": "muddy-mayhem"
+    },
+    {
+      "key": "prop/puppy-4",
+      "size": [
+        220,
+        180
+      ],
+      "geometry": "Bottom-centre feet anchor; small clean canine matching its approved breed canonical, mirrored if desired; no costumes or effects.",
+      "description": "Reused the approved Molly puppy-spotty canonical; no new image generation.",
+      "prompt": "Existing approved canonical reuse. Preserve the approved puppy identity, coat markings, outline and proportions; alpha-cropped and repackaged to the requested 220\u00d7180 bottom-anchored canvas.",
+      "source": "party/reference/pending/molly-sources/muddy-mayhem/prop-puppy-4.webp",
+      "sourceInput": "party/reference/canonical/molly-puppy-spotty.webp",
+      "sourceSize": [
+        1334,
+        1179
+      ],
+      "file": "party/assets/art/prop/puppy-4.webp",
+      "runtimeFile": "party/assets/art/prop/puppy-4.webp",
+      "width": 220,
+      "height": 180,
+      "tool": "existing approved canonical reuse",
+      "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors",
+      "sourceCrop": [
+        98,
+        47,
+        1269,
+        1148
+      ],
+      "actualAlphaBBox": [
+        14,
+        0,
+        205,
+        180
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15916,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true,
+      "sharedWith": "muddy-mayhem"
+    },
+    {
+      "key": "prop/mud-puddle",
+      "size": [
+        320,
+        170
+      ],
+      "geometry": "Wide flat glossy mud splash with small detached droplets; centered.",
+      "prompt": "One isolated muddy yard prop, exact transparent 320\u00d7170 canvas: a wide flat glossy chocolate-brown mud puddle seen from a high three-quarter angle, irregular rounded oval with a few small splash lobes and round droplets around the edge, clean friendly preschool-game art, subtle bright glossy highlights. Centered, no vertical stem, no background. Clean 2D candy-cartoon, smooth bold navy #24163f outlines, soft cel shading, warm bright brown colors. True transparent background, no shadow, no ground or grass, no bubbles, no characters, no text, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/muddy-mayhem/prop-mud-puddle.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-567e8e43-db68-479e-80e3-4c0facf081b4.png",
+      "sourceSize": [
+        1721,
+        914
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-567e8e43-db68-479e-80e3-4c0facf081b4.png",
+      "file": "party/assets/art/prop/mud-puddle.webp",
+      "runtimeFile": "party/assets/art/prop/mud-puddle.webp",
+      "width": 320,
+      "height": 170,
+      "tool": "built-in imagegen",
+      "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors",
+      "sourceCrop": [
+        52,
+        153,
+        1682,
+        740
+      ],
+      "actualAlphaBBox": [
+        0,
+        27,
+        320,
+        142
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 11184,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "sharedWith": "muddy-mayhem"
+    }
+  ],
+  "status": "native/runtime contact reviewed; actual Muddy Mayhem checked including clean prop splats, Granny nozzle stream, shared puppies and mud; all reuse keys preloaded; no browser errors"
+}
