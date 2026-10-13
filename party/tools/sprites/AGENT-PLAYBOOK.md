@@ -362,3 +362,8 @@ plus import-map hashes matching the staged source code. Do not publish a future
 hash while its module is still uncommitted: it can cache old pixels/code under a
 new version. Archive only delivered request sections; later optional poses remain
 a separate backlog. Push each complete minigame before moving to the next.
+
+Every delegated prop prompt must carry the house style explicitly (2D, smooth
+navy #24163f outlines, clean soft cel shading, no3D/no photorealism) and an
+approved style reference. “Storybook” alone can produce a mismatched rendered
+look. Review the first six outputs before generating the rest of a family.
