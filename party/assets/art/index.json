@@ -1056,7 +1056,17 @@
     "prop/tot-candy-5": "prop/tot-candy-5.webp",
     "prop/tot-candy-3": "prop/tot-candy-3.webp",
     "prop/tot-candy-4": "prop/tot-candy-4.webp",
-    "prop/tot-candy-pile": "prop/tot-candy-pile.webp"
+    "prop/tot-candy-pile": "prop/tot-candy-pile.webp",
+    "bg/duckling-parade": "bg/duckling-parade.webp",
+    "prop/duckling": "prop/duckling.webp",
+    "prop/mama-duck": "prop/mama-duck.webp",
+    "prop/lily-pad": "prop/lily-pad.webp",
+    "prop/reeds": "prop/reeds.webp",
+    "prop/duck-nest": "prop/duck-nest.webp",
+    "prop/duckling-quack": "prop/duckling-quack.webp",
+    "prop/rubber-boot": "prop/rubber-boot.webp",
+    "prop/flower-bush": "prop/flower-bush.webp",
+    "thumb/duckling-parade": "thumb/duckling-parade.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1576,7 +1586,17 @@
       "prop/tot-candy-4",
       "prop/tot-candy-pile"
     ],
-    "duckling-parade": [],
+    "duckling-parade": [
+      "bg/duckling-parade",
+      "prop/duckling",
+      "prop/mama-duck",
+      "prop/lily-pad",
+      "prop/reeds",
+      "prop/duck-nest",
+      "prop/duckling-quack",
+      "prop/rubber-boot",
+      "prop/flower-bush"
+    ],
     "mermaid-pearls": [],
     "pumpkin-peekaboo": [],
     "snowflake-catch": []
