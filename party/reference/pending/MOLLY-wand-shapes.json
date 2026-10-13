@@ -152,7 +152,8 @@
       "nativeOutputSize": [
         1254,
         1254
-      ]
+      ],
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-shooting-star.webp"
     },
     {
       "key": "prop/wand-bubble-frog",
@@ -185,7 +186,8 @@
         0,
         255
       ],
-      "actualTransparency": true
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-bubble-frog.webp"
     },
     {
       "key": "prop/wand-sleepy-moon",
@@ -218,7 +220,8 @@
         0,
         255
       ],
-      "actualTransparency": true
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-sleepy-moon.webp"
     },
     {
       "key": "thumb/wand-shapes",
@@ -253,7 +256,8 @@
         255,
         255
       ],
-      "actualTransparency": false
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/wand-shapes/thumb-wand-shapes.webp"
     }
   ]
 }
