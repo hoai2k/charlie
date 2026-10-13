@@ -1370,6 +1370,9 @@
       "prop/df-music",
       "thumb/dance-freeze"
     ],
+    "sneaky-dance": [
+      "prop/df-disco-ball"
+    ],
     "bubble-pop": [
       "bg/bubble-pop",
       "prop/bubble-machine",
@@ -1398,6 +1401,9 @@
       "prop/balloon-mint"
     ],
     "ballet-butterflies": [
+      "bg/ballet-butterflies"
+    ],
+    "opposite-ballet": [
       "bg/ballet-butterflies"
     ],
     "wand-shapes": [
