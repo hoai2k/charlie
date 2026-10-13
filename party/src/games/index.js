@@ -59,8 +59,10 @@ import * as g55 from './ballet-butterflies.js';
 import * as g56 from './wand-shapes.js';
 import * as g57 from './cupcake-stack.js';
 import * as g58 from './ladybug-spots.js';
+import * as g59 from './bubble-pop.js';
+import * as g60 from './balloon-float.js';
 
-export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34, g35, g36, g37, g38, g39, g40, g41, g42, g43, g44, g45, g46, g47, g48, g49, g50, g51, g52, g53, g54, g55, g56, g57, g58].map((m) => ({ ...m.meta, module: m }));
+export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34, g35, g36, g37, g38, g39, g40, g41, g42, g43, g44, g45, g46, g47, g48, g49, g50, g51, g52, g53, g54, g55, g56, g57, g58, g59, g60].map((m) => ({ ...m.meta, module: m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
