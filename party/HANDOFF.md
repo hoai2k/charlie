@@ -90,7 +90,7 @@ Done and pushed this session (all tested headless in Playwright):
   `molly-brief.md`, category 'molly'); image requests copied to main early
   (`copy_reqs.py` handles "## New Molly Party game:" too once updated).
   Lead: game select molly view (done), MOLLY list, fairy-count hidden.
-  User 2026-10-13: no Charlie *player* characters inside Molly games (NPCs
+  User 2026-10-13: Glimmer is the 6th Molly fairy player. No Charlie *player* characters inside Molly games (NPCs
   OK); garden fairies may become the Molly player roster — image request
   "Molly Party: the five garden fairies as playable characters" is on main
   with a provisional pose list; finalise it from the merged games' poses
