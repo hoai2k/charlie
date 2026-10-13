@@ -17,7 +17,7 @@ Verification: independent sprite/landmark/provenance audits; actual full and opt
 
 Latest published image delivery revision: `3bb1ca7b`.
 Latest completed delivery/check UTC: 2026-10-13T06:55:19Z.
-Last checked main revision: `8c59aed7aa7c42b4cbe948064a4fae56ea67fd25`. 
+Last checked main revision: `8c59aed7aa7c42b4cbe948064a4fae56ea67fd25`.
 Last checked request blob: `f8f6384a036a81543ac5fe71ac6cd99fb5fd18a5`.
 Last checked UTC: 2026-10-13T07:29:19Z.
 Quiet-window start UTC: 2026-10-13T06:55:19Z.
