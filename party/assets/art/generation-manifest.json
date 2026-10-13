@@ -21710,6 +21710,516 @@
         720
       ],
       "source": "party/reference/pending/molly-sources/garden-grow/prop-gg-sunflower.webp"
+    },
+    {
+      "key": "bg/wand-shapes",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque widescreen. Keep top 120 px calm. Bottom cloud ledge spans width with top y\u2248900/feet y\u22481010. Centre dotted shape play area around (960,480), radius\u2248330 stays dark/calm; no characters or shape art.",
+      "prompt": "Use case: illustration-story. Asset type: full-screen 2D game background. Input images: Image 1 is an approved Felicity roster reference for house-style guidance only; do not depict Felicity or copy her anatomy. Primary request: a dreamy twilight sky background in a wide 16:9 composition, deep violet at top fading through rose to peach at horizon, a few soft stars, wispy pastel clouds at the far sides and a row of fluffy pink-lilac clouds along the bottom forming a broad standing ledge. Style: 2D candy-colour storybook game art, smooth dark navy #24163f outlines, soft clean cel shading, no 3D or photorealism. Layout: leave top 120 px calm for HUD; bottom cloud ledge begins near y=900 and supports characters standing with feet at y\u22481010; centre play area around (960,480), radius\u2248330 remains relatively dark and uncluttered so glowing dotted shapes read clearly. Avoid characters, drawn spell shapes, lettering, logos, borders and watermarks.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c278e3eb-b4ab-40ee-a3a2-9b9c27614166.png",
+      "runtimeFile": "party/assets/art/bg/wand-shapes.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 70358,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c278e3eb-b4ab-40ee-a3a2-9b9c27614166.png"
+    },
+    {
+      "key": "prop/wand-sparkle",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred 4-point sparkle, balanced spinning silhouette; code adds player-coloured glow ring behind, so no broad baked aura.",
+      "prompt": "Use case: illustration-story. Asset type: tiny transparent game cursor prop. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict a character. Primary request: one chunky four-point magical sparkle star with a white-gold core and crisp bright golden edge highlights. Style: simple polished 2D candy-cartoon, bold smooth navy #24163f outline, clean soft cel shading. Composition: centred, compact, balanced four-point shape that remains legible when rotated and drawn small. Constraints: genuine transparent background; no broad glow halo or colored ring because code draws a player-coloured ring behind it; no text, shadow, scene or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bc4a8f4c-a161-4c19-b17f-1e4b345851d7.png",
+      "runtimeFile": "party/assets/art/prop/wand-sparkle.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 3540,
+      "actualAlphaBBox": [
+        8,
+        10,
+        109,
+        107
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bc4a8f4c-a161-4c19-b17f-1e4b345851d7.png"
+    },
+    {
+      "key": "prop/wand-heart-balloon",
+      "size": [
+        360,
+        480
+      ],
+      "geometry": "Transparent; heart centre aligned at (180,180), curly string and small bow hang below within canvas.",
+      "prompt": "Use case: illustration-story. Asset type: transparent spell-prop sprite. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict her. Primary request: a single glossy pink heart-shaped balloon, a small white shine, and a thin curly string ending in a little bow. Style: polished 2D candy cartoon, bold smooth dark navy #24163f outline and soft clean cel shading. Composition: upright balloon with heart centre at canvas point (180,180); string hangs down from the heart and remains fully inside the 360\u00d7480 canvas. Preserve simple readable shape. True transparent background; no extra objects, person, text, shadow or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2b2b9175-3d07-4d29-9c2c-35cd7d2c81a9.png",
+      "runtimeFile": "party/assets/art/prop/wand-heart-balloon.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 17646,
+      "actualAlphaBBox": [
+        22,
+        79,
+        342,
+        473
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "actualGeometry": "Source fitted to 342\u00d7456 (95% of initial proportional fit), centered horizontally at x=9 and translated y=33; measured heart-body centre \u2248(180,155) is now at target anchor (180,180), with full curly string and bow inside the 360\u00d7480 canvas.",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2b2b9175-3d07-4d29-9c2c-35cd7d2c81a9.png"
+    },
+    {
+      "key": "prop/wand-rainbow",
+      "size": [
+        1000,
+        520
+      ],
+      "geometry": "Transparent; broad seven-stripe arc, bottom-centred, full width around 800 px, two small fluffy clouds at the arc feet.",
+      "prompt": "Use case: illustration-story. Asset type: wide transparent spell effect sprite. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict her. Primary request: one bright seven-stripe rainbow arc in the usual red, orange, yellow, green, blue, indigo and violet order, with one fluffy white-lilac cloud at each foot. Style: clean 2D children's game illustration, smooth navy #24163f outlines and soft cel shading, candy-bright stripes. Composition: centered broad arch, bottom-centre aligned, about 800 px wide in a 1000\u00d7520 canvas, full arc and both cloud feet visible. Genuine transparent background. No landscape, sky, ground, character, text, glow halo, shadow or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-9b2e5462-e82d-4af2-a8a7-4749fb88301c.png",
+      "runtimeFile": "party/assets/art/prop/wand-rainbow.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 53688,
+      "actualAlphaBBox": [
+        100,
+        78,
+        900,
+        520
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-9b2e5462-e82d-4af2-a8a7-4749fb88301c.png"
+    },
+    {
+      "key": "prop/wand-shooting-star",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Transparent centred star; code spins it and draws rainbow trail, so avoid long baked tail. Symbolic expressive pickup prop, not a character canon.",
+      "description": "A plump golden star with a happy face, closed smiling eyes, rosy cheeks, tiny sparkles near its tips.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A plump golden star with a happy face, closed smiling eyes, rosy cheeks, tiny sparkles near its tips. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred star; code spins it and draws rainbow trail, so avoid long baked tail. Symbolic expressive pickup prop, not a character canon.. Keep it as a small emblem-like object, not a full character; no limbs or body. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c542b4f7-68bc-4c34-a9f4-0826c2156e3c.png",
+      "runtimeFile": "party/assets/art/prop/wand-shooting-star.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "sourcePath": "party/reference/pending/molly-sources/prop-wand-shooting-star.png",
+      "actualAlphaBBox": [
+        24,
+        23,
+        243,
+        245
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 14724,
+      "nativeOutputSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "key": "prop/wand-bubble-frog",
+      "size": [
+        400,
+        400
+      ],
+      "geometry": "Centered standalone spell sprite, transparent full canvas.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game spell prop. Input images: Image 1 is the approved green frog canonical; preserve its frog identity, green-and-cream palette, eye spacing, spots, navy outline and rounded 2D style. Image 2 is Felicity for overall house style only; do not depict Felicity. Primary request: Place the same cheerful little frog sitting inside one large shiny soap bubble, waving one front hand. The bubble has a restrained iridescent rainbow sheen and a bright upper-left white highlight. Composition: one centered transparent circular bubble with frog fully contained inside, compact enough to fit 400\u00d7400. Smooth bold navy #24163f outlines, polished 2D candy-color cel shading, no 3D or photorealism. True transparent alpha outside bubble, no text, no shadow, no extra characters or scene.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals/frog.webp",
+        "party/reference/canonical/felicity.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bfe92ebd-ac3b-4627-a2c2-2c763562bfec.png",
+      "sourcePath": "party/reference/pending/molly-sources/wand-bubble-frog.png",
+      "runtimeFile": "party/assets/art/prop/wand-bubble-frog.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 47088,
+      "actualAlphaBBox": [
+        14,
+        13,
+        396,
+        387
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true
+    },
+    {
+      "key": "prop/wand-sleepy-moon",
+      "size": [
+        400,
+        400
+      ],
+      "geometry": "Centered standalone spell sprite, transparent full canvas.",
+      "prompt": "Edit Image 1, the approved crescent-Moon canonical, into the specific sleepy Moon prop while preserving the exact crescent silhouette, pale-gold face, eye placement, gold outline, proportions and identity. The crescent opens to the right. Add a soft blue polka-dot nightcap draped over its upper tip with a small pom-pom. Change only the facial expression to closed sleepy smiling eyes and a rosy cheek; retain the friendly face style. Transparent centered standalone prop on 400\u00d7400 canvas. Polished 2D candy-cartoon, smooth bold navy #24163f outline and clean soft cel shading. No stars, Zzz text, glow halo, scenery, shadow or watermark. True transparent alpha.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+        "party/reference/canonical/felicity.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cc19463d-d4a0-429e-8c90-1632db560865.png",
+      "sourcePath": "party/reference/pending/molly-sources/wand-sleepy-moon.png",
+      "runtimeFile": "party/assets/art/prop/wand-sleepy-moon.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 27360,
+      "actualAlphaBBox": [
+        45,
+        4,
+        373,
+        396
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true
+    },
+    {
+      "key": "thumb/wand-shapes",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque game-select thumbnail, centred 16:10 composition.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail illustration for Magic Wand Shapes. Input images: Image 1 is the approved blue Garden Fairy canonical; preserve her identity, blue flower-cap, face, blue dress and wings. Image 2 is the approved frog canonical; preserve the frog identity and green palette. Image 3 is the approved sleepy crescent-Moon prop with blue polka-dot nightcap; preserve its identity. Image 4 is the approved pink heart balloon prop; preserve its shape and curly string. Primary request: the little blue garden fairy waves a glowing wand as a sparkly golden heart appears in a dreamy twilight sky and begins turning into the same pink heart balloon; nearby the same green frog sits inside a shiny soap bubble and the same sleepy nightcap Moon floats beside them. Style: polished 2D candy-colour game art, smooth bold navy #24163f outlines, clean soft cel shading, bright pastel twilight; no 3D or photorealism. Composition: exact 800\u00d7500 landscape, subjects grouped and centred, clear silhouettes, visually welcoming to preschool players. This thumbnail contains no Charlie Party player characters. No text, logos, watermark, border.",
+      "inputReferences": [
+        "party/reference/canonical/garden-fairy-blue.webp",
+        "party/reference/pending/molly-canonicals/frog.webp",
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+        "party/reference/pending/molly-sources/wand-shapes/prop-wand-heart-balloon.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5ffcba43-1655-4d56-a2f3-e344659b5d5d.png",
+      "sourcePath": "party/reference/pending/molly-sources/wand-shapes-thumb.png",
+      "runtimeFile": "party/assets/art/thumb/wand-shapes.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 84032,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false
+    },
+    {
+      "key": "bg/wand-shapes",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque widescreen. Keep top 120 px calm. Bottom cloud ledge spans width with top y\u2248900/feet y\u22481010. Centre dotted shape play area around (960,480), radius\u2248330 stays dark/calm; no characters or shape art.",
+      "prompt": "Use case: illustration-story. Asset type: full-screen 2D game background. Input images: Image 1 is an approved Felicity roster reference for house-style guidance only; do not depict Felicity or copy her anatomy. Primary request: a dreamy twilight sky background in a wide 16:9 composition, deep violet at top fading through rose to peach at horizon, a few soft stars, wispy pastel clouds at the far sides and a row of fluffy pink-lilac clouds along the bottom forming a broad standing ledge. Style: 2D candy-colour storybook game art, smooth dark navy #24163f outlines, soft clean cel shading, no 3D or photorealism. Layout: leave top 120 px calm for HUD; bottom cloud ledge begins near y=900 and supports characters standing with feet at y\u22481010; centre play area around (960,480), radius\u2248330 remains relatively dark and uncluttered so glowing dotted shapes read clearly. Avoid characters, drawn spell shapes, lettering, logos, borders and watermarks.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c278e3eb-b4ab-40ee-a3a2-9b9c27614166.png",
+      "runtimeFile": "party/assets/art/bg/wand-shapes.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 70358,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c278e3eb-b4ab-40ee-a3a2-9b9c27614166.png"
+    },
+    {
+      "key": "prop/wand-sparkle",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Transparent centred 4-point sparkle, balanced spinning silhouette; code adds player-coloured glow ring behind, so no broad baked aura.",
+      "prompt": "Use case: illustration-story. Asset type: tiny transparent game cursor prop. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict a character. Primary request: one chunky four-point magical sparkle star with a white-gold core and crisp bright golden edge highlights. Style: simple polished 2D candy-cartoon, bold smooth navy #24163f outline, clean soft cel shading. Composition: centred, compact, balanced four-point shape that remains legible when rotated and drawn small. Constraints: genuine transparent background; no broad glow halo or colored ring because code draws a player-coloured ring behind it; no text, shadow, scene or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bc4a8f4c-a161-4c19-b17f-1e4b345851d7.png",
+      "runtimeFile": "party/assets/art/prop/wand-sparkle.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 3540,
+      "actualAlphaBBox": [
+        8,
+        10,
+        109,
+        107
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bc4a8f4c-a161-4c19-b17f-1e4b345851d7.png"
+    },
+    {
+      "key": "prop/wand-heart-balloon",
+      "size": [
+        360,
+        480
+      ],
+      "geometry": "Transparent; heart centre aligned at (180,180), curly string and small bow hang below within canvas.",
+      "prompt": "Use case: illustration-story. Asset type: transparent spell-prop sprite. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict her. Primary request: a single glossy pink heart-shaped balloon, a small white shine, and a thin curly string ending in a little bow. Style: polished 2D candy cartoon, bold smooth dark navy #24163f outline and soft clean cel shading. Composition: upright balloon with heart centre at canvas point (180,180); string hangs down from the heart and remains fully inside the 360\u00d7480 canvas. Preserve simple readable shape. True transparent background; no extra objects, person, text, shadow or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2b2b9175-3d07-4d29-9c2c-35cd7d2c81a9.png",
+      "runtimeFile": "party/assets/art/prop/wand-heart-balloon.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 17646,
+      "actualAlphaBBox": [
+        22,
+        79,
+        342,
+        473
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "actualGeometry": "Source fitted to 342\u00d7456 (95% of initial proportional fit), centered horizontally at x=9 and translated y=33; measured heart-body centre \u2248(180,155) is now at target anchor (180,180), with full curly string and bow inside the 360\u00d7480 canvas.",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2b2b9175-3d07-4d29-9c2c-35cd7d2c81a9.png"
+    },
+    {
+      "key": "prop/wand-rainbow",
+      "size": [
+        1000,
+        520
+      ],
+      "geometry": "Transparent; broad seven-stripe arc, bottom-centred, full width around 800 px, two small fluffy clouds at the arc feet.",
+      "prompt": "Use case: illustration-story. Asset type: wide transparent spell effect sprite. Input images: Image 1 is an approved Felicity roster reference for art style only; do not depict her. Primary request: one bright seven-stripe rainbow arc in the usual red, orange, yellow, green, blue, indigo and violet order, with one fluffy white-lilac cloud at each foot. Style: clean 2D children's game illustration, smooth navy #24163f outlines and soft cel shading, candy-bright stripes. Composition: centered broad arch, bottom-centre aligned, about 800 px wide in a 1000\u00d7520 canvas, full arc and both cloud feet visible. Genuine transparent background. No landscape, sky, ground, character, text, glow halo, shadow or watermark.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-9b2e5462-e82d-4af2-a8a7-4749fb88301c.png",
+      "runtimeFile": "party/assets/art/prop/wand-rainbow.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 53688,
+      "actualAlphaBBox": [
+        100,
+        78,
+        900,
+        520
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-9b2e5462-e82d-4af2-a8a7-4749fb88301c.png"
+    },
+    {
+      "key": "prop/wand-shooting-star",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Transparent centred star; code spins it and draws rainbow trail, so avoid long baked tail. Symbolic expressive pickup prop, not a character canon.",
+      "description": "A plump golden star with a happy face, closed smiling eyes, rosy cheeks, tiny sparkles near its tips.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A plump golden star with a happy face, closed smiling eyes, rosy cheeks, tiny sparkles near its tips. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Transparent centred star; code spins it and draws rainbow trail, so avoid long baked tail. Symbolic expressive pickup prop, not a character canon.. Keep it as a small emblem-like object, not a full character; no limbs or body. Genuine transparent alpha, no shadow, text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c542b4f7-68bc-4c34-a9f4-0826c2156e3c.png",
+      "runtimeFile": "party/assets/art/prop/wand-shooting-star.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "sourcePath": "party/reference/pending/molly-sources/prop-wand-shooting-star.png",
+      "actualAlphaBBox": [
+        24,
+        23,
+        243,
+        245
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "runtimeBytes": 14724,
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-shooting-star.webp"
+    },
+    {
+      "key": "prop/wand-bubble-frog",
+      "size": [
+        400,
+        400
+      ],
+      "geometry": "Centered standalone spell sprite, transparent full canvas.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game spell prop. Input images: Image 1 is the approved green frog canonical; preserve its frog identity, green-and-cream palette, eye spacing, spots, navy outline and rounded 2D style. Image 2 is Felicity for overall house style only; do not depict Felicity. Primary request: Place the same cheerful little frog sitting inside one large shiny soap bubble, waving one front hand. The bubble has a restrained iridescent rainbow sheen and a bright upper-left white highlight. Composition: one centered transparent circular bubble with frog fully contained inside, compact enough to fit 400\u00d7400. Smooth bold navy #24163f outlines, polished 2D candy-color cel shading, no 3D or photorealism. True transparent alpha outside bubble, no text, no shadow, no extra characters or scene.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals/frog.webp",
+        "party/reference/canonical/felicity.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bfe92ebd-ac3b-4627-a2c2-2c763562bfec.png",
+      "sourcePath": "party/reference/pending/molly-sources/wand-bubble-frog.png",
+      "runtimeFile": "party/assets/art/prop/wand-bubble-frog.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 47088,
+      "actualAlphaBBox": [
+        14,
+        13,
+        396,
+        387
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-bubble-frog.webp"
+    },
+    {
+      "key": "prop/wand-sleepy-moon",
+      "size": [
+        400,
+        400
+      ],
+      "geometry": "Centered standalone spell sprite, transparent full canvas.",
+      "prompt": "Edit Image 1, the approved crescent-Moon canonical, into the specific sleepy Moon prop while preserving the exact crescent silhouette, pale-gold face, eye placement, gold outline, proportions and identity. The crescent opens to the right. Add a soft blue polka-dot nightcap draped over its upper tip with a small pom-pom. Change only the facial expression to closed sleepy smiling eyes and a rosy cheek; retain the friendly face style. Transparent centered standalone prop on 400\u00d7400 canvas. Polished 2D candy-cartoon, smooth bold navy #24163f outline and clean soft cel shading. No stars, Zzz text, glow halo, scenery, shadow or watermark. True transparent alpha.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+        "party/reference/canonical/felicity.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cc19463d-d4a0-429e-8c90-1632db560865.png",
+      "sourcePath": "party/reference/pending/molly-sources/wand-sleepy-moon.png",
+      "runtimeFile": "party/assets/art/prop/wand-sleepy-moon.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 27360,
+      "actualAlphaBBox": [
+        45,
+        4,
+        373,
+        396
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/wand-shapes/prop-wand-sleepy-moon.webp"
+    },
+    {
+      "key": "thumb/wand-shapes",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque game-select thumbnail, centred 16:10 composition.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail illustration for Magic Wand Shapes. Input images: Image 1 is the approved blue Garden Fairy canonical; preserve her identity, blue flower-cap, face, blue dress and wings. Image 2 is the approved frog canonical; preserve the frog identity and green palette. Image 3 is the approved sleepy crescent-Moon prop with blue polka-dot nightcap; preserve its identity. Image 4 is the approved pink heart balloon prop; preserve its shape and curly string. Primary request: the little blue garden fairy waves a glowing wand as a sparkly golden heart appears in a dreamy twilight sky and begins turning into the same pink heart balloon; nearby the same green frog sits inside a shiny soap bubble and the same sleepy nightcap Moon floats beside them. Style: polished 2D candy-colour game art, smooth bold navy #24163f outlines, clean soft cel shading, bright pastel twilight; no 3D or photorealism. Composition: exact 800\u00d7500 landscape, subjects grouped and centred, clear silhouettes, visually welcoming to preschool players. This thumbnail contains no Charlie Party player characters. No text, logos, watermark, border.",
+      "inputReferences": [
+        "party/reference/canonical/garden-fairy-blue.webp",
+        "party/reference/pending/molly-canonicals/frog.webp",
+        "party/reference/pending/molly-canonicals-2/crescent-moon.webp",
+        "party/reference/pending/molly-sources/wand-shapes/prop-wand-heart-balloon.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5ffcba43-1655-4d56-a2f3-e344659b5d5d.png",
+      "sourcePath": "party/reference/pending/molly-sources/wand-shapes-thumb.png",
+      "runtimeFile": "party/assets/art/thumb/wand-shapes.webp",
+      "status": "Root visually reviewed,decoded,and ready for gameplay QA",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 84032,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/wand-shapes/thumb-wand-shapes.webp"
     }
   ]
 }

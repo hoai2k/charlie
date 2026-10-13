@@ -902,7 +902,10 @@
     "prop/gg-sprout": "prop/gg-sprout.webp",
     "prop/gg-bud": "prop/gg-bud.webp",
     "prop/gg-sunflower-giggle": "prop/gg-sunflower-giggle.webp",
-    "prop/gg-sunflower": "prop/gg-sunflower.webp"
+    "prop/gg-sunflower": "prop/gg-sunflower.webp",
+    "prop/wand-bubble-frog": "prop/wand-bubble-frog.webp",
+    "prop/wand-sleepy-moon": "prop/wand-sleepy-moon.webp",
+    "thumb/wand-shapes": "thumb/wand-shapes.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1244,7 +1247,10 @@
       "prop/wand-sparkle",
       "prop/wand-heart-balloon",
       "prop/wand-rainbow",
-      "prop/wand-shooting-star"
+      "prop/wand-shooting-star",
+      "prop/wand-bubble-frog",
+      "prop/wand-sleepy-moon",
+      "thumb/wand-shapes"
     ],
     "fairy-flutter": [
       "prop/ff-jar",
