@@ -1115,3 +1115,58 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: cupcake-stack
+
+### cupcake-stack — Cupcake Tower   (requested by the cupcake-stack agent, 2026-10-05, priority: nice-to-have)
+
+Everyone stacks ONE shared tower of cupcakes on a big cake stand in the
+middle of a garden birthday party. Each player's cupcake zips back and forth
+above the tower (carried by a little garden fairy in the player's colour);
+press A to drop it. Sticky icing means every drop sticks, even crooked ones,
+and the tower wobbles and giggles instead of falling. Cherries, candles and
+golden super-cupcakes land on top; as the tower grows the camera climbs into
+the sky (clouds, rainbow, twilight stars). Finale: everyone blows out all the
+candles. Every key has a procedural fallback that ships today. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**
+in any image. Reused as they are: the roster sprites (`toss`, `cheer`,
+`blow`, `balance`, `giggle`, `celebrate`, `look-up`) and the
+`garden-fairy-*` NPC sprites.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/cupcake-stack` | 1920×1080, opaque | Full screen at ground level; it scrolls down as the camera climbs, so its TOP edge must blend into a plain sky colour `#8fd6ff` (the code continues the sky above it). Characters stand on a lawn band at y≈900–1010; the cake stand sits centred at x=960 with its foot at y≈930 | A sunny garden birthday party: soft blue sky with a few clouds near the top, bunting and paper lanterns strung between two trees at the far left and right, a pastel picket fence, balloons tied to the fence, a striped grass lawn in the foreground. Calm, empty centre column (the tower goes there) |
+| `thumb/cupcake-stack` | 800×500, opaque | Game-select shelf and how-to screen | A wobbly, tall, slightly crooked tower of colourful cupcakes on a white cake stand, lit candles and cherries poking out at funny angles, a garden fairy dropping one more cupcake from above, sparkles and confetti. Subject centred |
+| `prop/cake-stand` | 640×320, transparent | Anchor bottom-centre on the lawn, drawn 560 px wide. The top plate surface is at 18% from the top; the first cupcake sits on it | A big white-and-pink porcelain cake stand: a wide flat round plate with a scalloped frilly edge, a curvy pedestal and a round foot, front view, slightly from above |
+| `prop/cupcake-pink`, `prop/cupcake-blue`, `prop/cupcake-mint`, `prop/cupcake-lemon`, `prop/cupcake-lilac`, `prop/cupcake-choc`, `prop/cupcake-gold` | 256×224 each, transparent | Anchor centre; drawn 130 px wide (squashed and tilted by code). Bottom 45% wrapper, top 55% frosting. **Flattish frosting top with no topping** (the next cupcake sits on it) and a smiling face on the wrapper | A cute cupcake with a happy face (smiling eyes, rosy cheeks) on a striped paper wrapper, a puffy swirl of <pink / sky-blue / mint / lemon / lilac / chocolate / shiny gold> frosting with a few rainbow sprinkles, front view |
+| `prop/cupcake-cherry` | 128×128, transparent | Anchor bottom of the cherry; drawn 46 px, perched on a frosting edge at a jaunty angle | One glossy red cherry with a curly green stem and a white shine |
+| `prop/cupcake-candle` | 64×192, transparent | Anchor bottom-centre; drawn 26×78 px, poking out of the frosting at an angle. The code draws the flame | A thin twisted birthday candle with pastel spiral stripes (pink/white/blue), no flame, front view |
+| `prop/candle-flame` | 96×128, transparent | Anchor bottom-centre at the wick; flickers via code scale | A small cartoon candle flame: orange outside, yellow inside, white core, soft glow |
+
+## New Molly Party game: ladybug-spots
+
+### ladybug-spots — Ladybug Spots   (requested by the ladybug-spots agent, 2026-10-05, priority: nice-to-have)
+
+A bright garden meadow seen from a high 3/4 view. A friendly ladybug (or a
+bee, or a butterfly) zooms in and lands on a big daisy pad in the centre;
+empty dashed circles on her back show how many spots she wants (1–5).
+Players dash around catching the bouncy dots that zip about the meadow, then
+bring them to her (touch or A). She counts them with chimes and zooms off;
+an extra spot makes her sneeze it off. Bees want fluffy yellow pollen puffs,
+butterflies want dots of the colour shown on their wings. **The code draws
+the spots and slots on top of the critter art,** so shells and wings must be
+plain areas (positions below). Every key has a procedural fallback that
+ships today. House style: navy `#24163f` outlines, soft cel shading, bright
+candy colours, **no text**.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/ladybug-spots` | 1920×1080, opaque | Full screen. The daisy pad is drawn by code at (960, 560); players run everywhere from y≈200 to y≈1010. Keep the top 110 px calm (HUD) | A sunny garden meadow from a high 3/4 view: soft green grass with mowed stripes, little daisies and clover dotted around, a few pebbles, tall flowers and leaves framing the left and right edges. Open, uncluttered middle |
+| `thumb/ladybug-spots` | 800×500, opaque | Game-select shelf and how-to screen | A big smiling ladybug with a few black spots and some empty dashed circles on her shell, a bee and a butterfly flying behind, bouncy black dots in the air, flowers, sparkles. Subject centred |
+| `prop/ladybug-pad` | 760×460, transparent | Anchor centre at (960, 560), drawn 620 px wide | A giant pink-and-white daisy lying flat, seen from above at a slight angle, with a yellow centre, used as a landing pad |
+| `prop/ladybug` | 512×448, transparent | Anchor centre, drawn 300 px wide, facing right (the code flips her). **Shell:** a plain red dome (no spots) filling an ellipse centred at 44% x / 55% y, radii 33% × 35% of the image; the code draws slots and spots inside it. Head on the right | A cute chubby cartoon ladybug seen from above-front, glossy plain red shell with NO spots, black head with big sparkly eyes, rosy cheeks, a happy smile and two curly antennae |
+| `prop/bee` | 512×448, transparent | Same layout as the ladybug: a plain pale-yellow fuzzy back in an ellipse centred at 44% x / 55% y (radii 33% × 35%) with two thin brown stripes only at its far left edge; the code draws pollen slots there | A round fluffy cartoon bumblebee seen from above-front, small clear wings, big happy eyes, rosy cheeks, two antennae |
+| `prop/butterfly` | 640×448, transparent | Anchor centre, drawn 360 px wide. Two big plain pale upper wings: the code draws coloured dot slots in circles centred at 27%/40% (left wing) and 73%/40% (right wing), radius 16% of the width each. Body in the middle | A pretty cartoon butterfly seen from the front, wings open, pale lilac-white wings with a thin pastel rim and NO spots, a smiling face, curly antennae |
+| `prop/ladybug-dot` | 128×128, transparent | Anchor centre, drawn 64 px; bounces around the meadow | A glossy round black dot with a white shine, slightly squishy, with tiny happy eyes |
+| `prop/pollen-puff` | 128×128, transparent | Anchor centre, drawn 64 px | A fluffy round yellow pollen puff ball with soft fuzzy edges and tiny happy eyes |
+| `prop/wing-dot-pink`, `prop/wing-dot-blue`, `prop/wing-dot-purple`, `prop/wing-dot-orange` | 128×128 each, transparent | Anchor centre, drawn 64 px | A glossy round <pink / blue / purple / orange> candy dot with a white shine and tiny happy eyes |
