@@ -32,8 +32,8 @@ const STAND_TOP = 718;        // plate surface
 const CUP_W = 130;
 const CUP_H = 74;             // stack increment per cupcake
 const RANGE = 360;            // slider swing
-const LIFT = 250;             // slider height above the tower top
-const ROW = 125;
+const LIFT = 230;             // slider height above the tower top
+const ROW = 105;
 const G = 2700;
 const AI_ERR = [62, 40, 26];  // CPU aim error (px, 1 sigma)
 const FROST = {
@@ -79,7 +79,7 @@ export const meta = {
     ui.cloud(g, 70, hh * 0.25, 0.45, '#fff', 0.9); ui.cloud(g, 330, hh * 0.15, 0.4, '#fff', 0.9);
     g.fillStyle = '#7ed68a'; g.fillRect(0, hh * 0.88, 400, hh);
     drawStand(g, 200, hh * 0.94, 0.42);
-    const base = hh * 0.94 - 118 * 0.42;
+    const base = hh * 0.94 - 228 * 0.42;
     for (let i = 0; i < 4; i++) {
       const off = Math.sin(t * 3 + i * 0.7) * i * 2.2;
       g.save(); g.translate(200 + off + (i % 2 ? 6 : -5), base - i * CUP_H * 0.42); g.scale(0.42, 0.42); g.rotate((i % 2 ? 0.08 : -0.06));
@@ -123,7 +123,7 @@ export class Game {
     this.ents = this.players.map((p, i) => {
       const side = i % 2 === 0 ? -1 : 1;
       const k = Math.floor(i / 2), per = side < 0 ? left : n - left;
-      const span = 560, x0 = side < 0 ? 560 : W - 560;
+      const span = 430, x0 = side < 0 ? 560 : W - 560;
       const x = x0 + side * (per <= 1 ? 120 : (span * k) / Math.max(1, per - 1) * 0.92 + 30);
       const a = new Actor(p, { scale: sc, x, y: GROUND + 40 + (k % 2) * 14 });
       a.facing = side < 0 ? 1 : -1; a.snap();
@@ -196,7 +196,7 @@ export class Game {
     if (this.phase === 'play' || this.phase === 'cake' || this.phase === 'blow' || this.phase === 'party') {
       const z = this.phase === 'play' ? clamp(1 - this.tower.length * 0.012, 0.8, 1) : 1;
       const topY = this.topper ? this.topY - 220 : this.topY;
-      const cy = Math.min(GROUND + 130 - H / 2 / z, topY - (this.phase === 'play' ? 70 : -40) / z);
+      const cy = Math.min(GROUND + 130 - H / 2 / z, topY + (this.phase === 'play' ? (this.n > 4 ? -40 : 110) : 40) / z);
       this.follow(W / 2, cy, z, this.phase === 'play' ? 3.5 : 2.6, dt);
     }
     // sliders
