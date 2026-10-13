@@ -1,3 +1,11 @@
+## Resolved re-generation request: bed-bounce sleeping buddies — 2026-10-13
+
+Delivered `prop/bb-teddy-sleep` and `prop/bb-cat-sleep`; checked in game during a peek: the sleepy heads peek over the duvet tuck at the right height.
+
+| Key | What's wrong in game | Ask |
+| --- | --- | --- |
+| `prop/bb-teddy-sleep`, `prop/bb-cat-sleep` (Molly bed-bounce, NEW keys, 2026-10-13) | When the teddy and cat hide in bed they're still drawn by the old code, off-style next to the delivered `bb-teddy`/`bb-cat` art | 240×240 transparent each: the same teddy / cat head (and paws) with closed sleepy eyes, the head in the TOP HALF of the image so it peeks over the duvet line at the image's middle (drawn 150×150, the code clips everything below the duvet) |
+
 ## Delivered puppy-splash — 2026-10-13
 
 The rows Muddy Mayhem reuses (`bg/puppy-splash`, `prop/puppy-1..4`, `prop/mud-puddle`) delivered and checked in Muddy Mayhem (2026-10-13).
