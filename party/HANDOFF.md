@@ -8,6 +8,9 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Image delivery 2026-10-13 — all current requests complete
+The24 grown-up reaction props and the two extra Duchess poses are reviewed and pushed in batches, latest image delivery `836084b0`. Exact-canvas alpha, native source archives, consumer/gameplay checks and loading/runtime tests pass. The expanded Whoopee group is24.984MiB decoded. No new requests remained after the immediate main sync. Current authoritative checkpoint: `reference/IMAGE-WORK-QUEUE.md`; prompts/review: `reference/pending/OCT13-DUCHESS-EXTRA*`. Older in-progress image notes below are historical. No new timer was requested for this run.
+
 ### 2026-10-13 late: menus, CPUs, hoity-toity cast
 Molly Party is now a button after Marathon (bottom row: Random / Marathon / Molly Party or
 Charlie Party); Fairy Count back on Party Games page 1. CPUs: none in Molly or Play Studio games

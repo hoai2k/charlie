@@ -11,7 +11,12 @@ The two new requested optional Duchess props from main `97f81570` are delivered:
 
 Both poses use existing game support; no gameplay code changes were needed. Whoopee backdrop runtime is1408x792, resized from unchanged original lossless source, preserving16:9 composition and game geometry. Complete decoded group24.984314MiB. Group/reuse/loading/fallback and sprite runtime tests pass; actual Whoopee run reached results with no errors/warnings; game-renderer comparison confirms seat scale and removal of extra huff tilt.
 
-Final publication and clear-main check checkpoint follow after the batch push. No approval or allowance pause applies. No open requests remain in the brief. No timer has been created for this requested sync/generation run. Older checkpoints below remain historical.
+Latest published image delivery revision: `836084b0ece3c1283e5d40e4c7dbb101d427b240`.
+Latest completed delivery/check UTC: 2026-10-13T16:12:40Z.
+Last checked main revision: `836084b0ece3c1283e5d40e4c7dbb101d427b240`.
+Last checked request blob: `609318ddbdb655917140d5b0db7afa264e077a4a`.
+Last checked UTC: 2026-10-13T16:12:40Z.
+Immediate post-delivery main sync was clear; no new image/regeneration requests. No approval or allowance pause applies. No open requests remain in the brief. No timer has been created for this requested sync/generation run. Older checkpoints below remain historical.
 
 ## October 13 grown-up reactions — complete (authoritative current checkpoint)
 
