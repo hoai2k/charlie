@@ -696,7 +696,19 @@
     "prop/dance-move-bow": "prop/dance-move-bow.webp",
     "prop/dance-move-hop": "prop/dance-move-hop.webp",
     "prop/dance-move-float": "prop/dance-move-float.webp",
-    "thumb/dance-studio": "thumb/dance-studio.webp"
+    "thumb/dance-studio": "thumb/dance-studio.webp",
+    "prop/acrobat-trampoline": "prop/acrobat-trampoline.webp",
+    "prop/acrobat-trapeze": "prop/acrobat-trapeze.webp",
+    "prop/acrobat-tower": "prop/acrobat-tower.webp",
+    "prop/acrobat-ball": "prop/acrobat-ball.webp",
+    "prop/acrobat-parasol": "prop/acrobat-parasol.webp",
+    "prop/acrobat-balloon-pink": "prop/acrobat-balloon-pink.webp",
+    "prop/acrobat-balloon-blue": "prop/acrobat-balloon-blue.webp",
+    "prop/acrobat-balloon-yellow": "prop/acrobat-balloon-yellow.webp",
+    "prop/acrobat-balloon-mint": "prop/acrobat-balloon-mint.webp",
+    "bg/acrobat-circus": "bg/acrobat-circus.webp",
+    "bg/acrobat-circus-ring": "bg/acrobat-circus-ring.webp",
+    "thumb/acrobat-circus": "thumb/acrobat-circus.webp"
   },
   "groups": {
     "puppet-theater": [
