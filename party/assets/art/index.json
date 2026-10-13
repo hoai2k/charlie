@@ -1267,7 +1267,16 @@
     "prop/oballet-teacher-shock": "prop/oballet-teacher-shock.webp",
     "prop/mm-granny-scold": "prop/mm-granny-scold.webp",
     "prop/mm-granny-huff": "prop/mm-granny-huff.webp",
-    "prop/mm-granny-muddy-shock": "prop/mm-granny-muddy-shock.webp"
+    "prop/mm-granny-muddy-shock": "prop/mm-granny-muddy-shock.webp",
+    "prop/whoopee-guest-poodle-shock": "prop/whoopee-guest-poodle-shock.webp",
+    "prop/whoopee-guest-poodle-scold": "prop/whoopee-guest-poodle-scold.webp",
+    "prop/whoopee-guest-poodle-huff": "prop/whoopee-guest-poodle-huff.webp",
+    "prop/whoopee-guest-bunny-shock": "prop/whoopee-guest-bunny-shock.webp",
+    "prop/whoopee-guest-bunny-scold": "prop/whoopee-guest-bunny-scold.webp",
+    "prop/whoopee-guest-bunny-huff": "prop/whoopee-guest-bunny-huff.webp",
+    "prop/whoopee-guest-pig-shock": "prop/whoopee-guest-pig-shock.webp",
+    "prop/whoopee-guest-pig-scold": "prop/whoopee-guest-pig-scold.webp",
+    "prop/whoopee-guest-pig-huff": "prop/whoopee-guest-pig-huff.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1978,19 +1987,15 @@
       "prop/whoopee-guest-poodle",
       "prop/whoopee-guest-poodle-sit",
       "prop/whoopee-guest-poodle-gasp",
-      "prop/whoopee-guest-poodle-laugh",
       "prop/whoopee-guest-bunny",
       "prop/whoopee-guest-bunny-sit",
       "prop/whoopee-guest-bunny-gasp",
-      "prop/whoopee-guest-bunny-laugh",
       "prop/whoopee-guest-pig",
       "prop/whoopee-guest-pig-sit",
       "prop/whoopee-guest-pig-gasp",
-      "prop/whoopee-guest-pig-laugh",
       "prop/whoopee-guest-kitty",
       "prop/whoopee-guest-kitty-sit",
       "prop/whoopee-guest-kitty-gasp",
-      "prop/whoopee-guest-kitty-laugh",
       "prop/whoopee-hat-poodle",
       "prop/whoopee-hat-bunny",
       "prop/whoopee-hat-pig",
@@ -1998,10 +2003,18 @@
       "prop/whoopee-duchess",
       "prop/whoopee-duchess-sit",
       "prop/whoopee-duchess-gasp",
-      "prop/whoopee-duchess-laugh",
       "prop/whoopee-butler",
       "prop/whoopee-butler-ahem",
-      "prop/whoopee-duchess-hat"
+      "prop/whoopee-duchess-hat",
+      "prop/whoopee-guest-poodle-shock",
+      "prop/whoopee-guest-poodle-scold",
+      "prop/whoopee-guest-poodle-huff",
+      "prop/whoopee-guest-bunny-shock",
+      "prop/whoopee-guest-bunny-scold",
+      "prop/whoopee-guest-bunny-huff",
+      "prop/whoopee-guest-pig-shock",
+      "prop/whoopee-guest-pig-scold",
+      "prop/whoopee-guest-pig-huff"
     ],
     "muddy-mayhem": [
       "bg/muddy-mayhem",
@@ -2032,6 +2045,13 @@
       "prop/puppy-3",
       "prop/puppy-4",
       "prop/mud-puddle"
+    ],
+    "whoopee-tea-legacy": [
+      "prop/whoopee-guest-poodle-laugh",
+      "prop/whoopee-guest-bunny-laugh",
+      "prop/whoopee-guest-pig-laugh",
+      "prop/whoopee-guest-kitty-laugh",
+      "prop/whoopee-duchess-laugh"
     ]
   }
 }

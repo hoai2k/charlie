@@ -1,0 +1,53 @@
+{
+  "assets": [
+    {
+      "key": "bg/whoopee-tea",
+      "size": [
+        1536,
+        864
+      ],
+      "geometry": "Full-screen garden, hedge gate from x~170 and x~1750, lawn open from y330, calm HUD band.",
+      "prompt": "Use case: illustration-story. Asset type: opaque 16:9 garden-game background, exact 1920x1080 composition. Posh storybook garden tea-party lawn viewed from slightly elevated three-quarter angle. A tall neatly clipped green hedge spans the back, with white arched garden gates at far left and far right; pastel striped bunting hangs high between them. Smooth striped mowed lawn fills from y\u2248330 to bottom, leaving wide clear open play space. Add only topiary balls in pots and rose bushes tucked to side edges. Soft blue sky with a couple clouds peeking over hedge. Keep upper 110px calm for HUD. No tables, chairs, throne, baskets, cushions, characters, animals or props. Bright clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, colorful, no text, no 3D, no photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/bg-whoopee-tea.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e266413a-4b3e-4bc3-b2be-03b0140ea2b2.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e266413a-4b3e-4bc3-b2be-03b0140ea2b2.png",
+      "file": "party/assets/art/bg/whoopee-tea.webp",
+      "runtimeFile": "party/assets/art/bg/whoopee-tea.webp",
+      "width": 1536,
+      "height": 864,
+      "tool": "built-in imagegen",
+      "status": "reviewed; source unchanged; final expanded group budget pending",
+      "sourceCrop": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1536,
+        864
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 156228,
+      "outputFormat": "WEBP RGB q86 method6",
+      "runtimeBytes": 156228,
+      "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry"
+    }
+  ],
+  "deferredLegacyKeys": [
+    "prop/whoopee-guest-poodle-laugh",
+    "prop/whoopee-guest-bunny-laugh",
+    "prop/whoopee-guest-pig-laugh",
+    "prop/whoopee-guest-kitty-laugh",
+    "prop/whoopee-duchess-laugh"
+  ]
+}

@@ -166,6 +166,9 @@ export function drawGuestFx(g, kind, x, y, h, state, fxs, t, facing = 1) {
         g.beginPath(); g.moveTo(x + Math.cos(a) * r * 1.35 * j, hc + Math.sin(a) * r * 1.45 * j); g.lineTo(x + Math.cos(a) * r * 1.8 * j, hc + Math.sin(a) * r * 1.95 * j); g.stroke();
       }
     } else if (f === 'scold') {
+      // The authored scold already has its raised glove attached to the arm.
+      const base = kind === 'duchess' ? 'prop/whoopee-duchess' : 'prop/whoopee-guest-' + kind;
+      if (state === 'scold' && art(base + '-scold')) continue;
       // a prim white-gloved paw beside the head, one stern finger wagging
       const px = x + facing * r * 1.5, py = hc + r * 0.35;
       const wag = Math.sin(t * 15) * 0.45, lw = Math.max(3, r * 0.1);

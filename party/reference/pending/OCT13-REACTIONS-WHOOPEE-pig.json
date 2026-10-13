@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea pig reactions",
+  "assets": [
+    {
+      "key": "prop/whoopee-guest-pig-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-f0efa806-32bf-4d71-87b8-1a4c2e1b61fe.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-pig-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 824806,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 106766,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved pig guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, seated scale, bottom-center seat anchor, framing, face and proportions as the reference. The same proper pink pig lady with upright ears, round rosy snout, pearl necklace, lavender puff-sleeve dress, cream lace collar and frills. Utterly scandalised: one hoof pressed to her pearls, the other flung up, eyes huge, eyebrows shot up, mouth a small prim O, leaning back in horror, ears bristling, snout raised. A lady clutching her pearls at a garden party; never smiling or laughing. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the whole seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        31,
+        11,
+        306,
+        416
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-pig-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-a9d589b5-d26b-4f0b-9f3f-5bebfb432c77.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-pig-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 818752,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 105814,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved pig guest; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing and proportions. The same prim pink pig lady with upright ears, rosy snout, pearl necklace, lavender dress, cream lace collar and frills. Comically stern and indignant: brows down, narrowed eyes, tight disapproving mouth, cheeks puffed and flushed red, snout and chin up. One hoof raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other hoof on her hip. Prim, pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        30,
+        0,
+        300,
+        417
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-pig-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-bbc178ba-a087-42d7-ba11-5bc7c17ac570.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-pig-sit.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 666234,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 86102,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved seated pig guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, bottom-center seat anchor, framing, scale and palette as the reference. The same proper pink pig lady with upright ears, rosy snout, pearl necklace, lavender dress, cream lace collar and frills. In a grand huff: arms folded tight across her chest, nose and chin tipped high, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        320,
+        418
+      ],
+      "tool": "built-in imagegen"
+    }
+  ],
+  "qa": "Exact runtime alpha/canvas checks; seated gameplay renderer with separate hats/chairs reviewed; scold glove duplication suppressed only when authored scold is available."
+}

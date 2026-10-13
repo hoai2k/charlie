@@ -38572,6 +38572,436 @@
       ],
       "tool": "built-in imagegen",
       "bytes": 68858
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
+      "editPrompt": "Edit the input image. Keep the character, seated pose, expression, pearls, fur, dress, colors, scale, canvas proportions, and transparent background completely unchanged. Remove ONLY the two pairs of stray decorative shock lines beside the head. There must be no other marks or decoration outside the character. Preserve genuine transparency.",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-c6aa24a4-4e85-47df-93f0-fe6d88262af4.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-poodle-gasp.webp"
+      ],
+      "sourceSize": [
+        1094,
+        1437
+      ],
+      "sourceBytes": 1029454,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 128570,
+      "prompt": "Use the attached art as identity reference. A proper seated pink poodle lady in a sustained scandalised reaction, one paw clutching pearls, other flung up, wide eyes, small O mouth. Keep the same 320x420 framing and character size, curled pink fur, lavender dress and cream lace. Crisp navy outlines, clean cel shading, transparent background, no text.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        8,
+        0,
+        309,
+        420
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 128570
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-ea016726-e0d9-4edf-bf06-f7c1ea2b5e1e.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-poodle-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 921658,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 117870,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved poodle guest reference; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing, fur silhouette, face, and proportions. The same prim pink poodle lady with pearl necklace, cream cuffs, pale lavender puff-sleeve dress, cream lace skirt, pink legs and paws, curled pom-pom tail. Comically stern and indignant: brows down, eyes narrowed, tight disapproving mouth, cheeks puffed and flushed red, chin up. One paw is raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other paw rests on her hip. Prim, pompous, funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the entire figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        11,
+        0,
+        311,
+        420
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 117870
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-2279e7a4-b98a-4e35-83d0-e2e64ec6e66f.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-poodle-sit.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 775436,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 97702,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved poodle seated guest reference; reproduce this exact character. Create a 320x420 transparent character image with exactly the same canvas, bottom-center seat anchor, framing, character size, fur silhouette, and palette as the reference. The same prim pink poodle lady with pearl necklace, cream cuffs, pale lavender puff-sleeve dress, cream lace skirt, pink legs and paws, curled pom-pom tail. In a grand huff: arms folded tight across her chest, nose and chin turned high to the right, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the entire figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        48,
+        0,
+        294,
+        418
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 97702
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-bunny-shock-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-shock-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-6468c86e-3e78-4495-a251-ea2277f4c356.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-bunny-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 1005208,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 125784,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved bunny guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, seated scale, bottom-center seat anchor, framing, long-ear silhouette, face, and proportions. The same proper white bunny lady with pale pink inner ears, pearl necklace, pale blue dress with delicate floral details, cream lace collar and cuffs, and lace parasol. Utterly scandalised: one paw pressed to her pearls, the other flung up, eyes huge, eyebrows shot up, mouth a small prim O, leaning back in horror, ears bristling. A lady clutching pearls at a garden party, never smiling or laughing. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the whole figure and parasol visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        15,
+        1,
+        305,
+        415
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 125784
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-bunny-scold-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-scold-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-e6c293f4-aa24-47f4-8fa2-f455cb82a57c.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-bunny-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 844370,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 106990,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved bunny guest; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing, ear silhouette, face and proportions. Same white bunny lady with pink inner ears, lace collar and cuffs, pearl necklace, pale blue floral dress. Comically stern and indignant: brows down, narrowed eyes, tight disapproving mouth, cheeks puffed and flushed red, chin up. One paw raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other paw on her hip. Prim, pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No parasol, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep both long ears and the entire seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        45,
+        0,
+        296,
+        418
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 106990
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-bunny-huff-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-huff-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-62b2db01-07ff-486f-92db-d0b65f72d3e7.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-bunny-sit.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 736644,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 94136,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved seated bunny guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, bottom-center seat anchor, framing, scale and palette as the reference. Same proper white bunny lady with pink inner ears, pearl necklace, pale blue floral dress, lace collar and cuffs. In a grand huff: arms folded tight across her chest, nose and chin tipped high, ears turned to the side, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No parasol, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep both long ears and the entire seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        24,
+        3,
+        307,
+        413
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 94136
+    },
+    {
+      "key": "prop/whoopee-guest-pig-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-f0efa806-32bf-4d71-87b8-1a4c2e1b61fe.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-pig-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 824806,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 106766,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved pig guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, seated scale, bottom-center seat anchor, framing, face and proportions as the reference. The same proper pink pig lady with upright ears, round rosy snout, pearl necklace, lavender puff-sleeve dress, cream lace collar and frills. Utterly scandalised: one hoof pressed to her pearls, the other flung up, eyes huge, eyebrows shot up, mouth a small prim O, leaning back in horror, ears bristling, snout raised. A lady clutching her pearls at a garden party; never smiling or laughing. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the whole seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        31,
+        11,
+        306,
+        416
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 106766
+    },
+    {
+      "key": "prop/whoopee-guest-pig-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-a9d589b5-d26b-4f0b-9f3f-5bebfb432c77.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-pig-gasp.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 818752,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 105814,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved pig guest; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing and proportions. The same prim pink pig lady with upright ears, rosy snout, pearl necklace, lavender dress, cream lace collar and frills. Comically stern and indignant: brows down, narrowed eyes, tight disapproving mouth, cheeks puffed and flushed red, snout and chin up. One hoof raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other hoof on her hip. Prim, pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        30,
+        0,
+        300,
+        417
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 105814
+    },
+    {
+      "key": "prop/whoopee-guest-pig-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
+      "canvas": [
+        320,
+        420
+      ],
+      "alpha": true,
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-bbc178ba-a087-42d7-ba11-5bc7c17ac570.png",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-pig-sit.webp"
+      ],
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 666234,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 86102,
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved seated pig guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, bottom-center seat anchor, framing, scale and palette as the reference. The same proper pink pig lady with upright ears, rosy snout, pearl necklace, lavender dress, cream lace collar and frills. In a grand huff: arms folded tight across her chest, nose and chin tipped high, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure visible.",
+      "game": "whoopee-tea",
+      "size": [
+        320,
+        420
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        320,
+        418
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 86102
+    },
+    {
+      "key": "bg/whoopee-tea",
+      "size": [
+        1536,
+        864
+      ],
+      "geometry": "Full-screen garden, hedge gate from x~170 and x~1750, lawn open from y330, calm HUD band.",
+      "prompt": "Use case: illustration-story. Asset type: opaque 16:9 garden-game background, exact 1920x1080 composition. Posh storybook garden tea-party lawn viewed from slightly elevated three-quarter angle. A tall neatly clipped green hedge spans the back, with white arched garden gates at far left and far right; pastel striped bunting hangs high between them. Smooth striped mowed lawn fills from y\u2248330 to bottom, leaving wide clear open play space. Add only topiary balls in pots and rose bushes tucked to side edges. Soft blue sky with a couple clouds peeking over hedge. Keep upper 110px calm for HUD. No tables, chairs, throne, baskets, cushions, characters, animals or props. Bright clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, colorful, no text, no 3D, no photorealism.",
+      "source": "party/reference/pending/molly-sources/whoopee-tea/bg-whoopee-tea.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e266413a-4b3e-4bc3-b2be-03b0140ea2b2.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e266413a-4b3e-4bc3-b2be-03b0140ea2b2.png",
+      "file": "party/assets/art/bg/whoopee-tea.webp",
+      "runtimeFile": "party/assets/art/bg/whoopee-tea.webp",
+      "width": 1536,
+      "height": 864,
+      "tool": "built-in imagegen",
+      "status": "reviewed; source unchanged; final expanded group budget pending",
+      "sourceCrop": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1536,
+        864
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 156228,
+      "outputFormat": "WEBP RGB q86 method6",
+      "runtimeBytes": 156228,
+      "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry"
     }
   ]
 }
