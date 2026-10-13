@@ -371,7 +371,9 @@ export class Game {
   finish() {
     this.done = true;
     const scores = this.ents.map((e) => e.score);
-    const placements = placementsFromScores(scores);
+    // gentle: dense ranking capped at 3rd, so every finder gets a star (ties share)
+    const distinct = [...new Set(scores)].sort((a, b) => b - a);
+    const placements = this.n === 1 ? placementsFromScores(scores) : scores.map((v) => Math.min(3, distinct.indexOf(v) + 1));
     const top = Math.max(...scores);
     this.ents.forEach((e, i) => { e.vx = e.vy = 0; e.a.clearEmotes?.(); e.a.setPose(scores[i] === top ? 'celebrate' : 'cheer'); });
     // every hidden fairy pops out for a twirl party
