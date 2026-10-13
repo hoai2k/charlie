@@ -14,8 +14,8 @@ puppy-splash->muddy-mayhem, dance-freeze->sneaky-dance, ballet-butterflies->oppo
 tea-party->whoopee-tea, shape-train->bed-bounce, ladybug-spots->prank-troll (MOLLY_SWAPS in
 games/index.js: new game takes the old slot; old games stay playable by id). Their image
 requests keep only reused rows (REPLACED notes); the rest is in history as dropped.
-SFX: round 6 (194, the 17 kept games) done; round 7 (96, the cheeky six) in progress
-(tools/audio/sfx/round7.py gen then build). New poses registered: ride-sit, boop, cuddle,
+SFX: round 6 (194, the 17 kept games) done; round 7 (96, the cheeky six) done
+(tools/audio/sfx/round7.py). New poses registered: ride-sit, boop, cuddle,
 tongue-out, hose-spray, silly-pose, tiptoe. Fairy playable request lists 56 poses for the 23
 games (scratchpad molly-poses.txt). `?chars=` accepts NPC ids (glimmer, garden-fairy-*).
 Waiting on the user: decide whether fairies become the Molly roster after trying the games.
