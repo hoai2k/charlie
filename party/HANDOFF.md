@@ -8,10 +8,11 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
-### Art watch (2026-10-13): half-hourly check for delivered images
-User: check every 30 min until all requested images arrive; QA/fix new art, file regen rounds;
-stop after all arrive or 2 h with no new images. State: scratchpad art-watch.md (+ art-baseline.txt),
-send_later check-ins. Molly menu song: 'molly' (music/molly-time.mp3), resumes (RESUMES in audio.js).
+### Art watch (2026-10-13): DONE
+All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open
+request and re-generation row is closed. All six fairy sprite sets (glimmer, garden-fairy-*) have
+every pose the 23 Molly games use. Check-in timers stopped. Molly menu song: 'molly'
+(music/molly-time.mp3), resumes (RESUMES in audio.js).
 
 ### Molly Party code (lead session) — all 23 on the shelf (2026-10-13)
 All Molly games merged. The cheeky round replaced six "do as you're told" games:
