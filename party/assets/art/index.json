@@ -1018,7 +1018,19 @@
     "prop/yarn-ball-yellow": "prop/yarn-ball-yellow.webp",
     "prop/kitten-basket": "prop/kitten-basket.webp",
     "prop/kitten-basket-front": "prop/kitten-basket-front.webp",
-    "prop/kitten-bed": "prop/kitten-bed.webp"
+    "prop/kitten-bed": "prop/kitten-bed.webp",
+    "bg/ladybug-spots": "bg/ladybug-spots.webp",
+    "prop/ladybug-pad": "prop/ladybug-pad.webp",
+    "prop/ladybug": "prop/ladybug.webp",
+    "prop/bee": "prop/bee.webp",
+    "prop/butterfly": "prop/butterfly.webp",
+    "prop/ladybug-dot": "prop/ladybug-dot.webp",
+    "prop/pollen-puff": "prop/pollen-puff.webp",
+    "prop/wing-dot-pink": "prop/wing-dot-pink.webp",
+    "prop/wing-dot-blue": "prop/wing-dot-blue.webp",
+    "prop/wing-dot-purple": "prop/wing-dot-purple.webp",
+    "prop/wing-dot-orange": "prop/wing-dot-orange.webp",
+    "thumb/ladybug-spots": "thumb/ladybug-spots.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1497,6 +1509,22 @@
       "prop/kitten-basket",
       "prop/kitten-basket-front",
       "prop/kitten-bed"
-    ]
+    ],
+    "ladybug-spots": [
+      "bg/ladybug-spots",
+      "prop/ladybug-pad",
+      "prop/ladybug",
+      "prop/bee",
+      "prop/butterfly",
+      "prop/ladybug-dot",
+      "prop/pollen-puff",
+      "prop/wing-dot-pink",
+      "prop/wing-dot-blue",
+      "prop/wing-dot-purple",
+      "prop/wing-dot-orange"
+    ],
+    "trick-or-treat": [],
+    "duckling-parade": [],
+    "mermaid-pearls": []
   }
 }

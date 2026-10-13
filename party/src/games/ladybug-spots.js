@@ -162,6 +162,26 @@ export class Game {
   slotPos(c, i) {
     // world position of slot i (critter local -> world)
     const s = this.critterScale();
+    const generated = c.kind !== 'rainbow' && art(c.kind === 'butterfly' ? 'prop/butterfly' : c.kind === 'bee' ? 'prop/bee' : 'prop/ladybug');
+    if (generated) {
+      const sq = clamp(c.sq, -0.6, 0.8) * 0.25;
+      let x, y;
+      if (c.kind === 'butterfly') {
+        const left = Math.ceil(c.n / 2), onLeft = i < left;
+        const [u, v] = WING_LAYOUT[onLeft ? left : c.n - left][onLeft ? i : i - left];
+        // Authored 640x448 plain upper-wing centres (140,140)/(500,140).
+        const flap = c.flap > 0 ? 0.55 + Math.sin(this.t * 22) * 0.45 : 0.92 + Math.sin(this.t * 3) * 0.08;
+        x = ((onLeft ? 140 : 500) - 320 + u * 70) * 360 / 640 * flap;
+        y = (140 - 224 + v * 70) * 252 / 448 - 20;
+      } else {
+        const [u, v] = LAYOUT[c.n][i];
+        // Measured clear surfaces exclude the authored heads, legs and bee stripes.
+        const bee = c.kind === 'bee';
+        x = ((bee ? 225 : 170) - 256 + u * (bee ? 70 : 130)) * 300 / 512 * c.facing;
+        y = ((bee ? 177 : 213) - 224 + v * (bee ? 60 : 85)) * 262 / 448;
+      }
+      return { x: c.x + x * (1 + sq) * s, y: c.y + y * (1 - sq) * s - c.hop };
+    }
     if (c.kind === 'butterfly' || c.kind === 'rainbow') {
       const left = Math.ceil(c.n / 2);
       const onLeft = i < left;
@@ -565,6 +585,10 @@ export class Game {
       const p = this.slotPos(c, i);
       const s = c.slots[i];
       g.save(); g.translate(p.x, p.y + (c.sq * 0));
+      if (c.kind !== 'rainbow' && art(c.kind === 'butterfly' ? 'prop/butterfly' : c.kind === 'bee' ? 'prop/bee' : 'prop/ladybug')) {
+        const fit = c.kind === 'bee' ? 0.5 : c.kind === 'butterfly' ? 0.65 : 0.75;
+        g.scale(fit, fit);
+      }
       if (s) {
         const k = 0.8 + s.pop * 0.5 + (s.pulse || 0) * 0.35; g.scale(k, k);
         if (s.pulse) { g.save(); g.globalAlpha = s.pulse * 0.6; g.fillStyle = '#ffffff'; g.beginPath(); g.arc(0, 0, 44, 0, TAU); g.fill(); g.restore(); }
@@ -723,6 +747,7 @@ function drawCritter(g, c, t) {
   if (c.kind === 'butterfly' || c.kind === 'rainbow') { drawButterfly(g, c, t); return; }
   const key = c.kind === 'bee' ? 'prop/bee' : 'prop/ladybug';
   g.save(); g.scale(f, 1);
+  if (drawArt(g, key, 0, 0, 300, 262)) { g.restore(); return; }
   // buzzing wings
   if (flapping || c.kind === 'bee') {
     const fl = Math.sin(t * (flapping ? 60 : 18)) * (flapping ? 0.5 : 0.15);
@@ -730,7 +755,6 @@ function drawCritter(g, c, t) {
     for (const sgn of [-1, 1]) { g.save(); g.translate(-10, -60); g.rotate(sgn * (0.5 + fl) - 0.3); g.beginPath(); g.ellipse(-40, -30, 70, 36, -0.4, 0, TAU); g.fill(); g.stroke(); g.restore(); }
     g.restore();
   }
-  if (drawArt(g, key, 0, 0, 300, 262)) { g.restore(); return; }
   g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 6;
   // legs
   g.lineWidth = 6; g.lineCap = 'round';
@@ -785,7 +809,7 @@ function drawButterfly(g, c, t) {
   const flap = c.flap > 0 ? 0.55 + Math.sin(t * 22) * 0.45 : 0.92 + Math.sin(t * 3) * 0.08;
   const rainbow = c.kind === 'rainbow';
   const K = rainbow ? null : KINDS[c.want] || KINDS.pink;
-  if (!rainbow && drawArt(g, 'prop/butterfly', 0, -20, 360 * flap, 252)) { drawFace(g, 0, -10, c.face, t, NAVY); return; }
+  if (!rainbow && drawArt(g, 'prop/butterfly', 0, -20, 360 * flap, 252)) return;
   g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 6;
   for (const s of [-1, 1]) {
     g.save(); g.scale(s * flap, 1);
