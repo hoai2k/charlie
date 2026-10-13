@@ -22,5 +22,6 @@ export const OUTFIT_FIT = [
   {"set": "hotdog", "pose": "*", "frame": "*", "slot": "neck", "item": "feather-boa", "dx": 0, "dy": -0.03, "rot": 0, "scale": 0.52},
   {"set": "marshmallow-birthday-cake", "pose": "*", "frame": "*", "slot": "face", "item": "monocle", "dx": 0.11, "dy": 0, "rot": 0, "scale": 1},
   {"set": "marshmallow-birthday-cake", "pose": "*", "frame": "*", "slot": "neck", "item": "feather-boa", "dx": 0, "dy": -0.03, "rot": 0, "scale": 0.48},
+  {"set": "snowstar", "pose": "*", "frame": "*", "slot": "back", "item": "teddy-backpack", "dx": -0.1, "dy": -0.14, "rot": 0, "scale": 1},
   {"set": "unicorn", "pose": "*", "frame": "*", "slot": "head", "item": "heart-headband", "dx": -0.15, "dy": -0.14, "rot": 0, "scale": 0.75}
 ];
