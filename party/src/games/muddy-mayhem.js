@@ -1110,10 +1110,10 @@ export class Game {
     } else if (reacting) {
       // Well I never! / Tsk tsk! / Hmph!
       const k = clamp(G.st / 0.18, 0, 1), hx = G.x + G.facing * 34 * sc, hy = G.y - 200 * sc;
-      if (G.react === 'shock') drawShock(g, hx, hy, 70 * sc, this.t, k);
+      if (G.react === 'shock' && (!art('prop/mm-granny-gasp') || G.st < 0.4)) drawShock(g, hx, hy, 70 * sc, this.t, k);   // the gasp art has its own shock marks: just a pop
       if (G.react === 'huff') drawSteam(g, hx - G.facing * 10 * sc, hy - 10 * sc, 60 * sc, this.t);
       if (drawnFinger) drawWag(g, G.x + G.facing * 112 * sc, G.y - 150 * sc, 1.15 * sc, this.t, G.facing);
-      drawShout(g, G.say, G.x - G.facing * 40, G.y - 290 * sc - (1 - k) * 20, 50, this.t, k);
+      drawShout(g, G.say, clamp(G.x - G.facing * 40, 300, W - 300), G.y - 290 * sc - (1 - k) * 20, 50, this.t, k);   // kept on screen at the fence
     } else if (sitShock) {
       const k = clamp(G.st / 0.12, 0, 1);
       if (!art('prop/mm-granny-muddy-shock') || G.st < 0.3) drawShock(g, G.x, G.y - 170, 110, this.t, k);
