@@ -520,6 +520,8 @@ export function drawBoothFront(g, t, opts = {}) {
   g.restore();
 }
 
+const CURTAIN_EDGE = 694 / 760;   // prop/pt-curtain: opaque inner edge / canvas width
+const CURTAIN_TUCK = 80;          // its outer edge drapes inward at the top: start it behind the booth's side curtain
 /** The big red curtains that close between scenes. c: 0 open .. 1 closed. */
 export function drawCurtains(g, c, t) {
   if (c <= 0.001) return;
@@ -530,9 +532,11 @@ export function drawCurtains(g, c, t) {
     const x0 = side < 0 ? WIN.x0 - 40 : WIN.x1 + 40 - cw - 0;
     const img = art('prop/pt-curtain');
     if (img) {
-      g.translate(side < 0 ? x0 : WIN.x1 + 40, 0);
+      g.translate(side < 0 ? x0 - CURTAIN_TUCK : WIN.x1 + 40 + CURTAIN_TUCK, 0);
       if (side > 0) g.scale(-1, 1);
-      g.drawImage(img, 0, WIN.y0 - 30, cw + 10, BOARD_Y + 30 - WIN.y0 + 30);
+      // The painted panel's rope edge sits at ~91% of its width (the tassel
+      // hangs past it): stretch so that edge, not the canvas edge, meets the middle.
+      g.drawImage(img, 0, WIN.y0 - 30, (cw + 18 + CURTAIN_TUCK) / CURTAIN_EDGE, BOARD_Y + 30 - WIN.y0 + 30);
     } else {
       const top = WIN.y0 - 30, bot = BOARD_Y + 20;
       const gr = g.createLinearGradient(x0, 0, x0 + cw, 0);
@@ -561,6 +565,10 @@ export function drawCurtains(g, c, t) {
 
 const AUD_KINDS = ['bunny', 'bear', 'cat', 'duck', 'kid', 'kid2'];
 const AUD_COLORS = { bunny: ['#ffffff', '#ffe0f0'], bear: ['#b07a4f', '#c98f5e'], cat: ['#9aa0b8', '#f2b56b'], duck: ['#ffe14d', '#fff0a0'], kid: ['#5a3a22', '#f2c14e'], kid2: ['#2b1b10', '#c0602e'] };
+const AUD_ART = { bunny: 'prop/pt-audience-bunny', bear: 'prop/pt-audience-bear', cat: 'prop/pt-audience-cat', duck: 'prop/pt-audience-duck' };
+const ART_KINDS = Object.keys(AUD_ART);
+const AUD_ART_PAW = { bunny: '#ffffff', bear: '#a8703f', cat: '#9aa0b8', duck: '#ffe14d' };   // matches the painted fur
+const AUD_ART_H = 170;
 export function makeAudience() {
   const r = seeded(77), seats = [];
   const rows = [{ y: 975, n: 11, s: 0.7 }, { y: 1028, n: 10, s: 0.82 }, { y: 1084, n: 9, s: 0.94 }];
@@ -579,13 +587,18 @@ export function drawAudience(g, seats, t) {
     const bounce = Math.abs(Math.sin(t * 14 + a.ph)) * 10 * a.laugh + Math.sin(t * 1.4 + a.ph) * 2;
     const sway = Math.sin(t * 9 + a.ph) * 0.08 * a.laugh;
     g.save(); g.translate(a.x, a.y - bounce); g.rotate(sway); g.scale(a.s, a.s);
-    const key = { bunny: 'prop/pt-audience-bunny', bear: 'prop/pt-audience-bear', cat: 'prop/pt-audience-cat', duck: 'prop/pt-audience-duck' }[a.kind];
-    if (!(key && drawArt(g, key, 0, 0, 170, 170, { anchor: 'bottom' }))) audienceShape(g, a);
-    // clapping hands pop up beside the head
+    // With the painted critters loaded, the procedural kids would look out of
+    // place among them, so each kid seat becomes one of the painted animals.
+    let kind = a.kind;
+    if (!AUD_ART[kind]) { const alt = ART_KINDS[Math.floor((a.ph / TAU) * ART_KINDS.length) % ART_KINDS.length]; if (art(AUD_ART[alt])) kind = alt; }
+    const painted = !!(AUD_ART[kind] && drawArt(g, AUD_ART[kind], 0, 0, AUD_ART_H, AUD_ART_H, { anchor: 'bottom' }));
+    if (!painted) audienceShape(g, a);
+    // clapping hands pop up beside the head (above it for the taller painted heads)
     if (a.clap > 0.05) {
       const k = Math.abs(Math.sin(t * 18 + a.ph)) * 10;
-      g.fillStyle = a.kind === 'kid' || a.kind === 'kid2' ? '#ffd9b8' : a.col;
-      for (const sd of [-1, 1]) { g.beginPath(); g.ellipse(sd * (22 - k * 0.6), -118 - a.clap * 20, 14, 18, sd * 0.4, 0, TAU); g.fill(); ol(g, 3); }
+      g.fillStyle = painted ? AUD_ART_PAW[kind] : a.kind === 'kid' || a.kind === 'kid2' ? '#ffd9b8' : a.col;
+      const hy = painted ? -AUD_ART_H - 4 - a.clap * 20 : -118 - a.clap * 20;
+      for (const sd of [-1, 1]) { g.beginPath(); g.ellipse(sd * (22 - k * 0.6), hy, 14, 18, sd * 0.4, 0, TAU); g.fill(); ol(g, 3); }
     }
     g.restore();
   }
