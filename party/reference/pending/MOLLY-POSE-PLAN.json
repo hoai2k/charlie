@@ -1,0 +1,435 @@
+{
+  "sourceRevision": "47725f4d",
+  "requiredNewRosterPoses": [
+    {
+      "pose": "cuddle",
+      "game": "kitten-yarn",
+      "loop": false,
+      "description": "Hug small object against chest with arms/paws/chin, eyes closed,happy,tiny sway",
+      "fallback": [
+        "catch",
+        "cheer"
+      ],
+      "engineRegistered": false,
+      "existingRosterSets": [
+        "felicity",
+        "fellowfox",
+        "kpop-girl-center",
+        "kpop-girl-left",
+        "kpop-girl-right",
+        "bronze",
+        "cotton-candy",
+        "fox",
+        "hotdog",
+        "marina",
+        "scale",
+        "marshmallow-birthday-cake",
+        "princess-amber",
+        "snowstar",
+        "unicorn"
+      ],
+      "newMollySets": [
+        "garden-fairy-pink",
+        "garden-fairy-blue",
+        "garden-fairy-yellow",
+        "garden-fairy-green",
+        "garden-fairy-purple",
+        "glimmer"
+      ]
+    },
+    {
+      "pose": "tongue-out",
+      "game": "snowflake-catch",
+      "loop": true,
+      "description": "Head tipped back looking up,mouth open,tongue out catching flakes,silly happy face",
+      "fallback": [
+        "look-up",
+        "think"
+      ],
+      "engineRegistered": false,
+      "existingRosterSets": [
+        "felicity",
+        "fellowfox",
+        "kpop-girl-center",
+        "kpop-girl-left",
+        "kpop-girl-right",
+        "bronze",
+        "cotton-candy",
+        "fox",
+        "hotdog",
+        "marina",
+        "scale",
+        "marshmallow-birthday-cake",
+        "princess-amber",
+        "snowstar",
+        "unicorn"
+      ],
+      "newMollySets": [
+        "garden-fairy-pink",
+        "garden-fairy-blue",
+        "garden-fairy-yellow",
+        "garden-fairy-green",
+        "garden-fairy-purple",
+        "glimmer"
+      ]
+    }
+  ],
+  "requiredCurrentRosterCombinations": 30,
+  "requestedMollyFairyAdditionalCombinations": 12,
+  "explicitlyOptional": [
+    {
+      "pose": "ride-sit",
+      "game": "unicorn-jump",
+      "loop": true,
+      "fallback": [
+        "sit",
+        "ride"
+      ],
+      "notes": "Mounted rider,side-right,imaginary reins; four-legged characters gallop themselves. Eligible sets await real game code."
+    },
+    {
+      "pose": "boop",
+      "game": "pumpkin-peekaboo",
+      "loop": false,
+      "fallback": [
+        "high-five",
+        "action"
+      ],
+      "notes": "Friendly finger/paw/nose poke. Keep separate optional backlog."
+    }
+  ],
+  "optionalArtRows": [
+    "prop/puppy-shake"
+  ],
+  "mollyPlayableExpansion": {
+    "sets": [
+      "garden-fairy-pink",
+      "garden-fairy-blue",
+      "garden-fairy-yellow",
+      "garden-fairy-green",
+      "garden-fairy-purple",
+      "glimmer"
+    ],
+    "canonicalGate": [
+      "garden-fairy-pink",
+      "garden-fairy-blue",
+      "garden-fairy-yellow",
+      "garden-fairy-green",
+      "garden-fairy-purple"
+    ],
+    "glimmerCanonicalAlreadyApproved": true,
+    "provisionalPoses": [
+      "idle",
+      "walk",
+      "run",
+      "fly",
+      "jump",
+      "land",
+      "cheer",
+      "celebrate",
+      "wave",
+      "surprised",
+      "giggle",
+      "laugh",
+      "dizzy",
+      "sad",
+      "catch",
+      "toss",
+      "carry",
+      "cast",
+      "dance",
+      "dance-star",
+      "pose-twirl",
+      "bow",
+      "sit",
+      "sleep",
+      "clap",
+      "photo",
+      "strike3",
+      "high-five"
+    ],
+    "count": 28,
+    "coverage": {
+      "garden-fairy-pink": {
+        "existingPoseKeys": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ],
+        "missingProvisional": [
+          "bow",
+          "carry",
+          "cast",
+          "catch",
+          "cheer",
+          "clap",
+          "dance",
+          "dance-star",
+          "dizzy",
+          "giggle",
+          "high-five",
+          "jump",
+          "land",
+          "laugh",
+          "photo",
+          "pose-twirl",
+          "run",
+          "sad",
+          "sit",
+          "sleep",
+          "strike3",
+          "toss",
+          "wave"
+        ],
+        "existingButNeedPlayableScaleReview": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ]
+      },
+      "garden-fairy-blue": {
+        "existingPoseKeys": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ],
+        "missingProvisional": [
+          "bow",
+          "carry",
+          "cast",
+          "catch",
+          "cheer",
+          "clap",
+          "dance",
+          "dance-star",
+          "dizzy",
+          "giggle",
+          "high-five",
+          "jump",
+          "land",
+          "laugh",
+          "photo",
+          "pose-twirl",
+          "run",
+          "sad",
+          "sit",
+          "sleep",
+          "strike3",
+          "toss",
+          "wave"
+        ],
+        "existingButNeedPlayableScaleReview": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ]
+      },
+      "garden-fairy-yellow": {
+        "existingPoseKeys": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ],
+        "missingProvisional": [
+          "bow",
+          "carry",
+          "cast",
+          "catch",
+          "cheer",
+          "clap",
+          "dance",
+          "dance-star",
+          "dizzy",
+          "giggle",
+          "high-five",
+          "jump",
+          "land",
+          "laugh",
+          "photo",
+          "pose-twirl",
+          "run",
+          "sad",
+          "sit",
+          "sleep",
+          "strike3",
+          "toss",
+          "wave"
+        ],
+        "existingButNeedPlayableScaleReview": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ]
+      },
+      "garden-fairy-green": {
+        "existingPoseKeys": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ],
+        "missingProvisional": [
+          "bow",
+          "carry",
+          "cast",
+          "catch",
+          "cheer",
+          "clap",
+          "dance",
+          "dance-star",
+          "dizzy",
+          "giggle",
+          "high-five",
+          "jump",
+          "land",
+          "laugh",
+          "photo",
+          "pose-twirl",
+          "run",
+          "sad",
+          "sit",
+          "sleep",
+          "strike3",
+          "toss",
+          "wave"
+        ],
+        "existingButNeedPlayableScaleReview": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ]
+      },
+      "garden-fairy-purple": {
+        "existingPoseKeys": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ],
+        "missingProvisional": [
+          "bow",
+          "carry",
+          "cast",
+          "catch",
+          "cheer",
+          "clap",
+          "dance",
+          "dance-star",
+          "dizzy",
+          "giggle",
+          "high-five",
+          "jump",
+          "land",
+          "laugh",
+          "photo",
+          "pose-twirl",
+          "run",
+          "sad",
+          "sit",
+          "sleep",
+          "strike3",
+          "toss",
+          "wave"
+        ],
+        "existingButNeedPlayableScaleReview": [
+          "celebrate",
+          "fly",
+          "idle",
+          "surprised",
+          "walk"
+        ]
+      },
+      "glimmer": {
+        "existingPoseKeys": [
+          "cast",
+          "celebrate",
+          "cheer",
+          "idle",
+          "point",
+          "pout",
+          "present",
+          "ready",
+          "sad",
+          "surprised",
+          "talk",
+          "think",
+          "walk",
+          "wave"
+        ],
+        "missingProvisional": [
+          "bow",
+          "carry",
+          "catch",
+          "clap",
+          "dance",
+          "dance-star",
+          "dizzy",
+          "fly",
+          "giggle",
+          "high-five",
+          "jump",
+          "land",
+          "laugh",
+          "photo",
+          "pose-twirl",
+          "run",
+          "sit",
+          "sleep",
+          "strike3",
+          "toss"
+        ],
+        "existingButNeedPlayableScaleReview": [
+          "cast",
+          "celebrate",
+          "cheer",
+          "idle",
+          "sad",
+          "surprised",
+          "walk",
+          "wave"
+        ]
+      }
+    },
+    "requirements": "Playable-scale bodyHeight~260\u2013300; head/hand/eyes/neck/back on everyframe; portraits; preserve existing NPC idle/walk/fly/celebrate/surprised; Glimmer only missing poses",
+    "finaliseAfterRuntimeMerge": true,
+    "briefUsedButNotInProvisionalList": [
+      "blow",
+      "balance",
+      "look-up",
+      "float",
+      "paint",
+      "water",
+      "dance-up",
+      "dance-down",
+      "dance-side",
+      "tuck",
+      "wand-up",
+      "hold-present",
+      "swim",
+      "dash",
+      "cuddle",
+      "tongue-out"
+    ]
+  },
+  "notes": [
+    "No23 Molly runtime modules yet, so provisional fairy action list cannot be finalised from actual game code.",
+    "Do not treat authored prop animation frames or decorative creature atlases as roster poses.",
+    "Optional poses remain explicit backlog; no generation performed."
+  ]
+}

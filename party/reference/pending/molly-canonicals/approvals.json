@@ -3,12 +3,11 @@
     "butterfly",
     "duckling",
     "frog",
-    "ballet-teacher"
-  ],
-  "pending": [
+    "ballet-teacher",
     "ladybug-v2",
     "bee-v2"
   ],
+  "pending": [],
   "superseded": [
     "ladybug",
     "bee"

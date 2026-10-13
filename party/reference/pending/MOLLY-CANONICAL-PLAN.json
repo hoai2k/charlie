@@ -1,0 +1,852 @@
+{
+  "sourceRevision": "47725f4d",
+  "scope": "Canonical approval/reuse planning; family grouping provisional, not authorization to conflate distinct designs.",
+  "approvedNewReferences": [
+    {
+      "id": "butterfly",
+      "source": "party/reference/pending/molly-canonicals/butterfly.webp",
+      "status": "User approved; root confirmation received",
+      "affectedKeys": [
+        "prop/butterfly",
+        "prop/gg-butterfly",
+        "prop/ballet-butterfly-pink",
+        "prop/ballet-butterfly-blue",
+        "prop/ballet-butterfly-yellow",
+        "prop/ballet-butterfly-purple"
+      ],
+      "rule": "View reference first; preserve identity for poses/palette derivatives."
+    },
+    {
+      "id": "duckling",
+      "source": "party/reference/pending/molly-canonicals/duckling.webp",
+      "status": "User approved; root confirmation received",
+      "affectedKeys": [
+        "prop/bubble-duckling",
+        "prop/duckling",
+        "prop/duckling-quack"
+      ],
+      "rule": "View reference first; preserve identity for poses/palette derivatives."
+    },
+    {
+      "id": "frog",
+      "source": "party/reference/pending/molly-canonicals/frog.webp",
+      "status": "User approved; root confirmation received",
+      "affectedKeys": [
+        "prop/bubble-frog",
+        "prop/bubble-frog-hop",
+        "prop/wand-bubble-frog",
+        "prop/fhs-frog"
+      ],
+      "rule": "View reference first; preserve identity for poses/palette derivatives."
+    },
+    {
+      "id": "ballet-teacher",
+      "source": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "status": "User approved; root confirmation received",
+      "affectedKeys": [
+        "prop/ballet-teacher",
+        "prop/ballet-teacher-up",
+        "prop/ballet-teacher-twirl",
+        "prop/ballet-teacher-plie",
+        "prop/ballet-teacher-side",
+        "prop/ballet-teacher-bow"
+      ],
+      "rule": "View reference first; preserve identity for poses/palette derivatives."
+    }
+  ],
+  "pendingRootRevisions": [
+    {
+      "id": "ladybug",
+      "source": "party/reference/pending/molly-canonicals/ladybug.webp",
+      "status": "Rejected first draft; root revising prettier, less babyish canonical",
+      "affectedKeys": [
+        "prop/ladybug-pad",
+        "prop/ladybug",
+        "prop/ladybug-dot",
+        "prop/fhs-ladybug"
+      ],
+      "owner": "root"
+    },
+    {
+      "id": "bee",
+      "source": "party/reference/pending/molly-canonicals/bee.webp",
+      "status": "Rejected first draft; root revising prettier, less babyish canonical",
+      "affectedKeys": [
+        "prop/bee",
+        "prop/ff-bee",
+        "prop/ff-bee-giggle"
+      ],
+      "owner": "root"
+    }
+  ],
+  "remainingCharacterFamilyReviews": [
+    {
+      "family": "bluebird",
+      "affectedKeys": [
+        "prop/rp-bird",
+        "prop/rp-bird-flap",
+        "prop/bird-fly",
+        "prop/bird-wave"
+      ],
+      "existingDesignCandidates": [
+        "prop/seek-bird"
+      ],
+      "notes": "Round bluebird: singing/flap/right-facing and fly/wave/left-facing versions.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "mama-duck",
+      "affectedKeys": [
+        "prop/mama-duck"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "White mother duck, orange beak, pink head bow.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "splash-puppies",
+      "affectedKeys": [
+        "prop/puppy-1",
+        "prop/puppy-2",
+        "prop/puppy-3",
+        "prop/puppy-4",
+        "prop/puppy-shake"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Four coat subjects: cream retriever, white poodle, brown-white beagle, black-white spotty; cream shake optional.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "sock-puppy",
+      "affectedKeys": [
+        "prop/sock-puppy",
+        "prop/sock-puppy-run",
+        "prop/sock-puppy-bow"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "White puppy with brown ear patch: stand, run, play bow.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "halloween-visitors",
+      "affectedKeys": [
+        "prop/tot-skeleton",
+        "prop/tot-witch",
+        "prop/tot-scarecrow",
+        "prop/tot-mummy",
+        "prop/tot-cat"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Skeleton, grandma witch, pumpkin scarecrow, mummy and black kitten/orange bow are distinct subjects.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "sheet-ghost",
+      "affectedKeys": [
+        "prop/tot-ghost",
+        "prop/tot-candy-ghost",
+        "prop/tot-jack",
+        "prop/gg-ghost",
+        "prop/gg-ghost-giggle",
+        "prop/gg-ghost-peek"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Friendly sheet ghost; expressions, witch-hat/sack variants and spring toy; Root may unify matching designs.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "cloud-friend",
+      "affectedKeys": [
+        "prop/cloud-face",
+        "prop/cloud-face-giggle"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "White silly cloud, normal/giggle. Existing Storm Cloud is gray/grumpy, not this identity.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "toy-train-animals",
+      "affectedKeys": [
+        "prop/shape-train-animal-bunny",
+        "prop/shape-train-animal-bear",
+        "prop/shape-train-animal-duck",
+        "prop/shape-train-animal-pig",
+        "prop/shape-train-animal-cat",
+        "prop/shape-train-animal-frog",
+        "prop/shape-train-animal-elephant",
+        "prop/shape-train-animal-penguin"
+      ],
+      "existingDesignCandidates": [
+        "prop/seek-bunny",
+        "prop/seek-teddy"
+      ],
+      "notes": "Eight species with raised paws/wings: bunny,bear,duck,pig,cat,frog,elephant,penguin. Approved frog may be reused if same design.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "waving-cow",
+      "affectedKeys": [
+        "prop/shape-train-cow"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Black-white cow with flower/bell and waving hoof.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "tea-guests",
+      "affectedKeys": [
+        "prop/tea-guest-teddy",
+        "prop/tea-guest-teddy-happy",
+        "prop/tea-guest-honey",
+        "prop/tea-guest-honey-happy",
+        "prop/tea-guest-bunny",
+        "prop/tea-guest-bunny-happy",
+        "prop/tea-guest-unicorn",
+        "prop/tea-guest-unicorn-happy",
+        "prop/tea-guest-panda",
+        "prop/tea-guest-panda-happy"
+      ],
+      "existingDesignCandidates": [
+        "prop/seek-teddy",
+        "prop/seek-bunny"
+      ],
+      "notes": "Five distinct guests: brown teddy/red bow, honey teddy/pink bow, white bunny/lace collar, lavender-pink unicorn/fancy hat, panda/mint ribbon; happy variants.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "unicorn-mount",
+      "affectedKeys": [
+        "prop/uj-mount",
+        "prop/uj-mount-jump"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Physical white unicorn/rainbow mane/gold horn/pink hooves/saddle. Neither Last Unicorn nor luminous Star Maker unicorn matches.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "sleepy-bunny",
+      "affectedKeys": [
+        "prop/uj-bunny",
+        "prop/uj-bunny-awake"
+      ],
+      "existingDesignCandidates": [
+        "prop/seek-bunny"
+      ],
+      "notes": "Unclothed white bunny sleep/awake, same identity and ground anchor despite different canvases.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "octopus",
+      "affectedKeys": [
+        "prop/mp-octopus",
+        "prop/mp-octopus-awake"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Pink sleepy/giggling octopus with lilac nightcap.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "witch-kitten",
+      "affectedKeys": [
+        "prop/pp-witch-cat",
+        "prop/pp-witch-cat-purr"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Lilac-gray kitten with purple star witch hat; can derive from approved matching kitten coat if root unifies.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "kitten-coats",
+      "affectedKeys": [
+        "prop/kitten-atlas",
+        "prop/kitten-fairy"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Six approved coat identities needed for atlas: ginger,silver tabby,white,tuxedo,calico,cream; fairy kitten derives white with wings/crown. Atlas is30 cells, not30 keys.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "snowman-friend",
+      "affectedKeys": [
+        "prop/snowman-friend",
+        "prop/snowman-friend-throw"
+      ],
+      "existingDesignCandidates": [
+        "prop/snowman"
+      ],
+      "notes": "Pink bobble hat/mint scarf snowman, idle/throw. Existing generic snowman only a design candidate.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "sled-penguin",
+      "affectedKeys": [
+        "prop/penguin-sled"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Penguin/red scarf on red sled, waving wings.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "crescent-moon",
+      "affectedKeys": [
+        "prop/wand-sleepy-moon",
+        "prop/ff-moon",
+        "prop/ff-moon-happy"
+      ],
+      "existingDesignCandidates": [
+        "prop/pt-moon"
+      ],
+      "notes": "Happy/laughing crescent and sleepy nightcap variant. Approved Star Maker Moon is explicitly FULL ROUND, not crescent.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    },
+    {
+      "family": "snail",
+      "affectedKeys": [
+        "prop/fhs-snail"
+      ],
+      "existingDesignCandidates": [],
+      "notes": "Pink-lilac shell snail waving an eye stalk.",
+      "status": "Needs root approval/reuse decision before new identity derivatives and dependent thumbnails; no generation done by inventory"
+    }
+  ],
+  "facePropReview": {
+    "status": "Requested object mascots/pickups, not automatically new NPC actors; root decides if any needs canonical gate. Garden plant mascots are explicitly authorized for independent art by root.",
+    "families": [
+      {
+        "id": "garden-plants",
+        "keys": [
+          "prop/gg-sunflower",
+          "prop/gg-sunflower-giggle",
+          "prop/gg-carrot",
+          "prop/gg-strawberry-bush",
+          "prop/gg-strawberry",
+          "prop/gg-pumpkin",
+          "prop/gg-sneeze-flower",
+          "prop/gg-sneeze-flower-achoo"
+        ]
+      },
+      {
+        "id": "rainbow-sun-and-flowers",
+        "keys": [
+          "prop/rp-flower-1",
+          "prop/rp-flower-2",
+          "prop/rp-flower-3",
+          "prop/rp-flower-grey",
+          "prop/rp-sun-grey",
+          "prop/rp-sun-sleep",
+          "prop/rp-sun-awake"
+        ]
+      },
+      {
+        "id": "cupcake-wrapper-faces",
+        "keys": [
+          "prop/cupcake-pink",
+          "prop/cupcake-blue",
+          "prop/cupcake-mint",
+          "prop/cupcake-lemon",
+          "prop/cupcake-lilac",
+          "prop/cupcake-choc",
+          "prop/cupcake-gold",
+          "prop/cupcake-cherry",
+          "prop/cupcake-candle"
+        ]
+      },
+      {
+        "id": "bubble-machine",
+        "keys": [
+          "prop/bubble-machine"
+        ]
+      },
+      {
+        "id": "toy-train-face",
+        "keys": [
+          "prop/shape-train-engine"
+        ]
+      },
+      {
+        "id": "pumpkin-faces",
+        "keys": [
+          "prop/pp-pumpkin-1",
+          "prop/pp-pumpkin-2",
+          "prop/pp-pumpkin-3",
+          "prop/pp-pumpkin-4",
+          "prop/pp-pumpkin-giggle",
+          "prop/pp-pumpkin-golden",
+          "prop/pp-pumpkin-golden-giggle"
+        ]
+      },
+      {
+        "id": "stars-dots-snowflakes",
+        "notes": "Cute faces on tokens/HUD icons are decorative; do not invent NPCActor sets."
+      }
+    ]
+  },
+  "approvedExistingReuse": [
+    {
+      "family": "roster",
+      "sources": "party/reference/canonical/*.webp",
+      "games": "All avatar thumbnails/poses; choose approved roster identities rather than invent anonymous girls. Felicity includes Fellowfox; KPop includes all three."
+    },
+    {
+      "family": "glimmer",
+      "source": "party/reference/canonical/glimmer.webp",
+      "games": [
+        "dance-freeze"
+      ],
+      "status": "Approved; new missing Molly poses separately requested."
+    },
+    {
+      "family": "troll",
+      "source": "party/reference/canonical/troll.webp",
+      "games": [
+        "trick-or-treat"
+      ],
+      "notes": "Existing Troll wearing bunny ears; no new design."
+    },
+    {
+      "family": "garden-fairies",
+      "sources": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/reference/canonical/garden-fairy-blue.webp",
+        "party/reference/canonical/garden-fairy-yellow.webp",
+        "party/reference/canonical/garden-fairy-green.webp",
+        "party/reference/canonical/garden-fairy-purple.webp"
+      ],
+      "games": [
+        "cupcake-stack",
+        "fairy-flutter",
+        "fairy-hide-seek"
+      ],
+      "status": "Prior NPC designs approved; FIVE PLAYABLE revisions now root-owned and awaiting new approval."
+    },
+    {
+      "family": "aq-fish",
+      "sources": [
+        "party/reference/canonical/studio/aq-clownfish-orange.webp",
+        "party/reference/canonical/studio/aq-puffer-yellow.webp"
+      ],
+      "keys": [
+        "prop/mp-fish-1",
+        "prop/mp-fish-2",
+        "prop/mp-fish-3"
+      ],
+      "notes": "Approved aquarium anatomy can supply recoloured striped fish/pink normal puffer/orange clownfish with bow; inspect source first, preserve identity."
+    }
+  ],
+  "gates": "Do not generate any thumbnail showing an unapproved new subject. Existing indexed delivery alone is a reuse candidate, not evidence to invent a changed NPC.",
+  "newPlayableFairyCanonicals": {
+    "owner": "root",
+    "sets": [
+      "garden-fairy-pink",
+      "garden-fairy-blue",
+      "garden-fairy-yellow",
+      "garden-fairy-green",
+      "garden-fairy-purple"
+    ],
+    "status": "New revised canonicals awaiting user approval; Glimmer keeps existing approved canonical."
+  },
+  "integration": {
+    "gameCount": 23,
+    "runtimeMissing": [
+      "cupcake-stack",
+      "ladybug-spots",
+      "rainbow-painter",
+      "garden-grow",
+      "trick-or-treat",
+      "dance-freeze",
+      "bubble-pop",
+      "balloon-float",
+      "ballet-butterflies",
+      "wand-shapes",
+      "shape-train",
+      "duckling-parade",
+      "puppy-splash",
+      "fairy-flutter",
+      "fairy-hide-seek",
+      "tea-party",
+      "sock-match",
+      "unicorn-jump",
+      "mermaid-pearls",
+      "pumpkin-peekaboo",
+      "ghost-giggles",
+      "kitten-yarn",
+      "snowflake-catch"
+    ],
+    "registeredMollyGames": 0,
+    "proposedGroups": {
+      "cupcake-stack": [
+        "bg/cupcake-stack",
+        "thumb/cupcake-stack",
+        "prop/cupcake-pink",
+        "prop/cupcake-blue",
+        "prop/cupcake-mint",
+        "prop/cupcake-lemon",
+        "prop/cupcake-lilac",
+        "prop/cupcake-choc",
+        "prop/cupcake-gold",
+        "prop/cupcake-cherry",
+        "prop/cupcake-candle"
+      ],
+      "ladybug-spots": [
+        "bg/ladybug-spots",
+        "thumb/ladybug-spots",
+        "prop/ladybug-pad",
+        "prop/ladybug",
+        "prop/bee",
+        "prop/butterfly",
+        "prop/ladybug-dot",
+        "prop/pollen-puff",
+        "prop/wing-dot-pink",
+        "prop/wing-dot-blue",
+        "prop/wing-dot-purple",
+        "prop/wing-dot-orange"
+      ],
+      "rainbow-painter": [
+        "bg/rainbow-painter",
+        "bg/rainbow-painter-color",
+        "thumb/rainbow-painter",
+        "prop/rp-cloud",
+        "prop/rp-tree",
+        "prop/rp-tree-grey",
+        "prop/rp-castle",
+        "prop/rp-castle-grey",
+        "prop/rp-flower-1",
+        "prop/rp-flower-2",
+        "prop/rp-flower-3",
+        "prop/rp-flower-grey",
+        "prop/rp-sun-grey",
+        "prop/rp-sun-sleep",
+        "prop/rp-sun-awake",
+        "prop/rp-bird",
+        "prop/rp-bird-flap"
+      ],
+      "garden-grow": [
+        "bg/garden-grow",
+        "thumb/garden-grow",
+        "prop/gg-dirt",
+        "prop/gg-sprout",
+        "prop/gg-bud",
+        "prop/gg-sunflower",
+        "prop/gg-sunflower-giggle",
+        "prop/gg-carrot",
+        "prop/gg-strawberry-bush",
+        "prop/gg-strawberry",
+        "prop/gg-pumpkin",
+        "prop/gg-vine",
+        "prop/gg-sneeze-flower",
+        "prop/gg-sneeze-flower-achoo",
+        "prop/gg-watering-can",
+        "prop/gg-butterfly"
+      ],
+      "trick-or-treat": [
+        "bg/trick-or-treat",
+        "thumb/trick-or-treat",
+        "prop/tot-house-0",
+        "prop/tot-house-1",
+        "prop/tot-house-2",
+        "prop/tot-house-3",
+        "prop/tot-house-4",
+        "prop/tot-house-5",
+        "prop/tot-door",
+        "prop/tot-skeleton",
+        "prop/tot-witch",
+        "prop/tot-scarecrow",
+        "prop/tot-mummy",
+        "prop/tot-cat",
+        "prop/tot-ghost",
+        "prop/tot-candy-ghost",
+        "prop/tot-bucket",
+        "prop/tot-candy-0",
+        "prop/tot-candy-1",
+        "prop/tot-candy-2",
+        "prop/tot-candy-3",
+        "prop/tot-candy-4",
+        "prop/tot-candy-5",
+        "prop/tot-chicken",
+        "prop/tot-jack",
+        "prop/tot-candy-pile"
+      ],
+      "dance-freeze": [
+        "bg/dance-freeze",
+        "thumb/dance-freeze",
+        "prop/df-disco-ball",
+        "prop/df-dj-booth",
+        "prop/df-feather",
+        "prop/df-snowflake",
+        "prop/df-music"
+      ],
+      "bubble-pop": [
+        "bg/bubble-pop",
+        "thumb/bubble-pop",
+        "prop/bubble-machine",
+        "prop/bubble",
+        "prop/bubble-duckling",
+        "prop/bubble-star",
+        "prop/bubble-cupcake",
+        "prop/bubble-frog",
+        "prop/bubble-frog-hop",
+        "prop/bubble-rainbow"
+      ],
+      "balloon-float": [
+        "bg/balloon-float",
+        "thumb/balloon-float",
+        "prop/balloon-mint",
+        "prop/float-heart",
+        "prop/float-star",
+        "prop/float-golden-star",
+        "prop/cloud-face",
+        "prop/cloud-face-giggle",
+        "prop/bird-fly",
+        "prop/bird-wave"
+      ],
+      "ballet-butterflies": [
+        "bg/ballet-butterflies",
+        "thumb/ballet-butterflies",
+        "prop/ballet-teacher",
+        "prop/ballet-teacher-up",
+        "prop/ballet-teacher-twirl",
+        "prop/ballet-teacher-plie",
+        "prop/ballet-teacher-side",
+        "prop/ballet-teacher-bow",
+        "prop/ballet-move-up",
+        "prop/ballet-move-twirl",
+        "prop/ballet-move-plie",
+        "prop/ballet-move-side",
+        "prop/ballet-butterfly-pink",
+        "prop/ballet-butterfly-blue",
+        "prop/ballet-butterfly-yellow",
+        "prop/ballet-butterfly-purple",
+        "prop/ballet-petal"
+      ],
+      "wand-shapes": [
+        "bg/wand-shapes",
+        "thumb/wand-shapes",
+        "prop/wand-sparkle",
+        "prop/wand-bubble-frog",
+        "prop/wand-heart-balloon",
+        "prop/wand-shooting-star",
+        "prop/wand-sleepy-moon",
+        "prop/wand-rainbow"
+      ],
+      "shape-train": [
+        "bg/shape-train",
+        "thumb/shape-train",
+        "prop/shape-train-engine",
+        "prop/shape-train-car-red",
+        "prop/shape-train-car-blue",
+        "prop/shape-train-car-green",
+        "prop/shape-train-car-yellow",
+        "prop/shape-train-car-pink",
+        "prop/shape-train-animal-bunny",
+        "prop/shape-train-animal-bear",
+        "prop/shape-train-animal-duck",
+        "prop/shape-train-animal-pig",
+        "prop/shape-train-animal-cat",
+        "prop/shape-train-animal-frog",
+        "prop/shape-train-animal-elephant",
+        "prop/shape-train-animal-penguin",
+        "prop/shape-train-cow",
+        "prop/shape-train-tunnel"
+      ],
+      "duckling-parade": [
+        "bg/duckling-parade",
+        "thumb/duckling-parade",
+        "prop/duckling",
+        "prop/duckling-quack",
+        "prop/mama-duck",
+        "prop/duck-nest",
+        "prop/lily-pad",
+        "prop/reeds",
+        "prop/rubber-boot",
+        "prop/flower-bush"
+      ],
+      "puppy-splash": [
+        "bg/puppy-splash",
+        "thumb/puppy-splash",
+        "prop/puppy-1",
+        "prop/puppy-2",
+        "prop/puppy-3",
+        "prop/puppy-4",
+        "prop/puppy-shake",
+        "prop/bubble-pool",
+        "prop/mud-puddle",
+        "prop/dog-bed",
+        "prop/hose-nozzle"
+      ],
+      "fairy-flutter": [
+        "bg/fairy-flutter",
+        "thumb/fairy-flutter",
+        "prop/ff-moon",
+        "prop/ff-moon-happy",
+        "prop/ff-jar",
+        "prop/ff-sparkle",
+        "prop/ff-dewdrop",
+        "prop/ff-petal",
+        "prop/ff-star",
+        "prop/ff-bee",
+        "prop/ff-bee-giggle"
+      ],
+      "fairy-hide-seek": [
+        "bg/fairy-hide-seek",
+        "thumb/fairy-hide-seek",
+        "prop/fhs-flower-pink",
+        "prop/fhs-flower-yellow",
+        "prop/fhs-mushroom",
+        "prop/fhs-leaf",
+        "prop/fhs-teapot",
+        "prop/fhs-can",
+        "prop/fhs-pot",
+        "prop/fhs-boot",
+        "prop/fhs-frog",
+        "prop/fhs-snail",
+        "prop/fhs-ladybug",
+        "prop/fhs-magnifier"
+      ],
+      "tea-party": [
+        "bg/tea-party",
+        "thumb/tea-party",
+        "prop/tea-table",
+        "prop/tea-teapot",
+        "prop/tea-cart",
+        "prop/tea-cup-pink",
+        "prop/tea-cupcake",
+        "prop/tea-strawberry",
+        "prop/tea-cookie",
+        "prop/tea-cake",
+        "prop/tea-guest-teddy",
+        "prop/tea-guest-teddy-happy",
+        "prop/tea-guest-honey",
+        "prop/tea-guest-honey-happy",
+        "prop/tea-guest-bunny",
+        "prop/tea-guest-bunny-happy",
+        "prop/tea-guest-unicorn",
+        "prop/tea-guest-unicorn-happy",
+        "prop/tea-guest-panda",
+        "prop/tea-guest-panda-happy"
+      ],
+      "sock-match": [
+        "bg/sock-match",
+        "thumb/sock-match",
+        "prop/sock-stripes",
+        "prop/sock-dots",
+        "prop/sock-hearts",
+        "prop/sock-stars",
+        "prop/sock-googly",
+        "prop/sock-rainbow",
+        "prop/sock-zigzag",
+        "prop/sock-flowers",
+        "prop/sock-checks",
+        "prop/sock-paws",
+        "prop/sock-puppy",
+        "prop/sock-puppy-run",
+        "prop/sock-puppy-bow",
+        "prop/sock-basket",
+        "prop/clothespin"
+      ],
+      "unicorn-jump": [
+        "bg/unicorn-jump",
+        "thumb/unicorn-jump",
+        "prop/uj-mount",
+        "prop/uj-mount-jump",
+        "prop/uj-puddle",
+        "prop/uj-mushroom",
+        "prop/uj-bunny",
+        "prop/uj-bunny-awake",
+        "prop/uj-star",
+        "prop/uj-candy",
+        "prop/uj-lollipop"
+      ],
+      "mermaid-pearls": [
+        "bg/mermaid-pearls",
+        "thumb/mermaid-pearls",
+        "prop/mp-clam-open",
+        "prop/mp-clam-closed",
+        "prop/mp-pearl",
+        "prop/mp-pearl-gold",
+        "prop/mp-octopus",
+        "prop/mp-octopus-awake",
+        "prop/mp-chest",
+        "prop/mp-chest-open",
+        "prop/mp-fish-1",
+        "prop/mp-fish-2",
+        "prop/mp-fish-3",
+        "prop/mp-vent"
+      ],
+      "pumpkin-peekaboo": [
+        "bg/pumpkin-peekaboo",
+        "thumb/pumpkin-peekaboo",
+        "prop/pp-hole",
+        "prop/pp-pumpkin-1",
+        "prop/pp-pumpkin-2",
+        "prop/pp-pumpkin-3",
+        "prop/pp-pumpkin-4",
+        "prop/pp-pumpkin-giggle",
+        "prop/pp-pumpkin-golden",
+        "prop/pp-pumpkin-golden-giggle",
+        "prop/pp-witch-cat",
+        "prop/pp-witch-cat-purr",
+        "prop/pp-candy-1",
+        "prop/pp-candy-2",
+        "prop/pp-candy-3",
+        "prop/pp-candy-4",
+        "prop/pp-bucket"
+      ],
+      "ghost-giggles": [
+        "bg/ghost-giggles",
+        "thumb/ghost-giggles",
+        "prop/gg-ghost",
+        "prop/gg-ghost-giggle",
+        "prop/gg-ghost-peek",
+        "prop/gg-curtain",
+        "prop/gg-trunk",
+        "prop/gg-disco-ball"
+      ],
+      "kitten-yarn": [
+        "bg/kitten-yarn",
+        "thumb/kitten-yarn",
+        "prop/kitten-cattree",
+        "prop/kitten-atlas",
+        "prop/kitten-fairy",
+        "prop/yarn-ball-pink",
+        "prop/yarn-ball-blue",
+        "prop/yarn-ball-yellow",
+        "prop/kitten-basket",
+        "prop/kitten-basket-front",
+        "prop/kitten-bed"
+      ],
+      "snowflake-catch": [
+        "bg/snowflake-catch",
+        "thumb/snowflake-catch",
+        "prop/snowflake",
+        "prop/snowflake-big",
+        "prop/snowman-friend",
+        "prop/snowman-friend-throw",
+        "prop/penguin-sled",
+        "prop/bigsnowman-1",
+        "prop/bigsnowman-2",
+        "prop/bigsnowman-3",
+        "prop/bigsnowman-4",
+        "prop/bigsnowman-5",
+        "prop/bigsnowman-6"
+      ]
+    },
+    "sharedKeysKeptOutOfGroups": [
+      "prop/cake-stand",
+      "prop/candle-flame",
+      "prop/rubber-duck",
+      "prop/balloon-pink",
+      "prop/balloon-blue",
+      "prop/balloon-yellow",
+      "prop/balloon-purple",
+      "prop/snowball"
+    ]
+  },
+  "warnings": [
+    "23 game briefs, not24;317 table keys,346 authored frames; no runtime modules on current main despite brief fallback claims.",
+    "Eight indexed key collisions have differing requested/current dimensions: preserve shared assets and adapt per-game geometry rather than overwrite.",
+    "rp-flower-grey is a gray daisy; coloured variants2/3 are tulip/bell-flower, so identical grey/colour silhouette requirement needs future consumer/spec resolution.",
+    "Full-round Star Maker Moon and luminous constellation animal canonicals are not exact natural crescent/animal reuse.",
+    "Same-canvas frames/layers (kitten basket, atlas cells, growing snowman, paired expressions) must not be independently normalised/trimmed.",
+    "Seamless scroll backgrounds: balloon-float and unicorn-jump. Glass/holes: bubble centre, ff-jar, fhs magnifier lens; preserve true alpha."
+  ]
+}
