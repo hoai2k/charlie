@@ -68,20 +68,20 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
-- In progress (user request 2026-10-13, 2): 10 new Play Studio games by
-  worktree agents (brief: session scratchpad `studio-brief.md`): hair-salon,
-  dance-studio, acrobat-circus, nail-studio, sandcastle-beach,
-  puppet-theater, snowman-builder, aquarium, star-maker, pottery-wheel.
-  Merged so far: star-maker, sandcastle-beach, puppet-theater (merge with
-  scratchpad `merge_game.sh <branch> <id>`, then `register_game.py <id>`,
-  `copy_reqs.py`, restamp). SFX requests collect in scratchpad
-  `sfx-studio.md`; generate them with ElevenLabs once all 10 are in.
-  Each commits its image-request section first ("Image requests: <id>");
-  the lead copies those to main early. Then Play Studio gets two pages
-  with a "More Play" last tile (like Party Games' PARTY_PAGES). Small
-  lead items: no auto-open closet on the Dress up slot; Fashion Show saves
-  each human's look as their dress-up look; Fashion Show Y clears first,
-  randomizes when empty.
+- Fashion Show item nudge (user request 2026-10-13): right stick moves the
+  current spot's item from its anchor, RS held + up/down sizes it (limits
+  `ADJ_LIMITS` in outfits.js: ±0.6 slot, 0.6–1.6×), a tap of RS resets.
+  Kept per character+item for the visit (`rememberAdj`/`recallAdj`, memory
+  only); outfit entries carry dx/dy/scale, so saved looks keep them for
+  worn items only, and every game's Actor draws them.
+- Play Studio page 2 (user request 2026-10-13): 10 games merged and
+  registered (hair-salon, dance-studio, acrobat-circus, nail-studio,
+  sandcastle-beach, puppet-theater, snowman-builder, aquarium, star-maker,
+  pottery-wheel); their image requests are on main; `STUDIO_PAGES` + "More
+  Play" tile in game select. New POSES registered with fallbacks: mold,
+  tuck, roll-push. SFX: `party/tools/audio/sfx/round5.py` (specs in
+  round5-specs.txt): generated and built 2026-10-13 (100 sounds).
+  Optional future poses: point-up (star-maker), show-nails, snip.
 - Art QA of the 2026-10-12 deliveries: done (fixes merged; regen rows:
   teddy backpack wrong side, optional shorter rod handle).
 - Workbench (`party/workbench/`, README there): view/edit landmarks and

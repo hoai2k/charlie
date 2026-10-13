@@ -1675,10 +1675,30 @@ function normalizeOutfit(outfit) {
   for (const e of list) {
     if (!e) continue;
     const item = e.item || outfitItem(e.id);
-    if (item && item.draw) out[item.slot] = { item, colour: e.colour ?? e.color ?? item.color ?? 0 };
+    if (item && item.draw) out[item.slot] = { item, colour: e.colour ?? e.color ?? item.color ?? 0, adj: userAdj(e) };
   }
   return out;
 }
+
+// --- a player's own nudge of an item (Fashion Show right stick) ------------------
+// Outfit entries may carry dx, dy (slot units, +x toward facing, +y down) and
+// scale, applied on top of the slot anchor and any outfit-fit data.
+export const ADJ_LIMITS = { d: 0.6, smin: 0.6, smax: 1.6 };
+export function clampAdj(a) {
+  const L = ADJ_LIMITS, c = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+  return { dx: c(a.dx || 0, -L.d, L.d), dy: c(a.dy || 0, -L.d, L.d), scale: c(a.scale || 1, L.smin, L.smax) };
+}
+function userAdj(e) {
+  if (!e.dx && !e.dy && (!e.scale || e.scale === 1)) return null;
+  const a = clampAdj(e);
+  return { dx: a.dx, dy: a.dy, rot: 0, scale: a.scale };
+}
+// Nudges remembered per character and item for this visit only (a reload
+// keeps just what the saved look is wearing): take an item off, put it back
+// on, and it returns where the player put it.
+const adjMemory = new Map();   // 'charId|itemId' -> { dx, dy, scale }
+export function rememberAdj(charId, itemId, adj) { adjMemory.set(charId + '|' + itemId, clampAdj(adj)); }
+export function recallAdj(charId, itemId) { return adjMemory.get(charId + '|' + itemId) || null; }
 
 /**
  * Draw a member's outfit inside an Actor attachment callback (forward space).
@@ -1694,8 +1714,9 @@ export function drawOutfit(g, def, info, outfit, { layer = 'front', t = 0, pop =
   const put = (slot, at = A.slots[slot], box = null) => {
     const w = wear[slot];
     if (!w) return;
-    const adj = fitOf(def, info, slot, w.item);
-    if (adj) { at = adjustSlot(at, adj); if (box) box = { w: box.w * adj.scale, h: box.h * adj.scale }; }
+    for (const adj of [fitOf(def, info, slot, w.item), w.adj]) {
+      if (adj) { at = adjustSlot(at, adj); if (box) box = { w: box.w * adj.scale, h: box.h * adj.scale }; }
+    }
     g.save(); g.translate(at.x, at.y);
     if (at.rot) g.rotate(at.rot);
     const k = pop ? pop(slot) : 1; if (k !== 1) g.scale(k, k);
@@ -1757,10 +1778,20 @@ function readLooks() {
 /** The saved look for a character ([] when none), keeping only items that still exist. */
 export function loadLook(charId) {
   const l = readLooks()[charId];
-  return Array.isArray(l) ? l.filter((e) => e && outfitItem(e.id)).map((e) => ({ id: e.id, colour: e.colour | 0 })) : [];
+  if (!Array.isArray(l)) return [];
+  return l.filter((e) => e && outfitItem(e.id)).map((e) => {
+    const out = { id: e.id, colour: e.colour | 0 };
+    if (e.dx || e.dy || (e.scale && e.scale !== 1)) { Object.assign(out, clampAdj(e)); rememberAdj(charId, e.id, out); }
+    return out;
+  });
 }
 export function saveLook(charId, look) {
   const all = readLooks();
-  all[charId] = (look || []).map((e) => ({ id: e.id, colour: e.colour | 0 }));
+  const r2 = (v) => Math.round(v * 100) / 100;
+  all[charId] = (look || []).map((e) => {
+    const out = { id: e.id, colour: e.colour | 0 };
+    if (e.dx || e.dy || (e.scale && e.scale !== 1)) { const a = clampAdj(e); out.dx = r2(a.dx); out.dy = r2(a.dy); out.scale = r2(a.scale); }
+    return out;
+  });
   try { localStorage.setItem(LOOKS_KEY, JSON.stringify(all)); } catch (e) { /* private mode: this visit only */ }
 }

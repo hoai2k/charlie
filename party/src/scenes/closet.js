@@ -6,7 +6,7 @@
 import { sfx } from '../engine/audio.js';
 import { particles } from '../engine/particles.js';
 import * as ui from '../engine/ui.js';
-import { CATS, PALETTE, drawItemIconArt, loadLook, saveLook, outfitItem, CAT } from '../engine/outfits.js';
+import { CATS, PALETTE, drawItemIconArt, loadLook, saveLook, outfitItem, CAT, recallAdj } from '../engine/outfits.js';
 
 const ROWS = 5;
 
@@ -32,7 +32,11 @@ export class Closet {
   /** The look as [{ id, colour }]. */
   get look() {
     const out = [];
-    this.spots.forEach((s, ci) => { if (s.item) out.push({ id: CATS[ci].items[s.item].id, colour: s.colors[s.item] }); });
+    this.spots.forEach((s, ci) => {
+      if (!s.item) return;
+      const id = CATS[ci].items[s.item].id;
+      out.push({ id, colour: s.colors[s.item], ...recallAdj(this.h.charId, id) });   // keeps Fashion Show nudges
+    });
     return out;
   }
 
