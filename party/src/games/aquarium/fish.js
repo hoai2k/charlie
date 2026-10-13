@@ -309,12 +309,12 @@ export function drawFish(g, f, env, o = {}) {
       // Jelly art seats its bell centre at 22.5% height; pulse around that point,
       // leaving its longer tentacles below. Other fish keep their centre anchor.
       g.drawImage(img, -img.width * fit / 2, -img.height * fit * (k.jelly ? 0.225 : 0.5), img.width * fit, img.height * fit);
-    } else body(g, f, col, env.t, wig);
+    } else if (!o.artOnly) body(g, f, col, env.t, wig);
     g.restore();
   };
   if (f.mates) for (const m of f.mates) one(m.x, m.y, m.face, m.wig, s);
   one(f.x, f.y, f.face, f.wig, s);
-  if (f.emote && !o.photo) drawEmote(g, f.emote.kind, f.x + 10 * s, f.y - (k.h * 0.5 + 34) * s, 30, f.emote.t);
+  if (f.emote && !o.photo && !o.artOnly) drawEmote(g, f.emote.kind, f.x + 10 * s, f.y - (k.h * 0.5 + 34) * s, 30, f.emote.t);
 }
 
 /** Night glow for a fish (jellyfish and tetras shine, everyone else gets a faint halo). */
@@ -327,6 +327,14 @@ export function fishGlowColor(f) {
 export function drawFishGlowBits(g, f, env) {
   const k = f.kind, col = k.colors[f.color % k.colors.length];
   if (!(k.jelly || k.school) || f.hidden > 0) return;
+  if (art(`prop/aq-${k.id}-${col.n}`)) {
+    // Generated fish: re-light the authored image itself over the night shade
+    // (the procedural bell/stripe would sit on top as a different creature).
+    g.save(); g.globalAlpha *= env.night * (k.jelly ? 0.6 : 0.75);
+    drawFish(g, f, env, { artOnly: true });
+    g.restore();
+    return;
+  }
   const s = fishScale(f.fd);
   const one = (x, y, face, wig) => {
     g.save(); g.translate(x, y); g.scale(s * (k.jelly ? 1 : face), s);

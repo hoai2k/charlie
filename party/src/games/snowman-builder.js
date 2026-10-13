@@ -868,8 +868,9 @@ export class Game {
     const VW = st.VW, sc = st.scenery, t = this.t;
     const bgA = art('bg/snowman-builder-yard');
     if (bgA) {
-      const s = Math.max(VW / 2400, (FIELD_H + FLOOR_PAD) / 800, (-VIEW_TOP + 300) / 400);
-      g.drawImage(bgA, VW / 2 - 1200 * s, -400 * s, 2400 * s, 1200 * s);
+      // The delivered yard paints its horizon line at y = 355 (asked for 400): put that line on the field's top edge.
+      const HZ = 355, s = Math.max(VW / 2400, (FIELD_H + FLOOR_PAD) / (1200 - HZ), (-VIEW_TOP + 300) / HZ);
+      g.drawImage(bgA, VW / 2 - 1200 * s, -HZ * s, 2400 * s, 1200 * s);
     } else {
       const top = VIEW_TOP - 400;
       const sky = g.createLinearGradient(0, top, 0, 0);
