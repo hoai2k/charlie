@@ -10,8 +10,9 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ### Molly Party code (lead session) — 21 of 23 merged
 All Molly games are merged except fairy-flutter + fairy-hide-seek (agent acd520565d5271c35
-still running; merge with scratchpad merge_molly.sh). SFX rows collected in scratchpad
-sfx-molly.md (round 6 not generated yet); per-game player poses in molly-poses.txt.
+still running; merge with scratchpad merge_molly.sh). SFX round 6 DONE (194 sounds, tools/audio/sfx/round6.py; skips the 6 retired games;
+the cheeky games need a round 7). Per-game player poses: scratchpad molly-poses.txt; the
+fairy request in image-requests.md lists the 44 poses of the 17 kept games.
 New poses registered: ride-sit, boop, cuddle, tongue-out, hose-spray. `?chars=` accepts NPC
 ids (glimmer, garden-fairy-pink|blue|yellow|green|purple) for testing.
 APPROVED 2026-10-13: cheeky games. 3 worktree agents building (brief: scratchpad
