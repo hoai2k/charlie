@@ -67,8 +67,14 @@ import * as g63 from './rainbow-painter.js';
 import * as g64 from './garden-grow.js';
 import * as g65 from './fairy-flutter.js';
 import * as g66 from './fairy-hide-seek.js';
+import * as g67 from './muddy-mayhem.js';
+import * as g68 from './sneaky-dance.js';
+import * as g69 from './bed-bounce.js';
+import * as g70 from './prank-troll.js';
+import * as g71 from './opposite-ballet.js';
+import * as g72 from './whoopee-tea.js';
 
-export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34, g35, g36, g37, g38, g39, g40, g41, g42, g43, g44, g45, g46, g47, g48, g49, g50, g51, g52, g53, g54, g55, g56, g57, g58, g59, g60, g61, g62, g63, g64, g65, g66].map((m) => ({ ...m.meta, module: m }));
+export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34, g35, g36, g37, g38, g39, g40, g41, g42, g43, g44, g45, g46, g47, g48, g49, g50, g51, g52, g53, g54, g55, g56, g57, g58, g59, g60, g61, g62, g63, g64, g65, g66, g67, g68, g69, g70, g71, g72].map((m) => ({ ...m.meta, module: m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
@@ -80,7 +86,16 @@ const LAST = 'crown-keeper', RETIRED = ['fairy-count'];
 const partyRest = PARTY_GAMES.filter((g) => g.id !== LAST && !RETIRED.includes(g.id));
 export const PARTY_PAGES = [partyRest.slice(0, 10), [...partyRest.slice(10), ...PARTY_GAMES.filter((g) => g.id === LAST)]];
 // Molly Party: a separate shelf of simple games for little ones (age 4-5).
-export const MOLLY_GAMES = GAMES.filter((g) => g.category === 'molly');
+// The cheeky games replace the "do as you're told" ones in the same shelf
+// slot; the old games stay playable by id but are off the shelf.
+const MOLLY_SWAPS = {
+  'puppy-splash': 'muddy-mayhem', 'dance-freeze': 'sneaky-dance', 'ballet-butterflies': 'opposite-ballet',
+  'tea-party': 'whoopee-tea', 'shape-train': 'bed-bounce', 'ladybug-spots': 'prank-troll',
+};
+const mollyAll = GAMES.filter((g) => g.category === 'molly');
+const swapIns = new Set(Object.values(MOLLY_SWAPS).filter((id) => mollyAll.some((g) => g.id === id)));
+export const MOLLY_GAMES = mollyAll.filter((g) => !swapIns.has(g.id))
+  .map((g) => (swapIns.has(MOLLY_SWAPS[g.id]) ? mollyAll.find((x) => x.id === MOLLY_SWAPS[g.id]) : g));
 // Play Studio works the same way once it has more than 12 games: 11 per page
 // and a "More Play" tile.
 export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];
