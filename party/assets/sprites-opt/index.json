@@ -1,220 +1,305 @@
 {
-  "sets": {
-    "felicity": {
-      "scale": 0.98765,
-      "portrait": 192,
-      "source": "2362b833ed317190"
-    },
-    "fellowfox": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "31e238f5c8ff1ec2"
-    },
-    "troll": {
-      "scale": 0.75,
-      "portrait": 192,
-      "source": "67549dd021895bfd"
-    },
-    "glimmer": {
-      "scale": 0.75,
-      "portrait": 192,
-      "source": "d291b6a89188e888"
-    },
-    "bronze": {
-      "scale": 0.85714,
-      "portrait": 192,
-      "source": "3a58820746eafbf4"
-    },
-    "professor-hoot": {
-      "scale": 0.75,
-      "portrait": 192,
-      "source": "9ef732e18d913623"
-    },
-    "shadow-imp": {
-      "scale": 0.92308,
-      "portrait": 192,
-      "source": "cb0ff9db7f69d6ee"
-    },
-    "shadow-imp-blue": {
-      "scale": 0.92308,
-      "portrait": 192,
-      "source": "6e8c40479826415b"
-    },
-    "shadow-imp-pink": {
-      "scale": 0.92308,
-      "portrait": 192,
-      "source": "d01c5994ffcd0aaa"
-    },
-    "garden-fairy-pink": {
-      "scale": 1.0,
-      "frameScales": {
-        "idle-00.webp": 1.0,
-        "idle-01.webp": 1.0,
-        "idle-02.webp": 1.0,
-        "idle-03.webp": 1.0,
-        "walk-00.webp": 1.0,
-        "walk-01.webp": 1.0,
-        "walk-02.webp": 1.0,
-        "walk-03.webp": 1.0,
-        "fly-00.webp": 1.0,
-        "fly-01.webp": 1.0,
-        "fly-02.webp": 1.0,
-        "fly-03.webp": 1.0,
-        "celebrate-00.webp": 1.0,
-        "surprised-00.webp": 1.0,
-        "wave-00.webp": 1.0,
-        "cheer-00.webp": 1.0,
-        "giggle-00.webp": 1.0,
-        "dizzy-00.webp": 1.0,
-        "run-00.webp": 1.0,
-        "run-01.webp": 1.0,
-        "run-02.webp": 1.0,
-        "run-03.webp": 1.0,
-        "dance-00.webp": 1.0,
-        "dance-01.webp": 1.0,
-        "dance-02.webp": 1.0,
-        "dance-03.webp": 1.0,
-        "pose-twirl-00.webp": 1.0,
-        "dance-star-00.webp": 1.0,
-        "dance-up-00.webp": 1.0,
-        "dance-down-00.webp": 1.0,
-        "float-00.webp": 1.0,
-        "float-01.webp": 1.0,
-        "float-02.webp": 1.0,
-        "float-03.webp": 1.0,
-        "swim-00.webp": 1.0,
-        "swim-01.webp": 1.0,
-        "swim-02.webp": 1.0,
-        "swim-03.webp": 1.0,
-        "carry-00.webp": 1.0,
-        "catch-00.webp": 1.0,
-        "look-around-00.webp": 1.0,
-        "ride-sit-00.webp": 1.0,
-        "sit-00.webp": 1.0,
-        "dash-00.webp": 1.0,
-        "boop-00.webp": 1.0,
-        "dance-side-00.webp": 1.0,
-        "high-five-00.webp": 1.0,
-        "jump-00.webp": 1.0,
-        "fall-00.webp": 1.0,
-        "spring-jump-00.webp": 1.0,
-        "hurt-00.webp": 1.0,
-        "throw-00.webp": 1.0,
-        "wand-up-00.webp": 1.0,
-        "cast-00.webp": 1.0,
-        "look-up-00.webp": 1.0,
-        "toss-00.webp": 1.0,
-        "blow-00.webp": 1.0,
-        "ready-00.webp": 1.0,
-        "eat-00.webp": 1.0,
-        "paint-00.webp": 1.0,
-        "water-00.webp": 1.0,
-        "laugh-00.webp": 1.0,
-        "cuddle-00.webp": 1.0,
-        "tongue-out-00.webp": 1.0,
-        "tuck-00.webp": 1.0,
-        "action-00.webp": 1.0,
-        "silly-pose-00.webp": 1.0,
-        "push-00.webp": 1.0,
-        "think-00.webp": 1.0,
-        "tiptoe-00.webp": 1.0,
-        "tiptoe-01.webp": 1.0,
-        "tiptoe-02.webp": 1.0,
-        "tiptoe-03.webp": 1.0,
-        "balance-00.webp": 1.0,
-        "shake-00.webp": 1.0,
-        "strike3-00.webp": 1.0,
-        "sleep-00.webp": 1.0,
-        "flip-00.webp": 1.0,
-        "crouch-00.webp": 1.0,
-        "tumble-00.webp": 1.0,
-        "bow-00.webp": 1.0,
-        "clap-00.webp": 1.0,
-        "hose-spray-00.webp": 1.0
-      },
-      "portrait": 192,
-      "source": "90c699334291556d"
-    },
-    "garden-fairy-blue": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "d707a999f4001528"
-    },
-    "garden-fairy-yellow": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "9d0071a01e7d49b1"
-    },
-    "garden-fairy-green": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "6469075eb92d39db"
-    },
-    "garden-fairy-purple": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "e9ec1780a534ea1e"
-    },
-    "marina": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "3dfd5cc708805a48"
-    },
-    "scale": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "19c007ddda63401a"
-    },
-    "kpop-girl-left": {
-      "scale": 0.87273,
-      "portrait": 192,
-      "source": "6bd727ce18f1a7c0"
-    },
-    "cotton-candy": {
-      "scale": 0.96,
-      "portrait": 192,
-      "source": "cbf6f2a9490c12d9"
-    },
-    "kpop-girl-center": {
-      "scale": 0.87273,
-      "portrait": 192,
-      "source": "1e709a5a4474ee65"
-    },
-    "kpop-girl-right": {
-      "scale": 0.87273,
-      "portrait": 192,
-      "source": "207f8fdd972d2f13"
-    },
-    "fox": {
-      "scale": 0.982,
-      "portrait": 192,
-      "source": "a149e47c70a4847f"
-    },
-    "princess-amber": {
-      "scale": 0.88889,
-      "portrait": 192,
-      "source": "1add513954766b8f"
-    },
-    "snowstar": {
-      "scale": 0.92593,
-      "portrait": 192,
-      "source": "1e06e8cc20b796bd"
-    },
-    "marshmallow-birthday-cake": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "40ba2a4256f6187c"
-    },
-    "unicorn": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "b7043c4c3125a528"
-    },
-    "hotdog": {
-      "scale": 1.0,
-      "portrait": 192,
-      "source": "b36e576f5f1715c5"
-    }
+ "sets": {
+  "felicity": {
+   "scale": 0.98765,
+   "portrait": 192,
+   "source": "2362b833ed317190"
   },
-  "note": "Generated by tools/sprites/optimize.py; do not edit by hand."
+  "fellowfox": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "31e238f5c8ff1ec2"
+  },
+  "troll": {
+   "scale": 0.75,
+   "portrait": 192,
+   "source": "67549dd021895bfd"
+  },
+  "glimmer": {
+   "scale": 0.75,
+   "portrait": 192,
+   "source": "d291b6a89188e888"
+  },
+  "bronze": {
+   "scale": 0.85714,
+   "portrait": 192,
+   "source": "3a58820746eafbf4"
+  },
+  "professor-hoot": {
+   "scale": 0.75,
+   "portrait": 192,
+   "source": "9ef732e18d913623"
+  },
+  "shadow-imp": {
+   "scale": 0.92308,
+   "portrait": 192,
+   "source": "cb0ff9db7f69d6ee"
+  },
+  "shadow-imp-blue": {
+   "scale": 0.92308,
+   "portrait": 192,
+   "source": "6e8c40479826415b"
+  },
+  "shadow-imp-pink": {
+   "scale": 0.92308,
+   "portrait": 192,
+   "source": "d01c5994ffcd0aaa"
+  },
+  "garden-fairy-pink": {
+   "scale": 1.0,
+   "frameScales": {
+    "idle-00.webp": 1.0,
+    "idle-01.webp": 1.0,
+    "idle-02.webp": 1.0,
+    "idle-03.webp": 1.0,
+    "walk-00.webp": 1.0,
+    "walk-01.webp": 1.0,
+    "walk-02.webp": 1.0,
+    "walk-03.webp": 1.0,
+    "fly-00.webp": 1.0,
+    "fly-01.webp": 1.0,
+    "fly-02.webp": 1.0,
+    "fly-03.webp": 1.0,
+    "celebrate-00.webp": 1.0,
+    "surprised-00.webp": 1.0,
+    "wave-00.webp": 1.0,
+    "cheer-00.webp": 1.0,
+    "giggle-00.webp": 1.0,
+    "dizzy-00.webp": 1.0,
+    "run-00.webp": 1.0,
+    "run-01.webp": 1.0,
+    "run-02.webp": 1.0,
+    "run-03.webp": 1.0,
+    "dance-00.webp": 1.0,
+    "dance-01.webp": 1.0,
+    "dance-02.webp": 1.0,
+    "dance-03.webp": 1.0,
+    "pose-twirl-00.webp": 1.0,
+    "dance-star-00.webp": 1.0,
+    "dance-up-00.webp": 1.0,
+    "dance-down-00.webp": 1.0,
+    "float-00.webp": 1.0,
+    "float-01.webp": 1.0,
+    "float-02.webp": 1.0,
+    "float-03.webp": 1.0,
+    "swim-00.webp": 1.0,
+    "swim-01.webp": 1.0,
+    "swim-02.webp": 1.0,
+    "swim-03.webp": 1.0,
+    "carry-00.webp": 1.0,
+    "catch-00.webp": 1.0,
+    "look-around-00.webp": 1.0,
+    "ride-sit-00.webp": 1.0,
+    "sit-00.webp": 1.0,
+    "dash-00.webp": 1.0,
+    "boop-00.webp": 1.0,
+    "dance-side-00.webp": 1.0,
+    "high-five-00.webp": 1.0,
+    "jump-00.webp": 1.0,
+    "fall-00.webp": 1.0,
+    "spring-jump-00.webp": 1.0,
+    "hurt-00.webp": 1.0,
+    "throw-00.webp": 1.0,
+    "wand-up-00.webp": 1.0,
+    "cast-00.webp": 1.0,
+    "look-up-00.webp": 1.0,
+    "toss-00.webp": 1.0,
+    "blow-00.webp": 1.0,
+    "ready-00.webp": 1.0,
+    "eat-00.webp": 1.0,
+    "paint-00.webp": 1.0,
+    "water-00.webp": 1.0,
+    "laugh-00.webp": 1.0,
+    "cuddle-00.webp": 1.0,
+    "tongue-out-00.webp": 1.0,
+    "tuck-00.webp": 1.0,
+    "action-00.webp": 1.0,
+    "silly-pose-00.webp": 1.0,
+    "push-00.webp": 1.0,
+    "think-00.webp": 1.0,
+    "tiptoe-00.webp": 1.0,
+    "tiptoe-01.webp": 1.0,
+    "tiptoe-02.webp": 1.0,
+    "tiptoe-03.webp": 1.0,
+    "balance-00.webp": 1.0,
+    "shake-00.webp": 1.0,
+    "strike3-00.webp": 1.0,
+    "sleep-00.webp": 1.0,
+    "flip-00.webp": 1.0,
+    "crouch-00.webp": 1.0,
+    "tumble-00.webp": 1.0,
+    "bow-00.webp": 1.0,
+    "clap-00.webp": 1.0,
+    "hose-spray-00.webp": 1.0
+   },
+   "portrait": 192,
+   "source": "90c699334291556d"
+  },
+  "garden-fairy-blue": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "d707a999f4001528"
+  },
+  "garden-fairy-yellow": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "9d0071a01e7d49b1"
+  },
+  "garden-fairy-green": {
+   "scale": 1.0,
+   "frameScales": {
+    "idle-00.webp": 1.0,
+    "idle-01.webp": 1.0,
+    "idle-02.webp": 1.0,
+    "idle-03.webp": 1.0,
+    "walk-00.webp": 1.0,
+    "walk-01.webp": 1.0,
+    "walk-02.webp": 1.0,
+    "walk-03.webp": 1.0,
+    "fly-00.webp": 1.0,
+    "fly-01.webp": 1.0,
+    "fly-02.webp": 1.0,
+    "fly-03.webp": 1.0,
+    "celebrate-00.webp": 1.0,
+    "surprised-00.webp": 1.0,
+    "wave-00.webp": 1.0,
+    "cheer-00.webp": 1.0,
+    "giggle-00.webp": 1.0,
+    "dizzy-00.webp": 1.0,
+    "run-00.webp": 1.0,
+    "run-01.webp": 1.0,
+    "run-02.webp": 1.0,
+    "run-03.webp": 1.0,
+    "dance-00.webp": 1.0,
+    "dance-01.webp": 1.0,
+    "dance-02.webp": 1.0,
+    "dance-03.webp": 1.0,
+    "pose-twirl-00.webp": 1.0,
+    "dance-star-00.webp": 1.0,
+    "dance-up-00.webp": 1.0,
+    "dance-down-00.webp": 1.0,
+    "float-00.webp": 1.0,
+    "float-01.webp": 1.0,
+    "float-02.webp": 1.0,
+    "float-03.webp": 1.0,
+    "swim-00.webp": 1.0,
+    "swim-01.webp": 1.0,
+    "swim-02.webp": 1.0,
+    "swim-03.webp": 1.0,
+    "carry-00.webp": 1.0,
+    "catch-00.webp": 1.0,
+    "look-around-00.webp": 1.0,
+    "ride-sit-00.webp": 1.0,
+    "sit-00.webp": 1.0,
+    "dash-00.webp": 1.0,
+    "boop-00.webp": 1.0,
+    "dance-side-00.webp": 1.0,
+    "high-five-00.webp": 1.0,
+    "jump-00.webp": 1.0,
+    "fall-00.webp": 1.0,
+    "spring-jump-00.webp": 1.0,
+    "hurt-00.webp": 1.0,
+    "throw-00.webp": 1.0,
+    "wand-up-00.webp": 1.0,
+    "cast-00.webp": 1.0,
+    "look-up-00.webp": 1.0,
+    "toss-00.webp": 1.0,
+    "blow-00.webp": 1.0,
+    "ready-00.webp": 1.0,
+    "eat-00.webp": 1.0,
+    "paint-00.webp": 1.0,
+    "water-00.webp": 1.0,
+    "laugh-00.webp": 1.0,
+    "cuddle-00.webp": 1.0,
+    "tongue-out-00.webp": 1.0,
+    "tuck-00.webp": 1.0,
+    "action-00.webp": 1.0,
+    "balance-00.webp": 1.0,
+    "shake-00.webp": 1.0,
+    "strike3-00.webp": 1.0,
+    "sleep-00.webp": 1.0,
+    "flip-00.webp": 1.0,
+    "crouch-00.webp": 1.0,
+    "tumble-00.webp": 1.0,
+    "bow-00.webp": 1.0,
+    "silly-pose-00.webp": 1.0,
+    "push-00.webp": 1.0,
+    "think-00.webp": 1.0,
+    "tiptoe-00.webp": 1.0,
+    "tiptoe-01.webp": 1.0,
+    "tiptoe-02.webp": 1.0,
+    "tiptoe-03.webp": 1.0,
+    "clap-00.webp": 1.0,
+    "hose-spray-00.webp": 1.0
+   },
+   "portrait": 192,
+   "source": "16acd4428e07ae31"
+  },
+  "garden-fairy-purple": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "e9ec1780a534ea1e"
+  },
+  "marina": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "3dfd5cc708805a48"
+  },
+  "scale": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "19c007ddda63401a"
+  },
+  "kpop-girl-left": {
+   "scale": 0.87273,
+   "portrait": 192,
+   "source": "6bd727ce18f1a7c0"
+  },
+  "cotton-candy": {
+   "scale": 0.96,
+   "portrait": 192,
+   "source": "cbf6f2a9490c12d9"
+  },
+  "kpop-girl-center": {
+   "scale": 0.87273,
+   "portrait": 192,
+   "source": "1e709a5a4474ee65"
+  },
+  "kpop-girl-right": {
+   "scale": 0.87273,
+   "portrait": 192,
+   "source": "207f8fdd972d2f13"
+  },
+  "fox": {
+   "scale": 0.982,
+   "portrait": 192,
+   "source": "a149e47c70a4847f"
+  },
+  "princess-amber": {
+   "scale": 0.88889,
+   "portrait": 192,
+   "source": "1add513954766b8f"
+  },
+  "snowstar": {
+   "scale": 0.92593,
+   "portrait": 192,
+   "source": "1e06e8cc20b796bd"
+  },
+  "marshmallow-birthday-cake": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "40ba2a4256f6187c"
+  },
+  "unicorn": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "b7043c4c3125a528"
+  },
+  "hotdog": {
+   "scale": 1.0,
+   "portrait": 192,
+   "source": "b36e576f5f1715c5"
+  }
+ },
+ "note": "Generated by tools/sprites/optimize.py; do not edit by hand."
 }
