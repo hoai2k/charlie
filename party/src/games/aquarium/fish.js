@@ -306,7 +306,9 @@ export function drawFish(g, f, env, o = {}) {
       const fit = Math.min(w / img.width, h / img.height), wq = 1 + Math.sin(wig) * 0.04;
       g.scale(wq, 1);
       if (k.jelly) g.scale(1 + Math.sin(f.pulse * TAU) * 0.06, 1 - Math.sin(f.pulse * TAU) * 0.06);
-      g.drawImage(img, -img.width * fit / 2, -img.height * fit / 2, img.width * fit, img.height * fit);
+      // Jelly art seats its bell centre at 22.5% height; pulse around that point,
+      // leaving its longer tentacles below. Other fish keep their centre anchor.
+      g.drawImage(img, -img.width * fit / 2, -img.height * fit * (k.jelly ? 0.225 : 0.5), img.width * fit, img.height * fit);
     } else body(g, f, col, env.t, wig);
     g.restore();
   };

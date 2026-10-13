@@ -23,7 +23,8 @@
       "height": 1080,
       "bytes": 112648,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "bg/aquarium-water",
@@ -43,7 +44,8 @@
       "height": 700,
       "bytes": 63908,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "prop/aq-kelp-green",
@@ -68,7 +70,8 @@
       "height": 720,
       "bytes": 47660,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "prop/aq-kelp-teal",
@@ -93,7 +96,8 @@
       "height": 720,
       "bytes": 49034,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "prop/aq-kelp-plum",
@@ -118,7 +122,8 @@
       "height": 720,
       "bytes": 42840,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "prop/aq-fern-green",
@@ -143,7 +148,8 @@
       "height": 340,
       "bytes": 43536,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "prop/aq-fern-lime",
@@ -168,7 +174,8 @@
       "height": 340,
       "bytes": 40674,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "prop/aq-fern-red",
@@ -193,7 +200,8 @@
       "height": 340,
       "bytes": 35736,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed contact sheet and running game",
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     },
     {
       "key": "thumb/aquarium",
@@ -204,11 +212,12 @@
         500
       ],
       "bytes": 111384,
-      "status": "visually reviewed thumbnail from approved family references",
+      "status": "Reviewed contact sheet and running game",
       "prompt": "Use case: stylized-concept. Asset type: Charlie Party Dream Aquarium game thumbnail, final 800\u00d7500 landscape opaque artwork. Input image: approved eight fish-family canonical contact sheet; use orange goldfish, striped orange clownfish, yellow puffer and yellow seahorse identities precisely, other fish not needed. Scene: bright happy fish tank viewed straight from front, pink sandcastle on golden sand, swaying green seaweed, small bubbling diver helmet, smiling goldfish at left, clownfish by a pink anemone, yellow pufferfish at right and a little seahorse. Bubbles and few sparkles allowed in this thumbnail. Centered balanced composition, bold navy outlines and soft candy cel shading matching reference. Fill full landscape frame, friendly and readable at small card size. No text, UI, people, watermark or extra fish species.",
       "references": [
         "party/reference/pending/STUDIO-aquarium-canonicals-contact.jpg"
-      ]
+      ],
+      "runtimeReview": "All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors."
     }
   ],
   "runtimeReview": "Actual CPU Aquarium building phase: room floor and tank background align with code frame; fish swim as separate transparent sprites, clean outline and colour; decoration fallback remains until revised decor batch ships."

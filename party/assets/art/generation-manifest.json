@@ -18874,6 +18874,1205 @@
         1344,
         972
       ]
+    },
+    {
+      "key": "prop/aq-starfish-orange",
+      "file": "party/assets/art/prop/aq-starfish-orange.webp",
+      "size": [
+        180,
+        160
+      ],
+      "geometry": "World 90\u00d780, bottom anchor, standing upright and slightly tilted",
+      "description": "A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9285add6-fdde-4e79-9bdd-f4b5c72731db.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d428e77e-a0a6-4881-807e-6d95af13d7f1.png",
+      "nativeOutputSize": [
+        1236,
+        1273
+      ],
+      "runtimeBytes": 10362,
+      "runtimeAlphaBBox": [
+        12,
+        0,
+        167,
+        160
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 10362,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d428e77e-a0a6-4881-807e-6d95af13d7f1.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/aq-starfish-pink",
+      "file": "party/assets/art/prop/aq-starfish-pink.webp",
+      "size": [
+        180,
+        160
+      ],
+      "geometry": "World 90\u00d780, bottom anchor, standing upright and slightly tilted",
+      "description": "A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d39cf7d0-1e07-4b6b-aebc-a7f866e6ec8f.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4ad47c92-9477-477b-a330-dacd945507ed.png",
+      "nativeOutputSize": [
+        1230,
+        1278
+      ],
+      "runtimeBytes": 10808,
+      "runtimeAlphaBBox": [
+        11,
+        0,
+        168,
+        160
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 10808,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4ad47c92-9477-477b-a330-dacd945507ed.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/aq-starfish-purple",
+      "file": "party/assets/art/prop/aq-starfish-purple.webp",
+      "size": [
+        180,
+        160
+      ],
+      "geometry": "World 90\u00d780, bottom anchor, standing upright and slightly tilted",
+      "description": "A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7153cfb3-3dc4-4ecc-9103-c189a2d620e8.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-8ba1e72a-3869-483a-93b0-f42aa0206219.png",
+      "nativeOutputSize": [
+        1230,
+        1278
+      ],
+      "runtimeBytes": 10064,
+      "runtimeAlphaBBox": [
+        12,
+        0,
+        167,
+        160
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 10064,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-8ba1e72a-3869-483a-93b0-f42aa0206219.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/aq-starfish-yellow",
+      "file": "party/assets/art/prop/aq-starfish-yellow.webp",
+      "size": [
+        180,
+        160
+      ],
+      "geometry": "World 90\u00d780, bottom anchor, standing upright and slightly tilted",
+      "description": "A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-87f57ac6-e0c9-4575-aa40-eaeb068586b8.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5f6925f7-8801-4425-95de-99b1533579af.png",
+      "nativeOutputSize": [
+        1230,
+        1278
+      ],
+      "runtimeBytes": 10576,
+      "runtimeAlphaBBox": [
+        13,
+        0,
+        166,
+        160
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 10576,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5f6925f7-8801-4425-95de-99b1533579af.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/aq-clam-white",
+      "file": "party/assets/art/prop/aq-clam-white.webp",
+      "size": [
+        240,
+        180
+      ],
+      "geometry": "World 120\u00d790, bottom anchor. **Shell only, open**: the code draws the pearl in the middle",
+      "description": "An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-65a1809b-ba7e-4d4b-8100-1c58df877af2.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3f7b56cb-602a-44d3-87f4-59e6327aaee3.png",
+      "nativeOutputSize": [
+        1374,
+        1145
+      ],
+      "runtimeBytes": 14616,
+      "runtimeAlphaBBox": [
+        16,
+        0,
+        224,
+        180
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 14616,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3f7b56cb-602a-44d3-87f4-59e6327aaee3.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/aq-clam-pink",
+      "file": "party/assets/art/prop/aq-clam-pink.webp",
+      "size": [
+        240,
+        180
+      ],
+      "geometry": "World 120\u00d790, bottom anchor. **Shell only, open**: the code draws the pearl in the middle",
+      "description": "An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d9291ef8-5530-4754-bd41-c57fbfdd099d.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ee569cd5-f848-4199-b2f6-a6667a817f0f.png",
+      "nativeOutputSize": [
+        1374,
+        1145
+      ],
+      "runtimeBytes": 13810,
+      "runtimeAlphaBBox": [
+        37,
+        0,
+        221,
+        180
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 13810,
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ee569cd5-f848-4199-b2f6-a6667a817f0f.png",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/aq-clam-blue",
+      "file": "party/assets/art/prop/aq-clam-blue.webp",
+      "size": [
+        240,
+        180
+      ],
+      "geometry": "World 120\u00d790, bottom anchor. **Shell only, open**: the code draws the pearl in the middle",
+      "description": "An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-3064034c-5930-4aad-8ed1-f2677074634f.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The shell is open and EMPTY; do not include a pearl because code animates it in the gap. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-clam-blue.png",
+      "nativeOutputSize": [
+        1374,
+        1145
+      ],
+      "runtimeBytes": 13286,
+      "runtimeAlphaBBox": [
+        31,
+        0,
+        217,
+        180
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The shell is open and EMPTY; do not include a pearl because code animates it in the gap. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 13286,
+      "source": "party/reference/sources/studio/aquarium/aq-clam-blue-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-pebbles-rainbow",
+      "file": "party/assets/art/prop/aq-pebbles-rainbow.webp",
+      "size": [
+        280,
+        120
+      ],
+      "geometry": "World 140\u00d760, bottom anchor",
+      "description": "A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5fb03b9d-c93c-4cee-a4db-9a5bd9c51f81.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-pebbles-rainbow.png",
+      "nativeOutputSize": [
+        1774,
+        887
+      ],
+      "runtimeBytes": 11762,
+      "runtimeAlphaBBox": [
+        1,
+        39,
+        279,
+        120
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 11762,
+      "source": "party/reference/sources/studio/aquarium/aq-pebbles-rainbow-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-pebbles-ocean",
+      "file": "party/assets/art/prop/aq-pebbles-ocean.webp",
+      "size": [
+        280,
+        120
+      ],
+      "geometry": "World 140\u00d760, bottom anchor",
+      "description": "A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-035de111-8b49-4faa-9a6e-5f2c83555e72.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-pebbles-ocean.png",
+      "nativeOutputSize": [
+        1774,
+        887
+      ],
+      "runtimeBytes": 10646,
+      "runtimeAlphaBBox": [
+        3,
+        37,
+        277,
+        120
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 10646,
+      "source": "party/reference/sources/studio/aquarium/aq-pebbles-ocean-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-pebbles-candy",
+      "file": "party/assets/art/prop/aq-pebbles-candy.webp",
+      "size": [
+        280,
+        120
+      ],
+      "geometry": "World 140\u00d760, bottom anchor",
+      "description": "A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-32e5b8fc-91e7-4b8a-8a1b-108a2013812f.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-pebbles-candy.png",
+      "nativeOutputSize": [
+        1774,
+        887
+      ],
+      "runtimeBytes": 11506,
+      "runtimeAlphaBBox": [
+        1,
+        35,
+        278,
+        117
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 11506,
+      "source": "party/reference/sources/studio/aquarium/aq-pebbles-candy-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-rock-grey",
+      "file": "party/assets/art/prop/aq-rock-grey.webp",
+      "size": [
+        400,
+        280
+      ],
+      "geometry": "World 200\u00d7140, bottom anchor",
+      "description": "A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e0a2c4e8-010a-4ac8-9fc4-05b7bf0c3f8b.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-rock-grey.png",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 15846,
+      "runtimeAlphaBBox": [
+        0,
+        77,
+        400,
+        280
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 15846,
+      "source": "party/reference/sources/studio/aquarium/aq-rock-grey-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-rock-sand",
+      "file": "party/assets/art/prop/aq-rock-sand.webp",
+      "size": [
+        400,
+        280
+      ],
+      "geometry": "World 200\u00d7140, bottom anchor",
+      "description": "A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-71e68d43-fc3d-43ba-9707-d179a5521a16.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-rock-sand.png",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 19184,
+      "runtimeAlphaBBox": [
+        2,
+        52,
+        400,
+        261
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
+      "bytes": 19184,
+      "source": "party/reference/sources/studio/aquarium/aq-rock-sand-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-rock-slate",
+      "file": "party/assets/art/prop/aq-rock-slate.webp",
+      "size": [
+        400,
+        280
+      ],
+      "geometry": "World 200\u00d7140, bottom anchor",
+      "description": "A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5f6e6e75-b92e-4aea-83a0-e8bc4fe156dc.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-rock-slate.png",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 14736,
+      "runtimeAlphaBBox": [
+        0,
+        56,
+        395,
+        273
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "bytes": 14736,
+      "source": "party/reference/sources/studio/aquarium/aq-rock-slate-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-airstone-blue",
+      "file": "party/assets/art/prop/aq-airstone-blue.webp",
+      "size": [
+        140,
+        80
+      ],
+      "geometry": "World 70\u00d740, bottom anchor. Bubbles stream up from its top centre (code)",
+      "description": "A small round aquarium air stone on a tiny disc, porous texture, in blue / pink",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c132f546-d1e9-4d6d-9953-2554acbc1c31.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The airstone alone: no bubbles, water, plume, glow or stand, since bubbles are drawn by code. Target object: A small round aquarium air stone on a tiny disc, porous texture, in blue / pink. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-airstone-blue.png",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 3966,
+      "runtimeAlphaBBox": [
+        26,
+        1,
+        114,
+        80
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The airstone alone: no bubbles, water, plume, glow or stand, since bubbles are drawn by code. Target object: A small round aquarium air stone on a tiny disc, porous texture, in blue / pink. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "bytes": 3966,
+      "source": "party/reference/sources/studio/aquarium/aq-airstone-blue-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-airstone-pink",
+      "file": "party/assets/art/prop/aq-airstone-pink.webp",
+      "size": [
+        140,
+        80
+      ],
+      "geometry": "World 70\u00d740, bottom anchor. Bubbles stream up from its top centre (code)",
+      "description": "A small round aquarium air stone on a tiny disc, porous texture, in blue / pink",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-44c5d8b9-1250-4359-bdfb-f1f31b0b01f8.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The airstone alone: no bubbles, water, plume, glow or stand, since bubbles are drawn by code. Target object: A small round aquarium air stone on a tiny disc, porous texture, in blue / pink. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-airstone-pink.png",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 4312,
+      "runtimeAlphaBBox": [
+        23,
+        0,
+        110,
+        80
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The airstone alone: no bubbles, water, plume, glow or stand, since bubbles are drawn by code. Target object: A small round aquarium air stone on a tiny disc, porous texture, in blue / pink. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "bytes": 4312,
+      "source": "party/reference/sources/studio/aquarium/aq-airstone-pink-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-diver-brass",
+      "file": "party/assets/art/prop/aq-diver-brass.webp",
+      "size": [
+        280,
+        300
+      ],
+      "geometry": "World 140\u00d7150, bottom anchor. Bubbles puff from the top valve (code)",
+      "description": "A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4957b4f6-b3e3-40dc-a6f7-48201ff2da35.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the exact upright vintage diver figurine silhouette, helmet, round porthole, hose and flippers, rendered as a friendly simplified toy-like 2D prop. Target object: A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-diver-brass.png",
+      "nativeOutputSize": [
+        1215,
+        1295
+      ],
+      "runtimeBytes": 30318,
+      "runtimeAlphaBBox": [
+        20,
+        0,
+        260,
+        300
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the exact upright vintage diver figurine silhouette, helmet, round porthole, hose and flippers, rendered as a friendly simplified toy-like 2D prop. Target object: A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "bytes": 30318,
+      "source": "party/reference/sources/studio/aquarium/aq-diver-brass-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-diver-silver",
+      "file": "party/assets/art/prop/aq-diver-silver.webp",
+      "size": [
+        280,
+        300
+      ],
+      "geometry": "World 140\u00d7150, bottom anchor. Bubbles puff from the top valve (code)",
+      "description": "A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-eea07fe6-04fe-4313-9590-9bccfcb51d9d.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the exact upright vintage diver figurine silhouette, helmet, round porthole, hose and flippers, rendered as a friendly simplified toy-like 2D prop. Target object: A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-diver-silver.png",
+      "nativeOutputSize": [
+        1154,
+        1363
+      ],
+      "runtimeBytes": 27314,
+      "runtimeAlphaBBox": [
+        28,
+        0,
+        252,
+        300
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the exact upright vintage diver figurine silhouette, helmet, round porthole, hose and flippers, rendered as a friendly simplified toy-like 2D prop. Target object: A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "bytes": 27314,
+      "source": "party/reference/sources/studio/aquarium/aq-diver-silver-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-volcano-red",
+      "file": "party/assets/art/prop/aq-volcano-red.webp",
+      "size": [
+        360,
+        320
+      ],
+      "geometry": "World 180\u00d7160, bottom anchor. The code adds bubbles from the crater and a lava glow at night",
+      "description": "A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f4313854-1463-40f8-97bb-22676e902e77.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-volcano-red.png",
+      "nativeOutputSize": [
+        1295,
+        1215
+      ],
+      "runtimeBytes": 25552,
+      "runtimeAlphaBBox": [
+        2,
+        0,
+        357,
+        320
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
+      "bytes": 25552,
+      "source": "party/reference/sources/studio/aquarium/aq-volcano-red-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-volcano-purple",
+      "file": "party/assets/art/prop/aq-volcano-purple.webp",
+      "size": [
+        360,
+        320
+      ],
+      "geometry": "World 180\u00d7160, bottom anchor. The code adds bubbles from the crater and a lava glow at night",
+      "description": "A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-95c9cb75-4d92-471c-a9bf-60a59313ae01.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-volcano-purple.png",
+      "nativeOutputSize": [
+        1295,
+        1215
+      ],
+      "runtimeBytes": 25708,
+      "runtimeAlphaBBox": [
+        4,
+        0,
+        355,
+        313
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "bytes": 25708,
+      "source": "party/reference/sources/studio/aquarium/aq-volcano-purple-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-chest",
+      "file": "party/assets/art/prop/aq-chest.webp",
+      "size": [
+        300,
+        240
+      ],
+      "geometry": "World 150\u00d7120, bottom anchor. **Closed chest only**: the code draws the lid popping open (a burst of bubbles and sparkles) by itself",
+      "description": "A treasure chest with a rounded wooden lid, gold bands, a heart-shaped lock and a few gold coins and pearls peeking out at the seam",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-52fed2b4-2cd1-4d74-95e1-022062edce92.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Chest must be CLOSED and latched; no coins, pearls, treasure spilling out, or open lid. Target object: A treasure chest with a rounded wooden lid, gold bands, a heart-shaped lock and a few gold coins and pearls peeking out at the seam. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-chest.png",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 19544,
+      "runtimeAlphaBBox": [
+        19,
+        38,
+        300,
+        230
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Chest must be CLOSED and latched; no coins, pearls, treasure spilling out, or open lid. Target object: A treasure chest with a rounded wooden lid, gold bands, a heart-shaped lock and a few gold coins and pearls peeking out at the seam. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "bytes": 19544,
+      "source": "party/reference/sources/studio/aquarium/aq-chest-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-glowstone-blue",
+      "file": "party/assets/art/prop/aq-glowstone-blue.webp",
+      "size": [
+        200,
+        240
+      ],
+      "geometry": "World 100\u00d7120, bottom anchor; glows at night (code)",
+      "description": "A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7a726fbd-f450-4f9d-b91c-8cee77735eb6.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-glowstone-blue.png",
+      "nativeOutputSize": [
+        1215,
+        1295
+      ],
+      "runtimeBytes": 14840,
+      "runtimeAlphaBBox": [
+        5,
+        30,
+        200,
+        240
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "bytes": 14840,
+      "source": "party/reference/sources/studio/aquarium/aq-glowstone-blue-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-glowstone-pink",
+      "file": "party/assets/art/prop/aq-glowstone-pink.webp",
+      "size": [
+        200,
+        240
+      ],
+      "geometry": "World 100\u00d7120, bottom anchor; glows at night (code)",
+      "description": "A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c470bab0-7473-4149-84bd-e6775381b70e.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-glowstone-pink.png",
+      "nativeOutputSize": [
+        1215,
+        1295
+      ],
+      "runtimeBytes": 14708,
+      "runtimeAlphaBBox": [
+        0,
+        20,
+        200,
+        240
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "bytes": 14708,
+      "source": "party/reference/sources/studio/aquarium/aq-glowstone-pink-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-glowstone-green",
+      "file": "party/assets/art/prop/aq-glowstone-green.webp",
+      "size": [
+        200,
+        240
+      ],
+      "geometry": "World 100\u00d7120, bottom anchor; glows at night (code)",
+      "description": "A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d7bae91a-faed-441a-aa0f-9452c19d968e.png",
+      "editPrompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every crystal shard must belong to the green color family only (green and lighter/darker green facets allowed); remove all blue and pink shards while preserving the existing crystal cluster silhouette, rock base, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-glowstone-green-palette.png",
+      "nativeOutputSize": [
+        1199,
+        1312
+      ],
+      "runtimeBytes": 14834,
+      "runtimeAlphaBBox": [
+        6,
+        21,
+        196,
+        240
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "editHistory": [
+        {
+          "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+          "nativeOutputPNG": "/private/tmp/aq-glowstone-green.png",
+          "nativeOutputSize": [
+            1199,
+            1312
+          ],
+          "runtimeBytes": 15402,
+          "runtimeAlphaBBox": [
+            12,
+            15,
+            200,
+            240
+          ],
+          "preservedSource": "party/reference/sources/studio/aquarium/aq-glowstone-green-style-source.webp"
+        }
+      ],
+      "prompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every crystal shard must belong to the green color family only (green and lighter/darker green facets allowed); remove all blue and pink shards while preserving the existing crystal cluster silhouette, rock base, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "bytes": 14834,
+      "source": "party/reference/sources/studio/aquarium/aq-glowstone-green-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-lantern",
+      "file": "party/assets/art/prop/aq-lantern.webp",
+      "size": [
+        160,
+        280
+      ],
+      "geometry": "World 80\u00d7140, bottom anchor; the code lights the glass at night",
+      "description": "A little underwater lantern on a short post: round glass globe in a brass frame with a ring handle",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-743567cc-819b-4d02-9177-dbaecdce0e71.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Lantern is unlit with transparent glass and no cast light, glow, aura, halo, or shadow. Target object: A little underwater lantern on a short post: round glass globe in a brass frame with a ring handle. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-lantern.png",
+      "nativeOutputSize": [
+        1145,
+        1374
+      ],
+      "runtimeBytes": 12248,
+      "runtimeAlphaBBox": [
+        21,
+        88,
+        142,
+        277
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Lantern is unlit with transparent glass and no cast light, glow, aura, halo, or shadow. Target object: A little underwater lantern on a short post: round glass globe in a brass frame with a ring handle. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
+      "bytes": 12248,
+      "source": "party/reference/sources/studio/aquarium/aq-lantern-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-glowshroom-teal",
+      "file": "party/assets/art/prop/aq-glowshroom-teal.webp",
+      "size": [
+        240,
+        220
+      ],
+      "geometry": "World 120\u00d7110, bottom anchor; caps glow at night (code)",
+      "description": "Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e12c5e30-7ccf-403e-9a1a-b2340764b976.png",
+      "editPrompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every mushroom cap must belong to the teal color family only (lighter/darker teal shades allowed); recolor all caps consistently, with no other cap colors, while preserving the existing cluster silhouette, stems, plants, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-glowshroom-teal-palette.png",
+      "nativeOutputSize": [
+        1303,
+        1207
+      ],
+      "runtimeBytes": 21962,
+      "runtimeAlphaBBox": [
+        0,
+        2,
+        240,
+        220
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "editHistory": [
+        {
+          "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep the mushroom solid with colorful cap and simple spots; no emitted glow, aura or halo because lighting is handled by code. Target object: Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
+          "nativeOutputPNG": "/private/tmp/aq-glowshroom-teal.png",
+          "nativeOutputSize": [
+            1303,
+            1207
+          ],
+          "runtimeBytes": 21260,
+          "runtimeAlphaBBox": [
+            9,
+            5,
+            239,
+            220
+          ],
+          "preservedSource": "party/reference/sources/studio/aquarium/aq-glowshroom-teal-style-source.webp"
+        }
+      ],
+      "prompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every mushroom cap must belong to the teal color family only (lighter/darker teal shades allowed); recolor all caps consistently, with no other cap colors, while preserving the existing cluster silhouette, stems, plants, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "bytes": 21962,
+      "source": "party/reference/sources/studio/aquarium/aq-glowshroom-teal-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-glowshroom-pink",
+      "file": "party/assets/art/prop/aq-glowshroom-pink.webp",
+      "size": [
+        240,
+        220
+      ],
+      "geometry": "World 120\u00d7110, bottom anchor; caps glow at night (code)",
+      "description": "Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-47f1868b-d0fa-437c-8930-445f4a4daa03.png",
+      "editPrompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every mushroom cap must belong to the pink color family only (lighter/darker pink shades allowed); recolor all caps consistently, with no other cap colors, while preserving the existing cluster silhouette, stems, plants, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-glowshroom-pink-palette.png",
+      "nativeOutputSize": [
+        1312,
+        1199
+      ],
+      "runtimeBytes": 20816,
+      "runtimeAlphaBBox": [
+        6,
+        0,
+        220,
+        220
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "editHistory": [
+        {
+          "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep the mushroom solid with colorful cap and simple spots; no emitted glow, aura or halo because lighting is handled by code. Target object: Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
+          "nativeOutputPNG": "/private/tmp/aq-glowshroom-pink.png",
+          "nativeOutputSize": [
+            1312,
+            1199
+          ],
+          "runtimeBytes": 21212,
+          "runtimeAlphaBBox": [
+            20,
+            1,
+            230,
+            220
+          ],
+          "preservedSource": "party/reference/sources/studio/aquarium/aq-glowshroom-pink-style-source.webp"
+        }
+      ],
+      "prompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every mushroom cap must belong to the pink color family only (lighter/darker pink shades allowed); recolor all caps consistently, with no other cap colors, while preserving the existing cluster silhouette, stems, plants, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "bytes": 20816,
+      "source": "party/reference/sources/studio/aquarium/aq-glowshroom-pink-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-glowshroom-purple",
+      "file": "party/assets/art/prop/aq-glowshroom-purple.webp",
+      "size": [
+        240,
+        220
+      ],
+      "geometry": "World 120\u00d7110, bottom anchor; caps glow at night (code)",
+      "description": "Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ff6509b3-56fc-454c-84a8-8d230e1575af.png",
+      "editPrompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every mushroom cap must belong to the purple color family only (lighter/darker purple shades allowed); recolor all caps consistently, with no other cap colors, while preserving the existing cluster silhouette, stems, plants, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-glowshroom-purple-palette.png",
+      "nativeOutputSize": [
+        1374,
+        1145
+      ],
+      "runtimeBytes": 16372,
+      "runtimeAlphaBBox": [
+        26,
+        31,
+        238,
+        220
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "editHistory": [
+        {
+          "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep the mushroom solid with colorful cap and simple spots; no emitted glow, aura or halo because lighting is handled by code. Target object: Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
+          "nativeOutputPNG": "/private/tmp/aq-glowshroom-purple.png",
+          "nativeOutputSize": [
+            1374,
+            1145
+          ],
+          "runtimeBytes": 16724,
+          "runtimeAlphaBBox": [
+            27,
+            28,
+            215,
+            220
+          ],
+          "preservedSource": "party/reference/sources/studio/aquarium/aq-glowshroom-purple-style-source.webp"
+        }
+      ],
+      "prompt": "Image 1 is the exact approved 2D prop to edit; Image 2 is only a style reference. Make a targeted color correction to Image 1 while preserving its existing polished 2D candy-cartoon look, exact silhouette, geometry, relative object placement, canvas framing, navy #24163f outlines, clean cel shading, stems/bases/details and scale. Every mushroom cap must belong to the purple color family only (lighter/darker purple shades allowed); recolor all caps consistently, with no other cap colors, while preserving the existing cluster silhouette, stems, plants, composition and outline. Keep genuine transparent alpha. No 3D, photorealism, glow, halo, bubbles, ground, cast shadow, text, watermark, new objects, or changes to pose.",
+      "bytes": 16372,
+      "source": "party/reference/sources/studio/aquarium/aq-glowshroom-purple-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-moonlight",
+      "file": "party/assets/art/prop/aq-moonlight.webp",
+      "size": [
+        200,
+        300
+      ],
+      "geometry": "World 100\u00d7150, bottom anchor; glows at night",
+      "description": "A smiling crescent-moon lamp on a curly stand with a little star hanging from its tip, pale yellow",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-84648ded-03a0-42ec-9da0-2be6659e5fed.png",
+      "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the crescent moon lamp's curly curved stand and include a small five-point star hanging by a short string from the crescent tip. Keep moon and star pale warm yellow/gold. No glow or halo. Target object: A smiling crescent-moon lamp on a curly stand with a little star hanging from its tip, pale yellow. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
+      "references": [
+        "party/reference/canonical/studio/aq-goldfish-orange.webp"
+      ],
+      "nativeOutputPNG": "/private/tmp/aq-moonlight.png",
+      "nativeOutputSize": [
+        1215,
+        1295
+      ],
+      "runtimeBytes": 16742,
+      "runtimeAlphaBBox": [
+        3,
+        84,
+        191,
+        300
+      ],
+      "actualTransparency": true,
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the crescent moon lamp's curly curved stand and include a small five-point star hanging by a short string from the crescent tip. Keep moon and star pale warm yellow/gold. No glow or halo. Target object: A smiling crescent-moon lamp on a curly stand with a little star hanging from its tip, pale yellow. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
+      "bytes": 16742,
+      "source": "party/reference/sources/studio/aquarium/aq-moonlight-source.webp",
+      "tool": "built-in imagegen",
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+    },
+    {
+      "key": "prop/aq-jellyfish-pink",
+      "output_path": "party/assets/art/prop/aq-jellyfish-pink.webp",
+      "prompt": "Use case: stylized-concept. Asset type: CANONICAL identity reference for one Dream Aquarium creature. Input Felicity is a STYLE reference ONLY: bold smooth dark navy outlines #24163f, rounded appealing shapes, expressive eyes, bright candy colors, simple clean cel shading. No 3D or photorealism. Subject: A friendly translucentpinkjellyfish withroundbell inTOP45% andsoft frillyribbon tentacles, sweetface. Single complete creature centered, side view facing RIGHT; jellyfish is front view. Friendly big eye and small CLOSED smiling mouth, no teeth. Entire tail, fins and tentacles visible with generous transparent margin. Real transparent background, no glow halos, bubbles, scenery, ground, shadows, text or watermark. Do not borrow Felicity anatomy, fur or costume. The jellyfish bell is in the upper45 percent and tentacles extend below.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-jellyfish-pink.webp",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+      "format": "webp",
+      "bytes": 19388,
+      "alpha_bounds_px": [
+        7,
+        25,
+        173,
+        209
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-jellyfish-pink.webp",
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-jellyfish-pink.webp"
+    },
+    {
+      "key": "prop/aq-jellyfish-lilac",
+      "output_path": "party/assets/art/prop/aq-jellyfish-lilac.webp",
+      "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to soft lilac while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-312df7ce-6b2b-45eb-8f42-4964c9eac34b.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+      "format": "webp",
+      "bytes": 19334,
+      "alpha_bounds_px": [
+        7,
+        26,
+        173,
+        209
+      ],
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-312df7ce-6b2b-45eb-8f42-4964c9eac34b.png"
+    },
+    {
+      "key": "prop/aq-jellyfish-blue",
+      "output_path": "party/assets/art/prop/aq-jellyfish-blue.webp",
+      "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to clear cool sky-blue while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e8660653-2f77-4c8a-988b-dcabe7139cd0.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+      "format": "webp",
+      "bytes": 19714,
+      "alpha_bounds_px": [
+        7,
+        26,
+        173,
+        209
+      ],
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e8660653-2f77-4c8a-988b-dcabe7139cd0.png"
+    },
+    {
+      "key": "prop/aq-jellyfish-peach",
+      "output_path": "party/assets/art/prop/aq-jellyfish-peach.webp",
+      "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to soft warm peach while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f6baa894-030a-4630-b8de-ee1987b24356.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
+      "format": "webp",
+      "bytes": 19462,
+      "alpha_bounds_px": [
+        7,
+        26,
+        173,
+        208
+      ],
+      "status": "Reviewed final palette, alpha and runtime geometry",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ],
+      "tool": "built-in imagegen",
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f6baa894-030a-4630-b8de-ee1987b24356.png"
     }
   ]
 }

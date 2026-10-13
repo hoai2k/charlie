@@ -96,18 +96,38 @@ function face(g, x, y, s = 1) {
 }
 function sway(env, it, k) { return Math.sin(env.t * 1.3 + it.seed * 9 + k * 0.7) ; }
 
+function drawPearl(g, it) {
+  if ((it.clamOpen ?? 1) <= 0.2) return;
+  E(g, 0, -30, 14, 14, '#fdfbff', 0, 3);
+  E(g, -4, -34, 4, 4, '#ffffff', 0, 0);
+  g.fillStyle = 'rgba(200,180,255,0.4)'; g.beginPath(); g.arc(4, -26, 6, 0, TAU); g.fill();
+}
+
+/** Authored body fit, shared with its night redraw so silhouettes stay seated. */
+function drawGenerated(g, d, it, env, img) {
+  g.save();
+  if (d.sway) g.transform(1, 0, sway(env, it, 0) * 0.06 * d.sway, 1, 0, 0);
+  const s = Math.min(d.w / img.width, d.h / img.height);
+  if (d.id === 'chest' && it.open > 0) {
+    // Measured lid/body seam: y=122 on the 300x240 authored chest.
+    const seam = Math.round(img.height * 122 / 240), hingeY = (seam - img.height) * s;
+    g.save(); g.translate(0, hingeY); g.rotate(-clamp(it.open, 0, 1) * 1.1);
+    g.drawImage(img, 0, 0, img.width, seam, -img.width * s / 2, -seam * s, img.width * s, seam * s);
+    g.restore();
+    // Body goes in front of the opening lid, using the same pixels and placement as closed.
+    g.drawImage(img, 0, seam, img.width, img.height - seam, -img.width * s / 2, hingeY, img.width * s, (img.height - seam) * s);
+  } else g.drawImage(img, -img.width * s / 2, -img.height * s, img.width * s, img.height * s);
+  g.restore();
+}
+
 /** Draw a decoration at the current origin (base centre). it: { color, seed, open, born } */
 export function drawDecor(g, d, it, env) {
   const col = d.colors[it.color % d.colors.length];
   g.lineJoin = 'round'; g.lineCap = 'round';
   const img = art(artKey(d, it.color));
   if (img) {
-    g.save();
-    if (d.sway) g.transform(1, 0, sway(env, it, 0) * 0.06 * d.sway, 1, 0, 0);
-    const s = Math.min(d.w / img.width, d.h / img.height);
-    g.drawImage(img, -img.width * s / 2, -img.height * s, img.width * s, img.height * s);
-    g.restore();
-    overlay(g, d, it, env, col);
+    drawGenerated(g, d, it, env, img);
+    overlay(g, d, it, env, col, true);
     return;
   }
   const f = DRAW[d.id];
@@ -116,15 +136,18 @@ export function drawDecor(g, d, it, env) {
 }
 
 /** Bits the code animates on top of the art too (pearl, chest lid). */
-function overlay(g, d, it, env, col) {
+function overlay(g, d, it, env, col, generated = false) {
+  if (generated && d.id === 'clam') drawPearl(g, it);
   if (d.id === 'chest' && it.open > 0) {
     // lid flips open with a burst of light
     const o = clamp(it.open, 0, 1);
-    g.save(); g.translate(0, -70);
-    g.rotate(-o * 1.1);
-    ui.roundRect(g, -72, -40, 144, 40, 18); g.fillStyle = col.c; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-    g.fillStyle = col.a; g.fillRect(-10, -40, 20, 40); g.strokeRect(-10, -40, 20, 40);
-    g.restore();
+    if (!generated) {
+      g.save(); g.translate(0, -70);
+      g.rotate(-o * 1.1);
+      ui.roundRect(g, -72, -40, 144, 40, 18); g.fillStyle = col.c; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
+      g.fillStyle = col.a; g.fillRect(-10, -40, 20, 40); g.strokeRect(-10, -40, 20, 40);
+      g.restore();
+    }
     g.save(); g.globalAlpha = o; g.fillStyle = '#fff1a0';
     E(g, 0, -70, 60, 10, '#ffe066', 0, 3);
     for (const [x, c] of [[-30, '#ffd23f'], [-8, '#ffffff'], [16, '#ffd23f'], [36, '#ff8fc8']]) E(g, x, -76, 9, 9, c, 0, 2.5);
@@ -136,6 +159,17 @@ function overlay(g, d, it, env, col) {
 export function drawDecorGlow(g, d, it, env) {
   const col = d.colors[it.color % d.colors.length];
   const k = env.night;
+  if (d.id === 'glowstone' || d.id === 'glowshroom' || d.id === 'moonlight') {
+    const img = art(artKey(d, it.color));
+    if (img) {
+      const pulse = d.id === 'glowstone' ? 0.7 + 0.3 * Math.sin(env.t * 2 + it.seed * 7)
+        : d.id === 'glowshroom' ? 0.75 + 0.25 * Math.sin(env.t * 1.6 + it.seed * 5) : 1;
+      g.save(); g.globalCompositeOperation = 'source-over'; g.globalAlpha = k * 0.45 * pulse;
+      drawGenerated(g, d, it, env, img);
+      g.restore();
+      return;
+    }
+  }
   if (d.id === 'glowstone') {
     g.save(); g.globalAlpha = k * (0.7 + 0.3 * Math.sin(env.t * 2 + it.seed * 7));
     crystals(g, col.c, col.a, 0); g.restore();
@@ -152,7 +186,7 @@ export function drawDecorGlow(g, d, it, env) {
     g.restore();
   } else if (d.id === 'volcano') {
     g.save(); g.globalAlpha = k * (0.7 + 0.3 * Math.sin(env.t * 3)); lava(g, col.a, 0); g.restore();
-  } else if (d.id === 'clam') {
+  } else if (d.id === 'clam' && (it.clamOpen ?? 1) > 0.2) {
     g.save(); g.globalAlpha = k * 0.8; E(g, 0, -30, 13, 13, '#ffffff', 0, 0); g.restore();
   }
 }
@@ -333,7 +367,7 @@ const DRAW = {
     g.fillStyle = shade(col.c, -0.06); g.fill(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();
     g.strokeStyle = col.a; g.lineWidth = 2.5; for (let i = -2; i <= 2; i++) { g.beginPath(); g.moveTo(i * 8, -4); g.lineTo(i * 22, -50 + Math.abs(i) * 6); g.stroke(); }
     g.restore();
-    if (o > 0.2) { E(g, 0, -30, 14, 14, '#fdfbff', 0, 3); E(g, -4, -34, 4, 4, '#ffffff', 0, 0); g.fillStyle = 'rgba(200,180,255,0.4)'; g.beginPath(); g.arc(4, -26, 6, 0, TAU); g.fill(); }
+    drawPearl(g, it);
     // front half
     g.beginPath(); g.moveTo(-58, -26); g.quadraticCurveTo(-52, 6, 0, 2); g.quadraticCurveTo(52, 6, 58, -26); g.quadraticCurveTo(0, -12, -58, -26); g.closePath();
     g.fillStyle = col.c; g.fill(); g.lineWidth = 3.5; g.strokeStyle = NAVY; g.stroke();

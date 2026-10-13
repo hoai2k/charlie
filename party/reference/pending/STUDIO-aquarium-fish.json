@@ -1,7 +1,7 @@
 {
   "game": "Dream Aquarium fish variants",
   "updated": "2026-10-12",
-  "status": "36/36 table fish keys generated/populated from approved canonicals",
+  "status": "36 aquarium fish; jellyfish geometry corrected for bell-centre anchor at 22.5% canvas height",
   "approval": "All eight species canonicals in STUDIO-aquarium-canonicals.json are user-approved",
   "assets": [
     {
@@ -192,17 +192,36 @@
         180,
         280
       ],
-      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
       "format": "webp",
-      "bytes": 19400,
+      "bytes": 19388,
       "alpha_bounds_px": [
-        9,
-        48,
-        175,
-        232
+        7,
+        25,
+        173,
+        209
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-jellyfish-pink.webp",
-      "status": "approved canonical used as base prop"
+      "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ]
     },
     {
       "key": "prop/aq-goldfish-gold",
@@ -825,16 +844,35 @@
         180,
         280
       ],
-      "actual_geometry": "proportional contain into transparent target 180\u00d7280; no crop",
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
       "format": "webp",
-      "bytes": 19344,
+      "bytes": 19334,
       "alpha_bounds_px": [
-        9,
-        49,
-        175,
-        232
+        7,
+        26,
+        173,
+        209
       ],
-      "status": "generated; pending visual review"
+      "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ]
     },
     {
       "key": "prop/aq-jellyfish-blue",
@@ -849,16 +887,35 @@
         180,
         280
       ],
-      "actual_geometry": "proportional contain into transparent target 180\u00d7280; no crop",
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
       "format": "webp",
-      "bytes": 19722,
+      "bytes": 19714,
       "alpha_bounds_px": [
-        9,
-        49,
-        175,
-        232
+        7,
+        26,
+        173,
+        209
       ],
-      "status": "generated; pending visual review"
+      "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ]
     },
     {
       "key": "prop/aq-jellyfish-peach",
@@ -873,16 +930,35 @@
         180,
         280
       ],
-      "actual_geometry": "proportional contain into transparent target 180\u00d7280; no crop",
+      "actual_geometry": "Re-intaken approved source at original proportional contain scale (180\u00d7190 layer), translated -2 px x / -23 px y within transparent 180\u00d7280 canvas; full alpha silhouette remains visible. Measured bell centre \u2248(92,86) before, placed at (90,63) after.",
       "format": "webp",
-      "bytes": 19486,
+      "bytes": 19462,
       "alpha_bounds_px": [
-        9,
-        49,
-        175,
-        231
+        7,
+        26,
+        173,
+        208
       ],
-      "status": "generated; pending visual review"
+      "status": "approved-source re-intake; bell-centre anchor corrected to (90,63), full tentacles visible",
+      "anchor": {
+        "kind": "bell-centre",
+        "before_px_approx": [
+          92,
+          86
+        ],
+        "after_px": [
+          90,
+          63
+        ],
+        "normalized": [
+          0.5,
+          0.225
+        ]
+      },
+      "actual_alpha_extrema": [
+        0,
+        255
+      ]
     }
   ],
   "runtimeReview": "Actual CPU Aquarium building phase: room floor and tank background align with code frame; fish swim as separate transparent sprites, clean outline and colour; decoration fallback remains until revised decor batch ships."
