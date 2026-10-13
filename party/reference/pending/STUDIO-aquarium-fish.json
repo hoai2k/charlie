@@ -1,0 +1,889 @@
+{
+  "game": "Dream Aquarium fish variants",
+  "updated": "2026-10-12",
+  "status": "36/36 table fish keys generated/populated from approved canonicals",
+  "approval": "All eight species canonicals in STUDIO-aquarium-canonicals.json are user-approved",
+  "assets": [
+    {
+      "key": "prop/aq-goldfish-orange",
+      "output_path": "party/assets/art/prop/aq-goldfish-orange.webp",
+      "prompt": "Usecase stylized-concept. CANONICAL identity reference for Dream Aquarium creature, single fullbody centered on transparentbackground. Input reference is Felicity STYLE ONLY: bold smooth darknavy outlines#24163f, roundedappealing shapes, expressiveeyes, brightcandycolors,simplecleancelshading,no3D,nophotorealism. Subject:A chubby orangegoldfish with bigdoublefan tail,roundeye,rosycheek,shortroundedfins. Sideview facing RIGHT (jellyfishfrontview). Friendly bigeye, CLOSED small smilingmouth, no teeth,no fear. Entire tail/fins/tentacles visiblewithminimalgenerousmargin. Identityonly, no clothes borrowedfromFelicity, nobubbles,noenvironment,ground,shadow,texthalo orwatermark. This approvedreference willbeusedfor colorvariants andin-game art.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-goldfish-orange.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        220,
+        160
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 13402,
+      "alpha_bounds_px": [
+        15,
+        8,
+        209,
+        150
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-goldfish-orange.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-clownfish-orange",
+      "output_path": "party/assets/art/prop/aq-clownfish-orange.webp",
+      "prompt": "Usecase stylized-concept. CANONICAL identity reference for Dream Aquarium creature, single fullbody centered on transparentbackground. Input reference is Felicity STYLE ONLY: bold smooth darknavy outlines#24163f, roundedappealing shapes, expressiveeyes, brightcandycolors,simplecleancelshading,no3D,nophotorealism. Subject:A roundorangeclownfish withthree white navyedgedstripes,roundedfins,smallfan tail. Sideview facing RIGHT (jellyfishfrontview). Friendly bigeye, CLOSED small smilingmouth, no teeth,no fear. Entire tail/fins/tentacles visiblewithminimalgenerousmargin. Identityonly, no clothes borrowedfromFelicity, nobubbles,noenvironment,ground,shadow,texthalo orwatermark. This approvedreference willbeusedfor colorvariants andin-game art.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        128
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 9724,
+      "alpha_bounds_px": [
+        4,
+        1,
+        184,
+        128
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-angelfish-lilac",
+      "output_path": "party/assets/art/prop/aq-angelfish-lilac.webp",
+      "prompt": "Usecase stylized-concept. CANONICAL identity reference for Dream Aquarium creature, single fullbody centered on transparentbackground. Input reference is Felicity STYLE ONLY: bold smooth darknavy outlines#24163f, roundedappealing shapes, expressiveeyes, brightcandycolors,simplecleancelshading,no3D,nophotorealism. Subject:A tall triangularlilacangelfish with longtrailingtop/bottomfins andsoftverticalstripes. Sideview facing RIGHT (jellyfishfrontview). Friendly bigeye, CLOSED small smilingmouth, no teeth,no fear. Entire tail/fins/tentacles visiblewithminimalgenerousmargin. Identityonly, no clothes borrowedfromFelicity, nobubbles,noenvironment,ground,shadow,texthalo orwatermark. This approvedreference willbeusedfor colorvariants andin-game art.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-angelfish-lilac.webp",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        220,
+        260
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 16452,
+      "alpha_bounds_px": [
+        8,
+        24,
+        211,
+        242
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-angelfish-lilac.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-puffer-yellow",
+      "output_path": "party/assets/art/prop/aq-puffer-yellow.webp",
+      "prompt": "Usecase stylized-concept. CANONICAL identity reference for Dream Aquarium creature, single fullbody centered on transparentbackground. Input reference is Felicity STYLE ONLY: bold smooth darknavy outlines#24163f, roundedappealing shapes, expressiveeyes, brightcandycolors,simplecleancelshading,no3D,nophotorealism. Subject:A plumpyellowpufferfish NORMALnoninflated body,tinyfins,roundshape,freckledback,nosoftspikesunlesssubtle. Sideview facing RIGHT (jellyfishfrontview). Friendly bigeye, CLOSED small smilingmouth, no teeth,no fear. Entire tail/fins/tentacles visiblewithminimalgenerousmargin. Identityonly, no clothes borrowedfromFelicity, nobubbles,noenvironment,ground,shadow,texthalo orwatermark. This approvedreference willbeusedfor colorvariants andin-game art.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-puffer-yellow.webp",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        168
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 8304,
+      "alpha_bounds_px": [
+        22,
+        25,
+        179,
+        140
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-puffer-yellow.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-betta-blue",
+      "output_path": "party/assets/art/prop/aq-betta-blue.webp",
+      "prompt": "Use case: stylized-concept. Asset type: CANONICAL identity reference for one Dream Aquarium creature. Input Felicity is a STYLE reference ONLY: bold smooth dark navy outlines #24163f, rounded appealing shapes, expressive eyes, bright candy colors, simple clean cel shading. No 3D or photorealism. Subject: A royalbluebetta withhugeflowingveilfins andtail likeballgown. Single complete creature centered, side view facing RIGHT; jellyfish is front view. Friendly big eye and small CLOSED smiling mouth, no teeth. Entire tail, fins and tentacles visible with generous transparent margin. Real transparent background, no glow halos, bubbles, scenery, ground, shadows, text or watermark. Do not borrow Felicity anatomy, fur or costume. The jellyfish bell is in the upper45 percent and tentacles extend below.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-betta-blue.webp",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        260,
+        220
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 22114,
+      "alpha_bounds_px": [
+        30,
+        2,
+        232,
+        217
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-betta-blue.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-tetra-neon",
+      "output_path": "party/assets/art/prop/aq-tetra-neon.webp",
+      "prompt": "Use case: stylized-concept. Asset type: CANONICAL identity reference for one Dream Aquarium creature. Input Felicity is a STYLE reference ONLY: bold smooth dark navy outlines #24163f, rounded appealing shapes, expressive eyes, bright candy colors, simple clean cel shading. No 3D or photorealism. Subject: A tiny slimneontetra withblueupperstripe andredlowerstripe,shorttranslucentfins. Single complete creature centered, side view facing RIGHT; jellyfish is front view. Friendly big eye and small CLOSED smiling mouth, no teeth. Entire tail, fins and tentacles visible with generous transparent margin. Real transparent background, no glow halos, bubbles, scenery, ground, shadows, text or watermark. Do not borrow Felicity anatomy, fur or costume. The jellyfish bell is in the upper45 percent and tentacles extend below.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-tetra-neon.webp",
+      "source_size_px": [
+        1448,
+        1086
+      ],
+      "target_size_px": [
+        108,
+        52
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 2522,
+      "alpha_bounds_px": [
+        19,
+        6,
+        88,
+        45
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-tetra-neon.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-seahorse-yellow",
+      "output_path": "party/assets/art/prop/aq-seahorse-yellow.webp",
+      "prompt": "Use case: stylized-concept. Asset type: CANONICAL identity reference for one Dream Aquarium creature. Input Felicity is a STYLE reference ONLY: bold smooth dark navy outlines #24163f, rounded appealing shapes, expressive eyes, bright candy colors, simple clean cel shading. No 3D or photorealism. Subject: A cuteyellowseahorse upright withcurledtail,littlebackfin,snout andcrownlikecrest. Single complete creature centered, side view facing RIGHT; jellyfish is front view. Friendly big eye and small CLOSED smiling mouth, no teeth. Entire tail, fins and tentacles visible with generous transparent margin. Real transparent background, no glow halos, bubbles, scenery, ground, shadows, text or watermark. Do not borrow Felicity anatomy, fur or costume. The jellyfish bell is in the upper45 percent and tentacles extend below.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-seahorse-yellow.webp",
+      "source_size_px": [
+        1024,
+        1536
+      ],
+      "target_size_px": [
+        120,
+        240
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 9868,
+      "alpha_bounds_px": [
+        23,
+        31,
+        111,
+        208
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-seahorse-yellow.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-jellyfish-pink",
+      "output_path": "party/assets/art/prop/aq-jellyfish-pink.webp",
+      "prompt": "Use case: stylized-concept. Asset type: CANONICAL identity reference for one Dream Aquarium creature. Input Felicity is a STYLE reference ONLY: bold smooth dark navy outlines #24163f, rounded appealing shapes, expressive eyes, bright candy colors, simple clean cel shading. No 3D or photorealism. Subject: A friendly translucentpinkjellyfish withroundbell inTOP45% andsoft frillyribbon tentacles, sweetface. Single complete creature centered, side view facing RIGHT; jellyfish is front view. Friendly big eye and small CLOSED smiling mouth, no teeth. Entire tail, fins and tentacles visible with generous transparent margin. Real transparent background, no glow halos, bubbles, scenery, ground, shadows, text or watermark. Do not borrow Felicity anatomy, fur or costume. The jellyfish bell is in the upper45 percent and tentacles extend below.",
+      "source_path": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-jellyfish-pink.webp",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "proportional contain and transparent pad; base art reused directly from approved canonical, no new generation",
+      "format": "webp",
+      "bytes": 19400,
+      "alpha_bounds_px": [
+        9,
+        48,
+        175,
+        232
+      ],
+      "canonical_reference": "party/reference/canonical/studio/aq-jellyfish-pink.webp",
+      "status": "approved canonical used as base prop"
+    },
+    {
+      "key": "prop/aq-goldfish-gold",
+      "output_path": "party/assets/art/prop/aq-goldfish-gold.webp",
+      "prompt": "Using the supplied approved orange goldfish canonical as the exact identity and composition reference, recolor only the body scales and fins to rich warm yellow-gold scales and fins. Preserve the same chubby goldfish shape, large double fan tail, right-facing side view, big round eye, rosy cheek, closed smile, navy outline, highlights, proportions and centered full-body framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-df5f630d-e8cb-4cad-bcbc-5241d1db242a.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        220,
+        160
+      ],
+      "actual_geometry": "proportional contain into transparent target 220\u00d7160; no crop",
+      "format": "webp",
+      "bytes": 13248,
+      "alpha_bounds_px": [
+        15,
+        8,
+        210,
+        150
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-df5f630d-e8cb-4cad-bcbc-5241d1db242a.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-goldfish-calico",
+      "output_path": "party/assets/art/prop/aq-goldfish-calico.webp",
+      "prompt": "Using the supplied approved orange goldfish canonical as the exact identity and composition reference, recolor only the body scales and fins to white base scales with irregular orange and black calico patches, retaining translucent fin tones. Preserve the same chubby goldfish shape, large double fan tail, right-facing side view, big round eye, rosy cheek, closed smile, navy outline, highlights, proportions and centered full-body framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e676a014-df31-4b2f-8698-8684c7680e46.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        220,
+        160
+      ],
+      "actual_geometry": "proportional contain into transparent target 220\u00d7160; no crop",
+      "format": "webp",
+      "bytes": 14536,
+      "alpha_bounds_px": [
+        15,
+        8,
+        210,
+        150
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-e676a014-df31-4b2f-8698-8684c7680e46.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-goldfish-red",
+      "output_path": "party/assets/art/prop/aq-goldfish-red.webp",
+      "prompt": "Using the supplied approved orange goldfish canonical as the exact identity and composition reference, recolor only the body scales and fins to saturated ruby-red scales and deep red fins with small lighter highlights. Preserve the same chubby goldfish shape, large double fan tail, right-facing side view, big round eye, rosy cheek, closed smile, navy outline, highlights, proportions and centered full-body framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-08af83d1-969f-4c5b-89b6-4d08d93f6dd4.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        220,
+        160
+      ],
+      "actual_geometry": "proportional contain into transparent target 220\u00d7160; no crop",
+      "format": "webp",
+      "bytes": 13370,
+      "alpha_bounds_px": [
+        15,
+        8,
+        210,
+        150
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-08af83d1-969f-4c5b-89b6-4d08d93f6dd4.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-clownfish-pink",
+      "output_path": "party/assets/art/prop/aq-clownfish-pink.webp",
+      "prompt": "Using the supplied approved orange clownfish canonical as the exact identity and composition reference, recolor only the orange body and fin areas to bright coral-pink body and fins. Preserve exactly three white bands with dark navy edges, the same round clownfish shape, right-facing side view, rounded fins, big eye, rosy cheek, closed smile, outlines, proportions and centered framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cafa6f6f-3750-4581-89a7-04f9613b65ee.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        128
+      ],
+      "actual_geometry": "proportional contain into transparent target 200\u00d7128; no crop",
+      "format": "webp",
+      "bytes": 9048,
+      "alpha_bounds_px": [
+        14,
+        0,
+        184,
+        126
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-cafa6f6f-3750-4581-89a7-04f9613b65ee.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-clownfish-purple",
+      "output_path": "party/assets/art/prop/aq-clownfish-purple.webp",
+      "prompt": "Using the supplied approved orange clownfish canonical as the exact identity and composition reference, recolor only the orange body and fin areas to vivid violet-purple body and fins. Preserve exactly three white bands with dark navy edges, the same round clownfish shape, right-facing side view, rounded fins, big eye, rosy cheek, closed smile, outlines, proportions and centered framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e2aac768-2f9d-4805-adb4-ca45d051ccc3.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        128
+      ],
+      "actual_geometry": "proportional contain into transparent target 200\u00d7128; no crop",
+      "format": "webp",
+      "bytes": 8714,
+      "alpha_bounds_px": [
+        14,
+        0,
+        184,
+        125
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-e2aac768-2f9d-4805-adb4-ca45d051ccc3.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-clownfish-blue",
+      "output_path": "party/assets/art/prop/aq-clownfish-blue.webp",
+      "prompt": "Using the supplied approved orange clownfish canonical as the exact identity and composition reference, recolor only the orange body and fin areas to clear sky-blue body and fins. Preserve exactly three white bands with dark navy edges, the same round clownfish shape, right-facing side view, rounded fins, big eye, rosy cheek, closed smile, outlines, proportions and centered framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7ae216e9-2075-4dbd-9d2a-c7fd69a79da8.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        128
+      ],
+      "actual_geometry": "proportional contain into transparent target 200\u00d7128; no crop",
+      "format": "webp",
+      "bytes": 9344,
+      "alpha_bounds_px": [
+        14,
+        1,
+        184,
+        125
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-7ae216e9-2075-4dbd-9d2a-c7fd69a79da8.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-angelfish-gold",
+      "output_path": "party/assets/art/prop/aq-angelfish-gold.webp",
+      "prompt": "Using the supplied approved lilac angelfish canonical as the exact identity and composition reference, recolor only the body and fin palette to rich warm yellow-gold scales and fins. Preserve the tall triangular angelfish body, long trailing top and bottom fins, soft vertical stripes, right-facing side view, eye, closed smile, outlines, proportions and centered full-body framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c03a358-349e-43b2-8351-b7f032a41173.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        220,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 220\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 16742,
+      "alpha_bounds_px": [
+        8,
+        23,
+        211,
+        235
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-6c03a358-349e-43b2-8351-b7f032a41173.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-angelfish-sky",
+      "output_path": "party/assets/art/prop/aq-angelfish-sky.webp",
+      "prompt": "Using the supplied approved lilac angelfish canonical as the exact identity and composition reference, recolor only the body and fin palette to bright sky-blue body and fins. Preserve the tall triangular angelfish body, long trailing top and bottom fins, soft vertical stripes, right-facing side view, eye, closed smile, outlines, proportions and centered full-body framing. Keep background genuinely transparent, no bubbles, scenery, ground, shadow, text or halo.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-da149c21-28a6-4683-8e1e-a869e12e68ff.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        220,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 220\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 16956,
+      "alpha_bounds_px": [
+        8,
+        23,
+        211,
+        236
+      ],
+      "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-da149c21-28a6-4683-8e1e-a869e12e68ff.png",
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-angelfish-pink",
+      "output_path": "party/assets/art/prop/aq-angelfish-pink.webp",
+      "prompt": "Using the supplied approved lilac angelfish canonical as exact identity and composition reference, recolor only the body and fins to bright coral-pink. Preserve tall triangular body, long trailing top/bottom fins, soft vertical stripes, right-facing side view, large eye, closed smile, outlines, proportions and centered framing. Transparent background; no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-81c4d7fe-6bf1-4815-a0a2-4af113f43723.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        220,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 220\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 15952,
+      "alpha_bounds_px": [
+        8,
+        23,
+        211,
+        236
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-sky",
+      "output_path": "party/assets/art/prop/aq-puffer-sky.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as exact identity and composition reference, recolor only the body and fins to clear sky-blue. Preserve the same non-inflated rounded plump body, tiny fins, subtle freckles, right-facing side view, eye, closed smile, navy outline, proportions and centered framing. No spikes beyond subtle existing detail. Transparent background; no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-fff7aebf-f793-4d58-a219-0f666961621c.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        168
+      ],
+      "actual_geometry": "proportional contain into transparent target 200\u00d7168; no crop",
+      "format": "webp",
+      "bytes": 7774,
+      "alpha_bounds_px": [
+        22,
+        25,
+        179,
+        140
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-pink",
+      "output_path": "party/assets/art/prop/aq-puffer-pink.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as exact identity and composition reference, recolor only the body and fins to bright coral-pink. Preserve the same non-inflated rounded plump body, tiny fins, subtle freckles, right-facing side view, eye, closed smile, navy outline, proportions and centered framing. No spikes beyond subtle existing detail. Transparent background; no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cd05df5e-c469-4354-b1be-b9033606317d.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        168
+      ],
+      "actual_geometry": "proportional contain into transparent target 200\u00d7168; no crop",
+      "format": "webp",
+      "bytes": 8672,
+      "alpha_bounds_px": [
+        2,
+        22,
+        185,
+        144
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-mint",
+      "output_path": "party/assets/art/prop/aq-puffer-mint.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as exact identity and composition reference, recolor only the body and fins to fresh pastel mint-green. Preserve the same non-inflated rounded plump body, tiny fins, subtle freckles, right-facing side view, eye, closed smile, navy outline, proportions and centered framing. No spikes beyond subtle existing detail. Transparent background; no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-25ed6cc7-b00c-4025-a93c-daf208b438f5.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        200,
+        168
+      ],
+      "actual_geometry": "proportional contain into transparent target 200\u00d7168; no crop",
+      "format": "webp",
+      "bytes": 8138,
+      "alpha_bounds_px": [
+        22,
+        25,
+        179,
+        140
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-yellow-puffed",
+      "output_path": "party/assets/art/prop/aq-puffer-yellow-puffed.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as the exact character identity, face, outline, eye placement and style reference, create its inflated/puffed state in sunny buttery-yellow. Make the body a round ball with a few small soft blunt spikes around the back edge, tiny fins, recognizable freckles, a gently surprised-happy open expression. Preserve the same right-facing side view, friendly proportions and centered full-body silhouette. Transparent background, no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2961ca2a-dc87-4436-9d69-dd8335ccb4b3.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        260,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 11846,
+      "alpha_bounds_px": [
+        35,
+        48,
+        225,
+        211
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-sky-puffed",
+      "output_path": "party/assets/art/prop/aq-puffer-sky-puffed.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as the exact character identity, face, outline, eye placement and style reference, create its inflated/puffed state in clear sky-blue. Make the body a round ball with a few small soft blunt spikes around the back edge, tiny fins, recognizable freckles, a gently surprised-happy open expression. Preserve the same right-facing side view, friendly proportions and centered full-body silhouette. Transparent background, no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-60c3e90f-c097-460d-9ef1-963eb8f8c902.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        260,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 11792,
+      "alpha_bounds_px": [
+        40,
+        52,
+        230,
+        208
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-pink-puffed",
+      "output_path": "party/assets/art/prop/aq-puffer-pink-puffed.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as the exact character identity, face, outline, eye placement and style reference, create its inflated/puffed state in bright coral-pink. Make the body a round ball with a few small soft blunt spikes around the back edge, tiny fins, recognizable freckles, a gently surprised-happy open expression. Preserve the same right-facing side view, friendly proportions and centered full-body silhouette. Transparent background, no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-594ef4ff-ae2b-4ec5-9faa-dc1986f5ad8f.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        260,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 11992,
+      "alpha_bounds_px": [
+        31,
+        43,
+        229,
+        212
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-puffer-mint-puffed",
+      "output_path": "party/assets/art/prop/aq-puffer-mint-puffed.webp",
+      "prompt": "Using the supplied approved normal yellow pufferfish canonical as the exact character identity, face, outline, eye placement and style reference, create its inflated/puffed state in fresh pastel mint-green. Make the body a round ball with a few small soft blunt spikes around the back edge, tiny fins, recognizable freckles, a gently surprised-happy open expression. Preserve the same right-facing side view, friendly proportions and centered full-body silhouette. Transparent background, no halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e676e617-1cc7-4371-9207-aca2b0630436.png",
+      "source_size_px": [
+        1536,
+        1024
+      ],
+      "target_size_px": [
+        260,
+        260
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7260; no crop",
+      "format": "webp",
+      "bytes": 10600,
+      "alpha_bounds_px": [
+        34,
+        44,
+        228,
+        212
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-betta-red",
+      "output_path": "party/assets/art/prop/aq-betta-red.webp",
+      "prompt": "Using the supplied approved royal-blue betta canonical as the exact identity and composition reference, recolor only the body and huge flowing veil fins to vivid ruby red. Preserve the fish's same side view facing right, ballgown-like flowing fin shape, eye, mouth, scale, outline, highlights and centered full-body framing. Keep true transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ecc9cb1f-7793-453f-9206-c5783dfe930d.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        260,
+        220
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7220; no crop",
+      "format": "webp",
+      "bytes": 20444,
+      "alpha_bounds_px": [
+        29,
+        1,
+        234,
+        218
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-betta-purple",
+      "output_path": "party/assets/art/prop/aq-betta-purple.webp",
+      "prompt": "Using the supplied approved royal-blue betta canonical as the exact identity and composition reference, recolor only the body and huge flowing veil fins to deep violet-purple. Preserve the fish's same side view facing right, ballgown-like flowing fin shape, eye, mouth, scale, outline, highlights and centered full-body framing. Keep true transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-60f42083-d8ea-426a-85a4-5c176591da4c.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        260,
+        220
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7220; no crop",
+      "format": "webp",
+      "bytes": 20680,
+      "alpha_bounds_px": [
+        30,
+        2,
+        232,
+        218
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-betta-pink",
+      "output_path": "party/assets/art/prop/aq-betta-pink.webp",
+      "prompt": "Using the supplied approved royal-blue betta canonical as the exact identity and composition reference, recolor only the body and huge flowing veil fins to bright rose pink. Preserve the fish's same side view facing right, ballgown-like flowing fin shape, eye, mouth, scale, outline, highlights and centered full-body framing. Keep true transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-86d75e97-bf46-436e-adec-1c7bd18414fb.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        260,
+        220
+      ],
+      "actual_geometry": "proportional contain into transparent target 260\u00d7220; no crop",
+      "format": "webp",
+      "bytes": 21628,
+      "alpha_bounds_px": [
+        30,
+        2,
+        232,
+        217
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-tetra-rainbow",
+      "output_path": "party/assets/art/prop/aq-tetra-rainbow.webp",
+      "prompt": "Using the supplied approved neon tetra canonical as the exact identity and composition reference, recolor only the body's stripe and accent colors to distinct rainbow spectrum bands of red, orange, yellow, green, blue and violet. Preserve tiny slim tetra body, short translucent fins, same side view facing right, eye, closed mouth, proportions, navy outline and centered framing. Keep it clean and crisp at small sprite scale; true transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2a5e26af-390b-4226-bbb4-5f2c24635eea.png",
+      "source_size_px": [
+        1448,
+        1086
+      ],
+      "target_size_px": [
+        108,
+        52
+      ],
+      "actual_geometry": "proportional contain into transparent target 108\u00d752; no crop",
+      "format": "webp",
+      "bytes": 2546,
+      "alpha_bounds_px": [
+        19,
+        6,
+        88,
+        45
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-tetra-pink",
+      "output_path": "party/assets/art/prop/aq-tetra-pink.webp",
+      "prompt": "Using the supplied approved neon tetra canonical as the exact identity and composition reference, recolor only the body's stripe and accent colors to bright rose pink. Preserve tiny slim tetra body, short translucent fins, same side view facing right, eye, closed mouth, proportions, navy outline and centered framing. Keep it clean and crisp at small sprite scale; true transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e5d74dc6-27e4-4fc6-a2df-87f32bcfd5ac.png",
+      "source_size_px": [
+        1448,
+        1086
+      ],
+      "target_size_px": [
+        108,
+        52
+      ],
+      "actual_geometry": "proportional contain into transparent target 108\u00d752; no crop",
+      "format": "webp",
+      "bytes": 2522,
+      "alpha_bounds_px": [
+        19,
+        6,
+        88,
+        45
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-tetra-gold",
+      "output_path": "party/assets/art/prop/aq-tetra-gold.webp",
+      "prompt": "Using the supplied approved neon tetra canonical as the exact identity and composition reference, recolor only the body's stripe and accent colors to rich warm yellow-gold. Preserve tiny slim tetra body, short translucent fins, same side view facing right, eye, closed mouth, proportions, navy outline and centered framing. Keep it clean and crisp at small sprite scale; true transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0e6aaa21-b6d4-4f4e-983a-8c92f7e059e6.png",
+      "source_size_px": [
+        1448,
+        1086
+      ],
+      "target_size_px": [
+        108,
+        52
+      ],
+      "actual_geometry": "proportional contain into transparent target 108\u00d752; no crop",
+      "format": "webp",
+      "bytes": 2592,
+      "alpha_bounds_px": [
+        19,
+        6,
+        88,
+        45
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-seahorse-pink",
+      "output_path": "party/assets/art/prop/aq-seahorse-pink.webp",
+      "prompt": "Using the supplied approved yellow seahorse canonical as the exact identity and composition reference, recolor only the body and fin tones to bright rose pink. Preserve upright pose, curled tail, little back fin, snout, crown-like crest, big eye, closed smile, proportions, outline and centered full-body framing. True transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cb281358-186a-424c-97f5-1ff2e543c97e.png",
+      "source_size_px": [
+        1024,
+        1536
+      ],
+      "target_size_px": [
+        120,
+        240
+      ],
+      "actual_geometry": "proportional contain into transparent target 120\u00d7240; no crop",
+      "format": "webp",
+      "bytes": 9512,
+      "alpha_bounds_px": [
+        17,
+        30,
+        111,
+        208
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-seahorse-orange",
+      "output_path": "party/assets/art/prop/aq-seahorse-orange.webp",
+      "prompt": "Using the supplied approved yellow seahorse canonical as the exact identity and composition reference, recolor only the body and fin tones to bright tangerine orange. Preserve upright pose, curled tail, little back fin, snout, crown-like crest, big eye, closed smile, proportions, outline and centered full-body framing. True transparency; no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-35f79d2b-1b71-44af-bc5e-f29d8bd569a8.png",
+      "source_size_px": [
+        1024,
+        1536
+      ],
+      "target_size_px": [
+        120,
+        240
+      ],
+      "actual_geometry": "proportional contain into transparent target 120\u00d7240; no crop",
+      "format": "webp",
+      "bytes": 9936,
+      "alpha_bounds_px": [
+        23,
+        30,
+        111,
+        208
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-seahorse-purple",
+      "output_path": "party/assets/art/prop/aq-seahorse-purple.webp",
+      "prompt": "Direct ImageGen color edit of the approved yellow seahorse canonical: preserve its identity, upright curled-tail pose, fin, snout, crest, eye, smile, proportions and right-facing view; recolor body/fins vivid violet-purple with highlights; isolated transparent sprite, no bubbles/scenery/ground/shadow/text/watermark. A faint soft purple alpha aura remains outside the silhouette despite the no-halo constraint; no pixels were manually erased.\n\nTargeted ImageGen cleanup edit: preserve the same seahorse, outline, color and framing; remove only the semitransparent aura outside the navy outline; return true alpha transparency and do not render a checkerboard. Visually improved: no obvious surrounding aura; corner alpha is zero. No manual alpha removal.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-a5fb4bce-6e6c-47ee-8868-9a76072ec42f.png",
+      "source_size_px": [
+        887,
+        1774
+      ],
+      "target_size_px": [
+        120,
+        240
+      ],
+      "actual_geometry": "direct aspect-matched resize to 120\u00d7240; corner alpha 0, background preserved transparent; no visible aura outside navy outline",
+      "format": "webp",
+      "bytes": 9684,
+      "alpha_bounds_px": [
+        7,
+        32,
+        119,
+        234
+      ],
+      "status": "generated; targeted halo cleanup improved alpha cutout"
+    },
+    {
+      "key": "prop/aq-jellyfish-lilac",
+      "output_path": "party/assets/art/prop/aq-jellyfish-lilac.webp",
+      "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to soft lilac while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-312df7ce-6b2b-45eb-8f42-4964c9eac34b.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "proportional contain into transparent target 180\u00d7280; no crop",
+      "format": "webp",
+      "bytes": 19344,
+      "alpha_bounds_px": [
+        9,
+        49,
+        175,
+        232
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-jellyfish-blue",
+      "output_path": "party/assets/art/prop/aq-jellyfish-blue.webp",
+      "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to clear cool sky-blue while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e8660653-2f77-4c8a-988b-dcabe7139cd0.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "proportional contain into transparent target 180\u00d7280; no crop",
+      "format": "webp",
+      "bytes": 19722,
+      "alpha_bounds_px": [
+        9,
+        49,
+        175,
+        232
+      ],
+      "status": "generated; pending visual review"
+    },
+    {
+      "key": "prop/aq-jellyfish-peach",
+      "output_path": "party/assets/art/prop/aq-jellyfish-peach.webp",
+      "prompt": "Using the supplied approved pink jellyfish canonical as the exact identity and composition reference, recolor its translucent bell and ribbon tentacles to soft warm peach while preserving the same gentle white-pink highlights, face, bell shape, tentacle arrangement, outline, proportions, and centered front view. The bell's center remains in the upper 45% of the canvas and the full tentacles extend below it; no cropping. True transparent background, no glow halo, bubbles, scenery, ground, shadow, text or watermark.",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f6baa894-030a-4630-b8de-ee1987b24356.png",
+      "source_size_px": [
+        1222,
+        1287
+      ],
+      "target_size_px": [
+        180,
+        280
+      ],
+      "actual_geometry": "proportional contain into transparent target 180\u00d7280; no crop",
+      "format": "webp",
+      "bytes": 19486,
+      "alpha_bounds_px": [
+        9,
+        49,
+        175,
+        231
+      ],
+      "status": "generated; pending visual review"
+    }
+  ],
+  "runtimeReview": "Actual CPU Aquarium building phase: room floor and tank background align with code frame; fish swim as separate transparent sprites, clean outline and colour; decoration fallback remains until revised decor batch ships."
+}

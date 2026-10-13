@@ -8,6 +8,10 @@ _Last updated: 2026-10-09, during the sprite-size audit (see "Session log" below
 
 ## In progress right now
 
+### Play Studio image delivery — active
+
+Nine new studio art batches and two accessory revisions are published through `1ba1024f`. Final Aquarium101 batch is generated and being packaged/reviewed. Approved creature canonicals are committed; there are no remaining approval gates. `reference/IMAGE-WORK-QUEUE.md` has current ownership and exact checkpoints. New art uses index `groups` metadata: boot loads thumbnails/common art, PlayScene waits for a game's art before construction and releases it on exit. Tests cover cancellation/reuse and lazy loading. Never regenerate completed groups from the older status below.
+
 ### Image delivery 2026-10-12: complete
 
 All open image requests are generated, reviewed, archived and pushed through `1ec90ae`: bakery (15 assets), fashion (32 assets), bunny faces (6 assets), six prop replacements, two Hotdog pull frames and six Cake hand point fixes. All 26sets validate without hard errors; art inventory: 582 keys / 562 files. Three headband anchors follow measured art seating; generatedfishing handle retains bendingproceduralshaft. Actual wearable gallery: reference/pending/OCT12-WEARABLE-REVIEW.html. Queue has exact delivery/check revision and UTC. No image work or approval pending; the old monitor remains cancelled.

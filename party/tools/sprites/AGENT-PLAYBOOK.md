@@ -329,3 +329,36 @@ When main advances, compare each branch from its merge-base. A direct local
 HEAD-to-remote diff can show unpublished local assets as deletions even though
 the remote never deleted them. Verify reviewed assets survive the merge before
 pushing. Stage only reviewed index/manifest entries when batches overlap.
+
+
+### Play Studio delivery: grouped loading, measured geometry and provenance
+
+Large sets of backgrounds need a full decoded-memory audit (width × height ×4),
+not only compressed-byte checks. Ten studio groups together exceed300 MiB
+decoded. Put game-owned keys in art/index.json `groups`, keep shared aliases out,
+and retain thumbnails at boot. PlayScene must await ensureGameArt before game
+construction, because constructors may bake their first canvas. Release group
+references on exit, guard async startup with an epoch, and test immediate exit,
+reentry, failure fallback and reload. Avoid a permanent decoded-image cache.
+
+Match consumers to measured art landmarks without changing procedural fallbacks.
+Sand towers use their actual top surface for stacking; asymmetric flag canvases
+need the pole's x coordinate, not the bounding-box centre. Puppet booth's ledge
+requires an offset, and its aperture may differ from the original procedural
+window. A fixed backdrop design-space is safe if drawing scales it consistently.
+Check the actual game with multiple anatomies, including grouped characters.
+
+Record each built-in call's exact prompt and output_hint/source path immediately.
+Do not print full image_url/base64 or depend on a truncated batch result to recover
+provenance. One call per distinct prop/colour. Approved creature bases may be
+resized into runtime props; preserve their approval record separately. Inspect
+true alpha: a generated checkerboard is opaque artwork, not transparency. Request
+a targeted imagegen edit to fix it; do not manually erase or paint alpha. Keep the
+last good transparent variant until a replacement is reviewed. Runtime WebP uses
+quality86/method6; retain approved canonical/source quality.
+
+With overlapping batches, stage only that batch's index and generation entries,
+plus import-map hashes matching the staged source code. Do not publish a future
+hash while its module is still uncommitted: it can cache old pixels/code under a
+new version. Archive only delivered request sections; later optional poses remain
+a separate backlog. Push each complete minigame before moving to the next.
