@@ -1276,7 +1276,11 @@
     "prop/whoopee-guest-bunny-huff": "prop/whoopee-guest-bunny-huff.webp",
     "prop/whoopee-guest-pig-shock": "prop/whoopee-guest-pig-shock.webp",
     "prop/whoopee-guest-pig-scold": "prop/whoopee-guest-pig-scold.webp",
-    "prop/whoopee-guest-pig-huff": "prop/whoopee-guest-pig-huff.webp"
+    "prop/whoopee-guest-pig-huff": "prop/whoopee-guest-pig-huff.webp",
+    "prop/sd-hoot-scold": "prop/sd-hoot-scold.webp",
+    "prop/sd-hoot-shock": "prop/sd-hoot-shock.webp",
+    "prop/nanny-moo-peek-scold": "prop/nanny-moo-peek-scold.webp",
+    "prop/nanny-moo-shock": "prop/nanny-moo-shock.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1631,7 +1635,9 @@
       "prop/sd-disguise-book",
       "prop/sd-lampshade",
       "prop/sd-sunglasses",
-      "prop/df-disco-ball"
+      "prop/df-disco-ball",
+      "prop/sd-hoot-scold",
+      "prop/sd-hoot-shock"
     ],
     "bubble-pop": [
       "bg/bubble-pop",
@@ -1952,7 +1958,9 @@
       "prop/bb-teddy",
       "prop/bb-cat",
       "prop/bb-teddy-sleep",
-      "prop/bb-cat-sleep"
+      "prop/bb-cat-sleep",
+      "prop/nanny-moo-peek-scold",
+      "prop/nanny-moo-shock"
     ],
     "prank-troll": [
       "bg/prank-troll",

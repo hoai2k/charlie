@@ -39002,6 +39002,292 @@
       "outputFormat": "WEBP RGB q86 method6",
       "runtimeBytes": 156228,
       "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry"
+    },
+    {
+      "key": "prop/sd-hoot-scold",
+      "game": "sneaky-dance",
+      "size": [
+        420,
+        460
+      ],
+      "prompt": "Edit this approved Professor Hoot seated reaction prop into a stern scolding pose. Preserve the exact 420x460 canvas aspect ratio, seated armchair pose, scale, anchor and framing; keep his wizard hat, brown owl feathers, cream face/chest, gold spectacles, purple starry robe and bright orange feet. Preserve bold smooth navy #24163f outlines and soft cel shading. Slide his spectacles down to the tip of his beak; raise one eyebrow tuft high; make his beak pursed in a very proper disapproving 'tsk'. Lift one wing with a single feather acting as a stern wagging finger while the other remains at his side. Pompous and funny, not angry or scary. 2D illustrated game art, bright colors, actual transparent alpha (no checkerboard), no text, scenery, shadows, motion marks or watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-scold-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-scold-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-9a565a4f-d6cc-4aa5-89cc-9695293c47ab.png",
+      "runtimeFile": "party/assets/art/prop/sd-hoot-scold.webp",
+      "runtimeBytes": 50210,
+      "references": [
+        "party/assets/art/prop/sd-hoot-stare.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        6,
+        413,
+        458
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 50210,
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-scold-master.webp",
+      "sourceSize": [
+        1198,
+        1313
+      ],
+      "nativeOutputSize": [
+        1198,
+        1313
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+    },
+    {
+      "key": "prop/sd-hoot-shock",
+      "game": "sneaky-dance",
+      "size": [
+        420,
+        460
+      ],
+      "prompt": "Edit this approved Professor Hoot seated reaction into a sudden scandalised shock. Preserve the exact 420x460 canvas aspect ratio, seated pose, anchor and framing; keep the same owl identity, purple starry wizard hat and robe, brown feathers, cream face/chest, gold spectacles and orange feet, navy #24163f outlines and cel shading. Make his eyes enormous behind spectacles that have popped slightly upward off the beak, beak open in a startled gasp, both wings raised high, feathers puffed out all over. His pointed wizard hat jumps upward off his head but remains fully visible within the canvas. Funny surprise, not frightened or scary. 2D illustrated game prop, full silhouette visible, bright colours, true transparent alpha background (no checkerboard), no extra text, shock lines, scenery, shadows, or watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-shock-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-shock-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-6d2b9f62-720b-4845-bbe0-b49ee5f19a3c.png",
+      "runtimeFile": "party/assets/art/prop/sd-hoot-shock.webp",
+      "runtimeBytes": 57874,
+      "references": [
+        "party/assets/art/prop/sd-hoot-stare.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        2,
+        412,
+        447
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 57874,
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-shock-master.webp",
+      "sourceSize": [
+        1198,
+        1313
+      ],
+      "nativeOutputSize": [
+        1198,
+        1313
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+    },
+    {
+      "key": "prop/nanny-moo-peek-scold",
+      "game": "bed-bounce",
+      "size": [
+        400,
+        480
+      ],
+      "prompt": "Edit the approved Nanny Moo peek prop into a cross scolding reaction. Preserve the exact 400x480 canvas aspect ratio, same right-edge-tucked lean and peek framing as the reference, with the visible silhouette fully fitting. Keep her same cow identity: white and black patches, large pink muzzle, teal-blue eyes, little horns, blue striped nightcap with pink curlers, fluffy pink robe, warm lantern held in the same hoof. Preserve navy #24163f outlines and clean cel shading. Her eyebrows angle down, mouth pursed in a stern 'tsk', nose raised slightly; one hoof reaches up and wags a single finger/hoof tip at the room. She is cross and funny, never scary. 2D game illustration, true transparent alpha outside the character and lantern (no checkerboard), no door, scenery, text, speech bubble, shadows, shock lines or watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-peek-scold-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-peek-scold-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-aec088bd-8c14-4047-af46-bc02e3a21f5b.png",
+      "runtimeFile": "party/assets/art/prop/nanny-moo-peek-scold.webp",
+      "runtimeBytes": 32496,
+      "references": [
+        "party/assets/art/prop/nanny-moo-peek.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        141,
+        39,
+        400,
+        423
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 32496,
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-peek-scold-master.webp",
+      "sourceSize": [
+        1145,
+        1374
+      ],
+      "nativeOutputSize": [
+        1145,
+        1374
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+    },
+    {
+      "key": "prop/nanny-moo-shock",
+      "game": "bed-bounce",
+      "size": [
+        512,
+        640
+      ],
+      "prompt": "Edit the approved Nanny Moo standing prop into an aghast finale reaction. Preserve exact 512x640 portrait canvas aspect ratio, full-body feet anchor, scale and framing. Keep the same Nanny Moo identity: white cow with black patches, pink muzzle and inner ears, little horns, blue striped nightcap, fluffy pink robe and belt, pink bunny slippers, warmly glowing lantern in the same hoof; navy #24163f outlines and soft cel shading. Both free hooves press to her cheeks; eyes huge; mouth a wide round O; pom-pom springing upward from the nightcap with its cord visible; a few soft white feathers stuck to robe and nightcap. Keep her standing in the doorway composition but do not draw a door. Funny surprise, never scary. 2D bright illustrated game prop, full figure visible, actual transparent alpha around her (no checkerboard), no text, bubbles, shock lines, scenery, shadows or watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-shock-revised-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-shock-revised-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-39990872-1192-4818-ba33-e4e82bda3385.png",
+      "runtimeFile": "party/assets/art/prop/nanny-moo-shock.webp",
+      "runtimeBytes": 62178,
+      "references": [
+        "party/assets/art/prop/nanny-moo.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        88,
+        0,
+        500,
+        632
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 62178,
+      "originalNativeInput": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-shock-original-master.webp",
+      "editPrompt": "Targeted edit to this existing Nanny Moo shock illustration. Keep the exact 512x640 RGBA canvas, head size and position, body scale, face, eyes, horns, patches, nightcap and pom-pom, robe, feet and slippers, tail, palette, outline, shading, and overall framing unchanged. Change only the front arm/lantern pose: raise BOTH front hooves and press them against her cheeks in surprise, with the two black hooves clearly visible on opposite cheeks. Keep the warm lantern as her identity prop by hanging its handle securely around the wrist/forearm of her left hoof/arm; the left hoof itself stays pressed against her cheek. The lantern dangles below and slightly outward from that wrist without covering her face, touching the robe naturally. Preserve the aghast wide eyes and open O mouth, and the few white feathers. Transparent background with true alpha; do not add background, text, effects, or extra limbs. Match the source\u2019s 2D clean cel-shaded illustration and navy #24163f outlines. Do not change the camera, framing, scale or canvas.",
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-shock-revised-master.webp",
+      "runtimeSha256": "36e7017ce4d70d5da4d722dd2eb731b33b5963b912197af3aedbc3b3a001ccc2",
+      "canvasPreservedFromOriginal": true,
+      "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-6059eba9-ca4f-49d1-beec-6e3e5eb35646.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "originalNativeInputSize": [
+        1122,
+        1402
+      ],
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "originalNativeOutputSize": [
+        1122,
+        1402
+      ]
+    },
+    {
+      "key": "prop/mm-granny-scold",
+      "game": "muddy-mayhem",
+      "size": [
+        400,
+        520
+      ],
+      "prompt": "Edit the supplied Granny Goose prop into a scolding reaction. Preserve the exact reference canvas aspect ratio (400x520), character scale, feet position, facing right, and reference framing as closely as possible. Preserve her white goose identity, orange beak and feet, blue eyes, pink curlers and net cap, pearl necklace, lilac apron with purple trim and little flower pocket, matching navy #24163f outlines and soft bright cel shading. One wing on her hip; the other wing points forward with one raised feather as a stern wagging finger. Brows down, beak tightly pursed, cheeks softly flushed and puffed with comic indignation. Entirely transparent background (real alpha, no checkerboard pattern), no hose, text, scenery, shadows, marks, bubbles or watermark. 2D illustrated game art, centered, full body visible.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-79ff5de7-eb25-42e4-a589-248406719b2f.png",
+      "runtimeFile": "party/assets/art/prop/mm-granny-scold.webp",
+      "runtimeBytes": 46438,
+      "references": [
+        "party/assets/art/prop/mm-granny-gasp.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        25,
+        11,
+        389,
+        520
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 46438,
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "nativeOutputSize": [
+        1100,
+        1430
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+    },
+    {
+      "key": "prop/mm-granny-huff",
+      "game": "muddy-mayhem",
+      "size": [
+        400,
+        520
+      ],
+      "prompt": "Edit the supplied approved Granny Goose prop into an offended huff. Match the reference canvas aspect ratio (400x520), full character scale, feet anchor, right-facing orientation, and framing. Keep the same white goose, orange feet and beak, blue eyes, pink curlers/net cap, pearl necklace, lilac flower apron, navy #24163f outline and soft cel shading. She sits/stands exactly as in the reference with wings folded tightly across her chest; head and beak tipped high, eyes closed, chin up, beak a small prim offended pout as if sniffing 'hmph'. Clearly indignant, not smiling. Keep the feet fully visible. 2D illustrated game prop, bright candy colours, clean readable silhouette, truly transparent alpha background, no checkerboard, no hose, no scenery, no shadows, no text, no speech bubbles, no watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-f6620a70-8de3-457e-954d-f08fcbc6685a.png",
+      "runtimeFile": "party/assets/art/prop/mm-granny-huff.webp",
+      "runtimeBytes": 41972,
+      "references": [
+        "party/assets/art/prop/mm-granny-gasp.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        33,
+        1,
+        383,
+        520
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 41972,
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "nativeOutputSize": [
+        1100,
+        1430
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+    },
+    {
+      "key": "prop/mm-granny-muddy-shock",
+      "game": "muddy-mayhem",
+      "size": [
+        480,
+        420
+      ],
+      "prompt": "Edit the supplied approved Granny Goose muddy prop into her shocked finale reaction. Preserve the 480x420 landscape canvas aspect ratio, full seated-in-mud framing and feet/mud anchor, with consistent silhouette scale. Keep the exact character: white goose, orange bill and feet, blue eyes, pink curlers/net cap, gold glasses, pearl necklace, lilac flower apron, dark navy #24163f outlines and soft cel shading. Keep her sitting in the mud with similar brown splashes on feathers, pearls and apron. Make the change unmistakable: huge round eyes, open beak gasp, both wings thrown high, one pink curler detached and springing above her head with a few tiny mud flecks. Fully visible body and puddle. 2D bright illustrated game prop; transparent alpha around the character and puddle (no checkerboard), no text, effects lines, extra scenery, shadows or watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-944d2977-2da9-470a-a5a1-b908c9bcad74.png",
+      "runtimeFile": "party/assets/art/prop/mm-granny-muddy-shock.webp",
+      "runtimeBytes": 68858,
+      "references": [
+        "party/assets/art/prop/mm-granny-muddy.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        480,
+        420
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 68858,
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "nativeOutputSize": [
+        1341,
+        1173
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
     }
   ]
 }

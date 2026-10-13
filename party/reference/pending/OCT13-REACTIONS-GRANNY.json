@@ -26,7 +26,17 @@
         389,
         520
       ],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "nativeOutputSize": [
+        1100,
+        1430
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
     },
     {
       "key": "prop/mm-granny-huff",
@@ -54,7 +64,17 @@
         383,
         520
       ],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "nativeOutputSize": [
+        1100,
+        1430
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
     },
     {
       "key": "prop/mm-granny-muddy-shock",
@@ -82,7 +102,17 @@
         480,
         420
       ],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "finalSource": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "nativeOutputSize": [
+        1341,
+        1173
+      ],
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
     }
   ],
   "qa": "Source/runtime framing checked against original gasp/muddy art; direct actual Game.drawGranny renders all three reactions with no phantom hose. Muddy Mayhem actual gameplay starts without warnings/errors."

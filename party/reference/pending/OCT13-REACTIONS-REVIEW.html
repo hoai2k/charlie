@@ -19,4 +19,11 @@ import {drawGuest,drawGuestFx,drawChairBack,drawChairFront} from './src/games/wh
 await loadArt({only:k=>k.startsWith('prop/whoopee-')});
 const g=document.querySelector('#guests').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,1800);g.fillStyle='#24163f';g.font='28px sans-serif';
 for(const [r,kind] of ['poodle','bunny','pig','kitty'].entries())for(const [c,state] of ['shock','scold','huff'].entries()){const x=300+c*600,y=430+r*450;g.fillText(kind+': '+state,x-100,y-340);drawChairBack(g,x,y+80,1);drawChairFront(g,x,y+80,1);drawGuest(g,kind,x,y-6,300,state,{hat:true,t:0,facing:1});drawGuestFx(g,kind,x,y-6,300,state,state==='scold'?['scold']:[],0,1);}
+</script><h1>Hoot and Nanny Moo</h1><canvas id="grownups" width="1920" height="700"></canvas><script type="module">
+import {loadArt,drawArt} from './src/engine/art.js';
+import {drawHoot} from './src/games/sneaky-dance/draw.js';
+await loadArt({only:k=>k.startsWith('prop/sd-hoot-')||k.startsWith('prop/nanny-moo')});
+const g=document.querySelector('#grownups').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,700);g.fillStyle='#24163f';g.font='28px sans-serif';
+for(const [x,state] of [[270,'scold'],[730,'shock']]){g.fillText('Professor Hoot: '+state,x-140,70);g.save();g.translate(x,560);drawHoot(g,{t:0,artKey:'prop/sd-hoot-'+state});g.restore();}
+for(const [x,key,h] of [[1160,'prop/nanny-moo-peek-scold',400],[1630,'prop/nanny-moo-shock',500]]){g.fillText(key.includes('peek')?'Nanny: peek scold':'Nanny: shock',x-120,70);drawArt(g,key,x,580,h*0.8,h,{anchor:'bottom'});}
 </script></body></html>

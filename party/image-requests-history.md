@@ -1,3 +1,21 @@
+## 2026-10-13: Nanny Moo reactions — delivered
+
+Final alpha, canvas/framing and gameplay consumers reviewed. Exact prompts and lossless source paths: `reference/pending/OCT13-REACTIONS-NANNY.json`.
+
+| Key | Previous issue | Delivered brief |
+| --- | --- | --- |
+| prop/nanny-moo-peek-scold (Molly No Jumping on the Bed, NEW key, 2026-10-13) | When she peeks and catches a bouncer, the peek art still smiles sweetly, so it never reads as being told off; the code adds a drawn wagging finger, shock lines and a scold bubble today. | Nanny Moo peeking round the door, cross: same canvas (400x480), anchor, framing and lean as prop/nanny-moo-peek.webp (the right edge still tucks behind the door), same striped nightcap with pink curlers peeking out, pink robe and lantern. Eyebrows down, mouth pursed in a stern "tsk", one hoof raised wagging at the room, nose in the air. House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+| prop/nanny-moo-shock (Molly No Jumping on the Bed, NEW key, 2026-10-13) | Finale: she walks in on the feather storm with the standing art's sweet smile; the code adds shock lines and "!!!" today. | Nanny Moo standing in the doorway, aghast: same canvas (512x640), feet anchor and framing as prop/nanny-moo.webp, same nightcap, robe, slippers and lantern. Both hooves on her cheeks, eyes huge, mouth a wide "O", nightcap pom-pom springing up, a few feathers stuck to her. House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+
+## 2026-10-13: Professor Hoot reactions — delivered
+
+Final alpha, canvas/framing and gameplay consumers reviewed. Exact prompts and lossless source paths: `reference/pending/OCT13-REACTIONS-HOOT.json`.
+
+| Key | Previous issue | Delivered brief |
+| --- | --- | --- |
+| prop/sd-hoot-scold (Molly Sneaky Dance, NEW key, 2026-10-13) | When he catches a wiggler he shows prop/sd-hoot-stare (a squint), which reads as suspicious, not scolding; the code adds a drawn wagging finger and a "Tsk tsk!" bubble today. | Professor Hoot scolding from his armchair seat: same canvas (420x460), anchor and framing as prop/sd-hoot-stare.webp, same wizard hat, robe and gold spectacles. Spectacles slid down to the tip of his beak, one eyebrow tufts shot up, one wing raised wagging a stern feather "finger", beak pursed, very proper and pompous. House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+| prop/sd-hoot-shock (Molly Sneaky Dance, NEW key, 2026-10-13) | Finale "He's awake!": he goes straight from stare to party with no surprise beat; today the code shows the stare art with shock lines, puffed-out feathers and a "Well I never!" bubble. | Professor Hoot jolted wide awake and scandalised: same canvas (420x460), anchor and framing as prop/sd-hoot-stare.webp, same hat, robe and spectacles. Feathers puffed out all over, eyes enormous behind the spectacles (which pop up off his beak), hat jumping up off his head, both wings up in shock, beak open in a gasp. House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+
 ## 2026-10-13: Granny Goose reactions — delivered
 
 Final alpha, canvas/framing and gameplay consumers reviewed. Exact prompts and lossless source paths: `reference/pending/OCT13-REACTIONS-GRANNY.json`.
