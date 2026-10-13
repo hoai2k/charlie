@@ -21,7 +21,7 @@ import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
-import { GHOST_COLORS, WINDOWS, FIRE, TRUNKS, drawGhostShape, tintedArt, drawCurtains, drawTrunk, drawDiscoBall, drawFire, drawRoom } from './ghost-giggles/art.js';
+import { GHOST_COLORS, FIRE, TRUNKS, roomWindows, roomFire, drawGhostShape, tintedArt, drawCurtains, drawTrunk, drawDiscoBall, drawFire, drawRoom } from './ghost-giggles/art.js';
 
 const NAVY = '#24163f';
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -111,7 +111,8 @@ export class Game {
     this.disco = -160;        // disco ball y
     this.colorIdx = randInt(0, GHOST_COLORS.length - 2);
     this.ghosts = [];
-    this.wins = WINDOWS.map((w) => ({ ...w, shy: false, open: 1, target: 1, peekT: 0, peekCd: rand(1, 2.5), revealT: 0 }));
+    this.fire = roomFire();
+    this.wins = roomWindows().map((w) => ({ ...w, shy: false, open: 1, target: 1, peekT: 0, peekCd: rand(1, 2.5), revealT: 0 }));
     this.trunks = TRUNKS.map((tr) => ({ ...tr, bounce: 0 }));
     this.baseScale = n <= 4 ? 0.95 : n <= 6 ? 0.86 : 0.8;
     const costumes = shuffle(COSTUMES.map((_, i) => i));
@@ -135,7 +136,7 @@ export class Game {
     const shy = Math.min(3, 1 + k);
     for (let i = 0; i < room; i++) {
       const fromFire = i % 3 === 0;
-      const g0 = this.makeGhost(fromFire ? FIRE.x + rand(-60, 60) : rand(GB.x0, GB.x1), fromFire ? GB.y0 + 10 : rand(GB.y0, GB.y1));
+      const g0 = this.makeGhost(fromFire ? this.fire.x + rand(-60, 60) : rand(GB.x0, GB.x1), fromFire ? GB.y0 + 10 : rand(GB.y0, GB.y1));
       g0.z = fromFire ? 40 : rand(700, 950);
       g0.state = 'enter'; g0.t = -i * (first ? 0.06 : 0.12);
       g0.vx = fromFire ? rand(-260, 260) : 0; g0.vy = fromFire ? rand(120, 260) : 0;
@@ -146,7 +147,7 @@ export class Game {
     for (const w of ws) { w.shy = true; w.target = 0; w.peekCd = rand(1.2, 3); w.peekT = 0; w.wave = this.wave; }
     if (!first) {
       snd('gg-wave', 'pt-slide-whistle', { vol: 0.7 });
-      particles.burst(FIRE.x, FIRE.y - 60, { type: 'smoke', count: 14, speed: [80, 260], size: [24, 44] });
+      particles.burst(this.fire.x, this.fire.y - 60, { type: 'smoke', count: 14, speed: [80, 260], size: [24, 44] });
       this.waveBannerT = 0;
     }
   }

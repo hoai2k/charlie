@@ -999,7 +999,15 @@
     "prop/uj-star": "prop/uj-star.webp",
     "prop/uj-candy": "prop/uj-candy.webp",
     "prop/uj-lollipop": "prop/uj-lollipop.webp",
-    "prop/uj-mount": "prop/uj-mount.webp"
+    "prop/uj-mount": "prop/uj-mount.webp",
+    "bg/ghost-giggles": "bg/ghost-giggles.webp",
+    "thumb/ghost-giggles": "thumb/ghost-giggles.webp",
+    "prop/gg-ghost-giggle": "prop/gg-ghost-giggle.webp",
+    "prop/gg-ghost-peek": "prop/gg-ghost-peek.webp",
+    "prop/gg-curtain": "prop/gg-curtain.webp",
+    "prop/gg-trunk": "prop/gg-trunk.webp",
+    "prop/gg-disco-ball": "prop/gg-disco-ball.webp",
+    "prop/gg-ghost": "prop/gg-ghost.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1458,6 +1466,15 @@
       "prop/uj-lollipop",
       "prop/uj-mount"
     ],
-    "ghost-giggles": []
+    "ghost-giggles": [
+      "bg/ghost-giggles",
+      "prop/gg-ghost-giggle",
+      "prop/gg-ghost-peek",
+      "prop/gg-curtain",
+      "prop/gg-trunk",
+      "prop/gg-disco-ball",
+      "prop/gg-ghost"
+    ],
+    "kitten-yarn": []
   }
 }

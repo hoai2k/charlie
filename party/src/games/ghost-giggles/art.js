@@ -19,6 +19,18 @@ export const GHOST_COLORS = [
 
 export const WINDOWS = [{ x: 330 }, { x: 1260 }, { x: 1620 }].map((w) => ({ ...w, top: 120, bot: 420, w: 240 }));
 export const FIRE = { x: 780, y: 470 };
+// Measured in the accepted generated room. Keep fallback geometry unchanged.
+export function roomWindows() {
+  if (!art('bg/ghost-giggles')) return WINDOWS;
+  return [
+    { x: 389, top: 14, bot: 465, w: 273 },
+    { x: 1263, top: 23, bot: 464, w: 276 },
+    { x: 1662, top: 12, bot: 465, w: 232 },
+  ];
+}
+export function roomFire() {
+  return art('bg/ghost-giggles') ? { x: 833, y: 483 } : FIRE;
+}
 export const TRUNKS = [{ x: 160, y: 600 }, { x: 1760, y: 600 }];
 
 function bodyFill(g, col, w, h) {
