@@ -1843,12 +1843,11 @@ wings so dress-up wings/capes sit right; §3.6), portraits (§7), and a
 `motion` that suits fluttering (`glide` or a gentle bob). Keep the existing
 NPC pose names working (`idle`, `walk`, `fly`, `celebrate`, `surprised`).
 
-**Poses (provisional; final list follows when the games are merged):**
-`idle` (hovering, wings fluttering), `walk`, `run`, `fly`, `jump`, `land`,
-`cheer`, `celebrate`, `wave`, `surprised`, `giggle`, `laugh`, `dizzy`
-(funny bump), `sad` (gentle), `catch`, `toss`, `carry`, `cast` (wand
-flourish), `dance`, `dance-star`, `pose-twirl`, `bow`, `sit`, `sleep`,
-`clap`, plus the shared photo poses (`photo`, `strike3`, `high-five`).
+**Poses (from the 17 Molly games kept so far, 2026-10-13; the 6 cheeky replacement games add theirs when merged):**
+`celebrate`, `cheer`, `idle`, `surprised`, `run`, `walk`, `wave`, `dizzy`, `giggle`, `action`, `dance`, `jump`, `fall`, `float`, `high-five`, `swim`, `pose-twirl`, `dance-star`, `carry`, `catch`, `look-around`, `ride-sit`, `sit`, `dash`, `boop`, `dance-up`, `dance-side`, `dance-down`, `cuddle`, `tongue-out`, `spring-jump`, `hurt`, `throw`, `wand-up`, `cast`, `look-up`, `toss`, `blow`, `ready`, `eat`, `paint`, `water`, `laugh`, `tuck`.
+
+Used by only one or two games (draw these after the common ones): `high-five` (sock-match, fairy-flutter), `swim` (mermaid-pearls, bubble-pop), `pose-twirl` (ghost-giggles, trick-or-treat), `dance-star` (ghost-giggles, trick-or-treat), `carry` (sock-match), `catch` (sock-match), `look-around` (sock-match), `ride-sit` (unicorn-jump), `sit` (unicorn-jump), `dash` (mermaid-pearls), `boop` (pumpkin-peekaboo), `dance-up` (ghost-giggles), `dance-side` (ghost-giggles), `dance-down` (ghost-giggles), `cuddle` (kitten-yarn), `tongue-out` (snowflake-catch), `spring-jump` (trick-or-treat), `hurt` (trick-or-treat), `throw` (trick-or-treat), `wand-up` (wand-shapes), `cast` (wand-shapes), `look-up` (cupcake-stack), `toss` (cupcake-stack), `blow` (cupcake-stack), `ready` (cupcake-stack), `eat` (bubble-pop), `paint` (rainbow-painter), `water` (garden-grow), `laugh` (duckling-parade), `tuck` (fairy-flutter).
+New Molly poses (descriptions in `POSES`, src/engine/sprites.js): `ride-sit` (unicorn-jump), `boop` (pumpkin-peekaboo), `cuddle` (kitten-yarn), `tongue-out` (snowflake-catch). In `float`, `swim` and `idle` the wings keep fluttering.
 
 **Step 3 — character data (lead):** the lead registers them as a Molly Party
 roster (character select shows fairies when playing Molly Party) once the
