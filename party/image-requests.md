@@ -1115,3 +1115,75 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: tea-party
+
+### tea-party — Teddy Tea Party   (requested by the tea-party agent, 2026-10-05, priority: nice-to-have)
+
+A garden tea party for Molly Party (age 4–5). Guests sit behind a long tea
+table and show a picture bubble of the treat they want; players dash to the
+treat carts at the bottom, grab the matching treat and toss it to the guest,
+who does a silly happy reaction (teddy tips the tea onto his own head and
+laughs, the unicorn's hat pops off in confetti...). Every key below has a
+procedural fallback that ships today and is looked up with `art()` /
+`drawArt()`, so a file listed in `assets/art/index.json` drops in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Players use their normal roster sprites
+(`carry`, `toss`, `cheer`, `laugh`, `celebrate`, `dizzy`).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/tea-party` | 1920×1080, opaque | Full screen. The code draws the table over x 240–1680, y 452–612, guests above it (heads up to y≈250), picture bubbles at y≈150–250, and two treat carts at the bottom (x≈560 and x≈1360, y 830–1060). Players run on the lawn from y≈650 to y≈850. Keep the top 110 px calm (scoreboard + timer) | A sunny storybook garden tea party: soft blue sky, a pastel bunting garland zig-zagging across the top, a big round blossom tree on each side, rose bushes and a white garden arch in the distance, a bright mowed lawn in the lower half. No table, no characters (the code draws them) |
+| `thumb/tea-party` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A brown teddy bear at a pink tea table laughing with a pink teacup tipped upside down on his head and tea splashing, a unicorn in a fancy flowered hat beside him, a cupcake and strawberry flying toward them, sparkles. Subject centred |
+| `prop/tea-table` | 1440×160, transparent | Stretched over x 240–1680, y 452–612. Top 64 px = the table top seen at a slight angle (the code draws the teapot and plates on it), the rest = the tablecloth skirt hanging down | A long tea table with a pink-and-white gingham tablecloth with a scalloped lace hem, slightly angled top surface, empty |
+| `prop/tea-teapot` | 300×260, transparent | Centre-piece on the table, bottom-anchored at (960, 500), drawn 170×150; the code wobbles it | A round fancy porcelain teapot, white with pink roses and a gold lid knob, steam curl |
+| `prop/tea-cart` | 480×300, transparent | Bottom-anchored at the cart centre (x≈560 / x≈1360, y 1060), drawn 460×290. The code sets four treats on the top shelf at y≈862 (≈69% up from the bottom), spaced 100 px | A little pastel-mint wooden tea trolley with two shelves, curly wheels, a scalloped pink awning trim; top shelf empty |
+| `prop/tea-cup-pink` | 160×160, transparent | Centred, drawn 80–110 px (cart shelf, overhead carry, flying toss, wish bubble, upside-down on a teddy's head) | A chunky pink teacup on a saucer with a white heart and a steam curl |
+| `prop/tea-cupcake` | 160×160, transparent | Same as above | A cupcake with a blue wrapper, swirly pink frosting, sprinkles and a cherry |
+| `prop/tea-strawberry` | 160×160, transparent | Same as above | A big shiny red strawberry with a green leafy top and a sparkle highlight |
+| `prop/tea-cookie` | 160×160, transparent | Same as above | A round golden cookie with chocolate chips |
+| `prop/tea-cake` | 200×200, transparent | Same as above, a little bigger (the rare "rainbow cake" bonus wish, worth 3) | A slice of rainbow layer cake with white frosting, sprinkles and a strawberry on top |
+| `prop/tea-guest-teddy` | 400×360, transparent | Guest bust, bottom-anchored at the seat (y 478, behind the table), drawn 300×270. The bottom edge is hidden behind the table top. The code bobs/squashes it and draws the bubble, crumbs and tea splash | A chubby brown teddy bear sitting at a table, seen from the waist up, paws resting forward, a red bow tie, happy open eyes, front view |
+| `prop/tea-guest-teddy-happy` | 400×360, transparent | Same framing, shown during the happy reaction | The same brown teddy laughing with eyes squeezed shut, mouth open, paws up |
+| `prop/tea-guest-honey` | 400×360, transparent | Same framing | A honey-yellow teddy bear with a big pink bow on one ear, waist up, front view |
+| `prop/tea-guest-honey-happy` | 400×360, transparent | Same framing | The same honey teddy giggling, eyes shut, rosy cheeks |
+| `prop/tea-guest-bunny` | 400×360, transparent | Same framing (ears may reach the top edge) | A white bunny with long pink-lined ears and a lace collar, waist up, front view |
+| `prop/tea-guest-bunny-happy` | 400×360, transparent | Same framing | The same bunny delighted, ears flung up, eyes shut |
+| `prop/tea-guest-unicorn` | 400×360, transparent | Same framing (hat and horn may reach the top edge) | A white unicorn with a lavender-and-pink mane and a gold horn, wearing a fancy wide-brimmed pink hat with flowers and a feather, waist up, front view, very elegant |
+| `prop/tea-guest-unicorn-happy` | 400×360, transparent | Same framing; the code pops a separate (procedural) hat off into the air | The same unicorn laughing with eyes shut, **no hat** |
+| `prop/tea-guest-panda` | 400×360, transparent | Same framing | A little panda teddy with a mint-green neck ribbon, waist up, front view |
+| `prop/tea-guest-panda-happy` | 400×360, transparent | Same framing | The same panda teddy giggling, eyes shut |
+
+## New Molly Party game: sock-match
+
+### sock-match — Silly Sock Match   (requested by the sock-match agent, 2026-10-05, priority: nice-to-have)
+
+A backyard laundry-day game for Molly Party (age 4–5). A basket bursts a
+fountain of silly socks onto the lawn; players grab a sock and run it to its
+twin. Matched pairs spin-dance and rocket up to the laundry line, a cheeky
+puppy zooms around stealing socks, and everyone shares the line (cooperative).
+Every key below has a procedural fallback that ships today and is looked up
+with `art()` / `drawArt()`. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text** in any image. Socks: one image per
+pattern, upright, cuff at the top, toe pointing **right**; the code mirrors
+it for the second sock of a pair and rotates it freely, so keep it centred.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/sock-match` | 1920×1080, opaque | Full screen. The code draws the laundry line from (150, 236) to (1770, 236), sagging to y≈290, with wooden poles under each end, the basket at (1730, 1010), and socks/players on the lawn from y≈560 to y≈960. Keep the top 110 px calm (scoreboard + timer) | A sunny backyard on laundry day: blue sky with puffy clouds, a white picket fence across the middle with hollyhocks and sunflowers, a bright green lawn filling the lower 55% with a few daisies and clover. No laundry line, no poles, no characters |
+| `thumb/sock-match` | 800×500, opaque | Game-select shelf and how-to screen | A laundry line full of silly patterned socks (stripes, dots, hearts, one with googly eyes), a white puppy with a brown ear patch running off with a striped sock in its mouth, two matching socks dancing in the air with sparkles. Subject centred |
+| `prop/sock-stripes` | 140×200, transparent | Centred, drawn about 100×143 (bigger while carried or dancing), rotated and mirrored by code | A chunky cartoon sock with wide pink and white stripes, cuff at the top, toe pointing right |
+| `prop/sock-dots` | 140×200, transparent | Same | A sky-blue sock with big yellow polka dots |
+| `prop/sock-hearts` | 140×200, transparent | Same | A light-pink sock covered in red hearts |
+| `prop/sock-stars` | 140×200, transparent | Same | A navy-purple sock with bright yellow stars |
+| `prop/sock-googly` | 140×200, transparent | Same | A lime-green sock with two big googly eyes and a silly smile with a tongue near the toe |
+| `prop/sock-rainbow` | 140×200, transparent | Same | A sock with rainbow stripes (red to purple) |
+| `prop/sock-zigzag` | 140×200, transparent | Same | An orange sock with a bold purple zig-zag band |
+| `prop/sock-flowers` | 140×200, transparent | Same | A mint sock with white daisies with yellow centres |
+| `prop/sock-checks` | 140×200, transparent | Same | A lilac-and-white checkerboard sock |
+| `prop/sock-paws` | 140×200, transparent | Same | A peach sock with brown paw prints |
+| `prop/sock-puppy` | 320×240, transparent | Bottom-anchored at the puppy's feet, facing **right** (mirrored by code), drawn 210×158 | A small round white puppy with a brown patch over one ear, floppy ears, wagging tail, standing happily, side view |
+| `prop/sock-puppy-run` | 320×240, transparent | Same; the code bounces it and draws the stolen sock in its mouth (at the front, about 85% across, 45% down) | The same puppy running full speed, ears flying, mouth open (empty) |
+| `prop/sock-puppy-bow` | 320×240, transparent | Same; shown when a player catches up and when it drops a sock | The same puppy in a play bow, bottom up, tail wagging, tongue out |
+| `prop/sock-basket` | 360×260, transparent | Bottom-anchored at (1730, 1010), drawn 260×188; the code bounces it when it bursts socks | A round wicker laundry basket overflowing with a few colourful socks |
+| `prop/clothespin` | 48×96, transparent | Pins each sock on the line, centred on the line, drawn 22×44 | A wooden clothespin, upright, light wood with a metal spring |
