@@ -34,11 +34,11 @@ function pageOf(id) {
 const chunk = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
 const MOLLY_PINK = '#ff7ad9', MOLLY_DEEP = '#c94fd6';
 
-/** Molly Party view: every Molly game, a "Charlie Party" tile back, then random / marathon. */
+/** Molly Party view: every Molly game, then random / marathon / back to Charlie Party. */
 function buildMollyRows() {
-  const rows = chunk([...MOLLY_GAMES.map((g) => ({ kind: 'game', game: g, shelf: 'molly' })), { kind: 'charlie' }], 6);
+  const rows = chunk(MOLLY_GAMES.map((g) => ({ kind: 'game', game: g, shelf: 'molly' })), 6);
   rows.partyRows = rows.length; rows.studioRows = 0; rows.molly = true;
-  rows.push([{ kind: 'random' }, { kind: 'marathon' }]);
+  rows.push([{ kind: 'random' }, { kind: 'marathon' }, { kind: 'charlie', wide: true }]);
   return rows;
 }
 
@@ -47,12 +47,11 @@ function buildRows(pages) {
   for (const shelf of ['party', 'studio']) {
     if (shelf === 'studio') rows.partyRows = rows.length;
     const list = SHELVES[shelf][pages[shelf]].map((g) => ({ kind: 'game', game: g, shelf }));
-    if (shelf === 'party' && pages.party === 0) list.push({ kind: 'molly' });
     if (SHELVES[shelf].length > 1) list.push({ kind: 'more', shelf });
     chunk(list, 6).forEach((r) => rows.push(r));
   }
   rows.studioRows = rows.length - rows.partyRows;
-  rows.push([{ kind: 'random' }, { kind: 'marathon' }]);
+  rows.push([{ kind: 'random' }, { kind: 'marathon' }, { kind: 'molly', wide: true }]);
   return rows;
 }
 
@@ -107,8 +106,8 @@ export class GameSelectScene {
       if (ri === this.rows.partyRows && !this.rows.molly) y += 52; // studio header gap
       if (ri === this.rows.length - 1) y += 18;
       r.forEach((it, ci) => {
-        if (it.kind === 'game' || it.kind === 'more' || it.kind === 'molly' || it.kind === 'charlie') Object.assign(it, { x: X0 + ci * (TILE_W + GAP), y, w: TILE_W, h: TILE_H });
-        else Object.assign(it, { x: X0 + ci * (3 * TILE_W + 3 * GAP), y, w: 3 * TILE_W + 2 * GAP, h: 110 });
+        if (!it.wide && (it.kind === 'game' || it.kind === 'more')) Object.assign(it, { x: X0 + ci * (TILE_W + GAP), y, w: TILE_W, h: TILE_H });
+        else Object.assign(it, { x: X0 + ci * (2 * TILE_W + 2 * GAP), y, w: 2 * TILE_W + GAP, h: 110 });   // Random / Marathon / Molly Party buttons
       });
       y += (ri === this.rows.length - 1 ? 110 : TILE_H) + GAP;
     });
@@ -272,7 +271,7 @@ export class GameSelectScene {
         g.save();
         g.translate(it.x + it.w / 2, it.y + it.h / 2); g.scale(bounce * pop, bounce * pop); g.translate(-it.w / 2, -it.h / 2);
         if (it.kind === 'more') this.drawMoreTile(g, it, sel);
-        else if (it.kind === 'molly' || it.kind === 'charlie') this.drawSwitchTile(g, it, sel);
+        else if (it.kind === 'molly' || it.kind === 'charlie') this.drawSwitchButton(g, it, sel);
         else if (it.kind === 'game') {
           ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: '#fff', stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
           drawGameIcon(g, it.game, 5, 5, it.w - 10, it.h - 10, sel ? this.t : 0);
@@ -283,9 +282,9 @@ export class GameSelectScene {
         } else {
           const random = it.kind === 'random';
           ui.panel(g, 0, 0, it.w, it.h, { r: 55, fill: random ? '#3fa7ff' : this.molly ? MOLLY_DEEP : '#9b5cff', stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 6 });
-          drawEmote(g, random ? 'question' : 'star', 70, it.h / 2, 64, this.t);
-          ui.text(g, random ? 'Random!' : this.molly ? 'Molly Marathon' : 'Party Marathon', it.w / 2 + 30, it.h / 2 - (random ? 0 : 12), { size: 50, weight: 800 });
-          if (!random) ui.text(g, '5 games in a row + a trophy', it.w / 2 + 30, it.h / 2 + 30, { size: 24, strokeWidth: 5 });
+          drawEmote(g, random ? 'question' : 'star', 56, it.h / 2, 56, this.t);
+          ui.text(g, random ? 'Random!' : 'Marathon', it.w / 2 + 34, it.h / 2 - (random ? 0 : 12), { size: 44, weight: 800, maxWidth: it.w - 120 });
+          if (!random) ui.text(g, '5 games + a trophy', it.w / 2 + 34, it.h / 2 + 30, { size: 22, strokeWidth: 5, maxWidth: it.w - 120 });
         }
         g.restore();
       }
@@ -297,24 +296,23 @@ export class GameSelectScene {
     }
   }
 
-  /** "Molly Party" (on Party Games page 1) / "Charlie Party" (back): a peek at the other world's games. */
-  drawSwitchTile(g, it, sel) {
+  /** "Molly Party" / "Charlie Party" (back) button after Marathon: a peek at the other world's games. */
+  drawSwitchButton(g, it, sel) {
     const toMolly = it.kind === 'molly';
     const gr = g.createLinearGradient(0, 0, it.w, it.h);
     gr.addColorStop(0, toMolly ? '#ffb3ec' : '#ffcf8f'); gr.addColorStop(1, toMolly ? '#b98bff' : '#ff7ab8');
-    ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: gr, stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
+    ui.panel(g, 0, 0, it.w, it.h, { r: 55, fill: gr, stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 6 });
     const peek = toMolly ? MOLLY_GAMES : PARTY_PAGES[0];
     const mw = 52, mh = 36;
     peek.slice(0, 3).forEach((m, i) => {
-      const x = 14 + i * (mw + 8), y = 12 + Math.sin(this.t * 3 + i) * (sel ? 3 : 0);
-      g.save(); g.translate(x + mw / 2, y + mh / 2); g.rotate((i - 1) * 0.12); g.translate(-mw / 2, -mh / 2);
+      const x = 30 + (i % 2) * 34, y = 14 + i * 26 + Math.sin(this.t * 3 + i) * (sel ? 3 : 0);
+      g.save(); g.translate(x + mw / 2, y + mh / 2); g.rotate((i - 1) * 0.14); g.translate(-mw / 2, -mh / 2);
       ui.panel(g, 0, 0, mw, mh, { r: 7, fill: '#fff', lineWidth: 3, shadow: false });
       drawGameIcon(g, m, 2, 2, mw - 4, mh - 4, 0);
       g.restore();
     });
-    if (!peek.length) drawEmote(g, 'heart', it.w / 2, 34, 40, this.t);
-    ui.text(g, toMolly ? 'Molly Party' : 'Charlie Party', it.w / 2, 84, { size: 30, weight: 800, maxWidth: it.w - 16 });
-    ui.text(g, toMolly ? '✿ ✿' : '◀ ◀', it.w / 2 + Math.sin(this.t * 5) * (sel ? 6 : 0), 116, { size: 22, color: '#fff6a8', strokeWidth: 5 });
+    ui.text(g, toMolly ? 'Molly Party' : 'Charlie Party', it.w / 2 + 60, it.h / 2 - 12, { size: 40, weight: 800, maxWidth: it.w - 150 });
+    ui.text(g, toMolly ? '✿ games for little ones ✿' : '◀ back to the big party', it.w / 2 + 60 + Math.sin(this.t * 5) * (sel ? 4 : 0), it.h / 2 + 30, { size: 20, color: '#fff6a8', strokeWidth: 5, maxWidth: it.w - 150 });
   }
 
   /** The "More Games" / "More Play" tile: a peek at the other page's games. */
