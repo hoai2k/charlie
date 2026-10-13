@@ -1608,3 +1608,187 @@ it for the second sock of a pair and rotates it freely, so keep it centred.
 | `prop/sock-puppy-bow` | 320×240, transparent | Same; shown when a player catches up and when it drops a sock | The same puppy in a play bow, bottom up, tail wagging, tongue out |
 | `prop/sock-basket` | 360×260, transparent | Bottom-anchored at (1730, 1010), drawn 260×188; the code bounces it when it bursts socks | A round wicker laundry basket overflowing with a few colourful socks |
 | `prop/clothespin` | 48×96, transparent | Pins each sock on the line, centred on the line, drawn 22×44 | A wooden clothespin, upright, light wood with a metal spring |
+
+## New Molly Party game: unicorn-jump
+
+### unicorn-jump — Unicorn Hop   (requested by the unicorn-jump agent, 2026-10-05, priority: nice-to-have)
+
+A fast, bouncy side-scroller for 4–5 year olds: every player rides a unicorn
+(four-legged characters gallop themselves wearing the wardrobe Unicorn Horn)
+along a candy meadow that scrolls to the left, faster and faster. A = hop over
+puddles, bouncy mushrooms and sleeping bunnies; grab stars and rainbow
+candies; a rainbow trail streams behind riders who keep hopping cleanly. 1–4
+lanes stacked top to bottom (5–8 players share lanes, two riders each).
+Everything has a procedural fallback that ships today; the code already looks
+up every key below. House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, **no text**. Side view; riders face right and the
+props scroll in from the right.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/unicorn-jump` | 1920×1080, opaque, **seamless left-right tile** | Drawn twice side by side, scrolling left at ~0.2× the ground speed (parallax). The lanes (thin grass paths drawn by code) sit in bands between y≈260 and y≈1000, so the top 250 px and the overall colour matter most; keep the middle low-detail | A dreamy candy meadow: pastel pink-to-lilac sky with puffy clouds and a faint rainbow arc, far rolling hills in mint and pink with gumdrop trees and lollipop flowers, a tiny castle silhouette on one hill. Soft, bright, cheerful |
+| `thumb/unicorn-jump` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A happy girl riding a white unicorn with a rainbow mane mid-hop over a puddle, a rainbow trail streaming behind, stars and swirl candies floating ahead, candy meadow background. Subject centred |
+| `prop/uj-mount` | 512×384, transparent | The unicorn the riders sit on, side view **facing right**, mid-gallop. Anchor: bottom centre at the hooves; drawn ~1.1× the rider's height wide. The code seats the rider at ~62% of the image height (the saddle, a bit left of centre) and bobs/tilts the whole image | A cute chubby white unicorn with a flowing rainbow mane and tail, gold spiral horn, pink hooves, a little pink saddle blanket with a heart, big friendly eye, galloping (front legs forward, back legs back). No rider |
+| `prop/uj-mount-jump` | 512×384, transparent | Same as above, shown while hopping. Same anchor and scale so it swaps cleanly | The same unicorn leaping: legs tucked up under its body, mane and tail streaming back, joyful face |
+| `prop/uj-puddle` | 320×96, transparent | Anchor bottom centre on the lane ground; ~170 px wide at lane scale 1 | A shallow sky-blue rain puddle seen from the side at a low angle, with a white shine and two small ripples, a tiny rubber duck floating in it |
+| `prop/uj-mushroom` | 256×256, transparent | Anchor bottom centre; ~120 px tall at lane scale 1. The code squashes it when it boings a rider | A bouncy red-and-white spotted mushroom with a cheeky smile, round fat cap like a trampoline |
+| `prop/uj-bunny` | 256×192, transparent | Anchor bottom centre; ~90 px tall. Sleeping; the code draws the Zz | A fluffy white bunny curled up asleep on the grass, pink ears, closed happy eyes |
+| `prop/uj-bunny-awake` | 256×256, transparent | Same anchor; shown when a rider hops over (it pops up) or bumps it | The same bunny sitting up wide awake, surprised-happy face, one paw waving |
+| `prop/uj-star` | 128×128, transparent | Centred; floats at hop height, ~70 px. The code spins and bobs it | A chunky glossy golden star with a cute smile and a white highlight |
+| `prop/uj-candy` | 128×128, transparent | Centred; just above the lane ground, ~64 px | A round wrapped swirl candy with rainbow stripes, twisted pink wrapper ends |
+| `prop/uj-lollipop` | 192×256, transparent | Anchor bottom centre; the rare 3-point treat at hop height, ~110 px tall | A giant rainbow-spiral lollipop on a white stick with a pink ribbon bow, sparkling |
+
+Optional pose (the code asks for it; it falls back to `sit`, then `ride`):
+`ride-sit` (loop) — sitting astride a mount, side-on facing right, both hands
+(paws) holding imaginary reins forward, happy bouncy posture.
+
+## New Molly Party game: mermaid-pearls
+
+### mermaid-pearls — Mermaid Pearls   (requested by the mermaid-pearls agent, 2026-10-05, priority: nice-to-have)
+
+A lively cooperative underwater game: everyone swims freely (stick), zooms
+with A, grabs pearls from clams that snap open and shut, rides fizzy bubble
+currents up the screen, and tickles a sleepy octopus (A) until it giggles and
+sprays pearls everywhere. Every pearl flies into one shared treasure chest;
+when it's full there's a sparkly finale. Little friendly fish follow each
+swimmer in a conga line. Everything has a procedural fallback that ships
+today; the code already looks up every key below. House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Nothing scary: big friendly eyes everywhere.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/mermaid-pearls` | 1920×1080, opaque | Full screen. Sandy seabed from y≈930 down; swimmers use y 150–920, so keep the middle open water. Top 110 px = HUD band (scoreboard + chest meter) | A bright friendly coral reef: turquoise water fading lighter toward the top with sun rays slanting down, pink and purple coral and swaying green kelp along the left and right edges, a pale sandy seabed with shells and starfish at the bottom. Cheerful and sparkling |
+| `thumb/mermaid-pearls` | 800×500, opaque | Game-select shelf and how-to screen | A red-haired mermaid swimming happily toward an open clam with a glowing pearl, a smiling pink octopus and a small open treasure chest overflowing with pearls nearby, bubbles and little fish around |
+| `prop/mp-clam-open` | 256×224, transparent | Anchor bottom centre on the seabed or a rock ledge, ~170 px wide. The code draws the pearl itself in the opening (about 40% up the image, centred), so leave the inside empty | A big scalloped pink-and-lilac clam shell wide open, a cute face on the lower shell (happy eyes and smile), pale pink inside |
+| `prop/mp-clam-closed` | 256×160, transparent | Same anchor and width | The same clam shut tight, cheeks puffed with a cheeky closed-eye grin |
+| `prop/mp-pearl` | 96×96, transparent | Centred, ~44 px | A glossy white-pink pearl with a soft rainbow sheen and a white highlight |
+| `prop/mp-pearl-gold` | 96×96, transparent | Centred, ~58 px; the rare 3-pearl bonus | A shiny golden pearl with sparkles |
+| `prop/mp-octopus` | 512×448, transparent | Anchor bottom centre on the seabed, ~340 px wide. Sleeping; the code squishes/wobbles it and draws the Zz bubbles | A round chubby pink octopus asleep on the sand, curly tentacles spread out, eyes closed, tiny smile, a little lilac nightcap |
+| `prop/mp-octopus-awake` | 512×448, transparent | Same anchor and size; shown while giggling and throwing pearls | The same octopus wide awake and giggling, tentacles waving up in the air, eyes squeezed happy, cheeks blushing |
+| `prop/mp-chest` | 384×320, transparent | Anchor bottom centre on the seabed, ~250 px wide. Shown until the finale; the code draws a glow that grows as it fills | A wooden treasure chest with gold trim and a heart-shaped lock, lid slightly ajar with a glow peeking out, sitting on sand |
+| `prop/mp-chest-open` | 384×384, transparent | Same anchor and width; shown when the chest is full | The same chest wide open, overflowing with pearls and gems, rays of light |
+| `prop/mp-fish-1`, `prop/mp-fish-2`, `prop/mp-fish-3` | 160×112 each, transparent | Centred, **facing right**, ~70 px long; the code flips them | Tiny friendly fish: a yellow-and-blue striped one, a round pink pufferfish (not puffed), an orange clownfish-like one with a bow. Big eyes, smiling |
+| `prop/mp-vent` | 256×128, transparent | Anchor bottom centre on the seabed under each bubble current, ~200 px wide | A rounded mossy rock with a sparkly hole at the top where bubbles come out, little sea flowers |
+
+No new poses needed (uses `swim`, `dash`, `celebrate`, `cheer`, `laugh`, `surprised`).
+
+## New Molly Party game: pumpkin-peekaboo
+
+### pumpkin-peekaboo — Pumpkin Peekaboo   (requested by the pumpkin-peekaboo agent, 2026-10-05, priority: nice-to-have)
+
+A fast, friendly Halloween whack-a-mole: silly jack-o'-lanterns pop up out of
+holes in a moonlit pumpkin patch; players dash over and boop them with A, the
+pumpkin giggles, changes its face and spits out candy. Golden pumpkins make
+it rain candy, and sometimes a kitty in a witch hat pops up instead (boop it
+and it purrs). Friendly and funny, **never scary**: round cute faces, no
+sharp teeth, warm orange glow. Every key has a procedural fallback that
+ships today; files listed in `assets/art/index.json` drop in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, no text.
+
+Layout: sky and horizon (moon, a little cottage with warm windows, a fence)
+fill y 0–360; the patch ground fills y 360–1080. Holes sit in 4 staggered
+rows at y ≈ 450, 590, 740, 880, x 300–1620. Players run anywhere on the
+ground. Scoreboard chips sit along the bottom (y ≈ 985), the timer at the top
+centre.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pumpkin-peekaboo` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm (timer). The code draws holes, pumpkins and players on the ground area (y 380–1000), so keep it plain soil and grass with low detail there | A cosy, friendly autumn night: deep purple-blue sky with a big soft yellow full moon at the upper right, twinkly stars, a little wooden cottage with warm glowing windows and a string of round orange lanterns at the far left horizon, a low wooden fence and a friendly smiling scarecrow at the horizon (y ≈ 300–380), then a wide dark-green-and-brown pumpkin patch with curly vines and a few leaves around the edges, hay bales in the bottom corners. Warm, inviting, not spooky |
+| `thumb/pumpkin-peekaboo` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Three cute jack-o'-lanterns popping out of holes in a moonlit patch, the middle one giggling and spitting out wrapped candies, a golden glowing pumpkin at the side and a kitty in a purple witch hat peeking from a hole. Subject centred |
+| `prop/pp-hole` | 320×160, transparent | Drawn centred on each hole point, 200 px wide at depth scale 1 (smaller at the back rows). Pumpkins rise out of its centre (the code hides everything below the hole's centre line) | A round dark dirt hole in the ground seen from a 3/4 top-down view, with a soft brown soil rim and a ring of curly green pumpkin vines and two leaves around it |
+| `prop/pp-pumpkin-1`, `prop/pp-pumpkin-2`, `prop/pp-pumpkin-3`, `prop/pp-pumpkin-4` | 320×320 each, transparent | Anchor: bottom centre at the hole, drawn 190 px wide; the bottom of the pumpkin touches the bottom edge of the canvas. The code squashes and wobbles it and clips the part below the hole | A cute round orange jack-o'-lantern with a curly green stem and a leaf, glowing warm yellow inside its carved face. Four silly faces: (1) big grin with the tongue sticking out; (2) winking, one eye a happy arc, lopsided smile; (3) crossed googly eyes and a goofy buck-tooth smile; (4) puffed cheeks blowing a raspberry. Round soft shapes, no pointy teeth |
+| `prop/pp-pumpkin-giggle` | 320×320, transparent | Same anchor and size as the faces; shown for ~1 s after a boop | The same pumpkin laughing hard: eyes squeezed into happy arcs, a huge open laughing mouth, rosy cheeks, a tiny happy tear |
+| `prop/pp-pumpkin-golden`, `prop/pp-pumpkin-golden-giggle` | 320×320 each, transparent | Same anchor and size as the faces; the code adds a glow and sparkles | A shiny golden jack-o'-lantern with a sparkly gold stem, beaming smile (normal) and laughing (giggle) |
+| `prop/pp-witch-cat`, `prop/pp-witch-cat-purr` | 320×320 each, transparent | Same anchor and size as the pumpkins (it pops out of a hole) | A fluffy lilac-grey kitten in a purple witch hat with a gold star, peeking up out of a hole with both paws on the rim, big sparkly eyes (normal); eyes closed blissfully, smiling, cheeks pink, purring (purr) |
+| `prop/pp-candy-1`, `prop/pp-candy-2`, `prop/pp-candy-3`, `prop/pp-candy-4` | 128×128 each, transparent | Drawn centred, ~60 px, spinning as they fly | Halloween candy: (1) a twist-wrapped round sweet in orange-and-purple stripes; (2) a swirly rainbow lollipop; (3) a chunky candy corn; (4) a pink wrapped chocolate with a bow |
+| `prop/pp-bucket` | 160×160, transparent | Held in every player's hand, ~60 px, centred on the hand; the code piles candy on top as the score grows | A plastic jack-o'-lantern trick-or-treat bucket with a black handle and a happy carved face |
+
+New pose (optional, the code falls back to `high-five` → `action`): `boop`,
+one-shot, a quick friendly poke forward with one finger (paw or nose for
+four-legged characters), happy face.
+
+## New Molly Party game: ghost-giggles
+
+### ghost-giggles — Ghost Giggles   (requested by the ghost-giggles agent, 2026-10-05, priority: nice-to-have)
+
+Little white sheet ghosts zoom around a cosy, cute haunted house. Players
+(in Halloween costumes from the shared wardrobe) tickle them with A; they
+giggle and turn rainbow colours. Shy ghosts hide behind the curtains and
+peek out. When every ghost is colourful, a disco ball drops and the ghosts
+throw a dance party. Cute and funny, **never scary**. Every key has a
+procedural fallback that ships today. House style: navy `#24163f` outlines,
+soft cel shading, bright candy colours, no text.
+
+Layout: back wall y 0–470, floor y 470–1080. Three tall windows on the back
+wall centred at x = 330, 1260, 1620 (y 120–420); the code draws curtains over
+them. A fireplace centred at x = 780 (base on y 470). A chandelier at the top
+centre (x 960) where the disco ball comes down. Two costume trunks on the
+floor at x = 150 and 1770, y ≈ 590. Ghosts float anywhere over the floor;
+scoreboard chips along the bottom (y ≈ 985).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/ghost-giggles` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm. **Must match the layout above**: the three windows (frames with a moonlit night view, no curtains), the fireplace at x 780 and a big plain floor (the code draws a rug, trunks, ghosts and players) | A cute cosy "haunted" parlour at night: lilac-and-plum striped wallpaper with tiny stars, three tall arched windows showing a starry sky and a big friendly moon, a stone fireplace with a cheerful orange fire, two smiling carved pumpkins and candles on the mantel, smiling portraits of a cat and a pumpkin, a little cobweb in one corner with a smiling spider, warm honey-wood floorboards. Warm, inviting, more birthday party than spooky |
+| `thumb/ghost-giggles` | 800×500, opaque | Game-select shelf and how-to screen | Three little sheet ghosts giggling in a cosy parlour, one white, one pink, one rainbow-striped, with a character in a wizard hat tickling one of them; a disco ball and sparkles above. Subject centred |
+| `prop/gg-ghost` | 256×320, transparent | Drawn centred, ~150×190 px, bobbing and squashing. **Keep it pure white with light-grey/lavender shading**: the code tints it pink, sky, mint, gold, lilac or rainbow | A cute little sheet ghost with a round top, a wavy hem, two tiny stubby arms, big shiny black eyes and a small happy smile with pink cheeks. Front view |
+| `prop/gg-ghost-giggle` | 256×320, transparent | Same anchor, size and tinting; shown while it is being tickled | The same ghost laughing: eyes squeezed into happy arcs, big open laughing mouth, arms hugging its tummy, wiggly hem |
+| `prop/gg-ghost-peek` | 160×200, transparent | A shy ghost peeking from behind a curtain edge; drawn at the curtain's side (mirrored on the other side), ~110×140 | Half of the ghost (its left half cut off by the image edge as if behind a curtain), one big eye and a tiny hand curled around the edge, shy blushing smile |
+| `prop/gg-curtain` | 160×340, transparent | One curtain panel (the left one; the code mirrors it for the right), stretched over half a window and squeezed sideways to open | A plum velvet theatre-style curtain panel with soft folds, a gold fringe at the bottom and a gold rope tassel |
+| `prop/gg-trunk` | 300×240, transparent | Anchor bottom centre at the trunk spot, drawn 210 px wide; it bounces when a costume pops out | An open wooden dress-up trunk with brass corners overflowing with costume bits: a purple wizard hat, a star cape, a pair of fairy wings and a cat-ear headband |
+| `prop/gg-disco-ball` | 200×200, transparent | Drawn centred, ~150 px, hanging from a line and spinning (the code adds light beams) | A sparkly mirror disco ball with pink and lilac glints |
+
+## New Molly Party game: kitten-yarn
+
+### kitten-yarn — Kitten Cuddles   (requested by the kitten-yarn agent, 2026-10-13, priority: nice-to-have)
+
+Side-view living room. Kittens tumble off two cat trees and roll in on yarn
+balls; each player stands behind a cosy basket, catches kittens in it and
+presses A to cuddle them, then the kittens hop onto a big cushion bed where
+a nap pile grows. Everything below has a procedural fallback that ships
+today and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**. Floor line
+(players' feet) is y = 900.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/kitten-yarn` | 1920×1080, opaque | Full screen. The wooden floor / rug starts at about y=840 (feet at y=900); the wall is above it. The two cat trees stand at the far left and right (x≈150 and x≈1770) and the cushion bed sits on the floor in the centre, all drawn by code, so keep those spots plain. Keep the top ~120 px calm (timer) | A cosy pastel living room in afternoon sun: soft peach-and-cream striped wallpaper, a big window in the upper middle with sunbeams and a view of blue sky, framed paw-print pictures, a few potted plants, a honey-wood floor with a big round pink rug, bunting across the top. No cats or furniture in the middle |
+| `thumb/kitten-yarn` | 800×500, opaque | Game-select shelf and how-to screen | A girl character hugging a fluffy ginger kitten inside a wicker basket, more kittens tumbling down from a cat tree and one riding a pink yarn ball, hearts flying. Lively and bouncy. Subject centred |
+| `prop/kitten-cattree` | 680×1520 (ratio 340:760), transparent | Drawn bottom-anchored at (150, 910) in a 340×760 box; the right-hand tree is the same image mirrored. **Three round platforms stick out toward the right (screen centre) with their top surfaces at 34%, 63% and 92% of the height measured from the bottom**; kittens peek out and leap off at the right edge of each platform | A tall pastel cat tree: sisal-rope posts, three round lilac carpeted platforms stepping up and out to the right, a little cubby house on the middle level, a dangling pom-pom toy. Front view, no cats |
+| `prop/kitten-atlas` | 1152×960 (6 columns × 5 rows of 192 px cells), transparent | One kitten per cell, drawn centred and fitted to about 110 px. **Columns are coats, in this order:** ginger tabby, silver-grey tabby, snowy white, black-and-white tuxedo, calico, cream. **Rows are states:** sit (front view, sitting, big smile), tumble (curled into a ball, paws tucked, for spinning), pounce (side view, leaping to the right, paws forward), sleep (curled up asleep, eyes shut, tail around), cuddle (eyes closed, blissful, paws up, as if being hugged) | Super cute chibi kittens with big sparkly eyes, pink noses and fluffy cheeks; all 30 share lighting, outline weight and scale so mixed kittens look like one set |
+| `prop/kitten-fairy` | 256×256, transparent | The rare sparkly kitten (worth 3). Drawn centred at about 130 px; the code flaps it with a small squash | A white kitten with shimmering pastel fairy wings (lilac and pink, with dots), a tiny flower crown, sitting and smiling, faint sparkles around it |
+| `prop/yarn-ball-pink`, `prop/yarn-ball-blue`, `prop/yarn-ball-yellow` | 128×128 each, transparent | Drawn centred at 76 px and spun by the code while it rolls; the loose thread trail is drawn by code | A fluffy round ball of wool yarn with visible wound strands and a short loose end, in candy pink / sky blue / lemon yellow |
+| `prop/kitten-basket`, `prop/kitten-basket-front` | 600×360 each (ratio 5:3), transparent, **same canvas** | Drawn bottom-anchored at the player's feet in a 190×114 box: the back layer first, then the kittens, then the front layer, so kittens sit inside. The back layer is the far rim plus the inside with a blanket; the front layer is the near half of the weave and rim only | A round wicker picnic basket with a soft pink gingham blanket inside and a red bow on the front, seen from the front at a slight top-down angle |
+| `prop/kitten-bed` | 1120×440 (ratio 280:110), transparent | Drawn bottom-anchored at (960, 885) in a 560×220 box; the sleeping kittens are stacked by the code inside the middle 70%, from about 35% height upward | A huge round plush pet bed: a puffy lavender cushion rim with a soft mint pillow inside, little stars embroidered on the rim, front view |
+
+New pose (until registered it falls back to `catch`, then `cheer`): `cuddle`
+(one-shot) — hugging something small held against the chest with both arms
+(or paws / chin for armless characters), eyes closed, happy, a tiny sway.
+
+## New Molly Party game: snowflake-catch
+
+### snowflake-catch — Snowflake Giggles   (requested by the snowflake-catch agent, 2026-10-13, priority: nice-to-have)
+
+Top-down 2.5D snowy meadow. Everyone races around catching giggly falling
+snowflakes on their tongue (hold A); every flake helps build one big shared
+snowman at the back of the meadow. A playful snowman friend tosses snowballs
+that burst into glitter, and sledding penguins zoom across the meadow
+spraying extra flakes. Everything below has a procedural fallback that ships
+today and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/snowflake-catch` | 1920×1080, opaque | Full screen. Sky and distant hills in the top ~330 px; the walkable snowy meadow is from y≈470 to the bottom. The big shared snowman stands at the back centre (x=960, base at y≈455) and the snowman friend at the back right (x≈1660, y≈450): keep both spots plain snow. Keep the top ~110 px calm (scoreboard) | A sparkly winter meadow at soft lilac-pink dusk: rolling snowy hills, frosted pine trees along the back edge and sides, a frozen pond peeking in at one corner, gentle blue shadows and twinkles on the snow, a few snow-covered bushes along the bottom corners. Wide open snow in the middle |
+| `thumb/snowflake-catch` | 800×500, opaque | Game-select shelf and how-to screen | A girl character with her head tipped back and tongue out catching a big sparkly smiling snowflake, a friendly snowman behind, a penguin zooming past on a red sled, snowflakes everywhere. Energetic. Subject centred |
+| `prop/snowflake` | 128×128, transparent | Normal falling flake (worth 1), drawn centred at 58 px, spun by the code | A chunky six-pointed snowflake crystal, icy white and pale blue, with a tiny smiling face in the middle |
+| `prop/snowflake-big` | 256×256, transparent | The big sparkly flake (worth 3), drawn centred at 120 px with a glow drawn by code | A large ornate six-pointed snowflake with a pastel rainbow sheen (lilac, pink, aqua), glittering tips and a happy giggling face in the middle |
+| `prop/snowball` | 128×128, transparent | Thrown by the snowman friend, drawn centred at 64 px; it bursts into glitter when it lands | A round fluffy snowball with soft blue shading and a couple of sparkles |
+| `prop/snowman-friend`, `prop/snowman-friend-throw` | 480×640 each (ratio 3:4), transparent, **same canvas** | Drawn bottom-anchored at (1660, 455) in a 180×240 box; the code swaps to the throw frame for 0.4 s when a snowball leaves | A small cheerful snowman with a striped pink bobble hat, a mint scarf, twig arms and a big grin. Idle: arms down, waving slightly. Throw: right twig arm up high mid-toss, cheeky wink |
+| `prop/penguin-sled` | 384×256, transparent | Drawn centred at 200×133, facing right (the code mirrors it for the other direction) | A chubby happy penguin with a little red scarf riding a red wooden sled, wings out, beak open in a "wheee", snow spray behind. Side view |
+| `prop/bigsnowman-1` … `prop/bigsnowman-6` | 600×900 each, transparent, **same canvas, bottom-centred** | The shared snowman as it is built, drawn bottom-anchored at (960, 455) in a 240×360 box; stage N shows everything from stages 1..N. **All six must line up exactly** (the code pops between them) | 1: one big snowball base. 2: + middle ball. 3: + head with a happy coal-dot face. 4: + carrot nose and a tall purple top hat with a pink ribbon. 5: + a long rainbow-striped scarf and twig arms. 6: complete: arms raised in a cheer, rosy cheeks, coal buttons, a little flower on the hat, sparkles |
+
+New pose (until registered it falls back to `look-up`, then `think`):
+`tongue-out` (loop) — head tipped back looking up, mouth open with the
+tongue stuck out to catch snowflakes, a silly happy face.
