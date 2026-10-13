@@ -911,7 +911,18 @@
     "prop/ff-bee": "prop/ff-bee.webp",
     "prop/ff-moon-happy": "prop/ff-moon-happy.webp",
     "prop/ff-bee-giggle": "prop/ff-bee-giggle.webp",
-    "thumb/fairy-flutter": "thumb/fairy-flutter.webp"
+    "thumb/fairy-flutter": "thumb/fairy-flutter.webp",
+    "prop/gg-carrot": "prop/gg-carrot.webp",
+    "prop/gg-pumpkin": "prop/gg-pumpkin.webp",
+    "prop/gg-sneeze-flower": "prop/gg-sneeze-flower.webp",
+    "prop/gg-watering-can": "prop/gg-watering-can.webp",
+    "prop/gg-strawberry-bush": "prop/gg-strawberry-bush.webp",
+    "prop/gg-strawberry": "prop/gg-strawberry.webp",
+    "prop/gg-vine": "prop/gg-vine.webp",
+    "prop/gg-sneeze-flower-achoo": "prop/gg-sneeze-flower-achoo.webp",
+    "prop/gg-butterfly": "prop/gg-butterfly.webp",
+    "thumb/garden-grow": "thumb/garden-grow.webp",
+    "prop/gg-rain-cloud": "prop/gg-rain-cloud.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1280,7 +1291,18 @@
       "prop/gg-sprout",
       "prop/gg-bud",
       "prop/gg-sunflower-giggle",
-      "prop/gg-sunflower"
+      "prop/gg-sunflower",
+      "prop/gg-carrot",
+      "prop/gg-pumpkin",
+      "prop/gg-sneeze-flower",
+      "prop/gg-watering-can",
+      "prop/gg-strawberry-bush",
+      "prop/gg-strawberry",
+      "prop/gg-vine",
+      "prop/gg-sneeze-flower-achoo",
+      "prop/gg-butterfly",
+      "thumb/garden-grow",
+      "prop/gg-rain-cloud"
     ]
   }
 }
