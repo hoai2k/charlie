@@ -212,6 +212,10 @@ async function loadSpriteSet(asset) {
   const opt = imageQuality === 'optimized' ? optIndex[asset] : null;
   const imgDir = opt ? `assets/sprites-opt/${asset}/` : dir;
   const k = opt ? opt.scale || 1 : 1;
+  const fileScale = (file) => {
+    const scale = opt?.frameScales?.[file];
+    return Number.isFinite(scale) && scale > 0 ? scale : k;
+  };
   const imgCache = new Map();
   const versioned = (file, hash) => file + (hash ? `?v=${encodeURIComponent(hash)}` : '');
   const getImg = (file, hash = opt?.source) => {
@@ -222,7 +226,7 @@ async function loadSpriteSet(asset) {
   // Optimized frame missing (copy not rebuilt yet)? Use the original instead.
   // Raster changes must not reuse cached pixels with newly scaled landmarks.
   // Optimized copies share their source fingerprint; full frames use file hashes.
-  const getFrameImg = (file, hash) => getImg(file, opt?.source || hash).then((img) => (img || !opt ? { img, k } : loadImage(dir + versioned(file, hash)).then((o) => ({ img: o, k: 1 }))));
+  const getFrameImg = (file, hash) => getImg(file, opt?.source || hash).then((img) => (img || !opt ? { img, k: fileScale(file) } : loadImage(dir + versioned(file, hash)).then((o) => ({ img: o, k: 1 }))));
   const atlas = m.atlas ? await loadImage(dir + m.atlas) : null; // atlases are never optimized
   const set = { manifest: m, poses: {}, portraits: {}, anchor: m.anchor, bodyHeight: m.bodyHeight, facing: m.facing ?? 0, quality: opt ? 'optimized' : 'full' };
   const aliases = [];
@@ -242,7 +246,7 @@ async function loadSpriteSet(asset) {
       const anchor = fo.anchor || def.anchor || m.anchor;
       if (!anchor || anchor.length !== 2 || !anchor.every(Number.isFinite)) { console.warn('Invalid sprite anchor', asset, name); continue; }
       const fr = {
-        img: fo.src ? null : atlas, src: fo.src || null, k: fo.src ? k : 1, w: 0, h: 0, failed: false, loading: null,
+        img: fo.src ? null : atlas, src: fo.src || null, k: fo.src ? fileScale(fo.src) : 1, w: 0, h: 0, failed: false, loading: null,
         pose: name, index,   // where it is defined in sprites.json (outfit fit adjustments key on it)
         rect, anchor, dur: Number.isFinite(fo.dur) && fo.dur > 0 ? fo.dur : null,
         head: fo.head || def.head || null, hand: fo.hand || def.hand || null,

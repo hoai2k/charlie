@@ -8,8 +8,9 @@ assets/sprites/index.json this writes assets/sprites-opt/<asset>/ with:
   - every portrait downscaled to PORTRAIT px (HUD chips draw them <= ~90 px).
 The game keeps reading coordinates (anchors, landmarks) from the original
 sprites.json and simply draws each optimized frame at the original frame size,
-so no manifest needs rewriting. assets/sprites-opt/index.json records the scale
-per set. Re-run after any sprite intake:
+so no manifest needs rewriting. assets/sprites-opt/index.json records the legacy
+set scale plus per-file frameScales for heterogeneous physical frame heights.
+Re-run after any sprite intake:
 
     python3 party/tools/sprites/optimize.py            # all sets
     python3 party/tools/sprites/optimize.py fox snowstar
@@ -18,7 +19,7 @@ validate.py warns when a set's optimized copy is missing or stale (the
 fingerprint of its sources changed). The game also falls back to the original
 image for any optimized frame that fails to load.
 """
-import fcntl, hashlib, json, sys
+import fcntl, hashlib, json, math, sys
 from pathlib import Path
 from PIL import Image
 
@@ -48,9 +49,33 @@ def source_images(folder):
     return sorted(f for f in folder.glob('*.webp') if not f.name.startswith('._'))
 
 
+def frame_scales(manifest):
+    """Match runtime height precedence; aliases share their target's pixels."""
+    heights = {}
+    for pose in manifest.get('poses', {}).values():
+        if not isinstance(pose, dict) or 'alias' in pose:
+            continue
+        for frame in pose.get('frames', []):
+            frame = {'src': frame} if isinstance(frame, str) else frame
+            if not isinstance(frame, dict) or not frame.get('src'):
+                continue
+            height = frame.get('bodyHeight')
+            if type(height) not in (int, float) or not math.isfinite(height) or height <= 0:
+                height = pose.get('bodyHeight') or manifest['bodyHeight']
+            height = float(height)
+            if not height > 0:
+                raise ValueError('Frame bodyHeight must be positive')
+            # A reused raster gets one encoding. Cap it for every referencing
+            # pose, including a pose with a larger physical height declaration.
+            name = frame['src']
+            heights[name] = max(heights.get(name, 0), height)
+    return {name: min(1.0, TARGET_BODY / height) for name, height in heights.items()}
+
+
 def build(asset):
     m = json.loads((SRC / asset / 'sprites.json').read_text())
     k = min(1.0, TARGET_BODY / float(m['bodyHeight']))
+    scales = frame_scales(m)
     portraits = set((m.get('portraits') or {}).values())
     out = DST / asset
     count = 0
@@ -59,7 +84,7 @@ def build(asset):
         if f.name in portraits or f.name.startswith('portrait'):
             s = min(1.0, PORTRAIT / max(im.size))
         else:
-            s = k
+            s = scales.get(f.name, k)
         if s < 1.0:
             im = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.LANCZOS)
         save(im, out / f.name)
@@ -68,7 +93,13 @@ def build(asset):
     names = {f.name for f in source_images(SRC / asset)}
     for f in out.glob('*.webp'):
         if f.name not in names: f.unlink()
-    return {'scale': round(k, 5), 'portrait': PORTRAIT, 'source': fingerprint(asset)}, count
+    # Preserve a usable legacy fallback for uniform new sets. Existing clients
+    # still understand scale; newer clients recover each frame's original size.
+    uniform = set(scales.values())
+    fallback = next(iter(uniform)) if len(uniform) == 1 else k
+    return {'scale': round(fallback, 5),
+            'frameScales': {name: round(scale, 5) for name, scale in scales.items()},
+            'portrait': PORTRAIT, 'source': fingerprint(asset)}, count
 
 
 def main(argv):
