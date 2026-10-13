@@ -26049,6 +26049,536 @@
       ],
       "bytes": 100138,
       "outputFormat": "WEBP RGB q86 method6"
+    },
+    {
+      "key": "bg/balloon-float",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque horizontally tileable, edges must match exactly; grass top y\u2248960 across all x, HUD top y40\u2013116.",
+      "description": "Wide spring sky fading blue to pale peach horizon, faint clouds, far rolling green hills, tiny trees and windmill, bright flowery meadow bottom with daisies/tulips; left/right edges match.",
+      "prompt": "Use case: illustration-story. Asset type: seamless horizontally tileable 16:9 opaque side-scrolling game background, final 1920\u00d71080. Primary request: Wide spring sky, bright blue fading gently to pale peach near horizon, a few faint distant clouds, far-off rolling green hills with tiny trees and one tiny distant windmill, bright flowery meadow strip along bottom with small daisies and tulips. Layout: uninterrupted open sky for flying players and floating rewards; HUD band at top y\u224840\u2013116 stays calm. Meadow begins at y\u2248960, and its top edge remains level across the whole width. Crucial: left and right image edges must match seamlessly so copies join with no visible seam; use only softly repeated sky/cloud/hill/meadow forms near both edges and do not cut a large distinct object at either edge. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, bright colors, soft clean cel shading. No 3D, photorealism, characters, balloons, birds, text or watermark.",
+      "source": "party/reference/pending/molly-sources/balloon-float/bg-balloon-float.webp",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/balloon-float.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": null,
+      "actualGeometry": "Scaled from 1672x941 (16:9) to exact requested canvas; evaluated as a full-canvas opaque scene.",
+      "bytes": 180744,
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0f157a4a-c055-4c0a-86c0-48b6b14cc691.png",
+      "originalNativePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0f157a4a-c055-4c0a-86c0-48b6b14cc691.png",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b7265676-0e87-4933-b777-54960121d9ff.png",
+      "editTarget": "party/assets/art/bg/balloon-float.webp",
+      "editStyleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "editPrompt": "Use case: style-transfer. Image 1 is the existing scene target. Image 2 is an approved Aquarium fish illustration and style reference only. Change only the rendering style and the expressly described removals; preserve target layout, colors, spatial placement and requested background elements. Redraw as clean polished 2D children's game art: bold smooth dark navy #24163f outlines around all major shapes, rounded friendly forms, simple crisp color blocks, soft clean cel shading, bright candy palette. No 3D, no photorealism, no painterly brush texture or blurry gradients; do not add objects. Keep the spring sky, gentle horizon gradient, low rolling hills, tiny distant trees/windmill and flower meadow band at the bottom. Preserve very open sky, level grass edge, and seamless matching left/right edges exactly. No foreground characters or balloons. Opaque background, no text, watermark or border.",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeFile": "party/assets/art/bg/balloon-float.webp",
+      "runtimeBytes": 180744,
+      "outputFormat": "WEBP RGB q86 method6",
+      "sourceBytes": 1256156,
+      "sourceFormat": "WEBP RGBA lossless",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b7265676-0e87-4933-b777-54960121d9ff.png"
+    },
+    {
+      "key": "prop/balloon-float-balloon-pink",
+      "size": [
+        128,
+        176
+      ],
+      "geometry": "Bottom-centred at knot; complete oval balloon and knot; game code supplies string.",
+      "description": "Reuses the existing compatible shiny pink balloon with knot and upper-left highlight.",
+      "prompt": "Reuse approved prop/balloon-pink art and fit it into the specified game canvas, preserving identity, colour and alpha.",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-balloon-float-balloon-pink.webp",
+      "file": "party/assets/art/prop/balloon-float-balloon-pink.webp",
+      "runtimeFile": "party/assets/art/prop/balloon-float-balloon-pink.webp",
+      "width": 128,
+      "height": 176,
+      "tool": "approved shared artwork reuse with game-specific intake",
+      "status": "root visually reviewed; runtime integration ready",
+      "bytes": 12526,
+      "outputFormat": "existing shared WebP",
+      "reusedExistingAsset": true,
+      "actualGeometry": "Existing aligned balloon art has no string; entire balloon is visible with its knot.",
+      "originalRequestedKey": "prop/balloon-pink",
+      "reusedFrom": "party/assets/art/prop/balloon-pink-aligned.webp",
+      "intakeMethod": "Geometric alpha-bounds crop, aspect-preserving resize and bottom padding from approved shared image; no new image generation",
+      "actualAlphaBBox": [
+        4,
+        10,
+        124,
+        174
+      ]
+    },
+    {
+      "key": "prop/balloon-float-balloon-blue",
+      "size": [
+        128,
+        176
+      ],
+      "geometry": "Bottom-centred at knot; complete oval balloon and knot; game code supplies string.",
+      "description": "Reuses the existing compatible shiny blue balloon with knot and upper-left highlight.",
+      "prompt": "Reuse approved prop/balloon-blue art and fit it into the specified game canvas, preserving identity, colour and alpha.",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-balloon-float-balloon-blue.webp",
+      "file": "party/assets/art/prop/balloon-float-balloon-blue.webp",
+      "runtimeFile": "party/assets/art/prop/balloon-float-balloon-blue.webp",
+      "width": 128,
+      "height": 176,
+      "tool": "approved shared artwork reuse with game-specific intake",
+      "status": "root visually reviewed; runtime integration ready",
+      "bytes": 11816,
+      "outputFormat": "existing shared WebP",
+      "reusedExistingAsset": true,
+      "actualGeometry": "Existing aligned balloon art has no string; entire balloon is visible with its knot.",
+      "originalRequestedKey": "prop/balloon-blue",
+      "reusedFrom": "party/assets/art/prop/balloon-blue-aligned.webp",
+      "intakeMethod": "Geometric alpha-bounds crop, aspect-preserving resize and bottom padding from approved shared image; no new image generation",
+      "actualAlphaBBox": [
+        4,
+        15,
+        124,
+        174
+      ]
+    },
+    {
+      "key": "prop/balloon-float-balloon-yellow",
+      "size": [
+        128,
+        176
+      ],
+      "geometry": "Bottom-centred at knot; complete oval balloon and knot; game code supplies string.",
+      "description": "Reuses the existing compatible shiny yellow balloon with knot and upper-left highlight.",
+      "prompt": "Reuse approved prop/balloon-yellow art and fit it into the specified game canvas, preserving identity, colour and alpha.",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-balloon-float-balloon-yellow.webp",
+      "file": "party/assets/art/prop/balloon-float-balloon-yellow.webp",
+      "runtimeFile": "party/assets/art/prop/balloon-float-balloon-yellow.webp",
+      "width": 128,
+      "height": 176,
+      "tool": "approved shared artwork reuse with game-specific intake",
+      "status": "root visually reviewed; runtime integration ready",
+      "bytes": 12696,
+      "outputFormat": "existing shared WebP",
+      "reusedExistingAsset": true,
+      "actualGeometry": "Existing aligned balloon art has no string; entire balloon is visible with its knot.",
+      "originalRequestedKey": "prop/balloon-yellow",
+      "reusedFrom": "party/assets/art/prop/balloon-yellow-aligned.webp",
+      "intakeMethod": "Geometric alpha-bounds crop, aspect-preserving resize and bottom padding from approved shared image; no new image generation",
+      "actualAlphaBBox": [
+        4,
+        15,
+        124,
+        174
+      ]
+    },
+    {
+      "key": "prop/balloon-float-balloon-purple",
+      "size": [
+        128,
+        176
+      ],
+      "geometry": "Bottom-centred at knot; complete oval balloon and knot; game code supplies string.",
+      "description": "Reuses the existing compatible shiny purple balloon with knot and upper-left highlight.",
+      "prompt": "Reuse approved prop/balloon-purple art and fit it into the specified game canvas, preserving identity, colour and alpha.",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-balloon-float-balloon-purple.webp",
+      "file": "party/assets/art/prop/balloon-float-balloon-purple.webp",
+      "runtimeFile": "party/assets/art/prop/balloon-float-balloon-purple.webp",
+      "width": 128,
+      "height": 176,
+      "tool": "approved shared artwork reuse with game-specific intake",
+      "status": "root visually reviewed; runtime integration ready",
+      "bytes": 12448,
+      "outputFormat": "existing shared WebP",
+      "reusedExistingAsset": true,
+      "actualGeometry": "Existing aligned balloon art has no string; entire balloon is visible with its knot.",
+      "originalRequestedKey": "prop/balloon-purple",
+      "reusedFrom": "party/assets/art/prop/balloon-purple-aligned.webp",
+      "intakeMethod": "Geometric alpha-bounds crop, aspect-preserving resize and bottom padding from approved shared image; no new image generation",
+      "actualAlphaBBox": [
+        4,
+        16,
+        124,
+        174
+      ]
+    },
+    {
+      "key": "prop/float-heart",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered puffy glossy heart with a small sparkle at upper right; full silhouette visible with transparent margin.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone collectible game prop, final 128x128. Primary request: one single puffy glossy pink heart with a tiny white sparkle at one upper side. Centered silhouette, complete, no string, no face, no extra objects. Style: clean polished 2D candy-cartoon children's game art, bold smooth dark navy #24163f outline, soft clean cel shading, bright candy colors. Genuinely transparent background with clean antialiased edges. No 3D, photorealism, floor, shadow, glow halo, text, watermark or border.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-float-heart.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-70a1bf81-85de-4ee0-b75a-3302a561ef5c.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-70a1bf81-85de-4ee0-b75a-3302a561ef5c.png",
+      "file": "party/assets/art/prop/float-heart.webp",
+      "runtimeFile": "party/assets/art/prop/float-heart.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        121,
+        210,
+        1132,
+        1049
+      ],
+      "actualAlphaBBox": [
+        0,
+        11,
+        128,
+        117
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 5172,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/float-star",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered, plump blank-face golden-yellow five-point star with small upper-right sparkle; full silhouette, transparent margin.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone collectible game prop, final 128x128. Primary request: one plump rounded golden-yellow five-point star, centered, with a tiny separate four-point white-gold sparkle near one upper tip. Keep its face completely blank; no eyes or mouth. Make it a clean simple silhouette that remains readable when drawn small. Style: polished 2D candy-cartoon, bold smooth dark navy #24163f outline, soft clean cel shading, bright golden yellow. Genuinely transparent background, clean antialiased contour. No 3D, photorealism, large glow, cast shadow, extra stars, text, watermark or border.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-float-star.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-94d67622-3125-4e8c-9a3f-59a4dd9d3b9f.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-94d67622-3125-4e8c-9a3f-59a4dd9d3b9f.png",
+      "file": "party/assets/art/prop/float-star.webp",
+      "runtimeFile": "party/assets/art/prop/float-star.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        126,
+        157,
+        1128,
+        1103
+      ],
+      "actualAlphaBBox": [
+        0,
+        3,
+        128,
+        124
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 6282,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/float-golden-star",
+      "size": [
+        192,
+        192
+      ],
+      "geometry": "Centered large rainbow-edged golden star, closed smiling eyes, rosy cheeks and two small twinkles; transparent margin.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone rare collectible game prop, final 192x192. Primary request: one large friendly five-point golden star, centered, with a bright rainbow-colored outer edge and two small twinkles nearby. Give the star a happy face with closed curved smiling eyes and rosy cheeks; no open mouth, no arms or legs. Distinct, clean silhouette, complete. Style: polished 2D candy-cartoon children's game art, bold smooth dark navy #24163f outlines, soft clean cel shading, bright golden yellow with rainbow trim. Genuinely transparent background, clean antialiased edge. No 3D, photorealism, large glow halo, floor or cast shadow, text, watermark or border.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-float-golden-star.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0e67e29c-1514-4170-8514-04db063096bd.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0e67e29c-1514-4170-8514-04db063096bd.png",
+      "file": "party/assets/art/prop/float-golden-star.webp",
+      "runtimeFile": "party/assets/art/prop/float-golden-star.webp",
+      "width": 192,
+      "height": 192,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        46,
+        46,
+        1208,
+        1151
+      ],
+      "actualAlphaBBox": [
+        0,
+        4,
+        192,
+        187
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 13148,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/cloud-face",
+      "size": [
+        480,
+        300
+      ],
+      "geometry": "Centered Cloud Friend identity: high top curl, bright blue eyes, rosy cheeks, o-shaped surprised mouth; broad puffy silhouette, transparent margin.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone animated game prop, final 480x300. Image 1 is the approved Cloud Friend identity reference. Preserve its exact puffy cloud silhouette with the high top curl, icy-blue shaded lower lobes, white body, smooth dark navy #24163f outlines, same bright blue eyes and rosy cheeks; do not redesign it. For this neutral game pose, show the cloud hovering with a comically surprised little rounded \u201co\u201d mouth and otherwise friendly calm expression. Center the full cloud and fit it to a wide 8:5 canvas with a small transparent margin all around. Style remains polished 2D candy-cartoon with clean soft cel shading. Genuinely transparent background. No 3D, photorealism, extra objects, text, watermark or border.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-cloud-face.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-36f8229f-d9ef-4b43-a9c8-8364bc731fa0.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-36f8229f-d9ef-4b43-a9c8-8364bc731fa0.png",
+      "file": "party/assets/art/prop/cloud-face.webp",
+      "runtimeFile": "party/assets/art/prop/cloud-face.webp",
+      "width": 480,
+      "height": 300,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        41,
+        28,
+        1536,
+        974
+      ],
+      "actualAlphaBBox": [
+        3,
+        0,
+        476,
+        300
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 22282,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/cloud-face-giggle",
+      "size": [
+        480,
+        300
+      ],
+      "geometry": "Same Cloud Friend identity and exact wide silhouette; eyes squeezed shut, open laughing mouth with tongue, rosier cheeks; transparent and same placement.",
+      "prompt": "Use case: precise character expression variant edit. Asset type: transparent animated game-prop pose, final 480x300. Image 1 is the final neutral Balloon Float cloud pose. Preserve its exact cloud silhouette, high curl, white body, icy-blue lower shading, navy outline, identity, placement, width, height and scale. Change only the expression: eyes squeezed shut in happy arcs; mouth open in a joyful laugh with a small pink tongue visible; cheeks slightly rosier. Keep the same transparent framing and leave no new effects or objects. Clean polished 2D candy-cartoon with soft cel shading. No 3D, photorealism, text, watermark, border, or background.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-cloud-face-giggle.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fab2eb66-2d60-4cbb-99e9-70ba323b2dd0.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fab2eb66-2d60-4cbb-99e9-70ba323b2dd0.png",
+      "file": "party/assets/art/prop/cloud-face-giggle.webp",
+      "runtimeFile": "party/assets/art/prop/cloud-face-giggle.webp",
+      "width": 480,
+      "height": 300,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        9,
+        0,
+        1575,
+        992
+      ],
+      "actualAlphaBBox": [
+        3,
+        0,
+        477,
+        300
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 19900,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/bird-fly",
+      "size": [
+        160,
+        128
+      ],
+      "geometry": "Approved bluebird identity, complete centered side view facing left, wings raised mid-flight and tail to right; transparent margin.",
+      "prompt": "Use case: illustration-story. Asset type: transparent animated game-prop pose, final 160x128. Image 1 is the user-approved Bluebird identity reference. Preserve its exact bright blue feathers, pale sky-blue face/belly patches, little feather crest, huge joyful blue eye, orange beak and feet, rounded body proportions, line weight, and clean dark navy #24163f outline. Create a side-view flying pose facing LEFT (beak points left), body horizontal, one wing lifted high in mid-flap and tail feathers trailing right; beak closed in a small happy smile. Center the complete bird with a little transparent margin. Polished 2D candy-cartoon, soft clean cel shading. Transparent background. No scenery, speed lines, ground, text, watermark, 3D or photorealism.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-bird-fly.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-91dbe737-5f9d-4297-aab0-bc2aa8e3d0ef.png",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-91dbe737-5f9d-4297-aab0-bc2aa8e3d0ef.png",
+      "file": "party/assets/art/prop/bird-fly.webp",
+      "runtimeFile": "party/assets/art/prop/bird-fly.webp",
+      "width": 160,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        105,
+        24,
+        1324,
+        1071
+      ],
+      "actualAlphaBBox": [
+        5,
+        0,
+        154,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9236,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "prop/bird-wave",
+      "size": [
+        160,
+        128
+      ],
+      "geometry": "Same approved bluebird identity, hovering upright with one wing raised like a wave, beak open in cheerful chirp; transparent margin.",
+      "prompt": "Use case: precise character pose-variant edit. Asset type: transparent animated game-prop pose, final 160x128. Image 1 is the finished Balloon Float Bluebird flying pose. Preserve its exact identity, head and body silhouette, blue and pale-blue feather colors, little crest, big blue eye, orange beak/feet, navy outline, body size and centered placement. Change only the pose to hovering in place: rotate the body to a more upright hover, lift one wing beside the body like a waving hand, keep the other wing out for balance, open the beak in a cheerful chirp. Retain the same overall canvas bounds and transparent framing so it swaps cleanly with Image 1. Clean polished 2D candy-cartoon cel shading. No scenery, extra props, text, watermark, 3D or photorealism.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-bird-wave.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9912cef5-ce31-4a25-b225-009d4895ba4a.png",
+      "sourceSize": [
+        1402,
+        1122
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9912cef5-ce31-4a25-b225-009d4895ba4a.png",
+      "file": "party/assets/art/prop/bird-wave.webp",
+      "runtimeFile": "party/assets/art/prop/bird-wave.webp",
+      "width": 160,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        132,
+        58,
+        1271,
+        1021
+      ],
+      "actualAlphaBBox": [
+        4,
+        0,
+        155,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9490,
+      "outputFormat": "WEBP RGBA q86 method6"
+    },
+    {
+      "key": "thumb/balloon-float",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Game-select shelf and how-to screen; centered, full scene, opaque.",
+      "description": "Approved yellow Garden Fairy flies with five bright balloons, approved Cloud Friend and Bluebird wave alongside; hearts and stars stream past.",
+      "prompt": "Use case: game-select thumbnail for Molly Party's Balloon Float, final 800x500 landscape. Image 1 is the approved yellow Garden Fairy identity/style reference; Image 2 is the approved Cloud Friend identity; Image 3 is the approved Bluebird identity. Center a tiny version of the exact yellow flower-petal Garden Fairy zooming through a bright spring-blue sky, holding one tidy bunch of exactly five shiny balloons (pink, blue, yellow, mint, purple). The same friendly cloud floats beside her with its small surprised o-mouth; the exact small bluebird waves hello nearby. Pink hearts and golden stars stream diagonally past to suggest a brisk breeze. Keep all main characters and balloons fully in frame with clear overlap hierarchy, readable thumbnail silhouettes, cheerful atmosphere. Background: simple open spring sky fading peach at low horizon with tiny distant green hills and a narrow flowery meadow strip at the bottom. Clean polished 2D candy-cartoon children's game art, bold smooth dark navy #24163f outlines, soft clean cel shading, bright candy colors. No 3D, photorealism, text, watermark, border, or Charlie Party player characters.",
+      "source": "party/reference/pending/molly-sources/balloon-float/thumb-balloon-float.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b0414b9b-a09d-479a-b7d6-58e7f654bd79.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b0414b9b-a09d-479a-b7d6-58e7f654bd79.png",
+      "file": "party/assets/art/thumb/balloon-float.webp",
+      "runtimeFile": "party/assets/art/thumb/balloon-float.webp",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 88226,
+      "outputFormat": "WEBP RGB q86 method6"
+    },
+    {
+      "key": "prop/balloon-mint",
+      "size": [
+        128,
+        176
+      ],
+      "geometry": "Bottom-centred at knot; exact light mint balloon with full oval shape, knot and upper-left highlight; game supplies string.",
+      "prompt": "Use case: precise prop color variant. Asset type: transparent standalone balloon game prop, final 128x176. Image 1 is an existing aligned balloon reference for shape and framing only. Preserve its egg-shaped round silhouette, single knot at bottom centre, glossy upper-left white highlight, smooth navy #24163f outline, scale and placement. Change only the body color from green to a soft light mint green (clear pale mint, visibly different from emerald green); maintain matching shading and clean 2D cel finish. No string. Full balloon and knot visible with transparent margins. No new highlights, text, watermark, border, 3D or photorealism.\n",
+      "source": "party/reference/pending/molly-sources/balloon-float/prop-balloon-mint.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8b591c0b-91d6-4615-8dab-b1d9eafebe95.png",
+      "sourceSize": [
+        1070,
+        1470
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8b591c0b-91d6-4615-8dab-b1d9eafebe95.png",
+      "file": "party/assets/art/prop/balloon-mint.webp",
+      "runtimeFile": "party/assets/art/prop/balloon-mint.webp",
+      "width": 128,
+      "height": 176,
+      "tool": "built-in imagegen",
+      "status": "root visually reviewed; runtime integration ready",
+      "sourceCrop": [
+        37,
+        94,
+        1032,
+        1404
+      ],
+      "actualAlphaBBox": [
+        0,
+        3,
+        128,
+        172
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 6254,
+      "outputFormat": "WEBP RGBA q86 method6"
     }
   ]
 }

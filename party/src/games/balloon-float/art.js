@@ -4,14 +4,15 @@ import * as ui from '../../engine/ui.js';
 import { drawStarShape, drawHeartShape, drawSparkleShape } from '../../engine/emotes.js';
 import { drawArt, art } from '../../engine/art.js';
 import { TAU } from '../../engine/util.js';
+import { drawMirroredScroll } from '../../engine/scroll-art.js';
 
 const NAVY = '#24163f';
 export const BALLOONS = [
-  { key: 'prop/balloon-pink', c: '#ff7ac6', d: '#e0509f' },
-  { key: 'prop/balloon-blue', c: '#5ec2ff', d: '#2f93d6' },
-  { key: 'prop/balloon-yellow', c: '#ffdc4a', d: '#e0ac10' },
+  { key: 'prop/balloon-float-balloon-pink', c: '#ff7ac6', d: '#e0509f' },
+  { key: 'prop/balloon-float-balloon-blue', c: '#5ec2ff', d: '#2f93d6' },
+  { key: 'prop/balloon-float-balloon-yellow', c: '#ffdc4a', d: '#e0ac10' },
   { key: 'prop/balloon-mint', c: '#5fe3a8', d: '#2bb57a' },
-  { key: 'prop/balloon-purple', c: '#b48bff', d: '#8558e0' },
+  { key: 'prop/balloon-float-balloon-purple', c: '#b48bff', d: '#8558e0' },
 ];
 
 /** One balloon, origin at its knot (bottom centre). s = scale (1 = 74x102). */
@@ -116,8 +117,7 @@ export function drawSparkle(g, x, y, s, c = '#fff') { g.save(); g.translate(x, y
 export function drawSky(g, W, H, t, scroll, groundY) {
   const bg = art('bg/balloon-float');
   if (bg) {
-    const off = (scroll * 0.35) % W;
-    g.drawImage(bg, -off, 0, W, H); g.drawImage(bg, W - off - 1, 0, W + 1, H);
+    drawMirroredScroll(g, bg, W, H, scroll * 0.35);
     return true;
   }
   ui.sky(g, '#6cc6ff', '#ffe6d0', groundY);

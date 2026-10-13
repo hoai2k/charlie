@@ -21,6 +21,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, sfxLoop, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
+import { drawMirroredScroll } from '../engine/scroll-art.js';
 import { aiProfile, Brain } from '../engine/ai.js';
 import { outfitItem } from '../engine/outfits.js';
 import { charById } from '../data/characters.js';
@@ -508,8 +509,7 @@ export class Game {
   drawBackground(g) {
     const bg = art('bg/unicorn-jump');
     if (bg) {
-      const off = (this.dist * 0.2) % W;
-      g.drawImage(bg, -off, 0, W, H); g.drawImage(bg, W - off, 0, W, H);
+      drawMirroredScroll(g, bg, W, H, this.dist * 0.2);
       if (this.rush) this.drawRushTint(g);
       return;
     }
