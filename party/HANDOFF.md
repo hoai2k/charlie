@@ -74,6 +74,12 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- In progress (user request 2026-10-13, 4): art for the 10 Play Studio
+  page-2 games (+ teddy backpack, fishing rod) arrived; 3 art-QA worktree
+  agents (A: hair-salon, nail-studio, dance-studio, puppet-theater, teddy;
+  B: aquarium, sandcastle-beach, snowman-builder; C: acrobat-circus,
+  star-maker, pottery-wheel, fishing rod). Merge their fixes, add their
+  regen rows (scratchpad `add_regen.py`), push.
 - In progress (user request 2026-10-13, 3): **Molly Party** — Fairy Count's
   tile on Party Games page 1 becomes a "Molly Party" tile that opens a
   separate shelf of 23 new games for age 4–5 (+ a "Charlie Party" tile
