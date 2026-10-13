@@ -1115,3 +1115,60 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: bubble-pop
+
+### bubble-pop — Bubble Pop   (requested by the bubble-pop agent, 2026-10-05, priority: nice-to-have)
+
+A cheeky bubble machine bobs on a little cloud at the top of a sunny garden
+and blasts out streams of soap bubbles that swirl and drift down. Players
+dash along the lawn and jump to pop them (combos chain!); each bubble holds a
+surprise (duckling, star, confetti, rainbow, cupcake or a boing frog), shown
+small inside the bubble and released on the pop. Giant bubbles take a few
+bonks. Everyone's pops fill a shared bubble meter; when it is full, foam
+surges up from the bottom for a bubble-bath finale with rubber ducks. Every
+key has a procedural fallback that ships today. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**. Characters
+use existing poses only (jump, fall, cheer, celebrate, eat, surprised,
+giggle, float).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/bubble-pop` | 1920×1080, opaque | Full screen. Characters stand with their feet on y≈905; the lawn band runs from y≈870 to the bottom. The machine (drawn by code) sits top centre around y 90–360, the HUD meter at the top centre and chips along y≈985, so keep the top centre and the middle open sky | A sunny back garden at bath time: bright blue sky with a few light clouds, a pastel picket fence and round hedges with pink and yellow flowers along the far back, a bright green lawn across the bottom fifth with tiny daisies, a washing line with little towels far off at one side. Calm and open in the middle |
+| `thumb/bubble-pop` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Fairy Felicity mid-jump popping a big rainbow soap bubble with a little yellow duckling tumbling out, other bubbles with a star and a cupcake inside swirling around, a cute bubble machine with a face on a cloud above blasting bubbles. Energetic, subject centred |
+| `prop/bubble-machine` | 640×480, transparent | Anchor bottom centre (the bottom of its cloud), drawn 520×390 at x≈W/2 (it slides left and right), bottom y≈360; the code squashes it when it puffs and spins a bubble wand ring in front of its nozzle | A chubby pastel-pink and mint bubble machine with a cheeky grinning face (big shiny eyes, rosy cheeks), a round nozzle on its front with a purple bubble-wand ring, a little crank on the side, sitting on a small fluffy cloud |
+| `prop/bubble` | 256×256, transparent | Centred, drawn at 2.15 × the bubble radius (radii 46–64 normal, 120 giant), over the surprise inside, so the middle **must stay see-through** | A single soap bubble: a thin iridescent rim (pink, gold, mint, lilac swirls), a soft curved white highlight at the upper left and a tiny one at the lower right, an almost fully transparent centre. No outline |
+| `prop/bubble-duckling` | 160×160, transparent | Centred, drawn about 90 px; flips horizontally to waddle; it flutters down and waddles away fast | A fluffy yellow duckling, side view facing right, tiny wings up as if giggling, eyes squeezed shut with happiness, orange beak open in a laugh |
+| `prop/bubble-star` | 128×128, transparent | Centred, drawn about 80 px, spinning as it zips up to the meter | A plump golden star with a happy face (closed smiling eyes, rosy cheeks), a soft glow |
+| `prop/bubble-cupcake` | 128×128, transparent | Centred, drawn about 80 px; it drops into the popper's hands | A tiny cupcake: mint wrapper, swirly pink frosting, rainbow sprinkles and a cherry |
+| `prop/bubble-frog` | 160×160, transparent | Anchor bottom centre on the lawn, drawn about 100 px, flips to face its hop direction | A round little green frog sitting, side view facing right, big happy eyes on top, wide grin, pink cheeks |
+| `prop/bubble-frog-hop` | 160×160, transparent | Same anchor and size as `prop/bubble-frog`, shown mid-hop | The same frog mid-boing: legs stretched out behind, arms forward, mouth open in a happy "wheee" |
+| `prop/bubble-rainbow` | 400×220, transparent | Anchor bottom centre at the pop point, drawn 300 wide; it grows and fades | A small cartoon rainbow arc with a puffy white cloud at each end, little sparkles |
+| `prop/rubber-duck` | 160×160, transparent | Centred, drawn about 110 px, bobbing on the finale foam | A classic yellow rubber duck toy, side view facing right, orange beak, a little shine, a tiny pink bow on its head |
+
+## New Molly Party game: balloon-float
+
+### balloon-float — Balloon Float   (requested by the balloon-float agent, 2026-10-05, priority: nice-to-have)
+
+Every player holds a bunch of five balloons and flies over a meadow while a
+brisk breeze rushes the sky past from right to left (it speeds up into gusts
+and a final star storm). Hold A to zoom up, let go to swoop down; touching
+the grass is a big friendly boing bounce. Hearts and stars stream past on
+the breeze, puffy clouds with funny faces giggle when you burst through
+them, and little birds wave hello and drop a heart. Every key has a
+procedural fallback that ships today. House style: navy `#24163f` outlines,
+soft cel shading, bright candy colours, **no text**. Characters use existing
+poses only (float, cheer, celebrate, surprised, wave, giggle).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/balloon-float` | 1920×1080, opaque, **tiles seamlessly left to right** | Drawn twice side by side and scrolled left (parallax). The grass top edge must be at y≈960 all the way across (players bounce off it); HUD chips sit at the top (y 40–116) | A wide spring sky: bright blue fading to pale peach near the horizon, a few faint distant clouds, far-off rolling green hills with tiny trees and a little windmill, and a bright flowery meadow strip along the bottom (top edge at y≈960) with daisies and tulips. Left and right edges must match |
+| `thumb/balloon-float` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Fairy Felicity zooming through a blue sky holding a bunch of five bright balloons, a cloud with a silly face sticking its tongue out, a little bluebird waving its wing, hearts and stars streaming past. Energetic, subject centred |
+| `prop/balloon-pink`, `prop/balloon-blue`, `prop/balloon-yellow`, `prop/balloon-mint`, `prop/balloon-purple` | 128×176 each, transparent | Anchor bottom centre at the knot, drawn 74×102 (scaled with the player); the code draws the strings from the knot to the player's hand and tilts/squashes the balloon | A single shiny round party balloon in <pink / sky blue / lemon yellow / mint / lilac>, slightly egg-shaped, a little tied knot at the bottom, a big soft white highlight at the upper left. No string |
+| `prop/float-heart` | 128×128, transparent | Centred, drawn about 74 px, bobbing | A puffy glossy pink heart with a tiny sparkle |
+| `prop/float-star` | 128×128, transparent | Centred, drawn about 78 px, spinning | A plump golden-yellow star with a soft glow and a tiny sparkle |
+| `prop/float-golden-star` | 192×192, transparent | Centred, drawn about 130 px with a glow behind (worth 3) | A big shining rainbow-edged golden star with a happy face (closed smiling eyes, rosy cheeks) and twinkles around it |
+| `prop/cloud-face` | 480×300, transparent | Centred, drawn 360×225 (some 1.3× bigger), drifting left | A big puffy white cloud with a silly face: small dot eyes, rosy cheeks, a little "o" mouth |
+| `prop/cloud-face-giggle` | 480×300, transparent | Same cloud, same size and position; shown for ~1 s after someone bursts through it (the code squashes it) | The same cloud giggling: eyes squeezed shut, big open laughing mouth with its tongue sticking out, cheeks extra rosy |
+| `prop/bird-fly` | 160×128, transparent | Centred, drawn about 96 px, facing left (flies right to left), alternates with `prop/bird-wave` | A round little bluebird flying, side view facing left, wings up, tiny orange beak, happy eyes |
+| `prop/bird-wave` | 160×128, transparent | Same size; shown when it waves hello to a player | The same bluebird hovering and waving one wing like a hand, beak open in a cheerful chirp |
