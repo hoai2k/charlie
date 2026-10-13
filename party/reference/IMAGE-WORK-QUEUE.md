@@ -1,9 +1,23 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. All current image requests are delivered;
+The authoritative brief is `party/image-requests.md`. The previous Studio image requests are delivered; 23 new Molly Party briefs are in production; 
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
+
+## Molly Party delivery — in progress
+
+Synced main through `61b9323a1c525144a3e356dadf3972c3890c57e5`. New scope:23 minigames,317 unique table keys (24 backgrounds,23 thumbnails,270 props),346 authored frames including the30-frame kitten atlas. Existing generic cake-stand,candle-flame,rubber-duck,four balloons andsnowball mappings are preserved; incompatible Molly variants need game-prefixed sibling keys and consumer updates. Per-key inventory saved as `reference/pending/MOLLY-REQUEST-INVENTORY.json`.
+
+Last checked revision: `61b9323a1c525144a3e356dadf3972c3890c57e5`.
+Last checked request blob: `07d61ba317137f16a9be486473128b0757b02566`.
+Last checked UTC:2026-10-13T02:13:46Z.
+
+Ownership:root canonical approvals/shared index/intake/docs/Git; tools agent cupcake-stack,dance-freeze,bubble-pop,balloon-float,ballet-butterflies; performance agent wand-shapes,fairy-flutter,fairy-hide-seek,sock-match,tea-party; structural agent ladybug-spots,garden-grow after exact inventory. Other games remain queued. Built-in imagegen only, one call per unrelated asset, true alpha, lossless source/provenance and reviewed runtimeWebP. First-six sample gates prevent style drift before expansion.
+
+Pending approval:first6 characters (ladybug,bee,butterfly,duckling,frog,MadamePapillon), `pending/molly-canonicals/REVIEW.html`. Hold their dependent variants/thumbnails; independent artwork continues. More new NPC families will follow for review. Approved previous roster/GardenFairies/Aquarium/StarMaker canonicals remain approved.
+
+The23 game runtime modules have not landed yet; art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. Previous monitor remains cancelled; no new timer requested.
 
 ## New Play Studio delivery — complete
 
