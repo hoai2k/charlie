@@ -8,18 +8,17 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
-### Molly Party code (lead session) — 21 of 23 merged
-All Molly games are merged except fairy-flutter + fairy-hide-seek (agent acd520565d5271c35
-still running; merge with scratchpad merge_molly.sh). SFX round 6 DONE (194 sounds, tools/audio/sfx/round6.py; skips the 6 retired games;
-the cheeky games need a round 7). Per-game player poses: scratchpad molly-poses.txt; the
-fairy request in image-requests.md lists the 44 poses of the 17 kept games.
-New poses registered: ride-sit, boop, cuddle, tongue-out, hose-spray. `?chars=` accepts NPC
-ids (glimmer, garden-fairy-pink|blue|yellow|green|purple) for testing.
-APPROVED 2026-10-13: cheeky games. 3 worktree agents building (brief: scratchpad
-naughty-brief.md): muddy-mayhem + sneaky-dance, opposite-ballet + whoopee-tea, bed-bounce +
-prank-troll. On merge RETIRE (keep files): puppy-splash, dance-freeze, ballet-butterflies,
-tea-party, shape-train, ladybug-spots (exclude from MOLLY_GAMES; their image-request
-sections are marked ON HOLD; move unreused keys to history as dropped).
+### Molly Party code (lead session) — all 23 on the shelf (2026-10-13)
+All Molly games merged. The cheeky round replaced six "do as you're told" games:
+puppy-splash->muddy-mayhem, dance-freeze->sneaky-dance, ballet-butterflies->opposite-ballet,
+tea-party->whoopee-tea, shape-train->bed-bounce, ladybug-spots->prank-troll (MOLLY_SWAPS in
+games/index.js: new game takes the old slot; old games stay playable by id). Their image
+requests keep only reused rows (REPLACED notes); the rest is in history as dropped.
+SFX: round 6 (194, the 17 kept games) done; round 7 (96, the cheeky six) in progress
+(tools/audio/sfx/round7.py gen then build). New poses registered: ride-sit, boop, cuddle,
+tongue-out, hose-spray, silly-pose, tiptoe. Fairy playable request lists 56 poses for the 23
+games (scratchpad molly-poses.txt). `?chars=` accepts NPC ids (glimmer, garden-fairy-*).
+Waiting on the user: decide whether fairies become the Molly roster after trying the games.
 
 ### Molly Party image delivery — in progress
 
