@@ -1238,7 +1238,10 @@
     "prop/oballet-move-statue": "prop/oballet-move-statue.webp",
     "prop/oballet-tiara": "prop/oballet-tiara.webp",
     "prop/oballet-teacher-silly": "prop/oballet-teacher-silly.webp",
-    "thumb/opposite-ballet": "thumb/opposite-ballet.webp"
+    "thumb/opposite-ballet": "thumb/opposite-ballet.webp",
+    "prop/dp-mushroom": "prop/dp-mushroom.webp",
+    "prop/duckling-golden": "prop/duckling-golden.webp",
+    "prop/mp-ledge": "prop/mp-ledge.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1827,7 +1830,9 @@
       "prop/duck-nest",
       "prop/duckling-quack",
       "prop/rubber-boot",
-      "prop/flower-bush"
+      "prop/flower-bush",
+      "prop/dp-mushroom",
+      "prop/duckling-golden"
     ],
     "mermaid-pearls": [
       "bg/mermaid-pearls",
@@ -1842,7 +1847,8 @@
       "prop/mp-fish-3",
       "prop/mp-pearl",
       "prop/mp-pearl-gold",
-      "prop/mp-vent"
+      "prop/mp-vent",
+      "prop/mp-ledge"
     ],
     "pumpkin-peekaboo": [
       "bg/pumpkin-peekaboo",

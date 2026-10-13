@@ -1104,9 +1104,6 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
-| `prop/dp-mushroom` (Molly duckling-parade, NEW key, 2026-10-13) | Missing: the mushroom hiding spots are still drawn by code (big, flat, off-style next to the delivered art) | ~260×280 transparent, bottom-centre anchor, drawn ~140 px wide; a friendly red-and-white toadstool a duckling can peek out from beside |
-| `prop/duckling-golden` (Molly duckling-parade, NEW key, optional) | The golden duckling is the plain duckling art with a glow, so it isn't golden | Same framing/anchor as `prop/duckling`: a shiny gold duckling with sparkles |
-| `prop/mp-ledge` (Molly mermaid-pearls, NEW key, optional) | The rock ledges under the clams are flat code-drawn bowls, off-style next to the art | ~300×110 transparent, bottom-centre anchor (drawn 270×99): a rounded coral/rock shelf whose flat top sits ~25 px below the image's top edge, for a clam to sit on |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
