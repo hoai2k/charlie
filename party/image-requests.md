@@ -1115,3 +1115,69 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: pumpkin-peekaboo
+
+### pumpkin-peekaboo — Pumpkin Peekaboo   (requested by the pumpkin-peekaboo agent, 2026-10-05, priority: nice-to-have)
+
+A fast, friendly Halloween whack-a-mole: silly jack-o'-lanterns pop up out of
+holes in a moonlit pumpkin patch; players dash over and boop them with A, the
+pumpkin giggles, changes its face and spits out candy. Golden pumpkins make
+it rain candy, and sometimes a kitty in a witch hat pops up instead (boop it
+and it purrs). Friendly and funny, **never scary**: round cute faces, no
+sharp teeth, warm orange glow. Every key has a procedural fallback that
+ships today; files listed in `assets/art/index.json` drop in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, no text.
+
+Layout: sky and horizon (moon, a little cottage with warm windows, a fence)
+fill y 0–360; the patch ground fills y 360–1080. Holes sit in 4 staggered
+rows at y ≈ 450, 590, 740, 880, x 300–1620. Players run anywhere on the
+ground. Scoreboard chips sit along the bottom (y ≈ 985), the timer at the top
+centre.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pumpkin-peekaboo` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm (timer). The code draws holes, pumpkins and players on the ground area (y 380–1000), so keep it plain soil and grass with low detail there | A cosy, friendly autumn night: deep purple-blue sky with a big soft yellow full moon at the upper right, twinkly stars, a little wooden cottage with warm glowing windows and a string of round orange lanterns at the far left horizon, a low wooden fence and a friendly smiling scarecrow at the horizon (y ≈ 300–380), then a wide dark-green-and-brown pumpkin patch with curly vines and a few leaves around the edges, hay bales in the bottom corners. Warm, inviting, not spooky |
+| `thumb/pumpkin-peekaboo` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Three cute jack-o'-lanterns popping out of holes in a moonlit patch, the middle one giggling and spitting out wrapped candies, a golden glowing pumpkin at the side and a kitty in a purple witch hat peeking from a hole. Subject centred |
+| `prop/pp-hole` | 320×160, transparent | Drawn centred on each hole point, 200 px wide at depth scale 1 (smaller at the back rows). Pumpkins rise out of its centre (the code hides everything below the hole's centre line) | A round dark dirt hole in the ground seen from a 3/4 top-down view, with a soft brown soil rim and a ring of curly green pumpkin vines and two leaves around it |
+| `prop/pp-pumpkin-1`, `prop/pp-pumpkin-2`, `prop/pp-pumpkin-3`, `prop/pp-pumpkin-4` | 320×320 each, transparent | Anchor: bottom centre at the hole, drawn 190 px wide; the bottom of the pumpkin touches the bottom edge of the canvas. The code squashes and wobbles it and clips the part below the hole | A cute round orange jack-o'-lantern with a curly green stem and a leaf, glowing warm yellow inside its carved face. Four silly faces: (1) big grin with the tongue sticking out; (2) winking, one eye a happy arc, lopsided smile; (3) crossed googly eyes and a goofy buck-tooth smile; (4) puffed cheeks blowing a raspberry. Round soft shapes, no pointy teeth |
+| `prop/pp-pumpkin-giggle` | 320×320, transparent | Same anchor and size as the faces; shown for ~1 s after a boop | The same pumpkin laughing hard: eyes squeezed into happy arcs, a huge open laughing mouth, rosy cheeks, a tiny happy tear |
+| `prop/pp-pumpkin-golden`, `prop/pp-pumpkin-golden-giggle` | 320×320 each, transparent | Same anchor and size as the faces; the code adds a glow and sparkles | A shiny golden jack-o'-lantern with a sparkly gold stem, beaming smile (normal) and laughing (giggle) |
+| `prop/pp-witch-cat`, `prop/pp-witch-cat-purr` | 320×320 each, transparent | Same anchor and size as the pumpkins (it pops out of a hole) | A fluffy lilac-grey kitten in a purple witch hat with a gold star, peeking up out of a hole with both paws on the rim, big sparkly eyes (normal); eyes closed blissfully, smiling, cheeks pink, purring (purr) |
+| `prop/pp-candy-1`, `prop/pp-candy-2`, `prop/pp-candy-3`, `prop/pp-candy-4` | 128×128 each, transparent | Drawn centred, ~60 px, spinning as they fly | Halloween candy: (1) a twist-wrapped round sweet in orange-and-purple stripes; (2) a swirly rainbow lollipop; (3) a chunky candy corn; (4) a pink wrapped chocolate with a bow |
+| `prop/pp-bucket` | 160×160, transparent | Held in every player's hand, ~60 px, centred on the hand; the code piles candy on top as the score grows | A plastic jack-o'-lantern trick-or-treat bucket with a black handle and a happy carved face |
+
+New pose (optional, the code falls back to `high-five` → `action`): `boop`,
+one-shot, a quick friendly poke forward with one finger (paw or nose for
+four-legged characters), happy face.
+
+## New Molly Party game: ghost-giggles
+
+### ghost-giggles — Ghost Giggles   (requested by the ghost-giggles agent, 2026-10-05, priority: nice-to-have)
+
+Little white sheet ghosts zoom around a cosy, cute haunted house. Players
+(in Halloween costumes from the shared wardrobe) tickle them with A; they
+giggle and turn rainbow colours. Shy ghosts hide behind the curtains and
+peek out. When every ghost is colourful, a disco ball drops and the ghosts
+throw a dance party. Cute and funny, **never scary**. Every key has a
+procedural fallback that ships today. House style: navy `#24163f` outlines,
+soft cel shading, bright candy colours, no text.
+
+Layout: back wall y 0–470, floor y 470–1080. Three tall windows on the back
+wall centred at x = 330, 1260, 1620 (y 120–420); the code draws curtains over
+them. A fireplace centred at x = 780 (base on y 470). A chandelier at the top
+centre (x 960) where the disco ball comes down. Two costume trunks on the
+floor at x = 150 and 1770, y ≈ 590. Ghosts float anywhere over the floor;
+scoreboard chips along the bottom (y ≈ 985).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/ghost-giggles` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm. **Must match the layout above**: the three windows (frames with a moonlit night view, no curtains), the fireplace at x 780 and a big plain floor (the code draws a rug, trunks, ghosts and players) | A cute cosy "haunted" parlour at night: lilac-and-plum striped wallpaper with tiny stars, three tall arched windows showing a starry sky and a big friendly moon, a stone fireplace with a cheerful orange fire, two smiling carved pumpkins and candles on the mantel, smiling portraits of a cat and a pumpkin, a little cobweb in one corner with a smiling spider, warm honey-wood floorboards. Warm, inviting, more birthday party than spooky |
+| `thumb/ghost-giggles` | 800×500, opaque | Game-select shelf and how-to screen | Three little sheet ghosts giggling in a cosy parlour, one white, one pink, one rainbow-striped, with a character in a wizard hat tickling one of them; a disco ball and sparkles above. Subject centred |
+| `prop/gg-ghost` | 256×320, transparent | Drawn centred, ~150×190 px, bobbing and squashing. **Keep it pure white with light-grey/lavender shading**: the code tints it pink, sky, mint, gold, lilac or rainbow | A cute little sheet ghost with a round top, a wavy hem, two tiny stubby arms, big shiny black eyes and a small happy smile with pink cheeks. Front view |
+| `prop/gg-ghost-giggle` | 256×320, transparent | Same anchor, size and tinting; shown while it is being tickled | The same ghost laughing: eyes squeezed into happy arcs, big open laughing mouth, arms hugging its tummy, wiggly hem |
+| `prop/gg-ghost-peek` | 160×200, transparent | A shy ghost peeking from behind a curtain edge; drawn at the curtain's side (mirrored on the other side), ~110×140 | Half of the ghost (its left half cut off by the image edge as if behind a curtain), one big eye and a tiny hand curled around the edge, shy blushing smile |
+| `prop/gg-curtain` | 160×340, transparent | One curtain panel (the left one; the code mirrors it for the right), stretched over half a window and squeezed sideways to open | A plum velvet theatre-style curtain panel with soft folds, a gold fringe at the bottom and a gold rope tassel |
+| `prop/gg-trunk` | 300×240, transparent | Anchor bottom centre at the trunk spot, drawn 210 px wide; it bounces when a costume pops out | An open wooden dress-up trunk with brass corners overflowing with costume bits: a purple wizard hat, a star cape, a pair of fairy wings and a cat-ear headband |
+| `prop/gg-disco-ball` | 200×200, transparent | Drawn centred, ~150 px, hanging from a line and spinning (the code adds light beams) | A sparkly mirror disco ball with pink and lilac glints |
