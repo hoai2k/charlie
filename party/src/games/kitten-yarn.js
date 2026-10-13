@@ -15,7 +15,7 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
+import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import {
@@ -73,6 +73,16 @@ const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
 let kid = 0;
 
+/** Like engine steer(), but at a capped Molly-Party speed. */
+function steerTo(p, fx, fy, tx, ty, arrive, speed, wobble = 0) {
+  const dx = tx - fx, dy = ty - fy, d = Math.hypot(dx, dy);
+  if (d < 1) { p.ctrl.move(0, 0); return d; }
+  const ang = Math.atan2(dy, dx) + Math.sin(performance.now() / 400 + p.index * 1.7) * wobble;
+  const k = clamp(d / arrive, 0, 1) * speed;
+  p.ctrl.move(Math.cos(ang) * k, Math.sin(ang) * k);
+  return d;
+}
+
 export class Game {
   constructor(api) {
     this.api = api;
@@ -89,6 +99,7 @@ export class Game {
       const x = n === 1 ? W / 2 : 380 + ((W - 760) * i) / (n - 1);
       const lane = ((i % 3) - 1) * 12;
       const a = new Actor(p, { scale: this.scale, x, y: GROUND_Y + lane });
+      if (a.leader.h < 80) a.scale *= 1.7;   // tiny fairy avatars
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       return { p, a, i, x, vx: 0, pv: 0, z: 0, vz: 0, lane, score: 0, basket: [], head: null, brain: new Brain(p), target: null, err: 0, wander: 0, wanderX: x, hold: 1, cuddleWait: 0, bumpCd: 0, popN: 0, popT: 0, flashT: 0 };
     });
@@ -130,7 +141,7 @@ export class Game {
   // ------------------------------------------------------------------ update
   preUpdate(dt) {
     this.t += dt;
-    for (const e of this.ents) { e.a.moveAnim(0, 0, 1); e.a.update(dt); }
+    for (const e of this.ents) { e.a.z = this.lift(e); e.a.moveAnim(0, 0, 1); e.a.update(dt); }
     for (const k of this.kittens) { k.age += dt; if (k.state === 'perch') k.t += dt * 0.3; }
   }
 
@@ -149,7 +160,7 @@ export class Game {
     this.pushPlayers(dt);
     this.updateKittens(dt);
     this.updateBalls(dt);
-    for (const e of this.ents) { e.a.x = e.x; e.a.z = e.z; e.a.update(dt); }
+    for (const e of this.ents) { e.a.x = e.x; e.a.z = e.z + this.lift(e); e.a.update(dt); }
     if (!this.done && this.timeLeft <= 0) this.finish();
   }
 
@@ -324,6 +335,9 @@ export class Game {
     }
     this.kittens = this.kittens.filter((k) => k.state !== 'gone');
   }
+
+  /** Small avatars (garden fairies) hover just above the basket rim so they stay visible. */
+  lift(e) { return e.a.leader.h < 80 ? this.bw() * 0.45 : 0; }
 
   headPos(e) { const h = e.a.anchor('head'); return { x: h.x, y: h.y + 6 }; }
 
@@ -603,8 +617,7 @@ export class Game {
     }
     if (tx === null) { ctrl.move(0, 0); return; }
     // hop over-the-head kittens / leaping late
-    const d = steer(p, e.x, 0, clamp(tx, 270, W - 270), 0, { arrive: 50, wobble: false });
-    ctrl.move(ctrl.x * (speed / prof.speed), 0);
+    const d = steerTo(p, e.x, 0, clamp(tx, 270, W - 270), 0, 50, speed);
     if (d < 12) ctrl.move(0, 0);
   }
 
