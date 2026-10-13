@@ -1158,14 +1158,14 @@ Musical statues on a disco stage: while the music plays everyone dances
 go icy blue, everyone FREEZES. Wiggly friends get tickled by a giant feather
 (no one is out). Every key below has a procedural fallback that ships today.
 House style: navy `#24163f` outlines, soft cel shading, bright candy colours,
-no text. Glimmer (existing NPC) is the DJ.
+no text. Professor Hoot (existing NPC) is the DJ.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/dance-freeze` | 1920×1080, opaque | Full screen. Top ~110 px calm (HUD). The code draws the light-up dance floor tiles from y≈560 to y≈1040 across the full width, the DJ booth at top-centre (x 960, y≈470) and the disco ball at (960, 150) | A sparkly kids' disco party hall: deep purple walls with big rounded arch windows, pink and gold stage curtains at both sides, string lights and paper stars, big speakers at the far left and right, a glossy floor area at the bottom (plain; tiles drawn on top) |
-| `thumb/dance-freeze` | 800×500, opaque | Game-select shelf and how-to screen | Two little garden fairies (the existing yellow and purple garden-fairy NPCs, no Charlie Party player characters) on a glowing rainbow disco floor, one frozen in a silly flamingo pose with frosty sparkles, a giant pink feather tickling the other who is giggling, Glimmer at a DJ booth and a disco ball above |
+| `thumb/dance-freeze` | 800×500, opaque | Game-select shelf and how-to screen | Two little garden fairies (the existing yellow and purple garden-fairy NPCs, no Charlie Party player characters) on a glowing rainbow disco floor, one frozen in a silly flamingo pose with frosty sparkles, a giant pink feather tickling the other who is giggling, Professor Hoot at a DJ booth and a disco ball above |
 | `prop/df-disco-ball` | 256×320, transparent | Hangs from the top: anchored top-centre (the string's top), drawn ~170 px | A big sparkly mirror disco ball on a short gold chain, pink and blue reflections |
-| `prop/df-dj-booth` | 560×300, transparent | Bottom-centre at (960, 560), drawn 520 wide; Glimmer stands behind it, the code draws the spinning record on top at 35% from the left, 25% from the top | A rounded pastel DJ booth with rainbow light strips on the front, two turntables on top, a heart-shaped speaker grille |
+| `prop/df-dj-booth` | 560×300, transparent | Bottom-centre at (960, 560), drawn 520 wide; Professor Hoot stands behind it, the code draws the spinning record on top at 35% from the left, 25% from the top | A rounded pastel DJ booth with rainbow light strips on the front, two turntables on top, a heart-shaped speaker grille |
 | `prop/df-feather` | 160×420, transparent | Rotates around its quill end (bottom-centre), drawn ~200 px long, wiggles over a player | A huge fluffy pink-and-purple tickle feather with a gold quill |
 | `prop/df-snowflake` | 256×256, transparent | Centred, the FREEZE icon in the HUD and over frozen players (60–220 px) | A chunky shiny ice-blue snowflake with a cute face and frosty sparkles |
 | `prop/df-music` | 256×256, transparent | Centred, the DANCE icon in the HUD | Two bouncing rainbow music notes with sparkles |
