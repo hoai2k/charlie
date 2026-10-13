@@ -82,7 +82,16 @@ const LAST = 'crown-keeper', RETIRED = ['fairy-count'];
 const partyRest = PARTY_GAMES.filter((g) => g.id !== LAST && !RETIRED.includes(g.id));
 export const PARTY_PAGES = [partyRest.slice(0, 10), [...partyRest.slice(10), ...PARTY_GAMES.filter((g) => g.id === LAST)]];
 // Molly Party: a separate shelf of simple games for little ones (age 4-5).
-export const MOLLY_GAMES = GAMES.filter((g) => g.category === 'molly');
+// The cheeky games replace the "do as you're told" ones in the same shelf
+// slot; the old games stay playable by id but are off the shelf.
+const MOLLY_SWAPS = {
+  'puppy-splash': 'muddy-mayhem', 'dance-freeze': 'sneaky-dance', 'ballet-butterflies': 'opposite-ballet',
+  'tea-party': 'whoopee-tea', 'shape-train': 'bed-bounce', 'ladybug-spots': 'prank-troll',
+};
+const mollyAll = GAMES.filter((g) => g.category === 'molly');
+const swapIns = new Set(Object.values(MOLLY_SWAPS).filter((id) => mollyAll.some((g) => g.id === id)));
+export const MOLLY_GAMES = mollyAll.filter((g) => !swapIns.has(g.id))
+  .map((g) => (swapIns.has(MOLLY_SWAPS[g.id]) ? mollyAll.find((x) => x.id === MOLLY_SWAPS[g.id]) : g));
 // Play Studio works the same way once it has more than 12 games: 11 per page
 // and a "More Play" tile.
 export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];

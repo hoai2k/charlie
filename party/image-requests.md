@@ -2030,3 +2030,104 @@ dropped). Player poses used: `idle`, `walk`, `run`, `carry`, `catch`,
 New player pose (for every playable incl. the garden fairies): `tiptoe` |
 loop: yes | fallback: `carry`, `walk` | Sneaking on tiptoe, hunched, holding
 something hidden overhead, cheeky sideways grin.
+
+## New Molly Party game: muddy-mayhem
+
+### muddy-mayhem — Muddy Mayhem   (requested by the muddy-mayhem agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Puppy Splash. Laundry day in the backyard: Granny Goose has hung
+sparkling white sheets and set out her clean things. Players run through mud
+puddles to get muddier, then press A next to the sheets, the fancy rug, the
+washing basket or the white picket fence to shake and SPLAT mud all over
+them; a pack of cheeky muddy puppies follows the muddiest player and adds
+their own splats. Granny Goose patrols with a hose (a big "!" first) and
+sprays muddy players clean again (giggles, no penalty). Surprise: a giant mud
+puddle bubbles up in the middle and erupts. Finale: Granny slips into the
+big puddle, sits up covered in mud and laughs. Every key has a procedural
+fallback that ships today; the code already looks up every key. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+**Mud splats are drawn by the code on top of the clean props, so every prop
+is drawn spotless white/clean.** Granny Goose is a new character (not a
+Charlie Party player character).
+
+**Reuses (keep alive):** `bg/puppy-splash` (fallback when
+`bg/muddy-mayhem` is missing), `prop/puppy-1` … `prop/puppy-4`,
+`prop/mud-puddle`.
+
+**Layout (the bg must match):** same as Puppy Splash: house wall from y=0 to
+≈170, a wooden porch deck band from y≈170 to ≈330, lawn below. The code
+draws the washing line (posts at x≈230 and x≈1690, line at y≈330, four
+sheets hanging to y≈540), the puddles, the rug, the basket and the fence as
+props. Keep the lawn plain (few flowers) and the top 110 px calm (HUD chips +
+timer).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/muddy-mayhem` | 1920×1080, opaque | Full screen. House wall 0–170, porch deck 170–330, lawn below; low detail on the lawn (no washing line, no puddles, no props: the code draws them) | A sunny cartoon backyard on laundry day from a high three-quarter view: the bottom of a cosy cream cottage with lace-curtained windows and a duck-egg-blue door across the top, a honey-wood porch deck along its whole width with a pot of geraniums at each end, then a bright green lawn with a few daisies, flower beds in the far corners. No characters, no animals |
+| `thumb/muddy-mayhem` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A cheeky muddy puppy mid-shake flinging big brown mud splats onto a sparkling white sheet on a washing line, more mud splats on the sheet, a prim white goose granny in a frilly apron and pink hair curlers gasping in the background with a garden hose; sunny backyard. No Charlie Party characters. Subject centred |
+| `prop/mm-granny` | 400×520, transparent | Granny Goose walking with her hose. Anchor: bottom centre = her feet; drawn ~230 px tall, side view facing right, mirrored for left; the code adds the waddle bob | Granny Goose: a plump, prim, lovable white goose standing upright, orange beak and feet, a frilly lavender apron with a pocket, pink hair curlers on her head under a little hairnet, small round spectacles, a strand of pearls; holding a green garden-hose nozzle in one wing. Proud, a bit pompous, kind eyes |
+| `prop/mm-granny-spray` | 400×520, transparent | Same anchor/size; shown while she sprays (the code draws the water stream from the nozzle, which should be at the right edge, about 55% of the way up) | The same goose, leaning forward, both wings gripping the hose nozzle pointed to the right, determined squint, curlers bouncing |
+| `prop/mm-granny-gasp` | 400×520, transparent | Same anchor/size; shown for a moment when something near her gets splatted, and during her "!" before spraying | The same goose gasping in horror: wings thrown up, beak wide open, spectacles askew, one curler popping off |
+| `prop/mm-granny-muddy` | 480×420, transparent | Finale. Anchor: bottom centre; drawn ~220 px tall sitting in the big puddle (the code draws the puddle under her) | The same goose sitting in mud, covered in brown mud splotches from head to toe, curlers drooping, laughing her head off with eyes squeezed shut and wings up |
+| `prop/mm-sheet` | 300×300, transparent | One white bedsheet hanging from the line by two pegs. Anchor: top centre = the line; drawn 230 px wide × ~210 px tall; the code sways it and draws mud splats over it | A sparkling clean white bedsheet hanging from a washing line (line not included) with two wooden clothes pegs at the top corners, soft folds |
+| `prop/mm-rug` | 420×220, transparent | Flat on the lawn, centred, drawn 330 px wide | A fancy cream-white rug with a tasselled fringe and a pale-pink rose border, lying flat on the grass, seen from a high angle |
+| `prop/mm-basket` | 260×220, transparent | Bottom-centre anchor, drawn 180 px wide | A wicker laundry basket piled high with neatly folded white towels and a frilly white pillowcase on top |
+| `prop/mm-fence` | 420×220, transparent | Bottom-centre anchor, drawn 300 px wide | A short section of freshly painted white picket fence (five pickets with pointed tops), standing on the grass |
+| `prop/mm-mega-puddle` | 640×300, transparent | Centred at (960, 748), drawn up to 450 px wide (the code scales it up while it bubbles) | A huge glossy chocolate-brown mud puddle with big bubbles and ripples, seen from a high angle |
+| `prop/mm-splat` | 160×160, transparent | Centred, drawn 40–110 px wide and rotated by the code; drawn on the sheets, rug, basket and fence | A single wet brown mud splat with a few round droplets around it, glossy highlight |
+
+Player poses used: `run`, `walk`, `idle`, `shake` (the mud shake, A),
+`surprised`, `laugh`, `cheer`, `celebrate`, `throw` (finale mud fight).
+No new poses needed.
+
+## New Molly Party game: sneaky-dance
+
+### sneaky-dance — Sneaky Dance   (requested by the sneaky-dance agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Dance & Freeze. Professor Hoot is napping in his armchair in the
+library ("Shhh!"). While he snores, everyone dances as wildly as they can
+around the library rug (the stick moves and wiggles, A is a jump-spin) and
+earns stars; a shared party meter fills and things escalate: books fly off
+the shelves, the lamp starts dancing, a disco ball comes down. When Hoot
+stirs (snore stops, one eye slowly pops open, a big "?"), everyone FREEZES
+and pretends to be reading a book, a lamp or a statue. Anyone still moving
+gets a pompous "Hmm?!" stare and drops a couple of bouncy stars they can grab
+again. Finale: Hoot wakes fully, puts on sunglasses and joins the dance
+party. Every key has a procedural fallback that ships today; the code
+already looks up every key. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text**. Professor Hoot is the Charlie
+Party NPC (brown owl, purple star wizard hat, round gold glasses, blue robe
+with stars and moons; match `assets/sprites/professor-hoot`).
+
+**Reuses (keep alive):** `prop/df-disco-ball` (the descending disco ball).
+
+**Layout (the bg must match):** a library seen from the front. Back wall
+with tall bookshelves from y=0 to ≈560; Hoot's armchair stands at the top
+centre (x 960, seat ≈y 520, chair bottom y≈612, ~420 px wide; the code
+draws the chair); a reading lamp prop at x≈1440; the dancers move over a big
+round rug on the wooden floor from y≈610 to the bottom (they stand at
+y 680–1030). Keep the top 110 px calm (HUD chips + timer), the area to the
+upper right of the chair (x 1050–1250, y 120–290) calm for the "Zzz"/"?"
+bubble, and x 1760–1840, y 90–460 calm for the party meter. The disco ball
+comes down at x≈520.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/sneaky-dance` | 1920×1080, opaque | Full screen, layout above. No chair, no lamp, no owl, no books in the air (all drawn by the code) | A cosy old library at night from the front: tall dark-wood bookshelves stuffed with colourful books across the back wall, a rolling ladder, a round window with a crescent moon, warm candle-coloured light, a big round plum-and-gold patterned rug on a honey wooden floor in the foreground, potted fern in a corner. Calm and cosy, nothing spooky |
+| `thumb/sneaky-dance` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Professor Hoot the owl asleep in a big red wingback armchair with a book on his tummy and "Zzz" bubbles (no letters: just bubbles), while in front of him a little garden fairy and a puppy dance wildly on tiptoe with music notes, a dancing lamp and flying books around them; cosy night library. No Charlie Party player characters. Subject centred |
+| `prop/sd-armchair` | 560×520, transparent | Bottom-centre anchor at (960, 612), drawn 420 px wide; Hoot is drawn sitting in it | A big plush red-velvet wingback armchair with gold buttons and tassels, front view, empty, a small patchwork cushion |
+| `prop/sd-hoot-sleep` | 420×460, transparent | Hoot sitting asleep in the chair. Bottom-centre anchor = his seat on the cushion (960, 520); drawn ~360 px tall; the code adds breathing squash, "Zzz" and nods | Professor Hoot sitting slumped and fast asleep: eyes shut as happy curved lines, wizard hat tipped over one eye, glasses slipped down his beak, an open book lying on his round tummy, wings folded, a little drool-free smile |
+| `prop/sd-hoot-peek` | 420×460, transparent | Same anchor/size; shown while he stirs (the code also shows a big "?") | The same owl, still slumped, with ONE eye popped wide open (big round suspicious eye) and the other still shut, one eyebrow feather raised |
+| `prop/sd-hoot-stare` | 420×460, transparent | Same anchor/size; the look: both eyes wide, used for the "Hmm?!" stare at wigglers | The same owl sitting up straight, both eyes huge and narrowed in a pompous suspicious stare, one wing pointing forward, beak pursed, glasses pushed up |
+| `prop/sd-hoot-yawn` | 420×460, transparent | Same anchor/size; the fake-out (he yawns and dozes off again) | The same owl stretching both wings up in an enormous yawn, beak wide open, eyes squeezed shut |
+| `prop/sd-hoot-party` | 420×520, transparent | Finale. Bottom-centre anchor = his feet standing on the chair seat; drawn ~400 px tall; the code bounces and sways him | The same owl standing up on the chair dancing: cool pink star-shaped sunglasses, wizard hat jauntily tilted, one wing pointing up disco-style, the other on his hip, robe swirling, huge grin |
+| `prop/sd-lamp` | 220×440, transparent | Bottom-centre anchor at (1440, 640), drawn 300 px tall; the code makes it hop, sway and squash when it "dances" | A tall brass reading lamp with a frilly pink fringed lampshade, a cute little face on the shade (two dot eyes and a smile), curved neck, round base |
+| `prop/sd-book-1`, `prop/sd-book-2`, `prop/sd-book-3` | 160×120 each, transparent | Flying books: centred, drawn ~80 px wide, the code flaps them open and shut | An open hardback book flapping like a bird, pages fanned: red with gold corners; teal with a star; purple with a moon |
+| `prop/sd-disguise-book` | 200×160, transparent | Held in front of a frozen player's face (centred at the eyes anchor), drawn ~90 px wide | An open storybook held up, seen from the front cover side: bright yellow cover with a simple duck picture, a little crooked |
+| `prop/sd-lampshade` | 180×150, transparent | Worn on a frozen player's head (bottom centre at the head anchor), drawn ~100 px wide | A pink pleated lampshade with a fringe, worn like a hat, slightly tilted |
+| `prop/sd-sunglasses` | 200×80, transparent | Finale: Hoot's sunglasses (and on dancers' faces at the eyes anchor), drawn ~110 px wide | Cool pink star-shaped party sunglasses with dark lenses and a shine streak |
+
+Player poses used: `walk`, `run`, `idle`, `dance`, `dance-up`,
+`dance-down`, `dance-side`, `dance-star`, `pose-twirl`, `strike3`,
+`balance`, `surprised`, `cheer`, `celebrate`, `laugh` (fallbacks all
+existing). No new poses needed.
