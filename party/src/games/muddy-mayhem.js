@@ -9,14 +9,21 @@
 // muddy player squeaky clean (giggles, no other penalty) - run away or just
 // go and get muddy again. Surprise: a giant mud puddle bubbles up in the
 // middle and erupts (super mud!). Last 10 s: Mud Party, double splats.
-// Finale: Granny slips into the giant puddle, sits up covered in mud... and
-// laughs, and everybody has a mud fight. Gentle counting (placementsFromScores).
+// Every splat near her gets a proper, hoity-toity reaction (it rotates so it
+// stays a surprise): a scandalised gasp ("Well I never!"), a wagging-finger
+// scold ("Tsk tsk!") or a huff with her beak in the air ("Hmph!") - while the
+// splatter and friends nearby fall about laughing.
+// Finale: Granny slips into the giant puddle, sits up covered in mud, gasps...
+// and then laughs, and everybody has a mud fight. Gentle counting (placementsFromScores).
 //
 // Art (all delivered; procedural fallbacks kept): bg/muddy-mayhem (falls back to
 //   the reused bg/puppy-splash), thumb/muddy-mayhem, prop/mm-granny,
 //   prop/mm-granny-spray, prop/mm-granny-gasp, prop/mm-granny-muddy,
 //   prop/mm-sheet, prop/mm-rug, prop/mm-basket, prop/mm-fence,
 //   prop/mm-mega-puddle, prop/mm-splat; reused prop/puppy-1..4, prop/mud-puddle.
+//   Requested (code-drawn extras on the closest art until they land):
+//   prop/mm-granny-scold (-> gasp art + wagging finger), prop/mm-granny-huff
+//   (-> walk art tipped back + steam), prop/mm-granny-muddy-shock (-> muddy art + shock lines).
 // Sound hooks (fallbacks today): mm-squelch, mm-splat, mm-shake, mm-honk,
 //   mm-gasp, mm-hose, mm-clean, mm-bark, mm-bloop, mm-erupt, mm-slip,
 //   mm-sploosh, mm-granny-laugh, mm-party, mm-throw.
@@ -34,6 +41,7 @@ import {
   NAVY, PORCH_Y, PUDDLES, MEGA, MUD, MUD_COLS, drawPuppy, drawMudBlobs, makeBlobs, drawBackyard, drawLine, lineY,
   drawPuddle, drawMegaPuddle, drawMegaBubbles, targetPath, drawTarget, makeSplat, drawSplat, drawGoose, drawThumb,
 } from './muddy-mayhem/art.js';
+import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from './muddy-mayhem/fluster.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -182,7 +190,7 @@ export class Game {
     // Granny Goose
     this.granny = {
       x: 960, y: 640, facing: 1, state: 'walk', st: 0, wx: 960, wy: 640, step: 0, sprayCd: 5.5, scanT: 0, target: null,
-      aimX: 0, aimY: 0, gaspCd: 0, mud: 0, z: 0, rot: 0, sq: 0, wt: 0, hitSet: new Set(),
+      aimX: 0, aimY: 0, gaspCd: 0, react: 'huff', say: null, mud: 0, z: 0, rot: 0, sq: 0, wt: 0, hitSet: new Set(),
     };
     this.mega = { state: 'none', k: 0, st: 0, boil: 0, bloopT: 0 };
     this.pickGrannySpot();
@@ -230,16 +238,38 @@ export class Game {
     if (this.t - this.splatSndAt > 0.07) { this.splatSndAt = this.t; snd('mm-splat', 'paint-splat-wet', { vol: 0.55, rate: rand(0.85, 1.2) }); }
     // Granny gasps at mess near her
     const G = this.granny;
-    if (this.phase === 'play' && G.state === 'walk' && G.gaspCd <= 0 && dist(G.x, G.y - 60, wx, wy) < 420) {
-      G.state = 'gasp'; G.st = 0; G.gaspCd = 2.6; G.facing = wx > G.x ? 1 : -1;
-      snd('mm-gasp', 'crowd-gasp', { vol: 0.35 });
-      particles.burst(G.x + G.facing * 30, G.y - 230, { type: 'confetti', count: 2, colors: ['#ffe066', '#ff9ccf'], speed: [160, 280] });
-    }
+    if (this.phase === 'play' && G.state === 'walk' && G.gaspCd <= 0 && dist(G.x, G.y - 60, wx, wy) < 420) this.grannyReact(wx, credit);
     if (credit && this.teamSplats % 15 === 0) {
       particles.popText(W / 2, 250, pick(['Splat-tastic!', 'So muddy!', 'Messy!']), '#a8682e', 70);
       sfx('yay');
     }
     return s;
+  }
+
+  /** Granny sees the mess: shocked, scolding or huffing (never the same twice
+   *  running), and the splatter and friends nearby laugh at her. */
+  grannyReact(wx, credit) {
+    const G = this.granny;
+    G.state = 'gasp'; G.st = 0; G.gaspCd = 2.6; G.facing = wx > G.x ? 1 : -1;
+    G.react = nextKind(G.react); G.say = sayFor(G.react, G.say);
+    G.sq = G.react === 'shock' ? 0.35 : 0.15;
+    if (G.react === 'shock') {
+      snd('mm-gasp', 'crowd-gasp', { vol: 0.4 });
+      particles.burst(G.x + G.facing * 30, G.y - 230, { type: 'confetti', count: 4, colors: ['#ffe066', '#ff9ccf'], speed: [160, 280] });
+    } else if (G.react === 'scold') {
+      snd('mm-scold', 'pt-honk', { vol: 0.45, rate: 1.25 });
+    } else {
+      snd('mm-huff', 'squeak', { vol: 0.35, rate: 0.8 });
+      particles.burst(G.x, G.y - 200, { type: 'smoke', count: 4, colors: ['#ffffff'], speed: [40, 120], angle: -Math.PI / 2, spread: 0.8 });
+    }
+    // the players crack up (the splatter first)
+    const near = this.ents.filter((e) => e === credit || dist(e.x, e.y, G.x, G.y) < 560);
+    near.sort((A, B) => (A === credit ? -1 : B === credit ? 1 : 0));
+    near.slice(0, 3).forEach((e, k) => later(() => {
+      if (this.finished || this.phase !== 'play') return;
+      e.a.playOnce(k ? 'giggle' : 'laugh', 0.8);
+      if (e.giggleCd <= 0) { e.giggleCd = 2; voice(e.p.charId, 'laugh'); }
+    }, 250 + k * 160));
   }
 
   // ------------------------------------------------------------------ puppies
@@ -421,7 +451,7 @@ export class Game {
         if (G.st > 1.15) { G.state = 'walk'; G.st = 0; G.target = null; G.sprayCd = rand(3.2, 5.0) * (this.n <= 2 ? 1.25 : 1) * (this.party ? 0.8 : 1); this.pickGrannySpot(); }
         break;
       }
-      case 'gasp': if (G.st > 0.7) { G.state = 'walk'; G.st = 0; } break;
+      case 'gasp': if (G.st > 1.15) { G.state = 'walk'; G.st = 0; } break;
       default: break;
     }
   }
@@ -751,10 +781,12 @@ export class Game {
         fx.shake(18, 0.5); fx.slowmo(0.4, 0.7); fx.flash('#d9a46a', 0.15);
         if (this.api.camera) this.api.camera.punch(G.x, G.y - 120, 1.25, 0.8);
         for (let k = 0; k < 3; k++) particles.burst(G.x + rand(-100, 100), G.y - 20, { type: 'drop', count: 20, colors: MUD_COLS, speed: [300, 800], angle: -Math.PI / 2, spread: 1.2, size: [10, 20] });
-        for (const e of this.ents) e.a.playOnce('surprised', 0.6);
+        // the players gasp... then crack up while Granny sits there scandalised
+        for (const e of this.ents) { e.a.playOnce('surprised', 0.35); later(() => { if (!this.finished) { e.a.playOnce('laugh', 0.9); voice(e.p.charId, 'laugh'); } }, 380 + rand(150)); }
+        snd('mm-gasp', 'crowd-gasp', { vol: 0.5 });
       }
     } else if (G.state === 'sit') {
-      if (G.st > 0.6 && !G.laughed) {
+      if (G.st > 0.75 && !G.laughed) {
         G.laughed = true;
         snd('mm-granny-laugh', 'giggle', { vol: 0.8 });
         particles.burst(G.x, G.y - 200, { type: 'heart', count: 10, colors: ['#ff6fb1', '#ff9ad5'], speed: [120, 300] });
@@ -762,7 +794,7 @@ export class Game {
         for (const e of this.ents) { e.a.setPose('celebrate'); voice(e.p.charId, 'laugh'); }
         sfx('cheer');
       }
-      if (G.st > 0.8 && !this.finished) {
+      if (G.st > 0.95 && !this.finished) {
         // mud fight!
         this.ballT = (this.ballT ?? 0) - dt;
         if (this.ballT <= 0) {
@@ -1025,7 +1057,14 @@ export class Game {
     const G = this.granny, t = this.t;
     const sc = this.grannyScale();
     const pose = G.state === 'alert' ? 'alert' : G.state === 'spray' ? 'spray' : G.state === 'gasp' ? 'gasp' : G.state === 'sit' ? 'sit' : G.state === 'slip' ? 'gasp' : 'walk';
-    const key = { walk: 'prop/mm-granny', alert: 'prop/mm-granny-gasp', gasp: 'prop/mm-granny-gasp', spray: 'prop/mm-granny-spray', sit: 'prop/mm-granny-muddy' }[pose];
+    let key = { walk: 'prop/mm-granny', alert: 'prop/mm-granny-gasp', gasp: 'prop/mm-granny-gasp', spray: 'prop/mm-granny-spray', sit: 'prop/mm-granny-muddy' }[pose];
+    // reaction art when it exists, else the closest art plus code-drawn extras
+    let tipBack = 0, drawnFinger = false;
+    const reacting = G.state === 'gasp';
+    if (reacting && G.react === 'scold') { if (art('prop/mm-granny-scold')) key = 'prop/mm-granny-scold'; else drawnFinger = true; }
+    else if (reacting && G.react === 'huff') { if (art('prop/mm-granny-huff')) key = 'prop/mm-granny-huff'; else { key = 'prop/mm-granny'; tipBack = 0.14; } }
+    const sitShock = G.state === 'sit' && G.st < 0.75;
+    if (sitShock && art('prop/mm-granny-muddy-shock')) key = 'prop/mm-granny-muddy-shock';
     const bob = pose === 'walk' ? Math.abs(Math.sin(G.step)) * 6 : pose === 'alert' ? Math.abs(Math.sin(G.st * 14)) * 10 : 0;
     const sq = G.sq;
     // hose trailing back to the tap on the porch
@@ -1057,6 +1096,8 @@ export class Game {
     g.scale(sc * G.facing * (1 + sq * 0.3), sc * (1 - sq * 0.3));
     g.translate(0, -bob);
     if (pose === 'walk') g.rotate(Math.sin(G.step) * 0.06);
+    if (tipBack) g.rotate(-tipBack * clamp(G.st / 0.15, 0, 1));   // nose in the air
+    if (reacting && G.react === 'scold') g.rotate(Math.sin(G.st * 9) * 0.04);
     if (!drawArt(g, key, 0, 0, pose === 'sit' ? 250 : 180, pose === 'sit' ? 220 : 234, { anchor: 'bottom' })) drawGoose(g, { t, pose, mud: G.mud, step: G.step });
     g.restore();
     // the big "!" (and a laugh in the finale)
@@ -1066,7 +1107,18 @@ export class Game {
       ui.panel(g, -46, -56, 92, 112, { r: 40, fill: '#ffe066', stroke: NAVY, lineWidth: 6 });
       ui.text(g, '!', 0, 4, { size: 96, color: '#ff4d6d', strokeWidth: 10 });
       g.restore();
-    } else if (G.state === 'sit' && G.st > 0.6) {
+    } else if (reacting) {
+      // Well I never! / Tsk tsk! / Hmph!
+      const k = clamp(G.st / 0.18, 0, 1), hx = G.x + G.facing * 34 * sc, hy = G.y - 200 * sc;
+      if (G.react === 'shock') drawShock(g, hx, hy, 70 * sc, this.t, k);
+      if (G.react === 'huff') drawSteam(g, hx - G.facing * 10 * sc, hy - 10 * sc, 60 * sc, this.t);
+      if (drawnFinger) drawWag(g, G.x + G.facing * 112 * sc, G.y - 150 * sc, 1.15 * sc, this.t, G.facing);
+      drawShout(g, G.say, G.x - G.facing * 40, G.y - 290 * sc - (1 - k) * 20, 50, this.t, k);
+    } else if (sitShock) {
+      const k = clamp(G.st / 0.12, 0, 1);
+      if (!art('prop/mm-granny-muddy-shock') || G.st < 0.3) drawShock(g, G.x, G.y - 170, 110, this.t, k);
+      drawShout(g, 'Oh my!!', G.x + 150, G.y - 260, 46, this.t, k);
+    } else if (G.state === 'sit' && G.st > 0.75) {
       g.save(); g.translate(G.x + 120, G.y - 250 - Math.abs(Math.sin(G.st * 9)) * 10); g.rotate(-0.08);
       ui.text(g, 'Honk honk!', 0, 0, { size: 52, color: '#ffffff', strokeWidth: 9 });
       g.restore();
