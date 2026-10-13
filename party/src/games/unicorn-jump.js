@@ -23,6 +23,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, Brain } from '../engine/ai.js';
 import { outfitItem } from '../engine/outfits.js';
+import { charById } from '../data/characters.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
 import { clamp, lerp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 
@@ -91,6 +92,8 @@ const poseName = (n) => {
   for (const f of NEW_POSE_FALLBACK[n] || []) if (POSE_NAMES.includes(f)) return f;
   return 'idle';
 };
+// pastel unicorn coats, one per player slot (generic unicorns, not the roster's Last Unicorn)
+const COATS = [['#ffd9ee', '#f6c2e0'], ['#dbe6ff', '#c3d3f7'], ['#d8f7e6', '#bfe9d2'], ['#fff1c4', '#f2dea2'], ['#ebdcff', '#d7c2fa'], ['#ffe2cf', '#f5caae'], ['#d2f5f5', '#b7e4e4'], ['#ffdcf7', '#f1c0e9']];
 const QUAD = new Set(['fox', 'cotton-candy', 'unicorn']);
 
 export class Game {
@@ -118,7 +121,10 @@ export class Game {
       const baseX = two ? (slot === 0 ? 780 : 420) : 620;
       const quad = QUAD.has(p.charId);
       const s = this.s;
-      const a = new Actor(p, { scale: s * (quad ? 1.05 : 1.0), x: baseX, y: lane.ground });
+      // normalise height so tiny avatars (e.g. garden fairies, 54 px) still read on a unicorn
+      const lh0 = (charById(p.charId)?.members[0]?.h) || 170;
+      const norm = clamp((quad ? 165 : 160) / lh0, 0.85, 2.6);
+      const a = new Actor(p, { scale: s * (quad ? 1.05 : 1.0) * norm, x: baseX, y: lane.ground });
       a.facing = 1; a.snap();
       if (quad && p.charId !== 'unicorn') {
         const keep = (p.outfit || []).filter((o) => { const it = outfitItem(o.id); return it && it.slot !== 'head'; });
@@ -718,7 +724,7 @@ export class Game {
       g.scale(stretch, 1);
       const key = jump ? 'prop/uj-mount-jump' : 'prop/uj-mount';
       if (!drawArt(g, key, 0, 0, 300 * s, 225 * s, { anchor: 'bottom' }) && !(jump && drawArt(g, 'prop/uj-mount', 0, 0, 300 * s, 225 * s, { anchor: 'bottom' }))) {
-        drawUnicorn(g, 0, 0, s, e.phase, jump, { saddle: e.p.color, wet: e.wet, stretch });
+        drawUnicorn(g, 0, 0, s, e.phase, jump, { saddle: e.p.color, wet: e.wet, stretch, coat: COATS[e.i % COATS.length] });
       }
       g.restore();
       // rider, clipped at the saddle so they sit astride
@@ -755,7 +761,7 @@ export function drawUnicorn(g, x, y, s, phase, jump, o = {}) {
   g.save(); g.translate(x, y); g.scale(s, s);
   g.lineJoin = 'round'; g.lineCap = 'round';
   const ol = () => { g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke(); };
-  const body = '#ffffff', shade = '#efe6ff';
+  const [body, shade] = o.coat || COATS[0];
   const hoof = '#ff8fc7';
   // legs: gallop swing (front pair / back pair)
   const leg = (lx, ang, far) => {
