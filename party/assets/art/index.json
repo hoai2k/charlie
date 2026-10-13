@@ -922,7 +922,24 @@
     "prop/gg-sneeze-flower-achoo": "prop/gg-sneeze-flower-achoo.webp",
     "prop/gg-butterfly": "prop/gg-butterfly.webp",
     "thumb/garden-grow": "thumb/garden-grow.webp",
-    "prop/gg-rain-cloud": "prop/gg-rain-cloud.webp"
+    "prop/gg-rain-cloud": "prop/gg-rain-cloud.webp",
+    "bg/sock-match": "bg/sock-match.webp",
+    "prop/sock-stripes": "prop/sock-stripes.webp",
+    "prop/sock-dots": "prop/sock-dots.webp",
+    "prop/sock-hearts": "prop/sock-hearts.webp",
+    "prop/sock-stars": "prop/sock-stars.webp",
+    "prop/sock-googly": "prop/sock-googly.webp",
+    "prop/sock-rainbow": "prop/sock-rainbow.webp",
+    "prop/sock-zigzag": "prop/sock-zigzag.webp",
+    "prop/sock-flowers": "prop/sock-flowers.webp",
+    "prop/sock-checks": "prop/sock-checks.webp",
+    "prop/sock-paws": "prop/sock-paws.webp",
+    "prop/sock-basket": "prop/sock-basket.webp",
+    "prop/sock-puppy-run": "prop/sock-puppy-run.webp",
+    "prop/sock-puppy-bow": "prop/sock-puppy-bow.webp",
+    "prop/clothespin": "prop/clothespin.webp",
+    "prop/sock-puppy": "prop/sock-puppy.webp",
+    "thumb/sock-match": "thumb/sock-match.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1303,6 +1320,25 @@
       "prop/gg-butterfly",
       "thumb/garden-grow",
       "prop/gg-rain-cloud"
+    ],
+    "sock-match": [
+      "bg/sock-match",
+      "prop/sock-stripes",
+      "prop/sock-dots",
+      "prop/sock-hearts",
+      "prop/sock-stars",
+      "prop/sock-googly",
+      "prop/sock-rainbow",
+      "prop/sock-zigzag",
+      "prop/sock-flowers",
+      "prop/sock-checks",
+      "prop/sock-paws",
+      "prop/sock-basket",
+      "prop/sock-puppy-run",
+      "prop/sock-puppy-bow",
+      "prop/clothespin",
+      "prop/sock-puppy",
+      "thumb/sock-match"
     ]
   }
 }
