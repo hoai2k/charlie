@@ -8,6 +8,18 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Molly Party code (lead session) — 21 of 23 merged
+All Molly games are merged except fairy-flutter + fairy-hide-seek (agent acd520565d5271c35
+still running; merge with scratchpad merge_molly.sh). SFX rows collected in scratchpad
+sfx-molly.md (round 6 not generated yet); per-game player poses in molly-poses.txt.
+New poses registered: ride-sit, boop, cuddle, tongue-out, hose-spray. `?chars=` accepts NPC
+ids (glimmer, garden-fairy-pink|blue|yellow|green|purple) for testing.
+PENDING USER DECISION: "naughty" Molly games. Proposed (not built): flips Puppy Splash ->
+Muddy Puppies, Butterfly Ballet -> Opposite Ballet, Dance & Freeze -> Sneaky Dance (Hoot
+naps), Sock Match -> Sock Bandits; new No Jumping on the Bed!, Whoopee Tea Party (replaces
+Tea Party), Prank the Sleeping Troll, Cookie Jar Caper, Food Fight. Suggested swaps: Shape
+Train, Tea Party, Puppy Splash, Ballet, Dance & Freeze (+ maybe Ladybug Spots).
+
 ### Molly Party image delivery — in progress
 
 Synced main through61b9323a;23 new game briefs,317 keys/346 authored frames. Backgrounds/props in production across3 delegated agents; first6 new character designs await user approval at `reference/pending/molly-canonicals/REVIEW.html`. Full ownership/scope/checkpoint in IMAGE-WORK-QUEUE.md and pending/MOLLY-REQUEST-INVENTORY.json. New game modules have not landed; retain open requests until actual gameplay QA. Preserve existing generic shared art; use Molly-specific sibling keys for incompatible dimensions/designs. Publish finished reviewed game batches to main regularly.
