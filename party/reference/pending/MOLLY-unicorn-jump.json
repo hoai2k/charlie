@@ -1,0 +1,348 @@
+{
+  "game": "unicorn-jump",
+  "status": "complete; all requested Unicorn Hop assets intaken",
+  "assets": [
+    {
+      "key": "bg/unicorn-jump",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque seamless left-right tile; keep lanes y\u2248260\u20131000 low-detail.",
+      "prompt": "Use case: illustration-story. Asset type: opaque seamless full-screen game background. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: Dreamy candy meadow: pastel pink-to-lilac sky with puffy clouds and a faint rainbow arc, far rolling mint and pink hills with gumdrop trees and lollipop flowers, tiny castle silhouette. Left and right edges must match seamlessly. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 1920\u00d71080 canvas; Opaque seamless left-right tile; keep lanes y\u2248260\u20131000 low-detail.. No lettering, logos, border or watermark.",
+      "status": "seam-targeted imagegen edit intaken; edge continuity measured",
+      "style_reference": "party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2201558c-c4ba-4d13-9f8f-3f962a8e22ea.png",
+      "sourcePath": "party/reference/pending/molly-sources/bg-unicorn-jump-edited.webp",
+      "runtimeFile": "party/assets/art/bg/unicorn-jump.webp",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 224454,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "editHistory": [
+        {
+          "prompt": "Preserve the exact existing candy-meadow background. Targeted edit: make the far-left/right edges match seamlessly for side-by-side scrolling copies; do not alter scene content.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2201558c-c4ba-4d13-9f8f-3f962a8e22ea.png",
+          "sourcePath": "party/reference/pending/molly-sources/bg-unicorn-jump-edited.webp"
+        }
+      ],
+      "source": "party/reference/pending/molly-sources/bg-unicorn-jump-edited.webp"
+    },
+    {
+      "key": "thumb/unicorn-jump",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque centered 16:10 thumbnail.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail. Input images: Image 1 is the approved pink Tulip Fairy NPC; preserve her identity. Image 2 is the approved Unicorn Mount canonical; preserve its identity. Primary request: The approved pink Tulip Fairy garden NPC rides the pale-pink unicorn mid-hop over a puddle, rainbow trail streaming behind, stars and swirl candies ahead, candy meadow background. No Charlie Party player characters. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 800\u00d7500 canvas; Opaque centered 16:10 thumbnail.. No lettering, logos, border or watermark.",
+      "status": "generated and intaken; first-six QA checkpoint",
+      "style_reference": "party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-aaaec273-f1fe-4bff-9226-fd7026735083.png",
+      "sourcePath": "party/reference/pending/molly-sources/thumb-unicorn-jump.webp",
+      "runtimeFile": "party/assets/art/thumb/unicorn-jump.webp",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 99312,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/thumb-unicorn-jump.webp"
+    },
+    {
+      "key": "prop/uj-mount-jump",
+      "size": [
+        512,
+        384
+      ],
+      "geometry": "Same canvas/scale/anchor as approved mount base; side view facing right; hooves bottom-centred.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is the approved Unicorn Mount canonical; preserve its exact identity and palette. Image 2 is Felicity for style guidance only; do not depict her. Primary request: Edit the approved pale-pink unicorn into a joyful leaping pose: four legs tucked beneath, rainbow mane and tail streaming back, same gold spiral horn, pink saddle blanket with heart, friendly eye and pink hooves. No rider. Preserve identity and proportions. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 512\u00d7384 canvas; Same canvas/scale/anchor as approved mount base; side view facing right; hooves bottom-centred.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; first-six QA checkpoint",
+      "style_reference": "party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b461b313-e261-4761-af32-ff68ee9433af.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-mount-jump.webp",
+      "runtimeFile": "party/assets/art/prop/uj-mount-jump.webp",
+      "nativeOutputSize": [
+        1448,
+        1086
+      ],
+      "runtimeBytes": 45776,
+      "actualAlphaBBox": [
+        4,
+        10,
+        508,
+        358
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-mount-jump.webp"
+    },
+    {
+      "key": "prop/uj-puddle",
+      "size": [
+        320,
+        96
+      ],
+      "geometry": "Transparent shallow puddle, bottom-centre anchored.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: A shallow sky-blue rain puddle from a low side angle with crisp white shine, two small ripples and one tiny yellow rubber duck floating in it. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 320\u00d796 canvas; Transparent shallow puddle, bottom-centre anchored.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; first-six QA checkpoint",
+      "style_reference": "party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-12fe7f00-6426-4169-bc03-4f81efbe2904.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-puddle.webp",
+      "runtimeFile": "party/assets/art/prop/uj-puddle.webp",
+      "nativeOutputSize": [
+        2172,
+        724
+      ],
+      "runtimeBytes": 8896,
+      "actualAlphaBBox": [
+        23,
+        17,
+        300,
+        91
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-puddle.webp"
+    },
+    {
+      "key": "prop/uj-mushroom",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Transparent prop bottom-centre anchored.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: A bouncy red-and-white spotted mushroom with a cheeky friendly smile, round fat cap like a trampoline, tiny green base. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 256\u00d7256 canvas; Transparent prop bottom-centre anchored.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; first-six QA checkpoint",
+      "style_reference": "party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4fc60610-71bd-475d-83c3-1dfcae8d4389.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-mushroom.webp",
+      "runtimeFile": "party/assets/art/prop/uj-mushroom.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 15994,
+      "actualAlphaBBox": [
+        9,
+        33,
+        252,
+        242
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-mushroom.webp"
+    },
+    {
+      "key": "prop/uj-bunny",
+      "size": [
+        256,
+        192
+      ],
+      "geometry": "Transparent prop bottom-centre anchored.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: A fluffy white bunny curled up asleep on a tiny patch of grass, pink ears folded gently, closed happy eyes. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 256\u00d7192 canvas; Transparent prop bottom-centre anchored.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; final assets",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-747e60dd-4d8f-4439-ac2c-4d33f8824be1.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-bunny.webp",
+      "runtimeFile": "party/assets/art/prop/uj-bunny.webp",
+      "nativeOutputSize": [
+        1448,
+        1086
+      ],
+      "runtimeBytes": 9518,
+      "actualAlphaBBox": [
+        21,
+        67,
+        226,
+        174
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-bunny.webp"
+    },
+    {
+      "key": "prop/uj-bunny-awake",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Transparent prop bottom-centre anchored.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: The same fluffy white bunny sitting up wide awake with a surprised-happy face and one paw waving; match simple white fur, pink ears and navy outline. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 256\u00d7256 canvas; Transparent prop bottom-centre anchored.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; final assets",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7b95fe65-3e49-4fbb-9bac-3dfe6f78a425.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-bunny-awake.webp",
+      "runtimeFile": "party/assets/art/prop/uj-bunny-awake.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 16086,
+      "actualAlphaBBox": [
+        30,
+        0,
+        209,
+        254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-bunny-awake.webp"
+    },
+    {
+      "key": "prop/uj-star",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup sprite.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: A chunky glossy golden five-point star with a cute friendly smile and a white highlight. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 128\u00d7128 canvas; Centered transparent pickup sprite.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; final assets",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7e76a2a5-37a2-4b02-bcfd-73f98ee96a07.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-star.webp",
+      "runtimeFile": "party/assets/art/prop/uj-star.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 6084,
+      "actualAlphaBBox": [
+        5,
+        5,
+        124,
+        126
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-star.webp"
+    },
+    {
+      "key": "prop/uj-candy",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup sprite.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: A round wrapped swirl candy with bright rainbow stripes and twisted pink wrapper ends. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 128\u00d7128 canvas; Centered transparent pickup sprite.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; final assets",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5a651c78-a2c3-4d51-aa3e-63275aa8c479.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-candy.webp",
+      "runtimeFile": "party/assets/art/prop/uj-candy.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 6026,
+      "actualAlphaBBox": [
+        3,
+        17,
+        126,
+        111
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-candy.webp"
+    },
+    {
+      "key": "prop/uj-lollipop",
+      "size": [
+        192,
+        256
+      ],
+      "geometry": "Transparent bottom-centre anchored sprite.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is Felicity canonical for house-style guidance only; do not depict her. Primary request: A giant rainbow-spiral lollipop on a white stick with a pink ribbon bow and a few crisp sparkles. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines and clean soft cel shading, no 3D or photorealism. Composition: exact 192\u00d7256 canvas; Transparent bottom-centre anchored sprite.. True transparent alpha around all art; no background, cast shadow, text or watermark.",
+      "status": "generated and intaken; final assets",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-33f4ccda-c705-4b45-85f7-f5b887e46a70.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-uj-lollipop.webp",
+      "runtimeFile": "party/assets/art/prop/uj-lollipop.webp",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 13764,
+      "actualAlphaBBox": [
+        22,
+        9,
+        173,
+        251
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-uj-lollipop.webp"
+    },
+    {
+      "key": "prop/uj-mount",
+      "size": [
+        512,
+        384
+      ],
+      "geometry": "Approved mount base, facing right, bottom-centred hooves.",
+      "prompt": "Approved canonical Unicorn Mount reused unchanged as the normal-gallop pose.",
+      "nativeCanonicalSource": "party/reference/canonical/molly-unicorn-mount.webp",
+      "sourcePath": "party/reference/canonical/molly-unicorn-mount.webp",
+      "runtimeFile": "party/assets/art/prop/uj-mount.webp",
+      "status": "approved canonical directly reused as base sprite",
+      "nativeOutputSize": [
+        1374,
+        1145
+      ],
+      "runtimeBytes": 47042,
+      "actualAlphaBBox": [
+        18,
+        6,
+        493,
+        382
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/canonical/molly-unicorn-mount.webp"
+    }
+  ]
+}

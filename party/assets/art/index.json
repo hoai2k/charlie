@@ -988,7 +988,18 @@
     "prop/bird-fly": "prop/bird-fly.webp",
     "prop/bird-wave": "prop/bird-wave.webp",
     "thumb/balloon-float": "thumb/balloon-float.webp",
-    "prop/balloon-mint": "prop/balloon-mint.webp"
+    "prop/balloon-mint": "prop/balloon-mint.webp",
+    "bg/unicorn-jump": "bg/unicorn-jump.webp",
+    "thumb/unicorn-jump": "thumb/unicorn-jump.webp",
+    "prop/uj-mount-jump": "prop/uj-mount-jump.webp",
+    "prop/uj-puddle": "prop/uj-puddle.webp",
+    "prop/uj-mushroom": "prop/uj-mushroom.webp",
+    "prop/uj-bunny": "prop/uj-bunny.webp",
+    "prop/uj-bunny-awake": "prop/uj-bunny-awake.webp",
+    "prop/uj-star": "prop/uj-star.webp",
+    "prop/uj-candy": "prop/uj-candy.webp",
+    "prop/uj-lollipop": "prop/uj-lollipop.webp",
+    "prop/uj-mount": "prop/uj-mount.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1434,6 +1445,19 @@
       "prop/clothespin",
       "prop/sock-puppy",
       "thumb/sock-match"
-    ]
+    ],
+    "unicorn-jump": [
+      "bg/unicorn-jump",
+      "prop/uj-mount-jump",
+      "prop/uj-puddle",
+      "prop/uj-mushroom",
+      "prop/uj-bunny",
+      "prop/uj-bunny-awake",
+      "prop/uj-star",
+      "prop/uj-candy",
+      "prop/uj-lollipop",
+      "prop/uj-mount"
+    ],
+    "ghost-giggles": []
   }
 }
