@@ -7,6 +7,7 @@ import { drawArt } from '../engine/art.js';
 // D-pad (left/right = first option, up/down = second) or by clicking.
 // In a party marathon: B (not ready) sits this one game out, A joins back
 // in, and Y (twice) skips the game for everyone.
+// Molly Party games pick a fairy to play as right here (scenes/molly-seats.js).
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host } from '../engine/audio.js';
@@ -18,6 +19,7 @@ import { particles } from '../engine/particles.js';
 import { session, restoreRoster } from '../state.js';
 import { gameById } from '../games/index.js';
 import { drawGameIcon } from './common.js';
+import { MollySeats } from './molly-seats.js';
 
 export class IntroScene {
   enter({ gameId }) {
@@ -31,6 +33,7 @@ export class IntroScene {
     this.note = null;                              // { text, t } short message under the players
     this.aiReadyAt = session.players.map((p) => (p.isAI ? rand(0.8, 2.2) : Infinity));
     this.go = null;
+    this.molly = this.meta.category === 'molly' ? new MollySeats(this.meta) : null;
     music.menu();
     const n = session.players.length;
     const spacing = Math.min(220, (W - 160) / n);
@@ -48,11 +51,12 @@ export class IntroScene {
     if (this.go !== null) {
       this.go += dt;
       if (this.go > 0.9) {
-        this.manager.go('play', { gameId: this.gameId, playing: session.players.filter((p, i) => !this.out[i]) });
+        this.manager.go('play', { gameId: this.gameId, playing: this.molly ? this.molly.players() : session.players.filter((p, i) => !this.out[i]) });
       }
       return;
     }
     if (this.said === 0 && this.t > 0.3) { this.said = 1; const last = session.partyMode && session.partyMode.round === session.partyMode.games.length - 1; host(last ? 'last-game' : 'title/' + this.gameId); }
+    if (this.molly) { this.updateMolly(dt, inputOpen); return; }
     if (this.said === 1 && this.t > 2.2 && session.players.some((p, i) => !p.isAI && !this.ready[i])) { this.said = 2; host('press-a'); }
     session.players.forEach((p, i) => {
       if (!this.ready[i] && this.t > this.aiReadyAt[i]) this.setReady(i, true);
@@ -98,6 +102,19 @@ export class IntroScene {
     }
     // Keyboard players who aren't bound (e.g. only gamepads joined) can still nudge with Enter.
     if (this.ready.every((r, i) => r || this.out[i])) { this.go = 0; sfx('go'); }
+  }
+
+  updateMolly(dt, inputOpen) {
+    if (this.skipAsk !== null && this.t - this.skipAsk > 3) this.skipAsk = null;
+    if (inputOpen && session.partyMode && this.molly.humans.some((s) => s.ctrl.pressed('y'))) {
+      if (this.skipAsk !== null) { this.skipGame(); return; }
+      this.skipAsk = this.t; sfx('select');
+    }
+    const r = this.molly.update(dt, inputOpen);
+    if (r === 'back') {
+      if (session.partyMode) this.molly.note = { text: 'Somebody has to play! (Y Y skips this game)', t: 0 };
+      else this.manager.go('gameselect');
+    } else if (r === 'go') { this.go = 0; sfx('go'); }
   }
 
   /** Sit this game out (B) or join back in (A). Someone human has to play, and the game needs its minimum. */
@@ -217,10 +234,16 @@ export class IntroScene {
     // Host.
     drawHost(g, 170, 215, 150, this.t, this.go !== null ? 'cheer' : 'talk');
     // Glimmer talks in a speech bubble (no spoken audio).
-    const line = this.go !== null ? "Here we go!" : this.t < 2.6 ? `Let's play ${this.meta.title}!` : this.ready.every((r, i) => r || this.out[i] || session.players[i].isAI) ? 'Ready? Ready!' : "Press A when you're ready!";
+    const line = this.go !== null ? "Here we go!" : this.molly ? (this.t < 2.6 ? `Let's play ${this.meta.title}!` : 'Pick your fairy!') : this.t < 2.6 ? `Let's play ${this.meta.title}!` : this.ready.every((r, i) => r || this.out[i] || session.players[i].isAI) ? 'Ready? Ready!' : "Press A when you're ready!";
     drawSpeech(g, line, 240, 186, 0.8, this.t < 2.6 ? this.t : this.t - 2.6, 0, 1, 'left');
 
     // Players + ready state.
+    if (this.molly) {
+      this.molly.draw(g, this.go !== null);
+      if (this.go !== null) ui.banner(g, "Let's go!", this.go, { y: 520, size: 160 });
+      else if (this.skipAsk !== null) ui.hints(g, [['y', 'Press Y again to skip this game']], W / 2, 828, { size: 34 });
+      return;
+    }
     this.actors.forEach((a, i) => {
       const p = session.players[i];
       a.alpha = this.out[i] ? 0.45 : 1;
