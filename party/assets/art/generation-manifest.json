@@ -28305,6 +28305,1516 @@
         "anchor": "centre"
       },
       "runtimeFile": "party/assets/art/thumb/ladybug-spots.webp"
+    },
+    {
+      "key": "bg/trick-or-treat",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full screen: calm HUD at top; empty house-row centre, houses stand y\u2248700; sidewalk band should run y\u2248700\u20131010; narrow lilac street strip below.",
+      "prompt": "Use case: illustration-story. Asset type: full-screen opaque 16:9 background for a preschool trick-or-treat game, final canvas 1920x1080. Scene: a cozy, friendly Halloween evening street with a purple-to-peach twilight sky, a large gentle smiling full moon, a few stars and wispy clouds, tiny distant lit cottages and curly bare trees along far rolling hills. Keep the middle empty because the game draws six houses there. Geometry is critical: a warm brick-and-stone sidewalk spans y=700 through y=1010, level across the frame for walking players, with only a few fallen orange leaves; a narrow lilac street strip fills the lowest part below the sidewalk. Calm unobstructed HUD band at top 110 px. Bright clean 2D candy-cartoon game illustration, smooth navy #24163f outlines, soft cel shading, friendly and not spooky. No foreground houses, doors, people, characters, ghosts, pumpkins, text, watermark or border.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/bg-trick-or-treat.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-27bad8eb-6a6b-4772-b485-4ab9c64b17e9.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-27bad8eb-6a6b-4772-b485-4ab9c64b17e9.png",
+      "file": "party/assets/art/bg/trick-or-treat.webp",
+      "runtimeFile": "party/assets/art/bg/trick-or-treat.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "generated then targeted sidewalk-band edits; final lower band reviewed and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 125884,
+      "outputFormat": "WEBP RGB q86 method6",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4ebeee6e-c337-44df-b710-046b42633fe7.png",
+      "editTargetPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-27bad8eb-6a6b-4772-b485-4ab9c64b17e9.png",
+      "editPrompts": [
+        "Use case: precise background layout correction. Image 1 is the current Trick-or-Treat background. Preserve its sky, smiling moon, distant cottages, curly trees, hills, colors, outlines and overall composition unchanged. Change only the ground band geometry: make the warm brick-and-stone sidewalk begin at y=700 (about 65% of canvas height) and continue downward to y=1010 (about 94%); this wide walkable sidewalk must clearly cover the baseline of houses the game draws at y\u2248700. Keep fallen orange leaves sparse. Reduce the lilac street strip to only the lowest ~70 pixels below y\u22481010. Maintain clean 2D candy-cartoon navy outlines and soft cel shading. No extra foreground houses, doors, people, or text.",
+        "Use case: precise lower-band correction. Image 1 is the Trick-or-Treat background. Lock every pixel and detail in the sky, moon, cottages, hills and trees above the sidewalk. Extend the existing same warm stone pavers downward: replace the current lilac street area so that the sidewalk occupies the complete bottom 30% of the image, from y\u2248700 to y\u22481010, as one continuous walkable paving band. The only lilac street should be a narrow strip in the final 6% of image height (y\u22481010 to bottom). Keep the sidewalk's top edge where it is now and keep its paving scale consistent as it extends down. This is the only change. Maintain the exact friendly 2D outlined style. No houses, characters, pumpkins, text, watermark or borders."
+      ]
+    },
+    {
+      "key": "prop/tot-skeleton",
+      "size": [
+        256,
+        320
+      ],
+      "geometry": "Bottom-centre porch step; full friendly skeleton visible, feet at canvas bottom.",
+      "description": "Approved Halloween skeleton canonical reused directly; friendly bow tie, dancing pose.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-skeleton.webp",
+      "sourceInput": "party/reference/pending/molly-canonicals-4/halloween-skeleton.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/tot-skeleton.webp",
+      "runtimeFile": "party/assets/art/prop/tot-skeleton.webp",
+      "width": 256,
+      "height": 320,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        136,
+        65,
+        1088,
+        1262
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        255,
+        319
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 25426,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-witch",
+      "size": [
+        256,
+        320
+      ],
+      "geometry": "Bottom-centre, full figure with plate entirely visible.",
+      "description": "Approved Halloween witch canonical reused directly as Trick or Treat visitor.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-witch.webp",
+      "sourceInput": "party/reference/pending/molly-canonicals-4/halloween-witch.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/tot-witch.webp",
+      "runtimeFile": "party/assets/art/prop/tot-witch.webp",
+      "width": 256,
+      "height": 320,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        188,
+        25,
+        978,
+        1277
+      ],
+      "actualAlphaBBox": [
+        27,
+        0,
+        229,
+        320
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27136,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-scarecrow",
+      "size": [
+        256,
+        320
+      ],
+      "geometry": "Bottom-centre, full figure and feet visible.",
+      "description": "Approved Halloween scarecrow canonical reused directly as Trick or Treat visitor.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-scarecrow.webp",
+      "sourceInput": "party/reference/pending/molly-canonicals-4/halloween-scarecrow.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/tot-scarecrow.webp",
+      "runtimeFile": "party/assets/art/prop/tot-scarecrow.webp",
+      "width": 256,
+      "height": 320,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        183,
+        26,
+        1063,
+        1271
+      ],
+      "actualAlphaBBox": [
+        15,
+        0,
+        241,
+        320
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 30080,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-mummy",
+      "size": [
+        256,
+        320
+      ],
+      "geometry": "Bottom-centre, full figure visible.",
+      "description": "Approved Halloween mummy canonical reused directly as Trick or Treat visitor.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-mummy.webp",
+      "sourceInput": "party/reference/pending/molly-canonicals-4/halloween-mummy.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/tot-mummy.webp",
+      "runtimeFile": "party/assets/art/prop/tot-mummy.webp",
+      "width": 256,
+      "height": 320,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        155,
+        57,
+        1063,
+        1265
+      ],
+      "actualAlphaBBox": [
+        7,
+        0,
+        248,
+        320
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27324,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-cat",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Bottom-centre sitting cat; tail and feet visible.",
+      "description": "Approved Halloween black kitten canonical reused directly as Trick or Treat visitor.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-cat.webp",
+      "sourceInput": "party/reference/pending/molly-canonicals-4/halloween-black-kitten.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/tot-cat.webp",
+      "runtimeFile": "party/assets/art/prop/tot-cat.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        127,
+        14,
+        1070,
+        1255
+      ],
+      "actualAlphaBBox": [
+        30,
+        0,
+        225,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17134,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-door",
+      "size": [
+        160,
+        240
+      ],
+      "geometry": "Full-height door with visible frame; bottom anchored; used scaled to cover gameplay doorway.",
+      "prompt": "Use case: game sprite, transparent-background cutout. Create one front-facing rounded-top wooden front door for a cute preschool Halloween street game. Painted rich purple, round brass knocker, tiny autumn-leaf wreath; simple warm-dark panel. Full door centered upright, entire frame visible, bottom edges aligned to canvas bottom; fill about 78% width and 90% height on transparent 160x240 portrait canvas. Bright clean 2D candy-cartoon, smooth bold navy #24163f outline, soft cel shading, candy colors, crisp hand-drawn edges. No 3D, photorealism, text, watermark, shadows, or extra objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-door.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-53d3eef0-f5f4-4cab-96ce-8159119f257b.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-53d3eef0-f5f4-4cab-96ce-8159119f257b.png",
+      "file": "party/assets/art/prop/tot-door.webp",
+      "runtimeFile": "party/assets/art/prop/tot-door.webp",
+      "width": 160,
+      "height": 240,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        82,
+        48,
+        941,
+        1489
+      ],
+      "actualAlphaBBox": [
+        8,
+        0,
+        151,
+        240
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9510,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-house-0",
+      "size": [
+        400,
+        560
+      ],
+      "geometry": "Bottom-centre on y\u2248700; plain empty warm-dark door opening centered x=37\u201363%, y=58\u201393%; porch steps below doorway.",
+      "prompt": "Use case: transparent game sprite, exact 400x560 portrait canvas. One straight-on friendly pastel mint-green Halloween cottage front facade, simple centered house silhouette with triangular roof and porch steps. The code overlays its own door, so preserve a completely plain warm-dark brown recessed doorway panel at horizontal center, occupying x=37%-63% of canvas width and y=58%-93% of canvas height; no knocker, handle, wreath or any door details. Doorway must remain clearly visible and empty. Add pastel mint siding, two warm glowing windows with tiny smiling cat silhouettes, porch lamp, sparse orange-purple bunting and two cute pumpkins at the sides. House body fills 78% width; porch step baseline at y=93%, completely within canvas. Centered and bottom anchored; transparent outside silhouette; no cast shadow. 2D candy-cartoon, bold smooth navy #24163f outlines, clean soft cel shading, bright colors. No characters, no text, no watermark, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-house-0.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-972067e6-cc47-449a-b028-152de1b49596.png",
+      "sourceSize": [
+        1060,
+        1484
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-972067e6-cc47-449a-b028-152de1b49596.png",
+      "file": "party/assets/art/prop/tot-house-0.webp",
+      "runtimeFile": "party/assets/art/prop/tot-house-0.webp",
+      "width": 400,
+      "height": 560,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        16,
+        44,
+        1044,
+        1402
+      ],
+      "actualAlphaBBox": [
+        0,
+        32,
+        400,
+        559
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 48578,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-house-1",
+      "size": [
+        400,
+        560
+      ],
+      "geometry": "Bottom-centre on y\u2248700; plain empty doorway x=37\u201363%, y=58\u201393%; porch steps below it.",
+      "prompt": "Edit the approved Trick-or-Treat house-0 into house-1. Preserve exact overall house silhouette, scale, transparent canvas, navy outline style, ground baseline and especially doorway: blank dark open doorway centered x=37%-63%, y=58%-93%, no door details. Change siding and trim to peach with lilac trim; small friendly smiling spider in one warm window; maintain blank doorway unchanged. Maintain front view, cute cozy Halloween look. Bright 2D candy-cartoon, smooth bold navy #24163f lines, soft cel shading, no 3D, no photorealism, no characters or text.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-house-1.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4ccb3733-02db-4be2-af66-3a9107dd84c5.png",
+      "sourceSize": [
+        1060,
+        1484
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4ccb3733-02db-4be2-af66-3a9107dd84c5.png",
+      "file": "party/assets/art/prop/tot-house-1.webp",
+      "runtimeFile": "party/assets/art/prop/tot-house-1.webp",
+      "width": 400,
+      "height": 560,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        1,
+        68,
+        1059,
+        1465
+      ],
+      "actualAlphaBBox": [
+        0,
+        33,
+        399,
+        559
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 52684,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-house-2",
+      "size": [
+        400,
+        560
+      ],
+      "geometry": "Bottom-centre on y\u2248700; plain empty doorway x=37\u201363%, y=58\u201393%; porch steps below it.",
+      "prompt": "Edit the approved Trick-or-Treat house-0 into house-2. Preserve exact overall house silhouette, scale, transparent canvas, navy outline style, ground baseline and especially doorway: blank dark open doorway centered x=37%-63%, y=58%-93%, no door details. Change siding and trim to lilac with pale pink trim; candy-corn accents on upper window planter and porch bunting; maintain blank doorway unchanged. Maintain front view, cute cozy Halloween look. Bright 2D candy-cartoon, smooth bold navy #24163f lines, soft cel shading, no 3D, no photorealism, no characters or text.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-house-2.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ead4fc05-1a35-46f7-885a-c4d20ab5b865.png",
+      "sourceSize": [
+        1060,
+        1484
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ead4fc05-1a35-46f7-885a-c4d20ab5b865.png",
+      "file": "party/assets/art/prop/tot-house-2.webp",
+      "runtimeFile": "party/assets/art/prop/tot-house-2.webp",
+      "width": 400,
+      "height": 560,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        41,
+        1060,
+        1443
+      ],
+      "actualAlphaBBox": [
+        0,
+        31,
+        400,
+        560
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 50524,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-house-3",
+      "size": [
+        400,
+        560
+      ],
+      "geometry": "Bottom-centre on y\u2248700; plain empty doorway x=37\u201363%, y=58\u201393%; porch steps below it.",
+      "prompt": "Edit the approved Trick-or-Treat house-0 into house-3. Preserve exact overall house silhouette, scale, transparent canvas, navy outline style, ground baseline and especially doorway: blank dark open doorway centered x=37%-63%, y=58%-93%, no door details. Change siding and trim to sky-blue with butter-yellow trim; tiny friendly ghost cutouts beside windows; maintain blank doorway unchanged. Maintain front view, cute cozy Halloween look. Bright 2D candy-cartoon, smooth bold navy #24163f lines, soft cel shading, no 3D, no photorealism, no characters or text.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-house-3.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f6105c0d-a9eb-4343-abd4-e280a5edf0bf.png",
+      "sourceSize": [
+        1060,
+        1484
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f6105c0d-a9eb-4343-abd4-e280a5edf0bf.png",
+      "file": "party/assets/art/prop/tot-house-3.webp",
+      "runtimeFile": "party/assets/art/prop/tot-house-3.webp",
+      "width": 400,
+      "height": 560,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        81,
+        1060,
+        1484
+      ],
+      "actualAlphaBBox": [
+        0,
+        31,
+        400,
+        560
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 53760,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-house-4",
+      "size": [
+        400,
+        560
+      ],
+      "geometry": "Bottom-centre on y\u2248700; plain empty doorway x=37\u201363%, y=58\u201393%; porch steps below it.",
+      "prompt": "Edit the approved Trick-or-Treat house-0 into house-4. Preserve exact overall house silhouette, scale, transparent canvas, navy outline style, ground baseline and especially doorway: blank dark open doorway centered x=37%-63%, y=58%-93%, no door details. Change siding and trim to soft pink with cream trim; orange and purple bunting and warm porch lantern; maintain blank doorway unchanged. Maintain front view, cute cozy Halloween look. Bright 2D candy-cartoon, smooth bold navy #24163f lines, soft cel shading, no 3D, no photorealism, no characters or text.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-house-4.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-58815cf1-e58d-422e-b2cc-7f085b4ec0c0.png",
+      "sourceSize": [
+        1060,
+        1484
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-58815cf1-e58d-422e-b2cc-7f085b4ec0c0.png",
+      "file": "party/assets/art/prop/tot-house-4.webp",
+      "runtimeFile": "party/assets/art/prop/tot-house-4.webp",
+      "width": 400,
+      "height": 560,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        80,
+        1058,
+        1484
+      ],
+      "actualAlphaBBox": [
+        0,
+        30,
+        399,
+        560
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 52572,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-house-5",
+      "size": [
+        400,
+        560
+      ],
+      "geometry": "Bottom-centre on y\u2248700; plain empty doorway x=37\u201363%, y=58\u201393%; porch steps below it.",
+      "prompt": "Edit the approved Trick-or-Treat house-0 into house-5. Preserve exact overall house silhouette, scale, transparent canvas, navy outline style, ground baseline and especially doorway: blank dark open doorway centered x=37%-63%, y=58%-93%, no door details. Change siding and trim to butter-yellow with mint trim; autumn-leaf garland and small smiling pumpkins at sides; maintain blank doorway unchanged. Maintain front view, cute cozy Halloween look. Bright 2D candy-cartoon, smooth bold navy #24163f lines, soft cel shading, no 3D, no photorealism, no characters or text.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-house-5.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0d47b321-e866-4a03-8303-ace6da89d02b.png",
+      "sourceSize": [
+        1060,
+        1484
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0d47b321-e866-4a03-8303-ace6da89d02b.png",
+      "file": "party/assets/art/prop/tot-house-5.webp",
+      "runtimeFile": "party/assets/art/prop/tot-house-5.webp",
+      "width": 400,
+      "height": 560,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        80,
+        1060,
+        1484
+      ],
+      "actualAlphaBBox": [
+        0,
+        30,
+        400,
+        560
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 53162,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "thumb/trick-or-treat",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Game-select thumbnail, two approved garden fairies in costumes with buckets and approved mummy at decorated door.",
+      "prompt": "Create an 800x500 wide game-select thumbnail for friendly Trick or Treat. Use exact approved pink and blue garden fairy identities: show them in small witch-hat and kitty-ear costumes holding glowing pumpkin buckets at a decorated front door. The approved giggling white mummy leans out from doorway tossing wrapped candy. Add cheerful smiling jack-o'-lanterns on steps, purple twilight and sparkles. Balanced centered composition with faces readable. No Charlie Party player characters, UI or text, no scary mood. Clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/thumb-trick-or-treat.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a91a0de5-6c57-4324-9ff5-c8fd178b54e2.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a91a0de5-6c57-4324-9ff5-c8fd178b54e2.png",
+      "file": "party/assets/art/thumb/trick-or-treat.webp",
+      "runtimeFile": "party/assets/art/thumb/trick-or-treat.webp",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "status": "generated, aspect-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 114586,
+      "outputFormat": "WEBP RGB q86 method6",
+      "editReferences": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/reference/canonical/garden-fairy-blue.webp",
+        "party/reference/pending/molly-canonicals-4/halloween-mummy.webp"
+      ],
+      "sourceType": "thumbnail using approved garden-fairy and mummy identities"
+    },
+    {
+      "key": "prop/tot-ghost",
+      "size": [
+        256,
+        320
+      ],
+      "geometry": "Bottom-centre porch anchor but floats slightly; round sheet ghost with tiny witch hat and rosy cheeks.",
+      "prompt": "Use case: transparent game sprite, exact 256x320 portrait canvas. A round little white sheet ghost floating upright, rosy cheeks, big friendly eyes and a tiny purple witch hat, giggling. Simple rounded draped sheet with two small soft scallops at the bottom, small hands, no feet; full figure visible. Centered with transparent margin, body fills 66% width and 72% height, not touching canvas edge. 2D candy-cartoon, smooth bold navy #24163f outlines, soft cel shading, white lavender shadows, gentle smile. No scary shapes, no 3D, photorealism, text, watermark, shadow or other objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-ghost.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-edd1a50d-70af-42cf-aaad-145e87830d71.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-edd1a50d-70af-42cf-aaad-145e87830d71.png",
+      "file": "party/assets/art/prop/tot-ghost.webp",
+      "runtimeFile": "party/assets/art/prop/tot-ghost.webp",
+      "width": 256,
+      "height": 320,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        229,
+        211,
+        909,
+        1195
+      ],
+      "actualAlphaBBox": [
+        17,
+        0,
+        238,
+        320
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15818,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-bucket",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Handle-anchored at hand; include complete handle above open bucket.",
+      "prompt": "Use case: transparent game sprite, exact 128x128 square canvas. A small bright orange jack-o'-lantern trick-or-treat bucket, happy carved smiling face, chunky black handle arching above the pumpkin. Empty with no candy; game draws its own candy heap. Full pumpkin and handle visible, centered, with top of handle near canvas top. Bright clean 2D candy-cartoon, bold smooth navy #24163f outline, soft cel shading, friendly not scary. No hands, background, shadow, text, watermark, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-bucket.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-531e6b6c-66a7-4c4e-964a-9eca77dd5c5a.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-531e6b6c-66a7-4c4e-964a-9eca77dd5c5a.png",
+      "file": "party/assets/art/prop/tot-bucket.webp",
+      "runtimeFile": "party/assets/art/prop/tot-bucket.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        75,
+        32,
+        1176,
+        1223
+      ],
+      "actualAlphaBBox": [
+        5,
+        0,
+        123,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8230,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/tot-chicken",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Centered bounce prop; whole rubber chicken visible, mouth open.",
+      "prompt": "Use case: transparent game sprite, exact 160x160 square canvas. A silly yellow rubber squeaky chicken toy in side view, full bird body and beak visible, orange beak open in a funny surprised squawk, small red comb, orange feet, big friendly eyes. Centered with transparent margins, full silhouette visible, no ground shadow. Clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, funny harmless expression. No scary look, no 3D, photorealism, text, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-chicken.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b467b2c8-dcde-4370-a0e2-244e9f4db477.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b467b2c8-dcde-4370-a0e2-244e9f4db477.png",
+      "file": "party/assets/art/prop/tot-chicken.webp",
+      "runtimeFile": "party/assets/art/prop/tot-chicken.webp",
+      "width": 160,
+      "height": 160,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        316,
+        56,
+        965,
+        1200
+      ],
+      "actualAlphaBBox": [
+        34,
+        0,
+        125,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 7238,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/tot-jack",
+      "size": [
+        200,
+        260
+      ],
+      "geometry": "Bottom-centre in doorway; box at bottom, ghost puppet and spring fully visible.",
+      "prompt": "Use case: transparent game sprite, exact 200x260 portrait canvas. A cheerful jack-in-the-box: small cube box with bright red-and-yellow vertical stripes and a visible circular lid; a silly white sock-puppet ghost springs out on a coiled spring, smiling face and tiny arms, a little confetti around it. Full box and puppet visible, centered, bottom anchored to canvas bottom, no ground/shadow. Bright clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading. Friendly not scary, no 3D, photorealism, text, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-jack.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-58788353-07d6-4fe0-9937-7af674b12014.png",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-58788353-07d6-4fe0-9937-7af674b12014.png",
+      "file": "party/assets/art/prop/tot-jack.webp",
+      "runtimeFile": "party/assets/art/prop/tot-jack.webp",
+      "width": 200,
+      "height": 260,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        155,
+        10,
+        934,
+        1422
+      ],
+      "actualAlphaBBox": [
+        28,
+        0,
+        171,
+        260
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 16386,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/tot-candy-ghost",
+      "size": [
+        360,
+        300
+      ],
+      "geometry": "Centered flying ghost and sack; candy trail fully within sprite for sky motion.",
+      "prompt": "Use case: transparent game sprite, exact 360x300 landscape canvas. A chubby friendly white ghost flying diagonally with a small open orange candy sack over one shoulder, colorful wrapped candies spilling and falling below. Big joyful face with rosy cheeks and little wavy sheet tail, arms holding sack; friendly, not scary. Whole figure and spilled candies fully visible, centered with transparent margins, no background or shadow. Bright clean 2D candy-cartoon, smooth bold navy #24163f outline, soft cel shading and cheerful candy colors. No 3D, photorealism, text, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-ghost.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-31a74813-e64d-4375-aa78-cd313f9a4cb9.png",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-31a74813-e64d-4375-aa78-cd313f9a4cb9.png",
+      "file": "party/assets/art/prop/tot-candy-ghost.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-ghost.webp",
+      "width": 360,
+      "height": 300,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        226,
+        95,
+        1195,
+        1061
+      ],
+      "actualAlphaBBox": [
+        29,
+        0,
+        330,
+        300
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 27684,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/tot-candy-0",
+      "size": [
+        96,
+        96
+      ],
+      "geometry": "Centered spun candy token; warm orange wrapped sweet.",
+      "description": "Reused approved golden wrapped candy art as warm orange wrapped candy token.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-0.webp",
+      "sourceInput": "party/assets/art/prop/candy-golden.webp",
+      "sourceSize": [
+        128,
+        128
+      ],
+      "file": "party/assets/art/prop/tot-candy-0.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-0.webp",
+      "width": 96,
+      "height": 96,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        31,
+        128,
+        97
+      ],
+      "actualAlphaBBox": [
+        0,
+        24,
+        96,
+        72
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4026,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-candy-1",
+      "size": [
+        96,
+        96
+      ],
+      "geometry": "Centered spun candy token; purple and orange wrapped sweet.",
+      "description": "Reused approved purple-and-orange striped wrapped candy art.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-1.webp",
+      "sourceInput": "party/assets/art/prop/pp-candy-1.webp",
+      "sourceSize": [
+        128,
+        128
+      ],
+      "file": "party/assets/art/prop/tot-candy-1.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-1.webp",
+      "width": 96,
+      "height": 96,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        5,
+        31,
+        123,
+        95
+      ],
+      "actualAlphaBBox": [
+        1,
+        24,
+        95,
+        73
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4340,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-candy-2",
+      "size": [
+        96,
+        96
+      ],
+      "geometry": "Centered spun lollipop token; swirl visible.",
+      "description": "Reused approved swirl lollipop art.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-2.webp",
+      "sourceInput": "party/assets/art/prop/pp-candy-2.webp",
+      "sourceSize": [
+        128,
+        128
+      ],
+      "file": "party/assets/art/prop/tot-candy-2.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-2.webp",
+      "width": 96,
+      "height": 96,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        24,
+        5,
+        104,
+        125
+      ],
+      "actualAlphaBBox": [
+        18,
+        1,
+        78,
+        95
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 4438,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-candy-5",
+      "size": [
+        96,
+        96
+      ],
+      "geometry": "Centered spun gumdrop token; pink candy.",
+      "description": "Reused approved pink gumdrop candy art.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-5.webp",
+      "sourceInput": "party/assets/art/prop/golf-gumdrop.webp",
+      "sourceSize": [
+        128,
+        128
+      ],
+      "file": "party/assets/art/prop/tot-candy-5.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-5.webp",
+      "width": 96,
+      "height": 96,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        11,
+        13,
+        117,
+        115
+      ],
+      "actualAlphaBBox": [
+        2,
+        4,
+        94,
+        93
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 5940,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/tot-candy-3",
+      "size": [
+        96,
+        96
+      ],
+      "geometry": "Centered spun candy token; green-wrapped chocolate bar.",
+      "prompt": "Use case: transparent game sprite, exact 96x96 square canvas. One cute mini chocolate bar wrapped in bright green paper with chocolate squares exposed at both short ends, a little wrapper twist at both ends. Centered, whole candy visible, fills about 70% of canvas. 2D candy-cartoon, smooth bold navy #24163f outline, soft cel shading, warm brown chocolate and green wrapper. No text/logo, 3D, photorealism, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-3.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9023b414-6714-4eb9-85ba-e9ede5849ade.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9023b414-6714-4eb9-85ba-e9ede5849ade.png",
+      "file": "party/assets/art/prop/tot-candy-3.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-3.webp",
+      "width": 96,
+      "height": 96,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        56,
+        442,
+        1198,
+        816
+      ],
+      "actualAlphaBBox": [
+        0,
+        32,
+        96,
+        63
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 2716,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/tot-candy-4",
+      "size": [
+        96,
+        96
+      ],
+      "geometry": "Centered spun candy token; upright classic candy corn.",
+      "prompt": "Use case: transparent game sprite, exact 96x96 square canvas. A single classic candy corn sweet, triangular kernel with broad orange middle band, yellow base and small white tip. Centered upright, whole candy fully visible, fills about 56% canvas height. Cute bright 2D candy-cartoon, smooth bold navy #24163f outline, soft cel shading. No face, wrapper, text, 3D, photorealism, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-4.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8358de82-a56c-483d-a935-f633215ff612.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8358de82-a56c-483d-a935-f633215ff612.png",
+      "file": "party/assets/art/prop/tot-candy-4.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-4.webp",
+      "width": 96,
+      "height": 96,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        326,
+        257,
+        927,
+        1001
+      ],
+      "actualAlphaBBox": [
+        9,
+        0,
+        87,
+        96
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 3436,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/tot-candy-pile",
+      "size": [
+        900,
+        520
+      ],
+      "geometry": "Bottom-centre finale pile, full candy mound with flat baseline; grows from center.",
+      "prompt": "Use case: transparent 900x520 landscape game sprite. Huge colorful Halloween candy mound for finale: many wrapped candies orange and purple, swirl lollipops, green-wrapped chocolate bars, candy corn, pink gumdrops, a few sparkles. Use exact candy art style and visual ingredients from approved game candy assets. Bottom-centre anchored, flat baseline touches canvas bottom, full mound in frame; no bowl, no ground, no shadow. Bright 2D candy-cartoon with bold smooth navy #24163f outlines and soft cel shading. No text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/trick-or-treat/prop-tot-candy-pile.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-92aaa4d4-467f-4bff-8689-a65fad1392bb.png",
+      "sourceSize": [
+        1648,
+        954
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-92aaa4d4-467f-4bff-8689-a65fad1392bb.png",
+      "file": "party/assets/art/prop/tot-candy-pile.webp",
+      "runtimeFile": "party/assets/art/prop/tot-candy-pile.webp",
+      "width": 900,
+      "height": 520,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        3,
+        28,
+        1646,
+        931
+      ],
+      "actualAlphaBBox": [
+        1,
+        26,
+        900,
+        519
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 166754,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "bg/duckling-parade",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full screen meadow with pond ellipse centered at (960,650) radii 380x165; clear bank at (960,400); calm top 110px and plain grass bottom 120px.",
+      "prompt": "Use case: illustration-story. Asset type: full-screen opaque landscape background for a preschool duckling-parade game, final 1920x1080. Top-down three-quarter sunny meadow. Layout is critical: a clear blue oval pond centered at x=960,y=650, exactly about 760 px wide and 330 px tall (radii 380x165); give it a narrow pale sandy rim and a few tiny water sparkles. Keep a clear uninterrupted grassy bank above it centered at x=960,y=400 for the game-drawn nest. Keep the whole upper 110 px calm and open for HUD; keep bottom 120 px plain green grass without details for scoreboard. Surround the pond with soft green grass, small daisies and buttercups; far rolling hills and a few trees only near the top horizon; thin blue sky strip with fluffy clouds at very top. Cheerful crisp 2D candy-cartoon, smooth navy #24163f outlines, clean soft cel shading, bright colors. No ducks, people, characters, reeds, lily pads, boots, nests, houses, text, watermark or border.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/bg-duckling-parade.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2b5d679f-b3e0-4814-833a-0d95070fa659.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2b5d679f-b3e0-4814-833a-0d95070fa659.png",
+      "file": "party/assets/art/bg/duckling-parade.webp",
+      "runtimeFile": "party/assets/art/bg/duckling-parade.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "generated then targeted pond-size and position edits; final ellipse visually measured against brief and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1672,
+        940
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 204406,
+      "outputFormat": "WEBP RGB q86 method6",
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-aceba11a-62b0-484a-b3e0-c57def6fe644.png",
+      "editPrompts": [
+        "Use case: precise arena-layout correction. Image 1 is the Duckling Parade background. Preserve the meadow, horizon, flowers, hills, sky, colors and style. Change only the pond: resize and place it as one centered horizontal oval whose exact target bounds on the 1920x1080 canvas are x=580\u20131340 and y=485\u2013815 (center 960,650; radii 380x165). Keep a narrow sandy rim and the same blue water. Move all pond water and its rim into that smaller lower-centered oval; fill its former outer footprint with continuous matching green meadow grass and small flowers. Leave the bank above it clear, especially centered at (960,400) for the nest. Keep top 110 px calm and bottom 120 px plain grass. No ducks, people, reeds, lily pads, nest or new objects.",
+        "Use case: precise pond scale correction. Image 1 is the current Duckling Parade background; preserve everything outside the pond and its sandy rim exactly. The pond is still too wide. Reduce its width to only 40% of the full image width: on this image it must start at x=30% and end at x=70%, centered at x=50%. Set its height to 30% of image height, top at y=45%, bottom at y=75%, centered at y=60%. Keep the current sunny blue water and narrow sandy rim. Fill the removed outer pond area with matching green meadow; preserve clear bank above for the nest. Exact geometry matters because the game draws a 760x330 pond centered at (960,650) on a 1920x1080 canvas. No ducks, characters, reeds, lily pads, nest, or new objects.",
+        "Use case: precise oval proportion correction. Image 1 is the current Duckling Parade meadow. Keep all meadow, horizon, flowers and blue pond width unchanged. Only make the pond ellipse taller vertically by about 15%, leaving its left and right edges fixed, and shift its center down by about 2% of image height. Final 1920x1080 target pond bounds x=580\u20131340, y=485\u2013815. In this 1672x941 image, keep the current ~40%-wide oval, with its height adjusted to ~29% of this image and its center at 60% height. Preserve narrow sand rim, clear nest bank above, plain grass strip at bottom. No added objects."
+      ]
+    },
+    {
+      "key": "prop/duckling",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Bottom anchored; feet close to canvas bottom; full duckling visible.",
+      "description": "Approved Molly duckling canonical reused directly without added costume or props.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-duckling.webp",
+      "sourceInput": "party/reference/canonical/molly-duckling.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/duckling.webp",
+      "runtimeFile": "party/assets/art/prop/duckling.webp",
+      "width": 160,
+      "height": 160,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        249,
+        16,
+        1001,
+        1268
+      ],
+      "actualAlphaBBox": [
+        32,
+        0,
+        128,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9272,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/mama-duck",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Bottom-centre, side-facing-right, standing with bow visible.",
+      "description": "Approved mama duck canonical reused directly for Duckling Parade.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-mama-duck.webp",
+      "sourceInput": "party/reference/pending/molly-canonicals-3/mama-duck.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "file": "party/assets/art/prop/mama-duck.webp",
+      "runtimeFile": "party/assets/art/prop/mama-duck.webp",
+      "width": 320,
+      "height": 320,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        170,
+        21,
+        1082,
+        1275
+      ],
+      "actualAlphaBBox": [
+        43,
+        0,
+        276,
+        320
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 20806,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/lily-pad",
+      "size": [
+        220,
+        130
+      ],
+      "geometry": "Centered; top surface clearly visible for a duckling to sit on.",
+      "description": "Compatible existing flowered lily pad reused for the Duckling Parade pond.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-lily-pad.webp",
+      "sourceInput": "party/assets/art/prop/fishing-lilypad-flower.webp",
+      "sourceSize": [
+        240,
+        160
+      ],
+      "file": "party/assets/art/prop/lily-pad.webp",
+      "runtimeFile": "party/assets/art/prop/lily-pad.webp",
+      "width": 220,
+      "height": 130,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        24,
+        10,
+        217,
+        149
+      ],
+      "actualAlphaBBox": [
+        21,
+        2,
+        198,
+        129
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 11470,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/reeds",
+      "size": [
+        240,
+        280
+      ],
+      "geometry": "Bottom-centre tall reeds; keep upper tips visible.",
+      "description": "Compatible existing reeds clump reused for Duckling Parade hiding spot.",
+      "prompt": "Reused existing approved canonical/shared art after visual inspection; no new image generation. Repackaged to target canvas without altering identity or pose.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-reeds.webp",
+      "sourceInput": "party/assets/art/prop/seek-reeds.webp",
+      "sourceSize": [
+        440,
+        312
+      ],
+      "file": "party/assets/art/prop/reeds.webp",
+      "runtimeFile": "party/assets/art/prop/reeds.webp",
+      "width": 240,
+      "height": 280,
+      "tool": "existing approved canonical/shared art reuse",
+      "status": "reused approved art; alpha-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        440,
+        312
+      ],
+      "actualAlphaBBox": [
+        0,
+        110,
+        240,
+        280
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 24670,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "reusedExistingAsset": true
+    },
+    {
+      "key": "prop/duck-nest",
+      "size": [
+        400,
+        220
+      ],
+      "geometry": "Bottom-centre anchor at (960,430); 300px drawn width, empty hollow sized for ducklings.",
+      "prompt": "Use case: transparent game sprite, exact 400x220 landscape canvas. A big cosy round straw nest viewed from a slight high angle, wide shallow oval, softly woven golden straw walls and a few pale feathers lining a clearly empty hollow centre where small ducklings can sit. Bottom-centre anchored with base touching the canvas bottom, fill 86% width and 72% height, no background or shadow. Bright clean 2D candy-cartoon, smooth bold navy #24163f outline, soft cel shading, warm candy colors, crisp readable shapes. No ducks, no eggs, no text, no watermark, no 3D, no photorealism.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-duck-nest.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a85d8c6a-6972-430c-b80d-1ad5099b9e18.png",
+      "sourceSize": [
+        1691,
+        930
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a85d8c6a-6972-430c-b80d-1ad5099b9e18.png",
+      "file": "party/assets/art/prop/duck-nest.webp",
+      "runtimeFile": "party/assets/art/prop/duck-nest.webp",
+      "width": 400,
+      "height": 220,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        12,
+        15,
+        1678,
+        921
+      ],
+      "actualAlphaBBox": [
+        0,
+        2,
+        400,
+        220
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 36394,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/duckling-quack",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Same bottom-centre placement and size as normal duckling frame; quacking beak, feet visible.",
+      "prompt": "Edit the approved Molly duckling canonical into the quack frame for Duckling Parade. Preserve its exact identity, yellow feathers, eye style, proportions, orange feet, outline and colors. Change only the expression/action: beak wide open in a happy quack, tiny wings lifted slightly outward. Full duckling, feet visible, centered and bottom aligned on transparent 160x160 square canvas; no speech marks or added effects. Bright clean 2D candy-cartoon with smooth navy #24163f outline and soft cel shading. No text, watermark, background, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-duckling-quack.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-760b5a3c-f8a1-4fc4-aac4-bfc939077169.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-760b5a3c-f8a1-4fc4-aac4-bfc939077169.png",
+      "file": "party/assets/art/prop/duckling-quack.webp",
+      "runtimeFile": "party/assets/art/prop/duckling-quack.webp",
+      "width": 160,
+      "height": 160,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        265,
+        12,
+        1018,
+        1235
+      ],
+      "actualAlphaBBox": [
+        30,
+        0,
+        129,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9728,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/molly-duckling.webp",
+      "sourceType": "approved canonical identity-preserving edit"
+    },
+    {
+      "key": "prop/rubber-boot",
+      "size": [
+        160,
+        190
+      ],
+      "geometry": "Bottom-centre, boot base on canvas bottom; open cuff visible for duckling head.",
+      "prompt": "Use case: transparent game sprite, exact 160x190 portrait canvas. One bright red rubber rain boot standing upright in side view, with clear white polka dots all over, a little cuff at the top and open boot opening visible so a duckling head can poke out. Bottom-centre anchor, boot base rests on canvas bottom, fills about 75% width and 82% height. No feet, no duck, no ground. Clean 2D candy-cartoon with bold smooth navy #24163f outlines, soft cel shading and cheerful colors. No 3D, photorealism, text, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-rubber-boot.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-63e47929-ceb6-4631-8bab-7ba4f912a39e.png",
+      "sourceSize": [
+        1150,
+        1367
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-63e47929-ceb6-4631-8bab-7ba4f912a39e.png",
+      "file": "party/assets/art/prop/rubber-boot.webp",
+      "runtimeFile": "party/assets/art/prop/rubber-boot.webp",
+      "width": 160,
+      "height": 190,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        90,
+        64,
+        1089,
+        1311
+      ],
+      "actualAlphaBBox": [
+        4,
+        0,
+        156,
+        190
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 10680,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/flower-bush",
+      "size": [
+        260,
+        190
+      ],
+      "geometry": "Bottom-centre; about 200 px drawn width, full rounded leafy bush with dense lower foliage for duckling to hide behind.",
+      "prompt": "Use case: transparent game sprite, exact 260x190 landscape canvas. One rounded leafy green flower bush, viewed straight-on, full dome silhouette centered and bottom anchored; fresh leaves with many tiny pink and white flowers. Dense leaves at lower part, no pot, no duck or bird, leave no large holes; bush wide enough to hide a duckling peeking from behind in game. Fill about 90% width and 82% height, base touches canvas bottom, no ground/shadow. Bright clean 2D candy-cartoon with smooth bold navy #24163f outlines, soft cel shading, clear simple shapes. No 3D, photorealism, text, watermark or extra objects.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-flower-bush.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8175f4dd-07b5-4d8f-a319-dba81f511887.png",
+      "sourceSize": [
+        1468,
+        1071
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8175f4dd-07b5-4d8f-a319-dba81f511887.png",
+      "file": "party/assets/art/prop/flower-bush.webp",
+      "runtimeFile": "party/assets/art/prop/flower-bush.webp",
+      "width": 260,
+      "height": 190,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        10,
+        82,
+        1459,
+        992
+      ],
+      "actualAlphaBBox": [
+        0,
+        27,
+        260,
+        190
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 25912,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "thumb/duckling-parade",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Game-select thumbnail; mama and five ducklings by pond; one flower hat, one sneeze.",
+      "prompt": "Create an 800x500 wide game-select thumbnail for Duckling Parade. Show approved white mama duck with pink bow marching proudly beside a line of five fluffy yellow ducklings beside a sparkling blue oval pond in a sunny meadow. One duckling wears a tiny flower hat; another is mid-sneeze with a tiny puff cloud. Keep all figures centered and readable, cheerful daisies, bright blue sky, pond, little sparkles. No text, UI, other characters or border. Clean 2D candy-cartoon with bold navy #24163f outlines, soft cel shading; no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/thumb-duckling-parade.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7c061f69-e6d3-4288-b9ba-e913adc5910c.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7c061f69-e6d3-4288-b9ba-e913adc5910c.png",
+      "file": "party/assets/art/thumb/duckling-parade.webp",
+      "runtimeFile": "party/assets/art/thumb/duckling-parade.webp",
+      "width": 800,
+      "height": 500,
+      "tool": "built-in imagegen",
+      "status": "generated, aspect-cropped and packaged",
+      "sourceCrop": [
+        0,
+        0,
+        1586,
+        991
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 99746,
+      "outputFormat": "WEBP RGB q86 method6",
+      "editReferences": [
+        "party/reference/canonical/molly-duckling.webp",
+        "party/reference/pending/molly-canonicals-3/mama-duck.webp"
+      ],
+      "sourceType": "thumbnail using approved mama-duck and duckling canonical identities"
     }
   ]
 }
