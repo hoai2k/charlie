@@ -1427,32 +1427,3 @@ lowest point of its base ellipse). Leave no empty margin at the bottom.
 No new sprite poses are needed: the code uses `dig`, `action`, `cheer`,
 `surprised`, `giggle`, `celebrate`, `jump` and the shared photo poses.
 
-## New Play Studio game: hair-salon
-
-### hair-salon — Hair Salon   (requested by the hair-salon agent, 2026-10-05, priority: nice-to-have)
-
-Every player runs a salon chair: a big friendly client sits in front of
-them with messy hair, and the player brushes, snips, grows, curls,
-straightens, colours (incl. rainbow streaks and glitter), ties it up
-(ponytail, pigtails, bun, space buns, braid) and adds bows, flowers, clips
-and tiaras. Then a hand-mirror reveal and a photo-wall showcase. The game
-ships fully procedural today: every key below is already looked up with
-`art()`/`drawArt()` and drops in with no code change once it is in
-`assets/art/index.json`. **The clients and their hair stay procedural**
-(the hair is live strand geometry that gets cut, grown and coloured), so
-no client art is needed. House style: navy `#24163f` outlines, soft cel
-shading, bright candy colours, **no text** in any image. Reused as they
-are: the roster sprites (`paint`, `cheer`, `celebrate`, `surprised`,
-`wave`, `photo` and the shared photo poses).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/hair-salon` | 1920×1080, opaque | Full screen behind the split stations (shows as side columns at 1 player and as thin gutters at 2–8). Keep the top ~110 px calm (the HUD band and clock sit there) | A bright, cosy kids' hair salon wall: mint-and-pink striped wallpaper, a row of round lightbulb vanity mirrors along the top edge, shelves of colourful shampoo bottles and hair-spray cans at the far left and right, a black-and-white checkered floor strip at the bottom. Low detail in the centre |
-| `bg/hair-salon-station` | 1200×1200, opaque | Cover-fitted (cropped, centred) behind one station's scene, between its header and tool bar; the code draws the chair, client and stylist on top. Keep the bottom ~22% as floor | One salon booth seen from the front: pastel wallpaper with tiny scissors-and-heart pattern feel (no text), a soft rounded arch outline on the wall, checkered pink-and-cream floor in the bottom 22%. Empty, nothing in the middle |
-| `bg/hair-salon-photo` | 1920×1080, opaque | Full screen for the photo showcase. Client busts stand on pedestals with their heads around y≈300–550 (1 player) down to y≈530–730 (8 players); stylists walk on the floor band y≈820–1010; the camera zooms in up to 1.6× | A glamorous photo wall in a salon: a sparkly pink sequin backdrop with a gold star-light garland across the top, two big gold-framed bulb mirrors at the far edges, a glossy pink stage floor in the bottom quarter. Centre kept plain for the clients |
-| `thumb/hair-salon` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A happy cartoon salon client with big rainbow-streaked curly hair and a pink bow sitting in a pink salon chair, a pair of scissors, a comb and a spray bottle floating around her with sparkles, mint salon wall behind. Subject centred |
-| `prop/salon-chair` | 640×720, transparent | Drawn behind the client, anchor bottom-centre at the bottom of the scene, width = 1.7 × the client's head width. Only the tall chair back shows above the client's shoulders, plus the base | A front-facing retro salon chair: tall rounded pink vinyl back with tufted buttons, chrome arms and a round chrome pump base. Empty |
-| `prop/salon-hand-mirror` | 360×560, transparent | Mirror-reveal moment: anchor centre, the code draws the client's reflection inside an oval at the top 62% of the image (centre at 36% height, oval 78% of the width × 58% of the height), so that area must be plain glass | A big gold hand mirror with an oval glass, heart and pearl details on the frame, a pink handle with a bow. The glass is pale blue with a soft diagonal shine |
-| `prop/salon-brush`, `prop/salon-scissors`, `prop/salon-grow-spray`, `prop/salon-curler`, `prop/salon-straightener`, `prop/salon-color-spray`, `prop/salon-hairtie`, `prop/salon-bling` | 160×160 each, transparent | Tool bar buttons and the cursor (hand) icon, drawn centred, fitted to ~1.1 × the slot. The colour spray is drawn with a separate colour swatch beside it, so keep its can neutral (white/silver) | Chunky toy-like salon tools: a pink paddle hairbrush; round-handled pink scissors (slightly open); a sparkly green "magic grow" spray bottle with a star nozzle; a purple barrel curling wand; a mint flat iron (hair straightener); a white spray-paint can with a rainbow band; a stretchy pink hair tie with a pearl; a glittery gold bow-and-star bling badge |
-| `prop/hair-bow-pink`, `prop/hair-bow-blue`, `prop/hair-bow-yellow`, `prop/hair-flower-pink`, `prop/hair-daisy`, `prop/hair-clip-star`, `prop/hair-clip-heart`, `prop/hair-butterfly`, `prop/hair-tiara`, `prop/hair-crown` | 192×192 each (tiara and crown 256×192), transparent | Placed on the client's hair, anchor centre; drawn at ~0.55 × the head width (tiara/crown 0.8 ×) with a small tilt. Front view, centred | Hair accessories: a pink satin bow, a sky-blue bow with white polka dots, a sunny yellow bow; a pink five-petal flower with a yellow centre; a white daisy; a gold star hair clip with a gem; a red heart clip; a purple-and-pink butterfly clip; a silver tiara with pink gems; a small gold princess crown with three gems |
-
