@@ -736,15 +736,17 @@ export class Game {
     const c = this.cow, open = this.door / 0.42;
     const edge = DOOR.x + DOOR.w * this.door * 0.82 + 6;
     const lean = clamp(open, 0, 1);
+    const img = art('prop/nanny-moo-peek');
     g.save();
     g.beginPath();
     g.rect(DOOR.x, DOOR.y, edge - DOOR.x, DOOR.h);
-    g.rect(DOOR.x - 220 * lean, DOOR.y - 60, 220 * lean + 10, 340);
+    // the art leans out whole (lantern too), so let it show down to its feet
+    g.rect(DOOR.x - 220 * lean, DOOR.y - 60, 220 * lean + 10, img ? 480 : 340);
     g.clip();
-    const img = art('prop/nanny-moo-peek');
     const x = DOOR.x + 70 - 70 * lean;
     if (img) {
-      g.drawImage(img, edge - 300 - 60 * lean, 800 - 360, 300, 360);
+      // her robe (the art's right edge) tucks in behind the door slab
+      g.drawImage(img, edge - 304, 800 - 360, 300, 360);
     } else {
       g.translate(x + 20, FLOOR + 40);
       g.rotate(-0.22 * lean);
@@ -802,7 +804,10 @@ export class Game {
 
   drawBuddyHidden(g, B, t) {
     g.save(); g.beginPath(); g.rect(B.x - 120, 0, 240, BED.top - 4); g.clip();
-    if (B.kind === 'cat') drawCat(g, B.x, BED.top + 60, 0.9, t, 'sleep'); else drawTeddy(g, B.x, BED.top + 80, 0.8, t, 'sleep');
+    // art: 240x240, sleepy head in the top half, peeking over the duvet (drawn 150x150)
+    const img = art(B.kind === 'cat' ? 'prop/bb-cat-sleep' : 'prop/bb-teddy-sleep');
+    if (img) g.drawImage(img, B.x - 75, BED.top - 65 + Math.sin(t * 2 + B.x) * 2, 150, 150);
+    else if (B.kind === 'cat') drawCat(g, B.x, BED.top + 60, 0.9, t, 'sleep'); else drawTeddy(g, B.x, BED.top + 80, 0.8, t, 'sleep');
     g.restore();
     drawTuck(g, B.x, 70);
   }
