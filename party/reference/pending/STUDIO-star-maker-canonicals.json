@@ -1,0 +1,159 @@
+{
+  "created": "2026-10-12",
+  "status": "canonical review pending; do not generate consumer props or thumbnail until lead approval",
+  "assets": [
+    {
+      "id": "star-maker-moon",
+      "canonical_path": "party/reference/canonical/star-maker-moon.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its bold smooth deep-navy outlines, rounded appealing shapes, expressive face, bright colors and soft cel shading, without copying Felicity's anatomy or outfit. Subject: an original friendly full round buttery-yellow Moon character, softly cratered, with a sleepy-happy face (closed happy arc eyes, rosy cheeks, small smile) and a pink-and-white striped nightcap with a white pompom flopping to the right. The Moon disc is round and full, never crescent-shaped. Composition: one single centered character, front three-quarter view, entire moon and nightcap visible with generous transparent margin. Style: polished clean storybook game illustration, consistent with Felicity. Background: genuinely transparent. Constraints: preserve a simple circular silhouette, clear warm expression, no scenery, no floating stars, no text, no watermark, no other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-c66015b5-5fe6-4fa0-8519-4e372a904a4d.png",
+      "size_px": [
+        1254,
+        1254
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-bunny",
+      "canonical_path": "party/reference/canonical/star-maker-bunny.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: cute bunny, side view facing right, with long soft ears and a tiny star at its tail tip. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-68e0fc42-cfd1-46bc-b222-6b848fde1ed2.png",
+      "size_px": [
+        1402,
+        1122
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-kitty",
+      "canonical_path": "party/reference/canonical/star-maker-kitty.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: cute kitten, side view facing right, with a curled tail and tiny star points at its paws. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3d74b721-77e2-491a-a087-f4b11d5805e7.png",
+      "size_px": [
+        1374,
+        1145
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-bird",
+      "canonical_path": "party/reference/canonical/star-maker-bird.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: little songbird, side view facing right, with a rounded body, small beak and tiny wing. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7a8187ee-82c0-43fe-b44e-2ef937f36943.png",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-butterfly",
+      "canonical_path": "party/reference/canonical/star-maker-butterfly.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: butterfly, front view, with four rounded luminous wings and a tiny body. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f0f14426-d2f6-415a-9ae6-3701e0066cba.png",
+      "size_px": [
+        1230,
+        1278
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-fish",
+      "canonical_path": "party/reference/canonical/star-maker-fish.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: round little fish, side view facing right, with small fins and a softly curved tail. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-404442c4-ac37-4fc5-8c87-3aa9f51eaab3.png",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-whale",
+      "canonical_path": "party/reference/canonical/star-maker-whale.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: friendly small whale, side view facing right, with a rounded body, little fins and a tiny upward water spout. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-66095565-c42f-4704-a70e-66f985a3ec0d.png",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-unicorn",
+      "canonical_path": "party/reference/canonical/star-maker-unicorn.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: cute unicorn, side view facing right, with a flowing mane, small horn and tiny star at its tail tip. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-8aaa7d8d-bbb2-470b-aa31-df6941da8985.png",
+      "size_px": [
+        1536,
+        1024
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "status": "pending lead approval"
+    },
+    {
+      "id": "star-maker-dragon",
+      "canonical_path": "party/reference/canonical/star-maker-dragon.webp",
+      "prompt": "Use case: stylized-concept. Asset type: canonical character reference for a children's party video game, not a game prop. Input image 1: approved Felicity canonical STYLE reference only; match its rounded appealing shapes and gentle storybook cel shading while making this creature distinctly luminous. Subject: original constellation spirit: small friendly dragon with tiny wings, side view facing right, round snout, little horns, curved tail. Full body, cute and cuddly, happy simple dot or closed-arc eyes. Its whole body is made of soft glowing white-to-pastel light with a bright white luminous outer edge instead of any dark outline; translucent pale lilac-blue body, tiny star sparkles inside, a few bright star points at natural joints. Composition: single centered creature, generous transparent margin, designed to remain legible at small game size. Background: genuinely transparent. Constraints: no ground, cast shadow, scenery, text, watermark, or other characters.",
+      "reference_source": "party/reference/canonical/felicity.webp",
+      "source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-8433bbe1-cd2c-47c2-a028-3ec377b84a92.png",
+      "size_px": [
+        1374,
+        1145
+      ],
+      "format": "webp",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "status": "pending lead approval"
+    }
+  ]
+}

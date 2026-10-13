@@ -1,9 +1,19 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. All current image requests are completed and published;
+The authoritative brief is `party/image-requests.md`. New image requests are currently in production;
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
+
+## New Play Studio production — active
+
+Synced main through `331de60` on 2026-10-12T23:43:03Z. New brief: 294 game-art keys across ten studios, including one already-delivered beach crab; 293 new assets plus two revisions (left-peeking teddy, compact fishing handle). Earlier delivery below remains historical; do not regenerate its completed assets.
+
+Ownership: studio_sets_structural owns Puppet Theater29, Pottery22, Sandcastle22 missing; studio_sets_tools owns Nails17, Hair Salon24, Snowman25; studio_sets_performance owns Dance27, Acrobat12 and Star Maker14; root owns Aquarium101 plus both revisions and shared intake/publication. Native prompts and checkpoints are `reference/pending/STUDIO-*.json`. Shared indexes/manifests and Git are root-owned. Publish reviewed groups regularly.
+
+The user approved Aquarium eight fish families, Star Maker Moon/eight spirits and Snowman bird; dependent generation is released. Gallery: `reference/pending/STUDIO-CANONICAL-REVIEW.html`. Their approved canonicals are saved with exact prompts and provenance; all game-art generation continues. Existing crab is reused without a new design. Explicit later/not-needed optional pose notes (`show-nails`, `tuck`, `roll-push`, `point-up`, `mold`) are recorded separately from this current image delivery; existing authored fallbacks remain usable.
+
+The previous monitor is cancelled; no new timer was requested. Finish current authorized generation, fetch/check again after delivery, preserve concurrent game-code changes, and move fielded requests to history only after review/integration.
 
 ## October 12 delivery — complete
 
