@@ -2,13 +2,18 @@
 // Duchess Teddy's prim guests (a poodle, a bunny, a fancy pig, a kitty) stroll
 // in through the garden gates and head for a chair (it glows in their colour
 // and pawprints lead to it). Grab a whoopee cushion from a basket (A), sneak
-// it onto a chair (A) before they sit down... PFFFT! A horrified gasp, the hat
-// flies off, the teacups and jelly jump, then everybody collapses giggling.
+// it onto a chair (A) before they sit down... PFFFT! The hat flies off, the
+// teacups and jelly jump, and the guest is SCANDALISED: a gasp with a popped
+// monocle, a "Tsk tsk!" finger wag, a "Hmph!" nose in the air, steaming red
+// cheeks or a fluttering fan (a shuffled bag, so it's a surprise every time).
+// The grown-ups never laugh along: the prankster and their friends do.
 // A pompous penguin butler patrols: if he spots you carrying a cushion ("!"),
 // get away quickly or he politely takes it back (just grab another). Toy
 // frogs turn up: hide one in a sugar bowl for a BOING. The finale: a giant
 // golden super-whoopee that everyone heaves onto the Duchess's throne, a huge
-// slow-motion PFFFT, and she laughs so hard her hat flies to the moon.
+// slow-motion PFFFT: her hat flies to the moon and she is OUTRAGED (steam,
+// wagging finger, "Well I never!") while everyone else falls about laughing;
+// at the very end she lets slip one tiny stifled giggle.
 // Gentle counting: every prank scores; nearby scores share a place.
 import { W, H } from '../engine/canvas.js';
 import { Actor, POSES } from '../engine/sprites.js';
@@ -20,7 +25,7 @@ import { drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer, mash } from '../engine/ai.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, dist, later } from '../engine/util.js';
 import {
-  NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
+  NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, drawGuestFx, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
   drawThrone, drawThroneFront, THRONE_SEAT, drawCushion, drawBasket, drawButler, drawFrog, drawMoon, drawPuff, drawGarden,
 } from './whoopee-tea/art.js';
 
@@ -43,6 +48,18 @@ const THRONE = { x: 960, y: 440 };
 const BUTLER_PATH = [[330, 520], [960, 770], [1590, 520], [1600, 1000], [960, 760], [320, 1000]];
 const FROG_TIMES = [9, 27];
 const PFFT_PTS = 2, FROG_PTS = 3, FINALE_PTS = 3;
+// How a prim guest reacts to a prank: never laughing, always scandalised. state =
+// the art state (guestArtKey falls back to delivered art), fx = code-drawn extras.
+const REACTS = {
+  gasp: { state: 'shock', fx: ['shock'], say: ['Oh!', 'Gasp!', 'Oh my!'] },
+  monocle: { state: 'shock', fx: ['shock'], say: ['Good heavens!'], monocle: true },
+  fan: { state: 'shock', fx: ['fan'], say: ['Well I never!', 'Oh my!'] },
+  scold: { state: 'scold', fx: ['scold'], say: ['Tsk tsk!'] },
+  steam: { state: 'scold', fx: ['steam'], say: ['Harrumph!'] },
+  huff: { state: 'huff', fx: ['huff'], say: ['Hmph!'], tilt: 0.13 },
+};
+const ONLOOK = ['gasp', 'fan', 'gasp', 'monocle'];   // guests at the same table: aghast
+const REACT_T = 2.3;
 const MOON = { x: 1640, y: 230 };
 // sneaking with a cushion: the requested `tiptoe` pose once it exists, else `carry`
 const SNEAK = POSES.tiptoe ? 'tiptoe' : 'carry';
@@ -73,14 +90,15 @@ export const meta = {
     drawThrone(g, 0, 0, t);
     drawThroneFront(g, 0, 0);
     drawCushion(g, 0, -THRONE_SEAT - 4, 140, { golden: true, flat: true, t });
-    drawGuest(g, 'duchess', 0, -THRONE_SEAT - jump * 70, 230, k < 0.5 ? 'gasp' : 'laugh', { t, hat: false, monocle: k > 0.5 });
+    drawGuest(g, 'duchess', 0, -THRONE_SEAT - jump * 70, 230, k < 0.5 ? 'shock' : 'scold', { t, hat: false, monocle: k > 0.5 });
+    if (k >= 0.5) drawGuestFx(g, 'duchess', 0, -THRONE_SEAT, 230, 'scold', ['steam', 'scold'], t, 1);
     g.restore();
     if (jump > 0) {
       drawPuff(g, x + w * 0.42, y + h * 0.74, h * 0.4, jump);
       drawHat(g, 'duchess', x + w * (0.42 + k * 0.6), y + h * (0.3 - k * 0.5), h * 0.28, k * 12);
       ui.text(g, 'PFFFT!', x + w * 0.75, y + h * 0.3, { size: h * 0.16, color: '#ff7ac6', strokeWidth: h * 0.03 });
     }
-    // a giggling cushion in the corner
+    // a giggling cushion in the corner (the pranksters are the ones laughing)
     drawCushion(g, x + w * 0.85, y + h * 0.82 + Math.sin(t * 5) * h * 0.02, h * 0.28, { sq: Math.sin(t * 8) * 0.15 });
     g.restore();
   },
@@ -107,6 +125,7 @@ export class Game {
     this.spawnT = 0.4;
     this.maxGuests = clamp(2 + Math.ceil(n / 2), 3, 6);
     this.kindBag = [];
+    this.reactBag = [];
     this.hats = [];      // flying hats
     this.puffs = [];     // PFFFT clouds
     this.flyers = [];    // confiscated cushions flying back to a basket
@@ -128,6 +147,11 @@ export class Game {
 
   // ------------------------------------------------------------------ helpers
   freeChairs() { return this.chairs.filter((c) => !c.guest); }
+
+  nextReact() {
+    if (!this.reactBag.length) this.reactBag = Object.keys(REACTS).sort(() => Math.random() - 0.5);
+    return this.reactBag.pop();
+  }
 
   nextKind() {
     if (!this.kindBag.length) this.kindBag = GUEST_KINDS.slice().sort(() => Math.random() - 0.5);
@@ -161,6 +185,7 @@ export class Game {
       gu.st += dt;
       if (gu.say) { gu.sayT -= dt; if (gu.sayT <= 0) gu.say = null; }
       const c = gu.chair;
+      if (gu.frozen) continue;   // finale: stopped dead in their tracks
       if (gu.state === 'walk') {
         const tx = c.x, ty = c.y + 26;
         const d = dist(gu.x, gu.y, tx, ty);
@@ -170,10 +195,12 @@ export class Game {
       } else if (gu.state === 'sitdown') {
         if (gu.st >= 0.35) this.sit(gu);
       } else if (gu.state === 'pfft') {
-        if (gu.st >= 0.75) { gu.state = 'laugh'; gu.st = 0; }
-      } else if (gu.state === 'laugh') {
-        if (Math.random() < dt * 5) particles.burst(gu.free ? gu.x : c.x, (gu.free ? gu.y + CHAIR_SEAT : c.y) - CHAIR_SEAT - 120, { type: 'note', count: 1, colors: ['#ff7ac6', '#ffd23f'], speed: [40, 120] });
-        if (gu.st >= 2.1) this.leave(gu);
+        if (gu.st >= 0.75) this.react(gu, gu.react || this.nextReact());
+      } else if (gu.state === 'react') {
+        if (gu.st >= (gu.onlook ? 1.8 : REACT_T)) {
+          if (gu.onlook) { gu.state = 'sit'; gu.st = 0.6; gu.onlook = false; }
+          else this.leave(gu);   // off they stalk in a huff
+        }
       } else if (gu.state === 'sit') {
         if (gu.st >= 2.8) this.leave(gu);
       } else if (gu.state === 'leave') {
@@ -192,13 +219,30 @@ export class Game {
     if (c.cushion) return this.pfft(gu, c);
     gu.state = 'sit'; gu.st = 0;
     snd('wt-sit', 'cush-plop', { vol: 0.35 });
-    if (chance(0.5)) { gu.say = pick(['Tea time!', 'Delightful!', 'How posh!']); gu.sayT = 1.3; }
+    if (chance(0.5)) { gu.say = pick(['Tea time!', 'Delightful!', 'How posh!', 'Pinkies up!']); gu.sayT = 1.3; }
     c.table.frog && c.table.frog.armed && (c.table.frog.trigger = 0.5);
+  }
+
+  /** A guest goes from the jolt into their scandalised reaction. */
+  react(gu, kind, onlook = false) {
+    const R = REACTS[kind];
+    gu.state = 'react'; gu.react = kind; gu.st = 0; gu.onlook = onlook;
+    if (!onlook || chance(0.6)) { gu.say = pick(R.say); gu.sayT = onlook ? 1.4 : 1.9; }
+    const sy = gu.chair.y - CHAIR_SEAT;
+    if (R.monocle) {
+      // the monocle pops right out
+      const hy = guestHeadTop(gu.kind, sy, GUEST_H, 'shock') + GUEST_H * 0.17;
+      this.hats.push({ kind: 'monocle', x: gu.chair.x + 12, y: hy, vx: rand(-260, 260), vy: -rand(600, 800), rot: 0, vr: rand(-14, 14), w: 30, t: 0, owner: null });
+      snd('wt-monocle', 'pop', { vol: 0.35 });
+    }
+    if (kind === 'scold' || kind === 'steam') snd('wt-tsk', 'tick', { vol: 0.35 });
   }
 
   pfft(gu, c) {
     const e = c.cushion.owner;
     gu.state = 'pfft'; gu.st = 0; gu.laughed = true;
+    gu.react = this.nextReact();
+    gu.face = e ? (e.x >= c.x ? 1 : -1) : c.facing;   // they glare/scold at the culprit
     c.cushion = null; c.flat = 1; c.sq = 1;
     const sx = c.x, sy = c.y - CHAIR_SEAT;
     snd('wt-pfft', 'pt-honk', { vol: 0.8, rate: rand(0.85, 1.15) });
@@ -216,10 +260,11 @@ export class Game {
       this.hats.push({ kind: gu.kind, x: sx, y: hy, vx: rand(-260, 260), vy: -rand(900, 1150), rot: 0, vr: rand(-10, 10), w: 74, owner: gu, t: 0 });
       snd('wt-hat', 'bigpop', { vol: 0.45 });
     }
-    // the table jumps, and everyone sitting there giggles
+    // the table jumps, and everyone sitting there is aghast
     c.table.jump = 1; c.table.jelly = 1;
     snd('wt-cups', 'tick', { vol: 0.4 });
-    for (const o of this.guests) if (o !== gu && o.chair.table === c.table && o.state === 'sit') { o.state = 'laugh'; o.st = 0.4; o.laughed = true; }
+    for (const o of this.guests) if (o !== gu && o.chair.table === c.table && o.state === 'sit') { o.face = c.x >= o.chair.x ? 1 : -1; this.react(o, pick(ONLOOK), true); }
+    // ...while the pranksters giggle
     later(() => snd('wt-giggles', 'giggle', { vol: 0.6 }), 650);
     // score
     if (e) {
@@ -229,12 +274,12 @@ export class Game {
       if (chance(0.5)) voice(e.p.charId, 'laugh');
       if (!e.p.isAI) e.p.ctrl.rumble(0.5, 140);
     }
-    // everyone nearby giggles too
-    for (const o of this.ents) if (o !== e && dist(o.x, o.y, sx, c.y) < 500 && !o.a._once) o.a.playOnce('giggle', 0.8, 'idle');
+    // friends nearby crack up too
+    for (const o of this.ents) if (o !== e && dist(o.x, o.y, sx, c.y) < 520 && !o.a._once) later(() => { if (!this.done) o.a.playOnce('laugh', 0.8, 'idle'); }, 150 + Math.random() * 250);
   }
 
   leave(gu) {
-    gu.state = 'leave'; gu.st = 0;
+    gu.state = 'leave'; gu.st = 0; gu.say = null;
     gu.chair.guest = null;
     gu.gate = gu.x < W / 2 ? GATES[0] : GATES[1];
     if (!gu.hat) gu.hat = true;   // they popped it back on
@@ -304,7 +349,7 @@ export class Game {
       const o = h.owner;
       if (h.vy > 0 && o) {
         const sy = o.state === 'walk' || o.state === 'leave' ? o.y : o.chair.y - CHAIR_SEAT;
-        const ty = guestHeadTop(o.kind, sy, GUEST_H, o.state === 'leave' ? 'walk' : o.state) + 12;
+        const ty = guestHeadTop(o.kind, sy, GUEST_H, o.state === 'leave' || o.state === 'walk' ? 'walk' : o.state === 'react' ? REACTS[o.react].state : o.state === 'pfft' ? 'shock' : 'sit') + 12;
         h.x = lerp(h.x, o.x, 1 - Math.exp(-5 * dt));
         if (h.y >= ty) { h.dead = true; o.hat = true; snd('wt-hat-plop', 'pop', { vol: 0.3 }); }
       }
@@ -347,7 +392,8 @@ export class Game {
     particles.burst(bx, by - 40, { type: 'confetti', count: 26, speed: [200, 500] });
     for (const gu of this.guests) {
       if (gu.chair.table === tb && (gu.state === 'sit' || gu.state === 'sitdown')) {
-        gu.state = 'pfft'; gu.st = 0; gu.laughed = true;
+        gu.state = 'pfft'; gu.st = 0; gu.laughed = true; gu.react = this.nextReact();
+        gu.face = e ? (e.x >= gu.chair.x ? 1 : -1) : gu.chair.facing;
         if (gu.hat) { gu.hat = false; const sy = gu.chair.y - CHAIR_SEAT; this.hats.push({ kind: gu.kind, x: gu.x, y: guestHeadTop(gu.kind, sy, GUEST_H, 'gasp'), vx: rand(-200, 200), vy: -rand(850, 1050), rot: 0, vr: rand(-10, 10), w: 74, owner: gu, t: 0 }); }
       }
     }
@@ -355,13 +401,16 @@ export class Game {
     if (e) {
       e.score += FROG_PTS; e.frogs++;
       this.pop(e, '+' + FROG_PTS, '#6fd06a', 60);
-      e.a.playOnce('cheer', 0.8, 'idle'); e.a.emote('heart', 1);
+      e.a.playOnce('laugh', 0.9, 'idle'); e.a.emote('happy', 1);
+      if (chance(0.5)) voice(e.p.charId, 'laugh');
     }
+    for (const o of this.ents) if (o !== e && dist(o.x, o.y, tb.x, tb.y) < 520 && !o.a._once) later(() => { if (!this.done) o.a.playOnce('laugh', 0.8, 'idle'); }, 150 + Math.random() * 250);
   }
 
   // ------------------------------------------------------------------ the butler
   updateButler(dt) {
     const b = this.butler;
+    if (b.scoldT > 0) b.scoldT -= dt;
     if (b.say) { b.sayT -= dt; if (b.sayT <= 0) b.say = null; }
     if (this.phase === 'finale') { b.noticeK = Math.max(0, b.noticeK - dt * 3); return; }
     b.cool -= dt;
@@ -402,7 +451,7 @@ export class Game {
     const b = this.butler;
     const held = e.held;
     e.held = null; e.cool = 0.3;
-    b.say = 'Ahem!'; b.sayT = 1.1;
+    b.say = pick(['Ahem!', 'Tsk tsk!']); b.sayT = 1.2; b.scoldT = 1.2;
     snd('wt-confiscate', 'whoosh', { vol: 0.5 });
     const basket = BASKETS.reduce((best, k) => (dist(k.x, k.y, e.x, e.y) < dist(best.x, best.y, e.x, e.y) ? k : best));
     if (held === 'frog') { this.frogToy = { x: clamp(e.x + rand(-200, 200), 300, 1620), y: clamp(e.y + rand(-100, 100), 480, 1000), t: 0 }; }
@@ -515,19 +564,35 @@ export class Game {
     const du = this.duchess;
     if (du) du.st += dt;
     if (du && du.state === 'gasp' && du.st > 0.9) {
-      du.state = 'laugh';
-      snd('wt-giggles', 'giggle', { vol: 0.8 }); sfx('cheer', { vol: 0.6 });
+      // the punchline: the grandest lady in the land, utterly SCANDALISED
+      du.state = 'outrage'; du.st = 0;
+      du.say = 'WELL I NEVER!'; du.sayT = 2.2;
+      snd('wt-outrage', 'crowd-gasp', { vol: 0.7, rate: 0.8 });
+      later(() => snd('wt-giggles', 'giggle', { vol: 0.8 }), 350);
+      sfx('cheer', { vol: 0.5 });
+      fx.shake(12, 0.4);
       particles.confettiRain(W, 120);
-      for (const gu of this.guests) { if (gu.state === 'walk' || gu.state === 'leave') gu.free = true; gu.state = 'laugh'; gu.st = -9; }
+      // the other guests are frozen in horror
+      for (const gu of this.guests) {
+        if (gu.state === 'walk' || gu.state === 'leave') { gu.frozen = true; gu.react = 'gasp'; continue; }
+        gu.face = THRONE.x >= gu.chair.x ? 1 : -1;
+        this.react(gu, pick(['gasp', 'fan', 'gasp']), true); gu.st = -9; gu.say = null;
+      }
+      // ...and the players fall about laughing
       for (const e of this.ents) {
         e.score += FINALE_PTS;
         this.pop(e, '+' + FINALE_PTS, '#ffd23f', 54);
-        e.a.setPose(chance(0.5) ? 'laugh' : 'celebrate');
+        e.a.setPose(chance(0.7) ? 'laugh' : 'celebrate');
         if (chance(0.4)) voice(e.p.charId, 'laugh');
       }
-      this.butler.say = 'Ho ho!'; this.butler.sayT = 2;
+      this.butler.say = 'Tsk tsk!'; this.butler.sayT = 2.4; this.butler.scoldT = 2.4;
     }
-    if (du && du.state === 'laugh' && Math.random() < dt * 6) particles.burst(du.x + rand(-80, 80), du.y - 200, { type: 'note', count: 1, colors: ['#ff7ac6', '#ffd23f', '#c8a6ff'], speed: [60, 160] });
+    if (du && du.say) { du.sayT -= dt; if (du.sayT <= 0) du.say = null; }
+    if (du && du.state === 'outrage') {
+      if (Math.random() < dt * 2.5) fx.shake(5, 0.15);
+      // softening: one tiny stifled giggle right at the end
+      if (this.finT > FINALE_LEN - 0.75) { du.state = 'soften'; du.st = 0; du.say = '...hee!'; du.sayT = 1; }
+    }
     if (this.finT > FINALE_LEN && !this.done) this.finish();
   }
 
@@ -745,12 +810,14 @@ export class Game {
     for (const tb of this.tables) list.push({ y: tb.y, f: () => drawTable(g, tb.x, tb.y, t, tb.jump, tb.jelly, tb.frog) });
     for (const c of this.chairs) list.push({ y: c.y, f: () => this.drawChair(g, c) });
     for (const b of BASKETS) list.push({ y: b.y, f: () => drawBasket(g, b.x, b.y, t) });
-    for (const gu of this.guests) if (gu.state === 'walk' || gu.state === 'leave') list.push({ y: gu.y, f: () => drawGuest(g, gu.kind, gu.x, gu.y, GUEST_H, 'walk', { t, step: gu.step, facing: gu.facing, hat: gu.hat }) });
-    else if (gu.free) list.push({ y: gu.y, f: () => drawGuest(g, gu.kind, gu.x, gu.y, GUEST_H, 'laugh', { t, hat: gu.hat }) });
+    for (const gu of this.guests) if (gu.state === 'walk' || gu.state === 'leave') list.push({ y: gu.y, f: () => {
+      drawGuest(g, gu.kind, gu.x, gu.y, GUEST_H, 'walk', { t, step: gu.step, facing: gu.facing, hat: gu.hat });
+      if (gu.frozen) drawGuestFx(g, gu.kind, gu.x, gu.y, GUEST_H, 'walk', ['shock'], t + gu.x, gu.facing);
+    } });
     const du = this.duchess;
     if (du && (du.state === 'walk' || du.state === 'wait')) list.push({ y: du.y, f: () => drawGuest(g, 'duchess', du.x, du.y, GUEST_H * 1.25, 'walk', { t, step: du.step, facing: du.facing, hat: du.hat, monocle: true }) });
     const b = this.butler;
-    list.push({ y: b.y, f: () => drawButler(g, b.x, b.y, 210, t, b.facing, b.step, b.noticeK) });
+    list.push({ y: b.y, f: () => drawButler(g, b.x, b.y, 210, t, b.facing, b.step, b.noticeK, b.scoldT > 0) });
     if (this.golden && !this.golden.arrived) { const gc = this.golden; list.push({ y: gc.y, f: () => { this.drawGroundShadow(g, gc.x, gc.y, 150); drawCushion(g, gc.x, gc.y - 70, 300, { golden: true, sq: gc.sq, t }); } }); }
     if (this.frogToy) { const fr = this.frogToy; list.push({ y: fr.y, f: () => { this.drawGroundShadow(g, fr.x, fr.y, 40); drawFrog(g, fr.x, fr.y - 40 - Math.abs(Math.sin(t * 5)) * 30, 90, t, Math.abs(Math.sin(t * 5))); } }); }
     for (const e of this.ents) list.push({ y: e.y, f: () => this.drawEnt(g, e) });
@@ -782,12 +849,23 @@ export class Game {
       const k = ease.outBack(clamp(gc.onSeat, 0, 1));
       drawCushion(g, THRONE.x, lerp(THRONE.y - 40, seatY - 10, k) - Math.sin(clamp(gc.onSeat, 0, 1) * Math.PI) * 60, 190, { golden: true, flat: !!gc.flat, t, sq: gc.sq });
     }
-    if (du && (du.state === 'gasp' || du.state === 'laugh')) {
+    if (du && (du.state === 'gasp' || du.state === 'outrage' || du.state === 'soften')) {
       // she plonks down on the seat for a beat (sit), then jolts up with the PFFFT
       // (a small jolt: the art is tall, so a big one hides her gasp under the HUD)
       const sitting = du.state === 'gasp' && du.st < 0.12;
       const jump = du.state === 'gasp' ? Math.sin(clamp((du.st - 0.12) / 0.78, 0, 1) * Math.PI) * 40 : 0;
-      drawGuest(g, 'duchess', THRONE.x, seatY - jump, GUEST_H * 1.25, sitting ? 'sit' : du.state, { t, hat: du.hat, monocle: du.monocle });
+      const dh = GUEST_H * 1.25;
+      if (du.state === 'outrage') {
+        // prop/whoopee-duchess-scold (falls back to her gasp art) + steam, flushed
+        // cheeks and a furiously wagging finger; she quivers with indignation
+        const quiver = Math.sin(t * 38) * 3;
+        drawGuest(g, 'duchess', THRONE.x + quiver, seatY, dh, 'scold', { t, hat: du.hat, monocle: du.monocle });
+        drawGuestFx(g, 'duchess', THRONE.x + quiver, seatY, dh, 'scold', ['steam', 'scold', 'shock'], t, 1);
+      } else if (du.state === 'soften') {
+        // composure regained, nose in the air... hiding one tiny giggle
+        drawGuest(g, 'duchess', THRONE.x, seatY, dh, 'huff', { t, hat: du.hat, monocle: du.monocle, tilt: -0.08 });
+      } else drawGuest(g, 'duchess', THRONE.x, seatY - jump, dh, sitting ? 'sit' : 'shock', { t, hat: du.hat, monocle: du.monocle });
+      if (du.state === 'gasp' && !sitting) drawGuestFx(g, 'duchess', THRONE.x, seatY - jump, dh, 'shock', ['shock'], t, 1);
     }
   }
 
@@ -803,8 +881,13 @@ export class Game {
       let jump = 0;
       if (gu.state === 'sitdown') jump = Math.sin(clamp(gu.st / 0.35, 0, 1) * Math.PI) * 40;
       if (gu.state === 'pfft') jump = Math.sin(clamp(gu.st / 0.75, 0, 1) * Math.PI) * 140;
-      const st = gu.state === 'sitdown' ? 'sit' : gu.state === 'pfft' ? 'gasp' : gu.state;
-      drawGuest(g, gu.kind, c.x, seatY - 6 - jump, GUEST_H, st, { t: t + c.x, hat: gu.hat, facing: c.facing });
+      const R = gu.state === 'react' ? REACTS[gu.react] : null;
+      const st = gu.state === 'sitdown' ? 'sit' : gu.state === 'pfft' ? 'shock' : R ? R.state : gu.state;
+      const face = gu.face || c.facing;
+      const gy = seatY - 6 - jump;
+      drawGuest(g, gu.kind, c.x, gy, GUEST_H, st, { t: t + c.x, hat: gu.hat, facing: R ? face : c.facing, tilt: R && R.tilt ? -face * R.tilt : 0 });
+      if (gu.state === 'pfft') drawGuestFx(g, gu.kind, c.x, gy, GUEST_H, st, ['shock'], t + c.x, face);
+      else if (R) drawGuestFx(g, gu.kind, c.x, gy, GUEST_H, st, R.fx, t + c.x, face);
     }
   }
 
@@ -864,7 +947,9 @@ export class Game {
       ui.text(g, str, x, y + 2, { size: 36, color: NAVY, stroke: false });
       g.restore();
     };
-    for (const gu of this.guests) if (gu.say && gu.state !== 'walk') bubble(gu.chair.x, gu.chair.y - CHAIR_SEAT - 250, gu.say);
+    for (const gu of this.guests) if (gu.say && gu.state !== 'walk' && gu.state !== 'leave') bubble(gu.chair.x, gu.chair.y - CHAIR_SEAT - 250, gu.say);
+    const du = this.duchess;
+    if (du && du.say) bubble(THRONE.x + 250, THRONE.y - THRONE_SEAT - 170, du.say, '#fff3f8');
     const b = this.butler;
     if (b.notice) {
       const k = clamp(b.notice.t / 0.95, 0, 1);
