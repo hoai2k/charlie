@@ -1066,7 +1066,21 @@
     "prop/duckling-quack": "prop/duckling-quack.webp",
     "prop/rubber-boot": "prop/rubber-boot.webp",
     "prop/flower-bush": "prop/flower-bush.webp",
-    "thumb/duckling-parade": "thumb/duckling-parade.webp"
+    "thumb/duckling-parade": "thumb/duckling-parade.webp",
+    "bg/mermaid-pearls": "bg/mermaid-pearls.webp",
+    "prop/mp-fish-2": "prop/mp-fish-2.webp",
+    "prop/mp-clam-open": "prop/mp-clam-open.webp",
+    "prop/mp-clam-closed": "prop/mp-clam-closed.webp",
+    "prop/mp-octopus": "prop/mp-octopus.webp",
+    "prop/mp-octopus-awake": "prop/mp-octopus-awake.webp",
+    "prop/mp-chest": "prop/mp-chest.webp",
+    "prop/mp-chest-open": "prop/mp-chest-open.webp",
+    "prop/mp-fish-1": "prop/mp-fish-1.webp",
+    "prop/mp-fish-3": "prop/mp-fish-3.webp",
+    "prop/mp-pearl": "prop/mp-pearl.webp",
+    "prop/mp-pearl-gold": "prop/mp-pearl-gold.webp",
+    "prop/mp-vent": "prop/mp-vent.webp",
+    "thumb/mermaid-pearls": "thumb/mermaid-pearls.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1597,7 +1611,21 @@
       "prop/rubber-boot",
       "prop/flower-bush"
     ],
-    "mermaid-pearls": [],
+    "mermaid-pearls": [
+      "bg/mermaid-pearls",
+      "prop/mp-fish-2",
+      "prop/mp-clam-open",
+      "prop/mp-clam-closed",
+      "prop/mp-octopus",
+      "prop/mp-octopus-awake",
+      "prop/mp-chest",
+      "prop/mp-chest-open",
+      "prop/mp-fish-1",
+      "prop/mp-fish-3",
+      "prop/mp-pearl",
+      "prop/mp-pearl-gold",
+      "prop/mp-vent"
+    ],
     "pumpkin-peekaboo": [],
     "snowflake-catch": []
   }
