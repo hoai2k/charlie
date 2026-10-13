@@ -1,10 +1,8 @@
 // Comic grown-up reactions for the cheeky Molly games: the pranked grown-up is
-// SHOCKED, SCOLDS or HUFFS (nose in the air) while the players laugh. A copy of
-// this file lives in each cheeky game's own folder (muddy-mayhem, sneaky-dance,
-// bed-bounce, prank-troll, opposite-ballet) so every game stays self-contained;
-// keep the copies in sync. These are the code-drawn extras that sit on top of
-// the character art (and stand in for reaction art that hasn't been drawn yet).
-import { TAU, clamp, pick } from '../../engine/util.js';
+// SHOCKED, SCOLDS or HUFFS (nose in the air) while the players laugh. Shared by
+// muddy-mayhem, sneaky-dance, bed-bounce, prank-troll and opposite-ballet.
+// These are the code-drawn extras that sit on top of the character art (and stand in for reaction art that hasn't been drawn yet).
+import { TAU, clamp, pick } from './util.js';
 
 const NAVY = '#24163f';
 export const KINDS = ['shock', 'scold', 'huff'];

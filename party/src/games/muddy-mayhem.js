@@ -41,7 +41,7 @@ import {
   NAVY, PORCH_Y, PUDDLES, MEGA, MUD, MUD_COLS, drawPuppy, drawMudBlobs, makeBlobs, drawBackyard, drawLine, lineY,
   drawPuddle, drawMegaPuddle, drawMegaBubbles, targetPath, drawTarget, makeSplat, drawSplat, drawGoose, drawThumb,
 } from './muddy-mayhem/art.js';
-import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from './muddy-mayhem/fluster.js';
+import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from '../engine/fluster.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 

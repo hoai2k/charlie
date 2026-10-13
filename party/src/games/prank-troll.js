@@ -35,7 +35,7 @@ import {
   NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, configureTrollArt, toScreen, meadowBackground, drawTroll, drawBasket,
   drawItem, drawBush, drawSwat, drawMirror, drawIcon,
 } from './prank-troll/draw.js';
-import { drawShock, drawSteam, drawShout } from './prank-troll/fluster.js';
+import { drawShock, drawSteam, drawShout } from '../engine/fluster.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 

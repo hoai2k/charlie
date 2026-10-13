@@ -34,7 +34,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, dist, placementsFromScores } from '../engine/util.js';
 import { Tune } from './sneaky-dance/tune.js';
-import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from './sneaky-dance/fluster.js';
+import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from '../engine/fluster.js';
 import {
   NAVY, SEAT, LAMP, BALL, BOOK_COLS, libraryBackground, drawChairBack, drawChairFront, drawHoot, drawLamp, drawBook,
   drawDiscoBall, drawBeams, drawDisguise, drawPlinth, drawBubble, drawStarPickup, drawIcon,

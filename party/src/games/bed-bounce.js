@@ -29,7 +29,7 @@ import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores, later } from '../engine/util.js';
-import { nextKind, sayFor, drawShock, drawSteam, drawWag } from './bed-bounce/fluster.js';
+import { nextKind, sayFor, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
 import {
   NAVY, BED, DOOR, CEIL, FLOOR, configureBedArt, roomBackground, drawDoor, drawBedBack, drawBedFront, drawTuck,
   drawGlowStar, drawStar, drawFeather, drawPillow, drawTeddy, drawCat, drawCow, drawIcon,

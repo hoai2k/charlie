@@ -25,7 +25,7 @@ import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, later
 import {
   NAVY, BFLY, drawButterfly, drawPetal, drawTeacher, drawTiara, drawImp, drawFlipArrow, drawMovePicto, drawTutu, wantsTutu, drawStageBg,
 } from './opposite-ballet/art.js';
-import { nextKind, drawShock, drawSteam, drawWag } from './opposite-ballet/fluster.js';
+import { nextKind, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
