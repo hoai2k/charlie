@@ -1107,9 +1107,6 @@ make it read better. Newest first; fixed items move to
 | `prop/dp-mushroom` (Molly duckling-parade, NEW key, 2026-10-13) | Missing: the mushroom hiding spots are still drawn by code (big, flat, off-style next to the delivered art) | ~260×280 transparent, bottom-centre anchor, drawn ~140 px wide; a friendly red-and-white toadstool a duckling can peek out from beside |
 | `prop/duckling-golden` (Molly duckling-parade, NEW key, optional) | The golden duckling is the plain duckling art with a glow, so it isn't golden | Same framing/anchor as `prop/duckling`: a shiny gold duckling with sparkles |
 | `prop/mp-ledge` (Molly mermaid-pearls, NEW key, optional) | The rock ledges under the clams are flat code-drawn bowls, off-style next to the art | ~300×110 transparent, bottom-centre anchor (drawn 270×99): a rounded coral/rock shelf whose flat top sits ~25 px below the image's top edge, for a clam to sit on |
-| `thumb/cupcake-stack` (Molly, 2026-10-13) | Plain white background with no scene; the only blank-white tile on the Molly shelf and how-to screen | Same subject, opaque 800×500 with a garden-party background (lawn, bunting, sky) like the other Molly thumbnails |
-| `prop/cupcake-gold` (Molly, 2026-10-13) | Looks almost the same as `prop/cupcake-lemon`, so the golden super-cupcake doesn't stand out (the code only adds a glow) | 256×224, same anchor: shiny gold-foil wrapper, glittery gold frosting, sparkles, a little star or crown on top |
-| `bg/unicorn-jump` (Molly, 2026-10-13) | Too busy behind the lanes: big gumdrops, lollipops and flowers fill the middle and bottom, so riders are hard to read (the code adds a milky wash for now) | Same seamless 1920×1080 tile; candy detail mostly in the top ~250 px, the lane area (y 260–1000) a soft, low-contrast meadow |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,

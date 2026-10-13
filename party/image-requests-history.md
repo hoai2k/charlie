@@ -1,3 +1,11 @@
+## Resolved Molly cupcake and unicorn review — 2026-10-13
+
+Garden-party thumbnail, gold-foil crown cupcake and quiet mint meadow regenerated; checked in how-to and live gameplay. Provenance: `reference/pending/MOLLY-review-corrections.json`.
+
+| `thumb/cupcake-stack` (Molly, 2026-10-13) | Plain white background with no scene; the only blank-white tile on the Molly shelf and how-to screen | Same subject, opaque 800×500 with a garden-party background (lawn, bunting, sky) like the other Molly thumbnails |
+| `prop/cupcake-gold` (Molly, 2026-10-13) | Looks almost the same as `prop/cupcake-lemon`, so the golden super-cupcake doesn't stand out (the code only adds a glow) | 256×224, same anchor: shiny gold-foil wrapper, glittery gold frosting, sparkles, a little star or crown on top |
+| `bg/unicorn-jump` (Molly, 2026-10-13) | Too busy behind the lanes: big gumdrops, lollipops and flowers fill the middle and bottom, so riders are hard to read (the code adds a milky wash for now) | Same seamless 1920×1080 tile; candy detail mostly in the top ~250 px, the lane area (y 260–1000) a soft, low-contrast meadow |
+
 ## Delivered prank-troll — 2026-10-13
 
 Published `33bed58e /904cafd0`:15 keys; ptroll namespace preserves Puppet Theatre; generated face/hair/toe attachments checked after merge with Molly IDs; geometry regression passes.
