@@ -2,8 +2,9 @@
 // fairies (Glimmer and the five garden fairies), picked fresh on every game's
 // intro. Each seat: ◀ ▶ (stick / D-pad) changes fairy, A joins or readies up,
 // B un-readies, then leaves (the last player's B goes back to the shelf).
-// Any controller that isn't seated joins with A. CPUs from the party come
-// along as fairies too. The game is played by temporary fairy players whose
+// Any controller that isn't seated joins with A. No CPUs unless someone adds
+// one here (X adds a computer fairy, Y removes one): CPUs don't sit in on
+// Molly games by default. The game is played by temporary fairy players whose
 // stars go to their seat in the party (the controller's party player). The
 // next Molly intro starts with the same seats (until the party changes).
 import { W } from '../engine/canvas.js';
@@ -30,7 +31,10 @@ export class MollySeats {
     const live = new Set(input.humans());
     if (memo && memo.roster === session.players) {
       for (const o of memo.seats) if (o.isAI || live.has(o.ctrl)) this.seat(o.ctrl, o.isAI, o.home, o.fairy);
-    } else for (const p of session.players) this.seat(p.ctrl, p.isAI, p);
+    } else {
+      const humans = session.players.filter((p) => !p.isAI);
+      for (const p of humans.length ? humans : session.players) this.seat(p.ctrl, p.isAI, p);
+    }
     this.fill();
     memo = { roster: session.players, seats: this.seats };
   }
@@ -103,6 +107,19 @@ export class MollySeats {
     this.layout();
   }
 
+  addCpu() {
+    if (this.seats.length >= MAX_PLAYERS) { sfx('error'); this.note = { text: 'The party is full!', t: 0 }; return; }
+    const s = this.seat(newAIController(), true);
+    s.actor.squash(-0.4); sfx('join');
+    particles.burst(s.actor.x, s.actor.y - s.actor.height / 2, { type: 'sparkle', count: 10 });
+  }
+
+  removeCpu() {
+    const cpu = [...this.seats].reverse().find((s) => s.isAI);
+    if (!cpu || this.seats.length <= (this.meta.minPlayers || 1)) { sfx('error'); return; }
+    this.leave(cpu);
+  }
+
   /** Returns 'back' (to the shelf), 'go' (everyone ready) or null. */
   update(dt, inputOpen) {
     this.t += dt;
@@ -122,6 +139,12 @@ export class MollySeats {
       const s = this.seat(c, false, home);
       s.actor.squash(-0.4); sfx('join');
       return null;   // this A was the join, not a ready
+    }
+    // CPUs only when asked for: X adds a computer fairy, Y takes one away.
+    for (const s of this.humans) {
+      const c = s.ctrl;
+      if (c.pressed('x')) { this.addCpu(); return null; }
+      if (!session.partyMode && c.pressed('y')) { this.removeCpu(); return null; }
     }
     for (const s of this.humans) {
       const c = s.ctrl;
@@ -185,8 +208,9 @@ export class MollySeats {
     if (going) return;
     if (this.note) ui.text(g, this.note.text, W / 2, 828, { size: 32, color: '#ffd23f' });
     else if (this.t > 0.6) {
-      const hints = [['dpad', 'Pick a fairy'], ['a', 'Ready / join'], ['b', 'Leave']];
+      const hints = [['dpad', 'Pick a fairy'], ['a', 'Ready / join'], ['b', 'Leave'], ['x', 'Add a CPU']];
       if (session.partyMode) hints.push(['y', 'Skip this game']);
+      else if (this.seats.some((s) => s.isAI)) hints.push(['y', 'Remove CPU']);
       ui.hints(g, hints, W / 2, 822, { size: 26 });
     }
   }

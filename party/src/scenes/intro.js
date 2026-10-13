@@ -8,6 +8,8 @@ import { drawArt } from '../engine/art.js';
 // In a party marathon: B (not ready) sits this one game out, A joins back
 // in, and Y (twice) skips the game for everyone.
 // Molly Party games pick a fairy to play as right here (scenes/molly-seats.js).
+// Creative (Play Studio) games: CPUs sit out unless added here (X adds one,
+// Y sits one out) - CPUs are only there as competitors.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
 import { sfx, music, voice, host } from '../engine/audio.js';
@@ -32,6 +34,12 @@ export class IntroScene {
     this.skipAsk = null;                           // time Y was pressed once (press again to skip)
     this.note = null;                              // { text, t } short message under the players
     this.aiReadyAt = session.players.map((p) => (p.isAI ? rand(0.8, 2.2) : Infinity));
+    this.noCpus = this.meta.category === 'studio';
+    if (this.noCpus) {
+      // CPUs only fill seats the game needs; the rest wait for X.
+      let need = Math.max(0, (this.meta.minPlayers || 1) - session.players.filter((p) => !p.isAI).length);
+      session.players.forEach((p, i) => { if (p.isAI) { if (need > 0) need--; else this.out[i] = true; } });
+    }
     this.go = null;
     this.molly = this.meta.category === 'molly' ? new MollySeats(this.meta) : null;
     if (this.molly) music.molly(); else music.menu();
@@ -59,7 +67,7 @@ export class IntroScene {
     if (this.molly) { this.updateMolly(dt, inputOpen); return; }
     if (this.said === 1 && this.t > 2.2 && session.players.some((p, i) => !p.isAI && !this.ready[i])) { this.said = 2; host('press-a'); }
     session.players.forEach((p, i) => {
-      if (!this.ready[i] && this.t > this.aiReadyAt[i]) this.setReady(i, true);
+      if (!this.ready[i] && !this.out[i] && this.t > this.aiReadyAt[i]) this.setReady(i, true);
     });
     if (!inputOpen) return;
     const opts = this.meta.options || [];
@@ -72,6 +80,13 @@ export class IntroScene {
     for (const r of this.optionRects || []) if (input.clicked(r)) { this.stepOption(r.opt, r.dir); return; }
     if (this.note) { this.note.t += dt; if (this.note.t > 2.4) this.note = null; }
     if (this.skipAsk !== null && this.t - this.skipAsk > 3) this.skipAsk = null;
+    if (this.noCpus) {
+      for (const p of session.players) {
+        if (p.isAI) continue;
+        if (p.ctrl.pressed('x')) { this.addCpu(); return; }
+        if (!session.partyMode && p.ctrl.pressed('y')) { this.removeCpu(); return; }
+      }
+    }
     for (const p of session.players) {
       if (p.isAI) continue;
       const i = p.index;
@@ -131,6 +146,19 @@ export class IntroScene {
       a.playOnce('wave', 0.6, 'idle');
       this.setReady(i, true);
     }
+  }
+
+  /** Creative games: X brings a sitting-out CPU in, Y sits one out. */
+  addCpu() {
+    const i = session.players.findIndex((p, j) => p.isAI && this.out[j]);
+    if (i < 0) { sfx('error'); this.note = { text: 'No more CPUs in the party', t: 0 }; return; }
+    this.setOut(i, false); sfx('join');
+  }
+  removeCpu() {
+    let i = -1;
+    session.players.forEach((p, j) => { if (p.isAI && !this.out[j]) i = j; });
+    if (i < 0) { sfx('error'); return; }
+    this.setOut(i, true);
   }
 
   /** Y twice: skip this game and go to the next one in the marathon. */
@@ -251,9 +279,9 @@ export class IntroScene {
       const ty = a.y - a.height - 34;
       if (this.out[i]) {
         ui.panel(g, a.x - 82, ty - 40, 164, 52, { r: 26, fill: '#b9b0c9', lineWidth: 4, shadow: false });
-        ui.text(g, 'Sitting out', a.x, ty - 13, { size: 26, strokeWidth: 5 });
-        ui.glyph(g, 'a', a.x - 34, ty + 34, 36);
-        ui.text(g, 'Join', a.x + 14, ty + 36, { size: 24, color: p.color, strokeWidth: 5 });
+        ui.text(g, p.isAI && this.noCpus ? 'CPU' : 'Sitting out', a.x, ty - 13, { size: 26, strokeWidth: 5 });
+        ui.glyph(g, p.isAI && this.noCpus ? 'x' : 'a', a.x - 34, ty + 34, 36);
+        ui.text(g, p.isAI && this.noCpus ? 'Add' : 'Join', a.x + 14, ty + 36, { size: 24, color: p.color, strokeWidth: 5 });
       } else if (this.ready[i]) {
         ui.panel(g, a.x - 70, ty - 40, 140, 52, { r: 26, fill: '#36d17a', lineWidth: 4, shadow: false });
         ui.text(g, 'Ready!', a.x, ty - 13, { size: 30, strokeWidth: 5 });
@@ -267,7 +295,9 @@ export class IntroScene {
     if (this.go !== null) ui.banner(g, "Let's go!", this.go, { y: 520, size: 160 });
     else if (this.note) ui.text(g, this.note.text, W / 2, 828, { size: 32, color: '#ffd23f' });
     else if (this.skipAsk !== null) ui.hints(g, [['y', 'Press Y again to skip this game']], W / 2, 828, { size: 34 });
-    else if (session.partyMode && this.t > 0.6) {
+    else if (this.noCpus && this.t > 0.6 && session.players.some((p) => p.isAI)) {
+      ui.hints(g, [['a', 'Ready'], ['x', 'Add a CPU'], ['y', 'Remove CPU'], ['b', 'Back']], W / 2, 828, { size: 30 });
+    } else if (session.partyMode && this.t > 0.6) {
       ui.hints(g, [['a', 'Ready'], ['b', 'Sit this one out'], ['y', 'Skip this game']], W / 2, 828, { size: 30 });
     } else if (this.t > 0.6 && this.ready.some((r, i) => !r && !session.players[i].isAI)) {
       ui.text(g, 'Press A when you are ready!', W / 2, 828, { size: 30, color: '#fff' });
