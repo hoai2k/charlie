@@ -1097,7 +1097,21 @@
     "prop/pp-candy-2": "prop/pp-candy-2.webp",
     "prop/pp-candy-3": "prop/pp-candy-3.webp",
     "prop/pp-candy-4": "prop/pp-candy-4.webp",
-    "prop/pp-bucket": "prop/pp-bucket.webp"
+    "prop/pp-bucket": "prop/pp-bucket.webp",
+    "bg/snowflake-catch": "bg/snowflake-catch.webp",
+    "thumb/snowflake-catch": "thumb/snowflake-catch.webp",
+    "prop/snowflake": "prop/snowflake.webp",
+    "prop/snowflake-big": "prop/snowflake-big.webp",
+    "prop/sf-snowball": "prop/sf-snowball.webp",
+    "prop/snowman-friend": "prop/snowman-friend.webp",
+    "prop/snowman-friend-throw": "prop/snowman-friend-throw.webp",
+    "prop/penguin-sled": "prop/penguin-sled.webp",
+    "prop/bigsnowman-1": "prop/bigsnowman-1.webp",
+    "prop/bigsnowman-2": "prop/bigsnowman-2.webp",
+    "prop/bigsnowman-3": "prop/bigsnowman-3.webp",
+    "prop/bigsnowman-4": "prop/bigsnowman-4.webp",
+    "prop/bigsnowman-5": "prop/bigsnowman-5.webp",
+    "prop/bigsnowman-6": "prop/bigsnowman-6.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1661,6 +1675,25 @@
       "prop/pp-candy-4",
       "prop/pp-bucket"
     ],
-    "snowflake-catch": []
+    "snowflake-catch": [
+      "bg/snowflake-catch",
+      "prop/snowflake",
+      "prop/snowflake-big",
+      "prop/sf-snowball",
+      "prop/snowman-friend",
+      "prop/snowman-friend-throw",
+      "prop/penguin-sled",
+      "prop/bigsnowman-1",
+      "prop/bigsnowman-2",
+      "prop/bigsnowman-3",
+      "prop/bigsnowman-4",
+      "prop/bigsnowman-5",
+      "prop/bigsnowman-6"
+    ],
+    "rainbow-painter": [],
+    "bed-bounce": [],
+    "prank-troll": [
+      "prop/pt-flower"
+    ]
   }
 }

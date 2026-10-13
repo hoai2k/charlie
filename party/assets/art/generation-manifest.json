@@ -30982,6 +30982,492 @@
       "source": "party/reference/pending/molly-sources/prop-pp-bucket-final.webp",
       "width": 160,
       "height": 160
+    },
+    {
+      "key": "bg/snowflake-catch",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Sky/hills top ~330px; meadow begins y470; snowman building spot center x960 base y455 and snowman friend spot x1660 y450 kept plain snow; top 110px calm.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: opaque full-screen scene. Primary request: Sparkly winter meadow at soft lilac-pink dusk, rolling snowy hills, frosted pines along back edge and sides, frozen pond peeking in one corner, gentle blue snow shadows and twinkles, snow-covered bushes only in bottom corners, wide open snow in middle. Keep both back snowman positions plain and open; no large foreground subjects. Composition: exact 1920\u00d71080 canvas; Sky/hills top ~330px; meadow begins y470; snowman building spot center x960 base y455 and snowman friend spot x1660 y450 kept plain snow; top 110px calm.. Opaque full bleed.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f54f59e7-b38a-489c-8050-e0f1bd09726b.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bg-snowflake-catch-final.webp",
+      "runtimeFile": "party/assets/art/bg/snowflake-catch.webp",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 170844,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "editHistory": [
+        {
+          "prompt": "Style-transfer only: preserve exact composition and identities; strengthen smooth navy outlines, simplify shapes and use clean soft cel shading.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f54f59e7-b38a-489c-8050-e0f1bd09726b.png",
+          "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bg-snowflake-catch-final.webp"
+        }
+      ],
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bg-snowflake-catch-final.webp",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "key": "thumb/snowflake-catch",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Centered game-select thumbnail.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: opaque full-screen scene. Primary request: Approved blue Bluebell garden fairy with petal wings, head tipped back and tongue out catching a big sparkly smiling snowflake; friendly snowman behind; penguin zooming past on red sled; snowflakes everywhere; energetic centered composition. No Charlie Party characters. Composition: exact 800\u00d7500 canvas; Centered game-select thumbnail.. Opaque full bleed.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5b5d5116-b702-4d3e-bcb0-a9917356c9f4.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/thumb-snowflake-catch-final.webp",
+      "runtimeFile": "party/assets/art/thumb/snowflake-catch.webp",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 102668,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "editHistory": [
+        {
+          "prompt": "Style-transfer only: preserve exact composition and identities; strengthen smooth navy outlines, simplify shapes and use clean soft cel shading.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5b5d5116-b702-4d3e-bcb0-a9917356c9f4.png",
+          "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/thumb-snowflake-catch-final.webp"
+        }
+      ],
+      "source": "party/reference/pending/molly-sources/snowflake-catch/thumb-snowflake-catch-final.webp",
+      "width": 800,
+      "height": 500
+    },
+    {
+      "key": "prop/snowflake",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Chunky six-pointed snowflake crystal in icy white and pale blue, tiny smiling face in center. Composition: exact 128\u00d7128 canvas; Centered transparent pickup.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7cee862b-c83a-4a5f-a992-6662f4f97577.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/prop-snowflake-final.webp",
+      "runtimeFile": "party/assets/art/prop/snowflake.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 8934,
+      "actualAlphaBBox": [
+        8,
+        1,
+        120,
+        124
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/snowflake-catch/prop-snowflake-final.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/snowflake-big",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Centered transparent large pickup.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Large ornate six-pointed snowflake, pastel rainbow sheen (lilac, pink, aqua), glittering tips and happy giggling face in middle. Composition: exact 256\u00d7256 canvas; Centered transparent large pickup.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0b7a004d-fb7b-4d0e-9cb1-3711de543ece.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/prop-snowflake-big-final.webp",
+      "runtimeFile": "party/assets/art/prop/snowflake-big.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 27290,
+      "actualAlphaBBox": [
+        13,
+        1,
+        245,
+        251
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/snowflake-catch/prop-snowflake-big-final.webp",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "key": "prop/sf-snowball",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent. Reuse exact existing shared prop/snowball if visually matching.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Reuse the existing generic round fluffy snowball with soft blue shading and a couple of sparkles; exact shared asset, no redraw. Composition: exact 128\u00d7128 canvas; Centered transparent. Reuse exact existing shared prop/snowball if visually matching.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "reused existing shared snowball sprite; same requested design",
+      "sourcePath": "party/assets/art/prop/snowball.webp",
+      "runtimeFile": "party/assets/art/prop/sf-snowball.webp",
+      "runtimeBytes": 5680,
+      "nativeOutputSize": [
+        64,
+        64
+      ],
+      "actualAlphaBBox": [
+        3,
+        3,
+        125,
+        125
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "originalRequestedKey": "prop/snowball",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/prop-sf-snowball.webp",
+      "intakeMethod": "resize approved shared snowball to requested128x128 sibling; preserve global64x64",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/snowman-friend",
+      "size": [
+        480,
+        640
+      ],
+      "geometry": "Transparent bottom anchor, full body centered.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Use approved snowman-friend canonical exactly: same friendly snowman identity, striped pink bobble hat, mint scarf, twig arms, big grin. Idle arms down with subtle wave; preserve body proportions and placement. Composition: exact 480\u00d7640 canvas; Transparent bottom anchor, full body centered.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-fe51e74c-d39c-4aa0-bc9e-bf5d59c3d38f.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/prop-snowman-friend-final.webp",
+      "runtimeFile": "party/assets/art/prop/snowman-friend.webp",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 48102,
+      "actualAlphaBBox": [
+        0,
+        6,
+        465,
+        619
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/snowflake-catch/prop-snowman-friend-final.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "key": "prop/snowman-friend-throw",
+      "size": [
+        480,
+        640
+      ],
+      "geometry": "Same exact canvas, scale, placement and identity as approved idle; bottom anchor.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Edit approved snowman-friend canonical: keep exact identity, body, hat, scarf, outline, size and position; change only pose to right twig arm up high mid-toss with cheeky wink. No snowball in hand. Composition: exact 480\u00d7640 canvas; Same exact canvas, scale, placement and identity as approved idle; bottom anchor.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-79631a0b-939d-41a8-ad7c-88897f450893.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/prop-snowman-friend-throw-final.webp",
+      "runtimeFile": "party/assets/art/prop/snowman-friend-throw.webp",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 47048,
+      "actualAlphaBBox": [
+        26,
+        6,
+        463,
+        619
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editReference": "party/assets/art/prop/snowman-friend.webp",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/prop-snowman-friend-throw-final.webp",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "key": "prop/penguin-sled",
+      "size": [
+        384,
+        256
+      ],
+      "geometry": "Transparent side-view, facing right.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Use approved penguin canonical identity: chubby happy penguin with little red scarf riding a red wooden sled, wings out, beak open saying wheee, snow spray behind, side view facing right. Composition: exact 384\u00d7256 canvas; Transparent side-view, facing right.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final style",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-9f3152fe-e659-463f-bb3e-39bdeb7307ea.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/prop-penguin-sled-final.webp",
+      "runtimeFile": "party/assets/art/prop/penguin-sled.webp",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 28256,
+      "actualAlphaBBox": [
+        6,
+        4,
+        371,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/snowflake-catch/prop-penguin-sled-final.webp",
+      "width": 384,
+      "height": 256
+    },
+    {
+      "key": "prop/bigsnowman-1",
+      "size": [
+        600,
+        900
+      ],
+      "geometry": "Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Stage 1/6 build sprite. Only the large lowest snowball base: a smooth white snowball, no middle ball, head, face or accessories. Maintain exact shared positions: base ball center (300,735) diameter about310; middle center (300,485) diameter about250; head center (300,265) diameter about205; hat top y85. Elements included at later stages must not move or change scale. Use smooth white snow forms and navy outline. Composition: exact 600\u00d7900 canvas; Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final aligned six-stage candidate",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-afc74808-d16f-471b-85dd-3805b634cc71.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-1-final.webp",
+      "runtimeFile": "party/assets/art/prop/bigsnowman-1.webp",
+      "nativeOutputSize": [
+        1024,
+        1536
+      ],
+      "runtimeBytes": 15542,
+      "actualAlphaBBox": [
+        122,
+        463,
+        474,
+        885
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "stageCanvasStrategy": "Proportional full-canvas resize only; no alpha-bbox crop/normalization",
+      "editReference": "prop/bigsnowman-6 native transparent source; all stages derive from same reference composition",
+      "alignmentGroup": "bigsnowman-1..6; 600x900 runtime",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-1-final.webp",
+      "width": 600,
+      "height": 900
+    },
+    {
+      "key": "prop/bigsnowman-2",
+      "size": [
+        600,
+        900
+      ],
+      "geometry": "Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Stage 2/6 build sprite. Exactly the same lowest base plus one centered middle snowball stacked on it; no head or accessories. Maintain exact shared positions: base ball center (300,735) diameter about310; middle center (300,485) diameter about250; head center (300,265) diameter about205; hat top y85. Elements included at later stages must not move or change scale. Use smooth white snow forms and navy outline. Composition: exact 600\u00d7900 canvas; Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final aligned six-stage candidate",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cffd4bd0-76cf-47c8-945a-6db8330ee748.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-2-final.webp",
+      "runtimeFile": "party/assets/art/prop/bigsnowman-2.webp",
+      "nativeOutputSize": [
+        1024,
+        1536
+      ],
+      "runtimeBytes": 18838,
+      "actualAlphaBBox": [
+        0,
+        78,
+        491,
+        834
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "stageCanvasStrategy": "Proportional full-canvas resize only; no alpha-bbox crop/normalization",
+      "editReference": "prop/bigsnowman-6 native transparent source; all stages derive from same reference composition",
+      "alignmentGroup": "bigsnowman-1..6; 600x900 runtime",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-2-final.webp",
+      "width": 600,
+      "height": 900
+    },
+    {
+      "key": "prop/bigsnowman-3",
+      "size": [
+        600,
+        900
+      ],
+      "geometry": "Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Stage 3/6 build sprite. Exactly same base and middle balls plus centered head snowball with a happy coal-dot face; no carrot nose or accessories. Maintain exact shared positions: base ball center (300,735) diameter about310; middle center (300,485) diameter about250; head center (300,265) diameter about205; hat top y85. Elements included at later stages must not move or change scale. Use smooth white snow forms and navy outline. Composition: exact 600\u00d7900 canvas; Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final aligned six-stage candidate",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f120faea-8220-4cb5-bd4d-5bbeb9e09f8e.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-3-final.webp",
+      "runtimeFile": "party/assets/art/prop/bigsnowman-3.webp",
+      "nativeOutputSize": [
+        1024,
+        1536
+      ],
+      "runtimeBytes": 29012,
+      "actualAlphaBBox": [
+        0,
+        179,
+        504,
+        854
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "stageCanvasStrategy": "Proportional full-canvas resize only; no alpha-bbox crop/normalization",
+      "editReference": "prop/bigsnowman-6 native transparent source; all stages derive from same reference composition",
+      "alignmentGroup": "bigsnowman-1..6; 600x900 runtime",
+      "faceEditReference": "bigsnowman-6 coal-dot face edit; expression simplified to brief",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-3-final.webp",
+      "width": 600,
+      "height": 900
+    },
+    {
+      "key": "prop/bigsnowman-4",
+      "size": [
+        600,
+        900
+      ],
+      "geometry": "Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Stage 4/6 build sprite. Same base, middle and head at identical positions; add carrot nose and tall purple top hat with pink ribbon; no scarf or twig arms. Maintain exact shared positions: base ball center (300,735) diameter about310; middle center (300,485) diameter about250; head center (300,265) diameter about205; hat top y85. Elements included at later stages must not move or change scale. Use smooth white snow forms and navy outline. Composition: exact 600\u00d7900 canvas; Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final aligned six-stage candidate",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cf6c5881-9992-411a-81fb-1146cc01aa54.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-4-final.webp",
+      "runtimeFile": "party/assets/art/prop/bigsnowman-4.webp",
+      "nativeOutputSize": [
+        1024,
+        1536
+      ],
+      "runtimeBytes": 42140,
+      "actualAlphaBBox": [
+        0,
+        15,
+        485,
+        853
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "stageCanvasStrategy": "Proportional full-canvas resize only; no alpha-bbox crop/normalization",
+      "editReference": "prop/bigsnowman-6 native transparent source; all stages derive from same reference composition",
+      "alignmentGroup": "bigsnowman-1..6; 600x900 runtime",
+      "faceEditReference": "bigsnowman-6 coal-dot face edit; expression simplified to brief",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-4-final.webp",
+      "width": 600,
+      "height": 900
+    },
+    {
+      "key": "prop/bigsnowman-5",
+      "size": [
+        600,
+        900
+      ],
+      "geometry": "Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Stage 5/6 build sprite. Same three snowballs and stage-4 carrot/top hat at identical positions; add long rainbow-striped scarf and twig arms resting down at the sides. No flower, rosy cheeks, coal buttons, or raised arms. Maintain exact shared positions: base ball center (300,735) diameter about310; middle center (300,485) diameter about250; head center (300,265) diameter about205; hat top y85. Elements included at later stages must not move or change scale. Use smooth white snow forms and navy outline. Composition: exact 600\u00d7900 canvas; Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final aligned six-stage candidate",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-097fed3f-b123-42fd-bbbb-f1d3213b28e2.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-5-final.webp",
+      "runtimeFile": "party/assets/art/prop/bigsnowman-5.webp",
+      "nativeOutputSize": [
+        1024,
+        1536
+      ],
+      "runtimeBytes": 65812,
+      "actualAlphaBBox": [
+        0,
+        15,
+        593,
+        880
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "stageCanvasStrategy": "Proportional full-canvas resize only; no alpha-bbox crop/normalization",
+      "editReference": "prop/bigsnowman-6 native transparent source; all stages derive from same reference composition",
+      "alignmentGroup": "bigsnowman-1..6; 600x900 runtime",
+      "faceEditReference": "bigsnowman-6 coal-dot face edit; expression simplified to brief",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-5-final.webp",
+      "width": 600,
+      "height": 900
+    },
+    {
+      "key": "prop/bigsnowman-6",
+      "size": [
+        600,
+        900
+      ],
+      "geometry": "Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.",
+      "prompt": "Use case: illustration-story. Style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No text, logos, border or watermark. Asset: transparent standalone sprite. Primary request: Stage 6/6 build sprite. Complete cheerful snowman with three stacked white balls, carrot nose, tall purple top hat with pink ribbon, long rainbow-striped scarf, twig arms raised in a cheer, rosy cheeks, coal buttons and small flower on hat. Maintain exact shared positions: base ball center (300,735) diameter about310; middle center (300,485) diameter about250; head center (300,265) diameter about205; hat top y85. Elements included at later stages must not move or change scale. Use smooth white snow forms and navy outline. Composition: exact 600\u00d7900 canvas; Same exact 600\u00d7900 canvas and snowman geometry for all six stages; common center x300, base bottom y890; do not crop/normalize the snowman silhouette between stages. Transparent bottom-centred.. True transparent alpha outside the art; no cast shadow or glow.",
+      "status": "generated/intaken; final aligned six-stage candidate",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f7f5ba4c-453e-4e61-b96c-0434c0fca59f.png",
+      "sourcePath": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-6-final.webp",
+      "runtimeFile": "party/assets/art/prop/bigsnowman-6.webp",
+      "nativeOutputSize": [
+        1024,
+        1536
+      ],
+      "runtimeBytes": 72500,
+      "actualAlphaBBox": [
+        0,
+        15,
+        592,
+        888
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "stageCanvasStrategy": "Proportional full-canvas resize only; no alpha-bbox crop/normalization",
+      "editReference": "prop/bigsnowman-6 native transparent source; all stages derive from same reference composition",
+      "alignmentGroup": "bigsnowman-1..6; 600x900 runtime",
+      "faceEditReference": "bigsnowman-6 coal-dot face edit; expression simplified to brief",
+      "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-6-final.webp",
+      "width": 600,
+      "height": 900
     }
   ]
 }

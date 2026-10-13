@@ -49,7 +49,7 @@ export function drawFlake(g, size, rot, t, big = false) {
 }
 
 export function drawSnowball(g, r) {
-  if (drawArt(g, 'prop/snowball', 0, 0, r * 2, r * 2)) return;
+  if (drawArt(g, 'prop/sf-snowball', 0, 0, r * 2, r * 2)) return;
   g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fillStyle = '#ffffff'; g.fill(); line(g, 3.5); g.stroke();
   g.fillStyle = '#d6e6ff'; g.beginPath(); g.arc(r * 0.2, r * 0.25, r * 0.6, 0, TAU); g.fill();
   g.fillStyle = '#fff'; g.beginPath(); g.arc(-r * 0.3, -r * 0.3, r * 0.3, 0, TAU); g.fill();
