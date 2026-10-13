@@ -11,7 +11,7 @@
 // slow-motion PFFFT, and she laughs so hard her hat flies to the moon.
 // Gentle counting: every prank scores; nearby scores share a place.
 import { W, H } from '../engine/canvas.js';
-import { Actor } from '../engine/sprites.js';
+import { Actor, POSES } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound, voice } from '../engine/audio.js';
@@ -44,6 +44,8 @@ const BUTLER_PATH = [[330, 520], [960, 770], [1590, 520], [1600, 1000], [960, 76
 const FROG_TIMES = [9, 27];
 const PFFT_PTS = 2, FROG_PTS = 3, FINALE_PTS = 3;
 const MOON = { x: 1640, y: 230 };
+// sneaking with a cushion: the requested `tiptoe` pose once it exists, else `carry`
+const SNEAK = POSES.tiptoe ? 'tiptoe' : 'carry';
 
 export const meta = {
   id: 'whoopee-tea',
@@ -552,7 +554,7 @@ export class Game {
     if (!lock && c.pressed('a') && e.cool <= 0) this.action(e);
     if (!a._once && !lock) {
       const sp = Math.hypot(e.vx, e.vy);
-      if (e.held && sp > 40) { a.setPose('tiptoe'); if (Math.abs(e.vx) > 4) a.facing = e.vx > 0 ? 1 : -1; a.speed = clamp(sp / MAX_SPEED, 0, 1); }
+      if (e.held && sp > 40) { a.setPose(SNEAK); if (Math.abs(e.vx) > 4) a.facing = e.vx > 0 ? 1 : -1; a.speed = clamp(sp / MAX_SPEED, 0, 1); }
       else if (e.held) a.setPose('carry');
       else a.moveAnim(e.vx, e.vy, MAX_SPEED, { run: sp > 420 });
     }

@@ -12,7 +12,7 @@
 // wobble, and quick, cheeky players (who know the opposite before the flip)
 // get double butterflies.
 import { W, H } from '../engine/canvas.js';
-import { Actor } from '../engine/sprites.js';
+import { Actor, POSES } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound } from '../engine/audio.js';
@@ -41,6 +41,8 @@ const MAX_FLOCK = 14;          // butterflies drawn per dancer (score keeps coun
 const TEACHER = { x: 960, y: 478, h: 330 };
 const CARD = { x: 1480, y: 300, s: 300 };
 const HINT = { x: 440, y: 300 };
+// the requested `silly-pose` once it exists, else the existing ta-da
+const SILLY = POSES['silly-pose'] ? 'silly-pose' : 'strike3';
 const HUFFS = ['Non non non!', 'Mon dieu!', 'Hmph!', 'Oh là là!', 'Zut!', 'Sacrebleu!'];
 
 /** Beat length (seconds) at time t: generous at first, brisker later. */
@@ -585,7 +587,7 @@ export class Game {
       if (d.sillyT > 0) {
         d.sillyT -= dt;
         if (d.sillyT <= 0 && this.phase !== 'bow') {
-          a.playOnce('silly-pose', 0.55, 'idle'); a.squash(0.25);
+          a.playOnce(SILLY, 0.55, 'idle'); a.squash(0.25);
           snd('ob-silly', 'boing', { vol: 0.25 });
           if (chance(0.3)) a.emote('happy', 0.8);
         }
