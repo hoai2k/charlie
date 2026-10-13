@@ -682,7 +682,7 @@ export class Game {
     let key, face;
     if (pk.kind === 'cat') { key = giggle ? 'prop/pp-witch-cat-purr' : 'prop/pp-witch-cat'; face = giggle ? 'purr' : 'cat'; }
     else if (pk.kind === 'golden') { key = giggle ? 'prop/pp-pumpkin-golden-giggle' : 'prop/pp-pumpkin-golden'; face = giggle ? 'giggle' : pk.face; }
-    else { key = giggle ? 'prop/pp-pumpkin-giggle' : `prop/pp-pumpkin-${pk.face + 1}`; face = giggle ? 'giggle' : pk.phase === 'tease' ? 3 : pk.face; }
+    else { face = giggle ? 'giggle' : pk.phase === 'tease' ? 3 : pk.face; key = giggle ? 'prop/pp-pumpkin-giggle' : `prop/pp-pumpkin-${face + 1}`; }
     if (pk.kind === 'golden') {
       const gr = g.createRadialGradient(0, -w * 0.45, 10, 0, -w * 0.45, w * 0.95);
       gr.addColorStop(0, `rgba(255,230,120,${0.55 + 0.2 * Math.sin(this.t * 6)})`); gr.addColorStop(1, 'rgba(255,230,120,0)');
@@ -718,7 +718,8 @@ export class Game {
     const sq = e.bucketSq;
     g.scale(1 + sq * 0.3, 1 - sq * 0.3);
     if (!drawArt(g, 'prop/pp-bucket', 0, 0, S * 1.15, S * 1.15)) drawBucket(g, S, e.sweets, (k, cx, cy, r, rot) => this.drawCandyAt(g, cx, cy, k, r, rot));
-    else for (let i = 0; i < e.sweets.length; i++) { const sw = e.sweets[i]; this.drawCandyAt(g, sw.x * S, -S * 0.42 - Math.floor(i / 3) * S * 0.12, sw.kind, S * 0.16, sw.r); }
+    // art: heap the sweets on the rim (19% above the centre), not up in the handle
+    else for (let i = 0; i < e.sweets.length; i++) { const sw = e.sweets[i]; this.drawCandyAt(g, sw.x * S, -S * 0.22 - Math.floor(i / 3) * S * 0.1, sw.kind, S * 0.16, sw.r); }
     g.restore();
   }
 }

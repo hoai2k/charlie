@@ -20,7 +20,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
-import { drawEmote } from '../engine/emotes.js';
+import { drawEmote, drawSparkleShape } from '../engine/emotes.js';
 import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, dist, lerp, later } from '../engine/util.js';
 import {
   NAVY, POND, NEST, drawDuckling, drawHat, drawMama, drawNest, drawLily, drawReeds, drawBoot,
@@ -788,13 +788,16 @@ export class Game {
     g.scale(ds, ds); g.rotate(wob);
     const side = s.side;
     if (s.type === 'boot') {
-      if (d && d.state === 'hide') { g.restore(); this.drawDuck(g, d, { x: s.x - 4 * ds, y: s.y - 92 * ds }); g.save(); g.translate(s.x, s.y); g.scale(ds, ds); g.rotate(wob); }
+      // art: the cuff opening is left of centre (the toe points right); pop the head out of it
+      const bootArt = !!art('prop/rubber-boot');
+      if (d && d.state === 'hide') { g.restore(); this.drawDuck(g, d, { x: s.x - (bootArt ? 22 : 4) * ds, y: s.y - (bootArt ? 110 : 92) * ds }); g.save(); g.translate(s.x, s.y); g.scale(ds, ds); g.rotate(wob); }
       if (!drawArt(g, 'prop/rubber-boot', 0, 0, 120, 140, { anchor: 'bottom' })) drawBoot(g);
       g.restore();
       return;
     }
     // reeds / bush / mushroom: the duckling peeks out from the side
-    if (s.type === 'reeds') { if (!drawArt(g, 'prop/reeds', 0, 0, 165, 190, { anchor: 'bottom' })) drawReeds(g, t); }
+    // reeds art has ~40% empty headroom: draw it bigger so the clump itself is ~145 px tall
+    if (s.type === 'reeds') { if (!drawArt(g, 'prop/reeds', 0, 0, 200, 235, { anchor: 'bottom' })) drawReeds(g, t); }
     else if (s.type === 'bush') { if (!drawArt(g, 'prop/flower-bush', 0, 0, 200, 146, { anchor: 'bottom' })) drawBush(g, t); }
     else drawMushroom(g);
     g.restore();
@@ -861,8 +864,13 @@ export class Game {
     g.rotate(-wind * 0.8 + (d.confused > 0 ? Math.sin(t * 18) * 0.12 : 0));
     const quack = d.quack > 0;
     const key = quack ? 'prop/duckling-quack' : 'prop/duckling';
-    if (!(drawArt(g, key, 0, -36, 80, 80) || (quack && drawArt(g, 'prop/duckling', 0, -36, 80, 80)))) {
+    const drew = drawArt(g, key, 0, -36, 80, 80) || (quack && drawArt(g, 'prop/duckling', 0, -36, 80, 80));
+    if (!drew) {
       drawDuckling(g, { quack, golden: d.golden, swim, blink: d.blinkT < 0, wing: quack ? 1 : 0, eyesShut: wind > 0 });
+    } else {
+      // the art duckling's head sits higher and more centred than the drawn one (3/4 view)
+      if (d.golden) { g.save(); g.translate(-18, -30); drawSparkleShape(g, 12, '#fff'); g.restore(); }
+      g.translate(d.hat === 'glasses' ? -17 : -12, d.hat === 'glasses' ? -5 : -9);
     }
     drawHat(g, d.hat, t + d.id);
     g.restore();
@@ -879,9 +887,12 @@ export class Game {
     // team counter: mama + ducklings home
     const x = W - 250, y = 26;
     ui.panel(g, x, y, 220, 84, { r: 40, fill: '#fff8d6', stroke: '#ffb03f', lineWidth: 6 });
-    g.save(); g.translate(x + 52, y + 74); g.scale(0.82, 0.82); drawDuckling(g, { quack: Math.sin(this.t * 4) > 0.8 }); g.restore();
+    const hq = Math.sin(this.t * 4) > 0.8;
+    g.save(); g.translate(x + 52, y + 74); g.scale(0.82, 0.82);
+    if (!drawArt(g, hq ? 'prop/duckling-quack' : 'prop/duckling', 0, -36, 80, 80)) drawDuckling(g, { quack: hq });
+    g.restore();
     ui.text(g, '×', x + 108, y + 44, { size: 36, color: NAVY, stroke: false });
-    ui.text(g, String(this.team), x + 166, y + 44, { size: 52, color: NAVY, stroke: false, weight: 800 });
+    ui.text(g, String(this.team), x + 166, y + 44, { size: this.team > 99 ? 40 : 52, color: NAVY, stroke: false, weight: 800 });
     if (this.rush && this.rushT < 2.4 && this.phase === 'play') {
       g.save(); g.globalAlpha = clamp(2.4 - this.rushT, 0, 1);
       ui.banner(g, 'Duckling Rush!', this.rushT, { y: 520, size: 140, color: '#ffd23f' });
