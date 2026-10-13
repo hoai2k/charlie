@@ -8,6 +8,11 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Art watch (2026-10-13): half-hourly check for delivered images
+User: check every 30 min until all requested images arrive; QA/fix new art, file regen rounds;
+stop after all arrive or 2 h with no new images. State: scratchpad art-watch.md (+ art-baseline.txt),
+send_later check-ins. Molly menu song: 'molly' (music/molly-time.mp3), resumes (RESUMES in audio.js).
+
 ### Molly Party code (lead session) — all 23 on the shelf (2026-10-13)
 All Molly games merged. The cheeky round replaced six "do as you're told" games:
 puppy-splash->muddy-mayhem, dance-freeze->sneaky-dance, ballet-butterflies->opposite-ballet,
