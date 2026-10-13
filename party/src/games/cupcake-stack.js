@@ -739,6 +739,13 @@ export class Game {
     const bg = art('bg/cupcake-stack');
     if (bg) {
       g.drawImage(bg, 0, 0, W, H);
+      // The climbing sky behind this ground-level plate is #8fd6ff. Blend the
+      // background's top edge into that exact continuation colour so the seam
+      // stays invisible as the camera rises past y=0.
+      const topBlend = g.createLinearGradient(0, 0, 0, 72);
+      topBlend.addColorStop(0, '#8fd6ff');
+      topBlend.addColorStop(1, 'rgba(143,214,255,0)');
+      g.fillStyle = topBlend; g.fillRect(0, 0, W, 72);
       if (tl.x < 0 || br.x > W) { g.fillStyle = '#7ed68a'; g.fillRect(tl.x, 900, -tl.x, br.y - 900); g.fillRect(W, 900, br.x - W, br.y - 900); }
       if (br.y > H) { g.fillStyle = '#6cc77a'; g.fillRect(tl.x, H, br.x - tl.x, br.y - H); }
       return;
@@ -813,7 +820,10 @@ function drawBalloon(g, x, y, col, tieY = null) {
 /** Cake stand, origin = foot centre on the ground. s = scale. */
 function drawStand(g, x, y, s) {
   g.save(); g.translate(x, y); g.scale(s, s);
-  if (drawArt(g, 'prop/cake-stand', 0, 0, 560, 280, { anchor: 'bottom' })) { g.restore(); return; }
+  // This game needs the broad scalloped stand. Keep the shared prop/cake-stand
+  // key untouched for other consumers; its Molly-specific sibling is framed
+  // with the plate surface at the existing STAND_TOP world coordinate.
+  if (drawArt(g, 'prop/cupcake-stack-cake-stand', 0, 0, 560, 280, { anchor: 'bottom' })) { g.restore(); return; }
   g.lineWidth = 6; g.strokeStyle = NAVY; g.lineJoin = 'round';
   g.fillStyle = 'rgba(36,22,63,0.18)'; g.beginPath(); g.ellipse(0, 4, 180, 22, 0, 0, TAU); g.fill();
   g.fillStyle = '#ffffff';
@@ -907,7 +917,7 @@ function drawCandle(g, x, y, ang, lit, t, col = '#7fd3ff', s = 1) {
   if (lit) {
     const fl = 1 + Math.sin(t * 14) * 0.12;
     g.save(); g.translate(Math.sin(t * 9) * 1.5, -78); g.rotate(-ang * 0.8); g.scale(fl, fl);
-    if (!drawArt(g, 'prop/candle-flame', 0, 0, 30, 40, { anchor: 'bottom' })) {
+    if (!drawArt(g, 'prop/cupcake-stack-candle-flame', 0, 0, 30, 40, { anchor: 'bottom' })) {
       const gr = g.createRadialGradient(0, -14, 2, 0, -14, 34); gr.addColorStop(0, 'rgba(255,230,120,0.6)'); gr.addColorStop(1, 'rgba(255,230,120,0)');
       g.fillStyle = gr; g.beginPath(); g.arc(0, -14, 34, 0, TAU); g.fill();
       g.fillStyle = '#ff9f1c'; g.beginPath(); g.moveTo(0, -36); g.quadraticCurveTo(15, -12, 0, 2); g.quadraticCurveTo(-15, -12, 0, -36); g.fill();

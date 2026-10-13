@@ -952,7 +952,20 @@
     "prop/fhs-frog": "prop/fhs-frog.webp",
     "prop/fhs-snail": "prop/fhs-snail.webp",
     "prop/fhs-ladybug": "prop/fhs-ladybug.webp",
-    "thumb/fairy-hide-seek": "thumb/fairy-hide-seek.webp"
+    "thumb/fairy-hide-seek": "thumb/fairy-hide-seek.webp",
+    "prop/cupcake-pink": "prop/cupcake-pink.webp",
+    "prop/cupcake-blue": "prop/cupcake-blue.webp",
+    "prop/cupcake-mint": "prop/cupcake-mint.webp",
+    "prop/cupcake-lemon": "prop/cupcake-lemon.webp",
+    "prop/cupcake-lilac": "prop/cupcake-lilac.webp",
+    "prop/cupcake-choc": "prop/cupcake-choc.webp",
+    "prop/cupcake-gold": "prop/cupcake-gold.webp",
+    "prop/cupcake-stack-cake-stand": "prop/cupcake-stack-cake-stand.webp",
+    "prop/cupcake-candle": "prop/cupcake-candle.webp",
+    "prop/cupcake-cherry": "prop/cupcake-cherry.webp",
+    "prop/cupcake-stack-candle-flame": "prop/cupcake-stack-candle-flame.webp",
+    "thumb/cupcake-stack": "thumb/cupcake-stack.webp",
+    "prop/cupcake-topper-cake": "prop/cupcake-topper-cake.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1269,7 +1282,19 @@
       "prop/pottery-rosette"
     ],
     "cupcake-stack": [
-      "bg/cupcake-stack"
+      "bg/cupcake-stack",
+      "prop/cupcake-pink",
+      "prop/cupcake-blue",
+      "prop/cupcake-mint",
+      "prop/cupcake-lemon",
+      "prop/cupcake-lilac",
+      "prop/cupcake-choc",
+      "prop/cupcake-gold",
+      "prop/cupcake-stack-cake-stand",
+      "prop/cupcake-candle",
+      "prop/cupcake-cherry",
+      "prop/cupcake-stack-candle-flame",
+      "prop/cupcake-topper-cake"
     ],
     "dance-freeze": [
       "bg/dance-freeze",
