@@ -22,8 +22,7 @@ sections are marked ON HOLD; move unreused keys to history as dropped).
 
 ### Molly Party image delivery — in progress
 
-Synced main through61b9323a;23 new game briefs,317 keys/346 authored frames. Backgrounds/props in production across3 delegated agents; first6 new character designs await user approval at `reference/pending/molly-canonicals/REVIEW.html`. Full ownership/scope/checkpoint in IMAGE-WORK-QUEUE.md and pending/MOLLY-REQUEST-INVENTORY.json. New game modules have not landed; retain open requests until actual gameplay QA. Preserve existing generic shared art; use Molly-specific sibling keys for incompatible dimensions/designs. Publish finished reviewed game batches to main regularly.
-
+Latest integrated main965416d;23games/318imagekeys/347authoredframes includingnewcupcakefinalecake. Published31Mollykeys through746e632a:completeDance7,Wand8,andearlygarden/environment/magicbatches. Rootpublishesregularly; noMollycanonicalapprovalgates perlatestuserinstruction. All generatedNPCcandidates approved, fiveexpandedGardenFairiescanonspromoted, Glimmerapproved. Exactsources/prompts inpending/MOLLY* records andlosslessWebPs; oldNPCfairyrefs preserved. Rootkitten30framesheets generatedawaitingintake; rootownsKittenYarn layeredprops/atlas. WorkersownGarden/Ladybug→sixfairysprites; Cupcake/Dance/Bubble/Balloon/Ballet; Wand/FF/FHS/Sock/Tea. Other10gamesqueued fornextassignments. Lots ofruntimecodehaslanded; keepfetchingmain; actualQAstartswithcompletebatches. DanceQAfoundHoot hidden+duplicatedrecords; toolsagentfixing ownconsumer. Existinggenericassetcollisions mustbeMollysiblingkeys/consumerupdates, notglobaloverwrites. Monitorremainscancelled.
 
 ### Play Studio image delivery — complete
 

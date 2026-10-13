@@ -382,6 +382,13 @@ export class Game {
     drawFloor(g, beat, this.icy, t, this.party);
     drawBeams(g, this.spin, this.lightK, this.party);
     drawDiscoBall(g, this.spin, this.lightK, t);
+    // The generated console is taller than the original procedural fallback.
+    // When present, stand Hoot behind its authored tabletop; keep the former
+    // anchor when only the shorter fallback console is available.
+    const boothImage = art('prop/df-dj-booth');
+    const boothHeight = BOOTH.w * 300 / 560;
+    const djY = boothImage ? BOOTH.y - boothHeight + 77 * boothHeight / 300 : BOOTH.y - 80;
+    if (this.dj.y !== djY) { this.dj.y = djY; this.dj.snap(); }
     this.dj.draw(g, { shadow: false });
     drawBooth(g, this.spin * 2, pulse, this.icy, t);
     if (this.phase === 'tell') {

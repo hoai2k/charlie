@@ -132,7 +132,10 @@ export function drawBeams(g, spin, k, party) {
 /** DJ booth front (drawn over the DJ's legs). spin = record angle, pulse = beat pulse, icy = freeze blend. */
 export function drawBooth(g, spin, pulse, icy, t) {
   const { x, y, w } = BOOTH, h = 150;
-  if (!drawArt(g, 'prop/df-dj-booth', x, y, w, w * 300 / 560, { anchor: 'bottom' })) {
+  const boothImage = art('prop/df-dj-booth');
+  const artH = w * 300 / 560;
+  const hasArt = !!boothImage && drawArt(g, 'prop/df-dj-booth', x, y, w, artH, { anchor: 'bottom' });
+  if (!hasArt) {
     g.fillStyle = '#ff9ad0'; line(g, 6); rr(g, x - w / 2, y - h, w, h, 26); g.fill(); g.stroke();
     // light strips
     for (let i = 0; i < 3; i++) {
@@ -145,21 +148,30 @@ export function drawBooth(g, spin, pulse, icy, t) {
     g.fillStyle = '#ff5aa0'; line(g, 4);
     g.beginPath(); const hx = x, hy = y - h + 26; g.moveTo(hx, hy + 12); g.bezierCurveTo(hx - 26, hy - 4, hx - 12, hy - 22, hx, hy - 8); g.bezierCurveTo(hx + 12, hy - 22, hx + 26, hy - 4, hx, hy + 12); g.fill(); g.stroke();
   }
-  // turntable record on top (left)
-  const rx = x - w * 0.15 - 60, ry = y - h - 4;
-  g.save(); g.translate(rx, ry); g.scale(1, 0.32);
-  g.fillStyle = '#d8c8f0'; line(g, 5); g.beginPath(); g.arc(0, 0, 78, 0, TAU); g.fill(); g.stroke();
-  g.fillStyle = '#1a1030'; g.beginPath(); g.arc(0, 0, 66, 0, TAU); g.fill();
-  g.strokeStyle = 'rgba(255,255,255,0.25)'; g.lineWidth = 2; for (const r of [30, 44, 56]) { g.beginPath(); g.arc(0, 0, r, spin, spin + 1.6); g.stroke(); }
-  g.fillStyle = '#ff7ac6'; g.beginPath(); g.arc(0, 0, 20, 0, TAU); g.fill();
-  g.fillStyle = '#fff'; g.beginPath(); g.arc(Math.cos(spin) * 12, Math.sin(spin) * 12, 4, 0, TAU); g.fill();
-  g.restore();
-  // second turntable
-  g.save(); g.translate(x + w * 0.15 + 60, ry); g.scale(1, 0.32);
-  g.fillStyle = '#d8c8f0'; line(g, 5); g.beginPath(); g.arc(0, 0, 78, 0, TAU); g.fill(); g.stroke();
-  g.fillStyle = '#1a1030'; g.beginPath(); g.arc(0, 0, 66, 0, TAU); g.fill();
-  g.fillStyle = '#6fd0ff'; g.beginPath(); g.arc(0, 0, 20, 0, TAU); g.fill();
-  g.restore();
+  // Spin records directly over the two authored platters. The procedural
+  // fallback retains its original centers and proportions.
+  const artScaleX = hasArt ? w / boothImage.width : 1;
+  const artScaleY = hasArt ? artH / boothImage.height : 1;
+  const artTop = y - artH;
+  const decks = hasArt
+    ? [
+        { x: x + (150 - boothImage.width / 2) * artScaleX, y: artTop + 76 * artScaleY, center: '#ff7ac6' },
+        { x: x + (414 - boothImage.width / 2) * artScaleX, y: artTop + 76 * artScaleY, center: '#6fd0ff' },
+      ]
+    : [
+        { x: x - w * 0.15 - 60, y: y - h - 4, center: '#ff7ac6' },
+        { x: x + w * 0.15 + 60, y: y - h - 4, center: '#6fd0ff' },
+      ];
+  for (const [i, deck] of decks.entries()) {
+    g.save(); g.translate(deck.x, deck.y); g.scale(1, hasArt ? 0.39 : 0.32);
+    g.fillStyle = '#d8c8f0'; line(g, 5); g.beginPath(); g.arc(0, 0, 78, 0, TAU); g.fill(); g.stroke();
+    g.fillStyle = '#1a1030'; g.beginPath(); g.arc(0, 0, 66, 0, TAU); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,0.25)'; g.lineWidth = 2;
+    for (const r of [30, 44, 56]) { g.beginPath(); g.arc(0, 0, r, spin, spin + 1.6); g.stroke(); }
+    g.fillStyle = deck.center; g.beginPath(); g.arc(0, 0, 20, 0, TAU); g.fill();
+    if (i === 0) { g.fillStyle = '#fff'; g.beginPath(); g.arc(Math.cos(spin) * 12, Math.sin(spin) * 12, 4, 0, TAU); g.fill(); }
+    g.restore();
+  }
 }
 
 /** Giant tickle feather; (x, y) = quill end, rot = angle. */
