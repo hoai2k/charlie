@@ -1,0 +1,17 @@
+{
+  "approved": [
+    "butterfly",
+    "duckling",
+    "frog",
+    "ballet-teacher"
+  ],
+  "pending": [
+    "ladybug-v2",
+    "bee-v2"
+  ],
+  "superseded": [
+    "ladybug",
+    "bee"
+  ],
+  "userFeedback": "Ladybug and bee: cute but prettier, less baby-cute."
+}

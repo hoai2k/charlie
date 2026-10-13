@@ -874,7 +874,18 @@
     "prop/aq-glowshroom-teal": "prop/aq-glowshroom-teal.webp",
     "prop/aq-glowshroom-pink": "prop/aq-glowshroom-pink.webp",
     "prop/aq-glowshroom-purple": "prop/aq-glowshroom-purple.webp",
-    "prop/aq-moonlight": "prop/aq-moonlight.webp"
+    "prop/aq-moonlight": "prop/aq-moonlight.webp",
+    "bg/cupcake-stack": "bg/cupcake-stack.webp",
+    "bg/dance-freeze": "bg/dance-freeze.webp",
+    "prop/df-disco-ball": "prop/df-disco-ball.webp",
+    "bg/bubble-pop": "bg/bubble-pop.webp",
+    "bg/balloon-float": "bg/balloon-float.webp",
+    "bg/ballet-butterflies": "bg/ballet-butterflies.webp",
+    "bg/wand-shapes": "bg/wand-shapes.webp",
+    "prop/wand-sparkle": "prop/wand-sparkle.webp",
+    "prop/wand-heart-balloon": "prop/wand-heart-balloon.webp",
+    "prop/wand-rainbow": "prop/wand-rainbow.webp",
+    "prop/ff-jar": "prop/ff-jar.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1189,6 +1200,31 @@
       "prop/pottery-sticker-sun",
       "prop/pottery-sticker-strawberry",
       "prop/pottery-rosette"
+    ],
+    "cupcake-stack": [
+      "bg/cupcake-stack"
+    ],
+    "dance-freeze": [
+      "bg/dance-freeze",
+      "prop/df-disco-ball"
+    ],
+    "bubble-pop": [
+      "bg/bubble-pop"
+    ],
+    "balloon-float": [
+      "bg/balloon-float"
+    ],
+    "ballet-butterflies": [
+      "bg/ballet-butterflies"
+    ],
+    "wand-shapes": [
+      "bg/wand-shapes",
+      "prop/wand-sparkle",
+      "prop/wand-heart-balloon",
+      "prop/wand-rainbow"
+    ],
+    "fairy-flutter": [
+      "prop/ff-jar"
     ]
   }
 }
