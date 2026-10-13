@@ -599,7 +599,48 @@
       ],
       "bytes": 116586,
       "outputFormat": "WEBP RGB q86 method6"
+    },
+    {
+      "key": "prop/mp-ledge",
+      "size": [
+        300,
+        110
+      ],
+      "geometry": "Wide rounded coral shelf, flat top near upper edge; bottom anchored.",
+      "prompt": "Create one isolated game prop for Molly Party Mermaid Pearls, exact transparent canvas 300\u00d7110. A low rounded underwater coral-rock shelf to support a clam: wide low warm coral-pink and muted seafoam rock with a clearly FLAT horizontal top surface, the flat top edge exactly about 25 px below the top of this 300\u00d7110 canvas, bottom edge touching canvas bottom. Side/front three-quarter view with rounded ends, a couple small embedded shell-like color accents only; no organisms. Centered and bottom-centre anchored with no bottom padding. Clean 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading, bright colors. True transparent background; no shadow or floor. No clam, no fish, no bubbles, no glow, no text, no 3D, no photorealism.",
+      "source": "party/reference/pending/molly-sources/mermaid-pearls/prop-mp-ledge.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c52e11e6-6993-411f-b15a-46cde7fc653a.png",
+      "sourceSize": [
+        2070,
+        760
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c52e11e6-6993-411f-b15a-46cde7fc653a.png",
+      "file": "party/assets/art/prop/mp-ledge.webp",
+      "runtimeFile": "party/assets/art/prop/mp-ledge.webp",
+      "width": 300,
+      "height": 110,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        179,
+        130,
+        1899,
+        736
+      ],
+      "actualAlphaBBox": [
+        0,
+        4,
+        300,
+        110
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 11324,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
     }
   ],
-  "status": "14 assets packaged; final QA complete"
+  "status": "15 assets packaged; checkpoint pending"
 }

@@ -425,7 +425,89 @@
         "party/reference/pending/molly-canonicals-3/mama-duck.webp"
       ],
       "sourceType": "thumbnail using approved mama-duck and duckling canonical identities"
+    },
+    {
+      "key": "prop/dp-mushroom",
+      "size": [
+        260,
+        280
+      ],
+      "geometry": "Friendly toadstool, centered; base bottom anchored.",
+      "prompt": "Create one isolated asset for Molly Party Duckling Parade, exact transparent canvas 260\u00d7280. A single friendly red-and-white toadstool mushroom hiding spot: broad rounded scarlet cap with a few large clean white spots, stout cream stem, tiny soft grass tuft only at the base. Make it cute, clearly readable at small game scale, clean 2D candy-cartoon with smooth bold navy #24163f outline and soft cel shading. Full silhouette visible, centered, bottom-centre anchored with base touching the bottom edge and no empty bottom padding. True transparent background. No duck, no character, no text, no shadow, no 3D, no photorealism, no vector-flat look.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-dp-mushroom.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5af3b373-b5b5-44cb-acd9-e469b191e2a5.png",
+      "sourceSize": [
+        1208,
+        1302
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5af3b373-b5b5-44cb-acd9-e469b191e2a5.png",
+      "file": "party/assets/art/prop/dp-mushroom.webp",
+      "runtimeFile": "party/assets/art/prop/dp-mushroom.webp",
+      "width": 260,
+      "height": 280,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        12,
+        69,
+        1198,
+        1302
+      ],
+      "actualAlphaBBox": [
+        0,
+        10,
+        260,
+        280
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17914,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
+    },
+    {
+      "key": "prop/duckling-golden",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Same as canonical duckling; full feet bottom aligned.",
+      "prompt": "Use the provided approved Molly duckling canonical as the sole identity reference. Make an exact identity-preserving color variant: retain the same duckling silhouette, pose, face, proportions, eye, beak, feet, bold navy #24163f outline, cel shading, framing, and bottom-center foot anchor. Change only feather colors to rich shiny golden yellow with gentle lighter-gold highlights and add a few tiny gold sparkle marks close around it, contained within original framing. Exact transparent square canvas matching source; feet fully visible and bottom aligned; do not enlarge or crop the subject. Clean 2D candy-cartoon with soft cel shading. No 3D, photorealism, extra objects, text or watermark.",
+      "source": "party/reference/pending/molly-sources/duckling-parade/prop-duckling-golden.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0258342e-4b39-4bc5-b099-0490afb48859.png",
+      "sourceSize": [
+        1223,
+        1286
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0258342e-4b39-4bc5-b099-0490afb48859.png",
+      "file": "party/assets/art/prop/duckling-golden.webp",
+      "runtimeFile": "party/assets/art/prop/duckling-golden.webp",
+      "width": 160,
+      "height": 160,
+      "tool": "built-in imagegen",
+      "status": "generated, alpha-cropped and packaged",
+      "sourceCrop": [
+        247,
+        16,
+        1009,
+        1274
+      ],
+      "actualAlphaBBox": [
+        31,
+        0,
+        128,
+        160
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 10104,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom"
     }
   ],
-  "status": "10 assets packaged; final QA complete"
+  "status": "12 assets packaged; checkpoint pending"
 }

@@ -13,9 +13,9 @@ Published and checked game batches now include Garden Grow, Dance and Freeze, Wa
 
 Pink Garden Fairy's full playable set is published at `4bfe72df`: 59 poses, 83 body frames and five portraits, with landmarks and optimized assets. Other five fairy expansions remain in progress. The union is the merged 56-pose brief plus preserved fly, clap and hose-spray; this brief applies to the six Molly fairies, not the original Charlie roster.
 
-Current ownership: structural agent Blue/Purple/Yellow playable fairies; performance agent Green/Glimmer playable fairies; tools agent Whoopee Tea, Muddy Mayhem plus six Puppy reuse assets, Ballet/Opposite consistency fixes and three new QA props; root integration, browser QA, batch publication and Pumpkin witch-cat ring removal. Ballet/Opposite art is generated but held for Madame Papillon identity consistency corrections.
+Current ownership: structural agent Blue/Purple playable fairies; performance agent Green/Glimmer playable fairies; tools agent Whoopee Tea, Muddy Mayhem plus six Puppy reuse assets, Ballet/Opposite consistency fixes and three new QA props; root Yellow playable fairy, integration, browser QA and batch publication. Ballet/Opposite corrections are published at `3673ad20`; Whoopee40 at `0632defd /944fd052`; three late QA props at `3523e974`. All known regeneration rows are complete. Remaining game art is Muddy Mayhem12 and Puppy Splash6 retained reuse assets.
 
-Latest sync `904cafd0` includes new QA requests from `6650f180`: dp-mushroom, duckling-golden, mp-ledge and two ring-free witch-cat expressions. All queued. Earlier dropped original briefs are not expanded, but explicitly kept reuse rows remain required. Completed-status edits and archival changes alone do not trigger regeneration.
+Latest sync `944fd052` includes new QA requests from `6650f180`: dp-mushroom, duckling-golden, mp-ledge and two ring-free witch-cat expressions. All delivered at `d5f2f140` and `3523e974`; Cupcake/Unicorn earlier review requests delivered at `c64517c2`. Earlier dropped original briefs are not expanded, but explicitly kept reuse rows remain required. Completed-status edits and archival changes alone do not trigger regeneration.
 
 The older counts/checkpoints below are production history and will be replaced by a final request inventory after delivery.
 
