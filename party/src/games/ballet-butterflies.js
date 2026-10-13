@@ -395,12 +395,12 @@ export class Game {
   finish() {
     this.done = true;
     const top = Math.max(...this.scores);
-    const placements = placementsFromScores(this.scores);
+    // gentle: dancers within a few butterflies of each other share a place
+    const placements = placementsFromScores(this.scores.map((v) => Math.floor((v + 4 - (top % 5)) / 5)));
     const best = this.byIndex[this.scores.indexOf(top)];
     this.api.finish({
       placements,
       stats: this.scores.map((s, i) => `${s} butterflies${this.wows[i] ? ` · ${this.wows[i]} wow` : ''}`),
-      solo: this.scores[0],
       focus: { x: best.a.x, y: best.a.y - best.a.height * 0.5 },
     });
   }
