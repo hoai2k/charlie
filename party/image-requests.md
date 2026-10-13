@@ -1115,3 +1115,31 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: shape-train
+
+### shape-train — Choo-Choo Shapes   (requested by the shape-train agent, 2026-10-05, priority: nice-to-have)
+
+A happy toy train with a face zooms into the station. Each car has
+shape-shaped windows (circle, square, triangle, star, heart), each shape in
+its own colour; toy animals on the platform hold up matching shapes. Players
+carry the animals to the right car and pop them in; full trains toot and
+zoom around a loop in the background (through a tunnel, over a bridge, past
+a waving cow). Everything below has a procedural fallback that ships today
+and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text** in any image.
+Shape colours used by the code: circle red `#ff5a5f`, square blue `#3fa2ff`,
+triangle green `#3fcf6e`, star yellow `#ffcf2e`, heart pink `#ff6fbf`.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/shape-train` | 1920×1080, opaque | Full screen. **Layout must match:** sky y 0–230 (keep the top ~110 px calm, the HUD sits there); a far-away train track runs straight across at y≈318 (the small loop train drives on it, right to left); a green hill with a tunnel straddles the far track between x≈1370 and x≈1590 (dark tunnel mouths on the track at both x); a blue river crosses under the far track between x≈820 and x≈1080 with a little bridge carrying the track; a flowery meadow on the left (the code draws a cow at x≈420, y≈300). The foreground track (rails, sleepers, gravel) runs straight across with the rail tops at y≈486; the station platform (pale stone tiles, a yellow safety stripe along the edge at y≈530) fills y 520–1080. Leave the platform mostly plain (players walk all over it); small decorations only along the bottom and far left/right edges (flower pots, a bench, a lamp). Keep the bottom-left 120×120 calm | A sunny toy-town railway station in a storybook countryside: rolling green hills, a red-roofed station house far left, pastel sky with puffy clouds, a toy railway looping through the scenery |
+| `thumb/shape-train` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A smiling red toy steam engine with big eyes pulling two candy-coloured carriages with a star window and a heart window; a little bunny peeking out of the heart window waving; puffs of steam, a rainbow, sparkles. Subject centred |
+| `prop/shape-train-engine` | 640×400, transparent | Side view facing **right**, bottom-centre anchored on the rail (wheel bottoms on the bottom edge), fitted to 400×250 at scale 1. The code draws the **face** on the round boiler front (centre at about 86% x, 50% y, radius ~16% of the width) and puffs steam from the funnel (about 66% x, top), so keep the boiler front a plain round disc | A chunky, glossy red-and-gold toy steam engine: cab with a round window at the back (left), a fat boiler, a tall funnel, a gold bell, a little cowcatcher, big red wheels with gold hubs |
+| `prop/shape-train-car-red`, `-blue`, `-green`, `-yellow`, `-pink` | 560×340 each, transparent | Side view, bottom-centre anchored on the rail, stretched over the car (about 330×200 at scale 1). The code draws the shape windows (and the animal faces in them) across the side panel at 30–70% x, 25–70% y, so keep that panel plain; roof riders sit on the roof (top ~12%) | Toy train carriages in candy colours (a pastel version of the shape colour), a rounded roof with white trim, little wheels, chunky couplers at both ends, cute rivets, no windows |
+| `prop/shape-train-animal-bunny`, `-bear`, `-duck`, `-pig`, `-cat`, `-frog`, `-elephant`, `-penguin` | 256×256 each, transparent | Front view, standing, **both paws raised** (the code draws a shape placard held above the head between the paws). Bottom-centre anchored at the feet, drawn ~110 px tall. The top 45% (the head) is also reused, clipped inside the train windows | Chubby wooden/plush toy animals with big shiny eyes, rosy cheeks and tiny smiles, each with a little scarf or bow in a bright colour |
+| `prop/shape-train-cow` | 320×260, transparent | Bottom-centre anchored in the meadow at (420, 300), drawn ~110 px tall; the code bobs and tilts it when it waves at the passing train | A friendly black-and-white spotted cow with a pink nose, a flower behind one ear and a little bell, three-quarter view, looking at the viewer, one front hoof raised in a wave |
+| `prop/shape-train-tunnel` | 260×220, transparent | Stone arch portal drawn bottom-centre on the far track at x≈1370 and x≈1590 (mirrored for the left mouth) over the little train, ~120 px wide, so the train vanishes into the hill | A rounded storybook stone tunnel arch with ivy and two little flowers, dark inside |
+
+New poses: none required (uses carry, hold-present, toss, wave, cheer,
+celebrate, surprised, laugh, dizzy).
