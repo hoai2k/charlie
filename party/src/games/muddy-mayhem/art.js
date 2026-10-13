@@ -192,12 +192,20 @@ export function drawMegaPuddle(g, t, k, boil = 0) {
   g.fillStyle = '#a8703c'; g.beginPath(); g.ellipse(-30, -14, P.rx * 0.4, P.ry * 0.28, 0, 0, TAU); g.fill();
   g.fillStyle = 'rgba(255,255,255,0.35)';
   g.beginPath(); g.ellipse(-P.rx * 0.4, -P.ry * 0.38, P.rx * 0.2, P.ry * 0.12, -0.2, 0, TAU); g.fill();
-  // bubbles
+  g.restore();
+  drawMegaBubbles(g, t, k, boil);
+}
+
+/** The bubbles on the giant puddle (also drawn over the puddle art while it boils). */
+export function drawMegaBubbles(g, t, k, boil = 0) {
+  const P = MEGA;
+  const a0 = g.globalAlpha;
+  g.save(); g.translate(P.x, P.y); g.scale(k, k);
   for (let i = 0; i < 7; i++) {
     const ph = (t * (0.9 + boil * 1.6) + i * 0.37) % 1;
     const bx = Math.cos(i * 2.4) * P.rx * 0.55, by = Math.sin(i * 1.7) * P.ry * 0.45;
     const r = (8 + (i % 3) * 7) * (0.4 + ph) * (1 + boil * 0.6);
-    g.globalAlpha = 1 - ph * 0.6;
+    g.globalAlpha = a0 * (1 - ph * 0.6);
     g.fillStyle = '#a8703c'; g.beginPath(); g.arc(bx, by - r * 0.4, r, Math.PI, 0); g.fill();
     g.strokeStyle = MUD_DARK; g.lineWidth = 3; g.stroke();
     g.fillStyle = 'rgba(255,255,255,0.5)'; g.beginPath(); g.arc(bx - r * 0.35, by - r * 0.8, r * 0.22, 0, TAU); g.fill();

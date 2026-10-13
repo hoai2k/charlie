@@ -12,7 +12,7 @@
 // Finale: Granny slips into the giant puddle, sits up covered in mud... and
 // laughs, and everybody has a mud fight. Gentle counting (placementsFromScores).
 //
-// Art hooks (procedural fallbacks ship today): bg/muddy-mayhem (falls back to
+// Art (all delivered; procedural fallbacks kept): bg/muddy-mayhem (falls back to
 //   the reused bg/puppy-splash), thumb/muddy-mayhem, prop/mm-granny,
 //   prop/mm-granny-spray, prop/mm-granny-gasp, prop/mm-granny-muddy,
 //   prop/mm-sheet, prop/mm-rug, prop/mm-basket, prop/mm-fence,
@@ -32,7 +32,7 @@ import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, PORCH_Y, PUDDLES, MEGA, MUD, MUD_COLS, drawPuppy, drawMudBlobs, makeBlobs, drawBackyard, drawLine, lineY,
-  drawPuddle, drawMegaPuddle, targetPath, drawTarget, makeSplat, drawSplat, drawGoose, drawThumb,
+  drawPuddle, drawMegaPuddle, drawMegaBubbles, targetPath, drawTarget, makeSplat, drawSplat, drawGoose, drawThumb,
 } from './muddy-mayhem/art.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -77,6 +77,58 @@ const SPLAT_CAP = 70;
 const DS = { top: PORCH_Y, near: 1000, far: 0.86, nearScale: 1.04 };
 
 function ell(x, y, e, k = 1) { return ((x - e.x) / (e.rx * k)) ** 2 + ((y - e.y) / (e.ry * k)) ** 2; }
+
+// Target art boxes in each target's local space: [key, x, y, w, h, anchor].
+const TARGET_ART = {
+  sheet: ['prop/mm-sheet', -115, -10, 230, 215, 'topleft'], rug: ['prop/mm-rug', 0, 0, 330, 175, 'center'],
+  basket: ['prop/mm-basket', 0, 0, 180, 190, 'bottom'], fence: ['prop/mm-fence', 0, 0, 300, 160, 'bottom'],
+};
+// Points in the Granny art (drawn 0.45x into a 180x234 box, origin at her
+// feet, facing right): the spray nozzle tip, and where the painted hose
+// leaves the picture (the code draws the rest of the hose from there).
+const GRANNY_NOZZLE = { x: 89, y: -130 };
+const GRANNY_HOSE = { walk: { x: 86, y: -54 }, spray: { x: -90, y: -42 } };
+
+/** Where a target's art lands (contain fit, like drawArt), or null when missing. */
+function targetArtBox(kind) {
+  const [key, x, y, w, h, anchor] = TARGET_ART[kind];
+  const img = art(key);
+  if (!img) return null;
+  const s = Math.min(w / img.width, h / img.height), dw = img.width * s, dh = img.height * s;
+  const dx = anchor === 'topleft' ? x + (w - dw) / 2 : x - dw / 2;
+  const dy = anchor === 'topleft' ? y + (h - dh) / 2 : anchor === 'bottom' ? y - dh : y - dh / 2;
+  return { img, x: dx, y: dy, w: dw, h: dh, s };
+}
+
+/** Local points well inside a target's painted area (splats land there). */
+const splatSpotCache = {};
+function splatSpots(kind) {
+  if (splatSpotCache[kind]) return splatSpotCache[kind];
+  const B = targetArtBox(kind);
+  if (!B) return null;
+  const c = document.createElement('canvas');
+  c.width = Math.ceil(B.w); c.height = Math.ceil(B.h);
+  const cx = c.getContext('2d');
+  cx.drawImage(B.img, 0, 0, B.w, B.h);
+  const d = cx.getImageData(0, 0, c.width, c.height).data;
+  const A = (x, y) => (x >= 0 && y >= 0 && x < c.width && y < c.height ? d[(y * c.width + x) * 4 + 3] : 0);
+  const pts = [];
+  const top = kind === 'sheet' ? 22 : 0;   // below the pegs
+  for (let y = top; y < c.height; y += 4) {
+    for (let x = 0; x < c.width; x += 4) {
+      if (A(x, y) > 200 && A(x - 7, y) > 200 && A(x + 7, y) > 200 && A(x, y - 7) > 200 && A(x, y + 7) > 200) pts.push([B.x + x, B.y + y]);
+    }
+  }
+  return (splatSpotCache[kind] = pts.length ? pts : null);
+}
+
+/** One mud splat (art rotated, or the procedural one). */
+function drawOneSplat(g, s, x, y, grow) {
+  const img = art('prop/mm-splat');
+  if (!img) { drawSplat(g, s.s, x, y, grow); return; }
+  const d = s.s.r * 2.4 * grow;
+  g.save(); g.translate(x, y); g.rotate(s.s.rot); g.drawImage(img, -d / 2, -d / 2, d, d); g.restore();
+}
 
 export class Game {
   constructor(api) {
@@ -159,7 +211,9 @@ export class Game {
   /** Put a splat on a target; returns the splat. */
   addSplat(T, r, credit = null) {
     let lx, ly;
-    switch (T.kind) {
+    const spots = splatSpots(T.kind);
+    if (spots) [lx, ly] = pick(spots);
+    else switch (T.kind) {
       case 'sheet': lx = rand(-98, 98); ly = rand(20, 188); break;
       case 'rug': lx = rand(-150, 150); ly = rand(-54, 54); break;
       case 'basket': lx = rand(-78, 78); ly = rand(-170, -16); break;
@@ -168,6 +222,7 @@ export class Game {
     const s = { lx, ly, s: makeSplat(r, chance(0.3)), age: 0 };
     T.splats.push(s);
     if (T.splats.length > SPLAT_CAP) T.splats.shift();
+    T.gen = (T.gen || 0) + 1;
     T.wob = 1; T.swayV += rand(-1, 1) * 3;
     this.teamSplats++;
     const wx = T.ax + lx, wy = T.ay + ly;
@@ -373,7 +428,8 @@ export class Game {
 
   nozzle() {
     const G = this.granny, sc = this.grannyScale();
-    return { x: G.x + G.facing * 128 * sc, y: G.y - 120 * sc };
+    const p = art('prop/mm-granny-spray') ? GRANNY_NOZZLE : { x: 128, y: -120 };
+    return { x: G.x + G.facing * p.x * sc, y: G.y + p.y * sc };
   }
   grannyScale() { return depthScale(this.granny.y, DS) * 1.0; }
 
@@ -759,11 +815,13 @@ export class Game {
     if (bg) g.drawImage(bg, 0, 0, W, H); else drawBackyard(g, t, this.decor);
     drawLine(g, t);
     // flat things: puddles, the giant puddle, the rug
-    for (const p of PUDDLES) if (!drawArt(g, 'prop/mud-puddle', p.x, p.y, p.rx * 2.1, p.ry * 2.3)) drawPuddle(g, p, t);
+    // art box sized so the painted puddle (its middle ~2/3 in height) fills the wade ellipse
+    for (const p of PUDDLES) if (!drawArt(g, 'prop/mud-puddle', p.x, p.y, p.rx * 2.05, p.ry * 2.9, { fit: 'stretch' })) drawPuddle(g, p, t);
     const M = this.mega;
     if (M.k > 0.01) {
       const k = M.k;
       if (!drawArt(g, 'prop/mm-mega-puddle', MEGA.x, MEGA.y, 450 * k, 210 * k)) drawMegaPuddle(g, t, k, M.boil);
+      else if (M.boil > 0.3) { g.save(); g.globalAlpha = clamp((M.boil - 0.3) / 0.7, 0, 1); drawMegaBubbles(g, t, k, M.boil); g.restore(); }
       if (M.state === 'open' && chance(0.08)) particles.burst(MEGA.x + rand(-150, 150), MEGA.y + rand(-40, 30), { type: 'sparkle', count: 1, colors: ['#ffd23f', '#fff6a8'], speed: [20, 60] });
     }
     const hiT = this.highlightTargets();
@@ -831,26 +889,56 @@ export class Game {
     const wob = T.wob;
     if (T.kind !== 'sheet' && wob > 0) { const s = 1 + Math.sin(wob * 18) * wob * 0.05; g.scale(1 / s, s); }
     if (T.kind === 'sheet') g.transform(1, 0, T.sway * 0.1, 1, 0, 0);
+    const B = targetArtBox(T.kind);
+    if (B) {
+      // art + splats painted onto it (clipped to its alpha), glowing when splattable
+      const layer = this.targetLayer(T, B);
+      g.save();
+      if (hi) { g.shadowColor = `rgba(255,246,168,${0.75 + 0.25 * Math.sin(t * 10)})`; g.shadowBlur = 34; }
+      g.drawImage(layer, B.x, B.y, B.w, B.h);
+      g.restore();
+      g.restore();
+      return;
+    }
     if (hi) {
       g.save(); g.globalAlpha = 0.45 + 0.25 * Math.sin(t * 10);
       g.strokeStyle = '#fff6a8'; g.lineWidth = 16; targetPath(g, T, T.sway * 0); g.stroke();
       g.restore();
     }
-    const keys = { sheet: ['prop/mm-sheet', -115, -10, 230, 215, 'topleft'], rug: ['prop/mm-rug', 0, 0, 330, 175, 'center'], basket: ['prop/mm-basket', 0, 0, 180, 190, 'bottom'], fence: ['prop/mm-fence', 0, 0, 300, 160, 'bottom'] };
-    const [key, x, y, w, h, anchor] = keys[T.kind];
-    const drew = drawArt(g, key, x, y, w, h, { anchor });
-    if (!drew) drawTarget(g, T, t);
+    drawTarget(g, T, t);
     // splats, clipped to the thing they landed on
     if (T.splats.length) {
-      g.save(); targetPath(g, T, drew ? 0 : T.sway); g.clip();
+      g.save(); targetPath(g, T, T.sway); g.clip();
       for (const s of T.splats) {
         const grow = Math.min(1, 0.3 + s.age * 6);
-        const sx = s.lx + (T.kind === 'sheet' && !drew ? T.sway * 22 * (s.ly / 205) : 0);
-        if (!drawArt(g, 'prop/mm-splat', sx, s.ly, s.s.r * 2.2 * grow, s.s.r * 2.2 * grow)) drawSplat(g, s.s, sx, s.ly, grow);
+        const sx = s.lx + (T.kind === 'sheet' ? T.sway * 22 * (s.ly / 205) : 0);
+        drawOneSplat(g, s, sx, s.ly, grow);
       }
       g.restore();
     }
     g.restore();
+  }
+
+  /** Offscreen copy of a target's art with its splats painted on (source-atop). */
+  targetLayer(T, B) {
+    let c = T.layer;
+    if (!c || c.width !== B.img.width || c.height !== B.img.height) {
+      c = T.layer = document.createElement('canvas');
+      c.width = B.img.width; c.height = B.img.height; T.layerGen = -1;
+    }
+    const last = T.splats[T.splats.length - 1];
+    if (T.layerGen === (T.gen || 0) && !(last && last.age < 0.15)) return c;
+    T.layerGen = T.gen || 0;
+    const x = c.getContext('2d');
+    x.globalCompositeOperation = 'source-over';
+    x.clearRect(0, 0, c.width, c.height);
+    x.drawImage(B.img, 0, 0);
+    x.globalCompositeOperation = 'source-atop';
+    x.save(); x.scale(1 / B.s, 1 / B.s); x.translate(-B.x, -B.y);
+    for (const s of T.splats) drawOneSplat(x, s, s.lx, s.ly, Math.min(1, 0.3 + s.age * 6));
+    x.restore();
+    x.globalCompositeOperation = 'source-over';
+    return c;
   }
 
   drawPlayer(g, e) {
@@ -900,10 +988,24 @@ export class Game {
     const sq = d.sq;
     g.scale(sc * d.facing * (1 + sq * 0.4), sc * (1 - sq * 0.4));
     g.translate(0, -30); g.rotate(rot); g.translate(0, 30);
-    if (!drawArt(g, `prop/puppy-${(d.breed % 4) + 1}`, 0, 0, 122, 100, { anchor: 'bottom' })) {
+    const img = art(`prop/puppy-${(d.breed % 4) + 1}`);
+    if (img) {
+      // puppy art with its mud painted on, clipped to the puppy (source-atop)
+      const s = Math.min(122 / img.width, 100 / img.height);
+      let c = d.layer;
+      if (!c || c.width !== img.width || c.height !== img.height) { c = d.layer = document.createElement('canvas'); c.width = img.width; c.height = img.height; }
+      const x = c.getContext('2d');
+      x.globalCompositeOperation = 'source-over'; x.clearRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0);
+      if (d.mud > 0.001) {
+        x.globalCompositeOperation = 'source-atop';
+        x.save(); x.scale(1 / s, 1 / s); x.translate(img.width * s / 2, img.height * s); drawMudBlobs(x, d.blobs, d.mud, d.t); x.restore();
+        x.globalCompositeOperation = 'source-over';
+      }
+      g.drawImage(c, -img.width * s / 2, -img.height * s, img.width * s, img.height * s);
+    } else {
       drawPuppy(g, { breed: d.breed, mud: d.mud, t: d.t, run: moving ? 1 : 0, wag: true, shake: d.state === 'splat' ? 1 : 0, tongue: d.state !== 'splat', bark: d.barkT > 0.05, eyesShut: d.state === 'roll' || d.state === 'splat' });
+      drawMudBlobs(g, d.blobs, d.mud, d.t);
     }
-    drawMudBlobs(g, d.blobs, d.mud, d.t);
     g.restore();
     if (d.barkT > 0.05) {
       g.save(); g.translate(d.x + d.facing * 60 * sc, d.y - 120 * sc - d.z); g.rotate(-0.1 * d.facing);
@@ -922,27 +1024,37 @@ export class Game {
   drawGranny(g) {
     const G = this.granny, t = this.t;
     const sc = this.grannyScale();
+    const pose = G.state === 'alert' ? 'alert' : G.state === 'spray' ? 'spray' : G.state === 'gasp' ? 'gasp' : G.state === 'sit' ? 'sit' : G.state === 'slip' ? 'gasp' : 'walk';
+    const key = { walk: 'prop/mm-granny', alert: 'prop/mm-granny-gasp', gasp: 'prop/mm-granny-gasp', spray: 'prop/mm-granny-spray', sit: 'prop/mm-granny-muddy' }[pose];
+    const bob = pose === 'walk' ? Math.abs(Math.sin(G.step)) * 6 : pose === 'alert' ? Math.abs(Math.sin(G.st * 14)) * 10 : 0;
+    const sq = G.sq;
     // hose trailing back to the tap on the porch
     if (G.state !== 'sit' && G.state !== 'slip') {
-      const n = { x: G.x + G.facing * 30 * sc, y: G.y - 70 * sc };
       const b = -G.facing;
-      g.save(); g.lineCap = 'round';
+      // start where the painted hose leaves the art (same transform as the art below)
+      const hs = art(key) && GRANNY_HOSE[pose];
+      let n;
+      if (hs) {
+        const r = pose === 'walk' ? Math.sin(G.step) * 0.06 : 0;
+        const lx = hs.x * Math.cos(r) - hs.y * Math.sin(r), ly = hs.x * Math.sin(r) + hs.y * Math.cos(r) - bob;
+        n = { x: G.x + lx * sc * G.facing * (1 + sq * 0.3), y: G.y - G.z + ly * sc * (1 - sq * 0.3) };
+      } else n = { x: G.x + G.facing * 30 * sc, y: G.y - 70 * sc };
+      const front = hs && pose === 'walk';   // painted hose ends in front of her: loop it down and back
+      g.save(); g.lineCap = 'round'; g.lineJoin = 'round';
       for (const [c, w] of [['#2e9a48', 9], ['#5fd47a', 3]]) {
         g.strokeStyle = c; g.lineWidth = w;
-        g.beginPath(); g.moveTo(n.x, n.y); g.quadraticCurveTo(G.x + b * 60, G.y + 24, G.x + b * 170, G.y + 14);
+        g.beginPath(); g.moveTo(n.x, n.y);
+        if (front) { g.quadraticCurveTo(G.x + G.facing * 110 * sc, G.y + 18, G.x, G.y + 22); g.quadraticCurveTo(G.x + b * 90, G.y + 22, G.x + b * 170, G.y + 14); }
+        else g.quadraticCurveTo(G.x + b * 60, G.y + 24, G.x + b * 170, G.y + 14);
         g.bezierCurveTo(G.x + b * 240, G.y + 6, G.x + b * 250, G.y + 50, G.x + b * 330, G.y + 34 + Math.sin(this.t * 2) * 4); g.stroke();
       }
       g.restore();
     }
     g.save();
     g.fillStyle = 'rgba(36,22,63,0.2)'; g.beginPath(); g.ellipse(G.x, G.y, 70 * sc, 16 * sc, 0, 0, TAU); g.fill();
-    const sq = G.sq;
     g.translate(G.x, G.y - G.z);
     g.rotate(G.rot);
     g.scale(sc * G.facing * (1 + sq * 0.3), sc * (1 - sq * 0.3));
-    const pose = G.state === 'alert' ? 'alert' : G.state === 'spray' ? 'spray' : G.state === 'gasp' ? 'gasp' : G.state === 'sit' ? 'sit' : G.state === 'slip' ? 'gasp' : 'walk';
-    const key = { walk: 'prop/mm-granny', alert: 'prop/mm-granny-gasp', gasp: 'prop/mm-granny-gasp', spray: 'prop/mm-granny-spray', sit: 'prop/mm-granny-muddy' }[pose];
-    const bob = pose === 'walk' ? Math.abs(Math.sin(G.step)) * 6 : pose === 'alert' ? Math.abs(Math.sin(G.st * 14)) * 10 : 0;
     g.translate(0, -bob);
     if (pose === 'walk') g.rotate(Math.sin(G.step) * 0.06);
     if (!drawArt(g, key, 0, 0, pose === 'sit' ? 250 : 180, pose === 'sit' ? 220 : 234, { anchor: 'bottom' })) drawGoose(g, { t, pose, mud: G.mud, step: G.step });

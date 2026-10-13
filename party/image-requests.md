@@ -1104,6 +1104,8 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `prop/ballet-move-up`, `prop/ballet-move-plie` (Molly opposite-ballet, 2026-10-13) | The little ballerina on these two move cards has a blank face (no eyes or mouth) while `-side` and `-twirl` have faces, so the cards look unfinished | Redraw both, same pose, size and framing, with the same face as `ballet-move-side`/`-twirl` |
+| `prop/duckling-golden` (Molly duckling-parade, revision 2026-10-13) | Reads as an ordinary yellow duckling: its colour is almost the same as `prop/duckling`, only a few sparkles added | A distinctly metallic gold/amber duckling with a shine and highlights, same framing and size as `prop/duckling` |
 | `prop/bb-teddy-sleep`, `prop/bb-cat-sleep` (Molly bed-bounce, NEW keys, 2026-10-13) | When the teddy and cat hide in bed they're still drawn by the old code, off-style next to the delivered `bb-teddy`/`bb-cat` art | 240×240 transparent each: the same teddy / cat head (and paws) with closed sleepy eyes, the head in the TOP HALF of the image so it peeks over the duvet line at the image's middle (drawn 150×150, the code clips everything below the duvet) |
 
 Engine-side notes from the same review: several keys are aliases of one
@@ -1112,34 +1114,6 @@ file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 fine; the code uses one of each pair.
 
 Play Studio requests are complete. The Molly requests and review corrections listed here remain active; see IMAGE-WORK-QUEUE.md for batch checkpoints.
-
-## New Molly Party game: puppy-splash
-
-> **REPLACED (2026-10-13):** `puppy-splash` is off the Molly shelf; `muddy-mayhem` replaced it and reuses only the rows left below. The other rows moved to history as dropped.
-
-
-### puppy-splash — Puppy Splash   (requested by the puppy-splash agent, 2026-10-05, priority: nice-to-have)
-
-Muddy puppies zoom around a backyard; players hold A to blast them with a
-garden hose until they are clean and fluffy, then each puppy shakes water
-everywhere (on whoever is close!), barks and bounds to the porch to sit on a
-dog bed. A bubble pool gives a bubble hose; mud puddles make puppies muddy
-again. Every key has a procedural fallback that ships today. House style:
-navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
-Mud splotches and water are drawn by the code over the puppy art, so the
-puppy art is clean.
-
-**Layout (the bg must match):** house wall from y=0 to ≈170, a wooden porch
-deck band from y≈170 to y≈330 across the full width (clean puppies sit on dog
-beds on it at y≈300), grass yard below. The code draws the bubble pool
-(around (1560, 820)), mud puddles and dog beds as props. Keep the top 110 px
-calm (timer) and the bottom 120 px plain grass (scoreboard).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/puppy-splash` | 1920×1080, opaque | Full screen. House wall 0–170, porch deck 170–330, lawn below; low detail on the lawn | A sunny cartoon backyard from a high three-quarter view: the bottom of a cheerful pastel-blue house with windows and a pink door across the top, a honey-wood porch deck along its whole width, then a bright green lawn with a few daisies, a white picket fence along the far left and right edges, flower beds in the corners. No animals, no characters, no pool |
-| `prop/puppy-1` … `prop/puppy-4` | 220×180 each, transparent | Bottom-centre anchor (feet), drawn ~100 px tall, mirrored for left; the code adds mud splotches, wag, hop and squash. 1 cream golden-retriever pup, 2 white fluffy poodle pup, 3 brown-and-white beagle pup, 4 black-and-white spotty pup | A cute fluffy puppy, side view facing right, standing on four legs, tongue out, tail up, big shiny eyes, clean and soft |
-| `prop/mud-puddle` | 320×170, transparent | Centred, drawn ~260 px wide flat on the grass | A wide flat glossy brown mud puddle with a few splashes at the edge, seen from above at an angle |
 
 ## Molly Party: Glimmer and the five garden fairies as playable characters (requested 2026-10-13, priority: high, after Molly Party games land)
 
@@ -1184,53 +1158,4 @@ New Molly poses (descriptions in `POSES`, src/engine/sprites.js): `ride-sit` (un
 **Step 3 — character data (lead):** the lead registers them as a Molly Party
 roster (character select shows fairies when playing Molly Party) once the
 user confirms the decision after trying the games.
-
-## New Molly Party game: muddy-mayhem
-
-### muddy-mayhem — Muddy Mayhem   (requested by the muddy-mayhem agent, 2026-10-13, priority: nice-to-have)
-
-Replaces Puppy Splash. Laundry day in the backyard: Granny Goose has hung
-sparkling white sheets and set out her clean things. Players run through mud
-puddles to get muddier, then press A next to the sheets, the fancy rug, the
-washing basket or the white picket fence to shake and SPLAT mud all over
-them; a pack of cheeky muddy puppies follows the muddiest player and adds
-their own splats. Granny Goose patrols with a hose (a big "!" first) and
-sprays muddy players clean again (giggles, no penalty). Surprise: a giant mud
-puddle bubbles up in the middle and erupts. Finale: Granny slips into the
-big puddle, sits up covered in mud and laughs. Every key has a procedural
-fallback that ships today; the code already looks up every key. House style:
-navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
-**Mud splats are drawn by the code on top of the clean props, so every prop
-is drawn spotless white/clean.** Granny Goose is a new character (not a
-Charlie Party player character).
-
-**Reuses (keep alive):** `bg/puppy-splash` (fallback when
-`bg/muddy-mayhem` is missing), `prop/puppy-1` … `prop/puppy-4`,
-`prop/mud-puddle`.
-
-**Layout (the bg must match):** same as Puppy Splash: house wall from y=0 to
-≈170, a wooden porch deck band from y≈170 to ≈330, lawn below. The code
-draws the washing line (posts at x≈230 and x≈1690, line at y≈330, four
-sheets hanging to y≈540), the puddles, the rug, the basket and the fence as
-props. Keep the lawn plain (few flowers) and the top 110 px calm (HUD chips +
-timer).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/muddy-mayhem` | 1920×1080, opaque | Full screen. House wall 0–170, porch deck 170–330, lawn below; low detail on the lawn (no washing line, no puddles, no props: the code draws them) | A sunny cartoon backyard on laundry day from a high three-quarter view: the bottom of a cosy cream cottage with lace-curtained windows and a duck-egg-blue door across the top, a honey-wood porch deck along its whole width with a pot of geraniums at each end, then a bright green lawn with a few daisies, flower beds in the far corners. No characters, no animals |
-| `thumb/muddy-mayhem` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A cheeky muddy puppy mid-shake flinging big brown mud splats onto a sparkling white sheet on a washing line, more mud splats on the sheet, a prim white goose granny in a frilly apron and pink hair curlers gasping in the background with a garden hose; sunny backyard. No Charlie Party characters. Subject centred |
-| `prop/mm-granny` | 400×520, transparent | Granny Goose walking with her hose. Anchor: bottom centre = her feet; drawn ~230 px tall, side view facing right, mirrored for left; the code adds the waddle bob | Granny Goose: a plump, prim, lovable white goose standing upright, orange beak and feet, a frilly lavender apron with a pocket, pink hair curlers on her head under a little hairnet, small round spectacles, a strand of pearls; holding a green garden-hose nozzle in one wing. Proud, a bit pompous, kind eyes |
-| `prop/mm-granny-spray` | 400×520, transparent | Same anchor/size; shown while she sprays (the code draws the water stream from the nozzle, which should be at the right edge, about 55% of the way up) | The same goose, leaning forward, both wings gripping the hose nozzle pointed to the right, determined squint, curlers bouncing |
-| `prop/mm-granny-gasp` | 400×520, transparent | Same anchor/size; shown for a moment when something near her gets splatted, and during her "!" before spraying | The same goose gasping in horror: wings thrown up, beak wide open, spectacles askew, one curler popping off |
-| `prop/mm-granny-muddy` | 480×420, transparent | Finale. Anchor: bottom centre; drawn ~220 px tall sitting in the big puddle (the code draws the puddle under her) | The same goose sitting in mud, covered in brown mud splotches from head to toe, curlers drooping, laughing her head off with eyes squeezed shut and wings up |
-| `prop/mm-sheet` | 300×300, transparent | One white bedsheet hanging from the line by two pegs. Anchor: top centre = the line; drawn 230 px wide × ~210 px tall; the code sways it and draws mud splats over it | A sparkling clean white bedsheet hanging from a washing line (line not included) with two wooden clothes pegs at the top corners, soft folds |
-| `prop/mm-rug` | 420×220, transparent | Flat on the lawn, centred, drawn 330 px wide | A fancy cream-white rug with a tasselled fringe and a pale-pink rose border, lying flat on the grass, seen from a high angle |
-| `prop/mm-basket` | 260×220, transparent | Bottom-centre anchor, drawn 180 px wide | A wicker laundry basket piled high with neatly folded white towels and a frilly white pillowcase on top |
-| `prop/mm-fence` | 420×220, transparent | Bottom-centre anchor, drawn 300 px wide | A short section of freshly painted white picket fence (five pickets with pointed tops), standing on the grass |
-| `prop/mm-mega-puddle` | 640×300, transparent | Centred at (960, 748), drawn up to 450 px wide (the code scales it up while it bubbles) | A huge glossy chocolate-brown mud puddle with big bubbles and ripples, seen from a high angle |
-| `prop/mm-splat` | 160×160, transparent | Centred, drawn 40–110 px wide and rotated by the code; drawn on the sheets, rug, basket and fence | A single wet brown mud splat with a few round droplets around it, glossy highlight |
-
-Player poses used: `run`, `walk`, `idle`, `shake` (the mud shake, A),
-`surprised`, `laugh`, `cheer`, `celebrate`, `throw` (finale mud fight).
-No new poses needed.
 
