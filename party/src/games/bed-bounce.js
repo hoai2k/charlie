@@ -6,13 +6,17 @@
 // explosions. When the hallway light shows under the door, thump-thump
 // footsteps come and the handle wiggles (2 s warning): LET GO to flop under
 // the duvet and fake-snore. Anyone still bouncing when Nanny Moo peeks gets a
-// pompous "Hmm!" and a few stars wobble out (grab them again). Teddies and the
+// proper telling-off (a wagging "Tsk tsk!", a huffy "Hmph!" with her nose in
+// the air, or a scandalised "Well I never!" - it changes every time) and a few
+// stars wobble out (grab them again); once the door shuts, everyone giggles. Teddies and the
 // cat join in, the springs go super, feathers fill the room. Finale: Nanny Moo
-// walks in, sighs at the feather storm... and jumps on the bed herself.
+// walks in, aghast at the feather storm, sighs... and jumps on the bed herself.
 //
 // Art hooks (procedural fallbacks ship today): bg/bed-bounce, thumb/bed-bounce,
 //   prop/bb-bed bb-door nanny-moo nanny-moo-peek nanny-moo-jump bb-pillow
 //   bb-feather bb-star bb-glowstar bb-teddy bb-cat
+//   Requested (fallback = delivered art + code-drawn extras): prop/nanny-moo-peek-scold
+//   (-> nanny-moo-peek + wagging finger), prop/nanny-moo-shock (-> nanny-moo + shock lines)
 // Sounds (optional files, fallbacks today): bb-boing bb-boing-big bb-flop
 //   bb-pillow bb-ceiling bb-footstep bb-handle bb-door-open bb-door-shut
 //   bb-snore bb-caught bb-moo bb-sigh bb-giant
@@ -24,7 +28,8 @@ import { sfx, voice, hasSound, music } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { reactionTime } from '../engine/ai.js';
-import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
+import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores, later } from '../engine/util.js';
+import { nextKind, sayFor, drawShock, drawSteam, drawWag } from './bed-bounce/fluster.js';
 import {
   NAVY, BED, DOOR, CEIL, FLOOR, configureBedArt, roomBackground, drawDoor, drawBedBack, drawBedFront, drawTuck,
   drawGlowStar, drawStar, drawFeather, drawPillow, drawTeddy, drawCat, drawCow, drawIcon,
@@ -97,7 +102,7 @@ export class Game {
     this.mult = 1;
     this.door = 1; this.hall = 1; this.wiggle = 0;
     this.squash = 0;
-    this.cow = { mode: 'door', x: DOOR.x + DOOR.w / 2, y: FLOOR, alpha: 1, face: 'smile', arms: 'wave', look: 0, z: 0, vz: 0, speech: null };
+    this.cow = { mode: 'door', x: DOOR.x + DOOR.w / 2, y: FLOOR, alpha: 1, face: 'smile', arms: 'wave', look: 0, z: 0, vz: 0, speech: null, react: null, lastReact: 'huff', reactT: 0 };
     this.banner = null;
     this.fake = false;
     this.finished = false;
@@ -183,6 +188,14 @@ export class Game {
     }
     snd('bb-door-shut', 'bonk', { vol: 0.4 });
     fx.shake(4, 0.15);
+    // she's gone: the whole bed dissolves into giggles
+    if (this.peekCaught || this.buddies.some((B) => B.caught)) {
+      this.units.forEach((U, k) => later(() => {
+        if (this.finished || this.phase !== 'bounce') return;
+        U.a.playOnce('laugh', 0.7); if (k < 2) voice(U.p.charId, 'laugh');
+      }, 200 + k * 120 + rand(120)));
+    }
+    this.cow.react = null;
     this.startBounce();
   }
 
@@ -209,13 +222,21 @@ export class Game {
     if (!U.p.isAI) U.p.ctrl.rumble(0.6, 250);
     this.peekCaught++;
     if (this.peekCaught === 1) {
-      this.cow.face = 'gasp';
-      this.say('Hmm?!', 1.4);
+      this.cowReact();
       snd('bb-caught', 'boing', { vol: 0.7 });
       snd('bb-moo', null, { vol: 0.6 });
       fx.shake(6, 0.2);
       if (this.api.camera) this.api.camera.punch(U.x, y, 1.1, 0.5);
     }
+  }
+
+  /** Nanny Moo is scandalised: a scold, a huff or a shock (never twice running). */
+  cowReact() {
+    const c = this.cow;
+    c.react = nextKind(c.lastReact, ['scold', 'scold', 'huff', 'shock']); c.lastReact = c.react; c.reactT = 0;
+    c.face = 'gasp';
+    this.say(sayFor(c.react), 1.4);
+    if (c.react === 'huff') snd('bb-huff', 'squeak', { vol: 0.35, rate: 0.75 });
   }
 
   // --- frame ---------------------------------------------------------------------------------
@@ -230,6 +251,7 @@ export class Game {
     this.t += dt; this.pt += dt;
     const c = this.cow;
     if (c.speech) { c.speech.t += dt; if (c.speech.t > c.speech.dur) c.speech = null; }
+    if (c.react) c.reactT += dt;
     if (this.banner) { this.banner.t += dt; if (this.banner.t > this.banner.dur) this.banner = null; }
     switch (this.phase) {
       case 'intro':
@@ -310,8 +332,7 @@ export class Game {
       for (const U of this.units) if (U.state !== 'hide' && !U.caughtNow) this.caught(U);
       for (const B of this.buddies) if (!B.hidden && !B.caught) {
         B.caught = true;
-        this.say('Hmm?!', 1.2);
-        this.cow.face = 'gasp';
+        if (!this.cow.react) this.cowReact();
         snd('bb-caught', 'boing', { vol: 0.6 });
         particles.popText(B.x, BED.top - B.z - 160, '!', '#ffd23f', 70);
       }
@@ -336,7 +357,10 @@ export class Game {
     if (pt >= 1.6 && c.mode !== 'walk' && c.mode !== 'jump' && c.mode !== 'bed') {
       c.mode = 'walk'; c.x = DOOR.x + DOOR.w / 2; c.y = FLOOR; c.alpha = 1; c.face = 'gasp'; c.arms = 'down';
       snd('bb-door-open', 'whoosh', { vol: 0.6 });
-      this.say('!!!', 1.0);
+      this.say('Well I never!', 1.0);
+      c.react = 'shock'; c.reactT = 0;
+      // caught red-handed... and it's the funniest thing ever
+      this.units.forEach((U, k) => later(() => { if (!this.finished) { U.a.playOnce('laugh', 0.8); if (k < 3) voice(U.p.charId, 'laugh'); } }, 350 + k * 110));
       // the feather storm
       for (let k = 0; k < 70; k++) this.feathers.push(this.newFeather(rand(BED.x0 - 100, BED.x1), rand(CEIL, BED.top - 60), true));
       fx.flash('#ffffff', 0.15);
@@ -345,6 +369,7 @@ export class Game {
     if (pt >= 1.6) this.door = Math.min(1, (pt - 1.6) / 0.25);
     if (c.mode === 'walk') {
       c.x = lerp(DOOR.x + DOOR.w / 2, 1540, clamp((pt - 1.6) / 0.9, 0, 1));
+      if (pt > 2.6) c.react = null;
       if (pt > 2.6 && pt < 3.7) { c.face = 'sigh'; if (!this.sighed) { this.sighed = true; this.say('...', 1.0); snd('bb-sigh', 'aww', { vol: 0.5 }); } }
       if (pt > 3.7) { c.face = 'laugh'; c.arms = 'up'; }
       if (pt >= 4.0) { c.mode = 'jump'; c.jx0 = c.x; c.jt = 0; snd('bb-boing-big', 'rubber-bounce', { vol: 0.7 }); }
@@ -662,7 +687,7 @@ export class Game {
     drawDoor(g, this.door, this.hall, this.wiggle, t, art('prop/bb-door'), (gg) => {
       if (c.mode === 'door' && c.alpha > 0.01) { gg.save(); gg.globalAlpha = c.alpha; this.drawCowStanding(gg, c.x, FLOOR, t, 'wave'); gg.restore(); }
     });
-    if (c.mode === 'peek') this.drawPeek(g, t);
+    if (c.mode === 'peek') { this.drawPeek(g, t); if (c.react) this.drawPeekReact(g, t); }
     // warning "!"
     if (this.phase === 'warn' && !(this.fake && this.pt > 1.5)) {
       const k = clamp(this.pt / 0.2, 0, 1), bob = Math.sin(t * 14) * 8;
@@ -695,7 +720,10 @@ export class Game {
       } else drawStar(g, it.x, it.y + bob, r, it.kind === 'gold', it.t);
     }
     // Nanny Moo in the room (finale)
-    if (c.mode === 'walk') this.drawCowStanding(g, c.x, FLOOR, t, c.arms);
+    if (c.mode === 'walk') {
+      this.drawCowStanding(g, c.x, FLOOR, t, c.arms);
+      if (c.react === 'shock') drawShock(g, c.x, FLOOR - 330, 120, t, clamp(c.reactT / 0.15, 0, 1));
+    }
     if (c.mode === 'jump' || c.mode === 'bed') this.drawCowJump(g, c.x, (c.mode === 'bed' ? BED.top - c.z : c.y), t);
     // feathers on top
     for (const f of this.feathers) drawFeather(g, f.x, f.y, f.s, f.rot, fImg);
@@ -712,7 +740,7 @@ export class Game {
 
   drawCowStanding(g, x, y, t, arms) {
     const c = this.cow;
-    const img = art('prop/nanny-moo');
+    const img = (c.react === 'shock' && art('prop/nanny-moo-shock')) || art('prop/nanny-moo');
     const bob = Math.abs(Math.sin(t * 6)) * 6;
     if (img) {
       g.save(); g.translate(x, y - bob * 0.3);
@@ -736,7 +764,7 @@ export class Game {
     const c = this.cow, open = this.door / 0.42;
     const edge = DOOR.x + DOOR.w * this.door * 0.82 + 6;
     const lean = clamp(open, 0, 1);
-    const img = art('prop/nanny-moo-peek');
+    const img = (c.react === 'scold' && art('prop/nanny-moo-peek-scold')) || art('prop/nanny-moo-peek');
     g.save();
     g.beginPath();
     g.rect(DOOR.x, DOOR.y, edge - DOOR.x, DOOR.h);
@@ -753,6 +781,16 @@ export class Game {
       drawCow(g, 0, 0, 430, { face: c.face, arms: 'down', t, look: -0.5 + c.look * 0.5, tilt: -0.1 });
     }
     g.restore();
+  }
+
+  /** Code-drawn extras on the peek (stand-ins until the reaction art lands). */
+  drawPeekReact(g, t) {
+    const c = this.cow, k = clamp(c.reactT / 0.15, 0, 1);
+    const edge = DOOR.x + DOOR.w * this.door * 0.82 + 6;
+    const hx = edge - 212, hy = 572;    // her head in the peek art
+    if (c.react === 'shock') drawShock(g, hx, hy, 105, t, k);
+    else if (c.react === 'huff') drawSteam(g, hx, hy - 10, 95, t);
+    else if (!art('prop/nanny-moo-peek-scold')) drawWag(g, hx - 110, hy + 10, 1.3, t, -1);
   }
 
   drawSleeper(g, U, t) {

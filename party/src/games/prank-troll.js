@@ -7,13 +7,17 @@
 // (snore stops, an eye cracks open, a big "!" - nearly 2 s of warning):
 // FREEZE and you turn into a bush! Anyone wiggling gets a sleepy swat and
 // tumbles away giggling (the prank they carried goes back, maybe one prank
-// falls off). Finale: he wakes, a garden fairy holds up a mirror, he ROARS
-// with laughter and dances in his prank outfit. Gentle counting + a shared
+// falls off) while he huffs in his sleep. He never giggles along: every prank
+// gets a grumpy sleepy "Hmph..." and the pranksters do the giggling.
+// Finale: he wakes, a garden fairy holds up a mirror, he's SCANDALISED ("Well
+// I never!")... then ROARS with laughter and dances in his prank outfit. Gentle counting + a shared
 // "pranks together" tally.
 //
 // Art hooks (procedural fallbacks ship today): bg/prank-troll, thumb/prank-troll,
 //   prop/ptroll-troll-asleep pt-troll-awake pt-basket pt-crayon pt-moustache pt-flower
 //   pt-bow pt-party-hat pt-feather pt-glitter pt-polish pt-bush pt-mirror
+//   Requested: prop/ptroll-troll-shock (the mirror moment; fallback = the asleep art
+//   jolting, with shock lines and a "Well I never!" shout)
 // Sounds (optional files, fallbacks today): pt-pick pt-prank pt-scribble pt-tickle
 //   pt-achoo pt-big-snore pt-stir pt-swat pt-mumble pt-freeze pt-roar-laugh pt-yawn
 import { W, H } from '../engine/canvas.js';
@@ -31,6 +35,7 @@ import {
   NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, configureTrollArt, toScreen, meadowBackground, drawTroll, drawBasket,
   drawItem, drawBush, drawSwat, drawMirror, drawIcon,
 } from './prank-troll/draw.js';
+import { drawShock, drawSteam, drawShout } from './prank-troll/fluster.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -110,7 +115,7 @@ export class Game {
     this.total = 0;
     this.tickles = 0;
     this.tr = { eyeL: 0, eyeR: 0, look: 0, mouth: 0.4, sway: 0, breath: 0, tickle: 0, laugh: false, awake: false, wob: 0 };
-    this.troll = { speech: null, mark: null, tickleT: 0, sneezeT: -1, gustT: -1 };
+    this.troll = { speech: null, mark: null, tickleT: 0, sneezeT: -1, gustT: -1, huffT: 0, shockT: 0 };
     this.flying = [];
     this.swats = [];
     this.winds = [];
@@ -405,7 +410,12 @@ export class Game {
     if (!U.p.isAI) { sfx('collect', { step: U.pranks % 8, vol: 0.3 }); U.p.ctrl.rumble(0.3, 80); }
     // he mumbles and smiles in his sleep
     this.tr.wob = 0.8;
-    if (chance(0.4) && kind !== 'feather') this.trollSay(pick(['Mmm...', 'Hehe...', 'Zzz...']), 0.9);
+    if (chance(0.45) && kind !== 'feather') { this.trollSay(pick(['Hmph... zzz', 'Mmf?!', 'Harrumph...', 'Zzz... hmph']), 0.9); this.troll.huffT = 0.9; }
+    // the pranksters crack up behind their hands
+    if (chance(0.5)) {
+      const pal = this.units.filter((o) => o !== U && !o.stun && Math.hypot(o.x - U.x, o.y - U.y) < 520)[0];
+      if (pal && !pal.a._once) pal.a.playOnce('giggle', 0.6);
+    }
     if (this.total % 10 === 0) { this.showBanner(`${this.total} pranks!`, 1.0, '#ffd23f', 110); fx.flash('#ffffff', 0.1); sfx('star'); }
   }
 
@@ -413,7 +423,8 @@ export class Game {
     this.tickles++;
     this.troll.tickleT = 1.3;
     snd('pt-tickle', 'giggle', { vol: 0.7 });
-    this.trollSay(this.tickles % 3 === 2 ? 'Ah... ah...' : 'Hee hee...', 1.0);
+    this.trollSay(this.tickles % 3 === 2 ? 'Ah... ah...' : pick(['Mmf! Hmph...', 'Nnngh...', 'Hmph?']), 1.0);
+    if (!U.a._once) U.a.playOnce('giggle', 0.5);
     U.tickles = (U.tickles || 0) + 1;
     if (this.tickles % 3 === 0 && this.troll.sneezeT < 0) this.troll.sneezeT = 0.9;
   }
@@ -471,7 +482,7 @@ export class Game {
     const side = U.x < ZONE.x ? -1 : 1;
     const sh = toScreen(side < 0 ? [230, 340] : [670, 340]);
     this.swats.push({ U, sx: sh.x, sy: sh.y, tx: U.x, ty: U.y - U.a.height * 0.5, t: 0, hit: false });
-    if (!this.lookSaid) { this.lookSaid = true; this.trollSay('Mmm?!', 1.2); }
+    if (!this.lookSaid) { this.lookSaid = true; this.trollSay(pick(['Hmph!', 'Shoo!', 'Harrumph!', 'Mmm?!']), 1.2); this.troll.huffT = 1.2; }
   }
 
   updateSwats(dt) {
@@ -534,6 +545,8 @@ export class Game {
 
   updateFx(dt) {
     this.troll.gustT = Math.max(-1, this.troll.gustT - dt);
+    this.troll.huffT = Math.max(0, (this.troll.huffT || 0) - dt);
+    if (this.troll.shockT > 0) this.troll.shockT = Math.max(0, this.troll.shockT - dt);
     for (const w of this.winds) w.t += dt;
     this.winds = this.winds.filter((w) => w.t < w.life);
   }
@@ -554,7 +567,13 @@ export class Game {
       this.fairy.x = lerp(-80, 1340, 1 - Math.pow(1 - k, 3)); this.fairy.z = 140 + Math.sin(this.t * 4) * 14;
       if (k >= 1 && this.fairy.pose === 'walk') this.fairy.pose = 'idle';
     }
-    step(2, 2.0, () => { this.troll.mark = '!'; snd('pt-stir', 'squeak', { vol: 0.6 }); this.trollSay('!!!', 0.8); });
+    step(2, 2.0, () => {
+      // he sees himself in the mirror... scandalised!
+      this.troll.mark = null; this.troll.shockT = 0.7;
+      snd('pt-stir', 'squeak', { vol: 0.6 }); snd('pt-gasp', 'crowd-gasp', { vol: 0.5 });
+      fx.shake(8, 0.2); this.tr.wob = 1.2;
+      this.units.forEach((U, k) => { if (k < 4 || chance(0.5)) U.a.playOnce('laugh', 0.6); if (k < 2) voice(U.p.charId, 'laugh'); });
+    });
     step(3, 2.7, () => {
       this.troll.mark = null;
       this.tr.laugh = true; this.dancing = true;
@@ -692,7 +711,19 @@ export class Game {
 
   drawTrollAll(g, t) {
     const tr = this.tr;
-    drawTroll(g, { ...tr, awake: this.phase === 'finale' || this.phase === 'end' }, this.P, t, art('prop/ptroll-troll-asleep'), art('prop/ptroll-troll-awake'));
+    // the finale: drowsy (asleep art) -> scandalised at the mirror -> roaring with laughter
+    const fin = this.phase === 'finale' || this.phase === 'end';
+    const shock = fin && this.troll.shockT > 0, shockArt = shock && art('prop/ptroll-troll-shock');
+    const jolt = shock && !shockArt ? Math.sin(this.troll.shockT * 40) * 0.5 : 0;
+    drawTroll(g, { ...tr, sway: tr.sway + jolt, awake: fin && (this.tr.laugh || !!shockArt) }, this.P, t, art('prop/ptroll-troll-asleep'), shockArt || art('prop/ptroll-troll-awake'));
+    if (shock) {
+      const f = toScreen(A.face), k = clamp((0.7 - this.troll.shockT) / 0.12, 0, 1);
+      drawShock(g, f.x, f.y + 10, 165, t, k);
+      drawShout(g, 'Well I never!', f.x - 390, f.y - 20, 56, t, k);
+    } else if (this.troll.huffT > 0 && !fin) {
+      const p = toScreen(A.top);
+      g.save(); g.globalAlpha = clamp(this.troll.huffT / 0.3, 0, 1); drawSteam(g, p.x, p.y + 60, 170, t); g.restore();
+    }
     // Zzz
     if (this.sleeping) {
       const m = toScreen(A.face);

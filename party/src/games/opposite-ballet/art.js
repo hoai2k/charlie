@@ -87,6 +87,11 @@ export function drawTeacher(g, x, y, h, t, move = null, k = 0, sideDir = 1, o = 
   // generated art: new keys first, then the reused Butterfly Ballet ones
   let key = TEACHER_ART[move] || (move ? 'prop/ballet-teacher-' + move : null);
   if (!move && f > 0.35 && art('prop/oballet-teacher-flustered')) key = 'prop/oballet-teacher-flustered';
+  // reaction poses (huff / shock art when it exists, else the flustered art)
+  if (o.react) {
+    const rk = o.react === 'huff' ? 'prop/oballet-teacher-huff' : o.react === 'shock' ? 'prop/oballet-teacher-shock' : null;
+    key = rk && art(rk) ? rk : 'prop/oballet-teacher-flustered';
+  }
   if (!key || !art(key)) key = 'prop/ballet-teacher';
   if (art(key)) {
     if (move === 'side' && key === 'prop/ballet-teacher-side') sx *= sideDir;   // the art kicks to the right; mirror for a left step

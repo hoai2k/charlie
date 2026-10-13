@@ -343,6 +343,15 @@ export class Game {
         particles.burst(d.x + d.facing * 30, d.y - 40 - d.z, { type: 'smoke', count: 7, color: '#ffffff', speed: [60, 180], size: [12, 22] });
         if (d.hat === 'flower') particles.burst(d.x, d.y - 60, { type: 'petal', count: 6, colors: ['#ff7ac6', '#ffffff'] });
         particles.popText(d.x, d.y - 90, 'Achoo!', '#ffffff', 34);
+        // right next to prim and proper Mama? She jumps, scandalised - and the kids giggle
+        const m = this.mama;
+        if (this.phase === 'play' && dist(d.x, d.y, m.x, m.y) < 300 && !(m.shockCd > 0)) {
+          m.vz = Math.max(m.vz, 460); m.quack = 0.4; m.shockCd = 3;
+          particles.popText(m.x, m.y - 210, pick(['Quack?!', 'Goodness!', 'Well I never!']), '#ff4d6d', 40);
+          particles.burst(m.x, m.y - 120, { type: 'petal', count: 6, colors: ['#ffffff', '#fff3c4'], speed: [80, 200] });
+          const kid = this.ents.find((e) => dist(e.x, e.y, m.x, m.y) < 520);
+          if (kid && !kid.a._once) kid.a.playOnce('laugh', 0.6);
+        }
       }
       return;
     }
@@ -596,6 +605,7 @@ export class Game {
   updateMama(dt) {
     const m = this.mama;
     m.quack = Math.max(0, m.quack - dt);
+    if (m.shockCd > 0) m.shockCd -= dt;
     if (m.z > 0 || m.vz) { m.vz -= 1800 * dt; m.z += m.vz * dt; if (m.z <= 0) { m.z = 0; m.vz = 0; } }
     if (this.phase === 'play') {
       // she looks toward whoever is coming with ducklings

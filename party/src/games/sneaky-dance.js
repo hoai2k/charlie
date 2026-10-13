@@ -7,16 +7,21 @@
 // ONE eye slowly pops open and a big "?" grows - almost two seconds of
 // warning) everybody FREEZES: let go of the stick and A and you turn into a
 // pretend book-reader, a lamp or a statue, and earn sneaky stars. Anyone
-// still wiggling when he looks gets a pompous "Hmm?!" stare and two stars
-// bounce out of their pocket - they can grab them back (no one is ever out).
+// still wiggling when he looks gets a pompous telling-off (a wagging "Tsk
+// tsk!", a huffy "Harrumph!" or a scandalised "Well I never!", never the same
+// twice running) and two stars bounce out of their pocket - they can grab them
+// back (no one is ever out). When he dozes off again, everybody snickers.
 // It escalates: books fly off the shelves, the lamp joins the dance, a disco
 // ball comes down, and Hoot gets more suspicious (fake-out yawns!). Finale:
-// Hoot wakes up for real... puts on sunglasses and joins the dance party.
+// Hoot wakes up for real (spectacles flying - "Well I never!")... then puts on
+// sunglasses and joins the dance party.
 //
 // Art hooks (procedural fallbacks ship today): bg/sneaky-dance, thumb/sneaky-dance,
 //   prop/sd-armchair, prop/sd-hoot-sleep, prop/sd-hoot-peek, prop/sd-hoot-stare,
 //   prop/sd-hoot-yawn, prop/sd-hoot-party, prop/sd-lamp, prop/sd-book-1..3,
 //   prop/sd-disguise-book, prop/sd-lampshade, prop/sd-sunglasses; reused prop/df-disco-ball.
+//   Requested (fallback = sd-hoot-stare + code-drawn extras): prop/sd-hoot-scold
+//   (+ wagging finger), prop/sd-hoot-shock (+ shock lines, feather puff).
 // Sound hooks (fallbacks today): sd-snore, sd-stir, sd-peek, sd-hmm, sd-drop,
 //   sd-grab, sd-phew, sd-freeze, sd-hush, sd-yawn, sd-books, sd-lamp, sd-disco, sd-wake, sd-shades, sd-spin.
 import { W, H } from '../engine/canvas.js';
@@ -29,6 +34,7 @@ import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, dist, placementsFromScores } from '../engine/util.js';
 import { Tune } from './sneaky-dance/tune.js';
+import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from './sneaky-dance/fluster.js';
 import {
   NAVY, SEAT, LAMP, BALL, BOOK_COLS, libraryBackground, drawChairBack, drawChairFront, drawHoot, drawLamp, drawBook,
   drawDiscoBall, drawBeams, drawDisguise, drawPlinth, drawBubble, drawStarPickup, drawIcon,
@@ -104,7 +110,7 @@ export class Game {
     this.banner = null;
     this.finished = false;
     // Hoot
-    this.hoot = { eyeL: 0, eyeR: 0, look: 0, lookTo: 0, mouth: 'snore', hatTip: 1, stand: 0, shades: 0, dance: 0, squint: 0, wingUp: 0, shake: 0, stareAt: null, stareT: 0, bubble: 'zzz', bubbleK: 1 };
+    this.hoot = { eyeL: 0, eyeR: 0, look: 0, lookTo: 0, mouth: 'snore', hatTip: 1, stand: 0, shades: 0, dance: 0, squint: 0, wingUp: 0, shake: 0, stareAt: null, stareT: 0, bubble: 'zzz', bubbleK: 1, react: null, lastReact: 'huff', reactT: 0, reactDur: 1, say: null };
     this.snoreT = 0.6;
     this.pickups = [];
     this.books = [];
@@ -194,6 +200,13 @@ export class Game {
       }
     }
     if (any) snd('sd-phew', 'star', { vol: 0.5 });
+    // he dozes off again after a telling-off: everybody snickers behind his back
+    if (this.units.some((U) => U.caughtThis)) {
+      let v = 0;
+      for (const U of this.units) {
+        this.later(0.35 + rand(0.25), () => { if (this.phase === 'snore') { U.a.playOnce(U.caughtThis ? 'laugh' : 'giggle', 0.8); if (v++ < 2) voice(U.p.charId, 'laugh'); } });
+      }
+    }
     this.hoot.eyeL = 0; this.hoot.eyeR = 0;
     if (this.t >= WAKE_AT - 1) this.startWake();
     else this.startSnore();
@@ -207,7 +220,10 @@ export class Game {
     snd('sd-wake', 'npc/hoot/hoo', { vol: 0.7 });
     fx.shake(8, 0.3);
     this.showBanner('He\'s awake!', 1.2, '#ffd23f', 120);
-    for (const U of this.units) { U.state = 'dance'; U.dk = 0; U.a.tint(null); U.a.playOnce('surprised', 0.6); }
+    this.hootReact('shock', 1.05, 'Well I never!');
+    particles.burst(SEAT.x, SEAT.y - 230, { type: 'petal', count: 14, colors: ['#b7773d', '#f6dfb8', '#d9a066'], speed: [160, 420] });
+    // they've been rumbled - and it's hilarious
+    this.units.forEach((U, k) => { U.state = 'dance'; U.dk = 0; U.a.tint(null); U.a.playOnce('surprised', 0.4); this.later(0.45 + k * 0.12, () => { U.a.playOnce('laugh', 0.9); if (k < 3) voice(U.p.charId, 'laugh'); }); });
   }
 
   startParty() {
@@ -379,6 +395,8 @@ export class Game {
   animHoot(dt) {
     const H0 = this.hoot;
     H0.shake = Math.max(0, H0.shake - dt);
+    if (H0.reactT > 0) { H0.reactT -= dt; if (H0.reactT <= 0) H0.react = null; }
+    this.runTimers(dt);
     const want = this.phase === 'snore' || this.phase === 'ready' || this.phase === 'yawn' ? 1 : this.phase === 'stir' ? 0.6 : this.phase === 'look' ? 0.25 : 0;
     H0.hatTip = damp(H0.hatTip, want, 3, dt);
     H0.dance = damp(H0.dance, this.phase === 'party' || this.phase === 'end' ? 1 : 0, 4, dt);
@@ -505,7 +523,8 @@ export class Game {
     voice(U.p.charId, 'gasp');
     H0.stareAt = U; H0.stareT = 0.9; H0.bubbleK = 0.6;
     snd('sd-hmm', 'npc/hoot/hoo', { vol: 0.6, rate: 0.85 });
-    particles.popText(U.x, U.y - a.height - 90, 'Hmm?!', '#ff4d6d', 52);
+    // a proper telling-off, a different one each time
+    if (!H0.react || H0.reactT <= 0.3) this.hootReact(nextKind(H0.lastReact), 1.0);
     fx.shake(5, 0.2);
     if (!U.p.isAI) U.p.ctrl.rumble(0.5, 220);
     // a couple of stars bounce out of their pocket
@@ -516,6 +535,23 @@ export class Game {
       this.pickups.push({ x: U.x, y: U.y, z: U.a.height * 0.6, vz: 600, vx: Math.cos(ang) * rand(140, 220), vy: rand(-40, 60), t: 0, owner: U, life: 10 });
     }
     if (k) snd('sd-drop', 'coin', { vol: 0.4, rate: 0.8 });
+  }
+
+  /** Professor Hoot is scandalised: 'shock' | 'scold' | 'huff'. */
+  hootReact(kind, dur, text = null) {
+    const H0 = this.hoot;
+    H0.react = kind; H0.lastReact = kind; H0.reactT = dur; H0.reactDur = dur; H0.say = text || sayFor(kind, H0.say);
+    H0.shake = Math.max(H0.shake, kind === 'shock' ? 0.5 : 0.25);
+    if (kind === 'huff') snd('sd-huff', 'squeak', { vol: 0.35, rate: 0.75 });
+    if (kind === 'scold') snd('sd-tsk', 'tick', { vol: 0.5 });
+  }
+
+  /** Runs fn after a delay of game time (paused games don't fire early). */
+  later(delay, fn) { (this.timers || (this.timers = [])).push({ t: delay, fn }); }
+  runTimers(dt) {
+    if (!this.timers || !this.timers.length) return;
+    for (const T of this.timers) { T.t -= dt; if (T.t <= 0 && !T.done) { T.done = true; if (!this.finished) T.fn(); } }
+    this.timers = this.timers.filter((T) => !T.done);
   }
 
   addStars(U, n, color = '#ffd23f', label = null) {
@@ -629,8 +665,11 @@ export class Game {
     const hasChair = drawChairBack(g);
     g.save();
     g.translate(SEAT.x + (H0.shake > 0 ? Math.sin(t * 40) * 6 * H0.shake : 0), SEAT.y);
+    const R = H0.react && this.phase !== 'party' && this.phase !== 'end' && H0.shades < 0.5 ? H0.react : null;
     const key = this.phase === 'party' || this.phase === 'end' || (this.phase === 'wake' && H0.shades > 0.9) ? 'prop/sd-hoot-party'
-      : H0.stareAt ? 'prop/sd-hoot-stare' : this.phase === 'look' || this.phase === 'wake' ? 'prop/sd-hoot-stare'
+      : R === 'scold' && art('prop/sd-hoot-scold') ? 'prop/sd-hoot-scold'
+        : R === 'shock' && art('prop/sd-hoot-shock') ? 'prop/sd-hoot-shock'
+          : H0.stareAt ? 'prop/sd-hoot-stare' : this.phase === 'look' || this.phase === 'wake' ? 'prop/sd-hoot-stare'
         : this.phase === 'yawn' ? 'prop/sd-hoot-yawn' : this.phase === 'stir' && H0.eyeL > 0.3 ? 'prop/sd-hoot-peek' : 'prop/sd-hoot-sleep';
     drawHoot(g, {
       t, eyeL: H0.eyeL, eyeR: H0.eyeR, look: H0.look, mouth: H0.mouth, hatTip: H0.hatTip, stand: H0.stand, shades: H0.shades, dance: H0.dance,
@@ -639,6 +678,7 @@ export class Game {
     });
     g.restore();
     if (H0.stand < 0.5) drawChairFront(g, hasChair);
+    if (R) this.drawHootReact(g, t, R, key);
     // lamp
     drawLamp(g, LAMP.x, LAMP.y, t, this.lampDance, this.lampFrozen, this.tune.beat);
     // the "telegraph" glow round Hoot while he stirs
@@ -683,6 +723,30 @@ export class Game {
     // Hoot's bubble: Zzz (dance!) / ? (he's stirring) / ?! (caught) / notes (party)
     const bk = this.phase === 'end' ? 0 : H0.bubbleK * (this.phase === 'stir' ? 0.75 + 0.35 * clamp(this.pt / this.stirDur, 0, 1) : this.phase === 'look' ? 1.1 : 0.8);
     drawBubble(g, BUBBLE.x, BUBBLE.y + (this.phase === 'stir' ? Math.sin(t * 30) * 4 : 0), H0.bubble, bk, t);
+  }
+
+  /** Code-drawn extras for Hoot's reactions (stand-ins until the art lands). */
+  drawHootReact(g, t, R, key) {
+    const H0 = this.hoot, k = clamp((H0.reactDur - H0.reactT) / 0.15, 0, 1), fade = clamp(H0.reactT / 0.2, 0, 1);
+    const hx = SEAT.x, hy = SEAT.y - 250 - H0.stand * 46;
+    g.save(); g.globalAlpha = fade;
+    if (R === 'shock') {
+      drawShock(g, hx, hy, 160, t, k);
+      if (key !== 'prop/sd-hoot-shock' && H0.reactDur - H0.reactT < 0.6) {
+        // his spectacles pop up off his beak
+        const u = (H0.reactDur - H0.reactT) / 0.6;
+        g.save(); g.translate(hx + 30 * u, hy - 30 - Math.sin(u * Math.PI) * 120); g.rotate(u * 5);
+        g.strokeStyle = '#24163f'; g.lineWidth = 9; g.fillStyle = 'rgba(220,240,255,0.6)';
+        for (const s of [-1, 1]) { g.beginPath(); g.arc(s * 28, 0, 22, 0, TAU); g.fill(); g.stroke(); }
+        g.strokeStyle = '#e5b53a'; g.lineWidth = 5;
+        for (const s of [-1, 1]) { g.beginPath(); g.arc(s * 28, 0, 22, 0, TAU); g.stroke(); }
+        g.beginPath(); g.moveTo(-6, 0); g.lineTo(6, 0); g.stroke();
+        g.restore();
+      }
+    } else if (R === 'huff') drawSteam(g, hx, hy - 10, 150, t);
+    else if (R === 'scold' && key !== 'prop/sd-hoot-scold') drawWag(g, hx + 175, hy + 10, 1.5, t, -1);
+    drawShout(g, H0.say, hx - 300, hy - 120 - (1 - k) * 20, 54, t, k);
+    g.restore();
   }
 
   drawUnit(g, U, t) {
