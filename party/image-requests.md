@@ -1142,6 +1142,7 @@ in any image. Reused as they are: the roster sprites (`toss`, `cheer`,
 | `prop/cupcake-cherry` | 128×128, transparent | Anchor bottom of the cherry; drawn 46 px, perched on a frosting edge at a jaunty angle | One glossy red cherry with a curly green stem and a white shine |
 | `prop/cupcake-candle` | 64×192, transparent | Anchor bottom-centre; drawn 26×78 px, poking out of the frosting at an angle. The code draws the flame | A thin twisted birthday candle with pastel spiral stripes (pink/white/blue), no flame, front view |
 | `prop/candle-flame` | 96×128, transparent | Anchor bottom-centre at the wick; flickers via code scale | A small cartoon candle flame: orange outside, yellow inside, white core, soft glow |
+| `prop/cupcake-topper-cake` | 760×600, transparent | Anchor bottom-centre, drawn 380×300 on top of the tower for the finale. The code draws the candles: keep the TOP of the upper tier flat and plain at about 68% up (lower-tier top at about 37% up) | A two-tier birthday cake with a happy face on the upper tier: pink bottom tier, cream top tier, white frosting drips, rainbow sprinkles, no candles, front view |
 
 ## New Molly Party game: ladybug-spots
 
