@@ -1136,15 +1136,16 @@ colours, no text.
 | --- | --- | --- | --- |
 | `bg/rainbow-painter` | 1920×1080, opaque | Full screen, drawn first. Grey version of the world (no rainbow, trees, castle, flowers or sun: the code draws those). Rolling hills along the bottom from y≈880; open sky above. Keep it low-detail | A gentle cartoon landscape drained of colour: soft grey sky with pale grey puffy clouds, rolling light-grey hills at the bottom with a darker grey meadow strip, all in shades of cool grey with navy outlines on the hills |
 | `bg/rainbow-painter-color` | 1920×1080, opaque | **Same framing as the grey bg.** Cross-faded on top of it as the whole picture gets painted (0 → 100 %) | The exact same landscape in full colour: bright sky blue fading to pale pink at the horizon, fluffy white clouds, lush green rolling hills with tiny daisies |
-| `thumb/rainbow-painter` | 800×500, opaque | Game-select shelf / how-to (procedural `drawIcon` is the fallback) | A character riding a tiny white cloud, raining rainbow paint drops onto a half-grey, half-coloured rainbow arc; a smiling sun peeking in the corner; sparkles |
+| `thumb/rainbow-painter` | 800×500, opaque | Game-select shelf / how-to (procedural `drawIcon` is the fallback) | A little garden fairy (no Charlie Party roster character) riding a tiny white cloud, raining rainbow paint drops onto a half-grey, half-coloured rainbow arc; a smiling sun peeking in the corner; sparkles |
 | `prop/rp-cloud` | 400×220, transparent | The paint cloud each player rides. Drawn centred under the character's feet at about 230×126 px, wobbling. Keep the top flat-ish so a character can stand on it | A plump, soft white cartoon cloud with a flat-ish top, a faint lilac underside and two rosy blush spots, no face |
 | `prop/rp-tree`, `prop/rp-tree-grey` | 420×560 each, transparent | Bottom-centre anchor (trunk base) at the canvas bottom; drawn about 300×400 px | A round lollipop-style cartoon tree: a big fluffy green crown with a few red apples and a brown trunk. Grey version: identical drawing in flat greys |
 | `prop/rp-castle`, `prop/rp-castle-grey` | 720×680 each, transparent | Bottom-centre anchor; drawn about 470×445 px under the middle of the rainbow. The code adds waving flags on the two tower tips (towers peak at roughly x 25 % and 75 %, y 6 %) | A small fairy-tale castle: pink walls, lilac cone roofs on two side towers and a taller centre tower, a big round door, heart windows. Grey version: identical in flat greys |
 | `prop/rp-flower-1`, `prop/rp-flower-2`, `prop/rp-flower-3`, `prop/rp-flower-grey` | 200×260 each, transparent | Bottom-centre anchor; drawn ~110×143 px in a row along the meadow, bobbing and dancing (the code rotates and squashes around the base) | A single cartoon flower with two leaves and a happy face in the middle: 1 pink daisy, 2 yellow tulip, 3 blue bell-flower. Grey version: the daisy in greys with its eyes closed |
 | `prop/rp-sun-grey`, `prop/rp-sun-sleep`, `prop/rp-sun-awake` | 400×400 each, transparent | Centred, drawn ~300 px, top-right corner (x 1730, y 200). The code adds rotating rays behind it | A round cartoon sun face. Grey: pale grey, eyes shut, sleepy. Sleep: golden yellow, eyes shut, rosy cheeks. Awake: golden yellow, big open smile, sparkly open eyes |
 | `prop/rp-bird`, `prop/rp-bird-flap` | 128×128 each, transparent | Centred, ~70 px, flutters around the painted trees; the flap frame alternates | A round little bluebird, side view facing right, open singing beak; wings up (bird) and wings down (flap) |
+| `prop/rp-paint-star` | 256×256, transparent | Centred, drawn ~110 px; bounces across the sky, rotating a little (the code adds a soft glow) | A plump golden star with a happy face and a few rainbow paint drips running off its points |
 
-Poses: only existing ones (`float`, `paint`, `cheer`, `celebrate`, `dance`, `surprised`).
+Poses on player avatars: existing `idle`, `paint`, `cheer`, `celebrate`, `dance`, `surprised` only.
 
 ## New Molly Party game: garden-grow
 
@@ -1162,7 +1163,7 @@ plant props are seen from the front, standing on the ground.
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/garden-grow` | 1920×1080, opaque | Full screen. Sky and picket fence above y≈330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain | A sunny cottage garden seen from slightly above: blue sky with fluffy clouds, a white picket fence with rose bushes across the top third, then a wide plain bright-green lawn with soft mowing stripes |
-| `thumb/garden-grow` | 800×500, opaque | Game-select / how-to | A character with a watering can watering a giant giggling sunflower, a carrot waving from the dirt, a pumpkin rolling away, butterflies, water droplets |
+| `thumb/garden-grow` | 800×500, opaque | Game-select / how-to | A little garden fairy (no Charlie Party roster character) with a watering can watering a giant giggling sunflower, a carrot waving from the dirt, a pumpkin rolling away, butterflies, water droplets |
 | `prop/gg-dirt` | 260×140, transparent | Centred on each plot, drawn ~200×108 | A round mound of soft brown tilled garden soil with a few pebbles, top-down 3/4 view |
 | `prop/gg-sprout` | 160×200, transparent | Bottom-centre on the plot, ~90×112 | A tiny green sprout with two round leaves popping out of the soil, cute and perky |
 | `prop/gg-bud` | 200×280, transparent | Bottom-centre, ~120×168 | A taller leafy stalk with a closed round bud on top, wobbling as if about to burst |
@@ -1173,5 +1174,6 @@ plant props are seen from the front, standing on the ground.
 | `prop/gg-sneeze-flower`, `prop/gg-sneeze-flower-achoo` | 240×400 each, transparent | Bottom-centre, ~150×250 | A pink puffball flower with a face, nose twitching (eyes half shut, about to sneeze). Achoo: same flower, eyes shut tight, mouth wide in a big sneeze, petals blown back |
 | `prop/gg-watering-can` | 160×120, transparent | Held in the character's hand, spout facing right, drawn ~70×52, tilted by code | A small shiny blue watering can with a sprinkler rose spout |
 | `prop/gg-butterfly` | 160×128, transparent | Centred, ~80 px, flapping (the code squashes it horizontally) | A pretty butterfly seen from above, wings fully open, pink and purple wings with yellow dots |
+| `prop/gg-rain-cloud` | 400×230, transparent | Centred, drawn ~300×170, drifts across the top of the lawn while the code rains drops under it | A plump happy rain cloud, white-blue with a smiling face and rosy cheeks, flat-ish bottom |
 
-Poses: existing `water`, `cheer`, `dance`, `surprised`, `celebrate`, `laugh`.
+Poses on player avatars: existing `idle`, `walk`, `run` (moveAnim), `water`, `action`, `cheer`, `surprised`, `dizzy`, `dance`, `celebrate`.
