@@ -1,3 +1,105 @@
+## Delivered unicorn-jump — 2026-10-13
+
+All keys delivered and checked in game (2026-10-13): the rider sits on the saddle and the jump art swaps cleanly; sleeping-bunny box enlarged in code; a milky lane wash added because the background is busy (re-generation row filed for `bg/unicorn-jump`).
+
+### Original request
+
+### unicorn-jump — Unicorn Hop   (requested by the unicorn-jump agent, 2026-10-05, priority: nice-to-have)
+
+A fast, bouncy side-scroller for 4–5 year olds: every player rides a unicorn
+(four-legged characters gallop themselves wearing the wardrobe Unicorn Horn)
+along a candy meadow that scrolls to the left, faster and faster. A = hop over
+puddles, bouncy mushrooms and sleeping bunnies; grab stars and rainbow
+candies; a rainbow trail streams behind riders who keep hopping cleanly. 1–4
+lanes stacked top to bottom (5–8 players share lanes, two riders each).
+Everything has a procedural fallback that ships today; the code already looks
+up every key below. House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, **no text**, and no Charlie Party roster characters in any image (the mount is a generic pastel cartoon unicorn; the code tints it per player). Side view; riders face right and the
+props scroll in from the right.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/unicorn-jump` | 1920×1080, opaque, **seamless left-right tile** | Drawn twice side by side, scrolling left at ~0.2× the ground speed (parallax). The lanes (thin grass paths drawn by code) sit in bands between y≈260 and y≈1000, so the top 250 px and the overall colour matter most; keep the middle low-detail | A dreamy candy meadow: pastel pink-to-lilac sky with puffy clouds and a faint rainbow arc, far rolling hills in mint and pink with gumdrop trees and lollipop flowers, a tiny castle silhouette on one hill. Soft, bright, cheerful |
+| `thumb/unicorn-jump` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A tiny garden fairy with petal wings riding a chubby pastel-pink cartoon unicorn with a rainbow mane mid-hop over a puddle, a rainbow trail streaming behind, stars and swirl candies floating ahead, candy meadow background. Subject centred |
+| `prop/uj-mount` | 512×384, transparent | The unicorn the riders sit on, side view **facing right**, mid-gallop. Anchor: bottom centre at the hooves; drawn ~1.1× the rider's height wide. The code seats the rider at ~62% of the image height (the saddle, a bit left of centre) and bobs/tilts the whole image | A cute chubby pale-pink cartoon unicorn (a generic mount, not any roster character) with a flowing rainbow mane and tail, gold spiral horn, pink hooves, a little pink saddle blanket with a heart, big friendly eye, galloping (front legs forward, back legs back). No rider |
+| `prop/uj-mount-jump` | 512×384, transparent | Same as above, shown while hopping. Same anchor and scale so it swaps cleanly | The same unicorn leaping: legs tucked up under its body, mane and tail streaming back, joyful face |
+| `prop/uj-puddle` | 320×96, transparent | Anchor bottom centre on the lane ground; ~170 px wide at lane scale 1 | A shallow sky-blue rain puddle seen from the side at a low angle, with a white shine and two small ripples, a tiny rubber duck floating in it |
+| `prop/uj-mushroom` | 256×256, transparent | Anchor bottom centre; ~120 px tall at lane scale 1. The code squashes it when it boings a rider | A bouncy red-and-white spotted mushroom with a cheeky smile, round fat cap like a trampoline |
+| `prop/uj-bunny` | 256×192, transparent | Anchor bottom centre; ~90 px tall. Sleeping; the code draws the Zz | A fluffy white bunny curled up asleep on the grass, pink ears, closed happy eyes |
+| `prop/uj-bunny-awake` | 256×256, transparent | Same anchor; shown when a rider hops over (it pops up) or bumps it | The same bunny sitting up wide awake, surprised-happy face, one paw waving |
+| `prop/uj-star` | 128×128, transparent | Centred; floats at hop height, ~70 px. The code spins and bobs it | A chunky glossy golden star with a cute smile and a white highlight |
+| `prop/uj-candy` | 128×128, transparent | Centred; just above the lane ground, ~64 px | A round wrapped swirl candy with rainbow stripes, twisted pink wrapper ends |
+| `prop/uj-lollipop` | 192×256, transparent | Anchor bottom centre; the rare 3-point treat at hop height, ~110 px tall | A giant rainbow-spiral lollipop on a white stick with a pink ribbon bow, sparkling |
+
+Optional pose (the code asks for it; it falls back to `sit`, then `ride`):
+`ride-sit` (loop) — sitting astride a mount, side-on facing right, both hands
+(paws) holding imaginary reins forward, happy bouncy posture.
+
+## Delivered ghost-giggles — 2026-10-13
+
+All keys delivered and checked in game (2026-10-13): curtains, peeking ghost, ghost colours, trunks and the disco finale line up.
+
+### Original request
+
+### ghost-giggles — Ghost Giggles   (requested by the ghost-giggles agent, 2026-10-05, priority: nice-to-have)
+
+Little white sheet ghosts zoom around a cosy, cute haunted house. Players
+(in Halloween costumes from the shared wardrobe) tickle them with A; they
+giggle and turn rainbow colours. Shy ghosts hide behind the curtains and
+peek out. When every ghost is colourful, a disco ball drops and the ghosts
+throw a dance party. Cute and funny, **never scary**. Every key has a
+procedural fallback that ships today. House style: navy `#24163f` outlines,
+soft cel shading, bright candy colours, no text.
+
+Layout: back wall y 0–470, floor y 470–1080. Three tall windows on the back
+wall centred at x = 330, 1260, 1620 (y 120–420); the code draws curtains over
+them. A fireplace centred at x = 780 (base on y 470). A chandelier at the top
+centre (x 960) where the disco ball comes down. Two costume trunks on the
+floor at x = 150 and 1770, y ≈ 590. Ghosts float anywhere over the floor;
+scoreboard chips along the bottom (y ≈ 985).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/ghost-giggles` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm. **Must match the layout above**: the three windows (frames with a moonlit night view, no curtains), the fireplace at x 780 and a big plain floor (the code draws a rug, trunks, ghosts and players) | A cute cosy "haunted" parlour at night: lilac-and-plum striped wallpaper with tiny stars, three tall arched windows showing a starry sky and a big friendly moon, a stone fireplace with a cheerful orange fire, two smiling carved pumpkins and candles on the mantel, smiling portraits of a cat and a pumpkin, a little cobweb in one corner with a smiling spider, warm honey-wood floorboards. Warm, inviting, more birthday party than spooky |
+| `thumb/ghost-giggles` | 800×500, opaque | Game-select shelf and how-to screen | Three little sheet ghosts giggling in a cosy parlour, one white, one pink, one rainbow-striped, one of them tickled by a little hand in a purple wizard-robe sleeve; a disco ball and sparkles above. Subject centred |
+| `prop/gg-ghost` | 256×320, transparent | Drawn centred, ~150×190 px, bobbing and squashing. **Keep it pure white with light-grey/lavender shading**: the code tints it pink, sky, mint, gold, lilac or rainbow | A cute little sheet ghost with a round top, a wavy hem, two tiny stubby arms, big shiny black eyes and a small happy smile with pink cheeks. Front view |
+| `prop/gg-ghost-giggle` | 256×320, transparent | Same anchor, size and tinting; shown while it is being tickled | The same ghost laughing: eyes squeezed into happy arcs, big open laughing mouth, arms hugging its tummy, wiggly hem |
+| `prop/gg-ghost-peek` | 160×200, transparent | A shy ghost peeking from behind a curtain edge; drawn at the curtain's side (mirrored on the other side), ~110×140 | Half of the ghost (its left half cut off by the image edge as if behind a curtain), one big eye and a tiny hand curled around the edge, shy blushing smile |
+| `prop/gg-curtain` | 160×340, transparent | One curtain panel (the left one; the code mirrors it for the right), stretched over half a window and squeezed sideways to open | A plum velvet theatre-style curtain panel with soft folds, a gold fringe at the bottom and a gold rope tassel |
+| `prop/gg-trunk` | 300×240, transparent | Anchor bottom centre at the trunk spot, drawn 210 px wide; it bounces when a costume pops out | An open wooden dress-up trunk with brass corners overflowing with costume bits: a purple wizard hat, a star cape, a pair of fairy wings and a cat-ear headband |
+| `prop/gg-disco-ball` | 200×200, transparent | Drawn centred, ~150 px, hanging from a line and spinning (the code adds light beams) | A sparkly mirror disco ball with pink and lilac glints |
+
+## Delivered kitten-yarn — 2026-10-13
+
+All keys delivered and checked in game (2026-10-13): basket front/back layering, kittens on the cat-tree platforms, the bed pile and the rug line are right at 1, 4 and 8 players.
+
+### Original request
+
+### kitten-yarn — Kitten Cuddles   (requested by the kitten-yarn agent, 2026-10-13, priority: nice-to-have)
+
+Side-view living room. Kittens tumble off two cat trees and roll in on yarn
+balls; each player stands behind a cosy basket, catches kittens in it and
+presses A to cuddle them, then the kittens hop onto a big cushion bed where
+a nap pile grows. Everything below has a procedural fallback that ships
+today and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**. Floor line
+(players' feet) is y = 900.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/kitten-yarn` | 1920×1080, opaque | Full screen. The wooden floor / rug starts at about y=840 (feet at y=900); the wall is above it. The two cat trees stand at the far left and right (x≈150 and x≈1770) and the cushion bed sits on the floor in the centre, all drawn by code, so keep those spots plain. Keep the top ~120 px calm (timer) | A cosy pastel living room in afternoon sun: soft peach-and-cream striped wallpaper, a big window in the upper middle with sunbeams and a view of blue sky, framed paw-print pictures, a few potted plants, a honey-wood floor with a big round pink rug, bunting across the top. No cats or furniture in the middle |
+| `thumb/kitten-yarn` | 800×500, opaque | Game-select shelf and how-to screen | A little garden fairy (pink tulip fairy with petal wings, no Charlie Party characters) hugging a fluffy ginger kitten inside a wicker basket, more kittens tumbling down from a cat tree and one riding a pink yarn ball, hearts flying. Lively and bouncy. Subject centred |
+| `prop/kitten-cattree` | 680×1520 (ratio 340:760), transparent | Drawn bottom-anchored at (150, 910) in a 340×760 box; the right-hand tree is the same image mirrored. **Three round platforms stick out toward the right (screen centre) with their top surfaces at 34%, 63% and 92% of the height measured from the bottom**; kittens peek out and leap off at the right edge of each platform | A tall pastel cat tree: sisal-rope posts, three round lilac carpeted platforms stepping up and out to the right, a little cubby house on the middle level, a dangling pom-pom toy. Front view, no cats |
+| `prop/kitten-atlas` | 1152×960 (6 columns × 5 rows of 192 px cells), transparent | One kitten per cell, drawn centred and fitted to about 110 px. **Columns are coats, in this order:** ginger tabby, silver-grey tabby, snowy white, black-and-white tuxedo, calico, cream. **Rows are states:** sit (front view, sitting, big smile), tumble (curled into a ball, paws tucked, for spinning), pounce (side view, leaping to the right, paws forward), sleep (curled up asleep, eyes shut, tail around), cuddle (eyes closed, blissful, paws up, as if being hugged) | Super cute chibi kittens with big sparkly eyes, pink noses and fluffy cheeks; all 30 share lighting, outline weight and scale so mixed kittens look like one set |
+| `prop/kitten-fairy` | 256×256, transparent | The rare sparkly kitten (worth 3). Drawn centred at about 130 px; the code flaps it with a small squash | A white kitten with shimmering pastel fairy wings (lilac and pink, with dots), a tiny flower crown, sitting and smiling, faint sparkles around it |
+| `prop/yarn-ball-pink`, `prop/yarn-ball-blue`, `prop/yarn-ball-yellow` | 128×128 each, transparent | Drawn centred at 76 px and spun by the code while it rolls; the loose thread trail is drawn by code | A fluffy round ball of wool yarn with visible wound strands and a short loose end, in candy pink / sky blue / lemon yellow |
+| `prop/kitten-basket`, `prop/kitten-basket-front` | 600×360 each (ratio 5:3), transparent, **same canvas** | Drawn bottom-anchored just below the player's feet in a 170×102 box (smaller with many players): the back layer first, then the kittens, then the front layer, so kittens sit inside. The back layer is the far rim plus the inside with a blanket; the front layer is the near half of the weave and rim only | A round wicker picnic basket with a soft pink gingham blanket inside and a red bow on the front, seen from the front at a slight top-down angle |
+| `prop/kitten-bed` | 1120×440 (ratio 280:110), transparent | Drawn bottom-anchored at (960, 885) in a 560×220 box; the sleeping kittens are stacked by the code inside the middle 70%, from about 35% height upward | A huge round plush pet bed: a puffy lavender cushion rim with a soft mint pillow inside, little stars embroidered on the rim, front view |
+
+New pose (until registered it falls back to `catch`, then `cheer`): `cuddle`
+(one-shot) — hugging something small held against the chest with both arms
+(or paws / chin for armless characters), eyes closed, happy, a tiny sway.
+
 ## Delivered Molly art batches — 2026-10-13
 
 Published and checked in actual games: Garden Grow, Wand Shapes, Silly Sock Match, Fairy Hide and Seek, Cupcake Stack, Bubble Pop and Balloon Float. Previously delivered Dance and Freeze remains available by id and for replacement reuse. Latest batch `2ad4cda9`. These assets retain procedural fallbacks; new playable fairy sets remain in production.
