@@ -34,7 +34,7 @@ export class IntroScene {
     this.aiReadyAt = session.players.map((p) => (p.isAI ? rand(0.8, 2.2) : Infinity));
     this.go = null;
     this.molly = this.meta.category === 'molly' ? new MollySeats(this.meta) : null;
-    music.menu();
+    if (this.molly) music.molly(); else music.menu();
     const n = session.players.length;
     const spacing = Math.min(220, (W - 160) / n);
     this.actors = session.players.map((p, i) => {
@@ -85,7 +85,7 @@ export class IntroScene {
       else if (p.ctrl.pressed('b')) {
         if (this.ready[i]) this.setReady(i, false);
         else if (session.partyMode) { if (!this.out[i]) this.setOut(i, true); }   // a marathon only exits from its pause menu
-        else { sfx('back'); this.manager.go('gameselect'); return; }
+        else { sfx('back'); this.manager.go('gameselect', { show: this.gameId }); return; }
       }
     }
     // Mouse / touch: clicking a player toggles their ready; a click anywhere
@@ -113,7 +113,7 @@ export class IntroScene {
     const r = this.molly.update(dt, inputOpen);
     if (r === 'back') {
       if (session.partyMode) this.molly.note = { text: 'Somebody has to play! (Y Y skips this game)', t: 0 };
-      else this.manager.go('gameselect');
+      else this.manager.go('gameselect', { show: this.gameId });
     } else if (r === 'go') { this.go = 0; sfx('go'); }
   }
 

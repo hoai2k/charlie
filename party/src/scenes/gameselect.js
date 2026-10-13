@@ -68,11 +68,14 @@ export class GameSelectScene {
   setMolly(on, { focus = true } = {}) {
     if (this.molly === on) return;
     this.molly = on;
+    this.menuMusic();
     if (!on) this.pages = { ...this.pages, party: 0 };   // the Molly tile lives on page 1
     this.rebuild();
     if (focus) this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.kind === (on ? 'charlie' : 'molly')) { this.row = ri; this.col = ci; } }));
     this.row = Math.min(this.row, this.rows.length - 1); this.col = Math.min(this.col, this.rows[this.row].length - 1);
   }
+  /** Charlie's menu music, or Molly Party's song on the Molly shelf. */
+  menuMusic() { if (this.molly) music.molly(); else music.menu(); }
   /** Show the shelf/page holding game `id`. */
   showGame(id) {
     const g = GAMES.find((x) => x.id === id);
@@ -81,17 +84,19 @@ export class GameSelectScene {
     if (at && this.pages[at.shelf] !== at.page) this.setPage(at.shelf, at.page);
   }
 
-  enter() {
+  /** show: a game to put the cursor on (backing out of its how-to screen); default the last game played. */
+  enter({ show = null } = {}) {
     restoreRoster();
     this.t = 0;
     this.roulette = null;
     this.chosen = null;
     session.partyMode = null;
-    music.menu();
-    if (session.lastGameId) this.showGame(session.lastGameId);
+    const focusId = show || session.lastGameId;
+    if (focusId) this.showGame(focusId);
+    this.menuMusic();
     this.layout();
-    if (session.lastGameId) {
-      this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.game && it.game.id === session.lastGameId) { this.row = ri; this.col = ci; } }));
+    if (focusId) {
+      this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.game && it.game.id === focusId) { this.row = ri; this.col = ci; } }));
     }
   }
 
