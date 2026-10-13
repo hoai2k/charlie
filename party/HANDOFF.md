@@ -8,6 +8,18 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Molly Party code (lead session) — 21 of 23 merged
+All Molly games are merged except fairy-flutter + fairy-hide-seek (agent acd520565d5271c35
+still running; merge with scratchpad merge_molly.sh). SFX rows collected in scratchpad
+sfx-molly.md (round 6 not generated yet); per-game player poses in molly-poses.txt.
+New poses registered: ride-sit, boop, cuddle, tongue-out, hose-spray. `?chars=` accepts NPC
+ids (glimmer, garden-fairy-pink|blue|yellow|green|purple) for testing.
+APPROVED 2026-10-13: cheeky games. 3 worktree agents building (brief: scratchpad
+naughty-brief.md): muddy-mayhem + sneaky-dance, opposite-ballet + whoopee-tea, bed-bounce +
+prank-troll. On merge RETIRE (keep files): puppy-splash, dance-freeze, ballet-butterflies,
+tea-party, shape-train, ladybug-spots (exclude from MOLLY_GAMES; their image-request
+sections are marked ON HOLD; move unreused keys to history as dropped).
+
 ### Molly Party image delivery — in progress
 
 Latest integrated main965416d;23games/318imagekeys/347authoredframes includingnewcupcakefinalecake. Published31Mollykeys through746e632a:completeDance7,Wand8,andearlygarden/environment/magicbatches. Rootpublishesregularly; noMollycanonicalapprovalgates perlatestuserinstruction. All generatedNPCcandidates approved, fiveexpandedGardenFairiescanonspromoted, Glimmerapproved. Exactsources/prompts inpending/MOLLY* records andlosslessWebPs; oldNPCfairyrefs preserved. Rootkitten30framesheets generatedawaitingintake; rootownsKittenYarn layeredprops/atlas. WorkersownGarden/Ladybug→sixfairysprites; Cupcake/Dance/Bubble/Balloon/Ballet; Wand/FF/FHS/Sock/Tea. Other10gamesqueued fornextassignments. Lots ofruntimecodehaslanded; keepfetchingmain; actualQAstartswithcompletebatches. DanceQAfoundHoot hidden+duplicatedrecords; toolsagentfixing ownconsumer. Existinggenericassetcollisions mustbeMollysiblingkeys/consumerupdates, notglobaloverwrites. Monitorremainscancelled.
