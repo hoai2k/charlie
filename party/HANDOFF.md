@@ -12,9 +12,10 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 Molly Party is now a button after Marathon (bottom row: Random / Marathon / Molly Party or
 Charlie Party); Fairy Count back on Party Games page 1. CPUs: none in Molly or Play Studio games
 unless added on the how-to screen (X add, Y remove; intro.js noCpus, molly-seats addCpu).
-Agents running (brief scratchpad hoity-brief.md): whoopee-tea indignant/scolding guests (players
-laugh), and an audit of the other Molly games for the same comedy (victims shocked/scolding,
-players laugh) with new reaction image requests.
+Hoity-toity comedy DONE (merged): whoopee-tea guests/Duchess/butler shocked, scolding, huffy
+(players laugh); same for Granny Goose, Professor Hoot, Nanny Moo, the troll, Madame Papillon,
+Mama Duck. Shared drawn extras in engine/fluster.js. 15 new reaction art keys requested in the
+Re-generation table (code falls back to existing art + drawn extras until they land).
 
 ### Art watch (2026-10-13): DONE
 All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open
