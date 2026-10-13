@@ -11,11 +11,16 @@ import { session, sitOut } from '../state.js';
 import { gameById } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
 import { corner } from '../engine/corner.js';
+import { hasArtGroup, ensureGameArt, releaseGameArt } from '../engine/art.js';
 
 const COUNTDOWN = 3.6;
 
 export class PlayScene {
   enter({ gameId, playing = null }) {
+    const epoch = this._loadEpoch = (this._loadEpoch || 0) + 1;
+    if (this._artGroup) releaseGameArt(this._artGroup);
+    this._artGroup = null;
+    this.game = null;
     if (playing) sitOut(playing);   // some players sat this one out (how-to screen); restoreRoster() on the way back
     this.meta = gameById(gameId);
     if (!this.meta) throw new Error('Unknown game ' + gameId);
@@ -48,8 +53,23 @@ export class PlayScene {
     const np = session.players.length;
     this.camera.maxZoom = np >= 7 ? 1.1 : np >= 5 ? 1.18 : 2.2;
     this.api = api;
+    this.usesCamera = false;
+    this.drawsParticles = true;
+    this.lastCount = -1;
+    if (hasArtGroup(gameId)) {
+      this.state = 'loading';
+      this._artGroup = gameId;
+      // Constructors can bake their first canvases: finish loading before any
+      // game code runs, and invalidate this continuation on exit or reuse.
+      ensureGameArt(gameId).then(() => this.startGame(epoch), () => this.startGame(epoch));
+    } else this.startGame(epoch);
+  }
+
+  startGame(epoch) {
+    if (epoch !== this._loadEpoch || this.leaving) return;
+    this.state = this.meta.countdown === false ? 'play' : 'countdown';
     try {
-      this.game = new this.meta.module.Game(api);
+      this.game = new this.meta.module.Game(this.api);
     } catch (e) { this.crash(e); }
     this.usesCamera = !!(this.game && this.game.drawHUD);
     this.drawsParticles = true; // particles go inside the camera (or right after the game)
@@ -59,8 +79,13 @@ export class PlayScene {
   }
 
   exit() {
+    this._loadEpoch = (this._loadEpoch || 0) + 1;
+    this.leaving = true;
     corner.infoFn = null; this.howto = null;
     try { this.game && this.game.destroy && this.game.destroy(); } catch (e) { console.error(e); }
+    this.game = null;
+    if (this._artGroup) releaseGameArt(this._artGroup);
+    this._artGroup = null;
     stopAllLoops(); duckLoops(false); this._ducked = false;   // sfxLoop()s never outlive their game
     cancelLater();                                            // nor do the game's later() timers
     for (const p of session.players) if (p.isAI) p.ctrl.reset();
@@ -117,6 +142,7 @@ export class PlayScene {
   }
 
   update(dt, inputOpen) {
+    if (this.state === 'loading' || this.leaving) return;
     const held = !!(this.paused || this.howto);
     if (held !== !!this._ducked) { this._ducked = held; duckLoops(held); }
     if (this.howto) { this.updateHowto(dt); return; }
@@ -178,7 +204,7 @@ export class PlayScene {
   safe(fn) { if (this.error) return; try { fn(); } catch (e) { this.crash(e); } }
 
   openHowto() {
-    if (this.state === 'finish' || this.state === 'error' || this.howto) return;
+    if (this.state === 'loading' || this.state === 'finish' || this.state === 'error' || this.howto) return;
     this.paused = null; this.howto = { t: 0 }; sfx('select');
   }
 
@@ -295,6 +321,7 @@ export class PlayScene {
     } else {
       ui.sky(g, '#8fd3ff', '#ffe0f4');
     }
+    if (this.state === 'loading') ui.text(g, 'Loading…', W / 2, H / 2, { size: 64 });
     if (this.state === 'countdown') ui.countdown(g, this.t);
     if (this.state === 'play' && this.playTime < 0.8 && this.meta.countdown !== false) ui.countdown(g, 3 + this.playTime);
     if (this.state === 'finish') {

@@ -1,3 +1,12 @@
+## Resolved re-generation requests — 2026-10-12
+
+Teddy now peeks above the left shoulder in the actual wearable render. Fishing uses a compact 256×64 grip drawn whole, with its procedural bending shaft retained. Full game run and focused handle tests pass.
+
+| Key | Previous issue | Requested replacement |
+| --- | --- | --- |
+| `prop/backpack-teddy` | Characters face three-quarter right, so the back is on the LEFT; the teddy peeks out at the top-RIGHT, behind the head, and is invisible on every two-legged character even after refitting (the original request said top-right, wrongly). | Same 140×200 pack, but the teddy head and ears peek out at the top-LEFT corner, head reaching the canvas top; keep the pack bottom-centred with no bottom padding (the code puts the `back` point at 80% of the height). |
+| `prop/fishing-rod` (optional) | Even drawn undistorted, the 8:1 handle is too long for a 110–175 px rod, so the code skips the middle of the cork to shorten it. | 256×64, transparent: a short chunky cork grip (about 2.5× as long as it is thick) with the big yellow reel at the right end, butt at the left edge, shaft start at the right edge, so the code can draw it whole. |
+
 # Charlie Party: image request history
 
 ## Current studio delivery — Pottery Wheel
