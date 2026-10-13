@@ -1,21 +1,28 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. New image requests are currently in production;
+The authoritative brief is `party/image-requests.md`. All current image requests are delivered;
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
-## New Play Studio production — active
+## New Play Studio delivery — complete
 
-Synced main through `331de60` on 2026-10-12T23:43:03Z. New brief: 294 game-art keys across ten studios, including one already-delivered beach crab; 293 new assets plus two revisions (left-peeking teddy, compact fishing handle). Earlier delivery below remains historical; do not regenerate its completed assets.
+All 294 requested studio keys are covered: 293 new runtime images plus the existing approved beach crab; both teddy/fishing replacements are delivered. The user-approved 18 creature references and all dependent variants are published. Aquarium101 is complete, including four puffed colours and four correctly bell-anchored jellyfish. No generation or canonical approval remains pending.
 
-Nine studio batches are published on main: Pottery `517ff64`/merge `27f1c082`, Nails `cf0ece99`, Hair `5fc9f861`, Snowman `b09394f8`, Dance `d07fdc1e`, Acrobat `39c142fd`, Star Maker `43f62d20`, Beach `21b6ef70`, Puppet `1ba1024f`. Revisions and grouped loading: `6368dbb9`; approved canonicals: `8e41fea8`. Aquarium45 fish/environment keys published `d712cefe`; closed kiln door correction `81939b88`.
+Published minigame batches: Pottery `517ff64`/merge `27f1c082`, Nails `cf0ece99`, Hair `5fc9f861`, Snowman `b09394f8`, Dance `d07fdc1e`, Acrobat `39c142fd`, Star Maker `43f62d20`, Beach `21b6ef70`, Puppet `1ba1024f`; Aquarium fish/environment `d712cefe`, plants/buildings/shells `10338bf4`, final decor/animations `4e6dd8ed`. Revisions/grouped loading: `6368dbb9`; approved canonicals: `8e41fea8`; closed kiln correction: `81939b88`. Every batch was pushed to main.
 
-Current ownership: studio_sets_tools corrects Aquarium first28 decor; studio_sets_performance corrects last28 decor and aligns four jellyfish bell centres. Aquarium36 fish (8 approved bases +28 variants) and root Aquarium9 (two backgrounds, six plants, thumbnail) are published. Root owns shared intake/publication and final runtime QA. studio_sets_structural audits coverage and decoded budgets. Fish cleanup complete. Root QA rejected the 56 decoration sources for a 3D/photo style mismatch; both lighter agents are regenerating them as 2D outlined cartoon edits, split first28/last28 into separate revised-a/revised-b manifests. Original 3D sources are drafts and must not be published. Checkpoints: `reference/pending/STUDIO-*.json`.
+Latest image delivery revision: `4e6dd8ed4be1ccc4aa0a24f25612033a9846cdaa`.
+Latest verified image delivery UTC: 2026-10-13T01:39:53Z.
+Last checked revision: `4e6dd8ed4be1ccc4aa0a24f25612033a9846cdaa`.
+Last checked request blob: `1c4d19c5a4ae42efe6e3525f471ea91877d73950`.
+Last checked UTC: 2026-10-13T01:39:53Z.
+Immediate post-delivery fetch/check was clear; no new semantic image requests appeared. The previous monitor remains cancelled; no new timer was requested.
 
-The user approved Aquarium eight fish families, Star Maker Moon/eight spirits and Snowman bird; dependent generation is released. Gallery: `reference/pending/STUDIO-CANONICAL-REVIEW.html`. Their approved canonicals are saved with exact prompts and provenance; all game-art generation continues. Existing crab is reused without a new design. Explicit later/not-needed optional pose notes (`show-nails`, `tuck`, `roll-push`, `point-up`, `mold`) are recorded separately from this current image delivery; existing authored fallbacks remain usable.
+Inventory: 875 art keys /855 decodable runtime WebPs, 29.316 MiB compressed. All 294 studio keys have correct dimensions and required alpha; full studio RGBA338.547 MiB, of which323.148 MiB is kept out of boot and loaded/released per game. All26 sprite sets validate without hard errors; existing soft budget/anchor warnings remain. Runtime, loading, grouped cancellation/reuse, fishing, jelly, decor and builder checks pass. Actual studio gameplay includes Aquarium build/night; generated clams retain pearls, chest animates its authored lid, and night overlays follow authored silhouettes.
 
-The previous monitor is cancelled; no new timer was requested. Finish current authorized generation, fetch/check again after delivery, preserve concurrent game-code changes, and move fielded requests to history only after review/integration.
+Review gallery: `reference/pending/STUDIO-DELIVERY-REVIEW.html`. Exact built-in prompts, source paths, geometry and QA: published `STUDIO-*.json`; audit totals in `STUDIO-DELIVERY-AUDIT.json`. Temporary native decor copies were preserved as lossless project sources. Rejected 3D-style drafts and superseded contacts are moved outside the repository; only corrected 2D art is shipped. The existing crab is reused.
+
+Explicit later/not-needed optional pose notes (`show-nails`, `tuck`, `roll-push`, `point-up`, `mold`) remain future backlog, separate from this completed image delivery; existing authored fallbacks remain usable. Future agent lessons are in `tools/sprites/AGENT-PLAYBOOK.md`.
 
 ## October 12 delivery — complete
 

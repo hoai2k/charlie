@@ -9652,7 +9652,7 @@
         255
       ],
       "bytes": 192536,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "sha256": "5c6fa2edd8a33644fc2911f7a3792a1b83e9455728499b8e2db74060188a72f2",
       "encoding": {
         "format": "WebP",
@@ -9661,7 +9661,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -9701,7 +9702,7 @@
         255
       ],
       "bytes": 51308,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "sha256": "3dc2f93c3761c0266e7f937c1a775991e19da36187ce9b6499e50bdfb83fc3d4",
       "encoding": {
         "format": "WebP",
@@ -9710,7 +9711,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -9750,7 +9752,7 @@
         255
       ],
       "bytes": 25080,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "sourceCrop": [
         25,
         141,
@@ -9772,7 +9774,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -9812,7 +9815,7 @@
         255
       ],
       "bytes": 15660,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "intakeTranslation": [
         0,
         -4
@@ -9830,7 +9833,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -9870,7 +9874,7 @@
         255
       ],
       "bytes": 6688,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "sha256": "59c96dabc7989cdbf2e9acc0da28dbd4c76079d7505bbae5efeeee0af6222c99",
       "encoding": {
         "format": "WebP",
@@ -9879,7 +9883,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -9919,7 +9924,7 @@
         255
       ],
       "bytes": 105014,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [
         {
           "game": "pottery-wheel",
@@ -9974,7 +9979,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10014,7 +10020,7 @@
         255
       ],
       "bytes": 47776,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [
         {
           "game": "pottery-wheel",
@@ -10088,7 +10094,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10128,7 +10135,7 @@
         255
       ],
       "bytes": 163068,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [
         {
           "game": "pottery-wheel",
@@ -10197,7 +10204,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10236,7 +10244,7 @@
         255
       ],
       "bytes": 78680,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "4494d19a6f7a548ba131ccf862939ed28cea8ab1bc59430f056cfba0340cb9b3",
       "encoding": {
@@ -10246,7 +10254,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10285,7 +10294,7 @@
         255
       ],
       "bytes": 6304,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "0c05ee31f43eead0b202edf8dd952f5d4b7cd161dbb12ceb8b74b2e550cf8611",
       "encoding": {
@@ -10295,7 +10304,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10334,7 +10344,7 @@
         255
       ],
       "bytes": 7818,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "fef532913b1bc548130add67f0f7f9bc2a66717112fa742883b8fb925684a420",
       "encoding": {
@@ -10344,7 +10354,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10383,7 +10394,7 @@
         255
       ],
       "bytes": 5656,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "intakeNotes": "Sticker fills max90% canvas, navy line and white border preserved",
       "sha256": "27796d8f30c1cd0dee1d6125d9ca749c73431aadbff6c9899648897c595a1f97",
@@ -10394,7 +10405,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10433,7 +10445,7 @@
         255
       ],
       "bytes": 6082,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "intakeNotes": "Sticker fills max90% canvas, navy line and white border preserved",
       "sha256": "df6c297c8046cf1ca238029500a5b5ee96c8ffe61c15e9f71189bf11e83eca6d",
@@ -10444,7 +10456,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10483,7 +10496,7 @@
         255
       ],
       "bytes": 7052,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "intakeNotes": "Sticker fills max90% canvas, navy line and white border preserved",
       "sha256": "a771559848661bd727db737f664598b276bee5d8dfb8c6c82ea9ea3422d21821",
@@ -10494,7 +10507,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10533,7 +10547,7 @@
         255
       ],
       "bytes": 8338,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "intakeNotes": "Sticker fills max90% canvas, navy line and white border preserved",
       "sha256": "76a297a9438d75298ad42c5c08c02206100c4cea3fcd9d249f43c82e738aeba6",
@@ -10544,7 +10558,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10583,7 +10598,7 @@
         255
       ],
       "bytes": 6306,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "intakeNotes": "Sticker fills max90% canvas, navy line and white border preserved",
       "sha256": "d620028cb5ecc50d4187620135388308401957323a3b6e66946fb570111aceb6",
@@ -10594,7 +10609,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10633,7 +10649,7 @@
         255
       ],
       "bytes": 6740,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "f8739ac15849eef9125851f12d408aba1d7cc0b3891723d5e98bba91ac2016c5",
       "encoding": {
@@ -10643,7 +10659,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10682,7 +10699,7 @@
         255
       ],
       "bytes": 8576,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "9cbfb6a0a8c28417caa2f77483cf561c2d367ccadb9e37dc9432c3cbd22be898",
       "encoding": {
@@ -10692,7 +10709,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10731,7 +10749,7 @@
         255
       ],
       "bytes": 6802,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "2d005a17289806dc06b433fdda74b752a00e858fdeac67dfc1fdbfadbb89ce4d",
       "encoding": {
@@ -10741,7 +10759,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10780,7 +10799,7 @@
         255
       ],
       "bytes": 8138,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "bfca248e98e1d2ce3c169ed1e332db363f3bde7278557e3e4cb3891f3ecdf438",
       "encoding": {
@@ -10790,7 +10809,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10829,7 +10849,7 @@
         255
       ],
       "bytes": 6874,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "81e3350f2757a98e428eb0c8e96d2f00c9183bbe636754d64d4e318ae1ecdac7",
       "encoding": {
@@ -10839,7 +10859,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "pottery-wheel",
@@ -10878,7 +10899,7 @@
         255
       ],
       "bytes": 13478,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "3082389da6f58533325061eef270e3446151829e2a3956a088ee5fe88859b15f",
       "encoding": {
@@ -10888,7 +10909,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/backpack-teddy",
@@ -10908,7 +10930,8 @@
       "width": 140,
       "height": 200,
       "bytes": 12632,
-      "status": "visually reviewed; pending runtime check"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/fishing-rod",
@@ -10928,7 +10951,8 @@
       "width": 256,
       "height": 64,
       "bytes": 9128,
-      "status": "visually reviewed; pending runtime check"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "bg/nail-studio",
@@ -10949,8 +10973,9 @@
         1920,
         1080
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/nail-studio-station",
@@ -10971,8 +10996,9 @@
         1290,
         900
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/nail-studio-show",
@@ -10993,8 +11019,9 @@
         1920,
         1080
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "thumb/nail-studio",
@@ -11015,8 +11042,9 @@
         800,
         500
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-cushion",
@@ -11037,8 +11065,9 @@
         511,
         235
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-pedestal",
@@ -11059,8 +11088,9 @@
         303,
         479
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-fan",
@@ -11081,8 +11111,9 @@
         208,
         256
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-gem-pink",
@@ -11103,8 +11134,9 @@
         128,
         127
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-gem-blue",
@@ -11125,8 +11157,9 @@
         128,
         127
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-gem-purple",
@@ -11147,8 +11180,9 @@
         128,
         123
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-pearl",
@@ -11169,8 +11203,9 @@
         128,
         127
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-star",
@@ -11191,8 +11226,9 @@
         128,
         124
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-heart",
@@ -11213,8 +11249,9 @@
         128,
         119
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-flower",
@@ -11235,8 +11272,9 @@
         128,
         125
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-butterfly",
@@ -11257,8 +11295,9 @@
         128,
         117
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-bow",
@@ -11279,8 +11318,9 @@
         128,
         112
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/nail-sticker-crown",
@@ -11301,8 +11341,9 @@
         128,
         119
       ],
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/hair-salon",
@@ -11323,9 +11364,10 @@
         1920,
         1080
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 125550,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/hair-salon-station",
@@ -11346,9 +11388,10 @@
         1200,
         1200
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 90290,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/hair-salon-photo",
@@ -11369,9 +11412,10 @@
         1920,
         1080
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 372478,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "thumb/hair-salon",
@@ -11392,9 +11436,10 @@
         800,
         500
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 82886,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-chair",
@@ -11415,9 +11460,10 @@
         547,
         719
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 60556,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-hand-mirror",
@@ -11438,9 +11484,10 @@
         327,
         559
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 34188,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-brush",
@@ -11461,9 +11508,10 @@
         120,
         160
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 7228,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-scissors",
@@ -11484,9 +11532,10 @@
         146,
         160
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 10316,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-grow-spray",
@@ -11507,9 +11556,10 @@
         128,
         160
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 9154,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-curler",
@@ -11530,9 +11580,10 @@
         99,
         160
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 3858,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-straightener",
@@ -11553,9 +11604,10 @@
         133,
         160
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 8304,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-color-spray",
@@ -11576,9 +11628,10 @@
         118,
         160
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 5892,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-hairtie",
@@ -11599,9 +11652,10 @@
         160,
         148
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 9284,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/salon-bling",
@@ -11622,9 +11676,10 @@
         160,
         151
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 13200,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-bow-pink",
@@ -11645,9 +11700,10 @@
         178,
         164
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 10172,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-bow-blue",
@@ -11668,9 +11724,10 @@
         178,
         162
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 9856,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-bow-yellow",
@@ -11691,9 +11748,10 @@
         178,
         166
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 11286,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-flower-pink",
@@ -11714,9 +11772,10 @@
         178,
         174
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 9550,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-daisy",
@@ -11737,9 +11796,10 @@
         178,
         156
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 7900,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-clip-star",
@@ -11760,9 +11820,10 @@
         178,
         149
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 7636,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-clip-heart",
@@ -11783,9 +11844,10 @@
         178,
         136
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 6282,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-butterfly",
@@ -11806,9 +11868,10 @@
         178,
         151
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 9978,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-tiara",
@@ -11829,9 +11892,10 @@
         238,
         154
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 12790,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/hair-crown",
@@ -11852,9 +11916,10 @@
         238,
         168
       ],
-      "status": "generated; pending in-game review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 14868,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/snowman-builder",
@@ -11876,8 +11941,9 @@
         1080
       ],
       "bytes": 194468,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/snowman-builder-yard",
@@ -11899,8 +11965,9 @@
         1200
       ],
       "bytes": 171934,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/snowman-builder-night",
@@ -11922,8 +11989,9 @@
         1080
       ],
       "bytes": 182218,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "thumb/snowman-builder",
@@ -11945,8 +12013,9 @@
         500
       ],
       "bytes": 82586,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-ball",
@@ -11968,8 +12037,9 @@
         511
       ],
       "bytes": 36112,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-coal",
@@ -11991,8 +12061,9 @@
         85
       ],
       "bytes": 3012,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-googly",
@@ -12014,8 +12085,9 @@
         110
       ],
       "bytes": 4030,
-      "status": "regenerated isolated prop; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-carrot",
@@ -12037,8 +12109,9 @@
         86
       ],
       "bytes": 7896,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-smile",
@@ -12060,8 +12133,9 @@
         105
       ],
       "bytes": 6964,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-cheek",
@@ -12083,8 +12157,9 @@
         67
       ],
       "bytes": 2764,
-      "status": "regenerated isolated prop; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-shades",
@@ -12106,8 +12181,9 @@
         122
       ],
       "bytes": 14922,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-tophat",
@@ -12129,8 +12205,9 @@
         320
       ],
       "bytes": 12366,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-bobble",
@@ -12152,8 +12229,9 @@
         320
       ],
       "bytes": 24016,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-partyhat",
@@ -12175,8 +12253,9 @@
         336
       ],
       "bytes": 16912,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-tiara",
@@ -12198,8 +12277,9 @@
         157
       ],
       "bytes": 17972,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-earmuffs",
@@ -12221,8 +12301,9 @@
         240
       ],
       "bytes": 19768,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-arm",
@@ -12244,8 +12325,9 @@
         186
       ],
       "bytes": 12888,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-mitten",
@@ -12267,8 +12349,9 @@
         160
       ],
       "bytes": 10142,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-heart",
@@ -12290,8 +12373,9 @@
         105
       ],
       "bytes": 5624,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-star",
@@ -12313,8 +12397,9 @@
         131
       ],
       "bytes": 6214,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-bowtie",
@@ -12336,8 +12421,9 @@
         116
       ],
       "bytes": 11550,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-flower",
@@ -12359,8 +12445,9 @@
         156
       ],
       "bytes": 9222,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-broom",
@@ -12382,8 +12469,9 @@
         679
       ],
       "bytes": 25838,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-scarf",
@@ -12405,8 +12493,9 @@
         400
       ],
       "bytes": 12534,
-      "status": "generated; pending in-game review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/snowman-bird",
@@ -12428,8 +12517,9 @@
         175
       ],
       "bytes": 10588,
-      "status": "generated from user-approved canonical",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio",
@@ -12447,8 +12537,9 @@
       "actual_geometry": "16:9 center crop where needed, then resized to 1920\u00d71080; key scene layout follows prompt",
       "format": "webp",
       "bytes": 125798,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio-stage-stars",
@@ -12466,8 +12557,9 @@
       "actual_geometry": "16:9 center crop where needed, then resized to 1920\u00d71080; key scene layout follows prompt",
       "format": "webp",
       "bytes": 86980,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio-stage-candy",
@@ -12485,8 +12577,9 @@
       "actual_geometry": "16:9 center crop where needed, then resized to 1920\u00d71080; key scene layout follows prompt",
       "format": "webp",
       "bytes": 147482,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio-stage-sea",
@@ -12504,8 +12597,9 @@
       "actual_geometry": "16:9 center crop where needed, then resized to 1920\u00d71080; key scene layout follows prompt",
       "format": "webp",
       "bytes": 121894,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio-stage-rainbow",
@@ -12523,8 +12617,9 @@
       "actual_geometry": "16:9 center crop where needed then resized to 1920\u00d71080; focal scene stays above floor overlay",
       "format": "webp",
       "bytes": 81116,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio-stage-castle",
@@ -12542,8 +12637,9 @@
       "actual_geometry": "16:9 center crop where needed then resized to 1920\u00d71080; focal scene stays above floor overlay",
       "format": "webp",
       "bytes": 230124,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/dance-studio-stage-city",
@@ -12561,8 +12657,9 @@
       "actual_geometry": "16:9 center crop where needed then resized to 1920\u00d71080; focal scene stays above floor overlay",
       "format": "webp",
       "bytes": 106312,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-studio-curtains",
@@ -12584,11 +12681,12 @@
       ],
       "format": "lossless webp",
       "bytes": 137354,
-      "status": "generated and alpha checked; pending integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "center_rectangle_alpha_nonzero": 15787,
       "edit_target_source_path": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-df49f9e0-b054-4f19-aef3-f941b6dec750.png",
       "center_rectangle_alpha_nonzero_gt8": 12193,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-studio-floor",
@@ -12604,9 +12702,10 @@
         300
       ],
       "actual_geometry": "cropped top-aligned to 6.4:1, then resized to 1920\u00d7300 to preserve the narrow panoramic floor; gold edge at top",
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "bytes": 23910,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/mirror-ball",
@@ -12622,13 +12721,14 @@
         256
       ],
       "actual_geometry": "alpha-bounded crop fitted into 220\u00d7220 and centered on transparent 256\u00d7256 canvas; edited loop short and ball fills about 72%",
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "alpha_extrema": [
         0,
         255
       ],
       "bytes": 14226,
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-up",
@@ -12645,8 +12745,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 7152,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-point",
@@ -12663,8 +12764,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6886,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-knees",
@@ -12681,8 +12783,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 5368,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-star",
@@ -12699,8 +12802,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 8660,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-twirl",
@@ -12717,8 +12821,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6790,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-clap",
@@ -12735,8 +12840,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6284,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-wave",
@@ -12753,8 +12859,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6382,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-bump",
@@ -12771,8 +12878,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 7674,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-swim",
@@ -12789,8 +12897,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6384,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-slide",
@@ -12807,8 +12916,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 7350,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-peace",
@@ -12825,8 +12935,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6694,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-tada",
@@ -12843,8 +12954,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 7422,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-wobble",
@@ -12861,8 +12973,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6524,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-bow",
@@ -12879,8 +12992,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 5082,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-hop",
@@ -12897,8 +13011,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6410,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/dance-move-float",
@@ -12915,8 +13030,9 @@
       ],
       "actual_geometry": "alpha-bounded crop fitted within 140\u00d7140 then centered on transparent 160\u00d7160 canvas; alpha [0,255]",
       "bytes": 6008,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "thumb/dance-studio",
@@ -12939,8 +13055,9 @@
       "actual_geometry": "16:10 art resampled to 800\u00d7500; full mirror ball and chain inside frame; characters and move-card strip remain clear",
       "format": "webp",
       "bytes": 85062,
-      "status": "generated; approved roster identity visually checked; pending integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-trampoline",
@@ -12964,8 +13081,9 @@
         464,
         200
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-trapeze",
@@ -12989,8 +13107,9 @@
         175,
         25
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-tower",
@@ -13014,8 +13133,9 @@
         125,
         470
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-ball",
@@ -13039,8 +13159,9 @@
         252,
         243
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-parasol",
@@ -13064,8 +13185,9 @@
         155,
         160
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-balloon-pink",
@@ -13089,8 +13211,9 @@
         92,
         120
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-balloon-blue",
@@ -13114,8 +13237,9 @@
         92,
         121
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-balloon-yellow",
@@ -13139,8 +13263,9 @@
         92,
         122
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/acrobat-balloon-mint",
@@ -13164,8 +13289,9 @@
         92,
         118
       ],
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/acrobat-circus",
@@ -13184,8 +13310,9 @@
       "format": "webp",
       "bytes": 166786,
       "alpha_bounds_px": null,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "bg/acrobat-circus-ring",
@@ -13204,8 +13331,9 @@
       "format": "webp",
       "bytes": 60940,
       "alpha_bounds_px": null,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "thumb/acrobat-circus",
@@ -13224,8 +13352,9 @@
       "format": "webp",
       "bytes": 82358,
       "alpha_bounds_px": null,
-      "status": "generated; pending visual integration review",
-      "tool": "built-in imagegen"
+      "status": "Reviewed and published in Play Studio delivery",
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-moon",
@@ -13250,9 +13379,10 @@
         374
       ],
       "canonical_reference": "party/reference/canonical/star-maker-moon.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-moon.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-moon.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-bunny",
@@ -13277,9 +13407,10 @@
         461
       ],
       "canonical_reference": "party/reference/canonical/star-maker-bunny.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bunny.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bunny.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-kitty",
@@ -13304,9 +13435,10 @@
         463
       ],
       "canonical_reference": "party/reference/canonical/star-maker-kitty.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-kitty.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-kitty.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-bird",
@@ -13331,9 +13463,10 @@
         420
       ],
       "canonical_reference": "party/reference/canonical/star-maker-bird.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bird.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-bird.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-butterfly",
@@ -13358,9 +13491,10 @@
         499
       ],
       "canonical_reference": "party/reference/canonical/star-maker-butterfly.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-butterfly.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-butterfly.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-fish",
@@ -13385,9 +13519,10 @@
         381
       ],
       "canonical_reference": "party/reference/canonical/star-maker-fish.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-fish.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-fish.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-whale",
@@ -13412,9 +13547,10 @@
         412
       ],
       "canonical_reference": "party/reference/canonical/star-maker-whale.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-whale.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-whale.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-unicorn",
@@ -13439,9 +13575,10 @@
         422
       ],
       "canonical_reference": "party/reference/canonical/star-maker-unicorn.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-unicorn.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-unicorn.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-dragon",
@@ -13466,9 +13603,10 @@
         462
       ],
       "canonical_reference": "party/reference/canonical/star-maker-dragon.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-dragon.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/star-maker-dragon.webp",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-moon-wow",
@@ -13493,9 +13631,10 @@
         375
       ],
       "canonical_reference": null,
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c19df41-a855-4b27-b1e2-65672fb72478.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c19df41-a855-4b27-b1e2-65672fb72478.png",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-moon-wink",
@@ -13520,9 +13659,10 @@
         393
       ],
       "canonical_reference": null,
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-04b41648-f75f-4ae5-aa1d-231a7d7b1082.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-04b41648-f75f-4ae5-aa1d-231a7d7b1082.png",
+      "reviewed": true
     },
     {
       "key": "prop/star-maker-moon-sleepy",
@@ -13547,9 +13687,10 @@
         375
       ],
       "canonical_reference": null,
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6064acb3-a7de-4a93-8aec-f246271c7e04.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6064acb3-a7de-4a93-8aec-f246271c7e04.png",
+      "reviewed": true
     },
     {
       "key": "bg/star-maker",
@@ -13569,9 +13710,10 @@
       "bytes": 144836,
       "alpha_bounds_px": null,
       "canonical_reference": null,
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6acc87ff-65ce-489a-adf1-b8425a5fbe27.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6acc87ff-65ce-489a-adf1-b8425a5fbe27.png",
+      "reviewed": true
     },
     {
       "key": "thumb/star-maker",
@@ -13591,9 +13733,10 @@
       "bytes": 82256,
       "alpha_bounds_px": null,
       "canonical_reference": null,
-      "status": "generated; pending visual integration review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0b40c93e-37d2-48db-81e3-a5706fd72d72.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0b40c93e-37d2-48db-81e3-a5706fd72d72.png",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13632,7 +13775,7 @@
         255
       ],
       "bytes": 84592,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "4f2c13e14c14593b27006c7ffe6a1264e83db54b3f8bb84fa6cbe4f71159781a",
       "encoding": {
@@ -13649,7 +13792,8 @@
         "pairedGeometryVerified": true,
         "sunDiscAbsent": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13688,7 +13832,7 @@
         255
       ],
       "bytes": 110582,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "27ac6521113e50f37c35742d6685c4e367520bcc986a635c03a65d4ea6c7d0e6",
       "encoding": {
@@ -13705,7 +13849,8 @@
         "pairedGeometryVerified": true,
         "sunDiscAbsent": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13744,7 +13889,7 @@
         255
       ],
       "bytes": 74556,
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sha256": "5552b5787b12293f79b0a4df25b2f35a3218f122a56ae55b3c729e4754ba9793",
       "encoding": {
@@ -13754,7 +13899,8 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13801,7 +13947,7 @@
         "losslessAlpha": true,
         "alphaRoundTripVerified": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "stackingSurfaceCenter": [
@@ -13815,7 +13961,8 @@
         "runtimeStackHeightFromGroundCenter": 78,
         "proceduralStackHeight": 92
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13861,7 +14008,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "stackingSurfaceCenter": [
@@ -13875,7 +14022,8 @@
         "runtimeStackHeightFromGroundCenter": 78,
         "proceduralStackHeight": 92
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13921,7 +14069,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "stackingSurfaceCenter": [
@@ -13935,7 +14083,8 @@
         "runtimeStackHeightFromGroundCenter": 78,
         "proceduralStackHeight": 92
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -13981,9 +14130,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14029,9 +14179,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14077,7 +14228,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "frontFootprintCenter": [
@@ -14088,7 +14239,8 @@
         "frontAnchorHorizontalOffsetUnits": -15.94,
         "notes": "End-on wall recedes diagonally right; authored front footprint is left of canvas centre"
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14134,14 +14286,15 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "apexY": 11,
         "runtimeApexUpFromGround": 52,
         "bottomFootprintY": 160
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14187,9 +14340,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14235,9 +14389,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14283,9 +14438,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14331,9 +14487,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14379,9 +14536,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14427,9 +14585,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14475,7 +14634,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "poleTip": [
@@ -14485,7 +14644,8 @@
         "runtimeDrawOffsetX": 8.953,
         "bottomAnchorVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14531,7 +14691,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "poleTip": [
@@ -14541,7 +14701,8 @@
         "runtimeDrawOffsetX": 8.798,
         "bottomAnchorVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14587,7 +14748,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "poleTip": [
@@ -14597,7 +14758,8 @@
         "runtimeDrawOffsetX": 8.586,
         "bottomAnchorVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14643,7 +14805,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "measuredGeometry": {
         "poleTip": [
@@ -14653,7 +14815,8 @@
         "runtimeDrawOffsetX": 8.877,
         "bottomAnchorVerified": true
       },
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14699,9 +14862,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "sandcastle-beach",
@@ -14747,9 +14911,10 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -14795,10 +14960,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-df62035d-df64-4dbe-a200-bf6f87913a33.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-df62035d-df64-4dbe-a200-bf6f87913a33.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -14844,7 +15010,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "sourceCrop": [
         134,
@@ -14857,7 +15023,8 @@
         "panelFillsCanvas": true
       },
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-7b97ef40-2727-4d2c-b7f4-6ddbfbb08c5f.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-7b97ef40-2727-4d2c-b7f4-6ddbfbb08c5f.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -14903,10 +15070,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-35773ad4-1d36-4e64-8604-c4e17c65fb42.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-35773ad4-1d36-4e64-8604-c4e17c65fb42.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -14952,10 +15120,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-c7d3cf21-e4d7-48dd-8250-6ebc9728d70b.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-c7d3cf21-e4d7-48dd-8250-6ebc9728d70b.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15001,10 +15170,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-b5f953c9-d4d0-4629-a89f-920a14ef31d9.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-b5f953c9-d4d0-4629-a89f-920a14ef31d9.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15050,10 +15220,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-10b80316-161f-4b68-b577-7524ad8c461f.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-10b80316-161f-4b68-b577-7524ad8c461f.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15099,10 +15270,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f52d8aa5-9acb-4ca9-b695-1de47473e9e2.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f52d8aa5-9acb-4ca9-b695-1de47473e9e2.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15149,7 +15321,7 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [
         {
           "game": "puppet-theater",
@@ -15244,7 +15416,8 @@
         "runtimeBackdropTopY": 210
       },
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-edbcdd4c-254a-416e-824b-d52f54e5a3fd.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-edbcdd4c-254a-416e-824b-d52f54e5a3fd.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15290,10 +15463,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-19c8501a-1d8f-4f83-a0f5-5387aa941c01.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-19c8501a-1d8f-4f83-a0f5-5387aa941c01.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15344,10 +15518,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-8b08d523-0b1f-4e97-a50b-32ed6ecd9788.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-8b08d523-0b1f-4e97-a50b-32ed6ecd9788.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15398,10 +15573,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-8bdf5cc8-4a36-4ea8-bf23-6b6289948ed6.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-8bdf5cc8-4a36-4ea8-bf23-6b6289948ed6.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15452,10 +15628,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e209a840-2ec1-4147-ae29-35b62b45beac.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e209a840-2ec1-4147-ae29-35b62b45beac.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15506,10 +15683,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-27beb004-788e-447a-a9d0-784dbad4519b.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-27beb004-788e-447a-a9d0-784dbad4519b.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15560,10 +15738,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-58511e81-d83d-4589-ad45-2e69fe795cb1.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-58511e81-d83d-4589-ad45-2e69fe795cb1.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15614,10 +15793,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-bda20506-604f-4f71-9a96-3e3ef9703a5f.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-bda20506-604f-4f71-9a96-3e3ef9703a5f.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15668,10 +15848,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-93d1e6cb-308c-4cc7-bd3c-512014bfa048.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-93d1e6cb-308c-4cc7-bd3c-512014bfa048.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15722,10 +15903,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f891d149-cfab-42c3-bbb0-df4af86c23e6.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-f891d149-cfab-42c3-bbb0-df4af86c23e6.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15776,10 +15958,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e04a6b23-db70-4177-997a-36e34c3a9a94.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-e04a6b23-db70-4177-997a-36e34c3a9a94.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15830,10 +16013,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-ccd23ea3-b834-493d-b5de-5b5d243bf198.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-ccd23ea3-b834-493d-b5de-5b5d243bf198.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15884,10 +16068,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-62422365-a18e-4557-bc82-cb9f25ed859e.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-62422365-a18e-4557-bc82-cb9f25ed859e.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15938,10 +16123,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-9cdfaae6-c31a-4591-9ce5-29e21701bc04.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-9cdfaae6-c31a-4591-9ce5-29e21701bc04.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -15992,10 +16178,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-ce85fc32-90f3-4f9e-ae12-d36ca0f79a7c.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-ce85fc32-90f3-4f9e-ae12-d36ca0f79a7c.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16046,10 +16233,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-8a05f7a8-96ec-4b16-ba32-d8d05107e62b.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-8a05f7a8-96ec-4b16-ba32-d8d05107e62b.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16100,10 +16288,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-3c3ea503-e3b0-46d9-bd35-55f1c2f3f614.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-3c3ea503-e3b0-46d9-bd35-55f1c2f3f614.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16154,10 +16343,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-fe2425eb-5d83-45ee-ba5a-092a9dd36fec.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-fe2425eb-5d83-45ee-ba5a-092a9dd36fec.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16208,10 +16398,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-efcf838f-0b86-49db-857d-f88273637766.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-efcf838f-0b86-49db-857d-f88273637766.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16262,10 +16453,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-569e4f6c-540a-4466-89f5-7a0f5999ac01.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-569e4f6c-540a-4466-89f5-7a0f5999ac01.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16316,10 +16508,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-4a68aa25-88bb-4119-bedd-02e23bb2dc14.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-4a68aa25-88bb-4119-bedd-02e23bb2dc14.png",
+      "reviewed": true
     },
     {
       "game": "puppet-theater",
@@ -16365,10 +16558,11 @@
         "method": 6,
         "losslessAlpha": true
       },
-      "status": "visually reviewed; root gameplay integration pending",
+      "status": "Reviewed and published in Play Studio delivery",
       "previousVersions": [],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-4f68bae7-fce3-4480-b6a2-285ee11a38cd.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13271-978b-7331-a94a-b34bba3cc929/exec-4f68bae7-fce3-4480-b6a2-285ee11a38cd.png",
+      "reviewed": true
     },
     {
       "key": "bg/aquarium",
@@ -16392,7 +16586,8 @@
       "height": 1080,
       "bytes": 112648,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "bg/aquarium-water",
@@ -16412,7 +16607,8 @@
       "height": 700,
       "bytes": 63908,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/aq-kelp-green",
@@ -16437,7 +16633,8 @@
       "height": 720,
       "bytes": 47660,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/aq-kelp-teal",
@@ -16462,7 +16659,8 @@
       "height": 720,
       "bytes": 49034,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/aq-kelp-plum",
@@ -16487,7 +16685,8 @@
       "height": 720,
       "bytes": 42840,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/aq-fern-green",
@@ -16512,7 +16711,8 @@
       "height": 340,
       "bytes": 43536,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/aq-fern-lime",
@@ -16537,7 +16737,8 @@
       "height": 340,
       "bytes": 40674,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "prop/aq-fern-red",
@@ -16562,7 +16763,8 @@
       "height": 340,
       "bytes": 35736,
       "tool": "built-in imagegen",
-      "status": "root visually reviewed; runtime pending"
+      "status": "Reviewed and published in Play Studio delivery",
+      "reviewed": true
     },
     {
       "key": "thumb/aquarium",
@@ -16573,11 +16775,12 @@
         500
       ],
       "bytes": 111384,
-      "status": "visually reviewed thumbnail from approved family references",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Use case: stylized-concept. Asset type: Charlie Party Dream Aquarium game thumbnail, final 800\u00d7500 landscape opaque artwork. Input image: approved eight fish-family canonical contact sheet; use orange goldfish, striped orange clownfish, yellow puffer and yellow seahorse identities precisely, other fish not needed. Scene: bright happy fish tank viewed straight from front, pink sandcastle on golden sand, swaying green seaweed, small bubbling diver helmet, smiling goldfish at left, clownfish by a pink anemone, yellow pufferfish at right and a little seahorse. Bubbles and few sparkles allowed in this thumbnail. Centered balanced composition, bold navy outlines and soft candy cel shading matching reference. Fill full landscape frame, friendly and readable at small card size. No text, UI, people, watermark or extra fish species.",
       "references": [
         "party/reference/pending/STUDIO-aquarium-canonicals-contact.jpg"
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-goldfish-orange",
@@ -16602,9 +16805,10 @@
         150
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-goldfish-orange.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-goldfish-orange.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-goldfish-orange.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clownfish-orange",
@@ -16629,9 +16833,10 @@
         128
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-clownfish-orange.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-angelfish-lilac",
@@ -16656,9 +16861,10 @@
         242
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-angelfish-lilac.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-angelfish-lilac.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-angelfish-lilac.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-yellow",
@@ -16683,9 +16889,10 @@
         140
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-puffer-yellow.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-puffer-yellow.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-puffer-yellow.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-betta-blue",
@@ -16710,9 +16917,10 @@
         217
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-betta-blue.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-betta-blue.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-betta-blue.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-tetra-neon",
@@ -16737,9 +16945,10 @@
         45
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-tetra-neon.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-tetra-neon.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-tetra-neon.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-seahorse-yellow",
@@ -16764,9 +16973,10 @@
         208
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-seahorse-yellow.webp",
-      "status": "approved canonical used as base prop",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-seahorse-yellow.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-seahorse-yellow.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-jellyfish-pink",
@@ -16818,9 +17028,10 @@
         150
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-df5f630d-e8cb-4cad-bcbc-5241d1db242a.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-df5f630d-e8cb-4cad-bcbc-5241d1db242a.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-df5f630d-e8cb-4cad-bcbc-5241d1db242a.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-goldfish-calico",
@@ -16845,9 +17056,10 @@
         150
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-e676a014-df31-4b2f-8698-8684c7680e46.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e676a014-df31-4b2f-8698-8684c7680e46.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e676a014-df31-4b2f-8698-8684c7680e46.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-goldfish-red",
@@ -16872,9 +17084,10 @@
         150
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-08af83d1-969f-4c5b-89b6-4d08d93f6dd4.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-08af83d1-969f-4c5b-89b6-4d08d93f6dd4.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-08af83d1-969f-4c5b-89b6-4d08d93f6dd4.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clownfish-pink",
@@ -16899,9 +17112,10 @@
         126
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-cafa6f6f-3750-4581-89a7-04f9613b65ee.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cafa6f6f-3750-4581-89a7-04f9613b65ee.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cafa6f6f-3750-4581-89a7-04f9613b65ee.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clownfish-purple",
@@ -16926,9 +17140,10 @@
         125
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-e2aac768-2f9d-4805-adb4-ca45d051ccc3.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e2aac768-2f9d-4805-adb4-ca45d051ccc3.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e2aac768-2f9d-4805-adb4-ca45d051ccc3.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clownfish-blue",
@@ -16953,9 +17168,10 @@
         125
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-7ae216e9-2075-4dbd-9d2a-c7fd69a79da8.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7ae216e9-2075-4dbd-9d2a-c7fd69a79da8.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7ae216e9-2075-4dbd-9d2a-c7fd69a79da8.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-angelfish-gold",
@@ -16980,9 +17196,10 @@
         235
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-6c03a358-349e-43b2-8351-b7f032a41173.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c03a358-349e-43b2-8351-b7f032a41173.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6c03a358-349e-43b2-8351-b7f032a41173.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-angelfish-sky",
@@ -17007,9 +17224,10 @@
         236
       ],
       "canonical_reference": "../../../../..01a13272-3707-77f1-9462-e784a7108830/exec-da149c21-28a6-4683-8e1e-a869e12e68ff.png",
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-da149c21-28a6-4683-8e1e-a869e12e68ff.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-da149c21-28a6-4683-8e1e-a869e12e68ff.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-angelfish-pink",
@@ -17033,9 +17251,10 @@
         211,
         236
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-81c4d7fe-6bf1-4815-a0a2-4af113f43723.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-81c4d7fe-6bf1-4815-a0a2-4af113f43723.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-sky",
@@ -17059,9 +17278,10 @@
         179,
         140
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-fff7aebf-f793-4d58-a219-0f666961621c.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-fff7aebf-f793-4d58-a219-0f666961621c.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-pink",
@@ -17085,9 +17305,10 @@
         185,
         144
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cd05df5e-c469-4354-b1be-b9033606317d.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cd05df5e-c469-4354-b1be-b9033606317d.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-mint",
@@ -17111,9 +17332,10 @@
         179,
         140
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-25ed6cc7-b00c-4025-a93c-daf208b438f5.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-25ed6cc7-b00c-4025-a93c-daf208b438f5.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-yellow-puffed",
@@ -17137,9 +17359,10 @@
         225,
         211
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2961ca2a-dc87-4436-9d69-dd8335ccb4b3.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2961ca2a-dc87-4436-9d69-dd8335ccb4b3.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-sky-puffed",
@@ -17163,9 +17386,10 @@
         230,
         208
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-60c3e90f-c097-460d-9ef1-963eb8f8c902.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-60c3e90f-c097-460d-9ef1-963eb8f8c902.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-pink-puffed",
@@ -17189,9 +17413,10 @@
         229,
         212
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-594ef4ff-ae2b-4ec5-9faa-dc1986f5ad8f.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-594ef4ff-ae2b-4ec5-9faa-dc1986f5ad8f.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-puffer-mint-puffed",
@@ -17215,9 +17440,10 @@
         228,
         212
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e676e617-1cc7-4371-9207-aca2b0630436.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e676e617-1cc7-4371-9207-aca2b0630436.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-betta-red",
@@ -17241,9 +17467,10 @@
         234,
         218
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ecc9cb1f-7793-453f-9206-c5783dfe930d.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ecc9cb1f-7793-453f-9206-c5783dfe930d.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-betta-purple",
@@ -17267,9 +17494,10 @@
         232,
         218
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-60f42083-d8ea-426a-85a4-5c176591da4c.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-60f42083-d8ea-426a-85a4-5c176591da4c.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-betta-pink",
@@ -17293,9 +17521,10 @@
         232,
         217
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-86d75e97-bf46-436e-adec-1c7bd18414fb.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-86d75e97-bf46-436e-adec-1c7bd18414fb.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-tetra-rainbow",
@@ -17319,9 +17548,10 @@
         88,
         45
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2a5e26af-390b-4226-bbb4-5f2c24635eea.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2a5e26af-390b-4226-bbb4-5f2c24635eea.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-tetra-pink",
@@ -17345,9 +17575,10 @@
         88,
         45
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e5d74dc6-27e4-4fc6-a2df-87f32bcfd5ac.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e5d74dc6-27e4-4fc6-a2df-87f32bcfd5ac.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-tetra-gold",
@@ -17371,9 +17602,10 @@
         88,
         45
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0e6aaa21-b6d4-4f4e-983a-8c92f7e059e6.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-0e6aaa21-b6d4-4f4e-983a-8c92f7e059e6.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-seahorse-pink",
@@ -17397,9 +17629,10 @@
         111,
         208
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cb281358-186a-424c-97f5-1ff2e543c97e.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cb281358-186a-424c-97f5-1ff2e543c97e.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-seahorse-orange",
@@ -17423,9 +17656,10 @@
         111,
         208
       ],
-      "status": "generated; pending visual review",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-35f79d2b-1b71-44af-bc5e-f29d8bd569a8.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-35f79d2b-1b71-44af-bc5e-f29d8bd569a8.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-seahorse-purple",
@@ -17449,9 +17683,10 @@
         119,
         234
       ],
-      "status": "generated; targeted halo cleanup improved alpha cutout",
+      "status": "Reviewed and published in Play Studio delivery",
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-a5fb4bce-6e6c-47ee-8868-9a76072ec42f.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-a5fb4bce-6e6c-47ee-8868-9a76072ec42f.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-jellyfish-lilac",
@@ -17565,7 +17800,7 @@
         300
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c72ba892-10be-416b-bcdc-390e7e833743.png",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d0438db1-0bc7-48f2-b7ba-3b7dd831bed9.png",
       "editPrompt": "Use case: style-transfer. Asset type: transparent 2D Aquarium game prop. Input images: Image 1 is the edit target; preserve its exact prop identity, silhouette, pose, color variant, and recognizable details. Image 2 is the approved Aquarium fish style reference; use it only for illustration style. Primary request: Redraw Image 1 as polished 2D candy-cartoon game art matching Image 2: bold smooth dark navy #24163f outlines, rounded friendly forms, clean flat colors, soft cel-shaded highlights and shadows. Keep the same framing and full prop visible. Constraints: genuine transparent background; preserve bottom-centered placement and original canvas proportions. No 3D rendering, photorealism, airbrush gradients, background, ground shadow, text, watermark, fish, bubbles, glow or extra props.",
@@ -17577,7 +17812,8 @@
         41,
         1336,
         1112
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-anemone-purple",
@@ -17613,7 +17849,7 @@
         300
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-1fc81bd3-26be-4f72-955e-aaa43219c454.png",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e7b7115b-0e3f-402e-963e-985a18a16f93.png",
       "editPrompt": "Use case: style-transfer. Asset type: transparent 2D Aquarium game prop. Input images: Image 1 is the edit target; preserve its exact prop identity, silhouette, pose, color variant, and recognizable details. Image 2 is the approved Aquarium fish style reference; use it only for illustration style. Primary request: Redraw Image 1 as polished 2D candy-cartoon game art matching Image 2: bold smooth dark navy #24163f outlines, rounded friendly forms, clean flat colors, soft cel-shaded highlights and shadows. Keep the same framing and full prop visible. Constraints: genuine transparent background; preserve bottom-centered placement and original canvas proportions. No 3D rendering, photorealism, airbrush gradients, background, ground shadow, text, watermark, fish, bubbles, glow or extra props.",
@@ -17625,7 +17861,8 @@
         80,
         1272,
         1139
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-anemone-orange",
@@ -17661,7 +17898,7 @@
         300
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7d0f98c4-feb4-47d2-b9d8-358afeb62787.png",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-bafd6a41-e58b-4ffa-bda4-6e2a68241e34.png",
       "editPrompt": "Use case: style-transfer. Asset type: transparent 2D Aquarium game prop. Input images: Image 1 is the edit target; preserve its exact prop identity, silhouette, pose, color variant, and recognizable details. Image 2 is the approved Aquarium fish style reference; use it only for illustration style. Primary request: Redraw Image 1 as polished 2D candy-cartoon game art matching Image 2: bold smooth dark navy #24163f outlines, rounded friendly forms, clean flat colors, soft cel-shaded highlights and shadows. Keep the same framing and full prop visible. Constraints: genuine transparent background; preserve bottom-centered placement and original canvas proportions. No 3D rendering, photorealism, airbrush gradients, background, ground shadow, text, watermark, fish, bubbles, glow or extra props.",
@@ -17673,7 +17910,8 @@
         63,
         1263,
         1121
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-coral-pink",
@@ -17709,7 +17947,7 @@
         380
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-f8d66dd7-2e46-443e-8f18-a039ded34d80.png",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-86b86f1a-24b4-427f-acfa-5ba23f828f11.png",
       "editPrompt": "Use case: style-transfer. Asset type: transparent 2D Aquarium game prop. Input images: Image 1 is the edit target; preserve its exact prop identity, silhouette, pose, color variant, and recognizable details. Image 2 is the approved Aquarium fish style reference; use it only for illustration style. Primary request: Redraw Image 1 as polished 2D candy-cartoon game art matching Image 2: bold smooth dark navy #24163f outlines, rounded friendly forms, clean flat colors, soft cel-shaded highlights and shadows. Keep the same framing and full prop visible. Constraints: genuine transparent background; preserve bottom-centered placement and original canvas proportions. No 3D rendering, photorealism, airbrush gradients, background, ground shadow, text, watermark, fish, bubbles, glow or extra props.",
@@ -17721,7 +17959,8 @@
         53,
         1128,
         1339
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-coral-orange",
@@ -17757,7 +17996,7 @@
         380
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-3102e7bc-a696-444e-8c84-5a5d915b0174.png",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8d5a8150-f6d0-4a4a-9d69-2820ccc73602.png",
       "editPrompt": "Use case: style-transfer. Asset type: transparent 2D Aquarium game prop. Input images: Image 1 is the edit target; preserve its exact prop identity, silhouette, pose, color variant, and recognizable details. Image 2 is the approved Aquarium fish style reference; use it only for illustration style. Primary request: Redraw Image 1 as polished 2D candy-cartoon game art matching Image 2: bold smooth dark navy #24163f outlines, rounded friendly forms, clean flat colors, soft cel-shaded highlights and shadows. Keep the same framing and full prop visible. Constraints: genuine transparent background; preserve bottom-centered placement and original canvas proportions. No 3D rendering, photorealism, airbrush gradients, background, ground shadow, text, watermark, fish, bubbles, glow or extra props.",
@@ -17769,7 +18008,8 @@
         18,
         1202,
         1280
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-coral-purple",
@@ -17805,7 +18045,7 @@
         380
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e58cb8c9-de2c-4874-9563-956d3f6d6bb1.png",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d49cbce8-bcd8-46ec-8159-48932867a9f4.png",
       "editPrompt": "Use case: style-transfer. Asset type: transparent 2D Aquarium game prop. Input images: Image 1 is the edit target; preserve its exact prop identity, silhouette, pose, color variant, and recognizable details. Image 2 is the approved Aquarium fish style reference; use it only for illustration style. Primary request: Redraw Image 1 as polished 2D candy-cartoon game art matching Image 2: bold smooth dark navy #24163f outlines, rounded friendly forms, clean flat colors, soft cel-shaded highlights and shadows. Keep the same framing and full prop visible. Constraints: genuine transparent background; preserve bottom-centered placement and original canvas proportions. No 3D rendering, photorealism, airbrush gradients, background, ground shadow, text, watermark, fish, bubbles, glow or extra props.",
@@ -17817,7 +18057,8 @@
         32,
         1167,
         1279
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-seagrass-green",
@@ -17853,7 +18094,7 @@
         300
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-402ae541-6c44-468e-8c9d-e70e08acdbd4.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-seagrass-green.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cd3785c6-ddd1-48ac-8d67-b70becb8d1ae.png",
@@ -17865,7 +18106,8 @@
         26,
         1003,
         1286
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-seagrass-gold",
@@ -17901,7 +18143,7 @@
         300
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-dfa2cbad-e9f9-4d4f-8a0e-473efb2ca52a.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-seagrass-gold.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fe29718a-911f-4bae-b345-c27a9734f75a.png",
@@ -17913,7 +18155,8 @@
         7,
         1062,
         1323
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-seagrass-blue",
@@ -17949,7 +18192,7 @@
         300
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ef707614-c8a6-4e73-b8e5-c2d6a4dfe981.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-seagrass-blue.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c35825c3-6e73-4bc1-9f74-e81007b33249.png",
@@ -17961,7 +18204,8 @@
         15,
         926,
         1342
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-castle-pink",
@@ -17997,7 +18241,7 @@
         660
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7fa26983-65a4-4700-a7fe-db9b609499ed.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-castle-pink.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-1ab1c687-5954-413c-a1bc-c20bd994b356.png",
@@ -18009,7 +18253,8 @@
         8,
         1310,
         1181
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-castle-lilac",
@@ -18045,7 +18290,7 @@
         660
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2d00cff4-5777-460a-9483-63a310cb47a3.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-castle-lilac.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-70375177-4132-4131-9b0f-42ef33a9abc5.png",
@@ -18057,7 +18302,8 @@
         6,
         1299,
         1178
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-castle-sky",
@@ -18093,7 +18339,7 @@
         660
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-268acba6-9eba-4373-a826-ea35115e37f0.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-castle-sky.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-07adb15f-0f8f-43bf-8313-032ed4545920.png",
@@ -18105,7 +18351,8 @@
         8,
         1310,
         1190
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-tower-pink",
@@ -18141,7 +18388,7 @@
         520
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e0c571b9-b214-4e95-8d84-b0249500adf1.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-tower-pink.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-80d9acc2-f9bc-4023-868a-61438c5abbdb.png",
@@ -18153,7 +18400,8 @@
         5,
         752,
         1521
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-tower-lilac",
@@ -18189,7 +18437,7 @@
         520
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-1173fe00-4861-4544-a329-c1fa2c8e4b69.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-tower-lilac.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-96a224f3-6b4f-46eb-861b-5bd29ae95fa7.png",
@@ -18201,7 +18449,8 @@
         6,
         747,
         1490
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-tower-sky",
@@ -18237,7 +18486,7 @@
         520
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5d4b8b1f-0a4c-4999-8041-705d43ca15dd.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-tower-sky.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-338e1add-bd2f-4062-bcfd-d37ee28bccdf.png",
@@ -18249,7 +18498,8 @@
         4,
         736,
         1506
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-shellhouse-pink",
@@ -18285,7 +18535,7 @@
         460
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e570e368-9929-46f3-8b9c-1963c8af6b05.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-shellhouse-pink.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c805d479-bee3-4c63-81d3-c57d81db4ca1.png",
@@ -18297,7 +18547,8 @@
         49,
         1483,
         947
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-shellhouse-peach",
@@ -18333,7 +18584,7 @@
         460
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a1fbc6ff-7a32-4c64-9f09-ece9c7be108b.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-shellhouse-peach.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6dc0a1b9-2d8e-4b4d-a818-87e3fcb40d53.png",
@@ -18345,7 +18596,8 @@
         26,
         1509,
         981
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-shellhouse-lilac",
@@ -18381,7 +18633,7 @@
         460
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-39c3819c-d1d5-400f-8bf9-c75152eb4b17.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-shellhouse-lilac.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-49b068d3-9318-40fa-a3cf-bc27230c3ac0.png",
@@ -18393,7 +18645,8 @@
         13,
         1504,
         962
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-arch-grey",
@@ -18429,7 +18682,7 @@
         400
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-49244c1f-4023-402e-a631-ecd00616c4a9.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-arch-grey.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-460fc7b6-60bf-478e-a0d6-b61f3ba785dd.png",
@@ -18441,7 +18694,8 @@
         68,
         1349,
         1057
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-arch-sand",
@@ -18477,7 +18731,7 @@
         400
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-14c27d43-8fe2-49f7-bf23-29a261fd1ee4.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-arch-sand.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-09465da9-64a6-48af-83cd-2b4561543b40.png",
@@ -18489,7 +18743,8 @@
         127,
         1360,
         985
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-arch-pink",
@@ -18525,7 +18780,7 @@
         400
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b01b0f86-5058-4dcf-9d5f-cbdd2630e536.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-arch-pink.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c8e1788a-5f5b-4155-b54c-28811a065491.png",
@@ -18537,7 +18792,8 @@
         67,
         1364,
         1027
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-boat",
@@ -18573,7 +18829,7 @@
         460
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-779317a2-81ca-4a4a-b5eb-da59249e3f1f.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-boat.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fae904d8-1971-4d9c-bacf-4511b28ade8c.png",
@@ -18585,7 +18841,8 @@
         9,
         1344,
         1011
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-scallop-peach",
@@ -18621,7 +18878,7 @@
         160
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4ec3a46c-3b99-4f1f-8da8-dab9fde4093e.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-scallop-peach.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5b42e49f-0f5f-496d-b20d-cf8610657900.png",
@@ -18633,7 +18890,8 @@
         85,
         1202,
         1184
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-scallop-pink",
@@ -18669,7 +18927,7 @@
         160
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-82d1d7a7-0c73-4013-907f-39641cfe967a.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-scallop-pink.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4629617e-91ef-4deb-96ef-3d17be786a33.png",
@@ -18681,7 +18939,8 @@
         75,
         1224,
         1177
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-scallop-white",
@@ -18717,7 +18976,7 @@
         160
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-4f8664dc-a788-4c2b-abee-6ab3a92dc847.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-scallop-white.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-a6df94bd-9e9b-4eb1-9243-3e92764fc371.png",
@@ -18729,7 +18988,8 @@
         33,
         1299,
         1158
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-conch-pink",
@@ -18765,7 +19025,7 @@
         160
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8e91c8e3-8b8e-4fa3-9f0d-79fcbd151a26.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-conch-pink.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-25cb1f04-e159-4c66-a913-19d7db9e0225.png",
@@ -18777,7 +19037,8 @@
         54,
         1478,
         945
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-conch-cream",
@@ -18813,7 +19074,7 @@
         160
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-362bfc0e-f38b-47a2-bf0f-6c9128332fe3.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-conch-cream.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-dee90fa0-2e58-4def-ba38-a06c80a21747.png",
@@ -18825,7 +19086,8 @@
         159,
         1346,
         986
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-conch-lilac",
@@ -18861,7 +19123,7 @@
         160
       ],
       "cropPolicy": "alpha>=16 bbox; 2px top/side margin, 0px bottom; proportional fit, centered; bottom anchored",
-      "status": "Root reviewed: matching 2D cartoon style and true alpha",
+      "status": "Reviewed and published in Play Studio delivery",
       "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-941a4872-2e9b-4290-b609-f0cfb34edf7c.png",
       "inputRuntimeWebP": "/Volumes/BACKUP/Backup/Games/charlie/party/assets/art/prop/aq-conch-lilac.webp",
       "newNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c6fe2aae-fc5c-4e59-ab3a-f6c1a04e3a5d.png",
@@ -18873,7 +19135,8 @@
         146,
         1344,
         972
-      ]
+      ],
+      "reviewed": true
     },
     {
       "key": "prop/aq-starfish-orange",
@@ -18902,11 +19165,12 @@
         160
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 10362,
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d428e77e-a0a6-4881-807e-6d95af13d7f1.png",
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/aq-starfish-pink",
@@ -18935,11 +19199,12 @@
         160
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 10808,
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4ad47c92-9477-477b-a330-dacd945507ed.png",
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/aq-starfish-purple",
@@ -18968,11 +19233,12 @@
         160
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 10064,
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-8ba1e72a-3869-483a-93b0-f42aa0206219.png",
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/aq-starfish-yellow",
@@ -19001,11 +19267,12 @@
         160
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 10576,
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5f6925f7-8801-4425-95de-99b1533579af.png",
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clam-white",
@@ -19034,11 +19301,12 @@
         180
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 14616,
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3f7b56cb-602a-44d3-87f4-59e6327aaee3.png",
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clam-pink",
@@ -19067,11 +19335,12 @@
         180
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. The object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 13810,
       "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ee569cd5-f848-4199-b2f6-a6667a817f0f.png",
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "reviewed": true
     },
     {
       "key": "prop/aq-clam-blue",
@@ -19100,12 +19369,13 @@
         180
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The shell is open and EMPTY; do not include a pearl because code animates it in the gap. Target object: An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 13286,
       "source": "party/reference/sources/studio/aquarium/aq-clam-blue-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-pebbles-rainbow",
@@ -19134,12 +19404,13 @@
         120
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 11762,
       "source": "party/reference/sources/studio/aquarium/aq-pebbles-rainbow-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-pebbles-ocean",
@@ -19168,12 +19439,13 @@
         120
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 10646,
       "source": "party/reference/sources/studio/aquarium/aq-pebbles-ocean-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-pebbles-candy",
@@ -19202,12 +19474,13 @@
         117
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Show a low broad small heap with individual rounded stones, no container or sand. Target object: A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 11506,
       "source": "party/reference/sources/studio/aquarium/aq-pebbles-candy-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-rock-grey",
@@ -19236,12 +19509,13 @@
         280
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 15846,
       "source": "party/reference/sources/studio/aquarium/aq-rock-grey-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-rock-sand",
@@ -19270,12 +19544,13 @@
         261
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain full silhouette with a little breathing room at top and its lowest point at the bottom canvas edge.",
       "bytes": 19184,
       "source": "party/reference/sources/studio/aquarium/aq-rock-sand-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-rock-slate",
@@ -19304,12 +19579,13 @@
         273
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
       "bytes": 14736,
       "source": "party/reference/sources/studio/aquarium/aq-rock-slate-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-airstone-blue",
@@ -19338,12 +19614,13 @@
         80
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The airstone alone: no bubbles, water, plume, glow or stand, since bubbles are drawn by code. Target object: A small round aquarium air stone on a tiny disc, porous texture, in blue / pink. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
       "bytes": 3966,
       "source": "party/reference/sources/studio/aquarium/aq-airstone-blue-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-airstone-pink",
@@ -19372,12 +19649,13 @@
         80
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. The airstone alone: no bubbles, water, plume, glow or stand, since bubbles are drawn by code. Target object: A small round aquarium air stone on a tiny disc, porous texture, in blue / pink. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
       "bytes": 4312,
       "source": "party/reference/sources/studio/aquarium/aq-airstone-pink-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-diver-brass",
@@ -19406,12 +19684,13 @@
         300
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the exact upright vintage diver figurine silhouette, helmet, round porthole, hose and flippers, rendered as a friendly simplified toy-like 2D prop. Target object: A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
       "bytes": 30318,
       "source": "party/reference/sources/studio/aquarium/aq-diver-brass-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-diver-silver",
@@ -19440,12 +19719,13 @@
         300
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the exact upright vintage diver figurine silhouette, helmet, round porthole, hose and flippers, rendered as a friendly simplified toy-like 2D prop. Target object: A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
       "bytes": 27314,
       "source": "party/reference/sources/studio/aquarium/aq-diver-silver-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-volcano-red",
@@ -19474,12 +19754,13 @@
         320
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava. This object is bottom-centre anchored; retain the full silhouette on transparent canvas.",
       "bytes": 25552,
       "source": "party/reference/sources/studio/aquarium/aq-volcano-red-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-volcano-purple",
@@ -19508,12 +19789,13 @@
         313
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Target object: A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
       "bytes": 25708,
       "source": "party/reference/sources/studio/aquarium/aq-volcano-purple-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-chest",
@@ -19542,12 +19824,13 @@
         230
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Chest must be CLOSED and latched; no coins, pearls, treasure spilling out, or open lid. Target object: A treasure chest with a rounded wooden lid, gold bands, a heart-shaped lock and a few gold coins and pearls peeking out at the seam. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
       "bytes": 19544,
       "source": "party/reference/sources/studio/aquarium/aq-chest-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-glowstone-blue",
@@ -19576,12 +19859,13 @@
         240
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
       "bytes": 14840,
       "source": "party/reference/sources/studio/aquarium/aq-glowstone-blue-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-glowstone-pink",
@@ -19610,12 +19894,13 @@
         240
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
       "bytes": 14708,
       "source": "party/reference/sources/studio/aquarium/aq-glowstone-pink-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-glowstone-green",
@@ -19644,7 +19929,7 @@
         240
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "editHistory": [
         {
           "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep as a solid matte colored stone; no emitted light, glow, aura, or halo because lighting is handled by code. Target object: A cluster of 3\u20134 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
@@ -19667,7 +19952,8 @@
       "bytes": 14834,
       "source": "party/reference/sources/studio/aquarium/aq-glowstone-green-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-lantern",
@@ -19696,12 +19982,13 @@
         277
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Lantern is unlit with transparent glass and no cast light, glow, aura, halo, or shadow. Target object: A little underwater lantern on a short post: round glass globe in a brass frame with a ring handle. This object is bottom-centre anchored; retain full silhouette on a transparent canvas.",
       "bytes": 12248,
       "source": "party/reference/sources/studio/aquarium/aq-lantern-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-glowshroom-teal",
@@ -19730,7 +20017,7 @@
         220
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "editHistory": [
         {
           "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep the mushroom solid with colorful cap and simple spots; no emitted glow, aura or halo because lighting is handled by code. Target object: Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
@@ -19753,7 +20040,8 @@
       "bytes": 21962,
       "source": "party/reference/sources/studio/aquarium/aq-glowshroom-teal-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-glowshroom-pink",
@@ -19782,7 +20070,7 @@
         220
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "editHistory": [
         {
           "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep the mushroom solid with colorful cap and simple spots; no emitted glow, aura or halo because lighting is handled by code. Target object: Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
@@ -19805,7 +20093,8 @@
       "bytes": 20816,
       "source": "party/reference/sources/studio/aquarium/aq-glowshroom-pink-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-glowshroom-purple",
@@ -19834,7 +20123,7 @@
         220
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "editHistory": [
         {
           "editPrompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Keep the mushroom solid with colorful cap and simple spots; no emitted glow, aura or halo because lighting is handled by code. Target object: Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
@@ -19857,7 +20146,8 @@
       "bytes": 16372,
       "source": "party/reference/sources/studio/aquarium/aq-glowshroom-purple-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-moonlight",
@@ -19886,12 +20176,13 @@
         300
       ],
       "actualTransparency": true,
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "prompt": "Image 1 is the exact object to restyle; Image 2 is an approved aquarium-fish ART STYLE reference only. Restyle Image 1 as a clean 2D children's storybook aquarium game prop matching Image 2's visual language: bold smooth dark navy outlines (#24163f), rounded appealing shapes, bright candy colors, simple clean cel shading, crisp edges. Preserve Image 1's exact object identity, silhouette, number of pieces, pose/orientation, palette and framing. Keep the background genuinely transparent (real alpha, do not draw a checkerboard or backdrop). No 3D render, photorealism, realistic material photography, glow, halo, bubbles, ground, cast shadow, text or watermark. Preserve the crescent moon lamp's curly curved stand and include a small five-point star hanging by a short string from the crescent tip. Keep moon and star pale warm yellow/gold. No glow or halo. Target object: A smiling crescent-moon lamp on a curly stand with a little star hanging from its tip, pale yellow. This object is bottom-centre anchored; retain full silhouette on transparent canvas.",
       "bytes": 16742,
       "source": "party/reference/sources/studio/aquarium/aq-moonlight-source.webp",
       "tool": "built-in imagegen",
-      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes"
+      "preservedNativePixels": "Lossless RGBA copy of the built-in output; no painting or alpha changes",
+      "reviewed": true
     },
     {
       "key": "prop/aq-jellyfish-pink",
@@ -19916,7 +20207,7 @@
         209
       ],
       "canonical_reference": "party/reference/canonical/studio/aq-jellyfish-pink.webp",
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "anchor": {
         "kind": "bell-centre",
         "before_px_approx": [
@@ -19937,7 +20228,8 @@
         255
       ],
       "tool": "built-in imagegen",
-      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-jellyfish-pink.webp"
+      "source": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-jellyfish-pink.webp",
+      "reviewed": true
     },
     {
       "key": "prop/aq-jellyfish-lilac",
@@ -19961,7 +20253,7 @@
         173,
         209
       ],
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "anchor": {
         "kind": "bell-centre",
         "before_px_approx": [
@@ -19982,7 +20274,8 @@
         255
       ],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-312df7ce-6b2b-45eb-8f42-4964c9eac34b.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-312df7ce-6b2b-45eb-8f42-4964c9eac34b.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-jellyfish-blue",
@@ -20006,7 +20299,7 @@
         173,
         209
       ],
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "anchor": {
         "kind": "bell-centre",
         "before_px_approx": [
@@ -20027,7 +20320,8 @@
         255
       ],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e8660653-2f77-4c8a-988b-dcabe7139cd0.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e8660653-2f77-4c8a-988b-dcabe7139cd0.png",
+      "reviewed": true
     },
     {
       "key": "prop/aq-jellyfish-peach",
@@ -20051,7 +20345,7 @@
         173,
         208
       ],
-      "status": "Reviewed final palette, alpha and runtime geometry",
+      "status": "Reviewed and published in Play Studio delivery",
       "anchor": {
         "kind": "bell-centre",
         "before_px_approx": [
@@ -20072,7 +20366,8 @@
         255
       ],
       "tool": "built-in imagegen",
-      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f6baa894-030a-4630-b8de-ee1987b24356.png"
+      "source": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f6baa894-030a-4630-b8de-ee1987b24356.png",
+      "reviewed": true
     }
   ]
 }

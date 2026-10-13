@@ -4,13 +4,15 @@ Keep this file current while long jobs run. A new session (or a session whose
 context was compacted) should read this, `PLAN.md` (status + known issues),
 `image-requests.md` and `audio-requests.md` before continuing.
 
-_Last updated: 2026-10-09, during the sprite-size audit (see "Session log" below)._
+_Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
-### Play Studio image delivery — active
+### Play Studio image delivery — complete
 
-Nine new studio art batches and two accessory revisions are published through `1ba1024f`. Final Aquarium101 batch is generated and being packaged/reviewed. Approved creature canonicals are committed; there are no remaining approval gates. `reference/IMAGE-WORK-QUEUE.md` has current ownership and exact checkpoints. New art uses index `groups` metadata: boot loads thumbnails/common art, PlayScene waits for a game's art before construction and releases it on exit. Tests cover cancellation/reuse and lazy loading. Never regenerate completed groups from the older status below.
+All ten studio art requests are delivered through `4e6dd8ed`, committed/pushed in minigame/family batches:293 new art images, two accessory replacements and18 approved creature references. Inventory875 keys/855 WebPs. All294 request keys (including reused beach crab) have valid dimensions/alpha and decode. Aquarium fish/colour/puffed variants and all65 environment/decor keys are complete. There is no image work or canonical approval pending; immediate main check was clear. No new timer was requested.
+
+New art uses index `groups`: boot loads thumbnails/common art; PlayScene waits before game construction and releases game-owned images on exit. Tests cover cancellation/reuse/reload. Geometry follows authored wheel/kiln, booth, tower surfaces and flag poles. Aquarium jelly pulses around its bell; clams retain pearls; authored chest lid pixels animate over the unchanged body; night lights redraw exact source silhouettes. Sprite validation and focused runtime/loading/geometry/builder tests pass; existing soft sprite warnings remain. Exact queue/checkpoint and review gallery are in reference/IMAGE-WORK-QUEUE.md.
 
 ### Image delivery 2026-10-12: complete
 

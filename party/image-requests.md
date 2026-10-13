@@ -1113,5 +1113,5 @@ file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 fine; the code uses one of each pair.
 
 
-Studio image batches are being delivered; see IMAGE-WORK-QUEUE.md for progress.
+No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 

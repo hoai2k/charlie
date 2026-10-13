@@ -367,3 +367,15 @@ Every delegated prop prompt must carry the house style explicitly (2D, smooth
 navy #24163f outlines, clean soft cel shading, no3D/no photorealism) and an
 approved style reference. “Storybook” alone can produce a mismatched rendered
 look. Review the first six outputs before generating the rest of a family.
+
+Narrow each colour-family prompt to the current variant. “Green crystals” means
+every crystal is green, and a teal mushroom set means every cap is teal; a
+dominant colour plus two differently coloured pieces does not satisfy the key.
+Inspect the final palette contact, not just the first family sample.
+
+Generated replacement bodies can bypass procedural animation details: check
+pearls, lids, emitters and night overlays. Restore shared animated details once,
+use measured source-image crops for a lid, and redraw the authored silhouette
+at the same fit/anchor for night effects instead of painting a second differently
+shaped procedural object. Match jellyfish world position to bell centre rather
+than the whole canvas centre; test the landmark through scale, tilt and pulse.

@@ -1,5 +1,27 @@
 # Charlie Party asset coverage
 
+## Play Studio delivery
+
+All current image requests are delivered through `4e6dd8ed`:293 new images, two replacements, and18 approved creature references. All294 studio request keys are covered (one existing crab reused). Full art inventory875 keys/855 files; runtime WebPs29.316 MiB compressed.
+
+| Studio | Requested keys | New images | Full RGBA MiB |
+| --- | ---: | ---: | ---: |
+| puppet-theater | 29 | 29 | 50.468 |
+| nail-studio | 17 | 17 | 23.882 |
+| dance-studio | 27 | 27 | 68.817 |
+| acrobat-circus | 12 | 12 | 16.610 |
+| snowman-builder | 25 | 25 | 33.553 |
+| star-maker | 14 | 14 | 19.877 |
+| aquarium | 101 | 101 | 46.013 |
+| sandcastle-beach | 23 | 22 | 19.387 |
+| hair-salon | 24 | 24 | 27.647 |
+| pottery-wheel | 22 | 22 | 32.292 |
+
+Studio RGBA338.547 MiB;323.148 MiB loads on demand rather than boot. All dimensions and required transparency pass. All26 sprite sets validate without hard errors; original soft encoded/anchor warnings remain. Focused runtime/loading/cancellation, fishing, jelly, generated-decor and builder regressions pass. Actual studio gameplay checked.
+
+Requests are archived; no pending approval or generation. Exact prompts/intake/QA are in published STUDIO records and STUDIO-DELIVERY-AUDIT.json; gallery STUDIO-DELIVERY-REVIEW.html. Later optional pose notes remain separately documented future backlog.
+
+
 ## October 12 delivery
 
 All current open requests completed through `1ec90ae`; immediate post-delivery main checkclear. Added 53 keys: 15 bakery toppings, 32 fashion accessories and 6 bunny faces. Regenerated Snowball background/sidewall, Cloud Hop thumbnail, open chest, cookie bridge and fishing handle; Hotdog two pull frames replaced and Cake six hand landmarks corrected. Current inventory: 582 keys / 562 decodable runtime files.
