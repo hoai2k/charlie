@@ -799,7 +799,7 @@ export class Game {
     // reeds art has ~40% empty headroom: draw it bigger so the clump itself is ~145 px tall
     if (s.type === 'reeds') { if (!drawArt(g, 'prop/reeds', 0, 0, 200, 235, { anchor: 'bottom' })) drawReeds(g, t); }
     else if (s.type === 'bush') { if (!drawArt(g, 'prop/flower-bush', 0, 0, 200, 146, { anchor: 'bottom' })) drawBush(g, t); }
-    else drawMushroom(g);
+    else if (!drawArt(g, 'prop/dp-mushroom', 0, 0, 140, 151, { anchor: 'bottom' })) drawMushroom(g);
     g.restore();
     if (d && d.state === 'hide') {
       const pk = d.peek;
@@ -864,7 +864,7 @@ export class Game {
     g.rotate(-wind * 0.8 + (d.confused > 0 ? Math.sin(t * 18) * 0.12 : 0));
     const quack = d.quack > 0;
     const key = quack ? 'prop/duckling-quack' : 'prop/duckling';
-    const drew = drawArt(g, key, 0, -36, 80, 80) || (quack && drawArt(g, 'prop/duckling', 0, -36, 80, 80));
+    const drew = (d.golden && drawArt(g, 'prop/duckling-golden', 0, -36, 80, 80)) || drawArt(g, key, 0, -36, 80, 80) || (quack && drawArt(g, 'prop/duckling', 0, -36, 80, 80));
     if (!drew) {
       drawDuckling(g, { quack, golden: d.golden, swim, blink: d.blinkT < 0, wing: quack ? 1 : 0, eyesShut: wind > 0 });
     } else {

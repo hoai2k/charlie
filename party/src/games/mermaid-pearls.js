@@ -701,6 +701,8 @@ export class Game {
 
   drawLedge(g, x, y) {
     g.save(); g.translate(x, y);
+    // art: 300x110 shelf, bottom-centre anchor; its flat top (y ~4 here) holds the clam
+    if (drawArt(g, 'prop/mp-ledge', 0, 72, 270, 99, { anchor: 'bottom' })) { g.restore(); return; }
     g.fillStyle = '#7a86b8'; g.strokeStyle = NAVY; g.lineWidth = 4;
     g.beginPath(); g.moveTo(-130, 4); g.quadraticCurveTo(-120, 52, -40, 60); g.quadraticCurveTo(40, 72, 110, 44); g.quadraticCurveTo(140, 20, 130, 4); g.closePath(); g.fill(); g.stroke();
     g.fillStyle = '#95a2d4'; g.beginPath(); g.ellipse(0, 4, 132, 16, 0, 0, TAU); g.fill(); g.stroke();

@@ -1,3 +1,150 @@
+## Delivered trick-or-treat — 2026-10-13
+
+All 26 keys delivered and checked in game (2026-10-13): door rect, porch light and painted pumpkins aligned to the house art; bucket, jack-in-the-box and finale candy pile resized in code.
+
+### Original request
+
+### trick-or-treat — Trick or Treat!   (requested by the trick-or-treat agent, 2026-10-05, priority: nice-to-have)
+
+A friendly Halloween street at dusk. Everyone (in a dress-up costume from the
+shared wardrobe, carrying a pumpkin bucket) dashes along the sidewalk, knocks
+on doors with A, and silly visitors pop out with candy (or a harmless funny
+trick). Every key below has a procedural fallback that ships today; the code
+already looks each one up. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **nothing scary** (big friendly eyes, smiles),
+no text. Existing candy art is reused when present (`prop/candy-wrapped`,
+`prop/candy-lollipop`, `prop/candy-golden`, `prop/treat-candy`). The visiting
+troll is the existing Troll NPC sprite wearing bunny ears.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/trick-or-treat` | 1920×1080, opaque | Full screen. Top ~110 px stays calm (HUD). The code draws six houses standing on a line at y≈700, so paint only sky, a far skyline and the ground: a sidewalk band from y≈700 to y≈1010 (players walk there) and a strip of street below it | A cosy, friendly Halloween evening street: purple-to-peach twilight sky with a big smiling-soft full moon, a few stars and wispy clouds, far rolling hills with tiny lit cottages and bare curly trees, a warm brick-and-stone sidewalk band across the lower third with fallen orange leaves, a lilac street strip at the very bottom. Empty of houses in the middle (the code draws them) |
+| `thumb/trick-or-treat` | 800×500, opaque | Game-select shelf and how-to screen | Two little garden fairies (the existing pink and blue garden-fairy NPCs, no Charlie Party player characters) in tiny witch-hat and kitty-ear costumes, holding glowing pumpkin buckets at a decorated front door, a giggling friendly mummy leaning out of the door tossing wrapped candies, jack-o'-lanterns on the steps, purple twilight, sparkles |
+| `prop/tot-house-0` … `prop/tot-house-5` | 400×560 each, transparent | Drawn 300×420, **anchored bottom-centre** on y≈700. The code draws the door over a rectangle centred horizontally from 58% to 93% of the height, 26% of the width wide, so paint a plain warm-dark doorway there; the porch steps are below 93% | Six different friendly decorated houses, front view: pastel siding (mint, lilac, peach, sky, pink, butter), porch light, glowing windows with a cat silhouette or cobweb with a smiling spider, jack-o'-lanterns, a garland of orange and purple bunting, little ghost cut-outs. Cute, never spooky |
+| `prop/tot-door` | 160×240, transparent | Stretched over the door rect; the code swings it open (horizontal squash) | A rounded-top wooden front door painted purple with a round knocker and a tiny wreath of autumn leaves |
+| `prop/tot-skeleton` | 256×320, transparent | Bottom-centre on the porch step, drawn ~190 px tall, the code bobs and wiggles it | A goofy friendly cartoon skeleton in a bow tie doing a happy dance, big round eye holes with sparkles, wide grin |
+| `prop/tot-witch` | 256×320, transparent | Same | A sweet grandma witch with round glasses, a purple pointy hat with a flower, holding a plate of star cookies, rosy cheeks |
+| `prop/tot-scarecrow` | 256×320, transparent | Same | A cheerful scarecrow with a smiling carved-pumpkin head, straw sticking out of a patched plaid shirt, waving |
+| `prop/tot-mummy` | 256×320, transparent | Same | A small giggling mummy wrapped in loose bandages with one bandage trailing, hand over mouth laughing, big cute eyes |
+| `prop/tot-cat` | 256×256, transparent | Same, drawn ~130 px tall | A fluffy black kitten with a big orange bow, sitting, green sparkly eyes, mouth open in a happy meow |
+| `prop/tot-ghost` | 256×320, transparent | Same, floats | A round little white sheet ghost with rosy cheeks and a tiny witch hat, giggling |
+| `prop/tot-candy-ghost` | 360×300, transparent | Centre; floats across the sky dropping candy | A chubby friendly white ghost flying, holding an open sack spilling colourful candy, happy face |
+| `prop/tot-bucket` | 128×128, transparent | Held at the hand, drawn ~70 px, anchored at the top of the handle | A jack-o'-lantern trick-or-treat bucket with a black handle and a happy carved face (no candy; the code draws the candy heap) |
+| `prop/tot-candy-0` … `prop/tot-candy-5` | 96×96 each, transparent | Centred, drawn ~44 px, spun | Halloween candies: orange wrapped candy, purple wrapped candy, a swirl lollipop, a chocolate bar in a green wrapper, a candy corn, a pink gumdrop |
+| `prop/tot-chicken` | 160×160, transparent | Centred, bonks a player's head and bounces | A yellow rubber chicken, squeaky toy, mouth open, silly |
+| `prop/tot-jack` | 200×260, transparent | Bottom-centre in the doorway; the code springs it up | A jack-in-the-box: a striped box with a silly sock-puppet ghost on a spring, confetti |
+| `prop/tot-candy-pile` | 900×520, transparent | Bottom-centre in the middle of the street for the finale, drawn scaled up as it grows | A huge mountain of colourful Halloween candy: wrapped candies, lollipops, candy corn, chocolate bars, gumdrops, sparkles |
+
+## Delivered duckling-parade — 2026-10-13
+
+All keys delivered and checked in game (2026-10-13): hats/glasses moved onto the art duckling, boot peek and reeds box fixed, HUD uses the art. New key `prop/dp-mushroom` (and optional `prop/duckling-golden`) filed in Re-generation requests.
+
+### Original request
+
+### duckling-parade — Duckling Parade   (requested by the duckling-parade agent, 2026-10-05, priority: nice-to-have)
+
+A sunny pond in a meadow. Lost ducklings hide around it (in reeds, on lily
+pads, in a rubber boot, behind flower bushes); players run near one, it hops
+into a quacking line behind them, and they lead the line to mama duck's nest.
+Finale: mama leads every duckling in a parade around the pond. Every key has a
+procedural fallback that ships today; the code looks each one up with
+`art()`/`drawArt()`. House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, **no text**. Ducklings wear code-drawn extras (flower
+hat, bow, tiny crown, sunglasses), so the duckling art itself is plain.
+
+**Layout (the bg must match):** pond = ellipse centred (960, 650), radii
+380 × 165 (water; players run around it). Mama's nest sits on the bank above
+the pond at (960, 400). Players run anywhere from y≈250 to y≈1040. Keep the
+top 110 px calm (timer/HUD) and the bottom 120 px plain grass (scoreboard).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/duckling-parade` | 1920×1080, opaque | Full screen. Pond ellipse centred (960, 650), radii 380×165; a clear grassy bank at (960, 400) for the nest (the code draws nest, mama, reeds, lily pads, boot and bushes on top) | A bright sunny meadow seen from a high three-quarter view: soft green grass with tiny daisies and buttercups, a clear blue oval pond in the middle with a sandy rim and sparkles on the water, a few far trees and rolling hills along the top edge, a blue sky strip with fluffy clouds at the very top. No ducks, no characters |
+| `thumb/duckling-parade` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Mama duck marching proudly in front of a line of five yellow ducklings beside a blue pond; one duckling wears a flower hat, one is mid-sneeze with a tiny puff cloud. Sunny meadow, sparkles. Subject centred |
+| `prop/duckling` | 160×160, transparent | Centred, feet near the bottom ~10% of the canvas; drawn ~70 px tall, mirrored for left; the code bobs/squashes it and adds hats on its head | A round fluffy yellow duckling, side view facing right, orange beak and feet, big shiny eye, happy, wings tucked |
+| `prop/duckling-quack` | 160×160, transparent | Same framing as `prop/duckling`; shown for 0.2 s when a duckling quacks | The same duckling with its beak wide open quacking, little wings out |
+| `prop/mama-duck` | 320×320, transparent | Bottom-centre anchor, drawn ~170 px tall in the nest and leading the parade, mirrored for left | A plump white mother duck with an orange beak, a pink bow on her head and a proud happy expression, side view facing right, standing |
+| `prop/duck-nest` | 400×220, transparent | Bottom-centre anchor at (960, 430), drawn 300 px wide; delivered ducklings sit inside it | A big round cosy straw nest with soft feathers inside, seen from a slight high angle, empty |
+| `prop/lily-pad` | 220×130, transparent | Centred, drawn 150 px wide floating on the pond; a duckling sits on top | A round green lily pad with a notch and a small pink water lily flower on one side, seen from above at an angle |
+| `prop/reeds` | 240×280, transparent | Bottom-centre anchor, drawn ~190 px tall; a duckling peeks out from behind | A clump of tall green reeds and brown cattails |
+| `prop/rubber-boot` | 160×190, transparent | Bottom-centre anchor, drawn ~120 px tall; a duckling's head pokes out of the opening at the top | One bright red rubber rain boot with white polka dots, standing upright, side view |
+| `prop/flower-bush` | 260×190, transparent | Bottom-centre anchor, drawn ~200 px wide; a duckling peeks out | A round leafy bush covered in pink and white flowers |
+
+## Delivered mermaid-pearls — 2026-10-13
+
+All keys delivered and checked in game (2026-10-13): clams, pearls, octopus, chest, fish and vents line up. Optional new key `prop/mp-ledge` filed in Re-generation requests.
+
+### Original request
+
+### mermaid-pearls — Mermaid Pearls   (requested by the mermaid-pearls agent, 2026-10-05, priority: nice-to-have)
+
+A lively cooperative underwater game: everyone swims freely (stick), zooms
+with A, grabs pearls from clams that snap open and shut, rides fizzy bubble
+currents up the screen, and tickles a sleepy octopus (A) until it giggles and
+sprays pearls everywhere. Every pearl flies into one shared treasure chest;
+when it's full there's a sparkly finale. Little friendly fish follow each
+swimmer in a conga line. Everything has a procedural fallback that ships
+today; the code already looks up every key below. House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Nothing scary: big friendly eyes everywhere. No Charlie Party roster characters in any image.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/mermaid-pearls` | 1920×1080, opaque | Full screen. Sandy seabed from y≈930 down; swimmers use y 150–920, so keep the middle open water. Top 110 px = HUD band (scoreboard + chest meter) | A bright friendly coral reef: turquoise water fading lighter toward the top with sun rays slanting down, pink and purple coral and swaying green kelp along the left and right edges, a pale sandy seabed with shells and starfish at the bottom. Cheerful and sparkling |
+| `thumb/mermaid-pearls` | 800×500, opaque | Game-select shelf and how-to screen | A wide-open smiling clam with a big glowing pearl in the foreground, a giggling pink octopus in a lilac nightcap tossing pearls, a small open treasure chest overflowing with pearls, a rainbow fish, bubbles and little friendly fish around. No people or mermaids (Molly Party art never shows the Charlie Party roster) |
+| `prop/mp-clam-open` | 256×224, transparent | Anchor bottom centre on the seabed or a rock ledge, ~170 px wide. The code draws the pearl itself in the opening (about 40% up the image, centred), so leave the inside empty | A big scalloped pink-and-lilac clam shell wide open, a cute face on the lower shell (happy eyes and smile), pale pink inside |
+| `prop/mp-clam-closed` | 256×160, transparent | Same anchor and width | The same clam shut tight, cheeks puffed with a cheeky closed-eye grin |
+| `prop/mp-pearl` | 96×96, transparent | Centred, ~44 px | A glossy white-pink pearl with a soft rainbow sheen and a white highlight |
+| `prop/mp-pearl-gold` | 96×96, transparent | Centred, ~58 px; the rare 3-pearl bonus | A shiny golden pearl with sparkles |
+| `prop/mp-octopus` | 512×448, transparent | Anchor bottom centre on the seabed, ~340 px wide. Sleeping; the code squishes/wobbles it and draws the Zz bubbles | A round chubby pink octopus asleep on the sand, curly tentacles spread out, eyes closed, tiny smile, a little lilac nightcap |
+| `prop/mp-octopus-awake` | 512×448, transparent | Same anchor and size; shown while giggling and throwing pearls | The same octopus wide awake and giggling, tentacles waving up in the air, eyes squeezed happy, cheeks blushing |
+| `prop/mp-chest` | 384×320, transparent | Anchor bottom centre on the seabed, ~250 px wide. Shown until the finale; the code draws a glow that grows as it fills | A wooden treasure chest with gold trim and a heart-shaped lock, lid slightly ajar with a glow peeking out, sitting on sand |
+| `prop/mp-chest-open` | 384×384, transparent | Same anchor and width; shown when the chest is full | The same chest wide open, overflowing with pearls and gems, rays of light |
+| `prop/mp-fish-1`, `prop/mp-fish-2`, `prop/mp-fish-3` | 160×112 each, transparent | Centred, **facing right**, ~70 px long; the code flips them | Tiny friendly fish: a yellow-and-blue striped one, a round pink pufferfish (not puffed), an orange clownfish-like one with a bow. Big eyes, smiling |
+| `prop/mp-vent` | 256×128, transparent | Anchor bottom centre on the seabed under each bubble current, ~200 px wide | A rounded mossy rock with a sparkly hole at the top where bubbles come out, little sea flowers |
+
+No new poses needed (uses `swim`, `dash`, `celebrate`, `cheer`, `laugh`, `surprised`).
+
+## Delivered pumpkin-peekaboo — 2026-10-13
+
+All keys delivered and checked in game (2026-10-13): sweets heap on the bucket rim, teasing pumpkin uses pp-pumpkin-4. Optional ring-less witch-cat filed in Re-generation requests.
+
+### Original request
+
+### pumpkin-peekaboo — Pumpkin Peekaboo   (requested by the pumpkin-peekaboo agent, 2026-10-05, priority: nice-to-have)
+
+A fast, friendly Halloween whack-a-mole: silly jack-o'-lanterns pop up out of
+holes in a moonlit pumpkin patch; players dash over and boop them with A, the
+pumpkin giggles, changes its face and spits out candy. Golden pumpkins make
+it rain candy, and sometimes a kitty in a witch hat pops up instead (boop it
+and it purrs). Friendly and funny, **never scary**: round cute faces, no
+sharp teeth, warm orange glow. Every key has a procedural fallback that
+ships today; files listed in `assets/art/index.json` drop in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, no text.
+
+Layout: sky and horizon (moon, a little cottage with warm windows, a fence)
+fill y 0–360; the patch ground fills y 360–1080. Holes sit in 4 staggered
+rows at y ≈ 450, 590, 740, 880, x 300–1620. Players run anywhere on the
+ground. Scoreboard chips sit along the bottom (y ≈ 985), the timer at the top
+centre.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pumpkin-peekaboo` | 1920×1080, opaque | Full screen. Keep the top ~110 px calm (timer). The code draws holes, pumpkins and players on the ground area (y 380–1000), so keep it plain soil and grass with low detail there | A cosy, friendly autumn night: deep purple-blue sky with a big soft yellow full moon at the upper right, twinkly stars, a little wooden cottage with warm glowing windows and a string of round orange lanterns at the far left horizon, a low wooden fence and a friendly smiling scarecrow at the horizon (y ≈ 300–380), then a wide dark-green-and-brown pumpkin patch with curly vines and a few leaves around the edges, hay bales in the bottom corners. Warm, inviting, not spooky |
+| `thumb/pumpkin-peekaboo` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Three cute jack-o'-lanterns popping out of holes in a moonlit patch, the middle one giggling and spitting out wrapped candies, a golden glowing pumpkin at the side and a kitty in a purple witch hat peeking from a hole. Subject centred |
+| `prop/pp-hole` | 320×160, transparent | Drawn centred on each hole point, 200 px wide at depth scale 1 (smaller at the back rows). Pumpkins rise out of its centre (the code hides everything below the hole's centre line) | A round dark dirt hole in the ground seen from a 3/4 top-down view, with a soft brown soil rim and a ring of curly green pumpkin vines and two leaves around it |
+| `prop/pp-pumpkin-1`, `prop/pp-pumpkin-2`, `prop/pp-pumpkin-3`, `prop/pp-pumpkin-4` | 320×320 each, transparent | Anchor: bottom centre at the hole, drawn 190 px wide; the bottom of the pumpkin touches the bottom edge of the canvas. The code squashes and wobbles it and clips the part below the hole | A cute round orange jack-o'-lantern with a curly green stem and a leaf, glowing warm yellow inside its carved face. Four silly faces: (1) big grin with the tongue sticking out; (2) winking, one eye a happy arc, lopsided smile; (3) crossed googly eyes and a goofy buck-tooth smile; (4) puffed cheeks blowing a raspberry. Round soft shapes, no pointy teeth |
+| `prop/pp-pumpkin-giggle` | 320×320, transparent | Same anchor and size as the faces; shown for ~1 s after a boop | The same pumpkin laughing hard: eyes squeezed into happy arcs, a huge open laughing mouth, rosy cheeks, a tiny happy tear |
+| `prop/pp-pumpkin-golden`, `prop/pp-pumpkin-golden-giggle` | 320×320 each, transparent | Same anchor and size as the faces; the code adds a glow and sparkles | A shiny golden jack-o'-lantern with a sparkly gold stem, beaming smile (normal) and laughing (giggle) |
+| `prop/pp-witch-cat`, `prop/pp-witch-cat-purr` | 320×320 each, transparent | Same anchor and size as the pumpkins (it pops out of a hole) | A fluffy lilac-grey kitten in a purple witch hat with a gold star, peeking up out of a hole with both paws on the rim, big sparkly eyes (normal); eyes closed blissfully, smiling, cheeks pink, purring (purr) |
+| `prop/pp-candy-1`, `prop/pp-candy-2`, `prop/pp-candy-3`, `prop/pp-candy-4` | 128×128 each, transparent | Drawn centred, ~60 px, spinning as they fly | Halloween candy: (1) a twist-wrapped round sweet in orange-and-purple stripes; (2) a swirly rainbow lollipop; (3) a chunky candy corn; (4) a pink wrapped chocolate with a bow |
+| `prop/pp-bucket` | 160×160, transparent | Held in every player's hand, ~60 px, centred on the hand; the code piles candy on top as the score grows | A plastic jack-o'-lantern trick-or-treat bucket with a black handle and a happy carved face |
+
+New pose (optional, the code falls back to `high-five` → `action`): `boop`,
+one-shot, a quick friendly poke forward with one finger (paw or nose for
+four-legged characters), happy face.
+
 ## Delivered fairy-flutter — 2026-10-13
 
 All 11 keys delivered and checked in game (2026-10-13): moon and jar sit in the calm top centre with the code-drawn fill inside the glass; happy moon, bees and the four pickups read well.
