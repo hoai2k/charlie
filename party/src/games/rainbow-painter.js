@@ -11,7 +11,7 @@
 //   prop/rp-tree(-grey)  prop/rp-castle(-grey)  prop/rp-flower-1..3  prop/rp-flower-grey
 //   prop/rp-sun-grey  prop/rp-sun-sleep  prop/rp-sun-awake  prop/rp-bird(-flap)
 // Sounds (optional files, synth/manifest fallbacks): rp-spray rp-band rp-alive
-//   rp-bird rp-splash rp-boing rp-sun-wake rp-snore rp-firework
+//   rp-bird rp-splash rp-boing rp-sun-wake rp-snore rp-firework rp-star rp-party
 import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -25,7 +25,6 @@ import { clamp, approach, lerp, rand, pick, chance, ease, TAU, later } from '../
 import { drawRainbowIcon } from './rainbow-painter/icon.js';
 
 const NAVY = '#24163f';
-const DEBUG_FAIRY = new URLSearchParams(location.search).has('rpfairy');  // TEMP test
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
 export const meta = {
@@ -35,7 +34,7 @@ export const meta = {
   type: 'Team paint',
   goal: 'Fly your paint cloud and colour in the whole grey world together!',
   controls: [['stick', 'Fly your cloud'], ['a', 'Hold to rain paint']],
-  tips: ['The sparkly part is next: paint it to fill it in!', 'Grab the golden Paint Star for a MEGA SPLASH!', 'Paint the sleepy sun last to wake him up.'],
+  tips: ['Rain paint on the grey rainbow: the sparkly stripe is a good place to start!', 'Grab the golden Paint Star for a MEGA SPLASH!', 'Paint the sleepy sun last to wake him up.'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -54,7 +53,7 @@ const DROP = 105;                          // paint lands this far under the clo
 const SPRAY_BASE = 108;
 let SPRAY_R = SPRAY_BASE;   // grows for small parties (set per game)
 const MAXV = 760, ACCEL = 3600;
-const Y_MIN = 205, Y_MAX = 880;
+const Y_MIN = 235, Y_MAX = 880;
 const SUN = { x: 1730, y: 318, r: 112 };
 const TREES = [{ x: 235, s: 0.95 }, { x: 1685, s: 0.95 }];
 const CASTLE = { x: 960, s: 0.68 };
@@ -139,7 +138,6 @@ export class Game {
     this.buildTargets();
     this.bgClouds = Array.from({ length: 6 }, (_, i) => ({ x: rand(W), y: 120 + (i % 3) * 110 + rand(-20, 20), s: rand(0.7, 1.15), v: rand(10, 24) }));
     this.ents = this.players.map((p, i) => {
-      if (DEBUG_FAIRY) p.charId = 'garden-fairy-' + ['pink', 'blue', 'yellow', 'green', 'purple'][i % 5];
       const a = new Actor(p, { scale: this.scale });
       // tiny avatars (garden fairies) get scaled up so they read on the cloud
       const minH = 145 * this.scale;
@@ -179,7 +177,7 @@ export class Game {
   }
 
   activeTargets() {
-    if (this.phase === 'rainbow') return [this.bands[this.bandIdx]];
+    if (this.phase === 'rainbow') return this.bands.filter((b) => !b.done);
     if (this.phase === 'world') return this.world.filter((t) => !t.done);
     if (this.phase === 'sun') return this.sun.done ? [] : [this.sun];
     return [];
@@ -304,7 +302,12 @@ export class Game {
   }
 
   sprayColor(e) {
-    if (this.phase === 'rainbow') return [this.bands[this.bandIdx].col];
+    if (this.phase === 'rainbow') {
+      const r = Math.hypot(e.x - RC.x, e.y + DROP - RC.y);
+      const bi = Math.floor((R_OUT - r) / BAND);
+      const b = this.bands[clamp(bi, 0, 5)];
+      return [bi >= -1 && bi <= 6 && !b.done ? b.col : this.bands[this.bandIdx].col];
+    }
     const px = e.x, py = e.y + DROP;
     for (const t of this.trees) if (Math.abs(px - t.x) < 180 && py > t.y - 400) return ['#4fd36a', '#2fb35a', '#ff4d6d'];
     if (Math.abs(px - this.castle.x) < 230 && py > GROUND - 360) return ['#ff9ccf', '#b58cff', '#7fd3ff'];
@@ -393,7 +396,8 @@ export class Game {
       if (t.prog >= 0.86) this.complete(t);
     }
     if (this.phase === 'rainbow' && this.bands[this.bandIdx].done) {
-      if (this.bandIdx < 5) { this.bandIdx++; }
+      const next = this.bands.findIndex((b) => !b.done);
+      if (next >= 0) { this.bandIdx = next; }
       else { this.phase = 'world'; this.phaseT = 0; this.banner = { text: 'Now colour the world!', t: 0 }; fx.slowmo && fx.slowmo(0.5, 0.6); }
     } else if (this.phase === 'world' && this.world.every((t) => t.done)) {
       this.phase = 'sun'; this.phaseT = 0; this.banner = { text: 'Wake up the sun!', t: 0 };
@@ -407,14 +411,14 @@ export class Game {
     t.done = true; t.alive = 0;
     for (const c of t.cells) c.f = 1;
     if (t.kind === 'band') {
-      const col = t.col;
+      const col = t.col, allDone = this.bands.every((b) => b.done);
       if (!quiet) {
         snd('rp-band', 'sparkle-beam', { vol: 0.7 }); sfx('sparkle');
         sfx('note', { midi: 72 + [0, 2, 4, 5, 7, 9][t.i], dur: 0.25, vol: 0.2 });
         later(() => sfx('note', { midi: 79 + [0, 2, 4, 5, 7, 9][t.i], dur: 0.35, vol: 0.18 }), 120);
         fx.shake(7, 0.2); fx.flash(col, 0.12);
-        this.celebrateAll(t.i === 5 ? 'celebrate' : 'cheer');
-        if (t.i === 5) { this.api.camera && this.api.camera.punch(RC.x, 600, 1.12, 0.5); particles.confettiRain(W, 70); sfx('fanfare'); }
+        this.celebrateAll(allDone ? 'celebrate' : 'cheer');
+        if (allDone) { this.api.camera && this.api.camera.punch(RC.x, 600, 1.12, 0.5); particles.confettiRain(W, 70); sfx('fanfare'); }
       }
       for (let k = 0; k < t.cells.length; k += 2) { const c = t.cells[k]; particles.burst(c.x, c.y, { type: 'star', count: 2, colors: [col, '#ffffff'], speed: [80, 240], size: [12, 20] }); }
       return;
@@ -558,6 +562,7 @@ export class Game {
           for (const t of this.activeTargets()) for (const c of t.cells) {
             if (c.f >= 1) continue;
             let sc = Math.hypot(c.x - px, c.y - py) * rand(0.8, 1.25);
+            if (t.kind === 'band' && t.i !== this.bandIdx) sc += 220;
             for (const o of this.ents) {
               if (o === e) continue;
               if (Math.hypot(o.x - c.x, o.y + DROP - c.y) < 220) sc += 260;
@@ -844,7 +849,7 @@ export class Game {
     g.rotate(Math.sin(s.t * 5) * 0.3);
     const sc = 1 + Math.sin(s.t * 9) * 0.08; g.scale(sc, sc);
     if (!drawArt(g, 'prop/rp-paint-star', 0, 0, 110, 110)) {
-      drawStarShape(g, 52, '#ffd23f');
+      drawStarShape(g, 64, '#ffd23f');
       g.fillStyle = NAVY; g.beginPath(); g.arc(-12, -4, 5, 0, TAU); g.arc(12, -4, 5, 0, TAU); g.fill();
       g.strokeStyle = NAVY; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.arc(0, 6, 10, 0.15 * Math.PI, 0.85 * Math.PI); g.stroke();
     }
@@ -904,7 +909,7 @@ export class Game {
     items.forEach((it, i) => {
       const list = Array.isArray(it.t) ? it.t : [it.t];
       const done = list.every((t) => t.done);
-      const cur = this.activeTargets().some((t) => list.includes(t));
+      const cur = it.icon === 'band' ? this.phase === 'rainbow' && it.t.i === this.bandIdx : this.activeTargets().some((t) => list.includes(t));
       const cx = x + sz / 2;
       g.save(); g.translate(cx, y);
       if (cur) { const s = 1.12 + Math.sin(this.t * 8) * 0.08; g.scale(s, s); }

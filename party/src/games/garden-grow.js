@@ -13,7 +13,7 @@
 //   gg-strawberry-bush gg-strawberry gg-pumpkin gg-vine gg-sneeze-flower(-achoo)
 //   gg-watering-can gg-butterfly gg-rain-cloud
 // Sounds (optional files, synth/manifest fallbacks): gg-plant gg-water gg-pop
-//   gg-giggle gg-carrot gg-boing gg-roll gg-achoo gg-rain gg-party
+//   gg-sprout gg-giggle gg-carrot gg-boing gg-whee gg-roll gg-achoo gg-rain gg-party
 import { W, H } from '../engine/canvas.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
@@ -31,7 +31,6 @@ import {
 } from './garden-grow/plants.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
-const DEBUG_FAIRY = new URLSearchParams(location.search).has('rpfairy');  // TEMP test
 
 export const meta = {
   id: 'garden-grow',
@@ -86,7 +85,6 @@ export class Game {
     this.waterGate = 0; this.boingGate = 0;
     this.bgClouds = Array.from({ length: 5 }, (_, i) => ({ x: rand(W), y: 70 + (i % 3) * 60, s: rand(0.6, 1), v: rand(12, 26) }));
     this.ents = this.players.map((p, i) => {
-      if (DEBUG_FAIRY) p.charId = i % 3 === 2 ? 'glimmer' : 'garden-fairy-' + ['pink', 'blue', 'yellow', 'green', 'purple'][i % 5];
       const a = new Actor(p, { scale: this.scale });
       const minH = 140 * this.scale;
       if (a.height < minH) a.scale *= minH / a.height;
