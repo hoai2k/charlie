@@ -21,10 +21,12 @@ export const session = {
 export function restoreRoster() {
   if (session.roster) { session.players = session.roster; session.roster = null; }
 }
-/** Only `playing` take part in the next game; restoreRoster() brings everyone back. */
+/** Only `playing` take part in the next game (a subset of the party, or Molly
+ *  Party's fairy players); restoreRoster() brings the party back. */
 export function sitOut(playing) {
   restoreRoster();
-  if (playing.length < session.players.length) { session.roster = session.players; session.players = playing; }
+  const same = playing.length === session.players.length && playing.every((p, i) => p === session.players[i]);
+  if (!same) { session.roster = session.players; session.players = playing; }
 }
 
 let aiSerial = 0;
