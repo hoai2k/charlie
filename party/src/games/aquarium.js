@@ -37,7 +37,7 @@ import {
   NAVY, WATER, LID, BASE_Y0, BASE_Y1, SWITCH, SWITCH_HIT, SANDS, shade, depthOfY, yOfDepth, decorScale, fishScale,
   sandSwatch, glow, glowSprite, drawRoom, drawWaterBack, drawSurface, drawSand, drawTankFront, drawSwitch, drawTitle, drawNightShade, sandCanvas, drawLidLights,
 } from './aquarium/tank.js';
-import { DECOR, DECOR_BY_ID, drawDecor, drawDecorGlow, decorLights, decorBox, drawDecorIcon } from './aquarium/decor.js';
+import { DECOR, DECOR_BY_ID, drawDecor, drawDecorGlow, decorLights, decorBox, drawDecorIcon, decorDoor, decorOut } from './aquarium/decor.js';
 import {
   KINDS, KIND, makeFish, nameChoices, fishRange, bandY, wanderTarget, steerTo, integrate, emote, drawFish, drawFishGlowBits, fishGlowColor, drawFishIcon,
 } from './aquarium/fish.js';
@@ -539,8 +539,9 @@ export class Game {
 
   popOut(f) {
     const P = f.play, it = P && P.item;
-    if (it && this.decor.includes(it) && it.def.out) {
-      f.x = it.x + it.def.out.x * it.s; f.y = it.y + it.def.out.y * it.s; f.fd = f.tfd = clamp(it.d + 0.05, 0, 1);
+    const out = it && decorOut(it.def, it);
+    if (it && this.decor.includes(it) && out) {
+      f.x = it.x + out.x * it.s; f.y = it.y + out.y * it.s; f.fd = f.tfd = clamp(it.d + 0.05, 0, 1);
     }
     f.vx = f.dir * f.kind.speed; f.vy = -30;
     if (f.mates) for (const m of f.mates) { m.x = f.x; m.y = f.y; }
@@ -639,7 +640,7 @@ export class Game {
         if (!this.decor.includes(it) || it.heldBy != null) { this.endPlay(f); break; }
         const d0 = it.def;
         if (d0.door) {
-          const dx = it.x + d0.door.x * it.s, dy = it.y + d0.door.y * it.s;
+          const door = decorDoor(d0, it), dx = it.x + door.x * it.s, dy = it.y + door.y * it.s;
           f.tfd = clamp(it.d + 0.04, 0, 1);
           const d = steerTo(f, dx, dy, k.speed * 1.3 + 30, dt, 40, 4);
           if (d < 28 || P.t > 7) {

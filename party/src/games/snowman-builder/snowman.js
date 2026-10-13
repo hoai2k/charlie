@@ -2,7 +2,7 @@
 // its procedural drawing. Everything is drawn in "yard units" with the anchor
 // of each thing at the origin; generated art (prop/snowman-*) replaces the
 // vector drawing when it exists.
-import { drawArt } from '../../engine/art.js';
+import { art, drawArt } from '../../engine/art.js';
 import { clamp, lerp, pick, TAU } from '../../engine/util.js';
 import { starPath } from '../../engine/emotes.js';
 import * as ui from '../../engine/ui.js';
@@ -399,6 +399,23 @@ const DRAW = {
   },
 };
 
+const scarfTints = new WeakMap();
+/** The white scarf-tail art multiplied by colour `col` (outline and shading kept), cached. */
+function tintedScarf(img, col) {
+  let byCol = scarfTints.get(img);
+  if (!byCol) scarfTints.set(img, (byCol = new Map()));
+  let c = byCol.get(col);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const x = c.getContext('2d');
+    x.drawImage(img, 0, 0);
+    x.globalCompositeOperation = 'multiply'; x.fillStyle = col; x.fillRect(0, 0, c.width, c.height);
+    x.globalCompositeOperation = 'destination-in'; x.drawImage(img, 0, 0);
+    byCol.set(col, c);
+  }
+  return c;
+}
+
 /** Scarf wrapped round ball c at its height, tail hanging on one side. */
 function drawScarf(g, it, c, t, anim) {
   const r = c.r, yy = clamp(it.v, -0.85, 0.85) * r, half = Math.sqrt(Math.max(0, r * r - yy * yy)) * 1.04;
@@ -411,7 +428,13 @@ function drawScarf(g, it, c, t, anim) {
   const sw = Math.sin(t * 3 + c.i) * (anim ? 0.15 : 0.05);
   g.save(); g.translate(tx, cy + th * 0.3); g.rotate(-side * 0.12 + sw);
   const tw = th * 0.95, tl = r * 0.85;
-  if (!drawArt(g, 'prop/snowman-scarf', -tw / 2, 0, tw, tl, { anchor: 'topleft' })) {
+  const tail = art('prop/snowman-scarf');
+  if (tail) {
+    // The authored tail is plain white (x 58..181 of its 240 px canvas): tint it to this scarf's
+    // colour and fit that strip to the same tw x tl box as the procedural tail.
+    const k = tail.width / 240;
+    g.drawImage(tintedScarf(tail, col), 58 * k, 0, 123 * k, tail.height, -tw / 2, 0, tw, tl);
+  } else {
     g.fillStyle = col; ui.roundRect(g, -tw / 2, 0, tw, tl, 6); g.fill(); g.stroke();
     g.fillStyle = 'rgba(255,255,255,0.85)'; for (let k = 1; k <= 2; k++) g.fillRect(-tw / 2 + 2, tl * (0.25 * k + 0.1), tw - 4, tl * 0.1);
     g.strokeStyle = col; g.lineWidth = 3; for (let k = 0; k < 4; k++) { const fx = -tw / 2 + 4 + k * (tw - 8) / 3; g.beginPath(); g.moveTo(fx, tl); g.lineTo(fx, tl + 8); g.stroke(); }

@@ -376,7 +376,8 @@ export function drawPieceShadow(g, p) {
 export function drawCrab(g, t, { walk = 0, happy = 0, look = 0, swim = false, scale = 1 } = {}) {
   g.save(); g.scale(scale, scale);
   const bob = Math.abs(Math.sin(walk * 2)) * 3 + happy * Math.abs(Math.sin(t * 14)) * 6;
-  if (!drawArt(g, 'prop/beach-crab', 0, -bob, 64, 48, { anchor: 'bottom' })) {
+  // The shared crab art (192x192) has 25 px of empty canvas under its feet: 6 units at this size.
+  if (!drawArt(g, 'prop/beach-crab', 0, 6 - bob, 64, 48, { anchor: 'bottom' })) {
     g.translate(0, -bob);
     // legs
     g.strokeStyle = NAVY; g.lineWidth = 3; g.lineCap = 'round';
