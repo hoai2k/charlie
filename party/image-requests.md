@@ -1115,3 +1115,65 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: fairy-flutter
+
+### fairy-flutter — Fairy Flutter   (requested by the fairy-flutter agent, 2026-10-13, priority: nice-to-have)
+
+Everyone flies as a fairy (each character wears fancy wings from the shared
+wardrobe) through a dreamy flower sky, zooming after sparkles, dewdrops and
+petals, booping giggling bumblebees and surfing rainbow wind streams. Every
+pickup flies up into the Moon's sparkle jar (top centre); when it is full the
+Moon cheers and the jar bursts into a sparkle-firework finale. Every key below
+has a procedural fallback that ships today, and the code already looks each
+one up. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Reused as they are: roster sprites
+(`float`, `tuck`, `cheer`, `celebrate`, `high-five`, `surprised`) and the
+garden fairy NPC sets (flying friends in the background).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/fairy-flutter` | 1920×1080, opaque | Full screen, static (the code drifts its own clouds and rainbow streams on top). Keep the top-centre area (x 700–1220, y 0–260) calm: the Moon and jar sit there. Fairies fly everywhere from y≈170 to y≈980 | A dreamy pastel twilight sky: lavender to peach to soft pink gradient, a few big puffy pink-gold clouds, faint stars high up, and a band of giant glowing flowers (tulips, daisies, bluebells, taller than houses) along the bottom ~20%, softly blurred. Magical, no characters |
+| `thumb/fairy-flutter` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two fairies with big sparkly pink and blue wings zooming through a pastel flower sky past a smiling crescent Moon holding a glowing jar of sparkles, a rainbow ribbon swooping across, a chubby bumblebee giggling. Subject centred |
+| `prop/ff-moon` | 512×512, transparent | Drawn centred at ~230 px, top centre (x 960, y 110), gently bobbing | A friendly smiling crescent Moon face (pale gold, rosy cheeks, happy eyes), soft glow edge |
+| `prop/ff-moon-happy` | 512×512, transparent | Same placement; swapped in when the jar fills (finale) | The same Moon, eyes squeezed shut in a huge open-mouthed laugh, little sparkles around |
+| `prop/ff-jar` | 320×400, transparent | Drawn centred under the Moon at 128×160 px. The code draws the glowing sparkle fill **behind** it, clipped to the jar's inside, so the glass must be mostly see-through (pale highlights only) and the inner area plain | A round glass mason jar with a cork stopper tied with a pink ribbon bow, clear glass with white highlight streaks, front view |
+| `prop/ff-sparkle` | 128×128, transparent | Pickup (worth 1), drawn centred at 64 px, spinning | A chunky golden four-point sparkle star with a white glint, soft glow |
+| `prop/ff-dewdrop` | 128×128, transparent | Pickup (worth 2), centred at 70 px, bobbing | A big shiny water dewdrop, pale aqua with a rainbow sheen and a white highlight |
+| `prop/ff-petal` | 128×128, transparent | Pickup (worth 1), centred at 64 px, tumbles (rotates) as it drifts | A single soft pink flower petal with a deeper pink base, slightly curled |
+| `prop/ff-star` | 192×192, transparent | Rare big pickup (worth 5), centred at 110 px, pulsing | A plump shiny golden star with a happy little face and a short rainbow sparkle trail on the left |
+| `prop/ff-bee` | 256×256, transparent | Bumblebee NPC, centred at 120 px, facing right (the code mirrors it), wings flap by a code squash | A chubby round cartoon bumblebee with soft yellow and brown stripes, tiny clear wings, big shiny eyes and a happy smile |
+| `prop/ff-bee-giggle` | 256×256, transparent | Same placement, shown for ~1 s after someone boops the bee (the code spins it) | The same bee, eyes squeezed shut, giggling with an open smile, tiny hearts |
+
+## New Molly Party game: fairy-hide-seek
+
+### fairy-hide-seek — Fairy Hide & Seek   (requested by the fairy-hide-seek agent, 2026-10-13, priority: nice-to-have)
+
+Little fairies hide behind giant garden things. Each player runs around the
+garden holding a big magnifying glass: looking through the lens shows what is
+behind a hiding spot (the spot turns see-through inside the lens), and A
+checks the spot. Fairies pop out giggling and twirl; decoys are silly (a frog
+jumps out going "ribbit!", a snail waves, a ladybug zooms off). Every key
+below has a procedural fallback that ships today, and the code already looks
+each one up. House style: navy `#24163f` outlines, soft cel shading, bright
+candy colours, **no text** in any image. Hiding spots are seen from the front,
+slightly from above (3/4 garden view), and are drawn **bottom-centre
+anchored** (the base touching the lawn). Fairies reuse the garden fairy NPC
+sets.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/fairy-hide-seek` | 1920×1080, opaque | Full screen, static. The code places 10 hiding spots across the lawn (y≈330–900), so keep the lawn plain-ish. Keep the top ~120 px calm (timer) and the bottom ~140 px plain (scoreboard) | A sunny storybook garden lawn in 3/4 view: soft green grass with mown stripes, a winding pale stone path, tiny daisies and clover dotted around, a white picket fence and rose hedge along the top, a blue sky strip with fluffy clouds above it. No big objects, no characters |
+| `thumb/fairy-hide-seek` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A giant magnifying glass held over a red spotted mushroom in a garden, and through the lens a giggling little pink fairy with sparkly wings is revealed hiding behind it; a frog peeks from behind a teapot nearby. Subject centred |
+| `prop/fhs-flower-pink` | 360×480, transparent | Hiding spot, bottom-centre anchored, drawn ~210 px wide; it wiggles (code rotates it around the base) | A giant pink tulip-daisy flower on a thick green stem with two big leaves, bloom at the top, big enough to hide behind |
+| `prop/fhs-flower-yellow` | 360×480, transparent | Same as above | A giant yellow sunflower-daisy with a smiley orange centre on a thick stem with big leaves |
+| `prop/fhs-mushroom` | 400×380, transparent | Hiding spot, bottom-centre, ~230 px wide | A big red toadstool with white spots and a chunky cream stalk, a tiny clump of grass at the base |
+| `prop/fhs-leaf` | 440×340, transparent | Hiding spot, bottom-centre, ~250 px wide | A big leafy fern-and-hosta clump: broad overlapping glossy green leaves fanning up from the ground |
+| `prop/fhs-teapot` | 420×360, transparent | Hiding spot, bottom-centre, ~240 px wide | A giant round china teapot, white with pink roses and a gold rim, spout to the right, sitting on the grass |
+| `prop/fhs-can` | 440×340, transparent | Hiding spot, bottom-centre, ~240 px wide | A big shiny mint-green watering can with a rose spout pointing right |
+| `prop/fhs-pot` | 360×360, transparent | Hiding spot, bottom-centre, ~210 px wide | A terracotta flowerpot overflowing with purple pansies and leaves |
+| `prop/fhs-boot` | 360×400, transparent | Hiding spot, bottom-centre, ~190 px wide | A big yellow rain boot standing upright with daisies growing out of the top |
+| `prop/fhs-frog` | 256×256, transparent | Decoy, bottom-centre at ~120 px, hops (code arcs it) | A cute round green frog sitting, big smiley mouth, rosy cheeks, front view |
+| `prop/fhs-snail` | 256×200, transparent | Decoy, bottom-centre at ~130 px wide, facing right (mirrored by code) | A happy snail with a swirly pink-and-lilac shell, waving one eye stalk |
+| `prop/fhs-ladybug` | 160×160, transparent | Decoy, centred at ~70 px, zooms off in a loop | A round red ladybug with black spots, wings open mid-flight, smiling |
+| `prop/fhs-magnifier` | 320×320, transparent | Each player's glass. The lens centre is at (120, 120) in this image with a 200 px lens; the handle runs to the lower right. The code draws a player-colour ring and the see-through view inside the lens, so the lens area must be **empty** (fully transparent) | A chunky toy magnifying glass: a thick pearly-white rim with a gold inner edge and a rounded pink handle with a gold cap, lens empty |
