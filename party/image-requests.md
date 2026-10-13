@@ -1142,6 +1142,8 @@ in any image. Reused as they are: the roster sprites (`toss`, `cheer`,
 
 ## New Molly Party game: ladybug-spots
 
+> **ON HOLD (2026-10-13):** `ladybug-spots` is being replaced by `prank-troll` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
+
 ### ladybug-spots — Ladybug Spots   (requested by the ladybug-spots agent, 2026-10-05, priority: nice-to-have)
 
 A bright garden meadow seen from a high 3/4 view. A friendly ladybug (or a
@@ -1265,6 +1267,8 @@ troll is the existing Troll NPC sprite wearing bunny ears.
 
 ## New Molly Party game: dance-freeze
 
+> **ON HOLD (2026-10-13):** `dance-freeze` is being replaced by `sneaky-dance` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
+
 ### dance-freeze — Dance & Freeze   (requested by the dance-freeze agent, 2026-10-05, priority: nice-to-have)
 
 Musical statues on a disco stage: while the music plays everyone dances
@@ -1343,6 +1347,8 @@ poses only (float, cheer, celebrate, surprised, wave, giggle).
 
 ## New Molly Party game: ballet-butterflies
 
+> **ON HOLD (2026-10-13):** `ballet-butterflies` is being replaced by `opposite-ballet` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
+
 ### ballet-butterflies — Butterfly Ballet   (requested by the ballet-butterflies agent, 2026-10-13, priority: nice-to-have)
 
 A follow-the-leader ballet class on a flower stage. A butterfly-fairy teacher
@@ -1390,6 +1396,8 @@ cel shading, bright candy colours, **no text**. Reused: roster sprites
 | `prop/wand-rainbow` | 1000×520, transparent | The rainbow spell. Anchor: bottom centre; drawn ~800 px wide over the dotted arc | A bright seven-stripe rainbow arc with a smiling fluffy cloud at each foot |
 
 ## New Molly Party game: shape-train
+
+> **ON HOLD (2026-10-13):** `shape-train` is being replaced by `bed-bounce` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
 
 ### shape-train — Choo-Choo Shapes   (requested by the shape-train agent, 2026-10-05, priority: nice-to-have)
 
@@ -1449,6 +1457,8 @@ top 110 px calm (timer/HUD) and the bottom 120 px plain grass (scoreboard).
 | `prop/flower-bush` | 260×190, transparent | Bottom-centre anchor, drawn ~200 px wide; a duckling peeks out | A round leafy bush covered in pink and white flowers |
 
 ## New Molly Party game: puppy-splash
+
+> **ON HOLD (2026-10-13):** `puppy-splash` is being replaced by `muddy-mayhem` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
 
 ### puppy-splash — Puppy Splash   (requested by the puppy-splash agent, 2026-10-05, priority: nice-to-have)
 
@@ -1542,6 +1552,8 @@ sets. No Charlie Party player characters appear in any of these images.
 | `prop/fhs-magnifier` | 320×320, transparent | Each player's glass. The lens centre is at (120, 120) in this image with a 200 px lens; the handle runs to the lower right. The code draws a player-colour ring and the see-through view inside the lens, so the lens area must be **empty** (fully transparent) | A chunky toy magnifying glass: a thick pearly-white rim with a gold inner edge and a rounded pink handle with a gold cap, lens empty |
 
 ## New Molly Party game: tea-party
+
+> **ON HOLD (2026-10-13):** `tea-party` is being replaced by `whoopee-tea` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
 
 ### tea-party — Teddy Tea Party   (requested by the tea-party agent, 2026-10-05, priority: nice-to-have)
 
