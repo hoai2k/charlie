@@ -12,12 +12,15 @@ Synced main through `61b9323a1c525144a3e356dadf3972c3890c57e5`. New scope:23 min
 Last checked revision: `61b9323a1c525144a3e356dadf3972c3890c57e5`.
 Last checked request blob: `07d61ba317137f16a9be486473128b0757b02566`.
 Last checked UTC:2026-10-13T02:13:46Z.
+Latest additional sync:0aa8a5db; changed thumbnails/DJ/mount briefs incorporated. No new key counts, but new playableFairy expansion added.
+
+Early integration delivery:11 reviewed images published at9df34290; per-game deferred groups,lossless native sources and exactprompts preserved in MOLLY-EARLY-DELIVERY.json. Remaining306 requested keys plus new playableFairy sprite expansion and cuddle/tongue-out actions.
 
 Ownership:root canonical approvals/shared index/intake/docs/Git; tools agent cupcake-stack,dance-freeze,bubble-pop,balloon-float,ballet-butterflies; performance agent wand-shapes,fairy-flutter,fairy-hide-seek,sock-match,tea-party; structural agent ladybug-spots,garden-grow after exact inventory. Other games remain queued. Built-in imagegen only, one call per unrelated asset, true alpha, lossless source/provenance and reviewed runtimeWebP. First-six sample gates prevent style drift before expansion.
 
-Pending approval:first6 characters (ladybug,bee,butterfly,duckling,frog,MadamePapillon), `pending/molly-canonicals/REVIEW.html`. Hold their dependent variants/thumbnails; independent artwork continues. More new NPC families will follow for review. Approved previous roster/GardenFairies/Aquarium/StarMaker canonicals remain approved.
+User approved butterfly,duckling,frog,MadamePapillon and revised prettier ladybug-v2/bee-v2; sources promoted to canonical/molly-*.webp. All five expanded playable GardenFairies approved and promoted, original NPC references preserved under pending/molly-playable-fairies/previous-npc-canonicals. Glimmer stays approved and needs missing Molly poses. Next pending approval:five TeaGuest identities,crescentMoon,bluebird at pending/molly-canonicals-2/REVIEW.html. Other new creature families continue. No Charlie Party roster characters in Molly thumbnails; use Molly Fairies/Glimmer or exact specified animals.
 
-The23 game runtime modules have not landed yet; art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. Previous monitor remains cancelled; no new timer requested.
+Tea Party and Sock Match modules landed at0aa8a5db; other21 game modules have not landed yet. Art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. Previous monitor remains cancelled; no new timer requested.
 
 ## New Play Studio delivery — complete
 
