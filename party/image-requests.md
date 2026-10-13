@@ -1853,3 +1853,79 @@ flourish), `dance`, `dance-star`, `pose-twirl`, `bow`, `sit`, `sleep`,
 **Step 3 — character data (lead):** the lead registers them as a Molly Party
 roster (character select shows fairies when playing Molly Party) once the
 user confirms the decision after trying the games.
+
+## New Molly Party game: bed-bounce
+
+### bed-bounce — No Jumping on the Bed!   (requested by the bed-bounce agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Choo-Choo Shapes (`shape-train`); it reuses none of its art. A huge
+fluffy bed in a cosy bedroom at night, seen from the side. Nanny Moo (a NEW
+character: a kindly, slightly pompous cow in a nightcap and a pink dressing
+gown) says goodnight and shuts the door. BOUNCE! Players hold A to bounce
+higher and higher (stick steers left/right), grab stars and feathers in the
+air, bonk each other with pillows (feather explosions) and touch the
+glow-star stickers on the ceiling. When the hallway light shows under the
+door, thump-thump footsteps come and the handle wiggles, everyone lets go
+and flops under the duvet fake-snoring before Nanny Moo peeks in. Anyone
+still bouncing gets a pompous stare and a few stars wobble out. Teddies and
+the cat start bouncing too; feathers fill the room. Finale: Nanny Moo comes
+in, sighs at the feather storm... and jumps on the bed herself. Every key has
+a procedural fallback that ships today. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, cosy night palette (deep
+blue-violet with warm lamp-glow accents), **no text** in any image. Player
+avatars use existing poses (see the bed-bounce final report for the list).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/bed-bounce` | 1920×1080, opaque | Full screen. **No bed and no door in it** (both are drawn by code). The code draws the bed over x≈90–1490, y≈440–1040, the door in the right wall at x≈1580–1820, y≈380–930 (keep that wall area plain, wallpaper only), glow-star stickers along the ceiling at y≈150–200. Floor line at y≈930. Keep the top 110 px calm (HUD) | A cosy child's bedroom at night, side view: deep blue-violet wallpaper with tiny pale stars, a round window on the upper left with a big smiling crescent moon and twinkling stars outside, a toy shelf with books and toys, a fluffy round rug on a warm wooden floor, a little night-light glow. Calm and dreamy, soft lamp-glow highlights |
+| `thumb/bed-bounce` | 800×500, opaque | Game-select shelf and how-to screen | A giant fluffy bed with kids'-party energy: a cartoon fairy and a teddy bear bouncing sky-high with pillows, feathers exploding everywhere, a cow in a nightcap peeking round a door with one eyebrow raised, a moonlit window. Subject centred, no recognisable roster characters |
+| `prop/bb-bed` | 1400×600, transparent | Drawn at x=90, y=440 at 1400×600 (top-left anchor); the code squashes it slightly when people land. Headboard on the LEFT (0–14% of the width, full height). **The mattress top where feet land is at 53% from the top (y≈760 on screen), flat from 14% to 100% of the width**; the duvet covers it (code draws sleeper lumps on top). Legs reach the bottom edge | A huge puffy cartoon bed, side view: a tall rounded wooden headboard with a heart cut-out on the left, a thick bouncy mattress, a fluffy pastel-pink quilted duvet with a star pattern draped over the side, two big pillows by the headboard, short stubby legs |
+| `prop/bb-door` | 240×550, transparent | Anchor top-left at (1580, 380), drawn 240×550 when shut. When peeking the code squeezes it horizontally towards the hinge (right side) to swing it open | A rounded-top wooden bedroom door, front view, painted cream with a little moon-and-star decoration, a round brass knob on the LEFT side |
+| `prop/nanny-moo` | 512×640, transparent | Anchor bottom-centre on the floor (y≈930); drawn 400 px tall, facing left. Used for the goodnight wave and the finale walk-in | Nanny Moo: a kindly, slightly prim cartoon cow standing upright, white with soft black patches, pink snout, little curved horns, a long droopy blue-striped nightcap with a pompom, a fluffy pink dressing gown with a belt, bunny slippers, holding a small glowing night-light lantern (electric, no flame). Raised eyebrow, warm smile |
+| `prop/nanny-moo-peek` | 400×480, transparent | Anchor bottom-RIGHT; drawn 300 px wide with its right edge at the door's opening edge (x≈1600, bottom at y≈800) so she leans out round the door frame | Nanny Moo leaning in sideways to peek: just her head with the nightcap, one shoulder and a hand holding the night-light lantern, one eyebrow raised suspiciously, looking left |
+| `prop/nanny-moo-jump` | 512×640, transparent | Anchor centre; drawn 420 px tall in the finale, bouncing high above the bed (the code moves and squashes her) | Nanny Moo mid-bounce with delight: arms flung up, dressing gown flapping, nightcap flying up, slippers kicked off, eyes shut laughing |
+| `prop/bb-pillow` | 256×192, transparent | Anchor centre; drawn 90 px wide in each player's hand (code rotates it for swings) | A fluffy white rectangular pillow with soft puffy corners and a tiny lace edge |
+| `prop/bb-feather` | 128×128, transparent | Anchor centre; drawn 40–70 px, drifting and spinning | A single soft white downy feather with a faint pink tip |
+| `prop/bb-star` | 128×128, transparent | Anchor centre; drawn 70 px, floating collectible (golden variant tinted by code) | A plump golden five-point star with a happy face, rosy cheeks and a white shine |
+| `prop/bb-glowstar` | 128×128, transparent | Anchor centre; drawn 60 px, stuck to the ceiling in a row (code makes them glow when touched) | A pale yellow-green glow-in-the-dark plastic star sticker, softly glowing |
+| `prop/bb-teddy` | 256×256, transparent | Anchor bottom-centre; drawn 120 px tall, bouncing on the bed | A cuddly brown teddy bear with a red bow tie, arms up, mid-bounce, happy face |
+| `prop/bb-cat` | 256×256, transparent | Anchor bottom-centre; drawn 110 px tall, bouncing on the bed | A fluffy ginger cat leaping with all four paws spread out and a delighted face, tail up |
+
+## New Molly Party game: prank-troll
+
+### prank-troll — Prank the Sleeping Troll   (requested by the prank-troll agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Ladybug Spots (`ladybug-spots`). Reuses: nothing from it (the
+meadow is new because of the big tree). The big friendly troll (the Charlie
+Party NPC, same look as `assets/sprites/troll`) is snoring against a big
+tree in a sunny meadow. Players tiptoe to prank baskets around the meadow
+(a crayon, flowers, bows, a party hat, a tickle feather, glitter, nail
+polish), carry one to the troll and press A: a curly moustache appears,
+flowers in his hair, bows on his ears, a party hat, glitter in his beard,
+pink toenails. Feather tickles build to a huge flower-shower SNEEZE. When he
+stirs (snore stops, an eye cracks open, a big "!"), everyone freezes and
+turns into a bush; anyone wiggling gets a sleepy swat and tumbles away
+giggling. Finale: he wakes, a garden fairy holds up a mirror, he ROARS with
+laughter and dances in his prank outfit. **The code draws every prank on top
+of the troll art,** so the troll images must match the face/hair/feet
+positions below. Every key has a procedural fallback that ships today.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text**. The mirror fairy is a `garden-fairy-*` NPC sprite.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/prank-troll` | 1920×1080, opaque | Full screen. A big tree trunk centred at x=960 with its base at y≈560 (the troll sits against it; the code draws him, so leave the trunk base clear). Players walk everywhere below y≈540. Keep the top 110 px calm (HUD) | A sunny summer meadow from a high 3/4 view: a huge old friendly oak in the top middle with a wide leafy crown, soft green grass with mowed stripes, daisies, buttercups and clover, a few tall flowers and bushes framing the left and right edges, butterflies, blue sky peeking at the top corners |
+| `thumb/prank-troll` | 800×500, opaque | Game-select shelf and how-to screen | A big friendly troll snoring against a tree with a curly drawn-on moustache, flowers in his hair, a party hat and bows on his ears, little giggling fairies tiptoeing up with a feather and a crayon, Zzz bubbles. Subject centred |
+| `prop/pt-troll-asleep` | 900×760, transparent | Anchor bottom-centre at (960, 640), drawn 640×540 (front view, sitting against the tree with legs stretched out towards the viewer, big bare feet at the bottom). **Positions (fractions of the image, x / y):** face centre 0.50 / 0.27; eyes at 0.44 and 0.56 / 0.24; nose 0.50 / 0.30 (moustache sits just under it at 0.50 / 0.34); ears at 0.31 and 0.69 / 0.26; top of the head 0.50 / 0.06; hair sides 0.36 and 0.64 / 0.16; beard/chin 0.50 / 0.42; big toes at 0.27 and 0.73 / 0.92. Eyes **closed**, mouth open snoring, no moustache, no beard decorations | The big friendly troll from Charlie Party (olive-green spotted skin, long shaggy dark-brown hair, a scruffy short brown beard, brown ragged loincloth, big bare feet), sitting asleep against a tree trunk, arms folded on his round belly, head tilted, mouth open snoring, front view, legs stretched towards the viewer with the soles of his big feet showing |
+| `prop/pt-troll-awake` | 900×760, transparent | Same size, anchor and face/ear/toe positions as `pt-troll-asleep` (the pranks stay on). Used in the finale; the code bobs and sways it | The same troll, same sitting framing, eyes wide open and a huge belly-laugh with mouth wide open, arms flung up, tears of laughter |
+| `prop/pt-basket` | 256×192, transparent | Anchor bottom-centre; drawn 150 px wide at each prank station; the code draws the item floating above it | A small woven wicker picnic basket with a gingham cloth, front view |
+| `prop/pt-crayon` | 128×128, transparent | Anchor centre; drawn 70 px (carried overhead, station item) | A chunky dark-brown wax crayon with a paper wrapper, tilted |
+| `prop/pt-moustache` | 256×128, transparent | Anchor centre at the moustache point; drawn 170 px wide (grows to 230 px for the second level) | A big curly hand-drawn cartoon moustache with twirly ends, dark brown, looking like crayon |
+| `prop/pt-flower` | 128×128, transparent | Anchor centre; drawn 56 px, stuck in the troll's hair (several, tinted pink/yellow/blue by code) | A cheerful daisy-like flower with white petals and a yellow centre |
+| `prop/pt-bow` | 160×128, transparent | Anchor centre; drawn 90 px on each ear | A big glossy pink ribbon bow with white polka dots |
+| `prop/pt-party-hat` | 192×256, transparent | Anchor bottom-centre at the top of the head; drawn 120×160, slightly tilted | A striped cone party hat (pink, yellow, blue stripes) with a fluffy pompom and an elastic string |
+| `prop/pt-feather` | 192×128, transparent | Anchor at the quill end; drawn 110 px, wiggling at his nose | A long fluffy rainbow tickle feather |
+| `prop/pt-glitter` | 128×160, transparent | Anchor centre; drawn 60 px (station item / carried) | A small round shaker jar of rainbow glitter with a pink lid, sparkles |
+| `prop/pt-polish` | 96×160, transparent | Anchor centre; drawn 50 px (station item / carried) | A tiny bottle of bubblegum-pink nail polish with a silver cap |
+| `prop/pt-bush` | 320×300, transparent | Anchor bottom-centre on a frozen player; drawn about 1.2× the player's width. The code shows the player's eyes peeking through | A round leafy cartoon bush with a few little flowers on it, front view, with two small gaps in the leaves near the top |
+| `prop/pt-mirror` | 192×256, transparent | Anchor centre; drawn 130 px, held up by the fairy in the finale | An oval hand mirror with a golden curly frame and a handle, the glass shining pale blue with a sparkle |
