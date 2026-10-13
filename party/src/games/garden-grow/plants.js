@@ -2,7 +2,7 @@
 // plants, the watering can, butterflies, the rain cloud and the thumbnail.
 // Every piece first tries its art key (drawArt) and falls back to vectors.
 import * as ui from '../../engine/ui.js';
-import { drawArt } from '../../engine/art.js';
+import { drawArt, hasArt } from '../../engine/art.js';
 import { drawSparkleShape } from '../../engine/emotes.js';
 import { TAU, clamp } from '../../engine/util.js';
 
@@ -109,8 +109,8 @@ export function drawCarrot(g, pop, t, hop, free = false) {
     g.restore();
   }
   g.restore();
-  // soil lip in front
-  if (!free) { g.fillStyle = '#a8673a'; g.beginPath(); g.ellipse(0, 4, 58, 16, 0, 0, Math.PI); g.fill(); }
+  // soil lip in front (with art the game redraws the mound's front half instead)
+  if (!free && !hasArt('prop/gg-dirt')) { g.fillStyle = '#a8673a'; g.beginPath(); g.ellipse(0, 4, 58, 16, 0, 0, Math.PI); g.fill(); }
 }
 
 export function drawStrawberryBush(g, t) {
@@ -192,13 +192,13 @@ export function drawButterfly(g, t, c1, c2, s = 1) {
   const flap = 0.25 + Math.abs(Math.sin(t * 14)) * 0.75;
   g.save(); g.scale(s, s);
   g.save(); g.scale(flap, 1);
-  if (!drawArt(g, 'prop/gg-butterfly', 0, 0, 80, 64)) {
-    g.fillStyle = c1;
-    for (const sx of [-1, 1]) { g.beginPath(); g.ellipse(sx * 18, -10, 20, 16, sx * 0.4, 0, TAU); g.fill(); ol(g, 2.5); }
-    g.fillStyle = c2;
-    for (const sx of [-1, 1]) { g.beginPath(); g.ellipse(sx * 14, 12, 13, 11, -sx * 0.4, 0, TAU); g.fill(); ol(g, 2.5); }
-    g.fillStyle = '#fff6a8'; for (const sx of [-1, 1]) { g.beginPath(); g.arc(sx * 20, -12, 4, 0, TAU); g.fill(); }
-  }
+  // the art has its own body and antennae: flap it and stop there
+  if (drawArt(g, 'prop/gg-butterfly', 0, 0, 80, 64)) { g.restore(); g.restore(); return; }
+  g.fillStyle = c1;
+  for (const sx of [-1, 1]) { g.beginPath(); g.ellipse(sx * 18, -10, 20, 16, sx * 0.4, 0, TAU); g.fill(); ol(g, 2.5); }
+  g.fillStyle = c2;
+  for (const sx of [-1, 1]) { g.beginPath(); g.ellipse(sx * 14, 12, 13, 11, -sx * 0.4, 0, TAU); g.fill(); ol(g, 2.5); }
+  g.fillStyle = '#fff6a8'; for (const sx of [-1, 1]) { g.beginPath(); g.arc(sx * 20, -12, 4, 0, TAU); g.fill(); }
   g.restore();
   g.fillStyle = NAVY; ui.roundRect(g, -3, -16, 6, 34, 3); g.fill();
   g.strokeStyle = NAVY; g.lineWidth = 2; g.beginPath(); g.moveTo(-1, -16); g.lineTo(-8, -28); g.moveTo(1, -16); g.lineTo(8, -28); g.stroke();

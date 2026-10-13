@@ -123,7 +123,14 @@ export const GARDEN_FAIRIES = [
   members: [{ asset: `garden-fairy-${variant}`, h: 54, face: [0.35, 0.41, 0.21], top: 0.98, facing: 1, motion: 'glide' }],
 }));
 
-export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX, GLIMMER, PROFESSOR_HOOT, ...SHADOW_IMPS, ...GARDEN_FAIRIES];
+// Molly Party is played as the fairies: the same sprites as Glimmer and the
+// garden fairies, at a player character's size (the NPCs are tiny).
+export const MOLLY_FAIRIES = [GLIMMER, ...GARDEN_FAIRIES].map((c) => ({
+  ...c, id: 'molly-' + c.id, mollyOf: c.id,
+  members: c.members.map((m) => ({ ...m, h: c === GLIMMER ? 138 : 122 })),
+}));
+
+export const ALL_ENTRIES = [...CHARACTERS, TROLL, FELLOWFOX, GLIMMER, PROFESSOR_HOOT, ...SHADOW_IMPS, ...GARDEN_FAIRIES, ...MOLLY_FAIRIES];
 export const charById = (id) => ALL_ENTRIES.find((c) => c.id === id);
 
 // Fill defaults.

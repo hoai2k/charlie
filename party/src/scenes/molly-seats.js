@@ -13,10 +13,10 @@ import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { rand } from '../engine/util.js';
-import { charById } from '../data/characters.js';
+import { charById, MOLLY_FAIRIES } from '../data/characters.js';
 import { session, makePlayer, newAIController, MAX_PLAYERS } from '../state.js';
 
-export const FAIRIES = ['glimmer', 'garden-fairy-pink', 'garden-fairy-blue', 'garden-fairy-yellow', 'garden-fairy-green', 'garden-fairy-purple'];
+export const FAIRIES = MOLLY_FAIRIES.map((c) => c.id);   // molly-glimmer, molly-garden-fairy-pink...
 const lastFairy = new Map();   // controller -> fairy picked last time (the default next time)
 let memo = null;               // { roster, seats } of the last Molly intro: the next one starts with the same players
 const fairyName = (id) => (charById(id)?.name || id).replace(/ Fairy$/, '');
@@ -64,7 +64,7 @@ export class MollySeats {
       const x = W / 2 + (i - (n - 1) / 2) * spacing;
       if (!s.actor || s.actor.charId !== s.fairy) {
         const h = charById(s.fairy)?.members?.[0]?.h || 100;
-        s.actor = new Actor(s.fairy, { scale: Math.min(2.6, (n > 4 ? 100 : 118) / h), x, y: 1028 });
+        s.actor = new Actor(s.fairy, { scale: (n > 4 ? 100 : 118) / h, x, y: 1028 });
         s.actor.snap();
       }
       s.actor.x = x;

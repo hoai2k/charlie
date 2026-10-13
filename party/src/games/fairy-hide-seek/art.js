@@ -12,14 +12,14 @@ export const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; r
 
 // Spot types: size of the drawn box (bottom-centre anchored).
 export const SPOTS = {
-  'flower-pink': { w: 210, h: 300 },
-  'flower-yellow': { w: 210, h: 300 },
+  'flower-pink': { w: 210, h: 280 },    // boxes match the art's aspect so it sits on the ground
+  'flower-yellow': { w: 210, h: 280 },
   mushroom: { w: 230, h: 215 },
   leaf: { w: 250, h: 195 },
   teapot: { w: 240, h: 205 },
   can: { w: 240, h: 185 },
   pot: { w: 210, h: 210 },
-  boot: { w: 175, h: 225 },
+  boot: { w: 180, h: 200 },
 };
 
 // --- glow ----------------------------------------------------------------------
@@ -213,7 +213,7 @@ export function drawFairy(g, x, y, s, col, t, dir = 1, o = {}) {
 // --- decoys (origin = bottom centre) -------------------------------------------------
 export function drawFrog(g, x, y, s, t, o = {}) {
   g.save(); g.translate(x, y); g.scale(s * (o.dir || 1), s * (1 + (o.squash || 0)));
-  if (!drawArt(g, 'prop/fhs-frog', 0, -60, 120, 120)) {
+  if (!drawArt(g, 'prop/fhs-frog', 0, -54, 120, 120)) {
     g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 4; g.fillStyle = '#6fd36a';
     g.beginPath(); g.ellipse(0, -38, 52, 38, 0, 0, TAU); g.fill(); g.stroke();
     g.beginPath(); g.arc(-26, -78, 18, 0, TAU); g.arc(26, -78, 18, 0, TAU); g.fill(); g.stroke();
@@ -229,7 +229,7 @@ export function drawFrog(g, x, y, s, t, o = {}) {
 }
 export function drawSnail(g, x, y, s, t, o = {}) {
   g.save(); g.translate(x, y); g.scale(s * (o.dir || 1), s);
-  if (!drawArt(g, 'prop/fhs-snail', 0, -50, 130, 100)) {
+  if (!drawArt(g, 'prop/fhs-snail', 0, -40, 130, 100)) {
     g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 4;
     g.fillStyle = '#ffd9a8';
     g.beginPath(); g.moveTo(-60, 0); g.quadraticCurveTo(-60, -20, 10, -18); g.lineTo(40, -30); g.quadraticCurveTo(64, -60, 60, -8); g.quadraticCurveTo(60, 0, 40, 0); g.closePath(); g.fill(); g.stroke();

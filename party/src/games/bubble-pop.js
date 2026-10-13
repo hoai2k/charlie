@@ -66,7 +66,7 @@ const FINALE_T = 6.5;
 const GROUND_Y = 905;
 const MAX_SPEED = 640;
 const JUMP_V = 1020, JUMP_G = 2500, POP_BOUNCE = 820, GIANT_BOUNCE = 1080, MAX_Z = 430;
-const MACHINE_Y = 360;
+const MACHINE_Y = 450;          // cloud bottom; keeps the machine's head clear of the meter panel
 const SURPRISES = ['duck', 'star', 'confetti', 'rainbow', 'cupcake', 'frog'];
 const SURPRISE_W = [3, 3, 2, 2, 2, 3];
 
@@ -174,8 +174,10 @@ export class Game {
     const giant = !!o.giant;
     const r = giant ? 120 : rand(46, 64);
     const dir = o.fan ? Math.sign(o.fan) : (chance(0.5) ? 1 : -1);
+    // the art blows from the wand in its mouth; the procedural one from its side wand
+    const [nx, ny] = art('prop/bubble-machine') ? [-86, -141] : [161, -163];
     const b = {
-      id: serial++, x: m.x + 190, y: MACHINE_Y - 190, r, giant, hp: giant ? 3 : 1, hit: 0,
+      id: serial++, x: m.x + nx, y: MACHINE_Y + ny, r, giant, hp: giant ? 3 : 1, hit: 0,
       vx: clamp(m.vx * 0.3, -160, 160) + dir * rand(140, 360) * (o.fan ? Math.abs(o.fan) : 1) * (giant ? 0.5 : 1),
       vy: rand(-160, 40), sway: rand(TAU), age: 0, grow: 0, surprise: giant ? 'giant' : pickSurprise(), spin: rand(-1, 1), wob: 0,
       fall: giant ? 70 : rand(85, 125),
