@@ -1115,3 +1115,64 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: duckling-parade
+
+### duckling-parade — Duckling Parade   (requested by the duckling-parade agent, 2026-10-05, priority: nice-to-have)
+
+A sunny pond in a meadow. Lost ducklings hide around it (in reeds, on lily
+pads, in a rubber boot, behind flower bushes); players run near one, it hops
+into a quacking line behind them, and they lead the line to mama duck's nest.
+Finale: mama leads every duckling in a parade around the pond. Every key has a
+procedural fallback that ships today; the code looks each one up with
+`art()`/`drawArt()`. House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, **no text**. Ducklings wear code-drawn extras (flower
+hat, bow, tiny crown, sunglasses), so the duckling art itself is plain.
+
+**Layout (the bg must match):** pond = ellipse centred (960, 650), radii
+380 × 165 (water; players run around it). Mama's nest sits on the bank above
+the pond at (960, 400). Players run anywhere from y≈250 to y≈1040. Keep the
+top 110 px calm (timer/HUD) and the bottom 120 px plain grass (scoreboard).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/duckling-parade` | 1920×1080, opaque | Full screen. Pond ellipse centred (960, 650), radii 380×165; a clear grassy bank at (960, 400) for the nest (the code draws nest, mama, reeds, lily pads, boot and bushes on top) | A bright sunny meadow seen from a high three-quarter view: soft green grass with tiny daisies and buttercups, a clear blue oval pond in the middle with a sandy rim and sparkles on the water, a few far trees and rolling hills along the top edge, a blue sky strip with fluffy clouds at the very top. No ducks, no characters |
+| `thumb/duckling-parade` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Mama duck marching proudly in front of a line of five yellow ducklings beside a blue pond; one duckling wears a flower hat, one is mid-sneeze with a tiny puff cloud. Sunny meadow, sparkles. Subject centred |
+| `prop/duckling` | 160×160, transparent | Centred, feet near the bottom ~10% of the canvas; drawn ~70 px tall, mirrored for left; the code bobs/squashes it and adds hats on its head | A round fluffy yellow duckling, side view facing right, orange beak and feet, big shiny eye, happy, wings tucked |
+| `prop/duckling-quack` | 160×160, transparent | Same framing as `prop/duckling`; shown for 0.2 s when a duckling quacks | The same duckling with its beak wide open quacking, little wings out |
+| `prop/mama-duck` | 320×320, transparent | Bottom-centre anchor, drawn ~170 px tall in the nest and leading the parade, mirrored for left | A plump white mother duck with an orange beak, a pink bow on her head and a proud happy expression, side view facing right, standing |
+| `prop/duck-nest` | 400×220, transparent | Bottom-centre anchor at (960, 430), drawn 300 px wide; delivered ducklings sit inside it | A big round cosy straw nest with soft feathers inside, seen from a slight high angle, empty |
+| `prop/lily-pad` | 220×130, transparent | Centred, drawn 150 px wide floating on the pond; a duckling sits on top | A round green lily pad with a notch and a small pink water lily flower on one side, seen from above at an angle |
+| `prop/reeds` | 240×280, transparent | Bottom-centre anchor, drawn ~190 px tall; a duckling peeks out from behind | A clump of tall green reeds and brown cattails |
+| `prop/rubber-boot` | 160×190, transparent | Bottom-centre anchor, drawn ~120 px tall; a duckling's head pokes out of the opening at the top | One bright red rubber rain boot with white polka dots, standing upright, side view |
+| `prop/flower-bush` | 260×190, transparent | Bottom-centre anchor, drawn ~200 px wide; a duckling peeks out | A round leafy bush covered in pink and white flowers |
+
+## New Molly Party game: puppy-splash
+
+### puppy-splash — Puppy Splash   (requested by the puppy-splash agent, 2026-10-05, priority: nice-to-have)
+
+Muddy puppies zoom around a backyard; players hold A to blast them with a
+garden hose until they are clean and fluffy, then each puppy shakes water
+everywhere (on whoever is close!), barks and bounds to the porch to sit on a
+dog bed. A bubble pool gives a bubble hose; mud puddles make puppies muddy
+again. Every key has a procedural fallback that ships today. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Mud splotches and water are drawn by the code over the puppy art, so the
+puppy art is clean.
+
+**Layout (the bg must match):** house wall from y=0 to ≈170, a wooden porch
+deck band from y≈170 to y≈330 across the full width (clean puppies sit on dog
+beds on it at y≈300), grass yard below. The code draws the bubble pool
+(around (1560, 820)), mud puddles and dog beds as props. Keep the top 110 px
+calm (timer) and the bottom 120 px plain grass (scoreboard).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/puppy-splash` | 1920×1080, opaque | Full screen. House wall 0–170, porch deck 170–330, lawn below; low detail on the lawn | A sunny cartoon backyard from a high three-quarter view: the bottom of a cheerful pastel-blue house with windows and a pink door across the top, a honey-wood porch deck along its whole width, then a bright green lawn with a few daisies, a white picket fence along the far left and right edges, flower beds in the corners. No animals, no characters, no pool |
+| `thumb/puppy-splash` | 800×500, opaque | Game-select shelf and how-to screen | A happy character spraying a garden hose at a giggling muddy puppy while a clean fluffy white puppy shakes water drops everywhere; bubbles, rainbow mist, sunny backyard. Subject centred |
+| `prop/puppy-1` … `prop/puppy-4` | 220×180 each, transparent | Bottom-centre anchor (feet), drawn ~100 px tall, mirrored for left; the code adds mud splotches, wag, hop and squash. 1 cream golden-retriever pup, 2 white fluffy poodle pup, 3 brown-and-white beagle pup, 4 black-and-white spotty pup | A cute fluffy puppy, side view facing right, standing on four legs, tongue out, tail up, big shiny eyes, clean and soft |
+| `prop/puppy-shake` | 220×180, transparent | Optional, same framing as the puppies; used only for puppy 1 during its shake (others wiggle their normal art) | The cream puppy mid-shake: fur flared out in a blur, ears flying, eyes squeezed shut, happy |
+| `prop/bubble-pool` | 440×280, transparent | Centred at (1560, 820), drawn 360 px wide; the code adds rising bubbles | A round inflatable kiddie pool, pink and white striped rim, overflowing with fluffy soap foam, seen from a high angle |
+| `prop/mud-puddle` | 320×170, transparent | Centred, drawn ~260 px wide flat on the grass | A wide flat glossy brown mud puddle with a few splashes at the edge, seen from above at an angle |
+| `prop/dog-bed` | 220×120, transparent | Bottom-centre anchor on the porch, drawn ~150 px wide; a clean puppy sits in it | A round plush dog bed, soft pink with a white fluffy rim, seen from a slight high angle |
+| `prop/hose-nozzle` | 120×70, transparent | Held at the character's hand, pointing right (rotated to the aim), drawn ~70 px long | A chunky green garden-hose spray nozzle with a yellow trigger, pointing right |
