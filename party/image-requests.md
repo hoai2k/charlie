@@ -1487,14 +1487,15 @@ pickup flies up into the Moon's sparkle jar (top centre); when it is full the
 Moon cheers and the jar bursts into a sparkle-firework finale. Every key below
 has a procedural fallback that ships today, and the code already looks each
 one up. House style: navy `#24163f` outlines, soft cel shading, bright candy
-colours, **no text** in any image. Reused as they are: roster sprites
+colours, **no text** in any image. Reused as they are: the players' own avatar sprites
 (`float`, `tuck`, `cheer`, `celebrate`, `high-five`, `surprised`) and the
-garden fairy NPC sets (flying friends in the background).
+garden fairy NPC sets (flying friends in the background). No Charlie Party
+player characters appear in any of these images.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/fairy-flutter` | 1920×1080, opaque | Full screen, static (the code drifts its own clouds and rainbow streams on top). Keep the top-centre area (x 700–1220, y 0–260) calm: the Moon and jar sit there. Fairies fly everywhere from y≈170 to y≈980 | A dreamy pastel twilight sky: lavender to peach to soft pink gradient, a few big puffy pink-gold clouds, faint stars high up, and a band of giant glowing flowers (tulips, daisies, bluebells, taller than houses) along the bottom ~20%, softly blurred. Magical, no characters |
-| `thumb/fairy-flutter` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two fairies with big sparkly pink and blue wings zooming through a pastel flower sky past a smiling crescent Moon holding a glowing jar of sparkles, a rainbow ribbon swooping across, a chubby bumblebee giggling. Subject centred |
+| `thumb/fairy-flutter` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two of the garden fairy NPCs (the pink Tulip Fairy and the blue Bluebell Fairy, no Charlie Party player characters) with big sparkly wings zooming through a pastel flower sky past a smiling crescent Moon holding a glowing jar of sparkles, a rainbow ribbon swooping across, a chubby bumblebee giggling. Subject centred |
 | `prop/ff-moon` | 512×512, transparent | Drawn centred at ~230 px, top centre (x 960, y 110), gently bobbing | A friendly smiling crescent Moon face (pale gold, rosy cheeks, happy eyes), soft glow edge |
 | `prop/ff-moon-happy` | 512×512, transparent | Same placement; swapped in when the jar fills (finale) | The same Moon, eyes squeezed shut in a huge open-mouthed laugh, little sparkles around |
 | `prop/ff-jar` | 320×400, transparent | Drawn centred under the Moon at 128×160 px. The code draws the glowing sparkle fill **behind** it, clipped to the jar's inside, so the glass must be mostly see-through (pale highlights only) and the inner area plain | A round glass mason jar with a cork stopper tied with a pink ribbon bow, clear glass with white highlight streaks, front view |
@@ -1519,7 +1520,7 @@ each one up. House style: navy `#24163f` outlines, soft cel shading, bright
 candy colours, **no text** in any image. Hiding spots are seen from the front,
 slightly from above (3/4 garden view), and are drawn **bottom-centre
 anchored** (the base touching the lawn). Fairies reuse the garden fairy NPC
-sets.
+sets. No Charlie Party player characters appear in any of these images.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
