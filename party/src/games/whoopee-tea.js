@@ -783,8 +783,11 @@ export class Game {
       drawCushion(g, THRONE.x, lerp(THRONE.y - 40, seatY - 10, k) - Math.sin(clamp(gc.onSeat, 0, 1) * Math.PI) * 60, 190, { golden: true, flat: !!gc.flat, t, sq: gc.sq });
     }
     if (du && (du.state === 'gasp' || du.state === 'laugh')) {
-      const jump = du.state === 'gasp' ? Math.sin(clamp(du.st / 0.9, 0, 1) * Math.PI) * 120 : 0;
-      drawGuest(g, 'duchess', THRONE.x, seatY - jump, GUEST_H * 1.25, du.state, { t, hat: du.hat, monocle: du.monocle });
+      // she plonks down on the seat for a beat (sit), then jolts up with the PFFFT
+      // (a small jolt: the art is tall, so a big one hides her gasp under the HUD)
+      const sitting = du.state === 'gasp' && du.st < 0.12;
+      const jump = du.state === 'gasp' ? Math.sin(clamp((du.st - 0.12) / 0.78, 0, 1) * Math.PI) * 40 : 0;
+      drawGuest(g, 'duchess', THRONE.x, seatY - jump, GUEST_H * 1.25, sitting ? 'sit' : du.state, { t, hat: du.hat, monocle: du.monocle });
     }
   }
 
