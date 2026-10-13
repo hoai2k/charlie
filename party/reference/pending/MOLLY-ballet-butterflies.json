@@ -1,0 +1,716 @@
+{
+  "game": "ballet-butterflies",
+  "assets": [
+    {
+      "key": "bg/ballet-butterflies",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full screen, flower stage floor runs y\u2248600 to bottom, dancers y760\u20131010. Keep teacher x960 y120\u2013460 and card x1300\u20131640 y130\u2013470 areas calm; top 120px HUD calm.",
+      "description": "Golden hour magical garden ballet stage with giant pale pink flower petal-edged glossy stage, rose-vine curtains at sides, lilac sky/clouds, edge tulips/daisies, tiny lights at top corners.",
+      "prompt": "Use case: illustration-story. Asset type: 16:9 opaque stage background for a children's ballet game, final 1920\u00d71080. Primary request: Magical garden ballet stage at golden hour, soft lilac sky with a few fluffy clouds, arching rose-and-vine curtains on the far left and right, tall tulips and daisies framing stage edges, tiny fairy lights across upper corners, a giant pale-pink glossy flower with broad petal-edged center stage floor extending from y\u2248600 to the bottom. Layout: leave upper center x\u2248960 y\u2248120\u2013460 and upper-right x\u22481300\u20131640 y\u2248130\u2013470 calm for a hovering teacher and picture card; top 120px stays uncluttered for HUD. Style: polished 2D candy-cartoon illustration, bold smooth dark navy #24163f outlines, bright candy colors, soft clean cel shading, no text. No 3D, photorealism, people, butterflies, teacher, card or watermark.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/bg-ballet-butterflies.webp",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "file": "party/assets/art/bg/ballet-butterflies.webp",
+      "width": 1920,
+      "height": 1080,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": null,
+      "actualGeometry": "Scaled from 1672x941 (16:9) to exact requested canvas; evaluated as a full-canvas opaque scene.",
+      "bytes": 317244,
+      "originalSourcePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-afb5c7c3-d29e-4398-a543-431299b3abdd.png",
+      "originalNativePNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-afb5c7c3-d29e-4398-a543-431299b3abdd.png",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-616fa981-f87a-46d1-8dad-a2677f6c06f7.png",
+      "editTarget": "party/assets/art/bg/ballet-butterflies.webp",
+      "editStyleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/studio/aq-clownfish-orange.webp",
+      "editPrompt": "Use case: style-transfer. Image 1 is the existing scene target. Image 2 is an approved Aquarium fish illustration and style reference only. Change only the rendering style and the expressly described removals; preserve target layout, colors, spatial placement and requested background elements. Redraw as clean polished 2D children's game art: bold smooth dark navy #24163f outlines around all major shapes, rounded friendly forms, simple crisp color blocks, soft clean cel shading, bright candy palette. No 3D, no photorealism, no painterly brush texture or blurry gradients; do not add objects. Keep the golden-hour garden stage, giant pale pink flower-shaped floor, rose-and-vine curtains at far sides, lilac sky/clouds and edge flowers. Preserve empty upper-center teacher area, empty upper-right picture-card area and calm top HUD strip. No people, butterflies, teacher or card. Opaque background, no text, watermark or border.",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "runtimeFile": "party/assets/art/bg/ballet-butterflies.webp",
+      "runtimeBytes": 317244,
+      "outputFormat": "WEBP RGB q86 method6",
+      "sourceBytes": 1838926,
+      "sourceFormat": "WEBP RGBA lossless",
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-616fa981-f87a-46d1-8dad-a2677f6c06f7.png"
+    },
+    {
+      "key": "prop/ballet-teacher",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Approved canonical idle Madame Papillon, bottom-center feet anchor; reused unchanged, resized to table canvas.",
+      "prompt": "Reuse the user-approved canonical Madame Papillon character art unchanged; resize/crop only to the requested 512x640 portrait and preserve alpha and bottom-center feet anchor. Preserve identity, colors, outline, proportions, face, hair and wings exactly; no new redraw.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher.webp",
+      "nativeOutputPNG": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "sourceSize": [
+        1222,
+        1287
+      ],
+      "output_hint": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "file": "party/assets/art/prop/ballet-teacher.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-teacher.webp",
+      "width": 512,
+      "height": 640,
+      "tool": "approved canonical reuse",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        99,
+        2,
+        1123,
+        1286
+      ],
+      "actualAlphaBBox": [
+        2,
+        1,
+        510,
+        639
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 81900,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "sourceType": "approved canonical Madame Papillon"
+    },
+    {
+      "key": "prop/ballet-teacher-up",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Full-body teacher pose, bottom anchored, arms raised in round ballet fifth.",
+      "prompt": "Use Image 1 as the authoritative identity reference for Madame Papillon. Use Image 2 only as the pose/layout reference. Recreate Image 2's arms-raised ballet fifth-position pose on a transparent 512x640 portrait, but make the character match Image 1 exactly: same rich warm brown skin, lavender hair bun with its flower ornament, face and eye design, same large monarch-rainbow butterfly wings with dotted borders, same pink petal tutu/leotard and ballet slippers, same proportions, palette and bold dark-navy outline. Do not keep Image 2's different dark-purple hair, skin shade, wing pattern or costume. Full figure and wings fit; bottom-center feet anchor. Bright 2D candy-cartoon, soft cel shading, no background, text or 3D.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-up.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-33c0964e-a953-4fab-9f59-2866d5651186.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-33c0964e-a953-4fab-9f59-2866d5651186.png",
+      "file": "party/assets/art/prop/ballet-teacher-up.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-teacher-up.webp",
+      "width": 512,
+      "height": 640,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        86,
+        3,
+        1045,
+        1391
+      ],
+      "actualAlphaBBox": [
+        36,
+        1,
+        476,
+        639
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 74608,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "sourceType": "approved canonical identity-preserving pose variant",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-e016adcb-6633-4f33-bcd3-de269b725838.png",
+          "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-up-identity-drift.webp",
+          "change": "Identity drift: wrong bun style/skin/wings/costume; replaced to canonical match."
+        }
+      ]
+    },
+    {
+      "key": "prop/ballet-teacher-twirl",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Full-body pirouette pose on one toe, bottom anchored, matching canonical teacher scale.",
+      "prompt": "Image 1 is the authoritative canonical identity reference for Madame Papillon. Image 2 is only the pose reference (mid-pirouette). Recreate Image 2's spinning pose but preserve Image 1's exact design: rich warm brown skin; lavender updo bun with the same flower ornament; same face, big eyes and warm smile; large monarch-rainbow wings with dotted borders; same pink petal tutu, bodice and ballet slippers, palette, proportions, and dark navy contour. Do not use Image 2's dark-purple hair, darker wing pattern or different costume. Full-body transparent 512x640 portrait, bottom-center feet anchor. Clean 2D candy-cartoon with soft cel shading, no background, 3D or text.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-twirl.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7ada009a-39be-40b2-8807-de1d54a30cad.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7ada009a-39be-40b2-8807-de1d54a30cad.png",
+      "file": "party/assets/art/prop/ballet-teacher-twirl.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-teacher-twirl.webp",
+      "width": 512,
+      "height": 640,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        71,
+        6,
+        1053,
+        1382
+      ],
+      "actualAlphaBBox": [
+        28,
+        1,
+        483,
+        639
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 72024,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "sourceType": "approved canonical identity-preserving pose variant",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c1e33f8f-4c5b-474c-9947-b3b78036e0a3.png",
+          "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-twirl-identity-drift.webp",
+          "change": "Identity drift corrected to exact approved canonical look."
+        }
+      ]
+    },
+    {
+      "key": "prop/ballet-teacher-plie",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Full-body deep pli\u00e9 pose, bottom anchored, knees bent outward, arms low.",
+      "prompt": "Image 1 is the approved canonical Madame Papillon; Image 2 is pose reference only. Recreate Image 2's deep low ballet pli\u00e9 with knees bent outward and arms rounded low in front, but preserve Image 1's exact character: warm rich brown skin; lavender hair bun with the same flower ornament; exact face/eyes; large monarch-rainbow butterfly wings with dotted borders; same pink petal tutu/leotard and ballet slippers; same palette, proportions, outline. Do not copy Image 2's dark brown bun, purple flower, wing details or bodice. 512x640 transparent portrait, centered, full wings/body/toes visible; bottom-center feet anchor. 2D candy-cartoon, soft cel shading.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-plie.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-dc84b457-529c-447a-8c4e-e2ec4e1d6843.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-dc84b457-529c-447a-8c4e-e2ec4e1d6843.png",
+      "file": "party/assets/art/prop/ballet-teacher-plie.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-teacher-plie.webp",
+      "width": 512,
+      "height": 640,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        30,
+        26,
+        1092,
+        1344
+      ],
+      "actualAlphaBBox": [
+        1,
+        6,
+        511,
+        639
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 88044,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "sourceType": "approved canonical identity-preserving pose variant",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-195f808d-e320-482e-9484-455a4d774b6c.png",
+          "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-plie-identity-drift.webp",
+          "change": "Identity drift corrected to exact approved canonical look."
+        }
+      ]
+    },
+    {
+      "key": "prop/ballet-teacher-side",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Full-body wide side step, one leg pointed out, arms open, bottom anchor.",
+      "prompt": "Image 1 is the approved canonical Madame Papillon; Image 2 is pose reference only. Recreate Image 2's large side-step pose with one leg pointed sideways and arms open, but preserve Image 1's exact character: rich warm brown skin; lavender hair bun with same flower ornament; same face and eye design; monarch-rainbow butterfly wings with dotted border; same pink petal tutu/leotard and ballet slippers, palette, proportions and navy outline. Do not copy Image 2's dark bun, purple flower, wing pattern or bodice. Transparent 512x640 portrait, full figure and wings in frame, bottom-center feet anchor. Clean 2D candy-cartoon with soft cel shading.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-side.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6f82a963-ee54-4323-b86e-216ad1698220.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-6f82a963-ee54-4323-b86e-216ad1698220.png",
+      "file": "party/assets/art/prop/ballet-teacher-side.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-teacher-side.webp",
+      "width": 512,
+      "height": 640,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        6,
+        22,
+        1112,
+        1373
+      ],
+      "actualAlphaBBox": [
+        1,
+        15,
+        511,
+        640
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 70906,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "sourceType": "approved canonical identity-preserving pose variant",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-ccaa078f-6a48-433c-b928-21c5b461de52.png",
+          "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-side-identity-drift.webp",
+          "change": "Identity drift corrected to exact approved canonical look."
+        }
+      ]
+    },
+    {
+      "key": "prop/ballet-teacher-bow",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Full body graceful curtsy bow, bottom anchored, foot crossed behind.",
+      "prompt": "Image 1 is the approved canonical Madame Papillon; Image 2 is pose reference only. Recreate Image 2's graceful curtsy-bow pose, inclined torso and crossed-back foot, but preserve Image 1's exact character: rich warm brown skin; lavender bun with same flower ornament; identical face/eyes; monarch-rainbow wings with dotted border; same pink petal tutu/leotard and ballet slippers; same palette, proportions and navy outline. Do not copy Image 2's dark brown bun, flower, wing style, bodice or barefoot feet. Full figure and wings in a transparent 512x640 portrait, bottom-center feet anchor. 2D candy-cartoon, soft cel shading.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-bow.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-aa51359b-fa62-4cdb-be09-22109f86d062.png",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-aa51359b-fa62-4cdb-be09-22109f86d062.png",
+      "file": "party/assets/art/prop/ballet-teacher-bow.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-teacher-bow.webp",
+      "width": 512,
+      "height": 640,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        101,
+        12,
+        1077,
+        1390
+      ],
+      "actualAlphaBBox": [
+        30,
+        1,
+        481,
+        639
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 71092,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "bottom",
+      "editReference": "party/reference/pending/molly-canonicals/ballet-teacher.webp",
+      "sourceType": "approved canonical identity-preserving pose variant",
+      "editHistory": [
+        {
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5f4238b9-9359-4e6c-b425-3c1039d613a9.png",
+          "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-teacher-bow-identity-drift.webp",
+          "change": "Identity drift corrected to exact approved canonical look."
+        }
+      ]
+    },
+    {
+      "key": "prop/ballet-move-up",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Simple centered pink ballerina pictogram with both arms straight up.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game pictogram, exact 256x256 square. A simple bold pink ballerina silhouette, round head and bun, wearing a simple tutu, both arms stretched straight up overhead in an easy-to-read dance pose. Front view, centered, full figure, fills 70% of canvas, clean navy outline. Bright flat 2D candy-cartoon with navy #24163f outlines and very soft cel shading. Genuine transparent background. No words, labels, extra objects, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-move-up.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-1ddcec98-6490-41a0-9181-64f652c9825b.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-1ddcec98-6490-41a0-9181-64f652c9825b.png",
+      "file": "party/assets/art/prop/ballet-move-up.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-move-up.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        329,
+        70,
+        926,
+        1184
+      ],
+      "actualAlphaBBox": [
+        59,
+        0,
+        196,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 13690,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-move-twirl",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Ballerina pictogram spinning on one toe with curved motion lines.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game pictogram, exact 256x256 square. A simple bold pink ballerina silhouette with round head, small bun and tutu, balanced mid-spin on one toe, one knee bent, arms rounded gracefully. Add two clear curved navy motion swirl lines around the dancer, not obscuring her. Front/three-quarter view centered, full figure, readable at small size, fills 70% canvas. Flat 2D candy-cartoon, bold navy #24163f outlines, very soft cel shading. Genuine transparent background, no words, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-move-twirl.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fde9a3ec-a31e-4dd5-87f0-bbf227581f46.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fde9a3ec-a31e-4dd5-87f0-bbf227581f46.png",
+      "file": "party/assets/art/prop/ballet-move-twirl.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-move-twirl.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        167,
+        29,
+        1097,
+        1227
+      ],
+      "actualAlphaBBox": [
+        28,
+        0,
+        227,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 16838,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-move-plie",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Clear low pli\u00e9 dance pictogram with bent knees and arms rounded low.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game pictogram, exact 256x256 square. A simple bold pink ballerina silhouette with round head, bun and tutu in a deep pli\u00e9: knees bent outwards, body low, arms rounded down in front. One short motion bounce line below each side. Front view, centered, full figure, unmistakably crouched low, fills 70% canvas. Flat 2D candy-cartoon, bold smooth navy #24163f outlines, soft cel shading. Genuine transparent background. No words, text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-move-plie.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-3901103e-1720-4a2a-bdff-40480c8682be.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-3901103e-1720-4a2a-bdff-40480c8682be.png",
+      "file": "party/assets/art/prop/ballet-move-plie.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-move-plie.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        213,
+        37,
+        1040,
+        1219
+      ],
+      "actualAlphaBBox": [
+        38,
+        0,
+        217,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 17244,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-move-side",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Ballerina pictogram stepping sideways with arms open and motion lines.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game pictogram, exact 256x256 square. A simple bold pink ballerina silhouette with round head, bun and tutu taking a wide side step: one leg extended clearly to the side, arms extended sideways, tiny motion lines beside the extended foot. Front view, centered, full figure, readable at small size, fills 70% canvas. Flat 2D candy-cartoon, bold navy #24163f outline, soft cel shading. Genuine transparent background. No words, text, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-move-side.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b7e9fb59-228c-4d79-9e1e-87d7f33f34bb.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b7e9fb59-228c-4d79-9e1e-87d7f33f34bb.png",
+      "file": "party/assets/art/prop/ballet-move-side.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-move-side.webp",
+      "width": 256,
+      "height": 256,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        83,
+        11,
+        1199,
+        1241
+      ],
+      "actualAlphaBBox": [
+        12,
+        0,
+        244,
+        256
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 15684,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-butterfly-pink",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Top-down open-wing pink butterfly with white polka dots.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game sprite, exact 128x128 square. One cute butterfly seen from above, wings fully open and symmetrical, slim vertical dark navy body, curly antennae, rounded wing lobes. The wings are candy pink with white polka dots, thick navy #24163f outlines and subtle soft cel shading. Centered, large and readable, antennae and wing tips entirely in frame. Genuine transparent background. No text, no scenery, no 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-butterfly-pink.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-384b0f69-7efa-4795-aa7e-d04a36e22259.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-384b0f69-7efa-4795-aa7e-d04a36e22259.png",
+      "file": "party/assets/art/prop/ballet-butterfly-pink.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-butterfly-pink.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        17,
+        124,
+        1238,
+        1144
+      ],
+      "actualAlphaBBox": [
+        0,
+        10,
+        128,
+        117
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 8558,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-butterfly-blue",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Top-down open-wing sky blue butterfly with lilac wing edges.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game sprite, exact 128x128 square. One cute butterfly seen from above, wings fully open and symmetrical, slim vertical dark navy body, curly antennae, rounded wing lobes. Wings are sky blue with delicate lilac edges, thick navy #24163f outlines and subtle soft cel shading. Centered, readable, antennae and wing tips entirely in frame. Genuine transparent background. No text, scenery, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-butterfly-blue.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9d745f74-092c-4632-8a4a-9da4c4b1b464.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9d745f74-092c-4632-8a4a-9da4c4b1b464.png",
+      "file": "party/assets/art/prop/ballet-butterfly-blue.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-butterfly-blue.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        25,
+        139,
+        1230,
+        1109
+      ],
+      "actualAlphaBBox": [
+        0,
+        12,
+        128,
+        115
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9166,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-butterfly-yellow",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Top-down open-wing lemon yellow butterfly with orange tips.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game sprite, exact 128x128 square. One cute butterfly seen from above, wings fully open and symmetrical, slim vertical dark navy body, curly antennae, rounded wing lobes. Wings are lemon yellow with warm orange tips, thick navy #24163f outlines and subtle soft cel shading. Centered, readable, antennae and wing tips entirely in frame. Genuine transparent background. No text, scenery, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-butterfly-yellow.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5d7014ab-d9f3-4df9-badc-9fb7bc0ef1a1.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5d7014ab-d9f3-4df9-badc-9fb7bc0ef1a1.png",
+      "file": "party/assets/art/prop/ballet-butterfly-yellow.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-butterfly-yellow.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        19,
+        134,
+        1236,
+        1124
+      ],
+      "actualAlphaBBox": [
+        0,
+        12,
+        128,
+        116
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9890,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-butterfly-purple",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Top-down open-wing purple butterfly with pink heart markings.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game sprite, exact 128x128 square. One cute butterfly seen from above, wings fully open and symmetrical, slim vertical dark navy body, curly antennae, rounded wing lobes. Wings are rich purple with a few clear pink heart markings, thick navy #24163f outlines and subtle soft cel shading. Centered, readable, antennae and wing tips entirely in frame. Genuine transparent background. No text, scenery, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-butterfly-purple.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0fffd5cb-6300-40bc-8d32-90ff7b814e1b.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0fffd5cb-6300-40bc-8d32-90ff7b814e1b.png",
+      "file": "party/assets/art/prop/ballet-butterfly-purple.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-butterfly-purple.webp",
+      "width": 128,
+      "height": 128,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        33,
+        125,
+        1222,
+        1121
+      ],
+      "actualAlphaBBox": [
+        0,
+        10,
+        128,
+        117
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 9002,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    },
+    {
+      "key": "prop/ballet-petal",
+      "size": [
+        64,
+        64
+      ],
+      "geometry": "Single centered curled rose petal particle.",
+      "prompt": "Use case: illustration-story. Asset type: transparent game particle sprite, exact 64x64 square. A single soft pink rose petal, small teardrop shape, gently curled along one edge, subtle light-to-deeper pink gradient, tiny soft highlight, elegant but clear silhouette, rotated slightly diagonally. Centered and fully in frame. 2D candy-cartoon with smooth navy #24163f outline and soft cel shading. Genuine transparent background. No stem, flower, text, extra objects, 3D or photorealism.",
+      "source": "party/reference/pending/molly-sources/ballet-butterflies/prop-ballet-petal.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b5c7fc42-15be-464f-a2b0-c5f4ad139d57.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "output_hint": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b5c7fc42-15be-464f-a2b0-c5f4ad139d57.png",
+      "file": "party/assets/art/prop/ballet-petal.webp",
+      "runtimeFile": "party/assets/art/prop/ballet-petal.webp",
+      "width": 64,
+      "height": 64,
+      "tool": "built-in imagegen",
+      "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors",
+      "sourceCrop": [
+        338,
+        297,
+        1011,
+        954
+      ],
+      "actualAlphaBBox": [
+        0,
+        1,
+        64,
+        63
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 2308,
+      "outputFormat": "WEBP RGBA q86 method6",
+      "anchor": "center"
+    }
+  ],
+  "status": "reviewed final runtime contacts and actual Opposite Ballet game; canonical teacher identity consistent; reused art included in Opposite preload group; no browser errors"
+}
