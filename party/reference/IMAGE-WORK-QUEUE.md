@@ -17,14 +17,14 @@ Verification: independent sprite/landmark/provenance audits; actual full and opt
 
 Latest published image delivery revision: `3bb1ca7b`.
 Latest completed delivery/check UTC: 2026-10-13T06:55:19Z.
-Last checked main revision: `f0108ff2c0612694fb130ef5c18e7dff34841373`.
+Last checked main revision: `8c59aed7aa7c42b4cbe948064a4fae56ea67fd25`. 
 Last checked request blob: `f8f6384a036a81543ac5fe71ac6cd99fb5fd18a5`.
-Last checked UTC: 2026-10-13T06:55:19Z.
+Last checked UTC: 2026-10-13T07:29:19Z.
 Quiet-window start UTC: 2026-10-13T06:55:19Z.
 Open semantic asset/regeneration requests: none.
 Production owners: all generation/intake work finished; no active asset claims.
 
-User-requested follow-up automation: `charlie-party-image-follow-up`, active. Reset for 30 minutes after this completed delivery. On the next run, fetch and safely integrate main, compare semantic requests against this checkpoint and fill any new requests in reviewed batches. Reset the follow-up after each complete delivery. Cancel only when 30 post-delivery minutes have passed with no new requests. Completed-status/archival edits alone do not count. Molly character approval prompts remain waived; the former allowance pause is revoked. Older delivery/check entries below belong to previous work and do not override this checkpoint.
+User-requested follow-up automation: `charlie-party-image-follow-up`, cancelled at 2026-10-13T07:29:19Z after 34 minutes with no new requests following the completed delivery. Main was safely fast-forwarded through `8c59aed7`; the request blob is unchanged and the open request table remains empty. All outstanding production is complete and no future checks remain scheduled. Molly character approval prompts remain waived; the former allowance pause is revoked. Older delivery/check entries below belong to previous work and do not override this checkpoint.
 
 ## New Play Studio delivery — complete
 
