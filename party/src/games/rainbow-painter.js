@@ -55,6 +55,7 @@ let SPRAY_R = SPRAY_BASE;   // grows for small parties (set per game)
 const MAXV = 760, ACCEL = 3600;
 const Y_MIN = 235, Y_MAX = 880;
 const SUN = { x: 1730, y: 318, r: 112 };
+const SUN_ART = SUN.r * 2.1;              // face disk ~ SUN.r, so the rays show round it
 const TREES = [{ x: 235, s: 0.95 }, { x: 1685, s: 0.95 }];
 const CASTLE = { x: 960, s: 0.68 };
 const FLOWERS = [470, 600, 730, 1190, 1320, 1450].map((x, i) => ({ x, kind: i % 3, s: 0.95 + (i % 2) * 0.1 }));
@@ -598,7 +599,8 @@ export class Game {
   draw(g) {
     this.drawSky(g);
     this.drawSun(g);
-    for (const c of this.bgClouds) ui.cloud(g, c.x, c.y, c.s, mix('#dcdce4', '#ffffff', this.colorK), 0.75);
+    // The painted backdrop has its own outlined clouds.
+    if (!this.bgArt) for (const c of this.bgClouds) ui.cloud(g, c.x, c.y, c.s, mix('#dcdce4', '#ffffff', this.colorK), 0.75);
     this.drawRainbow(g);
     this.drawGround(g);
     for (const t of this.trees) this.drawTarget(g, t);
@@ -649,12 +651,19 @@ export class Game {
       g.fillStyle = mix('#7f7d89', '#3a9d4f', k);
       for (let i = 0; i < 40; i++) { const x = (i * 157) % W, y = GROUND + 90 + (i * 53) % 90; g.beginPath(); g.ellipse(x, y, 14, 5, 0, 0, TAU); g.fill(); }
     }
-    // rainbow feet: puffy clouds where it touches the ground
-    for (const sx of [-1, 1]) ui.cloud(g, RC.x + sx * (R_OUT - BAND * 3) - 40, GROUND - 6, 1.3, mix('#e4e4ea', '#ffffff', k), 0.95);
+    // rainbow feet: puffy clouds where it touches the ground (wide enough to
+    // hide the clipped ends of the legs over the painted backdrop)
+    for (const sx of [-1, 1]) {
+      if (this.bgArt && drawArt(g, 'prop/rp-cloud', RC.x + sx * (R_OUT - BAND * 3), GROUND - 4, 390, 215)) continue;
+      ui.cloud(g, RC.x + sx * (R_OUT - BAND * 3) - 40, GROUND - 6, 1.3, mix('#e4e4ea', '#ffffff', k), 0.95);
+    }
   }
 
   drawRainbow(g) {
     g.save();
+    // No procedural hills cover the legs on the painted backdrop: end them
+    // under the feet clouds instead of on the HUD strip.
+    if (this.bgArt) { g.beginPath(); g.rect(0, 0, W, GROUND + 20); g.clip(); }
     g.lineCap = 'butt';
     const active = this.phase === 'rainbow' ? this.bandIdx : -1;
     for (const b of this.bands) {
@@ -796,7 +805,7 @@ export class Game {
     let greyArt = false;
     if (!s.done) {
       rays(GREY, 0);
-      greyArt = drawArt(g, 'prop/rp-sun-grey', 0, 0, SUN.r * 2.5, SUN.r * 2.5);
+      greyArt = drawArt(g, 'prop/rp-sun-grey', 0, 0, SUN_ART, SUN_ART);
       if (!greyArt) drawSunFace(g, GREY, this.t, 0, 0);
     }
     if (s.done || s.cells.some((c) => c.f > 0)) {
@@ -805,7 +814,7 @@ export class Game {
       g.translate(SUN.x, SUN.y);
       rays(COL, awake);
       const key = awake > 0.35 ? 'prop/rp-sun-awake' : 'prop/rp-sun-sleep';
-      if (!drawArt(g, key, 0, 0, SUN.r * 2.5, SUN.r * 2.5)) drawSunFace(g, COL, this.t, awake, s.prog);
+      if (!drawArt(g, key, 0, 0, SUN_ART, SUN_ART)) drawSunFace(g, COL, this.t, awake, s.prog);
       g.restore();
     }
     g.restore();
