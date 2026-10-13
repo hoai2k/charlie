@@ -26,7 +26,7 @@ import { art } from '../engine/art.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import {
-  NAVY, BED, DOOR, CEIL, FLOOR, roomBackground, drawDoor, drawBedBack, drawBedFront, drawTuck,
+  NAVY, BED, DOOR, CEIL, FLOOR, configureBedArt, roomBackground, drawDoor, drawBedBack, drawBedFront, drawTuck,
   drawGlowStar, drawStar, drawFeather, drawPillow, drawTeddy, drawCat, drawCow, drawIcon,
 } from './bed-bounce/draw.js';
 
@@ -63,6 +63,7 @@ export const meta = {
 
 export class Game {
   constructor(api) {
+    configureBedArt(!!art('prop/bb-bed'));
     this.api = api;
     this.players = api.players;
     const n = this.players.length;

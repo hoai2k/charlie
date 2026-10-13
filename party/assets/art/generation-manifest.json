@@ -32098,6 +32098,451 @@
       "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-mirror.webp",
       "width": 192,
       "height": 256
+    },
+    {
+      "key": "bg/bed-bounce",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Full-screen side-view bedroom. Bed/door absent; door wall zone x1580\u20131820 y380\u2013930 plain wallpaper. Floor line y930; keep top 110px calm.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, bright candy colours; no 3D or photorealism. No text, letters, logos, border or watermark. Asset: opaque background/thumbnail. Primary request: Cosy child bedroom at night, side view: deep blue-violet starry wallpaper, round window upper left with smiling crescent moon and stars outside, toy shelf with books and toys, fluffy round rug on warm wooden floor, little electric night-light glow. No bed, no door, no character, no foreground furniture in door zone; warm dreamy night palette. Composition: exact 1920\u00d71080 canvas; Full-screen side-view bedroom. Bed/door absent; door wall zone x1580\u20131820 y380\u2013930 plain wallpaper. Floor line y930; keep top 110px calm.. Opaque full bleed.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b55d3b42-11d1-4eef-a8fd-c29945905ced.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/bg-bed-bounce.webp",
+      "runtimeFile": "party/assets/art/bg/bed-bounce.webp",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 169622,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/bed-bounce/bg-bed-bounce.webp",
+      "width": 1920,
+      "height": 1080,
+      "actualGeometry": "Final edited native source 1672x941; wall-to-floor line approximately y752 (79.9%); rug extends to bottom. Door zone at right is mostly plain wall. No bed or door. Root may adapt consumer placement to measured floor line."
+    },
+    {
+      "key": "thumb/bed-bounce",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Centered game-select thumbnail, energetic, subject visible.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, bright candy colours; no 3D or photorealism. No text, letters, logos, border or watermark. Asset: transparent standalone game prop. Primary request: A giant fluffy bed with joyful party energy: a small blue garden fairy and a brown teddy bear bounce high with pillows and feathers exploding everywhere; kindly cow in a nightcap peeks round a door with one eyebrow raised; moonlit window. No recognisable player roster characters. Composition: exact 800\u00d7500 canvas; Centered game-select thumbnail, energetic, subject visible.. True transparent alpha around all art; no backdrop, cast shadow, glow or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ed1d09d1-24ad-4bf7-9030-9cf251a4df73.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/thumb-bed-bounce.webp",
+      "runtimeFile": "party/assets/art/thumb/bed-bounce.webp",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 100094,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/bed-bounce/thumb-bed-bounce.webp",
+      "width": 800,
+      "height": 500,
+      "references": [
+        "party/reference/canonical/garden-fairy-blue.webp",
+        "party/reference/canonical/molly-tea-teddy.webp",
+        "prop/nanny-moo source canonical produced in this set"
+      ],
+      "editHistory": [
+        {
+          "prompt": "Remove the literal checkerboard and make the bedroom scene fully opaque while retaining composition.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ed1d09d1-24ad-4bf7-9030-9cf251a4df73.png"
+        }
+      ]
+    },
+    {
+      "key": "prop/bb-bed",
+      "size": [
+        1400,
+        600
+      ],
+      "geometry": "Transparent side view top-left anchor. Headboard on left 0\u201314% width and full height. Flat mattress top exactly at y318 (53% from top) across x196\u20131400. Short legs touch bottom edge.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, bright candy colours; no 3D or photorealism. No text, letters, logos, border or watermark. Asset: transparent standalone game prop. Primary request: A huge puffy cartoon bed, side view, tall rounded wooden headboard with heart cut-out at left, thick bouncy mattress, fluffy pastel-pink quilted duvet with a star pattern draped over side, two big pillows by headboard, short stubby legs. Bed silhouette and landmarks are critical: mattress surface perfectly flat at 53% canvas height from x14% to right edge; headboard occupies first 14% and full height; legs touch bottom. Composition: exact 1400\u00d7600 canvas; Transparent side view top-left anchor. Headboard on left 0\u201314% width and full height. Flat mattress top exactly at y318 (53% from top) across x196\u20131400. Short legs touch bottom edge.. True transparent alpha around all art; no backdrop, cast shadow, glow or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-aeeb8fdc-b8dd-4279-b1df-76f75771d4db.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-bed.webp",
+      "runtimeFile": "party/assets/art/prop/bb-bed.webp",
+      "nativeOutputSize": [
+        1916,
+        821
+      ],
+      "runtimeBytes": 76864,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1399,
+        600
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-bed.webp",
+      "width": 1400,
+      "height": 600,
+      "actualGeometry": "Source 1916x821; left headboard silhouette extends x0..~325 (16.96% width); quilt/mattress landing top varies slightly but is approximately y407..420 (49.6..51.2% canvas), rather than requested 53%; feet/legs touch bottom. Root can adjust generated-only consumer landing Y; asset preserved without pixel painting."
+    },
+    {
+      "key": "prop/bb-door",
+      "size": [
+        240,
+        550
+      ],
+      "geometry": "Transparent front view top-left anchor. Rounded top, knob on left.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, bright candy colours; no 3D or photorealism. No text, letters, logos, border or watermark. Asset: transparent standalone game prop. Primary request: A rounded-top wooden bedroom door, front view, painted cream with small moon-and-star decoration, round brass knob on the LEFT side. No frame or wall. Composition: exact 240\u00d7550 canvas; Transparent front view top-left anchor. Rounded top, knob on left.. True transparent alpha around all art; no backdrop, cast shadow, glow or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6583b2e7-e45e-466e-bd79-9a51e7388f71.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-door.webp",
+      "runtimeFile": "party/assets/art/prop/bb-door.webp",
+      "nativeOutputSize": [
+        828,
+        1899
+      ],
+      "runtimeBytes": 21024,
+      "actualAlphaBBox": [
+        10,
+        30,
+        231,
+        526
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-door.webp",
+      "width": 240,
+      "height": 550
+    },
+    {
+      "key": "prop/nanny-moo",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Transparent full-body standing, bottom-centred. Facing left.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, bright candy colours; no 3D or photorealism. No text, letters, logos, border or watermark. Asset: transparent standalone game prop. Primary request: Nanny Moo, an original kindly slightly prim cartoon cow: upright white cow with soft black patches, pink snout, little curved horns, long droopy blue-striped nightcap with pompom, fluffy pink dressing gown with belt, bunny slippers, holding a small glowing electric night-light lantern (no flame). One eyebrow raised, warm smile. Full body, facing left. Composition: exact 512\u00d7640 canvas; Transparent full-body standing, bottom-centred. Facing left.. True transparent alpha around all art; no backdrop, cast shadow, glow or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-27d29a00-991b-4d56-89ff-a8031b460c43.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-nanny-moo.webp",
+      "runtimeFile": "party/assets/art/prop/nanny-moo.webp",
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "runtimeBytes": 69348,
+      "actualAlphaBBox": [
+        28,
+        6,
+        496,
+        638
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-nanny-moo.webp",
+      "width": 512,
+      "height": 640
+    },
+    {
+      "key": "prop/bb-pillow",
+      "size": [
+        256,
+        192
+      ],
+      "geometry": "Centered transparent prop, 4:3 horizontal pillow.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, bright candy colours; no 3D or photorealism. No text, letters, logos, border or watermark. Asset: transparent standalone game prop. Primary request: A fluffy white rectangular pillow with soft puffy corners and a tiny lace edge. Composition: exact 256\u00d7192 canvas; Centered transparent prop, 4:3 horizontal pillow.. True transparent alpha around all art; no backdrop, cast shadow, glow or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5587af15-c4c2-46f1-8b38-dad72b35b18d.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-pillow.webp",
+      "runtimeFile": "party/assets/art/prop/bb-pillow.webp",
+      "nativeOutputSize": [
+        1448,
+        1086
+      ],
+      "runtimeBytes": 12878,
+      "actualAlphaBBox": [
+        7,
+        8,
+        249,
+        171
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-pillow.webp",
+      "width": 256,
+      "height": 192
+    },
+    {
+      "key": "prop/nanny-moo-peek",
+      "size": [
+        400,
+        480
+      ],
+      "geometry": "Bottom-right peek; head and one shoulder behind implied door; lantern hand visible.",
+      "prompt": "Edit same approved Nanny Moo identity, preserving face, blue-striped droopy nightcap, horns, pink snout, gown, navy outlines and palette. Transparent 400x480: lean sideways from behind an implied door edge, showing only head, one shoulder and one hand holding her electric lantern. Raised eyebrow looking left. Bottom-right anchor. No door, wall, backdrop, shadow, glow or checkerboard.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f78c2549-e3c0-4b3b-a4b4-22751fdcc28e.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-nanny-moo-peek.webp",
+      "runtimeFile": "party/assets/art/prop/nanny-moo-peek.webp",
+      "nativeOutputSize": [
+        1145,
+        1374
+      ],
+      "runtimeBytes": 30526,
+      "actualAlphaBBox": [
+        99,
+        40,
+        398,
+        448
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-nanny-moo-peek.webp",
+      "width": 400,
+      "height": 480,
+      "editPrompt": "Edit same approved Nanny Moo identity, preserving face, blue-striped droopy nightcap, horns, pink snout, gown, navy outlines and palette. Transparent 400x480: lean sideways from behind an implied door edge, showing only head, one shoulder and one hand holding her electric lantern. Raised eyebrow looking left. Bottom-right anchor. No door, wall, backdrop, shadow, glow or checkerboard.",
+      "references": [
+        "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-27d29a00-991b-4d56-89ff-a8031b460c43.png"
+      ]
+    },
+    {
+      "key": "prop/nanny-moo-jump",
+      "size": [
+        512,
+        640
+      ],
+      "geometry": "Centered transparent full-body bounce pose; same Nanny Moo identity, flying hat and slippers.",
+      "prompt": "Edit same approved Nanny Moo identity, preserving face, patches, pink snout, gown, nightcap stripes, navy outlines and palette. Transparent 512x640: full-body delighted mid-bounce, arms up, gown flapping, long nightcap flying up, slippers kicked off beside her, eyes shut laughing. Centered; keep full body/slippers visible. No background, floor, shadow, glow or checkerboard.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-56c431fe-b4cb-49c4-97c1-9f9072666521.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-nanny-moo-jump.webp",
+      "runtimeFile": "party/assets/art/prop/nanny-moo-jump.webp",
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "runtimeBytes": 65456,
+      "actualAlphaBBox": [
+        0,
+        5,
+        506,
+        620
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-nanny-moo-jump.webp",
+      "width": 512,
+      "height": 640,
+      "editPrompt": "Edit same approved Nanny Moo identity, preserving face, patches, pink snout, gown, nightcap stripes, navy outlines and palette. Transparent 512x640: full-body delighted mid-bounce, arms up, gown flapping, long nightcap flying up, slippers kicked off beside her, eyes shut laughing. Centered; keep full body/slippers visible. No background, floor, shadow, glow or checkerboard.",
+      "references": [
+        "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-27d29a00-991b-4d56-89ff-a8031b460c43.png"
+      ]
+    },
+    {
+      "key": "prop/bb-feather",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent soft feather, faint pink tip.",
+      "prompt": "Single soft white downy feather with faint pink tip, curled slightly in a playful drifting pose, centered exact 128x128 transparent canvas. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-a9d0a040-e578-4f76-ba9f-2722bedb7c75.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-feather.webp",
+      "runtimeFile": "party/assets/art/prop/bb-feather.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 5110,
+      "actualAlphaBBox": [
+        25,
+        6,
+        120,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-feather.webp",
+      "width": 128,
+      "height": 128,
+      "generationPrompt": "Single soft white downy feather with faint pink tip, curled slightly in a playful drifting pose, centered exact 128x128 transparent canvas. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects."
+    },
+    {
+      "key": "prop/bb-star",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent happy golden five-point star.",
+      "prompt": "Plump golden five-point star with happy face, rosy cheeks and a small white shine, centered exact 128x128 transparent canvas. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b89dd13a-7978-4f60-b996-6a4adeb599ff.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-star.webp",
+      "runtimeFile": "party/assets/art/prop/bb-star.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 6214,
+      "actualAlphaBBox": [
+        3,
+        4,
+        124,
+        118
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-star.webp",
+      "width": 128,
+      "height": 128,
+      "generationPrompt": "Plump golden five-point star with happy face, rosy cheeks and a small white shine, centered exact 128x128 transparent canvas. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects."
+    },
+    {
+      "key": "prop/bb-glowstar",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pale yellow-green plastic glow sticker, no exterior aura.",
+      "prompt": "Pale yellow-green plastic glow-in-the-dark five-point star sticker, centered exact 128x128 transparent canvas, subtle lighter inner fill only, no aura. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. Actual transparent background. No glow outside silhouette, shadow, checkerboard or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e240fad7-4308-415a-a4aa-e42467f9b84a.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-glowstar.webp",
+      "runtimeFile": "party/assets/art/prop/bb-glowstar.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 5336,
+      "actualAlphaBBox": [
+        8,
+        11,
+        120,
+        115
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-glowstar.webp",
+      "width": 128,
+      "height": 128,
+      "generationPrompt": "Pale yellow-green plastic glow-in-the-dark five-point star sticker, centered exact 128x128 transparent canvas, subtle lighter inner fill only, no aura. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. Actual transparent background. No glow outside silhouette, shadow, checkerboard or extra objects."
+    },
+    {
+      "key": "prop/bb-teddy",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Bottom-centered transparent bouncing brown teddy with red bow; based on approved tea teddy.",
+      "prompt": "Cuddly friendly brown teddy bear with red bow tie, arms raised mid-bounce and happy face, full body bottom-center exact 256x256 transparent canvas. Match simple appealing teddy design in reference while retaining lively airborne pose. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2d0412fb-4dc6-4bed-85c8-0c62b5b60259.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-teddy.webp",
+      "runtimeFile": "party/assets/art/prop/bb-teddy.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 19930,
+      "actualAlphaBBox": [
+        13,
+        4,
+        247,
+        254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-teddy.webp",
+      "width": 256,
+      "height": 256,
+      "editPrompt": "Cuddly friendly brown teddy bear with red bow tie, arms raised mid-bounce and happy face, full body bottom-center exact 256x256 transparent canvas. Match simple appealing teddy design in reference while retaining lively airborne pose. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects.",
+      "references": [
+        "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/molly-tea-teddy.webp"
+      ]
+    },
+    {
+      "key": "prop/bb-cat",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Bottom-centered transparent ginger leaping cat, all four paws spread.",
+      "prompt": "Fluffy ginger cat leaping joyfully with all four paws spread, delighted face and tail up, full body bottom-center exact 256x256 transparent canvas. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects.",
+      "status": "generated/intaken; self-reviewed final",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b45759a1-b6ae-4634-bda5-79d9287a60d0.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-bounce/prop-bb-cat.webp",
+      "runtimeFile": "party/assets/art/prop/bb-cat.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 22926,
+      "actualAlphaBBox": [
+        15,
+        3,
+        253,
+        247
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/bed-bounce/prop-bb-cat.webp",
+      "width": 256,
+      "height": 256,
+      "generationPrompt": "Fluffy ginger cat leaping joyfully with all four paws spread, delighted face and tail up, full body bottom-center exact 256x256 transparent canvas. Polished 2D candy-color cartoon, bold smooth navy #24163f outline, clean soft cel shading. No background, shadow, glow, checkerboard or extra objects."
     }
   ]
 }

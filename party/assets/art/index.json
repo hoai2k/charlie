@@ -1125,7 +1125,20 @@
     "prop/pt-glitter": "prop/pt-glitter.webp",
     "prop/pt-polish": "prop/pt-polish.webp",
     "prop/pt-bush": "prop/pt-bush.webp",
-    "prop/pt-mirror": "prop/pt-mirror.webp"
+    "prop/pt-mirror": "prop/pt-mirror.webp",
+    "bg/bed-bounce": "bg/bed-bounce.webp",
+    "thumb/bed-bounce": "thumb/bed-bounce.webp",
+    "prop/bb-bed": "prop/bb-bed.webp",
+    "prop/bb-door": "prop/bb-door.webp",
+    "prop/nanny-moo": "prop/nanny-moo.webp",
+    "prop/bb-pillow": "prop/bb-pillow.webp",
+    "prop/nanny-moo-peek": "prop/nanny-moo-peek.webp",
+    "prop/nanny-moo-jump": "prop/nanny-moo-jump.webp",
+    "prop/bb-feather": "prop/bb-feather.webp",
+    "prop/bb-star": "prop/bb-star.webp",
+    "prop/bb-glowstar": "prop/bb-glowstar.webp",
+    "prop/bb-teddy": "prop/bb-teddy.webp",
+    "prop/bb-cat": "prop/bb-cat.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1705,7 +1718,20 @@
       "prop/bigsnowman-6"
     ],
     "rainbow-painter": [],
-    "bed-bounce": [],
+    "bed-bounce": [
+      "bg/bed-bounce",
+      "prop/bb-bed",
+      "prop/bb-door",
+      "prop/nanny-moo",
+      "prop/bb-pillow",
+      "prop/nanny-moo-peek",
+      "prop/nanny-moo-jump",
+      "prop/bb-feather",
+      "prop/bb-star",
+      "prop/bb-glowstar",
+      "prop/bb-teddy",
+      "prop/bb-cat"
+    ],
     "prank-troll": [
       "bg/prank-troll",
       "prop/pt-troll-asleep",

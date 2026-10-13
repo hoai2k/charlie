@@ -13,6 +13,10 @@ export const BED = { x: 90, y: 440, w: 1400, h: 600, top: 760, x0: 330, x1: 1450
 export const DOOR = { x: 1580, y: 380, w: 240, h: 550 };
 export const CEIL = 178;
 export const FLOOR = 930;
+export function configureBedArt(hasArt) {
+  BED.top = hasArt ? BED.y + BED.h * 0.51 : 760;
+  BED.x0 = hasArt ? BED.x + BED.w * 0.17 + 10 : 330;
+}
 
 function rr(g, x, y, w, h, r) {
   r = Math.min(r, w / 2, h / 2);
