@@ -1,0 +1,574 @@
+{
+  "game": "pumpkin-peekaboo",
+  "status": "complete; 17/17 requested assets generated or approved-reused, with source provenance and runtime geometry recorded",
+  "assets": [
+    {
+      "key": "bg/pumpkin-peekaboo",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque full-screen patch; plain low-detail soil/grass in play area y380\u20131000; calm top 110px.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No lettering, logos, borders or watermarks. Asset: opaque background/thumbnail. Primary request: A cozy friendly autumn night: deep purple-blue sky, big soft yellow full moon upper right, twinkly stars; little wooden cottage with warm windows and string of orange lanterns at far left horizon, low wooden fence, friendly smiling scarecrow at horizon y300\u2013380; broad dark-green and brown pumpkin-patch ground with curly vines and a few leaves around edges, hay bales in bottom corners. Keep the play area broad plain low-detail soil and grass; no holes, pumpkins or characters in play area; no rug/furniture. Warm inviting, never spooky. Composition: exact 1920\u00d71080 canvas; Opaque full-screen patch; plain low-detail soil/grass in play area y380\u20131000; calm top 110px.. Opaque full-bleed scene.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7b9d953a-a827-4559-bc27-5777c4b0bd6b.png",
+      "sourcePath": "party/reference/pending/molly-sources/bg-pumpkin-peekaboo-final.webp",
+      "runtimeFile": "party/assets/art/bg/pumpkin-peekaboo.webp",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 210872,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1919,
+        1080
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editHistory": [
+        {
+          "prompt": "Style-transfer only. Keep exact cozy Halloween patch composition, horizon, cottage and lanterns, moon, fence and smiling scarecrow, hay bales, ground placement and open low-detail play area. Use crisp polished 2D cartoon art: smooth uniform bold navy #24163f outlines, simplified flat shapes and clean soft cel shading; remove painterly/airbrush/realistic texture. Preserve palette and geometry, no new objects or characters.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7b9d953a-a827-4559-bc27-5777c4b0bd6b.png",
+          "sourcePath": "party/reference/pending/molly-sources/bg-pumpkin-peekaboo-final.webp"
+        }
+      ],
+      "source": "party/reference/pending/molly-sources/bg-pumpkin-peekaboo-final.webp",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "key": "thumb/pumpkin-peekaboo",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque centered game-select thumbnail.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No lettering, logos, borders or watermarks. Asset: opaque background/thumbnail. Primary request: Three cute jack-o-lanterns popping out of holes in moonlit patch; middle one giggling and spitting wrapped candies; golden pumpkin at side; fluffy lilac-gray kitten in purple witch hat peeking from a hole. Subject centered, no Charlie Party player characters. Composition: exact 800\u00d7500 canvas; Opaque centered game-select thumbnail.. Opaque full-bleed scene.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5cac8e66-8827-4301-9ea3-77d3ca44bd09.png",
+      "sourcePath": "party/reference/pending/molly-sources/thumb-pumpkin-peekaboo-final.webp",
+      "runtimeFile": "party/assets/art/thumb/pumpkin-peekaboo.webp",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 84422,
+      "actualAlphaBBox": [
+        0,
+        0,
+        799,
+        500
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editHistory": [
+        {
+          "prompt": "Style-transfer only. Preserve exactly the three pumpkin identities/expressions, wrapped candy, golden pumpkin, and lilac-gray kitten in purple witch hat, same poses/count/framing. Apply crisp 2D cartoon style matching the reference: smooth uniform bold navy #24163f outlines, simplified silhouettes, clean flat soft cel shading, no painterly realism or texture noise. Keep the scene friendly and cute. No additions or removals.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-5cac8e66-8827-4301-9ea3-77d3ca44bd09.png",
+          "sourcePath": "party/reference/pending/molly-sources/thumb-pumpkin-peekaboo-final.webp"
+        }
+      ],
+      "source": "party/reference/pending/molly-sources/thumb-pumpkin-peekaboo-final.webp",
+      "width": 800,
+      "height": 500
+    },
+    {
+      "key": "prop/pp-hole",
+      "size": [
+        320,
+        160
+      ],
+      "geometry": "Transparent 3/4 top-down soil hole, centered.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No lettering, logos, borders or watermarks. Asset: transparent standalone game prop. Primary request: A round dark dirt hole in ground seen from 3/4 top-down view, soft brown soil rim, ring of curly green pumpkin vines and two leaves around it. No pumpkin or character. Composition: exact 320\u00d7160 canvas; Transparent 3/4 top-down soil hole, centered.. True transparent alpha around all art; no background or cast shadow.",
+      "status": "generated and intaken; first-six checkpoint",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-acb7ae73-6f0c-40fa-b144-3ef66cb52011.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-hole.webp",
+      "runtimeFile": "party/assets/art/prop/pp-hole.webp",
+      "nativeOutputSize": [
+        1774,
+        887
+      ],
+      "runtimeBytes": 15004,
+      "actualAlphaBBox": [
+        30,
+        9,
+        294,
+        159
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-hole.webp",
+      "width": 320,
+      "height": 160
+    },
+    {
+      "key": "prop/pp-pumpkin-1",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Transparent bottom-center anchor; silhouette and scale consistent across all pumpkin frames.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No lettering, logos, borders or watermarks. Asset: transparent standalone game prop. Primary request: A cute round orange jack-o-lantern with curly green stem and leaf, warm yellow glow inside carved face. Face 1: big grin with tongue sticking out. Round soft shapes, no pointy teeth. Composition: exact 320\u00d7320 canvas; Transparent bottom-center anchor; silhouette and scale consistent across all pumpkin frames.. True transparent alpha around all art; no background or cast shadow.",
+      "status": "generated and intaken; first-six checkpoint",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f539ccbf-a856-4e50-8d0f-b960244515ce.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-1.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-1.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 24562,
+      "actualAlphaBBox": [
+        25,
+        12,
+        295,
+        302
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-1.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-pumpkin-2",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same exact canvas, silhouette, scale, stem, leaf, shading and placement as pumpkin-1.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No lettering, logos, borders or watermarks. Asset: transparent standalone game prop. Primary request: Edit the reference pumpkin only: keep its exact round orange body, green curly stem and leaf, outline, shading, scale and placement unchanged. Change only carved expression to face 2: one eye winking as a happy arc, lopsided smile. No pointy teeth. Composition: exact 320\u00d7320 canvas; Same exact canvas, silhouette, scale, stem, leaf, shading and placement as pumpkin-1.. True transparent alpha around all art; no background or cast shadow.",
+      "status": "generated and intaken; first-six checkpoint",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-93d6e516-d861-4af1-b74f-81dd65dce251.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-2.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-2.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 24376,
+      "actualAlphaBBox": [
+        25,
+        12,
+        295,
+        302
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editReference": "party/reference/pending/molly-sources/prop-pp-pumpkin-1.webp",
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-2.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-pumpkin-3",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same exact canvas, silhouette, scale, stem, leaf, shading and placement as pumpkin-1.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour art, smooth bold navy #24163f outlines, clean soft cel shading, no 3D or photorealism. No lettering, logos, borders or watermarks. Asset: transparent standalone game prop. Primary request: Edit the reference pumpkin only: keep its exact round orange body, green curly stem and leaf, outline, shading, scale and placement unchanged. Change only carved expression to face 3: crossed googly eyes and goofy buck-tooth smile; no pointy teeth. Composition: exact 320\u00d7320 canvas; Same exact canvas, silhouette, scale, stem, leaf, shading and placement as pumpkin-1.. True transparent alpha around all art; no background or cast shadow.",
+      "status": "generated and intaken; first-six checkpoint",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f5f898c5-3346-4e44-aa6e-48669edf9de2.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-3.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-3.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 25424,
+      "actualAlphaBBox": [
+        25,
+        12,
+        295,
+        303
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editReference": "party/reference/pending/molly-sources/prop-pp-pumpkin-1.webp",
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-3.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-pumpkin-4",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same silhouette, canvas, scale, stem and placement as pumpkin-1; bottom-centre.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Use the referenced existing game sprite and preserve identity, palette and proportions; Primary request: Edit the matching orange jack-o-lantern: change only expression to face 4, puffed cheeks blowing a raspberry; no pointy teeth. Composition: exact 320\u00d7320 canvas; Same silhouette, canvas, scale, stem and placement as pumpkin-1; bottom-centre.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7fdb093d-476d-4723-a9ec-1e3af38dc081.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-4-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-4.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 23516,
+      "actualAlphaBBox": [
+        24,
+        11,
+        296,
+        302
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-4-final.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-pumpkin-giggle",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same silhouette, canvas, scale and placement as pumpkin-1; bottom-centre.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Use the referenced existing game sprite and preserve identity, palette and proportions; Primary request: The same orange jack-o-lantern laughing hard: eyes squeezed into happy arcs, huge open laughing mouth, rosy cheeks, tiny happy tear. Keep same stem and leaf. Composition: exact 320\u00d7320 canvas; Same silhouette, canvas, scale and placement as pumpkin-1; bottom-centre.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6d959bb3-e5b7-4a27-ad23-78ffc54ad605.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-giggle-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-giggle.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 25314,
+      "actualAlphaBBox": [
+        22,
+        11,
+        318,
+        303
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-giggle-final.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-pumpkin-golden",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same silhouette/canvas/scale as pumpkin-1; bottom-centre.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Use the referenced existing game sprite and preserve identity, palette and proportions; Primary request: Edit matching round jack-o-lantern to shiny golden yellow with sparkly gold stem, same green leaf and outline; beaming happy carved smile. No pointy teeth. Composition: exact 320\u00d7320 canvas; Same silhouette/canvas/scale as pumpkin-1; bottom-centre.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-fdc2cc78-18ce-43ce-9e6c-0a41af5536f4.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-golden-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-golden.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 26276,
+      "actualAlphaBBox": [
+        23,
+        12,
+        297,
+        302
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-golden-final.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-pumpkin-golden-giggle",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same exact golden pumpkin silhouette/canvas/scale and placement as golden base.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Use the referenced existing game sprite and preserve identity, palette and proportions; Primary request: Same shiny golden jack-o-lantern with matching sparkly stem; eyes squeezed into happy arcs, open laughing mouth, rosy cheeks, tiny happy tear. Composition: exact 320\u00d7320 canvas; Same exact golden pumpkin silhouette/canvas/scale and placement as golden base.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6544391b-ef6c-4f5e-aeb4-ed42a10a9e9b.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-pumpkin-golden-giggle-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-pumpkin-golden-giggle.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 27000,
+      "actualAlphaBBox": [
+        21,
+        11,
+        298,
+        315
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editReference": "party/assets/art/prop/pp-pumpkin-golden.webp",
+      "source": "party/reference/pending/molly-sources/prop-pp-pumpkin-golden-giggle-final.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-witch-cat",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Transparent bottom-centre anchor, full cat+hole silhouette.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Primary request: A fluffy lilac-gray kitten in a purple witch hat with a gold star, peeking up out of a dirt hole with both paws on the rim, big sparkly eyes; sweet and friendly. Composition: exact 320\u00d7320 canvas; Transparent bottom-centre anchor, full cat+hole silhouette.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-93a31c3f-8435-4377-a001-850ac8508414.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-witch-cat-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-witch-cat.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 29140,
+      "actualAlphaBBox": [
+        0,
+        2,
+        305,
+        315
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-witch-cat-final.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-witch-cat-purr",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "Same exact cat identity, hat, hole, pose, canvas, scale and placement as witch-cat.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Use the referenced existing game sprite and preserve identity, palette and proportions; Primary request: Edit the same lilac-gray kitten in purple gold-star witch hat: eyes closed blissfully, smiling, cheeks pink, visibly purring. Preserve pose and silhouette. Composition: exact 320\u00d7320 canvas; Same exact cat identity, hat, hole, pose, canvas, scale and placement as witch-cat.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-905d12cb-ab22-4b70-8c87-eaebd2ec5704.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-witch-cat-purr-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-witch-cat-purr.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 27778,
+      "actualAlphaBBox": [
+        15,
+        3,
+        307,
+        314
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editReference": "party/assets/art/prop/pp-witch-cat.webp",
+      "source": "party/reference/pending/molly-sources/prop-pp-witch-cat-purr-final.webp",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "key": "prop/pp-candy-1",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup sprite.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Primary request: Twist-wrapped round sweet in orange-and-purple stripes. Composition: exact 128\u00d7128 canvas; Centered transparent pickup sprite.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3bcb188e-330e-4b5b-9490-d85f63ba3888.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-candy-1-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-candy-1.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 5552,
+      "actualAlphaBBox": [
+        5,
+        31,
+        123,
+        95
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-candy-1-final.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/pp-candy-2",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup sprite.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Primary request: Swirly rainbow lollipop candy. Composition: exact 128\u00d7128 canvas; Centered transparent pickup sprite.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-05c8bdaf-2aeb-4f2d-a887-b18f9c2742d1.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-candy-2-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-candy-2.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 6194,
+      "actualAlphaBBox": [
+        24,
+        5,
+        104,
+        125
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-candy-2-final.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/pp-candy-3",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup sprite.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Primary request: Chunky candy corn, bright yellow orange and white triangular sweet. Composition: exact 128\u00d7128 canvas; Centered transparent pickup sprite.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-9481cf8a-3d18-4975-a0a0-de0046e1b367.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-candy-3-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-candy-3.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 4398,
+      "actualAlphaBBox": [
+        16,
+        9,
+        112,
+        120
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-candy-3-final.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/pp-candy-4",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered transparent pickup sprite.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Primary request: Pink wrapped chocolate sweet with a small bow. Composition: exact 128\u00d7128 canvas; Centered transparent pickup sprite.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-bfde952a-61c5-4936-8cd8-1a244001b705.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-candy-4-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-candy-4.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 5086,
+      "actualAlphaBBox": [
+        7,
+        28,
+        123,
+        104
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prop-pp-candy-4-final.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/pp-bucket",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Centered transparent prop with handle visible.",
+      "prompt": "Use case: illustration-story. House style: polished 2D candy-colour illustration, smooth bold navy #24163f outlines and clean soft cel shading; no 3D or photorealism. No text, border or watermark. Asset: transparent standalone game prop. Primary request: A plastic jack-o-lantern trick-or-treat bucket with black handle and happy carved face. No candy inside; runtime piles candy on top. Composition: exact 160\u00d7160 canvas; Centered transparent prop with handle visible.. True transparent alpha, no backdrop, glow, shadow or extra objects.",
+      "status": "generated and intaken",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4f7ed33a-6d1b-424c-8b17-47e46727ba56.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-pp-bucket-final.webp",
+      "runtimeFile": "party/assets/art/prop/pp-bucket.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 8506,
+      "actualAlphaBBox": [
+        5,
+        5,
+        147,
+        151
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editHistory": [
+        {
+          "prompt": "Preserve exact orange pumpkin bucket, black handle, outline, size, canvas and position. Edit only face to friendly curved crescent eyes and smooth rounded happy smile without jagged teeth. Keep empty plastic bucket; no candy.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4f7ed33a-6d1b-424c-8b17-47e46727ba56.png"
+        }
+      ],
+      "source": "party/reference/pending/molly-sources/prop-pp-bucket-final.webp",
+      "width": 160,
+      "height": 160
+    }
+  ]
+}
