@@ -14,11 +14,11 @@ still running; merge with scratchpad merge_molly.sh). SFX rows collected in scra
 sfx-molly.md (round 6 not generated yet); per-game player poses in molly-poses.txt.
 New poses registered: ride-sit, boop, cuddle, tongue-out, hose-spray. `?chars=` accepts NPC
 ids (glimmer, garden-fairy-pink|blue|yellow|green|purple) for testing.
-PENDING USER DECISION: "naughty" Molly games. Proposed (not built): flips Puppy Splash ->
-Muddy Puppies, Butterfly Ballet -> Opposite Ballet, Dance & Freeze -> Sneaky Dance (Hoot
-naps), Sock Match -> Sock Bandits; new No Jumping on the Bed!, Whoopee Tea Party (replaces
-Tea Party), Prank the Sleeping Troll, Cookie Jar Caper, Food Fight. Suggested swaps: Shape
-Train, Tea Party, Puppy Splash, Ballet, Dance & Freeze (+ maybe Ladybug Spots).
+APPROVED 2026-10-13: cheeky games. 3 worktree agents building (brief: scratchpad
+naughty-brief.md): muddy-mayhem + sneaky-dance, opposite-ballet + whoopee-tea, bed-bounce +
+prank-troll. On merge RETIRE (keep files): puppy-splash, dance-freeze, ballet-butterflies,
+tea-party, shape-train, ladybug-spots (exclude from MOLLY_GAMES; their image-request
+sections are marked ON HOLD; move unreused keys to history as dropped).
 
 ### Molly Party image delivery — in progress
 
