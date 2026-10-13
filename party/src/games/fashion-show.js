@@ -20,7 +20,7 @@ import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
-import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem, saveLook } from '../engine/outfits.js';
+import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem, saveLook, rememberAdj, recallAdj } from '../engine/outfits.js';
 import { photoPosePressed, photoMove, strikePhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 
 export const meta = {
@@ -29,7 +29,7 @@ export const meta = {
   category: 'studio',
   type: 'Dress up · Everyone wins',
   goal: 'Dress up like royalty, then strut down the runway and strike your best poses!',
-  controls: [['lb', 'LB / RB or D-pad left/right: pick a spot'], ['dpad', 'D-pad or stick up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Take it all off (again: surprise me!)'], ['x', "I'm ready!"], ['stick', 'Runway: walk around, A jumps, other buttons pose']],
+  controls: [['lb', 'LB / RB or D-pad left/right: pick a spot'], ['dpad', 'D-pad or stick up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Take it all off (again: surprise me!)'], ['x', "I'm ready!"], ['rstick', 'Nudge the item · press it in + up/down: size · tap it: reset'], ['stick', 'Runway: walk around, A jumps, other buttons pose']],
   tips: ['Press A to pick an item, and A again to change its color.', 'Press X when you love your look!', 'Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, walk around with the stick and press different buttons for different poses!', 'Press the View button when you are done on the runway.', 'Press B if you want to change your outfit again.'],
   music: 'chill',
   duration: 'about 2 min',
@@ -117,6 +117,7 @@ export class Game {
     for (const e of p.outfit || []) {
       const it = outfitItem(e.id), ci = it ? CAT[it.slot] : -1, ii = ci >= 0 ? CATS[ci].items.indexOf(it) : -1;
       if (ii > 0) { st.outfit[ci].item = ii; st.outfit[ci].colors[ii] = e.colour | 0; }
+      if (it && (e.dx || e.dy || (e.scale && e.scale !== 1))) rememberAdj(p.charId, e.id, e);
     }
     a.char.members.forEach((def, mi) => {
       a.attach((g, info) => this.drawWorn(g, st, def, info, true), { member: mi, behind: true });
@@ -143,7 +144,10 @@ export class Game {
 
   // --- worn items (actor attachments) -----------------------------------------
   drawWorn(g, st, def, info, behind) {
-    const outfit = st.outfit.map((o, ci) => ({ item: CATS[ci].items[o.item], colour: o.colors[o.item] }));
+    const outfit = st.outfit.map((o, ci) => {
+      const item = CATS[ci].items[o.item];
+      return { item, colour: o.colors[o.item], ...(item && item.id ? recallAdj(st.p.charId, item.id) : null) };
+    });
     const A = drawOutfit(g, def, info, outfit, { layer: behind ? 'back' : 'front', t: this.t + st.i * 0.37, pop: (slot) => popK(st.pop[CAT[slot]]) });
     // remember where each item landed (world space) for sparkles on pick/colour change
     if (!behind && info.member === 0 && this._worldInv) {
@@ -202,6 +206,31 @@ export class Game {
     st.actor.squash(0.12);
   }
 
+  /**
+   * Right stick: nudge the item on the current spot away from its anchor;
+   * holding the stick in (RS) and pushing up/down sizes it; a quick tap of RS
+   * puts it back. Remembered per character + item for this visit (and saved
+   * with the look while it's worn).
+   */
+  nudgeItem(st, dt) {
+    const c = st.p.ctrl, it = CATS[st.tab].items[st.outfit[st.tab].item];
+    if (c.pressed('rs')) { st.rsT = 0; st.rsMoved = false; }
+    if (c.held('rs')) st.rsT = (st.rsT || 0) + dt;
+    const rx = Math.abs(c.rx) > 0.2 ? c.rx : 0, ry = Math.abs(c.ry) > 0.2 ? c.ry : 0;
+    if (it && it.id && (rx || ry)) {
+      const cur = { dx: 0, dy: 0, scale: 1, ...recallAdj(st.p.charId, it.id) };
+      if (c.held('rs')) cur.scale *= Math.exp(-ry * dt * 1.1);
+      else { cur.dx += rx * dt * 0.7; cur.dy += ry * dt * 0.7; }
+      if (!st.nudging) sfx('move');
+      st.nudging = true; st.rsMoved = true;
+      rememberAdj(st.p.charId, it.id, cur);
+    } else st.nudging = false;
+    if (c.released('rs') && !st.rsMoved && (st.rsT || 0) < 0.35 && it && it.id && recallAdj(st.p.charId, it.id)) {
+      rememberAdj(st.p.charId, it.id, {});
+      sfx('pop'); st.pop[st.tab] = -0.15;
+    }
+  }
+
   /** Y with something on: take everything off (Y again on an empty look = surprise). */
   clearOutfit(st) {
     st.outfit.forEach((o, ci) => { if (o.item) st.pop[ci] = -0.2; o.item = 0; });
@@ -215,7 +244,11 @@ export class Game {
   saveLook(st) {
     if (st.p.isAI) return;
     const look = [];
-    st.outfit.forEach((o, ci) => { if (o.item) look.push({ id: CATS[ci].items[o.item].id, colour: o.colors[o.item] }); });
+    st.outfit.forEach((o, ci) => {
+      if (!o.item) return;
+      const id = CATS[ci].items[o.item].id;
+      look.push({ id, colour: o.colors[o.item], ...recallAdj(st.p.charId, id) });
+    });
     saveLook(st.p.charId, look);
     if (st.p.outfit) st.p.outfit = look.length ? look : null;   // already playing dressed up: keep wearing this one
   }
@@ -294,6 +327,7 @@ export class Game {
       if (c.pressed('a')) this.pickItem(st);
       if (c.pressed('y')) { if (st.outfit.some((o) => o.item)) this.clearOutfit(st); else this.surprise(st); }
       if (c.pressed('x')) this.setReady(st, true);
+      if (!st.p.isAI) this.nudgeItem(st, dt);
     }
     if (this.stations.every((s) => s.ready && s.readyT > 0.5)) this.startShowtime();
   }
@@ -844,7 +878,7 @@ export class Game {
     x += tw + 12;
     if (wide) drawPortrait(g, p, x + sz * 0.55, y, sz * 0.55, { ring: p.color, ringWidth: 3 }), x += sz * 1.4;
     const o = st.outfit[st.tab], col = PALETTE[o.colors[o.item]];
-    const items = [['dpad', wide ? 'Spot / item' : ''], ['a', wide ? 'Pick / color' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ['x', 'Ready!']];
+    const items = [['dpad', wide ? 'Spot / item' : ''], ['a', wide ? 'Pick / color' : ''], ['y', wide ? (st.outfit.some((o) => o.item) ? 'Clear' : 'Surprise!') : ''], ...(wide && st.p.ctrl.kind === 'pad' ? [['rstick', 'Nudge']] : []), ['x', 'Ready!']];
     const avail = r.x + r.w - 16 - x;
     const lab = sz * 0.62;
     let need = 0;

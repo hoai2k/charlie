@@ -68,6 +68,12 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- Fashion Show item nudge (user request 2026-10-13): right stick moves the
+  current spot's item from its anchor, RS held + up/down sizes it (limits
+  `ADJ_LIMITS` in outfits.js: ±0.6 slot, 0.6–1.6×), a tap of RS resets.
+  Kept per character+item for the visit (`rememberAdj`/`recallAdj`, memory
+  only); outfit entries carry dx/dy/scale, so saved looks keep them for
+  worn items only, and every game's Actor draws them.
 - Play Studio page 2 (user request 2026-10-13): 10 games merged and
   registered (hair-salon, dance-studio, acrobat-circus, nail-studio,
   sandcastle-beach, puppet-theater, snowman-builder, aquarium, star-maker,
