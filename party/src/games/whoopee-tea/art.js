@@ -29,6 +29,13 @@ export function guestArtKey(kind, state) {
   for (const st of STATE_CHAIN[state] || [state]) if (art(base + '-' + st)) return base + '-' + st;
   return null;
 }
+// nose tip in the authored huff art (px from centre, px from top of 320x420)
+const HUFF_NOSE = { bunny: [-32, 150], kitty: [-20, 105], pig: [45, 95], poodle: [40, 95] };
+/** Whether `kind` has its own authored art for `state` (not a fallback). */
+export function hasOwnArt(kind, state) {
+  const key = guestArtKey(kind, state);
+  return !!key && key.endsWith('-' + state);
+}
 // procedural stand-ins for the reaction states
 const procState = (state) => (state === 'shock' ? 'gasp' : state === 'huff' ? 'sit' : state);
 
@@ -41,6 +48,8 @@ export function drawGuest(g, kind, x, y, h, state, o = {}) {
   const t = o.t || 0, C = GUESTS[kind];
   const duchess = kind === 'duchess';
   const key = guestArtKey(kind, state);
+  // the authored huff art already has its nose in the air: no extra lean
+  if (o.tilt && state === 'huff' && hasOwnArt(kind, 'huff')) o = { ...o, tilt: 0 };
   g.save(); g.translate(x, y);
   if (state === 'laugh') g.rotate(Math.sin(t * 14) * 0.12);
   if (o.tilt) g.rotate(o.tilt);
@@ -156,7 +165,9 @@ export function guestHeadTop(kind, y, h, state) {
 export function drawGuestFx(g, kind, x, y, h, state, fxs, t, facing = 1) {
   const r = h * 0.17, hc = guestHeadTop(kind, y, h, state) + h * 0.17, C = GUESTS[kind];
   g.save(); g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = NAVY;
-  for (const f of fxs) {
+  for (let f of fxs) {
+    // the authored bunny shock already twirls a parasol: no lace fan on top of it
+    if (f === 'fan' && kind === 'bunny' && state === 'shock' && hasOwnArt(kind, 'shock')) f = 'shock';
     if (f === 'shock') {
       // jittery shock lines round the head
       const j = 1 + Math.sin(t * 40) * 0.06;
@@ -167,8 +178,7 @@ export function drawGuestFx(g, kind, x, y, h, state, fxs, t, facing = 1) {
       }
     } else if (f === 'scold') {
       // The authored scold already has its raised glove attached to the arm.
-      const base = kind === 'duchess' ? 'prop/whoopee-duchess' : 'prop/whoopee-guest-' + kind;
-      if (state === 'scold' && art(base + '-scold')) continue;
+      if (state === 'scold' && hasOwnArt(kind, 'scold')) continue;
       // a prim white-gloved paw beside the head, one stern finger wagging
       const px = x + facing * r * 1.5, py = hc + r * 0.35;
       const wag = Math.sin(t * 15) * 0.45, lw = Math.max(3, r * 0.1);
@@ -184,9 +194,9 @@ export function drawGuestFx(g, kind, x, y, h, state, fxs, t, facing = 1) {
       g.strokeStyle = NAVY; g.lineWidth = lw;
       for (const side of [-1, 1]) { g.beginPath(); g.arc(px, py, r * 1.35, -Math.PI / 2 + side * 0.55 - 0.2, -Math.PI / 2 + side * 0.55 + 0.2); g.stroke(); }
     } else if (f === 'steam') {
-      // cheeks flushed red, steam puffing out of both ears
+      // cheeks flushed red (the authored scold art is already flushed), steam puffing out of both ears
       g.fillStyle = 'rgba(255,40,70,0.5)';
-      for (const side of [-1, 1]) { g.beginPath(); g.ellipse(x + side * r * 0.55, hc + r * 0.4, r * 0.32, r * 0.24, 0, 0, TAU); g.fill(); }
+      if (!(state === 'scold' && hasOwnArt(kind, 'scold'))) for (const side of [-1, 1]) { g.beginPath(); g.ellipse(x + side * r * 0.55, hc + r * 0.4, r * 0.32, r * 0.24, 0, 0, TAU); g.fill(); }
       for (const side of [-1, 1]) for (let i = 0; i < 3; i++) {
         const ph = (t * 1.7 + i / 3 + (side > 0 ? 0.17 : 0)) % 1;
         g.globalAlpha = 1 - ph; g.fillStyle = '#fff'; g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.5)';
@@ -194,11 +204,15 @@ export function drawGuestFx(g, kind, x, y, h, state, fxs, t, facing = 1) {
       }
       g.globalAlpha = 1;
     } else if (f === 'huff') {
-      // two indignant snorts out of the nose
+      // two indignant snorts out of the nose (from the authored huff art's own
+      // nose, which points a different way per guest)
+      const nose = state === 'huff' && hasOwnArt(kind, 'huff') && HUFF_NOSE[kind];
+      const dir = nose ? facing * Math.sign(nose[0]) : facing;
+      const n0x = nose ? x + facing * nose[0] / 420 * h : x, n0y = nose ? y - h * (1 - nose[1] / 420) : hc + r * 0.1;
       for (let i = 0; i < 2; i++) {
         const ph = (t * 2.2 + i * 0.5) % 1;
         g.globalAlpha = 1 - ph; g.fillStyle = '#fff'; g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.5)';
-        const nx = x + facing * r * (0.4 + ph * 0.9) + (i ? -1 : 1) * r * 0.25 * ph, ny = hc + r * 0.1 - ph * r * 0.8;
+        const nx = n0x + dir * r * ((nose ? 0.25 : 0.4) + ph * 0.9) + (i ? -1 : 1) * r * 0.25 * ph, ny = n0y - ph * r * 0.8;
         g.beginPath(); g.arc(nx, ny, r * (0.17 + ph * 0.22), 0, TAU); g.fill(); g.stroke();
       }
       g.globalAlpha = 1;
@@ -545,7 +559,9 @@ export function drawButler(g, x, y, h, t, facing = 1, step = 0, notice = 0, scol
   // scolding: prop/whoopee-butler-scold once delivered, else the "ahem" art plus a code-drawn wagging glove
   const key = scold && art('prop/whoopee-butler-scold') ? 'prop/whoopee-butler-scold' : notice > 0.3 || scold ? 'prop/whoopee-butler-ahem' : 'prop/whoopee-butler';
   if (art(key)) {
-    g.scale(facing, 1); drawArt(g, key, 0, -Math.abs(Math.sin(step)) * 6, h * 280 / 420, h, { anchor: 'bottom' }); g.restore();
+    // the scold art has 7px of empty canvas under his feet: keep him on the ground
+    const pad = key === 'prop/whoopee-butler-scold' ? h * 7 / 420 : 0;
+    g.scale(facing, 1); drawArt(g, key, 0, pad - Math.abs(Math.sin(step)) * 6, h * 280 / 420, h, { anchor: 'bottom' }); g.restore();
     if (scold && key !== 'prop/whoopee-butler-scold') drawGlove(g, x + facing * h * 0.3, y - h * 0.78, h, t);
     return;
   }
