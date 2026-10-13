@@ -80,6 +80,54 @@ export const DECOR_BY_ID = Object.fromEntries(DECOR.map((d) => [d.id, d]));
 
 export const artKey = (d, ci) => (d.colors.length > 1 ? `prop/aq-${d.id}-${d.colors[ci % d.colors.length].n}` : `prop/aq-${d.id}`);
 
+// Window / door / glass points measured on the delivered art (world units at
+// scale 1, base centre origin). They replace the procedural layout while that
+// art is drawn, so night window lights and peekaboo pop-outs sit on the
+// painted windows. `scale` enlarges art whose canvas has tall empty headroom.
+const castleFit = (y, sx, sy) => ({ lights: [[0, y], [-sx, sy], [sx, sy]], out: { x: 0, y } });
+const towerFit = (y) => ({ lights: [[0, y]], out: { x: 0, y } });
+const shellFit = (wx, wy, dx, dy) => ({ lights: [[wx, wy], [dx, dy]], out: { x: wx, y: wy }, door: { x: dx, y: dy + 18 } });
+const ART_FIT = {
+  'prop/aq-castle-pink': castleFit(-166, 120, -96),
+  'prop/aq-castle-lilac': castleFit(-173, 118, -103),
+  'prop/aq-castle-sky': castleFit(-180, 114, -130),
+  'prop/aq-tower-pink': towerFit(-127),
+  'prop/aq-tower-lilac': towerFit(-121),
+  'prop/aq-tower-sky': towerFit(-124),
+  'prop/aq-shellhouse-pink': shellFit(79, -71, 20, -62),
+  'prop/aq-shellhouse-peach': shellFit(65, -74, 12, -68),
+  'prop/aq-shellhouse-lilac': shellFit(81, -83, 19, -66),
+  // The lantern art fills only the lower 69 % of its canvas; its glass centre is at -35 (unscaled).
+  'prop/aq-lantern': { scale: 1.3, lights: [[0, -46]], glass: { y: -46, rx: 20, ry: 19 } },
+};
+/** The measured fit for this item's art, if that art is loaded (else null: procedural layout). */
+function artFit(d, it) { const key = artKey(d, it.color); return art(key) ? ART_FIT[key] || null : null; }
+/** Door, pop-out window and light points for this item (generated art or procedural). */
+export function decorDoor(d, it) { return (artFit(d, it) || {}).door || d.door; }
+export function decorOut(d, it) { return (artFit(d, it) || {}).out || d.out; }
+function lightPoints(d, it) {
+  const fit = artFit(d, it);
+  if (!fit || !fit.lights || !d.lights) return d.lights;
+  return fit.lights.map(([x, y], i) => { const base = d.lights[Math.min(i, d.lights.length - 1)]; return [x, y, base[2], base[3]]; });
+}
+
+// Lava pixels of a generated volcano (bright orange/yellow), re-lit at night.
+const lavaCache = new WeakMap();
+function lavaOf(img) {
+  if (lavaCache.has(img)) return lavaCache.get(img);
+  let c = null;
+  try {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(img, 0, 0);
+    const im = x.getImageData(0, 0, c.width, c.height), p = im.data;
+    for (let i = 0; i < p.length; i += 4) if (!(p[i] >= 190 && p[i] - p[i + 2] >= 90 && p[i + 3] > 128)) p[i + 3] = 0;
+    x.putImageData(im, 0, 0);
+  } catch (e) { c = null; }
+  lavaCache.set(img, c);
+  return c;
+}
+
 /** Local bounding box (x0, y0, x1, y1) of a decoration at scale 1. */
 export function decorBox(d) { return { x0: -d.w / 2, x1: d.w / 2, y0: -d.h, y1: 4 }; }
 
@@ -107,7 +155,7 @@ function drawPearl(g, it) {
 function drawGenerated(g, d, it, env, img) {
   g.save();
   if (d.sway) g.transform(1, 0, sway(env, it, 0) * 0.06 * d.sway, 1, 0, 0);
-  const s = Math.min(d.w / img.width, d.h / img.height);
+  const s = Math.min(d.w / img.width, d.h / img.height) * ((ART_FIT[artKey(d, it.color)] || {}).scale || 1);
   if (d.id === 'chest' && it.open > 0) {
     // Measured lid/body seam: y=122 on the 300x240 authored chest.
     const seam = Math.round(img.height * 122 / 240), hingeY = (seam - img.height) * s;
@@ -159,8 +207,23 @@ function overlay(g, d, it, env, col, generated = false) {
 export function drawDecorGlow(g, d, it, env) {
   const col = d.colors[it.color % d.colors.length];
   const k = env.night;
+  const img0 = art(artKey(d, it.color)), fit = artFit(d, it);
+  if (img0 && d.id === 'volcano') {
+    const lava = lavaOf(img0);
+    if (lava) {
+      g.save(); g.globalCompositeOperation = 'source-over'; g.globalAlpha = k * (0.7 + 0.3 * Math.sin(env.t * 3));
+      drawGenerated(g, d, it, env, lava);
+      g.restore();
+      return;
+    }
+  }
+  if (fit && fit.glass) {
+    const q = fit.glass;
+    g.save(); g.globalAlpha = k; E(g, 0, q.y, q.rx, q.ry, '#fff3c4', 0, 0); E(g, 0, q.y, q.rx / 2, q.ry / 2, '#ffffff', 0, 0); g.restore();
+    return;
+  }
   if (d.id === 'glowstone' || d.id === 'glowshroom' || d.id === 'moonlight') {
-    const img = art(artKey(d, it.color));
+    const img = img0;
     if (img) {
       const pulse = d.id === 'glowstone' ? 0.7 + 0.3 * Math.sin(env.t * 2 + it.seed * 7)
         : d.id === 'glowshroom' ? 0.75 + 0.25 * Math.sin(env.t * 1.6 + it.seed * 5) : 1;
@@ -182,7 +245,7 @@ export function drawDecorGlow(g, d, it, env) {
     g.save(); g.globalAlpha = k; moon(g, '#fff8d0', '#ffffff'); g.restore();
   } else if (d.lights && (d.group === 'castles')) {
     g.save(); g.globalAlpha = k * 0.9;
-    for (const [x, y] of d.lights) E(g, x, y, 13, 13, '#ffe9a0', 0, 0);
+    for (const [x, y] of lightPoints(d, it)) E(g, x, y, 13, 13, '#ffe9a0', 0, 0);
     g.restore();
   } else if (d.id === 'volcano') {
     g.save(); g.globalAlpha = k * (0.7 + 0.3 * Math.sin(env.t * 3)); lava(g, col.a, 0); g.restore();
@@ -196,7 +259,7 @@ export function decorLights(d, it) {
   if (!d.lights) return [];
   const col = d.colors[it.color % d.colors.length];
   if (d.id === 'chest' && !(it.open > 0.2)) return [];
-  return d.lights.map(([x, y, r, c]) => [x, y, r, c || col.c]);
+  return lightPoints(d, it).map(([x, y, r, c]) => [x, y, r, c || col.c]);
 }
 
 // -------------------------------------------------------------------------------------------
