@@ -29,7 +29,7 @@ import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, TAU, placementsFromScores } from '../engine/util.js';
 import { CHARACTERS } from '../data/characters.js';
 import {
-  NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, toScreen, meadowBackground, drawTroll, drawBasket,
+  NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, configureTrollArt, toScreen, meadowBackground, drawTroll, drawBasket,
   drawItem, drawBush, drawSwat, drawMirror, drawIcon,
 } from './prank-troll/draw.js';
 
@@ -77,6 +77,7 @@ const inZone = (x, y, z = ZONE, k = 1) => ((x - z.x) / (z.rx * k)) ** 2 + ((y - 
 
 export class Game {
   constructor(api) {
+    configureTrollArt(!!(art('prop/pt-troll-asleep') && art('prop/pt-troll-awake')));
     this.api = api;
     this.players = api.players;
     const n = this.players.length;

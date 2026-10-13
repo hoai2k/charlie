@@ -4,6 +4,7 @@
 // so pranks land on the same spots whether the art is procedural or generated.
 import { W, H } from '../../engine/canvas.js';
 import { TAU, clamp } from '../../engine/util.js';
+import { drawArt } from '../../engine/art.js';
 
 export const NAVY = '#24163f';
 export const TROLL = { x: 960, y: 720, w: 600, h: 507 };   // bottom-centre anchor + drawn size
@@ -20,6 +21,24 @@ export const FLOWER_SPOTS = [[324, 122], [576, 122], [384, 66], [516, 66], [292,
 export const BOW_SPOTS = [[279, 198], [621, 198], [352, 92], [548, 92]];
 export const FLOWER_COLS = ['#ff7ac6', '#ffd23f', '#7fc8ff', '#ff9f43', '#c58bff', '#ffffff'];
 export const TOE_COLS = ['#ff5fa8', '#ff9fd2', '#c58bff', '#7fc8ff', '#ffd23f'];
+const FALLBACK_A = Object.fromEntries(Object.entries(A).map(([k, p]) => [k, [...p]]));
+const FALLBACK_FLOWERS = FLOWER_SPOTS.map(p => [...p]), FALLBACK_BOWS = BOW_SPOTS.map(p => [...p]);
+let generatedAnchors = false;
+const GENERATED_TOES = [
+  [[141, 501], [95, 539], [64, 569], [42, 594], [29, 615]],
+  [[760, 502], [805, 535], [833, 567], [854, 591], [871, 616]],
+];
+export function configureTrollArt(hasArt) {
+  generatedAnchors = hasArt;
+  Object.assign(A, hasArt ? {
+    face: [462, 174], eyeL: [427, 126], eyeR: [508, 150], nose: [464, 158], tache: [463, 181],
+    earL: [342, 114], earR: [575, 171], top: [464, 12], hairL: [283, 174], hairR: [622, 205],
+    chin: [454, 267], toeL: [141, 501], toeR: [760, 502], mouth: [443, 213],
+  } : FALLBACK_A);
+  FLOWER_SPOTS.splice(0, FLOWER_SPOTS.length, ...(hasArt
+    ? [[325, 70], [550, 80], [283, 174], [622, 205], [286, 265], [603, 285], [462, 22], [323, 293], [566, 306]] : FALLBACK_FLOWERS));
+  BOW_SPOTS.splice(0, BOW_SPOTS.length, ...(hasArt ? [A.earL, A.earR, [352, 62], [548, 72]] : FALLBACK_BOWS));
+}
 
 /** Screen position of an image-space point (with the troll's current bob). */
 export function toScreen(pt, sway = 0, bob = 0) {
@@ -212,6 +231,7 @@ function bodyArt(g, st, t) {
 
 function flower(g, x, y, r, col, t) {
   g.save(); g.translate(x, y); g.rotate(Math.sin(t * 2 + x) * 0.15);
+  if (drawArt(g, 'prop/pt-flower', 0, 0, r * 2.1, r * 2.1)) { g.restore(); return; }
   g.fillStyle = col;
   for (let p = 0; p < 6; p++) { const a = (p / 6) * TAU; g.beginPath(); g.ellipse(Math.cos(a) * r * 0.6, Math.sin(a) * r * 0.6, r * 0.5, r * 0.32, a, 0, TAU); g.fill(); }
   g.strokeStyle = NAVY; g.lineWidth = 3; g.beginPath(); g.arc(0, 0, r * 1.05, 0, TAU); g.globalAlpha = 0; g.stroke(); g.globalAlpha = 1;
@@ -222,6 +242,7 @@ export function drawFlower(g, x, y, r, col, t) { flower(g, x, y, r, col, t); }
 
 export function drawBow(g, x, y, s, rot = 0, col = '#ff7ac6') {
   g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s);
+  if (drawArt(g, 'prop/pt-bow', 0, 0, 120, 96)) { g.restore(); return; }
   g.fillStyle = col;
   for (const sd of [-1, 1]) { g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(sd * 40, -36, sd * 56, -8); g.quadraticCurveTo(sd * 50, 30, 0, 0); g.fill(); ink(g, 4); }
   g.fillStyle = '#ffffff';
@@ -232,6 +253,8 @@ export function drawBow(g, x, y, s, rot = 0, col = '#ff7ac6') {
 
 export function drawHat(g, x, y, s, rot, t) {
   g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s);
+  // The elastic hangs below the cone; seat the cone's rim on the hair.
+  if (drawArt(g, 'prop/pt-party-hat', 0, 30, 144, 192, { anchor: 'bottom' })) { g.restore(); return; }
   g.fillStyle = '#ff7ac6';
   g.beginPath(); g.moveTo(-60, 0); g.lineTo(0, -170); g.lineTo(60, 0); g.closePath(); g.fill();
   g.save(); g.clip();
@@ -244,6 +267,7 @@ export function drawHat(g, x, y, s, rot, t) {
 }
 
 export function drawTache(g, x, y, w, t) {
+  if (drawArt(g, 'prop/pt-moustache', x, y, w, w / 2)) return;
   g.save(); g.translate(x, y); g.scale(w / 250, w / 250);
   g.strokeStyle = '#3a2214'; g.lineCap = 'round'; g.lineJoin = 'round';
   for (const sd of [-1, 1]) {
@@ -259,6 +283,7 @@ export function drawTache(g, x, y, w, t) {
 
 export function drawFeatherItem(g, x, y, s, rot) {
   g.save(); g.translate(x, y); g.rotate(rot); g.scale(s, s);
+  if (drawArt(g, 'prop/pt-feather', 50, -20, 110, 74)) { g.restore(); return; }
   const cols = ['#ff7ac6', '#ffd23f', '#7fe3a0', '#7fc8ff', '#c58bff'];
   for (let k = 0; k < 5; k++) {
     g.fillStyle = cols[k];
@@ -288,7 +313,7 @@ function drawPranks(g, st, P, t) {
   for (let k = 0; k < Math.min(10, P.toes); k++) {
     const sd = k % 2 ? 1 : -1, j = Math.floor(k / 2);
     const fx = sd < 0 ? 200 : 700;
-    const tx = fx - sd * (-45 + j * 32), ty = 700 - j * 5;
+    const [tx, ty] = generatedAnchors ? GENERATED_TOES[k % 2][j] : [fx - sd * (-45 + j * 32), 700 - j * 5];
     const r = j === 0 ? 13 : 9;
     blob(g, tx, ty - 2, r, r * 0.8, TOE_COLS[k % TOE_COLS.length], 3);
     g.fillStyle = 'rgba(255,255,255,0.8)'; g.beginPath(); g.arc(tx - r * 0.3, ty - 5, r * 0.25, 0, TAU); g.fill();

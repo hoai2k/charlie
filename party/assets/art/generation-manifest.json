@@ -31468,6 +31468,636 @@
       "source": "party/reference/pending/molly-sources/snowflake-catch/bigsnowman-6-final.webp",
       "width": 600,
       "height": 900
+    },
+    {
+      "key": "bg/prank-troll",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Tree trunk centered x=960, base y~560; walkable foreground below 540; top 110 calm.",
+      "prompt": "Opaque full-screen sunny summer meadow from high three-quarter view. Huge friendly old oak upper-middle, trunk centered x=960 and base y=560, open ground in front. Mowed soft-green grass, daisies, buttercups, clover, a few tall flowers and bushes only at side edges, leafy crown, blue sky at upper corners. Keep all walkable area below y=540 clear, no characters or baskets, top 110px calm. Polished 2D candy-color cartoon, smooth bold navy #24163f outlines, clean soft cel shading, no 3D/photorealism/text. Style reference only: party/assets/art/bg/fairy-flutter.webp.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b90d46ab-a2d6-47ff-b466-8f8091170f39.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/bg-prank-troll.webp",
+      "runtimeFile": "party/assets/art/bg/prank-troll.webp",
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "runtimeBytes": 317668,
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/prank-troll/bg-prank-troll.webp",
+      "width": 1920,
+      "height": 1080,
+      "references": [
+        "party/assets/art/bg/fairy-flutter.webp"
+      ]
+    },
+    {
+      "key": "thumb/prank-troll",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Centered game-select thumbnail with troll and fairies visible.",
+      "prompt": "Opaque centered playful thumbnail: exact same friendly troll as approved reference snoring against a tree with curly crayon moustache, flowers in hair, party hat, bows on ears. Two tiny cheerful blue garden fairies tiptoe with feather and dark crayon. Show wordless pale-blue sleep-bubble swirls (no letters). Warm meadow, clear faces. Preserve olive spotted skin, long shaggy dark-brown hair, broad nose, heavy brows, beard, proportions. Polished 2D candy-color art, smooth navy outlines, clean cel shading; no text/logos/watermark.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b1efca00-1420-4c3f-a091-7b44bbab6a2b.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/thumb-prank-troll.webp",
+      "runtimeFile": "party/assets/art/thumb/prank-troll.webp",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 119892,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "source": "party/reference/pending/molly-sources/prank-troll/thumb-prank-troll.webp",
+      "width": 800,
+      "height": 500,
+      "references": [
+        "party/reference/canonical/troll.webp",
+        "party/reference/canonical/garden-fairy-blue.webp"
+      ],
+      "editHistory": [
+        {
+          "prompt": "Replace visible letter Z sleep marks with wordless swirl sleep bubbles; keep all scene art unchanged.",
+          "sourceNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4d154091-4666-46d2-856a-3ae5a2345bde.png",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b1efca00-1420-4c3f-a091-7b44bbab6a2b.png"
+        }
+      ]
+    },
+    {
+      "key": "prop/pt-troll-asleep",
+      "size": [
+        900,
+        760
+      ],
+      "geometry": "Full-body bottom-center sitting against tree, feet toward viewer. Face center (450,205), eyes(396,504;182), nose(450,228), ears(279,621;198), head top y46, hair sides x324/576 y122, beard y319, toes(243,657;699).",
+      "prompt": "Exact approved Troll identity: olive spotted skin, long shaggy dark-brown hair, short scruffy beard, broad friendly nose, ragged brown loincloth, huge bare feet. Front-facing full-body sitting asleep against tree, arms folded over round belly, head tilted, eyes closed, mouth open snoring, feet soles toward viewer. Critical canvas landmarks: face (450,205); eyes (396,182) and (504,182); nose (450,228); ears (279,198) and (621,198); head top y46; hair sides x324/576 y122; beard/chin y319; big toes x243/657 y699. Transparent exact 900x760 canvas. Smooth navy outlines, cel shading. No moustache or decoration, text, tree, shadow or checkerboard.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6bb32262-436c-43b1-9bee-84b2b2f5e226.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-troll-asleep.webp",
+      "runtimeFile": "party/assets/art/prop/pt-troll-asleep.webp",
+      "nativeOutputSize": [
+        1364,
+        1153
+      ],
+      "runtimeBytes": 112298,
+      "actualAlphaBBox": [
+        9,
+        6,
+        890,
+        755
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-troll-asleep.webp",
+      "width": 900,
+      "height": 760,
+      "references": [
+        "party/reference/canonical/troll.webp"
+      ],
+      "actualMeasuredGeometry": {
+        "canvas": [
+          900,
+          760
+        ],
+        "note": "approximate visual measurement from authored output; same canvas and placement in both poses",
+        "faceCenter": [
+          462,
+          174
+        ],
+        "leftEyeCenter": [
+          427,
+          120
+        ],
+        "rightEyeCenter": [
+          508,
+          122
+        ],
+        "noseCenter": [
+          464,
+          158
+        ],
+        "leftEarCenter": [
+          342,
+          120
+        ],
+        "rightEarCenter": [
+          571,
+          168
+        ],
+        "headTop": [
+          464,
+          7
+        ],
+        "leftHairOuter": [
+          272,
+          155
+        ],
+        "rightHairOuter": [
+          657,
+          197
+        ],
+        "beardChin": [
+          463,
+          278
+        ],
+        "leftBigToe": [
+          175,
+          510
+        ],
+        "rightBigToe": [
+          704,
+          510
+        ]
+      },
+      "overlayCoordinatesFit": "The actual face and attachments are substantially above target template landmarks. Root should align overlays to recorded actual landmarks."
+    },
+    {
+      "key": "prop/pt-troll-awake",
+      "size": [
+        900,
+        760
+      ],
+      "geometry": "Same sleeping Troll canvas and placement; eyes open, belly laugh, arms up, tears; no pranks baked in.",
+      "prompt": "Edit asleep Troll: preserve exact identity, transparent 900x760 canvas, size/scale/placement/body/head/feet/hair/beard. Only change expression/action: eyes open, huge joyful belly laugh, arms flung up, a few tears of laughter. Keep face (450,205), eyes (396/504,182), nose (450,228), ears (279/621,198), head top y46, hair sides x324/576 y122, beard/chin y319, toes x243/657 y699. No moustache or decoration. True transparency, no tree, shadow, text or checkerboard.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f1ea6be7-a805-4349-bafa-2d42ac4932df.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-troll-awake.webp",
+      "runtimeFile": "party/assets/art/prop/pt-troll-awake.webp",
+      "nativeOutputSize": [
+        1364,
+        1153
+      ],
+      "runtimeBytes": 133622,
+      "actualAlphaBBox": [
+        0,
+        7,
+        899,
+        760
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-troll-awake.webp",
+      "width": 900,
+      "height": 760,
+      "references": [
+        "party/reference/canonical/troll.webp",
+        "asleep source: exec-6bb32262-436c-43b1-9bee-84b2b2f5e226.png"
+      ],
+      "actualMeasuredGeometry": {
+        "canvas": [
+          900,
+          760
+        ],
+        "note": "approximate visual measurement from authored output; same canvas and placement in both poses",
+        "faceCenter": [
+          462,
+          174
+        ],
+        "leftEyeCenter": [
+          427,
+          120
+        ],
+        "rightEyeCenter": [
+          508,
+          122
+        ],
+        "noseCenter": [
+          464,
+          158
+        ],
+        "leftEarCenter": [
+          342,
+          120
+        ],
+        "rightEarCenter": [
+          571,
+          168
+        ],
+        "headTop": [
+          464,
+          7
+        ],
+        "leftHairOuter": [
+          272,
+          155
+        ],
+        "rightHairOuter": [
+          657,
+          197
+        ],
+        "beardChin": [
+          463,
+          278
+        ],
+        "leftBigToe": [
+          175,
+          510
+        ],
+        "rightBigToe": [
+          704,
+          510
+        ]
+      },
+      "overlayCoordinatesFit": "The actual face and attachments are substantially above target template landmarks. Root should align overlays to recorded actual landmarks.",
+      "editHistory": [
+        {
+          "prompt": "Edit asleep Troll only for open eyes, laughing mouth, raised arms and tears; preserve exact canvas and body placement.",
+          "sourceNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-6bb32262-436c-43b1-9bee-84b2b2f5e226.png",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f1ea6be7-a805-4349-bafa-2d42ac4932df.png"
+        }
+      ]
+    },
+    {
+      "key": "prop/pt-basket",
+      "size": [
+        256,
+        192
+      ],
+      "geometry": "Bottom-center basket station prop.",
+      "prompt": "Small woven wicker picnic basket with gingham cloth, front view. Transparent exact 256x192 canvas, polished 2D cartoon, bold smooth navy #24163f outline and clean soft cel shading. No background, shadow, text or extra props.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4236981a-9b31-4df0-aab7-2a3490a94ed6.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-basket.webp",
+      "runtimeFile": "party/assets/art/prop/pt-basket.webp",
+      "nativeOutputSize": [
+        1448,
+        1086
+      ],
+      "runtimeBytes": 12574,
+      "actualAlphaBBox": [
+        39,
+        13,
+        217,
+        175
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-basket.webp",
+      "width": 256,
+      "height": 192
+    },
+    {
+      "key": "prop/pt-crayon",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered tilted carryable crayon.",
+      "prompt": "Chunky dark-brown wax crayon with a simple paper wrapper, tilted diagonally, centered on transparent 128x128 canvas. 2D cartoon, bold smooth navy outline, soft cel shading. No background, shadow or text.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-306c49e4-0643-4e32-aed0-87aac43fa802.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-crayon.webp",
+      "runtimeFile": "party/assets/art/prop/pt-crayon.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 3804,
+      "actualAlphaBBox": [
+        22,
+        4,
+        114,
+        123
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-crayon.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/pt-moustache",
+      "size": [
+        256,
+        128
+      ],
+      "geometry": "Centered horizontal accessory anchor.",
+      "prompt": "Big curly hand-drawn dark-brown crayon moustache with twirly ends, symmetrical and horizontal, centered on transparent 256x128. Polished 2D cartoon with bold smooth navy outline. No face, nose, shadow, backdrop or text.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-518ff570-2a8c-47bb-9624-faa40bfbf42d.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-moustache.webp",
+      "runtimeFile": "party/assets/art/prop/pt-moustache.webp",
+      "nativeOutputSize": [
+        1774,
+        887
+      ],
+      "runtimeBytes": 6500,
+      "actualAlphaBBox": [
+        11,
+        15,
+        245,
+        111
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-moustache.webp",
+      "width": 256,
+      "height": 128
+    },
+    {
+      "key": "prop/pt-flower",
+      "size": [
+        128,
+        128
+      ],
+      "geometry": "Centered small hair flower; user asked white daisy/yellow center.",
+      "prompt": "Cheerful daisy-like flower with white petals and yellow center, centered transparent 128x128. Polished 2D cartoon, bold smooth navy outline, cel shading.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b360c910-912e-4441-87a6-3e579c005850.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-flower.webp",
+      "runtimeFile": "party/assets/art/prop/pt-flower.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 7452,
+      "actualAlphaBBox": [
+        7,
+        3,
+        121,
+        125
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-flower.webp",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "key": "prop/pt-bow",
+      "size": [
+        160,
+        128
+      ],
+      "geometry": "Centered ear accessory.",
+      "prompt": "Big glossy pink ribbon bow with white polka dots, centered transparent 160x128 canvas. Polished 2D candy-color cartoon, bold smooth navy outline and cel shading. No background or shadow.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-cda4779b-344c-48e6-b710-a7f13ae8100d.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-bow.webp",
+      "runtimeFile": "party/assets/art/prop/pt-bow.webp",
+      "nativeOutputSize": [
+        1402,
+        1122
+      ],
+      "runtimeBytes": 10442,
+      "actualAlphaBBox": [
+        2,
+        0,
+        158,
+        128
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-bow.webp",
+      "width": 160,
+      "height": 128
+    },
+    {
+      "key": "prop/pt-party-hat",
+      "size": [
+        192,
+        256
+      ],
+      "geometry": "Bottom-center cone hat.",
+      "prompt": "Striped cone party hat with pink, yellow and blue stripes, fluffy pompom at tip and thin elastic string, transparent 192x256, bottom centered. Polished 2D cartoon, bold smooth navy outline, clean cel shading. No background/shadow.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3c0ae002-e047-4cdf-8db2-91d0270fd4a9.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-party-hat.webp",
+      "runtimeFile": "party/assets/art/prop/pt-party-hat.webp",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 11792,
+      "actualAlphaBBox": [
+        26,
+        6,
+        167,
+        251
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-party-hat.webp",
+      "width": 192,
+      "height": 256
+    },
+    {
+      "key": "prop/pt-feather",
+      "size": [
+        192,
+        128
+      ],
+      "geometry": "Quill-end anchor, diagonally tilted.",
+      "prompt": "Long fluffy rainbow tickle feather, clear quill end at lower-left, tilted diagonally, transparent 192x128 canvas. Polished 2D cartoon, bold smooth navy outline, clean cel shading. No background, shadow or extraneous sparkles.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-967f186c-e139-46cd-8b4e-9c803088a879.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-feather.webp",
+      "runtimeFile": "party/assets/art/prop/pt-feather.webp",
+      "nativeOutputSize": [
+        1536,
+        1024
+      ],
+      "runtimeBytes": 9048,
+      "actualAlphaBBox": [
+        2,
+        1,
+        192,
+        127
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-feather.webp",
+      "width": 192,
+      "height": 128
+    },
+    {
+      "key": "prop/pt-glitter",
+      "size": [
+        128,
+        160
+      ],
+      "geometry": "Centered shaker.",
+      "prompt": "Small round shaker jar of rainbow glitter with bright pink lid and sparkles inside jar only, centered transparent 128x160. 2D cartoon, bold smooth navy outline, clean cel shading. No floating particles outside silhouette, background or shadow.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-10422e83-7806-4567-a3f5-86c15e1a3cec.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-glitter.webp",
+      "runtimeFile": "party/assets/art/prop/pt-glitter.webp",
+      "nativeOutputSize": [
+        1122,
+        1402
+      ],
+      "runtimeBytes": 7220,
+      "actualAlphaBBox": [
+        19,
+        6,
+        109,
+        149
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-glitter.webp",
+      "width": 128,
+      "height": 160
+    },
+    {
+      "key": "prop/pt-polish",
+      "size": [
+        96,
+        160
+      ],
+      "geometry": "Centered upright bottle.",
+      "prompt": "Tiny bubblegum-pink nail polish bottle with silver cap, upright, centered transparent 96x160. Polished 2D cartoon, bold navy outline and cel shading. No background/shadow.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-f2a0cc83-f190-4597-a6f7-c4266a7c4837.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-polish.webp",
+      "runtimeFile": "party/assets/art/prop/pt-polish.webp",
+      "nativeOutputSize": [
+        971,
+        1619
+      ],
+      "runtimeBytes": 3724,
+      "actualAlphaBBox": [
+        20,
+        19,
+        78,
+        142
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-polish.webp",
+      "width": 96,
+      "height": 160
+    },
+    {
+      "key": "prop/pt-bush",
+      "size": [
+        320,
+        300
+      ],
+      "geometry": "Bottom-center leafy round bush with exactly two upper eye-peek gaps.",
+      "prompt": "Edit bush to retain round leafy silhouette, green palette, flowers, bold navy outlines and 2D cel shading. Add exactly two small clearly transparent cutout gaps near upper third, left and right of center, shaped naturally between leaves for two player eyes. True transparent holes, no drawn eyes/dark paint. Exact transparent canvas/framing.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-db4ce910-498f-4c0f-a4b4-d6e77f18c5aa.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-bush.webp",
+      "runtimeFile": "party/assets/art/prop/pt-bush.webp",
+      "nativeOutputSize": [
+        1295,
+        1215
+      ],
+      "runtimeBytes": 23258,
+      "actualAlphaBBox": [
+        10,
+        63,
+        307,
+        282
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-bush.webp",
+      "width": 320,
+      "height": 300,
+      "references": [
+        "original generated bush: exec-d1e198fd-3568-487e-90ad-ed4a05157e94.png"
+      ],
+      "editHistory": [
+        {
+          "prompt": "Add exactly two true transparent openings near the upper third; preserve silhouette, palette and style.",
+          "sourceNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-d1e198fd-3568-487e-90ad-ed4a05157e94.png",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-db4ce910-498f-4c0f-a4b4-d6e77f18c5aa.png"
+        }
+      ]
+    },
+    {
+      "key": "prop/pt-mirror",
+      "size": [
+        192,
+        256
+      ],
+      "geometry": "Centered oval hand mirror with handle.",
+      "prompt": "Oval hand mirror with golden curly decorative frame, handle, pale blue glass and one tiny sparkle in glass, centered on transparent 192x256 canvas. Polished 2D cartoon, bold navy outline, clean cel shading. No background, shadow or person.",
+      "status": "generated/intaken; self-reviewed, ready for root QA",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-4eda6d62-01f9-4b10-99ad-4adb921daa1f.png",
+      "sourcePath": "party/reference/pending/molly-sources/prank-troll/prop-pt-mirror.webp",
+      "runtimeFile": "party/assets/art/prop/pt-mirror.webp",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 11712,
+      "actualAlphaBBox": [
+        32,
+        2,
+        160,
+        254
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-sources/prank-troll/prop-pt-mirror.webp",
+      "width": 192,
+      "height": 256
     }
   ]
 }

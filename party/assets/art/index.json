@@ -1111,7 +1111,21 @@
     "prop/bigsnowman-3": "prop/bigsnowman-3.webp",
     "prop/bigsnowman-4": "prop/bigsnowman-4.webp",
     "prop/bigsnowman-5": "prop/bigsnowman-5.webp",
-    "prop/bigsnowman-6": "prop/bigsnowman-6.webp"
+    "prop/bigsnowman-6": "prop/bigsnowman-6.webp",
+    "bg/prank-troll": "bg/prank-troll.webp",
+    "thumb/prank-troll": "thumb/prank-troll.webp",
+    "prop/pt-troll-asleep": "prop/pt-troll-asleep.webp",
+    "prop/pt-troll-awake": "prop/pt-troll-awake.webp",
+    "prop/pt-basket": "prop/pt-basket.webp",
+    "prop/pt-crayon": "prop/pt-crayon.webp",
+    "prop/pt-moustache": "prop/pt-moustache.webp",
+    "prop/pt-bow": "prop/pt-bow.webp",
+    "prop/pt-party-hat": "prop/pt-party-hat.webp",
+    "prop/pt-feather": "prop/pt-feather.webp",
+    "prop/pt-glitter": "prop/pt-glitter.webp",
+    "prop/pt-polish": "prop/pt-polish.webp",
+    "prop/pt-bush": "prop/pt-bush.webp",
+    "prop/pt-mirror": "prop/pt-mirror.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1693,7 +1707,20 @@
     "rainbow-painter": [],
     "bed-bounce": [],
     "prank-troll": [
-      "prop/pt-flower"
+      "bg/prank-troll",
+      "prop/pt-troll-asleep",
+      "prop/pt-troll-awake",
+      "prop/pt-basket",
+      "prop/pt-crayon",
+      "prop/pt-moustache",
+      "prop/pt-flower",
+      "prop/pt-bow",
+      "prop/pt-party-hat",
+      "prop/pt-feather",
+      "prop/pt-glitter",
+      "prop/pt-polish",
+      "prop/pt-bush",
+      "prop/pt-mirror"
     ]
   }
 }
