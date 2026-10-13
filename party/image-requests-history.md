@@ -1,4 +1,475 @@
+## Delivered aquarium — 2026-10-12
+
+All 101 assets delivered: 36 fish images (including four puffed colours) and 65 room, plant, decoration and thumbnail images. Actual CPU build/night scene checked with all registered art; fish swim separately, doors/arches remain transparent and bottom anchors sit on sand. Jelly bell anchoring, generated clam pearl, authored chest lid animation and matching night silhouettes have focused passing regressions. No browser warnings or errors.
+
+## New Play Studio game: aquarium
+
+### aquarium — Dream Aquarium   (requested by the aquarium agent, 2026-10-05, priority: nice-to-have)
+
+Everyone shares one big fish tank: pick a sand colour, place plants,
+castles, shells, bubblers and glow lights on the sand, then add and name
+fish that swim around with their own personalities. The finale is a night
+show (lights out, glowing decorations) with fish close-ups and a group
+photo. Everything below has a procedural fallback that ships today, and the
+code already looks up every key, so a file listed in
+`assets/art/index.json` drops in with no code change.
+
+**How the tank is laid out (1920×1080 screen).** Title ribbon above the
+tank (y 20–110); lid y 118–176; water x 290–1630, y 190–890 (surface line
+at y 196); sand floor from y 730 (back) to y 890 (front), drawn by code
+(the colour is swappable, so sand is **not** requested); a wooden cabinet
+y 890–950; the players' item bars cover y 950–1074. Characters stand on
+the floor left (x < 260) and right (x > 1660) of the tank while building,
+and in a row in front of the cabinet during the show.
+
+**Decor props** stand on the sand: anchor = bottom centre, drawn at the
+listed world size × a depth scale of 0.78 (back of the sand) to 1.05
+(front). The code adds sway (a gentle skew from the base) to plants, the
+bubbles, and all night-time glows on top, so images are **daytime, no glow
+halos, no bubbles**. Request size is 2× the world size. Keys with a colour
+suffix are one image per colour (the code recolours nothing).
+
+**Fish** are side views facing **right**, centred in the canvas, drawn at
+the listed size × 0.72–1.05; the code mirrors them to swim left and adds a
+tail wiggle (horizontal squash), so the tail should be a separate-looking
+fan at the left end and the body plain enough to wiggle. Friendly, big
+eyes, closed smiling mouths, nothing scary. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/aquarium` | 1920×1080, opaque | Full screen behind everything. The tank (code-drawn frame, water, sand, cabinet) covers x 270–1650, y 110–950, so that area can be plain; the title ribbon sits at the top centre; characters stand on the floor at both sides (y ≈ 760–940) | A cozy pastel playroom wall: soft aqua-and-cream striped wallpaper with tiny bubbles and starfish, a round porthole-style window at the upper left showing a sunny sky, a little shelf with plants and books at the upper right, a warm honey-wood floor from y≈930 down. Calm in the centre |
+| `bg/aquarium-water` | 1340×700, opaque | Stretched over the water rect (x 290–1630, y 190–890), behind all decor and fish. The code draws the sand over the bottom ~160 px, and adds light rays, caustics, the surface line and the night overlay | A printed aquarium backdrop: a soft turquoise-to-deep-blue underwater scene with faint, low-contrast distant rocks, coral and seaweed silhouettes near the bottom, gentle light from the top. No fish, no bubbles, no sand in front |
+| `thumb/aquarium` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A bright, happy fish tank seen from the front: a pink sandcastle on golden sand, swaying green seaweed, a bubbling diver helmet, a smiling goldfish, a striped clownfish by a pink anemone, a yellow pufferfish and a little seahorse; bubbles and sparkles. Centred |
+| `prop/aq-kelp-green`, `-teal`, `-plum` | 240×720, transparent | World 120×360, bottom anchor; swayed by a skew that grows toward the top | Tall wavy seaweed: three ribbon fronds with round air-bladder bobbles, in green / teal / plum purple |
+| `prop/aq-fern-green`, `-lime`, `-red` | 400×340 | World 200×170, bottom anchor, sways | A bushy aquarium plant (java-fern style) with long rounded leaves fanning out from a short base, in green / lime / ruby red |
+| `prop/aq-anemone-pink`, `-purple`, `-orange` | 360×300 | World 180×150, bottom anchor; tentacle tips sway; clownfish nestle in it | A friendly sea anemone: a round squat body with a crown of soft, fat, rounded tentacles with lighter tips, in pink / purple / orange |
+| `prop/aq-coral-pink`, `-orange`, `-purple` | 380×380 | World 190×190, bottom anchor | Branching coral with rounded, knobby fingers on a small rock base, in pink / orange / purple |
+| `prop/aq-seagrass-green`, `-gold`, `-blue` | 340×300 | World 170×150, bottom anchor, sways | A clump of slender grass blades from a small mound, in green / golden yellow / blue |
+| `prop/aq-castle-pink`, `-lilac`, `-sky` | 660×660 | World 330×330, bottom anchor. Fish "swim through" the arched door at the bottom centre (they are hidden for a moment and pop out of a window) | A storybook aquarium castle: two round towers with cone roofs and a taller centre keep, a round arched doorway at the bottom centre (dark inside), round windows, little flags, cute stone texture, in pink / lilac / sky blue |
+| `prop/aq-tower-pink`, `-lilac`, `-sky` | 300×520 | World 150×260, bottom anchor | A single slim castle turret with a cone roof, a round window and a small arched door, matching the castle |
+| `prop/aq-shellhouse-pink`, `-peach`, `-lilac` | 460×460 | World 230×230, bottom anchor | A cute house made from a giant spiral seashell lying on its side: a round front door, a round window with a flower box, a little chimney, in pink / peach / lilac |
+| `prop/aq-arch-grey`, `-sand`, `-pink` | 600×400 | World 300×200, bottom anchor. Fish swim through the opening (centre, lower 60 %) | A smooth rounded rock arch, wide opening, with a few small pebbles at the feet and a tuft of moss, in soft grey / sandstone / pink |
+| `prop/aq-boat` | 680×460 | World 340×230, bottom anchor, slightly tilted already | A cute little sunken sailboat resting on the sand: round wooden hull with portholes, a short mast with a patched pastel sail, a heart on the bow. Friendly, not spooky |
+| `prop/aq-scallop-peach`, `-pink`, `-white` | 180×160 | World 90×80, bottom anchor | A scallop shell standing up like a fan, ridged, in peach / pink / pearly white |
+| `prop/aq-conch-pink`, `-cream`, `-lilac` | 220×160 | World 110×80, bottom anchor | A spiral conch shell lying on its side with a glossy pink opening, in pink / cream / lilac |
+| `prop/aq-starfish-orange`, `-pink`, `-purple`, `-yellow` | 180×160 | World 90×80, bottom anchor, standing upright and slightly tilted | A chubby five-armed starfish with dotted texture and a sweet little smile, in orange / pink / purple / yellow |
+| `prop/aq-clam-white`, `-pink`, `-blue` | 240×180 | World 120×90, bottom anchor. **Shell only, open**: the code draws the pearl in the middle | An open clam shell (hinge at the back) with ridged halves, in pearly white / pink / pale blue |
+| `prop/aq-pebbles-rainbow`, `-ocean`, `-candy` | 280×120 | World 140×60, bottom anchor | A small heap of round, glossy aquarium pebbles: rainbow mix / blues and teals / pinks and lilacs |
+| `prop/aq-rock-grey`, `-sand`, `-slate` | 400×280 | World 200×140, bottom anchor | A big smooth rounded boulder with a flat-ish top and a small moss patch, in grey / sandstone / blue slate |
+| `prop/aq-airstone-blue`, `-pink` | 140×80 | World 70×40, bottom anchor. Bubbles stream up from its top centre (code) | A small round aquarium air stone on a tiny disc, porous texture, in blue / pink |
+| `prop/aq-diver-brass`, `-silver` | 280×300 | World 140×150, bottom anchor. Bubbles puff from the top valve (code) | A vintage diving helmet toy sitting on the sand: round dome, three round windows (front one a bit larger), bolts, a little valve on top, in brass / silver |
+| `prop/aq-volcano-red`, `-purple` | 360×320 | World 180×160, bottom anchor. The code adds bubbles from the crater and a lava glow at night | A cute little volcano ornament with a wide crater, smooth rocky sides and bright lava stripes running down, in red-orange lava / purple-pink lava |
+| `prop/aq-chest` | 300×240 | World 150×120, bottom anchor. **Closed chest only**: the code draws the lid popping open (a burst of bubbles and sparkles) by itself | A treasure chest with a rounded wooden lid, gold bands, a heart-shaped lock and a few gold coins and pearls peeking out at the seam |
+| `prop/aq-glowstone-blue`, `-pink`, `-green` | 200×240 | World 100×120, bottom anchor; glows at night (code) | A cluster of 3–4 smooth, rounded crystal points on a small rock, translucent, in blue / pink / green |
+| `prop/aq-lantern` | 160×280 | World 80×140, bottom anchor; the code lights the glass at night | A little underwater lantern on a short post: round glass globe in a brass frame with a ring handle |
+| `prop/aq-glowshroom-teal`, `-pink`, `-purple` | 240×220 | World 120×110, bottom anchor; caps glow at night (code) | Three cute round-capped mushrooms of different heights with white spots, in teal / pink / purple |
+| `prop/aq-moonlight` | 200×300 | World 100×150, bottom anchor; glows at night | A smiling crescent-moon lamp on a curly stand with a little star hanging from its tip, pale yellow |
+| `prop/aq-goldfish-orange`, `-gold`, `-calico`, `-red` | 220×160 | Fish, world 110×80, centred, facing right | A chubby goldfish with a big double fan tail, round eyes, rosy cheeks: orange / gold / calico (white with orange and black patches) / red |
+| `prop/aq-clownfish-orange`, `-pink`, `-purple`, `-blue` | 200×128 | Fish, world 100×64 | A round clownfish with three white navy-edged stripes and rounded fins: orange / pink / purple / blue |
+| `prop/aq-angelfish-lilac`, `-gold`, `-sky`, `-pink` | 220×260 | Fish, world 110×130 (tall) | A tall triangular angelfish with long trailing top and bottom fins and soft vertical stripes: lilac / gold / sky / pink |
+| `prop/aq-puffer-yellow`, `-sky`, `-pink`, `-mint` (+ `-puffed` for each, e.g. `prop/aq-puffer-yellow-puffed`) | 200×168 normal, 260×260 puffed | Fish, world 100×84 (puffed 130×130). Puffed = a round ball with soft little spikes and a surprised-happy face | A plump pufferfish with tiny fins, round body, freckled back: yellow / sky / pink / mint |
+| `prop/aq-betta-blue`, `-red`, `-purple`, `-pink` | 260×220 | Fish, world 130×110 | A betta fish with huge flowing veil fins and tail like a ballgown: royal blue / red / purple / pink |
+| `prop/aq-tetra-neon`, `-rainbow`, `-pink`, `-gold` | 108×52 | Fish, world 54×26 (they swim in threes) | A tiny slim tetra with a glowing stripe along its side: neon blue-and-red / rainbow / pink / gold |
+| `prop/aq-seahorse-yellow`, `-pink`, `-orange`, `-purple` | 120×240 | Upright, world 60×120, centred, facing right; the code bobs and sways it | A cute seahorse with a curled tail, little back fin, snout and a crown-like crest: yellow / pink / orange / purple |
+| `prop/aq-jellyfish-pink`, `-lilac`, `-blue`, `-peach` | 180×280 | World 90×140, centred on the bell's centre (bell in the top 45 %); the code pulses it (squash) and glows it at night | A friendly translucent jellyfish with a round bell, a sweet face and soft frilly ribbon tentacles: pink / lilac / blue / peach |
+
+No new sprite poses are needed: the game uses `cheer`, `point`, `toss`,
+`surprised`, `giggle`, `wave`, `dance`, `celebrate` and the shared photo
+poses.
+
+
+## Delivered puppet-theater — 2026-10-12
+
+All 29 assets delivered. Actual two-player stage reviewed after a transient local-server module fetch retry: backdrop fills the transparent booth aperture, playboard hides lower puppets at the authored 720px ledge, prop menu and audience render correctly. No new warnings or errors after reload.
+
+## New Play Studio game: puppet-theater
+
+### puppet-theater — Puppet Theater   (requested by the puppet-theater agent, 2026-10-05, priority: nice-to-have)
+
+A little puppet booth on a 1920×1080 screen. Players pick a painted
+backdrop and stand cardboard props on the stage, then act out a two-act
+show with their puppets (their character on a wooden stick, or a sock
+puppet), and the audience in the front rows laughs and claps. Everything
+below has a procedural fallback that ships today; the code already looks up
+every key, so a file listed in `assets/art/index.json` drops in with no code
+change. House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image.
+
+**Layout the art must match.** The booth fills the screen: stage window
+(where the backdrop shows) x 270–1650, y 150–740; scalloped valance across
+the top (y 40–175); the front playboard (the ledge the puppets pop up from)
+y 720–820, x 220–1700; a fabric skirt below it to the floor; three rows of
+audience heads (backs of heads) along the bottom, y 900–1080. Sock
+puppets, sticks and sparkles are drawn by code.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/puppet-theater` | 1920×1080, opaque | Full screen, behind everything. Only the edges show (x < 220 and x > 1700, and above y 40); the booth covers the middle | A cosy little playroom theatre: warm plum wallpaper with gold stars, a string of round party bulbs across the top, a wooden floor. Calm, low detail in the middle |
+| `prop/pt-booth` | 1920×1080, transparent | Drawn full screen **in front of** the backdrop and the puppets. Must be fully transparent inside the stage window (x 270–1650, y 150–720) and outside the booth (x < 200, x > 1720). The playboard top edge sits at exactly y = 720 | A front-view wooden puppet booth: a deep pink scalloped valance with gold fringe and gold stars across the top, thin red velvet curtains tied back at each side of the window, a chunky honey-wood playboard ledge painted with little stars, and a purple fabric skirt below it to the floor |
+| `prop/pt-curtain` | 760×1000, transparent | The **left** curtain panel (the code mirrors it for the right one) when it closes between scenes. Drawn stretched over x 230–960 (left half) by y 120–760, sliding sideways | A tall red velvet theatre curtain panel with soft vertical folds, a gold rope trim along the inner edge and gold tassel fringe at the bottom |
+| `bg/puppet-theater-castle` | 1380×590, opaque | Stretched over the stage window. The bottom ~120 px is hidden behind the playboard, so keep the horizon/ground around 60–75% height | A painted stage backdrop (gouache / cut-paper look): a pastel fairy-tale castle on a green hill, blue sky, puffy clouds |
+| `bg/puppet-theater-sea` | 1380×590, opaque | Same as above | Painted backdrop under the sea: turquoise water with light rays, coral, swaying seaweed, bubbles, sandy floor |
+| `bg/puppet-theater-forest` | 1380×590, opaque | Same as above | Painted backdrop of a friendly sunny forest clearing: round green trees, mushrooms, flowers, soft sunbeams |
+| `bg/puppet-theater-space` | 1380×590, opaque | Same as above | Painted backdrop of cute outer space: deep purple-blue sky with stars, a ringed planet, a smiling crescent moon, a grey cratered ground strip |
+| `bg/puppet-theater-candy` | 1380×590, opaque | Same as above | Painted backdrop of Candy Land: pink sky, candy-cane trees, gumdrop hills, a chocolate river, lollipop flowers |
+| `bg/puppet-theater-beach` | 1380×590, opaque | Same as above | Painted backdrop of a sunny beach: bright sky, sea with small waves, sand, a palm tree at the edge, a sailboat far away |
+| `prop/pt-tree`, `prop/pt-flower`, `prop/pt-castle`, `prop/pt-house`, `prop/pt-mushroom`, `prop/pt-palm`, `prop/pt-lollipop`, `prop/pt-rocket` | 512×512 each, transparent | **Bottom-centre anchored** (the object's base on the bottom edge of the canvas), fitted into a box of about 240, 120, 280, 220, 130, 260, 180, 240 px tall respectively. They wobble a little around the base | Stage props as **painted cardboard cut-outs** (flat, a thin pale cardboard edge showing around the outline, a little wooden stand foot at the base): a round green tree; a big pink flower on a stem; a pastel castle tower with a flag; a cottage with a heart window; a red spotted mushroom; a palm tree; a giant swirl lollipop; a red-and-white cartoon rocket |
+| `prop/pt-cloud`, `prop/pt-sun`, `prop/pt-moon`, `prop/pt-star`, `prop/pt-rainbow`, `prop/pt-fish` | 512×512 each, transparent | **Centre anchored**, fitted into a box of about 170, 150, 140, 110, 300 (wide), 130 (wide) px; they hang in the sky on a thin string (the code draws the string) | Matching cardboard cut-outs: a puffy cloud; a smiling sun with rays; a smiling crescent moon; a yellow star with a face; a rainbow arch with cloud ends; a smiling orange fish |
+| `prop/pt-audience-bunny`, `prop/pt-audience-bear`, `prop/pt-audience-cat`, `prop/pt-audience-duck` | 256×256 each, transparent | **Bottom-centre anchored**, drawn about 140–180 px tall in the audience rows, bobbing when they laugh. Seen **from behind** (back of the head and shoulders, no faces) | Cute audience members seen from behind: a white bunny with tall ears and a pink bow; a brown teddy bear; a grey kitten with pointy ears; a yellow duckling with a little tuft |
+| `prop/pt-rose` | 128×128, transparent | Centre anchored, ~70 px, thrown onto the stage at the curtain call (spins in flight) | A single red rose with a short green stem and one leaf |
+| `thumb/puppet-theater` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A tiny puppet booth with the curtains open: Fox on a wooden stick and a striped sock puppet with googly eyes waving on stage in front of a castle backdrop, a heart speech bubble, the backs of bunny ears in the audience. Subject centred |
+
+No new sprite poses are needed (stick puppets use existing poses: wave,
+laugh, celebrate, dance, surprised, think, sad, sleep, bow, cheer, jump).
+
+
+## Delivered sandcastle-beach — 2026-10-12
+
+All 22 missing assets delivered; existing approved beach crab reused (23 total keys). Actual CPU construction checked with unicorn and KPop trio: measured tower surfaces stack roofs and flags correctly, side walls meet the front footprint, and code-drawn sun sits over matching day shoreline. No browser warnings or errors.
+
+## New Play Studio game: sandcastle-beach
+
+### sandcastle-beach — Sandcastle Beach   (requested by the sandcastle-beach agent, 2026-10-05, priority: nice-to-have)
+
+Everyone builds a sandcastle on their own patch of a sunny beach: bucket
+molds (round towers, pointy towers, walls, domes), moats dug with a spade
+that fill with sea water, and shells, starfish and flags. Friendly crabs
+wander across the sand. The finale is a gentle wave (it fills the moats and
+leaves a present, it never knocks anything down) and a sunset tour of every
+castle. Everything below has a procedural fallback that ships today; the
+code already looks up every key. House style: navy `#24163f` outlines, soft
+cel shading, bright candy colours, **no text**. Castle pieces are seen in a
+gentle three-quarter view from the front and slightly above (we see the top
+of each mold as an ellipse about 0.45 × as deep as it is wide).
+
+"Units" below are the game's world units; on screen they are scaled by the
+plot zoom k (about 0.75 at 8 players, 1.25 at 1–2 players). Props are
+drawn with `drawArt(..., { anchor: 'bottom' })`, so the **bottom centre of
+the image is the front edge of the piece's footprint on the sand** (the
+lowest point of its base ellipse). Leave no empty margin at the bottom.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/sandcastle-beach` | 1920×1080, opaque | Full screen. **Layout must match:** sky from y=0 to the horizon at y=150, calm sea from 150 to the foamy shoreline at about y=330, a band of darker wet sand to y≈370, then dry sand to the bottom. The players' plots are drawn on the dry sand (y 360–1066), so keep it plain and low-contrast; a few beach things (umbrella, towel, ball, bucket) only at the far left/right edges between y 380 and 600. Keep the top 110 px calm (HUD) | A sunny cartoon beach seen from the sand looking out to sea: pale blue sky with two soft clouds, a turquoise sea with gentle sparkles, a lacy white foam line, smooth golden sand with a faint ripple texture. A striped umbrella at the far left and a towel at the far right |
+| `bg/sandcastle-beach-sunset` | 1920×1080, opaque | Same layout as `bg/sandcastle-beach` (horizon y=150, shoreline y≈330); crossfaded over it during the sunset tour. The code draws the sun itself (setting at the horizon around x=960), so leave the sun out | The same beach at sunset: peach-pink-lilac sky with soft orange clouds, a deep coral-and-violet sea with a golden glitter path down the middle, sand washed warm apricot with long soft shadows |
+| `thumb/sandcastle-beach` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A big cheerful sandcastle with round towers, a pointy tower, little pink and blue flags, shells and an orange starfish, a blue moat around it, a smiling red crab waving a claw in the front corner, a sand bucket and spade, blue sea and sky behind. Subject centred |
+| `prop/sandcastle-tower` | 192×256, transparent | Round bucket tower, footprint radius 40 units; drawn in a 96×128-unit box. Its flat top (the stacking surface, which the code uses at 104 units up) has square battlements around the rim | A round sandcastle tower made with a bucket: packed golden sand with faint horizontal bucket ridges, little square battlements on top, soft shading on the right side |
+| `prop/sandcastle-tower-window` | 192×256, transparent | Same as `prop/sandcastle-tower` (style 2) | The same tower with a small arched dark window in the middle and a shell pressed above it |
+| `prop/sandcastle-tower-door` | 192×256, transparent | Same as `prop/sandcastle-tower` (style 3) | The same tower with an arched wooden-brown door at the base and two tiny windows |
+| `prop/sandcastle-pointy` | 160×320, transparent | Pointy tower, footprint radius 28 units; drawn in a 70×150-unit box. Nothing stacks on it | A slim sand turret with a cone roof made with a cone mold, drippy sand rings on the cone, a tiny round window |
+| `prop/sandcastle-wall` | 256×176, transparent | Wall running left-right, footprint 120×34 units; drawn in a 128×84-unit box. Top at 58 units | A straight sand wall with square battlements along the top, packed golden sand with a few pressed-in pebbles |
+| `prop/sandcastle-wall-side` | 128×208, transparent | The same wall turned to run away from the viewer (style 2), footprint 34 wide × 100 deep; drawn in a 60×100-unit box. Top at 58 units | The same sand wall seen end-on, receding into the distance (a narrow slab with battlements, longer top than front) |
+| `prop/sandcastle-dome` | 224×160, transparent | Round sand dome (bowl mold), footprint radius 50 units; drawn in a 110×80-unit box. Top at 52 units | A smooth half-sphere of packed sand like an upside-down bowl, with a scalloped pattern pressed around its middle |
+| `prop/beach-shell-scallop`, `prop/beach-shell-conch`, `prop/beach-shell-clam` | 96×80 each, transparent | Decorations, drawn in a 40×34-unit box on the sand or on top of a piece | A pink scallop shell; a cream-and-peach spiral conch; a lilac clam shell slightly open with a tiny pearl |
+| `prop/beach-starfish-orange`, `prop/beach-starfish-pink`, `prop/beach-starfish-purple` | 96×96 each, transparent | Decoration, drawn in a 44×44-unit box, slightly tilted toward the viewer | A friendly five-armed starfish with little bumps (dots) on its arms, in orange / bubblegum pink / lavender. No face |
+| `prop/sandcastle-flag-pink`, `-blue`, `-yellow`, `-mint` | 96×192 each, transparent | Flag on a stick, drawn in a 40×80-unit box; the bottom of the stick is the anchor (it pokes into the sand or a tower top). The code waves it by skewing | A thin wooden stick with a triangular pennant flag in pink / sky blue / sunny yellow / mint, with a small white star on the pennant |
+| `prop/beach-crab` | 256×192, transparent | The wandering crab NPC, drawn in a 64×48-unit box (bottom = its feet). The code bobs it, squashes it and tilts it while it walks sideways | A small round friendly red-coral crab, front view, two big claws raised happily, eyes on stalks, rosy cheeks and a smile, six little legs |
+| `prop/sand-bucket` | 192×192, transparent | UI: the mold tools' icon on the tool bar and the hand cursor (drawn at 40–60 px) | A bright pink plastic beach bucket with a yellow handle and a little sand on the rim |
+| `prop/sand-spade` | 160×192, transparent | UI: the moat tool's icon and the cursor while digging (40–60 px) | A blue plastic beach spade with a yellow handle |
+
+No new sprite poses are needed: the code uses `dig`, `action`, `cheer`,
+`surprised`, `giggle`, `celebrate`, `jump` and the shared photo poses.
+
+
+## Delivered star-maker — 2026-10-12
+
+All 14 assets delivered from approved Moon and eight spirit designs. Actual two-player sky checked: round Moon remains readable at runtime scale, sky leaves the drawing field clear, and characters stand on the field baseline; no browser warnings or errors. Three expression variants and eight spirits reviewed on contact sheet.
+
+## New Play Studio game: star-maker
+
+### star-maker — Star Maker   (requested by the star-maker agent, 2026-10-05, priority: nice-to-have)
+
+A cosy night sky on a hilltop: players place stars, join them into
+constellations, and each finished constellation comes alive as a glowing
+"star spirit" animal that plays in the sky. A friendly Moon in a nightcap
+crosses the sky as the clock. Everything below has a procedural fallback that
+ships today; the code already looks up every key, so a file listed in
+`assets/art/index.json` drops in with no code change. House style: navy
+`#24163f` outlines (except the glowing spirits, see below), soft cel shading,
+bright candy colours, **no text** in any image. The stars, constellation
+lines, shooting stars and the twinkling star field stay procedural (they are
+tinted per player and animated). Reused as they are: the roster sprites
+(`look-up`, `cast`, `cheer`, `celebrate`, `wave`, `photo`, `strike3` and the
+shared photo poses).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/star-maker` | 1920×1080, opaque | Full screen, drawn at 0,0. The sky (y 0–840) must stay calm: the code draws ~250 twinkling stars, the players' constellations, the Moon and the spirits on top. The hill crest runs across the width at about y 930–960; characters stand on it with their feet at y≈1040. Keep the bottom-left 120×120 plain (an "i" button sits there) and the top ~100 px calm (HUD band) | A cosy hilltop under a deep night sky: a smooth gradient from deep indigo at the top to soft violet-plum near the horizon, a faint pink-teal milky-way haze running diagonally, only a handful of tiny painted stars. Below, soft rolling hills in layered indigo/purple with a gentle moonlit rim, a few round silhouetted trees at the far left and right edges, a small striped tent with a warm glowing lantern at the left, a little brass telescope on a tripod at the right, a long picnic blanket along the crest, fireflies. Cosy and calm, not dark or spooky |
+| `thumb/star-maker` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Night sky over a little hill: a glowing star-line constellation of a bunny with its luminous pastel bunny spirit hopping out of it, a smiling crescent Moon wearing a pink striped nightcap, a shooting star, and a girl character on the hill pointing up with a star wand. Subject centred, candy-bright on deep indigo |
+| `prop/star-maker-moon` | 400×400, transparent | The Moon friend. Drawn centred on the moon position, fitted to a 190×190 box (the moon disc is ~150 px across). Bobs and tilts in code. Disc centred, about 70% of the canvas; the nightcap may poke out at the top-right | A round, pale buttery-yellow full Moon with a soft cratered texture, a sweet sleepy-happy face (closed happy arc eyes, rosy cheeks, small smile) and a pink-and-white striped nightcap with a white pompom flopping to the right, soft glow edge |
+| `prop/star-maker-moon-wow` | 400×400, transparent | Same framing as `prop/star-maker-moon`; shown for ~1 s when a constellation comes alive or a wish is caught | Same Moon and nightcap, delighted: big open sparkly eyes and a round "oo" mouth, cheeks extra rosy |
+| `prop/star-maker-moon-wink` | 400×400, transparent | Same framing; shown when the Moon talks (text bubbles) | Same Moon and nightcap, winking with one eye and a big smile |
+| `prop/star-maker-moon-sleepy` | 400×400, transparent | Same framing; shown at the end of the night (showcase) | Same Moon and nightcap, eyes half closed, a tiny yawn, very cosy |
+| `prop/star-maker-bunny`, `prop/star-maker-kitty`, `prop/star-maker-bird`, `prop/star-maker-butterfly`, `prop/star-maker-fish`, `prop/star-maker-whale`, `prop/star-maker-unicorn`, `prop/star-maker-dragon` | 512×512 each, transparent | The star spirits. Drawn centred on the creature, fitted to a square of 2 × its size (the constellation's size), mirrored in code to face left, with code-side hop, bob, squash, spin and a soft coloured halo drawn underneath in the owner's colour. So: **facing right, side view (butterfly: front view), centred, filling ~85% of the canvas**, no ground, no shadow | Luminous constellation spirits, like a star chart drawing come to life: a cute <bunny / kitty / little songbird / butterfly / round fish / friendly whale / unicorn / small friendly dragon with tiny wings> made of soft glowing white-to-pastel light with a bright white glowing outline (instead of the navy outline), a translucent pale lilac-blue body with tiny star sparkles inside, a few bright star points at its joints (eye, paws, tail tip), happy closed-arc or dot eyes. Gentle and cuddly, never scary |
+
+Optional future upgrade (no code change needed until frames exist): a
+`point-up` pose (loop: no; fallback `cast` → `action`) of the character
+pointing a finger or paw up at the sky, would sell placing a star better than
+`cast`.
+
+
+## Delivered acrobat-circus — 2026-10-12
+
+All 12 assets delivered. Actual two-player trampoline act checked with unicorn and mermaid: apparatus fits split rings, transparent cutouts and the bouncing characters render cleanly; no browser warnings or errors. Contact sheet reviews bar, tower, ball, parasol and balloons.
+
+## New Play Studio game: acrobat-circus
+
+### acrobat-circus — Acrobat Circus   (requested by the acrobat-circus agent, 2026-10-05, priority: nice-to-have)
+
+A cosy big-top circus. Each player has their own little ring (split
+stations) for four acts: trampoline, flying trapeze, tightrope and ball
+balancing, with flips, twists and star jumps in the air. Then everyone
+builds a human pyramid in the big ring, and a finale show replays each
+player's best trick under a spotlight. Everything below has a procedural
+fallback that ships today; the code already looks up every key, so a file
+listed in `assets/art/index.json` drops in with no code change. House
+style: navy `#24163f` outlines, soft cel shading, bright candy colours,
+**no text** in any image. Reused as they are: the roster sprites (`jump`,
+`fall`, `crouch`, `dance-star`, `pose-twirl`, `balance`, `walk`, `ready`,
+`cheer`, `celebrate`, `bow`, `dizzy`, `clap`), the Troll (a friendly
+strongman at the base of the pyramid in 1–2 player games) and Glimmer (the
+ringmaster).
+
+Station geometry (all station props are drawn in "station units": a
+station is 540 units tall, its floor line is at y = 504 and its width
+varies with the player count, 460–1080 units).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/acrobat-circus` | 1920×1080, opaque | Full screen. Behind the split stations during the acts (shows as a thin frame and the top HUD band; keep the top ~110 px calm), and the whole stage for the pyramid and the finale show: characters stand on the ring floor at y≈930, the ring curb runs across at about y≈980 | Inside a big-top circus tent: red-and-cream canvas stripes radiating up to a centre pole at the top, strings of round bulb lights and pennant bunting swagged across, tiered audience benches on the left and right edges (soft silhouettes only, no faces), two soft spotlight cones, and a round sawdust-and-velvet ring floor in the lower third with a red-and-gold padded ring curb. Warm, friendly, evening light. No characters |
+| `bg/acrobat-circus-ring` | 1440×1080 (4:3), opaque | One per station, drawn "cover" and anchored at the **bottom centre**, so the sides and top crop on wide or tall stations. The floor (sawdust ring) is the bottom 7% (y = 504 of 540 station units); keep everything above it plain, because the code draws the trampoline, trapezes, net, tightrope towers and ball on top | A close view of a circus ring's back wall: soft red-and-cream vertical tent stripes, a faint string of bulb lights along the top, a low red-and-gold ring curb in front of a sawdust floor band along the bottom 7%. Low detail and soft focus; nothing in the middle |
+| `thumb/acrobat-circus` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Fox mid-somersault high above a bright blue circus trampoline inside a big top, confetti and sparkles around, a trapeze bar and a tightrope with a striped ball in the background. Subject centred |
+| `prop/acrobat-trampoline` | 480×200, transparent | Bottom-centre anchor on the floor, drawn 300×125 station units (1.6–2.1× bigger in the finale show). **The bed's top surface is 28% of the image height down from the top**; the character's feet touch it there. The code squashes the whole image up to 12% vertically when someone lands | A round-cornered circus trampoline seen from the front, slightly from above: a bright blue padded frame with yellow and red stripes, a dark navy stretchy bed, little spring zig-zags around the rim and four short sturdy legs |
+| `prop/acrobat-trapeze` | 256×48, transparent | The bar only, centred on the bar point and drawn 120×22 station units (stretched wider, same height, under the KPop trio); the characters stand on it. The ropes are drawn by the code from each end up to the pivot | A wooden trapeze bar wrapped in white tape with red stripes, with a small gold ring at each end where a rope ties on |
+| `prop/acrobat-tower` | 160×480, transparent | One at each end of the tightrope, bottom-centre anchor on the floor, drawn 90×270 station units. **Its top deck surface is 7% of the image height down from the top**; the rope is tied there (both towers use the same image, the right one mirrored) | A slim circus tightrope tower: a red-and-white striped pole with a little ladder of gold rungs and a round blue platform deck with a gold rim at the top |
+| `prop/acrobat-ball` | 256×256, transparent | Centred, drawn 124 station units across, and rotated by the code as it rolls (so it should look fine at any angle) | A big glossy circus balance ball with bold candy-coloured segments (pink, yellow, blue, mint) and a gold star on the side, highlight at the upper left |
+| `prop/acrobat-parasol` | 160×160, transparent | Held for balance on the tightrope. Anchored at the **bottom of the handle** (bottom centre of the image), drawn 0.6 × the character's height tall (about 55–80 station units) at the character's hand, tilted with the wobble | A small open frilly parasol: pink and white scalloped canopy with a little gold tip, a curved handle |
+| `prop/acrobat-balloon-pink`, `prop/acrobat-balloon-blue`, `prop/acrobat-balloon-yellow`, `prop/acrobat-balloon-mint` | 96×128 each, transparent | Targets in the ball act (popped by hopping into them). Centred, drawn 52×68 station units; the code draws the string under it, so no string in the image | A round shiny party balloon with a little knot at the bottom and a white highlight, in pink / sky blue / sunny yellow / mint |
+
+Optional pose for every roster character (the code already asks for it and
+falls back to `crouch` until it exists): `tuck`, loop, fallback
+`crouch` → `jump`: knees hugged to the chest in a tight somersault ball,
+eyes squeezed happily shut (seen side-on; the game spins it).
+
+
+## Delivered dance-studio — 2026-10-12
+
+All 27 assets delivered. Actual two-player setup reviewed: transparent curtains reveal the selected stage, floor aligns below dancers, and all sixteen move pictograms remain readable on small cards; no browser warnings or errors.
+
+## New Play Studio game: dance-studio
+
+### dance-studio — Dance Studio   (requested by the dance-studio agent, 2026-10-05, priority: nice-to-have)
+
+A creative choreography toy: every player builds an 8-count dance from move
+cards at their own rehearsal station (with a mini stage preview), picks the
+music, the stage lights and a backdrop, then the whole group performs each
+player's dance together on a big stage with a mirror ball and a shiny mirror
+floor, ending in a free dance and a "Freeze!" photo. Everything below has a
+procedural fallback that ships today; the code already looks up every key.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text** in any image. Reused as they are: the roster sprites
+(`dance-up`, `dance-side`, `dance-down`, `dance-star`, `pose-twirl`, `clap`,
+`wave`, `hip-bump`, `swim`, `dash`, `photo`, `strike3`, `balance`, `bow`,
+`spring-jump`, `float`, `dance`, `celebrate`, `cheer` and the photo poses).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/dance-studio` | 1920×1080, opaque | Full screen behind the rehearsal stations (setup phase). It shows as side columns at 1 player and as thin gaps/bands at 2–8 players. Keep the top ~110 px calm (title band) | A bright dance rehearsal studio: a long wall of mirrors with a pastel-pink frame, a wooden ballet barre in front of it, a honey-wood floor at the bottom, fairy lights strung across the top, a few pom-poms and a boombox on a bench at the far edges. Low detail in the centre |
+| `bg/dance-studio-stage-stars` | 1920×1080, opaque | Stage backdrop "Starry Night", full screen behind the dancers. **The code covers y > 780 with the stage floor** and puts curtains over the left/right ~200 px and the top ~90 px, so keep the interesting part in the centre band y≈90–780. Also shown cover-fitted, tiny, in each station's preview | A deep-indigo night sky full of twinkly stars, a big smiling crescent moon at the upper right, soft purple clouds near the bottom, a few shooting stars |
+| `bg/dance-studio-stage-candy` | 1920×1080, opaque | Same layout as above ("Candy Land") | A pastel candy landscape: lollipop trees, gumdrop hills, a wavy pink frosting river, cotton-candy clouds in a mint sky |
+| `bg/dance-studio-stage-sea` | 1920×1080, opaque | Same layout as above ("Under the Sea") | A cheerful underwater scene: turquoise water with light rays from the top, pink coral and swaying seaweed at the bottom, bubbles, a few smiling little fish and a starfish |
+| `bg/dance-studio-stage-rainbow` | 1920×1080, opaque | Same layout as above ("Rainbow Sky") | A sunny sky-blue background with a huge rainbow arc across the middle, fluffy white clouds at both ends of the rainbow, small sparkles |
+| `bg/dance-studio-stage-castle` | 1920×1080, opaque | Same layout as above ("Castle Ballroom") | A fairy-tale ballroom: tall arched windows with a twilight view, pink marble pillars, gold chandeliers at the top, heart-shaped garlands |
+| `bg/dance-studio-stage-city` | 1920×1080, opaque | Same layout as above ("Neon City") | A friendly night-time city skyline in purples and blues with glowing pastel windows, rounded buildings, a big round moon, colourful glowing shapes (stars, hearts, musical notes as shapes only, no letters) |
+| `prop/dance-studio-curtains` | 1920×1080, transparent | Drawn full screen over the stage backdrop and lights, under the dancers. Velvet curtains fill the left ~200 px and right ~200 px (gathered with gold tie-backs) and a scalloped valance the top ~90 px; **everything else transparent** | Plush magenta-red velvet theatre curtains with gold fringe and gold tassel tie-backs, a scalloped valance across the top with gold trim |
+| `prop/dance-studio-floor` | 1920×300, opaque | Stretched across the bottom of the stage from y=780 to 1080. The code draws translucent dancer reflections and coloured light pools on top, so keep it fairly plain and glossy | A glossy polished stage floor in dark plum wood planks seen at a low angle, with a gold edge strip along the top and soft shine streaks; slightly darker toward the bottom |
+| `prop/mirror-ball` | 256×256, transparent | Hangs from the valance at the top centre, drawn centred at 170 px; the code spins its sparkle highlights and casts light specks on top | A shiny disco mirror ball made of small silver-and-lilac square mirror tiles, a few bright glints, a short chain loop at the top |
+| `prop/dance-move-up`, `prop/dance-move-point`, `prop/dance-move-knees`, `prop/dance-move-star`, `prop/dance-move-twirl`, `prop/dance-move-clap`, `prop/dance-move-wave`, `prop/dance-move-bump`, `prop/dance-move-swim`, `prop/dance-move-slide`, `prop/dance-move-peace`, `prop/dance-move-tada`, `prop/dance-move-wobble`, `prop/dance-move-bow`, `prop/dance-move-hop`, `prop/dance-move-float` | 160×160 each, transparent | Move cards: fitted (contain) into a square card in the 4×4 move palette (≈60–110 px) and in the 8 timeline slots (≈40–90 px); the code draws the card, its colour and a label below | One chunky friendly dancer pictogram per card, the same simple round-headed kid figure each time (white body with a navy outline, rosy cheeks, motion swooshes in candy colours): arms straight up / pointing up and to the side while leaning / hands on bent knees / jumping in a star shape / spinning on one foot with a swirl / clapping with little clap lines / waving one hand / bumping a hip out to the side / doing "the swim" (one arm forward like a stroke, wavy lines) / sliding sideways with speed lines / peace sign by the face / ta-da arms out wide with sparkles / wobbling with both arms out / a polite bow / a little hop with feet tucked / floating on tiptoes with arms out like wings |
+| `thumb/dance-studio` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Felicity and Fellowfox dancing together on a small stage under a sparkling mirror ball, pink and blue spotlights, a row of colourful dance-move cards along the bottom like a filmstrip, confetti. Subject centred |
+
+
+## Delivered snowman-builder — 2026-10-12
+
+All 25 assets delivered using the approved cardinal design. Two-player yard and CPU rolling/stacking/decorating checked: snowballs stack cleanly, stick-arm anchor and decoration palette display correctly; no browser warnings or errors.
+
+## New Play Studio game: snowman-builder
+
+### snowman-builder — Snowman Builder   (requested by the snowman-builder agent, 2026-10-05, priority: nice-to-have)
+
+Every player has a snowy yard. They push a snowball that grows as it rolls
+through the snow (leaving a grassy track behind it), stack three balls on
+their snowman spot, then the view zooms in and they decorate it with coal
+eyes, carrot noses, hats, scarves, stick arms, buttons and friends. Finale:
+night falls, all the snowmen line up under twinkle lights, come alive and
+wave, and everyone poses for a photo. Every key below has a procedural
+fallback that ships today, and the code already looks each one up, so a file
+listed in `assets/art/index.json` drops in with no code change. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Decorations are drawn at a size relative to the ball they sit on; the "box"
+below is the size in game units at the reference ball radius of 60 (the code
+fits the image into it, contain). The pixel sizes asked for are 4× that.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/snowman-builder` | 1920×1080, opaque | Full screen behind the split yards (gutters and the top ~110 px HUD band show). Keep the top band calm | A cosy snowy village at blue hour: snow-capped gingerbread-style cottages with warm windows far left and right, pine trees, gentle snowfall, a pale lilac-blue sky. Low detail in the middle (yards cover it) |
+| `bg/snowman-builder-yard` | 2400×1200, opaque | Covers one player's yard (scaled to the yard's width, cropped at the sides on narrow yards). **The horizon must be at y = 400 px** (one third down): sky, hills and pines above it; below it a **plain, flat, smooth snow field** with no props, footprints or trails (the code draws the rolled grassy tracks, balls and snowman on it) | A sunny winter meadow seen from a little above: soft blue sky with two small clouds, rounded snowy hills with a few frosted pine trees along the horizon, a tiny red barn far away; the foreground is an even field of fresh, slightly sparkly snow with soft blue shading |
+| `bg/snowman-builder-night` | 1920×1080, opaque | Full screen for the finale. The snowmen stand in one row with their bases on y ≈ 900 and their builders beside them. Keep y 300–1000 across the centre clear of big objects | A magical snowy hilltop at night: deep navy-to-violet sky with a soft green-pink aurora, a big round moon, twinkling stars; strings of warm fairy lights looping between pine trees at the far left and right; a smooth moonlit snow floor from y ≈ 760 down |
+| `thumb/snowman-builder` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A cheerful three-ball snowman with coal eyes, a carrot nose, a red bobble hat, a striped scarf and waving stick arms, next to a big snowball leaving a grassy track; Fox pushing the snowball; sparkles and snowflakes. Subject centred |
+| `prop/snowman-ball` | 512×512, transparent | A snowball fitted to its diameter, centred on the ball. Not rotated (the code adds rolling speckles on top), so light from the upper left | A single round packed snowball: white with soft lilac-blue cel shading on the lower right, a few tiny sparkles, slightly lumpy edge. Round silhouette filling the canvas |
+| `prop/snowman-coal` | 88×88, transparent | Coal eye / coal button; centred on the placed point; box 22×22 | A small shiny lump of coal, dark navy-charcoal with a white glint |
+| `prop/snowman-googly` | 120×120, transparent | Googly eye; centred; box 30×30 | A round googly eye: white disc, navy outline, big navy pupil low-right |
+| `prop/snowman-carrot` | 256×96, transparent | Carrot nose; the **thick end is at the left edge, vertically centred** (the anchor stuck in the snow), pointing right (mirrored on the left side); box 64×24 | A chunky orange cartoon carrot with soft ridges and a tiny green tuft at the thick end, pointing right |
+| `prop/snowman-smile` | 280×120, transparent | Coal smile; centred; box 70×30 | Five little coal lumps in a happy smile arc |
+| `prop/snowman-cheek` | 120×72, transparent | Rosy cheek; centred; box 30×18 | A soft pink blush oval with a tiny white sparkle |
+| `prop/snowman-shades` | 360×136, transparent | Sunglasses; centred; box 90×34 | Fun heart-shaped pink sunglasses, front view |
+| `prop/snowman-tophat` | 320×320, transparent | Top hat; **anchor bottom-centre (brim)**; box 80×80; tilted with the head | A navy top hat with a red ribbon band and a sprig of holly |
+| `prop/snowman-bobble` | 336×320, transparent | Bobble hat; anchor bottom-centre; box 84×80 | A knitted red-and-white striped beanie with a fat white pompom and a folded cuff |
+| `prop/snowman-partyhat` | 224×336, transparent | Party hat; anchor bottom-centre; box 56×84 | A tall pink-and-yellow polka-dot party cone with a pompom on top |
+| `prop/snowman-tiara` | 288×160, transparent | Tiara; anchor bottom-centre; box 72×40 | A sparkly silver-and-pink princess tiara with a heart gem, front view |
+| `prop/snowman-earmuffs` | 480×240, transparent | Earmuffs; centred on the placed point (top of the head); box 120×60 | Fluffy lilac earmuffs on a curved band, front view |
+| `prop/snowman-arm` | 480×240, transparent | Stick arm; **anchor at the left edge, vertically centred (the shoulder)**, pointing right; the code rotates and mirrors it and swings it to wave; box 120×60 | A brown twig arm with a knobbly bend and three little twig fingers at the end |
+| `prop/snowman-mitten` | 136×160, transparent | Mitten; centred; box 34×40 | A cosy knitted teal mitten with a white snowflake pattern and cuff |
+| `prop/snowman-heart` | 120×112, transparent | Heart button; centred; box 30×28 | A glossy candy-pink heart button with two stitch holes |
+| `prop/snowman-star` | 136×136, transparent | Star badge; centred; box 34×34 | A plump golden star with a white highlight |
+| `prop/snowman-bowtie` | 240×120, transparent | Bow tie; centred; box 60×30 | A red bow tie with white polka dots |
+| `prop/snowman-flower` | 160×160, transparent | Flower; centred; box 40×40 | A cheerful five-petal pink flower with a yellow centre |
+| `prop/snowman-bird` | 224×176, transparent | Little bird friend; **anchor bottom-centre (its feet)**, facing right (mirrored on the left); box 56×44; it hops and flaps in the finale | A round little red cardinal-style bird with a tiny orange beak, smiling, sitting |
+| `prop/snowman-broom` | 240×680, transparent | Broom; centred; box 60×170; leaned by the code | A rustic straw broom with a wooden handle tied with red string |
+| `prop/snowman-scarf` | 240×400, transparent | Scarf tail only (the code draws the wrap around the ball in the chosen colour); anchor top-centre; box 60×100. Paint it plain white/light grey (it is recoloured in code) | A knitted scarf end with a fringe, plain white with soft grey shading, hanging straight down |
+
+**New sprite pose (optional; the game reads fine without it):**
+`roll-push` (loop; fallback `push` → `walk`): walking bent forward with both
+hands (or paws, or the head for armless characters) pressed against a big
+snowball in front, pushing it along. Used the whole time a player rolls a
+snowball. Until it exists the game uses `walk`.
+
+
+## Delivered hair-salon — 2026-10-12
+
+All 24 assets delivered. Actual two-player salon checked: mirror framing, chair baseline and tool palette work with the procedural hair and cape; no browser warnings or errors.
+
+## New Play Studio game: hair-salon
+
+### hair-salon — Hair Salon   (requested by the hair-salon agent, 2026-10-05, priority: nice-to-have)
+
+Every player runs a salon chair: a big friendly client sits in front of
+them with messy hair, and the player brushes, snips, grows, curls,
+straightens, colours (incl. rainbow streaks and glitter), ties it up
+(ponytail, pigtails, bun, space buns, braid) and adds bows, flowers, clips
+and tiaras. Then a hand-mirror reveal and a photo-wall showcase. The game
+ships fully procedural today: every key below is already looked up with
+`art()`/`drawArt()` and drops in with no code change once it is in
+`assets/art/index.json`. **The clients and their hair stay procedural**
+(the hair is live strand geometry that gets cut, grown and coloured), so
+no client art is needed. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text** in any image. Reused as they
+are: the roster sprites (`paint`, `cheer`, `celebrate`, `surprised`,
+`wave`, `photo` and the shared photo poses).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/hair-salon` | 1920×1080, opaque | Full screen behind the split stations (shows as side columns at 1 player and as thin gutters at 2–8). Keep the top ~110 px calm (the HUD band and clock sit there) | A bright, cosy kids' hair salon wall: mint-and-pink striped wallpaper, a row of round lightbulb vanity mirrors along the top edge, shelves of colourful shampoo bottles and hair-spray cans at the far left and right, a black-and-white checkered floor strip at the bottom. Low detail in the centre |
+| `bg/hair-salon-station` | 1200×1200, opaque | Cover-fitted (cropped, centred) behind one station's scene, between its header and tool bar; the code draws the chair, client and stylist on top. Keep the bottom ~22% as floor | One salon booth seen from the front: pastel wallpaper with tiny scissors-and-heart pattern feel (no text), a soft rounded arch outline on the wall, checkered pink-and-cream floor in the bottom 22%. Empty, nothing in the middle |
+| `bg/hair-salon-photo` | 1920×1080, opaque | Full screen for the photo showcase. Client busts stand on pedestals with their heads around y≈300–550 (1 player) down to y≈530–730 (8 players); stylists walk on the floor band y≈820–1010; the camera zooms in up to 1.6× | A glamorous photo wall in a salon: a sparkly pink sequin backdrop with a gold star-light garland across the top, two big gold-framed bulb mirrors at the far edges, a glossy pink stage floor in the bottom quarter. Centre kept plain for the clients |
+| `thumb/hair-salon` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A happy cartoon salon client with big rainbow-streaked curly hair and a pink bow sitting in a pink salon chair, a pair of scissors, a comb and a spray bottle floating around her with sparkles, mint salon wall behind. Subject centred |
+| `prop/salon-chair` | 640×720, transparent | Drawn behind the client, anchor bottom-centre at the bottom of the scene, width = 1.7 × the client's head width. Only the tall chair back shows above the client's shoulders, plus the base | A front-facing retro salon chair: tall rounded pink vinyl back with tufted buttons, chrome arms and a round chrome pump base. Empty |
+| `prop/salon-hand-mirror` | 360×560, transparent | Mirror-reveal moment: anchor centre, the code draws the client's reflection inside an oval at the top 62% of the image (centre at 36% height, oval 78% of the width × 58% of the height), so that area must be plain glass | A big gold hand mirror with an oval glass, heart and pearl details on the frame, a pink handle with a bow. The glass is pale blue with a soft diagonal shine |
+| `prop/salon-brush`, `prop/salon-scissors`, `prop/salon-grow-spray`, `prop/salon-curler`, `prop/salon-straightener`, `prop/salon-color-spray`, `prop/salon-hairtie`, `prop/salon-bling` | 160×160 each, transparent | Tool bar buttons and the cursor (hand) icon, drawn centred, fitted to ~1.1 × the slot. The colour spray is drawn with a separate colour swatch beside it, so keep its can neutral (white/silver) | Chunky toy-like salon tools: a pink paddle hairbrush; round-handled pink scissors (slightly open); a sparkly green "magic grow" spray bottle with a star nozzle; a purple barrel curling wand; a mint flat iron (hair straightener); a white spray-paint can with a rainbow band; a stretchy pink hair tie with a pearl; a glittery gold bow-and-star bling badge |
+| `prop/hair-bow-pink`, `prop/hair-bow-blue`, `prop/hair-bow-yellow`, `prop/hair-flower-pink`, `prop/hair-daisy`, `prop/hair-clip-star`, `prop/hair-clip-heart`, `prop/hair-butterfly`, `prop/hair-tiara`, `prop/hair-crown` | 192×192 each (tiara and crown 256×192), transparent | Placed on the client's hair, anchor centre; drawn at ~0.55 × the head width (tiara/crown 0.8 ×) with a small tilt. Front view, centred | Hair accessories: a pink satin bow, a sky-blue bow with white polka dots, a sunny yellow bow; a pink five-petal flower with a yellow centre; a white daisy; a gold star hair clip with a gem; a red heart clip; a purple-and-pink butterfly clip; a silver tiara with pink gems; a small gold princess crown with three gems |
+
+
+## Delivered nail-studio — 2026-10-12
+
+All 17 assets delivered. Actual two-player nail workstation checked: table lip, cushion, avatars and polish controls align; no browser warnings or errors.
+
+## New Play Studio game: nail-studio
+
+### nail-studio — Sparkle Nails   (requested by the nail-studio agent, 2026-10-05, priority: nice-to-have)
+
+Everyone runs a nail-salon table (split stations, 1–8 players). A client
+(a roster character, Glimmer, Professor Hoot or Fellowfox) peeks over the
+table and rests a big cartoon hand, or a paw for animal clients, on a
+cushion. Steps: polish colours, designs (glitter, stripes, dots, hearts,
+stars, tips, rainbow tips), gems and stickers (place, move, remove), then a
+little hand fan dries the nails. Finale: a nail gallery with every hand on a
+pedestal and a photo. Everything below has a procedural fallback that ships
+today; the code already looks up every key. The hand/paw, the nails and the
+polish bottles stay procedural on purpose (the paint is clipped to exact
+nail shapes). House style: navy `#24163f` outlines, soft cel shading, bright
+candy colours, **no text** in any image. Reused as they are: roster sprites
+(`paint`, `action`, `cheer`, `celebrate`, `present`, `clap`, `laugh`,
+`surprised`, `wave`, `pose-twirl`, the photo poses) and the NPCs as clients.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/nail-studio` | 1920×1080, opaque | Full screen behind the split stations; shows as side columns at 1 player and as thin bands between stations at 2–8 players. Keep the top ~110 px calm (player chips sit there) | A bright pastel nail salon: lilac-and-pink wallpaper with tiny hearts, white shelves along the far left and right edges with rows of colourful nail polish bottles, a string of round bulb lights across the top, a pink-and-white checker floor strip at the bottom. Low detail in the centre |
+| `bg/nail-studio-station` | 1290×900 (ratio 860:600), opaque | Stretched over one station. **Layout must match:** wall from y=0 to 36% (215/600), a rounded white table edge at 36%, a pink marble table top below. The client peeks over the table at the far left; the code draws the hand, tray and step list on top | One salon table seen from the manicurist's side: soft mint wallpaper with tiny white polka dots and a little round mirror on the upper 36%, then a white rounded table lip and a pale pink marble table top with faint veins. Nothing on the table |
+| `bg/nail-studio-show` | 1920×1080, opaque | Full screen for the finale (the nail gallery). Pedestals stand on the floor band from y≈700 to y≈1000; a gentle camera punch zooms up to 1.15× | A small sparkly gallery stage: pink velvet curtains at both sides and a scalloped valance at the top, a lilac back wall with soft spotlight circles, a glossy pink stage floor in the lower third. No characters, no pedestals |
+| `thumb/nail-studio` | 800×500, opaque | Game-select shelf and how-to screen (`drawIcon` is the fallback) | A cute cartoon hand on a pink velvet cushion with five freshly painted nails (pink with white polka dots, a rainbow tip, a gold glitter nail, a heart nail, a nail with a tiny gem), a little nail polish bottle and a mini hand fan beside it, sparkles. Subject centred |
+| `prop/nail-cushion` | 512×256, transparent | The hand rests on it: drawn centred under the palm, 400 units wide in hand space (about 400 px at 1 player). Top edge of the cushion at 30% of the image | A plump pink velvet hand-rest cushion with a button tuft in the middle and gold piping, seen slightly from above |
+| `prop/nail-pedestal` | 400×480, transparent | Finale: anchor **bottom-centre** on the floor; the code puts the hand on the cushion top, which must be at 12–20% from the top of the image | A white-and-gold display column with a small pink velvet cushion on top, like a jewellery display stand |
+| `prop/nail-fan` | 256×256, transparent | Dry step: follows the player's cursor, blade hub at (50%, 36%) of the image, drawn ~110 units tall; the code adds a spinning blur ring over the blades | A cute handheld mini fan: round pastel-mint cage with three soft pink blades, a short rounded handle below, a tiny heart button on the handle. Front view |
+| `prop/nail-sticker-gem-pink`, `prop/nail-sticker-gem-blue`, `prop/nail-sticker-gem-purple`, `prop/nail-sticker-pearl`, `prop/nail-sticker-star`, `prop/nail-sticker-heart`, `prop/nail-sticker-flower`, `prop/nail-sticker-butterfly`, `prop/nail-sticker-bow`, `prop/nail-sticker-crown` | 128×128 each, transparent | Placed on nails: drawn centred at ~44 units (about the width of a nail), slightly rotated; also shown in the tray. Centre each in its canvas with a little margin | Tiny nail-art decorations, front view, glossy: a faceted pink rhinestone (round brilliant cut); a faceted blue rhinestone; a purple heart-shaped rhinestone; a round white pearl; a gold star stud; a red heart sticker; a white daisy sticker with a yellow centre; a pink-and-purple butterfly sticker; a little pink ribbon bow; a tiny gold crown with gems |
+
+Possible later sprite pose (not needed now; the game uses `present` →
+`cheer`): `show-nails` (one-shot, about 1 s): the character holds one hand
+up in front of the face, fingers spread, admiring their nails, with a happy
+face. Fallback chain: `present` → `cheer` → `idle`.
+
+
+## Resolved re-generation requests — 2026-10-12
+
+Teddy now peeks above the left shoulder in the actual wearable render. Fishing uses a compact 256×64 grip drawn whole, with its procedural bending shaft retained. Full game run and focused handle tests pass.
+
+| Key | Previous issue | Requested replacement |
+| --- | --- | --- |
+| `prop/backpack-teddy` | Characters face three-quarter right, so the back is on the LEFT; the teddy peeks out at the top-RIGHT, behind the head, and is invisible on every two-legged character even after refitting (the original request said top-right, wrongly). | Same 140×200 pack, but the teddy head and ears peek out at the top-LEFT corner, head reaching the canvas top; keep the pack bottom-centred with no bottom padding (the code puts the `back` point at 80% of the height). |
+| `prop/fishing-rod` (optional) | Even drawn undistorted, the 8:1 handle is too long for a 110–175 px rod, so the code skips the middle of the cork to shorten it. | 256×64, transparent: a short chunky cork grip (about 2.5× as long as it is thick) with the big yellow reel at the right end, butt at the left edge, shaft start at the right edge, so the code can draw it whole. |
+
 # Charlie Party: image request history
+
+## Current studio delivery — Pottery Wheel
+
+All22 requested art keys generated and reviewed with measured wheel/shelf/kiln geometry. Shaping and firing placement checked in game; full CPU run had no console errors. Exact prompts/source intake: reference/pending/STUDIO-pottery-wheel.json. Optional mold pose remains future backlog.
+
+## New Play Studio game: pottery-wheel
+
+### pottery-wheel — Pottery Wheel   (requested by the pottery-wheel agent, 2026-10-05, priority: nice-to-have)
+
+Every player throws a pot at their own wheel (the clay is a smooth spinning
+profile drawn by code), fires it in a little brick kiln (doors burst open for
+a reveal), then glazes and decorates it on a slowly turning wheel with stripes,
+dots and stickers. Finale: all pots on a gallery shelf with ribbons and a
+photo. Everything below has a procedural fallback that ships today and is
+looked up with `art()`/`drawArt()`, so a file in `assets/art/index.json` drops
+in with no code change. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text** in any image. The pots themselves
+are always drawn by code (their shape and paint are the player's), so they
+are **not** requested. In the table, `k` is the station's pot scale
+(pot units to pixels; about 0.44 at 8 players, 1.25 at 1 player).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/pottery-wheel` | 1920×1080, opaque | Full screen behind the split stations (shows as side columns at 1 player, thin gutters at 2–8). Keep the top ~110 px calm (title band) | A sunny pottery studio: whitewashed brick walls, wooden shelves along the far left and right edges with rows of colourful finished pots and bowls, hanging plants, a big window with soft daylight, a warm wooden floor strip at the bottom. Low detail in the centre |
+| `bg/pottery-wheel-station` | 1200×900, opaque | Stretched (not cropped) over one station, so keep it simple and stretch-safe. The code paints its own wooden floor over the bottom ~22%, so that part is never seen | A cosy studio wall corner: soft cream plaster with a pastel tile strip, a small shelf high on the left with two tiny clay pots, a pegboard with clay tools (wire, sponges, ribs) at the upper right. No floor, no furniture in the middle |
+| `bg/pottery-wheel-gallery` | 1920×1080, opaque | Full screen for the showcase. The code draws 1–2 long shelves across it (plank tops at y≈620 for 1–4 players, y≈430 and y≈760 for 5–8) and the characters stand on the floor band y≈930–1060 | A bright little craft gallery: pale lilac wall with a soft wainscot, two spotlights on a ceiling track at the top, potted plants in the corners, honey wooden floor from y≈930 down. Wall area kept plain (shelves and pots go on it) |
+| `thumb/pottery-wheel` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A cute character (Cotton Candy) at a potter's wheel shaping a tall wet clay vase with both hands, clay splashes, a finished glazed pink-and-blue striped vase with heart stickers and a little brick kiln glowing in the background, sparkles |
+| `prop/pottery-wheel` | 1040×520 (2:1), transparent | `drawArt(..., wheelX, floorY, 520k, 260k, { anchor: 'bottom' })`. **The wheel head's flat top surface is centred at x 50%, y 46% from the top**, as an ellipse 73% of the image wide and ~16% tall (the pot base sits on its centre). Above the head is empty. The code draws its own spin streaks on the head | A chunky kid-friendly electric potter's wheel seen from the front, slightly above: a round grey-blue metal wheel head on a rounded pastel-mint body with a splash pan ring, a little foot pedal on a cord on the floor at the right, small rubber feet |
+| `prop/pottery-kiln` | 1280×1240, transparent | `drawArt(..., cx, floorY, 640s, 620s, { anchor: 'bottom' })`. The code draws the pot *inside* the door opening and the two doors on top, so the **opening must be an empty (transparent) arch**: centred at x 50%, 75% of the width wide, from y 18% (top of the arch) to y 87% (the inner floor, where the pot stands). Walls around it are the kiln | A cute rounded beehive kiln made of warm red-orange bricks with a navy outline, a little chimney on top-right puffing nothing (code adds smoke), a stone base with a glowing grate slot below the door, two small round vents on the sides |
+| `prop/pottery-kiln-door` | 256×560, transparent | One door leaf, drawn twice (mirrored for the right one), hinged at its outer edge and squashed horizontally as it swings open; stretched to half the opening | A tall arched-top iron kiln door half: dark plum metal with rivets, a round porthole window near the top that glows orange, a gold handle on the inner edge |
+| `prop/pottery-shelf` | 1800×160, transparent | Stretched over each showcase shelf, x 80–1840. **The plank's top surface line is at 25% from the top**; the pots stand on it | A long honey-wood display shelf plank seen from the front, slightly above, with two curly wrought-iron brackets underneath |
+| `prop/pottery-rib` | 96×256, transparent | The shaping-tool cursor: drawn with its **working tip at the bottom centre** on the cursor, rotated ~25°, about 50k×130k | A wooden potter's rib/shaping stick: a smooth pale wood paddle with a rounded tip and a hole near the top |
+| `prop/pottery-sponge` | 128×128, transparent | Cursor while smoothing (B held), centred on the cursor, ~60k | A soft round yellow craft sponge with little holes, a bit wet and shiny |
+| `prop/pottery-brush` | 96×256, transparent | Paint cursor: **bristle tip at the bottom centre** on the cursor, rotated ~25°. The code tints a blob of the current colour over the tip, so keep the bristles light | A chubby paintbrush with a pink wooden handle, silver ferrule and pale cream bristles |
+| `prop/pottery-sticker-heart`, `-star`, `-flower`, `-butterfly`, `-rainbow`, `-moon`, `-cat`, `-fish`, `-sun`, `-strawberry` | 128×128 each, transparent | Stuck on the turning pot: drawn centred, fitted to a ~44-unit box and squashed horizontally as the pot turns. Fill ~90% of the canvas, front view, flat sticker look | Glossy kawaii stickers with a thin white sticker border outside the navy outline: a pink heart; a yellow star; a five-petal pink flower with a yellow centre; a lilac butterfly; a rainbow arc with clouds; a smiling yellow crescent moon; an orange cat face; a sky-blue fish; a smiling sun; a strawberry |
+| `prop/pottery-rosette` | 192×256, transparent | Award ribbon pinned under each pot on the shelf: drawn with the rosette's round centre at x 50%, y 38%; the code writes nothing on it | A gold prize rosette: a pleated gold ring around a plain cream centre disc, two short gold ribbon tails below |
+
+Sprite pose (optional upgrade): `mold` (loop) — fallback `stir` → `paint`.
+Leaning in, both hands (or paws/hooves) cupped forward at waist height around
+something round, shaping it; used all through the shaping step. The game
+reads fine with the fallback.
+
 
 ## 2026-10-12 — Remaining prop revisions delivered
 

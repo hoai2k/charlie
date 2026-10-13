@@ -1,0 +1,2159 @@
+{
+  "status": "Reviewed and published; all 294 request keys covered",
+  "deliveryRevision": "4e6dd8ed",
+  "requestedKeys": 294,
+  "newImages": 293,
+  "replacements": 2,
+  "approvedCreatureReferences": 18,
+  "runtimeKeys": 875,
+  "runtimeFiles": 855,
+  "compressedBytes": 30740288,
+  "decodedBytes": 962744576,
+  "studios": {
+    "puppet-theater": {
+      "keys": 29,
+      "newKeys": 29,
+      "bytes": 1774506,
+      "decodedBytes": 52919872,
+      "assets": [
+        {
+          "key": "bg/puppet-theater",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 101066,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "prop/pt-booth",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 204916,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "prop/pt-curtain",
+          "width": 760,
+          "height": 1000,
+          "bytes": 103348,
+          "decodedBytes": 3040000
+        },
+        {
+          "key": "bg/puppet-theater-castle",
+          "width": 1380,
+          "height": 590,
+          "bytes": 95026,
+          "decodedBytes": 3256800
+        },
+        {
+          "key": "bg/puppet-theater-sea",
+          "width": 1380,
+          "height": 590,
+          "bytes": 125266,
+          "decodedBytes": 3256800
+        },
+        {
+          "key": "bg/puppet-theater-forest",
+          "width": 1380,
+          "height": 590,
+          "bytes": 106304,
+          "decodedBytes": 3256800
+        },
+        {
+          "key": "bg/puppet-theater-space",
+          "width": 1380,
+          "height": 590,
+          "bytes": 75064,
+          "decodedBytes": 3256800
+        },
+        {
+          "key": "bg/puppet-theater-candy",
+          "width": 1380,
+          "height": 590,
+          "bytes": 118490,
+          "decodedBytes": 3256800
+        },
+        {
+          "key": "bg/puppet-theater-beach",
+          "width": 1380,
+          "height": 590,
+          "bytes": 101736,
+          "decodedBytes": 3256800
+        },
+        {
+          "key": "prop/pt-tree",
+          "width": 411,
+          "height": 512,
+          "bytes": 46716,
+          "decodedBytes": 841728
+        },
+        {
+          "key": "prop/pt-flower",
+          "width": 348,
+          "height": 512,
+          "bytes": 46678,
+          "decodedBytes": 712704
+        },
+        {
+          "key": "prop/pt-castle",
+          "width": 220,
+          "height": 512,
+          "bytes": 34328,
+          "decodedBytes": 450560
+        },
+        {
+          "key": "prop/pt-house",
+          "width": 488,
+          "height": 512,
+          "bytes": 57874,
+          "decodedBytes": 999424
+        },
+        {
+          "key": "prop/pt-mushroom",
+          "width": 447,
+          "height": 512,
+          "bytes": 40640,
+          "decodedBytes": 915456
+        },
+        {
+          "key": "prop/pt-palm",
+          "width": 352,
+          "height": 512,
+          "bytes": 47440,
+          "decodedBytes": 720896
+        },
+        {
+          "key": "prop/pt-lollipop",
+          "width": 323,
+          "height": 512,
+          "bytes": 37472,
+          "decodedBytes": 661504
+        },
+        {
+          "key": "prop/pt-rocket",
+          "width": 347,
+          "height": 512,
+          "bytes": 41744,
+          "decodedBytes": 710656
+        },
+        {
+          "key": "prop/pt-cloud",
+          "width": 512,
+          "height": 334,
+          "bytes": 25532,
+          "decodedBytes": 684032
+        },
+        {
+          "key": "prop/pt-sun",
+          "width": 512,
+          "height": 508,
+          "bytes": 58592,
+          "decodedBytes": 1040384
+        },
+        {
+          "key": "prop/pt-moon",
+          "width": 443,
+          "height": 512,
+          "bytes": 38934,
+          "decodedBytes": 907264
+        },
+        {
+          "key": "prop/pt-star",
+          "width": 512,
+          "height": 501,
+          "bytes": 42014,
+          "decodedBytes": 1026048
+        },
+        {
+          "key": "prop/pt-rainbow",
+          "width": 512,
+          "height": 335,
+          "bytes": 40746,
+          "decodedBytes": 686080
+        },
+        {
+          "key": "prop/pt-fish",
+          "width": 512,
+          "height": 432,
+          "bytes": 51634,
+          "decodedBytes": 884736
+        },
+        {
+          "key": "prop/pt-audience-bunny",
+          "width": 161,
+          "height": 256,
+          "bytes": 14518,
+          "decodedBytes": 164864
+        },
+        {
+          "key": "prop/pt-audience-bear",
+          "width": 252,
+          "height": 256,
+          "bytes": 17204,
+          "decodedBytes": 258048
+        },
+        {
+          "key": "prop/pt-audience-cat",
+          "width": 220,
+          "height": 256,
+          "bytes": 15284,
+          "decodedBytes": 225280
+        },
+        {
+          "key": "prop/pt-audience-duck",
+          "width": 209,
+          "height": 256,
+          "bytes": 11258,
+          "decodedBytes": 214016
+        },
+        {
+          "key": "prop/pt-rose",
+          "width": 91,
+          "height": 128,
+          "bytes": 6196,
+          "decodedBytes": 46592
+        },
+        {
+          "key": "thumb/puppet-theater",
+          "width": 800,
+          "height": 500,
+          "bytes": 68486,
+          "decodedBytes": 1600000
+        }
+      ]
+    },
+    "nail-studio": {
+      "keys": 17,
+      "newKeys": 17,
+      "bytes": 513240,
+      "decodedBytes": 25042592,
+      "assets": [
+        {
+          "key": "bg/nail-studio",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 99592,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/nail-studio-station",
+          "width": 1290,
+          "height": 900,
+          "bytes": 61802,
+          "decodedBytes": 4644000
+        },
+        {
+          "key": "bg/nail-studio-show",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 129564,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "thumb/nail-studio",
+          "width": 800,
+          "height": 500,
+          "bytes": 89642,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/nail-cushion",
+          "width": 512,
+          "height": 256,
+          "bytes": 18108,
+          "decodedBytes": 524288
+        },
+        {
+          "key": "prop/nail-pedestal",
+          "width": 400,
+          "height": 480,
+          "bytes": 21128,
+          "decodedBytes": 768000
+        },
+        {
+          "key": "prop/nail-fan",
+          "width": 256,
+          "height": 256,
+          "bytes": 20820,
+          "decodedBytes": 262144
+        },
+        {
+          "key": "prop/nail-sticker-gem-pink",
+          "width": 128,
+          "height": 128,
+          "bytes": 8970,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-gem-blue",
+          "width": 128,
+          "height": 128,
+          "bytes": 10082,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-gem-purple",
+          "width": 128,
+          "height": 128,
+          "bytes": 7826,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-pearl",
+          "width": 128,
+          "height": 128,
+          "bytes": 4470,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-star",
+          "width": 128,
+          "height": 128,
+          "bytes": 6942,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-heart",
+          "width": 128,
+          "height": 128,
+          "bytes": 4832,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-flower",
+          "width": 128,
+          "height": 128,
+          "bytes": 6256,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-butterfly",
+          "width": 128,
+          "height": 128,
+          "bytes": 8496,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-bow",
+          "width": 128,
+          "height": 128,
+          "bytes": 6564,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/nail-sticker-crown",
+          "width": 128,
+          "height": 128,
+          "bytes": 8146,
+          "decodedBytes": 65536
+        }
+      ]
+    },
+    "dance-studio": {
+      "keys": 27,
+      "newKeys": 27,
+      "bytes": 1267328,
+      "decodedBytes": 72159744,
+      "assets": [
+        {
+          "key": "bg/dance-studio",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 125798,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/dance-studio-stage-stars",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 86980,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/dance-studio-stage-candy",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 147482,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/dance-studio-stage-sea",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 121894,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/dance-studio-stage-rainbow",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 81116,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/dance-studio-stage-castle",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 230124,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/dance-studio-stage-city",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 106312,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "prop/dance-studio-curtains",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 137354,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "prop/dance-studio-floor",
+          "width": 1920,
+          "height": 300,
+          "bytes": 23910,
+          "decodedBytes": 2304000
+        },
+        {
+          "key": "prop/mirror-ball",
+          "width": 256,
+          "height": 256,
+          "bytes": 14226,
+          "decodedBytes": 262144
+        },
+        {
+          "key": "prop/dance-move-up",
+          "width": 160,
+          "height": 160,
+          "bytes": 7152,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-point",
+          "width": 160,
+          "height": 160,
+          "bytes": 6886,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-knees",
+          "width": 160,
+          "height": 160,
+          "bytes": 5368,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-star",
+          "width": 160,
+          "height": 160,
+          "bytes": 8660,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-twirl",
+          "width": 160,
+          "height": 160,
+          "bytes": 6790,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-clap",
+          "width": 160,
+          "height": 160,
+          "bytes": 6284,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-wave",
+          "width": 160,
+          "height": 160,
+          "bytes": 6382,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-bump",
+          "width": 160,
+          "height": 160,
+          "bytes": 7674,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-swim",
+          "width": 160,
+          "height": 160,
+          "bytes": 6384,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-slide",
+          "width": 160,
+          "height": 160,
+          "bytes": 7350,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-peace",
+          "width": 160,
+          "height": 160,
+          "bytes": 6694,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-tada",
+          "width": 160,
+          "height": 160,
+          "bytes": 7422,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-wobble",
+          "width": 160,
+          "height": 160,
+          "bytes": 6524,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-bow",
+          "width": 160,
+          "height": 160,
+          "bytes": 5082,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-hop",
+          "width": 160,
+          "height": 160,
+          "bytes": 6410,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/dance-move-float",
+          "width": 160,
+          "height": 160,
+          "bytes": 6008,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "thumb/dance-studio",
+          "width": 800,
+          "height": 500,
+          "bytes": 85062,
+          "decodedBytes": 1600000
+        }
+      ]
+    },
+    "acrobat-circus": {
+      "keys": 12,
+      "newKeys": 12,
+      "bytes": 386538,
+      "decodedBytes": 17416704,
+      "assets": [
+        {
+          "key": "bg/acrobat-circus",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 166786,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/acrobat-circus-ring",
+          "width": 1440,
+          "height": 1080,
+          "bytes": 61780,
+          "decodedBytes": 6220800
+        },
+        {
+          "key": "thumb/acrobat-circus",
+          "width": 800,
+          "height": 500,
+          "bytes": 82358,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/acrobat-trampoline",
+          "width": 480,
+          "height": 200,
+          "bytes": 20972,
+          "decodedBytes": 384000
+        },
+        {
+          "key": "prop/acrobat-trapeze",
+          "width": 256,
+          "height": 48,
+          "bytes": 1556,
+          "decodedBytes": 49152
+        },
+        {
+          "key": "prop/acrobat-tower",
+          "width": 160,
+          "height": 480,
+          "bytes": 11600,
+          "decodedBytes": 307200
+        },
+        {
+          "key": "prop/acrobat-ball",
+          "width": 256,
+          "height": 256,
+          "bytes": 17132,
+          "decodedBytes": 262144
+        },
+        {
+          "key": "prop/acrobat-parasol",
+          "width": 160,
+          "height": 160,
+          "bytes": 8040,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/acrobat-balloon-pink",
+          "width": 96,
+          "height": 128,
+          "bytes": 4050,
+          "decodedBytes": 49152
+        },
+        {
+          "key": "prop/acrobat-balloon-blue",
+          "width": 96,
+          "height": 128,
+          "bytes": 3664,
+          "decodedBytes": 49152
+        },
+        {
+          "key": "prop/acrobat-balloon-yellow",
+          "width": 96,
+          "height": 128,
+          "bytes": 4222,
+          "decodedBytes": 49152
+        },
+        {
+          "key": "prop/acrobat-balloon-mint",
+          "width": 96,
+          "height": 128,
+          "bytes": 4378,
+          "decodedBytes": 49152
+        }
+      ]
+    },
+    "snowman-builder": {
+      "keys": 25,
+      "newKeys": 25,
+      "bytes": 902540,
+      "decodedBytes": 35182592,
+      "assets": [
+        {
+          "key": "bg/snowman-builder",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 194468,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/snowman-builder-yard",
+          "width": 2400,
+          "height": 1200,
+          "bytes": 171934,
+          "decodedBytes": 11520000
+        },
+        {
+          "key": "bg/snowman-builder-night",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 182218,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "thumb/snowman-builder",
+          "width": 800,
+          "height": 500,
+          "bytes": 82586,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/snowman-ball",
+          "width": 512,
+          "height": 512,
+          "bytes": 36112,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/snowman-coal",
+          "width": 88,
+          "height": 88,
+          "bytes": 3012,
+          "decodedBytes": 30976
+        },
+        {
+          "key": "prop/snowman-googly",
+          "width": 120,
+          "height": 120,
+          "bytes": 4030,
+          "decodedBytes": 57600
+        },
+        {
+          "key": "prop/snowman-carrot",
+          "width": 256,
+          "height": 96,
+          "bytes": 7896,
+          "decodedBytes": 98304
+        },
+        {
+          "key": "prop/snowman-smile",
+          "width": 280,
+          "height": 120,
+          "bytes": 6964,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/snowman-cheek",
+          "width": 120,
+          "height": 72,
+          "bytes": 2764,
+          "decodedBytes": 34560
+        },
+        {
+          "key": "prop/snowman-shades",
+          "width": 360,
+          "height": 136,
+          "bytes": 14922,
+          "decodedBytes": 195840
+        },
+        {
+          "key": "prop/snowman-tophat",
+          "width": 320,
+          "height": 320,
+          "bytes": 12366,
+          "decodedBytes": 409600
+        },
+        {
+          "key": "prop/snowman-bobble",
+          "width": 336,
+          "height": 320,
+          "bytes": 24016,
+          "decodedBytes": 430080
+        },
+        {
+          "key": "prop/snowman-partyhat",
+          "width": 224,
+          "height": 336,
+          "bytes": 16912,
+          "decodedBytes": 301056
+        },
+        {
+          "key": "prop/snowman-tiara",
+          "width": 288,
+          "height": 160,
+          "bytes": 17972,
+          "decodedBytes": 184320
+        },
+        {
+          "key": "prop/snowman-earmuffs",
+          "width": 480,
+          "height": 240,
+          "bytes": 19768,
+          "decodedBytes": 460800
+        },
+        {
+          "key": "prop/snowman-arm",
+          "width": 480,
+          "height": 240,
+          "bytes": 12888,
+          "decodedBytes": 460800
+        },
+        {
+          "key": "prop/snowman-mitten",
+          "width": 136,
+          "height": 160,
+          "bytes": 10142,
+          "decodedBytes": 87040
+        },
+        {
+          "key": "prop/snowman-heart",
+          "width": 120,
+          "height": 112,
+          "bytes": 5624,
+          "decodedBytes": 53760
+        },
+        {
+          "key": "prop/snowman-star",
+          "width": 136,
+          "height": 136,
+          "bytes": 6214,
+          "decodedBytes": 73984
+        },
+        {
+          "key": "prop/snowman-bowtie",
+          "width": 240,
+          "height": 120,
+          "bytes": 11550,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/snowman-flower",
+          "width": 160,
+          "height": 160,
+          "bytes": 9222,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/snowman-bird",
+          "width": 224,
+          "height": 176,
+          "bytes": 10588,
+          "decodedBytes": 157696
+        },
+        {
+          "key": "prop/snowman-broom",
+          "width": 240,
+          "height": 680,
+          "bytes": 25838,
+          "decodedBytes": 652800
+        },
+        {
+          "key": "prop/snowman-scarf",
+          "width": 240,
+          "height": 400,
+          "bytes": 12534,
+          "decodedBytes": 384000
+        }
+      ]
+    },
+    "star-maker": {
+      "keys": 14,
+      "newKeys": 14,
+      "bytes": 641744,
+      "decodedBytes": 20843008,
+      "assets": [
+        {
+          "key": "bg/star-maker",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 144836,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "thumb/star-maker",
+          "width": 800,
+          "height": 500,
+          "bytes": 82256,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/star-maker-moon",
+          "width": 400,
+          "height": 400,
+          "bytes": 24652,
+          "decodedBytes": 640000
+        },
+        {
+          "key": "prop/star-maker-moon-wow",
+          "width": 400,
+          "height": 400,
+          "bytes": 25926,
+          "decodedBytes": 640000
+        },
+        {
+          "key": "prop/star-maker-moon-wink",
+          "width": 400,
+          "height": 400,
+          "bytes": 25500,
+          "decodedBytes": 640000
+        },
+        {
+          "key": "prop/star-maker-moon-sleepy",
+          "width": 400,
+          "height": 400,
+          "bytes": 25858,
+          "decodedBytes": 640000
+        },
+        {
+          "key": "prop/star-maker-bunny",
+          "width": 512,
+          "height": 512,
+          "bytes": 37094,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-kitty",
+          "width": 512,
+          "height": 512,
+          "bytes": 43612,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-bird",
+          "width": 512,
+          "height": 512,
+          "bytes": 25306,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-butterfly",
+          "width": 512,
+          "height": 512,
+          "bytes": 64606,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-fish",
+          "width": 512,
+          "height": 512,
+          "bytes": 28380,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-whale",
+          "width": 512,
+          "height": 512,
+          "bytes": 31276,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-unicorn",
+          "width": 512,
+          "height": 512,
+          "bytes": 37812,
+          "decodedBytes": 1048576
+        },
+        {
+          "key": "prop/star-maker-dragon",
+          "width": 512,
+          "height": 512,
+          "bytes": 44630,
+          "decodedBytes": 1048576
+        }
+      ]
+    },
+    "aquarium": {
+      "keys": 101,
+      "newKeys": 101,
+      "bytes": 2511148,
+      "decodedBytes": 48248256,
+      "assets": [
+        {
+          "key": "bg/aquarium",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 112648,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/aquarium-water",
+          "width": 1340,
+          "height": 700,
+          "bytes": 63908,
+          "decodedBytes": 3752000
+        },
+        {
+          "key": "thumb/aquarium",
+          "width": 800,
+          "height": 500,
+          "bytes": 111384,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/aq-kelp-green",
+          "width": 240,
+          "height": 720,
+          "bytes": 47660,
+          "decodedBytes": 691200
+        },
+        {
+          "key": "prop/aq-kelp-teal",
+          "width": 240,
+          "height": 720,
+          "bytes": 49034,
+          "decodedBytes": 691200
+        },
+        {
+          "key": "prop/aq-kelp-plum",
+          "width": 240,
+          "height": 720,
+          "bytes": 42840,
+          "decodedBytes": 691200
+        },
+        {
+          "key": "prop/aq-fern-green",
+          "width": 400,
+          "height": 340,
+          "bytes": 43536,
+          "decodedBytes": 544000
+        },
+        {
+          "key": "prop/aq-fern-lime",
+          "width": 400,
+          "height": 340,
+          "bytes": 40674,
+          "decodedBytes": 544000
+        },
+        {
+          "key": "prop/aq-fern-red",
+          "width": 400,
+          "height": 340,
+          "bytes": 35736,
+          "decodedBytes": 544000
+        },
+        {
+          "key": "prop/aq-anemone-pink",
+          "width": 360,
+          "height": 300,
+          "bytes": 37554,
+          "decodedBytes": 432000
+        },
+        {
+          "key": "prop/aq-anemone-purple",
+          "width": 360,
+          "height": 300,
+          "bytes": 35222,
+          "decodedBytes": 432000
+        },
+        {
+          "key": "prop/aq-anemone-orange",
+          "width": 360,
+          "height": 300,
+          "bytes": 39146,
+          "decodedBytes": 432000
+        },
+        {
+          "key": "prop/aq-coral-pink",
+          "width": 380,
+          "height": 380,
+          "bytes": 37742,
+          "decodedBytes": 577600
+        },
+        {
+          "key": "prop/aq-coral-orange",
+          "width": 380,
+          "height": 380,
+          "bytes": 39476,
+          "decodedBytes": 577600
+        },
+        {
+          "key": "prop/aq-coral-purple",
+          "width": 380,
+          "height": 380,
+          "bytes": 39788,
+          "decodedBytes": 577600
+        },
+        {
+          "key": "prop/aq-seagrass-green",
+          "width": 340,
+          "height": 300,
+          "bytes": 29926,
+          "decodedBytes": 408000
+        },
+        {
+          "key": "prop/aq-seagrass-gold",
+          "width": 340,
+          "height": 300,
+          "bytes": 25796,
+          "decodedBytes": 408000
+        },
+        {
+          "key": "prop/aq-seagrass-blue",
+          "width": 340,
+          "height": 300,
+          "bytes": 21952,
+          "decodedBytes": 408000
+        },
+        {
+          "key": "prop/aq-castle-pink",
+          "width": 660,
+          "height": 660,
+          "bytes": 98564,
+          "decodedBytes": 1742400
+        },
+        {
+          "key": "prop/aq-castle-lilac",
+          "width": 660,
+          "height": 660,
+          "bytes": 94374,
+          "decodedBytes": 1742400
+        },
+        {
+          "key": "prop/aq-castle-sky",
+          "width": 660,
+          "height": 660,
+          "bytes": 94708,
+          "decodedBytes": 1742400
+        },
+        {
+          "key": "prop/aq-tower-pink",
+          "width": 300,
+          "height": 520,
+          "bytes": 30664,
+          "decodedBytes": 624000
+        },
+        {
+          "key": "prop/aq-tower-lilac",
+          "width": 300,
+          "height": 520,
+          "bytes": 29584,
+          "decodedBytes": 624000
+        },
+        {
+          "key": "prop/aq-tower-sky",
+          "width": 300,
+          "height": 520,
+          "bytes": 28210,
+          "decodedBytes": 624000
+        },
+        {
+          "key": "prop/aq-shellhouse-pink",
+          "width": 460,
+          "height": 460,
+          "bytes": 40998,
+          "decodedBytes": 846400
+        },
+        {
+          "key": "prop/aq-shellhouse-peach",
+          "width": 460,
+          "height": 460,
+          "bytes": 42266,
+          "decodedBytes": 846400
+        },
+        {
+          "key": "prop/aq-shellhouse-lilac",
+          "width": 460,
+          "height": 460,
+          "bytes": 42196,
+          "decodedBytes": 846400
+        },
+        {
+          "key": "prop/aq-arch-grey",
+          "width": 600,
+          "height": 400,
+          "bytes": 40160,
+          "decodedBytes": 960000
+        },
+        {
+          "key": "prop/aq-arch-sand",
+          "width": 600,
+          "height": 400,
+          "bytes": 49140,
+          "decodedBytes": 960000
+        },
+        {
+          "key": "prop/aq-arch-pink",
+          "width": 600,
+          "height": 400,
+          "bytes": 45596,
+          "decodedBytes": 960000
+        },
+        {
+          "key": "prop/aq-boat",
+          "width": 680,
+          "height": 460,
+          "bytes": 65602,
+          "decodedBytes": 1251200
+        },
+        {
+          "key": "prop/aq-scallop-peach",
+          "width": 180,
+          "height": 160,
+          "bytes": 12524,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-scallop-pink",
+          "width": 180,
+          "height": 160,
+          "bytes": 11514,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-scallop-white",
+          "width": 180,
+          "height": 160,
+          "bytes": 10672,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-conch-pink",
+          "width": 220,
+          "height": 160,
+          "bytes": 12112,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-conch-cream",
+          "width": 220,
+          "height": 160,
+          "bytes": 11492,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-conch-lilac",
+          "width": 220,
+          "height": 160,
+          "bytes": 11760,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-starfish-orange",
+          "width": 180,
+          "height": 160,
+          "bytes": 10362,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-starfish-pink",
+          "width": 180,
+          "height": 160,
+          "bytes": 10808,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-starfish-purple",
+          "width": 180,
+          "height": 160,
+          "bytes": 10064,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-starfish-yellow",
+          "width": 180,
+          "height": 160,
+          "bytes": 10576,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-clam-white",
+          "width": 240,
+          "height": 180,
+          "bytes": 14616,
+          "decodedBytes": 172800
+        },
+        {
+          "key": "prop/aq-clam-pink",
+          "width": 240,
+          "height": 180,
+          "bytes": 13810,
+          "decodedBytes": 172800
+        },
+        {
+          "key": "prop/aq-clam-blue",
+          "width": 240,
+          "height": 180,
+          "bytes": 13286,
+          "decodedBytes": 172800
+        },
+        {
+          "key": "prop/aq-pebbles-rainbow",
+          "width": 280,
+          "height": 120,
+          "bytes": 11762,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-pebbles-ocean",
+          "width": 280,
+          "height": 120,
+          "bytes": 10646,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-pebbles-candy",
+          "width": 280,
+          "height": 120,
+          "bytes": 11506,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-rock-grey",
+          "width": 400,
+          "height": 280,
+          "bytes": 15846,
+          "decodedBytes": 448000
+        },
+        {
+          "key": "prop/aq-rock-sand",
+          "width": 400,
+          "height": 280,
+          "bytes": 19184,
+          "decodedBytes": 448000
+        },
+        {
+          "key": "prop/aq-rock-slate",
+          "width": 400,
+          "height": 280,
+          "bytes": 14736,
+          "decodedBytes": 448000
+        },
+        {
+          "key": "prop/aq-airstone-blue",
+          "width": 140,
+          "height": 80,
+          "bytes": 3966,
+          "decodedBytes": 44800
+        },
+        {
+          "key": "prop/aq-airstone-pink",
+          "width": 140,
+          "height": 80,
+          "bytes": 4312,
+          "decodedBytes": 44800
+        },
+        {
+          "key": "prop/aq-diver-brass",
+          "width": 280,
+          "height": 300,
+          "bytes": 30318,
+          "decodedBytes": 336000
+        },
+        {
+          "key": "prop/aq-diver-silver",
+          "width": 280,
+          "height": 300,
+          "bytes": 27314,
+          "decodedBytes": 336000
+        },
+        {
+          "key": "prop/aq-volcano-red",
+          "width": 360,
+          "height": 320,
+          "bytes": 25552,
+          "decodedBytes": 460800
+        },
+        {
+          "key": "prop/aq-volcano-purple",
+          "width": 360,
+          "height": 320,
+          "bytes": 25708,
+          "decodedBytes": 460800
+        },
+        {
+          "key": "prop/aq-chest",
+          "width": 300,
+          "height": 240,
+          "bytes": 19544,
+          "decodedBytes": 288000
+        },
+        {
+          "key": "prop/aq-glowstone-blue",
+          "width": 200,
+          "height": 240,
+          "bytes": 14840,
+          "decodedBytes": 192000
+        },
+        {
+          "key": "prop/aq-glowstone-pink",
+          "width": 200,
+          "height": 240,
+          "bytes": 14708,
+          "decodedBytes": 192000
+        },
+        {
+          "key": "prop/aq-glowstone-green",
+          "width": 200,
+          "height": 240,
+          "bytes": 14834,
+          "decodedBytes": 192000
+        },
+        {
+          "key": "prop/aq-lantern",
+          "width": 160,
+          "height": 280,
+          "bytes": 12248,
+          "decodedBytes": 179200
+        },
+        {
+          "key": "prop/aq-glowshroom-teal",
+          "width": 240,
+          "height": 220,
+          "bytes": 21962,
+          "decodedBytes": 211200
+        },
+        {
+          "key": "prop/aq-glowshroom-pink",
+          "width": 240,
+          "height": 220,
+          "bytes": 20816,
+          "decodedBytes": 211200
+        },
+        {
+          "key": "prop/aq-glowshroom-purple",
+          "width": 240,
+          "height": 220,
+          "bytes": 16372,
+          "decodedBytes": 211200
+        },
+        {
+          "key": "prop/aq-moonlight",
+          "width": 200,
+          "height": 300,
+          "bytes": 16742,
+          "decodedBytes": 240000
+        },
+        {
+          "key": "prop/aq-goldfish-orange",
+          "width": 220,
+          "height": 160,
+          "bytes": 13402,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-goldfish-gold",
+          "width": 220,
+          "height": 160,
+          "bytes": 13248,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-goldfish-calico",
+          "width": 220,
+          "height": 160,
+          "bytes": 14536,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-goldfish-red",
+          "width": 220,
+          "height": 160,
+          "bytes": 13370,
+          "decodedBytes": 140800
+        },
+        {
+          "key": "prop/aq-clownfish-orange",
+          "width": 200,
+          "height": 128,
+          "bytes": 9724,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/aq-clownfish-pink",
+          "width": 200,
+          "height": 128,
+          "bytes": 9048,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/aq-clownfish-purple",
+          "width": 200,
+          "height": 128,
+          "bytes": 8714,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/aq-clownfish-blue",
+          "width": 200,
+          "height": 128,
+          "bytes": 9344,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/aq-angelfish-lilac",
+          "width": 220,
+          "height": 260,
+          "bytes": 16452,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-angelfish-gold",
+          "width": 220,
+          "height": 260,
+          "bytes": 16742,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-angelfish-sky",
+          "width": 220,
+          "height": 260,
+          "bytes": 16956,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-angelfish-pink",
+          "width": 220,
+          "height": 260,
+          "bytes": 15952,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-puffer-yellow",
+          "width": 200,
+          "height": 168,
+          "bytes": 8304,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-puffer-sky",
+          "width": 200,
+          "height": 168,
+          "bytes": 7774,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-puffer-pink",
+          "width": 200,
+          "height": 168,
+          "bytes": 8672,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-puffer-mint",
+          "width": 200,
+          "height": 168,
+          "bytes": 8138,
+          "decodedBytes": 134400
+        },
+        {
+          "key": "prop/aq-puffer-yellow-puffed",
+          "width": 260,
+          "height": 260,
+          "bytes": 11846,
+          "decodedBytes": 270400
+        },
+        {
+          "key": "prop/aq-betta-blue",
+          "width": 260,
+          "height": 220,
+          "bytes": 22114,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-betta-red",
+          "width": 260,
+          "height": 220,
+          "bytes": 20444,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-betta-purple",
+          "width": 260,
+          "height": 220,
+          "bytes": 20680,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-betta-pink",
+          "width": 260,
+          "height": 220,
+          "bytes": 21628,
+          "decodedBytes": 228800
+        },
+        {
+          "key": "prop/aq-tetra-neon",
+          "width": 108,
+          "height": 52,
+          "bytes": 2522,
+          "decodedBytes": 22464
+        },
+        {
+          "key": "prop/aq-tetra-rainbow",
+          "width": 108,
+          "height": 52,
+          "bytes": 2546,
+          "decodedBytes": 22464
+        },
+        {
+          "key": "prop/aq-tetra-pink",
+          "width": 108,
+          "height": 52,
+          "bytes": 2522,
+          "decodedBytes": 22464
+        },
+        {
+          "key": "prop/aq-tetra-gold",
+          "width": 108,
+          "height": 52,
+          "bytes": 2592,
+          "decodedBytes": 22464
+        },
+        {
+          "key": "prop/aq-seahorse-yellow",
+          "width": 120,
+          "height": 240,
+          "bytes": 9868,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-seahorse-pink",
+          "width": 120,
+          "height": 240,
+          "bytes": 9512,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-seahorse-orange",
+          "width": 120,
+          "height": 240,
+          "bytes": 9936,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-seahorse-purple",
+          "width": 120,
+          "height": 240,
+          "bytes": 9684,
+          "decodedBytes": 115200
+        },
+        {
+          "key": "prop/aq-jellyfish-pink",
+          "width": 180,
+          "height": 280,
+          "bytes": 19388,
+          "decodedBytes": 201600
+        },
+        {
+          "key": "prop/aq-jellyfish-lilac",
+          "width": 180,
+          "height": 280,
+          "bytes": 19334,
+          "decodedBytes": 201600
+        },
+        {
+          "key": "prop/aq-jellyfish-blue",
+          "width": 180,
+          "height": 280,
+          "bytes": 19714,
+          "decodedBytes": 201600
+        },
+        {
+          "key": "prop/aq-jellyfish-peach",
+          "width": 180,
+          "height": 280,
+          "bytes": 19462,
+          "decodedBytes": 201600
+        },
+        {
+          "key": "prop/aq-puffer-sky-puffed",
+          "width": 260,
+          "height": 260,
+          "bytes": 11792,
+          "decodedBytes": 270400
+        },
+        {
+          "key": "prop/aq-puffer-pink-puffed",
+          "width": 260,
+          "height": 260,
+          "bytes": 11992,
+          "decodedBytes": 270400
+        },
+        {
+          "key": "prop/aq-puffer-mint-puffed",
+          "width": 260,
+          "height": 260,
+          "bytes": 10600,
+          "decodedBytes": 270400
+        }
+      ]
+    },
+    "sandcastle-beach": {
+      "keys": 23,
+      "newKeys": 22,
+      "bytes": 452068,
+      "decodedBytes": 20328960,
+      "assets": [
+        {
+          "key": "bg/sandcastle-beach",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 84592,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/sandcastle-beach-sunset",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 110582,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "thumb/sandcastle-beach",
+          "width": 800,
+          "height": 500,
+          "bytes": 74556,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/sandcastle-tower",
+          "width": 192,
+          "height": 256,
+          "bytes": 15718,
+          "decodedBytes": 196608
+        },
+        {
+          "key": "prop/sandcastle-tower-window",
+          "width": 192,
+          "height": 256,
+          "bytes": 15996,
+          "decodedBytes": 196608
+        },
+        {
+          "key": "prop/sandcastle-tower-door",
+          "width": 192,
+          "height": 256,
+          "bytes": 17730,
+          "decodedBytes": 196608
+        },
+        {
+          "key": "prop/sandcastle-pointy",
+          "width": 160,
+          "height": 320,
+          "bytes": 12260,
+          "decodedBytes": 204800
+        },
+        {
+          "key": "prop/sandcastle-wall",
+          "width": 256,
+          "height": 176,
+          "bytes": 9800,
+          "decodedBytes": 180224
+        },
+        {
+          "key": "prop/sandcastle-wall-side",
+          "width": 128,
+          "height": 208,
+          "bytes": 8086,
+          "decodedBytes": 106496
+        },
+        {
+          "key": "prop/sandcastle-dome",
+          "width": 224,
+          "height": 160,
+          "bytes": 8262,
+          "decodedBytes": 143360
+        },
+        {
+          "key": "prop/beach-shell-scallop",
+          "width": 96,
+          "height": 80,
+          "bytes": 4264,
+          "decodedBytes": 30720
+        },
+        {
+          "key": "prop/beach-shell-conch",
+          "width": 96,
+          "height": 80,
+          "bytes": 4940,
+          "decodedBytes": 30720
+        },
+        {
+          "key": "prop/beach-shell-clam",
+          "width": 96,
+          "height": 80,
+          "bytes": 4690,
+          "decodedBytes": 30720
+        },
+        {
+          "key": "prop/beach-starfish-orange",
+          "width": 96,
+          "height": 96,
+          "bytes": 4686,
+          "decodedBytes": 36864
+        },
+        {
+          "key": "prop/beach-starfish-pink",
+          "width": 96,
+          "height": 96,
+          "bytes": 4108,
+          "decodedBytes": 36864
+        },
+        {
+          "key": "prop/beach-starfish-purple",
+          "width": 96,
+          "height": 96,
+          "bytes": 4096,
+          "decodedBytes": 36864
+        },
+        {
+          "key": "prop/sandcastle-flag-pink",
+          "width": 96,
+          "height": 192,
+          "bytes": 2570,
+          "decodedBytes": 73728
+        },
+        {
+          "key": "prop/sandcastle-flag-blue",
+          "width": 96,
+          "height": 192,
+          "bytes": 2654,
+          "decodedBytes": 73728
+        },
+        {
+          "key": "prop/sandcastle-flag-yellow",
+          "width": 96,
+          "height": 192,
+          "bytes": 2632,
+          "decodedBytes": 73728
+        },
+        {
+          "key": "prop/sandcastle-flag-mint",
+          "width": 96,
+          "height": 192,
+          "bytes": 2580,
+          "decodedBytes": 73728
+        },
+        {
+          "key": "prop/beach-crab",
+          "width": 192,
+          "height": 192,
+          "bytes": 35956,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/sand-bucket",
+          "width": 192,
+          "height": 192,
+          "bytes": 13498,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/sand-spade",
+          "width": 160,
+          "height": 192,
+          "bytes": 7812,
+          "decodedBytes": 122880
+        }
+      ]
+    },
+    "hair-salon": {
+      "keys": 24,
+      "newKeys": 24,
+      "bytes": 933502,
+      "decodedBytes": 28990464,
+      "assets": [
+        {
+          "key": "bg/hair-salon",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 125550,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/hair-salon-station",
+          "width": 1200,
+          "height": 1200,
+          "bytes": 90290,
+          "decodedBytes": 5760000
+        },
+        {
+          "key": "bg/hair-salon-photo",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 372478,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "thumb/hair-salon",
+          "width": 800,
+          "height": 500,
+          "bytes": 82886,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/salon-chair",
+          "width": 640,
+          "height": 720,
+          "bytes": 60556,
+          "decodedBytes": 1843200
+        },
+        {
+          "key": "prop/salon-hand-mirror",
+          "width": 360,
+          "height": 560,
+          "bytes": 34188,
+          "decodedBytes": 806400
+        },
+        {
+          "key": "prop/salon-brush",
+          "width": 160,
+          "height": 160,
+          "bytes": 7228,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-scissors",
+          "width": 160,
+          "height": 160,
+          "bytes": 10316,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-grow-spray",
+          "width": 160,
+          "height": 160,
+          "bytes": 9154,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-curler",
+          "width": 160,
+          "height": 160,
+          "bytes": 3858,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-straightener",
+          "width": 160,
+          "height": 160,
+          "bytes": 8304,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-color-spray",
+          "width": 160,
+          "height": 160,
+          "bytes": 5892,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-hairtie",
+          "width": 160,
+          "height": 160,
+          "bytes": 9284,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/salon-bling",
+          "width": 160,
+          "height": 160,
+          "bytes": 13200,
+          "decodedBytes": 102400
+        },
+        {
+          "key": "prop/hair-bow-pink",
+          "width": 192,
+          "height": 192,
+          "bytes": 10172,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-bow-blue",
+          "width": 192,
+          "height": 192,
+          "bytes": 9856,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-bow-yellow",
+          "width": 192,
+          "height": 192,
+          "bytes": 11286,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-flower-pink",
+          "width": 192,
+          "height": 192,
+          "bytes": 9550,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-daisy",
+          "width": 192,
+          "height": 192,
+          "bytes": 7900,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-clip-star",
+          "width": 192,
+          "height": 192,
+          "bytes": 7636,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-clip-heart",
+          "width": 192,
+          "height": 192,
+          "bytes": 6282,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-butterfly",
+          "width": 192,
+          "height": 192,
+          "bytes": 9978,
+          "decodedBytes": 147456
+        },
+        {
+          "key": "prop/hair-tiara",
+          "width": 256,
+          "height": 192,
+          "bytes": 12790,
+          "decodedBytes": 196608
+        },
+        {
+          "key": "prop/hair-crown",
+          "width": 256,
+          "height": 192,
+          "bytes": 14868,
+          "decodedBytes": 196608
+        }
+      ]
+    },
+    "pottery-wheel": {
+      "keys": 22,
+      "newKeys": 22,
+      "bytes": 783974,
+      "decodedBytes": 33860352,
+      "assets": [
+        {
+          "key": "bg/pottery-wheel",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 192536,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "bg/pottery-wheel-station",
+          "width": 1200,
+          "height": 900,
+          "bytes": 51308,
+          "decodedBytes": 4320000
+        },
+        {
+          "key": "bg/pottery-wheel-gallery",
+          "width": 1920,
+          "height": 1080,
+          "bytes": 105014,
+          "decodedBytes": 8294400
+        },
+        {
+          "key": "thumb/pottery-wheel",
+          "width": 800,
+          "height": 500,
+          "bytes": 78680,
+          "decodedBytes": 1600000
+        },
+        {
+          "key": "prop/pottery-wheel",
+          "width": 1040,
+          "height": 520,
+          "bytes": 47776,
+          "decodedBytes": 2163200
+        },
+        {
+          "key": "prop/pottery-kiln",
+          "width": 1280,
+          "height": 1240,
+          "bytes": 163068,
+          "decodedBytes": 6348800
+        },
+        {
+          "key": "prop/pottery-kiln-door",
+          "width": 256,
+          "height": 560,
+          "bytes": 25080,
+          "decodedBytes": 573440
+        },
+        {
+          "key": "prop/pottery-shelf",
+          "width": 1800,
+          "height": 160,
+          "bytes": 15660,
+          "decodedBytes": 1152000
+        },
+        {
+          "key": "prop/pottery-rib",
+          "width": 96,
+          "height": 256,
+          "bytes": 6688,
+          "decodedBytes": 98304
+        },
+        {
+          "key": "prop/pottery-sponge",
+          "width": 128,
+          "height": 128,
+          "bytes": 6304,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-brush",
+          "width": 96,
+          "height": 256,
+          "bytes": 7818,
+          "decodedBytes": 98304
+        },
+        {
+          "key": "prop/pottery-sticker-heart",
+          "width": 128,
+          "height": 128,
+          "bytes": 5656,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-star",
+          "width": 128,
+          "height": 128,
+          "bytes": 6082,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-flower",
+          "width": 128,
+          "height": 128,
+          "bytes": 7052,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-butterfly",
+          "width": 128,
+          "height": 128,
+          "bytes": 8338,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-rainbow",
+          "width": 128,
+          "height": 128,
+          "bytes": 6306,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-moon",
+          "width": 128,
+          "height": 128,
+          "bytes": 6740,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-cat",
+          "width": 128,
+          "height": 128,
+          "bytes": 8576,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-fish",
+          "width": 128,
+          "height": 128,
+          "bytes": 6802,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-sun",
+          "width": 128,
+          "height": 128,
+          "bytes": 8138,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-sticker-strawberry",
+          "width": 128,
+          "height": 128,
+          "bytes": 6874,
+          "decodedBytes": 65536
+        },
+        {
+          "key": "prop/pottery-rosette",
+          "width": 192,
+          "height": 256,
+          "bytes": 13478,
+          "decodedBytes": 196608
+        }
+      ]
+    }
+  },
+  "validation": [
+    "294 request images decode; dimensions and required transparency verified",
+    "26 sprite sets validate without hard errors; existing soft budget/anchor warnings retained",
+    "Runtime, art-loading, grouped loading, fishing handle, jelly anchor, decor overlay and builder regression suites pass",
+    "Representative actual studio gameplay reviewed, including Aquarium build/night"
+  ],
+  "generators": "Built-in imagegen only; geometric crop/resize/pad and lossless source conversion; no manual pixel or alpha painting"
+}

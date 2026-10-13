@@ -196,3 +196,24 @@ The different cap silhouettes are required for color-blind counting. Keep color 
 ### Grumpy Broccoli and Storm Cloud
 
 [Broccoli](canonical/grumpy-broccoli.webp) is a green floret with a comically frowning face and folded stalk arms. He is the falling Sprinkle Catch hazard, with a separate dizzy bonk state. [Storm Cloud](canonical/storm-cloud.webp) is a gray-lavender puffy cloud with a sleepy grumpy face. **The user requested lightning separately from the final cloud sprite:** use the no-bolt prop and a runtime bolt/effect. Their approved references include both designs; these are props rather than playable characters.
+
+
+## Approved studio creatures (current art pass)
+
+The user approved these game-owned creature designs on 2026-10-12. They are
+rendered by their studios as art props with procedural movement, rather than
+selectable party players. Preserve each approved silhouette across variants.
+
+- Dream Aquarium: orange double-tail goldfish; orange three-striped clownfish;
+  lilac triangular angelfish; yellow freckled pufferfish; blue flowing betta;
+  blue/red neon tetra; yellow curled-tail seahorse; pink translucent jellyfish.
+  Colour variants retain the approved species shapes and friendly faces.
+- Star Maker: full round buttery-yellow Moon with pink-striped nightcap, and
+  eight luminous white/lilac spirits (bunny, kitty, bird, butterfly, fish,
+  whale, unicorn and dragon). Spirit glow and embedded star points are part
+  of their requested identity. The Moon remains round in thumbnails too.
+- Snowman Builder: red cardinal-style bird with stalk-free teal eyes, orange
+  beak and feet, red crest and compact body. Retain visible feet for anchoring.
+
+Exact prompts and native PNG provenance: canonical/studio-generation-manifest.json.
+Visual review: pending/STUDIO-CANONICAL-REVIEW.html.

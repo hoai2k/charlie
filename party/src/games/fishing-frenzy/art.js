@@ -214,14 +214,11 @@ export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
   // The flexible shaft stays procedural for bite/tension feedback. The
   // regenerated handle ends at the grip, so it can share that bending shaft.
   const len = Math.hypot(tx - hx, ty - hy), ang = Math.atan2(ty - hy, tx - hx);
-  // The handle art is a long 8:1 cork grip with the reel at its front end.
-  // Drawn undistorted at a chunky thickness it would be longer than the rod,
-  // so it is shortened by skipping the middle of the cork: the butt cap
-  // slice plus the front slice (cork end + reel), reel at the hand.
+  // The compact 4:1 handle can be drawn whole at its intended thickness.
   const handle = art('prop/fishing-rod');
-  const iw = handle ? handle.width || 512 : 0, ih = handle ? handle.height || 64 : 0;
-  const hk = handle ? (17 * s) / ih : 0, capW = iw * 0.1, frontW = iw * 0.4;
-  const butt = handle ? (capW + frontW) * hk * 0.97 : len * 0.18;
+  const iw = handle ? handle.width || 256 : 0, ih = handle ? handle.height || 64 : 0;
+  const hk = handle ? (17 * s) / ih : 0;
+  const butt = handle ? iw * hk : len * 0.18;
   const bx = hx - Math.cos(ang) * butt, by = hy - Math.sin(ang) * butt;
   const nx = -Math.sin(ang), ny = Math.cos(ang);
   const cx = (hx + tx) / 2 + nx * bend, cy = (hy + ty) / 2 + ny * bend;
@@ -233,8 +230,7 @@ export function drawRod(g, hx, hy, tx, ty, bend, color, s = 1) {
   if (handle) {
     g.save(); g.translate(hx, hy); g.rotate(ang);
     const dh = ih * hk;
-    g.drawImage(handle, 0, 0, capW, ih, -butt, -dh * 0.5, capW * hk, dh);
-    g.drawImage(handle, iw - frontW, 0, frontW, ih, -frontW * hk, -dh * 0.5, frontW * hk, dh);
+    g.drawImage(handle, -butt, -dh * 0.5, butt, dh);
     g.restore();
   } else {
     g.strokeStyle = NAVY; g.lineWidth = 13 * s; g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + (hx - bx) * 0.7, by + (hy - by) * 0.7); g.stroke();

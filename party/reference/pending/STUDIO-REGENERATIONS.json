@@ -1,0 +1,42 @@
+[
+  {
+    "key": "prop/backpack-teddy",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-64f98bd3-dd88-4ebc-a7c5-3eb56f4cbb20.png",
+    "prompt": "Edit this exact pink teddy backpack accessory. Keep the backpack shape, darker flap, pink colors, gold heart clasp and navy cel-shaded style. MOVE the little brown teddy so its head and ears peek from the TOP-LEFT corner instead of top-right. The teddy's head reaches the TOP of the canvas and must be clearly visible above the backpack's left shoulder. One backpack, one teddy. Intended140x200 transparent canvas; pack bottom centered, NO bottom padding, full silhouette preserved. Do not add anything else, no text, scenery or shadow.",
+    "tool": "built-in imagegen",
+    "sourceCrop": [
+      7,
+      24,
+      1043,
+      1388
+    ],
+    "exactSize": [
+      140,
+      200
+    ],
+    "width": 140,
+    "height": 200,
+    "bytes": 12632,
+    "status": "Reviewed on actual wearable render; teddy visible above left shoulder with adjusted slot"
+  },
+  {
+    "key": "prop/fishing-rod",
+    "source": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-2c106652-be89-4214-9d4a-d52539e51467.png",
+    "prompt": "Edit this fishing HANDLE to be SHORT and CHUNKY. One isolated horizontal cork grip and big yellow reel, NO shaft or fishing line. Intended256x64 transparent canvas with object almost filling width. Cork grip about2.5times as long as its thickness, rounded tan cork with dark butt cap at LEFT; big yellow circular reel at RIGHT end, little lilac shaft connector at rightedge. Match exact existing navy outlines and clean candy-cartoon cel shading. Shorten the middle cork substantially; do not lengthen it to a thin 8:1 object. Overall handle silhouette about4:1, full object visible. No shadows, text or other objects.",
+    "tool": "built-in imagegen",
+    "sourceCrop": [
+      56,
+      123,
+      1944,
+      624
+    ],
+    "exactSize": [
+      256,
+      64
+    ],
+    "width": 256,
+    "height": 64,
+    "bytes": 9128,
+    "status": "Reviewed compact silhouette; whole-handle and shaft tests and complete game run pass"
+  }
+]

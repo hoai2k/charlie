@@ -26,7 +26,7 @@ import { drawHeartShape } from '../engine/emotes.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   NAVY, SAND, SAND_L, SAND_D, SAND_DD, DEFS,
-  foot, silhouette, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, drawBucket,
+  foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, drawBucket,
 } from './sandcastle-beach/pieces.js';
 import { drawBackdrop, drawSun, drawShore, drawWave, HORIZON, SHORE, WET } from './sandcastle-beach/beach.js';
 
@@ -143,7 +143,7 @@ export class Game {
   }
   stackOK(on, type) {
     if (!on || !canStack(on)) return false;
-    return on.z + DEFS[on.type].top + DEFS[type].vh <= MAX_STACK;
+    return on.z + topHeight(on) + DEFS[type].vh <= MAX_STACK;
   }
   /** Where a piece of `type` would go from the hand: on top of the hovered piece, or on the sand. */
   aimFor(st, type, style) {
@@ -152,7 +152,7 @@ export class Game {
       const d = DEFS[hv.type], f = foot(hv);
       const hw = hv.type === 'wall' ? f.hw - 10 : d.topHW;
       const ry = hv.type === 'wall' ? Math.max(0, f.hd - 6) : 0;
-      const z = hv.z + d.top;
+      const z = hv.z + topHeight(hv);
       return { on: hv, x: clamp(cur.x, hv.x - hw, hv.x + hw), y: clamp(cur.y + z, hv.y - ry, hv.y + ry), z };
     }
     const f = foot({ type, style, x: 0, y: 0, z: 0 });
@@ -207,7 +207,7 @@ export class Game {
   relayer(st) {
     for (const pc of st.pieces) {
       if (pc.on && !st.pieces.includes(pc.on)) pc.on = pc.on.on && st.pieces.includes(pc.on.on) ? pc.on.on : null;
-      const z = pc.on ? pc.on.z + DEFS[pc.on.type].top : 0;
+      const z = pc.on ? pc.on.z + topHeight(pc.on) : 0;
       if (Math.abs(z - pc.z) > 0.5) { pc.dz = (pc.dz || 0) + pc.z - z; pc.vz = 0; pc.z = z; }
       if (!pc.on && pc.type !== 'flag') {
         // a piece dropped to the sand stays inside the plot
@@ -535,7 +535,7 @@ export class Game {
     if (step.on !== undefined) {
       const pc = ai_on(st, step);
       if (pc) {
-        const top = DEFS[pc.type].top;
+        const top = topHeight(pc);
         return { on: pc, x: pc.x + (step.dx || 0), y: pc.y - pc.z - top * 0.82 + (pc.type === 'wall' ? 0 : 0) };
       }
     }

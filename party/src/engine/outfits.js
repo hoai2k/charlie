@@ -1383,7 +1383,7 @@ Object.assign(WORN_ART, {
   'Dragon Wings': { colors: { 4: 'wings-dragon' }, w: 0.95, h: 0.5, ay: 0.6, flap: 3.5 },
   'Big Back Bow': { colors: { 5: 'bow-back' }, w: 0.75, h: 0.55, ay: 0.4 },
   'Star Cape': { colors: { 2: 'cape-star' }, w: 0.65, h: 0.62, ay: 0, sway: true },
-  'Teddy Backpack': { colors: { 0: 'backpack-teddy' }, w: 0.36, h: 0.5, ay: 0.8, dx: -0.08 },
+  'Teddy Backpack': { colors: { 0: 'backpack-teddy' }, w: 0.36, h: 0.5, ay: 0.8, dx: -0.20 },
   'Royal Scepter': { colors: { 1: 'scepter-royal' }, w: 0.15, h: 0.5, ay: 0.84 },
   Lollipop: { colors: { 0: 'lollipop-swirl' }, w: 0.2, h: 0.45, ay: 0.88 },
   Handbag: { colors: { 2: 'handbag' }, w: 0.22, h: 0.26, ay: 0.05 },
