@@ -129,7 +129,7 @@ export function drawRubberDuck(g, s = 1) {
 
 /** The bubble machine on its cloud. Origin = bottom centre of the cloud. */
 export function drawMachine(g, t, puff, wand) {
-  if (drawArt(g, 'prop/bubble-machine', 0, 0, 520, 390, { anchor: 'bottom' })) { drawWand(g, 150, -190, wand); return; }
+  if (drawArt(g, 'prop/bubble-machine', 0, 0, 520, 390, { anchor: 'bottom' })) return; // the art has its own wand
   g.save(); g.lineJoin = 'round';
   ui.cloud(g, -10, -40, 1.6, '#ffffff', 1);
   g.lineWidth = 6; g.strokeStyle = NAVY;
