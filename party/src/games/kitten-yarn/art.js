@@ -36,7 +36,8 @@ export function drawKitten(g, k, state, t, s = 1) {
   const atlas = art('prop/kitten-atlas');
   if (atlas) {
     const cw = atlas.width / 6, ch = atlas.height / 5;
-    const sz = 110 * s;
+    // Each 192px atlas cell contains ~110px of kitten artwork.
+    const sz = 192 * s;
     g.drawImage(atlas, k.coat * cw, (STATE_ROW[state] ?? 0) * ch, cw, ch, -sz / 2, -sz / 2, sz, sz);
     return;
   }
@@ -256,7 +257,8 @@ export function drawCatTree(g, x, y, mirror, t) {
 
 /** Perch point (where a kitten sits before leaping) for tree side (0 left, 1 right) and level. */
 export function perchPoint(side, level) {
-  const [f, lip] = PLATFORMS[level];
+  const [fallbackHeight, lip] = PLATFORMS[level];
+  const f = art('prop/kitten-cattree') ? [0.315, 0.705, 0.96][level] : fallbackHeight;
   const x = side === 0 ? 150 + lip - 40 : W - 150 - lip + 40;
   return { x, y: GROUND_Y + 10 - TREE_H * f };
 }

@@ -1007,7 +1007,18 @@
     "prop/gg-curtain": "prop/gg-curtain.webp",
     "prop/gg-trunk": "prop/gg-trunk.webp",
     "prop/gg-disco-ball": "prop/gg-disco-ball.webp",
-    "prop/gg-ghost": "prop/gg-ghost.webp"
+    "prop/gg-ghost": "prop/gg-ghost.webp",
+    "bg/kitten-yarn": "bg/kitten-yarn.webp",
+    "thumb/kitten-yarn": "thumb/kitten-yarn.webp",
+    "prop/kitten-cattree": "prop/kitten-cattree.webp",
+    "prop/kitten-atlas": "prop/kitten-atlas.webp",
+    "prop/kitten-fairy": "prop/kitten-fairy.webp",
+    "prop/yarn-ball-pink": "prop/yarn-ball-pink.webp",
+    "prop/yarn-ball-blue": "prop/yarn-ball-blue.webp",
+    "prop/yarn-ball-yellow": "prop/yarn-ball-yellow.webp",
+    "prop/kitten-basket": "prop/kitten-basket.webp",
+    "prop/kitten-basket-front": "prop/kitten-basket-front.webp",
+    "prop/kitten-bed": "prop/kitten-bed.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1475,6 +1486,17 @@
       "prop/gg-disco-ball",
       "prop/gg-ghost"
     ],
-    "kitten-yarn": []
+    "kitten-yarn": [
+      "bg/kitten-yarn",
+      "prop/kitten-cattree",
+      "prop/kitten-atlas",
+      "prop/kitten-fairy",
+      "prop/yarn-ball-pink",
+      "prop/yarn-ball-blue",
+      "prop/yarn-ball-yellow",
+      "prop/kitten-basket",
+      "prop/kitten-basket-front",
+      "prop/kitten-bed"
+    ]
   }
 }

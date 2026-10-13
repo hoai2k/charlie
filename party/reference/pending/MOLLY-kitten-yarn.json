@@ -1,0 +1,269 @@
+[
+  {
+    "key": "bg/kitten-yarn",
+    "prompt": "Precise layout edit of this same 2D game background. Keep identical room, palette, window, curtains, paw pictures, bunting, plants and navy outlined cartoon style. Change ONLY the wall-floor boundary: extend the peach striped wall downward so the top edge of the honey wooden floor is at 78% of image height (y840 on final1920x1080), a thin lower foreground floor band. Place the pink oval rug entirely in that bottom22% floor band. Keep background empty at left/right tree positions and center, no furniture, animals, characters or text. Opaque 16:9.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7ee40cae-4bc9-4632-ad73-eed4fb966d61.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/bg-kitten-yarn-layout-edit.webp",
+    "tool": "built-in imagegen",
+    "nativeOutputSize": [
+      1672,
+      941
+    ],
+    "runtimeFile": "party/assets/art/bg/kitten-yarn.webp",
+    "file": "party/assets/art/bg/kitten-yarn.webp",
+    "width": 1920,
+    "height": 1080,
+    "size": [
+      1920,
+      1080
+    ],
+    "runtimeBytes": 103790,
+    "intakeMethod": "full opaque canvas resize",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "thumb/kitten-yarn",
+    "prompt": "Use case: illustration-story. Image1 approved pink tulip Garden Fairy exact identity; Image2 ginger kitten pose-sheet identity only. Create an opaque landscape game thumbnail, composition ratio8:5. The little pink tulip fairy with short brown hair, teal eyes, pink petal dress and ornate pink wings hugs one fluffy ginger kitten inside a honey wicker basket with pink gingham and red bow. More ginger/white/silver kittens tumble from a lilac cat tree at side, one rides a pink yarn ball, hearts float. Cosy pastel living room with cream-peach wallpaper and sunlight, lively bouncy affectionate mood. Subject centered, clear cute readable silhouettes. Strictly clean 2D candy cartoon, bold smooth navy #24163f contours, bright colours and simple soft cel shading, no 3D or painted textures, no Charlie Party roster characters, no text or watermark.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-08240fae-edf4-4455-9af5-b4d92e6a7a16.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/thumb-kitten-yarn.webp",
+    "tool": "built-in imagegen",
+    "nativeOutputSize": [
+      1586,
+      992
+    ],
+    "runtimeFile": "party/assets/art/thumb/kitten-yarn.webp",
+    "file": "party/assets/art/thumb/kitten-yarn.webp",
+    "width": 800,
+    "height": 500,
+    "size": [
+      800,
+      500
+    ],
+    "runtimeBytes": 114492,
+    "intakeMethod": "full opaque canvas resize",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/kitten-cattree",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. Single tall pastel cat tree for sideview2Dgame. Entire object ontransparentcanvas680x1520 portrait ratio340:760. Frontview,sisalropeposts,lilaccarpetroundplatforms, cubbyhousemiddlelevel,danglingpompomtoy. THREE roundplatforms protrudeRIGHT towardcentre ofgame. Their TOPSTANDING surfaces exactly at y122 (8%fromtop), y562 (37%fromtop), y1003 (66%fromtop), equivalently92%,63%,34%height measuredfrombottom. Base atbottom1520; no cats. Architecturalreadable surfaces, generous margins, nootherobjects. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f5b58c5b-3742-42f9-bb6b-85aa9d903472.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-cattree.webp",
+    "nativeOutputSize": [
+      839,
+      1875
+    ],
+    "runtimeFile": "party/assets/art/prop/kitten-cattree.webp",
+    "file": "party/assets/art/prop/kitten-cattree.webp",
+    "width": 680,
+    "height": 1520,
+    "size": [
+      680,
+      1520
+    ],
+    "runtimeBytes": 114120,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/kitten-atlas",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-atlas.webp",
+    "prompt": "Assemble six approved five-pose imagegen sheets into 6 coats x5 states,192px cells; consistent per-coat idle scale110px, connected-figure extraction via existing build.py isolate intake.",
+    "tool": "built-in imagegen + sprites/build.py geometric atlas intake",
+    "frameIntake": "party/reference/pending/molly-kitten-sheets/intake.json",
+    "sheetProvenance": "party/reference/pending/molly-kitten-sheets/provenance.json",
+    "nativeOutputSize": [
+      1152,
+      960
+    ],
+    "runtimeFile": "party/assets/art/prop/kitten-atlas.webp",
+    "file": "party/assets/art/prop/kitten-atlas.webp",
+    "width": 1152,
+    "height": 960,
+    "size": [
+      1152,
+      960
+    ],
+    "runtimeBytes": 171168,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/kitten-fairy",
+    "prompt": "Use case: identity-preserving game sprite edit. Image1 approved snowy white kitten is target identity. Keep her fluffy white coat, purple sparkly eyes, pink nose and navy outlines, sitting front view smiling, full body. Add shimmering pastel fairy wings behind her body, lilac and pink with decorative dots, a tiny flower crown and a few faint sparkles. One isolated character centered with safe margins for 256x256 game sprite. Clean 2D candy cartoon, soft cel shading, no shadows, ground, scenery, text or watermark. True transparent background.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-e95ab709-1a42-4340-a695-052e15f12aef.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-fairy.webp",
+    "tool": "built-in imagegen",
+    "nativeOutputSize": [
+      1222,
+      1287
+    ],
+    "sourceCrop": [
+      44,
+      84,
+      1208,
+      1235
+    ],
+    "runtimeFile": "party/assets/art/prop/kitten-fairy.webp",
+    "file": "party/assets/art/prop/kitten-fairy.webp",
+    "width": 256,
+    "height": 256,
+    "size": [
+      256,
+      256
+    ],
+    "runtimeBytes": 27068,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/yarn-ball-pink",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. One fluffy round ballof woolyarn with visiblewoundstrands, shortlooseend, candy pink colour. Centered compactroundsilhouette128x128 transparentgameprop; codeadds longerloose threadtrail, so short endonly,no cats orhands. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6426565d-7c44-49be-a016-827698c00eb3.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-yarn-ball-pink.webp",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "sourceCrop": [
+      159,
+      124,
+      1151,
+      1147
+    ],
+    "runtimeFile": "party/assets/art/prop/yarn-ball-pink.webp",
+    "file": "party/assets/art/prop/yarn-ball-pink.webp",
+    "width": 128,
+    "height": 128,
+    "size": [
+      128,
+      128
+    ],
+    "runtimeBytes": 7874,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/yarn-ball-blue",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. One fluffy round ballof woolyarn with visiblewoundstrands, shortlooseend, sky blue colour. Centered compactroundsilhouette128x128 transparentgameprop; codeadds longerloose threadtrail, so short endonly,no cats orhands. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-31faee6c-76a3-40eb-b732-f3d4dd4fe22d.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-yarn-ball-blue.webp",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "sourceCrop": [
+      139,
+      113,
+      1184,
+      1131
+    ],
+    "runtimeFile": "party/assets/art/prop/yarn-ball-blue.webp",
+    "file": "party/assets/art/prop/yarn-ball-blue.webp",
+    "width": 128,
+    "height": 128,
+    "size": [
+      128,
+      128
+    ],
+    "runtimeBytes": 8458,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/yarn-ball-yellow",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. One fluffy round ballof woolyarn with visiblewoundstrands, shortlooseend, lemon yellow colour. Centered compactroundsilhouette128x128 transparentgameprop; codeadds longerloose threadtrail, so short endonly,no cats orhands. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c70df9fe-a83b-4b81-b105-8a8492deedc2.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-yarn-ball-yellow.webp",
+    "nativeOutputSize": [
+      1254,
+      1254
+    ],
+    "sourceCrop": [
+      165,
+      150,
+      1172,
+      1087
+    ],
+    "runtimeFile": "party/assets/art/prop/yarn-ball-yellow.webp",
+    "file": "party/assets/art/prop/yarn-ball-yellow.webp",
+    "width": 128,
+    "height": 128,
+    "size": [
+      128,
+      128
+    ],
+    "runtimeBytes": 8880,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/kitten-basket",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles transparent inanimateprop. Image1 Felicity STYLE ONLY. One round wicker picnicbasket BACK LAYER forgame600x360 transparentcanvas ratio5:3, viewedfrontslightlytopdown. Softpinkginghamblanketinside. Far rear rim andbasket interiorONLY; leave nearfrontweavewall absent so kittensdrawn on top ofthisimage willremain visible. Overallbasketwidth about90%canvas, baseat90%height. Draw completebackinteriorfarwall, no handle,no kitten,no backdrop,no text. This is backlayer ofidenticalcanvas layeredbasket; laterforegroundwillcoverbottomhalf. Polished2Dcartoon smoothboldnavy #24163f contours, brightcandycolours, simplesoftcelshading. No3D,no realtextures,no castshadow,no watermark,no ground, true transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-589ae6f7-1266-4022-815c-29d31def1100.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-basket.webp",
+    "nativeOutputSize": [
+      1619,
+      972
+    ],
+    "runtimeFile": "party/assets/art/prop/kitten-basket.webp",
+    "file": "party/assets/art/prop/kitten-basket.webp",
+    "width": 600,
+    "height": 360,
+    "size": [
+      600,
+      360
+    ],
+    "runtimeBytes": 40896,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/kitten-basket-front",
+    "prompt": "Use case: precise layered game-prop edit. Image 1 is the exact basket back-layer geometry reference. Create ONLY its matching FRONT layer, preserving the exact canvas aspect, basket outer width and bottom position. Draw a warm honey wicker near wall across the lower half, with a braided rounded near rim and a red bow centred on that front wall. Top half of canvas must be fully transparent: no rear wall, no blanket/interior, no handle, no kittens. Near wall must meet the reference basket's curved side edges and base. Keep bold smooth navy #24163f outlines, clean 2D soft cel shading and same weave/palette. Fully transparent background; retain common layer alignment, no shadows, text or watermark.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-84338ee7-6ece-41f4-903e-0f53f2f49f5b.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-basket-front.webp",
+    "tool": "built-in imagegen",
+    "nativeOutputSize": [
+      1619,
+      971
+    ],
+    "runtimeFile": "party/assets/art/prop/kitten-basket-front.webp",
+    "file": "party/assets/art/prop/kitten-basket-front.webp",
+    "width": 600,
+    "height": 360,
+    "size": [
+      600,
+      360
+    ],
+    "runtimeBytes": 29478,
+    "intakeMethod": "preserve full common canvas; no bbox normalization",
+    "status": "root visual review accepted; gameplay QA pending"
+  },
+  {
+    "key": "prop/kitten-bed",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles transparent inanimateprop. Image1 Felicity STYLE ONLY. One enormous fluffy round cushionbedwithlilacrim,pinkquiltedtop andtiny goldstars,seemfromfrontslightlyabove. Gameprop1120x440 landscape ratio280:110. No cats orfurniture. Fullbedvisible compactellipseshapecentered with smallmargins. Truealpha. Polished2Dcartoon smoothboldnavy #24163f contours, brightcandycolours, simplesoftcelshading. No3D,no realtextures,no castshadow,no watermark,no ground, true transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7d1dc330-3225-45c5-95df-8731ffeda223.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-bed.webp",
+    "nativeOutputSize": [
+      2003,
+      785
+    ],
+    "sourceCrop": [
+      110,
+      25,
+      1893,
+      762
+    ],
+    "runtimeFile": "party/assets/art/prop/kitten-bed.webp",
+    "file": "party/assets/art/prop/kitten-bed.webp",
+    "width": 1120,
+    "height": 440,
+    "size": [
+      1120,
+      440
+    ],
+    "runtimeBytes": 73456,
+    "intakeMethod": "geometric alpha-bbox crop/contain/pad",
+    "status": "root visual review accepted; gameplay QA pending"
+  }
+]
