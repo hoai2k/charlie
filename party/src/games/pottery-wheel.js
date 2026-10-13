@@ -94,7 +94,7 @@ function layoutStation(r, n) {
   const floorY = ca.y + ca.h - 4;
   return {
     tabH, hintH, listW, ca, k, floorY,
-    base: { x: ca.x + ca.w * 0.6, y: floorY - 140 * k },
+    base: { x: ca.x + ca.w * 0.6, y: floorY - (art('prop/pottery-wheel') ? 140.5 : 140) * k },
     list: { x: r.x + r.w - listW - 10, y: r.y + tabH + 10, w: listW, h: r.h - tabH - hintH - 22 },
     charFoot: { x: ca.x + ca.w * 0.15, y: floorY + 2 },
     charH: ca.h * 0.46, charW: ca.w * 0.26,
@@ -933,7 +933,7 @@ export class Game {
 
   /** The potter's wheel, feet on the floor at fy; its head is centred 140 units up. */
   drawWheel(g, x, fy, k, phi, spin) {
-    if (drawArt(g, 'prop/pottery-wheel', x, fy, 520 * k, 260 * k, { anchor: 'bottom' })) { this.drawWheelStreaks(g, x, fy - 140 * k, k, phi, spin); return; }
+    if (drawArt(g, 'prop/pottery-wheel', x, fy, 520 * k, 260 * k, { anchor: 'bottom' })) { this.drawWheelStreaks(g, x, fy - 140.5 * k, k, phi, spin, 150, 18); return; }
     const hy = fy - 140 * k;
     g.save(); g.lineJoin = 'round'; g.lineWidth = Math.max(2.5, 4 * k); g.strokeStyle = NAVY;
     // pedal and cord
@@ -953,12 +953,12 @@ export class Game {
     this.drawWheelStreaks(g, x, hy, k, phi, spin);
   }
 
-  drawWheelStreaks(g, x, hy, k, phi, spin) {
+  drawWheelStreaks(g, x, hy, k, phi, spin, rx = 160, ry = 34) {
     g.save(); g.lineCap = 'round';
     g.strokeStyle = `rgba(255,255,255,${0.35 + 0.25 * spin})`; g.lineWidth = Math.max(2, 4 * k);
     for (let i = 0; i < 4; i++) {
       const a0 = phi * (spin > 0.5 ? 1 : 1.5) + (i * TAU) / 4;
-      g.beginPath(); g.ellipse(x, hy, 160 * k, 34 * k, 0, a0, a0 + 0.4 + spin * 0.6); g.stroke();
+      g.beginPath(); g.ellipse(x, hy, rx * k, ry * k, 0, a0, a0 + 0.4 + spin * 0.6); g.stroke();
     }
     g.restore();
   }
@@ -974,9 +974,10 @@ export class Game {
     // the wheel steps back while the kiln is up
     if (F.kiln < 0.98) { g.save(); g.globalAlpha = 1 - F.kiln; this.drawWheel(g, kx, fy, L.k, st.phi, 0); g.restore(); }
     // pot placement: from the wheel head down onto the kiln floor, shrunk to fit the door
-    const fit = Math.min(1, 440 / (2 * maxRadius(pot) + pot.handles * 90), 400 / (pot.h + 20));
+    const kilnArt = !!art('prop/pottery-kiln');
+    const fit = Math.min(1, (kilnArt ? 400 : 440) / (2 * maxRadius(pot) + pot.handles * 90), (kilnArt ? 327 : 400) / (pot.h + 20));
     const pk = lerp(L.k, k * fit, F.sink);
-    const py = lerp(L.base.y, fy - 80 * k, F.sink);
+    const py = lerp(L.base.y, fy - (kilnArt ? 106 : 80) * k, F.sink);
     const glow = F.stage === 'open' ? F.glow : F.stage === 'out' ? 0 : F.heat * 0.6;
     if (F.kiln > 0.02) {
       g.save(); g.translate(kx + wob, fy); g.scale(F.kiln, F.kiln); g.translate(-kx, -fy);
@@ -997,6 +998,16 @@ export class Game {
   kilnK(st) { return Math.min(st.L.k, (st.L.floorY - st.L.ca.y + 4) / 690); }
 
   archPath(g, x, fy, k) {
+    if (art('prop/pottery-kiln')) {
+      // Measured transparent aperture in the authored 1280 x 1240 kiln.
+      g.beginPath();
+      g.moveTo(x - 217.5 * k, fy - 106 * k);
+      g.lineTo(x - 217.5 * k, fy - 280 * k);
+      g.ellipse(x, fy - 280 * k, 217.5 * k, 173 * k, 0, Math.PI, 0);
+      g.lineTo(x + 217.5 * k, fy - 106 * k);
+      g.closePath();
+      return;
+    }
     g.beginPath();
     g.moveTo(x - 240 * k, fy - 80 * k);
     g.lineTo(x - 240 * k, fy - 268 * k);
@@ -1013,7 +1024,8 @@ export class Game {
     g.fillStyle = gr; g.fill();
     // inner floor shelf
     g.fillStyle = mix('#6b4a5a', '#ff9a52', h * 0.6);
-    g.fillRect(x - 240 * k, fy - 96 * k, 480 * k, 16 * k);
+    const kilnArt = !!art('prop/pottery-kiln');
+    g.fillRect(x - (kilnArt ? 217.5 : 240) * k, fy - (kilnArt ? 122 : 96) * k, (kilnArt ? 435 : 480) * k, 16 * k);
   }
 
   drawKilnFront(g, x, fy, k, F) {
@@ -1069,13 +1081,15 @@ export class Game {
   drawKilnDoors(g, x, fy, k, F, h) {
     const d = F.doors;
     if (d <= 0.01) return;
+    const kilnArt = !!art('prop/pottery-kiln');
     for (const side of [-1, 1]) {
       g.save();
       this.archPath(g, x, fy, k); g.clip();
-      const hx = x + side * 240 * k, w = 240 * k * d;
+      const halfWidth = kilnArt ? 217.5 : 240;
+      const hx = x + side * halfWidth * k, w = halfWidth * k * d;
       g.translate(hx, 0); g.scale(-side, 1);
       // door leaf from the hinge (0) to w
-      if (!drawArt(g, 'prop/pottery-kiln-door', w / 2, fy - 80 * k, w, 520 * k, { anchor: 'bottom', fit: 'stretch' })) {
+      if (!drawArt(g, 'prop/pottery-kiln-door', w / 2, fy - (kilnArt ? 106 : 80) * k, w, (kilnArt ? 347 : 520) * k, { anchor: 'bottom', fit: 'stretch' })) {
         g.fillStyle = '#6b4a8f'; g.fillRect(0, fy - 560 * k, w, 480 * k);
         g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillRect(w * 0.1, fy - 540 * k, w * 0.15, 440 * k);
         g.lineWidth = Math.max(2, 4 * k); g.strokeStyle = NAVY; g.strokeRect(0, fy - 560 * k, w, 480 * k);
