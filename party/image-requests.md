@@ -1115,3 +1115,57 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: trick-or-treat
+
+### trick-or-treat — Trick or Treat!   (requested by the trick-or-treat agent, 2026-10-05, priority: nice-to-have)
+
+A friendly Halloween street at dusk. Everyone (in a dress-up costume from the
+shared wardrobe, carrying a pumpkin bucket) dashes along the sidewalk, knocks
+on doors with A, and silly visitors pop out with candy (or a harmless funny
+trick). Every key below has a procedural fallback that ships today; the code
+already looks each one up. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **nothing scary** (big friendly eyes, smiles),
+no text. Existing candy art is reused when present (`prop/candy-wrapped`,
+`prop/candy-lollipop`, `prop/candy-golden`, `prop/treat-candy`). The visiting
+troll is the existing Troll NPC sprite wearing bunny ears.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/trick-or-treat` | 1920×1080, opaque | Full screen. Top ~110 px stays calm (HUD). The code draws six houses standing on a line at y≈700, so paint only sky, a far skyline and the ground: a sidewalk band from y≈700 to y≈1010 (players walk there) and a strip of street below it | A cosy, friendly Halloween evening street: purple-to-peach twilight sky with a big smiling-soft full moon, a few stars and wispy clouds, far rolling hills with tiny lit cottages and bare curly trees, a warm brick-and-stone sidewalk band across the lower third with fallen orange leaves, a lilac street strip at the very bottom. Empty of houses in the middle (the code draws them) |
+| `thumb/trick-or-treat` | 800×500, opaque | Game-select shelf and how-to screen | A girl in fairy wings and a kitty-eared pony holding glowing pumpkin buckets at a decorated front door, a giggling friendly mummy leaning out of the door tossing wrapped candies, jack-o'-lanterns on the steps, purple twilight, sparkles |
+| `prop/tot-house-0` … `prop/tot-house-5` | 400×560 each, transparent | Drawn 300×420, **anchored bottom-centre** on y≈700. The code draws the door over a rectangle centred horizontally from 58% to 93% of the height, 26% of the width wide, so paint a plain warm-dark doorway there; the porch steps are below 93% | Six different friendly decorated houses, front view: pastel siding (mint, lilac, peach, sky, pink, butter), porch light, glowing windows with a cat silhouette or cobweb with a smiling spider, jack-o'-lanterns, a garland of orange and purple bunting, little ghost cut-outs. Cute, never spooky |
+| `prop/tot-door` | 160×240, transparent | Stretched over the door rect; the code swings it open (horizontal squash) | A rounded-top wooden front door painted purple with a round knocker and a tiny wreath of autumn leaves |
+| `prop/tot-skeleton` | 256×320, transparent | Bottom-centre on the porch step, drawn ~190 px tall, the code bobs and wiggles it | A goofy friendly cartoon skeleton in a bow tie doing a happy dance, big round eye holes with sparkles, wide grin |
+| `prop/tot-witch` | 256×320, transparent | Same | A sweet grandma witch with round glasses, a purple pointy hat with a flower, holding a plate of star cookies, rosy cheeks |
+| `prop/tot-scarecrow` | 256×320, transparent | Same | A cheerful scarecrow with a smiling carved-pumpkin head, straw sticking out of a patched plaid shirt, waving |
+| `prop/tot-mummy` | 256×320, transparent | Same | A small giggling mummy wrapped in loose bandages with one bandage trailing, hand over mouth laughing, big cute eyes |
+| `prop/tot-cat` | 256×256, transparent | Same, drawn ~130 px tall | A fluffy black kitten with a big orange bow, sitting, green sparkly eyes, mouth open in a happy meow |
+| `prop/tot-ghost` | 256×320, transparent | Same, floats | A round little white sheet ghost with rosy cheeks and a tiny witch hat, giggling |
+| `prop/tot-candy-ghost` | 360×300, transparent | Centre; floats across the sky dropping candy | A chubby friendly white ghost flying, holding an open sack spilling colourful candy, happy face |
+| `prop/tot-bucket` | 128×128, transparent | Held at the hand, drawn ~70 px, anchored at the top of the handle | A jack-o'-lantern trick-or-treat bucket with a black handle and a happy carved face (no candy; the code draws the candy heap) |
+| `prop/tot-candy-0` … `prop/tot-candy-5` | 96×96 each, transparent | Centred, drawn ~44 px, spun | Halloween candies: orange wrapped candy, purple wrapped candy, a swirl lollipop, a chocolate bar in a green wrapper, a candy corn, a pink gumdrop |
+| `prop/tot-chicken` | 160×160, transparent | Centred, bonks a player's head and bounces | A yellow rubber chicken, squeaky toy, mouth open, silly |
+| `prop/tot-jack` | 200×260, transparent | Bottom-centre in the doorway; the code springs it up | A jack-in-the-box: a striped box with a clown-free silly sock-puppet ghost on a spring, confetti |
+| `prop/tot-candy-pile` | 900×520, transparent | Bottom-centre in the middle of the street for the finale, drawn scaled up as it grows | A huge mountain of colourful Halloween candy: wrapped candies, lollipops, candy corn, chocolate bars, gumdrops, sparkles |
+
+## New Molly Party game: dance-freeze
+
+### dance-freeze — Dance & Freeze   (requested by the dance-freeze agent, 2026-10-05, priority: nice-to-have)
+
+Musical statues on a disco stage: while the music plays everyone dances
+(stick = dance moves, A = jump-spin); when the record scratches and the lights
+go icy blue, everyone FREEZES. Wiggly friends get tickled by a giant feather
+(no one is out). Every key below has a procedural fallback that ships today.
+House style: navy `#24163f` outlines, soft cel shading, bright candy colours,
+no text. Glimmer (existing NPC) is the DJ.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/dance-freeze` | 1920×1080, opaque | Full screen. Top ~110 px calm (HUD). The code draws the light-up dance floor tiles from y≈560 to y≈1040 across the full width, the DJ booth at top-centre (x 960, y≈470) and the disco ball at (960, 150) | A sparkly kids' disco party hall: deep purple walls with big rounded arch windows, pink and gold stage curtains at both sides, string lights and paper stars, big speakers at the far left and right, a glossy floor area at the bottom (plain; tiles drawn on top) |
+| `thumb/dance-freeze` | 800×500, opaque | Game-select shelf and how-to screen | Two friends mid-dance on a glowing rainbow disco floor, one frozen in a silly flamingo pose with frosty sparkles, a giant pink feather tickling the other who is giggling, disco ball above |
+| `prop/df-disco-ball` | 256×320, transparent | Hangs from the top: anchored top-centre (the string's top), drawn ~170 px | A big sparkly mirror disco ball on a short gold chain, pink and blue reflections |
+| `prop/df-dj-booth` | 560×300, transparent | Bottom-centre at (960, 560), drawn 520 wide; Glimmer stands behind it, the code draws the spinning record on top at 35% from the left, 25% from the top | A rounded pastel DJ booth with rainbow light strips on the front, two turntables on top, a heart-shaped speaker grille |
+| `prop/df-feather` | 160×420, transparent | Rotates around its quill end (bottom-centre), drawn ~200 px long, wiggles over a player | A huge fluffy pink-and-purple tickle feather with a gold quill |
+| `prop/df-snowflake` | 256×256, transparent | Centred, the FREEZE icon in the HUD and over frozen players (60–220 px) | A chunky shiny ice-blue snowflake with a cute face and frosty sparkles |
+| `prop/df-music` | 256×256, transparent | Centred, the DANCE icon in the HUD | Two bouncing rainbow music notes with sparkles |
