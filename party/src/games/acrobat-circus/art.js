@@ -249,7 +249,14 @@ export function drawRope(g, x0, y0, x1, y1, w = 4) {
 /** Trapeze bar centred on (x, y), rotated by `ang`, `w` wide (120 at s = 1). */
 export function drawBar(g, x, y, ang, w = 120) {
   g.save(); g.translate(x, y); g.rotate(ang);
-  if (!drawArt(g, 'prop/acrobat-trapeze', 0, 0, w, w * 22 / 120, { fit: 'stretch' })) {
+  // The delivered bar fills only the middle of its 256×48 canvas (x 31–68%,
+  // y 21–54%): draw just that part, so the end rings meet the ropes at ±w/2.
+  const bar = art('prop/acrobat-trapeze');
+  if (bar) {
+    const sx = bar.width * 0.309, sw = bar.width * 0.375, sy = bar.height * 0.208, sh = bar.height * 0.333;
+    const h = 120 * sh / sw;   // wider bars (big trios) stretch, same thickness
+    g.drawImage(bar, sx, sy, sw, sh, -w / 2, -h / 2, w, h);
+  } else {
     const h = 16;
     g.lineWidth = 3.5; g.strokeStyle = NAVY; g.fillStyle = '#fff6ea';
     ui.roundRect(g, -w / 2, -h / 2, w, h, h / 2); g.fill(); g.stroke();
