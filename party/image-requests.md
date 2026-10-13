@@ -1115,3 +1115,67 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: unicorn-jump
+
+### unicorn-jump — Unicorn Hop   (requested by the unicorn-jump agent, 2026-10-05, priority: nice-to-have)
+
+A fast, bouncy side-scroller for 4–5 year olds: every player rides a unicorn
+(four-legged characters gallop themselves wearing the wardrobe Unicorn Horn)
+along a candy meadow that scrolls to the left, faster and faster. A = hop over
+puddles, bouncy mushrooms and sleeping bunnies; grab stars and rainbow
+candies; a rainbow trail streams behind riders who keep hopping cleanly. 1–4
+lanes stacked top to bottom (5–8 players share lanes, two riders each).
+Everything has a procedural fallback that ships today; the code already looks
+up every key below. House style: navy `#24163f` outlines, soft cel shading,
+bright candy colours, **no text**. Side view; riders face right and the
+props scroll in from the right.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/unicorn-jump` | 1920×1080, opaque, **seamless left-right tile** | Drawn twice side by side, scrolling left at ~0.2× the ground speed (parallax). The lanes (thin grass paths drawn by code) sit in bands between y≈260 and y≈1000, so the top 250 px and the overall colour matter most; keep the middle low-detail | A dreamy candy meadow: pastel pink-to-lilac sky with puffy clouds and a faint rainbow arc, far rolling hills in mint and pink with gumdrop trees and lollipop flowers, a tiny castle silhouette on one hill. Soft, bright, cheerful |
+| `thumb/unicorn-jump` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A happy girl riding a white unicorn with a rainbow mane mid-hop over a puddle, a rainbow trail streaming behind, stars and swirl candies floating ahead, candy meadow background. Subject centred |
+| `prop/uj-mount` | 512×384, transparent | The unicorn the riders sit on, side view **facing right**, mid-gallop. Anchor: bottom centre at the hooves; drawn ~1.1× the rider's height wide. The code seats the rider at ~62% of the image height (the saddle, a bit left of centre) and bobs/tilts the whole image | A cute chubby white unicorn with a flowing rainbow mane and tail, gold spiral horn, pink hooves, a little pink saddle blanket with a heart, big friendly eye, galloping (front legs forward, back legs back). No rider |
+| `prop/uj-mount-jump` | 512×384, transparent | Same as above, shown while hopping. Same anchor and scale so it swaps cleanly | The same unicorn leaping: legs tucked up under its body, mane and tail streaming back, joyful face |
+| `prop/uj-puddle` | 320×96, transparent | Anchor bottom centre on the lane ground; ~170 px wide at lane scale 1 | A shallow sky-blue rain puddle seen from the side at a low angle, with a white shine and two small ripples, a tiny rubber duck floating in it |
+| `prop/uj-mushroom` | 256×256, transparent | Anchor bottom centre; ~120 px tall at lane scale 1. The code squashes it when it boings a rider | A bouncy red-and-white spotted mushroom with a cheeky smile, round fat cap like a trampoline |
+| `prop/uj-bunny` | 256×192, transparent | Anchor bottom centre; ~90 px tall. Sleeping; the code draws the Zz | A fluffy white bunny curled up asleep on the grass, pink ears, closed happy eyes |
+| `prop/uj-bunny-awake` | 256×256, transparent | Same anchor; shown when a rider hops over (it pops up) or bumps it | The same bunny sitting up wide awake, surprised-happy face, one paw waving |
+| `prop/uj-star` | 128×128, transparent | Centred; floats at hop height, ~70 px. The code spins and bobs it | A chunky glossy golden star with a cute smile and a white highlight |
+| `prop/uj-candy` | 128×128, transparent | Centred; just above the lane ground, ~64 px | A round wrapped swirl candy with rainbow stripes, twisted pink wrapper ends |
+| `prop/uj-lollipop` | 192×256, transparent | Anchor bottom centre; the rare 3-point treat at hop height, ~110 px tall | A giant rainbow-spiral lollipop on a white stick with a pink ribbon bow, sparkling |
+
+Optional pose (the code asks for it; it falls back to `sit`, then `ride`):
+`ride-sit` (loop) — sitting astride a mount, side-on facing right, both hands
+(paws) holding imaginary reins forward, happy bouncy posture.
+
+## New Molly Party game: mermaid-pearls
+
+### mermaid-pearls — Mermaid Pearls   (requested by the mermaid-pearls agent, 2026-10-05, priority: nice-to-have)
+
+A lively cooperative underwater game: everyone swims freely (stick), zooms
+with A, grabs pearls from clams that snap open and shut, rides fizzy bubble
+currents up the screen, and tickles a sleepy octopus (A) until it giggles and
+sprays pearls everywhere. Every pearl flies into one shared treasure chest;
+when it's full there's a sparkly finale. Little friendly fish follow each
+swimmer in a conga line. Everything has a procedural fallback that ships
+today; the code already looks up every key below. House style: navy
+`#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Nothing scary: big friendly eyes everywhere.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/mermaid-pearls` | 1920×1080, opaque | Full screen. Sandy seabed from y≈930 down; swimmers use y 150–920, so keep the middle open water. Top 110 px = HUD band (scoreboard + chest meter) | A bright friendly coral reef: turquoise water fading lighter toward the top with sun rays slanting down, pink and purple coral and swaying green kelp along the left and right edges, a pale sandy seabed with shells and starfish at the bottom. Cheerful and sparkling |
+| `thumb/mermaid-pearls` | 800×500, opaque | Game-select shelf and how-to screen | A red-haired mermaid swimming happily toward an open clam with a glowing pearl, a smiling pink octopus and a small open treasure chest overflowing with pearls nearby, bubbles and little fish around |
+| `prop/mp-clam-open` | 256×224, transparent | Anchor bottom centre on the seabed or a rock ledge, ~170 px wide. The code draws the pearl itself in the opening (about 40% up the image, centred), so leave the inside empty | A big scalloped pink-and-lilac clam shell wide open, a cute face on the lower shell (happy eyes and smile), pale pink inside |
+| `prop/mp-clam-closed` | 256×160, transparent | Same anchor and width | The same clam shut tight, cheeks puffed with a cheeky closed-eye grin |
+| `prop/mp-pearl` | 96×96, transparent | Centred, ~44 px | A glossy white-pink pearl with a soft rainbow sheen and a white highlight |
+| `prop/mp-pearl-gold` | 96×96, transparent | Centred, ~58 px; the rare 3-pearl bonus | A shiny golden pearl with sparkles |
+| `prop/mp-octopus` | 512×448, transparent | Anchor bottom centre on the seabed, ~340 px wide. Sleeping; the code squishes/wobbles it and draws the Zz bubbles | A round chubby pink octopus asleep on the sand, curly tentacles spread out, eyes closed, tiny smile, a little lilac nightcap |
+| `prop/mp-octopus-awake` | 512×448, transparent | Same anchor and size; shown while giggling and throwing pearls | The same octopus wide awake and giggling, tentacles waving up in the air, eyes squeezed happy, cheeks blushing |
+| `prop/mp-chest` | 384×320, transparent | Anchor bottom centre on the seabed, ~250 px wide. Shown until the finale; the code draws a glow that grows as it fills | A wooden treasure chest with gold trim and a heart-shaped lock, lid slightly ajar with a glow peeking out, sitting on sand |
+| `prop/mp-chest-open` | 384×384, transparent | Same anchor and width; shown when the chest is full | The same chest wide open, overflowing with pearls and gems, rays of light |
+| `prop/mp-fish-1`, `prop/mp-fish-2`, `prop/mp-fish-3` | 160×112 each, transparent | Centred, **facing right**, ~70 px long; the code flips them | Tiny friendly fish: a yellow-and-blue striped one, a round pink pufferfish (not puffed), an orange clownfish-like one with a bow. Big eyes, smiling |
+| `prop/mp-vent` | 256×128, transparent | Anchor bottom centre on the seabed under each bubble current, ~200 px wide | A rounded mossy rock with a sparkly hole at the top where bubbles come out, little sea flowers |
+
+No new poses needed (uses `swim`, `dash`, `celebrate`, `cheer`, `laugh`, `surprised`).
