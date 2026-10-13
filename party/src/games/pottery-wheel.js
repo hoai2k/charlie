@@ -1089,7 +1089,9 @@ export class Game {
       const hx = x + side * halfWidth * k, w = halfWidth * k * d;
       g.translate(hx, 0); g.scale(-side, 1);
       // door leaf from the hinge (0) to w
-      if (!drawArt(g, 'prop/pottery-kiln-door', w / 2, fy - (kilnArt ? 106 : 80) * k, w, (kilnArt ? 347 : 520) * k, { anchor: 'bottom', fit: 'stretch' })) {
+      // The authored leaf has a slanted bottom. Overscan below the inner floor
+      // while keeping its top 453 units up; the arch clip hides the excess.
+      if (!drawArt(g, 'prop/pottery-kiln-door', w / 2, fy - (kilnArt ? 59 : 80) * k, w, (kilnArt ? 394 : 520) * k, { anchor: 'bottom', fit: 'stretch' })) {
         g.fillStyle = '#6b4a8f'; g.fillRect(0, fy - 560 * k, w, 480 * k);
         g.fillStyle = 'rgba(255,255,255,0.12)'; g.fillRect(w * 0.1, fy - 540 * k, w * 0.15, 440 * k);
         g.lineWidth = Math.max(2, 4 * k); g.strokeStyle = NAVY; g.strokeRect(0, fy - 560 * k, w, 480 * k);

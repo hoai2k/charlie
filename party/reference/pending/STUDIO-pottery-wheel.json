@@ -1274,7 +1274,27 @@
     "file": "party/src/games/pottery-wheel.js",
     "check": "node --check passed",
     "details": "Art-aware measured wheel ellipse, spin streaks, kiln arch, door dimensions, inner floor and pot fit; procedural geometry preserved",
-    "browserStatus": "root review pending"
+    "browserStatus": "root review pending",
+    "kilnDoorOverscanQA": {
+      "sourceOuterBodyPoint": [
+        20,
+        493
+      ],
+      "sourceLeafSize": [
+        256,
+        560
+      ],
+      "runtimeDoorHeight": 394,
+      "runtimeBottomUp": 59,
+      "runtimeTopUp": 453,
+      "mappedOuterBodyBottomUp": 106.1392857142857,
+      "innerFloorUp": 106,
+      "proceduralDoorBottomUp": 80,
+      "proceduralDoorHeight": 520,
+      "result": "Closed lower-corner strips removed under existing arch clip; open aperture and pot-floor seating preserved; syntax check and Chromium closed/open screenshot checks passed with no console errors",
+      "closedScreenshot": "/private/tmp/studio-runtime-pottery-closed.png",
+      "openScreenshot": "/private/tmp/studio-runtime-pottery-open.png"
+    }
   },
   "runtimeReview": "Root inspected shaping and kiln phases in two-human preview; complete CPU run finished without console errors; pot rests on wheel and kiln floor."
 }
