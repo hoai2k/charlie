@@ -1265,36 +1265,6 @@ calm (timer) and the bottom 120 px plain grass (scoreboard).
 | `prop/puppy-1` … `prop/puppy-4` | 220×180 each, transparent | Bottom-centre anchor (feet), drawn ~100 px tall, mirrored for left; the code adds mud splotches, wag, hop and squash. 1 cream golden-retriever pup, 2 white fluffy poodle pup, 3 brown-and-white beagle pup, 4 black-and-white spotty pup | A cute fluffy puppy, side view facing right, standing on four legs, tongue out, tail up, big shiny eyes, clean and soft |
 | `prop/mud-puddle` | 320×170, transparent | Centred, drawn ~260 px wide flat on the grass | A wide flat glossy brown mud puddle with a few splashes at the edge, seen from above at an angle |
 
-## New Molly Party game: fairy-flutter
-
-### fairy-flutter — Fairy Flutter   (requested by the fairy-flutter agent, 2026-10-13, priority: nice-to-have)
-
-Everyone flies as a fairy (each character wears fancy wings from the shared
-wardrobe) through a dreamy flower sky, zooming after sparkles, dewdrops and
-petals, booping giggling bumblebees and surfing rainbow wind streams. Every
-pickup flies up into the Moon's sparkle jar (top centre); when it is full the
-Moon cheers and the jar bursts into a sparkle-firework finale. Every key below
-has a procedural fallback that ships today, and the code already looks each
-one up. House style: navy `#24163f` outlines, soft cel shading, bright candy
-colours, **no text** in any image. Reused as they are: the players' own avatar sprites
-(`float`, `tuck`, `cheer`, `celebrate`, `high-five`, `surprised`) and the
-garden fairy NPC sets (flying friends in the background). No Charlie Party
-player characters appear in any of these images.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/fairy-flutter` | 1920×1080, opaque | Full screen, static (the code drifts its own clouds and rainbow streams on top). Keep the top-centre area (x 700–1220, y 0–260) calm: the Moon and jar sit there. Fairies fly everywhere from y≈170 to y≈980 | A dreamy pastel twilight sky: lavender to peach to soft pink gradient, a few big puffy pink-gold clouds, faint stars high up, and a band of giant glowing flowers (tulips, daisies, bluebells, taller than houses) along the bottom ~20%, softly blurred. Magical, no characters |
-| `thumb/fairy-flutter` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Two of the garden fairy NPCs (the pink Tulip Fairy and the blue Bluebell Fairy, no Charlie Party player characters) with big sparkly wings zooming through a pastel flower sky past a smiling crescent Moon holding a glowing jar of sparkles, a rainbow ribbon swooping across, a chubby bumblebee giggling. Subject centred |
-| `prop/ff-moon` | 512×512, transparent | Drawn centred at ~230 px, top centre (x 960, y 110), gently bobbing | A friendly smiling crescent Moon face (pale gold, rosy cheeks, happy eyes), soft glow edge |
-| `prop/ff-moon-happy` | 512×512, transparent | Same placement; swapped in when the jar fills (finale) | The same Moon, eyes squeezed shut in a huge open-mouthed laugh, little sparkles around |
-| `prop/ff-jar` | 320×400, transparent | Drawn centred under the Moon at 128×160 px. The code draws the glowing sparkle fill **behind** it, clipped to the jar's inside, so the glass must be mostly see-through (pale highlights only) and the inner area plain | A round glass mason jar with a cork stopper tied with a pink ribbon bow, clear glass with white highlight streaks, front view |
-| `prop/ff-sparkle` | 128×128, transparent | Pickup (worth 1), drawn centred at 64 px, spinning | A chunky golden four-point sparkle star with a white glint, soft glow |
-| `prop/ff-dewdrop` | 128×128, transparent | Pickup (worth 2), centred at 70 px, bobbing | A big shiny water dewdrop, pale aqua with a rainbow sheen and a white highlight |
-| `prop/ff-petal` | 128×128, transparent | Pickup (worth 1), centred at 64 px, tumbles (rotates) as it drifts | A single soft pink flower petal with a deeper pink base, slightly curled |
-| `prop/ff-star` | 192×192, transparent | Rare big pickup (worth 5), centred at 110 px, pulsing | A plump shiny golden star with a happy little face and a short rainbow sparkle trail on the left |
-| `prop/ff-bee` | 256×256, transparent | Bumblebee NPC, centred at 120 px, facing right (the code mirrors it), wings flap by a code squash | A chubby round cartoon bumblebee with soft yellow and brown stripes, tiny clear wings, big shiny eyes and a happy smile |
-| `prop/ff-bee-giggle` | 256×256, transparent | Same placement, shown for ~1 s after someone boops the bee (the code spins it) | The same bee, eyes squeezed shut, giggling with an open smile, tiny hearts |
-
 ## New Molly Party game: mermaid-pearls
 
 ### mermaid-pearls — Mermaid Pearls   (requested by the mermaid-pearls agent, 2026-10-05, priority: nice-to-have)
