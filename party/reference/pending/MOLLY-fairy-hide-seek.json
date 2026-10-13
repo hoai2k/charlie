@@ -1,0 +1,485 @@
+{
+  "game": "fairy-hide-seek",
+  "status": "All14requestedimages delivered",
+  "assets": [
+    {
+      "key": "bg/fairy-hide-seek",
+      "size": [
+        1920,
+        1080
+      ],
+      "geometry": "Opaque 16:9 garden lawn. 10 prop spots are placed over y\u2248330\u2013900; keep lawn relatively plain there. Top ~120 px and bottom ~140 px calm/plain.",
+      "description": "A sunny storybook garden lawn in a gentle three-quarter view, soft green grass with simple mown stripes, a winding pale stone path, tiny daisies and clover, a white picket fence and rose hedge along the top, a narrow blue sky strip with fluffy clouds.",
+      "prompt": "Use case: illustration-story. Asset type: full-screen game background. Input images: Image 1 is an approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A sunny storybook garden lawn in a gentle three-quarter view, soft green grass with simple mown stripes, a winding pale stone path, tiny daisies and clover, a white picket fence and rose hedge along the top, a narrow blue sky strip with fluffy clouds. Style: polished 2D candy-colour game illustration, smooth bold dark navy #24163f outlines, clean soft cel-shading, rounded appealing shapes; no 3D or photorealism. Composition: Opaque 16:9 garden lawn. 10 prop spots are placed over y\u2248330\u2013900; keep lawn relatively plain there. Top ~120 px and bottom ~140 px calm/plain.. Wide 16:9 full-screen background. Keep the lawn plain and open for hiding spots; no large foreground objects. No characters, no props, no lettering. Opaque background, no text or watermark.",
+      "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3a407490-0817-41ea-967c-9d8f990335a9.png",
+      "runtimeFile": "party/assets/art/bg/fairy-hide-seek.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "sourcePath": "party/reference/pending/molly-sources/bg-fairy-hide-seek.webp",
+      "actualAlphaBBox": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "runtimeBytes": 183052,
+      "nativeOutputSize": [
+        1672,
+        941
+      ],
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/bg-fairy-hide-seek.webp"
+    },
+    {
+      "key": "prop/fhs-flower-pink",
+      "size": [
+        360,
+        480
+      ],
+      "geometry": "Transparent prop, bottom-centre anchored at the base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game hiding-spot prop. Input images: Image 1 is approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A giant pink tulip-daisy flower on a thick green stem with two big leaves, bloom at the top, large enough to hide a small fairy behind it. Front view, base touching the ground at the bottom centre. Style: polished 2D candy-colour game art, smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing shapes; no 3D or photorealism. Composition: exact 360\u00d7480 transparent canvas; keep the entire object visible and centred horizontally, anchor its base at the bottom edge. Clearly readable silhouette at game scale. No lettering, watermark, shadow, glow, or background; genuine transparent alpha.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-16ba3f64-3a39-4270-87f6-42e60960e2a3.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-flower-pink.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-flower-pink.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 39612,
+      "actualAlphaBBox": [
+        6,
+        7,
+        356,
+        478
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-flower-pink.webp"
+    },
+    {
+      "key": "prop/fhs-flower-yellow",
+      "size": [
+        360,
+        480
+      ],
+      "geometry": "Transparent prop, bottom-centre anchored at the base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game hiding-spot prop. Input images: Image 1 is approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A giant sunny yellow sunflower-daisy with a warm orange centre on a thick green stem with big leaves, large enough to hide a small fairy behind it. Front view, base touching the ground at the bottom centre. Style: polished 2D candy-colour game art, smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing shapes; no 3D or photorealism. Composition: exact 360\u00d7480 transparent canvas; keep the entire object visible and centred horizontally, anchor its base at the bottom edge. Clearly readable silhouette at game scale. No lettering, watermark, shadow, glow, or background; genuine transparent alpha.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-03e26e29-ce45-4663-ad75-06f13ece08fc.png",
+      "sourcePath": "party/reference/pending/molly-sources/fhs-flower-yellow-edit.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-flower-yellow.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1086,
+        1448
+      ],
+      "runtimeBytes": 46710,
+      "actualAlphaBBox": [
+        6,
+        6,
+        354,
+        478
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editHistory": [
+        {
+          "prompt": "Edit the exact existing transparent yellow flower; preserve petals, outline, stem, leaves, scale, framing and alpha. Change only the orange centre to a warm orange circular face with two small friendly dark eyes and a tiny curved smile, surrounded by existing yellow pollen dots. No other changes.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-03e26e29-ce45-4663-ad75-06f13ece08fc.png",
+          "sourcePath": "party/reference/pending/molly-sources/fhs-flower-yellow-edit.png"
+        }
+      ],
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/fhs-flower-yellow-edit.webp"
+    },
+    {
+      "key": "prop/fhs-mushroom",
+      "size": [
+        400,
+        380
+      ],
+      "geometry": "Transparent prop, bottom-centre anchored at the base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game hiding-spot prop. Input images: Image 1 is approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A big red toadstool with white spots and a chunky cream stalk, a tiny clump of grass at the base, front view, base touching the ground at bottom centre. Style: polished 2D candy-colour game art, smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing shapes; no 3D or photorealism. Composition: exact 400\u00d7380 transparent canvas; keep the entire object visible and centred horizontally, anchor its base at the bottom edge. Clearly readable silhouette at game scale. No lettering, watermark, shadow, glow, or background; genuine transparent alpha.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-168fef19-e665-4891-bdb9-8d3390884b18.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-mushroom.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-mushroom.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1287,
+        1222
+      ],
+      "runtimeBytes": 31362,
+      "actualAlphaBBox": [
+        4,
+        8,
+        396,
+        378
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-mushroom.webp"
+    },
+    {
+      "key": "prop/fhs-leaf",
+      "size": [
+        440,
+        340
+      ],
+      "geometry": "Transparent prop, bottom-centre anchored at the base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game hiding-spot prop. Input images: Image 1 is approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A big leafy fern-and-hosta clump: broad overlapping glossy green leaves fanning up from the ground, front view, base touching the ground at bottom centre. Style: polished 2D candy-colour game art, smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing shapes; no 3D or photorealism. Composition: exact 440\u00d7340 transparent canvas; keep the entire object visible and centred horizontally, anchor its base at the bottom edge. Clearly readable silhouette at game scale. No lettering, watermark, shadow, glow, or background; genuine transparent alpha.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e5b15800-5ff0-49ab-831f-d25c888828fb.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-leaf.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-leaf.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1426,
+        1103
+      ],
+      "runtimeBytes": 52404,
+      "actualAlphaBBox": [
+        6,
+        6,
+        434,
+        338
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-leaf.webp"
+    },
+    {
+      "key": "prop/fhs-teapot",
+      "size": [
+        420,
+        360
+      ],
+      "geometry": "Transparent prop, bottom-centre anchored at the base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game hiding-spot prop. Input images: Image 1 is approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A giant round china teapot, white with pink roses and a gold rim, spout to the right, front three-quarter view, base resting at bottom centre. Style: polished 2D candy-colour game art, smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing shapes; no 3D or photorealism. Composition: exact 420\u00d7360 transparent canvas; keep the entire object visible and centred horizontally, anchor its base at the bottom edge. Clearly readable silhouette at game scale. No lettering, watermark, shadow, glow, or background; genuine transparent alpha.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-acc414b6-7b38-4a53-8c5c-50e4abe627a4.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-teapot.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-teapot.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1355,
+        1161
+      ],
+      "runtimeBytes": 37426,
+      "actualAlphaBBox": [
+        4,
+        31,
+        416,
+        358
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-teapot.webp"
+    },
+    {
+      "key": "prop/fhs-can",
+      "size": [
+        440,
+        340
+      ],
+      "geometry": "Transparent prop, bottom-centre anchored at the base.",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game hiding-spot prop. Input images: Image 1 is approved Felicity roster canonical for style reference only; do not depict Felicity or borrow her anatomy. Primary request: A big shiny mint-green watering can with a rose sprinkler spout pointing right, front three-quarter view, base resting at bottom centre. Style: polished 2D candy-colour game art, smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing shapes; no 3D or photorealism. Composition: exact 440\u00d7340 transparent canvas; keep the entire object visible and centred horizontally, anchor its base at the bottom edge. Clearly readable silhouette at game scale. No lettering, watermark, shadow, glow, or background; genuine transparent alpha.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-7b77d215-3bbb-4d1f-b910-479930db57c6.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-can.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-can.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1427,
+        1102
+      ],
+      "runtimeBytes": 33474,
+      "actualAlphaBBox": [
+        12,
+        20,
+        435,
+        338
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-can.webp"
+    },
+    {
+      "key": "prop/fhs-pot",
+      "size": [
+        360,
+        360
+      ],
+      "geometry": "bottom center anchor",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is approved Felicity roster canonical for house style only; do not depict Felicity. Primary request: A terracotta flowerpot overflowing with purple pansies and rich green leaves, front view, base resting at bottom centre. Style: polished 2D candy-colour game art with smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing forms; no 3D or photorealism. Composition: exact 360\u00d7360 canvas; bottom center anchor. True transparent alpha around all art; no background, text, watermark, cast shadow or glow.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-de0abdc8-658d-4ca7-9942-ede58dcd5345.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-pot.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-pot.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 34114,
+      "actualAlphaBBox": [
+        12,
+        15,
+        355,
+        347
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-pot.webp"
+    },
+    {
+      "key": "prop/fhs-boot",
+      "size": [
+        360,
+        400
+      ],
+      "geometry": "bottom center anchor",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is approved Felicity roster canonical for house style only; do not depict Felicity. Primary request: A bright yellow rain boot standing upright with cheerful daisies growing out of the top, front view, sole touching bottom centre. Style: polished 2D candy-colour game art with smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing forms; no 3D or photorealism. Composition: exact 360\u00d7400 canvas; bottom center anchor. True transparent alpha around all art; no background, text, watermark, cast shadow or glow.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-448e6342-cd01-4ed7-8cb9-b6f978095562.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-boot.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-boot.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1190,
+        1322
+      ],
+      "runtimeBytes": 23734,
+      "actualAlphaBBox": [
+        80,
+        8,
+        330,
+        398
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-boot.webp"
+    },
+    {
+      "key": "prop/fhs-magnifier",
+      "size": [
+        320,
+        320
+      ],
+      "geometry": "lens centre at (120,120) in 200px lens; handle lower right; empty lens",
+      "prompt": "Use case: illustration-story. Asset type: transparent standalone game prop. Input images: Image 1 is approved Felicity roster canonical for house style only; do not depict Felicity. Primary request: A chunky toy magnifying glass with thick pearly-white rim, gold inner edge, and rounded pink handle with gold cap. Lens is a completely empty transparent hole (no glass fill, no reflection) occupying a 200px diameter circle centred at (120,120). Handle angles down toward lower right. Style: polished 2D candy-colour game art with smooth bold dark navy #24163f outlines, clean soft cel shading, rounded appealing forms; no 3D or photorealism. Composition: exact 320\u00d7320 canvas; lens centre at (120,120) in 200px lens; handle lower right; empty lens. True transparent alpha around all art; no background, text, watermark, cast shadow or glow.",
+      "style_reference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-2d3667c4-e274-42f2-b48f-066142709ee1.png",
+      "sourcePath": "party/reference/pending/molly-sources/prop-fhs-magnifier.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-magnifier.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 19290,
+      "actualAlphaBBox": [
+        27,
+        4,
+        307,
+        305
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/prop-fhs-magnifier.webp"
+    },
+    {
+      "key": "prop/fhs-frog",
+      "size": [
+        256,
+        256
+      ],
+      "geometry": "Frog sits front view, bottom-centre anchored.",
+      "prompt": "Frog sits front view, bottom-centre anchored.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals/frog.webp"
+      ],
+      "nativeCanonicalSource": "party/reference/pending/molly-canonicals/frog.webp",
+      "sourcePath": "party/reference/pending/molly-canonicals/frog.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-frog.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "runtimeBytes": 17154,
+      "actualAlphaBBox": [
+        42,
+        6,
+        227,
+        247
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-canonicals/frog.webp"
+    },
+    {
+      "key": "prop/fhs-snail",
+      "size": [
+        256,
+        200
+      ],
+      "geometry": "Snail faces right, bottom-centre anchored.",
+      "prompt": "Snail faces right, bottom-centre anchored.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals-3/snail.webp"
+      ],
+      "nativeCanonicalSource": "party/reference/pending/molly-canonicals-3/snail.webp",
+      "sourcePath": "party/reference/pending/molly-canonicals-3/snail.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-snail.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1222,
+        1287
+      ],
+      "runtimeBytes": 13398,
+      "actualAlphaBBox": [
+        32,
+        6,
+        223,
+        181
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "source": "party/reference/pending/molly-canonicals-3/snail.webp"
+    },
+    {
+      "key": "prop/fhs-ladybug",
+      "size": [
+        160,
+        160
+      ],
+      "geometry": "Ladybug centered for zooming motion; approved canonical reused.",
+      "prompt": "Preserve approved ladybug identity, pose, framing and transparent alpha; add only dark round spots across the red shell; no background/halo/glow/shadow.",
+      "inputReferences": [
+        "party/reference/pending/molly-canonicals/ladybug-v2.webp"
+      ],
+      "nativeCanonicalSource": "party/reference/pending/molly-canonicals/ladybug-v2.webp",
+      "sourcePath": "party/reference/pending/molly-sources/fhs-ladybug-edit.webp",
+      "runtimeFile": "party/assets/art/prop/fhs-ladybug.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 8652,
+      "actualAlphaBBox": [
+        4,
+        23,
+        156,
+        148
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "editHistory": [
+        {
+          "prompt": "First targeted edit from approved ladybug; add black spots. Output contained opaque dark halo and was rejected, not used for runtime.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3f8919ef-dfdc-4256-ab21-2e85556f57a7.png",
+          "status": "rejected; opaque background"
+        },
+        {
+          "prompt": "Preserve approved ladybug identity, pose, framing and transparent alpha; add only dark round spots across the red shell; no background/halo/glow/shadow.",
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3570b05d-7ea7-4255-b99b-416b3579e0c7.png",
+          "sourcePath": "party/reference/pending/molly-sources/fhs-ladybug-edit.webp",
+          "status": "accepted; true transparency and spots visually verified"
+        }
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-3570b05d-7ea7-4255-b99b-416b3579e0c7.png",
+      "source": "party/reference/pending/molly-sources/fhs-ladybug-edit.webp"
+    },
+    {
+      "key": "thumb/fairy-hide-seek",
+      "size": [
+        800,
+        500
+      ],
+      "geometry": "Opaque centred 16:10 game-select thumbnail.",
+      "prompt": "Use case: illustration-story. Asset type: opaque game-select thumbnail illustration for Fairy Hide & Seek. Input images: Image 1 is the approved pink Tulip Fairy garden NPC; preserve her identity. Image 2 is the approved green frog canonical; preserve its identity. Image 3 is the approved red-spotted mushroom hiding prop. Image 4 is the approved toy magnifier prop with empty center. Image 5 is the approved rose teapot hiding prop. Primary request: show the giant toy magnifying glass held over the red-spotted mushroom in a sunny garden; through the lens reveal the giggling little pink fairy with sparkly wings hiding behind the mushroom. Nearby, the same green frog peeks from behind the large white-and-pink rose teapot. Style: polished 2D candy-colour storybook game art, smooth bold dark navy #24163f outlines, soft clean cel shading, no 3D or photorealism. Composition: exact 800\u00d7500 landscape, main scene centred and readable. No Charlie Party player characters. No text, logos, watermark, border.",
+      "inputReferences": [
+        "party/reference/canonical/garden-fairy-pink.webp",
+        "party/reference/pending/molly-canonicals/frog.webp",
+        "party/assets/art/prop/fhs-mushroom.webp",
+        "party/assets/art/prop/fhs-magnifier.webp",
+        "party/assets/art/prop/fhs-teapot.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-a2ab1ed9-395b-434d-a658-a1b9f5ba67cc.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-hide-seek-thumb.webp",
+      "runtimeFile": "party/assets/art/thumb/fairy-hide-seek.webp",
+      "status": "Root visual/style/dimensions/alpha review passed; gameplay QA underway",
+      "nativeOutputSize": [
+        1586,
+        992
+      ],
+      "runtimeBytes": 98168,
+      "actualAlphaBBox": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "actualTransparency": false,
+      "nativeSourceArchive": "lossless WebP of the native generation PNG",
+      "source": "party/reference/pending/molly-sources/fairy-hide-seek-thumb.webp"
+    }
+  ]
+}

@@ -939,7 +939,20 @@
     "prop/sock-puppy-bow": "prop/sock-puppy-bow.webp",
     "prop/clothespin": "prop/clothespin.webp",
     "prop/sock-puppy": "prop/sock-puppy.webp",
-    "thumb/sock-match": "thumb/sock-match.webp"
+    "thumb/sock-match": "thumb/sock-match.webp",
+    "prop/fhs-flower-pink": "prop/fhs-flower-pink.webp",
+    "prop/fhs-flower-yellow": "prop/fhs-flower-yellow.webp",
+    "prop/fhs-mushroom": "prop/fhs-mushroom.webp",
+    "prop/fhs-leaf": "prop/fhs-leaf.webp",
+    "prop/fhs-teapot": "prop/fhs-teapot.webp",
+    "prop/fhs-can": "prop/fhs-can.webp",
+    "prop/fhs-pot": "prop/fhs-pot.webp",
+    "prop/fhs-boot": "prop/fhs-boot.webp",
+    "prop/fhs-magnifier": "prop/fhs-magnifier.webp",
+    "prop/fhs-frog": "prop/fhs-frog.webp",
+    "prop/fhs-snail": "prop/fhs-snail.webp",
+    "prop/fhs-ladybug": "prop/fhs-ladybug.webp",
+    "thumb/fairy-hide-seek": "thumb/fairy-hide-seek.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1300,7 +1313,20 @@
       "thumb/fairy-flutter"
     ],
     "fairy-hide-seek": [
-      "bg/fairy-hide-seek"
+      "bg/fairy-hide-seek",
+      "prop/fhs-flower-pink",
+      "prop/fhs-flower-yellow",
+      "prop/fhs-mushroom",
+      "prop/fhs-leaf",
+      "prop/fhs-teapot",
+      "prop/fhs-can",
+      "prop/fhs-pot",
+      "prop/fhs-boot",
+      "prop/fhs-magnifier",
+      "prop/fhs-frog",
+      "prop/fhs-snail",
+      "prop/fhs-ladybug",
+      "thumb/fairy-hide-seek"
     ],
     "garden-grow": [
       "bg/garden-grow",
