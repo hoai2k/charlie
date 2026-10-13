@@ -113,12 +113,18 @@ export function roomBackground() {
 /** open 0..1 (swings towards the right hinge), hall 0..1 (hall light on), wiggle = knob rattle angle. */
 export function drawDoor(g, open, hall, wiggle, t, doorImg, between = null) {
   const { x, y, w, h } = DOOR;
+  // the doorway: prop/bb-door is an arched slab inset in its frame (measured from the art)
+  const dw = doorImg ? { x0: x + 13, x1: x + 228, top: y + 30, bot: y + 526 } : { x0: x, x1: x + w, top: y, bot: y + h };
   // hall light behind the door
   if (hall > 0.01) {
     g.save(); g.globalAlpha = hall;
     const gr = g.createLinearGradient(x, y, x, y + h);
     gr.addColorStop(0, '#ffe6a0'); gr.addColorStop(1, '#ffc865');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
+    g.fillStyle = gr;
+    if (doorImg) {
+      const r = (dw.x1 - dw.x0) / 2;
+      g.beginPath(); g.moveTo(dw.x0, dw.bot); g.lineTo(dw.x0, dw.top + r); g.arc(dw.x0 + r, dw.top + r, r, Math.PI, 0); g.lineTo(dw.x1, dw.bot); g.closePath(); g.fill();
+    } else g.fillRect(x, y, w, h);
     g.restore();
   }
   if (between) between(g);
@@ -144,12 +150,12 @@ export function drawDoor(g, open, hall, wiggle, t, doorImg, between = null) {
   // light under the door + spill on the floor
   if (hall > 0.01) {
     g.save(); g.globalAlpha = hall * (open > 0.05 ? 1 : 0.9);
-    g.fillStyle = '#fff1b0'; g.fillRect(x + 4, y + h - 6, w - 8, 8);
+    g.fillStyle = '#fff1b0'; g.fillRect(dw.x0 + 4, dw.bot - 6, dw.x1 - dw.x0 - 8, 8);
     const spread = open > 0.05 ? 1 : 0.6;
-    const sp = g.createLinearGradient(0, FLOOR, 0, H);
+    const sp = g.createLinearGradient(0, dw.bot, 0, H);
     sp.addColorStop(0, 'rgba(255,225,140,0.75)'); sp.addColorStop(1, 'rgba(255,225,140,0)');
     g.fillStyle = sp;
-    g.beginPath(); g.moveTo(x, FLOOR); g.lineTo(x + w, FLOOR); g.lineTo(x + w + 140 * spread, H); g.lineTo(x - 260 * spread - open * 300, H); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(dw.x0, dw.bot); g.lineTo(dw.x1, dw.bot); g.lineTo(x + w + 140 * spread, H); g.lineTo(x - 260 * spread - open * 300, H); g.closePath(); g.fill();
     g.restore();
   }
 }

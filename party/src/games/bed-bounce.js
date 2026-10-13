@@ -736,15 +736,17 @@ export class Game {
     const c = this.cow, open = this.door / 0.42;
     const edge = DOOR.x + DOOR.w * this.door * 0.82 + 6;
     const lean = clamp(open, 0, 1);
+    const img = art('prop/nanny-moo-peek');
     g.save();
     g.beginPath();
     g.rect(DOOR.x, DOOR.y, edge - DOOR.x, DOOR.h);
-    g.rect(DOOR.x - 220 * lean, DOOR.y - 60, 220 * lean + 10, 340);
+    // the art leans out whole (lantern too), so let it show down to its feet
+    g.rect(DOOR.x - 220 * lean, DOOR.y - 60, 220 * lean + 10, img ? 480 : 340);
     g.clip();
-    const img = art('prop/nanny-moo-peek');
     const x = DOOR.x + 70 - 70 * lean;
     if (img) {
-      g.drawImage(img, edge - 300 - 60 * lean, 800 - 360, 300, 360);
+      // her robe (the art's right edge) tucks in behind the door slab
+      g.drawImage(img, edge - 304, 800 - 360, 300, 360);
     } else {
       g.translate(x + 20, FLOOR + 40);
       g.rotate(-0.22 * lean);

@@ -1,5 +1,5 @@
 // Snowflake Giggles - procedural art kit (every piece first tries generated art).
-//   bg/snowflake-catch, prop/snowflake, prop/snowflake-big, prop/snowball,
+//   bg/snowflake-catch, prop/snowflake, prop/snowflake-big, prop/sf-snowball,
 //   prop/snowman-friend(+-throw), prop/penguin-sled, prop/bigsnowman-1..6
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
@@ -11,6 +11,11 @@ export const NAVY = '#24163f';
 export const ARENA = { x0: 110, x1: 1810, y0: 500, y1: 1020 };
 export const BIG = { x: 960, y: 455, w: 240, h: 360 };
 export const FRIEND = { x: 1660, y: 450, w: 180, h: 240 };
+
+/** Where the friend's throwing hand is, relative to FRIEND (the art waves its left arm). */
+export function friendHand() {
+  return art('prop/snowman-friend-throw') ? { dx: -76, dy: -156 } : { dx: 50, dy: -231 };
+}
 
 function line(g, w = 4) { g.lineWidth = w; g.strokeStyle = NAVY; g.lineJoin = 'round'; g.lineCap = 'round'; }
 
