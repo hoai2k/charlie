@@ -1,6 +1,6 @@
 // Procedural art for Prank the Sleeping Troll (prank-troll). Every piece has an
 // art() hook in the game file; these are the fallbacks that ship today.
-// The troll is drawn in "image space" (900 x 760, like prop/pt-troll-asleep)
+// The troll is drawn in "image space" (900 x 760, like prop/ptroll-troll-asleep)
 // so pranks land on the same spots whether the art is procedural or generated.
 import { W, H } from '../../engine/canvas.js';
 import { TAU, clamp } from '../../engine/util.js';
