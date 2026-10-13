@@ -117,6 +117,8 @@ export const POSES = {
   cuddle:      { loop: false, fallback: ['catch', 'cheer'], desc: 'Both arms wrapped round something held against the chest in a big squeezy hug, eyes shut, smiling.' },
   'tongue-out': { loop: true, fallback: ['look-up', 'think'], desc: 'Head tipped back looking up, tongue stuck out to catch a snowflake.' },
   'hose-spray': { loop: true, fallback: ['action'], desc: 'Holding a garden-hose nozzle forward in both hands and spraying (paws or mouth for armless characters).' },
+  'silly-pose': { loop: false, fallback: ['strike3', 'dance-star'], desc: 'Flamboyant goofy ta-da: one leg kicked up behind, arms flung wide, tongue poking out with a cheeky grin.' },
+  tiptoe:      { loop: true,  fallback: ['carry', 'walk'], desc: 'Sneaking on tiptoe, hunched, holding something overhead, cheeky sideways grin.' },
   dash:      { loop: false, fallback: ['run'], proc: 'dash', desc: 'Quick forward burst; game code controls travel and collision.' },
   'hip-bump': { loop: false, fallback: ['idle'], proc: 'hip-bump', desc: 'Hip-first bump: side-on, hip swung out toward the target, arms up, cheeky grin.' },
   knockback: { loop: true, fallback: ['balance', 'hurt'], proc: 'knockback', desc: 'Bumped: skidding backward, leaning back, arms windmilling, teetering.' },
