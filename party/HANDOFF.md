@@ -119,10 +119,12 @@ Done and pushed this session (all tested headless in Playwright):
   (`copy_reqs.py` handles "## New Molly Party game:" too once updated).
   Lead: game select molly view (done), MOLLY list, fairy-count hidden.
   User 2026-10-13: Glimmer is the 6th Molly fairy player. No Charlie *player* characters inside Molly games (NPCs
-  OK); garden fairies may become the Molly player roster — image request
-  "Molly Party: the five garden fairies as playable characters" is on main
-  with a provisional pose list; finalise it from the merged games' poses
-  (agents list them in their reports).
+  OK). All six Molly fairy sprite sets are delivered:59 required poses each,
+  83 body frames each and31 total portraits, with five landmarks and optimized
+  copies. Use the `molly-*` character aliases for playable sizes; original IDs
+  retain NPC sizes. Game artwork and known regeneration requests are complete.
+  Coverage: `reference/MOLLY-SPRITE-COVERAGE.json`; follow-up/checkpoint:
+  `reference/IMAGE-WORK-QUEUE.md`. Molly character approval prompts are waived.
 - Fashion Show item nudge (user request 2026-10-13): right stick moves the
   current spot's item from its anchor, RS held + up/down sizes it (limits
   `ADJ_LIMITS` in outfits.js: ±0.6 slot, 0.6–1.6×), a tap of RS resets.

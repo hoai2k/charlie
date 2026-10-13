@@ -1,3 +1,53 @@
+## Delivered all six Molly playable fairy sets — 2026-10-13
+
+Published character batches: Pink `4bfe72df`, Green `f4a746da`, Yellow `f472de65`, Blue `2bb61608`, Glimmer `a8e076b6`, Purple `3bb1ca7b`. All59 required poses per set;498 body frames and31 portraits in total, five landmarks on every frame, full/optimized gameplay checked. Glimmer’s30 original frames and six portraits remain pixel-identical. Coverage and decoded budgets: `reference/MOLLY-SPRITE-COVERAGE.json`.
+
+### Original request
+
+## Molly Party: Glimmer and the five garden fairies as playable characters (requested 2026-10-13, priority: high, after Molly Party games land)
+
+The user wants the five garden fairies (`garden-fairy-pink`, `-blue`,
+`-yellow`, `-green`, `-purple`; today tiny ~54 px NPCs with only
+`idle/walk/fly/celebrate/surprised`) developed into **playable characters for
+Molly Party** (a shelf of simple, lively games for a 4–5 year old; see the
+`## New Molly Party game:` sections). They are not used in Charlie Party
+games, so they need **only the poses the Molly Party games use** (list
+below; the lead finalises it from the merged games' code).
+
+**Glimmer counts as one of them** (user, 2026-10-13): the host fairy
+`glimmer` (canonical already approved; sprite set has `idle, walk, talk,
+point, cast, present, ready, wave, cheer, celebrate, think, surprised, sad,
+pout`) becomes the sixth Molly Party player. She needs only the missing
+Molly poses below, at the same playable resolution and with all landmarks.
+
+**Step 1 — canonical first (§8 identity rules; Molly approval gate waived):** one canonical per
+garden fairy at playable resolution (same family look: round-faced garden fairy,
+flower cap, dragonfly wings, glowing outfit), but each now a distinct,
+lovable character with her own personality, outfit details and wing shape,
+while keeping her colour + flower cap so the existing NPC uses stay
+recognisable: pink (tulip), blue (bluebell), yellow (daisy), green (leaf),
+purple (violet). Fancy, beautiful wings and dresses; cute, expressive faces.
+Save to `reference/canonical/garden-fairy-<colour>.webp`, record prompts,
+**Self-review and proceed: the user waived further Molly Party character approvals on 2026-10-13.**
+
+**Step 2 — playable sprite sets (approved; future Molly approvals waived):** for each fairy a full
+sprite set in `assets/sprites/garden-fairy-<colour>/` at roster resolution
+(`bodyHeight` like the other playables, ~260–300 px tall art), with all five
+landmarks on every frame (`head/hand/eyes/neck/back`; `back` = between the
+wings so dress-up wings/capes sit right; §3.6), portraits (§7), and a
+`motion` that suits fluttering (`glide` or a gentle bob). Keep the existing
+NPC pose names working (`idle`, `walk`, `fly`, `celebrate`, `surprised`).
+
+**Poses (from all 23 Molly games on the shelf, 2026-10-13):**
+`celebrate`, `cheer`, `idle`, `surprised`, `run`, `walk`, `wave`, `giggle`, `dance`, `dizzy`, `action`, `laugh`, `jump`, `fall`, `pose-twirl`, `throw`, `catch`, `float`, `dance-up`, `dance-side`, `dance-star`, `dance-down`, `ready`, `carry`, `high-five`, `swim`, `spring-jump`, `tuck`, `balance`, `look-around`, `ride-sit`, `sit`, `dash`, `boop`, `cuddle`, `tongue-out`, `hurt`, `wand-up`, `cast`, `look-up`, `toss`, `blow`, `eat`, `paint`, `water`, `shake`, `strike3`, `sleep`, `flip`, `crouch`, `tumble`, `bow`, `silly-pose`, `push`, `think`, `tiptoe`.
+
+Used by only one or two games (draw these after the common ones): `carry` (sock-match, whoopee-tea), `high-five` (sock-match, fairy-flutter), `swim` (mermaid-pearls, bubble-pop), `spring-jump` (trick-or-treat, bed-bounce), `tuck` (fairy-flutter, bed-bounce), `balance` (sneaky-dance, opposite-ballet), `look-around` (sock-match), `ride-sit` (unicorn-jump), `sit` (unicorn-jump), `dash` (mermaid-pearls), `boop` (pumpkin-peekaboo), `cuddle` (kitten-yarn), `tongue-out` (snowflake-catch), `hurt` (trick-or-treat), `wand-up` (wand-shapes), `cast` (wand-shapes), `look-up` (cupcake-stack), `toss` (cupcake-stack), `blow` (cupcake-stack), `eat` (bubble-pop), `paint` (rainbow-painter), `water` (garden-grow), `shake` (muddy-mayhem), `strike3` (sneaky-dance), `sleep` (bed-bounce), `flip` (bed-bounce), `crouch` (prank-troll), `tumble` (prank-troll), `bow` (opposite-ballet), `silly-pose` (opposite-ballet), `push` (whoopee-tea), `think` (whoopee-tea), `tiptoe` (whoopee-tea).
+New Molly poses (descriptions in `POSES`, src/engine/sprites.js): `ride-sit` (unicorn-jump), `boop` (pumpkin-peekaboo), `cuddle` (kitten-yarn), `tongue-out` (snowflake-catch), `silly-pose` (opposite-ballet), `tiptoe` (whoopee-tea). In `float`, `swim` and `idle` the wings keep fluttering.
+
+**Step 3 — character data (lead):** the lead registers them as a Molly Party
+roster (character select shows fairies when playing Molly Party) once the
+user confirms the decision after trying the games.
+
 ## Resolved Molly move-card faces and metallic duck — 2026-10-13
 
 Published `97c404ae /bc7a7a34`: both move cards now have matching eyes and smiles; golden duckling is distinctly reflective gold/amber. Native/runtime and actual game checks passed.

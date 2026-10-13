@@ -48,3 +48,12 @@ The reviewed roster already has authored blink, celebration, pout, dance and rid
 These are optional future refinements, not missing gameplay rules. Keep source masters and exact prompts, preserve neutral head size, and recheck decoded memory before adding frames.
 
 Review with `?scene=sprites&chars=felicity&pose=high-five&debug=1&zoom=2`; P pauses and period steps time. Check both facings, both image qualities, actual attachment positions, and alternate-color masks where applicable. Rebuild optimized copies after any changed frame or manifest. Enable new mechanics only after their game behavior is implemented and tested.
+
+
+## Molly Party actions ready for future games
+
+All six Molly fairies now implement59 required pose names with complete attachment landmarks. Coverage and full/optimized budgets are recorded in `MOLLY-SPRITE-COVERAGE.json`. The engine’s pose definitions and `Actor.setPose` / `playOnce` already support these actions, so a future game can use them without another sprite intake.
+
+Useful optional interactions already drawn and supported include `clap` for group applause, `hose-spray` for cooperative garden watering, `boop` for pet greetings, `cuddle` for comforting companions, `tiptoe` for playful sneaking, and `silly-pose` for photo moments. Attach tools and companions through the reviewed hand/back landmarks; keep water streams, confetti and other effects separate. Motion, travel and collision remain the game’s responsibility.
+
+Molly’s `flip` depicts a bed-bounce somersault; the original Charlie roster’s `flip` is a memory-card reach. Choose the appropriate roster and game context. Glimmer retains her host poses and original portraits in addition to the Molly action union.
