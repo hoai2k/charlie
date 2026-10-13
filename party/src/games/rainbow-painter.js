@@ -748,16 +748,14 @@ export class Game {
       const sway = t.done ? Math.sin(this.t * 2.2 + t.x) * 0.04 : 0;
       g.save(); g.translate(t.x, t.y); g.rotate(sway); g.scale(t.s, t.s);
       if (pulse) glowHint(g, 0, -230, 190, pulse);
-      const key = color ? 'prop/rp-tree' : 'prop/rp-tree-grey';
-      if (!drawArt(g, key, 0, 0, 300 / 0.95 * 0.95 * 1.05, 400, { anchor: 'bottom' })) drawTree(g, pal, this.t, t.done && color);
+      if (!drawPaintArt(g, 'prop/rp-tree', 'prop/rp-tree-grey', color, 315, 400)) drawTree(g, pal, this.t, t.done && color);
       g.restore();
     } else if (t.kind === 'castle') {
       const bounce = t.done ? Math.abs(Math.sin(this.t * (party ? 6 : 2.5))) * (party ? 0.03 : 0.01) : 0;
       g.save(); g.translate(t.x, t.y); g.scale(t.s * (1 + bounce), t.s * (1 - bounce));
       if (pulse) glowHint(g, 0, -220, 260, pulse);
-      const key = color ? 'prop/rp-castle' : 'prop/rp-castle-grey';
-      if (!drawArt(g, key, 0, 0, 600, 565, { anchor: 'bottom' })) drawCastle(g, pal, this.t, t.done && color);
-      else drawFlags(g, pal, this.t, t.done && color);
+      if (!drawPaintArt(g, 'prop/rp-castle', 'prop/rp-castle-grey', color, 600, 565)) drawCastle(g, pal, this.t, t.done && color);
+      else drawFlags(g, pal, this.t, t.done && color, true);
       g.restore();
     } else if (t.kind === 'flowers') {
       FLOWERS.forEach((f, i) => {
@@ -765,8 +763,12 @@ export class Game {
         const beat = dance ? Math.sin(this.t * (party ? 9 : 6) + i * 1.3) : 0;
         g.save(); g.translate(f.x, f.y); g.rotate(beat * 0.18); g.scale(f.s * (1 - Math.abs(beat) * 0.05), f.s * (1 + Math.abs(beat) * 0.07));
         if (pulse) glowHint(g, 0, -110, 80, pulse);
+        // Tulips/bellflowers retain their own silhouette during the reveal.
         const key = color ? `prop/rp-flower-${f.kind + 1}` : 'prop/rp-flower-grey';
-        if (!drawArt(g, key, 0, 0, 110 / 0.95, 143 / 0.95 * 1.0, { anchor: 'bottom' })) drawFlower(g, pal, f.kind, this.t + i, dance);
+        const drawn = !color && f.kind === 0
+          ? drawArt(g, key, 0, 0, 110 / 0.95, 143 / 0.95, { anchor: 'bottom' })
+          : drawPaintArt(g, `prop/rp-flower-${f.kind + 1}`, 'prop/rp-flower-grey', color, 110 / 0.95, 143 / 0.95);
+        if (!drawn) drawFlower(g, pal, f.kind, this.t + i, dance);
         g.restore();
       });
     }
@@ -965,8 +967,21 @@ function drawTree(g, C, t, alive) {
   }
 }
 
-function drawFlags(g, C, t, alive) {
-  for (const [x, y] of [[-170, -420], [170, -420], [0, -470]]) {
+function drawPaintArt(g, colorKey, greyKey, color, w, h) {
+  // A grayscale draw of the same raster makes splat reveals pixel aligned.
+  // The authored grey images remain available when colour art is unavailable.
+  if (!art(colorKey)) return drawArt(g, color ? colorKey : greyKey, 0, 0, w, h, { anchor: 'bottom' });
+  g.save();
+  if (!color) g.filter = 'grayscale(1)';
+  const drawn = drawArt(g, colorKey, 0, 0, w, h, { anchor: 'bottom' });
+  g.restore();
+  return drawn;
+}
+
+function drawFlags(g, C, t, alive, generated = false) {
+  // Accepted castle tips, measured in the full-canvas 600x565 draw box.
+  const tips = generated ? [[-168, -489], [168, -489]] : [[-170, -420], [170, -420], [0, -470]];
+  for (const [x, y] of tips) {
     g.strokeStyle = NAVY; g.lineWidth = 4; g.beginPath(); g.moveTo(x, y + 30); g.lineTo(x, y - 30); g.stroke();
     const wv = alive ? Math.sin(t * 8 + x) * 8 : 0;
     g.fillStyle = C(x === 0 ? '#ffd23f' : '#ff6fd0');
