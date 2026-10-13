@@ -19,18 +19,32 @@ export const GUESTS = {
 };
 export const GUEST_KINDS = ['poodle', 'bunny', 'pig', 'kitty'];
 
+// Reaction art states fall back to the closest delivered art until the new
+// images land (image-requests.md): shock -> gasp, scold -> gasp, huff -> sit.
+const STATE_CHAIN = { shock: ['shock', 'gasp'], scold: ['scold', 'gasp'], huff: ['huff', 'sit'] };
+/** The art key to draw a guest/the Duchess in `state`, or null (procedural). */
+export function guestArtKey(kind, state) {
+  const base = kind === 'duchess' ? 'prop/whoopee-duchess' : 'prop/whoopee-guest-' + kind;
+  if (state === 'walk') return art(base) ? base : null;
+  for (const st of STATE_CHAIN[state] || [state]) if (art(base + '-' + st)) return base + '-' + st;
+  return null;
+}
+// procedural stand-ins for the reaction states
+const procState = (state) => (state === 'shock' ? 'gasp' : state === 'huff' ? 'sit' : state);
+
 /**
  * A guest at (x, y) = feet (standing) or the seat (sitting). h = drawn height.
- * state: 'walk' | 'sit' | 'gasp' | 'laugh'. o: { t, step (walk phase), facing, hat, monocle }.
+ * state: 'walk' | 'sit' | 'gasp' | 'laugh' | 'shock' | 'scold' | 'huff'.
+ * o: { t, step (walk phase), facing, hat, monocle, tilt (radians, nose-in-the-air lean) }.
  */
 export function drawGuest(g, kind, x, y, h, state, o = {}) {
   const t = o.t || 0, C = GUESTS[kind];
   const duchess = kind === 'duchess';
-  const sitting = state !== 'walk';
-  const key = (duchess ? 'prop/whoopee-duchess' : 'prop/whoopee-guest-' + kind) + (state === 'walk' ? '' : '-' + state);
+  const key = guestArtKey(kind, state);
   g.save(); g.translate(x, y);
   if (state === 'laugh') g.rotate(Math.sin(t * 14) * 0.12);
-  if (art(key)) {
+  if (o.tilt) g.rotate(o.tilt);
+  if (key) {
     g.scale(o.facing || 1, 1);
     const bob = state === 'walk' ? -Math.abs(Math.sin(o.step || 0)) * h * 0.04 : 0;
     drawArt(g, key, 0, bob, h * (duchess ? 360 / 460 : 320 / 420), h, { anchor: 'bottom' });
@@ -38,6 +52,8 @@ export function drawGuest(g, kind, x, y, h, state, o = {}) {
     if (o.hat) drawHatOn(g, kind, x, y, h, state, o);
     return;
   }
+  state = procState(state);
+  const sitting = state !== 'walk';
   const s = h / 200;
   g.scale(s * (o.facing || 1), s);
   g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = NAVY; g.lineWidth = 4;
@@ -122,17 +138,86 @@ export function drawGuest(g, kind, x, y, h, state, o = {}) {
 
 /** Head-top y (screen) of a guest drawn by drawGuest, for hats and bubbles. */
 export function guestHeadTop(kind, y, h, state) {
-  const key = (kind === 'duchess' ? 'prop/whoopee-duchess' : 'prop/whoopee-guest-' + kind) + (state === 'walk' ? '' : '-' + state);
   // Authored guests occupy the same full-height box in every state.
-  if (art(key)) return y - h * 0.91;
+  if (guestArtKey(kind, state)) return y - h * 0.91;
+  state = procState(state);
   const s = h / 200, sitting = state !== 'walk';
   const top = sitting ? -86 : -112, hr = kind === 'duchess' ? 40 : 36;
   return y + (top - 34 - hr + (state === 'gasp' ? -10 : 0)) * s;
 }
 
+/**
+ * Code-drawn extras on top of a reacting guest (they read on the delivered art
+ * and on the procedural stand-ins alike). (x, y, h, state) as drawGuest; fxs is
+ * a list of: 'shock' (shock lines), 'scold' (a stern wagging finger),
+ * 'steam' (red cheeks + steam from the ears), 'huff' (indignant nose snorts),
+ * 'fan' (fanning herself with a lace fan). facing = the side they scold toward.
+ */
+export function drawGuestFx(g, kind, x, y, h, state, fxs, t, facing = 1) {
+  const r = h * 0.17, hc = guestHeadTop(kind, y, h, state) + h * 0.17, C = GUESTS[kind];
+  g.save(); g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = NAVY;
+  for (const f of fxs) {
+    if (f === 'shock') {
+      // jittery shock lines round the head
+      const j = 1 + Math.sin(t * 40) * 0.06;
+      g.lineWidth = Math.max(3, r * 0.12);
+      for (let i = 0; i < 5; i++) {
+        const a = -Math.PI * (0.15 + i * 0.175);
+        g.beginPath(); g.moveTo(x + Math.cos(a) * r * 1.35 * j, hc + Math.sin(a) * r * 1.45 * j); g.lineTo(x + Math.cos(a) * r * 1.8 * j, hc + Math.sin(a) * r * 1.95 * j); g.stroke();
+      }
+    } else if (f === 'scold') {
+      // a prim white-gloved paw beside the head, one stern finger wagging
+      const px = x + facing * r * 1.5, py = hc + r * 0.35;
+      const wag = Math.sin(t * 15) * 0.45, lw = Math.max(3, r * 0.1);
+      g.save(); g.translate(px, py); g.rotate(wag);
+      g.fillStyle = '#fff'; g.strokeStyle = NAVY; g.lineWidth = lw;
+      // lace cuff
+      g.fillStyle = C.dress; g.beginPath(); g.ellipse(0, r * 0.5, r * 0.36, r * 0.16, 0, 0, TAU); g.fill(); g.stroke();
+      g.fillStyle = '#fff';
+      g.beginPath(); g.ellipse(0, -r * 0.62, r * 0.17, r * 0.46, 0, 0, TAU); g.fill(); g.stroke();
+      g.beginPath(); g.arc(0, r * 0.05, r * 0.4, 0, TAU); g.fill(); g.stroke();
+      g.restore();
+      // wag marks
+      g.strokeStyle = NAVY; g.lineWidth = lw;
+      for (const side of [-1, 1]) { g.beginPath(); g.arc(px, py, r * 1.35, -Math.PI / 2 + side * 0.55 - 0.2, -Math.PI / 2 + side * 0.55 + 0.2); g.stroke(); }
+    } else if (f === 'steam') {
+      // cheeks flushed red, steam puffing out of both ears
+      g.fillStyle = 'rgba(255,40,70,0.5)';
+      for (const side of [-1, 1]) { g.beginPath(); g.ellipse(x + side * r * 0.55, hc + r * 0.4, r * 0.32, r * 0.24, 0, 0, TAU); g.fill(); }
+      for (const side of [-1, 1]) for (let i = 0; i < 3; i++) {
+        const ph = (t * 1.7 + i / 3 + (side > 0 ? 0.17 : 0)) % 1;
+        g.globalAlpha = 1 - ph; g.fillStyle = '#fff'; g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.5)';
+        g.beginPath(); g.arc(x + side * (r * 1.05 + ph * r * 0.8), hc - r * 0.3 - ph * r * 1.5, r * (0.2 + ph * 0.3), 0, TAU); g.fill(); g.stroke();
+      }
+      g.globalAlpha = 1;
+    } else if (f === 'huff') {
+      // two indignant snorts out of the nose
+      for (let i = 0; i < 2; i++) {
+        const ph = (t * 2.2 + i * 0.5) % 1;
+        g.globalAlpha = 1 - ph; g.fillStyle = '#fff'; g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.5)';
+        const nx = x + facing * r * (0.4 + ph * 0.9) + (i ? -1 : 1) * r * 0.25 * ph, ny = hc + r * 0.1 - ph * r * 0.8;
+        g.beginPath(); g.arc(nx, ny, r * (0.17 + ph * 0.22), 0, TAU); g.fill(); g.stroke();
+      }
+      g.globalAlpha = 1;
+    } else if (f === 'fan') {
+      // a lace fan flapping at her face, on the side away from the table
+      const fx0 = x - facing * r * 1.25, fy0 = hc + r * 0.55;
+      g.save(); g.translate(fx0, fy0); g.rotate(-facing * 0.5 + Math.sin(t * 18) * 0.45);
+      const R = r * 0.95;
+      g.fillStyle = '#fff6fb'; g.strokeStyle = NAVY; g.lineWidth = Math.max(2.5, r * 0.08);
+      g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, R, -Math.PI * 0.85, -Math.PI * 0.15); g.closePath(); g.fill(); g.stroke();
+      g.strokeStyle = '#ff7ac6'; g.lineWidth = Math.max(2, r * 0.06);
+      for (let i = 1; i < 6; i++) { const a = -Math.PI * (0.85 - i * 0.7 / 6); g.beginPath(); g.moveTo(Math.cos(a) * R * 0.25, Math.sin(a) * R * 0.25); g.lineTo(Math.cos(a) * R * 0.95, Math.sin(a) * R * 0.95); g.stroke(); }
+      g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.beginPath(); g.arc(0, 0, r * 0.12, 0, TAU); g.fill(); g.stroke();
+      g.restore();
+    }
+  }
+  g.restore();
+}
+
 function drawHatOn(g, kind, x, y, h, state, o) {
   const ty = guestHeadTop(kind, y, h, state);
-  const rot = state === 'laugh' ? Math.sin((o.t || 0) * 14) * 0.12 : 0;
+  const rot = (state === 'laugh' ? Math.sin((o.t || 0) * 14) * 0.12 : 0) + (o.tilt || 0);
   const w = (kind === 'duchess' ? 130 : 78) * h / 200;
   const key = kind === 'duchess' ? 'prop/whoopee-duchess-hat' : 'prop/whoopee-hat-' + kind;
   const hatOffset = art(key) ? -w * 0.18 : w * 0.18;
@@ -179,6 +264,12 @@ function drawFace(g, kind, C, hy, hr, state, t, o) {
     // tears of laughter
     g.fillStyle = '#9fdcff';
     for (const side of [-1, 1]) { const k = (t * 2 + (side > 0 ? 0.5 : 0)) % 1; g.beginPath(); g.ellipse(side * (24 + k * 10), ey + 6 + k * 24, 4, 6, 0, 0, TAU); g.fill(); }
+  } else if (state === 'scold') {
+    // stern: small hard eyes under cross eyebrows
+    for (const side of [-1, 1]) {
+      g.fillStyle = NAVY; g.beginPath(); g.arc(side * 13, ey + 2, 4.5, 0, TAU); g.fill();
+      g.lineWidth = 5; g.beginPath(); g.moveTo(side * 22, ey - 14); g.lineTo(side * 5, ey - 6); g.stroke(); g.lineWidth = 3.5;
+    }
   } else {
     // posh: eyes closed, nose in the air
     for (const side of [-1, 1]) { g.beginPath(); g.arc(side * 13, ey + 1, 6, Math.PI * 1.1, Math.PI * 1.9); g.stroke(); g.beginPath(); g.moveTo(side * 8, ey - 6); g.lineTo(side * 4, ey - 10); g.stroke(); }
@@ -191,7 +282,7 @@ function drawFace(g, kind, C, hy, hr, state, t, o) {
     g.strokeStyle = NAVY;
   }
   // cheeks
-  g.fillStyle = state === 'gasp' ? '#ff6f8f' : '#ff9fb8'; g.globalAlpha = 0.7;
+  g.fillStyle = state === 'gasp' || state === 'scold' ? '#ff6f8f' : '#ff9fb8'; g.globalAlpha = 0.7;
   g.beginPath(); g.arc(-22, hy + 10, 7, 0, TAU); g.arc(22, hy + 10, 7, 0, TAU); g.fill(); g.globalAlpha = 1;
   // nose / snout / muzzle
   g.strokeStyle = NAVY; g.lineWidth = 3.5;
@@ -210,6 +301,7 @@ function drawFace(g, kind, C, hy, hr, state, t, o) {
   const my = hy + (kind === 'pig' || kind === 'duchess' ? 24 : 16);
   if (state === 'gasp') { g.fillStyle = '#c2405c'; g.beginPath(); g.ellipse(0, my + 2, 7, 9, 0, 0, TAU); g.fill(); g.stroke(); }
   else if (state === 'laugh') { g.fillStyle = '#c2405c'; g.beginPath(); g.arc(0, my - 2, 11, 0, Math.PI); g.closePath(); g.fill(); g.stroke(); }
+  else if (state === 'scold') { g.beginPath(); g.arc(0, my + 6, 8, 1.2 * Math.PI, 1.8 * Math.PI); g.stroke(); }
   else { g.beginPath(); g.arc(0, my - 4, 6, 0.2 * Math.PI, 0.8 * Math.PI); g.stroke(); }
 }
 
@@ -445,10 +537,16 @@ export function drawBasket(g, x, y, t) {
 
 // --- the butler ------------------------------------------------------------------------
 /** The penguin butler, (x, y) = feet, h tall. notice 0..1 = "a-hem!" lean. */
-export function drawButler(g, x, y, h, t, facing = 1, step = 0, notice = 0) {
+export function drawButler(g, x, y, h, t, facing = 1, step = 0, notice = 0, scold = false) {
   g.save(); g.translate(x, y);
-  const key = notice > 0.3 ? 'prop/whoopee-butler-ahem' : 'prop/whoopee-butler';
-  if (art(key)) { g.scale(facing, 1); drawArt(g, key, 0, -Math.abs(Math.sin(step)) * 6, h * 280 / 420, h, { anchor: 'bottom' }); g.restore(); return; }
+  // scolding: prop/whoopee-butler-scold once delivered, else the "ahem" art plus a code-drawn wagging glove
+  const key = scold && art('prop/whoopee-butler-scold') ? 'prop/whoopee-butler-scold' : notice > 0.3 || scold ? 'prop/whoopee-butler-ahem' : 'prop/whoopee-butler';
+  if (art(key)) {
+    g.scale(facing, 1); drawArt(g, key, 0, -Math.abs(Math.sin(step)) * 6, h * 280 / 420, h, { anchor: 'bottom' }); g.restore();
+    if (scold && key !== 'prop/whoopee-butler-scold') drawGlove(g, x + facing * h * 0.3, y - h * 0.78, h, t);
+    return;
+  }
+  if (scold) notice = 1;
   const s = h / 210;
   g.scale(s * facing, s);
   g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = NAVY; g.lineWidth = 4;
@@ -487,6 +585,20 @@ export function drawButler(g, x, y, h, t, facing = 1, step = 0, notice = 0) {
   g.fillStyle = '#2d2a44';
   if (notice > 0.3) { g.beginPath(); g.moveTo(40, -112); g.quadraticCurveTo(70, -140, 62, -170); g.lineTo(52, -168); g.quadraticCurveTo(56, -136, 32, -100); g.closePath(); g.fill(); g.stroke(); }
   else { g.beginPath(); g.moveTo(40, -112); g.quadraticCurveTo(58, -80, 48, -50); g.lineTo(38, -54); g.quadraticCurveTo(44, -84, 30, -104); g.closePath(); g.fill(); g.stroke(); }
+  g.restore();
+  if (scold) drawGlove(g, x + facing * h * 0.3, y - h * 0.78, h, t);
+}
+
+/** The butler's white glove, one finger up, wagging "tsk tsk". */
+function drawGlove(g, x, y, h, t) {
+  const s = h / 210;
+  g.save(); g.translate(x, y); g.scale(s, s); g.rotate(Math.sin(t * 15) * 0.45);
+  g.lineJoin = 'round'; g.strokeStyle = NAVY; g.lineWidth = 3.5; g.fillStyle = '#fff';
+  g.beginPath(); g.ellipse(0, -22, 5.5, 14, 0, 0, TAU); g.fill(); g.stroke();
+  g.beginPath(); g.arc(0, 0, 13, 0, TAU); g.fill(); g.stroke();
+  g.restore();
+  g.save(); g.translate(x, y); g.scale(s, s); g.strokeStyle = NAVY; g.lineWidth = 3.5; g.lineCap = 'round';
+  for (const side of [-1, 1]) { g.beginPath(); g.arc(0, 0, 42, -Math.PI / 2 + side * 0.55 - 0.18, -Math.PI / 2 + side * 0.55 + 0.18); g.stroke(); }
   g.restore();
 }
 
