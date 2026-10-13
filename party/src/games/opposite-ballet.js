@@ -5,9 +5,11 @@
 // left <-> step right, twirl (A) <-> stand still like a statue. Every correct
 // opposite is a silly flamboyant pose with butterflies and giggles, and Madame
 // gets more and more flustered (antennae droop, her tiara pops off, she stamps
-// her foot, her tutu sproings). Every few moves a golden "copy me for real!"
+// her foot, her tutu sproings). Each time the class gets her, she stops for a
+// proper hoity-toity reaction - arms folded with her nose in the air, or a
+// wagging finger - while the dancers laugh. Every few moves a golden "copy me for real!"
 // card shoos the imp away: copy her properly. Halfway, all the butterflies
-// make her sneeze her wig off. At the end she gives up, laughs and does the
+// make her sneeze her wig off (scandalised: "Mon dieu!"). At the end she gives up, laughs and does the
 // silliest dance of all with everyone. Nobody loses: wrong moves are just a
 // wobble, and quick, cheeky players (who know the opposite before the flip)
 // get double butterflies.
@@ -15,7 +17,7 @@ import { W, H } from '../engine/canvas.js';
 import { Actor, POSES } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
-import { sfx, hasSound } from '../engine/audio.js';
+import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { drawArt } from '../engine/art.js';
 import { outfitItem } from '../engine/outfits.js';
@@ -23,6 +25,7 @@ import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, later
 import {
   NAVY, BFLY, drawButterfly, drawPetal, drawTeacher, drawTiara, drawImp, drawFlipArrow, drawMovePicto, drawTutu, wantsTutu, drawStageBg,
 } from './opposite-ballet/art.js';
+import { nextKind, drawShock, drawSteam, drawWag } from './opposite-ballet/fluster.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -127,6 +130,8 @@ export class Game {
     // Madame's mood
     this.fluster = 0; this.flusterShow = 0;
     this.stampT = 0; this.sproingT = 0; this.laughT = 0;
+    this.react = null; this.reactT = 0; this.lastReact = 'scold';   // 'huff' | 'scold' | 'shock' pose
+    this.gap = 0;        // a short pause after a huff so it reads before the next card
     this.say = null;     // { text, t, dur }
     this.tiara = null;   // { x, y, vx, vy, rot, orbit }
     this.wig = null;     // { x, y, vx, vy, rot, back }
@@ -349,6 +354,14 @@ export class Game {
   /** Madame gets more flustered: stamp, sproing, huff. */
   huff() {
     this.fluster = Math.min(1, this.fluster + 0.075);
+    // a proper reaction pose (and a pause to show it), while the class laughs
+    this.react = nextKind(this.lastReact, ['huff', 'scold']); this.lastReact = this.react; this.reactT = 0.75;
+    this.gap = 0.6;
+    let v = 0;
+    for (const d of this.dancers) {
+      if (!d.got) continue;
+      later(() => { if (this.phase === 'dance' && !d.a._once) d.a.playOnce('laugh', 0.6, 'idle'); if (v++ < 2) voice(d.p.charId, 'laugh'); }, 260 + rand(0, 200));
+    }
     this.stampT = 0.01; this.sproingT = 1;
     this.teacherSay(pick(HUFFS), 1.2);
     later(() => { snd('ob-stamp', 'stomp', { vol: 0.5 }); fx.shake(5, 0.15); particles.burst(TEACHER.x + 20, TEACHER.y - 10, { type: 'dust', count: 10, colors: ['#ffe3f1', '#fff'], speed: [80, 220] }); }, 180);
@@ -398,6 +411,8 @@ export class Game {
     if (this.stampT > 0) { this.stampT += dt / 0.55; if (this.stampT >= 1) this.stampT = 0; }
     this.sproingT = Math.max(0, this.sproingT - dt * 1.4);
     this.laughT = Math.max(0, this.laughT - dt);
+    this.reactT = Math.max(0, this.reactT - dt);
+    if (this.reactT <= 0) this.react = null;
     // imp
     const im = this.imp, b = this.beat;
     im.t += dt;
@@ -443,7 +458,8 @@ export class Game {
   }
 
   updateDance(dt) {
-    if (!this.beat && this.time + 1.2 < GIVEUP_AT) this.nextBeat();
+    this.gap = Math.max(0, this.gap - dt);
+    if (!this.beat && this.gap <= 0 && this.time + 1.2 < GIVEUP_AT) this.nextBeat();
     const b = this.beat;
     if (b) this.updateBeat(b, dt);
     if (this.stormT < 0 && this.time >= STORM_AT && !this.beat?.golden) this.startStorm();
@@ -481,7 +497,7 @@ export class Game {
     if (b.t >= b.len) {
       this.endBeat(b);
       this.beat = null;
-      if (this.time + 1.2 < GIVEUP_AT) this.nextBeat();
+      if (this.gap <= 0 && this.time + 1.2 < GIVEUP_AT) this.nextBeat();
     }
   }
 
@@ -502,6 +518,7 @@ export class Game {
     fx.shake(12, 0.35); fx.flash('#ffffff', 0.15);
     this.api.camera && this.api.camera.punch(TEACHER.x, TEACHER.y - 160, 1.12, 0.5);
     this.teacherSay('Ah... CHOO!', 1.2);
+    later(() => { if (this.phase !== 'dance') return; this.react = 'shock'; this.reactT = 1.1; this.teacherSay('Mon dieu! My wig!', 1.3); snd('ob-gasp', 'crowd-gasp', { vol: 0.45 }); }, 550);
     this.wigOff = true;
     this.wig = { x: TEACHER.x, y: TEACHER.y - TEACHER.h * 0.85, vx: rand(-1, 1) > 0 ? 520 : -520, vy: -1100, rot: 0, t: 0, back: false };
     snd('ob-wig', 'whoosh', { vol: 0.5 });
@@ -669,7 +686,10 @@ export class Game {
     if (this.phase === 'bow') { tm = 'bow'; tk = clamp(this.bowT / 1.1, 0, 1) * 0.5 + 0.25; }
     else if (this.phase === 'silly') { tm = 'silly'; tk = 0.5; }
     else if (b) { tm = TEACH[b.move]; tk = tm === 'statue' ? 0.5 : clamp(b.t / 0.95, 0, 1); side = b.move === 'left' ? -1 : 1; }
+    const R = this.phase === 'dance' ? this.react : null;
+    if (R) tm = null;   // she stops to react
     drawTeacher(g, TEACHER.x, TEACHER.y, TEACHER.h, this.t, tm, tk, side, {
+      react: R,
       fluster: this.phase === 'dance' ? this.flusterShow : 0.3, stamp: this.stampT, sproing: this.sproingT,
       wigOff: this.wigOff, tiaraOff: !!this.tiara, laugh: this.phase !== 'dance' || (this.stormT >= 0 && this.stormT < 1),
     });
@@ -683,6 +703,13 @@ export class Game {
       const k = b.t / 0.9;
       g.save(); g.globalAlpha = 1 - k; g.strokeStyle = b.golden ? '#ffd23f' : MOVE_COL[b.move]; g.lineWidth = 10;
       g.beginPath(); g.arc(TEACHER.x, TEACHER.y - TEACHER.h * 0.55, 120 + k * 160, 0, TAU); g.stroke(); g.restore();
+    }
+    if (R) {
+      // code-drawn extras (they stand in for the reaction art until it lands)
+      const hx = TEACHER.x, hy = TEACHER.y - TEACHER.h * 0.84, k = clamp((R === 'shock' ? 1.1 : 0.75) - this.reactT, 0, 0.15) / 0.15;
+      if (R === 'shock') drawShock(g, hx, hy, TEACHER.h * 0.2, this.t, k);
+      else if (R === 'huff') drawSteam(g, hx, hy - 10, TEACHER.h * 0.17, this.t);
+      else drawWag(g, hx - TEACHER.h * 0.26, hy + TEACHER.h * 0.12, TEACHER.h / 300, this.t, -1);
     }
     if (this.tiara) drawTiara(g, this.tiara.x, this.tiara.y, 50, this.tiara.rot);
     if (this.wig) {
