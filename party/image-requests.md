@@ -1104,6 +1104,7 @@ make it read better. Newest first; fixed items move to
 
 | Key | What's wrong in game | Ask |
 | --- | --- | --- |
+| `prop/bb-teddy-sleep`, `prop/bb-cat-sleep` (Molly bed-bounce, NEW keys, 2026-10-13) | When the teddy and cat hide in bed they're still drawn by the old code, off-style next to the delivered `bb-teddy`/`bb-cat` art | 240×240 transparent each: the same teddy / cat head (and paws) with closed sleepy eyes, the head in the TOP HALF of the image so it peeks over the duvet line at the image's middle (drawn 150×150, the code clips everything below the duvet) |
 
 Engine-side notes from the same review: several keys are aliases of one
 file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,

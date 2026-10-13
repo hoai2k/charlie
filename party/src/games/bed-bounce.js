@@ -804,7 +804,10 @@ export class Game {
 
   drawBuddyHidden(g, B, t) {
     g.save(); g.beginPath(); g.rect(B.x - 120, 0, 240, BED.top - 4); g.clip();
-    if (B.kind === 'cat') drawCat(g, B.x, BED.top + 60, 0.9, t, 'sleep'); else drawTeddy(g, B.x, BED.top + 80, 0.8, t, 'sleep');
+    // art: 240x240, sleepy head in the top half, peeking over the duvet (drawn 150x150)
+    const img = art(B.kind === 'cat' ? 'prop/bb-cat-sleep' : 'prop/bb-teddy-sleep');
+    if (img) g.drawImage(img, B.x - 75, BED.top - 65 + Math.sin(t * 2 + B.x) * 2, 150, 150);
+    else if (B.kind === 'cat') drawCat(g, B.x, BED.top + 60, 0.9, t, 'sleep'); else drawTeddy(g, B.x, BED.top + 80, 0.8, t, 'sleep');
     g.restore();
     drawTuck(g, B.x, 70);
   }
