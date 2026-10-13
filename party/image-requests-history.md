@@ -1,3 +1,59 @@
+## Delivered snowman-builder — 2026-10-12
+
+All 25 assets delivered using the approved cardinal design. Two-player yard and CPU rolling/stacking/decorating checked: snowballs stack cleanly, stick-arm anchor and decoration palette display correctly; no browser warnings or errors.
+
+## New Play Studio game: snowman-builder
+
+### snowman-builder — Snowman Builder   (requested by the snowman-builder agent, 2026-10-05, priority: nice-to-have)
+
+Every player has a snowy yard. They push a snowball that grows as it rolls
+through the snow (leaving a grassy track behind it), stack three balls on
+their snowman spot, then the view zooms in and they decorate it with coal
+eyes, carrot noses, hats, scarves, stick arms, buttons and friends. Finale:
+night falls, all the snowmen line up under twinkle lights, come alive and
+wave, and everyone poses for a photo. Every key below has a procedural
+fallback that ships today, and the code already looks each one up, so a file
+listed in `assets/art/index.json` drops in with no code change. House style:
+navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
+Decorations are drawn at a size relative to the ball they sit on; the "box"
+below is the size in game units at the reference ball radius of 60 (the code
+fits the image into it, contain). The pixel sizes asked for are 4× that.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/snowman-builder` | 1920×1080, opaque | Full screen behind the split yards (gutters and the top ~110 px HUD band show). Keep the top band calm | A cosy snowy village at blue hour: snow-capped gingerbread-style cottages with warm windows far left and right, pine trees, gentle snowfall, a pale lilac-blue sky. Low detail in the middle (yards cover it) |
+| `bg/snowman-builder-yard` | 2400×1200, opaque | Covers one player's yard (scaled to the yard's width, cropped at the sides on narrow yards). **The horizon must be at y = 400 px** (one third down): sky, hills and pines above it; below it a **plain, flat, smooth snow field** with no props, footprints or trails (the code draws the rolled grassy tracks, balls and snowman on it) | A sunny winter meadow seen from a little above: soft blue sky with two small clouds, rounded snowy hills with a few frosted pine trees along the horizon, a tiny red barn far away; the foreground is an even field of fresh, slightly sparkly snow with soft blue shading |
+| `bg/snowman-builder-night` | 1920×1080, opaque | Full screen for the finale. The snowmen stand in one row with their bases on y ≈ 900 and their builders beside them. Keep y 300–1000 across the centre clear of big objects | A magical snowy hilltop at night: deep navy-to-violet sky with a soft green-pink aurora, a big round moon, twinkling stars; strings of warm fairy lights looping between pine trees at the far left and right; a smooth moonlit snow floor from y ≈ 760 down |
+| `thumb/snowman-builder` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A cheerful three-ball snowman with coal eyes, a carrot nose, a red bobble hat, a striped scarf and waving stick arms, next to a big snowball leaving a grassy track; Fox pushing the snowball; sparkles and snowflakes. Subject centred |
+| `prop/snowman-ball` | 512×512, transparent | A snowball fitted to its diameter, centred on the ball. Not rotated (the code adds rolling speckles on top), so light from the upper left | A single round packed snowball: white with soft lilac-blue cel shading on the lower right, a few tiny sparkles, slightly lumpy edge. Round silhouette filling the canvas |
+| `prop/snowman-coal` | 88×88, transparent | Coal eye / coal button; centred on the placed point; box 22×22 | A small shiny lump of coal, dark navy-charcoal with a white glint |
+| `prop/snowman-googly` | 120×120, transparent | Googly eye; centred; box 30×30 | A round googly eye: white disc, navy outline, big navy pupil low-right |
+| `prop/snowman-carrot` | 256×96, transparent | Carrot nose; the **thick end is at the left edge, vertically centred** (the anchor stuck in the snow), pointing right (mirrored on the left side); box 64×24 | A chunky orange cartoon carrot with soft ridges and a tiny green tuft at the thick end, pointing right |
+| `prop/snowman-smile` | 280×120, transparent | Coal smile; centred; box 70×30 | Five little coal lumps in a happy smile arc |
+| `prop/snowman-cheek` | 120×72, transparent | Rosy cheek; centred; box 30×18 | A soft pink blush oval with a tiny white sparkle |
+| `prop/snowman-shades` | 360×136, transparent | Sunglasses; centred; box 90×34 | Fun heart-shaped pink sunglasses, front view |
+| `prop/snowman-tophat` | 320×320, transparent | Top hat; **anchor bottom-centre (brim)**; box 80×80; tilted with the head | A navy top hat with a red ribbon band and a sprig of holly |
+| `prop/snowman-bobble` | 336×320, transparent | Bobble hat; anchor bottom-centre; box 84×80 | A knitted red-and-white striped beanie with a fat white pompom and a folded cuff |
+| `prop/snowman-partyhat` | 224×336, transparent | Party hat; anchor bottom-centre; box 56×84 | A tall pink-and-yellow polka-dot party cone with a pompom on top |
+| `prop/snowman-tiara` | 288×160, transparent | Tiara; anchor bottom-centre; box 72×40 | A sparkly silver-and-pink princess tiara with a heart gem, front view |
+| `prop/snowman-earmuffs` | 480×240, transparent | Earmuffs; centred on the placed point (top of the head); box 120×60 | Fluffy lilac earmuffs on a curved band, front view |
+| `prop/snowman-arm` | 480×240, transparent | Stick arm; **anchor at the left edge, vertically centred (the shoulder)**, pointing right; the code rotates and mirrors it and swings it to wave; box 120×60 | A brown twig arm with a knobbly bend and three little twig fingers at the end |
+| `prop/snowman-mitten` | 136×160, transparent | Mitten; centred; box 34×40 | A cosy knitted teal mitten with a white snowflake pattern and cuff |
+| `prop/snowman-heart` | 120×112, transparent | Heart button; centred; box 30×28 | A glossy candy-pink heart button with two stitch holes |
+| `prop/snowman-star` | 136×136, transparent | Star badge; centred; box 34×34 | A plump golden star with a white highlight |
+| `prop/snowman-bowtie` | 240×120, transparent | Bow tie; centred; box 60×30 | A red bow tie with white polka dots |
+| `prop/snowman-flower` | 160×160, transparent | Flower; centred; box 40×40 | A cheerful five-petal pink flower with a yellow centre |
+| `prop/snowman-bird` | 224×176, transparent | Little bird friend; **anchor bottom-centre (its feet)**, facing right (mirrored on the left); box 56×44; it hops and flaps in the finale | A round little red cardinal-style bird with a tiny orange beak, smiling, sitting |
+| `prop/snowman-broom` | 240×680, transparent | Broom; centred; box 60×170; leaned by the code | A rustic straw broom with a wooden handle tied with red string |
+| `prop/snowman-scarf` | 240×400, transparent | Scarf tail only (the code draws the wrap around the ball in the chosen colour); anchor top-centre; box 60×100. Paint it plain white/light grey (it is recoloured in code) | A knitted scarf end with a fringe, plain white with soft grey shading, hanging straight down |
+
+**New sprite pose (optional; the game reads fine without it):**
+`roll-push` (loop; fallback `push` → `walk`): walking bent forward with both
+hands (or paws, or the head for armless characters) pressed against a big
+snowball in front, pushing it along. Used the whole time a player rolls a
+snowball. Until it exists the game uses `walk`.
+
+
 ## Delivered hair-salon — 2026-10-12
 
 All 24 assets delivered. Actual two-player salon checked: mirror framing, chair baseline and tool palette work with the procedural hair and cape; no browser warnings or errors.
