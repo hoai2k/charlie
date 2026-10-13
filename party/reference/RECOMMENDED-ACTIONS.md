@@ -52,7 +52,7 @@ Review with `?scene=sprites&chars=felicity&pose=high-five&debug=1&zoom=2`; P pau
 
 ## Molly Party actions ready for future games
 
-All six Molly fairies now implement59 required pose names with complete attachment landmarks. Coverage and full/optimized budgets are recorded in `MOLLY-SPRITE-COVERAGE.json`. The engine’s pose definitions and `Actor.setPose` / `playOnce` already support these actions, so a future game can use them without another sprite intake.
+All six Molly fairies now implement 59 required pose names with complete attachment landmarks. Coverage and full/optimized budgets are recorded in `MOLLY-SPRITE-COVERAGE.json`. The engine’s pose definitions and `Actor.setPose` / `playOnce` already support these actions, so a future game can use them without another sprite intake.
 
 Useful optional interactions already drawn and supported include `clap` for group applause, `hose-spray` for cooperative garden watering, `boop` for pet greetings, `cuddle` for comforting companions, `tiptoe` for playful sneaking, and `silly-pose` for photo moments. Attach tools and companions through the reviewed hand/back landmarks; keep water streams, confetti and other effects separate. Motion, travel and collision remain the game’s responsibility.
 

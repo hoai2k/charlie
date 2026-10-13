@@ -550,5 +550,5 @@
       "optimizerSourceFingerprint": "682fa6c40fc3a91f"
     }
   },
-  "verification": "All per-set decoded budgets below25 MiB; full/optimized gameplay, independent contact/landmark audits and pipeline regressions passed."
+  "verification": "All per-set decoded budgets below 25 MiB; full/optimized gameplay, independent contact/landmark audits and pipeline regressions passed."
 }

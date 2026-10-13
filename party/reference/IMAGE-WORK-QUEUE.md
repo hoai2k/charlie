@@ -1,38 +1,30 @@
 # Image work queue
 
-The authoritative brief is `party/image-requests.md`. The previous Studio image requests are delivered; 23 new Molly Party briefs are in production; 
+The authoritative brief is `party/image-requests.md`. The previous Studio and all current Molly Party image requests are delivered; 
 the user revoked the former40% allowance pause for Sol. Reviewed batches
 are committed to main and pushed regularly. Do not regenerate
 approved artwork just because older checkpoints had incomplete coverage.
 
-## Molly Party delivery — in progress
+## Molly Party delivery — complete (authoritative current checkpoint)
 
-The user reaffirmed that Molly Party characters need no approval prompts. Self-review and refine new designs while preserving approved identities.
+All currently requested Molly game artwork and regeneration feedback are delivered and checked. All six playable fairies have the 59 required poses, 83 body frames per set, five landmarks on every frame and optimized copies. There are 498 body frames and 31 portraits overall. Glimmer preserves all 30 original frames and six portraits pixel-identically, plus five extra host poses.
 
-Published and checked game batches now include Garden Grow, Dance and Freeze, Wand Shapes, Sock Match, Fairy Hide and Seek, Cupcake Stack, Bubble Pop, Balloon Float, Fairy Flutter, Unicorn Jump, Ghost Giggles, Kitten Yarn, Trick-or-Treat, Duckling Parade, Mermaid Pearls, Pumpkin Peekaboo, Snowflake Catch, Bed Bounce, Prank the Troll, Rainbow Painter and Sneaky Dance. Ladybug's completed assets are published for reuse. Latest art delivery: `ef7e695c` (Sneaky Dance); Rainbow art `f3865360` and alignment code `4866edfb`; Snowflake/Bed/Prank integrated and pushed through `904cafd0`.
+Published character batches: Pink `4bfe72df`, Green `f4a746da`, Yellow `f472de65`, Blue `2bb61608`, Glimmer `a8e076b6`, Purple `3bb1ca7b`. Full/optimized decoded MiB: Pink 15.77/13.66, Blue 15.65/13.54, Green 14.74/12.63, Yellow 16.96/14.85, Purple 15.24/13.13, Glimmer 24.73/14.34. Every full and optimized set is below 25 MiB. Coverage: `MOLLY-SPRITE-COVERAGE.json`.
 
-Pink Garden Fairy's full playable set is published at `4bfe72df`: 59 poses, 83 body frames and five portraits, with landmarks and optimized assets. Other five fairy expansions remain in progress. The union is the merged 56-pose brief plus preserved fly, clap and hose-spray; this brief applies to the six Molly fairies, not the original Charlie roster.
+Completed batches were published separately throughout production. New review fixes include the garden-party cupcake thumbnail, gold cupcake, quieter unicorn backdrop, ring-free witch cats, mushrooms, metallic golden duckling, coral ledges, complete ballet card faces and sleeping bed buddies. Runtime geometry, repeated-key namespaces and deferred reuse groups were corrected. Opposite Ballet's decoded art group is 21.97 MiB after omitting its unused fallback background. No applicable recolor masks changed: the mask classifier targets Felicity, KPop center and Princess Amber.
 
-Current ownership: structural agent Purple sprite intake/landmarks/optimization; tools agent Purple native-master generation; performance agent independent validation and final provenance audit; root gameplay QA, docs and publication. Five of six fairies are published: Pink `4bfe72df`, Green `f4a746da`, Yellow `f472de65`, Blue `2bb61608`, Glimmer `a8e076b6`, integrated and pushed through `bc7a7a34`. Every set has all 59 required poses; Glimmer preserves five extra poses, all 30 original frames and six portraits. No known game-art request remains open; Purple is the remaining principal production work.
+Verification: independent sprite/landmark/provenance audits; actual full and optimized gameplay; sprite timing/alias/fallback, grouped loading, per-file scale, attachment, mirrored-scroll, optimizer and builder regressions; whole-index sprite validation with no errors. Remaining generic warnings concern non-required Tier-1 poses and download-size targets, not broken assets. Sources and exact prompts are archived alongside final specs and records; production lessons are in `tools/sprites/AGENT-PLAYBOOK.md`.
 
-Latest sync `944fd052` includes new QA requests from `6650f180`: dp-mushroom, duckling-golden, mp-ledge and two ring-free witch-cat expressions. All delivered at `d5f2f140` and `3523e974`; Cupcake/Unicorn earlier review requests delivered at `c64517c2`. Earlier dropped original briefs are not expanded, but explicitly kept reuse rows remain required. Completed-status edits and archival changes alone do not trigger regeneration.
+Latest published image delivery revision: `3bb1ca7b`.
+Latest completed delivery/check UTC: 2026-10-13T06:55:19Z.
+Last checked main revision: `f0108ff2c0612694fb130ef5c18e7dff34841373`.
+Last checked request blob: `f8f6384a036a81543ac5fe71ac6cd99fb5fd18a5`.
+Last checked UTC: 2026-10-13T06:55:19Z.
+Quiet-window start UTC: 2026-10-13T06:55:19Z.
+Open semantic asset/regeneration requests: none.
+Production owners: all generation/intake work finished; no active asset claims.
 
-The older counts/checkpoints below are production history and will be replaced by a final request inventory after delivery.
-
-Synced main through `61b9323a1c525144a3e356dadf3972c3890c57e5`. New scope:23 minigames,318 unique table keys (24 backgrounds,23 thumbnails,271 props),347 authored frames including the30-frame kitten atlas. Existing generic cake-stand,candle-flame,rubber-duck,four balloons andsnowball mappings are preserved; incompatible Molly variants need game-prefixed sibling keys and consumer updates. Per-key inventory saved as `reference/pending/MOLLY-REQUEST-INVENTORY.json`.
-
-Last checked revision: `61b9323a1c525144a3e356dadf3972c3890c57e5`.
-Last checked request blob: `07d61ba317137f16a9be486473128b0757b02566`.
-Last checked UTC:2026-10-13T02:13:46Z.
-Latest additional sync:0aa8a5db; changed thumbnails/DJ/mount briefs incorporated. No new key counts, but new playableFairy expansion added.
-
-Early integration delivery:11 reviewed images published at9df34290; per-game deferred groups,lossless native sources and exactprompts preserved in MOLLY-EARLY-DELIVERY.json. Current published Molly artwork:31 keys; completeDance7 (d1994dc8),Wand8 (66257efe/746e632a), and partialgarden/magic/environment integrationbatches9df34290/7edf70c6. Remaining287 requested keys (somegeneratedWIP/approvedcanonbases, notyetindexed),plus playableFairy expansion and cuddle/tongue-out. Morefullgamebatches readyQA:Garden16,Cupcake14,FairyFlutter11,FHS14 (spottedladybugcorrectionpending).
-
-Ownership:root canonical approvals/shared index/intake/docs/Git; tools agent cupcake-stack,dance-freeze,bubble-pop,balloon-float,ballet-butterflies; performance agent wand-shapes,fairy-flutter,fairy-hide-seek,sock-match,tea-party; structural agent ladybug-spots,garden-grow after exact inventory. Other games remain queued. Built-in imagegen only, one call per unrelated asset, true alpha, lossless source/provenance and reviewed runtimeWebP. First-six sample gates prevent style drift before expansion.
-
-User approved butterfly,duckling,frog,MadamePapillon and revised prettier ladybug-v2/bee-v2; sources promoted to canonical/molly-*.webp. All five expanded playable GardenFairies approved and promoted, original NPC references preserved under pending/molly-playable-fairies/previous-npc-canonicals. Glimmer stays approved and needs missing Molly poses. All current Molly canonical candidates approved:TeaGuests,Moon,bluebird,kittens,cloud,snail,sockpuppy,mamaduck,ghost,unicornmount,4Splashpuppies,5Halloweenvisitors,octopus,snowman,penguin,pig,elephant,cow. User revoked further Molly character approval gates:review/refine autonomously and proceed. Preserve approved identities. No Charlie Party roster characters in Molly thumbnails; use Molly Fairies/Glimmer or exact specified animals.
-
-Latest sync965416d includes19 Molly modules; additional merges continue. Check currentmain for exactruntimeinventory. Art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. The user requested a delivery-relative30-minute follow-up on2026-10-13; active automation `charlie-party-image-follow-up`. Reset it30minutes after all outstanding images are delivered; cancel only after that full quiet interval.
+User-requested follow-up automation: `charlie-party-image-follow-up`, active. Reset for 30 minutes after this completed delivery. On the next run, fetch and safely integrate main, compare semantic requests against this checkpoint and fill any new requests in reviewed batches. Reset the follow-up after each complete delivery. Cancel only when 30 post-delivery minutes have passed with no new requests. Completed-status/archival edits alone do not count. Molly character approval prompts remain waived; the former allowance pause is revoked. Older delivery/check entries below belong to previous work and do not override this checkpoint.
 
 ## New Play Studio delivery — complete
 
@@ -201,4 +193,4 @@ older completion counts below it.
 
 Latest active check: `e599cd63`; request blob `5fb37917f8d69e35b8f16c4f33d32a598585e4e4`; checked UTC 2026-10-13T05:51:32Z. Latest game art delivery `e599cd63` (Muddy and puppy reuse); production remains active, so the quiet window has not begun. Follow-up automation `charlie-party-image-follow-up` is active every30minutes and must be reset when all outstanding work is delivered.
 
-Publication checks: full/optimized gameplay and independent sprite audits pass for Blue, Green, Yellow and Glimmer. Decoded full/optimized MiB: Green14.74/12.63, Yellow16.96/14.85, Blue15.65/13.54, Glimmer24.73/14.34. Opposite Ballet drops its unused secondary background to reduce the decoded art group to 21.97 MiB. Timing, grouped loading, per-file optimized scale, attachment geometry, mirrored scrolling, optimizer and builder regressions passed.
+Publication checks: full/optimized gameplay and independent sprite audits pass for Blue, Green, Yellow and Glimmer. Decoded full/optimized MiB: Green 14.74/12.63, Yellow 16.96/14.85, Blue 15.65/13.54, Glimmer 24.73/14.34. Opposite Ballet drops its unused secondary background to reduce the decoded art group to 21.97 MiB. Timing, grouped loading, per-file optimized scale, attachment geometry, mirrored scrolling, optimizer and builder regressions passed.
