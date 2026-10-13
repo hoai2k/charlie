@@ -74,6 +74,9 @@ Done and pushed this session (all tested headless in Playwright):
   hit (half perfect) steps up, fewer than 5 of the last 8 steps down. Points
   x0.6/0.8/1/1.3/1.6 by level. The how-to "Notes" choice sets the start
   level (Easy 1, Normal 2, Hard 3). Stars under each lane show the level.
+- Fishing Frenzy simplified (user request 2026-10-13): A while any fish is
+  at the float hooks it (no "too soon"), reeling is just tapping A (no line
+  tension, no snapping, tugs only slow it), fish no longer flee a splash.
 - In progress (user request 2026-10-13, 4): art for the 10 Play Studio
   page-2 games (+ teddy backpack, fishing rod) arrived; 3 art-QA worktree
   agents (A: hair-salon, nail-studio, dance-studio, puppet-theater, teddy;

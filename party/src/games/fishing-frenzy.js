@@ -52,11 +52,11 @@ export const meta = {
   category: 'party',
   type: 'Free-for-all',
   goal: 'Catch the most fish points in 60 seconds!',
-  controls: [['stick', 'Aim your cast'], ['a', 'Cast / hook the fish / reel it in']],
+  controls: [['stick', 'Aim your cast'], ['a', 'Cast, then press A when a fish bites, and tap A to reel it in']],
   tips: [
-    'Little dips are nibbles - WAIT for the big ! then press A!',
-    'When the fish tugs, stop reeling or your line snaps!',
-    'Big fish and golden fish are worth lots. Shy purple fish swim away from a splash!',
+    'Cast near a fish and wait for it to bite.',
+    'Tap A fast to reel it in!',
+    'Big fish and golden fish are worth lots of points.',
   ],
   music: 'chill',
   duration: '60 sec',
@@ -410,8 +410,7 @@ export class Game {
         b.dip = Math.max(b.under ? 1 : 0, b.dip - dt * 3);
         if (c.pressed('a')) {
           const f = U.fish;
-          if (f && f.state === 'bite') this.hook(U, f);
-          else if (f && f.state === 'nibble') this.tooSoon(U, f);
+          if (f && (f.state === 'bite' || f.state === 'nibble')) this.hook(U, f);   // simple: a fish at the float is caught
           else this.reelIn(U);
         }
         break;
@@ -457,7 +456,7 @@ export class Game {
       if (f.state !== 'swim' && f.state !== 'approach') continue;
       const d = Math.hypot(f.x - b.x, f.y - b.y);
       // shy fish dart away from a splash right on top of them
-      if (f.K.shy && d < f.K.shy && f.state === 'swim') {
+      if (false && f.K.shy && d < f.K.shy && f.state === 'swim') {   // (simplified: fish don't flee a splash)
         f.state = 'flee'; f.st = 1.1; f.fleeFrom = { x: b.x, y: b.y }; f.scare = 1; f.cool = 2.5;
         particles.popText(f.x, f.y - 40, 'Eek!', '#e9dcff', 34);
       }
@@ -489,7 +488,7 @@ export class Game {
     U.bob.under = false;
     const K = f.K;
     const pullK = K.pull * (K.big ? 1 : 0.85 + f.size * 0.15);
-    U.reel = { f, prog: 0, ten: 0.12, pull: pullK, need: Math.round(K.reel * (K.junk ? 1 : 0.8 + f.size * 0.2)), pullT: 0, warnT: 0, nextPull: rand(0.7, 1.3), pulls: 0, x0: f.x, y0: f.y, presses: 0, redT: 0, shown: 0.12, creak: 0 };
+    U.reel = { f, prog: 0, ten: 0, pull: pullK, need: Math.round(K.reel * (K.junk ? 1 : 0.8 + f.size * 0.2)), pullT: 0, warnT: 0, nextPull: rand(0.7, 1.3), pulls: 0, x0: f.x, y0: f.y, presses: 0, redT: 0, shown: 0, creak: 0 };
     this.setState(U, 'reel');
     U.a.playOnce('surprised', 0.25, POSE.reel); U.a.squash(0.3);
     snd('fish-hook', 'pop'); sfx('splash', { vol: 0.8 });
@@ -533,14 +532,12 @@ export class Game {
     const pulling = R.pullT > 0;
     for (let i = 0; i < presses; i++) {
       R.presses++;
-      R.prog += (1 / R.need) * (pulling ? 0.3 : 1);
-      R.ten += pulling ? 0.04 + 0.16 * R.pull : 0.05 + 0.03 * R.pull;
+      R.prog += (1 / R.need) * (pulling ? 0.6 : 1);
       U.rodKick = 1;
       if (R.presses % 2 === 0) snd('fish-reel', 'tick', { vol: 0.25 });
       if (chance(0.5)) particles.burst(f.x + rand(-10, 10), f.y - 4, { type: 'drop', count: 2, colors: ['#ffffff', '#bfefff'], angle: -Math.PI / 2, spread: 0.8, speed: [80, 200], size: [4, 8] });
     }
-    if (pulling) { R.ten += 0.25 * R.pull * dt; R.prog = Math.max(0, R.prog - 0.06 * R.pull * dt); }
-    else R.ten = Math.max(0, R.ten - 0.7 * dt);
+    R.ten = 0;   // simplified: no line tension, the line never snaps
     R.shown = damp(R.shown, R.ten, 18, dt);
     R.redT = R.ten > 0.78 ? R.redT + dt : 0;
     if (R.ten > 0.78) { R.creak -= dt; if (R.creak <= 0) { R.creak = 0.45; snd('fish-creak', hasSound('balloon-stretch') ? 'balloon-stretch' : 'tock', { vol: 0.5 }); } }
@@ -995,21 +992,21 @@ export class Game {
     // the basket at the end
     g.fillStyle = '#d9a35c'; g.strokeStyle = NAVY; g.lineWidth = 3;
     g.beginPath(); g.moveTo(-w / 2 - 6, py - 9); g.lineTo(-w / 2 + 14, py - 9); g.lineTo(-w / 2 + 10, py + 9); g.lineTo(-w / 2 - 2, py + 9); g.closePath(); g.fill(); g.stroke();
-    // tension bar
+    // (the old tension bar is gone: reeling is just tapping A)
     const ty = 4;
-    g.save(); ui.roundRect(g, -w / 2, ty, w, h, 12); g.clip();
+    if (false) { g.save(); ui.roundRect(g, -w / 2, ty, w, h, 12); g.clip();
     for (const [z0, z1, col] of [[0, 0.55, '#5ddc6a'], [0.55, 0.78, '#ffd23f'], [0.78, 1, '#ff4d6d']]) {
       g.globalAlpha = 0.35; g.fillStyle = col; g.fillRect(-w / 2 + z0 * w, ty, (z1 - z0) * w, h);
       const end = clamp(R.shown, z0, z1);
       if (end > z0) { g.globalAlpha = 1; g.fillRect(-w / 2 + z0 * w, ty, (end - z0) * w, h); }
     }
     g.restore();
-    ui.roundRect(g, -w / 2, ty, w, h, 12); g.lineWidth = 4; g.strokeStyle = R.shown > 0.78 && Math.sin(this.clock * 30) > 0 ? '#ff4d6d' : NAVY; g.stroke();
+    ui.roundRect(g, -w / 2, ty, w, h, 12); g.lineWidth = 4; g.strokeStyle = R.shown > 0.78 && Math.sin(this.clock * 30) > 0 ? '#ff4d6d' : NAVY; g.stroke(); }
     // label
     if (pulling || warn) {
       const k = 1 + Math.sin(this.clock * 20) * 0.08;
       g.save(); g.translate(0, -66); g.scale(k, k);
-      ui.text(g, pulling ? 'WAIT!' : 'Tug!', 0, 0, { size: 40, color: '#ff4d6d', strokeWidth: 8 });
+      ui.text(g, 'Tug!', 0, 0, { size: 40, color: '#ff4d6d', strokeWidth: 8 });
       g.restore();
     } else if (!U.p.isAI) {
       ui.glyph(g, 'a', -w / 2 - 30, ty + h / 2, 40, { pulse: true });
@@ -1047,7 +1044,7 @@ export class Game {
       ui.panel(g, W / 2 - 520, 168, 1040, 70, { r: 35, fill: '#fff8ec' });
       ui.glyph(g, 'stick', W / 2 - 486, 203, 46);
       ui.glyph(g, 'a', W / 2 - 432, 203, 46, { pulse: true });
-      ui.text(g, 'Aim and cast!  When a big "!" pops up, press A', W / 2 + 56, 204, { size: 34, color: NAVY, stroke: false, maxWidth: 820 });
+      ui.text(g, 'Cast near a fish!  When it bites, press A, then tap A to reel', W / 2 + 56, 204, { size: 34, color: NAVY, stroke: false, maxWidth: 820 });
       g.restore();
     }
   }
