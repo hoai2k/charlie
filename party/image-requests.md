@@ -1155,37 +1155,6 @@ puppets, sticks and sparkles are drawn by code.
 No new sprite poses are needed (stick puppets use existing poses: wave,
 laugh, celebrate, dance, surprised, think, sad, sleep, bow, cheer, jump).
 
-## New Play Studio game: dance-studio
-
-### dance-studio — Dance Studio   (requested by the dance-studio agent, 2026-10-05, priority: nice-to-have)
-
-A creative choreography toy: every player builds an 8-count dance from move
-cards at their own rehearsal station (with a mini stage preview), picks the
-music, the stage lights and a backdrop, then the whole group performs each
-player's dance together on a big stage with a mirror ball and a shiny mirror
-floor, ending in a free dance and a "Freeze!" photo. Everything below has a
-procedural fallback that ships today; the code already looks up every key.
-House style: navy `#24163f` outlines, soft cel shading, bright candy
-colours, **no text** in any image. Reused as they are: the roster sprites
-(`dance-up`, `dance-side`, `dance-down`, `dance-star`, `pose-twirl`, `clap`,
-`wave`, `hip-bump`, `swim`, `dash`, `photo`, `strike3`, `balance`, `bow`,
-`spring-jump`, `float`, `dance`, `celebrate`, `cheer` and the photo poses).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/dance-studio` | 1920×1080, opaque | Full screen behind the rehearsal stations (setup phase). It shows as side columns at 1 player and as thin gaps/bands at 2–8 players. Keep the top ~110 px calm (title band) | A bright dance rehearsal studio: a long wall of mirrors with a pastel-pink frame, a wooden ballet barre in front of it, a honey-wood floor at the bottom, fairy lights strung across the top, a few pom-poms and a boombox on a bench at the far edges. Low detail in the centre |
-| `bg/dance-studio-stage-stars` | 1920×1080, opaque | Stage backdrop "Starry Night", full screen behind the dancers. **The code covers y > 780 with the stage floor** and puts curtains over the left/right ~200 px and the top ~90 px, so keep the interesting part in the centre band y≈90–780. Also shown cover-fitted, tiny, in each station's preview | A deep-indigo night sky full of twinkly stars, a big smiling crescent moon at the upper right, soft purple clouds near the bottom, a few shooting stars |
-| `bg/dance-studio-stage-candy` | 1920×1080, opaque | Same layout as above ("Candy Land") | A pastel candy landscape: lollipop trees, gumdrop hills, a wavy pink frosting river, cotton-candy clouds in a mint sky |
-| `bg/dance-studio-stage-sea` | 1920×1080, opaque | Same layout as above ("Under the Sea") | A cheerful underwater scene: turquoise water with light rays from the top, pink coral and swaying seaweed at the bottom, bubbles, a few smiling little fish and a starfish |
-| `bg/dance-studio-stage-rainbow` | 1920×1080, opaque | Same layout as above ("Rainbow Sky") | A sunny sky-blue background with a huge rainbow arc across the middle, fluffy white clouds at both ends of the rainbow, small sparkles |
-| `bg/dance-studio-stage-castle` | 1920×1080, opaque | Same layout as above ("Castle Ballroom") | A fairy-tale ballroom: tall arched windows with a twilight view, pink marble pillars, gold chandeliers at the top, heart-shaped garlands |
-| `bg/dance-studio-stage-city` | 1920×1080, opaque | Same layout as above ("Neon City") | A friendly night-time city skyline in purples and blues with glowing pastel windows, rounded buildings, a big round moon, colourful glowing shapes (stars, hearts, musical notes as shapes only, no letters) |
-| `prop/dance-studio-curtains` | 1920×1080, transparent | Drawn full screen over the stage backdrop and lights, under the dancers. Velvet curtains fill the left ~200 px and right ~200 px (gathered with gold tie-backs) and a scalloped valance the top ~90 px; **everything else transparent** | Plush magenta-red velvet theatre curtains with gold fringe and gold tassel tie-backs, a scalloped valance across the top with gold trim |
-| `prop/dance-studio-floor` | 1920×300, opaque | Stretched across the bottom of the stage from y=780 to 1080. The code draws translucent dancer reflections and coloured light pools on top, so keep it fairly plain and glossy | A glossy polished stage floor in dark plum wood planks seen at a low angle, with a gold edge strip along the top and soft shine streaks; slightly darker toward the bottom |
-| `prop/mirror-ball` | 256×256, transparent | Hangs from the valance at the top centre, drawn centred at 170 px; the code spins its sparkle highlights and casts light specks on top | A shiny disco mirror ball made of small silver-and-lilac square mirror tiles, a few bright glints, a short chain loop at the top |
-| `prop/dance-move-up`, `prop/dance-move-point`, `prop/dance-move-knees`, `prop/dance-move-star`, `prop/dance-move-twirl`, `prop/dance-move-clap`, `prop/dance-move-wave`, `prop/dance-move-bump`, `prop/dance-move-swim`, `prop/dance-move-slide`, `prop/dance-move-peace`, `prop/dance-move-tada`, `prop/dance-move-wobble`, `prop/dance-move-bow`, `prop/dance-move-hop`, `prop/dance-move-float` | 160×160 each, transparent | Move cards: fitted (contain) into a square card in the 4×4 move palette (≈60–110 px) and in the 8 timeline slots (≈40–90 px); the code draws the card, its colour and a label below | One chunky friendly dancer pictogram per card, the same simple round-headed kid figure each time (white body with a navy outline, rosy cheeks, motion swooshes in candy colours): arms straight up / pointing up and to the side while leaning / hands on bent knees / jumping in a star shape / spinning on one foot with a swirl / clapping with little clap lines / waving one hand / bumping a hip out to the side / doing "the swim" (one arm forward like a stroke, wavy lines) / sliding sideways with speed lines / peace sign by the face / ta-da arms out wide with sparkles / wobbling with both arms out / a polite bow / a little hop with feet tucked / floating on tiptoes with arms out like wings |
-| `thumb/dance-studio` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | Felicity and Fellowfox dancing together on a small stage under a sparkling mirror ball, pink and blue spotlights, a row of colourful dance-move cards along the bottom like a filmstrip, confetti. Subject centred |
-
 ## New Play Studio game: acrobat-circus
 
 ### acrobat-circus — Acrobat Circus   (requested by the acrobat-circus agent, 2026-10-05, priority: nice-to-have)
