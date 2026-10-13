@@ -32,7 +32,7 @@ export function configureTrollArt(hasArt) {
   generatedAnchors = hasArt;
   Object.assign(A, hasArt ? {
     face: [462, 174], eyeL: [427, 126], eyeR: [508, 150], nose: [464, 158], tache: [463, 181],
-    earL: [342, 114], earR: [575, 171], top: [464, 12], hairL: [283, 174], hairR: [622, 205],
+    earL: [342, 114], earR: [575, 171], top: [464, 26], hairL: [283, 174], hairR: [622, 205],
     chin: [454, 267], toeL: [141, 501], toeR: [760, 502], mouth: [443, 213],
   } : FALLBACK_A);
   FLOWER_SPOTS.splice(0, FLOWER_SPOTS.length, ...(hasArt

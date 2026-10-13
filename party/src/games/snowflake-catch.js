@@ -18,7 +18,7 @@ import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
-import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue } from './snowflake-catch/art.js';
+import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
 
 export const meta = {
   id: 'snowflake-catch',
@@ -192,7 +192,8 @@ export class Game {
   throwBall() {
     const e = pick(this.ents);
     const tx = clamp(e.x + rand(-140, 140), ARENA.x0 + 60, ARENA.x1 - 60), ty = clamp(e.y + rand(-90, 90), ARENA.y0 + 30, ARENA.y1 - 20);
-    const sx = FRIEND.x + 50, sy = FRIEND.y - 1, sz = 200;
+    const hand = friendHand();   // the ball leaves the raised hand (drawn at y - z - 30)
+    const sx = FRIEND.x + hand.dx, sy = FRIEND.y - 1, sz = -hand.dy - 31;
     const T = clamp(dist(sx, sy, tx, ty) / 900, 0.9, 1.4);
     this.balls.push({ x: sx, y: sy, z: sz, vx: (tx - sx) / T, vy: (ty - sy) / T, vz: (0 - sz + 0.5 * 1400 * T * T) / T, tx, ty, t: 0, T, rot: 0 });
     this.friendThrow = 0.45;
