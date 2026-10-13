@@ -312,7 +312,7 @@ export class GameSelectScene {
       g.restore();
     });
     ui.text(g, toMolly ? 'Molly Party' : 'Charlie Party', it.w / 2 + 60, it.h / 2 - 12, { size: 40, weight: 800, maxWidth: it.w - 150 });
-    ui.text(g, toMolly ? '✿ games for little ones ✿' : '◀ back to the big party', it.w / 2 + 60 + Math.sin(this.t * 5) * (sel ? 4 : 0), it.h / 2 + 30, { size: 20, color: '#fff6a8', strokeWidth: 5, maxWidth: it.w - 150 });
+    ui.text(g, toMolly ? '✿ Games for fun ✿' : '◀ back to the big party', it.w / 2 + 60 + Math.sin(this.t * 5) * (sel ? 4 : 0), it.h / 2 + 30, { size: 20, color: '#fff6a8', strokeWidth: 5, maxWidth: it.w - 150 });
   }
 
   /** The "More Games" / "More Play" tile: a peek at the other page's games. */
