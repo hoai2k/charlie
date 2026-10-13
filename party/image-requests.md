@@ -1140,36 +1140,6 @@ in any image. Reused as they are: the roster sprites (`toss`, `cheer`,
 | `prop/candle-flame` | 96×128, transparent | Anchor bottom-centre at the wick; flickers via code scale | A small cartoon candle flame: orange outside, yellow inside, white core, soft glow |
 | `prop/cupcake-topper-cake` | 760×600, transparent | Anchor bottom-centre, drawn 380×300 on top of the tower for the finale. The code draws the candles: keep the TOP of the upper tier flat and plain at about 68% up (lower-tier top at about 37% up) | A two-tier birthday cake with a happy face on the upper tier: pink bottom tier, cream top tier, white frosting drips, rainbow sprinkles, no candles, front view |
 
-## New Molly Party game: ladybug-spots
-
-> **ON HOLD (2026-10-13):** `ladybug-spots` is being replaced by `prank-troll` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
-
-### ladybug-spots — Ladybug Spots   (requested by the ladybug-spots agent, 2026-10-05, priority: nice-to-have)
-
-A bright garden meadow seen from a high 3/4 view. A friendly ladybug (or a
-bee, or a butterfly) zooms in and lands on a big daisy pad in the centre;
-empty dashed circles on her back show how many spots she wants (1–5).
-Players dash around catching the bouncy dots that zip about the meadow, then
-bring them to her (touch or A). She counts them with chimes and zooms off;
-an extra spot makes her sneeze it off. Bees want fluffy yellow pollen puffs,
-butterflies want dots of the colour shown on their wings. **The code draws
-the spots and slots on top of the critter art,** so shells and wings must be
-plain areas (positions below). Every key has a procedural fallback that
-ships today. House style: navy `#24163f` outlines, soft cel shading, bright
-candy colours, **no text**.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/ladybug-spots` | 1920×1080, opaque | Full screen. The daisy pad is drawn by code at (960, 560); players run everywhere from y≈200 to y≈1010. Keep the top 110 px calm (HUD) | A sunny garden meadow from a high 3/4 view: soft green grass with mowed stripes, little daisies and clover dotted around, a few pebbles, tall flowers and leaves framing the left and right edges. Open, uncluttered middle |
-| `thumb/ladybug-spots` | 800×500, opaque | Game-select shelf and how-to screen | A big smiling ladybug with a few black spots and some empty dashed circles on her shell, a bee and a butterfly flying behind, bouncy black dots in the air, flowers, sparkles. Subject centred |
-| `prop/ladybug-pad` | 760×460, transparent | Anchor centre at (960, 560), drawn 620 px wide | A giant pink-and-white daisy lying flat, seen from above at a slight angle, with a yellow centre, used as a landing pad |
-| `prop/ladybug` | 512×448, transparent | Anchor centre, drawn 300 px wide, facing right (the code flips her). **Shell:** a plain red dome (no spots) filling an ellipse centred at 44% x / 55% y, radii 33% × 35% of the image; the code draws slots and spots inside it. Head on the right | A cute chubby cartoon ladybug seen from above-front, glossy plain red shell with NO spots, black head with big sparkly eyes, rosy cheeks, a happy smile and two curly antennae |
-| `prop/bee` | 512×448, transparent | Same layout as the ladybug: a plain pale-yellow fuzzy back in an ellipse centred at 44% x / 55% y (radii 33% × 35%) with two thin brown stripes only at its far left edge; the code draws pollen slots there | A round fluffy cartoon bumblebee seen from above-front, small clear wings, big happy eyes, rosy cheeks, two antennae |
-| `prop/butterfly` | 640×448, transparent | Anchor centre, drawn 360 px wide. Two big plain pale upper wings: the code draws coloured dot slots in circles centred at 27%/40% (left wing) and 73%/40% (right wing), radius 16% of the width each. Body in the middle | A pretty cartoon butterfly seen from the front, wings open, pale lilac-white wings with a thin pastel rim and NO spots, a smiling face, curly antennae |
-| `prop/ladybug-dot` | 128×128, transparent | Anchor centre, drawn 64 px; bounces around the meadow | A glossy round black dot with a white shine, slightly squishy, with tiny happy eyes |
-| `prop/pollen-puff` | 128×128, transparent | Anchor centre, drawn 64 px | A fluffy round yellow pollen puff ball with soft fuzzy edges and tiny happy eyes |
-| `prop/wing-dot-pink`, `prop/wing-dot-blue`, `prop/wing-dot-purple`, `prop/wing-dot-orange` | 128×128 each, transparent | Anchor centre, drawn 64 px | A glossy round <pink / blue / purple / orange> candy dot with a white shine and tiny happy eyes |
-
 ## New Molly Party game: rainbow-painter
 
 ### rainbow-painter — Rainbow Painter   (requested by the rainbow-painter agent, 2026-10-13, priority: nice-to-have)
@@ -1267,7 +1237,8 @@ troll is the existing Troll NPC sprite wearing bunny ears.
 
 ## New Molly Party game: dance-freeze
 
-> **ON HOLD (2026-10-13):** `dance-freeze` is being replaced by `sneaky-dance` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
+> **REPLACED (2026-10-13):** `dance-freeze` is off the Molly shelf; `sneaky-dance` replaced it and reuses only the rows left below. The other rows moved to history as dropped.
+
 
 ### dance-freeze — Dance & Freeze   (requested by the dance-freeze agent, 2026-10-05, priority: nice-to-have)
 
@@ -1280,13 +1251,7 @@ no text. Professor Hoot (existing NPC) is the DJ.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
-| `bg/dance-freeze` | 1920×1080, opaque | Full screen. Top ~110 px calm (HUD). The code draws the light-up dance floor tiles from y≈560 to y≈1040 across the full width, the DJ booth at top-centre (x 960, y≈470) and the disco ball at (960, 150) | A sparkly kids' disco party hall: deep purple walls with big rounded arch windows, pink and gold stage curtains at both sides, string lights and paper stars, big speakers at the far left and right, a glossy floor area at the bottom (plain; tiles drawn on top) |
-| `thumb/dance-freeze` | 800×500, opaque | Game-select shelf and how-to screen | Two little garden fairies (the existing yellow and purple garden-fairy NPCs, no Charlie Party player characters) on a glowing rainbow disco floor, one frozen in a silly flamingo pose with frosty sparkles, a giant pink feather tickling the other who is giggling, Professor Hoot at a DJ booth and a disco ball above |
 | `prop/df-disco-ball` | 256×320, transparent | Hangs from the top: anchored top-centre (the string's top), drawn ~170 px | A big sparkly mirror disco ball on a short gold chain, pink and blue reflections |
-| `prop/df-dj-booth` | 560×300, transparent | Bottom-centre at (960, 560), drawn 520 wide; Professor Hoot stands behind it, the code draws the spinning record on top at 35% from the left, 25% from the top | A rounded pastel DJ booth with rainbow light strips on the front, two turntables on top, a heart-shaped speaker grille |
-| `prop/df-feather` | 160×420, transparent | Rotates around its quill end (bottom-centre), drawn ~200 px long, wiggles over a player | A huge fluffy pink-and-purple tickle feather with a gold quill |
-| `prop/df-snowflake` | 256×256, transparent | Centred, the FREEZE icon in the HUD and over frozen players (60–220 px) | A chunky shiny ice-blue snowflake with a cute face and frosty sparkles |
-| `prop/df-music` | 256×256, transparent | Centred, the DANCE icon in the HUD | Two bouncing rainbow music notes with sparkles |
 
 ## New Molly Party game: bubble-pop
 
@@ -1347,7 +1312,8 @@ poses only (float, cheer, celebrate, surprised, wave, giggle).
 
 ## New Molly Party game: ballet-butterflies
 
-> **ON HOLD (2026-10-13):** `ballet-butterflies` is being replaced by `opposite-ballet` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
+> **REPLACED (2026-10-13):** `ballet-butterflies` is off the Molly shelf; `opposite-ballet` replaced it and reuses only the rows left below. The other rows moved to history as dropped.
+
 
 ### ballet-butterflies — Butterfly Ballet   (requested by the ballet-butterflies agent, 2026-10-13, priority: nice-to-have)
 
@@ -1365,7 +1331,6 @@ shared wardrobe (`butterfly-wings`, `fairy-wings`, `petal-wings`, `tiara`,
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/ballet-butterflies` | 1920×1080, opaque | Full screen. The stage floor runs from y≈600 to the bottom; dancers stand on it at y≈760–1010. The teacher hovers at the top centre (x 960, y 120–460) and the move card sits to her right (x≈1300–1640, y≈130–470): keep those areas calm. Top ~120 px stays calm for the HUD chips | A magical garden ballet stage at golden hour: a big round stage floor made of a giant pale-pink flower (petal-edged, glossy), framed by arching rose-and-vine curtains on the left and right, a soft lilac sky with fluffy clouds behind, tall tulips and daisies at the stage edges, tiny fairy lights strung across the top corners |
-| `thumb/ballet-butterflies` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A little pink garden fairy in a tutu doing a ballet twirl on a flower stage, Madame Papillon the butterfly-fairy teacher (see `prop/ballet-teacher`) with huge rainbow wings above her (no Charlie Party player characters), colourful butterflies swirling around, petals in the air. Subject centred |
 | `prop/ballet-teacher` | 512×640, transparent | The teacher idle. Anchor: bottom centre = her feet (she hovers; the code adds a bob and a soft shadow). Drawn 330 px tall, facing the viewer | Madame Papillon, a friendly butterfly fairy ballet teacher: tall graceful fairy with a lilac bun, a sparkly pink tutu leotard, ballet slippers, huge monarch-meets-rainbow butterfly wings, a tiny wand, warm smile. Standing in first position |
 | `prop/ballet-teacher-up`, `prop/ballet-teacher-twirl`, `prop/ballet-teacher-plie`, `prop/ballet-teacher-side`, `prop/ballet-teacher-bow` | 512×640 each, transparent | Same anchor/size as `prop/ballet-teacher`; shown while she demonstrates each move (code still adds a spin for twirl and a dip for plié) | The same teacher, same scale: arms raised in a high round fifth position; mid-pirouette on one toe with the tutu flaring; deep plié with knees bent out and arms rounded low; a big side step with one leg pointed out and arms open to the side; a graceful curtsy-bow |
 | `prop/ballet-move-up`, `prop/ballet-move-twirl`, `prop/ballet-move-plie`, `prop/ballet-move-side` | 256×256 each, transparent | Drawn centred inside the white move card (fitted to 240 px); the code draws the card, an arrow/button glyph under it and the animation | Simple bold pictograms a 4-year-old reads instantly: a little ballerina silhouette (pink, round head) with both arms straight up; spinning on one toe with swirl lines; knees bent low with a down-motion bounce line; stepping sideways with motion lines. Flat colours, navy outline |
@@ -1394,36 +1359,6 @@ cel shading, bright candy colours, **no text**. Reused: roster sprites
 | `prop/wand-shooting-star` | 256×256, transparent | The star spell, centred, spun; the code draws its rainbow trail | A plump golden star with a happy face (closed smiling eyes, rosy cheeks), sparkles round its tips |
 | `prop/wand-sleepy-moon` | 400×400, transparent | The moon spell, centred; the code bobs it and draws the Zzz | A smiling crescent moon (opening to the right) asleep, wearing a blue polka-dot nightcap with a pom-pom, eyes closed, rosy cheek |
 | `prop/wand-rainbow` | 1000×520, transparent | The rainbow spell. Anchor: bottom centre; drawn ~800 px wide over the dotted arc | A bright seven-stripe rainbow arc with a smiling fluffy cloud at each foot |
-
-## New Molly Party game: shape-train
-
-> **ON HOLD (2026-10-13):** `shape-train` is being replaced by `bed-bounce` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
-
-### shape-train — Choo-Choo Shapes   (requested by the shape-train agent, 2026-10-05, priority: nice-to-have)
-
-A happy toy train with a face zooms into the station. Each car has
-shape-shaped windows (circle, square, triangle, star, heart), each shape in
-its own colour; toy animals on the platform hold up matching shapes. Players
-carry the animals to the right car and pop them in; full trains toot and
-zoom around a loop in the background (through a tunnel, over a bridge, past
-a waving cow). Everything below has a procedural fallback that ships today
-and the code already looks up every key. House style: navy `#24163f`
-outlines, soft cel shading, bright candy colours, **no text** in any image.
-Shape colours used by the code: circle red `#ff5a5f`, square blue `#3fa2ff`,
-triangle green `#3fcf6e`, star yellow `#ffcf2e`, heart pink `#ff6fbf`.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/shape-train` | 1920×1080, opaque | Full screen. **Layout must match:** sky y 0–230 (keep the top ~110 px calm, the HUD sits there); a far-away train track runs straight across at y≈318 (the small loop train drives on it, right to left); a green hill with a tunnel straddles the far track between x≈1370 and x≈1590 (dark tunnel mouths on the track at both x); a blue river crosses under the far track between x≈820 and x≈1080 with a little bridge carrying the track; a flowery meadow on the left (the code draws a cow standing at x≈560 with its feet at y≈300; it pops up from behind the meadow when the little train passes, so keep that spot plain grass). The foreground track (rails, sleepers, gravel) runs straight across with the rail tops at y≈486; the station platform (pale stone tiles, a yellow safety stripe along the edge at y≈530) fills y 520–1080. Leave the platform mostly plain (players walk all over it); small decorations only along the bottom and far left/right edges (flower pots, a bench, a lamp). Keep the bottom-left 120×120 calm | A sunny toy-town railway station in a storybook countryside: rolling green hills, a red-roofed station house far left (x 40–290, standing in front of the far track: the little train disappears behind it), pastel sky with puffy clouds, a toy railway looping through the scenery |
-| `thumb/shape-train` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A smiling red toy steam engine with big eyes pulling two candy-coloured carriages with a star window and a heart window; a little bunny peeking out of the heart window waving; puffs of steam, a rainbow, sparkles. Subject centred |
-| `prop/shape-train-engine` | 640×400, transparent | Side view facing **right**, bottom-centre anchored on the rail (wheel bottoms on the bottom edge), fitted to 400×250 at scale 1. The code draws the **face** on the round boiler front (centre at about 86% x, 50% y, radius ~16% of the width) and puffs steam from the funnel (about 66% x, top), so keep the boiler front a plain round disc | A chunky, glossy red-and-gold toy steam engine: cab with a round window at the back (left), a fat boiler, a tall funnel, a gold bell, a little cowcatcher, big red wheels with gold hubs |
-| `prop/shape-train-car-red`, `-blue`, `-green`, `-yellow`, `-pink` | 560×340 each, transparent | Side view, bottom-centre anchored on the rail, stretched over the car (about 330×200 at scale 1). The code draws the shape windows (and the animal faces in them) across the side panel at 30–70% x, 25–70% y, so keep that panel plain; roof riders sit on the roof (top ~12%) | Toy train carriages in candy colours (a pastel version of the shape colour), a rounded roof with white trim, little wheels, chunky couplers at both ends, cute rivets, no windows |
-| `prop/shape-train-animal-bunny`, `-bear`, `-duck`, `-pig`, `-cat`, `-frog`, `-elephant`, `-penguin` | 256×256 each, transparent | Front view, standing, **both paws raised** (the code draws a shape placard held above the head between the paws). Bottom-centre anchored at the feet, drawn ~110 px tall. The top 45% (the head) is also reused, clipped inside the train windows | Chubby wooden/plush toy animals with big shiny eyes, rosy cheeks and tiny smiles, each with a little scarf or bow in a bright colour |
-| `prop/shape-train-cow` | 320×260, transparent | Bottom-centre anchored in the meadow at (560, 300), drawn ~110 px tall; the code bobs and tilts it when it waves at the passing train | A friendly black-and-white spotted cow with a pink nose, a flower behind one ear and a little bell, three-quarter view, looking at the viewer, one front hoof raised in a wave |
-| `prop/shape-train-tunnel` | 260×220, transparent | Stone arch portal drawn bottom-centre on the far track at x≈1370 and x≈1590 (mirrored for the left mouth) over the little train, ~120 px wide, so the train vanishes into the hill | A rounded storybook stone tunnel arch with ivy and two little flowers, dark inside |
-
-New poses: none required (uses carry, hold-present, toss, wave, cheer,
-celebrate, surprised, laugh, dizzy).
 
 ## New Molly Party game: duckling-parade
 
@@ -1458,7 +1393,8 @@ top 110 px calm (timer/HUD) and the bottom 120 px plain grass (scoreboard).
 
 ## New Molly Party game: puppy-splash
 
-> **ON HOLD (2026-10-13):** `puppy-splash` is being replaced by `muddy-mayhem` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
+> **REPLACED (2026-10-13):** `puppy-splash` is off the Molly shelf; `muddy-mayhem` replaced it and reuses only the rows left below. The other rows moved to history as dropped.
+
 
 ### puppy-splash — Puppy Splash   (requested by the puppy-splash agent, 2026-10-05, priority: nice-to-have)
 
@@ -1480,13 +1416,8 @@ calm (timer) and the bottom 120 px plain grass (scoreboard).
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/puppy-splash` | 1920×1080, opaque | Full screen. House wall 0–170, porch deck 170–330, lawn below; low detail on the lawn | A sunny cartoon backyard from a high three-quarter view: the bottom of a cheerful pastel-blue house with windows and a pink door across the top, a honey-wood porch deck along its whole width, then a bright green lawn with a few daisies, a white picket fence along the far left and right edges, flower beds in the corners. No animals, no characters, no pool |
-| `thumb/puppy-splash` | 800×500, opaque | Game-select shelf and how-to screen | A garden hose nozzle in the foreground spraying a sparkling arc of water at a giggling muddy puppy while a clean fluffy white puppy shakes water drops everywhere; soap bubbles, rainbow mist, sunny backyard with a porch. No Charlie Party characters. Subject centred |
 | `prop/puppy-1` … `prop/puppy-4` | 220×180 each, transparent | Bottom-centre anchor (feet), drawn ~100 px tall, mirrored for left; the code adds mud splotches, wag, hop and squash. 1 cream golden-retriever pup, 2 white fluffy poodle pup, 3 brown-and-white beagle pup, 4 black-and-white spotty pup | A cute fluffy puppy, side view facing right, standing on four legs, tongue out, tail up, big shiny eyes, clean and soft |
-| `prop/puppy-shake` | 220×180, transparent | Optional, same framing as the puppies; used only for puppy 1 during its shake (others wiggle their normal art) | The cream puppy mid-shake: fur flared out in a blur, ears flying, eyes squeezed shut, happy |
-| `prop/bubble-pool` | 440×280, transparent | Centred at (1560, 820), drawn 360 px wide; the code adds rising bubbles | A round inflatable kiddie pool, pink and white striped rim, overflowing with fluffy soap foam, seen from a high angle |
 | `prop/mud-puddle` | 320×170, transparent | Centred, drawn ~260 px wide flat on the grass | A wide flat glossy brown mud puddle with a few splashes at the edge, seen from above at an angle |
-| `prop/dog-bed` | 220×120, transparent | Bottom-centre anchor on the porch, drawn ~150 px wide; a clean puppy sits in it | A round plush dog bed, soft pink with a white fluffy rim, seen from a slight high angle |
-| `prop/hose-nozzle` | 120×70, transparent | Held at the character's hand, pointing right (rotated to the aim), drawn ~70 px long | A chunky green garden-hose spray nozzle with a yellow trigger, pointing right |
 
 ## New Molly Party game: fairy-flutter
 
@@ -1550,46 +1481,6 @@ sets. No Charlie Party player characters appear in any of these images.
 | `prop/fhs-snail` | 256×200, transparent | Decoy, bottom-centre at ~130 px wide, facing right (mirrored by code) | A happy snail with a swirly pink-and-lilac shell, waving one eye stalk |
 | `prop/fhs-ladybug` | 160×160, transparent | Decoy, centred at ~70 px, zooms off in a loop | A round red ladybug with black spots, wings open mid-flight, smiling |
 | `prop/fhs-magnifier` | 320×320, transparent | Each player's glass. The lens centre is at (120, 120) in this image with a 200 px lens; the handle runs to the lower right. The code draws a player-colour ring and the see-through view inside the lens, so the lens area must be **empty** (fully transparent) | A chunky toy magnifying glass: a thick pearly-white rim with a gold inner edge and a rounded pink handle with a gold cap, lens empty |
-
-## New Molly Party game: tea-party
-
-> **ON HOLD (2026-10-13):** `tea-party` is being replaced by `whoopee-tea` (the user wants some cheeky, rule-breaking Molly games). Don't start new art for this section. The replacement may reuse some of these keys; its own section will say which, and the rest will move to history as dropped.
-
-### tea-party — Teddy Tea Party   (requested by the tea-party agent, 2026-10-05, priority: nice-to-have)
-
-A garden tea party for Molly Party (age 4–5). Guests sit behind a long tea
-table and show a picture bubble of the treat they want; players dash to the
-treat carts at the bottom, grab the matching treat and toss it to the guest,
-who does a silly happy reaction (teddy tips the tea onto his own head and
-laughs, the unicorn's hat pops off in confetti...). Every key below has a
-procedural fallback that ships today and is looked up with `art()` /
-`drawArt()`, so a file listed in `assets/art/index.json` drops in with no code
-change. House style: navy `#24163f` outlines, soft cel shading, bright candy
-colours, **no text** in any image. Players use their normal roster sprites
-(`carry`, `toss`, `cheer`, `laugh`, `celebrate`, `dizzy`).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/tea-party` | 1920×1080, opaque | Full screen. The code draws the table over x 240–1680, y 452–612, guests above it (heads up to y≈250), picture bubbles at y≈150–250, and two treat carts at the bottom (x≈560 and x≈1360, y 830–1060). Players run on the lawn from y≈650 to y≈850. Keep the top 110 px calm (scoreboard + timer) | A sunny storybook garden tea party: soft blue sky, a pastel bunting garland zig-zagging across the top, a big round blossom tree on each side, rose bushes and a white garden arch in the distance, a bright mowed lawn in the lower half. No table, no characters (the code draws them) |
-| `thumb/tea-party` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A brown teddy bear at a pink tea table laughing with a pink teacup tipped upside down on his head and tea splashing, a unicorn in a fancy flowered hat beside him, a cupcake and strawberry flying toward them, sparkles. Subject centred |
-| `prop/tea-table` | 1440×160, transparent | Stretched over x 240–1680, y 452–612. Top 64 px = the table top seen at a slight angle (the code draws the teapot and plates on it), the rest = the tablecloth skirt hanging down | A long tea table with a pink-and-white gingham tablecloth with a scalloped lace hem, slightly angled top surface, empty |
-| `prop/tea-teapot` | 300×260, transparent | Centre-piece on the table, bottom-anchored at (960, 500), drawn 170×150; the code wobbles it | A round fancy porcelain teapot, white with pink roses and a gold lid knob, steam curl |
-| `prop/tea-cart` | 480×300, transparent | Bottom-anchored at the cart centre (x≈560 / x≈1360, y 1060), drawn 460×290. The code sets four treats on the top shelf at y≈862 (≈69% up from the bottom), spaced 100 px | A little pastel-mint wooden tea trolley with two shelves, curly wheels, a scalloped pink awning trim; top shelf empty |
-| `prop/tea-cup-pink` | 160×160, transparent | Centred, drawn 80–110 px (cart shelf, overhead carry, flying toss, wish bubble, upside-down on a teddy's head) | A chunky pink teacup on a saucer with a white heart and a steam curl |
-| `prop/tea-cupcake` | 160×160, transparent | Same as above | A cupcake with a blue wrapper, swirly pink frosting, sprinkles and a cherry |
-| `prop/tea-strawberry` | 160×160, transparent | Same as above | A big shiny red strawberry with a green leafy top and a sparkle highlight |
-| `prop/tea-cookie` | 160×160, transparent | Same as above | A round golden cookie with chocolate chips |
-| `prop/tea-cake` | 200×200, transparent | Same as above, a little bigger (the rare "rainbow cake" bonus wish, worth 3) | A slice of rainbow layer cake with white frosting, sprinkles and a strawberry on top |
-| `prop/tea-guest-teddy` | 400×360, transparent | Guest bust, bottom-anchored at the seat (y 478, behind the table), drawn 300×270. The bottom edge is hidden behind the table top. The code bobs/squashes it and draws the bubble, crumbs and tea splash | A chubby brown teddy bear sitting at a table, seen from the waist up, paws resting forward, a red bow tie, happy open eyes, front view |
-| `prop/tea-guest-teddy-happy` | 400×360, transparent | Same framing, shown during the happy reaction | The same brown teddy laughing with eyes squeezed shut, mouth open, paws up |
-| `prop/tea-guest-honey` | 400×360, transparent | Same framing | A honey-yellow teddy bear with a big pink bow on one ear, waist up, front view |
-| `prop/tea-guest-honey-happy` | 400×360, transparent | Same framing | The same honey teddy giggling, eyes shut, rosy cheeks |
-| `prop/tea-guest-bunny` | 400×360, transparent | Same framing (ears may reach the top edge) | A white bunny with long pink-lined ears and a lace collar, waist up, front view |
-| `prop/tea-guest-bunny-happy` | 400×360, transparent | Same framing | The same bunny delighted, ears flung up, eyes shut |
-| `prop/tea-guest-unicorn` | 400×360, transparent | Same framing (hat and horn may reach the top edge) | A white unicorn with a lavender-and-pink mane and a gold horn, wearing a fancy wide-brimmed pink hat with flowers and a feather, waist up, front view, very elegant |
-| `prop/tea-guest-unicorn-happy` | 400×360, transparent | Same framing; the code pops a separate (procedural) hat off into the air | The same unicorn laughing with eyes shut, **no hat** |
-| `prop/tea-guest-panda` | 400×360, transparent | Same framing | A little panda teddy with a mint-green neck ribbon, waist up, front view |
-| `prop/tea-guest-panda-happy` | 400×360, transparent | Same framing | The same panda teddy giggling, eyes shut |
 
 ## New Molly Party game: sock-match
 
