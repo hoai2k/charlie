@@ -44,7 +44,7 @@ const GUEST_SPEED = 165;
 const GUEST_H = 190;
 const TABLES = [{ x: 540, y: 640 }, { x: 1380, y: 640 }, { x: 960, y: 905 }];
 const BASKETS = [{ x: 960, y: 640 }, { x: 200, y: 780 }, { x: 1720, y: 780 }];
-const THRONE = { x: 960, y: 440 };
+const THRONE = { x: 960, y: 470 };   // low enough that the Duchess's outrage clears the timer
 const BUTLER_PATH = [[330, 520], [960, 770], [1590, 520], [1600, 1000], [960, 760], [320, 1000]];
 const FROG_TIMES = [9, 27];
 const PFFT_PTS = 2, FROG_PTS = 3, FINALE_PTS = 3;
