@@ -38402,7 +38402,7 @@
       "game": "prank-troll",
       "prompt": "Use case: identity-preserve. Edit target: the supplied seated troll sprite. Create prop/ptroll-troll-shock for Charlie Party. Reproduce this exact friendly troll, same olive spotted skin, shaggy brown hair, fangs, huge belly, ragged brown loincloth, broad nose, and seated frontal anatomy. Keep the canvas aspect ratio 900x760 and the EXACT body scale and positions of nose, face centre, crown of head, belly, feet and toes so existing prank overlays align. Change only expression and arms: wide scandalised eyes, lifted eyebrows, mouth a big surprised O rather than laughter, both hands pressed to the sides of his cheeks, hair slightly bristling. No tear drops, no joy/laughter, no extra effects, no text, scenery, shadows or accessories. Bold smooth navy #24163f outlines and soft clean cel shading; match reference palette and rendering. Entire figure visible, transparent background with true alpha. Preserve existing feet and body framing.",
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-d1619bda-2cdf-400e-9de2-92d3ffa71eae.png",
-      "status": "intaken; runtime review pending",
+      "status": "reviewed; exact canvas and alpha validated; game consumer and separate prank overlay checked",
       "source": "party/reference/pending/reaction-sources/ptroll-troll-shock.webp",
       "sourcePath": "party/reference/pending/reaction-sources/ptroll-troll-shock.webp",
       "runtimeFile": "party/assets/art/prop/ptroll-troll-shock.webp",
@@ -38422,7 +38422,12 @@
         255
       ],
       "tool": "built-in imagegen",
-      "bytes": 111308
+      "bytes": 111308,
+      "sourceSize": [
+        1366,
+        1152
+      ],
+      "sourceBytes": 948406
     },
     {
       "key": "prop/oballet-teacher-huff",
@@ -38433,7 +38438,7 @@
       "game": "opposite-ballet",
       "prompt": "Use case: identity-preserve. Edit target: supplied Madame Papillon flustered sprite. Create prop/oballet-teacher-huff. Reproduce this exact butterfly fairy teacher, same warm golden-brown skin, lilac bun and curls, antennae and tiara, multicoloured navy-bordered butterfly wings, pink heart bodice with gold trim, pink petal tutu, pale pink tights and ballet shoes. Same 512x640 portrait canvas ratio, EXACT head size, wingspan, body framing and feet anchor as reference. Change expression/gesture to a grand offended huff: arms folded firmly over chest, chin and nose held high, eyes closed in prim offended dignity, pursed lips, one pointe shoe stamping slightly with the other grounded. Antennae bristling. Comic pompous adult fairy, preserve proportions. Smooth dark navy #24163f outlines, clean soft cel shading and exact reference palette. No steam, effects, text, scenery or ground shadow. True transparent background, entire figure and wings visible.",
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-5692430f-570c-4f68-9e11-3bce085b5de9.png",
-      "status": "intaken; runtime review pending",
+      "status": "reviewed; exact canvas and alpha validated; game consumer and separate prank overlay checked",
       "source": "party/reference/pending/reaction-sources/oballet-teacher-huff.webp",
       "sourcePath": "party/reference/pending/reaction-sources/oballet-teacher-huff.webp",
       "runtimeFile": "party/assets/art/prop/oballet-teacher-huff.webp",
@@ -38453,7 +38458,12 @@
         255
       ],
       "tool": "built-in imagegen",
-      "bytes": 81718
+      "bytes": 81718,
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourceBytes": 1093746
     },
     {
       "key": "prop/oballet-teacher-shock",
@@ -38464,7 +38474,7 @@
       "game": "opposite-ballet",
       "prompt": "Use case: identity-preserve. Edit target: supplied Madame Papillon flustered sprite. Create prop/oballet-teacher-shock. Reproduce this exact butterfly fairy teacher with identical warm golden-brown skin, antennae, multicoloured navy-bordered butterfly wings, pink heart bodice with gold trim, pink petal tutu, pale pink tights and ballet shoes. Same 512x640 portrait canvas ratio, head size, wingspan, body framing and ground anchor as reference. Her lilac wig has just flown off: remove the entire lilac bun and lilac curls, revealing a little bald head with only one tiny curl; gold tiara slipping on the bald head. No detached wig in this image. Hands clapped to cheeks, huge horrified eyes, eyebrows up, mouth a comic surprised O, stiff wings. Scandalised and prim, never laughing or smiling. Preserve body scale and anatomy. Smooth navy #24163f outlines, clean soft cel shading, exact reference palette. No shock lines, text, effects, scenery, ground shadows. True transparent background, entire figure visible.",
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-8edcdc6f-f670-414e-ba76-ff5da2b9a2be.png",
-      "status": "intaken; runtime review pending",
+      "status": "reviewed; exact canvas and alpha validated; game consumer and separate prank overlay checked",
       "source": "party/reference/pending/reaction-sources/oballet-teacher-shock.webp",
       "sourcePath": "party/reference/pending/reaction-sources/oballet-teacher-shock.webp",
       "runtimeFile": "party/assets/art/prop/oballet-teacher-shock.webp",
@@ -38484,7 +38494,12 @@
         255
       ],
       "tool": "built-in imagegen",
-      "bytes": 75244
+      "bytes": 75244,
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourceBytes": 1003256
     },
     {
       "key": "prop/mm-granny-scold",
@@ -38592,7 +38607,7 @@
         1094,
         1437
       ],
-      "sourceBytes": 1029454,
+      "sourceBytes": 1031308,
       "runtimeSize": [
         320,
         420
@@ -38615,7 +38630,8 @@
         420
       ],
       "tool": "built-in imagegen",
-      "bytes": 128570
+      "bytes": 128570,
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-bbf80865-a439-4140-b3b9-6b9b7c0f24fb.png"
     },
     {
       "key": "prop/whoopee-guest-poodle-scold",
@@ -38635,7 +38651,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 921658,
+      "sourceBytes": 923176,
       "runtimeSize": [
         320,
         420
@@ -38678,7 +38694,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 775436,
+      "sourceBytes": 776396,
       "runtimeSize": [
         320,
         420
@@ -38721,7 +38737,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 1005208,
+      "sourceBytes": 1008576,
       "runtimeSize": [
         320,
         420
@@ -38764,7 +38780,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 844370,
+      "sourceBytes": 846206,
       "runtimeSize": [
         320,
         420
@@ -38807,7 +38823,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 736644,
+      "sourceBytes": 736158,
       "runtimeSize": [
         320,
         420
@@ -38850,7 +38866,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 824806,
+      "sourceBytes": 826704,
       "runtimeSize": [
         320,
         420
@@ -38893,7 +38909,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 818752,
+      "sourceBytes": 820308,
       "runtimeSize": [
         320,
         420
@@ -38936,7 +38952,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 666234,
+      "sourceBytes": 668080,
       "runtimeSize": [
         320,
         420
@@ -38981,7 +38997,7 @@
       "width": 1536,
       "height": 864,
       "tool": "built-in imagegen",
-      "status": "reviewed; source unchanged; final expanded group budget pending",
+      "status": "reviewed; unchanged source composition; complete expanded Whoopee group24.53 MiB decoded",
       "sourceCrop": [
         0,
         0,
@@ -39001,7 +39017,11 @@
       "bytes": 156228,
       "outputFormat": "WEBP RGB q86 method6",
       "runtimeBytes": 156228,
-      "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry"
+      "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry",
+      "runtimeSize": [
+        1536,
+        864
+      ]
     },
     {
       "key": "prop/sd-hoot-scold",
@@ -39040,7 +39060,8 @@
         1198,
         1313
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 1022780
     },
     {
       "key": "prop/sd-hoot-shock",
@@ -39079,7 +39100,8 @@
         1198,
         1313
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 1170526
     },
     {
       "key": "prop/nanny-moo-peek-scold",
@@ -39118,7 +39140,8 @@
         1145,
         1374
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 606102
     },
     {
       "key": "prop/nanny-moo-shock",
@@ -39170,7 +39193,8 @@
       "originalNativeOutputSize": [
         1122,
         1402
-      ]
+      ],
+      "sourceBytes": 790530
     },
     {
       "key": "prop/mm-granny-scold",
@@ -39209,7 +39233,8 @@
         1100,
         1430
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 828668
     },
     {
       "key": "prop/mm-granny-huff",
@@ -39248,7 +39273,8 @@
         1100,
         1430
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 732672
     },
     {
       "key": "prop/mm-granny-muddy-shock",
@@ -39287,7 +39313,216 @@
         1341,
         1173
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 1232450
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-kitty-shock-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-kitty-gasp.webp"
+      ],
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved kitty guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, seated scale, bottom-center seat anchor, framing, face and proportions as the reference. Same fluffy white kitty lady with pale pink inner ears, big bright blue eyes, large blue bow, pearl necklace, pale blue dress and cream lace collar and cuffs, holding her little teacup. Utterly scandalised: one paw clutching her pearls, the other flung up (teacup safely held close), eyes huge, eyebrows shot up, mouth a small prim O, leaning back in horror, fur bristling. A lady clutching pearls at a garden party; never smiling or laughing. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the whole figure and teacup visible.",
+      "size": [
+        320,
+        420
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-e54faf79-65bd-40c0-8603-56807ef91be9.png",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-shock-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 1214000,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 150312,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        7,
+        0,
+        315,
+        419
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 150312
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-kitty-scold-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-kitty-gasp.webp"
+      ],
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved kitty guest; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing and proportions. Same fluffy white kitty lady with pink inner ears, bright blue eyes, large blue bow, pearl necklace, pale blue dress, cream lace collar and cuffs. Comically stern and indignant: brows down, narrowed eyes, tight disapproving mouth, cheeks puffed and flushed red, chin up. One paw raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other paw on her hip. Prim, pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No teacup, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure and blue bow visible.",
+      "size": [
+        320,
+        420
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-8d81d0ac-0cbd-4dd0-b4d5-765d3bb661ee.png",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-scold-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 1112320,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 139860,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        7,
+        1,
+        314,
+        418
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 139860
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-kitty-huff-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-kitty-sit.webp"
+      ],
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved seated kitty guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, bottom-center seat anchor, framing, scale and palette as the reference. Same fluffy white kitty lady with pink inner ears, bright blue eyes, large blue bow, pearl necklace, pale blue dress, cream lace collar and cuffs. In a grand huff: arms folded tight across her chest, nose and chin tipped high, ears angled to the side, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No teacup, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure and blue bow visible.",
+      "size": [
+        320,
+        420
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-af6d586d-c566-497d-a878-4f9a72d3850f.png",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-huff-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 812072,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 100672,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        29,
+        12,
+        309,
+        415
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 100672
+    },
+    {
+      "key": "prop/whoopee-duchess-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-duchess-scold-source-v2.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-duchess-gasp.webp",
+        "party/reference/pending/reaction-sources/whoopee-duchess-scold-source.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-d7947703-1738-4941-8516-3611112f8406.png",
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea finale. Input image 1 is the approved Duchess Teddy gasp art; reproduce this exact character. Create a 360x460 transparent image with exactly the same canvas, bottom-center throne-seat anchor, framing and character scale as the reference. The grand golden-brown teddy-bear Duchess in her lavender ball gown, long pearl necklace, purple jewel and monocle on its gold chain. She is half rising from the invisible throne, quivering with indignation, face flushed red, comic furious brows, mouth open in an outraged 'WELL!', one white-gloved paw wagging a stern finger on the right side of the picture, the other clutching her long pearls. Her monocle has popped out and dangles on its gold chain; gown ruffles are fluffed up. Pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no throne, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep her full figure visible and preserve the exact bottom seat anchor.",
+      "size": [
+        360,
+        460
+      ],
+      "source": "party/reference/pending/reaction-sources/whoopee-duchess-scold-source-v2.webp",
+      "sourceSize": [
+        1109,
+        1419
+      ],
+      "sourceBytes": 1215820,
+      "runtimeSize": [
+        360,
+        460
+      ],
+      "runtimeBytes": 181244,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        8,
+        0,
+        352,
+        460
+      ],
+      "tool": "built-in imagegen",
+      "sourceHistory": [
+        "party/reference/pending/reaction-sources/whoopee-duchess-scold-source.webp"
+      ],
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-dad67b1b-328c-4bd4-8fc0-38238da6e87e.png",
+      "editPrompt": "Edit the input image with a targeted pose adjustment. Keep Duchess Teddy's head and face, expression, crownless ears, raised white-gloved pointing paw, clutching paw, long pearls, monocle and gold chain, lavender bodice, colors, line style, head scale, upper-body positions, and transparent background exactly as they are. Change only the lower pose from seated to just beginning to rise indignantly from the throne: the gown gathers and ruffles upward slightly at the lap, her knees begin to unfold beneath the gown, and both feet point downward toward the floor rather than showing their soles toward the viewer. She is only halfway out of the seat, not fully standing. Preserve the exact 360x460 canvas and bottom-center throne-seat anchor, with the same overall framing and body size. Do not draw a throne or add text, shadows, glow, motion marks, or other decorations.",
+      "bytes": 181244
+    },
+    {
+      "key": "prop/whoopee-butler-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-butler-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-butler-scold-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-butler-ahem.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-882a36cf-31a1-4f6c-b5cc-6d385bedfd1e.png",
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-cafff18c-804a-4686-b694-4b18b0ad314e.png",
+      "prompt": "Use case: game-asset. Asset type: flat cartoon cutout reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the exact identity, palette and style reference. Reproduce this same penguin butler in a 280x420 portrait canvas (2:3 aspect). Show the full side-view character facing right with the same tall narrow body, bottom-center feet anchor and tray placement. Keep the black-and-white penguin, orange beak and feet, white shirt, black tail-coat, bow tie and gloves. Beak tilted high, eyes shut in dignified disapproval. One white-gloved flipper raised forward with one finger wagging tsk tsk; the other supports a perfectly level silver tray carrying the teapot. Bold smooth dark navy #24163f outlines, simple bright colors and clean flat cel shading matching the reference. This is a clean isolated 2D sprite cutout: the background is fully transparent and contains absolutely no glow, haze, gradient, vignette, shadow, floor, halo, particles or decorations. No text, no watermark, no other characters. Keep all of the penguin, teapot and tray inside the canvas.",
+      "editPrompt": "Precise edit of the input image: remove the two curved dark motion strokes immediately to the right of the raised white index finger. The area where those strokes were must be fully transparent, matching the clean transparent canvas. Keep the outline of the white finger and the penguin unchanged; preserve every other pixel and the same 2:3 framing, side-facing pose, level tray and teapot. Do not add any marks, shadows, glow or background.",
+      "size": [
+        280,
+        420
+      ],
+      "source": "party/reference/pending/reaction-sources/whoopee-butler-scold-source.webp",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "sourceBytes": 937696,
+      "runtimeSize": [
+        280,
+        420
+      ],
+      "runtimeBytes": 72222,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        11,
+        273,
+        413
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 72222
     }
   ]
 }

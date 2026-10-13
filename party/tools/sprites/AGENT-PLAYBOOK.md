@@ -397,3 +397,10 @@ Final Molly audit reminders:
 - Use immutable source archives already in the repo. Duplicate root-level source copies add no provenance; reference the original nested archive. Keep edit inputs distinct from final edit outputs. Preserve exact generation prompts; do not rewrite old prompt punctuation while normalizing metadata.
 - Refresh recorded runtime byte counts after crop/resize/regeneration, and label later revision records so old native sources remain clear as generation history. Source hashes, physical decoded budgets and final runtime paths make a batch independently reviewable.
 - Named new poses can be one authored keyframe combined with engine motion; looping locomotion/wing/tiptoe packets need distinct phases. Inspect actual gameplay before claiming an animation or attachment is seamless.
+
+
+### Grown-up reaction intake
+
+Use existing game props as the expression-edit targets to keep full-canvas scale and seated/feet anchors. Compare final native and runtime images against the exact reference, not only another new pose. Preserve the full native RGBA as lossless WebP; a lossless copy of an already resized runtime is not a source archive. Keep the final edit output path separate from its original input and retain exact edit prompts. Normalize only explicitly owned record files: a filename glob can also match another agent’s integration record.
+
+Reaction props can contain hands, gloves and dropped tools that procedural fallbacks also draw. Suppress an extra glove or hose only when the exact authored reaction is loaded; keep fallback extras otherwise. Audit complete game art groups after adding reaction families. Move unused legacy variants to a separate deferred group rather than dropping them from every group (which would load them at boot). Resolution-only background intake from the unchanged source can lower memory without changing geometry; keep requested prop canvases exact.

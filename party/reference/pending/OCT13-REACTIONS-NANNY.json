@@ -36,7 +36,8 @@
         1145,
         1374
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 606102
     },
     {
       "key": "prop/nanny-moo-shock",
@@ -87,7 +88,8 @@
       "originalNativeOutputSize": [
         1122,
         1402
-      ]
+      ],
+      "sourceBytes": 790530
     }
   ],
   "qa": "Exact source/runtime framing compared at shared pixel scale; native final poses reviewed; actual full minigame ran to results without console errors or warnings."

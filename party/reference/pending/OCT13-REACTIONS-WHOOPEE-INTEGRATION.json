@@ -20,7 +20,7 @@
       "width": 1536,
       "height": 864,
       "tool": "built-in imagegen",
-      "status": "reviewed; source unchanged; final expanded group budget pending",
+      "status": "reviewed; unchanged source composition; complete expanded Whoopee group24.53 MiB decoded",
       "sourceCrop": [
         0,
         0,
@@ -40,7 +40,11 @@
       "bytes": 156228,
       "outputFormat": "WEBP RGB q86 method6",
       "runtimeBytes": 156228,
-      "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry"
+      "operation": "Resolution-only intake optimization from unchanged lossless source; same 16:9 composition and gameplay geometry",
+      "runtimeSize": [
+        1536,
+        864
+      ]
     }
   ],
   "deferredLegacyKeys": [

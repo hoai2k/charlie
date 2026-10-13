@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea duchess reactions",
+  "assets": [
+    {
+      "key": "prop/whoopee-duchess-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-duchess-scold-source-v2.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-duchess-gasp.webp",
+        "party/reference/pending/reaction-sources/whoopee-duchess-scold-source.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-d7947703-1738-4941-8516-3611112f8406.png",
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea finale. Input image 1 is the approved Duchess Teddy gasp art; reproduce this exact character. Create a 360x460 transparent image with exactly the same canvas, bottom-center throne-seat anchor, framing and character scale as the reference. The grand golden-brown teddy-bear Duchess in her lavender ball gown, long pearl necklace, purple jewel and monocle on its gold chain. She is half rising from the invisible throne, quivering with indignation, face flushed red, comic furious brows, mouth open in an outraged 'WELL!', one white-gloved paw wagging a stern finger on the right side of the picture, the other clutching her long pearls. Her monocle has popped out and dangles on its gold chain; gown ruffles are fluffed up. Pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no throne, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep her full figure visible and preserve the exact bottom seat anchor.",
+      "size": [
+        360,
+        460
+      ],
+      "source": "party/reference/pending/reaction-sources/whoopee-duchess-scold-source-v2.webp",
+      "sourceSize": [
+        1109,
+        1419
+      ],
+      "sourceBytes": 1215820,
+      "runtimeSize": [
+        360,
+        460
+      ],
+      "runtimeBytes": 181244,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        8,
+        0,
+        352,
+        460
+      ],
+      "tool": "built-in imagegen",
+      "sourceHistory": [
+        "party/reference/pending/reaction-sources/whoopee-duchess-scold-source.webp"
+      ],
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-dad67b1b-328c-4bd4-8fc0-38238da6e87e.png",
+      "editPrompt": "Edit the input image with a targeted pose adjustment. Keep Duchess Teddy's head and face, expression, crownless ears, raised white-gloved pointing paw, clutching paw, long pearls, monocle and gold chain, lavender bodice, colors, line style, head scale, upper-body positions, and transparent background exactly as they are. Change only the lower pose from seated to just beginning to rise indignantly from the throne: the gown gathers and ruffles upward slightly at the lap, her knees begin to unfold beneath the gown, and both feet point downward toward the floor rather than showing their soles toward the viewer. She is only halfway out of the seat, not fully standing. Preserve the exact 360x460 canvas and bottom-center throne-seat anchor, with the same overall framing and body size. Do not draw a throne or add text, shadows, glow, motion marks, or other decorations."
+    }
+  ],
+  "qa": "Exact runtime alpha/canvas checks; framed native/runtime contact comparison; actual game drawing functions with separate hats, seat/throne and gloves reviewed. Expanded Whoopee group 24.53 MiB."
+}

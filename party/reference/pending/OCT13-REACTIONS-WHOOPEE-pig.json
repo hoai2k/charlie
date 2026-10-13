@@ -7,10 +7,6 @@
       "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-shock.webp",
       "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
       "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
-      "canvas": [
-        320,
-        420
-      ],
       "alpha": true,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-f0efa806-32bf-4d71-87b8-1a4c2e1b61fe.png",
       "references": [
@@ -20,7 +16,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 824806,
+      "sourceBytes": 826704,
       "runtimeSize": [
         320,
         420
@@ -49,10 +45,6 @@
       "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-scold.webp",
       "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
       "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
-      "canvas": [
-        320,
-        420
-      ],
       "alpha": true,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-a9d589b5-d26b-4f0b-9f3f-5bebfb432c77.png",
       "references": [
@@ -62,7 +54,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 818752,
+      "sourceBytes": 820308,
       "runtimeSize": [
         320,
         420
@@ -91,10 +83,6 @@
       "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-huff.webp",
       "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
       "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
-      "canvas": [
-        320,
-        420
-      ],
       "alpha": true,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-bbc178ba-a087-42d7-ba11-5bc7c17ac570.png",
       "references": [
@@ -104,7 +92,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 666234,
+      "sourceBytes": 668080,
       "runtimeSize": [
         320,
         420

@@ -1280,7 +1280,12 @@
     "prop/sd-hoot-scold": "prop/sd-hoot-scold.webp",
     "prop/sd-hoot-shock": "prop/sd-hoot-shock.webp",
     "prop/nanny-moo-peek-scold": "prop/nanny-moo-peek-scold.webp",
-    "prop/nanny-moo-shock": "prop/nanny-moo-shock.webp"
+    "prop/nanny-moo-shock": "prop/nanny-moo-shock.webp",
+    "prop/whoopee-guest-kitty-shock": "prop/whoopee-guest-kitty-shock.webp",
+    "prop/whoopee-guest-kitty-scold": "prop/whoopee-guest-kitty-scold.webp",
+    "prop/whoopee-guest-kitty-huff": "prop/whoopee-guest-kitty-huff.webp",
+    "prop/whoopee-duchess-scold": "prop/whoopee-duchess-scold.webp",
+    "prop/whoopee-butler-scold": "prop/whoopee-butler-scold.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -2022,7 +2027,12 @@
       "prop/whoopee-guest-bunny-huff",
       "prop/whoopee-guest-pig-shock",
       "prop/whoopee-guest-pig-scold",
-      "prop/whoopee-guest-pig-huff"
+      "prop/whoopee-guest-pig-huff",
+      "prop/whoopee-guest-kitty-shock",
+      "prop/whoopee-guest-kitty-scold",
+      "prop/whoopee-guest-kitty-huff",
+      "prop/whoopee-duchess-scold",
+      "prop/whoopee-butler-scold"
     ],
     "muddy-mayhem": [
       "bg/muddy-mayhem",

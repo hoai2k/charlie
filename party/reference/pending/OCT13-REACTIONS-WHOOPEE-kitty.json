@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea kitty reactions",
+  "assets": [
+    {
+      "key": "prop/whoopee-guest-kitty-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-shock.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-kitty-shock-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-kitty-gasp.webp"
+      ],
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved kitty guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, seated scale, bottom-center seat anchor, framing, face and proportions as the reference. Same fluffy white kitty lady with pale pink inner ears, big bright blue eyes, large blue bow, pearl necklace, pale blue dress and cream lace collar and cuffs, holding her little teacup. Utterly scandalised: one paw clutching her pearls, the other flung up (teacup safely held close), eyes huge, eyebrows shot up, mouth a small prim O, leaning back in horror, fur bristling. A lady clutching pearls at a garden party; never smiling or laughing. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No hat, no text, no steam, no shock lines, no shadows, no scenery, no extra decorations, no watermark, no other characters. Keep the whole figure and teacup visible.",
+      "size": [
+        320,
+        420
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-e54faf79-65bd-40c0-8603-56807ef91be9.png",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-shock-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 1214000,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 150312,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        7,
+        0,
+        315,
+        419
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-kitty-scold-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-kitty-gasp.webp"
+      ],
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved kitty guest; reproduce this exact character. Create a 320x420 transparent character image that exactly matches the reference canvas, seated scale, bottom-center seat anchor, framing and proportions. Same fluffy white kitty lady with pink inner ears, bright blue eyes, large blue bow, pearl necklace, pale blue dress, cream lace collar and cuffs. Comically stern and indignant: brows down, narrowed eyes, tight disapproving mouth, cheeks puffed and flushed red, chin up. One paw raised on the right side of the picture in a dainty white glove with one finger raised to scold; the other paw on her hip. Prim, pompous and funny, never scary. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No teacup, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure and blue bow visible.",
+      "size": [
+        320,
+        420
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-8d81d0ac-0cbd-4dd0-b4d5-765d3bb661ee.png",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-scold-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 1112320,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 139860,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        7,
+        1,
+        314,
+        418
+      ],
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-huff.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-kitty-huff-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-guest-kitty-sit.webp"
+      ],
+      "prompt": "Use case: game-asset. Asset type: transparent reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the approved seated kitty guest; reproduce this exact character. Create a 320x420 transparent character image with the exact same canvas, bottom-center seat anchor, framing, scale and palette as the reference. Same fluffy white kitty lady with pink inner ears, bright blue eyes, large blue bow, pearl necklace, pale blue dress, cream lace collar and cuffs. In a grand huff: arms folded tight across her chest, nose and chin tipped high, ears angled to the side, eyes shut in offended dignity, mouth a pouty hmph, one eyebrow arched. Hoity-toity and funny. Bold smooth dark navy #24163f outlines, soft cel shading, bright candy colors. Actual transparent background. No teacup, hat, text, steam, shock lines, shadows, scenery, decorations, watermark or other characters. Keep the whole seated figure and blue bow visible.",
+      "size": [
+        320,
+        420
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-af6d586d-c566-497d-a878-4f9a72d3850f.png",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-huff-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourceBytes": 812072,
+      "runtimeSize": [
+        320,
+        420
+      ],
+      "runtimeBytes": 100672,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        29,
+        12,
+        309,
+        415
+      ],
+      "tool": "built-in imagegen"
+    }
+  ],
+  "qa": "Exact runtime alpha/canvas checks; framed native/runtime contact comparison; actual game drawing functions with separate hats, seat/throne and gloves reviewed. Expanded Whoopee group 24.53 MiB."
+}

@@ -8,10 +8,6 @@
       "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
       "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
       "editPrompt": "Edit the input image. Keep the character, seated pose, expression, pearls, fur, dress, colors, scale, canvas proportions, and transparent background completely unchanged. Remove ONLY the two pairs of stray decorative shock lines beside the head. There must be no other marks or decoration outside the character. Preserve genuine transparency.",
-      "canvas": [
-        320,
-        420
-      ],
       "alpha": true,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-c6aa24a4-4e85-47df-93f0-fe6d88262af4.png",
       "references": [
@@ -21,7 +17,7 @@
         1094,
         1437
       ],
-      "sourceBytes": 1029454,
+      "sourceBytes": 1031308,
       "runtimeSize": [
         320,
         420
@@ -43,17 +39,14 @@
         309,
         420
       ],
-      "tool": "built-in imagegen"
+      "tool": "built-in imagegen",
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-bbf80865-a439-4140-b3b9-6b9b7c0f24fb.png"
     },
     {
       "key": "prop/whoopee-guest-poodle-scold",
       "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-scold.webp",
       "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
       "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
-      "canvas": [
-        320,
-        420
-      ],
       "alpha": true,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-ea016726-e0d9-4edf-bf06-f7c1ea2b5e1e.png",
       "references": [
@@ -63,7 +56,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 921658,
+      "sourceBytes": 923176,
       "runtimeSize": [
         320,
         420
@@ -92,10 +85,6 @@
       "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-huff.webp",
       "sourcePath": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
       "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
-      "canvas": [
-        320,
-        420
-      ],
       "alpha": true,
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-2279e7a4-b98a-4e35-83d0-e2e64ec6e66f.png",
       "references": [
@@ -105,7 +94,7 @@
         1095,
         1437
       ],
-      "sourceBytes": 775436,
+      "sourceBytes": 776396,
       "runtimeSize": [
         320,
         420

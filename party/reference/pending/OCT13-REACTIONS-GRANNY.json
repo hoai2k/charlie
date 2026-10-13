@@ -36,7 +36,8 @@
         1100,
         1430
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 828668
     },
     {
       "key": "prop/mm-granny-huff",
@@ -74,7 +75,8 @@
         1100,
         1430
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 732672
     },
     {
       "key": "prop/mm-granny-muddy-shock",
@@ -112,7 +114,8 @@
         1341,
         1173
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 1232450
     }
   ],
   "qa": "Source/runtime framing checked against original gasp/muddy art; direct actual Game.drawGranny renders all three reactions with no phantom hose. Muddy Mayhem actual gameplay starts without warnings/errors."

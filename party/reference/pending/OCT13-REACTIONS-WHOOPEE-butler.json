@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-13",
+  "family": "Whoopee Tea butler reactions",
+  "assets": [
+    {
+      "key": "prop/whoopee-butler-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-butler-scold.webp",
+      "sourcePath": "party/reference/pending/reaction-sources/whoopee-butler-scold-source.webp",
+      "references": [
+        "party/assets/art/prop/whoopee-butler-ahem.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-882a36cf-31a1-4f6c-b5cc-6d385bedfd1e.png",
+      "editInputPNG": "/Users/hoai/.codex/generated_images/01a135c6-e3fb-7321-a97d-ec49afd78f8f/exec-cafff18c-804a-4686-b694-4b18b0ad314e.png",
+      "prompt": "Use case: game-asset. Asset type: flat cartoon cutout reaction sprite for Charlie Party's Whoopee Tea game. Input image 1 is the exact identity, palette and style reference. Reproduce this same penguin butler in a 280x420 portrait canvas (2:3 aspect). Show the full side-view character facing right with the same tall narrow body, bottom-center feet anchor and tray placement. Keep the black-and-white penguin, orange beak and feet, white shirt, black tail-coat, bow tie and gloves. Beak tilted high, eyes shut in dignified disapproval. One white-gloved flipper raised forward with one finger wagging tsk tsk; the other supports a perfectly level silver tray carrying the teapot. Bold smooth dark navy #24163f outlines, simple bright colors and clean flat cel shading matching the reference. This is a clean isolated 2D sprite cutout: the background is fully transparent and contains absolutely no glow, haze, gradient, vignette, shadow, floor, halo, particles or decorations. No text, no watermark, no other characters. Keep all of the penguin, teapot and tray inside the canvas.",
+      "editPrompt": "Precise edit of the input image: remove the two curved dark motion strokes immediately to the right of the raised white index finger. The area where those strokes were must be fully transparent, matching the clean transparent canvas. Keep the outline of the white finger and the penguin unchanged; preserve every other pixel and the same 2:3 framing, side-facing pose, level tray and teapot. Do not add any marks, shadows, glow or background.",
+      "size": [
+        280,
+        420
+      ],
+      "source": "party/reference/pending/reaction-sources/whoopee-butler-scold-source.webp",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "sourceBytes": 937696,
+      "runtimeSize": [
+        280,
+        420
+      ],
+      "runtimeBytes": 72222,
+      "alpha": true,
+      "encoding": "Lossless WebP; Lanczos resized to exact runtime canvas.",
+      "game": "whoopee-tea",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        11,
+        273,
+        413
+      ],
+      "tool": "built-in imagegen"
+    }
+  ],
+  "qa": "Exact runtime alpha/canvas checks; framed native/runtime contact comparison; actual game drawing functions with separate hats, seat/throne and gloves reviewed. Expanded Whoopee group 24.53 MiB."
+}

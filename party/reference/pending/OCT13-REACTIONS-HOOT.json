@@ -36,7 +36,8 @@
         1198,
         1313
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 1022780
     },
     {
       "key": "prop/sd-hoot-shock",
@@ -74,7 +75,8 @@
         1198,
         1313
       ],
-      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized"
+      "sourceEncoding": "lossless WebP from native PNG RGBA, unresized",
+      "sourceBytes": 1170526
     }
   ],
   "qa": "Exact source/runtime framing compared at shared pixel scale; native final poses reviewed; actual full minigame ran to results without console errors or warnings."

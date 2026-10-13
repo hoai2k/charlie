@@ -26,4 +26,11 @@ await loadArt({only:k=>k.startsWith('prop/sd-hoot-')||k.startsWith('prop/nanny-m
 const g=document.querySelector('#grownups').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,700);g.fillStyle='#24163f';g.font='28px sans-serif';
 for(const [x,state] of [[270,'scold'],[730,'shock']]){g.fillText('Professor Hoot: '+state,x-140,70);g.save();g.translate(x,560);drawHoot(g,{t:0,artKey:'prop/sd-hoot-'+state});g.restore();}
 for(const [x,key,h] of [[1160,'prop/nanny-moo-peek-scold',400],[1630,'prop/nanny-moo-shock',500]]){g.fillText(key.includes('peek')?'Nanny: peek scold':'Nanny: shock',x-120,70);drawArt(g,key,x,580,h*0.8,h,{anchor:'bottom'});}
+</script><h1>Duchess Teddy and the butler</h1><canvas id="royals" width="1920" height="600"></canvas><script type="module">
+import {loadArt} from './src/engine/art.js';
+import {drawGuest,drawGuestFx,drawButler,drawThrone} from './src/games/whoopee-tea/art.js';
+await loadArt({only:k=>k.startsWith('prop/whoopee-')});
+const g=document.querySelector('#royals').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,600);g.fillStyle='#24163f';g.font='28px sans-serif';
+g.fillText('Duchess: authored scold + separate steam',300,70);drawThrone(g,600,550);drawGuest(g,'duchess',600,460,350,'scold',{hat:false,t:0});drawGuestFx(g,'duchess',600,460,350,'scold',['scold','steam'],0);
+g.fillText('Butler: authored glove attached to flipper',1100,70);drawButler(g,1350,530,350,0,1,0,1,true);
 </script></body></html>

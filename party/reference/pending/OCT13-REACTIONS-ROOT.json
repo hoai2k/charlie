@@ -27,7 +27,12 @@
       "alphaExtrema": [
         0,
         255
-      ]
+      ],
+      "sourceSize": [
+        1366,
+        1152
+      ],
+      "sourceBytes": 948406
     },
     {
       "key": "prop/oballet-teacher-huff",
@@ -56,7 +61,12 @@
       "alphaExtrema": [
         0,
         255
-      ]
+      ],
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourceBytes": 1093746
     },
     {
       "key": "prop/oballet-teacher-shock",
@@ -85,7 +95,12 @@
       "alphaExtrema": [
         0,
         255
-      ]
+      ],
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourceBytes": 1003256
     }
   ],
   "qa": "Opposite Ballet and Prank Troll gameplay loaded without browser errors; direct game draw functions reviewed both Papillon reactions and Troll shock with moustache, flowers, bows, hat and nail overlays. Group decoded MiB: opposite-ballet 24.47; prank-troll 17.23."

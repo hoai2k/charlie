@@ -1,0 +1,398 @@
+{
+  "status": "24 requested reaction keys validated",
+  "assets": [
+    {
+      "key": "prop/ptroll-troll-shock",
+      "runtimeFile": "party/assets/art/prop/ptroll-troll-shock.webp",
+      "size": [
+        900,
+        760
+      ],
+      "bytes": 111308,
+      "sha256": "14da79222a9510e1ae4563139b29278e1c054ccb065ec2771c923a7e36b4aac0",
+      "source": "party/reference/pending/reaction-sources/ptroll-troll-shock.webp",
+      "sourceSize": [
+        1366,
+        1152
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/oballet-teacher-huff",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-huff.webp",
+      "size": [
+        512,
+        640
+      ],
+      "bytes": 81718,
+      "sha256": "00130a71fdc4d6669aae9a76d9ffa2572f219661eb5cdc5996be0eb7a81f813b",
+      "source": "party/reference/pending/reaction-sources/oballet-teacher-huff.webp",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/oballet-teacher-shock",
+      "runtimeFile": "party/assets/art/prop/oballet-teacher-shock.webp",
+      "size": [
+        512,
+        640
+      ],
+      "bytes": 75244,
+      "sha256": "1d328164805a1e56b332ae03249846a13e824f72371da66b9cf73e28b90fee38",
+      "source": "party/reference/pending/reaction-sources/oballet-teacher-shock.webp",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/mm-granny-scold",
+      "runtimeFile": "party/assets/art/prop/mm-granny-scold.webp",
+      "size": [
+        400,
+        520
+      ],
+      "bytes": 46438,
+      "sha256": "9f9dc7342b86928fcbbbffbac17c1ccb5e7db6ee2ca3a8989a6412e41b2ecbb6",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/mm-granny-huff",
+      "runtimeFile": "party/assets/art/prop/mm-granny-huff.webp",
+      "size": [
+        400,
+        520
+      ],
+      "bytes": 41972,
+      "sha256": "47b111298dc0e26a8a547cfe97ce3d448c07339e440b52d9406bb3836312287e",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "sourceSize": [
+        1100,
+        1430
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/mm-granny-muddy-shock",
+      "runtimeFile": "party/assets/art/prop/mm-granny-muddy-shock.webp",
+      "size": [
+        480,
+        420
+      ],
+      "bytes": 68858,
+      "sha256": "ed0907fbf1c4e730a69a06e1054ac86f05e3d2f8abf49ab71f6e79820905f4f5",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "sourceSize": [
+        1341,
+        1173
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/sd-hoot-scold",
+      "runtimeFile": "party/assets/art/prop/sd-hoot-scold.webp",
+      "size": [
+        420,
+        460
+      ],
+      "bytes": 50210,
+      "sha256": "ece72f2e2761f89ca37cc8a19cca2f5f7ca9b77c8e6fcbb5c60b28f55b56638d",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-scold-master.webp",
+      "sourceSize": [
+        1198,
+        1313
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/sd-hoot-shock",
+      "runtimeFile": "party/assets/art/prop/sd-hoot-shock.webp",
+      "size": [
+        420,
+        460
+      ],
+      "bytes": 57874,
+      "sha256": "59008708fd6d518e7e255399aa0fb13de8df9a04208adff1c71fcdf205224ec2",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/sd-hoot-shock-master.webp",
+      "sourceSize": [
+        1198,
+        1313
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/nanny-moo-peek-scold",
+      "runtimeFile": "party/assets/art/prop/nanny-moo-peek-scold.webp",
+      "size": [
+        400,
+        480
+      ],
+      "bytes": 32496,
+      "sha256": "2c5716c8c6b2b4baf4e5a5696dd68ff09ac64bac2d7f58202045d03b609f75e8",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-peek-scold-master.webp",
+      "sourceSize": [
+        1145,
+        1374
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/nanny-moo-shock",
+      "runtimeFile": "party/assets/art/prop/nanny-moo-shock.webp",
+      "size": [
+        512,
+        640
+      ],
+      "bytes": 62178,
+      "sha256": "36e7017ce4d70d5da4d722dd2eb731b33b5963b912197af3aedbc3b3a001ccc2",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/nanny-moo-shock-revised-master.webp",
+      "sourceSize": [
+        1122,
+        1402
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-shock.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 128570,
+      "sha256": "9dc62077524ab9e5e56c0ff82a26dd32a29cb057c31f9d64f347ea61974a7d8d",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-shock-source.webp",
+      "sourceSize": [
+        1094,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-scold.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 117870,
+      "sha256": "0c01fee417d68bac8ab34936cdc28f927acc4dc59b9eb4a40a633b999ab3b781",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-scold-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-poodle-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-poodle-huff.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 97702,
+      "sha256": "9291e61b5a4fda7906efb2b19055b2f42920f4da09b17d1996d00418ad4b1987",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-poodle-huff-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-shock.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 125784,
+      "sha256": "caff8b50c5e511861200d9706d14758fec8f0645defbba81bfbfe68119eafff2",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-shock-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-scold.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 106990,
+      "sha256": "0195edd2a481ea2c4d0e727f5f8e1c8f7d290aa17f244cf36eb04bfa2d5d0645",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-scold-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-bunny-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-bunny-huff.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 94136,
+      "sha256": "a5eb8e91bd6408f7ebac2a4212efe69efa54088cf91901b149f755c3cd353ba1",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-bunny-huff-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-pig-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-shock.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 106766,
+      "sha256": "9a1091a6825f4137fe27d0b1304684c57866d7b8817c7d57dc31e70ed2f96f56",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-shock-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-pig-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-scold.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 105814,
+      "sha256": "9feb4db2e014eaa77f082998eb146ad5c88535bb6bda3189b125a9cb88456ca6",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-scold-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-pig-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-pig-huff.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 86102,
+      "sha256": "2dedbb38317d0e9226e9c1a402d863ef8823be4f60dec4a0c13fd42761481ba4",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-pig-huff-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-shock",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-shock.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 150312,
+      "sha256": "a9df50f6453cc674c013a60e8dc65ede7cef926ebafafef9e7078eb7eaab20a5",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-shock-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-scold.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 139860,
+      "sha256": "93822a912c488297d2cc49d7a8a1bd98945d8eadd27ac00cc76e6c926cf5f980",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-scold-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-guest-kitty-huff",
+      "runtimeFile": "party/assets/art/prop/whoopee-guest-kitty-huff.webp",
+      "size": [
+        320,
+        420
+      ],
+      "bytes": 100672,
+      "sha256": "bbf57d323b9ef8f50f9e628a65e242192cd278679a3594d15c4978083fbac420",
+      "source": "party/reference/pending/reaction-sources/whoopee-guest-kitty-huff-source.webp",
+      "sourceSize": [
+        1095,
+        1437
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-duchess-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-duchess-scold.webp",
+      "size": [
+        360,
+        460
+      ],
+      "bytes": 181244,
+      "sha256": "2b7bc6b399286e11482e507567ec2bb544eb442b0472de9551034a75e5a0e2d5",
+      "source": "party/reference/pending/reaction-sources/whoopee-duchess-scold-source-v2.webp",
+      "sourceSize": [
+        1109,
+        1419
+      ],
+      "sourcePixelIdenticalToNative": true
+    },
+    {
+      "key": "prop/whoopee-butler-scold",
+      "runtimeFile": "party/assets/art/prop/whoopee-butler-scold.webp",
+      "size": [
+        280,
+        420
+      ],
+      "bytes": 72222,
+      "sha256": "02ce3ee308c5e8cb0c695236bde373868da53214e9b2c7a732bb2262b8763265",
+      "source": "party/reference/pending/reaction-sources/whoopee-butler-scold-source.webp",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "sourcePixelIdenticalToNative": true
+    }
+  ],
+  "decodedGameArtMiB": {
+    "muddy-mayhem": 24.234,
+    "whoopee-tea": 24.529,
+    "opposite-ballet": 24.467,
+    "sneaky-dance": 15.464,
+    "prank-troll": 17.225,
+    "bed-bounce": 18.147
+  },
+  "notes": "Unused Whoopee laugh variants remain indexed in a separate deferred legacy group. Background resolution reduced from unchanged full lossless source; same composition and consumer geometry. All requested prop canvases stay exact. Native-source archive pixel identity checked for all24."
+}
