@@ -1,3 +1,215 @@
+## Delivered prank-troll — 2026-10-13
+
+Published `33bed58e /904cafd0`:15 keys; ptroll namespace preserves Puppet Theatre; generated face/hair/toe attachments checked after merge with Molly IDs; geometry regression passes.
+
+### Original request
+
+### prank-troll — Prank the Sleeping Troll   (requested by the prank-troll agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Ladybug Spots (`ladybug-spots`). Reuses: nothing from it (the
+meadow is new because of the big tree). The big friendly troll (the Charlie
+Party NPC, same look as `assets/sprites/troll`) is snoring against a big
+tree in a sunny meadow. Players tiptoe to prank baskets around the meadow
+(a crayon, flowers, bows, a party hat, a tickle feather, glitter, nail
+polish), carry one to the troll and press A: a curly moustache appears,
+flowers in his hair, bows on his ears, a party hat, glitter in his beard,
+pink toenails. Feather tickles build to a huge flower-shower SNEEZE. When he
+stirs (snore stops, an eye cracks open, a big "!"), everyone freezes and
+turns into a bush; anyone wiggling gets a sleepy swat and tumbles away
+giggling. Finale: he wakes, a garden fairy holds up a mirror, he ROARS with
+laughter and dances in his prank outfit. **The code draws every prank on top
+of the troll art,** so the troll images must match the face/hair/feet
+positions below. Every key has a procedural fallback that ships today.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, **no text**. The mirror fairy is a `garden-fairy-*` NPC sprite.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/prank-troll` | 1920×1080, opaque | Full screen. A big tree trunk centred at x=960 with its base at y≈560 (the troll sits against it; the code draws him, so leave the trunk base clear). Players walk everywhere below y≈540. Keep the top 110 px calm (HUD) | A sunny summer meadow from a high 3/4 view: a huge old friendly oak in the top middle with a wide leafy crown, soft green grass with mowed stripes, daisies, buttercups and clover, a few tall flowers and bushes framing the left and right edges, butterflies, blue sky peeking at the top corners |
+| `thumb/prank-troll` | 800×500, opaque | Game-select shelf and how-to screen | A big friendly troll snoring against a tree with a curly drawn-on moustache, flowers in his hair, a party hat and bows on his ears, little giggling fairies tiptoeing up with a feather and a crayon, Zzz bubbles. Subject centred |
+| `prop/ptroll-troll-asleep` | 900×760, transparent | Anchor bottom-centre at (960, 640), drawn 640×540 (front view, sitting against the tree with legs stretched out towards the viewer, big bare feet at the bottom). **Positions (fractions of the image, x / y):** face centre 0.50 / 0.27; eyes at 0.44 and 0.56 / 0.24; nose 0.50 / 0.30 (moustache sits just under it at 0.50 / 0.34); ears at 0.31 and 0.69 / 0.26; top of the head 0.50 / 0.06; hair sides 0.36 and 0.64 / 0.16; beard/chin 0.50 / 0.42; big toes at 0.27 and 0.73 / 0.92. Eyes **closed**, mouth open snoring, no moustache, no beard decorations | The big friendly troll from Charlie Party (olive-green spotted skin, long shaggy dark-brown hair, a scruffy short brown beard, brown ragged loincloth, big bare feet), sitting asleep against a tree trunk, arms folded on his round belly, head tilted, mouth open snoring, front view, legs stretched towards the viewer with the soles of his big feet showing |
+| `prop/ptroll-troll-awake` | 900×760, transparent | Same size, anchor and face/ear/toe positions as `pt-troll-asleep` (the pranks stay on). Used in the finale; the code bobs and sways it | The same troll, same sitting framing, eyes wide open and a huge belly-laugh with mouth wide open, arms flung up, tears of laughter |
+| `prop/ptroll-basket` | 256×192, transparent | Anchor bottom-centre; drawn 150 px wide at each prank station; the code draws the item floating above it | A small woven wicker picnic basket with a gingham cloth, front view |
+| `prop/ptroll-crayon` | 128×128, transparent | Anchor centre; drawn 70 px (carried overhead, station item) | A chunky dark-brown wax crayon with a paper wrapper, tilted |
+| `prop/ptroll-moustache` | 256×128, transparent | Anchor centre at the moustache point; drawn 170 px wide (grows to 230 px for the second level) | A big curly hand-drawn cartoon moustache with twirly ends, dark brown, looking like crayon |
+| `prop/ptroll-flower` | 128×128, transparent | Anchor centre; drawn 56 px, stuck in the troll's hair (several, tinted pink/yellow/blue by code) | A cheerful daisy-like flower with white petals and a yellow centre |
+| `prop/ptroll-bow` | 160×128, transparent | Anchor centre; drawn 90 px on each ear | A big glossy pink ribbon bow with white polka dots |
+| `prop/ptroll-party-hat` | 192×256, transparent | Anchor bottom-centre at the top of the head; drawn 120×160, slightly tilted | A striped cone party hat (pink, yellow, blue stripes) with a fluffy pompom and an elastic string |
+| `prop/ptroll-feather` | 192×128, transparent | Anchor at the quill end; drawn 110 px, wiggling at his nose | A long fluffy rainbow tickle feather |
+| `prop/ptroll-glitter` | 128×160, transparent | Anchor centre; drawn 60 px (station item / carried) | A small round shaker jar of rainbow glitter with a pink lid, sparkles |
+| `prop/ptroll-polish` | 96×160, transparent | Anchor centre; drawn 50 px (station item / carried) | A tiny bottle of bubblegum-pink nail polish with a silver cap |
+| `prop/ptroll-bush` | 320×300, transparent | Anchor bottom-centre on a frozen player; drawn about 1.2× the player's width. The code shows the player's eyes peeking through | A round leafy cartoon bush with a few little flowers on it, front view, with two small gaps in the leaves near the top |
+| `prop/ptroll-mirror` | 192×256, transparent | Anchor centre; drawn 130 px, held up by the fairy in the finale | An oval hand mirror with a golden curly frame and a handle, the glass shining pale blue with a sparkle |
+
+## Resolved Molly witch-cat dirt ring — 2026-10-13
+
+Published `d5f2f140`: two ring-free expressions preserve identity and paws; actual game checked.
+
+| `prop/pp-witch-cat`, `prop/pp-witch-cat-purr` (Molly, optional) | The art has its own dirt ring, which shows as a second, smaller hole inside the game's hole | Same cat (grey tabby, witch hat) without the ring, paws resting on the bottom edge |
+
+## Delivered rainbow-painter — 2026-10-13
+
+Published to main at `f3865360 /4866edfb`. 18 keys delivered; grayscale reveal silhouettes and castle flags checked in actual game.
+
+### Original request
+
+### rainbow-painter — Rainbow Painter   (requested by the rainbow-painter agent, 2026-10-13, priority: nice-to-have)
+
+A grey, sleepy sky world. Every player zooms around on a little paint cloud
+and holds A to rain colour below it. Together they paint a huge rainbow band
+by band, then two trees, a castle and a flower bed, and finally a sleepy sun
+that wakes up and grins. Painted things come alive (birds sing, flowers
+dance, castle flags wave). The rainbow itself stays procedural. Paint is
+revealed through blobby "splat" masks, so every object needs a **grey**
+version and a **colour** version with identical framing (same canvas size,
+same silhouette position): the code draws the grey one, then the colour one
+clipped to the painted blobs. Everything below has a procedural fallback.
+House style: navy `#24163f` outlines, soft cel shading, bright candy
+colours, no text.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/rainbow-painter` | 1920×1080, opaque | Full screen, drawn first. Grey version of the world (no rainbow, trees, castle, flowers or sun: the code draws those). Rolling hills along the bottom from y≈880; open sky above. Keep it low-detail | A gentle cartoon landscape drained of colour: soft grey sky with pale grey puffy clouds, rolling light-grey hills at the bottom with a darker grey meadow strip, all in shades of cool grey with navy outlines on the hills |
+| `bg/rainbow-painter-color` | 1920×1080, opaque | **Same framing as the grey bg.** Cross-faded on top of it as the whole picture gets painted (0 → 100 %) | The exact same landscape in full colour: bright sky blue fading to pale pink at the horizon, fluffy white clouds, lush green rolling hills with tiny daisies |
+| `thumb/rainbow-painter` | 800×500, opaque | Game-select shelf / how-to (procedural `drawIcon` is the fallback) | A little garden fairy (no Charlie Party roster character) riding a tiny white cloud, raining rainbow paint drops onto a half-grey, half-coloured rainbow arc; a smiling sun peeking in the corner; sparkles |
+| `prop/rp-cloud` | 400×220, transparent | The paint cloud each player rides. Drawn centred under the character's feet at about 230×126 px, wobbling. Keep the top flat-ish so a character can stand on it | A plump, soft white cartoon cloud with a flat-ish top, a faint lilac underside and two rosy blush spots, no face |
+| `prop/rp-tree`, `prop/rp-tree-grey` | 420×560 each, transparent | Bottom-centre anchor (trunk base) at the canvas bottom; drawn about 300×400 px | A round lollipop-style cartoon tree: a big fluffy green crown with a few red apples and a brown trunk. Grey version: identical drawing in flat greys |
+| `prop/rp-castle`, `prop/rp-castle-grey` | 720×680 each, transparent | Bottom-centre anchor; drawn about 470×445 px under the middle of the rainbow. The code adds waving flags on the two tower tips (towers peak at roughly x 25 % and 75 %, y 6 %) | A small fairy-tale castle: pink walls, lilac cone roofs on two side towers and a taller centre tower, a big round door, heart windows. Grey version: identical in flat greys |
+| `prop/rp-flower-1`, `prop/rp-flower-2`, `prop/rp-flower-3`, `prop/rp-flower-grey` | 200×260 each, transparent | Bottom-centre anchor; drawn ~110×143 px in a row along the meadow, bobbing and dancing (the code rotates and squashes around the base) | A single cartoon flower with two leaves and a happy face in the middle: 1 pink daisy, 2 yellow tulip, 3 blue bell-flower. Grey version: the daisy in greys with its eyes closed |
+| `prop/rp-sun-grey`, `prop/rp-sun-sleep`, `prop/rp-sun-awake` | 400×400 each, transparent | Centred, drawn ~300 px, top-right corner (x 1730, y 200). The code adds rotating rays behind it | A round cartoon sun face. Grey: pale grey, eyes shut, sleepy. Sleep: golden yellow, eyes shut, rosy cheeks. Awake: golden yellow, big open smile, sparkly open eyes |
+| `prop/rp-bird`, `prop/rp-bird-flap` | 128×128 each, transparent | Centred, ~70 px, flutters around the painted trees; the flap frame alternates | A round little bluebird, side view facing right, open singing beak; wings up (bird) and wings down (flap) |
+| `prop/rp-paint-star` | 256×256, transparent | Centred, drawn ~110 px; bounces across the sky, rotating a little (the code adds a soft glow) | A plump golden star with a happy face and a few rainbow paint drips running off its points |
+
+Poses on player avatars: existing `idle`, `paint`, `cheer`, `celebrate`, `dance`, `surprised` only.
+
+## Delivered snowflake-catch — 2026-10-13
+
+Published to main at `0bd2adda /904cafd0`. 14 keys delivered; game-specific sf-snowball preserves shared64px snowball; snowman build and sled viewed in game.
+
+### Original request
+
+### snowflake-catch — Snowflake Giggles   (requested by the snowflake-catch agent, 2026-10-13, priority: nice-to-have)
+
+Top-down 2.5D snowy meadow. Everyone races around catching giggly falling
+snowflakes on their tongue (hold A); every flake helps build one big shared
+snowman at the back of the meadow. A playful snowman friend tosses snowballs
+that burst into glitter, and sledding penguins zoom across the meadow
+spraying extra flakes. Everything below has a procedural fallback that ships
+today and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/snowflake-catch` | 1920×1080, opaque | Full screen. Sky and distant hills in the top ~330 px; the walkable snowy meadow is from y≈470 to the bottom. The big shared snowman stands at the back centre (x=960, base at y≈455) and the snowman friend at the back right (x≈1660, y≈450): keep both spots plain snow. Keep the top ~110 px calm (scoreboard) | A sparkly winter meadow at soft lilac-pink dusk: rolling snowy hills, frosted pine trees along the back edge and sides, a frozen pond peeking in at one corner, gentle blue shadows and twinkles on the snow, a few snow-covered bushes along the bottom corners. Wide open snow in the middle |
+| `thumb/snowflake-catch` | 800×500, opaque | Game-select shelf and how-to screen | A little garden fairy (blue bluebell fairy with petal wings, no Charlie Party characters) with her head tipped back and tongue out catching a big sparkly smiling snowflake, a friendly snowman behind, a penguin zooming past on a red sled, snowflakes everywhere. Energetic. Subject centred |
+| `prop/snowflake` | 128×128, transparent | Normal falling flake (worth 1), drawn centred at 58 px, spun by the code | A chunky six-pointed snowflake crystal, icy white and pale blue, with a tiny smiling face in the middle |
+| `prop/snowflake-big` | 256×256, transparent | The big sparkly flake (worth 3), drawn centred at 120 px with a glow drawn by code | A large ornate six-pointed snowflake with a pastel rainbow sheen (lilac, pink, aqua), glittering tips and a happy giggling face in the middle |
+| `prop/snowball` | 128×128, transparent | Thrown by the snowman friend, drawn centred at 64 px; it bursts into glitter when it lands | A round fluffy snowball with soft blue shading and a couple of sparkles |
+| `prop/snowman-friend`, `prop/snowman-friend-throw` | 480×640 each (ratio 3:4), transparent, **same canvas** | Drawn bottom-anchored at (1660, 455) in a 180×240 box; the code swaps to the throw frame for 0.4 s when a snowball leaves | A small cheerful snowman with a striped pink bobble hat, a mint scarf, twig arms and a big grin. Idle: arms down, waving slightly. Throw: right twig arm up high mid-toss, cheeky wink |
+| `prop/penguin-sled` | 384×256, transparent | Drawn centred at 200×133, facing right (the code mirrors it for the other direction) | A chubby happy penguin with a little red scarf riding a red wooden sled, wings out, beak open in a "wheee", snow spray behind. Side view |
+| `prop/bigsnowman-1` … `prop/bigsnowman-6` | 600×900 each, transparent, **same canvas, bottom-centred** | The shared snowman as it is built, drawn bottom-anchored at (960, 455) in a 240×360 box; stage N shows everything from stages 1..N. **All six must line up exactly** (the code pops between them) | 1: one big snowball base. 2: + middle ball. 3: + head with a happy coal-dot face. 4: + carrot nose and a tall purple top hat with a pink ribbon. 5: + a long rainbow-striped scarf and twig arms. 6: complete: arms raised in a cheer, rosy cheeks, coal buttons, a little flower on the hat, sparkles |
+
+New pose (until registered it falls back to `look-up`, then `think`):
+`tongue-out` (loop) — head tipped back looking up, mouth open with the
+tongue stuck out to catch snowflakes, a silly happy face.
+
+## Delivered bed-bounce — 2026-10-13
+
+Published to main at `91794c47 /904cafd0`. 13 keys delivered; mattress contact adjusted to actual authored bed; attachment regression passes.
+
+### Original request
+
+### bed-bounce — No Jumping on the Bed!   (requested by the bed-bounce agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Choo-Choo Shapes (`shape-train`); it reuses none of its art. A huge
+fluffy bed in a cosy bedroom at night, seen from the side. Nanny Moo (a NEW
+character: a kindly, slightly pompous cow in a nightcap and a pink dressing
+gown) says goodnight and shuts the door. BOUNCE! Players hold A to bounce
+higher and higher (stick steers left/right), grab stars and feathers in the
+air, bonk each other with pillows (feather explosions) and touch the
+glow-star stickers on the ceiling. When the hallway light shows under the
+door, thump-thump footsteps come and the handle wiggles, everyone lets go
+and flops under the duvet fake-snoring before Nanny Moo peeks in. Anyone
+still bouncing gets a pompous stare and a few stars wobble out. Teddies and
+the cat start bouncing too; feathers fill the room. Finale: Nanny Moo comes
+in, sighs at the feather storm... and jumps on the bed herself. Every key has
+a procedural fallback that ships today. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, cosy night palette (deep
+blue-violet with warm lamp-glow accents), **no text** in any image. Player
+avatars use existing poses (see the bed-bounce final report for the list).
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/bed-bounce` | 1920×1080, opaque | Full screen. **No bed and no door in it** (both are drawn by code). The code draws the bed over x≈90–1490, y≈440–1040, the door in the right wall at x≈1580–1820, y≈380–930 (keep that wall area plain, wallpaper only), glow-star stickers along the ceiling at y≈150–200. Floor line at y≈930. Keep the top 110 px calm (HUD) | A cosy child's bedroom at night, side view: deep blue-violet wallpaper with tiny pale stars, a round window on the upper left with a big smiling crescent moon and twinkling stars outside, a toy shelf with books and toys, a fluffy round rug on a warm wooden floor, a little night-light glow. Calm and dreamy, soft lamp-glow highlights |
+| `thumb/bed-bounce` | 800×500, opaque | Game-select shelf and how-to screen | A giant fluffy bed with kids'-party energy: a cartoon fairy and a teddy bear bouncing sky-high with pillows, feathers exploding everywhere, a cow in a nightcap peeking round a door with one eyebrow raised, a moonlit window. Subject centred, no recognisable roster characters |
+| `prop/bb-bed` | 1400×600, transparent | Drawn at x=90, y=440 at 1400×600 (top-left anchor); the code squashes it slightly when people land. Headboard on the LEFT (0–14% of the width, full height). **The mattress top where feet land is at 53% from the top (y≈760 on screen), flat from 14% to 100% of the width**; the duvet covers it (code draws sleeper lumps on top). Legs reach the bottom edge | A huge puffy cartoon bed, side view: a tall rounded wooden headboard with a heart cut-out on the left, a thick bouncy mattress, a fluffy pastel-pink quilted duvet with a star pattern draped over the side, two big pillows by the headboard, short stubby legs |
+| `prop/bb-door` | 240×550, transparent | Anchor top-left at (1580, 380), drawn 240×550 when shut. When peeking the code squeezes it horizontally towards the hinge (right side) to swing it open | A rounded-top wooden bedroom door, front view, painted cream with a little moon-and-star decoration, a round brass knob on the LEFT side |
+| `prop/nanny-moo` | 512×640, transparent | Anchor bottom-centre on the floor (y≈930); drawn 400 px tall, facing left. Used for the goodnight wave and the finale walk-in | Nanny Moo: a kindly, slightly prim cartoon cow standing upright, white with soft black patches, pink snout, little curved horns, a long droopy blue-striped nightcap with a pompom, a fluffy pink dressing gown with a belt, bunny slippers, holding a small glowing night-light lantern (electric, no flame). Raised eyebrow, warm smile |
+| `prop/nanny-moo-peek` | 400×480, transparent | Anchor bottom-RIGHT; drawn 300 px wide with its right edge at the door's opening edge (x≈1600, bottom at y≈800) so she leans out round the door frame | Nanny Moo leaning in sideways to peek: just her head with the nightcap, one shoulder and a hand holding the night-light lantern, one eyebrow raised suspiciously, looking left |
+| `prop/nanny-moo-jump` | 512×640, transparent | Anchor centre; drawn 420 px tall in the finale, bouncing high above the bed (the code moves and squashes her) | Nanny Moo mid-bounce with delight: arms flung up, dressing gown flapping, nightcap flying up, slippers kicked off, eyes shut laughing |
+| `prop/bb-pillow` | 256×192, transparent | Anchor centre; drawn 90 px wide in each player's hand (code rotates it for swings) | A fluffy white rectangular pillow with soft puffy corners and a tiny lace edge |
+| `prop/bb-feather` | 128×128, transparent | Anchor centre; drawn 40–70 px, drifting and spinning | A single soft white downy feather with a faint pink tip |
+| `prop/bb-star` | 128×128, transparent | Anchor centre; drawn 70 px, floating collectible (golden variant tinted by code) | A plump golden five-point star with a happy face, rosy cheeks and a white shine |
+| `prop/bb-glowstar` | 128×128, transparent | Anchor centre; drawn 60 px, stuck to the ceiling in a row (code makes them glow when touched) | A pale yellow-green glow-in-the-dark plastic star sticker, softly glowing |
+| `prop/bb-teddy` | 256×256, transparent | Anchor bottom-centre; drawn 120 px tall, bouncing on the bed | A cuddly brown teddy bear with a red bow tie, arms up, mid-bounce, happy face |
+| `prop/bb-cat` | 256×256, transparent | Anchor bottom-centre; drawn 110 px tall, bouncing on the bed | A fluffy ginger cat leaping with all four paws spread out and a delighted face, tail up |
+
+## Delivered sneaky-dance — 2026-10-13
+
+Published to main at `ef7e695c`. 15 keys delivered; Hoot expressions, library, books and armchair checked in actual game with Molly player IDs.
+
+### Original request
+
+### sneaky-dance — Sneaky Dance   (requested by the sneaky-dance agent, 2026-10-13, priority: nice-to-have)
+
+Replaces Dance & Freeze. Professor Hoot is napping in his armchair in the
+library ("Shhh!"). While he snores, everyone dances as wildly as they can
+around the library rug (the stick moves and wiggles, A is a jump-spin) and
+earns stars; a shared party meter fills and things escalate: books fly off
+the shelves, the lamp starts dancing, a disco ball comes down. When Hoot
+stirs (snore stops, one eye slowly pops open, a big "?"), everyone FREEZES
+and pretends to be reading a book, a lamp or a statue. Anyone still moving
+gets a pompous "Hmm?!" stare and drops a couple of bouncy stars they can grab
+again. Finale: Hoot wakes fully, puts on sunglasses and joins the dance
+party. Every key has a procedural fallback that ships today; the code
+already looks up every key. House style: navy `#24163f` outlines, soft cel
+shading, bright candy colours, **no text**. Professor Hoot is the Charlie
+Party NPC (brown owl, purple star wizard hat, round gold glasses, blue robe
+with stars and moons; match `assets/sprites/professor-hoot`).
+
+**Reuses (keep alive):** `prop/df-disco-ball` (the descending disco ball).
+
+**Layout (the bg must match):** a library seen from the front. Back wall
+with tall bookshelves from y=0 to ≈560; Hoot's armchair stands at the top
+centre (x 960, seat ≈y 520, chair bottom y≈612, ~420 px wide; the code
+draws the chair); a reading lamp prop at x≈1440; the dancers move over a big
+round rug on the wooden floor from y≈610 to the bottom (they stand at
+y 680–1030). Keep the top 110 px calm (HUD chips + timer), the area to the
+upper right of the chair (x 1050–1250, y 120–290) calm for the "Zzz"/"?"
+bubble, and x 1760–1840, y 90–460 calm for the party meter. The disco ball
+comes down at x≈520.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/sneaky-dance` | 1920×1080, opaque | Full screen, layout above. No chair, no lamp, no owl, no books in the air (all drawn by the code) | A cosy old library at night from the front: tall dark-wood bookshelves stuffed with colourful books across the back wall, a rolling ladder, a round window with a crescent moon, warm candle-coloured light, a big round plum-and-gold patterned rug on a honey wooden floor in the foreground, potted fern in a corner. Calm and cosy, nothing spooky |
+| `thumb/sneaky-dance` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | Professor Hoot the owl asleep in a big red wingback armchair with a book on his tummy and "Zzz" bubbles (no letters: just bubbles), while in front of him a little garden fairy and a puppy dance wildly on tiptoe with music notes, a dancing lamp and flying books around them; cosy night library. No Charlie Party player characters. Subject centred |
+| `prop/sd-armchair` | 560×520, transparent | Bottom-centre anchor at (960, 612), drawn 420 px wide; Hoot is drawn sitting in it | A big plush red-velvet wingback armchair with gold buttons and tassels, front view, empty, a small patchwork cushion |
+| `prop/sd-hoot-sleep` | 420×460, transparent | Hoot sitting asleep in the chair. Bottom-centre anchor = his seat on the cushion (960, 520); drawn ~360 px tall; the code adds breathing squash, "Zzz" and nods | Professor Hoot sitting slumped and fast asleep: eyes shut as happy curved lines, wizard hat tipped over one eye, glasses slipped down his beak, an open book lying on his round tummy, wings folded, a little drool-free smile |
+| `prop/sd-hoot-peek` | 420×460, transparent | Same anchor/size; shown while he stirs (the code also shows a big "?") | The same owl, still slumped, with ONE eye popped wide open (big round suspicious eye) and the other still shut, one eyebrow feather raised |
+| `prop/sd-hoot-stare` | 420×460, transparent | Same anchor/size; the look: both eyes wide, used for the "Hmm?!" stare at wigglers | The same owl sitting up straight, both eyes huge and narrowed in a pompous suspicious stare, one wing pointing forward, beak pursed, glasses pushed up |
+| `prop/sd-hoot-yawn` | 420×460, transparent | Same anchor/size; the fake-out (he yawns and dozes off again) | The same owl stretching both wings up in an enormous yawn, beak wide open, eyes squeezed shut |
+| `prop/sd-hoot-party` | 420×520, transparent | Finale. Bottom-centre anchor = his feet standing on the chair seat; drawn ~400 px tall; the code bounces and sways him | The same owl standing up on the chair dancing: cool pink star-shaped sunglasses, wizard hat jauntily tilted, one wing pointing up disco-style, the other on his hip, robe swirling, huge grin |
+| `prop/sd-lamp` | 220×440, transparent | Bottom-centre anchor at (1440, 640), drawn 300 px tall; the code makes it hop, sway and squash when it "dances" | A tall brass reading lamp with a frilly pink fringed lampshade, a cute little face on the shade (two dot eyes and a smile), curved neck, round base |
+| `prop/sd-book-1`, `prop/sd-book-2`, `prop/sd-book-3` | 160×120 each, transparent | Flying books: centred, drawn ~80 px wide, the code flaps them open and shut | An open hardback book flapping like a bird, pages fanned: red with gold corners; teal with a star; purple with a moon |
+| `prop/sd-disguise-book` | 200×160, transparent | Held in front of a frozen player's face (centred at the eyes anchor), drawn ~90 px wide | An open storybook held up, seen from the front cover side: bright yellow cover with a simple duck picture, a little crooked |
+| `prop/sd-lampshade` | 180×150, transparent | Worn on a frozen player's head (bottom centre at the head anchor), drawn ~100 px wide | A pink pleated lampshade with a fringe, worn like a hat, slightly tilted |
+| `prop/sd-sunglasses` | 200×80, transparent | Finale: Hoot's sunglasses (and on dancers' faces at the eyes anchor), drawn ~110 px wide | Cool pink star-shaped party sunglasses with dark lenses and a shine streak |
+
+Player poses used: `walk`, `run`, `idle`, `dance`, `dance-up`,
+`dance-down`, `dance-side`, `dance-star`, `pose-twirl`, `strike3`,
+`balance`, `surprised`, `cheer`, `celebrate`, `laugh` (fallbacks all
+existing). No new poses needed.
+
 ## Delivered trick-or-treat — 2026-10-13
 
 All 26 keys delivered and checked in game (2026-10-13): door rect, porch light and painted pumpkins aligned to the house art; bucket, jack-in-the-box and finale candy pile resized in code.
