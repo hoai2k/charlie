@@ -32,7 +32,7 @@ const SEAT = { x: 960, y: 560 };
 const BOUNDS = { x0: 70, x1: W - 70, y0: 250, y1: 1015 };
 const SPEED = 540;
 const DASH_V = 1250, DASH_T = 0.2, DASH_CD = 0.55;
-const BODY_RX = 215, BODY_RY = 120;   // players are nudged out of her body (ellipse)
+const BODY_RX = 215, BODY_RY = 140;   // players are nudged out of her body (ellipse)
 const GIVE_K = 1.3;                  // touching distance (in body radii) to hand a spot over
 const DOT_R = 30;
 
@@ -125,7 +125,7 @@ export class Game {
       a.facing = x < W / 2 ? 1 : -1; a.snap();
       return {
         p, i, a, x, y, vx: 0, vy: 0, carry: null, dashT: 0, dashCd: 0, dx: 0, dy: 1, score: 0, spots: 0,
-        brain: new Brain(p), target: null, vol: p.isAI && this.humans ? 0.5 : 0.9, sayCd: 0,
+        brain: new Brain(p), target: null, giveCd: 0, vol: p.isAI && this.humans ? 0.5 : 0.9, sayCd: 0,
       };
     });
     for (let i = 0; i < 6; i++) this.spawnDot();
@@ -196,6 +196,7 @@ export class Game {
       c.hop = Math.max(0, Math.sin(c.t * 5)) * 6;
       if (c.sneezeQ.length && c.sneezeT <= 0) this.sneeze(c);
     } else if (c.state === 'count') {
+      if (c.sneezeQ.length && c.sneezeT <= 0) this.sneeze(c);
       c.countT -= dt;
       if (c.countT <= 0 && c.countI < c.n) {
         const p = this.slotPos(c, c.countI);
@@ -220,7 +221,7 @@ export class Game {
 
   give(e) {
     const c = this.critter;
-    const d = e.carry; e.carry = null;
+    const d = e.carry; e.carry = null; e.giveCd = 0.6;
     const ok = this.wantMatches(c, d.kind);
     const room = c.filled + this.flying.filter((f) => !f.sneeze).length < c.n;
     const f = { kind: d.kind, x: e.x, y: e.a.y - e.a.height * 1.05, t: 0, dur: 0.32, by: e, sneeze: !(ok && room) };
@@ -232,7 +233,7 @@ export class Game {
 
   landFlying(f) {
     const c = this.critter;
-    if (!c || c.state !== 'wait') { this.dropDot(f.kind, f.x, f.y); return; }
+    if (!c || (c.state !== 'wait' && c.state !== 'count')) { this.dropDot(f.kind, f.x, f.y); return; }
     const e = f.by;
     if (f.sneeze || c.filled >= c.n || !this.wantMatches(c, f.kind)) {
       c.sneezeQ.push({ kind: f.kind, by: e });
@@ -252,7 +253,7 @@ export class Game {
     particles.popText(e.x, e.a.y - e.a.height - 40, '+' + pts, e.p.color, 50);
     e.a.playOnce('cheer', 0.5);
     if (!e.p.isAI) e.p.ctrl.rumble(0.3, 70);
-    if (c.filled === c.n) later(() => { if (this.critter === c && c.state === 'wait' && !c.sneezeQ.length) this.startCount(c); }, 0);
+    if (c.filled === c.n) this.startCount(c);
   }
 
   startCount(c) {
@@ -274,12 +275,14 @@ export class Game {
     d.vx = c.facing * rand(420, 620); d.vy = rand(-200, 200); d.z = 60; d.vz = 700; d.grace = 0.7;
     for (const e of this.ents) if (dist(e.x, e.y, c.x, c.y) < 420 && chance(0.6)) e.a.playOnce(chance(0.5) ? 'surprised' : 'giggle', 0.7);
     c.sneezeT = c.sneezeQ.length ? 0.55 : 0;
-    later(() => { if (this.critter === c && c.state === 'wait') { c.face = 'happy'; if (!c.sneezeQ.length && c.filled >= c.n) this.startCount(c); } }, 450);
+    later(() => { if (this.critter === c && (c.state === 'wait' || c.state === 'count')) c.face = 'happy'; }, 450);
     if (c.sneezeQ.length) { c.face = 'ahh'; snd('lb-sneeze', 'hic', { vol: 0.6 }); }
   }
 
   critterHappy(c) {
     c.state = 'out'; c.st = 0; c.ox = c.x; c.oy = c.y; c.face = 'yay';
+    for (const q of c.sneezeQ) this.dropDot(q.kind, c.x, c.y);
+    c.sneezeQ.length = 0;
     c.facing = c.x < W / 2 ? -1 : 1;
     this.helped.push(c.kind);
     snd('lb-yay', 'fanfare', { vol: 0.7 }); sfx('cheer', { vol: 0.5 });
@@ -377,7 +380,7 @@ export class Game {
     // giving
     const c = this.critter;
     if (c && c.state === 'wait') {
-      for (const e of this.ents) if (e.carry && Math.hypot((e.x - c.x) / BODY_RX, (e.y - c.y - 30) / BODY_RY) < GIVE_K) this.give(e);
+      for (const e of this.ents) if (e.carry && e.giveCd <= 0 && Math.hypot((e.x - c.x) / BODY_RX, (e.y - c.y - 30) / BODY_RY) < GIVE_K) this.give(e);
     }
     for (const f of this.flying) {
       f.t += dt;
@@ -401,7 +404,7 @@ export class Game {
 
   movePlayer(e, dt) {
     const a = e.a, ctrl = e.p.ctrl;
-    e.dashT = Math.max(0, e.dashT - dt); e.dashCd = Math.max(0, e.dashCd - dt); e.sayCd -= dt;
+    e.dashT = Math.max(0, e.dashT - dt); e.dashCd = Math.max(0, e.dashCd - dt); e.sayCd -= dt; e.giveCd -= dt;
     let ix = this.done ? 0 : ctrl.x, iy = this.done ? 0 : ctrl.y;
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     if (m > 0.2) { e.dx = ix / Math.max(m, 0.01); e.dy = iy / Math.max(m, 0.01); }
@@ -453,7 +456,8 @@ export class Game {
     if (e.brain.ready(dt)) {
       e.brain.wait(reactionTime(p) * 1.4 + rand(0, 0.3));
       if (e.carry) {
-        const room = c && c.state === 'wait' && c.filled + this.flying.length < c.n;
+        const busy = this.ents.filter((o) => o !== e && o.carry && o.target && o.target.give).length;
+        const room = c && c.state === 'wait' && c.filled + this.flying.length + busy < c.n;
         const ok = c && this.wantMatches(c, e.carry.kind);
         // hold a wrong dot until a critter that wants it comes (or be silly sometimes)
         if (c && c.state === 'wait' && ((ok && room) || chance(prof.mistake * 0.8))) e.target = { x: c.x + rand(-120, 120), y: c.y + 30 + BODY_RY + 20, give: true };
@@ -513,6 +517,7 @@ export class Game {
     if (c) items.push({ y: c.state === 'wait' || c.state === 'count' ? c.y + 60 : 2000, fn: () => this.drawCritterWorld(g, c) });
     items.sort((a, b) => a.y - b.y);
     for (const it of items) it.fn();
+    if (c) this.drawSlots(g, c);
     // flying spots
     for (const f of this.flying) {
       const k = clamp(f.t / f.dur, 0, 1);
@@ -552,7 +557,10 @@ export class Game {
     if (c.state === 'in' || c.state === 'out') lc.flap = 1;
     drawCritter(g, lc, this.t);
     g.restore();
-    // slots and spots
+  }
+
+  /** Slots, spots and the wish bubble: drawn after everyone so players never hide them. */
+  drawSlots(g, c) {
     for (let i = 0; i < c.n; i++) {
       const p = this.slotPos(c, i);
       const s = c.slots[i];
