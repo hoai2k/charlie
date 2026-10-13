@@ -1,0 +1,105 @@
+{
+  "game": "bed-bounce sleep buddies",
+  "status": "generated; pending root intake",
+  "assets": [
+    {
+      "key": "prop/bb-teddy-sleep",
+      "size": [
+        240,
+        240
+      ],
+      "geometry": "Transparent 240x240 sprite, same character identity as supplied source, sleepy closed eyes and head plus both paws grouped in upper part of image; full head/paws above actual duvet cutoff; no body. Game draws at 150x150 at BED.top-65 and clips at BED.top-4, revealing about 61px / 40.7% of sprite.",
+      "prompt": "Keep this exact sleeping teddy and adjust composition only: scale the whole bear down another 15% and move upward so the full silhouette, including bow and both paw tips, ends no lower than y=38% of the transparent square. Ear tops around y=2%. Preserve brown fur, red bow, closed eyes, cream muzzle, both paws, navy outline and cel shading. Leave all below y=38% transparent. Strict duvet clip requirement. Do not crop or add objects.",
+      "initialPrompt": "A sleeping head-and-paws prop of the same teddy from the approved source. Transparent 1:1 square, identical brown fur, cream muzzle, red bow, navy outlines and 2D cel shading, closed eyes; no body or blanket. Initial framing was subsequently refined to fit the real duvet clipping window.",
+      "referencePaths": [
+        "party/assets/art/prop/bb-teddy.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-435fc5cd-bdf0-4a10-816d-ad70d1248df1.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-sleep-buddies/bb-teddy-sleep.webp",
+      "source": "party/reference/pending/molly-sources/bed-sleep-buddies/bb-teddy-sleep.webp",
+      "runtimeFile": "party/assets/art/prop/bb-teddy-sleep.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 6776,
+      "sourceBytes": 254730,
+      "actualAlphaBBox": [
+        62,
+        6,
+        179,
+        96
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "width": 240,
+      "height": 240,
+      "status": "native/runtime contact reviewed; full heads/paws fit above measured source cutoff98px; running Bed Bounce checked without errors",
+      "actualGeometry": "Full generated 1254x1254 source scaled uniformly to 240x240, no crop/reposition. Alpha>8 bbox in runtime [62, 6, 179, 96]; lowest meaningful alpha y=95/240 (39.6%), safely above clip at ~40.7%.",
+      "editHistory": [
+        {
+          "operation": "imagegen edit / composition refinement",
+          "editPrompt": "Keep this exact sleeping teddy and adjust composition only: scale the whole bear down another 15% and move upward so the full silhouette, including bow and both paw tips, ends no lower than y=38% of the transparent square. Ear tops around y=2%. Preserve brown fur, red bow, closed eyes, cream muzzle, both paws, navy outline and cel shading. Leave all below y=38% transparent. Strict duvet clip requirement. Do not crop or add objects.",
+          "referencePaths": [
+            "party/assets/art/prop/bb-teddy.webp"
+          ],
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-435fc5cd-bdf0-4a10-816d-ad70d1248df1.png"
+        }
+      ],
+      "bytes": 6776
+    },
+    {
+      "key": "prop/bb-cat-sleep",
+      "size": [
+        240,
+        240
+      ],
+      "geometry": "Transparent 240x240 sprite, same character identity as supplied source, sleepy closed eyes and head plus both paws grouped in upper part of image; full head/paws above actual duvet cutoff; no body. Game draws at 150x150 at BED.top-65 and clips at BED.top-4, revealing about 61px / 40.7% of sprite.",
+      "prompt": "Keep the same sleeping ginger tabby cat head-and-paws identity, closed eyes, cream muzzle, pink ears, whiskers, navy outline and 2D cel shading. Reduce the whole cat artwork another 14% and move upward so all opaque pixels including both paws fit above y=39% of the transparent square canvas; ear tops around y=3%. Leave lower 61% empty transparent. Do not crop or add anything. Must fit within top 39% because game clips at y=41%.",
+      "initialPrompt": "A sleeping head-and-paws prop of the same cat from the approved source. Transparent 1:1 square, same ginger tabby markings, cream muzzle, pink ears, whiskers, navy outlines and 2D cel shading, clearly closed eyes; no body or blanket. Initial framing was subsequently refined to fit the real duvet clipping window.",
+      "referencePaths": [
+        "party/assets/art/prop/bb-cat.webp"
+      ],
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cb71b817-a257-4ff6-85bb-50cbe4a1ab2c.png",
+      "sourcePath": "party/reference/pending/molly-sources/bed-sleep-buddies/bb-cat-sleep.webp",
+      "source": "party/reference/pending/molly-sources/bed-sleep-buddies/bb-cat-sleep.webp",
+      "runtimeFile": "party/assets/art/prop/bb-cat-sleep.webp",
+      "nativeOutputSize": [
+        1254,
+        1254
+      ],
+      "runtimeBytes": 5750,
+      "sourceBytes": 217352,
+      "actualAlphaBBox": [
+        72,
+        21,
+        172,
+        97
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualTransparency": true,
+      "width": 240,
+      "height": 240,
+      "status": "native/runtime contact reviewed; full heads/paws fit above measured source cutoff98px; running Bed Bounce checked without errors",
+      "actualGeometry": "Full generated 1254x1254 source scaled uniformly to 240x240, no crop/reposition. Alpha>8 bbox in runtime [72, 21, 172, 97]; lowest meaningful alpha y=96/240 (40.0%), safely above clip at ~40.7%.",
+      "editHistory": [
+        {
+          "operation": "imagegen edit / composition refinement",
+          "editPrompt": "Keep the same sleeping ginger tabby cat head-and-paws identity, closed eyes, cream muzzle, pink ears, whiskers, navy outline and 2D cel shading. Reduce the whole cat artwork another 14% and move upward so all opaque pixels including both paws fit above y=39% of the transparent square canvas; ear tops around y=3%. Leave lower 61% empty transparent. Do not crop or add anything. Must fit within top 39% because game clips at y=41%.",
+          "referencePaths": [
+            "party/assets/art/prop/bb-cat.webp"
+          ],
+          "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-cb71b817-a257-4ff6-85bb-50cbe4a1ab2c.png"
+        }
+      ],
+      "bytes": 5750
+    }
+  ],
+  "consumerGeometry": "party/src/games/bed-bounce.js drawBuddyHidden: drawImage at B.x-75, BED.top-65 to 150x150; clip bottom at BED.top-4. The resulting visible source portion is ~40.7% of the sprite height."
+}

@@ -1259,7 +1259,9 @@
     "prop/mm-mega-puddle": "prop/mm-mega-puddle.webp",
     "prop/mm-splat": "prop/mm-splat.webp",
     "thumb/muddy-mayhem": "thumb/muddy-mayhem.webp",
-    "bg/puppy-splash": "bg/puppy-splash.webp"
+    "bg/puppy-splash": "bg/puppy-splash.webp",
+    "prop/bb-teddy-sleep": "prop/bb-teddy-sleep.webp",
+    "prop/bb-cat-sleep": "prop/bb-cat-sleep.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1672,7 +1674,6 @@
       "prop/oballet-move-statue",
       "prop/oballet-tiara",
       "prop/oballet-teacher-silly",
-      "bg/ballet-butterflies",
       "prop/ballet-teacher",
       "prop/ballet-teacher-up",
       "prop/ballet-teacher-twirl",
@@ -1932,7 +1933,9 @@
       "prop/bb-star",
       "prop/bb-glowstar",
       "prop/bb-teddy",
-      "prop/bb-cat"
+      "prop/bb-cat",
+      "prop/bb-teddy-sleep",
+      "prop/bb-cat-sleep"
     ],
     "prank-troll": [
       "bg/prank-troll",
