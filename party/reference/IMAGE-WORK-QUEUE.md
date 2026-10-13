@@ -7,6 +7,14 @@ approved artwork just because older checkpoints had incomplete coverage.
 
 ## Molly Party delivery — in progress
 
+User waived all future Molly Party character approval gates. Self-review and refine new designs; preserve existing approved identities. Eight completed game batches have now been published and checked in game, through `2ad4cda9`: Garden Grow, Dance and Freeze, Wand Shapes, Sock Match, Fairy Hide and Seek, Cupcake Stack, Bubble Pop and Balloon Float. Sprite pipeline per-file physical scaling is published at `5742eea9` / merge `d6a30d12`, with Python and runtime regressions passing.
+
+All six replacement briefs have landed: bed-bounce, prank-troll, opposite-ballet, whoopee-tea, muddy-mayhem, sneaky-dance. The playable fairy union now contains 56 brief poses plus preserved fly. No further generation for the dropped originals; completed assets remain reusable.
+
+Current ownership: structural agent six playable fairy expansions; performance agent Unicorn/Ghost/Pumpkin/Snowflake then Bed/Prank/Sneaky; tools agent Trick/Duck/Mermaid then Opposite/Whoopee/Muddy; root Kitten/Rainbow, shared integration, browser QA and publishing. Kitten30-frame atlas extracted and reviewed; layered basket and rare fairy kitten generated, final intake pending. Ladybug old batch finished but held for reuse publication.
+
+The older counts/checkpoints below are production history and will be replaced by a final request inventory after delivery.
+
 Synced main through `61b9323a1c525144a3e356dadf3972c3890c57e5`. New scope:23 minigames,318 unique table keys (24 backgrounds,23 thumbnails,271 props),347 authored frames including the30-frame kitten atlas. Existing generic cake-stand,candle-flame,rubber-duck,four balloons andsnowball mappings are preserved; incompatible Molly variants need game-prefixed sibling keys and consumer updates. Per-key inventory saved as `reference/pending/MOLLY-REQUEST-INVENTORY.json`.
 
 Last checked revision: `61b9323a1c525144a3e356dadf3972c3890c57e5`.

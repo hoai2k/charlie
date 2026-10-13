@@ -1112,34 +1112,6 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
-## New Molly Party game: cupcake-stack
-
-### cupcake-stack — Cupcake Tower   (requested by the cupcake-stack agent, 2026-10-05, priority: nice-to-have)
-
-Everyone stacks ONE shared tower of cupcakes on a big cake stand in the
-middle of a garden birthday party. Each player's cupcake zips back and forth
-above the tower (carried by a little garden fairy in the player's colour);
-press A to drop it. Sticky icing means every drop sticks, even crooked ones,
-and the tower wobbles and giggles instead of falling. Cherries, candles and
-golden super-cupcakes land on top; as the tower grows the camera climbs into
-the sky (clouds, rainbow, twilight stars). Finale: everyone blows out all the
-candles. Every key has a procedural fallback that ships today. House style:
-navy `#24163f` outlines, soft cel shading, bright candy colours, **no text**
-in any image. Reused as they are: the roster sprites (`toss`, `cheer`,
-`blow`, `balance`, `giggle`, `celebrate`, `look-up`) and the
-`garden-fairy-*` NPC sprites.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/cupcake-stack` | 1920×1080, opaque | Full screen at ground level; it scrolls down as the camera climbs, so its TOP edge must blend into a plain sky colour `#8fd6ff` (the code continues the sky above it). Characters stand on a lawn band at y≈900–1010; the cake stand sits centred at x=960 with its foot at y≈930 | A sunny garden birthday party: soft blue sky with a few clouds near the top, bunting and paper lanterns strung between two trees at the far left and right, a pastel picket fence, balloons tied to the fence, a striped grass lawn in the foreground. Calm, empty centre column (the tower goes there) |
-| `thumb/cupcake-stack` | 800×500, opaque | Game-select shelf and how-to screen | A wobbly, tall, slightly crooked tower of colourful cupcakes on a white cake stand, lit candles and cherries poking out at funny angles, a garden fairy dropping one more cupcake from above, sparkles and confetti. Subject centred |
-| `prop/cake-stand` | 640×320, transparent | Anchor bottom-centre on the lawn, drawn 560 px wide. The top plate surface is at 18% from the top; the first cupcake sits on it | A big white-and-pink porcelain cake stand: a wide flat round plate with a scalloped frilly edge, a curvy pedestal and a round foot, front view, slightly from above |
-| `prop/cupcake-pink`, `prop/cupcake-blue`, `prop/cupcake-mint`, `prop/cupcake-lemon`, `prop/cupcake-lilac`, `prop/cupcake-choc`, `prop/cupcake-gold` | 256×224 each, transparent | Anchor centre; drawn 130 px wide (squashed and tilted by code). Bottom 45% wrapper, top 55% frosting. **Flattish frosting top with no topping** (the next cupcake sits on it) and a smiling face on the wrapper | A cute cupcake with a happy face (smiling eyes, rosy cheeks) on a striped paper wrapper, a puffy swirl of <pink / sky-blue / mint / lemon / lilac / chocolate / shiny gold> frosting with a few rainbow sprinkles, front view |
-| `prop/cupcake-cherry` | 128×128, transparent | Anchor bottom of the cherry; drawn 46 px, perched on a frosting edge at a jaunty angle | One glossy red cherry with a curly green stem and a white shine |
-| `prop/cupcake-candle` | 64×192, transparent | Anchor bottom-centre; drawn 26×78 px, poking out of the frosting at an angle. The code draws the flame | A thin twisted birthday candle with pastel spiral stripes (pink/white/blue), no flame, front view |
-| `prop/candle-flame` | 96×128, transparent | Anchor bottom-centre at the wick; flickers via code scale | A small cartoon candle flame: orange outside, yellow inside, white core, soft glow |
-| `prop/cupcake-topper-cake` | 760×600, transparent | Anchor bottom-centre, drawn 380×300 on top of the tower for the finale. The code draws the candles: keep the TOP of the upper tier flat and plain at about 68% up (lower-tier top at about 37% up) | A two-tier birthday cake with a happy face on the upper tier: pink bottom tier, cream top tier, white frosting drips, rainbow sprinkles, no candles, front view |
-
 ## New Molly Party game: rainbow-painter
 
 ### rainbow-painter — Rainbow Painter   (requested by the rainbow-painter agent, 2026-10-13, priority: nice-to-have)
@@ -1170,37 +1142,6 @@ colours, no text.
 | `prop/rp-paint-star` | 256×256, transparent | Centred, drawn ~110 px; bounces across the sky, rotating a little (the code adds a soft glow) | A plump golden star with a happy face and a few rainbow paint drips running off its points |
 
 Poses on player avatars: existing `idle`, `paint`, `cheer`, `celebrate`, `dance`, `surprised` only.
-
-## New Molly Party game: garden-grow
-
-### garden-grow — Silly Garden   (requested by the garden-grow agent, 2026-10-13, priority: nice-to-have)
-
-Players run around a garden of dirt patches (3 rows × 5). A plants a seed;
-holding A beside it waters it with a watering can. Each plant shoots up into
-a silly surprise: a giggling giant sunflower, a carrot that pops out and
-waves, bouncing strawberries, a pumpkin that rolls away across the garden,
-or a flower that sneezes pollen everywhere. Ends with a garden party and
-butterflies. Everything below has a procedural fallback. House style: navy
-`#24163f` outlines, soft cel shading, bright candy colours, no text. All
-plant props are seen from the front, standing on the ground.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/garden-grow` | 1920×1080, opaque | Full screen. Sky and picket fence above y≈330, lawn below where players run (the code draws the dirt patches at rows y 500 / 680 / 860). Keep the lawn plain | A sunny cottage garden seen from slightly above: blue sky with fluffy clouds, a white picket fence with rose bushes across the top third, then a wide plain bright-green lawn with soft mowing stripes |
-| `thumb/garden-grow` | 800×500, opaque | Game-select / how-to | A little garden fairy (no Charlie Party roster character) with a watering can watering a giant giggling sunflower, a carrot waving from the dirt, a pumpkin rolling away, butterflies, water droplets |
-| `prop/gg-dirt` | 260×140, transparent | Centred on each plot, drawn ~200×108 | A round mound of soft brown tilled garden soil with a few pebbles, top-down 3/4 view |
-| `prop/gg-sprout` | 160×200, transparent | Bottom-centre on the plot, ~90×112 | A tiny green sprout with two round leaves popping out of the soil, cute and perky |
-| `prop/gg-bud` | 200×280, transparent | Bottom-centre, ~120×168 | A taller leafy stalk with a closed round bud on top, wobbling as if about to burst |
-| `prop/gg-sunflower`, `prop/gg-sunflower-giggle` | 360×720 each, transparent | Bottom-centre, drawn ~230×460 (much taller than the players), swaying | A giant sunflower on a tall stem with big leaves and a happy face in the brown centre. Giggle: same flower, eyes squeezed shut, mouth wide open laughing |
-| `prop/gg-carrot` | 240×340, transparent | Bottom-centre, ~150×212; pops up from the soil and the code rocks it side to side | An orange carrot standing half out of the ground, leafy green top, cheerful face, one little arm raised waving |
-| `prop/gg-strawberry-bush`, `prop/gg-strawberry` | 260×180 / 120×130, transparent | Bush bottom-centre ~190×130; three berries ~66×72 bounce up and down above it | A low leafy strawberry plant with white flowers; a single plump red strawberry with seeds, a leafy cap and a smiling face |
-| `prop/gg-pumpkin`, `prop/gg-vine` | 260×240 / 260×120, transparent | Pumpkin centred (it rolls, the code rotates it), ~170×157; the vine stays on the plot, bottom-centre | A round orange pumpkin with a curly stem and a big friendly grin (not a jack-o'-lantern); a curly green pumpkin vine with leaves |
-| `prop/gg-sneeze-flower`, `prop/gg-sneeze-flower-achoo` | 240×400 each, transparent | Bottom-centre, ~150×250 | A pink puffball flower with a face, nose twitching (eyes half shut, about to sneeze). Achoo: same flower, eyes shut tight, mouth wide in a big sneeze, petals blown back |
-| `prop/gg-watering-can` | 160×120, transparent | Held in the character's hand, spout facing right, drawn ~70×52, tilted by code | A small shiny blue watering can with a sprinkler rose spout |
-| `prop/gg-butterfly` | 160×128, transparent | Centred, ~80 px, flapping (the code squashes it horizontally) | A pretty butterfly seen from above, wings fully open, pink and purple wings with yellow dots |
-| `prop/gg-rain-cloud` | 400×230, transparent | Centred, drawn ~300×170, drifts across the top of the lawn while the code rains drops under it | A plump happy rain cloud, white-blue with a smiling face and rosy cheeks, flat-ish bottom |
-
-Poses on player avatars: existing `idle`, `walk`, `run` (moveAnim), `water`, `action`, `cheer`, `surprised`, `dizzy`, `dance`, `celebrate`.
 
 ## New Molly Party game: trick-or-treat
 
@@ -1235,81 +1176,6 @@ troll is the existing Troll NPC sprite wearing bunny ears.
 | `prop/tot-jack` | 200×260, transparent | Bottom-centre in the doorway; the code springs it up | A jack-in-the-box: a striped box with a silly sock-puppet ghost on a spring, confetti |
 | `prop/tot-candy-pile` | 900×520, transparent | Bottom-centre in the middle of the street for the finale, drawn scaled up as it grows | A huge mountain of colourful Halloween candy: wrapped candies, lollipops, candy corn, chocolate bars, gumdrops, sparkles |
 
-## New Molly Party game: dance-freeze
-
-> **REPLACED (2026-10-13):** `dance-freeze` is off the Molly shelf; `sneaky-dance` replaced it and reuses only the rows left below. The other rows moved to history as dropped.
-
-
-### dance-freeze — Dance & Freeze   (requested by the dance-freeze agent, 2026-10-05, priority: nice-to-have)
-
-Musical statues on a disco stage: while the music plays everyone dances
-(stick = dance moves, A = jump-spin); when the record scratches and the lights
-go icy blue, everyone FREEZES. Wiggly friends get tickled by a giant feather
-(no one is out). Every key below has a procedural fallback that ships today.
-House style: navy `#24163f` outlines, soft cel shading, bright candy colours,
-no text. Professor Hoot (existing NPC) is the DJ.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `prop/df-disco-ball` | 256×320, transparent | Hangs from the top: anchored top-centre (the string's top), drawn ~170 px | A big sparkly mirror disco ball on a short gold chain, pink and blue reflections |
-
-## New Molly Party game: bubble-pop
-
-### bubble-pop — Bubble Pop   (requested by the bubble-pop agent, 2026-10-05, priority: nice-to-have)
-
-A cheeky bubble machine bobs on a little cloud at the top of a sunny garden
-and blasts out streams of soap bubbles that swirl and drift down. Players
-dash along the lawn and jump to pop them (combos chain!); each bubble holds a
-surprise (duckling, star, confetti, rainbow, cupcake or a boing frog), shown
-small inside the bubble and released on the pop. Giant bubbles take a few
-bonks. Everyone's pops fill a shared bubble meter; when it is full, foam
-surges up from the bottom for a bubble-bath finale with rubber ducks. Every
-key has a procedural fallback that ships today. House style: navy `#24163f`
-outlines, soft cel shading, bright candy colours, **no text**. Characters
-use existing poses only (jump, fall, cheer, celebrate, eat, surprised,
-giggle, float).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/bubble-pop` | 1920×1080, opaque | Full screen. Characters stand with their feet on y≈905; the lawn band runs from y≈870 to the bottom. The machine (drawn by code) sits top centre around y 90–360, the HUD meter at the top centre and chips along y≈985, so keep the top centre and the middle open sky | A sunny back garden at bath time: bright blue sky with a few light clouds, a pastel picket fence and round hedges with pink and yellow flowers along the far back, a bright green lawn across the bottom fifth with tiny daisies, a washing line with little towels far off at one side. Calm and open in the middle |
-| `thumb/bubble-pop` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A tiny garden fairy (Charlie Party NPC style, pastel petal dress and sparkly wings; no Charlie Party player characters) mid-jump popping a big rainbow soap bubble with a little yellow duckling tumbling out, other bubbles with a star and a cupcake inside swirling around, a cute bubble machine with a face on a cloud above blasting bubbles. Energetic, subject centred |
-| `prop/bubble-machine` | 640×480, transparent | Anchor bottom centre (the bottom of its cloud), drawn 520×390 at x≈W/2 (it slides left and right), bottom y≈360; the code squashes it when it puffs and spins a bubble wand ring in front of its nozzle | A chubby pastel-pink and mint bubble machine with a cheeky grinning face (big shiny eyes, rosy cheeks), a round nozzle on its front with a purple bubble-wand ring, a little crank on the side, sitting on a small fluffy cloud |
-| `prop/bubble` | 256×256, transparent | Centred, drawn at 2.15 × the bubble radius (radii 46–64 normal, 120 giant), over the surprise inside, so the middle **must stay see-through** | A single soap bubble: a thin iridescent rim (pink, gold, mint, lilac swirls), a soft curved white highlight at the upper left and a tiny one at the lower right, an almost fully transparent centre. No outline |
-| `prop/bubble-duckling` | 160×160, transparent | Centred, drawn about 90 px; flips horizontally to waddle; it flutters down and waddles away fast | A fluffy yellow duckling, side view facing right, tiny wings up as if giggling, eyes squeezed shut with happiness, orange beak open in a laugh |
-| `prop/bubble-star` | 128×128, transparent | Centred, drawn about 80 px, spinning as it zips up to the meter | A plump golden star with a happy face (closed smiling eyes, rosy cheeks), a soft glow |
-| `prop/bubble-cupcake` | 128×128, transparent | Centred, drawn about 80 px; it drops into the popper's hands | A tiny cupcake: mint wrapper, swirly pink frosting, rainbow sprinkles and a cherry |
-| `prop/bubble-frog` | 160×160, transparent | Anchor bottom centre on the lawn, drawn about 100 px, flips to face its hop direction | A round little green frog sitting, side view facing right, big happy eyes on top, wide grin, pink cheeks |
-| `prop/bubble-frog-hop` | 160×160, transparent | Same anchor and size as `prop/bubble-frog`, shown mid-hop | The same frog mid-boing: legs stretched out behind, arms forward, mouth open in a happy "wheee" |
-| `prop/bubble-rainbow` | 400×220, transparent | Anchor bottom centre at the pop point, drawn 300 wide; it grows and fades | A small cartoon rainbow arc with a puffy white cloud at each end, little sparkles |
-| `prop/rubber-duck` | 160×160, transparent | Centred, drawn about 110 px, bobbing on the finale foam | A classic yellow rubber duck toy, side view facing right, orange beak, a little shine, a tiny pink bow on its head |
-
-## New Molly Party game: balloon-float
-
-### balloon-float — Balloon Float   (requested by the balloon-float agent, 2026-10-05, priority: nice-to-have)
-
-Every player holds a bunch of five balloons and flies over a meadow while a
-brisk breeze rushes the sky past from right to left (it speeds up into gusts
-and a final star storm). Hold A to zoom up, let go to swoop down; touching
-the grass is a big friendly boing bounce. Hearts and stars stream past on
-the breeze, puffy clouds with funny faces giggle when you burst through
-them, and little birds wave hello and drop a heart. Every key has a
-procedural fallback that ships today. House style: navy `#24163f` outlines,
-soft cel shading, bright candy colours, **no text**. Characters use existing
-poses only (float, cheer, celebrate, surprised, wave, giggle).
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/balloon-float` | 1920×1080, opaque, **tiles seamlessly left to right** | Drawn twice side by side and scrolled left (parallax). The grass top edge must be at y≈960 all the way across (players bounce off it); HUD chips sit at the top (y 40–116) | A wide spring sky: bright blue fading to pale peach near the horizon, a few faint distant clouds, far-off rolling green hills with tiny trees and a little windmill, and a bright flowery meadow strip along the bottom (top edge at y≈960) with daisies and tulips. Left and right edges must match |
-| `thumb/balloon-float` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A tiny garden fairy (Charlie Party NPC style, pastel petal dress and sparkly wings; no Charlie Party player characters) zooming through a blue sky holding a bunch of five bright balloons, a cloud with a silly face sticking its tongue out, a little bluebird waving its wing, hearts and stars streaming past. Energetic, subject centred |
-| `prop/balloon-pink`, `prop/balloon-blue`, `prop/balloon-yellow`, `prop/balloon-mint`, `prop/balloon-purple` | 128×176 each, transparent | Anchor bottom centre at the knot, drawn 74×102 (scaled with the player); the code draws the strings from the knot to the player's hand and tilts/squashes the balloon | A single shiny round party balloon in <pink / sky blue / lemon yellow / mint / lilac>, slightly egg-shaped, a little tied knot at the bottom, a big soft white highlight at the upper left. No string |
-| `prop/float-heart` | 128×128, transparent | Centred, drawn about 74 px, bobbing | A puffy glossy pink heart with a tiny sparkle |
-| `prop/float-star` | 128×128, transparent | Centred, drawn about 78 px, spinning | A plump golden-yellow star with a soft glow and a tiny sparkle |
-| `prop/float-golden-star` | 192×192, transparent | Centred, drawn about 130 px with a glow behind (worth 3) | A big shining rainbow-edged golden star with a happy face (closed smiling eyes, rosy cheeks) and twinkles around it |
-| `prop/cloud-face` | 480×300, transparent | Centred, drawn 360×225 (some 1.3× bigger), drifting left | A big puffy white cloud with a silly face: small dot eyes, rosy cheeks, a little "o" mouth |
-| `prop/cloud-face-giggle` | 480×300, transparent | Same cloud, same size and position; shown for ~1 s after someone bursts through it (the code squashes it) | The same cloud giggling: eyes squeezed shut, big open laughing mouth with its tongue sticking out, cheeks extra rosy |
-| `prop/bird-fly` | 160×128, transparent | Centred, drawn about 96 px, facing left (flies right to left), alternates with `prop/bird-wave` | A round little bluebird flying, side view facing left, wings up, tiny orange beak, happy eyes |
-| `prop/bird-wave` | 160×128, transparent | Same size; shown when it waves hello to a player | The same bluebird hovering and waving one wing like a hand, beak open in a cheerful chirp |
-
 ## New Molly Party game: ballet-butterflies
 
 > **REPLACED (2026-10-13):** `ballet-butterflies` is off the Molly shelf; `opposite-ballet` replaced it and reuses only the rows left below. The other rows moved to history as dropped.
@@ -1336,29 +1202,6 @@ shared wardrobe (`butterfly-wings`, `fairy-wings`, `petal-wings`, `tiara`,
 | `prop/ballet-move-up`, `prop/ballet-move-twirl`, `prop/ballet-move-plie`, `prop/ballet-move-side` | 256×256 each, transparent | Drawn centred inside the white move card (fitted to 240 px); the code draws the card, an arrow/button glyph under it and the animation | Simple bold pictograms a 4-year-old reads instantly: a little ballerina silhouette (pink, round head) with both arms straight up; spinning on one toe with swirl lines; knees bent low with a down-motion bounce line; stepping sideways with motion lines. Flat colours, navy outline |
 | `prop/ballet-butterfly-pink`, `prop/ballet-butterfly-blue`, `prop/ballet-butterfly-yellow`, `prop/ballet-butterfly-purple` | 128×128 each, transparent | Seen from above, wings fully open, body vertical, centred. The code flaps it by squashing x and draws it 44–70 px wide | Cute cartoon butterflies with big rounded wings: pink with white polka dots; sky blue with lilac edges; lemon yellow with orange tips; purple with a pink heart pattern. Tiny dark body, curly antennae |
 | `prop/ballet-petal` | 64×64, transparent | Centred, spun and drifted by the code for the final bow shower, drawn 22–34 px | A single soft pink rose petal, slightly curled, gentle gradient |
-
-## New Molly Party game: wand-shapes
-
-### wand-shapes — Magic Wand Shapes   (requested by the wand-shapes agent, 2026-10-13, priority: nice-to-have)
-
-A big dotted shape appears in the twilight sky; everyone traces it together
-with their wand sparkle (stick moves the sparkle). Finishing it casts a
-spell and the shape comes alive. Everything has a procedural fallback; the
-code already looks up every key. House style: navy `#24163f` outlines, soft
-cel shading, bright candy colours, **no text**. Reused: roster sprites
-(`wand-up`, `cast`, `cheer`, `celebrate`, `look-up`) and the wardrobe
-`magic-wand`.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/wand-shapes` | 1920×1080, opaque | Full screen. Characters stand on a cloud ledge along the bottom (feet at y≈1010, ledge top y≈900). The dotted shapes fill the centre (circle of radius ~330 around x 960, y 480): keep it calm and darkish so glowing dots read. Top ~120 px calm for the HUD | A dreamy twilight sky: deep violet at the top fading to rose and peach at the horizon, a few soft stars, wispy pastel clouds at the sides, a row of big fluffy pink-lilac clouds along the bottom forming a standing ledge |
-| `thumb/wand-shapes` | 800×500, opaque | Game-select shelf and how-to screen | A little blue garden fairy waving a glowing wand that draws a sparkly golden heart in the twilight sky (no Charlie Party player characters), the heart turning into a pink balloon, a frog in a bubble and a sleepy moon nearby. Subject centred |
-| `prop/wand-sparkle` | 128×128, transparent | Each player's cursor, centred, drawn 70–90 px and spun; the code draws a player-coloured glow ring behind it | A chunky four-point magic sparkle star, white-gold core, soft glow edges |
-| `prop/wand-bubble-frog` | 400×400, transparent | The circle spell, centred, drawn at 2× the circle's radius then shrunk as it floats | A big shiny soap bubble (rainbow sheen, highlight at upper left) with a cheerful little green frog sitting inside it, waving |
-| `prop/wand-heart-balloon` | 360×480, transparent | The heart spell. Anchor: the heart's centre at (180, 180); the string hangs down from it | A glossy pink heart-shaped balloon with a white shine and a curly string with a little bow |
-| `prop/wand-shooting-star` | 256×256, transparent | The star spell, centred, spun; the code draws its rainbow trail | A plump golden star with a happy face (closed smiling eyes, rosy cheeks), sparkles round its tips |
-| `prop/wand-sleepy-moon` | 400×400, transparent | The moon spell, centred; the code bobs it and draws the Zzz | A smiling crescent moon (opening to the right) asleep, wearing a blue polka-dot nightcap with a pom-pom, eyes closed, rosy cheek |
-| `prop/wand-rainbow` | 1000×520, transparent | The rainbow spell. Anchor: bottom centre; drawn ~800 px wide over the dotted arc | A bright seven-stripe rainbow arc with a smiling fluffy cloud at each foot |
 
 ## New Molly Party game: duckling-parade
 
@@ -1448,73 +1291,6 @@ player characters appear in any of these images.
 | `prop/ff-star` | 192×192, transparent | Rare big pickup (worth 5), centred at 110 px, pulsing | A plump shiny golden star with a happy little face and a short rainbow sparkle trail on the left |
 | `prop/ff-bee` | 256×256, transparent | Bumblebee NPC, centred at 120 px, facing right (the code mirrors it), wings flap by a code squash | A chubby round cartoon bumblebee with soft yellow and brown stripes, tiny clear wings, big shiny eyes and a happy smile |
 | `prop/ff-bee-giggle` | 256×256, transparent | Same placement, shown for ~1 s after someone boops the bee (the code spins it) | The same bee, eyes squeezed shut, giggling with an open smile, tiny hearts |
-
-## New Molly Party game: fairy-hide-seek
-
-### fairy-hide-seek — Fairy Hide & Seek   (requested by the fairy-hide-seek agent, 2026-10-13, priority: nice-to-have)
-
-Little fairies hide behind giant garden things. Each player runs around the
-garden holding a big magnifying glass: looking through the lens shows what is
-behind a hiding spot (the spot turns see-through inside the lens), and A
-checks the spot. Fairies pop out giggling and twirl; decoys are silly (a frog
-jumps out going "ribbit!", a snail waves, a ladybug zooms off). Every key
-below has a procedural fallback that ships today, and the code already looks
-each one up. House style: navy `#24163f` outlines, soft cel shading, bright
-candy colours, **no text** in any image. Hiding spots are seen from the front,
-slightly from above (3/4 garden view), and are drawn **bottom-centre
-anchored** (the base touching the lawn). Fairies reuse the garden fairy NPC
-sets. No Charlie Party player characters appear in any of these images.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/fairy-hide-seek` | 1920×1080, opaque | Full screen, static. The code places 10 hiding spots across the lawn (y≈330–900), so keep the lawn plain-ish. Keep the top ~120 px calm (timer) and the bottom ~140 px plain (scoreboard) | A sunny storybook garden lawn in 3/4 view: soft green grass with mown stripes, a winding pale stone path, tiny daisies and clover dotted around, a white picket fence and rose hedge along the top, a blue sky strip with fluffy clouds above it. No big objects, no characters |
-| `thumb/fairy-hide-seek` | 800×500, opaque | Game-select shelf and how-to screen (the procedural `drawIcon` is the fallback) | A giant magnifying glass held over a red spotted mushroom in a garden, and through the lens a giggling little pink fairy with sparkly wings is revealed hiding behind it; a frog peeks from behind a teapot nearby. Subject centred |
-| `prop/fhs-flower-pink` | 360×480, transparent | Hiding spot, bottom-centre anchored, drawn ~210 px wide; it wiggles (code rotates it around the base) | A giant pink tulip-daisy flower on a thick green stem with two big leaves, bloom at the top, big enough to hide behind |
-| `prop/fhs-flower-yellow` | 360×480, transparent | Same as above | A giant yellow sunflower-daisy with a smiley orange centre on a thick stem with big leaves |
-| `prop/fhs-mushroom` | 400×380, transparent | Hiding spot, bottom-centre, ~230 px wide | A big red toadstool with white spots and a chunky cream stalk, a tiny clump of grass at the base |
-| `prop/fhs-leaf` | 440×340, transparent | Hiding spot, bottom-centre, ~250 px wide | A big leafy fern-and-hosta clump: broad overlapping glossy green leaves fanning up from the ground |
-| `prop/fhs-teapot` | 420×360, transparent | Hiding spot, bottom-centre, ~240 px wide | A giant round china teapot, white with pink roses and a gold rim, spout to the right, sitting on the grass |
-| `prop/fhs-can` | 440×340, transparent | Hiding spot, bottom-centre, ~240 px wide | A big shiny mint-green watering can with a rose spout pointing right |
-| `prop/fhs-pot` | 360×360, transparent | Hiding spot, bottom-centre, ~210 px wide | A terracotta flowerpot overflowing with purple pansies and leaves |
-| `prop/fhs-boot` | 360×400, transparent | Hiding spot, bottom-centre, ~190 px wide | A big yellow rain boot standing upright with daisies growing out of the top |
-| `prop/fhs-frog` | 256×256, transparent | Decoy, bottom-centre at ~120 px, hops (code arcs it) | A cute round green frog sitting, big smiley mouth, rosy cheeks, front view |
-| `prop/fhs-snail` | 256×200, transparent | Decoy, bottom-centre at ~130 px wide, facing right (mirrored by code) | A happy snail with a swirly pink-and-lilac shell, waving one eye stalk |
-| `prop/fhs-ladybug` | 160×160, transparent | Decoy, centred at ~70 px, zooms off in a loop | A round red ladybug with black spots, wings open mid-flight, smiling |
-| `prop/fhs-magnifier` | 320×320, transparent | Each player's glass. The lens centre is at (120, 120) in this image with a 200 px lens; the handle runs to the lower right. The code draws a player-colour ring and the see-through view inside the lens, so the lens area must be **empty** (fully transparent) | A chunky toy magnifying glass: a thick pearly-white rim with a gold inner edge and a rounded pink handle with a gold cap, lens empty |
-
-## New Molly Party game: sock-match
-
-### sock-match — Silly Sock Match   (requested by the sock-match agent, 2026-10-05, priority: nice-to-have)
-
-A backyard laundry-day game for Molly Party (age 4–5). A basket bursts a
-fountain of silly socks onto the lawn; players grab a sock and run it to its
-twin. Matched pairs spin-dance and rocket up to the laundry line, a cheeky
-puppy zooms around stealing socks, and everyone shares the line (cooperative).
-Every key below has a procedural fallback that ships today and is looked up
-with `art()` / `drawArt()`. House style: navy `#24163f` outlines, soft cel
-shading, bright candy colours, **no text** in any image. Socks: one image per
-pattern, upright, cuff at the top, toe pointing **right**; the code mirrors
-it for the second sock of a pair and rotates it freely, so keep it centred.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/sock-match` | 1920×1080, opaque | Full screen. The code draws the laundry line from (150, 236) to (1770, 236), sagging to y≈290, with wooden poles under each end, the basket at (1730, 1010), and socks/players on the lawn from y≈560 to y≈960. Keep the top 110 px calm (scoreboard + timer) | A sunny backyard on laundry day: blue sky with puffy clouds, a white picket fence across the middle with hollyhocks and sunflowers, a bright green lawn filling the lower 55% with a few daisies and clover. No laundry line, no poles, no characters |
-| `thumb/sock-match` | 800×500, opaque | Game-select shelf and how-to screen | A laundry line full of silly patterned socks (stripes, dots, hearts, one with googly eyes), a white puppy with a brown ear patch running off with a striped sock in its mouth, two matching socks dancing in the air with sparkles. Subject centred |
-| `prop/sock-stripes` | 140×200, transparent | Centred, drawn about 100×143 (bigger while carried or dancing), rotated and mirrored by code | A chunky cartoon sock with wide pink and white stripes, cuff at the top, toe pointing right |
-| `prop/sock-dots` | 140×200, transparent | Same | A sky-blue sock with big yellow polka dots |
-| `prop/sock-hearts` | 140×200, transparent | Same | A light-pink sock covered in red hearts |
-| `prop/sock-stars` | 140×200, transparent | Same | A navy-purple sock with bright yellow stars |
-| `prop/sock-googly` | 140×200, transparent | Same | A lime-green sock with two big googly eyes and a silly smile with a tongue near the toe |
-| `prop/sock-rainbow` | 140×200, transparent | Same | A sock with rainbow stripes (red to purple) |
-| `prop/sock-zigzag` | 140×200, transparent | Same | An orange sock with a bold purple zig-zag band |
-| `prop/sock-flowers` | 140×200, transparent | Same | A mint sock with white daisies with yellow centres |
-| `prop/sock-checks` | 140×200, transparent | Same | A lilac-and-white checkerboard sock |
-| `prop/sock-paws` | 140×200, transparent | Same | A peach sock with brown paw prints |
-| `prop/sock-puppy` | 320×240, transparent | Bottom-anchored at the puppy's feet, facing **right** (mirrored by code), drawn 210×158 | A small round white puppy with a brown patch over one ear, floppy ears, wagging tail, standing happily, side view |
-| `prop/sock-puppy-run` | 320×240, transparent | Same; the code bounces it and draws the stolen sock in its mouth (at the front, about 85% across, 45% down) | The same puppy running full speed, ears flying, mouth open (empty) |
-| `prop/sock-puppy-bow` | 320×240, transparent | Same; shown when a player catches up and when it drops a sock | The same puppy in a play bow, bottom up, tail wagging, tongue out |
-| `prop/sock-basket` | 360×260, transparent | Bottom-anchored at (1730, 1010), drawn 260×188; the code bounces it when it bursts socks | A round wicker laundry basket overflowing with a few colourful socks |
-| `prop/clothespin` | 48×96, transparent | Pins each sock on the line, centred on the line, drawn 22×44 | A wooden clothespin, upright, light wood with a metal spring |
 
 ## New Molly Party game: unicorn-jump
 
@@ -1716,7 +1492,7 @@ point, cast, present, ready, wave, cheer, celebrate, think, surprised, sad,
 pout`) becomes the sixth Molly Party player. She needs only the missing
 Molly poses below, at the same playable resolution and with all landmarks.
 
-**Step 1 — canonical first (§8 rules, user approval):** one canonical per
+**Step 1 — canonical first (§8 identity rules; Molly approval gate waived):** one canonical per
 garden fairy at playable resolution (same family look: round-faced garden fairy,
 flower cap, dragonfly wings, glowing outfit), but each now a distinct,
 lovable character with her own personality, outfit details and wing shape,
@@ -1724,9 +1500,9 @@ while keeping her colour + flower cap so the existing NPC uses stay
 recognisable: pink (tulip), blue (bluebell), yellow (daisy), green (leaf),
 purple (violet). Fancy, beautiful wings and dresses; cute, expressive faces.
 Save to `reference/canonical/garden-fairy-<colour>.webp`, record prompts,
-**show the user, stop for approval.**
+**Self-review and proceed: the user waived further Molly Party character approvals on 2026-10-13.**
 
-**Step 2 — playable sprite sets (after approval):** for each fairy a full
+**Step 2 — playable sprite sets (approved; future Molly approvals waived):** for each fairy a full
 sprite set in `assets/sprites/garden-fairy-<colour>/` at roster resolution
 (`bodyHeight` like the other playables, ~260–300 px tall art), with all five
 landmarks on every frame (`head/hand/eyes/neck/back`; `back` = between the
