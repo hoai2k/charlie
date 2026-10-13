@@ -1,0 +1,44 @@
+[
+  {
+    "key": "bg/kitten-yarn",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. Full-screen opaque1920x1080 16:9 background: cosy pastel livingroom in afternoonsun, softpeach/cream stripedwallpaper, bigwindowuppermiddle withsunbeams and blueskyview, framedpawprintpictures,pottedplants,buntingtop. Honeywoodfloor withbigroundpinkrug starts at y840 (78%height), wallabove. Plain emptyspots for cat trees at x150/x1770 and bedcentre, no furniture or cats. Calm top120px HUD. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. Opaque background.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-75ce4640-1670-4566-bfc4-34239b6968d1.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/bg-kitten-yarn.webp"
+  },
+  {
+    "key": "prop/kitten-cattree",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. Single tall pastel cat tree for sideview2Dgame. Entire object ontransparentcanvas680x1520 portrait ratio340:760. Frontview,sisalropeposts,lilaccarpetroundplatforms, cubbyhousemiddlelevel,danglingpompomtoy. THREE roundplatforms protrudeRIGHT towardcentre ofgame. Their TOPSTANDING surfaces exactly at y122 (8%fromtop), y562 (37%fromtop), y1003 (66%fromtop), equivalently92%,63%,34%height measuredfrombottom. Base atbottom1520; no cats. Architecturalreadable surfaces, generous margins, nootherobjects. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-f5b58c5b-3742-42f9-bb6b-85aa9d903472.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-cattree.webp"
+  },
+  {
+    "key": "prop/yarn-ball-pink",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. One fluffy round ballof woolyarn with visiblewoundstrands, shortlooseend, candy pink colour. Centered compactroundsilhouette128x128 transparentgameprop; codeadds longerloose threadtrail, so short endonly,no cats orhands. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-6426565d-7c44-49be-a016-827698c00eb3.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-yarn-ball-pink.webp"
+  },
+  {
+    "key": "prop/yarn-ball-blue",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. One fluffy round ballof woolyarn with visiblewoundstrands, shortlooseend, sky blue colour. Centered compactroundsilhouette128x128 transparentgameprop; codeadds longerloose threadtrail, so short endonly,no cats orhands. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-31faee6c-76a3-40eb-b732-f3d4dd4fe22d.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-yarn-ball-blue.webp"
+  },
+  {
+    "key": "prop/yarn-ball-yellow",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles art. Image1Felicity STYLEONLY. One fluffy round ballof woolyarn with visiblewoundstrands, shortlooseend, lemon yellow colour. Centered compactroundsilhouette128x128 transparentgameprop; codeadds longerloose threadtrail, so short endonly,no cats orhands. House style strictly2Dcartoon,bold smoothnavy #24163f outlines,candycolours, simpleclean softcelshading, no3D/no realistictextures,no text/watermark. Nocharacters. True transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-c70df9fe-a83b-4b81-b105-8a8492deedc2.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-yarn-ball-yellow.webp"
+  },
+  {
+    "key": "prop/kitten-basket",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles transparent inanimateprop. Image1 Felicity STYLE ONLY. One round wicker picnicbasket BACK LAYER forgame600x360 transparentcanvas ratio5:3, viewedfrontslightlytopdown. Softpinkginghamblanketinside. Far rear rim andbasket interiorONLY; leave nearfrontweavewall absent so kittensdrawn on top ofthisimage willremain visible. Overallbasketwidth about90%canvas, baseat90%height. Draw completebackinteriorfarwall, no handle,no kitten,no backdrop,no text. This is backlayer ofidenticalcanvas layeredbasket; laterforegroundwillcoverbottomhalf. Polished2Dcartoon smoothboldnavy #24163f contours, brightcandycolours, simplesoftcelshading. No3D,no realtextures,no castshadow,no watermark,no ground, true transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-589ae6f7-1266-4022-815c-29d31def1100.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-basket.webp"
+  },
+  {
+    "key": "prop/kitten-bed",
+    "prompt": "Use case: illustration-story. Asset type: Molly Party Kitten Cuddles transparent inanimateprop. Image1 Felicity STYLE ONLY. One enormous fluffy round cushionbedwithlilacrim,pinkquiltedtop andtiny goldstars,seemfromfrontslightlyabove. Gameprop1120x440 landscape ratio280:110. No cats orfurniture. Fullbedvisible compactellipseshapecentered with smallmargins. Truealpha. Polished2Dcartoon smoothboldnavy #24163f contours, brightcandycolours, simplesoftcelshading. No3D,no realtextures,no castshadow,no watermark,no ground, true transparentbackground.",
+    "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a0fc78-2af5-7ce1-a73a-e6f81a15fff3/exec-7d1dc330-3225-45c5-95df-8731ffeda223.png",
+    "source": "party/reference/pending/molly-sources/kitten-yarn/prop-kitten-bed.webp"
+  }
+]

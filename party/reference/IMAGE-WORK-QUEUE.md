@@ -7,20 +7,20 @@ approved artwork just because older checkpoints had incomplete coverage.
 
 ## Molly Party delivery — in progress
 
-Synced main through `61b9323a1c525144a3e356dadf3972c3890c57e5`. New scope:23 minigames,317 unique table keys (24 backgrounds,23 thumbnails,270 props),346 authored frames including the30-frame kitten atlas. Existing generic cake-stand,candle-flame,rubber-duck,four balloons andsnowball mappings are preserved; incompatible Molly variants need game-prefixed sibling keys and consumer updates. Per-key inventory saved as `reference/pending/MOLLY-REQUEST-INVENTORY.json`.
+Synced main through `61b9323a1c525144a3e356dadf3972c3890c57e5`. New scope:23 minigames,318 unique table keys (24 backgrounds,23 thumbnails,271 props),347 authored frames including the30-frame kitten atlas. Existing generic cake-stand,candle-flame,rubber-duck,four balloons andsnowball mappings are preserved; incompatible Molly variants need game-prefixed sibling keys and consumer updates. Per-key inventory saved as `reference/pending/MOLLY-REQUEST-INVENTORY.json`.
 
 Last checked revision: `61b9323a1c525144a3e356dadf3972c3890c57e5`.
 Last checked request blob: `07d61ba317137f16a9be486473128b0757b02566`.
 Last checked UTC:2026-10-13T02:13:46Z.
 Latest additional sync:0aa8a5db; changed thumbnails/DJ/mount briefs incorporated. No new key counts, but new playableFairy expansion added.
 
-Early integration delivery:11 reviewed images published at9df34290; per-game deferred groups,lossless native sources and exactprompts preserved in MOLLY-EARLY-DELIVERY.json. Remaining306 requested keys plus new playableFairy sprite expansion and cuddle/tongue-out actions.
+Early integration delivery:11 reviewed images published at9df34290; per-game deferred groups,lossless native sources and exactprompts preserved in MOLLY-EARLY-DELIVERY.json. Current published Molly artwork:31 keys; completeDance7 (d1994dc8),Wand8 (66257efe/746e632a), and partialgarden/magic/environment integrationbatches9df34290/7edf70c6. Remaining287 requested keys (somegeneratedWIP/approvedcanonbases, notyetindexed),plus playableFairy expansion and cuddle/tongue-out. Morefullgamebatches readyQA:Garden16,Cupcake14,FairyFlutter11,FHS14 (spottedladybugcorrectionpending).
 
 Ownership:root canonical approvals/shared index/intake/docs/Git; tools agent cupcake-stack,dance-freeze,bubble-pop,balloon-float,ballet-butterflies; performance agent wand-shapes,fairy-flutter,fairy-hide-seek,sock-match,tea-party; structural agent ladybug-spots,garden-grow after exact inventory. Other games remain queued. Built-in imagegen only, one call per unrelated asset, true alpha, lossless source/provenance and reviewed runtimeWebP. First-six sample gates prevent style drift before expansion.
 
-User approved butterfly,duckling,frog,MadamePapillon and revised prettier ladybug-v2/bee-v2; sources promoted to canonical/molly-*.webp. All five expanded playable GardenFairies approved and promoted, original NPC references preserved under pending/molly-playable-fairies/previous-npc-canonicals. Glimmer stays approved and needs missing Molly poses. Next pending approval:five TeaGuest identities,crescentMoon,bluebird at pending/molly-canonicals-2/REVIEW.html. Other new creature families continue. No Charlie Party roster characters in Molly thumbnails; use Molly Fairies/Glimmer or exact specified animals.
+User approved butterfly,duckling,frog,MadamePapillon and revised prettier ladybug-v2/bee-v2; sources promoted to canonical/molly-*.webp. All five expanded playable GardenFairies approved and promoted, original NPC references preserved under pending/molly-playable-fairies/previous-npc-canonicals. Glimmer stays approved and needs missing Molly poses. All current Molly canonical candidates approved:TeaGuests,Moon,bluebird,kittens,cloud,snail,sockpuppy,mamaduck,ghost,unicornmount,4Splashpuppies,5Halloweenvisitors,octopus,snowman,penguin,pig,elephant,cow. User revoked further Molly character approval gates:review/refine autonomously and proceed. Preserve approved identities. No Charlie Party roster characters in Molly thumbnails; use Molly Fairies/Glimmer or exact specified animals.
 
-Tea Party and Sock Match modules landed at0aa8a5db; other21 game modules have not landed yet. Art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. Previous monitor remains cancelled; no new timer requested.
+Latest sync965416d includes19 Molly modules; additional merges continue. Check currentmain for exactruntimeinventory. Art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. Previous monitor remains cancelled; no new timer requested.
 
 ## New Play Studio delivery — complete
 
