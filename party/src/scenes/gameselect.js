@@ -9,7 +9,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawEmote } from '../engine/emotes.js';
-import { GAMES, PARTY_GAMES, PARTY_PAGES, STUDIO_PAGES } from '../games/index.js';
+import { GAMES, PARTY_PAGES, STUDIO_PAGES, MOLLY_GAMES } from '../games/index.js';
 import { session, restoreRoster } from '../state.js';
 import { drawGameIcon } from './common.js';
 import { shuffle, pick, ease, clamp } from '../engine/util.js';
@@ -31,12 +31,23 @@ function pageOf(id) {
   return null;
 }
 
+const chunk = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
+const MOLLY_PINK = '#ff7ad9', MOLLY_DEEP = '#c94fd6';
+
+/** Molly Party view: every Molly game, a "Charlie Party" tile back, then random / marathon. */
+function buildMollyRows() {
+  const rows = chunk([...MOLLY_GAMES.map((g) => ({ kind: 'game', game: g, shelf: 'molly' })), { kind: 'charlie' }], 6);
+  rows.partyRows = rows.length; rows.studioRows = 0; rows.molly = true;
+  rows.push([{ kind: 'random' }, { kind: 'marathon' }]);
+  return rows;
+}
+
 function buildRows(pages) {
   const rows = [];
-  const chunk = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
   for (const shelf of ['party', 'studio']) {
     if (shelf === 'studio') rows.partyRows = rows.length;
     const list = SHELVES[shelf][pages[shelf]].map((g) => ({ kind: 'game', game: g, shelf }));
+    if (shelf === 'party' && pages.party === 0) list.push({ kind: 'molly' });
     if (SHELVES[shelf].length > 1) list.push({ kind: 'more', shelf });
     chunk(list, 6).forEach((r) => rows.push(r));
   }
@@ -46,15 +57,26 @@ function buildRows(pages) {
 }
 
 export class GameSelectScene {
-  constructor() { this.pages = { party: 0, studio: 0 }; this.rows = buildRows(this.pages); this.row = 0; this.col = 0; }
+  constructor() { this.pages = { party: 0, studio: 0 }; this.molly = false; this.rows = buildRows(this.pages); this.row = 0; this.col = 0; }
 
+  rebuild() { this.rows = this.molly ? buildMollyRows() : buildRows(this.pages); this.layout(); }
   setPage(shelf, page) {
     this.pages = { ...this.pages, [shelf]: page };
-    this.rows = buildRows(this.pages);
-    this.layout();
+    this.rebuild();
   }
-  /** Show the page holding game `id` (if it's on the other page of its shelf). */
+  /** Switch between Charlie Party (the usual shelves) and Molly Party; the cursor lands on the switch tile. */
+  setMolly(on, { focus = true } = {}) {
+    if (this.molly === on) return;
+    this.molly = on;
+    if (!on) this.pages = { ...this.pages, party: 0 };   // the Molly tile lives on page 1
+    this.rebuild();
+    if (focus) this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.kind === (on ? 'charlie' : 'molly')) { this.row = ri; this.col = ci; } }));
+    this.row = Math.min(this.row, this.rows.length - 1); this.col = Math.min(this.col, this.rows[this.row].length - 1);
+  }
+  /** Show the shelf/page holding game `id`. */
   showGame(id) {
+    const g = GAMES.find((x) => x.id === id);
+    if (g) this.setMolly(g.category === 'molly', { focus: false });
     const at = pageOf(id);
     if (at && this.pages[at.shelf] !== at.page) this.setPage(at.shelf, at.page);
   }
@@ -77,15 +99,15 @@ export class GameSelectScene {
     // Positions for every item, with section headers.
     let y = 168;
     this.rows.forEach((r, ri) => {
-      if (ri === this.rows.partyRows) y += 52; // studio header gap
+      if (ri === this.rows.partyRows && !this.rows.molly) y += 52; // studio header gap
       if (ri === this.rows.length - 1) y += 18;
       r.forEach((it, ci) => {
-        if (it.kind === 'game' || it.kind === 'more') Object.assign(it, { x: X0 + ci * (TILE_W + GAP), y, w: TILE_W, h: TILE_H });
+        if (it.kind === 'game' || it.kind === 'more' || it.kind === 'molly' || it.kind === 'charlie') Object.assign(it, { x: X0 + ci * (TILE_W + GAP), y, w: TILE_W, h: TILE_H });
         else Object.assign(it, { x: X0 + ci * (3 * TILE_W + 3 * GAP), y, w: 3 * TILE_W + 2 * GAP, h: 110 });
       });
       y += (ri === this.rows.length - 1 ? 110 : TILE_H) + GAP;
     });
-    this.studioHeaderY = this.rows[this.rows.partyRows][0].y - 34;
+    this.studioHeaderY = this.rows.molly ? -100 : this.rows[this.rows.partyRows][0].y - 34;
   }
 
   get current() { return this.rows[this.row][this.col]; }
@@ -118,7 +140,10 @@ export class GameSelectScene {
     for (const c of ctrls) {
       if (c.nav.x || c.nav.y) this.move(c.nav.x, c.nav.y);
       if (c.pressed('a')) { this.choose(); return; }
-      if (c.pressed('b')) { sfx('back'); this.manager.go('charselect'); return; }
+      if (c.pressed('b')) {
+        if (this.molly) { this.setMolly(false); this.flip = { t: 0, shelf: 'all' }; sfx('swap'); return; }   // back to Charlie Party first
+        sfx('back'); this.manager.go('charselect'); return;
+      }
     }
     // Mouse / touch: hovering a tile selects it, clicking plays it, and the
     // footer hints click like their buttons.
@@ -138,8 +163,17 @@ export class GameSelectScene {
     const it = this.current;
     if (it.kind === 'game') { this.chosen = { id: it.game.id, t: 0 }; sfx('select'); this.burst(it); }
     else if (it.kind === 'more') this.flipPage(it.shelf);
-    else if (it.kind === 'random') this.startRoulette(GAMES.map((g) => g.id), false);
-    else if (it.kind === 'marathon') this.startRoulette(shuffle(PARTY_GAMES.map((g) => g.id)).slice(0, 5), true);
+    else if (it.kind === 'molly' || it.kind === 'charlie') {
+      this.setMolly(it.kind === 'molly');
+      this.flip = { t: 0, shelf: 'all' };
+      sfx('swap'); sfx('magic');
+      const cur = this.current;
+      particles.burst(cur.x + cur.w / 2, cur.y + cur.h / 2, { type: 'star', count: 18 });
+    }
+    else if (it.kind === 'random' && this.molly) this.startRoulette(MOLLY_GAMES.map((g) => g.id), false);
+    else if (it.kind === 'marathon' && this.molly) this.startRoulette(shuffle(MOLLY_GAMES.map((g) => g.id)).slice(0, 5), true);
+    else if (it.kind === 'random') this.startRoulette(GAMES.filter((g) => g.category !== 'molly' && pageOf(g.id)).map((g) => g.id), false);
+    else if (it.kind === 'marathon') this.startRoulette(shuffle(PARTY_PAGES.flat().map((g) => g.id)).slice(0, 5), true);
   }
 
   /** "More Games" / "More Play": swap the other page of that shelf in; the cursor stays on the tile. */
@@ -158,6 +192,7 @@ export class GameSelectScene {
   }
 
   startRoulette(pool, marathon) {
+    if (!pool.length) { sfx('error'); return; }
     sfx('drumroll');
     if (marathon) { sfx('jingle/marathon-start'); host('marathon'); } else host('random');
     const fresh = pool.filter((id) => id !== session.lastGameId);
@@ -202,12 +237,16 @@ export class GameSelectScene {
   draw(g) {
     ui.partyBackdrop(g, this.t, '#ffcf8f', '#ffdba8');
     drawArt(g, 'bg/menu', 0, 0, W, H, { anchor: 'topleft', fit: 'cover' });
+    if (this.molly) { g.fillStyle = 'rgba(255,170,230,0.28)'; g.fillRect(0, 0, W, H); }   // Molly Party: a pinker room
     // Star tally.
     ui.scoreboard(g, session.players, session.players.map((p) => p.stars), { y: 18, format: (v) => `★ ${v}`, highlight: this.leaders() });
     // Section headers.
-    ui.text(g, 'Party Games', X0 + 8, 142, { size: 40, align: 'left', color: '#ff4d6d' });
-    ui.text(g, 'Play Studio', X0 + 8, this.studioHeaderY, { size: 40, align: 'left', color: '#9b5cff' });
-    for (const [shelf, hy, hx] of [['party', 132, 318], ['studio', this.studioHeaderY - 10, 290]]) {   // page dots
+    if (this.molly) ui.text(g, '✿ Molly Party ✿', X0 + 8, 142, { size: 46, align: 'left', color: MOLLY_PINK });
+    else {
+      ui.text(g, 'Party Games', X0 + 8, 142, { size: 40, align: 'left', color: '#ff4d6d' });
+      ui.text(g, 'Play Studio', X0 + 8, this.studioHeaderY, { size: 40, align: 'left', color: '#9b5cff' });
+    }
+    for (const [shelf, hy, hx] of this.molly ? [] : [['party', 132, 318], ['studio', this.studioHeaderY - 10, 290]]) {   // page dots
       const pages = SHELVES[shelf], cur = this.pages[shelf];
       if (pages.length < 2) continue;
       for (let i = 0; i < pages.length; i++) {
@@ -223,11 +262,12 @@ export class GameSelectScene {
         const sel = this.roulette ? it === rIdx : (ri === this.row && ci === this.col);
         const bounce = sel ? 1.06 + Math.sin(this.t * 6) * 0.015 : 1;
         // party tiles pop in one after another when the page flips
-        const inShelf = this.flip && (this.flip.shelf === 'party' ? ri < this.rows.partyRows : ri >= this.rows.partyRows && ri < this.rows.length - 1);
+        const inShelf = this.flip && (this.flip.shelf === 'all' ? ri < this.rows.length - 1 : this.flip.shelf === 'party' ? ri < this.rows.partyRows : ri >= this.rows.partyRows && ri < this.rows.length - 1);
         const pop = inShelf ? ease.outBack(clamp((this.flip.t - ((ri % 2) * 6 + ci) * 0.025) / 0.25, 0, 1)) : 1;
         g.save();
         g.translate(it.x + it.w / 2, it.y + it.h / 2); g.scale(bounce * pop, bounce * pop); g.translate(-it.w / 2, -it.h / 2);
         if (it.kind === 'more') this.drawMoreTile(g, it, sel);
+        else if (it.kind === 'molly' || it.kind === 'charlie') this.drawSwitchTile(g, it, sel);
         else if (it.kind === 'game') {
           ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: '#fff', stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
           drawGameIcon(g, it.game, 5, 5, it.w - 10, it.h - 10, sel ? this.t : 0);
@@ -237,19 +277,39 @@ export class GameSelectScene {
           }
         } else {
           const random = it.kind === 'random';
-          ui.panel(g, 0, 0, it.w, it.h, { r: 55, fill: random ? '#3fa7ff' : '#9b5cff', stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 6 });
+          ui.panel(g, 0, 0, it.w, it.h, { r: 55, fill: random ? '#3fa7ff' : this.molly ? MOLLY_DEEP : '#9b5cff', stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 6 });
           drawEmote(g, random ? 'question' : 'star', 70, it.h / 2, 64, this.t);
-          ui.text(g, random ? 'Random!' : 'Party Marathon', it.w / 2 + 30, it.h / 2 - (random ? 0 : 12), { size: 50, weight: 800 });
+          ui.text(g, random ? 'Random!' : this.molly ? 'Molly Marathon' : 'Party Marathon', it.w / 2 + 30, it.h / 2 - (random ? 0 : 12), { size: 50, weight: 800 });
           if (!random) ui.text(g, '5 games in a row + a trophy', it.w / 2 + 30, it.h / 2 + 30, { size: 24, strokeWidth: 5 });
         }
         g.restore();
       }
     }
     this.drawDetails(g);
-    ui.hints(g, [['a', 'Play'], ['b', 'Characters']], PANEL_X + 115, 1046, { size: 30 });   // left of the song tag
+    ui.hints(g, [['a', 'Play'], ['b', this.molly ? 'Charlie Party' : 'Characters']], PANEL_X + 115, 1046, { size: 30 });   // left of the song tag
     if (this.roulette && this.roulette.landed) {
       ui.banner(g, this.roulette.marathon ? 'Party Marathon!' : 'Let\'s play!', this.roulette.landT, { y: 560, size: 120 });
     }
+  }
+
+  /** "Molly Party" (on Party Games page 1) / "Charlie Party" (back): a peek at the other world's games. */
+  drawSwitchTile(g, it, sel) {
+    const toMolly = it.kind === 'molly';
+    const gr = g.createLinearGradient(0, 0, it.w, it.h);
+    gr.addColorStop(0, toMolly ? '#ffb3ec' : '#ffcf8f'); gr.addColorStop(1, toMolly ? '#b98bff' : '#ff7ab8');
+    ui.panel(g, 0, 0, it.w, it.h, { r: 18, fill: gr, stroke: sel ? '#ffd23f' : '#24163f', lineWidth: sel ? 9 : 5 });
+    const peek = toMolly ? MOLLY_GAMES : PARTY_PAGES[0];
+    const mw = 52, mh = 36;
+    peek.slice(0, 3).forEach((m, i) => {
+      const x = 14 + i * (mw + 8), y = 12 + Math.sin(this.t * 3 + i) * (sel ? 3 : 0);
+      g.save(); g.translate(x + mw / 2, y + mh / 2); g.rotate((i - 1) * 0.12); g.translate(-mw / 2, -mh / 2);
+      ui.panel(g, 0, 0, mw, mh, { r: 7, fill: '#fff', lineWidth: 3, shadow: false });
+      drawGameIcon(g, m, 2, 2, mw - 4, mh - 4, 0);
+      g.restore();
+    });
+    if (!peek.length) drawEmote(g, 'heart', it.w / 2, 34, 40, this.t);
+    ui.text(g, toMolly ? 'Molly Party' : 'Charlie Party', it.w / 2, 84, { size: 30, weight: 800, maxWidth: it.w - 16 });
+    ui.text(g, toMolly ? '✿ ✿' : '◀ ◀', it.w / 2 + Math.sin(this.t * 5) * (sel ? 6 : 0), 116, { size: 22, color: '#fff6a8', strokeWidth: 5 });
   }
 
   /** The "More Games" / "More Play" tile: a peek at the other page's games. */
@@ -278,7 +338,20 @@ export class GameSelectScene {
     const it = this.roulette ? this.roulette.tiles[this.roulette.idx] : this.current;
     const x = PANEL_X, y = 130, w = 540, h = 870;
     ui.panel(g, x, y, w, h, { fill: '#fff8ec' });
-    if (it.kind === 'more') {
+    if (it.kind === 'molly' || it.kind === 'charlie') {
+      const toMolly = it.kind === 'molly', list = toMolly ? MOLLY_GAMES : PARTY_PAGES[0];
+      ui.text(g, toMolly ? 'Molly Party!' : 'Charlie Party!', x + w / 2, y + 70, { size: 60, color: toMolly ? MOLLY_PINK : '#ff4d6d' });
+      const lines = toMolly ? ['Simple, silly games', 'for little ones!'] : ['Back to the', 'big kids\' games!'];
+      for (const [i, line] of lines.entries()) ui.text(g, line, x + w / 2, y + 140 + i * 44, { size: 34, color: '#24163f', stroke: false, weight: 700 });
+      const cols = 3, tw = 150, th = 100, gx = 18, gy = 16, x0 = x + (w - (cols * tw + (cols - 1) * gx)) / 2;
+      list.forEach((m, i) => {
+        const cx = x0 + (i % cols) * (tw + gx), cy = y + 250 + Math.floor(i / cols) * (th + gy);
+        if (cy + th > y + h - 60) return;
+        ui.panel(g, cx, cy, tw, th, { r: 14, fill: '#fff', lineWidth: 4, shadow: false });
+        drawGameIcon(g, m, cx + 4, cy + 4, tw - 8, th - 8, this.t);
+      });
+      if (!list.length) ui.text(g, '(coming soon!)', x + w / 2, y + 320, { size: 34, color: '#6b5a85', stroke: false });
+    } else if (it.kind === 'more') {
       const page = this.pages[it.shelf];
       ui.text(g, SHELF_LABEL[it.shelf] + '!', x + w / 2, y + 70, { size: 60, color: SHELF_COLOR[it.shelf][1] });
       for (const [i, line] of [page === 0 ? 'Swap in a whole new' : 'Back to the first', it.shelf === 'party' ? 'page of party games!' : 'page of Play Studio!'].entries()) ui.text(g, line, x + w / 2, y + 140 + i * 44, { size: 34, color: '#24163f', stroke: false, weight: 700 });
@@ -294,7 +367,7 @@ export class GameSelectScene {
       const m = it.game;
       ui.panel(g, x + 20, y + 20, w - 40, 300, { r: 22, fill: '#fff', lineWidth: 5, shadow: false });
       drawGameIcon(g, m, x + 26, y + 26, w - 52, 288, this.t);
-      ui.text(g, m.title, x + w / 2, y + 370, { size: 50, color: m.category === 'studio' ? '#9b5cff' : '#ff4d6d', maxWidth: w - 40 });
+      ui.text(g, m.title, x + w / 2, y + 370, { size: 50, color: m.category === 'studio' ? '#9b5cff' : m.category === 'molly' ? MOLLY_DEEP : '#ff4d6d', maxWidth: w - 40 });
       ui.text(g, m.type || '', x + w / 2, y + 420, { size: 30, color: '#6b5a85', stroke: false });
       let yy = y + 480;
       for (const line of ui.wrap(g, m.goal || '', w - 70, 34, 700)) { ui.text(g, line, x + w / 2, yy, { size: 34, color: '#24163f', stroke: false, weight: 700 }); yy += 44; }
@@ -314,8 +387,8 @@ export class GameSelectScene {
       for (const [i, line] of ['Can\'t decide?', 'Spin the wheel and let', 'the party pick a game!'].entries()) ui.text(g, line, x + w / 2, y + 520 + i * 48, { size: 36, color: '#24163f', stroke: false, weight: 700 });
     } else {
       drawEmote(g, 'star', x + w / 2, y + 220, 200, this.t);
-      ui.text(g, 'Party Marathon', x + w / 2, y + 430, { size: 62, color: '#9b5cff', maxWidth: w - 50 });
-      for (const [i, line] of ['Five random party games', 'in a row. Most stars', 'wins the trophy!'].entries()) ui.text(g, line, x + w / 2, y + 520 + i * 48, { size: 36, color: '#24163f', stroke: false, weight: 700 });
+      ui.text(g, this.molly ? 'Molly Marathon' : 'Party Marathon', x + w / 2, y + 430, { size: 62, color: this.molly ? MOLLY_DEEP : '#9b5cff', maxWidth: w - 50 });
+      for (const [i, line] of (this.molly ? ['Five Molly games', 'in a row, then', 'a trophy for everyone!'] : ['Five random party games', 'in a row. Most stars', 'wins the trophy!']).entries()) ui.text(g, line, x + w / 2, y + 520 + i * 48, { size: 36, color: '#24163f', stroke: false, weight: 700 });
     }
   }
 }

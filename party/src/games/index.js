@@ -51,9 +51,13 @@ export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
 // swaps in the second page. Page 2 = every party game after the first 11,
 // with Crown Keeper moved to the end of it.
-const LAST = 'crown-keeper';
-const partyRest = PARTY_GAMES.filter((g) => g.id !== LAST);
-export const PARTY_PAGES = [partyRest.slice(0, 11), [...partyRest.slice(11), ...PARTY_GAMES.filter((g) => g.id === LAST)]];
+// Page 1 holds 10 games + the "Molly Party" tile (which took Fairy Count's
+// spot; Fairy Count stays playable by id but is off the shelf).
+const LAST = 'crown-keeper', RETIRED = ['fairy-count'];
+const partyRest = PARTY_GAMES.filter((g) => g.id !== LAST && !RETIRED.includes(g.id));
+export const PARTY_PAGES = [partyRest.slice(0, 10), [...partyRest.slice(10), ...PARTY_GAMES.filter((g) => g.id === LAST)]];
+// Molly Party: a separate shelf of simple games for little ones (age 4-5).
+export const MOLLY_GAMES = GAMES.filter((g) => g.category === 'molly');
 // Play Studio works the same way once it has more than 12 games: 11 per page
 // and a "More Play" tile.
 export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];
