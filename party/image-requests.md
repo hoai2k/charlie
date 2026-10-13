@@ -1128,14 +1128,14 @@ candies; a rainbow trail streams behind riders who keep hopping cleanly. 1–4
 lanes stacked top to bottom (5–8 players share lanes, two riders each).
 Everything has a procedural fallback that ships today; the code already looks
 up every key below. House style: navy `#24163f` outlines, soft cel shading,
-bright candy colours, **no text**. Side view; riders face right and the
+bright candy colours, **no text**, and no Charlie Party roster characters in any image (the mount is a generic pastel cartoon unicorn; the code tints it per player). Side view; riders face right and the
 props scroll in from the right.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/unicorn-jump` | 1920×1080, opaque, **seamless left-right tile** | Drawn twice side by side, scrolling left at ~0.2× the ground speed (parallax). The lanes (thin grass paths drawn by code) sit in bands between y≈260 and y≈1000, so the top 250 px and the overall colour matter most; keep the middle low-detail | A dreamy candy meadow: pastel pink-to-lilac sky with puffy clouds and a faint rainbow arc, far rolling hills in mint and pink with gumdrop trees and lollipop flowers, a tiny castle silhouette on one hill. Soft, bright, cheerful |
-| `thumb/unicorn-jump` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A happy girl riding a white unicorn with a rainbow mane mid-hop over a puddle, a rainbow trail streaming behind, stars and swirl candies floating ahead, candy meadow background. Subject centred |
-| `prop/uj-mount` | 512×384, transparent | The unicorn the riders sit on, side view **facing right**, mid-gallop. Anchor: bottom centre at the hooves; drawn ~1.1× the rider's height wide. The code seats the rider at ~62% of the image height (the saddle, a bit left of centre) and bobs/tilts the whole image | A cute chubby white unicorn with a flowing rainbow mane and tail, gold spiral horn, pink hooves, a little pink saddle blanket with a heart, big friendly eye, galloping (front legs forward, back legs back). No rider |
+| `thumb/unicorn-jump` | 800×500, opaque | Game-select shelf and how-to screen (procedural `drawIcon` is the fallback) | A tiny garden fairy with petal wings riding a chubby pastel-pink cartoon unicorn with a rainbow mane mid-hop over a puddle, a rainbow trail streaming behind, stars and swirl candies floating ahead, candy meadow background. Subject centred |
+| `prop/uj-mount` | 512×384, transparent | The unicorn the riders sit on, side view **facing right**, mid-gallop. Anchor: bottom centre at the hooves; drawn ~1.1× the rider's height wide. The code seats the rider at ~62% of the image height (the saddle, a bit left of centre) and bobs/tilts the whole image | A cute chubby pale-pink cartoon unicorn (a generic mount, not any roster character) with a flowing rainbow mane and tail, gold spiral horn, pink hooves, a little pink saddle blanket with a heart, big friendly eye, galloping (front legs forward, back legs back). No rider |
 | `prop/uj-mount-jump` | 512×384, transparent | Same as above, shown while hopping. Same anchor and scale so it swaps cleanly | The same unicorn leaping: legs tucked up under its body, mane and tail streaming back, joyful face |
 | `prop/uj-puddle` | 320×96, transparent | Anchor bottom centre on the lane ground; ~170 px wide at lane scale 1 | A shallow sky-blue rain puddle seen from the side at a low angle, with a white shine and two small ripples, a tiny rubber duck floating in it |
 | `prop/uj-mushroom` | 256×256, transparent | Anchor bottom centre; ~120 px tall at lane scale 1. The code squashes it when it boings a rider | A bouncy red-and-white spotted mushroom with a cheeky smile, round fat cap like a trampoline |
@@ -1161,12 +1161,12 @@ when it's full there's a sparkly finale. Little friendly fish follow each
 swimmer in a conga line. Everything has a procedural fallback that ships
 today; the code already looks up every key below. House style: navy
 `#24163f` outlines, soft cel shading, bright candy colours, **no text**.
-Nothing scary: big friendly eyes everywhere.
+Nothing scary: big friendly eyes everywhere. No Charlie Party roster characters in any image.
 
 | Key | Size / format | Anchor and how the code draws it | Prompt-style description |
 | --- | --- | --- | --- |
 | `bg/mermaid-pearls` | 1920×1080, opaque | Full screen. Sandy seabed from y≈930 down; swimmers use y 150–920, so keep the middle open water. Top 110 px = HUD band (scoreboard + chest meter) | A bright friendly coral reef: turquoise water fading lighter toward the top with sun rays slanting down, pink and purple coral and swaying green kelp along the left and right edges, a pale sandy seabed with shells and starfish at the bottom. Cheerful and sparkling |
-| `thumb/mermaid-pearls` | 800×500, opaque | Game-select shelf and how-to screen | A red-haired mermaid swimming happily toward an open clam with a glowing pearl, a smiling pink octopus and a small open treasure chest overflowing with pearls nearby, bubbles and little fish around |
+| `thumb/mermaid-pearls` | 800×500, opaque | Game-select shelf and how-to screen | A wide-open smiling clam with a big glowing pearl in the foreground, a giggling pink octopus in a lilac nightcap tossing pearls, a small open treasure chest overflowing with pearls, a rainbow fish, bubbles and little friendly fish around. No people or mermaids (Molly Party art never shows the Charlie Party roster) |
 | `prop/mp-clam-open` | 256×224, transparent | Anchor bottom centre on the seabed or a rock ledge, ~170 px wide. The code draws the pearl itself in the opening (about 40% up the image, centred), so leave the inside empty | A big scalloped pink-and-lilac clam shell wide open, a cute face on the lower shell (happy eyes and smile), pale pink inside |
 | `prop/mp-clam-closed` | 256×160, transparent | Same anchor and width | The same clam shut tight, cheeks puffed with a cheeky closed-eye grin |
 | `prop/mp-pearl` | 96×96, transparent | Centred, ~44 px | A glossy white-pink pearl with a soft rainbow sheen and a white highlight |
