@@ -18,7 +18,14 @@ SFX: round 6 (194, the 17 kept games) done; round 7 (96, the cheeky six) done
 (tools/audio/sfx/round7.py). New poses registered: ride-sit, boop, cuddle,
 tongue-out, hose-spray, silly-pose, tiptoe. Fairy playable request lists 56 poses for the 23
 games (scratchpad molly-poses.txt). `?chars=` accepts NPC ids (glimmer, garden-fairy-*).
-Waiting on the user: decide whether fairies become the Molly roster after trying the games.
+Molly intro = fairy picker (scenes/molly-seats.js, 2026-10-13): every Molly game's how-to
+screen seats players as fairies (glimmer + garden-fairy-*), picked per game; A join/ready, B
+unready/leave; fairy players' stars proxy to the party seat; memo keeps seats for the next
+Molly intro. Charlie random/marathon exclude Molly (gameselect). Molly art QA: 3 worktree
+agents (brief scratchpad molly-art-qa-brief.md): A = fairy-hide-seek cupcake-stack bubble-pop
+balloon-float unicorn-jump ghost-giggles kitten-yarn; B = sock-match garden-grow fairy-flutter
+wand-shapes sneaky-dance opposite-ballet muddy-mayhem; C = trick-or-treat duckling-parade.
+Merge with scratchpad merge_game.sh-style merges (no register needed), then restamp/push.
 
 ### Molly Party image delivery — in progress
 User waived all future Molly character approvals; self-review and proceed. Completed and in-game checked batches through `2ad4cda9`: Garden, Dance, Wand, Sock, Fairy Hide and Seek, Cupcake, Bubble and Balloon. Shared optimizer/loader preserves frame physical heights and attachment landmarks; focused Python/Node tests pass. Finished batch art is pushed to main immediately. Six replacement-game briefs have landed and are queued; structural agent handles six full playable Fairy sets, performance handles Unicorn/Ghost/Pumpkin/Snowflake then Bed/Prank/Sneaky, tools handles Trick/Duck/Mermaid then Opposite/Whoopee/Muddy, root handles Kitten/Rainbow and integration. Exact prompt/source records and WIP remain under reference/pending. Shared art uses game-prefixed sibling variants where needed. Art readiness does not imply gameplay QA; open requests stay until actual checks pass. Old monitoring remains canceled.
