@@ -8,6 +8,14 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### 2026-10-13 late: menus, CPUs, hoity-toity cast
+Molly Party is now a button after Marathon (bottom row: Random / Marathon / Molly Party or
+Charlie Party); Fairy Count back on Party Games page 1. CPUs: none in Molly or Play Studio games
+unless added on the how-to screen (X add, Y remove; intro.js noCpus, molly-seats addCpu).
+Agents running (brief scratchpad hoity-brief.md): whoopee-tea indignant/scolding guests (players
+laugh), and an audit of the other Molly games for the same comedy (victims shocked/scolding,
+players laugh) with new reaction image requests.
+
 ### Art watch (2026-10-13): DONE
 All requested Molly images delivered and checked in game by 07:00Z (QA agents A–G); every open
 request and re-generation row is closed. All six fairy sprite sets (glimmer, garden-fairy-*) have
