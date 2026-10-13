@@ -291,7 +291,7 @@ export class PlayScene {
     this.paused = null; sfx('select');
     if (act === 'howto') { this.openHowto(); }
     else if (act === 'restart') { this.manager.go('play', { gameId: this.gameId }); }
-    else if (act === 'quit') { music.menu(); this.manager.go('gameselect'); }
+    else if (act === 'quit') this.manager.go('gameselect');   // game select starts its menu music
     else if (act === 'done') { this.safe(() => (this.game.onDone ? this.game.onDone() : this.finish({ showcase: true }))); }
   }
 

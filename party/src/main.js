@@ -17,7 +17,7 @@
 
 import { setupCanvas, beginFrame, endFrame, W, H } from './engine/canvas.js';
 import { input } from './engine/input.js';
-import { initAudio, unlockAudio, setMuted, preloadVoices } from './engine/audio.js';
+import { initAudio, unlockAudio, setMuted, preloadVoices, music } from './engine/audio.js';
 import { loadSprites } from './engine/sprites.js';
 import { loadArt, requestedKeys } from './engine/art.js';
 import { particles } from './engine/particles.js';
@@ -153,4 +153,4 @@ requestAnimationFrame(frame);
 boot().catch((e) => { console.error(e); });
 
 // Expose for automated tests / the console.
-window.party = { scenes, session, input, particles, fx, artRequests: requestedKeys };
+window.party = { scenes, session, input, particles, fx, music, artRequests: requestedKeys };

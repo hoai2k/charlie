@@ -11,8 +11,16 @@ export const GROUND_Y = 700;            // houses stand on this line
 export const WALK = { x0: 70, x1: W - 70, y0: 760, y1: 1000 };
 export const HOUSE_W = 300, HOUSE_H = 420;
 export const HOUSE_X = [165, 483, 801, 1119, 1437, 1755];
-// door rect relative to the house (bottom-centre origin), see image-requests.md
-export const DOOR = { w: HOUSE_W * 0.26, top: -HOUSE_H * (1 - 0.58), bottom: -HOUSE_H * (1 - 0.93) };
+// door rect relative to the house (bottom-centre origin), see image-requests.md;
+// matches the doorway measured in the delivered tot-house art (56.5%-91% high)
+export const DOOR = { w: HOUSE_W * 0.26, top: -HOUSE_H * (1 - 0.565), bottom: -HOUSE_H * (1 - 0.91) };
+
+/** True when house i is painted art (it brings its own porch lantern and step pumpkins). */
+export function paintedHouse(i) { return !!art(`prop/tot-house-${i}`); }
+/** Where the porch light sits: the painted lantern above the door, else beside it. */
+export function porchLight(x, i) {
+  return paintedHouse(i) ? { x, y: GROUND_Y + DOOR.top - 42 } : { x: x + DOOR.w / 2 + 24, y: GROUND_Y + DOOR.top + 10 };
+}
 
 const SIDING = [['#9fe8c8', '#6fc8a4'], ['#c9b0ff', '#a387e8'], ['#ffc49a', '#f09e6c'], ['#a8dcff', '#78b8ea'], ['#ffb3d4', '#ec8ab4'], ['#fff09a', '#e8cf63']];
 const ROOF = ['#6a3fa0', '#4a3a8c', '#8a3f6a', '#3f5a9c', '#7a3a8a', '#9a5a2a'];
@@ -182,18 +190,17 @@ export function drawHouse(g, i, x) {
 }
 
 /** The door; open 0 (shut) .. 1 (swung open). light: porch light 0..1, gold: jackpot glow. */
-export function drawDoor(g, x, open, light, t, { gold = 0, shake = 0 } = {}) {
+export function drawDoor(g, x, open, light, t, { gold = 0, shake = 0, house = -1 } = {}) {
   const dw = DOOR.w, top = GROUND_Y + DOOR.top, bot = GROUND_Y + DOOR.bottom, dh = bot - top;
+  const { x: lx, y: ly } = porchLight(x, house);
   // porch light glow
   if (light > 0.01) {
-    const lx = x + dw / 2 + 24, ly = top + 10;
     const col = gold ? '255,215,80' : '255,220,140';
     const gr = g.createRadialGradient(lx, ly, 4, lx, ly, 120 + gold * 60);
     gr.addColorStop(0, `rgba(${col},${0.7 * light})`); gr.addColorStop(1, `rgba(${col},0)`);
     g.fillStyle = gr; g.beginPath(); g.arc(lx, ly, 120 + gold * 60, 0, TAU); g.fill();
   }
-  {
-    const lx = x + dw / 2 + 24, ly = top + 10;
+  if (!paintedHouse(house)) {
     g.fillStyle = light > 0.5 ? (gold ? '#ffd23f' : '#fff0a8') : '#8a7aa0'; line(g, 4);
     rr(g, lx - 9, ly - 14, 18, 26, 5); g.fill(); g.stroke();
   }
@@ -220,14 +227,15 @@ export function drawDoor(g, x, open, light, t, { gold = 0, shake = 0 } = {}) {
   g.restore();
 }
 
-/** Jack-o'-lantern on the steps (lit = glowing face). */
-export function drawLantern(g, x, y, s, lit, t) {
+/** Jack-o'-lantern on the steps (lit = glowing face). glowOnly: the house art has painted it. */
+export function drawLantern(g, x, y, s, lit, t, glowOnly = false) {
   g.save(); g.translate(x, y); g.scale(s, s);
   if (lit > 0.01) {
     const gr = g.createRadialGradient(0, -18, 4, 0, -18, 60);
     gr.addColorStop(0, `rgba(255,190,80,${0.55 * lit})`); gr.addColorStop(1, 'rgba(255,190,80,0)');
     g.fillStyle = gr; g.beginPath(); g.arc(0, -18, 60, 0, TAU); g.fill();
   }
+  if (glowOnly) { g.restore(); return; }
   g.fillStyle = '#ff8a1c'; line(g, 4);
   g.beginPath(); g.ellipse(0, -18, 26, 20, 0, 0, TAU); g.fill(); g.stroke();
   g.strokeStyle = '#d9661a'; g.lineWidth = 2.5; g.beginPath(); g.ellipse(0, -18, 10, 19, 0, 0, TAU); g.stroke();
@@ -287,6 +295,22 @@ export function drawCandy(g, kind, x, y, s = 44, rot = 0, gold = false) {
 // --- pumpkin bucket (forward space at the hand; h = body height) -------------------------
 export function drawBucket(g, hx, hy, h, count, t) {
   const s = clamp(h * 0.34, 34, 70);
+  const img = art('prop/tot-bucket');
+  if (img) {
+    // art: hung by the top of its handle at the hand; candy heaped on the rim (31% down)
+    const sz = s * 1.05, top = hy - sz * 0.03, rim = top + sz * 0.33;
+    g.drawImage(img, hx - sz / 2, top, sz, sz);
+    const heap = clamp(count / 25, 0, 1);
+    if (count > 0) {
+      for (let i = 0; i < Math.min(9, 2 + Math.floor(count / 3)); i++) {
+        const a = (i / 8) * Math.PI;
+        const cx = hx - Math.cos(a) * sz * 0.24, cy = rim - Math.sin(a) * sz * 0.14 * heap - heap * sz * 0.05;
+        g.fillStyle = CANDY_COLS[i % 6]; g.strokeStyle = NAVY; g.lineWidth = 1.5;
+        g.beginPath(); g.arc(cx, cy, s * 0.1, 0, TAU); g.fill(); g.stroke();
+      }
+    }
+    return;
+  }
   const x = hx, y = hy + s * 0.15;
   // handle
   g.strokeStyle = NAVY; g.lineWidth = Math.max(2.5, s * 0.07); g.lineCap = 'round';
@@ -302,7 +326,7 @@ export function drawBucket(g, hx, hy, h, count, t) {
       g.beginPath(); g.arc(cx, cy, s * 0.11, 0, TAU); g.fill(); g.stroke();
     }
   }
-  if (!drawArt(g, 'prop/tot-bucket', x, by + s * 0.05, s * 1.1, s * 0.95)) {
+  {
     g.fillStyle = '#ff8a1c'; g.strokeStyle = NAVY; g.lineWidth = Math.max(2.5, s * 0.06);
     g.beginPath(); g.ellipse(x, by, s * 0.5, s * 0.4, 0, 0, TAU); g.fill(); g.stroke();
     g.strokeStyle = '#d9661a'; g.lineWidth = Math.max(1.5, s * 0.04); g.beginPath(); g.ellipse(x, by, s * 0.2, s * 0.39, 0, 0, TAU); g.stroke();
@@ -473,7 +497,17 @@ export function drawChicken(g, x, y, s, rot) {
 /** Jack-in-the-box: k = spring 0 (shut) .. 1 (out), wob = spring wobble. */
 export function drawJack(g, x, y, k, wob, t) {
   g.save(); g.translate(x, y);
-  if (drawArt(g, 'prop/tot-jack', 0, 0, 110, 140 * (0.5 + 0.5 * k), { anchor: 'bottom', fit: 'stretch' })) { g.restore(); return; }
+  const img = art('prop/tot-jack');
+  if (img) {
+    // the ghost on its spring rises out of the box (box = bottom 34% of the art)
+    const h = 140, w = img.width * h / img.height, boxH = h * 0.34, sy = img.height * 0.66;
+    const wx = Math.sin(t * 20) * wob * 5;
+    g.save(); g.beginPath(); g.rect(-w, -h - 60, w * 2, h + 60 - boxH + 2); g.clip();
+    g.drawImage(img, -w / 2 + wx, -h + (1 - k) * (h - boxH), w, h);
+    g.restore();
+    g.drawImage(img, 0, sy, img.width, img.height - sy, -w / 2, -boxH, w, boxH);
+    g.restore(); return;
+  }
   line(g, 4);
   // spring
   const top = -50 - k * 90;
@@ -517,7 +551,7 @@ export function drawCandyGhost(g, x, y, t) {
 /** Big candy pile for the finale (n = candies, grows). */
 export function drawCandyPile(g, x, y, n, t) {
   const s = clamp(0.25 + n / 160, 0.25, 1.15);
-  if (drawArt(g, 'prop/tot-candy-pile', x, y, 900 * s, 520 * s, { anchor: 'bottom' })) return;
+  if (drawArt(g, 'prop/tot-candy-pile', x, y, 700 * s, 404 * s, { anchor: 'bottom' })) return;
   const w = 420 * s, h = 230 * s;
   g.save();
   g.fillStyle = '#ff9f4a'; g.strokeStyle = NAVY; g.lineWidth = 6;

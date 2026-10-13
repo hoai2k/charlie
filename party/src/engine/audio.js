@@ -439,6 +439,7 @@ export function voice(charId, kind) {
 const MAJOR = [0, 2, 4, 5, 7, 9, 11];
 const MINOR = [0, 2, 3, 5, 7, 8, 10];
 const SONGS = {
+  molly:   { bpm: 120, recordedOnly: true },   // Molly Party's menus (recording only, music/molly-time.mp3)
   title:   { bpm: 124, root: 60, scale: MAJOR, prog: [0, 4, 5, 3], seed: 11, drums: 'pop', lead: 'square', arp: true },
   menu:    { bpm: 112, root: 65, scale: MAJOR, prog: [0, 5, 3, 4], seed: 4, drums: 'light', lead: 'triangle', arp: true },
   party:   { bpm: 138, root: 62, scale: MAJOR, prog: [0, 3, 4, 4, 0, 3, 5, 4], seed: 7, drums: 'pop', lead: 'square', arp: true },
@@ -509,10 +510,14 @@ function streamFor(file) {
   return streams.get(file);
 }
 
+// Songs that pick up where they were left when they come back (Molly Party's
+// menu song: back from a game or from Charlie's menus, it fades in from there).
+const RESUMES = new Set(['molly']);
+
 const songLabel = (name, e) => (e && e.label) || name.charAt(0).toUpperCase() + name.slice(1);
 
 class Music {
-  constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; this.titleCarry = false; this.titleResume = null; }
+  constructor() { this.song = null; this.name = null; this.timer = null; this.gain = null; this.stream = null; this.titleCarry = false; this.titleResume = null; this.resumeAt = new Map(); }
   /**
    * opts.loop: false plays a recorded song once (rhythm-game songs, entry.once
    * songs default to this); true loops a once-song as a whole (from its start).
@@ -546,7 +551,7 @@ class Music {
       const st = streamFor(entry.file);
       st.out.connect(this.gain);
       // The anthem picks up where it was left (if it hadn't finished).
-      const res = name === 'title' ? this.titleResume : null;
+      const res = name === 'title' ? this.titleResume : RESUMES.has(name) ? this.resumeAt.get(name) : null;
       const from = res && res.file === entry.file ? res.t : 0;
       if (name === 'title') this.titleResume = null;
       if (from > 0) { this.gain.gain.cancelScheduledValues(ctx.currentTime); this.gain.gain.setValueAtTime(0.0001, ctx.currentTime); this.gain.gain.exponentialRampToValueAtTime(1, ctx.currentTime + fadeIn); }
@@ -600,6 +605,8 @@ class Music {
     }
     this.play('menu');
   }
+  /** Molly Party's menus: its song, faded in where it was last left. */
+  molly() { this.play('molly', { fadeIn: 2 }); }
   /** Leaving the title screen: the streamed anthem plays to its end, then the menu loop. */
   carryTitle() {
     if (this.name !== 'title' || !this.stream) return;   // synth title: menus just switch to the menu loop
@@ -609,6 +616,7 @@ class Music {
     st.el.onended = () => { if (this.name === 'title' && this.titleCarry && this.stream === st) { this.titleCarry = false; this.titleResume = null; this.play('menu'); } };
   }
   stop(fade = 0.3) {
+    if (this.stream && RESUMES.has(this.name)) this.resumeAt.set(this.name, { file: this.entry && this.entry.file, t: this.stream.el.currentTime });
     if (this.timer) clearInterval(this.timer);
     this.timer = null;
     if (this.gain && ctx) {

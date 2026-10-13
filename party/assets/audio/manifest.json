@@ -1171,6 +1171,11 @@
   "wt-moon": "sfx/wt-moon.mp3"
  },
  "music": {
+  "molly": {
+   "file": "music/molly-time.mp3",
+   "stream": true,
+   "label": "Molly Time"
+  },
   "title": {
    "file": "music/charlies-party.mp3",
    "stream": true,
