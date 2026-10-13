@@ -7,4 +7,10 @@ const g=document.querySelector('canvas').getContext('2d');g.fillStyle='#fff3e7';
 for(const [x,react] of [[290,'huff'],[780,'shock']]){g.fillText('Madame Papillon: '+react,x-180,70);drawTeacher(g,x,780,630,0,null,0,1,{react,fluster:1});}
 configureTrollArt(true);g.fillText('Troll: shock + separate pranks',1200,70);g.save();g.translate(460,50);drawTroll(g,{awake:true,breath:0,sway:0,bob:0},{tache:1,flowers:['#ff7ac6','#ffd23f','#7fc8ff'],bows:2,hats:1,glitter:0,toes:10},0,null,art('prop/ptroll-troll-shock'));g.restore();
 document.body.dataset.ready='true';
+</script><h1>Granny Goose reactions</h1><canvas id="granny" width="1920" height="700"></canvas><script type="module">
+import {loadArt} from './src/engine/art.js';
+import {Game} from './src/games/muddy-mayhem.js';
+await loadArt({only:k=>k.startsWith('prop/mm-granny')});
+const g=document.querySelector('#granny').getContext('2d');g.fillStyle='#fff3e7';g.fillRect(0,0,1920,700);g.fillStyle='#24163f';g.font='28px sans-serif';
+for(const [x,state,react] of [[300,'gasp','scold'],[850,'gasp','huff'],[1430,'sit','shock']]){g.fillText('Granny: '+react,x-100,60);Game.prototype.drawGranny.call({t:0,grannyScale:()=>1.8,granny:{x,y:600,state,react,st:0.4,step:0,sq:0,z:0,rot:0,facing:1,mud:1,say:react==='scold'?'Tsk tsk!':'Hmph!'}},g);}
 </script></body></html>

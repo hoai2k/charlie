@@ -1264,7 +1264,10 @@
     "prop/bb-cat-sleep": "prop/bb-cat-sleep.webp",
     "prop/ptroll-troll-shock": "prop/ptroll-troll-shock.webp",
     "prop/oballet-teacher-huff": "prop/oballet-teacher-huff.webp",
-    "prop/oballet-teacher-shock": "prop/oballet-teacher-shock.webp"
+    "prop/oballet-teacher-shock": "prop/oballet-teacher-shock.webp",
+    "prop/mm-granny-scold": "prop/mm-granny-scold.webp",
+    "prop/mm-granny-huff": "prop/mm-granny-huff.webp",
+    "prop/mm-granny-muddy-shock": "prop/mm-granny-muddy-shock.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -2017,7 +2020,10 @@
       "prop/mm-fence",
       "prop/mm-mega-puddle",
       "prop/mm-splat",
-      "bg/puppy-splash"
+      "bg/puppy-splash",
+      "prop/mm-granny-scold",
+      "prop/mm-granny-huff",
+      "prop/mm-granny-muddy-shock"
     ],
     "puppy-splash": [
       "bg/puppy-splash",

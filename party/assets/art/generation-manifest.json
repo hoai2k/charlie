@@ -38485,6 +38485,93 @@
       ],
       "tool": "built-in imagegen",
       "bytes": 75244
+    },
+    {
+      "key": "prop/mm-granny-scold",
+      "game": "muddy-mayhem",
+      "size": [
+        400,
+        520
+      ],
+      "prompt": "Edit the supplied Granny Goose prop into a scolding reaction. Preserve the exact reference canvas aspect ratio (400x520), character scale, feet position, facing right, and reference framing as closely as possible. Preserve her white goose identity, orange beak and feet, blue eyes, pink curlers and net cap, pearl necklace, lilac apron with purple trim and little flower pocket, matching navy #24163f outlines and soft bright cel shading. One wing on her hip; the other wing points forward with one raised feather as a stern wagging finger. Brows down, beak tightly pursed, cheeks softly flushed and puffed with comic indignation. Entirely transparent background (real alpha, no checkerboard pattern), no hose, text, scenery, shadows, marks, bubbles or watermark. 2D illustrated game art, centered, full body visible.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-scold-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-79ff5de7-eb25-42e4-a589-248406719b2f.png",
+      "runtimeFile": "party/assets/art/prop/mm-granny-scold.webp",
+      "runtimeBytes": 46438,
+      "references": [
+        "party/assets/art/prop/mm-granny-gasp.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        25,
+        11,
+        389,
+        520
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 46438
+    },
+    {
+      "key": "prop/mm-granny-huff",
+      "game": "muddy-mayhem",
+      "size": [
+        400,
+        520
+      ],
+      "prompt": "Edit the supplied approved Granny Goose prop into an offended huff. Match the reference canvas aspect ratio (400x520), full character scale, feet anchor, right-facing orientation, and framing. Keep the same white goose, orange feet and beak, blue eyes, pink curlers/net cap, pearl necklace, lilac flower apron, navy #24163f outline and soft cel shading. She sits/stands exactly as in the reference with wings folded tightly across her chest; head and beak tipped high, eyes closed, chin up, beak a small prim offended pout as if sniffing 'hmph'. Clearly indignant, not smiling. Keep the feet fully visible. 2D illustrated game prop, bright candy colours, clean readable silhouette, truly transparent alpha background, no checkerboard, no hose, no scenery, no shadows, no text, no speech bubbles, no watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-huff-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-f6620a70-8de3-457e-954d-f08fcbc6685a.png",
+      "runtimeFile": "party/assets/art/prop/mm-granny-huff.webp",
+      "runtimeBytes": 41972,
+      "references": [
+        "party/assets/art/prop/mm-granny-gasp.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        33,
+        1,
+        383,
+        520
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 41972
+    },
+    {
+      "key": "prop/mm-granny-muddy-shock",
+      "game": "muddy-mayhem",
+      "size": [
+        480,
+        420
+      ],
+      "prompt": "Edit the supplied approved Granny Goose muddy prop into her shocked finale reaction. Preserve the 480x420 landscape canvas aspect ratio, full seated-in-mud framing and feet/mud anchor, with consistent silhouette scale. Keep the exact character: white goose, orange bill and feet, blue eyes, pink curlers/net cap, gold glasses, pearl necklace, lilac flower apron, dark navy #24163f outlines and soft cel shading. Keep her sitting in the mud with similar brown splashes on feathers, pearls and apron. Make the change unmistakable: huge round eyes, open beak gasp, both wings thrown high, one pink curler detached and springing above her head with a few tiny mud flecks. Fully visible body and puddle. 2D bright illustrated game prop; transparent alpha around the character and puddle (no checkerboard), no text, effects lines, extra scenery, shadows or watermark.",
+      "source": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "sourcePath": "party/reference/pending/OCT13-REACTIONS-GROWNUPS/native/mm-granny-muddy-shock-master.webp",
+      "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a135c7-10e3-7102-b4a8-ae768708ef1f/exec-944d2977-2da9-470a-a5a1-b908c9bcad74.png",
+      "runtimeFile": "party/assets/art/prop/mm-granny-muddy-shock.webp",
+      "runtimeBytes": 68858,
+      "references": [
+        "party/assets/art/prop/mm-granny-muddy.webp"
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "actualAlphaBBox": [
+        0,
+        0,
+        480,
+        420
+      ],
+      "tool": "built-in imagegen",
+      "bytes": 68858
     }
   ]
 }

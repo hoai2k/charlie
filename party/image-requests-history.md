@@ -1,3 +1,13 @@
+## 2026-10-13: Granny Goose reactions — delivered
+
+Final alpha, canvas/framing and gameplay consumers reviewed. Exact prompts and lossless source paths: `reference/pending/OCT13-REACTIONS-GRANNY.json`.
+
+| Key | Previous issue | Delivered brief |
+| --- | --- | --- |
+| prop/mm-granny-scold (Molly Muddy Mayhem, NEW key, 2026-10-13) | Granny Goose only has a gasp face, so every splat on her washing gets the same surprised look; today the code shows the gasp art plus a drawn wagging finger and a "Tsk tsk!" bubble. | Granny Goose scolding: same canvas (400x520), feet anchor, framing, scale and facing (right) as prop/mm-granny-gasp.webp, same hair curlers, pearl necklace, lilac apron. One wing on her hip, the other wagging a stern wingtip "finger" forward, beak pursed, eyebrows down, cheeks puffed pink with indignation. No hose in her wings (or hose dropped at her feet). House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+| prop/mm-granny-huff (Molly Muddy Mayhem, NEW key, 2026-10-13) | Third splat reaction for variety; today the code tilts prop/mm-granny back and adds steam puffs and a "Hmph!" bubble. | Granny Goose huffing, nose in the air: same canvas (400x520), feet anchor, framing and facing as prop/mm-granny-gasp.webp, same curlers, pearls and apron. Wings folded tight across her chest, beak and chin tipped up high, eyes shut, a proper offended sniff; tiny steam puffs by her head are fine. No hose. House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+| prop/mm-granny-muddy-shock (Molly Muddy Mayhem, NEW key, 2026-10-13) | Finale: she slips into the giant puddle and the muddy art is already laughing, so the slip doesn't read as a surprise; today the code shows the laughing muddy art with shock lines and "!!" for the first beat. | Granny Goose sitting in the mud, utterly scandalised: same canvas (480x420), anchor and framing as prop/mm-granny-muddy.webp, same mud splotches, curlers askew, pearls dripping mud. Eyes huge, beak wide open in a gasp, both wings flung up, one curler popping off. House style: navy #24163f outlines, soft cel shading, bright candy colours, transparent background, no text in the image. |
+
 ## 2026-10-13: Troll and Madame Papillon reactions — delivered
 
 Three new reaction keys generated with exact source/prompts in `reference/pending/OCT13-REACTIONS-ROOT.json`. Runtime alpha/dimensions and actual consumer rendering checked, including separate Troll pranks; group budgets 17.23/24.47 MiB.

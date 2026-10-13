@@ -1068,7 +1068,7 @@ export class Game {
     const bob = pose === 'walk' ? Math.abs(Math.sin(G.step)) * 6 : pose === 'alert' ? Math.abs(Math.sin(G.st * 14)) * 10 : 0;
     const sq = G.sq;
     // hose trailing back to the tap on the porch
-    if (G.state !== 'sit' && G.state !== 'slip') {
+    if (G.state !== 'sit' && G.state !== 'slip' && key !== 'prop/mm-granny-scold' && key !== 'prop/mm-granny-huff') {
       const b = -G.facing;
       // start where the painted hose leaves the art (same transform as the art below)
       const hs = art(key) && GRANNY_HOSE[pose];
