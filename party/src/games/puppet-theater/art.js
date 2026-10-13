@@ -11,7 +11,7 @@ import { clamp, lerp, TAU } from '../../engine/util.js';
 export const NAVY = '#24163f';
 
 // Stage geometry (screen space, the booth fills the 1920x1080 canvas).
-export const WIN = { x0: 270, x1: 1650, y0: 150, y1: 740 };   // backdrop window
+export const WIN = { x0: 270, x1: 1650, get y0() { return art('prop/pt-booth') ? 210 : 150; }, y1: 740 };   // backdrop window
 export const BOARD_Y = 720;      // playboard top edge: puppets pop up from behind it
 export const BOARD_B = 820;      // playboard bottom edge
 export const FEET_Y = 690;       // a puppet's feet at normal height
@@ -470,7 +470,8 @@ export function drawBoothBack(g) {
 
 /** The booth front: valance, pillars, tied-back drapes, playboard and skirt. */
 export function drawBoothFront(g, t, opts = {}) {
-  if (drawArt(g, 'prop/pt-booth', W / 2, H / 2, W, H, { fit: 'stretch' })) return;
+  // Authored ledge starts at source y=658; seat it at the unchanged 720px playboard line.
+  if (drawArt(g, 'prop/pt-booth', W / 2, H / 2 + 62, W, H, { fit: 'stretch' })) return;
   g.save();
   // skirt
   g.fillStyle = '#7a3fb0'; g.beginPath(); g.rect(232, BOARD_B - 4, 1456, H - BOARD_B + 10); g.fill();
