@@ -965,7 +965,17 @@
     "prop/cupcake-cherry": "prop/cupcake-cherry.webp",
     "prop/cupcake-stack-candle-flame": "prop/cupcake-stack-candle-flame.webp",
     "thumb/cupcake-stack": "thumb/cupcake-stack.webp",
-    "prop/cupcake-topper-cake": "prop/cupcake-topper-cake.webp"
+    "prop/cupcake-topper-cake": "prop/cupcake-topper-cake.webp",
+    "prop/bubble-machine": "prop/bubble-machine.webp",
+    "prop/bubble": "prop/bubble.webp",
+    "prop/bubble-star": "prop/bubble-star.webp",
+    "prop/bubble-cupcake": "prop/bubble-cupcake.webp",
+    "prop/bubble-rainbow": "prop/bubble-rainbow.webp",
+    "prop/bubble-frog": "prop/bubble-frog.webp",
+    "prop/bubble-frog-hop": "prop/bubble-frog-hop.webp",
+    "prop/bubble-duckling": "prop/bubble-duckling.webp",
+    "prop/bubble-pop-rubber-duck": "prop/bubble-pop-rubber-duck.webp",
+    "thumb/bubble-pop": "thumb/bubble-pop.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1306,7 +1316,16 @@
       "thumb/dance-freeze"
     ],
     "bubble-pop": [
-      "bg/bubble-pop"
+      "bg/bubble-pop",
+      "prop/bubble-machine",
+      "prop/bubble",
+      "prop/bubble-star",
+      "prop/bubble-cupcake",
+      "prop/bubble-rainbow",
+      "prop/bubble-frog",
+      "prop/bubble-frog-hop",
+      "prop/bubble-duckling",
+      "prop/bubble-pop-rubber-duck"
     ],
     "balloon-float": [
       "bg/balloon-float"

@@ -115,7 +115,7 @@ export function drawRainbow(g, s = 1, alpha = 1) {
 }
 
 export function drawRubberDuck(g, s = 1) {
-  if (drawArt(g, 'prop/rubber-duck', 0, 0, 112 * s, 112 * s)) return;
+  if (drawArt(g, 'prop/bubble-pop-rubber-duck', 0, 0, 112 * s, 112 * s)) return;
   g.save(); g.scale(s, s); g.lineJoin = 'round'; g.lineWidth = 4; g.strokeStyle = NAVY;
   g.fillStyle = '#ffd23f';
   g.beginPath(); g.moveTo(-44, 0); g.quadraticCurveTo(-48, 30, 0, 30); g.quadraticCurveTo(44, 30, 40, 2); g.quadraticCurveTo(10, 10, -10, -2); g.quadraticCurveTo(-30, -12, -44, 0); g.fill(); g.stroke();
