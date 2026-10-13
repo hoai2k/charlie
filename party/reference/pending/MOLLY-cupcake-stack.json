@@ -369,7 +369,7 @@
         0,
         255
       ],
-      "bytes": 19054,
+      "bytes": 20702,
       "outputFormat": "WEBP RGBA q86 method6",
       "originalSource": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-gold.webp",
       "originalNativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2f16d2ce-9d9e-46b6-90fa-5bdc41821d19.png",
@@ -377,7 +377,8 @@
       "sourceFormat": "WEBP RGBA lossless",
       "editPrompt": "Use case: precise-object-edit. Image 1 is the exact current cupcake sprite target; Image 2 is an approved house-style illustration reference only. Make only one change: lower the golden-yellow frosting swirl so its upper silhouette is broadly and gently flattened, with a wide soft level top suitable for another cupcake to sit on it. Keep the existing frosting color, rainbow sprinkles, striped wrapper, smiling face, proportions, bold smooth navy #24163f outline, crisp 2D cel-shaded style, lighting and transparency exactly consistent with Image 1. No cherry, topper, candle, or extra decorations. Preserve full-object framing and center position, transparent background, 256x224 canvas. No text, border, shadow plane or watermark.\n",
       "editTarget": "party/assets/art/prop/cupcake-gold.webp",
-      "runtimeBytes": 19054
+      "runtimeBytes": 20702,
+      "runtimeRevisionRecord": "party/reference/pending/MOLLY-review-corrections.json; original native source retained here as generation history"
     },
     {
       "key": "prop/cupcake-stack-cake-stand",
@@ -482,7 +483,7 @@
         117,
         126
       ],
-      "bytes": 3632,
+      "bytes": 5594,
       "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-cherry.webp",
       "originalRequestedKey": "prop/cupcake-cherry",
       "reusedFrom": "party/assets/art/prop/topper-cherry.webp",
@@ -509,7 +510,7 @@
         92,
         126
       ],
-      "bytes": 3980,
+      "bytes": 3916,
       "source": "party/reference/pending/molly-sources/cupcake-stack/prop-cupcake-stack-candle-flame.webp",
       "originalRequestedKey": "prop/candle-flame",
       "reusedFrom": "party/assets/art/prop/candle-flame.webp",
@@ -542,11 +543,12 @@
       ],
       "transform": "native 1586x992 resized to exact 800x500 canvas",
       "status": "root visually reviewed; runtime integration ready",
-      "bytes": 51088,
+      "bytes": 106244,
       "sourceBytes": 952198,
       "sourceFormat": "WEBP RGBA lossless",
       "outputFormat": "WEBP RGB q86 method6",
-      "opaque": true
+      "opaque": true,
+      "runtimeRevisionRecord": "party/reference/pending/MOLLY-review-corrections.json; original native source retained here as generation history"
     },
     {
       "key": "prop/cupcake-topper-cake",

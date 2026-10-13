@@ -183,11 +183,7 @@ exact prompts and clear unreviewed landmarks. Restore the shipping spec so a
 future blanket build cannot silently intake draft geometry. Never label draft
 points as visually verified.
 
-The current request heartbeat checks every 15 minutes. After a completed delivery,
-sync and check immediately, then start a new quiet window and schedule the next
-check 15 minutes later. Cancel only after 60 continuous minutes without new or
-changed asset requests. Completed-status edits alone do not reset that window.
-The user revoked the former allowance pause; production is authorized to continue.
+The current image-request follow-up checks every 30 minutes (user,2026-10-13). Continue outstanding production; do not start a quiet window while any request remains. After completing and publishing all outstanding images, sync and check immediately, then reset the same follow-up for30 minutes after that delivery. Fill any new requests and repeat. Cancel only when that full30-minute post-delivery interval contains no new requests. Status/archive changes alone do not count. The former allowance pause is revoked.
 
 ## Runtime landmark and optimizer checks
 
@@ -392,3 +388,12 @@ than the whole canvas centre; test the landmark through scale, tilt and pulse.
 - Exact recolour edits can still drift in contour. For Rainbow Painter, drawing the same colour raster with a grayscale filter before reveal keeps identical silhouettes; authored grey variants remain available as fallback. Never manually paint replacement pixels.
 - Concurrent provenance JSON writes require a lock around read/modify/write; image saves should use atomic rename before runtime inspection. Record exact prompts and native paths immediately.
 - Stage only each finished batch's index/provenance rows and source files. HTML import-map hashes must match staged module content, including after merges. Run shell commit sequences with `set -e` so a missing file cannot silently publish a partial code batch. AppleDouble `._*` files inside `.git/objects/pack` are metadata, not Git objects; remove only those sidecars when they cause pack warnings.
+
+
+Final Molly audit reminders:
+
+- Sprite builder scale is `commonScale * item.scale`, where commonScale comes from the neutral source height. `item.scale` is a multiplier, not a direct source-pixel scale. If a new neutral sheet changes height, compensate other source multipliers before rebuilding. Runtime appearance depends on raster dimensions and `frame.bodyHeight` together; when reducing physical pixels for budget, reduce the per-frame bodyHeight and landmark coordinates proportionally to preserve display size. Preserve existing Glimmer files while expanding her missing poses.
+- Check the complete decoded art group, including reuse keys. Load Ballet teacher/card/butterfly keys with Opposite Ballet, puppies and puddles with Muddy Mayhem, and the disco ball with Sneaky Dance. Skip unused secondary backgrounds: Opposite’s old fallback backdrop consumed another8 MiB even when the authored main backdrop was present.
+- Use immutable source archives already in the repo. Duplicate root-level source copies add no provenance; reference the original nested archive. Keep edit inputs distinct from final edit outputs. Preserve exact generation prompts; do not rewrite old prompt punctuation while normalizing metadata.
+- Refresh recorded runtime byte counts after crop/resize/regeneration, and label later revision records so old native sources remain clear as generation history. Source hashes, physical decoded budgets and final runtime paths make a batch independently reviewable.
+- Named new poses can be one authored keyframe combined with engine motion; looping locomotion/wing/tiptoe packets need distinct phases. Inspect actual gameplay before claiming an animation or attachment is seamless.

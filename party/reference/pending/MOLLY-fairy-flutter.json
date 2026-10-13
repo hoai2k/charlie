@@ -48,7 +48,9 @@
       "styleReference": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/canonical/felicity.webp",
       "actualGeometry": "1920\u00d71080 output fitted at full-frame to 1920\u00d71080; style-transfer edit emphasized 2D navy outlines and flat cel-shaded forms; no characters.",
       "editPrompt": "Use case: style-transfer. Asset type: 16:9 full-screen 2D game background. Input images: Image 1 is the exact scene/composition target; Image 2 is an approved Felicity roster reference for the house's 2D illustration style only. Change only the rendering style of Image 1: make the clouds, leaves and large flowers use smooth, clearly visible dark navy #24163f outer outlines, simplified rounded shapes and clean soft cel-shading with distinct flat color areas. Keep the existing lavender-to-peach twilight sky gradient, flower placements, cloud banks, giant pink/gold tulips, bluebells, daisies, wide layout and calm open top-center. Maintain the current composition and proportions; do not crop or rearrange elements. Make it feel like a polished candy-colour 2D cartoon game scene, with no painterly/photographic detail, no blur on foreground objects, no 3D. No fairies, people, animals, creatures or character silhouettes anywhere. No text, frame or watermark. Opaque background.",
-      "source": "party/reference/pending/molly-sources/fairy-flutter/bg-fairy-flutter.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/bg-fairy-flutter.webp",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/bg-fairy-flutter.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-jar",
@@ -78,7 +80,9 @@
         255
       ],
       "actualTransparency": true,
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-jar.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-jar.webp",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-jar.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-sparkle",
@@ -93,7 +97,7 @@
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-b27e7d66-2b30-44c7-b3f8-96071fbcb4b9.png",
       "runtimeFile": "party/assets/art/prop/ff-sparkle.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
-      "sourcePath": "party/reference/pending/molly-sources/prop-ff-sparkle.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-sparkle.webp",
       "actualAlphaBBox": [
         5,
         5,
@@ -110,7 +114,8 @@
         1254,
         1254
       ],
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-sparkle.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-sparkle.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-dewdrop",
@@ -125,7 +130,7 @@
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-15711e96-f12c-4e66-a767-75957e68053d.png",
       "runtimeFile": "party/assets/art/prop/ff-dewdrop.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
-      "sourcePath": "party/reference/pending/molly-sources/prop-ff-dewdrop.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-dewdrop.webp",
       "actualAlphaBBox": [
         26,
         11,
@@ -142,7 +147,8 @@
         1222,
         1287
       ],
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-dewdrop.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-dewdrop.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-petal",
@@ -157,7 +163,7 @@
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-ae333863-8a88-46fb-a482-dbaa10c5c4fc.png",
       "runtimeFile": "party/assets/art/prop/ff-petal.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
-      "sourcePath": "party/reference/pending/molly-sources/prop-ff-petal.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-petal.webp",
       "actualAlphaBBox": [
         14,
         20,
@@ -174,7 +180,8 @@
         1222,
         1287
       ],
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-petal.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-petal.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-star",
@@ -189,7 +196,7 @@
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-28f05bac-7031-4f74-a6e2-49f3e85d2233.png",
       "runtimeFile": "party/assets/art/prop/ff-star.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
-      "sourcePath": "party/reference/pending/molly-sources/prop-ff-star.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-star.webp",
       "actualAlphaBBox": [
         5,
         27,
@@ -206,7 +213,8 @@
         1361,
         1156
       ],
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-star.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-star.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-moon",
@@ -286,7 +294,7 @@
         "party/reference/pending/molly-canonicals-2/crescent-moon.webp"
       ],
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-690df0cb-6eef-4842-a230-76bf3f868b33.png",
-      "sourcePath": "party/reference/pending/molly-sources/ff-moon-happy.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-moon-happy.webp",
       "runtimeFile": "party/assets/art/prop/ff-moon-happy.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
       "nativeOutputSize": [
@@ -305,7 +313,8 @@
         255
       ],
       "actualTransparency": true,
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-moon-happy.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-moon-happy.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "prop/ff-bee-giggle",
@@ -319,7 +328,7 @@
         "party/reference/pending/molly-canonicals/bee-v2.webp"
       ],
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-97aa3e53-0972-466e-a6fb-f9e90ed82894.png",
-      "sourcePath": "party/reference/pending/molly-sources/ff-bee-giggle.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-bee-giggle.webp",
       "runtimeFile": "party/assets/art/prop/ff-bee-giggle.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
       "nativeOutputSize": [
@@ -338,7 +347,8 @@
         255
       ],
       "actualTransparency": true,
-      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-bee-giggle.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/prop-ff-bee-giggle.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     },
     {
       "key": "thumb/fairy-flutter",
@@ -356,7 +366,7 @@
         "party/reference/pending/molly-canonicals/bee-v2.webp"
       ],
       "nativeOutputPNG": "/Users/hoai/.codex/generated_images/01a13272-3707-77f1-9462-e784a7108830/exec-e538a4bb-1c76-424d-88d1-f44b163a4c93.png",
-      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter-thumb.png",
+      "sourcePath": "party/reference/pending/molly-sources/fairy-flutter/thumb-fairy-flutter.webp",
       "runtimeFile": "party/assets/art/thumb/fairy-flutter.webp",
       "status": "Root visually reviewed,decoded; ready for actual game QA",
       "nativeOutputSize": [
@@ -375,7 +385,8 @@
         255
       ],
       "actualTransparency": false,
-      "source": "party/reference/pending/molly-sources/fairy-flutter/thumb-fairy-flutter.webp"
+      "source": "party/reference/pending/molly-sources/fairy-flutter/thumb-fairy-flutter.webp",
+      "nativeSourceArchive": "lossless WebP of the native generation PNG"
     }
   ]
 }

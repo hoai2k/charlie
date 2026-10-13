@@ -13,7 +13,7 @@ Published and checked game batches now include Garden Grow, Dance and Freeze, Wa
 
 Pink Garden Fairy's full playable set is published at `4bfe72df`: 59 poses, 83 body frames and five portraits, with landmarks and optimized assets. Other five fairy expansions remain in progress. The union is the merged 56-pose brief plus preserved fly, clap and hose-spray; this brief applies to the six Molly fairies, not the original Charlie roster.
 
-Current ownership: structural agent Blue/Purple playable fairies; performance agent Green/Glimmer playable fairies; tools agent Whoopee Tea, Muddy Mayhem plus six Puppy reuse assets, Ballet/Opposite consistency fixes and three new QA props; root Yellow playable fairy, integration, browser QA and batch publication. Ballet/Opposite corrections are published at `3673ad20`; Whoopee40 at `0632defd /944fd052`; three late QA props at `3523e974`. All known regeneration rows are complete. Remaining game art is Muddy Mayhem12 and Puppy Splash6 retained reuse assets.
+Current ownership: structural agent Purple sprite intake/landmarks/optimization; tools agent Purple native-master generation; performance agent independent validation and final provenance audit; root gameplay QA, docs and publication. Five of six fairies are published: Pink `4bfe72df`, Green `f4a746da`, Yellow `f472de65`, Blue `2bb61608`, Glimmer `a8e076b6`, integrated and pushed through `bc7a7a34`. Every set has all 59 required poses; Glimmer preserves five extra poses, all 30 original frames and six portraits. No known game-art request remains open; Purple is the remaining principal production work.
 
 Latest sync `944fd052` includes new QA requests from `6650f180`: dp-mushroom, duckling-golden, mp-ledge and two ring-free witch-cat expressions. All delivered at `d5f2f140` and `3523e974`; Cupcake/Unicorn earlier review requests delivered at `c64517c2`. Earlier dropped original briefs are not expanded, but explicitly kept reuse rows remain required. Completed-status edits and archival changes alone do not trigger regeneration.
 
@@ -32,7 +32,7 @@ Ownership:root canonical approvals/shared index/intake/docs/Git; tools agent cup
 
 User approved butterfly,duckling,frog,MadamePapillon and revised prettier ladybug-v2/bee-v2; sources promoted to canonical/molly-*.webp. All five expanded playable GardenFairies approved and promoted, original NPC references preserved under pending/molly-playable-fairies/previous-npc-canonicals. Glimmer stays approved and needs missing Molly poses. All current Molly canonical candidates approved:TeaGuests,Moon,bluebird,kittens,cloud,snail,sockpuppy,mamaduck,ghost,unicornmount,4Splashpuppies,5Halloweenvisitors,octopus,snowman,penguin,pig,elephant,cow. User revoked further Molly character approval gates:review/refine autonomously and proceed. Preserve approved identities. No Charlie Party roster characters in Molly thumbnails; use Molly Fairies/Glimmer or exact specified animals.
 
-Latest sync965416d includes19 Molly modules; additional merges continue. Check currentmain for exactruntimeinventory. Art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. Previous monitor remains cancelled; no new timer requested.
+Latest sync965416d includes19 Molly modules; additional merges continue. Check currentmain for exactruntimeinventory. Art readiness does not imply gameplay QA. Keep requests open until delivered and checked in actual game. Publish completed reviewed batches regularly. The user requested a delivery-relative30-minute follow-up on2026-10-13; active automation `charlie-party-image-follow-up`. Reset it30minutes after all outstanding images are delivered; cancel only after that full quiet interval.
 
 ## New Play Studio delivery — complete
 
@@ -198,3 +198,7 @@ Room additions. An incremental main sync then found the Hide & Seek Picnic
 brief. Disjoint art families were delegated; root reviewed, registered and
 published each batch. The current delivery checkpoint above supersedes the
 older completion counts below it.
+
+Latest active check: `e599cd63`; request blob `5fb37917f8d69e35b8f16c4f33d32a598585e4e4`; checked UTC 2026-10-13T05:51:32Z. Latest game art delivery `e599cd63` (Muddy and puppy reuse); production remains active, so the quiet window has not begun. Follow-up automation `charlie-party-image-follow-up` is active every30minutes and must be reset when all outstanding work is delivered.
+
+Publication checks: full/optimized gameplay and independent sprite audits pass for Blue, Green, Yellow and Glimmer. Decoded full/optimized MiB: Green14.74/12.63, Yellow16.96/14.85, Blue15.65/13.54, Glimmer24.73/14.34. Opposite Ballet drops its unused secondary background to reduce the decoded art group to 21.97 MiB. Timing, grouped loading, per-file optimized scale, attachment geometry, mirrored scrolling, optimizer and builder regressions passed.

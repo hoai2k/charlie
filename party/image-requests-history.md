@@ -1,3 +1,10 @@
+## Resolved Molly move-card faces and metallic duck — 2026-10-13
+
+Published `97c404ae /bc7a7a34`: both move cards now have matching eyes and smiles; golden duckling is distinctly reflective gold/amber. Native/runtime and actual game checks passed.
+
+| `prop/ballet-move-up`, `prop/ballet-move-plie` (Molly opposite-ballet, 2026-10-13) | The little ballerina on these two move cards has a blank face (no eyes or mouth) while `-side` and `-twirl` have faces, so the cards look unfinished | Redraw both, same pose, size and framing, with the same face as `ballet-move-side`/`-twirl` |
+| `prop/duckling-golden` (Molly duckling-parade, revision 2026-10-13) | Reads as an ordinary yellow duckling: its colour is almost the same as `prop/duckling`, only a few sparkles added | A distinctly metallic gold/amber duckling with a shine and highlights, same framing and size as `prop/duckling` |
+
 ## Resolved re-generation request: bed-bounce sleeping buddies — 2026-10-13
 
 Delivered `prop/bb-teddy-sleep` and `prop/bb-cat-sleep`; checked in game during a peek: the sleepy heads peek over the duvet tuck at the right height.
