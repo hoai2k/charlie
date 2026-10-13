@@ -69,7 +69,7 @@ export const meta = {
 };
 
 // --- tuning -----------------------------------------------------------------
-const PLAY = typeof location !== 'undefined' && /paradetest/.test(location.search) ? 14 : 52;   // TEMP test hook              // seconds of finding before the parade
+const PLAY = 52;              // seconds of finding before the parade
 const PARADE_T = 7;           // the finale
 const RUSH_AT = 12;           // seconds left when the Duckling Rush starts
 const MAX_SPEED = 540;
@@ -103,7 +103,6 @@ function inPond(x, y, k = 1) {
 }
 
 let duckSerial = 0;
-const FAIRY_TEST = typeof location !== 'undefined' && /fairytest/.test(location.search);   // TEMP test hook
 
 export class Game {
   constructor(api) {
@@ -132,7 +131,6 @@ export class Game {
     this.ents = this.players.map((p, i) => {
       const x = n === 1 ? W / 2 : 330 + ((W - 660) * i) / (n - 1);
       const y = 930 - (i % 2) * 40;
-      if (FAIRY_TEST) p.charId = `garden-fairy-${['pink', 'blue', 'yellow', 'green', 'purple'][i % 5]}`;
       const a = new Actor(p, { scale: this.baseScale, x, y });
       // tiny avatars (e.g. garden fairies) are drawn bigger so they read next to the ducklings
       const sizeK = clamp(120 / a.leader.h, 1, 2.4);
