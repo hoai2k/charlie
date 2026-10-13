@@ -1115,3 +1115,57 @@ fine; the code uses one of each pair.
 
 No open image or re-generation requests remain after the Play Studio delivery (2026-10-12). See IMAGE-WORK-QUEUE.md for the publication checkpoint.
 
+
+## New Molly Party game: kitten-yarn
+
+### kitten-yarn — Kitten Cuddles   (requested by the kitten-yarn agent, 2026-10-13, priority: nice-to-have)
+
+Side-view living room. Kittens tumble off two cat trees and roll in on yarn
+balls; each player stands behind a cosy basket, catches kittens in it and
+presses A to cuddle them, then the kittens hop onto a big cushion bed where
+a nap pile grows. Everything below has a procedural fallback that ships
+today and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**. Floor line
+(players' feet) is y = 900.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/kitten-yarn` | 1920×1080, opaque | Full screen. The wooden floor / rug starts at about y=840 (feet at y=900); the wall is above it. The two cat trees stand at the far left and right (x≈150 and x≈1770) and the cushion bed sits on the floor in the centre, all drawn by code, so keep those spots plain. Keep the top ~120 px calm (timer) | A cosy pastel living room in afternoon sun: soft peach-and-cream striped wallpaper, a big window in the upper middle with sunbeams and a view of blue sky, framed paw-print pictures, a few potted plants, a honey-wood floor with a big round pink rug, bunting across the top. No cats or furniture in the middle |
+| `thumb/kitten-yarn` | 800×500, opaque | Game-select shelf and how-to screen | A girl character hugging a fluffy ginger kitten inside a wicker basket, more kittens tumbling down from a cat tree and one riding a pink yarn ball, hearts flying. Lively and bouncy. Subject centred |
+| `prop/kitten-cattree` | 680×1520 (ratio 340:760), transparent | Drawn bottom-anchored at (150, 910) in a 340×760 box; the right-hand tree is the same image mirrored. **Three round platforms stick out toward the right (screen centre) with their top surfaces at 34%, 63% and 92% of the height measured from the bottom**; kittens peek out and leap off at the right edge of each platform | A tall pastel cat tree: sisal-rope posts, three round lilac carpeted platforms stepping up and out to the right, a little cubby house on the middle level, a dangling pom-pom toy. Front view, no cats |
+| `prop/kitten-atlas` | 1152×960 (6 columns × 5 rows of 192 px cells), transparent | One kitten per cell, drawn centred and fitted to about 110 px. **Columns are coats, in this order:** ginger tabby, silver-grey tabby, snowy white, black-and-white tuxedo, calico, cream. **Rows are states:** sit (front view, sitting, big smile), tumble (curled into a ball, paws tucked, for spinning), pounce (side view, leaping to the right, paws forward), sleep (curled up asleep, eyes shut, tail around), cuddle (eyes closed, blissful, paws up, as if being hugged) | Super cute chibi kittens with big sparkly eyes, pink noses and fluffy cheeks; all 30 share lighting, outline weight and scale so mixed kittens look like one set |
+| `prop/kitten-fairy` | 256×256, transparent | The rare sparkly kitten (worth 3). Drawn centred at about 130 px; the code flaps it with a small squash | A white kitten with shimmering pastel fairy wings (lilac and pink, with dots), a tiny flower crown, sitting and smiling, faint sparkles around it |
+| `prop/yarn-ball-pink`, `prop/yarn-ball-blue`, `prop/yarn-ball-yellow` | 128×128 each, transparent | Drawn centred at 76 px and spun by the code while it rolls; the loose thread trail is drawn by code | A fluffy round ball of wool yarn with visible wound strands and a short loose end, in candy pink / sky blue / lemon yellow |
+| `prop/kitten-basket`, `prop/kitten-basket-front` | 600×360 each (ratio 5:3), transparent, **same canvas** | Drawn bottom-anchored at the player's feet in a 190×114 box: the back layer first, then the kittens, then the front layer, so kittens sit inside. The back layer is the far rim plus the inside with a blanket; the front layer is the near half of the weave and rim only | A round wicker picnic basket with a soft pink gingham blanket inside and a red bow on the front, seen from the front at a slight top-down angle |
+| `prop/kitten-bed` | 1120×440 (ratio 280:110), transparent | Drawn bottom-anchored at (960, 885) in a 560×220 box; the sleeping kittens are stacked by the code inside the middle 70%, from about 35% height upward | A huge round plush pet bed: a puffy lavender cushion rim with a soft mint pillow inside, little stars embroidered on the rim, front view |
+
+New pose (until registered it falls back to `catch`, then `cheer`): `cuddle`
+(one-shot) — hugging something small held against the chest with both arms
+(or paws / chin for armless characters), eyes closed, happy, a tiny sway.
+
+## New Molly Party game: snowflake-catch
+
+### snowflake-catch — Snowflake Giggles   (requested by the snowflake-catch agent, 2026-10-13, priority: nice-to-have)
+
+Top-down 2.5D snowy meadow. Everyone races around catching giggly falling
+snowflakes on their tongue (hold A); every flake helps build one big shared
+snowman at the back of the meadow. A playful snowman friend tosses snowballs
+that burst into glitter, and sledding penguins zoom across the meadow
+spraying extra flakes. Everything below has a procedural fallback that ships
+today and the code already looks up every key. House style: navy `#24163f`
+outlines, soft cel shading, bright candy colours, **no text**.
+
+| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
+| --- | --- | --- | --- |
+| `bg/snowflake-catch` | 1920×1080, opaque | Full screen. Sky and distant hills in the top ~330 px; the walkable snowy meadow is from y≈470 to the bottom. The big shared snowman stands at the back centre (x=960, base at y≈455) and the snowman friend at the back right (x≈1660, y≈450): keep both spots plain snow. Keep the top ~110 px calm (scoreboard) | A sparkly winter meadow at soft lilac-pink dusk: rolling snowy hills, frosted pine trees along the back edge and sides, a frozen pond peeking in at one corner, gentle blue shadows and twinkles on the snow, a few snow-covered bushes along the bottom corners. Wide open snow in the middle |
+| `thumb/snowflake-catch` | 800×500, opaque | Game-select shelf and how-to screen | A girl character with her head tipped back and tongue out catching a big sparkly smiling snowflake, a friendly snowman behind, a penguin zooming past on a red sled, snowflakes everywhere. Energetic. Subject centred |
+| `prop/snowflake` | 128×128, transparent | Normal falling flake (worth 1), drawn centred at 58 px, spun by the code | A chunky six-pointed snowflake crystal, icy white and pale blue, with a tiny smiling face in the middle |
+| `prop/snowflake-big` | 256×256, transparent | The big sparkly flake (worth 3), drawn centred at 120 px with a glow drawn by code | A large ornate six-pointed snowflake with a pastel rainbow sheen (lilac, pink, aqua), glittering tips and a happy giggling face in the middle |
+| `prop/snowball` | 128×128, transparent | Thrown by the snowman friend, drawn centred at 64 px; it bursts into glitter when it lands | A round fluffy snowball with soft blue shading and a couple of sparkles |
+| `prop/snowman-friend`, `prop/snowman-friend-throw` | 480×640 each (ratio 3:4), transparent, **same canvas** | Drawn bottom-anchored at (1660, 455) in a 180×240 box; the code swaps to the throw frame for 0.4 s when a snowball leaves | A small cheerful snowman with a striped pink bobble hat, a mint scarf, twig arms and a big grin. Idle: arms down, waving slightly. Throw: right twig arm up high mid-toss, cheeky wink |
+| `prop/penguin-sled` | 384×256, transparent | Drawn centred at 200×133, facing right (the code mirrors it for the other direction) | A chubby happy penguin with a little red scarf riding a red wooden sled, wings out, beak open in a "wheee", snow spray behind. Side view |
+| `prop/bigsnowman-1` … `prop/bigsnowman-6` | 600×900 each, transparent, **same canvas, bottom-centred** | The shared snowman as it is built, drawn bottom-anchored at (960, 455) in a 240×360 box; stage N shows everything from stages 1..N. **All six must line up exactly** (the code pops between them) | 1: one big snowball base. 2: + middle ball. 3: + head with a happy coal-dot face. 4: + carrot nose and a tall purple top hat with a pink ribbon. 5: + a long rainbow-striped scarf and twig arms. 6: complete: arms raised in a cheer, rosy cheeks, coal buttons, a little flower on the hat, sparkles |
+
+New pose (until registered it falls back to `look-up`, then `think`):
+`tongue-out` (loop) — head tipped back looking up, mouth open with the
+tongue stuck out to catch snowflakes, a silly happy face.
