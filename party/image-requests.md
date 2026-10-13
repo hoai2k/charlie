@@ -1155,40 +1155,6 @@ puppets, sticks and sparkles are drawn by code.
 No new sprite poses are needed (stick puppets use existing poses: wave,
 laugh, celebrate, dance, surprised, think, sad, sleep, bow, cheer, jump).
 
-## New Play Studio game: nail-studio
-
-### nail-studio — Sparkle Nails   (requested by the nail-studio agent, 2026-10-05, priority: nice-to-have)
-
-Everyone runs a nail-salon table (split stations, 1–8 players). A client
-(a roster character, Glimmer, Professor Hoot or Fellowfox) peeks over the
-table and rests a big cartoon hand, or a paw for animal clients, on a
-cushion. Steps: polish colours, designs (glitter, stripes, dots, hearts,
-stars, tips, rainbow tips), gems and stickers (place, move, remove), then a
-little hand fan dries the nails. Finale: a nail gallery with every hand on a
-pedestal and a photo. Everything below has a procedural fallback that ships
-today; the code already looks up every key. The hand/paw, the nails and the
-polish bottles stay procedural on purpose (the paint is clipped to exact
-nail shapes). House style: navy `#24163f` outlines, soft cel shading, bright
-candy colours, **no text** in any image. Reused as they are: roster sprites
-(`paint`, `action`, `cheer`, `celebrate`, `present`, `clap`, `laugh`,
-`surprised`, `wave`, `pose-twirl`, the photo poses) and the NPCs as clients.
-
-| Key | Size / format | Anchor and how the code draws it | Prompt-style description |
-| --- | --- | --- | --- |
-| `bg/nail-studio` | 1920×1080, opaque | Full screen behind the split stations; shows as side columns at 1 player and as thin bands between stations at 2–8 players. Keep the top ~110 px calm (player chips sit there) | A bright pastel nail salon: lilac-and-pink wallpaper with tiny hearts, white shelves along the far left and right edges with rows of colourful nail polish bottles, a string of round bulb lights across the top, a pink-and-white checker floor strip at the bottom. Low detail in the centre |
-| `bg/nail-studio-station` | 1290×900 (ratio 860:600), opaque | Stretched over one station. **Layout must match:** wall from y=0 to 36% (215/600), a rounded white table edge at 36%, a pink marble table top below. The client peeks over the table at the far left; the code draws the hand, tray and step list on top | One salon table seen from the manicurist's side: soft mint wallpaper with tiny white polka dots and a little round mirror on the upper 36%, then a white rounded table lip and a pale pink marble table top with faint veins. Nothing on the table |
-| `bg/nail-studio-show` | 1920×1080, opaque | Full screen for the finale (the nail gallery). Pedestals stand on the floor band from y≈700 to y≈1000; a gentle camera punch zooms up to 1.15× | A small sparkly gallery stage: pink velvet curtains at both sides and a scalloped valance at the top, a lilac back wall with soft spotlight circles, a glossy pink stage floor in the lower third. No characters, no pedestals |
-| `thumb/nail-studio` | 800×500, opaque | Game-select shelf and how-to screen (`drawIcon` is the fallback) | A cute cartoon hand on a pink velvet cushion with five freshly painted nails (pink with white polka dots, a rainbow tip, a gold glitter nail, a heart nail, a nail with a tiny gem), a little nail polish bottle and a mini hand fan beside it, sparkles. Subject centred |
-| `prop/nail-cushion` | 512×256, transparent | The hand rests on it: drawn centred under the palm, 400 units wide in hand space (about 400 px at 1 player). Top edge of the cushion at 30% of the image | A plump pink velvet hand-rest cushion with a button tuft in the middle and gold piping, seen slightly from above |
-| `prop/nail-pedestal` | 400×480, transparent | Finale: anchor **bottom-centre** on the floor; the code puts the hand on the cushion top, which must be at 12–20% from the top of the image | A white-and-gold display column with a small pink velvet cushion on top, like a jewellery display stand |
-| `prop/nail-fan` | 256×256, transparent | Dry step: follows the player's cursor, blade hub at (50%, 36%) of the image, drawn ~110 units tall; the code adds a spinning blur ring over the blades | A cute handheld mini fan: round pastel-mint cage with three soft pink blades, a short rounded handle below, a tiny heart button on the handle. Front view |
-| `prop/nail-sticker-gem-pink`, `prop/nail-sticker-gem-blue`, `prop/nail-sticker-gem-purple`, `prop/nail-sticker-pearl`, `prop/nail-sticker-star`, `prop/nail-sticker-heart`, `prop/nail-sticker-flower`, `prop/nail-sticker-butterfly`, `prop/nail-sticker-bow`, `prop/nail-sticker-crown` | 128×128 each, transparent | Placed on nails: drawn centred at ~44 units (about the width of a nail), slightly rotated; also shown in the tray. Centre each in its canvas with a little margin | Tiny nail-art decorations, front view, glossy: a faceted pink rhinestone (round brilliant cut); a faceted blue rhinestone; a purple heart-shaped rhinestone; a round white pearl; a gold star stud; a red heart sticker; a white daisy sticker with a yellow centre; a pink-and-purple butterfly sticker; a little pink ribbon bow; a tiny gold crown with gems |
-
-Possible later sprite pose (not needed now; the game uses `present` →
-`cheer`): `show-nails` (one-shot, about 1 s): the character holds one hand
-up in front of the face, fingers spread, admiring their nails, with a happy
-face. Fallback chain: `present` → `cheer` → `idle`.
-
 ## New Play Studio game: dance-studio
 
 ### dance-studio — Dance Studio   (requested by the dance-studio agent, 2026-10-05, priority: nice-to-have)

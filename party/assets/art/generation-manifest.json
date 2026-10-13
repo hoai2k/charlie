@@ -10929,6 +10929,380 @@
       "height": 64,
       "bytes": 9128,
       "status": "visually reviewed; pending runtime check"
+    },
+    {
+      "key": "bg/nail-studio",
+      "prompt": "Bright pastel nail salon: lilac-and-pink wallpaper with tiny hearts, white shelves with colourful polish bottles at far left/right, round bulb lights across the top, pink-and-white checker floor strip at bottom; full-screen 1920\u00d71080, upper 110 px calm and centre low detail for split stations. House style: children\u2019s game illustration, navy #24163f outlines, soft cel shading, bright candy colours; no text, logo or watermark. Opaque edge-to-edge.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-47cafd01-c2e6-4d59-81fa-7e925b7dd0e2.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "targetSize": [
+        1920,
+        1080
+      ],
+      "actualGeometry": "Full screen; top 110 px calm; low-detail centre; edge shelves and floor strip.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/nail-studio-station",
+      "prompt": "One salon table seen from manicurist side, 1290\u00d7900: mint wallpaper with tiny white polka dots and little round mirror in upper 36%; rounded white table lip precisely at 36%; pale pink marble tabletop with faint veins below. Empty table. House style: children\u2019s game illustration, navy #24163f outlines, soft cel shading, bright candy colours; no text, logo or watermark. Opaque.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-0d8ec6aa-1755-4ed7-b6ce-e8a747f325f6.png",
+      "sourceSize": [
+        1501,
+        1048
+      ],
+      "targetSize": [
+        1290,
+        900
+      ],
+      "actualGeometry": "Wall to 36%; table lip at 36%; empty pink marble table below; mirror centered in wall.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        0,
+        1290,
+        900
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "bg/nail-studio-show",
+      "prompt": "1920\u00d71080 sparkly small gallery stage: pink velvet curtains at sides, scalloped valance at top, lilac wall with soft spotlight circles, glossy pink stage floor in lower third; open centre and floor band y\u2248700\u20131000 for pedestals. House style: children\u2019s game illustration, navy #24163f outlines, soft cel shading, bright candy colours; no text, logo or watermark. Opaque, no characters or pedestals.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-7d31cb2f-9d57-4b7c-b644-a9ca361eda8f.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "targetSize": [
+        1920,
+        1080
+      ],
+      "actualGeometry": "Curtains and valance frame; clear central display region; glossy floor lower third.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        0,
+        1920,
+        1080
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "thumb/nail-studio",
+      "prompt": "800\u00d7500 game thumbnail: cute cartoon hand on pink velvet cushion; five freshly painted nails (pink with white dots, rainbow tip, gold glitter, heart, tiny gem), small polish bottle and mini hand fan, sparkles; centered subject. House style: children\u2019s game illustration, navy #24163f outlines, soft cel shading, bright candy colours; no text, logo or watermark. Opaque.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-9e05a137-004a-4e04-9f2c-28c5a8b523b5.png",
+      "sourceSize": [
+        1586,
+        992
+      ],
+      "targetSize": [
+        800,
+        500
+      ],
+      "actualGeometry": "Hand and five painted nails centered on cushion; polish and fan flank it.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        0,
+        800,
+        500
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-cushion",
+      "prompt": "Plump pink velvet hand-rest cushion, centered on transparent landscape 2:1 canvas, seen slightly from above; top edge at 30% image height, central button tuft, gold piping, full cushion visible.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-00567e17-bc2f-43b7-a8df-8a80772cfc71.png",
+      "sourceSize": [
+        1774,
+        887
+      ],
+      "targetSize": [
+        512,
+        256
+      ],
+      "actualGeometry": "Centered under palm; alpha bounds measured after crop; top cushion edge intended at 30% canvas height.",
+      "meaningfulAlphaBoundsInTarget": [
+        1,
+        78,
+        511,
+        235
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-pedestal",
+      "prompt": "White-and-gold display column with small pink velvet cushion on top, jewellery display stand, isolated transparent portrait canvas; bottom-center anchor, display cushion surface at 12\u201320% from top.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-b4f6d27f-47c5-4d59-a582-859756cdb6ef.png",
+      "sourceSize": [
+        1024,
+        1536
+      ],
+      "targetSize": [
+        400,
+        480
+      ],
+      "actualGeometry": "Bottom-centre floor anchor; top display cushion near 15% image height.",
+      "meaningfulAlphaBoundsInTarget": [
+        96,
+        1,
+        303,
+        479
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-fan",
+      "prompt": "Cute handheld mini fan, isolated transparent square; round pastel mint cage with three soft pink blades, short rounded handle and tiny heart button; front view, blade hub at x50%, y36%.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-8d40a7cc-517c-4fa8-88cf-01e591429231.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        256,
+        256
+      ],
+      "actualGeometry": "Centered cursor icon; blade hub near x 50%, y 36%.",
+      "meaningfulAlphaBoundsInTarget": [
+        47,
+        0,
+        208,
+        256
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-gem-pink",
+      "prompt": "One faceted pink round brilliant rhinestone gem, front view, tiny white glints, centered transparent square, fills ~85%.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-59c0ce7a-1ecb-4527-881a-13c695427b42.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered gem; fill about 85% canvas.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        1,
+        128,
+        127
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-gem-blue",
+      "prompt": "One faceted sky-blue round brilliant rhinestone gem, front view, tiny white glints, centered transparent square, fills ~85%.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-d0e2c9ea-1828-44ac-b771-1a05de606fe1.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered gem; fill about 85% canvas.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        0,
+        128,
+        127
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-gem-purple",
+      "prompt": "One faceted purple heart-shaped rhinestone, tiny white glints, centered transparent square, fills ~85%.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-fe0234bc-d7a9-4e3a-b6d5-ee72b7059fc5.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered heart gem; fill about 85% canvas.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        5,
+        128,
+        123
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-pearl",
+      "prompt": "One round lustrous white pearl with subtle blush/lilac iridescence, centered transparent square, fills ~80%.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-350e60f8-aa51-4a39-a4e3-6f851656558b.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered pearl; fill about 80% canvas.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        0,
+        128,
+        127
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-star",
+      "prompt": "One polished gold star stud, front view, centered transparent square, small margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-201f61cb-c970-4086-873d-e41b2424ecf8.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered gold star stud; small breathing margin.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        3,
+        128,
+        124
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-heart",
+      "prompt": "One glossy candy-red heart sticker, centered transparent square, small margin.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-60b5d904-5e14-4e21-adb0-733152f6da0d.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered red heart sticker; small breathing margin.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        8,
+        128,
+        119
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-flower",
+      "prompt": "One small white daisy sticker with yellow center, five rounded petals, centered transparent square.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-2fec6f91-73ea-4a71-a685-d07e27fd5b83.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered white daisy sticker; small breathing margin.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        3,
+        128,
+        125
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-butterfly",
+      "prompt": "One pink-and-purple butterfly sticker, rounded wings, centered transparent square.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5b7345bb-9bd8-472f-a198-3142909c7e8d.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered pink-and-purple butterfly sticker; small breathing margin.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        11,
+        128,
+        117
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-bow",
+      "prompt": "One tiny pink satin ribbon bow sticker, two loops and two tails, centered transparent square.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-c57f85e4-00ef-4505-bb6d-6da67ede8561.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered pink ribbon bow sticker; small breathing margin.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        15,
+        128,
+        112
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
+    },
+    {
+      "key": "prop/nail-sticker-crown",
+      "prompt": "One tiny gold crown sticker with pink gems, three points, centered transparent square.",
+      "source": "/Users/hoai/.codex/generated_images/01a13271-e894-7a40-8437-2b6b38a3176b/exec-5d15352d-03a2-4acc-9c1e-75aa440fa6c6.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "targetSize": [
+        128,
+        128
+      ],
+      "actualGeometry": "Centered gold crown with pink gems; small breathing margin.",
+      "meaningfulAlphaBoundsInTarget": [
+        0,
+        9,
+        128,
+        119
+      ],
+      "status": "generated; pending in-game review",
+      "tool": "built-in imagegen"
     }
   ]
 }
