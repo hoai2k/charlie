@@ -7,13 +7,20 @@ approved artwork just because older checkpoints had incomplete coverage.
 
 ## October 13 grown-up reactions — complete (authoritative current checkpoint)
 
-All24 new reaction props from main `c38db6ba` are delivered: Granny Goose3, Professor Hoot2, Nanny Moo2, Troll1, Madame Papillon2, four Whoopee guest trios12, Duchess1 and butler1. Batches published as reviewed: Troll/Papillon `5724e042`, Granny `40373325`, first nine Whoopee guests `3c6a017e`, Hoot/Nanny `d237eea0`; final Kitty/Duchess/butler batch follows this checkpoint. No approval gates or allowance pause apply.
+All24 new reaction props from main `c38db6ba` are delivered: Granny Goose3, Professor Hoot2, Nanny Moo2, Troll1, Madame Papillon2, four Whoopee guest trios12, Duchess1 and butler1. Batches published as reviewed: Troll/Papillon `5724e042`, Granny `40373325`, first nine Whoopee guests `3c6a017e`, Hoot/Nanny `d237eea0`; final Kitty/Duchess/butler batch `cc180ead`. No approval gates or allowance pause apply.
 
 All exact runtime canvases have true alpha, and all24 archival WebPs match their full native generated RGBA pixels. Exact original/edit prompts and paths are in per-family OCT13-REACTIONS records. Coverage, runtime hashes and sources: `reference/pending/OCT13-REACTIONS-AUDIT.json`. Final decoded MiB by complete game group: Prank Troll17.225, Opposite Ballet24.467, Muddy Mayhem24.234, Sneaky Dance15.464, Bed Bounce18.147, Whoopee Tea24.529. Source imagery remains lossless; only the Whoopee backdrop’s runtime resolution changed. Unused laughing guests remain in a separate deferred legacy group instead of loading at boot.
 
 Root reviewed full-canvas comparisons, gameplay and exact consumer composites, including Troll pranks, Granny hose, guest seats/hats/gloves, Hoot and Nanny. Authored scold gloves suppress duplicate procedural gloves only when available; Granny’s hose is omitted for the two hose-free poses. Runtime/art-loading/group lifecycle/attachment tests pass. Reusable intake lessons are in the sprite playbook. Request rows are archived after review; no current semantic requests remain.
 
-Final publication and immediate main recheck timestamps are recorded below after the final batch push. The previous timer was cancelled; this user-requested sync/generation run has not created another timer. Older checkpoint sections below are historical.
+Latest published image delivery revision: `cc180ead42e617a396e46ddb14d47659846dacc0`.
+Latest completed delivery/check UTC: 2026-10-13T15:34:05Z.
+Last checked main revision: `cc180ead42e617a396e46ddb14d47659846dacc0`.
+Last checked request blob: `609318ddbdb655917140d5b0db7afa264e077a4a`.
+Last checked UTC: 2026-10-13T15:34:05Z.
+Open semantic asset/regeneration requests: none.
+Production owners: all work finished; no active claims.
+Immediate post-delivery main sync was clear. Final Whoopee gameplay ran to results with no errors/warnings. The previous timer was cancelled; this user-requested sync/generation run has not created another timer. Older checkpoint sections below are historical.
 
 ## Molly Party delivery — complete (authoritative current checkpoint)
 
