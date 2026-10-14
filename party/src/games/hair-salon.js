@@ -26,7 +26,6 @@ import { HAIR_COLORS, STYLES, HEAD_RX, HEAD_RY, SEG, MAXL, MAXB, MINL, hairlineY
 import { TOOLS, TOOL_IDX, BLING, drawTool, drawBling, swatch, drawStyleIcon, drawMirrorFrame } from './hair-salon/props.js';
 
 const NAVY = '#24163f';
-const STYLE_TIME = 150;        // gentle clock for the styling phase (s)
 const REVEAL_T = 5.2;          // mirror reveal
 const SHOT_T = 1.5;            // camera stop per client in the showcase
 const CHEESE_T = 6.5;          // "Say cheese!" posing time
@@ -158,7 +157,7 @@ export const meta = {
   infoAt: 'tl',
   tips: ['Brush the messy hair smooth, then snip, grow, curl and colour it!', 'Styles tie it into a ponytail, bun or braid. Press A on bling to move it.', 'Press X when your look is ready for the mirror!'],
   music: 'bouncy',
-  duration: '2–3 min',
+  duration: 'No time limit',
   minPlayers: 1, maxPlayers: 8,
   countdown: false,
   drawIcon,
@@ -181,7 +180,6 @@ export class Game {
     const hairs = shuffle(['#8a5a3c', '#ffd36e', '#41335a', '#ff8a3d', '#b07a52', '#5e3d2b']);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, { cape: capes[i % 6], skin: skins[i % 6], color: hairs[(i + 2) % 6] }));
     this.banner = { text: 'Salon is open!', t: 0 };
-    this.warned = false;
     sfx('magic');
   }
 
@@ -254,13 +252,11 @@ export class Game {
     this.updateSnips(dt);
     if (this.phase === 'style') {
       for (const s of this.stations) this.updateStation(s, dt);
-      const left = STYLE_TIME - this.phaseT;
-      if (left < 30 && !this.warned) { this.warned = true; this.banner = { text: '30 seconds left!', t: 0 }; sfx('tick'); }
+      // no clock: styling ends when everyone has pressed X (I'm done!)
       if (this.stations.every((s) => s.ready)) {
         this.allReadyT = (this.allReadyT || 0) + dt;
         if (this.allReadyT > 1.4) this.startReveal();
       } else this.allReadyT = 0;
-      if (left <= 0) this.startReveal();
     } else if (this.phase === 'reveal') {
       for (const s of this.stations) this.updateReveal(s, dt);
       if (this.phaseT > REVEAL_T + this.n * 0.15) this.startShow();
@@ -1136,7 +1132,6 @@ export class Game {
 
   drawHUD(g) {
     if (this.phase === 'style') {
-      ui.timer(g, STYLE_TIME - this.phaseT, W / 2, 52);
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
         ui.hints(g, [['stick', 'Move'], ['a', 'Use tool']], W / 2 - 130, 52, { size: 32, align: 'right' });
