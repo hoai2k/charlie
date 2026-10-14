@@ -318,6 +318,7 @@ const lastPlayed = new Map();
 export function sfx(name, opts = {}) {
   if (!ctx || ctx.state !== 'running' || muted) return;
   if (opts.fallback && !fileBuffers.has(name) && !SYNTH[name]) { sfx(opts.fallback, { ...opts, fallback: null }); return; }
+  if (globalThis.__sfxLog) globalThis.__sfxLog.push([Math.round(performance.now()), name, opts.vol ?? 1, fileBuffers.has(name) ? 'file' : 'synth']);   // debug: tests read what played
   // Avoid machine-gunning the same sound in a single frame.
   const now = ctx.currentTime;
   if (!opts.force && lastPlayed.get(name) > now - 0.025) return;

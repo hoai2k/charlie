@@ -111,7 +111,9 @@ export class ResultsScene {
       const heard = (e) => !humans.length || !session.players[e.idx].isAI;
       const humanWon = !humans.length || this.showcase || humans.some((e) => e.winner);
       const humanLost = humans.length ? humans.some((e) => e.loser) : this.entries.some((e) => e.loser);
-      if (humanWon) { sfx('fanfare'); setTimeout(() => sfx('cheer'), 600); }
+      // "Everyone's a star" finishes stay gentle: the results jingle and a soft cheer, no fanfare on top.
+      if (this.showcase) setTimeout(() => sfx('cheer', { vol: 0.5 }), 600);
+      else if (humanWon) { sfx('fanfare'); setTimeout(() => sfx('cheer'), 600); }
       else if (!humanLost) sfx('cheer', { vol: 0.6 });
       if (this.showcase) host('everyone-star', { interrupt: true });
       else if (this.winners.length === 1) host('name/' + session.players[this.winners[0].idx].charId, { interrupt: true });
