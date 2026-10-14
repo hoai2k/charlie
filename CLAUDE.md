@@ -48,6 +48,14 @@ to the remote and triggering the Pages deployment. A request to "commit to repo
 main" means commit and push unless the user explicitly asks for local-only work.
 See `AGENTS.md` for the shared agent instructions and push recovery guidance.
 
+## Models
+
+Only a session already running on Fable may start Fable subagents, workers or
+helper agents. On Opus, Sonnet or any other model, never pass model `fable` to
+Agent/Task/Workflow calls: leave the model unset so it inherits, or pick
+`opus` or `sonnet`. Don't switch to Fable on your own; if a task seems to need
+it, ask the owner first and say why.
+
 ## Game notes
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
