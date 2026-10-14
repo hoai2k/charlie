@@ -55,6 +55,11 @@ helper agents. On Opus, Sonnet or any other model, never pass model `fable` to
 Agent/Task/Workflow calls: leave the model unset so it inherits, or pick
 `opus` or `sonnet`. Don't switch to Fable on your own; if a task seems to need
 it, ask the owner first and say why.
+This is enforced in `.claude/settings.json` (sessions default to Opus) and a
+PreToolUse hook, `.claude/hooks/block-fable.sh`, that refuses a subagent or
+workflow call asking for Fable unless the caller is itself Fable. When the
+owner asks for Fable, switch the main session with `/model`; don't edit the
+hook to get round it.
 
 ## Game notes
 
