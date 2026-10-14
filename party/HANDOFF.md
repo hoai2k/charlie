@@ -63,8 +63,8 @@ Cake/Hotdog specs now reproduce all October landmark-audit points exactly. Other
 
 
 ### Session log 2026-10-09 (update this as work proceeds)
-Standing rules: after every change commit, then push `main` AND the branch
-`claude/festive-planck-7ik6bk`; run `node party/tools/stamp-modules.mjs` after
+Standing rules: after every change commit, then push `main` (the old session
+branch `claude/festive-planck-7ik6bk` is merged and deleted); run `node party/tools/stamp-modules.mjs` after
 any `party/src` change; fielded image requests move to
 `image-requests-history.md` (newest first).
 
@@ -384,7 +384,7 @@ they interrupted my log check, so wait for them before touching it).
 - Pass player objects (not `charId`) to `new Actor(p)` and
   `drawPortrait(g, p)` so colour variants work. Use `playerName(p)` and
   `winsText(p)` for names.
-- Commit and push to `main` and `claude/festive-planck-7ik6bk` (CLAUDE.md).
+- Commit and push to `main` (CLAUDE.md).
   The image agent and other sessions also push to `main`, so fetch and merge
   before pushing.
 - Headless testing: serve the repo with
