@@ -27,6 +27,7 @@ ap.add_argument('--dry', action='store_true'); ap.add_argument('--out')
 ap.add_argument('--nostretch', action='store_true', help='keep the recording\'s own tempo (the tempo measure can be fooled by swing)')
 ap.add_argument('--lag', type=float, help='loop length in seconds from self-similarity (songs without a steady bar grid)')
 ap.add_argument('--at', type=float, help='with --lag: loop start in seconds')
+ap.add_argument('--intro', action='store_true', help='keep the song\'s own opening before the loop: play from 0, then loop')
 A = ap.parse_args()
 name = A.name; song = name.rsplit('-', 1)[0]; tgt = SONGS[song]['bpm']
 SR = mlib.SR
@@ -201,7 +202,13 @@ y = y.astype(np.float32)
 # loop master (exact length, downbeat at sample 0)
 master = os.path.join(D, 'work', (A.out or name) + '-loop.wav'); mlib.write_wav(master, y)
 P, Q = int(PRE * SR), int(POST * SR)
-padded = np.concatenate([y[-P:], y, y[:Q]])
+if A.intro:
+    # The opening (same gain) plays once; the loop region follows it seamlessly (loop[0] = x[S]).
+    head, _ = mlib.circular_limiter(x[:S].astype(np.float64) * g, CEIL)
+    P = S
+    padded = np.concatenate([head.astype(np.float32), y, y[:Q]])
+else:
+    padded = np.concatenate([y[-P:], y, y[:Q]])
 pw = os.path.join(D, 'work', (A.out or name) + '-padded.wav'); mlib.write_wav(pw, padded)
 if A.dry: print(json.dumps(log, cls=NpEnc)); sys.exit(0)
 
@@ -218,7 +225,7 @@ log['ffmpeg_decode_offset_samples'] = off
 loopStart = (P + off) / SR; loopEnd = loopStart + L / SR
 I2, tp2, lra2 = mlib.ebur128(out)
 log.update(source=name, file=f'music/takes/{oname}.mp3', bpm=tgt, bars=N, loop_seconds=round(L / SR, 6),
-           pre=PRE, post=POST, loopStart=round(loopStart, 6), loopEnd=round(loopEnd, 6),
+           pre=PRE, post=POST, start=(0 if A.intro else None), loopStart=round(loopStart, 6), loopEnd=round(loopEnd, 6),
            lufs_wav=round(I, 2), tp_wav=round(tp, 2), lufs_mp3=round(I2, 2), tp_mp3=round(tp2, 2), lra=lra2,
            bytes=os.path.getsize(out), decoded_len=len(dec))
 os.makedirs(os.path.join(D, 'results'), exist_ok=True)

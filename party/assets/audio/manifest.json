@@ -1277,45 +1277,52 @@
   },
   "gameon": {
    "file": "music/takes/gameon-1.mp3",
-   "loopStart": 0.2,
-   "loopEnd": 82.401905,
+   "loopStart": 20.739002,
+   "loopEnd": 102.940907,
    "label": "Game On Dash",
-   "take": 1
+   "take": 1,
+   "start": 0,
+   "offset": 0.189
   },
   "cozy": {
    "file": "music/takes/cozy-1.mp3",
-   "loopStart": 0.2,
-   "loopEnd": 62.812109,
+   "loopStart": 17.62,
+   "loopEnd": 80.232109,
    "label": "Cozy Craft Time",
-   "take": 1
+   "take": 1,
+   "start": 0
   },
   "runway": {
    "file": "music/takes/runway-1.mp3",
-   "loopStart": 0.2,
-   "loopEnd": 78.869592,
+   "loopStart": 26.16,
+   "loopEnd": 104.829592,
    "label": "Runway Glam",
-   "take": 1
+   "take": 1,
+   "start": 0
   },
   "splash": {
    "file": "music/takes/splash-1.mp3",
-   "loopStart": 0.2,
-   "loopEnd": 55.566803,
+   "loopStart": 7.16,
+   "loopEnd": 62.526803,
    "label": "Splash Lagoon",
-   "take": 1
+   "take": 1,
+   "start": 0
   },
   "spooky": {
    "file": "music/takes/spooky-1.mp3",
-   "loopStart": 0.2,
-   "loopEnd": 58.258299,
+   "loopStart": 16.54,
+   "loopEnd": 74.598299,
    "label": "Spooky Scramble",
-   "take": 1
+   "take": 1,
+   "start": 0
   },
   "sneaky": {
    "file": "music/takes/sneaky-1.mp3",
-   "loopStart": 0.2,
-   "loopEnd": 38.597007,
+   "loopStart": 20.72,
+   "loopEnd": 59.117007,
    "label": "Sneaky Tiptoes",
-   "take": 1
+   "take": 1,
+   "start": 0
   }
  }
 }

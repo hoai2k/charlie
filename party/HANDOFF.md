@@ -14,7 +14,9 @@ seamless loop at -16 LUFS cut from the owner's upload with tools/audio/music/pro
 `--nostretch --lag <s> --at <s>` options (loop length = the music's measured repeat, not a bar
 grid; the tempo measure was fooled by swing). Loops: gameon 82.2019 @20.739 (a downbeat, 140.14
 bpm), cozy 62.6121 @17.62, runway 78.6696 @26.16, splash 55.3668 @7.16, spooky 58.0583 @16.54,
-sneaky 38.397 @20.72. Games: gameon = bumper-bounce cloud-hop crown-keeper mini-golf
+sneaky 38.397 @20.72. Built with `--intro`: each file keeps the song's own opening, plays
+from 0 (manifest "start": 0) and then loops loopStart..loopEnd; gameon "offset": 0.189 puts beat 0
+on its first downbeat. Games: gameon = bumper-bounce cloud-hop crown-keeper mini-golf
 musical-cushions pancake-tower treasure-dig tug-of-war (jump-rope stays on bouncy: its rope speeds
 are tuned to 128 bpm); cozy = art-studio nail-studio bead-bracelets pottery-wheel star-maker
 dream-room pet-spa seek-and-find; runway = fashion-show hair-salon; splash = fishing-frenzy
