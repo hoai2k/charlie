@@ -19,6 +19,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { clamp, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
+import { art } from '../engine/art.js';
 import { PATTERNS, PAT_COLOR, drawSock, drawPuppy, drawBasket, drawLine, drawPin, drawYard, lineY, LINE } from './sock-match/draw.js';
 
 export const meta = {
@@ -66,6 +67,9 @@ const STORM_AT = 15;
 const FIELD = { x0: 170, x1: 1590, y0: 620, y1: 950 };     // where socks land
 const FLOOR = { x0: 100, x1: W - 100, y0: 600, y1: 990 };   // where players run
 const BASKET = { x: 1745, y: 1040 };
+// prop/sock-basket (360x260 art px, drawn 260 wide bottom-centred): top of the front
+// rope rim, left to right; socks bursting out start behind it
+const BASKET_RIM = [[0, 60], [20, 62], [60, 68], [100, 76], [140, 80], [180, 81], [220, 80], [260, 76], [300, 68], [340, 62], [360, 60]];
 const MAX_SPEED = 660;
 const ACCEL = 4400;
 const REACH = 105;           // grab distance
@@ -600,9 +604,20 @@ export class Game {
     items.push({ y: BASKET.y, d: () => drawBasket(g, BASKET.x, BASKET.y, this.basketSq * Math.sin(t * 30), t) });
     items.sort((a, b) => a.y - b.y);
     for (const it of items) it.d();
-    // airborne socks on top
+    // airborne socks on top (bursting ones come up out of the basket, behind its front rim)
+    const bsq = this.basketSq * Math.sin(t * 30);
     for (const s of this.socks) {
-      if (s.state === 'fly' && s.ft >= 0) { g.save(); g.translate(s.x, s.y); g.rotate(s.rot); drawSock(g, s.pat, 0.85, t, s.flip); g.restore(); }
+      if (s.state === 'fly' && s.ft >= 0) {
+        g.save();
+        if (art('prop/sock-basket') && s.ft < s.fdur * 0.5) {
+          const k = 260 / 360, sx = 1 + bsq * 0.25, sy = 1 - bsq * 0.25;
+          g.beginPath(); g.rect(0, 0, W, H);
+          BASKET_RIM.forEach(([ax, ay], i) => { const px = BASKET.x + (ax - 180) * k * sx, py = BASKET.y + (ay - 260) * k * sy; if (i) g.lineTo(px, py); else g.moveTo(px, py); });
+          g.lineTo(BASKET.x + 130 * sx, BASKET.y + 4); g.lineTo(BASKET.x - 130 * sx, BASKET.y + 4); g.closePath();
+          g.clip('evenodd');
+        }
+        g.translate(s.x, s.y); g.rotate(s.rot); drawSock(g, s.pat, 0.85, t, s.flip); g.restore();
+      }
       if (s.state === 'dance' || s.state === 'rocket') { g.save(); g.translate(s.x, s.y); g.rotate(s.rot); drawSock(g, s.pat, s.state === 'dance' ? 1 : 0.85, t, s.side > 0); g.restore(); }
     }
     // the puppy's "catch me" hint

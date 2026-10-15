@@ -19,7 +19,7 @@ import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import {
-  GROUND_Y, BED, NAVY, drawKitten, drawYarn, drawBasketBack, drawBasketFront, drawCatTree, perchPoint, drawBed, drawRoom, YARN,
+  GROUND_Y, BED, NAVY, drawKitten, drawYarn, drawBasketBack, drawBasketFront, drawCatTree, perchPoint, drawBed, drawBedFront, drawRoom, YARN,
 } from './kitten-yarn/art.js';
 
 export const meta = {
@@ -704,6 +704,7 @@ kk.state = 'wait'; kk.wt = delay;
     }
     drawBed(g, this.t);
     for (const k of this.kittens) if (k.state === 'nap') this.drawK(g, k, 'sleep', 0.62);
+    drawBedFront(g);
     // loose yarn balls and their threads
     for (const b of this.balls) this.drawBall(g, b);
     // floor and rolling kittens behind players' baskets

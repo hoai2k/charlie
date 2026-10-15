@@ -102,6 +102,9 @@ const PARADE_RX = POND.rx + 125, PARADE_RY = POND.ry + 95;
 const LOOP = { x: POND.x, y: 640, rx: 680, ry: 300 };
 const LOOP_SPEED = 0.75;
 const MAMA_HOME = { x: NEST.x + 205, y: NEST.y + 22 };
+// prop/duck-nest: the front straw edge of the bowl, left to right (art px of the 400x220 image)
+const NEST_RIM = [[0, 100], [75, 100], [90, 115], [100, 122], [125, 132], [150, 140], [175, 146], [200, 149],
+  [225, 147], [250, 141], [275, 133], [300, 125], [320, 115], [333, 105], [340, 98], [400, 98]];
 
 function inPond(x, y, k = 1) {
   const u = ((x - POND.x) / (POND.rx * k)) ** 2 + ((y - POND.y) / (POND.ry * k)) ** 2;
@@ -841,23 +844,38 @@ export class Game {
     g.scale(ds, ds); g.rotate(wob);
     const side = s.side;
     if (s.type === 'boot') {
-      // art: the cuff opening is left of centre (the toe points right); pop the head out of it
-      const bootArt = !!art('prop/rubber-boot');
-      if (d && d.state === 'hide') { g.restore(); this.drawDuck(g, d, { x: s.x - (bootArt ? 22 : 4) * ds, y: s.y - (bootArt ? 110 : 92) * ds }); g.save(); g.translate(s.x, s.y); g.scale(ds, ds); g.rotate(wob); }
-      if (!drawArt(g, 'prop/rubber-boot', 0, 0, 120, 140, { anchor: 'bottom' })) drawBoot(g);
+      // art: the cuff opening is left of centre (the toe points right); the duckling stands
+      // inside it: in front of the opening's back rim, behind its front lip. Opening ellipse
+      // measured from prop/rubber-boot (art x 6..100, y 2..12 of 160x190, drawn at 0.737).
+      const bootArt = drawArt(g, 'prop/rubber-boot', 0, 0, 120, 140, { anchor: 'bottom' });
+      if (!bootArt) drawBoot(g);
+      if (d && d.state === 'hide') {
+        const [cx, cy, rx, ry] = bootArt ? [-20, -135, 35, 4.5] : [-4, -120, 30, 9];
+        g.beginPath(); g.moveTo(-200, -400); g.lineTo(200, -400); g.lineTo(200, cy); g.lineTo(cx + rx, cy);
+        g.ellipse(cx, cy, rx, ry, 0, 0, Math.PI); g.lineTo(-200, cy); g.closePath(); g.clip();
+        g.rotate(-wob); g.scale(1 / ds, 1 / ds); g.rotate(wob); g.translate(-s.x, -s.y);
+        this.drawDuck(g, d, { x: s.x + cx * ds, y: s.y + (bootArt ? -110 : -92) * ds });
+      }
       g.restore();
       return;
     }
-    // reeds / bush / mushroom: the duckling peeks out from the side
+    // reeds / bush / mushroom: the duckling hides behind it and peeks out of the side.
+    // [hidden, peeking] offsets from the spot centre (spot px), fitted by pixel coverage
+    // of prop/duckling behind each art: 0% of her shows at the first, ~75% at the second.
+    const PEEK = { reeds: [30, 95], bush: [63, 98], mushroom: [8, 56] };
+    if (d && d.state === 'hide') {
+      const [h0, h1] = PEEK[s.type];
+      d.facing = side;   // looking out, away from her hiding place
+      // back to world space (drawDuck applies its own depth scale), keeping the spot's wobble
+      g.save(); g.rotate(-wob); g.scale(1 / ds, 1 / ds); g.rotate(wob); g.translate(-s.x, -s.y);
+      this.drawDuck(g, d, { x: s.x + side * lerp(h0, h1, d.peek) * ds, y: s.y - 10 * ds });
+      g.restore();
+    }
     // reeds art has ~40% empty headroom: draw it bigger so the clump itself is ~145 px tall
     if (s.type === 'reeds') { if (!drawArt(g, 'prop/reeds', 0, 0, 200, 235, { anchor: 'bottom' })) drawReeds(g, t); }
     else if (s.type === 'bush') { if (!drawArt(g, 'prop/flower-bush', 0, 0, 200, 146, { anchor: 'bottom' })) drawBush(g, t); }
     else if (!drawArt(g, 'prop/dp-mushroom', 0, 0, 140, 151, { anchor: 'bottom' })) drawMushroom(g);
     g.restore();
-    if (d && d.state === 'hide') {
-      const pk = d.peek;
-      this.drawDuck(g, d, { x: s.x + side * (40 + pk * 34) * ds, y: s.y + 8 });
-    }
   }
 
   drawNestAll(g) {
@@ -867,7 +885,16 @@ export class Game {
     g.restore();
     const inNest = this.ducks.filter((d) => d.state === 'nest').sort((a, b) => a.y - b.y);
     for (const d of inNest) this.drawDuck(g, d, { x: d.x, y: d.y + 10 });
-    if (!hasArt) { g.save(); g.translate(NEST.x, NEST.y + 30); drawNest(g, true); g.restore(); }
+    g.save(); g.translate(NEST.x, NEST.y + 30);
+    if (hasArt && inNest.length) {
+      // front rim: the art again, clipped below the bowl's front straw edge (traced from
+      // prop/duck-nest, 400x220 art px, drawn at 0.75 bottom-centred) so the ducklings sit in it
+      g.beginPath();
+      NEST_RIM.forEach(([ax, ay], k) => { const px = (ax - 200) * 0.75, py = -165 + ay * 0.75; if (k) g.lineTo(px, py); else g.moveTo(px, py); });
+      g.lineTo(160, 10); g.lineTo(-160, 10); g.closePath(); g.clip();
+      drawArt(g, 'prop/duck-nest', 0, 0, 300, 165, { anchor: 'bottom' });
+    } else if (!hasArt) drawNest(g, true);
+    g.restore();
   }
 
   drawMamaDuck(g) {
@@ -899,6 +926,8 @@ export class Game {
     const hop = d.state === 'hide' || d.state === 'nest' || swim ? Math.abs(Math.sin(d.hop)) * 2 : Math.abs(Math.sin(d.hop)) * 7;
     g.save();
     if (!swim && d.state !== 'nest') { g.fillStyle = 'rgba(36,22,63,0.18)'; g.beginPath(); g.ellipse(x, y, 24 * ds, 7 * ds, 0, 0, TAU); g.fill(); }
+    const ring = (a0, a1) => { g.save(); g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = 3; g.beginPath(); g.ellipse(x, y - d.z - hop - 8 * ds, 30 * ds, 7 * ds, 0, a0, a1); g.stroke(); g.restore(); };
+    if (swim) ring(Math.PI, TAU);   // back half of the ripple, behind her
     if (d.golden) {
       const k = 0.6 + Math.sin(t * 6) * 0.2;
       const gr = g.createRadialGradient(x, y - 30, 4, x, y - 30, 70);
@@ -907,7 +936,9 @@ export class Game {
     }
     g.translate(x, y - d.z - hop);
     if (swim) {
-      g.beginPath(); g.rect(-60 * ds, -120 * ds, 120 * ds, 112 * ds); g.clip();
+      // waterline: the front half of the ripple ring drawn below, so she sits in the water
+      g.beginPath(); g.moveTo(-60 * ds, -130 * ds); g.lineTo(60 * ds, -130 * ds); g.lineTo(60 * ds, -8 * ds); g.lineTo(30 * ds, -8 * ds);
+      g.ellipse(0, -8 * ds, 30 * ds, 7 * ds, 0, 0, Math.PI); g.lineTo(-60 * ds, -8 * ds); g.closePath(); g.clip();
       g.translate(0, 12 * ds);
     }
     let fx_ = d.facing;
@@ -927,10 +958,7 @@ export class Game {
     }
     drawHat(g, d.hat, t + d.id);
     g.restore();
-    if (swim) {
-      g.save(); g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = 3;
-      g.beginPath(); g.ellipse(x, y + 4 * ds, 30 * ds, 7 * ds, 0, 0, TAU); g.stroke(); g.restore();
-    }
+    if (swim) ring(0, Math.PI);   // front half: the waterline she's clipped to
     if (d.confused > 0) drawEmote(g, 'question', x, y - 92 * ds - d.z, 30, 1.3 - d.confused);
   }
 

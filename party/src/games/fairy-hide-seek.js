@@ -22,7 +22,7 @@ import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, rand, pick, chance, shuffle, TAU, dist, placementsFromScores } from '../engine/util.js';
 import {
-  NAVY, SPOTS, bgImage, drawSpot, drawFairy, FAIRY_COLS, drawFrog, drawSnail, drawLadybug, bubble, drawMagnifier, glow,
+  NAVY, SPOTS, peekFor, bgImage, drawSpot, drawFairy, FAIRY_COLS, drawFrog, drawSnail, drawLadybug, bubble, drawMagnifier, glow,
 } from './fairy-hide-seek/art.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -511,14 +511,22 @@ export class Game {
 
   drawSpotWithContent(g, s, t) {
     const wig = s.wig > 0 ? Math.sin(s.wig * 24) * 0.09 * Math.min(1, s.wig * 3) : 0;
-    // a peeking fairy behind the spot while it wiggles
+    // a peeking fairy / frog behind the spot while it wiggles: drawn in the spot's
+    // swaying frame and tucked behind the art's measured painted edge (PEEK)
+    const pk = peekFor(s.type);
     if (s.c && s.c.kind === 'fairy' && s.wig > 0) {
       const out = Math.sin(Math.min(1, (0.8 - s.wig) / 0.25) * Math.PI * 0.5) * Math.min(1, s.wig * 4);
-      drawFairy(g, s.x + s.c.side * (s.w * 0.36 + 34 * out), s.y - s.h * 0.62, 1.1, s.c.col, t, -s.c.side, { glowAlpha: 0.9 });
+      g.save(); g.translate(s.x, s.y); g.rotate(wig);
+      if (pk) drawFairy(g, s.c.side * ((s.c.side > 0 ? pk.r : pk.l) - 38 + 46 * out), pk.fy, 1.1, s.c.col, t, -s.c.side, { glowAlpha: 0.9 * Math.min(1, out * 3), alpha: Math.min(1, out * 4) });
+      else drawFairy(g, s.c.side * (s.w * 0.36 + 34 * out), -s.h * 0.62, 1.1, s.c.col, t, -s.c.side, { glowAlpha: 0.9 });
+      g.restore();
     } else if (s.c && s.c.kind === 'fairy') {
       glow(g, s.x, s.y - s.h * 0.55, s.w * 0.55, s.c.col.glow, 0.25 + 0.12 * Math.sin(t * 3 + s.i));
     } else if (s.c && s.c.kind === 'frog' && s.wig > 0) {
-      drawFrog(g, s.x + s.c.side * s.w * 0.15, s.y - s.h + 70, 0.7, t);
+      g.save(); g.translate(s.x, s.y); g.rotate(wig);
+      if (pk) { const [fx0, fy0] = pk.frog[s.c.side > 0 ? 1 : 0]; drawFrog(g, fx0, fy0, 0.7, t); }
+      else drawFrog(g, s.c.side * s.w * 0.15, -s.h + 70, 0.7, t);
+      g.restore();
     }
     // see-through when a player walks behind it, so nobody gets lost
     const behind = this.ents.some((e) => e.y < s.y && e.y > s.y - s.h * 0.9 && Math.abs(e.x - s.x) < s.w * 0.55);

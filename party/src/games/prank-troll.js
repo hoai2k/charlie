@@ -831,7 +831,12 @@ export class Game {
 
   drawUnit(g, U, t) {
     const a = U.a;
-    a.draw(g, { ring: U.p.color });
+    // turning into a bush: the bush (with its own peeking eyes) is the disguise, so the
+    // character fades as it grows - no ears, tails, hair or tail fins left sticking out
+    // past its leaves. The player ring stays so you can still find your bush.
+    const hide = clamp((U.bush - 0.25) / 0.6, 0, 1);
+    a.draw(g, { ring: U.p.color, alpha: 1 - hide });
+    if (hide > 0 && a._drawRing) a._drawRing(g, U.p.color, a.scale, hide);
     if (U.bush > 0.02) {
       const img = art('prop/ptroll-bush');
       const w = Math.max(110, a.width * 1.2), h = a.height * 0.95;

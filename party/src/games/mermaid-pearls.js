@@ -76,6 +76,11 @@ const SWIM = 560, ZOOM = 1350, ZOOM_T = 0.32, ZOOM_CD = 0.55;
 const CHEST = { x: 1660, y: SEABED + 6 };
 const OCTO = { x: 960, y: SEABED + 10 };
 const VENTS = [520, 1360];
+// prop/mp-clam-open (256x224 art px): top of the bottom shell's front lip outline, left
+// to right; the shell below it is drawn again over the pearl so it sits inside
+const CLAM_LIP = [[0, 146], [12, 149], [20, 150], [36, 153], [52, 156], [60, 157], [68, 159], [76, 163], [84, 162],
+  [92, 159], [100, 158], [108, 159], [116, 163], [124, 166], [132, 166], [140, 162], [148, 159], [156, 158], [164, 159],
+  [172, 162], [180, 163], [188, 159], [196, 157], [204, 156], [220, 153], [236, 150], [244, 149], [256, 146]];
 const FINALE_T = 3.6;
 const FISH_COLS = [['#ffd23f', '#3fa7ff'], ['#ff8fc7', '#ffc2e6'], ['#ff9f1c', '#ffffff'], ['#8be8b8', '#3fb8a0'], ['#c9a0ff', '#ffffff']];
 
@@ -813,7 +818,16 @@ export class Game {
     const openArt = c.open > 0.5;
     const drew = drawArt(g, openArt ? 'prop/mp-clam-open' : 'prop/mp-clam-closed', 0, 0, 170, openArt ? 149 : 106, { anchor: 'bottom' });
     if (drew) {
-      if (openArt && c.pearl) drawPearlArt(g, 0, -60, c.pearl.gold ? 26 : 22, c.pearl.gold, this.t);
+      if (openArt && c.pearl) {
+        // the pearl rests in the bottom shell: its lower part tucks behind the front lip
+        drawPearlArt(g, 0, -50, c.pearl.gold ? 26 : 22, c.pearl.gold, this.t);
+        const k = Math.min(170 / 256, 149 / 224);   // art scale (bottom-centre anchored)
+        g.save(); g.beginPath();
+        CLAM_LIP.forEach(([ax, ay], i) => { const px = (ax - 128) * k, py = -224 * k + ay * k; if (i) g.lineTo(px, py); else g.moveTo(px, py); });
+        g.lineTo(90, 4); g.lineTo(-90, 4); g.closePath(); g.clip();
+        drawArt(g, 'prop/mp-clam-open', 0, 0, 170, 149, { anchor: 'bottom' });
+        g.restore();
+      }
     } else {
       drawClam(g, 0, 0, s, c.open, this.t, c.pearl, c.giggle > 0);
     }
@@ -836,11 +850,17 @@ export class Game {
 
   drawFlier(g, f) {
     const k = clamp(f.t / f.dur, 0, 1), e = ease.inOutQuad ? ease.inOutQuad(k) : k;
-    const ex = CHEST.x, ey = CHEST.y - 110;
+    // it drops into the glowing seam between the chest's lid and body (prop/mp-chest art
+    // y 187 of 320, drawn at 0.65 => 86 px above the chest's base) and slips in behind the body
+    const seam = CHEST.y - 86;
+    const ex = CHEST.x, ey = seam + 18;
     const x = (1 - e) * (1 - e) * f.x0 + 2 * (1 - e) * e * f.cx + e * e * ex;
     const y = (1 - e) * (1 - e) * f.y0 + 2 * (1 - e) * e * f.cy + e * e * ey;
-    if (Math.random() < 0.5) particles.burst(x, y, { type: 'sparkle', count: 1, colors: f.gold ? ['#ffd23f', '#fff6a8'] : ['#ffffff', '#ffd6ef'], speed: [5, 30], size: [8, 14] });
+    if (Math.random() < 0.5 && y < seam) particles.burst(x, y, { type: 'sparkle', count: 1, colors: f.gold ? ['#ffd23f', '#fff6a8'] : ['#ffffff', '#ffd6ef'], speed: [5, 30], size: [8, 14] });
+    g.save();
+    if (art('prop/mp-chest')) { g.beginPath(); g.rect(0, 0, W, H); g.rect(CHEST.x - 125, seam, 250, 90); g.clip('evenodd'); }
     drawPearlArt(g, x, y, (f.gold ? 24 : 18) * (1 - k * 0.3), f.gold, this.t);
+    g.restore();
   }
 
   drawOcto(g) {

@@ -263,6 +263,23 @@ export function perchPoint(side, level) {
   return { x, y: GROUND_Y + 10 - TREE_H * f };
 }
 
+// prop/kitten-bed (1120x440 art px): the top of the front/side puffs, left to right,
+// where the napping kittens tuck in behind them
+const BED_FRONT = [[0, 128], [204, 128], [212, 188], [223, 210], [250, 234], [300, 248], [345, 254], [400, 261],
+  [430, 273], [450, 276], [560, 276], [680, 270], [740, 255], [800, 244], [850, 230], [886, 210], [900, 196],
+  [908, 180], [912, 128], [1120, 128]];
+/** The bed's front puffs again, over the napping kittens (art only; the fallback bed draws its own rim). */
+export function drawBedFront(g) {
+  const { x, y, w, h } = BED;
+  if (!art('prop/kitten-bed')) return;
+  const k = w / 1120;   // drawn at 560x220 = 0.5 of the art
+  g.save(); g.beginPath();
+  BED_FRONT.forEach(([ax, ay], i) => { const px = x + (ax - 560) * k, py = y - h + ay * k; if (i) g.lineTo(px, py); else g.moveTo(px, py); });
+  g.lineTo(x + w / 2, y + 4); g.lineTo(x - w / 2, y + 4); g.closePath(); g.clip();
+  drawArt(g, 'prop/kitten-bed', x, y, w, h, { anchor: 'bottom' });
+  g.restore();
+}
+
 export function drawBed(g, t) {
   const { x, y, w, h } = BED;
   if (drawArt(g, 'prop/kitten-bed', x, y, w, h, { anchor: 'bottom' })) return;
