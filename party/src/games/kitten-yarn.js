@@ -30,6 +30,9 @@ export const meta = {
   goal: 'Catch the bouncy kittens in your basket and give them cuddles!',
   controls: [['stick', 'Run with your basket'], ['a', 'Cuddle! (or hop)']],
   tips: ['Kittens bounce off your head into the basket.', 'Cuddle 3 at once for a Triple Cuddle!', 'Fairy kittens count for 3!'],
+  goalEasy: 'Your basket runs to the kittens by itself. Press A to cuddle them!',
+  controlsEasy: [['a', 'Cuddle! (or hop)']],
+  tipsEasy: ['You run to the kittens all by yourself.', 'When the A glows, press it for cuddles!', 'Wait for 3 kittens for a Triple Cuddle!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -87,6 +90,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
+    this.easy = !!api.easy;     // Molly Easy: humans auto-run to kittens, A cuddles
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.party = false; this.partyT = 0;
     this.scale = n <= 3 ? 1 : n <= 4 ? 0.92 : n <= 6 ? 0.84 : 0.76;
@@ -155,6 +159,7 @@ export class Game {
     if (!this.done) this.spawning(dt, el);
     for (const e of this.ents) {
       if (e.p.isAI && !this.done) this.aiThink(e, dt);
+      else if (this.easy && !this.done) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.pushPlayers(dt);
@@ -485,7 +490,7 @@ export class Game {
   movePlayer(e, dt) {
     const a = e.a, ctrl = e.p.ctrl;
     e.popT = Math.max(0, e.popT - dt); e.bumpCd = Math.max(0, e.bumpCd - dt);
-    const inX = this.done ? 0 : ctrl.x;
+    const inX = this.done ? 0 : this.easy && !e.p.isAI ? (e.autoX || 0) : ctrl.x;
     const target = inX * MAX_SPEED;
     e.vx = approach(e.vx, target, (Math.abs(target) > Math.abs(e.vx) ? 5200 : 4200) * dt);
     e.pv *= Math.exp(-7 * dt);
@@ -619,6 +624,43 @@ export class Game {
     // hop over-the-head kittens / leaping late
     const d = steerTo(p, e.x, 0, clamp(tx, 270, W - 270), 0, 50, speed);
     if (d < 12) ctrl.move(0, 0);
+  }
+
+  /** Molly Easy (humans): the basket runs itself to the best kitten; the player only presses A. */
+  easyThink(e, dt) {
+    e.retarget = (e.retarget || 0) - dt;
+    const yC = this.headY(e);
+    const live = (k) => k && ['leap', 'flutter', 'roll', 'floor', 'perch'].includes(k.state);
+    if (e.retarget <= 0 || !live(e.target)) {
+      e.retarget = 0.35;
+      let best = null, bu = -1;
+      for (const k of this.kittens) {
+        if (!live(k)) continue;
+        let x, T;
+        if (k.state === 'perch') { x = clamp(k.x + (k.side === 0 ? 500 : -500), 300, W - 300); T = k.wait + 1; }
+        else if (k.state === 'roll') { x = k.x + k.vx * 0.5; T = 1; }
+        else if (k.state === 'floor') { x = k.x; T = 1.5; }
+        else ({ x, T } = this.predictX(k, yC));
+        const travel = Math.abs(x - e.x) / (MAX_SPEED * 0.85);
+        if (k.state === 'leap' && travel > T + 0.2) continue;
+        let u = (k.fairy ? 3 : 1) / (0.5 + travel) * (k.state === 'perch' ? 0.25 : k.state === 'floor' ? 0.7 : 1);
+        if (k === e.target) u *= 1.5;   // don't flip-flop between kittens
+        // spread out: leave kittens that someone else is closer to (or already chasing)
+        for (const o of this.ents) if (o !== e && (o.target === k || Math.abs(o.x - x) < Math.abs(e.x - x) * 0.6)) { u *= 0.35; break; }
+        if (u > bu) { bu = u; best = k; }
+      }
+      e.target = best;
+      if (!best) e.homeX = e.homeX ?? e.x;
+    }
+    let tx = e.homeX ?? e.x;
+    const k = e.target;
+    if (k) {
+      if (k.state === 'leap' || k.state === 'flutter') tx = this.predictX(k, yC).x;
+      else if (k.state === 'perch') tx = clamp(k.x + (k.side === 0 ? 480 : -480), 300, W - 300);
+      else tx = k.x;
+    }
+    const d = clamp(tx, 270, W - 270) - e.x;
+    e.autoX = Math.abs(d) < 12 ? 0 : clamp(d / 60, -1, 1) * 0.85;
   }
 
   // ------------------------------------------------------------------ finish

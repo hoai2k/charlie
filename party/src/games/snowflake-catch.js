@@ -28,6 +28,9 @@ export const meta = {
   goal: 'Catch snowflakes on your tongue to build a giant snowman together!',
   controls: [['stick', 'Run around'], ['a', 'Hold: tongue out!']],
   tips: ['Stand on a flake\'s shadow and stick your tongue out.', 'Big sparkly flakes count for 3!', 'Snowballs go POOF into glitter - a bonus!'],
+  goalEasy: 'You run to the snowflakes by yourself. Press A to catch them on your tongue!',
+  controlsEasy: [['a', 'Tongue out!']],
+  tipsEasy: ['You walk to a snowflake all by yourself.', 'When the big A bounces, press A!', 'Big sparkly flakes count for 3!'],
   music: 'chase',
   duration: '45 sec',
   minPlayers: 1,
@@ -80,6 +83,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
+    this.easy = !!api.easy;     // Molly Easy: humans auto-walk under flakes, A = tongue
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.storm = false; this.stormT = 0;
     this.base = n <= 2 ? 1 : n <= 4 ? 0.92 : n <= 6 ? 0.84 : 0.78;
@@ -139,6 +143,7 @@ export class Game {
     if (!this.done) this.spawning(dt, el);
     for (const e of this.ents) {
       if (e.p.isAI && !this.done) this.aiThink(e, dt);
+      else if (this.easy && !this.done) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.separate(dt);
@@ -223,15 +228,19 @@ export class Game {
       e.tongue = 0;
       return;
     }
-    let ix = this.done ? 0 : ctrl.x, iy = this.done ? 0 : ctrl.y;
+    const auto = this.easy && !e.p.isAI;
+    let ix = this.done ? 0 : auto ? e.autoX || 0 : ctrl.x, iy = this.done ? 0 : auto ? e.autoY || 0 : ctrl.y;
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
-    const tongue = !this.done && ctrl.held('a');
+    if (auto) e.tongueHold = Math.max(0, (e.tongueHold || 0) - dt);
+    const tongue = !this.done && (ctrl.held('a') || (auto && e.tongueHold > 0));
     if (!this.done && ctrl.pressed('a')) {
       snd('sfc-tongue', 'pop', { vol: 0.35, rate: 1.5 });
       a.squash(-0.15);
+      if (auto) e.tongueHold = 0.55;   // a quick tap still catches
     }
     e.tongue = tongue ? Math.min(1, e.tongue + dt * 10) : Math.max(0, e.tongue - dt * 8);
-    const sp = SPEED * (tongue ? 0.85 : 1);
+    // Easy: the auto-walk slows right down with the tongue out, so timing A beats holding it
+    const sp = SPEED * (tongue ? (auto ? 0.4 : 0.85) : 1);
     e.vx = approach(e.vx, ix * sp, 4200 * dt); e.vy = approach(e.vy, iy * sp * 0.8, 4200 * dt);
     e.x = clamp(e.x + e.vx * dt, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt, ARENA.y0, ARENA.y1);
     if (tongue && !a._once) {
@@ -443,6 +452,43 @@ export class Game {
     if (d < 14) ctrl.move(0, 0);
   }
 
+  /** Molly Easy (humans): walk by yourself under the best flake; the player only times A. */
+  easyThink(e, dt) {
+    e.autoX = 0; e.autoY = 0;
+    if (e.spin > 0) return;
+    const h = e.a.height;
+    const ok = (f) => f && f.state === 'fall' && f.z > h * 0.2;
+    e.retarget = (e.retarget || 0) - dt;
+    if (e.retarget <= 0 || !ok(e.target)) {
+      e.retarget = 0.3;
+      let best = null, bu = -1;
+      for (const f of this.flakes) {
+        if (!ok(f) || f.z < h * 0.5) continue;
+        const tArrive = (f.z - h * 0.8) / f.vz;
+        const travel = Math.hypot(f.x - e.x, (f.y - e.y) * 1.25) / (SPEED * 0.7);
+        if (travel > tArrive + 0.2) continue;
+        let u = (f.big ? 3 : 1) / (0.5 + travel + Math.max(0, tArrive - travel) * 0.3);
+        if (f === e.target) u *= 1.6;
+        for (const o of this.ents) if (o !== e && (o.target === f || Math.hypot(o.x - f.x, o.y - f.y) < Math.hypot(e.x - f.x, e.y - f.y) * 0.7)) { u *= 0.3; break; }
+        if (u > bu) { bu = u; best = f; }
+      }
+      e.target = best;
+    }
+    const f = e.target;
+    if (!f) return;
+    const dx = f.x - e.x, dy = f.y - e.y, d = Math.hypot(dx, dy);
+    if (d < 14) return;
+    const k = clamp(d / 60, 0, 1) * 0.75;
+    e.autoX = (dx / d) * k; e.autoY = (dy / d) * k;
+  }
+
+  /** Easy: is this player's flake in reach of the tongue right now? */
+  easyNow(e) {
+    const f = e.target, h = e.a.height;
+    if (!f || f.state !== 'fall' || e.spin > 0) return false;
+    return f.z < h * 1.7 && f.z > h * 0.2 && Math.hypot(f.x - e.x, (f.y - e.y) * 1.7) < 110;
+  }
+
   // ------------------------------------------------------------------ finish
   finish() {
     this.done = true;
@@ -489,6 +535,13 @@ export class Game {
         g.save(); g.globalAlpha = 1 - f.mt / 0.6; g.translate(f.x, f.y); g.scale(1, 0.5); drawFlake(g, f.big ? 60 : 30, f.rot, this.t, f.big); g.restore();
       }
     }
+    if (this.easy && !this.done) for (const e of this.ents) {
+      const f = e.target;
+      if (e.p.isAI || !f || f.state !== 'fall') continue;
+      const now = this.easyNow(e), pulse = 1 + Math.sin(this.t * (now ? 14 : 5)) * 0.12;
+      g.save(); g.globalAlpha = now ? 0.95 : 0.55; g.strokeStyle = e.p.color; g.lineWidth = now ? 7 : 4;
+      g.beginPath(); g.ellipse(f.x, f.y, 62 * pulse, 22 * pulse, 0, 0, TAU); g.stroke(); g.restore();
+    }
     for (const b of this.balls) {
       const k = clamp(b.t / b.T, 0, 1);
       g.save(); g.globalAlpha = 0.25 + k * 0.4; g.strokeStyle = '#ff7ac6'; g.lineWidth = 4; g.setLineDash([10, 8]);
@@ -525,7 +578,16 @@ export class Game {
       g.save(); g.translate(mo.x, mo.y); g.globalAlpha = 0.9; drawFlake(g, 22, mo.t * 8, mo.t); g.restore();
     }
     // tags
-    for (const e of this.ents) ui.playerTag(g, e.p, e.x, e.y - e.a.height - 26 - (e.a.emotes.length ? 48 : 0));
+    for (const e of this.ents) {
+      const top = e.y - e.a.height - 26 - (e.a.emotes.length ? 48 : 0);
+      ui.playerTag(g, e.p, e.x, top);
+      // Easy: a big bouncing A when your flake is right above your tongue
+      if (this.easy && !this.done && !e.p.isAI && this.easyNow(e)) {
+        const pulse = 1 + Math.abs(Math.sin(this.t * 10)) * 0.25;
+        g.save(); g.translate(e.x + 70, top - 20 - Math.abs(Math.sin(this.t * 10)) * 14); g.scale(pulse, pulse);
+        ui.glyph(g, 'a', 0, 0, 52); g.restore();
+      }
+    }
   }
 
   drawPlayer(g, e) {

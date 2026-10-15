@@ -55,6 +55,9 @@ export const meta = {
   goal: 'Bounce on the bed and grab stars - but hide when Nanny Moo comes!',
   controls: [['stick', 'Steer left and right'], ['a', 'Hold: bounce higher! Tap: pillow bonk']],
   tips: ['Light under the door + thump thump = LET GO to hide under the duvet!', 'Touch the glowing ceiling stars for big points.', 'Caught? A few stars fall out - grab them back!'],
+  goalEasy: 'Hold A to bounce on the bed and grab stars - let go to hide when Nanny Moo comes!',
+  controlsEasy: [['a', 'Hold: bounce higher! Let go: hide']],
+  tipsEasy: ['Hold A - you float to the stars by yourself!', 'Light under the door + thump thump = let go of A!', 'Tap A in the air for a pillow bonk!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -71,6 +74,7 @@ export class Game {
     configureBedArt(!!art('prop/bb-bed'));
     this.api = api;
     this.players = api.players;
+    this.easy = !!api.easy;     // Molly Easy: A only - bouncers drift to the stars by themselves
     const n = this.players.length;
     this.n = n;
     this.t = 0; this.t0 = 0;
@@ -453,15 +457,17 @@ export class Game {
         a.setPose('sleep');
       }
     } else if (U.state === 'air') {
-      // steer
-      U.vx = damp(U.vx, c.x * SPEED, 7, dt);
-      if (Math.abs(c.x) > 0.2) a.facing = c.x > 0 ? 1 : -1;
+      // steer (Easy: drift toward a star by yourself)
+      const auto = this.easy && !U.p.isAI;
+      const sx = auto ? this.easySteer(U) : c.x, sy = auto ? 0 : c.y;
+      U.vx = damp(U.vx, sx * SPEED, 7, dt);
+      if (Math.abs(sx) > 0.2) a.facing = sx > 0 ? 1 : -1;
       // let go -> dive under the covers
       const holding = c.held('a') || finale;
       if (!holding) U.letGo += dt; else U.letGo = 0;
-      if (!finale && (U.letGo > 0.12 || c.y > 0.65)) {
+      if (!finale && (U.letGo > 0.12 || sy > 0.65)) {
         if (!U.dive) { U.dive = true; a.setPose('tuck'); snd('bb-flop', 'whoosh', { vol: 0.25 }); }
-      } else if (U.dive && holding && c.y < 0.3) { U.dive = false; }
+      } else if (U.dive && holding && sy < 0.3) { U.dive = false; }
       // pillow bonk
       if (c.pressed('a') && U.swingCd <= 0 && !finale) this.swing(U);
     }
@@ -642,6 +648,24 @@ export class Game {
         else { B.level = Math.min(4, B.level + 1); B.vz = Math.sqrt(2 * G * 380 * LEVELS[B.level]); this.squash += 0.08; snd('bb-boing', 'boing', { vol: 0.15, semi: 4 + B.level }); }
       }
     }
+  }
+
+  /** Molly Easy (humans): pick a star nobody else is going for and drift under it. */
+  easySteer(U) {
+    if (!this.items.includes(U.easyItem)) U.easyItem = null;
+    if (!U.easyItem || chance(0.02)) {
+      let best = null, bd = 1e9;
+      for (const it of this.items) {
+        let d = Math.abs(it.x - U.x) + Math.abs(it.y - this.bodyY(U)) * 0.3 - (it.kind === 'gold' ? 150 : 0);
+        if (this.units.some((V) => V !== U && V.easyItem === it)) d += 600;
+        if (it === U.easyItem) d -= 120;
+        if (d < bd) { bd = d; best = it; }
+      }
+      U.easyItem = best;
+    }
+    const tx = U.easyItem ? U.easyItem.x : W / 2 + (U.i - (this.n - 1) / 2) * 160;
+    const dx = tx - U.x;
+    return Math.abs(dx) < 25 ? 0 : clamp(dx / 200, -1, 1) * 0.85;
   }
 
   // --- CPU ---------------------------------------------------------------------------------------------
@@ -884,7 +908,7 @@ export class Game {
     // first-time hints (pictures carry it; words are a bonus for grown-ups)
     let hint = null, glyph = null;
     if (this.round === 1 && this.phase === 'bounce' && this.t < 8) { hint = 'Hold A to bounce higher!'; glyph = 'a'; }
-    else if (this.round <= 2 && this.phase === 'warn' && !this.fake) hint = 'Someone\'s coming! Let go to hide!';
+    else if ((this.round <= 2 || this.easy) && this.phase === 'warn' && !this.fake) hint = 'Someone\'s coming! Let go to hide!';
     if (hint) {
       const w = ui.measure(g, hint, 40, 800) + (glyph ? 150 : 80);
       ui.panel(g, W / 2 - w / 2, H - 98, w, 72, { r: 36, fill: glyph ? '#fff8ec' : '#e6f7ff' });

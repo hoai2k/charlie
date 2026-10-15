@@ -81,6 +81,9 @@ export const meta = {
   goal: 'Madame shows a move... do the OPPOSITE and make her flustered!',
   controls: [['stick', 'Up = arms up, down = plié, left / right = step'], ['a', 'Twirl']],
   tips: ['The cheeky imp flips the card to show the opposite: up is down, left is right!', 'She twirls? Stand still like a statue. She stands still? Twirl!', 'A golden card means copy her for real!'],
+  goalEasy: 'Wait for the cheeky imp to flip the card, then press A to do the OPPOSITE!',
+  controlsEasy: [['a', 'Dance the flipped card']],
+  tipsEasy: ['Wait... wait... the card flips - press A!', 'A crossed-out A? Stand still like a statue!', 'Golden card? Press A straight away!'],
   music: 'dance',
   duration: '60 sec',
   minPlayers: 1,
@@ -115,6 +118,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
+    this.easy = !!api.easy;     // Molly Easy: A dances the flipped card's move (timing: wait for the flip)
     const n = this.players.length;
     this.n = n;
     this.t = 0;          // animation clock
@@ -252,6 +256,17 @@ export class Game {
   // --- moves -------------------------------------------------------------------
   readInput(d) {
     const c = d.p.ctrl;
+    if (this.easy && !d.p.isAI) {
+      // A (or X) does the move on the card: before the flip that's Madame's move (a funny oops),
+      // after the flip it's the opposite. Statue? Hands off!
+      if (!c.pressed('a') && !c.pressed('x')) return;
+      const b = this.beat;
+      if (this.phase === 'silly' || !b) this.doMove(d, pick(['up', 'down', 'left', 'right', 'twirl']));
+      else if (b.golden) this.doMove(d, b.move);
+      else if (!b.flipped) this.doMove(d, b.move);   // too soon: you copied Madame (oops!)
+      else this.doMove(d, b.ans === 'statue' ? 'twirl' : b.ans);
+      return;
+    }
     let dir = null;
     const m = Math.hypot(c.x, c.y);
     if (m > 0.55) dir = Math.abs(c.y) >= Math.abs(c.x) ? (c.y < 0 ? 'up' : 'down') : (c.x < 0 ? 'left' : 'right');
@@ -818,7 +833,8 @@ export class Game {
       const showAns = silly || b.golden || b.flipped;
       const col = silly ? '#ff7ac6' : b.golden ? '#ffd23f' : showAns ? MOVE_COL[b.ans] : '#d9cfe9';
       ui.panel(g, -130, -130, 260, 260, { r: 130, fill: 'rgba(255,255,255,0.88)', stroke: col, lineWidth: 8 });
-      if (silly) drawAnswerHint(g, ['up', 'left', 'down', 'right', 'twirl'][Math.floor(this.t * 2) % 5], 0, 0, 110, this.t);
+      if (this.easy && (silly || showAns)) this.drawEasyHint(g, silly ? 'twirl' : b.ans, 110);
+      else if (silly) drawAnswerHint(g, ['up', 'left', 'down', 'right', 'twirl'][Math.floor(this.t * 2) % 5], 0, 0, 110, this.t);
       else if (showAns) drawAnswerHint(g, b.ans, 0, 0, 110, this.t);
       else {
         // before the flip: a spinning swirl arrow and a big "?" (think: what's the opposite?)
@@ -827,6 +843,20 @@ export class Game {
       }
       g.restore();
     }
+  }
+
+  /** Easy hint: a big bouncing A ("now!"), or a crossed-out A on statue beats ("hands off"). */
+  drawEasyHint(g, ans, size) {
+    if (ans === 'statue') {
+      ui.glyph(g, 'a', 0, 0, size * 0.9);
+      g.save(); g.strokeStyle = '#ff5a7a'; g.lineWidth = size * 0.1; g.lineCap = 'round';
+      g.beginPath(); g.arc(0, 0, size * 0.66, 0, TAU); g.stroke();
+      g.beginPath(); g.moveTo(-size * 0.46, -size * 0.46); g.lineTo(size * 0.46, size * 0.46); g.stroke();
+      g.restore();
+      return;
+    }
+    const k = 1 + Math.abs(Math.sin(this.t * 9)) * 0.18;
+    g.save(); g.scale(k, k); ui.glyph(g, 'a', 0, 0, size * 1.1, { pulse: true }); g.restore();
   }
 
   drawImpAt(g, b) {
