@@ -40,6 +40,10 @@ export const meta = {
   goal: 'Plant seeds, water them and see what silly plant pops up!',
   controls: [['stick', 'Run around the garden'], ['a', 'Hold on dirt: plant, then water']],
   tips: ['Hold A by a patch: a seed goes in, then water it until it pops!', 'Watch out for the rolling pumpkin and the sneezy flower!', 'Water together to grow plants super fast.'],
+  // Easy (A only): you walk to the next patch by yourself.
+  goalEasy: 'Plant seeds, water them and see what silly plant pops up!',
+  controlsEasy: [['a', 'Hold: plant, then water']],
+  tipsEasy: ['You walk to a dirt patch all by yourself!', 'When the big A bounces, hold A to plant and water!', 'Keep holding until the plant pops up!'],
   music: 'bouncy',
   duration: '50 sec',
   minPlayers: 1,
@@ -62,6 +66,7 @@ const KIND_DECK = ['sunflower', 'carrot', 'strawberry', 'pumpkin', 'sneezy'];
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk to the next patch by themselves, hold A
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -93,6 +98,7 @@ export class Game {
       a.x = x; a.y = y; a.facing = x < W / 2 ? 1 : -1;
       const e = { p, a, i, x, y, vx: 0, vy: 0, pvx: 0, pvy: 0, base: a.scale, score: 0, watering: null, canT: 0, stun: 0, brain: new Brain(p), plot: null, wander: 0, wx: x, wy: y, holdOff: 0, popT: 0, popN: 0 };
       a.attach((g, info) => this.drawHeld(g, info, e));
+      if (this.easy && !p.isAI) e.ez = { plot: null, think: 0 };
       return e;
     });
   }
@@ -186,6 +192,7 @@ export class Game {
     e.stun = Math.max(0, e.stun - dt);
     e.popT = Math.max(0, e.popT - dt);
     let ix = playing && e.stun <= 0 ? c.x : 0, iy = playing && e.stun <= 0 ? c.y : 0;
+    if (e.ez) [ix, iy] = playing && e.stun <= 0 ? this.easyPilot(e, dt) : [0, 0];
     const len = Math.hypot(ix, iy); if (len > 1) { ix /= len; iy /= len; }
     const slow = e.watering ? 0.35 : 1;
     e.vx = approach(e.vx, ix * SPEED * slow, 4200 * dt);
@@ -560,6 +567,35 @@ export class Game {
     ctrl.hold('a', !!(near && e.holdOff <= 0 && this.wants(e.plot)));
   }
 
+  /** Molly Easy: walk a human to a patch that needs planting or watering (not
+   *  one another player is heading for) and stand beside it. Returns stick x/y. */
+  easyPilot(e, dt) {
+    const z = e.ez;
+    z.think -= dt;
+    if (e.watering && this.wants(e.watering)) z.plot = e.watering;
+    if (!z.plot || !this.wants(z.plot) || (z.think <= 0 && !e.watering && !this.nearPlot(e, z.plot))) {
+      z.think = 1.2;
+      let best = null, bs = Infinity;
+      for (const pl of this.plots) {
+        if (!this.wants(pl)) continue;
+        let sc = Math.hypot(pl.x - e.x, (pl.y - e.y) * 1.2) - (pl === z.plot ? 150 : 0);
+        if (pl.state !== 'empty') sc -= 100;
+        for (const o of this.ents) if (o !== e && (o.ez ? o.ez.plot : o.plot) === pl) sc += 500;
+        if (sc < bs) { bs = sc; best = pl; }
+      }
+      z.plot = best;
+    }
+    if (!z.plot) return [0, 0];
+    const side = z.plot.x > e.x ? -1 : 1;
+    const tx = z.plot.x + side * 75, ty = z.plot.y + 18;
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    if (d < 10 || (this.nearPlot(e, z.plot) && d < 40)) return [0, 0];
+    const k = clamp(d / 80, 0, 1) * 0.7;
+    return [(dx / d) * k, (dy / d) * k];
+  }
+
+  nearPlot(e, pl) { return Math.hypot(pl.x - e.x, (pl.y - e.y) * 1.4) < REACH * 0.9 && this.nearestPlot(e) === pl; }
+
   wants(pl) { return pl && (pl.state === 'empty' || pl.state === 'seed' || pl.state === 'sprout' || pl.state === 'bud'); }
 
   // -------------------------------------------------------------------- draw
@@ -601,7 +637,12 @@ export class Game {
     const showTags = !this.started || this.t - this.startT < 5;
     for (const e of this.ents) {
       if (!showTags && e.p.isAI) continue;
-      ui.playerTag(g, e.p, e.x, e.y - e.a.height - 24 - (e.a.emotes.length ? 50 : 0));
+      const top = e.y - e.a.height - 24 - (e.a.emotes.length ? 50 : 0);
+      ui.playerTag(g, e.p, e.x, top);
+      // Easy: a big bouncing A when standing at a patch that wants A
+      if (e.ez && this.phase === 'play' && !e.watering && e.stun <= 0 && e.ez.plot && this.nearPlot(e, e.ez.plot)) {
+        ui.glyph(g, 'a', e.x, top - 62 + Math.sin(this.t * 8) * 6, 58, { pulse: true });
+      }
     }
   }
 
