@@ -62,6 +62,9 @@ export const meta = {
   goal: 'Dance like crazy while Professor Hoot naps - FREEZE when he peeks!',
   controls: [['stick', 'Wiggle to dance'], ['a', 'Big jump-spin']],
   tips: ['Zzz = dance! When the snoring stops and his eye opens: let go and freeze!', 'Wild wiggles and spins earn more stars.', 'Caught? Grab your bouncing stars back!'],
+  goalEasy: 'Hold A to dance while Professor Hoot naps - let go to FREEZE when he peeks!',
+  controlsEasy: [['a', 'Hold to dance, let go to freeze']],
+  tipsEasy: ['Zzz = hold A and dance!', 'His eye opens? Let go of A - freeze!', 'Tap A for a big jump-spin!'],
   music: 'dance',
   duration: '60 sec',
   minPlayers: 1,
@@ -74,6 +77,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
+    this.easy = !!api.easy;     // Molly Easy: hold A = dance (moves by itself), let go = freeze
     const n = this.players.length;
     this.n = n;
     this.t = 0; this.t0 = 0;
@@ -122,6 +126,7 @@ export class Game {
   // --- helpers -------------------------------------------------------------------------
   active(U) {
     const c = U.p.ctrl;
+    if (this.easy && !U.p.isAI) return c.held('a') || c.pressed('a') || c.held('x') || c.pressed('x');
     if (Math.hypot(c.x, c.y) > 0.3) return true;
     for (const b of ['a', 'b', 'x', 'y']) if (c.held(b) || c.pressed(b)) return true;
     return false;
@@ -464,6 +469,7 @@ export class Game {
   danceInput(U, dt, act) {
     const c = U.p.ctrl, a = U.a;
     let ix = c.x, iy = c.y;
+    if (this.easy && !U.p.isAI) [ix, iy] = this.easyDance(U, dt, act);
     const mag = Math.hypot(ix, iy);
     if (mag > 1) { ix /= mag; iy /= mag; }
     const sp = SPEED * (U.p.isAI ? CPU_SPEED[clamp(U.p.aiLevel ?? 0, 0, 2)] / aiProfile(U.p).speed : 1);
@@ -611,6 +617,27 @@ export class Game {
         A.x -= dx * k; A.y -= (dy / 1.6) * k; B.x += dx * k; B.y += (dy / 1.6) * k;
       }
     }
+  }
+
+  /** Molly Easy (humans): while A is held the dancer picks its own moves, on the beat. */
+  easyDance(U, dt, act) {
+    if (!act) { U.edT = 0; return [0, 0]; }
+    U.edT = (U.edT || 0) - dt;
+    if (U.edT <= 0) {
+      U.edT = 0.34;
+      // dropped stars of yours nearby? boogie over to them
+      const star = this.danceOn && this.pickups.find((s) => !s.got && (s.owner === U || s.t > 2) && dist(U.x, U.y, s.x, s.y) < 520);
+      if (star) { const a = Math.atan2(star.y - U.y, star.x - U.x); U.edDir = [Math.cos(a), Math.sin(a)]; }
+      else {
+        // a new dance move each beat: side, up, other side, down... drifting back home
+        U.edStep = ((U.edStep ?? U.i) + 1) % 4;
+        const v = [[1, 0], [0, -1], [-1, 0], [0, 1]][U.edStep];
+        const hx = U.homeX - U.x, hy = U.homeY - U.y, hd = Math.hypot(hx, hy);
+        const pull = clamp(hd / 300, 0, 0.8);
+        U.edDir = [v[0] * (1 - pull) + (hd ? hx / hd : 0) * pull, v[1] * (1 - pull) + (hd ? hy / hd : 0) * pull];
+      }
+    }
+    return [U.edDir[0] * 0.8, U.edDir[1] * 0.8];
   }
 
   // --- CPU ---------------------------------------------------------------------------------
@@ -764,6 +791,12 @@ export class Game {
       ui.text(g, '!', 0, 0, { size: 60, color: '#ff4d6d', strokeWidth: 8 });
       g.restore();
     }
+    // Easy: Hoot is snoring and you're standing still - a bouncing A says "dance!"
+    if (this.easy && !U.p.isAI && this.danceOn && U.state !== 'caught' && !U.p.ctrl.held('a') && !U.p.ctrl.held('x')) {
+      const b = Math.abs(Math.sin(t * 8));
+      g.save(); g.translate(U.x + 70, U.y - U.z - a.height - 20 - b * 14); g.scale(1 + b * 0.15, 1 + b * 0.15);
+      ui.glyph(g, 'a', 0, 0, 50); g.restore();
+    }
     if (this.t < 5 || (!U.p.isAI && this.n > 1 && this.t < 12)) {
       const sc = this.n > 4 ? 0.8 : 0.95;
       g.save(); g.translate(U.x, U.y - U.z - a.height - 34); g.scale(sc, sc); ui.playerTag(g, U.p, 0, 0); g.restore();
@@ -801,8 +834,8 @@ export class Game {
     }
     // first-time hints (pictures carry it; words are a bonus for grown-ups)
     let hint = null, glyph = null, tone = '#fff8ec';
-    if (this.round === 1 && this.phase === 'snore' && this.t < 7) { hint = 'Shhh... dance while he snores!'; glyph = 'stick'; }
-    else if (this.round <= 2 && (this.phase === 'stir' || this.phase === 'look')) { hint = 'He\'s waking - FREEZE!'; tone = '#ffe3e8'; }
+    if (this.round === 1 && this.phase === 'snore' && this.t < 7) { hint = this.easy ? 'Shhh... hold to dance while he snores!' : 'Shhh... dance while he snores!'; glyph = this.easy ? 'a' : 'stick'; }
+    else if ((this.round <= 2 || this.easy) && (this.phase === 'stir' || this.phase === 'look')) { hint = this.easy ? 'He\'s waking - let go, FREEZE!' : 'He\'s waking - FREEZE!'; tone = '#ffe3e8'; }
     if (hint) {
       g.save();
       const w = ui.measure(g, hint, 40, 800) + (glyph ? 150 : 80);

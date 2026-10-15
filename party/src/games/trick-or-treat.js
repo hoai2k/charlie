@@ -61,6 +61,9 @@ export const meta = {
   goal: 'Knock on doors and fill your pumpkin bucket with candy!',
   controls: [['stick', 'Run along the street'], ['a', 'Knock on a door (or jump and spin!)']],
   tips: ['Knock where the porch light is on - everyone at the door gets candy!', 'Golden doors make a candy fountain!', 'When the Candy Ghost flies by, run and scoop up the candy!'],
+  goalEasy: 'You walk to the doors by yourself. Press A to knock and get candy!',
+  controlsEasy: [['a', 'Knock knock!']],
+  tipsEasy: ['You walk to a lit door all by yourself.', 'When the A bounces over the door, press A!', 'Golden doors make a candy fountain!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -73,6 +76,7 @@ export class Game {
   constructor(api) {
     this.api = api;
     this.players = api.players;
+    this.easy = !!api.easy;     // Molly Easy: humans auto-walk to lit doors, A knocks
     const n = this.players.length;
     this.n = n;
     this.t = 0; this.t0 = 0;
@@ -165,6 +169,7 @@ export class Game {
     const p = U.p, a = U.a;
     U.spinCd = Math.max(0, U.spinCd - dt); U.laughT = Math.max(0, U.laughT - dt); U.dizzy = Math.max(0, U.dizzy - dt);
     let mx = p.ctrl.x, my = p.ctrl.y;
+    if (this.easy && !p.isAI) [mx, my] = this.easyMove(U, dt);
     const mag = Math.hypot(mx, my);
     if (mag > 1) { mx /= mag; my /= mag; }
     const sp = SPEED * (U.dizzy > 0 ? 0.35 : 1);
@@ -517,6 +522,46 @@ export class Game {
     });
   }
 
+  // --- Molly Easy (humans): walk by yourself, A knocks ----------------------------------
+  easyMove(U, dt) {
+    // scoop candy lying close by first (the Candy Ghost's rain, fountain spills)
+    let best = null, bd = 300;
+    for (const c of this.spills) {
+      if (c.gone || c.toPile || !c.landed) continue;
+      const d = Math.hypot(c.tx - U.x, (c.ty - U.y) * 1.3);
+      if (d < bd) { bd = d; best = c; }
+    }
+    if (best) return this.easyToward(U, best.tx, best.ty, 0.8);
+    const cur = U.easyDoor;
+    // stay at a lit door until A; leave a door once it has finished giving
+    const stale = !cur || (cur.state === 'rest' && cur.st > 0.3) || (cur.state === 'ready' && cur !== this.doorAt(U) && this.units.some((o) => o !== U && o.easyDoor === cur && this.inZone(o, cur)));
+    U.easyRe = (U.easyRe || 0) - dt;
+    if (stale || (U.easyRe <= 0 && cur.state !== 'ready' && !this.inZone(U, cur))) {
+      U.easyRe = 0.5;
+      let bs = Infinity, pickD = null;
+      for (const d of this.doors) {
+        let s = Math.abs(d.x - U.x);
+        if (d.state === 'rest') s += 300 + Math.max(0, d.restT - d.st) * 350;
+        else if (d.state !== 'ready') s += 700;
+        if (d.gold) s -= 500;
+        s += this.units.filter((o) => o !== U && !o.p.isAI && o.easyDoor === d).length * 600;   // spread the kids out
+        if (s < bs) { bs = s; pickD = d; }
+      }
+      U.easyDoor = pickD; U.easySlotY = rand(WALK.y0 + 20, 860);
+    }
+    const d = U.easyDoor;
+    if (!d) return [0, 0];
+    if (this.inZone(U, d) && Math.abs(U.x - d.x) < 60) return [0, 0];
+    return this.easyToward(U, d.x + (U.i % 3 - 1) * 30, U.easySlotY, 0.85);
+  }
+
+  easyToward(U, tx, ty, sp) {
+    const dx = tx - U.x, dy = ty - U.y, d = Math.hypot(dx, dy);
+    if (d < 12) return [0, 0];
+    const k = clamp(d / 50, 0, 1) * sp;
+    return [(dx / d) * k, (dy / d) * k];
+  }
+
   // --- CPU -----------------------------------------------------------------------------
   ai(U, dt) {
     const p = U.p, A = U.ai, lvl = clamp(p.aiLevel ?? 0, 0, 2);
@@ -659,7 +704,7 @@ export class Game {
       g.restore();
     }
     if (this.phase === 'play' && this.t < 7) {
-      const hint = 'Knock on a lit door with';
+      const hint = this.easy ? 'At a lit door, press' : 'Knock on a lit door with';
       g.save();
       g.globalAlpha = clamp((7 - this.t) / 0.5, 0, 1);
       const w = ui.measure(g, hint, 38, 800) + 150;
