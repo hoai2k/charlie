@@ -10,7 +10,7 @@ import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawEmote } from '../engine/emotes.js';
 import { GAMES, PARTY_PAGES, STUDIO_PAGES, MOLLY_GAMES } from '../games/index.js';
-import { session, restoreRoster, setMollyLevel } from '../state.js';
+import { session, restoreRoster, setMollyLevel, mollyEasy } from '../state.js';
 import { drawGameIcon } from './common.js';
 import { shuffle, pick, ease, clamp } from '../engine/util.js';
 
@@ -403,9 +403,10 @@ export class GameSelectScene {
       ui.text(g, m.title, x + w / 2, y + 370, { size: 50, color: m.category === 'studio' ? '#9b5cff' : m.category === 'molly' ? MOLLY_DEEP : '#ff4d6d', maxWidth: w - 40 });
       ui.text(g, m.type || '', x + w / 2, y + 420, { size: 30, color: '#6b5a85', stroke: false });
       let yy = y + 480;
-      for (const line of ui.wrap(g, m.goal || '', w - 70, 34, 700)) { ui.text(g, line, x + w / 2, yy, { size: 34, color: '#24163f', stroke: false, weight: 700 }); yy += 44; }
+      const easy = mollyEasy(m), how = (k) => (easy && m[k + 'Easy']) || m[k];   // Molly Easy how-to
+      for (const line of ui.wrap(g, how('goal') || '', w - 70, 34, 700)) { ui.text(g, line, x + w / 2, yy, { size: 34, color: '#24163f', stroke: false, weight: 700 }); yy += 44; }
       yy += 16;
-      for (const [btn, label] of (m.controls || []).slice(0, 4)) {
+      for (const [btn, label] of (how('controls') || []).slice(0, 4)) {
         if (yy > y + h - 90) break; // keep clear of the footer line
         ui.glyph(g, btn, x + 60, yy, 40);
         ui.text(g, label, x + 96, yy + 2, { size: 28, align: 'left', color: '#24163f', stroke: false, weight: 600, maxWidth: w - 120 });
