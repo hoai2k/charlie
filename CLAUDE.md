@@ -116,6 +116,9 @@ hook to get round it.
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
   and resume notes, then `party/PLAN.md`.
+- `party/intake/` is the owner's drop folder for new files (songs, sounds,
+  art). Integrate each into its proper place and remove it from the folder in
+  the same commit; see `party/intake/README.md`.
 - `party/image-requests.md` keeps only standing guidance and open requests.
   Fielded requests (delivered and checked in game, or resolved/dropped)
   always move to `party/image-requests-history.md`, newest first.
