@@ -113,13 +113,33 @@ export function drawMoon(g, x, y, size, t, happy) {
   g.fillStyle = 'rgba(255,120,160,0.5)'; g.beginPath(); g.arc(fx + 12, fy + 2, 7, 0, TAU); g.fill();
 }
 
+// The delivered prop/ff-jar (320x400) has a see-through glass body, so the fill
+// behind it must stay inside the glass. Its outer silhouette from the neck rim
+// (row 148) down to the base, traced from the alpha and inset 7 px so the
+// fill's edge tucks under the ~11 px painted outline. Pixels from the centre.
+const JAR_ART = { w: 320, h: 400, top: -52, bottom: 158 };
+const JAR_GLASS = [
+  -98, -52, -105, -44, -113, -32, -119, -20, -124, -8, -127, 4, -129, 16, -130, 28, -131, 40, -130, 52,
+  -128, 64, -126, 76, -122, 88, -117, 100, -111, 112, -103, 124, -94, 136, -87, 148, -72, 160, -61, 164,
+  60, 164, 70, 160, 85, 148, 93, 136, 102, 124, 110, 112, 116, 100, 121, 88, 125, 76, 127, 64,
+  129, 52, 129, 40, 129, 28, 128, 16, 126, 4, 123, -8, 118, -20, 112, -32, 104, -44, 97, -52,
+];
+
 /** Jar centred at (x, y), size w x h; fill 0..1 drawn behind the glass. */
 export function drawJar(g, x, y, w, h, fill, t, wob = 0) {
   g.save(); g.translate(x, y); g.rotate(Math.sin(t * 18) * wob * 0.12); g.scale(1 + wob * 0.1, 1 - wob * 0.08);
-  const bx = -w * 0.42, by = -h * 0.32, bw = w * 0.84, bh = h * 0.78;
+  let bx = -w * 0.42, by = -h * 0.32, bw = w * 0.84, bh = h * 0.78;
   // glowing fill (behind the glass)
   g.save();
-  roundRectPath(g, bx, by, bw, bh, w * 0.22); g.clip();
+  const img = art('prop/ff-jar');
+  if (img) {
+    // same contain fit drawArt uses, in the art's 320x400 pixel space
+    const k = Math.min(w / img.width, h / img.height) * (img.width / JAR_ART.w);
+    g.beginPath();
+    for (let i = 0; i < JAR_GLASS.length; i += 2) g.lineTo(JAR_GLASS[i] * k, JAR_GLASS[i + 1] * k);
+    g.closePath(); g.clip();
+    bx = -131 * k; bw = 262 * k; by = JAR_ART.top * k; bh = (JAR_ART.bottom - JAR_ART.top) * k;
+  } else { roundRectPath(g, bx, by, bw, bh, w * 0.22); g.clip(); }
   g.fillStyle = 'rgba(255,255,255,0.18)'; g.fillRect(bx, by, bw, bh);
   const fh = bh * Math.min(1, fill), fy = by + bh - fh;
   if (fh > 0) {

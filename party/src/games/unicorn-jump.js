@@ -767,8 +767,12 @@ export class Game {
       g.restore();
       // rider, clipped at the saddle so they sit astride
       const seatY = my - SADDLE * s + 12 * s - bob * 0.5;
+      // The seam tilts with the unicorn (and the blanket below), so the cut
+      // stays hidden under the blanket's whole length during hops.
       g.save();
-      g.beginPath(); g.rect(0, -400, W, seatY + 400); g.clip();
+      g.translate(e.x, seatY); g.rotate(tilt);
+      g.beginPath(); g.rect(-W, -seatY - 800, 2 * W, seatY + 800); g.clip();
+      g.rotate(-tilt); g.translate(-e.x, -seatY);
       a.draw(g, { shadow: false });
       g.restore();
       // saddle blanket over the seam
