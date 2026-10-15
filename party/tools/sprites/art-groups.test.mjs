@@ -98,7 +98,7 @@ try {
     '../engine/particles.js': 'export const particles={clear(){},draw(){}};',
     '../engine/fx.js': 'export const fx={flash(){}};',
     '../engine/ui.js': 'const t=globalThis.__playArtTest; export const sky=t.noop,text=t.text,countdown=t.noop;',
-    '../state.js': 'export const session=globalThis.__playArtTest.session; export const sitOut=()=>{};',
+    '../state.js': 'export const session=globalThis.__playArtTest.session; export const sitOut=()=>{}; export const mollyEasy=()=>false;',
     '../games/index.js': 'export const gameById=globalThis.__playArtTest.gameById;',
     '../engine/camera.js': 'export class Camera {flyIn(){} update(){} tickPunch(){}}',
     '../engine/corner.js': 'export const corner=globalThis.__playArtTest.corner;',
