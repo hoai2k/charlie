@@ -36,6 +36,10 @@ export const meta = {
   goal: 'Swim and grab pearls to fill the treasure chest together!',
   controls: [['stick', 'Swim'], ['a', 'Zoom! (and tickle the octopus)']],
   tips: ['Swim into open clams to grab their pearls.', 'Press A next to the sleepy octopus to tickle it - it throws pearls!', 'Bubble currents whoosh you up. Wheee!'],
+  // Molly Easy: you swim by yourself (slowly) toward pearls; A zooms to grab them
+  goalEasy: 'You swim by yourself to the pearls. Press A to ZOOM and grab them!',
+  controlsEasy: [['a', 'Zoom! (and tickle the octopus)']],
+  tipsEasy: ['Press A when the big A pops up: ZOOM!', 'Next to the sleepy octopus? Press A again and again to tickle it!'],
   music: 'chill',
   duration: '60 sec',
   minPlayers: 1,
@@ -78,6 +82,7 @@ const FISH_COLS = [['#ffd23f', '#3fa7ff'], ['#ff8fc7', '#ffc2e6'], ['#ff9f1c', '
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans swim by themselves; A zooms at the target
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0;
@@ -106,6 +111,7 @@ export class Game {
       return {
         p, a, i, x: a.x, y: a.y, vx: 0, vy: 0, zoom: 0, zoomCd: 0, pearls: 0, fish: [], hist: [], popN: 0, popT: 0,
         boing: 0, current: 0, spin: 0, brain: new Brain(p), target: null, tx: a.x, ty: a.y, wander: 0, bub: 0, tickleCd: 0,
+        auto: this.easy && !p.isAI ? { ix: 0, iy: 0, dx: 1, dy: 0, target: null, t: 0, near: false } : null,
       };
     });
   }
@@ -130,6 +136,7 @@ export class Game {
     this.updateEvents(dt);
     for (const e of this.ents) {
       if (e.p.isAI && !this.finale) this.aiThink(e, dt);
+      if (e.auto && !this.finale) this.easyThink(e, dt);
       this.swim(e, dt);
     }
     this.pushApart(dt);
@@ -383,7 +390,7 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt); e.boing = Math.max(0, e.boing - dt); e.tickleCd = Math.max(0, e.tickleCd - dt);
     e.spin = Math.max(0, e.spin - dt);
     const live = !this.finale && !this.done;
-    let ix = live ? p.ctrl.x : 0, iy = live ? p.ctrl.y : 0;
+    let ix = live ? (e.auto ? e.auto.ix : p.ctrl.x) : 0, iy = live ? (e.auto ? e.auto.iy : p.ctrl.y) : 0;
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     if (this.finale) {
       // everyone swims over to admire the chest
@@ -398,6 +405,7 @@ export class Game {
       if (dist(e.x, e.y, o.x, o.y - 90) < 260 && e.tickleCd <= 0) this.tickle(e);
       if (e.zoomCd <= 0) {
         let dx = ix, dy = iy;
+        if (e.auto) { dx = e.auto.dx; dy = e.auto.dy; }   // Molly Easy: zoom straight at the target
         if (Math.hypot(dx, dy) < 0.2) { dx = a.facing; dy = 0; }
         const dd = Math.hypot(dx, dy);
         e.vx = dx / dd * ZOOM; e.vy = dy / dd * ZOOM;
@@ -408,7 +416,7 @@ export class Game {
         if (!p.isAI) p.ctrl.rumble(0.25, 60);
       }
     }
-    const max = SWIM * (this.storm ? 1.08 : 1) * (p.isAI ? [0.72, 0.8, 0.86][clamp(p.aiLevel ?? 0, 0, 2)] : 1);
+    const max = SWIM * (this.storm ? 1.08 : 1) * (p.isAI ? [0.72, 0.8, 0.86][clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? 0.42 : 1);
     if (e.zoom <= 0) {
       const ax = ix * max, ay = iy * max;
       const acc = 2600;
@@ -514,6 +522,48 @@ export class Game {
     particles.popText(e.x + (lvl === 1 ? 40 : lvl === 2 ? -40 : 0), e.y - e.a.height - 20 - lvl * 44, str, color, size);
   }
 
+  // ------------------------------------------------------------- Molly Easy
+  /** Easy (A only): drift slowly toward the best pearl / open clam / the octopus;
+   * A zooms straight at it. `near` = a zoom would grab it now (the big A shows). */
+  easyThink(e, dt) {
+    const au = e.auto;
+    const ey = e.y - e.a.height * 0.4;
+    au.t -= dt;
+    const tg = au.target;
+    const gone = !tg || (tg.kind === 'pearl' && (tg.ref.got || tg.ref.life <= 0)) || (tg.kind === 'clam' && !tg.ref.pearl)
+      || (tg.kind === 'octo' && (this.octo.awake > 0 || this.octo.cool > 0));
+    if (gone || au.t <= 0) {
+      au.t = 0.7;
+      let best = null;
+      const consider = (c) => {
+        // spread out: someone else closer or already heading there
+        for (const f of this.ents) if (f !== e && ((f.auto && f.auto.target && f.auto.target.ref === c.ref) || dist(f.x, f.y, c.x, c.y) < dist(e.x, e.y, c.x, c.y) * 0.6)) c.u *= 0.45;
+        if (tg && c.ref === tg.ref) c.u *= 1.4;   // keep going where we were going
+        if (!best || c.u > best.u) best = c;
+      };
+      for (const c of this.clams) {
+        if (!c.pearl && c.state !== 'closed') continue;
+        const soon = c.state === 'open' || c.state === 'opening' ? 0 : c.t;
+        consider({ ref: c, kind: 'clam', x: c.x, y: c.y - 50, u: (c.pearl?.gold ? 2 : 1) / (0.4 + dist(e.x, ey, c.x, c.y - 50) / 500 + soon * 0.5) });
+      }
+      for (const pr of this.pearls) consider({ ref: pr, kind: 'pearl', x: pr.x, y: pr.y, u: (pr.gold ? 2.5 : 1.3) / (0.4 + dist(e.x, ey, pr.x, pr.y) / 500) });
+      const o = this.octo;
+      if (o.awake <= 0 && o.cool <= 0) consider({ ref: o, kind: 'octo', x: o.x + (e.x < o.x ? -150 : 150), y: o.y - 140, u: (0.9 + o.tickles * 0.5) / (0.5 + dist(e.x, ey, o.x, o.y) / 600) });
+      au.target = best;
+    }
+    const t = au.target;
+    au.ix = 0; au.iy = 0; au.near = false;
+    if (!t) return;
+    if (t.kind === 'pearl') { t.x = t.ref.x; t.y = t.ref.y; }
+    const dx = t.x - e.x, dy = t.y - ey, d = Math.hypot(dx, dy) || 1;
+    au.dx = dx / d; au.dy = dy / d;
+    if (d > 30) { const k = clamp(d / 120, 0, 1); au.ix = au.dx * k; au.iy = au.dy * k; }
+    const o = this.octo;
+    if (t.kind === 'octo') au.near = dist(e.x, e.y, o.x, o.y - 90) < 260 && e.tickleCd <= 0;
+    else if (t.kind === 'clam') au.near = (t.ref.state === 'open' || t.ref.state === 'opening') && d < 520 && e.zoomCd <= 0;
+    else au.near = d < 520 && e.zoomCd <= 0;
+  }
+
   // ---------------------------------------------------------------------- AI
   aiThink(e, dt) {
     const p = e.p, prof = aiProfile(p), ctrl = p.ctrl;
@@ -602,6 +652,22 @@ export class Game {
     if (this.rainbowFish) this.drawRainbowFish(g, this.rainbowFish);
     for (const f of this.fliers) this.drawFlier(g, f);
     for (const e of order) ui.playerTag(g, e.p, e.x, e.a.y - e.a.height - 22 - (e.a.emotes.length ? 50 : 0));
+    if (this.easy && !this.finale && !this.done) this.drawEasyHints(g);
+  }
+
+  /** Molly Easy: a ring on where you're swimming, and a big A when a zoom would grab it. */
+  drawEasyHints(g) {
+    const t = this.t;
+    for (const e of this.ents) {
+      const au = e.auto;
+      if (!au || !au.target) continue;
+      const tg = au.target, pulse = 0.5 + 0.5 * Math.sin(t * 10 + e.i);
+      g.save();
+      g.strokeStyle = au.near ? '#ffd23f' : e.p.color; g.lineWidth = au.near ? 8 : 6; g.globalAlpha = au.near ? 0.7 + 0.3 * pulse : 0.6;
+      g.beginPath(); g.arc(tg.x, tg.y, (tg.kind === 'octo' ? 90 : 56) + pulse * 8, 0, TAU); g.stroke();
+      g.restore();
+      if (au.near) ui.glyph(g, 'a', e.x + e.a.facing * 70, e.a.y - e.a.height - 90 + Math.sin(t * 9) * 6, 84, { pulse: true });
+    }
   }
 
   drawHUD(g) {
