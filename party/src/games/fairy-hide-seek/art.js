@@ -22,6 +22,24 @@ export const SPOTS = {
   boot: { w: 180, h: 200 },
 };
 
+// Where a wiggling spot's hider tucks in, fitted to the delivered art at the SPOTS
+// box size (origin = bottom centre, -y up). Fairy: body-centre height `fy`, and the
+// distance from centre on each side (l, r) at which exactly half of her shows past
+// the art's painted edge (measured by pixel coverage); 38 px further in she is fully
+// hidden. Frog: [x, feet y] per side so just his eyes clear the art's top edge.
+export const PEEK = {
+  'flower-pink': { fy: -182, l: 77, r: 79, frog: [[-32, -208], [32, -210]] },
+  'flower-yellow': { fy: -168, l: 88, r: 87, frog: [[-32, -210], [32, -209]] },
+  mushroom: { fy: -118, l: 98, r: 98, frog: [[-34, -150], [34, -150]] },
+  leaf: { fy: -88, l: 99, r: 102, frog: [[-38, -88], [38, -101]] },
+  teapot: { fy: -72, l: 90, r: 99, frog: [[-36, -105], [36, -105]] },
+  can: { fy: -55, l: 87, r: 69, frog: [[-36, -92], [36, -72]] },
+  pot: { fy: -115, l: 82, r: 89, frog: [[-32, -127], [32, -131]] },
+  boot: { fy: -130, l: 33, r: 48, frog: [[2, -144], [22, -140]] },   // art sits right of centre
+};
+/** The measured peek data for a spot type, or null when its art isn't loaded. */
+export function peekFor(type) { return art('prop/fhs-' + type) ? PEEK[type] : null; }
+
 // --- glow ----------------------------------------------------------------------
 const glowCache = new Map();
 export function glow(g, x, y, r, color, alpha = 1) {
