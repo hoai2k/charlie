@@ -76,7 +76,7 @@ export const meta = {
   goalEasy: 'Walk to the basket, then to a chair. Press A when the A shows. PFFFT!',
   controlsEasy: [['a', 'Grab a cushion / put it on a chair']],
   tipsEasy: ['You walk all by yourself!', 'Press A when the big A bounces.', 'At the end, tap A to push the golden cushion!'],
-  music: 'bouncy',
+  music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

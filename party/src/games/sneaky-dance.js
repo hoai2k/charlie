@@ -65,7 +65,7 @@ export const meta = {
   goalEasy: 'Hold A to dance while Professor Hoot naps - let go to FREEZE when he peeks!',
   controlsEasy: [['a', 'Hold to dance, let go to freeze']],
   tipsEasy: ['Zzz = hold A and dance!', 'His eye opens? Let go of A - freeze!', 'Tap A for a big jump-spin!'],
-  music: 'dance',
+  music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

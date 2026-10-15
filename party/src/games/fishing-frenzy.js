@@ -58,7 +58,7 @@ export const meta = {
     'Tap A fast to reel it in!',
     'Big fish and golden fish are worth lots of points.',
   ],
-  music: 'chill',
+  music: 'splash',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

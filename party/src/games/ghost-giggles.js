@@ -38,7 +38,7 @@ export const meta = {
   goalEasy: 'You walk to the ghosts by yourself. Press A to tickle them colourful!',
   controlsEasy: [['a', 'Tickle!'], ['x', 'New costume']],
   tipsEasy: ['Press A when the big A bounces over a ghost.', 'At a window? Press A for a Peekaboo!', 'Press X for a new costume.'],
-  music: 'dance',
+  music: 'spooky',
   duration: '50 sec',
   minPlayers: 1,
   maxPlayers: 8,

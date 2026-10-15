@@ -42,7 +42,7 @@ export const meta = {
     'Hit by a slam? You drop half your gems - grab them back!',
     'When the Troll naps, it is gem-grabbing time.',
   ],
-  music: 'chase',
+  music: 'spooky',
   duration: '45 sec',
   minPlayers: 1,
   maxPlayers: 8,

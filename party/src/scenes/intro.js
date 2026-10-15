@@ -43,6 +43,7 @@ export class IntroScene {
     this.go = null;
     this.molly = this.meta.category === 'molly' ? new MollySeats(this.meta) : null;
     if (this.molly) music.molly(); else music.menu();
+    try { if (this.meta.music) music.preload(this.meta.music); } catch (e) { /* optional */ }   // recording-only songs start without a gap
     const n = session.players.length;
     const spacing = Math.min(220, (W - 160) / n);
     this.actors = session.players.map((p, i) => {

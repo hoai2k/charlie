@@ -72,7 +72,7 @@ export const meta = {
     'Whole team on the beat = TEAM HEAVE!',
     'Win 2 of 3 pulls. A smaller team pulls extra hard.',
   ],
-  music: 'bouncy',
+  music: 'gameon',
   duration: '~1 min',
   minPlayers: 1,
   maxPlayers: 8,

@@ -14,14 +14,19 @@ from prompts import SONGS
 D = os.path.dirname(os.path.abspath(__file__))
 REPO_AUDIO = '/home/user/charlie/party/assets/audio'
 BARS = {'dance': [32, 16], 'menu': [24, 32, 16], 'chill': [24, 16], 'chase': [32, 40, 24], 'tense': [24, 32, 16],
-        'bouncy': [24, 32, 16], 'victory': [16, 24, 32], 'title': [24, 32, 16], 'rhythm-1': [32, 16]}
-PREF = {'dance': 32, 'menu': 24, 'chill': 24, 'chase': 32, 'bouncy': 24, 'tense': 24, 'victory': 24, 'title': 24}
+        'bouncy': [24, 32, 16], 'victory': [16, 24, 32], 'title': [24, 32, 16], 'rhythm-1': [32, 16],
+        'gameon': [48, 40, 32], 'cozy': [32, 24, 16], 'runway': [48, 40, 32], 'splash': [24, 16], 'spooky': [32, 24, 16], 'sneaky': [16, 24, 12]}
+PREF = {'dance': 32, 'menu': 24, 'chill': 24, 'chase': 32, 'bouncy': 24, 'tense': 24, 'victory': 24, 'title': 24,
+        'gameon': 48, 'cozy': 32, 'runway': 48, 'splash': 24, 'spooky': 32, 'sneaky': 16}
 PRE, POST = 0.2, 0.2   # wrap-around padding (s) before loopStart / after loopEnd
 TARGET_LUFS, CEIL = -16.0, -2.0
 
 ap = argparse.ArgumentParser()
 ap.add_argument('name'); ap.add_argument('--bars', type=int); ap.add_argument('--start', type=int)
 ap.add_argument('--dry', action='store_true'); ap.add_argument('--out')
+ap.add_argument('--nostretch', action='store_true', help='keep the recording\'s own tempo (the tempo measure can be fooled by swing)')
+ap.add_argument('--lag', type=float, help='loop length in seconds from self-similarity (songs without a steady bar grid)')
+ap.add_argument('--at', type=float, help='with --lag: loop start in seconds')
 A = ap.parse_args()
 name = A.name; song = name.rsplit('-', 1)[0]; tgt = SONGS[song]['bpm']
 SR = mlib.SR
@@ -59,7 +64,7 @@ if abs(bpm0 / tgt - 1) > 0.06:
     print('REJECT: tempo off by more than 6%'); sys.exit(2)
 loop_guess = max(BARS[song]) * 4 * 60 / tgt
 drift_over_loop = abs(1 - tgt / bpm0) * loop_guess * 1000
-if drift_over_loop > 3.0:
+if drift_over_loop > 3.0 and not A.nostretch and not A.lag:
     ratio = tgt / bpm0
     st = os.path.join(D, 'work', name + '-stretch.wav'); os.makedirs(os.path.dirname(st), exist_ok=True)
     mlib.stretch(raw, st, ratio)
@@ -161,9 +166,12 @@ if not cand: print('NO CANDIDATE'); sys.exit(3)
 _, seamcost, N, s, _, _ = cand[0]
 log['loop'] = dict(bars=N, start_bar=s, seam_cost=round(seamcost, 3), typical_bar_dist=round(float(typical), 4))
 
+if A.lag:
+    s_sec = A.at; N = 0; per = 60 / bpm
+    log['loop'] = dict(lag=A.lag, at=A.at)
 # ---- 5. build loop with crossfade of the material past the end into the head
-S = int(round(bar_times[s] * SR))
-L = int(round(N * 4 * per * SR))
+S = int(round((A.at if A.lag else bar_times[s]) * SR))
+L = int(round((A.lag if A.lag else N * 4 * per) * SR))
 E = S + L
 X = int(round(per * SR))  # one beat, at the END of the loop: tail -> material that preceded the start
 a = x[S - X:S].astype(np.float64); b = x[E - X:E].astype(np.float64)

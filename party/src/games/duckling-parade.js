@@ -41,7 +41,7 @@ export const meta = {
   goalEasy: 'You walk round the pond by yourself - quack with A to call the lost ducklings!',
   controlsEasy: [['a', 'Quack call']],
   tipsEasy: ['When a duckling sparkles and the A pops up, press A!', 'Every lap you pass Mama\'s nest and your ducklings go home.', 'Catch the sparkly golden duckling for 3!'],
-  music: 'bouncy',
+  music: 'splash',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

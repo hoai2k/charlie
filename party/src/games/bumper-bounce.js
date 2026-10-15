@@ -33,7 +33,7 @@ export const meta = {
   goal: 'Bump everyone off the floating cake!',
   controls: [['stick', 'Slide around'], ['a', 'Hip bump!']],
   tips: ['You slide on the frosting - steer early!', 'Slide in with a hip bump to knock friends off!', 'The edge crumbles - stay near the middle!'],
-  music: 'bouncy',
+  music: 'gameon',
   duration: 'Up to 60 sec',
   minPlayers: 1,
   maxPlayers: 8,

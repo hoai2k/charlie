@@ -69,7 +69,7 @@ export const meta = {
   goalEasy: 'Hold A to tiptoe to a prank basket and then to the troll - let go when he stirs!',
   controlsEasy: [['a', 'Hold: tiptoe, grab and prank'], ['a', 'Let go: freeze like a bush']],
   tipsEasy: ['Hold A and you tiptoe where the arrow points!', 'When the "!" pops up, LET GO of A and you turn into a bush!', 'Three feather tickles make him sneeze!'],
-  music: 'chill',
+  music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

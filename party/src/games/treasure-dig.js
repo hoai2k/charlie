@@ -72,7 +72,7 @@ export const meta = {
     'Found a treasure chest? Dig it with a friend - together counts double!',
     'Gold Rush at the end: extra treasure, and the crown shows up more!',
   ],
-  music: 'bouncy',
+  music: 'gameon',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

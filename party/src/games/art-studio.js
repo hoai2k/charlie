@@ -29,7 +29,7 @@ export const meta = {
   controls: [['stick', 'Move your paintbrush'], ['a', 'Hold to paint'], ['x', 'Change tool (or D-pad up/down)'], ['rb', 'Color / stamp (LB/RB or D-pad left/right)'], ['y', 'Brush size']],
   cornerControls: { at: 'br', items: [['a', 'Paint'], ['x', 'Tool'], ['rb', 'Color'], ['y', 'Size'], ['b', 'Undo']] },
   tips: ['B takes back your last stroke.', 'Go to "Done!" at the top when your picture is finished.', 'In the museum, press X to save your picture.'],
-  music: 'chill',
+  music: 'cozy',
   duration: 'as long as you like',
   minPlayers: 1,
   maxPlayers: 8,

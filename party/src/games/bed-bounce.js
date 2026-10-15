@@ -58,7 +58,7 @@ export const meta = {
   goalEasy: 'Hold A to bounce on the bed and grab stars - let go to hide when Nanny Moo comes!',
   controlsEasy: [['a', 'Hold: bounce higher! Let go: hide']],
   tipsEasy: ['Hold A - you float to the stars by yourself!', 'Light under the door + thump thump = let go of A!', 'Tap A in the air for a pillow bonk!'],
-  music: 'bouncy',
+  music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

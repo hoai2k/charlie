@@ -1274,6 +1274,48 @@
    "loopEnd": 43.836372,
    "label": "Victory",
    "take": 2
+  },
+  "gameon": {
+   "file": "music/takes/gameon-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 82.401905,
+   "label": "Game On Dash",
+   "take": 1
+  },
+  "cozy": {
+   "file": "music/takes/cozy-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 62.812109,
+   "label": "Cozy Craft Time",
+   "take": 1
+  },
+  "runway": {
+   "file": "music/takes/runway-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 78.869592,
+   "label": "Runway Glam",
+   "take": 1
+  },
+  "splash": {
+   "file": "music/takes/splash-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 55.566803,
+   "label": "Splash Lagoon",
+   "take": 1
+  },
+  "spooky": {
+   "file": "music/takes/spooky-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 58.258299,
+   "label": "Spooky Scramble",
+   "take": 1
+  },
+  "sneaky": {
+   "file": "music/takes/sneaky-1.mp3",
+   "loopStart": 0.2,
+   "loopEnd": 38.597007,
+   "label": "Sneaky Tiptoes",
+   "take": 1
   }
  }
 }

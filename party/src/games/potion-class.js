@@ -60,7 +60,7 @@ export const meta = {
   goal: 'Brew Professor Hoot\'s recipes and see what magic happens!',
   controls: [['stick', 'Pick an ingredient / stir in circles'], ['a', 'Toss it in'], ['b', 'Oops! Take it out'], ['y', 'Wave your wand: POOF!']],
   tips: ['Match the ingredients on the chalkboard.', 'Spin the stick round and round to stir.', 'The last round is a free experiment!'],
-  music: 'chill',
+  music: 'spooky',
   duration: '3 recipes',
   minPlayers: 1,
   maxPlayers: 8,

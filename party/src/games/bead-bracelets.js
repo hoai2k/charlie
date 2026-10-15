@@ -33,7 +33,7 @@ export const meta = {
   goal: 'Finish each customer\'s bead pattern, then design your own sparkly jewelry!',
   controls: [['stick', 'Pick a bead'], ['lb', 'Slide along the tray'], ['a', 'Thread the bead'], ['b', 'Take the last bead off'], ['y', 'Show me! (hint) / Done'], ['x', 'Beads or charms']],
   tips: ['Look at the card: what comes next?', 'Press Y and the next bead sparkles.', 'Last round: make anything you like, then twirl!'],
-  music: 'chill',
+  music: 'cozy',
   duration: 'about 3 min',
   minPlayers: 1,
   maxPlayers: 8,

@@ -45,7 +45,7 @@ export const meta = {
   goalEasy: 'You walk to the pumpkins by yourself. Press A to boop them!',
   controlsEasy: [['a', 'Boop!']],
   tipsEasy: ['Press A when the big A bounces. Boop boop!', 'Golden pumpkins make it rain candy for everyone!'],
-  music: 'bouncy',
+  music: 'spooky',
   duration: '45 sec',
   minPlayers: 1,
   maxPlayers: 8,

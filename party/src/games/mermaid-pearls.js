@@ -40,7 +40,7 @@ export const meta = {
   goalEasy: 'You swim by yourself to the pearls. Press A to ZOOM and grab them!',
   controlsEasy: [['a', 'Zoom! (and tickle the octopus)']],
   tipsEasy: ['Press A when the big A pops up: ZOOM!', 'Next to the sleepy octopus? Press A again and again to tickle it!'],
-  music: 'chill',
+  music: 'splash',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

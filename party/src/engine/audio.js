@@ -449,6 +449,14 @@ const SONGS = {
   chill:   { bpm: 92, root: 64, scale: MAJOR, prog: [0, 5, 3, 4], seed: 2, drums: 'soft', lead: 'sine', arp: true },
   dance:   { bpm: 120, root: 60, scale: MINOR, prog: [0, 5, 2, 6], seed: 9, drums: 'four', lead: 'square', arp: true },
   bouncy:  { bpm: 128, root: 67, scale: MAJOR, prog: [0, 4, 3, 4], seed: 15, drums: 'pop', lead: 'triangle', arp: false },
+  // Owner-made recordings (party/intake 2026-10-15), recording only. bpm measured (tug-of-war
+  // rides Game On's beat; its loop starts on a downbeat).
+  gameon:  { bpm: 140.14, recordedOnly: true },   // Party games: Game On Dash
+  cozy:    { bpm: 92, recordedOnly: true },       // Play Studio crafts: Cozy Craft Time
+  runway:  { bpm: 122, recordedOnly: true },      // fashion / makeover: Runway Glam
+  splash:  { bpm: 104, recordedOnly: true },      // water and beach games: Splash Lagoon
+  spooky:  { bpm: 110, recordedOnly: true },      // witches, wizards, ghosts: Spooky Scramble
+  sneaky:  { bpm: 100, recordedOnly: true },      // Sister Party pranks: Sneaky Tiptoes
   victory: { bpm: 132, root: 60, scale: MAJOR, prog: [0, 3, 4, 0], seed: 5, drums: 'pop', lead: 'square', arp: true },
 };
 export const SONG_NAMES = Object.keys(SONGS);

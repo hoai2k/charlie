@@ -47,7 +47,7 @@ export const meta = {
     'Mash A at the kiln to puff the fire hotter.',
     'Hold A with the brush or dots and the wheel paints all the way round!',
   ],
-  music: 'chill',
+  music: 'cozy',
   duration: 'about 3 min',
   minPlayers: 1,
   maxPlayers: 8,

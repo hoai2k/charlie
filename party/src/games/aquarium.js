@@ -83,7 +83,7 @@ export const meta = {
   controls: [['stick', 'Move your hand'], ['lb', 'LB / RB: things,  LT / RT: colours'], ['a', 'Place or pick up  (B removes)'], ['x', 'Tap the glass gently'], ['y', 'Feed the fish']],
   infoAt: [62, 446],   // under the controls legend (the bottom holds the item bars)
   tips: ['Name each new fish: left and right, then A.', 'Bubblers give fish rides; castles are for peekaboo!', 'Press the moon on the lid for glowing night lights.'],
-  music: 'chill',
+  music: 'splash',
   duration: 'about 3 min',
   minPlayers: 1, maxPlayers: 8,
   countdown: false,

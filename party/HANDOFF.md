@@ -8,6 +8,21 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Six owner songs from party/intake (2026-10-15): DONE
+Recording-only songs (SONGS in audio.js + manifest music, files music/takes/<name>-1.mp3), each a
+seamless loop at -16 LUFS cut from the owner's upload with tools/audio/music/process.py using the new
+`--nostretch --lag <s> --at <s>` options (loop length = the music's measured repeat, not a bar
+grid; the tempo measure was fooled by swing). Loops: gameon 82.2019 @20.739 (a downbeat, 140.14
+bpm), cozy 62.6121 @17.62, runway 78.6696 @26.16, splash 55.3668 @7.16, spooky 58.0583 @16.54,
+sneaky 38.397 @20.72. Games: gameon = bumper-bounce cloud-hop crown-keeper mini-golf
+musical-cushions pancake-tower treasure-dig tug-of-war (jump-rope stays on bouncy: its rope speeds
+are tuned to 128 bpm); cozy = art-studio nail-studio bead-bracelets pottery-wheel star-maker
+dream-room pet-spa seek-and-find; runway = fashion-show hair-salon; splash = fishing-frenzy
+sandcastle-beach aquarium mermaid-pearls duckling-parade; spooky = broomstick-dash
+wizard-quickdraw troll-trouble potion-class trick-or-treat pumpkin-peekaboo ghost-giggles;
+sneaky = bed-bounce prank-troll whoopee-tea sneaky-dance fairy-hide-seek. The how-to screen
+preloads the game's song (intro.js) so recording-only songs start without a gap.
+
 ### Sister Party occlusion audit (2026-10-15): DONE
 All 23 games audited for sprites partly hidden by art. Masks now come from the art itself (front
 layer redrawn after the sprite) or from paths traced from the art's alpha, with fallbacks kept:

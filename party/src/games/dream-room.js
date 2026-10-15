@@ -92,7 +92,7 @@ export const meta = {
   controls: [['stick', 'Move your hand'], ['lb', 'LB / RB / D-pad: pick an item'], ['a', 'Place it'], ['x', 'Tool: place, move, paint'], ['b', 'Remove'], ['y', 'Surprise present!']],
   infoAt: [62, 390],   // corner "i": under the controls legend (the bottom-left holds the palette)
   tips: ['Paint the wall or the floor for new wallpaper!', 'Flip the light switch by the door for night time.', 'A pet bed brings a sleepy kitty!'],
-  music: 'chill',
+  music: 'cozy',
   duration: 'about 3 min',
   minPlayers: 1, maxPlayers: 8,
   countdown: false,

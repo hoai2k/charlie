@@ -37,7 +37,7 @@ export const meta = {
     'Professor Hoot loves fake-outs: flickers, feather ruffles, hoots and moths.',
     'Only the golden CAST! light counts. Stay calm and wait for it.',
   ],
-  music: 'tense',
+  music: 'spooky',
   duration: '1 min',
   minPlayers: 1,
   maxPlayers: 8,

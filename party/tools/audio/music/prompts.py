@@ -48,3 +48,6 @@ ORDER = ['dance', 'menu', 'chill', 'chase', 'bouncy', 'tense', 'victory', 'title
 SONGS['rhythm-1'] = dict(bpm=112, key='E-flat major', ms=72000, takes=[
   "Bright, catchy K-pop style idol pop instrumental for a kids' rhythm game, 112 BPM, E-flat major. Steady four-on-the-floor kick on every beat, crisp claps on 2 and 4, bouncy synth bass, a simple catchy plucked synth lead hook with clear separate notes, sparkly bells. Very regular and easy to clap along to, cheerful and confident.",
 ])
+# Songs the owner generated and dropped in party/intake (2026-10-15; prompts in HANDOFF). Measured tempos.
+for _n, _b in [('gameon', 140), ('cozy', 92), ('runway', 122), ('splash', 104), ('spooky', 110), ('sneaky', 100)]:
+    SONGS[_n] = dict(bpm=_b, key='?', ms=0, takes=["(owner-supplied recording)"])

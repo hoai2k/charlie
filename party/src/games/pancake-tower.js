@@ -56,7 +56,7 @@ export const meta = {
     'Leaning tower? Drop the next one on the other side to balance it.',
     'Golden pancakes are extra wide and worth 3!',
   ],
-  music: 'bouncy',
+  music: 'gameon',
   duration: '50 sec',
   minPlayers: 1,
   maxPlayers: 8,

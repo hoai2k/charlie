@@ -79,7 +79,7 @@ export const meta = {
   goal: 'Bounce up the sky tower of clouds and reach the golden rainbow first!',
   controls: [['stick', 'Steer left and right'], ['a', 'Air Hop (double jump)']],
   tips: ['You bounce by yourself! Pink clouds and trampolines bounce you super high.', 'Grab 3 stars for a ROCKET BOUNCE!', 'Grey rain clouds puff away after one bounce. Bonk off heads for a boost!'],
-  music: 'bouncy',
+  music: 'gameon',
   duration: '45 sec',
   minPlayers: 1,
   maxPlayers: 8,

@@ -53,7 +53,7 @@ export const meta = {
   goalEasy: 'Find the fairies hiding in the garden!',
   controlsEasy: [['a', 'Peek! when you see a fairy']],
   tipsEasy: ['You walk to the hiding spots all by yourself!', 'See a fairy in your glass? Press A quick!', 'Frogs and snails are just being silly.'],
-  music: 'party',
+  music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,

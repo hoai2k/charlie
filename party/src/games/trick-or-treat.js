@@ -64,7 +64,7 @@ export const meta = {
   goalEasy: 'You walk to the doors by yourself. Press A to knock and get candy!',
   controlsEasy: [['a', 'Knock knock!']],
   tipsEasy: ['You walk to a lit door all by yourself.', 'When the A bounces over the door, press A!', 'Golden doors make a candy fountain!'],
-  music: 'bouncy',
+  music: 'spooky',
   duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,
