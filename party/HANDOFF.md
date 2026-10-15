@@ -8,6 +8,14 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Molly Easy mode (2026-10-15)
+session.mollyLevel 'easy' (default, localStorage, ?molly=) / 'medium'; Y or click on the Molly
+shelf pill toggles. api.easy in games; meta goalEasy/controlsEasy/tipsEasy for the how-to;
+meta.easy=false hides a stick-only game in Easy. 4 worktree agents (brief scratchpad
+easy-brief.md) adapting all 23 games: A = whoopee/sock/unicorn/mermaid/pumpkin/ghost,
+B = kitten/snowflake/trick/sneaky/bed/ballet, C = wand/cupcake/prank/bubble/balloon/duckling,
+D = muddy/rainbow/garden/fairy-flutter/fairy-hide-seek. Merge with merge_game.sh, push main once.
+
 ### Image delivery 2026-10-13 — all current requests complete
 The24 grown-up reaction props and the two extra Duchess poses are reviewed and pushed in batches, latest image delivery `836084b0`. Exact-canvas alpha, native source archives, consumer/gameplay checks and loading/runtime tests pass. The expanded Whoopee group is24.984MiB decoded. No new requests remained after the immediate main sync. Current authoritative checkpoint: `reference/IMAGE-WORK-QUEUE.md`; prompts/review: `reference/pending/OCT13-DUCHESS-EXTRA*`. Older in-progress image notes below are historical. No new timer was requested for this run.
 
