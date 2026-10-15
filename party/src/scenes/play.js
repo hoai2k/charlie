@@ -7,7 +7,7 @@ import { sfx, music, host, stopAllLoops, duckLoops, setMuted, isMuted } from '..
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
-import { session, sitOut } from '../state.js';
+import { session, sitOut, mollyEasy } from '../state.js';
 import { gameById } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
 import { corner } from '../engine/corner.js';
@@ -41,6 +41,8 @@ export class PlayScene {
       players: session.players,
       meta: this.meta,
       level: session.cpuLevel,
+      // Molly Party Easy: play with A (and X) only, no stick - see games/README.md
+      easy: mollyEasy(this.meta),
       W, H,
       get time() { return host.playTime; },
       get state() { return host.state; },

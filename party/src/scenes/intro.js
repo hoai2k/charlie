@@ -18,7 +18,7 @@ import * as ui from '../engine/ui.js';
 import { drawHost, hostBubble } from '../engine/host.js';
 import { rand } from '../engine/util.js';
 import { particles } from '../engine/particles.js';
-import { session, restoreRoster } from '../state.js';
+import { session, restoreRoster, mollyEasy } from '../state.js';
 import { gameById } from '../games/index.js';
 import { drawGameIcon } from './common.js';
 import { MollySeats } from './molly-seats.js';
@@ -230,10 +230,12 @@ export class IntroScene {
     ui.panel(g, 1000, 212, 850, 590, { fill: '#fff8ec' });
     ui.text(g, 'How to play', 1425, 258, { size: 48, color: '#ff6fb1' });
     let y = 318;
-    const goalLines = ui.wrap(g, this.meta.goal || '', 770, 36, 700);
+    // Molly Easy: the game's A-button-only how-to (goalEasy / controlsEasy / tipsEasy)
+    const easy = mollyEasy(this.meta), how = (k) => (easy && this.meta[k + 'Easy']) || this.meta[k];
+    const goalLines = ui.wrap(g, how('goal') || '', 770, 36, 700);
     goalLines.forEach((l) => { ui.text(g, l, 1040, y, { size: 36, align: 'left', color: '#24163f', stroke: false, weight: 700 }); y += 44; });
     y += 10;
-    const controls = this.meta.controls || [];
+    const controls = how('controls') || [];
     const rowH = controls.length > 4 ? 48 : 56;
     for (const [btn, label] of controls) {
       ui.glyph(g, btn, 1066, y, rowH - 8);
@@ -241,7 +243,7 @@ export class IntroScene {
       y += rowH;
     }
     y += 6;
-    const tips = (this.meta.tips || []).map((tip) => ui.wrap(g, tip, 740, 26, 600));
+    const tips = (how('tips') || []).map((tip) => ui.wrap(g, tip, 740, 26, 600));
     const bottom = 772;
     const fit = [];
     let yy = y;

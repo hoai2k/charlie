@@ -10,7 +10,7 @@ import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { drawEmote } from '../engine/emotes.js';
 import { GAMES, PARTY_PAGES, STUDIO_PAGES, MOLLY_GAMES } from '../games/index.js';
-import { session, restoreRoster } from '../state.js';
+import { session, restoreRoster, setMollyLevel } from '../state.js';
 import { drawGameIcon } from './common.js';
 import { shuffle, pick, ease, clamp } from '../engine/util.js';
 
@@ -34,9 +34,12 @@ function pageOf(id) {
 const chunk = (list, n) => { const out = []; for (let i = 0; i < list.length; i += n) out.push(list.slice(i, i + n)); return out; };
 const MOLLY_PINK = '#ff7ad9', MOLLY_DEEP = '#c94fd6';
 
+/** Molly games on the shelf: in Easy, games that need the stick (meta.easy === false) are hidden. */
+const mollyList = () => MOLLY_GAMES.filter((g) => session.mollyLevel !== 'easy' || g.easy !== false);
+
 /** Molly Party view: every Molly game, then random / marathon / back to Charlie Party. */
 function buildMollyRows() {
-  const rows = chunk(MOLLY_GAMES.map((g) => ({ kind: 'game', game: g, shelf: 'molly' })), 6);
+  const rows = chunk(mollyList().map((g) => ({ kind: 'game', game: g, shelf: 'molly' })), 6);
   rows.partyRows = rows.length; rows.studioRows = 0; rows.molly = true;
   rows.push([{ kind: 'random' }, { kind: 'marathon' }, { kind: 'charlie', wide: true }]);
   return rows;
@@ -144,6 +147,7 @@ export class GameSelectScene {
     for (const c of ctrls) {
       if (c.nav.x || c.nav.y) this.move(c.nav.x, c.nav.y);
       if (c.pressed('a')) { this.choose(); return; }
+      if (this.molly && c.pressed('y')) { this.toggleMollyLevel(); return; }
       if (c.pressed('b')) {
         if (this.molly) { this.setMolly(false); this.flip = { t: 0, shelf: 'all' }; sfx('swap'); return; }   // back to Charlie Party first
         sfx('back'); this.manager.go('charselect'); return;
@@ -158,6 +162,7 @@ export class GameSelectScene {
         if (input.pointer.moved && !sel && input.pointerOver(it)) { this.row = ri; this.col = ci; sfx('move'); }
       }
     }
+    if (this.molly && this.levelRect && input.clicked(this.levelRect)) { this.toggleMollyLevel(); return; }
     const hint = ui.clickedHint();
     if (hint && ctrls[0]) ctrls[0].inject(hint);
     if (new URLSearchParams(location.search).has('autoselect') && this.t > 1) this.choose();
@@ -174,8 +179,8 @@ export class GameSelectScene {
       const cur = this.current;
       particles.burst(cur.x + cur.w / 2, cur.y + cur.h / 2, { type: 'star', count: 18 });
     }
-    else if (it.kind === 'random' && this.molly) this.startRoulette(MOLLY_GAMES.map((g) => g.id), false);
-    else if (it.kind === 'marathon' && this.molly) this.startRoulette(shuffle(MOLLY_GAMES.map((g) => g.id)).slice(0, 5), true);
+    else if (it.kind === 'random' && this.molly) this.startRoulette(mollyList().map((g) => g.id), false);
+    else if (it.kind === 'marathon' && this.molly) this.startRoulette(shuffle(mollyList().map((g) => g.id)).slice(0, 5), true);
     else if (it.kind === 'random') this.startRoulette(GAMES.filter((g) => g.category !== 'molly' && pageOf(g.id)).map((g) => g.id), false);
     else if (it.kind === 'marathon') this.startRoulette(shuffle(PARTY_PAGES.flat().map((g) => g.id)).slice(0, 5), true);
   }
@@ -245,7 +250,10 @@ export class GameSelectScene {
     // Star tally.
     ui.scoreboard(g, session.players, session.players.map((p) => p.stars), { y: 18, format: (v) => `★ ${v}`, highlight: this.leaders() });
     // Section headers.
-    if (this.molly) ui.text(g, '✿ Molly Party ✿', X0 + 8, 142, { size: 46, align: 'left', color: MOLLY_PINK });
+    if (this.molly) {
+      ui.text(g, '✿ Molly Party ✿', X0 + 8, 142, { size: 46, align: 'left', color: MOLLY_PINK });
+      this.drawMollyLevel(g);
+    }
     else {
       ui.text(g, 'Party Games', X0 + 8, 142, { size: 40, align: 'left', color: '#ff4d6d' });
       ui.text(g, 'Play Studio', X0 + 8, this.studioHeaderY, { size: 40, align: 'left', color: '#9b5cff' });
@@ -294,6 +302,28 @@ export class GameSelectScene {
     if (this.roulette && this.roulette.landed) {
       ui.banner(g, this.roulette.marathon ? 'Party Marathon!' : 'Let\'s play!', this.roulette.landT, { y: 560, size: 120 });
     }
+  }
+
+  toggleMollyLevel() {
+    setMollyLevel(session.mollyLevel === 'easy' ? 'medium' : 'easy');
+    this.levelPop = 1; sfx('swap');
+    const cur = this.current && this.current.game;
+    this.rebuild();   // Easy hides the stick-only games
+    this.row = Math.min(this.row, this.rows.length - 1); this.col = Math.min(this.col, this.rows[this.row].length - 1);
+    if (cur) this.rows.forEach((r, ri) => r.forEach((it, ci) => { if (it.game === cur) { this.row = ri; this.col = ci; } }));
+  }
+
+  /** Molly level pill beside the shelf title: Easy (just A) / Medium (Y or click to change). */
+  drawMollyLevel(g) {
+    const easy = session.mollyLevel === 'easy', x = 520, y = 106, w = 420, h = 52;
+    this.levelPop = Math.max(0, (this.levelPop || 0) - 0.05);
+    const k = 1 + this.levelPop * 0.12;
+    g.save(); g.translate(x + w / 2, y + h / 2); g.scale(k, k);
+    ui.panel(g, -w / 2, -h / 2, w, h, { r: 28, fill: easy ? '#7fe0b4' : '#ffcf5c', lineWidth: 4, shadow: false });
+    ui.text(g, easy ? 'Easy: just the A button' : 'Medium: stick + buttons', 22, 2, { size: 26, color: '#24163f', stroke: false, weight: 800, maxWidth: w - 90 });
+    ui.glyph(g, 'y', -w / 2 + 32, 0, 38);
+    g.restore();
+    this.levelRect = { x, y, w, h };
   }
 
   /** "Molly Party" / "Charlie Party" (back) button after Marathon: a peek at the other world's games. */

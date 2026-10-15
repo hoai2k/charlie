@@ -15,7 +15,22 @@ export const session = {
   lastGameId: null,
   partyMode: null,      // { games: [...ids], round } when playing a party marathon
   roster: null,         // the whole party while some players sit out one game (players = who plays it)
+  mollyLevel: 'easy',   // Molly Party difficulty: 'easy' (just the A button, no stick) or 'medium'
 };
+
+// Molly Party level: Easy (default) plays every Molly game with A (and maybe X)
+// only, no stick; Medium is the full controls. Remembered in this browser;
+// ?molly=medium|easy in the URL overrides it (testing).
+export const MOLLY_LEVELS = ['easy', 'medium'];
+const MOLLY_KEY = 'charlie-party-molly-level';
+try { const v = localStorage.getItem(MOLLY_KEY); if (MOLLY_LEVELS.includes(v)) session.mollyLevel = v; } catch (e) { /* storage blocked */ }
+try { const v = new URLSearchParams(location.search).get('molly'); if (MOLLY_LEVELS.includes(v)) session.mollyLevel = v; } catch (e) { /* no location */ }
+export function setMollyLevel(v) {
+  session.mollyLevel = v;
+  try { localStorage.setItem(MOLLY_KEY, v); } catch (e) { /* storage blocked */ }
+}
+/** True when this game should use its Easy (A-button-only) controls. */
+export const mollyEasy = (meta) => meta?.category === 'molly' && session.mollyLevel === 'easy';
 
 /** Players who sat out a game (how-to screen, B) are back in the party. */
 export function restoreRoster() {
