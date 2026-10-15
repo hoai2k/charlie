@@ -61,6 +61,17 @@ const SPEED = 560;
 const X_MIN = 80, X_MAX = W - 80, Y_MIN = 420, Y_MAX = 1015;
 const REACH = 130;
 const PLANT_S = 0.84;
+// prop/gg-dirt (260x140 art px, drawn 200 wide centred): top outline of the mound's front
+// clods, left to right; the carrot rises out of the hole behind them
+const DIRT_FRONT = [[0, 66], [40, 68], [60, 72], [72, 74], [80, 77], [85, 84], [95, 86], [112, 86], [130, 86], [145, 87],
+  [150, 85], [158, 81], [165, 78], [175, 75], [188, 73], [200, 70], [260, 66]];
+/** Path: the front-clod line (plot-local, scaled sx, sy), closed off at height `toY` (below: 64, above: -400). */
+function dirtFrontPath(g, sx, sy, toY) {
+  const k = 200 / 260;
+  g.beginPath();
+  DIRT_FRONT.forEach(([ax, ay], i) => { const px = (ax - 130) * k * sx, py = (ay - 70) * k * sy; if (i) g.lineTo(px, py); else g.moveTo(px, py); });
+  g.lineTo(110, toY); g.lineTo(-110, toY); g.closePath();
+}
 const KIND_DECK = ['sunflower', 'carrot', 'strawberry', 'pumpkin', 'sneezy'];
 
 export class Game {
@@ -660,6 +671,9 @@ export class Game {
 
   drawPlant(g, pl) {
     g.save(); g.translate(pl.x, pl.y);
+    // a rising carrot never shows below the mound's front clods (its tip would poke out
+    // under the mound early in the pop); the front clods are drawn over it below
+    if (pl.state === 'grown' && pl.kind === 'carrot' && hasArt('prop/gg-dirt')) { dirtFrontPath(g, 1 + pl.sq * 0.12, 1 - pl.sq * 0.12, -400); g.clip(); }
     const sq = pl.sq;
     g.scale((1 + sq * 0.25) * PLANT_S, (1 - sq * 0.25) * PLANT_S);
     const party = this.phase === 'party';
@@ -686,7 +700,7 @@ export class Game {
     if (pl.state === 'grown' && pl.kind === 'carrot' && hasArt('prop/gg-dirt')) {
       // the front half of the mound in front of the carrot, so it rises out of the hole
       g.save(); g.translate(pl.x, pl.y); g.scale(1 + pl.sq * 0.12, 1 - pl.sq * 0.12);
-      g.beginPath(); g.rect(-110, 4, 220, 60); g.clip(); drawDirt(g, pl.wet, 0);
+      dirtFrontPath(g, 1, 1, 64); g.clip(); drawDirt(g, pl.wet, 0);
       g.restore();
     }
   }
