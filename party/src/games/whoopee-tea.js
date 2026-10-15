@@ -72,6 +72,10 @@ export const meta = {
   goal: 'Sneak whoopee cushions onto the chairs before the posh guests sit down. PFFFT!',
   controls: [['stick', 'Run'], ['a', 'Grab a cushion / put it on a chair']],
   tips: ['A glowing chair means a guest is coming!', 'The butler takes cushions back. Run!', 'At the end, push the golden cushion to the throne!'],
+  // Molly Easy: you walk all by yourself; A does the prank when the big A shows
+  goalEasy: 'Walk to the basket, then to a chair. Press A when the A shows. PFFFT!',
+  controlsEasy: [['a', 'Grab a cushion / put it on a chair']],
+  tipsEasy: ['You walk all by yourself!', 'Press A when the big A bounces.', 'At the end, tap A to push the golden cushion!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -107,6 +111,7 @@ export const meta = {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves, A does the action
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -141,7 +146,8 @@ export class Game {
       const a = new Actor(p, { scale: this.scale, x, y });
       if (a.height < 110 * this.scale) a.scale *= (110 * this.scale) / a.height;   // tiny avatars (fairies) stay readable
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, y, vx: 0, vy: 0, held: null, score: 0, pffts: 0, frogs: 0, heaves: 0, cool: 0, brain: new Brain(p), plan: null, mashS: {}, popT: 0, popN: 0 };
+      return { p, a, i, x, y, vx: 0, vy: 0, held: null, score: 0, pffts: 0, frogs: 0, heaves: 0, cool: 0, brain: new Brain(p), plan: null, mashS: {}, popT: 0, popN: 0,
+        auto: this.easy && !p.isAI ? { plan: null, t: 0, ix: 0, iy: 0 } : null };
     });
   }
 
@@ -309,6 +315,7 @@ export class Game {
     this.updateProps(dt);
     for (const e of this.ents) {
       if (e.p.isAI && this.phase !== 'finale') this.aiThink(e, dt);
+      if (e.auto) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.separate(dt);
@@ -435,7 +442,7 @@ export class Game {
     if (b.cool <= 0 && this.phase === 'party') {
       let best = null, bd = 250;
       for (const e of this.ents) {
-        if (!e.held) continue;
+        if (!e.held || e.auto) continue;   // Molly Easy: he never catches a little one who can't run
         const dx = e.x - b.x, dd = Math.hypot(dx, (e.y - b.y) * 1.3);
         if (dd < bd && dx * b.facing > -50) { bd = dd; best = e; }
       }
@@ -607,9 +614,9 @@ export class Game {
     const p = e.p, a = e.a, c = p.ctrl;
     e.cool = Math.max(0, e.cool - dt); e.popT = Math.max(0, e.popT - dt);
     const lock = this.phase === 'finale' || this.done;
-    const ix = lock ? 0 : c.x, iy = lock ? 0 : c.y;
+    const ix = lock ? 0 : e.auto ? e.auto.ix : c.x, iy = lock ? 0 : e.auto ? e.auto.iy : c.y;
     const m = Math.hypot(ix, iy), k = m > 1 ? 1 / m : 1;
-    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : 1;
+    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? 0.72 : 1;
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.8 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
@@ -754,18 +761,18 @@ export class Game {
     else if (d < 16) c.move(0, 0);
   }
 
-  aiPlan(e) {
+  aiPlan(e, sure = false) {
     const prof = aiProfile(e.p);
-    if (chance(prof.mistake * 0.6)) return { wander: true, x: rand(300, 1620), y: rand(480, 1000), t: rand(0.5, 1.1) };
+    if (!sure && chance(prof.mistake * 0.6)) return { wander: true, x: rand(300, 1620), y: rand(480, 1000), t: rand(0.5, 1.1) };
     if (e.held === 'cushion') {
       const free = this.chairs.filter((c) => !c.cushion && !(c.guest && c.guest.state !== 'walk'));
       if (!free.length) return { wander: true, x: rand(300, 1620), y: rand(480, 1000), t: 0.5 };
-      const claimed = new Set(this.ents.filter((o) => o !== e && o.plan && o.plan.kind === 'place').map((o) => o.plan.target));
+      const claimed = new Set(this.ents.filter((o) => o !== e).map((o) => (o.auto ? o.auto.plan : o.plan)).filter((pl) => pl && pl.kind === 'place').map((pl) => pl.target));
       let pool = free.filter((c) => !claimed.has(c));
       if (!pool.length) pool = free;
       const coming = pool.filter((c) => c.guest);
       const lvl = clamp(e.p.aiLevel ?? 0, 0, 2);
-      const list = coming.length && chance([0.45, 0.7, 0.9][lvl]) ? coming : pool;
+      const list = coming.length && (sure || chance([0.45, 0.7, 0.9][lvl])) ? coming : pool;
       const target = list.reduce((b, c) => (dist(c.x, c.y, e.x, e.y) < dist(b.x, b.y, e.x, e.y) ? c : b));
       return { kind: 'place', target, x: target.x + (e.x < target.x ? -60 : 60), y: target.y + 40 };
     }
@@ -778,6 +785,58 @@ export class Game {
     if (this.frogToy && chance(0.5)) return { kind: 'frog', target: this.frogToy, x: this.frogToy.x, y: this.frogToy.y };
     const b = BASKETS.reduce((best, k) => (dist(k.x, k.y, e.x, e.y) < dist(best.x, best.y, e.x, e.y) ? k : best));
     return { kind: 'grab', target: b, x: b.x + (e.x < b.x ? -70 : 70), y: b.y + 40 };
+  }
+
+  // ------------------------------------------------------------- Molly Easy
+  /** Easy (A only): walk this human by themselves to the next thing to do and
+   * stop there; the big A over it says "now!" and A does the usual action. */
+  easyThink(e, dt) {
+    const au = e.auto;
+    au.ix = 0; au.iy = 0;
+    if (this.phase === 'finale' || this.done) return;
+    let tx, ty;
+    if (this.phase === 'super') {
+      const gc = this.golden;
+      if (!gc || gc.arrived) return;
+      // everyone lines up along the cushion (spread out), then taps A to heave
+      const side = (e.i % 4) - 1.5;
+      tx = gc.x + side * 70; ty = gc.y + 60;
+    } else {
+      au.t -= dt;
+      const pl = au.plan;
+      const bad = !pl
+        || (pl.kind === 'grab' && e.held)
+        || (pl.kind === 'place' && (e.held !== 'cushion' || pl.target.cushion || (pl.target.guest && pl.target.guest.state !== 'walk')))
+        || (pl.kind === 'frog' && (!this.frogToy || e.held))
+        || (pl.kind === 'hide' && (e.held !== 'frog' || pl.target.frog));
+      if (bad || au.t <= 0) {
+        au.t = 1.2;
+        // a cushion in hand: prefer a chair a guest is walking to (others' picks spread us out)
+        let next = null;
+        if (!e.held && this.frogToy && !this.ents.some((o) => o !== e && o.auto && o.auto.plan && o.auto.plan.kind === 'frog')) next = { kind: 'frog', target: this.frogToy, x: this.frogToy.x, y: this.frogToy.y };
+        else {
+          next = this.aiPlan(e, true);
+          // keep heading for the same chair unless it has gone
+          if (!bad && pl && pl.kind === next?.kind && pl.kind === 'place') next = pl;
+        }
+        if (next && next.wander) next = null;
+        if (next && next.kind === 'grab') {
+          // spread out over the baskets: the nearest one nobody else is heading to
+          const taken = new Set(this.ents.filter((o) => o !== e && o.auto && o.auto.plan && o.auto.plan.kind === 'grab').map((o) => o.auto.plan.target));
+          const pool = BASKETS.filter((b) => !taken.has(b));
+          const b = (pool.length ? pool : BASKETS).reduce((best, k) => (dist(k.x, k.y, e.x, e.y) < dist(best.x, best.y, e.x, e.y) ? k : best));
+          const off = (e.i % 2 ? 1 : -1) * 75;
+          next = { kind: 'grab', target: b, x: b.x + off, y: b.y + 45 };
+        }
+        au.plan = next;
+      }
+      if (!au.plan) return;
+      tx = au.plan.x; ty = au.plan.y;
+    }
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    if (d < 12) return;
+    const k = clamp(d / 80, 0, 1);
+    au.ix = (dx / d) * k; au.iy = (dy / d) * k;
   }
 
   // ------------------------------------------------------------------ finish
@@ -983,7 +1042,7 @@ export class Game {
         else if (act.kind === 'heave') { x = act.target.x; y = act.target.y - 200; }
         else if (act.kind === 'hide') { x = act.target.x - 80; y = act.target.y - 230; }
         else { x = act.target.x; y = act.target.y - 150; }
-        ui.glyph(g, 'a', x, y + Math.sin(t * 8) * 5, 60, { pulse: true });
+        ui.glyph(g, 'a', x, y + Math.sin(t * 8) * 5, e.auto ? 84 : 60, { pulse: true });
         if (act.kind === 'place') { g.save(); g.strokeStyle = e.p.color; g.lineWidth = 6; g.beginPath(); g.ellipse(act.target.x, act.target.y - CHAIR_SEAT, 70, 20, 0, 0, TAU); g.stroke(); g.restore(); }
         continue;
       }

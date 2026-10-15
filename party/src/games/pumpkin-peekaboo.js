@@ -35,6 +35,10 @@ export const meta = {
   goal: 'Boop the silly pumpkins to get candy!',
   controls: [['stick', 'Run around the patch'], ['a', 'Boop!']],
   tips: ['Run to a pumpkin and press A. Boop boop!', 'Golden pumpkins make it rain candy for everyone!', 'Boop the kitty in the witch hat for a big lollipop.'],
+  // Molly Easy: you walk to the pumpkins by yourself; A boops
+  goalEasy: 'You walk to the pumpkins by yourself. Press A to boop them!',
+  controlsEasy: [['a', 'Boop!']],
+  tipsEasy: ['Press A when the big A bounces. Boop boop!', 'Golden pumpkins make it rain candy for everyone!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -99,6 +103,7 @@ const poseName = (n) => {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves to a pumpkin; A boops
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -129,7 +134,8 @@ export class Game {
       const y = n <= 4 ? 680 : 640 + row * 150;
       const a = new Actor(p, { scale: this.baseScale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      const e = { p, a, i, x, y, vx: 0, vy: 0, score: 0, cd: 0, streak: 0, streakT: 0, lunge: 0, lx: 0, ly: 0, brain: new Brain(p), target: null, aiPress: -1, wander: 0, wx: x, wy: y, popN: 0, popT: 0, bucketSq: 0, sweets: [] };
+      const e = { p, a, i, x, y, vx: 0, vy: 0, score: 0, cd: 0, streak: 0, streakT: 0, lunge: 0, lx: 0, ly: 0, brain: new Brain(p), target: null, aiPress: -1, wander: 0, wx: x, wy: y, popN: 0, popT: 0, bucketSq: 0, sweets: [],
+        auto: this.easy && !p.isAI ? { ix: 0, iy: 0, target: null, t: 0, home: { x, y } } : null };
       a.attach((g, info) => this.drawBucketAt(g, info, e));
       return e;
     });
@@ -153,6 +159,7 @@ export class Game {
     this.spawning(dt);
     for (const e of this.ents) {
       if (e.p.isAI) this.aiThink(e, dt);
+      if (e.auto) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.separate(dt);
@@ -288,10 +295,10 @@ export class Game {
     e.cd = Math.max(0, e.cd - dt);
     e.streakT = Math.max(0, e.streakT - dt);
     e.popT = Math.max(0, e.popT - dt);
-    let ix = c.x, iy = c.y;
+    let ix = e.auto ? (this.done ? 0 : e.auto.ix) : c.x, iy = e.auto ? (this.done ? 0 : e.auto.iy) : c.y;
     const m = Math.hypot(ix, iy);
     if (m > 1) { ix /= m; iy /= m; }
-    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : 1);
+    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : e.auto ? 0.72 : 1);
     const tx = ix * top, ty = iy * top * 0.8;
     const k = 1 - Math.exp(-14 * dt);
     e.vx += (tx - e.vx) * k; e.vy += (ty - e.vy) * k;
@@ -480,6 +487,53 @@ export class Game {
     particles.popText(e.x + side * 80 + (lvl === 1 ? 36 : lvl === 2 ? -36 : 0), top - 30 - lvl * 50, str, color, size);
   }
 
+  // ------------------------------------------------------------- Molly Easy
+  /** A pumpkin A would boop right now (the big A shows over it). */
+  boopable(e) {
+    let best = null, bd = BOOP_RANGE;
+    for (const pk of this.pumpkins) {
+      if (pk.phase !== 'up' && pk.phase !== 'rise' && pk.phase !== 'tease') continue;
+      const d = this.boopDist(e, pk);
+      if (d < bd) { bd = d; best = pk; }
+    }
+    return best;
+  }
+
+  /** Easy (A only): walk to the best pumpkin nobody else is going for (or rain candy). */
+  easyThink(e, dt) {
+    const au = e.auto;
+    au.t -= dt;
+    const T = au.target;
+    const gone = !T || (T.kind === 'pk' && T.pk.phase !== 'up' && T.pk.phase !== 'rise') || (T.kind === 'candy' && T.gc.dead);
+    if (gone || au.t <= 0) {
+      au.t = 0.5;
+      let best = null, bu = 0;
+      const sp = MAX_SPEED * 0.72;
+      for (const pk of this.pumpkins) {
+        if (pk.phase !== 'up' && pk.phase !== 'rise') continue;
+        const d = this.boopDist(e, pk);
+        const tt = Math.max(0, d - BOOP_RANGE * 0.6) / sp + 0.3;
+        if (pk.phase === 'up' && tt > pk.life + 0.3) continue;
+        let u = (pk.kind === 'golden' ? 3 : pk.kind === 'cat' ? 2.2 : 1) / tt;
+        for (const o of this.ents) if (o !== e && o.auto && o.auto.target && o.auto.target.pk === pk) { u *= 0.2; break; }
+        if (T && T.pk === pk) u *= 1.5;
+        if (u > bu) { bu = u; best = { kind: 'pk', pk }; }
+      }
+      for (const gc of this.ground) {
+        const u = 0.5 / (Math.hypot(gc.x - e.x, (gc.y - e.y) * 1.4) / sp + 0.3);
+        if (u > bu) { bu = u; best = { kind: 'candy', gc }; }
+      }
+      au.target = best;
+    }
+    const t = au.target;
+    let tx = au.home.x, ty = au.home.y, arrive = 40;
+    if (t && t.kind === 'pk') { tx = t.pk.h.x + (e.x < t.pk.h.x ? -90 : 90); ty = t.pk.h.y + 22; arrive = 20; }
+    else if (t && t.kind === 'candy') { tx = t.gc.x; ty = t.gc.y; arrive = 10; }
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    au.ix = 0; au.iy = 0;
+    if (d > arrive) { const k = clamp(d / 90, 0, 1); au.ix = (dx / d) * k; au.iy = (dy / d) * k; }
+  }
+
   // ---------------------------------------------------------------------- AI
   aiThink(e, dt) {
     const p = e.p, prof = aiProfile(p), c = p.ctrl, lvl = clamp(p.aiLevel || 0, 0, 2);
@@ -571,6 +625,16 @@ export class Game {
       const a = e.a;
       const top = a.y - a.height - 26 - (a.emotes.length ? 50 : 0);
       ui.playerTag(g, e.p, e.x, top);
+    }
+    // Molly Easy: a big bouncing A over the pumpkin A would boop
+    if (this.easy && !this.done) {
+      for (const e of this.ents) {
+        if (!e.auto) continue;
+        const pk = this.boopable(e);
+        if (!pk) continue;
+        const s = DS(pk.h.y);
+        ui.glyph(g, 'a', pk.h.x, pk.h.y - 200 * s + Math.sin(this.t * 9 + e.i) * 6, 84 * s, { pulse: true });
+      }
     }
   }
 

@@ -39,6 +39,10 @@ export const meta = {
   goal: 'Ride your unicorn, hop over things and grab the treats!',
   controls: [['a', 'Hop!'], ['stick', 'Gallop faster or slower']],
   tips: ['Hop over puddles, mushrooms and sleepy bunnies to grow a rainbow trail.', 'Stars float up high - hop to grab them!', 'Bumping is just silly: mushrooms go BOING!'],
+  // Molly Easy: the unicorn gallops by itself; A hops when the big A shows
+  goalEasy: 'Your unicorn gallops by itself. Press A to hop over things!',
+  controlsEasy: [['a', 'Hop!']],
+  tipsEasy: ['Press A when the big A pops up!', 'Bumping is just silly: mushrooms go BOING!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -100,6 +104,7 @@ const QUAD = new Set(['fox', 'cotton-candy', 'unicorn']);
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: no stick; A hops (a press just before landing still counts)
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.time = 0;
@@ -249,13 +254,16 @@ export class Game {
     e.dizzy = Math.max(0, e.dizzy - dt); e.wet = Math.max(0, e.wet - dt);
     e.popT = Math.max(0, e.popT - dt); e.cheerT = Math.max(0, e.cheerT - dt);
     e.phase += dt * (6 + this.speed / 90);
-    const inX = live ? p.ctrl.x : 0;
+    const human = this.easy && !p.isAI;
+    const inX = live && !human ? p.ctrl.x : 0;
     e.vx = approach(e.vx, inX * 420 * s, 2600 * dt);
     e.pv *= Math.exp(-5 * dt);
     const lo = e.baseX - 300 * s, hi = e.baseX + 360 * s;
     e.x = clamp(e.x + (e.vx + e.pv) * dt, Math.max(200, lo), Math.min(W - 260, hi));
     if (!live && this.done) e.x = approach(e.x, e.baseX, 200 * dt);
-    if (live && p.ctrl.pressed('a') && e.z <= 6 * s && e.dizzy <= 0) this.hop(e, 1);
+    // Molly Easy: a press in the air or while dizzy is remembered for a moment
+    if (human) { e.buf = Math.max(0, (e.buf || 0) - dt); if (live && p.ctrl.pressed('a')) e.buf = 0.3; }
+    if (live && (human ? e.buf > 0 : p.ctrl.pressed('a')) && e.z <= 6 * s && e.dizzy <= 0) { e.buf = 0; this.hop(e, 1); }
     if (e.z > 0 || e.vz > 0) {
       e.vz -= HOP_G * s * dt; e.z += e.vz * dt;
       if (e.z <= 0) {
@@ -485,6 +493,32 @@ export class Game {
     for (const e of this.ents) {
       const top = e.lane.ground - e.z - this.seatH(e) - e.a.height * (e.quad ? 0.5 : 0.82) - 18 - (e.a.emotes.length ? 50 : 0);
       ui.playerTag(g, e.p, e.x, top);
+    }
+    if (this.easy && !this.done) for (const e of this.ents) if (!e.p.isAI) this.drawHopCue(g, e);
+  }
+
+  /** Molly Easy: the next thing to hop glows, and a big A pops up when it's time. */
+  drawHopCue(g, e) {
+    const s = this.s, sv = Math.max(1, this.speed * s);
+    let next = null;
+    for (const o of e.lane.obs) {
+      if (o.hit.has(e) || o.cleared.has(e) || o.fly || o.x < e.x) continue;
+      if (!next || o.x < next.x) next = o;
+    }
+    if (!next) return;
+    const tArrive = (next.x - e.x) / sv;
+    if (tArrive > 1.4) return;
+    const gy = e.lane.ground;
+    const now = tArrive <= 0.5 && e.z <= 6 * s;
+    const pulse = 0.5 + 0.5 * Math.sin(this.t * 14);
+    g.save();
+    g.strokeStyle = now ? '#ffd23f' : e.p.color; g.lineWidth = (now ? 10 : 7) * Math.max(0.7, s);
+    g.globalAlpha = now ? 0.75 + 0.25 * pulse : 0.85;
+    g.beginPath(); g.ellipse(next.x, gy - next.hgt * 0.4, next.w * 0.62 + pulse * 6, (next.hgt * 0.5 + 34) * Math.max(0.7, s), 0, 0, TAU); g.stroke();
+    g.restore();
+    if (now) {
+      const top = gy - this.seatH(e) - e.a.height * (e.quad ? 0.5 : 0.82) - 70 * s;
+      ui.glyph(g, 'a', e.x + 110 * s, top + Math.sin(this.t * 10) * 6, 84 * clamp(s * 1.1, 0.75, 1.1), { pulse: true });
     }
   }
 

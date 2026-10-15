@@ -34,6 +34,10 @@ export const meta = {
   goal: 'Tickle the ghosts to make them colourful, then dance!',
   controls: [['stick', 'Run around the house'], ['a', 'Tickle!']],
   tips: ['Run to a white ghost and press A to tickle it.', 'Shy ghosts hide behind the curtains - press A at the window!', 'Press A at a costume trunk to change your costume.'],
+  // Molly Easy: you walk to the ghosts by yourself; A tickles, X changes your costume
+  goalEasy: 'You walk to the ghosts by yourself. Press A to tickle them colourful!',
+  controlsEasy: [['a', 'Tickle!'], ['x', 'New costume']],
+  tipsEasy: ['Press A when the big A bounces over a ghost.', 'At a window? Press A for a Peekaboo!', 'Press X for a new costume.'],
   music: 'dance',
   duration: '50 sec',
   minPlayers: 1,
@@ -100,6 +104,7 @@ const sizeFix = (a) => Math.max(1, 120 / (a.char.members[0].h || 120));
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves; A tickles, X swaps costume
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -122,7 +127,8 @@ export class Game {
       const y = n <= 4 ? 800 : 740 + row * 150;
       const a = new Actor(p, { scale: this.baseScale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      const e = { p, a, i, x, y, vx: 0, vy: 0, score: 0, cd: 0, lunge: 0, lx: 0, ly: 0, costume: costumes[i % costumes.length], brain: new Brain(p), target: null, aiPress: -1, wander: 0, wx: x, wy: y, popN: 0, popT: 0 };
+      const e = { p, a, i, x, y, vx: 0, vy: 0, score: 0, cd: 0, lunge: 0, lx: 0, ly: 0, costume: costumes[i % costumes.length], brain: new Brain(p), target: null, aiPress: -1, wander: 0, wx: x, wy: y, popN: 0, popT: 0,
+        auto: this.easy && !p.isAI ? { ix: 0, iy: 0, target: null, t: 0, home: { x, y } } : null };
       a.setOutfit(COSTUMES[e.costume]);
       return e;
     });
@@ -205,6 +211,7 @@ export class Game {
     } else if (this.waveLeft() === 0) this.startParty();
     for (const e of this.ents) {
       if (e.p.isAI && !this.party) this.aiThink(e, dt);
+      if (e.auto && !this.party) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.separate(dt);
@@ -372,16 +379,18 @@ export class Game {
       if (!a._once && a.pose !== 'dance' && this.party) a.setPose('dance');
       if (this.party) {
         // you can still wiggle around a bit while dancing
-        e.x = clamp(e.x + c.x * 260 * dt, MOVE.x0, MOVE.x1); e.y = clamp(e.y + c.y * 200 * dt, MOVE.y0, MOVE.y1);
-        if (Math.abs(c.x) > 0.3) a.facing = c.x > 0 ? 1 : -1;
+        if (!e.auto) {
+          e.x = clamp(e.x + c.x * 260 * dt, MOVE.x0, MOVE.x1); e.y = clamp(e.y + c.y * 200 * dt, MOVE.y0, MOVE.y1);
+          if (Math.abs(c.x) > 0.3) a.facing = c.x > 0 ? 1 : -1;
+        }
         if (c.pressed('a') && e.cd <= 0) { e.cd = 0.3; a.playOnce(pick(['dance-up', 'dance-side', 'dance-star', 'dance-down'].filter((q) => POSE_NAMES.includes(q))) || 'cheer', 0.45, 'dance'); particles.burst(e.x, e.y - a.height * 0.7, { type: 'note', count: 3, colors: RAINBOW, speed: [80, 200] }); sfx('note', { midi: pick([72, 74, 76, 79, 81]), dur: 0.25, vol: 0.3 }); }
       }
       return;
     }
-    let ix = c.x, iy = c.y;
+    let ix = e.auto ? e.auto.ix : c.x, iy = e.auto ? e.auto.iy : c.y;
     const m = Math.hypot(ix, iy);
     if (m > 1) { ix /= m; iy /= m; }
-    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : 1);
+    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : e.auto ? 0.72 : 1);
     const k = 1 - Math.exp(-14 * dt);
     e.vx += (ix * top - e.vx) * k; e.vy += (iy * top * 0.8 - e.vy) * k;
     if (e.lunge > 0) { e.lunge -= dt; e.x += e.lx * dt; e.y += e.ly * dt; }
@@ -390,6 +399,7 @@ export class Game {
     if (!a._once) a.moveAnim(e.vx, e.vy, top, { run: Math.hypot(e.vx, e.vy) > 380 });
     else if (Math.abs(e.vx) > 30) a.facing = e.vx > 0 ? 1 : -1;
     if (c.pressed('a')) this.tryTickle(e);
+    if (e.auto && c.pressed('x') && e.cd <= 0) { e.cd = 0.3; this.swapCostume(e, null); }
   }
 
   separate(dt) {
@@ -413,22 +423,7 @@ export class Game {
     if (e.cd > 0) return;
     e.cd = 0.22;
     const a = e.a;
-    let best = null, bd = TICKLE_RANGE;
-    for (const g0 of this.ghosts) {
-      if (!this.tickleable(g0)) continue;
-      // white ghosts win ties: they're the ones you're after
-      const d = this.dist(e, g0.x, g0.y) * (g0.col ? 1.35 : 1);
-      if (d < bd) { bd = d; best = { kind: 'ghost', g0, x: g0.x, y: g0.y }; }
-    }
-    for (const w of this.wins) {
-      if (!w.shy) continue;
-      const d = this.dist(e, w.x, WIN_Y) * 0.85;
-      if (d < bd) { bd = d; best = { kind: 'win', w, x: w.x, y: WIN_Y }; }
-    }
-    for (const tr of this.trunks) {
-      const d = this.dist(e, tr.x, tr.y + 20) * 1.15;
-      if (d < Math.min(bd, 190)) { bd = d; best = { kind: 'trunk', tr, x: tr.x, y: tr.y + 20 }; }
-    }
+    const best = this.tickleTarget(e);
     a.playOnce('action', 0.28);
     if (!best) {
       const h = a.anchor('hand');
@@ -447,6 +442,28 @@ export class Game {
     if (best.kind === 'ghost') this.tickle(e, best.g0);
     else if (best.kind === 'win') this.peekaboo(e, best.w);
     else this.swapCostume(e, best.tr);
+  }
+
+  /** What A would reach from here: { kind: 'ghost'|'win'|'trunk', x, y, ... } or null. */
+  tickleTarget(e) {
+    let best = null, bd = TICKLE_RANGE;
+    for (const g0 of this.ghosts) {
+      if (!this.tickleable(g0)) continue;
+      // white ghosts win ties: they're the ones you're after
+      const d = this.dist(e, g0.x, g0.y) * (g0.col ? 1.35 : 1);
+      if (d < bd) { bd = d; best = { kind: 'ghost', g0, x: g0.x, y: g0.y }; }
+    }
+    for (const w of this.wins) {
+      if (!w.shy) continue;
+      const d = this.dist(e, w.x, WIN_Y) * 0.85;
+      if (d < bd) { bd = d; best = { kind: 'win', w, x: w.x, y: WIN_Y }; }
+    }
+    // (Molly Easy: X swaps costume, so A never grabs a trunk by accident)
+    if (!e.auto) for (const tr of this.trunks) {
+      const d = this.dist(e, tr.x, tr.y + 20) * 1.15;
+      if (d < Math.min(bd, 190)) { bd = d; best = { kind: 'trunk', tr, x: tr.x, y: tr.y + 20 }; }
+    }
+    return best;
   }
 
   tickle(e, g0) {
@@ -502,7 +519,7 @@ export class Game {
     while (c === e.costume) c = randInt(0, COSTUMES.length - 1);
     e.costume = c;
     e.a.setOutfit(COSTUMES[c]);
-    tr.bounce = 0.5;
+    if (tr) tr.bounce = 0.5;
     e.a.playOnce(poseName('pose-twirl', 'ready'), 0.6); e.a.squash(0.3);
     particles.burst(e.x, e.y - e.a.height * 0.5, { type: 'smoke', count: 12, speed: [80, 220], size: [24, 40] });
     particles.burst(e.x, e.y - e.a.height * 0.6, { type: 'sparkle', count: 10, colors: RAINBOW, speed: [100, 260] });
@@ -514,6 +531,43 @@ export class Game {
     e.popN = e.popT > 0 ? e.popN + 1 : 0; e.popT = 0.7;
     const a = e.a, lvl = e.popN % 3;
     particles.popText(e.x + (lvl === 1 ? 36 : lvl === 2 ? -36 : 0), a.y - a.height - 30 - lvl * 50, str, color, size);
+  }
+
+  // ------------------------------------------------------------- Molly Easy
+  /** Easy (A only): walk to the nearest white ghost / shy window nobody else is after. */
+  easyThink(e, dt) {
+    const au = e.auto;
+    au.t -= dt;
+    const T = au.target;
+    const ok = T && (T.kind === 'ghost' ? !T.g0.col && (this.tickleable(T.g0) || T.g0.state === 'enter') : T.w.shy);
+    if (!ok || au.t <= 0) {
+      au.t = 0.6;
+      let best = null, bu = 0;
+      const taken = (fn) => this.ents.some((o) => o !== e && ((o.auto && o.auto.target && fn(o.auto.target)) || (o.target && fn(o.target))));
+      const roomLeft = this.ghosts.some((g0) => !g0.col && g0.state !== 'leave');
+      for (const g0 of this.ghosts) {
+        if (g0.col || (!this.tickleable(g0) && g0.state !== 'enter')) continue;
+        let u = 1 / (this.dist(e, g0.x, g0.y) + 150);
+        if (taken((t) => t.g0 === g0)) u *= 0.3;
+        if (T && T.g0 === g0) u *= 1.5;
+        if (u > bu) { bu = u; best = { kind: 'ghost', g0 }; }
+      }
+      for (const w of this.wins) {
+        if (!w.shy) continue;
+        let u = (w.peekT > 0 || !roomLeft ? 1.6 : 0.5) / (this.dist(e, w.x, WIN_Y) + 150);
+        if (taken((t) => t.w === w)) u *= 0.3;
+        if (u > bu) { bu = u; best = { kind: 'win', w }; }
+      }
+      au.target = best;
+    }
+    const t = au.target;
+    let tx = au.home.x, ty = au.home.y, arrive = 40;
+    if (t && t.kind === 'ghost') { tx = t.g0.x + t.g0.vx * 0.25 + (e.x < t.g0.x ? -70 : 70); ty = t.g0.y + 15; arrive = 20; }
+    else if (t) { tx = t.w.x; ty = WIN_Y + 25; arrive = 20; }
+    tx = clamp(tx, MOVE.x0, MOVE.x1); ty = clamp(ty, MOVE.y0, MOVE.y1);
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    au.ix = 0; au.iy = 0;
+    if (d > arrive) { const k = clamp(d / 90, 0, 1); au.ix = (dx / d) * k; au.iy = (dy / d) * k; }
   }
 
   // ---------------------------------------------------------------------- AI
@@ -614,6 +668,16 @@ export class Game {
     for (const e of this.ents) {
       const a = e.a;
       ui.playerTag(g, e.p, e.x, a.y - a.height - 26 - (a.emotes.length ? 50 : 0));
+    }
+    // Molly Easy: a big bouncing A over what A would tickle (white ghost / shy window)
+    if (this.easy && !this.party && !this.done) {
+      for (const e of this.ents) {
+        if (!e.auto) continue;
+        const b = this.tickleTarget(e);
+        if (!b || (b.kind === 'ghost' && b.g0.col)) continue;
+        const y = b.kind === 'ghost' ? b.y - b.g0.z - 190 * DS(b.y) : (b.w.top + b.w.bot) / 2;
+        ui.glyph(g, 'a', b.x, y + Math.sin(this.t * 9 + e.i) * 6, 84, { pulse: true });
+      }
     }
   }
 

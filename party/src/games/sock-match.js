@@ -29,6 +29,10 @@ export const meta = {
   goal: 'Find each silly sock its twin and hang the pairs on the line!',
   controls: [['stick', 'Run'], ['a', 'Grab a sock']],
   tips: ['Carry a sock to the one that looks the same.', 'The puppy steals socks! Run into him and he drops it.', 'Holding twins with a friend? Run together for a high-five!'],
+  // Molly Easy: you walk by yourself to a sock, A grabs it, then you carry it to its twin
+  goalEasy: 'Press A to grab a sock. You carry it to its twin all by yourself!',
+  controlsEasy: [['a', 'Grab a sock / catch the puppy']],
+  tipsEasy: ['Press A when the big A bounces over a sock.', 'The puppy has a sock? Press A when he runs by!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -76,6 +80,7 @@ let sockSerial = 0;
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves, A grabs
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -99,7 +104,8 @@ export class Game {
       const y = 640 + (i % 2) * 60;
       const a = new Actor(p, { scale: this.scale, x, y });
       a.facing = x < W / 2 ? 1 : -1; a.snap();
-      return { p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, cool: 0, bumpT: 0, brain: new Brain(p), plan: null };
+      return { p, a, i, x, y, vx: 0, vy: 0, held: null, heldT: 0, score: 0, cool: 0, bumpT: 0, brain: new Brain(p), plan: null,
+        auto: this.easy && !p.isAI ? { ix: 0, iy: 0, sock: null, t: 0 } : null };
     });
     this.burst(this.pairsPerWave, true);
   }
@@ -158,6 +164,7 @@ export class Game {
     this.basketSq *= Math.exp(-5 * dt);
     for (const e of this.ents) {
       if (e.p.isAI && !this.done) this.aiThink(e, dt);
+      if (e.auto) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.separate(dt);
@@ -262,9 +269,9 @@ export class Game {
     const p = e.p, a = e.a, c = p.ctrl;
     e.cool = Math.max(0, e.cool - dt); e.bumpT = Math.max(0, e.bumpT - dt);
     if (e.held) e.heldT += dt;
-    const ix = this.done ? 0 : c.x, iy = this.done ? 0 : c.y;
+    const ix = this.done ? 0 : e.auto ? e.auto.ix : c.x, iy = this.done ? 0 : e.auto ? e.auto.iy : c.y;
     const m = Math.hypot(ix, iy), k = m > 1 ? 1 / m : 1;
-    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : 1;
+    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? 0.7 : 1;
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.85 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
@@ -302,7 +309,23 @@ export class Game {
     return best;
   }
 
+  /** Molly Easy: what A does right now ('puppy' | 'grab' | null). */
+  easyAction(e) {
+    const pp = this.puppy;
+    if (pp.sock && Math.hypot(pp.x - e.x, (pp.y - e.y) * 1.3) < 210) return 'puppy';
+    if (!e.held && this.nearestSock(e)) return 'grab';
+    return null;
+  }
+
   action(e) {
+    if (e.auto) {
+      // Molly Easy: never swap the carried sock by accident; A grabs or catches the puppy
+      const act = this.easyAction(e);
+      if (act === 'puppy') return this.catchPuppy(e);
+      if (act === 'grab') return this.grab(e, this.nearestSock(e));
+      e.a.playOnce('look-around', 0.35); e.cool = 0.15;
+      return;
+    }
     const s = this.nearestSock(e);
     if (!s) {
       // tag the puppy if he is close
@@ -448,6 +471,45 @@ export class Game {
     sfx('boing', { vol: 0.4, fallback: 'bounce' });
   }
 
+  // ------------------------------------------------------------- Molly Easy
+  /** Easy (A only): walk this human to a sock (or, carrying one, to its twin). */
+  easyThink(e, dt) {
+    const au = e.auto;
+    au.ix = 0; au.iy = 0;
+    if (this.done) return;
+    let tx = null, ty = null, arrive = 8;
+    if (e.held) {
+      const pat = e.held.pat;
+      let best = null, bd = 1e9;
+      for (const s of this.socks) if (s.state === 'ground' && s.pat === pat) { const d = Math.hypot(s.x - e.x, s.y - e.y); if (d < bd) { bd = d; best = s; } }
+      const friend = this.ents.find((o) => o !== e && o.held && o.held.pat === pat);
+      if (friend && Math.hypot(friend.x - e.x, friend.y - e.y) < bd) { tx = friend.x; ty = friend.y; arrive = 60; }
+      else if (best) { tx = best.x; ty = best.y; }
+      else if (this.puppy.sock && this.puppy.sock.pat === pat) { tx = this.puppy.x; ty = this.puppy.y; }
+    } else {
+      au.t -= dt;
+      const cur = au.sock;
+      if (!cur || cur.state !== 'ground' || au.t <= 0) {
+        au.t = 2;
+        // the nearest sock nobody else is heading for (twins of carried socks first)
+        const taken = new Set(this.ents.filter((o) => o !== e).map((o) => (o.auto ? o.auto.sock : o.plan && o.plan.sock)).filter(Boolean));
+        let free = this.socks.filter((s) => s.state === 'ground' && !taken.has(s));
+        if (!free.length) free = this.socks.filter((s) => s.state === 'ground');
+        const wanted = free.filter((s) => this.ents.some((o) => o.held && o.held.pat === s.pat));
+        const pool = wanted.length ? wanted : free;
+        let best = null, bd = 1e9;
+        for (const s of pool) { const d = Math.hypot(s.x - e.x, s.y - e.y) + (s === cur ? -150 : 0); if (d < bd) { bd = d; best = s; } }
+        au.sock = best;
+      }
+      if (au.sock) { tx = au.sock.x + (e.i % 2 ? 20 : -20); ty = au.sock.y + 6; }
+    }
+    if (tx === null) return;
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    if (d < arrive) return;
+    const k = clamp(d / 90, 0, 1);
+    au.ix = (dx / d) * k; au.iy = (dy / d) * k;
+  }
+
   // ---------------------------------------------------------------------- AI
   aiThink(e, dt) {
     const p = e.p, c = p.ctrl, prof = aiProfile(p);
@@ -467,7 +529,7 @@ export class Game {
         else if (best) e.plan = { sock: best };
         else e.plan = pp.sock && pp.sock.pat === pat ? { puppy: true } : null;
       } else {
-        const free = this.socks.filter((s) => s.state === 'ground' && !this.ents.some((o) => o !== e && o.plan && o.plan.sock === s));
+        const free = this.socks.filter((s) => s.state === 'ground' && !this.ents.some((o) => o !== e && ((o.plan && o.plan.sock === s) || (o.auto && o.auto.sock === s))));
         if (free.length) {
           // prefer a sock whose twin someone else is already carrying, else the closest
           const wanted = free.filter((s) => this.ents.some((o) => o.held && o.held.pat === s.pat));
@@ -553,13 +615,31 @@ export class Game {
       const head = e.y - e.a.height - (e.held ? 150 : 30);
       if (this.time < 4 || !e.p.isAI) ui.playerTag(g, e.p, e.x, head);
     }
+    if (this.easy && !this.done) this.drawEasyHints(g);
+  }
+
+  /** Molly Easy: a bouncing arrow over the sock you're walking to, a big A when A works. */
+  drawEasyHints(g) {
+    const t = this.t;
+    for (const e of this.ents) {
+      if (!e.auto) continue;
+      const act = this.easyAction(e);
+      if (act === 'puppy') { ui.glyph(g, 'a', this.puppy.x, this.puppy.y - 260 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue; }
+      if (act === 'grab') { const s = this.nearestSock(e); ui.glyph(g, 'a', s.x, s.y - 190 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue; }
+      const s = !e.held && e.auto.sock;
+      if (!s || s.state !== 'ground') continue;
+      g.save(); g.translate(s.x, s.y - 175 + Math.sin(t * 7 + e.i) * 10);
+      g.fillStyle = e.p.color; g.strokeStyle = '#24163f'; g.lineWidth = 5;
+      g.beginPath(); g.moveTo(0, 24); g.lineTo(-24, -6); g.lineTo(-10, -6); g.lineTo(-10, -30); g.lineTo(10, -30); g.lineTo(10, -6); g.lineTo(24, -6); g.closePath(); g.fill(); g.stroke();
+      g.restore();
+    }
   }
 
   drawGroundSock(g, s) {
     const t = this.t;
     // twins of what a human is holding glow (after a moment) so little ones can find them
     let glow = null;
-    for (const e of this.ents) if (e.held && e.held.pat === s.pat && e.heldT > 1.2 && !e.p.isAI) glow = e.p.color;
+    for (const e of this.ents) if (e.held && e.held.pat === s.pat && (e.heldT > 1.2 || e.auto) && !e.p.isAI) glow = e.p.color;
     g.save();
     g.fillStyle = 'rgba(36,22,63,0.16)'; g.beginPath(); g.ellipse(s.x, s.y + 4, 48, 12, 0, 0, TAU); g.fill();
     if (glow) {
