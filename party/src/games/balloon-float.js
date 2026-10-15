@@ -33,6 +33,9 @@ export const meta = {
   goal: 'Fly with your balloons and grab the hearts and stars!',
   controls: [['stick', 'Fly left and right'], ['a', 'Hold to go up, let go to go down']],
   tips: ['Big gold stars are worth 3!', 'Bump through the silly clouds - they sneeze out hearts.', 'Touch the grass for a big BOING!'],
+  goalEasy: 'Hold A to float up and let go to float down - grab the hearts and stars flying by!',
+  controlsEasy: [['a', 'Hold to go up, let go to go down']],
+  tipsEasy: ['The ring shows your next heart - the arrow says up or down!', 'Big gold stars are worth 3!', 'Touch the grass for a big BOING!'],
   music: 'chase',
   duration: '45 sec',
   minPlayers: 1,
@@ -77,6 +80,7 @@ let serial = 0;
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans keep their spot in the sky by themselves, A is up/down
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0; this.timeLeft = DURATION;
@@ -96,7 +100,7 @@ export class Game {
       const y = n <= 4 ? 520 + (i % 2) * 120 : 420 + row * 300 + (col % 2) * 60;
       a.x = x; a.y = y; a.facing = 1; a.snap(); a.setPose('float');
       const balloons = Array.from({ length: 5 }, (_, k) => ({ b: BALLOONS[(k + i) % BALLOONS.length], ang: (k - 2) * 0.34, len: 0.9 + (k % 2) * 0.18, sw: rand(TAU), sq: 0 }));
-      return { p, a, i, x, y, vx: 0, vy: 0, score: 0, streak: 0, streakT: 0, popN: 0, popT: 0, boingT: 0, lean: 0, balloons, brain: new Brain(p), target: null, err: 0, wander: 0, wx: x, wy: y, upHold: false, cloudCd: new Map() };
+      return { p, a, i, x, y, vx: 0, vy: 0, score: 0, streak: 0, streakT: 0, popN: 0, popT: 0, boingT: 0, lean: 0, balloons, brain: new Brain(p), target: null, err: 0, wander: 0, wx: x, wy: y, upHold: false, cloudCd: new Map(), homeX: x, ezHint: null };
     });
   }
 
@@ -211,6 +215,14 @@ export class Game {
         if (it.drag) { const k = Math.exp(-2 * dt); it.vx *= k; it.vy *= k; }
         it.x += (-this.wind * (it.kind === 'gold' ? 0.8 : 1) + it.vx) * dt;
         it.y += (it.vy + Math.cos(it.t * 2.2 + it.id) * 30) * dt;
+        if (this.easy && !this.done) {
+          // Molly Easy: treats close to a human's balloons drift in to meet them
+          for (const e of this.ents) {
+            if (e.p.isAI) continue;
+            const b = this.body(e), dx = b.x - it.x, dy = b.y - it.y, d = Math.hypot(dx, dy);
+            if (d < 230 && d > 1) { const k = Math.min(1, dt * 2.6); it.x += dx * k * 0.5; it.y += dy * k; break; }
+          }
+        }
       }
       if (it.x < -100 || it.y > H + 80 || it.t > 30) it.dead = true;
     }
@@ -228,10 +240,18 @@ export class Game {
     const p = e.p, a = e.a, ctrl = p.ctrl;
     e.popT = Math.max(0, e.popT - dt); e.streakT = Math.max(0, e.streakT - dt); e.boingT = Math.max(0, e.boingT - dt);
     if (e.streakT <= 0) e.streak = 0;
-    const inX = this.done ? 0 : ctrl.x;
+    const easy = this.easy && !p.isAI;
+    if (easy && !this.done) this.easyLook(e);
+    let inX = this.done ? 0 : ctrl.x;
+    if (easy && !this.done) {
+      // drift toward the next treat, but stay near your own patch of sky
+      const want = e.target && !e.target.dead ? clamp(e.target.x - this.wind * 0.25, 120, W * 0.8) : e.homeX;
+      const dx = want - e.x;
+      inX = Math.abs(dx) > 20 ? Math.sign(dx) * clamp(Math.abs(dx) / 200, 0.2, 0.7) : 0;
+    }
     e.vx = approach(e.vx, inX * SPEED_X, 2600 * dt);
-    const up = !this.done && (ctrl.held('a') || ctrl.y < -0.5);
-    const down = !this.done && ctrl.y > 0.5;
+    const up = !this.done && (ctrl.held('a') || (!easy && ctrl.y < -0.5));
+    const down = !this.done && !easy && ctrl.y > 0.5;
     if (up && !e.upHold) { snd('bf-rise', 'whoosh', { vol: 0.25, rate: 1.4 }); for (const bl of e.balloons) bl.sq = -0.15; }
     e.upHold = up;
     if (up) e.vy = approach(e.vy, -RISE, 2000 * dt);
@@ -288,7 +308,8 @@ export class Game {
       let best = null, bd = 1e9;
       for (const e of this.ents) {
         const b = this.body(e), u = this.bunch(e);
-        const rb = it.r + this.scale * 62, ru = it.r + this.scale * 70;
+        const big = this.easy && !e.p.isAI ? 1.3 : 1;   // Molly Easy: a more generous grab
+        const rb = (it.r + this.scale * 62) * big, ru = (it.r + this.scale * 70) * big;
         const d1 = Math.hypot(it.x - b.x, it.y - b.y), d2 = Math.hypot(it.x - u.x, it.y - u.y);
         const d = Math.min(d1 / rb, d2 / ru);
         if (d < 1 && d < bd) { bd = d; best = e; }
@@ -356,6 +377,23 @@ export class Game {
         if (b.gave < 2) { b.gave++; const h = this.spawnItem('heart', b.x, b.y + 20); h.homing = e; }
       }
     }
+  }
+
+  /** Molly Easy: the next treat coming at this human, and whether to go up or down for it. */
+  easyLook(e) {
+    const b = this.body(e);
+    if (!e.target || e.target.dead || e.target.homing || e.target.x < b.x - 40) {
+      let best = null, bd = Infinity;
+      for (const it of this.items) {
+        if (it.homing || it.dead || it.x < b.x - 20 || it.x > b.x + 900) continue;
+        let d = (it.x - b.x) + Math.abs(it.y - b.y) * 0.6;
+        if (this.ents.some((o) => o !== e && o.target === it)) d += 500;
+        if (d < bd) { bd = d; best = it; }
+      }
+      e.target = best;
+    }
+    const it = e.target;
+    e.ezHint = !it ? null : it.y < b.y - 50 ? 'up' : it.y > b.y + 50 ? 'down' : 'ok';
   }
 
   // ---------------------------------------------------------------------- AI
@@ -435,6 +473,25 @@ export class Game {
       const u = this.bunch(e);
       const show = this.el < 5 || !e.p.isAI;
       if (show) ui.playerTag(g, e.p, u.x, u.y - 70 * this.scale - 8);
+    }
+    if (this.easy && !this.done) {
+      // Molly Easy: a ring on your next treat, and an arrow saying up (hold A) or down (let go)
+      for (const e of this.ents) {
+        if (e.p.isAI) continue;
+        const it = e.target;
+        if (it && !it.dead && !it.homing) {
+          g.save(); g.globalAlpha = 0.55 + 0.35 * Math.sin(this.t * 9 + e.i);
+          g.strokeStyle = e.p.color; g.lineWidth = 7;
+          g.beginPath(); g.arc(it.x, it.y, it.r + 18 + Math.sin(this.t * 8) * 4, 0, TAU); g.stroke(); g.restore();
+        }
+        if (e.ezHint === 'up' || e.ezHint === 'down') {
+          const b = this.body(e), x = b.x + e.a.width * 0.5 + 60, dir = e.ezHint === 'up' ? -1 : 1;
+          const y = b.y + dir * Math.abs(Math.sin(this.t * 6)) * 16;
+          g.save(); g.translate(x, y); g.fillStyle = e.p.color; g.strokeStyle = '#24163f'; g.lineWidth = 5;
+          g.beginPath(); g.moveTo(-24, -dir * 4); g.lineTo(24, -dir * 4); g.lineTo(0, dir * 34); g.closePath(); g.fill(); g.stroke(); g.restore();
+          if (e.ezHint === 'up' && !e.p.ctrl.held('a')) ui.glyph(g, 'a', x, y - 62, 52, { pulse: true });
+        }
+      }
     }
   }
 

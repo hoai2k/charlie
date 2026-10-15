@@ -66,6 +66,9 @@ export const meta = {
   goal: 'Sneak up and give the sleeping troll a silly makeover!',
   controls: [['stick', 'Tiptoe around'], ['a', 'Grab a prank / prank the troll']],
   tips: ['Grab a prank from a basket, then press A next to the troll!', 'When he stirs and the "!" pops up: FREEZE and you turn into a bush!', 'Three feather tickles make him sneeze!'],
+  goalEasy: 'Hold A to tiptoe to a prank basket and then to the troll - let go when he stirs!',
+  controlsEasy: [['a', 'Hold: tiptoe, grab and prank'], ['a', 'Let go: freeze like a bush']],
+  tipsEasy: ['Hold A and you tiptoe where the arrow points!', 'When the "!" pops up, LET GO of A and you turn into a bush!', 'Three feather tickles make him sneeze!'],
   music: 'chill',
   duration: '60 sec',
   minPlayers: 1,
@@ -83,6 +86,7 @@ export class Game {
   constructor(api) {
     configureTrollArt(!!(art('prop/ptroll-troll-asleep') && art('prop/ptroll-troll-awake')));
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: hold A to tiptoe along an auto route, let go to freeze
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -102,6 +106,7 @@ export class Game {
         p, i, a, x: s.x, y: s.y, vx: 0, vy: 0, kx: 0, ky: 0, item: null, pranks: 0, still: 0, bush: 0,
         swatted: false, stun: 0, sneaky: 0, swats: 0,
         ai: { mode: 'fetch', st: null, tx: s.x, ty: s.y, wait: rand(0.2, 0.8), freezeAt: null, oops: 0, oopsT: 0, dx: 0, dy: 0 },
+        ez: { mode: null, st: null, tx: s.x, ty: s.y, idle: 0, cool: 0 },
       };
       a.attach((g, info) => {
         if (!U.item) return;
@@ -305,8 +310,17 @@ export class Game {
     const c = U.p.ctrl, a = U.a;
     const finale = this.phase === 'finale' || this.phase === 'end';
     U.stun = Math.max(0, U.stun - dt);
-    const mag = Math.hypot(c.x, c.y);
-    const moving = mag > 0.3 || c.pressed('a');
+    // Molly Easy (humans): holding A walks the auto route, letting go stands still
+    const easy = this.easy && !U.p.isAI;
+    let sx = c.x, sy = c.y;
+    if (easy) {
+      const dir = finale ? [0, 0] : this.easyDir(U);   // always pick the route, so the arrow shows
+      [sx, sy] = c.held('a') && U.stun <= 0 ? dir : [0, 0];
+      U.ez.idle = c.held('a') ? 0 : U.ez.idle + dt;
+      U.ez.cool = Math.max(0, U.ez.cool - dt);
+    }
+    const mag = Math.hypot(sx, sy);
+    const moving = easy ? c.held('a') || c.pressed('a') : mag > 0.3 || c.pressed('a');
     // freeze detection (stir + look)
     const watch = this.phase === 'stir' || this.phase === 'look';
     if (watch && !moving && U.stun <= 0) U.still += dt; else U.still = 0;
@@ -320,7 +334,7 @@ export class Game {
     let vx = 0, vy = 0;
     if (U.stun <= 0 && !finale) {
       const sp = SPEED * Math.min(1, mag);
-      vx = (mag > 0.15 ? c.x / mag : 0) * sp; vy = (mag > 0.15 ? c.y / mag : 0) * sp;
+      vx = (mag > 0.15 ? sx / mag : 0) * sp; vy = (mag > 0.15 ? sy / mag : 0) * sp;
     }
     U.vx = damp(U.vx, vx, 12, dt); U.vy = damp(U.vy, vy, 12, dt);
     U.kx *= Math.pow(0.04, dt); U.ky *= Math.pow(0.04, dt);
@@ -333,7 +347,17 @@ export class Game {
       if (chance(dt * 1.2)) particles.popText(U.x + rand(-30, 30), U.y - U.a.height - 20, 'stomp', '#ffffff', 28);
     }
     // A: grab or prank
-    if (c.pressed('a') && U.stun <= 0 && !finale) {
+    if (easy) {
+      // Molly Easy: arriving at the basket grabs, arriving at the troll pranks
+      if (U.stun <= 0 && !finale && c.held('a')) {
+        if (!U.item) {
+          const st = U.ez.st && Math.hypot(U.ez.st.x - U.x, U.ez.st.y - 20 - U.y) < PICK_R + U.a.radius * 0.4 ? U.ez.st : null;
+          if (st && U.ez.cool <= 0) { this.grab(U, st); U.ez.mode = null; U.ez.cool = 0.4; }
+        } else if (U.ez.mode === 'deliver' && U.ez.cool <= 0 && (Math.hypot(U.ez.tx - U.x, U.ez.ty - U.y) < 70 || inZone(U.x, U.y, { x: ZONE.x, y: ZONE.y, ...REACH }) < 0.55)) {
+          this.prank(U); U.ez.mode = null; U.ez.st = null; U.ez.cool = 0.4;
+        }
+      }
+    } else if (c.pressed('a') && U.stun <= 0 && !finale) {
       if (!U.item) {
         const st = STATIONS.find((s) => Math.hypot(s.x - U.x, s.y - 20 - U.y) < PICK_R + U.a.radius * 0.4);
         if (st) this.grab(U, st);
@@ -347,6 +371,44 @@ export class Game {
     }
     this.placeActor(U);
     a.update(dt);
+  }
+
+  /** Molly Easy: the stick direction for a human holding A (basket, then the troll). */
+  easyDir(U) {
+    const E = U.ez;
+    if (!U.item) {
+      if (E.mode !== 'fetch' || !E.st) {
+        E.mode = 'fetch';
+        // nearest basket that no friend is already heading for
+        let best = null, bd = Infinity;
+        for (const st of STATIONS) {
+          let d = Math.hypot(st.x - U.x, st.y - U.y);
+          if (this.units.some((o) => o !== U && (o.ez.st === st || o.ai.st === st))) d += 600;
+          if (d < bd) { bd = d; best = st; }
+        }
+        E.st = best;
+      }
+      E.tx = E.st.x; E.ty = E.st.y + 10;
+    } else if (E.mode !== 'deliver') {
+      E.mode = 'deliver';
+      const ang = Math.atan2((U.y - ZONE.y) / ZONE.ry, (U.x - ZONE.x) / ZONE.rx);
+      let a = clamp(ang, 0.15, Math.PI - 0.15);
+      // never deliver from a spot within reach of a basket (no standing still and farming pranks)
+      const spot = (k) => ({ x: ZONE.x + Math.cos(k) * ZONE.rx * 1.15, y: ZONE.y + Math.sin(k) * ZONE.ry * 1.15 });
+      const tooNear = (k) => STATIONS.some((st) => Math.hypot(st.x - spot(k).x, st.y - 20 - spot(k).y) < PICK_R + 110);
+      const side = a < Math.PI / 2 ? -1 : 1;
+      for (let i = 0; i < 12 && tooNear(a); i++) a = clamp(a + side * 0.12, 0.15, Math.PI - 0.15);
+      E.tx = spot(a).x; E.ty = spot(a).y;
+    }
+    // route round the troll if the straight line crosses him
+    let tx = E.tx, ty = E.ty;
+    let blocked = false;
+    for (let k = 1; k < 8; k++) { const x = lerp(U.x, tx, k / 8), y = lerp(U.y, ty, k / 8); if (inZone(x, y, ZONE, 1.05) < 1) { blocked = true; break; } }
+    if (blocked) { tx = U.x < ZONE.x === tx < ZONE.x ? tx : ZONE.x + (U.x < ZONE.x ? -1 : 1) * 60; ty = ZONE.y + ZONE.ry + 130; if (Math.abs(U.y - ty) < 40) tx = E.tx; }
+    const dx = tx - U.x, dy = ty - U.y, d = Math.hypot(dx, dy);
+    if (d < 6) return [0, 0];
+    const sp = 0.78 * clamp(d / 60, 0.4, 1);   // a tiptoe: never loud enough to stomp
+    return [dx / d * sp, dy / d * sp];
   }
 
   placeActor(U) {
@@ -776,8 +838,23 @@ export class Game {
       if (img) { g.save(); g.translate(U.x, U.y + 6); g.scale(U.bush, U.bush); g.drawImage(img, -w / 2, -h, w, h); g.restore(); }
       else drawBush(g, U.x, U.y + 6, w, h, U.bush, t, U.i);
     }
+    if (this.easy && !U.p.isAI && this.phase !== 'finale' && this.phase !== 'end') {
+      // Molly Easy: a bouncing arrow over where you're tiptoeing, and "hold A" when you're waiting
+      const E = U.ez;
+      const watch = this.phase === 'stir' || this.phase === 'look';
+      if (!watch && U.stun <= 0) {
+        const tx = U.item ? ZONE.x + (E.mode === 'deliver' ? (E.tx - ZONE.x) * 0.55 : 0) : (E.st ? E.st.x : null);
+        const ty = U.item ? ZONE.y - 120 : (E.st ? E.st.y - 150 : null);
+        if (tx != null) {
+          const b = Math.abs(Math.sin(t * 5 + U.i)) * 18;
+          g.save(); g.translate(tx, ty + b); g.fillStyle = U.p.color; g.strokeStyle = NAVY; g.lineWidth = 5;
+          g.beginPath(); g.moveTo(-26, -30); g.lineTo(26, -30); g.lineTo(0, 6); g.closePath(); g.fill(); g.stroke(); g.restore();
+        }
+        if (E.idle > 0.8) ui.glyph(g, 'a', U.x + 54, U.y - a.height - 70, 52, { pulse: true });
+      }
+    }
     // prank prompt for a human carrying next to the troll
-    if (!U.p.isAI && U.item && this.phase !== 'finale' && inZone(U.x, U.y, { x: ZONE.x, y: ZONE.y, ...REACH }) < 1) {
+    if (!this.easy && !U.p.isAI && U.item && this.phase !== 'finale' && inZone(U.x, U.y, { x: ZONE.x, y: ZONE.y, ...REACH }) < 1) {
       ui.glyph(g, 'a', U.x + 50, U.y - a.height - 90, 44, { pulse: true });
     }
     if (this.t < 5 || (!U.p.isAI && this.n > 1 && this.t < 9)) {

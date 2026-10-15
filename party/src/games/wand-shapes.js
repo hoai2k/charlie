@@ -59,6 +59,9 @@ export const meta = {
   goal: 'Trace the dotted shapes together with your wand sparkle to bring them to life!',
   controls: [['stick', 'Fly your wand sparkle'], ['a', 'Sparkle burst']],
   tips: ['Touch the dots to light them up - any order is fine!', 'Press A for a big sparkle burst.', 'Finish a shape and it comes alive!'],
+  goalEasy: 'Hold A and your wand sparkle flies along the dots to light them up!',
+  controlsEasy: [['a', 'Hold: fly to the dots'], ['a', 'Tap: sparkle burst']],
+  tipsEasy: ['Hold A - your sparkle finds the dots by itself!', 'Let go of A and it waits for you.', 'Light every dot and the shape comes alive!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -88,6 +91,7 @@ export const meta = {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: A held flies the sparkle to the dots by itself
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -111,6 +115,7 @@ export class Game {
         p, i, a, hx: x,
         cx: x, cy: 760, px: x, py: 760, vx: 0, vy: 0, rot: rand(TAU), cool: 0, trail: [], trailT: 0, moving: 0,
         ai: { t: rand(0.2, 0.6), tx: x, ty: 600, wander: 0 },
+        idleT: 0, et: null,
       };
     });
     this.newShape();
@@ -255,6 +260,7 @@ export class Game {
   moveCursor(e, dt) {
     const c = e.p.ctrl;
     let mx = c.x, my = c.y;
+    if (this.easy && !e.p.isAI) [mx, my] = this.easyStick(e, dt);
     const m = Math.hypot(mx, my);
     if (m < 0.15) { mx = 0; my = 0; }
     const lvl = clamp(e.p.aiLevel ?? 0, 0, 2);
@@ -289,6 +295,33 @@ export class Game {
         particles.burst(b.x - dx / d * b.r, b.y - dy / d * b.r, { type: 'star', count: 5, colors: ['#fff', '#c8efff'], speed: [80, 200] });
       }
     }
+  }
+
+  /** Molly Easy: while A is held the sparkle flies itself to the nearest free unlit dot. */
+  easyStick(e, dt) {
+    const c = e.p.ctrl, s = this.shape;
+    const held = c.held('a');
+    e.idleT = held ? 0 : e.idleT + dt;
+    let tx = e.hx, ty = 640;
+    if (s && s.state === 'draw') {
+      if (!e.et || e.et.lit !== -2 || !s.dots.includes(e.et)) {
+        let best = null, bd = Infinity;
+        for (const d of s.dots) {
+          if (d.lit !== -2) continue;
+          let dd = Math.hypot(d.x - e.cx, d.y - e.cy);
+          if (this.ents.some((o) => o !== e && (o.et === d || Math.hypot(o.ai.tx - d.x, o.ai.ty - d.y) < 90))) dd += 400;
+          if (dd < bd) { bd = dd; best = d; }
+        }
+        e.et = best;
+      }
+      if (e.et) { tx = e.et.x; ty = e.et.y; }
+    } else e.et = null;
+    e.ai.tx = tx; e.ai.ty = ty;
+    if (!held) return [0, 0];
+    const dx = tx - e.cx, dy = ty - e.cy, d = Math.hypot(dx, dy);
+    if (d < 8) return [0, 0];
+    const k = 0.72 * clamp(d / 80, 0.35, 1);
+    return [dx / d * k, dy / d * k];
   }
 
   burst(e) {
@@ -431,8 +464,16 @@ export class Game {
     }
     for (const e of this.ents) {
       const pulse = e.cool > BURST_COOL - 0.2 ? 1.3 : 1;
+      if (this.easy && !e.p.isAI && e.et && this.shape && this.shape.state === 'draw') {
+        // Molly Easy: the dot this sparkle is heading for glows in its colour
+        g.save(); g.globalAlpha = 0.55 + 0.35 * Math.sin(this.t * 8 + e.i);
+        g.strokeStyle = e.p.color; g.lineWidth = 7;
+        g.beginPath(); g.arc(e.et.x, e.et.y, 36 + Math.sin(this.t * 8) * 5, 0, TAU); g.stroke();
+        g.restore();
+      }
       drawSparkle(g, e.cx, e.cy, 52 * pulse, e.rot, e.p.color);
       if (this.n > 1 || this.time < 4) ui.playerTag(g, e.p, e.cx, e.cy - 52);
+      if (this.easy && !e.p.isAI && !this.done && e.idleT > 1.2 && this.time > 0) ui.glyph(g, 'a', e.cx + 62, e.cy + 46, 60, { pulse: true });
     }
   }
 
