@@ -8,6 +8,18 @@ _Last updated: 2026-10-12, after the completed Play Studio art delivery._
 
 ## In progress right now
 
+### Sister Party occlusion audit (2026-10-15): DONE
+All 23 games audited for sprites partly hidden by art. Masks now come from the art itself (front
+layer redrawn after the sprite) or from paths traced from the art's alpha, with fallbacks kept:
+bed-bounce (Nanny Moo behind the door slab + arched doorway clip, duvet redrawn over sleepers,
+whole teddy/cat), whoopee-tea (bowl split at the lid edge, frog rises inside), ghost-giggles
+(peek ghost's cut edge tucked behind the curtain), pumpkin-peekaboo (hole's curved lip),
+trick-or-treat (jack box split on its top outline, square door light), fairy-hide-seek,
+duckling-parade, kitten-yarn, mermaid-pearls, garden-grow, prank-troll, sock-match,
+fairy-flutter (jar outline), unicorn-jump (tilted seat). Left as is: balloon-float bow/strings
+vs hands (needs a hold-balloons pose), ghost-giggles fireplace ghosts fade in front (reads as
+coming out of the fire), a few confetti bits on the jack can pass the door jamb.
+
 ### Molly Easy mode (2026-10-15): DONE
 session.mollyLevel 'easy' (default, localStorage, ?molly=) / 'medium'; Y or click on the Molly
 shelf pill toggles. Games read api.easy; meta goalEasy/controlsEasy/tipsEasy show on the how-to
