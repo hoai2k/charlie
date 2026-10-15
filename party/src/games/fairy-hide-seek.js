@@ -49,6 +49,10 @@ export const meta = {
   goal: 'Find the fairies hiding in the garden!',
   controls: [['stick', 'Walk with your magnifying glass'], ['a', 'Peek! Check a hiding spot']],
   tips: ['Look through your glass to see who is hiding.', 'Wiggly, sparkly spots have a fairy!', 'Frogs and snails are just being silly.'],
+  // Easy (A only): you walk from spot to spot by yourself and stop to look.
+  goalEasy: 'Find the fairies hiding in the garden!',
+  controlsEasy: [['a', 'Peek! when you see a fairy']],
+  tipsEasy: ['You walk to the hiding spots all by yourself!', 'See a fairy in your glass? Press A quick!', 'Frogs and snails are just being silly.'],
   music: 'party',
   duration: '60 sec',
   minPlayers: 1,
@@ -78,6 +82,7 @@ export const meta = {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk spot to spot by themselves, A peeks
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -110,6 +115,13 @@ export class Game {
     const cols = shuffle(FAIRY_COLS.slice());
     for (let k = 0; k < this.nFairies; k++) order[k].c = { kind: 'fairy', col: cols[k % cols.length], side: chance(0.5) ? 1 : -1 };
     DECOYS.forEach((d, k) => { order[this.nFairies + k].c = { kind: d, side: chance(0.5) ? 1 : -1 }; });
+    if (this.easy) {
+      // a walking tour round the garden (snake through the rows); each human starts somewhere else
+      this.tour = [0, 1, 2, 3, 6, 5, 4, 7, 8, 9, 10];
+      this.ents.filter((e) => !e.p.isAI).forEach((e, k, hum) => {
+        e.ez = { ti: Math.floor((k * this.tour.length) / hum.length), spot: null, dwell: 0, look: 0 };
+      });
+    }
   }
 
   lensTarget(e) {
@@ -182,6 +194,7 @@ export class Game {
     const a = e.a, ctrl = e.p.ctrl;
     e.cd = Math.max(0, e.cd - dt); e.glint = Math.max(0, e.glint - dt * 3);
     let ix = this.done ? 0 : ctrl.x, iy = this.done ? 0 : ctrl.y;
+    if (e.ez) [ix, iy] = this.done ? [0, 0] : this.easyPilot(e, dt);
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     const k = 1 - Math.exp(-12 * dt);
     e.vx += (ix * SPEED - e.vx) * k; e.vy += (iy * SPEED * 0.85 - e.vy) * k;
@@ -431,6 +444,40 @@ export class Game {
     p.ctrl.move(Math.cos(ang) * k, Math.sin(ang) * k);
   }
 
+  /** Molly Easy: walk the lens to a hiding spot, stop and look for a moment,
+   *  then on to the next (a wiggly spot nearby first, else the next on the
+   *  tour). Returns stick x/y. */
+  easyPilot(e, dt) {
+    const z = e.ez;
+    const taken = (s) => this.ents.some((o) => o !== e && o.ez && o.ez.spot === s);
+    if (!z.spot) {
+      const wig = this.spots.filter((s) => s.wig > 0 && s !== z.last && !taken(s) && dist(e.lx, e.ly, s.x, s.y - s.h / 2) < 700);
+      if (wig.length) z.spot = wig.reduce((b, s) => (dist(e.lx, e.ly, s.x, s.y) < dist(e.lx, e.ly, b.x, b.y) ? s : b));
+      else {
+        for (let k = 0; k < this.tour.length; k++) {
+          z.ti = (z.ti + 1) % this.tour.length;
+          const s = this.spots[this.tour[z.ti]];
+          if (s !== z.last && !taken(s)) { z.spot = s; break; }
+        }
+      }
+      z.look = 0; z.dwell = 0; z.had = !!(z.spot && z.spot.c && z.spot.c.kind === 'fairy');
+      if (!z.spot) return [0, 0];
+    }
+    const s = z.spot, tx = s.x, ty = s.y - s.h * 0.5;
+    const dx = tx - e.lx, dy = ty - e.ly, d = Math.hypot(dx, dy);
+    z.dwell += dt;
+    if (e.spot === s && d < 45) {
+      // looking: a good long look; move on sooner once the fairy here was found
+      z.look += dt;
+      const found = z.had && !(s.c && s.c.kind === 'fairy');
+      if (z.look > 2.2 || (found && z.look > 0.7) || (z.look > 1.2 && !s.c)) { z.last = s; z.spot = null; }
+      return [0, 0];
+    }
+    if (z.dwell > 6) { z.last = s; z.spot = null; return [0, 0]; }   // stuck: try another
+    const k = clamp(d / 90, 0.2, 1) * 0.62;
+    return [(dx / d) * k, (dy / d) * k];
+  }
+
   // --- draw ------------------------------------------------------------------------
   draw(g) {
     const t = this.t;
@@ -454,6 +501,11 @@ export class Game {
     for (const e of this.ents) {
       if (e.p.isAI && this.api.time > 5) continue;
       ui.playerTag(g, e.p, e.lx, e.ly - this.lensR - 24);
+    }
+    // Easy: a fairy in the glass gets a big bouncing A
+    for (const e of this.ents) {
+      if (!e.ez || this.done || e.cd > 0 || !(e.spot && e.spot.c && e.spot.c.kind === 'fairy' && e.spot.busy <= 0)) continue;
+      ui.glyph(g, 'a', e.lx + this.lensR + 44, e.ly - 20 + Math.sin(t * 8) * 6, 64, { pulse: true });
     }
   }
 
@@ -534,6 +586,7 @@ export class Game {
       g.save(); g.globalAlpha = al;
       for (const e of this.ents) {
         if (e.p.isAI) continue;
+        if (e.ez) continue;   // Easy draws its own A when a fairy is in the glass
         ui.glyph(g, 'a', e.lx + this.lensR + 30, e.ly - 30, 50, { pulse: true });
         ui.glyph(g, 'stick', e.x - 90, e.y - 40, 50);
       }

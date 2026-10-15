@@ -35,6 +35,10 @@ export const meta = {
   goal: 'Fly your paint cloud and colour in the whole grey world together!',
   controls: [['stick', 'Fly your cloud'], ['a', 'Hold to rain paint']],
   tips: ['Rain paint on the grey rainbow: the sparkly stripe is a good place to start!', 'Grab the golden Paint Star for a MEGA SPLASH!', 'Paint the sleepy sun last to wake him up.'],
+  // Easy (A only): your cloud floats by itself to the next grey spot.
+  goalEasy: 'Rain paint on the grey world and colour it in together!',
+  controlsEasy: [['a', 'Hold to rain paint']],
+  tipsEasy: ['Your cloud flies all by itself!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star for a MEGA SPLASH!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -110,6 +114,7 @@ const FLOWER_SHAPES = [{ c: [0, -120, 44] }, { r: [-14, -85, 28, 85] }];
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: human clouds fly themselves, hold A to paint
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -147,6 +152,7 @@ export class Game {
       const y = 430 + (i % 2) * 120;
       a.facing = x < W / 2 ? 1 : -1;
       const e = { p, a, i, x, y, vx: 0, vy: 0, spraying: false, sprayT: 0, score: 0, brain: new Brain(p), tx: x, ty: y, cell: null, wander: 0, holdOff: 0, tilt: 0, sq: 0, bob: rand(TAU), popN: 0, popT: 0, combo: 0, comboT: 0 };
+      if (this.easy && !p.isAI) e.ez = { cell: null, think: 0 };
       this.placeActor(e);
       a.snap && a.snap();
       return e;
@@ -269,7 +275,8 @@ export class Game {
 
   moveCloud(e, dt, playing) {
     const c = e.p.ctrl;
-    const ix = playing ? c.x : 0, iy = playing ? c.y : 0;
+    let ix = playing ? c.x : 0, iy = playing ? c.y : 0;
+    if (e.ez) [ix, iy] = playing ? this.easyPilot(e, dt) : [0, 0];
     const len = Math.hypot(ix, iy), k = len > 1 ? 1 / len : 1;
     const tvx = ix * k * MAXV, tvy = iy * k * MAXV;
     e.vx = approach(e.vx, tvx, ACCEL * dt);
@@ -590,6 +597,52 @@ export class Game {
     ctrl.hold('a', !!(near && e.holdOff <= 0 && this.phase !== 'party'));
   }
 
+  /** Molly Easy: fly a human's cloud to the next grey spot (spread out from
+   *  the others), or to the Paint Star when it floats close. Returns stick x/y. */
+  easyPilot(e, dt) {
+    const z = e.ez, s = this.star;
+    z.think -= dt;
+    // the nearest human to a reachable star goes for it
+    const starFor = s && s.t > 0.4 && s.x > 120 && s.x < W - 120
+      && this.ents.filter((o) => o.ez).sort((A, B) => Math.hypot(A.x - s.x, A.y - s.y) - Math.hypot(B.x - s.x, B.y - s.y))[0] === e
+      && Math.hypot(e.x - s.x, e.y - s.y) < 560;
+    let tx, ty;
+    if (starFor) { tx = s.x; ty = s.y + 40; }
+    else {
+      if (!z.cell || z.cell.f >= 1 || z.think <= 0) {
+        z.think = 0.8;
+        let best = null, bs = Infinity;
+        const px = e.x, py = e.y + DROP;
+        for (const t of this.activeTargets()) for (const c of t.cells) {
+          if (c.f >= 1) continue;
+          let sc = Math.hypot(c.x - px, c.y - py) - (c === z.cell ? 120 : 0);
+          if (t.kind === 'band' && t.i !== this.bandIdx) sc += 220;
+          for (const o of this.ents) {
+            if (o === e) continue;
+            if (Math.hypot(o.x - c.x, o.y + DROP - c.y) < 200) sc += 260;
+            const oc = o.ez ? o.ez.cell : o.cell;
+            if (oc && !oc.star && Math.hypot(oc.x - c.x, oc.y - c.y) < 260) sc += 400;
+          }
+          if (sc < bs) { bs = sc; best = c; }
+        }
+        z.cell = best;
+      }
+      if (!z.cell) return [0, 0];
+      tx = z.cell.x; ty = z.cell.y - DROP;
+    }
+    ty = clamp(ty, Y_MIN, Y_MAX);
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    if (d < 8) return [0, 0];
+    const k = clamp(d / 120, 0, 1) * (starFor ? 0.85 : 0.55);
+    return [(dx / d) * k, (dy / d) * k];
+  }
+
+  /** Easy: is there grey paint right under this cloud? */
+  overGrey(e) {
+    const px = e.x, py = e.y + DROP;
+    return this.activeTargets().some((t) => t.cells.some((c) => c.f < 1 && Math.hypot(c.x - px, c.y - py) < SPRAY_R));
+  }
+
   // ----------------------------------------------------------------- draw
   pop(e, str, color, size) {
     e.popN = e.popT > 0 ? e.popN + 1 : 0; e.popT = 0.7;
@@ -616,6 +669,10 @@ export class Game {
     for (const e of order) {
       const top = e.a.y - e.a.height - 22 - (e.a.emotes.length ? 52 : 0);
       if (showTags || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
+      // Easy: a big bouncing A when there's grey to paint and A isn't held
+      if (e.ez && !e.spraying && this.phase !== 'party' && this.phase !== 'magic' && this.started && this.overGrey(e)) {
+        ui.glyph(g, 'a', e.x, top - 62 + Math.sin(this.t * 8) * 6, 58, { pulse: true });
+      }
     }
   }
 

@@ -40,6 +40,7 @@ const MOON = { x: 890, y: 112, size: 220 };
 const MOUTH = { x: JAR.x, y: JAR.y - 70 };
 const HELP_AT = 46;          // after this the Moon helps the jar fill (always a finale by ~58 s)
 const CPU_CAP = [0.6, 0.72, 0.84];
+const EASY_REACH = 430;      // Easy: an A-zoom reaches sparkles this close
 const WINGS = ['fairy-wings', 'butterfly-wings', 'petal-wings', 'dragonfly-wings', 'angel-wings'];
 const WING_COL = [0, 3, 2, 4, 7, 1, 5, 6];
 
@@ -51,6 +52,11 @@ export const meta = {
   goal: 'Fly around and fill the Moon\'s sparkle jar together!',
   controls: [['stick', 'Fly anywhere'], ['a', 'Loop-de-loop zoom']],
   tips: ['Loop-de-loops pull in everything nearby!', 'Boop a bumblebee for a sparkle shower.', 'Ride the rainbow wind - wheee!'],
+  // Easy (A only): your fairy floats up and down by herself; A zooms to the
+  // nearest sparkle when the big A shows.
+  goalEasy: 'Zoom to the sparkles and fill the Moon\'s jar together!',
+  controlsEasy: [['a', 'Zoom to the sparkle!']],
+  tipsEasy: ['Your fairy flies all by herself!', 'When the big A bounces, press A to ZOOM!', 'Zooming pulls in everything nearby!'],
   music: 'bouncy',
   duration: 'About 45 sec',
   minPlayers: 1,
@@ -93,6 +99,7 @@ function wingOutfit(p, i) {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: human fairies float by themselves, A zooms to a sparkle
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -111,6 +118,11 @@ export class Game {
         combo: 0, comboT: 0, streamT: 0, wheeT: 0, boopT: 0, brain: new Brain(p), target: null, tx: x, ty: y,
       };
     });
+    if (this.easy) {
+      // each human fairy gets her own patch of sky to float around in
+      const hum = this.ents.filter((e) => !e.p.isAI);
+      hum.forEach((e, k) => { e.ez = { lx: hum.length === 1 ? 760 : lerp(360, W - 360, k / (hum.length - 1)), ph: k * 2.1 + rand(1), aim: null }; });
+    }
     this.target = [0, 100, 180, 260, 330, 370, 410, 440, 470][n] || 470;   // tuned so a round lasts about 45 s
     this.jar = 0; this.jarShow = 0; this.jarWob = 0; this.milestone = 0;
     this.moonBounce = 0;
@@ -228,13 +240,17 @@ export class Game {
     e.loopCd = Math.max(0, e.loopCd - dt); e.comboT -= dt; if (e.comboT <= 0) e.combo = 0;
     e.boopT = Math.max(0, e.boopT - dt); e.wheeT -= dt;
     let ix = play ? ctrl.x : 0, iy = play ? ctrl.y : 0;
+    if (e.ez) [ix, iy] = play ? this.easyPilot(e) : [0, 0];
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     if (this.phase === 'finale') { ix = clamp((e.tx - e.x) / 200, -1, 1); iy = clamp((e.ty - e.y) / 200, -1, 1); }
     const k = 1 - Math.exp(-ACCEL * dt);
     e.vx += (ix * MAXV - e.vx) * k * (e.loopT > 0 ? 0.25 : 1);
     e.vy += (iy * MAXV - e.vy) * k * (e.loopT > 0 ? 0.25 : 1);
     // A: loop-de-loop zoom
-    if (play && ctrl.pressed('a') && e.loopCd <= 0 && e.loopT <= 0) this.startLoop(e, ix, iy);
+    if (play && ctrl.pressed('a') && e.loopCd <= 0 && e.loopT <= 0) {
+      if (e.ez && e.ez.aim) { const cy = e.y - a.height * 0.5; this.startLoop(e, e.ez.aim.x - e.x, e.ez.aim.y - cy); }   // Easy: zoom at the sparkle
+      else this.startLoop(e, ix, iy);
+    }
     if (e.loopT > 0) {
       e.loopT -= dt;
       if (Math.random() < dt * 40) particles.burst(e.x, e.y - a.height * 0.5, { type: 'sparkle', count: 1, colors: [e.p.color, '#fff', '#ffd23f'], speed: [20, 90], life: [0.4, 0.8], size: [10, 18] });
@@ -272,6 +288,27 @@ export class Game {
       const dx = e.x - o.x, dy = e.y - o.y, d = Math.hypot(dx, dy), r = (a.radius + o.a.radius) * 0.8;
       if (d > 0.1 && d < r) { e.x += (dx / d) * (r - d) * 0.25; e.y += (dy / d) * (r - d) * 0.25; }
     }
+  }
+
+  /** Molly Easy: float gently up and down around this fairy's patch of sky,
+   *  and pick the sparkle an A-zoom would fly to (e.ez.aim). Returns stick x/y. */
+  easyPilot(e) {
+    const z = e.ez, t = this.t, cx = e.x, cy = e.y - e.a.height * 0.5;
+    let best = null, bu = 0;
+    for (const pk of this.pickups) {
+      if (pk.x > W - 40 || pk.x < 40 || pk.y < TOP - 140) continue;
+      const d = dist(cx, cy, pk.x, pk.y);
+      if (d > EASY_REACH) continue;
+      const u = VALUE[pk.kind] / (d + 120);
+      if (u > bu) { bu = u; best = pk; }
+    }
+    z.aim = best;
+    const tx = clamp(z.lx + Math.sin(t * 0.35 + z.ph) * 220, LEFT + 60, RIGHT - 60);
+    const ty = (TOP + BOTTOM) / 2 + 40 + Math.sin(t * 0.8 + z.ph) * (BOTTOM - TOP) * 0.42;
+    const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
+    if (d < 6) return [0, 0];
+    const k = clamp(d / 160, 0, 1) * 0.5;
+    return [(dx / d) * k, (dy / d) * k];
   }
 
   startLoop(e, ix, iy) {
@@ -534,6 +571,19 @@ export class Game {
       if (e.p.isAI && this.api.time > 5) continue;
       const a = e.a;
       ui.playerTag(g, e.p, e.x, a.y - a.height - 26 - (a.emotes.length ? 50 : 0));
+    }
+    // Easy: a sparkle in reach gets a ring and a dotted line, and a big A bounces
+    if (this.phase === 'play') for (const e of order) {
+      const pk = e.ez && e.ez.aim;
+      if (!pk || pk.dead || e.loopT > 0 || e.loopCd > 0) continue;
+      const a = e.a, cy = a.y - a.height * 0.5, pulse = 0.5 + 0.5 * Math.sin(t * 9);
+      g.save(); g.strokeStyle = e.p.color; g.lineWidth = 5; g.globalAlpha = 0.6;
+      g.setLineDash([12, 12]); g.lineDashOffset = -t * 60;
+      g.beginPath(); g.moveTo(e.x, cy); g.lineTo(pk.x, pk.y); g.stroke(); g.setLineDash([]);
+      g.globalAlpha = 0.7 + pulse * 0.3; g.lineWidth = 6;
+      g.beginPath(); g.arc(pk.x, pk.y, 46 + pulse * 10, 0, TAU); g.stroke();
+      g.restore();
+      ui.glyph(g, 'a', e.x, a.y - a.height - 90 - (a.emotes.length ? 50 : 0) + Math.sin(t * 8) * 6, 56, { pulse: true });
     }
   }
 

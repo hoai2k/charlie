@@ -56,6 +56,11 @@ export const meta = {
   goal: 'Get super muddy and splat mud on Granny Goose\'s clean washing!',
   controls: [['stick', 'Run (through the mud!)'], ['a', 'Shake and SPLAT']],
   tips: ['Run through puddles - the muddier you are, the bigger the splat!', 'Granny Goose\'s "!" means hose time - run, or just get muddy again.', 'The puppies follow the muddiest player and splat too!'],
+  // Easy (A only): you trot to a puddle and roll by yourself, then walk to the
+  // washing; it glows and a big A bounces when it's splat time.
+  goalEasy: 'Splat mud on Granny Goose\'s clean washing!',
+  controlsEasy: [['a', 'SPLAT when it glows!']],
+  tipsEasy: ['You walk to the mud all by yourself!', 'When the washing glows, press A to splat it!', 'Press A lots - splat, splat, splat!'],
   music: 'party',
   duration: '55 sec',
   minPlayers: 1,
@@ -141,6 +146,7 @@ function drawOneSplat(g, s, x, y, grow) {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans walk by themselves, A splats
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -183,6 +189,13 @@ export class Game {
       a.attach((g, info) => this.drawBodyMud(g, info, e));
       return e;
     });
+    if (this.easy) {
+      // each human starts on a different bit of washing and a different puddle
+      const order = this.easyOrder = [5, 0, 1, 4, 2, 3, 6];   // basket, sheets, rug, sheets, fence (round the yard)
+      this.ents.filter((e) => !e.p.isAI).forEach((e, k) => {
+        e.ez = { mode: 'mud', ti: (k * 3) % order.length, k, waitT: 0, pud: null, ox: rand(-0.4, 0.4), oy: rand(-0.3, 0.3) };
+      });
+    }
     // puppies
     this.pups = [];
     const np = clamp(2 + Math.ceil(n / 2), 3, 6);
@@ -606,9 +619,10 @@ export class Game {
     const p = e.p, a = e.a, c = p.ctrl;
     e.cd -= dt; e.cleanT -= dt; e.immuneT -= dt; e.hintT -= dt; e.giggleCd -= dt; e.splatFlash = Math.max(0, e.splatFlash - dt);
     let ix = c.x, iy = c.y;
+    if (e.ez) [ix, iy] = this.easyPilot(e, dt);
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     const pud = this.puddleAt(e.x, e.y);
-    const sp = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel ?? 0, 0, 2)] / aiProfile(p).speed : 1) * (pud ? 0.78 : 1);
+    const sp = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel ?? 0, 0, 2)] / aiProfile(p).speed : e.ez ? 0.72 : 1) * (pud ? 0.78 : 1);
     e.vx = damp(e.vx, ix * sp, 10, dt); e.vy = damp(e.vy, iy * sp * 0.85, 10, dt);
     e.x = clamp(e.x + e.vx * dt, BOUNDS.x0, BOUNDS.x1); e.y = clamp(e.y + e.vy * dt, BOUNDS.y0, BOUNDS.y1);
     const speed = Math.hypot(e.vx, e.vy);
@@ -634,7 +648,10 @@ export class Game {
     if (e.mud > 0.3 && chance(dt * 4 * e.mud)) particles.burst(e.x + rand(-20, 20), e.y - a.height * rand(0.2, 0.6), { type: 'drop', count: 1, colors: MUD_COLS, speed: [10, 40], gravity: 700 });
     if (e.mud > 1.05 && chance(dt * 6)) particles.burst(e.x + rand(-30, 30), e.y - a.height * rand(0.3, 1), { type: 'sparkle', count: 1, colors: ['#ffd23f', '#fff6a8'], speed: [20, 60] });
     // A: shake and splat
-    if (c.pressed('a') && e.cd <= 0) this.shake(e);
+    if (c.pressed('a') && e.cd <= 0) {
+      if (e.ez && e.ez.mode === 'wait') e.ez.waitT = Math.max(e.ez.waitT, 2.6);   // keep splatting here
+      this.shake(e);
+    }
     if (!a._once) a.moveAnim(e.vx, e.vy, sp, { run: speed > sp * 0.6 });
   }
 
@@ -680,6 +697,39 @@ export class Game {
       e.mud = Math.max(0, e.mud - SHAKE_COST * 0.5);
     }
     if (e.mud <= 0.02) a.tint(null);
+  }
+
+  /** Molly Easy autopilot for a human: puddle -> roll until muddy -> walk to the
+   *  next bit of washing -> wait there (glowing, big A) while A splats -> on to
+   *  the next one; back to the mud when the mud runs out. Returns stick x/y. */
+  easyPilot(e, dt) {
+    const z = e.ez, order = this.easyOrder;
+    const T = this.targets[order[z.ti % order.length]];
+    let gx = e.x, gy = e.y;
+    if (z.mode !== 'mud' && e.mud < 0.12) { z.mode = 'mud'; z.pud = null; }
+    if (z.mode === 'mud') {
+      if (!z.pud || (z.pud !== MEGA && this.mega.state === 'open' && chance(dt * 0.5))) {
+        // nearest puddle, but each player prefers a different one
+        const list = this.mega.state === 'open' ? [...PUDDLES, MEGA] : PUDDLES;
+        const ds = list.map((p, i) => dist(e.x, e.y, p.x, p.y) + (((i + z.k) % list.length) === 0 ? -250 : 0) + (p === MEGA ? -150 : 0));
+        z.pud = list[ds.indexOf(Math.min(...ds))];
+      }
+      gx = z.pud.x + z.ox * z.pud.rx; gy = z.pud.y + z.oy * z.pud.ry;
+      if (this.puddleAt(e.x, e.y) && e.mud >= (this.puddleAt(e.x, e.y) === MEGA ? SUPER - 0.05 : 0.98)) { z.mode = 'go'; z.ti++; }
+    } else if (z.mode === 'go') {
+      gx = clamp(T.hit.x + (((z.k % 3) - 1) * 0.35 + z.ox * 0.2) * T.hit.rx, BOUNDS.x0 + 30, BOUNDS.x1 - 30);
+      gy = clamp(T.hit.y + (0.15 + z.oy * 0.3) * T.hit.ry, BOUNDS.y0 + 5, BOUNDS.y1 - 20);
+      if (this.inHit(e, T, 0.75)) { z.mode = 'wait'; z.waitT = 3.6; }
+    } else {
+      // waiting at the washing: stand still; move on if nothing happens
+      z.waitT -= dt;
+      if (z.waitT <= 0) { z.mode = 'go'; z.ti++; }
+      return [0, 0];
+    }
+    const dx = gx - e.x, dy = gy - e.y, d = Math.hypot(dx, dy);
+    if (d < 14) return [0, 0];
+    const k = Math.min(1, d / 90);
+    return [(dx / d) * k, (dy / d) * k];
   }
 
   separate(dt) {
@@ -902,7 +952,7 @@ export class Game {
       // "press A" bubble over a muddy player next to something clean
       const bob = Math.sin(t * 8) * 5;
       ui.glyph(g, 'a', e.x, top - 30 + bob, 54, { pulse: true });
-    } else if (e.mud < 0.12 && (this.playT < 12 || e.hintT > 0)) {
+    } else if (!e.ez && e.mud < 0.12 && (this.playT < 12 || e.hintT > 0)) {
       // arrow toward the nearest puddle
       const p = this.nearestPuddle(e.x, e.y);
       const ang = Math.atan2(p.y - e.y, p.x - e.x);
