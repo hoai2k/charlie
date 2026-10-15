@@ -25,6 +25,12 @@ import { clamp, lerp, rand, randInt, pick, chance, TAU, ease, placementsFromScor
 import { drawPumpkin, drawCandy, drawBucket, drawBat, drawPatchBackground, drawMoonFace } from './pumpkin-peekaboo/art.js';
 
 const NAVY = '#24163f';
+// prop/pp-hole (320x160, drawn 200x100 centred on the hole): the dark opening is an ellipse
+// centred at art (162, 72), radii (65, 41) - measured from the art's interior colour.
+function holeOpening(h, s) {
+  const k = 200 * s / 320;
+  return { cx: h.x + (162 - 160) * k, cy: h.y + (72 - 80) * k, rx: 65 * k, ry: 41 * k };
+}
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
 export const meta = {
@@ -719,7 +725,7 @@ export class Game {
 
   /** Front half of the hole rim, drawn over the pumpkin's base (procedural only). */
   drawHoleLip(g, h) {
-    if (art('prop/pp-hole')) return;
+    if (art('prop/pp-hole')) return;   // the pumpkin is clipped to the art's opening instead
     const s = DS(h.y);
     g.save(); g.translate(h.x, h.y);
     g.fillStyle = '#7a5434';
@@ -735,9 +741,27 @@ export class Game {
   drawPumpkinAt(g, pk) {
     const h = pk.h, s = DS(h.y), w = 148 * s;
     const rise = clamp(pk.rise, -0.2, 1.3);
-    const baseY = h.y + 6 * s + (1 - rise) * w * 1.05;
+    const holeImg = art('prop/pp-hole');
+    // With the hole art the pumpkin sits down in the opening (its bottom just above the
+    // front lip) and is clipped along the opening's front edge instead of a straight line.
+    const baseY = h.y + (holeImg ? 26 : 6) * s + (1 - rise) * w * 1.05;
+    const O = holeImg && holeOpening(h, s);
     g.save();
-    g.beginPath(); g.rect(h.x - w * 1.2, h.y - w * 2.4, w * 2.4, w * 2.4 + 2 * s); g.clip();
+    g.beginPath();
+    if (O) {
+      // Above the opening's painted front edge (its lower arc). The pumpkin is wider than
+      // the opening, so out at the sides it sinks into the ground along a shallow curve that
+      // continues from the arc's ends (no straight cut anywhere).
+      const L = h.x - w * 1.2, R = h.x + w * 1.2, RX = 80 * s, d = 12 * s;
+      g.moveTo(L, h.y - w * 2.4); g.lineTo(R, h.y - w * 2.4); g.lineTo(R, O.cy);
+      for (let i = 0; i <= 48; i++) {
+        const dx = RX - (2 * RX * i) / 48, a = Math.abs(dx);
+        const y = a <= O.rx ? O.ry * Math.sqrt(1 - (a / O.rx) ** 2) : d * Math.sin(Math.PI * (a - O.rx) / (RX - O.rx));
+        g.lineTo(O.cx + dx, O.cy + y);
+      }
+      g.lineTo(L, O.cy); g.closePath();
+    } else g.rect(h.x - w * 1.2, h.y - w * 2.4, w * 2.4, w * 2.4 + 2 * s);
+    g.clip();
     g.translate(h.x, baseY);
     const sq = pk.sq;
     g.rotate(pk.wob);

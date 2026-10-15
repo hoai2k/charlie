@@ -208,7 +208,11 @@ export function drawDoor(g, x, open, light, t, { gold = 0, shake = 0, house = -1
   if (open > 0.02) {
     const gr = g.createLinearGradient(0, top, 0, bot);
     gr.addColorStop(0, '#ffcf7a'); gr.addColorStop(1, '#ff9f4a');
-    g.fillStyle = gr; rr(g, x - dw / 2, top, dw, dh, 10); g.fill();
+    g.fillStyle = gr;
+    // the painted houses' dark doorway is square-cornered, art x 153..247 of 400 (inside the
+    // frame's lip): fill exactly that, so no dark corners or frame lip show round the light
+    if (paintedHouse(house)) g.fillRect(x - 47 * HOUSE_W / 400, top, 94 * HOUSE_W / 400, dh);
+    else { rr(g, x - dw / 2, top, dw, dh, 10); g.fill(); }
   }
   // the door leaf swings (squashes toward the hinge on the left)
   const k = 1 - open * 0.86;
@@ -499,13 +503,21 @@ export function drawJack(g, x, y, k, wob, t) {
   g.save(); g.translate(x, y);
   const img = art('prop/tot-jack');
   if (img) {
-    // the ghost on its spring rises out of the box (box = bottom 34% of the art)
-    const h = 140, w = img.width * h / img.height, boxH = h * 0.34, sy = img.height * 0.66;
+    // The ghost on its spring rises out of the box. The art is split along the box's painted
+    // top outline (art px (51,178) left corner, (86,163) back corner, (150,171) right corner,
+    // measured from prop/tot-jack 200x260), so the box keeps its whole top face and the
+    // ghost slides down behind its back edge instead of being cut by a straight line.
+    const h = 140, w = img.width * h / img.height, ax = (x) => -w / 2 + x * w / 200, ay = (y) => -h + y * h / 260;
     const wx = Math.sin(t * 20) * wob * 5;
-    g.save(); g.beginPath(); g.rect(-w, -h - 60, w * 2, h + 60 - boxH + 2); g.clip();
-    g.drawImage(img, -w / 2 + wx, -h + (1 - k) * (h - boxH), w, h);
+    const outline = (g2) => { g2.lineTo(ax(150), ay(170)); g2.lineTo(ax(86), ay(162)); g2.lineTo(ax(51), ay(177)); };
+    g.save(); g.beginPath();
+    g.moveTo(-w, -h - 60); g.lineTo(w, -h - 60); g.lineTo(w, ay(170)); outline(g); g.lineTo(-w, ay(177)); g.closePath(); g.clip();
+    g.drawImage(img, -w / 2 + wx, -h + (1 - k) * h * 0.66, w, h);
     g.restore();
-    g.drawImage(img, 0, sy, img.width, img.height - sy, -w / 2, -boxH, w, boxH);
+    g.save(); g.beginPath();
+    g.moveTo(-w, 10); g.lineTo(w, 10); g.lineTo(w, ay(170)); outline(g); g.lineTo(-w, ay(177)); g.closePath(); g.clip();
+    g.drawImage(img, -w / 2, -h, w, h);
+    g.restore();
     g.restore(); return;
   }
   line(g, 4);

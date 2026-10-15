@@ -882,8 +882,7 @@ export class Game {
     for (const e of this.ents) list.push({ y: e.y, f: () => this.drawEnt(g, e) });
     list.sort((p, q) => p.y - q.y);
     for (const it of list) it.f();
-    // frogs springing from sugar bowls
-    for (const tb of this.tables) if (tb.frog && !tb.frog.armed) drawFrog(g, tb.x - 80, tb.y - 150, 100, t, Math.sin(clamp(tb.frog.t / 1.8, 0, 1) * Math.PI));
+    // (frogs spring up out of the sugar bowls in drawTable)
     for (const f of this.flyers) drawCushion(g, f.x, f.y, 90, { rot: f.k * 8 });
     for (const p of this.puffs) drawPuff(g, p.x, p.y, p.r, p.k, p.golden);
     for (const h of this.hats) {

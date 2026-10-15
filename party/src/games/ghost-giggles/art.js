@@ -133,6 +133,22 @@ export function tintedArt(key, col) {
 }
 
 /** Curtains over one window. open 0 = closed, 1 = fully open. */
+// prop/gg-curtain (160x340) is a tied-back panel: the right-most painted x of each 10px row
+// (measured from the art's alpha). Narrowest at the tie-back (row ~160).
+const CURTAIN_EDGE = [0, 141, 139, 137, 134, 131, 127, 122, 117, 112, 105, 98, 90, 81, 70, 60, 58, 62, 65, 69, 72, 74, 77, 79, 82, 84, 86, 89, 93, 97, 100, 94, 75, 63];
+/** Smallest x of the left curtain panel's inner (painted) edge between canvas rows y0..y1. */
+export function curtainInnerX(win, open, y0, y1) {
+  const half = win.w / 2, hh = win.bot - win.top + 20, top = win.top - 14;
+  const pw = half * (1 - 0.72 * clamp(open, 0, 1)) + 6;
+  if (!art('prop/gg-curtain')) return win.x - half + pw;   // code-drawn panel: straight inner edge
+  let m = 160;
+  for (let y = y0; y <= y1; y += 4) {
+    const r = clamp(Math.round((y - top) / hh * 340 / 10), 1, CURTAIN_EDGE.length - 2);
+    m = Math.min(m, CURTAIN_EDGE[r]);
+  }
+  return win.x - half + m / 160 * pw;
+}
+
 export function drawCurtains(g, win, open, t) {
   const half = win.w / 2, hh = win.bot - win.top + 20;
   const pw = half * (1 - 0.72 * clamp(open, 0, 1));
