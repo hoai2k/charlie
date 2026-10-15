@@ -111,20 +111,33 @@ export function roomBackground() {
 
 // --- door ----------------------------------------------------------------------------------
 /** open 0..1 (swings towards the right hinge), hall 0..1 (hall light on), wiggle = knob rattle angle. */
+/** The doorway opening: prop/bb-door is an arched slab inset in its frame (measured from the art). */
+export function doorway(doorImg) {
+  const { x, y, w, h } = DOOR;
+  return doorImg ? { x0: x + 13, x1: x + 228, top: y + 30, bot: y + 526, arch: true } : { x0: x, x1: x + w, top: y, bot: y + h, arch: false };
+}
+/** Trace the doorway opening (arched with the art, a plain rect without). */
+export function doorwayPath(g, dw) {
+  if (!dw.arch) { g.rect(dw.x0, dw.top, dw.x1 - dw.x0, dw.bot - dw.top); return; }
+  const r = (dw.x1 - dw.x0) / 2;
+  g.moveTo(dw.x0, dw.bot); g.lineTo(dw.x0, dw.top + r); g.arc(dw.x0 + r, dw.top + r, r, Math.PI, 0); g.lineTo(dw.x1, dw.bot); g.closePath();
+}
+/** Painted left edge of the door slab at this openness (the art's slab starts 10px into its 240px canvas). */
+export function slabEdge(open, doorImg) {
+  const pw = DOOR.w * (1 - open * 0.82);
+  return DOOR.x + DOOR.w - pw + (doorImg ? 10 * pw / 240 : 0);
+}
+
 export function drawDoor(g, open, hall, wiggle, t, doorImg, between = null) {
   const { x, y, w, h } = DOOR;
-  // the doorway: prop/bb-door is an arched slab inset in its frame (measured from the art)
-  const dw = doorImg ? { x0: x + 13, x1: x + 228, top: y + 30, bot: y + 526 } : { x0: x, x1: x + w, top: y, bot: y + h };
+  const dw = doorway(doorImg);
   // hall light behind the door
   if (hall > 0.01) {
     g.save(); g.globalAlpha = hall;
     const gr = g.createLinearGradient(x, y, x, y + h);
     gr.addColorStop(0, '#ffe6a0'); gr.addColorStop(1, '#ffc865');
     g.fillStyle = gr;
-    if (doorImg) {
-      const r = (dw.x1 - dw.x0) / 2;
-      g.beginPath(); g.moveTo(dw.x0, dw.bot); g.lineTo(dw.x0, dw.top + r); g.arc(dw.x0 + r, dw.top + r, r, Math.PI, 0); g.lineTo(dw.x1, dw.bot); g.closePath(); g.fill();
-    } else g.fillRect(x, y, w, h);
+    g.beginPath(); doorwayPath(g, dw); g.fill();
     g.restore();
   }
   if (between) between(g);

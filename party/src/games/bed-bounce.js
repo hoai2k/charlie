@@ -31,7 +31,7 @@ import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores, later } from '../engine/util.js';
 import { nextKind, sayFor, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
 import {
-  NAVY, BED, DOOR, CEIL, FLOOR, configureBedArt, roomBackground, drawDoor, drawBedBack, drawBedFront, drawTuck,
+  NAVY, BED, DOOR, CEIL, FLOOR, configureBedArt, roomBackground, drawDoor, doorway, doorwayPath, slabEdge, drawBedBack, drawBedFront, drawTuck,
   drawGlowStar, drawStar, drawFeather, drawPillow, drawTeddy, drawCat, drawCow, drawIcon,
 } from './bed-bounce/draw.js';
 
@@ -491,7 +491,7 @@ export class Game {
       if (U.z <= 0 && U.vz <= 0) this.land(U, post);
       if (!a._once && U.state === 'air') a.setPose(U.dive ? 'tuck' : U.vz > 0 ? 'jump' : 'fall');
     }
-    a.x = U.x; a.y = BED.top + this.squash * 18; a.z = U.z;
+    a.x = U.x; a.y = BED.top + this.duvetDrop(art('prop/bb-bed')); a.z = U.z;
     a.update(dt);
   }
 
@@ -707,11 +707,27 @@ export class Game {
       } else drawGlowStar(g, s.x, s.y, 26, s.glow, t);
     }
     // the door (Nanny Moo stands in it at bedtime, peeks round it later)
-    const c = this.cow;
-    drawDoor(g, this.door, this.hall, this.wiggle, t, art('prop/bb-door'), (gg) => {
-      if (c.mode === 'door' && c.alpha > 0.01) { gg.save(); gg.globalAlpha = c.alpha; this.drawCowStanding(gg, c.x, FLOOR, t, 'wave'); gg.restore(); }
+    // Both are drawn between the hall light and the door slab, so the slab itself hides
+    // whatever of her is behind it (the art is the mask).
+    const c = this.cow, doorImg = art('prop/bb-door'), dw = doorway(doorImg);
+    drawDoor(g, this.door, this.hall, this.wiggle, t, doorImg, (gg) => {
+      if (c.mode === 'door' && c.alpha > 0.01) {
+        // she stands in the hall on the threshold; the wall hides anything past the frame on the hinge side
+        gg.save(); gg.globalAlpha = c.alpha;
+        gg.beginPath(); gg.rect(0, 0, dw.x1, H); gg.clip();
+        this.drawCowStanding(gg, c.x, dw.bot - 6, t, 'wave');
+        gg.restore();
+      }
+      if (c.mode === 'peek') this.drawPeek(gg, t, doorImg, dw);
+      if (c.mode === 'walk' && this.walkK() < 0.4) {
+        // finale: stepping out of the doorway, behind the door slab as it swings open (nothing
+        // of her shows past the jamb until the door is properly open)
+        const out = 300 * clamp((this.door - 0.25) / 0.4, 0, 1);
+        gg.save(); gg.beginPath(); doorwayPath(gg, dw); gg.rect(dw.x0 + 1 - out, 0, out, H); gg.clip();
+        this.drawCowWalk(gg, t, dw); gg.restore();
+      }
     });
-    if (c.mode === 'peek') { this.drawPeek(g, t); if (c.react) this.drawPeekReact(g, t); }
+    if (c.mode === 'peek' && c.react) this.drawPeekReact(g, t);
     // warning "!"
     if (this.phase === 'warn' && !(this.fake && this.pt > 1.5)) {
       const k = clamp(this.pt / 0.2, 0, 1), bob = Math.sin(t * 14) * 8;
@@ -744,22 +760,33 @@ export class Game {
       } else drawStar(g, it.x, it.y + bob, r, it.kind === 'gold', it.t);
     }
     // Nanny Moo in the room (finale)
-    if (c.mode === 'walk') {
-      this.drawCowStanding(g, c.x, FLOOR, t, c.arms);
-      if (c.react === 'shock') drawShock(g, c.x, FLOOR - 330, 120, t, clamp(c.reactT / 0.15, 0, 1));
-    }
+    if (c.mode === 'walk' && this.walkK() >= 0.4) this.drawCowWalk(g, t, dw);
     if (c.mode === 'jump' || c.mode === 'bed') this.drawCowJump(g, c.x, (c.mode === 'bed' ? BED.top - c.z : c.y), t);
     // feathers on top
     for (const f of this.feathers) drawFeather(g, f.x, f.y, f.s, f.rot, fImg);
+    // night tint while sneaking: fades out towards the lit doorway (no hard edge through Nanny Moo)
+    const dark = this.phase === 'peek' ? 0.18 : this.phase === 'warn' && !this.fake ? clamp(this.pt / 1.5, 0, 1) * 0.12 : 0;
+    if (dark > 0) {
+      g.save(); g.globalAlpha = dark;
+      const gr = g.createLinearGradient(DOOR.x - 420, 0, DOOR.x - 150, 0);
+      gr.addColorStop(0, '#0b0a2a'); gr.addColorStop(1, 'rgba(11,10,42,0)');
+      g.fillStyle = gr; g.fillRect(0, 0, DOOR.x - 150, H); g.restore();
+    }
     // Nanny's speech bubble
     if (c.speech) {
       const sx = c.mode === 'peek' ? DOOR.x - 60 : c.mode === 'walk' ? c.x : c.mode === 'bed' || c.mode === 'jump' ? c.x : c.x;
       const sy = c.mode === 'peek' ? 430 : c.mode === 'bed' ? BED.top - c.z - 440 : FLOOR - 430;
       drawSpeech(g, c.speech.text, sx, sy, 1.3, c.speech.t, c.speech.dur);
     }
-    // night tint while sneaking
-    const dark = this.phase === 'peek' ? 0.18 : this.phase === 'warn' && !this.fake ? clamp(this.pt / 1.5, 0, 1) * 0.12 : 0;
-    if (dark > 0) { g.save(); g.globalAlpha = dark; g.fillStyle = '#0b0a2a'; g.fillRect(0, 0, DOOR.x - 20, H); g.restore(); }
+  }
+
+  /** 0 on the threshold .. 1 out on the bedroom floor (the finale walk-in). */
+  walkK() { return clamp((DOOR.x + DOOR.w / 2 - this.cow.x) / (DOOR.x + DOOR.w / 2 - 1540), 0, 1); }
+  drawCowWalk(g, t, dw) {
+    // she steps down from the threshold (the doorway's bottom) onto the floor line
+    const c = this.cow, y = lerp(dw.bot - 6, FLOOR, this.walkK());
+    this.drawCowStanding(g, c.x, y, t, c.arms);
+    if (c.react === 'shock') drawShock(g, c.x, y - 330, 120, t, clamp(c.reactT / 0.15, 0, 1));
   }
 
   drawCowStanding(g, x, y, t, arms) {
@@ -784,23 +811,23 @@ export class Game {
     }
   }
 
-  drawPeek(g, t) {
-    const c = this.cow, open = this.door / 0.42;
-    const edge = DOOR.x + DOOR.w * this.door * 0.82 + 6;
-    const lean = clamp(open, 0, 1);
+  /** Left x of the peek art (300x360). Her robe's cut edge tucks 6px under the door slab's
+   *  painted edge; while the door opens she slides out from behind it. */
+  peekX() {
+    const lean = clamp(this.door / 0.42, 0, 1);
+    return slabEdge(this.door, art('prop/bb-door')) + 6 - 300 + (1 - lean) * 230;
+  }
+
+  drawPeek(g, t, doorImg, dw) {
+    const c = this.cow, lean = clamp(this.door / 0.42, 0, 1);
     const img = (c.react === 'scold' && art('prop/nanny-moo-peek-scold')) || art('prop/nanny-moo-peek');
     g.save();
-    g.beginPath();
-    g.rect(DOOR.x, DOOR.y, edge - DOOR.x, DOOR.h);
-    // the art leans out whole (lantern too), so let it show down to its feet
-    g.rect(DOOR.x - 220 * lean, DOOR.y - 60, 220 * lean + 10, img ? 480 : 340);
-    g.clip();
-    const x = DOOR.x + 70 - 70 * lean;
-    if (img) {
-      // her robe (the art's right edge) tucks in behind the door slab
-      g.drawImage(img, edge - 304, 800 - 360, 300, 360);
-    } else {
-      g.translate(x + 20, FLOOR + 40);
+    // in the doorway she is behind the frame (arched opening); left of it she leans into the room
+    g.beginPath(); doorwayPath(g, dw); g.rect(0, 0, dw.x0 + 1, dw.bot); g.clip();
+    if (img) g.drawImage(img, this.peekX(), 800 - 360, 300, 360);
+    else {
+      // slides out from behind the slab as she leans
+      g.translate(DOOR.x + 110 - 90 * lean, FLOOR + 40);
       g.rotate(-0.22 * lean);
       drawCow(g, 0, 0, 430, { face: c.face, arms: 'down', t, look: -0.5 + c.look * 0.5, tilt: -0.1 });
     }
@@ -810,26 +837,51 @@ export class Game {
   /** Code-drawn extras on the peek (stand-ins until the reaction art lands). */
   drawPeekReact(g, t) {
     const c = this.cow, k = clamp(c.reactT / 0.15, 0, 1);
-    const edge = DOOR.x + DOOR.w * this.door * 0.82 + 6;
-    const hx = edge - 212, hy = 572;    // her head in the peek art
+    const hx = this.peekX() + 92, hy = 572;    // her head in the peek art
     if (c.react === 'shock') drawShock(g, hx, hy, 105, t, k);
     else if (c.react === 'huff') drawSteam(g, hx, hy - 10, 95, t);
     else if (!art('prop/nanny-moo-peek-scold')) drawWag(g, hx - 110, hy + 10, 1.3, t, -1);
   }
 
+  /** How far the duvet's top edge drops when the bed squashes (the art squashes about its feet). */
+  duvetDrop(bedImg) { return this.squash * (bedImg ? (BED.y + BED.h - BED.top) * 0.03 : 18); }
+
+  /** The bed art again, over the bed only (it is transparent above its painted edge),
+   *  so whatever is tucked into the bed hides behind the duvet's real outline. */
+  drawBedOver(g, bedImg, x0, x1) {
+    g.save();
+    g.beginPath(); g.rect(x0, BED.top - 80, x1 - x0, BED.h); g.clip();
+    g.translate(0, BED.y + BED.h); g.scale(1, 1 - this.squash * 0.03); g.drawImage(bedImg, BED.x, -BED.h, BED.w, BED.h);
+    g.restore();
+  }
+
   drawSleeper(g, U, t) {
     const a = U.a, x = U.x;
+    const bedImg = art('prop/bb-bed');
+    // With the bed art, sleepers over the flat top of the duvet (art x 405..1300) are tucked
+    // under it: the duvet art is drawn again over them. On the pillow end there is no
+    // duvet in the art, so they keep the code-drawn duvet edge under the chin.
+    const underArt = bedImg && x >= BED.x + 405 && x <= BED.x + 1300;
+    const drop = this.duvetDrop(bedImg);
+    const w = Math.max(70, a.width * 0.75);
     // only the head peeks out over the duvet
     g.save();
-    g.beginPath(); g.rect(x - 200, 0, 400, BED.top - 4 + this.squash * 18); g.clip();
-    const sink = a.height * 0.46;
-    a.y = BED.top + sink + this.squash * 18; a.z = 0;
+    g.beginPath(); g.rect(x - 200, 0, 400, BED.top + (underArt ? 40 : -4) + drop); g.clip();
+    // Sink them to the neck (each sleep frame names it) so the duvet comes up to the chin:
+    // lying-down poses stay on top, sitting ones tuck in; never so deep the eyes go under.
+    // (The actor's members are placed in update(), so the sink is a translate, not a.y.)
+    const feet = a.anchor('feet').y;
+    let sink = feet - a.anchor('neck').y;
+    if (!(sink > 4)) sink = a.height * 0.46;
+    const tuckH = underArt ? 0 : 18, eyeUp = feet - a.anchor('eyes').y;
+    sink += tuckH;
+    if (eyeUp > 4) sink = Math.min(sink, eyeUp - 14 - tuckH);
+    g.translate(0, BED.top + drop - feet + Math.max(0, sink));
     a.draw(g, { shadow: false, emotes: false });
-    a.y = BED.top + this.squash * 18;
     g.restore();
-    const w = Math.max(70, a.width * 0.75);
-    drawTuck(g, x, w);
-    g.fillStyle = U.p.color; g.beginPath(); g.ellipse(x, BED.top - 6, w * 0.4, 6, 0, 0, TAU); g.fill();
+    if (underArt) this.drawBedOver(g, bedImg, x - a.width * 0.75 - 20, x + a.width * 0.75 + 20);
+    else drawTuck(g, x, w);
+    g.fillStyle = U.p.color; g.beginPath(); g.ellipse(x, underArt ? BED.top + drop + 14 : BED.top - 6, w * 0.4, 6, 0, 0, TAU); g.fill();
     // Zzz
     const zt = (t * 0.8 + U.i * 0.37) % 1;
     g.save(); g.globalAlpha = Math.sin(zt * Math.PI) * (this.sneaky ? 1 : 0.6);
@@ -865,11 +917,16 @@ export class Game {
   }
 
   drawBuddyHidden(g, B, t) {
-    g.save(); g.beginPath(); g.rect(B.x - 120, 0, 240, BED.top - 4); g.clip();
-    // art: 240x240, sleepy head in the top half, peeking over the duvet (drawn 150x150)
+    // art: 240x240, a sleepy head with its paws resting on the duvet's edge (painted down to
+    // y 98-100, transparent below), drawn 150x150 so the paws sit on the duvet's top outline
     const img = art(B.kind === 'cat' ? 'prop/bb-cat-sleep' : 'prop/bb-teddy-sleep');
-    if (img) g.drawImage(img, B.x - 75, BED.top - 65 + Math.sin(t * 2 + B.x) * 2, 150, 150);
-    else if (B.kind === 'cat') drawCat(g, B.x, BED.top + 60, 0.9, t, 'sleep'); else drawTeddy(g, B.x, BED.top + 80, 0.8, t, 'sleep');
+    if (img) {
+      const drop = this.duvetDrop(art('prop/bb-bed'));
+      g.drawImage(img, B.x - 75, BED.top - 62 + drop + Math.sin(t * 2 + B.x) * 1.5, 150, 150);
+      return;
+    }
+    g.save(); g.beginPath(); g.rect(B.x - 120, 0, 240, BED.top - 4); g.clip();
+    if (B.kind === 'cat') drawCat(g, B.x, BED.top + 60, 0.9, t, 'sleep'); else drawTeddy(g, B.x, BED.top + 80, 0.8, t, 'sleep');
     g.restore();
     drawTuck(g, B.x, 70);
   }

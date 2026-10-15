@@ -416,20 +416,61 @@ export function drawTable(g, x, y, t, jump = 0, jelly = 0, frog = null) {
     g.restore();
   }
   // sugar bowl (a frog may be hiding in it)
-  {
-    const pop = frog ? frog.pop : 0;
-    g.save(); g.translate(-80, 4);
-    if (!drawArt(g, 'prop/whoopee-sugarbowl', 0, -14, 52, 46)) {
-      g.fillStyle = '#fff'; g.beginPath(); g.moveTo(-18, -20); g.quadraticCurveTo(-20, 2, 0, 2); g.quadraticCurveTo(20, 2, 18, -20); g.closePath(); g.fill(); g.stroke();
-      g.fillStyle = '#ff9fcf'; g.beginPath(); g.arc(0, -10, 4, 0, TAU); g.fill();
+  drawSugarBowl(g, t, frog);
+  g.restore();
+}
+
+// prop/whoopee-sugarbowl (128x112) drawn 52x46 centred at (0, -14): its lid is part of the
+// art, so it is split along the lid's painted bottom edge (an ellipse, centre (64, 35),
+// radii (40, 12) in art px, measured from the image) into a lid and a bowl body.
+const SB = { w: 52, h: 46, cy: -14, aw: 128, ah: 112 };
+const sbX = (ax) => -SB.w / 2 + ax * SB.w / SB.aw, sbY = (ay) => SB.cy - SB.h / 2 + ay * SB.h / SB.ah;
+function sbLidPath(g) {
+  g.beginPath(); g.rect(sbX(22), sbY(-2), sbX(106) - sbX(22), sbY(35) - sbY(-2));
+  g.moveTo(sbX(104), sbY(35)); g.ellipse(sbX(64), sbY(35), 40 * SB.w / SB.aw, 12 * SB.h / SB.ah, 0, 0, Math.PI);
+}
+function sbBodyPath(g) {
+  const rx = 40 * SB.w / SB.aw, ry = 12 * SB.h / SB.ah;
+  g.beginPath(); g.moveTo(sbX(-2), sbY(114)); g.lineTo(sbX(-2), sbY(28)); g.lineTo(sbX(24), sbY(28)); g.lineTo(sbX(24), sbY(35));
+  g.ellipse(sbX(64), sbY(35), rx, ry, 0, Math.PI, 0, true);   // along the bottom of the lid (pi -> pi/2 -> 0)
+  g.lineTo(sbX(104), sbY(28)); g.lineTo(sbX(130), sbY(28)); g.lineTo(sbX(130), sbY(114)); g.closePath();
+}
+/** The sugar bowl on a table (local coords: the table top). A sprung frog rises out of it. */
+function drawSugarBowl(g, t, frog) {
+  const pop = frog ? frog.pop : 0, popped = frog && !frog.armed;
+  const jig = frog && frog.armed ? Math.sin(t * 30) * 2 : 0;
+  g.save(); g.translate(-80, 4);
+  const img = art('prop/whoopee-sugarbowl');
+  const rimY = img ? sbY(40) : -18;
+  // the lid jiggles while a frog is inside and flies off (spinning about its middle) when it springs
+  const lid = () => {
+    g.save();
+    if (img) {
+      g.translate(sbX(64) + jig, sbY(30) - pop * 60); g.rotate(pop * 2.5); g.translate(-sbX(64), -sbY(30));
+      sbLidPath(g); g.clip(); g.drawImage(img, sbX(0), sbY(0), SB.w, SB.h);
+    } else {
+      g.translate(jig, -22 - pop * 60); g.rotate(pop * 2.5);
+      g.fillStyle = '#fff'; g.beginPath(); g.ellipse(0, 0, 20, 6, 0, Math.PI, TAU); g.fill(); g.stroke();
+      g.fillStyle = '#ff7ac6'; g.beginPath(); g.arc(0, -6, 4, 0, TAU); g.fill(); g.stroke();
     }
-    // lid (jiggles when a frog is inside, flies when it springs)
-    const jig = frog && frog.armed ? Math.sin(t * 30) * 2 : 0;
-    g.translate(jig, -22 - pop * 60); g.rotate(pop * 2.5);
-    g.fillStyle = '#fff'; g.beginPath(); g.ellipse(0, 0, 20, 6, 0, Math.PI, TAU); g.fill(); g.stroke();
-    g.fillStyle = '#ff7ac6'; g.beginPath(); g.arc(0, -6, 4, 0, TAU); g.fill(); g.stroke();
+    g.restore();
+  };
+  if (popped) {
+    lid();
+    // the frog rises from inside: drawn first, then the bowl's body in front of it (the
+    // art is the mask); clipped above the bowl's widest part so the spring never shows
+    // below or beside it
+    const spring = Math.sin(clamp(frog.t / 1.8, 0, 1) * Math.PI);
+    g.save(); g.beginPath(); g.rect(-60, -260, 120, 260 + rimY + 10); g.clip();
+    drawFrog(g, 3, rimY - 10 + (1 - pop) * 60, 100, t, spring);
     g.restore();
   }
+  if (img) { g.save(); sbBodyPath(g); g.clip(); g.drawImage(img, sbX(0), sbY(0), SB.w, SB.h); g.restore(); }
+  else {
+    g.fillStyle = '#fff'; g.beginPath(); g.moveTo(-18, -20); g.quadraticCurveTo(-20, 2, 0, 2); g.quadraticCurveTo(20, 2, 18, -20); g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = '#ff9fcf'; g.beginPath(); g.arc(0, -10, 4, 0, TAU); g.fill();
+  }
+  if (!popped) lid();
   g.restore();
 }
 

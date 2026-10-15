@@ -21,7 +21,7 @@ import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
-import { GHOST_COLORS, FIRE, TRUNKS, roomWindows, roomFire, drawGhostShape, tintedArt, drawCurtains, drawTrunk, drawDiscoBall, drawFire, drawRoom } from './ghost-giggles/art.js';
+import { GHOST_COLORS, FIRE, TRUNKS, roomWindows, roomFire, drawGhostShape, tintedArt, drawCurtains, curtainInnerX, drawTrunk, drawDiscoBall, drawFire, drawRoom } from './ghost-giggles/art.js';
 
 const NAVY = '#24163f';
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -760,9 +760,17 @@ export class Game {
     // shy ghost peeking between the curtains (drawn behind them)
     if (w.shy && w.open > 0.05) {
       const k = clamp(w.open / 0.22, 0, 1);
-      g.save(); g.translate(w.x, (w.top + w.bot) / 2 + 30 + (1 - k) * 30);
-      g.rotate(Math.sin(this.t * 4) * 0.08);
-      if (!drawArt(g, 'prop/gg-ghost-peek', 0, 0, 110, 140)) drawGhostShape(g, 96, null, { t: this.t, shy: true, look: Math.sin(this.t * 2) });
+      const cy = (w.top + w.bot) / 2 + 30 + (1 - k) * 30;
+      // prop/gg-ghost-peek (160x200, drawn 110x140) is cut straight down its left side (art
+      // x 5): that edge tucks 10px behind the left curtain's painted edge over the ghost's
+      // whole height (the tie-back is the narrowest point), so it peeks round the curtain.
+      // The code-drawn ghost is whole, so it stays in the middle of the gap.
+      const peekArt = art('prop/gg-ghost-peek');
+      const x = peekArt ? curtainInnerX(w, w.open, cy - 66, cy + 70) - 10 + 55 - 5 * 110 / 160 : w.x;
+      g.save(); g.translate(x, cy);
+      g.rotate(Math.sin(this.t * 4) * (peekArt ? 0.04 : 0.08));
+      if (peekArt) g.drawImage(peekArt, -55, -70, 110, 140);
+      else drawGhostShape(g, 96, null, { t: this.t, shy: true, look: Math.sin(this.t * 2) });
       g.restore();
     }
     drawCurtains(g, w, w.open, this.t);
