@@ -12,6 +12,32 @@ const SKINS = ['#ffe0c7', '#f8c9a2', '#e8ae84', '#c98d62', '#a46b47', '#7f4f35']
 const EYES = ['#5a3a22', '#2f6fd1', '#2e9a5a', '#41335a', '#8a5a3c'];
 const CAPES = ['#ff9ed6', '#b9a2ff', '#7fd3ff', '#7fe0b4', '#ffcf5c', '#ff9f7a'];
 
+// The girls a stylist can pick at the start (portrait grid). Hair starts messy.
+export const CLIENTS = [
+  { name: 'Lily', skin: '#ffe0c7', eye: '#2f6fd1', color: '#ffd36e', length: 320, curl: 0.1, bangs: 60, freckles: true },
+  { name: 'Maya', skin: '#a46b47', eye: '#5a3a22', color: '#41335a', length: 260, curl: 0.65, bangs: 0, freckles: false },
+  { name: 'Zoe', skin: '#f8c9a2', eye: '#2e9a5a', color: '#ff8a3d', length: 230, curl: 0.5, bangs: 45, freckles: true },
+  { name: 'Aiko', skin: '#e8ae84', eye: '#41335a', color: '#41335a', length: 330, curl: 0, bangs: 70, freckles: false },
+  { name: 'Rosa', skin: '#c98d62', eye: '#5a3a22', color: '#e8a35a', length: 290, curl: 0.35, bangs: 30, freckles: true },
+  { name: 'Nia', skin: '#7f4f35', eye: '#5a3a22', color: '#2a2233', length: 210, curl: 0.75, bangs: 0, freckles: false },
+  { name: 'Ella', skin: '#ffe0c7', eye: '#2f6fd1', color: '#f3e6c4', length: 340, curl: 0, bangs: 0, freckles: false },
+  { name: 'Sofia', skin: '#f8c9a2', eye: '#2e9a5a', color: '#a8432a', length: 170, curl: 0.15, bangs: 65, freckles: false },
+];
+const portraits = [];
+/** A cached head-and-shoulders portrait canvas (220 px square) of CLIENTS[i]. */
+export function clientPortrait(i) {
+  if (!portraits[i]) {
+    const c = document.createElement('canvas'); c.width = c.height = 220;
+    const g = c.getContext('2d');
+    const cl = new Client({ ...CLIENTS[i], cape: CAPES[i % CAPES.length], messy: 0.1 });
+    cl.blink = 0;
+    g.translate(110, 118); g.scale(0.27, 0.27);
+    cl.draw(g, 0, { res: 0.4, noChair: true, noBubble: true });
+    portraits[i] = c;
+  }
+  return portraits[i];
+}
+
 // Bounds of the cached hair canvas (head units).
 const BX = 360, BY0 = -340, BY1 = 720;
 
@@ -20,9 +46,9 @@ export class Client {
     this.skin = seed.skin || pick(SKINS);
     this.eye = pick(EYES);
     this.cape = seed.cape || pick(CAPES);
-    this.freckles = chance(0.35);
-    this.lashes = chance(0.6);
-    this.studs = chance(0.4) ? pick(['#ffd23f', '#7fd3ff', '#ff6fb1']) : null;
+    this.freckles = seed.freckles ?? chance(0.35);
+    this.lashes = seed.lashes ?? chance(0.6);
+    this.studs = seed.studs !== undefined ? seed.studs : chance(0.4) ? pick(['#ffd23f', '#7fd3ff', '#ff6fb1']) : null;
     this.natural = seed.color || pick(NATURAL);
     if (seed.eye) this.eye = seed.eye;
     this.hair = new Hair({

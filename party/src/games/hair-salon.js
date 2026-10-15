@@ -21,8 +21,8 @@ import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, lat
 import { drawStarShape, drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import { playerName } from '../state.js';
-import { Client } from './hair-salon/client.js';
-import { HAIR_COLORS, STYLES, HEAD_RX, HEAD_RY, SEG, MAXL, MAXB, MINL, hairlineY, paintSeg } from './hair-salon/hair.js';
+import { Client, CLIENTS, clientPortrait } from './hair-salon/client.js';
+import { HAIR_COLORS, STYLES, HEAD_RX, HEAD_RY, SEG, MAXL, MAXB, MINL, hairlineY, paintSeg, extendColour } from './hair-salon/hair.js';
 import { TOOLS, TOOL_IDX, BLING, drawTool, drawBling, swatch, drawStyleIcon, drawMirrorFrame } from './hair-salon/props.js';
 
 const NAVY = '#24163f';
@@ -153,9 +153,9 @@ export const meta = {
   category: 'studio',
   type: 'Styling · Everyone together',
   goal: 'Give your salon client a fabulous new hairdo!',
-  controls: [['stick', 'Move your hand'], ['a', 'Use the tool (hold)'], ['dpad', 'Tools ← →, colours ↑ ↓ (or LB / RB, Y)'], ['b', 'Spin the chair / take bling off'], ['x', "I'm done!"]],
+  controls: [['stick', 'Move your hand'], ['a', 'Use the tool (hold)'], ['dpad', 'Tools ← →, colours ↑ ↓ (or LB / RB, LT / RT)'], ['b', 'Spin the chair / take bling off'], ['x', "I'm done!"]],
   infoAt: 'tl',
-  tips: ['Brush the messy hair smooth, then snip, grow, curl and colour it!', 'Styles tie it into a ponytail, bun or braid. Press A on bling to move it.', 'Press X when your look is ready for the mirror!'],
+  tips: ['First pick which girl you want to style!', 'Brush the messy hair smooth, then snip, grow, curl and colour it!', 'Styles tie it into a ponytail, bun or braid. Press A on bling to move it.', 'Press X when your look is ready for the mirror!'],
   music: 'bouncy',
   duration: 'No time limit',
   minPlayers: 1, maxPlayers: 8,
@@ -178,8 +178,9 @@ export class Game {
     const capes = shuffle(['#ff9ed6', '#b9a2ff', '#7fd3ff', '#7fe0b4', '#ffcf5c', '#ff9f7a']);
     const skins = shuffle(['#ffe0c7', '#f8c9a2', '#e8ae84', '#c98d62', '#a46b47', '#7f4f35']);
     const hairs = shuffle(['#8a5a3c', '#ffd36e', '#41335a', '#ff8a3d', '#b07a52', '#5e3d2b']);
-    this.stations = this.players.map((p, i) => this.makeStation(p, i, { cape: capes[i % 6], skin: skins[i % 6], color: hairs[(i + 2) % 6] }));
-    this.banner = { text: 'Salon is open!', t: 0 };
+    // everyone starts on the client picker (a portrait grid); the chair shows the one under the cursor
+    this.stations = this.players.map((p, i) => this.makeStation(p, i, { ...CLIENTS[i % CLIENTS.length], cape: capes[i % 6] }));
+    this.banner = null;   // each station shows "Who will you style?" over its portrait grid
     sfx('magic');
   }
 
@@ -217,6 +218,7 @@ export class Game {
       sfxT: 0, cool: 0, snipT: 0, workT: 0, sparkT: 0,
       revealT: -1, said: false,
       ai: null,
+      cape: look.cape, picking: true, pickIdx: i % CLIENTS.length, pickPop: 0, pickAt: rand(1.2, 2.6),
     };
     s.scene = { x: r.x, y: r.y + s.headerH, w: r.w, h: r.h - s.headerH - s.toolH };
     const sc = s.scene;
@@ -232,8 +234,35 @@ export class Game {
     ch.facing = 1;
     ch.snap();
     s.char = ch; s.side = -1;
-    if (p.isAI) s.ai = this.makePlan(s);
     return s;
+  }
+
+  // ---- client picker (start) -----------------------------------------------------
+  updatePick(s, dt) {
+    const c = s.p.ctrl, n = CLIENTS.length, cols = 4, rows = Math.ceil(n / cols);
+    s.pickPop = Math.max(0, s.pickPop - dt * 4);
+    if (s.p.isAI) {
+      s.pickAt -= dt;
+      if (s.pickAt <= 0) { s.pickIdx = randInt(0, n - 1); s.client = this.makeClient(s, s.pickIdx); this.choose(s); }
+    } else {
+      const dx = c.nav.x, dy = c.nav.y;
+      if (dx || dy) {
+        const col = (s.pickIdx % cols + Math.sign(dx) + cols) % cols, row = (Math.floor(s.pickIdx / cols) + Math.sign(dy) + rows) % rows;
+        s.pickIdx = Math.min(n - 1, row * cols + col); s.pickPop = 1; sfx('move');
+        s.client = this.makeClient(s, s.pickIdx);   // live preview in the chair
+      }
+      if (c.pressed('a') || c.pressed('x')) this.choose(s);
+    }
+    s.client.update(dt, 0, 0.2);
+    this.updateStylist(s, dt);
+  }
+  makeClient(s, idx) { return new Client({ ...CLIENTS[idx], cape: s.cape }); }
+  choose(s) {
+    s.picking = false;
+    sfx('select'); s.client.pop(0.3); s.client.react('wow', 1);
+    s.client.say(`Hi! I'm ${CLIENTS[s.pickIdx].name}!`, 1.8);
+    if (s.p.isAI) s.ai = this.makePlan(s);
+    if (this.stations.every((o) => !o.picking)) this.banner = { text: 'Salon is open!', t: 0 };
   }
 
   toHead(s, x, y) {
@@ -266,6 +295,7 @@ export class Game {
   }
 
   updateStation(s, dt) {
+    if (s.picking) { this.updatePick(s, dt); return; }
     const p = s.p, c = p.ctrl, cl = s.client, sc = s.scene;
     if (s.ai) this.ai(s, dt);
     const pad = c.kind === 'pad', mx = pad ? c.sx : c.x, my = pad ? c.sy : c.y;
@@ -280,7 +310,7 @@ export class Game {
     // tools and options
     if (c.pressed('rb') || (pad && c.pressed('right'))) this.setTool(s, (s.tool + 1) % TOOLS.length);
     if (c.pressed('lb') || (pad && c.pressed('left'))) this.setTool(s, (s.tool + TOOLS.length - 1) % TOOLS.length);
-    const optStep = (c.pressed('y') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
+    const optStep = (c.pressed('y') || c.pressed('rt') ? 1 : 0) - (c.pressed('lt') ? 1 : 0) + (pad ? (c.pressed('down') ? 1 : 0) - (c.pressed('up') ? 1 : 0) : 0);
     if (optStep) this.stepOption(s, optStep);
     if (c.pressed('x')) this.toggleReady(s);
     s.toolPop = Math.max(0, s.toolPop - dt * 3); s.optPop = Math.max(0, s.optPop - dt * 2.5);
@@ -351,7 +381,7 @@ export class Game {
       let grew = false;
       for (const st of touched) {
         const max = st.bang ? MAXB : MAXL;
-        if (st.L < max) { st.L = Math.min(max, st.L + (st.bang ? 90 : 170) * dt); hair.touch(st); grew = true; }
+        if (st.L < max) { const was = st.L; st.L = Math.min(max, st.L + (st.bang ? 90 : 170) * dt); extendColour(st, was); hair.touch(st); grew = true; }
       }
       if (grew) {
         s.working = true;
@@ -927,11 +957,35 @@ export class Game {
     // hand mirror reveal
     if (this.phase === 'reveal' && s.revealT > 0) this.drawMirror(g, s);
     // tool hand
-    if (this.phase === 'style') this.drawCursor(g, s);
+    if (this.phase === 'style' && !s.picking) this.drawCursor(g, s);
+    if (s.picking) this.drawPicker(g, s);
     g.restore();
     this.drawHeader(g, s);
     this.drawToolbar(g, s);
-    if (this.phase === 'style' && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
+    if (this.phase === 'style' && !s.picking && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
+  }
+
+  /** Portrait grid: who will you style? (the chair behind shows the highlighted girl) */
+  drawPicker(g, s) {
+    const sc = s.scene, n = CLIENTS.length, cols = 4, rows = Math.ceil(n / cols);
+    const cell = Math.min((sc.w - 40) / cols, (sc.h - 120) / rows) * 0.92, gap = cell * 0.08;
+    const gw = cols * cell + (cols - 1) * gap, gh = rows * cell + (rows - 1) * gap;
+    const x0 = sc.x + (sc.w - gw) / 2, y0 = sc.y + Math.max(56, (sc.h - gh) * 0.42);
+    g.fillStyle = 'rgba(36,22,63,0.28)'; g.fillRect(sc.x, sc.y, sc.w, sc.h);
+    const ts = Math.max(22, Math.min(40, cell * 0.2));
+    ui.text(g, 'Who will you style?', sc.x + sc.w / 2, y0 - ts * 0.9, { size: ts, color: '#ffffff', strokeWidth: 6 });
+    for (let i = 0; i < n; i++) {
+      const cx = x0 + (i % cols) * (cell + gap), cy = y0 + Math.floor(i / cols) * (cell + gap), sel = i === s.pickIdx;
+      const k = sel ? 1 + s.pickPop * 0.08 : 1;
+      g.save(); g.translate(cx + cell / 2, cy + cell / 2); g.scale(k, k);
+      ui.panel(g, -cell / 2, -cell / 2, cell, cell, { r: cell * 0.16, fill: sel ? '#ffe7f3' : '#ffffff', stroke: sel ? s.p.color : NAVY, lineWidth: sel ? 7 : 3, shadow: false });
+      g.save(); ui.roundRect(g, -cell / 2 + 4, -cell / 2 + 4, cell - 8, cell - 8, cell * 0.14); g.clip();
+      g.drawImage(clientPortrait(i), -cell / 2, -cell / 2, cell, cell);
+      g.restore();
+      if (cell > 90) ui.text(g, CLIENTS[i].name, 0, cell / 2 - cell * 0.09, { size: Math.min(26, cell * 0.15), color: sel ? s.p.color : '#24163f', strokeWidth: 5 });
+      g.restore();
+    }
+    if (!s.p.isAI) ui.hints(g, [['stick', 'Pick'], ['a', `Style ${CLIENTS[s.pickIdx].name}!`]], sc.x + sc.w / 2, Math.min(sc.y + sc.h - 24, y0 + gh + ts * 1.1), { size: Math.max(20, Math.min(30, cell * 0.17)) });
   }
 
   drawShelf(g, x, y, k) {
@@ -1135,7 +1189,7 @@ export class Game {
       const humans = this.stations.filter((s) => !s.p.isAI);
       if (humans.length) {
         ui.hints(g, [['stick', 'Move'], ['a', 'Use tool']], W / 2 - 130, 52, { size: 32, align: 'right' });
-        ui.hints(g, [['rb', 'Tool'], ['y', 'Colour/Style'], ['x', 'Done!']], W / 2 + 130, 52, { size: 32, align: 'left' });
+        ui.hints(g, [['rb', 'Tool'], ['rt', 'Colour/Style'], ['x', 'Done!']], W / 2 + 130, 52, { size: 32, align: 'left' });
       }
     }
     if (this.phase === 'show') {

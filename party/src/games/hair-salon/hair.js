@@ -466,6 +466,15 @@ export class Hair {
   }
 }
 
+/** A strand grew from oldL: the new length takes the colour of its old tip (glitter and rainbow too). */
+export function extendColour(s, oldL) {
+  const from = Math.max(0, Math.floor((oldL - 1) / SEG)), to = Math.min(s.segs.length - 1, Math.floor((s.L - 1) / SEG));
+  for (let k = from + 1; k <= to; k++) {
+    s.segs[k] = s.segs[from]; s.glit[k] = s.glit[from];
+    if (s.rainbowSeg) s.rainbowSeg[k] = s.rainbowSeg[from];
+  }
+}
+
 /** Paint one segment-range of a strand with a hair colour id. */
 export function paintSeg(s, k, col) {
   if (k < 0 || k >= s.segs.length) return false;
