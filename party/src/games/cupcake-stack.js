@@ -61,6 +61,13 @@ export const meta = {
     'Sticky icing: crooked cupcakes still stick. The tower just giggles!',
     'At the end, press A again and again to blow out the birthday candles!',
   ],
+  goalEasy: 'Stack the tallest cupcake tower together - press A to drop your cupcake!',
+  controlsEasy: [['a', 'Drop your cupcake']],
+  tipsEasy: [
+    'Your fairy flies by herself. Press A when the arrow and the A show up!',
+    'Crooked cupcakes still stick. The tower just giggles!',
+    'At the end, press A again and again to blow out the candles!',
+  ],
   music: 'bouncy',
   duration: '55 sec',
   minPlayers: 1,
@@ -100,6 +107,7 @@ export const meta = {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: gentler fairies + a bigger Perfect window for humans
     this.players = api.players;
     this.n = this.players.length;
     this.t = 0; this.time = 0;
@@ -220,7 +228,7 @@ export class Game {
   updateSlider(e, dt, playing) {
     const s = e.s;
     const grow = Math.min(0.9, this.tower.length * 0.012);
-    s.phase += (s.spd + grow) * dt;
+    s.phase += (s.spd + grow) * (this.easy && !e.p.isAI ? 0.8 : 1) * dt;
     s.x = STAND_X + Math.sin(s.phase) * RANGE;
     const ty = this.topY - LIFT - s.row * ROW;
     s.y = damp(s.y, this.phase === 'play' ? ty : ty - 900, this.phase === 'play' ? 7 : 1.5, dt);
@@ -297,7 +305,7 @@ export class Game {
     const e = f.owner;
     const topY = this.topY;
     if (f.kind === 'cherry' || f.kind === 'candle') { this.landTopping(f, dx); return; }
-    const perfect = !boinged && Math.abs(dx) < 22;
+    const perfect = !boinged && Math.abs(dx) < (this.easy && !e.p.isAI ? 34 : 22);
     const stick = clamp(dx * 0.55, -CUP_W * 0.42, CUP_W * 0.42);
     const it = {
       kind: f.kind, col: f.col, wrap: f.wrap, owner: e,
@@ -675,12 +683,13 @@ export class Game {
     g.beginPath(); g.arc(s.x, fyY, 44, 0, TAU); g.fill(); g.restore();
     // drop guide + down arrow when lined up
     if (s.item && this.phase === 'play') {
-      const over = Math.abs(s.x - this.topX) < 30;
+      const over = Math.abs(s.x - this.topX) < (this.easy && !e.p.isAI ? 40 : 30);
       g.save(); g.globalAlpha = alpha * (over ? 0.8 : 0.3); g.strokeStyle = over ? '#ffffff' : e.p.color; g.lineWidth = 5; g.setLineDash([10, 14]); g.lineDashOffset = -t * 60;
       g.beginPath(); g.moveTo(s.x, s.y + 10); g.lineTo(s.x, this.topY - 90); g.stroke(); g.restore();
       if (over) {
         g.save(); g.translate(s.x, s.y + 40 + Math.abs(Math.sin(t * 10)) * 14); g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 4;
         g.beginPath(); g.moveTo(-18, 0); g.lineTo(18, 0); g.lineTo(0, 22); g.closePath(); g.fill(); g.stroke(); g.restore();
+        if (this.easy && !e.p.isAI) ui.glyph(g, 'a', s.x + 70, s.y - 10, 56, { pulse: true });
       }
       const ps = 1 + s.pop * 0.5;
       g.save(); g.translate(s.x, s.y); g.scale(ps, ps); g.rotate(Math.sin(t * 6 + e.i) * 0.06);

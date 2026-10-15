@@ -33,6 +33,9 @@ export const meta = {
   goal: 'Jump and pop the bubbles to fill the bubble meter for a bubble bath!',
   controls: [['stick', 'Run'], ['a', 'Jump and pop']],
   tips: ['Every pop bounces you up again - pop pop pop in the air!', 'Giant bubbles need three bonks.', 'Every bubble has a surprise inside!'],
+  goalEasy: 'You run under the bubbles by yourself - press A to jump and pop them!',
+  controlsEasy: [['a', 'Jump and pop']],
+  tipsEasy: ['Jump when the A pops up over your head!', 'Every pop bounces you up again - pop pop pop!', 'Every bubble has a surprise inside!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -80,6 +83,7 @@ const pickSurprise = () => {
 export class Game {
   constructor(api) {
     this.api = api;
+    this.easy = !!api.easy;   // Molly Easy: humans run under a bubble by themselves, A jumps
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0;
@@ -124,6 +128,7 @@ export class Game {
     }
     for (const e of this.ents) {
       if (e.p.isAI && !this.done) this.aiThink(e, dt);
+      else if (this.easy && !this.done) this.easyThink(e, dt);
       this.movePlayer(e, dt);
     }
     this.pushPlayers(dt);
@@ -381,7 +386,11 @@ export class Game {
   movePlayer(e, dt) {
     const p = e.p, a = e.a, ctrl = p.ctrl;
     e.popT = Math.max(0, e.popT - dt);
-    const inX = this.done ? 0 : ctrl.x;
+    let inX = this.done ? 0 : ctrl.x;
+    if (this.easy && !p.isAI && !this.done) {
+      const d = e.ezX - e.x;
+      inX = Math.abs(d) > 12 ? Math.sign(d) * clamp(Math.abs(d) / 90, 0.25, 0.85) : 0;
+    }
     const target = inX * MAX_SPEED;
     e.vx = approach(e.vx, target, (Math.sign(target) !== Math.sign(e.vx) ? 6000 : 4200) * dt);
     e.x = clamp(e.x + e.vx * dt, 60, W - 60);
@@ -417,6 +426,30 @@ export class Game {
         A.x -= dir * ov * 0.5 * k; B.x += dir * ov * 0.5 * k;
       }
     }
+  }
+
+  /** Molly Easy: pick a bubble for this human and run under it; e.ezReady = "jump now!". */
+  easyThink(e, dt) {
+    const a = e.a;
+    e.ezPick = (e.ezPick ?? 0) - dt;
+    if (!e.target || e.target.dead || e.ezPick <= 0) {
+      e.ezPick = 0.5;
+      let best = null, bu = -1;
+      for (const b of this.bubbles) {
+        if (b.y < 260) continue;
+        const d = Math.abs(b.x - e.x);
+        const low = clamp((b.y - 380) / 400, 0, 1);
+        let u = (0.4 + low) / (0.5 + d / 450) * (b.giant ? 1.4 : 1) * (b === e.target ? 1.5 : 1);
+        for (const o of this.ents) if (o !== e && o.target === b) u *= 0.25;
+        if (u > bu) { bu = u; best = b; }
+      }
+      e.target = best;
+    }
+    const b = e.target;
+    const home = this.n === 1 ? W / 2 : 240 + ((W - 480) * e.i) / (this.n - 1);
+    e.ezX = b ? clamp(b.x, 60, W - 60) : home;
+    const head = a.y - a.height;
+    e.ezReady = !!b && e.z <= 0.5 && Math.abs(b.x - e.x) < b.r + 40 && b.y > head - 250 && b.y < head + 20;
   }
 
   // ---------------------------------------------------------------------- AI
@@ -506,9 +539,20 @@ export class Game {
     for (const gd of this.goodies) if (gd.kind !== 'frog' && gd.kind !== 'duck') this.drawGoodie(g, gd);
     for (const gd of this.goodies) if (gd.kind === 'frog' && gd.onHead) this.drawGoodie(g, gd);
     for (const b of this.bubbles) this.drawBubbleEnt(g, b);
+    if (this.easy && !this.finale) {
+      // Molly Easy: your bubble gets a ring in your colour
+      for (const e of this.ents) {
+        const b = e.target;
+        if (e.p.isAI || !b || b.dead) continue;
+        g.save(); g.globalAlpha = 0.5 + 0.4 * Math.sin(this.t * 9 + e.i);
+        g.strokeStyle = e.p.color; g.lineWidth = 8;
+        g.beginPath(); g.arc(b.x, b.y, b.r * (0.75 + 0.25 * b.grow) + 14 + Math.sin(this.t * 8) * 4, 0, TAU); g.stroke(); g.restore();
+      }
+    }
     for (const e of order) {
       const a = e.a, top = a.y - e.z - a.height - 22 - (a.emotes.length ? 50 : 0);
       if (this.el < 6 || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
+      if (this.easy && !e.p.isAI && e.ezReady && !this.finale) ui.glyph(g, 'a', e.x + 70, top - 10, 62, { pulse: true });
     }
   }
 
