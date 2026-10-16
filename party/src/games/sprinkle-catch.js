@@ -411,8 +411,9 @@ export class Game {
     let x = t.x, y = t.y, vx = t.vx, vy = t.vy, b = t.bounces, T = 0;
     while (T < 2.8) {
       vy = Math.min(vy + GRAV * 0.04, t.term); x += vx * 0.04; y += vy * 0.04; T += 0.04;
+      if (x < 40) { x = 40; vx = Math.abs(vx); } else if (x > W - 40) { x = W - 40; vx = -Math.abs(vx); }
       if (y >= targetY && vy > 0) return { x, T };
-      if (y >= GROUND_Y) { if (b > 0) { vy = -BOUNCE_V; b--; y = GROUND_Y - 1; } else return { x, T }; }
+      if (y >= GROUND_Y) { if (b > 0) { vy = -BOUNCE_V * (b > 1 ? 1 : 0.78); b--; y = GROUND_Y - 1; } else return { x, T }; }
     }
     return { x, T };
   }
@@ -537,7 +538,7 @@ export class Game {
     if (this.rush) {
       const pulse = 1 + Math.sin(this.t * 9) * 0.06;
       g.save(); g.translate(W / 2, 150); g.scale(pulse, pulse);
-      ui.text(g, 'SUGAR RUSH x2', 0, 0, { size: 46, color: '#ff6fb1', weight: 800 });
+      ui.text(g, 'SUGAR RUSH!', 0, 0, { size: 46, color: '#ff6fb1', weight: 800 });
       g.restore();
       if (this.rushT < 2.4) {
         g.save(); g.globalAlpha = clamp(2.4 - this.rushT, 0, 1);

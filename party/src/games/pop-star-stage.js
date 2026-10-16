@@ -284,7 +284,7 @@ export const meta = {
   tips: ['Press right when the note touches the circle!', 'Play really well and your stars go up: trickier notes, more points! Miss a few and it gets easier.', 'Hit 20 in a row for rainbow FEVER — double points!'],
   music: 'dance',
   options: rhythmOptions('pop-star-stage'),
-  duration: '65 sec',
+  duration: 'about 1–1½ min',
   minPlayers: 1, maxPlayers: 8,
   countdown: true,
   drawIcon(g, x, y, w, h, t) {
@@ -747,7 +747,7 @@ export class Game {
     B.y = 650 + Math.sin(B.t * 1.7) * 12;
     if (B.hitT > 0) { B.hitT -= dt; if (B.hitT <= 0) B.mood = B.hp < B.max * 0.3 ? 'eep' : 'grin'; }
     if (B.dead) B.deadT += dt;
-    if (!B.dead && b >= 123.5) this.defeatBoss(false);
+    if (!B.dead && b >= this.songEnd - 6.5) this.defeatBoss(false);   // the song's own end (classic: 123.5)
   }
 
   // ---- finale -----------------------------------------------------------------------

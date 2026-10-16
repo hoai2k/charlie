@@ -310,7 +310,7 @@ export class Game {
         pr.vy = Math.min(pr.vy, 90);
         pr.x += pr.vx * dt; pr.y += pr.vy * dt;
         pr.x = clamp(pr.x, LEFT, RIGHT);
-        if (pr.y > SEABED - 20) { pr.y = SEABED - 20; pr.vy = 0; }
+        if (pr.y > SEABED - 45) { pr.y = SEABED - 45; pr.vy = 0; }   // rest within a swimmer's reach (FLOOR clamp)
         if (pr.y < TOP) { pr.y = TOP; pr.vy = Math.abs(pr.vy); }
       }
       if (pr.life <= 0) particles.burst(pr.x, pr.y, { type: 'sparkle', count: 3, colors: ['#ffffff', '#ffe6f4'] });
@@ -407,8 +407,10 @@ export class Game {
     // A: zoom (and tickle if next to the octopus)
     if (live && p.ctrl.pressed('a')) {
       const o = this.octo;
-      if (dist(e.x, e.y, o.x, o.y - 90) < 260 && e.tickleCd <= 0) this.tickle(e);
-      if (e.zoomCd <= 0) {
+      const byOcto = dist(e.x, e.y, o.x, o.y - 90) < 260;
+      if (byOcto && e.tickleCd <= 0) this.tickle(e);
+      if (byOcto && o.awake <= 0) { /* tickling the sleepy octopus: don't zoom away from it */ }
+      else if (e.zoomCd <= 0) {
         let dx = ix, dy = iy;
         if (e.auto) { dx = e.auto.dx; dy = e.auto.dy; }   // Molly Easy: zoom straight at the target
         if (Math.hypot(dx, dy) < 0.2) { dx = a.facing; dy = 0; }
@@ -565,8 +567,9 @@ export class Game {
     if (d > 30) { const k = clamp(d / 120, 0, 1); au.ix = au.dx * k; au.iy = au.dy * k; }
     const o = this.octo;
     if (t.kind === 'octo') au.near = dist(e.x, e.y, o.x, o.y - 90) < 260 && e.tickleCd <= 0;
-    else if (t.kind === 'clam') au.near = (t.ref.state === 'open' || t.ref.state === 'opening') && d < 520 && e.zoomCd <= 0;
-    else au.near = d < 520 && e.zoomCd <= 0;
+    else if (t.kind === 'clam') au.near = (t.ref.state === 'open' || t.ref.state === 'opening') && d < 330 && e.zoomCd <= 0;   // a zoom travels ~370 px
+    else au.near = d < 330 && e.zoomCd <= 0;
+    if (t.kind !== 'octo' && o.awake <= 0 && dist(e.x, e.y, o.x, o.y - 90) < 260) au.near = false;   // A tickles here, it won't zoom
   }
 
   // ---------------------------------------------------------------------- AI

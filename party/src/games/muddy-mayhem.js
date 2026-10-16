@@ -413,7 +413,7 @@ export class Game {
           G.scanT = 0.35;
           let best = null, bs = -1;
           for (const e of this.ents) {
-            if (e.mud < 0.35 || e.immuneT > 0) continue;
+            if (e.mud < 0.35 || e.immuneT > 0 || e.ez) continue;   // Molly Easy: she never hoses a little one who can't steer
             const d = dist(G.x, G.y, e.x, e.y);
             if (d > 560) continue;
             const s = e.mud * 300 - d * 0.5 + rand(60);
@@ -454,7 +454,7 @@ export class Game {
         if (chance(dt * 30)) particles.burst(G.aimX, G.aimY, { type: 'drop', count: 2, colors: ['#bfeaff', '#ffffff', '#7fd3ff'], speed: [80, 240], size: [6, 11] });
         if (chance(dt * 5)) snd('mm-spray', 'water', { vol: 0.2 });
         for (const o of this.ents) {
-          if (G.hitSet.has(o)) continue;
+          if (G.hitSet.has(o) || o.ez) continue;
           if (dist(o.x, o.y - o.a.height * 0.45, G.aimX, G.aimY) < 70 + o.a.radius * 0.6) { G.hitSet.add(o); this.washPlayer(o); }
         }
         for (const d of this.pups) {
@@ -681,7 +681,8 @@ export class Game {
       });
       e.score += v;
       e.splatFlash = 0.3;
-      particles.popText(e.x, e.y - a.height - 60, '+' + v, v >= 3 ? '#ffd23f' : '#ffffff', 40 + v * 8);
+      const px = e.ez ? e.x + (e.x > W / 2 ? -120 : 120) : e.x;   // Easy: beside the big A cue, not on it
+      particles.popText(px, e.y - a.height - 60, '+' + v, v >= 3 ? '#ffd23f' : '#ffffff', 40 + v * 8);
       if (v >= 3) { fx.shake(5, 0.15); particles.burst(e.x, e.y - a.height * 0.6, { type: 'star', count: 8, colors: ['#ffd23f', '#ffffff'], speed: [150, 350] }); }
       if (chance(0.5)) later(() => !this.finished && a.playOnce('cheer', 0.4), 300);
       e.mud = Math.max(0, e.mud - SHAKE_COST);
@@ -929,7 +930,7 @@ export class Game {
       const a = e.a;
       const top = e.y - a.height - 22;
       if (this.phase === 'play' && !e.p.isAI) this.drawCue(g, e, top);
-      if (this.playT < 6 || (!e.p.isAI && this.n > 1)) ui.playerTag(g, e.p, e.x, top - (a.emotes.length ? 50 : 0) - (this.cueUp(e) ? 70 : 0));
+      if (this.playT < 6 || (!e.p.isAI && this.n > 1)) ui.playerTag(g, e.p, e.x, top - (a.emotes.length ? 50 : 0) - (this.cueUp(e) ? (e.ez ? 100 : 70) : 0));
     }
   }
 
@@ -951,7 +952,8 @@ export class Game {
     if (this.cueUp(e)) {
       // "press A" bubble over a muddy player next to something clean
       const bob = Math.sin(t * 8) * 5;
-      ui.glyph(g, 'a', e.x, top - 30 + bob, 54, { pulse: true });
+      if (e.ez) ui.glyph(g, 'a', e.x, top - 46 + bob, 88, { pulse: true });
+      else ui.glyph(g, 'a', e.x, top - 30 + bob, 54, { pulse: true });
     } else if (!e.ez && e.mud < 0.12 && (this.playT < 12 || e.hintT > 0)) {
       // arrow toward the nearest puddle
       const p = this.nearestPuddle(e.x, e.y);

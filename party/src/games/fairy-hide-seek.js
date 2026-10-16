@@ -219,8 +219,9 @@ export class Game {
   check(e) {
     e.cd = 0.3; e.glint = 1;
     const a = e.a, s = e.spot;
+    if (!s && e.ez) { e.cd = 0.15; e.glint = 0; return; }   // Easy: A between spots does nothing (no cost)
     a.playOnce('action', 0.3);
-    if (!s) { sfx('whoosh', { vol: 0.3 }); return; }
+    if (!s) { sfx('whoosh', { vol: 0.3 }); this.miss(e); return; }
     s.bumpV -= 3.2;
     // a friend just found the fairy here: share it!
     if (s.foundT > 0 && !s.foundBy.has(e)) { s.foundBy.add(e); this.award(e, s, true); return; }
@@ -235,6 +236,13 @@ export class Game {
     particles.burst(s.x, s.y - s.h * 0.8, { type: 'petal', count: 4, colors: ['#7fd36a', '#ff9fd8', '#fff'], speed: [80, 200] });
     e.a.emote('question', 0.7);
     s.busy = Math.max(s.busy, 0.25);
+    this.miss(e);
+  }
+
+  // a wrong check costs a moment (so mashing A doesn't beat looking); Easy gets a shorter, gentler pause
+  miss(e) {
+    e.cd = e.ez ? 0.6 : 1.0;
+    if (!e.ez || chance(0.5)) e.a.say(pick(['Not here!', 'Hmm...', 'Nope!']), 0.8, null);
   }
 
   findFairy(e, s) {
@@ -263,6 +271,7 @@ export class Game {
   decoy(e, s) {
     const c = s.c; s.c = null; s.busy = 2.2;
     const a = e.a;
+    e.cd = e.ez ? 0.6 : 0.9;   // a silly critter isn't a fairy: short pause before the next peek
     a.playOnce('surprised', 0.5);
     a.emote('happy', 1.2);
     const cr = { kind: c.kind, from: s, x: s.x, y: s.y, t: 0, side: c.side, dest: null };

@@ -91,8 +91,9 @@ export class Game {
     this.bubbles = []; this.goodies = []; this.rainbows = []; this.ducks = [];
     this.meter = 0; this.meterShow = 0; this.meterPulse = 0;
     // a full meter takes roughly 35-45 s of lively popping
-    this.perPop = 1 / (50 + 26 * n);
-    this.spawnT = 0.4; this.blastT = 0.2;   // open with a big blast this.blastLeft = 0; this.blastGap = 0; this.giantT = rand(7, 9);
+    this.perPop = 1 / (64 + 33 * n);   // tuned with the blast fans and giants on
+    this.spawnT = 0.4; this.blastT = 0.2;   // open with a big blast
+    this.blastLeft = 0; this.blastGap = 0; this.giantT = rand(7, 9);
     this.machine = { x: W / 2, vx: 0, puff: 0, sq: 0, wand: 0, dir: 1 };
     this.finale = false; this.finaleT = 0; this.foam = 0; this.done = false;
     this.popSndAt = -1;

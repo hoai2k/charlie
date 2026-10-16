@@ -217,7 +217,7 @@ export class Game {
     U.score -= drop;
     const y = this.bodyY(U);
     for (let k = 0; k < drop; k++) {
-      this.items.push({ kind: 'star', x: U.x, y, vx: rand(-260, 260), vy: rand(-420, -220), t: rand(0, 3), drop: 0.9, val: 1 });
+      this.items.push({ kind: 'star', x: U.x, y, vx: rand(-260, 260), vy: rand(-420, -220), t: rand(0, 3), drop: 0.9, dropped: true, val: 1 });
     }
     if (drop) particles.popText(U.x, y - U.a.height * 0.6, `-${drop}`, '#ff9ad0', 44);
     U.a.playOnce('surprised', 0.8, 'fall'); U.a.flash('#ffffff', 0.2); U.a.emote('exclaim', 1.2);
@@ -571,7 +571,7 @@ export class Game {
   spawnItems(dt) {
     if (!(this.phase === 'bounce' || this.phase === 'warn')) return;
     const want = 3 + Math.ceil(this.n * 0.7) + Math.min(3, this.round);
-    const live = this.items.filter((it) => it.kind !== 'feather').length;
+    const live = this.items.filter((it) => it.kind !== 'feather' && !it.dropped).length;
     if (live < want && chance(dt * 4)) {
       const gold = chance(0.22);
       const top = CEIL + 70, bot = BED.top - 170;
@@ -599,7 +599,7 @@ export class Game {
         const r = 56 + U.a.height * 0.32;
         if (Math.abs(U.x - it.x) < r * 0.8 && Math.abs(this.bodyY(U) - it.y) < r) {
           it.dead = true;
-          const k = it.val * (it.kind === 'feather' ? 1 : this.mult);
+          const k = it.val * (it.kind === 'feather' || it.dropped ? 1 : this.mult); // dropped stars come back at face value
           this.addScore(U, k, it.x, it.y - 30, it.kind === 'gold' ? '#ffb020' : it.kind === 'feather' ? '#ffffff' : '#ffd23f');
           particles.burst(it.x, it.y, { type: it.kind === 'feather' ? 'sparkle' : 'star', count: it.kind === 'gold' ? 14 : 7, colors: ['#ffd23f', '#ffffff', U.p.color], speed: [100, 300] });
           if (it.kind === 'gold') { snd('bb-ceiling', 'star', { vol: 0.4 }); U.a.playOnce('cheer', 0.4); }

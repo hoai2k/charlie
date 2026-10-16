@@ -569,6 +569,7 @@ export class Game {
       for (const B of this.ents) {
         if (B === A || !B.line.length) continue;
         if (A.p.isAI && !B.p.isAI) continue;     // CPUs never borrow from a kid's line
+        if (this.easy && !A.p.isAI && !B.p.isAI) continue;   // two Easy kids on the same loop never swap by accident
         const k = B.line.findIndex((d) => dist(d.x, d.y, A.x, A.y) < 40);
         if (k < 0) continue;
         const d = B.line[k];

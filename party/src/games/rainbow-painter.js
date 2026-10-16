@@ -40,7 +40,7 @@ export const meta = {
   controlsEasy: [['a', 'Hold to rain paint']],
   tipsEasy: ['Your cloud flies all by itself!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star for a MEGA SPLASH!'],
   music: 'bouncy',
-  duration: '60 sec',
+  duration: '66 sec',
   minPlayers: 1,
   maxPlayers: 8,
   countdown: true,
@@ -57,7 +57,7 @@ const DROP = 105;                          // paint lands this far under the clo
 const SPRAY_BASE = 108;
 let SPRAY_R = SPRAY_BASE;   // grows for small parties (set per game)
 const MAXV = 760, ACCEL = 3600;
-const Y_MIN = 235, Y_MAX = 880;
+const Y_MIN = 295, Y_MAX = 880;   // top: the rider stays clear of the timer/scoreboard, paint still reaches the top band
 const SUN = { x: 1730, y: 318, r: 112 };
 const SUN_ART = SUN.r * 2.1;              // face disk ~ SUN.r, so the rays show round it
 const TREES = [{ x: 235, s: 0.95 }, { x: 1685, s: 0.95 }];
@@ -204,7 +204,7 @@ export class Game {
 
   update(dt) {
     this.t += dt;
-    if (!this.started) { this.started = true; this.startT = this.t - dt; this.banner = { text: 'Paint the rainbow!', t: 0 }; }
+    if (!this.started) { this.started = true; this.startT = this.t - dt; this.banner = { text: 'Paint the rainbow!', t: -1 }; }   // waits out the countdown's GO!
     this.phaseT += dt;
     const playing = this.phase === 'rainbow' || this.phase === 'world' || this.phase === 'sun';
     if (playing) this.timeLeft = Math.max(0, DURATION - (this.t - this.startT));

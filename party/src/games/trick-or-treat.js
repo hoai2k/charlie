@@ -33,7 +33,7 @@ const GAME_T = 55;          // seconds of trick-or-treating, then the candy-pile
 const FINALE_T = 5.2;
 const SPEED = 580;
 const CPU_SPEED = 0.8;      // CPUs are a little slower than kids on top of their profile
-const ZONE_X = 125, ZONE_Y = 890;
+const ZONE_X = 125, ZONE_Y = WALK.y1 + 1;   // the door zone runs down the whole sidewalk
 const KNOCK_T = 0.5, OPEN_T = 2.0, CLOSE_T = 0.3;
 const GHOST_AT = [19, 39];
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -84,7 +84,9 @@ export class Game {
     if (api.camera) api.camera.maxZoom = Math.min(api.camera.maxZoom ?? 1.4, 1.3);
     const looks = shuffle(COSTUMES.slice());
     this.units = this.players.map((p, i) => {
-      const x = lerp(260, W - 260, n === 1 ? 0.5 : i / (n - 1)) + rand(-20, 20);
+      const x0 = lerp(260, W - 260, n === 1 ? 0.5 : i / (n - 1)) + rand(-20, 20);
+      const hx = HOUSE_X.reduce((b, h) => (Math.abs(h - x0) < Math.abs(b - x0) ? h : b));
+      const x = hx + clamp(x0 - hx, -90, 90);   // start inside a door zone
       const y = 860 + (i % 2) * 70;
       const a = new Actor(p, { scale: this.scale, x, y, outfit: looks[i % looks.length] });
       a.facing = x < W / 2 ? 1 : -1; a.snap();

@@ -351,7 +351,7 @@ export class Game {
         this.pl[idx] = {
           p, i: idx, a, x, y, row: r, hearts: HEARTS, score: 0, alive: true, status: 'idle', entered: [], failIdx: -1,
           lastDir: null, flashIdx: -1, flashT: 0, shake: 0, light: 0.6, heartPop: 0, heartBreak: 0, scoreFlash: 0,
-          ai: null, baseFacing: a.facing, doneOrder: 0,
+          ai: null, baseFacing: a.facing, doneOrder: 0, orderSum: 0,
         };
         idx++;
       }
@@ -510,8 +510,10 @@ export class Game {
     if (c.pressed('a')) return 'A';
     const x = c.x, y = c.y, m = Math.hypot(x, y);
     if (m < 0.35) { pl.lastDir = null; return null; }
-    if (m > 0.6) {
-      const d = Math.abs(x) > Math.abs(y) ? (x > 0 ? 'R' : 'L') : (y > 0 ? 'D' : 'U');
+    // Only a clear direction counts: a diagonal waits for the child to settle on one axis.
+    const ax = Math.abs(x), ay = Math.abs(y);
+    if (m > 0.6 && (ax > 1.4 * ay || ay > 1.4 * ax)) {
+      const d = ax > ay ? (x > 0 ? 'R' : 'L') : (y > 0 ? 'D' : 'U');
       if (d !== pl.lastDir) { pl.lastDir = d; return d; }
     }
     return null;
@@ -588,6 +590,7 @@ export class Game {
     imp.targeted = true;
     this.beams.push({ pl, imp, t: -0.45, dur: 0.5 });
     pl.doneOrder = this.pl.filter((q) => q.status === 'done').length;
+    pl.orderSum += pl.doneOrder;
   }
 
   failPlayer(pl, timeout, idx = -1) {
@@ -649,7 +652,8 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     this.setPhase('end');
-    const keys = this.pl.map((q) => q.score * 10 + q.hearts);
+    // Ties on imps and hearts go to whoever danced each move first (lower total finish order).
+    const keys = this.pl.map((q) => q.score * 10 + q.hearts + 0.9 / (1 + q.orderSum));
     const placements = placementsFromScores(keys);
     const best = Math.max(...keys);
     this.pl.forEach((q) => {

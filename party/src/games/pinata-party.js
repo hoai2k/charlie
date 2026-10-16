@@ -98,7 +98,8 @@ export class Game {
     const n = this.n;
     const cols = n <= 4 ? n : Math.ceil(n / 2);
     const row = n <= 4 ? 0 : Math.floor(i / cols), col = n <= 4 ? i : i % cols;
-    const x = cols === 1 ? W / 2 - 260 : lerp(330, W - 330, col / (cols - 1));
+    // with two rows the back row sits half a column over, so nobody hides behind the player in front
+    const x = cols === 1 ? W / 2 - 260 : row === 0 && n <= 4 ? lerp(330, W - 330, col / (cols - 1)) : lerp(330, W - 330, (col + row * 0.5) / (cols - 0.5));
     const y = 905 + row * 80 - (cols > 1 && col % 2 ? 26 : 0);
     const a = new Actor(p, { scale: this.scale, x, y });
     a.facing = x < W / 2 ? 1 : -1; a.snap();

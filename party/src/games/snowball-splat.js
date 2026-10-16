@@ -77,7 +77,7 @@ export const meta = {
   category: 'party',
   type: 'Free-for-all',
   goal: 'Splat your friends with snowballs! Most splats wins.',
-  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs'], ['rt', 'Throw!'], ['rstick', 'Aim (or just throw the way you face)']],
+  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs'], ['rt', 'Throw! (X or RB works too)'], ['rstick', 'Aim (or just throw the way you face)']],
   tips: ['Hide behind snow walls and snowmen - they crumble, then pop back up!', 'Grab the GIANT snowball - it rolls over everyone!', 'The red mitten throws three at once. No snow on the ice!'],
   music: 'chase',
   duration: '50 sec',
@@ -1040,8 +1040,8 @@ export class Game {
     if (this.t < 6 && !this.over) {
       const al = this.t < 5 ? 1 : 1 - (this.t - 5);
       g.save(); g.globalAlpha = clamp(al, 0, 1);
-      ui.panel(g, W / 2 - 520, 994, 1040, 70, { r: 35 });
-      ui.hints(g, [['a', 'Hold to make snowballs'], ['rt', 'Throw!'], ['rstick', 'Aim']], W / 2, 1030, { size: 36 });
+      ui.panel(g, W / 2 - 640, 994, 1280, 70, { r: 35 });
+      ui.hints(g, [['a', 'Hold to make snowballs'], ['rt', 'Throw! (X / RB too)'], ['rstick', 'Aim']], W / 2, 1030, { size: 36 });
       g.restore();
     }
   }

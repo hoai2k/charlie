@@ -671,6 +671,8 @@ export class Game {
     const s = { x: right ? rand(150, 900) : rand(1020, W - 150), y: rand(140, 330), vx: (right ? 1 : -1) * rand(620, 760), vy: rand(220, 320), t: 0, life: 1.8, caught: false };
     this.shooting.push(s);
     snd('sm-shooting', 'whoosh', { vol: 0.4 });
+    // wishes are the kids' catch: CPUs only chase them in an all-CPU game
+    if (this.stations.some((st) => !st.p.isAI)) return;
     for (const st of this.stations) {
       if (!st.p.isAI || st.ai.chase || st.picker || st.drag) continue;
       const odds = [0.2, 0.4, 0.65][clamp(st.p.aiLevel ?? 0, 0, 2)];
@@ -685,8 +687,9 @@ export class Game {
       s.t += dt; s.x += s.vx * dt; s.y += s.vy * dt;
       if (!s.caught && chance(dt * 30)) particles.trail(s.x, s.y, { type: 'sparkle', colors: ['#ffffff', '#fff6a8', '#ffc4e6'], size: [8, 14], speed: [10, 60] });
       if (s.caught || this.phase !== 'play') continue;
+      const kids = this.stations.some((q) => !q.p.isAI);
       for (const st of this.stations) {
-        if (st.picker) continue;
+        if (st.picker || (kids && st.p.isAI)) continue;
         if (dist(st.cur.x, st.cur.y, s.x, s.y) < 70) { this.catchWish(st, s); break; }
       }
     }

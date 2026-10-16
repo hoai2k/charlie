@@ -32,6 +32,7 @@ const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const PLAY_TIME = 57;          // seconds of dancing, then the bow
 const STORM_AT = 28;           // Madame sneezes her wig off in a butterfly storm
 const GIVEUP_AT = 48;          // she gives up: silly freestyle for everyone
+const SILLY_CAP = 3;           // butterflies a dancer can earn in the silly freestyle
 const BOW_LEN = 3.4;
 const MOVES = ['up', 'down', 'left', 'right', 'twirl', 'statue'];
 const OPP = { up: 'down', down: 'up', left: 'right', right: 'left', twirl: 'statue', statue: 'twirl' };
@@ -284,7 +285,12 @@ export class Game {
     if (move === 'twirl') snd('ds-twirl', 'whoosh', { vol: 0.35 });
     if (move === 'down') a.squash(0.35);
     if (move === 'up') a.squash(-0.3);
-    if (this.phase === 'silly') { this.award(d, 1, false, move, null); return; }
+    if (this.phase === 'silly') {
+      // freestyle is for fun: only the first few moves earn a butterfly, so mashing can't outscore the dance
+      if ((d.sillyPts ?? 0) < SILLY_CAP) { d.sillyPts = (d.sillyPts ?? 0) + 1; this.award(d, 1, false, move, null); }
+      else particles.burst(a.x, a.y - a.z - a.height * 0.6, { type: 'sparkle', count: 6, colors: [MOVE_COL[move], '#fff', d.p.color], speed: [80, 260] });
+      return;
+    }
     const b = this.beat;
     if (!b || d.got || d.fail || b.t < 0.2) return;
     d.moved = true;
@@ -563,7 +569,7 @@ export class Game {
     fx.flash('#fff0fa', 0.2); fx.shake(8, 0.3);
     particles.confettiRain(W, 70);
     if (!this.tiara) this.popTiara();
-    for (const d of this.dancers) { d.a.tint(null); d.a.playOnce('laugh', 0.8, 'idle'); }
+    for (const d of this.dancers) { d.a.tint(null); d.a.playOnce('laugh', 0.8, 'idle'); d.sillyPts = 0; }
   }
 
   updateSilly(dt) {

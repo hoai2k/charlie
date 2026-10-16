@@ -120,7 +120,7 @@ export class Game {
       return a;
     });
     this.ps = this.players.map(() => ({
-      pts: 0, locked: false, best: null, wand: -1.25, wandTarget: -1.25, tip: { x: 0, y: 0 },
+      pts: 0, locked: false, best: null, msSum: 0, wand: -1.25, wandTarget: -1.25, tip: { x: 0, y: 0 },
       jumpAt: null, reactAt: null, pressed: false, puffT: 0,
     }));
     this.actors.forEach((a, i) => {
@@ -257,12 +257,12 @@ export class Game {
     const s = this.ps[i], a = this.actors[i], p = this.players[i];
     const ms = Math.max(60, Math.round((this.goT - 0.008) * 1000));
     this.st = 'resolve'; this.stT = 0; this.winner = i;
-    s.pts++; if (s.best === null || ms < s.best) s.best = ms;
+    s.pts++; s.msSum += ms; if (s.best === null || ms < s.best) s.best = ms;
     this.res = { i, ms, hit: false, done: false };
     const tip = s.tip.x ? s.tip : a.anchor('hand');
     const fwd = a.facing;
     s.wandTarget = Math.atan2(CRYSTAL.y - tip.y, (CRYSTAL.x - tip.x) * fwd);
-    a.playOnce('throw', 0.45, pickPose('cast', 'cheer')); a.squash(0.3);
+    a.playOnce('cast', 0.5, 'cheer'); a.squash(0.3);
     this.beams.push({ i, t: 0, color: p.color });
     this.owl.mode = 'cheer'; this.owl.t = 0;
     sfx('magic'); sfx('sparkle-beam', { fallback: 'whoosh' });
@@ -354,10 +354,14 @@ export class Game {
   finishGame() {
     const pts = this.ps.map((s) => s.pts);
     const wi = pts.indexOf(Math.max(...pts)), wa = this.actors[wi];
+    // Solo: every cast scores, so rate the average reaction time instead (higher score = faster).
+    const s0 = this.ps[0], avg = s0.pts ? Math.round(s0.msSum / s0.pts) : 0;
+    const solo = this.players.length === 1;
     this.api.finish({
       focus: { x: (wa.x + CRYSTAL.x) / 2, y: wa.y - wa.height * 0.7, zoom: 1.3 },
-      placements: placementsFromScores(pts), solo: pts[0],
-      stats: this.ps.map((s) => `${s.pts} pt${s.pts === 1 ? '' : 's'}${s.best ? ` · best ${s.best} ms` : ''}`),
+      placements: placementsFromScores(pts), solo: avg ? Math.round(100000 / avg) : 0,
+      stats: this.ps.map((s) => (solo && s.pts ? `avg ${Math.round(s.msSum / s.pts)} ms · best ${s.best} ms`
+        : `${s.pts} pt${s.pts === 1 ? '' : 's'}${s.best ? ` · best ${s.best} ms` : ''}`)),
     });
   }
 

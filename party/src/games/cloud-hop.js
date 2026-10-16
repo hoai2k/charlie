@@ -80,7 +80,7 @@ export const meta = {
   controls: [['stick', 'Steer left and right'], ['a', 'Air Hop (double jump)']],
   tips: ['You bounce by yourself! Pink clouds and trampolines bounce you super high.', 'Grab 3 stars for a ROCKET BOUNCE!', 'Grey rain clouds puff away after one bounce. Bonk off heads for a boost!'],
   music: 'gameon',
-  duration: '45 sec',
+  duration: '60 sec',
   minPlayers: 1,
   maxPlayers: 8,
   countdown: true,
@@ -1133,8 +1133,8 @@ export class Game {
   drawOffscreen(g) {
     for (const e of this.ents) {
       if (e.state !== 'air') continue;
-      const head = e.y - e.a.height - this.camTop;
-      if (head > 120) continue;
+      // only once the feet are above the view (or tucked under the scoreboard)
+      if (e.y - this.camTop > 90) continue;
       const x = clamp(e.x, 80, X1);
       g.save(); g.translate(x, 170);
       g.fillStyle = e.p.color; g.strokeStyle = NAVY; g.lineWidth = 4; g.lineJoin = 'round';

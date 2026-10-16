@@ -3,7 +3,7 @@
 // rainbow rope across a puddle of rainbow jelly. Pulling is a rhythm
 // "heave-ho": a ring shrinks onto the beat heart and pressing A ON the beat
 // gives a strong pull, off the beat a weak one - and you only get one pull per
-// beat, so timing beats mashing. Events: SUPER PULL (everyone mashes X) and a
+// beat, so timing beats mashing. Events: SUPER PULL (everyone mashes A or X) and a
 // banana peel that slides under the leading team (B to hop over it). Best of
 // three short pulls; the losers slide into the jelly with a splash and pop
 // out giggling.
@@ -66,7 +66,7 @@ export const meta = {
   category: 'party',
   type: 'Team game',
   goal: 'Pink Team vs Blue Team: pull the rope on the beat and splash the other team into the jelly!',
-  controls: [['a', 'Pull - right on the beat!'], ['x', 'SUPER PULL: mash!'], ['b', 'Hop over the banana']],
+  controls: [['a', 'Pull - right on the beat!'], ['x', 'SUPER PULL: mash X or A!'], ['b', 'Hop over the banana']],
   tips: [
     'Press A as the ring hits the heart. One pull per beat!',
     'Whole team on the beat = TEAM HEAVE!',
@@ -245,7 +245,7 @@ export class Game {
     for (const m of this.members) {
       if (m.isAI) this.aiInput(m, dt);
       const c = m.ctrl;
-      if (this.mashing) { if (c.pressed('x')) this.mashPress(m); }
+      if (this.mashing) { if (c.pressed('a') || c.pressed('x')) this.mashPress(m); }
       else if (c.pressed('a')) this.tryPull(m);
       if (this.event && this.event.kind === 'banana' && c.pressed('b')) this.hop(m);
     }
@@ -868,9 +868,9 @@ export class Game {
     const t = this.t;
     const k = 1 + Math.abs(Math.sin(t * (ev.go ? 16 : 6))) * 0.12;
     g.save(); g.translate(hx, hy); g.scale(k, k);
-    ui.glyph(g, 'x', 0, 0, 120);
+    ui.glyph(g, 'a', -66, 0, 100); ui.glyph(g, 'x', 66, 0, 100);
     g.restore();
-    ui.text(g, ev.go ? 'MASH X!' : 'Get ready...', hx, hy + 104, { size: ev.go ? 54 : 44, color: '#5fb0ff', strokeWidth: 10, weight: 800 });
+    ui.text(g, ev.go ? 'MASH A or X!' : 'Get ready...', hx, hy + 104, { size: ev.go ? 54 : 44, color: '#5fb0ff', strokeWidth: 10, weight: 800 });
     if (ev.go) {
       const left = clamp((ev.warn + ev.dur - ev.t) / ev.dur, 0, 1);
       ui.bar(g, hx - 90, hy + 146, 180, 18, left, '#ffd23f');

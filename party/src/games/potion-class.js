@@ -64,6 +64,7 @@ export const meta = {
   duration: '3 recipes',
   minPlayers: 1,
   maxPlayers: 8,
+  infoAt: 'tl',   // corner "i": the bottom-left holds station 1's shelf and ingredient badge
   countdown: false,
   drawIcon(g, x, y, w, h, t) {
     const gr = g.createLinearGradient(x, y, x, y + h);
@@ -418,8 +419,8 @@ export class Game {
       if (st.cool <= 0 && c.pressed('b')) this.undo(st);
     } else if (st.phase === 'wand') {
       st.readyT += dt;
-      if (st.cool <= 0 && c.pressed('y')) this.startPoof(st);
-      else if (st.cool <= 0 && c.pressed('a')) { st.shake = 1; sfx('tick'); st.cool = 0.15; }
+      // Y waves the wand; A (the button for everything else) POOFs too
+      if (st.cool <= 0 && (c.pressed('y') || c.pressed('a'))) this.startPoof(st);
     }
 
     // Flying ingredients.

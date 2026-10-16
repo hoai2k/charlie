@@ -18,16 +18,18 @@ import { clamp, lerp, damp, rand, chance, pick, placementsFromScores, ease, TAU,
 const NAVY = ui.NAVY;
 const ROUNDS = 3;
 const WINS_NEEDED = 2;
-const SOLO_TIME = 13;           // solo mode: seconds to pop each balloon
+const SOLO_TIME = 16;           // solo mode: seconds to pop each balloon
 
 // Pressure model (tuned with a quick simulation, see notes in the report).
-const PRESS = 0.1;              // pressure added by one press
+const PRESS = 0.14;             // pressure added by one press
 const DECAY = 1.1;              // exponential pressure bleed per second
 const RED = 0.82;               // above this the hose sputters
 const FLOW = 0.215;             // balloon growth per second at full flow
 const SWEET = 0.4;              // gauge: below this is "weak"
 
-const flowEff = (p) => (p > RED ? 0.1 + 0.45 * (1 - (p - RED) / (1 - RED)) : 1);
+// Over-mashing is a soft penalty: flow drops to 85%, down to 45% with the gauge pinned at the top.
+// Simulated: 4 taps/s pops in ~13.8 s, 5/s ~10.4 s, 6/s ~8.4 s, best ~7/s ~7.8 s, 10+/s ~9 s.
+const flowEff = (p) => (p > RED ? 0.45 + 0.4 * (1 - (p - RED) / (1 - RED)) : 1);
 
 export const meta = {
   id: 'balloon-pump',

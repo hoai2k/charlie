@@ -656,7 +656,9 @@ export class Game {
         const row = [];
         for (let i = 0; i < m; i++) {
           const x = W / 2 + (i - (m - 1) / 2) * step;
-          const sup = prev ? prev.filter((o) => Math.abs(o.x - x) < sp * 0.8) : [];
+          let sup = prev ? prev.filter((o) => Math.abs(o.x - x) < sp * 0.8) : [];
+          // a wide row below (7p: 2 slots at ±sp) leaves the top out of reach: rest on the nearest two
+          if (prev && !sup.length) sup = [...prev].sort((a, b) => Math.abs(a.x - x) - Math.abs(b.x - x)).slice(0, 2);
           row.push({ row: j, x, sup });
         }
         slots.push(...row); prev = row;

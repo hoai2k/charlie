@@ -131,7 +131,7 @@ export class Game {
     this.t = 0; this.t0 = 0;
     this.over = false;
     this.scale = n <= 2 ? 0.95 : n <= 4 ? 0.88 : n <= 6 ? 0.8 : 0.72;
-    this.R = n <= 4 ? 32 : 27;
+    this.R = n <= 4 ? 55 : 48;   // wide enough that two diggers never fully overlap
     this.units = this.players.map((p, i) => this.makeUnit(p, i));
     this.humans = this.players.filter((p) => !p.isAI).length;
     this.treasures = [];

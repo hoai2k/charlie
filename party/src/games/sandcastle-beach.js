@@ -36,7 +36,7 @@ export const meta = {
   category: 'studio',
   type: 'Build & decorate · Everyone wins',
   goal: 'Build the dreamiest sandcastle on the beach, then watch the sunset!',
-  controls: [['stick', 'Move your hand'], ['lb', 'LB / RB (or D-pad): pick a tool'], ['a', 'Build! (or pick up with the hand)'], ['b', 'Take it away'], ['x', 'Change the style'], ['y', 'All done!']],
+  controls: [['stick', 'Move your hand'], ['lb', 'LB / RB (or D-pad): pick a tool'], ['a', 'Build! (or pick up with the hand)'], ['b', 'Take it away'], ['x', 'Change the style'], ['y', 'Hold: all done!']],
   tips: ['Build on top of a tower to make it taller!', 'Hold A with the spade to dig a moat; the sea fills it up.', 'Tickle a crab with A. Crabs love a pretty castle!'],
   music: 'splash',
   duration: 'about 3 min',
@@ -61,6 +61,7 @@ const CELL = 18;
 const MAX_PIECES = 70, MAX_STACK = 300;
 const BUILD_TIME = 170, CPU_TIME = 75;
 const NAMES = ['Seashell Palace', 'Starfish Fort', 'Crabby Castle', 'Sunny Keep', 'Coral Towers', 'Sparkle Sands', 'Pearl Palace', 'Wavy Towers', 'Sandy Sky Fort', 'Mermaid Manor', 'Bucket Castle', 'Tide Pool Towers'];
+const READY_HOLD = 0.6;   // seconds a kid holds Y to say "all done"
 const CHEERS = ['Ta-da!', 'Ooh!', 'Sandy!', 'Yay!', 'Pretty!'];
 
 // --- layout --------------------------------------------------------------------------------
@@ -116,7 +117,7 @@ export class Game {
       styles: { hand: 0, tower: 0, pointy: 0, wall: 0, dome: 0, moat: 0, shell: 0, star: 0, flag: i % 4 },
       pieces: [], held: null, hover: null, hoverCrab: null, aim: null,
       moat: new Map(), digT: 0, digging: false, waterT: 0,
-      ready: false, readyT: 0, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
+      ready: false, readyT: 0, yHold: 0, wet: 0, gifts: 0, built: 0, cheerCD: 2, waveCD: 0,
       side: i % 2 ? 1 : -1, ai: null, aiStick: 0, jz: 0, jvz: 0, poseCD: 0,
     };
     const a = new Actor(p, { x: ox + st.side * 90 * k, y: oy + 20 * k, facing: -st.side });
@@ -613,7 +614,12 @@ export class Game {
       if (c.pressed('rb')) this.stepTool(st, 1);
       if (c.pressed('lb')) this.stepTool(st, -1);
       if (c.pressed('x')) this.stepStyle(st, 1);
-      if (c.pressed('y')) { this.setReady(st, true); continue; }
+      // a kid holds Y (the ring fills) so one stray press doesn't end everyone's build
+      if (st.p.isAI) { if (c.pressed('y')) { this.setReady(st, true); continue; } }
+      else {
+        st.yHold = c.held('y') && (st.yHold > 0 || c.pressed('y')) ? st.yHold + dt : 0;
+        if (st.yHold >= READY_HOLD) { st.yHold = 0; this.setReady(st, true); continue; }
+      }
       // hover
       st.hover = st.held ? null : this.pieceAt(st, st.cur.x, st.cur.y);
       st.hoverCrab = null;
@@ -976,6 +982,17 @@ export class Game {
       if (!st.held) drawToolIcon(g, tool, cs.x, cs.y, sz * 0.82, this.t, st.styles[tool]);
       g.restore();
     }
+    if (st.yHold > 0) {
+      // "all done" fill ring around the hand while Y is held
+      const f = clamp(st.yHold / READY_HOLD, 0, 1), rr = sz * 0.5 + 12;
+      g.save(); g.lineCap = 'round';
+      g.lineWidth = 10; g.strokeStyle = 'rgba(255,255,255,0.75)';
+      g.beginPath(); g.arc(cs.x, cs.y, rr, 0, TAU); g.stroke();
+      g.lineWidth = 8; g.strokeStyle = '#ffd23f';
+      g.beginPath(); g.arc(cs.x, cs.y, rr, -Math.PI / 2, -Math.PI / 2 + f * TAU); g.stroke();
+      g.restore();
+      ui.glyph(g, 'y', cs.x, cs.y + rr + 22, 30);
+    }
     if (this.humans > 1 || st.p.isAI) ui.text(g, st.p.tag, cs.x, cs.y - sz * 0.5 - 14, { size: 20, color: st.p.color, strokeWidth: 4 });
     // what A / B would do right here
     if (!st.p.isAI) {
@@ -1014,7 +1031,7 @@ export class Game {
     if (this.phase === 'build') {
       this.drawClock(g);
       const pad = this.players.some((p) => !p.isAI && p.ctrl.kind === 'pad');
-      ui.hints(g, [['stick', 'Hand'], [pad ? 'dpad' : 'lb', pad ? 'LB/RB Tools' : '/ RB Tools'], ['a', 'Build'], ['b', 'Take away'], ['x', 'Style'], ['y', 'Done!']], W / 2, 122, { size: 30, gap: 26 });
+      ui.hints(g, [['stick', 'Hand'], [pad ? 'dpad' : 'lb', pad ? 'LB/RB Tools' : '/ RB Tools'], ['a', 'Build'], ['b', 'Take away'], ['x', 'Style'], ['y', 'Hold: Done!']], W / 2, 122, { size: 30, gap: 26 });
       for (const st of this.stations) this.drawStrip(g, st);
     } else {
       this.drawFinaleHUD(g);

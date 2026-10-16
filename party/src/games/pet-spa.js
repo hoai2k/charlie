@@ -480,7 +480,8 @@ export class Game {
   parts(s) {
     const clean = 1 - this.mudLeft(s);
     const suds = this.sudsTotal(s);
-    const rinse = s.sudsPeak > 0 ? clean * clamp(1 - suds / Math.max(1, s.sudsPeak * 0.6), 0, 1) : 0;
+    // showered clean before any soap: the rinse counts as done (no suds to wash off)
+    const rinse = s.sudsPeak > 0 ? clean * clamp(1 - suds / Math.max(1, s.sudsPeak * 0.6), 0, 1) : (s.wasWet ? clean : 0);
     const dry = s.wasWet ? clamp(1 - s.wet, 0, 1) : 0;
     return { clean, rinse, dry, fluff: s.fluff, bow: s.acc.length ? 1 : 0, treat: s.treats ? 1 : 0, suds };
   }

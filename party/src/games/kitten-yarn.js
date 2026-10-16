@@ -740,8 +740,9 @@ kk.state = 'wait'; kk.wt = delay;
       if (!this.done && (e.basket.length || e.head) && (!e.p.isAI || this.n === 1)) {
         const full = e.basket.length >= CAP || e.head;
         const pulse = 1 + Math.sin(this.t * (full ? 12 : 6)) * 0.12;
-        g.save(); g.translate(e.x + 80 * this.scale, top - 10); g.scale(pulse, pulse);
-        ui.glyph(g, 'a', 0, 0, full ? 54 : 42);
+        const big = this.easy && !e.p.isAI;   // Molly Easy: the same big A as the other Sister games
+        g.save(); g.translate(e.x + (big ? 110 : 80) * this.scale, top - (big ? 30 : 10)); g.scale(pulse, pulse);
+        ui.glyph(g, 'a', 0, 0, big ? (full ? 92 : 80) : full ? 54 : 42);
         g.restore();
       }
     }

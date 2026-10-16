@@ -71,7 +71,7 @@ const DASH_V = 1150, DASH_T = 0.22, DASH_CD = 0.9;
 // Throwing: straight along the aim, caught by whoever it touches.
 const THROW_V = 1300, RANGE = 900, RETURN_T = 0.55;
 const CATCH_R = 80;        // catch radius at scale 1 (ground distance, y counts x1.6)
-const ASSIST = 0.3;        // radians: the aim snaps to a friend within this angle
+const ASSIST = 0.5;        // radians: the aim snaps to a friend within this angle
 const BODY_R = 70;         // players push each other apart
 
 const NEW_POSE_FALLBACK = { 'hold-present': 'carry', toss: 'throw', 'catch-present': 'surprised', sooty: 'dizzy' };
@@ -154,10 +154,13 @@ export class Game {
     const sp = SPEED * (holder ? HOLD_SLOW : 1) * Math.min(1, mm);
     if (e.dashT > 0) { e.dashT -= dt; e.vx = e.dashX * DASH_V; e.vy = e.dashY * DASH_V; }
     else { e.vx = damp(e.vx, mm > 0.15 ? (mx / mm) * sp : 0, 12, dt); e.vy = damp(e.vy, mm > 0.15 ? (my / mm) * sp : 0, 12, dt); }
-    // Aim: the right stick; without one (keyboard), the way you're running.
+    // Aim: the right stick; without one (keyboard), or when it has been idle a moment, the way you're running.
     const rx = ctrl.rx, ry = ctrl.ry, rm = Math.hypot(rx, ry);
-    if (rm > 0.35) { e.aimX = rx / rm; e.aimY = ry / rm; }
-    else if (mm > 0.35 && e.p.ctrl.kind !== 'pad') { e.aimX = mx / mm; e.aimY = my / mm; }
+    if (rm > 0.35) { e.aimX = rx / rm; e.aimY = ry / rm; e.rIdle = 0; }
+    else {
+      e.rIdle = (e.rIdle || 0) + dt;
+      if (mm > 0.35 && (e.p.ctrl.kind !== 'pad' || e.rIdle > 0.75)) { e.aimX = mx / mm; e.aimY = my / mm; }
+    }
     // Dash: a quick burst the way you're running (or away from where you aim).
     if ((ctrl.pressed('lt') || ctrl.pressed('b')) && e.dashCd <= 0 && e.dashT <= 0) {
       const dx = mm > 0.2 ? mx / mm : -e.aimY, dy = mm > 0.2 ? my / mm : e.aimX;
@@ -731,7 +734,10 @@ export class Game {
       x += chipW + 16;
     });
     const P = this.pres;
-    if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) ui.text(g, 'Run with the left stick, aim with the right stick, RT to throw!', W / 2, 1010, { size: 40, color: '#ffffff' });
+    if (!this.ends && P.state === 'held' && this.round === 1 && P.pass === 0 && this.t < 12) {
+      const pads = this.ents.some((e) => !e.p.isAI && e.p.ctrl.kind === 'pad');
+      ui.text(g, pads ? 'Run with the left stick, aim with the right stick, RT to throw!' : 'Run around, then press A to throw the way you run!', W / 2, 1010, { size: 40, color: '#ffffff' });
+    }
     if (this.ends && this.ends.winner) {
       const nm = playerName(this.ends.winner.p);
       ui.banner(g, `${nm} ${(charById(this.ends.winner.p.charId) || {}).plural ? 'win' : 'wins'}!`, this.ends.t, { y: 300, size: 110, color: '#ffd23f' });

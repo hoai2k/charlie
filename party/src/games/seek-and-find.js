@@ -642,7 +642,9 @@ export class Game {
     if (humans && this.cpuFinds >= Math.ceil(total * 0.25) && !stuck) return;   // leave the rest for the kids
     const R = humans ? 240 : 430;
     const cands = left.filter((it) => dist(s.x, s.y, it.vis.cx, it.vis.cy) < R
-      && !this.humanSeekers.some((h) => dist(h.x, h.y, it.vis.cx, it.vis.cy) < 260));
+      && !this.humanSeekers.some((h) => dist(h.x, h.y, it.vis.cx, it.vis.cy) < 260)
+      // a kid's own hidden character is theirs to find
+      && (stuck || !(it.kind === 'friend' && it.card.who && typeof it.card.who === 'object' && !it.card.who.isAI)));
     const rate = humans ? [0.05, 0.08, 0.12][lvl] * (stuck ? 2 : 1) : [0.22, 0.3, 0.4][lvl];
     if (cands.length && chance(rate)) {
       cands.sort((a, b) => dist(s.x, s.y, a.vis.cx, a.vis.cy) - dist(s.x, s.y, b.vis.cx, b.vis.cy));
@@ -666,9 +668,11 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const finds = this.seekers.map((s) => s.finds);
-    const best = Math.max(...finds);
-    const tops = finds.filter((f) => f === best).length;
-    const highlight = this.n > 1 && best > 0 && tops === 1 ? finds.indexOf(best) : null;
+    // with kids playing, only a kid can be the Showstopper
+    const elig = this.humanSeekers.length ? this.seekers.map((s, i) => (s.p.isAI ? -1 : finds[i])) : finds;
+    const best = Math.max(...elig);
+    const tops = elig.filter((f) => f === best).length;
+    const highlight = this.n > 1 && best > 0 && tops === 1 ? elig.indexOf(best) : null;
     this.api.finish({
       showcase: true, highlight,
       stats: finds.map((f) => `${f} find${f === 1 ? '' : 's'}`),

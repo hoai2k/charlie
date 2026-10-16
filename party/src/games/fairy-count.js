@@ -354,7 +354,7 @@ export class Game {
         if (nav.y) this.step(i, -nav.y);
         else if (nav.x) this.step(i, nav.x);
       }
-      if (p.ctrl.pressed('a')) this.lock(i);
+      if (p.ctrl.pressed('a') && this.pt >= 0.6) this.lock(i);   // ignore an A still being mashed from the watch phase
     });
     if (left <= 0) { this.choice.forEach((c, i) => { if (!c.locked) this.lock(i); }); }
     if (this.choice.every((c) => c.locked) && (left <= 0 || this.pt > 0.8)) {
@@ -456,7 +456,7 @@ export class Game {
     this.wings(false);
     const score = this.points.map((pt, i) => pt * 1000 - this.totalErr[i] * 10);
     const placements = placementsFromScores(score);
-    const stats = this.points.map((p, i) => `${p} pts, ${this.exacts[i]} exact`);
+    const stats = this.points.map((p, i) => `${p} ${p === 1 ? 'pt' : 'pts'}, ${this.exacts[i]} exact`);
     const best = placements.indexOf(1), wa = this.actors[best];
     this.api.finish({ placements, stats, solo: score[0], focus: { x: wa.x, y: wa.y - wa.height / 2, zoom: 1.35 } });
   }
@@ -603,7 +603,7 @@ export class Game {
   drawHUD(g) {
     const n = this.n;
     if (this.phase === 'reveal') this.drawTotalPanel(g);
-    ui.scoreboard(g, this.players, this.points, { y: 22, format: (v) => `${v} pts`, highlight: this.leaderFlags() });
+    ui.scoreboard(g, this.players, this.points, { y: 22, format: (v) => (v === 1 ? '1 pt' : `${v} pts`), highlight: this.leaderFlags() });
     if (this.phase === 'intro') {
       ui.banner(g, this.round === ROUNDS - 1 ? 'Final Round!' : `Round ${this.round + 1}`, this.pt, { y: H / 2 - 60, size: 140, color: '#ffd23f' });
       ui.text(g, `of ${ROUNDS}`, W / 2, H / 2 + 60, { size: 54, alpha: clamp(this.pt * 2, 0, 1) });
@@ -670,7 +670,9 @@ export class Game {
       // tail
       g.beginPath(); g.moveTo(-12, r - 4); g.lineTo(0, r + 18); g.lineTo(12, r - 4); g.closePath(); g.fill(); g.stroke();
       g.beginPath(); g.arc(0, 0, r - 4, 0.9 * Math.PI, 1.3 * Math.PI); g.lineWidth = 1; g.fillStyle = fill; g.fill();
-      ui.text(g, String(c.v), 0, 4, { size: r * 1.15, color: txt, stroke: false, weight: 800 });
+      // CPUs keep their pick secret until the reveal, so nobody can copy them
+      const secret = this.phase === 'guess' && p.isAI;
+      ui.text(g, secret ? '?' : String(c.v), 0, 4, { size: r * 1.15, color: txt, stroke: false, weight: 800 });
       if (c.state === 'pick' && this.phase === 'guess') {
         const bounce = Math.abs(Math.sin(this.t * 5 + i)) * 5;
         g.fillStyle = p.color; g.strokeStyle = NAVY; g.lineWidth = 3; g.lineJoin = 'round';

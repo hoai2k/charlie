@@ -251,6 +251,8 @@ export class Game {
     this.finished = true;
     for (const pp of this.pp) if (pp.ai) { pp.p.ctrl.move(0, 0); }
     const scores = this.pp.map((pp) => pp.laughs);
+    // with kids playing, only a kid can be the Showstopper
+    if (this.humans.length) this.pp.forEach((pp, i) => { if (pp.p.isAI) scores[i] = -1; });
     const best = Math.max(...scores);
     const highlight = this.n > 1 && best > 0 && scores.filter((s) => s === best).length === 1 ? scores.indexOf(best) : null;
     const stats = this.pp.map((pp) => {
@@ -508,6 +510,8 @@ export class Game {
   updateAct(dt) {
     if (!this.trans) {
       for (const pp of this.pp) {
+        // the audience slowly forgets: a favourite trick gets laughs again after a rest
+        for (const k in pp.recent) { pp.recent[k] = Math.max(0, pp.recent[k] - dt / 4); }
         if (pp.popDelay > 0) { pp.popDelay -= dt; if (pp.popDelay <= 0) this.popUp(pp); continue; }
         if (pp.ai) this.aiAct(pp, dt);
         this.controlPuppet(pp, dt);
@@ -578,7 +582,7 @@ export class Game {
       a.squash(-0.3); snd('boing', 'jump', { vol: 0.45 });
       pp.sock.mouth = 1;
       this.recEvent('sound', { k: 'boing', fb: 'jump' });
-      this.addFun(pp, 'jump', 0.35);
+      this.addFun(pp, 'jump', 0.6, 'ooh');
     }
     if (c.pressed('x') && pp.spinT <= 0) this.twirl(pp);
     if (c.pressed('y')) this.silly(pp);

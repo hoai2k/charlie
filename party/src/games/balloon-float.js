@@ -216,12 +216,14 @@ export class Game {
         it.x += (-this.wind * (it.kind === 'gold' ? 0.8 : 1) + it.vx) * dt;
         it.y += (it.vy + Math.cos(it.t * 2.2 + it.id) * 30) * dt;
         if (this.easy && !this.done) {
-          // Molly Easy: treats close to a human's balloons drift in to meet them
+          // Molly Easy: treats close to a human's balloons drift in to meet the nearest one
+          let bx = 0, by = 0, best = 230;
           for (const e of this.ents) {
             if (e.p.isAI) continue;
-            const b = this.body(e), dx = b.x - it.x, dy = b.y - it.y, d = Math.hypot(dx, dy);
-            if (d < 230 && d > 1) { const k = Math.min(1, dt * 2.6); it.x += dx * k * 0.5; it.y += dy * k; break; }
+            const b = this.body(e), d = Math.hypot(b.x - it.x, b.y - it.y);
+            if (d < best && d > 1) { best = d; bx = b.x; by = b.y; }
           }
+          if (best < 230) { const k = Math.min(1, dt * 2.6); it.x += (bx - it.x) * k * 0.5; it.y += (by - it.y) * k; }
         }
       }
       if (it.x < -100 || it.y > H + 80 || it.t > 30) it.dead = true;

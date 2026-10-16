@@ -30,6 +30,7 @@ const REVEAL_T = 5.2;          // mirror reveal
 const SHOT_T = 1.5;            // camera stop per client in the showcase
 const CHEESE_T = 6.5;          // "Say cheese!" posing time
 const PHOTO_T = 4;             // the big photo stays this long
+const STYLE_T = 160;           // soft clock (with friends): picking + styling, then the mirror
 
 /** Recorded sound when it exists, else a synth stand-in. */
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -153,11 +154,11 @@ export const meta = {
   category: 'studio',
   type: 'Styling · Everyone together',
   goal: 'Give your salon client a fabulous new hairdo!',
-  controls: [['stick', 'Move your hand'], ['a', 'Use the tool (hold)'], ['dpad', 'Tools ← →, colours ↑ ↓ (or LB / RB, LT / RT)'], ['b', 'Spin the chair / take bling off'], ['x', "I'm done!"]],
+  controls: [['stick', 'Move your hand'], ['a', 'Use the tool (hold)'], ['dpad', 'Tools ← →, colours ↑ ↓ (or LB / RB, LT / RT)'], ['b', 'Spin the chair / take bling off'], ['y', 'Next colour / style'], ['x', "I'm done!"]],
   infoAt: 'tl',
   tips: ['First pick which girl you want to style!', 'Brush the messy hair smooth, then snip, grow, curl and colour it!', 'Styles tie it into a ponytail, bun or braid. Press A on bling to move it.', 'Press X when your look is ready for the mirror!'],
   music: 'runway',
-  duration: 'No time limit',
+  duration: 'about 3 min',
   minPlayers: 1, maxPlayers: 8,
   countdown: false,
   drawIcon,
@@ -243,7 +244,13 @@ export class Game {
     s.pickPop = Math.max(0, s.pickPop - dt * 4);
     if (s.p.isAI) {
       s.pickAt -= dt;
-      if (s.pickAt <= 0) { s.pickIdx = randInt(0, n - 1); s.client = this.makeClient(s, s.pickIdx); this.choose(s); }
+      if (s.pickAt <= 0) {
+        // a girl nobody else is styling yet (so two stations never look like a mirror)
+        const taken = new Set(this.stations.filter((o) => o !== s && !o.picking).map((o) => o.pickIdx));
+        const free = CLIENTS.map((_, i) => i).filter((i) => !taken.has(i));
+        s.pickIdx = free.length ? pick(free) : randInt(0, n - 1);
+        s.client = this.makeClient(s, s.pickIdx); this.choose(s);
+      }
     } else {
       const dx = c.nav.x, dy = c.nav.y;
       if (dx || dy) {
@@ -281,8 +288,11 @@ export class Game {
     this.updateSnips(dt);
     if (this.phase === 'style') {
       for (const s of this.stations) this.updateStation(s, dt);
-      // no clock: styling ends when everyone has pressed X (I'm done!)
-      if (this.stations.every((s) => s.ready)) {
+      // styling ends when everyone has pressed X (I'm done!), or on the soft clock with friends
+      if (this.n > 1 && this.phaseT > STYLE_T) {
+        for (const s of this.stations) if (s.picking) this.choose(s);
+        this.startReveal();
+      } else if (this.stations.every((s) => s.ready)) {
         this.allReadyT = (this.allReadyT || 0) + dt;
         if (this.allReadyT > 1.4) this.startReveal();
       } else this.allReadyT = 0;
@@ -961,6 +971,7 @@ export class Game {
     if (s.picking) this.drawPicker(g, s);
     g.restore();
     this.drawHeader(g, s);
+    this.drawClock(g, s);
     this.drawToolbar(g, s);
     if (this.phase === 'style' && !s.picking && OPTIONS[TOOLS[s.tool].id]) this.drawOptions(g, s);
   }
@@ -1064,6 +1075,15 @@ export class Game {
     });
     g.restore();
     if (t > 0.9 && t < 3.5 && chance(0.2)) particles.burst(mx + rand(-60, 60) * k, my - mh * 0.2 + rand(-80, 80) * k, { type: 'sparkle', count: 1 });
+  }
+
+  /** The soft clock: a "Mirror time" chip for the last 20 s (only with friends). */
+  drawClock(g, s) {
+    const left = STYLE_T - this.phaseT;
+    if (this.phase !== 'style' || this.n < 2 || s.ready || left >= 20 || left <= 0) return;
+    const r = s.r, ch = s.compact ? 34 : 44, cw = ch * 4.4, x = r.x + r.w - 14 - cw, y = r.y + s.headerH + 10;
+    ui.panel(g, x, y, cw, ch, { r: ch / 2, fill: left < 6 ? '#ff4d6d' : '#ffffff', lineWidth: 3, shadow: false });
+    ui.text(g, `Mirror time ${Math.ceil(left)}`, x + cw / 2, y + ch / 2 + 1, { size: ch * 0.5, color: left < 6 ? '#fff' : NAVY, stroke: false, weight: 800, maxWidth: cw - 14 });
   }
 
   drawHeader(g, s) {

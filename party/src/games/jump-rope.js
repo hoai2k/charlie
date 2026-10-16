@@ -36,6 +36,8 @@ const EXP = 0.45;            // rope bulge profile: sin(PI s)^EXP (boxy, so the 
 const JT = 0.48;             // jump air time (s)
 const HJ = 118;              // jump apex (px)
 const LAG = 0.1;             // landing recovery before the next hop
+const HOLD_AIR = 0.6;        // an air press is held for the landing only in the last 40% of a hop
+const MASH_LAG = 0.1;        // a press early in a hop is a mash: not held, and the landing is heavier
 const GRACE = 0.08;          // a hop this late still clears ("Phew!")
 const CLEAR = 8;             // feet must be this far above the rope
 const IDEAL = JT * 0.5;      // press this long before the rope arrives: apex over the rope
@@ -342,6 +344,7 @@ export class Game {
       const grounded = U.jt < 0;
       if (p.ctrl.pressed('a')) {
         if (grounded && U.lag <= 0 && U.tangled <= 0) this.hop(U);
+        else if (!grounded && (U.mashed || U.jt < JT * HOLD_AIR)) { U.mashed = true; U.buffer = 0; }
         else U.buffer = 0.2;
       }
       if (U.jt < 0 && U.lag <= 0 && U.buffer > 0 && U.tangled <= 0) this.hop(U);
@@ -363,7 +366,7 @@ export class Game {
   }
 
   hop(U) {
-    U.jt = 0; U.buffer = 0;
+    U.jt = 0; U.buffer = 0; U.mashed = false;
     const a = U.a;
     a.setPose('skip-hop'); a.squash(-0.35);   // falls back to jump
     snd('jr-hop', 'jump', { vol: U.p.isAI ? 0.12 : 0.45 });
@@ -371,7 +374,7 @@ export class Game {
   }
 
   land(U) {
-    U.jt = -1; U.z = 0; U.lag = LAG;
+    U.jt = -1; U.z = 0; U.lag = LAG + (U.mashed ? MASH_LAG : 0);
     const a = U.a;
     a.squash(0.32);
     if (a.pose === 'fall' || a.pose === 'jump' || a.pose === 'skip-hop') a.setPose('idle');

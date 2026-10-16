@@ -370,7 +370,6 @@ export class Game {
         break;
       }
       case 'notice': {
-        a.setPose('idle');
         if (tr.t <= 0) { tr.state = 'chase'; tr.t = 4.2; a.setPose(ang ? 'run' : 'walk'); }
         break;
       }

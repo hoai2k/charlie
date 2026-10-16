@@ -47,6 +47,7 @@ export const meta = {
   maxPlayers: 8,
   countdown: true,
   flyIn: false,   // lanes need a fixed view
+  infoAt: 'tl',   // corner "i": the bottom-left holds the scoreboard
   drawIcon(g, x, y, w, h, t = 0) {
     const gr = g.createLinearGradient(0, y, 0, y + h);
     gr.addColorStop(0, '#3b2a86'); gr.addColorStop(0.6, '#a465cf'); gr.addColorStop(1, '#ffb7a0');
@@ -453,7 +454,7 @@ export class Game {
     L.rings++; L.combo++; L.comboT = 2.2;
     L.boostT = 1.2;
     const col = '#ffd23f';
-    particles.burst(sp.x + 20, sp.y, { type: 'star', count: 6 + this.n < 6 ? 10 : 8, colors: [col, '#fff6a8', '#ffffff'], size: [10, 20], speed: [150, 400] });
+    particles.burst(sp.x + 20, sp.y, { type: 'star', count: this.n < 6 ? 10 : 8, colors: [col, '#fff6a8', '#ffffff'], size: [10, 20], speed: [150, 400] });
     particles.burst(sp.x + 20, sp.y, { type: 'sparkle', count: 12, colors: [col, '#fff6a8', L.p.color], speed: [100, 420], size: [12, 26] });
     particles.ring(sp.x + 10, sp.y, col, 110 * this.k * (this.laneH / 430 + 0.3), 0.4);
     // recorded ding is one tone (MIDI 79): pitch it up a major scale per ring in a row
@@ -792,13 +793,17 @@ export class Game {
       if (sx < -260) continue;
       if (it.type === 'ring') this.drawRing(g, L, it, i, sx, true);
     }
-    // rank badge on the right edge of the lane
-    const rk = this.rank[L.i];
-    const sz = clamp(laneH * 0.34, 26, 70);
-    const col = ['#ffd23f', '#e6e9f5', '#f0a15e'][rk - 1] || '#ffffff';
-    ui.text(g, ordinal(rk), W - 26, L.top + sz * 0.62, { size: sz, color: col, align: 'right', alpha: 0.95 });
+    // rank badge on the right edge of the lane (not on the start line, where the order is just a tie)
+    if (this.ranksShown()) {
+      const rk = this.rank[L.i];
+      const sz = clamp(laneH * 0.34, 26, 70);
+      const col = ['#ffd23f', '#e6e9f5', '#f0a15e'][rk - 1] || '#ffffff';
+      ui.text(g, ordinal(rk), W - 26, L.top + sz * 0.62, { size: sz, color: col, align: 'right', alpha: 0.95 });
+    }
     g.restore();
   }
+
+  ranksShown() { return this.over || this.t > 1.5; }
 
   drawHUD(g) {
     // progress bar along the top
@@ -820,10 +825,10 @@ export class Game {
       const x = bx + bw * f, bob = Math.sin(this.t * 6 + L.i) * 2;
       ui.drawPortrait(g, L.p, x, by + bob, 22, { expr: L.fin !== null ? 'happy' : L.hurtT > 0 ? 'surprised' : 'neutral', ring: L.p.color, ringWidth: 5 });
     }
-    // timer on the left
-    ui.timer(g, TIME_CAP - this.t, 170, 62);
+    // no clock until the first rider lands (TIME_CAP is only a safety net); then it counts the 7 s to finish
     if (this.firstFin !== null && !this.over) {
       const left = Math.max(0, 7 - (this.t - this.firstFin));
+      ui.timer(g, left, 190, 62);
       ui.text(g, `Finish in ${Math.ceil(left)}!`, W / 2, LANES_TOP + 6 + 24, { size: 40, color: '#ffe46b' });
     }
     if (this.t < 4) {
@@ -834,7 +839,7 @@ export class Game {
       ui.text(g, 'Hold to rise, let go to glide!', W / 2 + 40, LANES_TOP + 41, { size: 36, color: NAVY, stroke: false, maxWidth: 520 });
       g.restore();
     }
-    const rankFirst = this.rank.map((r) => r === 1);
+    const rankFirst = this.rank.map((r) => r === 1 && this.ranksShown());
     ui.scoreboard(g, this.players, this.lanes.map((L) => L.rings), { y: 1000, format: (v) => `${v}★`, highlight: rankFirst });
   }
 }

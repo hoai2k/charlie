@@ -640,7 +640,14 @@ export class Game {
       if (!e.auto) continue;
       const act = this.easyAction(e);
       if (act === 'puppy') { ui.glyph(g, 'a', this.puppy.x, this.puppy.y - 260 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue; }
-      if (act === 'grab') { const s = this.nearestSock(e); ui.glyph(g, 'a', s.x, s.y - 190 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue; }
+      if (act === 'grab') {
+        // beside the sock, on the far side from the kid, so it never covers their head or tag
+        const s = this.nearestSock(e), off = e.a.height * 0.3 + 60;
+        let side = s.x >= e.x ? 1 : -1;
+        if (e.x + side * off > W - 60 || e.x + side * off < 60) side = -side;
+        const gx = side > 0 ? Math.max(s.x, e.x + off) : Math.min(s.x, e.x - off);
+        ui.glyph(g, 'a', gx, s.y - 190 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue;
+      }
       const s = !e.held && e.auto.sock;
       if (!s || s.state !== 'ground') continue;
       g.save(); g.translate(s.x, s.y - 175 + Math.sin(t * 7 + e.i) * 10);

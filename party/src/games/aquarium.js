@@ -82,7 +82,7 @@ export const meta = {
   goal: 'Design a fish tank, name your fish, then put on a glowing night show!',
   controls: [['stick', 'Move your hand'], ['lb', 'LB / RB: things,  LT / RT: colours'], ['a', 'Place or pick up  (B removes)'], ['x', 'Tap the glass gently'], ['y', 'Feed the fish']],
   infoAt: [62, 446],   // under the controls legend (the bottom holds the item bars)
-  tips: ['Name each new fish: left and right, then A.', 'Bubblers give fish rides; castles are for peekaboo!', 'Press the moon on the lid for glowing night lights.'],
+  tips: ['Name each new fish: left and right, then A.', 'Bubblers give fish rides; castles are for peekaboo!', 'Press the moon on the lid for glowing night lights.', 'On a keyboard, press Y while carrying something (or on the item bar) to change its colour.'],
   music: 'splash',
   duration: 'about 3 min',
   minPlayers: 1, maxPlayers: 8,
@@ -845,7 +845,12 @@ export class Game {
     if (c.pressed('a') || st.click) this.pressA(st);
     if (c.pressed('b')) this.pressB(st);
     if (c.pressed('x')) this.tap(st);
-    if (c.pressed('y')) this.feed(st);
+    if (c.pressed('y')) {
+      // keyboards have no spare colour keys (the arrows layout's LT / RT sit on the numpad), so there
+      // Y recolours what the hand carries, or the bar's pick when the hand is down on the item bar
+      if (c.kind === 'kb' && (st.held || y >= BAR.y - 6)) this.cycleColor(st, 1);
+      else this.feed(st);
+    }
   }
 
   updateNaming(st, dt) {

@@ -887,8 +887,8 @@ export class Game {
     corner.infoAt = 'bl';   // the legend is gone; keep the "i" off the tour polaroids
     sfx('fanfare'); snd('applause', 'cheer');
     this.assignTourSpots();
-    // One photo per character (up to 4); small groups also get photos of the room's best bits.
-    this.tourShots = this.stations.slice(0, 4).map((st) => ({ st }));
+    // One photo per character (up to 8); small groups also get photos of the room's best bits.
+    this.tourShots = this.stations.map((st) => ({ st }));
     if (this.tourShots.length < 3) {
       const extras = [];
       for (const pet of this.pets) {
@@ -1135,10 +1135,14 @@ export class Game {
   snap(cx, cy, zoom, shot) {
     const st = shot.st;
     const img = this.renderPhoto(cx, cy, zoom, 384, 240);
-    const slots = [[160, 340, -0.1], [W - 160, 340, 0.09], [160, 700, 0.07], [W - 160, 700, -0.08]];
-    const k = this.photos.length % 4;
+    // 4 big polaroids in the corners, or (5+ shots) up to 8 smaller ones stacked down each side
+    const many = this.tourShots.length > 4;
+    const slots = many
+      ? [[125, 250, -0.08], [W - 125, 250, 0.07], [125, 430, 0.06], [W - 125, 430, -0.06], [125, 610, -0.05], [W - 125, 610, 0.08], [125, 790, 0.07], [W - 125, 790, -0.07]]
+      : [[160, 340, -0.1], [W - 160, 340, 0.09], [160, 700, 0.07], [W - 160, 700, -0.08]];
+    const k = this.photos.length % slots.length;
     const caption = st ? ({ bounce: 'Bouncy bed!', sit: 'So comfy!', pet: 'Pet cuddles!', dance: 'Dance party!', hug: 'Plushie hug!', wave: 'Hello, sky!' }[st.tour.kind] || 'Yay!') : shot.caption();
-    this.photos.push({ img, x: slots[k][0], y: slots[k][1], rot: slots[k][2], t: 0, caption, color: st ? st.p.color : shot.color });
+    this.photos.push({ img, x: slots[k][0], y: slots[k][1], rot: slots[k][2], s: many ? 0.68 : 1, t: 0, caption, color: st ? st.p.color : shot.color });
     snd('camera-flash', 'shutter'); fx.flash('#ffffff', 0.3);
   }
 
@@ -1738,7 +1742,7 @@ export class Game {
 
   drawPolaroid(g, ph) {
     const t = ph.t, p = ease.outBack(clamp(t / 0.5, 0, 1));
-    const x = lerp(W / 2, ph.x, p), y = lerp(H / 2, ph.y, p), sc = lerp(1.6, 1, p);
+    const x = lerp(W / 2, ph.x, p), y = lerp(H / 2, ph.y, p), sc = lerp(1.6, 1, p) * (ph.s || 1);
     const w = 270, h = 216;
     g.save(); g.translate(x, y); g.rotate(ph.rot * p); g.scale(sc, sc);
     ui.panel(g, -w / 2, -h / 2, w, h, { r: 8, fill: '#ffffff', lineWidth: 4 });

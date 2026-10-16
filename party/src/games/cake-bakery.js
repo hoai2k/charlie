@@ -600,7 +600,16 @@ export class Game {
         continue;
       }
       const tab = TABS[st.tab].id;
-      if (c.pressed('y')) { this.surprise(st); continue; }
+      st.yArm = Math.max(0, (st.yArm || 0) - dt);
+      if (st.yArm > 0 && c.pressed('b')) { st.yArm = 0; sfx('back'); continue; }   // B: keep this cake
+      if (c.pressed('y')) {
+        // a decorated cake needs a second Y, so one stray press can't wipe it
+        if (st.yArm > 0 || (!st.items.length && !st.sprinkles.length)) { st.yArm = 0; this.surprise(st); continue; }
+        st.yArm = 2.5; sfx('move');
+        const top = this.cakeTop(st);
+        particles.popText(top.x, top.y - 60, 'Press Y again!', '#ffd23f', 40);
+        continue;
+      }
       if (tab === 'deco') {
         this.updateCursor(st, dt);
         if (c.pressed('x')) this.xAction(st);
@@ -1135,6 +1144,7 @@ export class Game {
     } else if (tab === 'done') items = [['a', 'Ready!'], ['b', 'Back'], ['y', 'Surprise!']];
     else items = [[pad ? 'dpad' : 'stick', 'Pick'], ['a', 'Next'], ['y', 'Surprise!']];
     if (!wide) items = items.map(([b, l]) => [b, l === 'Surprise!' ? '' : l]);
+    if (st.yArm > 0) items = [['y', 'Again: new cake!'], ['b', 'Keep it']];
     const avail = r.x + r.w - 16 - x, lab = sz * 0.62;
     let need = 0;
     for (const [, l] of items) need += sz + 6 + (l ? ui.measure(g, l, lab) + 18 : 12);

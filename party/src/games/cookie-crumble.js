@@ -35,7 +35,7 @@ export const meta = {
   goal: 'Stay on the cookies! Cookies you leave crack and fall into the milk.',
   controls: [['stick', 'Run around'], ['a', 'Hop over a gap']],
   tips: [
-    'Keep moving! A cookie you step off will crack and fall.',
+    'Every cookie you step off cracks and falls, so plan your path!',
     'Press A while running to hop over one missing cookie.',
     'Bump your friends toward the milk, but watch your own step!',
   ],
@@ -400,7 +400,7 @@ export class Game {
         if (sw.phase === 'bob') {
           sw.sink = damp(sw.sink, 30, 8, dt);
           s.a.setPose('hurt');
-          if (sw.t > 0.8) { sw.phase = 'swim'; sw.t = 0; s.a.setPose('walk'); }
+          if (sw.t > 0.8) { sw.phase = 'swim'; sw.t = 0; s.a.setPose('swim'); }
         } else if (sw.phase === 'swim') {
           const tx = sw.slot.edge, ty = sw.slot.y;
           const dx = tx - s.x, dy = ty - s.y, d = Math.hypot(dx, dy);
@@ -408,7 +408,7 @@ export class Game {
           if (d < 14) { sw.phase = 'climb'; sw.t = 0; sw.startX = s.x; sw.startY = s.y; sfx('splash'); s.a.setPose('idle'); }
           else {
             s.x += (dx / d) * sp * dt; s.y += (dy / d) * sp * dt;
-            s.a.facing = dx > 0 ? 1 : -1; s.a.moveAnim(dx / d * 120, 0, 200);
+            s.a.facing = dx > 0 ? 1 : -1; s.a.speed = 0.6; s.a.setPose('swim');
             sw.sink = 26 + Math.sin(this.clock * 9) * 5;
             if (Math.random() < dt * 8) particles.burst(s.x, s.y + 6, { type: 'bubble', count: 1, speed: [10, 40], size: [5, 10] });
             if (Math.random() < dt * 5) this.ripples.push({ x: s.x, y: s.y, t: 0, small: true });

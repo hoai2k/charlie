@@ -359,10 +359,14 @@ export class Game {
     // crown pickup
     const c = this.crown;
     if (c.state === 'ground') {
+      // the nearest player in reach gets it (random tiebreak), not the lowest-numbered
+      let best = null, bestD = R + 46;
       for (const u of U) {
         if (u.immune > 0 || u.stun > 0) continue;
-        if (Math.hypot(u.x - c.x, u.y - c.y) < R + 46) { this.giveCrown(u); break; }
+        const d = Math.hypot(u.x - c.x, u.y - c.y);
+        if (d < bestD || (best && d === bestD && Math.random() < 0.5)) { best = u; bestD = d; }
       }
+      if (best) this.giveCrown(best);
     }
   }
 

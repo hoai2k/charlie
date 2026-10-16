@@ -746,9 +746,14 @@ export class Game {
 
   endGame() {
     this.over = true;
+    // fish already landed but still flying to the player count too
+    for (const r of this.reveals) if (r.phase === 'fly') this.revealLand(r);
     const scores = this.units.map((u) => u.score);
     const placements = placementsFromScores(scores);
-    const stats = this.units.map((u) => `${u.score} pts · ${u.catches.length} catch${u.catches.length === 1 ? '' : 'es'}`);
+    const stats = this.units.map((u) => {
+      const n = u.catches.length + this.reveals.filter((r) => r.U === u && !r.done).length;
+      return `${u.score} pts · ${n} catch${n === 1 ? '' : 'es'}`;
+    });
     for (const U of this.units) {
       if (U.state === 'reel' || U.state === 'float' || U.state === 'cast') { if (U.fish) this.release(U.fish, false); U.reel = null; U.bob = null; U.state = 'aim'; }
       U.a.playOnce(placements[U.i] === 1 ? 'celebrate' : 'clap', 2.5, placements[U.i] === 1 ? 'celebrate' : 'idle');
@@ -980,7 +985,7 @@ export class Game {
     const pulling = R.pullT > 0, warn = R.warnT > 0;
     g.save(); g.translate(x + (pulling ? Math.sin(this.clock * 60) * 3 : 0), y); g.scale(sc, sc);
     const w = 220, h = 26;
-    ui.panel(g, -w / 2 - 16, -42, w + 32, 92, { r: 24, fill: pulling ? '#ffe0e6' : '#ffffff', lineWidth: 5, shadow: true });
+    ui.panel(g, -w / 2 - 16, -42, w + 32, 50, { r: 24, fill: pulling ? '#ffe0e6' : '#ffffff', lineWidth: 5, shadow: true });
     // progress: fish swimming toward the shore
     const py = -22;
     g.strokeStyle = 'rgba(36,22,63,0.25)'; g.lineWidth = 6; g.lineCap = 'round';
@@ -1009,7 +1014,7 @@ export class Game {
       ui.text(g, 'Tug!', 0, 0, { size: 40, color: '#ff4d6d', strokeWidth: 8 });
       g.restore();
     } else if (!U.p.isAI) {
-      ui.glyph(g, 'a', -w / 2 - 30, ty + h / 2, 40, { pulse: true });
+      ui.glyph(g, 'a', -w / 2 - 30, py, 40, { pulse: true });
       ui.text(g, 'REEL!', 0, -66, { size: 34, color: '#ffffff', strokeWidth: 7 });
     }
     g.restore();

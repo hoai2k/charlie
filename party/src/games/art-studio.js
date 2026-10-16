@@ -190,13 +190,15 @@ export class Game {
     const sides = [[], []];
     this.stations.forEach((st, i) => sides[i % 2].push(st));
     sides.forEach((list, side) => {
-      const m = list.length;
+      // feet stay above y≈770: the controls legend (bottom right) and the
+      // "i" button (bottom left) sit below that
+      const m = list.length, span = 620;
       list.forEach((st, j) => {
         const a = st.actor;
-        const th = Math.min(m === 1 ? 300 : 0.78 * (800 / m), 300);
+        const th = Math.min(m === 1 ? 300 : 0.78 * (span / m), 300);
         a.scale = 1; a.scale = Math.min(th / a.leader.h, 210 / Math.max(1, a.width));
         a.x = side === 0 ? 120 : W - 120;
-        a.y = 150 + (j + 1) * (800 / m) - (m === 1 ? 120 : 10);
+        a.y = 150 + (j + 1) * (span / m) - (m === 1 ? 60 : 10);
         a.facing = side === 0 ? 1 : -1;
         a.snap();
         st.home = { x: a.x, y: a.y, s: a.scale };

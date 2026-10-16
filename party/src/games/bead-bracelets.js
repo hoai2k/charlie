@@ -307,10 +307,13 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const done = this.stations.map((s) => s.done);
-    const best = Math.max(...done), top = done.filter((v) => v === best).length;
+    // with kids playing, only a kid can be the Showstopper
+    const kids = this.stations.some((s) => !s.p.isAI);
+    const elig = kids ? this.stations.map((s, i) => (s.p.isAI ? -1 : done[i])) : done;
+    const best = Math.max(...elig), top = elig.filter((v) => v === best).length;
     this.api.finish({
       showcase: true,
-      highlight: best > 0 && top === 1 ? done.indexOf(best) : null,
+      highlight: best > 0 && top === 1 ? elig.indexOf(best) : null,
       stats: done.map((v) => plural(v, 'bracelet')),
       title: 'Sparkly!',
     });

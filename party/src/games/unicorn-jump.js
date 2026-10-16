@@ -86,6 +86,9 @@ const DURATION = 45;
 const RUSH_AT = 10;            // seconds left when the Rainbow Rush starts
 const SPEED0 = 560, SPEED1 = 760, SPEED_RUSH = 920;   // ground scroll px/s (scale 1)
 const HOP_V = 1250, HOP_G = 3000;                     // per lane scale
+// Molly Easy hop timing (s before reaching the obstacle): a hop clears at ~0.21-0.63 s
+// (0.13-0.70 in the rush), so the A shows 1.0..0.22 and early presses fire at 0.42.
+const HOP_AT = 0.42, CUE_EARLY = 1.0, CUE_LATE = 0.22;
 const SOLO_GOAL = 120;
 const TOP = 250, BOT = 1010;
 const TRAIL_MAX = 14;
@@ -261,8 +264,15 @@ export class Game {
     const lo = e.baseX - 300 * s, hi = e.baseX + 360 * s;
     e.x = clamp(e.x + (e.vx + e.pv) * dt, Math.max(200, lo), Math.min(W - 260, hi));
     if (!live && this.done) e.x = approach(e.x, e.baseX, 200 * dt);
-    // Molly Easy: a press in the air or while dizzy is remembered for a moment
-    if (human) { e.buf = Math.max(0, (e.buf || 0) - dt); if (live && p.ctrl.pressed('a')) e.buf = 0.3; }
+    // Molly Easy: a press in the air or while dizzy is remembered for a moment;
+    // a press while the hop cue is up waits for the moment that clears the obstacle
+    if (human) {
+      e.buf = Math.max(0, (e.buf || 0) - dt);
+      const next = this.nextObs(e), tA = next ? (next.x - e.x) / Math.max(1, this.speed * s) : Infinity;
+      if (live && p.ctrl.pressed('a')) { if (tA > HOP_AT && tA <= CUE_EARLY) e.hopFor = next; else e.buf = 0.3; }
+      if (e.hopFor && e.hopFor !== next) e.hopFor = null;
+      if (e.hopFor && tA <= HOP_AT) { e.hopFor = null; e.buf = 0.3; }
+    }
     if (live && (human ? e.buf > 0 : p.ctrl.pressed('a')) && e.z <= 6 * s && e.dizzy <= 0) { e.buf = 0; this.hop(e, 1); }
     if (e.z > 0 || e.vz > 0) {
       e.vz -= HOP_G * s * dt; e.z += e.vz * dt;
@@ -497,19 +507,26 @@ export class Game {
     if (this.easy && !this.done) for (const e of this.ents) if (!e.p.isAI) this.drawHopCue(g, e);
   }
 
-  /** Molly Easy: the next thing to hop glows, and a big A pops up when it's time. */
-  drawHopCue(g, e) {
-    const s = this.s, sv = Math.max(1, this.speed * s);
+  /** The next obstacle ahead of this rider that still needs hopping. */
+  nextObs(e) {
     let next = null;
     for (const o of e.lane.obs) {
       if (o.hit.has(e) || o.cleared.has(e) || o.fly || o.x < e.x) continue;
       if (!next || o.x < next.x) next = o;
     }
+    return next;
+  }
+
+  /** Molly Easy: the next thing to hop glows, and a big A pops up when it's time. */
+  drawHopCue(g, e) {
+    const s = this.s, sv = Math.max(1, this.speed * s);
+    const next = this.nextObs(e);
     if (!next) return;
     const tArrive = (next.x - e.x) / sv;
     if (tArrive > 1.4) return;
     const gy = e.lane.ground;
-    const now = tArrive <= 0.5 && e.z <= 6 * s;
+    // a press while the A shows always clears (early presses wait until HOP_AT)
+    const now = tArrive <= CUE_EARLY && tArrive >= CUE_LATE && e.z <= 6 * s && !e.hopFor;
     const pulse = 0.5 + 0.5 * Math.sin(this.t * 14);
     g.save();
     g.strokeStyle = now ? '#ffd23f' : e.p.color; g.lineWidth = (now ? 10 : 7) * Math.max(0.7, s);

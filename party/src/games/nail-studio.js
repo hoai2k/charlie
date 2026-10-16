@@ -874,13 +874,10 @@ export class Game {
   finishGame() {
     if (this.finished) return;
     this.finished = true;
-    const score = this.stations.map((s) => s.stats.colors.size + s.nails.filter((n) => n.art).length * 2 + s.nails.filter((n) => n.glitter).length + s.gems.length);
-    const best = Math.max(...score), top = score.filter((v) => v === best).length;
     const stats = this.stations.map((s) => (s.gems.length && this.n <= 4 ? `${s.design || this.designName(s)} · ${plural(s.gems.length, 'gem')}` : s.design || this.designName(s)));
-    const highlight = this.n > 1 && top === 1 ? score.indexOf(best) : null;
-    const hs = highlight !== null ? this.stations[highlight] : null;
-    const focus = this.phase === 'show' ? (hs ? { x: hs.slot.handX, y: hs.slot.handY, zoom: 1.25 } : { x: W / 2, y: 640, zoom: 1.1 }) : undefined;
-    this.api.finish({ showcase: true, highlight, stats, title: 'Gorgeous!', focus });
+    // everyone wins: no showstopper (like the other studio games)
+    const focus = this.phase === 'show' ? { x: W / 2, y: 640, zoom: 1.1 } : undefined;
+    this.api.finish({ showcase: true, highlight: null, stats, title: 'Gorgeous!', focus });
   }
 
   // --- helpers ------------------------------------------------------------------------------

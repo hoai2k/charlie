@@ -126,7 +126,7 @@ export class Game {
     for (const L of this.lanes) {
       const S = this.S(L);
       const half = (L.a.width || 100) / 2;
-      L.a.x = Math.max(half + 6, L.cx - (PLATE_HALF + 14) * S - half * 0.8);   // never off the left screen edge
+      L.a.x = Math.max(half + 6, L.lx - this.slotW / 2 + half, L.cx - (PLATE_HALF + 14) * S - half * 0.8);   // never off the screen edge or out of its lane
       L.a.y = BASE_Y + 4;
     }
   }
@@ -528,7 +528,7 @@ export class Game {
     this.finished = true;
     const scores = this.lanes.map((L) => L.score);
     const placements = placementsFromScores(scores);
-    const stats = this.lanes.map((L) => `${L.score} pancake${L.score === 1 ? '' : 's'}${L.perfects ? `, ${L.perfects} perfect` : ''}`);
+    const stats = this.lanes.map((L) => `${L.score} pt${L.score === 1 ? '' : 's'}${L.perfects ? `, ${L.perfects} perfect` : ''}`);
     const best = Math.max(...scores);
     let focus;
     this.lanes.forEach((L, i) => {
@@ -678,7 +678,10 @@ export class Game {
         if (L.state === 'flip') { const u = clamp(L.stT / FLIP_T, 0, 1); lift = 4 * u * (1 - u) * 140; rot = u * TAU; }
         g.save(); g.translate(0, -panItemLift() - lift - it.h / 2); g.rotate(rot); g.translate(0, it.h / 2); drawItem(g, it, t); g.restore();
       }
-      drawPan(g, t, clamp(L.panDir * 0.8, -1, 1), L.streak > 0 ? 1 : 0.5, L.p.color);
+      // the rightmost lane's pan is mirrored so its handle stays on screen
+      const flipPan = this.n > 1 && L.i === this.n - 1;
+      if (flipPan) g.scale(-1, 1);
+      drawPan(g, t, clamp(L.panDir * (flipPan ? -0.8 : 0.8), -1, 1), L.streak > 0 ? 1 : 0.5, L.p.color);
       g.restore();
     }
     g.restore();

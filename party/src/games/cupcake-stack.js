@@ -204,7 +204,8 @@ export class Game {
     if (this.phase === 'play' || this.phase === 'cake' || this.phase === 'blow' || this.phase === 'party') {
       const z = this.phase === 'play' ? clamp(1 - this.tower.length * 0.012, 0.8, 1) : 1;
       const topY = this.topper ? this.topY - 220 : this.topY;
-      const cy = Math.min(GROUND + 130 - H / 2 / z, topY + (this.phase === 'play' ? (this.n > 4 ? -40 : 110) : 40) / z);
+      // play: framed so the carrier fairies (and their tags) sit below the top scoreboard
+      const cy = Math.min(GROUND + 130 - H / 2 / z, topY + (this.phase === 'play' ? (this.n > 4 ? -110 : -10) : 40) / z);
       this.follow(W / 2, cy, z, this.phase === 'play' ? 3.5 : 2.6, dt);
     }
     // sliders
