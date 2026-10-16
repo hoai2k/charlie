@@ -160,6 +160,8 @@ export class Game {
     this.phase = 'pick';
     this.phaseT = 0;
     this.cpuOnly = this.players.every((p) => p.isAI);
+    this.humans = this.players.filter((p) => !p.isAI).length;
+    this.oldPic = null;   // the picture before "New page", so B can bring it back for a few seconds
     this.paint = document.createElement('canvas'); this.paint.width = CW; this.paint.height = CH;
     this.pctx = this.paint.getContext('2d');
     this.base = document.createElement('canvas'); this.base.width = CW; this.base.height = CH;
@@ -211,6 +213,22 @@ export class Game {
     for (const c of [this.pctx, this.bctx]) { c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1; c.fillStyle = '#ffffff'; c.fillRect(0, 0, CW, CH); }
     this.strokeList = [];
     this.owned = new Uint8Array(GX * GY);
+    this.dirty = false;
+  }
+
+  /** Keep the current picture so a "New page" by accident can be undone with B. */
+  snapshotPicture() {
+    const copy = (src) => { const c = document.createElement('canvas'); c.width = CW; c.height = CH; c.getContext('2d').drawImage(src, 0, 0); return c; };
+    return { page: this.page, lines: this.lines, linesAlpha: this.linesAlpha, regions: this.regions, strokeList: this.strokeList, owned: this.owned, paint: copy(this.paint), base: copy(this.base), t: 0 };
+  }
+  restorePicture() {
+    const o = this.oldPic; this.oldPic = null;
+    for (const [ctx, src] of [[this.pctx, o.paint], [this.bctx, o.base]]) { ctx.globalCompositeOperation = 'copy'; ctx.globalAlpha = 1; ctx.drawImage(src, 0, 0); ctx.globalCompositeOperation = 'source-over'; }
+    Object.assign(this, { page: o.page, lines: o.lines, linesAlpha: o.linesAlpha, regions: o.regions, strokeList: o.strokeList, owned: o.owned, dirty: true });
+    for (const st of this.stations) st.stroke = null;
+    sfx('back'); sfx('magic');
+    particles.burst(W / 2, FY + FH / 2, { type: 'sparkle', count: 30, speed: [200, 600], colors: ['#fff', '#ffe066', '#9fe3ff'] });
+    particles.popText(W / 2, FY + FH / 2, 'The old picture is back!', '#ffd23f', 54);
   }
 
   setPage(id) {
@@ -273,6 +291,8 @@ export class Game {
   }
 
   pushStroke(s) {
+    this.dirty = true;
+    if (this.oldPic && !this.stations[s.owner].p.isAI) this.oldPic = null;   // a kid started on the new page
     this.strokeList.push(s);
     while (this.strokeList.length > MAX_LIVE) this.replay(this.bctx, this.strokeList.shift());
   }
@@ -390,7 +410,11 @@ export class Game {
       st.paletteT = 1.4;
     }
     if (c.pressed('y')) { st.size = (st.size + 1) % SIZES.length; sfx(st.size === 2 ? 'grow' : 'shrink'); }
-    if (c.pressed('b')) this.undo(st);
+    if (c.pressed('b')) {
+      // right after a New page, B brings the old picture back (before any kid paints on the new one)
+      if (this.oldPic && !st.p.isAI) this.restorePicture();
+      else this.undo(st);
+    }
 
     const tool = this.toolOf(st);
     const inside = cur.y >= 0;
@@ -609,14 +633,20 @@ export class Game {
       if (P.t > 2.4) this.choosePage(P.sel);
       return;
     }
-    if (c.nav.x) { P.sel = (P.sel + c.nav.x + PAGES.length) % PAGES.length; sfx('move'); }
-    if (c.nav.y) { P.sel = (P.sel + c.nav.y * 2 + PAGES.length) % PAGES.length; sfx('move'); }
-    if (c.pressed('a') && P.t > 0.25) this.choosePage(P.sel);
+    if (c.nav.x) { P.sel = (P.sel + c.nav.x + PAGES.length) % PAGES.length; P.armed = false; sfx('move'); }
+    if (c.nav.y) { P.sel = (P.sel + c.nav.y * 2 + PAGES.length) % PAGES.length; P.armed = false; sfx('move'); }
+    if (c.pressed('a') && P.t > 0.25) {
+      // with several kids painting, wiping the shared picture takes a second A
+      if (P.first || this.humans < 2 || !this.dirty || P.armed) this.choosePage(P.sel);
+      else { P.armed = true; sfx('select'); }
+    }
     else if (c.pressed('b') && !P.first) { this.picker = null; sfx('back'); }
   }
 
   choosePage(i) {
+    const keep = this.picker && !this.picker.first && this.dirty ? this.snapshotPicture() : null;
     this.setPage(PAGES[i].id);
+    this.oldPic = keep;
     this.picker = null;
     this.phase = 'paint';
     for (const st of this.stations) { st.actor.playOnce('cheer', 0.5, 'idle'); if (st.p.isAI) { st.p.ctrl.move(0, 0); st.p.ctrl.hold('a', false); } }
@@ -660,7 +690,6 @@ export class Game {
     }
     if (t > 1.4 && chance(dt * 1.5)) particles.burst(rand(300, W - 300), rand(150, 650), { type: 'sparkle', count: 3, colors: ['#fff', '#ffe066'] });
     if (this.cpuOnly && t > 7) this.finishGame();
-    if (t > 45) this.finishGame();
     if (this.toast) { this.toast.t += dt; if (this.toast.t > 2.2) this.toast = null; }
   }
 
@@ -712,6 +741,7 @@ export class Game {
     for (const st of this.stations) st.actor.update(dt);
     if (this.picker) { this.updatePicker(dt); return; }
     this.paintT += dt;
+    if (this.oldPic && (this.oldPic.t += dt) > 8) this.oldPic = null;
     for (const st of this.stations) {
       if (st.p.isAI) this.updateAI(st, dt);
       this.updatePainter(st, dt);
@@ -733,6 +763,7 @@ export class Game {
     if (this.lines) g.drawImage(this.lines, FX, FY, FW, FH);
     this.drawFrame(g, FX, FY, FW, FH, 26, '#c98a4b', '#8a5a2e');
     this.drawButtons(g);
+    if (this.oldPic && this.humans) this.drawRestoreHint(g);
     for (const st of this.stations) {
       st.actor.draw(g, { ring: st.p.color });
       ui.playerTag(g, st.p, st.actor.x, st.actor.y - st.actor.height - 26);
@@ -789,6 +820,15 @@ export class Game {
       ui.text(g, b.label, 26, 2, { size: 36, color: k === 'done' ? '#fff' : '#24163f', stroke: k === 'done' ? '#24163f' : false, weight: 800 });
       g.restore();
     }
+  }
+
+  drawRestoreHint(g) {
+    const b = BTN.page, k = 1 - this.oldPic.t / 8, x = b.x + b.w + 20, y = b.y - 4, w = 600, h = 76;
+    g.save(); g.globalAlpha = Math.min(1, this.oldPic.t / 0.2, (8 - this.oldPic.t) / 0.4);
+    ui.panel(g, x, y, w, h, { r: 30, fill: '#fff8ec', stroke: '#ff6fb1', lineWidth: 5 });
+    ui.hints(g, [['b', 'Bring back the old picture']], x + w / 2, y + h / 2 - 3, { size: 36, color: '#ff6fb1' });
+    g.fillStyle = '#ff6fb1'; g.fillRect(x + 24, y + h - 9, (w - 48) * k, 5);
+    g.restore();
   }
 
   drawChips(g) {
@@ -908,12 +948,19 @@ export class Game {
         g.restore();
       }
       ui.text(g, pg.name, 0, ch / 2 - 30, { size: 38, color: sel ? '#ff6fb1' : '#24163f', stroke: sel ? '#24163f' : false, weight: 800 });
+      if (sel && P.armed) {
+        const pk = 1 + Math.sin(this.t * 8) * 0.05;
+        g.save(); g.translate(0, -20); g.scale(pk, pk);
+        ui.panel(g, -250, -50, 500, 100, { r: 26, fill: '#ff6fb1', stroke: '#24163f', lineWidth: 6 });
+        ui.text(g, "Clear everyone's picture?", 0, 0, { size: 36, maxWidth: 470, strokeWidth: 6 });
+        g.restore();
+      }
       g.restore();
     });
     if (P.owner.isAI) ui.text(g, 'CPU is choosing...', W / 2, 920, { size: 36, color: P.owner.color, strokeWidth: 6 });
     else {
       ui.text(g, `${P.owner.tag} picks!`, W / 2 - 420, 920, { size: 36, color: P.owner.color, strokeWidth: 6 });
-      ui.hints(g, P.first ? [['stick', 'Choose'], ['a', 'Paint!']] : [['stick', 'Choose'], ['a', 'New picture'], ['b', 'Keep painting']], W / 2 + 120, 920, { size: 40, color: '#24163f' });
+      ui.hints(g, P.first ? [['stick', 'Choose'], ['a', 'Paint!']] : [['stick', 'Choose'], ['a', P.armed ? 'Yes, new picture!' : 'New picture'], ['b', 'Keep painting']], W / 2 + 120, 920, { size: 40, color: P.armed ? '#ff6fb1' : '#24163f' });
     }
     g.restore();
   }

@@ -36,6 +36,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
+import { bodyRadius, claimed, spread } from '../engine/crowd.js';
 import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, PORCH_Y, PUDDLES, MEGA, MUD, MUD_COLS, drawPuppy, drawMudBlobs, makeBlobs, drawBackyard, drawLine, lineY,
@@ -734,16 +735,8 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const r = (A.a.radius + B.a.radius) * 0.55;
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy);
-      if (d < r && d > 0.01) {
-        const k = ((r - d) / d) * 0.5 * Math.min(1, dt * 14);
-        A.x -= dx * k; A.y -= (dy / 1.6) * k; B.x += dx * k; B.y += (dy / 1.6) * k;
-      }
-    }
+    // push apart by the drawn sprite size, then back inside the yard
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.85, yScale: 1.6, strength: Math.min(1, dt * 14), bounds: BOUNDS });
   }
 
   // ---------------------------------------------------------------------- AI
@@ -763,7 +756,10 @@ export class Game {
       } else if (chance(prof.mistake)) {
         e.goal = 'wander'; e.gx = rand(200, W - 200); e.gy = rand(BOUNDS.y0 + 40, 980);
       } else if (e.goal !== 'target' || !e.T || chance(0.35)) {
-        const list = this.targets.slice().sort((A, B) => dist(e.x, e.y, A.hit.x, A.hit.y) - dist(e.x, e.y, B.hit.x, B.hit.y)).slice(0, 3);
+        // nearby washing, but one fewer CPUs are already splatting counts as nearer
+        const busy = (o) => (o.goal === 'target' ? o.T : null);
+        const cost = (T) => dist(e.x, e.y, T.hit.x, T.hit.y) + claimed(this.ents, e, T, busy) * 280;
+        const list = this.targets.slice().sort((A, B) => cost(A) - cost(B)).slice(0, 3);
         e.T = pick(list); e.goal = 'target';
         e.gx = clamp(e.T.hit.x + rand(-0.5, 0.5) * e.T.hit.rx, BOUNDS.x0 + 30, BOUNDS.x1 - 30);
         e.gy = clamp(e.T.hit.y + rand(-0.2, 0.4) * e.T.hit.ry, BOUNDS.y0 + 5, BOUNDS.y1 - 20);

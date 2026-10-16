@@ -225,15 +225,21 @@ export function timer(g, seconds, x = W / 2, y = 64) {
  * HUD row of player chips along the top (or bottom) edge.
  *   scoreboard(g, players, values, { y, format: v => v + ' pts', highlight: [bools], expr: [..] })
  */
+/** Room the corner overlays (in-game "i", song tag) take at the bottom edge; set
+ *  each frame by main.js so a bottom scoreboard keeps its chips clear of them. */
+export const boardInsets = { l: 0, r: 0 };
+
 export function scoreboard(g, players, values, o = {}) {
   const n = players.length;
+  const y = o.y ?? 40;
+  // a bottom scoreboard stays clear of the corner overlays (symmetric, so it stays centred)
+  const inset = y > H / 2 ? Math.max(boardInsets.l, boardInsets.r) : 0;
   const gap = o.avoidCenter ? 220 : 0;          // room for a centered timer
   const gapAt = n === 1 ? 1 : Math.ceil(n / 2);  // solo: chip sits left of the timer
   // With a gap it is always centred on W/2 (an odd count puts the extra chip on
   // the left), so chips are sized to fit the longer left side.
-  const chipW = Math.min(260, (W - 120 - gap) / n - 16, o.avoidCenter ? (W / 2 - gap / 2 + 8 - 60) / gapAt - 16 : Infinity);
+  const chipW = Math.min(260, (W - 120 - 2 * inset - gap) / n - 16, o.avoidCenter ? (W / 2 - gap / 2 + 8 - 60 - inset) / gapAt - 16 : Infinity);
   const total = n * chipW + (n - 1) * 16 + gap;
-  const y = o.y ?? 40;
   let x = o.avoidCenter ? W / 2 - (gap - 16) / 2 - gapAt * (chipW + 16) : (W - total) / 2;
   const rects = [];
   players.forEach((p, i) => {

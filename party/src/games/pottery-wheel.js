@@ -55,9 +55,6 @@ export const meta = {
   drawIcon,
 };
 
-// soft clocks so one slow potter can't hold the room (only with friends waiting)
-const SHAPE_TIME = 70, PAINT_TIME = 90;
-
 const TOOLS = [
   { id: 'glaze', name: 'Glaze dip', verb: 'Dip!' },
   { id: 'band', name: 'Stripe', verb: 'Stripe!' },
@@ -615,12 +612,6 @@ export class Game {
       st.cheerCD -= dt; st.helpT += dt;
       if (st.p.isAI) this.updateAI(st, dt);
       st.actor.update(dt);
-      const limit = this.stepLimit(st);
-      if (limit !== null && st.stepT > limit) {
-        if (st.step === 'shape') this.startFire(st);
-        else { st.confirm = null; this.setReady(st, true); }
-        continue;
-      }
       if (st.step === 'shape') this.updateShape(st, dt);
       else if (st.step === 'fire') this.updateFire(st, dt);
       else if (st.step === 'paint') this.updatePaint(st, dt);
@@ -634,12 +625,6 @@ export class Game {
     if (shaping && !this.hum) this.hum = sfxLoop('pottery-wheel-hum', { vol: this.n > 4 ? 0.3 : 0.4 });
     else if (!shaping && this.hum) { this.hum.stop(); this.hum = null; }
     if (this.stations.every((s) => s.ready && s.readyT > 0.8)) this.startShow();
-    else if (this.phaseT > 420) this.onDone();   // backstop: a very long session ends in the show
-  }
-
-  stepLimit(st) {
-    if (this.n < 2) return null;
-    return st.step === 'shape' ? SHAPE_TIME : st.step === 'paint' ? PAINT_TIME : null;
   }
 
   // --- finale: the gallery shelf ---------------------------------------------------------
@@ -886,7 +871,6 @@ export class Game {
     this.drawSteps(g, st);
     this.drawSide(g, st);
     this.drawStationHints(g, st);
-    this.drawClock(g, st);
     if (st.confirm) this.drawConfirm(g, st);
     if (st.ready) this.drawReady(g, st);
     if (st.step === 'shape' && !st.p.isAI && st.shapeT < 1.5 && st.helpT > 1) this.drawHelp(g, st);
@@ -1325,16 +1309,6 @@ export class Game {
       ui.text(g, label, gs * 0.6, 1, { size: clamp(h * 0.46, 15, 32), weight: 800, maxWidth: bw - gs * 1.6 - 10 });
       g.restore();
     }
-  }
-
-  /** The soft clock: a "Kiln" / "Showtime" chip under the step pills for the last 20 s. */
-  drawClock(g, st) {
-    const limit = this.stepLimit(st), left = limit === null ? 99 : limit - st.stepT;
-    if (left >= 20 || left <= 0 || st.confirm) return;
-    const { r, L } = st, h = L.tabH - 8;
-    const ch = h * 0.8, cw = ch * 4.2, cx = r.x + 16, cy = r.y + 10 + h + 8;
-    ui.panel(g, cx, cy, cw, ch, { r: ch / 2, fill: left < 6 ? '#ff4d6d' : '#ffffff', lineWidth: 3, shadow: false });
-    ui.text(g, `${st.step === 'shape' ? 'Kiln' : 'Showtime'} ${Math.ceil(left)}`, cx + cw / 2, cy + ch / 2 + 1, { size: ch * 0.55, color: left < 6 ? '#fff' : NAVY, stroke: false, weight: 800, maxWidth: cw - 12 });
   }
 
   drawSide(g, st) {

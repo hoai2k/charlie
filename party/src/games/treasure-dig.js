@@ -674,6 +674,17 @@ export class Game {
     let cx = Math.cos(A.dir), cy = Math.sin(A.dir);
     if ((U.x < ARENA.x0 + m && cx < 0) || (U.x > ARENA.x1 - m && cx > 0)) { cx = -cx; A.dir = Math.atan2(cy, cx); A.lastH = null; }
     if ((U.y < ARENA.y0 + m && cy < 0) || (U.y > ARENA.y1 - m && cy > 0)) { cy = -cy; A.dir = Math.atan2(cy, cx); A.lastH = null; }
+    // sidestep other diggers nearby so the CPUs don't all home in on one spot together
+    // (fades out once it's hot, so a CPU still reaches its "!")
+    if (h < 0.8) {
+      let sx = 0, sy = 0;
+      for (const o of this.units) {
+        if (o === U) continue;
+        const ox = U.x - o.x, oy = (U.y - o.y) * 1.4, od = Math.hypot(ox, oy);
+        if (od > 0.01 && od < 200) { const w = (1 - od / 200) * (o.dig > 0 ? 1.4 : 1); sx += (ox / od) * w; sy += (oy / od) * w; }
+      }
+      if (sx || sy) { cx += sx * 0.9; cy += sy * 0.9; const m = Math.hypot(cx, cy) || 1; cx /= m; cy /= m; }
+    }
     const k = prof.speed * (h > 0.85 ? 0.5 : h > 0.7 ? 0.75 : 1);
     p.ctrl.move(cx * k, cy * k);
   }

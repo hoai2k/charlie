@@ -240,7 +240,7 @@ export class Game {
     e.loopCd = Math.max(0, e.loopCd - dt); e.comboT -= dt; if (e.comboT <= 0) e.combo = 0;
     e.boopT = Math.max(0, e.boopT - dt); e.wheeT -= dt;
     let ix = play ? ctrl.x : 0, iy = play ? ctrl.y : 0;
-    if (e.ez) [ix, iy] = play ? this.easyPilot(e) : [0, 0];
+    if (e.ez) { [ix, iy] = play ? this.easyPilot(e) : [0, 0]; e.ez.after = Math.max(0, (e.ez.after || 0) - dt); }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     if (this.phase === 'finale') { ix = clamp((e.tx - e.x) / 200, -1, 1); iy = clamp((e.ty - e.y) / 200, -1, 1); }
     const k = 1 - Math.exp(-ACCEL * dt);
@@ -254,7 +254,7 @@ export class Game {
     if (e.loopT > 0) {
       e.loopT -= dt;
       if (Math.random() < dt * 40) particles.burst(e.x, e.y - a.height * 0.5, { type: 'sparkle', count: 1, colors: [e.p.color, '#fff', '#ffd23f'], speed: [20, 90], life: [0.4, 0.8], size: [10, 18] });
-      if (e.loopT <= 0) { e.loopCd = LOOP_CD; a.setPose('float'); }
+      if (e.loopT <= 0) { e.loopCd = LOOP_CD; a.setPose('float'); if (e.ez) e.ez.after = 0.4; }
     }
     // rainbow wind
     let inStream = false;
@@ -337,9 +337,10 @@ export class Game {
       if (pk.x < -80 || pk.x > W + 260 || pk.age > pk.life) pk.dead = true;
       if (!play || pk.dead) continue;
       for (const e of this.ents) {
+        if (e.ez && e.loopT <= 0 && !(e.ez.after > 0)) continue;   // Molly Easy: sparkles are caught with an A-zoom (or just after it), not by floating into them
         const a = e.a, cx = e.x, cy = e.y - a.height * 0.5;
         const dx = cx - pk.x, dy = cy - pk.y, d = Math.hypot(dx, dy);
-        if (e.loopT > 0 && d < MAGNET && d > 1) { const pull = 1400 * dt; pk.x += (dx / d) * pull; pk.y += (dy / d) * pull; }
+        if (e.loopT > 0 && d < MAGNET * (e.ez ? 1.3 : 1) && d > 1) { const pull = 1400 * dt; pk.x += (dx / d) * pull; pk.y += (dy / d) * pull; }   // Easy zooms pull a little wider
         const r = a.radius + (pk.kind === 'star' ? 70 : 44) + (e.loopT > 0 ? 40 : 0);
         if (d < r) { this.collect(e, pk); break; }
       }

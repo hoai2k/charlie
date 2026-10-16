@@ -794,7 +794,7 @@ export class Game {
       if (P.t > 0.4 && (c.pressed('a') || (first && input.pointer.pressed && inRect(this.promptBtn('go'), input.pointer.x, input.pointer.y)))) { this.prompt = null; this.startShow(); return; }
       if (P.t > 0.4 && (c.pressed('b') || (first && input.pointer.pressed && inRect(this.promptBtn('more'), input.pointer.x, input.pointer.y)))) { this.prompt = null; this.addTime(60); return; }
     }
-    if (P.t > 15) { this.prompt = null; this.startShow(); }
+    // no auto-pick: the prompt only shows with humans, and it waits for them
   }
   promptBtn(which) { return which === 'go' ? { x: W / 2 - 330, y: 560, w: 300, h: 90 } : { x: W / 2 + 30, y: 560, w: 300, h: 90 }; }
 
@@ -827,7 +827,7 @@ export class Game {
     // --- confirm bubble for the Show button
     if (st.confirm) {
       st.confirm.t += dt;
-      if ((c.pressed('a') || st.click) && st.confirm.t > 0.1) { st.confirm = null; this.startShow(); return; }
+      if ((c.pressed('a') || st.click) && st.confirm.t > 0.1) { st.confirm = null; this.readyForShow(st); return; }
       if (c.pressed('b') || (!inRect(SHOW_BTN, x, y) && st.confirm.t > 0.3)) { st.confirm = null; sfx('back'); }
       return;
     }
@@ -929,7 +929,11 @@ export class Game {
   pressA(st) {
     const { x, y } = st.cur;
     if (st.held) { this.drop(st); return; }
-    if (inRect(SHOW_BTN, x, y)) { if (!st.p.isAI) { st.confirm = { t: 0 }; sfx('select'); } return; }
+    if (inRect(SHOW_BTN, x, y)) {
+      if (st.p.isAI) return;
+      if (st.showReady) { st.showReady = false; sfx('back'); particles.popText(SHOW_BTN.x + SHOW_BTN.w / 2, SHOW_BTN.y + SHOW_BTN.h + 30, 'Not yet!', st.p.color, 36); return; }
+      st.confirm = { t: 0 }; sfx('select'); return;
+    }
     if (inRect(CLOCK_PLUS, x, y) && !st.p.isAI) { this.addTime(60); return; }
     if (inRect(SWITCH_HIT, x, y)) { this.toggleNight(st); return; }
     if (y >= BAR.y - 6) { this.panelClick(st, x, y); return; }
@@ -1008,7 +1012,29 @@ export class Game {
     }
   }
 
+  /** With several kids, the Show starts once every kid has pressed it (one press no longer ends everyone's building). */
+  readyForShow(st) {
+    const kids = this.stations.filter((s) => !s.p.isAI);
+    st.showReady = true;
+    if (kids.every((s) => s.showReady)) { this.startShow(); return; }
+    sfx('collect', { step: 4 });
+    const n = kids.filter((s) => s.showReady).length;
+    particles.popText(SHOW_BTN.x + SHOW_BTN.w / 2 - 60, SHOW_BTN.y + SHOW_BTN.h + 34, `Ready ${n}/${kids.length}!`, st.p.color, 38);
+  }
+
+  /** Another kid's fish or decoration: you may move it, but only its owner can take it away. */
+  othersThing(st, obj) {
+    const o = this.stations[obj.owner];
+    return !st.p.isAI && o && o !== st && !o.p.isAI;
+  }
+  notYours(st, obj) {
+    const o = this.stations[obj.owner];
+    particles.popText(st.cur.x, st.cur.y - 50, `${o.p.tag}'s!`, o.p.color, 40);
+    sfx('blip');
+  }
+
   pressB(st) {
+    if (st.held && this.othersThing(st, st.held.obj)) { const obj = st.held.obj; this.drop(st); this.notYours(st, obj); return; }
     if (st.held) {
       const h = st.held; st.held = null;
       if (h.type === 'decor') { h.obj.heldBy = null; this.removeDecor(h.obj, st); }
@@ -1016,6 +1042,7 @@ export class Game {
       return;
     }
     const h = st.hover;
+    if (h && this.othersThing(st, h.obj)) { this.notYours(st, h.obj); return; }
     if (h && (!st.p.isAI || h.obj.owner === st.i)) {
       if (h.type === 'decor') this.removeDecor(h.obj, st); else this.removeFish(h.obj, st);
       return;
@@ -1606,11 +1633,19 @@ export class Game {
     g.beginPath(); g.arc(p.x + p.w / 2, cy, phot ? 23 : 20, 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
     ui.text(g, '+', p.x + p.w / 2, cy - 1, { size: 36, weight: 800 });
     g.restore();
+    if (this.humans > 1) {
+      // one dot per kid under the button; filled once that kid is ready for the show
+      const kids = this.stations.filter((s) => !s.p.isAI), gap = 30, x0 = b.x + b.w / 2 - ((kids.length - 1) * gap) / 2;
+      kids.forEach((s, k) => {
+        g.beginPath(); g.arc(x0 + k * gap, b.y + b.h + 3, 10, 0, TAU);
+        g.fillStyle = s.showReady ? s.p.color : 'rgba(255,255,255,0.55)'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+      });
+    }
     for (const st of this.stations) {
       if (!st.confirm) continue;
       const w = 420, h = 150, px = W - w - 20, py = 186;
       ui.panel(g, px, py, w, h, { r: 26, fill: '#fff8ec', stroke: st.p.color, lineWidth: 6 });
-      ui.text(g, 'Night show now?', px + w / 2, py + 42, { size: 38, color: NAVY, stroke: false, weight: 800 });
+      ui.text(g, this.humans > 1 ? 'Ready for the show?' : 'Night show now?', px + w / 2, py + 42, { size: 38, color: NAVY, stroke: false, weight: 800 });
       ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 106, { size: 40, color: '#7fe8ff' });
     }
   }

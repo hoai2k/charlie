@@ -1003,7 +1003,7 @@ export class Game {
     let fill = '#ffffff', label = '', col = NAVY;
     if (ph === 'music') { fill = '#8fe3c5'; }
     else if (ph === 'tell') { fill = '#ffe27a'; }
-    else if (ph === 'scramble') { fill = '#ff6fb1'; label = 'SIT!'; col = '#ffffff'; }
+    else if (ph === 'scramble') { fill = '#ff6fb1'; label = `SIT! ${Math.max(1, Math.ceil(SCRAMBLE_MAX - this.pt))}`; col = '#ffffff'; }   // the scramble's countdown
     else if (ph === 'out' || ph === 'end') { fill = '#e8dbff'; label = 'Stop'; }
     else { label = 'Ready'; }
     const shake = ph === 'tell' ? Math.sin(t * 50) * 4 : 0;
@@ -1019,7 +1019,7 @@ export class Game {
         ui.text(g, i % 2 ? '♫' : '♪', 0, 0, { size: 44, color: ['#ff4d9a', '#7a4dff', '#1fae8a'][i], strokeWidth: 6 });
         g.restore();
       }
-    } else ui.text(g, label, 0, 3, { size: label === 'SIT!' ? 46 : 36, color: col, stroke: label === 'SIT!' ? NAVY : false, weight: 800 });
+    } else ui.text(g, label, 0, 3, { size: ph === 'scramble' ? 46 : 36, color: col, stroke: ph === 'scramble' ? NAVY : false, weight: 800 });
     g.restore();
   }
 }

@@ -20,6 +20,7 @@ import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { GHOST_COLORS, FIRE, TRUNKS, roomWindows, roomFire, drawGhostShape, tintedArt, drawCurtains, curtainInnerX, drawTrunk, drawDiscoBall, drawFire, drawRoom } from './ghost-giggles/art.js';
 
@@ -184,12 +185,28 @@ export class Game {
     for (const e of this.ents) { e.a.clearEmotes(); e.a.playOnce('celebrate', 0.8, 'dance'); e.a.emote('heart', 1.2); if (chance(0.5)) voice(e.p.charId, 'woo'); }
     const happy = this.ghosts.filter((g0) => g0.state !== 'leave');
     happy.forEach((g0, i) => { g0.state = 'party'; g0.slot = i; g0.slots = happy.length; });
+    // dancers glide out of whatever knot they were in into a loose, staggered row up front
+    const order = this.ents.slice().sort((A, B) => A.x - B.x), n = order.length;
+    order.forEach((e, k) => {
+      e.px = n === 1 ? W / 2 : lerp(n <= 4 ? 560 : 300, n <= 4 ? W - 560 : W - 300, k / (n - 1)) + rand(-20, 20);
+      e.py = 870 + (n > 3 ? (k % 2 ? 55 : -25) : 0) + rand(-12, 12);
+    });
+  }
+
+  /** Party time: drift to your dance spot (a human who moves the stick takes over). */
+  partyGlide(e, dt) {
+    if (e.px === undefined) return;
+    const c = e.p.ctrl;
+    if (!this.done && !e.p.isAI && !e.auto && Math.abs(c.x) + Math.abs(c.y) > 0.3) { e.px = undefined; return; }
+    const k = 1 - Math.exp(-2.5 * dt), dx = e.px - e.x;
+    e.x += dx * k; e.y += (e.py - e.y) * k;
+    if (Math.abs(dx) > 40) e.a.facing = dx > 0 ? 1 : -1;
   }
 
   endParty() {
     this.party = null;
     for (const g0 of this.ghosts) if (g0.state === 'party') { g0.state = 'leave'; g0.t = 0; g0.vx = rand(-200, 200); }
-    for (const e of this.ents) e.a.setPose('idle');
+    for (const e of this.ents) { e.a.setPose('idle'); e.px = undefined; }
     this.startWave();
   }
 
@@ -227,7 +244,7 @@ export class Game {
     if (this.party) this.party.t += dt;
     this.updateGhosts(dt);
     this.updateWindows(dt);
-    for (const e of this.ents) { this.syncActor(e); e.a.update(dt); }
+    for (const e of this.ents) { this.partyGlide(e, dt); this.syncActor(e); e.a.update(dt); }
   }
 
   syncActor(e) {
@@ -378,6 +395,7 @@ export class Game {
       e.vx *= Math.exp(-8 * dt); e.vy *= Math.exp(-8 * dt);
       if (!a._once && a.pose !== 'dance' && this.party) a.setPose('dance');
       if (this.party) {
+        this.partyGlide(e, dt);
         // you can still wiggle around a bit while dancing
         if (!e.auto) {
           e.x = clamp(e.x + c.x * 260 * dt, MOVE.x0, MOVE.x1); e.y = clamp(e.y + c.y * 200 * dt, MOVE.y0, MOVE.y1);
@@ -403,17 +421,8 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const r = (A.a.radius + B.a.radius) * 0.7;
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy);
-      if (d < r && d > 0.01) {
-        const push = (r - d) * 0.5 * Math.min(1, dt * 12);
-        A.x -= (dx / d) * push; B.x += (dx / d) * push;
-        A.y -= (dy / d) * push * 0.5; B.y += (dy / d) * push * 0.5;
-      }
-    }
+    // push apart by the drawn sprite size, then back onto the floor
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.85, yScale: 1.6, strength: Math.min(1, dt * 12), bounds: MOVE });
   }
 
   dist(e, x, y) { return Math.hypot(x - e.x, (y - e.y) * 1.3); }

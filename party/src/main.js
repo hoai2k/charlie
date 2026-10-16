@@ -136,6 +136,10 @@ function frame(now) {
     songTag.update(rawDt);
     corner.update(rawDt);
     ui.resetHotspots();
+    // keep a bottom scoreboard's chips clear of the in-game "i" and the song tag
+    const infoAt = corner.visible && corner.mode === 'info' && typeof corner.infoAt === 'string' ? corner.infoAt : '';
+    ui.boardInsets.l = infoAt === 'bl' ? 100 : 0;
+    ui.boardInsets.r = Math.max(infoAt === 'br' ? 100 : 0, songTag.rect ? songTag.rect.w + 24 : 0);
     g.save();
     g.translate(fx.ox, fx.oy);
     scenes.draw(g);

@@ -306,7 +306,9 @@ export function buildField(hole) {
     if (!bad && hole.spinner && Math.hypot(x - hole.spinner.x, y - hole.spinner.y) < HUB_R + BALL_R) bad = true;
     blocked[r * cols + c] = bad ? 1 : 0;
   }
-  const dist = new Float32Array(cols * rows).fill(1e9);
+  // Float64: a Float32 store rounds some sums down, so `d > dist[i]` skipped those cells
+  // and only straight runs from the cup were ever reached.
+  const dist = new Float64Array(cols * rows).fill(1e9);
   const ci = (x, y) => clamp(Math.floor(y / CELL), 0, rows - 1) * cols + clamp(Math.floor(x / CELL), 0, cols - 1);
   const start = ci(hole.cup.x, hole.cup.y);
   dist[start] = 0;
@@ -382,8 +384,10 @@ export function teeSpots(hole, n) {
   const cols = n <= 4 ? 1 : 2, perCol = Math.ceil(n / cols);
   for (let i = 0; i < n; i++) {
     const col = cols === 1 ? 0 : i % 2, row = cols === 1 ? i : Math.floor(i / 2);
-    const x = T.x + (cols === 1 ? 0 : col === 0 ? -48 : 48);
-    const sp = cols === 1 ? T.sp1 : T.sp;
+    // 7-8 players: columns and rows a bit further apart (still on the tee mat)
+    const big = n > 6, dx = big ? 66 : 48;
+    const x = T.x + (cols === 1 ? 0 : col === 0 ? -dx : dx);
+    const sp = cols === 1 ? T.sp1 : T.sp * (big ? 1.25 : 1);
     const y = T.y + (row - (perCol - 1) / 2) * sp + (cols === 2 ? (col === 0 ? -sp * 0.25 : sp * 0.25) : 0);
     out.push({ x, y });
   }

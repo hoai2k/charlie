@@ -21,7 +21,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, placementsFromScores, later } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 
 const NAVY = '#24163f';
 const PLAY_T = 45;            // stacking time; then the birthday finale
@@ -545,12 +545,12 @@ export class Game {
 
   finish() {
     this.finished = true;
-    const scores = this.ents.map((e) => e.score);
-    const placements = placementsFromScores(scores);
+    // one shared tower: everybody wins together, the team total is the headline
+    const len = this.tower.length;
     this.api.finish({
-      placements,
-      stats: this.ents.map((e) => `${e.score} pts`),
-      solo: this.n === 1 ? scores[0] : undefined,
+      placements: this.ents.map(() => 1), showcase: true, highlight: null,
+      title: `${len} cupcake${len === 1 ? '' : 's'} tall!`,
+      stats: this.ents.map((e) => `${e.cups} cupcake${e.cups === 1 ? '' : 's'}`),
       focus: { x: STAND_X, y: this.topY - 120, zoom: 1.15 },
     });
   }
@@ -583,8 +583,8 @@ export class Game {
 
   drawHUD(g) {
     if (this.phase === 'play') ui.timer(g, PLAY_T - this.time);
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: this.phase === 'play', format: (v) => String(v) });
-    // tower counter (right side, below the scoreboard)
+    ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 18, avoidCenter: this.phase === 'play', format: (v) => v });
+    // shared tower counter: the team's score (right side, below the player chips)
     const len = this.tower.length;
     g.save(); g.translate(W - 130, 200);
     ui.panel(g, -100, -56, 200, 112, { r: 40, fill: '#ffffff' });

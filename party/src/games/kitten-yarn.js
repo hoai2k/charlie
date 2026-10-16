@@ -17,6 +17,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawHeartShape } from '../engine/emotes.js';
+import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import {
   GROUND_Y, BED, NAVY, drawKitten, drawYarn, drawBasketBack, drawBasketFront, drawCatTree, perchPoint, drawBed, drawBedFront, drawRoom, YARN,
@@ -229,13 +230,22 @@ export class Game {
   leap(k, tx = null) {
     // aim at the middle of the room, often near someone
     if (tx === null) {
-      const e = chance(0.55) ? pick(this.ents) : null;
-      tx = e ? e.x + rand(-180, 180) : rand(330, W - 330);
+      // a few tries; keep the one farthest from where other kittens are already landing,
+      // so 8 players spread over the room instead of all chasing one spot
+      const landing = this.kittens.filter((o) => o !== k && o.state === 'leap').map((o) => o.landX);
+      let bd = -1;
+      for (let i = 0; i < 4; i++) {
+        const e = chance(0.55) ? pick(this.ents) : null;
+        const x = clamp(e ? e.x + rand(-180, 180) : rand(330, W - 330), 300, W - 300);
+        const d = landing.reduce((m, lx) => Math.min(m, Math.abs(lx - x)), 1e9);
+        if (d > bd) { bd = d; tx = x; }
+        if (d > 300) break;
+      }
     }
     tx = clamp(tx, 300, W - 300);
     const T = rand(1.0, 1.3) * (this.party ? 0.88 : 1);
     const ty = GROUND_Y - 20;
-    k.state = 'leap'; k.vx = (tx - k.x) / T; k.vy = (ty - k.y - 0.5 * G * T * T) / T;
+    k.state = 'leap'; k.landX = tx; k.vx = (tx - k.x) / T; k.vy = (ty - k.y - 0.5 * G * T * T) / T;
     k.spin = Math.sign(k.vx || 1) * rand(7, 11); k.grace = 0.15; k.face = Math.sign(k.vx || 1);
     sfx('jump', { vol: 0.35, rate: 1.3 }); this.mew();
   }
@@ -546,20 +556,22 @@ export class Game {
     let idx = i % CAPN, row = 0;
     while (idx >= ROWS[row]) { idx -= ROWS[row]; row++; }
     const n = ROWS[row];
-    const spread = (n - 1) * 50;
-    const x = BED.x - spread / 2 + (spread * idx) / (n - 1) + (layer % 2 ? 25 : 0);
-    return { x, y: BED.y - 112 - row * 28 - layer * 8 };
+    const spread = (n - 1) * 50 * Math.pow(0.8, Math.min(layer, 3));
+    const x = BED.x - spread / 2 + (spread * idx) / (n - 1) + (layer % 2 ? 20 : 0);
+    // later layers climb into a taller, narrower mound (kept on the bed, clear of the crowd in front)
+    return { x, y: BED.y - 112 - row * 28 - Math.min(layer, 4) * 34 };
   }
 
   pushPlayers(dt) {
     const E = this.ents;
     for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
       const A = E[i], B = E[j];
-      const sep = Math.max(this.bw() * 0.7, (A.a.width + B.a.width) * 0.22);
+      // baskets side by side, never stacked: at least a basket width, or the sprites' own width
+      const sep = Math.max(this.bw() * 0.95, (bodyRadius(A.a) + bodyRadius(B.a)) * 0.8);
       const dx = B.x - A.x, adx = Math.abs(dx);
       if (adx < sep && Math.abs(A.z - B.z) < 100) {
         const dir = dx === 0 ? (i % 2 ? 1 : -1) : Math.sign(dx);
-        const ov = sep - adx, k = Math.min(1, dt * 14);
+        const ov = sep - adx, k = Math.min(1, dt * 20);
         A.x -= dir * ov * 0.5 * k; B.x += dir * ov * 0.5 * k;
         if (ov > sep * 0.4 && A.bumpCd <= 0 && (Math.abs(A.vx) + Math.abs(B.vx)) > 400) {
           A.bumpCd = B.bumpCd = 0.5; A.a.squash(0.2); B.a.squash(0.2);
@@ -605,6 +617,7 @@ export class Game {
         if (k.state === 'leap' && travel > T + 0.15) continue;
         let u = (k.fairy ? 3 : 1) / (0.5 + travel) * (k.state === 'perch' ? 0.25 : k.state === 'floor' ? 0.7 : 1) * rand(0.8, 1.2);
         for (const o of this.ents) if (o !== e && Math.abs(o.x - x) < Math.abs(e.x - x) * 0.6) { u *= 0.4; break; }
+        u /= 1 + claimed(this.ents, e, k) * 1.5;   // leave kittens another basket is already after
         if (u > bu) { bu = u; best = { k, x }; }
       }
       if (!best || chance(mistake)) { e.target = null; e.wander = rand(0.4, 1.1); e.wanderX = clamp(e.x + rand(-400, 400), 280, W - 280); }
@@ -673,7 +686,7 @@ export class Game {
         if (k.owner && (k.state === 'basket' || k.state === 'head' || k.state === 'hop')) { k.owner.score += k.fairy ? 3 : 1; }
         k.ball = null;
         const kk = k; const delay = 0.15 + (i++) * 0.06;
-kk.state = 'wait'; kk.wt = delay;
+        kk.state = 'wait'; kk.wt = delay;
       }
     }
     for (const e of this.ents) { e.basket = []; e.head = null; }

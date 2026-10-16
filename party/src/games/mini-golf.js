@@ -68,7 +68,7 @@ export class Game {
     this.solo = this.n === 1;
     this.cam = api.camera;
     if (this.cam) this.cam.maxZoom = Math.min(this.cam.maxZoom, 1.35);
-    this.scale = this.n <= 4 ? 0.82 : this.n <= 6 ? 0.74 : 0.68;
+    this.scale = this.n <= 4 ? 0.82 : this.n <= 6 ? 0.74 : 0.62;   // 7-8: smaller, so the tee isn't a heap
     this.t = 0;           // animation clock (always runs)
     this.st = 0;          // spinner clock
     this.ht = 0;          // time into the current hole's play
@@ -105,7 +105,7 @@ export class Game {
       U.ball = { x: s.x, y: s.y, vx: 0, vy: 0, z: 0, vz: 0, mode: 'play', jellyLock: false, lipLock: false, sinkT: 0, hideT: 0 };
       U.lastShot = { x: s.x, y: s.y };
       U.aim = 0; U.side = -1; U.turnHold = 0;
-      U.done = false; U.rank = 0; U.holePts = 0; U.holeHio = false; U.strokes = 0; U.sinkTime = null;
+      U.done = false; U.rank = 0; U.holePts = 0; U.holeHio = false; U.closest = false; U.strokes = 0; U.sinkTime = null;
       U.charging = false; U.power = 0; U.meterT = 0; U.swingT = 0; U.celebT = 0; U.gallery = null; U.guide = null; U.tgt = null; U.wasReady = false;
       U.ai = { phase: 'idle' };
       U.ctx.hole = hole;
@@ -432,9 +432,27 @@ export class Game {
       if (!U.done) { U.a.playOnce('pout', 1.8, 'idle'); voice(U.p.charId, 'aww'); }
       else U.a.playOnce('cheer', 0.8);
     }
-    if (reason === 'time') sfx('whistle'); else { sfx('cheer'); fx.flash('#ffffff', 0.12); }
+    if (reason === 'time') { sfx('whistle'); this.closestPoint(); } else { sfx('cheer'); fx.flash('#ffffff', 0.12); }
     // this hole's order for the summary panel
-    this.summary = this.units.slice().sort((a, b) => (a.done === b.done ? (a.done ? a.rank - b.rank : a.i - b.i) : a.done ? -1 : 1));
+    this.summary = this.units.slice().sort((a, b) => (a.done === b.done ? (a.done ? a.rank - b.rank : (b.closest - a.closest) || a.i - b.i) : a.done ? -1 : 1));
+  }
+
+  /** Time's up: the un-sunk ball nearest the cup (by the path around walls) gets
+   * 1 point, so a hole nobody sinks still gives someone something. */
+  closestPoint() {
+    if (this.solo) return;
+    const left = this.units.filter((U) => !U.done);
+    if (!left.length) return;
+    const far = (U) => { const b = U.ball, p = b.mode === 'play' ? b : U.lastShot; return this.field.at(p.x, p.y); };
+    const best = Math.min(...left.map(far));
+    if (!(best < 1e9)) return;
+    for (const U of left) {
+      if (far(U) > best + 1) continue;
+      U.closest = true; U.holePts = 1; U.pts += 1;
+      const b = U.ball;
+      particles.popText(b.x, b.y - 50, 'Closest! +1', U.p.color, 40);
+      U.a.emote('star', 1.2);
+    }
   }
 
   finishGame() {
@@ -677,7 +695,9 @@ export class Game {
         D.drawPutter(g, hand.x, hand.y + 6, b.x - ca * d, b.y - sa * d, U.aim);
       }
     }
-    const showTag = (this.phase === 'play' && this.ht < 4) || this.phase === 'intro' || (!U.p.isAI && this.n > 1 && this.canPutt(U));
+    // 7-8 players: after ~2 s only the humans keep their tags (8 CPU tags heap up on the tee)
+    const tagT = this.n > 6 && U.p.isAI ? 2 : 4;
+    const showTag = (this.phase === 'play' && this.ht < tagT) || this.phase === 'intro' || (!U.p.isAI && this.n > 1 && this.canPutt(U));
     if (showTag) {
       const sc = this.n > 5 ? 0.72 : 0.85;
       g.save(); g.translate(a.x, a.y - a.height - 30 - (a.emotes.length ? 46 : 0)); g.scale(sc, sc); ui.playerTag(g, U.p, 0, 0); g.restore();
@@ -752,9 +772,10 @@ export class Game {
       if (pop <= 0) return;
       g.save(); g.globalAlpha = pop;
       ui.drawPortrait(g, U.p, cx, cy, 50, { expr: U.done ? 'happy' : 'sad', ring: U.p.color, ringWidth: 6, gray: !U.done });
-      const place = U.done ? (this.solo ? 'In!' : ORD[U.rank - 1]) : 'Missed';
-      ui.text(g, place, cx, cy + 76, { size: 30, color: U.done ? NAVY : '#8a7aa6', stroke: false, weight: 800 });
-      ui.text(g, U.done ? `+${U.holePts}` : '+0', cx, cy + 112, { size: 34, color: U.done ? '#2fb35c' : '#8a7aa6', stroke: false, weight: 800 });
+      const place = U.done ? (this.solo ? 'In!' : ORD[U.rank - 1]) : U.closest ? 'Closest!' : 'Missed';
+      const got = U.done || U.closest;
+      ui.text(g, place, cx, cy + 76, { size: 30, color: got ? NAVY : '#8a7aa6', stroke: false, weight: 800 });
+      ui.text(g, `+${U.holePts}`, cx, cy + 112, { size: 34, color: got ? '#2fb35c' : '#8a7aa6', stroke: false, weight: 800 });
       if (U.holeHio) ui.text(g, 'Hole in one!', cx, cy - 70, { size: 22, color: '#ff6fb1', strokeWidth: 5, weight: 800 });
       g.restore();
     });

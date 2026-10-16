@@ -23,6 +23,7 @@ import { sfx, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer, mash } from '../engine/ai.js';
+import { bodyRadius, claimed, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, dist, later } from '../engine/util.js';
 import {
   NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, drawGuestFx, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
@@ -642,17 +643,8 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy) || 1;
-      const min = (A.a.radius + B.a.radius) * 0.6;
-      if (d < min) {
-        const push = (min - d) * 0.5 * Math.min(1, dt * 12);
-        A.x -= (dx / d) * push; B.x += (dx / d) * push; A.y -= (dy / d) * push * 0.5; B.y += (dy / d) * push * 0.5;
-      }
-    }
-    for (const e of E) { e.x = clamp(e.x, FLOOR.x0, FLOOR.x1); e.y = clamp(e.y, FLOOR.y0, FLOOR.y1); }
+    // push apart by the drawn sprite size (the old radius let 5-6 players stack on one basket)
+    spread(this.ents, { radius: (e) => bodyRadius(e.a), yScale: 1.6, strength: Math.min(1, dt * 12), bounds: FLOOR });
   }
 
   /** What A would do for this player right now: { kind, target } or null. */
@@ -761,12 +753,23 @@ export class Game {
     else if (d < 16) c.move(0, 0);
   }
 
+  /** A wander spot with some elbow room: idle CPUs (all chairs taken) used to drift into one middle knot. */
+  roomySpot(e) {
+    let best = null, bd = -1;
+    for (let i = 0; i < 5; i++) {
+      const x = rand(300, 1620), y = rand(480, 1000);
+      const d = this.ents.reduce((m, o) => (o === e ? m : Math.min(m, dist(x, y, o.x, o.y))), 1e9);
+      if (d > bd) { bd = d; best = { x, y }; }
+    }
+    return best;
+  }
+
   aiPlan(e, sure = false) {
     const prof = aiProfile(e.p);
-    if (!sure && chance(prof.mistake * 0.6)) return { wander: true, x: rand(300, 1620), y: rand(480, 1000), t: rand(0.5, 1.1) };
+    if (!sure && chance(prof.mistake * 0.6)) return { wander: true, ...this.roomySpot(e), t: rand(0.5, 1.1) };
     if (e.held === 'cushion') {
       const free = this.chairs.filter((c) => !c.cushion && !(c.guest && c.guest.state !== 'walk'));
-      if (!free.length) return { wander: true, x: rand(300, 1620), y: rand(480, 1000), t: 0.5 };
+      if (!free.length) return { wander: true, ...this.roomySpot(e), t: rand(0.8, 1.4) };
       const claimed = new Set(this.ents.filter((o) => o !== e).map((o) => (o.auto ? o.auto.plan : o.plan)).filter((pl) => pl && pl.kind === 'place').map((pl) => pl.target));
       let pool = free.filter((c) => !claimed.has(c));
       if (!pool.length) pool = free;
@@ -783,8 +786,11 @@ export class Game {
       return { kind: 'hide', target, x: target.x, y: target.y + 60 };
     }
     if (this.frogToy && chance(0.5)) return { kind: 'frog', target: this.frogToy, x: this.frogToy.x, y: this.frogToy.y };
-    const b = BASKETS.reduce((best, k) => (dist(k.x, k.y, e.x, e.y) < dist(best.x, best.y, e.x, e.y) ? k : best));
-    return { kind: 'grab', target: b, x: b.x + (e.x < b.x ? -70 : 70), y: b.y + 40 };
+    // a basket nobody else is heading to beats a slightly nearer busy one
+    const planOf = (o) => { const pl = o.auto ? o.auto.plan : o.plan; return pl && pl.kind === 'grab' ? pl.target : null; };
+    const cost = (k) => dist(k.x, k.y, e.x, e.y) + claimed(this.ents, e, k, planOf) * 450;
+    const b = BASKETS.reduce((best, k) => (cost(k) < cost(best) ? k : best));
+    return { kind: 'grab', target: b, x: b.x + (e.x < b.x ? -70 : 70) * rand(0.8, 1.4), y: b.y + rand(10, 80) };
   }
 
   // ------------------------------------------------------------- Molly Easy
@@ -822,7 +828,7 @@ export class Game {
         if (next && next.wander) next = null;
         if (next && next.kind === 'grab') {
           // spread out over the baskets: the nearest one nobody else is heading to
-          const taken = new Set(this.ents.filter((o) => o !== e && o.auto && o.auto.plan && o.auto.plan.kind === 'grab').map((o) => o.auto.plan.target));
+          const taken = new Set(this.ents.filter((o) => o !== e).map((o) => (o.auto ? o.auto.plan : o.plan)).filter((pl) => pl && pl.kind === 'grab').map((pl) => pl.target));
           const pool = BASKETS.filter((b) => !taken.has(b));
           const b = (pool.length ? pool : BASKETS).reduce((best, k) => (dist(k.x, k.y, e.x, e.y) < dist(best.x, best.y, e.x, e.y) ? k : best));
           const off = (e.i % 2 ? 1 : -1) * 75;

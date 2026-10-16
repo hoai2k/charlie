@@ -35,7 +35,7 @@ export const meta = {
   tips: ['Big gold stars are worth 3!', 'Bump through the silly clouds - they sneeze out hearts.', 'Touch the grass for a big BOING!'],
   goalEasy: 'Hold A to float up and let go to float down - grab the hearts and stars flying by!',
   controlsEasy: [['a', 'Hold to go up, let go to go down']],
-  tipsEasy: ['The ring shows your next heart - the arrow says up or down!', 'Big gold stars are worth 3!', 'Touch the grass for a big BOING!'],
+  tipsEasy: ['The ring shows your next heart - the arrow says up or down!', 'Treats only come to you after you press A!', 'Big gold stars are worth 3!', 'Touch the grass for a big BOING!'],
   music: 'chase',
   duration: '45 sec',
   minPlayers: 1,
@@ -74,6 +74,7 @@ const RISE = 560, SINK = 420;
 const WIND = 260;
 const VALUE = { heart: 1, star: 1, gold: 3 };
 const CLOUD_MOODS = 3;
+const EASY_GRAB = 3;          // Molly Easy: treats come to you while A is held and this long after
 
 let serial = 0;
 
@@ -219,7 +220,7 @@ export class Game {
           // Molly Easy: treats close to a human's balloons drift in to meet the nearest one
           let bx = 0, by = 0, best = 230;
           for (const e of this.ents) {
-            if (e.p.isAI) continue;
+            if (e.p.isAI || !this.ezGrab(e)) continue;
             const b = this.body(e), d = Math.hypot(b.x - it.x, b.y - it.y);
             if (d < best && d > 1) { best = d; bx = b.x; by = b.y; }
           }
@@ -243,7 +244,7 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt); e.streakT = Math.max(0, e.streakT - dt); e.boingT = Math.max(0, e.boingT - dt);
     if (e.streakT <= 0) e.streak = 0;
     const easy = this.easy && !p.isAI;
-    if (easy && !this.done) this.easyLook(e);
+    if (easy && !this.done) { this.easyLook(e); e.ezA = ctrl.held('a') ? 0 : (e.ezA ?? 9) + dt; }
     let inX = this.done ? 0 : ctrl.x;
     if (easy && !this.done) {
       // drift toward the next treat, but stay near your own patch of sky
@@ -309,6 +310,7 @@ export class Game {
       if (it.dead) continue;
       let best = null, bd = 1e9;
       for (const e of this.ents) {
+        if (this.easy && !e.p.isAI && !this.ezGrab(e)) continue;   // Molly Easy: bobbing about idle doesn't grab
         const b = this.body(e), u = this.bunch(e);
         const big = this.easy && !e.p.isAI ? 1.3 : 1;   // Molly Easy: a more generous grab
         const rb = (it.r + this.scale * 62) * big, ru = (it.r + this.scale * 70) * big;
@@ -380,6 +382,9 @@ export class Game {
       }
     }
   }
+
+  /** Molly Easy: is A held now, or was it a moment ago? (the grab and the treat magnet need it) */
+  ezGrab(e) { return (e.ezA ?? 9) < EASY_GRAB; }
 
   /** Molly Easy: the next treat coming at this human, and whether to go up or down for it. */
   easyLook(e) {
@@ -477,7 +482,8 @@ export class Game {
       if (show) ui.playerTag(g, e.p, u.x, u.y - 70 * this.scale - 8);
     }
     if (this.easy && !this.done) {
-      // Molly Easy: a ring on your next treat, and an arrow saying up (hold A) or down (let go)
+      // Molly Easy: a ring on your next treat, an arrow saying up (hold A) or down (let go),
+      // and a big A whenever A hasn't been pressed lately (treats only come to you after A)
       for (const e of this.ents) {
         if (e.p.isAI) continue;
         const it = e.target;
@@ -491,7 +497,11 @@ export class Game {
           const y = b.y + dir * Math.abs(Math.sin(this.t * 6)) * 16;
           g.save(); g.translate(x, y); g.fillStyle = e.p.color; g.strokeStyle = '#24163f'; g.lineWidth = 5;
           g.beginPath(); g.moveTo(-24, -dir * 4); g.lineTo(24, -dir * 4); g.lineTo(0, dir * 34); g.closePath(); g.fill(); g.stroke(); g.restore();
-          if (e.ezHint === 'up' && !e.p.ctrl.held('a')) ui.glyph(g, 'a', x, y - 62, 52, { pulse: true });
+          if ((e.ezHint === 'up' || !this.ezGrab(e)) && !e.p.ctrl.held('a')) ui.glyph(g, 'a', x, y - 62, 52, { pulse: true });
+        } else if (it && !this.ezGrab(e) && !e.p.ctrl.held('a')) {
+          // right on course but A hasn't been pressed lately: the grab needs it
+          const b = this.body(e);
+          ui.glyph(g, 'a', b.x + e.a.width * 0.5 + 60, b.y - 40, 52, { pulse: true });
         }
       }
     }

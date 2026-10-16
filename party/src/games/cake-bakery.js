@@ -1236,6 +1236,17 @@ export class Game {
       g.save(); g.translate(W / 2, this.n === 1 ? 170 : H / 2); g.rotate(-0.02);
       ui.panel(g, -bw / 2, -44, bw, 88, { r: 44, fill: '#9b5cff' });
       ui.text(g, msg, 0, 2, { size: 54, weight: 800, color: '#fff' });
+      // at 7.5 s a little magic puff blows out any candles still lit: show it coming
+      const left = 7.5 - F.blowT;
+      if (F.stage === 'blow' && left < 3 && left > 0 && this.stations.some((st) => !st.out)) {
+        g.save(); g.translate(bw / 2 + 56, 0); g.rotate(0.02);
+        g.fillStyle = '#fff8ec'; g.strokeStyle = NAVY; g.lineWidth = 5;
+        g.beginPath(); g.arc(0, 0, 40, 0, TAU); g.fill(); g.stroke();
+        g.strokeStyle = '#9b5cff'; g.lineWidth = 8; g.lineCap = 'round';
+        g.beginPath(); g.arc(0, 0, 30, -Math.PI / 2, -Math.PI / 2 + TAU * (left / 3)); g.stroke();
+        ui.text(g, String(Math.ceil(left)), 0, 2, { size: 38, color: NAVY, stroke: false, weight: 800 });
+        g.restore();
+      }
       g.restore();
     }
   }

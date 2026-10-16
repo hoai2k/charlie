@@ -1077,6 +1077,18 @@ export class Game {
       drawPlant(g, 0, 3, W - 430, y + 52, 0.32, this.t);
       ui.bar(g, W - 400, y + 18, 230, 26, b / tot, '#ff8fd0', { lineWidth: 3 });
       ui.text(g, `${b} / ${tot}`, W - 100, y + 31, { size: 30, color: NAVY, stroke: false, weight: 800 });
+      // the day ends at DAY_MAX even if the garden isn't full: say so for its last 20 s
+      const left = DAY_MAX - this.phaseT;
+      if (this.phase === 'day' && left < 20) {
+        const cy = y + 30, x0 = W - 784, k = clamp((20 - left) / 0.3, 0, 1);   // left of the bloom bar (the corner controls sit below it)
+        g.save(); g.globalAlpha = k;
+        ui.panel(g, x0, cy - 30, 290, 60, { r: 30, fill: '#ffe2b0', lineWidth: 4 });
+        g.fillStyle = '#ff9f43'; g.strokeStyle = NAVY; g.lineWidth = 3;
+        g.beginPath(); g.arc(x0 + 38, cy + 6, 18, Math.PI, TAU); g.closePath(); g.fill(); g.stroke();
+        g.beginPath(); g.moveTo(x0 + 12, cy + 8); g.lineTo(x0 + 64, cy + 8); g.stroke();
+        ui.text(g, `Sunset in ${Math.max(1, Math.ceil(left))}`, x0 + 74, cy + 2, { size: 30, color: NAVY, stroke: false, weight: 800, align: 'left' });
+        g.restore();
+      }
     } else if (this.phase === 'night') {
       const left = Math.max(0, NIGHT_LEN - this.phaseT);
       ui.panel(g, W - 470, y, 430, 60, { r: 30, fill: 'rgba(255,255,255,0.9)', lineWidth: 4 });
