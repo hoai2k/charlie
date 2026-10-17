@@ -34,7 +34,7 @@ whole teddy/cat), whoopee-tea (bowl split at the lid edge, frog rises inside), g
 trick-or-treat (jack box split on its top outline, square door light), fairy-hide-seek,
 duckling-parade, kitten-yarn, mermaid-pearls, garden-grow, prank-troll, sock-match,
 fairy-flutter (jar outline), unicorn-jump (tilted seat). Left as is: balloon-float bow/strings
-vs hands (needs a hold-balloons pose), ghost-giggles fireplace ghosts fade in front (reads as
+vs hands (fixed 2026-10-17: the fairies have a hold-balloons pose), ghost-giggles fireplace ghosts fade in front (reads as
 coming out of the fire), a few confetti bits on the jack can pass the door jamb.
 
 ### Molly Easy mode (2026-10-15): DONE

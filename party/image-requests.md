@@ -1110,17 +1110,5 @@ file (`prop/sky-cake` = `prop/giant-cake`, `prop/pump` = `prop/balloon-pump`,
 `prop/gem` = `prop/gem-red`, `prop/cookie-tile` = `prop/cookie-1`). That's
 fine; the code uses one of each pair.
 
-### Audit follow-ups — 2026-10-16 minigame audit   (requested by the lead, 2026-10-16, priority: nice-to-have)
-
-Found in the 2026-10-16 audit of all shelf games. Each has a working fallback today.
-
-| Key | Size / anchor | Where it's used and today's fallback | What |
-| --- | --- | --- | --- |
-| pose `roll-push` (every playable roster character) | Normal pose frame, feet on the shared foot anchor | snowman-builder: rolling a snowball (`ROLL_POSE`, snowman-builder.js). Registered in `POSES` already; no set has it, so pushers just walk beside the ball | Walking bent forward with both hands (paws, or the head for armless characters) pressed against a big snowball, pushing it along. Leave the snowball out (the game draws it); 2 frames if the walk differs |
-| pose `hold-balloons` (the Molly fairies: `glimmer`, `garden-fairy-*`) | Normal pose frame, feet anchor; add a `hand` anchor at the raised fist | balloon-float: the whole game. Today `float` is used and the drawn balloon strings miss the hands (left as is in the occlusion audit). Not registered yet: the lead adds it to `POSES` (fallback `float`) and ties the strings to `hand` on delivery | Floating upward, one arm raised high gripping a bunch of balloon strings, the other arm out for balance, legs dangling, wings fluttering, delighted face. No balloons or strings in the art (the game draws them) |
-| `prop/bed-duvet-edge` | ~260×70, transparent, tileable left-right; top edge = `BED.top` | bed-bounce: sleepers outside the bed art's duvet span (the pillow end and the foot end) get a drawn pink bar across the chin (`drawTuck`, bed-bounce/draw.js) | The folded-over top edge of the duvet from `bg/bed-bounce`, same colours and pattern, seen from the front, so a sleeper tucked in to the chin reads as under the covers |
-| `prop/fairy-count-flower-<pink\|yellow\|blue>` | ~260×620, transparent; bottom centre = stem base, flower head centred ~120 px from the top | fairy-count: the three tall flowers the fairies hide in (`drawGarden`, procedural bezier stems and drawn heads). They clash with the painted `bg/fairy-count` | A tall night-garden flower in the painted style of `bg/fairy-count`: long curved stem with two leaves and a big open bloom (pink / yellow / blue), soft glow at the centre. The lead will also move the middle flower so its stem stops crossing the countdown |
-| `bg/paint-party` (re-generation) | 1920×1080; the play floor is the band y 96–976, edge to edge | paint-party: today the art is drawn at 25% under the 48×22 paint grid and reads as a faded double image | Same plaza scene, but the floor band y 96–976 is a flat, light, evenly lit tiled floor with **no props, plants or pots inside it** (the grid paints over it at full strength). Keep decorations (bunting, paint pots, plants) to the top 96 px and the bottom ~100 px only |
-
-All earlier Play Studio, Molly and grown-up reaction image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
+All Play Studio, Molly, grown-up reaction and 2026-10-16 audit image requests are delivered and checked. Add new requests or regeneration feedback above; delivery details are in image-requests-history.md and reference/IMAGE-WORK-QUEUE.md.
 

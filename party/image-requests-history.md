@@ -1,3 +1,23 @@
+## 2026-10-17: Audit follow-ups (2026-10-16 minigame audit) — delivered
+
+Delivered in `fe57760` (prompts and sources: `tools/sprites/pending/OCT16-ROLL-*.json`, `reference/pending/OCT16-MOLLY-ACTIONS-*.json`, `reference/pending/OCT16-ENVIRONMENT/`), integrated and checked in game 2026-10-17:
+- `roll-push`: all 15 roster sets and the 6 fairies; snowman-builder picks it up through `POSES` (checked in game). kpop-girl-right keeps one frame (frame 01 dropped) to stay under the 25 MiB decoded budget.
+- `hold-balloons`: the 6 fairies; registered in `POSES` (fallback `float`) and used by balloon-float, whose strings already tie to the `hand` anchor (checked: the strings meet the raised fist).
+- `prop/bed-duvet-edge`: drawn by bed-bounce's `drawTuck` for pillow-end sleepers, scaled to 1.9x the sleeper and clipped to rounded ends so a short piece reads as a blanket.
+- `prop/fairy-count-flower-<pink|yellow|blue>`: the three hiding flowers, drawn 1.35x with the bloom on the old head point (blooms cover a hiding fairy). The middle flower stays at x 960: the thin painted stem no longer crowds the countdown.
+- `bg/paint-party` now points at `bg/paint-party-v2` and is drawn at full strength (the code-drawn tiles remain the fallback).
+- Housekeeping: re-optimised kpop-girl-left, kpop-girl-right and hotdog; re-made princess-amber masks; `validate.py` clean (warnings only).
+
+### Original request
+
+| Key | Size / anchor | Where it's used and today's fallback | What |
+| --- | --- | --- | --- |
+| pose `roll-push` (every playable roster character) | Normal pose frame, feet on the shared foot anchor | snowman-builder: rolling a snowball (`ROLL_POSE`, snowman-builder.js). Registered in `POSES` already; no set has it, so pushers just walk beside the ball | Walking bent forward with both hands (paws, or the head for armless characters) pressed against a big snowball, pushing it along. Leave the snowball out (the game draws it); 2 frames if the walk differs |
+| pose `hold-balloons` (the Molly fairies: `glimmer`, `garden-fairy-*`) | Normal pose frame, feet anchor; add a `hand` anchor at the raised fist | balloon-float: the whole game. Today `float` is used and the drawn balloon strings miss the hands (left as is in the occlusion audit). Not registered yet: the lead adds it to `POSES` (fallback `float`) and ties the strings to `hand` on delivery | Floating upward, one arm raised high gripping a bunch of balloon strings, the other arm out for balance, legs dangling, wings fluttering, delighted face. No balloons or strings in the art (the game draws them) |
+| `prop/bed-duvet-edge` | ~260×70, transparent, tileable left-right; top edge = `BED.top` | bed-bounce: sleepers outside the bed art's duvet span (the pillow end and the foot end) get a drawn pink bar across the chin (`drawTuck`, bed-bounce/draw.js) | The folded-over top edge of the duvet from `bg/bed-bounce`, same colours and pattern, seen from the front, so a sleeper tucked in to the chin reads as under the covers |
+| `prop/fairy-count-flower-<pink\|yellow\|blue>` | ~260×620, transparent; bottom centre = stem base, flower head centred ~120 px from the top | fairy-count: the three tall flowers the fairies hide in (`drawGarden`, procedural bezier stems and drawn heads). They clash with the painted `bg/fairy-count` | A tall night-garden flower in the painted style of `bg/fairy-count`: long curved stem with two leaves and a big open bloom (pink / yellow / blue), soft glow at the centre. The lead will also move the middle flower so its stem stops crossing the countdown |
+| `bg/paint-party` (re-generation) | 1920×1080; the play floor is the band y 96–976, edge to edge | paint-party: today the art is drawn at 25% under the 48×22 paint grid and reads as a faded double image | Same plaza scene, but the floor band y 96–976 is a flat, light, evenly lit tiled floor with **no props, plants or pots inside it** (the grid paints over it at full strength). Keep decorations (bunting, paint pots, plants) to the top 96 px and the bottom ~100 px only |
+
 ## 2026-10-13: Duchess Teddy shock and reluctant huff — delivered
 
 Final alpha, canvas/framing and gameplay consumers reviewed. Exact prompts and lossless source paths: `reference/pending/OCT13-DUCHESS-EXTRA.json`.
