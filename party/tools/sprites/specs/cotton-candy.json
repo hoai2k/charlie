@@ -4618,6 +4618,86 @@
       "loop": false,
       "motion": 0.3,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/cotton-candy-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            1055,
+            809
+          ],
+          "scale": 0.8391200000000001,
+          "bodyHeight": 250,
+          "isolate": true,
+          "anchor": [
+            487,
+            750
+          ],
+          "head": [
+            303,
+            230
+          ],
+          "eyes": [
+            280,
+            340
+          ],
+          "neck": [
+            371,
+            432
+          ],
+          "back": [
+            506,
+            405
+          ],
+          "hand": [
+            209,
+            413
+          ]
+        },
+        {
+          "source": "../sources/cotton-candy-roll-push-oct16.webp",
+          "rect": [
+            1055,
+            0,
+            887,
+            809
+          ],
+          "scale": 0.8391200000000001,
+          "bodyHeight": 250,
+          "isolate": true,
+          "anchor": [
+            456,
+            754
+          ],
+          "head": [
+            240,
+            230
+          ],
+          "eyes": [
+            217,
+            340
+          ],
+          "neck": [
+            308,
+            432
+          ],
+          "back": [
+            443,
+            405
+          ],
+          "hand": [
+            145,
+            413
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": -1
     }
   },
   "portraits": {

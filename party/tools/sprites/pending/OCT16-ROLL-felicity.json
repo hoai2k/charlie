@@ -1,0 +1,96 @@
+{
+  "asset": "felicity",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-dab9a633-d11d-46a8-9ea1-b1dfe16f52d1.png",
+  "source": "party/tools/sprites/sources/felicity-roll-push-oct16.webp",
+  "status": "intaken; pending integrator game review",
+  "losslessRGBA": true,
+  "exact": true,
+  "prompt": "Use case: game-asset. Make a transparent 2-frame sprite sheet, one horizontal row, of FELICITY ONLY (the upright fox girl in image 1, no small companion). Image 1 is approved canonical identity; image 2 shipping idle establishes exact character proportions and costume. Preserve orange fox face, turquoise eyes, brown pigtails, flowered orange dress, shoes and bushy white tipped tail; bold dark outlines and clean cel shading. Two distinct consecutive walking strides while bent forward pushing something to the RIGHT: both empty palms extended forward at chest height, arms braced, head leaning forward, one leg forward then the other leg forward. Each frame full body and complete tail, same head size, common sole baseline, generous transparent gutters. No snowball, no props, no ground, no shadows, no effects, no lettering or labels. Actual transparent alpha background.",
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/felicity-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          887,
+          887
+        ],
+        "scale": 0.6585802469135802,
+        "bodyHeight": 215,
+        "isolate": true,
+        "anchor": [
+          510,
+          858
+        ],
+        "head": [
+          610,
+          124
+        ],
+        "eyes": [
+          650,
+          314
+        ],
+        "neck": [
+          587,
+          435
+        ],
+        "back": [
+          476,
+          514
+        ],
+        "hand": [
+          858,
+          448
+        ]
+      },
+      {
+        "source": "../sources/felicity-roll-push-oct16-corrected.webp",
+        "rect": [
+          887,
+          0,
+          887,
+          887
+        ],
+        "scale": 0.6585802469135802,
+        "bodyHeight": 215,
+        "isolate": true,
+        "anchor": [
+          533,
+          858
+        ],
+        "head": [
+          583,
+          124
+        ],
+        "eyes": [
+          618,
+          314
+        ],
+        "neck": [
+          555,
+          435
+        ],
+        "back": [
+          444,
+          514
+        ],
+        "hand": [
+          813,
+          448
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true,
+  "correction": {
+    "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-e87d7e9a-65c0-4741-829a-64428d50d58d.png",
+    "source": "party/tools/sprites/sources/felicity-roll-push-oct16-corrected.webp",
+    "prompt": "Edit this two-cell sprite sheet. Keep the LEFT figure absolutely unchanged. Keep the RIGHT figure's head, face, hair, costume upper torso, braced pushing arms, palms, tail, size and location unchanged. Change ONLY the RIGHT figure's legs below skirt: change the long extended walking stride into a clear PASSING STEP with both feet close underneath hips, one leg planted vertically under her body and the other knee bent and lifted forward with its foot tucked under skirt. This must be visibly different from the left long stride. Preserve full transparency and exact canvas, clean cartoon outline/shading, no snowball/props/text."
+  },
+  "headScaleCorrection": "new frames bodyHeight215, matching canonical head rather than crouch height"
+}

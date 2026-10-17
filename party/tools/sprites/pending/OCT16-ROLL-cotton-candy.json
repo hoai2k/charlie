@@ -1,0 +1,90 @@
+{
+  "asset": "cotton-candy",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-d1b194e7-637f-44f5-9d5b-883579644604.png",
+  "source": "party/tools/sprites/sources/cotton-candy-roll-push-oct16.webp",
+  "prompt": "Two-frame transparent sprite strip, same quadruped PONY from image1 approved canonical and image2 shipping idle proportions. White pony, large blue eyes, long pink blue lavender striped mane/tail, yellow crown with blue jewels, yellow flower flank. NO horn. Pushing invisible ball to RIGHT by lowered forehead/muzzle, neck lowered and four horse legs walking under body. LEFT cell long extended stride with forelegs spread; RIGHT cell clear passing step with forehooves close beneath chest, one bent raised foreleg and alternate hind step. Distinct silhouettes, not repeated poses. Full head crown mane/tail/hooves, same head size, baseline, wide gutters. Bold dark outlines clean cartoon cel shading. True transparent alpha, absolutely NO colored glow or background. No snowball, props, human arms/hands, ground, effects, text.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/cotton-candy-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          1055,
+          809
+        ],
+        "scale": 0.8391200000000001,
+        "bodyHeight": 250,
+        "isolate": true,
+        "anchor": [
+          487,
+          750
+        ],
+        "head": [
+          303,
+          230
+        ],
+        "eyes": [
+          280,
+          340
+        ],
+        "neck": [
+          371,
+          432
+        ],
+        "back": [
+          506,
+          405
+        ],
+        "hand": [
+          209,
+          413
+        ]
+      },
+      {
+        "source": "../sources/cotton-candy-roll-push-oct16.webp",
+        "rect": [
+          1055,
+          0,
+          887,
+          809
+        ],
+        "scale": 0.8391200000000001,
+        "bodyHeight": 250,
+        "isolate": true,
+        "anchor": [
+          456,
+          754
+        ],
+        "head": [
+          240,
+          230
+        ],
+        "eyes": [
+          217,
+          340
+        ],
+        "neck": [
+          308,
+          432
+        ],
+        "back": [
+          443,
+          405
+        ],
+        "hand": [
+          145,
+          413
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": -1
+  },
+  "shippingExistingPosesPreserved": true
+}

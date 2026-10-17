@@ -4354,6 +4354,86 @@
       "loop": false,
       "motion": 0.3,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/felicity-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "scale": 0.6585802469135802,
+          "bodyHeight": 215,
+          "isolate": true,
+          "anchor": [
+            510,
+            858
+          ],
+          "head": [
+            610,
+            124
+          ],
+          "eyes": [
+            650,
+            314
+          ],
+          "neck": [
+            587,
+            435
+          ],
+          "back": [
+            476,
+            514
+          ],
+          "hand": [
+            858,
+            448
+          ]
+        },
+        {
+          "source": "../sources/felicity-roll-push-oct16-corrected.webp",
+          "rect": [
+            887,
+            0,
+            887,
+            887
+          ],
+          "scale": 0.6585802469135802,
+          "bodyHeight": 215,
+          "isolate": true,
+          "anchor": [
+            533,
+            858
+          ],
+          "head": [
+            583,
+            124
+          ],
+          "eyes": [
+            618,
+            314
+          ],
+          "neck": [
+            555,
+            435
+          ],
+          "back": [
+            444,
+            514
+          ],
+          "hand": [
+            813,
+            448
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
     }
   },
   "portraits": {

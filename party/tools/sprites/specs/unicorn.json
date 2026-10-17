@@ -4629,6 +4629,86 @@
       "loop": false,
       "motion": 0.2,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/unicorn-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            957,
+            822
+          ],
+          "scale": 0.6221739130434782,
+          "bodyHeight": 210,
+          "isolate": true,
+          "anchor": [
+            567,
+            755
+          ],
+          "head": [
+            784,
+            194
+          ],
+          "eyes": [
+            768,
+            263
+          ],
+          "neck": [
+            698,
+            361
+          ],
+          "back": [
+            523,
+            364
+          ],
+          "hand": [
+            841,
+            343
+          ]
+        },
+        {
+          "source": "../sources/unicorn-roll-push-oct16.webp",
+          "rect": [
+            957,
+            0,
+            957,
+            822
+          ],
+          "scale": 0.6221739130434782,
+          "bodyHeight": 210,
+          "isolate": true,
+          "anchor": [
+            491,
+            755
+          ],
+          "head": [
+            769,
+            194
+          ],
+          "eyes": [
+            753,
+            263
+          ],
+          "neck": [
+            683,
+            361
+          ],
+          "back": [
+            508,
+            364
+          ],
+          "hand": [
+            826,
+            343
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
     }
   },
   "portraits": {

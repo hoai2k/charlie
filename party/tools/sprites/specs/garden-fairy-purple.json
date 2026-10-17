@@ -3562,6 +3562,170 @@
       "loop": true,
       "motion": 0.85,
       "facing": 1
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-purple-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            614
+          ],
+          "isolate": true,
+          "scale": 0.6721,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            350,
+            15
+          ],
+          "eyes": [
+            410,
+            270
+          ],
+          "neck": [
+            370,
+            335
+          ],
+          "back": [
+            315,
+            370
+          ],
+          "hand": [
+            530,
+            350
+          ],
+          "anchor": [
+            340,
+            615
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-purple-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            614
+          ],
+          "isolate": true,
+          "scale": 0.6721,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            350,
+            15
+          ],
+          "eyes": [
+            410,
+            270
+          ],
+          "neck": [
+            370,
+            335
+          ],
+          "back": [
+            315,
+            370
+          ],
+          "hand": [
+            530,
+            350
+          ],
+          "anchor": [
+            340,
+            615
+          ]
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-purple-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            614,
+            627,
+            640
+          ],
+          "isolate": true,
+          "scale": 0.6721,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            330,
+            23
+          ],
+          "eyes": [
+            400,
+            211
+          ],
+          "neck": [
+            400,
+            281
+          ],
+          "back": [
+            350,
+            328
+          ],
+          "hand": [
+            530,
+            106
+          ],
+          "anchor": [
+            350,
+            643
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-purple-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            614,
+            627,
+            640
+          ],
+          "isolate": true,
+          "scale": 0.6721,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            353,
+            36
+          ],
+          "eyes": [
+            423,
+            226
+          ],
+          "neck": [
+            408,
+            296
+          ],
+          "back": [
+            350,
+            338
+          ],
+          "hand": [
+            528,
+            136
+          ],
+          "anchor": [
+            350,
+            643
+          ]
+        }
+      ]
     }
   },
   "portraits": {

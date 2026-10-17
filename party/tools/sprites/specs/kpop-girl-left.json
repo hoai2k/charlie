@@ -4501,6 +4501,86 @@
       "loop": false,
       "motion": 0.3,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/kpop-girl-left-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            825,
+            1024
+          ],
+          "scale": 0.4554545454545455,
+          "bodyHeight": 220,
+          "isolate": true,
+          "anchor": [
+            438,
+            951
+          ],
+          "head": [
+            493,
+            70
+          ],
+          "eyes": [
+            525,
+            254
+          ],
+          "neck": [
+            455,
+            340
+          ],
+          "back": [
+            397,
+            427
+          ],
+          "hand": [
+            768,
+            374
+          ]
+        },
+        {
+          "source": "../sources/kpop-girl-left-roll-push-oct16.webp",
+          "rect": [
+            825,
+            0,
+            711,
+            1024
+          ],
+          "scale": 0.4554545454545455,
+          "bodyHeight": 220,
+          "isolate": true,
+          "anchor": [
+            280,
+            961
+          ],
+          "head": [
+            360,
+            70
+          ],
+          "eyes": [
+            392,
+            254
+          ],
+          "neck": [
+            322,
+            340
+          ],
+          "back": [
+            264,
+            427
+          ],
+          "hand": [
+            637,
+            374
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
     }
   },
   "portraits": {

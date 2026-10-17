@@ -1,0 +1,90 @@
+{
+  "asset": "scale",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-61cd87d2-b0ae-49c1-b733-4bf060b888e1.png",
+  "source": "party/tools/sprites/sources/scale-roll-push-oct16.webp",
+  "prompt": "Two-frame transparent sprite strip of SAME MERMAID SCALE approved canonical image1, shipping idle image2 for proportions. Preserve long blonde hair, turquoise eyes, gold crown with teal fin-horns, dark green scalloped top with blue flowers/red spotted hem, red fish tail with blue crisscross ribbons, teal tail fins. Mermaid NO LEGS. Bent forward pushing invisible ball RIGHT, both EMPTY palms extended forward chest-height. LEFT cell fish tail long curved behind leftwards; RIGHT cell tail tightly curls beneath body with fins lifted backward, distinctly different swishing glide phase. Same head/body scale and hands steady, full crown/hair/tail/fins each, generous gutters. True transparent alpha no glow, ball, props, scene, ground, shadows, effects or text. Bold dark cartoon outlines clean cel shading.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/scale-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          985,
+          887
+        ],
+        "scale": 0.8190000000000001,
+        "bodyHeight": 240,
+        "isolate": true,
+        "anchor": [
+          580,
+          813
+        ],
+        "head": [
+          732,
+          211
+        ],
+        "eyes": [
+          721,
+          315
+        ],
+        "neck": [
+          695,
+          398
+        ],
+        "back": [
+          647,
+          475
+        ],
+        "hand": [
+          940,
+          461
+        ]
+      },
+      {
+        "source": "../sources/scale-roll-push-oct16.webp",
+        "rect": [
+          985,
+          0,
+          789,
+          887
+        ],
+        "scale": 0.8190000000000001,
+        "bodyHeight": 240,
+        "isolate": true,
+        "anchor": [
+          405,
+          813
+        ],
+        "head": [
+          537,
+          226
+        ],
+        "eyes": [
+          526,
+          330
+        ],
+        "neck": [
+          500,
+          413
+        ],
+        "back": [
+          452,
+          490
+        ],
+        "hand": [
+          745,
+          476
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true
+}

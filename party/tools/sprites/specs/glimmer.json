@@ -3541,6 +3541,170 @@
       "loop": false,
       "motion": 0.85,
       "facing": 1
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/glimmer-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            600
+          ],
+          "isolate": true,
+          "scale": 0.40490624999999997,
+          "bodyHeight": 85,
+          "dur": 0.24,
+          "head": [
+            400,
+            35
+          ],
+          "eyes": [
+            430,
+            215
+          ],
+          "neck": [
+            410,
+            290
+          ],
+          "back": [
+            340,
+            325
+          ],
+          "hand": [
+            570,
+            305
+          ],
+          "anchor": [
+            360,
+            580
+          ]
+        },
+        {
+          "source": "../sources/glimmer-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            600
+          ],
+          "isolate": true,
+          "scale": 0.40490624999999997,
+          "bodyHeight": 85,
+          "dur": 0.24,
+          "head": [
+            400,
+            35
+          ],
+          "eyes": [
+            430,
+            215
+          ],
+          "neck": [
+            410,
+            290
+          ],
+          "back": [
+            340,
+            325
+          ],
+          "hand": [
+            520,
+            305
+          ],
+          "anchor": [
+            360,
+            580
+          ]
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/glimmer-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            600,
+            627,
+            654
+          ],
+          "isolate": true,
+          "scale": 0.40490624999999997,
+          "bodyHeight": 85,
+          "dur": 0.18,
+          "head": [
+            375,
+            20
+          ],
+          "eyes": [
+            400,
+            177
+          ],
+          "neck": [
+            420,
+            250
+          ],
+          "back": [
+            350,
+            297
+          ],
+          "hand": [
+            530,
+            82
+          ],
+          "anchor": [
+            350,
+            632
+          ]
+        },
+        {
+          "source": "../sources/glimmer-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            600,
+            627,
+            654
+          ],
+          "isolate": true,
+          "scale": 0.40490624999999997,
+          "bodyHeight": 85,
+          "dur": 0.18,
+          "head": [
+            400,
+            20
+          ],
+          "eyes": [
+            425,
+            182
+          ],
+          "neck": [
+            420,
+            257
+          ],
+          "back": [
+            350,
+            307
+          ],
+          "hand": [
+            530,
+            122
+          ],
+          "anchor": [
+            350,
+            632
+          ]
+        }
+      ]
     }
   },
   "portraits": {

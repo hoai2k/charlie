@@ -3562,6 +3562,170 @@
       "loop": true,
       "motion": 0.3,
       "facing": 1
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            614
+          ],
+          "isolate": true,
+          "scale": 0.6877000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            380,
+            15
+          ],
+          "eyes": [
+            455,
+            265
+          ],
+          "neck": [
+            400,
+            330
+          ],
+          "back": [
+            330,
+            360
+          ],
+          "hand": [
+            560,
+            350
+          ],
+          "anchor": [
+            350,
+            620
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-blue-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            614
+          ],
+          "isolate": true,
+          "scale": 0.6877000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            380,
+            15
+          ],
+          "eyes": [
+            455,
+            265
+          ],
+          "neck": [
+            400,
+            330
+          ],
+          "back": [
+            330,
+            360
+          ],
+          "hand": [
+            535,
+            350
+          ],
+          "anchor": [
+            350,
+            620
+          ]
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-blue-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            614,
+            627,
+            640
+          ],
+          "isolate": true,
+          "scale": 0.6877000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            350,
+            33
+          ],
+          "eyes": [
+            420,
+            203
+          ],
+          "neck": [
+            415,
+            298
+          ],
+          "back": [
+            350,
+            338
+          ],
+          "hand": [
+            585,
+            108
+          ],
+          "anchor": [
+            350,
+            643
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-blue-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            614,
+            627,
+            640
+          ],
+          "isolate": true,
+          "scale": 0.6877000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            350,
+            33
+          ],
+          "eyes": [
+            410,
+            208
+          ],
+          "neck": [
+            400,
+            298
+          ],
+          "back": [
+            350,
+            338
+          ],
+          "hand": [
+            520,
+            123
+          ],
+          "anchor": [
+            350,
+            643
+          ]
+        }
+      ]
     }
   },
   "portraits": {

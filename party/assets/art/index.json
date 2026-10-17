@@ -15,7 +15,7 @@
     "bg/spotlight-dance": "bg/spotlight-dance.webp",
     "bg/wizard-quickdraw": "bg/wizard-quickdraw.webp",
     "bg/cookie-crumble": "bg/cookie-crumble.webp",
-    "bg/paint-party": "bg/paint-party.webp",
+    "bg/paint-party": "bg/paint-party-v2.webp",
     "bg/broomstick-dash": "bg/broomstick-dash.webp",
     "bg/fairy-count": "bg/fairy-count.webp",
     "bg/crown-keeper": "bg/crown-keeper.webp",
@@ -1287,7 +1287,11 @@
     "prop/whoopee-duchess-scold": "prop/whoopee-duchess-scold.webp",
     "prop/whoopee-butler-scold": "prop/whoopee-butler-scold.webp",
     "prop/whoopee-duchess-shock": "prop/whoopee-duchess-shock.webp",
-    "prop/whoopee-duchess-huff": "prop/whoopee-duchess-huff.webp"
+    "prop/whoopee-duchess-huff": "prop/whoopee-duchess-huff.webp",
+    "prop/bed-duvet-edge": "prop/bed-duvet-edge.webp",
+    "prop/fairy-count-flower-pink": "prop/fairy-count-flower-pink.webp",
+    "prop/fairy-count-flower-yellow": "prop/fairy-count-flower-yellow.webp",
+    "prop/fairy-count-flower-blue": "prop/fairy-count-flower-blue.webp"
   },
   "groups": {
     "puppet-theater": [
@@ -1967,7 +1971,8 @@
       "prop/bb-teddy-sleep",
       "prop/bb-cat-sleep",
       "prop/nanny-moo-peek-scold",
-      "prop/nanny-moo-shock"
+      "prop/nanny-moo-shock",
+      "prop/bed-duvet-edge"
     ],
     "prank-troll": [
       "bg/prank-troll",

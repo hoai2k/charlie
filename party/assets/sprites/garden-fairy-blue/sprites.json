@@ -3062,6 +3062,146 @@
           "bodyHeight": 240
         }
       ]
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "roll-push-00.webp",
+          "anchor": [
+            82,
+            242
+          ],
+          "artHash": "a86a3f19408c788a2812e9c76683de697d18d0dfea1fc4e2a9f7cb31ee80d736",
+          "fileHash": "5785c7bcf562172ca1da660b51621b88347d703f88ca1c404e8434216453c1e0",
+          "head": [
+            94,
+            6
+          ],
+          "hand": [
+            164,
+            136
+          ],
+          "eyes": [
+            123,
+            103
+          ],
+          "neck": [
+            102,
+            129
+          ],
+          "back": [
+            75,
+            140
+          ],
+          "dur": 0.24,
+          "bodyHeight": 240
+        },
+        {
+          "src": "roll-push-01.webp",
+          "anchor": [
+            94,
+            242
+          ],
+          "artHash": "9e86e63bd7f413f23a4addeeef6521e8bf1f197dcfcad2a2cbe2ceda5a45fe0f",
+          "fileHash": "4b824304152572b4e1b69b0d470d2639ff7f041fc8a424b3c96cd7da94e0d10f",
+          "head": [
+            106,
+            6
+          ],
+          "hand": [
+            167,
+            136
+          ],
+          "eyes": [
+            135,
+            103
+          ],
+          "neck": [
+            114,
+            129
+          ],
+          "back": [
+            87,
+            140
+          ],
+          "dur": 0.24,
+          "bodyHeight": 240
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "src": "hold-balloons-00.webp",
+          "anchor": [
+            86,
+            251
+          ],
+          "artHash": "8ec510033eef562ee55dc5d6ac70c561a40cc3cdd383db813a6bfccc4d2f158f",
+          "fileHash": "2bdb53814cb730d8aa887519fdf140fbf995470600a0a8259113979bb002d6d7",
+          "head": [
+            86,
+            13
+          ],
+          "hand": [
+            178,
+            42
+          ],
+          "eyes": [
+            114,
+            79
+          ],
+          "neck": [
+            112,
+            116
+          ],
+          "back": [
+            86,
+            132
+          ],
+          "dur": 0.18,
+          "bodyHeight": 240
+        },
+        {
+          "src": "hold-balloons-01.webp",
+          "anchor": [
+            89,
+            249
+          ],
+          "artHash": "d1cd6ec9852f66968a14baf38ef71a0993e75713db3af831517e9cc3089c7a7a",
+          "fileHash": "7b0d1c1e8c952edccd570504ebfa1ae4eb3a3638d91f15687a862d857b81051e",
+          "head": [
+            90,
+            11
+          ],
+          "hand": [
+            156,
+            46
+          ],
+          "eyes": [
+            113,
+            79
+          ],
+          "neck": [
+            109,
+            114
+          ],
+          "back": [
+            90,
+            130
+          ],
+          "dur": 0.18,
+          "bodyHeight": 240
+        }
+      ]
     }
   },
   "portraits": {

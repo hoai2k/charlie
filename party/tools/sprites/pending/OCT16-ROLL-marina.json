@@ -1,0 +1,90 @@
+{
+  "asset": "marina",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-8eba5b56-e015-4801-9341-1a5c735a161d.png",
+  "source": "party/tools/sprites/sources/marina-roll-push-oct16.webp",
+  "prompt": "Two-frame transparent sprite strip of SAME MERMAID MARINA, approved canonical image1, shipping idle image2 for proportions. Preserve red hair, turquoise eyes, purple shell top, gold crown purple gems, green scaled fish tail with purple bands and purple fins. Mermaid has NO LEGS. Bent forward pushing invisible ball RIGHT with both empty palms extended forward at chest height. LEFT cell fish tail curved long behind leftward; RIGHT cell tail curls beneath body with fins lifted backward, distinctly different tail-swishing glide phase. Same head/body size, hands held steady, full crown/hair/tail/fins each, wide gutters. True transparent alpha, no glow, no ball/props/scenery/shadows/effects/text. Bold dark cartoon outlines, clean cel shading.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/marina-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          1045,
+          793
+        ],
+        "scale": 0.8213333333333335,
+        "bodyHeight": 240,
+        "isolate": true,
+        "anchor": [
+          560,
+          745
+        ],
+        "head": [
+          779,
+          103
+        ],
+        "eyes": [
+          787,
+          251
+        ],
+        "neck": [
+          733,
+          347
+        ],
+        "back": [
+          678,
+          460
+        ],
+        "hand": [
+          990,
+          378
+        ]
+      },
+      {
+        "source": "../sources/marina-roll-push-oct16.webp",
+        "rect": [
+          1045,
+          0,
+          938,
+          793
+        ],
+        "scale": 0.8213333333333335,
+        "bodyHeight": 240,
+        "isolate": true,
+        "anchor": [
+          475,
+          745
+        ],
+        "head": [
+          692,
+          103
+        ],
+        "eyes": [
+          700,
+          251
+        ],
+        "neck": [
+          646,
+          347
+        ],
+        "back": [
+          591,
+          460
+        ],
+        "hand": [
+          903,
+          378
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true
+}

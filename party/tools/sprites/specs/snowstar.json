@@ -3349,6 +3349,86 @@
       "loop": false,
       "motion": 0.3,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/snowstar-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            935,
+            887
+          ],
+          "scale": 0.5821759259259259,
+          "bodyHeight": 275,
+          "isolate": true,
+          "anchor": [
+            527,
+            872
+          ],
+          "head": [
+            587,
+            105
+          ],
+          "eyes": [
+            574,
+            354
+          ],
+          "neck": [
+            565,
+            493
+          ],
+          "back": [
+            510,
+            573
+          ],
+          "hand": [
+            838,
+            479
+          ]
+        },
+        {
+          "source": "../sources/snowstar-roll-push-oct16.webp",
+          "rect": [
+            935,
+            0,
+            839,
+            887
+          ],
+          "scale": 0.5821759259259259,
+          "bodyHeight": 275,
+          "isolate": true,
+          "anchor": [
+            415,
+            878
+          ],
+          "head": [
+            428,
+            105
+          ],
+          "eyes": [
+            415,
+            354
+          ],
+          "neck": [
+            406,
+            493
+          ],
+          "back": [
+            351,
+            573
+          ],
+          "hand": [
+            679,
+            479
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
     }
   },
   "portraits": {

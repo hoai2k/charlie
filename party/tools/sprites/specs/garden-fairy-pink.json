@@ -3559,6 +3559,170 @@
       "loop": true,
       "motion": 0.85,
       "facing": 1
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            632
+          ],
+          "isolate": true,
+          "scale": 0.6695000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            350,
+            15
+          ],
+          "eyes": [
+            410,
+            270
+          ],
+          "neck": [
+            370,
+            340
+          ],
+          "back": [
+            315,
+            365
+          ],
+          "hand": [
+            530,
+            350
+          ],
+          "anchor": [
+            340,
+            625
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-pink-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            632
+          ],
+          "isolate": true,
+          "scale": 0.6695000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            350,
+            15
+          ],
+          "eyes": [
+            410,
+            275
+          ],
+          "neck": [
+            370,
+            345
+          ],
+          "back": [
+            315,
+            370
+          ],
+          "hand": [
+            530,
+            355
+          ],
+          "anchor": [
+            340,
+            625
+          ]
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-pink-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            632,
+            627,
+            622
+          ],
+          "isolate": true,
+          "scale": 0.6695000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            350,
+            15
+          ],
+          "eyes": [
+            390,
+            210
+          ],
+          "neck": [
+            400,
+            300
+          ],
+          "back": [
+            350,
+            335
+          ],
+          "hand": [
+            527,
+            90
+          ],
+          "anchor": [
+            350,
+            625
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-pink-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            632,
+            627,
+            622
+          ],
+          "isolate": true,
+          "scale": 0.6695000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            350,
+            15
+          ],
+          "eyes": [
+            390,
+            210
+          ],
+          "neck": [
+            400,
+            300
+          ],
+          "back": [
+            350,
+            335
+          ],
+          "hand": [
+            507,
+            90
+          ],
+          "anchor": [
+            350,
+            625
+          ]
+        }
+      ]
     }
   },
   "portraits": {

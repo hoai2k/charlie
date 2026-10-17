@@ -4379,6 +4379,86 @@
       "loop": false,
       "motion": 0.2,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/fox-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            1024,
+            848
+          ],
+          "scale": 0.6180032733224222,
+          "bodyHeight": 244.4,
+          "isolate": true,
+          "anchor": [
+            590,
+            812
+          ],
+          "head": [
+            808,
+            349
+          ],
+          "eyes": [
+            867,
+            451
+          ],
+          "neck": [
+            780,
+            567
+          ],
+          "back": [
+            563,
+            500
+          ],
+          "hand": [
+            980,
+            519
+          ]
+        },
+        {
+          "source": "../sources/fox-roll-push-oct16.webp",
+          "rect": [
+            1024,
+            0,
+            831,
+            848
+          ],
+          "scale": 0.6180032733224222,
+          "bodyHeight": 244.4,
+          "isolate": true,
+          "anchor": [
+            416,
+            817
+          ],
+          "head": [
+            649,
+            321
+          ],
+          "eyes": [
+            699,
+            427
+          ],
+          "neck": [
+            615,
+            546
+          ],
+          "back": [
+            416,
+            500
+          ],
+          "hand": [
+            806,
+            448
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
     }
   },
   "portraits": {

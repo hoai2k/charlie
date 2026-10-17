@@ -3948,6 +3948,74 @@
           ]
         }
       ]
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": -1,
+      "frames": [
+        {
+          "src": "roll-push-00.webp",
+          "anchor": [
+            142,
+            235
+          ],
+          "artHash": "4559faa608de95a6a0e3be3920488d3de74fc9b09e67acc56f4b8769e54ce0d0",
+          "fileHash": "19091e431bfbdaa4e7ab86add7db1c3e4a0f39cec82077075e4706caa283ba6c",
+          "head": [
+            79,
+            58
+          ],
+          "hand": [
+            47,
+            120
+          ],
+          "eyes": [
+            71,
+            96
+          ],
+          "neck": [
+            102,
+            127
+          ],
+          "back": [
+            148,
+            118
+          ],
+          "bodyHeight": 250
+        },
+        {
+          "src": "roll-push-01.webp",
+          "anchor": [
+            155,
+            235
+          ],
+          "artHash": "40f3ff970238d3d2d10b4b970b168bf39c9129b5528b29fe1a8349d8d8891b74",
+          "fileHash": "3b6da5db426fef60a62a2e70442b375abcefafe862c9fb614e6c340f43d84d88",
+          "head": [
+            82,
+            57
+          ],
+          "hand": [
+            49,
+            119
+          ],
+          "eyes": [
+            74,
+            95
+          ],
+          "neck": [
+            105,
+            126
+          ],
+          "back": [
+            151,
+            117
+          ],
+          "bodyHeight": 250
+        }
+      ]
     }
   },
   "portraits": {

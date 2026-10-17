@@ -4827,6 +4827,86 @@
       "motion": 0.2,
       "facing": 1,
       "bodyHeight": 144.0
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/hotdog-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            1030,
+            775
+          ],
+          "scale": 0.5914166666666667,
+          "bodyHeight": 160,
+          "isolate": true,
+          "anchor": [
+            390,
+            747
+          ],
+          "head": [
+            348,
+            331
+          ],
+          "eyes": [
+            309,
+            476
+          ],
+          "neck": [
+            338,
+            587
+          ],
+          "back": [
+            592,
+            560
+          ],
+          "hand": [
+            291,
+            536
+          ]
+        },
+        {
+          "source": "../sources/hotdog-roll-push-oct16.webp",
+          "rect": [
+            1030,
+            0,
+            999,
+            775
+          ],
+          "scale": 0.5914166666666667,
+          "bodyHeight": 160,
+          "isolate": true,
+          "anchor": [
+            440,
+            747
+          ],
+          "head": [
+            304,
+            331
+          ],
+          "eyes": [
+            267,
+            476
+          ],
+          "neck": [
+            292,
+            587
+          ],
+          "back": [
+            546,
+            560
+          ],
+          "hand": [
+            245,
+            536
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": -1
     }
   },
   "portraits": {

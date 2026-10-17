@@ -3555,6 +3555,170 @@
       "loop": true,
       "motion": 0.85,
       "facing": 1
+    },
+    "roll-push": {
+      "fps": 5,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            0,
+            627,
+            610
+          ],
+          "isolate": true,
+          "scale": 0.6838000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            380,
+            15
+          ],
+          "eyes": [
+            420,
+            250
+          ],
+          "neck": [
+            400,
+            330
+          ],
+          "back": [
+            330,
+            360
+          ],
+          "hand": [
+            530,
+            350
+          ],
+          "anchor": [
+            350,
+            620
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            0,
+            627,
+            610
+          ],
+          "isolate": true,
+          "scale": 0.6838000000000001,
+          "bodyHeight": 240,
+          "dur": 0.24,
+          "head": [
+            380,
+            15
+          ],
+          "eyes": [
+            420,
+            250
+          ],
+          "neck": [
+            400,
+            330
+          ],
+          "back": [
+            330,
+            360
+          ],
+          "hand": [
+            500,
+            350
+          ],
+          "anchor": [
+            350,
+            620
+          ]
+        }
+      ]
+    },
+    "hold-balloons": {
+      "fps": 6,
+      "loop": true,
+      "motion": 0.1,
+      "facing": 1,
+      "frames": [
+        {
+          "source": "../sources/garden-fairy-green-oct16-molly-actions.webp",
+          "rect": [
+            0,
+            610,
+            627,
+            644
+          ],
+          "isolate": true,
+          "scale": 0.6838000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            350,
+            37
+          ],
+          "eyes": [
+            420,
+            207
+          ],
+          "neck": [
+            415,
+            302
+          ],
+          "back": [
+            350,
+            342
+          ],
+          "hand": [
+            545,
+            105
+          ],
+          "anchor": [
+            350,
+            647
+          ]
+        },
+        {
+          "source": "../sources/garden-fairy-green-oct16-molly-actions.webp",
+          "rect": [
+            627,
+            610,
+            627,
+            644
+          ],
+          "isolate": true,
+          "scale": 0.6838000000000001,
+          "bodyHeight": 240,
+          "dur": 0.18,
+          "head": [
+            350,
+            37
+          ],
+          "eyes": [
+            410,
+            212
+          ],
+          "neck": [
+            400,
+            302
+          ],
+          "back": [
+            350,
+            342
+          ],
+          "hand": [
+            478,
+            85
+          ],
+          "anchor": [
+            350,
+            647
+          ]
+        }
+      ]
     }
   },
   "portraits": {

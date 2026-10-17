@@ -1,0 +1,247 @@
+{
+  "schemaVersion": 1,
+  "generatedWith": "built-in image_gen",
+  "archivePolicy": "Native-size source images archived as lossless WebP using Pillow lossless=True, exact=True, method=6; source PNGs are retained locally for provenance and should not be committed.",
+  "assets": [
+    {
+      "key": "prop/bed-duvet-edge",
+      "game": "bed-bounce",
+      "size": {
+        "width": 260,
+        "height": 70
+      },
+      "prompt": "Create a production-ready game prop that matches reference image 1's softly painted bedtime palette and reference image 2's exact pink star quilt look. Only the folded-over front edge of the duvet, seen straight on: a wide, low padded strip with rounded fabric folds, navy ink outlines, soft rose highlights, plum shadows and scattered tiny pale yellow stars. Transparent background. Compose in a wide shallow horizontal band with the duvet spanning the image nearly edge to edge; it will be cropped to 260×70 pixels. The top edge should be almost straight and level, and the lower edge has gentle cloth folds. Make left and right edges seamless for horizontal tiling; keep pattern and outline continuous across the seams. No bed, pillows, room, floor, character, text, watermark, glow or extra decorations.",
+      "source": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/bed-duvet-edge-native.webp",
+      "sourcePath": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/bed-duvet-edge-native.webp",
+      "sourceSize": {
+        "width": 2172,
+        "height": 724
+      },
+      "sourceBytes": 662018,
+      "sourceFormat": "WebP lossless, exact=True",
+      "runtimeFile": "party/assets/art/prop/bed-duvet-edge.webp",
+      "runtimeBytes": 22908,
+      "nativePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/bed-duvet-edge.png",
+      "nativePNGPath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/bed-duvet-edge.png",
+      "nativeGenerationOutput": "built-in image_gen image_url PNG saved to nativePath",
+      "references": [
+        {
+          "path": "party/assets/art/bg/bed-bounce.webp",
+          "role": "painted bedroom palette reference"
+        },
+        {
+          "path": "party/reference/pending/molly-sources/bed-bounce/prop-bb-bed.webp",
+          "role": "duvet pattern reference"
+        }
+      ],
+      "measurements": {
+        "alphaBounds": [
+          0,
+          1,
+          260,
+          70
+        ],
+        "tileCheck": "3 copies visually checked; cropped band has near-matching left/right edges"
+      }
+    },
+    {
+      "key": "prop/fairy-count-flower-pink",
+      "game": "fairy-count",
+      "size": {
+        "width": 260,
+        "height": 620
+      },
+      "prompt": "A tall, very slim fantasy garden flower prop in the painted moonlit style and colors of reference 1. Final composition is a 260×620 portrait. Make the bloom small: the complete open flower head is only 120 pixels wide (about 46% of the canvas width) and 120 pixels tall, centered at x=130, y=120. It has rounded rosy pink petals around a warm pale yellow luminous center. A long graceful curved green stem continues from directly beneath the bloom almost all the way to the bottom edge, with exactly two modest leaves attached halfway down. Transparent background. Deep navy painted outlines, softly shaded petals and leaves. Keep the flower narrow and airy: the bloom must remain much narrower than the 260 px canvas, and the long stem must dominate the lower 75% of the canvas. No oversized bloom, no multiple blooms, no pot, dirt, scenery, moon, stars, characters, lettering, watermark or detached glow.",
+      "source": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/fairy-count-flower-pink-native.webp",
+      "sourcePath": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/fairy-count-flower-pink-native.webp",
+      "sourceSize": {
+        "width": 813,
+        "height": 1935
+      },
+      "sourceBytes": 250854,
+      "sourceFormat": "WebP lossless, exact=True",
+      "runtimeFile": "party/assets/art/prop/fairy-count-flower-pink.webp",
+      "runtimeBytes": 38046,
+      "nativePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-pink-v2.png",
+      "nativePNGPath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-pink-v2.png",
+      "nativeGenerationOutput": "built-in image_gen image_url PNG saved to nativePath",
+      "references": [
+        {
+          "path": "party/assets/art/bg/fairy-count.webp",
+          "role": "night-garden style and palette reference"
+        }
+      ],
+      "measurements": {
+        "bloomCenterPx": {
+          "x": 134.6,
+          "y": 100.6
+        },
+        "bloomWidthPx": 121,
+        "bloomBoundsApproxPx": {
+          "left": 73,
+          "top": 47,
+          "right": 194,
+          "bottom": 154
+        },
+        "stemBasePx": {
+          "x": 144.4,
+          "y": 610.7
+        }
+      }
+    },
+    {
+      "key": "prop/fairy-count-flower-yellow",
+      "game": "fairy-count",
+      "size": {
+        "width": 260,
+        "height": 620
+      },
+      "prompt": "Create a companion to the flower in reference image 2, matching its scale, shape, position and paint style exactly. This is the same single tall, narrow night-garden stem with two leaves: final canvas 260×620, full bloom centered about x=130, y=120, bloom about 120×120 px. Change only the petals to bright sunflower yellow and keep the warm pale luminous yellow center. Long graceful curved green stem reaches nearly to the bottom edge. Preserve reference 2's dark navy outline and gentle cel shading; match the moonlit blue palette of reference 1. Transparent background. No oversized bloom, no extra blooms, no pot, soil, scenery, moon, stars, characters, text, watermark or detached glow.",
+      "source": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/fairy-count-flower-yellow-native.webp",
+      "sourcePath": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/fairy-count-flower-yellow-native.webp",
+      "sourceSize": {
+        "width": 812,
+        "height": 1935
+      },
+      "sourceBytes": 258200,
+      "sourceFormat": "WebP lossless, exact=True",
+      "runtimeFile": "party/assets/art/prop/fairy-count-flower-yellow.webp",
+      "runtimeBytes": 39544,
+      "nativePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-yellow-v2.png",
+      "nativePNGPath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-yellow-v2.png",
+      "nativeGenerationOutput": "built-in image_gen image_url PNG saved to nativePath",
+      "references": [
+        {
+          "path": "party/assets/art/bg/fairy-count.webp",
+          "role": "night-garden style and palette reference"
+        },
+        {
+          "path": "party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-pink-v2.png",
+          "role": "generated pink flower shape and style reference"
+        }
+      ],
+      "measurements": {
+        "bloomCenterPx": {
+          "x": 134.5,
+          "y": 100.4
+        },
+        "bloomWidthPx": 122,
+        "bloomBoundsApproxPx": {
+          "left": 73,
+          "top": 47,
+          "right": 194,
+          "bottom": 154
+        },
+        "stemBasePx": {
+          "x": 144.6,
+          "y": 601.7
+        }
+      }
+    },
+    {
+      "key": "prop/fairy-count-flower-blue",
+      "game": "fairy-count",
+      "size": {
+        "width": 260,
+        "height": 620
+      },
+      "prompt": "Create a companion to the flower in reference image 2, matching its scale, shape, position and paint style exactly. This is the same single tall, narrow night-garden stem with two leaves: final canvas 260×620, full bloom centered about x=130, y=120, bloom about 120×120 px. Change only the petals to clear sky blue and keep the warm pale luminous yellow center. Long graceful curved green stem reaches nearly to the bottom edge. Preserve reference 2's dark navy outline and gentle cel shading; match the moonlit blue palette of reference 1. Transparent background. No oversized bloom, no extra blooms, no pot, soil, scenery, moon, stars, characters, text, watermark or detached glow.",
+      "source": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/fairy-count-flower-blue-native.webp",
+      "sourcePath": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/fairy-count-flower-blue-native.webp",
+      "sourceSize": {
+        "width": 812,
+        "height": 1935
+      },
+      "sourceBytes": 250732,
+      "sourceFormat": "WebP lossless, exact=True",
+      "runtimeFile": "party/assets/art/prop/fairy-count-flower-blue.webp",
+      "runtimeBytes": 38728,
+      "nativePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-blue-v2.png",
+      "nativePNGPath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-blue-v2.png",
+      "nativeGenerationOutput": "built-in image_gen image_url PNG saved to nativePath",
+      "references": [
+        {
+          "path": "party/assets/art/bg/fairy-count.webp",
+          "role": "night-garden style and palette reference"
+        },
+        {
+          "path": "party/reference/pending/OCT16-ENVIRONMENT/sources/fairy-count-flower-pink-v2.png",
+          "role": "generated pink flower shape and style reference"
+        }
+      ],
+      "measurements": {
+        "bloomCenterPx": {
+          "x": 134.3,
+          "y": 100.4
+        },
+        "bloomWidthPx": 122,
+        "bloomBoundsApproxPx": {
+          "left": 73,
+          "top": 47,
+          "right": 194,
+          "bottom": 155
+        },
+        "stemBasePx": {
+          "x": 146.3,
+          "y": 610.1
+        }
+      }
+    },
+    {
+      "key": "bg/paint-party-v2",
+      "game": "paint-party",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "prompt": "Revise this same plaza background. Preserve the festive border decorations and the bright storybook painting style, but change the entire central play floor. From 9% to 91% of canvas height, edge to edge, show only a uniform pale warm-ivory tiled stone floor: straight rectangular tiles in a quiet regular grid with thin low-contrast grout. The lighting and tile size must stay consistent throughout. Remove the large circular/concentric floor medallion and any special floor motifs. Absolutely no props, plants, pots, paint, splashes, brushes, posts, objects, or object shadows inside this central band. Keep all bunting and greenery confined above the top 9% and below the bottom 9%. Maintain a centered top-down 16:9 composition. No people, letters, logos or watermark.",
+      "source": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/paint-party-v2-native.webp",
+      "sourcePath": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/paint-party-v2-native.webp",
+      "sourceSize": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceBytes": 1061434,
+      "sourceFormat": "WebP lossless, exact=True",
+      "runtimeFile": "party/assets/art/bg/paint-party-v2.webp",
+      "runtimeBytes": 1303868,
+      "nativePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/paint-party-v3.png",
+      "nativePNGPath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/paint-party-v3.png",
+      "nativeGenerationOutput": "built-in image_gen image_url PNG saved to nativePath",
+      "references": [
+        {
+          "path": "party/reference/pending/OCT16-ENVIRONMENT/sources/paint-party-v2.png",
+          "role": "first-pass generated plaza, edited through a second generation"
+        }
+      ],
+      "measurements": {
+        "opaque": true,
+        "playFloorBandApproxPx": [
+          97,
+          983
+        ],
+        "decorationsOutsideCentralFloor": true
+      }
+    }
+  ],
+  "intermediates": [
+    {
+      "key": "bg/paint-party-v2-first-pass",
+      "nativePath": "/Volumes/BACKUP/Backup/Games/charlie/party/reference/pending/OCT16-ENVIRONMENT/sources/paint-party-v2.png",
+      "source": "party/reference/pending/OCT16-ENVIRONMENT/sources/archive/paint-party-v2-first-pass-native.webp",
+      "sourceSize": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceBytes": 1115504,
+      "prompt": "Repaint the same cheerful plaza scene from the reference as a 16:9, 1920×1080 game background in the same bright soft storybook painting style. Keep the overhead view and the festive plaza framing. Layout is strict: the full-width central floor band from y=96 through y=976 (about 81% of the canvas) is a clean, flat, light warm-ivory tiled stone floor, evenly lit, with subtle thin grout lines and very low-contrast shading. This entire central band must be unobstructed and empty edge to edge: no planters, foliage, buckets, paint, splashes, brushes, signs, shadows, posts or decorations may enter it. Confine all party decorations to the top 96 px and bottom 104 px only: small bunting, garden greenery, pots, brushes, and colorful paint accents can peek in from the extreme top/bottom borders. Make the floor tone and tile pattern uniform across the full 1920px width and height band. Maintain a centered open plaza feeling, crisp readable outlines, clean light pastel values, no people, no lettering, no watermark.",
+      "references": [
+        {
+          "path": "party/assets/art/bg/paint-party.webp",
+          "role": "original plaza scene reference"
+        }
+      ],
+      "role": "intermediate generation used as input to final background generation"
+    }
+  ]
+}

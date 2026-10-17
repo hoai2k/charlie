@@ -1,0 +1,162 @@
+{
+  "asset": "glimmer",
+  "prompt": "Use case: illustration-story. Asset type: playable 2D fairy sprite animation sheet. Image 1 is the APPROVED exact Glimmer fairy, peach skin, wavy mint turquoise hair with yellow star clips, purple eyes, pink petal dress and yellow star waist, mint-white striped leggings, yellow star shoes, four iridescent blue-lavender wings; EMPTY hands and no microphone; preserve exact head/body proportions. Produce exactly FOUR full-body frames in a 2 columns x 2 rows grid with generous transparent gutters. Top row left-to-right: roll-push walking phase A then opposite phase B, facing RIGHT in 3/4 side view, bent forward from hips with BOTH hands extended together at waist height to push a large invisible snowball, frame A: LEFT foot far forward and right foot back; frame B: RIGHT foot far forward and left foot back, distinctly reversed knee/foot silhouettes; feet alternate forward/back strides on same ground line, fingers curved for contact. Bottom row: hold-balloons phase A then B, delighted floating upward with one raised arm high overhead, CLOSED FIST gripping invisible strings, other arm out for balance, dangling legs and visibly alternate wing flutter open/narrow phases. Same head size and torso scale across all four; preserve exact reference character and outfit. True transparent background. No snowball, balloons, strings, props, sparkles, effects, ground shadows, scenery, labels or text. Entire cap wings hands and feet fully inside each cell. House style: crisp smooth navy #24163f outlines, polished soft 2D cel shading, no 3D, no photorealism. Output square 1536x1536.",
+  "sourcePath": "/Users/hoai/.codex/generated_images/01a144da-abdd-73f0-8f4a-558bedc86623/exec-9491cca7-fc62-40be-a5c7-943755c726a2.png",
+  "reference": "party/reference/canonical/glimmer.webp",
+  "source": "party/tools/sprites/sources/glimmer-oct16-molly-actions.webp",
+  "tool": "built-in imagegen",
+  "status": "Native and runtime visual review accepted; measured source-local grip points; prior shipped poses preserved",
+  "sourceEncoding": "Full native RGBA, lossless WebP exact=True method=6",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "sourceSha256": "0da913f827cfdbdbf108863aacc19995fb950db4673c70115bf62a8d9011c00a",
+  "poses": [
+    "roll-push",
+    "roll-push",
+    "hold-balloons",
+    "hold-balloons"
+  ],
+  "spec": "party/tools/sprites/specs/glimmer.json",
+  "decodedMiB": 24.935413,
+  "runtimeFrames": {
+    "roll-push": [
+      {
+        "src": "roll-push-00.webp",
+        "anchor": [
+          55,
+          118
+        ],
+        "artHash": "d09ead7dc41dcf3a6c5fa6e49a12c0972dc619f681eb088bea937e384c3d0ccb",
+        "fileHash": "0dca1aafb2c42c752b67eba02b3d6f77bf08c67fd3fb36a448d5e93563d9df74",
+        "head": [
+          63,
+          3
+        ],
+        "hand": [
+          99,
+          60
+        ],
+        "eyes": [
+          69,
+          41
+        ],
+        "neck": [
+          65,
+          57
+        ],
+        "back": [
+          50,
+          64
+        ],
+        "dur": 0.24,
+        "bodyHeight": 85
+      },
+      {
+        "src": "roll-push-01.webp",
+        "anchor": [
+          62,
+          118
+        ],
+        "artHash": "f50cf8906ea38d0f6006d057177e6ded223ca70d20988560991cd4da4024f2a4",
+        "fileHash": "87345f7bffb6e41d3ff0d65ac9969d745a2eed0f949d0846d4da4c0d1d50e515",
+        "head": [
+          70,
+          3
+        ],
+        "hand": [
+          95,
+          60
+        ],
+        "eyes": [
+          76,
+          41
+        ],
+        "neck": [
+          72,
+          57
+        ],
+        "back": [
+          57,
+          64
+        ],
+        "dur": 0.24,
+        "bodyHeight": 85
+      }
+    ],
+    "hold-balloons": [
+      {
+        "src": "hold-balloons-00.webp",
+        "anchor": [
+          62,
+          132
+        ],
+        "artHash": "ac6005a327d30e24f9f8c8f58d19c56cfa505b9cc9de1f551872f9104b948ce4",
+        "fileHash": "c6e084300a239f308eae0ca27b7c2bf5534ccad73184da9125ef1c3ef5427ecd",
+        "head": [
+          67,
+          3
+        ],
+        "hand": [
+          99,
+          16
+        ],
+        "eyes": [
+          72,
+          36
+        ],
+        "neck": [
+          76,
+          52
+        ],
+        "back": [
+          62,
+          61
+        ],
+        "dur": 0.18,
+        "bodyHeight": 85
+      },
+      {
+        "src": "hold-balloons-01.webp",
+        "anchor": [
+          49,
+          132
+        ],
+        "artHash": "e6ddb80bfc559b2e22a157d8bb8d4b97e97e924e5e0a0e87c841b82d2d9b6b7b",
+        "fileHash": "4eb8a515aa6d23394991b531a1bbb67f2d40b2583db9b27be7d4a62789e4a199",
+        "head": [
+          59,
+          3
+        ],
+        "hand": [
+          86,
+          25
+        ],
+        "eyes": [
+          64,
+          37
+        ],
+        "neck": [
+          63,
+          53
+        ],
+        "back": [
+          48,
+          63
+        ],
+        "dur": 0.18,
+        "bodyHeight": 85
+      }
+    ]
+  },
+  "verification": {
+    "newPacketsRebuiltByteExactlyFromSpec": true,
+    "priorManifestFieldsPreserved": true,
+    "sourceAlpha": [
+      0,
+      255
+    ],
+    "review": "Native sheet and runtime contact sheets, measured hand/fist landmarks; approved canonical identities preserved"
+  }
+}

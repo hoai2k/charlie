@@ -1,0 +1,91 @@
+{
+  "asset": "fellowfox",
+  "nativePath": "/Users/hoai/.codex/generated_images/01a144da-7f42-71c1-99ea-7fa12a2566c0/exec-f5f3b49e-71f6-40da-8e74-20c74c534b13.png",
+  "source": "party/tools/sprites/sources/fellowfox-roll-push-oct16.webp",
+  "prompt": "Game sprite sheet: two full-body FELLOwFOX poses, one row, generous gutters, true transparent alpha. Image1 approved identity; image2 shipping idle proportions. Preserve tiny orange quadruped fox, huge amber eyes, white muzzle and chest, black paws, white tipped bushy tail and dark flower by ear; dark smooth outlines and cel shading. Facing RIGHT, head lowered and forehead/muzzle braced against invisible ball, shoulders leaning forward, four actual fox legs walking. Frame1 left front paw stepping forward, right hind forward; frame2 RIGHT front paw stepping forward and LEFT hind forward, clearly opposite stride. Head same size throughout. No human arms or hands, no snowball, props, ground, shadows, effects, labels or text.",
+  "status": "intaken; pending integrator game review",
+  "exact": true,
+  "losslessRGBA": true,
+  "pose": {
+    "frames": [
+      {
+        "source": "../sources/fellowfox-roll-push-oct16.webp",
+        "rect": [
+          0,
+          0,
+          971,
+          809
+        ],
+        "scale": 0.5748,
+        "bodyHeight": 110,
+        "isolate": true,
+        "anchor": [
+          544.9489795918367,
+          698.8590361445783
+        ],
+        "head": [
+          721.3142857142857,
+          269.9915662650602
+        ],
+        "eyes": [
+          733.204081632653,
+          441.53855421686745
+        ],
+        "neck": [
+          623.2234693877551,
+          539.9831325301204
+        ],
+        "back": [
+          424.069387755102,
+          434.7156626506024
+        ],
+        "hand": [
+          834.2673469387755,
+          540.9578313253012
+        ]
+      },
+      {
+        "source": "../sources/fellowfox-roll-push-oct16.webp",
+        "rect": [
+          971,
+          0,
+          971,
+          809
+        ],
+        "scale": 0.5748,
+        "bodyHeight": 110,
+        "isolate": true,
+        "anchor": [
+          530.0867346938776,
+          693.9855421686747
+        ],
+        "head": [
+          703.4795918367347,
+          269.9915662650602
+        ],
+        "eyes": [
+          706.4520408163266,
+          441.53855421686745
+        ],
+        "neck": [
+          599.4438775510205,
+          539.9831325301204
+        ],
+        "back": [
+          391.3724489795918,
+          434.7156626506024
+        ],
+        "hand": [
+          815.4418367346939,
+          539.9831325301204
+        ]
+      }
+    ],
+    "fps": 5,
+    "loop": true,
+    "motion": 0.08,
+    "facing": 1
+  },
+  "shippingExistingPosesPreserved": true,
+  "headScaleCorrection": "new frames bodyHeight110, matching canonical head rather than crouch height"
+}

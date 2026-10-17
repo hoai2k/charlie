@@ -4364,6 +4364,86 @@
       "loop": false,
       "motion": 0.15,
       "facing": 1
+    },
+    "roll-push": {
+      "frames": [
+        {
+          "source": "../sources/bronze-roll-push-oct16.webp",
+          "rect": [
+            0,
+            0,
+            887,
+            887
+          ],
+          "scale": 0.7094464285714285,
+          "bodyHeight": 280,
+          "isolate": true,
+          "anchor": [
+            445,
+            854
+          ],
+          "head": [
+            510,
+            220
+          ],
+          "eyes": [
+            556,
+            357
+          ],
+          "neck": [
+            500,
+            470
+          ],
+          "back": [
+            427,
+            568
+          ],
+          "hand": [
+            720,
+            263
+          ]
+        },
+        {
+          "source": "../sources/bronze-roll-push-oct16.webp",
+          "rect": [
+            887,
+            0,
+            887,
+            887
+          ],
+          "scale": 0.7094464285714285,
+          "bodyHeight": 280,
+          "isolate": true,
+          "anchor": [
+            463,
+            854
+          ],
+          "head": [
+            543,
+            220
+          ],
+          "eyes": [
+            590,
+            357
+          ],
+          "neck": [
+            533,
+            470
+          ],
+          "back": [
+            460,
+            568
+          ],
+          "hand": [
+            753,
+            263
+          ]
+        }
+      ],
+      "fps": 5,
+      "loop": true,
+      "motion": 0.08,
+      "facing": 1
     }
   },
   "portraits": {
