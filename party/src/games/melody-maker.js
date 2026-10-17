@@ -476,6 +476,7 @@ export class Game {
     this.players = api.players;
     this.n = this.players.length;
     this.cpuOnly = this.players.every((p) => p.isAI);
+    this.humans = this.players.filter((p) => !p.isAI).length;
     this.t = 0;
     this.phase = 'edit';
     this.pages = Array.from({ length: NPAGES }, emptyPage);
@@ -612,6 +613,24 @@ export class Game {
   }
   pushHist(st, h) { st.hist.push(h); if (st.hist.length > 40) st.hist.shift(); }
 
+  /** Run a whole-page / whole-song action and record only the cells it changed, so B
+   *  undoes this player's change without wiping notes other kids added since. */
+  recordDiff(st, fn) {
+    const before = this.pages.map((pg) => pg.cells.map((row) => row.slice()));
+    const grooves = this.pages.map((pg) => pg.groove), tempo = this.tempo;
+    fn();
+    if (!st) return;
+    const list = [], gl = [];
+    this.pages.forEach((pg, page) => {
+      for (let R = 0; R < NROWS; R++) for (let col = 0; col < STEPS; col++) {
+        const b = before[page][R][col], a = pg.cells[R][col];
+        if (a !== b) list.push({ page, R, col, before: b, after: a });
+      }
+      if (pg.groove !== grooves[page]) gl.push({ page, before: grooves[page], after: pg.groove });
+    });
+    if (list.length || gl.length || tempo !== this.tempo) this.pushHist(st, { type: 'diff', list, grooves: gl, tempo: { before: tempo, after: this.tempo } });
+  }
+
   newCell(st, R) { return { inst: R < NP ? st.inst : 0, owner: st.i, born: this.t }; }
 
   /** Play a note right now (feedback when placing). */
@@ -653,11 +672,18 @@ export class Game {
         pg.cells[c.R][c.col] = c.before;
       }
       if (h.page !== this.page) this.setPage(h.page, null);
-    } else if (h.type === 'page') {
-      this.pages[h.page] = h.before;
-      if (h.page !== this.page) this.setPage(h.page, null);
-    } else if (h.type === 'song') {
-      this.pages = h.before; this.tempo = h.tempo;
+    } else if (h.type === 'diff') {
+      // only put back cells nobody has touched since (others' new notes stay)
+      for (const c of h.list) {
+        const pg = this.pages[c.page];
+        if (pg.cells[c.R][c.col] !== c.after) continue;
+        if (c.after && !c.before) this.ghosts.push({ page: c.page, R: c.R, col: c.col, cell: c.after, t: 0 });
+        pg.cells[c.R][c.col] = c.before;
+      }
+      for (const gr of h.grooves) if (this.pages[gr.page].groove === gr.after) this.pages[gr.page].groove = gr.before;
+      if (this.tempo === h.tempo.after) this.tempo = h.tempo.before;
+      const first = h.list[0] || h.grooves[0];
+      if (first && first.page !== this.page && !h.list.some((c) => c.page === this.page)) this.setPage(first.page, null);
     }
     sfx('back');
     const p = this.cursorXY(st);
@@ -685,14 +711,12 @@ export class Game {
   }
 
   setGroove(st, gi) {
-    const before = clonePage(this.pages[this.page]);
     const pg = this.pages[this.page], gr = GROOVES[gi];
     pg.groove = gi;
     for (let d = 0; d < ND; d++) {
       const pat = [gr.k, gr.c, gr.s][d];
       for (let c = 0; c < STEPS; c++) pg.cells[NP + d][c] = pat[c] === 'x' ? { inst: 0, owner: st ? st.i : -1, born: this.t + c * 0.015 } : null;
     }
-    if (st) this.pushHist(st, { type: 'page', page: this.page, before });
     sfx('swap'); playDrumNow(this, 0); playDrumNow(this, 1);
     particles.popText(colX(STEPS / 2), rowY(NP) - 8, gr.name, '#ffd23f', 50);
     for (let c = 0; c < STEPS; c += 2) particles.burst(colX(c) + CW / 2, rowMid(NP + 1), { type: 'sparkle', count: 1, colors: ['#fff', '#ffe066'] });
@@ -705,14 +729,12 @@ export class Game {
     particles.popText(b.x + b.w / 2, TBY + TBH + 34, TEMPOS[this.tempo].name, '#ffd23f', 40);
   }
 
-  clearPage(st) {
-    const before = clonePage(this.pages[this.page]);
+  clearPage() {
     for (let R = 0; R < NROWS; R++) for (let c = 0; c < STEPS; c++) {
       const cell = this.pages[this.page].cells[R][c];
       if (cell) this.ghosts.push({ page: this.page, R, col: c, cell, t: 0 });
     }
     this.pages[this.page] = emptyPage();
-    if (st) this.pushHist(st, { type: 'page', page: this.page, before });
     sfx('whoosh');
     for (let k = 0; k < 8; k++) particles.burst(rand(GX, GRID_R), rand(GY, GRID_B), { type: 'smoke', count: 2, speed: [40, 140] });
   }
@@ -738,7 +760,6 @@ export class Game {
       const lp = pick([0, 1, 2].filter((q) => !list.some((n) => n.col === c && n.R === rowOfPitch(q))));
       if (lp !== undefined && chance(0.8)) list.push({ R: rowOfPitch(lp), col: c, v: { inst: lowInst, owner, born: this.t } });
     }
-    const before = clonePage(pg);
     for (let R = 0; R < NP; R++) for (let c = 0; c < STEPS; c++) pg.cells[R][c] = null;
     for (const n of list) pg.cells[n.R][n.col] = n.v;
     const hasDrums = pg.cells.slice(NP).some((row) => row.some(Boolean));
@@ -747,7 +768,6 @@ export class Game {
       this.setGroove(null, pick([1, 1, 2, 4, 5]));
       this.page = save;
     }
-    if (st) this.pushHist(st, { type: 'page', page, before });
     return list.length;
   }
 
@@ -759,7 +779,7 @@ export class Game {
     sfx('magic');
     particles.burst(p.x, p.y, { type: 'star', count: 8, speed: [120, 320] });
     if (notes < 3) {
-      this.surprisePage(this.page, st);
+      this.recordDiff(st, () => this.surprisePage(this.page, st));
       st.placed += 8;
       fx.flash('#ffffff', 0.15);
       for (let c = 0; c < STEPS; c++) for (let R = 0; R < NP; R++) if (pg.cells[R][c]) this.sparkleQ.push({ at: this.t + c * 0.035, R, col: c, quiet: true });
@@ -782,9 +802,8 @@ export class Game {
     st.actor.playOnce('cheer', 0.5);
   }
 
-  loadPreset(i, st) {
-    const P = PRESETS[i], before = this.pages.map(clonePage);
-    if (st) this.pushHist(st, { type: 'song', before, tempo: this.tempo });
+  loadPreset(i) {
+    const P = PRESETS[i];
     this.pages = Array.from({ length: NPAGES }, emptyPage);
     if (P.id === 'surprise') {
       // A then A': the same tune twice, the first time ending "open", the second time home.
@@ -842,6 +861,7 @@ export class Game {
       } else {
         const nc = st.col + dx;
         if (nc >= 0 && nc < STEPS) { st.col = nc; moved = true; }
+        else if (this.edgeHold(st)) { /* several kids: a held push flips (updatePlayer) */ }
         else if (nc < 0 && this.page > 0) { this.setPage(this.page - 1, st, -1); st.col = STEPS - 1; moved = true; }
         else if (nc >= STEPS && this.page < NPAGES - 1) { this.setPage(this.page + 1, st, 1); st.col = 0; moved = true; }
       }
@@ -853,10 +873,26 @@ export class Game {
     } else if (!st.p.isAI) sfx('tock', { vol: 0.5 });
   }
 
+  /** With several humans, pushing past the grid edge only flips the shared page after a held push. */
+  edgeHold(st) { return this.humans > 1 && !st.p.isAI; }
+  updateEdgePush(st, dt) {
+    const c = st.p.ctrl, dir = c.x > 0.5 ? 1 : c.x < -0.5 ? -1 : 0;
+    const atEdge = st.R >= 0 && !st.confirm && Math.abs(c.y) < 0.5 &&
+      ((dir > 0 && st.col === STEPS - 1 && this.page < NPAGES - 1) || (dir < 0 && st.col === 0 && this.page > 0));
+    if (!atEdge || (st.edge && st.edge.dir !== dir)) { st.edge = null; if (!atEdge) return; }
+    st.edge = st.edge || { dir, t: 0 };
+    st.edge.t += dt;
+    if (st.edge.t >= 0.4) {
+      st.edge = null;
+      this.setPage(this.page + dir, st, dir); st.col = dir > 0 ? 0 : STEPS - 1;
+      sfx('tick', { vol: 0.6 });
+    }
+  }
+
   pressToolbar(st, b) {
     switch (b.id) {
       case 'songs': this.picker = { owner: st.p, sel: 0, t: 0, first: false }; sfx('select'); break;
-      case 'groove': this.setGroove(st, (this.pages[this.page].groove + 1) % GROOVES.length); break;
+      case 'groove': this.recordDiff(st, () => this.setGroove(st, (this.pages[this.page].groove + 1) % GROOVES.length)); break;
       case 'page': this.setPage(b.page, st); break;
       case 'tempo': this.setTempo(this.tempo + 1); break;
       case 'clear': st.confirm = { kind: 'clear', t: 0 }; sfx('select'); break;
@@ -868,7 +904,7 @@ export class Game {
   resolveConfirm(st, yes) {
     const k = st.confirm.kind; st.confirm = null;
     if (!yes) { sfx('back'); return; }
-    if (k === 'clear') this.clearPage(st); else this.startConcert();
+    if (k === 'clear') this.recordDiff(st, () => this.clearPage()); else this.startConcert();
   }
 
   updatePlayer(st, dt) {
@@ -882,6 +918,7 @@ export class Game {
     }
     if (c.nav.y) this.moveCursor(st, 0, c.nav.y);
     else if (c.nav.x) this.moveCursor(st, c.nav.x, 0);
+    if (this.edgeHold(st)) this.updateEdgePush(st, dt); else st.edge = null;
     if (c.pressed('a')) {
       if (st.R === -1) this.pressToolbar(st, TB[st.tb]);
       else st.paint = this.toggle(st, st.R, st.col);
@@ -1038,19 +1075,26 @@ export class Game {
     [...spec.lead].forEach((ch, c) => { if (NOTE_OF[ch] !== undefined && k < 7) { playInst(this.ac, this.previewBus, spec.inst, PITCHES[NOTE_OF[ch]].midi, t0 + c * 0.075, 0.12, 0.7); k++; } });
   }
 
+  /** With several kids playing, swapping the song needs a second A ("Sure?"). */
+  armPick(P) {
+    if (P.first || this.humans < 2 || P.armed) return true;
+    P.armed = true; P.armT = 0; sfx('select');
+    return false;
+  }
+
   updatePicker(dt) {
     const P = this.picker;
-    P.t += dt;
+    P.t += dt; if (P.armed) P.armT += dt;
     const c = P.owner.ctrl;
     const choose = (i) => {
-      this.loadPreset(i, P.first ? null : this.stations.find((st) => st.p === P.owner));
+      this.recordDiff(P.first ? null : this.stations.find((st) => st.p === P.owner), () => this.loadPreset(i));
       this.picker = null;
       sfx('select'); sfx('magic');
       fx.flash('#ffffff', 0.15);
       for (const st of this.stations) { st.actor.playOnce('cheer', 0.5); if (st.p.isAI) st.p.ctrl.reset(); }
     };
     for (let i = 0; i < PRESETS.length; i++) {
-      if (input.clicked(this.pickerRect(i))) { P.sel = i; choose(i); return; }
+      if (input.clicked(this.pickerRect(i))) { if (P.sel !== i) { P.sel = i; P.armed = false; } if (this.armPick(P)) choose(i); return; }
       if (input.pointer.moved && input.pointerOver(this.pickerRect(i)) && P.sel !== i) { P.sel = i; sfx('move'); this.previewPreset(i); }
     }
     if (P.owner.isAI) {
@@ -1059,9 +1103,9 @@ export class Game {
       return;
     }
     const n = PRESETS.length;
-    if (c.nav.x) { P.sel = (P.sel + c.nav.x + n) % n; sfx('move'); this.previewPreset(P.sel); }
-    if (c.nav.y) { P.sel = (P.sel + c.nav.y * 3 + n) % n; sfx('move'); this.previewPreset(P.sel); }
-    if (c.pressed('a') && P.t > 0.25) choose(P.sel);
+    if (c.nav.x) { P.sel = (P.sel + c.nav.x + n) % n; P.armed = false; sfx('move'); this.previewPreset(P.sel); }
+    if (c.nav.y) { P.sel = (P.sel + c.nav.y * 3 + n) % n; P.armed = false; sfx('move'); this.previewPreset(P.sel); }
+    if (c.pressed('a') && P.t > 0.25) { if (this.armPick(P)) choose(P.sel); }
     else if (c.pressed('b') && !P.first) { this.picker = null; sfx('back'); }
   }
 
@@ -1180,7 +1224,6 @@ export class Game {
         if (h === 'b') { this.backToEdit(); return; }
       }
       if (this.cpuOnly && C.endT > 3) this.finishGame();
-      if (C.endT > 25) this.finishGame();
     }
   }
 
@@ -1488,6 +1531,13 @@ export class Game {
       g.beginPath(); g.arc(bx, by, 17, 0, TAU); g.fillStyle = '#fff'; g.fill(); g.lineWidth = 3; g.strokeStyle = col; g.stroke();
       drawInstIcon(g, st.inst, bx, by, 24);
     }
+    if (st.edge && st.edge.t > 0.08) {
+      // held push at the grid edge: an arrow with a fill ring
+      const ex = st.edge.dir > 0 ? x + w + 34 : x - 34, ey = y + h / 2, k = Math.min(1, st.edge.t / 0.4);
+      g.beginPath(); g.arc(ex, ey, 26, 0, TAU); g.fillStyle = '#fff'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
+      g.beginPath(); g.arc(ex, ey, 26, -Math.PI / 2, -Math.PI / 2 + TAU * k); g.lineWidth = 8; g.strokeStyle = col; g.stroke();
+      ui.text(g, st.edge.dir > 0 ? '▶' : '◀', ex, ey + 1, { size: 26, color: NAVY, stroke: false });
+    }
     if (st.undoAt && t - st.undoAt < 0.6) {
       const k = 1 - (t - st.undoAt) / 0.6;
       g.globalAlpha = k;
@@ -1502,7 +1552,7 @@ export class Game {
     const k = ease.outBack(Math.min(1, C.t / 0.25));
     g.save(); g.translate(px + w / 2, py); g.scale(k, k); g.translate(-(px + w / 2), -py);
     ui.panel(g, px, py, w, h, { r: 28, fill: '#fff8ec', stroke: st.p.color, lineWidth: 7 });
-    ui.text(g, C.kind === 'clear' ? 'Clear this page?' : 'Start the concert?', px + w / 2, py + 44, { size: 38, color: NAVY, stroke: false, weight: 800 });
+    ui.text(g, C.kind === 'clear' ? (this.humans > 1 ? "Clear everyone's page?" : 'Clear this page?') : 'Start the concert?', px + w / 2, py + 44, { size: 38, color: NAVY, stroke: false, weight: 800 });
     ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 112, { size: 42, color: '#ff6fb1' });
     g.restore();
   }
@@ -1521,12 +1571,19 @@ export class Game {
       ui.panel(g, r.x, r.y, r.w, r.h, { r: 24, fill: '#ffffff', stroke: sel ? '#ffd23f' : NAVY, lineWidth: sel ? 12 : 5 });
       this.drawPresetPreview(g, pr, r.x + 24, r.y + 22, r.w - 48, r.h - 100, sel);
       ui.text(g, pr.name, r.x + r.w / 2, r.y + r.h - 40, { size: 40, color: sel ? '#ff6fb1' : NAVY, stroke: sel ? NAVY : false, weight: 800, maxWidth: r.w - 30 });
+      if (sel && P.armed) {
+        const pk = 1 + Math.sin(this.t * 8) * 0.05;
+        g.save(); g.translate(r.x + r.w / 2, r.y + r.h / 2 - 20); g.scale(pk, pk);
+        ui.panel(g, -200, -46, 400, 92, { r: 24, fill: '#ff6fb1', stroke: NAVY, lineWidth: 6 });
+        ui.text(g, 'Swap everyone\'s song?', 0, 0, { size: 34, maxWidth: 380, strokeWidth: 6 });
+        g.restore();
+      }
       g.restore();
     });
     if (P.owner.isAI) ui.text(g, 'CPU is choosing...', W / 2, 960, { size: 38, color: P.owner.color, strokeWidth: 6 });
     else {
       ui.text(g, `${P.owner.tag} picks!`, W / 2 - 430, 960, { size: 38, color: P.owner.color, strokeWidth: 6 });
-      ui.hints(g, P.first ? [['stick', 'Choose'], ['a', 'Play!']] : [['stick', 'Choose'], ['a', 'Play!'], ['b', 'Keep mine']], W / 2 + 140, 960, { size: 42, color: NAVY });
+      ui.hints(g, P.first ? [['stick', 'Choose'], ['a', 'Play!']] : [['stick', 'Choose'], ['a', P.armed ? 'Yes, swap!' : 'Play!'], ['b', 'Keep mine']], W / 2 + 140, 960, { size: 42, color: P.armed ? '#ff6fb1' : NAVY });
     }
     g.restore();
   }

@@ -215,11 +215,18 @@ export class Game {
 
   checkBubble(b) {
     for (const e of this.ents) {
+      const ez = this.easy && !e.p.isAI;
       const a = e.a, feet = a.y - e.z, top = feet - a.height * 1.02;
       const py = clamp(b.y, top, feet - 30);
       const dx = b.x - e.x, dy = b.y - py;
-      const rr = b.r * (0.75 + 0.25 * b.grow) + this.bodyW(e) * 0.75;
+      const rr = (b.r * (0.75 + 0.25 * b.grow) + this.bodyW(e) * 0.75) * (ez ? 1.2 : 1);   // Easy: a jump reaches a bit further
       if (dx * dx + dy * dy > rr * rr) continue;
+      if (ez && e.z <= 0.5) {
+        // Molly Easy: pops come from jumping (A), not standing under - the bubble bobs on her head a while, waiting
+        if (b.restAt === undefined) b.restAt = b.age;
+        if (b.age - b.restAt < 3 && b.vy > -60) b.vy = -60;
+        continue;
+      }
       if (b.giant) {
         if (b.cool > b.age) continue;
         b.cool = b.age + 0.25;
@@ -642,6 +649,8 @@ export class Game {
     g.save(); g.translate(mx + mw + 50, my + mh / 2 + 6); drawTub(g, this.t, this.finale); g.restore();
     g.restore();
     ui.scoreboard(g, this.players, this.ents.map((e) => e.pops), { y: 985, format: (v) => String(v) });
+    // the tub fills itself at MAX_TIME: count the last 10 seconds down so it isn't a surprise
+    if (!this.finale && MAX_TIME - this.el <= 10) ui.timer(g, MAX_TIME - this.el, W / 2, 172);
     if (this.finale) {
       const k = this.finaleT;
       g.save(); g.globalAlpha = clamp(3.4 - k, 0, 1);

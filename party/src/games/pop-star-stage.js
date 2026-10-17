@@ -32,6 +32,7 @@ const PERFECT_S = 0.08, GOOD_S = 0.16; // hit windows (± seconds)
 // The classic song: 120 BPM, 130 beats (65 s), boss at beat 96.
 const CLASSIC = { bpm: 120, end: 130, phases: { ab: 36, all: 68, boss: 96 } };
 const FEVER_COMBO = 20;
+const SPAM_S = 0.6;                    // 2+ empty presses this close before a note = spam
 // Adaptive levels: every performer has their own note track. Doing really
 // well steps it up a level; missing a few steps it down. Harder levels are
 // worth more points, so reaching (and staying at) them wins.
@@ -356,7 +357,7 @@ export class Game {
         notes: [],
         next: 0, score: 0, combo: 0, maxCombo: 0, perfects: 0, goods: 0, misses: 0, imps: 0,
         tier: this.startTier, peakTier: this.startTier, committed: -Infinity, hist: [], tierFlash: 0,
-        fever: false, feverT: 0, flash: 0, flashColor: '#fff', wrong: 0, hitPulse: 0,
+        fever: false, feverT: 0, flash: 0, flashColor: '#fff', wrong: 0, hitPulse: 0, whiffs: [],
       };
     });
     this.imps = [];
@@ -425,7 +426,7 @@ export class Game {
       if (c.beat <= L.committed) continue;
       if (c.beat > horizon) break;
       if (c.beat - last < 0.24) continue;   // a level change mid-pattern: no crowding at the seam
-      L.notes.push({ ...c, tier: L.tier, judged: null, jt: 0, flub: false, ai: null });
+      L.notes.push({ ...c, tier: L.tier, judged: null, jt: 0, ai: null });
       last = c.beat;
     }
     L.committed = horizon;
@@ -499,7 +500,8 @@ export class Game {
       L.tierFlash = Math.max(0, L.tierFlash - dt * 1.5);
       if (L.p.isAI) this.ai(L, b);
       const c = L.p.ctrl;
-      for (const btn of BTNS) if (c.pressed(btn)) this.press(L, btn, b);
+      const down = BTNS.filter((btn) => c.pressed(btn));
+      if (down.length) this.press(L, down, b);
       // misses
       while (L.next < L.notes.length) {
         const nn = L.notes[L.next];
@@ -557,21 +559,37 @@ export class Game {
   }
 
   // ---- judging ---------------------------------------------------------------
-  press(L, btn, b) {
-    let target = null;
+  /** All the buttons pressed this frame. The right button hits its note; a
+   * wrong one (or mashing several at once) fumbles the nearest note: it counts
+   * as a gentle miss ("Oops", combo reset, no points lost), so mashing every
+   * button stops paying off. A press with no note near is just a whiff, but
+   * a burst of them right before a note (spamming) fumbles that note too. */
+  press(L, btns, b) {
+    const open = [];
     for (let k = L.next; k < L.notes.length; k++) {
       const nn = L.notes[k];
       if (nn.beat - b > this.good) break;
-      if (!nn.judged && Math.abs(nn.beat - b) <= this.good) { target = nn; break; }
+      if (!nn.judged && Math.abs(nn.beat - b) <= this.good) open.push(nn);
     }
-    if (!target) { L.hitPulse = 0.4; return; }    // a little whiff pulse, no penalty
-    if (target.btn !== btn) {
-      target.flub = true; L.wrong = 1;
+    if (!open.length) { L.hitPulse = 0.4; L.whiffs.push(this.clock); return; }    // a little whiff pulse, no penalty
+    // Two or more empty presses just before a note = button spam: that note fumbles.
+    L.whiffs = L.whiffs.filter((t) => this.clock - t < SPAM_S);
+    const spam = L.whiffs.length >= 2;
+    L.whiffs = [];
+    const nearest = (list) => list.reduce((p, q) => (Math.abs(q.beat - b) < Math.abs(p.beat - b) ? q : p));
+    // a button that matches none of the notes here = a fumble
+    if (spam || btns.some((btn) => !open.some((nn) => nn.btn === btn))) {
+      L.wrong = 1;
       sfx('blip');
+      this.miss(L, nearest(open), true);
       return;
     }
-    const d = Math.abs(target.beat - b);
-    this.hit(L, target, d <= this.perfect && !target.flub ? 'perfect' : 'good');
+    for (const btn of btns) {
+      const mine = open.filter((nn) => nn.btn === btn && !nn.judged);
+      if (!mine.length) continue;
+      const nn = nearest(mine);
+      this.hit(L, nn, Math.abs(nn.beat - b) <= this.perfect ? 'perfect' : 'good');
+    }
   }
 
   hit(L, nn, grade) {
@@ -617,14 +635,14 @@ export class Game {
     L.lastText = particles.popText(x, y, str, color, size);
   }
 
-  miss(L, nn) {
+  miss(L, nn, oops = false) {
     nn.judged = 'miss'; nn.jt = this.clock;
     const hadCombo = L.combo;
     L.combo = 0; L.misses++;
     this.adapt(L, false, false);
     if (L.fever) { L.fever = false; particles.popText(L.x, HIT_Y - 60, 'Fever over', '#c9b6ff', 34); }
     if (!this.finale) L.actor.playOnce('hurt', 0.32, 'dance');
-    this.judgeText(L, L.x + this.laneW * (this.n > 5 ? 0.28 : 0.22), HIT_Y + this.noteSize * 0.55, 'Miss', '#b9a8d9', this.n > 5 ? 22 : 30);
+    this.judgeText(L, L.x + this.laneW * (this.n > 5 ? 0.28 : 0.22), HIT_Y + this.noteSize * 0.55, oops ? 'Oops' : 'Miss', oops ? '#ffb3c6' : '#b9a8d9', this.n > 5 ? 22 : 30);
     const quiet = L.p.isAI && this.hasHuman;
     if (hadCombo >= 5 && !quiet) sfx('aww');
     // A cheeky imp sneaks a little closer and giggles.

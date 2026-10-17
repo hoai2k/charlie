@@ -16,6 +16,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
+import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 
 export const meta = {
@@ -261,7 +262,7 @@ export class Game {
     const E = this.ents;
     for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
       const A = E[i], B = E[j];
-      const sep = (A.a.height + B.a.height) * 0.2 + 18;
+      const sep = Math.max((A.a.height + B.a.height) * 0.2 + 18, (bodyRadius(A.a) + bodyRadius(B.a)) * 0.95);
       const dx = B.x - A.x, adx = Math.abs(dx);
       if (adx < sep && Math.abs(A.z - B.z) < 110) {
         const dir = dx === 0 ? (i % 2 ? 1 : -1) : Math.sign(dx);
@@ -440,6 +441,8 @@ export class Game {
         let u = VALUE[t.kind] / (0.45 + travel) * rand(0.85, 1.15);
         const mine = Math.abs(pr.x - e.x);
         for (const o of this.ents) if (o !== e && o.stun <= 0 && mine > 90 && Math.abs(pr.x - o.x) < mine * 0.7) { u *= 0.35; break; }
+        // another CPU already claimed this landing spot: look for a free one
+        u /= 1 + 1.5 * claimed(this.ents, e, t, (o) => (o.p.isAI && o.stun <= 0 ? o.target : null));
         if (u > bu) { bu = u; best = t; }
       }
       if (cands.length && chance(prof.mistake)) best = pick(cands);   // distracted: any treat
@@ -470,6 +473,12 @@ export class Game {
     else if (e.target && e.target.state !== 'dead' && e.target.state !== 'caught') {
       const pr = this.predict(e.target, midY);
       tx = pr.x + e.err;
+      // someone nearer is already standing on that spot: wait beside them, not on top of them
+      for (const o of this.ents) {
+        if (o === e || o.stun > 0) continue;
+        const room = (bodyRadius(e.a) + bodyRadius(o.a)) * 0.8;
+        if (Math.abs(o.x - tx) < room * 0.5 && Math.abs(o.x - tx) < Math.abs(e.x - tx)) { tx = o.x + (e.x >= o.x ? 1 : -1) * room; break; }
+      }
     } else if (e.target) e.target = null;
     if (tx === null) { ctrl.move(0, 0); return; }
     tx = clamp(tx, 90, W - 90);

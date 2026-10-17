@@ -939,6 +939,8 @@ export class Game {
       g.save(); g.translate(1390, 330); g.rotate(-0.06); g.scale(sc, sc);
       ui.text(g, 'CAST!', 0, 0, { size: 230, color: '#ffe14a', strokeWidth: 36, weight: 800 });
       g.restore();
+      // the NOW! window closes after 6 s ("Too slow!"): show its last 3 s
+      if (this.goT > 3) ui.timer(g, 6 - this.goT, 1390, 490);
     }
 
     // messages

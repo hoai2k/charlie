@@ -514,8 +514,6 @@ export class Game {
         this.allDoneT += dt;
         if (this.allDoneT > 3) this.startParade();
       }
-      // Gentle cap so a forgotten round still reaches the parade.
-      if (this.phaseT > 300) this.startParade();
     } else if (this.phase === 'parade') {
       this.updateParade(dt);
     }

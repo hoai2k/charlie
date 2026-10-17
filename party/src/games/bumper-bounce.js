@@ -24,6 +24,7 @@ import { input } from '../engine/input.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, approach, rand, pick, chance, ease, TAU } from '../engine/util.js';
 import { depthScale } from '../engine/camera.js';
+import { bodyRadius, claimed } from '../engine/crowd.js';
 
 export const meta = {
   id: 'bumper-bounce',
@@ -127,7 +128,7 @@ export class Game {
       const sc = this.scale * (p.charId === 'troll' ? 0.58 : 1);
       const a = new Actor(p, { scale: sc });
       const sc0 = sc;
-      const r = 30 + 18 * sc;
+      const r = Math.max(30 + 18 * sc, bodyRadius(a, 0, 0.38));   // wide sprites (unicorn, cake) need more room at 8 players
       const e = {
         p, a, i, sc: sc0, x: Math.cos(ang) * rr, y: Math.sin(ang) * rr * 0.9, vx: 0, vy: 0, r, dash: 0, cd: 0, stun: 0, dirx: -Math.cos(ang), diry: -Math.sin(ang),
         state: 'alive', ft: 0, elimAt: Infinity, fx: 0, fy: 0, fvx: 0, fvy: 0, seat: null, seatT: 0, brain: new Brain(p),
@@ -533,7 +534,9 @@ export class Game {
       let best = null, bd = 1e9;
       for (const o of this.ents) {
         if (o === e || o.state !== 'alive') continue;
-        const d = Math.hypot(o.x - e.x, o.y - e.y) + (chance(prof.mistake) ? rand(0, 250) : 0);
+        // prefer someone no other CPU is already going for, so the pack spreads out
+        const taken = claimed(this.ents, e, o, (x) => (x.p.isAI && x.state === 'alive' ? x.goal : null));
+        const d = Math.hypot(o.x - e.x, o.y - e.y) + taken * 220 + (chance(prof.mistake) ? rand(0, 250) : 0);
         if (d < bd) { bd = d; best = o; }
       }
       e.goal = best;

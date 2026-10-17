@@ -17,6 +17,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
 
@@ -250,15 +251,8 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy), min = (A.a.radius + B.a.radius) * 0.8;
-      if (d < min && d > 0.01) {
-        const k = ((min - d) / d) * 0.5 * Math.min(1, dt * 12);
-        A.x -= dx * k; B.x += dx * k; A.y -= (dy / 1.6) * k; B.y += (dy / 1.6) * k;
-      }
-    }
+    // radius from the drawn (depth-scaled) sprite, so near, bigger players keep more room
+    spread(this.ents, { radius: (e) => bodyRadius(e.a), yScale: 1.6, strength: Math.min(1, dt * 12), bounds: ARENA });
   }
 
   // ------------------------------------------------------------------ flakes
@@ -429,6 +423,10 @@ export class Game {
         if (travel > tArrive + 0.3) continue;
         let u = (f.big ? 3 : 1) / (0.5 + travel + Math.max(0, tArrive - travel) * 0.3) * rand(0.8, 1.2);
         for (const o of this.ents) if (o !== e && Math.hypot(o.x - f.x, o.y - f.y) < Math.hypot(e.x - f.x, e.y - f.y) * 0.7) { u *= 0.4; break; }
+        // leave flakes (and flakes right next to them) that another player is already after
+        let near = 0;
+        for (const o of this.ents) if (o !== e && o.target && o.target.state === 'fall' && Math.hypot(o.target.x - f.x, o.target.y - f.y) < 170) near++;
+        u /= 1 + near * 1.2;
         if (u > bu) { bu = u; best = f; }
       }
       if (!best || chance(mistake)) { e.target = null; e.wander = rand(0.5, 1.2); e.wx = rand(ARENA.x0 + 100, ARENA.x1 - 100); e.wy = rand(ARENA.y0 + 40, ARENA.y1 - 40); }

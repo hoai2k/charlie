@@ -774,6 +774,21 @@ export class Game {
       sway: clamp(-P.vu / 900, -0.6, 0.6) * P.facing - theta * 0.5, gold: P.mega,
     });
     g.restore();
+    // its own clock: the last few seconds before it tires out and bursts by itself
+    const left = P.deadline + 1.6 - this.t;
+    if (P.state === 'hang' && left < 6.6) this.drawPinataClock(g, cx + 150 * s, cy - 150 * s, left, P.tired);
+  }
+
+  drawPinataClock(g, x, y, left, tired) {
+    const k = clamp(left / 6.6, 0, 1), r = 34;
+    const pulse = tired ? 1 + Math.max(0, Math.sin(this.t * 14)) * 0.12 : 1;
+    g.save(); g.translate(x, y); g.scale(pulse, pulse);
+    g.fillStyle = tired ? '#ff4d6d' : '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 5;
+    g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.stroke();
+    g.strokeStyle = tired ? '#ffe680' : '#ff6fb1'; g.lineWidth = 8; g.lineCap = 'round';
+    g.beginPath(); g.arc(0, 0, r - 9, -Math.PI / 2, -Math.PI / 2 + TAU * k); g.stroke();
+    ui.text(g, String(Math.max(1, Math.ceil(left))), 0, 2, { size: 34, color: tired ? '#fff' : NAVY, stroke: tired ? NAVY : false, strokeWidth: 5, weight: 800 });
+    g.restore();
   }
 
   drawRope(g, ax, ex, ey) {

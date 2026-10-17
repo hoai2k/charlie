@@ -42,7 +42,7 @@ export const meta = {
   // Molly Easy: the unicorn gallops by itself; A hops when the big A shows
   goalEasy: 'Your unicorn gallops by itself. Press A to hop over things!',
   controlsEasy: [['a', 'Hop!']],
-  tipsEasy: ['Press A when the big A pops up!', 'Bumping is just silly: mushrooms go BOING!'],
+  tipsEasy: ['Press A when the big A pops up!', 'Hop over things to win the treats after them!', 'Bumping is just silly: mushrooms go BOING!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -144,6 +144,7 @@ export class Game {
         hist: [], phase: rand(TAU), wet: 0, dizzy: 0, popN: 0, popT: 0, cheerT: 0, bob: 0,
         brain: new Brain(p), plan: new Map(), aiX: baseX, aiXT: 0,
       };
+      if (this.easy && !p.isAI) e.ez = { hop: false, clear: false, pressAt: -9 };   // up on a hop / hopped the last thing / last A press
       lane.riders.push(e);
       return e;
     });
@@ -269,6 +270,7 @@ export class Game {
     if (human) {
       e.buf = Math.max(0, (e.buf || 0) - dt);
       const next = this.nextObs(e), tA = next ? (next.x - e.x) / Math.max(1, this.speed * s) : Infinity;
+      if (live && p.ctrl.pressed('a')) e.ez.pressAt = this.time;
       if (live && p.ctrl.pressed('a')) { if (tA > HOP_AT && tA <= CUE_EARLY) e.hopFor = next; else e.buf = 0.3; }
       if (e.hopFor && e.hopFor !== next) e.hopFor = null;
       if (e.hopFor && tA <= HOP_AT) { e.hopFor = null; e.buf = 0.3; }
@@ -277,7 +279,7 @@ export class Game {
     if (e.z > 0 || e.vz > 0) {
       e.vz -= HOP_G * s * dt; e.z += e.vz * dt;
       if (e.z <= 0) {
-        e.z = 0; e.vz = 0;
+        e.z = 0; e.vz = 0; if (e.ez) e.ez.hop = false;
         a.squash(0.28); e.land = 0.18;
         particles.burst(e.x, e.lane.ground, { type: 'dust', count: 5, color: '#fff', speed: [40, 120], size: [8, 16] });
         snd('uh-land', 'land', { vol: 0.5 });
@@ -307,7 +309,7 @@ export class Game {
 
   hop(e, power) {
     const s = this.s;
-    e.vz = HOP_V * s * power; e.z = Math.max(e.z, 1);
+    e.vz = HOP_V * s * power; e.z = Math.max(e.z, 1); if (e.ez) e.ez.hop = true;
     e.a.squash(-0.22);
     snd('uh-hop', 'jump', { vol: 0.8 });
     particles.burst(e.x, e.lane.ground, { type: 'dust', count: 4, color: '#fff', speed: [30, 100], size: [8, 14] });
@@ -330,12 +332,17 @@ export class Game {
       if (it.got || it.by.has(e)) continue;
       const dx = Math.abs(it.x - e.x);
       const r = (it.kind === 'lolly' ? 80 : it.kind === 'star' ? 62 : 56) * s;
-      if (dx < r && it.h > e.z - 20 * s && it.h < e.z + top) this.collect(e, it);
+      if (dx < r && it.h > e.z - 20 * s && it.h < e.z + top) {
+        // Molly Easy: treats are the hop's reward - stars need a hop (not a mushroom boing),
+        // and the candies after a thing count only when it was hopped over
+        if (e.ez && !(e.ez.hop || (it.kind === 'candy' && e.ez.clear))) continue;
+        this.collect(e, it);
+      }
     }
   }
 
   cleared(e, o) {
-    e.score += 1;
+    e.score += 1; if (e.ez) e.ez.clear = true;
     e.trail = Math.min(TRAIL_MAX, e.trail + 1);
     e.best = Math.max(e.best, e.trail);
     const a = e.a;
@@ -362,6 +369,9 @@ export class Game {
 
   bump(e, o) {
     o.hit.add(e);
+    // Easy: a bump right after pressing A (just a bit late) still counts as trying - its boing and treats are yours
+    const tried = !!e.ez && this.time - e.ez.pressAt < 1.2;
+    if (e.ez) e.ez.clear = tried;
     const a = e.a, s = this.s, gy = e.lane.ground;
     const lost = Math.min(e.trail, 3);
     e.trail -= lost;
@@ -395,6 +405,7 @@ export class Game {
       this.pop(e, 'Boop!', '#ffb3d9', 46);
     }
     if (lost >= 3) particles.burst(e.x - 50 * s, gy - e.z - this.seatH(e), { type: 'spark', count: 8, colors: RAINBOW });
+    if (tried && e.z > 1) e.ez.hop = true;
   }
 
   collect(e, it) {

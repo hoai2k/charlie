@@ -419,7 +419,7 @@ export class Game {
     }
     for (const e of this.ents) e.a.setPose('celebrate');
     this.api.finish({
-      placements: this.players.map(() => 1),
+      placements: this.players.map(() => 1), showcase: true, highlight: null,
       stats: this.scores.map((s) => `${s} sparkles`),
       title: `${this.spells.length} spells!`,
       focus: { x: CX, y: CY },
@@ -530,7 +530,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.scoreboard(g, this.players, this.scores, { y: 18, avoidCenter: true, format: (v) => String(v) });
+    ui.scoreboard(g, this.players, this.players.map(() => ''), { y: 18, avoidCenter: true, format: (v) => v });
     ui.timer(g, Math.max(0, DURATION - this.time), W / 2, 58);
     // spells cast so far, under the timer
     const n = this.spells.length;

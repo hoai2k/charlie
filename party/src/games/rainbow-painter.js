@@ -38,7 +38,7 @@ export const meta = {
   // Easy (A only): your cloud floats by itself to the next grey spot.
   goalEasy: 'Rain paint on the grey world and colour it in together!',
   controlsEasy: [['a', 'Hold to rain paint']],
-  tipsEasy: ['Your cloud flies all by itself!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star for a MEGA SPLASH!'],
+  tipsEasy: ['Your cloud flies all by itself!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star - hold A to catch it for a MEGA SPLASH!'],
   music: 'bouncy',
   duration: '66 sec',
   minPlayers: 1,
@@ -114,7 +114,7 @@ const FLOWER_SHAPES = [{ c: [0, -120, 44] }, { r: [-14, -85, 28, 85] }];
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: human clouds fly themselves, hold A to paint
+    this.easy = !!api.easy;   // Molly Easy: human clouds fly themselves, hold A to paint (and to catch the Paint Star)
     this.players = api.players;
     const n = this.players.length;
     this.n = n;
@@ -465,6 +465,7 @@ export class Game {
 
   // ------------------------------------------------------------ paint star
   updateStar(dt, playing) {
+    for (const e of this.ents) if (e.ez) e.ez.starCue = false;
     if (!playing) { this.star = null; return; }
     if (!this.star) {
       this.starT -= dt;
@@ -477,18 +478,24 @@ export class Game {
     }
     const s = this.star;
     s.t += dt;
-    s.x += s.vx * dt; s.y += s.vy * dt + Math.sin(s.t * 4) * 60 * dt;
+    // Molly Easy: the star dawdles by a human's cloud, waiting to be caught with A
+    const host = s.t < 7 && this.ents.find((e) => e.ez && Math.hypot(e.x - s.x, (e.y - 40) - s.y) < 260);
+    const wait = host ? 0.3 : 1;
+    s.x += s.vx * dt * wait; s.y += (s.vy * dt + Math.sin(s.t * 4) * 60 * dt) * wait;
     if (s.y < 220 || s.y > 760) s.vy = -s.vy;
     if (s.t > 1.2 && (s.x < -80 || s.x > W + 80)) { this.star = null; this.starT = rand(6, 9); return; }
     if (Math.random() < dt * 20) particles.burst(s.x, s.y, { type: 'sparkle', count: 1, colors: ['#fff6a8', '#ffd23f'], speed: [10, 60], size: [10, 18] });
     for (const e of this.ents) {
-      if (Math.hypot(e.x - s.x, (e.y - 40) - s.y) < 120) { this.megaSplash(e); this.star = null; this.starT = rand(7, 10); return; }
+      const d = Math.hypot(e.x - s.x, (e.y - 40) - s.y);
+      if (e.ez) { e.ez.starCue = d < 190; if (!(d < 170 && e.spraying)) continue; }   // Easy: A catches it, floating past doesn't
+      else if (d >= 120 || wait < 1) continue;   // ...and the CPUs leave a star that's waiting for a human
+      this.megaSplash(e); this.star = null; this.starT = rand(7, 10); return;
     }
   }
 
   megaSplash(e) {
     const px = e.x, py = e.y + DROP;
-    const R = 330;
+    const R = e.ez ? 400 : 330;   // Easy: caught with A, so a bigger splash
     let got = 0;
     for (const t of this.activeTargets()) for (const c of t.cells) {
       if (c.f < 1 && Math.hypot(c.x - px, c.y - py) < R) { c.f = 1; got++; e.score++; }
@@ -670,7 +677,7 @@ export class Game {
       const top = e.a.y - e.a.height - 22 - (e.a.emotes.length ? 52 : 0);
       if (showTags || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when there's grey to paint and A isn't held
-      if (e.ez && !e.spraying && this.phase !== 'party' && this.phase !== 'magic' && this.started && this.overGrey(e)) {
+      if (e.ez && !e.spraying && this.phase !== 'party' && this.phase !== 'magic' && this.started && (e.ez.starCue || this.overGrey(e))) {
         ui.glyph(g, 'a', e.x, top - 62 + Math.sin(this.t * 8) * 6, 58, { pulse: true });
       }
     }

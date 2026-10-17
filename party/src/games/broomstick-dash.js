@@ -825,7 +825,9 @@ export class Game {
       const x = bx + bw * f, bob = Math.sin(this.t * 6 + L.i) * 2;
       ui.drawPortrait(g, L.p, x, by + bob, 22, { expr: L.fin !== null ? 'happy' : L.hurtT > 0 ? 'surprised' : 'neutral', ring: L.p.color, ringWidth: 5 });
     }
-    // no clock until the first rider lands (TIME_CAP is only a safety net); then it counts the 7 s to finish
+    // no clock until the first rider lands (then it counts the 7 s to finish), or until the
+    // last 10 s of the race's time cap, so every limit is on screen
+    if (this.firstFin === null && !this.over && TIME_CAP - this.t <= 10) ui.timer(g, Math.max(0, TIME_CAP - this.t), 190, 62);
     if (this.firstFin !== null && !this.over) {
       const left = Math.max(0, 7 - (this.t - this.firstFin));
       ui.timer(g, left, 190, 62);

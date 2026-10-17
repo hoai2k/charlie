@@ -125,6 +125,7 @@ export class Game {
   updateCharPos() {
     for (const L of this.lanes) {
       const S = this.S(L);
+      L.a.scale = L.charScale * Math.max(1, this.zoom);   // characters grow with a zoom-in (never shrink)
       const half = (L.a.width || 100) / 2;
       L.a.x = Math.max(half + 6, L.lx - this.slotW / 2 + half, L.cx - (PLATE_HALF + 14) * S - half * 0.8);   // never off the screen edge or out of its lane
       L.a.y = BASE_Y + 4;
@@ -163,7 +164,11 @@ export class Game {
     // shared zoom: fit the tallest tower (+ pan) in the lane area
     let need = 0;
     for (const L of this.lanes) need = Math.max(need, (PLATE_H + Math.max(towerHeight(L.tower), L.bestH * 0.6) + GAP + 95) * L.s);
-    const zt = clamp((BASE_Y - TOP_Y - 18) / need, 0.26, 1);
+    // Narrow lanes (6-8 players) may zoom in past 1 while the towers are short,
+    // up to full design size or a plate 85% of the lane wide, whichever is less.
+    const s0 = Math.min(...this.lanes.map((L) => L.s));
+    const zMax = clamp(Math.min(1 / s0, (this.slotW * 0.85) / (300 * s0)), 1, 1.8);
+    const zt = clamp((BASE_Y - TOP_Y - 18) / need, 0.26, zMax);
     this.zoom = damp(this.zoom, zt, 2.5, dt);
     this.updateCharPos();
     for (const L of this.lanes) this.updateLane(L, dt, playing);
@@ -592,8 +597,10 @@ export class Game {
       const p = this.toScreen(L, 150, L.bestH + 26);
       ui.text(g, String(L.best), p.x, p.y, { size: clamp(30 * S, 16, 34), color: '#ffffff', strokeWidth: 5 });
     }
-    // character (behind the tower)
-    L.a.draw(g, { ring: L.p.color });
+    // character (behind the tower; in front of it in narrow 6-8 player lanes,
+    // where the zoomed-in plate fills the lane and would hide them)
+    const front = this.n > 5;
+    if (!front) L.a.draw(g, { ring: L.p.color });
     // plate + tower
     g.save(); g.translate(L.cx, BASE_Y); g.scale(S, S);
     drawPlate(g, L.p.color, 300, PLATE_H);
@@ -630,10 +637,11 @@ export class Game {
       g.restore();
     }
     g.restore();
+    if (front) L.a.draw(g, { ring: L.p.color });
     // tag
     if (!this.finished && (!L.p.isAI || this.time < 4.5)) {
       const hp = L.a.anchor('head');
-      ui.playerTag(g, L.p, hp.x, hp.y - 18 - (L.hat ? 40 * L.charScale : 0) - (L.a.emotes.length ? 34 : 0));
+      ui.playerTag(g, L.p, hp.x, hp.y - 18 - (L.hat ? 40 * L.a.scale : 0) - (L.a.emotes.length ? 34 : 0));
     }
   }
 

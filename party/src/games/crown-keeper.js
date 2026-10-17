@@ -7,6 +7,7 @@ import { particles } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
+import { bodyRadius } from '../engine/crowd.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
@@ -338,6 +339,13 @@ export class Game {
         if (d < min) {
           const push = (min - d) / 2, nx = dx / d, ny = dy / d;
           A.x -= nx * push; A.y -= ny * push; B.x += nx * push; B.y += ny * push;
+        } else {
+          // personal space sized from the sprites, a softer push so the scrum stays readable
+          const room = (bodyRadius(A.a, R) + bodyRadius(B.a, R)) * 0.8;
+          if (d < room) {
+            const push = (room - d) * Math.min(1, dt * 10) * 0.5, nx = dx / d, ny = dy / d;
+            A.x -= nx * push; A.y -= ny * push; B.x += nx * push; B.y += ny * push;
+          }
         }
       }
     }
@@ -433,6 +441,13 @@ export class Game {
     let tx = U.seen.x, ty = U.seen.y, speedK = prof.speed;
     if (this.holder === U.i) { tx = U.flee.x; ty = U.flee.y; speedK = [0.8, 0.92, 1][lvl]; }
     else if (U.immune > 0 || U.stun > 0) { tx = c.x + Math.cos(U.i * 2) * 180; ty = c.y + Math.sin(U.i * 2) * 180; speedK *= 0.5; }
+    else {
+      // chasers come in from their own side of the target, closing in only at the end,
+      // so a loose crown draws a ring of runners rather than one pile
+      const far = Math.hypot(tx - U.x, ty - U.y);
+      const off = clamp((far - 140) * 0.45, 0, 130), ang = Math.atan2(U.y - ty, U.x - tx) + ((U.i % 4) - 1.5) * 0.45;
+      tx += Math.cos(ang) * off; ty += Math.sin(ang) * off * 0.6;
+    }
     const dx = tx - U.x, dy = ty - U.y, d = Math.hypot(dx, dy);
     let a = Math.atan2(dy, dx) + Math.sin(this.t * 2.3 + U.i * 1.9) * prof.aimError * 0.45;
     // dodge hedges / fountain a bit: steer around by sampling

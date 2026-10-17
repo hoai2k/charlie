@@ -18,6 +18,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { art } from '../engine/art.js';
 import { PATTERNS, PAT_COLOR, drawSock, drawPuppy, drawBasket, drawLine, drawPin, drawYard, lineY, LINE } from './sock-match/draw.js';
@@ -290,17 +291,8 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy) || 1;
-      const min = (A.a.radius + B.a.radius) * 0.65;
-      if (d < min) {
-        const push = (min - d) * 0.5 * Math.min(1, dt * 12);
-        A.x -= (dx / d) * push; B.x += (dx / d) * push; A.y -= (dy / d) * push * 0.5; B.y += (dy / d) * push * 0.5;
-      }
-    }
-    for (const e of E) { e.x = clamp(e.x, FLOOR.x0, FLOOR.x1); e.y = clamp(e.y, FLOOR.y0, FLOOR.y1); }
+    // push apart by the drawn sprite size (the old radius let 6 of 8 stand in one blob)
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.85, yScale: 1.6, strength: Math.min(1, dt * 12), bounds: FLOOR });
   }
 
   nearestSock(e, filter = null) {
@@ -522,7 +514,7 @@ export class Game {
       const pp = this.puppy;
       const dPup = Math.hypot(pp.x - e.x, pp.y - e.y);
       if (chance(prof.mistake * 0.4)) e.plan = { wander: true, x: rand(FLOOR.x0 + 100, FLOOR.x1 - 100), y: rand(FLOOR.y0, FLOOR.y1), t: rand(0.5, 1) };
-      else if (pp.sock && dPup < 420 && chance(0.5)) e.plan = { puppy: true };
+      else if (pp.sock && dPup < 420 && chance(0.5) && !this.ents.some((o) => o !== e && o.plan && o.plan.puppy)) e.plan = { puppy: true };
       else if (e.held) {
         const pat = e.held.pat;
         const twins = this.socks.filter((s) => s.state === 'ground' && s.pat === pat);
@@ -539,7 +531,12 @@ export class Game {
           const wanted = free.filter((s) => this.ents.some((o) => o.held && o.held.pat === s.pat));
           const pool = wanted.length && chance(0.6) ? wanted : free;
           let best = pool[0], bd = 1e9;
-          for (const s of pool) { const d = Math.hypot(s.x - e.x, s.y - e.y) * rand(0.8, 1.2); if (d < bd) { bd = d; best = s; } }
+          for (const s of pool) {
+            let d = Math.hypot(s.x - e.x, s.y - e.y) * rand(0.8, 1.2);
+            // someone else is much closer to it: leave it to them and spread out
+            if (this.ents.some((o) => o !== e && Math.hypot(s.x - o.x, s.y - o.y) < d * 0.6)) d *= 2.5;
+            if (d < bd) { bd = d; best = s; }
+          }
           if (chance(prof.mistake)) best = pick(free);
           e.plan = { sock: best, grab: true };
         } else e.plan = null;
@@ -570,11 +567,13 @@ export class Game {
   // ------------------------------------------------------------------ finish
   finish() {
     this.done = true;
-    const scores = this.ents.map((e) => e.score);
+    // one shared washing line: everybody wins together, the team total is the headline
+    const scores = this.ents.map((e) => e.score), tot = this.total;   // e.score: pairs each player helped hang
     this.ents.forEach((e) => { e.a.clearEmotes(); e.a.setPose('celebrate'); });
     this.api.finish({
-      placements: this.ents.map(() => 1),
-      stats: scores.map((s) => `${s} pair${s === 1 ? '' : 's'}`),
+      placements: this.ents.map(() => 1), showcase: true, highlight: null,
+      title: `${tot} pair${tot === 1 ? '' : 's'} together!`,
+      stats: scores.map((s) => (s ? 'Sock helper!' : 'Cheer squad!')),   // no per-player counts to compare
       focus: { x: W / 2, y: 500 },
     });
   }
@@ -699,7 +698,8 @@ export class Game {
 
   drawHUD(g) {
     ui.timer(g, this.timeLeft);
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: true, format: (v) => String(v) });
+    // co-op: no per-player numbers to compare, just a heart once you've helped (the team count is below)
+    ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: true, format: (v) => (v ? '♥' : '') });
     // shared count: a sock-pair badge under the timer
     g.save(); g.translate(W / 2, 150);
     ui.panel(g, -90, -34, 180, 68, { r: 34, fill: '#ffffff', stroke: '#24163f', lineWidth: 5 });

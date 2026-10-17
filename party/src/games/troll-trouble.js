@@ -10,6 +10,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
+import { bodyRadius, claimed } from '../engine/crowd.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, chance, pick, placementsFromScores, ease, TAU } from '../engine/util.js';
 
@@ -222,11 +223,13 @@ export class Game {
     }
     this.updateGems(dt);
     for (const pl of this.pl) { if (pl.p.isAI) this.aiThink(pl, dt); this.updatePlayer(pl, dt); }
-    // gentle personal space so crowds don't stack up
+    // gentle personal space so crowds don't stack up (sized from the sprites: 56px was
+    // far narrower than the characters, so 8 players piled into one heap)
     for (let i = 0; i < this.pl.length; i++) for (let j = i + 1; j < this.pl.length; j++) {
       const A = this.pl[i], B = this.pl[j];
-      const dx = B.x - A.x, dy = B.y - A.y, d = Math.hypot(dx, dy);
-      if (d < 56 && d > 0.01) { const k = (56 - d) * 0.5; A.x -= dx / d * k * 0.5; A.y -= dy / d * k * 0.5; B.x += dx / d * k * 0.5; B.y += dy / d * k * 0.5; }
+      const room = (bodyRadius(A.a, 28, 0.3) + bodyRadius(B.a, 28, 0.3));
+      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy);
+      if (d < room && d > 0.01) { const k = (room - d) * 0.5; A.x -= dx / d * k * 0.5; A.y -= dy / d * k * 0.5 / 1.6; B.x += dx / d * k * 0.5; B.y += dy / d * k * 0.5 / 1.6; }
     }
     this.updateTroll(dt);
     // waves
@@ -548,6 +551,8 @@ export class Game {
         const dt2 = Math.hypot(gm.x - tr.x, gm.y - tr.y);
         if (trollAwake && dt2 < 380) w *= lvl === 0 ? 0.55 : lvl === 1 ? 0.2 : 0.1;
         if (tr.state === 'windup' && this.inSlam(gm.x, gm.y, 40)) w *= 0.02;
+        // a gem another CPU is already heading for is worth less: spread out over the field
+        w /= 1 + 1.2 * claimed(this.pl, pl, gm, (o) => (o.p.isAI ? o.ai.gem : null));
         w *= rand(0.85, 1.15);
         if (w > bw) { bw = w; best = gm; }
       }

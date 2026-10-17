@@ -50,6 +50,7 @@ const PAL_INDEX = Object.fromEntries(PALETTE.map((e, i) => [e.kind === 'item' ? 
 const GROUP_START = GROUP_ORDER.map((grp) => PALETTE.findIndex((e) => e.group === grp));
 const TOOLS = [{ id: 'place', name: 'Place' }, { id: 'move', name: 'Move' }, { id: 'paint', name: 'Paint' }];
 const MAX_ITEMS = 80;
+const POOF_TIME = 5;   // seconds B can bring back another kid's thing
 
 // --- screen layout --------------------------------------------------------------------
 const BAR = { y: 950, h: 124 };
@@ -119,7 +120,7 @@ export class Game {
     this.night = false; this.nightK = 0; this.switchUsed = false;
     this.doorK = 0; this.doorHold = 0;
     this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME;
-    this.prompt = null; this.toast = null; this.banner = null;
+    this.prompt = null; this.toast = null; this.banner = null; this.poof = null;
     this.photos = []; this.bigPhoto = null;
     this.finished = false;
     this.patterns = new Map();
@@ -401,6 +402,7 @@ export class Game {
     if (this.wallFx) { this.wallFx.t += dt * 1.7; if (this.wallFx.t >= 1) this.wallFx = null; else if (chance(dt * 30)) particles.burst(WALL.x0 + (WALL.x1 - WALL.x0) * this.wallFx.t, rand(WALL.y0, WALL.y1), { type: 'sparkle', count: 2 }); }
     if (this.floorFx) { this.floorFx.t += dt * 1.7; if (this.floorFx.t >= 1) this.floorFx = null; else if (chance(dt * 30)) particles.burst(270 + 1380 * this.floorFx.t, rand(FLOOR_Y0 + 10, FLOOR_Y1 - 10), { type: 'sparkle', count: 2 }); }
     if (this.toast) { this.toast.t += dt; if (this.toast.t > 2) this.toast = null; }
+    if (this.poof && ((this.poof.t += dt) > POOF_TIME || this.phase !== 'build')) this.poof = null;
     if (this.banner) { this.banner.t += dt; if (this.banner.t > 2.4) this.banner = null; }
     for (const it of this.items) {
       if (it.playing > 0) it.playing -= dt;
@@ -463,7 +465,7 @@ export class Game {
       if (P.t > 0.4 && (c.pressed('a') || (st === this.stations.find((s) => !s.p.isAI) && input.pointer.pressed && inRect(this.promptBtn('go'), input.pointer.x, input.pointer.y)))) { this.prompt = null; this.startTour(); return; }
       if (P.t > 0.4 && (c.pressed('b') || (input.pointer.pressed && inRect(this.promptBtn('more'), input.pointer.x, input.pointer.y)))) { this.prompt = null; this.addTime(60); return; }
     }
-    if (P.t > 15) { this.prompt = null; this.startTour(); }
+    // no auto-pick: the prompt only shows with humans, and it waits for them
   }
   promptBtn(which) { return which === 'go' ? { x: W / 2 - 330, y: 560, w: 300, h: 90 } : { x: W / 2 + 30, y: 560, w: 300, h: 90 }; }
 
@@ -641,10 +643,41 @@ export class Game {
   }
 
   pressB(st) {
-    if (st.held) { const it = st.held; st.held = null; it.heldBy = null; this.removeItem(it, st); return; }
+    // B again (or the owner's B) soon after taking away another kid's thing: poof, it's back
+    const P = this.poof;
+    // (empty hands, and on the spot it left or off any other item, so taking away a second thing still works)
+    const near = P && Math.hypot(st.cur.x - P.x, st.cur.y - P.y) < 140;
+    if (P && !st.p.isAI && !st.held && (near || !st.hover) && (st.i === P.by || st.i === P.it.owner)) { this.poofBack(); return; }
+    if (st.held) { const it = st.held; st.held = null; it.heldBy = null; this.removeOthers(it, st); return; }
     const it = st.hover;
-    if (it && (!st.p.isAI || it.owner === st.i)) { this.removeItem(it, st); return; }
+    if (it && (!st.p.isAI || it.owner === st.i)) { this.removeOthers(it, st); return; }
     sfx('blip');
+  }
+
+  /** Remove an item; if it was another kid's, keep it for a few seconds so B can poof it back. */
+  removeOthers(it, st) {
+    const o = this.stations[it.owner];
+    if (st.p.isAI || !o || o === st || o.p.isAI) { this.removeItem(it, st); return; }
+    const kids = this.childrenOf(it).map((c) => ({ c, parent: c.parent, ox: c.ox }));
+    this.removeItem(it, st);
+    for (const k of kids) { k.x = k.c.x; k.y = k.c.y; }
+    const c = this.itemCenter(it);
+    this.poof = { it, kids, by: st.i, t: 0, x: c.x, y: c.y };
+  }
+
+  poofBack() {
+    const P = this.poof; this.poof = null;
+    const it = P.it;
+    if (this.items.includes(it) || this.items.length >= MAX_ITEMS || (it.parent && !this.items.includes(it.parent))) { sfx('blip'); return; }
+    it.heldBy = null; it.z = 0; it.vz = 0; it.bump = this.t;
+    this.items.push(it);
+    // things that sat on it hop back on, unless someone has moved them since
+    for (const k of P.kids) if (this.items.includes(k.c) && k.c.heldBy == null && !k.c.parent && k.c.x === k.x && k.c.y === k.y) { k.c.parent = it; k.c.ox = k.ox; k.c.vz = 0; }
+    this.layoutChildren();
+    const c = this.itemCenter(it);
+    particles.burst(c.x, c.y, { type: 'sparkle', count: 16, speed: [120, 380], colors: ['#ffffff', '#fff6a8', '#ffc8f0'] });
+    particles.popText(c.x, c.y - 60, 'Poof! It\'s back!', '#ffd23f', 44);
+    sfx('magic'); sfx('pop');
   }
 
   // --- surprise presents -------------------------------------------------------------------
@@ -1472,6 +1505,7 @@ export class Game {
       for (const st of this.stations) this.drawPanel(g, st);
       for (const st of this.stations) this.drawCursor(g, st);
     }
+    if (this.poof) this.drawPoof(g);
     for (const gft of this.gifts) this.drawGift(g, gft);
     for (const ph of this.photos) this.drawPolaroid(g, ph);
     if (this.phase === 'tour') this.drawCheeseHUD(g);
@@ -1485,6 +1519,17 @@ export class Game {
       g.restore();
     }
     if (this.prompt) this.drawPrompt(g);
+  }
+
+  /** "B: bring it back" bubble where another kid's thing was just taken away. */
+  drawPoof(g) {
+    const P = this.poof, by = this.stations[P.by], k = 1 - P.t / POOF_TIME, w = 380, h = 74;
+    const x = clamp(P.x, w / 2 + 20, W - w / 2 - 20), y = clamp(P.y, 120, H - 200);
+    g.save(); g.globalAlpha = Math.min(1, P.t / 0.15, (POOF_TIME - P.t) / 0.3);
+    ui.panel(g, x - w / 2, y - h / 2, w, h, { r: 36, fill: '#fff8ec', stroke: by.p.color, lineWidth: 5 });
+    ui.hints(g, [['b', 'Oops! Bring it back']], x, y - 3, { size: 34, color: '#ff6fb1' });
+    g.fillStyle = by.p.color; g.fillRect(x - w / 2 + 30, y + h / 2 - 11, (w - 60) * k, 5);
+    g.restore();
   }
 
   drawGhosts(g) {

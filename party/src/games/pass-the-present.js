@@ -20,6 +20,7 @@ import { art, drawArt } from '../engine/art.js';
 import { input } from '../engine/input.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawHeartShape } from '../engine/emotes.js';
+import { bodyRadius } from '../engine/crowd.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 
 export const meta = {
@@ -176,7 +177,7 @@ export class Game {
     e.x += e.vx * dt; e.y += e.vy * dt;
     for (const o of this.ents) {
       if (o === e || (o.state !== 'ring' && o.state !== 'elimWait')) continue;
-      const dx = e.x - o.x, dy = (e.y - o.y) * 1.6, d = Math.hypot(dx, dy), min = BODY_R * (e.a.scale + o.a.scale) * 0.5;
+      const dx = e.x - o.x, dy = (e.y - o.y) * 1.6, d = Math.hypot(dx, dy), min = Math.max(BODY_R * (e.a.scale + o.a.scale) * 0.5, (bodyRadius(e.a) + bodyRadius(o.a)) * 0.8);
       if (d > 0.01 && d < min) { const push = (min - d) * 0.5; e.x += (dx / d) * push; e.y += (dy / d) * push / 1.6; }
     }
     const nx = (e.x - AREA.cx) / AREA.rx, ny = (e.y - AREA.cy) / AREA.ry, r = Math.hypot(nx, ny);
@@ -545,7 +546,16 @@ export class Game {
     if (ai.wanderT <= 0) {
       ai.wanderT = rand(0.8, 2.0);
       let wx = AREA.cx + rand(-0.85, 0.85) * AREA.rx, wy = AREA.cy + rand(-0.8, 0.8) * AREA.ry;
-      if (h) { const ax = e.x - h.x, ay = e.y - h.y, ad = Math.hypot(ax, ay) || 1; wx = e.x + (ax / ad) * rand(120, 260) + rand(-120, 120); wy = e.y + (ay / ad) * rand(60, 140) + rand(-60, 60); }
+      if (h) {
+        // keep away from the holder, but each CPU heads off at its own angle so the
+        // others don't all bunch up on the one far side of the rug
+        const fan = ((e.i * 0.618) % 1 - 0.5) * 2.4 + rand(-0.3, 0.3);
+        const away = Math.atan2((e.y - h.y) * 1.8, e.x - h.x) + fan;
+        wx = e.x + Math.cos(away) * rand(140, 280); wy = e.y + (Math.sin(away) / 1.8) * rand(140, 280);
+        // aim inside the play oval, not into its edge where everyone would pile up
+        const nx = (wx - AREA.cx) / AREA.rx, ny = (wy - AREA.cy) / AREA.ry, r = Math.hypot(nx, ny);
+        if (r > 0.85) { wx = AREA.cx + (nx / r) * 0.85 * AREA.rx; wy = AREA.cy + (ny / r) * 0.85 * AREA.ry; }
+      }
       ai.wx = wx; ai.wy = wy;
     }
     const dx = ai.wx - e.x, dy = ai.wy - e.y, d = Math.hypot(dx, dy);

@@ -23,7 +23,7 @@ import { fx } from '../engine/fx.js';
 import { art, hasArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { clamp, approach, rand, pick, chance, shuffle, TAU, placementsFromScores, ease } from '../engine/util.js';
+import { clamp, approach, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import {
   KINDS, drawDirt, drawSeed, drawSprout, drawBud, drawSunflower, drawCarrot, drawStrawberryBush, drawStrawberry,
@@ -87,6 +87,7 @@ export class Game {
     this.phase = 'play';
     this.partyT = 0;
     this.finished = false;
+    this.grown = 0;             // team total: plants grown together
     this.scale = n <= 4 ? 0.9 : n <= 6 ? 0.82 : 0.76;
     // one gardener grows a plant in ~1.6 s; more gardeners each water a bit slower
     this.waterRate = 1 / (1.5 * Math.pow(n, 0.3));
@@ -277,6 +278,7 @@ export class Game {
   }
 
   bloom(pl) {
+    if (this.phase !== 'party') this.grown++;
     pl.state = 'grown'; pl.t = 0; pl.sq = 0.8; pl.life = rand(8, 11); pl.pop = 0; pl.nextT = rand(1.5, 2.5); pl.giggle = 0; pl.charge = 0; pl.achoo = 0;
     snd('gg-pop', 'bigpop', { vol: 0.8 }); sfx('sparkle');
     fx.shake(8, 0.2);
@@ -526,14 +528,13 @@ export class Game {
 
   finish() {
     this.finished = true;
-    const scores = this.ents.map((e) => e.score);
-    // gentle: scores within the same little band share a place (lots of ties)
-    let placements = placementsFromScores(scores.map((s) => Math.floor(s / 3)));
-    if (this.n === 1) placements = [1];
-    const stats = scores.map((s) => `${s} plant${s === 1 ? '' : 's'}`);
-    const top = Math.max(...scores);
-    const wi = scores.indexOf(top), wa = this.ents[Math.max(0, wi)];
-    this.api.finish({ placements, stats, solo: scores[0], focus: { x: wa.x, y: wa.y - 100 } });
+    // one garden grown together: everybody wins, the team total is the headline
+    const stats = this.ents.map((e) => `helped ${e.score}`);
+    const n = this.grown;
+    this.api.finish({
+      placements: this.ents.map(() => 1), showcase: true, highlight: null, stats,
+      title: `${n} plant${n === 1 ? '' : 's'} grown!`, focus: { x: W / 2, y: 640 },
+    });
   }
 
   // ---------------------------------------------------------------------- AI
@@ -773,7 +774,16 @@ export class Game {
 
   drawHUD(g) {
     ui.timer(g, this.timeLeft);
-    ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 14, avoidCenter: true, format: (v) => String(v) });
+    ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 14, avoidCenter: true, format: (v) => v });
+    // shared team counter under the timer: plants grown together
+    g.save(); g.translate(W / 2, 150);
+    ui.panel(g, -86, -34, 172, 68, { r: 34, fill: '#ffffff' });
+    g.translate(-40, 0);
+    g.fillStyle = '#ffd23f'; g.strokeStyle = '#24163f'; g.lineWidth = 3;
+    for (let k = 0; k < 6; k++) { const a = (k / 6) * TAU + this.t * 0.6; g.beginPath(); g.arc(Math.cos(a) * 13, Math.sin(a) * 13, 9, 0, TAU); g.fill(); g.stroke(); }
+    g.fillStyle = '#8a5a2b'; g.beginPath(); g.arc(0, 0, 9, 0, TAU); g.fill(); g.stroke();
+    g.restore();
+    ui.text(g, String(this.grown), W / 2 + 26, 153, { size: 48, color: '#24163f', stroke: false, weight: 800 });
     if (this.phase === 'party') {
       const k = this.partyT;
       g.save(); g.globalAlpha = clamp(Math.min(k * 4, (PARTY_T - k) * 3), 0, 1);

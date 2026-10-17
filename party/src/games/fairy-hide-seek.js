@@ -20,6 +20,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, lerp, rand, pick, chance, shuffle, TAU, dist, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, SPOTS, peekFor, bgImage, drawSpot, drawFairy, FAIRY_COLS, drawFrog, drawSnail, drawLadybug, bubble, drawMagnifier, glow,
@@ -210,9 +211,10 @@ export class Game {
     // personal space
     for (const o of this.ents) {
       if (o === e) continue;
-      const dx = e.x - o.x, dy = (e.y - o.y) * 1.6, d = Math.hypot(dx, dy), r = (a.radius + o.a.radius) * 0.7;
+      const dx = e.x - o.x, dy = (e.y - o.y) * 1.6, d = Math.hypot(dx, dy), r = (bodyRadius(a) + bodyRadius(o.a)) * 0.85;
       if (d > 0.1 && d < r) { e.x += (dx / d) * (r - d) * 0.3; }
     }
+    e.x = clamp(e.x, 70, W - 70);
   }
 
   // --- checking a spot ------------------------------------------------------------
@@ -420,10 +422,16 @@ export class Game {
     if (e.brain.ready(dt) && (!e.tgt || e.tgtDone)) {
       e.tgtDone = false;
       // spots that wiggled lately (everyone can see that)
-      const wiggly = this.spots.filter((s) => s.wig > 0 && s.c && s.c.kind === 'fairy');
+      // ...skipping spots another CPU (or Easy walker) is already heading for, so they don't herd
+      const tgtOf = (o) => (o.ez ? o.ez.spot : o.tgt);
+      const free = (s) => !claimed(this.ents, e, s, tgtOf);
+      const wiggly = this.spots.filter((s) => s.wig > 0 && s.c && s.c.kind === 'fairy' && free(s));
       const follow = [0.4, 0.6, 0.78][lvl];
       if (wiggly.length && chance(follow)) e.tgt = wiggly.reduce((b, s) => (dist(e.lx, e.ly, s.x, s.y - s.h / 2) < dist(e.lx, e.ly, b.x, b.y - b.h / 2) ? s : b));
-      else e.tgt = pick(this.spots.filter((s) => s !== e.last));
+      else {
+        const open = this.spots.filter((s) => s !== e.last && free(s));
+        e.tgt = pick(open.length ? open : this.spots.filter((s) => s !== e.last));
+      }
       e.aimT = 0; e.giveUp = rand(2.5, 4.5);
       e.brain.wait(reactionTime(p) * 0.6);
     }
