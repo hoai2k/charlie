@@ -2,6 +2,7 @@
 // art() hook in the game file; these are the fallbacks that ship today.
 import { W, H } from '../../engine/canvas.js';
 import { TAU, clamp } from '../../engine/util.js';
+import { art } from '../../engine/art.js';
 function starPath(g, x, y, R, r, n = 5) {
   g.beginPath();
   for (let i = 0; i < n * 2; i++) { const a = -Math.PI / 2 + (i * Math.PI) / n, d = i % 2 ? r : R; g.lineTo(x + Math.cos(a) * d, y + Math.sin(a) * d); }
@@ -230,6 +231,17 @@ export function drawLump(g, x, w, color, breathe) {
 /** Duvet edge tucked under a sleeper's chin. */
 export function drawTuck(g, x, w) {
   const top = BED.top;
+  const img = art('prop/bed-duvet-edge');
+  if (img) {
+    // the duvet's folded edge (260x70 art, tileable left-right) up to the sleeper's chin
+    const ww = w * 1.9, hh = Math.min(ww * 70 / 260, 46);
+    // the art tiles left-right with square ends; round them off so a short piece reads as a blanket
+    g.save(); rr(g, x - ww / 2, top - hh * 0.6, ww, hh, hh / 2); g.clip();
+    g.drawImage(img, x - ww / 2, top - hh * 0.6, ww, hh);
+    g.restore();
+    rr(g, x - ww / 2, top - hh * 0.6, ww, hh, hh / 2); ink(g, 4);
+    return;
+  }
   g.fillStyle = '#ff9ccc';
   rr(g, x - w * 0.62, top - 22, w * 1.24, 40, 20); g.fill(); ink(g, 5);
   g.fillStyle = '#ffffff'; rr(g, x - w * 0.58, top - 20, w * 1.16, 12, 6); g.fill();

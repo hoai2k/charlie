@@ -99,7 +99,7 @@ export class Game {
       const cols = Math.min(n, 4), row = Math.floor(i / 4), col = i % 4;
       const x = n === 1 ? 560 : 260 + col * ((W * 0.62 - 260) / Math.max(1, cols - 1)) + row * 90;
       const y = n <= 4 ? 520 + (i % 2) * 120 : 420 + row * 300 + (col % 2) * 60;
-      a.x = x; a.y = y; a.facing = 1; a.snap(); a.setPose('float');
+      a.x = x; a.y = y; a.facing = 1; a.snap(); a.setPose('hold-balloons');
       const balloons = Array.from({ length: 5 }, (_, k) => ({ b: BALLOONS[(k + i) % BALLOONS.length], ang: (k - 2) * 0.34, len: 0.9 + (k % 2) * 0.18, sw: rand(TAU), sq: 0 }));
       return { p, a, i, x, y, vx: 0, vy: 0, score: 0, streak: 0, streakT: 0, popN: 0, popT: 0, boingT: 0, lean: 0, balloons, brain: new Brain(p), target: null, err: 0, wander: 0, wx: x, wy: y, upHold: false, cloudCd: new Map(), homeX: x, ezHint: null };
     });
@@ -268,7 +268,7 @@ export class Game {
     // the grass: a big friendly BOING
     if (e.y > GROUND) {
       e.y = GROUND; e.vy = -820; e.boingT = 0.5;
-      snd('bf-boing', 'boing'); a.squash(0.45); a.playOnce('surprised', 0.35, 'float');
+      snd('bf-boing', 'boing'); a.squash(0.45); a.playOnce('surprised', 0.35, 'hold-balloons');
       particles.burst(e.x, GROUND, { type: 'petal', count: 8, colors: ['#ff8fc7', '#ffe066', '#ffffff', '#c9a0ff'] });
       particles.burst(e.x, GROUND, { type: 'dust', count: 5, color: '#ffffff' });
       particles.popText(e.x, GROUND - a.height - 40, 'BOING!', '#7fe0ff', 46);
@@ -277,7 +277,7 @@ export class Game {
     }
     if (Math.abs(e.vx) > 30) a.facing = e.vx > 0 ? 1 : -1;
     e.lean = approach(e.lean, clamp(e.vx / SPEED_X, -1, 1) * 0.12, dt * 1.5);
-    if (!a._once && !this.done) a.setPose('float');
+    if (!a._once && !this.done) a.setPose('hold-balloons');
     a.speed = 0.5;
   }
 
@@ -334,14 +334,14 @@ export class Game {
       particles.burst(it.x, it.y, { type: 'star', count: 16, colors: ['#ffd23f', '#fff6a8', '#ffffff'] });
       fx.flash('#fff3b0', 0.12); fx.shake(6, 0.2); fx.hitstop(0.04);
       this.api.camera && this.api.camera.punch(e.x, e.y - a.height, 1.12, 0.35);
-      a.playOnce('cheer', 0.6, 'float'); a.emote('sparkle', 1.1);
+      a.playOnce('cheer', 0.6, 'hold-balloons'); a.emote('sparkle', 1.1);
       this.pop(e, '+3', '#ffd23f', 70);
       if (!e.p.isAI) e.p.ctrl.rumble(0.5, 150);
     } else {
       snd('bf-heart', 'collect', { step: Math.min(e.streak - 1, 14) });
       particles.burst(it.x, it.y, { type: it.kind === 'heart' ? 'heart' : 'star', count: 5, colors: it.kind === 'heart' ? ['#ff5fa2', '#ffb3d9'] : ['#ffd23f', '#fff6a8'] });
       this.pop(e, '+1', it.kind === 'heart' ? '#ff6fb1' : '#ffd23f', 46);
-      if (e.streak === 4 || e.streak === 6 || e.streak === 9) { this.pop(e, `x${e.streak}!`, RAINBOW[e.streak % 7], 50, 1); a.playOnce('cheer', 0.45, 'float'); sfx('yay', { vol: 0.5 }); }
+      if (e.streak === 4 || e.streak === 6 || e.streak === 9) { this.pop(e, `x${e.streak}!`, RAINBOW[e.streak % 7], 50, 1); a.playOnce('cheer', 0.45, 'hold-balloons'); sfx('yay', { vol: 0.5 }); }
     }
   }
 
@@ -357,7 +357,7 @@ export class Game {
         c.giggle = 1.1; c.sq = 0.35;
         snd('bf-cloud-giggle', 'giggle'); sfx('pop', { vol: 0.35 });
         particles.burst(b.x, b.y, { type: 'smoke', count: 8, colors: ['#ffffff', '#eef6ff'] });
-        e.vy *= 0.4; e.a.playOnce('giggle', 0.6, 'float');
+        e.vy *= 0.4; e.a.playOnce('giggle', 0.6, 'hold-balloons');
         // the cloud sneezes out a couple of hearts (only the first few bumps)
         if (c.sneezes < 1) {
           c.sneezes++;
@@ -377,7 +377,7 @@ export class Game {
         if (Math.hypot(b.x - bd.x, b.y - bd.y) > 230) continue;
         b.waved.add(e); b.wave = 1.0;
         snd('bf-chirp', 'note', { midi: 88 + randInt(0, 4), dur: 0.12, vol: 0.25 });
-        if (!e.waveCd || this.t - e.waveCd > 2) { e.waveCd = this.t; e.a.playOnce('wave', 0.7, 'float'); }
+        if (!e.waveCd || this.t - e.waveCd > 2) { e.waveCd = this.t; e.a.playOnce('wave', 0.7, 'hold-balloons'); }
         if (b.gave < 2) { b.gave++; const h = this.spawnItem('heart', b.x, b.y + 20); h.homing = e; }
       }
     }
@@ -445,7 +445,7 @@ export class Game {
     const top = Math.max(...scores);
     this.ents.forEach((e, i) => {
       e.a.clearEmotes();
-      e.a.setPose(scores[i] === top || this.n === 1 ? 'celebrate' : placements[i] <= 3 ? 'cheer' : 'float');    });
+      e.a.setPose(scores[i] === top || this.n === 1 ? 'celebrate' : placements[i] <= 3 ? 'cheer' : 'hold-balloons');    });
     const wi = scores.indexOf(top), w = this.ents[wi];
     this.api.finish({ placements, stats: scores.map((s) => `${s} ♥`), solo: scores[0], focus: { x: w.x, y: w.y - w.a.height } });
   }
