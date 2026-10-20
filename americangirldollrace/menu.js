@@ -12,7 +12,7 @@
  * uses its globals.
  */
 (() => {
-  const ROSTER_ORDER = ["lily", "rumi", "kaya", "amanda", "juliette", "claudia", "whirlpool", "marisol", ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"];
+  const ROSTER_ORDER = [...new Set(["lily", "rumi", "kaya", "amanda", "juliette", "claudia", "whirlpool", "marisol", ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"])];
   const RANDOM = "random";
   const COLS = 5;
   const STALL = 157;
@@ -52,7 +52,7 @@
   };
 
   // ---------- helpers ----------
-  const art = (key, pose) => key === RANDOM ? "assets/ui/random_card.webp" : `assets/portraits/${key}${pose ? `_${pose}` : ""}.webp`;
+  const art = (key, pose) => key === RANDOM ? "assets/ui/random_card.webp" : `assets/portraits/${characters[key]?.assetKey || key}${pose ? `_${pose}` : ""}.webp`;
   const dollName = key => key === RANDOM ? "Random" : characters[key]?.name || key;
   const humanCount = () => lobby.slots.filter(Boolean).length;
   const outfits = () => window.DollOutfits;

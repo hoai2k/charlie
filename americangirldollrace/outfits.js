@@ -9,12 +9,13 @@
  */
 (() => {
   const DATA_URL = "assets/masks/outfits.json?v=20261002k";
+  const assetKey = key => window.EXTRA_DOLLS?.[key]?.assetKey || key;
   const KINDS = {
-    sheet: key => `assets/doll_${key}_sprites.webp`,
-    portrait: key => `assets/portraits/${key}.webp`,
-    cheer: key => `assets/portraits/${key}_cheer.webp`,
-    wave: key => `assets/portraits/${key}_wave.webp`,
-    ride: key => `assets/portraits/${key}_ride.webp`
+    sheet: key => `assets/doll_${assetKey(key)}_sprites.webp`,
+    portrait: key => `assets/portraits/${assetKey(key)}.webp`,
+    cheer: key => `assets/portraits/${assetKey(key)}_cheer.webp`,
+    wave: key => `assets/portraits/${assetKey(key)}_wave.webp`,
+    ride: key => `assets/portraits/${assetKey(key)}_ride.webp`
   };
 
   let data = null;
@@ -46,7 +47,7 @@
   }
 
   function dollData(key) {
-    return data?.dolls?.[key] || window.EXTRA_DOLLS?.[key]?.outfitData || null;
+    return window.EXTRA_DOLLS?.[key]?.outfitData || data?.dolls?.[key] || null;
   }
 
   // Number of outfits a doll has, including her original (1 if no data yet).
@@ -118,7 +119,7 @@
       const source = await loadImage(KINDS[kind](key));
       if (!n || !colorOf(key, n) || !window.DollRecolor) return source;
       try {
-        const maskImage = await loadImage(`assets/masks/${key}_${kind}_mask.webp?v=20261002k`);
+        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=20261002k`);
         entry.canvas = recolor(key, kind, n, source, maskImage);
         return entry.canvas;
       } catch (error) {

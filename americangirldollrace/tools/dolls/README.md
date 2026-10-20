@@ -148,3 +148,36 @@ instructions are in `luna-generation.json`. Rebuild and validation commands
 above include Luna. Browser checks cover her glasses-lifting greeting, blue
 cardigan, race movement, broom carrying/flight in both directions and gryphon
 seating. The full thirteen-card All Dolls roster fits the portrait layout.
+
+## Updated Rumi and rollback
+
+Rumi now uses the updated canonical doll through this pipeline. Her manifest
+keeps the roster key `rumi` and declares `assetKey: "rumi-v2"`; all exported
+race/menu art and masks use that versioned filename. The original Rumi images,
+masks and `outfits.json` data stay byte-for-byte unchanged at their old paths.
+`rumi-legacy.json` records their hashes, checked by the migration tests.
+
+To revert, set `GAME_CONFIG.legacyDollArt.rumi` to `true` in `../../config.js`
+and bump the asset version in `../../index.html`. This removes the generated
+override and restores the original race/menu/HUD art, outfit statistics, jump
+scale, riding offsets and broom hand anchors together. Set it back to `false`
+to use the update. No copying, deleting or rebuilding art is needed.
+
+The generated override takes priority over the legacy character definition,
+while roster keys are deduplicated. All menu, HUD, join and finish art and outfit
+masks resolve the selected asset key. Broom carry poses select the matching
+version's hand anchors. Outfits keep their original seven colour names/order;
+the new gold-satin mask changes the jacket and gold outfit trim while preserving
+skin, purple hair/laces, white shirt, navy skirt and colourful embroidery.
+
+Her jump/action source strips use explicit 0.88 anatomy calibration; standing,
+running and menu sources share the base scale. The export records her measured
+seat pivot. Review galleries are `reports/rumi-poses.jpg` and `rumi-masks.jpg`;
+built-in ImageGen prompts are in `rumi-generation.json`.
+
+```sh
+node --test americangirldollrace/tools/dolls/rumi-migration.test.mjs
+```
+
+Browser verification covered new wave/portrait, mint outfit, race/HUD, broom
+carrying and flight in both directions, gryphon seating, and the old-art switch.

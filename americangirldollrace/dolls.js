@@ -76,5 +76,34 @@ window.EXTRA_DOLLS = {
         "orange"
       ]
     }
+  },
+  "rumi": {
+    "name": "Rumi",
+    "color": "#7b3bb8",
+    "assetKey": "rumi-v2",
+    "spriteKey": "rumi",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": 1.42397,
+        "L": 0.80895,
+        "C": 0.15806,
+        "beta": 0.7
+      },
+      "outfits": [
+        "mint",
+        "lilac",
+        "orange",
+        "navy",
+        "pink",
+        "green",
+        "red"
+      ]
+    }
   }
 };
+for (const key of Object.keys(window.EXTRA_DOLLS)) {
+  if (window.GAME_CONFIG?.legacyDollArt?.[key]) delete window.EXTRA_DOLLS[key];
+}

@@ -33,6 +33,16 @@ class DollBuildTests(unittest.TestCase):
         self.assertEqual(mask[0].max(), 0)
         self.assertEqual(mask[1].tolist(), [255, 0, 0, 0])
 
+    def test_gold_jacket_mask_preserves_rumi_face_braid_shirt_and_skirt(self):
+        gold = [245, 190, 35, 255]
+        pixels = np.array([[gold]*5, [gold, [225,165,115,255], [145,65,195,255],
+                            [240,240,240,255], [35,40,70,255]], [gold]*5], dtype=np.uint8)
+        spec = {'chin': 1, 'garmentBottom': 2}
+        mask = np.asarray(build.clothing_mask(Image.fromarray(pixels), spec, 'gold-jacket'))[:, :, 0]
+        self.assertEqual(mask[0].max(), 0)
+        self.assertEqual(mask[1].tolist(), [255, 0, 0, 0, 0])
+        self.assertEqual(mask[2].max(), 0)
+
     def test_gap_split_keeps_an_off_grid_foot_whole(self):
         im = Image.new('RGBA', (300, 100))
         im.paste((100, 100, 100, 255), (10, 10, 108, 90))
@@ -73,10 +83,11 @@ class DollBuildTests(unittest.TestCase):
             manifest = json.loads(p.read_text())
             build.check(manifest)
             key = manifest['key']
+            asset_key = manifest.get('assetKey', key)
             for kind in ['sheet', 'portrait', 'wave', 'cheer', 'ride']:
-                asset = (build.GAME/f'assets/doll_{key}_sprites.webp' if kind == 'sheet' else
-                         build.GAME/f"assets/portraits/{key}{'' if kind == 'portrait' else '_'+kind}.webp")
-                mask = build.GAME/f'assets/masks/{key}_{kind}_mask.webp'
+                asset = (build.GAME/f'assets/doll_{asset_key}_sprites.webp' if kind == 'sheet' else
+                         build.GAME/f"assets/portraits/{asset_key}{'' if kind == 'portrait' else '_'+kind}.webp")
+                mask = build.GAME/f'assets/masks/{asset_key}_{kind}_mask.webp'
                 with Image.open(asset) as a, Image.open(mask) as b:
                     self.assertEqual(a.size, b.size)
             report = json.loads((build.HERE/f'reports/{key}.json').read_text())

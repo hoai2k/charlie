@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const game = new URL('../../', import.meta.url);
-const scope = {};
+const scope = {window:{}};
 vm.runInNewContext(fs.readFileSync(new URL('recolor.js', game), 'utf8'), scope);
-vm.runInNewContext(fs.readFileSync(new URL('dolls.js', game), 'utf8').replace('window.EXTRA_DOLLS', 'globalThis.EXTRA_DOLLS'), scope);
-const { DollRecolor, EXTRA_DOLLS } = scope;
+vm.runInNewContext(fs.readFileSync(new URL('dolls.js', game), 'utf8'), scope);
+const { DollRecolor } = scope.window;
+const { EXTRA_DOLLS } = scope.window;
 const stats = EXTRA_DOLLS.hermione.outfitData.stats;
 
 test('neutral uniform becomes visibly coloured while unmasked face and hair stay byte-identical', () => {
@@ -48,4 +49,12 @@ test('Luna cardigan changes colour while unmasked pink glasses and other identit
   DollRecolor.recolorPixelsLut(p,mask,EXTRA_DOLLS.luna.outfitData.stats,[47,111,224]);
   assert.ok(p[2]>p[0]+30,'Blue cardigan must read as blue');
   assert.deepEqual(p.slice(4),original.slice(4));
+});
+
+
+test('updated Rumi jacket changes colour without tinting purple hair/laces or warm skin',()=>{
+ const p=new Uint8ClampedArray([245,185,35,255, 145,65,195,255, 225,165,115,255, 35,40,70,255]);
+ const original=p.slice(),mask=new Uint8ClampedArray(p.length);mask[0]=255;
+ DollRecolor.recolorPixelsLut(p,mask,EXTRA_DOLLS.rumi.outfitData.stats,[47,111,224]);
+ assert.ok(p[2]>p[0]+30);assert.deepEqual(p.slice(4),original.slice(4));
 });

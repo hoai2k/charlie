@@ -282,7 +282,6 @@ const NEXT_TRACK_PREVIEW_GAIN = 0.55;
 
 const extraDolls = window.EXTRA_DOLLS || {};
 const images = {
-  ...Object.fromEntries(Object.keys(extraDolls).map(key => [key, loadImage(`assets/doll_${key}_sprites.webp`)])),
   backgroundFarm: loadImage("assets/background_farm.webp"),
   backgroundCastles: loadImage("assets/background_castles.webp"),
   backgroundFairy: loadImage("assets/background_fairy.webp"),
@@ -304,23 +303,21 @@ const images = {
   broom: loadImage("assets/broom.webp"),
   monster: loadImage("assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
-  confetti: loadImage("assets/ui/confetti.webp")
+  confetti: loadImage("assets/ui/confetti.webp"),
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp`)]))
 };
 
 const jumpSpriteScale = {
   default: 0.9,
-  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, doll.jumpScale || 1])),
   lily: 1.02,
   marisol: 0.99,
   amanda: 0.99,
   penelope: 0.99,
   rumi: 0.99,
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, doll.jumpScale || 1])),
 };
 
 const characters = {
-  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, {
-    ...doll, image: () => images[key]
-  }])),
   whirlpool: {
     name: "Whirlpool",
     spriteKey: "whirlpool",
@@ -385,8 +382,15 @@ const characters = {
     color: "#7b3bb8",
     riderYOffset: 85,
     image: () => images.rumi
-  }
+  },
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, {
+    ...doll, image: () => images[key]
+  }])),
 };
+
+function dollAssetKey(key) {
+  return characters[key]?.assetKey || key;
+}
 
 const state = {
   running: false,
@@ -822,7 +826,7 @@ function updatePlayerLabels() {
     const faceKey = `${racer.spriteKey}|${racer.outfit || 0}`;
     if (face.dataset.key !== faceKey) {
       face.dataset.key = faceKey;
-      face.style.backgroundImage = `url("assets/portraits/${racer.spriteKey}.webp")`;
+      face.style.backgroundImage = `url("assets/portraits/${dollAssetKey(racer.spriteKey)}.webp")`;
       if (racer.outfit && window.DollOutfits) {
         DollOutfits.url(racer.spriteKey, "portrait", racer.outfit).then(src => {
           if (face.dataset.key === faceKey) face.style.backgroundImage = `url("${src}")`;
@@ -3130,7 +3134,7 @@ function renderJoinPickers() {
     title.append(rosette, document.createTextNode(`Here comes P${slot + 1}!`));
     const sprite = document.createElement("div");
     sprite.className = "join-card-portrait";
-    sprite.style.backgroundImage = `url("assets/portraits/${character.spriteKey}_wave.webp")`;
+    sprite.style.backgroundImage = `url("assets/portraits/${dollAssetKey(character.spriteKey)}_wave.webp")`;
     const name = document.createElement("div");
     name.className = "join-card-name";
     name.innerHTML = `<span class="join-arrow">◀</span>${character.name}<span class="join-arrow">▶</span>`;
@@ -4684,7 +4688,7 @@ function drawVictoryConfetti(elapsed) {
 
 const portraitImages = new Map();
 function getPortraitImage(spriteKey, pose) {
-  const src = `assets/portraits/${spriteKey}${pose ? `_${pose}` : ""}.webp`;
+  const src = `assets/portraits/${dollAssetKey(spriteKey)}${pose ? `_${pose}` : ""}.webp`;
   if (!portraitImages.has(src)) portraitImages.set(src, loadImage(src));
   const image = portraitImages.get(src);
   return image.complete && image.naturalWidth ? image : null;
@@ -5216,7 +5220,7 @@ function drawBroomRacer(racer, screenX, scale, facing) {
   const blend = broomRideBlend(racer);
   const row = racer.moving ? 1 : 0;
   const col = racer.frame;
-  const hand = (window.BROOM_ART.carryHands[racer.spriteKey] || window.BROOM_ART.carryHands.lily)[row][col];
+  const hand = (window.BROOM_ART.carryHands[characters[racer.spriteKey]?.assetKey || racer.spriteKey] || window.BROOM_ART.carryHands.lily)[row][col];
   const groundX = screenX - SPRITE_ANCHOR_X * scale;
   const groundY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z;
   // Reuse the calibrated saddle offsets for every doll, including outfit sheets.
