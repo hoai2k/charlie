@@ -38,9 +38,9 @@ const ROUND_CFG = [
   { colors: 5, tMin: 7, tMax: 9, dMin: 9, dMax: 11, dur: 8.5, cross: [2.4, 3.2], hide: 0.35 },
 ];
 const FLOWERS = [
-  { x: 330, y: 610, c: '#ff8ad0', c2: '#ffd1ec' },
-  { x: 960, y: 560, c: '#ffe46b', c2: '#fff6bb' },
-  { x: 1590, y: 630, c: '#8fd0ff', c2: '#d8efff' },
+  { x: 330, y: 610, c: '#ff8ad0', c2: '#ffd1ec', key: 'pink' },
+  { x: 960, y: 560, c: '#ffe46b', c2: '#fff6bb', key: 'yellow' },
+  { x: 1590, y: 630, c: '#8fd0ff', c2: '#d8efff', key: 'blue' },
 ];
 const SCALE_STEPS = [0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, 24, 26];
 
@@ -510,6 +510,16 @@ export class Game {
   drawGarden(g) {
     // tall flowers (also the hiding spots)
     FLOWERS.forEach((f, i) => {
+      const img = art(`prop/fairy-count-flower-${f.key}`);
+      if (img) {
+        // painted flower: bloom centre at (130, 102) in the 260x620 art, scaled so the bloom hides a fairy
+        const k = 1.35, sway = Math.sin(this.t * 0.7 + i * 2) * 0.025;
+        glow(g, f.x, f.y, 150, f.c, 0.45 + 0.15 * Math.sin(this.t * 2 + i * 2));
+        g.save(); g.translate(f.x, f.y + 518 * k); g.rotate(sway);
+        g.drawImage(img, -130 * k, -620 * k, 260 * k, 620 * k);
+        g.restore();
+        return;
+      }
       g.save(); g.strokeStyle = NAVY; g.lineWidth = 16; g.beginPath(); g.moveTo(f.x, H); g.bezierCurveTo(f.x + 20 * (i - 1), 900, f.x - 20 * (i - 1), 760, f.x, f.y + 40); g.stroke();
       g.strokeStyle = '#2f9e6a'; g.lineWidth = 10; g.beginPath(); g.moveTo(f.x, H); g.bezierCurveTo(f.x + 20 * (i - 1), 900, f.x - 20 * (i - 1), 760, f.x, f.y + 40); g.stroke();
       // leaves
