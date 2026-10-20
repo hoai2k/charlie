@@ -83,10 +83,10 @@ function recolorPixels(pixels, mask, stats, target, out = pixels) {
     const L = lab[0], C = Math.hypot(lab[1], lab[2]), h = Math.atan2(lab[2], lab[1]);
     let nr = r, ng = g, nb = b;
     if (w > 0) {
-      const cf = colourful(L, C);
-      const dh = Math.max(-HUE_CLAMP, Math.min(HUE_CLAMP, wrap(h - stats.h) * HUE_KEEP));
+      const cf = stats.tintNeutral ? 1 : colourful(L, C);
+      const dh = stats.tintNeutral ? 0 : Math.max(-HUE_CLAMP, Math.min(HUE_CLAMP, wrap(h - stats.h) * HUE_KEEP));
       const L2 = Math.max(0.02, Math.min(0.98, L + dL));
-      const C2 = Math.max(C * k, cf * 0.35 * tC);
+      const C2 = Math.max(C * k, cf * (stats.tintNeutral ? 0.75 : 0.35) * tC);
       lchToLinClipped(L2, C2, th + dh, lin);
       const a = w * (0.15 + 0.85 * cf);
       nr = r * (1 - a) + linToByte(lin[0]) * a;

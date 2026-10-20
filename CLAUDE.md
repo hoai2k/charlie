@@ -114,6 +114,8 @@ hook to get round it.
 
 ## Game notes
 
+- New `americangirldollrace/` dolls use `americangirldollrace/tools/dolls/README.md`: canonical reference, pose art, manifest, deterministic export/validation and generated roster registration. The older imagegen/recolour tools remain for existing assets.
+
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
   and resume notes, then `party/PLAN.md`.
 - `party/intake/` is the owner's drop folder for new files (songs, sounds,

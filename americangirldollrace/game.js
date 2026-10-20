@@ -279,7 +279,9 @@ const NEXT_TRACK_CROSSFADE_DELAY_MS = 900;
 const NEXT_TRACK_CROSSFADE_MS = 2400;
 const NEXT_TRACK_PREVIEW_GAIN = 0.55;
 
+const extraDolls = window.EXTRA_DOLLS || {};
 const images = {
+  ...Object.fromEntries(Object.keys(extraDolls).map(key => [key, loadImage(`assets/doll_${key}_sprites.webp`)])),
   backgroundFarm: loadImage("assets/background_farm.webp"),
   backgroundCastles: loadImage("assets/background_castles.webp"),
   backgroundFairy: loadImage("assets/background_fairy.webp"),
@@ -304,6 +306,7 @@ const images = {
 
 const jumpSpriteScale = {
   default: 0.9,
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, doll.jumpScale || 1])),
   lily: 1.02,
   marisol: 0.99,
   amanda: 0.99,
@@ -312,6 +315,9 @@ const jumpSpriteScale = {
 };
 
 const characters = {
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, {
+    ...doll, image: () => images[key]
+  }])),
   whirlpool: {
     name: "Whirlpool",
     spriteKey: "whirlpool",

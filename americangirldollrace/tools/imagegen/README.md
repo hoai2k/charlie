@@ -105,3 +105,9 @@ Keep a 16-pixel gutter around the logical composition for the bobbing motion;
 the rightmost runner and wing tips otherwise touch its bounds. Set bobAmplitude
 to zero and enterDelayMs to zero for a static composition. The original combined
 WebP remains available as the simple fallback.
+
+## Adding new dolls
+
+Use `../dolls/README.md` for the direct canonical-reference-to-runtime workflow.
+It exports race frames, menu poses, masks, calibration reports and roster metadata.
+This older artwork exporter remains available for the existing title/UI assets.

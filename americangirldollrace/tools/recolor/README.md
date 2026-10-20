@@ -1,5 +1,10 @@
 # Duplicate-doll outfit recolour: mask build tools
 
+For **new dolls**, start with `../dolls/README.md`. Its direct pipeline can build
+the runtime assets and compatible masks without this older segmentation pass.
+Use the tools below to maintain the existing dolls or when ML segmentation is
+needed for a more complex outfit.
+
 When several racers pick the same doll, the first keeps her original clothes and
 each later copy gets a recoloured outfit. The game does the recolour at runtime
 (`../../recolor.js`, `window.DollRecolor`) from two shipped inputs:

@@ -12,7 +12,7 @@
  * uses its globals.
  */
 (() => {
-  const ROSTER_ORDER = ["lily", "rumi", "kaya", "amanda", "juliette", "claudia", "whirlpool", "marisol", "penelope"];
+  const ROSTER_ORDER = ["lily", "rumi", "kaya", "amanda", "juliette", "claudia", "whirlpool", "marisol", ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"];
   const RANDOM = "random";
   const COLS = 5;
   const STALL = 157;
@@ -242,7 +242,11 @@
 
 
   // ---------- roster grid ----------
-  const rows = () => [lobby.roster.slice(0, COLS).map((_, i) => i), lobby.roster.slice(COLS).map((_, i) => i + COLS)];
+  const columns = () => Math.max(COLS, Math.ceil(lobby.roster.length / 2));
+  const rows = () => {
+    const cols = columns();
+    return [lobby.roster.slice(0, cols).map((_, i) => i), lobby.roster.slice(cols).map((_, i) => i + cols)];
+  };
 
   function buildGrid() {
     const visible = new Set(getVisibleCharacterEntries().map(([key]) => key));
@@ -250,13 +254,17 @@
     const grid = $("#lbGrid");
     grid.innerHTML = "";
     const [top, bottom] = rows();
+    const cols = columns();
+    const step = cols > COLS ? 600 / cols : 122;
+    grid.style.setProperty("--lb-card-width", `${step - 12}px`);
+    grid.classList.toggle("wide-roster", cols > COLS);
     lobby.cards = lobby.roster.map((key, index) => {
-      const row = index < COLS ? 0 : 1;
-      const col = row ? index - COLS : index;
-      const offset = (COLS - (row ? bottom : top).length) * 61;
+      const row = index < cols ? 0 : 1;
+      const col = row ? index - cols : index;
+      const offset = (cols - (row ? bottom : top).length) * step / 2;
       const card = document.createElement("div");
       card.className = "lb-card";
-      card.style.left = `${offset + col * 122}px`;
+      card.style.left = `${offset + col * step}px`;
       card.style.top = `${row * 178 + 14}px`;
       card.innerHTML = `<div class="lb-pic${key === RANDOM ? " random" : ""}" style="background-image:url(${art(key)})"></div><div class="lb-name">${dollName(key)}</div><div class="lb-cursors"></div>`;
       card.addEventListener("pointerdown", event => { event.preventDefault(); tapCard(index); });
@@ -602,14 +610,15 @@
     const slot = lobby.slots[index];
     if (!slot || slot.locked) return;
     const r = rows();
-    let row = slot.cursor < COLS ? 0 : 1;
-    let col = row ? slot.cursor - COLS : slot.cursor;
+    const cols = columns();
+    let row = slot.cursor < cols ? 0 : 1;
+    let col = row ? slot.cursor - cols : slot.cursor;
     if (dx) col = (col + dx + r[row].length) % r[row].length;
     if (dy && r[1].length) {
       // Keep the cursor over roughly the same spot when the rows differ in length.
-      const x = col + (COLS - r[row].length) / 2;
+      const x = col + (cols - r[row].length) / 2;
       row = 1 - row;
-      col = clamp(Math.round(x - (COLS - r[row].length) / 2), 0, r[row].length - 1);
+      col = clamp(Math.round(x - (cols - r[row].length) / 2), 0, r[row].length - 1);
     }
     slot.cursor = r[row][col];
     sound("ui_hover");

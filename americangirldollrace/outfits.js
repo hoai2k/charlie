@@ -46,7 +46,7 @@
   }
 
   function dollData(key) {
-    return data?.dolls?.[key] || null;
+    return data?.dolls?.[key] || window.EXTRA_DOLLS?.[key]?.outfitData || null;
   }
 
   // Number of outfits a doll has, including her original (1 if no data yet).

@@ -1,0 +1,32 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const game = new URL('../../', import.meta.url);
+const scope = {};
+vm.runInNewContext(fs.readFileSync(new URL('recolor.js', game), 'utf8'), scope);
+vm.runInNewContext(fs.readFileSync(new URL('dolls.js', game), 'utf8').replace('window.EXTRA_DOLLS', 'globalThis.EXTRA_DOLLS'), scope);
+const { DollRecolor, EXTRA_DOLLS } = scope;
+const stats = EXTRA_DOLLS.hermione.outfitData.stats;
+
+test('neutral uniform becomes visibly coloured while unmasked face and hair stay byte-identical', () => {
+  const pixels = new Uint8ClampedArray([70,70,70,255, 225,165,115,255, 160,90,40,255]);
+  const mask = new Uint8ClampedArray([255,0,0,255, 0,0,0,255, 0,0,0,255]);
+  const original = pixels.slice();
+  DollRecolor.recolorPixelsLut(pixels, mask, stats, [216,38,47]);
+  assert.ok(pixels[0] > pixels[1]+35, 'Red outfit must be distinguishable from the charcoal original');
+  assert.deepEqual(pixels.slice(4), original.slice(4));
+});
+
+test('neutral-uniform LUT agrees with the exact recolour at garment grey values', () => {
+  const pixels = [];
+  for (let n=25;n<180;n+=7) pixels.push(n,n,n,255);
+  const mask = new Uint8ClampedArray(pixels.length);
+  for(let i=0;i<mask.length;i+=4) mask[i]=255;
+  for(const target of [[216,38,47],[242,194,48],[47,111,224]]) {
+    const exact = new Uint8ClampedArray(pixels), fast = new Uint8ClampedArray(pixels);
+    DollRecolor.recolorPixels(exact,mask,stats,target);
+    DollRecolor.recolorPixelsLut(fast,mask,stats,target);
+    assert.ok(Math.max(...exact.map((v,i)=>Math.abs(v-fast[i]))) <= 3);
+  }
+});

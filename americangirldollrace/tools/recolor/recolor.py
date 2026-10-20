@@ -32,11 +32,11 @@ def recolor_rgb(rgb, w, fh, stats, hexcol):
     """rgb (...,3) 0..1, w / fh weights (...) -> new rgb"""
     tL, tC, th = target_lch(hexcol)
     L, C, h = ok2lch(rgb2ok(rgb))
-    cf = colourful(L, C)
+    cf = np.ones_like(L) if stats.get('tintNeutral') else colourful(L, C)
     k = np.clip(tC / max(stats['C'], 1e-3), 0.6, 3.0)
-    dh = np.clip(wrap(h - stats['h']) * HUE_KEEP, -HUE_CLAMP, HUE_CLAMP)
+    dh = np.zeros_like(h) if stats.get('tintNeutral') else np.clip(wrap(h - stats['h']) * HUE_KEEP, -HUE_CLAMP, HUE_CLAMP)
     L2 = np.clip(L + beta_for(stats, th) * (tL - stats['L']), 0.02, 0.98)
-    C2 = np.maximum(C * k, cf * 0.35 * tC)
+    C2 = np.maximum(C * k, cf * (0.75 if stats.get('tintNeutral') else 0.35) * tC)
     h2 = th + dh
     new = ok2rgb(lch2ok(L2, gamut_clip(L2, C2, h2, iters=8), h2))
     new = np.round(new * 255) / 255
