@@ -59,6 +59,8 @@ def source_frame(manifest, pose):
             spec['anchor'] = [spec['anchor'][0] + offset, spec['anchor'][1]]
         if 'raisedSleeves' in spec:
             spec['raisedSleeves'] = [[x0+offset,y0,x1+offset,y1] for x0,y0,x1,y1 in spec['raisedSleeves']]
+        if 'protectedRegions' in spec:
+            spec['protectedRegions'] = [[x0+offset,y0,x1+offset,y1] for x0,y0,x1,y1 in spec['protectedRegions']]
         src = src.crop(box)
     # Remove effectively invisible generated RGB spill (alpha 1..3), preserving
     # all meaningful alpha and soft hair edges. Never replace alpha with a key.
@@ -92,6 +94,24 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 
 def clothing_mask(src, spec, mode):
+    if mode == 'pink-cardigan':
+        # Explicit Luna palette: pink knit, warm blonde hair/skin, blue skirt.
+        # Bound the garment vertically so pink sock stripes stay unchanged.
+        a = np.asarray(src).astype(np.float32)
+        r, g, b, alpha = [a[:, :, i] for i in range(4)]
+        weight = np.clip((r-g-14)/8, 0, 1) * np.clip((b-g-5)/8, 0, 1)
+        weight *= (r > b-20) & (b > 70) & (alpha > 16)
+        candidate = weight.copy()
+        weight[:round(spec['chin'])] = 0
+        for x0, y0, x1, y1 in spec.get('raisedSleeves', []):
+            weight[y0:y1, x0:x1] = candidate[y0:y1, x0:x1]
+        weight[round(spec['garmentBottom']):] = 0
+        for x0, y0, x1, y1 in spec.get('protectedRegions', []):
+            weight[y0:y1, x0:x1] = 0
+        out = np.zeros_like(a, dtype=np.uint8)
+        out[:, :, 0] = np.round(weight * 255).astype(np.uint8)
+        out[:, :, 3] = 255
+        return Image.fromarray(out)
     if mode != 'neutral-uniform':
         raise ValueError(f'Unknown mask strategy: {mode}')
     return neutral_mask(src, spec['chin'], spec.get('raisedSleeves', []))

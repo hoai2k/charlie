@@ -39,3 +39,13 @@ test('Mira variants tint the neutral outfit while retaining unmasked pink hair, 
   assert.ok(p[2]>p[0]+30,'Blue outfit must be visibly different');
   assert.deepEqual(p.slice(4),original.slice(4));
 });
+
+test('Luna cardigan changes colour while unmasked pink glasses and other identity colours stay exact', () => {
+  const p = new Uint8ClampedArray([210,130,160,255, 235,110,170,255, 220,190,130,255, 70,120,180,255, 225,165,115,255]);
+  const mask = new Uint8ClampedArray(p.length);
+  mask[0]=255;
+  const original=p.slice();
+  DollRecolor.recolorPixelsLut(p,mask,EXTRA_DOLLS.luna.outfitData.stats,[47,111,224]);
+  assert.ok(p[2]>p[0]+30,'Blue cardigan must read as blue');
+  assert.deepEqual(p.slice(4),original.slice(4));
+});

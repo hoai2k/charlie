@@ -26,6 +26,31 @@ window.EXTRA_DOLLS = {
       ]
     }
   },
+  "luna": {
+    "name": "Luna",
+    "color": "#b661b4",
+    "spriteKey": "luna",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": 0.11884,
+        "L": 0.73423,
+        "C": 0.12616,
+        "beta": 0.7
+      },
+      "outfits": [
+        "blue",
+        "red",
+        "mint",
+        "purple",
+        "yellow",
+        "teal",
+        "orange"
+      ]
+    }
+  },
   "mira": {
     "name": "Mira",
     "color": "#d82c83",

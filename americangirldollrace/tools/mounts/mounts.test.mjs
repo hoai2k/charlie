@@ -71,7 +71,7 @@ test('broom transition follows altitude and returns exactly to carrying on landi
 
 test('all roster dolls have finite hand anchors and broom modes persist through both settings UIs',()=>{
  const c={window:{}};vm.runInNewContext(fs.readFileSync(new URL('broom.js',game),'utf8'),c);
- const keys=['lily','rumi','kaya','amanda','juliette','claudia','whirlpool','marisol','penelope','hermione','mira'];
+ const keys=['lily','rumi','kaya','amanda','juliette','claudia','whirlpool','marisol','penelope','hermione','mira','luna'];
  for(const key of keys){const rows=c.window.BROOM_ART.carryHands[key];assert.equal(rows.length,2);for(const row of rows){assert.equal(row.length,3);for(const [x,y] of row){assert.ok(x>0&&x<418&&y>0&&y<418);}}}
  const html=fs.readFileSync(new URL('index.html',game),'utf8'),menu=fs.readFileSync(new URL('menu.js',game),'utf8');
  for(const label of ['All Gryphons','All Brooms']){assert.ok(menu.includes(label));assert.ok(html.includes(label));}

@@ -1,0 +1,226 @@
+{
+  "version": 1,
+  "key": "luna",
+  "name": "Luna",
+  "color": "#b661b4",
+  "standingHeight": 390,
+  "portraitBox": [
+    340,
+    0,
+    660,
+    400
+  ],
+  "mask": {
+    "mode": "pink-cardigan",
+    "note": "Recolour pink cardigan only. Preserve glasses/lenses, skin, blonde hair, blue skirt and striped socks."
+  },
+  "outfitData": {
+    "stats": {
+      "h": 0.11884,
+      "L": 0.73423,
+      "C": 0.12616,
+      "beta": 0.7
+    },
+    "outfits": [
+      "blue",
+      "red",
+      "mint",
+      "purple",
+      "yellow",
+      "teal",
+      "orange"
+    ]
+  },
+  "poses": {
+    "idle-0": {
+      "source": "sources/luna/idle.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 501,
+      "chin": 200,
+      "garmentBottom": 405
+    },
+    "idle-1": {
+      "source": "sources/luna/idle.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 396,
+      "chin": 200,
+      "garmentBottom": 405
+    },
+    "idle-2": {
+      "source": "sources/luna/idle.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 277,
+      "chin": 200,
+      "garmentBottom": 405,
+      "raisedSleeves": [
+        [
+          480,
+          150,
+          650,
+          230
+        ]
+      ]
+    },
+    "run-0": {
+      "source": "sources/luna/run.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 473,
+      "chin": 225,
+      "garmentBottom": 430
+    },
+    "run-1": {
+      "source": "sources/luna/run.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 430,
+      "chin": 225,
+      "garmentBottom": 430
+    },
+    "run-2": {
+      "source": "sources/luna/run.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 368,
+      "chin": 225,
+      "garmentBottom": 430
+    },
+    "jump-0": {
+      "source": "sources/luna/jump.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 450,
+      "chin": 260,
+      "garmentBottom": 550,
+      "scale": 0.9,
+      "protectedRegions": [
+        [
+          220,
+          470,
+          500,
+          724
+        ]
+      ]
+    },
+    "jump-1": {
+      "source": "sources/luna/jump.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 405,
+      "chin": 230,
+      "garmentBottom": 550,
+      "scale": 0.9,
+      "protectedRegions": [
+        [
+          180,
+          430,
+          570,
+          724
+        ]
+      ]
+    },
+    "jump-2": {
+      "source": "sources/luna/jump.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 415,
+      "chin": 280,
+      "garmentBottom": 550,
+      "scale": 0.9,
+      "protectedRegions": [
+        [
+          200,
+          480,
+          600,
+          724
+        ]
+      ]
+    },
+    "ride": {
+      "source": "sources/luna/actions.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 350,
+      "chin": 230,
+      "garmentBottom": 445,
+      "scale": 0.9,
+      "anchor": [
+        350,
+        465
+      ],
+      "target": [
+        209,
+        264
+      ]
+    },
+    "push": {
+      "source": "sources/luna/actions.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 400,
+      "chin": 230,
+      "garmentBottom": 550,
+      "scale": 0.9
+    },
+    "fall": {
+      "source": "sources/luna/actions.webp",
+      "cell": 2,
+      "separate": true,
+      "hipX": 365,
+      "chin": 300,
+      "garmentBottom": 485,
+      "scale": 0.9,
+      "protectedRegions": [
+        [
+          465,
+          400,
+          724,
+          724
+        ]
+      ]
+    },
+    "wave": {
+      "source": "sources/luna/menu.webp",
+      "cell": 0,
+      "separate": true,
+      "hipX": 435,
+      "chin": 205,
+      "garmentBottom": 415,
+      "raisedSleeves": [
+        [
+          235,
+          130,
+          350,
+          245
+        ]
+      ]
+    },
+    "cheer": {
+      "source": "sources/luna/menu.webp",
+      "cell": 1,
+      "separate": true,
+      "hipX": 390,
+      "chin": 205,
+      "garmentBottom": 415,
+      "raisedSleeves": [
+        [
+          130,
+          175,
+          330,
+          240
+        ],
+        [
+          470,
+          170,
+          620,
+          240
+        ]
+      ]
+    }
+  },
+  "personality": "Dreamy, kindly curious and quietly brave; glasses-lifting greeting, glasses-adjusting idle, light steps, open-armed serene cheer. Spectrespecs remain worn over both eyes in race/riding pose; the menu wave lifts them onto her forehead.",
+  "sourceScaleNote": "Blue/pink lens span is about 105px in idle/run/menu and 118px in jump/actions; 0.9 relative scale on those two strips preserves head/limb size instead of enlarging the crouches."
+}

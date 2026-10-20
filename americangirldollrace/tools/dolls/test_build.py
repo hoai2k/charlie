@@ -43,6 +43,29 @@ class DollBuildTests(unittest.TestCase):
         self.assertEqual(build.bounds(im.crop(boxes[0]))[2], 108)
         self.assertLess(boxes[1][0], 125)
 
+    def test_pink_cardigan_mask_preserves_glasses_skin_hair_skirt_and_socks(self):
+        pink, skin, blonde, blue = [210, 130, 160, 255], [225, 165, 115, 255], [220, 190, 130, 255], [70, 120, 180, 255]
+        pixels = np.array([[pink, pink, pink, pink],
+                           [pink, skin, blonde, blue],
+                           [pink, pink, pink, pink]], dtype=np.uint8)
+        spec = {'chin': 1, 'garmentBottom': 2, 'protectedRegions': [[0, 1, 1, 2]]}
+        mask = np.asarray(build.clothing_mask(Image.fromarray(pixels), spec, 'pink-cardigan'))[:, :, 0]
+        self.assertEqual(mask[0].max(), 0, 'Pink glasses are above the chin')
+        self.assertEqual(mask[1].tolist(), [0, 0, 0, 0])
+        self.assertEqual(mask[2].max(), 0, 'Pink sock stripes stay fixed')
+        spec.pop('protectedRegions')
+        self.assertEqual(np.asarray(build.clothing_mask(Image.fromarray(pixels), spec, 'pink-cardigan'))[1, 0, 0], 255)
+
+    def test_luna_face_and_socks_remain_outside_exported_outfit_masks(self):
+        manifest = json.loads((build.HERE/'manifests/luna.json').read_text())
+        for pose in build.POSES + ['wave', 'cheer']:
+            src, spec = build.source_frame(manifest, pose)
+            mask = np.asarray(build.clothing_mask(src, spec, 'pink-cardigan'))[:, :, 0]
+            # Glasses span the face; raised-sleeve exceptions sit outside it.
+            head_x = spec['hipX']
+            self.assertEqual(mask[:round(spec['chin'])-45, max(0, head_x-65):head_x+65].max(), 0, pose)
+            self.assertEqual(mask[spec['garmentBottom']:].max(), 0, pose)
+
     def test_shipped_assets_and_grounded_poses(self):
         for p in (build.HERE/'manifests').glob('*.json'):
             if p.name.startswith('._'):
@@ -59,7 +82,7 @@ class DollBuildTests(unittest.TestCase):
             report = json.loads((build.HERE/f'reports/{key}.json').read_text())
             common = report['frames']['idle-0']['scale']
             for pose in ['idle-1', 'idle-2', 'run-0', 'run-1', 'run-2', 'jump-0', 'jump-1', 'jump-2', 'wave', 'cheer', 'ride']:
-                self.assertEqual(report['frames'][pose]['scale'], common, pose)
+                self.assertEqual(report['frames'][pose]['scale'], common * manifest['poses'][pose].get('scale', 1), pose)
             for pose in build.POSES + ['wave', 'cheer']:
                 src, _ = build.source_frame(manifest, pose)
                 x0,y0,x1,y1 = build.bounds(src)

@@ -119,3 +119,32 @@ The same gap splitter is used by the griffon mount exporter in `../mounts/`.
 Mira validation also covered the in-game jump, griffon riding/gliding, a blue
 outfit, duplicate players with distinct outfits, and the twelve-card All Dolls
 roster in portrait layout. All exported poses retain the same scale and baseline.
+
+## Luna
+
+Luna's canonical reference, all race poses and her cheer wear the pink
+Spectrespecs over her eyes. Her menu wave is a glasses-lifting greeting: one
+hand holds the frame on her forehead, revealing her eyes. The second idle
+variation gently touches the glasses while keeping them on. Her expressions
+are serene and curious; running is light, and her cheer opens her arms.
+
+The `pink-cardigan` mask is an explicit palette strategy for her pink knit,
+warm blonde hair/skin and blue skirt. Source chin lines protect the glasses;
+raised sleeve rectangles restore cardigan coverage near the face; garment
+bounds and protected lower-leg rectangles preserve the pastel striped socks
+when she crouches or tucks her knees. It changes only the cardigan for her
+seven alternate outfits. Source outfit statistics are measured in Oklab.
+
+Jump/actions were generated with lens/head sizes about 12% larger than the
+idle/run/menu strips. Their manifest declares a shared 0.9 relative source
+scale so her head and limbs match, with no silent fit-to-cell resizing. Tests
+check the common base scale times this declared source calibration. Her seated
+pivot is measured in the action source and exported at `[209, 264]`, using the
+same mount calibration as other dolls. Broom carry hands are measured from the
+exported idle/run poses and recorded in `../mounts/broom.json`.
+
+Selected art was generated with built-in ImageGen; prompts and refinement
+instructions are in `luna-generation.json`. Rebuild and validation commands
+above include Luna. Browser checks cover her glasses-lifting greeting, blue
+cardigan, race movement, broom carrying/flight in both directions and gryphon
+seating. The full thirteen-card All Dolls roster fits the portrait layout.
