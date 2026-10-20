@@ -28,8 +28,8 @@ to `game.js`. The gallery `griffon-review.jpg` applies the game's mount/rider
 scales and seat offsets to Hermione's riding pose for all nine cells. No runtime
 rider offset is guessed from a bounding box or reused from a different animal.
 
-Normal horse pickups roll: 10% unicorn, 10% pegasus, **5% griffon**, 75% horse.
-All Griffons forces horse pickups to griffons, like the existing All Pegasi
+Normal horse pickups roll: 10% unicorn, 10% pegasus, **5% griffon**, 5% broom, 70% horse.
+All Gryphons forces horse pickups to griffons, like the existing All Pegasi
 setting; it does not turn every kind of powerup into a mount. The griffon shares
 pegasus jump/hold-to-glide physics, 15-second duration, wing/flight audio loops,
 and special-mount monster bump behaviour. In Horsing Around, it stays indefinitely
@@ -41,3 +41,33 @@ hover/release/expiry, duration, wing audio selection, monster bumps and calibrat
 The sheet is also checked for decoding, dimensions, alpha, clipping and hash.
 Browser verification covered the settings icon, pickup, mounted Mira, and holding
 flight. Existing special-setting icons retain their original atlas indices.
+
+# Broom mount
+
+The broom uses one alpha WebP prop rather than nine redundant sprite cells.
+`broom.json` records the built-in imagegen prompt, source, grip, and measured
+hand centers for each doll's idle/run frames. `build_broom.py` trims transparent
+padding, exports lossless art, and generates `broom.js`. Run it after changing
+the source or hand calibration; use `--check` to validate without rewriting.
+
+`game.js` draws the carried broom in front of clothing/hair, then restores a
+small patch of the actual gripping hand over the shaft. Altitude blends the
+normal doll with its calibrated seated sprite over the first 85 world pixels;
+descent reverses it. Flight uses the existing saddle offsets so all dolls and
+outfit sheets share their tested rider alignment. Both doll and prop mirror
+around the same facing anchor. `broom-review.jpg` shows every doll in both
+directions, carrying and riding.
+
+Brooms have the same 15-second duration and held-jump hover physics as pegasi
+and gryphons, with a 5% chance among normal mount pickups. `All Brooms` forces
+mount pickups to be brooms. A carried broom is silent; flight reuses the soft
+glide loop. The internal `griffon` key stays compatible with saved settings;
+the visible setting is spelled `All Gryphons`.
+
+Checks:
+
+```sh
+python3 americangirldollrace/tools/mounts/build_broom.py --check
+python3 americangirldollrace/tools/mounts/build_griffon.py --check
+node --test americangirldollrace/tools/mounts/mounts.test.mjs
+```

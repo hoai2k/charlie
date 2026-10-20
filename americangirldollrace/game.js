@@ -263,7 +263,7 @@ const RACER_STARTS = [
 ];
 
 const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya", "lily", "marisol", "amanda", "rumi"];
-const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "all-dolls", "horsing", "amanda-mode"]);
+const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"]);
 const BACKGROUNDS = [
   { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3" },
   { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3" },
@@ -301,6 +301,7 @@ const images = {
   unicorn: loadImage("assets/unicorn_sprites.webp"),
   pegasus: loadImage("assets/pegasus_sprites.webp"),
   griffon: loadImage("assets/griffon_sprites.webp"),
+  broom: loadImage("assets/broom.webp"),
   monster: loadImage("assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp")
@@ -1088,7 +1089,7 @@ function makePowerup(type, x, y, options = {}) {
 }
 
 function isFlyingMountType(type) {
-  return type === "pegasus" || type === "griffon";
+  return type === "pegasus" || type === "griffon" || type === "broom";
 }
 
 function isSpecialMountType(type) {
@@ -1102,10 +1103,11 @@ function chooseHorseType() {
   if (roll < 0.1) return "unicorn";
   if (roll < 0.2) return "pegasus";
   if (roll < 0.25) return "griffon";
+  if (roll < 0.30) return "broom";
   return "horse";
 }
 
-// Both winged mounts share the existing hold-to-glide physics and animation flag.
+// Flying mounts share hold-to-glide physics and the legacy animation flag.
 function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
   const holding = mounted && isFlyingMountType(racer.horseType) && jumpHeld && racer.z > 0;
   racer.z += racer.vy * dt;
@@ -1199,6 +1201,7 @@ function updateAudioListener() {
 }
 
 function mountLoopKey(racer) {
+  if (racer.horseType === "broom") return racer.z > 8 ? "pegasus_glide_loop" : null;
   if (isFlyingMountType(racer.horseType)) {
     if (racer.pegasusGliding) return "pegasus_glide_loop";
     return racer.z > 8 ? "pegasus_flight_loop" : "horse_canter_loop";
@@ -1219,7 +1222,7 @@ function updateRacerAudio(racer, dt) {
     return;
   }
 
-  if (isMounted(racer) && Math.abs(racer.speed) > 20) {
+  if (isMounted(racer) && mountLoopKey(racer) && (Math.abs(racer.speed) > 20 || racer.pegasusGliding)) {
     GameAudio.startLoop(mountId, mountLoopKey(racer), { gain: racerAudioGain(racer) });
   } else {
     GameAudio.stopLoop(mountId);
@@ -1350,6 +1353,7 @@ function playMountAudio(racer) {
   sfx("powerup_horse_pickup", racer.x);
   sfx("horse_mount", racer.x, { gain: 0.8 });
   if (racer.horseType === "unicorn") sfx("unicorn_appear", racer.x);
+  else if (racer.horseType === "broom") sfx("powerup_pickup_generic", racer.x);
   else if (isFlyingMountType(racer.horseType)) sfx("pegasus_wing_flap", racer.x);
   else sfx("horse_whinny", racer.x);
   racerVoice(racer, "mount", { chance: 0.6, priority: 1 });
@@ -4900,6 +4904,10 @@ function drawPowerup(powerup) {
     drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t);
     return;
   }
+  if (powerup.type === "horse" && powerup.horseType === "broom") {
+    drawBroomProp(x, drawY - 23 + Math.sin(t) * 5, 105, Math.sin(t * 0.7) * 0.055, 1);
+    return;
+  }
   if (powerup.type === "horse") {
     ctx.save();
     ctx.translate(x, drawY - 32 + Math.sin(t) * 5);
@@ -5121,7 +5129,9 @@ function drawRacer(racer) {
   if (racer.frozenTimer > 0) drawElectricEffect(screenX, drawY, drawW, drawH);
   if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
 
-  if (mounted) {
+  if (mounted && racer.horseType === "broom") {
+    drawBroomRacer(racer, screenX, scale, drawFacing);
+  } else if (mounted) {
     const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
     const horseScale = scale * 1.08;
     const horseW = FRAME * horseScale;
@@ -5180,6 +5190,71 @@ function drawRacer(racer) {
     ctx.fillText(text, screenX, labelY - 18);
   }
   ctx.restore();
+}
+
+// Smoothly exchange the carried running doll for its existing seated pose.
+// Using altitude also reverses the transition naturally just before landing.
+function broomRideBlend(racer) {
+  const t = clamp(racer.z / 85, 0, 1);
+  return t * t * (3 - 2 * t);
+}
+
+function drawBroomProp(x, y, width, angle, facing, alpha = 1) {
+  const image = images.broom;
+  const height = width * image.height / image.width;
+  const [gx, gy] = window.BROOM_ART.grip;
+  ctx.save();
+  ctx.globalAlpha *= alpha;
+  ctx.translate(x, y);
+  ctx.scale(facing < 0 ? -1 : 1, 1);
+  ctx.rotate(angle);
+  ctx.drawImage(image, -width * gx, -height * gy, width, height);
+  ctx.restore();
+}
+
+function drawBroomRacer(racer, screenX, scale, facing) {
+  const blend = broomRideBlend(racer);
+  const row = racer.moving ? 1 : 0;
+  const col = racer.frame;
+  const hand = (window.BROOM_ART.carryHands[racer.spriteKey] || window.BROOM_ART.carryHands.lily)[row][col];
+  const groundX = screenX - SPRITE_ANCHOR_X * scale;
+  const groundY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z;
+  // Reuse the calibrated saddle offsets for every doll, including outfit sheets.
+  const riderScale = scale * 0.7;
+  const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale;
+  const riderY = racer.y + 58 - SPRITE_ANCHOR_Y * scale * 1.08 - racer.z - 60 * scale + racer.riderYOffset * scale;
+  const carryX = groundX + hand[0] * scale;
+  const carryY = groundY + hand[1] * scale;
+  const seatX = screenX + (MOUNT_SEAT_REFERENCE.x - SPRITE_ANCHOR_X) * scale * 1.08;
+  const seatY = racer.y + 58 + (MOUNT_SEAT_REFERENCE.y - SPRITE_ANCHOR_Y) * scale * 1.08 - racer.z;
+  const propX = carryX + (seatX - carryX) * blend;
+  const propY = carryY + (seatY - carryY) * blend;
+  const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
+  const drawProp = alpha => drawBroomProp(screenX + (propX - screenX) * facing, propY, (295 + 50 * blend) * scale, -0.20 - 0.16 * blend, facing, alpha);
+  if (!flashing && blend > 0) drawProp(blend);
+  if (blend < 1) {
+    ctx.save();
+    ctx.globalAlpha *= 1 - blend;
+    drawFacingImage(racer.sheet, col * FRAME, row * FRAME, FRAME, FRAME, groundX, groundY, FRAME * scale, FRAME * scale, facing, screenX);
+    ctx.restore();
+    if (!flashing) {
+      // Carry in front of skirts and long hair, then restore the gripping hand
+      // over the shaft so it reads as held rather than pasted over the doll.
+      drawProp(1 - blend);
+      ctx.save();
+      ctx.globalAlpha *= 1 - blend;
+      const hx = hand[0] - 12, hy = hand[1] - 15;
+      drawFacingImage(racer.sheet, col * FRAME + hx, row * FRAME + hy, 24, 30,
+        groundX + hx * scale, groundY + hy * scale, 24 * scale, 30 * scale, facing, screenX);
+      ctx.restore();
+    }
+  }
+  if (blend > 0) {
+    ctx.save();
+    ctx.globalAlpha *= blend;
+    drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, FRAME * riderScale, FRAME * riderScale, facing, screenX);
+    ctx.restore();
+  }
 }
 
 function drawFacingImage(image, sx, sy, sw, sh, dx, dy, dw, dh, facing, anchorX) {

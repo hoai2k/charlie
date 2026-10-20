@@ -18,8 +18,8 @@
   const STALL = 157;
   const MAX_CPUS = 3;
   const SETTING_ROWS = 5;
-  const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "all-dolls", "horsing", "amanda-mode"];
-  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Griffons", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
+  const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"];
+  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Gryphons", "All Brooms", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
   const PAD_BUTTONS = { 0: "a", 1: "b", 2: "x", 3: "y", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
   const KEYMAP = {
@@ -469,6 +469,8 @@
     const specialIndex = Math.max(0, SPECIAL_KEYS.indexOf(state.specials));
     if (state.specials === "griffon") {
       atlasCell($("#lbSpecialIcon"), "assets/griffon_sprites.webp", 3, 0, 90, 90, 3);
+    } else if (state.specials === "broom") {
+      atlasCell($("#lbSpecialIcon"), "assets/broom.webp", 1, 0, 90, 32);
     } else {
       // The shipped icon atlas keeps its original six-cell order.
       const iconIndex = ["none", "unicorn", "pegasus", "all-dolls", "horsing", "amanda-mode"].indexOf(state.specials);
