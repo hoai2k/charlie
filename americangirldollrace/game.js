@@ -5226,7 +5226,8 @@ function drawBroomRacer(racer, screenX, scale, facing) {
   const carryX = groundX + hand[0] * scale;
   const carryY = groundY + hand[1] * scale;
   const seatX = screenX + (MOUNT_SEAT_REFERENCE.x - SPRITE_ANCHOR_X) * scale * 1.08;
-  const seatY = racer.y + 58 + (MOUNT_SEAT_REFERENCE.y - SPRITE_ANCHOR_Y) * scale * 1.08 - racer.z;
+  // Let the shaft sit beneath the seated thighs rather than across the lap.
+  const seatY = racer.y + 58 + (MOUNT_SEAT_REFERENCE.y - SPRITE_ANCHOR_Y) * scale * 1.08 - racer.z + 18 * scale;
   const propX = carryX + (seatX - carryX) * blend;
   const propY = carryY + (seatY - carryY) * blend;
   const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;

@@ -93,5 +93,6 @@ test('broom render places the carried grip at the hand and mirrors prop and ride
   r.z=100;props.length=0;sprites.length=0;c.drawBroomRacer(r,400,1,facing);
   assert.equal(sprites.length,1);assert.equal(sprites[0][1],0);assert.equal(sprites[0][2],1254);assert.equal(sprites[0][7],418*.7);
   assert.equal(props[0][0],400+(225-209)*1.08*facing);assert.equal(props[0][4],facing);
+  assert.equal(props[0][1],550+58+(228.67-409)*1.08-100+18);
  }
 });

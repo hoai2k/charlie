@@ -54,7 +54,9 @@ the source or hand calibration; use `--check` to validate without rewriting.
 small patch of the actual gripping hand over the shaft. Altitude blends the
 normal doll with its calibrated seated sprite over the first 85 world pixels;
 descent reverses it. Flight uses the existing saddle offsets so all dolls and
-outfit sheets share their tested rider alignment. Both doll and prop mirror
+outfit sheets share their tested rider alignment. The flying broom sits 18 scaled pixels below the calibrated saddle point,
+beneath the seated thighs; the carried hand alignment is unchanged.
+Both doll and prop mirror
 around the same facing anchor. `broom-review.jpg` shows every doll in both
 directions, carrying and riding.
 
