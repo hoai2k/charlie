@@ -100,6 +100,7 @@ const DEFAULT_RIDER_Y_OFFSET = RIDER_MOUNT_Y_OFFSET;
 // body bobs like the horse's. The per-doll riderX/YOffset values were tuned on
 // the horse gallop, so riders are placed relative to MOUNT_SEAT_REFERENCE.
 const MOUNT_FRAME_CALIBRATION = {
+  griffon: window.MOUNT_ART?.griffon?.calibration,
   horse: [
     [[199, 230, 0], [219, 232, 0], [198, 233, 0]],
     [[228, 234, 0], [218, 219, 0], [229, 233, 0]],
@@ -262,7 +263,7 @@ const RACER_STARTS = [
 ];
 
 const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya", "lily", "marisol", "amanda", "rumi"];
-const SPECIALS = new Set(["none", "unicorn", "pegasus", "all-dolls", "horsing", "amanda-mode"]);
+const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "all-dolls", "horsing", "amanda-mode"]);
 const BACKGROUNDS = [
   { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3" },
   { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3" },
@@ -299,6 +300,7 @@ const images = {
   horse: loadImage("assets/horse_sprites.webp"),
   unicorn: loadImage("assets/unicorn_sprites.webp"),
   pegasus: loadImage("assets/pegasus_sprites.webp"),
+  griffon: loadImage("assets/griffon_sprites.webp"),
   monster: loadImage("assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp")
@@ -533,7 +535,7 @@ function validateSpriteSheets() {
       throw new Error(`${key} sprite sheet must be ${FRAME * SPRITE_COLS}x${FRAME * DOLL_SPRITE_ROWS}px`);
     }
   }
-  for (const key of ["horse", "unicorn", "pegasus"]) {
+  for (const key of ["horse", "unicorn", "pegasus", "griffon"]) {
     if (images[key].width !== FRAME * SPRITE_COLS || images[key].height !== FRAME * HORSE_SPRITE_ROWS) {
       throw new Error(`${key} sprite sheet must be ${FRAME * SPRITE_COLS}x${FRAME * HORSE_SPRITE_ROWS}px`);
     }
@@ -1085,19 +1087,42 @@ function makePowerup(type, x, y, options = {}) {
   };
 }
 
+function isFlyingMountType(type) {
+  return type === "pegasus" || type === "griffon";
+}
+
+function isSpecialMountType(type) {
+  return type === "unicorn" || isFlyingMountType(type);
+}
+
 function chooseHorseType() {
   if (state.specials === "unicorn") return "unicorn";
-  if (state.specials === "pegasus") return "pegasus";
+  if (isFlyingMountType(state.specials)) return state.specials;
   const roll = Math.random();
   if (roll < 0.1) return "unicorn";
   if (roll < 0.2) return "pegasus";
+  if (roll < 0.25) return "griffon";
   return "horse";
 }
 
+// Both winged mounts share the existing hold-to-glide physics and animation flag.
+function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
+  const holding = mounted && isFlyingMountType(racer.horseType) && jumpHeld && racer.z > 0;
+  racer.z += racer.vy * dt;
+  if (holding && racer.z >= PEGASUS_HOVER_Z) {
+    racer.z = PEGASUS_HOVER_Z;
+    racer.vy = 0;
+    racer.pegasusGliding = true;
+  } else {
+    racer.pegasusGliding = false;
+    racer.vy -= GRAVITY * dt;
+  }
+}
+
 function horseDurationForType(horseType) {
-  if (isHorsingAroundMode() && (horseType === "unicorn" || horseType === "pegasus")) return Infinity;
+  if (isHorsingAroundMode() && isSpecialMountType(horseType)) return Infinity;
   if (horseType === "unicorn") return HORSE_DURATION * UNICORN_DURATION_MULTIPLIER;
-  if (horseType === "pegasus") return HORSE_DURATION * PEGASUS_DURATION_MULTIPLIER;
+  if (isFlyingMountType(horseType)) return HORSE_DURATION * PEGASUS_DURATION_MULTIPLIER;
   return HORSE_DURATION;
 }
 
@@ -1174,7 +1199,7 @@ function updateAudioListener() {
 }
 
 function mountLoopKey(racer) {
-  if (racer.horseType === "pegasus") {
+  if (isFlyingMountType(racer.horseType)) {
     if (racer.pegasusGliding) return "pegasus_glide_loop";
     return racer.z > 8 ? "pegasus_flight_loop" : "horse_canter_loop";
   }
@@ -1325,7 +1350,7 @@ function playMountAudio(racer) {
   sfx("powerup_horse_pickup", racer.x);
   sfx("horse_mount", racer.x, { gain: 0.8 });
   if (racer.horseType === "unicorn") sfx("unicorn_appear", racer.x);
-  else if (racer.horseType === "pegasus") sfx("pegasus_wing_flap", racer.x);
+  else if (isFlyingMountType(racer.horseType)) sfx("pegasus_wing_flap", racer.x);
   else sfx("horse_whinny", racer.x);
   racerVoice(racer, "mount", { chance: 0.6, priority: 1 });
 }
@@ -1801,16 +1826,7 @@ function update(dt) {
         racerVoice(racer, boosted ? "jump_big" : "jump", { chance: boosted ? 0.8 : 0.35 });
       }
     }
-    const pegasusHolding = mounted && racer.horseType === "pegasus" && input.jump && racer.z > 0;
-    racer.z += racer.vy * dt;
-    if (pegasusHolding && racer.z >= PEGASUS_HOVER_Z) {
-      racer.z = PEGASUS_HOVER_Z;
-      racer.vy = 0;
-      racer.pegasusGliding = true;
-    } else {
-      racer.pegasusGliding = false;
-      racer.vy -= GRAVITY * dt;
-    }
+    updateRacerVerticalMotion(racer, mounted, input.jump, dt);
     if (racer.z > 38 && racer.vy >= 0) racer.jumpFrame = 1;
     if (racer.z > 0 && racer.vy < 0) racer.jumpFrame = racer.z <= LANDING_POSE_DISTANCE ? 2 : 1;
     if (racer.z < 0) {
@@ -2668,7 +2684,7 @@ function stunMonsterWithEmp(monster) {
 function bumpMonstersWithSpecialMounts() {
   for (const racer of state.racers) {
     if (racer.finished || racer.grabbedBy || !isMounted(racer)) continue;
-    if (!isHorsingAroundMode() && racer.horseType !== "pegasus" && racer.horseType !== "unicorn") continue;
+    if (!isHorsingAroundMode() && !isSpecialMountType(racer.horseType)) continue;
     if (racer.mountBumpCooldown > 0) continue;
     for (const monster of state.monsters) {
       if (monster.state === "sleeping" || monster.state === "ground") continue;

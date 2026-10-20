@@ -18,8 +18,8 @@
   const STALL = 157;
   const MAX_CPUS = 3;
   const SETTING_ROWS = 5;
-  const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "all-dolls", "horsing", "amanda-mode"];
-  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
+  const SPECIAL_KEYS = ["none", "unicorn", "pegasus", "griffon", "all-dolls", "horsing", "amanda-mode"];
+  const SPECIAL_NAMES = ["None", "All Unicorns", "All Pegasi", "All Griffons", "All Dolls (adds Penelope)", "Horsing Around", "Amanda Mode"];
   const GLYPHS = { A: 0, B: 1, X: 2, Y: 3, LB: 4, RB: 5 };
   const PAD_BUTTONS = { 0: "a", 1: "b", 2: "x", 3: "y", 9: "start", 12: "up", 13: "down", 14: "left", 15: "right" };
   const KEYMAP = {
@@ -107,9 +107,9 @@
       el.style.backgroundPosition = `${-GLYPHS[el.dataset.g] * size}px 0`;
     });
   }
-  function atlasCell(el, url, cells, index, w, h) {
+  function atlasCell(el, url, cells, index, w, h, rows = 1) {
     el.style.backgroundImage = `url(${url})`;
-    el.style.backgroundSize = `${w * cells}px ${h}px`;
+    el.style.backgroundSize = `${w * cells}px ${h * rows}px`;
     el.style.backgroundPosition = `${-index * w}px 0`;
     el.style.width = `${w}px`;
     el.style.height = `${h}px`;
@@ -467,7 +467,13 @@
     atlasCell($("#lbMonsterIcon"), "assets/ui/difficulty_icons.webp", 4, difficultyIndex, 90, 90);
     $("#lbMonsterVal").textContent = DIFFICULTIES[difficultyIndex].label;
     const specialIndex = Math.max(0, SPECIAL_KEYS.indexOf(state.specials));
-    atlasCell($("#lbSpecialIcon"), "assets/ui/specials_icons.webp", 6, specialIndex, 90, 90);
+    if (state.specials === "griffon") {
+      atlasCell($("#lbSpecialIcon"), "assets/griffon_sprites.webp", 3, 0, 90, 90, 3);
+    } else {
+      // The shipped icon atlas keeps its original six-cell order.
+      const iconIndex = ["none", "unicorn", "pegasus", "all-dolls", "horsing", "amanda-mode"].indexOf(state.specials);
+      atlasCell($("#lbSpecialIcon"), "assets/ui/specials_icons.webp", 6, Math.max(0, iconIndex), 90, 90);
+    }
     $("#lbSpecialVal").textContent = SPECIAL_NAMES[specialIndex];
     const n = lobby.cpus.length;
     $("#lbCpuIcons").innerHTML = n

@@ -23,13 +23,43 @@ def bounds(im):
     return im.getchannel('A').point(lambda a: 255 if a > 8 else 0).getbbox()
 
 
+def split_strip(src):
+    """Find empty column cuts near thirds instead of clipping an off-grid boot/wing."""
+    assert src.width == src.height * 3, 'Expected a 3:1 source strip'
+    occupied = (np.asarray(src.getchannel('A')) > 8).any(axis=0)
+    cuts = [0]
+    for cell in [1, 2]:
+        expected = cell * src.height
+        reach = round(src.height * .24)
+        options = np.flatnonzero(~occupied[max(1, expected-reach):expected+reach]) + max(1, expected-reach)
+        if not len(options):
+            raise ValueError('Figures overlap across a cell boundary; regenerate with more separation')
+        nearest = int(min(options, key=lambda x: abs(x-expected)))
+        lo, hi = nearest, nearest
+        while lo > 0 and not occupied[lo-1]:
+            lo -= 1
+        while hi < src.width-1 and not occupied[hi+1]:
+            hi += 1
+        cuts.append((lo + hi) // 2)
+    cuts.append(src.width)
+    return [(cuts[i], 0, cuts[i+1], src.height) for i in range(3)]
+
+
 def source_frame(manifest, pose):
-    spec = manifest['poses'][pose]
+    spec = dict(manifest['poses'][pose])
     src = Image.open(HERE / spec['source']).convert('RGBA')
     if 'cell' in spec:
         assert src.width == src.height * 3, 'Pose strips must be 3 square cells'
         x = spec['cell'] * src.height
-        src = src.crop((x, 0, x + src.height, src.height))
+        box = split_strip(src)[spec['cell']] if spec.get('separate') else (x, 0, x + src.height, src.height)
+        offset = x - box[0]
+        if 'hipX' in spec:
+            spec['hipX'] += offset
+        if 'anchor' in spec:
+            spec['anchor'] = [spec['anchor'][0] + offset, spec['anchor'][1]]
+        if 'raisedSleeves' in spec:
+            spec['raisedSleeves'] = [[x0+offset,y0,x1+offset,y1] for x0,y0,x1,y1 in spec['raisedSleeves']]
+        src = src.crop(box)
     # Remove effectively invisible generated RGB spill (alpha 1..3), preserving
     # all meaningful alpha and soft hair edges. Never replace alpha with a key.
     src.putalpha(src.getchannel('A').point(lambda a: 0 if a < 4 else a))
@@ -59,6 +89,12 @@ def neutral_mask(src, chin, raised_sleeves=()):
     out[:, :, 0] = np.round(weight * 255).astype(np.uint8)
     out[:, :, 3] = 255
     return Image.fromarray(out)
+
+
+def clothing_mask(src, spec, mode):
+    if mode != 'neutral-uniform':
+        raise ValueError(f'Unknown mask strategy: {mode}')
+    return neutral_mask(src, spec['chin'], spec.get('raisedSleeves', []))
 
 
 def place(src, mask, spec, scale):
@@ -95,14 +131,13 @@ def build(manifest):
     frames, masks, report = {}, {}, {}
     for pose in POSES + ['wave', 'cheer']:
         src, spec = source_frame(manifest, pose)
-        assert manifest['mask']['mode'] == 'neutral-uniform'
-        mask = neutral_mask(src, spec['chin'], spec.get('raisedSleeves', []))
+        mask = clothing_mask(src, spec, manifest['mask']['mode'])
         frames[pose], masks[pose], report[pose] = place(src, mask, spec, scale)
     # Crop the portrait from the SAME identity source, instead of regenerating a face.
     src, spec = source_frame(manifest, 'idle-0')
     portrait_box = manifest['portraitBox']
     frames['portrait'] = src.crop(portrait_box).resize((320, 400), Image.Resampling.LANCZOS)
-    masks['portrait'] = neutral_mask(src, spec['chin'], spec.get('raisedSleeves', [])).crop(portrait_box).resize((320, 400), Image.Resampling.LANCZOS)
+    masks['portrait'] = clothing_mask(src, spec, manifest['mask']['mode']).crop(portrait_box).resize((320, 400), Image.Resampling.LANCZOS)
     sheet = Image.new('RGBA', (FRAME * 3, FRAME * 4))
     sheetmask = Image.new('RGBA', sheet.size, (0, 0, 0, 255))
     for n, pose in enumerate(POSES):

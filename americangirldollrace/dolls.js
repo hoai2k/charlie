@@ -25,5 +25,31 @@ window.EXTRA_DOLLS = {
         "orange"
       ]
     }
+  },
+  "mira": {
+    "name": "Mira",
+    "color": "#d82c83",
+    "spriteKey": "mira",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 128.464,
+    "outfitData": {
+      "stats": {
+        "h": 0,
+        "L": 0.23,
+        "C": 0.012,
+        "beta": 0.7,
+        "tintNeutral": true
+      },
+      "outfits": [
+        "blue",
+        "red",
+        "mint",
+        "pink",
+        "purple",
+        "teal",
+        "orange"
+      ]
+    }
   }
 };

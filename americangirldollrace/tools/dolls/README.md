@@ -77,7 +77,7 @@ clothes, warm skin and natural chestnut hair. Her manifest opts into
 `neutral-uniform`: a conservative low-chroma colour gate, face protection above
 the chin, and small raised-sleeve rectangles for the cheer. White collar/cuffs,
 skin, and warm hair are excluded. The magenta overlay shows the selected pixels.
-This is not a general clothing segmenter; a doll with coloured clothes needs
+This is not a general clothing segmenter; recolouring other coloured garments needs
 an appropriate new mask strategy and visual review rather than reusing this gate.
 
 `outfitData.stats.tintNeutral` opts her grey garments into actual colour tinting.
@@ -100,3 +100,22 @@ at 512 RGB colours × three target colours with no differences.
 
 The runtime sheet omits the concept's wand so hands remain readable when
 running, pushing and riding. The plain uniform has no house logos or insignia.
+
+## Mira
+
+Mira is the second character built through this pipeline. Her original plus
+seven variants retain the canonical pink twin ponytails and gold skirt; the
+neutral shirt, gloves and boots provide the outfit colour variation. Her menu
+cheer raises one fist while the other hand rests on her hip. The running art
+was refined into flowing S-curves so her long ponytails fit the common scale
+without shifting her anatomical pivot. Final prompts are in `mira-generation.json`.
+
+Mira's manifest opts into `separate` for strips. The exporter looks for an empty
+column gap near each intended third, takes the middle of that gap, and adjusts
+source pivot coordinates accordingly. An off-grid boot or hair tip is preserved.
+If figures overlap without a gap, export fails and the source needs regeneration.
+The same gap splitter is used by the griffon mount exporter in `../mounts/`.
+
+Mira validation also covered the in-game jump, griffon riding/gliding, a blue
+outfit, duplicate players with distinct outfits, and the twelve-card All Dolls
+roster in portrait layout. All exported poses retain the same scale and baseline.

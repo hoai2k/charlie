@@ -33,6 +33,16 @@ class DollBuildTests(unittest.TestCase):
         self.assertEqual(mask[0].max(), 0)
         self.assertEqual(mask[1].tolist(), [255, 0, 0, 0])
 
+    def test_gap_split_keeps_an_off_grid_foot_whole(self):
+        im = Image.new('RGBA', (300, 100))
+        im.paste((100, 100, 100, 255), (10, 10, 108, 90))
+        im.paste((100, 100, 100, 255), (125, 10, 185, 90))
+        im.paste((100, 100, 100, 255), (215, 10, 290, 90))
+        boxes = build.split_strip(im)
+        self.assertGreater(boxes[0][2], 108)
+        self.assertEqual(build.bounds(im.crop(boxes[0]))[2], 108)
+        self.assertLess(boxes[1][0], 125)
+
     def test_shipped_assets_and_grounded_poses(self):
         for p in (build.HERE/'manifests').glob('*.json'):
             if p.name.startswith('._'):
@@ -56,17 +66,20 @@ class DollBuildTests(unittest.TestCase):
                 self.assertTrue(x0 > 0 and y0 > 0 and x1 < src.width and y1 < src.height, pose)
 
     def test_riding_anchor_matches_renderer_in_both_directions(self):
-        report = json.loads((build.HERE/'reports/hermione.json').read_text())
-        runtime = report['runtime']
-        seat_x, seat_y = report['frames']['ride']['anchor']
-        # Actual game.js mounted drawing equations, sampled across the seat shifts
-        # used by the horse, unicorn and pegasus animation calibrations.
-        for seat_dx, seat_dy in [(0,0), (3,-10), (-35,30), (10,100)]:
-            for facing in [-1, 1]:
-                rider_x = -209*.7 + 9 + runtime['riderXOffset'] + seat_dx + seat_x*.7
-                rider_y = -60 + runtime['riderYOffset'] + seat_dy + seat_y*.7
-                self.assertAlmostEqual(rider_x*facing, ((225-209)*1.08+seat_dx)*facing, places=2)
-                self.assertAlmostEqual(rider_y, 228.67*1.08+seat_dy, places=2)
+        for path in (build.HERE/'reports').glob('*.json'):
+            if path.name.startswith('._'):
+                continue
+            report = json.loads(path.read_text())
+            runtime = report['runtime']
+            seat_x, seat_y = report['frames']['ride']['anchor']
+            # Actual game.js mounted drawing equations, sampled across the seat shifts
+            # used by the horse, unicorn and pegasus animation calibrations.
+            for seat_dx, seat_dy in [(0,0), (3,-10), (-35,30), (10,100)]:
+                for facing in [-1, 1]:
+                    rider_x = -209*.7 + 9 + runtime['riderXOffset'] + seat_dx + seat_x*.7
+                    rider_y = -60 + runtime['riderYOffset'] + seat_dy + seat_y*.7
+                    self.assertAlmostEqual(rider_x*facing, ((225-209)*1.08+seat_dx)*facing, places=2)
+                    self.assertAlmostEqual(rider_y, 228.67*1.08+seat_dy, places=2)
 
 
 if __name__ == '__main__':

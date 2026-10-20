@@ -30,3 +30,12 @@ test('neutral-uniform LUT agrees with the exact recolour at garment grey values'
     assert.ok(Math.max(...exact.map((v,i)=>Math.abs(v-fast[i]))) <= 3);
   }
 });
+
+test('Mira variants tint the neutral outfit while retaining unmasked pink hair, gold skirt and skin', () => {
+  const p = new Uint8ClampedArray([70,70,70,255, 220,35,125,255, 245,190,35,255, 225,165,115,255]);
+  const mask = new Uint8ClampedArray([255,0,0,255, 0,0,0,255, 0,0,0,255, 0,0,0,255]);
+  const original=p.slice();
+  DollRecolor.recolorPixelsLut(p,mask,EXTRA_DOLLS.mira.outfitData.stats,[47,111,224]);
+  assert.ok(p[2]>p[0]+30,'Blue outfit must be visibly different');
+  assert.deepEqual(p.slice(4),original.slice(4));
+});
