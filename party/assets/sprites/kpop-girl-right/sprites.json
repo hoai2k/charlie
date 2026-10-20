@@ -3908,36 +3908,6 @@
             120
           ],
           "bodyHeight": 275
-        },
-        {
-          "src": "roll-push-01.webp",
-          "anchor": [
-            75,
-            280
-          ],
-          "artHash": "c950b49960bac918a400c7e489197d71838f4cd9dafbe50cd6c3bfedfce41bdb",
-          "fileHash": "6112b927d5343d5f7b2fbdf102e0c88d93763bd032ccc58d0bd9e20e54ccf692",
-          "head": [
-            101,
-            11
-          ],
-          "hand": [
-            171,
-            106
-          ],
-          "eyes": [
-            112,
-            65
-          ],
-          "neck": [
-            92,
-            96
-          ],
-          "back": [
-            77,
-            120
-          ],
-          "bodyHeight": 275
         }
       ]
     }

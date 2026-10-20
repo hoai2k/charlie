@@ -145,6 +145,7 @@ export const POSES = {
   sooty:       { loop: true,  fallback: ['dizzy'], auto: 'dizzy', proc: 'dizzy', desc: 'Dizzy with a soot-smudged face.' },
   drink:       { loop: false, fallback: ['eat'], proc: 'eat', desc: 'Sipping from a potion bottle.' },
   float:       { loop: true,  fallback: ['celebrate'], proc: 'float', desc: 'Arms out, drifting.' },
+  'hold-balloons': { loop: true, fallback: ['float'], proc: 'float', desc: 'Floating up, one fist raised high gripping balloon strings (no balloons in the art), wings fluttering.' },
   hiccup:      { loop: false, fallback: ['surprised'], proc: 'surprised', desc: 'A jolt with puffed cheeks.' },
   giggle:      { loop: true,  fallback: ['laugh', 'cheer'], proc: 'clap', desc: 'Hand over mouth, laughing.' },
   'stomp-giant': { loop: true, fallback: ['ready', 'cheer'], proc: 'strike', desc: 'Proud wide stance.' },
