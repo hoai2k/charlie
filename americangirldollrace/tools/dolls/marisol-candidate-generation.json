@@ -11,5 +11,13 @@
     "refinement": "Use case: background-extraction. Edit this image of Marisol: remove ALL background glow, coloured haze, gradients, shadow and backdrop pixels outside the doll. Produce a clean isolated doll cutout on genuinely fully transparent empty background. Preserve the doll itself exactly: same full-body framing, face, brown eyes, warm vinyl skin, dark wavy hair, navy and pink 06 jacket, grey pleated skirt, socks, pink shoes, anatomy, hands and pose. Keep detailed hair edges but no diffuse halo. Every pixel away from the immediate doll silhouette must have alpha zero. Do not draw a studio background, floor or cast shadow. Single complete doll with margins."
   },
   "review": "Full body and outfit retained; sharper hair, eyes and fabric; warmer smile. Diffuse coloured halo remains after background-extraction refinement. Needs clean alpha before production pose generation. No runtime assets changed.",
-  "validation": "Visually inspected generated output. WebP round-trip verified exact RGBA preservation and dimensions; no game code changed."
+  "validation": "Visually inspected generated output. WebP round-trip verified exact RGBA preservation and dimensions; no game code changed.",
+  "hairlineRevision": {
+    "tool": "built-in image_gen",
+    "candidate": "sources/marisol/canonical-candidate-v2.webp",
+    "comparison": "sources/marisol/hairline-comparison-v1-v2.webp",
+    "status": "Candidate for review; runtime unchanged.",
+    "review": "Hairline visibly lower, less forehead; swept-back style retained. Some generated texture variation. Existing halo remains.",
+    "validation": "Visual review and exact lossless RGBA WebP round-trip passed."
+  }
 }
