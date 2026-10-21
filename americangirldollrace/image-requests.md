@@ -200,9 +200,10 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
-> **Still open:** the §8 riding-toy poses
+> **Still open:** the §10 new-item art (actions sheets, frogs, wave, wind-up
+> cars), the §8 riding-toy poses
 > (trial: Lily, Mira, Hermione; now 3×4 with standing, push and fall poses)
-> and the §8.1 skate and pogo icons R9-R14, and the §9 track monsters
+> and the §8.1 skate and pogo icons R10 and R12-R14, and the §9 track monsters
 > (scarecrow and skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
@@ -409,9 +410,9 @@ or a pogo stick only once its icon shows them.
 
 | # | Track (key) | Cell | Now | Repaint as | Label in `tracks.js` |
 | --- | --- | --- | --- | --- | --- |
-| R9 | Beach (`beach`) | 2 (speed, x 256-511) | Surfboard | A pair of beach-bright roller skates (turquoise boots, coral wheels) | `boost: "SKATES"` |
+| ~~R9~~ | ~~Beach~~ | | | **Cancelled:** Beach's surfboard is now its own item (§10). | |
 | R10 | Night Festival (`festival`) | 2 (speed) | Sparkler | Roller skates with glowing light-up wheels | `boost: "SKATES"` |
-| R11 | Toy Room (`toyroom`) | 2 (speed) | Wind-up key | Toy roller skates with a wind-up key on the side | `boost: "SKATES"` |
+| ~~R11~~ | ~~Toy Room~~ | | | **Cancelled:** the wind-up key now releases wind-up cars (§10). | |
 | R12 | Toy Room (`toyroom`) | 1 (jump, x 0-255) | Jack-in-the-box | A toy pogo stick with a jack-in-the-box spring | `jump: "POGO"` |
 | R13 | Night Festival (`festival`) | 1 (jump) | Trampoline | A pogo stick with string lights wound around the pole | `jump: "POGO"` |
 | R14 | Candy Land (`candy`) | 1 (jump) | Gumdrop | A candy-cane-striped pogo stick with a gumdrop tip | `jump: "POGO"` |
@@ -463,3 +464,51 @@ feet sit on the same baseline in rows 1-3 and the figures are about the same
 size. Then race Pumpkin Patch and Wizard School on "Extra" monsters. Each
 one walks in, grabs and throws a doll, and after five knock-backs ends as its
 pile.
+
+---
+
+## 10. New items: spell book, surfboard, wind-up cars (plus missing poses)
+
+Three track pickups now do something of their own instead of copying speed
+or high jump:
+
+- **Wizard School, spell book (the high-jump pickup):** the doll raises a
+  wand and casts at the nearest racer or monster, who turns into a frog and
+  can only hop for a few seconds.
+- **Beach, surfboard (the speed pickup):** the doll rides a wave along the
+  track. It's fast, washes over hurdles and is hard to steer.
+- **Toy Room, wind-up key (the speed pickup):** it releases little wind-up
+  toy cars that drive ahead and bump anyone in their way.
+
+The game already draws stand-ins in code (a wand line, a code-drawn wave,
+board and cars, a frog emoji). These files replace them. Each must be listed
+as described below in the same commit that adds it; the game uses a file
+only once it's listed.
+
+### 10.1 Per-doll actions sheet
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| A1 | `assets/doll_<key>_actions.webp` | 1254×1254 (3×3 of 418), alpha | Same frame, scale, facing (right) and foot baseline 409 as the doll's sheet. She must match her sheet exactly. |
+| A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
+
+Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
+**Trial first: Hermione, Lily and Mira**, then the rest of the roster.
+
+| Row | Frames (left to right) |
+| --- | --- |
+| 1 | **Casting with a wand** (one wand for every doll: dark wood, gold handle, a little gold star at the tip): (1) wand raised high, (2) arm thrust forward pointing the wand straight ahead at chest height (the game sends sparkles from its tip), (3) a follow-through swish. The other hand stays natural. |
+| 2 | **Surfing** on one board for every doll (turquoise with a coral stripe and a small fin), with the board's bottom on the baseline: (1) crouched and balanced, arms out; (2) leaning forward, carving; (3) wobbling, arms windmilling. |
+| 3 | (1) **Pushing / throwing from the saddle**: seated exactly like her riding pose (`assets/portraits/<key>_ride.webp`, same seat position) with one arm thrust forward. It's used for pushes and snowballs on horseback. (2) **Stuck in a sticky puddle**: feet planted, toppling forward with arms windmilling. (3) **Floating in moon boots**: arms and legs spread wide, a happy astronaut float. |
+
+### 10.2 Shared sprites
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| A3 | `assets/frog_sprites.webp` | 768×512 (3×2 of 256), alpha | Spell-book frogs, side view facing right, feet on the cell's bottom edge. **Row 1:** a small cute green frog (the doll it came from is shown by her name above it): (1) sitting, (2) crouched to hop, (3) mid-leap. **Row 2:** a bigger, warty, grumpy olive frog for a troll, scarecrow or skeleton, same three poses. List it as `"frog"` in `TRACK_SHARED_ART`. |
+| A4 | `assets/tracks/beach/wave.webp` | 1536×384 (3×1 of 512×384), alpha | The wave a surfer rides: a curling turquoise wave with white foam, about 3× as long as a doll is tall, its base on the cell's bottom edge, curling toward the right. Three frames of the curl rolling, for a loop. Add `"wave"` to Beach's `art`. |
+| A5 | `assets/tracks/toyroom/windup_car.webp` | 768×512 (3×2 of 256), alpha | Wind-up toy cars, side view facing right, wheels on the cell's bottom edge, each with a big wind-up key on top. **Row 1:** a red tin race car. **Row 2:** a yellow tin bus. Three frames each of wheels turning and the key spinning. Add `"windup_car"` to the Toy Room's `art`. |
+
+Acceptance: race each track and check that the casting sparkles leave the wand
+tip, the frog hops where the victim was, the surfer's board sits on the wave,
+and the cars drive along the ground.
