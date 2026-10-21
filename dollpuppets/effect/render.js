@@ -5,7 +5,7 @@ import marisolConfig from "../assets/marisol/config.js";
 import kayaConfig from "../assets/kaya/config.js";
 import lilyConfig from "../assets/lily/config.js";
 import whirlpoolConfig from "../assets/whirlpool/config.js";
-import claudiaConfig from "../assets/claudia-v2/config.js";
+import claudiaConfig from "../assets/claudia-v2/config.js?v=20261021b";
 import amandaConfig from "../assets/amanda/config.js";
 import trollConfig from "../assets/troll/config.js";
 import kpopConfig from "../assets/kpop/config.js";
@@ -228,6 +228,9 @@ export function renderDollsEffect(options = {}) {
     },
 
     getDebugState() {
+      const geometry = runtime.ready ? runtime.lastGeometry : null;
+      const action = geometry ? activePoseAction(runtime) : null;
+      const bounds = geometry ? calculateBodyBounds(runtime, geometry.worldNeck, geometry.headWidth) : null;
       return {
         ready: runtime.ready,
         error: runtime.error,
@@ -238,6 +241,14 @@ export function renderDollsEffect(options = {}) {
         restingPose: runtime.restingPose,
         handTrackingModeActive: runtime.handTrackingModeActive,
         gameConfig: runtime.gameConfig,
+        anchors: geometry ? {
+          headWidth: geometry.headWidth,
+          mouth: kissOrigin(runtime, geometry, runtime.lastFaceRotation),
+          neck: geometry.worldNeck,
+          eyes: Object.fromEntries(["leftEye", "rightEye"].map(side => [side,
+            kissOriginFromHeadPoint(runtime.config.layout.parts[side], geometry, runtime.lastFaceRotation)])),
+          poseAction: action ? {x: bounds.x + action.x * bounds.width, y: bounds.y + action.y * bounds.height} : null
+        } : null,
         tongueOut: {
           blendshapeScore: runtime.lastTongueBlendshapeScore ?? 0,
           combinedScore: runtime.lastTongueCombinedScore ?? 0,
@@ -294,7 +305,9 @@ async function loadDoll(runtime, characterId) {
     await Promise.all(
       entries.map(async ([name, sprite]) => {
         try {
-          const url = new URL(`../${sprite.file}`, import.meta.url).href;
+          const spriteUrl = new URL(`../${sprite.file}`, import.meta.url);
+          if (config.assetRevision && !KISS_EFFECT_SPRITES[name]) spriteUrl.searchParams.set("v", config.assetRevision);
+          const url = spriteUrl.href;
           if (!loadedByFile.has(url)) loadedByFile.set(url, loadImage(url));
           images[name] = await loadedByFile.get(url);
         } catch (error) {
@@ -306,6 +319,7 @@ async function loadDoll(runtime, characterId) {
     );
 
     runtime.config = config;
+    runtime.lastGeometry = null;
     runtime.characterId = config.name;
     runtime.images = images;
     runtime.pose = config.layout.body.startPose ?? 5;
@@ -372,6 +386,8 @@ function renderDoll(ctx, runtime, state, viewport) {
         ? createArGeometry(runtime, faceSprite, face, viewport)
         : createTrackingGeometry(runtime, faceSprite, face, viewport);
   const { headWidth, headRect, faceCenter, worldNeck } = geometry;
+  runtime.lastGeometry = geometry;
+  runtime.lastFaceRotation = face.rotation;
   updateKissGesture(runtime, state, viewport, geometry, now);
   const bodyBounds = calculateBodyBounds(runtime, worldNeck, headWidth);
   updatePoseActionEffects(runtime, bodyBounds, headWidth, now);
@@ -524,18 +540,13 @@ function createGameGeometry(runtime, faceSprite, face, viewport) {
   const initialHeadWidth = 100;
   const initialGeometry = createStableGameFitGeometry(runtime, faceSprite, face, initialHeadWidth);
   const fitSpanRatio = initialGeometry.fitSpan / initialHeadWidth;
-  const fitMargin = runtime.config.registeredFace ? height * 0.02 : 0;
-  const headWidth = runtime.config.registeredFace
-    ? Math.min((height - fitMargin * 2) / fitSpanRatio, width * 0.94)
-    : (height * GAME_FULL_BODY_OVERSCAN) / fitSpanRatio;
+  const headWidth = (height * GAME_FULL_BODY_OVERSCAN) / fitSpanRatio;
   const geometryAtOrigin = createStableGameFitGeometry(runtime, faceSprite, face, headWidth);
-  const topLockedHeadY = -geometryAtOrigin.headTop + fitMargin;
+  const topLockedHeadY = -geometryAtOrigin.headTop;
   const trackedHeadY = height * (GAME_HEAD_TARGET_Y + (face.center.y - GAME_HEAD_TARGET_Y) * 0.55);
   const faceCenter = {
     x: face.center.x * width,
-    y: clamp(trackedHeadY, topLockedHeadY, runtime.config.registeredFace
-      ? height - fitMargin - geometryAtOrigin.maxBodyBottom
-      : height * GAME_HEAD_LOWEST_Y)
+    y: clamp(trackedHeadY, topLockedHeadY, height * GAME_HEAD_LOWEST_Y)
   };
 
   return createDollGeometry(runtime, faceSprite, face, headWidth, faceCenter);
@@ -781,7 +792,7 @@ function isNoteKiss(sprite) {
 function kissOrigin(runtime, geometry, rotation) {
   const { config } = runtime;
   const kissConfig = config.interactions?.kiss ?? {};
-  const explicitOrigin = config.name === "troll" ? kissConfig.origin : null;
+  const explicitOrigin = config.registeredFace || config.name === "troll" ? kissConfig.origin : null;
   if (explicitOrigin) {
     return kissOriginFromHeadPoint(explicitOrigin, geometry, rotation);
   }

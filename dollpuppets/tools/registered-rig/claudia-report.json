@@ -143,72 +143,111 @@
       "neckWidth": 50,
       "neck": [
         167.5,
-        16
+        38.0
       ],
       "size": [
         312,
-        477
-      ]
+        283
+      ],
+      "fullSourceHeight": 477,
+      "actionAnchor": null
     },
     {
       "pose": 2,
       "neckWidth": 50,
       "neck": [
         150.5,
-        3
+        25.0
       ],
       "size": [
         301,
-        464
-      ]
+        270
+      ],
+      "fullSourceHeight": 464,
+      "actionAnchor": null
     },
     {
       "pose": 3,
       "neckWidth": 49,
       "neck": [
         145.0,
-        17
+        38.5
       ],
       "size": [
         315,
-        478
-      ]
+        279
+      ],
+      "fullSourceHeight": 478,
+      "actionAnchor": null
     },
     {
       "pose": 4,
       "neckWidth": 51,
       "neck": [
         147.0,
-        3
+        25.5
       ],
       "size": [
         294,
-        468
-      ]
+        275
+      ],
+      "fullSourceHeight": 468,
+      "actionAnchor": null
     },
     {
       "pose": 5,
       "neckWidth": 50,
       "neck": [
         145.5,
-        3
+        25.0
       ],
       "size": [
         290,
-        467
-      ]
+        270
+      ],
+      "fullSourceHeight": 467,
+      "actionAnchor": null
     },
     {
       "pose": 6,
       "neckWidth": 51,
       "neck": [
         146.0,
-        3
+        25.5
       ],
       "size": [
         290,
-        468
+        275
+      ],
+      "fullSourceHeight": 468,
+      "actionAnchor": [
+        147.00693240901214,
+        74.44887348353552
       ]
     }
-  ]
+  ],
+  "headAnchors": {
+    "eyes": {
+      "leftEye": {
+        "x": 0.43525079617834395,
+        "y": 0.5126691878980891
+      },
+      "rightEye": {
+        "x": 0.6244893292682927,
+        "y": 0.5167454268292683
+      }
+    },
+    "mouth": [
+      0.538,
+      0.657
+    ],
+    "neck": [
+      0.54,
+      0.746
+    ],
+    "pivot": [
+      0.515,
+      0.317
+    ]
+  }
 }

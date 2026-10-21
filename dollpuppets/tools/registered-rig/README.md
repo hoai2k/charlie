@@ -19,6 +19,9 @@ Open `/dollpuppets/tools/registered-rig/preview.html` for a camera-free check
 through the production renderer, then `/dollpuppets/?character=claudia` for
 the actual game. The preview exercises speech, laughter, kiss, tongue, frown,
 blink, independent wink, brows, hand tags, head tilt and a legacy-doll control.
+The first row compares Claudia directly with original Claudia, Marisol, Rumi
+and Juliette. "Show anchors" overlays pupils, lips, neck and the hand effect
+origin. The bubble and heart cases cycle so their actual effects can be checked.
 The game still needs camera permission for live face/hand tracking.
 
 ## How alignment works
@@ -39,9 +42,19 @@ The game still needs camera permission for live face/hand tracking.
 - Alpha-connected components find the six bodies despite uneven gutters.
   The magenta garment locates the torso centre; the neck silhouette supplies
   an attachment anchor and scale. Every pose has the same rendered neck width.
+  Exports crop the full-body source to a torso, matching the existing puppets.
+  The body is 1.5× larger relative to the head than the initial full-body rig,
+  and attaches inside the neck stump rather than at its top edge. Claudia now
+  uses the same stage framing and head-width limits as the other dolls.
+- Pupil centres are measured separately from eyelid patch bounds for camera
+  fitting. The bubble origin is calibrated to the new lips; the heart origin
+  is detected from the enclosed alpha gap between the hands, then converted
+  to the cropped torso's coordinates. Head tilt moves the lip origin with it.
 - `assets/claudia-v2/` contains the exported WebP rig and generated config.
   Runtime image caching decodes the shared head once per loaded doll, and
   feature names have their own namespace to avoid head/patch collisions.
+  A revision hash of the spec, sources and builder versions the image URLs,
+  so changed body art cannot be combined with cached full-body images.
 
 Registration error measures agreement of unchanged features, not artistic
 quality of the mouth or anatomical accuracy. Review the assembled preview
@@ -52,6 +65,10 @@ after changing source art; an automatic build does not replace visual QA.
 All eight expression sources passed registration; all six necks were detected.
 Automated tests check asset references, fixed head geometry, attachment scale,
 patch coordinates, feature namespaces, and expression priorities. Browser
+checks compare the older dolls alongside Claudia and overlay the anchors.
+Production-renderer tests additionally check the drawn bubble against the
+rotated lips and the emitted heart against the measured hand gap, and verify
+eye fitting at phone and desktop sizes in both scene and camera modes. Browser
 checks use synthetic tracking inputs. A physical camera session was not
 available, so live-device tracking feel remains a user-device check; the
 tracking/stabilization pipeline itself is unchanged.

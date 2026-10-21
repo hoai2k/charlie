@@ -4,6 +4,7 @@ export default {
   "name": "claudia",
   "label": "Claudia",
   "debugOnly": false,
+  "assetRevision": "6cb26824a528",
   "registeredFace": {
     "mouths": {
       "mouth_smile": "mouth_smile",
@@ -305,66 +306,66 @@ export default {
         "file": "assets/claudia-v2/pose_1.webp",
         "size": [
           312,
-          477
+          283
         ],
         "neck": {
           "x": 0.5368589743589743,
-          "y": 0.033542976939203356
+          "y": 0.13427561837455831
         }
       },
       "pose_2": {
         "file": "assets/claudia-v2/pose_2.webp",
         "size": [
           301,
-          464
+          270
         ],
         "neck": {
           "x": 0.5,
-          "y": 0.00646551724137931
+          "y": 0.09259259259259259
         }
       },
       "pose_3": {
         "file": "assets/claudia-v2/pose_3.webp",
         "size": [
           315,
-          478
+          279
         ],
         "neck": {
           "x": 0.4603174603174603,
-          "y": 0.03556485355648536
+          "y": 0.13799283154121864
         }
       },
       "pose_4": {
         "file": "assets/claudia-v2/pose_4.webp",
         "size": [
           294,
-          468
+          275
         ],
         "neck": {
           "x": 0.5,
-          "y": 0.00641025641025641
+          "y": 0.09272727272727273
         }
       },
       "pose_5": {
         "file": "assets/claudia-v2/pose_5.webp",
         "size": [
           290,
-          467
+          270
         ],
         "neck": {
           "x": 0.5017241379310344,
-          "y": 0.006423982869379015
+          "y": 0.09259259259259259
         }
       },
       "pose_6": {
         "file": "assets/claudia-v2/pose_6.webp",
         "size": [
           290,
-          468
+          275
         ],
         "neck": {
           "x": 0.503448275862069,
-          "y": 0.00641025641025641
+          "y": 0.09272727272727273
         }
       }
     }
@@ -372,8 +373,8 @@ export default {
   "layout": {
     "head": {
       "pivot": {
-        "x": 0.54,
-        "y": 0.51
+        "x": 0.515,
+        "y": 0.317
       },
       "neck": {
         "x": 0.54,
@@ -381,11 +382,11 @@ export default {
       },
       "trackingScale": 1.75,
       "minWidth": 128,
-      "maxWidth": 420
+      "maxWidth": 330
     },
     "body": {
       "startPose": 5,
-      "heightPerHead": 1.4,
+      "heightPerHead": 2.1,
       "offset": {
         "x": 0,
         "y": 0
@@ -395,7 +396,7 @@ export default {
     },
     "bodyPoses": {
       "pose_1": {
-        "scale": 1.0599999999999998,
+        "scale": 0.6288888888888889,
         "rotation": 0,
         "offset": {
           "x": 0,
@@ -404,7 +405,7 @@ export default {
         "handTracking": "leftRaised"
       },
       "pose_2": {
-        "scale": 1.031111111111111,
+        "scale": 0.6000000000000001,
         "rotation": 0,
         "offset": {
           "x": 0,
@@ -413,7 +414,7 @@ export default {
         "handTracking": "bothRaised"
       },
       "pose_3": {
-        "scale": 1.0839002267573696,
+        "scale": 0.6326530612244898,
         "rotation": 0,
         "offset": {
           "x": 0,
@@ -422,7 +423,7 @@ export default {
         "handTracking": "rightRaised"
       },
       "pose_4": {
-        "scale": 1.0196078431372548,
+        "scale": 0.599128540305011,
         "rotation": 0,
         "offset": {
           "x": 0,
@@ -430,7 +431,7 @@ export default {
         }
       },
       "pose_5": {
-        "scale": 1.0377777777777777,
+        "scale": 0.6000000000000001,
         "rotation": 0,
         "offset": {
           "x": 0,
@@ -438,7 +439,7 @@ export default {
         }
       },
       "pose_6": {
-        "scale": 1.0196078431372548,
+        "scale": 0.599128540305011,
         "rotation": 0,
         "offset": {
           "x": 0,
@@ -447,26 +448,30 @@ export default {
         "handTracking": "bothMiddle",
         "poseAction": {
           "type": "heart",
-          "x": 0.503448275862069,
-          "y": 0.16
+          "x": 0.5069204565828005,
+          "y": 0.2707231763037655
         }
       }
     },
     "parts": {
       "leftEye": {
-        "x": 0.44,
-        "y": 0.508
+        "x": 0.43525079617834395,
+        "y": 0.5126691878980891
       },
       "rightEye": {
-        "x": 0.639,
-        "y": 0.504
+        "x": 0.6244893292682927,
+        "y": 0.5167454268292683
       }
     },
     "mouth": {}
   },
   "interactions": {
     "kiss": {
-      "sprite": "bubble"
+      "sprite": "bubble",
+      "origin": {
+        "x": 0.538,
+        "y": 0.657
+      }
     },
     "fallbacks": {
       "expression_angry": "mouth_frown",

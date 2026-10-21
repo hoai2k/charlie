@@ -6,6 +6,7 @@ The small spec describes the master once. SIFT/RANSAC registers every generated
 expression; the build fails on weak registration rather than exporting guesses.
 """
 import json
+import hashlib
 import sys
 from pathlib import Path
 
@@ -78,11 +79,24 @@ def build(key):
     cv2.setRNGSeed(0)
     spec = json.loads((ROOT / f"{key}.json").read_text())
     source = ROOT / "sources" / key
+    revision_input = (ROOT / "build.py").read_bytes() + (ROOT / f"{key}.json").read_bytes()
+    revision_input += b"".join((source / f"{name}.webp").read_bytes() for name in ["head", "expressions", "bodies"])
+    asset_revision = hashlib.sha256(revision_input).hexdigest()[:12]
     out = GAME / "assets" / spec["assetDirectory"]
     out.mkdir(parents=True, exist_ok=True)
     size = spec["size"]
     master = rgba(source / "head.webp", size)
     report = {"registration": {}, "poses": []}
+    eye_anchors = {}
+    for side, window in zip(["leftEye", "rightEye"], spec["eyeAnchorWindows"]):
+        x1, y1, x2, y2 = pixels(window, size)
+        gray = cv2.cvtColor(master[y1:y2, x1:x2, :3], cv2.COLOR_RGB2GRAY)
+        count, _, stats, centers = cv2.connectedComponentsWithStats((gray < 40).astype(np.uint8))
+        if count < 2:
+            raise ValueError(f"No pupil found for {side}")
+        pupil = 1 + np.argmax(stats[1:, 4])
+        eye_anchors[side] = {"x": float((centers[pupil][0]+x1)/size), "y": float((centers[pupil][1]+y1)/size)}
+    report["headAnchors"] = {"eyes": eye_anchors, "mouth": spec["mouthAnchor"], "neck": spec["headNeck"], "pivot": spec["headPivot"]}
     atlas = Image.open(source / "expressions.webp").convert("RGBA")
     columns, rows = spec["expressionGrid"]
     registered = {}
@@ -160,30 +174,54 @@ def build(key):
         neck_width = right - left + 1
         if not 20 <= neck_width <= 100:
             raise ValueError(f"Pose {pose}: invalid neck width {neck_width}")
+        # Existing puppets are torso cutouts. Crop from the same neck-relative
+        # level in every pose rather than shrinking a full doll into the stage.
+        full_height = h
+        h = min(h, round(neck_y + spec["bodyCropNeckWidths"] * neck_width))
+        art = art[:h]
+        action_anchor = None
+        if pose == 6:
+            # Locate the enclosed alpha hole inside the heart hands. Exclude
+            # transparent components touching the search window's boundary.
+            rx1, rx2 = round(neck_x-neck_width), round(neck_x+neck_width)
+            ry1, ry2 = round(neck_y+neck_width*0.6), round(neck_y+neck_width*2.2)
+            inverse = (art[ry1:ry2, rx1:rx2, 3] < 128).astype(np.uint8)
+            count, _, hole_stats, hole_centers = cv2.connectedComponentsWithStats(inverse)
+            holes = [i for i in range(1, count) if hole_stats[i, 4] > 20
+                     and hole_stats[i, 0] > 0 and hole_stats[i, 1] > 0
+                     and hole_stats[i, 0]+hole_stats[i, 2] < inverse.shape[1]
+                     and hole_stats[i, 1]+hole_stats[i, 3] < inverse.shape[0]]
+            if not holes:
+                raise ValueError("Heart pose: no enclosed hand gap found")
+            hole = max(holes, key=lambda i: hole_stats[i, 4])
+            action_anchor = [float(hole_centers[hole][0]+rx1), float(hole_centers[hole][1]+ry1)]
         filename = f"pose_{pose}.webp"
         save(out / filename, art)
+        neck_anchor_y = neck_y + neck_width * spec["bodyNeckDepth"]
         body_sprites[f"pose_{pose}"] = {"file": f"assets/{spec['assetDirectory']}/{filename}",
-                                        "size": [int(w), int(h)], "neck": {"x": neck_x/w, "y": (neck_y+3)/h}}
+                                        "size": [int(w), int(h)], "neck": {"x": neck_x/w, "y": neck_anchor_y/h}}
         # Equal NECK width (not alpha bounds) preserves body scale across gestures.
         # h / neck_width changes with crop height; this ratio cancels that crop.
         pose_layouts[f"pose_{pose}"] = {"scale": float(h/neck_width/9), "rotation": 0, "offset": {"x": 0, "y": 0}}
         tag = spec["poseTags"][pose-1]
         if tag: pose_layouts[f"pose_{pose}"]["handTracking"] = tag
-        if pose == 6: pose_layouts[f"pose_{pose}"]["poseAction"] = {"type": "heart", "x": neck_x/w, "y": 0.16}
-        report["poses"].append({"pose": pose, "neckWidth": neck_width, "neck": [neck_x, neck_y+3], "size": [int(w), int(h)]})
+        if action_anchor:
+            pose_layouts[f"pose_{pose}"]["poseAction"] = {"type": "heart", "x": action_anchor[0]/w, "y": action_anchor[1]/h}
+        report["poses"].append({"pose": pose, "neckWidth": neck_width, "neck": [neck_x, neck_anchor_y], "size": [int(w), int(h)],
+                                 "fullSourceHeight": int(full_height), "actionAnchor": action_anchor})
 
     states = ["reference", "mouth_closed", "mouth_smile", "mouth_open", "mouth_big_open", "mouth_tongue", "mouth_frown", "mouth_pucker", "expression_laugh", "expression_surprise"]
     head_meta = {"file": f"assets/{spec['assetDirectory']}/head.webp", "size": [size, size], "hasOpenEyes": True, "hasBrows": True}
     mouth_map = {"mouth_smile": "mouth_smile", "mouth_open": "mouth_medium", "mouth_big_open": "mouth_laugh", "mouth_tongue": "mouth_tongue", "mouth_frown": "mouth_frown", "mouth_pucker": "mouth_pucker", "expression_laugh": "mouth_laugh", "expression_surprise": "mouth_medium",
                  "talking_mouth_small_open": "mouth_small", "talking_mouth_medium_open": "mouth_medium", "talking_mouth_big_open": "mouth_laugh", "talking_mouth_wide": "mouth_laugh", "talking_mouth_teeth": "mouth_smile", "talking_mouth_pucker": "mouth_pucker"}
-    config = {"version": 3, "name": key, "label": "Claudia", "debugOnly": False,
+    config = {"version": 3, "name": key, "label": "Claudia", "debugOnly": False, "assetRevision": asset_revision,
               "registeredFace": {"mouths": mouth_map, "eyes": spec["eyeBoxes"], "brows": spec["browBoxes"]},
               "sprites": {"faces": {state: head_meta for state in states}, "talking": {name: head_meta for name in mouth_map if name.startswith("talking_")}, "features": features, "body": body_sprites},
-              "layout": {"head": {"pivot": dict(zip(["x", "y"], spec["headPivot"])), "neck": dict(zip(["x", "y"], spec["headNeck"])), "trackingScale": 1.75, "minWidth": 128, "maxWidth": 420},
+              "layout": {"head": {"pivot": dict(zip(["x", "y"], spec["headPivot"])), "neck": dict(zip(["x", "y"], spec["headNeck"])), "trackingScale": 1.75, "minWidth": 128, "maxWidth": 330},
                          "body": {"startPose": 5, "heightPerHead": spec["bodyHeightPerHead"], "offset": {"x": 0, "y": 0}, "scale": 1, "rotation": 0},
-                         "bodyPoses": pose_layouts, "parts": {side: {"x": (box[0]+box[2])/2, "y": (box[1]+box[3])/2} for side, box in zip(["leftEye", "rightEye"], spec["eyeBoxes"])},
+                         "bodyPoses": pose_layouts, "parts": eye_anchors,
                          "mouth": {}},
-              "interactions": {"kiss": {"sprite": "bubble"}, "fallbacks": {"expression_angry": "mouth_frown", "expression_disgust": "mouth_frown", "expression_fear": "mouth_open", "expression_squint": "mouth_pucker", "expression_thinking": "mouth_pucker", "expression_smirk_left": "mouth_smile", "expression_smirk_right": "mouth_smile"}}}
+              "interactions": {"kiss": {"sprite": "bubble", "origin": dict(zip(["x", "y"], spec["mouthAnchor"]))}, "fallbacks": {"expression_angry": "mouth_frown", "expression_disgust": "mouth_frown", "expression_fear": "mouth_open", "expression_squint": "mouth_pucker", "expression_thinking": "mouth_pucker", "expression_smirk_left": "mouth_smile", "expression_smirk_right": "mouth_smile"}}}
     (out / "config.js").write_text("// Generated by tools/registered-rig/build.py; edit the master spec, not offsets.\nexport default " + json.dumps(config, indent=2) + ";\n")
     (ROOT / f"{key}-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
