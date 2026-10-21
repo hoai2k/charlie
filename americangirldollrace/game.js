@@ -189,15 +189,15 @@ const MOUNTED_MONSTER_REST_AFTER_THROW = 2.2;
 const RUNAWAY_HORSE_SPEED = 640;
 // Each kind of power-up glows its own colour on every track, whatever its art.
 const POWERUP_GLOW_COLORS = {
-  boost: "#ff8a1c",
-  jump: "#2fd65a",
+  boost: "#2fd65a",
+  jump: "#ff8a1c",
   emp: "#b45cff",
   snowball: "#4cc3ff"
 };
 // Darker shades of the same colours for the status text over a racer.
 const POWERUP_TEXT_COLORS = {
-  boost: "#d35c00",
-  jump: "#16903a",
+  boost: "#16903a",
+  jump: "#d35c00",
   emp: "#8434d6",
   snowball: "#167fc0"
 };
