@@ -2,6 +2,8 @@
 from pathlib import Path
 import hashlib,json,sys
 from scipy import ndimage
+from scipy.spatial import cKDTree
+from functools import lru_cache
 import numpy as np
 from PIL import Image
 HERE=Path(__file__).resolve().parent
@@ -19,6 +21,10 @@ def face_info(cell):
     m[round(cell.height*.50):]=False
     labels,n=ndimage.label(m)
     counts=np.bincount(labels.ravel());counts[0]=0
+    if not n or counts.max()<=50:
+        m=(r>110)&(g>55)&(b>30)&(b>g*.58)&(r>g+18)&(a[:,:,3]>200)
+        m[round(cell.height*.50):]=False
+        labels,n=ndimage.label(m);counts=np.bincount(labels.ravel());counts[0]=0
     assert n and counts.max()>50,'Missing face anchor'
     ys,xs=np.where(labels==counts.argmax())
     return float(np.median(xs)),float(ys.max()+1),len(xs)
@@ -28,6 +34,47 @@ def tip_centre(cell):
     a=np.asarray(cell.getchannel('A'))>16;ys,xs=np.where(a)
     bottom=ys.max();yy,xx=np.where(a & (np.indices(a.shape)[0]>bottom-8))
     return float((xx.min()+xx.max())/2)
+
+
+@lru_cache(None)
+def outfit_classifier(key):
+    asset_key={'claudia':'claudia-v2','rumi':'rumi-v2'}.get(key,key)
+    sheet=np.array(Image.open(GAME/f'assets/doll_{asset_key}_sprites.webp').convert('RGBA'))
+    mask=np.array(Image.open(GAME/f'assets/masks/{asset_key}_sheet_mask.webp').convert('RGB'))
+    features=[];weights=[]
+    for n in range(12):
+        x=n%3*418;y=n//3*418;a=sheet[y:y+418,x:x+418];m=mask[y:y+418,x:x+418]
+        ys,xs=np.where(a[:,:,3]>200);x0,x1=xs.min(),xs.max();y0,y1=ys.min(),ys.max()
+        # Deterministic sampling keeps this small and repeatable.
+        ys=ys[::9];xs=xs[::9]
+        features.append(np.column_stack([a[ys,xs,:3]/40.,(xs-x0)/(x1-x0)*1.5,(ys-y0)/(y1-y0)*3.]))
+        weights.append(m[ys,xs,:2]/255.)
+    return cKDTree(np.concatenate(features)),np.concatenate(weights)
+
+
+def learned_mask(cell,key,n):
+    a=np.array(cell).astype(float);b=packing.bounds(cell);yy,xx=np.indices(a.shape[:2]);ys,xs=np.where(a[:,:,3]>8)
+    features=np.column_stack([a[ys,xs,:3]/40.,(xs-b[0])/(b[2]-b[0])*1.5,(ys-b[1])/(b[3]-b[1])*3.])
+    tree,weights=outfit_classifier(key);dist,idx=tree.query(features,k=7)
+    votes=1/(dist+.04)**2;value=(weights[idx]*votes[:,:,None]).sum(1)/votes.sum(1)[:,None]
+    value=np.clip((value-.25)/.5,0,1)
+    out=np.zeros((*a.shape[:2],3),dtype='uint8');out[ys,xs,:2]=np.round(value*255)
+    # Hardware is never outfit fabric. Retain boots above pogo pegs, but
+    # protect the spring/tip; skates protect the whole boot/wheel silhouette.
+    h=b[3]-b[1];w=b[2]-b[0]
+    if n<6:
+        protected=yy>b[3]-.25*h if n!=5 else xx>b[2]-.30*w
+    elif n!=11:
+        protected=yy>b[3]-.14*h
+        tip=tip_centre(cell)
+        protected|=(abs(xx-tip)<max(5,w*.035))&(yy>b[1]+h*.45)
+        # Handlebar highlights/grips stay neutral; skin is already excluded.
+        spread=a[:,:,:3].max(2)-a[:,:,:3].min(2)
+        protected|=(abs(xx-tip)<w*.23)&(yy>b[1]+h*.35)&(yy<b[1]+h*.61)&(spread<24)&(a[:,:,:3].max(2)<110)
+    else:
+        protected=(xx>b[2]-.20*w) | (yy>b[3]-.16*h)
+    out[protected]=0
+    return Image.fromarray(out)
 
 
 def mask_for(cell,key,chin):
@@ -45,15 +92,45 @@ def mask_for(cell,key,chin):
     return Image.fromarray(out)
 
 
+def full_cells(src,rows=4):
+    # Assign disconnected prop pieces to the closest atlas slot, then crop
+    # whole components. This preserves poses that extend past a nominal grid
+    # line without cutting their hair, hand or pogo tip into the next slot.
+    a=np.asarray(src);labels,n=ndimage.label(a[:,:,3]>8)
+    centers=np.array([[(c+.5)*src.width/3,(r+.5)*src.height/rows] for r in range(rows) for c in range(3)])
+    membership=np.zeros(n+1,dtype=int)
+    for label,sl in enumerate(ndimage.find_objects(labels),1):
+        if sl is None:continue
+        ys,xs=np.where(labels[sl]==label);cx=xs.mean()+sl[1].start;cy=ys.mean()+sl[0].start
+        membership[label]=1+np.argmin(((centers-np.array([cx,cy]))**2).sum(1))
+    assigned=membership[labels]
+    # Preserve the soft alpha fringe around the thresholded components.
+    fringe=(a[:,:,3]>0)&(assigned==0)
+    if fringe.any():
+        nearest=ndimage.distance_transform_edt(assigned==0,return_distances=False,return_indices=True)
+        assigned[fringe]=assigned[nearest[0][fringe],nearest[1][fringe]]
+    cells=[]
+    for slot in range(rows*3):
+        pixels=a.copy();pixels[assigned!=slot+1,3]=0
+        cell=Image.fromarray(pixels);b=packing.bounds(cell);assert b,(slot,'empty source pose')
+        assert b[0]>0 and b[1]>0 and b[2]<src.width and b[3]<src.height,(slot,'source clips outer edge',b)
+        cells.append(cell.crop((max(0,b[0]-5),max(0,b[1]-5),min(src.width,b[2]+5),min(src.height,b[3]+5))))
+    return cells
+
+
 def build(key):
-    main=packing.atlas_cells(packing.clean(Image.open(HERE/'sources'/f'{key}.webp')))
-    actions=packing.atlas_cells(packing.clean(Image.open(HERE/'sources'/f'{key}-actions.webp')))
-    # Two generated companion sheets can have different pixel scales. Match
-    # their feet-together standing height once, rather than resizing individual poses.
-    mb=packing.bounds(main[1]);ab=packing.bounds(actions[0])
-    action_ratio=(mb[3]-mb[1])/(ab[3]-ab[1])
-    cells=main[:3]+actions[:3]+main[3:]+actions[3:]
-    groups=[1]*3+[action_ratio]*3+[1]*3+[action_ratio]*3
+    full=HERE/'sources'/f'{key}-full.webp'
+    if full.exists():
+        cells=full_cells(packing.clean(Image.open(full)))
+        action_ratio=1.;groups=[1]*12
+    else:
+        main=packing.atlas_cells(packing.clean(Image.open(HERE/'sources'/f'{key}.webp')))
+        actions=packing.atlas_cells(packing.clean(Image.open(HERE/'sources'/f'{key}-actions.webp')))
+        # Match companion sources by the same feet-together standing pose.
+        mb=packing.bounds(main[1]);ab=packing.bounds(actions[0])
+        action_ratio=(mb[3]-mb[1])/(ab[3]-ab[1])
+        cells=main[:3]+actions[:3]+main[3:]+actions[3:]
+        groups=[1]*3+[action_ratio]*3+[1]*3+[action_ratio]*3
     boxes=[packing.bounds(c) for c in cells]
     for c,b in zip(cells,boxes):assert b and min(b[:2])>0 and b[2]<c.width and b[3]<c.height,(key,'source clips edge',b,c.size)
     ref=Image.open(HERE/'references'/f'{key}.webp').convert('RGBA').crop((0,0,418,418));rb=packing.bounds(ref)
@@ -76,7 +153,7 @@ def build(key):
         x=round(target_pivot+(b[0]-pivot)*factor);y=409-packing.bounds(art)[3]
         assert x>=4 and x+size[0]<=414 and y>=4,(key,n,x,y,size)
         frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(x,y));sheet.paste(frame,(n%3*418,n//3*418))
-        m=mask_for(cell,key,chin).crop(b).resize(size,Image.Resampling.LANCZOS);mask.paste(m,(n%3*418+x,n//3*418+y))
+        m=(mask_for(cell,key,chin) if key in ['lily','mira','hermione'] else learned_mask(cell,key,n)).crop(b).resize(size,Image.Resampling.LANCZOS);mask.paste(m,(n%3*418+x,n//3*418+y))
         records.append({'bounds':packing.bounds(frame),'scale':factor,'renderScale':desired/factor,'anchorX':target_pivot+16,'sourcePivot':round(pivot,2),'targetPivot':target_pivot,'sourceChin':round(chin,2)})
     asset_key={'claudia':'claudia-v2','rumi':'rumi-v2'}.get(key,key)
     target=GAME/f'assets/doll_{asset_key}_toys.webp';packing.save(sheet,target)

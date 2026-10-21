@@ -2367,7 +2367,7 @@ function getRideToySheet(racer) {
   const assetKey = dollAssetKey(racer.spriteKey);
   if (!(window.RIDE_TOY_SHEETS || []).includes(assetKey)) return null;
   if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "toys", racer.outfit);
-  loadArtOnce(`toys_${assetKey}`, `assets/doll_${assetKey}_toys.webp`);
+  loadArtOnce(`toys_${assetKey}`, `assets/doll_${assetKey}_toys.webp?v=${window.RIDE_TOY_ART_VERSION || "1"}`);
   return images[`toys_${assetKey}`] || null;
 }
 

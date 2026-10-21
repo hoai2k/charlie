@@ -6,13 +6,13 @@
     250,
     225,
     234,
+    225.35479797979798,
     225,
     225,
     225,
     225,
     225,
-    225,
-    225
+    203.6919128329298
   ],
   "renderScale": [
     1.0,
@@ -20,13 +20,13 @@
     1.0,
     1.0,
     1.0,
-    1.077935547334431,
+    1.0,
     1.0082508250825082,
     1.0058672533920059,
     1.0082508250825082,
     1.0,
     1.0,
-    1.146739943972799
+    1.0412464703509479
   ],
   "baseline": 409,
   "standingReferenceHeight": 390,
@@ -105,17 +105,28 @@
     },
     {
       "bounds": [
-        7,
+        22,
         114,
-        411,
+        397,
         409
       ],
-      "scale": 0.781431334622824,
-      "renderScale": 1.077935547334431,
-      "anchorX": 225,
-      "sourcePivot": 271.5,
-      "targetPivot": 209,
-      "sourceChin": 232.0
+      "anchorX": 225.35479797979798,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        507,
+        401
+      ],
+      "referenceBodyBounds": [
+        10,
+        114,
+        408,
+        409
+      ],
+      "bodyScale": 0.7449494949494949,
+      "packedScale": 1
     },
     {
       "bounds": [
@@ -189,18 +200,29 @@
     },
     {
       "bounds": [
-        7,
-        73,
-        411,
+        8,
+        116,
+        410,
         409
       ],
-      "scale": 0.7345454545454545,
-      "renderScale": 1.146739943972799,
-      "anchorX": 225,
-      "sourcePivot": 284.0,
-      "targetPivot": 209,
-      "sourceChin": 136.0
+      "anchorX": 203.6919128329298,
+      "renderScale": 1.0412464703509479,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        17,
+        476,
+        387
+      ],
+      "referenceBodyBounds": [
+        10,
+        114,
+        408,
+        409
+      ],
+      "bodyScale": 0.7972972972972973,
+      "packedScale": 0.9603874092009687
     }
   ],
-  "sha256": "2cd3478b2e1bed49396bcd9949faa3d2e8873c125d6b6dc317351ba5eb659d5d"
+  "sha256": "d5026662472ea8fa3639bb8ccb27972937f806be6568c94ae79de2d05f2c01f9"
 }

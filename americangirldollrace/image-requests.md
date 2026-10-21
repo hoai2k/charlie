@@ -402,7 +402,12 @@ Once a doll's K1 and K2 are in, add her key to `RIDE_TOY_SHEETS` in
 | 3 | Pogo stick | **Bounce**: (1) compressed, knees bent, spring squashed, tip on the baseline; (2) extended, legs straight, spring stretched, tip on the baseline; (3) airborne, a little tucked (the game lifts it). Both feet on the pegs, both hands on the handlebar at chest height. |
 | 4 | Pogo stick | (1) **Balancing** upright on the stick, tip on the baseline; (2) **pushing / throwing** with one hand off the handlebar, thrust forward; (3) **falling backwards** off the stick: copy her fall frame (row 4 cell 3 of her sheet) exactly, with the **same body angle**, arms and legs, plus the stick tipping away beside her. Don't lie flatter than her normal fall. |
 
-### 8.0.1 Redo: trial falls are too flat
+### 8.0.1 Delivered redo: trial falls match normal falls
+
+K3 is delivered. Each fall was drawn from the exact normal fall reference,
+then aligned using the doll body (excluding the separate stick). Other ten
+image cells and ten mask cells per doll are decoded-pixel-identical. See
+`tools/dolls/toys/fall-redo/comparison.webp` and its verification hashes.
 
 The delivered trial sheets work in game, but both falling cells lie much
 flatter than each doll's normal fall (measured from the body only: Lily about

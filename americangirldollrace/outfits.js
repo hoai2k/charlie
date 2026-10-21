@@ -16,7 +16,7 @@
     cheer: key => `assets/portraits/${assetKey(key)}_cheer.webp`,
     wave: key => `assets/portraits/${assetKey(key)}_wave.webp`,
     ride: key => `assets/portraits/${assetKey(key)}_ride.webp`,
-    toys: key => `assets/doll_${assetKey(key)}_toys.webp`,
+    toys: key => `assets/doll_${assetKey(key)}_toys.webp?v=${window.RIDE_TOY_ART_VERSION || "1"}`,
     actions: key => `assets/doll_${assetKey(key)}_actions.webp`
   };
 
@@ -121,7 +121,7 @@
       const source = await loadImage(KINDS[kind](key));
       if (!n || !colorOf(key, n) || !window.DollRecolor) return source;
       try {
-        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=20261002k`);
+        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=${kind === "toys" ? window.RIDE_TOY_ART_VERSION || "1" : "20261002k"}`);
         entry.canvas = recolor(key, kind, n, source, maskImage);
         return entry.canvas;
       } catch (error) {

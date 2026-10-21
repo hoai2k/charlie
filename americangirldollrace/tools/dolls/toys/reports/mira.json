@@ -6,13 +6,13 @@
     249,
     253,
     256,
+    224.59756097560975,
     225,
     225,
     225,
     225,
     225,
-    225,
-    225
+    225.2925659472422
   ],
   "renderScale": [
     1.0,
@@ -20,13 +20,13 @@
     1.0,
     1.0,
     1.0,
-    1.101798470986339,
+    1.0,
     1.0,
     1.0084018965276809,
     1.0038697531725003,
     1.0,
     1.0,
-    1.1567865647324227
+    1.0
   ],
   "baseline": 409,
   "standingReferenceHeight": 390,
@@ -105,17 +105,28 @@
     },
     {
       "bounds": [
-        7,
-        145,
-        411,
+        26,
+        86,
+        391,
         409
       ],
-      "scale": 0.7467652495378928,
-      "renderScale": 1.101798470986339,
-      "anchorX": 225,
-      "sourcePivot": 276.5,
-      "targetPivot": 209,
-      "sourceChin": 252.0
+      "anchorX": 224.59756097560975,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        6,
+        470,
+        416
+      ],
+      "referenceBodyBounds": [
+        18,
+        87,
+        400,
+        409
+      ],
+      "bodyScale": 0.7853658536585366,
+      "packedScale": 1
     },
     {
       "bounds": [
@@ -189,18 +200,29 @@
     },
     {
       "bounds": [
-        7,
-        141,
-        411,
+        12,
+        87,
+        406,
         409
       ],
-      "scale": 0.7112676056338029,
-      "renderScale": 1.1567865647324227,
-      "anchorX": 225,
-      "sourcePivot": 297.0,
-      "targetPivot": 209,
-      "sourceChin": 191.0
+      "anchorX": 225.2925659472422,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        515,
+        422
+      ],
+      "referenceBodyBounds": [
+        18,
+        87,
+        400,
+        409
+      ],
+      "bodyScale": 0.7721822541966427,
+      "packedScale": 1
     }
   ],
-  "sha256": "4382a572088dd0946bc18c8c584c6334dedb271c37971eec19d6599f042377a8"
+  "sha256": "e853fd868a9aaef48ea39f2d4fb3eb6e17c73d28b8e9d019156674e85e98b037"
 }

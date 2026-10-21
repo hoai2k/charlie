@@ -6,13 +6,13 @@
     225,
     225,
     225,
+    224.54225352112675,
     225,
     225,
     225,
     225,
     225,
-    225,
-    225
+    190.46610169491527
   ],
   "renderScale": [
     1.0,
@@ -26,7 +26,7 @@
     1.0367394847592868,
     1.0058548130387153,
     1.0,
-    1.0849903883916576
+    1.0
   ],
   "baseline": 409,
   "standingReferenceHeight": 403,
@@ -105,17 +105,28 @@
     },
     {
       "bounds": [
-        11,
-        87,
-        406,
+        30,
+        72,
+        388,
         409
       ],
-      "scale": 0.8413361169102297,
+      "anchorX": 224.54225352112675,
       "renderScale": 1.0,
-      "anchorX": 225,
-      "sourcePivot": 262.0,
-      "targetPivot": 209,
-      "sourceChin": 211.0
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        5,
+        459,
+        431
+      ],
+      "referenceBodyBounds": [
+        46,
+        73,
+        373,
+        409
+      ],
+      "bodyScale": 0.7887323943661971,
+      "packedScale": 1
     },
     {
       "bounds": [
@@ -189,18 +200,29 @@
     },
     {
       "bounds": [
-        7,
-        70,
-        411,
+        9,
+        73,
+        408,
         409
       ],
-      "scale": 0.7754318618042226,
-      "renderScale": 1.0849903883916576,
-      "anchorX": 225,
-      "sourcePivot": 295.5,
-      "targetPivot": 209,
-      "sourceChin": 158.0
+      "anchorX": 190.46610169491527,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        412,
+        418
+      ],
+      "referenceBodyBounds": [
+        46,
+        73,
+        373,
+        409
+      ],
+      "bodyScale": 0.8135593220338984,
+      "packedScale": 1
     }
   ],
-  "sha256": "94ec807395461b952bc4456dc87ada2eeeb41ff2bb1b583631e70b255eb64b0d"
+  "sha256": "eb6a5f7cc9cd191151abda3ca23cf6e58f754d0f13f583f3b3fbc7a7676a4aa7"
 }
