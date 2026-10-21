@@ -42,6 +42,25 @@ SOUNDS = {
     'mount_carousel': ('A short carousel music-box chime, a few twinkling notes from a merry-go-round organ', 1.2, 2),
     'mount_reindeer': ('Sleigh bells jingling briefly with a soft reindeer snort, wintry', 1.2, 2),
     'mount_pony': ('A small cute pony whinny, short and friendly', 1.0, 2),
+    # Track monsters that replace the troll (tracks.js `monster`): kid-friendly, spooky-silly
+    'scarecrow_notice': ('A jack-o-lantern scarecrow spotting someone: a hollow, goofy "heh heh heh" chuckle with a straw rustle, spooky but silly, for a children\'s game', 1.2, 2),
+    'scarecrow_walk_step': ('A floppy straw-stuffed scarecrow taking one shuffling step on dirt, soft straw rustle', 0.4, 3),
+    'scarecrow_idle_grunt': ('A scarecrow with a pumpkin head humming a low creaky "hmmm" with straw rustling, silly spooky', 1.0, 2),
+    'scarecrow_grab': ('A scarecrow grabbing something with a quick straw whoosh and a hollow "gotcha!" cackle, cartoon, not scary', 0.8, 2),
+    'scarecrow_lift': ('A straw scarecrow straining to lift something, creaking straw and a hollow "hrrrup", cartoon', 0.7, 2),
+    'scarecrow_throw': ('A scarecrow tossing something with a big straw whoosh and a hollow pumpkin "wheee-heh!", cartoon', 0.8, 2),
+    'scarecrow_hit': ('A soft cartoon bonk on a hollow pumpkin with a puff of straw', 0.5, 2),
+    'scarecrow_fall': ('A scarecrow collapsing: clothes flopping down, straw scattering and a hollow pumpkin thunk, cartoon', 1.0, 2),
+    'scarecrow_wake': ('An empty scarecrow outfit settling into a heap and a pumpkin rolling to rest on top, soft and funny', 1.0, 2),
+    'skeleton_notice': ('A cartoon skeleton spotting someone: jaw chattering into a goofy clacky laugh, spooky but silly, for a children\'s game', 1.2, 2),
+    'skeleton_walk_step': ('A cartoon skeleton taking one bony step, a light hollow clack', 0.35, 3),
+    'skeleton_idle_grunt': ('A cartoon skeleton\'s teeth chattering and bones rattling softly, silly', 1.0, 2),
+    'skeleton_grab': ('A cartoon skeleton grabbing something: a quick bony clack and a creaky "gotcha!" cackle, not scary', 0.8, 2),
+    'skeleton_lift': ('A cartoon skeleton straining to lift something, creaking bones and a hollow "hrrrup"', 0.7, 2),
+    'skeleton_throw': ('A cartoon skeleton tossing something with a whoosh and a rattle of bones and a goofy "heh!"', 0.8, 2),
+    'skeleton_hit': ('A cartoon bonk on a skeleton\'s skull with a light rattle of bones', 0.5, 2),
+    'skeleton_fall': ('A cartoon skeleton falling apart into a clattering pile of bones', 1.0, 2),
+    'skeleton_wake': ('The last few bones clinking down onto a pile and a skull rolling to rest, soft and funny', 1.0, 2),
 }
 
 

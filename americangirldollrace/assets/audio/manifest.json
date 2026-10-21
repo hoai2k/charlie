@@ -354,9 +354,83 @@
   "run_loop_grass": [
    1
   ],
+  "scarecrow_fall": [
+   1,
+   2
+  ],
+  "scarecrow_grab": [
+   1,
+   2
+  ],
+  "scarecrow_hit": [
+   1,
+   2
+  ],
+  "scarecrow_idle_grunt": [
+   1,
+   2
+  ],
+  "scarecrow_lift": [
+   1,
+   2
+  ],
+  "scarecrow_notice": [
+   1,
+   2
+  ],
+  "scarecrow_throw": [
+   1,
+   2
+  ],
+  "scarecrow_wake": [
+   1,
+   2
+  ],
+  "scarecrow_walk_step": [
+   1,
+   2,
+   3
+  ],
+  "skeleton_fall": [
+   1,
+   2
+  ],
+  "skeleton_grab": [
+   1,
+   2
+  ],
+  "skeleton_hit": [
+   1,
+   2
+  ],
   "skeleton_horse_whinny": [
    1,
    2
+  ],
+  "skeleton_idle_grunt": [
+   1,
+   2
+  ],
+  "skeleton_lift": [
+   1,
+   2
+  ],
+  "skeleton_notice": [
+   1,
+   2
+  ],
+  "skeleton_throw": [
+   1,
+   2
+  ],
+  "skeleton_wake": [
+   1,
+   2
+  ],
+  "skeleton_walk_step": [
+   1,
+   2,
+   3
   ],
   "snowball_hit": [
    1,

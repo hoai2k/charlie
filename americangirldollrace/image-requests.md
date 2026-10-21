@@ -419,6 +419,9 @@ changes:
 | 3 | **Grab** (lunging forward with arms out), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
 | 4 | **Knocked over** (falling backwards), **collapsing**, and **defeated**. Defeated is the big difference from the troll, which lies asleep. The scarecrow's defeated cell is **an empty heap of its clothes and straw with the pumpkin head sitting on top**. The skeleton's is **a pile of bones with the skull on top**. Both stay put on the ground until the race ends. |
 
+In the same commit, add `"scarecrow"` / `"skeleton"` to `TRACK_SHARED_ART` in
+`tracks.js`; the game loads a sheet only once it is listed.
+
 Acceptance: overlay each sheet on `monster_sprites.webp` and check that the
 feet sit on the same baseline in rows 1-3 and the figures are about the same
 size. Then race Pumpkin Patch and Wizard School on "Extra" monsters. Each

@@ -42,8 +42,12 @@
 // jam…): the doll's feet stick and she tips forward instead of sliding.
 // fenceBase (optional): where the back fence meets the ground, when there's
 // a verge between it and the path; racers may walk up to it.
+// monster: replaces the troll on that track with another sheet in the troll's
+// layout, assets/<monster>_sprites.webp (listed in TRACK_SHARED_ART once
+// delivered; until then the troll appears), and its own <monster>_* sounds.
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
-// several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs).
+// several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs),
+// "scarecrow", "skeleton" (§9).
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
@@ -114,12 +118,14 @@ window.TRACK_THEMES = {
     beachBalls: 4
   },
   wizard: {
+    monster: "skeleton",
     name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 507, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPELL BOOK", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
     sounds: { emp: "pickup_wand_zap" },
     mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.15, broom: 0.3 }
   },
   autumn: {
+    monster: "scarecrow",
     oilEffect: "sticky",
     fenceBase: 479,
     name: "Pumpkin Patch", dirtTop: 509, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
