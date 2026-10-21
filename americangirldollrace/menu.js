@@ -12,7 +12,13 @@
  * uses its globals.
  */
 (() => {
-  const ROSTER_ORDER = [...new Set(["lily", "rumi", "kaya", "amanda", "juliette", "claudia", "whirlpool", "marisol", ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"])];
+  // Top row first, then the bottom row (the grid splits the list in half).
+  // Dolls added later go at the end of the bottom row, before Penelope.
+  const ROSTER_ORDER = [...new Set([
+    "juliette", "whirlpool", "kaya", "claudia", "lily", "amanda", "marisol", "felicity",
+    "cinnamon", "barbie", "rumi", "mira", "hermione", "luna",
+    ...Object.keys(window.EXTRA_DOLLS || {}), "penelope"
+  ])];
   const RANDOM = "random";
   const COLS = 5;
   const STALL = 157;
