@@ -1,6 +1,6 @@
 {
   "tool": "built-in image_gen",
-  "status": "Candidate for user review; not approved or registered in runtime.",
+  "status": "Lower-hairline design approved by user; cleaned canonical saved. Runtime migration not yet requested.",
   "canonicalCandidate": "sources/marisol/canonical-candidate-v1.webp",
   "references": [
     "../../assets/portraits/marisol.webp",
@@ -19,5 +19,13 @@
     "status": "Candidate for review; runtime unchanged.",
     "review": "Hairline visibly lower, less forehead; swept-back style retained. Some generated texture variation. Existing halo remains.",
     "validation": "Visual review and exact lossless RGBA WebP round-trip passed."
+  },
+  "canonical": "sources/marisol/canonical.webp",
+  "cleanup": {
+    "tool": "built-in image_gen",
+    "promptFile": "sources/marisol/canonical-cleanup-prompt.txt",
+    "review": "Blocky hair-edge patches removed. Lower hairline, face and outfit retained; minor generated texture variation. Visually inspected composites on cream and navy backgrounds.",
+    "preview": "sources/marisol/canonical-transparency-review.webp",
+    "validation": "Exact lossless RGBA WebP round-trip passed. Runtime unchanged."
   }
 }
