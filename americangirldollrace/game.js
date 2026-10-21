@@ -818,6 +818,12 @@ function getTrackCard(background) {
   return { url, cells: 1, index: 0, crop: true };
 }
 
+// A themed pickup's own sound (a gong, a rooster…), like its label only once
+// the track's power-up art is showing.
+function powerupSound(type, fallback) {
+  return (getTrackArt("powerups") && getTrackTheme().sounds?.[type]) || fallback;
+}
+
 function powerupLabel(type, fallback) {
   return (getTrackArt("powerups") && getTrackTheme().labels?.[type]) || fallback;
 }
@@ -1565,12 +1571,19 @@ function updateAudio(dt) {
 function playPowerupAudio(racer, type) {
   if (type === "oil" || type === "horse") return;
   sfx("powerup_pickup_generic", racer.x);
-  if (type === "boost") sfx("powerup_boost", racer.x);
-  else if (type === "jump") sfx("powerup_highjump", racer.x);
-  else if (type === "emp") sfx("powerup_emp", racer.x);
-  else if (type === "snowball") sfx("powerup_snowball_pickup", racer.x);
+  if (type === "boost") sfx(powerupSound("boost", "powerup_boost"), racer.x);
+  else if (type === "jump") sfx(powerupSound("jump", "powerup_highjump"), racer.x);
+  else if (type === "emp") sfx(powerupSound("emp", "powerup_emp"), racer.x);
+  else if (type === "snowball") sfx(powerupSound("snowball", "powerup_snowball_pickup"), racer.x);
   racerVoice(racer, "pickup", { chance: 0.3 });
 }
+
+const THEMED_MOUNT_SOUNDS = {
+  pony: "mount_pony",
+  reindeer: "mount_reindeer",
+  rocking_horse: "mount_rocking_horse",
+  carousel_horse: "mount_carousel"
+};
 
 function playMountAudio(racer) {
   sfx("powerup_horse_pickup", racer.x);
@@ -1578,7 +1591,7 @@ function playMountAudio(racer) {
   if (racer.horseType === "unicorn") sfx("unicorn_appear", racer.x);
   else if (racer.horseType === "broom") sfx("powerup_pickup_generic", racer.x);
   else if (isFlyingMountType(racer.horseType)) sfx("pegasus_wing_flap", racer.x);
-  else sfx("horse_whinny", racer.x);
+  else sfx(THEMED_MOUNT_SOUNDS[racer.horseType] || "horse_whinny", racer.x);
   racerVoice(racer, "mount", { chance: 0.6, priority: 1 });
 }
 
@@ -2411,7 +2424,7 @@ function applyPowerup(racer, powerupOrType) {
       sfx("powerup_blocked", racer.x);
       return true;
     }
-    sfx("oil_splat", racer.x);
+    sfx(getTrackTheme().oilEffect === "sticky" ? "sticky_squelch" : "oil_splat", racer.x);
     racerVoice(racer, "slip", { chance: 0.8, priority: 1 });
     racer.oilTimer = OIL_SLIDE_DURATION;
     racer.knockbackX = 0;
@@ -3041,7 +3054,8 @@ function unhorseMonster(monster, direction) {
     frameTime: 0,
     frame: 0
   });
-  sfx("horse_whinny", monster.x);
+  sfx("troll_unhorsed", monster.x);
+  sfx(getTrollMountImage() === images.skeleton_horse ? "skeleton_horse_whinny" : "horse_whinny", monster.x, { gain: 0.8 });
 }
 
 function makeBeachBalls() {
@@ -3059,7 +3073,7 @@ function kickBeachBall(ball, direction, dy = 0) {
   ball.vx = direction * BEACH_BALL_KICK_SPEED;
   ball.vy += Math.sign(dy) * 120;
   ball.vz = BEACH_BALL_KICK_LIFT;
-  sfx("push_impact", ball.x);
+  sfx("beachball_kick", ball.x);
 }
 
 function updateBeachBalls(dt) {
@@ -3087,7 +3101,7 @@ function updateBeachBalls(dt) {
     if (ball.z <= 0) {
       ball.z = 0;
       if (ball.vz < -140) {
-        if (ball.vz < -300) sfx("jump_land_soft", ball.x, { gain: 0.5 });
+        if (ball.vz < -300) sfx("beachball_bounce", ball.x, { gain: Math.min(1, -ball.vz / 700) });
         ball.vz = -ball.vz * 0.55;
       } else {
         ball.vz = 0;

@@ -15,6 +15,8 @@
 // dirtTop is the screen y (at the 720 render height) where the painted path
 // starts; racers' feet can't go above it. New backgrounds are painted with
 // the path starting at 532, like the farm.
+// `sounds` give themed pickups their own sound (sfx keys in
+// assets/audio/manifest.json), also only once the power-up art is listed.
 // `labels` rename power-ups in the pop-up text, and only apply once that
 // track's "powerups" art is listed. `mountOdds` are the chances of each
 // non-horse mount from a mount pickup; the rest are plain horses. Themed
@@ -49,33 +51,39 @@ window.TRACK_THEMES = {
     oilEffect: "sticky",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" },
+    sounds: { emp: "pickup_rooster" },
     mountOdds: { pony: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   fairy: {
     oilEffect: "sticky",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "TOADSTOOL", boost: "FAIRY DUST", emp: "WAND ZAP", oil: "HONEY", snowball: "BUBBLES" },
+    sounds: { emp: "pickup_wand_zap" },
     mountOdds: { unicorn: 0.2, pegasus: 0.2, griffon: 0.05, broom: 0.05 }
   },
   town: {
     oilEffect: "sticky",
     art: ["powerups", "projectile", "hurdle"],
-    labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" }
+    labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" },
+    sounds: { emp: "pickup_hand_bell" }
   },
   winter: {
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" },
+    sounds: { emp: "storm_lightning" },
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   castles: {
     oilEffect: "sticky",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "ROYAL BOUNCE", boost: "TRUMPET", emp: "GONG", oil: "JAM", snowball: "CREAM PUFFS" },
+    sounds: { emp: "pickup_gong", boost: "pickup_trumpet" },
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.15, broom: 0.05 }
   },
   horseshow: {
     name: "Horse Show", dirtTop: 502, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
+    sounds: { emp: "pickup_starter_bell" },
     startMounted: true,
     mountOdds: { unicorn: 0.4, pegasus: 0.3, griffon: 0.2, broom: 0.1 },
     trollMount: "skeleton_horse",
@@ -88,6 +96,7 @@ window.TRACK_THEMES = {
     oilEffect: "sticky",
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "JACK-IN-THE-BOX", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
+    sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box" },
     baseMount: "rocking_horse",
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
@@ -95,45 +104,53 @@ window.TRACK_THEMES = {
     oilEffect: "sticky",
     name: "Candy Land", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "GUMDROP", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
+    sounds: { emp: "pickup_pop_rocks" },
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   beach: {
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "BEACH BALL", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
+    sounds: { emp: "pickup_conch" },
     beachBalls: 4
   },
   wizard: {
     name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 507, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPELL BOOK", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
+    sounds: { emp: "pickup_wand_zap" },
     mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.15, broom: 0.3 }
   },
   autumn: {
     oilEffect: "sticky",
     fenceBase: 479,
     name: "Pumpkin Patch", dirtTop: 509, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "LEAF PILE", boost: "LEAF GUST", emp: "SCARECROW", oil: "PUDDLE", snowball: "APPLES" }
+    labels: { jump: "LEAF PILE", boost: "LEAF GUST", emp: "SCARECROW", oil: "PUDDLE", snowball: "APPLES" },
+    sounds: { emp: "pickup_crows" }
   },
   clouds: {
     name: "Cloud Kingdom", dirtTop: 535, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "CLOUD PUFF", boost: "RAINBOW", emp: "THUNDERCLAP", oil: "RAIN PUDDLE", snowball: "HAILSTONES" },
+    sounds: { emp: "storm_lightning" },
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
   },
   space: {
     oilEffect: "sticky",
     name: "Moon Base", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" }
+    labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" },
+    sounds: { emp: "pickup_laser" }
   },
   // Twilight woodland track with its own looped art and song.
   woods: {
     oilEffect: "sticky",
     name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN BELL", oil: "MOSSY BOG", snowball: "ACORNS" },
+    sounds: { emp: "pickup_acorn_bell" },
     mountOdds: { unicorn: 0.2, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
   },
   festival: {
     oilEffect: "sticky",
     name: "Night Festival", music: "assets/music/One More Spin at the Night Festival.mp3", dirtTop: 513, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "TRAMPOLINE", boost: "SPARKLER", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" },
+    sounds: { emp: "firework_burst", boost: "pickup_sparkler" },
     mountOdds: { carousel_horse: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   }
 };
