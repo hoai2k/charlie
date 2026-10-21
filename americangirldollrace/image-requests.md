@@ -200,7 +200,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
-> **Still open:** the §10 new-item art (actions sheets, frogs, wave, wind-up
+> **Still open:** the §8.0.1 trial fall redo (K3), the §10 new-item art (actions sheets, frogs, wave, wind-up
 > cars), the remaining twelve §8 riding-toy dolls (Lily, Mira and Hermione
 > trial delivered with twelve poses and outfit masks), the §8.1 skate and
 > pogo icons R10 and R12–R14, and the §9 track monsters
@@ -396,9 +396,21 @@ Once a doll's K1 and K2 are in, add her key to `RIDE_TOY_SHEETS` in
 | Row | On | Frames (left to right) |
 | --- | --- | --- |
 | 1 | Skates | **Glide cycle**: (1) pushing off with the back foot gliding out behind on its wheels; (2) feet together, gliding (also used mid-jump); (3) pushing off with the other foot. Both feet stay low, the body leans forward a little and the arms swing loosely. |
-| 2 | Skates | (1) **Standing still**, balanced, feet together; (2) **pushing / throwing**: the same thrust as her push frame (row 4 cell 2 of her sheet), still on skates; (3) **falling backwards**: as her fall frame (row 4 cell 3), arms up and the skates' wheels lifting forward. |
+| 2 | Skates | (1) **Standing still**, balanced, feet together; (2) **pushing / throwing**: the same thrust as her push frame (row 4 cell 2 of her sheet), still on skates; (3) **falling backwards**: copy her fall frame (row 4 cell 3 of her sheet) exactly, with the **same body angle** and the same arms and legs, only wearing the skates. Don't lie flatter than her normal fall. |
 | 3 | Pogo stick | **Bounce**: (1) compressed, knees bent, spring squashed, tip on the baseline; (2) extended, legs straight, spring stretched, tip on the baseline; (3) airborne, a little tucked (the game lifts it). Both feet on the pegs, both hands on the handlebar at chest height. |
-| 4 | Pogo stick | (1) **Balancing** upright on the stick, tip on the baseline; (2) **pushing / throwing** with one hand off the handlebar, thrust forward; (3) **falling backwards** off the stick, which tips away from her. |
+| 4 | Pogo stick | (1) **Balancing** upright on the stick, tip on the baseline; (2) **pushing / throwing** with one hand off the handlebar, thrust forward; (3) **falling backwards** off the stick: copy her fall frame (row 4 cell 3 of her sheet) exactly, with the **same body angle**, arms and legs, plus the stick tipping away beside her. Don't lie flatter than her normal fall. |
+
+### 8.0.1 Redo: trial falls are too flat
+
+The delivered trial sheets work in game, but both falling cells lie much
+flatter than each doll's normal fall (measured from the body only: Lily about
+18° flatter on skates and on the pogo stick, Hermione about 16° on the pogo
+stick, and Mira clearly flatter on both). Falls are seen side by side with
+normal falls during a race, so they should match.
+
+| # | File | Cells | Fix |
+| --- | --- | --- | --- |
+| K3 | `assets/doll_{lily,mira,hermione}_toys.webp` and their masks | Row 2 cell 3 (skate fall) and row 4 cell 3 (pogo fall) only | Redraw each to match that doll's normal fall (`doll_<key>_sprites.webp` row 4 cell 3): the same tilt, arm and leg positions and place in the frame, with the skates on, or with the stick tipping away. Keep every other cell pixel-identical and update the masks to match. |
 
 ### 8.1 Pickup icons for the tracks that get skates or a pogo stick
 
