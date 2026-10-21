@@ -12,7 +12,7 @@ S = os.environ.get('SFX_WORKDIR', os.path.dirname(os.path.abspath(__file__)))
 HERE = S
 RAW = HERE + '/raw'
 
-# key: (prompt, seconds, variants)
+# key: (prompt, seconds, variants[, loop]); loop=True asks for a seamless loop
 SOUNDS = {
     # Instrument and themed pickups (EMP / speed / high jump on specific tracks)
     'pickup_gong': ('A single bright bronze gong strike with a short shimmering ring, cheerful cartoon game pickup sound', 1.6, 2),
@@ -43,6 +43,11 @@ SOUNDS = {
     'mount_reindeer': ('Sleigh bells jingling briefly with a soft reindeer snort, wintry', 1.2, 2),
     'mount_pony': ('A small cute pony whinny, short and friendly', 1.0, 2),
     # Track monsters that replace the troll (tracks.js `monster`): kid-friendly, spooky-silly
+    # Riding toys (tracks.js rideToys)
+    'pickup_skates': ('Putting on roller skates: a quick clack of skate wheels spinning with a cheerful whir, short game pickup sound', 0.9, 2),
+    'pickup_pogo': ('A pogo stick spring compressing and releasing with a big springy boing, cartoon, short game pickup sound', 0.8, 2),
+    'pogo_boing': ('A single short light springy pogo stick boing on landing, cartoon', 0.4, 3),
+    'skate_roll_loop': ('Roller skate wheels rolling smoothly on a pavement, a steady gentle rumble, seamless loop', 3.0, 1, True),
     'scarecrow_notice': ('A jack-o-lantern scarecrow spotting someone: a hollow, goofy "heh heh heh" chuckle with a straw rustle, spooky but silly, for a children\'s game', 1.2, 2),
     'scarecrow_walk_step': ('A floppy straw-stuffed scarecrow taking one shuffling step on dirt, soft straw rustle', 0.4, 3),
     'scarecrow_idle_grunt': ('A scarecrow with a pumpkin head humming a low creaky "hmmm" with straw rustling, silly spooky', 1.0, 2),
@@ -69,11 +74,14 @@ def key():
         return f.read().strip()
 
 
-def generate(name, variant, prompt, seconds):
+def generate(name, variant, prompt, seconds, loop=False):
     dst = f'{RAW}/{name}_{variant:02d}.mp3'
     if os.path.exists(dst):
         return name, variant, 'cached'
-    body = json.dumps({'text': prompt, 'duration_seconds': max(0.5, seconds), 'prompt_influence': 0.6}).encode()
+    request = {'text': prompt, 'duration_seconds': max(0.5, seconds), 'prompt_influence': 0.6}
+    if loop:
+        request['loop'] = True
+    body = json.dumps(request).encode()
     for attempt in range(5):
         req = urllib.request.Request(
             'https://api.elevenlabs.io/v1/sound-generation?output_format=mp3_44100_128',
@@ -101,7 +109,8 @@ def generate(name, variant, prompt, seconds):
 if __name__ == '__main__':
     os.makedirs(RAW, exist_ok=True)
     only = set(sys.argv[1:])
-    jobs = [(n, v, p, s) for n, (p, s, count) in SOUNDS.items() if not only or n in only for v in range(1, count + 1)]
+    jobs = [(n, v, spec[0], spec[1], spec[3] if len(spec) > 3 else False)
+            for n, spec in SOUNDS.items() if not only or n in only for v in range(1, spec[2] + 1)]
     with ThreadPoolExecutor(4) as pool:
         for name, variant, status in pool.map(lambda j: generate(*j), jobs):
             print(f'{name}_{variant:02d}: {status}')

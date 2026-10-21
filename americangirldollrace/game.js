@@ -185,6 +185,15 @@ const TROLL_RIDING_CHANCE = 0.5;
 // After throwing someone a riding troll stands still this long, so the
 // thrown rider can get away.
 const MOUNTED_MONSTER_REST_AFTER_THROW = 2.2;
+// Riding toys (tracks.js rideToys): roller skates for speed and a pogo stick
+// for high jump. They last twice as long as the plain power-up and, once the
+// doll's toys sheet is listed in RIDE_TOY_SHEETS, change how she looks while
+// moving at the same speed (image-requests.md §8). With both, she keeps the
+// look of the first until it runs out, with both powers.
+const RIDE_TOY_DURATION_MULTIPLIER = 2;
+const SKATE_STRIDE_PX = 150;
+const POGO_BOUNCE_HZ = 2.4;
+const POGO_BOUNCE_HEIGHT = 30;
 // Kickable beach balls (tracks.js beachBalls): run into one to nudge it along,
 // push (X) to kick it. Positions are at feet level, like power-ups.
 const BEACH_BALL_RADIUS = 22;
@@ -1212,6 +1221,9 @@ function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpee
     horseType: "horse",
     pegasusGliding: false,
     unicornBeamCooldown: 0,
+    rideToys: [],
+    toyDistance: 0,
+    pogoPhase: 0,
     grabbedBy: null,
     aiWanderAhead: false
   };
@@ -1468,13 +1480,19 @@ function updateRacerAudio(racer, dt) {
   const mountId = racerLoopId(racer, "mount");
   const oilId = racerLoopId(racer, "oil");
   const frozenId = racerLoopId(racer, "frozen");
+  const skateId = racerLoopId(racer, "skate");
 
   if (racer.finished || racer.grabbedBy) {
     GameAudio.stopLoop(mountId);
     GameAudio.stopLoop(oilId);
     GameAudio.stopLoop(frozenId);
+    GameAudio.stopLoop(skateId);
     return;
   }
+
+  const skating = racer.rideToys?.[0]?.type === "skates" && racer.moving && racer.z === 0 && getRideToyPose(racer, false);
+  if (skating) GameAudio.startLoop(skateId, "skate_roll_loop", { gain: racerAudioGain(racer) * 0.7 });
+  else GameAudio.stopLoop(skateId);
 
   if (isMounted(racer) && mountLoopKey(racer) && (Math.abs(racer.speed) > 20 || racer.pegasusGliding)) {
     GameAudio.startLoop(mountId, mountLoopKey(racer), { gain: racerAudioGain(racer) });
@@ -2081,6 +2099,15 @@ function update(dt) {
     const previousZ = racer.z;
     const normalMoveX = constrainHumanSeparationMove(racer, forward * dt);
     racer.x += normalMoveX + racer.knockbackX * dt;
+    if (racer.rideToys.length > 0) {
+      racer.toyDistance += Math.abs(normalMoveX);
+      const previousHop = Math.abs(Math.sin(racer.pogoPhase));
+      racer.pogoPhase = (racer.pogoPhase + dt * POGO_BOUNCE_HZ * Math.PI) % (Math.PI * 2);
+      if (racer.rideToys[0].type === "pogo" && racer.z === 0 && !isMounted(racer)
+        && previousHop > 0.1 && Math.abs(Math.sin(racer.pogoPhase)) <= 0.1) {
+        sfx("pogo_boing", racer.x, { gain: 0.6 });
+      }
+    }
     racer.x = clamp(racer.x, 40, FINISH);
     racer.y += input.vertical * PLAYER_LANE_SPEED * dt;
     racer.y = clamp(racer.y, TRACK_TOP, TRACK_BOTTOM);
@@ -2174,8 +2201,58 @@ function updateStackTimers(racer, dt) {
   racer.highJumpStacks = racer.highJumpStacks
     .map(timer => timer - dt)
     .filter(timer => timer > 0);
+  racer.rideToys = racer.rideToys
+    .map(toy => ({ ...toy, timer: toy.timer - dt }))
+    .filter(toy => toy.timer > 0);
   racer.speedBoostTimer = racer.speedBoostStacks.length > 0 ? Math.max(...racer.speedBoostStacks) : 0;
   racer.highJumpTimer = racer.highJumpStacks.length > 0 ? Math.max(...racer.highJumpStacks) : 0;
+}
+
+function getRideToy(powerupType) {
+  return getTrackTheme().rideToys?.[powerupType] || null;
+}
+
+// Toys keep the order they were picked up in; picking one up again refreshes it.
+function addRideToy(racer, type, duration) {
+  const existing = racer.rideToys.find(toy => toy.type === type);
+  if (existing) existing.timer = Math.max(existing.timer, duration);
+  else racer.rideToys.push({ type, timer: duration });
+  getRideToySheet(racer);
+}
+
+// The doll's skates/pogo sheet (outfit-recoloured), or null until it's listed
+// in RIDE_TOY_SHEETS and loaded.
+function getRideToySheet(racer) {
+  const assetKey = dollAssetKey(racer.spriteKey);
+  if (!(window.RIDE_TOY_SHEETS || []).includes(assetKey)) return null;
+  if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "toys", racer.outfit);
+  loadArtOnce(`toys_${assetKey}`, `assets/doll_${assetKey}_toys.webp`);
+  return images[`toys_${assetKey}`] || null;
+}
+
+// Which toys-sheet cell to draw (and how high to lift it), or null to draw
+// the doll normally.
+function getRideToyPose(racer, jumping) {
+  // Menu preview dolls have no rideToys.
+  const toy = racer.rideToys?.[0]?.type;
+  if (!toy || racer.grabbedBy || isMounted(racer)) return null;
+  const sheet = getRideToySheet(racer);
+  if (!sheet) return null;
+  if (toy === "skates") {
+    if (racer.fallBackTimer > 0) return { sheet, row: 1, col: 2, lift: 0 };
+    if (racer.pushTimer > 0) return { sheet, row: 1, col: 1, lift: 0 };
+    if (jumping) return { sheet, row: 0, col: 1, lift: 0 };
+    if (racer.moving) return { sheet, row: 0, col: Math.floor(racer.toyDistance / SKATE_STRIDE_PX) % 3, lift: 0 };
+    return { sheet, row: 1, col: 0, lift: 0 };
+  }
+  if (racer.fallBackTimer > 0) return { sheet, row: 3, col: 2, lift: 0 };
+  if (racer.pushTimer > 0) return { sheet, row: 3, col: 1, lift: 0 };
+  if (jumping) return { sheet, row: 2, col: 2, lift: 0 };
+  if (racer.frozenTimer > 0 || racer.oilTimer > 0) return { sheet, row: 3, col: 0, lift: 0 };
+  // Always bouncing: compressed at the bottom of each hop, airborne at the top.
+  const hop = Math.abs(Math.sin(racer.pogoPhase));
+  const col = hop < 0.25 ? 0 : hop < 0.7 ? 1 : 2;
+  return { sheet, row: 2, col, lift: hop * POGO_BOUNCE_HEIGHT };
 }
 
 function getBoostMultiplier(racer) {
@@ -2422,12 +2499,18 @@ function applyPowerup(racer, powerupOrType) {
   if (hasActivePowerup(racer, type)) return false;
   playPowerupAudio(racer, type);
   if (type === "boost") {
-    racer.speedBoostStacks.push(4);
+    const toy = getRideToy("boost");
+    const duration = 4 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
+    racer.speedBoostStacks.push(duration);
+    if (toy) addRideToy(racer, toy, duration);
     racer.speedBoostTimer = Math.max(...racer.speedBoostStacks);
     const label = powerupLabel("boost", "BOOST");
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
-    racer.highJumpStacks.push(5);
+    const toy = getRideToy("jump");
+    const duration = 5 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
+    racer.highJumpStacks.push(duration);
+    if (toy) addRideToy(racer, toy, duration);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
     const label = powerupLabel("jump", "HIGH JUMP");
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
@@ -5856,7 +5939,12 @@ function drawRacer(racer) {
     }
     drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
   } else {
-    if (racer.oilTimer > 0 && racer.oilSticky) {
+    const toyPose = getRideToyPose(racer, jumping);
+    if (toyPose) {
+      const toyY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z - toyPose.lift * scale / 0.45;
+      drawFacingImage(toyPose.sheet, toyPose.col * FRAME, toyPose.row * FRAME, FRAME, FRAME,
+        screenX - SPRITE_ANCHOR_X * scale, toyY, FRAME * scale, FRAME * scale, drawFacing, screenX);
+    } else if (racer.oilTimer > 0 && racer.oilSticky) {
       drawStuckRacer(racer, screenX, scale);
     } else {
       drawFacingImage(racer.sheet, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);

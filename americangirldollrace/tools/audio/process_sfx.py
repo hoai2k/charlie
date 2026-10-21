@@ -21,6 +21,16 @@ def loudness(path, chain=''):
 
 def process(src):
     name = os.path.basename(src)
+    if re.search(r'_loop_\d+\.mp3$', name):
+        # Seamless loops: level only; trimming or fading would break the seam.
+        level = loudness(src)
+        gain = 0 if level is None else max(-12, min(18, TARGET - 4 - level))
+        dst = f'{OUT}/{name}'
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.89:level=false',
+                        '-ac', '2', '-c:a', 'libmp3lame', '-b:a', '128k', dst], check=True)
+        dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', dst],
+                                   capture_output=True, text=True).stdout)
+        return name, round(dur, 2), loudness(dst)
     trim = ('silenceremove=start_periods=1:start_threshold=-48dB:start_silence=0.01,'
             'areverse,silenceremove=start_periods=1:start_threshold=-52dB:start_silence=0.03,areverse')
     level = loudness(src, trim)

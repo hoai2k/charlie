@@ -15,6 +15,7 @@ window.AUDIO_MANIFEST = {
   "powerup_boost_loop",
   "powerup_spawn_twinkle",
   "run_loop_grass",
+  "skate_roll_loop",
   "storm_cloud_loop",
   "troll_sleep_loop",
   "unicorn_gallop_loop"
@@ -263,11 +264,19 @@ window.AUDIO_MANIFEST = {
    1,
    2
   ],
+  "pickup_pogo": [
+   1,
+   2
+  ],
   "pickup_pop_rocks": [
    1,
    2
   ],
   "pickup_rooster": [
+   1,
+   2
+  ],
+  "pickup_skates": [
    1,
    2
   ],
@@ -290,6 +299,11 @@ window.AUDIO_MANIFEST = {
   "pickup_wand_zap": [
    1,
    2
+  ],
+  "pogo_boing": [
+   1,
+   2,
+   3
   ],
   "powerup_blocked": [
    1,
@@ -390,6 +404,9 @@ window.AUDIO_MANIFEST = {
    1,
    2,
    3
+  ],
+  "skate_roll_loop": [
+   1
   ],
   "skeleton_fall": [
    1,

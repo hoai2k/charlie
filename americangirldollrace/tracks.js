@@ -42,6 +42,8 @@
 // jam…): the doll's feet stick and she tips forward instead of sliding.
 // fenceBase (optional): where the back fence meets the ground, when there's
 // a verge between it and the path; racers may walk up to it.
+// rideToys: { boost: "skates", jump: "pogo" } makes those pickups roller
+// skates / a pogo stick that last twice as long and change the doll's look.
 // monster: replaces the troll on that track with another sheet in the troll's
 // layout, assets/<monster>_sprites.webp (listed in TRACK_SHARED_ART once
 // delivered; until then the troll appears), and its own <monster>_* sounds.
@@ -49,6 +51,9 @@
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs),
 // "scarecrow", "skeleton" (§9).
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
+// Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
+// assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
+window.RIDE_TOY_SHEETS = [];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
@@ -69,7 +74,8 @@ window.TRACK_THEMES = {
     oilEffect: "sticky",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" },
-    sounds: { emp: "pickup_hand_bell" }
+    sounds: { emp: "pickup_hand_bell", boost: "pickup_skates", jump: "pickup_pogo" },
+    rideToys: { boost: "skates", jump: "pogo" }
   },
   winter: {
     art: ["powerups", "projectile", "hurdle"],
