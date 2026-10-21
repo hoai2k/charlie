@@ -150,6 +150,7 @@ const PUSH_COOLDOWN = 0.72;
 const PUSH_ACTIVE_TIME = 0.22;
 const PUSH_RANGE_X = 78;
 const PUSH_RANGE_Y = 46;
+const MOUNTED_PUSH_EXTRA_RANGE = 40;
 const PUSH_FORCE = 350;
 const AMANDA_HAZARD_DEFAULT_INTERVAL = 10;
 const AMANDA_HAZARD_MODE_INTERVAL = 2;
@@ -181,6 +182,25 @@ const MOUNTED_MONSTER_LANE_SPEED = 190;
 const MOUNTED_MONSTER_GRAB_RANGE_X = 74;
 const MOUNTED_MONSTER_HORSE_SCALE = 1.3;
 const TROLL_RIDING_CHANCE = 0.5;
+// After throwing someone a riding troll stands still this long, so the
+// thrown rider can get away.
+const MOUNTED_MONSTER_REST_AFTER_THROW = 2.2;
+// A troll knocked off his horse leaves it to bolt off the end of the track.
+const RUNAWAY_HORSE_SPEED = 640;
+// Each kind of power-up glows its own colour on every track, whatever its art.
+const POWERUP_GLOW_COLORS = {
+  boost: "#2fd65a",
+  jump: "#ff8a1c",
+  emp: "#b45cff",
+  snowball: "#4cc3ff"
+};
+// Darker shades of the same colours for the status text over a racer.
+const POWERUP_TEXT_COLORS = {
+  boost: "#16903a",
+  jump: "#d35c00",
+  emp: "#8434d6",
+  snowball: "#167fc0"
+};
 // A riding troll jumps a hurdle on approach this often; otherwise his horse
 // balks at it for MOUNTED_MONSTER_BALK_TIME before jumping.
 const MOUNTED_MONSTER_JUMP_CHANCE = 0.6;
@@ -466,6 +486,7 @@ const state = {
   projectiles: [],
   rainbowBeams: [],
   monsters: [],
+  runawayHorses: [],
   difficulty: "normal",
   specials: "none",
   cameraMode: "lego",
@@ -673,6 +694,7 @@ function resetRace(mode = state.mode) {
   state.projectiles = [];
   state.rainbowBeams = [];
   state.monsters = makeMonsters();
+  state.runawayHorses = [];
   state.powerups = makePowerups();
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
@@ -1353,6 +1375,7 @@ function spawnMonster(x, y, options = {}) {
     knockbackX: 0,
     z: 0,
     vy: 0,
+    restTimer: 0,
     jumpChoice: null,
     balkTimer: 0,
     dropTimer: 0,
@@ -1969,7 +1992,7 @@ function update(dt) {
       input.vertical = 0;
       input.jump = false;
     }
-    if (mounted && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer)) input.push = false;
+    if (mounted && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer) && !isAlwaysMountedTrack()) input.push = false;
 
     if (input.push && racer.pushCooldown === 0 && racer.pushTimer === 0) {
       racer.pushTimer = PUSH_ACTIVE_TIME;
@@ -2076,6 +2099,7 @@ function update(dt) {
   updateProjectiles(dt);
   updateRainbowBeams(dt);
   updatePowerupDrops(dt);
+  updateRunawayHorses(dt);
   bumpMonstersWithSpecialMounts();
   pushRacers(dt);
   updateAmandaHazards(dt);
@@ -2448,12 +2472,15 @@ function applyEmpHit(attacker, target) {
 }
 
 function performPushAttack(attacker) {
-  if (isMounted(attacker)) return;
+  // Riders push only where everyone rides (the Horse Show); a horse reaches further.
+  const ridingPush = isMounted(attacker) && isAlwaysMountedTrack();
+  if (isMounted(attacker) && !ridingPush) return;
+  const reach = ridingPush ? PUSH_RANGE_X + MOUNTED_PUSH_EXTRA_RANGE : PUSH_RANGE_X;
   for (const other of state.racers) {
-    if (other === attacker || other.finished || isMounted(other) || attacker.pushedTargets.has(other)) continue;
+    if (other === attacker || other.finished || (isMounted(other) && !ridingPush) || attacker.pushedTargets.has(other)) continue;
     const dx = other.x - attacker.x;
     const dy = (other.y + 54) - (attacker.y + 54);
-    const inFront = attacker.facing > 0 ? dx > 2 && dx < PUSH_RANGE_X : dx < -2 && dx > -PUSH_RANGE_X;
+    const inFront = attacker.facing > 0 ? dx > 2 && dx < reach : dx < -2 && dx > -reach;
     if (!inFront || Math.abs(dy) > PUSH_RANGE_Y || Math.max(attacker.z, other.z) > 64) continue;
     applyPushHit(attacker, other, attacker.facing);
     attacker.pushedTargets.add(other);
@@ -2462,9 +2489,9 @@ function performPushAttack(attacker) {
     if (monster.state === "sleeping" || monster.state === "ground" || attacker.pushedTargets.has(monster)) continue;
     const dx = monster.x - attacker.x;
     const dy = (monster.y + 54) - (attacker.y + 54);
-    const inFront = attacker.facing > 0 ? dx > 2 && dx < PUSH_RANGE_X + 28 : dx < -2 && dx > -PUSH_RANGE_X - 28;
+    const inFront = attacker.facing > 0 ? dx > 2 && dx < reach + 28 : dx < -2 && dx > -reach - 28;
     if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 18 || attacker.z > 64) continue;
-    applyMonsterKnockback(monster, attacker.facing);
+    applyMonsterKnockback(monster, attacker.facing, { unhorse: true });
     attacker.pushedTargets.add(monster);
   }
 }
@@ -2496,7 +2523,7 @@ function updateProjectiles(dt) {
       const close = Math.abs(monster.x - projectile.x) < 62 && Math.abs(monster.y + 54 - projectile.y) < 58 && Math.abs(projectile.z) < 140;
       if (!close) continue;
       sfx("snowball_hit", monster.x);
-      applyMonsterKnockback(monster, Math.sign(projectile.vx) || 1);
+      applyMonsterKnockback(monster, Math.sign(projectile.vx) || 1, { unhorse: true });
       projectile.hitTargets.add(monster);
       projectile.distance = SNOWBALL_RANGE;
       break;
@@ -2535,7 +2562,7 @@ function fireRainbowBeam(racer) {
     const ahead = racer.facing > 0 ? monster.x > startX && monster.x < endX : monster.x < startX && monster.x > endX;
     if (!ahead || Math.abs(monster.y - racer.y) > 120) continue;
     sfx("unicorn_beam_hit", monster.x);
-    applyMonsterKnockback(monster, racer.facing);
+    applyMonsterKnockback(monster, racer.facing, { unhorse: true });
   }
 }
 
@@ -2783,6 +2810,12 @@ function updateMonsters(dt) {
       continue;
     }
 
+    if (monster.restTimer > 0) {
+      monster.restTimer -= dt;
+      monster.state = "idle";
+      continue;
+    }
+
     const target = getMonsterTarget(monster);
     monster.target = target;
     if (!target) {
@@ -2882,6 +2915,7 @@ function updateMonsterGrabSequence(monster, dt) {
     monster.target = null;
     monster.state = "walk";
     monster.timer = 0;
+    if (monster.riding) monster.restTimer = MOUNTED_MONSTER_REST_AFTER_THROW;
   }
 }
 
@@ -2960,8 +2994,11 @@ function applyPushHit(attacker, target, direction) {
   target.jumpStarted = false;
 }
 
-function applyMonsterKnockback(monster, direction) {
+// Only deliberate hits (a push, a thrown snowball, a unicorn beam) pass
+// unhorse; Amanda's shove and mount bumps leave a riding troll in the saddle.
+function applyMonsterKnockback(monster, direction, { unhorse = false } = {}) {
   if (monster.state === "sleeping" || monster.state === "ground") return;
+  if (monster.riding && unhorse) unhorseMonster(monster, direction);
   if (monster.target?.grabbedBy === monster) monster.target.grabbedBy = null;
   monster.target = null;
   monster.knockedBacks += 1;
@@ -2969,6 +3006,32 @@ function applyMonsterKnockback(monster, direction) {
   monster.timer = 0.55;
   monster.knockbackX = direction * PUSH_FORCE;
   monster.facing = direction < 0 ? -1 : 1;
+}
+
+// Pushed or hit off his horse (see applyMonsterKnockback), a troll carries on on foot and the horse bolts
+// the way he was knocked, all the way off the track.
+function unhorseMonster(monster, direction) {
+  monster.riding = false;
+  monster.restTimer = 0;
+  monster.z = 0;
+  monster.vy = 0;
+  state.runawayHorses.push({
+    x: monster.x,
+    y: monster.y,
+    facing: direction < 0 ? -1 : 1,
+    frameTime: 0,
+    frame: 0
+  });
+  sfx("horse_whinny", monster.x);
+}
+
+function updateRunawayHorses(dt) {
+  for (const horse of state.runawayHorses) {
+    horse.x += horse.facing * RUNAWAY_HORSE_SPEED * dt;
+    horse.frameTime += dt * 10;
+    horse.frame = Math.floor(horse.frameTime) % 3;
+  }
+  state.runawayHorses = state.runawayHorses.filter(horse => horse.x > -600 && horse.x < FINISH + 1600);
 }
 
 function stunMonsterWithEmp(monster) {
@@ -4110,6 +4173,7 @@ function drawWorldScene() {
       ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
       ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
       ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
+      ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
       ...state.racers.map(racer => ({ type: "racer", y: racer.y + 54, item: racer }))
     ].sort((a, b) => a.y - b.y);
     for (const drawable of drawables) {
@@ -4127,6 +4191,8 @@ function drawWorldScene() {
         drawRewardCloud(drawable.item);
       } else if (drawable.type === "monster") {
         drawMonster(drawable.item);
+      } else if (drawable.type === "runawayHorse") {
+        drawRunawayHorse(drawable.item);
       } else {
         drawRacer(drawable.item);
       }
@@ -5223,6 +5289,7 @@ function drawPowerup(powerup) {
     return;
   }
   if (iconIndex !== undefined) {
+    drawPowerupGlow(powerup.type, x, drawY - 34 + Math.sin(t) * 5, drawY - 4, t);
     drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t);
     return;
   }
@@ -5261,6 +5328,32 @@ function powerupDrawY(powerup) {
   const progress = clamp(powerup.dropTimer / powerup.dropDuration, 0, 1);
   const eased = progress * progress * (3 - 2 * progress);
   return powerup.dropStartY + (powerup.y - powerup.dropStartY) * eased;
+}
+
+// A soft, pulsing halo in the power-up kind's colour, behind the icon.
+function drawPowerupGlow(type, x, y, groundY, t) {
+  const color = POWERUP_GLOW_COLORS[type];
+  if (!color) return;
+  const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
+  const radius = POWERUP_ICON_TARGET_SIZE * (0.78 + 0.1 * pulse);
+  const glow = ctx.createRadialGradient(x, y, 0, x, y, radius);
+  glow.addColorStop(0, color);
+  glow.addColorStop(0.45, color);
+  glow.addColorStop(1, `${color}00`);
+  ctx.save();
+  // A ring of the same colour on the ground under it.
+  ctx.globalAlpha = 0.75;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.ellipse(x, groundY, 30 + 3 * pulse, 9 + pulse, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.globalAlpha = 0.6 + 0.3 * pulse;
+  ctx.fillStyle = glow;
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 function drawPowerupIcon(index, x, y, t, options = {}) {
@@ -5431,6 +5524,28 @@ function getTrollRiderOffset(skeleton, horseRow, horseCol, riderRow, riderCol) {
   return { x: horse.seat[0] - rider.hip[0], y: horse.seat[1] - rider.hip[1] };
 }
 
+function drawRunawayHorse(horse) {
+  const screenX = horse.x - state.camera;
+  if (screenX < -300 || screenX > getWorldViewportWidth() + 300) return;
+  const horseImage = getTrollMountImage() || images.horse;
+  const horseScale = racerDepthScale(horse) * 1.08 * MOUNTED_MONSTER_HORSE_SCALE;
+  const calibration = getMountFrameCalibration("horse", 1, horse.frame);
+  const horseW = FRAME * horseScale;
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(screenX, horse.y + 42, 70 * horseScale, 16 * horseScale, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  ctx.save();
+  if (horseImage === images.horse) ctx.filter = "grayscale(1) brightness(0.45) contrast(1.6)";
+  drawFacingImage(horseImage, horse.frame * FRAME, FRAME, FRAME, FRAME,
+    screenX - SPRITE_ANCHOR_X * horseScale, horse.y + 58 - SPRITE_ANCHOR_Y * horseScale + calibration.groundShift * horseScale,
+    horseW, horseW, horse.facing, screenX);
+  ctx.restore();
+}
+
 function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
   const scale = racerDepthScale(monster);
   const horseScale = scale * 1.08 * MOUNTED_MONSTER_HORSE_SCALE;
@@ -5585,7 +5700,10 @@ function drawRacer(racer) {
   ].filter(Boolean);
   if (activeLabels.length > 0) {
     ctx.font = "800 13px system-ui";
-    ctx.fillStyle = mounted ? "#9a6426" : racer.snowballs > 0 ? "#2782b8" : racer.speedBoostTimer > 0 ? "#2f80ff" : "#28aa72";
+    ctx.fillStyle = mounted ? "#9a6426"
+      : racer.snowballs > 0 ? POWERUP_TEXT_COLORS.snowball
+      : racer.speedBoostTimer > 0 ? POWERUP_TEXT_COLORS.boost
+      : POWERUP_TEXT_COLORS.jump;
     const text = activeLabels.slice(0, 2).join(" + ");
     ctx.strokeText(text, screenX, labelY - 18);
     ctx.fillText(text, screenX, labelY - 18);
