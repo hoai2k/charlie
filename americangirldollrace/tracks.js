@@ -68,7 +68,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   beach: {
-    name: "Beach", dirtTop: 532, art: [],
+    name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 532, art: [],
     labels: { jump: "BEACH BALL", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" }
   },
   wizard: {

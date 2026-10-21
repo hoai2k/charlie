@@ -159,10 +159,16 @@ const MONSTER_HEIGHT_SCALE = 1.3;
 const MONSTER_WAIT_FROM_BOARD_END = EXPECTED_VIEW_WIDTH;
 let MONSTER_COURSE_START_X = FINISH / 3 + 120;
 // A troll riding a horse (a track's trollMount) has to keep up with riders.
-const MOUNTED_MONSTER_SPEED = 330;
+// Just under a player's horse (HORSE_RUN_SPEED), so riders can stay ahead.
+const MOUNTED_MONSTER_SPEED = 515;
 const MOUNTED_MONSTER_LANE_SPEED = 190;
 const MOUNTED_MONSTER_GRAB_RANGE_X = 74;
 const MOUNTED_MONSTER_HORSE_SCALE = 1.3;
+// A riding troll jumps a hurdle on approach this often; otherwise his horse
+// balks at it for MOUNTED_MONSTER_BALK_TIME before jumping.
+const MOUNTED_MONSTER_JUMP_CHANCE = 0.6;
+const MOUNTED_MONSTER_BALK_TIME = 0.7;
+const MOUNTED_MONSTER_JUMP_LOOKAHEAD = 110;
 const MONSTER_COUNTS_BY_DIFFICULTY = {
   none: 0,
   normal: 2,
@@ -1275,6 +1281,10 @@ function spawnMonster(x, y, options = {}) {
     timer: 0,
     knockedBacks: 0,
     knockbackX: 0,
+    z: 0,
+    vy: 0,
+    jumpChoice: null,
+    balkTimer: 0,
     dropTimer: 0,
     dropDuration: 0,
     dropStartY: 0
@@ -2215,6 +2225,7 @@ function smoothAmandaHazardProgress(value) {
 
 function resolveMonsterObstacleCollisions(monster, previousX, previousY) {
   if (monster.state === "drop") return;
+  if (monster.z >= HURDLE_TOP_Z) return;
   for (const obstacle of state.obstacles) {
     const bounds = getObstacleHitBounds(obstacle);
     const previousFootLeft = previousX - MONSTER_FOOT_W / 2;
@@ -2234,9 +2245,11 @@ function resolveMonsterObstacleCollisions(monster, previousX, previousY) {
     if (footOverlapsY && crossedFromLeft) {
       monster.x = bounds.left - MONSTER_FOOT_W / 2;
       monster.knockbackX = Math.min(0, monster.knockbackX);
+      monster.blockedByHurdle = true;
     } else if (footOverlapsY && crossedFromRight) {
       monster.x = bounds.right + MONSTER_FOOT_W / 2;
       monster.knockbackX = Math.max(0, monster.knockbackX);
+      monster.blockedByHurdle = true;
     } else if (footOverlapsX && crossedFromAbove) {
       monster.y = bounds.top - 54 - MONSTER_FOOT_H / 2;
     } else if (footOverlapsX && crossedFromBelow) {
@@ -2606,6 +2619,15 @@ function updateMonsters(dt) {
     monster.frame = Math.floor(monster.frameTime) % 3;
     monster.knockbackX *= Math.pow(0.04, dt);
     if (Math.abs(monster.knockbackX) < 6) monster.knockbackX = 0;
+    if (monster.z > 0 || monster.vy > 0) {
+      monster.z += monster.vy * dt;
+      monster.vy -= GRAVITY * dt;
+      if (monster.z <= 0) {
+        monster.z = 0;
+        monster.vy = 0;
+      }
+    }
+    monster.blockedByHurdle = false;
     monster.x = clamp(monster.x + monster.knockbackX * dt, MONSTER_COURSE_START_X, FINISH - 120);
     resolveMonsterObstacleCollisions(monster, previousX, previousY);
 
@@ -2668,8 +2690,10 @@ function updateMonsters(dt) {
     monster.y = clamp(monster.y + Math.sign(dy) * Math.min(Math.abs(dy), laneSpeed * dt), TRACK_TOP, TRACK_BOTTOM);
     resolveMonsterObstacleCollisions(monster, previousX, previousY);
 
+    if (riding) updateMountedMonsterJump(monster, Math.sign(dx), dt);
+
     const grabRangeX = riding ? MOUNTED_MONSTER_GRAB_RANGE_X : MONSTER_GRAB_RANGE_X;
-    if (Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y && target.z < 80 && (!isMounted(target) || canMountedRacersUsePowerups())) {
+    if (monster.z < 20 && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y && target.z < 80 && (!isMounted(target) || canMountedRacersUsePowerups())) {
       monster.state = "grab";
       monster.timer = 0.24;
       monster.frameTime = 0;
@@ -2682,6 +2706,37 @@ function updateMonsters(dt) {
       setGrabbedRacerPosition(monster, target);
     }
   }
+}
+
+// Decide once per hurdle whether to jump it on approach; a balked horse stands
+// at the hurdle a moment, then jumps after all.
+function updateMountedMonsterJump(monster, direction, dt) {
+  if (monster.z > 0 || direction === 0) return;
+  const footY = monster.y + 54;
+  const ahead = state.obstacles.find(obstacle => {
+    const bounds = getObstacleHitBounds(obstacle);
+    if (footY + MONSTER_FOOT_H / 2 <= bounds.top || footY - MONSTER_FOOT_H / 2 >= bounds.bottom) return false;
+    const gap = direction > 0
+      ? bounds.left - (monster.x + MONSTER_FOOT_W / 2)
+      : (monster.x - MONSTER_FOOT_W / 2) - bounds.right;
+    return gap >= -1 && gap < MOUNTED_MONSTER_JUMP_LOOKAHEAD;
+  });
+  if (!ahead) {
+    monster.balkTimer = 0;
+    return;
+  }
+  if (monster.jumpChoice?.obstacle !== ahead) {
+    monster.jumpChoice = { obstacle: ahead, jump: Math.random() < MOUNTED_MONSTER_JUMP_CHANCE };
+    monster.balkTimer = 0;
+  }
+  if (!monster.jumpChoice.jump) {
+    if (monster.blockedByHurdle) monster.balkTimer += dt;
+    if (monster.balkTimer < MOUNTED_MONSTER_BALK_TIME) return;
+  }
+  monster.vy = HORSE_JUMP_POWER;
+  monster.z = 1;
+  monster.balkTimer = 0;
+  sfx("horse_jump", monster.x);
 }
 
 function updateMonsterGrabSequence(monster, dt) {
@@ -5239,10 +5294,11 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
   const horseW = FRAME * horseScale;
   const unhorsed = monster.state === "fall" || monster.state === "ground" || monster.state === "sleeping";
   const galloping = !unhorsed && monster.state === "walk";
-  const horseRow = galloping ? 1 : 0;
-  const horseCol = galloping ? monster.frame : 0;
+  const jumping = !unhorsed && monster.z > 0;
+  const horseRow = jumping ? 2 : galloping ? 1 : 0;
+  const horseCol = jumping ? (monster.vy > 300 ? 0 : monster.vy > -300 ? 1 : 2) : galloping ? monster.frame : 0;
   const calibration = getMountFrameCalibration("horse", horseRow, horseCol);
-  const horseBaseY = visualY + 58 - SPRITE_ANCHOR_Y * horseScale;
+  const horseBaseY = visualY + 58 - SPRITE_ANCHOR_Y * horseScale - (unhorsed ? 0 : monster.z);
   const horseScreenX = unhorsed ? screenX - 70 * scale * facing : screenX;
   const horseX = horseScreenX - SPRITE_ANCHOR_X * horseScale;
   const placeholder = horseImage === images.horse;

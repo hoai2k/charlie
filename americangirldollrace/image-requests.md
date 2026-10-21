@@ -247,8 +247,9 @@ The labels are the pop-up names already set in `tracks.js`.
 
 Each needs `background`, `hurdle`, `powerups`, `projectile` and `card`. A
 track is playable with just `background`, using the picket and today's icons
-until the rest arrives. Toy Room, Wizard School, Night Festival and Fairy
-Woods already have their own songs waiting, so their backgrounds come first.
+until the rest arrives. Toy Room, Wizard School, Beach, Night Festival and
+Fairy Woods already have their own songs waiting, so their backgrounds come
+first.
 The other tracks share the songs that suit any board (set in `tracks.js`). In
 priority order:
 
