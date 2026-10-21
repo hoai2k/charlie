@@ -112,7 +112,7 @@ def export_track(key, kind):
         return None
     elif kind in ('hurdle','projectile'):
         im = clean(Image.open(path))
-        result = icon(im, SIZES[kind], (150,130) if kind == 'hurdle' else (108,108), 170 if kind == 'hurdle' else None)
+        result = icon(im, SIZES[kind], (150,145) if kind == 'hurdle' else (108,108), 170 if kind == 'hurdle' else None)
     elif kind == 'powerups':
         im = clean(Image.open(path))
         assert abs(im.width/im.height-1.5) < .02, 'Expected a 3-column, 2-row icon atlas'
@@ -148,7 +148,7 @@ def export_mount(key):
     frames=[]
     for n,(cell,b,seat) in enumerate(zip(cells,boxes,seats)):
         art=cell.crop(b).resize((round((b[2]-b[0])*scale),round((b[3]-b[1])*scale)),Image.Resampling.LANCZOS)
-        frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(round(225+(b[0]-seat[0])*scale),409-art.height))
+        frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(round(225+(b[0]-seat[0])*scale),409-bounds(art)[3]))
         sheet.alpha_composite(frame,(n%3*418,n//3*418))
         frames.append({'bounds':bounds(frame),'seat':[225,round(409+(seat[1]-b[3])*scale,2)],'scale':scale})
     target=GAME/f'assets/{key}_sprites.webp';save(sheet,target)

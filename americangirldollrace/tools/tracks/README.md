@@ -28,7 +28,7 @@ painted path edge level and measure `dirtTop` from the delivered background.
 Power-up sources use a 3-column by 2-row atlas with an empty sixth cell.
 The exporter finds real transparent row/column gaps, so a wheel or spring
 slightly off the nominal grid is not clipped, then packs the five icons at
-220px maximum into the required five 256px cells. Hurdles fit a 150x130
+220px maximum into the required five 256px cells. Hurdles fit a 150x145
 silhouette inside 160x170, with the base exactly at 170. Projectiles are
 centred inside 128x128. Backgrounds and cards are opaque. Source clipping is
 an error; the source must be corrected rather than hidden by the exporter.
@@ -50,3 +50,10 @@ Verified delivery batches
 
 - Fourteen pickup strips and projectiles: reviewed transparency, five-cell
   order, harmful-spill readability and rendering at actual game size.
+
+- Fourteen straight-on primary hurdles: reviewed at the original 64×68 draw
+  footprint and checked for transparent padding and exact ground baseline.
+  `white-hurdle-reference.webp` captures the original procedural geometry.
+  `hurdle-generation-v2.json` records the corrected-angle prompts.
+  Farm, Wizard School and Horse Show size/depth experiments live in
+  `experiments/` and are not selected by runtime.
