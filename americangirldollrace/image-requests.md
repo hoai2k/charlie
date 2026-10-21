@@ -198,7 +198,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Fairy Woods includes a repaired direct-repeat background, calibrated track
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
 > **Still open:** the **redos in §5.7** (the oil cell of seven
-> `powerups.webp` sheets, and Beach's jump cell).
+> `powerups.webp` sheets, and Beach's jump cell) and the **§8 riding-toy
+> poses** (trial: Lily, Mira, Hermione).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -360,3 +361,32 @@ Acceptance: race the Horse Show (it uses the farm backdrop until its own
 background, T1, arrives). The troll gallops in on the skeleton horse, stays in
 the saddle through a gallop cycle, and his reach, lift and throw line up with
 the doll he grabs.
+
+---
+
+## 8. Riding toys: roller skates and pogo stick (trial)
+
+The Village's speed pickup is roller skates and its high-jump pickup is a pogo
+stick. The idea is that a doll who picks one up actually skates or pogos for
+the power-up's duration. Skates attached to the existing run frames don't work
+(a mock-up showed lifted back feet and knees reading as running, not
+gliding, and long skirts hiding a foot), so each doll needs a few dedicated
+poses with the skates or stick painted in.
+
+**Start with a trial of three dolls: Lily, Mira and Hermione.** Once they're
+checked in game, do the rest of the roster (Whirlpool, Juliette, Claudia,
+Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| K1 | `assets/doll_<key>_toys.webp` | 1254×836 (3×2 of 418), alpha | Same frame, scale, facing (right) and **foot baseline 409** as `assets/doll_<key>_sprites.webp`; the doll must match her sheet exactly. **Row 0, skating (3 frames):** a smooth glide cycle on classic four-wheel quad roller skates, both feet low and close to the ground at all times. Frame 1 is a push with the back foot gliding out behind on its wheels, frame 2 has the feet together gliding, frame 3 pushes with the other foot. The body leans forward a little and the arms swing loosely for balance. The skates are white boots with wheels in her colour from the roster table (§1). The wheels sit on the baseline. **Row 1, pogo stick (3 frames):** standing straight up on a pogo stick in front of her, both feet on its foot pegs and both hands gripping its handlebar at chest height. Frame 1 is compressed (knees bent, spring squashed, tip on the baseline), frame 2 is extended (legs straight, spring stretched, tip on the baseline) and frame 3 is airborne (same as 2 but tucked a little; the game lifts it). Use one pogo-stick design for every doll: a red pole, a silver coil spring, black foot pegs and grips, and a rubber tip at the bottom. The stick's tip is centred at x 209. |
+
+How the game will use them: during the skates (speed) pickup a doll on foot
+shows row 0, with the cycle played slowly so she glides. During the pogo
+(high-jump) pickup she shows row 1, bouncing along with every hop. Mounted
+racers keep their mount. This starts on the Village; other tracks can opt in
+later.
+
+Acceptance: overlay frame 0 of each row on the doll's idle frame; the feet
+(skates) or pogo tip sit on the same baseline and the doll matches her
+sheet. Then race on the Village with a skates pickup and a pogo pickup.
