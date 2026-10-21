@@ -1,5 +1,8 @@
 # American Girl Doll Race: image requests
 
+**New queued round:** [Marisol refresh — approved lower-hairline canonical](image-requests-marisol.md). Use that brief for all new Marisol sprites; its approved canonical overrides the old sprite-sheet identity guidance below.
+
+
 This brief is for whoever makes art for the race (a person or an image agent).
 It lists the images needed for two new screens:
 
