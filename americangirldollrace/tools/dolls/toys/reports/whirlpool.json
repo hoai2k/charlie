@@ -1,0 +1,228 @@
+{
+  "assetKey": "whirlpool",
+  "anchorX": [
+    253,
+    225,
+    247,
+    225,
+    225,
+    225.46593406593408,
+    225,
+    225,
+    225,
+    225,
+    225,
+    222.5611591384667
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.1823154225534913,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0262913931842623,
+    1.0124225905736641,
+    1.1798401476327636
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 374,
+  "scale": 1.400749063670412,
+  "actionScaleRatio": 1.0,
+  "frames": [
+    {
+      "bounds": [
+        6,
+        36,
+        309,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 253,
+      "sourcePivot": 170.0,
+      "targetPivot": 237,
+      "sourceChin": 80.0
+    },
+    {
+      "bounds": [
+        28,
+        35,
+        268,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 134.0,
+      "targetPivot": 209,
+      "sourceChin": 78.0
+    },
+    {
+      "bounds": [
+        5,
+        36,
+        312,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 247,
+      "sourcePivot": 166.0,
+      "targetPivot": 231,
+      "sourceChin": 86.0
+    },
+    {
+      "bounds": [
+        23,
+        22,
+        271,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 138.0,
+      "targetPivot": 209,
+      "sourceChin": 79.0
+    },
+    {
+      "bounds": [
+        40,
+        5,
+        308,
+        409
+      ],
+      "scale": 1.18475073313783,
+      "renderScale": 1.1823154225534913,
+      "anchorX": 225,
+      "sourcePivot": 148.0,
+      "targetPivot": 209,
+      "sourceChin": 147.0
+    },
+    {
+      "bounds": [
+        20,
+        34,
+        399,
+        409
+      ],
+      "anchorX": 225.46593406593408,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        6,
+        466,
+        461
+      ],
+      "referenceBodyBounds": [
+        38,
+        22,
+        380,
+        396
+      ],
+      "bodyScale": 0.8219780219780219,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        47,
+        24,
+        281,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 120.5,
+      "targetPivot": 209,
+      "sourceChin": 83.0
+    },
+    {
+      "bounds": [
+        41,
+        13,
+        278,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 126.0,
+      "targetPivot": 209,
+      "sourceChin": 75.0
+    },
+    {
+      "bounds": [
+        37,
+        27,
+        275,
+        409
+      ],
+      "scale": 1.400749063670412,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 127.5,
+      "targetPivot": 209,
+      "sourceChin": 76.0
+    },
+    {
+      "bounds": [
+        60,
+        5,
+        285,
+        409
+      ],
+      "scale": 1.364864864864865,
+      "renderScale": 1.0262913931842623,
+      "anchorX": 225,
+      "sourcePivot": 114.5,
+      "targetPivot": 209,
+      "sourceChin": 74.0
+    },
+    {
+      "bounds": [
+        60,
+        5,
+        359,
+        409
+      ],
+      "scale": 1.3835616438356164,
+      "renderScale": 1.0124225905736641,
+      "anchorX": 225,
+      "sourcePivot": 112.5,
+      "targetPivot": 209,
+      "sourceChin": 72.0
+    },
+    {
+      "bounds": [
+        8,
+        92,
+        410,
+        409
+      ],
+      "anchorX": 222.5611591384667,
+      "renderScale": 1.1798401476327636,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        5,
+        511,
+        404
+      ],
+      "referenceBodyBounds": [
+        38,
+        22,
+        380,
+        396
+      ],
+      "bodyScale": 0.9373433583959899,
+      "packedScale": 0.8475724461541713
+    }
+  ],
+  "sha256": "d537b7085fdab5d2d9a81b906169c2498250751ed2e3be8e7a81d4a54a47eb77"
+}

@@ -119,6 +119,10 @@ def full_cells(src,rows=4):
 
 
 def build(key):
+    if key in ['lily','mira','hermione'] and (HERE/'fall-redo'/f'{key}-sheet-before.webp').exists():
+        import redo_falls
+        redo_falls.run([key])
+        return json.loads((HERE/f'reports/{key}.json').read_text())
     full=HERE/'sources'/f'{key}-full.webp'
     if full.exists():
         cells=full_cells(packing.clean(Image.open(full)))
@@ -155,6 +159,13 @@ def build(key):
         frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(x,y));sheet.paste(frame,(n%3*418,n//3*418))
         m=(mask_for(cell,key,chin) if key in ['lily','mira','hermione'] else learned_mask(cell,key,n)).crop(b).resize(size,Image.Resampling.LANCZOS);mask.paste(m,(n%3*418+x,n//3*418+y))
         records.append({'bounds':packing.bounds(frame),'scale':factor,'renderScale':desired/factor,'anchorX':target_pivot+16,'sourcePivot':round(pivot,2),'targetPivot':target_pivot,'sourceChin':round(chin,2)})
+    override=HERE/'overrides'/f'{key}.json'
+    if override.exists():
+        for index,record in json.loads(override.read_text()).items():
+            n=int(index);xy=(n%3*418,n//3*418)
+            sheet.paste(Image.open(HERE/'overrides'/f'{key}-{n}.webp'),xy)
+            mask.paste(Image.open(HERE/'overrides'/f'{key}-{n}-mask.webp'),xy)
+            records[n]=record
     asset_key={'claudia':'claudia-v2','rumi':'rumi-v2'}.get(key,key)
     target=GAME/f'assets/doll_{asset_key}_toys.webp';packing.save(sheet,target)
     packing.save(mask,GAME/f'assets/masks/{asset_key}_toys_mask.webp')

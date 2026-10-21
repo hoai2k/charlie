@@ -1,1 +1,3 @@
 Uniform18% reduction within six source cells; exact identity/poses retained, central75% figure occupancy and minimum35px transparent gutters; no cropped hair, skate wheels or pogo tips. Built-in ImageGen precise-object edit.
+
+Full-atlas padding refinement: preserve all 12 poses, shrink each complete figure uniformly22% within its square cell and recenter, transparent gutters on every side.

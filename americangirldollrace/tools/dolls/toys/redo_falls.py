@@ -14,11 +14,17 @@ def body_bounds(cell):
     out=Image.fromarray(np.where((labels==counts.argmax())[:,:,None],a,0).astype('uint8'))
     return build.packing.bounds(out)
 
-def run():
-    cells=build.full_cells(Image.open(ROOT/'source.webp').convert('RGBA'),rows=2)
+def run(keys=None,root=None,preserve=True):
+    keys=keys or ["lily","mira","hermione"]
+    root=Path(root) if root else ROOT
+    cells=build.full_cells(Image.open(root/'source.webp').convert('RGBA'),rows=2)
     verification={}
-    for col,key in enumerate(['lily','mira','hermione']):
-        sheet=Image.open(ROOT/f'{key}-sheet-before.webp').convert('RGBA');mask=Image.open(ROOT/f'{key}-mask-before.webp').convert('RGB')
+    for col,key in enumerate(keys):
+        asset_key={'claudia':'claudia-v2','rumi':'rumi-v2'}.get(key,key)
+        sheet=Image.open(root/f'{key}-sheet-before.webp' if preserve else GAME/f'assets/doll_{asset_key}_toys.webp').convert('RGBA')
+        mask=Image.open(root/f'{key}-mask-before.webp' if preserve else GAME/f'assets/masks/{asset_key}_toys_mask.webp').convert('RGB')
+        before_sheet=sheet.copy();before_mask=mask.copy();overrides={}
+        override_dir=HERE/'overrides';override_dir.mkdir(exist_ok=True)
         old=Image.open(HERE/f'references/{key}-fall.webp').convert('RGBA');ob=build.packing.bounds(old)
         report_path=HERE/f'reports/{key}.json';report=json.loads(report_path.read_text())
         records={}
@@ -37,7 +43,7 @@ def run():
             shift=409-build.packing.bounds(frame)[3]
             if shift:
                 f=Image.new('RGBA',(418,418));f.alpha_composite(frame,(0,shift));frame=f;py+=shift
-            raw=np.array(build.mask_for(cell,key,build.face_info(cell)[1]))
+            raw=np.array(build.mask_for(cell,key,build.face_info(cell)[1]) if key in ['lily','mira','hermione'] else build.learned_mask(cell,key,n))
             yy,xx=np.indices(raw.shape[:2])
             if row==1:
                 a=np.array(cell);labels,_=build.ndimage.label(a[:,:,3]>16);counts=np.bincount(labels.ravel());counts[0]=0
@@ -59,15 +65,19 @@ def run():
             anchor=(225-desired[0])*packed+px
             report['anchorX'][n]=anchor;report['renderScale'][n]=1/packed
             report['frames'][n]={'bounds':build.packing.bounds(frame),'anchorX':anchor,'renderScale':1/packed,'normalFallGeometry':True,'sourceBodyBounds':bb,'referenceBodyBounds':ob,'bodyScale':body_scale,'packedScale':packed}
+            build.packing.save(frame,override_dir/f'{key}-{n}.webp',exact=True)
+            build.packing.save(mf,override_dir/f'{key}-{n}-mask.webp',exact=True)
+            overrides[str(n)]=report['frames'][n]
+        (override_dir/f'{key}.json').write_text(json.dumps(overrides,indent=2)+'\n')
         for n in range(12):
             if n in [5,11]:continue
             x=n%3*418;y=n//3*418;box=(x,y,x+418,y+418)
             for kind,new in [('sheet',sheet),('mask',mask)]:
-                before=Image.open(ROOT/f'{key}-{kind}-before.webp').convert(new.mode)
+                before=before_sheet if kind=='sheet' else before_mask
                 assert before.crop(box).tobytes()==new.crop(box).tobytes()
                 records[f'{kind}:{n}']=hashlib.sha256(new.crop(box).tobytes()).hexdigest()
-        target=GAME/f'assets/doll_{key}_toys.webp';build.packing.save(sheet,target,exact=True);build.packing.save(mask,GAME/f'assets/masks/{key}_toys_mask.webp',exact=True)
+        target=GAME/f'assets/doll_{asset_key}_toys.webp';build.packing.save(sheet,target,exact=True);build.packing.save(mask,GAME/f'assets/masks/{asset_key}_toys_mask.webp',exact=True)
         report['sha256']=hashlib.sha256(target.read_bytes()).hexdigest();report_path.write_text(json.dumps(report,indent=2)+'\n');verification[key]=records
-    (ROOT/'verification.json').write_text(json.dumps(verification,indent=2)+'\n')
+    (root/'verification.json').write_text(json.dumps(verification,indent=2)+'\n')
 
 if __name__=='__main__':run()
