@@ -28,6 +28,7 @@
 //                       darkened horse until its sheet is in TRACK_SHARED_ART)
 //   hurdleGapScale      spaces the hurdles further apart
 //   lengthScale         makes the course longer
+//   amandaPushesTrolls  Amanda pops up for trolls too and shoves them back
 //   standInBackground   races on another track's backdrop until this one's
 //                       own background is in
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
@@ -56,6 +57,7 @@ window.TRACK_THEMES = {
     trollMount: "skeleton_horse",
     hurdleGapScale: 1.4,
     lengthScale: 1.4,
+    amandaPushesTrolls: true,
     standInBackground: "farm"
   },
   toyroom: {

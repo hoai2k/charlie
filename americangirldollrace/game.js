@@ -164,6 +164,7 @@ const MOUNTED_MONSTER_SPEED = 515;
 const MOUNTED_MONSTER_LANE_SPEED = 190;
 const MOUNTED_MONSTER_GRAB_RANGE_X = 74;
 const MOUNTED_MONSTER_HORSE_SCALE = 1.3;
+const TROLL_RIDING_CHANCE = 0.5;
 // A riding troll jumps a hurdle on approach this often; otherwise his horse
 // balks at it for MOUNTED_MONSTER_BALK_TIME before jumping.
 const MOUNTED_MONSTER_JUMP_CHANCE = 0.6;
@@ -1244,10 +1245,16 @@ function horseDurationForType(horseType) {
   return HORSE_DURATION;
 }
 
+// On a track with a trollMount the first troll rides and the rest each have
+// a TROLL_RIDING_CHANCE; on foot they still grab riders there.
 function makeMonsters() {
-  return getMonsterSpawnXs(state.difficulty).map(x => (
-    spawnMonster(x, TRACK_TOP + 26 + Math.random() * (TRACK_BOTTOM - TRACK_TOP - 52), { active: false })
+  return getMonsterSpawnXs(state.difficulty).map((x, index) => (
+    spawnMonster(x, TRACK_TOP + 26 + Math.random() * (TRACK_BOTTOM - TRACK_TOP - 52), { active: false, riding: index === 0 || rollTrollRiding() })
   ));
+}
+
+function rollTrollRiding() {
+  return Math.random() < TROLL_RIDING_CHANCE;
 }
 
 function getMonsterSpawnXs(difficulty) {
@@ -1274,6 +1281,7 @@ function spawnMonster(x, y, options = {}) {
     y: clamp(y, TRACK_TOP, TRACK_BOTTOM),
     state: active ? "walk" : "idle",
     active,
+    riding: Boolean(getTrollMountImage()) && options.riding !== false,
     frame: 0,
     frameTime: Math.random() * 3,
     facing: options.facing || -1,
@@ -2191,9 +2199,15 @@ function updateAmandaHazards(dt) {
   }
 }
 
+// On tracks with amandaPushesTrolls, Amanda also pops up for a troll and
+// shoves him back (dropping anyone he's holding).
+function getAmandaPushableTrolls() {
+  if (!getTrackTheme().amandaPushesTrolls) return [];
+  return state.monsters.filter(monster => monster.active && monster.z < 100 && ["walk", "idle", "grab", "lift", "throw"].includes(monster.state));
+}
+
 function findAmandaHazardTarget(obstacle) {
-  return state.racers
-    .filter(racer => !racer.finished && !racer.grabbedBy && racer.z < 100)
+  return [...state.racers.filter(racer => !racer.finished && !racer.grabbedBy && racer.z < 100), ...getAmandaPushableTrolls()]
     .filter(racer => Math.abs(racer.x - obstacle.x) <= AMANDA_HAZARD_TRIGGER_X)
     .filter(racer => Math.abs((racer.y + 54) - (obstacle.y + 18)) <= AMANDA_HAZARD_TRIGGER_Y)
     .sort((a, b) => Math.abs(a.x - obstacle.x) - Math.abs(b.x - obstacle.x))[0] || null;
@@ -2215,6 +2229,13 @@ function pushRacersFromAmandaHazard(obstacle) {
     racer.knockbackX = direction * AMANDA_HAZARD_PUSH_FORCE;
     racer.vy = Math.max(racer.vy, 170);
     racer.jumpStarted = false;
+  }
+  for (const monster of getAmandaPushableTrolls()) {
+    const dx = monster.x - obstacle.x;
+    const dy = (monster.y + 54) - (obstacle.y + 18);
+    const pushRangeX = monster === obstacle.amandaTarget ? AMANDA_HAZARD_TARGET_PUSH_X : AMANDA_HAZARD_PUSH_X;
+    if (Math.abs(dx) > pushRangeX || Math.abs(dy) > AMANDA_HAZARD_PUSH_Y) continue;
+    applyMonsterKnockback(monster, monster === obstacle.amandaTarget ? obstacle.amandaFacing : Math.sign(dx) || 1);
   }
 }
 
@@ -2596,7 +2617,7 @@ function isPowerupDropping(powerup) {
 
 function dropMonsterNear(x, y, dropStartY = null) {
   if (state.difficulty === "none") return null;
-  const monster = spawnMonster(x, y, { active: true, facing: -1 });
+  const monster = spawnMonster(x, y, { active: true, facing: -1, riding: rollTrollRiding() });
   if (dropStartY === null) {
     monster.state = "fall";
     monster.timer = 0.35;
@@ -2683,7 +2704,7 @@ function updateMonsters(dt) {
     const dy = target.y - monster.y;
     monster.facing = dx < 0 ? -1 : 1;
     monster.state = "walk";
-    const riding = Boolean(getTrollMountImage());
+    const riding = monster.riding;
     const speed = riding ? MOUNTED_MONSTER_SPEED : MONSTER_SPEED;
     const laneSpeed = riding ? MOUNTED_MONSTER_LANE_SPEED : MONSTER_LANE_SPEED;
     monster.x = clamp(monster.x + Math.sign(dx) * Math.min(Math.abs(dx), speed * dt), MONSTER_COURSE_START_X, FINISH - 120);
@@ -2778,7 +2799,7 @@ function setGrabbedRacerPosition(monster, racer) {
   const liftProgress = monster.state === "lift" ? 1 - monster.timer / 0.5 : monster.state === "throw" ? 1 : 0.35;
   racer.x = monster.x + 56 * monster.facing;
   racer.y = clamp(monster.y - 8, TRACK_TOP, TRACK_BOTTOM);
-  racer.z = 44 + liftProgress * 70 + (getTrollMountImage() ? 70 : 0);
+  racer.z = 44 + liftProgress * 70 + (monster.riding ? 70 : 0);
   racer.speed = 0;
   racer.moving = false;
 }
@@ -5276,9 +5297,8 @@ function drawMonster(monster) {
   ctx.restore();
 
   const drawFacing = monster.state === "fall" ? -monster.facing : monster.facing;
-  const trollMount = getTrollMountImage();
-  if (trollMount) {
-    drawMountedMonster(monster, trollMount, screenX, visualY, drawFacing);
+  if (monster.riding) {
+    drawMountedMonster(monster, getTrollMountImage(), screenX, visualY, drawFacing);
     return;
   }
   drawFacingImage(images.monster, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
