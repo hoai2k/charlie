@@ -204,6 +204,28 @@ const MOON_BOOTS_JUMP_SCALE = 0.82;
 const SPEED_GHOST_COUNT = 4;
 const SPEED_GHOST_INTERVAL = 0.045;
 const MOON_BOOTS_COLOR = "#a98bff";
+// Track items (tracks.js itemEffects) that replace a speed or high-jump
+// pickup with their own effect (image-requests.md §10):
+// spell book: cast at the nearest racer or monster, who becomes a frog.
+const SPELL_CAST_TIME = 0.6;
+const SPELL_BOLT_DELAY = 0.18;
+const SPELL_BOLT_TIME = 0.35;
+const SPELL_RANGE = 1100;
+const FROG_DURATION = 3.5;
+const FROG_HOP_HZ = 1.8;
+const FROG_SPEED_SCALE = 0.7;
+// The wand hand in the push frame (frame pixels, facing right).
+const WAND_HAND = { x: 349, y: 151 };
+// surfboard: ride a wave forward, fast, over hurdles, steering sluggishly.
+const SURF_DURATION = 5;
+const SURF_SPEED_SCALE = 1.8;
+const SURF_LANE_RESPONSE = 1.2;
+const SURF_DRIFT = 70;
+// wind-up key: little tin cars drive ahead and bump whoever they meet.
+const WINDUP_CAR_COUNT = 3;
+const WINDUP_CAR_SPEED = 520;
+const WINDUP_CAR_LIFE = 5;
+const WINDUP_CAR_COLORS = [["#e2403a", "#b52a25"], ["#f4c430", "#c99a12"], ["#3a8de2", "#2a63b5"]];
 // Kickable beach balls (tracks.js beachBalls): run into one to nudge it along,
 // push (X) to kick it. Positions are at feet level, like power-ups.
 const BEACH_BALL_RADIUS = 22;
@@ -515,6 +537,8 @@ const state = {
   runawayHorses: [],
   beachBalls: [],
   particles: [],
+  spells: [],
+  windupCars: [],
   difficulty: "normal",
   specials: "none",
   cameraMode: "lego",
@@ -725,6 +749,8 @@ function resetRace(mode = state.mode) {
   state.runawayHorses = [];
   state.beachBalls = makeBeachBalls();
   state.particles = [];
+  state.spells = [];
+  state.windupCars = [];
   state.powerups = makePowerups();
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
@@ -1235,6 +1261,12 @@ function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpee
     unicornBeamCooldown: 0,
     rideToys: [],
     moonBootsTimer: 0,
+    castTimer: 0,
+    frogTimer: 0,
+    frogPhase: 0,
+    surfTimer: 0,
+    surfLaneV: 0,
+    surfPhase: 0,
     ghosts: [],
     ghostTimer: 0,
     sparkleTimer: 0,
@@ -1498,14 +1530,18 @@ function updateRacerAudio(racer, dt) {
   const oilId = racerLoopId(racer, "oil");
   const frozenId = racerLoopId(racer, "frozen");
   const skateId = racerLoopId(racer, "skate");
+  const surfId = racerLoopId(racer, "surf");
 
   if (racer.finished || racer.grabbedBy) {
     GameAudio.stopLoop(mountId);
     GameAudio.stopLoop(oilId);
     GameAudio.stopLoop(frozenId);
     GameAudio.stopLoop(skateId);
+    GameAudio.stopLoop(surfId);
     return;
   }
+  if (racer.surfTimer > 0 && !isMounted(racer)) GameAudio.startLoop(surfId, "surf_loop", { gain: racerAudioGain(racer) * 0.8 });
+  else GameAudio.stopLoop(surfId);
 
   const skating = racer.rideToys?.[0]?.type === "skates" && racer.moving && racer.z === 0 && getRideToyPose(racer, false);
   if (skating) GameAudio.startLoop(skateId, "skate_roll_loop", { gain: racerAudioGain(racer) * 0.7 });
@@ -2077,6 +2113,12 @@ function update(dt) {
       input.jump = false;
     }
     if (mounted && racer.horseType !== "unicorn" && !canMountedRacerThrowSnowballs(racer) && !isAlwaysMountedTrack()) input.push = false;
+    const frog = racer.frogTimer > 0;
+    const surfing = racer.surfTimer > 0 && !mounted && !frog && !(racer.frozenTimer > 0 || racer.fallBackTimer > 0 || oilAffectsRacer);
+    if (frog || surfing) {
+      input.jump = false;
+      if (frog) input.push = false;
+    }
 
     if (input.push && racer.pushCooldown === 0 && racer.pushTimer === 0) {
       racer.pushTimer = PUSH_ACTIVE_TIME;
@@ -2104,6 +2146,20 @@ function update(dt) {
         racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
       }
     }
+    if (surfing) {
+      // The wave carries her forward whatever the stick says.
+      racer.facing = 1;
+      forward = runSpeed * Math.max(boostMult, SURF_SPEED_SCALE);
+    }
+    let hopping = false;
+    if (frog) {
+      // A frog only moves while it hops.
+      const previousPhase = racer.frogPhase;
+      racer.frogPhase = (racer.frogPhase + dt * FROG_HOP_HZ) % 1;
+      hopping = racer.frogPhase < 0.55;
+      if (racer.frogPhase < previousPhase && Math.random() < 0.35) sfx("frog_ribbit", racer.x, { gain: 0.6 });
+      forward *= hopping ? FROG_SPEED_SCALE : 0;
+    }
     if (racer.hitTimer > 0) forward *= 0.35;
     racer.speed = forward;
     racer.moving = Math.abs(forward) > 1 || Math.abs(input.vertical) > 0.05;
@@ -2127,7 +2183,14 @@ function update(dt) {
       }
     }
     racer.x = clamp(racer.x, 40, FINISH);
-    racer.y += input.vertical * PLAYER_LANE_SPEED * dt;
+    if (surfing) {
+      // Sluggish steering, and the swell keeps nudging her up and down.
+      racer.surfPhase += dt * 1.6;
+      racer.surfLaneV += (input.vertical * PLAYER_LANE_SPEED * 0.7 - racer.surfLaneV) * Math.min(1, dt * SURF_LANE_RESPONSE);
+      racer.y += (racer.surfLaneV + Math.sin(racer.surfPhase) * SURF_DRIFT) * dt;
+    } else {
+      racer.y += input.vertical * PLAYER_LANE_SPEED * (frog && !hopping ? 0 : 1) * dt;
+    }
     racer.y = clamp(racer.y, TRACK_TOP, TRACK_BOTTOM);
     racer.knockbackX *= Math.pow(0.04, dt);
     if (Math.abs(racer.knockbackX) < 6) racer.knockbackX = 0;
@@ -2203,6 +2266,8 @@ function update(dt) {
   updateRunawayHorses(dt);
   updateBeachBalls(dt);
   updateParticles(dt);
+  updateSpells(dt);
+  updateWindupCars(dt);
   bumpMonstersWithSpecialMounts();
   pushRacers(dt);
   updateAmandaHazards(dt);
@@ -2228,6 +2293,12 @@ function updateStackTimers(racer, dt) {
     .map(timer => timer - dt)
     .filter(timer => timer > 0);
   racer.moonBootsTimer = Math.max(0, racer.moonBootsTimer - dt);
+  racer.castTimer = Math.max(0, racer.castTimer - dt);
+  racer.surfTimer = Math.max(0, racer.surfTimer - dt);
+  if (racer.frogTimer > 0) {
+    racer.frogTimer = Math.max(0, racer.frogTimer - dt);
+    if (racer.frogTimer === 0) frogPoof(racer.x, racer.y + 54, false);
+  }
   racer.rideToys = racer.rideToys
     .map(toy => ({ ...toy, timer: toy.timer - dt }))
     .filter(toy => toy.timer > 0);
@@ -2283,6 +2354,10 @@ function getRideToyPose(racer, jumping) {
 }
 
 function updateRacerPowerupEffects(racer, dt) {
+  if (racer.castTimer > 0 && Math.random() < 0.7) {
+    const tip = wandTip(racer);
+    spawnParticles(tip.x, tip.y, 0, 1, { color: Math.random() < 0.5 ? "#ffd84a" : "#c48bff", speed: 70, lift: 90, life: 0.45, size: 5, gravity: 200 });
+  }
   const boosted = racer.speedBoostTimer > 0 && racer.moving;
   // After-images: a short history of what was drawn, sampled over time.
   racer.ghostTimer += dt;
@@ -2447,6 +2522,10 @@ function getObstacleHitBounds(obstacle) {
 }
 
 function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
+  if (racer.surfTimer > 0 && !isMounted(racer)) {
+    racer.onObstacle = false;
+    return; // the wave washes over hurdles
+  }
   racer.onObstacle = false;
   for (const obstacle of state.obstacles) {
     const bounds = getObstacleHitBounds(obstacle);
@@ -2623,6 +2702,8 @@ function applyPowerup(racer, powerupOrType) {
   const type = typeof powerupOrType === "string" ? powerupOrType : powerupOrType.type;
   if (hasActivePowerup(racer, type)) return false;
   playPowerupAudio(racer, type);
+  const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
+  if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);
   if (type === "boost") {
     const toy = getRideToy("boost");
     const duration = 4 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
@@ -3040,6 +3121,14 @@ function updateMonsters(dt) {
     monster.x = clamp(monster.x + monster.knockbackX * dt, MONSTER_COURSE_START_X, FINISH - 120);
     resolveMonsterObstacleCollisions(monster, previousX, previousY);
 
+    if (monster.frogTimer > 0) {
+      // A frogged monster just hops about and can't grab anyone.
+      monster.frogTimer = Math.max(0, monster.frogTimer - dt);
+      monster.frogPhase = ((monster.frogPhase || 0) + dt * FROG_HOP_HZ * 0.8) % 1;
+      if (monster.frogTimer === 0) frogPoof(monster.x, monster.y + 54, true);
+      continue;
+    }
+
     if (!monster.active && isMonsterVisible(monster)) {
       monster.active = true;
       monster.state = "walk";
@@ -3295,6 +3384,383 @@ function unhorseMonster(monster, direction) {
   });
   sfx("troll_unhorsed", monster.x);
   sfx(getTrollMountImage() === images.skeleton_horse ? "skeleton_horse_whinny" : "horse_whinny", monster.x, { gain: 0.8 });
+}
+
+function applyItemEffect(racer, effect, type) {
+  if (effect === "spellBook") {
+    racer.castTimer = SPELL_CAST_TIME;
+    state.spells.push({ caster: racer, target: pickSpellTarget(racer), t: 0 });
+    racer.powerupMessage = powerupLabel(type, "SPELL BOOK");
+  } else if (effect === "surfboard") {
+    racer.surfTimer = SURF_DURATION;
+    racer.surfLaneV = 0;
+    racer.facing = 1;
+    spawnParticles(racer.x, racer.y + 54, 0, 12, { color: "#e8fbff", kind: "puff", speed: 160, lift: 60, life: 0.7, size: 12, gravity: 0 });
+    racer.powerupMessage = powerupLabel(type, "SURFBOARD");
+  } else if (effect === "windupCars") {
+    releaseWindupCars(racer);
+    racer.powerupMessage = powerupLabel(type, "WIND-UP CARS");
+  }
+  return true;
+}
+
+// The nearest racer or monster within range, preferring ones ahead.
+function pickSpellTarget(caster) {
+  const candidates = [
+    ...state.racers.filter(r => r !== caster && !r.finished && !(r.frogTimer > 0)),
+    ...state.monsters.filter(m => m.active && !(m.frogTimer > 0) && !["sleeping", "ground", "drop"].includes(m.state) && isMonsterVisible(m))
+  ];
+  let best = null;
+  let bestScore = Infinity;
+  for (const c of candidates) {
+    const dx = c.x - caster.x;
+    if (Math.abs(dx) > SPELL_RANGE) continue;
+    const score = Math.abs(dx) + Math.abs(c.y - caster.y) * 1.5 + (dx * caster.facing < 0 ? 500 : 0);
+    if (score < bestScore) {
+      best = c;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+function wandTip(caster) {
+  const scale = racerDepthScale(caster);
+  return {
+    x: caster.x + caster.facing * (WAND_HAND.x - SPRITE_ANCHOR_X + 40) * scale,
+    y: caster.y + 54 - caster.z - (SPRITE_ANCHOR_Y - WAND_HAND.y + 30) * scale
+  };
+}
+
+function spellTargetPoint(target) {
+  const isMonster = state.monsters.includes(target);
+  return { x: target.x, y: target.y + 54 - (target.z || 0) - (isMonster ? 150 : 90) };
+}
+
+function updateSpells(dt) {
+  for (const spell of state.spells) {
+    spell.t += dt;
+    if (spell.t < SPELL_BOLT_DELAY || !spell.target) continue;
+    const progress = (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME;
+    const from = wandTip(spell.caster);
+    const to = spellTargetPoint(spell.target);
+    const x = from.x + (to.x - from.x) * Math.min(1, progress);
+    const y = from.y + (to.y - from.y) * Math.min(1, progress);
+    spawnParticles(x, y, 0, 2, { color: Math.random() < 0.5 ? "#ffd84a" : "#c48bff", speed: 50, lift: 40, life: 0.4, size: 4, gravity: 0 });
+    if (progress >= 1 && !spell.done) {
+      spell.done = true;
+      frogify(spell.target);
+    }
+  }
+  state.spells = state.spells.filter(spell => spell.t < SPELL_BOLT_DELAY + SPELL_BOLT_TIME + 0.05 && (spell.target || spell.t < SPELL_CAST_TIME));
+}
+
+function frogify(target) {
+  const isMonster = state.monsters.includes(target);
+  target.frogTimer = FROG_DURATION;
+  target.frogPhase = 0;
+  if (isMonster) {
+    if (target.target?.grabbedBy === target) target.target.grabbedBy = null;
+    target.target = null;
+    if (["grab", "lift", "throw"].includes(target.state)) target.state = "walk";
+  } else {
+    target.pushTimer = 0;
+    if (isMounted(target) && !isAlwaysMountedTrack()) target.horseTimer = 0;
+  }
+  frogPoof(target.x, target.y + 54, isMonster);
+}
+
+function frogPoof(x, groundY, big) {
+  sfx("frog_poof", x);
+  spawnParticles(x, groundY, 30, big ? 16 : 12, { color: "#9be57a", kind: "puff", speed: 120, lift: 120, life: 0.6, size: big ? 18 : 13, gravity: 0 });
+  spawnParticles(x, groundY, 60, 10, { color: "#ffd84a", speed: 160, lift: 260, life: 0.5 });
+}
+
+// The shared frog sheet once listed in TRACK_SHARED_ART, else null (an emoji
+// stands in).
+function getSharedArt(name) {
+  if (!(window.TRACK_SHARED_ART || []).includes(name)) return null;
+  loadArtOnce(name, `assets/${name}_sprites.webp`);
+  return images[name] || null;
+}
+
+function drawFrog(x, groundY, depthScale, big, phase, facing) {
+  const hopping = phase < 0.55;
+  const lift = hopping ? Math.sin((phase / 0.55) * Math.PI) * (big ? 30 : 22) : 0;
+  const size = (big ? 150 : 96) * depthScale / 0.45;
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(x, groundY - 4, size * 0.38, size * 0.1, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  const sheet = getSharedArt("frog");
+  if (sheet) {
+    const col = !hopping ? 0 : phase < 0.12 || phase > 0.45 ? 1 : 2;
+    const cell = 256;
+    drawFacingImage(sheet, col * cell, (big ? 1 : 0) * cell, cell, cell, x - size / 2, groundY - size - lift, size, size, facing, x);
+    return;
+  }
+  // A cartoon frog drawn in code until the frog sheet arrives.
+  const body = big ? "#7a8a3a" : "#5fc24a";
+  const belly = big ? "#b9c27a" : "#c8f0a0";
+  const u = size / 100;
+  ctx.save();
+  ctx.translate(x, groundY - lift);
+  ctx.scale(facing < 0 ? -u : u, u);
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#2d5a22";
+  ctx.fillStyle = body;
+  ctx.beginPath();
+  ctx.ellipse(-14, -14, 24, 14, 0, 0, Math.PI * 2); // back leg
+  ctx.fill();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(4, -30, 36, 28, 0, 0, Math.PI * 2); // body
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = belly;
+  ctx.beginPath();
+  ctx.ellipse(16, -24, 20, 16, 0, 0, Math.PI * 2);
+  ctx.fill();
+  for (const ex of [-6, 22]) {
+    ctx.fillStyle = body;
+    ctx.beginPath();
+    ctx.arc(ex, -56, 12, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(ex, -57, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#1d1d1d";
+    ctx.beginPath();
+    ctx.arc(ex + 2, -57, 4, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.strokeStyle = "#2d5a22";
+  ctx.beginPath();
+  ctx.arc(14, -38, 14, 0.2, Math.PI - 0.6); // smile
+  ctx.stroke();
+  if (big) {
+    ctx.fillStyle = "#5c6a2a";
+    for (const [wx, wy] of [[-18, -40], [-4, -48], [-22, -24]]) {
+      ctx.beginPath();
+      ctx.arc(wx, wy, 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function drawSpells() {
+  for (const spell of state.spells) {
+    if (!spell.target || spell.t < SPELL_BOLT_DELAY || spell.done) continue;
+    const progress = Math.min(1, (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME);
+    const from = wandTip(spell.caster);
+    const to = spellTargetPoint(spell.target);
+    const x = from.x + (to.x - from.x) * progress - state.camera;
+    const y = from.y + (to.y - from.y) * progress;
+    const glow = ctx.createRadialGradient(x, y, 0, x, y, 26);
+    glow.addColorStop(0, "#fff7c2");
+    glow.addColorStop(0.4, "#ffd84a");
+    glow.addColorStop(1, "#c48bff00");
+    ctx.save();
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(x, y, 26, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+function releaseWindupCars(racer) {
+  for (let i = 0; i < WINDUP_CAR_COUNT; i += 1) {
+    const lane = (i - (WINDUP_CAR_COUNT - 1) / 2) * 46;
+    state.windupCars.push({
+      x: racer.x + racer.facing * (50 + i * 22),
+      y: clamp(racer.y + 54 + lane, PATH_TOP + FOOT_OFFSET_Y + 16, TRACK_BOTTOM + FOOT_OFFSET_Y - 8),
+      dir: racer.facing || 1,
+      owner: racer,
+      life: WINDUP_CAR_LIFE,
+      wheel: 0,
+      color: i % WINDUP_CAR_COLORS.length
+    });
+  }
+}
+
+function updateWindupCars(dt) {
+  for (const car of state.windupCars) {
+    car.x += car.dir * WINDUP_CAR_SPEED * dt;
+    car.wheel += dt * 14;
+    car.life -= dt;
+    for (const racer of state.racers) {
+      if (racer === car.owner || racer.finished || racer.grabbedBy || racer.z > 40) continue;
+      if (Math.abs(racer.x - car.x) > 34 || Math.abs(racer.y + 54 - car.y) > 26) continue;
+      applyPushHit(car.owner, racer, car.dir);
+      car.life = 0;
+      break;
+    }
+    if (car.life > 0) {
+      for (const monster of state.monsters) {
+        if (monster.state === "sleeping" || monster.state === "ground" || monster.frogTimer > 0) continue;
+        if (Math.abs(monster.x - car.x) > 44 || Math.abs(monster.y + 54 - car.y) > 30) continue;
+        applyMonsterKnockback(monster, car.dir);
+        car.life = 0;
+        break;
+      }
+    }
+    if (car.life <= 0) {
+      sfx("toy_bump", car.x);
+      spawnParticles(car.x, car.y, 10, 8, { color: "#ffffff", kind: "puff", speed: 90, lift: 60, life: 0.4, size: 9, gravity: 0 });
+    }
+  }
+  state.windupCars = state.windupCars.filter(car => car.life > 0 && car.x > 0 && car.x < FINISH + 200);
+}
+
+function drawWindupCar(car) {
+  const screenX = car.x - state.camera;
+  if (screenX < -80 || screenX > getWorldViewportWidth() + 80) return;
+  const scale = racerDepthScale({ y: car.y - 54 }) / 0.45;
+  const art = getTrackArt("windup_car");
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(screenX, car.y - 2, 34 * scale, 7 * scale, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  if (art) {
+    const size = 84 * scale;
+    drawFacingImage(art, (Math.floor(car.wheel) % 3) * 256, (car.color % 2) * 256, 256, 256, screenX - size / 2, car.y - size, size, size, car.dir, screenX);
+    return;
+  }
+  const [body, trim] = WINDUP_CAR_COLORS[car.color];
+  ctx.save();
+  ctx.translate(screenX, car.y);
+  ctx.scale(car.dir * scale, scale);
+  // body and cab
+  ctx.fillStyle = body;
+  ctx.strokeStyle = trim;
+  ctx.lineWidth = 2;
+  roundRect(-30, -30, 60, 20, 6);
+  ctx.fill();
+  ctx.stroke();
+  roundRect(-14, -44, 28, 16, 5);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#cfefff";
+  ctx.fillRect(-9, -40, 18, 9);
+  // wheels
+  for (const wx of [-18, 18]) {
+    ctx.fillStyle = "#2b2b33";
+    ctx.beginPath();
+    ctx.arc(wx, -8, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = "#c9c9d6";
+    ctx.beginPath();
+    ctx.moveTo(wx + Math.cos(car.wheel) * 6, -8 + Math.sin(car.wheel) * 6);
+    ctx.lineTo(wx - Math.cos(car.wheel) * 6, -8 - Math.sin(car.wheel) * 6);
+    ctx.stroke();
+  }
+  // the spinning wind-up key
+  ctx.translate(0, -50);
+  ctx.scale(Math.cos(car.wheel * 0.6), 1);
+  ctx.fillStyle = "#d9b44a";
+  ctx.strokeStyle = "#8a6d1f";
+  ctx.fillRect(-2, -2, 4, 8);
+  ctx.beginPath();
+  ctx.ellipse(-7, -6, 6, 5, 0, 0, Math.PI * 2);
+  ctx.ellipse(7, -6, 6, 5, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.restore();
+}
+
+// The wave and board under a surfer (art when listed, else drawn in code).
+function drawSurfWave(racer, screenX, scale) {
+  const feetY = racer.y + 54 - racer.z;
+  const t = performance.now() / 1000;
+  const art = getTrackArt("wave");
+  if (art) {
+    const w = 3 * FRAME * scale * 0.9;
+    const h = w * 384 / 512;
+    drawFacingImage(art, (Math.floor(t * 6) % 3) * 512, 0, 512, 384, screenX - w * 0.72, feetY - h + 14 * scale, w, h, 1, screenX);
+  } else {
+    const len = 360 * scale;
+    const height = 120 * scale;
+    ctx.save();
+    ctx.globalAlpha = 0.92;
+    const grad = ctx.createLinearGradient(0, feetY - height, 0, feetY + 10);
+    grad.addColorStop(0, "#4fd1e8");
+    grad.addColorStop(1, "#1b7fb8");
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.moveTo(screenX - len, feetY + 10);
+    ctx.quadraticCurveTo(screenX - len * 0.55, feetY - height * (0.9 + 0.08 * Math.sin(t * 5)), screenX - 10 * scale, feetY - height * 0.32);
+    ctx.quadraticCurveTo(screenX + 70 * scale, feetY - height * 0.1, screenX + 110 * scale, feetY + 10);
+    ctx.closePath();
+    ctx.fill();
+    // foam along the crest
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 6 * scale;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(screenX - len * 0.8, feetY - height * 0.55);
+    ctx.quadraticCurveTo(screenX - len * 0.5, feetY - height * (0.92 + 0.08 * Math.sin(t * 5)), screenX - 10 * scale, feetY - height * 0.32);
+    ctx.stroke();
+    ctx.restore();
+  }
+  // The board: turquoise with a coral stripe.
+  ctx.save();
+  ctx.translate(screenX, feetY - 6 * scale);
+  ctx.rotate(-0.05 + Math.sin(racer.surfPhase * 2) * 0.04);
+  ctx.fillStyle = "#3fd3c6";
+  ctx.strokeStyle = "#1f8f86";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 120 * scale, 14 * scale, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#ff7a6b";
+  ctx.fillRect(-100 * scale, -3 * scale, 200 * scale, 5 * scale);
+  ctx.restore();
+}
+
+// The doll's actions sheet (wand casting, surfing, saddle push, stuck,
+// moon-boots float) once listed in ACTION_SHEETS, else null.
+function getActionSheet(racer) {
+  if (!racer?.spriteKey) return null;
+  const assetKey = dollAssetKey(racer.spriteKey);
+  if (!(window.ACTION_SHEETS || []).includes(assetKey)) return null;
+  if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "actions", racer.outfit);
+  loadArtOnce(`actions_${assetKey}`, `assets/doll_${assetKey}_actions.webp`);
+  return images[`actions_${assetKey}`] || null;
+}
+
+// Wand stand-in while there's no casting art: a little wand from the hand of
+// the push frame.
+function drawWandStandIn(racer, screenX, scale, facing) {
+  const handX = screenX + facing * (WAND_HAND.x - SPRITE_ANCHOR_X) * scale;
+  const handY = racer.y + 54 - racer.z - (SPRITE_ANCHOR_Y - WAND_HAND.y) * scale;
+  const tipX = handX + facing * 70 * scale;
+  const tipY = handY - 30 * scale;
+  ctx.save();
+  ctx.lineCap = "round";
+  ctx.strokeStyle = "#4a2e1a";
+  ctx.lineWidth = 7 * scale;
+  ctx.beginPath();
+  ctx.moveTo(handX, handY);
+  ctx.lineTo(tipX, tipY);
+  ctx.stroke();
+  ctx.fillStyle = "#ffd84a";
+  ctx.shadowColor = "#ffd84a";
+  ctx.shadowBlur = 12;
+  ctx.beginPath();
+  ctx.arc(tipX, tipY, 9 * scale, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 function makeBeachBalls() {
@@ -4573,6 +5039,7 @@ function drawWorldScene() {
       ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
       ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
       ...state.beachBalls.map(ball => ({ type: "beachBall", y: ball.y, item: ball })),
+      ...state.windupCars.map(car => ({ type: "windupCar", y: car.y, item: car })),
       ...state.racers.map(racer => ({ type: "racer", y: racer.y + 54, item: racer }))
     ].sort((a, b) => a.y - b.y);
     for (const drawable of drawables) {
@@ -4594,10 +5061,13 @@ function drawWorldScene() {
         drawRunawayHorse(drawable.item);
       } else if (drawable.type === "beachBall") {
         drawBeachBall(drawable.item);
+      } else if (drawable.type === "windupCar") {
+        drawWindupCar(drawable.item);
       } else {
         drawRacer(drawable.item);
       }
     }
+    drawSpells();
     drawParticles();
   }
 }
@@ -5908,6 +6378,10 @@ function drawMonster(monster) {
   ctx.restore();
 
   const drawFacing = monster.state === "fall" ? -monster.facing : monster.facing;
+  if (monster.frogTimer > 0) {
+    drawFrog(screenX, monster.y + 54, racerDepthScale(monster), true, monster.frogPhase || 0, monster.facing);
+    return;
+  }
   if (monster.riding) {
     drawMountedMonster(monster, getTrollMountImage(), screenX, visualY, drawFacing);
     return;
@@ -6044,7 +6518,11 @@ function drawRacer(racer) {
   if (racer.frozenTimer > 0) drawElectricEffect(screenX, drawY, drawW, drawH);
   if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
 
-  if (mounted && racer.horseType === "broom") {
+  const actions = getActionSheet(racer);
+  if (racer.frogTimer > 0) {
+    racer.lastBody = null;
+    drawFrog(screenX, racer.y + 54 - racer.z, scale, false, racer.frogPhase, racer.facing);
+  } else if (mounted && racer.horseType === "broom") {
     drawBroomRacer(racer, screenX, scale, drawFacing);
   } else if (mounted) {
     const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
@@ -6069,10 +6547,30 @@ function drawRacer(racer) {
       const horseImage = images[racer.horseType] || images.horse;
       drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);
     }
-    drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    // Pushing or throwing from the saddle has its own pose once the actions sheet is in.
+    if (racer.pushTimer > 0 && actions) drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
   } else {
     const toyPose = getRideToyPose(racer, jumping);
-    if (toyPose) {
+    const fullX = screenX - SPRITE_ANCHOR_X * scale;
+    const fullY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z;
+    if (racer.surfTimer > 0) {
+      drawSurfWave(racer, screenX, scale);
+      if (actions) drawRacerBody(racer, actions, (Math.floor(performance.now() / 450) % 3) * FRAME, FRAME, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
+      else drawRacerBody(racer, racer.sheet, 0, 0, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
+    } else if (racer.castTimer > 0) {
+      const progress = 1 - racer.castTimer / SPELL_CAST_TIME;
+      if (actions) {
+        drawRacerBody(racer, actions, (progress < 0.25 ? 0 : progress < 0.6 ? 1 : 2) * FRAME, 0, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+      } else {
+        drawRacerBody(racer, racer.sheet, FRAME, 3 * FRAME, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+        drawWandStandIn(racer, screenX, scale, racer.facing);
+      }
+    } else if (actions && racer.oilTimer > 0 && racer.oilSticky) {
+      drawRacerBody(racer, actions, FRAME, 2 * FRAME, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+    } else if (actions && racer.moonBootsTimer > 0 && racer.z > 20 && !racer.grabbedBy) {
+      drawRacerBody(racer, actions, 2 * FRAME, 2 * FRAME, fullX, fullY, FRAME * scale, FRAME * scale, drawFacing, screenX);
+    } else if (toyPose) {
       const toyFrame = toyPose.row * 3 + toyPose.col;
       const toyCalibration = window.RIDE_TOY_FRAMES?.[dollAssetKey(racer.spriteKey)];
       const toyScale = scale * (toyCalibration?.scale[toyFrame] || 1);

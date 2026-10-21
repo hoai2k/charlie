@@ -16,7 +16,8 @@
     cheer: key => `assets/portraits/${assetKey(key)}_cheer.webp`,
     wave: key => `assets/portraits/${assetKey(key)}_wave.webp`,
     ride: key => `assets/portraits/${assetKey(key)}_ride.webp`,
-    toys: key => `assets/doll_${assetKey(key)}_toys.webp`
+    toys: key => `assets/doll_${assetKey(key)}_toys.webp`,
+    actions: key => `assets/doll_${assetKey(key)}_actions.webp`
   };
 
   let data = null;

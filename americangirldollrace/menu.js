@@ -255,8 +255,9 @@
     grid.innerHTML = "";
     const [top, bottom] = rows();
     const cols = columns();
-    const step = cols > COLS ? 600 / cols : 122;
-    grid.style.setProperty("--lb-card-width", `${step - 12}px`);
+    // A big roster spreads over the grid's full width with narrower gaps.
+    const step = cols > COLS ? 650 / cols : 122;
+    grid.style.setProperty("--lb-card-width", `${step - (cols > COLS ? 6 : 12)}px`);
     grid.classList.toggle("wide-roster", cols > COLS);
     lobby.cards = lobby.roster.map((key, index) => {
       const row = index < cols ? 0 : 1;
@@ -271,12 +272,26 @@
       grid.appendChild(card);
       return card;
     });
+    fitCardNames(grid);
     for (const slot of lobby.slots) {
       if (!slot) continue;
       if (slot.cursor >= lobby.roster.length) slot.cursor = 0;
       if (slot.locked && !lobby.roster.includes(slot.doll)) { slot.locked = false; slot.cursor = 0; }
     }
     lobby.cpus = lobby.cpus.map(key => lobby.roster.includes(key) ? key : pickCpuDoll());
+  }
+
+  // Shrink any name that doesn't fit its card (down to 12px) so none is cut off.
+  function fitCardNames(grid) {
+    for (const name of grid.querySelectorAll(".lb-name")) {
+      name.style.fontSize = "";
+      if (!name.clientWidth) continue; // hidden: measured when shown
+      let size = parseFloat(getComputedStyle(name).fontSize);
+      while (name.scrollWidth > name.clientWidth && size > 12) {
+        size -= 0.5;
+        name.style.fontSize = `${size}px`;
+      }
+    }
   }
 
   // ---------- stalls: joined players, then ONE join stall, then computer racers ----------
