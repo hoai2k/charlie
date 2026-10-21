@@ -1,0 +1,228 @@
+{
+  "assetKey": "amanda",
+  "anchorX": [
+    225,
+    225,
+    225,
+    225,
+    248,
+    225.12155963302752,
+    225,
+    225,
+    225,
+    225,
+    225,
+    224.65575916230367
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 353,
+  "scale": 1.014367816091954,
+  "actionScaleRatio": 1.0,
+  "frames": [
+    {
+      "bounds": [
+        40,
+        57,
+        313,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 172.0,
+      "targetPivot": 209,
+      "sourceChin": 108.0
+    },
+    {
+      "bounds": [
+        60,
+        56,
+        315,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 152.0,
+      "targetPivot": 209,
+      "sourceChin": 109.0
+    },
+    {
+      "bounds": [
+        41,
+        57,
+        305,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 171.0,
+      "targetPivot": 209,
+      "sourceChin": 108.0
+    },
+    {
+      "bounds": [
+        101,
+        65,
+        284,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 111.0,
+      "targetPivot": 209,
+      "sourceChin": 99.0
+    },
+    {
+      "bounds": [
+        6,
+        68,
+        277,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 248,
+      "sourcePivot": 228.0,
+      "targetPivot": 232,
+      "sourceChin": 132.0
+    },
+    {
+      "bounds": [
+        46,
+        90,
+        374,
+        409
+      ],
+      "anchorX": 225.12155963302752,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        454,
+        441
+      ],
+      "referenceBodyBounds": [
+        65,
+        90,
+        354,
+        409
+      ],
+      "bodyScale": 0.731651376146789,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        65,
+        68,
+        277,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 146.5,
+      "targetPivot": 209,
+      "sourceChin": 104.0
+    },
+    {
+      "bounds": [
+        93,
+        56,
+        271,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 119.5,
+      "targetPivot": 209,
+      "sourceChin": 97.0
+    },
+    {
+      "bounds": [
+        65,
+        60,
+        263,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 147.0,
+      "targetPivot": 209,
+      "sourceChin": 153.0
+    },
+    {
+      "bounds": [
+        86,
+        45,
+        272,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 126.0,
+      "targetPivot": 209,
+      "sourceChin": 100.0
+    },
+    {
+      "bounds": [
+        84,
+        43,
+        397,
+        409
+      ],
+      "scale": 1.014367816091954,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 128.5,
+      "targetPivot": 209,
+      "sourceChin": 118.0
+    },
+    {
+      "bounds": [
+        15,
+        90,
+        402,
+        409
+      ],
+      "anchorX": 224.65575916230367,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        469,
+        387
+      ],
+      "referenceBodyBounds": [
+        65,
+        90,
+        354,
+        409
+      ],
+      "bodyScale": 0.8350785340314136,
+      "packedScale": 1
+    }
+  ],
+  "sha256": "ed55075d4fd0823c56b3cff303568282db8b87be9005342529cde14a776052cc"
+}

@@ -62,7 +62,7 @@ window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
 window.RIDE_TOY_ART_VERSION = "20261021-fall-v3";
-window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2"];
+window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope"];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {
   "lily": {
@@ -243,6 +243,96 @@ window.RIDE_TOY_FRAMES = {
       1.0604719231047193,
       1.053425598034256,
       1.0066219183412546
+    ]
+  },
+  "kaya": {
+    "anchorX": [
+      280,
+      225,
+      225,
+      225,
+      225,
+      225.64705882352942,
+      225,
+      225,
+      225,
+      225,
+      225,
+      177.4372303153236
+    ],
+    "scale": [
+      1.0005414603960396,
+      1.0,
+      1.0,
+      1.012855816831683,
+      1.0190129950495048,
+      1.0,
+      1.0005414603960396,
+      1.043641707920792,
+      1.0220915841584157,
+      1.0775061881188117,
+      1.0775061881188117,
+      1.0997323166774822
+    ]
+  },
+  "amanda": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      248,
+      225.12155963302752,
+      225,
+      225,
+      225,
+      225,
+      225,
+      224.65575916230367
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "penelope": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      225,
+      224.7581344902386,
+      225,
+      225,
+      225,
+      225,
+      225,
+      203.81786542923436
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0108716754028344,
+      1.0,
+      1.0694282663560475,
+      1.0632644146767618,
+      1.0
     ]
   }
 };

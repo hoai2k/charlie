@@ -382,7 +382,7 @@ needs dedicated poses with the skates or stick painted in, including the
 poses she uses mid-race (standing, pushing or throwing, falling backwards).
 
 **Delivered and checked in game:** Lily, Mira, Hermione, Whirlpool, Juliette
-and Claudia (K1/K2).
+Claudia, Kaya, Amanda and Penelope (K1/K2).
 Their twelve poses, alternate outfits, both directions, baseline overlays and
 pickup selection pass; see `tools/dolls/toys/reports/`. Once they're
 checked in game, do the rest of the roster (Whirlpool, Juliette, Claudia,
