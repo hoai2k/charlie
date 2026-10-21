@@ -1,0 +1,29 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "key": "lily",
+      "refs": [
+        "tools/dolls/toys/sources/lily.webp",
+        "tools/dolls/toys/references/lily.webp"
+      ],
+      "prompt": "Use case: precise-object-edit. Image1 is the six-cell animation sheet to correct; Image2 is the doll's original clothing and proportions reference. Preserve all six faces, hair, outfit patterns, body/head scale, transparent 3x2 layout, and all pogo poles and grips. Make ONLY these fixes: TOP ROW ALL THREE skaters must have BOTH skates lying FLAT with both front and rear wheel axles on the SAME LOW HORIZONTAL BASELINE inside each cell. In first and third frames lower the trailing foot by about40pixels and rotate its skate sole back to horizontal so its wheels touch ground; bend the forward knee enough to accommodate the longer trailing leg. No lifted rear skate, no toe-standing, no running knee. The push must look like a lateral glide with a flat boot sliding behind, with frame3 using the opposite leg. Middle frame feet together also both sets of wheels at same baseline. Keep white quad skate boots and colored wheels in top row. BOTTOM ROW: feet must stand on black pogo pegs wearing her ORIGINAL SHOES from image2, NOT skates. Restore Lily's RED lace-up boots and white frilled socks on all three pogo figures. Keep the spring/tip fully visible below pegs. All figures fully inside transparent cells with blank gutters, no ground plane, shadows, text, labels or background."
+    },
+    {
+      "key": "mira",
+      "refs": [
+        "tools/dolls/toys/sources/mira.webp",
+        "tools/dolls/toys/references/mira.webp"
+      ],
+      "prompt": "Use case: precise-object-edit. Image1 is the six-cell animation sheet to correct; Image2 is the doll's original clothing and proportions reference. Preserve all six faces, hair, outfit patterns, body/head scale, transparent 3x2 layout, and all pogo poles and grips. Make ONLY these fixes: TOP ROW ALL THREE skaters must have BOTH skates lying FLAT with both front and rear wheel axles on the SAME LOW HORIZONTAL BASELINE inside each cell. In first and third frames lower the trailing foot by about40pixels and rotate its skate sole back to horizontal so its wheels touch ground; bend the forward knee enough to accommodate the longer trailing leg. No lifted rear skate, no toe-standing, no running knee. The push must look like a lateral glide with a flat boot sliding behind, with frame3 using the opposite leg. Middle frame feet together also both sets of wheels at same baseline. Keep white quad skate boots and colored wheels in top row. BOTTOM ROW: feet must stand on black pogo pegs wearing her ORIGINAL SHOES from image2, NOT skates. Restore Mira's BLACK knee-high boots with magenta laces on all three pogo figures. Keep the spring/tip fully visible below pegs. All figures fully inside transparent cells with blank gutters, no ground plane, shadows, text, labels or background."
+    },
+    {
+      "key": "hermione",
+      "refs": [
+        "tools/dolls/toys/sources/hermione.webp",
+        "tools/dolls/toys/references/hermione.webp"
+      ],
+      "prompt": "Use case: precise-object-edit. Image1 is the six-cell animation sheet to correct; Image2 is the doll's original clothing and proportions reference. Preserve all six faces, hair, outfit patterns, body/head scale, transparent 3x2 layout, and all pogo poles and grips. Make ONLY these fixes: TOP ROW ALL THREE skaters must have BOTH skates lying FLAT with both front and rear wheel axles on the SAME LOW HORIZONTAL BASELINE inside each cell. In first and third frames lower the trailing foot by about40pixels and rotate its skate sole back to horizontal so its wheels touch ground; bend the forward knee enough to accommodate the longer trailing leg. No lifted rear skate, no toe-standing, no running knee. The push must look like a lateral glide with a flat boot sliding behind, with frame3 using the opposite leg. Middle frame feet together also both sets of wheels at same baseline. Keep white quad skate boots and colored wheels in top row. BOTTOM ROW: feet must stand on black pogo pegs wearing her ORIGINAL SHOES from image2, NOT skates. Keep Hermione's BLACK Mary Janes and grey socks in all pogo figures. Keep the spring/tip fully visible below pegs. All figures fully inside transparent cells with blank gutters, no ground plane, shadows, text, labels or background."
+    }
+  ]
+}

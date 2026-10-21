@@ -53,7 +53,100 @@
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
-window.RIDE_TOY_SHEETS = [];
+window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione"];
+// Packed frame calibration preserves anatomy when long hair or fall poses need more room.
+window.RIDE_TOY_FRAMES = {
+  "lily": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0391904055270391,
+      1.0367394847592868,
+      1.0367394847592868,
+      1.0058548130387153,
+      1.0,
+      1.0849903883916576
+    ]
+  },
+  "mira": {
+    "anchorX": [
+      255,
+      227,
+      249,
+      253,
+      256,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.101798470986339,
+      1.0,
+      1.0084018965276809,
+      1.0038697531725003,
+      1.0,
+      1.0,
+      1.1567865647324227
+    ]
+  },
+  "hermione": {
+    "anchorX": [
+      233,
+      225,
+      250,
+      225,
+      234,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.077935547334431,
+      1.0082508250825082,
+      1.0058672533920059,
+      1.0082508250825082,
+      1.0,
+      1.0,
+      1.146739943972799
+    ]
+  }
+};
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {

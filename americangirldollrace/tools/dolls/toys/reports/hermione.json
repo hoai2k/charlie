@@ -1,0 +1,206 @@
+{
+  "assetKey": "hermione",
+  "anchorX": [
+    233,
+    225,
+    250,
+    225,
+    234,
+    225,
+    225,
+    225,
+    225,
+    225,
+    225,
+    225
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.077935547334431,
+    1.0082508250825082,
+    1.0058672533920059,
+    1.0082508250825082,
+    1.0,
+    1.0,
+    1.146739943972799
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 390,
+  "scale": 0.9629629629629629,
+  "actionScaleRatio": 0.8747300215982722,
+  "frames": [
+    {
+      "bounds": [
+        5,
+        22,
+        314,
+        409
+      ],
+      "scale": 0.9629629629629629,
+      "renderScale": 1.0,
+      "anchorX": 233,
+      "sourcePivot": 365.0,
+      "targetPivot": 217,
+      "sourceChin": 191.0
+    },
+    {
+      "bounds": [
+        16,
+        19,
+        288,
+        409
+      ],
+      "scale": 0.9629629629629629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 274.0,
+      "targetPivot": 209,
+      "sourceChin": 192.0
+    },
+    {
+      "bounds": [
+        6,
+        20,
+        334,
+        409
+      ],
+      "scale": 0.9629629629629629,
+      "renderScale": 1.0,
+      "anchorX": 250,
+      "sourcePivot": 332.0,
+      "targetPivot": 234,
+      "sourceChin": 192.0
+    },
+    {
+      "bounds": [
+        5,
+        19,
+        269,
+        409
+      ],
+      "scale": 0.8423326133909287,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 299.0,
+      "targetPivot": 209,
+      "sourceChin": 175.0
+    },
+    {
+      "bounds": [
+        6,
+        27,
+        322,
+        409
+      ],
+      "scale": 0.8423326133909287,
+      "renderScale": 1.0,
+      "anchorX": 234,
+      "sourcePivot": 356.0,
+      "targetPivot": 218,
+      "sourceChin": 185.0
+    },
+    {
+      "bounds": [
+        7,
+        114,
+        411,
+        409
+      ],
+      "scale": 0.781431334622824,
+      "renderScale": 1.077935547334431,
+      "anchorX": 225,
+      "sourcePivot": 271.5,
+      "targetPivot": 209,
+      "sourceChin": 232.0
+    },
+    {
+      "bounds": [
+        27,
+        5,
+        279,
+        409
+      ],
+      "scale": 0.9550827423167849,
+      "renderScale": 1.0082508250825082,
+      "anchorX": 225,
+      "sourcePivot": 323.5,
+      "targetPivot": 209,
+      "sourceChin": 165.0
+    },
+    {
+      "bounds": [
+        30,
+        5,
+        282,
+        409
+      ],
+      "scale": 0.957345971563981,
+      "renderScale": 1.0058672533920059,
+      "anchorX": 225,
+      "sourcePivot": 294.5,
+      "targetPivot": 209,
+      "sourceChin": 163.0
+    },
+    {
+      "bounds": [
+        16,
+        5,
+        284,
+        409
+      ],
+      "scale": 0.9550827423167849,
+      "renderScale": 1.0082508250825082,
+      "anchorX": 225,
+      "sourcePivot": 314.0,
+      "targetPivot": 209,
+      "sourceChin": 166.0
+    },
+    {
+      "bounds": [
+        21,
+        9,
+        285,
+        409
+      ],
+      "scale": 0.8423326133909287,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 273.0,
+      "targetPivot": 209,
+      "sourceChin": 145.0
+    },
+    {
+      "bounds": [
+        40,
+        11,
+        363,
+        409
+      ],
+      "scale": 0.8423326133909287,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 298.0,
+      "targetPivot": 209,
+      "sourceChin": 146.0
+    },
+    {
+      "bounds": [
+        7,
+        73,
+        411,
+        409
+      ],
+      "scale": 0.7345454545454545,
+      "renderScale": 1.146739943972799,
+      "anchorX": 225,
+      "sourcePivot": 284.0,
+      "targetPivot": 209,
+      "sourceChin": 136.0
+    }
+  ],
+  "sha256": "2cd3478b2e1bed49396bcd9949faa3d2e8873c125d6b6dc317351ba5eb659d5d"
+}

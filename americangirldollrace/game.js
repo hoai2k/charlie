@@ -5941,9 +5941,13 @@ function drawRacer(racer) {
   } else {
     const toyPose = getRideToyPose(racer, jumping);
     if (toyPose) {
-      const toyY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z - toyPose.lift * scale / 0.45;
+      const toyFrame = toyPose.row * 3 + toyPose.col;
+      const toyCalibration = window.RIDE_TOY_FRAMES?.[dollAssetKey(racer.spriteKey)];
+      const toyScale = scale * (toyCalibration?.scale[toyFrame] || 1);
+      const toyAnchorX = toyCalibration?.anchorX[toyFrame] || SPRITE_ANCHOR_X;
+      const toyY = racer.y + 54 - SPRITE_ANCHOR_Y * toyScale - racer.z - toyPose.lift * scale / 0.45;
       drawFacingImage(toyPose.sheet, toyPose.col * FRAME, toyPose.row * FRAME, FRAME, FRAME,
-        screenX - SPRITE_ANCHOR_X * scale, toyY, FRAME * scale, FRAME * scale, drawFacing, screenX);
+        screenX - toyAnchorX * toyScale, toyY, FRAME * toyScale, FRAME * toyScale, drawFacing, screenX);
     } else if (racer.oilTimer > 0 && racer.oilSticky) {
       drawStuckRacer(racer, screenX, scale);
     } else {

@@ -200,8 +200,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
-> **Still open:** the §8 riding-toy poses
-> (trial: Lily, Mira, Hermione; now 3×4 with standing, push and fall poses)
+> **Still open:** the remaining twelve §8 riding-toy dolls
+> (Lily, Mira and Hermione trial delivered with all twelve poses and outfit masks)
 > and the §8.1 skate and pogo icons R9-R14, and the §9 track monsters
 > (scarecrow and skeleton sheets).
 
@@ -378,7 +378,9 @@ reading as running, not gliding, and long skirts hiding a foot), so each doll
 needs dedicated poses with the skates or stick painted in, including the
 poses she uses mid-race (standing, pushing or throwing, falling backwards).
 
-**Start with a trial of three dolls: Lily, Mira and Hermione.** Once they're
+**Trial delivered and checked in game:** Lily, Mira and Hermione (K1/K2).
+Their twelve poses, alternate outfits, both directions, baseline overlays and
+pickup selection pass; see `tools/dolls/toys/reports/`. Once they're
 checked in game, do the rest of the roster (Whirlpool, Juliette, Claudia,
 Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
 
