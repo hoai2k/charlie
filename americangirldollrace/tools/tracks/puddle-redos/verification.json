@@ -33,7 +33,10 @@
       "2": "47803ae6874bf027eef0a271b5106fde6bae2cd0bf0d542a397889dffde54e76",
       "4": "de6a275d0192d130be2b9e1fb130e607a4c0ebc1bd20a134001e0cd4490c7959"
     },
-    "beforeOilSha256": "57e618b9c176c54b88ef4d93a32efab1a8431f19fe937dcba7498bddec1a2d82"
+    "beforeOilSha256": "57e618b9c176c54b88ef4d93a32efab1a8431f19fe937dcba7498bddec1a2d82",
+    "revisedCellSha256": {
+      "0": "36a43483aed09e993508b42acb29f8bf5365b938fec3a350f7d07101c36a7f6b"
+    }
   },
   "wizard": {
     "unchangedCellSha256": {
@@ -51,7 +54,11 @@
       "2": "dfbc680511fe84baa5f5301b261e878ed793b659f9f28b230f99af37aac1d79d",
       "4": "14f2bbc05bd421a7188f691066ad054295130b3a6210929f91f381877bdf82e6"
     },
-    "beforeOilSha256": "e625dcaec2864aaefd3c98111df4a816643f5d1dc9f78f7d522deacd4b4ca8ae"
+    "beforeOilSha256": "e625dcaec2864aaefd3c98111df4a816643f5d1dc9f78f7d522deacd4b4ca8ae",
+    "revisedCellSha256": {
+      "1": "b9e6ef80d40953b4e3b5e7727162139240c945a976e81b0489bd03eee7220418",
+      "0": "0d96e70278d5553053ed86bbfcd2936fbf7ed41f27d481024b94e1d9fc98b9f2"
+    }
   },
   "beach": {
     "unchangedCellSha256": {

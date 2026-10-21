@@ -198,17 +198,19 @@ window.TRACK_THEMES = {
     standInBackground: "farm"
   },
   toyroom: {
+    rideToys: {jump: "pogo"},
     oilEffect: "sticky",
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "JACK-IN-THE-BOX", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
+    labels: { jump: "POGO", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
     sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box" },
     baseMount: "rocking_horse",
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   candy: {
+    rideToys: {jump: "pogo"},
     oilEffect: "sticky",
     name: "Candy Land", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "GUMDROP", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
+    labels: { jump: "POGO", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
     sounds: { emp: "pickup_pop_rocks" },
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
@@ -255,9 +257,10 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.2, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
   },
   festival: {
+    rideToys: {boost: "skates", jump: "pogo"},
     oilEffect: "sticky",
     name: "Night Festival", music: "assets/music/One More Spin at the Night Festival.mp3", dirtTop: 513, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "TRAMPOLINE", boost: "SPARKLER", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" },
+    labels: { jump: "POGO", boost: "SKATES", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" },
     sounds: { emp: "firework_burst", boost: "pickup_sparkler" },
     mountOdds: { carousel_horse: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   }

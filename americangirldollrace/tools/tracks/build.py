@@ -102,6 +102,14 @@ def loop_background(key):
     return ImageChops.offset(repaired, -1086, 0)
 
 
+def verify_toy_icon_cells(key,sheet):
+    path=HERE/'toy-icons/verification.json'
+    records=json.loads(path.read_text()) if path.exists() else {}
+    for cell,expected in records.get(key,{}).get('cellSha256',{}).items():
+        x=int(cell)*256
+        assert hashlib.sha256(sheet.crop((x,0,x+256,256)).tobytes()).hexdigest()==expected,(key,'Pickup cell differs from reviewed image',cell)
+
+
 def verify_puddle_cells(key, sheet):
     path = HERE/'puddle-redos/verification.json'
     records = json.loads(path.read_text()) if path.exists() else {}
@@ -136,6 +144,8 @@ def export_track(key, kind):
         cells=atlas_cells(im)
         for n in range(5):
             result.alpha_composite(icon(cells[n],(256,256),(220,220)),(n*256,0))
+        base = HERE/'toy-icons'/f'{key}-before.webp'
+        if base.exists(): result = Image.open(base).convert('RGBA')
         blank = cells[5]
         assert (np.asarray(blank.getchannel('A'))>8).mean() < .005, 'Sixth source cell must be empty'
         # Requested puddle redos replace the entire oil cell, including empty
@@ -147,14 +157,16 @@ def export_track(key, kind):
             result = Image.open(HERE/'puddle-redos/base-sheets'/f'{key}.webp').convert('RGBA')
             replacement = icon(clean(Image.open(puddle_path)), (256,256), (220,160))
             result.paste(replacement, (768,0))
-            jump_path = folder/'jump-icon.webp'
-            if jump_path.exists():
-                result.paste(icon(clean(Image.open(jump_path)), (256,256), (220,220)), (0,0))
-            verify_puddle_cells(key, result)
+        for name,cell in [('jump',0),('boost',1)]:
+            replacement = folder/f'{name}-icon.webp'
+            if replacement.exists():
+                result.paste(icon(clean(Image.open(replacement)),(256,256),(220,220)),(cell*256,0))
+        if puddle_path.exists(): verify_puddle_cells(key,result)
+        verify_toy_icon_cells(key,result)
     else:
         result = ImageOps.fit(Image.open(path).convert('RGB'),SIZES[kind],method=Image.Resampling.LANCZOS)
     target = GAME/'assets/tracks'/key/f'{kind}.webp'
-    save(result,target,exact=kind == 'powerups' and (folder/'oil-puddle.webp').exists())
+    save(result,target,exact=kind == 'powerups')
     if kind == 'powerups' and (folder/'oil-puddle.webp').exists():
         verify_puddle_cells(key, Image.open(target).convert('RGBA'))
     return target
@@ -217,6 +229,7 @@ def check():
                 if kind=='powerups':
                     for n in range(5):assert bounds(im.crop((n*256,0,n*256+256,256))),path
                     verify_puddle_cells(key, im)
+                    verify_toy_icon_cells(key, im)
             count+=1
     for key in MOUNTS:
         meta=json.loads((GAME/f'tools/mounts/{key}.json').read_text());path=GAME/meta['asset'];im=Image.open(path).convert('RGBA')

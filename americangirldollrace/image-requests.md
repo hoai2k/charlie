@@ -202,8 +202,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > **Still open:** the §10 new-item art (actions sheets, frogs, wave, wind-up
 > cars), the remaining twelve §8 riding-toy dolls (Lily, Mira and Hermione
-> trial delivered with twelve poses and outfit masks), the §8.1 skate and
-> pogo icons R10 and R12–R14, and the §9 track monsters
+> trial delivered with twelve poses and outfit masks), the §9 track monsters
 > (scarecrow and skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
@@ -401,6 +400,10 @@ Once a doll's K1 and K2 are in, add her key to `RIDE_TOY_SHEETS` in
 | 4 | Pogo stick | (1) **Balancing** upright on the stick, tip on the baseline; (2) **pushing / throwing** with one hand off the handlebar, thrust forward; (3) **falling backwards** off the stick, which tips away from her. |
 
 ### 8.1 Pickup icons for the tracks that get skates or a pogo stick
+
+**Delivered:** R10 and R12–R14. Beach surfboard and Toy Room wind-up key
+remain in use for their dedicated §10 behaviours. The two extra skate
+concepts in the generation source are experimental and are not installed.
 
 Village already shows skates (speed) and a pogo stick (high jump). These
 tracks get them too. Repaint only the named cell of
