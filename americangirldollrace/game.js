@@ -185,6 +185,13 @@ const TROLL_RIDING_CHANCE = 0.5;
 // After throwing someone a riding troll stands still this long, so the
 // thrown rider can get away.
 const MOUNTED_MONSTER_REST_AFTER_THROW = 2.2;
+// Kickable beach balls (tracks.js beachBalls): run into one to nudge it along,
+// push (X) to kick it. Positions are at feet level, like power-ups.
+const BEACH_BALL_RADIUS = 22;
+const BEACH_BALL_KICK_SPEED = 920;
+const BEACH_BALL_KICK_LIFT = 580;
+const BEACH_BALL_NUDGE_MIN_SPEED = 260;
+const BEACH_BALL_COLORS = ["#ff4d5a", "#ffffff", "#2f8cff", "#ffffff", "#ffd23f", "#ffffff"];
 // A troll knocked off his horse leaves it to bolt off the end of the track.
 const RUNAWAY_HORSE_SPEED = 640;
 // Each kind of power-up glows its own colour on every track, whatever its art.
@@ -487,6 +494,7 @@ const state = {
   rainbowBeams: [],
   monsters: [],
   runawayHorses: [],
+  beachBalls: [],
   difficulty: "normal",
   specials: "none",
   cameraMode: "lego",
@@ -695,6 +703,7 @@ function resetRace(mode = state.mode) {
   state.rainbowBeams = [];
   state.monsters = makeMonsters();
   state.runawayHorses = [];
+  state.beachBalls = makeBeachBalls();
   state.powerups = makePowerups();
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
@@ -789,7 +798,7 @@ function preloadTrackArt(background) {
   if (!background) return;
   const theme = getTrackTheme(background);
   for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp`);
-  for (const type of Object.keys(theme.mountOdds || {})) {
+  for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount]) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
   if (theme.trollMount) {
@@ -1305,7 +1314,8 @@ function chooseHorseType() {
     if (roll < chance) return type;
     roll -= chance;
   }
-  return "horse";
+  // A track's baseMount (the Toy Room's rocking horse) stands in for the horse.
+  return getTrackTheme().baseMount || "horse";
 }
 
 // Flying mounts share hold-to-glide physics and the legacy animation flag.
@@ -2100,6 +2110,7 @@ function update(dt) {
   updateRainbowBeams(dt);
   updatePowerupDrops(dt);
   updateRunawayHorses(dt);
+  updateBeachBalls(dt);
   bumpMonstersWithSpecialMounts();
   pushRacers(dt);
   updateAmandaHazards(dt);
@@ -2484,6 +2495,14 @@ function performPushAttack(attacker) {
     if (!inFront || Math.abs(dy) > PUSH_RANGE_Y || Math.max(attacker.z, other.z) > 64) continue;
     applyPushHit(attacker, other, attacker.facing);
     attacker.pushedTargets.add(other);
+  }
+  for (const ball of state.beachBalls) {
+    const dx = ball.x - attacker.x;
+    const dy = ball.y - (attacker.y + 54);
+    const inFront = attacker.facing > 0 ? dx > -10 && dx < reach + 30 : dx < 10 && dx > -reach - 30;
+    if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 10 || attacker.pushedTargets.has(ball)) continue;
+    kickBeachBall(ball, attacker.facing, dy);
+    attacker.pushedTargets.add(ball);
   }
   for (const monster of state.monsters) {
     if (monster.state === "sleeping" || monster.state === "ground" || attacker.pushedTargets.has(monster)) continue;
@@ -3023,6 +3042,132 @@ function unhorseMonster(monster, direction) {
     frame: 0
   });
   sfx("horse_whinny", monster.x);
+}
+
+function makeBeachBalls() {
+  const count = getTrackTheme().beachBalls || 0;
+  const balls = [];
+  for (let i = 0; i < count; i += 1) {
+    const y = randomPowerupY();
+    const x = clearOfHurdles(900 + (i + 0.5) * (FINISH - 1800) / count, y);
+    balls.push({ x, y, z: 0, vx: 0, vy: 0, vz: 0, spin: Math.random() * Math.PI * 2 });
+  }
+  return balls;
+}
+
+function kickBeachBall(ball, direction, dy = 0) {
+  ball.vx = direction * BEACH_BALL_KICK_SPEED;
+  ball.vy += Math.sign(dy) * 120;
+  ball.vz = BEACH_BALL_KICK_LIFT;
+  sfx("push_impact", ball.x);
+}
+
+function updateBeachBalls(dt) {
+  const groundTop = PATH_TOP + FOOT_OFFSET_Y + 8;
+  const groundBottom = TRACK_BOTTOM + FOOT_OFFSET_Y - 6;
+  for (const ball of state.beachBalls) {
+    // Running into the ball nudges it ahead of you with a little hop.
+    for (const racer of state.racers) {
+      if (racer.finished || racer.z > 50 + ball.z) continue;
+      const dx = ball.x - racer.x;
+      const dy = ball.y - (racer.y + 54);
+      const reach = (isMounted(racer) ? 56 : 30) + BEACH_BALL_RADIUS;
+      if (Math.abs(dx) > reach || Math.abs(dy) > 22) continue;
+      const direction = Math.sign(dx) || racer.facing || 1;
+      const speed = Math.max(Math.abs(racer.speed) * 1.25, BEACH_BALL_NUDGE_MIN_SPEED);
+      if (ball.vx * direction < speed) ball.vx = direction * speed;
+      ball.vy += Math.sign(dy) * 40;
+      if (ball.z < 4) ball.vz = Math.max(ball.vz, 170);
+      ball.x = racer.x + direction * reach;
+    }
+    ball.x += ball.vx * dt;
+    ball.y += ball.vy * dt;
+    ball.z += ball.vz * dt;
+    ball.vz -= GRAVITY * 0.8 * dt;
+    if (ball.z <= 0) {
+      ball.z = 0;
+      if (ball.vz < -140) {
+        if (ball.vz < -300) sfx("jump_land_soft", ball.x, { gain: 0.5 });
+        ball.vz = -ball.vz * 0.55;
+      } else {
+        ball.vz = 0;
+      }
+    }
+    // Sand slows it quickly; in the air it barely slows.
+    const grounded = ball.z === 0;
+    ball.vx *= Math.pow(grounded ? 0.4 : 0.9, dt);
+    ball.vy *= Math.pow(grounded ? 0.2 : 0.7, dt);
+    if (Math.abs(ball.vx) < 4) ball.vx = 0;
+    if (ball.y < groundTop || ball.y > groundBottom) {
+      ball.y = clamp(ball.y, groundTop, groundBottom);
+      ball.vy = -ball.vy * 0.6;
+    }
+    if (ball.x < 60 || ball.x > FINISH - 40) {
+      ball.x = clamp(ball.x, 60, FINISH - 40);
+      ball.vx = -ball.vx * 0.6;
+    }
+    // Low balls bounce back off hurdles.
+    if (ball.z < HURDLE_TOP_Z * 0.6) {
+      for (const obstacle of state.obstacles) {
+        const bounds = getObstacleHitBounds(obstacle);
+        if (ball.y < bounds.top - 6 || ball.y > bounds.bottom + 6) continue;
+        if (ball.x + BEACH_BALL_RADIUS < bounds.left || ball.x - BEACH_BALL_RADIUS > bounds.right) continue;
+        const side = ball.x < obstacle.x ? -1 : 1;
+        ball.x = side < 0 ? bounds.left - BEACH_BALL_RADIUS : bounds.right + BEACH_BALL_RADIUS;
+        if (ball.vx * side < 0) ball.vx = -ball.vx * 0.55;
+      }
+    }
+    ball.spin += (ball.vx * dt) / BEACH_BALL_RADIUS;
+  }
+}
+
+function drawBeachBall(ball) {
+  const screenX = ball.x - state.camera;
+  if (screenX < -80 || screenX > getWorldViewportWidth() + 80) return;
+  const scale = racerDepthScale({ y: ball.y - 54 }) / 0.45;
+  const r = BEACH_BALL_RADIUS * scale;
+  ctx.save();
+  ctx.globalAlpha = 0.3 * Math.max(0.35, 1 - ball.z / 300);
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(screenX, ball.y - 2, r * (1 - Math.min(0.4, ball.z / 500)), r * 0.32, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  const cy = ball.y - r - ball.z;
+  const art = getTrackArt("beachball");
+  ctx.save();
+  ctx.translate(screenX, cy);
+  ctx.rotate(ball.spin);
+  if (art) {
+    ctx.drawImage(art, -r, -r, r * 2, r * 2);
+  } else {
+    BEACH_BALL_COLORS.forEach((color, i) => {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, r, (i / 6) * Math.PI * 2, ((i + 1) / 6) * Math.PI * 2);
+      ctx.closePath();
+      ctx.fill();
+    });
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.22, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(40, 40, 60, 0.55)";
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  ctx.restore();
+  // Shine stays put while the ball spins.
+  ctx.save();
+  ctx.globalAlpha = 0.45;
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.ellipse(screenX - r * 0.38, cy - r * 0.42, r * 0.28, r * 0.16, -0.6, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
 }
 
 function updateRunawayHorses(dt) {
@@ -4174,6 +4319,7 @@ function drawWorldScene() {
       ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
       ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
       ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
+      ...state.beachBalls.map(ball => ({ type: "beachBall", y: ball.y, item: ball })),
       ...state.racers.map(racer => ({ type: "racer", y: racer.y + 54, item: racer }))
     ].sort((a, b) => a.y - b.y);
     for (const drawable of drawables) {
@@ -4193,6 +4339,8 @@ function drawWorldScene() {
         drawMonster(drawable.item);
       } else if (drawable.type === "runawayHorse") {
         drawRunawayHorse(drawable.item);
+      } else if (drawable.type === "beachBall") {
+        drawBeachBall(drawable.item);
       } else {
         drawRacer(drawable.item);
       }

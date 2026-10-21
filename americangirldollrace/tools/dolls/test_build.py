@@ -134,7 +134,8 @@ class DollBuildTests(unittest.TestCase):
                 continue
             report = json.loads(path.read_text())
             runtime = report['runtime']
-            seat_x, seat_y = report['frames']['ride']['anchor']
+            ride = report['frames']['ride']
+            seat_x, seat_y = ride.get('seat', ride['anchor'])
             # Actual game.js mounted drawing equations, sampled across the seat shifts
             # used by the horse, unicorn and pegasus animation calibrations.
             for seat_dx, seat_dy in [(0,0), (3,-10), (-35,30), (10,100)]:

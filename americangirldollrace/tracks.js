@@ -19,7 +19,10 @@
 // track's "powerups" art is listed. `mountOdds` are the chances of each
 // non-horse mount from a mount pickup; the rest are plain horses. Themed
 // ground mounts (pony, reindeer, rocking_horse, carousel_horse) ride like the
-// horse and are listed in game.js THEMED_MOUNT_TYPES.
+// horse and are listed in game.js THEMED_MOUNT_TYPES. `baseMount` replaces the
+// plain horse on a track (the rest of a mount pickup's roll). `beachBalls` is
+// how many kickable beach balls are spread along the track (art: "beachball",
+// 256×256 alpha, optional; drawn in code until then).
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
 // Riding rules (Horse Show):
@@ -85,7 +88,8 @@ window.TRACK_THEMES = {
     oilEffect: "sticky",
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "JACK-IN-THE-BOX", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
-    mountOdds: { rocking_horse: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
+    baseMount: "rocking_horse",
+    mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   candy: {
     oilEffect: "sticky",
@@ -95,7 +99,8 @@ window.TRACK_THEMES = {
   },
   beach: {
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "BEACH BALL", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" }
+    labels: { jump: "BEACH BALL", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
+    beachBalls: 4
   },
   wizard: {
     name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 507, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],

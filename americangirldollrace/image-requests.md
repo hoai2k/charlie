@@ -197,9 +197,10 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Farm, Winter, Toy Room and Night Festival) and both §6 sheets.
 > Fairy Woods includes a repaired direct-repeat background, calibrated track
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
-> The seven liquid-only puddle redos in §5.7 are delivered and checked under
+> The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
-> **Still open: none.**
+> **Still open:** Beach's jump-cell redo R8 and the §8 riding-toy poses
+> (trial: Lily, Mira, Hermione).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -322,6 +323,7 @@ the §5.2 spec, filling about the same area as the farm's mud puddle.
 | R5 | Wizard School (`wizard`) | Tipped cauldron | A glowing green potion puddle with a faint shimmer, no cauldron (slippery) |
 | R6 | Night Festival (`festival`) | Tipped soda cup | A fizzy brown soda puddle with tiny bubbles, no cup (sticky) |
 | R7 | Beach (`beach`) | Tangle of seaweed | A slick, wet seawater puddle with a little foam at its edge, no seaweed clump (slippery) |
+| R8 | Beach (`beach`), **cell 1 (jump, x 0-255)** instead of cell 4 | A beach ball | Beach now has real kickable beach balls on the sand, so the high-jump pickup must not look like one: an inflatable pool ring on a big coiled spring. Then change the `jump` label in `tracks.js` from "BEACH BALL" to "POOL SPRING". |
 
 Acceptance: overlay the new sheet on the old one; only cell 4 changed. In
 game the puddle lies flat under a doll standing in it, and it reads as
@@ -360,3 +362,32 @@ Acceptance: race the Horse Show (it uses the farm backdrop until its own
 background, T1, arrives). The troll gallops in on the skeleton horse, stays in
 the saddle through a gallop cycle, and his reach, lift and throw line up with
 the doll he grabs.
+
+---
+
+## 8. Riding toys: roller skates and pogo stick (trial)
+
+The Village's speed pickup is roller skates and its high-jump pickup is a pogo
+stick. The idea is that a doll who picks one up actually skates or pogos for
+the power-up's duration. Skates attached to the existing run frames don't work
+(a mock-up showed lifted back feet and knees reading as running, not
+gliding, and long skirts hiding a foot), so each doll needs a few dedicated
+poses with the skates or stick painted in.
+
+**Start with a trial of three dolls: Lily, Mira and Hermione.** Once they're
+checked in game, do the rest of the roster (Whirlpool, Juliette, Claudia,
+Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| K1 | `assets/doll_<key>_toys.webp` | 1254×836 (3×2 of 418), alpha | Same frame, scale, facing (right) and **foot baseline 409** as `assets/doll_<key>_sprites.webp`; the doll must match her sheet exactly. **Row 0, skating (3 frames):** a smooth glide cycle on classic four-wheel quad roller skates, both feet low and close to the ground at all times. Frame 1 is a push with the back foot gliding out behind on its wheels, frame 2 has the feet together gliding, frame 3 pushes with the other foot. The body leans forward a little and the arms swing loosely for balance. The skates are white boots with wheels in her colour from the roster table (§1). The wheels sit on the baseline. **Row 1, pogo stick (3 frames):** standing straight up on a pogo stick in front of her, both feet on its foot pegs and both hands gripping its handlebar at chest height. Frame 1 is compressed (knees bent, spring squashed, tip on the baseline), frame 2 is extended (legs straight, spring stretched, tip on the baseline) and frame 3 is airborne (same as 2 but tucked a little; the game lifts it). Use one pogo-stick design for every doll: a red pole, a silver coil spring, black foot pegs and grips, and a rubber tip at the bottom. The stick's tip is centred at x 209. |
+
+How the game will use them: during the skates (speed) pickup a doll on foot
+shows row 0, with the cycle played slowly so she glides. During the pogo
+(high-jump) pickup she shows row 1, bouncing along with every hop. Mounted
+racers keep their mount. This starts on the Village; other tracks can opt in
+later.
+
+Acceptance: overlay frame 0 of each row on the doll's idle frame; the feet
+(skates) or pogo tip sit on the same baseline and the doll matches her
+sheet. Then race on the Village with a skates pickup and a pogo pickup.

@@ -101,6 +101,11 @@ The riding pose instead uses a seat pivot at `[209, 264]`. The build derives
 including the 0.7 rider and 1.08 mount scales. This preserves the seat position
 through the existing per-frame horse/unicorn/pegasus calibration and mirroring.
 
+Where the seat pivot isn't where the doll actually sits, `poses.ride.seatFrame`
+(exported-frame pixels) overrides it for the rider offsets only; the art is not
+moved. The October roster's seats were measured from each seated frame (hip
+column and seat bottom) to match where the original dolls sit on every mount.
+
 Clipping is a build error. The exporter does not independently shrink an awkward
 pose to hide it. It also checks source margins in tests and records output
 bounds, scale, anchors and SHA-256 hashes in `reports/<key>.json`.

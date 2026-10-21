@@ -209,8 +209,12 @@ def build(manifest):
         assets[f'assets/masks/{asset_key}_{kind}_mask.webp'] = masks[kind]
     for file, im in assets.items():
         save_webp(im, GAME / file)
-    # Registry values follow directly from the source riding seat anchor.
-    seat = report['ride']['anchor']
+    # Registry values follow from the riding seat: a measured seatFrame
+    # (exported-frame pixels where the doll actually sits) when the manifest
+    # has one, else the placement anchor.
+    if 'seatFrame' in manifest['poses']['ride']:
+        report['ride']['seat'] = manifest['poses']['ride']['seatFrame']
+    seat = report['ride'].get('seat', report['ride']['anchor'])
     runtime = {k: manifest[k] for k in ['name', 'color']}
     if asset_key != key:
         runtime['assetKey'] = asset_key

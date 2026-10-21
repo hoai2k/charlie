@@ -171,6 +171,10 @@
       "sourceAnchor": [
         345,
         418
+      ],
+      "seat": [
+        210.26,
+        288.81
       ]
     },
     "push": {
@@ -247,8 +251,8 @@
     "color": "#696582",
     "spriteKey": "hermione",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": 7.398,
+    "riderYOffset": 104.797,
     "outfitData": {
       "stats": {
         "h": 0,
