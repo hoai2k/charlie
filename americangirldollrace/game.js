@@ -52,8 +52,18 @@ const SPRITE_ANCHOR_X = FRAME / 2;
 const SPRITE_ANCHOR_Y = FRAME - 9;
 const FINISH = 15600;
 const BOARD_WIDTH = EXPECTED_VIEW_WIDTH;
-const TRACK_TOP = 490;
+// A racer's feet are drawn FOOT_OFFSET_Y below racer.y (see drawRacer). The
+// bottom bound puts feet at the bottom of the view on every track; the top
+// bound follows each background's painted dirt (its dirtTop) so feet stop at
+// the path's top edge. See applyTrackBounds.
+const FOOT_OFFSET_Y = 54;
+const DEFAULT_TRACK_TOP = 490;
+let TRACK_TOP = DEFAULT_TRACK_TOP;
 const TRACK_BOTTOM = 665;
+// Racer size is tied to screen height, not to the band, so dolls stay the
+// same size on every track.
+const DEPTH_SCALE_TOP_Y = 490;
+const DEPTH_SCALE_BOTTOM_Y = 665;
 const RACER_VISIBLE_LEFT_MARGIN = 88;
 const RACER_VISIBLE_RIGHT_MARGIN = 96;
 const CAMERA_PLAYER_MARGIN = RACER_VISIBLE_LEFT_MARGIN + RACER_VISIBLE_RIGHT_MARGIN;
@@ -202,6 +212,9 @@ const POWERUP_END_PADDING = 700;
 const POWERUP_MIN_GAP = 460;
 const POWERUP_RANDOM_GAP = 420;
 const POWERUP_ICON_TARGET_SIZE = 68;
+// Per-track power-up sheets (tracks.js) are 256px cells in POWERUP_ICON_RECTS order.
+const TRACK_POWERUP_CELL = 256;
+const TRACK_CARD_ATLAS_CELLS = 5;
 const POWERUP_ICON_RECTS = [
   { x: 0, y: 0, w: 510, h: 561 },
   { x: 510, y: 0, w: 620, h: 561 },
@@ -264,13 +277,21 @@ const RACER_STARTS = [
 
 const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya", "lily", "marisol", "amanda", "rumi"];
 const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"]);
+// dirtTop is the screen y (at the 720 render height) where the painted path
+// starts below the background's fence; feet can't go above it.
+const TRACK_THEMES = window.TRACK_THEMES || {};
 const BACKGROUNDS = [
-  { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3" },
-  { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3" },
-  { key: "town", name: "Village", imageKey: "backgroundTown", music: "assets/music/Ghent Sweet Parade.mp3" },
-  { key: "winter", name: "Winter", imageKey: "backgroundWinter", music: "assets/music/Snow in My Pocket.mp3" },
-  { key: "castles", name: "Castles", imageKey: "backgroundCastles", music: "assets/music/Sugar Castle Run.mp3" },
+  { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3", dirtTop: 532 },
+  { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 548 },
+  { key: "town", name: "Village", imageKey: "backgroundTown", music: "assets/music/Ghent Sweet Parade.mp3", dirtTop: 574 },
+  { key: "winter", name: "Winter", imageKey: "backgroundWinter", music: "assets/music/Snow in My Pocket.mp3", dirtTop: 566 },
+  { key: "castles", name: "Castles", imageKey: "backgroundCastles", music: "assets/music/Sugar Castle Run.mp3", dirtTop: 586 },
 ];
+// New tracks from tracks.js race once their background art is in.
+for (const [key, theme] of Object.entries(TRACK_THEMES)) {
+  if (BACKGROUNDS.some(background => background.key === key) || !theme.art?.includes("background")) continue;
+  BACKGROUNDS.push({ key, name: theme.name, imageKey: trackArtKey(key, "background"), music: theme.music, dirtTop: theme.dirtTop });
+}
 const startingBackground = "farm";
 const NEXT_RACE_DELAY = 3600;
 const PAUSE_MUSIC_FADE_MS = 350;
@@ -304,7 +325,10 @@ const images = {
   monster: loadImage("assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp"),
-  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp`)]))
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp`)])),
+  ...Object.fromEntries(Object.entries(TRACK_THEMES).flatMap(([key, theme]) =>
+    (theme.art || []).map(file => [trackArtKey(key, file), loadImage(`assets/tracks/${key}/${file}.webp`)])
+  ))
 };
 
 const jumpSpriteScale = {
@@ -591,6 +615,7 @@ function resetRace(mode = state.mode) {
   state.camera = 0;
   state.cameraZoom = 1;
   state.renderViewportWidth = null;
+  applyTrackBounds();
   state.legoSplitActive = false;
   state.legoSplitRendering = false;
   state.legoSplitLineAlpha = 0;
@@ -633,7 +658,7 @@ function resetRace(mode = state.mode) {
       character.image(),
       index,
       start.x,
-      start.y,
+      startYInTrack(start.y),
       ai,
       character.color,
       ai ? 365 : 475,
@@ -665,9 +690,49 @@ function getCurrentBackground() {
   return BACKGROUNDS[state.backgroundIndex] || BACKGROUNDS[0];
 }
 
+function trackArtKey(trackKey, file) {
+  return `track_${trackKey}_${file}`;
+}
+
+function getTrackTheme(background = getCurrentBackground()) {
+  return TRACK_THEMES[background.key] || {};
+}
+
+// The current track's art file from tracks.js, or null to use the built-in look.
+function getTrackArt(file) {
+  return images[trackArtKey(getCurrentBackground().key, file)] || null;
+}
+
+// Track cards: the track's own card art, then its cell of track_cards.webp
+// (the original five), then a crop of its background.
+function getTrackCard(background) {
+  if (getTrackTheme(background).art?.includes("card")) {
+    return { url: `assets/tracks/${background.key}/card.webp`, cells: 1, index: 0 };
+  }
+  const index = BACKGROUNDS.indexOf(background);
+  if (index >= 0 && index < TRACK_CARD_ATLAS_CELLS) return { url: "assets/ui/track_cards.webp", cells: TRACK_CARD_ATLAS_CELLS, index };
+  return { url: images[background.imageKey]?.src, cells: 1, index: 0, crop: true };
+}
+
+function powerupLabel(type, fallback) {
+  return (getTrackArt("powerups") && getTrackTheme().labels?.[type]) || fallback;
+}
+
+function applyTrackBounds() {
+  const dirtTop = getCurrentBackground().dirtTop;
+  TRACK_TOP = dirtTop ? dirtTop - FOOT_OFFSET_Y : DEFAULT_TRACK_TOP;
+}
+
+// RACER_STARTS are laid out for the default band; spread them over this one.
+function startYInTrack(y) {
+  const t = (y - DEFAULT_TRACK_TOP) / (TRACK_BOTTOM - DEFAULT_TRACK_TOP);
+  return TRACK_TOP + t * (TRACK_BOTTOM - TRACK_TOP);
+}
+
 function setBackground(key) {
   const index = BACKGROUNDS.findIndex(background => background.key === key);
   state.backgroundIndex = index === -1 ? 0 : index;
+  applyTrackBounds();
   syncBackgroundMusic();
   updateBackgroundSelect();
   if (!state.running) drawScene(0);
@@ -1100,14 +1165,17 @@ function isSpecialMountType(type) {
   return type === "unicorn" || isFlyingMountType(type);
 }
 
+const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };
+
 function chooseHorseType() {
   if (state.specials === "unicorn") return "unicorn";
   if (isFlyingMountType(state.specials)) return state.specials;
-  const roll = Math.random();
-  if (roll < 0.1) return "unicorn";
-  if (roll < 0.2) return "pegasus";
-  if (roll < 0.25) return "griffon";
-  if (roll < 0.30) return "broom";
+  const odds = getTrackTheme().mountOdds || DEFAULT_MOUNT_ODDS;
+  let roll = Math.random();
+  for (const [type, chance] of Object.entries(odds)) {
+    if (roll < chance) return type;
+    roll -= chance;
+  }
   return "horse";
 }
 
@@ -1567,8 +1635,11 @@ function finishRace(winner) {
   // The scene already says who won, so the strip is about what comes next.
   finishTitle.textContent = `Next race: ${nextBackground.name}`;
   finishText.textContent = "Get ready…";
-  const nextIndex = BACKGROUNDS.indexOf(nextBackground);
-  finishPanel.style.setProperty("--next-track", `${nextIndex * 25}% 0`);
+  const nextCard = getTrackCard(nextBackground);
+  const finishTrack = finishPanel.querySelector(".finish-track");
+  finishTrack.style.backgroundImage = `url("${nextCard.url}")`;
+  finishTrack.style.backgroundSize = nextCard.crop ? "cover" : `${nextCard.cells * 100}% 100%`;
+  finishTrack.style.backgroundPosition = nextCard.cells > 1 ? `${(nextCard.index / (nextCard.cells - 1)) * 100}% 0` : "center";
   finishPanel.style.setProperty("--next-race-ms", `${NEXT_RACE_DELAY}ms`);
   finishPanel.classList.remove("hidden");
   finishPanel.classList.remove("celebration");
@@ -2142,14 +2213,16 @@ function applyPowerup(racer, powerupOrType) {
   if (type === "boost") {
     racer.speedBoostStacks.push(4);
     racer.speedBoostTimer = Math.max(...racer.speedBoostStacks);
-    racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `BOOST x${racer.speedBoostStacks.length}` : "BOOST";
+    const label = powerupLabel("boost", "BOOST");
+    racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
     racer.highJumpStacks.push(5);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
-    racer.powerupMessage = racer.highJumpStacks.length > 1 ? `HIGH JUMP x${racer.highJumpStacks.length}` : "HIGH JUMP";
+    const label = powerupLabel("jump", "HIGH JUMP");
+    racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
-    racer.powerupMessage = "EMP";
+    racer.powerupMessage = powerupLabel("emp", "EMP");
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterVisible(monster) && isMonsterEmpTarget(monster));
     if (visibleMonsters.length > 0) {
       for (const monster of visibleMonsters) stunMonsterWithEmp(monster);
@@ -2162,7 +2235,7 @@ function applyPowerup(racer, powerupOrType) {
   } else if (type === "oil") {
     if (isMounted(racer) && isHorsingAroundMode()) {
       racer.oilTimer = 0;
-      racer.powerupMessage = "OIL BLOCKED";
+      racer.powerupMessage = `${powerupLabel("oil", "OIL")} BLOCKED`;
       sfx("powerup_blocked", racer.x);
       return true;
     }
@@ -2174,10 +2247,10 @@ function applyPowerup(racer, powerupOrType) {
     racer.fallBackTimer = OIL_SLIDE_DURATION;
     racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
     racer.knockbackX = 0;
-    racer.powerupMessage = "OIL";
+    racer.powerupMessage = powerupLabel("oil", "OIL");
   } else if (type === "snowball") {
     racer.snowballs += SNOWBALL_PICKUP_COUNT;
-    racer.powerupMessage = `SNOWBALLS x${racer.snowballs}`;
+    racer.powerupMessage = `${powerupLabel("snowball", "SNOWBALLS")} x${racer.snowballs}`;
   } else if (type === "horse") {
     racer.horseType = typeof powerupOrType === "string" ? chooseHorseType() : powerupOrType.horseType || "horse";
     racer.horseTimer = horseDurationForType(racer.horseType);
@@ -2647,7 +2720,7 @@ function getMonsterTarget(monster) {
 }
 
 function racerDepthScale(racer) {
-  return 0.39 + ((racer.y - TRACK_TOP) / (TRACK_BOTTOM - TRACK_TOP)) * 0.12;
+  return 0.39 + ((racer.y - DEPTH_SCALE_TOP_Y) / (DEPTH_SCALE_BOTTOM_Y - DEPTH_SCALE_TOP_Y)) * 0.12;
 }
 
 function snowballDrawY(racer) {
@@ -4834,6 +4907,16 @@ function drawObstacle(obstacle) {
   ctx.save();
   ctx.translate(x, obstacle.y);
   drawAmandaBehindFence(obstacle);
+  const hurdleArt = getTrackArt("hurdle");
+  if (hurdleArt) {
+    // Same 64×68 footprint as the drawn picket, base on the same line.
+    ctx.shadowColor = "rgba(23,33,38,0.22)";
+    ctx.shadowBlur = 6;
+    ctx.shadowOffsetY = 4;
+    ctx.drawImage(hurdleArt, -32, -42, 64, 68);
+    ctx.restore();
+    return;
+  }
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.shadowColor = "rgba(23,33,38,0.22)";
@@ -4946,7 +5029,10 @@ function powerupDrawY(powerup) {
 }
 
 function drawPowerupIcon(index, x, y, t) {
-  const rect = POWERUP_ICON_RECTS[index];
+  const trackSheet = getTrackArt("powerups");
+  const rect = trackSheet
+    ? { x: index * TRACK_POWERUP_CELL, y: 0, w: TRACK_POWERUP_CELL, h: TRACK_POWERUP_CELL }
+    : POWERUP_ICON_RECTS[index];
   if (!rect) return;
   const scale = POWERUP_ICON_TARGET_SIZE / Math.max(rect.w, rect.h);
   const drawW = rect.w * scale;
@@ -4959,7 +5045,7 @@ function drawPowerupIcon(index, x, y, t) {
   ctx.shadowBlur = 8;
   ctx.shadowOffsetY = 5;
   ctx.drawImage(
-    images.powerupIcons,
+    trackSheet || images.powerupIcons,
     rect.x,
     rect.y,
     rect.w,
@@ -4978,6 +5064,14 @@ function drawSnowball(projectile) {
   if (x < -80 || x > viewWidth + 80) return;
   ctx.save();
   ctx.translate(x, projectile.drawY - projectile.z * 0.28);
+  const projectileArt = getTrackArt("projectile");
+  if (projectileArt) {
+    const size = SNOWBALL_RADIUS * 2.6;
+    ctx.rotate(projectile.distance * 0.02);
+    ctx.drawImage(projectileArt, -size / 2, -size / 2, size, size);
+    ctx.restore();
+    return;
+  }
   ctx.fillStyle = "#f8fdff";
   ctx.strokeStyle = "#9bd5ec";
   ctx.lineWidth = 3;
@@ -5182,9 +5276,9 @@ function drawRacer(racer) {
   }
   const activeLabels = [
     mounted ? (racer.horseType === "horse" ? "HORSE" : racer.horseType.toUpperCase()) : "",
-    racer.speedBoostTimer > 0 ? `BOOST x${racer.speedBoostStacks.length}` : "",
-    racer.highJumpTimer > 0 ? `HIGH JUMP x${racer.highJumpStacks.length}` : "",
-    racer.snowballs > 0 ? `SNOWBALLS ${racer.snowballs}` : ""
+    racer.speedBoostTimer > 0 ? `${powerupLabel("boost", "BOOST")} x${racer.speedBoostStacks.length}` : "",
+    racer.highJumpTimer > 0 ? `${powerupLabel("jump", "HIGH JUMP")} x${racer.highJumpStacks.length}` : "",
+    racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
   ].filter(Boolean);
   if (activeLabels.length > 0) {
     ctx.font = "800 13px system-ui";
@@ -5496,6 +5590,10 @@ gameMode.addEventListener("change", () => {
   state.mode = gameMode.value;
   updateModeLabels();
 });
+for (const background of BACKGROUNDS) {
+  if (backgroundSelect.querySelector(`option[value="${background.key}"]`)) continue;
+  backgroundSelect.append(new Option(background.name, background.key));
+}
 backgroundSelect.addEventListener("change", () => setBackground(backgroundSelect.value));
 settingsButton.addEventListener("click", toggleSettingsPanel);
 difficultySelect.addEventListener("change", () => setDifficulty(difficultySelect.value));

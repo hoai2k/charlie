@@ -7,7 +7,7 @@ const game=new URL('../../',import.meta.url);
 const read=file=>fs.readFileSync(new URL(file,game),'utf8');
 async function runtime(legacy){
  const window={GAME_CONFIG:{legacyDollArt:{rumi:legacy}}};
- const c={window,loadImage:path=>path,DEFAULT_RIDER_X_OFFSET:0,DEFAULT_RIDER_Y_OFFSET:100,
+ const c={window,TRACK_THEMES:{},loadImage:path=>path,DEFAULT_RIDER_X_OFFSET:0,DEFAULT_RIDER_Y_OFFSET:100,
    fetch:async()=>({ok:true,json:async()=>JSON.parse(read('assets/masks/outfits.json'))})};
  vm.createContext(c);vm.runInContext(read('dolls.js'),c);
  const source=read('game.js');const start=source.indexOf('const extraDolls =');const end=source.indexOf('const state =',start);

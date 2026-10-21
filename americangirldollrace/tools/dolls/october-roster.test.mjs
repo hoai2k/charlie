@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
 const read=file=>fs.readFileSync(new URL(file,game),'utf8');
 function runtime(legacy=false){
- const c={window:{GAME_CONFIG:{legacyDollArt:{claudia:legacy}}},loadImage:p=>p,
+ const c={window:{GAME_CONFIG:{legacyDollArt:{claudia:legacy}}},TRACK_THEMES:{},loadImage:p=>p,
   DEFAULT_RIDER_X_OFFSET:0,DEFAULT_RIDER_Y_OFFSET:100};
  vm.createContext(c);vm.runInContext(read('dolls.js'),c);
  const source=read('game.js'),start=source.indexOf('const extraDolls =');

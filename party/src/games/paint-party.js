@@ -498,8 +498,9 @@ export class Game {
 
   draw(g) {
     const bg = art('bg/paint-party');
-    g.drawImage(this.base, 0, 0);
-    if (bg) { g.save(); g.globalAlpha = 0.25; g.drawImage(bg, 0, 0, W, H); g.restore(); }
+    // the painted plaza (its floor band is clear of props) at full strength; else the drawn tiles
+    if (bg) g.drawImage(bg, 0, 0, W, H);
+    else g.drawImage(this.base, 0, 0);
     g.drawImage(this.paintCv, X0, Y0);
     this.drawSplats(g);
     this.drawPickups(g);

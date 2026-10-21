@@ -461,7 +461,9 @@
 
   function renderSettings() {
     const background = getCurrentBackground();
-    atlasCell($("#lbTrackThumb"), "assets/ui/track_cards.webp", 5, Math.max(0, BACKGROUNDS.indexOf(background)), 160, 90);
+    const card = getTrackCard(background);
+    atlasCell($("#lbTrackThumb"), card.url, card.cells, card.index, 160, 90);
+    if (card.crop) $("#lbTrackThumb").style.backgroundSize = "cover";
     $("#lbTrackVal").textContent = background.name;
     const difficultyIndex = Math.max(0, DIFFICULTIES.findIndex(d => d.key === state.difficulty));
     atlasCell($("#lbMonsterIcon"), "assets/ui/difficulty_icons.webp", 4, difficultyIndex, 90, 90);
