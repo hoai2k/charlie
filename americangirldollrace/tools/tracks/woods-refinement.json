@@ -1,0 +1,30 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "kind": "loop-repair",
+      "alpha": false,
+      "refs": [
+        "tools/tracks/sources/woods/offset-input.webp"
+      ],
+      "prompt": "Use case: precise-object-edit. This is a half-width OFFSET texture for a horizontally repeating panorama. The original outer seam is now at x1086 in this2172x724 image. Repair ONLY the central third (approximatelyx740..1430) to form a coherent forest across the vertical join: continuous canopy/trees/sky, twisted-branch back fence, moss edge, dirt path texture and lighting. Remove the central brightness change and doubled abrupt fence posts. Preserve the outer thirds exactly, all existing fairy houses, brook, camera, twilight palette, detailed painted style. Keep the rear edge of the broad flat clear playable dirt floor at EXACTLY the existing height across the whole width. The ground must continue empty to the bottom, no objects or foreground grass. Opaque3:1 image, no words, UI, characters or new landmarks. This central continuous painting will become the outer repeating boundary when shifted back."
+    },
+    {
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/tracks/fairy/powerups.webp"
+      ],
+      "prompt": "Use case: stylized-concept. A transparent sprite ATLAS with precisely3 columns by2 rows of square cells, landscape3:2. Image1 is only icon style reference. Make FIVE SMALL separated chunky painted icons, each occupying only the CENTRAL60% of its own cell, with VERY WIDE fully transparent gutters between them. No alpha glow in gutters. Top row: left red toadstool on a silver spring, middle compact swirl of four glowing gold fireflies, right brass acorn-capped hand bell with clapper and short sound rays. Bottom row: left messy dark brown-green mossy bog puddle and splashes (harmful hazard), middle small pile of three brown acorns with caps, right ABSOLUTELY EMPTY transparent cell. All springs, rays, leaves and firefly trails must stay well inside their cells. Whole icons fully visible, no overlap, no cell fills, no ground/shadows, no big glow halos, no background, no gridlines, text or labels. Use bold dark clean outlines, bright friendly painted highlights to remain legible at68pixels. Generous blank padding on ALL outer canvas edges too."
+    },
+    {
+      "kind": "card",
+      "alpha": false,
+      "refs": [
+        "tools/tracks/sources/woods/background.webp",
+        "tools/tracks/sources/woods/hurdle.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Paint a new 16:9 miniature track-picker vignette, final400x225 opaque, matching reference1's Fairy Woods identity and rich detailed painted storybook game style. A deep mossy enchanted forest at twilight: giant tree with warm glowing fairy door large in the middle, a little babbling brook, soft glowing toadstools, friendly golden fireflies, fern understory behind a twisted branch fence. Broad flat warm mossy-brown dirt path foreground. Put the matching compact moss-covered log hurdle from reference2 clearly in the lower foreground, facing straight-on with horizontal logs, vertical ends and pink/blue mushrooms. Keep it large enough to read at thumbnail size. No characters, text, signs, labels, logos, UI, borders. Opaque full edge-to-edge painting, new vignette composition rather than simple crop."
+    }
+  ]
+}

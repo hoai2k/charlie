@@ -102,9 +102,9 @@ window.TRACK_THEMES = {
     name: "Moon Base", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" }
   },
-  // Reserved for a wooded fairy board; the Fairy track isn't woodsy enough.
+  // Twilight woodland track with its own looped art and song.
   woods: {
-    name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 532, art: [],
+    name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN BELL", oil: "MOSSY BOG", snowball: "ACORNS" },
     mountOdds: { unicorn: 0.2, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
   },

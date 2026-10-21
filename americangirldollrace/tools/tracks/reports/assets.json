@@ -62,5 +62,10 @@
   "assets/reindeer_sprites.webp": "cecca7cca68e664cc848c9f28e3b96616545b03ea4307aeba06d8ea5c839eff4",
   "assets/rocking_horse_sprites.webp": "5fd853e6f1a897cc264eb2c0bc33a4ea53517ee3b881da0d89a025df417ede72",
   "assets/carousel_horse_sprites.webp": "12f3d4a4d4b0a9fe646a26445c8a7c2136e1c7e1d044610396c46b5f37366d17",
-  "assets/pony_sprites.webp": "9ac221fbd584648919207d98ba9b71db84ba0f39fdeff30c93a61adcb2daa00e"
+  "assets/pony_sprites.webp": "9ac221fbd584648919207d98ba9b71db84ba0f39fdeff30c93a61adcb2daa00e",
+  "assets/tracks/woods/background.webp": "3e76bf4aa536120d84d5475e0430d8da187f4b00368d655e33be0b63d2b1b9f1",
+  "assets/tracks/woods/hurdle.webp": "0ec43db28c5141ddb5d5a77c5e50cb0078724c222521733662e0f0b87b318c60",
+  "assets/tracks/woods/powerups.webp": "047106cb840e210da6f9e4c1925dd2c14a9a7ed72496862d7849cad0109367ef",
+  "assets/tracks/woods/projectile.webp": "1bbfccaffba1ab6db02c39279b114387ffb2800966f54eccfda612991509734d",
+  "assets/tracks/woods/card.webp": "b1f58a031f429e45b49a70ba6a6f0b2bb9bbc7e781c51e529d5fe092e0a32515"
 }

@@ -34,5 +34,9 @@
   "festival": {
     "wrapMeanDelta": 16.2099,
     "ordinaryColumn95thDelta": 9.288
+  },
+  "woods": {
+    "wrapMeanDelta": 9.1054,
+    "ordinaryColumn95thDelta": 10.4484
   }
 }

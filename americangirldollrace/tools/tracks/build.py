@@ -14,7 +14,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageOps
 
 HERE = Path(__file__).resolve().parent
 GAME = HERE.parents[1]
-NEW = ['horseshow', 'toyroom', 'candy', 'beach', 'wizard', 'autumn', 'clouds', 'space', 'festival']
+NEW = ['horseshow', 'toyroom', 'candy', 'beach', 'wizard', 'autumn', 'clouds', 'space', 'festival', 'woods']
 EXISTING = ['farm', 'fairy', 'town', 'winter', 'castles']
 MOUNTS = ['reindeer', 'rocking_horse', 'carousel_horse', 'pony']
 SIZES = {'background': (2172,724), 'hurdle': (160,170), 'powerups': (1280,256),
@@ -192,9 +192,9 @@ def check():
         for n,frame in enumerate(meta['frames']):
             b=bounds(im.crop((n%3*418,n//3*418,(n%3+1)*418,(n//3+1)*418)))
             assert b==tuple(frame['bounds']) and b[3]==409 and b[0]>=5 and b[2]<=413,(key,n)
-    loops=review();assert len(loops)==9
+    loops=review();assert len(loops)==len(NEW)
     for key,r in loops.items():assert r['wrapMeanDelta'] < max(8,r['ordinaryColumn95thDelta']*2), (key,r)
-    print(f'{count} track assets, four 3x3 mount sheets and nine direct-repeat joins passed')
+    print(f'{count} track assets, four 3x3 mount sheets and {len(loops)} direct-repeat joins passed')
 
 
 def main():

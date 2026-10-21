@@ -193,10 +193,11 @@ Sizes are final pixel sizes. The game scales art down but never up.
 ## 5. Track themes: hurdles, power-ups and new tracks
 
 > **Status (2026-10-21):** delivered and checked in game: every §5.4 row (all
-> five original tracks), T1-T9 (all files), the §5.6 mounts (now pickups on
+> five original tracks), T1-T10 (all files), the §5.6 mounts (now pickups on
 > Farm, Winter, Toy Room and Night Festival) and both §6 sheets.
-> **Still open: T10 Fairy Woods** (`background`, `card`, `hurdle`,
-> `powerups`, `projectile`).
+> Fairy Woods includes a repaired direct-repeat background, calibrated track
+> edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
+> **Still open: none.**
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**

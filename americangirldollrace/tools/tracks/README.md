@@ -1,8 +1,8 @@
 # Track-art export and loop verification
 
-The October brief requests 60 track assets: three skins for each of the five
+The October brief requests 65 track assets: three skins for each of the five
 original tracks, plus backgrounds, hurdles, five-cell pickup strips, thrown
-projectiles and picker vignettes for nine new tracks. The four optional mount
+projectiles and picker vignettes for ten new tracks. The four optional mount
 sheets are art deliverables; their gameplay registration is separate.
 
 All illustration and seam repainting uses built-in ImageGen. Prompt sets are
@@ -57,3 +57,16 @@ Verified delivery batches
   `hurdle-generation-v2.json` records the corrected-angle prompts.
   Farm, Wizard School and Horse Show size/depth experiments live in
   `experiments/` and are not selected by runtime.
+
+- Fairy Woods (T10): all five assets delivered. Its original outer seam was
+  repainted after a half-width offset; review the direct two-copy preview in
+  `reports/woods-repeat.jpg`. `dirtTop: 480` matches the delivered path edge.
+  Generation and spacing-refinement prompts are in `woods-generation.json`
+  and `woods-refinement.json`. The exporter rejects overlapping source icons;
+  the accepted second atlas has transparent gutters around every icon.
+
+  Browser checks cover a camera move from 1640 through 2344 (2160px tile
+  wrap), both lane boundaries, all prop icons at runtime size, and a normal
+  race selected through Settings. Proof images: `reports/woods-wrap-*.webp`
+  and `reports/woods-gameplay.webp`. Strict verification covers 65 track assets
+  and ten direct-repeat backgrounds.
