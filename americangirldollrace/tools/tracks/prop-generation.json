@@ -1,0 +1,425 @@
+{
+  "tool": "built-in imagegen",
+  "jobs": [
+    {
+      "id": "farm-hurdle",
+      "key": "farm",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low rustic split-rail hurdle with a compact hay bale and one small sunflower at the foot. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "farm-powerups",
+      "key": "farm",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: bouncy hay-bale trampoline with a visible spring. TOP MIDDLE boost: bright fresh carrot. TOP RIGHT EMP: friendly crowing rooster with bold sound rays. BOTTOM LEFT harmful oil: messy dark brown mud puddle with splashes, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: basket of shiny red apples, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "farm-projectile",
+      "key": "farm",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round shiny red apple with a short stem and tiny leaf. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "fairy-hurdle",
+      "key": "fairy",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_fairy.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low white two-rail hurdle entwined with green vines and pink flower garlands, a glowing mushroom at each foot. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "fairy-powerups",
+      "key": "fairy",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: bouncy red spotted toadstool. TOP MIDDLE boost: swirl of sparkling rainbow fairy dust. TOP RIGHT EMP: short magic wand with a bright star burst. BOTTOM LEFT harmful oil: messy sticky golden honey puddle with a tipped honey pot, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: cluster of rainbow soap bubbles, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "fairy-projectile",
+      "key": "fairy",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One large round iridescent soap bubble with pastel reflections and a clear bright rim. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "town-hurdle",
+      "key": "town",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_village.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low chunky stone wall with a shallow flower box of pink and yellow blossoms along its top. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "town-powerups",
+      "key": "town",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: chunky cheerful pogo stick. TOP MIDDLE boost: pair of colorful roller skates. TOP RIGHT EMP: shiny brass hand bell with sound rays. BOTTOM LEFT harmful oil: messy spilled lemonade puddle with tipped cup, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: bunch of colorful tied water balloons, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "town-projectile",
+      "key": "town",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round blue water balloon with a tiny tied neck. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "winter-hurdle",
+      "key": "winter",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_winter.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low snow-capped wooden two-rail hurdle with round blue icicles, broad blunt shapes. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "winter-powerups",
+      "key": "winter",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: compact ski-jump ramp. TOP MIDDLE boost: little red wooden sled. TOP RIGHT EMP: round thunder-snow cloud with a yellow zigzag. BOTTOM LEFT harmful oil: slippery shiny blue ice patch with a dark crack, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: friendly round snowman in a pink scarf, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "winter-projectile",
+      "key": "winter",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round white snowball with soft blue shading and snow texture. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "castles-hurdle",
+      "key": "castles",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_castles.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low pale-stone courtyard wall with pink bunting swags and small gold-capped posts, no spikes. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "castles-powerups",
+      "key": "castles",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: royal trampoline drum with gold trim. TOP MIDDLE boost: golden fanfare trumpet with bright rays. TOP RIGHT EMP: bronze gong on a small wooden stand. BOTTOM LEFT harmful oil: messy spilled strawberry jam puddle and toppled jar, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: little tray piled with round cream puffs, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "castles-projectile",
+      "key": "castles",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round golden cream puff with white cream and powdered sugar. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "horseshow-hurdle",
+      "key": "horseshow",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A striped equestrian show jump: two white wing stands and two red-and-white striped poles. Low, wide, safe blunt ends. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "horseshow-powerups",
+      "key": "horseshow",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: wooden springboard with a visible spring. TOP MIDDLE boost: shiny golden horseshoe. TOP RIGHT EMP: starter's brass bell with sound rays. BOTTOM LEFT harmful oil: messy shallow water-jump splash pool, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: bucket of white sugar cubes, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "horseshow-projectile",
+      "key": "horseshow",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One small white sugar cube with softly rounded edges and grainy sugar texture. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "toyroom-hurdle",
+      "key": "toyroom",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low row of chunky colorful crayons in a little wooden rack. NO letters, logos or printed markings. Blunt rounded crayon tips. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "toyroom-powerups",
+      "key": "toyroom",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: colorful jack-in-the-box on a spring. TOP MIDDLE boost: golden toy wind-up key. TOP RIGHT EMP: little red-and-blue toy drum. BOTTOM LEFT harmful oil: messy orange juice puddle and tipped blank juice box, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: open bag of white marshmallows, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "toyroom-projectile",
+      "key": "toyroom",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One plump white marshmallow with softly rounded corners. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "candy-hurdle",
+      "key": "candy",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. Low red-and-white candy-cane two-rail fence with a large round pastel gumdrop on each post. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "candy-powerups",
+      "key": "candy",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: big springy pink gumdrop. TOP MIDDLE boost: round red-and-white peppermint swirl. TOP RIGHT EMP: bright popping-candy burst with chunky colorful stars. BOTTOM LEFT harmful oil: messy glossy brown chocolate puddle, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: clear jar of colorful round gumballs, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "candy-projectile",
+      "key": "candy",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One glossy round pink gumball with a bright highlight. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "beach-hurdle",
+      "key": "beach",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low sandcastle wall with two rounded turrets and one small plain coral triangular flag. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "beach-powerups",
+      "key": "beach",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: bright striped beach ball. TOP MIDDLE boost: small turquoise surfboard with a coral stripe. TOP RIGHT EMP: large pink conch shell with sound rays. BOTTOM LEFT harmful oil: messy slippery green seaweed tangle, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: bucket of colorful water balloons, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "beach-projectile",
+      "key": "beach",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round turquoise water balloon with a small tied neck. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "wizard-hurdle",
+      "key": "wizard",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low neatly clipped green hedge hurdle between two short stone pillars, one small stone bird bowl tucked at the foot, safe low silhouette. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "wizard-powerups",
+      "key": "wizard",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: closed purple spell book supported by a visible spring. TOP MIDDLE boost: bubbling blue potion in a round corked bottle. TOP RIGHT EMP: short wand with a bright golden zap burst. BOTTOM LEFT harmful oil: messy green cauldron spill and tipped small black cauldron, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: open velvet bag of soft glowing pixie puffs, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "wizard-projectile",
+      "key": "wizard",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round soft lavender pixie puff with tiny warm sparkles, compact halo with clean transparent outside. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "autumn-hurdle",
+      "key": "autumn",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low rectangular hay bale topped with a neat row of three plump orange pumpkins, small green leaves, low wide jumpable silhouette. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "autumn-powerups",
+      "key": "autumn",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: springy pile of orange and red leaves. TOP MIDDLE boost: compact gust swirl of colorful autumn leaves. TOP RIGHT EMP: friendly little scarecrow with sound rays. BOTTOM LEFT harmful oil: messy brown muddy puddle, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: basket of shiny red apples, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "autumn-projectile",
+      "key": "autumn",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round shiny red autumn apple with a tiny leaf. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "clouds-hurdle",
+      "key": "clouds",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low fluffy white cloud-puff wall with a small pastel rainbow arch between two puffy posts. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "clouds-powerups",
+      "key": "clouds",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: cloud puff supported by a visible spring. TOP MIDDLE boost: compact rainbow arc with tiny stars. TOP RIGHT EMP: blue thunderclap cloud with a bright yellow zigzag. BOTTOM LEFT harmful oil: messy blue-grey rain puddle with raindrops, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: small pile of round icy hailstones, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "clouds-projectile",
+      "key": "clouds",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round pale-blue hailstone with frosty facets and a white highlight. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "space-hurdle",
+      "key": "space",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low rounded moon-rock wall with one small plain turquoise flag on a short pole. Friendly blunt moon rocks. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "space-powerups",
+      "key": "space",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: pair of chunky silver moon boots. TOP MIDDLE boost: small colorful toy rocket with a short flame. TOP RIGHT EMP: friendly rounded colorful toy laser blaster with star burst. BOTTOM LEFT harmful oil: messy neon-green space-goo puddle, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: pile of round grey moon rocks, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "space-projectile",
+      "key": "space",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One roundish softly faceted grey moon rock with lilac shading. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    },
+    {
+      "id": "festival-hurdle",
+      "key": "festival",
+      "kind": "hurdle",
+      "alpha": true,
+      "refs": [
+        "assets/background_farm.webp"
+      ],
+      "prompt": "Use case: stylized-concept. One isolated jumpable hurdle sprite for American Girl Doll Race. A low rope barrier between two short warm-glowing lantern posts, rope drapes only a little, compact friendly silhouettes. Match the reference's charming rich soft-painted storybook toy-world material style; reference is style only, no scene copied. Frontal side view with a tiny view of the top, chunky clear silhouette, broad and LOW (object height no greater than object width), two feet or stable flat base, no spikes. Final sprite 160x170, shown at only 64x68 so bold simple shapes and few details. Entire object visible with generous margin on a square canvas; base level and horizontal, nothing below the base. Clean true transparent background; no scenery, ground, cast shadow, glow, text, letters, numbers or UI."
+    },
+    {
+      "id": "festival-powerups",
+      "key": "festival",
+      "kind": "powerups",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Production icon atlas for American Girl Doll Race. Match the reference's chunky colorful storybook toy icons with crisp dark outlines, bright highlights, friendly readable shapes. The green in the reference is only its old background: DO NOT include any green backdrop or grid. Make EXACTLY FIVE different separated icons on a true transparent 3:2 landscape canvas arranged in THREE equal square COLUMNS and TWO equal square ROWS, with the bottom-right sixth cell completely empty transparent. Each icon is a separate complete object, centered inside its square with at least 10% empty margin, no overlapping across cells. TOP LEFT jump: little colorful trampoline. TOP MIDDLE boost: short sparkler with a compact golden star shower. TOP RIGHT EMP: bright colorful firework burst. BOTTOM LEFT harmful oil: messy spilled dark soda puddle and tipped plain cup, clearly messy and slippery, the one to avoid. BOTTOM MIDDLE snowball pickup: bunch of colorful water balloons, appealing and collectible. BOTTOM RIGHT: empty transparent. No decorative border, no text, no labels, no letters, no floor, shadows or reference background. Keep each silhouette compact, readable when reduced to 68px. Actual alpha transparency everywhere outside the five objects."
+    },
+    {
+      "id": "festival-projectile",
+      "key": "festival",
+      "kind": "projectile",
+      "alpha": true,
+      "refs": [
+        "assets/icons_alpha.webp"
+      ],
+      "prompt": "Use case: stylized-concept. Single isolated throwable game projectile: One round purple water balloon with a small tied neck. Chunky friendly painted toy icon, same warm colorful storybook icon style as reference, crisp readable dark rim and soft dimensional shading. One object only, round-ish silhouette, center it fully visible with generous margins on a square canvas. It spins and is shown at 34px so simple and bold. Final asset 128x128. True transparent background, no reference's green backdrop, no floor, shadow, text, numbers, letters, borders, UI or other objects."
+    }
+  ]
+}

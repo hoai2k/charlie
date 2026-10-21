@@ -47,3 +47,6 @@ Verified delivery batches
   moving browser preview with dolls at both track boundaries. All nine have
   measured `dirtTop` values and direct-repeat rendering. Loop statistics are
   recorded in `reports/loops.json`. Remaining props are delivered separately.
+
+- Fourteen pickup strips and projectiles: reviewed transparency, five-cell
+  order, harmful-spill readability and rendering at actual game size.
