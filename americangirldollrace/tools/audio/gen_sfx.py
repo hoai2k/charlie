@@ -43,6 +43,14 @@ SOUNDS = {
     'mount_reindeer': ('Sleigh bells jingling briefly with a soft reindeer snort, wintry', 1.2, 2),
     'mount_pony': ('A small cute pony whinny, short and friendly', 1.0, 2),
     # Track monsters that replace the troll (tracks.js `monster`): kid-friendly, spooky-silly
+    # Track items (tracks.js itemEffects)
+    'spell_cast': ('A magic wand spell being cast: a rising sparkly shimmer and a soft whoosh of twinkling magic, cute fantasy game sound', 1.0, 2),
+    'frog_poof': ('A cartoon magic poof transforming someone into a frog: a puff of smoke with a sparkly chime and a surprised little ribbit', 1.0, 2),
+    'frog_ribbit': ('A single small cute frog ribbit, cartoon', 0.5, 3),
+    'surf_pickup': ('A big ocean wave rising and crashing with a joyful whoosh, beach, short game pickup sound', 1.2, 2),
+    'surf_loop': ('Riding a surfboard on a rolling ocean wave, steady rushing water and foam, seamless loop', 3.0, 1, True),
+    'windup_release': ('Winding up a tin wind-up toy with a quick ratcheting click-click-click, then little toy cars whirring off', 1.2, 2),
+    'toy_bump': ('A small tin wind-up toy car bumping into something: a light tinny clank and a boing', 0.5, 3),
     # Riding toys (tracks.js rideToys)
     'pickup_skates': ('Putting on roller skates: a quick clack of skate wheels spinning with a cheerful whir, short game pickup sound', 0.9, 2),
     'pickup_pogo': ('A pogo stick spring compressing and releasing with a big springy boing, cartoon, short game pickup sound', 0.8, 2),

@@ -17,6 +17,7 @@
   "run_loop_grass",
   "skate_roll_loop",
   "storm_cloud_loop",
+  "surf_loop",
   "troll_sleep_loop",
   "unicorn_gallop_loop"
  ],
@@ -98,6 +99,15 @@
    2,
    3,
    4
+  ],
+  "frog_poof": [
+   1,
+   2
+  ],
+  "frog_ribbit": [
+   1,
+   2,
+   3
   ],
   "frozen_break": [
    1,
@@ -464,6 +474,10 @@
    2,
    3
   ],
+  "spell_cast": [
+   1,
+   2
+  ],
   "sticky_squelch": [
    1,
    2
@@ -482,6 +496,18 @@
   "storm_monster_drop": [
    1,
    2
+  ],
+  "surf_loop": [
+   1
+  ],
+  "surf_pickup": [
+   1,
+   2
+  ],
+  "toy_bump": [
+   1,
+   2,
+   3
   ],
   "troll_fall": [
    1,
@@ -588,6 +614,10 @@
    1
   ],
   "victory_jump": [
+   1,
+   2
+  ],
+  "windup_release": [
    1,
    2
   ]

@@ -655,12 +655,12 @@ button:focus-visible {
 #lbTopRight { right: 18px; top: 14px; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 #lbSettingsBtn { display: flex; align-items: center; gap: 8px; padding: 8px 16px; font-size: 22px; font-weight: 700; cursor: pointer; }
 #lbHints { display: flex; align-items: center; gap: 6px; padding: 5px 14px; font-size: 16px; }
-#lbGrid { left: 342px; top: 12px; width: 596px; height: 360px; }
+#lbGrid { left: 322px; top: 12px; width: 650px; height: 360px; }
 .lb-card { position: absolute; width: 108px; height: 166px; border: 4px solid #fff; border-radius: 16px; background: linear-gradient(#fffaf2, #f6e3c8); box-shadow: 0 4px 10px rgba(80, 40, 10, 0.3); cursor: pointer; transition: transform 0.12s ease, border-color 0.12s ease; }
 .lb-card.hot { transform: translateY(-4px) scale(1.05); }
 .lb-pic { position: absolute; left: 2px; right: 2px; top: 2px; height: 128px; border-radius: 12px 12px 6px 6px; background-size: cover; background-position: center top; }
 .lb-pic.random { background-size: contain; background-repeat: no-repeat; background-position: center; }
-.lb-name { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 17px; font-weight: 700; }
+.lb-name { position: absolute; left: 0; right: 0; bottom: 4px; text-align: center; font-size: 17px; font-weight: 700; white-space: nowrap; }
 .lb-cursors { position: absolute; left: -10px; right: -10px; top: -18px; height: 36px; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 2px; pointer-events: none; }
 
 #lbSlots { left: 0; right: 0; bottom: 0; height: 330px; }

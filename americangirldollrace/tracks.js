@@ -44,6 +44,9 @@
 // a verge between it and the path; racers may walk up to it.
 // rideToys: { boost: "skates", jump: "pogo" } makes those pickups roller
 // skates / a pogo stick that last twice as long and change the doll's look.
+// itemEffects: a speed or high-jump pickup that does its own thing instead:
+// "spellBook" (frog the nearest racer or monster), "surfboard" (ride a wave
+// over hurdles), "windupCars" (cars that bump whoever they meet).
 // moonBoots: the high-jump pickup is moon boots: low gravity for a while, so
 // jumps float over several hurdles (Moon Base).
 // monster: replaces the troll on that track with another sheet in the troll's
@@ -149,6 +152,9 @@ window.RIDE_TOY_FRAMES = {
     ]
   }
 };
+// Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
+// saddle push, stuck in a puddle, moon-boots float (image-requests.md §10).
+window.ACTION_SHEETS = [];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
@@ -202,9 +208,10 @@ window.TRACK_THEMES = {
     oilEffect: "sticky",
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
-    sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box" },
+    sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box", boost: "windup_release" },
     baseMount: "rocking_horse",
-    mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
+    mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 },
+    itemEffects: { boost: "windupCars" }
   },
   candy: {
     rideToys: {jump: "pogo"},
@@ -217,15 +224,17 @@ window.TRACK_THEMES = {
   beach: {
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
-    sounds: { emp: "pickup_conch" },
-    beachBalls: 4
+    sounds: { emp: "pickup_conch", boost: "surf_pickup" },
+    beachBalls: 4,
+    itemEffects: { boost: "surfboard" }
   },
   wizard: {
     monster: "skeleton",
     name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 507, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPELL BOOK", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
-    sounds: { emp: "pickup_wand_zap" },
-    mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.15, broom: 0.3 }
+    sounds: { emp: "pickup_wand_zap", jump: "spell_cast" },
+    mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.15, broom: 0.3 },
+    itemEffects: { jump: "spellBook" }
   },
   autumn: {
     monster: "scarecrow",
