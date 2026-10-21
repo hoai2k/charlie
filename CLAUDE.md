@@ -146,6 +146,11 @@ hook to get round it.
 - The per-character `dollpuppets/assets/<name>/config.js` files are generated
   by a build script that was not imported; edit them directly with care.
   (Their sprite paths were switched from `.png` to `.webp` by hand.)
+- Claudia now uses `dollpuppets/assets/claudia-v2/config.js`, built by
+  `dollpuppets/tools/registered-rig/build.py claudia`. This rig keeps one head
+  fixed and registers facial patches plus body neck anchors automatically.
+  Edit its master spec/source art and rebuild; see that tool's README and
+  camera-free preview. The legacy `assets/claudia/` art is retained.
 - `dollpuppets/src/core/face-stabilizer.js` sits between the tracker and the
   renderer: it holds the pose through brief tracking dropouts and smooths
   movement. Feed new tracker results through it, not straight to render.

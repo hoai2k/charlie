@@ -3,7 +3,7 @@ import { createFaceStabilizer } from "./src/core/face-stabilizer.js";
 import { createScreenChrome, fullscreenElement, toggleFullscreen } from "./src/core/screen-chrome.js";
 import { createDemoPuppetState, createPuppetState } from "./src/core/puppet-state.js";
 import { createWorkerTracker, TRACKING_MODES } from "./src/core/worker-tracker.js";
-import { DOLL_CHARACTERS, renderDollsEffect } from "./effect/render.js";
+import { DOLL_CHARACTERS, renderDollsEffect } from "./effect/render.js?v=20261021a";
 import GAME_CONFIG from "./gameConfig.js";
 
 const BACKGROUNDS = {
@@ -43,7 +43,7 @@ const CHARACTER_STYLES = {
   kaya: { color: "#9a6426", portrait: "./assets/portraits/kaya.webp" },
   lily: { color: "#d33b2f", portrait: "./assets/portraits/lily.webp" },
   whirlpool: { color: "#5a3a86", portrait: "./assets/portraits/whirlpool.webp" },
-  claudia: { color: "#25897f", portrait: "./assets/portraits/claudia.webp" },
+  claudia: { color: "#c12974", portrait: "./assets/claudia-v2/portrait.webp" },
   amanda: { color: "#263d8f", portrait: "./assets/portraits/amanda.webp" },
   troll: { color: "#5f7a3a" },
   kpop: { color: "#d65fb4" }

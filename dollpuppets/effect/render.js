@@ -5,11 +5,12 @@ import marisolConfig from "../assets/marisol/config.js";
 import kayaConfig from "../assets/kaya/config.js";
 import lilyConfig from "../assets/lily/config.js";
 import whirlpoolConfig from "../assets/whirlpool/config.js";
-import claudiaConfig from "../assets/claudia/config.js";
+import claudiaConfig from "../assets/claudia-v2/config.js";
 import amandaConfig from "../assets/amanda/config.js";
 import trollConfig from "../assets/troll/config.js";
 import kpopConfig from "../assets/kpop/config.js";
 import EXTENSION_PHYSICS from "./extensionPhysics.js";
+import { drawRegisteredFace, registeredFeatureEntries } from "./registered-face.js";
 
 export const DOLL_CONFIGS = {
   rumi: rumiConfig,
@@ -280,10 +281,12 @@ async function loadDoll(runtime, characterId) {
     const sourceConfig = DOLL_CONFIGS[characterId] ?? DOLL_CONFIGS.rumi;
     const config = structuredClone(sourceConfig);
     const images = {};
+    const loadedByFile = new Map();
     const entries = [
       ...Object.entries(config.sprites.faces),
       ...Object.entries(config.sprites.talking ?? {}),
       ...Object.entries(config.sprites.extensions ?? {}),
+      ...registeredFeatureEntries(config),
       ...Object.entries(config.sprites.body),
       ...Object.entries(KISS_EFFECT_SPRITES)
     ];
@@ -291,7 +294,9 @@ async function loadDoll(runtime, characterId) {
     await Promise.all(
       entries.map(async ([name, sprite]) => {
         try {
-          images[name] = await loadImage(new URL(`../${sprite.file}`, import.meta.url).href);
+          const url = new URL(`../${sprite.file}`, import.meta.url).href;
+          if (!loadedByFile.has(url)) loadedByFile.set(url, loadImage(url));
+          images[name] = await loadedByFile.get(url);
         } catch (error) {
           if (!sprite.optional) {
             throw error;
@@ -382,13 +387,17 @@ function renderDoll(ctx, runtime, state, viewport) {
   ctx.save();
   ctx.translate(faceCenter.x, faceCenter.y);
   ctx.rotate(face.rotation);
-  const headMaskBasisRect = headMaskBasisDisplayRect(config, headRect, faceName);
-  drawMouth(ctx, faceSprite, config.layout.mouth?.[faceName], headRect, activeHeadMask(config, faceName), headMaskBasisRect);
   const talkingName = pickTalkingSprite(runtime, expressions, now);
-  if (talkingName) {
-    drawMouth(ctx, images[talkingName], config.layout.talking?.[talkingName], headRect);
+  if (config.registeredFace) {
+    drawRegisteredFace(ctx, runtime, expressions, headRect, faceName, talkingName);
+  } else {
+    const headMaskBasisRect = headMaskBasisDisplayRect(config, headRect, faceName);
+    drawMouth(ctx, faceSprite, config.layout.mouth?.[faceName], headRect, activeHeadMask(config, faceName), headMaskBasisRect);
+    if (talkingName) {
+      drawMouth(ctx, images[talkingName], config.layout.talking?.[talkingName], headRect);
+    }
+    drawEyesAndBrows(ctx, runtime, expressions, headRect, now, faceSpriteMeta);
   }
-  drawEyesAndBrows(ctx, runtime, expressions, headRect, now, faceSpriteMeta);
   ctx.restore();
 
   if (activeBodyMask(config, runtime.pose)) {
@@ -515,13 +524,18 @@ function createGameGeometry(runtime, faceSprite, face, viewport) {
   const initialHeadWidth = 100;
   const initialGeometry = createStableGameFitGeometry(runtime, faceSprite, face, initialHeadWidth);
   const fitSpanRatio = initialGeometry.fitSpan / initialHeadWidth;
-  const headWidth = (height * GAME_FULL_BODY_OVERSCAN) / fitSpanRatio;
+  const fitMargin = runtime.config.registeredFace ? height * 0.02 : 0;
+  const headWidth = runtime.config.registeredFace
+    ? Math.min((height - fitMargin * 2) / fitSpanRatio, width * 0.94)
+    : (height * GAME_FULL_BODY_OVERSCAN) / fitSpanRatio;
   const geometryAtOrigin = createStableGameFitGeometry(runtime, faceSprite, face, headWidth);
-  const topLockedHeadY = -geometryAtOrigin.headTop;
+  const topLockedHeadY = -geometryAtOrigin.headTop + fitMargin;
   const trackedHeadY = height * (GAME_HEAD_TARGET_Y + (face.center.y - GAME_HEAD_TARGET_Y) * 0.55);
   const faceCenter = {
     x: face.center.x * width,
-    y: clamp(trackedHeadY, topLockedHeadY, height * GAME_HEAD_LOWEST_Y)
+    y: clamp(trackedHeadY, topLockedHeadY, runtime.config.registeredFace
+      ? height - fitMargin - geometryAtOrigin.maxBodyBottom
+      : height * GAME_HEAD_LOWEST_Y)
   };
 
   return createDollGeometry(runtime, faceSprite, face, headWidth, faceCenter);
@@ -532,6 +546,7 @@ function createStableGameFitGeometry(runtime, faceSprite, face, headWidth) {
   const maxBodyBottom = calculateMaxBodyBottom(runtime, geometry.worldNeck, headWidth);
   return {
     ...geometry,
+    maxBodyBottom,
     fitSpan: maxBodyBottom - geometry.headTop
   };
 }
