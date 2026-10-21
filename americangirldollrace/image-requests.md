@@ -384,6 +384,10 @@ Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
 | # | File | Size | What |
 | --- | --- | --- | --- |
 | K1 | `assets/doll_<key>_toys.webp` | **1254×1672 (3×4 of 418)**, alpha | Same frame, scale, facing (right) and **foot baseline 409** as `assets/doll_<key>_sprites.webp`, and the doll must match her sheet exactly. The skates are classic four-wheel quad roller skates, white boots with wheels in her colour from the roster table (§1), and the wheels sit on the baseline. The pogo stick is one design for every doll: a red pole, a silver coil spring, black foot pegs and grips, and a rubber tip at the bottom, centred at x 209. |
+| K2 | `assets/masks/<key>_toys_mask.webp` | 1254×1672, same as K1 | The outfit mask for K1, made exactly like `assets/masks/<key>_sheet_mask.webp` (the same clothing areas, on the same black background). The game uses it to recolour her outfit on skates and on the pogo stick, as it does in every other pose. Skates and the stick are not clothing. |
+
+Once a doll's K1 and K2 are in, add her key to `RIDE_TOY_SHEETS` in
+`tracks.js` in the same commit; the game uses the sheet only once it's listed.
 
 | Row | On | Frames (left to right) |
 | --- | --- | --- |
@@ -397,7 +401,10 @@ Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
 Village already shows skates (speed) and a pogo stick (high jump). These
 tracks get them too. Repaint only the named cell of
 `assets/tracks/<key>/powerups.webp`, in that track's existing icon style, and
-keep the other cells pixel-identical.
+keep the other cells pixel-identical. When one lands, set the label in
+`tracks.js` and add the toy to that track's `rideToys` (Village has
+`rideToys: { boost: "skates", jump: "pogo" }`), so the pickup becomes skates
+or a pogo stick only once its icon shows them.
 
 | # | Track (key) | Cell | Now | Repaint as | Label in `tracks.js` |
 | --- | --- | --- | --- | --- | --- |
