@@ -182,6 +182,13 @@ Sizes are final pixel sizes. The game scales art down but never up.
 - [ ] The image is a WebP of the size above, with clean alpha where needed.
 - [ ] Each doll matches her sprite sheet (hair, outfit, shoes and accessories),
       checked side by side with frame row 0.
+- [ ] **The same clothes in every pose.** Across all of a doll's sheets
+      (sprites, toys, actions, portraits), every frame shows the same outfit,
+      shoes, socks and accessories (bag, glasses, hat, hair clips), in the same
+      places. The only change allowed is the item the pose is for: skates
+      replace her shoes, and a pogo stick, wand or surfboard is added. An
+      accessory she wears in a pose on her sprite sheet appears in the
+      matching pose on every other sheet. Never let it come and go between frames.
 - [ ] Full-body poses (#2, #3 and #23) share the sprite sheets' 418 frame,
       scale and foot baseline. To check, overlay one on a row-0 frame and make
       sure the feet line up.
@@ -203,10 +210,11 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
-> **Still open:** the §8.0.1 trial fall redo (K3), the §10 new-item art (actions sheets, frogs, wave, wind-up
-> cars), the remaining nine §8 riding-toy dolls (Lily, Mira and Hermione
-> trial delivered with twelve poses and outfit masks), the §9 track monsters
-> (scarecrow and skeleton sheets).
+> The §8 riding toys are in for twelve dolls; K3 (trial falls) and the
+> §8.1 icons R10, R12–R14 are delivered.
+> **Still open:** the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol,
+> Felicity and Luna, the §10 new-item art (actions sheets, frogs, wave,
+> wind-up cars), and the §9 track monsters (scarecrow and skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -384,9 +392,18 @@ poses she uses mid-race (standing, pushing or throwing, falling backwards).
 **Delivered and checked in game:** Lily, Mira, Hermione, Whirlpool, Juliette
 Claudia, Kaya, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity and Luna (K1/K2).
 Their twelve poses, alternate outfits, both directions, baseline overlays and
-pickup selection pass; see `tools/dolls/toys/reports/`. Once they're
-checked in game, do the rest of the roster (Whirlpool, Juliette, Claudia,
-Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
+pickup selection pass; see `tools/dolls/toys/reports/`. A side-by-side
+clothing check against each sprite sheet (2026-10-21) passed for all of them
+except Juliette's purse (K4 below). **Still to do:** Marisol (use her new
+canonical), Felicity and Luna.
+
+**Clothing must not change between poses** (see §4). A toy pose shows exactly
+the outfit, shoes and accessories of the same pose on her sprite sheet. The
+only differences: the skates replace her shoes (on skates only), and the pogo
+stick is added. Anything she carries keeps its place: if her sheet shows a
+bag in the stand, run and fall frames, so do the matching toy frames.
+During a race the game swaps between her sprite sheet and her toy sheet
+whenever a toy starts, ends or she falls, so any difference flickers on screen.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
@@ -419,6 +436,17 @@ normal falls during a race, so they should match.
 | # | File | Cells | Fix |
 | --- | --- | --- | --- |
 | K3 | `assets/doll_{lily,mira,hermione}_toys.webp` and their masks | Row 2 cell 3 (skate fall) and row 4 cell 3 (pogo fall) only | Redraw each to match that doll's normal fall (`doll_<key>_sprites.webp` row 4 cell 3): the same tilt, arm and leg positions and place in the frame, with the skates on, or with the stick tipping away. Keep every other cell pixel-identical and update the masks to match. |
+
+### 8.0.2 Open redo: Juliette's purse (K4)
+
+Juliette's sprite sheet shows her gold crescent-moon purse in every pose
+except the push/throw frame (row 4 cell 2). Her toy sheet drops it from
+every cell except the two falls, so it vanishes when she picks up skates or
+a pogo stick, then pops back in when she falls.
+
+| # | File | Cells | Fix |
+| --- | --- | --- | --- |
+| K4 | `assets/doll_juliette_toys.webp` and `assets/masks/juliette_toys_mask.webp` | Row 1 cells 1–3 and row 2 cell 1 (skates); row 3 cells 1–3 and row 4 cell 1 (pogo) | Add the purse, the same size and design as on her sprite sheet, hanging from her wrist (on skates) or from its strap at her hip (on the pogo stick, both hands on the grips). Leave the push/throw cells (row 2 cell 2, row 4 cell 2) without it, to match her sheet's push frame, and keep both falls as they are. Every other cell stays pixel-identical. Update the mask the same way her sheet mask treats the purse. |
 
 ### 8.1 Pickup icons for the tracks that get skates or a pogo stick
 
@@ -515,7 +543,7 @@ only once it's listed.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| A1 | `assets/doll_<key>_actions.webp` | 1254×1254 (3×3 of 418), alpha | Same frame, scale, facing (right) and foot baseline 409 as the doll's sheet. She must match her sheet exactly. |
+| A1 | `assets/doll_<key>_actions.webp` | 1254×1254 (3×3 of 418), alpha | Same frame, scale, facing (right) and foot baseline 409 as the doll's sheet. She must match her sheet exactly: the same outfit, shoes and accessories as the matching sprite-sheet pose (§4), with only the wand or surfboard added. |
 | A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
 
 Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
