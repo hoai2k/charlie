@@ -17,7 +17,9 @@
 // the path starting at 532, like the farm.
 // `labels` rename power-ups in the pop-up text, and only apply once that
 // track's "powerups" art is listed. `mountOdds` are the chances of each
-// non-horse mount from a mount pickup; the rest are plain horses.
+// non-horse mount from a mount pickup; the rest are plain horses. Themed
+// ground mounts (pony, reindeer, rocking_horse, carousel_horse) ride like the
+// horse and are listed in game.js THEMED_MOUNT_TYPES.
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
 // Riding rules (Horse Show):
@@ -36,14 +38,22 @@
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
-  farm: { art: ["powerups", "projectile", "hurdle"], labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" } },
+  farm: {
+    art: ["powerups", "projectile", "hurdle"],
+    labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" },
+    mountOdds: { pony: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
+  },
   fairy: {
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "TOADSTOOL", boost: "FAIRY DUST", emp: "WAND ZAP", oil: "HONEY", snowball: "BUBBLES" },
     mountOdds: { unicorn: 0.2, pegasus: 0.2, griffon: 0.05, broom: 0.05 }
   },
   town: { art: ["powerups", "projectile", "hurdle"], labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" } },
-  winter: { art: ["powerups", "projectile", "hurdle"], labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" } },
+  winter: {
+    art: ["powerups", "projectile", "hurdle"],
+    labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" },
+    mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
+  },
   castles: {
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "ROYAL BOUNCE", boost: "TRUMPET", emp: "GONG", oil: "JAM", snowball: "CREAM PUFFS" },
@@ -62,7 +72,8 @@ window.TRACK_THEMES = {
   },
   toyroom: {
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "JACK-IN-THE-BOX", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" }
+    labels: { jump: "JACK-IN-THE-BOX", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
+    mountOdds: { rocking_horse: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   candy: {
     name: "Candy Land", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
@@ -99,6 +110,7 @@ window.TRACK_THEMES = {
   },
   festival: {
     name: "Night Festival", music: "assets/music/One More Spin at the Night Festival.mp3", dirtTop: 513, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "TRAMPOLINE", boost: "SPARKLER", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" }
+    labels: { jump: "TRAMPOLINE", boost: "SPARKLER", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" },
+    mountOdds: { carousel_horse: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   }
 };

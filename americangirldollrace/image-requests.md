@@ -192,6 +192,12 @@ Sizes are final pixel sizes. The game scales art down but never up.
 
 ## 5. Track themes: hurdles, power-ups and new tracks
 
+> **Status (2026-10-21):** delivered and checked in game: every §5.4 row (all
+> five original tracks), T1-T9 (all files), the §5.6 mounts (now pickups on
+> Farm, Winter, Toy Room and Night Festival) and both §6 sheets.
+> **Still open: T10 Fairy Woods** (`background`, `card`, `hurdle`,
+> `powerups`, `projectile`).
+
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
 A themed jump spring still gives a high jump, and a themed oil puddle still
@@ -287,7 +293,7 @@ odds in `tracks.js` (more unicorns in Fairy and Candy Land, more griffons in
 Castles, more brooms in Wizard School). These new mounts would fit specific
 tracks. Each is a sheet with **exactly the same 3×3 grid of 418 frames, poses
 and foot baseline as `assets/horse_sprites.webp`**, so it can reuse the horse
-seat positions. Code to add a new mount comes after the art arrives.
+seat positions. Delivered: each is a mount pickup on its track (`mountOdds` in `tracks.js`).
 
 | File | Track | What |
 | --- | --- | --- |

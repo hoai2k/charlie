@@ -129,6 +129,12 @@ const MOUNT_FRAME_CALIBRATION = {
     [[222, 219, 26], [217, 223, 70], [207, 216, 32]]
   ]
 };
+// Themed ground mounts (tracks.js mountOdds) ride like the horse. Their sheets
+// are normalized so every frame's seat is at (226, 242) on the horse baseline.
+const THEMED_MOUNT_TYPES = ["pony", "reindeer", "rocking_horse", "carousel_horse"];
+for (const type of THEMED_MOUNT_TYPES) {
+  MOUNT_FRAME_CALIBRATION[type] = [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
+}
 const MOUNT_SEAT_REFERENCE = { x: 225, y: 228.67 };
 const PUSH_COOLDOWN = 0.72;
 const PUSH_ACTIVE_TIME = 0.22;
@@ -347,10 +353,6 @@ const images = {
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp"),
   ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp`)])),
-  ...Object.fromEntries((window.TRACK_SHARED_ART || []).map(name => [name, loadImage(`assets/${name}_sprites.webp`)])),
-  ...Object.fromEntries(Object.entries(TRACK_THEMES).flatMap(([key, theme]) =>
-    (theme.art || []).map(file => [trackArtKey(key, file), loadImage(`assets/tracks/${key}/${file}.webp`)])
-  ))
 };
 
 const jumpSpriteScale = {
@@ -727,13 +729,51 @@ function getTrackArt(file) {
 
 // Track cards: the track's own card art, then its cell of track_cards.webp
 // (the original five), then a crop of its background.
+// Track-specific art (backgrounds, props, themed mounts, the troll's riding
+// sheets) loads on demand for the current and next track, so PLAY only waits
+// for the core sheets. Until a file has loaded the built-in look is used.
+const trackArtLoads = new Map();
+
+function loadArtOnce(key, src) {
+  if (!trackArtLoads.has(key)) {
+    trackArtLoads.set(key, new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => img.decode().catch(() => {}).then(() => {
+        images[key] = img;
+        resolve();
+      });
+      img.onerror = () => {
+        console.warn(`Couldn't load ${src}`);
+        resolve();
+      };
+      img.src = src;
+    }));
+  }
+  return trackArtLoads.get(key);
+}
+
+function preloadTrackArt(background) {
+  if (!background) return;
+  const theme = getTrackTheme(background);
+  for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp`);
+  for (const type of Object.keys(theme.mountOdds || {})) {
+    if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
+  }
+  if (theme.trollMount) {
+    for (const name of window.TRACK_SHARED_ART || []) loadArtOnce(name, `assets/${name}_sprites.webp`);
+  }
+}
+
 function getTrackCard(background) {
   if (getTrackTheme(background).art?.includes("card")) {
     return { url: `assets/tracks/${background.key}/card.webp`, cells: 1, index: 0 };
   }
   const index = BACKGROUNDS.indexOf(background);
   if (index >= 0 && index < TRACK_CARD_ATLAS_CELLS) return { url: "assets/ui/track_cards.webp", cells: TRACK_CARD_ATLAS_CELLS, index };
-  return { url: images[background.imageKey]?.src, cells: 1, index: 0, crop: true };
+  const url = getTrackTheme(background).art?.includes("background")
+    ? `assets/tracks/${background.key}/background.webp`
+    : images[background.imageKey]?.src;
+  return { url, cells: 1, index: 0, crop: true };
 }
 
 function powerupLabel(type, fallback) {
@@ -746,6 +786,8 @@ function applyTrackBounds() {
   FINISH = Math.round(BASE_FINISH * (getTrackTheme().lengthScale || 1));
   CAMERA_MIN_ZOOM = EXPECTED_VIEW_WIDTH / (FINISH + CAMERA_PLAYER_MARGIN * 2);
   MONSTER_COURSE_START_X = FINISH / 3 + 120;
+  preloadTrackArt(getCurrentBackground());
+  preloadTrackArt(BACKGROUNDS[(state.backgroundIndex + 1) % BACKGROUNDS.length]);
 }
 
 // Tracks where everyone rides a horse all race (tracks.js startMounted).
@@ -1202,6 +1244,10 @@ function makePowerup(type, x, y, options = {}) {
 
 function isFlyingMountType(type) {
   return type === "pegasus" || type === "griffon" || type === "broom";
+}
+
+function mountLabel(type) {
+  return type.replace(/_/g, " ").toUpperCase();
 }
 
 function isSpecialMountType(type) {
@@ -2331,7 +2377,7 @@ function applyPowerup(racer, powerupOrType) {
     racer.fallBackTimer = racer.oilTimer > 0 ? racer.fallBackTimer : 0;
     racer.knockbackX = 0;
     racer.pegasusGliding = false;
-    racer.powerupMessage = racer.horseType === "horse" ? "HORSE" : racer.horseType.toUpperCase();
+    racer.powerupMessage = mountLabel(racer.horseType);
     playMountAudio(racer);
   }
   return true;
@@ -4993,10 +5039,16 @@ function drawBackground() {
   const bg = images[getCurrentBackground().imageKey];
   const viewWidth = getWorldViewportWidth();
   const viewTop = getWorldViewportTop();
-  const scale = H / bg.height;
-  const bgW = bg.width * scale;
   ctx.fillStyle = "#7fc6e8";
   ctx.fillRect(0, viewTop, viewWidth, H - viewTop);
+  if (!bg) {
+    // This track's background is still loading: a plain path for now.
+    ctx.fillStyle = "#dcae6c";
+    ctx.fillRect(0, TRACK_TOP + FOOT_OFFSET_Y, viewWidth, H - TRACK_TOP - FOOT_OFFSET_Y);
+    return;
+  }
+  const scale = H / bg.height;
+  const bgW = bg.width * scale;
   // Reviewed periodic art repeats without reflection. Older backgrounds keep
   // their mirror fallback; a tileable prompt alone is not a seamless texture.
   const directRepeat = getTrackTheme().loopMode === "repeat";
@@ -5470,7 +5522,7 @@ function drawRacer(racer) {
     }
   }
   const activeLabels = [
-    mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? (racer.horseType === "horse" ? "HORSE" : racer.horseType.toUpperCase()) : "",
+    mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
     racer.speedBoostTimer > 0 ? `${powerupLabel("boost", "BOOST")} x${racer.speedBoostStacks.length}` : "",
     racer.highJumpTimer > 0 ? `${powerupLabel("jump", "HIGH JUMP")} x${racer.highJumpStacks.length}` : "",
     racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
