@@ -199,8 +199,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
-> **Still open:** Beach's jump-cell redo R8 and the §8 riding-toy poses
-> (trial: Lily, Mira, Hermione).
+> Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
+> **Still open:** the §8 riding-toy poses (trial: Lily, Mira, Hermione).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**

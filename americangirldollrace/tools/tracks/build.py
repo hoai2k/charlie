@@ -107,7 +107,8 @@ def verify_puddle_cells(key, sheet):
     records = json.loads(path.read_text()) if path.exists() else {}
     if key not in records: return
     record = records[key]
-    for cell, expected in record['unchangedCellSha256'].items():
+    for cell, original in record['unchangedCellSha256'].items():
+        expected = record.get('revisedCellSha256', {}).get(cell, original)
         x = int(cell)*256
         actual = hashlib.sha256(sheet.crop((x,0,x+256,256)).tobytes()).hexdigest()
         assert actual == expected, (key, 'Non-oil cell changed', cell)
@@ -146,6 +147,9 @@ def export_track(key, kind):
             result = Image.open(HERE/'puddle-redos/base-sheets'/f'{key}.webp').convert('RGBA')
             replacement = icon(clean(Image.open(puddle_path)), (256,256), (220,160))
             result.paste(replacement, (768,0))
+            jump_path = folder/'jump-icon.webp'
+            if jump_path.exists():
+                result.paste(icon(clean(Image.open(jump_path)), (256,256), (220,220)), (0,0))
             verify_puddle_cells(key, result)
     else:
         result = ImageOps.fit(Image.open(path).convert('RGB'),SIZES[kind],method=Image.Resampling.LANCZOS)

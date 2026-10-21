@@ -60,6 +60,9 @@
       "2": "2a97b7e95aadd4c13e827dbb7eaeda4b9550e2c8de8eeb1bc49926cef91bd4d3",
       "4": "90440ae7b482b7200a80760590de75141c1a3a82975651fde705851051ae0eb4"
     },
-    "beforeOilSha256": "adb4c3ff4a58630af9e67878167c6c151450d183963e52a878af2b5e386d0d5c"
+    "beforeOilSha256": "adb4c3ff4a58630af9e67878167c6c151450d183963e52a878af2b5e386d0d5c",
+    "revisedCellSha256": {
+      "0": "f58b21e88eef0dbd70e38120ed0adbc35306282ee42563b98f30c9b353923efd"
+    }
   }
 }

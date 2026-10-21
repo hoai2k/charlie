@@ -20,3 +20,9 @@ sort with a standing doll over each puddle and a second unobstructed puddle.
 A 1.5-second apart comparison of the free seawater puddle changed zero pixels,
 confirming the flat draw has no bob or rotation. game-review.webp records
 all seven themes at runtime scale; comparison.webp shows old/new oil cells.
+
+R8 separately replaces Beach cell0 with a pool-ring spring. Beach's revised
+cell0 hash is recorded in verification.json; its original hash remains for
+audit. Cells1/2/4 and the newly delivered seawater cell remain exact. The
+other six sheets still preserve all four non-oil cells exactly. The pickup
+label is POOL SPRING so kickable beach balls remain visually distinct.
