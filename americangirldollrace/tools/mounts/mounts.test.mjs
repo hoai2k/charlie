@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
 const source=fs.readFileSync(new URL('game.js',game),'utf8');
-const names=['isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','isMounted','broomRideBlend'];
+const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','isMounted','broomRideBlend'];
 function setup(){
   const math=Object.create(Math);
   const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:2,PEGASUS_DURATION_MULTIPLIER:1.5,

@@ -2800,6 +2800,17 @@ function setGrabbedRacerPosition(monster, racer) {
   racer.x = monster.x + 56 * monster.facing;
   racer.y = clamp(monster.y - 8, TRACK_TOP, TRACK_BOTTOM);
   racer.z = 44 + liftProgress * 70 + (monster.riding ? 70 : 0);
+  const grabCol = { grab: 0, lift: 1, throw: 2 }[monster.state];
+  const pose = window.TROLL_ART?.rider[3 + grabCol];
+  if (monster.riding && images.troll_riding && getTrollMountImage() === images.skeleton_horse && pose?.hand) {
+    const horseScale = racerDepthScale(monster) * 1.08 * MOUNTED_MONSTER_HORSE_SCALE;
+    const offset = getTrollRiderOffset(true, 0, 0, 1, grabCol);
+    racer.x = monster.x + (pose.hand[0] + offset.x - SPRITE_ANCHOR_X) * horseScale * monster.facing;
+    const handY = monsterDrawY(monster) + 58 + (pose.hand[1] + offset.y - SPRITE_ANCHOR_Y) * horseScale - monster.z;
+    // Grip the doll around her torso (270px in the 418px grabbed pose).
+    const dollScale = racerDepthScale(racer) * (jumpSpriteScale[racer.spriteKey] || jumpSpriteScale.default);
+    racer.z = racer.y + 54 - handY - (SPRITE_ANCHOR_Y - 270) * dollScale;
+  }
   racer.speed = 0;
   racer.moving = false;
 }
@@ -5309,6 +5320,13 @@ function drawMonster(monster) {
 // front of his standing horse. Until the skeleton horse and riding-troll
 // sheets are in (image-requests.md §6), the plain horse is drawn darkened and
 // the troll's standing frames sit on the saddle.
+function getTrollRiderOffset(skeleton, horseRow, horseCol, riderRow, riderCol) {
+  const horse = skeleton && window.TROLL_ART?.horse[horseRow * 3 + horseCol];
+  const rider = window.TROLL_ART?.rider[riderRow * 3 + riderCol];
+  if (!horse || !rider) return { x: 0, y: 0 };
+  return { x: horse.seat[0] - rider.hip[0], y: horse.seat[1] - rider.hip[1] };
+}
+
 function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
   const scale = racerDepthScale(monster);
   const horseScale = scale * 1.08 * MOUNTED_MONSTER_HORSE_SCALE;
@@ -5342,7 +5360,11 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
     const grabCol = { grab: 0, lift: 1, throw: 2 }[monster.state];
     const row = grabCol === undefined ? 0 : 1;
     const col = grabCol === undefined ? monster.frame : grabCol;
-    drawFacingImage(ridingSheet, col * FRAME, row * FRAME, FRAME, FRAME, horseX, horseBaseY + calibration.groundShift * horseScale, horseW, horseW, facing, screenX);
+    const offset = getTrollRiderOffset(horseImage === images.skeleton_horse, horseRow, horseCol, row, col);
+    drawFacingImage(ridingSheet, col * FRAME, row * FRAME, FRAME, FRAME,
+      horseX + offset.x * horseScale,
+      horseBaseY + (calibration.groundShift + offset.y) * horseScale,
+      horseW, horseW, facing, screenX);
     return;
   }
   const trollScale = scale * MONSTER_HEIGHT_SCALE * 0.78;

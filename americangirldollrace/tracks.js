@@ -33,7 +33,7 @@
 //                       own background is in
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs).
-window.TRACK_SHARED_ART = [];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: { art: ["powerups", "projectile", "hurdle"], labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" } },
