@@ -197,7 +197,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Farm, Winter, Toy Room and Night Festival) and both §6 sheets.
 > Fairy Woods includes a repaired direct-repeat background, calibrated track
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
-> **Still open: none.**
+> **Still open:** the **puddle redos in §5.7** (the oil cell of seven
+> `powerups.webp` sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -222,7 +223,7 @@ makes you slip.
 | --- | --- | --- |
 | `background.webp` | 2172×724, opaque | **New tracks only.** The race backdrop, in the same painted storybook style and layout as `assets/background_farm.webp`: sky and scenery on top, a fence or border along the back, and a plain dirt (or sand, snow-packed, carpet…) **path from y≈535 down to the bottom edge**. This is the farm's top edge, carried all the way to the bottom so the racers get a wide band (see 5.3). Nothing stands on the path. The game mirrors every other copy to scroll forever, so **no words or numbers anywhere**, and nothing that looks wrong flipped. Keep the top corners calm (the HUD cards sit there) and the important things in the 1280-wide centre. |
 | `hurdle.webp` | 160×170, alpha | The fence racers jump. It is drawn at **64×68**, the same size as today's picket, so use bold, simple shapes that read at 40% size. Its **base sits on the bottom edge** and it fills about 150 px of the width. It must look jumpable: no taller than it is wide, and no spikes. |
-| `powerups.webp` | 1280×256, alpha | **5 cells of 256×256** in this order: **jump, boost, EMP, oil, snowball.** Centre each object in its cell, no bigger than about 220 px. They are drawn at about 68 px with a gentle bob, so they need chunky outlines and bright colour, like `assets/icons_alpha.webp`. The oil cell is the one to **avoid**, so it should look like a mess. The other four should look like treats you want. |
+| `powerups.webp` | 1280×256, alpha | **5 cells of 256×256** in this order: **jump, boost, EMP, oil, snowball.** Centre each object in its cell, no bigger than about 220 px. They are drawn at about 68 px with a gentle bob, so they need chunky outlines and bright colour, like `assets/icons_alpha.webp`. The oil cell is the one to **avoid**: a **flat puddle of liquid only**, with no cup, jar, pot, box or other object in or beside it. It is drawn lying still on the ground (no bob), so paint it as seen from slightly above, wider than it is tall. Sticky tracks (`oilEffect: "sticky"` in `tracks.js`: honey, mud, jam, chocolate…) should look thick and gooey; slippery ones glossy and slick. It must read as a mess, never a treat. The other four should look like treats you want. |
 | `projectile.webp` | 128×128, alpha | The thing thrown with the snowball power-up. It is drawn at about 34 px and spins, so make it round-ish and centred. |
 | `card.webp` | 400×225, opaque | The track's thumbnail for the picker and the "Next race" card: a painted vignette with the track's hurdle in front (same as request #16). The five original tracks already have cards in `track_cards.webp`, so this file is for new tracks. |
 
@@ -260,9 +261,9 @@ The labels are the pop-up names already set in `tracks.js`.
 | --- | --- | --- | --- |
 | Farm (`farm`) | Keep the white picket, or a hay bale with a sunflower tucked in, or a split-rail fence | hay-bale trampoline · carrot · crowing rooster · mud puddle · basket of red apples | red apple |
 | Fairy (`fairy`) | A twisty vine arch with flowers and a glowing mushroom at each foot, or the white fence wrapped in a flower garland (match the fence in the background) | bouncy spotted toadstool · swirl of fairy dust · magic wand with a star burst · sticky golden honey puddle · cluster of rainbow bubbles | iridescent bubble |
-| Village (`town`) | A low stone wall with a flower box on top, or a stack of market crates (apples, bread loaves) | pogo stick · pair of roller skates · brass bell · spilled lemonade with a tipped cup · bunch of water balloons | water balloon |
+| Village (`town`) | A low stone wall with a flower box on top, or a stack of market crates (apples, bread loaves) | pogo stick · pair of roller skates · brass bell · sticky lemonade puddle · bunch of water balloons | water balloon |
 | Winter (`winter`) | A snow-capped fence with icicles, an ice-block wall, or a snowbank with two candy-cane posts | ski jump ramp · wooden sled · thunder-snow cloud with a zigzag · shiny ice patch with a crack · snowman (today's icon is fine) | snowball (keep the round white look) |
-| Castles (`castles`) | A stone wall with pink bunting swags (match the background), or a striped jousting rail with a pennant | royal trampoline drum · golden fanfare trumpet · bronze gong · spilled strawberry jam with a toppled jar · tray of cream puffs | cream puff |
+| Castles (`castles`) | A stone wall with pink bunting swags (match the background), or a striped jousting rail with a pennant | royal trampoline drum · golden fanfare trumpet · bronze gong · strawberry-jam puddle · tray of cream puffs | cream puff |
 
 ### 5.5 New tracks
 
@@ -277,14 +278,14 @@ priority order:
 | # | Track (key) | `background` | `hurdle` | `powerups`: jump · boost · EMP · oil · snowball | `projectile` |
 | --- | --- | --- | --- | --- | --- |
 | T1 | **Horse Show** (`horseshow`) | A sunny show-jumping arena: grandstand with a cheering crowd, flags and bunting, a judges' booth and ribbon board, white rails along the back, and a raked sand arena floor. | Striped show jump: two wing stands with red-and-white poles | springboard · golden horseshoe · starter's bell · water-jump splash pool · bucket of sugar cubes | sugar cube |
-| T2 | **Toy Room** (`toyroom`) | A kid's bedroom seen at doll size: giant bed, bookshelf and toy chest behind; a row of books or blocks as the back border; a big woven rug as the path. | A row of chunky crayons, or a wall of alphabet blocks | jack-in-the-box · wind-up key · toy drum · spilled juice box · bag of marshmallows | marshmallow |
+| T2 | **Toy Room** (`toyroom`) | A kid's bedroom seen at doll size: giant bed, bookshelf and toy chest behind; a row of books or blocks as the back border; a big woven rug as the path. | A row of chunky crayons, or a wall of alphabet blocks | jack-in-the-box · wind-up key · toy drum · sticky juice puddle · bag of marshmallows | marshmallow |
 | T3 | **Candy Land** (`candy`) | Lollipop trees, gumdrop hills, a frosting castle and a chocolate river behind a candy-cane fence; a graham-cracker or sugar-sand path. | Candy-cane fence with a gumdrop on each post | big gumdrop · peppermint swirl · popping candy burst · chocolate puddle · gumball jar | gumball |
-| T4 | **Beach** (`beach`) | A seaside boardwalk: waves, lighthouse, beach umbrellas and a pier behind a low rope-and-post boardwalk rail; smooth sand path. | Sandcastle wall with a little flag | beach ball · surfboard · conch shell · slippery seaweed tangle · bucket of water balloons | water balloon |
-| T5 | **Wizard School** (`wizard`) | A magical school castle at dusk with floating candles, an owl tower and a broom-racing pitch with hoops in the distance, behind a clipped hedge; flagstone or gravel path. Keep it generic: no house crests or names. | Clipped hedge with a little stone bird bath, or a stack of spell books | spell book with a spring · bubbling potion bottle · wand zap · tipped cauldron spill (green) · bag of puffs | glowing pixie puff |
+| T4 | **Beach** (`beach`) | A seaside boardwalk: waves, lighthouse, beach umbrellas and a pier behind a low rope-and-post boardwalk rail; smooth sand path. | Sandcastle wall with a little flag | beach ball · surfboard · conch shell · slick seawater puddle · bucket of water balloons | water balloon |
+| T5 | **Wizard School** (`wizard`) | A magical school castle at dusk with floating candles, an owl tower and a broom-racing pitch with hoops in the distance, behind a clipped hedge; flagstone or gravel path. Keep it generic: no house crests or names. | Clipped hedge with a little stone bird bath, or a stack of spell books | spell book with a spring · bubbling potion bottle · wand zap · green potion puddle · bag of puffs | glowing pixie puff |
 | T6 | **Pumpkin Patch** (`autumn`) | Autumn farm: orange and red trees, a scarecrow, pumpkins, a corn maze and a hay wagon behind a split-rail fence; leafy dirt path. | Row of pumpkins on a hay bale | leaf pile · gust of swirling leaves · scarecrow · muddy puddle · basket of apples | apple |
 | T7 | **Cloud Kingdom** (`clouds`) | A sky kingdom: cloud castles, rainbows and hot-air balloons, with a puffy cloud bank along the back; a firm pastel cloud path. | Cloud puff wall with a rainbow arch | cloud puff spring · rainbow · thunderclap cloud · rain puddle · hailstone pile | hailstone |
 | T8 | **Moon Base** (`space`) | Moon surface with Earth in a starry sky, domes and a parked rocket behind a row of glowing beacons; grey moon-dust path. | Moon-rock wall with a little flag | moon boots · rocket · laser blaster (toy) · glowing space goo · moon-rock pile | moon rock |
-| T9 | **Night Festival** (`festival`) | An evening fair: lanterns, a Ferris wheel, carousel and fireworks behind a string-light rope fence; a warm lantern-lit path. Keep the path bright enough to see the dolls. | Lantern-post rope barrier | trampoline · sparkler · firework burst · spilled soda · water balloons | water balloon |
+| T9 | **Night Festival** (`festival`) | An evening fair: lanterns, a Ferris wheel, carousel and fireworks behind a string-light rope fence; a warm lantern-lit path. Keep the path bright enough to see the dolls. | Lantern-post rope barrier | trampoline · sparkler · firework burst · fizzy soda puddle · water balloons | water balloon |
 | T10 | **Fairy Woods** (`woods`) | A deep, mossy fairy forest at twilight: giant old trees with fairy doors, glowing toadstools, fireflies, ferns and a babbling brook, behind a fence of twisted branches and roots; a soft, mossy dirt path. Its song is "Fairies in the Woods". | A fallen log with mushrooms and moss | giant bouncy mushroom · swirl of fireflies · acorn bell · mossy bog puddle · pile of acorns | acorn |
 
 ### 5.6 New mounts (later, optional)
@@ -303,7 +304,29 @@ seat positions. Delivered: each is a mount pickup on its track (`mountOdds` in `
 | `assets/carousel_horse_sprites.webp` | Night Festival | A gilded carousel horse on a twisted golden pole |
 | `assets/pony_sprites.webp` | Farm, Horse Show | A small fluffy pony with a braided mane |
 
-### 5.7 Acceptance (track art)
+### 5.7 Redo: puddles with objects in them
+
+These oil cells show a container or a non-liquid object, so the honey pot
+reads as a treat and the cups look like props. Repaint **only cell 4 (oil,
+x 768-1023)** of each `assets/tracks/<key>/powerups.webp` and keep the other
+four cells pixel-identical. Each must be a flat puddle of liquid only, as in
+the §5.2 spec, filling about the same area as the farm's mud puddle.
+
+| # | Track (key) | Now | Repaint as |
+| --- | --- | --- | --- |
+| R1 | Fairy (`fairy`) | Tipped honey pot | A thick, gooey golden honey puddle with drips and a few slow bubbles (sticky) |
+| R2 | Village (`town`) | Lemonade with a tipped cup and ice cubes | A sticky yellow lemonade puddle, just liquid (no cup, no ice) |
+| R3 | Castles (`castles`) | Tipped jam jar | A glossy red strawberry-jam puddle with a few seeds, no jar (sticky) |
+| R4 | Toy Room (`toyroom`) | Juice box | A sticky orange-juice puddle, no box (sticky) |
+| R5 | Wizard School (`wizard`) | Tipped cauldron | A glowing green potion puddle with a faint shimmer, no cauldron (slippery) |
+| R6 | Night Festival (`festival`) | Tipped soda cup | A fizzy brown soda puddle with tiny bubbles, no cup (sticky) |
+| R7 | Beach (`beach`) | Tangle of seaweed | A slick, wet seawater puddle with a little foam at its edge, no seaweed clump (slippery) |
+
+Acceptance: overlay the new sheet on the old one; only cell 4 changed. In
+game the puddle lies flat under a doll standing in it, and it reads as
+something to avoid.
+
+### 5.8 Acceptance (track art)
 
 - [ ] The file is in `assets/tracks/<key>/`, has the size above, and is listed
       in that track's `art` in `tracks.js`.

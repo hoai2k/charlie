@@ -61,6 +61,16 @@ const BOARD_WIDTH = EXPECTED_VIEW_WIDTH;
 const FOOT_OFFSET_Y = 54;
 const DEFAULT_TRACK_TOP = 490;
 let TRACK_TOP = DEFAULT_TRACK_TOP;
+// Where racers' feet meet the painted path. Hurdles, power-ups and trolls are
+// placed from here down; racers may walk a little higher (up to the fence,
+// see applyTrackBounds).
+let PATH_TOP = DEFAULT_TRACK_TOP;
+// Racers' shadows are centred SHADOW_OFFSET_Y below racer.y (see drawRacer).
+const SHADOW_OFFSET_Y = 40;
+// Power-ups keep this far below the path's top edge and this far from hurdles.
+const POWERUP_PATH_EDGE_CLEARANCE = 28;
+const POWERUP_HURDLE_CLEARANCE_X = 100;
+const POWERUP_HURDLE_CLEARANCE_Y = 56;
 const TRACK_BOTTOM = 665;
 // Racer size is tied to screen height, not to the band, so dolls stay the
 // same size on every track.
@@ -298,14 +308,15 @@ const RACER_STARTS = [
 const CHARACTER_FALLBACKS = ["whirlpool", "juliette", "claudia", "kaya", "lily", "marisol", "amanda", "rumi"];
 const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "broom", "all-dolls", "horsing", "amanda-mode"]);
 // dirtTop is the screen y (at the 720 render height) where the painted path
-// starts below the background's fence; feet can't go above it.
+// starts below the background's fence; fenceBase (optional) is where that
+// fence meets the ground, when there's a verge between the two.
 const TRACK_THEMES = window.TRACK_THEMES || {};
 const BACKGROUNDS = [
-  { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3", dirtTop: 532 },
-  { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 548 },
-  { key: "town", name: "Village", imageKey: "backgroundTown", music: "assets/music/Ghent Sweet Parade.mp3", dirtTop: 574 },
-  { key: "winter", name: "Winter", imageKey: "backgroundWinter", music: "assets/music/Snow in My Pocket.mp3", dirtTop: 566 },
-  { key: "castles", name: "Castles", imageKey: "backgroundCastles", music: "assets/music/Sugar Castle Run.mp3", dirtTop: 586 },
+  { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3", dirtTop: 532, fenceBase: 500 },
+  { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 548, fenceBase: 516 },
+  { key: "town", name: "Village", imageKey: "backgroundTown", music: "assets/music/Ghent Sweet Parade.mp3", dirtTop: 574, fenceBase: 547 },
+  { key: "winter", name: "Winter", imageKey: "backgroundWinter", music: "assets/music/Snow in My Pocket.mp3", dirtTop: 566, fenceBase: 518 },
+  { key: "castles", name: "Castles", imageKey: "backgroundCastles", music: "assets/music/Sugar Castle Run.mp3", dirtTop: 586, fenceBase: 558 },
 ];
 // New tracks from tracks.js race once their background art is in.
 const generalMusic = window.TRACK_GENERAL_MUSIC || ["assets/music/Plastic Shoes.mp3"];
@@ -782,7 +793,11 @@ function powerupLabel(type, fallback) {
 
 function applyTrackBounds() {
   const dirtTop = getCurrentBackground().dirtTop;
-  TRACK_TOP = dirtTop ? dirtTop - FOOT_OFFSET_Y : DEFAULT_TRACK_TOP;
+  PATH_TOP = dirtTop ? dirtTop - FOOT_OFFSET_Y : DEFAULT_TRACK_TOP;
+  // fenceBase is where the back fence meets the ground: racers can come up
+  // until their shadow's centre sits just below it.
+  const fenceBase = getCurrentBackground().fenceBase ?? getTrackTheme().fenceBase;
+  TRACK_TOP = fenceBase ? Math.min(PATH_TOP, fenceBase + 4 - SHADOW_OFFSET_Y) : PATH_TOP;
   FINISH = Math.round(BASE_FINISH * (getTrackTheme().lengthScale || 1));
   CAMERA_MIN_ZOOM = EXPECTED_VIEW_WIDTH / (FINISH + CAMERA_PLAYER_MARGIN * 2);
   MONSTER_COURSE_START_X = FINISH / 3 + 120;
@@ -811,7 +826,7 @@ function getTrollMountImage() {
 // RACER_STARTS are laid out for the default band; spread them over this one.
 function startYInTrack(y) {
   const t = (y - DEFAULT_TRACK_TOP) / (TRACK_BOTTOM - DEFAULT_TRACK_TOP);
-  return TRACK_TOP + t * (TRACK_BOTTOM - TRACK_TOP);
+  return PATH_TOP + t * (TRACK_BOTTOM - PATH_TOP);
 }
 
 function setBackground(key) {
@@ -1113,6 +1128,7 @@ function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpee
     empTimer: 0,
     oilTimer: 0,
     oilVelocity: 0,
+    oilSticky: false,
     snowballs: 0,
     powerupMessage: "",
     finished: false,
@@ -1155,7 +1171,7 @@ function makeObstacles() {
     const amandaHazard = amandaHazardInterval > 0 && index % amandaHazardInterval === amandaHazardPhase;
     hurdles.push({
       x,
-      y: TRACK_TOP + 28 + ((index * 53) % (TRACK_BOTTOM - TRACK_TOP - 44)),
+      y: PATH_TOP + 28 + ((index * 53) % (TRACK_BOTTOM - PATH_TOP - 44)),
       w: HURDLE_W,
       h: 58,
       hitW: HURDLE_HIT_W,
@@ -1215,8 +1231,8 @@ function makePowerups() {
     }
     // --- END WEIGHTED SELECTION ---
 
-    const spawnX = x + (Math.random() - 0.5) * 90;
-    const spawnY = TRACK_TOP + 34 + Math.random() * (TRACK_BOTTOM - TRACK_TOP - 68);
+    const spawnY = randomPowerupY();
+    const spawnX = clearOfHurdles(x + (Math.random() - 0.5) * 90, spawnY);
     if (selectedType === "monster" && spawnX >= MONSTER_COURSE_START_X) {
       state.monsters.push(spawnMonster(spawnX, spawnY, { active: false }));
     } else {
@@ -1295,7 +1311,7 @@ function horseDurationForType(horseType) {
 // a TROLL_RIDING_CHANCE; on foot they still grab riders there.
 function makeMonsters() {
   return getMonsterSpawnXs(state.difficulty).map((x, index) => (
-    spawnMonster(x, TRACK_TOP + 26 + Math.random() * (TRACK_BOTTOM - TRACK_TOP - 52), { active: false, riding: index === 0 || rollTrollRiding() })
+    spawnMonster(x, PATH_TOP + 26 + Math.random() * (TRACK_BOTTOM - PATH_TOP - 52), { active: false, riding: index === 0 || rollTrollRiding() })
   ));
 }
 
@@ -1402,7 +1418,7 @@ function updateRacerAudio(racer, dt) {
     GameAudio.stopLoop(mountId);
   }
 
-  if (racer.oilTimer > 0) GameAudio.startLoop(oilId, "oil_slide_loop", { gain: racerAudioGain(racer) });
+  if (racer.oilTimer > 0 && !racer.oilSticky) GameAudio.startLoop(oilId, "oil_slide_loop", { gain: racerAudioGain(racer) });
   else GameAudio.stopLoop(oilId);
 
   if (racer.frozenTimer > 0) GameAudio.startLoop(frozenId, "frozen_loop", { gain: racerAudioGain(racer) });
@@ -1976,8 +1992,10 @@ function update(dt) {
     if (oilAffectsRacer) {
       const oilProgress = racer.oilTimer / OIL_SLIDE_DURATION;
       forward = racer.oilVelocity * oilProgress;
-      racer.facing = racer.oilVelocity < 0 ? -1 : 1;
-      racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
+      if (!racer.oilSticky) {
+        racer.facing = racer.oilVelocity < 0 ? -1 : 1;
+        racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
+      }
     }
     if (racer.hitTimer > 0) forward *= 0.35;
     racer.speed = forward;
@@ -2359,13 +2377,21 @@ function applyPowerup(racer, powerupOrType) {
       return true;
     }
     sfx("oil_splat", racer.x);
-    sfx("oil_slip_start", racer.x);
     racerVoice(racer, "slip", { chance: 0.8, priority: 1 });
     racer.oilTimer = OIL_SLIDE_DURATION;
-    racer.oilVelocity = Math.max(160, Math.abs(racer.speed), OIL_SLIDE_SPEED) * (racer.facing < 0 ? -1 : 1);
-    racer.fallBackTimer = OIL_SLIDE_DURATION;
-    racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
     racer.knockbackX = 0;
+    // Sticky puddles (honey, jam, mud…) hold the feet where they landed and
+    // tip the doll forward; slippery ones slide her along on her heels.
+    racer.oilSticky = getTrackTheme().oilEffect === "sticky";
+    if (racer.oilSticky) {
+      racer.oilVelocity = 0;
+      if (typeof powerupOrType === "object" && Number.isFinite(powerupOrType.x)) racer.x = powerupOrType.x;
+    } else {
+      sfx("oil_slip_start", racer.x);
+      racer.oilVelocity = Math.max(160, Math.abs(racer.speed), OIL_SLIDE_SPEED) * (racer.facing < 0 ? -1 : 1);
+      racer.fallBackTimer = OIL_SLIDE_DURATION;
+      racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
+    }
     racer.powerupMessage = powerupLabel("oil", "OIL");
   } else if (type === "snowball") {
     racer.snowballs += SNOWBALL_PICKUP_COUNT;
@@ -2583,7 +2609,7 @@ function updateStormCloud(dt) {
   const progress = clamp(cloud.timer / cloud.duration, 0, 1);
   cloud.x = cloud.startX + (cloud.endX - cloud.startX) * progress;
   if (!cloud.dropped && cloud.timer >= STORM_CLOUD_DROP_TIME) {
-    dropMonsterNear(cloud.x, TRACK_TOP + 36 + Math.random() * (TRACK_BOTTOM - TRACK_TOP - 72), cloud.y + 58);
+    dropMonsterNear(cloud.x, PATH_TOP + 36 + Math.random() * (TRACK_BOTTOM - PATH_TOP - 72), cloud.y + 58);
     cloud.dropped = true;
   }
   if (progress >= 1) {
@@ -2629,7 +2655,7 @@ function updateRewardCloud(dt) {
   const progress = clamp(cloud.timer / cloud.duration, 0, 1);
   cloud.x = cloud.startX + (cloud.endX - cloud.startX) * progress;
   if (!cloud.dropped && cloud.timer >= STORM_CLOUD_DROP_TIME) {
-    dropPowerupNear(cloud.type, cloud.x, TRACK_TOP + 34 + Math.random() * (TRACK_BOTTOM - TRACK_TOP - 68), cloud.y + 54);
+    dropPowerupNear(cloud.type, cloud.x, randomPowerupY(), cloud.y + 54);
     cloud.dropped = true;
   }
   if (progress >= 1) {
@@ -2638,9 +2664,27 @@ function updateRewardCloud(dt) {
   }
 }
 
+// A power-up's y is at feet level: keep it on the path, clear of the back
+// fence, and away from hurdles so it never reads as part of one.
+function randomPowerupY() {
+  const top = PATH_TOP + FOOT_OFFSET_Y + POWERUP_PATH_EDGE_CLEARANCE;
+  const bottom = TRACK_BOTTOM - 34;
+  return top + Math.random() * Math.max(0, bottom - top);
+}
+
+function clearOfHurdles(x, y) {
+  for (let pass = 0; pass < 3; pass += 1) {
+    const hurdle = state.obstacles.find(obstacle =>
+      Math.abs(x - obstacle.x) < POWERUP_HURDLE_CLEARANCE_X && Math.abs(y - (obstacle.y + 18)) < POWERUP_HURDLE_CLEARANCE_Y);
+    if (!hurdle) break;
+    x = hurdle.x + (x >= hurdle.x ? 1 : -1) * POWERUP_HURDLE_CLEARANCE_X;
+  }
+  return x;
+}
+
 function dropPowerupNear(type, x, y, dropStartY) {
   sfx("reward_cloud_drop", x);
-  state.powerups.push(makePowerup(type, clamp(x, 80, FINISH - 160), y, {
+  state.powerups.push(makePowerup(type, clamp(clearOfHurdles(x, y), 80, FINISH - 160), y, {
     dropDuration: REWARD_POWERUP_DROP_DURATION,
     dropStartY
   }));
@@ -3943,7 +3987,7 @@ function aiInput(racer) {
     ? state.obstacles.find(o => o.x > racer.x + 20 && o.x < racer.x + 260)
     : null;
   if (next) {
-    const targetY = next.y > (TRACK_TOP + TRACK_BOTTOM) / 2 ? TRACK_TOP + 34 : TRACK_BOTTOM - 26;
+    const targetY = next.y > (PATH_TOP + TRACK_BOTTOM) / 2 ? PATH_TOP + 34 : TRACK_BOTTOM - 26;
     vertical = Math.sign(targetY - racer.y) * 0.65;
     jump = Math.abs(next.x - racer.x) < 128 && Math.abs(next.y - racer.y) < 64;
   } else if (vertical === 0) {
@@ -4059,7 +4103,8 @@ function drawWorldScene() {
   } else {
     const drawables = [
       ...state.obstacles.map(obstacle => ({ type: "obstacle", y: obstacle.y, item: obstacle })),
-      ...state.powerups.filter(powerup => !powerup.taken).map(powerup => ({ type: "powerup", y: powerup.y, item: powerup })),
+      // Puddles lie flat, so anyone standing in one is drawn over it.
+      ...state.powerups.filter(powerup => !powerup.taken).map(powerup => ({ type: "powerup", y: powerup.type === "oil" ? powerup.y - 60 : powerup.y, item: powerup })),
       ...state.projectiles.map(projectile => ({ type: "projectile", y: projectile.y, item: projectile })),
       ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.y, item: beam })),
       ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
@@ -5044,7 +5089,7 @@ function drawBackground() {
   if (!bg) {
     // This track's background is still loading: a plain path for now.
     ctx.fillStyle = "#dcae6c";
-    ctx.fillRect(0, TRACK_TOP + FOOT_OFFSET_Y, viewWidth, H - TRACK_TOP - FOOT_OFFSET_Y);
+    ctx.fillRect(0, PATH_TOP + FOOT_OFFSET_Y, viewWidth, H - PATH_TOP - FOOT_OFFSET_Y);
     return;
   }
   const scale = H / bg.height;
@@ -5065,7 +5110,7 @@ function drawBackground() {
     ctx.restore();
   }
   ctx.fillStyle = "rgba(255, 255, 255, 0.16)";
-  ctx.fillRect(0, TRACK_TOP - 8, viewWidth, TRACK_BOTTOM - TRACK_TOP + 86);
+  ctx.fillRect(0, PATH_TOP - 8, viewWidth, TRACK_BOTTOM - PATH_TOP + 86);
 }
 
 function drawFinishLine() {
@@ -5074,14 +5119,14 @@ function drawFinishLine() {
   if (x < -80 || x > viewWidth + 80) return;
   ctx.save();
   ctx.fillStyle = "rgba(255,255,255,0.86)";
-  ctx.fillRect(x, TRACK_TOP - 12, 24, TRACK_BOTTOM - TRACK_TOP + 92);
-  for (let y = TRACK_TOP - 12; y < TRACK_BOTTOM + 80; y += 24) {
-    ctx.fillStyle = (Math.floor((y - TRACK_TOP) / 24) % 2) ? "#111" : "#fff";
+  ctx.fillRect(x, PATH_TOP - 12, 24, TRACK_BOTTOM - PATH_TOP + 92);
+  for (let y = PATH_TOP - 12; y < TRACK_BOTTOM + 80; y += 24) {
+    ctx.fillStyle = (Math.floor((y - PATH_TOP) / 24) % 2) ? "#111" : "#fff";
     ctx.fillRect(x, y, 24, 24);
   }
   ctx.fillStyle = "#172126";
   ctx.font = "800 24px system-ui";
-  ctx.fillText("FINISH", x - 34, TRACK_TOP - 24);
+  ctx.fillText("FINISH", x - 34, PATH_TOP - 24);
   ctx.restore();
 }
 
@@ -5172,6 +5217,11 @@ function drawPowerup(powerup) {
   const t = performance.now() / 500 + powerup.spin;
   const drawY = powerupDrawY(powerup);
   const iconIndex = { jump: 0, boost: 1, emp: 2, oil: 3, snowball: 4 }[powerup.type];
+  if (powerup.type === "oil") {
+    // Puddles lie flat on the ground rather than bobbing like pickups.
+    drawPowerupIcon(iconIndex, x, drawY - 12, t, { flat: !isPowerupDropping(powerup) });
+    return;
+  }
   if (iconIndex !== undefined) {
     drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t);
     return;
@@ -5213,7 +5263,7 @@ function powerupDrawY(powerup) {
   return powerup.dropStartY + (powerup.y - powerup.dropStartY) * eased;
 }
 
-function drawPowerupIcon(index, x, y, t) {
+function drawPowerupIcon(index, x, y, t, options = {}) {
   const trackSheet = getTrackArt("powerups");
   const rect = trackSheet
     ? { x: index * TRACK_POWERUP_CELL, y: 0, w: TRACK_POWERUP_CELL, h: TRACK_POWERUP_CELL }
@@ -5224,11 +5274,13 @@ function drawPowerupIcon(index, x, y, t) {
   const drawH = rect.h * scale;
   ctx.save();
   ctx.translate(x, y);
-  ctx.rotate(Math.sin(t * 0.8) * 0.08);
+  if (!options.flat) {
+    ctx.rotate(Math.sin(t * 0.8) * 0.08);
+    ctx.shadowColor = "rgba(23,33,38,0.26)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 5;
+  }
   ctx.globalAlpha = 0.96;
-  ctx.shadowColor = "rgba(23,33,38,0.26)";
-  ctx.shadowBlur = 8;
-  ctx.shadowOffsetY = 5;
   ctx.drawImage(
     trackSheet || images.powerupIcons,
     rect.x,
@@ -5501,7 +5553,11 @@ function drawRacer(racer) {
     }
     drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
   } else {
-    drawFacingImage(racer.sheet, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+    if (racer.oilTimer > 0 && racer.oilSticky) {
+      drawStuckRacer(racer, screenX, scale);
+    } else {
+      drawFacingImage(racer.sheet, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+    }
   }
 
   ctx.save();
@@ -5534,6 +5590,25 @@ function drawRacer(racer) {
     ctx.strokeText(text, screenX, labelY - 18);
     ctx.fillText(text, screenX, labelY - 18);
   }
+  ctx.restore();
+}
+
+// Stuck in a sticky puddle: the forward-leaning push frame, tipped further
+// forward around the feet, which stay planted in the puddle.
+const STUCK_LEAN = 0.5;
+const STUCK_LEAN_IN_TIME = 0.22;
+
+function drawStuckRacer(racer, screenX, scale) {
+  const elapsed = OIL_SLIDE_DURATION - racer.oilTimer;
+  const lean = STUCK_LEAN * smoothAmandaHazardProgress(elapsed / STUCK_LEAN_IN_TIME) * Math.min(1, racer.oilTimer / 0.18);
+  const feetY = racer.y + 54 - racer.z;
+  ctx.save();
+  ctx.translate(screenX, feetY);
+  ctx.rotate(lean * racer.facing);
+  ctx.translate(-screenX, -feetY);
+  drawFacingImage(racer.sheet, FRAME, 3 * FRAME, FRAME, FRAME,
+    screenX - SPRITE_ANCHOR_X * scale, feetY - SPRITE_ANCHOR_Y * scale,
+    FRAME * scale, FRAME * scale, racer.facing, screenX);
   ctx.restore();
 }
 
