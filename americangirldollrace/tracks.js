@@ -44,6 +44,9 @@
 // a verge between it and the path; racers may walk up to it.
 // rideToys: { boost: "skates", jump: "pogo" } makes those pickups roller
 // skates / a pogo stick that last twice as long and change the doll's look.
+// baseMount may be a list to pick from. unlocksWizardMounts: finishing this
+// track unlocks gryphons and broomsticks on every other track (until then
+// they're left out of mount pickups there).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
 // "spellBook" (frog the nearest racer or monster), "surfboard" (ride a wave
 // over hurdles), "windupCars" (cars that bump whoever they meet).
@@ -231,7 +234,10 @@ window.TRACK_THEMES = {
     name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 507, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPELL BOOK", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
     sounds: { emp: "pickup_wand_zap", jump: "spell_cast" },
-    mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.15, broom: 0.3 },
+    mountOdds: { unicorn: 0.05, pegasus: 0.05 },
+    baseMount: ["griffon", "broom"],
+    unlocksWizardMounts: true,
+    lengthScale: 1.2,
     itemEffects: { jump: "spellBook" }
   },
   autumn: {

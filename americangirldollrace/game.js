@@ -845,7 +845,7 @@ function preloadTrackArt(background) {
   if (!background) return;
   const theme = getTrackTheme(background);
   for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp`);
-  for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount]) {
+  for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
   if (theme.monster && (window.TRACK_SHARED_ART || []).includes(theme.monster)) {
@@ -1398,7 +1398,12 @@ const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0
 function chooseHorseType() {
   if (state.specials === "unicorn") return "unicorn";
   if (isFlyingMountType(state.specials)) return state.specials;
-  const odds = getTrackTheme().mountOdds || DEFAULT_MOUNT_ODDS;
+  const odds = { ...(getTrackTheme().mountOdds || DEFAULT_MOUNT_ODDS) };
+  // Gryphons and broomsticks only turn up elsewhere once a Wizard School race
+  // has been finished on this device; their chance goes to the plain horse.
+  if (!getTrackTheme().unlocksWizardMounts && !areWizardMountsUnlocked()) {
+    for (const type of WIZARD_MOUNTS) delete odds[type];
+  }
   // Everyone already rides a horse there, so the pickup is always a special mount.
   const total = isAlwaysMountedTrack() ? Object.values(odds).reduce((sum, chance) => sum + chance, 0) : 1;
   let roll = Math.random() * total;
@@ -1406,8 +1411,38 @@ function chooseHorseType() {
     if (roll < chance) return type;
     roll -= chance;
   }
-  // A track's baseMount (the Toy Room's rocking horse) stands in for the horse.
-  return getTrackTheme().baseMount || "horse";
+  // A track's baseMount stands in for the horse: the Toy Room's rocking horse,
+  // or a pick from a list (Wizard School's gryphons and broomsticks).
+  const base = getTrackTheme().baseMount;
+  if (Array.isArray(base)) return base[Math.floor(Math.random() * base.length)];
+  return base || "horse";
+}
+
+const WIZARD_MOUNTS = ["griffon", "broom"];
+const WIZARD_MOUNTS_KEY = "agdr.wizardMountsUnlocked";
+let wizardMountsUnlocked = null;
+
+function areWizardMountsUnlocked() {
+  if (wizardMountsUnlocked === null) {
+    try {
+      wizardMountsUnlocked = localStorage.getItem(WIZARD_MOUNTS_KEY) === "1";
+    } catch (error) {
+      wizardMountsUnlocked = false;
+    }
+  }
+  return wizardMountsUnlocked;
+}
+
+// Returns true the first time, so the finish screen can say so.
+function unlockWizardMounts() {
+  if (areWizardMountsUnlocked()) return false;
+  wizardMountsUnlocked = true;
+  try {
+    localStorage.setItem(WIZARD_MOUNTS_KEY, "1");
+  } catch (error) {
+    // Private browsing: unlocked for this visit only.
+  }
+  return true;
 }
 
 // Flying mounts share hold-to-glide physics and the legacy animation flag.
@@ -1895,7 +1930,9 @@ function finishRace(winner) {
   playVictoryAudio(winner);
   // The scene already says who won, so the strip is about what comes next.
   finishTitle.textContent = `Next race: ${nextBackground.name}`;
-  finishText.textContent = "Get ready…";
+  finishText.textContent = getTrackTheme().unlocksWizardMounts && unlockWizardMounts()
+    ? "Gryphons and broomsticks unlocked!"
+    : "Get ready…";
   const nextCard = getTrackCard(nextBackground);
   const finishTrack = finishPanel.querySelector(".finish-track");
   finishTrack.style.backgroundImage = `url("${nextCard.url}")`;
