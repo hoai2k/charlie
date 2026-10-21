@@ -3,6 +3,7 @@
 Put files here that should go into the race: songs, sound effects, art and
 so on. Upload them as they are; you don't need to rename or convert anything.
 If a file's purpose isn't obvious from its name, say so in the request.
+Songs still wanted, with their prompts, are in `../music-requests.md`.
 
 ## For the agent integrating them
 
