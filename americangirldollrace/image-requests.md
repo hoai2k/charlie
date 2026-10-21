@@ -219,7 +219,21 @@ makes you slip.
 | `projectile.webp` | 128×128, alpha | The thing thrown with the snowball power-up. It is drawn at about 34 px and spins, so make it round-ish and centred. |
 | `card.webp` | 400×225, opaque | The track's thumbnail for the picker and the "Next race" card: a painted vignette with the track's hurdle in front (same as request #16). The five original tracks already have cards in `track_cards.webp`, so this file is for new tracks. |
 
+Primary hurdles use the original **straight-on front view**: horizontal rails,
+vertical posts and the same 64×68 runtime footprint. Keep a compact, roughly
+square silhouette. Longer/taller and thicker/slightly angled alternatives are
+experimental assets only; do not select a strong three-quarter view in game.
+
 ### 5.3 Track geometry (backgrounds)
+
+**Race backgrounds must loop seamlessly while scrolling right to left.** New
+art must support ordinary horizontal repetition, without relying on reflected
+copies. A prompt saying "tileable" is not proof: inspect at least two direct
+repeats and the moving wrap in game. Bring the original edge join into the
+middle with a half-width offset, repaint that transition with ImageGen, then
+un-offset the reviewed result. Preserve the horizontal path edge throughout.
+Set `loopMode: "repeat"` on a track only after its repaired repeat is checked.
+Existing art retains its mirror-repeat fallback until similarly revised.
 
 The game renders at 720 high. Racers' feet can go anywhere from the path's
 top edge to the bottom of the screen, so the painted path sets the usable

@@ -4865,11 +4865,12 @@ function drawBackground() {
   const bgW = bg.width * scale;
   ctx.fillStyle = "#7fc6e8";
   ctx.fillRect(0, viewTop, viewWidth, H - viewTop);
-  // The backgrounds aren't made to tile, so every other copy is mirrored:
-  // neighbouring edges then always match and there's no visible seam.
+  // Reviewed periodic art repeats without reflection. Older backgrounds keep
+  // their mirror fallback; a tileable prompt alone is not a seamless texture.
+  const directRepeat = getTrackTheme().loopMode === "repeat";
   const firstTile = Math.floor(state.camera / bgW);
   for (let tile = firstTile, x = tile * bgW - state.camera; x < viewWidth; tile += 1, x += bgW) {
-    if (tile % 2 === 0) {
+    if (directRepeat || tile % 2 === 0) {
       ctx.drawImage(bg, x, 0, bgW, H);
       continue;
     }

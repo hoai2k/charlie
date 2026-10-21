@@ -1,0 +1,38 @@
+{
+  "horseshow": {
+    "wrapMeanDelta": 13.1183,
+    "ordinaryColumn95thDelta": 9.532
+  },
+  "toyroom": {
+    "wrapMeanDelta": 6.0221,
+    "ordinaryColumn95thDelta": 8.5486
+  },
+  "candy": {
+    "wrapMeanDelta": 5.6413,
+    "ordinaryColumn95thDelta": 9.2127
+  },
+  "beach": {
+    "wrapMeanDelta": 7.6773,
+    "ordinaryColumn95thDelta": 7.6501
+  },
+  "wizard": {
+    "wrapMeanDelta": 6.0101,
+    "ordinaryColumn95thDelta": 9.8218
+  },
+  "autumn": {
+    "wrapMeanDelta": 9.2887,
+    "ordinaryColumn95thDelta": 7.7772
+  },
+  "clouds": {
+    "wrapMeanDelta": 1.942,
+    "ordinaryColumn95thDelta": 5.2129
+  },
+  "space": {
+    "wrapMeanDelta": 6.5318,
+    "ordinaryColumn95thDelta": 11.2926
+  },
+  "festival": {
+    "wrapMeanDelta": 16.2099,
+    "ordinaryColumn95thDelta": 9.288
+  }
+}
