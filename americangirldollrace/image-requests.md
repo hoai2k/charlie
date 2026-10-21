@@ -210,10 +210,9 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
-> The §8 riding toys are in for twelve dolls; K3 (trial falls) and the
+> The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol,
-> Felicity and Luna, the §10 new-item art (actions sheets, frogs, wave,
+> **Still open:** the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol, the §10 new-item art (actions sheets, frogs, wave,
 > wind-up cars), and the §9 track monsters (scarecrow and skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
@@ -394,8 +393,8 @@ Claudia, Kaya, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity and Luna (K1/K
 Their twelve poses, alternate outfits, both directions, baseline overlays and
 pickup selection pass; see `tools/dolls/toys/reports/`. A side-by-side
 clothing check against each sprite sheet (2026-10-21) passed for all of them
-except Juliette's purse (K4 below). **Still to do:** Marisol (use her new
-canonical), Felicity and Luna.
+except Juliette's purse (K4 below). Felicity and Luna followed and pass too.
+**Still to do:** Marisol (use her new canonical).
 
 **Clothing must not change between poses** (see §4). A toy pose shows exactly
 the outfit, shoes and accessories of the same pose on her sprite sheet. The
