@@ -1,0 +1,52 @@
+{
+  "5": {
+    "bounds": [
+      23,
+      71,
+      395,
+      409
+    ],
+    "anchorX": 220.0640776699029,
+    "renderScale": 1.0,
+    "normalFallGeometry": true,
+    "sourceBodyBounds": [
+      5,
+      5,
+      572,
+      520
+    ],
+    "referenceBodyBounds": [
+      31,
+      71,
+      397,
+      409
+    ],
+    "bodyScale": 0.6563106796116505,
+    "packedScale": 1
+  },
+  "11": {
+    "bounds": [
+      8,
+      78,
+      410,
+      409
+    ],
+    "anchorX": 220.16411128183333,
+    "renderScale": 1.0190898187633262,
+    "normalFallGeometry": true,
+    "sourceBodyBounds": [
+      6,
+      30,
+      548,
+      478
+    ],
+    "referenceBodyBounds": [
+      31,
+      71,
+      397,
+      409
+    ],
+    "bodyScale": 0.7544642857142857,
+    "packedScale": 0.9812677759979077
+  }
+}

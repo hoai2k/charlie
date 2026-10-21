@@ -62,7 +62,7 @@ window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
 window.RIDE_TOY_ART_VERSION = "20261021-fall-v3";
-window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "barbie", "cinnamon"];
+window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "barbie", "cinnamon", "felicity", "luna"];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {
   "lily": {
@@ -422,6 +422,66 @@ window.RIDE_TOY_FRAMES = {
       1.0,
       1.087186388541767,
       1.0528213015476304,
+      1.0
+    ]
+  },
+  "felicity": {
+    "anchorX": [
+      250,
+      225,
+      247,
+      225,
+      225,
+      220.0640776699029,
+      225,
+      225,
+      225,
+      225,
+      219,
+      220.16411128183333
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0191429359654232,
+      1.0161542470036478,
+      1.0190898187633262
+    ]
+  },
+  "luna": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      225,
+      219.99594320486818,
+      225,
+      225,
+      225,
+      225,
+      222,
+      195.14685314685318
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0410599883517764,
+      1.0442147155892059,
+      1.0,
+      1.0,
+      1.0726072607260726,
+      1.0095127159774802,
+      1.075761987963502,
+      1.0662978062512132,
       1.0
     ]
   }
