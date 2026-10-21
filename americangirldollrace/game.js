@@ -2491,7 +2491,7 @@ function performPushAttack(attacker) {
     const dy = (monster.y + 54) - (attacker.y + 54);
     const inFront = attacker.facing > 0 ? dx > 2 && dx < reach + 28 : dx < -2 && dx > -reach - 28;
     if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 18 || attacker.z > 64) continue;
-    applyMonsterKnockback(monster, attacker.facing);
+    applyMonsterKnockback(monster, attacker.facing, { unhorse: true });
     attacker.pushedTargets.add(monster);
   }
 }
@@ -2523,7 +2523,7 @@ function updateProjectiles(dt) {
       const close = Math.abs(monster.x - projectile.x) < 62 && Math.abs(monster.y + 54 - projectile.y) < 58 && Math.abs(projectile.z) < 140;
       if (!close) continue;
       sfx("snowball_hit", monster.x);
-      applyMonsterKnockback(monster, Math.sign(projectile.vx) || 1);
+      applyMonsterKnockback(monster, Math.sign(projectile.vx) || 1, { unhorse: true });
       projectile.hitTargets.add(monster);
       projectile.distance = SNOWBALL_RANGE;
       break;
@@ -2562,7 +2562,7 @@ function fireRainbowBeam(racer) {
     const ahead = racer.facing > 0 ? monster.x > startX && monster.x < endX : monster.x < startX && monster.x > endX;
     if (!ahead || Math.abs(monster.y - racer.y) > 120) continue;
     sfx("unicorn_beam_hit", monster.x);
-    applyMonsterKnockback(monster, racer.facing);
+    applyMonsterKnockback(monster, racer.facing, { unhorse: true });
   }
 }
 
@@ -2994,9 +2994,11 @@ function applyPushHit(attacker, target, direction) {
   target.jumpStarted = false;
 }
 
-function applyMonsterKnockback(monster, direction) {
+// Only deliberate hits (a push, a thrown snowball, a unicorn beam) pass
+// unhorse; Amanda's shove and mount bumps leave a riding troll in the saddle.
+function applyMonsterKnockback(monster, direction, { unhorse = false } = {}) {
   if (monster.state === "sleeping" || monster.state === "ground") return;
-  if (monster.riding) unhorseMonster(monster, direction);
+  if (monster.riding && unhorse) unhorseMonster(monster, direction);
   if (monster.target?.grabbedBy === monster) monster.target.grabbedBy = null;
   monster.target = null;
   monster.knockedBacks += 1;
@@ -3006,7 +3008,7 @@ function applyMonsterKnockback(monster, direction) {
   monster.facing = direction < 0 ? -1 : 1;
 }
 
-// Pushed or hit off his horse, a troll carries on on foot and the horse bolts
+// Pushed or hit off his horse (see applyMonsterKnockback), a troll carries on on foot and the horse bolts
 // the way he was knocked, all the way off the track.
 function unhorseMonster(monster, direction) {
   monster.riding = false;
