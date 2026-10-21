@@ -20,6 +20,19 @@
 // non-horse mount from a mount pickup; the rest are plain horses.
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
+// Riding rules (Horse Show):
+//   startMounted        everyone rides a horse all race and can use power-ups
+//                       on horseback; a mount pickup swaps in one of
+//                       `mountOdds`' special mounts for a while
+//   trollMount          what trolls ride: an image key (falls back to a
+//                       darkened horse until its sheet is in TRACK_SHARED_ART)
+//   hurdleGapScale      spaces the hurdles further apart
+//   lengthScale         makes the course longer
+//   standInBackground   races on another track's backdrop until this one's
+//                       own background is in
+// TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
+// several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs).
+window.TRACK_SHARED_ART = [];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: { art: [], labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" } },
@@ -38,7 +51,12 @@ window.TRACK_THEMES = {
   horseshow: {
     name: "Horse Show", dirtTop: 532, art: [],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
-    mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.02, broom: 0.01 }
+    startMounted: true,
+    mountOdds: { unicorn: 0.4, pegasus: 0.3, griffon: 0.2, broom: 0.1 },
+    trollMount: "skeleton_horse",
+    hurdleGapScale: 1.4,
+    lengthScale: 1.4,
+    standInBackground: "farm"
   },
   toyroom: {
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 532, art: [],

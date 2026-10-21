@@ -291,3 +291,26 @@ seat positions. Code to add a new mount comes after the art arrives.
 - [ ] New backgrounds: a doll pressed to the top of the track has her feet on
       the path's top edge (adjust `dirtTop` if not), and the scroll seam looks
       right when mirrored.
+
+---
+
+## 6. Horse Show riding: the troll's skeleton horse
+
+On the Horse Show track (`horseshow` in `tracks.js`) everyone races on
+horseback from the start, and the troll rides too. Until these sheets arrive,
+he rides a darkened, larger copy of the normal horse and sits on it in his
+standing frames. List each file in `TRACK_SHARED_ART` in `tracks.js` (as
+`"skeleton_horse"` or `"troll_riding"`) in the same commit that adds it.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| S1 | `assets/skeleton_horse_sprites.webp` | 1254×1254 (3×3 of 418), alpha | **The Skeleton Horse.** Spooky but kid-friendly, not gory: bone-white skeleton horse with glowing green eyes, wisps of ghostly purple mane and tail, and a tattered dark saddle blanket. It should be noticeably bulkier than the normal horse, to carry a big troll. Use **exactly the layout, poses and foot baseline of `assets/horse_sprites.webp`**: row 0 standing (3 frames), row 1 gallop (3 frames), row 2 jump (3 frames), feet on the same baseline and facing right. Keep the saddle where the horse's saddle is in each matching frame, so a sheet overlaid on the horse sheet lines up at the seat. The game draws it 1.3× the size of a normal horse. |
+| S2 | `assets/troll_riding_sprites.webp` | 1254×836 (3×2 of 418), alpha | **The troll riding**, drawn without the horse and in the same frame, scale and anchor as S1, so he sits in the saddle when the two are overlaid. The troll must match `assets/monster_sprites.webp`. Row 0 is riding, matching S1's gallop frames 1-3 (legs astride, leaning forward, one hand on the reins). Row 1 is grabbing from the saddle, lined up with S1's standing frame 1: **reach** (leaning far to the side with long arms out), **lift** (a doll-sized grip held up overhead) and **throw** (arms flung forward). The game draws the grabbed doll itself, so leave the hands empty. |
+
+When he's knocked down he falls off, and the game uses his normal on-foot
+frames next to the standing skeleton horse, so that needs no new art.
+
+Acceptance: race the Horse Show (it uses the farm backdrop until its own
+background, T1, arrives). The troll gallops in on the skeleton horse, stays in
+the saddle through a gallop cycle, and his reach, lift and throw line up with
+the doll he grabs.

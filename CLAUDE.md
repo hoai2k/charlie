@@ -118,6 +118,8 @@ hook to get round it.
   `assets/tracks/<key>/` (hurdle, power-up skins, projectile, card), mount odds,
   power-up names, and new tracks that join the rotation once their background
   is listed. Each track's `dirtTop` keeps racers' feet on the painted path.
+  Horse Show riding rules (everyone mounted, mount swaps, troll on a horse,
+  longer course) are `tracks.js` flags; see its header comment.
   Briefs are in `americangirldollrace/image-requests.md` §5.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
