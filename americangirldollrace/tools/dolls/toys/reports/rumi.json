@@ -1,0 +1,228 @@
+{
+  "assetKey": "rumi-v2",
+  "anchorX": [
+    234,
+    225,
+    236,
+    225,
+    225,
+    189.68899521531102,
+    225,
+    225,
+    225,
+    225,
+    225,
+    174.24343675417663
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 390,
+  "scale": 1.1607142857142858,
+  "actionScaleRatio": 1.0,
+  "frames": [
+    {
+      "bounds": [
+        7,
+        24,
+        316,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 234,
+      "sourcePivot": 188.0,
+      "targetPivot": 218,
+      "sourceChin": 85.0
+    },
+    {
+      "bounds": [
+        60,
+        19,
+        305,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 133.0,
+      "targetPivot": 209,
+      "sourceChin": 70.0
+    },
+    {
+      "bounds": [
+        5,
+        29,
+        316,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 236,
+      "sourcePivot": 190.0,
+      "targetPivot": 220,
+      "sourceChin": 67.0
+    },
+    {
+      "bounds": [
+        77,
+        22,
+        281,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 119.0,
+      "targetPivot": 209,
+      "sourceChin": 84.0
+    },
+    {
+      "bounds": [
+        62,
+        28,
+        324,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 132.0,
+      "targetPivot": 209,
+      "sourceChin": 65.0
+    },
+    {
+      "bounds": [
+        54,
+        144,
+        363,
+        409
+      ],
+      "anchorX": 189.68899521531102,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        492,
+        423
+      ],
+      "referenceBodyBounds": [
+        81,
+        144,
+        407,
+        409
+      ],
+      "bodyScale": 0.6339712918660287,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        85,
+        32,
+        285,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 112.0,
+      "targetPivot": 209,
+      "sourceChin": 90.0
+    },
+    {
+      "bounds": [
+        100,
+        21,
+        281,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 98.5,
+      "targetPivot": 209,
+      "sourceChin": 82.0
+    },
+    {
+      "bounds": [
+        73,
+        34,
+        277,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 122.0,
+      "targetPivot": 209,
+      "sourceChin": 81.0
+    },
+    {
+      "bounds": [
+        105,
+        14,
+        279,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 95.0,
+      "targetPivot": 209,
+      "sourceChin": 56.0
+    },
+    {
+      "bounds": [
+        94,
+        14,
+        335,
+        409
+      ],
+      "scale": 1.1607142857142858,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 104.5,
+      "targetPivot": 209,
+      "sourceChin": 79.0
+    },
+    {
+      "bounds": [
+        56,
+        143,
+        362,
+        409
+      ],
+      "anchorX": 174.24343675417663,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        438,
+        424
+      ],
+      "referenceBodyBounds": [
+        81,
+        144,
+        407,
+        409
+      ],
+      "bodyScale": 0.6324582338902148,
+      "packedScale": 1
+    }
+  ],
+  "sha256": "7902be9ab048bf843bd81729416583e58251c9b242ba453e065f64b4c57c2ff4"
+}

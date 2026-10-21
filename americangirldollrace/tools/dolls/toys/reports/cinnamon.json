@@ -1,0 +1,228 @@
+{
+  "assetKey": "cinnamon",
+  "anchorX": [
+    225,
+    225,
+    225,
+    225,
+    225,
+    189.6892156862745,
+    225,
+    225,
+    225,
+    225,
+    225,
+    189.4956043956044
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.087186388541767,
+    1.0528213015476304,
+    1.0
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 390,
+  "scale": 1.2621359223300972,
+  "actionScaleRatio": 1.0,
+  "frames": [
+    {
+      "bounds": [
+        28,
+        19,
+        335,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 149.0,
+      "targetPivot": 209,
+      "sourceChin": 160.0
+    },
+    {
+      "bounds": [
+        70,
+        20,
+        330,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 115.0,
+      "targetPivot": 209,
+      "sourceChin": 160.0
+    },
+    {
+      "bounds": [
+        31,
+        23,
+        318,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 146.0,
+      "targetPivot": 209,
+      "sourceChin": 158.0
+    },
+    {
+      "bounds": [
+        78,
+        13,
+        288,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 109.0,
+      "targetPivot": 209,
+      "sourceChin": 162.0
+    },
+    {
+      "bounds": [
+        78,
+        14,
+        327,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 109.0,
+      "targetPivot": 209,
+      "sourceChin": 162.0
+    },
+    {
+      "bounds": [
+        51,
+        92,
+        367,
+        409
+      ],
+      "anchorX": 189.6892156862745,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        5,
+        514,
+        515
+      ],
+      "referenceBodyBounds": [
+        85,
+        92,
+        404,
+        409
+      ],
+      "bodyScale": 0.6215686274509804,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        76,
+        28,
+        268,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 110.5,
+      "targetPivot": 209,
+      "sourceChin": 156.0
+    },
+    {
+      "bounds": [
+        78,
+        13,
+        264,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 109.0,
+      "targetPivot": 209,
+      "sourceChin": 162.0
+    },
+    {
+      "bounds": [
+        69,
+        19,
+        275,
+        409
+      ],
+      "scale": 1.2621359223300972,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 116.0,
+      "targetPivot": 209,
+      "sourceChin": 160.0
+    },
+    {
+      "bounds": [
+        86,
+        5,
+        261,
+        409
+      ],
+      "scale": 1.160919540229885,
+      "renderScale": 1.087186388541767,
+      "anchorX": 225,
+      "sourcePivot": 111.0,
+      "targetPivot": 209,
+      "sourceChin": 179.0
+    },
+    {
+      "bounds": [
+        68,
+        5,
+        337,
+        409
+      ],
+      "scale": 1.198813056379822,
+      "renderScale": 1.0528213015476304,
+      "anchorX": 225,
+      "sourcePivot": 122.5,
+      "targetPivot": 209,
+      "sourceChin": 174.0
+    },
+    {
+      "bounds": [
+        39,
+        92,
+        379,
+        409
+      ],
+      "anchorX": 189.4956043956044,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        5,
+        493,
+        460
+      ],
+      "referenceBodyBounds": [
+        85,
+        92,
+        404,
+        409
+      ],
+      "bodyScale": 0.6967032967032967,
+      "packedScale": 1
+    }
+  ],
+  "sha256": "2c3fa5dc735590e4e96215bcaffe3e8a6fdd676cdb52c9095688d61770e4b44d"
+}

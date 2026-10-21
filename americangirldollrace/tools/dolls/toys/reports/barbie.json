@@ -1,0 +1,228 @@
+{
+  "assetKey": "barbie",
+  "anchorX": [
+    225,
+    225,
+    225,
+    225,
+    225,
+    213.75974025974028,
+    225,
+    225,
+    225,
+    225,
+    225,
+    191.07476635514018
+  ],
+  "renderScale": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.009101618377135,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "baseline": 409,
+  "standingReferenceHeight": 390,
+  "scale": 1.1048158640226629,
+  "actionScaleRatio": 1.0,
+  "frames": [
+    {
+      "bounds": [
+        17,
+        20,
+        299,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 179.0,
+      "targetPivot": 209,
+      "sourceChin": 139.0
+    },
+    {
+      "bounds": [
+        78,
+        19,
+        295,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 124.0,
+      "targetPivot": 209,
+      "sourceChin": 143.0
+    },
+    {
+      "bounds": [
+        15,
+        19,
+        269,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 181.0,
+      "targetPivot": 209,
+      "sourceChin": 142.0
+    },
+    {
+      "bounds": [
+        92,
+        21,
+        272,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 111.0,
+      "targetPivot": 209,
+      "sourceChin": 130.0
+    },
+    {
+      "bounds": [
+        82,
+        30,
+        310,
+        409
+      ],
+      "scale": 1.094850948509485,
+      "renderScale": 1.009101618377135,
+      "anchorX": 225,
+      "sourcePivot": 121.0,
+      "targetPivot": 209,
+      "sourceChin": 169.0
+    },
+    {
+      "bounds": [
+        45,
+        103,
+        374,
+        409
+      ],
+      "anchorX": 213.75974025974028,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        5,
+        5,
+        501,
+        467
+      ],
+      "referenceBodyBounds": [
+        66,
+        103,
+        375,
+        409
+      ],
+      "bodyScale": 0.6623376623376623,
+      "packedScale": 1
+    },
+    {
+      "bounds": [
+        113,
+        19,
+        285,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 92.0,
+      "targetPivot": 209,
+      "sourceChin": 167.0
+    },
+    {
+      "bounds": [
+        107,
+        43,
+        267,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 97.5,
+      "targetPivot": 209,
+      "sourceChin": 121.0
+    },
+    {
+      "bounds": [
+        106,
+        44,
+        272,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 98.0,
+      "targetPivot": 209,
+      "sourceChin": 120.0
+    },
+    {
+      "bounds": [
+        107,
+        41,
+        272,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 97.0,
+      "targetPivot": 209,
+      "sourceChin": 117.0
+    },
+    {
+      "bounds": [
+        104,
+        43,
+        322,
+        409
+      ],
+      "scale": 1.1048158640226629,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "sourcePivot": 100.0,
+      "targetPivot": 209,
+      "sourceChin": 115.0
+    },
+    {
+      "bounds": [
+        30,
+        103,
+        389,
+        409
+      ],
+      "anchorX": 191.07476635514018,
+      "renderScale": 1.0,
+      "normalFallGeometry": true,
+      "sourceBodyBounds": [
+        6,
+        5,
+        442,
+        433
+      ],
+      "referenceBodyBounds": [
+        66,
+        103,
+        375,
+        409
+      ],
+      "bodyScale": 0.7149532710280374,
+      "packedScale": 1
+    }
+  ],
+  "sha256": "e40c08a1737083e109bc700131ee77b0bf4fb2257e6bf5481540ece12af497ba"
+}
