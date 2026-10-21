@@ -44,6 +44,8 @@
 // a verge between it and the path; racers may walk up to it.
 // rideToys: { boost: "skates", jump: "pogo" } makes those pickups roller
 // skates / a pogo stick that last twice as long and change the doll's look.
+// moonBoots: the high-jump pickup is moon boots: low gravity for a while, so
+// jumps float over several hurdles (Moon Base).
 // monster: replaces the troll on that track with another sheet in the troll's
 // layout, assets/<monster>_sprites.webp (listed in TRACK_SHARED_ART once
 // delivered; until then the troll appears), and its own <monster>_* sounds.
@@ -238,6 +240,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
   },
   space: {
+    moonBoots: true,
     oilEffect: "sticky",
     name: "Moon Base", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" },

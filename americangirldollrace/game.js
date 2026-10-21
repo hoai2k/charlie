@@ -194,6 +194,16 @@ const RIDE_TOY_DURATION_MULTIPLIER = 2;
 const SKATE_STRIDE_PX = 150;
 const POGO_BOUNCE_HZ = 2.4;
 const POGO_BOUNCE_HEIGHT = 30;
+// Moon boots (tracks.js moonBoots, Moon Base): the high-jump pickup lowers
+// the racer's gravity instead, so softer jumps float over several hurdles.
+const MOON_BOOTS_DURATION = 10;
+const MOON_BOOTS_GRAVITY_SCALE = 0.35;
+const MOON_BOOTS_JUMP_SCALE = 0.82;
+// Power-up feedback: after-images, speed streaks and sparkles while boosted;
+// a burst and a sparkle trail on boosted jumps; a coloured ring underfoot.
+const SPEED_GHOST_COUNT = 4;
+const SPEED_GHOST_INTERVAL = 0.045;
+const MOON_BOOTS_COLOR = "#a98bff";
 // Kickable beach balls (tracks.js beachBalls): run into one to nudge it along,
 // push (X) to kick it. Positions are at feet level, like power-ups.
 const BEACH_BALL_RADIUS = 22;
@@ -504,6 +514,7 @@ const state = {
   monsters: [],
   runawayHorses: [],
   beachBalls: [],
+  particles: [],
   difficulty: "normal",
   specials: "none",
   cameraMode: "lego",
@@ -713,6 +724,7 @@ function resetRace(mode = state.mode) {
   state.monsters = makeMonsters();
   state.runawayHorses = [];
   state.beachBalls = makeBeachBalls();
+  state.particles = [];
   state.powerups = makePowerups();
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
@@ -1222,6 +1234,11 @@ function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpee
     pegasusGliding: false,
     unicornBeamCooldown: 0,
     rideToys: [],
+    moonBootsTimer: 0,
+    ghosts: [],
+    ghostTimer: 0,
+    sparkleTimer: 0,
+    lastBody: null,
     toyDistance: 0,
     pogoPhase: 0,
     grabbedBy: null,
@@ -1371,7 +1388,7 @@ function updateRacerVerticalMotion(racer, mounted, jumpHeld, dt) {
     racer.pegasusGliding = true;
   } else {
     racer.pegasusGliding = false;
-    racer.vy -= GRAVITY * dt;
+    racer.vy -= GRAVITY * (racer.moonBootsTimer > 0 ? MOON_BOOTS_GRAVITY_SCALE : 1) * dt;
   }
 }
 
@@ -2099,6 +2116,7 @@ function update(dt) {
     const previousZ = racer.z;
     const normalMoveX = constrainHumanSeparationMove(racer, forward * dt);
     racer.x += normalMoveX + racer.knockbackX * dt;
+    updateRacerPowerupEffects(racer, dt);
     if (racer.rideToys.length > 0) {
       racer.toyDistance += Math.abs(normalMoveX);
       const previousHop = Math.abs(Math.sin(racer.pogoPhase));
@@ -2120,6 +2138,13 @@ function update(dt) {
       racer.jumpStarted = true;
       racer.jumpFrame = 0;
       racer.vy = jumpPower;
+      if (racer.moonBootsTimer > 0) {
+        spawnParticles(racer.x, racer.y + 54, 0, 10, { color: "#d9d3e6", kind: "puff", speed: 140, lift: 40, life: 0.8, size: 14, gravity: 0 });
+        spawnParticles(racer.x, racer.y + 54, 0, 10, { color: MOON_BOOTS_COLOR, speed: 120, lift: 260, life: 0.7, gravity: 300 });
+      } else if (racer.highJumpTimer > 0) {
+        spawnParticles(racer.x, racer.y + 54, 0, 16, { color: POWERUP_GLOW_COLORS.jump, speed: 170, lift: 380, life: 0.55 });
+        spawnParticles(racer.x, racer.y + 54, 0, 1, { color: POWERUP_GLOW_COLORS.jump, kind: "ring", life: 0.35, size: 50, gravity: 0, speed: 0, lift: 0 });
+      }
       if (!mounted) {
         const boosted = racer.highJumpTimer > 0;
         racerVoice(racer, boosted ? "jump_big" : "jump", { chance: boosted ? 0.8 : 0.35 });
@@ -2177,6 +2202,7 @@ function update(dt) {
   updatePowerupDrops(dt);
   updateRunawayHorses(dt);
   updateBeachBalls(dt);
+  updateParticles(dt);
   bumpMonstersWithSpecialMounts();
   pushRacers(dt);
   updateAmandaHazards(dt);
@@ -2201,6 +2227,7 @@ function updateStackTimers(racer, dt) {
   racer.highJumpStacks = racer.highJumpStacks
     .map(timer => timer - dt)
     .filter(timer => timer > 0);
+  racer.moonBootsTimer = Math.max(0, racer.moonBootsTimer - dt);
   racer.rideToys = racer.rideToys
     .map(toy => ({ ...toy, timer: toy.timer - dt }))
     .filter(toy => toy.timer > 0);
@@ -2255,17 +2282,115 @@ function getRideToyPose(racer, jumping) {
   return { sheet, row: 2, col, lift: hop * POGO_BOUNCE_HEIGHT };
 }
 
+function updateRacerPowerupEffects(racer, dt) {
+  const boosted = racer.speedBoostTimer > 0 && racer.moving;
+  // After-images: a short history of what was drawn, sampled over time.
+  racer.ghostTimer += dt;
+  if (racer.ghostTimer >= SPEED_GHOST_INTERVAL) {
+    racer.ghostTimer = 0;
+    if (boosted && racer.lastBody) {
+      racer.ghosts.push({ ...racer.lastBody, x: racer.x, y: racer.y, z: racer.z });
+      if (racer.ghosts.length > SPEED_GHOST_COUNT) racer.ghosts.shift();
+    } else if (racer.ghosts.length > 0) {
+      racer.ghosts.shift();
+    }
+  }
+  racer.sparkleTimer -= dt;
+  if (racer.sparkleTimer > 0) return;
+  if (boosted && racer.z < 10) {
+    racer.sparkleTimer = 0.06;
+    spawnParticles(racer.x - racer.facing * 18, racer.y + 54, 4, 1, { color: POWERUP_GLOW_COLORS.boost, speed: 60, lift: 120, life: 0.45, size: 4, dirX: -racer.facing });
+  } else if (racer.z > 8 && racer.vy > -200 && (racer.highJumpTimer > 0 || racer.moonBootsTimer > 0)) {
+    racer.sparkleTimer = 0.05;
+    const color = racer.moonBootsTimer > 0 ? MOON_BOOTS_COLOR : POWERUP_GLOW_COLORS.jump;
+    spawnParticles(racer.x, racer.y + 54, racer.z, 1, { color, speed: 40, lift: 0, life: 0.5, size: 4, gravity: 120 });
+  }
+}
+
+// World-space sparkles, puffs and rings. y is the ground line, z the height.
+function spawnParticles(x, y, z, count, options = {}) {
+  const { color = "#ffffff", kind = "spark", speed = 160, lift = 300, life = 0.6, size = 5, gravity = 900, dirX = 0 } = options;
+  for (let i = 0; i < count; i += 1) {
+    const angle = Math.random() * Math.PI * 2;
+    state.particles.push({
+      x, y: y + (Math.random() - 0.5) * 10, z,
+      vx: (dirX ? dirX * (0.5 + Math.random()) : Math.cos(angle)) * speed,
+      vz: lift * (0.55 + Math.random() * 0.45),
+      gravity, kind, color, size: size * (0.7 + Math.random() * 0.6),
+      life, maxLife: life
+    });
+  }
+  if (state.particles.length > 400) state.particles.splice(0, state.particles.length - 400);
+}
+
+function updateParticles(dt) {
+  for (const p of state.particles) {
+    p.x += p.vx * dt;
+    p.z = Math.max(0, p.z + p.vz * dt);
+    p.vz -= p.gravity * dt;
+    p.vx *= Math.pow(0.3, dt);
+    p.life -= dt;
+  }
+  state.particles = state.particles.filter(p => p.life > 0);
+}
+
+function drawParticles() {
+  const viewWidth = getWorldViewportWidth();
+  for (const p of state.particles) {
+    const x = p.x - state.camera;
+    if (x < -60 || x > viewWidth + 60) continue;
+    const t = p.life / p.maxLife;
+    const y = p.y - p.z;
+    ctx.save();
+    if (p.kind === "puff") {
+      ctx.globalAlpha = 0.45 * t;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(x, y - 6, p.size * (1.6 - t * 0.6), 0, Math.PI * 2);
+      ctx.fill();
+    } else if (p.kind === "ring") {
+      ctx.globalAlpha = 0.8 * t;
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.ellipse(x, p.y - 4, p.size * (1.6 - t), p.size * 0.32 * (1.6 - t), 0, 0, Math.PI * 2);
+      ctx.stroke();
+    } else {
+      // A little four-pointed star with a soft glow.
+      ctx.globalAlpha = Math.min(1, t * 1.6);
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 8;
+      const r = p.size;
+      ctx.beginPath();
+      ctx.moveTo(x, y - r * 1.6);
+      ctx.lineTo(x + r * 0.45, y - r * 0.45);
+      ctx.lineTo(x + r * 1.6, y);
+      ctx.lineTo(x + r * 0.45, y + r * 0.45);
+      ctx.lineTo(x, y + r * 1.6);
+      ctx.lineTo(x - r * 0.45, y + r * 0.45);
+      ctx.lineTo(x - r * 1.6, y);
+      ctx.lineTo(x - r * 0.45, y - r * 0.45);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
 function getBoostMultiplier(racer) {
   const stacks = racer.speedBoostStacks.length;
   return stacks > 0 ? 1 + stacks * 0.45 : 1;
 }
 
 function getJumpPower(racer) {
+  if (racer.moonBootsTimer > 0) return JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
   const stacks = racer.highJumpStacks.length;
   return stacks > 0 ? JUMP_POWER * (1 + stacks * 0.35) : JUMP_POWER;
 }
 
 function getHorseJumpPower(racer) {
+  if (racer.moonBootsTimer > 0) return HORSE_JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
   if (!canMountedRacersUsePowerups()) return HORSE_JUMP_POWER;
   const stacks = racer.highJumpStacks.length;
   return stacks > 0 ? HORSE_JUMP_POWER * (1 + stacks * 0.35) : HORSE_JUMP_POWER;
@@ -2507,6 +2632,11 @@ function applyPowerup(racer, powerupOrType) {
     const label = powerupLabel("boost", "BOOST");
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
+    if (getTrackTheme().moonBoots) {
+      racer.moonBootsTimer = Math.max(racer.moonBootsTimer, MOON_BOOTS_DURATION);
+      racer.powerupMessage = powerupLabel("jump", "MOON BOOTS");
+      return true;
+    }
     const toy = getRideToy("jump");
     const duration = 5 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
     racer.highJumpStacks.push(duration);
@@ -4468,6 +4598,7 @@ function drawWorldScene() {
         drawRacer(drawable.item);
       }
     }
+    drawParticles();
   }
 }
 
@@ -5908,6 +6039,7 @@ function drawRacer(racer) {
   ctx.ellipse(screenX, racer.y + 40, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
+  drawPowerupAura(racer, screenX, scale, mounted);
 
   if (racer.frozenTimer > 0) drawElectricEffect(screenX, drawY, drawW, drawH);
   if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
@@ -5946,12 +6078,14 @@ function drawRacer(racer) {
       const toyScale = scale * (toyCalibration?.scale[toyFrame] || 1);
       const toyAnchorX = toyCalibration?.anchorX[toyFrame] || SPRITE_ANCHOR_X;
       const toyY = racer.y + 54 - SPRITE_ANCHOR_Y * toyScale - racer.z - toyPose.lift * scale / 0.45;
-      drawFacingImage(toyPose.sheet, toyPose.col * FRAME, toyPose.row * FRAME, FRAME, FRAME,
+      drawRacerBody(racer, toyPose.sheet, toyPose.col * FRAME, toyPose.row * FRAME,
         screenX - toyAnchorX * toyScale, toyY, FRAME * toyScale, FRAME * toyScale, drawFacing, screenX);
+
     } else if (racer.oilTimer > 0 && racer.oilSticky) {
+      racer.lastBody = null;
       drawStuckRacer(racer, screenX, scale);
     } else {
-      drawFacingImage(racer.sheet, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+      drawRacerBody(racer, racer.sheet, sx, sy, drawX, drawY, drawW, drawH, drawFacing, screenX);
     }
   }
 
@@ -5976,6 +6110,7 @@ function drawRacer(racer) {
     mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
     racer.speedBoostTimer > 0 ? `${powerupLabel("boost", "BOOST")} x${racer.speedBoostStacks.length}` : "",
     racer.highJumpTimer > 0 ? `${powerupLabel("jump", "HIGH JUMP")} x${racer.highJumpStacks.length}` : "",
+    racer.moonBootsTimer > 0 ? powerupLabel("jump", "MOON BOOTS") : "",
     racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
   ].filter(Boolean);
   if (activeLabels.length > 0) {
@@ -5989,6 +6124,61 @@ function drawRacer(racer) {
     ctx.fillText(text, screenX, labelY - 18);
   }
   ctx.restore();
+}
+
+// A coloured ring underfoot for each active power-up, and green speed streaks.
+function drawPowerupAura(racer, screenX, scale, mounted) {
+  const rings = [];
+  if (racer.speedBoostTimer > 0) rings.push(POWERUP_GLOW_COLORS.boost);
+  if (racer.highJumpTimer > 0) rings.push(POWERUP_GLOW_COLORS.jump);
+  if (racer.moonBootsTimer > 0) rings.push(MOON_BOOTS_COLOR);
+  const pulse = 0.5 + 0.5 * Math.sin(performance.now() / 160);
+  ctx.save();
+  rings.forEach((color, i) => {
+    const grow = 1 + i * 0.22;
+    ctx.globalAlpha = 0.55 + 0.25 * pulse;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.ellipse(screenX, racer.y + 40, 52 * scale * 2 * grow, 15 * scale * 2 * grow, 0, 0, Math.PI * 2);
+    ctx.stroke();
+  });
+  if (racer.speedBoostTimer > 0 && racer.moving) {
+    // Streaks trailing behind the body.
+    const back = -racer.facing;
+    const baseY = racer.y + 54 - racer.z;
+    const height = (mounted ? 300 : 360) * scale;
+    ctx.strokeStyle = POWERUP_GLOW_COLORS.boost;
+    ctx.lineCap = "round";
+    for (let i = 0; i < 4; i += 1) {
+      const y = baseY - height * (0.25 + i * 0.17);
+      const start = screenX + back * (40 + (i % 2) * 14) * scale * 2;
+      const len = (70 + ((performance.now() / 40 + i * 37) % 60)) * scale * 2;
+      ctx.globalAlpha = 0.55;
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(start, y);
+      ctx.lineTo(start + back * len, y);
+      ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+
+// Draws the doll and remembers the frame for the speed after-images, which
+// are drawn first, fading with age.
+function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
+  if (racer.ghosts?.length && racer.speedBoostTimer > 0) {
+    racer.ghosts.forEach((ghost, i) => {
+      const gx = ghost.x - state.camera;
+      ctx.save();
+      ctx.globalAlpha = 0.1 + 0.08 * i;
+      drawFacingImage(ghost.image, ghost.sx, ghost.sy, FRAME, FRAME, gx + ghost.dx, ghost.y + ghost.dy - ghost.z, ghost.w, ghost.h, ghost.facing, gx);
+      ctx.restore();
+    });
+  }
+  drawFacingImage(image, sx, sy, FRAME, FRAME, x, y, w, h, facing, screenX);
+  racer.lastBody = { image, sx, sy, dx: x - screenX, dy: y - (racer.y - racer.z), w, h, facing };
 }
 
 // Stuck in a sticky puddle: the forward-leaning push frame, tipped further
