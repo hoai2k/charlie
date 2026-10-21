@@ -221,3 +221,10 @@ node --test americangirldollrace/tools/dolls/rumi-migration.test.mjs
 
 Browser verification covered new wave/portrait, mint outfit, race/HUD, broom
 carrying and flight in both directions, gryphon seating, and the old-art switch.
+
+## Throwing hands
+
+`measure_hands.py` finds each doll's throwing hand in her standing push,
+seated rider, skate push and pogo push frames and writes `../../hands.js`.
+Snowballs start from that hand. Re-run it after adding a doll or a toys
+sheet.

@@ -2853,11 +2853,17 @@ function launchSnowball(racer) {
   racer.snowballs -= 1;
   sfx("snowball_throw", racer.x);
   racerVoice(racer, "taunt", { chance: 0.15 });
+  // Thrown from the hand of whatever pose she's in (standing, skates, pogo
+  // stick, saddle) and flown level from there.
+  const hand = getThrowHand(racer);
+  const groundY = racer.y + 54;
   state.projectiles.push({
     owner: racer,
-    x: racer.x + racer.facing * 44,
+    x: hand ? hand.x : racer.x + racer.facing * 44,
     y: racer.y + 32,
-    drawY: snowballDrawY(racer),
+    groundY,
+    lift: hand ? groundY - hand.y : groundY - snowballDrawY(racer),
+    drawY: hand ? hand.y : snowballDrawY(racer),
     z: racer.z + 42,
     vx: racer.facing * SNOWBALL_SPEED,
     distance: 0,
@@ -2868,7 +2874,7 @@ function launchSnowball(racer) {
 function updateProjectiles(dt) {
   for (const projectile of state.projectiles) {
     projectile.x += projectile.vx * dt;
-    projectile.drawY = snowballDrawY(projectile.owner);
+    projectile.drawY = projectile.groundY !== undefined ? projectile.groundY - projectile.lift : snowballDrawY(projectile.owner);
     projectile.distance += Math.abs(projectile.vx) * dt;
     for (const monster of state.monsters) {
       if (monster.state === "sleeping" || monster.state === "ground" || projectile.hitTargets.has(monster)) continue;
@@ -3336,6 +3342,43 @@ function getMonsterTarget(monster) {
 
 function racerDepthScale(racer) {
   return 0.39 + ((racer.y - DEPTH_SCALE_TOP_Y) / (DEPTH_SCALE_BOTTOM_Y - DEPTH_SCALE_TOP_Y)) * 0.12;
+}
+
+// The throwing hand's world position for her current pose, from hands.js
+// (tools/dolls/measure_hands.py), or null when it hasn't been measured.
+function getThrowHand(racer) {
+  const hands = window.DOLL_HANDS?.[dollAssetKey(racer.spriteKey)];
+  if (!hands) return null;
+  const scale = racerDepthScale(racer);
+  const facing = racer.facing || 1;
+  if (isMounted(racer) && racer.horseType !== "broom" && hands.ride) {
+    const horseScale = scale * 1.08;
+    const horseRow = racer.pegasusGliding ? 1 : racer.z > 0 ? 2 : racer.moving ? 1 : 0;
+    const horseCol = racer.pegasusGliding || !(racer.z > 0) ? racer.frame : racer.jumpFrame;
+    const calibration = getMountFrameCalibration(racer.horseType, horseRow, horseCol);
+    const riderScale = scale * 0.7;
+    const horseBaseY = racer.y + 58 - SPRITE_ANCHOR_Y * horseScale - racer.z;
+    const offsetX = -SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale
+      + (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * horseScale + hands.ride[0] * riderScale;
+    const riderY = horseBaseY - 60 * scale + racer.riderYOffset * scale + (calibration.seatY - MOUNT_SEAT_REFERENCE.y) * horseScale;
+    return { x: racer.x + facing * offsetX, y: riderY + hands.ride[1] * riderScale };
+  }
+  const toy = racer.rideToys?.[0]?.type;
+  const toyHand = toy && getRideToySheet(racer) && !isMounted(racer) ? hands[toy === "skates" ? "skate" : "pogo"] : null;
+  if (toyHand) {
+    const frame = toy === "skates" ? 4 : 10; // the push cell of each toy
+    const calibration = window.RIDE_TOY_FRAMES?.[dollAssetKey(racer.spriteKey)];
+    const toyScale = scale * (calibration?.scale[frame] || 1);
+    const anchorX = calibration?.anchorX[frame] || SPRITE_ANCHOR_X;
+    return {
+      x: racer.x + facing * (toyHand[0] - anchorX) * toyScale,
+      y: racer.y + 54 - racer.z - (SPRITE_ANCHOR_Y - toyHand[1]) * toyScale
+    };
+  }
+  return {
+    x: racer.x + facing * (hands.stand[0] - SPRITE_ANCHOR_X) * scale,
+    y: racer.y + 54 - racer.z - (SPRITE_ANCHOR_Y - hands.stand[1]) * scale
+  };
 }
 
 function snowballDrawY(racer) {
