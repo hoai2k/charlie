@@ -1419,26 +1419,32 @@ function chooseHorseType() {
 }
 
 const WIZARD_MOUNTS = ["griffon", "broom"];
-const WIZARD_MOUNTS_KEY = "agdr.wizardMountsUnlocked";
-let wizardMountsUnlocked = null;
+// The unlock lasts for the rest of the day it was earned (the device's local
+// date); the next day they have to finish a Wizard School race again.
+const WIZARD_MOUNTS_KEY = "agdr.wizardMountsUnlockedOn";
+let wizardMountsUnlockedOn = null;
 
-function areWizardMountsUnlocked() {
-  if (wizardMountsUnlocked === null) {
-    try {
-      wizardMountsUnlocked = localStorage.getItem(WIZARD_MOUNTS_KEY) === "1";
-    } catch (error) {
-      wizardMountsUnlocked = false;
-    }
-  }
-  return wizardMountsUnlocked;
+function localDateKey(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 }
 
-// Returns true the first time, so the finish screen can say so.
+function areWizardMountsUnlocked() {
+  if (wizardMountsUnlockedOn === null) {
+    try {
+      wizardMountsUnlockedOn = localStorage.getItem(WIZARD_MOUNTS_KEY) || "";
+    } catch (error) {
+      wizardMountsUnlockedOn = "";
+    }
+  }
+  return wizardMountsUnlockedOn === localDateKey();
+}
+
+// Returns true the first time each day, so the finish screen can say so.
 function unlockWizardMounts() {
   if (areWizardMountsUnlocked()) return false;
-  wizardMountsUnlocked = true;
+  wizardMountsUnlockedOn = localDateKey();
   try {
-    localStorage.setItem(WIZARD_MOUNTS_KEY, "1");
+    localStorage.setItem(WIZARD_MOUNTS_KEY, wizardMountsUnlockedOn);
   } catch (error) {
     // Private browsing: unlocked for this visit only.
   }
