@@ -8,7 +8,8 @@ const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','ch
 function setup(){
   const math=Object.create(Math);
   const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:2,PEGASUS_DURATION_MULTIPLIER:1.5,
-    isHorsingAroundMode:()=>c.state.specials==='horsing',applyMonsterKnockback:(m,d)=>{m.hit=d;},isRacerRunningAtMonster:()=>true};
+    isHorsingAroundMode:()=>c.state.specials==='horsing',applyMonsterKnockback:(m,d)=>{m.hit=d;},isRacerRunningAtMonster:()=>true,
+    WIZARD_MOUNTS:['griffon','broom'],wizardUnlocked:true,areWizardMountsUnlocked:()=>c.wizardUnlocked};
   vm.createContext(c);
   vm.runInContext(source.match(/const DEFAULT_MOUNT_ODDS = [^;]+;/)[0],c);
   for(const name of names){const match=source.match(new RegExp(`function ${name}\\([^]*?\\n\\}`));assert.ok(match,name);vm.runInContext(match[0],c);}
@@ -21,6 +22,14 @@ test('normal pickups retain special odds and add a 5% broom chance',()=>{
  for(let n=0;n<10000;n++){c.Math.random=()=>(n+.5)/10000;counts[c.chooseHorseType()]++;}
  assert.deepEqual(counts,{horse:7000,unicorn:1000,pegasus:1000,griffon:500,broom:500});
  for(const special of ['unicorn','pegasus','griffon','broom']){c.state.specials=special;c.Math.random=()=>.99;assert.equal(c.chooseHorseType(),special);}
+});
+
+test('before a Wizard School finish, gryphons and broomsticks are left out of normal pickups',()=>{
+ const c=setup(),counts={horse:0,unicorn:0,pegasus:0,griffon:0,broom:0};
+ c.wizardUnlocked=false;
+ for(let n=0;n<10000;n++){c.Math.random=()=>(n+.5)/10000;counts[c.chooseHorseType()]++;}
+ assert.deepEqual(counts,{horse:8000,unicorn:1000,pegasus:1000,griffon:0,broom:0});
+ for(const special of ['griffon','broom']){c.state.specials=special;c.Math.random=()=>.99;assert.equal(c.chooseHorseType(),special);}
 });
 
 test('griffon holds at the pegasus glide height, falls on release and cannot glide after expiry',()=>{
