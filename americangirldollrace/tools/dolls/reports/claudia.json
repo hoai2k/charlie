@@ -171,6 +171,10 @@
       "sourceAnchor": [
         280,
         510
+      ],
+      "seat": [
+        261.26,
+        257.81
       ]
     },
     "push": {
@@ -248,8 +252,8 @@
     "assetKey": "claudia-v2",
     "spriteKey": "claudia",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -28.302,
+    "riderYOffset": 126.497,
     "outfitData": {
       "stats": {
         "h": 0.03559,

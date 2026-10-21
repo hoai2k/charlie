@@ -171,6 +171,10 @@
       "sourceAnchor": [
         300,
         510
+      ],
+      "seat": [
+        269.26,
+        242.81
       ]
     },
     "push": {
@@ -247,8 +251,8 @@
     "color": "#dc83aa",
     "spriteKey": "cinnamon",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -33.902,
+    "riderYOffset": 136.997,
     "outfitData": {
       "stats": {
         "h": 0.05577,

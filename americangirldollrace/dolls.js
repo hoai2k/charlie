@@ -5,8 +5,8 @@ window.EXTRA_DOLLS = {
     "color": "#e7569c",
     "spriteKey": "barbie",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -44.402,
+    "riderYOffset": 139.097,
     "outfitData": {
       "stats": {
         "h": -0.59806,
@@ -31,8 +31,8 @@ window.EXTRA_DOLLS = {
     "color": "#dc83aa",
     "spriteKey": "cinnamon",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -33.902,
+    "riderYOffset": 136.997,
     "outfitData": {
       "stats": {
         "h": 0.05577,
@@ -57,8 +57,8 @@ window.EXTRA_DOLLS = {
     "assetKey": "claudia-v2",
     "spriteKey": "claudia",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -28.302,
+    "riderYOffset": 126.497,
     "outfitData": {
       "stats": {
         "h": 0.03559,
@@ -82,8 +82,8 @@ window.EXTRA_DOLLS = {
     "color": "#367e62",
     "spriteKey": "felicity",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -22.002,
+    "riderYOffset": 143.297,
     "outfitData": {
       "stats": {
         "h": -1.46052,
@@ -108,8 +108,8 @@ window.EXTRA_DOLLS = {
     "color": "#696582",
     "spriteKey": "hermione",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": 7.398,
+    "riderYOffset": 104.797,
     "outfitData": {
       "stats": {
         "h": 0,
@@ -134,8 +134,8 @@ window.EXTRA_DOLLS = {
     "color": "#b661b4",
     "spriteKey": "luna",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -3.802,
+    "riderYOffset": 104.797,
     "outfitData": {
       "stats": {
         "h": 0.11884,
@@ -159,8 +159,8 @@ window.EXTRA_DOLLS = {
     "color": "#d82c83",
     "spriteKey": "mira",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 128.464,
+    "riderXOffset": -9.402,
+    "riderYOffset": 89.397,
     "outfitData": {
       "stats": {
         "h": 0,
@@ -186,8 +186,8 @@ window.EXTRA_DOLLS = {
     "assetKey": "rumi-v2",
     "spriteKey": "rumi",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -23.402,
+    "riderYOffset": 119.497,
     "outfitData": {
       "stats": {
         "h": 1.42397,

@@ -197,8 +197,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Farm, Winter, Toy Room and Night Festival) and both §6 sheets.
 > Fairy Woods includes a repaired direct-repeat background, calibrated track
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
-> **Still open:** the **puddle redos in §5.7** (the oil cell of seven
-> `powerups.webp` sheets).
+> **Still open:** the **redos in §5.7** (the oil cell of seven
+> `powerups.webp` sheets, and Beach's jump cell).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -321,6 +321,7 @@ the §5.2 spec, filling about the same area as the farm's mud puddle.
 | R5 | Wizard School (`wizard`) | Tipped cauldron | A glowing green potion puddle with a faint shimmer, no cauldron (slippery) |
 | R6 | Night Festival (`festival`) | Tipped soda cup | A fizzy brown soda puddle with tiny bubbles, no cup (sticky) |
 | R7 | Beach (`beach`) | Tangle of seaweed | A slick, wet seawater puddle with a little foam at its edge, no seaweed clump (slippery) |
+| R8 | Beach (`beach`), **cell 1 (jump, x 0-255)** instead of cell 4 | A beach ball | Beach now has real kickable beach balls on the sand, so the high-jump pickup must not look like one: an inflatable pool ring on a big coiled spring. Then change the `jump` label in `tracks.js` from "BEACH BALL" to "POOL SPRING". |
 
 Acceptance: overlay the new sheet on the old one; only cell 4 changed. In
 game the puddle lies flat under a doll standing in it, and it reads as

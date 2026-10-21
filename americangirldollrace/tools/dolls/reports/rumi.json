@@ -171,6 +171,10 @@
       "sourceAnchor": [
         260,
         465
+      ],
+      "seat": [
+        254.26,
+        267.81
       ]
     },
     "push": {
@@ -248,8 +252,8 @@
     "assetKey": "rumi-v2",
     "spriteKey": "rumi",
     "jumpScale": 1,
-    "riderXOffset": 8.28,
-    "riderYOffset": 122.164,
+    "riderXOffset": -23.402,
+    "riderYOffset": 119.497,
     "outfitData": {
       "stats": {
         "h": 1.42397,
