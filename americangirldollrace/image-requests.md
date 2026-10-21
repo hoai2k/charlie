@@ -247,8 +247,10 @@ The labels are the pop-up names already set in `tracks.js`.
 
 Each needs `background`, `hurdle`, `powerups`, `projectile` and `card`. A
 track is playable with just `background`, using the picket and today's icons
-until the rest arrives. Music reuses the existing songs for now (set in
-`tracks.js`). In priority order:
+until the rest arrives. Toy Room, Wizard School, Night Festival and Fairy
+Woods already have their own songs waiting, so their backgrounds come first.
+The other tracks share the songs that suit any board (set in `tracks.js`). In
+priority order:
 
 | # | Track (key) | `background` | `hurdle` | `powerups`: jump · boost · EMP · oil · snowball | `projectile` |
 | --- | --- | --- | --- | --- | --- |
@@ -261,6 +263,7 @@ until the rest arrives. Music reuses the existing songs for now (set in
 | T7 | **Cloud Kingdom** (`clouds`) | A sky kingdom: cloud castles, rainbows and hot-air balloons, with a puffy cloud bank along the back; a firm pastel cloud path. | Cloud puff wall with a rainbow arch | cloud puff spring · rainbow · thunderclap cloud · rain puddle · hailstone pile | hailstone |
 | T8 | **Moon Base** (`space`) | Moon surface with Earth in a starry sky, domes and a parked rocket behind a row of glowing beacons; grey moon-dust path. | Moon-rock wall with a little flag | moon boots · rocket · laser blaster (toy) · glowing space goo · moon-rock pile | moon rock |
 | T9 | **Night Festival** (`festival`) | An evening fair: lanterns, a Ferris wheel, carousel and fireworks behind a string-light rope fence; a warm lantern-lit path. Keep the path bright enough to see the dolls. | Lantern-post rope barrier | trampoline · sparkler · firework burst · spilled soda · water balloons | water balloon |
+| T10 | **Fairy Woods** (`woods`) | A deep, mossy fairy forest at twilight: giant old trees with fairy doors, glowing toadstools, fireflies, ferns and a babbling brook, behind a fence of twisted branches and roots; a soft, mossy dirt path. Its song is "Fairies in the Woods". | A fallen log with mushrooms and moss | giant bouncy mushroom · swirl of fireflies · acorn bell · mossy bog puddle · pile of acorns | acorn |
 
 ### 5.6 New mounts (later, optional)
 

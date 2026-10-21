@@ -119,6 +119,9 @@ hook to get round it.
   power-up names, and new tracks that join the rotation once their background
   is listed. Each track's `dirtTop` keeps racers' feet on the painted path.
   Briefs are in `americangirldollrace/image-requests.md` §5.
+- `americangirldollrace/intake/` is the owner's drop folder for the race (see
+  its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
+  in `tracks.js`; "Fairies in the Woods" is reserved for a wooded fairy board.
 - New `americangirldollrace/` dolls use `americangirldollrace/tools/dolls/README.md`: canonical reference, pose art, manifest, deterministic export/validation and generated roster registration. The older imagegen/recolour tools remain for existing assets.
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work

@@ -288,9 +288,12 @@ const BACKGROUNDS = [
   { key: "castles", name: "Castles", imageKey: "backgroundCastles", music: "assets/music/Sugar Castle Run.mp3", dirtTop: 586 },
 ];
 // New tracks from tracks.js race once their background art is in.
+const generalMusic = window.TRACK_GENERAL_MUSIC || ["assets/music/Plastic Shoes.mp3"];
+let generalMusicTurn = 0;
 for (const [key, theme] of Object.entries(TRACK_THEMES)) {
   if (BACKGROUNDS.some(background => background.key === key) || !theme.art?.includes("background")) continue;
-  BACKGROUNDS.push({ key, name: theme.name, imageKey: trackArtKey(key, "background"), music: theme.music, dirtTop: theme.dirtTop });
+  const music = theme.music || generalMusic[generalMusicTurn++ % generalMusic.length];
+  BACKGROUNDS.push({ key, name: theme.name, imageKey: trackArtKey(key, "background"), music, dirtTop: theme.dirtTop });
 }
 const startingBackground = "farm";
 const NEXT_RACE_DELAY = 3600;

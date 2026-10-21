@@ -18,6 +18,9 @@
 // `labels` rename power-ups in the pop-up text, and only apply once that
 // track's "powerups" art is listed. `mountOdds` are the chances of each
 // non-horse mount from a mount pickup; the rest are plain horses.
+// `music` is the track's own song. Tracks without one take turns with the
+// songs in TRACK_GENERAL_MUSIC, which suit any board.
+window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: { art: [], labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" } },
   fairy: {
@@ -33,43 +36,49 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.15, broom: 0.05 }
   },
   horseshow: {
-    name: "Horse Show", music: "assets/music/Plastic Shoes.mp3", dirtTop: 532, art: [],
+    name: "Horse Show", dirtTop: 532, art: [],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
     mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.02, broom: 0.01 }
   },
   toyroom: {
-    name: "Toy Room", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 532, art: [],
+    name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 532, art: [],
     labels: { jump: "JACK-IN-THE-BOX", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" }
   },
   candy: {
-    name: "Candy Land", music: "assets/music/Sugar Castle Run.mp3", dirtTop: 532, art: [],
+    name: "Candy Land", dirtTop: 532, art: [],
     labels: { jump: "GUMDROP", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   beach: {
-    name: "Beach", music: "assets/music/Ghent Sweet Parade.mp3", dirtTop: 532, art: [],
+    name: "Beach", dirtTop: 532, art: [],
     labels: { jump: "BEACH BALL", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" }
   },
   wizard: {
-    name: "Wizard School", music: "assets/music/Moss Under Moon.mp3", dirtTop: 532, art: [],
+    name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 532, art: [],
     labels: { jump: "SPELL BOOK", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
     mountOdds: { unicorn: 0.05, pegasus: 0.05, griffon: 0.15, broom: 0.3 }
   },
   autumn: {
-    name: "Pumpkin Patch", music: "assets/music/Plastic Shoes.mp3", dirtTop: 532, art: [],
+    name: "Pumpkin Patch", dirtTop: 532, art: [],
     labels: { jump: "LEAF PILE", boost: "LEAF GUST", emp: "SCARECROW", oil: "PUDDLE", snowball: "APPLES" }
   },
   clouds: {
-    name: "Cloud Kingdom", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 532, art: [],
+    name: "Cloud Kingdom", dirtTop: 532, art: [],
     labels: { jump: "CLOUD PUFF", boost: "RAINBOW", emp: "THUNDERCLAP", oil: "RAIN PUDDLE", snowball: "HAILSTONES" },
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
   },
   space: {
-    name: "Moon Base", music: "assets/music/Moss Under Moon.mp3", dirtTop: 532, art: [],
+    name: "Moon Base", dirtTop: 532, art: [],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" }
   },
+  // Reserved for a wooded fairy board; the Fairy track isn't woodsy enough.
+  woods: {
+    name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 532, art: [],
+    labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN BELL", oil: "MOSSY BOG", snowball: "ACORNS" },
+    mountOdds: { unicorn: 0.2, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
+  },
   festival: {
-    name: "Night Festival", music: "assets/music/Moss Under Moon.mp3", dirtTop: 532, art: [],
+    name: "Night Festival", music: "assets/music/One More Spin at the Night Festival.mp3", dirtTop: 532, art: [],
     labels: { jump: "TRAMPOLINE", boost: "SPARKLER", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" }
   }
 };
