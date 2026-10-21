@@ -10,6 +10,16 @@ const { DollRecolor } = scope.window;
 const { EXTRA_DOLLS } = scope.window;
 const stats = EXTRA_DOLLS.hermione.outfitData.stats;
 
+test('Felicity denim and Barbie chevrons become visibly red while identity colours stay exact',()=>{
+ for(const [key,rgb] of [['felicity',[50,65,95]],['barbie',[45,45,45]]]){
+  const p=new Uint8ClampedArray([...rgb,255,225,165,115,255,240,240,240,255]);
+  const original=p.slice(),mask=new Uint8ClampedArray(p.length);mask[0]=255;
+  DollRecolor.recolorPixelsLut(p,mask,EXTRA_DOLLS[key].outfitData.stats,[216,38,47]);
+  assert.ok(p[0]>p[2]+30,key);
+  assert.deepEqual(p.slice(4),original.slice(4));
+ }
+});
+
 test('neutral uniform becomes visibly coloured while unmasked face and hair stay byte-identical', () => {
   const pixels = new Uint8ClampedArray([70,70,70,255, 225,165,115,255, 160,90,40,255]);
   const mask = new Uint8ClampedArray([255,0,0,255, 0,0,0,255, 0,0,0,255]);

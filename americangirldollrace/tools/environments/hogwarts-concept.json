@@ -1,0 +1,38 @@
+{
+  "status": "Preview only; await user review before game integration.",
+  "tool": "built-in imagegen",
+  "asset": "concepts/hogwarts.webp",
+  "prompt": "Use case: stylized-concept. Create a wide 3:1 panoramic side-scrolling race background of Hogwarts wizarding school grounds, matching the supplied existing race backgrounds' charming detailed painterly storybook visual style, bright rich colors and soft toy-world warmth. Reference images are STYLE AND GAMEPLAY COMPOSITION guides. A recognizable grand Scottish gothic wizarding castle with many pointed turrets on the middle-distance hill, great hall, covered wooden bridge, distant viaduct, blue lake, green lawns and dark woodland edge. A few tiny owls in the sky and warm lit windows suggest magic. Late sunny afternoon with gold light, lilac distant mountains and cheerful blue sky, family friendly enchanting mood. Camera level sideways like the references, no extreme perspective. Keep bottom 22 percent completely clear broad flat warm ochre dirt racetrack, extending uninterrupted left to right. A low stone boundary with grass and modest school-colored banners sits immediately behind the track. Keep castle well above runners, no foreground objects, no racers, no obstacles, no powerups, no lettering or UI. Make left/right edges compatible for scrolling. Fully opaque detailed landscape.",
+  "obstacles": [
+    "Low stone courtyard hurdles with school-colour pennants",
+    "Broom racks with wooden crossbars",
+    "Stacks of enchanted books",
+    "Low hedges with small lanterns"
+  ],
+  "powerups": [
+    {
+      "art": "Winged golden ball",
+      "effect": "Speed boost"
+    },
+    {
+      "art": "Floating feather",
+      "effect": "Higher jumps"
+    },
+    {
+      "art": "Spell burst",
+      "effect": "EMP"
+    },
+    {
+      "art": "Spilled cauldron",
+      "effect": "Oil slick"
+    },
+    {
+      "art": "Frost spell orb",
+      "effect": "Snowball"
+    },
+    {
+      "art": "Broomstick",
+      "effect": "Mount pickup"
+    }
+  ]
+}

@@ -1,5 +1,40 @@
 # Direct new-doll pipeline
 
+## October additions
+
+Claudia now uses the magenta satin dance dress, black ruffles and silver Mary
+Janes. Her runtime key stays `claudia`, with versioned `claudia-v2` assets;
+`GAME_CONFIG.legacyDollArt.claudia = true` restores the original assets and
+alignment. Cinnamon, Felicity and Barbie are new playable entries, each with
+12 race frames, portrait, wave/cheer/ride and seven alternate outfit colours.
+
+Claudia's poses are springy and dance-like; Cinnamon is gentle and curious;
+Felicity is adventurous; Barbie has a poised wave and a sunglasses-touching
+idle. All wear their approved canonical outfits. Each stands 390px tall with
+the common ground baseline. Explicit jump/action scale factors match the
+generated anatomy to the standing references. Source hip/seat coordinates and
+broom hand measurements are recorded in each manifest, with no per-frame
+fit-to-cell scaling. The original Claudia files remain available.
+
+`pink-fabric` selects Claudia's satin and Cinnamon's pink clothing while
+protecting their faces, hair, shoes and contrasting details. Felicity's
+`denim-blue` selects the jeans, excluding dark boot soles and warm colours.
+Barbie's `chevron-outfit` tints dark chevrons below the face, preserving white
+stripes and explicitly protecting her raised shoe in the falling pose. Low
+chroma denim/chevrons opt into neutral tinting so alternate colours read clearly.
+Oklab statistics are measured from the selected standing-source garment pixels.
+The four `*-generation.json` files record the built-in ImageGen prompts.
+
+The wizard-school landscape in `../environments/concepts/hogwarts.webp` is a
+preview only. Its prompt and obstacle/power-up ideas are saved alongside it;
+it is not registered as a race track pending user review.
+
+Validation covered all packed poses and outfit masks, selection and alternate
+colours, broom carrying/flight and landing in both directions, gryphon seating,
+and the sixteen-card All Dolls roster at 390×844. Automated checks cover source
+margins, shared scale, ground/seat anchors, measured broom grips, mask colour
+protection, visible outfit tinting, and Claudia's runtime fallback.
+
 Use this workflow for **new American Girl Doll Race characters**. Hermione is
 its first complete example. It replaces the old intake/segmentation workflow
 for new dolls; existing dolls and their reviewed masks stay intact.

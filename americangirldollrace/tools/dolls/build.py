@@ -94,6 +94,26 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 
 def clothing_mask(src, spec, mode):
+    if mode == 'chevron-outfit':
+        # Barbie's dark chevrons, bounded above the legs; white stripes stay white.
+        mask = neutral_mask(src, spec['chin'])
+        a = np.array(mask)
+        a[round(spec['garmentBottom']):, :, 0] = 0
+        for x0, y0, x1, y1 in spec.get('protectedRegions', []):
+            a[y0:y1, x0:x1, 0] = 0
+        return Image.fromarray(a)
+    if mode == 'denim-blue':
+        # Felicity's indigo jeans; warm hair/skin and pink boots remain fixed.
+        a = np.asarray(src).astype(np.float32)
+        r, g, b, alpha = [a[:, :, i] for i in range(4)]
+        weight = np.clip((b-r-8)/8, 0, 1) * np.clip((b-g-4)/6, 0, 1)
+        weight *= (b < 200) & (r > 30) & (g > 30) & (alpha > 16)
+        weight[:round(spec['chin'])] = 0
+        weight[round(spec['garmentBottom']):] = 0
+        out = np.zeros_like(a, dtype=np.uint8)
+        out[:, :, 0] = np.round(weight * 255).astype(np.uint8)
+        out[:, :, 3] = 255
+        return Image.fromarray(out)
     if mode == 'gold-jacket':
         a = np.asarray(src).astype(np.float32)
         r, g, b, alpha = [a[:, :, i] for i in range(4)]
@@ -110,7 +130,7 @@ def clothing_mask(src, spec, mode):
         out[:, :, 0] = np.round(weight * 255).astype(np.uint8)
         out[:, :, 3] = 255
         return Image.fromarray(out)
-    if mode == 'pink-cardigan':
+    if mode in ('pink-cardigan', 'pink-fabric'):
         # Explicit Luna palette: pink knit, warm blonde hair/skin, blue skirt.
         # Bound the garment vertically so pink sock stripes stay unchanged.
         a = np.asarray(src).astype(np.float32)

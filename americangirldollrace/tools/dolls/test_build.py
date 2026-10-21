@@ -9,6 +9,35 @@ import build
 
 
 class DollBuildTests(unittest.TestCase):
+    def test_new_doll_broom_grips_match_source_hand_calibration(self):
+        broom=json.loads((build.HERE.parent/'mounts/broom.json').read_text())
+        for key in ['claudia','cinnamon','felicity','barbie']:
+            m=json.loads((build.HERE/f'manifests/{key}.json').read_text())
+            ref,_=build.source_frame(m,'idle-0');b=build.bounds(ref)
+            common=m['standingHeight']/(b[3]-b[1])
+            actual=broom['carryHands'][m.get('assetKey',key)]
+            for row,kind in enumerate(['idle','run']):
+                for col,(x,y) in enumerate(m['broomHandsSource'][row]):
+                    pose=f'{kind}-{col}';src,spec=build.source_frame(m,pose)
+                    scale=common*spec.get('scale',1)
+                    expected=[round(209+(x-m['poses'][pose]['hipX'])*scale),
+                              round(build.BASELINE+(y-build.bounds(src)[3])*scale)]
+                    self.assertEqual(actual[row][col],expected,(key,pose))
+
+    def test_denim_mask_excludes_warm_colours_white_blouse_and_dark_boot_soles(self):
+        pixels = np.array([[[50, 65, 95, 255], [225,165,115,255],
+                            [240,240,235,255], [235,135,165,255], [12,18,35,255]]], dtype=np.uint8)
+        mask = build.clothing_mask(Image.fromarray(pixels), {'chin':0,'garmentBottom':1}, 'denim-blue')
+        self.assertEqual(np.asarray(mask)[0,:,0].tolist(), [255,0,0,0,0])
+
+    def test_chevron_mask_keeps_white_stripes_face_and_raised_shoe_fixed(self):
+        pixels = np.array([[[65,65,65,255]]*4,
+                           [[65,65,65,255],[240,240,240,255],[225,165,115,255],[65,65,65,255]]],dtype=np.uint8)
+        spec={'chin':1,'garmentBottom':2,'protectedRegions':[[3,1,4,2]]}
+        mask=np.asarray(build.clothing_mask(Image.fromarray(pixels),spec,'chevron-outfit'))[:,:,0]
+        self.assertEqual(mask[0].max(),0)
+        self.assertEqual(mask[1].tolist(),[255,0,0,0])
+
     def test_clipping_fails_instead_of_changing_body_scale(self):
         im = Image.new('RGBA', (100, 100), '#bbb')
         mask = Image.new('RGBA', im.size, (255, 0, 0, 255))

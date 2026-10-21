@@ -6,8 +6,8 @@
  * precedence until GameAudio.resetVolumes() is called.
  */
 window.GAME_CONFIG = {
-  // Set rumi to true to restore her original art, outfits and alignment.
-  legacyDollArt: { rumi: false },
+  // Set a doll to true to restore her original art, outfits and alignment.
+  legacyDollArt: { rumi: false, claudia: false },
   audio: {
     masterVolume: 1.0,
     sfxVolume: 0.15,
