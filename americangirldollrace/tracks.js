@@ -526,7 +526,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.15, broom: 0.05 }
   },
   horseshow: {
-    name: "Horse Show", dirtTop: 502, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
+    name: "Horse Show", music: "assets/music/Race to the Ribbon Horse Race.mp3", dirtTop: 502, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
     sounds: { emp: "pickup_starter_bell" },
     startMounted: true,
@@ -577,7 +577,7 @@ window.TRACK_THEMES = {
     monster: "scarecrow",
     oilEffect: "sticky",
     fenceBase: 479,
-    name: "Pumpkin Patch", dirtTop: 509, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
+    name: "Pumpkin Patch", music: "assets/music/Hey, Hay! Pumpkin Patch.mp3", dirtTop: 509, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "LEAF PILE", boost: "LEAF GUST", emp: "SCARECROW", oil: "PUDDLE", snowball: "APPLES" },
     sounds: { emp: "pickup_crows" }
   },
@@ -590,7 +590,7 @@ window.TRACK_THEMES = {
   space: {
     moonBoots: true,
     oilEffect: "sticky",
-    name: "Moon Base", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
+    name: "Moon Base", music: "assets/music/Pocketful of Comets Moon Base.mp3", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" },
     sounds: { emp: "pickup_laser" }
   },
