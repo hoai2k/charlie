@@ -199,8 +199,9 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
-> **Still open:** Beach's jump-cell redo R8 and the §8 riding-toy poses
-> (trial: Lily, Mira, Hermione).
+> **Still open:** Beach's jump-cell redo R8, the §8 riding-toy poses
+> (trial: Lily, Mira, Hermione) and the §9 track monsters (scarecrow and
+> skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -391,3 +392,35 @@ later.
 Acceptance: overlay frame 0 of each row on the doll's idle frame; the feet
 (skates) or pogo tip sit on the same baseline and the doll matches her
 sheet. Then race on the Village with a skates pickup and a pogo pickup.
+
+---
+
+## 9. Track monsters: a jack-o'-lantern scarecrow and a skeleton
+
+Two alternates for the troll, in the **same painted, slightly photoreal style
+as `assets/monster_sprites.webp`** (look at it side by side). They behave
+exactly like the troll; only the look changes. The **scarecrow** replaces the
+troll on Pumpkin Patch (`autumn`), the **skeleton** on Wizard School
+(`wizard`). Both must stay kid-friendly: spooky-silly, not scary.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| M1 | `assets/scarecrow_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A tall, lanky scarecrow with a carved **jack-o'-lantern head** (goofy grin, warm glow), a patched plaid shirt, overalls and a floppy straw hat, straw poking from the cuffs and collar. |
+| M2 | `assets/skeleton_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A cartoon **skeleton** with a big grinning skull, chunky friendly bones and a tattered purple wizard-school scarf. |
+
+**Use exactly the troll sheet's layout, scale, facing (left) and foot
+baseline**, cell for cell, because the game swaps the sheet in without other
+changes:
+
+| Row | Cells (left to right) |
+| --- | --- |
+| 1 | Idle, 3 frames of a slight sway |
+| 2 | Walk cycle, 3 frames |
+| 3 | **Grab** (lunging forward with arms out), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
+| 4 | **Knocked over** (falling backwards), **collapsing**, and **defeated**. Defeated is the big difference from the troll, which lies asleep. The scarecrow's defeated cell is **an empty heap of its clothes and straw with the pumpkin head sitting on top**. The skeleton's is **a pile of bones with the skull on top**. Both stay put on the ground until the race ends. |
+
+Acceptance: overlay each sheet on `monster_sprites.webp` and check that the
+feet sit on the same baseline in rows 1-3 and the figures are about the same
+size. Then race Pumpkin Patch and Wizard School on "Extra" monsters. Each
+one walks in, grabs and throws a doll, and after five knock-backs ends as its
+pile.
