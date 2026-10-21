@@ -200,7 +200,10 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The seven liquid-only puddle redos R1–R7 are delivered and checked under
 > a standing doll; the other 28 atlas cells are pixel-identical.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
-> **Still open:** the §8 riding-toy poses (trial: Lily, Mira, Hermione).
+> **Still open:** the §8 riding-toy poses
+> (trial: Lily, Mira, Hermione; now 3×4 with standing, push and fall poses)
+> and the §8.1 skate and pogo icons R9-R14, and the §9 track monsters
+> (scarecrow and skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -367,12 +370,13 @@ the doll he grabs.
 
 ## 8. Riding toys: roller skates and pogo stick (trial)
 
-The Village's speed pickup is roller skates and its high-jump pickup is a pogo
-stick. The idea is that a doll who picks one up actually skates or pogos for
-the power-up's duration. Skates attached to the existing run frames don't work
-(a mock-up showed lifted back feet and knees reading as running, not
-gliding, and long skirts hiding a foot), so each doll needs a few dedicated
-poses with the skates or stick painted in.
+On tracks with roller skates or a pogo stick, a doll who picks one up actually
+skates or pogos while it lasts. Skates last twice as long as an ordinary speed
+boost, and the pogo stick twice as long as high jump. Skates attached to the
+existing run frames don't work (a mock-up showed lifted back feet and knees
+reading as running, not gliding, and long skirts hiding a foot), so each doll
+needs dedicated poses with the skates or stick painted in, including the
+poses she uses mid-race (standing, pushing or throwing, falling backwards).
 
 **Start with a trial of three dolls: Lily, Mira and Hermione.** Once they're
 checked in game, do the rest of the roster (Whirlpool, Juliette, Claudia,
@@ -380,14 +384,82 @@ Kaya, Marisol, Amanda, Penelope, Rumi, Barbie, Cinnamon, Felicity, Luna).
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| K1 | `assets/doll_<key>_toys.webp` | 1254×836 (3×2 of 418), alpha | Same frame, scale, facing (right) and **foot baseline 409** as `assets/doll_<key>_sprites.webp`; the doll must match her sheet exactly. **Row 0, skating (3 frames):** a smooth glide cycle on classic four-wheel quad roller skates, both feet low and close to the ground at all times. Frame 1 is a push with the back foot gliding out behind on its wheels, frame 2 has the feet together gliding, frame 3 pushes with the other foot. The body leans forward a little and the arms swing loosely for balance. The skates are white boots with wheels in her colour from the roster table (§1). The wheels sit on the baseline. **Row 1, pogo stick (3 frames):** standing straight up on a pogo stick in front of her, both feet on its foot pegs and both hands gripping its handlebar at chest height. Frame 1 is compressed (knees bent, spring squashed, tip on the baseline), frame 2 is extended (legs straight, spring stretched, tip on the baseline) and frame 3 is airborne (same as 2 but tucked a little; the game lifts it). Use one pogo-stick design for every doll: a red pole, a silver coil spring, black foot pegs and grips, and a rubber tip at the bottom. The stick's tip is centred at x 209. |
+| K1 | `assets/doll_<key>_toys.webp` | **1254×1672 (3×4 of 418)**, alpha | Same frame, scale, facing (right) and **foot baseline 409** as `assets/doll_<key>_sprites.webp`, and the doll must match her sheet exactly. The skates are classic four-wheel quad roller skates, white boots with wheels in her colour from the roster table (§1), and the wheels sit on the baseline. The pogo stick is one design for every doll: a red pole, a silver coil spring, black foot pegs and grips, and a rubber tip at the bottom, centred at x 209. |
+| K2 | `assets/masks/<key>_toys_mask.webp` | 1254×1672, same as K1 | The outfit mask for K1, made exactly like `assets/masks/<key>_sheet_mask.webp` (the same clothing areas, on the same black background). The game uses it to recolour her outfit on skates and on the pogo stick, as it does in every other pose. Skates and the stick are not clothing. |
 
-How the game will use them: during the skates (speed) pickup a doll on foot
-shows row 0, with the cycle played slowly so she glides. During the pogo
-(high-jump) pickup she shows row 1, bouncing along with every hop. Mounted
-racers keep their mount. This starts on the Village; other tracks can opt in
-later.
+Once a doll's K1 and K2 are in, add her key to `RIDE_TOY_SHEETS` in
+`tracks.js` in the same commit; the game uses the sheet only once it's listed.
 
-Acceptance: overlay frame 0 of each row on the doll's idle frame; the feet
-(skates) or pogo tip sit on the same baseline and the doll matches her
-sheet. Then race on the Village with a skates pickup and a pogo pickup.
+| Row | On | Frames (left to right) |
+| --- | --- | --- |
+| 1 | Skates | **Glide cycle**: (1) pushing off with the back foot gliding out behind on its wheels; (2) feet together, gliding (also used mid-jump); (3) pushing off with the other foot. Both feet stay low, the body leans forward a little and the arms swing loosely. |
+| 2 | Skates | (1) **Standing still**, balanced, feet together; (2) **pushing / throwing**: the same thrust as her push frame (row 4 cell 2 of her sheet), still on skates; (3) **falling backwards**: as her fall frame (row 4 cell 3), arms up and the skates' wheels lifting forward. |
+| 3 | Pogo stick | **Bounce**: (1) compressed, knees bent, spring squashed, tip on the baseline; (2) extended, legs straight, spring stretched, tip on the baseline; (3) airborne, a little tucked (the game lifts it). Both feet on the pegs, both hands on the handlebar at chest height. |
+| 4 | Pogo stick | (1) **Balancing** upright on the stick, tip on the baseline; (2) **pushing / throwing** with one hand off the handlebar, thrust forward; (3) **falling backwards** off the stick, which tips away from her. |
+
+### 8.1 Pickup icons for the tracks that get skates or a pogo stick
+
+Village already shows skates (speed) and a pogo stick (high jump). These
+tracks get them too. Repaint only the named cell of
+`assets/tracks/<key>/powerups.webp`, in that track's existing icon style, and
+keep the other cells pixel-identical. When one lands, set the label in
+`tracks.js` and add the toy to that track's `rideToys` (Village has
+`rideToys: { boost: "skates", jump: "pogo" }`), so the pickup becomes skates
+or a pogo stick only once its icon shows them.
+
+| # | Track (key) | Cell | Now | Repaint as | Label in `tracks.js` |
+| --- | --- | --- | --- | --- | --- |
+| R9 | Beach (`beach`) | 2 (speed, x 256-511) | Surfboard | A pair of beach-bright roller skates (turquoise boots, coral wheels) | `boost: "SKATES"` |
+| R10 | Night Festival (`festival`) | 2 (speed) | Sparkler | Roller skates with glowing light-up wheels | `boost: "SKATES"` |
+| R11 | Toy Room (`toyroom`) | 2 (speed) | Wind-up key | Toy roller skates with a wind-up key on the side | `boost: "SKATES"` |
+| R12 | Toy Room (`toyroom`) | 1 (jump, x 0-255) | Jack-in-the-box | A toy pogo stick with a jack-in-the-box spring | `jump: "POGO"` |
+| R13 | Night Festival (`festival`) | 1 (jump) | Trampoline | A pogo stick with string lights wound around the pole | `jump: "POGO"` |
+| R14 | Candy Land (`candy`) | 1 (jump) | Gumdrop | A candy-cane-striped pogo stick with a gumdrop tip | `jump: "POGO"` |
+
+How the game uses them: during skates a doll on foot glides through row 1
+with the frames paced to how far she has moved, so her speed and stride match.
+Standing still she uses row 2 cell 1, pushing or throwing row 2 cell 2, and
+falling back row 2 cell 3. During the pogo stick she bounces continuously
+through row 3 while moving at her normal speed (row 4 for balancing,
+pushing and falling). With both, she keeps the look of the one she picked
+up first and has both powers; when it runs out she switches to the other.
+Mounted racers keep their mount.
+
+Acceptance: overlay cell 1 of rows 1 and 3 on the doll's idle frame; the
+wheels or pogo tip sit on the same baseline and the doll matches her sheet.
+Then race on the Village with a skates pickup and a pogo pickup.
+
+---
+
+## 9. Track monsters: a jack-o'-lantern scarecrow and a skeleton
+
+Two alternates for the troll, in the **same painted, slightly photoreal style
+as `assets/monster_sprites.webp`** (look at it side by side). They behave
+exactly like the troll; only the look changes. The **scarecrow** replaces the
+troll on Pumpkin Patch (`autumn`), the **skeleton** on Wizard School
+(`wizard`). Both must stay kid-friendly: spooky-silly, not scary.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| M1 | `assets/scarecrow_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A tall, lanky scarecrow with a carved **jack-o'-lantern head** (goofy grin, warm glow), a patched plaid shirt, overalls and a floppy straw hat, straw poking from the cuffs and collar. |
+| M2 | `assets/skeleton_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A cartoon **skeleton** with a big grinning skull, chunky friendly bones and a tattered purple wizard-school scarf. |
+
+**Use exactly the troll sheet's layout, scale, facing (left) and foot
+baseline**, cell for cell, because the game swaps the sheet in without other
+changes:
+
+| Row | Cells (left to right) |
+| --- | --- |
+| 1 | Idle, 3 frames of a slight sway |
+| 2 | Walk cycle, 3 frames |
+| 3 | **Grab** (lunging forward with arms out), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
+| 4 | **Knocked over** (falling backwards), **collapsing**, and **defeated**. Defeated is the big difference from the troll, which lies asleep. The scarecrow's defeated cell is **an empty heap of its clothes and straw with the pumpkin head sitting on top**. The skeleton's is **a pile of bones with the skull on top**. Both stay put on the ground until the race ends. |
+
+In the same commit, add `"scarecrow"` / `"skeleton"` to `TRACK_SHARED_ART` in
+`tracks.js`; the game loads a sheet only once it is listed.
+
+Acceptance: overlay each sheet on `monster_sprites.webp` and check that the
+feet sit on the same baseline in rows 1-3 and the figures are about the same
+size. Then race Pumpkin Patch and Wizard School on "Extra" monsters. Each
+one walks in, grabs and throws a doll, and after five knock-backs ends as its
+pile.

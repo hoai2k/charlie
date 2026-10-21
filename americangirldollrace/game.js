@@ -185,6 +185,15 @@ const TROLL_RIDING_CHANCE = 0.5;
 // After throwing someone a riding troll stands still this long, so the
 // thrown rider can get away.
 const MOUNTED_MONSTER_REST_AFTER_THROW = 2.2;
+// Riding toys (tracks.js rideToys): roller skates for speed and a pogo stick
+// for high jump. They last twice as long as the plain power-up and, once the
+// doll's toys sheet is listed in RIDE_TOY_SHEETS, change how she looks while
+// moving at the same speed (image-requests.md §8). With both, she keeps the
+// look of the first until it runs out, with both powers.
+const RIDE_TOY_DURATION_MULTIPLIER = 2;
+const SKATE_STRIDE_PX = 150;
+const POGO_BOUNCE_HZ = 2.4;
+const POGO_BOUNCE_HEIGHT = 30;
 // Kickable beach balls (tracks.js beachBalls): run into one to nudge it along,
 // push (X) to kick it. Positions are at feet level, like power-ups.
 const BEACH_BALL_RADIUS = 22;
@@ -801,6 +810,9 @@ function preloadTrackArt(background) {
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount]) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
+  if (theme.monster && (window.TRACK_SHARED_ART || []).includes(theme.monster)) {
+    loadArtOnce(theme.monster, `assets/${theme.monster}_sprites.webp`);
+  }
   if (theme.trollMount) {
     for (const name of window.TRACK_SHARED_ART || []) loadArtOnce(name, `assets/${name}_sprites.webp`);
   }
@@ -816,6 +828,12 @@ function getTrackCard(background) {
     ? `assets/tracks/${background.key}/background.webp`
     : images[background.imageKey]?.src;
   return { url, cells: 1, index: 0, crop: true };
+}
+
+// A themed pickup's own sound (a gong, a rooster…), like its label only once
+// the track's power-up art is showing.
+function powerupSound(type, fallback) {
+  return (getTrackArt("powerups") && getTrackTheme().sounds?.[type]) || fallback;
 }
 
 function powerupLabel(type, fallback) {
@@ -845,6 +863,28 @@ function isAlwaysMountedTrack() {
 
 function canMountedRacersUsePowerups() {
   return isHorsingAroundMode() || isAlwaysMountedTrack();
+}
+
+// The track's own monster (tracks.js `monster`: a scarecrow, a skeleton) in
+// place of the troll, once its sheet has loaded with the troll's layout.
+function getTrackMonsterKey() {
+  const key = getTrackTheme().monster;
+  const sheet = key && images[key];
+  return sheet && sheet.width === FRAME * SPRITE_COLS && sheet.height === FRAME * MONSTER_SPRITE_ROWS ? key : null;
+}
+
+function getMonsterImage() {
+  return images[getTrackMonsterKey()] || images.monster;
+}
+
+// The troll's sound, or the track monster's own version of it (scarecrow_grab
+// for troll_grab). Track monsters collapse into a pile, so they don't snore.
+function monsterSfx(trollKey) {
+  const key = getTrackMonsterKey();
+  if (!key) return trollKey;
+  if (trollKey === "troll_sleep_loop") return null;
+  const own = trollKey.replace(/^troll_/, `${key}_`);
+  return window.AUDIO_MANIFEST?.sfx?.[own] ? own : trollKey;
 }
 
 // The horse the trolls ride on this track, or null when they walk.
@@ -1181,6 +1221,9 @@ function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpee
     horseType: "horse",
     pegasusGliding: false,
     unicornBeamCooldown: 0,
+    rideToys: [],
+    toyDistance: 0,
+    pogoPhase: 0,
     grabbedBy: null,
     aiWanderAhead: false
   };
@@ -1437,13 +1480,19 @@ function updateRacerAudio(racer, dt) {
   const mountId = racerLoopId(racer, "mount");
   const oilId = racerLoopId(racer, "oil");
   const frozenId = racerLoopId(racer, "frozen");
+  const skateId = racerLoopId(racer, "skate");
 
   if (racer.finished || racer.grabbedBy) {
     GameAudio.stopLoop(mountId);
     GameAudio.stopLoop(oilId);
     GameAudio.stopLoop(frozenId);
+    GameAudio.stopLoop(skateId);
     return;
   }
+
+  const skating = racer.rideToys?.[0]?.type === "skates" && racer.moving && racer.z === 0 && getRideToyPose(racer, false);
+  if (skating) GameAudio.startLoop(skateId, "skate_roll_loop", { gain: racerAudioGain(racer) * 0.7 });
+  else GameAudio.stopLoop(skateId);
 
   if (isMounted(racer) && mountLoopKey(racer) && (Math.abs(racer.speed) > 20 || racer.pegasusGliding)) {
     GameAudio.startLoop(mountId, mountLoopKey(racer), { gain: racerAudioGain(racer) });
@@ -1474,22 +1523,22 @@ function updateMonsterAudio(dt) {
       sleepers += 1;
       if (nearestSleeper === null || Math.abs(monster.x) < Math.abs(nearestSleeper)) nearestSleeper = monster.x;
       // A yawn as it gives up and settles down, before the snoring loop starts.
-      if (previous !== "sleeping") sfx("troll_wake", monster.x, { rate: 0.9 });
+      if (previous !== "sleeping") sfx(monsterSfx("troll_wake"), monster.x, { rate: 0.9 });
       continue;
     }
     if (!monster.active || !isMonsterVisible(monster)) continue;
 
     if (previous !== monster.state) {
-      if (monster.state === "grab") sfx("troll_grab", monster.x);
-      else if (monster.state === "lift") sfx("troll_lift", monster.x);
+      if (monster.state === "grab") sfx(monsterSfx("troll_grab"), monster.x);
+      else if (monster.state === "lift") sfx(monsterSfx("troll_lift"), monster.x);
       else if (monster.state === "throw") {
-        sfx("troll_throw", monster.x);
+        sfx(monsterSfx("troll_throw"), monster.x);
         sfx("crowd_ooh", monster.x, { gain: 0.7 });
       } else if (monster.state === "fall") {
-        sfx("troll_hit", monster.x);
-        sfx("troll_fall", monster.x, { gain: 0.85 });
+        sfx(monsterSfx("troll_hit"), monster.x);
+        sfx(monsterSfx("troll_fall"), monster.x, { gain: 0.85 });
       } else if (monster.state === "walk" && previous === "idle") {
-        sfx("troll_notice", monster.x);
+        sfx(monsterSfx("troll_notice"), monster.x);
       } else if (monster.state === "drop") {
         sfx("storm_monster_drop", monster.x);
       }
@@ -1499,18 +1548,19 @@ function updateMonsterAudio(dt) {
       monster.audioStepTimer = (monster.audioStepTimer || 0) + dt;
       if (monster.audioStepTimer >= 0.36) {
         monster.audioStepTimer = 0;
-        sfx("troll_walk_step", monster.x, { throttleKey: "any", rate: 0.92 + Math.random() * 0.14 });
+        sfx(monsterSfx("troll_walk_step"), monster.x, { throttleKey: "any", rate: 0.92 + Math.random() * 0.14 });
       }
       monster.audioGruntTimer = (monster.audioGruntTimer || Math.random() * 6) + dt;
       if (monster.audioGruntTimer >= 5.5) {
         monster.audioGruntTimer = 0;
-        sfx("troll_idle_grunt", monster.x, { gain: 0.8 });
+        sfx(monsterSfx("troll_idle_grunt"), monster.x, { gain: 0.8 });
       }
     }
   }
 
-  if (sleepers > 0 && nearestSleeper !== null) {
-    GameAudio.startLoop("troll-sleep", "troll_sleep_loop", { gain: Math.min(1, 0.5 + sleepers * 0.2) });
+  const sleepLoop = monsterSfx("troll_sleep_loop");
+  if (sleepers > 0 && nearestSleeper !== null && sleepLoop) {
+    GameAudio.startLoop("troll-sleep", sleepLoop, { gain: Math.min(1, 0.5 + sleepers * 0.2) });
   } else {
     GameAudio.stopLoop("troll-sleep");
   }
@@ -1565,12 +1615,19 @@ function updateAudio(dt) {
 function playPowerupAudio(racer, type) {
   if (type === "oil" || type === "horse") return;
   sfx("powerup_pickup_generic", racer.x);
-  if (type === "boost") sfx("powerup_boost", racer.x);
-  else if (type === "jump") sfx("powerup_highjump", racer.x);
-  else if (type === "emp") sfx("powerup_emp", racer.x);
-  else if (type === "snowball") sfx("powerup_snowball_pickup", racer.x);
+  if (type === "boost") sfx(powerupSound("boost", "powerup_boost"), racer.x);
+  else if (type === "jump") sfx(powerupSound("jump", "powerup_highjump"), racer.x);
+  else if (type === "emp") sfx(powerupSound("emp", "powerup_emp"), racer.x);
+  else if (type === "snowball") sfx(powerupSound("snowball", "powerup_snowball_pickup"), racer.x);
   racerVoice(racer, "pickup", { chance: 0.3 });
 }
+
+const THEMED_MOUNT_SOUNDS = {
+  pony: "mount_pony",
+  reindeer: "mount_reindeer",
+  rocking_horse: "mount_rocking_horse",
+  carousel_horse: "mount_carousel"
+};
 
 function playMountAudio(racer) {
   sfx("powerup_horse_pickup", racer.x);
@@ -1578,7 +1635,7 @@ function playMountAudio(racer) {
   if (racer.horseType === "unicorn") sfx("unicorn_appear", racer.x);
   else if (racer.horseType === "broom") sfx("powerup_pickup_generic", racer.x);
   else if (isFlyingMountType(racer.horseType)) sfx("pegasus_wing_flap", racer.x);
-  else sfx("horse_whinny", racer.x);
+  else sfx(THEMED_MOUNT_SOUNDS[racer.horseType] || "horse_whinny", racer.x);
   racerVoice(racer, "mount", { chance: 0.6, priority: 1 });
 }
 
@@ -2042,6 +2099,15 @@ function update(dt) {
     const previousZ = racer.z;
     const normalMoveX = constrainHumanSeparationMove(racer, forward * dt);
     racer.x += normalMoveX + racer.knockbackX * dt;
+    if (racer.rideToys.length > 0) {
+      racer.toyDistance += Math.abs(normalMoveX);
+      const previousHop = Math.abs(Math.sin(racer.pogoPhase));
+      racer.pogoPhase = (racer.pogoPhase + dt * POGO_BOUNCE_HZ * Math.PI) % (Math.PI * 2);
+      if (racer.rideToys[0].type === "pogo" && racer.z === 0 && !isMounted(racer)
+        && previousHop > 0.1 && Math.abs(Math.sin(racer.pogoPhase)) <= 0.1) {
+        sfx("pogo_boing", racer.x, { gain: 0.6 });
+      }
+    }
     racer.x = clamp(racer.x, 40, FINISH);
     racer.y += input.vertical * PLAYER_LANE_SPEED * dt;
     racer.y = clamp(racer.y, TRACK_TOP, TRACK_BOTTOM);
@@ -2135,8 +2201,58 @@ function updateStackTimers(racer, dt) {
   racer.highJumpStacks = racer.highJumpStacks
     .map(timer => timer - dt)
     .filter(timer => timer > 0);
+  racer.rideToys = racer.rideToys
+    .map(toy => ({ ...toy, timer: toy.timer - dt }))
+    .filter(toy => toy.timer > 0);
   racer.speedBoostTimer = racer.speedBoostStacks.length > 0 ? Math.max(...racer.speedBoostStacks) : 0;
   racer.highJumpTimer = racer.highJumpStacks.length > 0 ? Math.max(...racer.highJumpStacks) : 0;
+}
+
+function getRideToy(powerupType) {
+  return getTrackTheme().rideToys?.[powerupType] || null;
+}
+
+// Toys keep the order they were picked up in; picking one up again refreshes it.
+function addRideToy(racer, type, duration) {
+  const existing = racer.rideToys.find(toy => toy.type === type);
+  if (existing) existing.timer = Math.max(existing.timer, duration);
+  else racer.rideToys.push({ type, timer: duration });
+  getRideToySheet(racer);
+}
+
+// The doll's skates/pogo sheet (outfit-recoloured), or null until it's listed
+// in RIDE_TOY_SHEETS and loaded.
+function getRideToySheet(racer) {
+  const assetKey = dollAssetKey(racer.spriteKey);
+  if (!(window.RIDE_TOY_SHEETS || []).includes(assetKey)) return null;
+  if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "toys", racer.outfit);
+  loadArtOnce(`toys_${assetKey}`, `assets/doll_${assetKey}_toys.webp`);
+  return images[`toys_${assetKey}`] || null;
+}
+
+// Which toys-sheet cell to draw (and how high to lift it), or null to draw
+// the doll normally.
+function getRideToyPose(racer, jumping) {
+  // Menu preview dolls have no rideToys.
+  const toy = racer.rideToys?.[0]?.type;
+  if (!toy || racer.grabbedBy || isMounted(racer)) return null;
+  const sheet = getRideToySheet(racer);
+  if (!sheet) return null;
+  if (toy === "skates") {
+    if (racer.fallBackTimer > 0) return { sheet, row: 1, col: 2, lift: 0 };
+    if (racer.pushTimer > 0) return { sheet, row: 1, col: 1, lift: 0 };
+    if (jumping) return { sheet, row: 0, col: 1, lift: 0 };
+    if (racer.moving) return { sheet, row: 0, col: Math.floor(racer.toyDistance / SKATE_STRIDE_PX) % 3, lift: 0 };
+    return { sheet, row: 1, col: 0, lift: 0 };
+  }
+  if (racer.fallBackTimer > 0) return { sheet, row: 3, col: 2, lift: 0 };
+  if (racer.pushTimer > 0) return { sheet, row: 3, col: 1, lift: 0 };
+  if (jumping) return { sheet, row: 2, col: 2, lift: 0 };
+  if (racer.frozenTimer > 0 || racer.oilTimer > 0) return { sheet, row: 3, col: 0, lift: 0 };
+  // Always bouncing: compressed at the bottom of each hop, airborne at the top.
+  const hop = Math.abs(Math.sin(racer.pogoPhase));
+  const col = hop < 0.25 ? 0 : hop < 0.7 ? 1 : 2;
+  return { sheet, row: 2, col, lift: hop * POGO_BOUNCE_HEIGHT };
 }
 
 function getBoostMultiplier(racer) {
@@ -2383,12 +2499,18 @@ function applyPowerup(racer, powerupOrType) {
   if (hasActivePowerup(racer, type)) return false;
   playPowerupAudio(racer, type);
   if (type === "boost") {
-    racer.speedBoostStacks.push(4);
+    const toy = getRideToy("boost");
+    const duration = 4 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
+    racer.speedBoostStacks.push(duration);
+    if (toy) addRideToy(racer, toy, duration);
     racer.speedBoostTimer = Math.max(...racer.speedBoostStacks);
     const label = powerupLabel("boost", "BOOST");
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
-    racer.highJumpStacks.push(5);
+    const toy = getRideToy("jump");
+    const duration = 5 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
+    racer.highJumpStacks.push(duration);
+    if (toy) addRideToy(racer, toy, duration);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
     const label = powerupLabel("jump", "HIGH JUMP");
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
@@ -2411,7 +2533,7 @@ function applyPowerup(racer, powerupOrType) {
       sfx("powerup_blocked", racer.x);
       return true;
     }
-    sfx("oil_splat", racer.x);
+    sfx(getTrackTheme().oilEffect === "sticky" ? "sticky_squelch" : "oil_splat", racer.x);
     racerVoice(racer, "slip", { chance: 0.8, priority: 1 });
     racer.oilTimer = OIL_SLIDE_DURATION;
     racer.knockbackX = 0;
@@ -3041,7 +3163,8 @@ function unhorseMonster(monster, direction) {
     frameTime: 0,
     frame: 0
   });
-  sfx("horse_whinny", monster.x);
+  sfx("troll_unhorsed", monster.x);
+  sfx(getTrollMountImage() === images.skeleton_horse ? "skeleton_horse_whinny" : "horse_whinny", monster.x, { gain: 0.8 });
 }
 
 function makeBeachBalls() {
@@ -3059,7 +3182,7 @@ function kickBeachBall(ball, direction, dy = 0) {
   ball.vx = direction * BEACH_BALL_KICK_SPEED;
   ball.vy += Math.sign(dy) * 120;
   ball.vz = BEACH_BALL_KICK_LIFT;
-  sfx("push_impact", ball.x);
+  sfx("beachball_kick", ball.x);
 }
 
 function updateBeachBalls(dt) {
@@ -3087,7 +3210,7 @@ function updateBeachBalls(dt) {
     if (ball.z <= 0) {
       ball.z = 0;
       if (ball.vz < -140) {
-        if (ball.vz < -300) sfx("jump_land_soft", ball.x, { gain: 0.5 });
+        if (ball.vz < -300) sfx("beachball_bounce", ball.x, { gain: Math.min(1, -ball.vz / 700) });
         ball.vz = -ball.vz * 0.55;
       } else {
         ball.vz = 0;
@@ -5658,7 +5781,7 @@ function drawMonster(monster) {
     drawMountedMonster(monster, getTrollMountImage(), screenX, visualY, drawFacing);
     return;
   }
-  drawFacingImage(images.monster, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+  drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
 }
 
 // A troll on horseback. Knocked down (fall/ground/sleeping) he's on foot in
@@ -5716,7 +5839,7 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
   const frame = monsterFrame(monster);
   if (unhorsed) {
     const trollScale = scale * MONSTER_HEIGHT_SCALE;
-    drawFacingImage(images.monster, frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * trollScale, visualY + 58 - SPRITE_ANCHOR_Y * trollScale, FRAME * trollScale, FRAME * trollScale, facing, screenX);
+    drawFacingImage(getMonsterImage(), frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * trollScale, visualY + 58 - SPRITE_ANCHOR_Y * trollScale, FRAME * trollScale, FRAME * trollScale, facing, screenX);
     return;
   }
   const seatDX = (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * horseScale;
@@ -5737,7 +5860,7 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
   const trollScale = scale * MONSTER_HEIGHT_SCALE * 0.78;
   const trollX = screenX - SPRITE_ANCHOR_X * trollScale + 9 * scale + seatDX;
   const trollY = horseBaseY - 30 * scale + seatDY;
-  drawFacingImage(images.monster, frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, trollX, trollY, FRAME * trollScale, FRAME * trollScale, facing, screenX);
+  drawFacingImage(getMonsterImage(), frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, trollX, trollY, FRAME * trollScale, FRAME * trollScale, facing, screenX);
 }
 
 function monsterDrawY(monster) {
@@ -5816,7 +5939,12 @@ function drawRacer(racer) {
     }
     drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
   } else {
-    if (racer.oilTimer > 0 && racer.oilSticky) {
+    const toyPose = getRideToyPose(racer, jumping);
+    if (toyPose) {
+      const toyY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z - toyPose.lift * scale / 0.45;
+      drawFacingImage(toyPose.sheet, toyPose.col * FRAME, toyPose.row * FRAME, FRAME, FRAME,
+        screenX - SPRITE_ANCHOR_X * scale, toyY, FRAME * scale, FRAME * scale, drawFacing, screenX);
+    } else if (racer.oilTimer > 0 && racer.oilSticky) {
       drawStuckRacer(racer, screenX, scale);
     } else {
       drawFacingImage(racer.sheet, sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);

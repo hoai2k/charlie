@@ -15,6 +15,7 @@ window.AUDIO_MANIFEST = {
   "powerup_boost_loop",
   "powerup_spawn_twinkle",
   "run_loop_grass",
+  "skate_roll_loop",
   "storm_cloud_loop",
   "troll_sleep_loop",
   "unicorn_gallop_loop"
@@ -53,6 +54,16 @@ window.AUDIO_MANIFEST = {
   ],
   "amb_winter_loop": [
    1
+  ],
+  "beachball_bounce": [
+   1,
+   2,
+   3
+  ],
+  "beachball_kick": [
+   1,
+   2,
+   3
   ],
   "countdown_go": [
    1
@@ -163,11 +174,27 @@ window.AUDIO_MANIFEST = {
   "lego_split_open": [
    1
   ],
+  "mount_carousel": [
+   1,
+   2
+  ],
   "mount_expire_poof": [
    1
   ],
   "mount_expire_warning": [
    1
+  ],
+  "mount_pony": [
+   1,
+   2
+  ],
+  "mount_reindeer": [
+   1,
+   2
+  ],
+  "mount_rocking_horse": [
+   1,
+   2
   ],
   "oil_slide_end": [
    1,
@@ -208,6 +235,75 @@ window.AUDIO_MANIFEST = {
    2,
    3,
    4
+  ],
+  "pickup_acorn_bell": [
+   1,
+   2
+  ],
+  "pickup_conch": [
+   1,
+   2
+  ],
+  "pickup_crows": [
+   1,
+   2
+  ],
+  "pickup_gong": [
+   1,
+   2
+  ],
+  "pickup_hand_bell": [
+   1,
+   2
+  ],
+  "pickup_jack_in_box": [
+   1,
+   2
+  ],
+  "pickup_laser": [
+   1,
+   2
+  ],
+  "pickup_pogo": [
+   1,
+   2
+  ],
+  "pickup_pop_rocks": [
+   1,
+   2
+  ],
+  "pickup_rooster": [
+   1,
+   2
+  ],
+  "pickup_skates": [
+   1,
+   2
+  ],
+  "pickup_sparkler": [
+   1,
+   2
+  ],
+  "pickup_starter_bell": [
+   1,
+   2
+  ],
+  "pickup_toy_drum": [
+   1,
+   2
+  ],
+  "pickup_trumpet": [
+   1,
+   2
+  ],
+  "pickup_wand_zap": [
+   1,
+   2
+  ],
+  "pogo_boing": [
+   1,
+   2,
+   3
   ],
   "powerup_blocked": [
    1,
@@ -272,6 +368,87 @@ window.AUDIO_MANIFEST = {
   "run_loop_grass": [
    1
   ],
+  "scarecrow_fall": [
+   1,
+   2
+  ],
+  "scarecrow_grab": [
+   1,
+   2
+  ],
+  "scarecrow_hit": [
+   1,
+   2
+  ],
+  "scarecrow_idle_grunt": [
+   1,
+   2
+  ],
+  "scarecrow_lift": [
+   1,
+   2
+  ],
+  "scarecrow_notice": [
+   1,
+   2
+  ],
+  "scarecrow_throw": [
+   1,
+   2
+  ],
+  "scarecrow_wake": [
+   1,
+   2
+  ],
+  "scarecrow_walk_step": [
+   1,
+   2,
+   3
+  ],
+  "skate_roll_loop": [
+   1
+  ],
+  "skeleton_fall": [
+   1,
+   2
+  ],
+  "skeleton_grab": [
+   1,
+   2
+  ],
+  "skeleton_hit": [
+   1,
+   2
+  ],
+  "skeleton_horse_whinny": [
+   1,
+   2
+  ],
+  "skeleton_idle_grunt": [
+   1,
+   2
+  ],
+  "skeleton_lift": [
+   1,
+   2
+  ],
+  "skeleton_notice": [
+   1,
+   2
+  ],
+  "skeleton_throw": [
+   1,
+   2
+  ],
+  "skeleton_wake": [
+   1,
+   2
+  ],
+  "skeleton_walk_step": [
+   1,
+   2,
+   3
+  ],
   "snowball_hit": [
    1,
    2,
@@ -286,6 +463,10 @@ window.AUDIO_MANIFEST = {
    1,
    2,
    3
+  ],
+  "sticky_squelch": [
+   1,
+   2
   ],
   "storm_cloud_arrive": [
    1
@@ -344,6 +525,10 @@ window.AUDIO_MANIFEST = {
    1,
    2,
    3
+  ],
+  "troll_unhorsed": [
+   1,
+   2
   ],
   "troll_wake": [
    1,
