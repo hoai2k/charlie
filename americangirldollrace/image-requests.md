@@ -197,8 +197,9 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Farm, Winter, Toy Room and Night Festival) and both §6 sheets.
 > Fairy Woods includes a repaired direct-repeat background, calibrated track
 > edge, straight-on log hurdle, five-cell pickup strip, acorn and picker card.
-> **Still open:** the **puddle redos in §5.7** (the oil cell of seven
-> `powerups.webp` sheets).
+> The seven liquid-only puddle redos in §5.7 are delivered and checked under
+> a standing doll; the other 28 atlas cells are pixel-identical.
+> **Still open: none.**
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -304,7 +305,7 @@ seat positions. Delivered: each is a mount pickup on its track (`mountOdds` in `
 | `assets/carousel_horse_sprites.webp` | Night Festival | A gilded carousel horse on a twisted golden pole |
 | `assets/pony_sprites.webp` | Farm, Horse Show | A small fluffy pony with a braided mane |
 
-### 5.7 Redo: puddles with objects in them
+### 5.7 Delivered redo: puddles with objects in them
 
 These oil cells show a container or a non-liquid object, so the honey pot
 reads as a treat and the cups look like props. Repaint **only cell 4 (oil,

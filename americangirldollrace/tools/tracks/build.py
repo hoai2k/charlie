@@ -21,10 +21,10 @@ SIZES = {'background': (2172,724), 'hurdle': (160,170), 'powerups': (1280,256),
          'projectile': (128,128), 'card': (400,225)}
 
 
-def save(im, path):
+def save(im, path, exact=False):
     path.parent.mkdir(parents=True, exist_ok=True)
     temp = path.with_suffix('.tmp.webp')
-    im.save(temp, 'WEBP', lossless=True, quality=88, method=6)
+    im.save(temp, 'WEBP', lossless=True, quality=88, method=6, exact=exact)
     temp.replace(path)
 
 
@@ -102,6 +102,21 @@ def loop_background(key):
     return ImageChops.offset(repaired, -1086, 0)
 
 
+def verify_puddle_cells(key, sheet):
+    path = HERE/'puddle-redos/verification.json'
+    records = json.loads(path.read_text()) if path.exists() else {}
+    if key not in records: return
+    record = records[key]
+    for cell, expected in record['unchangedCellSha256'].items():
+        x = int(cell)*256
+        actual = hashlib.sha256(sheet.crop((x,0,x+256,256)).tobytes()).hexdigest()
+        assert actual == expected, (key, 'Non-oil cell changed', cell)
+    oil = sheet.crop((768,0,1024,256))
+    assert hashlib.sha256(oil.tobytes()).hexdigest() != record['beforeOilSha256'], (key, 'Oil cell was not replaced')
+    b = bounds(oil)
+    assert b and b[2]-b[0] > b[3]-b[1] and min(b[:2])>0 and b[2]<256 and b[3]<256, (key, 'Expected a flat, padded puddle')
+
+
 def export_track(key, kind):
     folder = HERE/'sources'/key
     path = folder/f'{kind}.webp'
@@ -122,10 +137,22 @@ def export_track(key, kind):
             result.alpha_composite(icon(cells[n],(256,256),(220,220)),(n*256,0))
         blank = cells[5]
         assert (np.asarray(blank.getchannel('A'))>8).mean() < .005, 'Sixth source cell must be empty'
+        # Requested puddle redos replace the entire oil cell, including empty
+        # pixels, so the old cup/pot cannot remain underneath the new liquid.
+        puddle_path = folder/'oil-puddle.webp'
+        if puddle_path.exists():
+            # Preserve the delivered sheet's decoded RGBA pixels exactly.
+            # Repacking the old atlas can change RGB under transparent pixels.
+            result = Image.open(HERE/'puddle-redos/base-sheets'/f'{key}.webp').convert('RGBA')
+            replacement = icon(clean(Image.open(puddle_path)), (256,256), (220,160))
+            result.paste(replacement, (768,0))
+            verify_puddle_cells(key, result)
     else:
         result = ImageOps.fit(Image.open(path).convert('RGB'),SIZES[kind],method=Image.Resampling.LANCZOS)
     target = GAME/'assets/tracks'/key/f'{kind}.webp'
-    save(result,target)
+    save(result,target,exact=kind == 'powerups' and (folder/'oil-puddle.webp').exists())
+    if kind == 'powerups' and (folder/'oil-puddle.webp').exists():
+        verify_puddle_cells(key, Image.open(target).convert('RGBA'))
     return target
 
 
@@ -185,6 +212,7 @@ def check():
                 if kind=='hurdle':assert bounds(im)[3]==170,path
                 if kind=='powerups':
                     for n in range(5):assert bounds(im.crop((n*256,0,n*256+256,256))),path
+                    verify_puddle_cells(key, im)
             count+=1
     for key in MOUNTS:
         meta=json.loads((GAME/f'tools/mounts/{key}.json').read_text());path=GAME/meta['asset'];im=Image.open(path).convert('RGBA')
