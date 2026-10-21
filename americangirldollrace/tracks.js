@@ -45,8 +45,8 @@
 // rideToys: { boost: "skates", jump: "pogo" } makes those pickups roller
 // skates / a pogo stick that last twice as long and change the doll's look.
 // baseMount may be a list to pick from. unlocksWizardMounts: finishing this
-// track unlocks gryphons and broomsticks on every other track (until then
-// they're left out of mount pickups there).
+// track unlocks gryphons and broomsticks on every other track for the rest of
+// that day (until then they're left out of mount pickups there).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
 // "spellBook" (frog the nearest racer or monster), "surfboard" (ride a wave
 // over hurdles), "windupCars" (cars that bump whoever they meet).
