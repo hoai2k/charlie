@@ -47,6 +47,29 @@ test('eye fitting uses pupil anchors and the heart origin stays inside the hand 
   assert.deepEqual(config.interactions.kiss.origin, {x: .538, y: .657});
 });
 
+test('generated patches stay on the face and cover what they replace', () => {
+  const report = JSON.parse(fs.readFileSync(new URL('./claudia-report.json', import.meta.url)));
+  // Every mouth comes through the same face fit, so mouths cannot drift apart.
+  for (const name of spec.expressions.filter(name => name !== spec.atlasReference)) {
+    assert.ok(report.registration[name].face.inliers >= 8, name);
+    assert.ok(report.registration[name].face.medianErrorPx <= 2, name);
+  }
+  for (const fit of ['mouthFit', 'leftEyeFit', 'rightEyeFit']) assert.ok(report[fit].medianErrorPx <= 2, fit);
+  const chinY = spec.mouthSearchBox[3];
+  for (const [name, feature] of Object.entries(config.sprites.features)) {
+    if (name.startsWith('mouth_')) {
+      // No full-width rectangles reaching the jaw line (the old box patches did).
+      assert.ok(feature.box[2] - feature.box[0] < .3, name);
+      assert.ok(feature.box[3] <= chinY + .02, name);
+    }
+  }
+  // Closed lids must fully cover the open eye: each lid patch contains its eye box.
+  for (const [side, box] of [['left', spec.eyeBoxes[0]], ['right', spec.eyeBoxes[1]]]) {
+    const lid = config.sprites.features[`blink_${side}`].box;
+    assert.ok(lid[0] <= box[0] && lid[1] <= box[1] + .01 && lid[2] >= box[2] && lid[3] >= box[3], side);
+  }
+});
+
 test('patches follow head position and scale without per-expression offsets', () => {
   const rect = featureRect([.2, .4, .6, .5], {x: -100, y: -200, width: 500, height: 500});
   for (const [key, expected] of Object.entries({x: 0, y: 0, width: 200, height: 50})) {

@@ -4,7 +4,7 @@ export default {
   "name": "claudia",
   "label": "Claudia",
   "debugOnly": false,
-  "assetRevision": "6cb26824a528",
+  "assetRevision": "9107c9306117",
   "registeredFace": {
     "mouths": {
       "mouth_smile": "mouth_smile",
@@ -204,100 +204,100 @@ export default {
       "brow_left": {
         "file": "assets/claudia-v2/brow_left.webp",
         "box": [
-          0.377,
-          0.435,
-          0.489,
-          0.469
+          0.37812,
+          0.43594,
+          0.48906,
+          0.46875
         ]
       },
       "brow_right": {
         "file": "assets/claudia-v2/brow_right.webp",
         "box": [
-          0.588,
-          0.428,
-          0.695,
-          0.46
+          0.58906,
+          0.42969,
+          0.69531,
+          0.45937
         ]
       },
       "mouth_smile": {
         "file": "assets/claudia-v2/mouth_smile.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.41563,
+          0.58437,
+          0.65625,
+          0.74687
         ]
       },
       "mouth_small": {
         "file": "assets/claudia-v2/mouth_small.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.43906,
+          0.59844,
+          0.64687,
+          0.74844
         ]
       },
       "mouth_medium": {
         "file": "assets/claudia-v2/mouth_medium.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.43594,
+          0.59531,
+          0.64844,
+          0.75313
         ]
       },
       "mouth_laugh": {
         "file": "assets/claudia-v2/mouth_laugh.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.42188,
+          0.57031,
+          0.65156,
+          0.74687
         ]
       },
       "mouth_pucker": {
         "file": "assets/claudia-v2/mouth_pucker.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.43125,
+          0.57344,
+          0.64062,
+          0.7
         ]
       },
       "mouth_tongue": {
         "file": "assets/claudia-v2/mouth_tongue.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.43125,
+          0.59531,
+          0.64062,
+          0.75469
         ]
       },
       "mouth_frown": {
         "file": "assets/claudia-v2/mouth_frown.webp",
         "box": [
-          0.425,
-          0.605,
-          0.65,
-          0.743
+          0.43281,
+          0.6,
+          0.64062,
+          0.70156
         ]
       },
       "blink_left": {
         "file": "assets/claudia-v2/blink_left.webp",
         "box": [
-          0.385,
-          0.466,
-          0.495,
-          0.55
+          0.36719,
+          0.46875,
+          0.50156,
+          0.57031
         ]
       },
       "blink_right": {
         "file": "assets/claudia-v2/blink_right.webp",
         "box": [
-          0.586,
-          0.462,
-          0.692,
-          0.546
+          0.57188,
+          0.45937,
+          0.70156,
+          0.56719
         ]
       }
     },

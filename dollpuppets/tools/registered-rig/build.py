@@ -42,37 +42,112 @@ def feather_box(box, size, inset=0.12):
     return a * a * (3 - 2 * a)
 
 
-def register(source, master):
-    """Find a similarity transform using unchanged hair, bow, nose and eyes."""
-    def gray(im):
-        rgb = im[:, :, :3].copy()
-        rgb[im[:, :, 3] < 80] = 0
-        return cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
+def gray(im):
+    rgb = im[:, :, :3].copy()
+    rgb[im[:, :, 3] < 80] = 0
+    return cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
 
-    size = master.shape[0]
-    sift = cv2.SIFT_create(nfeatures=4000, contrastThreshold=0.025)
-    # Exclude the animated mouth; the unchanged upper face/hair anchors the rig.
-    mask = np.zeros((size, size), np.uint8)
-    mask[:round(size * 0.60)] = 255
+
+def similarity(source, target, mask, ratio=0.78, contrast=0.025, threshold=3, max_error=2):
+    """SIFT + RANSAC similarity transform from source to target inside mask."""
+    sift = cv2.SIFT_create(nfeatures=4000, contrastThreshold=contrast)
     ka, da = sift.detectAndCompute(gray(source), mask)
-    kb, db = sift.detectAndCompute(gray(master), mask)
+    kb, db = sift.detectAndCompute(gray(target), mask)
     if da is None or db is None:
         raise ValueError("No registration features")
     pairs = cv2.BFMatcher().knnMatch(da, db, k=2)
-    good = [a for a, b in pairs if a.distance < 0.78 * b.distance]
+    good = [a for a, b in pairs if a.distance < ratio * b.distance]
     if len(good) < 8:
         raise ValueError(f"Too few registration matches: {len(good)}")
     src = np.float32([ka[m.queryIdx].pt for m in good])
     dst = np.float32([kb[m.trainIdx].pt for m in good])
-    matrix, inliers = cv2.estimateAffinePartial2D(src, dst, method=cv2.RANSAC, ransacReprojThreshold=3)
+    matrix, inliers = cv2.estimateAffinePartial2D(src, dst, method=cv2.RANSAC, ransacReprojThreshold=threshold)
     if matrix is None or int(inliers.sum()) < 8:
         raise ValueError("Unreliable registration")
     residual = np.linalg.norm(cv2.transform(src[None], matrix)[0] - dst, axis=1)[inliers.ravel() > 0]
-    if float(np.median(residual)) > 2:
-        raise ValueError("Expression registration exceeds two-pixel error")
-    warped = cv2.warpAffine(source, matrix, (size, size), flags=cv2.INTER_CUBIC)
-    return warped, {"matches": len(good), "inliers": int(inliers.sum()),
-                    "medianErrorPx": round(float(np.median(residual)), 3), "matrix": matrix.tolist()}
+    if float(np.median(residual)) > max_error:
+        raise ValueError("Registration exceeds two-pixel error")
+    return matrix, {"matches": len(good), "inliers": int(inliers.sum()),
+                    "medianErrorPx": round(float(np.median(residual)), 3), "matrix": matrix.round(5).tolist()}
+
+
+def box_mask(size, include, exclude=()):
+    mask = np.zeros((size, size), np.uint8)
+    for box in include:
+        x1, y1, x2, y2 = pixels(box, size)
+        mask[max(0, y1):y2, max(0, x1):x2] = 255
+    for box in exclude:
+        x1, y1, x2, y2 = pixels(box, size)
+        mask[max(0, y1):y2, max(0, x1):x2] = 0
+    return mask
+
+
+def compose(outer, inner):
+    """Affine matrix applying inner first, then outer."""
+    return (np.vstack([outer, [0, 0, 1]]) @ np.vstack([inner, [0, 0, 1]]))[:2]
+
+
+def warp(image, matrix, size):
+    return cv2.warpAffine(image, matrix, (size, size), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+
+
+def lab(image):
+    return cv2.cvtColor(np.ascontiguousarray(image[:, :, :3]), cv2.COLOR_RGB2LAB).astype(np.float32)
+
+
+def match_skin(art, master, ring):
+    """Shift the generated art's Lab statistics to the master skin in a ring."""
+    a, m = lab(art), lab(master)
+    sel = ring > 0
+    mean_a, std_a = a[sel].mean(0), a[sel].std(0) + 1e-3
+    mean_m, std_m = m[sel].mean(0), m[sel].std(0) + 1e-3
+    out = (a - mean_a) * np.clip(std_m / std_a, 0.6, 1.6) + mean_m
+    rgb = cv2.cvtColor(np.clip(out, 0, 255).astype(np.uint8), cv2.COLOR_LAB2RGB)
+    return np.dstack([rgb, art[:, :, 3]])
+
+
+def difference_hull(art, master, search, threshold, minimum_area):
+    """Replace exactly where art differs from the master: a convex blob."""
+    delta = cv2.GaussianBlur(np.linalg.norm(lab(art) - lab(master), axis=2), (0, 0), 1.5)
+    changed = ((delta > threshold) & (search > 0)).astype(np.uint8)
+    changed = cv2.morphologyEx(changed, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+    count, labels, stats, _ = cv2.connectedComponentsWithStats(changed)
+    keep = [i for i in range(1, count) if stats[i, cv2.CC_STAT_AREA] >= minimum_area]
+    if not keep:
+        raise ValueError("Feature patch found no changed pixels")
+    points = np.argwhere(np.isin(labels, keep))[:, ::-1].astype(np.int32)
+    hull = np.zeros_like(changed)
+    cv2.fillConvexPoly(hull, cv2.convexHull(points), 1)
+    return hull
+
+
+def face_skin(master, seed, erode):
+    """The master's face, without the surrounding hair, shrunk by erode px."""
+    light = (cv2.GaussianBlur(lab(master)[:, :, 0], (0, 0), 2) > 75).astype(np.uint8)
+    light = cv2.morphologyEx(light, cv2.MORPH_OPEN, np.ones((5, 5), np.uint8))
+    _, labels = cv2.connectedComponents(light)
+    face = (labels == labels[seed[1], seed[0]]).astype(np.uint8)
+    contours, _ = cv2.findContours(face, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    filled = np.zeros_like(face)
+    cv2.drawContours(filled, contours, -1, 1, -1)
+    return cv2.erode(filled, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2*erode+1, 2*erode+1)))
+
+
+def feather(hull, grow, soft):
+    core = cv2.dilate(hull, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2*grow+1, 2*grow+1)))
+    outer = cv2.dilate(core, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2*soft+1, 2*soft+1)))
+    alpha = cv2.GaussianBlur(outer.astype(np.float32), (0, 0), soft / 2)
+    return np.maximum(alpha, core.astype(np.float32))
+
+
+def register(source, master):
+    """Find a similarity transform using unchanged hair, bow, nose and eyes."""
+    size = master.shape[0]
+    # Exclude the animated mouth; the unchanged upper face/hair anchors the rig.
+    mask = np.zeros((size, size), np.uint8)
+    mask[:round(size * 0.60)] = 255
+    matrix, report = similarity(source, master, mask)
+    return warp(source, matrix, size), report
 
 
 def build(key):
@@ -99,54 +174,112 @@ def build(key):
     report["headAnchors"] = {"eyes": eye_anchors, "mouth": spec["mouthAnchor"], "neck": spec["headNeck"], "pivot": spec["headPivot"]}
     atlas = Image.open(source / "expressions.webp").convert("RGBA")
     columns, rows = spec["expressionGrid"]
-    registered = {}
+    hair_registered = {}
     for i, name in enumerate(spec["expressions"]):
         col, row = i % columns, i // columns
         cell = atlas.crop((round(col * atlas.width / columns), round(row * atlas.height / rows),
                            round((col + 1) * atlas.width / columns), round((row + 1) * atlas.height / rows)))
         im = np.array(cell.resize((size, size), Image.Resampling.LANCZOS))
-        registered[name], report["registration"][name] = register(im, master)
+        hair_registered[name], report["registration"][name] = register(im, master)
+
+    # The atlas faces are a slightly different face from the master (and drift
+    # a few pixels between cells), so hair alignment alone moves every mouth.
+    # Instead: (1) align each cell's FACE to one reference cell using brows,
+    # nose and cheeks; (2) map that reference face onto the master once for
+    # the lips and once per eye. All mouths then share one transform.
+    reference = spec["atlasReference"]
+    face_mask = box_mask(size, [spec["faceRegisterBox"]], spec["faceRegisterExclude"])
+    to_reference = {reference: np.float32([[1, 0, 0], [0, 1, 0]])}
+    for name in spec["expressions"]:
+        if name != reference:
+            to_reference[name], report["registration"][name]["face"] = similarity(
+                hair_registered[name], hair_registered[reference], face_mask, ratio=0.8, contrast=0.01, threshold=2)
+    ref = hair_registered[reference]
+    mouth_matrix, report["mouthFit"] = similarity(
+        ref, master, box_mask(size, [spec["lipRegisterBox"]]), ratio=0.85, contrast=0.01, threshold=2)
+    eye_matrices = []
+    open_eyes = warp(hair_registered[spec["openEyeReference"]], to_reference[spec["openEyeReference"]], size)
+    for side, box in zip(["left", "right"], spec["eyeBoxes"]):
+        x1, y1, x2, y2 = box
+        m = spec["eyeRegisterMargin"]
+        matrix, report[f"{side}EyeFit"] = similarity(
+            open_eyes, master, box_mask(size, [[x1-m, y1-m, x2+m, y2+0.01]]), ratio=0.85, contrast=0.01, threshold=2)
+        eye_matrices.append(matrix)
 
     # Extract brows in master coordinates, then remove their static originals.
     # This is rig-layer preparation, not a new generated face: no per-state edits.
     brow_mask = np.zeros((size, size), np.uint8)
     features = {}
 
-    def feature(name, art, box):
-        x1, y1, x2, y2 = pixels(box, size)
-        if name.startswith(("mouth_", "blink_")):
-            # Poisson blending matches the master skin at the patch boundary;
-            # an oval mask stays away from hair and the curved jaw corners.
-            mask = np.zeros((size, size), np.uint8)
-            cv2.ellipse(mask, ((x1+x2)//2, (y1+y2)//2),
-                        ((x2-x1)//2-2, (y2-y1)//2-2), 0, 0, 360, 255, -1)
-            blended = cv2.seamlessClone(art[:, :, :3], master[:, :, :3], mask,
-                                       ((x1+x2)//2, (y1+y2)//2), cv2.NORMAL_CLONE)
-            art = art.copy()
-            art[:, :, :3] = blended
+    def write_feature(name, art, alpha):
+        ys, xs = np.where(alpha > 0.004)
+        x1, y1, x2, y2 = xs.min(), ys.min(), xs.max() + 1, ys.max() + 1
         patch = art[y1:y2, x1:x2].copy()
-        fade = feather_box(box, size)[y1:y2, x1:x2]
-        patch[:, :, 3] = np.rint(patch[:, :, 3] * fade).astype(np.uint8)
+        patch[:, :, 3] = np.rint(patch[:, :, 3] * alpha[y1:y2, x1:x2]).astype(np.uint8)
         filename = f"{name}.webp"
         save(out / filename, patch)
-        features[name] = {"file": f"assets/{spec['assetDirectory']}/{filename}", "box": list(box)}
+        features[name] = {"file": f"assets/{spec['assetDirectory']}/{filename}",
+                          "box": [round(float(v) / size, 5) for v in (x1, y1, x2, y2)]}
+        return [int(x1), int(y1), int(x2), int(y2)]
 
     for side, box in zip(["left", "right"], spec["browBoxes"]):
-        feature(f"brow_{side}", master, box)
+        write_feature(f"brow_{side}", master, feather_box(box, size))
         x1, y1, x2, y2 = pixels(box, size)
         brow_mask[y1:y2, x1:x2] = 255
     clean = master.copy()
     clean[:, :, :3] = cv2.inpaint(master[:, :, :3], brow_mask, 5, cv2.INPAINT_TELEA)
     save(out / "head.webp", clean)
 
+    def generated_patch(name, art, baseline, search_box, threshold, grow, soft, keep_out=()):
+        """Colour-match art to the master skin, then cover only what changed.
+
+        The baseline is the neutral atlas face under the same transform: it is
+        the same generated face, so differences are the expression itself plus
+        the neutral feature it replaces (which the fit lines up with the master's).
+        """
+        search = box_mask(size, [search_box], keep_out) * skin
+        x1, y1, x2, y2 = search_box
+        pad = 0.025
+        ring = box_mask(size, [[x1-pad, y1-pad, x2+pad, y2+pad]], [search_box, *keep_out])
+        art = match_skin(art, master, ring)
+        hull = difference_hull(art, match_skin(baseline, master, ring), search, threshold, spec["patchMinimumArea"])
+        alpha = feather(hull, grow, soft) * (box_mask(size, [[0, 0, 1, 1]], keep_out) / 255) * soft_skin
+        report["patches"][name] = write_feature(name, art, alpha)
+
+    report["patches"] = {}
+    # Patches never reach the jaw line: the atlas chin is not the master's.
+    skin = face_skin(master, pixels(spec["mouthAnchor"], size), spec["skinInset"])
+    soft_skin = cv2.GaussianBlur(face_skin(master, pixels(spec["mouthAnchor"], size), spec["skinInset"] // 2)
+                                 .astype(np.float32), (0, 0), 2)
     for name in spec["expressions"]:
-        if name != "blink":
-            feature(f"mouth_{name}", registered[name], spec["mouthBox"])
-    for side, box in zip(["left", "right"], spec["eyeBoxes"]):
-        feature(f"blink_{side}", registered["blink"], box)
+        if name != reference or spec.get("referenceHasMouth"):
+            art = warp(hair_registered[name], compose(mouth_matrix, to_reference[name]), size)
+            generated_patch(f"mouth_{name}", art, warp(ref, mouth_matrix, size),
+                            spec["mouthSearchBox"], spec["mouthThreshold"], 5, 6)
+    blink = spec["blinkExpression"]
+    for side, box, matrix in zip(["left", "right"], spec["eyeBoxes"], eye_matrices):
+        art = warp(hair_registered[blink], compose(matrix, to_reference[blink]), size)
+        m = spec["eyeRegisterMargin"]
+        generated_patch(f"blink_{side}", art, warp(open_eyes, matrix, size), [box[0]-m, box[1]-m, box[2]+m, box[3]+m],
+                        spec["eyeThreshold"], 3, 4, keep_out=spec["browBoxes"])
 
     # Connected components find poses even if imagegen leaves unequal gutters.
     bodies = rgba(source / "bodies.webp")
+    bodies[:, :, 3][bodies[:, :, 3] >= 250] = 255  # imagegen alpha tops out at 254
+    # The body sheet was generated separately and came out lighter and more
+    # yellow than the head. Shift its vinyl skin (one shift for all poses) to
+    # the master face's average, leaving the dress, shoes and trims alone.
+    face = face_skin(master, pixels(spec["mouthAnchor"], size), spec["skinInset"]) * \
+        (box_mask(size, [[0, 0, 1, 1]], [*spec["eyeBoxes"], *spec["browBoxes"], spec["mouthSearchBox"]]) > 0)
+    hsv = cv2.cvtColor(bodies[:, :, :3], cv2.COLOR_RGB2HSV)
+    body_skin = ((hsv[:, :, 0] >= 5) & (hsv[:, :, 0] < 25) & (hsv[:, :, 1] > 60) & (hsv[:, :, 2] > 60)
+                 & (bodies[:, :, 3] > 250))
+    body_lab = lab(bodies)
+    shift = (lab(master)[face > 0].mean(0) - body_lab[body_skin].mean(0)) * spec["bodySkinMatch"]
+    weight = cv2.GaussianBlur(body_skin.astype(np.float32), (0, 0), 1)[:, :, None]
+    matched = np.clip(body_lab + shift * weight, 0, 255).astype(np.uint8)
+    bodies[:, :, :3] = cv2.cvtColor(matched, cv2.COLOR_LAB2RGB)
+    report["bodySkinShiftLab"] = shift.round(2).tolist()
     count, labels, stats, centers = cv2.connectedComponentsWithStats((bodies[:, :, 3] > 128).astype(np.uint8))
     components = sorted(range(1, count), key=lambda i: stats[i, cv2.CC_STAT_AREA], reverse=True)[:6]
     if len(components) != 6 or min(stats[i, cv2.CC_STAT_AREA] for i in components) < 5000:
@@ -186,7 +319,7 @@ def build(key):
             rx1, rx2 = round(neck_x-neck_width), round(neck_x+neck_width)
             ry1, ry2 = round(neck_y+neck_width*0.6), round(neck_y+neck_width*2.2)
             inverse = (art[ry1:ry2, rx1:rx2, 3] < 128).astype(np.uint8)
-            count, _, hole_stats, hole_centers = cv2.connectedComponentsWithStats(inverse)
+            count, hole_labels, hole_stats, hole_centers = cv2.connectedComponentsWithStats(inverse)
             holes = [i for i in range(1, count) if hole_stats[i, 4] > 20
                      and hole_stats[i, 0] > 0 and hole_stats[i, 1] > 0
                      and hole_stats[i, 0]+hole_stats[i, 2] < inverse.shape[1]
@@ -195,6 +328,23 @@ def build(key):
                 raise ValueError("Heart pose: no enclosed hand gap found")
             hole = max(holes, key=lambda i: hole_stats[i, 4])
             action_anchor = [float(hole_centers[hole][0]+rx1), float(hole_centers[hole][1]+ry1)]
+            # The gap is in front of the dress: fill it (and any smaller enclosed
+            # gaps between the fingers) with dress texture copied from below the
+            # hands, so the stage background never shows through her chest.
+            gap = np.zeros(art.shape[:2], np.uint8)
+            gap[ry1:ry2, rx1:rx2] = np.isin(hole_labels, holes)
+            gap = cv2.dilate(gap, np.ones((5, 5), np.uint8)) & (art[:, :, 3] < 250)
+            hsv = cv2.cvtColor(art[:, :, :3], cv2.COLOR_RGB2HSV)
+            dress = (hsv[:, :, 0] > 145) & (hsv[:, :, 0] < 178) & (hsv[:, :, 1] > 120) & (art[:, :, 3] > 240)
+            ys, xs = np.nonzero(gap)
+            shift = next((k for k in range(1, art.shape[0] - ys.max())
+                          if dress[ys + k, xs].mean() > 0.98), None)
+            if shift is None:
+                raise ValueError("Heart pose: no dress below the hands to fill the gap")
+            fill = art[ys + shift, xs, :3].astype(np.float32) * spec["heartGapShade"]
+            a = art[ys, xs, 3:4].astype(np.float32) / 255
+            art[ys, xs, :3] = np.rint(art[ys, xs, :3] * a + fill * (1 - a)).astype(np.uint8)
+            art[ys, xs, 3] = 255
         filename = f"pose_{pose}.webp"
         save(out / filename, art)
         neck_anchor_y = neck_y + neck_width * spec["bodyNeckDepth"]
