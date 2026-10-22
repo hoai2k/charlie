@@ -109,9 +109,10 @@ const UNMOUNTED_LANDING_PAUSE_DURATION = 0.2;
 const HORSE_DURATION = 10;
 // A troll grabbing a rider pulls her off: her mount stays where it was as a
 // pickup with only the time it had left (a Horse Show horse never runs out).
-// On the Horse Show spare horses also wait along the course for anyone on foot.
+// On the Horse Show two spare horses also wait, a third and two thirds of the
+// way along at the bottom of the track, for anyone on foot.
 const LOOSE_MOUNT_PICKUP_X = 60;
-const HORSE_SHOW_SPARE_HORSE_GAP = 2600;
+const HORSE_SHOW_SPARE_HORSES = [1 / 3, 2 / 3];
 const UNICORN_DURATION_MULTIPLIER = 2;
 const PEGASUS_DURATION_MULTIPLIER = 1.5;
 const HORSE_FLASH_TIME = 2.4;
@@ -3118,12 +3119,8 @@ function makeLooseMount(horseType, x, y, mountTime, facing = 1) {
 // Spare horses along the Horse Show course, for anyone a troll pulled off.
 function makeSpareHorses() {
   if (!isAlwaysMountedTrack()) return [];
-  const horses = [];
-  for (let x = POWERUP_START_X + HORSE_SHOW_SPARE_HORSE_GAP; x < FINISH - POWERUP_END_PADDING; x += HORSE_SHOW_SPARE_HORSE_GAP) {
-    const y = randomPowerupY();
-    horses.push(makeLooseMount("horse", clearOfHurdles(x + (Math.random() - 0.5) * 400, y), y, Infinity));
-  }
-  return horses;
+  const y = TRACK_BOTTOM + FOOT_OFFSET_Y - 8;
+  return HORSE_SHOW_SPARE_HORSES.map(share => makeLooseMount("horse", clearOfHurdles(FINISH * share, y), y, Infinity));
 }
 
 function hasActivePowerup(racer, type) {
@@ -3942,6 +3939,11 @@ function wandTip(caster) {
   };
 }
 
+function spellOrigin(spell) {
+  if (!spell.origin) return wandTip(spell.caster);
+  return { x: spell.caster.x + spell.origin.x, y: spell.caster.y + spell.origin.y };
+}
+
 function spellTargetPoint(target) {
   const isMonster = state.monsters.includes(target);
   return { x: target.x, y: target.y + 54 - (target.z || 0) - (isMonster ? 150 : 90) };
@@ -4055,13 +4057,15 @@ function updateSpells(dt) {
     spell.t += dt;
     if (spell.t < SPELL_BOLT_DELAY || !spell.target) continue;
     if (before < SPELL_BOLT_DELAY) {
-      // Release: a flash at the wand tip.
+      // Release: a flash at the wand tip. The bolt keeps coming from where the
+      // tip was at this moment (moving with her), whatever the follow-through.
       const tip = wandTip(spell.caster);
+      spell.origin = { x: tip.x - spell.caster.x, y: tip.y - spell.caster.y };
       spawnParticles(tip.x, tip.y, 0, 14, { color: "#fff2a8", speed: 190, lift: 40, life: 0.35, size: 5, gravity: 0 });
     }
     if (spell.done) continue;
     const progress = (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME;
-    const from = wandTip(spell.caster);
+    const from = spellOrigin(spell);
     const to = spellTargetPoint(spell.target);
     const x = from.x + (to.x - from.x) * Math.min(1, progress);
     const y = from.y + (to.y - from.y) * Math.min(1, progress);
@@ -4205,7 +4209,7 @@ function drawSpells() {
   for (const spell of state.spells) {
     if (!spell.target || spell.t < SPELL_BOLT_DELAY) continue;
     const progress = Math.min(1, (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME);
-    const from = wandTip(spell.caster);
+    const from = spellOrigin(spell);
     const to = spellTargetPoint(spell.target);
     const x = from.x + (to.x - from.x) * progress - state.camera;
     const y = from.y + (to.y - from.y) * progress;

@@ -38,11 +38,11 @@
 //                       `mountOdds`' special mounts for a while (then back
 //                       to a horse). A troll that grabs a rider leaves her on
 //                       foot and her horse standing there to get back on;
-//                       spare horses also wait along the course (game.js
-//                       HORSE_SHOW_SPARE_HORSE_GAP). On every track trolls pull
-//                       riders off horses, pegasi and brooms (the mount stays
-//                       as a pickup with its time left); unicorns and gryphons
-//                       knock trolls over instead.
+//                       two spare horses wait at the bottom of the track a
+//                       third and two thirds of the way along. On every track
+//                       trolls pull riders off horses, pegasi and brooms (the
+//                       mount stays as a pickup with its time left); unicorns
+//                       and gryphons knock trolls over instead.
 //   trollMount          what trolls ride: an image key (falls back to a
 //                       darkened horse until its sheet is in TRACK_SHARED_ART)
 //   hurdleGapScale      spaces the hurdles further apart
