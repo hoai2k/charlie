@@ -274,9 +274,10 @@ const RUNAWAY_HORSE_SPEED = 640;
 // EMP: a plain EMP crackles lightning from her button to everyone it hits; a
 // track's themed EMP (firework, bell, conch…) streams sparks to them instead.
 const EMP_ARC_TIME = 0.6;
-// An EMP reaches racers and monsters within this far of the trigger; with
+// An EMP reaches racers and monsters within a full screen's width of the
+// trigger (in world pixels, whatever the split-screen views or zoom); with
 // nobody in range, it shocks whoever pressed it.
-const EMP_RANGE = 1000;
+const EMP_RANGE = EXPECTED_VIEW_WIDTH;
 const EMP_STREAM_TIME = 0.3;
 const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
 const EMP_SPARK_COLORS = ["#ffd84a", "#fff2a8", "#ffffff", "#c48bff"];
@@ -3096,7 +3097,7 @@ function applyPowerup(racer, powerupOrType) {
     racer.powerupMessage = powerupLabel("emp", "EMP");
     const originX = typeof powerupOrType === "string" ? racer.x : powerupOrType.x;
     const inRange = target => Math.abs(target.x - originX) <= EMP_RANGE;
-    const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterVisible(monster) && isMonsterEmpTarget(monster) && inRange(monster));
+    const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
     if (visibleMonsters.length > 0) {
       for (const monster of visibleMonsters) {
