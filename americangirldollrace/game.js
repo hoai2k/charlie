@@ -3623,6 +3623,27 @@ function dropMonsterNear(x, y, dropStartY = null) {
   return monster;
 }
 
+// A defeated robot lies on the ground crackling with sparks, now and then a
+// bigger fizz, like a broken robot.
+function updateBrokenRobotSparks(monster, dt) {
+  if (getTrackMonsterKey() !== "robot" || !isMonsterVisible(monster)) return;
+  monster.sparkTimer = (monster.sparkTimer || 0) - dt;
+  if (monster.sparkTimer > 0) return;
+  const big = Math.random() < 0.18;
+  monster.sparkTimer = big ? 0.5 + Math.random() * 0.6 : 0.08 + Math.random() * 0.18;
+  const scale = racerDepthScale(monster) * MONSTER_HEIGHT_SCALE;
+  // somewhere along the body lying on the ground
+  const x = monster.x + (Math.random() - 0.5) * 150 * scale;
+  const groundY = monster.y + 54;
+  const z = (20 + Math.random() * 50) * scale;
+  const colors = ["#fff6a8", "#ffd84a", "#7fe3ff", "#ffffff"];
+  spawnParticles(x, groundY, z, big ? 14 : 3, { color: colors[Math.floor(Math.random() * colors.length)], speed: big ? 170 : 90, lift: big ? 240 : 140, life: big ? 0.45 : 0.3, size: big ? 4.5 : 3.5, gravity: 900 });
+  if (big) {
+    spawnParticles(x, groundY, z, 1, { kind: "puff", color: "#9aa3ad", speed: 20, lift: 30, life: 0.9, size: 14, gravity: -40 });
+    if (Math.random() < 0.5) sfx("robot_hit", monster.x, { gain: 0.35, rate: 1.4 });
+  }
+}
+
 function updateMonsters(dt) {
   for (const monster of state.monsters) {
     const previousX = monster.x;
@@ -3666,7 +3687,10 @@ function updateMonsters(dt) {
       continue;
     }
 
-    if (monster.state === "sleeping") continue;
+    if (monster.state === "sleeping") {
+      updateBrokenRobotSparks(monster, dt);
+      continue;
+    }
 
     if (monster.state === "fall") {
       monster.timer -= dt;
