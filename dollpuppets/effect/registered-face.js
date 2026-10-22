@@ -1,3 +1,7 @@
+// Shared with the legacy renderer: tracking under-reports the right eye.
+export const EYE_CLOSED_THRESHOLD = 0.62;
+export const RIGHT_EYE_CLOSED_THRESHOLD = 0.54;
+
 // All patches use one master-head coordinate system. Neither expression nor
 // blink changes can move the silhouette, neck, hair, or head geometry.
 export function registeredFeatureEntries(config) {
@@ -40,9 +44,11 @@ export function drawRegisteredFace(ctx, runtime, expressions, headRect, mouth, t
   };
   const mouthFeature = registeredMouth(config, mouth, talking);
   if (mouthFeature) draw(mouthFeature);
-  const blink = value => Math.max(0, Math.min(1, (value - 0.25) / 0.5));
-  draw("blink_left", { alpha: blink(expressions.leftEyeClosed ?? 0) });
-  draw("blink_right", { alpha: blink(expressions.rightEyeClosed ?? 0) });
+  // A closed lid is drawn solid, like the legacy dolls' closed-eye sprites.
+  // Fading it with the blink score left a see-through lid, because a real
+  // closed eye often only scores around 0.5-0.7.
+  if ((expressions.leftEyeClosed ?? 0) > EYE_CLOSED_THRESHOLD) draw("blink_left");
+  if ((expressions.rightEyeClosed ?? 0) > RIGHT_EYE_CLOSED_THRESHOLD) draw("blink_right");
   const raise = Math.max(expressions.browRaise ?? 0, expressions.browInnerUp ?? 0);
   const down = expressions.browDown ?? 0;
   const dy = headRect.height * (down * 0.008 - raise * 0.018);

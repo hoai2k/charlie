@@ -3,7 +3,7 @@ import { createFaceStabilizer } from "./src/core/face-stabilizer.js";
 import { createScreenChrome, fullscreenElement, toggleFullscreen } from "./src/core/screen-chrome.js";
 import { createDemoPuppetState, createPuppetState } from "./src/core/puppet-state.js";
 import { createWorkerTracker, TRACKING_MODES } from "./src/core/worker-tracker.js";
-import { DOLL_CHARACTERS, renderDollsEffect } from "./effect/render.js?v=20261021b";
+import { DOLL_CHARACTERS, renderDollsEffect } from "./effect/render.js?v=20261022a";
 import GAME_CONFIG from "./gameConfig.js";
 
 const BACKGROUNDS = {

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import config from '../../assets/claudia-v2/config.js';
-import { featureRect, registeredMouth, drawRegisteredFace, registeredFeatureEntries } from '../../effect/registered-face.js';
+import { featureRect, registeredMouth, drawRegisteredFace, registeredFeatureEntries, EYE_CLOSED_THRESHOLD, RIGHT_EYE_CLOSED_THRESHOLD } from '../../effect/registered-face.js';
 import { renderDollsEffect } from '../../effect/render.js';
 import { createDemoPuppetState } from '../../src/core/puppet-state.js';
 const spec = JSON.parse(fs.readFileSync(new URL('./claudia.json', import.meta.url)));
@@ -100,7 +100,22 @@ test('blink, brow and mouth rendering never swaps the base head', () => {
   const ctx = {globalAlpha: 1, drawImage: image => calls.push(image.key), save() {}, restore() {}, translate() {}, rotate() {}};
   drawRegisteredFace(ctx, {config, images}, {leftEyeClosed: 1, rightEyeClosed: 0, browRaise: 1},
     {x: 0, y: 0, width: 300, height: 300}, 'mouth_smile', null);
-  assert.deepEqual(calls, ['master', 'mouth_smile', 'blink_left', 'blink_right', 'brow_left', 'brow_right']);
+  assert.deepEqual(calls, ['master', 'mouth_smile', 'blink_left', 'brow_left', 'brow_right']);
+});
+
+test('closed lids are solid once the eye counts as closed, like the legacy dolls', () => {
+  const images = Object.fromEntries(Object.keys(config.sprites.features).map(key => [`feature_${key}`, {key}]));
+  images.reference = {key: 'master'};
+  const lids = (left, right) => {
+    const drawn = [];
+    const ctx = {globalAlpha: 1, save() {}, restore() {}, translate() {}, rotate() {},
+      drawImage(image) { if (image.key?.startsWith('blink_')) drawn.push([image.key, this.globalAlpha]); }};
+    drawRegisteredFace(ctx, {config, images}, {leftEyeClosed: left, rightEyeClosed: right}, {x: 0, y: 0, width: 300, height: 300}, 'mouth_closed', null);
+    return drawn;
+  };
+  // Typical live scores for a closed eye are well below 1; the lid must still be opaque.
+  assert.deepEqual(lids(EYE_CLOSED_THRESHOLD + .01, RIGHT_EYE_CLOSED_THRESHOLD + .01), [['blink_left', 1], ['blink_right', 1]]);
+  assert.deepEqual(lids(EYE_CLOSED_THRESHOLD - .01, RIGHT_EYE_CLOSED_THRESHOLD - .01), []);
 });
 
 test('production rendering shares one head and keeps effects on lips/hands through tilt and AR fitting', async () => {
