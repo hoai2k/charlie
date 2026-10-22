@@ -379,7 +379,7 @@ the doll he grabs.
 
 ---
 
-## 8. Riding toys: roller skates and pogo stick (trial)
+## 8. Delivered riding toys: roller skates and pogo stick
 
 On tracks with roller skates or a pogo stick, a doll who picks one up actually
 skates or pogos while it lasts. Skates last twice as long as an ordinary speed
@@ -395,7 +395,7 @@ Their twelve poses, alternate outfits, both directions, baseline overlays and
 pickup selection pass; see `tools/dolls/toys/reports/`. A side-by-side
 clothing check against each sprite sheet (2026-10-21) passed for all of them
 except Juliette's purse (K4 below). Felicity and Luna followed and pass too.
-**Still to do:** Marisol (use her new canonical).
+**Marisol also delivered:** complete approved `marisol-v2` identity, toys and actions; all fifteen dolls now pass.
 
 **Clothing must not change between poses** (see §4). A toy pose shows exactly
 the outfit, shoes and accessories of the same pose on her sprite sheet. The
@@ -552,7 +552,7 @@ only once it's listed.
 | A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
 
 Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
-**Delivered and reviewed:** Hermione, Lily, Mira, Whirlpool, Claudia, Kaya, Amanda, Penelope and Rumi. The remaining roster is still open. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
+**Delivered and reviewed:** all fifteen dolls, including Marisol’s complete `marisol-v2` migration. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
 
 | Row | Frames (left to right) |
 | --- | --- |
@@ -568,7 +568,7 @@ Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
 | A4 | `assets/tracks/beach/wave.webp` | 1536×384 (3×1 of 512×384), alpha | The wave a surfer rides: a curling turquoise wave with white foam, about 3× as long as a doll is tall, its base on the cell's bottom edge, curling toward the right. Three frames of the curl rolling, for a loop. Add `"wave"` to Beach's `art`. |
 | A5 | `assets/tracks/toyroom/windup_car.webp` | 768×512 (3×2 of 256), alpha | Wind-up toy cars, side view facing right, wheels on the cell's bottom edge, each with a big wind-up key on top. **Row 1:** a red tin race car. **Row 2:** a yellow tin bus. Three frames each of wheels turning and the key spinning. Add `"windup_car"` to the Toy Room's `art`. |
 
-### 10.3 Open redo: Kaya's follow-through (A6)
+### 10.3 Delivered redo: Kaya's follow-through (A6)
 
 | # | File | Cells | Fix |
 | --- | --- | --- | --- |
@@ -611,7 +611,7 @@ legs should alternate, not shuffle. The throw and ride cells don't change, so
 
 ---
 
-## 12. EMP pickups that look like triggers (open)
+## 12. Delivered EMP pickups that look like triggers
 
 The EMP pickup (cell 3 of each track's `powerups.webp`, x 512–767) zaps
 everyone it reaches, so its icon should read as **something you press or
@@ -682,6 +682,6 @@ E11–E15 delivered: rune button, pumpkin button, lightning plunger, covered las
 
 Actions delivered for Juliette, Barbie and Cinnamon (nine poses each), with Juliette’s purse retained. A6 Kaya follow-through is corrected, as are Barbie and Cinnamon: the wand now stays in front. Only each corrected follow-through cell changed; the other eight art and mask cells remain exact. Native actions/outfits/mirrors and measured star-origin checks passed.
 
-Felicity and Luna action sheets delivered: all nine poses, outfit masks, wand tips and seated alignment checked; Luna keeps her glasses throughout. Remaining special actions: Marisol only.
+Felicity and Luna action sheets delivered: all nine poses, outfit masks, wand tips and seated alignment checked; Luna keeps her glasses throughout. Marisol followed in the complete migration batch.
 
 Marisol’s §8 toys and §10 special actions delivered with the complete approved `marisol-v2` identity; see `image-requests-marisol.md`. All fifteen dolls now have registered toy and special-action sheets.

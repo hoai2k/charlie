@@ -102,10 +102,22 @@ def loop_background(key):
     return ImageChops.offset(repaired, -1086, 0)
 
 
+def reviewed_emp_replacement(key, cell, expected):
+    report_path = HERE/f'emp-redo/reports/{key}.json'
+    if str(cell) != '2' or not report_path.exists(): return False
+    # Check the old reviewed cell in the pre-EMP strip, then the new strip hash.
+    before = Image.open(HERE/f'emp-redo/before/{key}.webp').convert('RGBA')
+    assert hashlib.sha256(before.crop((512,0,768,256)).tobytes()).hexdigest() == expected
+    report = json.loads(report_path.read_text())
+    assert hashlib.sha256((GAME/report['path']).read_bytes()).hexdigest() == report['sha256']
+    return True
+
+
 def verify_toy_icon_cells(key,sheet):
     path=HERE/'toy-icons/verification.json'
     records=json.loads(path.read_text()) if path.exists() else {}
     for cell,expected in records.get(key,{}).get('cellSha256',{}).items():
+        if reviewed_emp_replacement(key, cell, expected): continue
         x=int(cell)*256
         assert hashlib.sha256(sheet.crop((x,0,x+256,256)).tobytes()).hexdigest()==expected,(key,'Pickup cell differs from reviewed image',cell)
 
@@ -118,6 +130,7 @@ def verify_puddle_cells(key, sheet):
     for cell, original in record['unchangedCellSha256'].items():
         expected = record.get('revisedCellSha256', {}).get(cell, original)
         x = int(cell)*256
+        if reviewed_emp_replacement(key, cell, expected): continue
         actual = hashlib.sha256(sheet.crop((x,0,x+256,256)).tobytes()).hexdigest()
         assert actual == expected, (key, 'Non-oil cell changed', cell)
     oil = sheet.crop((768,0,1024,256))
