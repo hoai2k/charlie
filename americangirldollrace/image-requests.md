@@ -212,8 +212,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §11 run-cycle redos for Felicity, Claudia and Barbie (RC1–RC3),
-> §8 toys for Marisol and remaining §10 doll actions.
+> **Still open:** §12 EMP trigger icons (E1–E15), §11 run-cycle redos for
+> Felicity, Claudia and Barbie (RC1–RC3), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -597,3 +597,41 @@ found Barbie's middle cell is a shorter stride, not a passing pose.)
 Acceptance: play the three cells in a loop at race speed next to Rumi's; the
 legs should alternate, not shuffle. The throw and ride cells don't change, so
 `tools/dolls/measure_hands.py` needn't be re-run.
+
+---
+
+## 12. EMP pickups that look like triggers (open)
+
+The EMP pickup (cell 3 of each track's `powerups.webp`, x 512–767) zaps
+everyone it reaches, so its icon should read as **something you press or
+pull to set it off**: a plunger, a big button, a lever or a pull cord, with
+the track's theme built around it. Today several are just an item (a
+rooster, a shell, a drum) that doesn't say "press me". The game now draws
+lightning, sparks or fireworks from the racer to everyone it hits, so the
+trigger is the start of that effect.
+
+Repaint only cell 3 of `assets/tracks/<key>/powerups.webp`, in that track's
+existing icon style, at the same size and padding as its other cells; keep
+the other four cells pixel-identical. Keep the label in `tracks.js` (or
+propose a better one in the commit).
+
+| # | Track (key) | Label | Trigger to paint |
+| --- | --- | --- | --- |
+| E1 | Night Festival (`festival`) | FIREWORK | A TNT-style plunger handle in front of a crate of fireworks, rockets poking out of the top. |
+| E2 | Farm (`farm`) | ROOSTER | A big red push-button on a little wooden post, with a tin rooster weathervane on top. |
+| E3 | Fairy (`fairy`) | WAND ZAP | A glowing toadstool push-button with a fairy wand standing up as its lever. |
+| E4 | Village (`town`) | BELL | A brass bell on a bracket with a striped pull-cord and handle hanging down. |
+| E5 | Winter (`winter`) | THUNDERSNOW | A frosty plunger detonator under a small grey snow cloud with a zigzag of lightning. |
+| E6 | Castles (`castles`) | GONG | A small gong on a stand with a lever-arm mallet you pull down to strike it. |
+| E7 | Horse Show (`horseshow`) | STARTER BELL | A starter's box with one big red button and a bell on top. |
+| E8 | Toy Room (`toyroom`) | TOY DRUM | A toy plunger box (bright colours, wind-up key) wired to a toy drum. |
+| E9 | Candy Land (`candy`) | POP ROCKS | A gumdrop push-button on top of a crate of pop rocks. |
+| E10 | Beach (`beach`) | CONCH SHELL | A conch shell horn on a bicycle-horn squeeze bulb. |
+| E11 | Wizard School (`wizard`) | WAND ZAP | A crystal on a stone pedestal with a big glowing rune push-button. |
+| E12 | Pumpkin Patch (`autumn`) | SCARECROW | A pumpkin push-button (the stem is the button) on a hay crate. |
+| E13 | Cloud Kingdom (`clouds`) | THUNDERCLAP | A fluffy cloud-shaped plunger with a lightning-bolt handle. |
+| E14 | Moon Base (`space`) | LASER | A big red console button under a clear flip-up cover, with a small laser dish. |
+| E15 | Fairy Woods (`woods`) | ACORN BELL | An acorn-cap push-button on a mossy stump with a tiny bell. |
+
+Acceptance: at pickup size in game, each one reads as "press or pull this"
+at a glance, and still fits its track's look next to the other four cells.

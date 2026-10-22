@@ -86,7 +86,9 @@ const HURDLE_HIT_W = HURDLE_W;
 const HURDLE_HIT_H = 32;
 const PLAYER_FOOT_W = 30;
 const PLAYER_FOOT_H = 14;
-const HURDLE_TOP_Z = 82;
+// Racers land on (and must clear) the top of the hurdle as drawn: hurdleTopZ()
+// measures each track's hurdle art; this is the code-drawn picket's top.
+const HURDLE_TOP_Z = 60;
 const MONSTER_FOOT_W = 48;
 const MONSTER_FOOT_H = 22;
 const PLAYER_RUN_SPEED = 360;
@@ -164,6 +166,17 @@ const AMANDA_HAZARD_EMERGE_TIME = 0.22;
 const AMANDA_HAZARD_HOLD_TIME = 0.24;
 const AMANDA_HAZARD_RETREAT_TIME = 0.38;
 const AMANDA_HAZARD_COOLDOWN = 1.6;
+// Hit Amanda (push, thrown ball, rainbow) while she's popped up and she's
+// caught: she tumbles out, gets up and sits on that fence for the rest of the
+// race, and pops up nowhere else. Hit her again there and she wobbles.
+const AMANDA_CAUGHT_STATES = ["tumble", "down", "climb", "sitting", "bonked"];
+const AMANDA_TUMBLE_TIME = 0.5;
+const AMANDA_DOWN_TIME = 0.7;
+const AMANDA_CLIMB_TIME = 0.45;
+const AMANDA_BONK_TIME = 0.5;
+const AMANDA_SEAT = { x: 155, y: 338 }; // seat in her riding frame (row 4, cell 1)
+const AMANDA_HIT_RANGE_X = 46;
+const AMANDA_HIT_RANGE_Y = 60;
 const OIL_SLIDE_DURATION = 1.5;
 const OIL_SLIDE_SPEED = 430;
 const SNOWBALL_PICKUP_COUNT = 5;
@@ -194,6 +207,12 @@ const RIDE_TOY_DURATION_MULTIPLIER = 2;
 const SKATE_STRIDE_PX = 150;
 const POGO_BOUNCE_HZ = 2.4;
 const POGO_BOUNCE_HEIGHT = 30;
+// Coming down on a troll on a pogo stick knocks him over and springs her up
+// off his head like a raised step.
+const POGO_STOMP_HEAD_Z = 150; // her feet passing down through his head height
+const POGO_STOMP_RANGE_X = 75;
+const POGO_STOMP_RANGE_Y = 46;
+const POGO_STOMP_BOUNCE = 1.25; // times her jump power
 // Moon boots (tracks.js moonBoots, Moon Base): the high-jump pickup lowers
 // the racer's gravity instead, so softer jumps float over several hurdles.
 const MOON_BOOTS_DURATION = 10;
@@ -206,10 +225,16 @@ const SPEED_GHOST_INTERVAL = 0.045;
 const MOON_BOOTS_COLOR = "#a98bff";
 // Track items (tracks.js itemEffects) that replace a speed or high-jump
 // pickup with their own effect (image-requests.md §10):
-// spell book: cast at the nearest racer or monster, who becomes a frog.
+// spell book: the wand sparkles while she picks a direction by moving, then
+// casts at the closest racer or monster that way (or the closest anywhere if
+// she doesn't pick one in time), who becomes a frog.
+const SPELL_AIM_TIME = 1.6;
+const SPELL_AIM_COMMIT = 0.22; // seconds of steady stick in one direction
+const SPELL_AIM_CONE = Math.cos(Math.PI / 3);
 const SPELL_CAST_TIME = 0.6;
 const SPELL_BOLT_DELAY = 0.18;
 const SPELL_BOLT_TIME = 0.35;
+const SPELL_BEAM_LINGER = 0.3;
 const SPELL_RANGE = 1100;
 const FROG_DURATION = 3.5;
 const FROG_HOP_HZ = 1.8;
@@ -235,6 +260,12 @@ const BEACH_BALL_NUDGE_MIN_SPEED = 260;
 const BEACH_BALL_COLORS = ["#ff4d5a", "#ffffff", "#2f8cff", "#ffffff", "#ffd23f", "#ffffff"];
 // A troll knocked off his horse leaves it to bolt off the end of the track.
 const RUNAWAY_HORSE_SPEED = 640;
+// EMP: a plain EMP crackles lightning from her button to everyone it hits; a
+// track's themed EMP (firework, bell, conch…) streams sparks to them instead.
+const EMP_ARC_TIME = 0.6;
+const EMP_STREAM_TIME = 0.3;
+const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
+const EMP_SPARK_COLORS = ["#ffd84a", "#fff2a8", "#ffffff", "#c48bff"];
 // Each kind of power-up glows its own colour on every track, whatever its art.
 const POWERUP_GLOW_COLORS = {
   boost: "#2fd65a",
@@ -533,6 +564,7 @@ const state = {
   powerups: [],
   projectiles: [],
   rainbowBeams: [],
+  empArcs: [],
   monsters: [],
   runawayHorses: [],
   beachBalls: [],
@@ -745,6 +777,8 @@ function resetRace(mode = state.mode) {
   state.obstacles = makeObstacles();
   state.projectiles = [];
   state.rainbowBeams = [];
+  state.empArcs = [];
+  state.amandaCaught = null;
   state.monsters = makeMonsters();
   state.runawayHorses = [];
   state.beachBalls = makeBeachBalls();
@@ -848,6 +882,7 @@ function preloadTrackArt(background) {
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
+  if (pogoEligible(background)) loadArtOnce(trackArtKey("town", "powerups"), "assets/tracks/town/powerups.webp");
   if (theme.monster && (window.TRACK_SHARED_ART || []).includes(theme.monster)) {
     loadArtOnce(theme.monster, `assets/${theme.monster}_sprites.webp`);
   }
@@ -1262,6 +1297,8 @@ function makeRacer(name, spriteKey, sheet, playerIndex, x, y, ai, color, maxSpee
     rideToys: [],
     moonBootsTimer: 0,
     castTimer: 0,
+    castFacing: 0,
+    spellAim: null,
     frogTimer: 0,
     frogPhase: 0,
     surfTimer: 0,
@@ -1373,6 +1410,7 @@ function makePowerup(type, x, y, options = {}) {
     y,
     type,
     horseType: type === "horse" ? chooseHorseType() : "horse",
+    pogo: type === "jump" && pogoEligible() && Math.random() < POGO_SHARE,
     taken: false,
     spin: Math.random() * Math.PI * 2,
     dropTimer: 0,
@@ -2209,6 +2247,9 @@ function update(dt) {
     if (Math.abs(input.horizontal) > 0.05) {
       racer.facing = input.horizontal < 0 ? -1 : 1;
     }
+    if (racer.finished || frog) racer.spellAim = null;
+    updateSpellAim(racer, input, dt);
+    if (racer.castTimer > 0 && racer.castFacing) racer.facing = racer.castFacing;
 
     const previousX = racer.x;
     const previousY = racer.y;
@@ -2275,6 +2316,7 @@ function update(dt) {
     racer.landingTimer = Math.max(0, racer.landingTimer - dt);
 
     resolveObstacleCollisions(racer, previousX, previousY, previousZ);
+    pogoStompMonsters(racer, previousZ, mounted);
 
     for (const powerup of state.powerups) {
       if (powerup.taken) continue;
@@ -2310,6 +2352,7 @@ function update(dt) {
   updateBeachBalls(dt);
   updateParticles(dt);
   updateSpells(dt);
+  updateEmpArcs(dt);
   updateWindupCars(dt);
   bumpMonstersWithSpecialMounts();
   pushRacers(dt);
@@ -2349,8 +2392,35 @@ function updateStackTimers(racer, dt) {
   racer.highJumpTimer = racer.highJumpStacks.length > 0 ? Math.max(...racer.highJumpStacks) : 0;
 }
 
+// High-jump pickups are a mix of springs and pogo sticks on every board,
+// except where the jump pickup is its own item (the spell book) or everyone
+// rides (Horse Show). On Moon Base the spring's place is taken by moon boots.
+const POGO_SHARE = 0.5;
+function pogoEligible(background = getCurrentBackground()) {
+  const theme = getTrackTheme(background);
+  return !theme.itemEffects?.jump && !theme.startMounted;
+}
+
 function getRideToy(powerupType) {
-  return getTrackTheme().rideToys?.[powerupType] || null;
+  return powerupType === "jump" ? null : getTrackTheme().rideToys?.[powerupType] || null;
+}
+
+// A track's own jump icon shows a pogo stick on some tracks.
+function trackJumpIconIsPogo() {
+  return Boolean(getTrackArt("powerups")) && getTrackTheme().labels?.jump === "POGO";
+}
+
+// Pogo pickups use the track's pogo icon, or the Village's.
+function getPogoIconSheet() {
+  if (trackJumpIconIsPogo()) return getTrackArt("powerups");
+  return images[trackArtKey("town", "powerups")] || null;
+}
+
+// Spring pickups keep the track's icon only when it shows a spring (or moon
+// boots on Moon Base); otherwise they use the basic spring.
+function trackJumpIconIsSpring() {
+  const theme = getTrackTheme();
+  return Boolean(getTrackArt("powerups")) && !trackJumpIconIsPogo() && theme.springIcon !== false;
 }
 
 // Toys keep the order they were picked up in; picking one up again refreshes it.
@@ -2397,6 +2467,16 @@ function getRideToyPose(racer, jumping) {
 }
 
 function updateRacerPowerupEffects(racer, dt) {
+  if (racer.spellAim) {
+    // The wand is charged: sparkles swirl round her hand until she aims.
+    const hand = getThrowHand(racer) || { x: racer.x + racer.facing * 40, y: racer.y - 60 - racer.z };
+    const angle = racer.spellAim.t * 9;
+    const radius = 26 * racerDepthScale(racer);
+    for (let i = 0; i < 2; i += 1) {
+      const a = angle + i * Math.PI;
+      spawnParticles(hand.x + Math.cos(a) * radius, hand.y + Math.sin(a) * radius * 0.6, 0, 1, { color: i ? "#c48bff" : "#ffd84a", speed: 20, lift: 30, life: 0.4, size: 4.5, gravity: 0 });
+    }
+  }
   if (racer.castTimer > 0 && Math.random() < 0.7) {
     const tip = wandTip(racer);
     spawnParticles(tip.x, tip.y, 0, 1, { color: Math.random() < 0.5 ? "#ffd84a" : "#c48bff", speed: 70, lift: 90, life: 0.45, size: 5, gravity: 200 });
@@ -2466,6 +2546,21 @@ function drawParticles() {
       ctx.beginPath();
       ctx.arc(x, y - 6, p.size * (1.6 - t * 0.6), 0, Math.PI * 2);
       ctx.fill();
+    } else if (p.kind === "drop") {
+      // A water droplet: a teardrop stretched along its fall, with a glint.
+      ctx.globalAlpha = Math.min(1, t * 2);
+      ctx.translate(x, y);
+      ctx.rotate(Math.atan2(-p.vz, p.vx) - Math.PI / 2); // the point trails
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size * 1.9);
+      ctx.quadraticCurveTo(p.size, 0, 0, p.size);
+      ctx.quadraticCurveTo(-p.size, 0, 0, -p.size * 1.9);
+      ctx.fill();
+      ctx.fillStyle = "#ffffffcc";
+      ctx.beginPath();
+      ctx.arc(-p.size * 0.3, -p.size * 0.1, p.size * 0.28, 0, Math.PI * 2);
+      ctx.fill();
     } else if (p.kind === "ring") {
       ctx.globalAlpha = 0.8 * t;
       ctx.strokeStyle = p.color;
@@ -2499,6 +2594,25 @@ function drawParticles() {
 function getBoostMultiplier(racer) {
   const stacks = racer.speedBoostStacks.length;
   return stacks > 0 ? 1 + stacks * 0.45 : 1;
+}
+
+function pogoStompMonsters(racer, previousZ, mounted) {
+  if (mounted || racer.vy > 0 || previousZ < POGO_STOMP_HEAD_Z || racer.z > POGO_STOMP_HEAD_Z) return;
+  if (!racer.rideToys.some(toy => toy.type === "pogo")) return;
+  for (const monster of state.monsters) {
+    if (!monster.active || ["sleeping", "ground", "fall", "drop"].includes(monster.state)) continue;
+    if (Math.abs(monster.x - racer.x) > POGO_STOMP_RANGE_X || Math.abs(monster.y - racer.y) > POGO_STOMP_RANGE_Y) continue;
+    stunMonsterWithEmp(monster);
+    racer.z = POGO_STOMP_HEAD_Z;
+    racer.vy = getJumpPower(racer) * POGO_STOMP_BOUNCE;
+    racer.jumpStarted = true;
+    racer.jumpFrame = 0;
+    racer.landingTimer = 0;
+    sfx("pogo_boing", racer.x);
+    spawnParticles(racer.x, racer.y + 54, racer.z, 14, { color: POWERUP_GLOW_COLORS.jump, speed: 200, lift: 160, life: 0.5 });
+    if (racer.playerIndex !== undefined && !racer.ai) racerVoice(racer, "jump_big", { chance: 0.6 });
+    return;
+  }
 }
 
 function getJumpPower(racer) {
@@ -2582,9 +2696,9 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
     const footBottom = racer.y + 54 + PLAYER_FOOT_H / 2;
     const footOverlapsX = footRight > bounds.left && footLeft < bounds.right;
     const footOverlapsY = footBottom > bounds.top && footTop < bounds.bottom;
-    const landedOnTop = footOverlapsX && footOverlapsY && previousZ >= HURDLE_TOP_Z && racer.z <= HURDLE_TOP_Z && racer.vy <= 0;
+    const landedOnTop = footOverlapsX && footOverlapsY && previousZ >= hurdleTopZ() && racer.z <= hurdleTopZ() && racer.vy <= 0;
     if (landedOnTop) {
-      racer.z = HURDLE_TOP_Z;
+      racer.z = hurdleTopZ();
       racer.vy = 0;
       racer.jumpStarted = false;
       racer.landingTimer = 0;
@@ -2592,7 +2706,7 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
       continue;
     }
 
-    const groundedHit = footOverlapsY && racer.z < HURDLE_TOP_Z;
+    const groundedHit = footOverlapsY && racer.z < hurdleTopZ();
     const crossedFromLeft = previousFootRight <= bounds.left && footRight > bounds.left;
     const crossedFromRight = previousFootLeft >= bounds.right && footLeft < bounds.right;
     const crossedFromAbove = previousFootBottom <= bounds.top && footBottom > bounds.top;
@@ -2603,9 +2717,9 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
     } else if (groundedHit && crossedFromRight) {
       racer.x = bounds.right + PLAYER_FOOT_W / 2;
       racer.speed = 0;
-    } else if (footOverlapsX && racer.z < HURDLE_TOP_Z && crossedFromAbove) {
+    } else if (footOverlapsX && racer.z < hurdleTopZ() && crossedFromAbove) {
       racer.y = bounds.top - 54 - PLAYER_FOOT_H / 2;
-    } else if (footOverlapsX && racer.z < HURDLE_TOP_Z && crossedFromBelow) {
+    } else if (footOverlapsX && racer.z < hurdleTopZ() && crossedFromBelow) {
       racer.y = bounds.bottom - 54 + PLAYER_FOOT_H / 2;
     }
   }
@@ -2614,6 +2728,18 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
 function updateAmandaHazards(dt) {
   for (const obstacle of state.obstacles) {
     if (!obstacle.amandaHazard) continue;
+    if (AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) {
+      updateCaughtAmanda(obstacle, dt);
+      continue;
+    }
+    // Once she's been caught she stops the prank everywhere else.
+    if (state.amandaCaught) {
+      if (obstacle.amandaState === "emerging" || obstacle.amandaState === "pushing") {
+        obstacle.amandaState = "retreating";
+        obstacle.amandaTimer = 0;
+      }
+      if (obstacle.amandaState === "hidden") continue;
+    }
     obstacle.amandaCooldown = Math.max(0, obstacle.amandaCooldown - dt);
 
     if (obstacle.amandaState === "hidden") {
@@ -2701,6 +2827,108 @@ function pushRacersFromAmandaHazard(obstacle) {
   }
 }
 
+function updateCaughtAmanda(obstacle, dt) {
+  obstacle.amandaTimer += dt;
+  const next = { tumble: [AMANDA_TUMBLE_TIME, "down"], down: [AMANDA_DOWN_TIME, "climb"], climb: [AMANDA_CLIMB_TIME, "sitting"], bonked: [AMANDA_BONK_TIME, "sitting"] }[obstacle.amandaState];
+  if (next && obstacle.amandaTimer >= next[0]) {
+    obstacle.amandaState = next[1];
+    obstacle.amandaTimer = 0;
+    if (next[1] === "down") {
+      const spot = amandaLandingSpot(obstacle);
+      spawnParticles(obstacle.x + spot.x, obstacle.y + spot.y, 0, 8, { color: "#e8dcc0", kind: "puff", speed: 90, lift: 30, life: 0.5, size: 12, gravity: 0 });
+    }
+  }
+}
+
+// Is Amanda where a hit at (x, groundY) would land? Popped up enough to see,
+// or sitting on her fence after being caught.
+function amandaAt(x, groundY, rangeX = AMANDA_HIT_RANGE_X) {
+  return state.obstacles.find(obstacle => {
+    if (!obstacle.amandaHazard) return false;
+    const showing = (["emerging", "pushing", "retreating"].includes(obstacle.amandaState) && obstacle.amandaReveal > 0.3)
+      || obstacle.amandaState === "sitting" || obstacle.amandaState === "bonked";
+    return showing && Math.abs(x - obstacle.x) <= rangeX && Math.abs(groundY - (obstacle.y + 18)) <= AMANDA_HIT_RANGE_Y;
+  }) || null;
+}
+
+function hitAmanda(obstacle, direction) {
+  if (obstacle.amandaState === "sitting" || obstacle.amandaState === "bonked") {
+    obstacle.amandaState = "bonked";
+    obstacle.amandaTimer = 0;
+    obstacle.amandaBonkDir = direction || 1;
+    sfx("amanda_bonk", obstacle.x);
+    return;
+  }
+  obstacle.amandaStartY = 170 - obstacle.amandaReveal * 148;
+  obstacle.amandaState = "tumble";
+  obstacle.amandaTimer = 0;
+  obstacle.amandaFallDir = direction || 1;
+  obstacle.amandaFacing = -obstacle.amandaFallDir;
+  obstacle.amandaTarget = null;
+  state.amandaCaught = obstacle;
+  sfx("amanda_caught", obstacle.x);
+  spawnParticles(obstacle.x, obstacle.y + 18, 90, 12, { color: "#ffd84a", speed: 180, lift: 220, life: 0.5 });
+}
+
+// Where she lands when she tumbles out: beside the fence, on the track side.
+function amandaLandingSpot(obstacle) {
+  return { x: obstacle.amandaFallDir * 74, y: 40 };
+}
+
+// Caught Amanda, drawn in front of her fence (obstacle-local coordinates).
+function drawCaughtAmanda(obstacle) {
+  if (!AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) return;
+  const scale = racerDepthScale({ y: obstacle.y + 18 - 54 });
+  const t = obstacle.amandaTimer;
+  const spot = amandaLandingSpot(obstacle);
+  const seatY = 18 - hurdleTopZ();
+  let row = 3;
+  let col = 2;
+  let footX = 0;
+  let footY = 0;
+  let tilt = 0;
+  let seated = false;
+  if (obstacle.amandaState === "tumble") {
+    const k = smoothAmandaHazardProgress(t / AMANDA_TUMBLE_TIME);
+    footX = spot.x * k;
+    footY = obstacle.amandaStartY + (spot.y - obstacle.amandaStartY) * k - Math.sin(Math.PI * k) * 70;
+    tilt = obstacle.amandaFallDir * k * 0.5;
+  } else if (obstacle.amandaState === "down") {
+    footX = spot.x;
+    footY = spot.y;
+    tilt = obstacle.amandaFallDir * 0.5;
+  } else if (obstacle.amandaState === "climb") {
+    const k = smoothAmandaHazardProgress(t / AMANDA_CLIMB_TIME);
+    row = 0;
+    col = 0;
+    footX = spot.x * (1 - k);
+    footY = spot.y + (seatY - spot.y) * k - Math.sin(Math.PI * k) * 40;
+  } else {
+    seated = true;
+    footY = seatY;
+    if (obstacle.amandaState === "bonked") {
+      // Knocked back for a moment, wobbling on the fence, then sits again.
+      tilt = obstacle.amandaBonkDir * Math.sin(t * 22) * 0.18 * (1 - t / AMANDA_BONK_TIME);
+    } else {
+      row = 3;
+      col = 0;
+      tilt = Math.sin(performance.now() / 600) * 0.03;
+    }
+  }
+  const facing = obstacle.amandaFacing || 1;
+  const anchorX = seated && col === 0 ? AMANDA_SEAT.x : SPRITE_ANCHOR_X;
+  const anchorY = seated && col === 0 ? AMANDA_SEAT.y : seated ? 300 : SPRITE_ANCHOR_Y;
+  ctx.save();
+  ctx.translate(footX, footY);
+  ctx.rotate(tilt);
+  ctx.shadowColor = "rgba(23,33,38,0.24)";
+  ctx.shadowBlur = 7;
+  ctx.shadowOffsetY = 4;
+  drawFacingImage(images.amanda, col * FRAME, row * FRAME, FRAME, FRAME,
+    -anchorX * scale, -anchorY * scale, FRAME * scale, FRAME * scale, facing, 0);
+  ctx.restore();
+}
+
 function smoothAmandaHazardProgress(value) {
   const progress = clamp(value, 0, 1);
   return progress * progress * (3 - 2 * progress);
@@ -2708,7 +2936,7 @@ function smoothAmandaHazardProgress(value) {
 
 function resolveMonsterObstacleCollisions(monster, previousX, previousY) {
   if (monster.state === "drop") return;
-  if (monster.z >= HURDLE_TOP_Z) return;
+  if (monster.z >= hurdleTopZ()) return;
   for (const obstacle of state.obstacles) {
     const bounds = getObstacleHitBounds(obstacle);
     const previousFootLeft = previousX - MONSTER_FOOT_W / 2;
@@ -2756,29 +2984,48 @@ function applyPowerup(racer, powerupOrType) {
     const label = powerupLabel("boost", "BOOST");
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
-    if (getTrackTheme().moonBoots) {
+    const pogo = typeof powerupOrType === "string" ? pogoEligible() && Math.random() < POGO_SHARE : powerupOrType.pogo;
+    if (getTrackTheme().moonBoots && !pogo) {
       racer.moonBootsTimer = Math.max(racer.moonBootsTimer, MOON_BOOTS_DURATION);
       racer.powerupMessage = powerupLabel("jump", "MOON BOOTS");
       return true;
     }
-    const toy = getRideToy("jump");
+    const toy = pogo && !isMounted(racer) ? "pogo" : null;
     const duration = 5 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
     racer.highJumpStacks.push(duration);
     if (toy) addRideToy(racer, toy, duration);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
-    const label = powerupLabel("jump", "HIGH JUMP");
+    const label = toy ? "POGO" : trackJumpIconIsSpring() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
     racer.powerupMessage = powerupLabel("emp", "EMP");
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterVisible(monster) && isMonsterEmpTarget(monster));
+    const hit = [];
     if (visibleMonsters.length > 0) {
-      for (const monster of visibleMonsters) stunMonsterWithEmp(monster);
+      for (const monster of visibleMonsters) {
+        if (monster.state === "sleeping" || monster.state === "ground") continue;
+        stunMonsterWithEmp(monster);
+        hit.push(monster);
+      }
     } else {
       for (const other of state.racers) {
         if (other === racer || other.finished) continue;
         applyEmpHit(racer, other);
+        hit.push(other);
       }
+    }
+    const label = powerupLabel("emp", "EMP");
+    if (hit.length) {
+      // The effect starts at the trigger she took, not at her.
+      const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 34 };
+      state.empArcs.push({
+        from,
+        source: racer,
+        targets: hit,
+        t: 0,
+        style: label === "EMP" ? "lightning" : getTrackTheme().empStyle || "sparks"
+      });
     }
   } else if (type === "oil") {
     if (isMounted(racer) && isHorsingAroundMode()) {
@@ -2872,6 +3119,11 @@ function performPushAttack(attacker) {
     applyPushHit(attacker, other, attacker.facing);
     attacker.pushedTargets.add(other);
   }
+  const amanda = amandaAt(attacker.x + attacker.facing * reach * 0.6, attacker.y + 54, reach * 0.6 + AMANDA_HIT_RANGE_X);
+  if (amanda && !attacker.pushedTargets.has(amanda) && attacker.z <= 64 && (amanda.x - attacker.x) * attacker.facing > -10) {
+    hitAmanda(amanda, attacker.facing);
+    attacker.pushedTargets.add(amanda);
+  }
   for (const ball of state.beachBalls) {
     const dx = ball.x - attacker.x;
     const dy = ball.y - (attacker.y + 54);
@@ -2919,11 +3171,24 @@ function updateProjectiles(dt) {
     projectile.x += projectile.vx * dt;
     projectile.drawY = projectile.groundY !== undefined ? projectile.groundY - projectile.lift : snowballDrawY(projectile.owner);
     projectile.distance += Math.abs(projectile.vx) * dt;
+    // A water balloon that reaches the end of its throw bursts on the ground.
+    if (projectile.distance >= SNOWBALL_RANGE && !projectile.burst && getTrackTheme().projectileBurst === "water") {
+      projectile.burst = true;
+      burstWaterBalloon(projectile.x, projectile.groundY, 0);
+    }
+    const amanda = projectile.distance < SNOWBALL_RANGE && amandaAt(projectile.x, projectile.groundY);
+    if (amanda && !projectile.hitTargets.has(amanda)) {
+      projectileImpact(projectile, amanda.y + 18);
+      hitAmanda(amanda, Math.sign(projectile.vx) || 1);
+      projectile.hitTargets.add(amanda);
+      projectile.distance = SNOWBALL_RANGE;
+      continue;
+    }
     for (const monster of state.monsters) {
       if (monster.state === "sleeping" || monster.state === "ground" || projectile.hitTargets.has(monster)) continue;
       const close = Math.abs(monster.x - projectile.x) < 62 && Math.abs(monster.y + 54 - projectile.y) < 58 && Math.abs(projectile.z) < 140;
       if (!close) continue;
-      sfx("snowball_hit", monster.x);
+      projectileImpact(projectile, monster.y + 54);
       applyMonsterKnockback(monster, Math.sign(projectile.vx) || 1, { unhorse: true });
       projectile.hitTargets.add(monster);
       projectile.distance = SNOWBALL_RANGE;
@@ -2934,7 +3199,7 @@ function updateProjectiles(dt) {
       if (racer === projectile.owner || racer.finished || isMounted(racer) || projectile.hitTargets.has(racer)) continue;
       const close = Math.abs(racer.x - projectile.x) < 42 && Math.abs((racer.y + 54) - projectile.y) < 44 && Math.abs(racer.z - projectile.z) < 78;
       if (!close) continue;
-      sfx("snowball_hit", racer.x);
+      projectileImpact(projectile, racer.y + 54);
       applyPushHit(projectile.owner, racer, Math.sign(projectile.vx) || 1);
       projectile.hitTargets.add(racer);
       projectile.distance = SNOWBALL_RANGE;
@@ -2944,20 +3209,76 @@ function updateProjectiles(dt) {
   state.projectiles = state.projectiles.filter(projectile => projectile.distance < SNOWBALL_RANGE);
 }
 
+// A hit: water balloons burst into a splash, snowballs just thud.
+function projectileImpact(projectile, groundY) {
+  projectile.burst = true;
+  if (getTrackTheme().projectileBurst !== "water") {
+    sfx("snowball_hit", projectile.x);
+    return;
+  }
+  const height = Math.max(0, projectile.groundY - (projectile.drawY - projectile.z * 0.28));
+  burstWaterBalloon(projectile.x, groundY, height);
+}
+
+function burstWaterBalloon(x, groundY, height) {
+  sfx("water_balloon_burst", x);
+  const colors = ["#7fd3ff", "#bdeeff", "#3aa0e8", "#ffffff"];
+  for (let i = 0; i < 34; i += 1) {
+    spawnParticles(x, groundY + (Math.random() - 0.5) * 30, height, 1, { kind: "drop", color: colors[i % colors.length], speed: 260 + Math.random() * 200, lift: 380, life: 0.9, size: 6.5, gravity: 1400 });
+  }
+  spawnParticles(x, groundY, height, 6, { kind: "puff", color: "#d8f4ff", speed: 110, lift: 60, life: 0.5, size: 22, gravity: 0 });
+  spawnParticles(x, groundY, 0, 1, { kind: "ring", color: "#9fdcff", speed: 0, lift: 0, life: 0.7, size: 70, gravity: 0 });
+}
+
+// The unicorn's horn tip in each frame of unicorn_sprites.webp (row, col),
+// facing right, in frame pixels.
+const UNICORN_HORN_TIPS = [
+  [[364, 74], [366, 77], [339, 77]],
+  [[410, 74], [377, 76], [398, 74]],
+  [[397, 65], [398, 36], [401, 57]]
+];
+
+// In the air (or just landing) she's drawn in her jump pose; standing on top
+// of a hurdle she's drawn standing, with her feet on it.
+function isDrawnJumping(racer) {
+  return (racer.z > 0 && !racer.onObstacle) || racer.jumpStarted || racer.landingTimer > 0;
+}
+
+// Where the rainbow leaves the horn, drawn the same way as the mount.
+function unicornHornPoint(racer) {
+  const jumping = isDrawnJumping(racer);
+  const row = racer.pegasusGliding ? 1 : jumping ? 2 : racer.moving ? 1 : 0;
+  const col = racer.pegasusGliding ? racer.frame : jumping ? racer.jumpFrame : racer.frame;
+  const [hornX, hornY] = UNICORN_HORN_TIPS[row]?.[col] || UNICORN_HORN_TIPS[0][0];
+  const horseScale = racerDepthScale(racer) * 1.08;
+  const calibration = getMountFrameCalibration("unicorn", row, col);
+  return {
+    x: racer.x + racer.facing * (hornX - SPRITE_ANCHOR_X) * horseScale,
+    y: racer.y + 58 - racer.z + (hornY - SPRITE_ANCHOR_Y + calibration.groundShift) * horseScale
+  };
+}
+
 function fireRainbowBeam(racer) {
   if (racer.unicornBeamCooldown > 0) return;
   racer.unicornBeamCooldown = 0.35;
   sfx("unicorn_beam_fire", racer.x);
-  const startX = racer.x + racer.facing * 54;
-  const y = snowballDrawY(racer) - racer.z * 0.28;
+  const horn = unicornHornPoint(racer);
+  const startX = horn.x;
   const endX = startX + racer.facing * UNICORN_BEAM_RANGE;
+  // The beam stays attached to the horn while it fades, even mid-jump.
   state.rainbowBeams.push({
+    owner: racer,
+    facing: racer.facing,
     x1: startX,
     x2: endX,
-    y,
+    y: horn.y,
     timer: UNICORN_BEAM_DURATION,
     duration: UNICORN_BEAM_DURATION
   });
+  for (const obstacle of state.obstacles) {
+    const ahead = racer.facing > 0 ? obstacle.x > startX && obstacle.x < endX : obstacle.x < startX && obstacle.x > endX;
+    if (ahead && amandaAt(obstacle.x, racer.y + 54, 1) === obstacle) hitAmanda(obstacle, racer.facing);
+  }
   for (const monster of state.monsters) {
     if (monster.state === "sleeping" || monster.state === "ground") continue;
     const ahead = racer.facing > 0 ? monster.x > startX && monster.x < endX : monster.x < startX && monster.x > endX;
@@ -2970,6 +3291,12 @@ function fireRainbowBeam(racer) {
 function updateRainbowBeams(dt) {
   for (const beam of state.rainbowBeams) {
     beam.timer -= dt;
+    if (beam.owner && isMounted(beam.owner) && beam.owner.horseType === "unicorn" && beam.owner.facing === beam.facing) {
+      const horn = unicornHornPoint(beam.owner);
+      beam.x1 = horn.x;
+      beam.x2 = horn.x + beam.facing * UNICORN_BEAM_RANGE;
+      beam.y = horn.y;
+    }
   }
   state.rainbowBeams = state.rainbowBeams.filter(beam => beam.timer > 0);
 }
@@ -3396,8 +3723,8 @@ function getThrowHand(racer) {
   const facing = racer.facing || 1;
   if (isMounted(racer) && racer.horseType !== "broom" && hands.ride) {
     const horseScale = scale * 1.08;
-    const horseRow = racer.pegasusGliding ? 1 : racer.z > 0 ? 2 : racer.moving ? 1 : 0;
-    const horseCol = racer.pegasusGliding || !(racer.z > 0) ? racer.frame : racer.jumpFrame;
+    const horseRow = racer.pegasusGliding ? 1 : isDrawnJumping(racer) ? 2 : racer.moving ? 1 : 0;
+    const horseCol = racer.pegasusGliding || !isDrawnJumping(racer) ? racer.frame : racer.jumpFrame;
     const calibration = getMountFrameCalibration(racer.horseType, horseRow, horseCol);
     const riderScale = scale * 0.7;
     const horseBaseY = racer.y + 58 - SPRITE_ANCHOR_Y * horseScale - racer.z;
@@ -3474,8 +3801,7 @@ function unhorseMonster(monster, direction) {
 
 function applyItemEffect(racer, effect, type) {
   if (effect === "spellBook") {
-    racer.castTimer = SPELL_CAST_TIME;
-    state.spells.push({ caster: racer, target: pickSpellTarget(racer), t: 0 });
+    racer.spellAim = { t: 0, x: 0, y: 0 };
     racer.powerupMessage = powerupLabel(type, "SPELL BOOK");
   } else if (effect === "surfboard") {
     racer.surfTimer = SURF_DURATION;
@@ -3490,24 +3816,54 @@ function applyItemEffect(racer, effect, type) {
   return true;
 }
 
-// The nearest racer or monster within range, preferring ones ahead.
-function pickSpellTarget(caster) {
-  const candidates = [
+function spellCandidates(caster) {
+  return [
     ...state.racers.filter(r => r !== caster && !r.finished && !(r.frogTimer > 0)),
     ...state.monsters.filter(m => m.active && !(m.frogTimer > 0) && !["sleeping", "ground", "drop"].includes(m.state) && isMonsterVisible(m))
-  ];
-  let best = null;
-  let bestScore = Infinity;
-  for (const c of candidates) {
+  ].filter(c => Math.abs(c.x - caster.x) <= SPELL_RANGE);
+}
+
+// The closest racer or monster in direction (dx, dy) (a 60° cone, then
+// anywhere on that side), or the closest of all when there's no direction.
+function pickSpellTarget(caster, dirX = 0, dirY = 0) {
+  const candidates = spellCandidates(caster);
+  const length = Math.hypot(dirX, dirY);
+  const closest = list => list.reduce((best, c) => {
+    const d = Math.hypot(c.x - caster.x, (c.y - caster.y) * 1.5);
+    return !best || d < best.d ? { c, d } : best;
+  }, null)?.c || null;
+  if (!length) return closest(candidates);
+  const along = c => {
     const dx = c.x - caster.x;
-    if (Math.abs(dx) > SPELL_RANGE) continue;
-    const score = Math.abs(dx) + Math.abs(c.y - caster.y) * 1.5 + (dx * caster.facing < 0 ? 500 : 0);
-    if (score < bestScore) {
-      best = c;
-      bestScore = score;
-    }
-  }
-  return best;
+    const dy = c.y - caster.y;
+    return (dx * dirX + dy * dirY) / (length * (Math.hypot(dx, dy) || 1));
+  };
+  return closest(candidates.filter(c => along(c) >= SPELL_AIM_CONE))
+    || closest(candidates.filter(c => along(c) > 0))
+    || closest(candidates);
+}
+
+// While the wand sparkles, the stick (or the AI's steering) picks the way.
+function updateSpellAim(racer, input, dt) {
+  const aim = racer.spellAim;
+  if (!aim) return;
+  aim.t += dt;
+  aim.x += input.horizontal * dt;
+  aim.y += input.vertical * dt;
+  aim.preview = pickSpellTarget(racer, aim.x, aim.y);
+  const chosen = Math.hypot(aim.x, aim.y) >= SPELL_AIM_COMMIT;
+  if (!chosen && aim.t < SPELL_AIM_TIME) return;
+  castSpell(racer, chosen ? pickSpellTarget(racer, aim.x, aim.y) : pickSpellTarget(racer));
+}
+
+function castSpell(racer, target) {
+  racer.spellAim = null;
+  racer.castTimer = SPELL_CAST_TIME;
+  if (target) racer.castFacing = target.x < racer.x ? -1 : 1;
+  else racer.castFacing = racer.facing || 1;
+  racer.facing = racer.castFacing;
+  state.spells.push({ caster: racer, target, t: 0 });
+  if (target) sfx("pickup_wand_zap", racer.x, { gain: 0.7 });
 }
 
 function wandTip(caster) {
@@ -3530,10 +3886,119 @@ function spellTargetPoint(target) {
   return { x: target.x, y: target.y + 54 - (target.z || 0) - (isMonster ? 150 : 90) };
 }
 
+function empSourcePoint(arc) {
+  if (arc.from) return arc.from;
+  const racer = arc.source;
+  return getThrowHand(racer) || { x: racer.x + racer.facing * 40, y: racer.y - 60 - racer.z };
+}
+
+function updateEmpArcs(dt) {
+  for (const arc of state.empArcs) {
+    const before = arc.t;
+    arc.t += dt;
+    const from = empSourcePoint(arc);
+    if (before === 0) {
+      // The trigger goes off: a flash where it was.
+      const colors = arc.style === "firework" ? EMP_FIREWORK_COLORS : arc.style === "lightning" ? ["#ffffff", "#d6a8ff"] : EMP_SPARK_COLORS;
+      for (let i = 0; i < 16; i += 1) spawnParticles(from.x, from.y, 0, 1, { color: colors[i % colors.length], speed: 220, lift: 60, life: 0.4, size: 5, gravity: 0 });
+    }
+    if (arc.style === "lightning") {
+      if (before === 0) {
+        for (const target of arc.targets) {
+          const to = spellTargetPoint(target);
+          spawnParticles(to.x, to.y + 90, 90, 12, { color: Math.random() < 0.5 ? "#ffffff" : "#c48bff", speed: 200, lift: 200, life: 0.45, size: 4.5, gravity: 500 });
+        }
+      }
+      continue;
+    }
+    // Themed EMP: a stream of sparks flies from her to each target, then bursts.
+    const colors = arc.style === "firework" ? EMP_FIREWORK_COLORS : EMP_SPARK_COLORS;
+    const progress = Math.min(1, arc.t / EMP_STREAM_TIME);
+    for (const target of arc.targets) {
+      const to = spellTargetPoint(target);
+      if (progress < 1) {
+        for (let i = 0; i < 3; i += 1) {
+          const k = Math.max(0, progress - Math.random() * 0.12);
+          const x = from.x + (to.x - from.x) * k;
+          const y = from.y + (to.y - from.y) * k;
+          spawnParticles(x, y, 0, 1, { color: colors[Math.floor(Math.random() * colors.length)], speed: 40, lift: 40, life: 0.35, size: 4.5, gravity: 0 });
+        }
+      } else if (before < EMP_STREAM_TIME) {
+        spawnParticles(to.x, to.y, 0, 18, { color: colors[Math.floor(Math.random() * colors.length)], speed: 220, lift: 220, life: 0.6, size: 5, gravity: 500 });
+        for (let i = 0; i < 10; i += 1) {
+          spawnParticles(to.x, to.y, 0, 1, { color: colors[i % colors.length], speed: 240, lift: 240, life: 0.6, size: 5, gravity: 500 });
+        }
+      }
+    }
+  }
+  state.empArcs = state.empArcs.filter(arc => arc.t < EMP_ARC_TIME);
+}
+
+// A jagged bolt from a to b, re-drawn each frame so it flickers.
+function drawLightning(ax, ay, bx, by, alpha) {
+  const length = Math.hypot(bx - ax, by - ay) || 1;
+  const nx = -(by - ay) / length;
+  const ny = (bx - ax) / length;
+  const steps = Math.max(6, Math.round(length / 40));
+  const points = [[ax, ay]];
+  for (let i = 1; i < steps; i += 1) {
+    const k = i / steps;
+    const jitter = (Math.random() - 0.5) * 36 * Math.sin(Math.PI * k);
+    points.push([ax + (bx - ax) * k + nx * jitter, ay + (by - ay) * k + ny * jitter]);
+  }
+  points.push([bx, by]);
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  for (const [width, color, blur] of [[9, "#b45cff", 18], [3, "#ffffff", 6]]) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = width;
+    ctx.shadowColor = "#b45cff";
+    ctx.shadowBlur = blur;
+    ctx.beginPath();
+    points.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawEmpArcs() {
+  for (const arc of state.empArcs) {
+    if (arc.style !== "lightning") continue;
+    const from = empSourcePoint(arc);
+    const alpha = Math.max(0, 1 - arc.t / EMP_ARC_TIME);
+    const fromX = from.x - state.camera;
+    // The button flashes where the bolts start.
+    const glow = ctx.createRadialGradient(fromX, from.y, 0, fromX, from.y, 34);
+    glow.addColorStop(0, "#ffffff");
+    glow.addColorStop(0.4, "#d6a8ff");
+    glow.addColorStop(1, "#b45cff00");
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(fromX, from.y, 34, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    for (const target of arc.targets) {
+      const to = spellTargetPoint(target);
+      drawLightning(fromX, from.y, to.x - state.camera, to.y, alpha);
+    }
+  }
+}
+
 function updateSpells(dt) {
   for (const spell of state.spells) {
+    const before = spell.t;
     spell.t += dt;
     if (spell.t < SPELL_BOLT_DELAY || !spell.target) continue;
+    if (before < SPELL_BOLT_DELAY) {
+      // Release: a flash at the wand tip.
+      const tip = wandTip(spell.caster);
+      spawnParticles(tip.x, tip.y, 0, 14, { color: "#fff2a8", speed: 190, lift: 40, life: 0.35, size: 5, gravity: 0 });
+    }
+    if (spell.done) continue;
     const progress = (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME;
     const from = wandTip(spell.caster);
     const to = spellTargetPoint(spell.target);
@@ -3545,7 +4010,7 @@ function updateSpells(dt) {
       frogify(spell.target);
     }
   }
-  state.spells = state.spells.filter(spell => spell.t < SPELL_BOLT_DELAY + SPELL_BOLT_TIME + 0.05 && (spell.target || spell.t < SPELL_CAST_TIME));
+  state.spells = state.spells.filter(spell => spell.t < SPELL_BOLT_DELAY + SPELL_BOLT_TIME + SPELL_BEAM_LINGER && (spell.target || spell.t < SPELL_CAST_TIME));
 }
 
 function frogify(target) {
@@ -3647,14 +4112,68 @@ function drawFrog(x, groundY, depthScale, big, phase, facing) {
   ctx.restore();
 }
 
+// While a player aims her wand, a glowing ring on the ground marks who the
+// spell would hit (drawn under everyone, like a shadow).
+function drawSpellAimRings() {
+  const now = performance.now() / 1000;
+  for (const racer of state.racers) {
+    const target = racer.spellAim?.preview;
+    if (!target || racer.ai) continue;
+    const isMonster = state.monsters.includes(target);
+    const scale = isMonster ? 1 : racerDepthScale(target);
+    const x = target.x - state.camera;
+    const y = target.y + 54;
+    const pulse = 1 + Math.sin(now * 8) * 0.08;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(pulse, pulse);
+    ctx.shadowColor = "#c48bff";
+    ctx.shadowBlur = 14;
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#ffd84a";
+    ctx.setLineDash([14, 9]);
+    ctx.lineDashOffset = -now * 40;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, (isMonster ? 80 : 62) * scale, (isMonster ? 24 : 19) * scale, 0, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
 function drawSpells() {
   for (const spell of state.spells) {
-    if (!spell.target || spell.t < SPELL_BOLT_DELAY || spell.done) continue;
+    if (!spell.target || spell.t < SPELL_BOLT_DELAY) continue;
     const progress = Math.min(1, (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME);
     const from = wandTip(spell.caster);
     const to = spellTargetPoint(spell.target);
     const x = from.x + (to.x - from.x) * progress - state.camera;
     const y = from.y + (to.y - from.y) * progress;
+    // After the hit the beam lingers a moment, fading.
+    const fade = spell.done ? 1 - (spell.t - SPELL_BOLT_DELAY - SPELL_BOLT_TIME) / SPELL_BEAM_LINGER : 1;
+    if (fade <= 0) continue;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, Math.min(1, fade));
+    // A streak from the wand tip to the bolt, so it's clear where it came from.
+    const fromX = from.x - state.camera;
+    const streak = ctx.createLinearGradient(fromX, from.y, x, y);
+    streak.addColorStop(0, "#c48bff22");
+    streak.addColorStop(1, "#fff2a8");
+    ctx.save();
+    ctx.lineCap = "round";
+    ctx.strokeStyle = streak;
+    ctx.shadowColor = "#ffd84a";
+    ctx.shadowBlur = 14;
+    ctx.lineWidth = 9;
+    ctx.beginPath();
+    ctx.moveTo(fromX, from.y);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "#ffffff";
+    ctx.stroke();
+    ctx.restore();
+    ctx.restore();
+    if (spell.done) continue;
     const glow = ctx.createRadialGradient(x, y, 0, x, y, 26);
     glow.addColorStop(0, "#fff7c2");
     glow.addColorStop(0.4, "#ffd84a");
@@ -3920,7 +4439,7 @@ function updateBeachBalls(dt) {
       ball.vx = -ball.vx * 0.6;
     }
     // Low balls bounce back off hurdles.
-    if (ball.z < HURDLE_TOP_Z * 0.6) {
+    if (ball.z < hurdleTopZ() * 0.6) {
       for (const obstacle of state.obstacles) {
         const bounds = getObstacleHitBounds(obstacle);
         if (ball.y < bounds.top - 6 || ball.y > bounds.bottom + 6) continue;
@@ -5136,6 +5655,7 @@ function drawWorldScene() {
       ...state.windupCars.map(car => ({ type: "windupCar", y: car.y, item: car })),
       ...state.racers.map(racer => ({ type: "racer", y: racer.y + 54, item: racer }))
     ].sort((a, b) => a.y - b.y);
+    drawSpellAimRings();
     for (const drawable of drawables) {
       if (drawable.type === "obstacle") {
         drawObstacle(drawable.item);
@@ -5162,6 +5682,7 @@ function drawWorldScene() {
       }
     }
     drawSpells();
+    drawEmpArcs();
     drawParticles();
   }
 }
@@ -6162,6 +6683,36 @@ function drawFinishLine() {
   ctx.restore();
 }
 
+// Height of the hurdle's top above its ground line (obstacle.y + 18), read
+// from the art's opaque pixels as drawn in drawObstacle's 64×68 box.
+function hurdleTopZ() {
+  const art = getTrackArt("hurdle");
+  if (!art) return HURDLE_TOP_Z;
+  if (art.hurdleTopZ === undefined) {
+    art.hurdleTopZ = HURDLE_TOP_Z;
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 64;
+      canvas.height = 68;
+      const g = canvas.getContext("2d", { willReadFrequently: true });
+      g.drawImage(art, 0, 0, 64, 68);
+      const alpha = g.getImageData(0, 0, 64, 68).data;
+      for (let row = 0; row < 68; row += 1) {
+        let solid = 0;
+        for (let col = 0; col < 64; col += 1) if (alpha[(row * 64 + col) * 4 + 3] > 40) solid += 1;
+        // The first row with real substance, not a stray antialiased pixel.
+        if (solid >= 3) {
+          art.hurdleTopZ = 60 - row;
+          break;
+        }
+      }
+    } catch (error) {
+      // file:// pages can't read pixels; keep the picket height.
+    }
+  }
+  return art.hurdleTopZ;
+}
+
 function drawObstacle(obstacle) {
   const x = obstacle.x - state.camera;
   const viewWidth = getWorldViewportWidth();
@@ -6176,6 +6727,8 @@ function drawObstacle(obstacle) {
     ctx.shadowBlur = 6;
     ctx.shadowOffsetY = 4;
     ctx.drawImage(hurdleArt, -32, -42, 64, 68);
+    ctx.shadowColor = "transparent";
+    drawCaughtAmanda(obstacle);
     ctx.restore();
     return;
   }
@@ -6204,11 +6757,12 @@ function drawObstacle(obstacle) {
   ctx.fillRect(-28, -26, 56, 3);
   ctx.fillRect(-28, -6, 56, 3);
   ctx.fillRect(-28, 14, 56, 3);
+  drawCaughtAmanda(obstacle);
   ctx.restore();
 }
 
 function drawAmandaBehindFence(obstacle) {
-  if (!obstacle.amandaHazard || obstacle.amandaReveal <= 0) return;
+  if (!obstacle.amandaHazard || obstacle.amandaReveal <= 0 || AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) return;
   const scale = 0.4;
   const pushPose = obstacle.amandaState === "pushing";
   const frameCol = pushPose ? 1 : 0;
@@ -6256,7 +6810,7 @@ function drawPowerup(powerup) {
   }
   if (iconIndex !== undefined) {
     drawPowerupGlow(powerup.type, x, drawY - 34 + Math.sin(t) * 5, drawY - 4, t);
-    drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t);
+    drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t, { pogo: powerup.pogo });
     return;
   }
   if (powerup.type === "horse" && powerup.horseType === "broom") {
@@ -6323,7 +6877,8 @@ function drawPowerupGlow(type, x, y, groundY, t) {
 }
 
 function drawPowerupIcon(index, x, y, t, options = {}) {
-  const trackSheet = getTrackArt("powerups");
+  let trackSheet = getTrackArt("powerups");
+  if (index === 0) trackSheet = options.pogo ? getPogoIconSheet() || trackSheet : trackJumpIconIsSpring() ? trackSheet : null;
   const rect = trackSheet
     ? { x: index * TRACK_POWERUP_CELL, y: 0, w: TRACK_POWERUP_CELL, h: TRACK_POWERUP_CELL }
     : POWERUP_ICON_RECTS[index];
@@ -6476,7 +7031,7 @@ function drawMonster(monster) {
     drawFrog(screenX, monster.y + 54, racerDepthScale(monster), true, monster.frogPhase || 0, monster.facing);
     return;
   }
-  if (monster.riding) {
+  if (monster.riding && getTrollMountImage()) {
     drawMountedMonster(monster, getTrollMountImage(), screenX, visualY, drawFacing);
     return;
   }
@@ -6583,7 +7138,7 @@ function monsterFrame(monster) {
 
 function drawRacer(racer) {
   const screenX = racer.x - state.camera;
-  const jumping = racer.z > 0 || racer.jumpStarted || racer.landingTimer > 0;
+  const jumping = isDrawnJumping(racer);
   // A troll lifts a grabbed rider out of the saddle; the horse comes back on landing.
   const mounted = isMounted(racer) && !racer.grabbedBy;
   const row = racer.grabbedBy || racer.fallBackTimer > 0 ? 3 : racer.pushTimer > 0 ? 3 : jumping ? 2 : racer.moving ? 1 : 0;
@@ -6722,24 +7277,12 @@ function drawRacer(racer) {
 }
 
 // A coloured ring underfoot for each active power-up, and green speed streaks.
+// Power-up feedback drawn behind her: speed streaks (sparkles and
+// after-images come from updateRacerPowerupEffects). No rings round her shadow.
 function drawPowerupAura(racer, screenX, scale, mounted) {
-  const rings = [];
-  if (racer.speedBoostTimer > 0) rings.push(POWERUP_GLOW_COLORS.boost);
-  if (racer.highJumpTimer > 0) rings.push(POWERUP_GLOW_COLORS.jump);
-  if (racer.moonBootsTimer > 0) rings.push(MOON_BOOTS_COLOR);
-  const pulse = 0.5 + 0.5 * Math.sin(performance.now() / 160);
   ctx.save();
-  rings.forEach((color, i) => {
-    const grow = 1 + i * 0.22;
-    ctx.globalAlpha = 0.55 + 0.25 * pulse;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.ellipse(screenX, racer.y + 40, 52 * scale * 2 * grow, 15 * scale * 2 * grow, 0, 0, Math.PI * 2);
-    ctx.stroke();
-  });
-  if (racer.speedBoostTimer > 0 && racer.moving) {
-    // Streaks trailing behind the body.
+  if (racer.speedBoostTimer > 0 && racer.moving && !racer.rideToys?.some(toy => toy.type === "skates")) {
+    // Streaks trailing behind the body (not on skates: the glide says it).
     const back = -racer.facing;
     const baseY = racer.y + 54 - racer.z;
     const height = (mounted ? 300 : 360) * scale;
