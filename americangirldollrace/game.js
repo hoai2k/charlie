@@ -3512,6 +3512,13 @@ function pickSpellTarget(caster) {
 
 function wandTip(caster) {
   const scale = racerDepthScale(caster);
+  const frames = window.ACTION_FRAMES?.[dollAssetKey(caster.spriteKey)];
+  const progress = 1 - caster.castTimer / SPELL_CAST_TIME;
+  const frame = frames?.[progress < 0.25 ? 0 : progress < 0.6 ? 1 : 2];
+  if (frame?.wandTip && getActionSheet(caster)) return {
+    x: caster.x + caster.facing * (frame.wandTip[0] - frame.anchorX) * scale * frame.scale,
+    y: caster.y + 54 - caster.z + (frame.targetY - 409 + (frame.wandTip[1] - 409) * frame.scale) * scale
+  };
   return {
     x: caster.x + caster.facing * (WAND_HAND.x - SPRITE_ANCHOR_X + 40) * scale,
     y: caster.y + 54 - caster.z - (SPRITE_ANCHOR_Y - WAND_HAND.y + 30) * scale
@@ -3798,6 +3805,7 @@ function drawSurfWave(racer, screenX, scale) {
     ctx.stroke();
     ctx.restore();
   }
+  if (getActionSheet(racer)) return;
   // The board: turquoise with a coral stripe.
   ctx.save();
   ctx.translate(screenX, feetY - 6 * scale);
@@ -3821,7 +3829,7 @@ function getActionSheet(racer) {
   const assetKey = dollAssetKey(racer.spriteKey);
   if (!(window.ACTION_SHEETS || []).includes(assetKey)) return null;
   if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "actions", racer.outfit);
-  loadArtOnce(`actions_${assetKey}`, `assets/doll_${assetKey}_actions.webp`);
+  loadArtOnce(`actions_${assetKey}`, `assets/doll_${assetKey}_actions.webp?v=${window.ACTION_ART_VERSION || "1"}`);
   return images[`actions_${assetKey}`] || null;
 }
 
@@ -6634,7 +6642,10 @@ function drawRacer(racer) {
       drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);
     }
     // Pushing or throwing from the saddle has its own pose once the actions sheet is in.
-    if (racer.pushTimer > 0 && actions) drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    if (racer.pushTimer > 0 && actions) {
+      const box = actionFrameBox(racer, 0, 2 * FRAME, riderX, riderY, riderW, riderH);
+      drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, box.x, box.y, box.w, box.h, drawFacing, screenX);
+    }
     else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
   } else {
     const toyPose = getRideToyPose(racer, jumping);
@@ -6751,7 +6762,19 @@ function drawPowerupAura(racer, screenX, scale, mounted) {
 
 // Draws the doll and remembers the frame for the speed after-images, which
 // are drawn first, fading with age.
+function actionFrameBox(racer, sx, sy, x, y, w, h) {
+  const frame = window.ACTION_FRAMES?.[dollAssetKey(racer.spriteKey)]?.[sy / FRAME * 3 + sx / FRAME];
+  if (!frame) return { x, y, w, h };
+  const scale = w / FRAME;
+  return {
+    x: x + SPRITE_ANCHOR_X * scale + (frame.offsetX || 0) * scale - frame.anchorX * scale * frame.scale,
+    y: y + frame.targetY * scale - frame.baseline * scale * frame.scale,
+    w: w * frame.scale, h: h * frame.scale
+  };
+}
+
 function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
+  if (image === getActionSheet(racer)) ({ x, y, w, h } = actionFrameBox(racer, sx, sy, x, y, w, h));
   if (racer.ghosts?.length && racer.speedBoostTimer > 0) {
     racer.ghosts.forEach((ghost, i) => {
       const gx = ghost.x - state.camera;

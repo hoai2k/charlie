@@ -212,8 +212,9 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol, the §10 new-item art (actions sheets, frogs, wave,
-> wind-up cars), and the §9 track monsters (scarecrow and skeleton sheets).
+> **Still open:** the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol and the remaining §10 doll actions sheets.
+> Delivered: the Hermione/Lily/Mira action trial, all §10.2 shared sprites,
+> and both §9 monsters; see the retained source, calibration and in-game reviews.
 
 Every track uses the same white picket hurdle and the same power-up icons
 today. These requests give each track its own look. **Only the art changes.**
@@ -485,7 +486,7 @@ Then race on the Village with a skates pickup and a pogo pickup.
 
 ---
 
-## 9. Track monsters: a jack-o'-lantern scarecrow and a skeleton
+## 9. Delivered track monsters: a jack-o'-lantern scarecrow and a skeleton
 
 Two alternates for the troll, in the **same painted, slightly photoreal style
 as `assets/monster_sprites.webp`** (look at it side by side). They behave
@@ -498,7 +499,7 @@ troll on Pumpkin Patch (`autumn`), the **skeleton** on Wizard School
 | M1 | `assets/scarecrow_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A tall, lanky scarecrow with a carved **jack-o'-lantern head** (goofy grin, warm glow), a patched plaid shirt, overalls and a floppy straw hat, straw poking from the cuffs and collar. |
 | M2 | `assets/skeleton_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A cartoon **skeleton** with a big grinning skull, chunky friendly bones and a tattered purple wizard-school scarf. |
 
-**Use exactly the troll sheet's layout, scale, facing (left) and foot
+**Use exactly the troll sheet's layout, scale, facing (right, matching the actual source sheet) and foot
 baseline**, cell for cell, because the game swaps the sheet in without other
 changes:
 
@@ -546,7 +547,7 @@ only once it's listed.
 | A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
 
 Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
-**Trial first: Hermione, Lily and Mira**, then the rest of the roster.
+**Trial delivered and reviewed:** Hermione, Lily and Mira. The remaining roster is still open. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
 
 | Row | Frames (left to right) |
 | --- | --- |
@@ -554,7 +555,7 @@ Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
 | 2 | **Surfing** on one board for every doll (turquoise with a coral stripe and a small fin), with the board's bottom on the baseline: (1) crouched and balanced, arms out; (2) leaning forward, carving; (3) wobbling, arms windmilling. |
 | 3 | (1) **Pushing / throwing from the saddle**: seated exactly like her riding pose (`assets/portraits/<key>_ride.webp`, same seat position) with one arm thrust forward. It's used for pushes and snowballs on horseback. (2) **Stuck in a sticky puddle**: feet planted, toppling forward with arms windmilling. (3) **Floating in moon boots**: arms and legs spread wide, a happy astronaut float. |
 
-### 10.2 Shared sprites
+### 10.2 Delivered shared sprites
 
 | # | File | Size | What |
 | --- | --- | --- | --- |

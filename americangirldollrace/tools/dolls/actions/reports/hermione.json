@@ -1,0 +1,159 @@
+{
+  "assetKey": "hermione",
+  "frames": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.1334851167889366,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        84,
+        7,
+        368,
+        409
+      ],
+      "wandTip": [
+        359.08,
+        11.77
+      ],
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9370629370629371
+    },
+    {
+      "anchorX": 183.80104712041887,
+      "offsetX": 0,
+      "scale": 1.0093037636675382,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        14,
+        7,
+        413,
+        409
+      ],
+      "wandTip": [
+        405.41,
+        133.91
+      ],
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0523560209424083
+    },
+    {
+      "anchorX": 215.75634517766497,
+      "offsetX": 0,
+      "scale": 1.0410096410602354,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        11,
+        23,
+        413,
+        409
+      ],
+      "wandTip": [
+        406.07,
+        225.62
+      ],
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0203045685279188
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0700733620035416,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        19,
+        7,
+        385,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9925925925925926
+    },
+    {
+      "anchorX": 256.2444444444444,
+      "offsetX": 0,
+      "scale": 1.0700733620035416,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        74,
+        387,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9925925925925926
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0727155184529331,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        27,
+        7,
+        381,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9901477832512315
+    },
+    {
+      "anchorX": 200.63841807909606,
+      "offsetX": -38.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 402.37288135593224,
+      "bounds": [
+        26,
+        21,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0621468926553672
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0119459201169296,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        44,
+        8,
+        364,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0496083550913837
+    },
+    {
+      "anchorX": 211.7734375,
+      "offsetX": 0,
+      "scale": 1.0145880765663209,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        46,
+        7,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.046875
+    }
+  ],
+  "sha256": "9a4abd6310ea3168661ca8047b46fcc48ba0df346ad98acbb6d8ffec307245d6"
+}

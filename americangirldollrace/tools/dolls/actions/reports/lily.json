@@ -1,0 +1,159 @@
+{
+  "assetKey": "lily",
+  "frames": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        151,
+        15,
+        373,
+        409
+      ],
+      "wandTip": [
+        328.62,
+        20.15
+      ],
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 222.59550561797755,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        102,
+        58,
+        413,
+        409
+      ],
+      "wandTip": [
+        406.71,
+        168.57
+      ],
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 205.70786516853934,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        107,
+        66,
+        413,
+        409
+      ],
+      "wandTip": [
+        406.38,
+        253.9
+      ],
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        47,
+        85,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        45,
+        84,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 215.08988764044943,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        102,
+        61,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": -50.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 379.69101123595505,
+      "bounds": [
+        132,
+        68,
+        393,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        85,
+        69,
+        328,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 182.25280898876406,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        71,
+        71,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    }
+  ],
+  "sha256": "a19096f1a4b9446783d48364e244fdb226abc7db3a8fd8991faa964f2ba5831c"
+}

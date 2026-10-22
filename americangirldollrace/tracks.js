@@ -58,7 +58,7 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs),
 // "scarecrow", "skeleton" (§9).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
 window.RIDE_TOY_ART_VERSION = "20261021-fall-v3";
@@ -488,7 +488,475 @@ window.RIDE_TOY_FRAMES = {
 };
 // Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
 // saddle push, stuck in a puddle, moon-boots float (image-requests.md §10).
-window.ACTION_SHEETS = [];
+window.ACTION_SHEETS = ["hermione", "lily", "mira"];
+window.ACTION_ART_VERSION = "20261021-action-trial";
+window.ACTION_FRAMES = {
+  "hermione": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.1334851167889366,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        84,
+        7,
+        368,
+        409
+      ],
+      "wandTip": [
+        359.08,
+        11.77
+      ],
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9370629370629371
+    },
+    {
+      "anchorX": 183.80104712041887,
+      "offsetX": 0,
+      "scale": 1.0093037636675382,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        14,
+        7,
+        413,
+        409
+      ],
+      "wandTip": [
+        405.41,
+        133.91
+      ],
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0523560209424083
+    },
+    {
+      "anchorX": 215.75634517766497,
+      "offsetX": 0,
+      "scale": 1.0410096410602354,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        11,
+        23,
+        413,
+        409
+      ],
+      "wandTip": [
+        406.07,
+        225.62
+      ],
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0203045685279188
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0700733620035416,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        19,
+        7,
+        385,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9925925925925926
+    },
+    {
+      "anchorX": 256.2444444444444,
+      "offsetX": 0,
+      "scale": 1.0700733620035416,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        74,
+        387,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9925925925925926
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0727155184529331,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        27,
+        7,
+        381,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 0.9901477832512315
+    },
+    {
+      "anchorX": 200.63841807909606,
+      "offsetX": -38.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 402.37288135593224,
+      "bounds": [
+        26,
+        21,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0621468926553672
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0119459201169296,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        44,
+        8,
+        364,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.0496083550913837
+    },
+    {
+      "anchorX": 211.7734375,
+      "offsetX": 0,
+      "scale": 1.0145880765663209,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        46,
+        7,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0621468926553672,
+      "packedScale": 1.046875
+    }
+  ],
+  "lily": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        151,
+        15,
+        373,
+        409
+      ],
+      "wandTip": [
+        328.62,
+        20.15
+      ],
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 222.59550561797755,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        102,
+        58,
+        413,
+        409
+      ],
+      "wandTip": [
+        406.71,
+        168.57
+      ],
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 205.70786516853934,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        107,
+        66,
+        413,
+        409
+      ],
+      "wandTip": [
+        406.38,
+        253.9
+      ],
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        47,
+        85,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        45,
+        84,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 215.08988764044943,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        102,
+        61,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": -50.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 379.69101123595505,
+      "bounds": [
+        132,
+        68,
+        393,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        85,
+        69,
+        328,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    },
+    {
+      "anchorX": 182.25280898876406,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        71,
+        71,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.9382022471910112,
+      "packedScale": 0.9382022471910112
+    }
+  ],
+  "mira": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.099502487562189,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        73,
+        7,
+        312,
+        409
+      ],
+      "wandTip": [
+        197.18,
+        11.89
+      ],
+      "sourceScale": 1.0,
+      "packedScale": 0.9095022624434389
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        8,
+        49,
+        390,
+        409
+      ],
+      "wandTip": [
+        383.26,
+        168.28
+      ],
+      "sourceScale": 1.0,
+      "packedScale": 1.0
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        11,
+        27,
+        384,
+        409
+      ],
+      "wandTip": [
+        377.61,
+        199.89
+      ],
+      "sourceScale": 1.0,
+      "packedScale": 1.0
+    },
+    {
+      "anchorX": 254.0,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        8,
+        356,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0,
+      "packedScale": 1.0
+    },
+    {
+      "anchorX": 274.89473684210526,
+      "offsetX": 0,
+      "scale": 1.0398009950248757,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        7,
+        84,
+        364,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0,
+      "packedScale": 0.9617224880382775
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0422885572139302,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        10,
+        7,
+        344,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0,
+      "packedScale": 0.9594272076372315
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 13.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 369.0,
+      "bounds": [
+        15,
+        62,
+        377,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0,
+      "packedScale": 1.0
+    },
+    {
+      "anchorX": 260.0,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        49,
+        351,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0,
+      "packedScale": 1.0
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        21,
+        45,
+        398,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0,
+      "packedScale": 1.0
+    }
+  ]
+};
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
@@ -540,7 +1008,7 @@ window.TRACK_THEMES = {
   toyroom: {
     rideToys: {jump: "pogo"},
     oilEffect: "sticky",
-    name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
+    name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "windup_car"],
     labels: { jump: "POGO", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
     sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box", boost: "windup_release" },
     baseMount: "rocking_horse",
@@ -556,7 +1024,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   beach: {
-    name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
+    name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "wave"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
     sounds: { emp: "pickup_conch", boost: "surf_pickup" },
     beachBalls: 4,
