@@ -797,6 +797,7 @@ function resetRace(mode = state.mode) {
   state.particles = [];
   state.spells = [];
   state.windupCars = [];
+  state.jumpPogo = Math.random() < POGO_SHARE;
   state.powerups = [...makePowerups(), ...makeSpareHorses()];
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
@@ -1422,7 +1423,7 @@ function makePowerup(type, x, y, options = {}) {
     y,
     type,
     horseType: type === "horse" ? chooseHorseType() : "horse",
-    pogo: type === "jump" && pogoEligible() && Math.random() < POGO_SHARE,
+    pogo: type === "jump" && boardJumpIsPogo(),
     taken: false,
     spin: Math.random() * Math.PI * 2,
     dropTimer: 0,
@@ -2449,10 +2450,14 @@ function updateStackTimers(racer, dt) {
   racer.highJumpTimer = racer.highJumpStacks.length > 0 ? Math.max(...racer.highJumpStacks) : 0;
 }
 
-// High-jump pickups are a mix of springs and pogo sticks on every board,
-// except where the jump pickup is its own item (the spell book) or everyone
-// rides (Horse Show). On Moon Base the spring's place is taken by moon boots.
+// Each race's high-jump pickups are all springs or all pogo sticks (about
+// half of races each, on any board), so a board never shows both; not where
+// the jump pickup is its own item (the spell book) or everyone rides (Horse
+// Show). On Moon Base the spring's place is taken by moon boots.
 const POGO_SHARE = 0.5;
+function boardJumpIsPogo() {
+  return pogoEligible() && Boolean(state.jumpPogo);
+}
 function pogoEligible(background = getCurrentBackground()) {
   const theme = getTrackTheme(background);
   return !theme.itemEffects?.jump && !theme.startMounted;
@@ -3053,7 +3058,7 @@ function applyPowerup(racer, powerupOrType) {
     const label = powerupLabel("boost", "BOOST");
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
-    const pogo = typeof powerupOrType === "string" ? pogoEligible() && Math.random() < POGO_SHARE : powerupOrType.pogo;
+    const pogo = typeof powerupOrType === "string" ? boardJumpIsPogo() : powerupOrType.pogo;
     if (getTrackTheme().moonBoots && !pogo) {
       racer.moonBootsTimer = Math.max(racer.moonBootsTimer, MOON_BOOTS_DURATION);
       racer.powerupMessage = powerupLabel("jump", "MOON BOOTS");
@@ -6914,6 +6919,15 @@ function drawPowerup(powerup) {
     drawPowerupIcon(iconIndex, x, drawY - 12, t, { flat: !isPowerupDropping(powerup) });
     return;
   }
+  if (powerup.type === "emp") {
+    // A trigger goes off the moment it's touched, so it stands still on the
+    // ground like a puddle rather than bobbing like a power-up.
+    const still = !isPowerupDropping(powerup);
+    const iconY = drawY - 26;
+    drawPowerupGlow("emp", x, iconY, drawY - 4, t, still);
+    drawPowerupIcon(iconIndex, x, iconY, t, { still });
+    return;
+  }
   if (iconIndex !== undefined) {
     drawPowerupGlow(powerup.type, x, drawY - 34 + Math.sin(t) * 5, drawY - 4, t);
     drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t, { pogo: powerup.pogo });
@@ -6961,24 +6975,25 @@ function powerupDrawY(powerup) {
 }
 
 // A soft, pulsing halo in the power-up kind's colour, behind the icon.
-function drawPowerupGlow(type, x, y, groundY, t) {
+// A soft halo in the power-up's colour, and a faint ring on the ground.
+// `still` pickups (EMP triggers) don't pulse.
+function drawPowerupGlow(type, x, y, groundY, t, still = false) {
   const color = POWERUP_GLOW_COLORS[type];
   if (!color) return;
-  const pulse = 0.5 + 0.5 * Math.sin(t * 2.4);
-  const radius = POWERUP_ICON_TARGET_SIZE * (0.78 + 0.1 * pulse);
+  const pulse = still ? 0.5 : 0.5 + 0.5 * Math.sin(t * 2.4);
+  const radius = POWERUP_ICON_TARGET_SIZE * (0.66 + 0.06 * pulse);
   const glow = ctx.createRadialGradient(x, y, 0, x, y, radius);
   glow.addColorStop(0, color);
-  glow.addColorStop(0.45, color);
+  glow.addColorStop(0.25, color);
   glow.addColorStop(1, `${color}00`);
   ctx.save();
-  // A ring of the same colour on the ground under it.
-  ctx.globalAlpha = 0.75;
+  ctx.globalAlpha = 0.35;
   ctx.strokeStyle = color;
-  ctx.lineWidth = 4;
+  ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.ellipse(x, groundY, 30 + 3 * pulse, 9 + pulse, 0, 0, Math.PI * 2);
+  ctx.ellipse(x, groundY, 28 + 2 * pulse, 8 + pulse * 0.5, 0, 0, Math.PI * 2);
   ctx.stroke();
-  ctx.globalAlpha = 0.6 + 0.3 * pulse;
+  ctx.globalAlpha = 0.28 + 0.12 * pulse;
   ctx.fillStyle = glow;
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -6999,7 +7014,7 @@ function drawPowerupIcon(index, x, y, t, options = {}) {
   ctx.save();
   ctx.translate(x, y);
   if (!options.flat) {
-    ctx.rotate(Math.sin(t * 0.8) * 0.08);
+    if (!options.still) ctx.rotate(Math.sin(t * 0.8) * 0.08);
     ctx.shadowColor = "rgba(23,33,38,0.26)";
     ctx.shadowBlur = 8;
     ctx.shadowOffsetY = 5;

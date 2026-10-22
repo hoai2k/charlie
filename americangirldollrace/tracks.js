@@ -49,9 +49,10 @@
 // a verge between it and the path; racers may walk up to it.
 // rideToys: { boost: "skates" } makes the speed pickup roller skates that
 // last twice as long and change the doll's look.
-// High-jump pickups are a mix of springs and pogo sticks on every track
-// (game.js POGO_SHARE), except Wizard School (spell book) and Horse Show
-// (everyone rides); on Moon Base the spring is moon boots. Pogo pickups show
+// High-jump pickups are springs in some races and pogo sticks in others, on
+// any track, but never both in one race (game.js POGO_SHARE), except Wizard
+// School (spell book) and Horse Show (everyone rides); on Moon Base the
+// spring is moon boots. Pogo pickups show
 // the track's pogo icon (its jump label is "POGO") or the Village's. Spring
 // pickups show the track's jump icon only if it's a spring: `springIcon:
 // false` marks one that isn't (a mushroom, a slide…), which then shows the
