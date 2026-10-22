@@ -10,6 +10,11 @@ const startButton = document.querySelector("#startButton");
 const fullscreenButton = document.querySelector("#fullscreenButton");
 const restartButton = document.querySelector("#restartButton");
 const resumeButton = document.querySelector("#resumeButton");
+const pauseCard = pausePanel.querySelector(".pause-card:not(.pause-settings)");
+const pauseSettings = document.querySelector("#pauseSettings");
+const pauseSoundButton = document.querySelector("#pauseSoundButton");
+const pauseSettingsButton = document.querySelector("#pauseSettingsButton");
+const pauseFullscreenButton = document.querySelector("#pauseFullscreenButton");
 const menuButton = document.querySelector("#menuButton");
 const touchJumpButton = document.querySelector("#touchJumpButton");
 const touchPushButton = document.querySelector("#touchPushButton");
@@ -1831,6 +1836,8 @@ function togglePause() {
   updateTouchControlsVisibility();
   if (state.paused) clearTouchInput();
   if (state.paused) {
+    openPauseSettings(false);
+    updatePauseCorner();
     resetPauseMenuFocus();
     GameAudio.play("ui_pause");
     const pausedTrack = music;
@@ -1854,8 +1861,31 @@ function togglePause() {
  * ignored until released. */
 const pauseMenu = { focus: 0, prev: new Map(), repeat: 0 };
 
+// Everything the D-pad can reach: the card's buttons (and its sliders in
+// settings), then the corner buttons.
 function pauseMenuButtons() {
-  return Array.from(pausePanel.querySelectorAll("button")).filter(button => button.getClientRects().length > 0);
+  return Array.from(pausePanel.querySelectorAll("button, input[type=range]")).filter(item => item.getClientRects().length > 0);
+}
+
+// Sliders show 0-100; sound effects reach twice their default at the top.
+const PAUSE_SLIDER_SCALE = { master: 1, music: 1, sfx: 0.5 };
+
+function openPauseSettings(open) {
+  pauseSettings.classList.toggle("hidden", !open);
+  pauseCard.classList.toggle("hidden", open);
+  if (open) {
+    for (const slider of pauseSettings.querySelectorAll("input[type=range]")) {
+      slider.value = Math.round(GameAudio.getVolume(slider.dataset.bus) / PAUSE_SLIDER_SCALE[slider.dataset.bus] * 100);
+    }
+  }
+  if (state.paused) setPauseMenuFocus(0);
+}
+
+function updatePauseCorner() {
+  pauseSoundButton.classList.toggle("off", GameAudio.isMuted);
+  pauseSoundButton.setAttribute("aria-pressed", String(!GameAudio.isMuted));
+  pauseFullscreenButton.classList.toggle("on", Boolean(fullscreenElement()));
+  pauseFullscreenButton.hidden = !canFullscreen();
 }
 
 function setPauseMenuFocus(index) {
@@ -1880,18 +1910,29 @@ function updatePauseMenu(dt) {
     const pressed = button => Boolean(pad.buttons[button]?.pressed) && !prev.buttons[button] && pauseMenu.primed;
     const stickY = Math.abs(pad.axes[1] || 0) > 0.55 ? Math.sign(pad.axes[1]) : 0;
     const stickX = Math.abs(pad.axes[0] || 0) > 0.55 ? Math.sign(pad.axes[0]) : 0;
-    const dpad = (pad.buttons[13]?.pressed || pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[12]?.pressed || pad.buttons[14]?.pressed ? 1 : 0);
-    const dir = dpad || stickX || stickY;
+    const dpadY = (pad.buttons[13]?.pressed ? 1 : 0) - (pad.buttons[12]?.pressed ? 1 : 0);
+    const dpadX = (pad.buttons[15]?.pressed ? 1 : 0) - (pad.buttons[14]?.pressed ? 1 : 0);
+    const dirX = dpadX || stickX;
+    const dir = dpadY || dirX || stickY;
+    const focused = pauseMenuButtons()[pauseMenu.focus];
     if (pauseMenu.primed && dir && (dir !== prev.dir || pauseMenu.repeat <= 0)) {
-      setPauseMenuFocus(pauseMenu.focus + dir);
-      GameAudio.play("ui_hover");
-      pauseMenu.repeat = dir !== prev.dir ? 0.4 : 0.18;
+      if (focused?.type === "range" && dirX && !dpadY) {
+        // Left/right on a slider changes it.
+        focused.value = clamp(Number(focused.value) + dirX * Number(focused.step || 5), 0, 100);
+        focused.dispatchEvent(new Event("input"));
+      } else {
+        setPauseMenuFocus(pauseMenu.focus + dir);
+        GameAudio.play("ui_hover");
+      }
+      pauseMenu.repeat = dir !== prev.dir ? 0.4 : 0.12;
     }
-    const startOrBack = pressed(9) || pressed(1);
+    const start = pressed(9);
+    const back = pressed(1);
     const choose = pressed(0);
     pauseMenu.prev.set(pad.index, { buttons: pad.buttons.map(button => button.pressed), dir });
-    if (startOrBack) { togglePause(); return; }
-    if (choose) { pauseMenuButtons()[pauseMenu.focus]?.click(); return; }
+    if (back && !pauseSettings.classList.contains("hidden")) { openPauseSettings(false); return; }
+    if (start || back) { togglePause(); return; }
+    if (choose && focused?.type !== "range") { focused?.click(); return; }
   }
   pauseMenu.primed = true;
 }
@@ -7790,6 +7831,28 @@ restartButton.addEventListener("click", () => {
   startRace(state.mode);
 });
 resumeButton.addEventListener("click", togglePause);
+pauseSoundButton.addEventListener("click", () => {
+  GameAudio.setMuted(!GameAudio.isMuted);
+  if (!GameAudio.isMuted) GameAudio.play("ui_click");
+  updatePauseCorner();
+});
+pauseSettingsButton.addEventListener("click", () => {
+  GameAudio.play("ui_click");
+  openPauseSettings(pauseSettings.classList.contains("hidden"));
+});
+pauseFullscreenButton.addEventListener("click", () => {
+  GameAudio.play("ui_fullscreen");
+  toggleFullscreen().then(updatePauseCorner);
+});
+document.querySelector("#pauseSettingsDone").addEventListener("click", () => openPauseSettings(false));
+for (const slider of pauseSettings.querySelectorAll("input[type=range]")) {
+  slider.addEventListener("input", () => {
+    GameAudio.setVolume(slider.dataset.bus, Number(slider.value) / 100 * PAUSE_SLIDER_SCALE[slider.dataset.bus]);
+  });
+  slider.addEventListener("change", () => GameAudio.play("ui_hover"));
+}
+document.addEventListener("fullscreenchange", updatePauseCorner);
+document.addEventListener("webkitfullscreenchange", updatePauseCorner);
 menuButton.addEventListener("click", returnToMenu);
 
 updateCharacterSelectOptions();

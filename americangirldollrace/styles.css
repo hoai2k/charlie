@@ -838,6 +838,152 @@ button:focus-visible {
   outline: none;
 }
 
+/* Pause: volume settings card and the corner buttons (sound, settings, full
+   screen), like Charlie Party's. */
+.pause-slider {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: left;
+  color: #6a3a14;
+}
+
+.pause-slider input {
+  width: 100%;
+  height: 34px;
+  accent-color: #b6427b;
+}
+
+.pause-slider input.focused,
+.pause-slider input:focus-visible {
+  outline: 4px solid #2a6fdb;
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.pause-settings .pause-buttons {
+  margin-top: 6px;
+}
+
+.pause-corner {
+  position: absolute;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex;
+  gap: 12px;
+}
+
+.corner-button {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin: 0;
+  padding: 0;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  background: rgba(255, 250, 240, 0.96);
+  box-shadow: 0 6px 16px rgba(30, 10, 40, 0.35);
+  transition: transform 0.1s ease;
+}
+
+.corner-button svg {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: #b6427b;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.corner-button svg .fill {
+  fill: #b6427b;
+  stroke: none;
+}
+
+.corner-button svg .hole {
+  fill: rgba(255, 250, 240, 1);
+  stroke: none;
+}
+
+.corner-button.focused,
+.corner-button:hover {
+  border-color: #2a6fdb;
+  transform: scale(1.08);
+}
+
+.corner-button:active {
+  transform: scale(0.96);
+}
+
+.corner-button:focus-visible {
+  outline: none;
+}
+
+#pauseSoundButton .sound-off,
+#pauseSoundButton.off .sound-waves,
+#pauseFullscreenButton .fs-exit,
+#pauseFullscreenButton.on .fs-enter {
+  display: none;
+}
+
+#pauseSoundButton.off .sound-off,
+#pauseFullscreenButton.on .fs-exit {
+  display: inline;
+}
+
+/* Short screens (phones in landscape): a compact pause card that leaves the
+   corner buttons clear. */
+@media (max-height: 520px) {
+  .pause-card {
+    width: min(360px, 100%);
+    padding: 10px 18px 12px;
+    border-width: 3px;
+    border-radius: 20px;
+  }
+
+  .pause-logo {
+    height: 58px;
+    margin: -2px auto 0;
+  }
+
+  .pause-card h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+  }
+
+  .pause-buttons {
+    gap: 8px;
+  }
+
+  .pause-buttons button {
+    min-height: 44px;
+    font-size: 20px;
+    border-radius: 16px;
+  }
+
+  .pause-slider {
+    margin: 0 0 6px;
+    font-size: 18px;
+  }
+
+  .corner-button {
+    width: 50px;
+    height: 50px;
+    border-width: 3px;
+  }
+
+  .corner-button svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
 /* ── In-race HUD cards (rosette, portrait, name, place) ──────────────────── */
 
 .hud {
