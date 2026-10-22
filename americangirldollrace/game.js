@@ -2289,7 +2289,7 @@ function update(dt) {
         spawnParticles(racer.x, racer.y + 54, 0, 10, { color: "#d9d3e6", kind: "puff", speed: 140, lift: 40, life: 0.8, size: 14, gravity: 0 });
         spawnParticles(racer.x, racer.y + 54, 0, 10, { color: MOON_BOOTS_COLOR, speed: 120, lift: 260, life: 0.7, gravity: 300 });
       } else if (racer.highJumpTimer > 0) {
-        spawnParticles(racer.x, racer.y + 54, 0, 16, { color: POWERUP_GLOW_COLORS.jump, speed: 170, lift: 380, life: 0.55 });
+        spawnParticles(racer.x, racer.y + 54, racer.z, 26, { color: POWERUP_GLOW_COLORS.jump, speed: 210, lift: 420, life: 0.6 });
         spawnParticles(racer.x, racer.y + 54, 0, 1, { color: POWERUP_GLOW_COLORS.jump, kind: "ring", life: 0.35, size: 50, gravity: 0, speed: 0, lift: 0 });
       }
       if (!mounted) {
@@ -2492,6 +2492,16 @@ function updateRacerPowerupEffects(racer, dt) {
     } else if (racer.ghosts.length > 0) {
       racer.ghosts.shift();
     }
+  }
+  // High jump (or moon boots) ready: a gentle fizz of sparks rising from her
+  // feet on the ground, so it's clear she can jump high; jumping bursts them.
+  racer.jumpSparkleTimer = (racer.jumpSparkleTimer || 0) - dt;
+  const springy = racer.highJumpTimer > 0 || racer.moonBootsTimer > 0;
+  if (springy && (racer.z <= 0 || racer.onObstacle) && racer.jumpSparkleTimer <= 0) {
+    racer.jumpSparkleTimer = 0.045;
+    const color = racer.moonBootsTimer > 0 ? MOON_BOOTS_COLOR : POWERUP_GLOW_COLORS.jump;
+    const spread = 22 * racerDepthScale(racer) * 2;
+    spawnParticles(racer.x + (Math.random() - 0.5) * spread, racer.y + 54, racer.z + 2, 1, { color, speed: 22, lift: 190, life: 0.6, size: 4.5, gravity: 170 });
   }
   racer.sparkleTimer -= dt;
   if (racer.sparkleTimer > 0) return;
@@ -7258,8 +7268,8 @@ function drawRacer(racer) {
   }
   const activeLabels = [
     mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
-    racer.speedBoostTimer > 0 ? `${powerupLabel("boost", "BOOST")} x${racer.speedBoostStacks.length}` : "",
-    racer.highJumpTimer > 0 ? `${powerupLabel("jump", "HIGH JUMP")} x${racer.highJumpStacks.length}` : "",
+    racer.speedBoostTimer > 0 ? stackLabel(powerupLabel("boost", "BOOST"), racer.speedBoostStacks.length) : "",
+    racer.highJumpTimer > 0 ? stackLabel(racerJumpLabel(racer), racer.highJumpStacks.length) : "",
     racer.moonBootsTimer > 0 ? powerupLabel("jump", "MOON BOOTS") : "",
     racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
   ].filter(Boolean);
@@ -7279,6 +7289,18 @@ function drawRacer(racer) {
 // A coloured ring underfoot for each active power-up, and green speed streaks.
 // Power-up feedback drawn behind her: speed streaks (sparkles and
 // after-images come from updateRacerPowerupEffects). No rings round her shadow.
+// "POGO", or "POGO x2" when she has picked up more than one.
+function stackLabel(label, count) {
+  return count > 1 ? `${label} x${count}` : label;
+}
+
+// What her high jump is called: a pogo stick, the track's own spring, or a
+// plain high jump where the track's jump icon isn't a spring.
+function racerJumpLabel(racer) {
+  if (racer.rideToys?.some(toy => toy.type === "pogo")) return "POGO";
+  return trackJumpIconIsSpring() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
+}
+
 function drawPowerupAura(racer, screenX, scale, mounted) {
   ctx.save();
   if (racer.speedBoostTimer > 0 && racer.moving && !racer.rideToys?.some(toy => toy.type === "skates")) {
