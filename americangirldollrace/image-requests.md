@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §12 EMP trigger icons (E1–E15), §10.3 Kaya follow-through redo (A6), §8 toys for Marisol and remaining §10 doll actions.
+> **Still open:** §10.3 Kaya follow-through redo (A6), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -677,3 +677,5 @@ H1 delivered: complete 680×550 transparent cutout, matching layer position and 
 E1–E5 delivered: new trigger devices checked at native pickup size, with transparent gutters and all four other cells preserved exactly.
 
 E6–E10 delivered: castle gong, starter bell button, wind-up drum plunger, gumdrop button and squeeze-bulb conch. Native pickup review and exact preservation of other cells passed.
+
+E11–E15 delivered: rune button, pumpkin button, lightning plunger, covered laser console and acorn bell button. All fifteen devices reviewed in the game renderer; transparent gutters, alpha and the four untouched cells per strip passed.
