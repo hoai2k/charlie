@@ -681,3 +681,5 @@ E6–E10 delivered: castle gong, starter bell button, wind-up drum plunger, gumd
 E11–E15 delivered: rune button, pumpkin button, lightning plunger, covered laser console and acorn bell button. All fifteen devices reviewed in the game renderer; transparent gutters, alpha and the four untouched cells per strip passed.
 
 Actions delivered for Juliette, Barbie and Cinnamon (nine poses each), with Juliette’s purse retained. A6 Kaya follow-through is corrected, as are Barbie and Cinnamon: the wand now stays in front. Only each corrected follow-through cell changed; the other eight art and mask cells remain exact. Native actions/outfits/mirrors and measured star-origin checks passed.
+
+Felicity and Luna action sheets delivered: all nine poses, outfit masks, wand tips and seated alignment checked; Luna keeps her glasses throughout. Remaining special actions: Marisol only.
