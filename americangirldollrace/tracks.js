@@ -35,7 +35,15 @@
 // Riding rules (Horse Show):
 //   startMounted        everyone rides a horse all race and can use power-ups
 //                       on horseback; a mount pickup swaps in one of
-//                       `mountOdds`' special mounts for a while
+//                       `mountOdds`' special mounts for a while (then back
+//                       to a horse). A troll that grabs a rider leaves her on
+//                       foot and her horse standing there to get back on; two
+//                       spare horses wait at the bottom of the track a third
+//                       and two thirds of the way along.
+// Trolls and mounts (every track): a troll pulls a rider off a horse, pony,
+// pegasus or broomstick, and the mount stays as a pickup with the time it
+// had left. Unicorns and gryphons knock a troll down instead while moving
+// faster than him; standing still (or slower) they can be grabbed too.
 //   trollMount          what trolls ride: an image key (falls back to a
 //                       darkened horse until its sheet is in TRACK_SHARED_ART)
 //   hurdleGapScale      spaces the hurdles further apart
