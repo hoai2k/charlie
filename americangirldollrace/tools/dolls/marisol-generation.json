@@ -1,0 +1,125 @@
+{
+  "j": [
+    {
+      "key": "toy-skating",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three roller-skating movement phases: pushing off with left leg; feet-together glide; pushing off with opposite leg. White quad skate boots, pink wheels. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-f4fe5f78-2498-426e-aca6-49eb2bcc299d.png"
+    },
+    {
+      "key": "toy-skate-actions",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three roller-skating interaction poses: stationary standing balance with skates parallel; one hand thrust forward pushing/throwing, feet balanced; falling backwards toward LEFT with feet forward RIGHT. FALL body and all limb angles exactly match third doll in reference 3, add white quad skate boots pink wheels. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-ec4a5df2-6fb7-40b9-ac3b-3870762dbf8e.png"
+    },
+    {
+      "key": "toy-pogo",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three pogo bounce phases: knees deeply compressed; long extended body; airborne knees tucked. Same red pole, black grips/pegs, silver spring and black tip. Hands actually grip handlebar, feet on pegs. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-882e7935-b9b0-41b9-af48-ce484267977f.png"
+    },
+    {
+      "key": "toy-pogo-actions",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three pogo interaction poses: stationary upright balance hands holding grips; one hand forward push/throw other grips handle; falling backwards LEFT, feet forward RIGHT, exactly match third body pose in reference 3, red silver black pogo tipped beside her, tip no lower than her shoes. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-6383b2cd-04ef-49b7-ac16-7a10d0f8cc82.png"
+    },
+    {
+      "key": "special-wand",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three casting phases with same dark wood wand with gold handle and small gold star at tip: raised high; thrust straight ahead RIGHT at chest height; follow-through swish. Other hand natural. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-a5236071-6279-4ae6-855d-1171a8f46aca.png"
+    },
+    {
+      "key": "special-surf",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three surfing phases on same turquoise board with coral stripe and small fin: crouched balanced arms out; leaning forward carving; wobbling arms windmilling. Board bottom common baseline. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-11292d2c-54e4-4005-8004-ed047ae47f1c.png"
+    },
+    {
+      "key": "special-other",
+      "prompt": "Make a 3:1 horizontal transparent source strip, three equal square cells, one whole Marisol vinyl doll per cell. Reference 1 is the ONLY identity/clothing reference; reference 2 establishes consistent head/body size, reference 3 supplies seated and backward-fall geometry ONLY. Preserve LOWER hairline smaller forehead, rounded warm golden brown vinyl doll face, brown inset eyes, long dark brown wavy rooted hair swept crown, friendly upbeat sporty personality. Navy varsity jacket pink sleeves zipper/ribbing, 06 chest applique, grey pleated skirt with pink detail, white socks pink shoes unless required toy footwear. Three special poses: seated in SAME seated position and scale as FIRST doll in reference 3, one arm thrust forward to push/throw, no mount; feet planted sticky puddle stumble toppling forward arms windmilling, no puddle painted; happy astronaut float arms legs spread wide wearing chunky silver moon boots. All face RIGHT slight three quarter view except explicit backward fall. Same doll anatomy and head size across all cells, crouches/seated bodies naturally shorter never enlarged. Each entire doll/hair/hands/props inside its own cell with generous transparent margins and clear empty gaps. Photographic childlike 18-inch vinyl doll materials, molded hands, sewn miniature fabric, matching existing game sprites. True alpha, clean hair edges, no floor/shadow/glow/matte/pixelated fringe/borders/text labels or extra props. Do not pack a final runtime atlas.",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/idle.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/actions.webp"
+      ],
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-075733dd-3301-40f9-9414-0eec599152b8.png"
+    }
+  ],
+  "normal": [
+    {
+      "key": "idle",
+      "prompt": "Use case: identity-preserve. Approved Marisol doll reference is the SOLE identity/outfit reference. Create MAR1: exactly THREE full-body idle poses in one horizontal3:1 strip with three equal SQUARE cells. Preserve her LOWER hairline/smaller forehead, rounded childlike vinyl doll face, brown inset eyes, warm golden-brown skin, long dark-brown wavy rooted hair and swept-back crown. Sturdy18-inch vinyl play doll proportions, molded hands, miniature sewn fabrics, photo-like painted toy finish; no human-child appearance. Navy jacket with PINK sleeves and zipper, pink-and-white ribbing, pink06 chest applique, grey pleated skirt with pink06 detail, white socks and bright pink shoes. Face RIGHT in a slight three-quarter view. Poses left to right: relaxed neutral standing; small weight shift; warm confident hand-on-hip stance. Friendly upbeat sporty personality. EXACT SAME head/body size, standing height and foot baseline in all3. Full entire doll occupies at most75% of each square with generous empty transparent gaps and outer margins. Compact natural flowing hair, retain lower hairline; no bangs. True transparent empty background, no floor, cast shadow, glow, fog, rectangular matte patches, pixelated hair fringe, labels, cell borders or props. Preserve small06 details. This idle establishes anatomical scale for all future poses."
+    },
+    {
+      "key": "run",
+      "prompt": "Use case: identity-preserve. MAR2: three distinct running phases: extended stride, passing stride, opposite extended stride; arms counter-swing, compact flowing hair. Exactly3 equal SQUARE cells in one horizontal3:1 strip, one complete doll per cell, face RIGHT in a slight three-quarter view. Source references: approved canonical is sole face/outfit identity; idle strip fixes anatomical scale. Preserve her lower hairline/smaller forehead, rounded warm golden-brown vinyl doll face, brown inset eyes, long dark-brown rooted wavy hair and swept-back crown, navy/pink06 jacket, grey06 pleated skirt, white socks and bright pink shoes. Sturdy childlike18-inch toy proportions, miniature sewn fabrics and molded hands, photographic vinyl toy materials. Keep the EXACT same anatomical head, torso and limb sizes as idle reference in every cell, including shorter/seated poses. Do not independently enlarge a pose. Keep hair compact, fingertips and footwear fully inside cells with wide transparent gutters and outer margins. Entire full doll visible, no clipping. True transparent alpha background, no floor, cast shadow, glow, fog, matte patches, pixelated hair fringe, cell borders, labels or extra props. Preserve06 detail and friendly upbeat sporty personality."
+    },
+    {
+      "key": "jump",
+      "prompt": "Use case: identity-preserve. MAR3: takeoff crouch, airborne tuck, landing crouch. Crouches must be physically shorter than standing, with the SAME head/torso/limb sizes as standing reference. Do not enlarge crouches to standing height. Exactly3 equal SQUARE cells in one horizontal3:1 strip, one complete doll per cell, face RIGHT in a slight three-quarter view. Source references: approved canonical is sole face/outfit identity; idle strip fixes anatomical scale. Preserve her lower hairline/smaller forehead, rounded warm golden-brown vinyl doll face, brown inset eyes, long dark-brown rooted wavy hair and swept-back crown, navy/pink06 jacket, grey06 pleated skirt, white socks and bright pink shoes. Sturdy childlike18-inch toy proportions, miniature sewn fabrics and molded hands, photographic vinyl toy materials. Keep the EXACT same anatomical head, torso and limb sizes as idle reference in every cell, including shorter/seated poses. Do not independently enlarge a pose. Keep hair compact, fingertips and footwear fully inside cells with wide transparent gutters and outer margins. Entire full doll visible, no clipping. True transparent alpha background, no floor, cast shadow, glow, fog, matte patches, pixelated hair fringe, cell borders, labels or extra props. Preserve06 detail and friendly upbeat sporty personality."
+    },
+    {
+      "key": "actions",
+      "prompt": "Use case: identity-preserve. MAR4 normal race actions:1 seated rider, knees bent and empty hands reaching forward for reins, no mount;2 braced two-palm push toward RIGHT, knees gently bent and body leaning;3 playful backward fall toward LEFT, arms raised and feet pointing forward RIGHT, torso diagonal about45degrees, surprised face. Exactly3 equal SQUARE cells in one horizontal3:1 strip, one complete doll per cell, face RIGHT in a slight three-quarter view. Source references: approved canonical is sole face/outfit identity; idle strip fixes anatomical scale. Preserve her lower hairline/smaller forehead, rounded warm golden-brown vinyl doll face, brown inset eyes, long dark-brown rooted wavy hair and swept-back crown, navy/pink06 jacket, grey06 pleated skirt, white socks and bright pink shoes. Sturdy childlike18-inch toy proportions, miniature sewn fabrics and molded hands, photographic vinyl toy materials. Keep the EXACT same anatomical head, torso and limb sizes as idle reference in every cell, including shorter/seated poses. Do not independently enlarge a pose. Keep hair compact, fingertips and footwear fully inside cells with wide transparent gutters and outer margins. Entire full doll visible, no clipping. True transparent alpha background, no floor, cast shadow, glow, fog, matte patches, pixelated hair fringe, cell borders, labels or extra props. Preserve06 detail and friendly upbeat sporty personality."
+    },
+    {
+      "key": "menu",
+      "prompt": "Use case: identity-preserve. MAR5 menu:1 friendly wave with one hand;2 joyful cheer with both hands lifted just above shoulder height, knees gently bent;3 relaxed personality idle, friendly sporty poise. Exactly3 equal SQUARE cells in one horizontal3:1 strip, one complete doll per cell, face RIGHT in a slight three-quarter view. Source references: approved canonical is sole face/outfit identity; idle strip fixes anatomical scale. Preserve her lower hairline/smaller forehead, rounded warm golden-brown vinyl doll face, brown inset eyes, long dark-brown rooted wavy hair and swept-back crown, navy/pink06 jacket, grey06 pleated skirt, white socks and bright pink shoes. Sturdy childlike18-inch toy proportions, miniature sewn fabrics and molded hands, photographic vinyl toy materials. Keep the EXACT same anatomical head, torso and limb sizes as idle reference in every cell, including shorter/seated poses. Do not independently enlarge a pose. Keep hair compact, fingertips and footwear fully inside cells with wide transparent gutters and outer margins. Entire full doll visible, no clipping. True transparent alpha background, no floor, cast shadow, glow, fog, matte patches, pixelated hair fringe, cell borders, labels or extra props. Preserve06 detail and friendly upbeat sporty personality."
+    }
+  ],
+  "refinements": [
+    {
+      "key": "run",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/run.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp"
+      ],
+      "prompt": "Refine this transparent 3:1 three-cell vinyl doll source strip. Keep first two cells exactly. Replace ONLY third cell with the OPPOSITE running stride: the far leg reaches forward RIGHT with the near leg trailing back LEFT, opposite arm forward, contrasting the first cell. Keep exactly the same head size and doll anatomy. Preserve approved Marisol lower hairline warm golden-brown vinyl face, brown eyes, navy/pink 06 varsity jacket, grey pleated skirt and pink shoes, long dark wavy hair, miniature fabrics. Preserve identity, clean true alpha and all existing generous margins. All figures wholly inside own cell with no clipping, no background or cast shadow. Do not enlarge crouches.",
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-f99a45ea-078f-44f3-a757-39ef50c884d2.png"
+    },
+    {
+      "key": "toy-skating",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/toy-skating.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp"
+      ],
+      "prompt": "Refine this transparent 3:1 three-cell vinyl doll source strip. Keep first two cells exactly. Replace ONLY third cell with opposite skate push-off: swap which near/far leg is forward supporting and which is pushing back, and reverse arm swing, so it is distinct from first cell. White quad boots pink wheels. Preserve approved Marisol lower hairline warm golden-brown vinyl face, brown eyes, navy/pink 06 varsity jacket, grey pleated skirt and pink shoes, long dark wavy hair, miniature fabrics. Preserve identity, clean true alpha and all existing generous margins. All figures wholly inside own cell with no clipping, no background or cast shadow. Do not enlarge crouches.",
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-cb93063b-df70-4c05-8a1f-7d0059a42c31.png"
+    },
+    {
+      "key": "special-other",
+      "refs": [
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/special-other.webp",
+        "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp"
+      ],
+      "prompt": "Refine this transparent 3:1 three-cell vinyl doll source strip. Keep first seated throw and third moon boots float exactly. Replace ONLY middle cell with sticky stumble: BOTH shoes planted on the same ground baseline, body tilting forward RIGHT, arms windmilling in surprise. No running, no foot raised, no puddle. Preserve approved Marisol lower hairline warm golden-brown vinyl face, brown eyes, navy/pink 06 varsity jacket, grey pleated skirt and pink shoes, long dark wavy hair, miniature fabrics. Preserve identity, clean true alpha and all existing generous margins. All figures wholly inside own cell with no clipping, no background or cast shadow. Do not enlarge crouches.",
+      "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-9afb891d-60c4-4c51-8540-86b2bac25fdc.png"
+    }
+  ]
+}

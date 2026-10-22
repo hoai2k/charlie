@@ -1,9 +1,12 @@
 # Marisol refresh — queued for the image agent
 
-Status: **OPEN — ready for generation, October 21, 2026.**
+Status: **SOURCE ART GENERATED — runtime integration and game review in progress, October 22, 2026.**
 The owner approved the new Marisol with the lower hairline and requested
 clean hair edges. This round replaces her old identity across the sprite set.
-This is a generation handoff; no sprites have been generated or installed yet.
+MAR1–MAR7 sources and exact prompts are now retained in the repository.
+Normal/menu art has been packed and reviewed on cream/navy; companion toy
+and special-action exports are being calibrated. Runtime registration and
+browser acceptance remain open; do not generate another identity from old art.
 All paths below are relative to `americangirldollrace/`.
 
 ## Identity reference and invariants
