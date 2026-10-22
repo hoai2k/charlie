@@ -890,11 +890,11 @@ function loadArtOnce(key, src) {
 function preloadTrackArt(background) {
   if (!background) return;
   const theme = getTrackTheme(background);
-  for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp`);
+  for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp${file === "powerups" ? "?v=" + (window.GAME_CONFIG?.powerupArtVersion || "1") : ""}`);
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
-  if (pogoEligible(background)) loadArtOnce(trackArtKey("town", "powerups"), "assets/tracks/town/powerups.webp");
+  if (pogoEligible(background)) loadArtOnce(trackArtKey("town", "powerups"), `assets/tracks/town/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
   if (theme.monster && (window.TRACK_SHARED_ART || []).includes(theme.monster)) {
     loadArtOnce(theme.monster, `assets/${theme.monster}_sprites.webp`);
   }

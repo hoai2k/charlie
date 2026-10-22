@@ -673,3 +673,5 @@ Acceptance: on the title screen Hermione's pegasus sits where Claudia's was,
 in front of the sky and behind Juliette, and bobs with the group.
 
 H1 delivered: complete 680×550 transparent cutout, matching layer position and animation. Checked over cream/navy and on the title screen; all other layout values are unchanged. Original Claudia cutout archived under `tools/imagegen/hermione-hero/`; original composite retained.
+
+E1–E5 delivered: new trigger devices checked at native pickup size, with transparent gutters and all four other cells preserved exactly.

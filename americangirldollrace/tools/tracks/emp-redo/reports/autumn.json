@@ -1,0 +1,22 @@
+{
+  "key": "autumn",
+  "path": "assets/tracks/autumn/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    23,
+    12,
+    232,
+    244
+  ],
+  "unchanged": {
+    "0": "d2c262571b106199146289476213a4440e6f36ebee62291126f34742693d5574",
+    "1": "a6a13bfd05c37956b4384ebb9af4aac66d15c4b3ee1841459142309d729d7a67",
+    "3": "d5be8f56721ce2db64ec0dad3f84c29edf1984c32333fcd528948736c37dad52",
+    "4": "05e592351f024601905b3773c191b1ceda8db0ec21ec3e969fe313cddbfeac8e"
+  },
+  "sha256": "0fe46c2f6d7684a5757a4ee400dc81a96602463b50265967f2ac3c84fc06ec18"
+}

@@ -1,0 +1,22 @@
+{
+  "key": "toyroom",
+  "path": "assets/tracks/toyroom/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    12,
+    30,
+    244,
+    226
+  ],
+  "unchanged": {
+    "0": "36a43483aed09e993508b42acb29f8bf5365b938fec3a350f7d07101c36a7f6b",
+    "1": "bd613ac085e7e3e6e6f873a2d1504b0bd401a70163dd0e02201fd1bebb7143be",
+    "3": "a6b65b0af4e8e06ddb4b2bb82e318fb3ea751e5ff6786dfd1627ed33c529bd75",
+    "4": "de6a275d0192d130be2b9e1fb130e607a4c0ebc1bd20a134001e0cd4490c7959"
+  },
+  "sha256": "49e333e537792b2b6562c810b183967d4d06d4b2c54f1abef6c8bb3f5e9af2fa"
+}

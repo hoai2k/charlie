@@ -1,0 +1,22 @@
+{
+  "key": "festival",
+  "path": "assets/tracks/festival/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    14,
+    12,
+    242,
+    244
+  ],
+  "unchanged": {
+    "0": "0d96e70278d5553053ed86bbfcd2936fbf7ed41f27d481024b94e1d9fc98b9f2",
+    "1": "b9e6ef80d40953b4e3b5e7727162139240c945a976e81b0489bd03eee7220418",
+    "3": "7fed32f4834bfeee3f15a65438040c04a21d5cf5acfb0916eb96b58ccac6e332",
+    "4": "14f2bbc05bd421a7188f691066ad054295130b3a6210929f91f381877bdf82e6"
+  },
+  "sha256": "5880ca020b72d173c618429b21e2f8f03327d99e7640cc730d2704279fcd4d7b"
+}

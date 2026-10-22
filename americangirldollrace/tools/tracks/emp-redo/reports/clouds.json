@@ -1,0 +1,22 @@
+{
+  "key": "clouds",
+  "path": "assets/tracks/clouds/powerups.webp",
+  "size": [
+    1280,
+    256
+  ],
+  "cell": 2,
+  "bounds": [
+    29,
+    12,
+    227,
+    244
+  ],
+  "unchanged": {
+    "0": "a6bc069d25dbbd1e67ddb83725c7c334e70ca4cfbf15ca6ccd07b363d7830157",
+    "1": "ec77586140bf13c434dba31a4bf839c8eb082bb30a36dcce30c6c5bae7003dda",
+    "3": "cf95aaa5778e764a55400ba734cd6c5d1f86b6c3d322ae51d0ed1c74a00ecd70",
+    "4": "48daab3bcfd8b27df4771b5096332253f183e972b15af8ff625d42cdc669b415"
+  },
+  "sha256": "a01baa4aea82ee6f0b938e7378b9ae035a229ff0114ff5af9dbeef2c68943eb8"
+}
