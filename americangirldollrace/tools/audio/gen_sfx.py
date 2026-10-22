@@ -32,6 +32,8 @@ SOUNDS = {
     # Beach ball
     'beachball_kick': ('Kicking an inflatable plastic beach ball, a hollow springy thwack, outdoors on a beach', 0.5, 3),
     'beachball_bounce': ('An inflatable beach ball bouncing once on soft sand, a light hollow plasticky bop', 0.4, 3),
+    # Water balloons (tracks.js projectileBurst: "water")
+    'water_balloon_burst': ('A rubber water balloon bursting with a quick wet pop and a splash of water, cartoon, playful children\'s game', 0.7, 3),
     # Sticky puddles
     'sticky_squelch': ('Feet stepping into a thick gooey sticky puddle of honey, a wet slow squelch, cartoon', 0.8, 2),
     # Horse Show trolls
