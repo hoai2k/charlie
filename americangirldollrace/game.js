@@ -947,6 +947,12 @@ function isAlwaysMountedTrack() {
   return Boolean(getTrackTheme().startMounted);
 }
 
+// Whether this racer can pick up and use power-ups: on foot, anywhere riders
+// may (Horse Show, Horsing Around), or on a broomstick, which she runs with.
+function canRacerUsePowerups(racer) {
+  return !isMounted(racer) || canMountedRacersUsePowerups() || racer.horseType === "broom";
+}
+
 function canMountedRacersUsePowerups() {
   return isHorsingAroundMode() || isAlwaysMountedTrack();
 }
@@ -2273,7 +2279,7 @@ function update(dt) {
     }
     if (racer.playerIndex === 0) updateTouchControlsVisibility();
 
-    const boostMult = !mounted || canMountedRacersUsePowerups() ? getBoostMultiplier(racer) : 1;
+    const boostMult = canRacerUsePowerups(racer) ? getBoostMultiplier(racer) : 1;
     const runSpeed = mounted ? (racer.ai ? HORSE_AI_RUN_SPEED : HORSE_RUN_SPEED) : (racer.ai ? AI_RUN_SPEED : PLAYER_RUN_SPEED);
     let forward = input.horizontal * runSpeed * boostMult;
     if (oilAffectsRacer) {
@@ -2378,7 +2384,7 @@ function update(dt) {
     for (const powerup of state.powerups) {
       if (powerup.taken) continue;
       if (isPowerupDropping(powerup)) continue;
-      if (isMounted(racer) && !canMountedRacersUsePowerups()) continue;
+      if (!canRacerUsePowerups(racer)) continue;
       if (racer.ai && racer.x > getHumanLeadX()) continue;
       const reachX = powerup.loose ? LOOSE_MOUNT_PICKUP_X : 34;
       const close = Math.abs(racer.x - powerup.x) < reachX && Math.abs(racer.y + 54 - powerup.y) < 34 && racer.z < 80;
@@ -2695,7 +2701,7 @@ function getJumpPower(racer) {
 
 function getHorseJumpPower(racer) {
   if (racer.moonBootsTimer > 0) return HORSE_JUMP_POWER * MOON_BOOTS_JUMP_SCALE;
-  if (!canMountedRacersUsePowerups()) return HORSE_JUMP_POWER;
+  if (!canRacerUsePowerups(racer)) return HORSE_JUMP_POWER;
   const stacks = racer.highJumpStacks.length;
   return stacks > 0 ? HORSE_JUMP_POWER * (1 + stacks * 0.35) : HORSE_JUMP_POWER;
 }
@@ -3186,7 +3192,7 @@ function isMounted(racer) {
 }
 
 function canMountedRacerThrowSnowballs(racer) {
-  return canMountedRacersUsePowerups() && isMounted(racer) && racer.horseType !== "unicorn" && racer.snowballs > 0;
+  return canRacerUsePowerups(racer) && isMounted(racer) && racer.horseType !== "unicorn" && racer.snowballs > 0;
 }
 
 function isMonsterEmpTarget(monster) {
