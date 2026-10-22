@@ -212,8 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §11 run-cycle redos for
-> Felicity, Claudia and Barbie (RC1–RC3), §8 toys for Marisol and remaining §10 doll actions.
+> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -575,7 +574,13 @@ and the cars drive along the ground.
 
 ---
 
-## 11. Run-cycle redos: Felicity, Claudia and Barbie (open)
+## 11. Delivered run-cycle redos: Felicity, Claudia and Barbie
+
+RC1–RC3 are delivered and reviewed at race speed beside Rumi, in both
+directions and alternate outfits. Only each run row and its mask changed;
+the other nine image and nine mask cells are pixel-identical. Measured source
+hip pivots, updated broom carry hands, narrow-footprint checks and screenshots
+are retained in `tools/dolls/run-redo/`.
 
 A doll's run (sprite sheet row 2, three cells) plays as a loop. For it to read
 as running, the three cells must be **(1) a stride with one leg forward,

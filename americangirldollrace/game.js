@@ -462,7 +462,7 @@ const images = {
   monster: loadImage("assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp"),
-  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp`)])),
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`)])),
 };
 
 const jumpSpriteScale = {

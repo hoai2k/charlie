@@ -56,53 +56,53 @@
     },
     "run-0": {
       "bounds": [
-        46,
-        25,
-        338,
+        20,
+        17,
+        370,
         409
       ],
       "scale": 0.5571428571428572,
       "anchor": [
-        209.0,
+        209,
         409
       ],
       "sourceAnchor": [
-        455,
-        698
+        480,
+        712
       ]
     },
     "run-1": {
       "bounds": [
-        68,
-        19,
-        313,
+        65,
+        17,
+        298,
         409
       ],
       "scale": 0.5571428571428572,
       "anchor": [
-        209.0,
+        209,
         409
       ],
       "sourceAnchor": [
-        339,
-        708
+        313,
+        712
       ]
     },
     "run-2": {
       "bounds": [
-        75,
-        24,
-        355,
+        44,
+        17,
+        362,
         409
       ],
       "scale": 0.5571428571428572,
       "anchor": [
-        209.0,
+        209,
         409
       ],
       "sourceAnchor": [
-        372,
-        700
+        411,
+        713
       ]
     },
     "jump-0": {
@@ -273,8 +273,8 @@
     }
   },
   "sha256": {
-    "assets/doll_felicity_sprites.webp": "84536fd256561cef7e807ff28edf12e37d7946fbe0c31c68ec2035b5230e64c9",
-    "assets/masks/felicity_sheet_mask.webp": "68522d3a98ae0fb3a7a945b7d3109c54cab461801c807d8ab3ca3321780a231c",
+    "assets/doll_felicity_sprites.webp": "1ae711c9d8d64dba71b31be9bed1641fdb5c6645ea692db9f25d3f15ebce4c28",
+    "assets/masks/felicity_sheet_mask.webp": "f3f5186581a9e148ce9ef6dc74247f70a8a8a02c3f8c138a8588032e991ce882",
     "assets/portraits/felicity.webp": "a921387fb06508c1b9c9a95135a4853462407ade09505ac43d6f1e4031a62a90",
     "assets/masks/felicity_portrait_mask.webp": "d7a83244c52e17610ccac78a8b79dfedb5788ef8c98c22b859d9b0a00fd986cd",
     "assets/portraits/felicity_wave.webp": "a6ffee4a34250d9140a9afab80fd952da93538d7517e5f1f5d6385a24152bc99",

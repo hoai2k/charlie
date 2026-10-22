@@ -1,0 +1,28 @@
+[
+  {
+    "key": "felicity",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/felicity/run.webp",
+      "/private/tmp/accepted-run-reference.webp"
+    ],
+    "prompt": "Redraw reference 1 as a proper three-phase RUN CYCLE for the same 18-inch vinyl doll, same face hair sewn outfit and shoes. Three equal square cells on horizontal 3:1 transparent source strip. Reference 2 is pose timing only; COPY its strong stride/passing/stride contrast, do not copy its identity or clothes. Cell1 wide running stride, NEAR leg extends forward RIGHT, far leg trails back LEFT. Cell2 essential passing pose: near leg straight down planted DIRECTLY UNDER HIP, other knee bent passing it with lifted shoe close to planted calf. Both feet occupy a NARROW footprint under torso, NOT a wide stride. Cell3 OPPOSITE stride: NEAR leg extends back LEFT, far leg reaches forward RIGHT. Counter-swing arms through cycle. Same doll anatomy and head size in all3; allfeet at common baseline. Green inset eyes, long chestnut hair half-up with bangs, white floral puff-sleeve blouse pink placket, dark blue wide jeans pink bows, PINK platform boots, adventurous energy. Entirefigure, allhair, hands andfootwear inside each owncell with generousemptytransparentmargins. Clean alpha hair edges, no floor, shadows, matte, labels, gridlines, extra props. Match existing asset aesthetic exactly.",
+    "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-37fb5c91-f03f-4b8d-9a48-c517698496c5.png"
+  },
+  {
+    "key": "claudia",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/claudia/run.webp",
+      "/private/tmp/accepted-run-reference.webp"
+    ],
+    "prompt": "Redraw reference 1 as a proper three-phase RUN CYCLE for the same 18-inch vinyl doll, same face hair sewn outfit and shoes. Three equal square cells on horizontal 3:1 transparent source strip. Reference 2 is pose timing only; COPY its strong stride/passing/stride contrast, do not copy its identity or clothes. Cell1 wide running stride, NEAR leg extends forward RIGHT, far leg trails back LEFT. Cell2 essential passing pose: near leg straight down planted DIRECTLY UNDER HIP, other knee bent passing it with lifted shoe close to planted calf. Both feet occupy a NARROW footprint under torso, NOT a wide stride. Cell3 OPPOSITE stride: NEAR leg extends back LEFT, far leg reaches forward RIGHT. Counter-swing arms through cycle. Same doll anatomy and head size in all3; allfeet at common baseline. Dark brown skin, dark curly hair magenta bow/headband, magenta satin dance dress black ruffles, SILVER Mary Jane shoes, springy dancer personality. Entirefigure, allhair, hands andfootwear inside each owncell with generousemptytransparentmargins. Clean alpha hair edges, no floor, shadows, matte, labels, gridlines, extra props. Match existing asset aesthetic exactly.",
+    "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-b6f0543e-99f3-4105-b8ab-0dabd9789dcc.png"
+  },
+  {
+    "key": "barbie",
+    "refs": [
+      "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/barbie/run.webp"
+    ],
+    "prompt": "Edit this transparent 3:1 three-cell Barbie vinyl doll running strip. Preserve exact identity face blonde curly ponytail sunglasses on forehead, black white chevron swimsuit and black slides. Make a clear full run cycle. Cell1 near leg stretched forward right, farleg back. Cell2 MUST be a true narrow PASSING pose: one leg straight DOWN directly under her hip, other foot lifted BESIDE that ankle/calf, feet almost together horizontally, NOT another stride. Cell3 reverse first stride: near leg stretched behind LEFT, farleg forward RIGHT, arms counter-swing opposite first. Distinctly alternate arm/leg forward sides while facing right in all3. Same head/body sizes, source standingheight and transparent margins. Wholehands feet hair withinowncell. True transparent background, no castshadow, floor or props.",
+    "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-f610685a-dab2-478b-80bc-aad97b022163.png"
+  }
+]
