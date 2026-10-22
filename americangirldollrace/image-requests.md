@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §12 EMP trigger icons (E1–E15), §11 run-cycle redos for
+> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §11 run-cycle redos for
 > Felicity, Claudia and Barbie (RC1–RC3), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
@@ -635,3 +635,28 @@ propose a better one in the commit).
 
 Acceptance: at pickup size in game, each one reads as "press or pull this"
 at a glance, and still fits its track's look next to the other four cells.
+
+---
+
+## 13. Title screen: Hermione on the pegasus (open)
+
+Claudia has a new outfit (`claudia-v2`), so the title screen's pegasus rider
+(`assets/ui/title_hero_claudia.webp`, old mint-and-gingham Claudia) is out of
+date. Put **Hermione** on the pegasus instead.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| H1 | `assets/ui/title_hero_hermione.webp` | 680×550, alpha | Hermione riding the same white pegasus, in the same style, lighting, scale and pose as `title_hero_claudia.webp`: wings raised, galloping right in the air, the whole tail and all four legs visible, small transparent margin. Hermione as on her sprite sheet (`doll_hermione_sprites.webp`, portrait `portraits/hermione_ride.webp`): wavy brown hair, grey school jumper over a white shirt and tie, grey pleated skirt, grey knee socks and black school shoes, seated and holding the reins (§4: the same clothes as her other art). Rider and pegasus are one cutout so they move together. No ground shadow, text or other subjects. |
+
+Integration, in the same commit:
+- In `assets/ui/title_hero_layout.json`, change the first layer's `key` to
+  `"hermione"` and `file` to `"title_hero_hermione.webp"`. Keep its x, y,
+  size and animation values (the new cutout matches the old one's frame).
+- In `index.html`, preload `title_hero_hermione.webp` instead of
+  `title_hero_claudia.webp`, and bump the `?v=` on
+  `title_hero_layout.json` in `menu.js`.
+- Remove `title_hero_claudia.webp` once nothing references it (the original
+  `title_hero.webp` composite stays as the fallback).
+
+Acceptance: on the title screen Hermione's pegasus sits where Claudia's was,
+in front of the sky and behind Juliette, and bobs with the group.
