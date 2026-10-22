@@ -61,7 +61,7 @@
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
-window.RIDE_TOY_ART_VERSION = "20261021-fall-v3";
+window.RIDE_TOY_ART_VERSION = "20261021-purse-v1";
 window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "barbie", "cinnamon", "felicity", "luna"];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {

@@ -35,9 +35,9 @@
   "frames": [
     {
       "bounds": [
-        44,
+        38,
         16,
-        355,
+        351,
         409
       ],
       "scale": 1.3724137931034484,
@@ -45,13 +45,18 @@
       "anchorX": 225,
       "sourcePivot": 126.0,
       "targetPivot": 209,
-      "sourceChin": 148.0
+      "sourceChin": 148.0,
+      "purseRedo": {
+        "sourceScale": 1.1558823529411764,
+        "sourcePivot": 154.0,
+        "targetPivot": 210.0
+      }
     },
     {
       "bounds": [
-        66,
+        96,
         12,
-        345,
+        380,
         409
       ],
       "scale": 1.3724137931034484,
@@ -59,13 +64,18 @@
       "anchorX": 225,
       "sourcePivot": 109.0,
       "targetPivot": 209,
-      "sourceChin": 150.0
+      "sourceChin": 150.0,
+      "purseRedo": {
+        "sourceScale": 1.1574344023323615,
+        "sourcePivot": 128.0,
+        "targetPivot": 238.0
+      }
     },
     {
       "bounds": [
-        37,
+        64,
         19,
-        325,
+        354,
         409
       ],
       "scale": 1.3724137931034484,
@@ -73,13 +83,18 @@
       "anchorX": 225,
       "sourcePivot": 130.0,
       "targetPivot": 209,
-      "sourceChin": 147.0
+      "sourceChin": 147.0,
+      "purseRedo": {
+        "sourceScale": 1.1538461538461537,
+        "sourcePivot": 142.0,
+        "targetPivot": 222.0
+      }
     },
     {
       "bounds": [
-        59,
+        62,
         7,
-        323,
+        329,
         409
       ],
       "scale": 1.3724137931034484,
@@ -87,7 +102,12 @@
       "anchorX": 225,
       "sourcePivot": 114.0,
       "targetPivot": 209,
-      "sourceChin": 152.0
+      "sourceChin": 152.0,
+      "purseRedo": {
+        "sourceScale": 1.1551724137931034,
+        "sourcePivot": 132.0,
+        "targetPivot": 209.0
+      }
     },
     {
       "bounds": [
@@ -130,7 +150,7 @@
     },
     {
       "bounds": [
-        36,
+        38,
         11,
         295,
         409
@@ -140,11 +160,16 @@
       "anchorX": 225,
       "sourcePivot": 131.0,
       "targetPivot": 209,
-      "sourceChin": 150.0
+      "sourceChin": 150.0,
+      "purseRedo": {
+        "sourceScale": 1.1469740634005763,
+        "sourcePivot": 153.5,
+        "targetPivot": 208.5
+      }
     },
     {
       "bounds": [
-        46,
+        44,
         7,
         296,
         409
@@ -154,13 +179,18 @@
       "anchorX": 225,
       "sourcePivot": 124.0,
       "targetPivot": 209,
-      "sourceChin": 133.0
+      "sourceChin": 133.0,
+      "purseRedo": {
+        "sourceScale": 1.151862464183381,
+        "sourcePivot": 148.5,
+        "targetPivot": 209.0
+      }
     },
     {
       "bounds": [
-        26,
+        27,
         11,
-        287,
+        290,
         409
       ],
       "scale": 1.3724137931034484,
@@ -168,13 +198,18 @@
       "anchorX": 225,
       "sourcePivot": 138.0,
       "targetPivot": 209,
-      "sourceChin": 136.0
+      "sourceChin": 136.0,
+      "purseRedo": {
+        "sourceScale": 1.153623188405797,
+        "sourcePivot": 163.0,
+        "targetPivot": 209.0
+      }
     },
     {
       "bounds": [
-        45,
+        44,
         5,
-        291,
+        292,
         409
       ],
       "scale": 1.2825396825396826,
@@ -182,7 +217,12 @@
       "anchorX": 225,
       "sourcePivot": 133.0,
       "targetPivot": 209,
-      "sourceChin": 144.0
+      "sourceChin": 144.0,
+      "purseRedo": {
+        "sourceScale": 1.1542857142857144,
+        "sourcePivot": 148.0,
+        "targetPivot": 209.5
+      }
     },
     {
       "bounds": [
@@ -224,5 +264,5 @@
       "packedScale": 0.8809661266568483
     }
   ],
-  "sha256": "081659324fc9d77bcf76b70b22739d8d1f2cd4ad209ece3e9b1d6389fc745a58"
+  "sha256": "e0dee296508578b0be4b99ab1325fd86594e1897466429ce072d921966c84a95"
 }

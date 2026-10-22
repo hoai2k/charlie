@@ -1,0 +1,8 @@
+{
+  "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-d2e26299-cc21-4035-a200-1e58c6cda849.png",
+  "prompt": "Edit reference 1's 3-column 4-row transparent vinyl-doll toy atlas. ONLY add Juliette's small GOLD CRESCENT-MOON PURSE with large SILVER FIVE-POINT STAR and thin gold strap, exactly the design/relative size in reference 2. Add it in EIGHT CELLS: row1 all3 skating phases and row2 col1 stationary skate; row3 all3 pogo phases and row4 col1 pogo balance. On skates the purse hangs from her rear wrist beside skirt. On pogo it hangs by strap at hip so both hands still grip handlebar. Keep purse at same relative body scale as normal reference2. Do NOT add it to either push/throw cell (row2 col2 and row4 col2), and keep existing fall cells unchanged (row2 col3 and row4 col3). All other pixels, doll face hair anatomy clothing positions and props must remain unchanged. Preserve exact atlas dimensions/aspect, transparent background, margin and cell registration. No scenery, text, extra purses or shadows.",
+  "references": [
+    "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/assets/doll_juliette_toys.webp",
+    "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/assets/doll_juliette_sprites.webp"
+  ]
+}

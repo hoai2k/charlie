@@ -92,7 +92,7 @@ def mask_for(cell,key,chin):
     return Image.fromarray(out)
 
 
-def full_cells(src,rows=4):
+def full_cells(src,rows=4,required_slots=None):
     # Assign disconnected prop pieces to the closest atlas slot, then crop
     # whole components. This preserves poses that extend past a nominal grid
     # line without cutting their hair, hand or pogo tip into the next slot.
@@ -113,12 +113,17 @@ def full_cells(src,rows=4):
     for slot in range(rows*3):
         pixels=a.copy();pixels[assigned!=slot+1,3]=0
         cell=Image.fromarray(pixels);b=packing.bounds(cell);assert b,(slot,'empty source pose')
-        assert b[0]>0 and b[1]>0 and b[2]<src.width and b[3]<src.height,(slot,'source clips outer edge',b)
+        if required_slots is None or slot in required_slots:
+            assert b[0]>0 and b[1]>0 and b[2]<src.width and b[3]<src.height,(slot,'source clips outer edge',b)
         cells.append(cell.crop((max(0,b[0]-5),max(0,b[1]-5),min(src.width,b[2]+5),min(src.height,b[3]+5))))
     return cells
 
 
 def build(key):
+    if key == 'juliette' and (HERE/'purse-redo/source.webp').exists():
+        spec=importlib.util.spec_from_file_location('juliette_purse_redo',HERE/'purse-redo/build.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        return json.loads((HERE/'reports/juliette.json').read_text())
     if key in ['lily','mira','hermione'] and (HERE/'fall-redo'/f'{key}-sheet-before.webp').exists():
         import redo_falls
         redo_falls.run([key])

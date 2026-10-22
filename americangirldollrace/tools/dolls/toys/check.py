@@ -24,3 +24,11 @@ if verification.exists():
    im=Image.open(path).convert('RGBA' if kind=='sheet' else 'RGB');x=n%3*418;y=n//3*418
    assert hashlib.sha256(im.crop((x,y,x+418,y+418)).tobytes()).hexdigest()==expected,(key,'Unrelated cell changed',token)
  print('Trial fall redo: all other 60 image/mask cells pixel-identical')
+
+verification=HERE/'purse-redo/verification.json'
+if verification.exists():
+ for token,expected in json.loads(verification.read_text()).items():
+  kind,n=token.split(':');n=int(n);p=GAME/('assets/doll_juliette_toys.webp' if kind=='sheet' else 'assets/masks/juliette_toys_mask.webp')
+  im=Image.open(p).convert('RGBA' if kind=='sheet' else 'RGB');x=n%3*418;y=n//3*418
+  assert hashlib.sha256(im.crop((x,y,x+418,y+418)).tobytes()).hexdigest()==expected,token
+ print('Juliette purse redo: both push and both fall cells remain pixel-identical')

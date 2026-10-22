@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
 > **Still open:** §11 run-cycle redos for Felicity, Claudia and Barbie (RC1–RC3),
-> §8.0.2 Juliette purse redo (K4), §8 toys for Marisol and remaining §10 doll actions.
+> §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -438,7 +438,12 @@ normal falls during a race, so they should match.
 | --- | --- | --- | --- |
 | K3 | `assets/doll_{lily,mira,hermione}_toys.webp` and their masks | Row 2 cell 3 (skate fall) and row 4 cell 3 (pogo fall) only | Redraw each to match that doll's normal fall (`doll_<key>_sprites.webp` row 4 cell 3): the same tilt, arm and leg positions and place in the frame, with the skates on, or with the stick tipping away. Keep every other cell pixel-identical and update the masks to match. |
 
-### 8.0.2 Open redo: Juliette's purse (K4)
+### 8.0.2 Delivered redo: Juliette's purse (K4)
+
+K4 is delivered and reviewed in game, including alternate colours and both directions.
+Only the eight requested cells changed; both pushes and both falls remain
+decoded-pixel-identical. Sources, overrides and checks are in
+`tools/dolls/toys/purse-redo/`.
 
 Juliette's sprite sheet shows her gold crescent-moon purse in every pose
 except the push/throw frame (row 4 cell 2). Her toy sheet drops it from
