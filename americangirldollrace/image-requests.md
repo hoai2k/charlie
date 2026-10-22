@@ -552,7 +552,7 @@ only once it's listed.
 | A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
 
 Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
-**Trial delivered and reviewed:** Hermione, Lily and Mira. The remaining roster is still open. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
+**Delivered and reviewed:** Hermione, Lily, Mira, Whirlpool, Claudia and Kaya. The remaining roster is still open. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
 
 | Row | Frames (left to right) |
 | --- | --- |
