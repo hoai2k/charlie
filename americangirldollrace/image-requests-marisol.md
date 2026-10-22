@@ -105,3 +105,15 @@ Register versioned sheets/anchors only after review; do not register missing art
 If this agent is handling generation only, leave reviewed sources, prompts and
 a clear completion checklist for the integration agent. Do not mark runtime
 integration or browser validation complete until someone has performed them.
+
+## Delivery
+
+MAR1–MAR7 delivered and integrated as `marisol-v2`: normal/menu, twelve toy
+poses and nine special actions share the approved identity. Standing height,
+409 baseline, anatomical scale, masks, alpha, hair edges, source margins,
+measured hands and mount seating passed deterministic checks. Native browser
+review covered normal/outfit art, menu/wave/cheer, toys, actions, horseback,
+gryphon and broom carry/flight with mirrored alignment. The legacy switch was
+checked in browser and migration tests; all ten original files and original
+outfit statistics remain byte-identical. Builders, prompts, sources,
+calibration and review evidence are committed with the assets.

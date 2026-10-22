@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §8 toys for Marisol and remaining §10 doll actions.
+> **Current queue:** all listed image requests delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -683,3 +683,5 @@ E11–E15 delivered: rune button, pumpkin button, lightning plunger, covered las
 Actions delivered for Juliette, Barbie and Cinnamon (nine poses each), with Juliette’s purse retained. A6 Kaya follow-through is corrected, as are Barbie and Cinnamon: the wand now stays in front. Only each corrected follow-through cell changed; the other eight art and mask cells remain exact. Native actions/outfits/mirrors and measured star-origin checks passed.
 
 Felicity and Luna action sheets delivered: all nine poses, outfit masks, wand tips and seated alignment checked; Luna keeps her glasses throughout. Remaining special actions: Marisol only.
+
+Marisol’s §8 toys and §10 special actions delivered with the complete approved `marisol-v2` identity; see `image-requests-marisol.md`. All fifteen dolls now have registered toy and special-action sheets.

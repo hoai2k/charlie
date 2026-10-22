@@ -121,5 +121,14 @@
       "prompt": "Refine this transparent 3:1 three-cell vinyl doll source strip. Keep first seated throw and third moon boots float exactly. Replace ONLY middle cell with sticky stumble: BOTH shoes planted on the same ground baseline, body tilting forward RIGHT, arms windmilling in surprise. No running, no foot raised, no puddle. Preserve approved Marisol lower hairline warm golden-brown vinyl face, brown eyes, navy/pink 06 varsity jacket, grey pleated skirt and pink shoes, long dark wavy hair, miniature fabrics. Preserve identity, clean true alpha and all existing generous margins. All figures wholly inside own cell with no clipping, no background or cast shadow. Do not enlarge crouches.",
       "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-9afb891d-60c4-4c51-8540-86b2bac25fdc.png"
     }
-  ]
+  ],
+  "passingPoseRefinement": {
+    "path": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-aa572f8a-d28e-46c3-8236-6317e5dcc575.png",
+    "prompt": "Refine reference 1's transparent three-cell Marisol vinyl doll RUN strip. Keep first and third extended-stride cells unchanged. ONLY replace the MIDDLE leg/arm phase with a true narrow PASSING pose like reference 2's middle cell: one leg is straight VERTICAL directly beneath her HIP, planted shoe directly under her centre, the other knee bends so its lifted shoe passes BESIDE that planted calf/ankle. Both shoes should be very close horizontally under torso, not reaching forward into a stride. This is not a shorter wide stride. Counter-swing arms for passing. Keep Marisol's same sturdy childlike vinyl doll body/head size, lower hairline, warm golden-brown skin, dark wavy rooted hair, navy/pink 06 varsity jacket, grey pleated skirt, white socks and bright pink shoes (reference 3 sole identity). Copy only the leg-pose idea from reference2, never Barbie's body or outfit. Preserve face-right view, source height, clean alpha, cell margins and spacing, same foot baseline. Entire hair/hands/feet inside each cell, no floor, shadows, scenery, labels or extra props.",
+    "references": [
+      "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/run.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/barbie/run.webp",
+      "/Volumes/BACKUP/Backup/Games/charlie/americangirldollrace/tools/dolls/sources/marisol/canonical.webp"
+    ]
+  }
 }

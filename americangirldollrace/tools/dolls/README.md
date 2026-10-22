@@ -228,3 +228,18 @@ carrying and flight in both directions, gryphon seating, and the old-art switch.
 seated rider, skate push and pogo push frames and writes `../../hands.js`.
 Snowballs start from that hand. Re-run it after adding a doll or a toys
 sheet.
+
+## Marisol version 2
+
+Marisol now uses the approved lower-hairline canonical across normal, menu, toy
+and special-action art. Her roster key stays `marisol`; `marisol-v2` selects the
+complete new identity. Set `GAME_CONFIG.legacyDollArt.marisol = true` to restore
+her original matching art, outfit statistics, jump/rider offsets and hand grips.
+Original files and statistics remain unchanged, with hashes in
+`marisol-legacy.json`. All seven alternate colours are retained.
+
+Her manifest records source hips, rider registration, run/idle broom hands and
+mask protection for dark hair, skin, white socks and pink shoes. Toy strip
+calibration restores the same anatomical scale after packing; action reports
+include painted wand-tip coordinates. Sources, exact built-in ImageGen prompts,
+alpha review, masks and deterministic reports are under this directory.

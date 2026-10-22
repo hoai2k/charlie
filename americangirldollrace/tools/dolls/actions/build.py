@@ -53,6 +53,9 @@ def mask(c,key,n):
     if sl is None:continue
     yy0,xx0=np.where(labels[sl]==label)
     if len(xx0)<area*.02 and (xx0.mean()+sl[1].start>face_x+(b[2]-b[0])*.25 or yy0.mean()+sl[0].start<face(c)[2]):out[labels==label]=0
+ if key=='marisol':
+  pink=(a[:,:,0]>a[:,:,1]+25)&(a[:,:,2]>a[:,:,1]+15)&(a[:,:,3]>128)
+  out[pink&(yy>b[1]+(b[3]-b[1])*.58)]=0
  return Image.fromarray(out)
 
 def build(key):

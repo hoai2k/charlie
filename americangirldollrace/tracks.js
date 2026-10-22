@@ -73,8 +73,8 @@
 window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
-window.RIDE_TOY_ART_VERSION = "20261021-purse-v1";
-window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "barbie", "cinnamon", "felicity", "luna"];
+window.RIDE_TOY_ART_VERSION = "20261022-marisol-toys2";
+window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "barbie", "cinnamon", "felicity", "luna", "marisol-v2"];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {
   "lily": {
@@ -496,12 +496,42 @@ window.RIDE_TOY_FRAMES = {
       1.0662978062512132,
       1.0
     ]
+  },
+  "marisol-v2": {
+    "anchorX": [
+      291,
+      225,
+      225,
+      225,
+      238,
+      225,
+      225,
+      225,
+      225,
+      225,
+      178,
+      225
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.1057657000481527,
+      1.0233387210009626,
+      1.125315377124646,
+      1.1237237004950495,
+      1.265382920529128
+    ]
   }
 };
 // Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
 // saddle push, stuck in a puddle, moon-boots float (image-requests.md §10).
-window.ACTION_SHEETS = ["hermione", "lily", "mira", "whirlpool", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "juliette", "barbie", "cinnamon", "felicity", "luna"];
-window.ACTION_ART_VERSION = "20261022-actions-kaya-felicity-luna";
+window.ACTION_SHEETS = ["hermione", "lily", "mira", "whirlpool", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "juliette", "barbie", "cinnamon", "felicity", "luna", "marisol-v2"];
+window.ACTION_ART_VERSION = "20261022-marisol-v2";
 window.ACTION_FRAMES = {
   "hermione": [
     {
@@ -2796,6 +2826,170 @@ window.ACTION_FRAMES = {
       "wandTip": null,
       "sourceScale": 1.0935672514619883,
       "packedScale": 1.0935672514619883,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "marisol-v2": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        71,
+        15,
+        351,
+        409
+      ],
+      "wandTip": [
+        339,
+        19
+      ],
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        72,
+        38,
+        404,
+        409
+      ],
+      "wandTip": [
+        398,
+        138
+      ],
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 224.3956834532374,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        41,
+        36,
+        413,
+        409
+      ],
+      "wandTip": [
+        409,
+        139
+      ],
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 227.87769784172662,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        6,
+        26,
+        369,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 235.83453237410072,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        13,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 189.9877551020408,
+      "offsetX": 0,
+      "scale": 1.0391388381831848,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        11,
+        62,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5469387755102041,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 24.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 375.53956834532374,
+      "bounds": [
+        53,
+        51,
+        384,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 229.58273381294964,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        45,
+        330,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 189.15827338129495,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        15,
+        24,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.5683453237410072,
+      "packedScale": 0.5683453237410072,
       "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
     }
   ]

@@ -13,7 +13,7 @@ for report in sorted((HERE/'reports').glob('*.json')):
   x=n%3*418;y=n//3*418;cell=im.crop((x,y,x+418,y+418));a=np.array(cell)[:,:,3];ys,xs=np.where(a>8)
   assert ys.max()+1==409 and ys.min()>=4 and xs.min()>=4 and xs.max()<414,(key,n)
   if f.get('normalFallGeometry'):continue
-  assert abs(f['scale']*f['renderScale']-d['scale']*(d['actionScaleRatio'] if n in [3,4,5,9,10,11] else 1))<1e-8
+  assert abs(f['scale']*f['renderScale']-d['scale']*f.get('sourceScaleRatio',(d['actionScaleRatio'] if n in [3,4,5,9,10,11] else 1)))<1e-8
  print(key,'12 frames, masks, gutters, foot/tip baseline409 and anatomical scale passed')
 
 verification=HERE/'fall-redo/verification.json'

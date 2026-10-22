@@ -11,7 +11,7 @@ import build
 class DollBuildTests(unittest.TestCase):
     def test_new_doll_broom_grips_match_source_hand_calibration(self):
         broom=json.loads((build.HERE.parent/'mounts/broom.json').read_text())
-        for key in ['claudia','cinnamon','felicity','barbie']:
+        for key in ['claudia','cinnamon','felicity','barbie','marisol']:
             m=json.loads((build.HERE/f'manifests/{key}.json').read_text())
             ref,_=build.source_frame(m,'idle-0');b=build.bounds(ref)
             common=m['standingHeight']/(b[3]-b[1])

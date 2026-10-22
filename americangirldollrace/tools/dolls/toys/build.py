@@ -38,7 +38,7 @@ def tip_centre(cell):
 
 @lru_cache(None)
 def outfit_classifier(key):
-    asset_key={'claudia':'claudia-v2','rumi':'rumi-v2'}.get(key,key)
+    asset_key={'claudia':'claudia-v2','rumi':'rumi-v2','marisol':'marisol-v2'}.get(key,key)
     sheet=np.array(Image.open(GAME/f'assets/doll_{asset_key}_sprites.webp').convert('RGBA'))
     mask=np.array(Image.open(GAME/f'assets/masks/{asset_key}_sheet_mask.webp').convert('RGB'))
     features=[];weights=[]
@@ -73,6 +73,9 @@ def learned_mask(cell,key,n):
         protected|=(abs(xx-tip)<w*.23)&(yy>b[1]+h*.35)&(yy<b[1]+h*.61)&(spread<24)&(a[:,:,:3].max(2)<110)
     else:
         protected=(xx>b[2]-.20*w) | (yy>b[3]-.16*h)
+    if key=='marisol':
+        pink=(a[:,:,0]>a[:,:,1]+25)&(a[:,:,2]>a[:,:,1]+15)&(a[:,:,3]>128)
+        protected |= pink & (yy>b[1]+h*.58)
     out[protected]=0
     return Image.fromarray(out)
 
@@ -140,12 +143,15 @@ def build(key):
         action_ratio=(mb[3]-mb[1])/(ab[3]-ab[1])
         cells=main[:3]+actions[:3]+main[3:]+actions[3:]
         groups=[1]*3+[action_ratio]*3+[1]*3+[action_ratio]*3
+    custom=HERE/'calibration'/f'{key}.json'
+    calibration=json.loads(custom.read_text()) if custom.exists() else None
+    if calibration:groups=calibration['sourceScaleRatios']
     boxes=[packing.bounds(c) for c in cells]
     for c,b in zip(cells,boxes):assert b and min(b[:2])>0 and b[2]<c.width and b[3]<c.height,(key,'source clips edge',b,c.size)
     ref=Image.open(HERE/'references'/f'{key}.webp').convert('RGBA').crop((0,0,418,418));rb=packing.bounds(ref)
     standing=rb[3]-rb[1]
     scale=standing/(boxes[1][3]-boxes[1][1])
-    faces=[face_info(c) for c in cells]
+    faces=calibration['faces'] if calibration else [face_info(c) for c in cells]
     sheet=Image.new('RGBA',(1254,1672));mask=Image.new('RGB',sheet.size)
     records=[]
     for n,(cell,b,g) in enumerate(zip(cells,boxes,groups)):
@@ -163,7 +169,7 @@ def build(key):
         assert x>=4 and x+size[0]<=414 and y>=4,(key,n,x,y,size)
         frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(x,y));sheet.paste(frame,(n%3*418,n//3*418))
         m=(mask_for(cell,key,chin) if key in ['lily','mira','hermione'] else learned_mask(cell,key,n)).crop(b).resize(size,Image.Resampling.LANCZOS);mask.paste(m,(n%3*418+x,n//3*418+y))
-        records.append({'bounds':packing.bounds(frame),'scale':factor,'renderScale':desired/factor,'anchorX':target_pivot+16,'sourcePivot':round(pivot,2),'targetPivot':target_pivot,'sourceChin':round(chin,2)})
+        records.append({'bounds':packing.bounds(frame),'scale':factor,'sourceScaleRatio':g,'renderScale':desired/factor,'anchorX':target_pivot+16,'sourcePivot':round(pivot,2),'targetPivot':target_pivot,'sourceChin':round(chin,2)})
     override=HERE/'overrides'/f'{key}.json'
     if override.exists():
         for index,record in json.loads(override.read_text()).items():
@@ -171,7 +177,7 @@ def build(key):
             sheet.paste(Image.open(HERE/'overrides'/f'{key}-{n}.webp'),xy)
             mask.paste(Image.open(HERE/'overrides'/f'{key}-{n}-mask.webp'),xy)
             records[n]=record
-    asset_key={'claudia':'claudia-v2','rumi':'rumi-v2'}.get(key,key)
+    asset_key={'claudia':'claudia-v2','rumi':'rumi-v2','marisol':'marisol-v2'}.get(key,key)
     target=GAME/f'assets/doll_{asset_key}_toys.webp';packing.save(sheet,target)
     packing.save(mask,GAME/f'assets/masks/{asset_key}_toys_mask.webp')
     report={'assetKey':asset_key,'anchorX':[f['anchorX'] for f in records],'renderScale':[f['renderScale'] for f in records],'baseline':409,'standingReferenceHeight':standing,'scale':scale,'actionScaleRatio':action_ratio,'frames':records,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()}

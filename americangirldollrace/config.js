@@ -9,7 +9,7 @@ window.GAME_CONFIG = {
   powerupArtVersion: "20261022-emp3",
   dollArtVersion: "20261022-run-redo",
   // Set a doll to true to restore her original art, outfits and alignment.
-  legacyDollArt: { rumi: false, claudia: false },
+  legacyDollArt: { rumi: false, claudia: false, marisol: false },
   audio: {
     masterVolume: 1.0,
     sfxVolume: 0.15,

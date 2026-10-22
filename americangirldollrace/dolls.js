@@ -154,6 +154,32 @@ window.EXTRA_DOLLS = {
       ]
     }
   },
+  "marisol": {
+    "name": "Marisol",
+    "color": "#df6b9e",
+    "assetKey": "marisol-v2",
+    "spriteKey": "marisol",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": 0.91958,
+        "L": 0.63231,
+        "C": 0.06569,
+        "beta": 0.7
+      },
+      "outfits": [
+        "navy",
+        "green",
+        "yellow",
+        "purple",
+        "teal",
+        "red",
+        "orange"
+      ]
+    }
+  },
   "mira": {
     "name": "Mira",
     "color": "#d82c83",
