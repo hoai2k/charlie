@@ -685,3 +685,38 @@ Actions delivered for Juliette, Barbie and Cinnamon (nine poses each), with Juli
 Felicity and Luna action sheets delivered: all nine poses, outfit masks, wand tips and seated alignment checked; Luna keeps her glasses throughout. Marisol followed in the complete migration batch.
 
 Marisol’s §8 toys and §10 special actions delivered with the complete approved `marisol-v2` identity; see `image-requests-marisol.md`. All fifteen dolls now have registered toy and special-action sheets.
+
+---
+
+## 14. Moon Base monster: an evil robot troll (open)
+
+A third alternate for the troll, for Moon Base (`space`), in the **same
+painted, slightly photoreal style as `assets/monster_sprites.webp`** (look at
+it side by side). It behaves exactly like the troll; only the look changes.
+Kid-friendly: a grumpy, clunky toy-like villain, not scary.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| M3 | `assets/robot_sprites.webp` | 1254×1672 (3×4 of 418), alpha | A big, chunky **evil robot troll** about the troll's size and build: a dented gunmetal-and-silver body with a few red warning lights, a boxy head with a scowling visor of glowing red eyes and a crooked antenna, oversized clamp hands, stubby piston legs with heavy feet, and a few rivets and scuffed hazard stripes. It reads as a troll made into a robot: hunched shoulders, long arms, a grumpy face. |
+
+**Use exactly the troll sheet's layout, scale, facing (right, matching the
+actual source sheet) and foot baseline**, cell for cell, because the game
+swaps the sheet in without other changes:
+
+| Row | Cells (left to right) |
+| --- | --- |
+| 1 | Idle, 3 frames of a slight sway, the visor eyes flickering |
+| 2 | Walk cycle, 3 frames, clanking steps |
+| 3 | **Grab** (lunging forward with clamp hands open), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
+| 4 | **Knocked over** (falling backwards, sparks at the joints), **collapsing** (coming apart), and **defeated**: **a heap of loose robot parts with the head on top, its visor dark and a little smoke curling up**. It stays put on the ground until the race ends. |
+
+In the same commit, add `"robot"` to `TRACK_SHARED_ART` in `tracks.js`, and
+set `monster: "robot"` on the `space` track. The game loads the sheet only
+once it's listed and uses the plain troll until then. Its sounds
+(`robot_*`) are already in the game.
+
+Acceptance: overlay the sheet on `monster_sprites.webp` and check that the
+feet sit on the same baseline in rows 1–3 and the figures are about the same
+size. Then race Moon Base on "Extra" monsters. It walks in, grabs and throws
+a doll, gets knocked down by a push, a snowball and an EMP, and after five
+knock-backs ends as its heap of parts.
