@@ -1784,11 +1784,12 @@ function updateAudio(dt) {
 
 // Fired the moment a pickup is claimed. The oil and horse cases finish inside
 // applyPowerup, once it knows whether the oil was blocked and which mount rolled.
-function playPowerupAudio(racer, type) {
+function playPowerupAudio(racer, type, powerup = null) {
   if (type === "oil" || type === "horse") return;
   sfx("powerup_pickup_generic", racer.x);
-  if (type === "boost") sfx(powerupSound("boost", "powerup_boost"), racer.x);
-  else if (type === "jump") sfx(powerupSound("jump", "powerup_highjump"), racer.x);
+  if (type === "boost") sfx(trackBoostIsThemed() ? powerupSound("boost", "powerup_boost") : "powerup_boost", racer.x);
+  else if (type === "jump" && powerup?.pogo) sfx("pickup_pogo", racer.x);
+  else if (type === "jump") sfx(trackJumpIsThemed() ? powerupSound("jump", "powerup_highjump") : "powerup_highjump", racer.x);
   else if (type === "emp") sfx(powerupSound("emp", "powerup_emp"), racer.x);
   else if (type === "snowball") sfx(powerupSound("snowball", "powerup_snowball_pickup"), racer.x);
   racerVoice(racer, "pickup", { chance: 0.3 });
@@ -2501,9 +2502,17 @@ function getPogoIconSheet() {
 
 // Spring pickups keep the track's icon only when it shows a spring (or moon
 // boots on Moon Base); otherwise they use the basic spring.
-function trackJumpIconIsSpring() {
+// Speed and high-jump pickups keep the original icon, name and sound unless
+// the track turns them into something that works differently: skates or a
+// pogo stick, or a track item (surfboard, wind-up key, spell book, moon boots).
+function trackJumpIsThemed() {
   const theme = getTrackTheme();
-  return Boolean(getTrackArt("powerups")) && !trackJumpIconIsPogo() && theme.springIcon !== false;
+  return Boolean(getTrackArt("powerups")) && Boolean(theme.itemEffects?.jump || theme.moonBoots);
+}
+
+function trackBoostIsThemed() {
+  const theme = getTrackTheme();
+  return Boolean(getTrackArt("powerups")) && Boolean(theme.rideToys?.boost || theme.itemEffects?.boost);
 }
 
 // Toys keep the order they were picked up in; picking one up again refreshes it.
@@ -3067,7 +3076,7 @@ function applyPowerup(racer, powerupOrType) {
   if (hasActivePowerup(racer, type)) return false;
   // A spare or left-behind mount is only for someone without one.
   if (type === "horse" && powerupOrType.loose && isMounted(racer)) return false;
-  playPowerupAudio(racer, type);
+  playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
   const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
   if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);
   if (type === "boost") {
@@ -3076,7 +3085,7 @@ function applyPowerup(racer, powerupOrType) {
     racer.speedBoostStacks.push(duration);
     if (toy) addRideToy(racer, toy, duration);
     racer.speedBoostTimer = Math.max(...racer.speedBoostStacks);
-    const label = powerupLabel("boost", "BOOST");
+    const label = trackBoostIsThemed() ? powerupLabel("boost", "BOOST") : "BOOST";
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
     const pogo = typeof powerupOrType === "string" ? boardJumpIsPogo() : powerupOrType.pogo;
@@ -3090,7 +3099,7 @@ function applyPowerup(racer, powerupOrType) {
     racer.highJumpStacks.push(duration);
     if (toy) addRideToy(racer, toy, duration);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
-    const label = toy ? "POGO" : trackJumpIconIsSpring() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
+    const label = toy ? "POGO" : trackJumpIsThemed() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
@@ -7038,7 +7047,8 @@ function drawPowerupGlow(type, x, y, groundY, t, still = false) {
 
 function drawPowerupIcon(index, x, y, t, options = {}) {
   let trackSheet = getTrackArt("powerups");
-  if (index === 0) trackSheet = options.pogo ? getPogoIconSheet() || trackSheet : trackJumpIconIsSpring() ? trackSheet : null;
+  if (index === 0) trackSheet = options.pogo ? getPogoIconSheet() || trackSheet : trackJumpIsThemed() ? trackSheet : null;
+  else if (index === 1 && !trackBoostIsThemed()) trackSheet = null;
   const rect = trackSheet
     ? { x: index * TRACK_POWERUP_CELL, y: 0, w: TRACK_POWERUP_CELL, h: TRACK_POWERUP_CELL }
     : POWERUP_ICON_RECTS[index];
@@ -7438,7 +7448,7 @@ function drawRacer(racer) {
   }
   const activeLabels = [
     mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
-    racer.speedBoostTimer > 0 ? stackLabel(powerupLabel("boost", "BOOST"), racer.speedBoostStacks.length) : "",
+    racer.speedBoostTimer > 0 ? stackLabel(trackBoostIsThemed() ? powerupLabel("boost", "BOOST") : "BOOST", racer.speedBoostStacks.length) : "",
     racer.highJumpTimer > 0 ? stackLabel(racerJumpLabel(racer), racer.highJumpStacks.length) : "",
     racer.moonBootsTimer > 0 ? powerupLabel("jump", "MOON BOOTS") : "",
     racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
@@ -7468,7 +7478,7 @@ function stackLabel(label, count) {
 // plain high jump where the track's jump icon isn't a spring.
 function racerJumpLabel(racer) {
   if (racer.rideToys?.some(toy => toy.type === "pogo")) return "POGO";
-  return trackJumpIconIsSpring() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
+  return trackJumpIsThemed() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
 }
 
 function drawPowerupAura(racer, screenX, scale, mounted) {
