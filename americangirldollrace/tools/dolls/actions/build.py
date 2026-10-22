@@ -80,6 +80,8 @@ def build(key):
   records.append({'anchorX':target+16,'offsetX':offset_x,'scale':render,'baseline':409,'targetY':target_y,'bounds':T.packing.bounds(frame),'wandTip':tip,'sourceScale':common,'packedScale':factor,'pivotMethod':'glasses or skin highlight with reviewed head-scale calibration'})
  target=G/f'assets/doll_{asset}_actions.webp';T.packing.save(sheet,target);T.packing.save(masks,G/f'assets/masks/{asset}_actions_mask.webp')
  report={'assetKey':asset,'frames':records,'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),'maskSha256':hashlib.sha256((G/f'assets/masks/{asset}_actions_mask.webp').read_bytes()).hexdigest()};(H/'reports').mkdir(exist_ok=True);(H/f'reports/{key}.json').write_text(json.dumps(report,indent=2)+'\n');print(key,common)
- return report
+ from follow_through import apply
+ apply(key,mask)
+ return json.loads((H/f'reports/{key}.json').read_text())
 if __name__=='__main__':
  for key in sys.argv[1:] or ['hermione','lily','mira']:build(key)

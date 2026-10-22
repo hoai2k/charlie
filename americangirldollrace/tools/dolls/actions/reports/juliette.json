@@ -1,0 +1,169 @@
+{
+  "assetKey": "juliette",
+  "frames": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0746268656716418,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        93,
+        7,
+        360,
+        409
+      ],
+      "wandTip": [
+        346,
+        11
+      ],
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 0.9852941176470589,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 197.32105263157897,
+      "offsetX": 0,
+      "scale": 1.0008779631255489,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        11,
+        12,
+        413,
+        409
+      ],
+      "wandTip": [
+        408,
+        126
+      ],
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0578947368421052,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 160.30026109660577,
+      "offsetX": 0,
+      "scale": 1.0087796312554873,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        46,
+        7,
+        413,
+        409
+      ],
+      "wandTip": [
+        407,
+        87
+      ],
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0496083550913837,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 214.05882352941177,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        23,
+        23,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0588235294117647,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        24,
+        33,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0588235294117647,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 152.6470588235294,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        38,
+        24,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0588235294117647,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 217.63917525773195,
+      "offsetX": -38.0,
+      "scale": 1.0219490781387182,
+      "baseline": 409,
+      "targetY": 414.47058823529414,
+      "bounds": [
+        62,
+        7,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0360824742268042,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 212.13157894736844,
+      "offsetX": 0,
+      "scale": 1.0008779631255489,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        64,
+        7,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0578947368421052,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 255.2442748091603,
+      "offsetX": 0,
+      "scale": 1.0351185250219492,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        5,
+        7,
+        381,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0588235294117647,
+      "packedScale": 1.0229007633587786,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "sha256": "29d8b75d97d6eb37b38fbb87aba99ca3781dda6f5afadbaddd97d55b1c1f8508",
+  "maskSha256": "0b8f8cc07086614177a0eb0c7593ff2a23d471c6d1f6632c93ec9801e4665376"
+}

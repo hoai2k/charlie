@@ -42,20 +42,20 @@
       "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
     },
     {
-      "anchorX": 246.0,
+      "anchorX": 225,
       "offsetX": 0,
       "scale": 1.0,
       "baseline": 409,
       "targetY": 409,
       "bounds": [
-        5,
-        53,
-        330,
+        65,
+        60,
+        403,
         409
       ],
       "wandTip": [
-        326,
-        388
+        360,
+        211
       ],
       "sourceScale": 1.0,
       "packedScale": 1.0,
@@ -164,6 +164,6 @@
       "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
     }
   ],
-  "sha256": "1580f2a37b8ceed1446b1329713cbb981d17c5ab60a28dd308a9ac4c51907d4e",
-  "maskSha256": "5a1799d41a814d5708dbf77127b5cb8c64d4efc2bd43eaabeed16cc26899ebcc"
+  "sha256": "587ef964d0297e8fc0b2cc5846326c243bd6538c661374c0566843fec35d3a51",
+  "maskSha256": "c9ee0e86f9fb6253072dbcc5fa8ee0a35ad42da408f12cf95649c7dfa0148d3e"
 }
