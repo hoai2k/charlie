@@ -47,7 +47,6 @@ export const meta = {
   maxPlayers: 8,
   countdown: true,
   flyIn: false,   // lanes need a fixed view
-  infoAt: 'tl',   // corner "i": the bottom-left holds the scoreboard
   drawIcon(g, x, y, w, h, t = 0) {
     const gr = g.createLinearGradient(0, y, 0, y + h);
     gr.addColorStop(0, '#3b2a86'); gr.addColorStop(0.6, '#a465cf'); gr.addColorStop(1, '#ffb7a0');

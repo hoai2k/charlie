@@ -871,7 +871,7 @@ button:focus-visible {
 
 .pause-corner {
   position: absolute;
-  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
   bottom: max(16px, env(safe-area-inset-bottom));
   display: flex;
   gap: 12px;

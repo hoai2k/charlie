@@ -63,7 +63,6 @@ export const meta = {
   minPlayers: 1,
   maxPlayers: 8,
   countdown: true,
-  infoAt: 'tl',
   drawIcon(g, x, y, w, h, t = 0) {
     g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
     const gr = g.createLinearGradient(0, y, 0, y + h);

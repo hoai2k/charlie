@@ -298,7 +298,7 @@ export class GameSelectScene {
       }
     }
     this.drawDetails(g);
-    ui.hints(g, [['a', 'Play'], ['b', this.molly ? 'Charlie Party' : 'Characters']], PANEL_X + 115, 1046, { size: 30 });   // left of the song tag
+    ui.hints(g, [['a', 'Play'], ['b', this.molly ? 'Charlie Party' : 'Characters']], PANEL_X + 115, 1046, { size: 30 });   // left of the corner buttons
     if (this.roulette && this.roulette.landed) {
       ui.banner(g, this.roulette.marathon ? 'Party Marathon!' : 'Let\'s play!', this.roulette.landT, { y: 560, size: 120 });
     }
@@ -369,7 +369,7 @@ export class GameSelectScene {
 
   drawDetails(g) {
     const it = this.roulette ? this.roulette.tiles[this.roulette.idx] : this.current;
-    const x = PANEL_X, y = 130, w = 540, h = 870;
+    const x = PANEL_X, y = 130, w = 540, h = 836;   // ends above the corner buttons (bottom-right)
     ui.panel(g, x, y, w, h, { fill: '#fff8ec' });
     if (it.kind === 'molly' || it.kind === 'charlie') {
       const toMolly = it.kind === 'molly', list = toMolly ? MOLLY_GAMES : PARTY_PAGES[0];

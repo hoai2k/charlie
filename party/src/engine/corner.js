@@ -1,4 +1,4 @@
-// Sound, fullscreen and settings buttons in the bottom-left corner of the menu screens
+// Sound, fullscreen and settings buttons in the bottom-right corner of the menu screens
 // (and the pause menu). Clicks are handled inside the DOM pointerdown via
 // input.onPointerButton, because fullscreen only works inside a real gesture.
 //   M toggles sound, F toggles fullscreen, O (or a controller's View button)
@@ -16,27 +16,16 @@ const SIZE = 78, PAD = 24, GAP = 18;
 
 export const corner = {
   visible: false,
-  // 'full': sound / fullscreen / settings (+ info); 'info': only the "i"
-  // (how to play), shown in a corner during a game.
   mode: 'full',
-  infoFn: null,   // set by the play scene: opens the how-to-play card
-  infoAt: 'bl',
+  infoFn: null,   // set by the play scene: the "i" (how to play) joins the set while paused
   _press: 0,      // seconds of "pressed" squash left
   _pressId: null,
 
   buttons() {
     const y = H - PAD - SIZE / 2;
-    if (this.mode === 'info') {
-      if (!this.infoFn) return [];
-      const at = this.infoAt || 'bl';   // a game can move it off its own UI (meta.infoAt: a corner or [x, y])
-      if (Array.isArray(at)) return [{ id: 'info', x: at[0], y: at[1], small: true }];
-      return [{ id: 'info', x: at.endsWith('r') ? W - PAD - SIZE / 2 : PAD + SIZE / 2, y: at.startsWith('t') ? PAD + SIZE / 2 : y, small: true }];
-    }
-    const list = [{ id: 'sound', x: PAD + SIZE / 2, y }];
-    if (shell.canFullscreen()) list.push({ id: 'full', x: PAD + SIZE * 1.5 + GAP, y });
-    list.push({ id: 'settings', x: PAD + SIZE / 2 + list.length * (SIZE + GAP), y });
-    if (this.infoFn) list.push({ id: 'info', x: PAD + SIZE / 2 + list.length * (SIZE + GAP), y });
-    return list;
+    // Left to right: sound, fullscreen, settings (+ info), ending at the right edge.
+    const ids = ['sound', ...(shell.canFullscreen() ? ['full'] : []), 'settings', ...(this.infoFn ? ['info'] : [])];
+    return ids.map((id, i) => ({ id, x: W - PAD - SIZE / 2 - (ids.length - 1 - i) * (SIZE + GAP), y }));
   },
 
   hit(x, y) {
@@ -98,7 +87,6 @@ export const corner = {
       const k = this._pressId === b.id && this._press > 0 ? 0.9 : hover ? 1.08 : 1;
       g.save();
       g.translate(b.x, b.y); g.scale(k, k);
-      if (b.small && !hover) g.globalAlpha = 0.75;   // in-game "i": a little quieter
       const r = SIZE / 2;
       g.fillStyle = 'rgba(36,22,63,0.3)';
       g.beginPath(); g.arc(3, 6, r, 0, TAU); g.fill();

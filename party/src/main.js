@@ -49,12 +49,11 @@ input.onUserGesture = () => {
   if (shell.wantFullscreen) shell.tryFullscreen();
 };
 
-// Screens that show the sound / fullscreen corner buttons (play: only while paused).
+// Screens that show the corner buttons (sound / fullscreen / settings, and the
+// "i" how-to-play as a fourth while a game is paused): menus and the pause
+// screen only, never during play.
 const MENU_SCENES = new Set(['title', 'charselect', 'gameselect', 'intro', 'results', 'trophy']);
-const inGame = () => scenes.name === 'play' && scenes.current && scenes.current.state === 'play';
 const showCorner = () => MENU_SCENES.has(scenes.name) || (scenes.name === 'play' && !!(scenes.current.paused || scenes.current.howto));
-// During play only the "i" (how to play) shows; paused / menus get the full set.
-const cornerMode = () => (showCorner() ? 'full' : 'info');
 // Phones/tablets: fullscreen on a tap in landscape, iPhone's swipe-up bars.
 shell.initMobile({ isPlaying: () => scenes.name === 'play' && !scenes.current.paused && !scenes.current.howto });
 
@@ -131,15 +130,14 @@ function frame(now) {
       fx.update(dt);
       if (i < steps - 1) input.update(0);
     }
-    corner.mode = cornerMode();
-    corner.visible = showCorner() || (inGame() && !!corner.infoFn);
+    corner.mode = 'full';
+    corner.visible = showCorner();
     songTag.update(rawDt);
     corner.update(rawDt);
     ui.resetHotspots();
-    // keep a bottom scoreboard's chips clear of the in-game "i" and the song tag
-    const infoAt = corner.visible && corner.mode === 'info' && typeof corner.infoAt === 'string' ? corner.infoAt : '';
-    ui.boardInsets.l = infoAt === 'bl' ? 100 : 0;
-    ui.boardInsets.r = Math.max(infoAt === 'br' ? 100 : 0, songTag.rect ? songTag.rect.w + 24 : 0);
+    // keep a bottom scoreboard's chips clear of the song tag (bottom-left)
+    ui.boardInsets.l = songTag.rect ? songTag.rect.x + songTag.rect.w + 8 : 0;
+    ui.boardInsets.r = 0;
     g.save();
     g.translate(fx.ox, fx.oy);
     scenes.draw(g);

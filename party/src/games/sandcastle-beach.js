@@ -43,7 +43,6 @@ export const meta = {
   minPlayers: 1, maxPlayers: 8,
   countdown: false,
   flyIn: false,
-  infoAt: 'tl',
   drawIcon,
 };
 

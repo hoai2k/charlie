@@ -36,7 +36,6 @@ export const meta = {
   maxPlayers: 8,
   countdown: false,
   flyIn: false,
-  infoAt: 'tl',
   drawIcon,
 };
 

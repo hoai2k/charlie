@@ -33,7 +33,7 @@ export class PlayScene {
     this.canSkip = false; this.skipping = null;   // "B: skip to the end" once every human is out
     this.paused = null;
     this.howto = null;    // the how-to-play card (corner "i" or the pause menu); pauses the game
-    corner.infoFn = () => this.openHowto(); corner.infoAt = this.meta.infoAt || 'bl';
+    corner.infoFn = () => this.openHowto();
     // Sister Party: either stick moves (a game that gives the right stick its own job sets meta.rightStick)
     inputOpts.rsMove = this.meta.category === 'molly' && !this.meta.rightStick;
     this.error = null;
@@ -256,9 +256,9 @@ export class PlayScene {
     w += size + pad * 3;
     const h = cc.items.length * rowH + pad;
     const at = cc.at || 'bl';
-    // bottom-left leaves room for the corner "i" button
-    const x = at.endsWith('l') ? (at === 'bl' ? 122 : 16) : W - 16 - w;
-    const y = at.startsWith('t') ? (cc.top ?? 120) : H - 16 - h - (at === 'br' ? 52 : 0);
+    // bottom-left sits above the song tag
+    const x = at.endsWith('l') ? 16 : W - 16 - w;
+    const y = at.startsWith('t') ? (cc.top ?? 120) : H - 16 - h - (at === 'bl' ? 52 : 0);
     g.globalAlpha = 0.9;
     ui.panel(g, x, y, w, h, { r: 18, fill: 'rgba(255,248,236,0.88)', lineWidth: 3, shadow: false });
     cc.items.forEach(([btn, label], i) => {
@@ -342,7 +342,7 @@ export class PlayScene {
       g.save(); g.fillStyle = 'rgba(36,22,63,0.35)'; g.fillRect(0, 0, W, H); g.restore();
       ui.text(g, 'Skipping to the end…', W / 2, H / 2, { size: 72 });
     } else if (this.state === 'play' && this.canSkip && !this.paused && !this.howto) {
-      // bottom right, above the song tag
+      // bottom right
       const pulse = 1 + Math.sin(this.t * 4) * 0.04;
       g.save(); g.translate(W - 210, H - 112); g.scale(pulse, pulse);
       ui.panel(g, -170, -34, 340, 68, { r: 34, fill: '#fff8ec', lineWidth: 5 });

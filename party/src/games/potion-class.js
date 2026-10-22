@@ -64,7 +64,6 @@ export const meta = {
   duration: '3 recipes',
   minPlayers: 1,
   maxPlayers: 8,
-  infoAt: 'tl',   // corner "i": the bottom-left holds station 1's shelf and ingredient badge
   countdown: false,
   drawIcon(g, x, y, w, h, t) {
     const gr = g.createLinearGradient(x, y, x, y + h);
