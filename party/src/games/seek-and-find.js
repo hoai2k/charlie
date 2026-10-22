@@ -48,7 +48,6 @@ export const meta = {
   type: 'I spy · Together',
   goal: 'Find everything in the picture list! Move your magnifying glass and spot them.',
   controls: [['stick', 'Move your glass'], ['a', 'Spot it!'], ['y', 'Hint'], ['x', 'Big glass'], ['rb', 'Zoom']],
-  infoAt: [62, 138],   // corner "i": under the round icons (the bottom-left holds the legend)
   tips: ['Look behind bushes, trees and toys!', 'Watch closely: hiding friends wiggle and blink.', 'Stuck? Press Y for a hint ripple.'],
   music: 'cozy',
   duration: '3-5 min',

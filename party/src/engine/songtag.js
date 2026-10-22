@@ -1,9 +1,9 @@
-// Song tag (Settings > Song tags): a small bottom-right label naming the song
+// Song tag (Settings > Song tags): a small bottom-left label naming the song
 // and take playing, so takes can be judged during play. Clicking it switches
 // the song to its next take (when it has alternates). The click is taken in
 // the DOM pointerdown (input.onPointerButton, via corner.js), so it never
 // reaches the screen underneath (e.g. the title screen's "click to start").
-import { W, H } from './canvas.js';
+import { H } from './canvas.js';
 import { input } from './input.js';
 import { music, songTagsOn, sfx } from './audio.js';
 import * as ui from './ui.js';
@@ -12,6 +12,7 @@ const SIZE = 22, BOX_H = 42, MARGIN = 16;
 
 export const songTag = {
   rect: null,     // where it was last drawn (logical px), or null
+  left: MARGIN,   // its left edge
   _flash: 0,
 
   label() {
@@ -39,7 +40,7 @@ export const songTag = {
     const str = this.label();
     if (!str) { this.rect = null; return; }
     const w = ui.measure(g, str, SIZE, 700) + 36;
-    this.rect = { x: W - MARGIN - w, y: H - MARGIN - BOX_H, w, h: BOX_H };
+    this.rect = { x: this.left, y: H - MARGIN - BOX_H, w, h: BOX_H };
     g.save(); g.globalAlpha = 0.85;
     ui.panel(g, this.rect.x, this.rect.y, w, BOX_H, { r: BOX_H / 2, fill: this._flash > 0 ? 'rgba(255,111,177,0.95)' : 'rgba(36,22,63,0.82)', stroke: false, shadow: false });
     ui.text(g, str, this.rect.x + w / 2, this.rect.y + BOX_H / 2 + 1, { size: SIZE, color: '#fff', stroke: false, weight: 700 });

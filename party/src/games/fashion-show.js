@@ -36,7 +36,6 @@ export const meta = {
   minPlayers: 1,
   maxPlayers: 8,
   countdown: false,
-  infoAt: 'tl',   // corner "i": the bottom-left holds a station's player tag
   drawIcon,
 };
 

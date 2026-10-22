@@ -41,7 +41,6 @@ export const meta = {
     ['y', 'Surprise shape / next colour'],
     ['rb', 'Next step: bake it, then Done!'],
   ],
-  infoAt: 'tl',   // the bottom-left of each station holds its player tag and hints
   tips: [
     'Squeeze the clay in and it grows taller! Grab the top edge to pull it up.',
     'Mash A at the kiln to puff the fire hotter.',

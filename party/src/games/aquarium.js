@@ -27,7 +27,6 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { input } from '../engine/input.js';
-import { corner } from '../engine/corner.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { playerName } from '../state.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, TAU, later } from '../engine/util.js';
@@ -81,7 +80,6 @@ export const meta = {
   type: 'Create · Everyone wins',
   goal: 'Design a fish tank, name your fish, then put on a glowing night show!',
   controls: [['stick', 'Move your hand'], ['lb', 'LB / RB: things,  LT / RT: colours'], ['a', 'Place or pick up  (B removes)'], ['x', 'Tap the glass gently'], ['y', 'Feed the fish']],
-  infoAt: [62, 446],   // under the controls legend (the bottom holds the item bars)
   tips: ['Name each new fish: left and right, then A.', 'Bubblers give fish rides; castles are for peekaboo!', 'Press the moon on the lid for glowing night lights.', 'On a keyboard, press Y while carrying something (or on the item bar) to change its colour.'],
   music: 'splash',
   duration: 'about 3 min',
@@ -1211,7 +1209,6 @@ export class Game {
     lights.forEach((it, i) => { it.litAt = 1.2 + i * Math.min(0.22, 2.4 / Math.max(1, lights.length)); });
     for (const it of this.decor) if (!it.def.lights) it.litAt = 1;
     this.banner = { text: 'Night show!', t: 0 };
-    corner.infoAt = 'tr';
     sfx('flip'); sfx('magic'); snd('applause', 'cheer');
     // characters walk to the front of the tank
     const n = this.n, sp = Math.min(230, 1560 / n);

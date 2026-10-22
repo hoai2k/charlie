@@ -22,7 +22,6 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, sfxLoop, voice, hasSound } from '../engine/audio.js';
 import { input } from '../engine/input.js';
-import { corner } from '../engine/corner.js';
 import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { playerName } from '../state.js';
@@ -91,7 +90,6 @@ export const meta = {
   type: 'Decorate · Everyone wins',
   goal: 'Decorate a cozy bedroom together, then give everyone a room tour!',
   controls: [['stick', 'Move your hand'], ['lb', 'LB / RB / D-pad: pick an item'], ['a', 'Place it'], ['x', 'Tool: place, move, paint'], ['b', 'Remove'], ['y', 'Surprise present!']],
-  infoAt: [62, 390],   // corner "i": under the controls legend (the bottom-left holds the palette)
   tips: ['Paint the wall or the floor for new wallpaper!', 'Flip the light switch by the door for night time.', 'A pet bed brings a sleepy kitty!'],
   music: 'cozy',
   duration: 'about 3 min',
@@ -917,7 +915,6 @@ export class Game {
     }
     for (const gft of this.gifts) gft.t = Math.max(gft.t, 1.05);
     this.banner = { text: 'Room tour!', t: 0 };
-    corner.infoAt = 'bl';   // the legend is gone; keep the "i" off the tour polaroids
     sfx('fanfare'); snd('applause', 'cheer');
     this.assignTourSpots();
     // One photo per character (up to 8); small groups also get photos of the room's best bits.

@@ -46,7 +46,6 @@ export const meta = {
   minPlayers: 1,
   maxPlayers: 8,
   countdown: true,
-  infoAt: 'tr',   // corner "i": the bottom holds the scoreboard and the top-left the territory bar
   drawIcon(g, x, y, w, h, t = 0) {
     g.save(); g.translate(x, y);
     g.fillStyle = '#f3ece0'; g.fillRect(0, 0, w, h);
