@@ -5,12 +5,12 @@ import marisolConfig from "../assets/marisol/config.js";
 import kayaConfig from "../assets/kaya/config.js";
 import lilyConfig from "../assets/lily/config.js";
 import whirlpoolConfig from "../assets/whirlpool/config.js";
-import claudiaConfig from "../assets/claudia-v2/config.js?v=20261021b";
+import claudiaConfig from "../assets/claudia-v2/config.js?v=20261022a";
 import amandaConfig from "../assets/amanda/config.js";
 import trollConfig from "../assets/troll/config.js";
 import kpopConfig from "../assets/kpop/config.js";
 import EXTENSION_PHYSICS from "./extensionPhysics.js";
-import { drawRegisteredFace, registeredFeatureEntries } from "./registered-face.js";
+import { drawRegisteredFace, registeredFeatureEntries, EYE_CLOSED_THRESHOLD, RIGHT_EYE_CLOSED_THRESHOLD } from "./registered-face.js?v=20261022a";
 
 export const DOLL_CONFIGS = {
   rumi: rumiConfig,
@@ -64,8 +64,6 @@ const DEFAULT_HAND_RAISE_FACE_LEVEL = 0.52;
 const DEFAULT_HAND_RAISE_RELEASE_FACE_LEVEL = 0.82;
 const DEFAULT_HAND_MIDDLE_FACE_OFFSET = 0.9;
 const DEFAULT_HAND_MIDDLE_RELEASE_FACE_OFFSET = 1.15;
-const EYE_CLOSED_THRESHOLD = 0.62;
-const RIGHT_EYE_CLOSED_THRESHOLD = 0.54;
 const SMILE_THRESHOLD = 0.5;
 const FROWN_THRESHOLD = 0.18;
 const FROWN_HELD_THRESHOLD = 0.1;
