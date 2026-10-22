@@ -500,8 +500,8 @@ window.RIDE_TOY_FRAMES = {
 };
 // Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
 // saddle push, stuck in a puddle, moon-boots float (image-requests.md §10).
-window.ACTION_SHEETS = ["hermione", "lily", "mira", "whirlpool", "claudia-v2", "kaya"];
-window.ACTION_ART_VERSION = "20261021-actions-roster2";
+window.ACTION_SHEETS = ["hermione", "lily", "mira", "whirlpool", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2"];
+window.ACTION_ART_VERSION = "20261022-actions-amanda-penelope-rumi";
 window.ACTION_FRAMES = {
   "hermione": [
     {
@@ -1484,6 +1484,498 @@ window.ACTION_FRAMES = {
       "wandTip": null,
       "sourceScale": 1.0,
       "packedScale": 1.0,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "amanda": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        88,
+        27,
+        312,
+        409
+      ],
+      "wandTip": [
+        300,
+        32
+      ],
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        69,
+        75,
+        402,
+        409
+      ],
+      "wandTip": [
+        396,
+        184
+      ],
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        58,
+        69,
+        412,
+        409
+      ],
+      "wandTip": [
+        407,
+        138
+      ],
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        59,
+        83,
+        402,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 207.65,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        71,
+        100,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        72,
+        70,
+        406,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": -20.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 370.0,
+      "bounds": [
+        73,
+        69,
+        369,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        31,
+        82,
+        306,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        72,
+        70,
+        408,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "penelope": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.1257995735607673,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        124,
+        7,
+        363,
+        409
+      ],
+      "wandTip": [
+        172,
+        12
+      ],
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 0.9136363636363637,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 215.05714285714288,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        55,
+        35,
+        413,
+        409
+      ],
+      "wandTip": [
+        408,
+        150
+      ],
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        32,
+        26,
+        387,
+        409
+      ],
+      "wandTip": [
+        381,
+        102
+      ],
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        35,
+        54,
+        395,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        25,
+        62,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        17,
+        48,
+        384,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": -37.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 453.45714285714286,
+      "bounds": [
+        71,
+        18,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        70,
+        24,
+        379,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 223.2857142857143,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        34,
+        25,
+        413,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 1.0285714285714285,
+      "packedScale": 1.0285714285714285,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "rumi-v2": [
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0657960199004974,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        71,
+        7,
+        328,
+        409
+      ],
+      "wandTip": [
+        183,
+        12
+      ],
+      "sourceScale": 0.95,
+      "packedScale": 0.8913525498891353,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 221.9,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        46,
+        44,
+        413,
+        409
+      ],
+      "wandTip": [
+        408,
+        160
+      ],
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        64,
+        42,
+        382,
+        409
+      ],
+      "wandTip": [
+        377,
+        81
+      ],
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        27,
+        86,
+        371,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 249.0,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        6,
+        92,
+        348,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        35,
+        75,
+        365,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 13.0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 352.0,
+      "bounds": [
+        56,
+        66,
+        359,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        19,
+        50,
+        315,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
+      "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    },
+    {
+      "anchorX": 225,
+      "offsetX": 0,
+      "scale": 1.0,
+      "baseline": 409,
+      "targetY": 409,
+      "bounds": [
+        27,
+        48,
+        396,
+        409
+      ],
+      "wandTip": null,
+      "sourceScale": 0.95,
+      "packedScale": 0.95,
       "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
     }
   ]

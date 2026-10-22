@@ -164,5 +164,6 @@
       "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
     }
   ],
-  "sha256": "c24068742983fe7ced123d6c1fd4e8ef12cdd53c52f1442059924d67e0f5be6a"
+  "sha256": "c24068742983fe7ced123d6c1fd4e8ef12cdd53c52f1442059924d67e0f5be6a",
+  "maskSha256": "ed2177c455f2728cb48874688eb1a869a5d17f8582a62874ecd1218202e8b48e"
 }

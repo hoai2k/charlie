@@ -45,7 +45,14 @@ def mask(c,key,n):
  if n<3:
   # Gold star and wooden shaft are never selected clothing.
   gold=(a[:,:,0]>140)&(a[:,:,1]>85)&(a[:,:,2]<a[:,:,1]*.75)
-  out[gold]=0
+  labels,count=ndimage.label(gold&(a[:,:,3]>128));ys,xs=np.where(labels)
+  if len(xs):
+   extreme=np.argmin(ys) if n==0 else np.argmax(xs);star_label=labels[ys[extreme],xs[extreme]];out[labels==star_label]=0
+   face_x=face_pivot(c,key,face(c)[0]);area=np.count_nonzero(a[:,:,3]>128)
+   for label,sl in enumerate(ndimage.find_objects(labels),1):
+    if sl is None:continue
+    yy0,xx0=np.where(labels[sl]==label)
+    if len(xx0)<area*.02 and (xx0.mean()+sl[1].start>face_x+(b[2]-b[0])*.25 or yy0.mean()+sl[0].start<face(c)[2]):out[labels==label]=0
  return Image.fromarray(out)
 
 def build(key):
@@ -72,7 +79,7 @@ def build(key):
    tip=[int(xx[i]),int(yy[i])]
   records.append({'anchorX':target+16,'offsetX':offset_x,'scale':render,'baseline':409,'targetY':target_y,'bounds':T.packing.bounds(frame),'wandTip':tip,'sourceScale':common,'packedScale':factor,'pivotMethod':'glasses or skin highlight with reviewed head-scale calibration'})
  target=G/f'assets/doll_{asset}_actions.webp';T.packing.save(sheet,target);T.packing.save(masks,G/f'assets/masks/{asset}_actions_mask.webp')
- report={'assetKey':asset,'frames':records,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()};(H/'reports').mkdir(exist_ok=True);(H/f'reports/{key}.json').write_text(json.dumps(report,indent=2)+'\n');print(key,common)
+ report={'assetKey':asset,'frames':records,'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),'maskSha256':hashlib.sha256((G/f'assets/masks/{asset}_actions_mask.webp').read_bytes()).hexdigest()};(H/'reports').mkdir(exist_ok=True);(H/f'reports/{key}.json').write_text(json.dumps(report,indent=2)+'\n');print(key,common)
  return report
 if __name__=='__main__':
  for key in sys.argv[1:] or ['hermione','lily','mira']:build(key)
