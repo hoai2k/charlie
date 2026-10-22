@@ -164,7 +164,7 @@
 
   async function loadTitleHero() {
     try {
-      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261002j", document.baseURI);
+      const layoutUrl = new URL("assets/ui/title_hero_layout.json?v=20261022-hermione", document.baseURI);
       const response = await fetch(layoutUrl);
       if (!response.ok) throw new Error(`Title layout: ${response.status}`);
       const layout = await response.json();

@@ -9,8 +9,8 @@
   "coordinateSystem": "top-left; pixels in the 1600x640 hero composition",
   "layers": [
     {
-      "key": "claudia",
-      "file": "title_hero_claudia.webp",
+      "key": "hermione",
+      "file": "title_hero_hermione.webp",
       "role": "rider_and_mount",
       "x": 850,
       "y": 0,

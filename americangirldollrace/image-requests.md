@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §10.3 Kaya follow-through redo (A6), §8 toys for Marisol and remaining §10 doll actions.
+> **Still open:** §12 EMP trigger icons (E1–E15), §10.3 Kaya follow-through redo (A6), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -649,7 +649,7 @@ at a glance, and still fits its track's look next to the other four cells.
 
 ---
 
-## 13. Title screen: Hermione on the pegasus (open)
+## 13. Title screen: Hermione on the pegasus (delivered)
 
 Claudia has a new outfit (`claudia-v2`), so the title screen's pegasus rider
 (`assets/ui/title_hero_claudia.webp`, old mint-and-gingham Claudia) is out of
@@ -671,3 +671,5 @@ Integration, in the same commit:
 
 Acceptance: on the title screen Hermione's pegasus sits where Claudia's was,
 in front of the sky and behind Juliette, and bobs with the group.
+
+H1 delivered: complete 680×550 transparent cutout, matching layer position and animation. Checked over cream/navy and on the title screen; all other layout values are unchanged. Original Claudia cutout archived under `tools/imagegen/hermione-hero/`; original composite retained.
