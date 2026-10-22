@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §8 toys for Marisol and remaining §10 doll actions.
+> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §10.3 Kaya follow-through redo (A6), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -556,7 +556,7 @@ Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
 
 | Row | Frames (left to right) |
 | --- | --- |
-| 1 | **Casting with a wand** (one wand for every doll: dark wood, gold handle, a little gold star at the tip): (1) wand raised high, (2) arm thrust forward pointing the wand straight ahead at chest height (the game sends sparkles from its tip), (3) a follow-through swish. The other hand stays natural. |
+| 1 | **Casting with a wand** (one wand for every doll: dark wood, gold handle, a little gold star at the tip): (1) wand raised high, (2) arm thrust forward pointing the wand straight ahead at chest height (the game sends sparkles from its tip), (3) a follow-through swish that ends **in front of her** (the wand still pointing ahead and a little down, never swung back behind her). The other hand stays natural. |
 | 2 | **Surfing** on one board for every doll (turquoise with a coral stripe and a small fin), with the board's bottom on the baseline: (1) crouched and balanced, arms out; (2) leaning forward, carving; (3) wobbling, arms windmilling. |
 | 3 | (1) **Pushing / throwing from the saddle**: seated exactly like her riding pose (`assets/portraits/<key>_ride.webp`, same seat position) with one arm thrust forward. It's used for pushes and snowballs on horseback. (2) **Stuck in a sticky puddle**: feet planted, toppling forward with arms windmilling. (3) **Floating in moon boots**: arms and legs spread wide, a happy astronaut float. |
 
@@ -567,6 +567,12 @@ Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
 | A3 | `assets/frog_sprites.webp` | 768×512 (3×2 of 256), alpha | Spell-book frogs, side view facing right, feet on the cell's bottom edge. **Row 1:** a small cute green frog (the doll it came from is shown by her name above it): (1) sitting, (2) crouched to hop, (3) mid-leap. **Row 2:** a bigger, warty, grumpy olive frog for a troll, scarecrow or skeleton, same three poses. List it as `"frog"` in `TRACK_SHARED_ART`. |
 | A4 | `assets/tracks/beach/wave.webp` | 1536×384 (3×1 of 512×384), alpha | The wave a surfer rides: a curling turquoise wave with white foam, about 3× as long as a doll is tall, its base on the cell's bottom edge, curling toward the right. Three frames of the curl rolling, for a loop. Add `"wave"` to Beach's `art`. |
 | A5 | `assets/tracks/toyroom/windup_car.webp` | 768×512 (3×2 of 256), alpha | Wind-up toy cars, side view facing right, wheels on the cell's bottom edge, each with a big wind-up key on top. **Row 1:** a red tin race car. **Row 2:** a yellow tin bus. Three frames each of wheels turning and the key spinning. Add `"windup_car"` to the Toy Room's `art`. |
+
+### 10.3 Open redo: Kaya's follow-through (A6)
+
+| # | File | Cells | Fix |
+| --- | --- | --- | --- |
+| A6 | `assets/doll_kaya_actions.webp` and `assets/masks/kaya_actions_mask.webp` | Row 1, cell 3 only | Her follow-through swings the wand back behind her (pointing left while she faces right). Redraw it as a forward follow-through like Whirlpool's and Claudia's: arm still out in front, wand pointing ahead and a little down, a short sparkle swish. Same outfit and moccasins; keep the other eight cells pixel-identical and update the mask cell to match. |
 
 Acceptance: race each track and check that the casting sparkles leave the wand
 tip, the frog hops where the victim was, the surfer's board sits on the wave,
