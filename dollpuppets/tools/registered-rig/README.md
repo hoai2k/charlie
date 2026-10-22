@@ -33,12 +33,26 @@ The game still needs camera permission for live face/hand tracking.
   pivot and chin/neck anchor. These are agent-owned measurements. There are no
   hand-tuned offsets per expression or pose.
 - SIFT features and a RANSAC similarity transform register each expression
-  to the master. The build requires at least eight inliers and median error
-  at most two pixels on a 640-pixel head. `claudia-report.json` records results.
-- Mouth/eyelid patches use Poisson colour matching and feathered edges. Only
-  those regions can change; curls, bow, nose, chin and silhouette stay fixed.
-  Brow sprites are extracted once and their static originals inpainted out,
-  allowing tracked brow movement without doubled eyebrows.
+  to the master by its hair and bow. The build requires at least eight inliers
+  and median error at most two pixels on a 640-pixel head.
+  `claudia-report.json` records results.
+- The generated atlas face is not quite the master's face (narrower jaw,
+  higher nose and mouth) and drifts a few pixels between cells, so hair
+  alignment alone left every mouth at a different size and height. Each cell's
+  FACE (brows, nose, cheeks; not eyes or mouth) is therefore registered to one
+  neutral atlas cell (`atlasReference`), and that neutral face is mapped onto
+  the master once for the lips (`lipRegisterBox`) and once per eye (using the
+  open-eyed `openEyeReference` cell). Every mouth shares one transform.
+- Patches are colour-matched to the master skin (Lab statistics in a ring
+  around the feature), then cover only what changed: the convex hull of
+  pixels where the expression differs from the neutral atlas face (the new
+  mouth/lid plus the neutral feature it replaces, which lines up with the
+  master's), grown and feathered. Mouth patches stay inside the master's face
+  skin, away from the jaw line; lid patches skip the brow boxes and fully cover
+  the open eye. Each patch gets its own box. Curls, bow, nose, chin and
+  silhouette stay fixed. Brow sprites are extracted once and their static
+  originals inpainted out, allowing tracked brow movement without doubled
+  eyebrows.
 - Alpha-connected components find the six bodies despite uneven gutters.
   The magenta garment locates the torso centre; the neck silhouette supplies
   an attachment anchor and scale. Every pose has the same rendered neck width.
@@ -49,7 +63,12 @@ The game still needs camera permission for live face/hand tracking.
 - Pupil centres are measured separately from eyelid patch bounds for camera
   fitting. The bubble origin is calibrated to the new lips; the heart origin
   is detected from the enclosed alpha gap between the hands, then converted
-  to the cropped torso's coordinates. Head tilt moves the lip origin with it.
+  to the cropped torso's coordinates. That gap is then filled with dress
+  texture copied from below the hands, so the stage background (the yellow
+  farm, for one) never shows through her chest.
+- The body sheet's vinyl skin is shifted (one Lab shift for all poses) to the
+  master face's average; it was generated lighter and yellower than the head.
+  Near-opaque body alpha (imagegen tops out at 254) is snapped to opaque. Head tilt moves the lip origin with it.
 - `assets/claudia-v2/` contains the exported WebP rig and generated config.
   Runtime image caching decodes the shared head once per loaded doll, and
   feature names have their own namespace to avoid head/patch collisions.
@@ -60,9 +79,14 @@ Registration error measures agreement of unchanged features, not artistic
 quality of the mouth or anatomical accuracy. Review the assembled preview
 after changing source art; an automatic build does not replace visual QA.
 
-## Validation (2026-10-21)
+## Validation (2026-10-22)
 
-All eight expression sources passed registration; all six necks were detected.
+All eight expression sources passed hair and face registration; the lip and
+eye fits are under one pixel median error; all six necks were detected.
+The 2026-10-22 rebuild fixed three reported issues in the 10-21 export:
+see-through heart hands, mouths changing size/position/skin tone between
+expressions (box patches from a differently shaped face), and a half
+transparent wink lid that did not cover the open eye.
 Automated tests check asset references, fixed head geometry, attachment scale,
 patch coordinates, feature namespaces, and expression priorities. Browser
 checks compare the older dolls alongside Claudia and overlay the anchors.
