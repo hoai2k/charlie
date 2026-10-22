@@ -870,7 +870,7 @@ function preloadTrackArt(background) {
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
-  if (jumpIsPogo(background)) loadArtOnce(trackArtKey("town", "powerups"), "assets/tracks/town/powerups.webp");
+  if (pogoEligible(background)) loadArtOnce(trackArtKey("town", "powerups"), "assets/tracks/town/powerups.webp");
   if (theme.monster && (window.TRACK_SHARED_ART || []).includes(theme.monster)) {
     loadArtOnce(theme.monster, `assets/${theme.monster}_sprites.webp`);
   }
@@ -1398,6 +1398,7 @@ function makePowerup(type, x, y, options = {}) {
     y,
     type,
     horseType: type === "horse" ? chooseHorseType() : "horse",
+    pogo: type === "jump" && pogoEligible() && Math.random() < POGO_SHARE,
     taken: false,
     spin: Math.random() * Math.PI * 2,
     dropTimer: 0,
@@ -2379,22 +2380,35 @@ function updateStackTimers(racer, dt) {
   racer.highJumpTimer = racer.highJumpStacks.length > 0 ? Math.max(...racer.highJumpStacks) : 0;
 }
 
-// Every high-jump pickup is a pogo stick, except where the track's jump
-// pickup is something else (moon boots, a spell book) or everyone rides.
-function jumpIsPogo(background = getCurrentBackground()) {
+// High-jump pickups are a mix of springs and pogo sticks on every board,
+// except where the jump pickup is its own item (the spell book) or everyone
+// rides (Horse Show). On Moon Base the spring's place is taken by moon boots.
+const POGO_SHARE = 0.5;
+function pogoEligible(background = getCurrentBackground()) {
   const theme = getTrackTheme(background);
-  return !theme.moonBoots && !theme.itemEffects?.jump && !theme.startMounted;
+  return !theme.itemEffects?.jump && !theme.startMounted;
 }
 
 function getRideToy(powerupType) {
-  return getTrackTheme().rideToys?.[powerupType] || (powerupType === "jump" && jumpIsPogo() ? "pogo" : null);
+  return powerupType === "jump" ? null : getTrackTheme().rideToys?.[powerupType] || null;
 }
 
-// Tracks without their own pogo icon borrow the Village's.
+// A track's own jump icon shows a pogo stick on some tracks.
+function trackJumpIconIsPogo() {
+  return Boolean(getTrackArt("powerups")) && getTrackTheme().labels?.jump === "POGO";
+}
+
+// Pogo pickups use the track's pogo icon, or the Village's.
 function getPogoIconSheet() {
-  const own = getTrackArt("powerups");
-  if (own && getTrackTheme().labels?.jump === "POGO") return own;
+  if (trackJumpIconIsPogo()) return getTrackArt("powerups");
   return images[trackArtKey("town", "powerups")] || null;
+}
+
+// Spring pickups keep the track's icon only when it shows a spring (or moon
+// boots on Moon Base); otherwise they use the basic spring.
+function trackJumpIconIsSpring() {
+  const theme = getTrackTheme();
+  return Boolean(getTrackArt("powerups")) && !trackJumpIconIsPogo() && theme.springIcon !== false;
 }
 
 // Toys keep the order they were picked up in; picking one up again refreshes it.
@@ -2844,17 +2858,18 @@ function applyPowerup(racer, powerupOrType) {
     const label = powerupLabel("boost", "BOOST");
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
-    if (getTrackTheme().moonBoots) {
+    const pogo = typeof powerupOrType === "string" ? pogoEligible() && Math.random() < POGO_SHARE : powerupOrType.pogo;
+    if (getTrackTheme().moonBoots && !pogo) {
       racer.moonBootsTimer = Math.max(racer.moonBootsTimer, MOON_BOOTS_DURATION);
       racer.powerupMessage = powerupLabel("jump", "MOON BOOTS");
       return true;
     }
-    const toy = getRideToy("jump");
+    const toy = pogo && !isMounted(racer) ? "pogo" : null;
     const duration = 5 * (toy ? RIDE_TOY_DURATION_MULTIPLIER : 1);
     racer.highJumpStacks.push(duration);
     if (toy) addRideToy(racer, toy, duration);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
-    const label = toy === "pogo" ? "POGO" : powerupLabel("jump", "HIGH JUMP");
+    const label = toy ? "POGO" : trackJumpIconIsSpring() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
@@ -6639,7 +6654,7 @@ function drawPowerup(powerup) {
   }
   if (iconIndex !== undefined) {
     drawPowerupGlow(powerup.type, x, drawY - 34 + Math.sin(t) * 5, drawY - 4, t);
-    drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t);
+    drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t, { pogo: powerup.pogo });
     return;
   }
   if (powerup.type === "horse" && powerup.horseType === "broom") {
@@ -6706,7 +6721,8 @@ function drawPowerupGlow(type, x, y, groundY, t) {
 }
 
 function drawPowerupIcon(index, x, y, t, options = {}) {
-  const trackSheet = (index === 0 && jumpIsPogo() && getPogoIconSheet()) || getTrackArt("powerups");
+  let trackSheet = getTrackArt("powerups");
+  if (index === 0) trackSheet = options.pogo ? getPogoIconSheet() || trackSheet : trackJumpIconIsSpring() ? trackSheet : null;
   const rect = trackSheet
     ? { x: index * TRACK_POWERUP_CELL, y: 0, w: TRACK_POWERUP_CELL, h: TRACK_POWERUP_CELL }
     : POWERUP_ICON_RECTS[index];
@@ -7105,22 +7121,10 @@ function drawRacer(racer) {
 }
 
 // A coloured ring underfoot for each active power-up, and green speed streaks.
+// Power-up feedback drawn behind her: speed streaks (sparkles and
+// after-images come from updateRacerPowerupEffects). No rings round her shadow.
 function drawPowerupAura(racer, screenX, scale, mounted) {
-  const rings = [];
-  if (racer.speedBoostTimer > 0) rings.push(POWERUP_GLOW_COLORS.boost);
-  if (racer.highJumpTimer > 0) rings.push(POWERUP_GLOW_COLORS.jump);
-  if (racer.moonBootsTimer > 0) rings.push(MOON_BOOTS_COLOR);
-  const pulse = 0.5 + 0.5 * Math.sin(performance.now() / 160);
   ctx.save();
-  rings.forEach((color, i) => {
-    const grow = 1 + i * 0.22;
-    ctx.globalAlpha = 0.55 + 0.25 * pulse;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.ellipse(screenX, racer.y + 40, 52 * scale * 2 * grow, 15 * scale * 2 * grow, 0, 0, Math.PI * 2);
-    ctx.stroke();
-  });
   if (racer.speedBoostTimer > 0 && racer.moving && !racer.rideToys?.some(toy => toy.type === "skates")) {
     // Streaks trailing behind the body (not on skates: the glide says it).
     const back = -racer.facing;

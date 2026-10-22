@@ -47,11 +47,15 @@
 // jam…): the doll's feet stick and she tips forward instead of sliding.
 // fenceBase (optional): where the back fence meets the ground, when there's
 // a verge between it and the path; racers may walk up to it.
-// rideToys: { boost: "skates", jump: "pogo" } makes those pickups roller
-// skates / a pogo stick that last twice as long and change the doll's look.
-// Every track's high-jump pickup is a pogo stick anyway (game.js jumpIsPogo),
-// except Moon Base (moon boots), Wizard School (spell book) and Horse Show
-// (everyone rides); tracks without a pogo icon show the Village's.
+// rideToys: { boost: "skates" } makes the speed pickup roller skates that
+// last twice as long and change the doll's look.
+// High-jump pickups are a mix of springs and pogo sticks on every track
+// (game.js POGO_SHARE), except Wizard School (spell book) and Horse Show
+// (everyone rides); on Moon Base the spring is moon boots. Pogo pickups show
+// the track's pogo icon (its jump label is "POGO") or the Village's. Spring
+// pickups show the track's jump icon only if it's a spring: `springIcon:
+// false` marks one that isn't (a mushroom, a slide…), which then shows the
+// basic spring and the label "HIGH JUMP".
 // baseMount may be a list to pick from. unlocksWizardMounts: finishing this
 // track unlocks gryphons and broomsticks on every other track for the rest of
 // that day (until then they're left out of mount pickups there).
@@ -974,6 +978,7 @@ window.TRACK_THEMES = {
     mountOdds: { pony: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   fairy: {
+    springIcon: false,
     empStyle: "lightning",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "TOADSTOOL", boost: "FAIRY DUST", emp: "WAND ZAP", oil: "HONEY", snowball: "BUBBLES" },
@@ -985,9 +990,10 @@ window.TRACK_THEMES = {
     labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" },
     projectileBurst: "water",
     sounds: { emp: "pickup_hand_bell", boost: "pickup_skates", jump: "pickup_pogo" },
-    rideToys: { boost: "skates", jump: "pogo" }
+    rideToys: { boost: "skates" }
   },
   winter: {
+    springIcon: false,
     empStyle: "lightning",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" },
@@ -995,6 +1001,7 @@ window.TRACK_THEMES = {
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   castles: {
+    springIcon: false,
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "ROYAL BOUNCE", boost: "TRUMPET", emp: "GONG", oil: "JAM", snowball: "CREAM PUFFS" },
     sounds: { emp: "pickup_gong", boost: "pickup_trumpet" },
@@ -1013,7 +1020,6 @@ window.TRACK_THEMES = {
     standInBackground: "farm"
   },
   toyroom: {
-    rideToys: {jump: "pogo"},
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "windup_car"],
     labels: { jump: "POGO", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
     sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box", boost: "windup_release" },
@@ -1023,7 +1029,6 @@ window.TRACK_THEMES = {
   },
   candy: {
     empStyle: "firework",
-    rideToys: {jump: "pogo"},
     name: "Candy Land", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
     sounds: { emp: "pickup_pop_rocks" },
@@ -1050,6 +1055,7 @@ window.TRACK_THEMES = {
     itemEffects: { jump: "spellBook" }
   },
   autumn: {
+    springIcon: false,
     monster: "scarecrow",
     fenceBase: 479,
     name: "Pumpkin Patch", music: "assets/music/Hey, Hay! Pumpkin Patch.mp3", dirtTop: 509, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
@@ -1072,6 +1078,7 @@ window.TRACK_THEMES = {
   },
   // Twilight woodland track with its own looped art and song.
   woods: {
+    springIcon: false,
     name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN BELL", oil: "MOSSY BOG", snowball: "ACORNS" },
     sounds: { emp: "pickup_acorn_bell" },
@@ -1079,7 +1086,7 @@ window.TRACK_THEMES = {
   },
   festival: {
     empStyle: "firework",
-    rideToys: {boost: "skates", jump: "pogo"},
+    rideToys: { boost: "skates" },
     name: "Night Festival", music: "assets/music/One More Spin at the Night Festival.mp3", dirtTop: 513, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "SKATES", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" },
     projectileBurst: "water",
