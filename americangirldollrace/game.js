@@ -107,12 +107,6 @@ const GRAVITY = 2100;
 const LANDING_POSE_DISTANCE = 100;
 const UNMOUNTED_LANDING_PAUSE_DURATION = 0.2;
 const HORSE_DURATION = 10;
-// A troll grabbing a rider pulls her off: her mount stays where it was as a
-// pickup with only the time it had left (a Horse Show horse never runs out).
-// On the Horse Show two spare horses also wait, a third and two thirds of the
-// way along at the bottom of the track, for anyone on foot.
-const LOOSE_MOUNT_PICKUP_X = 60;
-const HORSE_SHOW_SPARE_HORSES = [1 / 3, 2 / 3];
 const UNICORN_DURATION_MULTIPLIER = 2;
 const PEGASUS_DURATION_MULTIPLIER = 1.5;
 const HORSE_FLASH_TIME = 2.4;
@@ -277,7 +271,6 @@ const POWERUP_GLOW_COLORS = {
   boost: "#2fd65a",
   jump: "#ff8a1c",
   emp: "#b45cff",
-  horse: "#ffd84a",
   snowball: "#4cc3ff"
 };
 // Darker shades of the same colours for the status text over a racer.
@@ -469,7 +462,7 @@ const images = {
   monster: loadImage("assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp"),
-  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`)])),
+  ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp`)])),
 };
 
 const jumpSpriteScale = {
@@ -792,7 +785,7 @@ function resetRace(mode = state.mode) {
   state.particles = [];
   state.spells = [];
   state.windupCars = [];
-  state.powerups = [...makePowerups(), ...makeSpareHorses()];
+  state.powerups = makePowerups();
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
   state.rewardCloud = null;
@@ -1436,12 +1429,6 @@ function mountLabel(type) {
 
 function isSpecialMountType(type) {
   return type === "unicorn" || isFlyingMountType(type);
-}
-
-// Unicorns and gryphons bowl trolls over; a troll can pull a rider off any
-// other mount (horses, ponies, pegasi, broomsticks).
-function mountBeatsTrolls(type) {
-  return type === "unicorn" || type === "griffon";
 }
 
 const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };
@@ -2188,9 +2175,7 @@ function update(dt) {
     if (racer.horseTimer === 0) {
       racer.horseType = "horse";
       racer.pegasusGliding = false;
-      // On the Horse Show a special mount running out leaves her on a horse,
-      // unless a troll pulled her off and she hasn't got back on yet.
-      if (isAlwaysMountedTrack() && !racer.dismounted) racer.horseTimer = Infinity;
+      if (isAlwaysMountedTrack()) racer.horseTimer = Infinity;
     }
 
     if (racer.grabbedBy) {
@@ -2304,7 +2289,7 @@ function update(dt) {
         spawnParticles(racer.x, racer.y + 54, 0, 10, { color: "#d9d3e6", kind: "puff", speed: 140, lift: 40, life: 0.8, size: 14, gravity: 0 });
         spawnParticles(racer.x, racer.y + 54, 0, 10, { color: MOON_BOOTS_COLOR, speed: 120, lift: 260, life: 0.7, gravity: 300 });
       } else if (racer.highJumpTimer > 0) {
-        spawnParticles(racer.x, racer.y + 54, racer.z, 26, { color: POWERUP_GLOW_COLORS.jump, speed: 210, lift: 420, life: 0.6 });
+        spawnParticles(racer.x, racer.y + 54, 0, 16, { color: POWERUP_GLOW_COLORS.jump, speed: 170, lift: 380, life: 0.55 });
         spawnParticles(racer.x, racer.y + 54, 0, 1, { color: POWERUP_GLOW_COLORS.jump, kind: "ring", life: 0.35, size: 50, gravity: 0, speed: 0, lift: 0 });
       }
       if (!mounted) {
@@ -2338,8 +2323,7 @@ function update(dt) {
       if (isPowerupDropping(powerup)) continue;
       if (isMounted(racer) && !canMountedRacersUsePowerups()) continue;
       if (racer.ai && racer.x > getHumanLeadX()) continue;
-      const reachX = powerup.loose ? LOOSE_MOUNT_PICKUP_X : 34;
-      const close = Math.abs(racer.x - powerup.x) < reachX && Math.abs(racer.y + 54 - powerup.y) < 34 && racer.z < 80;
+      const close = Math.abs(racer.x - powerup.x) < 34 && Math.abs(racer.y + 54 - powerup.y) < 34 && racer.z < 80;
       if (close) {
         powerup.taken = applyPowerup(racer, powerup);
       }
@@ -2508,16 +2492,6 @@ function updateRacerPowerupEffects(racer, dt) {
     } else if (racer.ghosts.length > 0) {
       racer.ghosts.shift();
     }
-  }
-  // High jump (or moon boots) ready: a gentle fizz of sparks rising from her
-  // feet on the ground, so it's clear she can jump high; jumping bursts them.
-  racer.jumpSparkleTimer = (racer.jumpSparkleTimer || 0) - dt;
-  const springy = racer.highJumpTimer > 0 || racer.moonBootsTimer > 0;
-  if (springy && (racer.z <= 0 || racer.onObstacle) && racer.jumpSparkleTimer <= 0) {
-    racer.jumpSparkleTimer = 0.045;
-    const color = racer.moonBootsTimer > 0 ? MOON_BOOTS_COLOR : POWERUP_GLOW_COLORS.jump;
-    const spread = 22 * racerDepthScale(racer) * 2;
-    spawnParticles(racer.x + (Math.random() - 0.5) * spread, racer.y + 54, racer.z + 2, 1, { color, speed: 22, lift: 190, life: 0.6, size: 4.5, gravity: 170 });
   }
   racer.sparkleTimer -= dt;
   if (racer.sparkleTimer > 0) return;
@@ -2998,8 +2972,6 @@ function resolveMonsterObstacleCollisions(monster, previousX, previousY) {
 function applyPowerup(racer, powerupOrType) {
   const type = typeof powerupOrType === "string" ? powerupOrType : powerupOrType.type;
   if (hasActivePowerup(racer, type)) return false;
-  // A spare or left-behind mount is only for someone without one.
-  if (type === "horse" && powerupOrType.loose && isMounted(racer)) return false;
   playPowerupAudio(racer, type);
   const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
   if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);
@@ -3083,11 +3055,8 @@ function applyPowerup(racer, powerupOrType) {
     racer.snowballs += SNOWBALL_PICKUP_COUNT;
     racer.powerupMessage = `${powerupLabel("snowball", "SNOWBALLS")} x${racer.snowballs}`;
   } else if (type === "horse") {
-    const loose = typeof powerupOrType === "string" ? null : powerupOrType.mountTime;
     racer.horseType = typeof powerupOrType === "string" ? chooseHorseType() : powerupOrType.horseType || "horse";
-    racer.horseTimer = loose !== undefined && loose !== null ? loose : horseDurationForType(racer.horseType);
-    if (isAlwaysMountedTrack() && racer.horseType === "horse") racer.horseTimer = Infinity;
-    racer.dismounted = false;
+    racer.horseTimer = horseDurationForType(racer.horseType);
     racer.frozenTimer = 0;
     racer.fallBackTimer = racer.oilTimer > 0 ? racer.fallBackTimer : 0;
     racer.knockbackX = 0;
@@ -3096,31 +3065,6 @@ function applyPowerup(racer, powerupOrType) {
     playMountAudio(racer);
   }
   return true;
-}
-
-// Pulled off by a troll: the mount stays behind as a pickup with the time it
-// had left.
-function dismountIntoPickup(racer) {
-  const horseType = racer.horseType;
-  const remaining = racer.horseTimer;
-  racer.horseTimer = 0;
-  racer.horseType = "horse";
-  racer.pegasusGliding = false;
-  if (isAlwaysMountedTrack()) racer.dismounted = true;
-  GameAudio.stopLoop(racerLoopId(racer, "mount"));
-  state.powerups.push(makeLooseMount(horseType, racer.x, racer.y + 54, remaining, racer.facing));
-  sfx(horseType === "unicorn" ? "unicorn_whinny_magic" : "horse_whinny", racer.x, { gain: 0.8 });
-}
-
-function makeLooseMount(horseType, x, y, mountTime, facing = 1) {
-  return { ...makePowerup("horse", x, y), horseType, mountTime, loose: true, facing };
-}
-
-// Spare horses along the Horse Show course, for anyone a troll pulled off.
-function makeSpareHorses() {
-  if (!isAlwaysMountedTrack()) return [];
-  const y = TRACK_BOTTOM + FOOT_OFFSET_Y - 8;
-  return HORSE_SHOW_SPARE_HORSES.map(share => makeLooseMount("horse", clearOfHurdles(FINISH * share, y), y, Infinity));
 }
 
 function hasActivePowerup(racer, type) {
@@ -3629,9 +3573,7 @@ function updateMonsters(dt) {
     if (riding) updateMountedMonsterJump(monster, Math.sign(dx), dt);
 
     const grabRangeX = riding ? MOUNTED_MONSTER_GRAB_RANGE_X : MONSTER_GRAB_RANGE_X;
-    const unbeatable = isMounted(target) && mountBeatsTrolls(target.horseType);
-    if (monster.z < 20 && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y && target.z < 80 && !unbeatable) {
-      if (isMounted(target)) dismountIntoPickup(target);
+    if (monster.z < 20 && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y && target.z < 80 && (!isMounted(target) || canMountedRacersUsePowerups())) {
       monster.state = "grab";
       monster.timer = 0.24;
       monster.frameTime = 0;
@@ -3939,11 +3881,6 @@ function wandTip(caster) {
   };
 }
 
-function spellOrigin(spell) {
-  if (!spell.origin) return wandTip(spell.caster);
-  return { x: spell.caster.x + spell.origin.x, y: spell.caster.y + spell.origin.y };
-}
-
 function spellTargetPoint(target) {
   const isMonster = state.monsters.includes(target);
   return { x: target.x, y: target.y + 54 - (target.z || 0) - (isMonster ? 150 : 90) };
@@ -4057,15 +3994,13 @@ function updateSpells(dt) {
     spell.t += dt;
     if (spell.t < SPELL_BOLT_DELAY || !spell.target) continue;
     if (before < SPELL_BOLT_DELAY) {
-      // Release: a flash at the wand tip. The bolt keeps coming from where the
-      // tip was at this moment (moving with her), whatever the follow-through.
+      // Release: a flash at the wand tip.
       const tip = wandTip(spell.caster);
-      spell.origin = { x: tip.x - spell.caster.x, y: tip.y - spell.caster.y };
       spawnParticles(tip.x, tip.y, 0, 14, { color: "#fff2a8", speed: 190, lift: 40, life: 0.35, size: 5, gravity: 0 });
     }
     if (spell.done) continue;
     const progress = (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME;
-    const from = spellOrigin(spell);
+    const from = wandTip(spell.caster);
     const to = spellTargetPoint(spell.target);
     const x = from.x + (to.x - from.x) * Math.min(1, progress);
     const y = from.y + (to.y - from.y) * Math.min(1, progress);
@@ -4209,7 +4144,7 @@ function drawSpells() {
   for (const spell of state.spells) {
     if (!spell.target || spell.t < SPELL_BOLT_DELAY) continue;
     const progress = Math.min(1, (spell.t - SPELL_BOLT_DELAY) / SPELL_BOLT_TIME);
-    const from = spellOrigin(spell);
+    const from = wandTip(spell.caster);
     const to = spellTargetPoint(spell.target);
     const x = from.x + (to.x - from.x) * progress - state.camera;
     const y = from.y + (to.y - from.y) * progress;
@@ -4591,7 +4526,7 @@ function stunMonsterWithEmp(monster) {
 function bumpMonstersWithSpecialMounts() {
   for (const racer of state.racers) {
     if (racer.finished || racer.grabbedBy || !isMounted(racer)) continue;
-    if (!isHorsingAroundMode() && !mountBeatsTrolls(racer.horseType)) continue;
+    if (!isHorsingAroundMode() && !isSpecialMountType(racer.horseType)) continue;
     if (racer.mountBumpCooldown > 0) continue;
     for (const monster of state.monsters) {
       if (monster.state === "sleeping" || monster.state === "ground") continue;
@@ -6878,10 +6813,6 @@ function drawPowerup(powerup) {
     drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t, { pogo: powerup.pogo });
     return;
   }
-  if (powerup.type === "horse" && powerup.loose && powerup.horseType !== "broom") {
-    drawLooseMount(powerup, x, t);
-    return;
-  }
   if (powerup.type === "horse" && powerup.horseType === "broom") {
     drawBroomProp(x, drawY - 23 + Math.sin(t) * 5, 105, Math.sin(t * 0.7) * 0.055, 1);
     return;
@@ -7118,26 +7049,6 @@ function getTrollRiderOffset(skeleton, horseRow, horseCol, riderRow, riderCol) {
   return { x: horse.seat[0] - rider.hip[0], y: horse.seat[1] - rider.hip[1] };
 }
 
-// A riderless mount standing where it was left, waiting to be ridden again.
-function drawLooseMount(powerup, screenX, t) {
-  const groundY = powerupDrawY(powerup);
-  const horseScale = racerDepthScale({ y: groundY - 54 }) * 1.08;
-  const calibration = getMountFrameCalibration(powerup.horseType, 0, 0);
-  const horseW = FRAME * horseScale;
-  ctx.save();
-  ctx.globalAlpha = 0.28;
-  ctx.fillStyle = "#142027";
-  ctx.beginPath();
-  ctx.ellipse(screenX, groundY - 12, 70 * horseScale, 16 * horseScale, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-  // A soft pulse so it reads as something to pick up.
-  drawPowerupGlow("horse", screenX, groundY - 150 * horseScale, groundY - 4, t);
-  drawFacingImage(images[powerup.horseType] || images.horse, (Math.floor(t * 0.7) % 3) * FRAME, 0, FRAME, FRAME,
-    screenX - SPRITE_ANCHOR_X * horseScale, groundY + 4 - SPRITE_ANCHOR_Y * horseScale + calibration.groundShift * horseScale,
-    horseW, horseW, powerup.facing || 1, screenX);
-}
-
 function drawRunawayHorse(horse) {
   const screenX = horse.x - state.camera;
   if (screenX < -300 || screenX > getWorldViewportWidth() + 300) return;
@@ -7347,8 +7258,8 @@ function drawRacer(racer) {
   }
   const activeLabels = [
     mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
-    racer.speedBoostTimer > 0 ? stackLabel(powerupLabel("boost", "BOOST"), racer.speedBoostStacks.length) : "",
-    racer.highJumpTimer > 0 ? stackLabel(racerJumpLabel(racer), racer.highJumpStacks.length) : "",
+    racer.speedBoostTimer > 0 ? `${powerupLabel("boost", "BOOST")} x${racer.speedBoostStacks.length}` : "",
+    racer.highJumpTimer > 0 ? `${powerupLabel("jump", "HIGH JUMP")} x${racer.highJumpStacks.length}` : "",
     racer.moonBootsTimer > 0 ? powerupLabel("jump", "MOON BOOTS") : "",
     racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
   ].filter(Boolean);
@@ -7368,18 +7279,6 @@ function drawRacer(racer) {
 // A coloured ring underfoot for each active power-up, and green speed streaks.
 // Power-up feedback drawn behind her: speed streaks (sparkles and
 // after-images come from updateRacerPowerupEffects). No rings round her shadow.
-// "POGO", or "POGO x2" when she has picked up more than one.
-function stackLabel(label, count) {
-  return count > 1 ? `${label} x${count}` : label;
-}
-
-// What her high jump is called: a pogo stick, the track's own spring, or a
-// plain high jump where the track's jump icon isn't a spring.
-function racerJumpLabel(racer) {
-  if (racer.rideToys?.some(toy => toy.type === "pogo")) return "POGO";
-  return trackJumpIconIsSpring() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
-}
-
 function drawPowerupAura(racer, screenX, scale, mounted) {
   ctx.save();
   if (racer.speedBoostTimer > 0 && racer.moving && !racer.rideToys?.some(toy => toy.type === "skates")) {

@@ -60,37 +60,25 @@
       "source": "sources/claudia/run.webp",
       "cell": 0,
       "separate": true,
-      "hipX": 480,
+      "hipX": 455,
       "chin": 240,
-      "garmentBottom": 724,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 724
     },
     "run-1": {
       "source": "sources/claudia/run.webp",
       "cell": 1,
       "separate": true,
-      "hipX": 410,
+      "hipX": 396,
       "chin": 240,
-      "garmentBottom": 724,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 724
     },
     "run-2": {
       "source": "sources/claudia/run.webp",
       "cell": 2,
       "separate": true,
-      "hipX": 355,
+      "hipX": 362,
       "chin": 240,
-      "garmentBottom": 724,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 724
     },
     "jump-0": {
       "source": "sources/claudia/jump.webp",
@@ -194,16 +182,16 @@
     ],
     [
       [
-        639,
-        314
+        565,
+        340
       ],
       [
-        543,
-        333
+        506,
+        360
       ],
       [
-        522,
-        312
+        482,
+        325
       ]
     ]
   ]

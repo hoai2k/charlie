@@ -21,6 +21,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { drawEmote, drawSparkleShape } from '../engine/emotes.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, dist, lerp, later } from '../engine/util.js';
 import {
   NAVY, POND, NEST, drawDuckling, drawHat, drawMama, drawNest, drawLily, drawReeds, drawBoot,
@@ -39,8 +40,8 @@ export const meta = {
   controls: [['stick', 'Run - ducklings follow you'], ['a', 'Quack call']],
   tips: ['Run close to a duckling and it hops in line behind you.', 'Run your line to Mama\'s nest to bring them home.', 'Catch the sparkly golden duckling for 3!'],
   goalEasy: 'You walk round the pond by yourself - quack with A to call the lost ducklings!',
-  controlsEasy: [['a', 'Quack call']],
-  tipsEasy: ['When a duckling sparkles and the A pops up, press A!', 'Every lap you pass Mama\'s nest and your ducklings go home.', 'Catch the sparkly golden duckling for 3!'],
+  controlsEasy: [['a', 'Quack call'], ['stick', 'Walk (if you like)']],
+  tipsEasy: ['When a duckling sparkles and the A pops up, press A!', 'No duckling close? Press A and you walk to the nearest one!', 'You walk by yourself - or move with either stick if you like!', 'Every lap you pass Mama\'s nest and your ducklings go home.', 'Catch the sparkly golden duckling for 3!'],
   music: 'splash',
   duration: '60 sec',
   minPlayers: 1,
@@ -490,7 +491,11 @@ export class Game {
     this.pushOut(e, 1, 44, 34);
     if (inPond(e.x, e.y, 1.14) && Math.hypot(e.vx, e.vy) > 200 && chance(dt * 10)) particles.burst(e.x, e.y, { type: 'drop', count: 2, colors: ['#bfeaff', '#fff'], speed: [40, 120] });
     this.pushTrail(e, e.line.length);
-    if (c.pressed('a') && e.callCd <= 0 && this.phase !== 'done') this.quackCall(e);
+    if (c.pressed('a') && e.callCd <= 0 && this.phase !== 'done') {
+      // Molly Easy: A with no duckling in range walks her to the nearest lost one and quacks there
+      if (this.easy && !p.isAI && this.phase === 'play' && !e.ezNear) e.ezGo = this.nearestLost(e);
+      this.quackCall(e);
+    }
     const moving = Math.hypot(e.vx, e.vy);
     if (this.phase === 'parade' && p.isAI) { if (!a._once && a.pose !== 'dance') a.setPose('dance'); if (moving > 30) a.moveAnim(e.vx, e.vy, sp, { run: true }); }
     else if (this.done && moving < 40) { if (!a._once && a.pose !== 'celebrate') a.setPose('celebrate'); }
@@ -502,7 +507,25 @@ export class Game {
     let near = 0;
     for (const d of this.ducks) if ((d.state === 'hide' || d.state === 'wander') && dist(d.x, d.y, e.x, e.y) < CALL_R + e.a.radius - 20) near++;
     e.ezNear = this.phase === 'play' ? near : 0;
-    if (this.phase !== 'play') return [0, 0];
+    if (this.phase !== 'play') { e.ezGo = null; return [0, 0]; }
+    // either stick still walks her anywhere (like Medium); the loop waits for her
+    const st = easySteer(e, e.p.ctrl, dt);
+    if (st.pushing) e.ezGo = null;
+    if (st.manual && !e.ezGo) { e.ezBack = true; return [st.x, st.y]; }
+    const go = e.ezGo;
+    if (go && (go.state === 'hide' || go.state === 'wander')) {
+      const d = Math.hypot(go.x - e.x, go.y - e.y);
+      if (d < CALL_R * 0.6) { e.ezGo = null; e.ezBack = true; if (e.callCd <= 0) this.quackCall(e); return [0, 0]; }
+      const wp = this.aroundPond(e.x, e.y, go.x, go.y);   // round the pond, not into it
+      const wx = wp.x - e.x, wy = wp.y - e.y, wd = Math.hypot(wx, wy) || 1, k = LOOP_SPEED * 1.15;
+      return [wx / wd * k, wy / wd * k];
+    }
+    e.ezGo = null;
+    if (e.ezBack) {
+      // back on the loop from wherever she is now (the closest point, no snapping back)
+      e.ezBack = false;
+      e.ezAng = Math.atan2((e.y - LOOP.y) / LOOP.ry, (e.x - LOOP.x) / LOOP.rx);
+    }
     const tx = LOOP.x + Math.cos(e.ezAng) * LOOP.rx, ty = LOOP.y + Math.sin(e.ezAng) * LOOP.ry;
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
     // the target point runs ahead along the loop while we keep up with it
@@ -514,6 +537,17 @@ export class Game {
     if (d < 4) return [0, 0];
     const k = LOOP_SPEED * clamp(d / 60, 0.5, 1.15);
     return [dx / d * k, dy / d * k];
+  }
+
+  /** Molly Easy: the closest lost duckling to this player (for an A press with none in range). */
+  nearestLost(e) {
+    let best = null, bd = Infinity;
+    for (const d of this.ducks) {
+      if (d.state !== 'hide' && d.state !== 'wander') continue;
+      const dd = dist(d.x, d.y, e.x, e.y);
+      if (dd < bd) { bd = dd; best = d; }
+    }
+    return best;
   }
 
   quackCall(e) {

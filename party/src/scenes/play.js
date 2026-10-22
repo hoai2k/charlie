@@ -2,7 +2,7 @@
 // banner, crash safety, then hands the result to the Results scene.
 import { cancelLater } from '../engine/util.js';
 import { W, H } from '../engine/canvas.js';
-import { input } from '../engine/input.js';
+import { input, inputOpts } from '../engine/input.js';
 import { sfx, music, host, stopAllLoops, duckLoops, setMuted, isMuted } from '../engine/audio.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
@@ -34,6 +34,8 @@ export class PlayScene {
     this.paused = null;
     this.howto = null;    // the how-to-play card (corner "i" or the pause menu); pauses the game
     corner.infoFn = () => this.openHowto(); corner.infoAt = this.meta.infoAt || 'bl';
+    // Sister Party: either stick moves (a game that gives the right stick its own job sets meta.rightStick)
+    inputOpts.rsMove = this.meta.category === 'molly' && !this.meta.rightStick;
     this.error = null;
     this.leaving = false; // the scene object is reused: without this every game after the first sticks on FINISH
     const host = this;
@@ -83,7 +85,7 @@ export class PlayScene {
   exit() {
     this._loadEpoch = (this._loadEpoch || 0) + 1;
     this.leaving = true;
-    corner.infoFn = null; this.howto = null;
+    corner.infoFn = null; this.howto = null; inputOpts.rsMove = false;
     try { this.game && this.game.destroy && this.game.destroy(); } catch (e) { console.error(e); }
     this.game = null;
     if (this._artGroup) releaseGameArt(this._artGroup);

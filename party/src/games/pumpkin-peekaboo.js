@@ -20,6 +20,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { clamp, lerp, rand, randInt, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import { drawPumpkin, drawCandy, drawBucket, drawBat, drawPatchBackground, drawMoonFace } from './pumpkin-peekaboo/art.js';
@@ -43,8 +44,8 @@ export const meta = {
   tips: ['Run to a pumpkin and press A. Boop boop!', 'Golden pumpkins make it rain candy for everyone!', 'Boop the kitty in the witch hat for a big lollipop.'],
   // Molly Easy: you walk to the pumpkins by yourself; A boops
   goalEasy: 'You walk to the pumpkins by yourself. Press A to boop them!',
-  controlsEasy: [['a', 'Boop!']],
-  tipsEasy: ['Press A when the big A bounces. Boop boop!', 'Golden pumpkins make it rain candy for everyone!'],
+  controlsEasy: [['a', 'Boop! (A runs you to the nearest pumpkin)'], ['stick', 'Move with either stick if you like']],
+  tipsEasy: ['Press A when the big A bounces. Boop boop!', 'Want a different pumpkin? Walk over with the stick, then press A!', 'Golden pumpkins make it rain candy for everyone!'],
   music: 'spooky',
   duration: '45 sec',
   minPlayers: 1,
@@ -304,7 +305,7 @@ export class Game {
     let ix = e.auto ? (this.done ? 0 : e.auto.ix) : c.x, iy = e.auto ? (this.done ? 0 : e.auto.iy) : c.y;
     const m = Math.hypot(ix, iy);
     if (m > 1) { ix /= m; iy /= m; }
-    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : e.auto ? 0.72 : 1);
+    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : e.auto ? (e.auto.manual ? 0.9 : 0.72) : 1);
     const tx = ix * top, ty = iy * top * 0.8;
     const k = 1 - Math.exp(-14 * dt);
     e.vx += (tx - e.vx) * k; e.vy += (ty - e.vy) * k;
@@ -345,6 +346,11 @@ export class Game {
       if (pk.phase !== 'up' && pk.phase !== 'rise' && pk.phase !== 'tease') continue;
       const d = this.boopDist(e, pk);
       if (d < bd) { bd = d; best = pk; }
+    }
+    if (!best && e.auto && !e.auto.pushing) {
+      // Molly Easy: nothing in reach - run to the nearest pumpkin (from here) and boop it there
+      const go = this.easyNearest(e);
+      if (go) { e.auto.target = { kind: 'pk', pk: go }; e.auto.go = go; e.auto.t = 3; e._ezSteer = 0; e.auto.manual = false; e.cd = 0; return; }
     }
     a.playOnce(poseName('boop'), 0.3);
     if (!best) {
@@ -505,13 +511,37 @@ export class Game {
     return best;
   }
 
-  /** Easy (A only): walk to the best pumpkin nobody else is going for (or rain candy). */
+  /** Easy: the nearest pumpkin that's up (from where the kid is now). */
+  easyNearest(e) {
+    let best = null, bd = Infinity;
+    for (const pk of this.pumpkins) {
+      if (pk.phase !== 'up' && pk.phase !== 'rise') continue;
+      const d = this.boopDist(e, pk);
+      if (d < bd) { bd = d; best = pk; }
+    }
+    return best;
+  }
+
+  /** Easy (A only): walk to the best pumpkin nobody else is going for (or rain candy).
+   * The stick steers while it's pushed; A away from a pumpkin runs to the nearest one and boops it. */
   easyThink(e, dt) {
     const au = e.auto;
+    const st = easySteer(e, e.p.ctrl, dt);
+    au.manual = st.manual; au.pushing = st.pushing;
+    if (st.manual) {
+      au.ix = st.x; au.iy = st.y;
+      if (st.pushing) { au.target = null; au.go = null; au.t = 0; au.home = { x: e.x, y: e.y }; }   // pick up from here after
+      return;
+    }
+    if (au.go) {
+      const pk = au.go;
+      if (pk.phase !== 'up' && pk.phase !== 'rise' && pk.phase !== 'tease') au.go = null;   // it ducked: back to normal
+      else if (this.boopable(e) === pk && this.boopDist(e, pk) < BOOP_NEAR && e.cd <= 0) { au.go = null; this.tryBoop(e); }
+    }
     au.t -= dt;
     const T = au.target;
     const gone = !T || (T.kind === 'pk' && T.pk.phase !== 'up' && T.pk.phase !== 'rise') || (T.kind === 'candy' && T.gc.dead);
-    if (gone || au.t <= 0) {
+    if (!au.go && (gone || au.t <= 0)) {
       au.t = 0.5;
       let best = null, bu = 0;
       const sp = MAX_SPEED * 0.72;
@@ -533,7 +563,8 @@ export class Game {
     }
     const t = au.target;
     let tx = au.home.x, ty = au.home.y, arrive = 40;
-    if (t && t.kind === 'pk') { tx = t.pk.h.x + (e.x < t.pk.h.x ? -90 : 90); ty = t.pk.h.y + 22; arrive = 20; }
+    if (au.go) { const pk = au.go; tx = pk.h.x + (e.x < pk.h.x ? -90 : 90); ty = pk.h.y + 22; arrive = 10; }
+    else if (t && t.kind === 'pk') { tx = t.pk.h.x + (e.x < t.pk.h.x ? -90 : 90); ty = t.pk.h.y + 22; arrive = 20; }
     else if (t && t.kind === 'candy') { tx = t.gc.x; ty = t.gc.y; arrive = 10; }
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
     au.ix = 0; au.iy = 0;

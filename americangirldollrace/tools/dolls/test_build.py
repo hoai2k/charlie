@@ -20,7 +20,7 @@ class DollBuildTests(unittest.TestCase):
                 for col,(x,y) in enumerate(m['broomHandsSource'][row]):
                     pose=f'{kind}-{col}';src,spec=build.source_frame(m,pose)
                     scale=common*spec.get('scale',1)
-                    expected=[round(spec.get('target',[209,409])[0]+(x-m['poses'][pose]['hipX'])*scale),
+                    expected=[round(209+(x-m['poses'][pose]['hipX'])*scale),
                               round(build.BASELINE+(y-build.bounds(src)[3])*scale)]
                     self.assertEqual(actual[row][col],expected,(key,pose))
 

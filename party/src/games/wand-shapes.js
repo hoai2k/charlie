@@ -14,6 +14,7 @@ import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { drawArt } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { outfitItem } from '../engine/outfits.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, shuffle } from '../engine/util.js';
 import {
@@ -60,8 +61,8 @@ export const meta = {
   controls: [['stick', 'Fly your wand sparkle'], ['a', 'Sparkle burst']],
   tips: ['Touch the dots to light them up - any order is fine!', 'Press A for a big sparkle burst.', 'Finish a shape and it comes alive!'],
   goalEasy: 'Hold A and your wand sparkle flies along the dots to light them up!',
-  controlsEasy: [['a', 'Hold: fly to the dots'], ['a', 'Tap: sparkle burst']],
-  tipsEasy: ['Hold A - your sparkle finds the dots by itself!', 'Let go of A and it waits for you.', 'Light every dot and the shape comes alive!'],
+  controlsEasy: [['a', 'Hold: fly to the dots'], ['a', 'Tap: sparkle burst'], ['stick', 'Move (if you like)']],
+  tipsEasy: ['Hold A - your sparkle finds the dots by itself!', 'Let go of A and it waits for you.', 'Move with either stick if you like!', 'Light every dot and the shape comes alive!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -300,6 +301,10 @@ export class Game {
   /** Molly Easy: while A is held the sparkle flies itself to the nearest free unlit dot. */
   easyStick(e, dt) {
     const c = e.p.ctrl, s = this.shape;
+    // Either stick still steers the sparkle (a touch gentler than Medium); the
+    // autopilot waits, then picks the nearest dot from wherever it was left.
+    const st = easySteer(e, c, dt);
+    if (st.manual) { e.idleT = 0; e.et = null; return [st.x * 0.85, st.y * 0.85]; }
     const held = c.held('a');
     e.idleT = held ? 0 : e.idleT + dt;
     let tx = e.hx, ty = 640;

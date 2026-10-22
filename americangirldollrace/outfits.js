@@ -11,7 +11,7 @@
   const DATA_URL = "assets/masks/outfits.json?v=20261002k";
   const assetKey = key => window.EXTRA_DOLLS?.[key]?.assetKey || key;
   const KINDS = {
-    sheet: key => `assets/doll_${assetKey(key)}_sprites.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`,
+    sheet: key => `assets/doll_${assetKey(key)}_sprites.webp`,
     portrait: key => `assets/portraits/${assetKey(key)}.webp`,
     cheer: key => `assets/portraits/${assetKey(key)}_cheer.webp`,
     wave: key => `assets/portraits/${assetKey(key)}_wave.webp`,
@@ -121,7 +121,7 @@
       const source = await loadImage(KINDS[kind](key));
       if (!n || !colorOf(key, n) || !window.DollRecolor) return source;
       try {
-        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=${kind === "toys" ? window.RIDE_TOY_ART_VERSION || "1" : kind === "actions" ? window.ACTION_ART_VERSION || "1" : window.GAME_CONFIG?.dollArtVersion || "20261002k"}`);
+        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=${kind === "toys" ? window.RIDE_TOY_ART_VERSION || "1" : kind === "actions" ? window.ACTION_ART_VERSION || "1" : "20261002k"}`);
         entry.canvas = recolor(key, kind, n, source, maskImage);
         return entry.canvas;
       } catch (error) {

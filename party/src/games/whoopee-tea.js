@@ -24,6 +24,7 @@ import { fx } from '../engine/fx.js';
 import { drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer, mash } from '../engine/ai.js';
 import { bodyRadius, claimed, spread } from '../engine/crowd.js';
+import { easySteer, easyManual } from '../engine/easy.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, dist, later } from '../engine/util.js';
 import {
   NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, drawGuestFx, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
@@ -73,10 +74,11 @@ export const meta = {
   goal: 'Sneak whoopee cushions onto the chairs before the posh guests sit down. PFFFT!',
   controls: [['stick', 'Run'], ['a', 'Grab a cushion / put it on a chair']],
   tips: ['A glowing chair means a guest is coming!', 'The butler takes cushions back. Run!', 'At the end, push the golden cushion to the throne!'],
-  // Molly Easy: you walk all by yourself; A does the prank when the big A shows
+  // Molly Easy: you walk all by yourself (or steer with the stick); A does the
+  // prank when the big A shows, and A anywhere else walks you to the next thing
   goalEasy: 'Walk to the basket, then to a chair. Press A when the A shows. PFFFT!',
-  controlsEasy: [['a', 'Grab a cushion / put it on a chair']],
-  tipsEasy: ['You walk all by yourself!', 'Press A when the big A bounces.', 'At the end, tap A to push the golden cushion!'],
+  controlsEasy: [['a', 'Grab a cushion / put it on a chair'], ['stick', 'Run anywhere you like (or let it walk you)']],
+  tipsEasy: ['You walk all by yourself, or run with either stick!', 'Press A when the big A bounces.', 'At the end, tap A to push the golden cushion!'],
   music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
@@ -615,9 +617,14 @@ export class Game {
     const p = e.p, a = e.a, c = p.ctrl;
     e.cool = Math.max(0, e.cool - dt); e.popT = Math.max(0, e.popT - dt);
     const lock = this.phase === 'finale' || this.done;
-    const ix = lock ? 0 : e.auto ? e.auto.ix : c.x, iy = lock ? 0 : e.auto ? e.auto.iy : c.y;
+    // Easy: the stick runs you like Medium while pushed (the autopilot waits and
+    // then re-plans from wherever you got to)
+    const st = e.auto ? easySteer(e, c, dt) : null;
+    if (st && st.pushing) e.auto.goA = false;
+    const manual = !!(st && st.manual && !e.auto.goA);
+    const ix = lock ? 0 : manual ? st.x : e.auto ? e.auto.ix : c.x, iy = lock ? 0 : manual ? st.y : e.auto ? e.auto.iy : c.y;
     const m = Math.hypot(ix, iy), k = m > 1 ? 1 / m : 1;
-    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? 0.72 : 1;
+    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? (manual ? 0.85 : 0.72) : 1;
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.8 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
@@ -677,7 +684,12 @@ export class Game {
   action(e) {
     const act = this.actionFor(e);
     const a = e.a;
-    if (!act) { a.playOnce('think', 0.3); e.cool = 0.2; return; }
+    if (!act) {
+      a.playOnce('think', 0.3); e.cool = 0.2;
+      // Easy: nothing in reach - A walks you to the next thing (nearest from here), then does it
+      if (e.auto) { e.auto.goA = true; e.auto.goT = 6; e.auto.plan = null; e._ezSteer = 0; }
+      return;
+    }
     if (act.kind === 'heave') return this.heave(e);
     if (act.kind === 'grab') {
       e.held = 'cushion'; e.cool = 0.2;
@@ -799,7 +811,12 @@ export class Game {
   easyThink(e, dt) {
     const au = e.auto;
     au.ix = 0; au.iy = 0;
-    if (this.phase === 'finale' || this.done) return;
+    if (this.phase === 'finale' || this.done) { au.goA = false; return; }
+    // steering by hand: wait, and re-plan from where they are once they let go
+    if (easyManual(e) && !au.goA) { au.plan = null; return; }
+    // walked here on A: do the action as soon as it's in reach (give up after a while)
+    if (au.goA && (au.goT -= dt) <= 0) au.goA = false;
+    if (au.goA && e.cool <= 0 && this.actionFor(e)) { au.goA = false; this.action(e); return; }
     let tx, ty;
     if (this.phase === 'super') {
       const gc = this.golden;

@@ -56,53 +56,53 @@
     },
     "run-0": {
       "bounds": [
-        60,
-        27,
-        355,
+        65,
+        31,
+        332,
         409
       ],
       "scale": 0.5508474576271186,
       "anchor": [
-        209,
+        209.0,
         409
       ],
       "sourceAnchor": [
-        450,
-        703
+        465,
+        698
       ]
     },
     "run-1": {
       "bounds": [
-        98,
-        21,
-        302,
+        94,
+        23,
+        282,
         409
       ],
       "scale": 0.5508474576271186,
       "anchor": [
-        209,
+        209.0,
         409
       ],
       "sourceAnchor": [
-        316,
-        711
+        322,
+        710
       ]
     },
     "run-2": {
       "bounds": [
-        49,
-        25,
-        344,
+        50,
+        29,
+        322,
         409
       ],
       "scale": 0.5508474576271186,
       "anchor": [
-        209,
+        209.0,
         409
       ],
       "sourceAnchor": [
-        378,
-        704
+        415,
+        701
       ]
     },
     "jump-0": {
@@ -273,8 +273,8 @@
     }
   },
   "sha256": {
-    "assets/doll_barbie_sprites.webp": "d1ec01855a91499873c281d307bab3eaa792aa69131c1cbabafa5650e3951032",
-    "assets/masks/barbie_sheet_mask.webp": "48ef41feb9736bb37442c26269d6f435c36cba0bf3bd7f2ee0479d94728e0c51",
+    "assets/doll_barbie_sprites.webp": "fee13e19a1f35e2cdbc38ca034ecd097aa5a1e53dc840606f622ff79a91647f0",
+    "assets/masks/barbie_sheet_mask.webp": "d4d422968022977ffe32e33dc718e77d954ac273a805c5e712e72ad52453028b",
     "assets/portraits/barbie.webp": "3775c25acc33226867cbba01f4e6a88b75781d0ec6306895920021525832f513",
     "assets/masks/barbie_portrait_mask.webp": "f255da12ff01adb1ce7f957acc2557493d58651ee6115e5862ec472ddcee25ff",
     "assets/portraits/barbie_wave.webp": "c04a34f201fb30ac46305098ea1d74d630602a19ab5d089bda6cd1d3280020d7",

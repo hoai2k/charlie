@@ -58,6 +58,9 @@ function emptyState() {
   return s;
 }
 
+/** Play-scene switches: rsMove lets the right stick move too (set per game by scenes/play.js). */
+export const inputOpts = { rsMove: false };
+
 export class Controller {
   constructor(id, kind, label) {
     this.id = id;          // 'pad0', 'kb1', 'ai3' ...
@@ -72,12 +75,15 @@ export class Controller {
     this._inject = new Set();
   }
   get isAI() { return this.kind === 'ai'; }
-  get x() { return this.cur.lx; }
-  get y() { return this.cur.ly; }
+  // Movement: the left stick (and d-pad). With inputOpts.rsMove (Sister Party games, which
+  // never use the right stick), the right stick moves too whenever it's pushed further.
+  _rsMove() { const c = this.cur; return inputOpts.rsMove && this.kind !== 'ai' && Math.hypot(c.rx, c.ry) > Math.hypot(c.lx, c.ly); }
+  get x() { return this._rsMove() ? this.cur.rx : this.cur.lx; }
+  get y() { return this._rsMove() ? this.cur.ry : this.cur.ly; }
   get rx() { return this.cur.rx; }
-  /** The left stick alone (x/y also include the d-pad). */
-  get sx() { return this.cur.sx || 0; }
-  get sy() { return this.cur.sy || 0; }
+  /** The left stick alone (x/y also include the d-pad); the right stick stands in as above. */
+  get sx() { return this._rsMove() ? this.cur.rx : this.cur.sx || 0; }
+  get sy() { return this._rsMove() ? this.cur.ry : this.cur.sy || 0; }
   get ry() { return this.cur.ry; }
   held(b) { return !!this.cur[b]; }
   pressed(b) { return !!this.cur[b] && !this.prev[b]; }

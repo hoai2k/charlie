@@ -16,6 +16,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
@@ -32,8 +33,8 @@ export const meta = {
   controls: [['stick', 'Run with your basket'], ['a', 'Cuddle! (or hop)']],
   tips: ['Kittens bounce off your head into the basket.', 'Cuddle 3 at once for a Triple Cuddle!', 'Fairy kittens count for 3!'],
   goalEasy: 'Your basket runs to the kittens by itself. Press A to cuddle them!',
-  controlsEasy: [['a', 'Cuddle! (or hop)']],
-  tipsEasy: ['You run to the kittens all by yourself.', 'When the A glows, press it for cuddles!', 'Wait for 3 kittens for a Triple Cuddle!'],
+  controlsEasy: [['a', 'Cuddle! (or hop)'], ['stick', 'Run with either stick if you like']],
+  tipsEasy: ['You run to the kittens all by yourself - or steer with the stick.', 'When the A glows, press it for cuddles!', 'Wait for 3 kittens for a Triple Cuddle!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -641,6 +642,13 @@ export class Game {
 
   /** Molly Easy (humans): the basket runs itself to the best kitten; the player only presses A. */
   easyThink(e, dt) {
+    // the stick runs the basket while it's pushed; let go and the autopilot carries on from here
+    const st = easySteer(e, e.p.ctrl, dt);
+    if (st.manual) {
+      e.autoX = st.x * 0.9;
+      if (st.pushing) { e.target = null; e.retarget = 0; e.homeX = e.x; }
+      return;
+    }
     e.retarget = (e.retarget || 0) - dt;
     const yC = this.headY(e);
     const live = (k) => k && ['leap', 'flutter', 'roll', 'floor', 'perch'].includes(k.state);

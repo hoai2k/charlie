@@ -61,37 +61,25 @@
       "source": "sources/barbie/run.webp",
       "cell": 0,
       "separate": true,
-      "hipX": 450,
+      "hipX": 465,
       "chin": 250,
-      "garmentBottom": 480,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 480
     },
     "run-1": {
       "source": "sources/barbie/run.webp",
       "cell": 1,
       "separate": true,
-      "hipX": 420,
+      "hipX": 400,
       "chin": 250,
-      "garmentBottom": 480,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 480
     },
     "run-2": {
       "source": "sources/barbie/run.webp",
       "cell": 2,
       "separate": true,
-      "hipX": 330,
+      "hipX": 350,
       "chin": 250,
-      "garmentBottom": 480,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 480
     },
     "jump-0": {
       "source": "sources/barbie/jump.webp",
@@ -202,16 +190,16 @@
     ],
     [
       [
-        631,
-        332
+        620,
+        345
       ],
       [
-        573,
-        332
+        526,
+        350
       ],
       [
-        496,
-        331
+        472,
+        350
       ]
     ]
   ]

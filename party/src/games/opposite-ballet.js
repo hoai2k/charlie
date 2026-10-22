@@ -83,7 +83,7 @@ export const meta = {
   controls: [['stick', 'Up = arms up, down = plié, left / right = step'], ['a', 'Twirl']],
   tips: ['The cheeky imp flips the card to show the opposite: up is down, left is right!', 'She twirls? Stand still like a statue. She stands still? Twirl!', 'A golden card means copy her for real!'],
   goalEasy: 'Wait for the cheeky imp to flip the card, then press A to do the OPPOSITE!',
-  controlsEasy: [['a', 'Dance the flipped card']],
+  controlsEasy: [['a', 'Dance the flipped card'], ['stick', 'Or dance it yourself with either stick']],
   tipsEasy: ['Wait... wait... the card flips - press A!', 'A crossed-out A? Stand still like a statue!', 'Golden card? Press A straight away!'],
   music: 'dance',
   duration: '60 sec',
@@ -260,7 +260,9 @@ export class Game {
     if (this.easy && !d.p.isAI) {
       // A (or X) does the move on the card: before the flip that's Madame's move (a funny oops),
       // after the flip it's the opposite. Statue? Hands off!
-      if (!c.pressed('a') && !c.pressed('x')) return;
+      // The stick still dances a move of your own choosing, just like Medium.
+      if (!c.pressed('a') && !c.pressed('x')) { this.stickMove(d, c); return; }
+      d.prevDir = this.stickDir(c);
       const b = this.beat;
       if (this.phase === 'silly' || !b) this.doMove(d, pick(['up', 'down', 'left', 'right', 'twirl']));
       else if (b.golden) this.doMove(d, b.move);
@@ -268,11 +270,20 @@ export class Game {
       else this.doMove(d, b.ans === 'statue' ? 'twirl' : b.ans);
       return;
     }
-    let dir = null;
+    if (c.pressed('a')) { this.doMove(d, 'twirl'); d.prevDir = this.stickDir(c); }
+    else this.stickMove(d, c);
+  }
+
+  stickDir(c) {
     const m = Math.hypot(c.x, c.y);
-    if (m > 0.55) dir = Math.abs(c.y) >= Math.abs(c.x) ? (c.y < 0 ? 'up' : 'down') : (c.x < 0 ? 'left' : 'right');
-    if (c.pressed('a')) this.doMove(d, 'twirl');
-    else if (dir && dir !== d.prevDir) this.doMove(d, dir);
+    if (m <= 0.55) return null;
+    return Math.abs(c.y) >= Math.abs(c.x) ? (c.y < 0 ? 'up' : 'down') : (c.x < 0 ? 'left' : 'right');
+  }
+
+  /** A fresh stick push dances that direction's move. */
+  stickMove(d, c) {
+    const dir = this.stickDir(c);
+    if (dir && dir !== d.prevDir) this.doMove(d, dir);
     d.prevDir = dir;
   }
 

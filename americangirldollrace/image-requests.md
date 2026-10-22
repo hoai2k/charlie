@@ -212,7 +212,8 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §10.3 Kaya follow-through redo (A6), §8 toys for Marisol and remaining §10 doll actions.
+> **Still open:** §13 Hermione on the title-screen pegasus (H1), §12 EMP trigger icons (E1–E15), §11 run-cycle redos for
+> Felicity, Claudia and Barbie (RC1–RC3), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -552,11 +553,11 @@ only once it's listed.
 | A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
 
 Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
-**Delivered and reviewed:** Hermione, Lily, Mira, Whirlpool, Claudia and Kaya. The remaining roster is still open. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
+**Trial delivered and reviewed:** Hermione, Lily and Mira. The remaining roster is still open. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
 
 | Row | Frames (left to right) |
 | --- | --- |
-| 1 | **Casting with a wand** (one wand for every doll: dark wood, gold handle, a little gold star at the tip): (1) wand raised high, (2) arm thrust forward pointing the wand straight ahead at chest height (the game sends sparkles from its tip), (3) a follow-through swish that ends **in front of her** (the wand still pointing ahead and a little down, never swung back behind her). The other hand stays natural. |
+| 1 | **Casting with a wand** (one wand for every doll: dark wood, gold handle, a little gold star at the tip): (1) wand raised high, (2) arm thrust forward pointing the wand straight ahead at chest height (the game sends sparkles from its tip), (3) a follow-through swish. The other hand stays natural. |
 | 2 | **Surfing** on one board for every doll (turquoise with a coral stripe and a small fin), with the board's bottom on the baseline: (1) crouched and balanced, arms out; (2) leaning forward, carving; (3) wobbling, arms windmilling. |
 | 3 | (1) **Pushing / throwing from the saddle**: seated exactly like her riding pose (`assets/portraits/<key>_ride.webp`, same seat position) with one arm thrust forward. It's used for pushes and snowballs on horseback. (2) **Stuck in a sticky puddle**: feet planted, toppling forward with arms windmilling. (3) **Floating in moon boots**: arms and legs spread wide, a happy astronaut float. |
 
@@ -568,25 +569,13 @@ Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
 | A4 | `assets/tracks/beach/wave.webp` | 1536×384 (3×1 of 512×384), alpha | The wave a surfer rides: a curling turquoise wave with white foam, about 3× as long as a doll is tall, its base on the cell's bottom edge, curling toward the right. Three frames of the curl rolling, for a loop. Add `"wave"` to Beach's `art`. |
 | A5 | `assets/tracks/toyroom/windup_car.webp` | 768×512 (3×2 of 256), alpha | Wind-up toy cars, side view facing right, wheels on the cell's bottom edge, each with a big wind-up key on top. **Row 1:** a red tin race car. **Row 2:** a yellow tin bus. Three frames each of wheels turning and the key spinning. Add `"windup_car"` to the Toy Room's `art`. |
 
-### 10.3 Open redo: Kaya's follow-through (A6)
-
-| # | File | Cells | Fix |
-| --- | --- | --- | --- |
-| A6 | `assets/doll_kaya_actions.webp` and `assets/masks/kaya_actions_mask.webp` | Row 1, cell 3 only | Her follow-through swings the wand back behind her (pointing left while she faces right). Redraw it as a forward follow-through like Whirlpool's and Claudia's: arm still out in front, wand pointing ahead and a little down, a short sparkle swish. Same outfit and moccasins; keep the other eight cells pixel-identical and update the mask cell to match. |
-
 Acceptance: race each track and check that the casting sparkles leave the wand
 tip, the frog hops where the victim was, the surfer's board sits on the wave,
 and the cars drive along the ground.
 
 ---
 
-## 11. Delivered run-cycle redos: Felicity, Claudia and Barbie
-
-RC1–RC3 are delivered and reviewed at race speed beside Rumi, in both
-directions and alternate outfits. Only each run row and its mask changed;
-the other nine image and nine mask cells are pixel-identical. Measured source
-hip pivots, updated broom carry hands, narrow-footprint checks and screenshots
-are retained in `tools/dolls/run-redo/`.
+## 11. Run-cycle redos: Felicity, Claudia and Barbie (open)
 
 A doll's run (sprite sheet row 2, three cells) plays as a loop. For it to read
 as running, the three cells must be **(1) a stride with one leg forward,

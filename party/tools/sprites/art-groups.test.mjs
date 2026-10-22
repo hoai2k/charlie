@@ -93,7 +93,7 @@ try {
   const stubs = {
     '../engine/util.js': 'export const cancelLater = globalThis.__playArtTest.noop;',
     '../engine/canvas.js': 'export const W=1920,H=1080;',
-    '../engine/input.js': 'export const input=globalThis.__playArtTest.input;',
+    '../engine/input.js': 'export const input=globalThis.__playArtTest.input; export const inputOpts={ rsMove: false };',
     '../engine/audio.js': 'const t=globalThis.__playArtTest; export const music=t.music; export const sfx=t.noop,host=t.noop,stopAllLoops=t.noop,duckLoops=t.noop,setMuted=t.noop; export const isMuted=()=>false;',
     '../engine/particles.js': 'export const particles={clear(){},draw(){}};',
     '../engine/fx.js': 'export const fx={flash(){}};',

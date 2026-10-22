@@ -61,37 +61,25 @@
       "source": "sources/felicity/run.webp",
       "cell": 0,
       "separate": true,
-      "hipX": 480,
+      "hipX": 455,
       "chin": 225,
-      "garmentBottom": 724,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 724
     },
     "run-1": {
       "source": "sources/felicity/run.webp",
       "cell": 1,
       "separate": true,
-      "hipX": 410,
+      "hipX": 386,
       "chin": 225,
-      "garmentBottom": 724,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 724
     },
     "run-2": {
       "source": "sources/felicity/run.webp",
       "cell": 2,
       "separate": true,
-      "hipX": 370,
+      "hipX": 352,
       "chin": 225,
-      "garmentBottom": 724,
-      "target": [
-        209,
-        409
-      ]
+      "garmentBottom": 724
     },
     "jump-0": {
       "source": "sources/felicity/jump.webp",
@@ -194,16 +182,16 @@
     ],
     [
       [
-        652,
-        290
+        580,
+        340
       ],
       [
-        555,
-        324
+        526,
+        340
       ],
       [
-        546,
-        300
+        542,
+        330
       ]
     ]
   ]

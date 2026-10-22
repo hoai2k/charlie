@@ -6,7 +6,7 @@ import crypto from 'node:crypto';
 const game=new URL('../../',import.meta.url);
 const read=file=>fs.readFileSync(new URL(file,game),'utf8');
 async function runtime(legacy){
- const window={GAME_CONFIG:{dollArtVersion:"test-version",legacyDollArt:{rumi:legacy}}};
+ const window={GAME_CONFIG:{legacyDollArt:{rumi:legacy}}};
  const c={window,TRACK_THEMES:{},loadImage:path=>path,DEFAULT_RIDER_X_OFFSET:0,DEFAULT_RIDER_Y_OFFSET:100,
    fetch:async()=>({ok:true,json:async()=>JSON.parse(read('assets/masks/outfits.json'))})};
  vm.createContext(c);vm.runInContext(read('dolls.js'),c);
@@ -18,7 +18,7 @@ async function runtime(legacy){
 
 test('updated Rumi resolves versioned race/menu art and new calibrated offsets exactly once in roster',async()=>{
  const c=await runtime(false),r=c.selected;
- assert.equal(r.images.rumi,'assets/doll_rumi-v2_sprites.webp?v=test-version');
+ assert.equal(r.images.rumi,'assets/doll_rumi-v2_sprites.webp');
  assert.equal(r.characters.rumi.assetKey,'rumi-v2');
  assert.equal(r.characters.rumi.riderYOffset,c.window.EXTRA_DOLLS.rumi.riderYOffset);
  assert.equal(r.jumpSpriteScale.rumi,1);

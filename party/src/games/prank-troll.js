@@ -31,6 +31,7 @@ import { art } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, TAU, placementsFromScores } from '../engine/util.js';
+import { easySteer } from '../engine/easy.js';
 import {
   NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, configureTrollArt, toScreen, meadowBackground, drawTroll, drawBasket,
   drawItem, drawBush, drawSwat, drawMirror, drawIcon,
@@ -67,8 +68,8 @@ export const meta = {
   controls: [['stick', 'Tiptoe around'], ['a', 'Grab a prank / prank the troll']],
   tips: ['Grab a prank from a basket, then press A next to the troll!', 'When he stirs and the "!" pops up: FREEZE and you turn into a bush!', 'Three feather tickles make him sneeze!'],
   goalEasy: 'Hold A to tiptoe to a prank basket and then to the troll - let go when he stirs!',
-  controlsEasy: [['a', 'Hold: tiptoe, grab and prank'], ['a', 'Let go: freeze like a bush']],
-  tipsEasy: ['Hold A and you tiptoe where the arrow points!', 'When the "!" pops up, LET GO of A and you turn into a bush!', 'Three feather tickles make him sneeze!'],
+  controlsEasy: [['a', 'Hold: tiptoe, grab and prank'], ['a', 'Let go of everything: freeze like a bush'], ['stick', 'Tiptoe anywhere with either stick if you like']],
+  tipsEasy: ['Hold A and you tiptoe where the arrow points (or steer with a stick)!', 'When the "!" pops up, LET GO of everything and you turn into a bush!', 'Three feather tickles make him sneeze!'],
   music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
@@ -313,16 +314,23 @@ export class Game {
     // Molly Easy (humans): holding A walks the auto route, letting go stands still
     const easy = this.easy && !U.p.isAI;
     let sx = c.x, sy = c.y;
+    // freeze detection (stir + look)
+    const watch = this.phase === 'stir' || this.phase === 'look';
+    let manual = false;
     if (easy) {
+      // the stick, if used, tiptoes them by hand (also while he stirs or looks, as in Medium:
+      // freezing is just letting go of everything); the route then restarts from here
+      const st = easySteer(U, c, dt);
+      manual = st.manual && !finale;
+      U.ez.push = st.pushing;
+      if (manual) U.ez.mode = null;   // re-pick the nearest basket / troll spot from where they are
       const dir = finale ? [0, 0] : this.easyDir(U);   // always pick the route, so the arrow shows
-      [sx, sy] = c.held('a') && U.stun <= 0 ? dir : [0, 0];
-      U.ez.idle = c.held('a') ? 0 : U.ez.idle + dt;
+      [sx, sy] = U.stun > 0 ? [0, 0] : manual ? [st.x * 0.8, st.y * 0.8] : c.held('a') ? dir : [0, 0];   // 0.8: a tiptoe, never a stomp
+      U.ez.idle = c.held('a') || manual ? 0 : U.ez.idle + dt;
       U.ez.cool = Math.max(0, U.ez.cool - dt);
     }
     const mag = Math.hypot(sx, sy);
-    const moving = easy ? c.held('a') || c.pressed('a') : mag > 0.3 || c.pressed('a');
-    // freeze detection (stir + look)
-    const watch = this.phase === 'stir' || this.phase === 'look';
+    const moving = easy ? c.held('a') || c.pressed('a') || (U.ez.push && mag > 0.15) : mag > 0.3 || c.pressed('a');
     if (watch && !moving && U.stun <= 0) U.still += dt; else U.still = 0;
     const wantBush = watch && U.still > 0.2 && !U.swatted;
     U.bush = damp(U.bush, wantBush ? 1 : 0, wantBush ? 14 : 8, dt);
@@ -351,9 +359,10 @@ export class Game {
       // Molly Easy: arriving at the basket grabs, arriving at the troll pranks
       if (U.stun <= 0 && !finale && c.held('a')) {
         if (!U.item) {
-          const st = U.ez.st && Math.hypot(U.ez.st.x - U.x, U.ez.st.y - 20 - U.y) < PICK_R + U.a.radius * 0.4 ? U.ez.st : null;
+          const near = (s) => Math.hypot(s.x - U.x, s.y - 20 - U.y) < PICK_R + U.a.radius * 0.4;
+          const st = U.ez.st && near(U.ez.st) ? U.ez.st : manual ? STATIONS.find(near) : null;   // steered: any basket they reach
           if (st && U.ez.cool <= 0) { this.grab(U, st); U.ez.mode = null; U.ez.cool = 0.4; }
-        } else if (U.ez.mode === 'deliver' && U.ez.cool <= 0 && (Math.hypot(U.ez.tx - U.x, U.ez.ty - U.y) < 70 || inZone(U.x, U.y, { x: ZONE.x, y: ZONE.y, ...REACH }) < 0.55)) {
+        } else if (U.ez.mode === 'deliver' && U.ez.cool <= 0 && (Math.hypot(U.ez.tx - U.x, U.ez.ty - U.y) < 70 || inZone(U.x, U.y, { x: ZONE.x, y: ZONE.y, ...REACH }) < (manual ? 1 : 0.55))) {
           this.prank(U); U.ez.mode = null; U.ez.st = null; U.ez.cool = 0.4;
         }
       }

@@ -20,6 +20,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 import { drawBubble, drawDuckling, drawStarFace, drawCupcake, drawFrog, drawRainbow, drawRubberDuck, drawMachine, drawGarden, drawSparkle } from './bubble-pop/art.js';
 
@@ -34,8 +35,8 @@ export const meta = {
   controls: [['stick', 'Run'], ['a', 'Jump and pop']],
   tips: ['Every pop bounces you up again - pop pop pop in the air!', 'Giant bubbles need three bonks.', 'Every bubble has a surprise inside!'],
   goalEasy: 'You run under the bubbles by yourself - press A to jump and pop them!',
-  controlsEasy: [['a', 'Jump and pop']],
-  tipsEasy: ['Jump when the A pops up over your head!', 'Every pop bounces you up again - pop pop pop!', 'Every bubble has a surprise inside!'],
+  controlsEasy: [['a', 'Jump and pop'], ['stick', 'Run (if you like)']],
+  tipsEasy: ['Jump when the A pops up over your head!', 'You run by yourself - or move with either stick if you like!', 'Every pop bounces you up again - pop pop pop!', 'Every bubble has a surprise inside!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -396,8 +397,13 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt);
     let inX = this.done ? 0 : ctrl.x;
     if (this.easy && !p.isAI && !this.done) {
-      const d = e.ezX - e.x;
-      inX = Math.abs(d) > 12 ? Math.sign(d) * clamp(Math.abs(d) / 90, 0.25, 0.85) : 0;
+      // Molly Easy: either stick still runs her about (a touch gentler than Medium);
+      // let go and the autopilot runs her under the nearest bubble from there
+      if (e.ezSt && e.ezSt.manual) inX = e.ezSt.x * 0.85;
+      else {
+        const d = e.ezX - e.x;
+        inX = Math.abs(d) > 12 ? Math.sign(d) * clamp(Math.abs(d) / 90, 0.25, 0.85) : 0;
+      }
     }
     const target = inX * MAX_SPEED;
     e.vx = approach(e.vx, target, (Math.sign(target) !== Math.sign(e.vx) ? 6000 : 4200) * dt);
@@ -439,7 +445,9 @@ export class Game {
   /** Molly Easy: pick a bubble for this human and run under it; e.ezReady = "jump now!". */
   easyThink(e, dt) {
     const a = e.a;
-    e.ezPick = (e.ezPick ?? 0) - dt;
+    e.ezSt = easySteer(e, e.p.ctrl, dt);
+    const man = e.ezSt.manual;      // steering: keep "your bubble" = the one nearest where she is now
+    e.ezPick = man ? 0 : (e.ezPick ?? 0) - dt;
     if (!e.target || e.target.dead || e.ezPick <= 0) {
       e.ezPick = 0.5;
       let best = null, bu = -1;
@@ -447,7 +455,7 @@ export class Game {
         if (b.y < 260) continue;
         const d = Math.abs(b.x - e.x);
         const low = clamp((b.y - 380) / 400, 0, 1);
-        let u = (0.4 + low) / (0.5 + d / 450) * (b.giant ? 1.4 : 1) * (b === e.target ? 1.5 : 1);
+        let u = (0.4 + low) / (0.5 + d / (man ? 200 : 450)) * (b.giant ? 1.4 : 1) * (b === e.target ? (man ? 1.15 : 1.5) : 1);
         for (const o of this.ents) if (o !== e && o.target === b) u *= 0.25;
         if (u > bu) { bu = u; best = b; }
       }

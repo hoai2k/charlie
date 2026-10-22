@@ -23,6 +23,7 @@ import { fx } from '../engine/fx.js';
 import { art, hasArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, approach, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import {
@@ -42,8 +43,8 @@ export const meta = {
   tips: ['Hold A by a patch: a seed goes in, then water it until it pops!', 'Watch out for the rolling pumpkin and the sneezy flower!', 'Water together to grow plants super fast.'],
   // Easy (A only): you walk to the next patch by yourself.
   goalEasy: 'Plant seeds, water them and see what silly plant pops up!',
-  controlsEasy: [['a', 'Hold: plant, then water']],
-  tipsEasy: ['You walk to a dirt patch all by yourself!', 'When the big A bounces, hold A to plant and water!', 'Keep holding until the plant pops up!'],
+  controlsEasy: [['a', 'Hold: plant, then water'], ['stick', 'Walk (if you like)']],
+  tipsEasy: ['You walk to a dirt patch all by yourself!', 'Want a different patch? Walk there with either stick if you like!', 'When the big A bounces, hold A to plant and water!', 'Keep holding until the plant pops up!'],
   music: 'bouncy',
   duration: '50 sec',
   minPlayers: 1,
@@ -583,6 +584,15 @@ export class Game {
    *  one another player is heading for) and stand beside it. Returns stick x/y. */
   easyPilot(e, dt) {
     const z = e.ez;
+    // either stick still walks her anywhere (like Medium); the patch she's at is "hers".
+    // Just let go and holding A? the autopilot takes her to the nearest patch from here.
+    const st = easySteer(z, e.p.ctrl, dt);
+    if (st.manual && (st.pushing || !e.p.ctrl.held('a') || e.watering)) {
+      const np = this.nearestPlot(e);
+      z.plot = e.watering || (this.wants(np) ? np : null); z.think = 0;
+      return [st.x, st.y];
+    }
+    if (st.manual && !this.wants(z.plot)) z.plot = null;
     z.think -= dt;
     if (e.watering && this.wants(e.watering)) z.plot = e.watering;
     if (!z.plot || !this.wants(z.plot) || (z.think <= 0 && !e.watering && !this.nearPlot(e, z.plot))) {

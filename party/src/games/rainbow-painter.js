@@ -21,6 +21,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, approach, lerp, rand, pick, chance, ease, TAU, later } from '../engine/util.js';
 import { drawRainbowIcon } from './rainbow-painter/icon.js';
 
@@ -37,8 +38,8 @@ export const meta = {
   tips: ['Rain paint on the grey rainbow: the sparkly stripe is a good place to start!', 'Grab the golden Paint Star for a MEGA SPLASH!', 'Paint the sleepy sun last to wake him up.'],
   // Easy (A only): your cloud floats by itself to the next grey spot.
   goalEasy: 'Rain paint on the grey world and colour it in together!',
-  controlsEasy: [['a', 'Hold to rain paint']],
-  tipsEasy: ['Your cloud flies all by itself!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star - hold A to catch it for a MEGA SPLASH!'],
+  controlsEasy: [['a', 'Hold to rain paint'], ['stick', 'Fly (if you like)']],
+  tipsEasy: ['Your cloud flies all by itself!', 'Want to fly somewhere else? Move with either stick if you like!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star - hold A to catch it for a MEGA SPLASH!'],
   music: 'bouncy',
   duration: '66 sec',
   minPlayers: 1,
@@ -608,6 +609,10 @@ export class Game {
    *  the others), or to the Paint Star when it floats close. Returns stick x/y. */
   easyPilot(e, dt) {
     const z = e.ez, s = this.star;
+    // either stick still flies the cloud (like Medium); let go and the autopilot
+    // picks the nearest grey spot from wherever the cloud is now
+    const st = easySteer(z, e.p.ctrl, dt);
+    if (st.manual) { z.cell = null; z.think = 0; return [st.x, st.y]; }
     z.think -= dt;
     // the nearest human to a reachable star goes for it
     const starFor = s && s.t > 0.4 && s.x > 120 && s.x < W - 120

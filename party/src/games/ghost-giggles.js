@@ -19,6 +19,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
@@ -37,8 +38,8 @@ export const meta = {
   tips: ['Run to a white ghost and press A to tickle it.', 'Shy ghosts hide behind the curtains - press A at the window!', 'Press A at a costume trunk to change your costume.'],
   // Molly Easy: you walk to the ghosts by yourself; A tickles, X changes your costume
   goalEasy: 'You walk to the ghosts by yourself. Press A to tickle them colourful!',
-  controlsEasy: [['a', 'Tickle!'], ['x', 'New costume']],
-  tipsEasy: ['Press A when the big A bounces over a ghost.', 'At a window? Press A for a Peekaboo!', 'Press X for a new costume.'],
+  controlsEasy: [['a', 'Tickle! (A runs you to the nearest ghost)'], ['x', 'New costume'], ['stick', 'Move with either stick if you like']],
+  tipsEasy: ['Press A when the big A bounces over a ghost.', 'Want a different ghost? Walk over with the stick, then press A!', 'At a window? Press A for a Peekaboo!', 'Press X for a new costume.'],
   music: 'spooky',
   duration: '50 sec',
   minPlayers: 1,
@@ -397,9 +398,10 @@ export class Game {
       if (this.party) {
         this.partyGlide(e, dt);
         // you can still wiggle around a bit while dancing
-        if (!e.auto) {
-          e.x = clamp(e.x + c.x * 260 * dt, MOVE.x0, MOVE.x1); e.y = clamp(e.y + c.y * 200 * dt, MOVE.y0, MOVE.y1);
-          if (Math.abs(c.x) > 0.3) a.facing = c.x > 0 ? 1 : -1;
+        const wig = e.auto ? easySteer(e, c, dt) : c;   // Easy: either stick, past a small dead zone
+        if (wig.x || wig.y) {
+          e.x = clamp(e.x + wig.x * 260 * dt, MOVE.x0, MOVE.x1); e.y = clamp(e.y + wig.y * 200 * dt, MOVE.y0, MOVE.y1);
+          if (Math.abs(wig.x) > 0.3) a.facing = wig.x > 0 ? 1 : -1;
         }
         if (c.pressed('a') && e.cd <= 0) { e.cd = 0.3; a.playOnce(pick(['dance-up', 'dance-side', 'dance-star', 'dance-down'].filter((q) => POSE_NAMES.includes(q))) || 'cheer', 0.45, 'dance'); particles.burst(e.x, e.y - a.height * 0.7, { type: 'note', count: 3, colors: RAINBOW, speed: [80, 200] }); sfx('note', { midi: pick([72, 74, 76, 79, 81]), dur: 0.25, vol: 0.3 }); }
       }
@@ -408,7 +410,7 @@ export class Game {
     let ix = e.auto ? e.auto.ix : c.x, iy = e.auto ? e.auto.iy : c.y;
     const m = Math.hypot(ix, iy);
     if (m > 1) { ix /= m; iy /= m; }
-    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : e.auto ? 0.72 : 1);
+    const top = MAX_SPEED * (p.isAI ? CPU_SPEED[clamp(p.aiLevel || 0, 0, 2)] : e.auto ? (e.auto.manual ? 0.9 : 0.72) : 1);
     const k = 1 - Math.exp(-14 * dt);
     e.vx += (ix * top - e.vx) * k; e.vy += (iy * top * 0.8 - e.vy) * k;
     if (e.lunge > 0) { e.lunge -= dt; e.x += e.lx * dt; e.y += e.ly * dt; }
@@ -433,6 +435,11 @@ export class Game {
     e.cd = 0.22;
     const a = e.a;
     const best = this.tickleTarget(e);
+    if (!best && e.auto && !e.auto.pushing) {
+      // Molly Easy: nothing in reach - run to the nearest white ghost / shy window (from here) and tickle it there
+      const go = this.easyNearest(e);
+      if (go) { e.auto.target = go; e.auto.go = go; e.auto.t = 3; e._ezSteer = 0; e.auto.manual = false; e.cd = 0; return; }
+    }
     a.playOnce('action', 0.28);
     if (!best) {
       const h = a.anchor('hand');
@@ -543,13 +550,42 @@ export class Game {
   }
 
   // ------------------------------------------------------------- Molly Easy
-  /** Easy (A only): walk to the nearest white ghost / shy window nobody else is after. */
+  /** Easy: the nearest white ghost or shy window from where the kid is now. */
+  easyNearest(e) {
+    let best = null, bd = Infinity;
+    for (const g0 of this.ghosts) {
+      if (g0.col || (!this.tickleable(g0) && g0.state !== 'enter')) continue;
+      const d = this.dist(e, g0.x, g0.y);
+      if (d < bd) { bd = d; best = { kind: 'ghost', g0 }; }
+    }
+    for (const w of this.wins) {
+      if (!w.shy) continue;
+      const d = this.dist(e, w.x, WIN_Y);
+      if (d < bd) { bd = d; best = { kind: 'win', w }; }
+    }
+    return best;
+  }
+
+  /** Easy (A only): walk to the nearest white ghost / shy window nobody else is after.
+   * The stick steers while it's pushed; A away from a ghost runs to the nearest one and tickles it. */
   easyThink(e, dt) {
     const au = e.auto;
+    const st = easySteer(e, e.p.ctrl, dt);
+    au.manual = st.manual; au.pushing = st.pushing;
+    if (st.manual) {
+      au.ix = st.x; au.iy = st.y;
+      if (st.pushing) { au.target = null; au.go = null; au.t = 0; au.home = { x: e.x, y: e.y }; }   // pick up from here after
+      return;
+    }
     au.t -= dt;
     const T = au.target;
     const ok = T && (T.kind === 'ghost' ? !T.g0.col && (this.tickleable(T.g0) || T.g0.state === 'enter') : T.w.shy);
-    if (!ok || au.t <= 0) {
+    if (au.go) {
+      const b = ok && this.tickleTarget(e);
+      if (!ok) au.go = null;   // someone else got it: back to normal
+      else if (b && (T.kind === 'ghost' ? b.g0 === T.g0 : b.w === T.w) && this.dist(e, b.x, b.y) < TICKLE_NEAR && e.cd <= 0) { au.go = null; this.tryTickle(e); }
+    }
+    if (!au.go && (!ok || au.t <= 0)) {
       au.t = 0.6;
       let best = null, bu = 0;
       const taken = (fn) => this.ents.some((o) => o !== e && ((o.auto && o.auto.target && fn(o.auto.target)) || (o.target && fn(o.target))));

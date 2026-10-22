@@ -33,6 +33,7 @@ import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, dist, placementsFromScores } from '../engine/util.js';
+import { easySteer } from '../engine/easy.js';
 import { Tune } from './sneaky-dance/tune.js';
 import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from '../engine/fluster.js';
 import {
@@ -63,8 +64,8 @@ export const meta = {
   controls: [['stick', 'Wiggle to dance'], ['a', 'Big jump-spin']],
   tips: ['Zzz = dance! When the snoring stops and his eye opens: let go and freeze!', 'Wild wiggles and spins earn more stars.', 'Caught? Grab your bouncing stars back!'],
   goalEasy: 'Hold A to dance while Professor Hoot naps - let go to FREEZE when he peeks!',
-  controlsEasy: [['a', 'Hold to dance, let go to freeze']],
-  tipsEasy: ['Zzz = hold A and dance!', 'His eye opens? Let go of A - freeze!', 'Tap A for a big jump-spin!'],
+  controlsEasy: [['a', 'Hold to dance, let go to freeze'], ['stick', 'Dance around with either stick if you like']],
+  tipsEasy: ['Zzz = hold A and dance - or wiggle a stick!', 'His eye opens? Let go of everything - freeze!', 'Tap A for a big jump-spin!'],
   music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
@@ -126,7 +127,9 @@ export class Game {
   // --- helpers -------------------------------------------------------------------------
   active(U) {
     const c = U.p.ctrl;
-    if (this.easy && !U.p.isAI) return c.held('a') || c.pressed('a') || c.held('x') || c.pressed('x');
+    // Easy: A (or X) dances, and the stick moves and dances too (as in Medium): freezing is
+    // just letting go of everything, so no particular stick move is ever needed
+    if (this.easy && !U.p.isAI) return c.held('a') || c.pressed('a') || c.held('x') || c.pressed('x') || Math.hypot(c.x, c.y) > 0.3;
     if (Math.hypot(c.x, c.y) > 0.3) return true;
     for (const b of ['a', 'b', 'x', 'y']) if (c.held(b) || c.pressed(b)) return true;
     return false;
@@ -621,6 +624,12 @@ export class Game {
 
   /** Molly Easy (humans): while A is held the dancer picks its own moves, on the beat. */
   easyDance(U, dt, act) {
+    // the stick, if they use it, moves them like Medium (never while he's looking)
+    const st = easySteer(U, U.p.ctrl, dt);
+    if (st.manual && !this.watching) {
+      U.homeX = U.x; U.homeY = U.y; U.edT = 0;   // autopilot carries on from here, no drift back
+      return [st.x, st.y];
+    }
     if (!act) { U.edT = 0; return [0, 0]; }
     U.edT = (U.edT || 0) - dt;
     if (U.edT <= 0) {
@@ -792,7 +801,7 @@ export class Game {
       g.restore();
     }
     // Easy: Hoot is snoring and you're standing still - a bouncing A says "dance!"
-    if (this.easy && !U.p.isAI && this.danceOn && U.state !== 'caught' && !U.p.ctrl.held('a') && !U.p.ctrl.held('x')) {
+    if (this.easy && !U.p.isAI && this.danceOn && U.state !== 'caught' && !U.p.ctrl.held('a') && !U.p.ctrl.held('x') && Math.hypot(U.p.ctrl.x, U.p.ctrl.y) <= 0.3) {
       const b = Math.abs(Math.sin(t * 8));
       g.save(); g.translate(U.x + 70, U.y - U.z - a.height - 20 - b * 14); g.scale(1 + b * 0.15, 1 + b * 0.15);
       ui.glyph(g, 'a', 0, 0, 50); g.restore();

@@ -20,6 +20,7 @@ import { sfx, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, Brain, steer } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, approach, rand, randInt, pick, chance, TAU, dist, ease } from '../engine/util.js';
@@ -38,8 +39,8 @@ export const meta = {
   tips: ['Swim into open clams to grab their pearls.', 'Press A next to the sleepy octopus to tickle it - it throws pearls!', 'Bubble currents whoosh you up. Wheee!'],
   // Molly Easy: you swim by yourself (slowly) toward pearls; A zooms to grab them
   goalEasy: 'You swim by yourself to the pearls. Press A to ZOOM and grab them!',
-  controlsEasy: [['a', 'Zoom! (and tickle the octopus)']],
-  tipsEasy: ['Press A when the big A pops up: ZOOM!', 'Next to the sleepy octopus? Press A again and again to tickle it!'],
+  controlsEasy: [['a', 'Zoom! (and tickle the octopus)'], ['stick', 'Swim with either stick if you like']],
+  tipsEasy: ['Press A when the big A pops up: ZOOM!', 'Want a different pearl? Swim over with the stick, then press A!', 'Next to the sleepy octopus? Press A again and again to tickle it!'],
   music: 'splash',
   duration: '60 sec',
   minPlayers: 1,
@@ -412,7 +413,7 @@ export class Game {
       if (byOcto && o.awake <= 0) { /* tickling the sleepy octopus: don't zoom away from it */ }
       else if (e.zoomCd <= 0) {
         let dx = ix, dy = iy;
-        if (e.auto) { dx = e.auto.dx; dy = e.auto.dy; }   // Molly Easy: zoom straight at the target
+        if (e.auto && !e.auto.pushing) { dx = e.auto.dx; dy = e.auto.dy; }   // Molly Easy: zoom straight at the target (steering: where the stick points)
         if (Math.hypot(dx, dy) < 0.2) { dx = a.facing; dy = 0; }
         const dd = Math.hypot(dx, dy);
         e.vx = dx / dd * ZOOM; e.vy = dy / dd * ZOOM;
@@ -423,7 +424,7 @@ export class Game {
         if (!p.isAI) p.ctrl.rumble(0.25, 60);
       }
     }
-    const max = SWIM * (this.storm ? 1.08 : 1) * (p.isAI ? [0.72, 0.8, 0.86][clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? 0.42 : 1);
+    const max = SWIM * (this.storm ? 1.08 : 1) * (p.isAI ? [0.72, 0.8, 0.86][clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? (e.auto.manual ? 0.85 : 0.42) : 1);
     if (e.zoom <= 0) {
       const ax = ix * max, ay = iy * max;
       const acc = 2600;
@@ -535,6 +536,11 @@ export class Game {
   easyThink(e, dt) {
     const au = e.auto;
     const ey = e.y - e.a.height * 0.4;
+    // the stick swims while it's pushed (a little gentler than Medium); the target keeps
+    // following the nearest thing from here, so letting go carries on from where you are
+    const st = easySteer(e, e.p.ctrl, dt);
+    au.manual = st.manual; au.pushing = st.pushing;
+    if (st.pushing) au.t = Math.min(au.t, 0.25);
     au.t -= dt;
     const tg = au.target;
     const gone = !tg || (tg.kind === 'pearl' && (tg.ref.got || tg.ref.life <= 0)) || (tg.kind === 'clam' && !tg.ref.pearl)
@@ -560,7 +566,7 @@ export class Game {
     }
     const t = au.target;
     au.ix = 0; au.iy = 0; au.near = false;
-    if (!t) return;
+    if (!t) { if (st.manual) { au.ix = st.x; au.iy = st.y; } return; }
     if (t.kind === 'pearl') { t.x = t.ref.x; t.y = t.ref.y; }
     const dx = t.x - e.x, dy = t.y - ey, d = Math.hypot(dx, dy) || 1;
     au.dx = dx / d; au.dy = dy / d;
@@ -570,6 +576,8 @@ export class Game {
     else if (t.kind === 'clam') au.near = (t.ref.state === 'open' || t.ref.state === 'opening') && d < 330 && e.zoomCd <= 0;   // a zoom travels ~370 px
     else au.near = d < 330 && e.zoomCd <= 0;
     if (t.kind !== 'octo' && o.awake <= 0 && dist(e.x, e.y, o.x, o.y - 90) < 260) au.near = false;   // A tickles here, it won't zoom
+    if (st.pushing && t.kind !== 'octo') au.near = false;   // steering: A zooms where the stick points
+    if (st.manual) { au.ix = st.x; au.iy = st.y; }
   }
 
   // ---------------------------------------------------------------------- AI

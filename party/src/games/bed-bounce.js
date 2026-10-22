@@ -28,6 +28,7 @@ import { sfx, voice, hasSound, music } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { reactionTime } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores, later } from '../engine/util.js';
 import { nextKind, sayFor, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
 import {
@@ -56,8 +57,8 @@ export const meta = {
   controls: [['stick', 'Steer left and right'], ['a', 'Hold: bounce higher! Tap: pillow bonk']],
   tips: ['Light under the door + thump thump = LET GO to hide under the duvet!', 'Touch the glowing ceiling stars for big points.', 'Caught? A few stars fall out - grab them back!'],
   goalEasy: 'Hold A to bounce on the bed and grab stars - let go to hide when Nanny Moo comes!',
-  controlsEasy: [['a', 'Hold: bounce higher! Let go: hide']],
-  tipsEasy: ['Hold A - you float to the stars by yourself!', 'Light under the door + thump thump = let go of A!', 'Tap A in the air for a pillow bonk!'],
+  controlsEasy: [['a', 'Hold: bounce higher! Let go: hide'], ['stick', 'Float left or right if you like']],
+  tipsEasy: ['Hold A - you float to the stars by yourself (or steer with either stick)!', 'Light under the door + thump thump = let go of A!', 'Tap A in the air for a pillow bonk!'],
   music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
@@ -436,6 +437,9 @@ export class Game {
     U.popLock = Math.max(0, U.popLock - dt);
     const finale = this.phase === 'finale' || this.phase === 'end';
     const canPlay = this.phase !== 'intro' && !(this.phase === 'finale' && !this.finaleBoing && this.cow.mode !== 'bed');
+    // Easy: the stick steers like Medium while pushed; let go and the drift picks the star nearest here
+    const ez = this.easy && !U.p.isAI ? easySteer(U, c, dt) : null;
+    if (ez && ez.manual) U.easyItem = null;
     if (U.freezeT > 0) {
       // caught: a silly mid-air freeze, then a plop under the covers
       U.freezeT -= dt;
@@ -457,9 +461,8 @@ export class Game {
         a.setPose('sleep');
       }
     } else if (U.state === 'air') {
-      // steer (Easy: drift toward a star by yourself)
-      const auto = this.easy && !U.p.isAI;
-      const sx = auto ? this.easySteer(U) : c.x, sy = auto ? 0 : c.y;
+      // steer (Easy: drift toward a star by yourself, unless steering by hand)
+      const sx = ez ? (ez.manual ? ez.x : this.easyDrift(U)) : c.x, sy = ez ? ez.y : c.y;
       U.vx = damp(U.vx, sx * SPEED, 7, dt);
       if (Math.abs(sx) > 0.2) a.facing = sx > 0 ? 1 : -1;
       // let go -> dive under the covers
@@ -651,7 +654,7 @@ export class Game {
   }
 
   /** Molly Easy (humans): pick a star nobody else is going for and drift under it. */
-  easySteer(U) {
+  easyDrift(U) {
     if (!this.items.includes(U.easyItem)) U.easyItem = null;
     if (!U.easyItem || chance(0.02)) {
       let best = null, bd = 1e9;
