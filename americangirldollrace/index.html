@@ -21,7 +21,7 @@
     <link rel="preload" as="image" href="assets/ui/title_hero_lily.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_rumi.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_kaya.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=20261022-dismount2">
+    <link rel="stylesheet" href="styles.css?v=20261022-pausecorner">
 
   </head>
   <body>
@@ -293,6 +293,28 @@
             </div>
             <div class="pause-hint"><span class="lb-glyph pause-glyph-a"></span>choose · Start to keep racing</div>
           </div>
+          <div class="pause-card pause-settings hidden" id="pauseSettings">
+            <h2>Settings</h2>
+            <label class="pause-slider"><span>Volume</span><input type="range" min="0" max="100" step="5" data-bus="master"></label>
+            <label class="pause-slider"><span>Music</span><input type="range" min="0" max="100" step="5" data-bus="music"></label>
+            <label class="pause-slider"><span>Sounds</span><input type="range" min="0" max="100" step="5" data-bus="sfx"></label>
+            <div class="pause-buttons">
+              <button id="pauseSettingsDone" type="button" class="secondary">Done</button>
+            </div>
+            <div class="pause-hint">◀ ▶ change · <span class="lb-glyph pause-glyph-a"></span>Done · B back</div>
+          </div>
+          <!-- Corner buttons while paused: sound on/off, settings, full screen -->
+          <div class="pause-corner" id="pauseCorner">
+            <button type="button" class="corner-button" id="pauseSoundButton" aria-label="Sound on or off">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M8 18h8l10-9v30l-10-9H8z"/><g class="sound-waves"><path d="M32 17a9 9 0 0 1 0 14"/><path d="M36.5 12.5a15 15 0 0 1 0 23"/></g><g class="sound-off"><path d="M32 18l12 12M44 18L32 30"/></g></svg>
+            </button>
+            <button type="button" class="corner-button" id="pauseSettingsButton" aria-label="Settings">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path class="fill" d="M21 4h6l1 5.5 4.2 1.8 4.6-3.2 4.2 4.2-3.2 4.6 1.8 4.2L45 21v6l-5.5 1-1.8 4.2 3.2 4.6-4.2 4.2-4.6-3.2-4.2 1.8L27 45h-6l-1-5.5-4.2-1.8-4.6 3.2-4.2-4.2 3.2-4.6L8.4 28 3 27v-6l5.5-1 1.8-4.2-3.2-4.6 4.2-4.2 4.6 3.2L20 9z"/><circle class="hole" cx="24" cy="24" r="7"/></svg>
+            </button>
+            <button type="button" class="corner-button" id="pauseFullscreenButton" aria-label="Full screen">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><g class="fs-enter"><path d="M6 17V6h11M31 6h11v11M42 31v11H31M17 42H6V31"/></g><g class="fs-exit"><path d="M17 6v11H6M42 17H31V6M31 42V31h11M6 31h11v11"/></g></svg>
+            </button>
+          </div>
         </div>
         <div class="touch-controls hidden" id="touchControls" aria-label="Touch controls">
           <button class="touch-button" id="touchJumpButton" type="button">Jump</button>
@@ -307,7 +329,7 @@
     <script src="config.js?v=20261022-dismount2"></script>
     <script src="tracks.js?v=20261022-spares"></script>
     <script src="assets/audio/manifest.js?v=20261022-dismount2"></script>
-    <script src="audio.js?v=20261022-dismount2"></script>
+    <script src="audio.js?v=20261022-pausecorner"></script>
     <script src="recolor.js?v=20261022-dismount2"></script>
     <script src="dolls.js?v=20261022-dismount2"></script>
     <script src="hands.js?v=20261022-dismount2"></script>
@@ -315,7 +337,7 @@
     <script src="mounts.js?v=20261022-dismount2"></script>
     <script src="broom.js?v=20261022-dismount2"></script>
     <script src="troll-art.js?v=20261022-dismount2"></script>
-    <script src="game.js?v=20261022-spares"></script>
+    <script src="game.js?v=20261022-pausecorner"></script>
     <script src="menu.js?v=20261022-dismount2"></script>
     <script src="chrome.js?v=20261022-dismount2"></script>
 

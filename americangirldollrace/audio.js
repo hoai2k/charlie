@@ -533,7 +533,7 @@ const GameAudio = (() => {
         track.node.gain.value = level;
       } else {
         // No Web Audio: fall back to element volume (ignored on iOS, fine elsewhere).
-        element.volume = clamp01(AUDIO_CONFIG.masterVolume * busVolume("music") * level);
+        element.volume = muted ? 0 : clamp01(AUDIO_CONFIG.masterVolume * busVolume("music") * level);
       }
     }
   }
@@ -557,10 +557,21 @@ const GameAudio = (() => {
     }
   }
 
+  // Sound on/off (the pause screen's speaker button); remembered per device.
   function setMuted(value) {
     muted = Boolean(value);
     if (muted) stopAll();
     refreshLiveVolumes();
+    updateMusicVolume();
+    try {
+      window.localStorage?.setItem(`${STORAGE_KEY}:muted`, muted ? "1" : "0");
+    } catch (error) {
+      /* not fatal */
+    }
+  }
+
+  function getVolume(bus) {
+    return bus === "master" ? AUDIO_CONFIG.masterVolume : AUDIO_CONFIG[`${bus}Volume`];
   }
 
   function tick() {
@@ -578,6 +589,11 @@ const GameAudio = (() => {
   });
 
   loadOverrides();
+  try {
+    muted = window.localStorage?.getItem(`${STORAGE_KEY}:muted`) === "1";
+  } catch (error) {
+    /* not fatal */
+  }
   loadManifest();
 
   const api = {
@@ -597,6 +613,10 @@ const GameAudio = (() => {
     setVolume,
     resetVolumes,
     setMuted,
+    getVolume,
+    get isMuted() {
+      return muted;
+    },
     unlock,
     tick,
     get isUnlocked() {
