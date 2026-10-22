@@ -94,6 +94,21 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 
 def clothing_mask(src, spec, mode):
+    if mode == 'marisol-varsity':
+        a = np.asarray(src).astype(np.float32)
+        r, g, b, alpha = [a[:, :, i] for i in range(4)]
+        pink = np.clip((r-g-18)/10, 0, 1) * np.clip((b-g-6)/10, 0, 1) * (b>70)
+        navy = np.clip((b-r-10)/10, 0, 1) * (b<190) * (g>15)
+        spread = a[:, :, :3].max(2)-a[:, :, :3].min(2)
+        grey = np.clip((25-spread)/10, 0, 1) * (a[:, :, :3].max(2)<242) * (a[:, :, :3].min(2)>60)
+        grey[:round(spec['skirtTop'])]=0
+        weight = np.maximum.reduce([pink, navy, grey]) * (alpha>16)
+        candidate = weight.copy();weight[:round(spec['chin'])]=0
+        for x0,y0,x1,y1 in spec.get('raisedSleeves',[]):weight[y0:y1,x0:x1]=candidate[y0:y1,x0:x1]
+        weight[round(spec['garmentBottom']):]=0
+        for x0,y0,x1,y1 in spec.get('protectedRegions',[]):weight[y0:y1,x0:x1]=0
+        out=np.zeros_like(a,dtype=np.uint8);out[:,:,0]=np.round(weight*255);out[:,:,3]=255
+        return Image.fromarray(out)
     if mode == 'chevron-outfit':
         # Barbie's dark chevrons, bounded above the legs; white stripes stay white.
         mask = neutral_mask(src, spec['chin'])
@@ -180,6 +195,12 @@ def save_webp(image, path):
 
 def build(manifest):
     key = manifest['key']
+    redo=HERE/'run-redo'/f'{key}-manifest-before.json'
+    if redo.exists():
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('run_redo',HERE/'run-redo/build.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        return module.build(manifest)
     asset_key = manifest.get('assetKey', key)
     assert set(manifest['poses']) == set(POSES + ['wave', 'cheer'])
     reference, _ = source_frame(manifest, 'idle-0')

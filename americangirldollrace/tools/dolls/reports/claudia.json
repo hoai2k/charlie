@@ -56,53 +56,53 @@
     },
     "run-0": {
       "bounds": [
-        54,
-        17,
-        338,
+        32,
+        26,
+        339,
         409
       ],
       "scale": 0.5492957746478874,
       "anchor": [
-        209.0,
+        209,
         409
       ],
       "sourceAnchor": [
-        455,
-        720
+        480,
+        704
       ]
     },
     "run-1": {
       "bounds": [
         71,
-        23,
-        296,
+        27,
+        290,
         409
       ],
       "scale": 0.5492957746478874,
       "anchor": [
-        209.0,
+        209,
         409
       ],
       "sourceAnchor": [
-        342,
-        716
+        335,
+        707
       ]
     },
     "run-2": {
       "bounds": [
-        42,
-        21,
-        321,
+        43,
+        29,
+        350,
         409
       ],
       "scale": 0.5492957746478874,
       "anchor": [
-        209.0,
+        209,
         409
       ],
       "sourceAnchor": [
-        419,
-        713
+        412,
+        699
       ]
     },
     "jump-0": {
@@ -273,8 +273,8 @@
     }
   },
   "sha256": {
-    "assets/doll_claudia-v2_sprites.webp": "bea6bb904451f5f36d764429b63e576f36fd50a0c8c2099704351d5748065b77",
-    "assets/masks/claudia-v2_sheet_mask.webp": "59313b264f7bdf7a0ca9a95bff78dbbe975dc10051adc5068ceb5042990ad7f0",
+    "assets/doll_claudia-v2_sprites.webp": "1ad432f942dedb175c233fe0e17e6d98b0c5d801b554dcbdfed430e20c6424d1",
+    "assets/masks/claudia-v2_sheet_mask.webp": "6490b2a08bf55dc856df909750720be6c4202fcadc83b73ca3e29d9f7eb739ea",
     "assets/portraits/claudia-v2.webp": "3cab7f66efd2ae55dfcacdad009d4115f2f930a245855c33b168fe3c06247728",
     "assets/masks/claudia-v2_portrait_mask.webp": "b9f4b3048a1cbc580a58f078cbf04eb8c0cef21fa092b8c71d4b71a43c0e8302",
     "assets/portraits/claudia-v2_wave.webp": "c31871fc6793717f16a354a1547f0d4f4064d6db91b7bbd514f80fff2f511cf5",
