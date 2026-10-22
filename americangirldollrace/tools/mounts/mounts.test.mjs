@@ -4,10 +4,10 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
 const source=fs.readFileSync(new URL('game.js',game),'utf8');
-const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','isMounted','broomRideBlend'];
+const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','monsterSpeed','mountOutrunsMonster','isMounted','broomRideBlend'];
 function setup(){
   const math=Object.create(Math);
-  const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:2,PEGASUS_DURATION_MULTIPLIER:1.5,
+  const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:2,PEGASUS_DURATION_MULTIPLIER:1.5,MONSTER_SPEED:150,MOUNTED_MONSTER_SPEED:515,
     isHorsingAroundMode:()=>c.state.specials==='horsing',applyMonsterKnockback:(m,d)=>{m.hit=d;},isRacerRunningAtMonster:()=>true,
     WIZARD_MOUNTS:['griffon','broom'],wizardUnlocked:true,areWizardMountsUnlocked:()=>c.wizardUnlocked};
   vm.createContext(c);
@@ -54,8 +54,18 @@ test('griffon gets pegasus duration, flying audio and special-mount monster bump
  assert.equal(c.mountLoopKey({horseType:'griffon',pegasusGliding:true,z:200}),'pegasus_glide_loop');
  assert.equal(c.mountLoopKey({horseType:'griffon',pegasusGliding:false,z:100}),'pegasus_flight_loop');
  const monster={x:130,y:550,state:'walk'};
- c.state.monsters=[monster];c.state.racers=[{x:100,y:550,z:0,horseTimer:15,horseType:'griffon',mountBumpCooldown:0}];
+ c.state.monsters=[monster];c.state.racers=[{x:100,y:550,z:0,horseTimer:15,horseType:'griffon',mountBumpCooldown:0,speed:560}];
  c.bumpMonstersWithSpecialMounts();assert.equal(monster.hit,1);assert.equal(c.state.racers[0].mountBumpCooldown,.45);
+});
+
+test('a unicorn or gryphon bowls a troll over only while moving faster than him',()=>{
+ const c=setup();
+ for(const [speed,trollRides,hit] of [[560,false,1],[0,false,undefined],[120,false,undefined],[400,true,undefined],[560,true,1]]){
+  const monster={x:130,y:550,state:'walk',riding:trollRides};
+  c.state.monsters=[monster];c.state.racers=[{x:100,y:550,z:0,horseTimer:15,horseType:'unicorn',mountBumpCooldown:0,speed}];
+  c.bumpMonstersWithSpecialMounts();assert.equal(monster.hit,hit,`speed ${speed} vs ${trollRides?'riding':'walking'} troll`);
+  assert.equal(c.mountOutrunsMonster(c.state.racers[0],monster),hit===1);
+ }
 });
 
 test('pegasus and broom riders do not bowl trolls over (trolls can pull them off)',()=>{

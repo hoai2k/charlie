@@ -1456,6 +1456,17 @@ function mountBeatsTrolls(type) {
   return type === "unicorn" || type === "griffon";
 }
 
+// ...but only while she's moving faster than the troll. Standing still (or
+// slower than him) a troll can lift her off a unicorn or gryphon too.
+function monsterSpeed(monster) {
+  if (monster.state !== "walk") return 0;
+  return monster.riding ? MOUNTED_MONSTER_SPEED : MONSTER_SPEED;
+}
+
+function mountOutrunsMonster(racer, monster) {
+  return isMounted(racer) && mountBeatsTrolls(racer.horseType) && Math.abs(racer.speed || 0) > monsterSpeed(monster);
+}
+
 const DEFAULT_MOUNT_ODDS = { unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 };
 
 function chooseHorseType() {
@@ -3681,7 +3692,7 @@ function updateMonsters(dt) {
     if (riding) updateMountedMonsterJump(monster, Math.sign(dx), dt);
 
     const grabRangeX = riding ? MOUNTED_MONSTER_GRAB_RANGE_X : MONSTER_GRAB_RANGE_X;
-    const unbeatable = isMounted(target) && mountBeatsTrolls(target.horseType);
+    const unbeatable = mountOutrunsMonster(target, monster);
     if (monster.z < 20 && Math.abs(dx) < grabRangeX && Math.abs(dy) < MONSTER_GRAB_RANGE_Y && target.z < 80 && !unbeatable) {
       if (isMounted(target)) dismountIntoPickup(target);
       monster.state = "grab";
@@ -4650,7 +4661,7 @@ function bumpMonstersWithSpecialMounts() {
       const dx = monster.x - racer.x;
       const dy = (monster.y + 54) - (racer.y + 54);
       if (Math.abs(dx) >= 74 || Math.abs(dy) >= 54 || racer.z > 110) continue;
-      if (isHorsingAroundMode() && !isRacerRunningAtMonster(racer, dx)) continue;
+      if (isHorsingAroundMode() ? !isRacerRunningAtMonster(racer, dx) : !mountOutrunsMonster(racer, monster)) continue;
       applyMonsterKnockback(monster, dx >= 0 ? 1 : -1);
       racer.mountBumpCooldown = 0.45;
       break;
