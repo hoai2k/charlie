@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** the §11 run-cycle redos for Felicity and Claudia (RC1, RC2), the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol, the §10 new-item art (actions sheets, frogs, wave,
+> **Still open:** the §11 run-cycle redos for Felicity, Claudia and Barbie (RC1–RC3), the §8.0.2 Juliette purse redo (K4), §8 toys for Marisol, the §10 new-item art (actions sheets, frogs, wave,
 > wind-up cars), and the §9 track monsters (scarecrow and skeleton sheets).
 
 Every track uses the same white picket hurdle and the same power-up icons
@@ -568,23 +568,25 @@ and the cars drive along the ground.
 
 ---
 
-## 11. Run-cycle redos: Felicity and Claudia (open)
+## 11. Run-cycle redos: Felicity, Claudia and Barbie (open)
 
 A doll's run (sprite sheet row 2, three cells) plays as a loop. For it to read
 as running, the three cells must be **(1) a stride with one leg forward,
 (2) the passing pose with the feet together under the body (one foot planted,
 the other just lifting past it), and (3) the stride with the other leg
-forward.** Felicity's and Claudia's run cells are all three wide strides with
+forward.** Felicity's, Claudia's and Barbie's run cells are all strides with
 the same leg forward, so in game they jiggle on the spot instead of running.
 Compare with Rumi's or Barbie's run row, which work. (Measured from the
 sheets: across the feet, every other doll has a cell much narrower than the
-others; these two don't.)
+others; Felicity and Claudia don't, and a side-by-side check of every run row
+found Barbie's middle cell is a shorter stride, not a passing pose.)
 
 | # | File | Cells | Fix |
 | --- | --- | --- | --- |
 | RC1 | `assets/doll_felicity_sprites.webp` and `assets/masks/felicity_sheet_mask.webp` (source `tools/dolls/sources/felicity/run.webp`) | Row 2, cells 1–3 | Redraw as stride, passing (feet together), opposite stride, in her same outfit and boots (§4), on the 409 baseline. Keep every other cell pixel-identical and update the mask to match. |
-| RC2 | `assets/doll_claudia-v2_sprites.webp` and `assets/masks/claudia-v2_sheet_mask.webp` (source `tools/dolls/sources/claudia/run.webp` or wherever claudia-v2's run source lives) | Row 2, cells 1–3 | The same fix for Claudia, in her same dress and silver shoes. |
+| RC2 | `assets/doll_claudia-v2_sprites.webp` and `assets/masks/claudia-v2_sheet_mask.webp` (source `tools/dolls/sources/claudia/run.webp`) | Row 2, cells 1–3 | The same fix for Claudia, in her same dress and silver shoes. |
+| RC3 | `assets/doll_barbie_sprites.webp` and `assets/masks/barbie_sheet_mask.webp` (source `tools/dolls/sources/barbie/run.webp`) | Row 2, cells 1–3 | The same fix for Barbie, in her same swimsuit, sunglasses and slides. |
 
 Acceptance: play the three cells in a loop at race speed next to Rumi's; the
-legs should alternate, not shuffle. Re-run `tools/dolls/measure_hands.py` is
-not needed (the throw and ride cells don't change).
+legs should alternate, not shuffle. The throw and ride cells don't change, so
+`tools/dolls/measure_hands.py` needn't be re-run.
