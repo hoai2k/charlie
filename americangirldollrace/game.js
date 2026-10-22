@@ -274,6 +274,9 @@ const RUNAWAY_HORSE_SPEED = 640;
 // EMP: a plain EMP crackles lightning from her button to everyone it hits; a
 // track's themed EMP (firework, bell, conch…) streams sparks to them instead.
 const EMP_ARC_TIME = 0.6;
+// An EMP reaches racers and monsters within this far of the trigger; with
+// nobody in range, it shocks whoever pressed it.
+const EMP_RANGE = 1000;
 const EMP_STREAM_TIME = 0.3;
 const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
 const EMP_SPARK_COLORS = ["#ffd84a", "#fff2a8", "#ffffff", "#c48bff"];
@@ -3091,7 +3094,9 @@ function applyPowerup(racer, powerupOrType) {
   } else if (type === "emp") {
     racer.empTimer = 0.45;
     racer.powerupMessage = powerupLabel("emp", "EMP");
-    const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterVisible(monster) && isMonsterEmpTarget(monster));
+    const originX = typeof powerupOrType === "string" ? racer.x : powerupOrType.x;
+    const inRange = target => Math.abs(target.x - originX) <= EMP_RANGE;
+    const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterVisible(monster) && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
     if (visibleMonsters.length > 0) {
       for (const monster of visibleMonsters) {
@@ -3101,15 +3106,21 @@ function applyPowerup(racer, powerupOrType) {
       }
     } else {
       for (const other of state.racers) {
-        if (other === racer || other.finished) continue;
+        if (other === racer || other.finished || !inRange(other)) continue;
         applyEmpHit(racer, other);
         hit.push(other);
       }
     }
     const label = powerupLabel("emp", "EMP");
+    if (!hit.length) {
+      // Nobody around to zap: it zaps her instead.
+      shockEmpPresser(racer);
+      hit.push(racer);
+      racer.powerupMessage = `${label}: OOPS!`;
+    }
     if (hit.length) {
       // The effect starts at the trigger she took, not at her.
-      const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 34 };
+      const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 26 };
       state.empArcs.push({
         from,
         source: racer,
@@ -3208,6 +3219,12 @@ function canMountedRacerThrowSnowballs(racer) {
 
 function isMonsterEmpTarget(monster) {
   return monster.state !== "sleeping" && monster.state !== "ground";
+}
+
+// An EMP with nobody else in range: she takes the full hit herself, knocked
+// back from the trigger like anyone it reaches.
+function shockEmpPresser(racer) {
+  applyEmpHit({ x: racer.x + (racer.facing || 1) * 10 }, racer);
 }
 
 function applyEmpHit(attacker, target) {

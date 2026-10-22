@@ -63,7 +63,10 @@ const AUDIO_CONFIG = {
     firework_burst: 0.7,
     firework_launch: 0.5,
     crowd_cheer_short: 0.6,
-    crowd_ooh: 0.5
+    crowd_ooh: 0.5,
+    // The Farm's rooster is the EMP itself (its crow knocks everyone out), so
+    // it's meant to be heard over everything else.
+    pickup_rooster: 3.0
   },
 
   // Throttles for effects that could otherwise fire every frame.
