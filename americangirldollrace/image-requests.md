@@ -708,7 +708,7 @@ swaps the sheet in without other changes:
 | 1 | Idle, 3 frames of a slight sway, the visor eyes flickering |
 | 2 | Walk cycle, 3 frames, clanking steps |
 | 3 | **Grab** (lunging forward with clamp hands open), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
-| 4 | **Knocked over** (falling backwards, sparks at the joints), **collapsing** (coming apart), and **defeated**: **a heap of loose robot parts with the head on top, its visor dark and a little smoke curling up**. It stays put on the ground until the race ends. |
+| 4 | **Knocked over** (falling backwards, sparks at the joints), **collapsing** (sinking to the ground, a panel popping open), and **defeated**: **the whole robot lying flat on its back on the ground like a broken robot**: visor dark or flickering, antenna bent, a chest panel hanging open with loose wires, one leg twitched up. Paint no sparks or smoke in this cell: the game adds crackling sparks over it. It stays put on the ground until the race ends. |
 
 In the same commit, add `"robot"` to `TRACK_SHARED_ART` in `tracks.js`, and
 set `monster: "robot"` on the `space` track. The game loads the sheet only
@@ -719,4 +719,4 @@ Acceptance: overlay the sheet on `monster_sprites.webp` and check that the
 feet sit on the same baseline in rows 1–3 and the figures are about the same
 size. Then race Moon Base on "Extra" monsters. It walks in, grabs and throws
 a doll, gets knocked down by a push, a snowball and an EMP, and after five
-knock-backs ends as its heap of parts.
+knock-backs lies broken on the ground, sparking.
