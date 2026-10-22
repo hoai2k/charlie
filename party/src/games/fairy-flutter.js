@@ -18,6 +18,7 @@ import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { outfitItem } from '../engine/outfits.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, lerp, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import {
   NAVY, hh, drawBackground, puff, drawMoon, drawJar, drawPickup, drawBee, drawFairy, FAIRY_COLS,
@@ -55,8 +56,8 @@ export const meta = {
   // Easy (A only): your fairy floats up and down by herself; A zooms to the
   // nearest sparkle when the big A shows.
   goalEasy: 'Zoom to the sparkles and fill the Moon\'s jar together!',
-  controlsEasy: [['a', 'Zoom to the sparkle!']],
-  tipsEasy: ['Your fairy flies all by herself!', 'When the big A bounces, press A to ZOOM!', 'Zooming pulls in everything nearby!'],
+  controlsEasy: [['a', 'Zoom to the sparkle!'], ['stick', 'Fly (if you like)']],
+  tipsEasy: ['Your fairy flies all by herself!', 'Fly somewhere else with either stick if you like!', 'When the big A bounces, press A to ZOOM!', 'Zooming pulls in everything nearby!'],
   music: 'bouncy',
   duration: 'About 45 sec',
   minPlayers: 1,
@@ -240,7 +241,7 @@ export class Game {
     e.loopCd = Math.max(0, e.loopCd - dt); e.comboT -= dt; if (e.comboT <= 0) e.combo = 0;
     e.boopT = Math.max(0, e.boopT - dt); e.wheeT -= dt;
     let ix = play ? ctrl.x : 0, iy = play ? ctrl.y : 0;
-    if (e.ez) { [ix, iy] = play ? this.easyPilot(e) : [0, 0]; e.ez.after = Math.max(0, (e.ez.after || 0) - dt); }
+    if (e.ez) { [ix, iy] = play ? this.easyPilot(e, dt) : [0, 0]; e.ez.after = Math.max(0, (e.ez.after || 0) - dt); }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     if (this.phase === 'finale') { ix = clamp((e.tx - e.x) / 200, -1, 1); iy = clamp((e.ty - e.y) / 200, -1, 1); }
     const k = 1 - Math.exp(-ACCEL * dt);
@@ -248,7 +249,10 @@ export class Game {
     e.vy += (iy * MAXV - e.vy) * k * (e.loopT > 0 ? 0.25 : 1);
     // A: loop-de-loop zoom
     if (play && ctrl.pressed('a') && e.loopCd <= 0 && e.loopT <= 0) {
-      if (e.ez && e.ez.aim) { const cy = e.y - a.height * 0.5; this.startLoop(e, e.ez.aim.x - e.x, e.ez.aim.y - cy); }   // Easy: zoom at the sparkle
+      const cy = e.y - a.height * 0.5;
+      const far = e.ez && !e.ez.aim && !e.ez.manual ? this.nearestPickup(e) : null;   // Easy, none in reach: zoom toward the nearest one
+      if (e.ez && e.ez.aim) this.startLoop(e, e.ez.aim.x - e.x, e.ez.aim.y - cy);   // Easy: zoom at the sparkle
+      else if (far) { this.startLoop(e, far.x - e.x, far.y - cy); e.ez.lx = clamp(far.x, LEFT + 60, RIGHT - 60); }   // and her patch of sky moves there
       else this.startLoop(e, ix, iy);
     }
     if (e.loopT > 0) {
@@ -292,8 +296,13 @@ export class Game {
 
   /** Molly Easy: float gently up and down around this fairy's patch of sky,
    *  and pick the sparkle an A-zoom would fly to (e.ez.aim). Returns stick x/y. */
-  easyPilot(e) {
+  easyPilot(e, dt) {
     const z = e.ez, t = this.t, cx = e.x, cy = e.y - e.a.height * 0.5;
+    // either stick still flies her (like Medium); her patch of sky moves with her,
+    // so the autopilot carries on from wherever she is when she lets go
+    const st = easySteer(z, e.p.ctrl, dt);
+    z.manual = st.manual;
+    if (st.manual) z.lx = clamp(e.x - Math.sin(t * 0.35 + z.ph) * 220, LEFT + 60, RIGHT - 60);
     let best = null, bu = 0;
     for (const pk of this.pickups) {
       if (pk.x > W - 40 || pk.x < 40 || pk.y < TOP - 140) continue;
@@ -303,12 +312,25 @@ export class Game {
       if (u > bu) { bu = u; best = pk; }
     }
     z.aim = best;
+    if (st.manual) return [st.x, st.y];
     const tx = clamp(z.lx + Math.sin(t * 0.35 + z.ph) * 220, LEFT + 60, RIGHT - 60);
     const ty = (TOP + BOTTOM) / 2 + 40 + Math.sin(t * 0.8 + z.ph) * (BOTTOM - TOP) * 0.42;
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
     if (d < 6) return [0, 0];
     const k = clamp(d / 160, 0, 1) * 0.5;
     return [(dx / d) * k, (dy / d) * k];
+  }
+
+  /** Molly Easy: the closest sparkle on screen, however far (A with none in reach zooms at it). */
+  nearestPickup(e) {
+    const cx = e.x, cy = e.y - e.a.height * 0.5;
+    let best = null, bd = Infinity;
+    for (const pk of this.pickups) {
+      if (pk.dead || pk.x > W - 40 || pk.x < 40 || pk.y < TOP - 140) continue;
+      const d = dist(cx, cy, pk.x, pk.y);
+      if (d < bd) { bd = d; best = pk; }
+    }
+    return best;
   }
 
   startLoop(e, ix, iy) {

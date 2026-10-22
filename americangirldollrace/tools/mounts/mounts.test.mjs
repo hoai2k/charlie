@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
 const source=fs.readFileSync(new URL('game.js',game),'utf8');
-const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','isMounted','broomRideBlend'];
+const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','isMounted','broomRideBlend'];
 function setup(){
   const math=Object.create(Math);
   const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:2,PEGASUS_DURATION_MULTIPLIER:1.5,
@@ -56,6 +56,16 @@ test('griffon gets pegasus duration, flying audio and special-mount monster bump
  const monster={x:130,y:550,state:'walk'};
  c.state.monsters=[monster];c.state.racers=[{x:100,y:550,z:0,horseTimer:15,horseType:'griffon',mountBumpCooldown:0}];
  c.bumpMonstersWithSpecialMounts();assert.equal(monster.hit,1);assert.equal(c.state.racers[0].mountBumpCooldown,.45);
+});
+
+test('pegasus and broom riders do not bowl trolls over (trolls can pull them off)',()=>{
+ const c=setup();
+ for(const horseType of ['pegasus','broom','horse']){
+  const monster={x:130,y:550,state:'walk'};
+  c.state.monsters=[monster];c.state.racers=[{x:100,y:550,z:0,horseTimer:15,horseType,mountBumpCooldown:0}];
+  c.bumpMonstersWithSpecialMounts();assert.equal(monster.hit,undefined,horseType);
+ }
+ assert.equal(c.mountBeatsTrolls('unicorn'),true);assert.equal(c.mountBeatsTrolls('griffon'),true);assert.equal(c.mountBeatsTrolls('pegasus'),false);
 });
 
 test('griffon calibration has nine finite seats inside the exported sprite cells',()=>{

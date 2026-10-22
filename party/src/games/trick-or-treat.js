@@ -23,6 +23,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, TAU, ease, later, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, GROUND_Y, WALK, HOUSE_X, DOOR, CANDY_COLS, VISITORS, streetBackground, drawHouse, drawDoor, drawLantern, paintedHouse, porchLight,
@@ -61,9 +62,9 @@ export const meta = {
   goal: 'Knock on doors and fill your pumpkin bucket with candy!',
   controls: [['stick', 'Run along the street'], ['a', 'Knock on a door (or jump and spin!)']],
   tips: ['Knock where the porch light is on - everyone at the door gets candy!', 'Golden doors make a candy fountain!', 'When the Candy Ghost flies by, run and scoop up the candy!'],
-  goalEasy: 'You walk to the doors by yourself. Press A to knock and get candy!',
-  controlsEasy: [['a', 'Knock knock!']],
-  tipsEasy: ['You walk to a lit door all by yourself.', 'When the A bounces over the door, press A!', 'Golden doors make a candy fountain!'],
+  goalEasy: 'Press A and you walk to the nearest lit door and knock. Get candy!',
+  controlsEasy: [['a', 'Go to a door and knock knock!'], ['stick', 'Move with either stick if you like']],
+  tipsEasy: ['Press A: you walk to the nearest lit door and knock.', 'Want a different door? Walk over with the stick, then press A!', 'Golden doors make a candy fountain!'],
   music: 'spooky',
   duration: '60 sec',
   minPlayers: 1,
@@ -171,7 +172,14 @@ export class Game {
     const p = U.p, a = U.a;
     U.spinCd = Math.max(0, U.spinCd - dt); U.laughT = Math.max(0, U.laughT - dt); U.dizzy = Math.max(0, U.dizzy - dt);
     let mx = p.ctrl.x, my = p.ctrl.y;
-    if (this.easy && !p.isAI) [mx, my] = this.easyMove(U, dt);
+    if (this.easy && !p.isAI) {
+      // Easy: the stick steers like Medium while it's pushed; otherwise the autopilot walks
+      const st = easySteer(U, p.ctrl, dt);
+      if (st.manual) {
+        mx = st.x; my = st.y;
+        if (st.pushing) { U.easyGo = null; U.easyDoor = null; U.easyRe = 0; }   // re-pick from here after
+      } else [mx, my] = this.easyMove(U, dt);
+    }
     const mag = Math.hypot(mx, my);
     if (mag > 1) { mx /= mag; my /= mag; }
     const sp = SPEED * (U.dizzy > 0 ? 0.35 : 1);
@@ -192,6 +200,11 @@ export class Game {
     const d = this.doorAt(U);
     if (d && d.state === 'ready') { this.knock(d, U); return; }
     if (d && d.state !== 'rest') return;                // waiting at a busy door
+    // Easy: A away from a lit door walks you to the nearest one (from where you are) and knocks
+    if (this.easy && !U.p.isAI && this.phase === 'play' && !(U._ezSteer > 0 && Math.hypot(U.p.ctrl.x, U.p.ctrl.y) > 0.25)) {
+      const go = this.easyNearestDoor(U);
+      if (go && go !== d) { U.easyGo = go; U.easyDoor = go; U.easySlotY = clamp(U.y, WALK.y0 + 20, ZONE_Y - 30); U._ezSteer = 0; return; }
+    }
     if (U.spinCd > 0 || U.z > 0) return;
     // a happy costume jump-spin
     U.spinCd = 0.55; U.vz = 760;
@@ -525,7 +538,27 @@ export class Game {
   }
 
   // --- Molly Easy (humans): walk by yourself, A knocks ----------------------------------
+  easyNearestDoor(U) {
+    let best = null, bs = Infinity;
+    for (const d of this.doors) {
+      let s = Math.abs(d.x - U.x);
+      if (d.state !== 'ready') s += 2000;               // a lit door if there is one
+      if (s < bs) { bs = s; best = d; }
+    }
+    return best;
+  }
+
   easyMove(U, dt) {
+    // A sent us to a door: walk straight there and knock as soon as it's lit
+    const go = U.easyGo;
+    if (go) {
+      if (this.inZone(U, go) && Math.abs(U.x - go.x) < 70) {
+        if (go.state === 'ready') { this.knock(go, U); U.easyGo = null; }
+        else if (go.state === 'rest' && go.restT - go.st > 1.5) U.easyGo = null;   // long wait: stay, A again later
+        return [0, 0];
+      }
+      return this.easyToward(U, go.x + (U.i % 3 - 1) * 30, U.easySlotY, 0.95);
+    }
     // scoop candy lying close by first (the Candy Ghost's rain, fountain spills)
     let best = null, bd = 300;
     for (const c of this.spills) {
@@ -706,7 +739,7 @@ export class Game {
       g.restore();
     }
     if (this.phase === 'play' && this.t < 7) {
-      const hint = this.easy ? 'At a lit door, press' : 'Knock on a lit door with';
+      const hint = this.easy ? 'Go knock on a door:' : 'Knock on a lit door with';
       g.save();
       g.globalAlpha = clamp((7 - this.t) / 0.5, 0, 1);
       const w = ui.measure(g, hint, 38, 800) + 150;

@@ -17,6 +17,7 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
@@ -30,8 +31,8 @@ export const meta = {
   controls: [['stick', 'Run around'], ['a', 'Hold: tongue out!']],
   tips: ['Stand on a flake\'s shadow and stick your tongue out.', 'Big sparkly flakes count for 3!', 'Snowballs go POOF into glitter - a bonus!'],
   goalEasy: 'You run to the snowflakes by yourself. Press A to catch them on your tongue!',
-  controlsEasy: [['a', 'Tongue out!']],
-  tipsEasy: ['You walk to a snowflake all by yourself.', 'When the big A bounces, press A!', 'Big sparkly flakes count for 3!'],
+  controlsEasy: [['a', 'Tongue out!'], ['stick', 'Run with either stick if you like']],
+  tipsEasy: ['You walk to a snowflake all by yourself - or steer with the stick.', 'When the big A bounces, press A!', 'Big sparkly flakes count for 3!'],
   music: 'chase',
   duration: '45 sec',
   minPlayers: 1,
@@ -238,10 +239,11 @@ export class Game {
       snd('sfc-tongue', 'pop', { vol: 0.35, rate: 1.5 });
       a.squash(-0.15);
       if (auto) e.tongueHold = 0.55;   // a quick tap still catches
+      if (auto && !e.ezPush) e._ezSteer = 0;   // Easy: A (stick let go) hands back to the auto-walk at once
     }
     e.tongue = tongue ? Math.min(1, e.tongue + dt * 10) : Math.max(0, e.tongue - dt * 8);
     // Easy: the auto-walk slows right down with the tongue out, so timing A beats holding it
-    const sp = SPEED * (tongue ? (auto ? 0.4 : 0.85) : 1);
+    const sp = SPEED * (tongue ? (auto && !e.ezManual ? 0.4 : 0.85) : 1);
     e.vx = approach(e.vx, ix * sp, 4200 * dt); e.vy = approach(e.vy, iy * sp * 0.8, 4200 * dt);
     e.x = clamp(e.x + e.vx * dt, ARENA.x0, ARENA.x1); e.y = clamp(e.y + e.vy * dt, ARENA.y0, ARENA.y1);
     if (tongue && !a._once) {
@@ -453,6 +455,10 @@ export class Game {
   /** Molly Easy (humans): walk by yourself under the best flake; the player only times A. */
   easyThink(e, dt) {
     e.autoX = 0; e.autoY = 0;
+    // the stick steers while it's pushed (target = the best flake from where you are, for the A cue)
+    const st = easySteer(e, e.p.ctrl, dt);
+    e.ezManual = st.manual; e.ezPush = st.pushing;
+    if (st.pushing) { e.target = null; e.retarget = 0; }
     if (e.spin > 0) return;
     const h = e.a.height;
     const ok = (f) => f && f.state === 'fall' && f.z > h * 0.2;
@@ -472,6 +478,7 @@ export class Game {
       }
       e.target = best;
     }
+    if (st.manual) { e.autoX = st.x * 0.9; e.autoY = st.y * 0.9; return; }
     const f = e.target;
     if (!f) return;
     const dx = f.x - e.x, dy = f.y - e.y, d = Math.hypot(dx, dy);

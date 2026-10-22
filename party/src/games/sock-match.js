@@ -12,6 +12,7 @@
 // Sounds with synth fallbacks: sock-pickup, sock-match, sock-rocket,
 // sock-pin, sock-basket-burst, sock-puppy-yip, sock-puppy-grab, sock-flyoff.
 import { W, H } from '../engine/canvas.js';
+import { easySteer } from '../engine/easy.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -32,9 +33,9 @@ export const meta = {
   controls: [['stick', 'Run'], ['a', 'Grab a sock']],
   tips: ['Carry a sock to the one that looks the same.', 'The puppy steals socks! Run into him and he drops it.', 'Holding twins with a friend? Run together for a high-five!'],
   // Molly Easy: you walk by yourself to a sock, A grabs it, then you carry it to its twin
-  goalEasy: 'Press A to grab a sock. You carry it to its twin all by yourself!',
-  controlsEasy: [['a', 'Grab a sock / catch the puppy']],
-  tipsEasy: ['Press A when the big A bounces over a sock.', 'The puppy has a sock? Press A when he runs by!'],
+  goalEasy: 'Press A to go grab a sock. You carry it to its twin all by yourself!',
+  controlsEasy: [['a', 'Grab a sock / catch the puppy'], ['stick', 'Move with either stick if you like']],
+  tipsEasy: ['Press A: you walk to the nearest sock and grab it.', 'Want a different sock? Walk over with the stick, then press A!', 'The puppy has a sock? Press A when he runs by!'],
   music: 'bouncy',
   duration: '60 sec',
   minPlayers: 1,
@@ -276,7 +277,7 @@ export class Game {
     if (e.held) e.heldT += dt;
     const ix = this.done ? 0 : e.auto ? e.auto.ix : c.x, iy = this.done ? 0 : e.auto ? e.auto.iy : c.y;
     const m = Math.hypot(ix, iy), k = m > 1 ? 1 / m : 1;
-    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? 0.7 : 1;
+    const cap = p.isAI ? CPU_CAP[clamp(p.aiLevel ?? 0, 0, 2)] : e.auto ? (e.auto.manual ? 0.9 : 0.7) : 1;
     const tx = ix * k * MAX_SPEED * cap, ty = iy * k * MAX_SPEED * 0.85 * cap;
     const step = ACCEL * dt;
     e.vx += clamp(tx - e.vx, -step, step); e.vy += clamp(ty - e.vy, -step, step);
@@ -319,7 +320,14 @@ export class Game {
       const act = this.easyAction(e);
       if (act === 'puppy') return this.catchPuppy(e);
       if (act === 'grab') return this.grab(e, this.nearestSock(e));
-      e.a.playOnce('look-around', 0.35); e.cool = 0.15;
+      e.cool = 0.15;
+      // A with nothing in reach: walk to the nearest sock (from here) and grab it; carrying, walk to its twin
+      if (!e.auto.pushing) {
+        e._ezSteer = 0; e.auto.manual = false;
+        if (!e.held) { e.auto.sock = this.easyPick(e, false); e.auto.t = 3; e.auto.go = !!e.auto.sock; }
+        if (e.auto.sock || e.held) return;
+      }
+      e.a.playOnce('look-around', 0.35);
       return;
     }
     const s = this.nearestSock(e);
@@ -473,6 +481,10 @@ export class Game {
     const au = e.auto;
     au.ix = 0; au.iy = 0;
     if (this.done) return;
+    // the stick steers while it's pushed (and a moment after); then the autopilot picks up from here
+    const st = easySteer(e, e.p.ctrl, dt);
+    au.manual = st.manual; au.pushing = st.pushing;
+    if (st.manual) { au.ix = st.x; au.iy = st.y; if (st.pushing) { au.sock = null; au.go = false; } return; }
     let tx = null, ty = null, arrive = 8;
     if (e.held) {
       const pat = e.held.pat;
@@ -487,23 +499,32 @@ export class Game {
       const cur = au.sock;
       if (!cur || cur.state !== 'ground' || au.t <= 0) {
         au.t = 2;
-        // the nearest sock nobody else is heading for (twins of carried socks first)
-        const taken = new Set(this.ents.filter((o) => o !== e).map((o) => (o.auto ? o.auto.sock : o.plan && o.plan.sock)).filter(Boolean));
-        let free = this.socks.filter((s) => s.state === 'ground' && !taken.has(s));
-        if (!free.length) free = this.socks.filter((s) => s.state === 'ground');
-        const wanted = free.filter((s) => this.ents.some((o) => o.held && o.held.pat === s.pat));
-        const pool = wanted.length ? wanted : free;
-        let best = null, bd = 1e9;
-        for (const s of pool) { const d = Math.hypot(s.x - e.x, s.y - e.y) + (s === cur ? -150 : 0); if (d < bd) { bd = d; best = s; } }
-        au.sock = best;
+        if (!au.go || !cur || cur.state !== 'ground') { au.sock = this.easyPick(e, true); au.go = false; }
       }
-      if (au.sock) { tx = au.sock.x + (e.i % 2 ? 20 : -20); ty = au.sock.y + 6; }
+      if (au.sock) {
+        tx = au.sock.x + (e.i % 2 ? 20 : -20); ty = au.sock.y + 6;
+        // A sent us here: grab it on arrival
+        if (au.go && this.nearestSock(e) === au.sock && e.cool <= 0) { au.go = false; this.grab(e, au.sock); return; }
+      }
     }
     if (tx === null) return;
     const dx = tx - e.x, dy = ty - e.y, d = Math.hypot(dx, dy);
     if (d < arrive) return;
     const k = clamp(d / 90, 0, 1);
     au.ix = (dx / d) * k; au.iy = (dy / d) * k;
+  }
+
+  /** Easy: the sock to walk to - the nearest from where the kid is now (`share`: avoid others' picks, twins first). */
+  easyPick(e, share) {
+    const cur = e.auto.sock;
+    const taken = new Set(share ? this.ents.filter((o) => o !== e).map((o) => (o.auto ? o.auto.sock : o.plan && o.plan.sock)).filter(Boolean) : []);
+    let free = this.socks.filter((s) => s.state === 'ground' && !taken.has(s));
+    if (!free.length) free = this.socks.filter((s) => s.state === 'ground');
+    const wanted = share ? free.filter((s) => this.ents.some((o) => o.held && o.held.pat === s.pat)) : [];
+    const pool = wanted.length ? wanted : free;
+    let best = null, bd = 1e9;
+    for (const s of pool) { const d = Math.hypot(s.x - e.x, s.y - e.y) + (share && s === cur ? -150 : 0); if (d < bd) { bd = d; best = s; } }
+    return best;
   }
 
   // ---------------------------------------------------------------------- AI

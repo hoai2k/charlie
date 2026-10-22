@@ -23,6 +23,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { drawMirroredScroll } from '../engine/scroll-art.js';
 import { aiProfile, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { outfitItem } from '../engine/outfits.js';
 import { charById } from '../data/characters.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
@@ -41,8 +42,8 @@ export const meta = {
   tips: ['Hop over puddles, mushrooms and sleepy bunnies to grow a rainbow trail.', 'Stars float up high - hop to grab them!', 'Bumping is just silly: mushrooms go BOING!'],
   // Molly Easy: the unicorn gallops by itself; A hops when the big A shows
   goalEasy: 'Your unicorn gallops by itself. Press A to hop over things!',
-  controlsEasy: [['a', 'Hop!']],
-  tipsEasy: ['Press A when the big A pops up!', 'Hop over things to win the treats after them!', 'Bumping is just silly: mushrooms go BOING!'],
+  controlsEasy: [['a', 'Hop!'], ['stick', 'Gallop faster or slower with either stick if you like']],
+  tipsEasy: ['Press A when the big A pops up!', 'No need to steer - your unicorn gallops by itself.', 'Hop over things to win the treats after them!', 'Bumping is just silly: mushrooms go BOING!'],
   music: 'bouncy',
   duration: '45 sec',
   minPlayers: 1,
@@ -107,7 +108,7 @@ const QUAD = new Set(['fox', 'cotton-candy', 'unicorn']);
 export class Game {
   constructor(api) {
     this.api = api;
-    this.easy = !!api.easy;   // Molly Easy: no stick; A hops (a press just before landing still counts)
+    this.easy = !!api.easy;   // Molly Easy: the stick is optional (gallop); A hops (a press just before landing still counts)
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.time = 0;
@@ -259,7 +260,8 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt); e.cheerT = Math.max(0, e.cheerT - dt);
     e.phase += dt * (6 + this.speed / 90);
     const human = this.easy && !p.isAI;
-    const inX = live && !human ? p.ctrl.x : 0;
+    // Easy: the stick still gallops faster/slower (a bit gentler); let go and you keep your spot
+    const inX = !live ? 0 : human ? easySteer(e, p.ctrl, dt).x * 0.8 : p.ctrl.x;
     e.vx = approach(e.vx, inX * 420 * s, 2600 * dt);
     e.pv *= Math.exp(-5 * dt);
     const lo = e.baseX - 300 * s, hi = e.baseX + 360 * s;

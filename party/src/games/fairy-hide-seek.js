@@ -20,6 +20,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, lerp, rand, pick, chance, shuffle, TAU, dist, placementsFromScores } from '../engine/util.js';
 import {
@@ -50,10 +51,11 @@ export const meta = {
   goal: 'Find the fairies hiding in the garden!',
   controls: [['stick', 'Walk with your magnifying glass'], ['a', 'Peek! Check a hiding spot']],
   tips: ['Look through your glass to see who is hiding.', 'Wiggly, sparkly spots have a fairy!', 'Frogs and snails are just being silly.'],
-  // Easy (A only): you walk from spot to spot by yourself and stop to look.
+  // Easy (A only): you walk from spot to spot by yourself and stop to look;
+  // the stick still walks you if you like, and A off a spot walks to the nearest one.
   goalEasy: 'Find the fairies hiding in the garden!',
-  controlsEasy: [['a', 'Peek! when you see a fairy']],
-  tipsEasy: ['You walk to the hiding spots all by yourself!', 'See a fairy in your glass? Press A quick!', 'Frogs and snails are just being silly.'],
+  controlsEasy: [['a', 'Peek! when you see a fairy'], ['stick', 'Walk anywhere you like (or let it walk you)']],
+  tipsEasy: ['You walk to the hiding spots all by yourself, or move with either stick!', 'See a fairy in your glass? Press A quick!', 'Frogs and snails are just being silly.'],
   music: 'sneaky',
   duration: '60 sec',
   minPlayers: 1,
@@ -195,7 +197,15 @@ export class Game {
     const a = e.a, ctrl = e.p.ctrl;
     e.cd = Math.max(0, e.cd - dt); e.glint = Math.max(0, e.glint - dt * 3);
     let ix = this.done ? 0 : ctrl.x, iy = this.done ? 0 : ctrl.y;
-    if (e.ez) [ix, iy] = this.done ? [0, 0] : this.easyPilot(e, dt);
+    if (e.ez) {
+      // Easy: the stick steers like Medium while pushed (the autopilot waits);
+      // let go and the autopilot carries on from the nearest spot
+      const st = easySteer(e, ctrl, dt);
+      if (st.pushing) e.ez.goA = false;
+      if (this.done) [ix, iy] = [0, 0];
+      else if (st.manual && !e.ez.goA) { [ix, iy] = [st.x, st.y]; e.ez.spot = null; e.ez.near = true; }
+      else [ix, iy] = this.easyPilot(e, dt);
+    }
     const m = Math.hypot(ix, iy); if (m > 1) { ix /= m; iy /= m; }
     const k = 1 - Math.exp(-12 * dt);
     e.vx += (ix * SPEED - e.vx) * k; e.vy += (iy * SPEED * 0.85 - e.vy) * k;
@@ -221,7 +231,12 @@ export class Game {
   check(e) {
     e.cd = 0.3; e.glint = 1;
     const a = e.a, s = e.spot;
-    if (!s && e.ez) { e.cd = 0.15; e.glint = 0; return; }   // Easy: A between spots does nothing (no cost)
+    if (!s && e.ez) {   // Easy: A between spots walks you to the nearest one, then peeks (no cost)
+      e.cd = 0.15; e.glint = 0;
+      const z = e.ez, sp = this.nearestSpot(e, true);
+      if (sp) { z.spot = sp; z.look = 0; z.dwell = 0; z.had = !!(sp.c && sp.c.kind === 'fairy'); z.goA = true; e._ezSteer = 0; }
+      return;
+    }
     a.playOnce('action', 0.3);
     if (!s) { sfx('whoosh', { vol: 0.3 }); this.miss(e); return; }
     s.bumpV -= 3.2;
@@ -464,9 +479,25 @@ export class Game {
   /** Molly Easy: walk the lens to a hiding spot, stop and look for a moment,
    *  then on to the next (a wiggly spot nearby first, else the next on the
    *  tour). Returns stick x/y. */
+  /** Easy: the hiding spot nearest this player's lens (one nobody else is walking to, if possible). */
+  nearestSpot(e, any) {
+    const taken = (s) => this.ents.some((o) => o !== e && o.ez && o.ez.spot === s);
+    const pool = this.spots.filter((s) => !taken(s));
+    const list = pool.length ? pool : (any ? this.spots : []);
+    let best = null, bd = 1e9;
+    for (const s of list) { const d = dist(e.lx, e.ly, s.x, s.y - s.h / 2); if (d < bd) { bd = d; best = s; } }
+    return best;
+  }
+
   easyPilot(e, dt) {
     const z = e.ez;
     const taken = (s) => this.ents.some((o) => o !== e && o.ez && o.ez.spot === s);
+    if (!z.spot && z.near) {
+      // just stopped steering: carry on from the spot nearest where they walked to
+      z.near = false;
+      const sp = this.nearestSpot(e, false);
+      if (sp) { z.spot = sp; z.look = 0; z.dwell = 0; z.had = !!(sp.c && sp.c.kind === 'fairy'); const ti = this.tour.indexOf(this.spots.indexOf(sp)); if (ti >= 0) z.ti = ti; }
+    }
     if (!z.spot) {
       const wig = this.spots.filter((s) => s.wig > 0 && s !== z.last && !taken(s) && dist(e.lx, e.ly, s.x, s.y - s.h / 2) < 700);
       if (wig.length) z.spot = wig.reduce((b, s) => (dist(e.lx, e.ly, s.x, s.y) < dist(e.lx, e.ly, b.x, b.y) ? s : b));
@@ -483,6 +514,11 @@ export class Game {
     const s = z.spot, tx = s.x, ty = s.y - s.h * 0.5;
     const dx = tx - e.lx, dy = ty - e.ly, d = Math.hypot(dx, dy);
     z.dwell += dt;
+    if (z.goA && e.spot === s && d < 70 && e.cd <= 0) {
+      // walked here because A was pressed: peek now
+      z.goA = false;
+      this.check(e);
+    }
     if (e.spot === s && d < 45) {
       // looking: a good long look; move on sooner once the fairy here was found
       z.look += dt;
@@ -490,7 +526,7 @@ export class Game {
       if (z.look > 2.2 || (found && z.look > 0.7) || (z.look > 1.2 && !s.c)) { z.last = s; z.spot = null; }
       return [0, 0];
     }
-    if (z.dwell > 6) { z.last = s; z.spot = null; return [0, 0]; }   // stuck: try another
+    if (z.dwell > 6) { z.last = s; z.spot = null; z.goA = false; return [0, 0]; }   // stuck: try another
     const k = clamp(d / 90, 0.2, 1) * 0.62;
     return [(dx / d) * k, (dy / d) * k];
   }

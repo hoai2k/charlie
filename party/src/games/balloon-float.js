@@ -20,6 +20,7 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
+import { easySteer } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import { BALLOONS, drawBalloon, drawHeart, drawStar, drawGoldenStar, drawFaceCloud, drawBird, drawSky } from './balloon-float/art.js';
 
@@ -34,8 +35,8 @@ export const meta = {
   controls: [['stick', 'Fly left and right'], ['a', 'Hold to go up, let go to go down']],
   tips: ['Big gold stars are worth 3!', 'Bump through the silly clouds - they sneeze out hearts.', 'Touch the grass for a big BOING!'],
   goalEasy: 'Hold A to float up and let go to float down - grab the hearts and stars flying by!',
-  controlsEasy: [['a', 'Hold to go up, let go to go down']],
-  tipsEasy: ['The ring shows your next heart - the arrow says up or down!', 'Treats only come to you after you press A!', 'Big gold stars are worth 3!', 'Touch the grass for a big BOING!'],
+  controlsEasy: [['a', 'Hold to go up, let go to go down'], ['stick', 'Fly about (if you like)']],
+  tipsEasy: ['The ring shows your next heart - the arrow says up or down!', 'Treats only come to you after you press A!', 'You drift by yourself - or fly with either stick if you like!', 'Big gold stars are worth 3!', 'Touch the grass for a big BOING!'],
   music: 'chase',
   duration: '45 sec',
   minPlayers: 1,
@@ -244,17 +245,23 @@ export class Game {
     e.popT = Math.max(0, e.popT - dt); e.streakT = Math.max(0, e.streakT - dt); e.boingT = Math.max(0, e.boingT - dt);
     if (e.streakT <= 0) e.streak = 0;
     const easy = this.easy && !p.isAI;
+    // Molly Easy: either stick still flies her about like Medium (up/down too); the
+    // autopilot waits, then picks the next treat from wherever she is
+    const st = easy && !this.done ? easySteer(e, ctrl, dt) : null;
+    if (st && st.manual) { e.target = null; e.homeX = clamp(e.x, 120, W * 0.8); }
     if (easy && !this.done) { this.easyLook(e); e.ezA = ctrl.held('a') ? 0 : (e.ezA ?? 9) + dt; }
     let inX = this.done ? 0 : ctrl.x;
-    if (easy && !this.done) {
+    if (st && st.manual) inX = st.x;
+    else if (easy && !this.done) {
       // drift toward the next treat, but stay near your own patch of sky
       const want = e.target && !e.target.dead ? clamp(e.target.x - this.wind * 0.25, 120, W * 0.8) : e.homeX;
       const dx = want - e.x;
       inX = Math.abs(dx) > 20 ? Math.sign(dx) * clamp(Math.abs(dx) / 200, 0.2, 0.7) : 0;
     }
     e.vx = approach(e.vx, inX * SPEED_X, 2600 * dt);
-    const up = !this.done && (ctrl.held('a') || (!easy && ctrl.y < -0.5));
-    const down = !this.done && !easy && ctrl.y > 0.5;
+    const sy = st ? st.y : ctrl.y, stick = !easy || (st && st.manual);
+    const up = !this.done && (ctrl.held('a') || (stick && sy < -0.5));
+    const down = !this.done && stick && !ctrl.held('a') && sy > 0.5;
     if (up && !e.upHold) { snd('bf-rise', 'whoosh', { vol: 0.25, rate: 1.4 }); for (const bl of e.balloons) bl.sq = -0.15; }
     e.upHold = up;
     if (up) e.vy = approach(e.vy, -RISE, 2000 * dt);
