@@ -9,6 +9,14 @@ window.DOLL_HANDS = {
   "ride": [
    302,
    231
+  ],
+  "skate": [
+   275,
+   177
+  ],
+  "pogo": [
+   322,
+   132
   ]
  },
  "barbie": {
@@ -19,6 +27,14 @@ window.DOLL_HANDS = {
   "ride": [
    346,
    189
+  ],
+  "skate": [
+   309,
+   129
+  ],
+  "pogo": [
+   320,
+   126
   ]
  },
  "cinnamon": {
@@ -29,6 +45,14 @@ window.DOLL_HANDS = {
   "ride": [
    351,
    189
+  ],
+  "skate": [
+   326,
+   144
+  ],
+  "pogo": [
+   336,
+   111
   ]
  },
  "claudia": {
@@ -49,6 +73,14 @@ window.DOLL_HANDS = {
   "ride": [
    345,
    182
+  ],
+  "skate": [
+   294,
+   112
+  ],
+  "pogo": [
+   354,
+   94
   ]
  },
  "felicity": {
@@ -59,6 +91,14 @@ window.DOLL_HANDS = {
   "ride": [
    331,
    191
+  ],
+  "skate": [
+   321,
+   137
+  ],
+  "pogo": [
+   333,
+   99
   ]
  },
  "hermione": {
@@ -87,6 +127,14 @@ window.DOLL_HANDS = {
   "ride": [
    291,
    188
+  ],
+  "skate": [
+   374,
+   120
+  ],
+  "pogo": [
+   362,
+   102
   ]
  },
  "kaya": {
@@ -97,6 +145,14 @@ window.DOLL_HANDS = {
   "ride": [
    293,
    186
+  ],
+  "skate": [
+   330,
+   99
+  ],
+  "pogo": [
+   335,
+   81
   ]
  },
  "lily": {
@@ -125,6 +181,14 @@ window.DOLL_HANDS = {
   "ride": [
    312,
    199
+  ],
+  "skate": [
+   384,
+   107
+  ],
+  "pogo": [
+   345,
+   80
   ]
  },
  "marisol": {
@@ -163,6 +227,14 @@ window.DOLL_HANDS = {
   "ride": [
    273,
    216
+  ],
+  "skate": [
+   355,
+   140
+  ],
+  "pogo": [
+   331,
+   104
   ]
  },
  "rumi": {
@@ -183,6 +255,14 @@ window.DOLL_HANDS = {
   "ride": [
    320,
    202
+  ],
+  "skate": [
+   323,
+   112
+  ],
+  "pogo": [
+   334,
+   102
   ]
  },
  "whirlpool": {
@@ -193,6 +273,14 @@ window.DOLL_HANDS = {
   "ride": [
    321,
    162
+  ],
+  "skate": [
+   307,
+   181
+  ],
+  "pogo": [
+   357,
+   89
   ]
  }
 };

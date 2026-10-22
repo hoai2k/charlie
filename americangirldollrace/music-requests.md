@@ -32,26 +32,13 @@ ending (no long fade-out) loops best.
 | Wizard School | Oops-a-Daisy Wizard School |
 | Night Festival | One More Spin at the Night Festival |
 | Fairy Woods | Fairies in the Woods |
-| **Horse Show** | **Open: M1** |
+| Horse Show | Race to the Ribbon |
 | **Candy Land** | **Open: M2** |
-| **Pumpkin Patch** | **Open: M3** |
+| Pumpkin Patch | Hey, Hay! |
 | **Cloud Kingdom** | **Open: M4** |
-| **Moon Base** | **Open: M5** |
+| Moon Base | Pocketful of Comets |
 
 ## Open requests
-
-### M1. Horse Show (`horseshow`)
-
-> K-pop dance-pop with punchy kick-snare layered with galloping hoofbeat
-> percussion and sparkling synth plucks over a bouncy four-on-the-floor
-> groove; verse stays tight and playful with staccato delivery and a
-> clip-clop hi-hat pattern, pre-chorus opens into stacked harmonies and a
-> rising filter sweep like riders lining up at the gate, chorus bursts with
-> group vocals and a bright brass-fanfare synth hook, bridge drops to
-> clipped handclaps, a starting-bell ding and breathy doubles before the
-> final chorus lifts bigger with a victory-lap horn stab. Crisp, glossy mix
-> with cute ear-candy chimes, crowd-cheer reverse swells, and short delay
-> throws on the hook word.
 
 ### M2. Candy Land (`candy`)
 
@@ -65,19 +52,6 @@ ending (no long fade-out) loops best.
 > bigger. Crisp, glossy mix with cute ear-candy chimes, wrapper-crinkle
 > reverse swells, and short delay throws on the hook word.
 
-### M3. Pumpkin Patch (`autumn`)
-
-> Cozy autumn K-pop dance-pop with punchy kick-snare and sparkling synth
-> plucks woven with bright banjo and fiddle accents over a bouncy
-> four-on-the-floor groove; verse stays tight and playful with staccato
-> delivery and crunchy-leaf shaker percussion, pre-chorus opens into warm
-> stacked harmonies and a rising filter sweep, chorus bursts with group
-> vocals and a bright hay-ride synth hook, bridge drops to clipped
-> handclaps, foot stomps, a playful spooky-cute scarecrow "boo" and breathy
-> doubles before the final chorus lifts bigger. Crisp, glossy mix with cute
-> ear-candy chimes, rustling reverse swells, and short delay throws on the
-> hook word.
-
 ### M4. Cloud Kingdom (`clouds`)
 
 > Dreamy K-pop dance-pop with punchy kick-snare and sparkling synth plucks
@@ -88,17 +62,4 @@ ending (no long fade-out) loops best.
 > hook, bridge drops to a floaty half-time of clipped handclaps, wind
 > chimes and breathy doubles before the final chorus lifts bigger. Crisp,
 > glossy mix with cute ear-candy chimes, whooshing reverse swells, and short
-> delay throws on the hook word.
-
-### M5. Moon Base (`space`)
-
-> Retro-space K-pop dance-pop with punchy kick-snare and sparkling
-> arpeggiated analog synth plucks over a bouncy four-on-the-floor groove and
-> a springy low-gravity bassline; verse stays tight and playful with
-> staccato delivery and little laser-zap accents, pre-chorus opens into
-> stacked harmonies, vocoder doubles and a rising filter sweep like a
-> rocket countdown, chorus bursts with group vocals and a bright twinkling
-> starfield synth hook, bridge drops to clipped handclaps, bleepy computer
-> blips and breathy doubles before the final chorus lifts bigger. Crisp,
-> glossy mix with cute ear-candy chimes, thruster reverse swells, and short
 > delay throws on the hook word.
