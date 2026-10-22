@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Still open:** §11 run-cycle redos for Felicity, Claudia and Barbie (RC1–RC3),
+> **Still open:** §12 EMP trigger icons (E1–E15), §11 run-cycle redos for Felicity, Claudia and Barbie (RC1–RC3),
 > §8.0.2 Juliette purse redo (K4), §8 toys for Marisol and remaining §10 doll actions.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.

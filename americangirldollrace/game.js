@@ -166,6 +166,17 @@ const AMANDA_HAZARD_EMERGE_TIME = 0.22;
 const AMANDA_HAZARD_HOLD_TIME = 0.24;
 const AMANDA_HAZARD_RETREAT_TIME = 0.38;
 const AMANDA_HAZARD_COOLDOWN = 1.6;
+// Hit Amanda (push, thrown ball, rainbow) while she's popped up and she's
+// caught: she tumbles out, gets up and sits on that fence for the rest of the
+// race, and pops up nowhere else. Hit her again there and she wobbles.
+const AMANDA_CAUGHT_STATES = ["tumble", "down", "climb", "sitting", "bonked"];
+const AMANDA_TUMBLE_TIME = 0.5;
+const AMANDA_DOWN_TIME = 0.7;
+const AMANDA_CLIMB_TIME = 0.45;
+const AMANDA_BONK_TIME = 0.5;
+const AMANDA_SEAT = { x: 155, y: 338 }; // seat in her riding frame (row 4, cell 1)
+const AMANDA_HIT_RANGE_X = 46;
+const AMANDA_HIT_RANGE_Y = 60;
 const OIL_SLIDE_DURATION = 1.5;
 const OIL_SLIDE_SPEED = 430;
 const SNOWBALL_PICKUP_COUNT = 5;
@@ -767,6 +778,7 @@ function resetRace(mode = state.mode) {
   state.projectiles = [];
   state.rainbowBeams = [];
   state.empArcs = [];
+  state.amandaCaught = null;
   state.monsters = makeMonsters();
   state.runawayHorses = [];
   state.beachBalls = makeBeachBalls();
@@ -2716,6 +2728,18 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
 function updateAmandaHazards(dt) {
   for (const obstacle of state.obstacles) {
     if (!obstacle.amandaHazard) continue;
+    if (AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) {
+      updateCaughtAmanda(obstacle, dt);
+      continue;
+    }
+    // Once she's been caught she stops the prank everywhere else.
+    if (state.amandaCaught) {
+      if (obstacle.amandaState === "emerging" || obstacle.amandaState === "pushing") {
+        obstacle.amandaState = "retreating";
+        obstacle.amandaTimer = 0;
+      }
+      if (obstacle.amandaState === "hidden") continue;
+    }
     obstacle.amandaCooldown = Math.max(0, obstacle.amandaCooldown - dt);
 
     if (obstacle.amandaState === "hidden") {
@@ -2801,6 +2825,108 @@ function pushRacersFromAmandaHazard(obstacle) {
     if (Math.abs(dx) > pushRangeX || Math.abs(dy) > AMANDA_HAZARD_PUSH_Y) continue;
     applyMonsterKnockback(monster, monster === obstacle.amandaTarget ? obstacle.amandaFacing : Math.sign(dx) || 1);
   }
+}
+
+function updateCaughtAmanda(obstacle, dt) {
+  obstacle.amandaTimer += dt;
+  const next = { tumble: [AMANDA_TUMBLE_TIME, "down"], down: [AMANDA_DOWN_TIME, "climb"], climb: [AMANDA_CLIMB_TIME, "sitting"], bonked: [AMANDA_BONK_TIME, "sitting"] }[obstacle.amandaState];
+  if (next && obstacle.amandaTimer >= next[0]) {
+    obstacle.amandaState = next[1];
+    obstacle.amandaTimer = 0;
+    if (next[1] === "down") {
+      const spot = amandaLandingSpot(obstacle);
+      spawnParticles(obstacle.x + spot.x, obstacle.y + spot.y, 0, 8, { color: "#e8dcc0", kind: "puff", speed: 90, lift: 30, life: 0.5, size: 12, gravity: 0 });
+    }
+  }
+}
+
+// Is Amanda where a hit at (x, groundY) would land? Popped up enough to see,
+// or sitting on her fence after being caught.
+function amandaAt(x, groundY, rangeX = AMANDA_HIT_RANGE_X) {
+  return state.obstacles.find(obstacle => {
+    if (!obstacle.amandaHazard) return false;
+    const showing = (["emerging", "pushing", "retreating"].includes(obstacle.amandaState) && obstacle.amandaReveal > 0.3)
+      || obstacle.amandaState === "sitting" || obstacle.amandaState === "bonked";
+    return showing && Math.abs(x - obstacle.x) <= rangeX && Math.abs(groundY - (obstacle.y + 18)) <= AMANDA_HIT_RANGE_Y;
+  }) || null;
+}
+
+function hitAmanda(obstacle, direction) {
+  if (obstacle.amandaState === "sitting" || obstacle.amandaState === "bonked") {
+    obstacle.amandaState = "bonked";
+    obstacle.amandaTimer = 0;
+    obstacle.amandaBonkDir = direction || 1;
+    sfx("amanda_bonk", obstacle.x);
+    return;
+  }
+  obstacle.amandaStartY = 170 - obstacle.amandaReveal * 148;
+  obstacle.amandaState = "tumble";
+  obstacle.amandaTimer = 0;
+  obstacle.amandaFallDir = direction || 1;
+  obstacle.amandaFacing = -obstacle.amandaFallDir;
+  obstacle.amandaTarget = null;
+  state.amandaCaught = obstacle;
+  sfx("amanda_caught", obstacle.x);
+  spawnParticles(obstacle.x, obstacle.y + 18, 90, 12, { color: "#ffd84a", speed: 180, lift: 220, life: 0.5 });
+}
+
+// Where she lands when she tumbles out: beside the fence, on the track side.
+function amandaLandingSpot(obstacle) {
+  return { x: obstacle.amandaFallDir * 74, y: 40 };
+}
+
+// Caught Amanda, drawn in front of her fence (obstacle-local coordinates).
+function drawCaughtAmanda(obstacle) {
+  if (!AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) return;
+  const scale = racerDepthScale({ y: obstacle.y + 18 - 54 });
+  const t = obstacle.amandaTimer;
+  const spot = amandaLandingSpot(obstacle);
+  const seatY = 18 - hurdleTopZ();
+  let row = 3;
+  let col = 2;
+  let footX = 0;
+  let footY = 0;
+  let tilt = 0;
+  let seated = false;
+  if (obstacle.amandaState === "tumble") {
+    const k = smoothAmandaHazardProgress(t / AMANDA_TUMBLE_TIME);
+    footX = spot.x * k;
+    footY = obstacle.amandaStartY + (spot.y - obstacle.amandaStartY) * k - Math.sin(Math.PI * k) * 70;
+    tilt = obstacle.amandaFallDir * k * 0.5;
+  } else if (obstacle.amandaState === "down") {
+    footX = spot.x;
+    footY = spot.y;
+    tilt = obstacle.amandaFallDir * 0.5;
+  } else if (obstacle.amandaState === "climb") {
+    const k = smoothAmandaHazardProgress(t / AMANDA_CLIMB_TIME);
+    row = 0;
+    col = 0;
+    footX = spot.x * (1 - k);
+    footY = spot.y + (seatY - spot.y) * k - Math.sin(Math.PI * k) * 40;
+  } else {
+    seated = true;
+    footY = seatY;
+    if (obstacle.amandaState === "bonked") {
+      // Knocked back for a moment, wobbling on the fence, then sits again.
+      tilt = obstacle.amandaBonkDir * Math.sin(t * 22) * 0.18 * (1 - t / AMANDA_BONK_TIME);
+    } else {
+      row = 3;
+      col = 0;
+      tilt = Math.sin(performance.now() / 600) * 0.03;
+    }
+  }
+  const facing = obstacle.amandaFacing || 1;
+  const anchorX = seated && col === 0 ? AMANDA_SEAT.x : SPRITE_ANCHOR_X;
+  const anchorY = seated && col === 0 ? AMANDA_SEAT.y : seated ? 300 : SPRITE_ANCHOR_Y;
+  ctx.save();
+  ctx.translate(footX, footY);
+  ctx.rotate(tilt);
+  ctx.shadowColor = "rgba(23,33,38,0.24)";
+  ctx.shadowBlur = 7;
+  ctx.shadowOffsetY = 4;
+  drawFacingImage(images.amanda, col * FRAME, row * FRAME, FRAME, FRAME,
+    -anchorX * scale, -anchorY * scale, FRAME * scale, FRAME * scale, facing, 0);
+  ctx.restore();
 }
 
 function smoothAmandaHazardProgress(value) {
@@ -2891,7 +3017,10 @@ function applyPowerup(racer, powerupOrType) {
     }
     const label = powerupLabel("emp", "EMP");
     if (hit.length) {
+      // The effect starts at the trigger she took, not at her.
+      const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 34 };
       state.empArcs.push({
+        from,
         source: racer,
         targets: hit,
         t: 0,
@@ -2990,6 +3119,11 @@ function performPushAttack(attacker) {
     applyPushHit(attacker, other, attacker.facing);
     attacker.pushedTargets.add(other);
   }
+  const amanda = amandaAt(attacker.x + attacker.facing * reach * 0.6, attacker.y + 54, reach * 0.6 + AMANDA_HIT_RANGE_X);
+  if (amanda && !attacker.pushedTargets.has(amanda) && attacker.z <= 64 && (amanda.x - attacker.x) * attacker.facing > -10) {
+    hitAmanda(amanda, attacker.facing);
+    attacker.pushedTargets.add(amanda);
+  }
   for (const ball of state.beachBalls) {
     const dx = ball.x - attacker.x;
     const dy = ball.y - (attacker.y + 54);
@@ -3041,6 +3175,14 @@ function updateProjectiles(dt) {
     if (projectile.distance >= SNOWBALL_RANGE && !projectile.burst && getTrackTheme().projectileBurst === "water") {
       projectile.burst = true;
       burstWaterBalloon(projectile.x, projectile.groundY, 0);
+    }
+    const amanda = projectile.distance < SNOWBALL_RANGE && amandaAt(projectile.x, projectile.groundY);
+    if (amanda && !projectile.hitTargets.has(amanda)) {
+      projectileImpact(projectile, amanda.y + 18);
+      hitAmanda(amanda, Math.sign(projectile.vx) || 1);
+      projectile.hitTargets.add(amanda);
+      projectile.distance = SNOWBALL_RANGE;
+      continue;
     }
     for (const monster of state.monsters) {
       if (monster.state === "sleeping" || monster.state === "ground" || projectile.hitTargets.has(monster)) continue;
@@ -3133,6 +3275,10 @@ function fireRainbowBeam(racer) {
     timer: UNICORN_BEAM_DURATION,
     duration: UNICORN_BEAM_DURATION
   });
+  for (const obstacle of state.obstacles) {
+    const ahead = racer.facing > 0 ? obstacle.x > startX && obstacle.x < endX : obstacle.x < startX && obstacle.x > endX;
+    if (ahead && amandaAt(obstacle.x, racer.y + 54, 1) === obstacle) hitAmanda(obstacle, racer.facing);
+  }
   for (const monster of state.monsters) {
     if (monster.state === "sleeping" || monster.state === "ground") continue;
     const ahead = racer.facing > 0 ? monster.x > startX && monster.x < endX : monster.x < startX && monster.x > endX;
@@ -3740,7 +3886,9 @@ function spellTargetPoint(target) {
   return { x: target.x, y: target.y + 54 - (target.z || 0) - (isMonster ? 150 : 90) };
 }
 
-function empSourcePoint(racer) {
+function empSourcePoint(arc) {
+  if (arc.from) return arc.from;
+  const racer = arc.source;
   return getThrowHand(racer) || { x: racer.x + racer.facing * 40, y: racer.y - 60 - racer.z };
 }
 
@@ -3748,7 +3896,12 @@ function updateEmpArcs(dt) {
   for (const arc of state.empArcs) {
     const before = arc.t;
     arc.t += dt;
-    const from = empSourcePoint(arc.source);
+    const from = empSourcePoint(arc);
+    if (before === 0) {
+      // The trigger goes off: a flash where it was.
+      const colors = arc.style === "firework" ? EMP_FIREWORK_COLORS : arc.style === "lightning" ? ["#ffffff", "#d6a8ff"] : EMP_SPARK_COLORS;
+      for (let i = 0; i < 16; i += 1) spawnParticles(from.x, from.y, 0, 1, { color: colors[i % colors.length], speed: 220, lift: 60, life: 0.4, size: 5, gravity: 0 });
+    }
     if (arc.style === "lightning") {
       if (before === 0) {
         for (const target of arc.targets) {
@@ -3813,7 +3966,7 @@ function drawLightning(ax, ay, bx, by, alpha) {
 function drawEmpArcs() {
   for (const arc of state.empArcs) {
     if (arc.style !== "lightning") continue;
-    const from = empSourcePoint(arc.source);
+    const from = empSourcePoint(arc);
     const alpha = Math.max(0, 1 - arc.t / EMP_ARC_TIME);
     const fromX = from.x - state.camera;
     // The button flashes where the bolts start.
@@ -6574,6 +6727,8 @@ function drawObstacle(obstacle) {
     ctx.shadowBlur = 6;
     ctx.shadowOffsetY = 4;
     ctx.drawImage(hurdleArt, -32, -42, 64, 68);
+    ctx.shadowColor = "transparent";
+    drawCaughtAmanda(obstacle);
     ctx.restore();
     return;
   }
@@ -6602,11 +6757,12 @@ function drawObstacle(obstacle) {
   ctx.fillRect(-28, -26, 56, 3);
   ctx.fillRect(-28, -6, 56, 3);
   ctx.fillRect(-28, 14, 56, 3);
+  drawCaughtAmanda(obstacle);
   ctx.restore();
 }
 
 function drawAmandaBehindFence(obstacle) {
-  if (!obstacle.amandaHazard || obstacle.amandaReveal <= 0) return;
+  if (!obstacle.amandaHazard || obstacle.amandaReveal <= 0 || AMANDA_CAUGHT_STATES.includes(obstacle.amandaState)) return;
   const scale = 0.4;
   const pushPose = obstacle.amandaState === "pushing";
   const frameCol = pushPose ? 1 : 0;

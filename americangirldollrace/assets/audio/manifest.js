@@ -22,6 +22,16 @@ window.AUDIO_MANIFEST = {
   "unicorn_gallop_loop"
  ],
  "sfx": {
+  "amanda_bonk": [
+   1,
+   2,
+   3
+  ],
+  "amanda_caught": [
+   1,
+   2,
+   3
+  ],
   "amanda_emerge": [
    1,
    2,
