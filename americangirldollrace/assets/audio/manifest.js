@@ -385,6 +385,43 @@ window.AUDIO_MANIFEST = {
    1,
    2
   ],
+  "robot_fall": [
+   1,
+   2
+  ],
+  "robot_grab": [
+   1,
+   2
+  ],
+  "robot_hit": [
+   1,
+   2
+  ],
+  "robot_idle_grunt": [
+   1,
+   2
+  ],
+  "robot_lift": [
+   1,
+   2
+  ],
+  "robot_notice": [
+   1,
+   2
+  ],
+  "robot_throw": [
+   1,
+   2
+  ],
+  "robot_wake": [
+   1,
+   2
+  ],
+  "robot_walk_step": [
+   1,
+   2,
+   3
+  ],
   "run_loop_grass": [
    1
   ],

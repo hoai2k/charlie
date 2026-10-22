@@ -49,6 +49,8 @@ const AUDIO_CONFIG = {
     scarecrow_idle_grunt: 0.6,
     skeleton_walk_step: 0.5,
     skeleton_idle_grunt: 0.6,
+    robot_walk_step: 0.5,
+    robot_idle_grunt: 0.6,
     push_whoosh: 0.45,
     powerup_spawn_twinkle: 0.3,
     oil_slide_loop: 0.6,
