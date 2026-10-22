@@ -80,7 +80,7 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs),
 // "scarecrow", "skeleton" (§9).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton", "robot"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
 window.RIDE_TOY_ART_VERSION = "20261022-marisol-toys2";
@@ -3101,6 +3101,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
   },
   space: {
+    monster: "robot",
     empStyle: "lightning",
     moonBoots: true,
     name: "Moon Base", music: "assets/music/Pocketful of Comets Moon Base.mp3", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],

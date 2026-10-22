@@ -688,7 +688,7 @@ Marisol’s §8 toys and §10 special actions delivered with the complete approv
 
 ---
 
-## 14. Moon Base monster: an evil robot troll (open)
+## 14. Delivered Moon Base monster: an evil robot troll
 
 A third alternate for the troll, for Moon Base (`space`), in the **same
 painted, slightly photoreal style as `assets/monster_sprites.webp`** (look at
@@ -720,3 +720,5 @@ feet sit on the same baseline in rows 1–3 and the figures are about the same
 size. Then race Moon Base on "Extra" monsters. It walks in, grabs and throws
 a doll, gets knocked down by a push, a snowball and an EMP, and after five
 knock-backs lies broken on the ground, sparking.
+
+M3 delivered: twelve transparent poses registered on Moon Base, with troll-size comparison, overlay, baseline/gutters and real-alpha review passed. Controlled Moon Base Extra browser review passed grab/lift/throw, push/snowball/EMP, mirrored art and the five-hit broken-robot state with live sparks. Evidence: `tools/effects/reports/robot-*`.

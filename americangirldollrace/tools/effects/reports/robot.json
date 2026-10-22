@@ -1,0 +1,103 @@
+{
+  "path": "assets/robot_sprites.webp",
+  "size": [
+    1254,
+    1672
+  ],
+  "frameSize": [
+    418,
+    418
+  ],
+  "frames": [
+    [
+      92,
+      66,
+      324,
+      409
+    ],
+    [
+      94,
+      65,
+      324,
+      409
+    ],
+    [
+      92,
+      81,
+      327,
+      409
+    ],
+    [
+      68,
+      55,
+      348,
+      409
+    ],
+    [
+      98,
+      65,
+      321,
+      409
+    ],
+    [
+      82,
+      64,
+      335,
+      409
+    ],
+    [
+      32,
+      18,
+      388,
+      409
+    ],
+    [
+      25,
+      42,
+      392,
+      409
+    ],
+    [
+      52,
+      81,
+      367,
+      409
+    ],
+    [
+      51,
+      151,
+      366,
+      409
+    ],
+    [
+      76,
+      228,
+      343,
+      409
+    ],
+    [
+      57,
+      268,
+      363,
+      409
+    ]
+  ],
+  "sha256": "687f7724d6a6aaf772a90d6ddf9f1cc12303795c81923527ccf1ab7ed2da3015",
+  "sourceBounds": [
+    33,
+    38,
+    1073,
+    1428
+  ],
+  "baseline": 409,
+  "reference": "assets/monster_sprites.webp",
+  "browserReview": [
+    "Moon Base Extra controlled scene",
+    "grab lift throw",
+    "mirrored facing",
+    "push",
+    "snowball",
+    "EMP",
+    "five knockbacks -> sleeping with live sparks"
+  ]
+}

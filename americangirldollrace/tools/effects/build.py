@@ -13,9 +13,11 @@ def place(cell,frame_size,scale,baseline,center=None):
     frame=Image.new('RGBA',frame_size);frame.alpha_composite(art,(x,y));return frame
 
 def build(key):
-    src=packing.packing.clean(Image.open(HERE/f'sources/{key}.webp'));rows=1 if key=='wave' else 4 if key in ['scarecrow','skeleton'] else 2
+    src=packing.packing.clean(Image.open(HERE/f'sources/{key}.webp'));rows=1 if key=='wave' else 4 if key in ['scarecrow','skeleton','robot'] else 2
+    if key=='robot':
+        b=packing.packing.bounds(src);assert min(b[:2])>0 and b[2]<src.width and b[3]<src.height,('Clipped robot source',b)
     cells=packing.full_cells(src,rows=rows);boxes=[packing.packing.bounds(c) for c in cells]
-    if key in ['scarecrow','skeleton']:
+    if key in ['scarecrow','skeleton','robot']:
         target=GAME/f'assets/{key}_sprites.webp';size=(418,418);sheet=Image.new('RGBA',(1254,1672));reference=Image.open(GAME/'assets/monster_sprites.webp').convert('RGBA')
         common=(packing.packing.bounds(reference.crop((0,0,418,418)))[3]-packing.packing.bounds(reference.crop((0,0,418,418)))[1])/(boxes[0][3]-boxes[0][1])
         for n,c in enumerate(cells):
@@ -36,4 +38,4 @@ def build(key):
     (HERE/f'reports/{key}.json').write_text(json.dumps(report,indent=2)+'\n');print(key,report['size'])
 
 if __name__=='__main__':
-    for key in sys.argv[1:] or ['frog','wave','windup_car','scarecrow','skeleton']:build(key)
+    for key in sys.argv[1:] or ['frog','wave','windup_car','scarecrow','skeleton','robot']:build(key)

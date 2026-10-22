@@ -12,3 +12,11 @@ knock-backs through the gameplay functions. The final sleeping state draws
 an empty clothes/straw heap for the scarecrow and a bone pile for the skeleton.
 Frogs hop at both sizes; cars retain wheel contact and spin their keys. The
 surf action paints the board itself, so the code board is skipped when loaded.
+
+Robot troll (M3) is registered on Moon Base. Its twelve poses use the original
+troll layout, right-facing art and baseline409, with a flat broken-body final
+pose and no painted sparks in that final cell. Runtime supplies the sparks.
+`robot-generation.json` records both built-in ImageGen prompts; sources and
+light/dark alpha, overlay, style comparison and in-game proof are retained.
+Browser review exercised empty-hand grab/lift/throw, push, snowball, EMP and
+five knockbacks through the actual gameplay functions on Moon Base Extra.
