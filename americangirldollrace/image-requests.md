@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2); §27 fairy wings (FW1); §28 flying troll (TF1); §29 cloud ledge grab (LG1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §27 two-view fairy wings (FW1); §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1 and MB2 art is delivered; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1020,7 +1020,7 @@ the floor's own clouds are painted back over them below the surface with a
 feathered edge (game-terrain.js drawCloudSink), so the feet sink into the
 cloud under them. `puff.webp` is kept but no longer loaded.
 
-## 25. Open: Beach seaweed puddle
+## 25. Delivered: Beach seaweed puddle
 
 The Beach's oil pickup is SEAWEED, but its cell (an R-series puddle redo)
 reads as a plain blue water puddle.
@@ -1033,7 +1033,7 @@ Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
 seaweed patch lying on the sand at its in-game size, and a doll slides on
 it as before.
 
-## 26. Open: more moon boot angles
+## 26. Art delivered: more moon boot angles
 
 MB1's side, three-quarter and front views cover standing and planted feet.
 Running, kicking back, tumbling and sitting on a mount show feet at angles
@@ -1103,6 +1103,16 @@ wings, shadow, ground or text. In the same commit add `"troll_flying"` to
 Acceptance: on Fairy Woods, a winged troll chasing a flier swoops along in
 cells 1–2 and hovers in cell 3 when he's level with her, with the wings on
 his back, and is back in his walk cells once he's landed.
+
+SW1 delivered: glossy dark-green/olive seaweed ribbons and wrack in a thin
+water film, same flat puddle angle. Cells0,1,2,4 remain decoded-RGBA identical;
+Beach cache version bumped. Native/68px and light/dark alpha reviewed.
+Source, exact built-in ImageGen prompt and report: `tools/tracks/beach-seaweed/`.
+
+MB2 art delivered: seven256px boot cells at1792×256; original three cells
+remain decoded-RGBA pixel-identical. Added back-quarter, grey tread sole,
+extended pointed toe and inside-left views with sole/heel anchors128,244.
+Source, prompts and export report: `tools/effects/boot-angles/`.
 
 ## 29. Open: cloud ledge grab (every doll)
 
