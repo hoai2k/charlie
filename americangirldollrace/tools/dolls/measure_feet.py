@@ -33,6 +33,18 @@ SKIP = {'sprites': set(), 'actions': {8}}  # the actions sheet's moon-boots jump
 # for low down and in front of her.
 LOOSE = {9, 11}
 LOOSE_ZONE = 0.55
+# A foot is at least this share of her height along the figure from her hips,
+# and further along it than anything within END_WINDOW of her height. (Less
+# of either takes knees and dress fringes for feet; EXTRA_FEET covers the
+# odd foot that tucks in against her other leg.)
+MIN_LEG = 0.25
+END_WINDOW = 0.12
+
+# Feet measured by hand where the figure can't show them: a foot touching
+# her other leg, so it's no leg end of its own (key, sheet, frame).
+EXTRA_FEET = {
+    ('barbie', 'sprites', 4): [170, 342, 48, 0.3, 'three', 50, 320],  # back foot kicked up against her shin
+}
 
 
 def geodesic(mask, seed):
@@ -86,7 +98,7 @@ def feet(cell, zone=None, forward=False):
         low &= np.indices(a.shape)[1] > np.percentile(xs, 55)
     # Leg ends: points further along the figure than anything round them.
     reach = np.where(finite, dist, -1)
-    ends = (reach >= ndimage.maximum_filter(reach, size=max(5, int(0.12 * height)))) & finite & low & (reach > 0.25 * height)
+    ends = (reach >= ndimage.maximum_filter(reach, size=max(5, int(END_WINDOW * height)))) & finite & low & (reach > MIN_LEG * height)
     tips = []
     for tip in sorted(zip(*np.nonzero(ends)), key=lambda t: -reach[t]):
         if len(tips) == 2:
@@ -163,6 +175,14 @@ def sheet_feet(path, kind):
     return frames
 
 
+def with_extra_feet(key, kind, frames):
+    for i, frame in enumerate(frames or []):
+        extra = EXTRA_FEET.get((key, kind, i))
+        if extra and frame is not None and len(frame) < 2:
+            frames[i] = sorted(frame + [extra])
+    return frames
+
+
 def asset_keys():
     keys = ['whirlpool', 'juliette', 'claudia', 'kaya', 'lily', 'marisol', 'amanda', 'penelope', 'rumi']
     dolls = json.loads(re.search(r'window\.EXTRA_DOLLS = (\{.*?\n\});', (GAME / 'dolls.js').read_text(), re.S).group(1))
@@ -173,8 +193,7 @@ def asset_keys():
 if __name__ == '__main__':
     out = {}
     for key in asset_keys():
-        entry = {'sprites': sheet_feet(GAME / f'assets/doll_{key}_sprites.webp', 'sprites'),
-                 'actions': sheet_feet(GAME / f'assets/doll_{key}_actions.webp', 'actions')}
+        entry = {kind: with_extra_feet(key, kind, sheet_feet(GAME / f'assets/doll_{key}_{kind}.webp', kind)) for kind in ('sprites', 'actions')}
         if entry['sprites']:
             out[key] = entry
     (GAME / 'feet.js').write_text(
