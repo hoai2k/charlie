@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** none. Every request is delivered and checked; see delivery notes below.
+> **Current queue:** §17 Wizard School magic wand pickup icon (W1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -794,3 +794,19 @@ C2 first batch delivered: Horse Show, Toy Room, Candy Land, Beach and Wizard Sch
 C2 final batch delivered: Pumpkin Patch, Cloud Kingdom, Moon Base, Fairy Woods and Night Festival. All fifteen C1/C2 cards pass RGB/dimensions/hash, half-size landmark readability and browser rendering checks. `tools/tracks/card-redo/` retains sources, prompts and evidence.
 
 M4/M5 delivered with the owner’s revised designs: M4 is a glossy vintage wind-up lagoon creature, with gills, webbed hands/feet and a brass key. Its final frame lies flat on its back, legs straight and rigid arms straight up. M5 is made purely of loose sand, without eyes, shells or seaweed; sand spills from all poses and its collapse ends in a plain heap. These later instructions supersede the initial character descriptions above. Twelve poses each, true alpha, baseline409, original-troll scale comparison and measured hand anchors verified. Browser review passed grabs/lifts/throws in both directions, push/snowball/EMP and five-hit defeat states. Sources, exact built-in ImageGen prompts and proofs: `tools/effects/`.
+
+---
+
+## 17. Wizard School: a magic wand pickup icon (open)
+
+Wizard School's high-jump pickup is now the **magic wand** (the doll casts a
+spell that turns the nearest racer or monster into a frog), but its icon,
+cell 1 of `assets/tracks/wizard/powerups.webp` (x 0–255), still shows a spring
+with a spell book on it, which reads as a jump.
+
+| # | File | Cell | Repaint as |
+| --- | --- | --- | --- |
+| W1 | `assets/tracks/wizard/powerups.webp` | 1 (x 0–255) | **A magic wand**: the same wand the dolls cast with (dark wood, gold handle, a little gold star at the tip), tilted, with a few sparkles around the star. No spring or book. Same style, size and padding as the track's other cells; keep the other four cells pixel-identical. |
+
+The game already names it "MAGIC WAND". Acceptance: on Wizard School the
+pickup reads as a wand at a glance, next to the other icons.
