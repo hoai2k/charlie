@@ -23,8 +23,8 @@ ending (no long fade-out) loops best.
 
 | Track | Song |
 | --- | --- |
-| **Farm** | **Open: M6** (General songs until then) |
-| **Fairy** | **Open: M7** (General songs until then) |
+| Farm | Plastic Shoes |
+| Fairy | Make a Little Fairy Magic |
 | Village | Ghent Sweet Parade |
 | Winter | Snow in My Pocket |
 | Castles | Sugar Castle Run |
@@ -36,127 +36,11 @@ ending (no long fade-out) loops best.
 | Horse Show | Race to the Ribbon |
 | Candy Land | Bubblegum Radar |
 | Pumpkin Patch | Hey, Hay! |
-| **Cloud Kingdom** | **Open: M4** |
+| Cloud Kingdom | Cloud Map of Gold |
 | Moon Base | Pocketful of Comets |
 
 ## Open requests
 
-The first prompts all used the house recipe with a few themed sounds sprinkled
-on, so they came out alike. These give each song **its own idea**: a story, a
-hook kids can shout back, a surprise in the middle and a bigger last chorus.
-In Suno, paste **Style** into "Style of Music" and **Lyrics** into "Lyrics"
-(Custom mode). Generate a few and keep the one with the catchiest chorus.
-Name the file after the title when you drop it in `intake/`.
-
-### M6. Farm: "Barnyard Bop"
-
-**Style:** K-pop dance-pop meets country hoedown, 132 BPM, stomp-clap groove, banjo and fiddle riffs over punchy kick-snare, playful bright girl-group vocals, animal sounds as percussion, gang shouts, key change last chorus, fun and silly
-
-**Lyrics:**
-```
-[Intro]
-(Moo!) (Cluck!) (Baa!) Everybody to the barn!
-
-[Verse 1]
-Rooster's up before the sun
-Tractor's humming, here we come
-Hay bales stacked up way up high
-Hop the fence and wave goodbye
-
-[Pre-Chorus]
-Stomp your boots, clap your hands
-Fastest racer on the land!
-
-[Chorus]
-Barnyard bop, don't stop! (Yee-haw!)
-Jump the fence and hit the top (Yee-haw!)
-Pigs in the mud and the cows go moo
-Barnyard bop, I'm racing you!
-
-[Break: fiddle solo, then call and response]
-When I say "barn", you say "yard"! Barn! (Yard!) Barn! (Yard!)
-
-[Bridge]
-Slow it down... muddy puddle... (splash!)
-Speed it up!
-
-[Final Chorus, key change]
-Barnyard bop, don't stop! (Yee-haw!)
-...
-
-[Outro]
-(Moo!) That's all, folks!
-```
-
-### M7. Fairy: "Flutter Flutter Fly"
-
-**Style:** sparkly K-pop dance-pop with fairy magic, 124 BPM, celesta and glockenspiel hook, flute trills, harp glissandos, whispery verses, huge bright chorus with group vocals, wand "bling" sound effects, a hush-then-drop bridge, glittery and dreamy but danceable
-
-**Lyrics:**
-```
-[Intro]
-(Whisper) Shhh... the fairies are racing tonight
-
-[Verse 1]
-Toadstool tables, moonbeam lights
-Tiny wings in purple skies
-Follow the glitter, follow the glow
-One, two, three, and off we go!
-
-[Pre-Chorus]
-Close your eyes and make a wish...
-
-[Chorus]
-Flutter flutter fly! (Fly, fly!)
-Sparkle in the sky! (Bling!)
-Faster than a firefly
-Flutter flutter, flutter flutter fly!
-
-[Bridge: everything drops to a music box]
-Hold your breath... make a wish... now JUMP!
-
-[Final Chorus, bigger, key change]
-Flutter flutter fly!...
-
-[Outro]
-(Whisper) Goodnight, fairies
-```
-
-### M4. Cloud Kingdom: "Head in the Clouds"
-
-**Style:** dreamy future-bounce K-pop, 122 BPM, airy synth pads, harp and bell arpeggios, a whistle synth hook, wind whooshes, the beat floats away in the bridge then drops back huge, soaring girl-group chorus with "ooh-ahh" choir, uplifting and floaty but fun to run to
-
-**Lyrics:**
-```
-[Intro]
-(Wind whoosh) Hold on tight... up, up, up!
-
-[Verse 1]
-Hop a cloud and bounce up high
-Rainbow bridges in the sky
-Hot-air balloons say hello
-Castles floating way below
-
-[Pre-Chorus]
-Up! (Up!) Up! (Up!) Higher than the birds!
-
-[Chorus]
-Head in the clouds! (Ooh-ahh!)
-Racing on a rainbow, singing out loud
-Bounce, bounce, never coming down
-Head in the clouds!
-
-[Bridge: drums fall away, floating, slow]
-Floating... floating... look how small the world is...
-Three, two, one... JUMP!
-
-[Final Chorus, beat drops back in, bigger]
-Head in the clouds!...
-
-[Outro]
-(Soft) ...and land.
-```
-
-Tips if a take comes out flat: add "catchy chant chorus, call and
-response, sound effect breaks" to the style; keep it 2–3 minutes; and pick a
-take that ends cleanly (no long fade), since the song loops during a race.
+None: every track has its own song. A new track needs one; write its prompt
+here from the base prompt above, giving the song its own idea (a story, a
+groove, a character) rather than the house recipe with a few themed sounds.

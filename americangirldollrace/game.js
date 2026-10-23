@@ -456,7 +456,7 @@ const SPECIALS = new Set(["none", "unicorn", "pegasus", "griffon", "broom", "all
 const TRACK_THEMES = window.TRACK_THEMES || {};
 const BACKGROUNDS = [
   { key: "farm", name: "Farm", imageKey: "backgroundFarm", music: "assets/music/Plastic Shoes.mp3", dirtTop: 532, fenceBase: 500 },
-  { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 548, fenceBase: 516 },
+  { key: "fairy", name: "Fairy", imageKey: "backgroundFairy", music: "assets/music/Make a Little Fairy Magic.mp3", dirtTop: 548, fenceBase: 516 },
   { key: "town", name: "Village", imageKey: "backgroundTown", music: "assets/music/Ghent Sweet Parade.mp3", dirtTop: 574, fenceBase: 547 },
   { key: "winter", name: "Winter", imageKey: "backgroundWinter", music: "assets/music/Snow in My Pocket.mp3", dirtTop: 566, fenceBase: 518 },
   { key: "castles", name: "Castles", imageKey: "backgroundCastles", music: "assets/music/Sugar Castle Run.mp3", dirtTop: 586, fenceBase: 558 },
