@@ -785,3 +785,5 @@ feet sit on the same baseline in rows 1–3 and the figures are about the same
 size. Then race the Toy Room and the Beach on "Extra" monsters. Each one walks
 in, grabs and throws a doll (held in its hands), and after five knock-backs
 ends in its defeated pose.
+
+C1 delivered: the five original track cards are landscape-only. Native/half-size and browser card rendering passed; the ten C2 cards and M4/M5 are being verified separately.

@@ -922,10 +922,10 @@ function preloadTrackArt(background) {
 
 function getTrackCard(background) {
   if (getTrackTheme(background).art?.includes("card")) {
-    return { url: `assets/tracks/${background.key}/card.webp`, cells: 1, index: 0 };
+    return { url: `assets/tracks/${background.key}/card.webp?v=${window.GAME_CONFIG?.trackCardArtVersion || "1"}`, cells: 1, index: 0 };
   }
   const index = BACKGROUNDS.indexOf(background);
-  if (index >= 0 && index < TRACK_CARD_ATLAS_CELLS) return { url: "assets/ui/track_cards.webp", cells: TRACK_CARD_ATLAS_CELLS, index };
+  if (index >= 0 && index < TRACK_CARD_ATLAS_CELLS) return { url: `assets/ui/track_cards.webp?v=${window.GAME_CONFIG?.trackCardArtVersion || "1"}`, cells: TRACK_CARD_ATLAS_CELLS, index };
   const url = getTrackTheme(background).art?.includes("background")
     ? `assets/tracks/${background.key}/background.webp`
     : images[background.imageKey]?.src;
