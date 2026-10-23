@@ -1049,6 +1049,33 @@ function drawWindupCar(car) {
 }
 
 // The wave and board under a surfer (art when listed, else drawn in code).
+// The wave art's frames with their hard edges feathered away (made once
+// each): the flat bottom fades into the water below and the trailing back
+// end fades out, so the wave blends into the scene.
+const featheredWaves = new Map();
+function featheredWave(art, frame) {
+  const key = `${art.src}:${frame}`;
+  if (featheredWaves.has(key)) return featheredWaves.get(key);
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 384;
+  const c = canvas.getContext("2d");
+  c.drawImage(art, frame * 512, 0, 512, 384, 0, 0, 512, 384);
+  c.globalCompositeOperation = "destination-in";
+  const bottom = c.createLinearGradient(0, 384 * (1 - WAVE_FEATHER_BOTTOM), 0, 384);
+  bottom.addColorStop(0, "#000");
+  bottom.addColorStop(1, "#0000");
+  c.fillStyle = bottom;
+  c.fillRect(0, 0, 512, 384);
+  const back = c.createLinearGradient(0, 0, 512 * WAVE_FEATHER_BACK, 0);
+  back.addColorStop(0, "#0000");
+  back.addColorStop(1, "#000");
+  c.fillStyle = back;
+  c.fillRect(0, 0, 512, 384);
+  featheredWaves.set(key, canvas);
+  return canvas;
+}
+
 function drawSurfWave(racer, screenX, scale) {
   const feetY = racer.y + 54 - racer.z;
   const t = performance.now() / 1000;
@@ -1056,7 +1083,8 @@ function drawSurfWave(racer, screenX, scale) {
   if (art) {
     const w = 3 * FRAME * scale * 0.9;
     const h = w * 384 / 512;
-    drawFacingImage(art, (Math.floor(t * 6) % 3) * 512, 0, 512, 384, screenX - w * 0.72, feetY - h + 14 * scale, w, h, 1, screenX);
+    const frame = featheredWave(art, Math.floor(t * 6) % 3);
+    ctx.drawImage(frame, screenX - w * 0.72, feetY - h + 14 * scale, w, h);
   } else {
     const len = 360 * scale;
     const height = 120 * scale;

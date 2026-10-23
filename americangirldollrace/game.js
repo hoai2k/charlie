@@ -277,6 +277,8 @@ const FROG_SPEED_SCALE = 0.7;
 const WAND_HAND = { x: 349, y: 151 };
 // surfboard: ride a wave forward, fast, over hurdles, steering sluggishly.
 const SURF_DURATION = 5;
+const WAVE_FEATHER_BOTTOM = 0.16; // share of the surf wave's height its bottom fades over
+const WAVE_FEATHER_BACK = 0.3; // and of its width its trailing back end fades over
 const SURF_SPEED_SCALE = 1.8;
 const SURF_LANE_RESPONSE = 1.2;
 const SURF_DRIFT = 70;
