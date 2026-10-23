@@ -599,6 +599,13 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   await bench.waitForFunction(() => document.querySelectorAll('#mounts .tile').length > 0, null, { timeout: 30000 });
   const frame = bench.frames().find(f => f.url().includes('index.html'));
   assert.equal(await frame.evaluate(() => getComputedStyle(document.querySelector('#startPanel')).display), 'none', 'no title screen in the workbench');
+  // The verification queue opens in the viewer's place with the moon-boot poses to check.
+  await bench.waitForFunction(() => !document.querySelector('#verifyOpen').disabled, null, { timeout: 30000 });
+  await bench.click('#verifyOpen');
+  const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, boots: verify.boots.length }));
+  assert.ok(queue.open && queue.items > 50 && queue.first === 'barbie/sprites/0' && queue.boots === 2, JSON.stringify(queue));
+  await bench.evaluate(() => localStorage.removeItem('agdr.verify.moonBoots'));
+  await bench.click('#vClose');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
     Bench.setup('festival');

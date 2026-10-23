@@ -163,6 +163,12 @@ hook to get round it.
   anything in the scene can be dragged about, or out to remove it. It wraps game
   functions from outside rather than changing them; keep it working when
   renaming the functions it wraps (the smoke suite loads it).
+  Its **Verification Queue** (`workbench/verify.js`, button under the
+  viewer) walks the owner through poses to check (first set: moon boots) and
+  exports a JSON file; integrate its boots into
+  `americangirldollrace/moon-boot-overrides.js` (keyed
+  `<asset>/<sprites|actions>/<frame>`), which `moonBootPlacements` in
+  game-draw.js prefers over the measured feet.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Fairies in the Woods" is reserved for a wooded fairy board.
