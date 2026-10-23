@@ -1,0 +1,80 @@
+{
+  "assetKey": "rumi-v2",
+  "size": [
+    1254,
+    418
+  ],
+  "frames": [
+    {
+      "ledgeContact": [
+        285,
+        196
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        50,
+        57,
+        368,
+        361
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        583,
+        557
+      ],
+      "placement": [
+        50,
+        57
+      ]
+    },
+    {
+      "ledgeContact": [
+        236,
+        221
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        84,
+        29,
+        334,
+        388
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        460,
+        657
+      ],
+      "placement": [
+        84,
+        29
+      ]
+    },
+    {
+      "ledgeContact": [
+        140,
+        339
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        117,
+        78,
+        300,
+        339
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        337,
+        480
+      ],
+      "placement": [
+        117,
+        78
+      ]
+    }
+  ],
+  "sha256": "51938ecb5d5a2fb660055de4239958b9eac958d69ad337e92399a718d5722e59",
+  "maskSha256": "245474dd422dea0487e10ef6cad360696c0bf769694b8f7c4af5e2c60eb7430a"
+}

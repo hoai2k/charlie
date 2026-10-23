@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** §27 FW2 twilight re-render of the fairy wings; §29 cloud ledge grab and masks (LG1/LG2) for the last five dolls (Lily, Whirlpool, Kaya, Rumi-v2, Juliette). SW2, MB2, the first wings, TF1 and ten dolls' ledge sheets are delivered, in the game and checked.
+> **Current art queue:** §27 FW2 twilight re-render of the fairy wings (new files beside FW1). SW2, MB2, the first wings, TF1 and all fifteen dolls' ledge sheets are delivered, in the game and checked.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1178,7 +1178,7 @@ are baked in. Per owner, the gameplay agent handles registration and use.
 
 **In the game and checked:** listed in `TRACK_SHARED_ART`; a winged troll swoops (cells 1–2) after a flier and hovers (cell 3) once he's level with her, wings on his back. About the size of the walking troll, which reads right next to him and the dolls.
 
-## 29. Open: cloud ledge grab (every doll)
+## 29. Delivered: cloud ledge grab (every doll)
 
 On Cloud Kingdom a girl who falls into a gap can press towards the cloud
 to catch its edge and climb back up. She catches it like hugging a big
@@ -1217,4 +1217,10 @@ LG1/LG2 second art batch delivered: Barbie, Cinnamon, Felicity, Luna and
 Marisol-v2. Corrected Cinnamon/Felicity/Marisol have no glasses; Luna keeps
 her canonical pink glasses. All five include masks and contact anchors.
 
-**In the game and checked (ten dolls):** `LEDGE_SHEETS`, `LEDGE_ART_VERSION` and `LEDGE_ANCHORS` (from the anchors JSON) in `doll-art.js`, outfits through `DollOutfits` ("ledge"). The hug hold, climb and kneel all sit on the cloud edge (checked for Hermione, Barbie, Felicity and Mira). Still open: Lily, Whirlpool, Kaya, Rumi-v2 and Juliette, who borrow their jump and crouch poses until then.
+LG1/LG2 final art batch delivered: Lily, Whirlpool, Kaya, Rumi-v2 and
+Juliette. All15 dolls now have all three poses, matching outfit masks and
+per-pose contact anchors. No cloud is baked into the sprites. Juliette
+retains her moon purse; hair/skin/accessories are protected in the masks.
+Gameplay registration and live acceptance are left to the integration agent.
+
+**In the game and checked (all fifteen dolls):** `LEDGE_SHEETS`, `LEDGE_ART_VERSION` and `LEDGE_ANCHORS` (from the anchors JSON) in `doll-art.js`, outfits through `DollOutfits` ("ledge"). The hug hold, climb and kneel sit on the cloud edge.

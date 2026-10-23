@@ -1,0 +1,80 @@
+{
+  "assetKey": "lily",
+  "size": [
+    1254,
+    418
+  ],
+  "frames": [
+    {
+      "ledgeContact": [
+        286,
+        198
+      ],
+      "sourceScale": 0.54,
+      "bounds": [
+        47,
+        59,
+        370,
+        358
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        604,
+        559
+      ],
+      "placement": [
+        47,
+        59
+      ]
+    },
+    {
+      "ledgeContact": [
+        238,
+        253
+      ],
+      "sourceScale": 0.54,
+      "bounds": [
+        77,
+        29,
+        341,
+        389
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        494,
+        671
+      ],
+      "placement": [
+        77,
+        29
+      ]
+    },
+    {
+      "ledgeContact": [
+        112,
+        354
+      ],
+      "sourceScale": 0.54,
+      "bounds": [
+        110,
+        62,
+        307,
+        355
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        370,
+        547
+      ],
+      "placement": [
+        110,
+        62
+      ]
+    }
+  ],
+  "sha256": "f4315bd544f64fae80f1a5b42e6cfdbc5b7d209579e91538e62fac661d75106e",
+  "maskSha256": "a12140f835077d3735aec6120f7b53d16626734efb469605c0c02b401d480070"
+}

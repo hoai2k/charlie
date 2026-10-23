@@ -1,0 +1,80 @@
+{
+  "assetKey": "juliette",
+  "size": [
+    1254,
+    418
+  ],
+  "frames": [
+    {
+      "ledgeContact": [
+        287,
+        177
+      ],
+      "sourceScale": 0.53,
+      "bounds": [
+        46,
+        52,
+        372,
+        366
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        621,
+        598
+      ],
+      "placement": [
+        46,
+        52
+      ]
+    },
+    {
+      "ledgeContact": [
+        239,
+        216
+      ],
+      "sourceScale": 0.53,
+      "bounds": [
+        72,
+        26,
+        346,
+        391
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        522,
+        693
+      ],
+      "placement": [
+        72,
+        26
+      ]
+    },
+    {
+      "ledgeContact": [
+        129,
+        353
+      ],
+      "sourceScale": 0.53,
+      "bounds": [
+        91,
+        65,
+        326,
+        353
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        448,
+        548
+      ],
+      "placement": [
+        91,
+        65
+      ]
+    }
+  ],
+  "sha256": "6e6e41d077709ea179bc115889b777f2d0325d218acc1f95d01f5b22145af24e",
+  "maskSha256": "6441738588e6bc67b3edd4da0fffc9fb3e9121c01b37a7de4077759b238fe979"
+}
