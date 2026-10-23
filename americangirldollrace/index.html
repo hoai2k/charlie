@@ -14,14 +14,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
-    <!-- Title racers load first so the opening gallop isn't late. -->
+    <!-- The workbench runs the race in a frame with no title screen. -->
+    <script>if (/[?&]workbench\b/.test(location.search)) document.documentElement.classList.add("workbench");</script>
+    <!-- The title screen's own art, then its racers, load first so it opens
+         all at once and the opening gallop isn't late. -->
+    <link rel="preload" as="image" href="assets/ui/title_sky.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_clouds.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/title_hills.webp" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/ui/logo.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_whirlpool.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_juliette.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_hermione.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_lily.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_rumi.webp" fetchpriority="high">
     <link rel="preload" as="image" href="assets/ui/title_hero_kaya.webp" fetchpriority="high">
-    <link rel="stylesheet" href="styles.css?v=ef8e0116">
+    <link rel="stylesheet" href="styles.css?v=150232ea">
 
   </head>
   <body>
@@ -351,7 +358,7 @@
     <script src="game-draw.js?v=1fbd4753"></script>
     <script src="game-terrain.js?v=a2bb6329"></script>
     <script src="game.js?v=6d93a52f"></script>
-    <script src="menu.js?v=30319ec4"></script>
+    <script src="menu.js?v=0438cd86"></script>
     <script src="chrome.js?v=d5f7c463"></script>
 
 

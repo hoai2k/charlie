@@ -581,6 +581,22 @@ button:focus-visible {
   width: 1280px;
   height: 720px;
   transform-origin: 50% 50%;
+  opacity: 0;
+}
+
+/* Shown once it's been scaled to fit and the title art has loaded (menu.js),
+   so the page never shows it unscaled or half drawn first. */
+.lb-stage.ready {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.lb-stage:not(.ready) * {
+  animation-play-state: paused !important;
+}
+
+.workbench #startPanel {
+  display: none;
 }
 
 .lb-screen,
