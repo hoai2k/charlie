@@ -29,9 +29,14 @@
 // arcs down to the ground, then "water" (balloons) bursts into a splash
 // (also on a hit), "snow" leaves a little pile that melts away, "pop"
 // (bubbles) stays up and pops in the air; otherwise it rolls to a stop.
-// `empStyle` is how the EMP pickup reaches whoever it hits: "lightning" arcs
-// (the plain EMP always does), "firework" multicoloured sparks, or the
-// default "sparks" (gold).
+// `empStyle` is how the EMP pickup reaches whoever it hits. "lightning" (the
+// default, and the plain EMP always) arcs bolts and shows the original EMP
+// icon. The rest keep the track's own icon, and leave whoever they hit dizzy
+// (stars round the head) instead of shocked: "firework" rockets arc up from
+// the trigger and dive onto each one, bursting; "poprocks" candies arc over
+// and crackle; "rooster" sound waves, "bell" rings with music notes and "gong"
+// a heavy ring spread out from the trigger; "crows" fly to each one and
+// circle her head.
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
 // Riding rules (Horse Show):
@@ -88,6 +93,7 @@ window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
+    empStyle: "rooster",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "HAY BOUNCE", boost: "CARROT", emp: "ROOSTER", oil: "MUD", snowball: "APPLES" },
     sounds: { emp: "pickup_rooster" },
@@ -102,6 +108,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.2, pegasus: 0.2, griffon: 0.05, broom: 0.05 }
   },
   town: {
+    empStyle: "bell",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" },
     projectileLanding: "water",
@@ -117,12 +124,14 @@ window.TRACK_THEMES = {
     mountOdds: { reindeer: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   castles: {
+    empStyle: "gong",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "ROYAL BOUNCE", boost: "TRUMPET", emp: "GONG", oil: "JAM", snowball: "CREAM PUFFS" },
     sounds: { emp: "pickup_gong", boost: "pickup_trumpet" },
     mountOdds: { unicorn: 0.1, pegasus: 0.1, griffon: 0.15, broom: 0.05 }
   },
   horseshow: {
+    empStyle: "bell",
     name: "Horse Show", music: "assets/music/Race to the Ribbon Horse Race.mp3", dirtTop: 502, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "SPRINGBOARD", boost: "HORSESHOE", emp: "STARTER BELL", oil: "WATER JUMP", snowball: "SUGAR CUBES" },
     sounds: { emp: "pickup_starter_bell" },
@@ -146,7 +155,7 @@ window.TRACK_THEMES = {
   },
   candy: {
     monster: "candytroll",
-    empStyle: "firework",
+    empStyle: "poprocks",
     name: "Candy Land", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
     sounds: { emp: "pickup_pop_rocks" },
@@ -176,6 +185,7 @@ window.TRACK_THEMES = {
     itemEffects: { jump: "spellBook" }
   },
   autumn: {
+    empStyle: "crows",
     monster: "scarecrow",
     fenceBase: 479,
     name: "Pumpkin Patch", music: "assets/music/Hey, Hay! Pumpkin Patch.mp3", dirtTop: 509, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
@@ -202,6 +212,7 @@ window.TRACK_THEMES = {
   },
   // Twilight woodland track with its own looped art and song.
   woods: {
+    empStyle: "bell",
     name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN BELL", oil: "MOSSY BOG", snowball: "ACORNS" },
     sounds: { emp: "pickup_acorn_bell" },

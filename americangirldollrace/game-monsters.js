@@ -181,6 +181,7 @@ function updateMonsters(dt) {
     const previousY = monster.y;
     monster.frameTime += dt * (monster.state === "walk" ? 8 : 3);
     monster.frame = Math.floor(monster.frameTime) % 3;
+    monster.dizzyTimer = Math.max(0, (monster.dizzyTimer || 0) - dt);
     monster.knockbackX *= Math.pow(0.04, dt);
     if (Math.abs(monster.knockbackX) < 6) monster.knockbackX = 0;
     if (monster.z > 0 || monster.vy > 0) {
@@ -526,8 +527,12 @@ function updateRunawayHorses(dt) {
   state.runawayHorses = state.runawayHorses.filter(horse => horse.x > -600 && horse.x < FINISH + 1600);
 }
 
-function stunMonsterWithEmp(monster) {
+function stunMonsterWithEmp(monster, { dizzy = false } = {}) {
   if (monster.state === "sleeping" || monster.state === "ground") return;
+  if (dizzy) {
+    monster.dizzyTimer = 2;
+    sfx("emp_dizzy", monster.x, { gain: 0.8 });
+  }
   if (monster.target?.grabbedBy === monster) {
     monster.target.grabbedBy = null;
     monster.target.vy = Math.max(monster.target.vy, 100);
@@ -588,6 +593,10 @@ function drawMonster(monster) {
       drawW * swell, drawH * swell, drawFacing, screenX);
   } else drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
   ctx.restore();
+  if (monster.dizzyTimer > 0 && monster.state === "fall") {
+    // Seeing stars over his head where he lies.
+    drawDizzyStars(screenX - 20 * scale * drawFacing, visualY + 58 - 250 * scale, scale * 1.4, Math.min(1, monster.dizzyTimer * 2));
+  }
 }
 
 function updateMonsterLightning(monster, dt) {

@@ -298,8 +298,12 @@ const EMP_ARC_TIME = 0.6;
 // nobody in range, it shocks whoever pressed it.
 const EMP_RANGE = EXPECTED_VIEW_WIDTH;
 const EMP_STREAM_TIME = 0.3;
+const EMP_EFFECT_TIME = 1.1; // s the non-lightning EMP effects play
+const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive onto its target
+const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
+const EMP_CROW_TIME = 0.6;
+const ROOSTER_AHEAD = 90; // px in front of her that the ROOSTER EMP's rooster stands // s a crow takes to reach its target
 const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
-const EMP_SPARK_COLORS = ["#ffd84a", "#fff2a8", "#ffffff", "#c48bff"];
 // Each kind of power-up glows its own colour on every track, whatever its art.
 const POWERUP_GLOW_COLORS = {
   boost: "#2fd65a",
@@ -1627,7 +1631,10 @@ function update(dt) {
     racer.hitTimer = Math.max(0, racer.hitTimer - dt);
     const previousFrozenTimer = racer.frozenTimer;
     racer.frozenTimer = Math.max(0, racer.frozenTimer - dt);
-    if (previousFrozenTimer > 0 && racer.frozenTimer === 0) sfx("frozen_break", racer.x);
+    if (previousFrozenTimer > 0 && racer.frozenTimer === 0) {
+      if (!racer.empDizzy) sfx("frozen_break", racer.x);
+      racer.empDizzy = false;
+    }
     updateStackTimers(racer, dt);
     racer.empTimer = Math.max(0, racer.empTimer - dt);
     const previousOilTimer = racer.oilTimer;

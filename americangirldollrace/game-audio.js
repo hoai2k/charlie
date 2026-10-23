@@ -65,7 +65,7 @@ function updateRacerAudio(racer, dt) {
   if (racer.oilTimer > 0 && !racer.oilSticky) GameAudio.startLoop(oilId, "oil_slide_loop", { gain: racerAudioGain(racer) });
   else GameAudio.stopLoop(oilId);
 
-  if (racer.frozenTimer > 0) GameAudio.startLoop(frozenId, "frozen_loop", { gain: racerAudioGain(racer) });
+  if (racer.frozenTimer > 0 && !racer.empDizzy) GameAudio.startLoop(frozenId, "frozen_loop", { gain: racerAudioGain(racer) });
   else GameAudio.stopLoop(frozenId);
 
 }

@@ -588,7 +588,7 @@ function drawRacer(racer) {
   ctx.restore();
   drawPowerupAura(racer, screenX, scale, mounted);
 
-  if (racer.frozenTimer > 0) drawElectricEffect(screenX, drawY, drawW, drawH);
+  if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, drawY, drawW, drawH);
   if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
 
   const actions = getActionSheet(racer);
@@ -674,6 +674,9 @@ function drawRacer(racer) {
       drawRacerBody(racer, racer.sheet, sx, sy, drawX, drawY, drawW, drawH, drawFacing, screenX);
     }
   }
+
+  // Dizzy (a non-lightning EMP): stars circle her head, in front of her.
+  if (racer.frozenTimer > 0 && racer.empDizzy) drawDizzyStars(screenX, (mounted ? drawY - 30 * scale : drawY) + 62 * scale, scale, Math.min(1, racer.frozenTimer * 3));
 
   ctx.save();
   const labelY = mounted ? drawY - 42 : drawY - 8;

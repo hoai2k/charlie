@@ -135,8 +135,11 @@ test('an EMP reaches a screen width, and backfires with nobody in range', { skip
     const run = dx => {
       startRace('two'); state.running = false; state.obstacles = []; state.monsters = [];
       const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; b.x = 8100 + dx; b.y = PATH_TOP + 110;
-      state.powerups = [makePowerup('emp', 8100, a.y + 54)]; update(1 / 60);
-      return { self: a.frozenTimer > 0, other: b.frozenTimer > 0 };
+      state.powerups = [makePowerup('emp', 8100, a.y + 54)];
+      // The Farm's rooster waves take a moment to reach whoever they hit.
+      let self = false, other = false;
+      for (let i = 0; i < 70; i++) { update(1 / 60); self ||= a.frozenTimer > 0; other ||= b.frozenTimer > 0; }
+      return { self, other };
     };
     return { near: run(1100), far: run(1500) };
   });
@@ -440,7 +443,8 @@ test('Amanda runs after her player a moment behind and stands beside her when sh
 
 test('rover shares gentle driving bob and mirrored jump tilt with its rider; pickup stays smaller', { skip: skip() }, async () => {
   await onTrack('space');
-  const r = await page.evaluate(() => {
+  const r = await page.evaluate(async () => {
+    for (let i = 0; i < 50 && !images.moon_buggy; i++) await new Promise(r => setTimeout(r, 100)); // its sheet may still be loading
     const a = state.racers[0]; a.horseType='moon_buggy'; a.horseTimer=30; a.z=0; a.moving=true; a.facing=1;
     a.x=19*Math.PI/2; const drive=roverMotion(a,1);
     a.moving=false; const parked=roverMotion(a,1);
@@ -491,4 +495,41 @@ test('walking into a candy pile scatters the sweets off the screen and she cheer
   const sounds = await page.evaluate(() => ['storm_lightning', 'cloud_dissipate', 'candy_celebrate'].filter(n => !window.AUDIO_MANIFEST.sfx[n]));
   assert.deepEqual(sounds, [], 'its sounds exist');
   assert.deepEqual(errors, []);
+});
+
+test('lightning EMPs show the original icon and shock; the others play their own effect and leave you dizzy', { skip: skip() }, async () => {
+  const seen = {};
+  for (const track of ['clouds', 'space', 'winter', 'festival', 'candy', 'farm', 'town', 'castles', 'autumn', 'woods']) {
+    await onTrack(track);
+    seen[track] = await page.evaluate(async () => {
+      for (let i = 0; i < 50 && !getTrackArt('powerups'); i++) await new Promise(r => setTimeout(r, 100));
+      const [a, b] = state.racers; b.x = a.x + 400; b.y = a.y + 20;
+      state.powerups = [makePowerup('emp', a.x, a.y + 54)]; state.powerups[0].dropTimer = 99;
+      update(1 / 60);
+      const style = state.empArcs[0]?.style;
+      let dizzy = false;
+      for (let i = 0; i < 100; i++) { update(1 / 60); drawScene(0); dizzy ||= Boolean(b.empDizzy); }
+      return { style, icon: pickupLook('emp').sheet ? 'own' : 'original', hit: dizzy ? 'dizzy' : 'shocked', done: state.empArcs.length === 0 };
+    });
+  }
+  for (const track of ['clouds', 'space', 'winter']) assert.deepEqual(seen[track], { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, track);
+  const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', castles: 'gong', autumn: 'crows', woods: 'bell' };
+  for (const [track, style] of Object.entries(styles)) assert.deepEqual(seen[track], { style, icon: 'own', hit: 'dizzy', done: true }, track);
+  assert.deepEqual(errors, []);
+});
+
+test('an EMP stuns each target when its effect reaches them: lightning at once, the others a moment later', { skip: skip() }, async () => {
+  const when = {};
+  for (const track of ['clouds', 'festival', 'farm', 'autumn']) {
+    await onTrack(track);
+    when[track] = await page.evaluate(async () => {
+      for (let i = 0; i < 50 && !getTrackArt('powerups'); i++) await new Promise(r => setTimeout(r, 100));
+      const [a, b] = state.racers; b.x = a.x + 500; b.y = a.y;
+      state.powerups = [makePowerup('emp', a.x, a.y + 54)]; state.powerups[0].dropTimer = 99;
+      for (let i = 1; i <= 90; i++) { update(1 / 60); if (b.frozenTimer > 0) return i; }
+      return null;
+    });
+  }
+  assert.equal(when.clouds, 1, 'lightning is instant');
+  for (const track of ['festival', 'farm', 'autumn']) assert.ok(when[track] > 10 && when[track] < 60, `${track} lands after ${when[track]} frames`);
 });

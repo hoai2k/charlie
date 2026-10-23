@@ -4,12 +4,31 @@
 
 // An EMP with nobody else in range: she takes the full hit herself, knocked
 // back from the trigger like anyone it reaches.
-function shockEmpPresser(racer) {
-  applyEmpHit({ x: racer.x + (racer.facing || 1) * 10 }, racer);
+function shockEmpPresser(racer, style = "lightning") {
+  applyEmpHit({ x: racer.x + (racer.facing || 1) * 10 }, racer, style);
 }
 
-function applyEmpHit(attacker, target) {
-  sfx("frozen_start", target.x);
+// The EMP reaching one of its targets: a monster is knocked down, a racer
+// shocked or dizzy (her own backfire included).
+function empHitTarget(attacker, target, style) {
+  if (state.monsters.includes(target)) stunMonsterWithEmp(target, { dizzy: style !== "lightning" });
+  else if (target === attacker) shockEmpPresser(attacker, style);
+  else if (!target.finished) applyEmpHit(attacker, target, style);
+}
+
+// When the effect reaches a target, in seconds after it goes off.
+function empHitTime(arc, target, from) {
+  if (arc.style === "firework" || arc.style === "poprocks") return EMP_ROCKET_TIME;
+  if (arc.style === "crows") return EMP_CROW_TIME;
+  const origin = arc.style === "rooster" ? roosterBeak(arc, from) : from;
+  const to = spellTargetPoint(target);
+  return Math.hypot(to.x - origin.x, to.y - origin.y) / empWaveReach(arc, origin) * EMP_WAVE_TIME;
+}
+
+// A lightning EMP shocks her; any other leaves her dizzy for as long.
+function applyEmpHit(attacker, target, style = "lightning") {
+  target.empDizzy = style !== "lightning";
+  sfx(target.empDizzy ? "emp_dizzy" : "frozen_start", target.x);
   racerVoice(target, "frozen", { chance: 0.6, priority: 1 });
   target.grabbedBy = null;
   target.empTimer = 0.45;
@@ -130,20 +149,42 @@ function empSourcePoint(arc) {
   return getThrowHand(racer) || { x: racer.x + racer.facing * 40, y: racer.y - 60 - racer.z };
 }
 
+function empArcDuration(arc) {
+  return arc.style === "lightning" ? EMP_ARC_TIME : arc.style === "crows" ? EMP_EFFECT_TIME + 0.3 : EMP_EFFECT_TIME;
+}
+
+// A firework or pop-rocks rocket's path: up from the trigger in an arc that
+// dives down onto its target. k runs 0..1.
+function empRocketPoint(from, to, k) {
+  const apexY = Math.min(from.y, to.y) - 220 - Math.abs(to.x - from.x) * 0.12;
+  const cx = (from.x + to.x) / 2;
+  const u = 1 - k;
+  return { x: u * u * from.x + 2 * u * k * cx + k * k * to.x, y: u * u * from.y + 2 * u * k * apexY + k * k * to.y };
+}
+
+// How far out a sound wave has to spread to reach everyone it hit.
+function empWaveReach(arc, from) {
+  return Math.max(160, ...arc.targets.map(target => Math.hypot(spellTargetPoint(target).x - from.x, spellTargetPoint(target).y - from.y) + 60));
+}
+
 function updateEmpArcs(dt) {
   for (const arc of state.empArcs) {
     const before = arc.t;
     arc.t += dt;
     const from = empSourcePoint(arc);
-    // Only a wand trigger throws sparkles; the others' particles are plain
-    // glowing dots.
-    const kind = arc.wand ? "spark" : "dot";
+    for (const target of [...(arc.pending || [])]) {
+      if (arc.t < empHitTime(arc, target, from)) continue;
+      arc.pending.splice(arc.pending.indexOf(target), 1);
+      empHitTarget(arc.source, target, arc.style);
+    }
     if (before === 0 && arc.wand) {
       // The wand goes off: a sparkle flash where it was.
       for (let i = 0; i < 16; i += 1) spawnParticles(from.x, from.y, 0, 1, { color: i % 2 ? "#ffffff" : "#d6a8ff", speed: 220, lift: 60, life: 0.4, size: 5, gravity: 0 });
     }
     if (arc.style === "lightning") {
       if (before === 0) {
+        // Only a wand trigger throws sparkles; the others' particles are plain glowing dots.
+        const kind = arc.wand ? "spark" : "dot";
         for (const target of arc.targets) {
           const to = spellTargetPoint(target);
           spawnParticles(to.x, to.y + 90, 90, 12, { kind, color: Math.random() < 0.5 ? "#ffffff" : "#c48bff", speed: 200, lift: 200, life: 0.45, size: 4.5, gravity: 500 });
@@ -151,27 +192,52 @@ function updateEmpArcs(dt) {
       }
       continue;
     }
-    // Themed EMP: a stream of sparks flies from her to each target, then bursts.
-    const colors = arc.style === "firework" ? EMP_FIREWORK_COLORS : EMP_SPARK_COLORS;
-    const progress = Math.min(1, arc.t / EMP_STREAM_TIME);
+    if (arc.style === "firework" || arc.style === "poprocks") {
+      const candy = arc.style === "poprocks";
+      if (before === 0) {
+        sfx(candy ? "bubble_pop" : "firework_launch", from.x, { gain: 0.7 });
+        spawnParticles(from.x, from.y, 0, 10, { kind: "puff", color: "#fff4d8", speed: 90, lift: 40, life: 0.45, size: 9, gravity: 0 });
+      }
+      arc.targets.forEach((target, n) => {
+        const to = spellTargetPoint(target);
+        const k = arc.t / EMP_ROCKET_TIME;
+        if (k < 1) {
+          // Its trail of sparks.
+          const p = empRocketPoint(from, to, k);
+          spawnParticles(p.x, p.y, 0, 2, { kind: "dot", color: candy ? EMP_FIREWORK_COLORS[n % EMP_FIREWORK_COLORS.length] : Math.random() < 0.5 ? "#fff2a8" : "#ffb347", speed: 30, lift: 30, life: 0.35, size: 3, gravity: 0 });
+        } else if (before < EMP_ROCKET_TIME) {
+          // It bursts on her: a firework, or a crackle of popping candy.
+          sfx(candy ? "pickup_pop_rocks" : "firework_burst", to.x, { gain: 0.8, throttleKey: arc.style });
+          if (candy) {
+            for (const color of EMP_FIREWORK_COLORS) {
+              spawnParticles(to.x, to.y - 20, 0, 5, { kind: "spark", color, speed: 200, lift: 180, life: 0.55, size: 5, gravity: 300 });
+            }
+            spawnParticles(to.x, to.y - 20, 0, 8, { kind: "candy", size: 12, speed: 170, lift: 260, life: 0.9, gravity: 700 });
+          } else {
+            for (const color of EMP_FIREWORK_COLORS) {
+              spawnParticles(to.x, to.y - 30, 0, 7, { kind: "spark", color, speed: 260, lift: 200, life: 1, size: 6, gravity: 260 });
+            }
+          }
+        }
+      });
+      continue;
+    }
+    if (arc.style === "crows") {
+      if (before === 0) {
+        sfx("pickup_crows", from.x, { gain: 0.6, throttleKey: "crows" });
+        // A couple more flap off up out of the scarecrow.
+        arc.flock = [-1, 1].map(dir => ({ dir, speed: 260 + Math.random() * 80 }));
+      }
+      continue;
+    }
+    // Sound waves (rooster, bell, gong): a puff of dust where each lands.
     for (const target of arc.targets) {
       const to = spellTargetPoint(target);
-      if (progress < 1) {
-        for (let i = 0; i < 3; i += 1) {
-          const k = Math.max(0, progress - Math.random() * 0.12);
-          const x = from.x + (to.x - from.x) * k;
-          const y = from.y + (to.y - from.y) * k;
-          spawnParticles(x, y, 0, 1, { kind, color: colors[Math.floor(Math.random() * colors.length)], speed: 40, lift: 40, life: 0.35, size: 4.5, gravity: 0 });
-        }
-      } else if (before < EMP_STREAM_TIME) {
-        spawnParticles(to.x, to.y, 0, 18, { kind, color: colors[Math.floor(Math.random() * colors.length)], speed: 220, lift: 220, life: 0.6, size: 5, gravity: 500 });
-        for (let i = 0; i < 10; i += 1) {
-          spawnParticles(to.x, to.y, 0, 1, { kind, color: colors[i % colors.length], speed: 240, lift: 240, life: 0.6, size: 5, gravity: 500 });
-        }
-      }
+      const at = empHitTime(arc, target, from);
+      if (before < at && arc.t >= at) spawnParticles(to.x, to.y + 60, 30, 6, { kind: "puff", color: "#ffffff", speed: 80, lift: 50, life: 0.4, size: 8, gravity: 0 });
     }
   }
-  state.empArcs = state.empArcs.filter(arc => arc.t < EMP_ARC_TIME);
+  state.empArcs = state.empArcs.filter(arc => arc.t < empArcDuration(arc));
 }
 
 // A jagged bolt from a to b, re-drawn each frame so it flickers.
@@ -205,10 +271,13 @@ function drawLightning(ax, ay, bx, by, alpha) {
 
 function drawEmpArcs() {
   for (const arc of state.empArcs) {
-    if (arc.style !== "lightning") continue;
     const from = empSourcePoint(arc);
-    const alpha = Math.max(0, 1 - arc.t / EMP_ARC_TIME);
     const fromX = from.x - state.camera;
+    if (arc.style === "firework" || arc.style === "poprocks") drawEmpRockets(arc, from);
+    else if (arc.style === "crows") drawEmpCrows(arc, from);
+    else if (arc.style !== "lightning") drawEmpWaves(arc, from);
+    if (arc.style !== "lightning") continue;
+    const alpha = Math.max(0, 1 - arc.t / EMP_ARC_TIME);
     // The button flashes where the bolts start.
     const glow = ctx.createRadialGradient(fromX, from.y, 0, fromX, from.y, 34);
     glow.addColorStop(0, "#ffffff");
@@ -226,6 +295,258 @@ function drawEmpArcs() {
       drawLightning(fromX, from.y, to.x - state.camera, to.y, alpha);
     }
   }
+}
+
+// Firework rockets (a glowing head on a gold streak) or pop rocks (a spinning
+// candy) on their way up and over onto each target, then the burst there.
+function drawEmpRockets(arc, from) {
+  const k = arc.t / EMP_ROCKET_TIME;
+  const candy = arc.style === "poprocks";
+  arc.targets.forEach((target, n) => {
+    const to = spellTargetPoint(target);
+    ctx.save();
+    if (k < 1) {
+      // The streak behind it.
+      ctx.lineCap = "round";
+      for (let s = 0; s < 8; s += 1) {
+        const a = empRocketPoint(from, to, Math.max(0, k - (s + 1) * 0.03));
+        const b = empRocketPoint(from, to, Math.max(0, k - s * 0.03));
+        ctx.globalAlpha = 0.85 * (1 - s / 8);
+        ctx.strokeStyle = candy ? EMP_FIREWORK_COLORS[(n + s) % 5] : s < 2 ? "#fff6c8" : "#ffb347";
+        ctx.lineWidth = 7 - s * 0.6;
+        ctx.beginPath();
+        ctx.moveTo(a.x - state.camera, a.y);
+        ctx.lineTo(b.x - state.camera, b.y);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      const p = empRocketPoint(from, to, k);
+      const x = p.x - state.camera;
+      if (candy && images.candy_particles) {
+        ctx.translate(x, p.y);
+        ctx.rotate(arc.t * 9);
+        const cell = (n * 3) % 8;
+        ctx.drawImage(images.candy_particles, cell % 4 * 128, Math.floor(cell / 4) * 128, 128, 128, -22, -22, 44, 44);
+      } else {
+        const glow = ctx.createRadialGradient(x, p.y, 0, x, p.y, 26);
+        glow.addColorStop(0, "#ffffff");
+        glow.addColorStop(0.3, "#fff2a8");
+        glow.addColorStop(0.6, "#ffb347aa");
+        glow.addColorStop(1, "#ff8a0000");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(x, p.y, 26, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (!candy) {
+      // The firework opens over her: rays of colour spreading and fading.
+      const b = (arc.t - EMP_ROCKET_TIME) / (EMP_EFFECT_TIME - EMP_ROCKET_TIME);
+      const r = 30 + 110 * Math.sqrt(b);
+      const x = to.x - state.camera;
+      const y = to.y - 30;
+      ctx.globalAlpha = Math.max(0, 1 - b);
+      ctx.lineCap = "round";
+      for (let ray = 0; ray < 16; ray += 1) {
+        const a = ray * Math.PI / 8 + n;
+        const color = EMP_FIREWORK_COLORS[ray % 5];
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(x + Math.cos(a) * r * 0.45, y + Math.sin(a) * r * 0.45 + b * 30);
+        ctx.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r + b * 40);
+        ctx.stroke();
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(x + Math.cos(a) * r, y + Math.sin(a) * r + b * 40, 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  });
+}
+
+// Sound waves spreading out from the trigger: the rooster's crow as curved
+// ripples to either side, a bell's ringing gold circles with music notes, a
+// gong's heavy bronze rings.
+function drawEmpWaves(arc, from) {
+  if (arc.style === "rooster") {
+    // The waves come out of the rooster's beak, in front of her.
+    drawCrowingRooster(arc, from);
+    from = roosterBeak(arc, from);
+  }
+  const reach = empWaveReach(arc, from);
+  const x = from.x - state.camera;
+  const look = {
+    rooster: { color: "#ffffff", edge: "#c7522a", width: 7, gap: 0.22 },
+    bell: { color: "#ffd84a", edge: "#a8741a", width: 5, gap: 0.2 },
+    gong: { color: "#e0a64a", edge: "#7a4a12", width: 11, gap: 0.26 }
+  }[arc.style] || { color: "#ffffff", edge: "#555555", width: 5, gap: 0.2 };
+  for (let i = 0; i < 3; i += 1) {
+    const k = (arc.t - i * look.gap) / EMP_WAVE_TIME;
+    if (k <= 0 || k >= 1.15) continue;
+    const r = Math.min(1, k) * reach;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, 1 - k / 1.15) * 0.9;
+    for (const [width, color] of [[look.width + 4, look.edge], [look.width, look.color]]) {
+      ctx.lineWidth = width;
+      ctx.strokeStyle = color;
+      ctx.beginPath();
+      if (arc.style === "rooster") {
+        // ))) and ((( : the crow ripples out both ways, a tight bunch of
+        // short arcs that shrink a little as they spread.
+        for (let d = 0; d < 3; d += 1) {
+          const rr = Math.max(4, r - d * 22);
+          const span = 0.5 * (1 - Math.min(1, k) * 0.5);
+          ctx.moveTo(x + rr * Math.cos(-span), from.y + rr * Math.sin(-span));
+          ctx.arc(x, from.y, rr, -span, span);
+          ctx.moveTo(x - rr * Math.cos(span), from.y - rr * Math.sin(span));
+          ctx.arc(x, from.y, rr, Math.PI + span, Math.PI - span, true);
+        }
+      } else {
+        ctx.ellipse(x, from.y, r, r * 0.55, 0, 0, Math.PI * 2);
+      }
+      ctx.stroke();
+    }
+    if (arc.style === "bell") {
+      // Notes riding out on the ring.
+      ctx.font = "800 26px system-ui";
+      ctx.textAlign = "center";
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "#ffffff";
+      ctx.fillStyle = "#7a3fc4";
+      for (const a of [-2.4, -1.6, -0.8, 0.4, 2.6]) {
+        const nx = x + Math.cos(a + i) * r;
+        const ny = from.y + Math.sin(a + i) * r * 0.55;
+        const note = (i + a > 0) ? "\u266A" : "\u266B";
+        ctx.strokeText(note, nx, ny);
+        ctx.fillText(note, nx, ny);
+      }
+    }
+    ctx.restore();
+  }
+}
+
+// The rooster that crows the waves out: it pops up in front of her, bobs and
+// tips its head back to crow, then fades. It's the Farm's EMP icon until a
+// crowing rooster sheet (image-requests.md R1) is in.
+function roosterSpot(arc, from) {
+  const facing = arc.source?.facing || 1;
+  return { x: from.x + facing * ROOSTER_AHEAD, y: from.y + 30, facing };
+}
+
+function roosterBeak(arc, from) {
+  const spot = roosterSpot(arc, from);
+  return { x: spot.x + spot.facing * 30, y: spot.y - 80 };
+}
+
+function drawCrowingRooster(arc, from) {
+  const sheet = getSharedArt("rooster_crow");
+  const art = sheet || getTrackArt("powerups");
+  if (!art) return;
+  const { x: spotX, y: spotY, facing } = roosterSpot(arc, from);
+  const life = empArcDuration(arc);
+  const pop = Math.min(1, arc.t * 8);
+  const alpha = Math.min(1, (life - arc.t) * 5);
+  const bob = Math.abs(Math.sin(arc.t * 14)) * 12;
+  const tilt = -0.25 - Math.sin(arc.t * 14) * 0.12;
+  const size = 96 * pop;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(spotX - state.camera, spotY - bob);
+  ctx.scale(facing, 1);
+  ctx.rotate(tilt);
+  if (sheet) {
+    const frame = Math.floor(arc.t * 8) % 3;
+    const cell = sheet.width / 3;
+    ctx.drawImage(sheet, frame * cell, 0, cell, sheet.height, -size / 2, -size, size, size * sheet.height / cell);
+  } else {
+    ctx.drawImage(art, 2 * TRACK_POWERUP_CELL, 0, TRACK_POWERUP_CELL, TRACK_POWERUP_CELL, -size / 2, -size, size, size);
+  }
+  ctx.restore();
+}
+
+// Crows burst out of the scarecrow: one flies to each target and flaps round
+// her head; a couple more fly off up out of sight.
+function drawEmpCrows(arc, from) {
+  const flap = Math.sin(arc.t * 28);
+  arc.targets.forEach((target, n) => {
+    const to = spellTargetPoint(target);
+    const k = Math.min(1, arc.t / EMP_CROW_TIME);
+    let x, y, dir;
+    if (k < 1) {
+      const lift = Math.sin(Math.PI * k) * 120;
+      x = from.x + (to.x - from.x) * k;
+      y = from.y + (to.y - 40 - from.y) * k - lift;
+      dir = Math.sign(to.x - from.x) || 1;
+    } else {
+      const a = (arc.t - EMP_CROW_TIME) * 7 + n;
+      x = to.x + Math.cos(a) * 46;
+      y = to.y - 40 + Math.sin(a) * 14;
+      dir = -Math.sin(a) >= 0 ? 1 : -1;
+    }
+    drawCrow(x - state.camera, y, dir, flap, Math.min(1, (empArcDuration(arc) - arc.t) * 4));
+  });
+  for (const bird of arc.flock || []) {
+    drawCrow(from.x - state.camera + bird.dir * bird.speed * arc.t, from.y - bird.speed * 1.2 * arc.t, bird.dir, -flap, 1);
+  }
+}
+
+function drawCrow(x, y, dir, flap, alpha) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.scale(dir * 1.6, 1.6);
+  ctx.fillStyle = "#1d1b26";
+  ctx.beginPath();
+  ctx.ellipse(0, 0, 15, 8, -0.15, 0, Math.PI * 2); // body
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(13, -5, 6, 0, Math.PI * 2); // head
+  ctx.fill();
+  ctx.fillStyle = "#f2a531";
+  ctx.beginPath();
+  ctx.moveTo(18, -6); ctx.lineTo(26, -3); ctx.lineTo(18, -2); // beak
+  ctx.fill();
+  ctx.fillStyle = "#1d1b26";
+  ctx.beginPath();
+  ctx.moveTo(-14, -1); ctx.lineTo(-26, -6); ctx.lineTo(-24, 3); // tail
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(-6, -3); ctx.quadraticCurveTo(-2, -3 - 22 * flap, 8, -4 - 16 * flap); ctx.lineTo(6, -2); // wing
+  ctx.fill();
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.arc(15, -6, 1.6, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
+
+// Stars circling a dizzy head (an EMP that isn't a shock, or a bonk).
+function drawDizzyStars(x, y, scale, alpha) {
+  const t = performance.now() / 1000;
+  const rx = 120 * scale;
+  const ry = 30 * scale;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  for (let i = 0; i < 4; i += 1) {
+    const a = t * 5 + i * Math.PI / 2;
+    const sx = x + Math.cos(a) * rx;
+    const sy = y + Math.sin(a) * ry;
+    const r = 34 * scale * (0.8 + 0.25 * Math.sin(a));
+    ctx.fillStyle = i % 2 ? "#ffd84a" : "#fff2a8";
+    ctx.strokeStyle = "#c98a12";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (let p = 0; p < 10; p += 1) {
+      const rr = p % 2 ? r * 0.45 : r;
+      const pa = -Math.PI / 2 + p * Math.PI / 5 + t * 3;
+      ctx.lineTo(sx + Math.cos(pa) * rr, sy + Math.sin(pa) * rr);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 function updateSpells(dt) {

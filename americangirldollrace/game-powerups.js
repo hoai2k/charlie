@@ -26,12 +26,22 @@ const POGO_ICON_TRACK = "toyroom";
 
 const PICKUP_ITEM_NAMES = { spellBook: "MAGIC WAND", surfboard: "SURFBOARD", windupCars: "WIND-UP CARS", skates: "SKATES", moonBoots: "MOON BOOTS" };
 
+// How this track's EMP reaches whoever it hits (tracks.js empStyle). Until
+// the track's own power-up art is in, it's the plain EMP: lightning.
+function empStyle() {
+  return (getTrackArt("powerups") && getTrackTheme().empStyle) || "lightning";
+}
+
 function pickupLook(type, { pogo = false } = {}) {
   const theme = getTrackTheme();
   const art = getTrackArt("powerups");
   const [label, sound] = PICKUP_DEFAULTS[type] || [type.toUpperCase(), null];
   if (type === "jump" && pogo) {
     return { sheet: images[trackArtKey(POGO_ICON_TRACK, "powerups")] || null, label: "POGO", sound: "pickup_pogo" };
+  }
+  if (type === "emp" && empStyle() === "lightning") {
+    // Every lightning shock shows the original EMP icon (named as the track has it).
+    return { sheet: null, label: art ? theme.labels?.emp || label : label, sound: art ? theme.sounds?.emp || sound : sound };
   }
   const change = type === "jump" ? theme.itemEffects?.jump || (theme.moonBoots ? "moonBoots" : null)
     : type === "boost" ? theme.itemEffects?.boost || theme.rideToys?.boost
@@ -240,7 +250,7 @@ function pogoStompMonsters(racer, previousZ, mounted) {
   for (const monster of state.monsters) {
     if (!monster.active || ["sleeping", "ground", "fall", "drop"].includes(monster.state)) continue;
     if (Math.abs(monster.x - racer.x) > POGO_STOMP_RANGE_X || Math.abs(monster.y - racer.y) > POGO_STOMP_RANGE_Y) continue;
-    stunMonsterWithEmp(monster);
+    stunMonsterWithEmp(monster, { dizzy: true });
     racer.z = POGO_STOMP_HEAD_Z;
     racer.vy = getJumpPower(racer) * POGO_STOMP_BOUNCE;
     racer.jumpStarted = true;
@@ -296,28 +306,23 @@ function applyPowerup(racer, powerupOrType) {
     racer.powerupMessage = pickupLook("emp").label;
     const originX = typeof powerupOrType === "string" ? racer.x : powerupOrType.x;
     const inRange = target => Math.abs(target.x - originX) <= EMP_RANGE;
+    const style = empStyle();
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
     const hit = [];
     if (visibleMonsters.length > 0) {
-      for (const monster of visibleMonsters) {
-        if (monster.state === "sleeping" || monster.state === "ground") continue;
-        stunMonsterWithEmp(monster);
-        hit.push(monster);
-      }
+      hit.push(...visibleMonsters.filter(monster => monster.state !== "sleeping" && monster.state !== "ground"));
     } else {
-      for (const other of state.racers) {
-        if (other === racer || other.finished || !inRange(other)) continue;
-        applyEmpHit(racer, other);
-        hit.push(other);
-      }
+      hit.push(...state.racers.filter(other => other !== racer && !other.finished && inRange(other)));
     }
     const label = pickupLook("emp").label;
     if (!hit.length) {
       // Nobody around to zap: it zaps her instead.
-      shockEmpPresser(racer);
       hit.push(racer);
       racer.powerupMessage = `${label}: OOPS!`;
     }
+    // Lightning strikes at once; the others hit each one as the effect
+    // reaches them (updateEmpArcs).
+    if (style === "lightning") for (const target of hit) empHitTarget(racer, target, style);
     if (hit.length) {
       // The effect starts at the trigger she took, not at her.
       const from = typeof powerupOrType === "string" ? null : { x: powerupOrType.x, y: powerupDrawY(powerupOrType) - 26 };
@@ -325,8 +330,9 @@ function applyPowerup(racer, powerupOrType) {
         from,
         source: racer,
         targets: hit,
+        pending: style === "lightning" ? [] : [...hit],
         t: 0,
-        style: label === "EMP" ? "lightning" : getTrackTheme().empStyle || "sparks",
+        style,
         wand: /WAND/.test(label)
       });
     }

@@ -103,6 +103,10 @@ window.AUDIO_MANIFEST = {
    1,
    2
   ],
+  "emp_dizzy": [
+   1,
+   2
+  ],
   "finish_line_cross": [
    1
   ],
