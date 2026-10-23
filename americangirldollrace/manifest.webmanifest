@@ -8,6 +8,10 @@
   "background_color": "#cde9f8",
   "theme_color": "#cde9f8",
   "icons": [
-    { "src": "favicon.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "favicon.png?v=34056e22b7",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
