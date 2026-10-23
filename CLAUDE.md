@@ -144,7 +144,8 @@ hook to get round it.
 - The race's game code is plain scripts sharing one global scope, loaded in
   `americangirldollrace/index.html` order: the area files hold functions
   (`game-audio`, `-monsters`, `-amanda`, `-mounts`, `-powerups`, `-items`,
-  `-camera`, `-players`, `-draw`.js) and load before `game.js`, which keeps
+  `-camera`, `-players`, `-draw`, `-terrain`.js; terrain is Cloud Kingdom's
+  bumpy cloud floor with gaps to jump) and load before `game.js`, which keeps
   the constants, state, race flow, menus and the main loop. Put new code in
   the file for its area; keep top-level statements that run at load in
   `game.js`. Tests read all of it via `tools/game-source.mjs`.

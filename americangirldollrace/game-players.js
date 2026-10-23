@@ -874,12 +874,15 @@ function aiInput(racer) {
   if (aheadBy >= viewWidth * AI_AHEAD_WANDER_START) racer.aiWanderAhead = true;
   if (aheadBy <= viewWidth * AI_AHEAD_WANDER_END) racer.aiWanderAhead = false;
 
+  // A gap in a cloud floor just ahead: jump it.
+  const gapJump = Boolean(cloudGapAhead(racer.x, racer.facing, isMounted(racer) ? 90 : 60));
+
   if (racer.aiWanderAhead) {
     const wander = Math.sin(performance.now() * 0.0017 + racer.playerIndex * 2.4);
     return {
       horizontal: 0.08 + Math.max(0, Math.sin(performance.now() * 0.0009 + racer.playerIndex)) * 0.12,
       vertical: wander > 0.25 ? 0.55 : wander < -0.25 ? -0.55 : 0,
-      jump: false,
+      jump: gapJump,
       push: false
     };
   }
@@ -908,7 +911,7 @@ function aiInput(racer) {
     const cruise = 498 + Math.sin(racer.x * 0.004) * 42;
     vertical = Math.sign(cruise - racer.y) * 0.35;
   }
-  return { horizontal, vertical, jump, push: false };
+  return { horizontal, vertical, jump: jump || gapJump, push: false };
 }
 
 function isInteractiveTouchTarget(target) {

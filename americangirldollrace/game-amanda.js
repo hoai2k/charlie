@@ -298,7 +298,7 @@ function updateAmandaAlly(dt) {
       const ahead = ally.facing > 0 ? b.left - ally.x : ally.x - b.right;
       return ahead > -10 && ahead < 60 && footY + 12 > b.top && footY - 12 < b.bottom;
     });
-    if (hurdle) ally.vy = JUMP_POWER;
+    if (hurdle || cloudGapAhead(ally.x, ally.facing, 60)) ally.vy = JUMP_POWER;
   }
   allyFallAndSlide(ally, dt);
   // Push whoever is right in front of her.

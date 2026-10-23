@@ -308,6 +308,25 @@ const ROVER_BOUNCE = 12; // sprite px the moon buggy hops over each bump as it d
 const ROVER_BUMP_SPACING = 45; // bumps come every pi times this many world px (about 4 a second at full speed)
 const ROVER_LANDING_TIME = 0.35; // s its landing squash and recoil last
 const ROVER_LANDING_SQUASH = 16; // sprite px it squashes down on landing
+// Cloud floors (game-terrain.js, tracks.js cloudFloor).
+const CLOUD_WIDTH_MIN = 430; // px wide each cloud is, from this
+const CLOUD_WIDTH_RANGE = 240; // to this much more
+const CLOUD_OVERLAP = 60; // px neighbouring clouds overlap
+const CLOUD_STEP = 12; // px a cloud may sit higher or lower than the last
+const CLOUD_MAX_LIFT = 18; // px the floor ever sits above or below the flat course
+const CLOUD_DOME = 8; // px each cloud's middle rises above its ends
+const CLOUD_GAP_MIN = 95; // px wide a gap is (a running jump clears about 250)
+const CLOUD_GAP_MAX = 130;
+const CLOUD_GAP_EVERY_MIN = 1300; // px of clouds between gaps, from this
+const CLOUD_GAP_EVERY_RANGE = 1100; // to this much more
+const CLOUD_GAP_EDGE_GRACE = 14; // px into a gap before her feet are off the cloud
+const CLOUD_FLOOR_SAFE_START = 1400; // no gaps before here
+const CLOUD_FLOOR_SAFE_END = 800; // or this close to the finish
+const CLOUD_FALL_TIME = 1.3; // s she's gone after falling through a gap
+const CLOUD_FLOOR_BACK_EDGE = 16; // px above PATH_TOP the floor's back edge sits
+const CLOUD_FLOOR_CELL_W = 768; // the floor sheet's cells (image-requests.md §21)
+const CLOUD_FLOOR_CELL_H = 320;
+const CLOUD_FLOOR_ART_TOP = 40; // px down a cell its back edge is
 const ROOSTER_CROW_TIME = 0.8; // s the rooster crows (the waves go out), then
 const ROOSTER_LINGER = 1.2; // s it hops about before fading
 const ROOSTER_AHEAD = 90; // px in front of her that the ROOSTER EMP's rooster stands
@@ -824,6 +843,7 @@ function resetRace(mode = state.mode) {
   state.legoCrossfade = 0;
   state.winner = null;
   state.victoryStartTime = 0;
+  state.cloudFloor = makeCloudFloor();
   state.obstacles = makeObstacles();
   state.projectiles = [];
   state.monsterBolts = [];
@@ -840,6 +860,7 @@ function resetRace(mode = state.mode) {
   state.windupCars = [];
   state.jumpPogo = Math.random() < POGO_SHARE;
   state.powerups = [...makePowerups(), ...makeSpareHorses()];
+  clearCloudGaps();
   state.stormCloud = null;
   state.stormTimer = nextStormDelay();
   state.rewardCloud = null;
@@ -1682,6 +1703,11 @@ function update(dt) {
       continue;
     }
 
+    if (racer.cloudFallTimer > 0) {
+      updateCloudFall(racer, dt);
+      continue;
+    }
+
     if (racer.grabbedBy) {
       racer.speed = 0;
       racer.moving = false;
@@ -1818,6 +1844,7 @@ function update(dt) {
       }
       racer.jumpStarted = false;
     }
+    checkCloudFall(racer);
     racer.landingTimer = Math.max(0, racer.landingTimer - dt);
     racer.roverLandTimer = Math.max(0, (racer.roverLandTimer || 0) - dt);
 

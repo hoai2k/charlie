@@ -37,6 +37,8 @@
 // and crackle; "rooster" sound waves, "bell" rings with music notes and "gong"
 // a heavy ring spread out from the trigger; "crows" fly to each one and
 // circle her head.
+// `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
+// (game-terrain.js); fall through one and you're back a moment later.
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
 // Riding rules (Horse Show):
@@ -198,6 +200,7 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_crows" }
   },
   clouds: {
+    cloudFloor: true,
     monster: "cloudtroll",
     projectileLanding: "snow",
     empStyle: "lightning",

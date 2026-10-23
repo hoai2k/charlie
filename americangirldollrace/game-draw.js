@@ -157,8 +157,42 @@ function drawSharedCameraScene() {
   ctx.restore();
 }
 
+// One thing in the scene, by kind.
+function drawDrawable(drawable) {
+  if (drawable.type === "obstacle") {
+    drawObstacle(drawable.item);
+  } else if (drawable.type === "powerup") {
+    drawPowerup(drawable.item);
+  } else if (drawable.type === "projectile") {
+    drawSnowball(drawable.item);
+  } else if (drawable.type === "monsterBolt") {
+    drawMonsterBolt(drawable.item);
+  } else if (drawable.type === "leftover") {
+    drawThrownLeftover(drawable.item);
+  } else if (drawable.type === "rainbow") {
+    drawRainbowBeam(drawable.item);
+  } else if (drawable.type === "storm") {
+    drawStormCloud(drawable.item);
+  } else if (drawable.type === "rewardCloud") {
+    drawRewardCloud(drawable.item);
+  } else if (drawable.type === "monster") {
+    drawMonster(drawable.item);
+  } else if (drawable.type === "runawayHorse") {
+    drawRunawayHorse(drawable.item);
+  } else if (drawable.type === "beachBall") {
+    drawBeachBall(drawable.item);
+  } else if (drawable.type === "windupCar") {
+    drawWindupCar(drawable.item);
+  } else if (drawable.type === "amandaAlly") {
+    drawAmandaAlly(drawable.item);
+  } else {
+    drawRacer(drawable.item);
+  }
+}
+
 function drawWorldScene() {
   drawBackground();
+  drawCloudFloor();
   drawFinishLine();
 
   if (!state.running && !startPanel.classList.contains("hidden")) {
@@ -184,35 +218,13 @@ function drawWorldScene() {
     ].sort((a, b) => a.y - b.y);
     drawSpellAimRings();
     for (const drawable of drawables) {
-      if (drawable.type === "obstacle") {
-        drawObstacle(drawable.item);
-      } else if (drawable.type === "powerup") {
-        drawPowerup(drawable.item);
-      } else if (drawable.type === "projectile") {
-        drawSnowball(drawable.item);
-      } else if (drawable.type === "monsterBolt") {
-        drawMonsterBolt(drawable.item);
-      } else if (drawable.type === "leftover") {
-        drawThrownLeftover(drawable.item);
-      } else if (drawable.type === "rainbow") {
-        drawRainbowBeam(drawable.item);
-      } else if (drawable.type === "storm") {
-        drawStormCloud(drawable.item);
-      } else if (drawable.type === "rewardCloud") {
-        drawRewardCloud(drawable.item);
-      } else if (drawable.type === "monster") {
-        drawMonster(drawable.item);
-      } else if (drawable.type === "runawayHorse") {
-        drawRunawayHorse(drawable.item);
-      } else if (drawable.type === "beachBall") {
-        drawBeachBall(drawable.item);
-      } else if (drawable.type === "windupCar") {
-        drawWindupCar(drawable.item);
-      } else if (drawable.type === "amandaAlly") {
-        drawAmandaAlly(drawable.item);
-      } else {
-        drawRacer(drawable.item);
-      }
+      // On a cloud floor everything stands at the floor's height there.
+      const lifted = state.cloudFloor && drawable.item && Number.isFinite(drawable.item.x) && drawable.type !== "storm" && drawable.type !== "rewardCloud";
+      ctx.save();
+      if (lifted) ctx.translate(0, -groundLift(drawable.item.x));
+      if (drawable.item?.cloudFallTimer > 0) ctx.globalAlpha = clamp(drawable.item.cloudFallTimer / CLOUD_FALL_TIME * 1.6, 0, 1);
+      drawDrawable(drawable);
+      ctx.restore();
     }
     drawSpells();
     drawEmpArcs();
@@ -491,6 +503,9 @@ function drawBackground() {
     ctx.drawImage(bg, -overlap, 0, bgW + overlap * 2, H);
     ctx.restore();
   }
+  // A light wash over the path (not on a cloud floor, where it showed as a
+  // straight band across the clouds).
+  if (state.cloudFloor) return;
   ctx.fillStyle = "rgba(255, 255, 255, 0.16)";
   ctx.fillRect(0, PATH_TOP - 8, viewWidth, TRACK_BOTTOM - PATH_TOP + 86);
 }

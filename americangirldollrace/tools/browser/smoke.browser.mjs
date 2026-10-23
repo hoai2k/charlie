@@ -716,3 +716,36 @@ test('Pumpkin Patch uses the CROWS trigger and four-frame crow art, mirrored alo
   for(const f of r.frames)assert.deepEqual(f.slice(1),[128,128,64,64]);
   assert.deepEqual(r.directions,[1,1,1,1,-1,-1,-1,-1]);assert.equal(r.dizzy,true);assert.deepEqual(errors,[]);
 });
+
+test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump it and carry on, back after a fall', { skip: skip() }, async () => {
+  await onTrack('clouds');
+  const r = await page.evaluate(() => {
+    const floor = state.cloudFloor;
+    const gap = floor.gaps[1];
+    const lifts = []; for (let x = 2000; x < 5000; x += 50) lifts.push(groundLift(x));
+    const steps = lifts.slice(1).map((l, i) => Math.abs(l - lifts[i]));
+    const [a, b] = state.racers; state.obstacles = []; state.monsters = [];
+    const run = jump => {
+      a.x = gap.start - 300; a.y = PATH_TOP + 90; a.z = 0; a.vy = 0; a.cloudFallTimer = 0; a.facing = 1; a.landingTimer = 0; a.jumpStarted = false;
+      b.x = a.x - 200;
+      keys.clear(); keys.add('KeyD');
+      let pressed = 0, fell = false, back = false;
+      for (let i = 0; i < 200; i++) {
+        if (pressed && pressed++ > 4) keys.delete('Space');
+        if (jump && !pressed && gap.start - a.x < 40) { keys.add('Space'); pressed = 1; }
+        update(1 / 60);
+        fell ||= a.cloudFallTimer > 0;
+        if (fell && !(a.cloudFallTimer > 0)) { back = a.x < gap.start && a.z === 0; break; }
+      }
+      keys.clear();
+      return { fell, back, past: a.x > gap.end };
+    };
+    return {
+      gaps: floor.gaps.length > 2, narrow: gap.end - gap.start < 140,
+      gentle: Math.max(...steps) < 14, bumpy: Math.max(...lifts) - Math.min(...lifts) > 10,
+      walk: run(false), jump: run(true)
+    };
+  });
+  assert.deepEqual(r, { gaps: true, narrow: true, gentle: true, bumpy: true,
+    walk: { fell: true, back: true, past: false }, jump: { fell: false, back: false, past: true } });
+});
