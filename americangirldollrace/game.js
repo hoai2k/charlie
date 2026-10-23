@@ -197,6 +197,17 @@ const SNOWBALL_RADIUS = 13;
 const SNOWBALL_HAND_DRAW_Y_OFFSET = 200;
 const MONSTER_SPRITE_ROWS = 4;
 const MONSTER_HEIGHT_SCALE = 1.3;
+// Per-sheet size tweaks on top of that (the robot stands squat, so it's drawn
+// a little bigger to read as large as the troll).
+const MONSTER_ART_SCALE = { robot: 1.15 };
+// Where each monster's front hand is in its grab, lift and throw frames
+// (sprite row 3), frame pixels facing right; the grabbed doll is held there.
+const MONSTER_GRAB_HANDS = {
+  monster: [[336, 181], [296, 122], [335, 114]],
+  robot: [[363, 208], [365, 148], [342, 130]],
+  scarecrow: [[354, 177], [305, 117], [339, 132]],
+  skeleton: [[348, 189], [300, 116], [349, 122]]
+};
 const MONSTER_WAIT_FROM_BOARD_END = EXPECTED_VIEW_WIDTH;
 let MONSTER_COURSE_START_X = FINISH / 3 + 120;
 // A troll riding a horse (a track's trollMount) has to keep up with riders.
@@ -3631,7 +3642,7 @@ function updateBrokenRobotSparks(monster, dt) {
   if (monster.sparkTimer > 0) return;
   const big = Math.random() < 0.18;
   monster.sparkTimer = big ? 0.5 + Math.random() * 0.6 : 0.08 + Math.random() * 0.18;
-  const scale = racerDepthScale(monster) * MONSTER_HEIGHT_SCALE;
+  const scale = monsterScale(monster);
   // somewhere along the body lying on the ground
   const x = monster.x + (Math.random() - 0.5) * 150 * scale;
   const groundY = monster.y + 54;
@@ -3833,6 +3844,16 @@ function setGrabbedRacerPosition(monster, racer) {
   racer.y = clamp(monster.y - 8, TRACK_TOP, TRACK_BOTTOM);
   racer.z = 44 + liftProgress * 70 + (monster.riding ? 70 : 0);
   const grabCol = { grab: 0, lift: 1, throw: 2 }[monster.state];
+  const hand = !(monster.riding && getTrollMountImage()) && MONSTER_GRAB_HANDS[getTrackMonsterKey() || "monster"]?.[grabCol ?? 0];
+  if (hand) {
+    // On foot: hold her by the torso (270px in her 418px grabbed pose) in the
+    // monster's hand, as drawn in this frame.
+    const scale = monsterScale(monster);
+    racer.x = monster.x + (hand[0] - SPRITE_ANCHOR_X) * scale * monster.facing;
+    const handY = monsterDrawY(monster) + 58 + (hand[1] - SPRITE_ANCHOR_Y) * scale - (monster.z || 0);
+    const dollScale = racerDepthScale(racer) * (jumpSpriteScale[racer.spriteKey] || jumpSpriteScale.default);
+    racer.z = racer.y + 54 - handY - (SPRITE_ANCHOR_Y - 270) * dollScale;
+  }
   const pose = window.TROLL_ART?.rider[3 + grabCol];
   if (monster.riding && images.troll_riding && getTrollMountImage() === images.skeleton_horse && pose?.hand) {
     const horseScale = racerDepthScale(monster) * 1.08 * MOUNTED_MONSTER_HORSE_SCALE;
@@ -7203,7 +7224,7 @@ function drawMonster(monster) {
   const viewWidth = getWorldViewportWidth();
   if (screenX < -280 || screenX > viewWidth + 280) return;
   const frame = monsterFrame(monster);
-  const scale = racerDepthScale(monster) * MONSTER_HEIGHT_SCALE;
+  const scale = monsterScale(monster);
   const visualY = monsterDrawY(monster);
   const sx = frame.col * FRAME;
   const sy = frame.row * FRAME;
@@ -7306,7 +7327,7 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
 
   const frame = monsterFrame(monster);
   if (unhorsed) {
-    const trollScale = scale * MONSTER_HEIGHT_SCALE;
+    const trollScale = monsterScale(monster);
     drawFacingImage(getMonsterImage(), frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * trollScale, visualY + 58 - SPRITE_ANCHOR_Y * trollScale, FRAME * trollScale, FRAME * trollScale, facing, screenX);
     return;
   }
@@ -7329,6 +7350,11 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
   const trollX = screenX - SPRITE_ANCHOR_X * trollScale + 9 * scale + seatDX;
   const trollY = horseBaseY - 30 * scale + seatDY;
   drawFacingImage(getMonsterImage(), frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, trollX, trollY, FRAME * trollScale, FRAME * trollScale, facing, screenX);
+}
+
+// The on-foot monster's draw scale: depth, the monster size, and its sheet's tweak.
+function monsterScale(monster) {
+  return racerDepthScale(monster) * MONSTER_HEIGHT_SCALE * (MONSTER_ART_SCALE[getTrackMonsterKey() || "monster"] || 1);
 }
 
 function monsterDrawY(monster) {
