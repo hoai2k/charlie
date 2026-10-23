@@ -478,7 +478,7 @@ function getMonsterTarget(monster) {
   // He only chases someone he can see: get far enough away and he stops,
   // come back in sight and he's after you again.
   const inSight = racer => Math.abs(racer.x - monster.x) <= MONSTER_SIGHT_RANGE;
-  const candidates = [...state.racers, ...(ally && !ally.runningAway ? [ally] : [])].filter(racer => !racer.finished && !racer.grabbedBy && !(racer.cloudFallTimer > 0) && inSight(racer));
+  const candidates = [...state.racers, ...(ally && !ally.runningAway ? [ally] : [])].filter(racer => !racer.finished && !racer.grabbedBy && !racer.cloudFalling && inSight(racer));
   if (candidates.length === 0 || !monster.active) return null;
   return candidates.reduce((best, racer) => {
     const score = Math.abs(racer.x - monster.x) + Math.abs(racer.y - monster.y) * 1.6;

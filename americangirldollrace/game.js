@@ -325,14 +325,17 @@ const CLOUD_OVERLAP = 60; // px neighbouring clouds overlap
 const CLOUD_STEP = 12; // px a cloud may sit higher or lower than the last
 const CLOUD_MAX_LIFT = 18; // px the floor ever sits above or below the flat course
 const CLOUD_DOME = 8; // px each cloud's middle rises above its ends
-const CLOUD_GAP_MIN = 95; // px wide a gap is (a running jump clears about 250)
-const CLOUD_GAP_MAX = 130;
+const CLOUD_GAP_MIN = 110; // px wide a gap is (a running jump clears about 250)
+const CLOUD_GAP_MAX = 150;
 const CLOUD_GAP_EVERY_MIN = 1300; // px of clouds between gaps, from this
 const CLOUD_GAP_EVERY_RANGE = 1100; // to this much more
 const CLOUD_GAP_EDGE_GRACE = 14; // px into a gap before her feet are off the cloud
 const CLOUD_FLOOR_SAFE_START = 1400; // no gaps before here
 const CLOUD_FLOOR_SAFE_END = 800; // or this close to the finish
-const CLOUD_FALL_TIME = 1.3;
+const CLOUD_FALL_DRAG = 0.25; // her running-off speed keeps this share after a second
+const CLOUD_FALL_DEPTH = 460; // px down she's out of sight
+const CLOUD_RESCUE_DEPTH = 300; // px down a flier can still fly back up
+const CLOUD_RESPAWN_DELAY = 0.45; // s out of sight before she's back
 const CLOUD_GAP_SKY_OVERHANG = 90; // px the sky painted in a gap runs under the clouds either side
 const CLOUD_HOP_SPEED = 64; // px/s up each step's bounce starts on the clouds
 const CLOUD_HOP_GRAVITY = 290; // px/s² it falls back (a calm ~0.45 s hop, 7 px high)
@@ -1727,11 +1730,6 @@ function update(dt) {
       continue;
     }
 
-    if (racer.cloudFallTimer > 0) {
-      updateCloudFall(racer, dt);
-      continue;
-    }
-
     if (racer.grabbedBy) {
       racer.speed = 0;
       racer.moving = false;
@@ -1797,7 +1795,16 @@ function update(dt) {
     }
     if (racer.hitTimer > 0) forward *= 0.35;
     racer.speed = forward;
-    racer.moving = Math.abs(forward) > 1 || Math.abs(input.vertical) > 0.05;
+    if (racer.cloudFalling && !racer.cloudRescued) {
+      // Off the edge: no steering, just the speed she ran off with, legs
+      // still going.
+      forward = cloudFallForward(racer, dt);
+      input.horizontal = 0;
+      input.vertical = 0;
+      if (cloudFallRescue(racer, input.jump)) input.jump = false;
+      racer.speed = forward;
+    }
+    racer.moving = racer.cloudFalling || Math.abs(forward) > 1 || Math.abs(input.vertical) > 0.05;
     if (Math.abs(input.horizontal) > 0.05) {
       racer.facing = input.horizontal < 0 ? -1 : 1;
     }
@@ -1854,7 +1861,7 @@ function update(dt) {
     updateRacerVerticalMotion(racer, mounted, input.jump, dt);
     if (racer.z > 38 && racer.vy >= 0) racer.jumpFrame = 1;
     if (racer.z > 0 && racer.vy < 0) racer.jumpFrame = racer.z <= LANDING_POSE_DISTANCE ? 2 : 1;
-    if (racer.z < 0) {
+    if (racer.z < 0 && !racer.cloudFalling) {
       const impactSpeed = Math.abs(racer.vy);
       racer.z = 0;
       racer.vy = 0;
@@ -1869,6 +1876,7 @@ function update(dt) {
       racer.jumpStarted = false;
     }
     checkCloudFall(racer);
+    updateCloudFall(racer, dt);
     updateCloudFooting(racer, dt);
     racer.landingTimer = Math.max(0, racer.landingTimer - dt);
     racer.roverLandTimer = Math.max(0, (racer.roverLandTimer || 0) - dt);

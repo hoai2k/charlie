@@ -42,7 +42,8 @@
 // `powerupArtVersion`: that track's power-up sheet's cache stamp; bump it
 // when the sheet changes (else config.js's shared one applies).
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
-// (game-terrain.js); fall through one and you're back a moment later.
+// (game-terrain.js). Run (or ride) off the edge and you drop through, back a
+// moment later; a pegasus, griffon or broom rider can fly back up with jump.
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
 // Riding rules (Horse Show):

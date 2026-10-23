@@ -223,7 +223,7 @@ function drawWorldScene() {
       ctx.save();
       if (lifted) ctx.translate(0, -groundLift(drawable.item.x));
       const racer = drawable.type === "racer" ? drawable.item : null;
-      if (racer?.cloudFallTimer > 0) ctx.globalAlpha = clamp(racer.cloudFallTimer / CLOUD_FALL_TIME * 1.6, 0, 1);
+      if (racer && !clipToCloudGap(racer)) { ctx.restore(); continue; }
       // Bouncing or sunk in on the clouds; fluff over her feet when sunk.
       const footing = racer && lifted ? cloudFootingOffset(racer) : 0;
       ctx.translate(0, footing);
@@ -604,7 +604,7 @@ function drawRacer(racer) {
   const drawY = racer.y + 54 - SPRITE_ANCHOR_Y * spriteScale - racer.z;
 
   ctx.save();
-  ctx.globalAlpha = 0.28 * (1 - (racer.cloudSink || 0)); // no shadow sunk into a cloud
+  ctx.globalAlpha = racer.cloudFalling ? 0 : 0.28 * (1 - (racer.cloudSink || 0)); // none sunk into a cloud or falling through one
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, racer.y + 40, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);

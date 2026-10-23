@@ -731,28 +731,28 @@ test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump
     const steps = lifts.slice(1).map((l, i) => Math.abs(l - lifts[i]));
     const [a, b] = state.racers; state.obstacles = []; state.monsters = [];
     const run = jump => {
-      a.x = gap.start - 300; a.y = PATH_TOP + 90; a.z = 0; a.vy = 0; a.cloudFallTimer = 0; a.facing = 1; a.landingTimer = 0; a.jumpStarted = false;
+      a.x = gap.start - 300; a.y = PATH_TOP + 90; a.z = 0; a.vy = 0; a.cloudFalling = false; a.facing = 1; a.landingTimer = 0; a.jumpStarted = false;
       b.x = a.x - 200;
       keys.clear(); keys.add('KeyD');
-      let pressed = 0, fell = false, back = false;
+      let pressed = 0, fell = false, back = false, runningOff = false;
       for (let i = 0; i < 200; i++) {
         if (pressed && pressed++ > 4) keys.delete('Space');
         if (jump && !pressed && gap.start - a.x < 40) { keys.add('Space'); pressed = 1; }
         update(1 / 60);
-        fell ||= a.cloudFallTimer > 0;
-        if (fell && !(a.cloudFallTimer > 0)) { back = a.x < gap.start && a.z === 0; break; }
+        if (a.cloudFalling && !fell) { fell = true; runningOff = a.moving && a.speed > 100; }
+        if (fell && !a.cloudFalling) { back = a.x < gap.start && a.z === 0; break; }
       }
       keys.clear();
-      return { fell, back, past: a.x > gap.end };
+      return { fell, back, past: a.x > gap.end, runningOff };
     };
     return {
-      gaps: floor.gaps.length > 2, narrow: gap.end - gap.start < 140,
+      gaps: floor.gaps.length > 2, narrow: gap.end - gap.start < 160,
       gentle: Math.max(...steps) < 14, bumpy: Math.max(...lifts) - Math.min(...lifts) > 10,
       walk: run(false), jump: run(true)
     };
   });
   assert.deepEqual(r, { gaps: true, narrow: true, gentle: true, bumpy: true,
-    walk: { fell: true, back: true, past: false }, jump: { fell: false, back: false, past: true } });
+    walk: { fell: true, back: true, past: false, runningOff: true }, jump: { fell: false, back: false, past: true, runningOff: false } });
 });
 
 test('Cloud floor art uses all six cells at varied widths and keeps open jumping gaps', { skip: skip() }, async () => {
@@ -810,4 +810,31 @@ test('on the clouds a doll bounces as she runs and sinks in a little standing st
     return { bounces: Math.min(...running) < -4, sunk: cloudFootingOffset(a) > 6 };
   });
   assert.deepEqual(r, { bounces: true, sunk: true });
+});
+
+test('Cloud Kingdom: riders fall through gaps too, but a pegasus rider can fly back up', { skip: skip() }, async () => {
+  await onTrack('clouds', { gaps: true });
+  const r = await page.evaluate(() => {
+    const gap = state.cloudFloor.gaps[1];
+    const [a, b] = state.racers; state.obstacles = []; state.monsters = []; b.x = 1000;
+    const ride = (horseType, rescue) => {
+      Object.assign(a, { x: gap.start - 200, y: PATH_TOP + 90, z: 0, vy: 0, cloudFalling: false, cloudRescued: false, facing: 1, landingTimer: 0, jumpStarted: false, horseType, horseTimer: 30 });
+      keys.clear(); keys.add('KeyD');
+      let fell = false, flewBack = false, lowest = 0;
+      for (let i = 0; i < 160; i++) {
+        if (rescue && a.cloudFalling && a.z < -40) keys.add('Space');
+        update(1 / 60);
+        fell ||= a.cloudFalling;
+        lowest = Math.min(lowest, a.z);
+        if (fell && !a.cloudFalling && a.z >= 0 && a.x > gap.start) { flewBack = a.x > gap.end || a.z > 0; break; }
+        if (fell && !a.cloudFalling) break;
+      }
+      keys.clear();
+      return { fell, flewBack, mounted: isMounted(a) };
+    };
+    return { horse: ride('horse', false), pegasus: ride('pegasus', true) };
+  });
+  assert.deepEqual(r.horse, { fell: true, flewBack: false, mounted: true });
+  assert.equal(r.pegasus.fell, true);
+  assert.equal(r.pegasus.flewBack, true, 'a pegasus flies back up out of the gap');
 });

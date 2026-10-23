@@ -80,30 +80,57 @@ function groundLift(x) {
   return before ? before.h : 0;
 }
 
-// A doll on the floor over a gap falls through (flying mounts don't).
+// A doll (riding or not) who meets a gap on the floor runs straight off the
+// edge: she keeps her running pose and some of her speed while she drops
+// through it. Whoever rides a pegasus, griffon or broom can fly back up by
+// pressing jump until she's fallen out of sight. Once out of sight she comes
+// back a moment later on the cloud she ran off.
 function checkCloudFall(racer) {
-  if (!state.cloudFloor || racer.cloudFallTimer > 0 || racer.z > 0 || racer.finished || racer.grabbedBy) return;
-  if (isMounted(racer) && isFlyingMountType(racer.horseType)) return;
+  if (!state.cloudFloor || racer.cloudFalling || racer.z > 0 || racer.finished || racer.grabbedBy) return;
   const gap = cloudGapAt(racer.x);
   if (!gap) return;
-  racer.cloudFallTimer = CLOUD_FALL_TIME;
-  // She comes back on the cloud she fell from.
-  racer.cloudRespawnX = racer.facing >= 0 || racer.x < (gap.start + gap.end) / 2 ? gap.start - 70 : gap.end + 70;
-  racer.vy = 120;
+  racer.cloudFalling = true;
+  racer.cloudFallGap = gap;
+  racer.cloudFallVx = racer.speed || 0;
+  racer.cloudGone = 0;
+  racer.cloudRespawnX = racer.x < (gap.start + gap.end) / 2 ? gap.start - 70 : gap.end + 70;
+  racer.vy = Math.min(racer.vy, 0);
   racer.jumpStarted = false;
   racer.pushTimer = 0;
   racerVoice(racer, "hit", { chance: 0.8, priority: 1 });
   sfx("push_whoosh", racer.x);
 }
 
-// Falling: she drops away out of sight, then pops back on the cloud.
+// Her forward speed while falling: what she ran off with, slowly dying
+// away, unless she's flown back up out of the gap.
+function cloudFallForward(racer, dt) {
+  racer.cloudFallVx *= Math.pow(CLOUD_FALL_DRAG, dt);
+  return racer.cloudFallVx;
+}
+
+// A flier pressing jump in the gap flies back up (until she's out of sight).
+function cloudFallRescue(racer, jumping) {
+  if (!jumping || !isMounted(racer) || !isFlyingMountType(racer.horseType)) return false;
+  if (racer.z < -CLOUD_RESCUE_DEPTH || racer.vy > HORSE_JUMP_POWER * 0.5) return false;
+  racer.vy = HORSE_JUMP_POWER;
+  racer.cloudRescued = true;
+  return true;
+}
+
+// After her vertical motion: out of the gap once she's flown back above the
+// floor; out of sight, she's back on the cloud a moment later.
 function updateCloudFall(racer, dt) {
-  racer.cloudFallTimer = Math.max(0, racer.cloudFallTimer - dt);
-  racer.vy -= GRAVITY * dt;
-  racer.z += racer.vy * dt;
-  racer.speed = 0;
-  racer.moving = false;
-  if (racer.cloudFallTimer > 0) return;
+  if (!racer.cloudFalling) return;
+  if (racer.cloudRescued && racer.z >= 0) {
+    racer.cloudFalling = false;
+    racer.cloudRescued = false;
+    return;
+  }
+  if (racer.z > -CLOUD_FALL_DEPTH) return;
+  racer.cloudGone += dt;
+  if (racer.cloudGone < CLOUD_RESPAWN_DELAY) return;
+  racer.cloudFalling = false;
+  racer.cloudRescued = false;
   racer.x = racer.cloudRespawnX;
   racer.z = 0;
   racer.vy = 0;
@@ -114,11 +141,26 @@ function updateCloudFall(racer, dt) {
   sfx("mount_expire_poof", racer.x, { gain: 0.8 });
 }
 
+// Drawing someone falling through a gap: below the floor's surface she shows
+// only within the gap (the clouds either side are in front of her), and
+// once she's fallen out of sight not at all.
+function clipToCloudGap(racer) {
+  if (!racer.cloudFalling) return true;
+  if (racer.z <= -CLOUD_FALL_DEPTH) return false;
+  const gap = racer.cloudFallGap;
+  const surface = racer.y + 54;
+  ctx.beginPath();
+  ctx.rect(-10000, -10000, 20000, surface + 10000);
+  ctx.rect(gap.start - state.camera, surface, gap.end - gap.start, 10000);
+  ctx.clip();
+  return true;
+}
+
 // On the clouds a doll bounces as she runs and, standing still, sinks in a
 // little (cloudSink 0..1). Riders and fliers don't.
 function updateCloudFooting(racer, dt) {
   if (!state.cloudFloor) return;
-  const onFoot = racer.z === 0 && !isMounted(racer) && !(racer.cloudFallTimer > 0) && !racer.grabbedBy;
+  const onFoot = racer.z === 0 && !isMounted(racer) && !racer.cloudFalling && !racer.grabbedBy;
   const still = onFoot && !racer.moving && !(racer.cloudHop > 0);
   const target = still ? 1 : 0;
   const rate = dt / (still ? CLOUD_SINK_TIME : CLOUD_SINK_TIME * 0.35);
