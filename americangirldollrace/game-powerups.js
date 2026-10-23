@@ -494,14 +494,36 @@ function landProjectile(projectile) {
     state.thrownLeftovers.push({ kind: "snow", x, groundY, life: SNOW_PILE_LIFE });
   } else {
     sfx("snowball_hit", x, { gain: 0.4 });
-    state.thrownLeftovers.push({ kind: "roll", x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 180, life: THROWN_ROLL_LIFE });
+    addRolledThrowable({ x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 180 });
   }
+}
+
+// A thrown apple (or the like) on the ground: it stays there until someone
+// steps on it (only the newest THROWN_ROLL_KEEP stay).
+function addRolledThrowable(item) {
+  state.thrownLeftovers.push({ kind: "roll", life: Infinity, squished: false, age: 0, ...item });
+  const rolling = state.thrownLeftovers.filter(other => other.kind === "roll" && !other.squished);
+  if (rolling.length > THROWN_ROLL_KEEP) rolling[0].life = 0;
+}
+
+// Stepped on (by anyone on the ground): it squishes flat and fades.
+function squishRolledThrowable(item) {
+  const foot = [...state.racers, ...state.monsters].find(who => (who.z || 0) < 15
+    && Math.abs(who.x - item.x) < 30 && Math.abs(who.y + 54 - item.groundY) < 22);
+  if (!foot) return;
+  item.squished = true;
+  item.life = THROWN_SQUISH_TIME;
+  item.vx = 0;
+  sfx("sticky_squelch", item.x, { gain: 0.6 });
 }
 
 function updateThrownLeftovers(dt) {
   for (const item of state.thrownLeftovers) {
     item.life -= dt;
-    if (item.kind !== "roll") continue;
+    if (item.kind !== "roll" || item.squished) continue;
+    // (Not straight away, or whoever it bounced off would squish it as it lands.)
+    item.age += dt;
+    if (item.hop < 4 && item.age > 0.6) squishRolledThrowable(item);
     // Rolls on, bounces a little, slows down, and stops at hurdles.
     item.x += item.vx * dt;
     item.spin += (item.vx / SNOWBALL_RADIUS) * dt;
@@ -523,9 +545,25 @@ function updateThrownLeftovers(dt) {
 function drawThrownLeftover(item) {
   const x = item.x - state.camera;
   if (x < -80 || x > getWorldViewportWidth() + 80) return;
-  const fade = clamp(item.life / 0.5, 0, 1);
+  const fade = item.kind === "roll" ? (item.squished ? clamp(item.life / THROWN_SQUISH_TIME, 0, 1) : 1) : clamp(item.life / 0.5, 0, 1);
   ctx.save();
   ctx.globalAlpha = fade;
+  if (item.squished) {
+    // Squashed flat where it was stepped on.
+    const art = getTrackArt("projectile");
+    const size = SNOWBALL_RADIUS * 2.6;
+    ctx.translate(x, item.groundY - 3);
+    ctx.scale(1.6, 0.32);
+    if (art) ctx.drawImage(art, -size / 2, -size, size, size);
+    else {
+      ctx.fillStyle = "#f8fdff";
+      ctx.beginPath();
+      ctx.arc(0, -SNOWBALL_RADIUS, SNOWBALL_RADIUS, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+    return;
+  }
   if (item.kind === "snow") {
     // A little heap of snow that sinks as it melts.
     const melt = clamp(item.life / SNOW_PILE_LIFE, 0, 1);
@@ -557,6 +595,14 @@ function drawThrownLeftover(item) {
 // A hit: water balloons burst into a splash, snowballs just thud.
 function projectileImpact(projectile, groundY) {
   projectile.burst = true;
+  if (projectileLanding() === "roll") {
+    // An apple (or the like) bounces back off whoever it hit and drops to
+    // the ground, where it stays.
+    sfx("snowball_hit", projectile.x);
+    const height = Math.max(0, projectile.groundY - SNOWBALL_RADIUS - (projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1)));
+    addRolledThrowable({ x: projectile.x, groundY: projectile.groundY ?? groundY, vx: -Math.sign(projectile.vx) * 140, spin: projectile.distance * 0.02, hop: height / 0.3, vhop: 260 });
+    return;
+  }
   if (projectileLanding() !== "water") {
     sfx("snowball_hit", projectile.x);
     return;

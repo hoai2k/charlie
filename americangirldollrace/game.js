@@ -213,7 +213,8 @@ const SNOWBALL_RADIUS = 13;
 const SNOWBALL_HAND_DRAW_Y_OFFSET = 200;
 // A missed throw starts dropping at this share of its range, landing at the end.
 const SNOWBALL_ARC_START = 0.55;
-const THROWN_ROLL_LIFE = 2.6;
+const THROWN_ROLL_KEEP = 30; // thrown apples and the like left lying on the ground at most
+const THROWN_SQUISH_TIME = 0.7; // s one stepped on takes to fade
 const SNOW_PILE_LIFE = 1.6;
 const MONSTER_SPRITE_ROWS = 4;
 const MONSTER_HEIGHT_SCALE = 1.3;

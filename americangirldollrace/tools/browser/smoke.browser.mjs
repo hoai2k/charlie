@@ -671,3 +671,24 @@ test('Horse Show: a troll knocked off leaves his skeleton horse to ride; it bowl
   });
   assert.deepEqual(r, { loose: true, swapped: true, horse: { other: 'off', me: 'skeleton_horse' }, unicorn: { other: 'off', me: 'off' } });
 });
+
+test('a thrown apple bounces off whoever it hits and stays on the ground until stepped on', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    const [a, b] = state.racers;
+    a.x = 8100; a.y = PATH_TOP + 90; a.facing = 1; b.x = 8350; b.y = a.y; b.ai = false; b.horseTimer = 0;
+    state.thrownLeftovers = []; a.snowballs = 1; launchSnowball(a);
+    let hit = false;
+    for (let i = 0; i < 40; i++) { update(1 / 60); hit ||= b.fallBackTimer > 0; }
+    const apple = state.thrownLeftovers.find(t => t.kind === 'roll');
+    b.x = 6000; // out of the way
+    for (let i = 0; i < 400; i++) update(1 / 60);
+    const stays = state.thrownLeftovers.includes(apple) && !apple.squished;
+    a.x = apple.x; a.y = apple.groundY - 54; a.z = 0;
+    update(1 / 60);
+    const squished = apple.squished;
+    for (let i = 0; i < 60; i++) update(1 / 60);
+    return { hit, bounced: Boolean(apple) && apple.x < 8350, stays, squished, gone: !state.thrownLeftovers.includes(apple) };
+  });
+  assert.deepEqual(r, { hit: true, bounced: true, stays: true, squished: true, gone: true });
+});
