@@ -781,7 +781,7 @@ function drawFrog(x, groundY, depthScale, big, phase, facing) {
   const lift = hopping ? Math.sin((phase / 0.55) * Math.PI) * (big ? 30 : 22) : 0;
   const size = (big ? 150 : 96) * depthScale / 0.45;
   ctx.save();
-  ctx.globalAlpha = 0.28;
+  ctx.globalAlpha = floorShadowAlpha(0.28);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(x, groundY - 4, size * 0.38, size * 0.1, 0, 0, Math.PI * 2);
@@ -997,7 +997,7 @@ function drawWindupCar(car) {
   const scale = racerDepthScale({ y: car.y - 54 }) / 0.45;
   const art = getTrackArt("windup_car");
   ctx.save();
-  ctx.globalAlpha = 0.28;
+  ctx.globalAlpha = floorShadowAlpha(0.28);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, car.y - 2, 34 * scale, 7 * scale, 0, 0, Math.PI * 2);
@@ -1247,7 +1247,7 @@ function drawBeachBall(ball) {
   const scale = racerDepthScale({ y: ball.y - 54 }) / 0.45;
   const r = BEACH_BALL_RADIUS * scale;
   ctx.save();
-  ctx.globalAlpha = 0.3 * Math.max(0.35, 1 - ball.z / 300);
+  ctx.globalAlpha = floorShadowAlpha(0.3 * Math.max(0.35, 1 - ball.z / 300));
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, ball.y - 2, r * (1 - Math.min(0.4, ball.z / 500)), r * 0.32, 0, 0, Math.PI * 2);

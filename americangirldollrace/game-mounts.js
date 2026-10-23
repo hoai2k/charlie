@@ -338,7 +338,7 @@ function drawLooseMount(powerup, screenX, t) {
   const calibration = getMountFrameCalibration(powerup.horseType, 0, 0);
   const horseW = FRAME * horseScale;
   ctx.save();
-  ctx.globalAlpha = 0.28;
+  ctx.globalAlpha = floorShadowAlpha(0.28);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, groundY - 12, 70 * horseScale, 16 * horseScale, 0, 0, Math.PI * 2);

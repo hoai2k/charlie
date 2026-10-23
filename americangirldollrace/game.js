@@ -343,7 +343,6 @@ const CLOUD_GAP_MIN = 110; // px wide a gap is (a running jump clears about 250)
 const CLOUD_GAP_MAX = 150;
 const CLOUD_GAP_EVERY_MIN = 1300; // px of clouds between gaps, from this
 const CLOUD_GAP_EVERY_RANGE = 1100; // to this much more
-const CLOUD_GAP_EDGE_GRACE = 14; // px into a gap before her feet are off the cloud
 const CLOUD_FLOOR_SAFE_START = 1400; // no gaps before here
 const CLOUD_FLOOR_SAFE_END = 800; // or this close to the finish
 const CLOUD_FALL_DRAG = 0.25; // her running-off speed keeps this share after a second
@@ -355,7 +354,16 @@ const CLOUD_HOP_SPEED = 64; // px/s up each step's bounce starts on the clouds
 const CLOUD_HOP_GRAVITY = 290; // px/s² it falls back (a calm ~0.45 s hop, 7 px high)
 const CLOUD_SINK = 20; // px she sinks into a cloud standing still (about to her ankles)
 const CLOUD_SINK_FEATHER = 8; // px over which the cloud fades in over her sinking feet
-const CLOUD_SINK_TIME = 0.6; // s to sink right in // s she's gone after falling through a gap
+const CLOUD_SINK_TIME = 0.6; // s to sink right in
+const CLOUD_DEEP_SINK = 300; // frame px further she sinks, staying still, until only her eyes and above show
+const CLOUD_DEEP_TIME = 6; // s to sink that far
+const CLOUD_RISE_TIME = 2.2; // s of moving to rise all the way back out
+const CLOUD_DEEP_SLOW = 0.8; // share of her speed lost that deep (less as she rises)
+const LEDGE_REACH_X = 70; // px from a gap's edge she can catch it, pressing towards it
+const LEDGE_REACH_DEPTH = 130; // px she can have fallen and still catch it
+const LEDGE_HANG_TIME = 0.4; // s she hangs on before climbing
+const LEDGE_CLIMB_TIME = 0.75; // s to climb back on
+const LEDGE_HANG_DEPTH = 234; // frame px her feet hang below the cloud top (her chest on it)
 const CLOUD_FLOOR_BACK_EDGE = 16; // px above PATH_TOP the floor's back edge sits
 const CLOUD_FLOOR_CELL_W = 768; // the floor sheet's cells (image-requests.md §21)
 const CLOUD_FLOOR_CELL_H = 320;
@@ -1746,6 +1754,10 @@ function update(dt) {
       racer.frame = Math.floor(racer.frameTime) % 3;
       continue;
     }
+    if (racer.ledge) {
+      updateCloudLedge(racer, dt);
+      continue;
+    }
 
     const mounted = isMounted(racer);
     const oilAffectsRacer = racer.oilTimer > 0 && (!mounted || !isHorsingAroundMode());
@@ -1803,8 +1815,10 @@ function update(dt) {
       forward *= hopping ? FROG_SPEED_SCALE : 0;
     }
     if (racer.hitTimer > 0) forward *= 0.35;
+    forward *= cloudWadeScale(racer);
     racer.speed = forward;
     if (racer.cloudFalling && !racer.cloudRescued) {
+      if (catchCloudLedge(racer, input.horizontal)) continue;
       // Off the edge: no steering, just the speed she ran off with, legs
       // still going.
       forward = cloudFallForward(racer, dt);
@@ -1843,7 +1857,7 @@ function update(dt) {
       racer.surfLaneV += (input.vertical * PLAYER_LANE_SPEED * 0.7 - racer.surfLaneV) * Math.min(1, dt * SURF_LANE_RESPONSE);
       racer.y += (racer.surfLaneV + Math.sin(racer.surfPhase) * SURF_DRIFT) * dt;
     } else {
-      racer.y += input.vertical * PLAYER_LANE_SPEED * (frog && !hopping ? 0 : 1) * dt;
+      racer.y += input.vertical * PLAYER_LANE_SPEED * (frog && !hopping ? 0 : 1) * cloudWadeScale(racer) * dt;
     }
     racer.y = clamp(racer.y, TRACK_TOP, TRACK_BOTTOM);
     racer.knockbackX *= Math.pow(0.04, dt);

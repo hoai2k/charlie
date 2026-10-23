@@ -298,7 +298,7 @@ function updateAmandaAlly(dt) {
       const ahead = ally.facing > 0 ? b.left - ally.x : ally.x - b.right;
       return ahead > -10 && ahead < 60 && footY + 12 > b.top && footY - 12 < b.bottom;
     });
-    if (hurdle || cloudGapAhead(ally.x, ally.facing, 60)) ally.vy = JUMP_POWER;
+    if (hurdle || cloudGapAhead(ally.x, ally.facing, 60, ally.y + 54)) ally.vy = JUMP_POWER;
   }
   allyFallAndSlide(ally, dt);
   // Push whoever is right in front of her.
@@ -317,7 +317,7 @@ function drawAmandaAlly(ally) {
   if (screenX < -200 || screenX > getWorldViewportWidth() + 200) return;
   const scale = racerDepthScale(ally);
   ctx.save();
-  ctx.globalAlpha = 0.28;
+  ctx.globalAlpha = floorShadowAlpha(0.28);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, ally.y + 42, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);

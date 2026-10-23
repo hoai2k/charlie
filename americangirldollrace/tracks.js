@@ -43,7 +43,9 @@
 // when the sheet changes (else config.js's shared one applies).
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
 // (game-terrain.js). Run (or ride) off the edge and you drop through, back a
-// moment later; a pegasus, griffon or broom rider can fly back up with jump.
+// moment later; a pegasus, griffon or broom rider can fly back up with jump,
+// and a girl on foot can press back towards the edge to catch it and climb
+// up. Standing still she sinks into the cloud, slowly, up to her eyes.
 // `music` is the track's own song. Tracks without one take turns with the
 // songs in TRACK_GENERAL_MUSIC, which suit any board.
 // Riding rules (Horse Show):
@@ -219,6 +221,7 @@ window.TRACK_THEMES = {
     name: "Cloud Kingdom", music: "assets/music/Cloud Map of Gold.mp3", dirtTop: 535, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "floor"],
     labels: { jump: "CLOUD PUFF", boost: "RAINBOW", emp: "THUNDERCLAP", oil: "RAIN PUDDLE", snowball: "HAILSTONES" },
     sounds: { emp: "storm_lightning" },
+    noPowerups: ["oil"], // sinking into the clouds standing still does that job
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
   },
   space: {
