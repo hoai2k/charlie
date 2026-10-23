@@ -846,3 +846,8 @@ W1 delivered: dark wood/gold star-tipped wand replaces only cell 1. The remainin
 Candy Land and Cloud Kingdom trolls delivered from the owner’s approved colorful-candy and storm-cloud canonicals. Twelve normal poses each; candy defeat is a headless pile with eight matching candy particle sprites. Cloud has a separate three-frame lightning attack, a golden bolt projectile, and dissipates completely including its shadow. Measured grab anchors, alpha/gutters/baseline, both attack directions and interruption/defeat reviewed; sources and prompts in `tools/effects/new-trolls/`.
 
 B1 delivered with the owner’s later Apollo-rover photo reference: open silver tube frame, webbed seat, gold-foil equipment and umbrella dish. Nine right-facing transparent poses, baseline409 and mirrored rider review passed. Its lower Apollo-style seat uses measured per-frame calibration in `mounts.js`, superseding the initial fixed (226,242) seat suggestion without distorting the rover. Source, exact prompt, seat measurements and proofs: `tools/mounts/moon-buggy/`.
+
+B1 owner follow-up delivered: thinner Apollo frame/small wheels, no painted dirt
+or dust in any frame. Level animation poses cover wheels and suspension; code
+adds shared driver/chassis driving bounce and jump tilt. Pickup remains smaller
+than the ridden rover, matching other mounts.

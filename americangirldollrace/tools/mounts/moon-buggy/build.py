@@ -7,17 +7,17 @@ spec=importlib.util.spec_from_file_location('packing',G/'tools/tracks/build.py')
 source=p.clean(Image.open(H/'source.webp'))
 split=p.mount_cells(source)
 # Seat cushion centres in original source pixels. The generated source faces
-# left; export mirrors it to the race's right-facing convention.
-seats=[[225,306],[680,306],[1100,306],[245,695],[680,695],[1100,705],[260,1040],[685,1075],[1100,1120]]
+# right; retain its level chassis. Runtime rotates rider and rover together.
+seats=[[300,241],[800,241],[1300,241],[300,572],[800,579],[1300,575],[300,910],[800,910],[1300,917]]
 items=[]
 for (cell,box),seat in zip(split,seats):
  b=p.bounds(cell);assert b and min(b[:2])>0 and b[2]<cell.width and b[3]<cell.height,('clipped source',box,b)
  local=[seat[0]-box[0],seat[1]-box[1]];items.append((cell,b,local))
-scale=min(360/max(b[2]-b[0] for _,b,_ in items),375/max(b[3]-b[1] for _,b,_ in items),220/max(b[2]-seat[0] for _,b,seat in items),186/max(seat[0]-b[0] for _,b,seat in items))
+scale=min(360/max(b[2]-b[0] for _,b,_ in items),375/max(b[3]-b[1] for _,b,_ in items),220/max(seat[0]-b[0] for _,b,seat in items),186/max(b[2]-seat[0] for _,b,seat in items))
 sheet=Image.new('RGBA',(1254,1254));frames=[]
 for n,(cell,b,seat) in enumerate(items):
- art=cell.crop(b).resize((round((b[2]-b[0])*scale),round((b[3]-b[1])*scale)),Image.Resampling.LANCZOS).transpose(Image.Transpose.FLIP_LEFT_RIGHT)
- seatX=(b[2]-seat[0])*scale
+ art=cell.crop(b).resize((round((b[2]-b[0])*scale),round((b[3]-b[1])*scale)),Image.Resampling.LANCZOS)
+ seatX=(seat[0]-b[0])*scale
  x=round(226-seatX);y=409-p.bounds(art)[3]
  assert x>0 and x+art.width<418 and y>0,(n,x,y,art.size)
  frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(x,y));sheet.paste(frame,(n%3*418,n//3*418))

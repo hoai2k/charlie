@@ -597,6 +597,12 @@ function drawRacer(racer) {
   } else if (mounted && racer.horseType === "broom") {
     drawBroomRacer(racer, screenX, scale, drawFacing);
   } else if (mounted) {
+    const rover = roverMotion(racer, scale);
+    const pivotY = racer.y + 58 - racer.z;
+    ctx.save();
+    ctx.translate(screenX, pivotY + rover.bob);
+    ctx.rotate(rover.tilt);
+    ctx.translate(-screenX, -pivotY);
     const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
     const horseScale = scale * 1.08;
     const horseW = FRAME * horseScale;
@@ -625,6 +631,7 @@ function drawRacer(racer) {
       drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, box.x, box.y, box.w, box.h, drawFacing, screenX);
     }
     else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    ctx.restore();
   } else {
     const toyPose = getRideToyPose(racer, jumping);
     const fullX = screenX - SPRITE_ANCHOR_X * scale;

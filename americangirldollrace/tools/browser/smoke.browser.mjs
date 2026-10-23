@@ -437,3 +437,22 @@ test('Amanda runs after her player a moment behind and stands beside her when sh
   assert.ok(r.stopGap > 40 && r.stopGap < 70, `stands beside her (${r.stopGap})`);
   assert.equal(r.stopped, true);
 });
+
+test('rover shares gentle driving bob and mirrored jump tilt with its rider; pickup stays smaller', { skip: skip() }, async () => {
+  await onTrack('space');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0]; a.horseType='moon_buggy'; a.horseTimer=30; a.z=0; a.moving=true; a.facing=1;
+    a.x=19*Math.PI/2; const drive=roverMotion(a,1);
+    a.moving=false; const parked=roverMotion(a,1);
+    a.z=60; a.vy=500; const up=roverMotion(a,1); a.facing=-1; const mirror=roverMotion(a,1); a.vy=-500; const down=roverMotion(a,1);
+    const calls=[]; const draw=ctx.drawImage.bind(ctx);
+    ctx.drawImage=(...args)=>{if(args[0]===images.moon_buggy) calls.push(args[7]);return draw(...args);};
+    try { drawPowerup({type:'horse',horseType:'moon_buggy',x:a.x,y:a.y+58},0); drawRacer(a); } finally {ctx.drawImage=draw;}
+    return {drive,parked,up,mirror,down,widths:calls};
+  });
+  assert.ok(r.drive.bob>0&&r.drive.bob<3);
+  assert.deepEqual(r.parked,{bob:0,tilt:0});
+  assert.ok(r.up.tilt<0&&r.down.tilt<0); assert.equal(r.up.tilt,-r.mirror.tilt);
+  assert.equal(r.widths.length,2); assert.ok(r.widths[0]<r.widths[1]*0.7,`pickup ${r.widths[0]} < mounted ${r.widths[1]}`);
+  assert.deepEqual(errors,[]);
+});
