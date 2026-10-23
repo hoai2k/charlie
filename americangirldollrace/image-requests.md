@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §26 more moon boot angles (MB2); §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1033,7 +1033,7 @@ Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
 seaweed patch lying on the sand at its in-game size, and a doll slides on
 it as before.
 
-## 26. Open: more moon boot angles
+## 26. Art delivered: more moon boot angles
 
 MB1's side, three-quarter and front views cover standing and planted feet.
 Running, kicking back, tumbling and sitting on a mount show feet at angles
@@ -1084,3 +1084,8 @@ SW1 delivered: glossy dark-green/olive seaweed ribbons and wrack in a thin
 water film, same flat puddle angle. Cells0,1,2,4 remain decoded-RGBA identical;
 Beach cache version bumped. Native/68px and light/dark alpha reviewed.
 Source, exact built-in ImageGen prompt and report: `tools/tracks/beach-seaweed/`.
+
+MB2 art delivered: seven256px boot cells at1792×256; original three cells
+remain decoded-RGBA pixel-identical. Added back-quarter, grey tread sole,
+extended pointed toe and inside-left views with sole/heel anchors128,244.
+Source, prompts and export report: `tools/effects/boot-angles/`.
