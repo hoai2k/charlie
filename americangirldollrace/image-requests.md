@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** all listed image requests delivered and checked; see delivery notes below.
+> **Current queue:** §15 track picker cards without a foreground hurdle (C1, C2). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -722,3 +722,29 @@ a doll, gets knocked down by a push, a snowball and an EMP, and after five
 knock-backs lies broken on the ground, sparking.
 
 M3 delivered: twelve transparent poses registered on Moon Base, with troll-size comparison, overlay, baseline/gutters and real-alpha review passed. Controlled Moon Base Extra browser review passed grab/lift/throw, push/snowball/EMP, mirrored art and the five-hit broken-robot state with live sparks. Evidence: `tools/effects/reports/robot-*`.
+
+---
+
+## 15. Track picker cards without a foreground hurdle (open)
+
+The track cards on the select screen each show a hurdle or obstacle front and
+centre (the picket and pole jumps, Beach's sandcastle, Night Festival's rope,
+Moon Base's rocks, Cloud Kingdom's rainbow arch, Toy Room's crayon box, Fairy
+Woods' log steps, Wizard School's hedge, Pumpkin Patch's hay bales), and it
+steals the eye. Redo every card as **just the theme's landscape**: the same
+scenery and mood as that track's background, with nothing in the foreground.
+The near ground can be the track's path or ground, open and empty, with no
+hurdle, fence, sign, prop or character placed in front.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| C1 | `assets/ui/track_cards.webp` | 2000×225 (5 cells of 400×225), opaque | Farm, Fairy, Village, Winter and Castles, in that order. |
+| C2 | `assets/tracks/<key>/card.webp` for `horseshow`, `toyroom`, `candy`, `beach`, `wizard`, `autumn`, `clouds`, `space`, `woods`, `festival` | 400×225, opaque | One per track. |
+
+Keep each card's look and colours close to today's (the landmarks stay: the
+barn, castles, pier and lighthouse, Ferris wheel, rocket and Earth, and so
+on), painted in the same style as the track art, with the landscape filling
+the card edge to edge and the main landmark readable at half size. No text.
+
+Acceptance: on the select screen, each card reads at a glance as its track,
+and no object in the front draws the eye ahead of the scenery.
