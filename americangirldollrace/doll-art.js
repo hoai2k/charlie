@@ -2926,3 +2926,22 @@ window.ACTION_FRAMES = {
     }
   ]
 };
+
+// Dolls (asset keys) whose cloud ledge sheet is delivered (image-requests.md
+// §29: hug hold, climbing up, kneeling on top), and in each of its three
+// poses the point that goes on the cloud's edge, in frame px (copied from
+// assets/doll_ledge_anchors.json, written by tools/dolls/ledge).
+window.LEDGE_SHEETS = ["hermione", "mira", "claudia-v2", "amanda", "penelope", "barbie", "cinnamon", "felicity", "luna", "marisol-v2"];
+window.LEDGE_ART_VERSION = "20261023-ledge1";
+window.LEDGE_ANCHORS = {
+  "hermione": [[289, 197], [241, 230], [97, 360]],
+  "mira": [[298, 196], [243, 243], [102, 364]],
+  "claudia-v2": [[298, 204], [242, 246], [108, 373]],
+  "amanda": [[285, 189], [237, 232], [131, 351]],
+  "penelope": [[280, 189], [238, 234], [110, 354]],
+  "barbie": [[282, 197], [232, 246], [144, 358]],
+  "cinnamon": [[286, 207], [238, 252], [113, 363]],
+  "felicity": [[293, 203], [240, 248], [129, 360]],
+  "luna": [[292, 185], [239, 233], [102, 360]],
+  "marisol-v2": [[287, 190], [235, 260], [119, 357]]
+};

@@ -232,16 +232,14 @@ function cloudLedgePhase(racer) {
 }
 
 // Her ledge sheet (image-requests.md §29 LG1: hug hold, climbing, kneeling
-// on top; the cloud's corner at (300, 230) in each cell) once her key is in
-// LEDGE_SHEETS, else null.
+// on top) in her outfit, once her key is in LEDGE_SHEETS, else null.
 function getLedgeSheet(racer) {
   const key = dollAssetKey(racer.spriteKey);
   if (!(window.LEDGE_SHEETS || []).includes(key)) return null;
-  loadArtOnce(`ledge_${key}`, `assets/doll_${key}_ledge.webp`);
+  if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "ledge", racer.outfit);
+  loadArtOnce(`ledge_${key}`, `assets/doll_${key}_ledge.webp?v=${window.LEDGE_ART_VERSION || "1"}`);
   return images[`ledge_${key}`] || null;
 }
-
-const LEDGE_CORNER = [300, 230];
 const LEDGE_STAND_IN_CHEST = [209, 175]; // her chest in the arms-up jump pose (sprites third row, middle)
 
 // Drawn on the cloud's edge: her ledge poses once they're in; until then her
@@ -255,8 +253,10 @@ function drawLedgeRacer(racer, scale) {
   const w = FRAME * scale;
   const sheet = getLedgeSheet(racer);
   if (sheet?.complete && sheet.width) {
+    // Each pose's point on the cloud's edge (LEDGE_ANCHORS) goes on the edge.
     const col = { hang: 0, climb: 1, top: 2 }[phase];
-    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - LEDGE_CORNER[0] * scale, surfaceY - LEDGE_CORNER[1] * scale, w, w, ledge.side, edgeX);
+    const [ax, ay] = window.LEDGE_ANCHORS?.[dollAssetKey(racer.spriteKey)]?.[col] || [300, 230];
+    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - ax * scale, surfaceY - ay * scale, w, w, ledge.side, edgeX);
     return;
   }
   const x = racer.x - state.camera;
