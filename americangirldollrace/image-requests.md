@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §25 Beach seaweed puddle (SW1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1032,4 +1032,27 @@ reads as a plain blue water puddle.
 Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
 seaweed patch lying on the sand at its in-game size, and a doll slides on
 it as before.
+
+## 26. Open: more moon boot angles
+
+MB1's side, three-quarter and front views cover standing and planted feet.
+Running, kicking back, tumbling and sitting on a mount show feet at angles
+those can't match, so feet peek out round the boots. Add the same boot
+(MB1's look exactly: glossy white padded boot, grey sole, closed cuff with
+no opening) in four more views, extending the sheet.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| MB2 | `assets/moon_boot_sprites.webp` | 1792×256 (7 cells of 256), alpha | Cells 1–3 unchanged (MB1: side toe right, three-quarter, front). Add: (4) **back three-quarter**, toe pointing away from us and to the right, heel and back of the cuff towards us (a back foot kicked up behind her mid-stride); (5) **sole view**, the bottom of the boot facing us, toe up, the grey tread and a little of the white sides showing (soles towards us as she tumbles backwards); (6) **pointed toe**, side view with the foot stretched down at the ankle, toe pointing down and right, as when a foot trails behind or dangles from a saddle; (7) **side view seen from the inside**, toe pointing **left** (the far foot when she runs, so the pair don't look identical). |
+
+Same rules as MB1: the sole's bottom centre (or, for the sole view, the
+heel's bottom edge centre) at **(128, 244)**; boot about 170 px tall and
+150 px across its longest side; no leg, shadow or text; cuff closed. In the
+same commit nothing else need change: the game picks the view per foot
+from the measured feet (`feet.js`), as described in game-draw.js
+drawMoonBootsOn.
+
+Acceptance: on Moon Base with MOON BOOTS, running (both feet, front and
+kicked back), knocked back, landing and riding, both boots cover the feet
+and look like the jump pose's boots from the angle the foot is seen at.
 
