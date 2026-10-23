@@ -368,12 +368,23 @@ function getMountFrameCalibration(horseType, row, col) {
   return { seatX: entry[0], seatY: entry[1], groundShift: entry[2] };
 }
 
-// Distance-driven motion stops immediately when parked. Both the driver and
-// chassis share this transform; suspension/wheel changes remain in the art.
+// The moon buggy's bounce, shared by the driver and chassis (bob in px, down
+// positive; tilt in radians, nose up negative when facing right). Driving, it
+// hops over the bumps in the low gravity; in the air its nose points up as it
+// rises and down as it falls; landing, it squashes down and its nose kicks up.
+// Parked, it sits still. The suspension and wheels are in the art.
 function roverMotion(racer, scale) {
   if (racer.horseType !== "moon_buggy") return { bob: 0, tilt: 0 };
-  if (isDrawnJumping(racer)) return { bob: 0, tilt: -clamp(racer.vy / 2400, -0.16, 0.16) * racer.facing };
+  if (racer.roverLandTimer > 0 && racer.z === 0) {
+    // Nose-down from the fall, it levels out as it squashes down, then
+    // springs back up with the nose kicking up a little.
+    const p = 1 - racer.roverLandTimer / ROVER_LANDING_TIME;
+    const squash = p < 0.625 ? Math.sin(Math.PI * p / 0.625) : -0.35 * Math.sin(Math.PI * (p - 0.625) / 0.375);
+    const tilt = 0.2 * Math.max(0, 1 - p * 3) - 0.06 * Math.sin(Math.PI * p);
+    return { bob: squash * ROVER_LANDING_SQUASH * scale, tilt: tilt * racer.facing };
+  }
+  if (isDrawnJumping(racer)) return { bob: 0, tilt: -clamp(racer.vy / 3000, -0.2, 0.2) * racer.facing };
   if (!racer.moving) return { bob: 0, tilt: 0 };
-  const phase = racer.x / 19;
-  return { bob: Math.sin(phase) * 2.2 * scale, tilt: Math.sin(phase / 2) * 0.009 * racer.facing };
+  const phase = racer.x / ROVER_BUMP_SPACING;
+  return { bob: -Math.abs(Math.sin(phase)) * ROVER_BOUNCE * scale, tilt: Math.sin(phase) * 0.035 * racer.facing };
 }

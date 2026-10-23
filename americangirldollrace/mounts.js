@@ -108,6 +108,7 @@ window.MOUNT_ART = {
           0
         ]
       ]
-    ]
+    ],
+    "riddenScale": 1.2
   }
 };

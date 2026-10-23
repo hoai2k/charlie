@@ -302,6 +302,10 @@ const EMP_EFFECT_TIME = 1.1; // s the non-lightning EMP effects play
 const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive onto its target
 const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
 const EMP_CROW_TIME = 0.6;
+const ROVER_BOUNCE = 12; // sprite px the moon buggy hops over each bump as it drives
+const ROVER_BUMP_SPACING = 45; // bumps come every pi times this many world px (about 4 a second at full speed)
+const ROVER_LANDING_TIME = 0.35; // s its landing squash and recoil last
+const ROVER_LANDING_SQUASH = 16; // sprite px it squashes down on landing
 const ROOSTER_AHEAD = 90; // px in front of her that the ROOSTER EMP's rooster stands // s a crow takes to reach its target
 const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
 // Each kind of power-up glows its own colour on every track, whatever its art.
@@ -1801,6 +1805,7 @@ function update(dt) {
       racer.vy = 0;
       if (racer.jumpStarted) {
         racer.landingTimer = mounted ? 0.16 : UNMOUNTED_LANDING_PAUSE_DURATION;
+        if (mounted && racer.horseType === "moon_buggy") racer.roverLandTimer = ROVER_LANDING_TIME;
         if (!mounted) {
           const heavy = impactSpeed > 620;
           if (heavy) racerVoice(racer, "land", { chance: 0.3 });
@@ -1809,6 +1814,7 @@ function update(dt) {
       racer.jumpStarted = false;
     }
     racer.landingTimer = Math.max(0, racer.landingTimer - dt);
+    racer.roverLandTimer = Math.max(0, (racer.roverLandTimer || 0) - dt);
 
     resolveObstacleCollisions(racer, previousX, previousY, previousZ);
     pogoStompMonsters(racer, previousZ, mounted);

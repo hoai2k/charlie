@@ -605,12 +605,17 @@ function drawRacer(racer) {
     ctx.rotate(rover.tilt);
     ctx.translate(-screenX, -pivotY);
     const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
-    const horseScale = scale * 1.08;
+    // A mount drawn larger when ridden (mounts.js riddenScale, the moon buggy)
+    // grows about its wheels, and its seat, with the rider on it, moves with it.
+    const baseScale = scale * 1.08;
+    const grow = window.MOUNT_ART?.[racer.horseType]?.riddenScale || 1;
+    const horseScale = baseScale * grow;
     const horseW = FRAME * horseScale;
     const horseH = FRAME * horseScale;
     const calibration = getMountFrameCalibration(racer.horseType, horseRow, horseCol);
     const horseX = screenX - SPRITE_ANCHOR_X * horseScale;
     const horseBaseY = racer.y + 58 - SPRITE_ANCHOR_Y * horseScale - racer.z;
+    const baseY = racer.y + 58 - SPRITE_ANCHOR_Y * baseScale - racer.z;
     const horseY = horseBaseY + calibration.groundShift * horseScale;
     const riderScale = scale * 0.7;
     const riderW = FRAME * riderScale;
@@ -618,10 +623,10 @@ function drawRacer(racer) {
     // Positions are in "facing right" space; drawFacingImage mirrors both the
     // mount and the rider around screenX, so the rider stays on the saddle
     // when facing left too.
-    const seatDX = (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * horseScale;
-    const seatDY = (calibration.seatY - MOUNT_SEAT_REFERENCE.y) * horseScale;
+    const seatDX = (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * baseScale + (calibration.seatX - SPRITE_ANCHOR_X) * baseScale * (grow - 1);
+    const seatDY = (calibration.seatY - MOUNT_SEAT_REFERENCE.y) * baseScale + (calibration.seatY - SPRITE_ANCHOR_Y) * baseScale * (grow - 1);
     const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale + seatDX;
-    const riderY = horseBaseY - 60 * scale + racer.riderYOffset * scale + seatDY;
+    const riderY = baseY - 60 * scale + racer.riderYOffset * scale + seatDY;
     if (!flashing) {
       const horseImage = images[racer.horseType] || images.horse;
       drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);

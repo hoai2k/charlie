@@ -441,7 +441,7 @@ test('Amanda runs after her player a moment behind and stands beside her when sh
   assert.equal(r.stopped, true);
 });
 
-test('rover shares gentle driving bob and mirrored jump tilt with its rider; pickup stays smaller', { skip: skip() }, async () => {
+test('rover hops as it drives, tilts in the air and squashes on landing with its rider; pickup stays smaller', { skip: skip() }, async () => {
   await onTrack('space');
   const r = await page.evaluate(async () => {
     for (let i = 0; i < 50 && !images.moon_buggy; i++) await new Promise(r => setTimeout(r, 100)); // its sheet may still be loading
@@ -449,15 +449,18 @@ test('rover shares gentle driving bob and mirrored jump tilt with its rider; pic
     a.x=19*Math.PI/2; const drive=roverMotion(a,1);
     a.moving=false; const parked=roverMotion(a,1);
     a.z=60; a.vy=500; const up=roverMotion(a,1); a.facing=-1; const mirror=roverMotion(a,1); a.vy=-500; const down=roverMotion(a,1);
+    a.facing=1; a.z=0; a.vy=0; a.roverLandTimer=ROVER_LANDING_TIME*0.5; const landing=roverMotion(a,1); a.roverLandTimer=0;
     const calls=[]; const draw=ctx.drawImage.bind(ctx);
     ctx.drawImage=(...args)=>{if(args[0]===images.moon_buggy) calls.push(args[7]);return draw(...args);};
+    state.camera = a.x - 300; // both on screen (an off-screen pickup isn't drawn)
     try { drawPowerup({type:'horse',horseType:'moon_buggy',x:a.x,y:a.y+58},0); drawRacer(a); } finally {ctx.drawImage=draw;}
-    return {drive,parked,up,mirror,down,widths:calls};
+    return {drive,parked,up,mirror,down,landing,widths:calls};
   });
-  assert.ok(r.drive.bob>0&&r.drive.bob<3);
+  assert.ok(r.drive.bob<-2&&r.drive.bob>-15, `it hops over bumps (${r.drive.bob})`);
+  assert.ok(r.landing.bob>8, `it squashes down on landing (${r.landing.bob})`);
   assert.deepEqual(r.parked,{bob:0,tilt:0});
   assert.ok(r.up.tilt<0&&r.down.tilt<0); assert.equal(r.up.tilt,-r.mirror.tilt);
-  assert.equal(r.widths.length,2); assert.ok(r.widths[0]<r.widths[1]*0.7,`pickup ${r.widths[0]} < mounted ${r.widths[1]}`);
+  assert.equal(r.widths.length,2,JSON.stringify(r.widths)); assert.ok(r.widths[0]<r.widths[1]*0.7,`pickup ${r.widths[0]} < mounted ${r.widths[1]}`);
   assert.deepEqual(errors,[]);
 });
 
