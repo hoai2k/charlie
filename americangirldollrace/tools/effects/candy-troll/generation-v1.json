@@ -1,0 +1,20 @@
+{
+  "prompt": "Use case: stylized-concept. Draw ONE canonical full-body Candy Troll for American Girl Doll Race.\nInput image 1 is a STYLE AND ANATOMY reference only: keep the game's hunched chunky troll silhouette, broad shoulders, long heavy arms, big empty hands and squat legs, but transform the entire creature into CANDY. Input image 2 is the Candy Land racetrack PALETTE AND MATERIAL reference.\nDesign: body made of layered glossy chewy pink and strawberry-red candy, rounded translucent gumdrop shoulders, pale marshmallow belly, short twisted licorice tufts, candy-corn teeth in a crooked grumpy grin, small bright candy-button eyes under thick candy brows. Peppermint swirl accents embedded sparingly in shoulders/knees, chunky candy fingers and broad sturdy candy feet. Everything is edible confectionery, no flesh or fabric, no held weapon or props. Integrate the candy ingredients into a cohesive troll body rather than a pile of unrelated sweets. Charming mischievous kid-friendly antagonist, comically grumpy, not frightening. Strong readable shape at small game size.\nStyle: tactile miniature, painted slightly photoreal storybook game art with rich material detail, soft dimensional shading, matching existing race art. Full body in a relaxed neutral standing hunch, three-quarter side view facing RIGHT; both hands visible and empty, feet on one baseline. Centered single character with generous transparent margins, entire hair/hands/feet visible. Actual transparent background, no environment, no floor or cast shadow, no text, no border, no labels. This is a single canonical drawing, NOT an animation sheet.",
+  "tool": "built-in ImageGen",
+  "source": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-815051b9-0a56-4dab-827c-3e4d54cba048.png",
+  "references": [
+    "assets/monster_sprites.webp",
+    "assets/tracks/candy/card.webp"
+  ],
+  "status": "Canonical concept only; not registered in gameplay",
+  "size": [
+    1230,
+    1278
+  ],
+  "alphaBounds": [
+    131,
+    25,
+    1167,
+    1244
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "key": "candy-troll",
+  "prompt": "Revise this canonical Candy Troll to be made of FEWER, MUCH BIGGER pieces of candy. Keep same hunched troll identity, face, proportions, right-facing full-body pose, pink/red/cream palette and tactile painterly game style. Simplify the construction to about 20\u201330 major candy shapes total: one enormous sugar-coated gumdrop per shoulder, one big marshmallow belly, a few thick taffy sections forming torso and each limb, broad hands with chunky candy fingers, simple big candy feet, only three or four thick licorice twists for hair. Keep a few large peppermint swirl discs as readable accents. REMOVE all sprinkles, tiny candy beads, confetti, small gumdrops and fiddly decorative pieces. Larger clear connected candy masses, unmistakably built from giant sweets. Charming grumpy kid-friendly troll. Single complete canonical character, no sprite sheet. Transparent background and generous margins, entire figure visible, no ground shadow, no text.",
+  "source": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-b640604b-8066-4380-a894-59bcf6027a41.png",
+  "tool": "built-in ImageGen",
+  "status": "Canonical concept; not yet registered in gameplay.",
+  "size": [
+    1230,
+    1278
+  ],
+  "alphaBounds": [
+    35,
+    20,
+    1211,
+    1263
+  ]
+}
