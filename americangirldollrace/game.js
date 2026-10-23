@@ -920,14 +920,39 @@ function getTrackCard(background) {
   return { url, cells: 1, index: 0, crop: true };
 }
 
-// A themed pickup's own sound (a gong, a rooster…), like its label only once
-// the track's power-up art is showing.
-function powerupSound(type, fallback) {
-  return (getTrackArt("powerups") && getTrackTheme().sounds?.[type]) || fallback;
-}
+// What a pickup looks like on this track: its icon sheet (null for the
+// original icons), the name it pops up with, and its pickup sound.
+//  - Speed and high jump keep the original icon, name and sound unless the
+//    track changes how they work: skates, an item (surfboard, wind-up key,
+//    spell book) or moon boots.
+//  - A pogo stick shows the track's pogo icon, else the Village's.
+//  - The rest (EMP, oil, snowballs) take the track's own look.
+// A track's own icons, names (tracks.js labels) and sounds apply only once its
+// power-up art is showing.
+const PICKUP_DEFAULTS = {
+  jump: ["HIGH JUMP", "powerup_highjump"],
+  boost: ["BOOST", "powerup_boost"],
+  emp: ["EMP", "powerup_emp"],
+  oil: ["OIL", null],
+  snowball: ["SNOWBALLS", "powerup_snowball_pickup"]
+};
+const PICKUP_ITEM_NAMES = { spellBook: "SPELL BOOK", surfboard: "SURFBOARD", windupCars: "WIND-UP CARS", skates: "SKATES", moonBoots: "MOON BOOTS" };
 
-function powerupLabel(type, fallback) {
-  return (getTrackArt("powerups") && getTrackTheme().labels?.[type]) || fallback;
+function pickupLook(type, { pogo = false } = {}) {
+  const theme = getTrackTheme();
+  const art = getTrackArt("powerups");
+  const [label, sound] = PICKUP_DEFAULTS[type] || [type.toUpperCase(), null];
+  if (type === "jump" && pogo) {
+    const own = art && theme.labels?.jump === "POGO";
+    return { sheet: own ? art : images[trackArtKey("town", "powerups")] || null, label: "POGO", sound: "pickup_pogo" };
+  }
+  const change = type === "jump" ? theme.itemEffects?.jump || (theme.moonBoots ? "moonBoots" : null)
+    : type === "boost" ? theme.itemEffects?.boost || theme.rideToys?.boost
+    : "own";
+  if (!change) return { sheet: null, label, sound };
+  const name = PICKUP_ITEM_NAMES[change] || label;
+  if (!art) return { sheet: null, label: name, sound };
+  return { sheet: art, label: theme.labels?.[type] || name, sound: theme.sounds?.[type] || sound };
 }
 
 function applyTrackBounds() {
@@ -1796,11 +1821,8 @@ function updateAudio(dt) {
 function playPowerupAudio(racer, type, powerup = null) {
   if (type === "oil" || type === "horse") return;
   sfx("powerup_pickup_generic", racer.x);
-  if (type === "boost") sfx(trackBoostIsThemed() ? powerupSound("boost", "powerup_boost") : "powerup_boost", racer.x);
-  else if (type === "jump" && powerup?.pogo) sfx("pickup_pogo", racer.x);
-  else if (type === "jump") sfx(trackJumpIsThemed() ? powerupSound("jump", "powerup_highjump") : "powerup_highjump", racer.x);
-  else if (type === "emp") sfx(powerupSound("emp", "powerup_emp"), racer.x);
-  else if (type === "snowball") sfx(powerupSound("snowball", "powerup_snowball_pickup"), racer.x);
+  const sound = pickupLook(type, { pogo: Boolean(powerup?.pogo) }).sound;
+  if (sound) sfx(sound, racer.x);
   racerVoice(racer, "pickup", { chance: 0.3 });
 }
 
@@ -2498,32 +2520,6 @@ function getRideToy(powerupType) {
   return powerupType === "jump" ? null : getTrackTheme().rideToys?.[powerupType] || null;
 }
 
-// A track's own jump icon shows a pogo stick on some tracks.
-function trackJumpIconIsPogo() {
-  return Boolean(getTrackArt("powerups")) && getTrackTheme().labels?.jump === "POGO";
-}
-
-// Pogo pickups use the track's pogo icon, or the Village's.
-function getPogoIconSheet() {
-  if (trackJumpIconIsPogo()) return getTrackArt("powerups");
-  return images[trackArtKey("town", "powerups")] || null;
-}
-
-// Spring pickups keep the track's icon only when it shows a spring (or moon
-// boots on Moon Base); otherwise they use the basic spring.
-// Speed and high-jump pickups keep the original icon, name and sound unless
-// the track turns them into something that works differently: skates or a
-// pogo stick, or a track item (surfboard, wind-up key, spell book, moon boots).
-function trackJumpIsThemed() {
-  const theme = getTrackTheme();
-  return Boolean(getTrackArt("powerups")) && Boolean(theme.itemEffects?.jump || theme.moonBoots);
-}
-
-function trackBoostIsThemed() {
-  const theme = getTrackTheme();
-  return Boolean(getTrackArt("powerups")) && Boolean(theme.rideToys?.boost || theme.itemEffects?.boost);
-}
-
 // Toys keep the order they were picked up in; picking one up again refreshes it.
 function addRideToy(racer, type, duration) {
   const existing = racer.rideToys.find(toy => toy.type === type);
@@ -3094,13 +3090,13 @@ function applyPowerup(racer, powerupOrType) {
     racer.speedBoostStacks.push(duration);
     if (toy) addRideToy(racer, toy, duration);
     racer.speedBoostTimer = Math.max(...racer.speedBoostStacks);
-    const label = trackBoostIsThemed() ? powerupLabel("boost", "BOOST") : "BOOST";
+    const label = pickupLook("boost").label;
     racer.powerupMessage = racer.speedBoostStacks.length > 1 ? `${label} x${racer.speedBoostStacks.length}` : label;
   } else if (type === "jump") {
     const pogo = typeof powerupOrType === "string" ? boardJumpIsPogo() : powerupOrType.pogo;
     if (getTrackTheme().moonBoots && !pogo) {
       racer.moonBootsTimer = Math.max(racer.moonBootsTimer, MOON_BOOTS_DURATION);
-      racer.powerupMessage = powerupLabel("jump", "MOON BOOTS");
+      racer.powerupMessage = pickupLook("jump").label;
       return true;
     }
     const toy = pogo && !isMounted(racer) ? "pogo" : null;
@@ -3108,11 +3104,11 @@ function applyPowerup(racer, powerupOrType) {
     racer.highJumpStacks.push(duration);
     if (toy) addRideToy(racer, toy, duration);
     racer.highJumpTimer = Math.max(...racer.highJumpStacks);
-    const label = toy ? "POGO" : trackJumpIsThemed() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
+    const label = toy ? "POGO" : pickupLook("jump").label;
     racer.powerupMessage = racer.highJumpStacks.length > 1 ? `${label} x${racer.highJumpStacks.length}` : label;
   } else if (type === "emp") {
     racer.empTimer = 0.45;
-    racer.powerupMessage = powerupLabel("emp", "EMP");
+    racer.powerupMessage = pickupLook("emp").label;
     const originX = typeof powerupOrType === "string" ? racer.x : powerupOrType.x;
     const inRange = target => Math.abs(target.x - originX) <= EMP_RANGE;
     const visibleMonsters = state.monsters.filter(monster => monster.active && isMonsterEmpTarget(monster) && inRange(monster));
@@ -3130,7 +3126,7 @@ function applyPowerup(racer, powerupOrType) {
         hit.push(other);
       }
     }
-    const label = powerupLabel("emp", "EMP");
+    const label = pickupLook("emp").label;
     if (!hit.length) {
       // Nobody around to zap: it zaps her instead.
       shockEmpPresser(racer);
@@ -3151,7 +3147,7 @@ function applyPowerup(racer, powerupOrType) {
   } else if (type === "oil") {
     if (isMounted(racer) && isHorsingAroundMode()) {
       racer.oilTimer = 0;
-      racer.powerupMessage = `${powerupLabel("oil", "OIL")} BLOCKED`;
+      racer.powerupMessage = `${pickupLook("oil").label} BLOCKED`;
       sfx("powerup_blocked", racer.x);
       return true;
     }
@@ -3171,10 +3167,10 @@ function applyPowerup(racer, powerupOrType) {
       racer.fallBackTimer = OIL_SLIDE_DURATION;
       racer.fallBackFacing = racer.oilVelocity < 0 ? -1 : 1;
     }
-    racer.powerupMessage = powerupLabel("oil", "OIL");
+    racer.powerupMessage = pickupLook("oil").label;
   } else if (type === "snowball") {
     racer.snowballs += SNOWBALL_PICKUP_COUNT;
-    racer.powerupMessage = `${powerupLabel("snowball", "SNOWBALLS")} x${racer.snowballs}`;
+    racer.powerupMessage = `${pickupLook("snowball").label} x${racer.snowballs}`;
   } else if (type === "horse") {
     const loose = typeof powerupOrType === "string" ? null : powerupOrType.mountTime;
     racer.horseType = typeof powerupOrType === "string" ? chooseHorseType() : powerupOrType.horseType || "horse";
@@ -3993,16 +3989,16 @@ function unhorseMonster(monster, direction) {
 function applyItemEffect(racer, effect, type) {
   if (effect === "spellBook") {
     racer.spellAim = { t: 0, x: 0, y: 0 };
-    racer.powerupMessage = powerupLabel(type, "SPELL BOOK");
+    racer.powerupMessage = pickupLook(type).label;
   } else if (effect === "surfboard") {
     racer.surfTimer = SURF_DURATION;
     racer.surfLaneV = 0;
     racer.facing = 1;
     spawnParticles(racer.x, racer.y + 54, 0, 12, { color: "#e8fbff", kind: "puff", speed: 160, lift: 60, life: 0.7, size: 12, gravity: 0 });
-    racer.powerupMessage = powerupLabel(type, "SURFBOARD");
+    racer.powerupMessage = pickupLook(type).label;
   } else if (effect === "windupCars") {
     releaseWindupCars(racer);
-    racer.powerupMessage = powerupLabel(type, "WIND-UP CARS");
+    racer.powerupMessage = pickupLook(type).label;
   }
   return true;
 }
@@ -7089,9 +7085,7 @@ function drawPowerupGlow(type, x, y, groundY, t, still = false) {
 }
 
 function drawPowerupIcon(index, x, y, t, options = {}) {
-  let trackSheet = getTrackArt("powerups");
-  if (index === 0) trackSheet = options.pogo ? getPogoIconSheet() || trackSheet : trackJumpIsThemed() ? trackSheet : null;
-  else if (index === 1 && !trackBoostIsThemed()) trackSheet = null;
+  const trackSheet = pickupLook(["jump", "boost", "emp", "oil", "snowball"][index], { pogo: options.pogo }).sheet;
   const rect = trackSheet
     ? { x: index * TRACK_POWERUP_CELL, y: 0, w: TRACK_POWERUP_CELL, h: TRACK_POWERUP_CELL }
     : POWERUP_ICON_RECTS[index];
@@ -7496,10 +7490,10 @@ function drawRacer(racer) {
   }
   const activeLabels = [
     mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
-    racer.speedBoostTimer > 0 ? stackLabel(trackBoostIsThemed() ? powerupLabel("boost", "BOOST") : "BOOST", racer.speedBoostStacks.length) : "",
+    racer.speedBoostTimer > 0 ? stackLabel(pickupLook("boost").label, racer.speedBoostStacks.length) : "",
     racer.highJumpTimer > 0 ? stackLabel(racerJumpLabel(racer), racer.highJumpStacks.length) : "",
-    racer.moonBootsTimer > 0 ? powerupLabel("jump", "MOON BOOTS") : "",
-    racer.snowballs > 0 ? `${powerupLabel("snowball", "SNOWBALLS")} ${racer.snowballs}` : ""
+    racer.moonBootsTimer > 0 ? pickupLook("jump").label : "",
+    racer.snowballs > 0 ? `${pickupLook("snowball").label} ${racer.snowballs}` : ""
   ].filter(Boolean);
   if (activeLabels.length > 0) {
     ctx.font = "800 13px system-ui";
@@ -7522,11 +7516,9 @@ function stackLabel(label, count) {
   return count > 1 ? `${label} x${count}` : label;
 }
 
-// What her high jump is called: a pogo stick, the track's own spring, or a
-// plain high jump where the track's jump icon isn't a spring.
+// What her high jump is called: POGO on a pogo stick, else the jump pickup's name.
 function racerJumpLabel(racer) {
-  if (racer.rideToys?.some(toy => toy.type === "pogo")) return "POGO";
-  return trackJumpIsThemed() ? powerupLabel("jump", "HIGH JUMP") : "HIGH JUMP";
+  return racer.rideToys?.some(toy => toy.type === "pogo") ? "POGO" : pickupLook("jump").label;
 }
 
 function drawPowerupAura(racer, screenX, scale, mounted) {
