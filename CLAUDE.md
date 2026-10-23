@@ -176,6 +176,8 @@ hook to get round it.
 - Fairy wings (Fairy Woods mount `wings`) fly like the broom but are worn:
   `drawFairyWings` in game-mounts.js draws them behind any body pose from
   `drawRacerBody`, rooted on her back (measured from the sheet's pixels).
+  They replace the plain horse there (`baseMount`); fliers in wings push in
+  the air; `wingedMonsters` trolls wear them too and fly up after fliers.
 - New `americangirldollrace/` dolls use `americangirldollrace/tools/dolls/README.md`: canonical reference, pose art, manifest, deterministic export/validation and generated roster registration. The older imagegen/recolour tools remain for existing assets.
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work

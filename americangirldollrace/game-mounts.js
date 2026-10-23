@@ -373,9 +373,10 @@ function drawBroomProp(x, y, width, angle, facing, alpha = 1) {
 
 // Fairy wings (Fairy Woods): drawn behind her own pose, rooted on her back.
 // They flutter on the ground and beat while she flies. The sheet
-// (image-requests.md §27 FW1: 6 cells of 512, root at (330, 300): 1-2 rest
-// and flutter, 3-6 one wingbeat) is used once "fairy_wings" is listed in
-// TRACK_SHARED_ART; until then see-through wings are drawn in code.
+// (image-requests.md §27 FW1: rows of 6 cells of 512, root at (330, 300):
+// 1-2 rest and flutter, 3-6 one wingbeat; row 1 seen from the side, row 2
+// three-quarter) is used once "fairy_wings" is listed in TRACK_SHARED_ART;
+// until then see-through wings are drawn in code.
 const WING_ROOT = [330, 300];
 const wingRootCache = new Map();
 
@@ -417,6 +418,15 @@ function wingRoot(image, sx, sy) {
   return cells.get(`${sx},${sy}`) || [SPRITE_ANCHOR_X - 30, FRAME * 0.45];
 }
 
+// (A winged troll, too: he has no horseTimer and never flashes.)
+// Which row of the wing sheet suits her pose: side on (0) while she runs or
+// is knocked about (sprites rows 1 and 3), three-quarter (1) standing,
+// jumping, in her actions poses, and on a troll.
+function wingView(wearer, image, sy) {
+  if (wearer.sheet !== image) return 1;
+  return [1, 0, 1, 0][Math.round(sy / FRAME)] ?? 1;
+}
+
 function isWingFlying(racer) {
   return racer.z > 8 || racer.pegasusGliding;
 }
@@ -436,10 +446,11 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
   ctx.translate(rootX, rootY);
   ctx.scale(facing < 0 ? -1 : 1, 1);
   if (sheet?.complete && sheet.width) {
-    const cell = sheet.height;
+    const cell = sheet.width / 6;
     const index = flying ? 2 + Math.floor(t * 18) % 4 : Math.floor(t * 5) % 2;
+    const row = Math.min(wingView(racer, image, sy), Math.round(sheet.height / cell) - 1);
     const size = cell * k * 0.72;
-    ctx.drawImage(sheet, index * cell, 0, cell, cell, -WING_ROOT[0] / cell * size, -WING_ROOT[1] / cell * size, size, size);
+    ctx.drawImage(sheet, index * cell, row * cell, cell, cell, -WING_ROOT[0] / cell * size, -WING_ROOT[1] / cell * size, size, size);
   } else {
     // Flying, a full beat; otherwise a gentle flutter.
     const beat = flying ? Math.sin(t * 28) * 0.55 : Math.sin(t * 9) * 0.07;
@@ -481,7 +492,7 @@ function drawWingsPickup(x, y, t) {
   ctx.translate(x - 26, y);
   const sheet = getSharedArt("fairy_wings");
   if (sheet?.complete && sheet.width) {
-    const cell = sheet.height;
+    const cell = sheet.width / 6;
     ctx.drawImage(sheet, (Math.floor(t * 1.6) % 2) * cell, 0, cell, cell, -WING_ROOT[0] / cell * 120, -WING_ROOT[1] / cell * 120 + 30, 120, 120);
   } else {
     const beat = Math.sin(t * 3) * 0.08;

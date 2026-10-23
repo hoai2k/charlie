@@ -221,7 +221,7 @@ function mountTiles() {
         c.restore();
       }
       c.restore();
-      paint(canvas, () => g.getSharedArt("fairy_wings"), image => [0, 0, image.height, image.height]);
+      paint(canvas, () => g.getSharedArt("fairy_wings"), image => [0, 0, image.width / 6, image.width / 6]);
     } else if (type === "broom") paint(canvas, () => g.Bench.images.broom, image => [0, 0, image.width, image.height]);
     else {
       if (type === "skeleton_horse") g.getSharedArt("skeleton_horse");
