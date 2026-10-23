@@ -560,7 +560,22 @@ function drawEmpCrows(arc, from) {
   }
 }
 
+// A crow in flight: from the crow sheet once it's in (four wing-flap
+// frames, image-requests.md §20 CR2), else simple shapes.
 function drawCrow(x, y, dir, flap, alpha) {
+  const sheet = getSharedArt("crow");
+  if (sheet) {
+    const cell = sheet.height;
+    const frame = Math.floor(performance.now() / 70) % 4;
+    const size = 64;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.translate(x, y);
+    ctx.scale(dir, 1);
+    ctx.drawImage(sheet, frame * cell, 0, cell, cell, -size / 2, -size / 2 - 6, size, size);
+    ctx.restore();
+    return;
+  }
   ctx.save();
   ctx.globalAlpha = alpha;
   ctx.translate(x, y);
