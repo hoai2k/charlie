@@ -303,6 +303,7 @@ const EMP_STREAM_TIME = 0.3;
 const EMP_EFFECT_TIME = 1.1; // s the non-lightning EMP effects play
 const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive onto its target
 const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
+const LASER_SHOCK_COLOR = "#ff4d64"; // crackles on someone a laser shocked
 const LASER_SHOTS = 4; // bolts the laser trigger fires at each target
 const LASER_FIRST_SHOT = 0.12; // s before the first
 const LASER_SHOT_GAP = 0.13; // s between bolts
@@ -1672,6 +1673,7 @@ function update(dt) {
     if (previousFrozenTimer > 0 && racer.frozenTimer === 0) {
       if (!racer.empDizzy) sfx("frozen_break", racer.x);
       racer.empDizzy = false;
+      racer.empLaser = false;
     }
     updateStackTimers(racer, dt);
     racer.empTimer = Math.max(0, racer.empTimer - dt);

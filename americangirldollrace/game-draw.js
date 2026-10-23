@@ -603,7 +603,7 @@ function drawRacer(racer) {
   ctx.restore();
   drawPowerupAura(racer, screenX, scale, mounted);
 
-  if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, drawY, drawW, drawH);
+  if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, drawY, drawW, drawH, racer.empLaser ? LASER_SHOCK_COLOR : undefined);
   if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
 
   const actions = getActionSheet(racer);
