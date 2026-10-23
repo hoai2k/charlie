@@ -797,7 +797,7 @@ M4/M5 delivered with the owner’s revised designs: M4 is a glossy vintage wind-
 
 ---
 
-## 17. Wizard School: a magic wand pickup icon (open)
+## 17. Delivered Wizard School magic wand pickup icon
 
 Wizard School's high-jump pickup is now the **magic wand** (the doll casts a
 spell that turns the nearest racer or monster into a frog), but its icon,
@@ -840,3 +840,5 @@ the sheet is in, Moon Base keeps the plain horse.
 
 Acceptance: race Moon Base, take a mount pickup, and check the doll sits in
 the seat in every frame both ways, and the wheels stay on the ground line.
+
+W1 delivered: dark wood/gold star-tipped wand replaces only cell 1. The remaining four decoded RGBA cells are pixel-identical; alpha/padding and thumbnail readability reviewed. Source, prompt and before/after evidence: `tools/tracks/wizard-wand/`.

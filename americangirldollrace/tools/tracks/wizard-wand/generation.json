@@ -1,0 +1,6 @@
+{
+  "key": "wandPickup",
+  "prompt": "Draw ONE isolated MAGIC WAND pickup icon, matching the painted colorful dimensional videogame icon style of image2. Image1 shows the exact wand design held by dolls: slim dark brown wood shaft, short gold handle, LITTLE GOLD FIVE-POINT STAR at tip. Draw only that wand, no doll: diagonally tilted from bottom LEFT gold handle to upper RIGHT star, with a few small gold sparkles around the star. Bold readable compact game pickup at 64px. Entire icon centered with 12% transparent padding around all sparkles. True transparent background, no floor or shadow, no book, spring, platform, background panel or text. Match bright polished shading and clarity of neighboring potion icon while preserving dark wooden shaft and gold accents.",
+  "source": "/Users/hoai/.codex/generated_images/01a0fe00-fc3f-7ea0-bb4c-39d74bc9b9fd/exec-52c87f00-baea-4adf-b6e4-8d8463b9cc56.png",
+  "tool": "built-in ImageGen"
+}

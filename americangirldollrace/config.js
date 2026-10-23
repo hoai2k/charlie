@@ -6,7 +6,7 @@
  * precedence until GameAudio.resetVolumes() is called.
  */
 window.GAME_CONFIG = {
-  powerupArtVersion: "20261022-emp3",
+  powerupArtVersion: "20261023-wand1",
   trackCardArtVersion: "20261023-cards3",
   dollArtVersion: "20261022-run-redo",
   // Set a doll to true to restore her original art, outfits and alignment.
