@@ -394,6 +394,10 @@ function launchSnowball(racer) {
   // stick, saddle) and flown level from there.
   const hand = getThrowHand(racer);
   const groundY = racer.y + 54;
+  // Momentum: running the way she throws adds her speed to the throw
+  // (bubbles just float off at their own pace).
+  const carry = projectileLanding() === "pop" ? 0 : Math.max(0, (racer.speed || 0) * racer.facing);
+  const vx = racer.facing * (SNOWBALL_SPEED + carry);
   state.projectiles.push({
     owner: racer,
     x: hand ? hand.x : racer.x + racer.facing * 44,
@@ -402,7 +406,9 @@ function launchSnowball(racer) {
     lift: hand ? groundY - hand.y : groundY - snowballDrawY(racer),
     drawY: hand ? hand.y : snowballDrawY(racer),
     z: racer.z + 42,
-    vx: racer.facing * SNOWBALL_SPEED,
+    vx,
+    // Same flight time, so a throw on the run carries further.
+    range: SNOWBALL_RANGE * Math.abs(vx) / SNOWBALL_SPEED,
     distance: 0,
     hitTargets: new Set()
   });
@@ -414,21 +420,21 @@ function updateProjectiles(dt) {
     projectile.distance += Math.abs(projectile.vx) * dt;
     // Toward the end of its throw it drops to the ground (bubbles stay up).
     const drop = projectileLanding() === "pop" ? 0
-      : clamp((projectile.distance / SNOWBALL_RANGE - SNOWBALL_ARC_START) / (1 - SNOWBALL_ARC_START), 0, 1);
+      : clamp((projectile.distance / projectile.range - SNOWBALL_ARC_START) / (1 - SNOWBALL_ARC_START), 0, 1);
     projectile.height = 1 - drop * drop;
     projectile.drawY = projectile.groundY !== undefined
       ? projectile.groundY - SNOWBALL_RADIUS - (projectile.lift - SNOWBALL_RADIUS) * projectile.height
       : snowballDrawY(projectile.owner);
-    if (projectile.distance >= SNOWBALL_RANGE && !projectile.burst) {
+    if (projectile.distance >= projectile.range && !projectile.burst) {
       projectile.burst = true;
       landProjectile(projectile);
     }
-    const amanda = projectile.distance < SNOWBALL_RANGE && amandaAt(projectile.x, projectile.groundY);
+    const amanda = projectile.distance < projectile.range && amandaAt(projectile.x, projectile.groundY);
     if (amanda && !projectile.hitTargets.has(amanda)) {
       projectileImpact(projectile, amanda.y + 18);
       hitAmanda(amanda, Math.sign(projectile.vx) || 1);
       projectile.hitTargets.add(amanda);
-      projectile.distance = SNOWBALL_RANGE;
+      projectile.distance = projectile.range;
       continue;
     }
     for (const monster of state.monsters) {
@@ -438,10 +444,10 @@ function updateProjectiles(dt) {
       projectileImpact(projectile, monster.y + 54);
       applyMonsterKnockback(monster, Math.sign(projectile.vx) || 1, { unhorse: true });
       projectile.hitTargets.add(monster);
-      projectile.distance = SNOWBALL_RANGE;
+      projectile.distance = projectile.range;
       break;
     }
-    if (projectile.distance >= SNOWBALL_RANGE) continue;
+    if (projectile.distance >= projectile.range) continue;
     for (const racer of state.racers) {
       if (racer === projectile.owner || racer.finished || isMounted(racer) || projectile.hitTargets.has(racer)) continue;
       const close = Math.abs(racer.x - projectile.x) < 42 && Math.abs((racer.y + 54) - projectile.y) < 44 && Math.abs(racer.z - projectile.z) < 78;
@@ -449,11 +455,11 @@ function updateProjectiles(dt) {
       projectileImpact(projectile, racer.y + 54);
       applyPushHit(projectile.owner, racer, Math.sign(projectile.vx) || 1);
       projectile.hitTargets.add(racer);
-      projectile.distance = SNOWBALL_RANGE;
+      projectile.distance = projectile.range;
       break;
     }
   }
-  state.projectiles = state.projectiles.filter(projectile => projectile.distance < SNOWBALL_RANGE);
+  state.projectiles = state.projectiles.filter(projectile => projectile.distance < projectile.range);
 }
 
 function projectileLanding() {
