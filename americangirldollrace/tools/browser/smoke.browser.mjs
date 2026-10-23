@@ -536,3 +536,24 @@ test('an EMP stuns each target when its effect reaches them: lightning at once, 
   assert.equal(when.clouds, 1, 'lightning is instant');
   for (const track of ['festival', 'farm', 'autumn']) assert.ok(when[track] > 10 && when[track] < 60, `${track} lands after ${when[track]} frames`);
 });
+
+test('Farm rooster uses all three delivered crowing cells in front of the doll in either direction', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(async () => {
+    for(let i=0;i<50&&!getSharedArt('rooster_crow');i++) await new Promise(r=>setTimeout(r,100));
+    const sheet=getSharedArt('rooster_crow'),a=state.racers[0];
+    const frames=[],facing=[],spots=[]; const draw=ctx.drawImage.bind(ctx),scale=ctx.scale.bind(ctx);
+    ctx.drawImage=(...v)=>{if(v[0]===sheet) frames.push([v[1],v[3],v[4],v[7],v[8]]);return draw(...v);};
+    ctx.scale=(x,y)=>{facing.push(x);return scale(x,y);};
+    try {for(const dir of [1,-1]) {a.facing=dir; for(const t of [.4,.55,.7]) {
+      const arc={source:a,style:'rooster',t}; const from={x:a.x,y:a.y}; spots.push(roosterSpot(arc,from));drawCrowingRooster(arc,from);
+    }}} finally {ctx.drawImage=draw;ctx.scale=scale;}
+    return {size:sheet&&[sheet.width,sheet.height],frames,facing,spots,x:a.x};
+  });
+  assert.deepEqual(r.size,[768,256]);
+  assert.deepEqual(r.frames.map(f=>f[0]),[0,256,512,0,256,512]);
+  for(const f of r.frames) assert.deepEqual(f.slice(1),[256,256,96,96]);
+  assert.deepEqual(r.facing,[1,1,1,-1,-1,-1]);
+  assert.ok(r.spots.slice(0,3).every(p=>p.x>r.x));assert.ok(r.spots.slice(3).every(p=>p.x<r.x));
+  assert.deepEqual(errors,[]);
+});

@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §19 crowing rooster for the Farm's EMP (RC1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** none. Everything is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -852,7 +852,7 @@ or dust in any frame. Level animation poses cover wheels and suspension; code
 adds shared driver/chassis driving bounce and jump tilt. Pickup remains smaller
 than the ridden rover, matching other mounts.
 
-## 19. Open: a crowing rooster for the Farm's EMP
+## 19. Delivered: a crowing rooster for the Farm's EMP
 
 The Farm's EMP is a ROOSTER: when a doll takes it, a rooster pops up in front
 of her, bobs and crows, and sound waves ripple out from it to everyone it
@@ -879,3 +879,10 @@ Acceptance: race the Farm, take the ROOSTER EMP facing each way, and check
 the rooster stands in front of the doll on the ground, crows through the
 three poses, and reads clearly at its in-game size (about 96 px).
 
+
+RC1 delivered: three matching full-body crow poses at 768×256, real alpha,
+common y=250 feet baseline, uniform scale and about 200px height. Registered
+as shared art; world placement now uses the doll's ground baseline before
+the existing pop/bob. All three cells and facing directions passed silent
+browser review. Source, built-in ImageGen prompt and packing report:
+`tools/effects/rooster-crow/`.

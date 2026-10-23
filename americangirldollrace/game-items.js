@@ -428,10 +428,10 @@ function drawEmpWaves(arc, from) {
 
 // The rooster that crows the waves out: it pops up in front of her, bobs and
 // tips its head back to crow, then fades. It's the Farm's EMP icon until a
-// crowing rooster sheet (image-requests.md R1) is in.
+// crowing rooster sheet (image-requests.md RC1) is in.
 function roosterSpot(arc, from) {
   const facing = arc.source?.facing || 1;
-  return { x: from.x + facing * ROOSTER_AHEAD, y: from.y + 30, facing };
+  return { x: from.x + facing * ROOSTER_AHEAD, y: from.y + 54, facing };
 }
 
 function roosterBeak(arc, from) {
