@@ -269,6 +269,32 @@ test('Amanda runs off after five pushes, and fights a troll left with her', { sk
   assert.deepEqual(r, { ranOff: true, grabbed: true, knocked: true });
 });
 
+test('a unicorn picks up power-ups but keeps her unicorn, and her rainbow leaves the horn', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0]; a.horseType = 'unicorn'; a.horseTimer = 12;
+    state.powerups = [makePowerup('boost', a.x, a.y + 54)]; update(1 / 60);
+    const boosted = a.speedBoostTimer > 0;
+    const swapped = applyPowerup(a, makePowerup('horse', a.x, a.y + 54));
+    a.unicornBeamCooldown = 0; fireRainbowBeam(a);
+    const beam = state.rainbowBeams.at(-1); const horn = unicornHornPoint(a);
+    return { boosted, swapped, mount: a.horseType, gap: Math.hypot(beam.x1 - horn.x, beam.y - horn.y) };
+  });
+  assert.deepEqual(r, { boosted: true, swapped: false, mount: 'unicorn', gap: 0 });
+});
+
+test('pogo pickups show the red pogo stick on every track', { skip: skip() }, async () => {
+  for (const track of ['town', 'candy', 'festival', 'farm']) {
+    await onTrack(track);
+    const same = await page.evaluate(async () => {
+      for (let i = 0; i < 50 && !images[trackArtKey(POGO_ICON_TRACK, 'powerups')]; i++) await new Promise(r => setTimeout(r, 100));
+      const sheet = pickupLook('jump', { pogo: true }).sheet;
+      return Boolean(sheet) && sheet === images[trackArtKey(POGO_ICON_TRACK, 'powerups')];
+    });
+    assert.ok(same, `${track}: pogo icon`);
+  }
+});
+
 test('the pause screen shows its corner buttons', { skip: skip() }, async () => {
   await page.evaluate(() => { startRace('two'); state.running = true; togglePause(); });
   for (const id of ['#pauseSoundButton', '#pauseSettingsButton']) assert.ok(await page.isVisible(id), id);

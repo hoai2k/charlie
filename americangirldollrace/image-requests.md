@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §17 Wizard School magic wand pickup icon (W1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §17 Wizard School magic wand pickup icon (W1); §18 Moon Base moon buggy mount (B1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -810,3 +810,33 @@ with a spell book on it, which reads as a jump.
 
 The game already names it "MAGIC WAND". Acceptance: on Wizard School the
 pickup reads as a wand at a glance, next to the other icons.
+
+---
+
+## 18. Moon Base mount: a moon buggy (open)
+
+On Moon Base the plain horse (the base mount a mount pickup gives) becomes a
+**moon buggy**. It rides like the themed ground mounts in §5.6 (pony,
+reindeer, rocking horse), so it uses the same sheet layout and seat.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| B1 | `assets/moon_buggy_sprites.webp` | 1254×1254 (3×3 of 418), alpha | A cheerful kid-sized **moon buggy**, side view facing right: a small open lunar rover with four big wire-mesh wheels, a white-and-silver body with a few orange stripes, a little dish antenna and a flag on a whip pole at the back, and one open seat in the middle. Painted in the same style as the race's mounts (`assets/horse_sprites.webp`, `assets/rocking_horse_sprites.webp`). |
+
+**Use exactly the same 3×3 grid, poses and foot baseline as
+`assets/horse_sprites.webp`**, with the **seat at (226, 242)** in every frame
+(like the other themed mounts) so the doll sits in it without new
+calibration. No rider: the game draws the doll in the seat.
+
+| Row | Frames (left to right) |
+| --- | --- |
+| 1 | Standing still: wheels on the baseline, antenna swaying a little |
+| 2 | Driving: wheels turning, a puff of moon dust behind, body bobbing on its suspension |
+| 3 | Jumping: (1) take-off, nose up; (2) airborne, wheels hanging down; (3) landing, suspension squashed |
+
+In the same commit add `"moon_buggy"` to `THEMED_MOUNT_TYPES` in `game.js`
+and set `baseMount: "moon_buggy"` on the `space` track in `tracks.js`. Until
+the sheet is in, Moon Base keeps the plain horse.
+
+Acceptance: race Moon Base, take a mount pickup, and check the doll sits in
+the seat in every frame both ways, and the wheels stay on the ground line.

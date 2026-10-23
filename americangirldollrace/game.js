@@ -123,6 +123,7 @@ const PEGASUS_DURATION_MULTIPLIER = 1.5;
 const HORSE_FLASH_TIME = 2.4;
 const UNICORN_BEAM_RANGE = 520;
 const UNICORN_BEAM_DURATION = 0.2;
+const UNICORN_BEAM_FAN = 70; // px over which the stripes spread out from the horn
 const PEGASUS_HOVER_Z = (HORSE_JUMP_POWER * HORSE_JUMP_POWER) / (2 * GRAVITY);
 const RIDER_MOUNT_Y_OFFSET = 100;
 const DEFAULT_RIDER_X_OFFSET = 0;
@@ -915,7 +916,7 @@ function preloadTrackArt(background) {
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
-  if (pogoEligible(background)) loadArtOnce(trackArtKey("town", "powerups"), `assets/tracks/town/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
+  if (pogoEligible(background)) loadArtOnce(trackArtKey(POGO_ICON_TRACK, "powerups"), `assets/tracks/${POGO_ICON_TRACK}/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
   if (theme.monster && theme.monster !== "troll" && window.MONSTERS?.[theme.monster]) {
     loadArtOnce(theme.monster, monsterSheetUrl(theme.monster));
   }
