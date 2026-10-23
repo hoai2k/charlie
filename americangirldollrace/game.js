@@ -192,7 +192,9 @@ const AMANDA_HIT_RANGE_Y = 60;
 // Tag the sitting Amanda (walk up to her without pushing) and she follows you.
 const AMANDA_TAG_RANGE_X = 70;
 const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
-const AMANDA_ALLY_FOLLOW_GAP = 90;
+const AMANDA_ALLY_FOLLOW_DELAY = 0.45; // s: she goes where her player was this long ago
+const AMANDA_ALLY_STAND_GAP = 56; // and when her player stops, stands this close beside her
+const AMANDA_ALLY_CATCH_UP = 1.15; // her top speed, against her player's
 const AMANDA_ALLY_GUARD_RANGE = 320; // she goes for monsters this close to her player (or to her)
 const AMANDA_ALLY_FIGHT_RANGE = 800; // and keeps fighting one until it's this far away
 const AMANDA_ALLY_PUSH_RANGE = 96;
