@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** §29 cloud ledge grab and masks (LG1/LG2). SW1, MB2 and all three wing views are delivered; gameplay integration remains separate.
+> **Current art queue:** §27 FW2 twilight re-render of the fairy wings; §29 cloud ledge grab and masks (LG1/LG2) for the last five dolls (Lily, Whirlpool, Kaya, Rumi-v2, Juliette). SW2, MB2, the first wings, TF1 and ten dolls' ledge sheets are delivered, in the game and checked.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1119,6 +1119,20 @@ wing; six phases each, calibrated transparent membranes and fixed330,300
 joints. Source, built-in prompts, rebuild and all-doll review:
 `tools/mounts/fairy-wings/`. Owner requests art-only delivery; the gameplay
 agent handles registration, view selection and live acceptance.
+
+**Open: FW2 twilight re-render (checked in game on Fairy Woods).** The
+wings belong to **Fairy Woods** (`woods`), a dusky twilight woodland lit by
+warm lanterns, glowing purple and pink toadstools and fireflies. Against
+it FW1's pale, cool, very see-through pastels wash out; on a small doll at
+race size they nearly vanish. The shapes, layout and wingbeat are right.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| FW2 | `assets/fairy_wings_sprites.webp` and `assets/fairy_wing_single_sprites.webp` | as FW1 (3072×1024 two rows, and 3072×512) | The same wings, cell for cell (same shapes, spread in each of the six phases, views and root (330, 300)), repainted for a twilight fairy wood: **luminous**, as if lit from within like the board's glowing toadstools: richer violet, magenta and teal, a soft glowing rim and glowing veins, a faint warm-gold shimmer near the root, and more opaque (about 75%, so they hold their colour against dark foliage), with the background still faintly showing through the membranes. No sparkles floating off them, no halo beyond the wing edge. |
+
+Acceptance: on Fairy Woods at race size, the wings read clearly on every
+doll (dark-haired ones included) and on the winged trolls, and look like
+they belong with the glowing toadstools and fireflies.
 
 ## 28. Art delivered: flying troll
 
