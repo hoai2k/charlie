@@ -323,6 +323,7 @@ const MONSTER_COUNTS_BY_DIFFICULTY = {
 };
 const MONSTER_SPEED = 150;
 const MONSTER_LANE_SPEED = 130;
+const MONSTER_SIGHT_RANGE = 1300; // px, about a screen: farther away than this, a monster stops chasing
 const MONSTER_GRAB_RANGE_X = 58;
 const MONSTER_GRAB_RANGE_Y = 50;
 const MONSTER_THROW_FORCE = 1020;

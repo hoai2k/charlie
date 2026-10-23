@@ -16,11 +16,11 @@ function renderer(loopMode,camera){
 test('reviewed periodic backgrounds repeat with no reflection at the scrolling wrap',()=>{
  const a=renderer('repeat',2161),b=renderer('repeat',2162);
  assert.equal(a.filter(c=>c[0]==='scale').length,0);
- assert.equal(a.find(c=>c[0]==='draw')[1],-1);
- assert.equal(b.find(c=>c[0]==='draw')[1],-2,'Increasing camera scrolls the scenery right to left');
+ assert.equal(a.find(c=>c[0]==='draw')[1],-3,'Drawn 2px early to overlap the tile before');
+ assert.equal(b.find(c=>c[0]==='draw')[1],-4,'Increasing camera scrolls the scenery right to left');
  const crossing=renderer('repeat',2100).filter(c=>c[0]==='draw');
  assert.equal(crossing.length,2);
- assert.equal(crossing[0][1]+crossing[0][3],crossing[1][1],'Adjacent tiles meet with no gap');
+ assert.ok(crossing[0][1]+crossing[0][3]>=crossing[1][1]+2,'Adjacent tiles overlap, so no seam shows between them');
 });
 test('legacy backgrounds retain their previous reflected repeat',()=>{
  assert.ok(renderer(undefined,2161).some(c=>c[0]==='scale'&&c[1]===-1));
