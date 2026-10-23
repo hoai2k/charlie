@@ -353,9 +353,12 @@ function cloudWadeScale(racer) {
 
 // Sinking into the cloud: the floor's own clouds are painted back over her
 // feet, faded in below the surface she stands on (a feathered mask), so her
-// feet go down into the very cloud under her. Drawn in the course's unlifted
+// feet go down into the very cloud under her. The mask's edge curves like the
+// near rim of a bowl pressed into the cloud around her (lowest in front of
+// her middle), deeper the further she's sunk. Drawn in the course's unlifted
 // coordinates, like the floor.
 let sinkLayer = null;
+let sinkMask = null;
 function drawCloudSink(racer) {
   const sink = racer.cloudSink || 0;
   if (sink < 0.05) return;
@@ -384,24 +387,47 @@ function drawCloudSink(racer) {
     if (art) drawCloudFloorArt(art, cloud, c);
     else drawCloudFloorStandIn(cloud, c);
   }
-  // Keep only what lies below the surface, fading in over a few pixels.
-  c.setTransform(1, 0, 0, 1, 0, 0);
-  c.globalCompositeOperation = "destination-in";
-  const fade = c.createLinearGradient(0, 0, 0, h);
-  fade.addColorStop(0, "#0000");
-  fade.addColorStop(above / h, "#0000");
-  fade.addColorStop(Math.min(1, (above + CLOUD_SINK_FEATHER) / h), "#000");
-  fade.addColorStop(1, "#000");
-  c.fillStyle = fade;
-  c.fillRect(0, 0, w, h);
+  // Keep only what lies below the bowl's rim, fading in over a few pixels:
+  // the region under the rim, filled a few times, each a little lower.
+  sinkMask ||= document.createElement("canvas");
+  if (sinkMask.width < w || sinkMask.height < h) {
+    sinkMask.width = Math.max(sinkMask.width, w);
+    sinkMask.height = Math.max(sinkMask.height, h);
+  }
+  const m = sinkMask.getContext("2d");
+  m.setTransform(1, 0, 0, 1, 0, 0);
+  m.globalCompositeOperation = "source-over";
+  m.clearRect(0, 0, sinkMask.width, sinkMask.height);
+  const bowl = (CLOUD_SINK_BOWL + CLOUD_SINK_BOWL_DEEP * cloudSinkDepth(racer)) * scale;
+  const underRim = drop => {
+    m.beginPath();
+    m.moveTo(0, h);
+    for (let i = 0; i <= 24; i += 1) {
+      const u = i / 24 * 2 - 1;
+      m.lineTo((u + 1) / 2 * w, above + drop + bowl * (1 - u * u));
+    }
+    m.lineTo(w, h);
+    m.closePath();
+    m.fill();
+  };
+  m.fillStyle = "#000";
+  const steps = 6;
+  m.globalAlpha = 0.3;
+  for (let i = 0; i < steps; i += 1) underRim(CLOUD_SINK_FEATHER * i / steps);
+  m.globalAlpha = 1;
+  underRim(CLOUD_SINK_FEATHER);
   // And soften its sides, so it melts into the floor around her.
-  const sides = c.createLinearGradient(0, 0, w, 0);
+  m.globalCompositeOperation = "destination-in";
+  const sides = m.createLinearGradient(0, 0, w, 0);
   sides.addColorStop(0, "#0000");
   sides.addColorStop(0.25, "#000");
   sides.addColorStop(0.75, "#000");
   sides.addColorStop(1, "#0000");
-  c.fillStyle = sides;
-  c.fillRect(0, 0, w, h);
+  m.fillStyle = sides;
+  m.fillRect(0, 0, w, h);
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  c.globalCompositeOperation = "destination-in";
+  c.drawImage(sinkMask, 0, 0, w, h, 0, 0, w, h);
   ctx.save();
   ctx.globalAlpha = Math.min(1, sink * 1.4);
   ctx.drawImage(sinkLayer, 0, 0, w, h, x0, y0, w, h);

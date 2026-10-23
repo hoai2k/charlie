@@ -845,27 +845,55 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
     ctx.scale(-1, 1);
     ctx.translate(-screenX, 0);
   }
-  for (const [fx, fy, size, angle, view, , cy] of frame) { // (feet.js also gives the turn in degrees)
+  for (const foot of frame) { // (feet.js also gives the turn in degrees)
+    const [fx, fy, size, angle, view, , cy] = foot;
     const bootW = clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW * scale;
-    const cell = [0, 1, 2][view === "side" ? 0 : view === "three" ? 1 : 2];
-    const k = bootW / [150, 130, 110][cell];
+    const look = art && art.width >= art.height * 7 ? moonBootView(kind, index, foot, frame) : { cell: [0, 1, 2][view === "side" ? 0 : view === "three" ? 1 : 2], tilt: 0 };
+    const k = bootW / MOON_BOOT_CELL_WIDTHS[look.cell];
     ctx.save();
     // Centred on the middle of her foot (older data: on the sole).
     ctx.translate(x + fx * scale, y + (cy ?? fy) * scale);
-    if (view !== "front") ctx.rotate(angle * (view === "side" ? 1 : 0.6));
+    if (view !== "front" && look.cell !== 4) ctx.rotate(angle * (view === "side" ? 1 : 0.6) - look.tilt);
+    if (look.mirror) ctx.scale(-1, 1);
     // The boot's own foot middle, in its cell (sole at y 244), goes there.
     const footMid = cy === undefined ? 0 : MOON_BOOT_FOOT_MID * k;
     ctx.translate(0, footMid);
     if (art) {
-      // Cells: side, three-quarter, front.
       const size = art.height;
-      ctx.drawImage(art, cell * size, 0, size, size, -128 * k, -244 * k, size * k, size * k);
+      ctx.drawImage(art, look.cell * size, 0, size, size, -128 * k, -244 * k, size * k, size * k);
     } else {
       drawMoonBootStandIn(bootW, view);
     }
     ctx.restore();
   }
   ctx.restore();
+}
+
+// The boot sheet's cells (image-requests.md §23 MB1, §26 MB2): side, three-
+// quarter, front, back three-quarter, sole, pointed toe, inside side (toe
+// left), with how wide each boot is in its cell, so every view covers the
+// foot alike.
+const MOON_BOOT_CELL_WIDTHS = [150, 130, 110, 150, 92, 120, 150];
+
+// Which boot view suits this foot: a foot kicked up behind her mid-stride
+// shows the back of the boot; one pointing well down, the pointed toe;
+// soles up as she tumbles, the sole; her back foot planted in a stride,
+// the inside of the boot (mirrored to point her way); otherwise the view
+// measured from the foot. tilt: how far the art's own boot already leans
+// (radians), taken off the foot's angle.
+function moonBootView(kind, index, foot, frame) {
+  const [fx, fy, , angle, view] = foot;
+  const base = { cell: view === "side" ? 0 : view === "three" ? 1 : 2, tilt: 0 };
+  if (kind !== "sprites") return base;
+  if (index === 11 && view !== "side") return { cell: 4, tilt: 0 }; // knocked over, soles towards us
+  if (view === "side" && angle > 0.45) return { cell: 5, tilt: 0.6 };
+  const other = frame.find(f => f !== foot);
+  const running = index >= 3 && index <= 5;
+  if (running && other && fx < other[0]) {
+    if (fy < other[1] - 40) return { cell: 3, tilt: 0 };
+    if (view === "side") return { cell: 6, tilt: 0, mirror: true };
+  }
+  return base;
 }
 
 // A chunky white moon boot, its sole's bottom centre at the origin, toe right.

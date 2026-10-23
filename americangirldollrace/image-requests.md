@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §27 two-view fairy wings (FW1); §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1 and MB2 art is delivered; see delivery notes below.
+> **Current queue:** §25 SW2 seaweed redo; §27 two-view fairy wings (FW1); §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1 and MB2 art is delivered; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1033,6 +1033,16 @@ Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
 seaweed patch lying on the sand at its in-game size, and a doll slides on
 it as before.
 
+**Open: SW2 redo (checked in game).** SW1 is lovely close up, but at its
+in-game size (about 55 px across) the tall, bushy tangle reads as a little
+dark shrub sitting on the sand, not something slippery lying flat.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| SW2 | `assets/tracks/beach/powerups.webp` | cell 3 only (x 768–1023) | The same slippery seaweed, redrawn **flat and wide**: a low, spread-out mat of glossy green and olive kelp ribbons lying flat on the sand, much wider than tall (filling most of the cell's width, like the other tracks' puddles), with few bladders and no height or bushy clumps, sitting in a **bright, shiny pool of seawater** that shows round its edges with white glints, so even small it reads as a wet, slippery spill. Lighter, brighter greens than SW1, so it stands out against the sand. Keep the other four cells pixel-identical and bump the beach track's `powerupArtVersion` in `tracks.js`. |
+
+Acceptance as SW1, judged at the size it's drawn in a race.
+
 ## 26. Art delivered: more moon boot angles
 
 MB1's side, three-quarter and front views cover standing and planted feet.
@@ -1055,6 +1065,16 @@ drawMoonBootsOn.
 Acceptance: on Moon Base with MOON BOOTS, running (both feet, front and
 kicked back), knocked back, landing and riding, both boots cover the feet
 and look like the jump pose's boots from the angle the foot is seen at.
+
+
+**Integrated and checked in game:** drawMoonBootsOn now picks the view per
+foot (game-draw.js moonBootView): back three-quarter for a foot kicked up
+behind her, pointed toe for a foot pointing well down, the sole for feet
+turned towards us as she's knocked over, the inside view (mirrored) for
+her planted back foot. Checked running, crouching, knocked over and
+standing across Barbie, Felicity, Lily, Juliette, Mira, Whirlpool and
+Kaya: the boots cover the feet. Mira's knee-high boots still show above
+the moon boots' cuffs, which reads as boots over boots.
 
 ## 27. Open: fairy wings
 
