@@ -1,0 +1,80 @@
+{
+  "assetKey": "barbie",
+  "size": [
+    1254,
+    418
+  ],
+  "frames": [
+    {
+      "ledgeContact": [
+        282,
+        197
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        56,
+        60,
+        362,
+        358
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        562,
+        547
+      ],
+      "placement": [
+        56,
+        60
+      ]
+    },
+    {
+      "ledgeContact": [
+        232,
+        246
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        105,
+        40,
+        313,
+        378
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        383,
+        619
+      ],
+      "placement": [
+        105,
+        40
+      ]
+    },
+    {
+      "ledgeContact": [
+        144,
+        358
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        126,
+        58,
+        292,
+        359
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        307,
+        553
+      ],
+      "placement": [
+        126,
+        58
+      ]
+    }
+  ],
+  "sha256": "8f465cdd8bf3977591287d51f0c73e28ac6fed15223d1145466e510cb633e78d",
+  "maskSha256": "a6df8d1e9af420938861b5ea9ce9ec023874014e5d386f814c6e7bbcd71ee5a4"
+}

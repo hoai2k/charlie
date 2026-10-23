@@ -356,6 +356,361 @@
           63
         ]
       }
+    ],
+    "barbie": [
+      {
+        "ledgeContact": [
+          282,
+          197
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          56,
+          60,
+          362,
+          358
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          562,
+          547
+        ],
+        "placement": [
+          56,
+          60
+        ]
+      },
+      {
+        "ledgeContact": [
+          232,
+          246
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          105,
+          40,
+          313,
+          378
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          383,
+          619
+        ],
+        "placement": [
+          105,
+          40
+        ]
+      },
+      {
+        "ledgeContact": [
+          144,
+          358
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          126,
+          58,
+          292,
+          359
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          307,
+          553
+        ],
+        "placement": [
+          126,
+          58
+        ]
+      }
+    ],
+    "cinnamon": [
+      {
+        "ledgeContact": [
+          286,
+          207
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          47,
+          50,
+          370,
+          367
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          593,
+          582
+        ],
+        "placement": [
+          47,
+          50
+        ]
+      },
+      {
+        "ledgeContact": [
+          238,
+          252
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          78,
+          23,
+          340,
+          395
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          482,
+          682
+        ],
+        "placement": [
+          78,
+          23
+        ]
+      },
+      {
+        "ledgeContact": [
+          113,
+          363
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          111,
+          54,
+          306,
+          364
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          359,
+          568
+        ],
+        "placement": [
+          111,
+          54
+        ]
+      }
+    ],
+    "felicity": [
+      {
+        "ledgeContact": [
+          293,
+          203
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          32,
+          42,
+          385,
+          375
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          646,
+          610
+        ],
+        "placement": [
+          32,
+          42
+        ]
+      },
+      {
+        "ledgeContact": [
+          240,
+          248
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          64,
+          20,
+          353,
+          398
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          531,
+          693
+        ],
+        "placement": [
+          64,
+          20
+        ]
+      },
+      {
+        "ledgeContact": [
+          129,
+          360
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          103,
+          56,
+          314,
+          361
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          389,
+          560
+        ],
+        "placement": [
+          103,
+          56
+        ]
+      }
+    ],
+    "luna": [
+      {
+        "ledgeContact": [
+          292,
+          185
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          36,
+          49,
+          382,
+          369
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          635,
+          587
+        ],
+        "placement": [
+          36,
+          49
+        ]
+      },
+      {
+        "ledgeContact": [
+          239,
+          233
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          69,
+          26,
+          348,
+          391
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          512,
+          669
+        ],
+        "placement": [
+          69,
+          26
+        ]
+      },
+      {
+        "ledgeContact": [
+          102,
+          360
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          105,
+          56,
+          313,
+          361
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          383,
+          560
+        ],
+        "placement": [
+          105,
+          56
+        ]
+      }
+    ],
+    "marisol-v2": [
+      {
+        "ledgeContact": [
+          287,
+          190
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          45,
+          51,
+          372,
+          367
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          599,
+          580
+        ],
+        "placement": [
+          45,
+          51
+        ]
+      },
+      {
+        "ledgeContact": [
+          235,
+          260
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          87,
+          53,
+          330,
+          364
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          446,
+          571
+        ],
+        "placement": [
+          87,
+          53
+        ]
+      },
+      {
+        "ledgeContact": [
+          119,
+          357
+        ],
+        "sourceScale": 0.55,
+        "bounds": [
+          103,
+          59,
+          314,
+          358
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          389,
+          549
+        ],
+        "placement": [
+          103,
+          59
+        ]
+      }
     ]
   }
 }
