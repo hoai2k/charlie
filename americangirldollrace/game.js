@@ -120,6 +120,8 @@ const LOOSE_MOUNT_PICKUP_X = 60;
 const HORSE_SHOW_SPARE_HORSES = [1 / 3, 2 / 3];
 const UNICORN_DURATION_MULTIPLIER = 1.2;
 const PEGASUS_DURATION_MULTIPLIER = 1.2;
+const WINGED_MONSTER_CLIMB = 240; // px/s a troll in fairy wings flies up or down
+const WINGED_MONSTER_MAX_Z = 320; // px: as high as he flies after anyone
 const MONSTER_BOLT_SPEED = 540; // px/s a cloud troll's lightning bolt flies
 const MONSTER_BOLT_REACH_Z = 90; // px of height either side of a bolt that it hits (a jump over it dodges)
 const SKELETON_HORSE_TIME = HORSE_DURATION * 1.2; // s a girl rides a troll's skeleton horse // flying mounts: pegasus, griffon, broomstick
@@ -167,6 +169,7 @@ const PUSH_COOLDOWN = 0.72;
 const PUSH_ACTIVE_TIME = 0.22;
 const PUSH_RANGE_X = 78;
 const PUSH_RANGE_Y = 46;
+const PUSH_RANGE_Z = 64; // px of height a push reaches (in wings, either side of her)
 const MOUNTED_PUSH_EXTRA_RANGE = 40;
 const PUSH_FORCE = 350;
 const AMANDA_HAZARD_DEFAULT_INTERVAL = 10;
@@ -2066,17 +2069,28 @@ function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
   }
 }
 
+// Wearing fairy wings she can push in the air too: anyone at about her
+// height, including other fliers in wings.
+function isWinged(racer) {
+  return isMounted(racer) && racer.horseType === "wings";
+}
+
+function pushReachesHeight(attacker, other) {
+  if (isWinged(attacker)) return Math.abs(attacker.z - (other.z || 0)) <= PUSH_RANGE_Z;
+  return Math.max(attacker.z, other.z || 0) <= PUSH_RANGE_Z;
+}
+
 function performPushAttack(attacker) {
   // Riders push only where everyone rides (the Horse Show); a horse reaches further.
   const ridingPush = isMounted(attacker) && isAlwaysMountedTrack();
-  if (isMounted(attacker) && !ridingPush) return;
+  if (isMounted(attacker) && !ridingPush && !isWinged(attacker)) return;
   const reach = ridingPush ? PUSH_RANGE_X + MOUNTED_PUSH_EXTRA_RANGE : PUSH_RANGE_X;
   for (const other of state.racers) {
-    if (other === attacker || other.finished || (isMounted(other) && !ridingPush) || attacker.pushedTargets.has(other)) continue;
+    if (other === attacker || other.finished || (isMounted(other) && !ridingPush && !isWinged(other)) || attacker.pushedTargets.has(other)) continue;
     const dx = other.x - attacker.x;
     const dy = (other.y + 54) - (attacker.y + 54);
     const inFront = attacker.facing > 0 ? dx > 2 && dx < reach : dx < -2 && dx > -reach;
-    if (!inFront || Math.abs(dy) > PUSH_RANGE_Y || Math.max(attacker.z, other.z) > 64) continue;
+    if (!inFront || Math.abs(dy) > PUSH_RANGE_Y || !pushReachesHeight(attacker, other)) continue;
     applyPushHit(attacker, other, attacker.facing);
     attacker.pushedTargets.add(other);
   }
@@ -2107,7 +2121,7 @@ function performPushAttack(attacker) {
     const dx = monster.x - attacker.x;
     const dy = (monster.y + 54) - (attacker.y + 54);
     const inFront = attacker.facing > 0 ? dx > 2 && dx < reach + 28 : dx < -2 && dx > -reach - 28;
-    if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 18 || attacker.z > 64) continue;
+    if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 18 || !pushReachesHeight(attacker, monster)) continue;
     applyMonsterKnockback(monster, attacker.facing, { unhorse: true });
     attacker.pushedTargets.add(monster);
   }

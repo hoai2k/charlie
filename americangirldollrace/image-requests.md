@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §27 two-view fairy wings (FW1); §28 flying troll (TF1). SW1 and MB2 art is delivered; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1067,17 +1067,42 @@ stand-in wings.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| FW1 | `assets/fairy_wings_sprites.webp` | 3072×512 (6 cells of 512), alpha | One pair of delicate fairy wings, seen from the side as on a girl facing right: both wings rise up and back (to the left) from one root point, the near wing in front of and a little lower than the far one. Gauzy and see-through (partly transparent, the background shows through), iridescent pink, lilac and pale aqua with fine darker veins and a soft glittery edge, like dragonfly or butterfly-shaped fairy wings: an upper and a lower lobe each. Cells: (1) **resting**, half open, swept back; (2) the same a touch more open (cells 1–2 alternate for the gentle flutter while she stands or runs); (3–6) **one full wingbeat** for flying: (3) raised high, (4) level and spread wide, (5) swept down below the root, (6) coming back up (between 5 and 3). |
+| FW1 | `assets/fairy_wings_sprites.webp` | 3072×1024 (2 rows of 6 cells of 512), alpha | One pair of delicate fairy wings in **two views**, one per row. **Row 1, side view**, as on a girl facing right and seen side on (running): both wings rise up and back (to the left) from one root point, the near wing in front of and a little lower than the far one. **Row 2, three-quarter view**, as on a girl facing right but turned half towards us (most of the dolls' standing and jumping poses are between facing us and facing right): we see more of her back, so the near wing spreads up and back to the left, broad and open towards us, and the far wing shows above and behind her far (right) shoulder, smaller and foreshortened. Both rows have the same six cells (below), so every flutter and wingbeat frame exists in both views. Gauzy and see-through (partly transparent, the background shows through), iridescent pink, lilac and pale aqua with fine darker veins and a soft glittery edge, like dragonfly or butterfly-shaped fairy wings: an upper and a lower lobe each. Cells: (1) **resting**, half open, swept back; (2) the same a touch more open (cells 1–2 alternate for the gentle flutter while she stands or runs); (3–6) **one full wingbeat** for flying: (3) raised high, (4) level and spread wide, (5) swept down below the root, (6) coming back up (between 5 and 3). |
 
 Rules: the root (where the wings join her back) at **(330, 300)** in every
-cell, so cells swap without the wings jumping; the pair about 340 px tall
+cell of both rows, so cells and views swap without the wings jumping; the pair about 340 px tall
 at rest and never reaching the cell's edges; no girl, body, shadow,
 sparkles floating off them, or text. Same colours and wing shapes in every
 cell; only their spread and angle change.
 
 Acceptance: on Fairy Woods with the WINGS pickup, standing, running and
-flying, the wings sit on her back for every doll, flutter softly on the
-ground and beat while she flies, and the pickup shows the resting wings.
+flying, the wings sit on her back for every doll and look right for the way
+she's turned (side on running, three-quarter standing and jumping),
+flutter softly on the ground and beat while she flies, and the pickup shows
+the resting wings. Winged trolls (half of Fairy Woods' trolls) wear the
+same sheet's three-quarter row.
+
+## 28. Open: flying troll
+
+Half of Fairy Woods' trolls wear fairy wings and fly up after girls in the
+air. Today they fly in their walking poses; give the troll real flying
+poses. The game draws the wings itself (behind his back), so **no wings in
+these frames**.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| TF1 | `assets/troll_flying_sprites.webp` | 1254×418 (3 cells of 418), alpha | The troll from `assets/monster_sprites.webp` (same painted, slightly photoreal style, colours, face and build; grumpy and funny, not scary), facing right, flying: (1) **swooping forward**, body leaning far forward, nearly level, both arms stretched out ahead with grabbing hands, legs trailing out behind; (2) the same swoop a beat later, arms pulled back a little and legs kicked, so cells 1–2 alternate as he flies along; (3) **hovering**, upright and a little hunched, arms reaching forward and up to grab, legs dangling loosely below with toes pointed down. |
+
+Rules: the same scale as the troll sheet (a 418 cell, the troll about as
+big as in his walk cells); his **hips** at the same place in each cell as
+in the troll's walking cells (about x 205, y 250), so swapping between
+walking and flying doesn't make him jump; nothing touching a cell edge; no
+wings, shadow, ground or text. In the same commit add `"troll_flying"` to
+`TRACK_SHARED_ART` in `tracks.js`.
+
+Acceptance: on Fairy Woods, a winged troll chasing a flier swoops along in
+cells 1–2 and hovers in cell 3 when he's level with her, with the wings on
+his back, and is back in his walk cells once he's landed.
 
 
 SW1 delivered: glossy dark-green/olive seaweed ribbons and wrack in a thin

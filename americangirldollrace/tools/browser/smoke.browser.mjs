@@ -871,7 +871,7 @@ test('Fairy Woods: fairy wings are worn over her own poses and fly like a broom'
     let top = 0;
     for (let i = 0; i < 90; i++) { update(1 / 60); top = Math.max(top, a.z); }
     keys.clear();
-    return { ground, flying: drawn(), flew: top > 60, powerups: canRacerUsePowerups(a), label: mountLabel('wings'), odds: 'wings' in getTrackTheme().mountOdds };
+    return { ground, flying: drawn(), flew: top > 60, powerups: canRacerUsePowerups(a), label: mountLabel('wings'), odds: getTrackTheme().baseMount === 'wings' };
   });
   assert.deepEqual(r, {
     ground: { wings: true, sheet: true, horse: false }, flying: { wings: true, sheet: true, horse: false },
@@ -896,4 +896,40 @@ test('the storm troll aims his lightning at fliers and knocks them off their mou
     return { wings: shoot(220, 'wings'), broom: shoot(150, 'broom') };
   });
   assert.deepEqual(r, { wings: { aimedUp: true, hit: true, dropped: true }, broom: { aimedUp: true, hit: true, dropped: true } });
+});
+
+test('Fairy Woods: fliers in wings push each other in the air, and a winged troll flies up to grab them', { skip: skip() }, async () => {
+  await onTrack('fairy');
+  const r = await page.evaluate(() => {
+    const [a, b] = state.racers; state.obstacles = []; state.monsters = []; state.powerups = [];
+    const reset = (racer, x, z, wings) => Object.assign(racer, { x, y: PATH_TOP + 90, z, vy: 0, horseType: 'wings', horseTimer: wings ? 30 : 0, fallBackTimer: 0, pushTimer: 0, pushCooldown: 0, grabbedBy: null, facing: 1 });
+    reset(a, 3000, 150, true); reset(b, 3050, 150, true); a.pushedTargets.clear();
+    performPushAttack(a);
+    const airPush = b.fallBackTimer > 0;
+    reset(a, 3000, 0, false); reset(b, 3050, 150, true); a.pushedTargets.clear();
+    performPushAttack(a);
+    const groundCantReach = b.fallBackTimer === 0;
+    // A winged troll after a flier.
+    reset(a, 6300, 160, true); b.x = 9500;
+    const m = spawnMonster(6000, a.y, { active: true, riding: false, winged: true });
+    m.facing = 1; state.monsters = [m];
+    let top = 0, grabbed = false;
+    for (let i = 0; i < 120 && !grabbed; i++) { a.z = 160; a.vy = 0; updateMonsters(1 / 60); top = Math.max(top, m.z); grabbed = a.grabbedBy === m; }
+    // They fall together; he throws her only once they're down.
+    const grabZ = m.z;
+    let thrownAt = null, heldWhileFalling = true;
+    for (let i = 0; i < 240 && thrownAt === null; i++) {
+      updateMonsters(1 / 60);
+      if (m.z > 0 && m.state !== 'grab') heldWhileFalling = false;
+      if (a.grabbedBy !== m) thrownAt = m.z;
+    }
+    let wings = 0; const original = window.drawWingStandIn, art = getSharedArt('fairy_wings'), draw = ctx.drawImage.bind(ctx);
+    window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
+    ctx.drawImage = (...args) => { if (art && args[0] === art) wings += 2; return draw(...args); };
+    state.camera = m.x - 400;
+    try { drawMonster(m); } finally { window.drawWingStandIn = original; ctx.drawImage = draw; }
+    const plain = spawnMonster(3000, a.y, { winged: false });
+    return { fellTogether: grabZ > 100 && heldWhileFalling && thrownAt === 0, airPush, groundCantReach, flewUp: top > 100, grabbed, droppedWings: state.powerups.some(p => p.horseType === 'wings'), wingsDrawn: wings >= 2, plainStays: !plain.winged, share: getTrackTheme().wingedMonsters };
+  });
+  assert.deepEqual(r, { fellTogether: true, airPush: true, groundCantReach: true, flewUp: true, grabbed: true, droppedWings: true, wingsDrawn: true, plainStays: true, share: 0.5 });
 });
