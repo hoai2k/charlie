@@ -379,3 +379,21 @@ test('a troll steps round a hurdle, stops when you get away and chases again whe
   assert.equal(r.resumed.state, 'walk');
   assert.ok(r.resumed.moved > 20, `chases again (${r.resumed.moved})`);
 });
+
+test('a throw on the run carries her speed and goes further (not bubbles)', { skip: skip() }, async () => {
+  const distances = {};
+  for (const track of ['farm', 'fairy']) {
+    await onTrack(track);
+    distances[track] = await page.evaluate(() => ['standing', 'running'].map(how => {
+      startRace('two'); state.running = false; state.obstacles = []; state.powerups = []; state.monsters = [];
+      const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; a.facing = 1; b.x = 1000;
+      a.speed = how === 'running' ? PLAYER_RUN_SPEED : 0; a.snowballs = 1; launchSnowball(a);
+      const q = state.projectiles[0]; const startX = q.x;
+      while (state.projectiles.includes(q)) { q.x += q.vx / 60; q.distance += Math.abs(q.vx) / 60; if (q.distance >= q.range) break; }
+      return { reach: Math.round(q.x - startX), vx: q.vx };
+    }));
+  }
+  const [stand, run] = distances.farm;
+  assert.ok(run.reach > stand.reach * 1.2, `farm: running throw goes further (${stand.reach} -> ${run.reach})`);
+  assert.equal(distances.fairy[0].vx, distances.fairy[1].vx, 'bubbles keep their own speed');
+});
