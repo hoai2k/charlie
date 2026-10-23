@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §27 two-view fairy wings (FW1); §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1 and MB2 art is delivered; see delivery notes below.
+> **Current art queue:** §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1, MB2 and all three wing views are delivered; gameplay integration remains separate.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1056,7 +1056,7 @@ Acceptance: on Moon Base with MOON BOOTS, running (both feet, front and
 kicked back), knocked back, landing and riding, both boots cover the feet
 and look like the jump pose's boots from the angle the foot is seen at.
 
-## 27. Open: fairy wings
+## 27. Art delivered: fairy wings
 
 On Fairy Woods a mount pickup can be **fairy wings**. They work like the
 broomstick (she runs with them and flies up with jump), but nothing is
@@ -1090,6 +1090,12 @@ she's turned (side on running, three-quarter standing and jumping),
 flutter softly on the ground and beat while she flies, and the pickup shows
 the resting wings. Winged trolls (half of Fairy Woods' trolls) wear the
 same sheet's three-quarter row.
+
+Wing art delivered: both paired views plus the additional mirrorable single
+wing; six phases each, calibrated transparent membranes and fixed330,300
+joints. Source, built-in prompts, rebuild and all-doll review:
+`tools/mounts/fairy-wings/`. Owner requests art-only delivery; the gameplay
+agent handles registration, view selection and live acceptance.
 
 ## 28. Open: flying troll
 
@@ -1134,6 +1140,12 @@ in, the game borrows her other poses.
 | --- | --- | --- | --- |
 | LG1 | `assets/doll_<key>_ledge.webp` for every key in `ACTION_SHEETS` (`doll-art.js`: hermione, lily, mira, whirlpool, claudia-v2, kaya, amanda, penelope, rumi-v2, juliette, barbie, cinnamon, felicity, luna, marisol-v2) | 1254×418 (3 cells of 418), alpha | Facing right, towards a soft cloud edge that is **not drawn**: imagine the cloud's flat top at **y 230** and its rounded front corner at **x 300**, with the cloud filling everything right of and below that corner. (1) **Hug hold:** both arms wrapped over the top of the cloud edge as if hugging a big pillow, forearms and hands resting on the top (right of x 300, along y 230), her cheek or chin resting on it, chest against the cloud's side, body hanging a little slanted below with legs dangling and feet loose, a determined, slightly worried face. (2) **Climbing up:** pulling herself up, one knee hooked over onto the top (on y 230 just right of the corner), hips level with the top, arms pushing down on it. (3) **Back on top:** kneeling on the cloud top just right of the corner (knees and shins on y 230), body upright, about to stand, a relieved smile. |
 | LG2 | `assets/masks/<key>_ledge_mask.webp` | 1254×418 | Its outfit mask, made like `<key>_actions_mask.webp`. |
+
+**Owner-approved geometry revision:** preserve normal doll size and record
+a separate ledge contact anchor for each pose. The original fixed y230 is
+superseded: kneeling needs a lower anchor, while a dangling body needs room
+below its forearms. The renderer aligns each recorded anchor to the same
+world ledge. Gameplay integration is left to the other agent.
 
 She must match her sprite sheet exactly: the same outfit, hair, shoes and
 accessories, at the same scale as her sheet (her whole figure in cell 3
