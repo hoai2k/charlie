@@ -796,7 +796,77 @@ function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
     });
   }
   drawFacingImage(image, sx, sy, FRAME, FRAME, x, y, w, h, facing, screenX);
+  if (racer.moonBootsTimer > 0) drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX);
   racer.lastBody = { image, sx, sy, dx: x - screenX, dy: y - (racer.y - racer.z), w, h, facing };
+}
+
+// Moon boots over her feet in this pose (feet.js, measured per frame by
+// tools/dolls/measure_feet.py): the boot art once it's in (image-requests.md
+// §23 MB1: side and front views), else boots drawn in code. Her sprites and
+// actions poses get them, except the actions sheet's own moon-boots jump.
+function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
+  const feet = window.DOLL_FEET?.[dollAssetKey(racer.spriteKey)];
+  if (!feet) return;
+  const kind = image === getActionSheet(racer) ? "actions" : image === racer.sheet ? "sprites" : null;
+  if (!kind) return;
+  const frame = feet[kind]?.[(sy / FRAME) * 3 + sx / FRAME];
+  if (!frame) return;
+  const scale = w / FRAME;
+  const art = getSharedArt("moon_boot");
+  ctx.save();
+  if (facing < 0) {
+    ctx.translate(screenX, 0);
+    ctx.scale(-1, 1);
+    ctx.translate(-screenX, 0);
+  }
+  for (const [fx, fy, size, angle, view] of frame) {
+    const bootW = Math.max(size * MOON_BOOT_GROW, MOON_BOOT_MIN) * scale;
+    ctx.save();
+    ctx.translate(x + fx * scale, y + fy * scale);
+    if (view === "side") ctx.rotate(angle);
+    if (art) {
+      const cell = art.height;
+      const k = bootW / (view === "side" ? 150 : 110);
+      ctx.drawImage(art, (view === "side" ? 0 : 1) * cell, 0, cell, cell, -128 * k, -244 * k, cell * k, cell * k);
+    } else {
+      drawMoonBootStandIn(bootW, view);
+    }
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+// A chunky white moon boot, its sole's bottom centre at the origin, toe right.
+function drawMoonBootStandIn(bootW, view) {
+  const front = view !== "side";
+  const bw = front ? bootW * 0.72 : bootW;
+  const h = bootW * (front ? 1.25 : 1.05);
+  ctx.lineWidth = Math.max(1, bootW * 0.035);
+  ctx.strokeStyle = "#a9adb8";
+  ctx.fillStyle = "#f7f8fb";
+  // Shaft (towards the heel in side view) and cuff.
+  const shaftX = front ? -bw * 0.36 : -bw * 0.5;
+  const shaftW = front ? bw * 0.72 : bw * 0.56;
+  ctx.beginPath();
+  ctx.roundRect(shaftX, -h, shaftW, h * 0.7, bw * 0.12);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#e9ebf1";
+  ctx.beginPath();
+  ctx.roundRect(shaftX - bw * 0.03, -h - bw * 0.04, shaftW + bw * 0.06, h * 0.16, bw * 0.08);
+  ctx.fill();
+  ctx.stroke();
+  // Foot.
+  ctx.fillStyle = "#f7f8fb";
+  ctx.beginPath();
+  ctx.roundRect(-bw / 2, -h * 0.42, bw, h * 0.36, bw * 0.18);
+  ctx.fill();
+  ctx.stroke();
+  // Grey sole.
+  ctx.fillStyle = "#8f939e";
+  ctx.beginPath();
+  ctx.roundRect(-bw / 2, -h * 0.1, bw, h * 0.1, bw * 0.05);
+  ctx.fill();
 }
 
 // Stuck in a sticky puddle: the forward-leaning push frame, tipped further
