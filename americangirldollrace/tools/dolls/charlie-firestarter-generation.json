@@ -1,8 +1,8 @@
 {
   "tool": "built-in image_gen",
   "status": "Canonical candidate for user review; not registered as a playable doll.",
-  "candidate": "sources/charlie-firestarter/canonical-candidate-v2.webp",
-  "review": "sources/charlie-firestarter/canonical-candidate-v2-review.webp",
+  "candidate": "sources/charlie-firestarter/canonical-candidate-v3.webp",
+  "review": "sources/charlie-firestarter/canonical-candidate-v3-review.webp",
   "inspiration": {
     "character": "Charlie McGee",
     "film": "Firestarter (1984)",
@@ -17,5 +17,10 @@
   "revision": {
     "reference": "https://img.cinematoday.jp/a/RCz74f69rroA/_size_640x/_v_1655714014/1.jpg",
     "changes": "Original 1984 Drew Barrymore reference: windblown disheveled hair, grim unsmiling expression, dark striped scoop-neck pinafore. Preliminary tidy candidate retained for history."
+  },
+  "dollStyleRevision": {
+    "promptFile": "sources/charlie-firestarter/revision-v3-prompt.txt",
+    "styleReference": "sources/marisol/canonical.webp",
+    "changes": "Replace human-looking face with rounded molded vinyl doll head, glass inset eyes, painted brows, smooth toy skin and articulated limbs. Retain original-1984 wild blonde hair, unsmiling expression and navy striped pinafore."
   }
 }
