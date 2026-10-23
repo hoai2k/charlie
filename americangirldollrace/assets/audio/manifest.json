@@ -425,6 +425,43 @@
   "run_loop_grass": [
    1
   ],
+  "sandtroll_fall": [
+   1,
+   2
+  ],
+  "sandtroll_grab": [
+   1,
+   2
+  ],
+  "sandtroll_hit": [
+   1,
+   2
+  ],
+  "sandtroll_idle_grunt": [
+   1,
+   2
+  ],
+  "sandtroll_lift": [
+   1,
+   2
+  ],
+  "sandtroll_notice": [
+   1,
+   2
+  ],
+  "sandtroll_throw": [
+   1,
+   2
+  ],
+  "sandtroll_wake": [
+   1,
+   2
+  ],
+  "sandtroll_walk_step": [
+   1,
+   2,
+   3
+  ],
   "scarecrow_fall": [
    1,
    2
@@ -550,6 +587,43 @@
   "surf_pickup": [
    1,
    2
+  ],
+  "tintroll_fall": [
+   1,
+   2
+  ],
+  "tintroll_grab": [
+   1,
+   2
+  ],
+  "tintroll_hit": [
+   1,
+   2
+  ],
+  "tintroll_idle_grunt": [
+   1,
+   2
+  ],
+  "tintroll_lift": [
+   1,
+   2
+  ],
+  "tintroll_notice": [
+   1,
+   2
+  ],
+  "tintroll_throw": [
+   1,
+   2
+  ],
+  "tintroll_wake": [
+   1,
+   2
+  ],
+  "tintroll_walk_step": [
+   1,
+   2,
+   3
   ],
   "toy_bump": [
    1,
