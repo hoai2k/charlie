@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** none. Everything is delivered and checked; see delivery notes below.
+> **Current queue:** §20 Pumpkin Patch crows EMP icon (CR1) and flying crow sprites (CR2). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -886,3 +886,27 @@ as shared art; world placement now uses the doll's ground baseline before
 the existing pop/bob. All three cells and facing directions passed silent
 browser review. Source, built-in ImageGen prompt and packing report:
 `tools/effects/rooster-crow/`.
+
+## 20. Open: Pumpkin Patch crows: the EMP trigger and flying crows
+
+Pumpkin Patch's EMP sends crows flying from the trigger to everyone it hits;
+they circle each head and leave them dizzy. Today the trigger is a pumpkin
+button (E12) and the crows are simple shapes drawn in code. Make the trigger
+plainly the crows' perch, and give the flying crows real art.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| CR1 | `assets/tracks/autumn/powerups.webp` | cell 2 only (x 512–767) | **Crows crowded round a push-button**: a big round push-button (a pumpkin-orange cap on a short hay-crate base, as in today's E12, so it still reads as a trigger) with four or five glossy black cartoon crows perched on and around it, jostling: on the crate edges, one on top beside the button cap, wings half open, beaks open, bright eyes. Same style, size and padding as the other cells; keep the other four cells pixel-identical. In the same commit change the Pumpkin Patch `labels.emp` in `tracks.js` from `"SCARECROW"` to `"CROWS"`. |
+| CR2 | `assets/crow_sprites.webp` | 512×128 (4 cells of 128 in one row), alpha | **One crow flying**, side view facing right, the same crow as CR1, as a four-frame wing-flap loop: (1) wings up, (2) wings level, (3) wings down, (4) wings level coming back up. |
+
+CR2: the body (centre about x 64, y 70) stays in the same place in all four
+cells, so only the wings move; about 90 px from beak to tail. No ground,
+shadow, motion lines or text. In the same commit add `"crow"` to
+`TRACK_SHARED_ART` in `tracks.js`; the game then draws the crows from this
+sheet (cycling the four cells as they fly) instead of the code shapes.
+
+Acceptance: race Pumpkin Patch (or use the workbench on Pumpkin Patch) and
+take the CROWS EMP with someone in range: the pickup reads as crows on a
+button at its in-game size, and the crows that fly out and circle each head
+flap smoothly, facing the way they fly.
+
