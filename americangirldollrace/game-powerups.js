@@ -532,12 +532,6 @@ function drawThrownLeftover(item) {
     ctx.restore();
     return;
   }
-  ctx.globalAlpha = 0.25 * fade;
-  ctx.fillStyle = "#142027";
-  ctx.beginPath();
-  ctx.ellipse(x, item.groundY, SNOWBALL_RADIUS, 4, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.globalAlpha = fade;
   ctx.translate(x, item.groundY - SNOWBALL_RADIUS - item.hop * 0.3);
   ctx.rotate(item.spin);
   const art = getTrackArt("projectile");
