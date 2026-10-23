@@ -140,11 +140,16 @@ function drawCloudFluff(racer) {
   const x = racer.x - state.camera;
   const y = racer.y + 54 + 2;
   const scale = racerDepthScale(racer) / 0.45;
+  const puff = getTrackArt("puff"); // image-requests.md §21 CL2, else soft ellipses
   ctx.save();
   ctx.globalAlpha = Math.min(1, sink * 1.4);
   ctx.fillStyle = "#fbf8ff";
   for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
-    if (drawFxSprite(FX_CLOUD_PUFF, x + dx * scale, y - r * 0.15 * scale, r * 2.4 * scale)) continue;
+    if (puff) {
+      const size = r * 2.4 * scale;
+      ctx.drawImage(puff, x + dx * scale - size / 2, y - r * 0.15 * scale - size / 2, size, size);
+      continue;
+    }
     ctx.beginPath();
     ctx.ellipse(x + dx * scale, y - r * 0.15 * scale, r * scale, r * 0.55 * scale, 0, 0, Math.PI * 2);
     ctx.fill();

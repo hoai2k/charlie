@@ -757,7 +757,6 @@ function drawCelebrationStar(racer, screenX, topY, scale) {
   if (radius <= 0) return;
   const cx = screenX;
   const cy = topY + 165 * scale;
-  if (drawFxSprite(FX_CELEBRATION_STAR, cx, cy, radius * 2.2, t * 0.9)) return;
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(t * 0.9);
