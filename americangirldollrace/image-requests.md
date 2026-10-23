@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** §29 cloud ledge grab and masks (LG1/LG2). SW1, MB2 and all three wing views are delivered; gameplay integration remains separate.
+> **Current art queue:** clear. All requested images are delivered; gameplay integration and live acceptance remain with the other agent per owner.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1156,7 +1156,7 @@ TF1 art delivered: `tools/effects/flying-troll/` contains source, prompts,
 scale/hip calibration and native-size comparison. No wings or ground shadow
 are baked in. Per owner, the gameplay agent handles registration and use.
 
-## 29. Open: cloud ledge grab (every doll)
+## 29. Art delivered: cloud ledge grab (every doll)
 
 On Cloud Kingdom a girl who falls into a gap can press towards the cloud
 to catch its edge and climb back up. She catches it like hugging a big
@@ -1194,3 +1194,9 @@ and registration remain with the other agent per owner.
 LG1/LG2 second art batch delivered: Barbie, Cinnamon, Felicity, Luna and
 Marisol-v2. Corrected Cinnamon/Felicity/Marisol have no glasses; Luna keeps
 her canonical pink glasses. All five include masks and contact anchors.
+
+LG1/LG2 final art batch delivered: Lily, Whirlpool, Kaya, Rumi-v2 and
+Juliette. All15 dolls now have all three poses, matching outfit masks and
+per-pose contact anchors. No cloud is baked into the sprites. Juliette
+retains her moon purse; hair/skin/accessories are protected in the masks.
+Gameplay registration and live acceptance are left to the integration agent.

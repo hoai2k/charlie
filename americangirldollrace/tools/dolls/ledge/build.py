@@ -17,6 +17,7 @@ def mask_for(c,key,n):
  feat=np.column_stack([a[ys,xs,:3]/40.,(xs-b[0])/(b[2]-b[0])*1.5,(ys-b[1])/(b[3]-b[1])*3.])
  dist,idx=tree.query(feat,k=7);v=1/(dist+.04)**2;values=(weights[idx]*v[:,:,None]).sum(1)/v.sum(1)[:,None];values=np.clip((values-.25)/.5,0,1)
  out=np.zeros((*a.shape[:2],3),dtype='uint8');out[ys,xs,:2]=np.round(values*255)
+ if key=='juliette':return Image.fromarray(out)
  # Skin/hair protected by an explicit colour gate too; the training mask
  # supplies all garment channels, including existing two-channel costumes.
  r,g,blue=[a[:,:,i] for i in range(3)]
@@ -53,6 +54,20 @@ def mask_for(c,key,n):
   out[zones&light_skin]=0
  return Image.fromarray(out)
 
+def constrain_mask(m,frame,key,n,x,y):
+ if key not in ['juliette','whirlpool']:return m
+ regions=json.loads((H/'mask-regions.json').read_text())[key][n]
+ poly=Image.new('L',(418,418));d=ImageDraw.Draw(poly);d.polygon([tuple(p) for p in regions['garment']],fill=255)
+ for rect in regions.get('boots',[]):d.rectangle(rect,fill=255)
+ if 'purse' in regions:d.ellipse(regions['purse'],fill=0)
+ if 'knee' in regions:d.ellipse(regions['knee'],fill=0)
+ for points in regions.get('exclude',[]):d.polygon([tuple(p) for p in points],fill=0)
+ # The trace constrains a learned mask, not the artwork. Clip exact RGB
+ # mask channels; preserve art and white/silver costume trim.
+ data=np.array(m);clip=np.array(poly.crop((x,y,x+m.width,y+m.height))).astype(float)/255
+ data=np.round(data*clip[:,:,None]).astype('uint8')
+ return Image.fromarray(data)
+
 def build(key):
  cells=T.full_cells(T.packing.clean(Image.open(H/f'sources/{key}.webp')),rows=1)
  scale=SCALES[key];sheet=Image.new('RGBA',(1254,418));masks=Image.new('RGB',sheet.size);records=[]
@@ -68,7 +83,7 @@ def build(key):
   else:
    contact_y=int(yy.max())+1;bottom=xx[yy>yy.max()-max(3,round(h*.03))];corner_x=max(2,int(bottom.min())-4)
   contact=[corner_x,contact_y]
-  sheet.paste(frame,(n*418,0));m=mask_for(c,key,n).crop(b).resize((w,h),Image.Resampling.LANCZOS);masks.paste(m,(n*418+x,y))
+  sheet.paste(frame,(n*418,0));m=mask_for(c,key,n).crop(b).resize((w,h),Image.Resampling.LANCZOS);m=constrain_mask(m,frame,key,n,x,y);masks.paste(m,(n*418+x,y))
   records.append({'ledgeContact':contact,'sourceScale':scale,'bounds':frame.getchannel('A').getbbox(),'sourceBounds':b,'placement':[x,y]})
   for row,bgcol in [(0,'#bed9df'),(1,'#1d2944')]:
    bg=Image.new('RGBA',(418,418),bgcol);d=ImageDraw.Draw(bg);d.rectangle((corner_x,contact_y,418,418),fill='#d9edf3');bg.alpha_composite(frame)
