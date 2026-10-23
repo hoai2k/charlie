@@ -773,7 +773,7 @@ swaps the sheet in without other changes:
 | 1 | Idle, 3 frames of a slight sway (the tin troll's key turning; sand trickling) |
 | 2 | Walk cycle, 3 frames (stiff toy steps; heavy sandy steps) |
 | 3 | **Grab** (lunging forward with arms out), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
-| 4 | **Knocked over** (falling backwards), **collapsing**, and **defeated**. The tin troll's defeated cell is **the toy tipped over on its side, legs stuck mid-step and its key stopped**. The sand monster's is **a slumped mound of sand with its shell eyes and seaweed on top**. Both stay put until the race ends. |
+| 4 | **Knocked over** (falling backwards), **collapsing**, and **defeated**. The tin troll's defeated cell is **the toy tipped over on its side, legs stuck mid-step and its key stopped**. The sand monster **collapses into a pile of sand**: the collapsing cell shows it pouring down, and the defeated cell is **just a heap of sand on the ground, the figure gone**, with its two shell eyes and seaweed tuft lying on the heap. Both stay put until the race ends. |
 
 In the same commit, add `"tintroll"` / `"sandtroll"` to `TRACK_SHARED_ART`
 in `tracks.js`, and set `monster: "tintroll"` on `toyroom` and
