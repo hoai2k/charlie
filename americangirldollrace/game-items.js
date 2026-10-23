@@ -18,7 +18,7 @@ function empHitTarget(attacker, target, style) {
 
 // When the effect reaches a target, in seconds after it goes off.
 function empHitTime(arc, target, from) {
-  if (arc.style === "firework" || arc.style === "poprocks") return EMP_ROCKET_TIME;
+  if (isFlungEmp(arc)) return EMP_ROCKET_TIME;
   if (arc.style === "crows") return EMP_CROW_TIME;
   // A sound wave stuns once it has passed right through her: when its last
   // ring reaches her.
@@ -152,10 +152,15 @@ function empSourcePoint(arc) {
   return getThrowHand(racer) || { x: racer.x + racer.facing * 40, y: racer.y - 60 - racer.z };
 }
 
+// EMPs that fling something in an arc onto each target.
+function isFlungEmp(arc) {
+  return arc.style === "firework" || arc.style === "poprocks" || arc.style === "acorns";
+}
+
 function empArcDuration(arc) {
   if (arc.style === "lightning") return EMP_ARC_TIME;
   if (arc.style === "crows") return EMP_EFFECT_TIME + 0.3;
-  if (arc.style === "firework" || arc.style === "poprocks") return EMP_EFFECT_TIME;
+  if (isFlungEmp(arc)) return EMP_EFFECT_TIME;
   // Sound waves last until their last ring has spread right out (and past
   // everyone, who it stuns as it goes); the rooster then hops about a while.
   const waves = 2 * empWaveLook(arc).gap + EMP_WAVE_TIME * 1.15;
@@ -201,19 +206,26 @@ function updateEmpArcs(dt) {
       }
       continue;
     }
-    if (arc.style === "firework" || arc.style === "poprocks") {
+    if (isFlungEmp(arc)) {
       const candy = arc.style === "poprocks";
+      const acorns = arc.style === "acorns";
       if (before === 0) {
-        sfx(candy ? "bubble_pop" : "firework_launch", from.x, { gain: 0.7 });
+        sfx(acorns ? "snowball_throw" : candy ? "bubble_pop" : "firework_launch", from.x, { gain: 0.7 });
         spawnParticles(from.x, from.y, 0, 10, { kind: "puff", color: "#fff4d8", speed: 90, lift: 40, life: 0.45, size: 9, gravity: 0 });
       }
       arc.targets.forEach((target, n) => {
         const to = spellTargetPoint(target);
         const k = arc.t / EMP_ROCKET_TIME;
         if (k < 1) {
+          if (acorns) return; // an acorn flies without a trail
           // Its trail of sparks.
           const p = empRocketPoint(from, to, k);
           spawnParticles(p.x, p.y, 0, 2, { kind: "dot", color: candy ? EMP_FIREWORK_COLORS[n % EMP_FIREWORK_COLORS.length] : Math.random() < 0.5 ? "#fff2a8" : "#ffb347", speed: 30, lift: 30, life: 0.35, size: 3, gravity: 0 });
+        } else if (before < EMP_ROCKET_TIME && acorns) {
+          // A bonk on the head: the acorn bounces off and lands, like a thrown one.
+          sfx("snowball_hit", to.x, { gain: 0.8, throttleKey: "acorns" });
+          spawnParticles(to.x, to.y, 0, 5, { kind: "puff", color: "#e8d6b0", speed: 80, lift: 60, life: 0.4, size: 7, gravity: 0 });
+          addRolledThrowable({ x: to.x - Math.sign(to.x - from.x || 1) * 30, groundY: target.y + 54, vx: -Math.sign(to.x - from.x || 1) * 160, spin: n, hop: 260, vhop: 200 });
         } else if (before < EMP_ROCKET_TIME) {
           // It bursts on her: a firework, or a crackle of popping candy.
           sfx(candy ? "pickup_pop_rocks" : "firework_burst", to.x, { gain: 0.8, throttleKey: arc.style });
@@ -249,7 +261,8 @@ function updateEmpArcs(dt) {
   state.empArcs = state.empArcs.filter(arc => arc.t < empArcDuration(arc));
 }
 
-// A jagged bolt from a to b, re-drawn each frame so it flickers.
+// A jagged bolt from a to b that arcs up and comes down onto b, re-drawn
+// each frame so it flickers.
 function drawLightning(ax, ay, bx, by, alpha) {
   const length = Math.hypot(bx - ax, by - ay) || 1;
   const nx = -(by - ay) / length;
@@ -259,7 +272,8 @@ function drawLightning(ax, ay, bx, by, alpha) {
   for (let i = 1; i < steps; i += 1) {
     const k = i / steps;
     const jitter = (Math.random() - 0.5) * 36 * Math.sin(Math.PI * k);
-    points.push([ax + (bx - ax) * k + nx * jitter, ay + (by - ay) * k + ny * jitter]);
+    const bow = Math.sin(Math.PI * k) * Math.min(LIGHTNING_ARC_MAX, length * 0.3);
+    points.push([ax + (bx - ax) * k + nx * jitter, ay + (by - ay) * k + ny * jitter - bow]);
   }
   points.push([bx, by]);
   ctx.save();
@@ -282,7 +296,7 @@ function drawEmpArcs() {
   for (const arc of state.empArcs) {
     const from = empSourcePoint(arc);
     const fromX = from.x - state.camera;
-    if (arc.style === "firework" || arc.style === "poprocks") drawEmpRockets(arc, from);
+    if (isFlungEmp(arc)) drawEmpRockets(arc, from);
     else if (arc.style === "crows") drawEmpCrows(arc, from);
     else if (arc.style !== "lightning") drawEmpWaves(arc, from);
     if (arc.style !== "lightning") continue;
@@ -314,7 +328,21 @@ function drawEmpRockets(arc, from) {
   arc.targets.forEach((target, n) => {
     const to = spellTargetPoint(target);
     ctx.save();
-    if (k < 1) {
+    if (k < 1 && arc.style === "acorns") {
+      // A spinning acorn (the track's thrown acorn).
+      const p = empRocketPoint(from, to, k);
+      const art = getTrackArt("projectile");
+      const size = SNOWBALL_RADIUS * 2.6;
+      ctx.translate(p.x - state.camera, p.y);
+      ctx.rotate(arc.t * 12);
+      if (art) ctx.drawImage(art, -size / 2, -size / 2, size, size);
+      else {
+        ctx.fillStyle = "#8a5a2b";
+        ctx.beginPath();
+        ctx.arc(0, 0, SNOWBALL_RADIUS, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (k < 1) {
       // The streak behind it.
       ctx.lineCap = "round";
       for (let s = 0; s < 8; s += 1) {
@@ -347,7 +375,7 @@ function drawEmpRockets(arc, from) {
         ctx.arc(x, p.y, 26, 0, Math.PI * 2);
         ctx.fill();
       }
-    } else if (!candy) {
+    } else if (!candy && arc.style === "firework") {
       // The firework opens over her: rays of colour spreading and fading.
       const b = (arc.t - EMP_ROCKET_TIME) / (EMP_EFFECT_TIME - EMP_ROCKET_TIME);
       const r = 30 + 110 * Math.sqrt(b);

@@ -303,6 +303,7 @@ const EMP_STREAM_TIME = 0.3;
 const EMP_EFFECT_TIME = 1.1; // s the non-lightning EMP effects play
 const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive onto its target
 const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
+const LIGHTNING_ARC_MAX = 160; // px an EMP's bolts arc up on their way to a target
 const EMP_CROW_TIME = 0.6; // s a crow takes to reach its target
 const ROVER_BOUNCE = 12; // sprite px the moon buggy hops over each bump as it drives
 const ROVER_BUMP_SPACING = 45; // bumps come every pi times this many world px (about 4 a second at full speed)
@@ -957,6 +958,7 @@ function preloadTrackArt(background) {
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
+  if (getTrackTheme(background).rideToys?.boost === "skates") loadArtOnce(trackArtKey(SKATES_ICON_TRACK, "powerups"), `assets/tracks/${SKATES_ICON_TRACK}/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
   if (pogoEligible(background)) loadArtOnce(trackArtKey(POGO_ICON_TRACK, "powerups"), `assets/tracks/${POGO_ICON_TRACK}/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
   if (theme.monster && theme.monster !== "troll" && window.MONSTERS?.[theme.monster]) {
     loadArtOnce(theme.monster, monsterSheetUrl(theme.monster));

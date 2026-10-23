@@ -36,7 +36,7 @@
 // the trigger and dive onto each one, bursting; "poprocks" candies arc over
 // and crackle; "rooster" sound waves, "bell" rings with music notes and "gong"
 // a heavy ring spread out from the trigger; "crows" fly to each one and
-// circle her head.
+// circle her head; "acorns" are flung in an arc to bonk each one.
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
 // (game-terrain.js); fall through one and you're back a moment later.
 // `music` is the track's own song. Tracks without one take turns with the
@@ -220,9 +220,9 @@ window.TRACK_THEMES = {
   },
   // Twilight woodland track with its own looped art and song.
   woods: {
-    empStyle: "bell",
+    empStyle: "acorns",
     name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
-    labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN BELL", oil: "MOSSY BOG", snowball: "ACORNS" },
+    labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN TOSS", oil: "MOSSY BOG", snowball: "ACORNS" },
     sounds: { emp: "pickup_acorn_bell" },
     mountOdds: { unicorn: 0.2, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
   },

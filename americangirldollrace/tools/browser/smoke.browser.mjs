@@ -66,7 +66,9 @@ after(async () => {
 
 const skip = () => (playwright ? false : 'Playwright is not installed');
 // Switch track and wait for its art (and its monster's sheet) to load.
-const onTrack = key => page.evaluate(async key => {
+// (On Cloud Kingdom the floor's gaps are taken out unless the test wants
+// them, so nobody set down for a test lands in one.)
+const onTrack = (key, { gaps = false } = {}) => page.evaluate(async ([key, gaps]) => {
   setBackground(key);
   for (let i = 0; i < 60; i++) {
     const theme = getTrackTheme();
@@ -77,7 +79,8 @@ const onTrack = key => page.evaluate(async key => {
   startRace('two'); state.running = false; startPanel.classList.add('hidden');
   state.obstacles = []; state.powerups = []; state.monsters = []; state.cameraZoom = 1;
   const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; a.z = 0; a.facing = 1; b.x = 1000; b.ai = false;
-}, key);
+  if (state.cloudFloor && !gaps) state.cloudFloor.gaps = [];
+}, [key, gaps]);
 
 test('the page loads silently with no errors or missing files', { skip: skip() }, async () => {
   assert.deepEqual(errors, []);
@@ -526,7 +529,7 @@ test('lightning EMPs show the original icon and shock; the others play their own
     });
   }
   for (const track of ['clouds', 'space', 'winter']) assert.deepEqual(seen[track], { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, track);
-  const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', castles: 'gong', autumn: 'crows', woods: 'bell' };
+  const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', castles: 'gong', autumn: 'crows', woods: 'acorns' };
   for (const [track, style] of Object.entries(styles)) assert.deepEqual(seen[track], { style, icon: 'own', hit: 'dizzy', done: true }, track);
   assert.deepEqual(errors, []);
 });
@@ -718,7 +721,7 @@ test('Pumpkin Patch uses the CROWS trigger and four-frame crow art, mirrored alo
 });
 
 test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump it and carry on, back after a fall', { skip: skip() }, async () => {
-  await onTrack('clouds');
+  await onTrack('clouds', { gaps: true });
   const r = await page.evaluate(() => {
     const floor = state.cloudFloor;
     const gap = floor.gaps[1];

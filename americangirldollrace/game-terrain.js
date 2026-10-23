@@ -31,7 +31,9 @@ function makeCloudFloor() {
       x -= CLOUD_OVERLAP; // the next cloud tucks in against this one
     }
     // Small steps, so dolls just walk up and down them.
-    h = clamp(h + (Math.random() * 2 - 1) * CLOUD_STEP, -CLOUD_MAX_LIFT, CLOUD_MAX_LIFT);
+    // (at least a little, so it's always bumpy).
+    const step = (5 + Math.random() * (CLOUD_STEP - 5)) * (Math.random() < 0.5 ? -1 : 1);
+    h = Math.abs(h + step) > CLOUD_MAX_LIFT ? h - step : h + step;
   }
   return { clouds, gaps };
 }
@@ -178,19 +180,25 @@ function drawCloudFloorStandIn(cloud) {
     ctx.moveTo(px + r, py);
     ctx.arc(px, py, r * (0.85 + 0.25 * Math.abs(Math.sin(cloud.seed * 3 + i))), 0, Math.PI * 2);
   }
-  // Rounded puffy ends down to the bottom.
-  for (const ex of [x0 + r * 0.9, x0 + cloud.w - r * 0.9]) {
+  // Rounded puffy ends down to the bottom, only where a gap shows them
+  // (elsewhere the next cloud carries straight on).
+  const gaps = state.cloudFloor.gaps;
+  const gapBefore = gaps.some(gap => Math.abs(gap.end - cloud.x) < 2);
+  const gapAfter = gaps.some(gap => Math.abs(gap.start - (cloud.x + cloud.w)) < 2);
+  const ends = [gapBefore && [x0 + r * 0.9, 1], gapAfter && [x0 + cloud.w - r * 0.9, -1]].filter(Boolean);
+  for (const [ex] of ends) {
     for (let y = back + 20; y < H + r; y += 44) {
       ctx.moveTo(ex + r, y);
       ctx.arc(ex, y, r, 0, Math.PI * 2);
     }
   }
-  ctx.rect(x0 + r * 0.9, back, cloud.w - r * 1.8, H - back + 10);
+  ctx.rect(gapBefore ? x0 + r * 0.9 : x0, back, cloud.w - (gapBefore ? r * 0.9 : 0) - (gapAfter ? r * 0.9 : 0), H - back + 10);
   ctx.fill();
   // A little shading along the ends so gaps read as gaps.
   ctx.globalAlpha = 0.18;
   ctx.fillStyle = "#9b88c9";
-  for (const [ex, dir] of [[x0 + 6, 1], [x0 + cloud.w - 6, -1]]) {
+  for (const [ex0, dir] of ends) {
+    const ex = ex0 - dir * r * 0.9 + dir * 6;
     const shade = ctx.createLinearGradient(ex, 0, ex + dir * 40, 0);
     shade.addColorStop(0, "#8b78c0");
     shade.addColorStop(1, "#8b78c000");

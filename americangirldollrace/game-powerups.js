@@ -24,6 +24,9 @@ const PICKUP_DEFAULTS = {
 // the one on the dolls' toys sheets.
 const POGO_ICON_TRACK = "toyroom";
 
+// Whose power-up sheet the roller-skates icon comes from, on every track.
+const SKATES_ICON_TRACK = "town";
+
 const PICKUP_ITEM_NAMES = { spellBook: "MAGIC WAND", surfboard: "SURFBOARD", windupCars: "WIND-UP CARS", skates: "SKATES", moonBoots: "MOON BOOTS" };
 
 // How this track's EMP reaches whoever it hits (tracks.js empStyle). Until
@@ -47,6 +50,10 @@ function pickupLook(type, { pogo = false } = {}) {
     : type === "boost" ? theme.itemEffects?.boost || theme.rideToys?.boost
     : "own";
   if (!change) return { sheet: null, label, sound };
+  if (change === "skates") {
+    // Every track's skates look the same: the Village's pair.
+    return { sheet: images[trackArtKey(SKATES_ICON_TRACK, "powerups")] || null, label: "SKATES", sound: "pickup_skates" };
+  }
   const name = PICKUP_ITEM_NAMES[change] || label;
   if (!art) return { sheet: null, label: name, sound };
   return { sheet: art, label: theme.labels?.[type] || name, sound: theme.sounds?.[type] || sound };
