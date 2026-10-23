@@ -37,6 +37,7 @@ function empHitTime(arc, target, from) {
 // A lightning EMP shocks her; any other leaves her dizzy for as long.
 function applyEmpHit(attacker, target, style = "lightning") {
   target.empDizzy = !isShockEmp(style);
+  target.empLaser = style === "laser";
   sfx(target.empDizzy ? "emp_dizzy" : "frozen_start", target.x);
   racerVoice(target, "frozen", { chance: 0.6, priority: 1 });
   target.grabbedBy = null;
@@ -1270,9 +1271,10 @@ function drawBeachBall(ball) {
   ctx.restore();
 }
 
-function drawElectricEffect(x, y, w, h) {
+// Crackles over someone shocked: blue, or red from a laser.
+function drawElectricEffect(x, y, w, h, color = "#9fe9ff") {
   ctx.save();
-  ctx.strokeStyle = "#9fe9ff";
+  ctx.strokeStyle = color;
   ctx.lineWidth = 3;
   ctx.globalAlpha = 0.85;
   const now = performance.now() * 0.03;

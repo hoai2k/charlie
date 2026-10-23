@@ -20,6 +20,18 @@
     },
     {
       "bounds": [
+        63,
+        74,
+        193,
+        244
+      ],
+      "sole": [
+        128,
+        244
+      ]
+    },
+    {
+      "bounds": [
         73,
         74,
         183,
@@ -41,10 +53,10 @@
     },
     "assets/moon_boot_sprites.webp": {
       "size": [
-        512,
+        768,
         256
       ],
-      "sha256": "59aaa30f853f354927ac2862dd569cf27aeba052775609c0841db5b80556f8d5"
+      "sha256": "4e708ce3b08ec9cf6663541ed6e817ba3ca86326db0a8cef14910cfe30de71ed"
     }
   }
 }

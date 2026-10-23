@@ -17,7 +17,7 @@
       "bounds": [
         6,
         40,
-        762,
+        761,
         320
       ],
       "backEdge": 40
@@ -44,7 +44,7 @@
       "bounds": [
         6,
         40,
-        762,
+        761,
         320
       ],
       "backEdge": 40
@@ -59,5 +59,5 @@
       "backEdge": 40
     }
   ],
-  "sha256": "400ce88c0aa541582b7c6268e5d078bb7be8cf9b8495792fecc66c64f1892da6"
+  "sha256": "9f00e8d5ccacdd4bc3f087325c18bd0a2f2d6456e9b8a5aff6de0c86a55e6b17"
 }

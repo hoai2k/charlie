@@ -770,3 +770,30 @@ test('Cloud floor art uses all six cells at varied widths and keeps open jumping
   r.calls.forEach((c,n)=>{assert.deepEqual(c.slice(0,4),[n%3*768,Math.floor(n/3)*320,768,320]);assert.equal(c[6],n%2?670:430);assert.equal(c[7],320);});
   assert.ok(r.gap>=95&&r.gap<=130);assert.equal(r.hasGap,true);assert.deepEqual(errors,[]);
 });
+
+test('moon boots are drawn over both feet in her poses (not the jump pose with its own boots)', { skip: skip() }, async () => {
+  await onTrack('space');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0];
+    const count = (sheet, row, col) => {
+      let boots = 0;
+      const original = window.drawMoonBootStandIn;
+      window.drawMoonBootStandIn = (...args) => { boots += 1; return original(...args); };
+      const art = getSharedArt('moon_boot');
+      const draw = ctx.drawImage.bind(ctx);
+      ctx.drawImage = (...args) => { if (art && args[0] === art) boots += 1; return draw(...args); };
+      try { drawRacerBody(a, sheet, col * FRAME, row * FRAME, 300, 200, FRAME * 0.45, FRAME * 0.45, 1, 400); }
+      finally { window.drawMoonBootStandIn = original; ctx.drawImage = draw; }
+      return boots;
+    };
+    a.moonBootsTimer = 0;
+    const off = count(a.sheet, 0, 0);
+    a.moonBootsTimer = 5;
+    const standing = count(a.sheet, 0, 0);
+    const running = count(a.sheet, 1, 1);
+    const actions = getActionSheet(a);
+    const jump = actions ? count(actions, 2, 2) : 0;
+    return { off, standing, running, jump, dolls: Object.keys(window.DOLL_FEET || {}).length };
+  });
+  assert.deepEqual({ ...r, dolls: r.dolls > 10 }, { off: 0, standing: 2, running: 2, jump: 0, dolls: true });
+});
