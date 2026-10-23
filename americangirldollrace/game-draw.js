@@ -609,6 +609,9 @@ function drawRacer(racer) {
     // grows about its wheels, and its seat, with the rider on it, moves with it.
     const baseScale = scale * 1.08;
     const grow = window.MOUNT_ART?.[racer.horseType]?.riddenScale || 1;
+    // riderShift: sprite px to move the rider from the measured seat (the
+    // buggy's driver sits a little higher and further back).
+    const [shiftX, shiftY] = window.MOUNT_ART?.[racer.horseType]?.riderShift || [0, 0];
     const horseScale = baseScale * grow;
     const horseW = FRAME * horseScale;
     const horseH = FRAME * horseScale;
@@ -625,8 +628,8 @@ function drawRacer(racer) {
     // when facing left too.
     const seatDX = (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * baseScale + (calibration.seatX - SPRITE_ANCHOR_X) * baseScale * (grow - 1);
     const seatDY = (calibration.seatY - MOUNT_SEAT_REFERENCE.y) * baseScale + (calibration.seatY - SPRITE_ANCHOR_Y) * baseScale * (grow - 1);
-    const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale + seatDX;
-    const riderY = baseY - 60 * scale + racer.riderYOffset * scale + seatDY;
+    const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale + seatDX + shiftX * horseScale;
+    const riderY = baseY - 60 * scale + racer.riderYOffset * scale + seatDY + shiftY * horseScale;
     if (!flashing) {
       const horseImage = images[racer.horseType] || images.horse;
       drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);

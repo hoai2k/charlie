@@ -25,5 +25,5 @@ for n,(cell,b,seat) in enumerate(items):
 target=G/'assets/moon_buggy_sprites.webp';sheet.save(target,lossless=True,exact=True,method=6)
 meta={'asset':str(target.relative_to(G)),'size':[1254,1254],'frameSize':[418,418],'scale':scale,'frames':frames,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
 (H/'calibration.json').write_text(json.dumps(meta,indent=2)+'\n')
-mounts=G/'mounts.js';text=mounts.read_text();data=json.loads(text[text.index('{'):text.rindex('}')+1]);data['moon_buggy']={'calibration':[[frames[r*3+c]['seat']+[0] for c in range(3)] for r in range(3)],'riddenScale':1.2};mounts.write_text('// Generated mount calibration: griffon and Apollo-style moon buggy.\nwindow.MOUNT_ART = '+json.dumps(data,indent=2)+';\n')
+mounts=G/'mounts.js';text=mounts.read_text();data=json.loads(text[text.index('{'):text.rindex('}')+1]);data['moon_buggy']={'calibration':[[frames[r*3+c]['seat']+[0] for c in range(3)] for r in range(3)],'riddenScale':1.2,'riderShift':[-22,-24]};mounts.write_text('// Generated mount calibration: griffon and Apollo-style moon buggy.\nwindow.MOUNT_ART = '+json.dumps(data,indent=2)+';\n')
 print(meta)

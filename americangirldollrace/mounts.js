@@ -109,6 +109,10 @@ window.MOUNT_ART = {
         ]
       ]
     ],
-    "riddenScale": 1.2
+    "riddenScale": 1.2,
+    "riderShift": [
+      -22,
+      -24
+    ]
   }
 };
