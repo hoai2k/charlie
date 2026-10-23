@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2); §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2); §27 fairy wings (FW1); §28 flying troll (TF1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1081,4 +1081,26 @@ she's turned (side on running, three-quarter standing and jumping),
 flutter softly on the ground and beat while she flies, and the pickup shows
 the resting wings. Winged trolls (half of Fairy Woods' trolls) wear the
 same sheet's three-quarter row.
+
+## 28. Open: flying troll
+
+Half of Fairy Woods' trolls wear fairy wings and fly up after girls in the
+air. Today they fly in their walking poses; give the troll real flying
+poses. The game draws the wings itself (behind his back), so **no wings in
+these frames**.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| TF1 | `assets/troll_flying_sprites.webp` | 1254×418 (3 cells of 418), alpha | The troll from `assets/monster_sprites.webp` (same painted, slightly photoreal style, colours, face and build; grumpy and funny, not scary), facing right, flying: (1) **swooping forward**, body leaning far forward, nearly level, both arms stretched out ahead with grabbing hands, legs trailing out behind; (2) the same swoop a beat later, arms pulled back a little and legs kicked, so cells 1–2 alternate as he flies along; (3) **hovering**, upright and a little hunched, arms reaching forward and up to grab, legs dangling loosely below with toes pointed down. |
+
+Rules: the same scale as the troll sheet (a 418 cell, the troll about as
+big as in his walk cells); his **hips** at the same place in each cell as
+in the troll's walking cells (about x 205, y 250), so swapping between
+walking and flying doesn't make him jump; nothing touching a cell edge; no
+wings, shadow, ground or text. In the same commit add `"troll_flying"` to
+`TRACK_SHARED_ART` in `tracks.js`.
+
+Acceptance: on Fairy Woods, a winged troll chasing a flier swoops along in
+cells 1–2 and hovers in cell 3 when he's level with her, with the wings on
+his back, and is back in his walk cells once he's landed.
 
