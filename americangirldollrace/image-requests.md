@@ -33,6 +33,7 @@ All paths are relative to `americangirldollrace/`.
 | Canvas | The game renders at a height of 720 and a variable width (minimum 640 wide, typically 1280 at 16:9, up to about 1700 on ultrawide). Full-screen art must have a **safe centre of 1280×720**, with extra bleed out to 2172 wide (the same width as the current backgrounds). |
 | Audience | A 2nd-grader and her friends on a TV with Xbox controllers. Prefer big, readable shapes and names. Avoid fine text baked into images. The game draws all text itself, except the logo. |
 | Transparency | Sprites, portraits, badges and frames need clean alpha with no white halos. Check them on dark and light backgrounds. |
+| Track monsters | A new monster sheet is registered by adding its entry to `monsters.js` (size, grab hands, sounds, defeat effect) and setting `monster` on its track in `tracks.js`; this replaces the older "add it to `TRACK_SHARED_ART`" step in §9, §14 and §16. |
 
 ### Roster (the identity references)
 

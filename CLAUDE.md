@@ -124,6 +124,9 @@ hook to get round it.
   Horse Show riding rules (everyone mounted, mount swaps, troll on a horse,
   longer course) are `tracks.js` flags; see its header comment.
   Briefs are in `americangirldollrace/image-requests.md` §5.
+  Track monsters (troll, scarecrow, skeleton, robot, tin toy, sand monster)
+  each have one entry in `americangirldollrace/monsters.js`: sheet, size,
+  grab-hand points, sound prefix and defeat effect.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Fairies in the Woods" is reserved for a wooded fairy board.

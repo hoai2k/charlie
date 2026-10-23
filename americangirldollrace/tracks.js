@@ -74,13 +74,13 @@
 // over hurdles), "windupCars" (cars that bump whoever they meet).
 // moonBoots: the high-jump pickup is moon boots: low gravity for a while, so
 // jumps float over several hurdles (Moon Base).
-// monster: replaces the troll on that track with another sheet in the troll's
-// layout, assets/<monster>_sprites.webp (listed in TRACK_SHARED_ART once
-// delivered; until then the troll appears), and its own <monster>_* sounds.
+// monster: replaces the troll on that track with another monster; everything
+// about each one (sheet, size, grip, sounds, defeat effect) is its entry in
+// monsters.js, and the troll appears until that entry exists.
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
-// several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs),
-// "scarecrow", "skeleton" (§9).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton", "robot", "tintroll", "sandtroll"];
+// several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs)
+// and "frog" (§10).
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {

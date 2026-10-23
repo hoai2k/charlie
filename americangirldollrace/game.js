@@ -197,20 +197,6 @@ const SNOWBALL_RADIUS = 13;
 const SNOWBALL_HAND_DRAW_Y_OFFSET = 200;
 const MONSTER_SPRITE_ROWS = 4;
 const MONSTER_HEIGHT_SCALE = 1.3;
-// Per-sheet size tweaks on top of that, so each reads as large as the troll:
-// the robot stands squat, and the scarecrow's sheet height includes its tall
-// hat (feet to the top of the pumpkin is ~298px against the troll's ~342px).
-const MONSTER_ART_SCALE = { robot: 1.15, scarecrow: 1.15 };
-// Where each monster's front hand is in its grab, lift and throw frames
-// (sprite row 3), frame pixels facing right; the grabbed doll is held there.
-const MONSTER_GRAB_HANDS = {
-  monster: [[336, 181], [296, 122], [335, 114]],
-  robot: [[363, 208], [365, 148], [342, 130]],
-  scarecrow: [[354, 177], [305, 117], [339, 132]],
-  skeleton: [[348, 189], [300, 116], [349, 122]],
-  tintroll: [[325, 210], [290, 120], [340, 155]],
-  sandtroll: [[325, 180], [310, 55], [350, 135]]
-};
 const MONSTER_WAIT_FROM_BOARD_END = EXPECTED_VIEW_WIDTH;
 let MONSTER_COURSE_START_X = FINISH / 3 + 120;
 // A troll riding a horse (a track's trollMount) has to keep up with riders.
@@ -489,7 +475,7 @@ const images = {
   pegasus: loadImage("assets/pegasus_sprites.webp"),
   griffon: loadImage("assets/griffon_sprites.webp"),
   broom: loadImage("assets/broom.webp"),
-  monster: loadImage("assets/monster_sprites.webp"),
+  monster: loadImage(window.MONSTERS?.troll?.sheet || "assets/monster_sprites.webp"),
   powerupIcons: loadImage("assets/icons_alpha.webp"),
   confetti: loadImage("assets/ui/confetti.webp"),
   ...Object.fromEntries(Object.entries(extraDolls).map(([key, doll]) => [key, loadImage(`assets/doll_${doll.assetKey || key}_sprites.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`)])),
@@ -914,8 +900,8 @@ function preloadTrackArt(background) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
   if (pogoEligible(background)) loadArtOnce(trackArtKey("town", "powerups"), `assets/tracks/town/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
-  if (theme.monster && (window.TRACK_SHARED_ART || []).includes(theme.monster)) {
-    loadArtOnce(theme.monster, `assets/${theme.monster}_sprites.webp`);
+  if (theme.monster && theme.monster !== "troll" && window.MONSTERS?.[theme.monster]) {
+    loadArtOnce(theme.monster, monsterSheetUrl(theme.monster));
   }
   if (theme.trollMount) {
     for (const name of window.TRACK_SHARED_ART || []) loadArtOnce(name, `assets/${name}_sprites.webp`);
@@ -975,12 +961,21 @@ function canMountedRacersUsePowerups() {
   return isHorsingAroundMode() || isAlwaysMountedTrack();
 }
 
-// The track's own monster (tracks.js `monster`: a scarecrow, a skeleton) in
-// place of the troll, once its sheet has loaded with the troll's layout.
+// The track's own monster (its entry in monsters.js) once its sheet has loaded
+// with the troll's layout, else null: the troll.
 function getTrackMonsterKey() {
   const key = getTrackTheme().monster;
-  const sheet = key && images[key];
+  const sheet = key && key !== "troll" && window.MONSTERS?.[key] && images[key];
   return sheet && sheet.width === FRAME * SPRITE_COLS && sheet.height === FRAME * MONSTER_SPRITE_ROWS ? key : null;
+}
+
+// The current track's monster entry (monsters.js): its own, or the troll's.
+function monsterDef() {
+  return window.MONSTERS?.[getTrackMonsterKey() || "troll"] || {};
+}
+
+function monsterSheetUrl(key) {
+  return window.MONSTERS?.[key]?.sheet || `assets/${key}_sprites.webp`;
 }
 
 function getMonsterImage() {
@@ -988,12 +983,12 @@ function getMonsterImage() {
 }
 
 // The troll's sound, or the track monster's own version of it (scarecrow_grab
-// for troll_grab). Track monsters collapse into a pile, so they don't snore.
+// for troll_grab). Only monsters marked `snores` play the sleep loop.
 function monsterSfx(trollKey) {
   const key = getTrackMonsterKey();
   if (!key) return trollKey;
-  if (trollKey === "troll_sleep_loop") return null;
-  const own = trollKey.replace(/^troll_/, `${key}_`);
+  if (trollKey === "troll_sleep_loop" && !monsterDef().snores) return null;
+  const own = trollKey.replace(/^troll_/, `${monsterDef().sounds || key}_`);
   return window.AUDIO_MANIFEST?.sfx?.[own] ? own : trollKey;
 }
 
@@ -3637,10 +3632,10 @@ function dropMonsterNear(x, y, dropStartY = null) {
   return monster;
 }
 
-// A defeated robot lies on the ground crackling with sparks, now and then a
-// bigger fizz, like a broken robot.
-function updateBrokenRobotSparks(monster, dt) {
-  if (getTrackMonsterKey() !== "robot" || !isMonsterVisible(monster)) return;
+// A defeated monster with `defeated: "sparks"` (the robot) lies on the ground
+// crackling with sparks, now and then a bigger fizz, like a broken robot.
+function updateDefeatedSparks(monster, dt) {
+  if (monsterDef().defeated !== "sparks" || !isMonsterVisible(monster)) return;
   monster.sparkTimer = (monster.sparkTimer || 0) - dt;
   if (monster.sparkTimer > 0) return;
   const big = Math.random() < 0.18;
@@ -3702,7 +3697,7 @@ function updateMonsters(dt) {
     }
 
     if (monster.state === "sleeping") {
-      updateBrokenRobotSparks(monster, dt);
+      updateDefeatedSparks(monster, dt);
       continue;
     }
 
@@ -3847,7 +3842,7 @@ function setGrabbedRacerPosition(monster, racer) {
   racer.y = clamp(monster.y - 8, TRACK_TOP, TRACK_BOTTOM);
   racer.z = 44 + liftProgress * 70 + (monster.riding ? 70 : 0);
   const grabCol = { grab: 0, lift: 1, throw: 2 }[monster.state];
-  const hand = !(monster.riding && getTrollMountImage()) && MONSTER_GRAB_HANDS[getTrackMonsterKey() || "monster"]?.[grabCol ?? 0];
+  const hand = !(monster.riding && getTrollMountImage()) && monsterDef().grabHands?.[grabCol ?? 0];
   if (hand) {
     // On foot: hold her by the torso (270px in her 418px grabbed pose) in the
     // monster's hand, as drawn in this frame.
@@ -7357,7 +7352,7 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
 
 // The on-foot monster's draw scale: depth, the monster size, and its sheet's tweak.
 function monsterScale(monster) {
-  return racerDepthScale(monster) * MONSTER_HEIGHT_SCALE * (MONSTER_ART_SCALE[getTrackMonsterKey() || "monster"] || 1);
+  return racerDepthScale(monster) * MONSTER_HEIGHT_SCALE * (monsterDef().scale || 1);
 }
 
 function monsterDrawY(monster) {
