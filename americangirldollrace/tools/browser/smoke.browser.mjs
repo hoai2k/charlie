@@ -797,3 +797,17 @@ test('moon boots are drawn over both feet in her poses (not the jump pose with i
   });
   assert.deepEqual({ ...r, dolls: r.dolls > 10 }, { off: 0, standing: 2, running: 2, jump: 0, dolls: true });
 });
+
+test('on the clouds a doll bounces as she runs and sinks in a little standing still', { skip: skip() }, async () => {
+  await onTrack('clouds');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0]; a.x = 3000; a.y = PATH_TOP + 100;
+    keys.clear(); keys.add('KeyD');
+    const running = [];
+    for (let i = 0; i < 40; i++) { update(1 / 60); running.push(cloudFootingOffset(a)); }
+    keys.clear();
+    for (let i = 0; i < 60; i++) update(1 / 60);
+    return { bounces: Math.min(...running) < -4, sunk: cloudFootingOffset(a) > 6 };
+  });
+  assert.deepEqual(r, { bounces: true, sunk: true });
+});

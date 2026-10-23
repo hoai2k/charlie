@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** no outstanding art; MB1 runtime integration is with the gameplay agent. Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §21 cloud puff (CL2); MB1 runtime integration is with the gameplay agent. Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -929,6 +929,7 @@ drawn in code. The background's own flat cloud floor is covered by them.
 | # | File | Size | What |
 | --- | --- | --- | --- |
 | CL1 | `assets/tracks/clouds/floor.webp` | 2304×640 (3×2 cells of 768×320), alpha | **Six walkable floor clouds**, one per cell, in the background's soft pastel style (white tops, lilac-pink shading underneath). Seen from a little above, as the ground the dolls run on: **plainly a big soft puffy cloud, not flat ground**: the whole top is rounded billows and lumps of different sizes, soft and fluffy, with gentle shading between the puffs, filling the cell from its back edge down to the bottom. Dolls sink a little into it when they stand still and bounce on it as they run, so it should look soft enough for that. |
+| CL2 | `assets/tracks/clouds/puff.webp` | 128×128, alpha | **A little cloud puff** in the same style: a soft white-lilac lump of cloud, wider than tall, centred. A few gather over a doll's feet when she sinks into the cloud standing still. In the same commit add `"puff"` to the `clouds` track's `art` list. |
 
 Each cell: the cloud's **back edge** (its far, top silhouette: a row of soft
 puffs) sits at about **y = 40**, gently domed (the middle about 8 px higher

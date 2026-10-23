@@ -332,7 +332,11 @@ const CLOUD_GAP_EVERY_RANGE = 1100; // to this much more
 const CLOUD_GAP_EDGE_GRACE = 14; // px into a gap before her feet are off the cloud
 const CLOUD_FLOOR_SAFE_START = 1400; // no gaps before here
 const CLOUD_FLOOR_SAFE_END = 800; // or this close to the finish
-const CLOUD_FALL_TIME = 1.3; // s she's gone after falling through a gap
+const CLOUD_FALL_TIME = 1.3;
+const CLOUD_BOUNCE = 7; // px a doll bounces up as she runs on the clouds
+const CLOUD_BOUNCE_STRIDE = 70; // world px per bounce
+const CLOUD_SINK = 9; // px she sinks into a cloud standing still
+const CLOUD_SINK_TIME = 0.6; // s to sink right in // s she's gone after falling through a gap
 const CLOUD_FLOOR_BACK_EDGE = 16; // px above PATH_TOP the floor's back edge sits
 const CLOUD_FLOOR_CELL_W = 768; // the floor sheet's cells (image-requests.md §21)
 const CLOUD_FLOOR_CELL_H = 320;
@@ -1857,6 +1861,7 @@ function update(dt) {
       racer.jumpStarted = false;
     }
     checkCloudFall(racer);
+    updateCloudFooting(racer, dt);
     racer.landingTimer = Math.max(0, racer.landingTimer - dt);
     racer.roverLandTimer = Math.max(0, (racer.roverLandTimer || 0) - dt);
 
