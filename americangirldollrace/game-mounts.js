@@ -10,9 +10,10 @@ function isAlwaysMountedTrack() {
 }
 
 // Whether this racer can pick up and use power-ups: on foot, anywhere riders
-// may (Horse Show, Horsing Around), or on a broomstick, which she runs with.
+// may (Horse Show, Horsing Around), on a broomstick, which she runs with, or
+// on a unicorn.
 function canRacerUsePowerups(racer) {
-  return !isMounted(racer) || canMountedRacersUsePowerups() || racer.horseType === "broom";
+  return !isMounted(racer) || canMountedRacersUsePowerups() || racer.horseType === "broom" || racer.horseType === "unicorn";
 }
 
 function canMountedRacersUsePowerups() {
@@ -259,12 +260,17 @@ function drawRainbowBeam(beam) {
   ctx.save();
   ctx.globalAlpha = 0.82 * alpha;
   ctx.lineCap = "round";
+  // The stripes fan out from a point at the horn tip to full width.
+  const dir = Math.sign(x2 - x1) || 1;
+  const fan = Math.min(UNICORN_BEAM_FAN, Math.abs(x2 - x1));
   for (let i = 0; i < colors.length; i += 1) {
+    const offset = -15 + i * 6;
     ctx.strokeStyle = colors[i];
     ctx.lineWidth = 5;
     ctx.beginPath();
-    ctx.moveTo(x1, beam.y - 15 + i * 6);
-    ctx.lineTo(x2, beam.y - 15 + i * 6);
+    ctx.moveTo(x1, beam.y);
+    ctx.lineTo(x1 + dir * fan, beam.y + offset);
+    ctx.lineTo(x2, beam.y + offset);
     ctx.stroke();
   }
   ctx.restore();

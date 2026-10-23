@@ -7,7 +7,8 @@
 //  - Speed and high jump keep the original icon, name and sound unless the
 //    track changes how they work: skates, an item (surfboard, wind-up key,
 //    spell book) or moon boots.
-//  - A pogo stick shows the track's pogo icon, else the Village's.
+//  - A pogo stick always shows the Toy Room's red pogo icon, the stick the
+//    dolls ride (POGO_ICON_TRACK).
 //  - The rest (EMP, oil, snowballs) take the track's own look.
 // A track's own icons, names (tracks.js labels) and sounds apply only once its
 // power-up art is showing.
@@ -19,6 +20,10 @@ const PICKUP_DEFAULTS = {
   snowball: ["SNOWBALLS", "powerup_snowball_pickup"]
 };
 
+// Whose power-up sheet the pogo icon comes from: its red pogo stick matches
+// the one on the dolls' toys sheets.
+const POGO_ICON_TRACK = "toyroom";
+
 const PICKUP_ITEM_NAMES = { spellBook: "MAGIC WAND", surfboard: "SURFBOARD", windupCars: "WIND-UP CARS", skates: "SKATES", moonBoots: "MOON BOOTS" };
 
 function pickupLook(type, { pogo = false } = {}) {
@@ -26,8 +31,7 @@ function pickupLook(type, { pogo = false } = {}) {
   const art = getTrackArt("powerups");
   const [label, sound] = PICKUP_DEFAULTS[type] || [type.toUpperCase(), null];
   if (type === "jump" && pogo) {
-    const own = art && theme.labels?.jump === "POGO";
-    return { sheet: own ? art : images[trackArtKey("town", "powerups")] || null, label: "POGO", sound: "pickup_pogo" };
+    return { sheet: images[trackArtKey(POGO_ICON_TRACK, "powerups")] || null, label: "POGO", sound: "pickup_pogo" };
   }
   const change = type === "jump" ? theme.itemEffects?.jump || (theme.moonBoots ? "moonBoots" : null)
     : type === "boost" ? theme.itemEffects?.boost || theme.rideToys?.boost
@@ -260,6 +264,8 @@ function applyPowerup(racer, powerupOrType) {
   if (hasActivePowerup(racer, type)) return false;
   // A spare or left-behind mount is only for someone without one.
   if (type === "horse" && powerupOrType.loose && isMounted(racer)) return false;
+  // A unicorn rider keeps her unicorn rather than swap it for another mount.
+  if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn") return false;
   playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);
   const itemEffect = (type === "boost" || type === "jump") && getTrackTheme().itemEffects?.[type];
   if (itemEffect && !isMounted(racer)) return applyItemEffect(racer, itemEffect, type);

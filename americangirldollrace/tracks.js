@@ -62,8 +62,8 @@
 // High-jump pickups are springs in some races and pogo sticks in others, on
 // any track, but never both in one race (game-powerups.js POGO_SHARE), except Wizard
 // School (spell book) and Horse Show (everyone rides); on Moon Base the
-// spring is moon boots. Pogo pickups show the track's pogo icon (its jump
-// label is "POGO") or the Village's.
+// spring is moon boots. Pogo pickups always show the Toy Room's red pogo
+// icon, which matches the stick the dolls ride.
 // Speed and high-jump pickups otherwise always use the original icons, names
 // (BOOST, HIGH JUMP) and sounds: a track's own speed/jump art, `labels` and
 // `sounds` are used only for skates, a pogo stick, or an `itemEffects` item

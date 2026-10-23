@@ -163,7 +163,8 @@ function drawWorldScene() {
       ...state.powerups.filter(powerup => !powerup.taken).map(powerup => ({ type: "powerup", y: powerup.type === "oil" ? powerup.y - 60 : powerup.y, item: powerup })),
       ...state.projectiles.map(projectile => ({ type: "projectile", y: projectile.y, item: projectile })),
       ...state.thrownLeftovers.map(item => ({ type: "leftover", y: item.groundY - 20, item })),
-      ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.y, item: beam })),
+      // Drawn just in front of the unicorn, so it comes out of the horn.
+      ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.owner ? beam.owner.y + 54.5 : beam.y, item: beam })),
       ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
       ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
       ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
