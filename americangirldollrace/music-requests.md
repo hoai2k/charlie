@@ -32,7 +32,7 @@ ending (no long fade-out) loops best.
 | Beach | Ride the Beach Tide |
 | Wizard School | Oops-a-Daisy Wizard School |
 | Night Festival | One More Spin at the Night Festival |
-| Fairy Woods | Fairies in the Woods |
+| Fairy Woods | Forest Fairy Spin |
 | Horse Show | Race to the Ribbon |
 | Candy Land | Bubblegum Radar |
 | Pumpkin Patch | Hey, Hay! |

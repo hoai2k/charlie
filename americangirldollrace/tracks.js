@@ -240,7 +240,7 @@ window.TRACK_THEMES = {
   // Twilight woodland track with its own looped art and song.
   woods: {
     empStyle: "acorns",
-    name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
+    name: "Fairy Woods", music: "assets/music/Forest Fairy Spin.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN TOSS", oil: "MOSSY BOG", snowball: "ACORNS" },
     sounds: { emp: "pickup_acorn_bell" },
     wingedMonsters: 0.5,
