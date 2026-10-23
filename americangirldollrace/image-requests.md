@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §18 Moon Base moon buggy mount (B1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** none. Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -813,7 +813,7 @@ pickup reads as a wand at a glance, next to the other icons.
 
 ---
 
-## 18. Moon Base mount: a moon buggy (open)
+## 18. Delivered Moon Base moon buggy
 
 On Moon Base the plain horse (the base mount a mount pickup gives) becomes a
 **moon buggy**. It rides like the themed ground mounts in §5.6 (pony,
@@ -844,3 +844,5 @@ the seat in every frame both ways, and the wheels stay on the ground line.
 W1 delivered: dark wood/gold star-tipped wand replaces only cell 1. The remaining four decoded RGBA cells are pixel-identical; alpha/padding and thumbnail readability reviewed. Source, prompt and before/after evidence: `tools/tracks/wizard-wand/`.
 
 Candy Land and Cloud Kingdom trolls delivered from the owner’s approved colorful-candy and storm-cloud canonicals. Twelve normal poses each; candy defeat is a headless pile with eight matching candy particle sprites. Cloud has a separate three-frame lightning attack, a golden bolt projectile, and dissipates completely including its shadow. Measured grab anchors, alpha/gutters/baseline, both attack directions and interruption/defeat reviewed; sources and prompts in `tools/effects/new-trolls/`.
+
+B1 delivered with the owner’s later Apollo-rover photo reference: open silver tube frame, webbed seat, gold-foil equipment and umbrella dish. Nine right-facing transparent poses, baseline409 and mirrored rider review passed. Its lower Apollo-style seat uses measured per-frame calibration in `mounts.js`, superseding the initial fixed (226,242) seat suggestion without distorting the rover. Source, exact prompt, seat measurements and proofs: `tools/mounts/moon-buggy/`.

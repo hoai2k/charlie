@@ -192,6 +192,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
   },
   space: {
+    baseMount: "moon_buggy",
     monster: "robot",
     empStyle: "lightning",
     moonBoots: true,

@@ -154,10 +154,10 @@ const MOUNT_FRAME_CALIBRATION = {
   ]
 };
 // Themed ground mounts (tracks.js mountOdds) ride like the horse. Their sheets
-// are normalized so every frame's seat is at (226, 242) on the horse baseline.
-const THEMED_MOUNT_TYPES = ["pony", "reindeer", "rocking_horse", "carousel_horse"];
+// use (226, 242), or their measured MOUNT_ART seats (the lower Apollo rover).
+const THEMED_MOUNT_TYPES = ["pony", "reindeer", "rocking_horse", "carousel_horse", "moon_buggy"];
 for (const type of THEMED_MOUNT_TYPES) {
-  MOUNT_FRAME_CALIBRATION[type] = [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
+  MOUNT_FRAME_CALIBRATION[type] = window.MOUNT_ART?.[type]?.calibration || [0, 1, 2].map(() => [0, 1, 2].map(() => [226, 242, 0]));
 }
 const MOUNT_SEAT_REFERENCE = { x: 225, y: 228.67 };
 const PUSH_COOLDOWN = 0.72;

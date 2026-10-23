@@ -340,6 +340,27 @@ test('Candy Troll breaks into candy particles after five hits', { skip: skip() }
   assert.deepEqual(burst,{ground:'ground',count:18});
 });
 
+test('Moon Base gives a rover with nine calibrated rider frames in either direction', { skip: skip() }, async () => {
+  await onTrack('space');
+  const seats=await page.evaluate(async () => {
+    await loadArtOnce('moon_buggy','assets/moon_buggy_sprites.webp');
+    const a=state.racers[0],random=Math.random;
+    let pickup;
+    try {Math.random=()=>.99;pickup=makePowerup('horse',a.x,a.y+54);} finally {Math.random=random;}
+    if(pickup.horseType!=='moon_buggy')throw Error('Moon Base base mount is not rover');
+    applyPowerup(a,pickup);if(a.horseType!=='moon_buggy')throw Error('rover pickup failed');
+    const result=[];
+    for(let row=0;row<3;row++)for(let col=0;col<3;col++){
+      const cal=getMountFrameCalibration('moon_buggy',row,col);result.push([cal.seatX,cal.seatY,cal.groundShift]);
+      for(const facing of [-1,1]){a.facing=facing;a.moving=row===1;a.frame=col;a.jumpFrame=col;a.z=row===2?40:0;a.vy=[500,0,-500][col];drawRacer(a);}
+    }
+    return result;
+  });
+  const meta=JSON.parse(await readFile(path.join(repo,'americangirldollrace/tools/mounts/moon-buggy/calibration.json'),'utf8'));
+  assert.deepEqual(seats,meta.frames.map(f=>[...f.seat,0]));
+  assert.deepEqual(errors,[]);
+});
+
 test('in the menu settings, left/right change a setting and A closes it', { skip: skip() }, async () => {
   await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
   const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };
