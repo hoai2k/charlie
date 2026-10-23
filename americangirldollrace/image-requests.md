@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2); §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §26 more moon boot angles (MB2); §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1020,7 +1020,7 @@ the floor's own clouds are painted back over them below the surface with a
 feathered edge (game-terrain.js drawCloudSink), so the feet sink into the
 cloud under them. `puff.webp` is kept but no longer loaded.
 
-## 25. Open: Beach seaweed puddle
+## 25. Delivered: Beach seaweed puddle
 
 The Beach's oil pickup is SEAWEED, but its cell (an R-series puddle redo)
 reads as a plain blue water puddle.
@@ -1079,3 +1079,8 @@ Acceptance: on Fairy Woods with the WINGS pickup, standing, running and
 flying, the wings sit on her back for every doll, flutter softly on the
 ground and beat while she flies, and the pickup shows the resting wings.
 
+
+SW1 delivered: glossy dark-green/olive seaweed ribbons and wrack in a thin
+water film, same flat puddle angle. Cells0,1,2,4 remain decoded-RGBA identical;
+Beach cache version bumped. Native/68px and light/dark alpha reviewed.
+Source, exact built-in ImageGen prompt and report: `tools/tracks/beach-seaweed/`.

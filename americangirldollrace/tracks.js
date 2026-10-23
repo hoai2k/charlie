@@ -175,6 +175,7 @@ window.TRACK_THEMES = {
   beach: {
     noPowerups: ["emp", "horse"], // the surfboard stands in for both
     monster: "sandtroll",
+    powerupArtVersion: "20261023-seaweed1",
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "wave"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
     projectileLanding: "water",
