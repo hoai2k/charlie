@@ -521,9 +521,10 @@ function updateThrownLeftovers(dt) {
   for (const item of state.thrownLeftovers) {
     item.life -= dt;
     if (item.kind !== "roll" || item.squished) continue;
-    // (Not straight away, or whoever it bounced off would squish it as it lands.)
+    // Once it's down (a moment after it lands, clear of whoever it bounced
+    // off), anyone running over it squishes it.
     item.age += dt;
-    if (item.hop < 4 && item.age > 0.6) squishRolledThrowable(item);
+    if (item.hop < 4 && item.age > 0.2) squishRolledThrowable(item);
     // Rolls on, bounces a little, slows down, and stops at hurdles.
     item.x += item.vx * dt;
     item.spin += (item.vx / SNOWBALL_RADIUS) * dt;
@@ -600,7 +601,9 @@ function projectileImpact(projectile, groundY) {
     // the ground, where it stays.
     sfx("snowball_hit", projectile.x);
     const height = Math.max(0, projectile.groundY - SNOWBALL_RADIUS - (projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1)));
-    addRolledThrowable({ x: projectile.x, groundY: projectile.groundY ?? groundY, vx: -Math.sign(projectile.vx) * 140, spin: projectile.distance * 0.02, hop: height / 0.3, vhop: 260 });
+    // It starts back off her and rolls a little further, so it lands clear.
+    const back = -Math.sign(projectile.vx) || -1;
+    addRolledThrowable({ x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height / 0.3, vhop: 260 });
     return;
   }
   if (projectileLanding() !== "water") {

@@ -679,8 +679,11 @@ test('a thrown apple bounces off whoever it hits and stays on the ground until s
     a.x = 8100; a.y = PATH_TOP + 90; a.facing = 1; b.x = 8350; b.y = a.y; b.ai = false; b.horseTimer = 0;
     state.thrownLeftovers = []; a.snowballs = 1; launchSnowball(a);
     let hit = false;
-    for (let i = 0; i < 40; i++) { update(1 / 60); hit ||= b.fallBackTimer > 0; }
+    for (let i = 0; i < 12 && !hit; i++) { update(1 / 60); hit ||= b.fallBackTimer > 0; }
+    a.x = 7000; // the thrower steps aside
+    for (let i = 0; i < 40; i++) update(1 / 60);
     const apple = state.thrownLeftovers.find(t => t.kind === 'roll');
+    const clear = Math.abs(apple.x - b.x) > 60; // landed clear of who it hit
     b.x = 6000; // out of the way
     for (let i = 0; i < 400; i++) update(1 / 60);
     const stays = state.thrownLeftovers.includes(apple) && !apple.squished;
@@ -688,9 +691,9 @@ test('a thrown apple bounces off whoever it hits and stays on the ground until s
     update(1 / 60);
     const squished = apple.squished;
     for (let i = 0; i < 60; i++) update(1 / 60);
-    return { hit, bounced: Boolean(apple) && apple.x < 8350, stays, squished, gone: !state.thrownLeftovers.includes(apple) };
+    return { hit, bounced: Boolean(apple) && apple.x < 8350, clear, stays, squished, gone: !state.thrownLeftovers.includes(apple) };
   });
-  assert.deepEqual(r, { hit: true, bounced: true, stays: true, squished: true, gone: true });
+  assert.deepEqual(r, { hit: true, bounced: true, clear: true, stays: true, squished: true, gone: true });
 });
 
 test('Pumpkin Patch uses the CROWS trigger and four-frame crow art, mirrored along its flight', { skip: skip() }, async () => {
