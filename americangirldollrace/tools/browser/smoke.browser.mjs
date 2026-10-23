@@ -181,6 +181,34 @@ test('the spell book casts the way the player aims', { skip: skip() }, async () 
   assert.deepEqual(r, { right: 'monster ahead', left: 'racer behind', none: 'racer behind' });
 });
 
+test('wind-up cars drive toward the closest character, else forward; no EMPs on the Toy Room', { skip: skip() }, async () => {
+  await onTrack('toyroom');
+  const r = await page.evaluate(() => {
+    let emps = 0; for (let i = 0; i < 5; i++) { startRace('two'); emps += state.powerups.filter(q => q.type === 'emp').length; }
+    const run = bx => { startRace('two'); state.running = false; state.obstacles = []; state.powerups = []; state.monsters = []; state.windupCars = [];
+      const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; b.x = bx; applyPowerup(a, 'boost'); return state.windupCars[0]?.dir; };
+    return { emps, alone: run(1000), behind: run(7700), ahead: run(8600) };
+  });
+  assert.deepEqual(r, { emps: 0, alone: 1, behind: -1, ahead: 1 });
+});
+
+test('a tagged Amanda follows her player and pushes a troll away', { skip: skip() }, async () => {
+  await onTrack('town');
+  const r = await page.evaluate(() => {
+    const fence = { x: 8500, y: PATH_TOP + 60, hitW: HURDLE_HIT_W, hitH: HURDLE_HIT_H, amandaHazard: true, amandaState: 'sitting', amandaTimer: 0, amandaReveal: 0, amandaCooldown: 0, amandaFacing: -1, amandaTarget: null };
+    state.obstacles = [fence]; state.amandaCaught = fence;
+    const [a] = state.racers; a.x = 8400; a.y = PATH_TOP + 60 + 18 - 54;
+    keys.clear(); keys.add('KeyD'); for (let i = 0; i < 20 && !state.amandaAlly; i++) update(1 / 60); keys.clear();
+    const tagged = Boolean(state.amandaAlly);
+    a.x = 9500; for (let i = 0; i < 240; i++) update(1 / 60);
+    const gap = Math.abs(a.x - state.amandaAlly.x);
+    const m = spawnMonster(a.x + 220, a.y, { active: true, riding: false }); m.x = a.x + 220; m.y = a.y; m.riding = false; m.state = 'walk'; state.monsters = [m];
+    let pushed = false; for (let i = 0; i < 180; i++) { update(1 / 60); pushed ||= m.state === 'fall'; }
+    return { tagged, following: gap < 140, pushed };
+  });
+  assert.deepEqual(r, { tagged: true, following: true, pushed: true });
+});
+
 test('the pause screen shows its corner buttons', { skip: skip() }, async () => {
   await page.evaluate(() => { startRace('two'); state.running = true; togglePause(); });
   for (const id of ['#pauseSoundButton', '#pauseSettingsButton']) assert.ok(await page.isVisible(id), id);

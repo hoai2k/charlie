@@ -11,6 +11,8 @@
 //              (e.g. a squat robot, or a sheet whose height includes a hat)
 //   grabHands  its front hand in the grab, lift and throw cells (row 3),
 //              frame pixels facing right: the grabbed doll is held there
+//   rowScale   per sprite row, a size correction for a row painted smaller
+//              or larger than the others ([idle, walk, grab, fall] rows)
 //   snores     plays the troll's sleep loop when defeated
 //   defeated   an effect drawn over its defeated pose: "sparks"
 window.MONSTERS = {
@@ -32,7 +34,8 @@ window.MONSTERS = {
     defeated: "sparks"
   },
   tintroll: {
-    grabHands: [[325, 210], [290, 120], [340, 155]]
+    grabHands: [[325, 210], [290, 120], [340, 155]],
+    rowScale: [1, 1, 1, 1.45] // its knocked-down row is painted about 2/3 size
   },
   sandtroll: {
     grabHands: [[325, 180], [310, 55], [350, 135]]

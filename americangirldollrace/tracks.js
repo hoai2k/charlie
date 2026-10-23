@@ -69,6 +69,8 @@
 // baseMount may be a list to pick from. unlocksWizardMounts: finishing this
 // track unlocks gryphons and broomsticks on every other track for the rest of
 // that day (until then they're left out of mount pickups there).
+// noPowerups: power-up kinds this track never hands out (the Toy Room has no
+// EMP, since its wind-up cars do much the same).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
 // "spellBook" (frog the nearest racer or monster), "surfboard" (ride a wave
 // over hurdles), "windupCars" (cars that bump whoever they meet).
@@ -129,6 +131,7 @@ window.TRACK_THEMES = {
     standInBackground: "farm"
   },
   toyroom: {
+    noPowerups: ["emp"],
     monster: "tintroll",
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "windup_car"],
     labels: { jump: "POGO", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },

@@ -135,16 +135,18 @@ function updateEmpArcs(dt) {
     const before = arc.t;
     arc.t += dt;
     const from = empSourcePoint(arc);
-    if (before === 0) {
-      // The trigger goes off: a flash where it was.
-      const colors = arc.style === "firework" ? EMP_FIREWORK_COLORS : arc.style === "lightning" ? ["#ffffff", "#d6a8ff"] : EMP_SPARK_COLORS;
-      for (let i = 0; i < 16; i += 1) spawnParticles(from.x, from.y, 0, 1, { color: colors[i % colors.length], speed: 220, lift: 60, life: 0.4, size: 5, gravity: 0 });
+    // Only a wand trigger throws sparkles; the others' particles are plain
+    // glowing dots.
+    const kind = arc.wand ? "spark" : "dot";
+    if (before === 0 && arc.wand) {
+      // The wand goes off: a sparkle flash where it was.
+      for (let i = 0; i < 16; i += 1) spawnParticles(from.x, from.y, 0, 1, { color: i % 2 ? "#ffffff" : "#d6a8ff", speed: 220, lift: 60, life: 0.4, size: 5, gravity: 0 });
     }
     if (arc.style === "lightning") {
       if (before === 0) {
         for (const target of arc.targets) {
           const to = spellTargetPoint(target);
-          spawnParticles(to.x, to.y + 90, 90, 12, { color: Math.random() < 0.5 ? "#ffffff" : "#c48bff", speed: 200, lift: 200, life: 0.45, size: 4.5, gravity: 500 });
+          spawnParticles(to.x, to.y + 90, 90, 12, { kind, color: Math.random() < 0.5 ? "#ffffff" : "#c48bff", speed: 200, lift: 200, life: 0.45, size: 4.5, gravity: 500 });
         }
       }
       continue;
@@ -159,12 +161,12 @@ function updateEmpArcs(dt) {
           const k = Math.max(0, progress - Math.random() * 0.12);
           const x = from.x + (to.x - from.x) * k;
           const y = from.y + (to.y - from.y) * k;
-          spawnParticles(x, y, 0, 1, { color: colors[Math.floor(Math.random() * colors.length)], speed: 40, lift: 40, life: 0.35, size: 4.5, gravity: 0 });
+          spawnParticles(x, y, 0, 1, { kind, color: colors[Math.floor(Math.random() * colors.length)], speed: 40, lift: 40, life: 0.35, size: 4.5, gravity: 0 });
         }
       } else if (before < EMP_STREAM_TIME) {
-        spawnParticles(to.x, to.y, 0, 18, { color: colors[Math.floor(Math.random() * colors.length)], speed: 220, lift: 220, life: 0.6, size: 5, gravity: 500 });
+        spawnParticles(to.x, to.y, 0, 18, { kind, color: colors[Math.floor(Math.random() * colors.length)], speed: 220, lift: 220, life: 0.6, size: 5, gravity: 500 });
         for (let i = 0; i < 10; i += 1) {
-          spawnParticles(to.x, to.y, 0, 1, { color: colors[i % colors.length], speed: 240, lift: 240, life: 0.6, size: 5, gravity: 500 });
+          spawnParticles(to.x, to.y, 0, 1, { kind, color: colors[i % colors.length], speed: 240, lift: 240, life: 0.6, size: 5, gravity: 500 });
         }
       }
     }
@@ -427,13 +429,26 @@ function drawSpells() {
   }
 }
 
+// Wind-up cars drive toward the closest racer or monster within a screen's
+// width (back down the course if that's behind her), else forward.
+function windupCarDirection(racer) {
+  const others = [
+    ...state.racers.filter(r => r !== racer && !r.finished),
+    ...state.monsters.filter(m => m.active && !["sleeping", "ground"].includes(m.state))
+  ].filter(c => Math.abs(c.x - racer.x) <= EXPECTED_VIEW_WIDTH && c.x !== racer.x);
+  if (!others.length) return 1;
+  const closest = others.reduce((a, b) => (Math.abs(b.x - racer.x) < Math.abs(a.x - racer.x) ? b : a));
+  return closest.x < racer.x ? -1 : 1;
+}
+
 function releaseWindupCars(racer) {
+  const dir = windupCarDirection(racer);
   for (let i = 0; i < WINDUP_CAR_COUNT; i += 1) {
     const lane = (i - (WINDUP_CAR_COUNT - 1) / 2) * 46;
     state.windupCars.push({
-      x: racer.x + racer.facing * (50 + i * 22),
+      x: racer.x + dir * (50 + i * 22),
       y: clamp(racer.y + 54 + lane, PATH_TOP + FOOT_OFFSET_Y + 16, TRACK_BOTTOM + FOOT_OFFSET_Y - 8),
-      dir: racer.facing || 1,
+      dir,
       owner: racer,
       life: WINDUP_CAR_LIFE,
       wheel: 0,

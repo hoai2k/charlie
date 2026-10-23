@@ -159,7 +159,7 @@ function updateDefeatedSparks(monster, dt) {
   if (monster.sparkTimer > 0) return;
   const big = Math.random() < 0.18;
   monster.sparkTimer = big ? 0.5 + Math.random() * 0.6 : 0.08 + Math.random() * 0.18;
-  const scale = monsterScale(monster);
+  const scale = monsterScale(monster) * monsterRowScale(3);
   // somewhere along the body lying on the ground
   const x = monster.x + (Math.random() - 0.5) * 150 * scale;
   const groundY = monster.y + 54;
@@ -456,7 +456,7 @@ function drawMonster(monster) {
   const viewWidth = getWorldViewportWidth();
   if (screenX < -280 || screenX > viewWidth + 280) return;
   const frame = monsterFrame(monster);
-  const scale = monsterScale(monster);
+  const scale = monsterScale(monster) * monsterRowScale(frame.row);
   const visualY = monsterDrawY(monster);
   const sx = frame.col * FRAME;
   const sy = frame.row * FRAME;
@@ -539,7 +539,7 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
 
   const frame = monsterFrame(monster);
   if (unhorsed) {
-    const trollScale = monsterScale(monster);
+    const trollScale = monsterScale(monster) * monsterRowScale(frame.row);
     drawFacingImage(getMonsterImage(), frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * trollScale, visualY + 58 - SPRITE_ANCHOR_Y * trollScale, FRAME * trollScale, FRAME * trollScale, facing, screenX);
     return;
   }
@@ -567,6 +567,12 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
 // The on-foot monster's draw scale: depth, the monster size, and its sheet's tweak.
 function monsterScale(monster) {
   return racerDepthScale(monster) * MONSTER_HEIGHT_SCALE * (monsterDef().scale || 1);
+}
+
+// A sheet's own correction for one sprite row painted at a different size
+// from the rest (monsters.js rowScale), drawn around the feet.
+function monsterRowScale(row) {
+  return monsterDef().rowScale?.[row] || 1;
 }
 
 function monsterDrawY(monster) {

@@ -120,6 +120,18 @@ function pushRacersFromAmandaHazard(obstacle) {
 
 function updateCaughtAmanda(obstacle, dt) {
   obstacle.amandaTimer += dt;
+  if (obstacle.amandaState === "sitting") {
+    // A player who walks up to her (not pushing) tags her: she joins that player.
+    const tagger = state.racers.find(racer => !racer.ai && !racer.finished && !racer.grabbedBy && racer.moving
+      && racer.pushTimer === 0 && racer.z < 100
+      && Math.abs(racer.x - obstacle.x) < AMANDA_TAG_RANGE_X
+      && Math.abs(racer.y + 54 - (obstacle.y + 18)) < AMANDA_HIT_RANGE_Y
+      && Math.sign(obstacle.x - racer.x) === Math.sign(racer.speed || racer.facing));
+    if (tagger) {
+      joinAmanda(obstacle, tagger);
+      return;
+    }
+  }
   const next = { tumble: [AMANDA_TUMBLE_TIME, "down"], down: [AMANDA_DOWN_TIME, "climb"], climb: [AMANDA_CLIMB_TIME, "sitting"], bonked: [AMANDA_BONK_TIME, "sitting"] }[obstacle.amandaState];
   if (next && obstacle.amandaTimer >= next[0]) {
     obstacle.amandaState = next[1];
@@ -129,6 +141,118 @@ function updateCaughtAmanda(obstacle, dt) {
       spawnParticles(obstacle.x + spot.x, obstacle.y + spot.y, 0, 8, { color: "#e8dcc0", kind: "puff", speed: 90, lift: 30, life: 0.5, size: 12, gravity: 0 });
     }
   }
+}
+
+// Tagged: she hops off her fence and follows that player for the rest of the
+// race at her own running speed (a rider can leave her behind; she just keeps
+// coming), hopping hurdles and pushing other racers and monsters out of the way.
+function joinAmanda(obstacle, leader) {
+  obstacle.amandaState = "hidden";
+  obstacle.amandaReveal = 0;
+  state.amandaAlly = {
+    leader,
+    spriteKey: "amanda",
+    x: obstacle.x,
+    y: obstacle.y + 18 - 54,
+    z: hurdleTopZ(),
+    vz: 260,
+    facing: leader.x < obstacle.x ? -1 : 1,
+    frame: 0,
+    frameTime: 0,
+    moving: false,
+    pushTimer: 0,
+    pushCooldown: 0.4
+  };
+  sfx("amanda_giggle_sting", obstacle.x);
+  GameAudio.voice("amanda", "taunt", { worldX: obstacle.x, chance: 1 });
+  spawnParticles(obstacle.x, obstacle.y + 18, 80, 14, { color: "#ffd84a", speed: 160, lift: 200, life: 0.5 });
+}
+
+// Someone she should push: a monster coming for her player, or another racer
+// (or monster) right by her.
+function amandaAllyTarget(ally) {
+  const leader = ally.leader;
+  const monsters = state.monsters.filter(m => m.active && !["sleeping", "ground", "fall", "drop"].includes(m.state) && !(m.frogTimer > 0));
+  const near = (list, from, range) => list.filter(c => Math.abs(c.x - from.x) < range && Math.abs(c.y - from.y) < 120)
+    .sort((a, b) => Math.abs(a.x - from.x) - Math.abs(b.x - from.x))[0] || null;
+  return near(monsters, leader, AMANDA_ALLY_GUARD_RANGE)
+    || near([...monsters, ...state.racers.filter(r => r !== leader && !r.finished && !r.grabbedBy)], ally, AMANDA_ALLY_PUSH_RANGE * 1.6);
+}
+
+function updateAmandaAlly(dt) {
+  const ally = state.amandaAlly;
+  if (!ally) return;
+  if (!state.racers.includes(ally.leader)) {
+    ally.leader = state.racers.find(r => !r.ai) || ally.leader;
+  }
+  const leader = ally.leader;
+  ally.pushTimer = Math.max(0, ally.pushTimer - dt);
+  ally.pushCooldown = Math.max(0, ally.pushCooldown - dt);
+  const enemy = leader.finished ? null : amandaAllyTarget(ally);
+  // Head for the enemy, or a spot just behind her player.
+  const goalX = enemy ? enemy.x - Math.sign(enemy.x - ally.x || 1) * 40 : leader.x - (leader.facing || 1) * AMANDA_ALLY_FOLLOW_GAP;
+  const goalY = enemy ? enemy.y : clamp(leader.y + 24, TRACK_TOP, TRACK_BOTTOM);
+  const dx = goalX - ally.x;
+  const dy = goalY - ally.y;
+  const step = Math.sign(dx) * Math.min(Math.abs(dx), AMANDA_ALLY_SPEED * dt);
+  ally.moving = Math.abs(dx) > 8 || Math.abs(dy) > 8;
+  ally.x = clamp(ally.x + step, 40, FINISH);
+  ally.y = clamp(ally.y + Math.sign(dy) * Math.min(Math.abs(dy), PLAYER_LANE_SPEED * dt), TRACK_TOP, TRACK_BOTTOM);
+  if (Math.abs(dx) > 4) ally.facing = dx < 0 ? -1 : 1;
+  if (enemy && Math.abs(enemy.x - ally.x) < 160) ally.facing = enemy.x < ally.x ? -1 : 1;
+  // Hop any hurdle in her way.
+  if (ally.z === 0 && Math.abs(step) > 0) {
+    const footY = ally.y + 54;
+    const hurdle = state.obstacles.some(obstacle => {
+      const b = getObstacleHitBounds(obstacle);
+      const ahead = ally.facing > 0 ? b.left - ally.x : ally.x - b.right;
+      return ahead > -10 && ahead < 60 && footY + 12 > b.top && footY - 12 < b.bottom;
+    });
+    if (hurdle) ally.vz = JUMP_POWER;
+  }
+  if (ally.z > 0 || ally.vz > 0) {
+    ally.z += ally.vz * dt;
+    ally.vz -= GRAVITY * dt;
+    if (ally.z <= 0) { ally.z = 0; ally.vz = 0; }
+  }
+  ally.frameTime += dt * (ally.moving ? 9.5 : 3.2);
+  ally.frame = Math.floor(ally.frameTime) % 3;
+  // Push whoever is right in front of her.
+  if (!enemy || ally.pushCooldown > 0 || ally.z > 64) return;
+  const ex = enemy.x - ally.x;
+  if (ex * ally.facing <= 0 || Math.abs(ex) > AMANDA_ALLY_PUSH_RANGE || Math.abs(enemy.y - ally.y) > PUSH_RANGE_Y + 18) return;
+  ally.pushTimer = 0.3;
+  ally.pushCooldown = AMANDA_ALLY_PUSH_COOLDOWN;
+  sfx("amanda_shove", ally.x);
+  if (state.monsters.includes(enemy)) applyMonsterKnockback(enemy, ally.facing, { unhorse: true });
+  else applyPushHit(ally, enemy, ally.facing);
+}
+
+function drawAmandaAlly(ally) {
+  const screenX = ally.x - state.camera;
+  if (screenX < -200 || screenX > getWorldViewportWidth() + 200) return;
+  const scale = racerDepthScale(ally);
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(screenX, ally.y + 42, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  const [row, col] = ally.pushTimer > 0 ? [3, 1] : ally.z > 0 ? [2, 1] : ally.moving ? [1, ally.frame] : [0, ally.frame];
+  drawFacingImage(images.amanda, col * FRAME, row * FRAME, FRAME, FRAME,
+    screenX - SPRITE_ANCHOR_X * scale, ally.y + 54 - SPRITE_ANCHOR_Y * scale - ally.z,
+    FRAME * scale, FRAME * scale, ally.facing, screenX);
+  ctx.save();
+  ctx.font = "800 15px system-ui";
+  ctx.textAlign = "center";
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = "rgba(255,255,255,0.9)";
+  ctx.fillStyle = characters.amanda?.color || "#263d8f";
+  const labelY = ally.y + 54 - ally.z - (SPRITE_ANCHOR_Y - 40) * scale;
+  ctx.strokeText("Amanda", screenX, labelY);
+  ctx.fillText("Amanda", screenX, labelY);
+  ctx.restore();
 }
 
 // Is Amanda where a hit at (x, groundY) would land? Popped up enough to see,

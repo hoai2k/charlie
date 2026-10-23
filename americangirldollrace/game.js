@@ -188,6 +188,13 @@ const AMANDA_BONK_TIME = 0.5;
 const AMANDA_SEAT = { x: 155, y: 338 }; // seat in her riding frame (row 4, cell 1)
 const AMANDA_HIT_RANGE_X = 46;
 const AMANDA_HIT_RANGE_Y = 60;
+// Tag the sitting Amanda (walk up to her without pushing) and she follows you.
+const AMANDA_TAG_RANGE_X = 70;
+const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
+const AMANDA_ALLY_FOLLOW_GAP = 90;
+const AMANDA_ALLY_GUARD_RANGE = 320; // she goes for monsters this close to her player
+const AMANDA_ALLY_PUSH_RANGE = 96;
+const AMANDA_ALLY_PUSH_COOLDOWN = 1.1;
 const OIL_SLIDE_DURATION = 1.5;
 const OIL_SLIDE_SPEED = 430;
 const SNOWBALL_PICKUP_COUNT = 5;
@@ -795,6 +802,7 @@ function resetRace(mode = state.mode) {
   state.rainbowBeams = [];
   state.empArcs = [];
   state.amandaCaught = null;
+  state.amandaAlly = null;
   state.monsters = makeMonsters();
   state.runawayHorses = [];
   state.beachBalls = makeBeachBalls();
@@ -1808,6 +1816,7 @@ function update(dt) {
   bumpMonstersWithSpecialMounts();
   pushRacers(dt);
   updateAmandaHazards(dt);
+  updateAmandaAlly(dt);
   updateRacerCameraVelocities(racerCameraStartPositions, dt);
   updateCamera(dt);
   updateHud();

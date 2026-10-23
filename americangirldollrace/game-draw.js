@@ -58,6 +58,15 @@ function drawParticles() {
       ctx.beginPath();
       ctx.arc(-p.size * 0.3, -p.size * 0.1, p.size * 0.28, 0, Math.PI * 2);
       ctx.fill();
+    } else if (p.kind === "dot") {
+      // A plain glowing dot (EMP triggers other than the wand).
+      ctx.globalAlpha = Math.min(1, t * 1.6);
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(x, y, p.size * 0.8, 0, Math.PI * 2);
+      ctx.fill();
     } else if (p.kind === "ring") {
       ctx.globalAlpha = 0.8 * t;
       ctx.strokeStyle = p.color;
@@ -160,6 +169,7 @@ function drawWorldScene() {
       ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
       ...state.beachBalls.map(ball => ({ type: "beachBall", y: ball.y, item: ball })),
       ...state.windupCars.map(car => ({ type: "windupCar", y: car.y, item: car })),
+      ...(state.amandaAlly ? [{ type: "amandaAlly", y: state.amandaAlly.y + 54, item: state.amandaAlly }] : []),
       ...state.racers.map(racer => ({ type: "racer", y: racer.y + 54, item: racer }))
     ].sort((a, b) => a.y - b.y);
     drawSpellAimRings();
@@ -184,6 +194,8 @@ function drawWorldScene() {
         drawBeachBall(drawable.item);
       } else if (drawable.type === "windupCar") {
         drawWindupCar(drawable.item);
+      } else if (drawable.type === "amandaAlly") {
+        drawAmandaAlly(drawable.item);
       } else {
         drawRacer(drawable.item);
       }

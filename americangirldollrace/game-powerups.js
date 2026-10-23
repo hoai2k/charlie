@@ -38,13 +38,21 @@ function pickupLook(type, { pogo = false } = {}) {
   return { sheet: art, label: theme.labels?.[type] || name, sound: theme.sounds?.[type] || sound };
 }
 
+// The power-up kinds a track hands out (tracks.js noPowerups leaves some out,
+// e.g. the Toy Room has no EMP: its wind-up cars do much the same).
+function trackPowerupTypes(types) {
+  const skip = getTrackTheme().noPowerups || [];
+  return types.filter(type => !skip.includes(type));
+}
+
 function makePowerups() {
   const powerups = [];
+  const trackTypes = trackPowerupTypes(POWERUP_TYPES);
   const powerupTypes = state.difficulty === "too-many"
     ? ["oil", "monster"]
     : state.difficulty === "extra"
-    ? [...POWERUP_TYPES, "monster"]
-    : POWERUP_TYPES;
+    ? [...trackTypes, "monster"]
+    : trackTypes;
   // Define your custom weights
   const POWERUP_WEIGHTS = {
     "jump": 0.7,
@@ -83,7 +91,7 @@ function makePowerups() {
     if (selectedType === "monster" && spawnX >= MONSTER_COURSE_START_X) {
       state.monsters.push(spawnMonster(spawnX, spawnY, { active: false }));
     } else {
-      const powerupType = selectedType === "monster" ? POWERUP_TYPES[index % POWERUP_TYPES.length] : selectedType;
+      const powerupType = selectedType === "monster" ? trackTypes[index % trackTypes.length] : selectedType;
       powerups.push(makePowerup(powerupType, spawnX, spawnY));
     }
     x += POWERUP_MIN_GAP + Math.random() * POWERUP_RANDOM_GAP;
@@ -312,7 +320,8 @@ function applyPowerup(racer, powerupOrType) {
         source: racer,
         targets: hit,
         t: 0,
-        style: label === "EMP" ? "lightning" : getTrackTheme().empStyle || "sparks"
+        style: label === "EMP" ? "lightning" : getTrackTheme().empStyle || "sparks",
+        wand: /WAND/.test(label)
       });
     }
   } else if (type === "oil") {
@@ -521,7 +530,8 @@ function updateStormCloud(dt) {
 
 function startRewardCloud() {
   const targetX = clamp(getCloudDropTargetX(), 120, FINISH - 220);
-  const type = GOOD_POWERUP_TYPES[Math.floor(Math.random() * GOOD_POWERUP_TYPES.length)];
+  const goodTypes = trackPowerupTypes(GOOD_POWERUP_TYPES);
+  const type = goodTypes[Math.floor(Math.random() * goodTypes.length)];
   const viewWidth = getWorldViewportWidth();
   const startX = state.camera + viewWidth + STORM_CLOUD_START_PADDING;
   const endX = state.camera - STORM_CLOUD_END_PADDING;
