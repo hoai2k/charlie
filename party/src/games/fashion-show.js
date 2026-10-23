@@ -36,6 +36,8 @@ const RW = { backY: 492, frontY: 1080, backHW: 150, frontHW: 540, startY: 505, s
 const hwAt = (y) => lerp(RW.backHW, RW.frontHW, (y - RW.backY) / (RW.frontY - RW.backY));
 const WALK = 2.6, POSE = 4.6, EXIT = 1.5;
 const HUMAN_POSE = 18;   // a group with a human in it plays around on the runway this long
+const POSE_MORE = 15;    // "Keep playing!" on the runway turn adds this much
+const DRESS_TIME = 150, DRESS_MORE = 60;   // the dressing room's clock ("Time's up!" asks; All done = everyone's ready)
 const DONE_BTN = 'back'; // View: "I'm done" on the runway
 
 function hex(c) { const v = parseInt(c.slice(1), 16); return [(v >> 16) & 255, (v >> 8) & 255, v & 255]; }
@@ -79,8 +81,18 @@ export class Game {
     this.phaseT = 0;
     // A group with a human in it plays on the runway for HUMAN_POSE s (Done ends it early):
     // counted down all turn, beside the "Strike a pose" line. (CPU-only turns just auto-advance.)
-    api.limit(() => (this.phase === 'runway' && this.humanGroup && this.group && this.group[0].rw.state === 'pose'
-      ? WALK + this.poseDur - this.groupT : null), { showAt: Infinity, x: W / 2 + 170, y: 176 });
+    // At 0 it waits for the "Time's up!" question: Keep playing = +POSE_MORE s, All done = walk off.
+    api.limit(() => (this.phase === 'runway' && this.humanGroup && !this.turnEnd && this.group && this.group[0].rw.state === 'pose'
+      ? Math.max(0, WALK + this.poseDur - this.groupT) : null), {
+      showAt: Infinity, x: W / 2 + 170, y: 176,
+      timeUp: { more: () => { this.poseDur += POSE_MORE; }, done: () => { this.turnEnd = true; } },
+    });
+    // The dressing room's clock (shown for the last 30 s): All done = everyone's ready, on to the show.
+    this.dressLeft = DRESS_TIME;
+    api.limit(() => (this.phase === 'dress' ? this.dressLeft : null), {
+      showAt: 30,
+      timeUp: { more: () => { this.dressLeft += DRESS_MORE; }, done: () => this.dressDone() },
+    });
     this.flashes = [];
     this.curtain = 0;
     this.lastCheer = -9;
@@ -303,7 +315,15 @@ export class Game {
     if (chance(0.5)) st.actor.emote('heart', 1);
   }
 
+  /** The dressing room's time is up and the kids are done: everyone's ready, on to the show. */
+  dressDone() {
+    if (this.phase !== 'dress') return;
+    for (const st of this.stations) if (!st.ready) this.setReady(st, true);
+    this.startShowtime();
+  }
+
   updateDress(dt) {
+    this.dressLeft = Math.max(0, this.dressLeft - dt);
     for (const st of this.stations) {
       const c = st.p.ctrl, a = st.actor;
       if (st.p.isAI) this.updateAIDress(st, dt);
@@ -357,7 +377,7 @@ export class Game {
     this.gi++;
     if (this.gi >= this.groups.length) { this.startFinale(); return; }
     this.group = this.groups[this.gi];
-    this.groupT = 0;
+    this.groupT = 0; this.turnEnd = false;
     this.humanGroup = this.group.some((st) => !st.p.isAI);
     this.poseDur = this.humanGroup ? HUMAN_POSE : POSE;
     this.snapT = 0;
@@ -435,6 +455,8 @@ export class Game {
 
   updateRunway(dt) {
     this.groupT += dt;
+    // A human turn waits at its end for the "Time's up!" question (or everyone's Done).
+    if (this.humanGroup && !this.turnEnd && this.group && this.group[0].rw.state === 'pose') this.groupT = Math.min(this.groupT, WALK + this.poseDur);
     const t = this.groupT;
     this.updateCrowd(dt);
     for (const st of this.stations) {
@@ -461,7 +483,7 @@ export class Game {
         }
         if (st.p.isAI || !this.humanGroup) { if (c.pressed('a') && st.poseCD <= 0) this.strikePose(st); }
         else this.freeMove(st, dt);
-        if (t >= WALK + this.poseDur) {
+        if (t >= WALK + this.poseDur && (!this.humanGroup || this.turnEnd)) {
           a.z = 0; rw.free = false;
           rw.state = 'exit'; rw.from = { x: a.x, y: a.y, s: a.scale };
           rw.spot = this.sideSpot(this.walkedCount++);
@@ -564,7 +586,7 @@ export class Game {
     this.snapT -= dt;
     if (this.snapT <= 0) { this.snapT = rand(0.35, 0.8); this.cameraFlash(pick(this.group).actor.x); if (chance(0.3)) this.photoSnd(null); }
     const endAt = WALK + this.poseDur;
-    if (humans.length && humans.every((s) => s.rw.done) && this.groupT < endAt - 0.5) this.groupT = endAt - 0.5;
+    if (humans.length && humans.every((s) => s.rw.done)) { this.turnEnd = true; if (this.groupT < endAt - 0.5) this.groupT = endAt - 0.5; }
   }
 
   // --- finale ------------------------------------------------------------------

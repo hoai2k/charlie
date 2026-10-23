@@ -23,6 +23,8 @@ import { TOOLS, TOOL_IDX, BLING } from './hair-salon/props.js';
 import { SalonDrawing, REVEAL_T, CHEESE_T, OPTIONS, STAR_KEYS } from './hair-salon/draw.js';
 import { meta } from './hair-salon.meta.js';
 
+const STYLE_TIME = 240;   // the Play Studio clock (seconds), then "Time's up!" asks
+
 const SHOT_T = 1.5;            // camera stop per client in the showcase
 const PHOTO_T = 4;             // the big photo stays this long
 
@@ -49,6 +51,14 @@ export class Game extends SalonDrawing {
     // everyone starts on the client picker (a portrait grid); the chair shows the one under the cursor
     this.stations = this.players.map((p, i) => this.makeStation(p, i, { ...CLIENTS[i % CLIENTS.length], cape: capes[i % 6] }));
     this.banner = null;   // each station shows "Who will you style?" over its portrait grid
+    // The Play Studio clock: 4 minutes of styling (drawn by the play scene the whole time). At 0 it
+    // asks "Time's up!": Keep playing adds a minute, All done goes to the mirror reveal (as the
+    // pause menu's "All done!"). Like api.studioClock, but it stops when the reveal starts.
+    this.styleLeft = STYLE_TIME;
+    api.limit(() => (this.phase === 'style' ? this.styleLeft : null), {
+      showAt: Infinity, x: W / 2, y: 54,
+      timeUp: { more: () => { this.styleLeft += 60; }, done: () => this.onDone() },
+    });
     sfx('magic');
   }
 
@@ -154,8 +164,9 @@ export class Game extends SalonDrawing {
     if (this.banner) { this.banner.t += dt; if (this.banner.t > 2.2) this.banner = null; }
     this.updateSnips(dt);
     if (this.phase === 'style') {
+      this.styleLeft = Math.max(0, this.styleLeft - dt);   // waits at 0 for the "Time's up!" question
       for (const s of this.stations) this.updateStation(s, dt);
-      // no clock: styling ends when everyone has pressed X (I'm done!)
+      // styling ends when everyone has pressed X (I'm done!), or on "Time's up!" -> All done
       if (this.stations.every((s) => s.ready)) {
         this.allReadyT = (this.allReadyT || 0) + dt;
         if (this.allReadyT > 1.4) this.startReveal();

@@ -55,7 +55,11 @@ export class Game {
     this.night = this.cpuOnly ? NIGHT_CPU : NIGHT;
     this.timeLeft = this.night;
     // The night is the one time limit (the Moon moving across the sky is its decoration).
-    api.limit(() => (this.phase === 'play' ? Math.max(0, this.timeLeft) : null), { showAt: Infinity, x: W / 2, y: 54 });
+    // At 0 the play scene asks "Time's up!": Keep playing gives the night another minute, All done starts the show.
+    api.limit(() => (this.phase === 'play' ? Math.max(0, this.timeLeft) : null), {
+      showAt: Infinity, x: W / 2, y: 54,
+      timeUp: { more: () => { this.timeLeft += 60; this.night += 60; }, done: () => this.startShow() },
+    });
     this.stars = []; this.cons = []; this.creatures = []; this.shooting = []; this.beams = [];
     this.starCap = clamp(Math.floor(150 / this.n), 18, 48);
     this.cpuCap = this.n <= 2 ? 4 : this.n <= 4 ? 3 : 2;
@@ -715,7 +719,7 @@ export class Game {
     for (const c of this.creatures) this.updateCreature(c, dt);
     this.greetT -= dt; if (this.greetT <= 0) { this.greetT = 0.5; this.greetings(); }
     if (this.phase === 'play') {
-      this.timeLeft -= dt;
+      this.timeLeft = Math.max(0, this.timeLeft - dt);   // waits at 0 for the "Time's up!" question
       const p = clamp(1 - this.timeLeft / this.night, 0, 1);
       M.x = lerp(230, W - 230, p); M.y = 205 + 95 * (2 * p - 1) ** 2;
       for (const st of this.stations) {
@@ -725,7 +729,6 @@ export class Game {
       }
       if (this.phase === 'play') {
         if (Math.ceil(this.timeLeft) === 20 && Math.ceil(this.timeLeft + dt) === 21) this.moonReact('wink', 'Nearly bedtime!');
-        if (this.timeLeft <= 0) this.startShow();
       }
       if (this.api.camera) this.api.camera.follow(W / 2, H / 2, 1, 6);
     } else if (this.phase === 'show') this.updateShow(dt);

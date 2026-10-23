@@ -73,7 +73,9 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
 - Party games load on demand: the menu reads each game's `src/games/<id>.meta.js`
   (plain data: title, category, how-to text), and the game's code and art preload
   on its intro (how-to) screen. Shared helpers for games: `api.limit` (every time
-  limit is drawn by the play scene, so none is hidden; Play Studio has none),
+  limit is drawn by the play scene, so none is hidden; in Play Studio a limit
+  never ends the game by itself: `timeUp` / `api.studioClock` ask "Time's up!"
+  with Keep playing as the default),
   `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
   (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
   the one big-A cue) and `engine/crowd.js` (8-player spacing).

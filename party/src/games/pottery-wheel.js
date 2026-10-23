@@ -68,6 +68,8 @@ function layoutStation(r, n) {
   };
 }
 
+const MAKE_TIME = 240;   // the Play Studio clock (seconds), then "Time's up!" asks
+
 export class Game extends PotteryDrawing {
   constructor(api) {
     super();
@@ -82,6 +84,14 @@ export class Game extends PotteryDrawing {
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.hum = null;
+    // The Play Studio clock: 4 minutes of making (drawn by the play scene the whole time). At 0 it
+    // asks "Time's up!": Keep playing adds a minute, All done goes to the gallery (as the pause
+    // menu's "All done!"). Like api.studioClock, but it stops when the show starts.
+    this.makeLeft = MAKE_TIME;
+    api.limit(() => (this.phase === 'make' ? this.makeLeft : null), {
+      showAt: Infinity, x: W - 130, y: 56,
+      timeUp: { more: () => { this.makeLeft += 60; }, done: () => this.onDone() },
+    });
     snd('pottery-plop', 'splat', { vol: 0.6 });
   }
 
@@ -574,6 +584,7 @@ export class Game extends PotteryDrawing {
   }
 
   updateMake(dt) {
+    this.makeLeft = Math.max(0, this.makeLeft - dt);   // waits at 0 for the "Time's up!" question
     for (const st of this.stations) {
       st.stepT += dt; st.readyT += dt;
       st.nameBump = Math.max(0, st.nameBump - dt); st.potBump = Math.max(0, st.potBump - dt); st.listBump = Math.max(0, st.listBump - dt);

@@ -23,6 +23,9 @@ import { meta } from './pet-spa.meta.js';
 
 /** Play a recorded sound when it exists, else a synth stand-in. */
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
+// The spa clock (Play Studio, shown all along): at 0 it asks "Time's up!"
+// (Keep playing = +1 min, All done = every pet is made show-ready for the parade).
+const SPA_TIME = 180, SPA_MORE = 60;
 const NEARLY_T = 1.5;       // a step with only a tiny bit left finishes itself after this long
 
 // ---------------------------------------------------------------------------
@@ -96,6 +99,11 @@ export class Game extends SpaView {
     this.phase = 'spa';      // spa -> parade
     this.phaseT = 0;
     this.allDoneT = 0;
+    this.spaLeft = SPA_TIME;
+    api.limit(() => (this.phase === 'spa' ? this.spaLeft : null), {
+      showAt: Infinity, x: W / 2 + 480, y: 54,
+      timeUp: { more: () => { this.spaLeft += SPA_MORE; }, done: () => this.startParade() },
+    });
     this.finished = false;
     this.bubbles = Array.from({ length: 24 }, () => ({ x: rand(W), y: rand(H), r: rand(6, 22), sp: rand(20, 60), ph: rand(TAU) }));
     this.flying = [];        // treats and squeaky ducks in flight (screen space)
@@ -264,6 +272,7 @@ export class Game extends SpaView {
     for (const b of this.bubbles) { b.y -= b.sp * dt; b.x += Math.sin(this.t + b.ph) * 10 * dt; if (b.y < -30) { b.y = H + 30; b.x = rand(W); } }
     this.updateFlying(dt);
     if (this.phase === 'spa') {
+      this.spaLeft = Math.max(0, this.spaLeft - dt);
       for (const s of this.stations) this.updateStation(s, dt);
       const all = this.stations.every((s) => s.done);
       if (all) {

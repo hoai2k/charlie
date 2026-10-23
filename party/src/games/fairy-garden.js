@@ -306,6 +306,7 @@ const SPEED = 400;
 const DAY_MAX = 170;        // seconds before sunset no matter what
 const SUNSET_LEN = 8;
 const NIGHT_LEN = 24;
+const DAY_MORE = 60, NIGHT_MORE = 15;   // "Keep playing!" at the day's / night's "Time's up!"
 const FINALE_LEN = 9.5;
 
 export class Game {
@@ -322,8 +323,16 @@ export class Game {
     // Time limits, left of the status chip (the corner controls sit below it): the day ends at
     // DAY_MAX even if the garden isn't full (shown for its last 20 s), and the night's
     // firefly hunt is counted down all night.
-    api.limit(() => (this.phase === 'day' ? DAY_MAX - this.phaseT : null), { showAt: 20, x: W - 639, y: 134, label: 'Sunset' });
-    api.limit(() => (this.phase === 'night' ? NIGHT_LEN - this.phaseT : null), { showAt: Infinity, x: W - 639, y: 134 });
+    // At 0 each asks "Time's up!": Keep playing adds DAY_MORE / NIGHT_MORE s, All done = sunset / the fairy dance.
+    this.dayLen = DAY_MAX; this.nightLen = NIGHT_LEN;
+    api.limit(() => (this.phase === 'day' ? Math.max(0, this.dayLen - this.phaseT) : null), {
+      showAt: 20, x: W - 639, y: 134, label: 'Sunset',
+      timeUp: { more: () => { this.dayLen += DAY_MORE; }, done: () => { if (this.phase === 'day') this.startSunset(false); } },
+    });
+    api.limit(() => (this.phase === 'night' ? Math.max(0, this.nightLen - this.phaseT) : null), {
+      showAt: Infinity, x: W - 639, y: 134,
+      timeUp: { more: () => { this.nightLen += NIGHT_MORE; }, done: () => { if (this.phase === 'night') this.startFinale(); } },
+    });
     // Plots
     const cols = n <= 2 ? 6 : n <= 5 ? 8 : 10, rows = n <= 2 ? 2 : 3;
     const rowY = rows === 2 ? [610, 850] : [520, 720, 920];
@@ -388,7 +397,7 @@ export class Game {
     if (this.phase === 'day') {
       const full = this.plantedCount() === this.plots.length && this.bloomCount() >= this.plots.length * 0.85;
       if (full) { this.fullT = (this.fullT || 0) + dt; } else this.fullT = 0;
-      if (this.fullT > 2.5 || this.phaseT > DAY_MAX) this.startSunset(full);
+      if (this.fullT > 2.5) this.startSunset(full);   // (the day's clock ends it through its api.limit)
     } else if (this.phase === 'sunset') {
       this.tod = clamp(this.phaseT / SUNSET_LEN, 0, 1) * 2;
       if (this.phaseT >= SUNSET_LEN) this.startNight();
@@ -396,7 +405,7 @@ export class Game {
       this.tod = 2;
       this.updateFireflySpawns(dt);
       const left = this.fireflies.filter((f) => !f.caught).length;
-      if (this.phaseT > NIGHT_LEN || (this.phaseT > 6 && left === 0 && this.fireflySpawned >= this.fireflyTotal)) this.startFinale();
+      if (this.phaseT > 6 && left === 0 && this.fireflySpawned >= this.fireflyTotal) this.startFinale();   // (the night clock ends it through its api.limit)
     } else if (this.phase === 'finale') {
       this.updateFinale(dt);
     }
@@ -882,7 +891,7 @@ export class Game {
         g.globalAlpha = 1;
       }
       // sun / moon
-      const dayP = this.phase === 'day' ? clamp(this.phaseT / DAY_MAX, 0, 1) * 0.6 : 0.6 + clamp(k, 0, 1) * 0.4;
+      const dayP = this.phase === 'day' ? clamp(this.phaseT / this.dayLen, 0, 1) * 0.6 : 0.6 + clamp(k, 0, 1) * 0.4;
       const sx = lerp(260, W - 260, dayP), sy = 210 - Math.sin(dayP * Math.PI) * 140 + clamp(k, 0, 1) * 160;
       if (k < 1.3) {
         g.save(); g.globalAlpha = clamp(1.3 - k, 0, 1);

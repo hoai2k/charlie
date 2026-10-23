@@ -46,6 +46,9 @@ export class Game {
     this.n = this.players.length;
     this.solo = this.n === 1;
     this.t = 0;
+    // Play Studio clock (no clock of its own): at 0 "Time's up!" asks; Keep playing = +1 min,
+    // All done ends the game like the pause menu's "All done!".
+    api.studioClock(240, { more: 60, x: SIDE_W / 2, y: 62, active: () => this.state !== 'end' });
     [this.cols, this.rows] = this.n <= 2 ? [4, 4] : this.n <= 4 ? [5, 4] : [6, 4];
     this.pairsTotal = (this.cols * this.rows) / 2;
 

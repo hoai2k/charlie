@@ -91,11 +91,16 @@ export class Game {
     this.sand = 0; this.sandFx = null;
     this.night = false; this.nightK = 0; this.switchUsed = false; this.switchBump = -9;
     this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME + (this.n <= 2 ? 16 : 0);
-    this.prompt = null; this.toast = null; this.banner = null;
+    this.toast = null; this.banner = null;
     this.photos = []; this.bigPhoto = null; this.finished = false;
     this.playT = 4; this.bubbleSnd = 0; this.reactT = 0;
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
-    api.limit(() => (this.phase === 'build' && !this.prompt ? Math.max(0, this.timeLeft) : null), { showAt: Infinity, x: CLOCK.x, y: CLOCK.y });
+    // At 0 the play scene asks "Time's up!": Keep playing adds a minute (as the "+1 min" button
+    // does), All done starts the night show. With no kids playing it just starts the show.
+    api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), {
+      showAt: Infinity, x: CLOCK.x, y: CLOCK.y,
+      timeUp: { more: () => this.addTime(60), done: () => this.startShow() },
+    });
     this.layoutPanels();
     this.layoutActors();
     this.cpuNight = !this.humans && chance(0.5) ? rand(20, 34) : -1;
@@ -748,12 +753,7 @@ export class Game {
   }
 
   updateBuild(dt) {
-    if (this.prompt) { this.updatePrompt(dt); return; }
-    this.timeLeft -= dt;
-    if (this.timeLeft <= 0) {
-      if (this.humans) { this.prompt = { t: 0 }; sfx('select'); snd('jingle/round', 'star'); return; }
-      this.startShow(); return;
-    }
+    this.timeLeft = Math.max(0, this.timeLeft - dt);   // waits at 0 for the "Time's up!" question
     // Mouse / touch drives the first human's hand.
     const ptr = input.pointer;
     const mouseSt = this.stations.find((s) => !s.p.isAI);
@@ -773,19 +773,6 @@ export class Game {
       if (done && this.phaseT > 12) { this.doneT = (this.doneT || 0) + dt; if (this.doneT > 7) this.startShow(); }
     }
   }
-
-  updatePrompt(dt) {
-    const P = this.prompt;
-    P.t += dt;
-    for (const st of this.stations) {
-      if (st.p.isAI) continue;
-      const c = st.p.ctrl, first = st === this.stations.find((s) => !s.p.isAI);
-      if (P.t > 0.4 && (c.pressed('a') || (first && input.pointer.pressed && inRect(this.promptBtn('go'), input.pointer.x, input.pointer.y)))) { this.prompt = null; this.startShow(); return; }
-      if (P.t > 0.4 && (c.pressed('b') || (first && input.pointer.pressed && inRect(this.promptBtn('more'), input.pointer.x, input.pointer.y)))) { this.prompt = null; this.addTime(60); return; }
-    }
-    // no auto-pick: the prompt only shows with humans, and it waits for them
-  }
-  promptBtn(which) { return which === 'go' ? { x: W / 2 - 330, y: 560, w: 300, h: 90 } : { x: W / 2 + 30, y: 560, w: 300, h: 90 }; }
 
   addTime(s) {
     this.timeLeft = Math.min(599, Math.max(0, this.timeLeft) + s);
@@ -1187,7 +1174,7 @@ export class Game {
   // Night show
   startShow() {
     if (this.phase !== 'build') return;
-    this.phase = 'show'; this.phaseT = 0; this.prompt = null;
+    this.phase = 'show'; this.phaseT = 0;
     for (const st of this.stations) {
       if (st.naming) this.confirmName(st);
       if (st.held) this.drop(st);
@@ -1532,7 +1519,6 @@ export class Game {
       ui.text(g, this.toast.text, W / 2, 516, { size: 36, color: NAVY, stroke: false, weight: 800, maxWidth: 800 });
       g.restore();
     }
-    if (this.prompt) this.drawPrompt(g);
   }
 
   /** Held decorations float with the hand; placement ghosts for human hands. */
@@ -1804,22 +1790,6 @@ export class Game {
     ui.text(g, names, 0, h / 2 - 54, { size: 30, color: NAVY, stroke: false, maxWidth: w - 120 });
     if (k < 1) for (const [sx, sy] of [[-1, -1], [1, -1]]) { g.save(); g.translate(sx * (w / 2 - 30), sy * (h / 2 - 4)); g.rotate(sx * 0.6); g.fillStyle = 'rgba(190,240,255,0.9)'; g.fillRect(-50, -14, 100, 28); g.restore(); }
     else { g.beginPath(); g.arc(0, -h / 2 + 14, 40, 0, TAU); g.fillStyle = '#36c6d3'; g.fill(); g.lineWidth = 12; g.strokeStyle = NAVY; g.stroke(); g.beginPath(); g.arc(-12, -h / 2 + 2, 12, 0, TAU); g.fillStyle = '#ffffff'; g.fill(); }
-    g.restore();
-  }
-
-  drawPrompt(g) {
-    const P = this.prompt, sc = ease.outBack(clamp(P.t / 0.35, 0, 1));
-    g.save(); g.fillStyle = 'rgba(36,22,63,0.5)'; g.fillRect(0, 0, W, H);
-    g.translate(W / 2, H / 2); g.scale(sc, sc); g.translate(-W / 2, -H / 2);
-    ui.panel(g, W / 2 - 420, 330, 840, 360, { r: 40, fill: '#fff8ec' });
-    g.save(); g.translate(W / 2, 410); g.beginPath(); g.arc(0, 0, 40, -2.2, 2.2, false); g.arc(16, 0, 34, 2.0, -2.0, true); g.closePath(); g.fillStyle = '#fff1a0'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke(); g.restore();
-    ui.text(g, 'Time for the night show!', W / 2, 490, { size: 54, color: '#6b5ce0', weight: 800 });
-    for (const [which, btn, label, col] of [['go', 'a', "Let's go!", '#36d17a'], ['more', 'b', 'More time', '#7fd3ff']]) {
-      const r = this.promptBtn(which);
-      ui.panel(g, r.x, r.y, r.w, r.h, { r: 45, fill: col, lineWidth: 5 });
-      ui.glyph(g, btn, r.x + 50, r.y + r.h / 2, 48);
-      ui.text(g, label, r.x + r.w / 2 + 24, r.y + r.h / 2 + 2, { size: 38, weight: 800 });
-    }
     g.restore();
   }
 }

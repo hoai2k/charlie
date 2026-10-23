@@ -86,7 +86,13 @@ export class Game {
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     // Each act runs on a clock (the play scene draws it, the whole act).
-    api.limit(() => (this.phase === 'acts' && this.outroT < 0 ? Math.max(0, ACT_TIME - this.actT) : null), { showAt: Infinity, x: W - 190, y: 56 });
+    // At 0 the play scene asks "Time's up!": Keep playing adds 30 s to this act, All done ends it
+    // (applause, then the next act or the pyramid).
+    this.actTime = ACT_TIME;
+    api.limit(() => (this.phase === 'acts' && this.outroT < 0 ? Math.max(0, this.actTime - this.actT) : null), {
+      showAt: Infinity, x: W - 190, y: 56,
+      timeUp: { more: () => { this.actTime = Math.max(this.actTime, this.actT) + 30; }, done: () => this.endAct() },
+    });
     this.glimmer = new Actor('glimmer', { scale: 1.1, x: 300, y: 420 });
     this.glimmer.setPose('float');
     let start = null;
@@ -124,7 +130,7 @@ export class Game {
   // =========================================================================
   // Acts
   startAct(i) {
-    this.actI = i; this.actT = 0; this.outroT = -1;
+    this.actI = i; this.actT = 0; this.outroT = -1; this.actTime = ACT_TIME;
     for (const st of this.stations) this.enterAct(st);
     sfx('whistle', { vol: 0.5 });
     this.glimmer.say(ACTS[i].line, INTRO - 0.2, null);
@@ -200,12 +206,7 @@ export class Game {
       }
       st.actor.update(dt);
     }
-    if (this.outroT < 0 && this.actT >= ACT_TIME) {
-      this.outroT = 0;
-      for (const st of this.stations) { if (st.p.isAI) endTrick(st.p); }
-      snd('applause', 'cheer', { vol: 0.6 }); sfx('whistle', { vol: 0.4 });
-      this.crowd = 1;
-    }
+    // (the act clock reaching 0 is the play scene's "Time's up!" question: api.limit above)
     if (this.outroT >= 0) {
       this.outroT += dt;
       const settled = this.stations.every((st) => !st.air);
@@ -214,6 +215,15 @@ export class Game {
         else this.startPyramid();
       }
     }
+  }
+
+  /** The act's clock ran out and the kids chose All done: applause, then the next act. */
+  endAct() {
+    if (this.phase !== 'acts' || this.outroT >= 0) return;
+    this.outroT = 0;
+    for (const st of this.stations) { if (st.p.isAI) endTrick(st.p); }
+    snd('applause', 'cheer', { vol: 0.6 }); sfx('whistle', { vol: 0.4 });
+    this.crowd = 1;
   }
 
   // --- shared trick feedback ----------------------------------------------

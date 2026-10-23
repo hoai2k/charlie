@@ -81,8 +81,16 @@ export class Game {
     this.puppetH = h;
     this.pp = this.players.map((p, i) => this.makePuppet(p, i));
     // Setting the stage and each act run on a clock (the play scene draws it).
-    api.limit(() => (this.phase === 'setup' && !this.trans ? Math.max(0, this.setupTime - this.phaseT) : null), { showAt: Infinity, x: W / 2, y: 62 });
-    api.limit(() => (this.phase === 'act' && !this.trans ? Math.max(0, ACT_TIME - this.phaseT + 0.8) : null), { showAt: Infinity, x: W / 2, y: 62 });
+    // At 0 the play scene asks "Time's up!": Keep playing adds 30 s to that stage or act, All done moves on.
+    this.actTime = ACT_TIME;
+    api.limit(() => (this.phase === 'setup' && !this.trans ? Math.max(0, this.setupTime - this.phaseT) : null), {
+      showAt: Infinity, x: W / 2, y: 62,
+      timeUp: { more: () => { this.setupTime = Math.max(this.setupTime, this.phaseT) + 30; }, done: () => this.toAct() },
+    });
+    api.limit(() => (this.phase === 'act' && !this.trans ? Math.max(0, this.actTime - this.phaseT + 0.8) : null), {
+      showAt: Infinity, x: W / 2, y: 62,
+      timeUp: { more: () => { this.actTime = Math.max(this.actTime, this.phaseT - 0.8) + 30; }, done: () => this.endAct() },
+    });
     this.startTransition('Puppet Theater', 'Set the stage!', () => this.startSetup(0), { first: true });
   }
 
@@ -170,7 +178,7 @@ export class Game {
   }
 
   startAct() {
-    this.phase = 'act'; this.phaseT = 0;
+    this.phase = 'act'; this.phaseT = 0; this.actTime = ACT_TIME;
     this.rec[this.sceneIdx] = { frames: [], events: [], backdrop: this.scene.backdrop, props: this.scene.props.map((pr) => ({ ...pr })) };
     this.recT = 0;
     for (const pp of this.pp) {
@@ -335,7 +343,7 @@ export class Game {
     if (!this.trans) {
       if (humansReady && this.phaseT > 2.5 && !this.readyHold) { this.readyHold = 0.9; this.banner = { text: 'Places, everyone!', t: 0 }; sfx('fanfare', { vol: 0.6 }); }
       if (this.readyHold) { this.readyHold -= dt; if (this.readyHold <= 0) { this.readyHold = 0; this.toAct(); } }
-      else if (this.phaseT >= this.setupTime) this.toAct();
+      // (the setup clock reaching 0 is the play scene's "Time's up!" question: api.limit above)
     }
   }
 
@@ -497,11 +505,15 @@ export class Game {
       this.recT += dt;
       const R = this.rec[this.sceneIdx];
       while (R.frames.length < this.recT * REC_HZ) R.frames.push(this.pp.map((pp) => this.snapshot(pp)));
-      if (this.phaseT >= ACT_TIME + 0.8) {
-        if (this.sceneIdx === 0) this.startTransition('Scene 2', 'Change the stage!', () => this.startSetup(1));
-        else this.startTransition('Instant Replay!', 'The best bits', () => this.startReplay(), { hold: 1.6 });
-      }
+      // (the act clock reaching 0 is the play scene's "Time's up!" question: api.limit above)
     }
+  }
+
+  /** The act's clock ran out and the kids chose All done: curtains, then scene 2 or the replay. */
+  endAct() {
+    if (this.phase !== 'act' || this.trans) return;
+    if (this.sceneIdx === 0) this.startTransition('Scene 2', 'Change the stage!', () => this.startSetup(1));
+    else this.startTransition('Instant Replay!', 'The best bits', () => this.startReplay(), { hold: 1.6 });
   }
 
   snapshot(pp) {

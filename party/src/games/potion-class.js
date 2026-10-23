@@ -23,7 +23,8 @@ const NAVY = '#24163f';
 const SW = 480, SH = 436;            // station design size (scaled by k)
 const EXTRA_1ROW = 170;              // headroom above one-row stations (big characters, Giant)
 const STIR_NEED = TAU * 3;           // three full circles
-const ROUND_TIME = 75;               // soft cap per recipe (auto-POOF after)
+const ROUND_TIME = 75;               // soft cap per recipe ("Time's up!" asks; All done = auto-POOF)
+const ROUND_MORE = 30;               // "Keep playing!" adds this to the recipe
 const WATER = [150, 214, 255];
 const SHELF_X = (i) => 44 + i * 56;
 const SHELF_Y = 346;
@@ -98,8 +99,10 @@ export class Game {
     this.layout();
     // The recipe's soft cap (auto-POOF), counted down for its last 20 s.
     // (With side stations the top-right corner is a station; use the gap above the board.)
-    api.limit(() => (this.phase === 'brew' ? ROUND_TIME - this.brewT : null),
-      this.perch ? { showAt: 20, x: 1400 - 30, y: 140 } : { showAt: 20, x: W - 120, y: 70 });
+    // At 0 it asks "Time's up!": Keep playing = +ROUND_MORE s, All done = every unfinished potion POOFs.
+    const timeUp = { more: () => { this.roundLen += ROUND_MORE; }, done: () => { this.timeOut = true; } };
+    api.limit(() => (this.phase === 'brew' && !this.timeOut ? Math.max(0, this.roundLen - this.brewT) : null),
+      { ...(this.perch ? { showAt: 20, x: 1400 - 30, y: 140 } : { showAt: 20, x: W - 120, y: 70 }), timeUp });
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
     this.hoot = { flap: 0, flapT: 0, point: 0, mood: 'happy', moodT: 0, blink: 0, blinkT: 2, tilt: 0, look: [0.5, 0.3], hop: 0 };
     this.speech = null;
@@ -260,6 +263,7 @@ export class Game {
   startRound(i) {
     this.round = i;
     this.phase = 'intro'; this.phaseT = 0; this.brewT = 0;
+    this.roundLen = ROUND_TIME; this.timeOut = false;
     this.boardPop = 0;
     const rd = this.rd;
     for (const st of this.stations) {
@@ -312,8 +316,8 @@ export class Game {
       }
     } else if (this.phase === 'brew') {
       this.brewT += dt;
-      if (this.brewT > ROUND_TIME - 20 && !this.flags['hurry' + this.round]) { this.flags['hurry' + this.round] = true; this.say('Almost time... finish your potions!', 3); }
-      if (this.brewT > ROUND_TIME) {
+      if (this.brewT > this.roundLen - 20 && !this.flags['hurry' + this.round]) { this.flags['hurry' + this.round] = true; this.say('Almost time... finish your potions!', 3); }
+      if (this.timeOut) {
         for (const st of this.stations) if (st.phase === 'add' || st.phase === 'stir' || st.phase === 'wand') this.startPoof(st);
       }
       if (this.stations.every((s) => s.phase === 'shown' && s.effT > 2.6)) { this.phase = 'outro'; this.phaseT = 0; }

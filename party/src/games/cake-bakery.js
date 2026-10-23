@@ -54,6 +54,9 @@ const SONG = [
   [77, 0.75], [77, 0.25], [76, 1], [72, 1], [74, 1], [72, 2.5],
 ];
 const BEAT = 0.3;
+// The baking clock (Play Studio, shown all along): at 0 it asks "Time's up!"
+// (Keep baking = +1 min, All done = everyone's cake is ready: on to the candles).
+const BAKE_TIME = 180, BAKE_MORE = 60;
 const JINGLE_BEAT = 60 / 112;   // jingle/happy-birthday is the same tune at 112 BPM (13.9 s)
 const BASS = { 0: 48, 6: 43, 12: 48, 19: 53, 22: 48 };
 
@@ -98,6 +101,11 @@ export class Game {
     this.phase = 'bake';
     this.phaseT = 0;
     this.cpuOnly = this.players.every((p) => p.isAI);
+    this.bakeLeft = BAKE_TIME;
+    api.limit(() => (this.phase === 'bake' ? this.bakeLeft : null), {
+      showAt: Infinity, x: W / 2 + 530, y: 56,
+      timeUp: { more: () => { this.bakeLeft += BAKE_MORE; }, done: () => this.startFinale(), moreLabel: 'Keep baking!' },
+    });
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.bunting = Array.from({ length: 30 }, (_, i) => RAINBOW[i % RAINBOW.length]);
@@ -570,6 +578,7 @@ export class Game {
   }
 
   updateBake(dt) {
+    this.bakeLeft = Math.max(0, this.bakeLeft - dt);
     for (const st of this.stations) {
       const c = st.p.ctrl, a = st.actor;
       if (st.p.isAI) this.updateAI(st, dt);

@@ -26,6 +26,7 @@ import { SCENES, buildScene } from './seek-and-find/scenes.js';
 import { drawOccluder, occluderBox } from './seek-and-find/painters.js';
 
 const NAVY = '#24163f';
+const SEEK_TIME = 300;   // the Play Studio clock (seconds of seeking), then "Time's up!" asks
 // Resolution of the cached scene layers: the screen's own (capped at 1.5x)
 // so the backdrop stays sharp on high-DPI screens; 1x elsewhere, where a
 // scaled full-screen blit would cost a lot on software-rendered canvases.
@@ -79,6 +80,14 @@ export class Game {
     this.rounds = SCENES.length;
     this.finished = false;
     this.flyers = [];
+    // The Play Studio clock: 5 minutes of seeking for all three scenes (drawn by the play scene;
+    // it runs while seeking). At 0 it asks "Time's up!": Keep playing adds a minute, All done ends
+    // the game (as the pause menu's "All done!"). Like api.studioClock, but paused between scenes.
+    this.seekLeft = SEEK_TIME;
+    api.limit(() => (this.phase === 'seek' && !this.finished ? this.seekLeft : null), {
+      showAt: Infinity, x: W - 120, y: 56,
+      timeUp: { more: () => { this.seekLeft += 60; }, done: () => this.onDone() },
+    });
     this.startRound(0);
   }
 
@@ -297,7 +306,7 @@ export class Game {
     this.t += dt; this.phaseT += dt;
     const ph = this.phase;
     if (ph === 'intro' && this.phaseT > 1.9) { this.phase = 'seek'; this.phaseT = 0; }
-    if (ph === 'seek') this.updateSeek(dt);
+    if (ph === 'seek') { this.seekLeft = Math.max(0, this.seekLeft - dt); this.updateSeek(dt); }   // the clock waits at 0 for "Time's up!"
     if (ph === 'found' || ph === 'wipe') this.foundT = (this.foundT || 0) + dt;
     if (ph === 'found') {
       this.updateCelebs(dt);

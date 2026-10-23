@@ -8,7 +8,7 @@ export const meta = {
   controls: [['stick', 'Move'], ['a', 'Add or remove a note'], ['x', 'Change your sound'], ['y', 'Surprise sparkle!'], ['lb', 'Flip pages (LB / RB)'], ['b', 'Oops! Undo']],
   tips: ['Every note sounds nice together, so try anything!', 'Move up to the buttons for songs, drums and speed.', 'Press Concert! when your song is ready.'],
   music: 'melody',        // no such song: the background music stays off (our tune is the music)
-  duration: 'as long as you like',
+  duration: 'about 5 min, then you choose',
   minPlayers: 1,
   maxPlayers: 8,
   countdown: false,

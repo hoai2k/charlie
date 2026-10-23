@@ -40,6 +40,7 @@ const TRAY = { x: 198, y: 394, w: 650, h: 196 };
 const TABS = { x: 206, y: 346, w: 290, h: 40 };
 const VIS_ROWS = 3, VIS_COLS = 6;
 const ROUND_TIME = 55, DESIGN_TIME = 80;
+const ROUND_MORE = 30;   // "Keep playing!" at a round's / the design's "Time's up!"
 const SCALE = [72, 74, 76, 79, 81, 84, 86, 88, 91, 93, 96, 98, 100, 103, 105, 108];
 const CUSTOMERS = [...CHARACTERS.map((c) => c.id), 'glimmer', 'professor-hoot', 'fellowfox'];
 const THANKS = ['Thank you!', 'So pretty!', 'I love it!', 'Sparkly!', 'Yay!', 'Perfect!'];
@@ -89,7 +90,14 @@ export class Game {
     api.limit(() => {
       const P = this.phase;
       return P === 'play' || P === 'design' ? this.timeLeft : P === 'intro' ? ROUND_TIME : P === 'designIntro' ? DESIGN_TIME : null;
-    }, { showAt: Infinity, x: W / 2, y: 54 });
+    }, {
+      showAt: Infinity, x: W / 2, y: 54,
+      // At 0 it asks "Time's up!": Keep playing = +ROUND_MORE s, All done = the round ends (or the show starts).
+      timeUp: {
+        more: () => { this.timeLeft += ROUND_MORE; },
+        done: () => { if (this.phase === 'play') this.endRound(); else if (this.phase === 'design') this.startShow(); },
+      },
+    });
     const rects = layoutStations(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.ptrSt = this.stations.find((s) => !s.p.isAI) || null;
@@ -320,16 +328,15 @@ export class Game {
     if (P === 'intro') {
       if (this.phaseT >= 2.2) { this.phase = 'play'; this.phaseT = 0; for (const st of this.stations) if (st.mode === 'wait') this.beginOrder(st); }
     } else if (P === 'play') {
-      this.timeLeft -= dt;
-      if (this.timeLeft <= 0) this.endRound();
+      this.timeLeft = Math.max(0, this.timeLeft - dt);   // at 0 the clock's "Time's up!" (api.limit) ends the round
     } else if (P === 'roundEnd') {
       if (this.phaseT > 2.8) { if (this.round === 0) this.startRound(1); else this.startDesign(); }
     } else if (P === 'designIntro') {
       if (this.phaseT > 2.2) { this.phase = 'design'; this.phaseT = 0; for (const st of this.stations) st.mode = 'pick'; }
     } else if (P === 'design') {
-      this.timeLeft -= dt;
+      this.timeLeft = Math.max(0, this.timeLeft - dt);   // (at 0 the clock's "Time's up!" starts the show)
       const all = this.stations.every((s) => s.mode === 'done' && s.doneT > 1.6);
-      if (all || this.timeLeft <= 0) this.startShow();
+      if (all) this.startShow();
     } else if (P === 'show') {
       this.updateShow(dt);
     }

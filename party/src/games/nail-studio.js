@@ -96,9 +96,17 @@ export class Game {
     });
     // Each step has a gentle clock (the ring on the step list shows how much is left);
     // its last seconds are counted down by the play scene, over the station's step list.
+    // A kid's step clock reaching 0 is the play scene's "Time's up!" question: Keep playing adds
+    // 30 s to that step, All done moves on as the clock used to. CPU tables move on by themselves.
     for (const st of this.stations) {
-      api.limit(() => (this.phase === 'play' && st.mode === 'work' ? Math.max(0, STEPS[st.step].time - st.stepT) : null),
-        { x: st.ox + (PANEL.x + PANEL.w / 2) * st.k, y: st.oy + Math.max(44, 70 * st.k) });
+      const kid = !st.p.isAI || this.stations.every((s) => s.p.isAI);
+      api.limit(() => (this.phase === 'play' && st.mode === 'work' ? Math.max(0, this.stepTime(st) - st.stepT) : null), {
+        x: st.ox + (PANEL.x + PANEL.w / 2) * st.k, y: st.oy + Math.max(44, 70 * st.k),
+        timeUp: kid ? {
+          more: () => { st.stepExtra = Math.max(st.stepExtra, st.stepT - STEPS[st.step].time) + 30; },
+          done: () => this.nextStep(st, true),
+        } : null,
+      });
     }
     this.sideRoom = Math.min(...rects.map((r) => r.x)) > 240;
     this.bulbs = Array.from({ length: 22 }, (_, i) => ({ x: 40 + i * 88, c: RAINBOW[i % RAINBOW.length] }));
@@ -118,7 +126,7 @@ export class Game {
       p, i, ox: r.x, oy: r.y, k: r.k, actor: a, baseScale: a.scale, clientId, client: c,
       style: handStyle(clientId, c.char.color || '#ff6fb1'),
       nails: Array.from({ length: 5 }, newNail), gems: [],
-      mode: 'arrive', step: 0, stepT: 0, idleT: 0, appear: 0, doneT: 0,
+      mode: 'arrive', step: 0, stepT: 0, stepExtra: 0, idleT: 0, appear: 0, doneT: 0,
       cur: { x: 560, y: 300, hold: 0 }, color: randInt(0, 6), artColor: 7, tool: 1, item: 0,
       held: null, hoverGem: null, hoverNail: -1, onHand: false,
       fanSpin: 0, fanV: 0, sfxT: 0, reactT: 0, wig: 0, pickPop: 0, toolPop: 0, nextBump: 0, nextPulse: 0,
@@ -241,8 +249,8 @@ export class Game {
     if (step !== 'dry') { st.fanV = Math.max(0, st.fanV - dt * 2); st.fanSpin += st.fanV * dt * 30; }
     if (st.mode === 'work' && c.pressed('y')) this.nextStep(st, false);
     if (st.mode !== 'work') return;   // (finished this frame)
-    // the gentle clock moves everyone along
-    if (st.stepT >= STEPS[st.step].time) this.nextStep(st, true);
+    // the gentle clock moves the CPUs along (a kid's waits at 0 for the "Time's up!" question)
+    if (p.isAI && this.stations.some((s) => !s.p.isAI) && st.stepT >= this.stepTime(st)) this.nextStep(st, true);
     if (st.mode !== 'work') return;
     // a little nudge for humans who stop for a long time
     if (!p.isAI && st.idleT > 12 && !st.tip) { st.idleT = 4; this.tipFor(st); }
@@ -565,6 +573,9 @@ export class Game {
   }
 
   // --- steps ---------------------------------------------------------------------------------
+  /** This step's clock: its gentle time plus any "Keep playing!" extra. */
+  stepTime(st) { return STEPS[st.step].time + st.stepExtra; }
+
   nextStep(st, auto) {
     if (st.mode !== 'work') return;
     const step = STEPS[st.step].id;
@@ -574,7 +585,7 @@ export class Game {
     if (step === 'dry') { if (auto) this.magicDry(st); else { st.nextBump = 0.4; sfx('blip'); st.tip = { text: 'Blow on the wet nails!', t: 0, dur: 1.8 }; } return; }
     if (step === 'gems' && st.held) { const gm = st.held; st.held = null; if (gm.home) Object.assign(gm, gm.home); }
     if (step === 'polish') for (const n of st.nails) if (n.auto) { n.auto = null; n.cover = Math.max(n.cover, 1); }
-    st.step++; st.stepT = 0; st.idleT = 0; st.tip = null; st.nextPulse = 0;
+    st.step++; st.stepT = 0; st.stepExtra = 0; st.idleT = 0; st.tip = null; st.nextPulse = 0;
     sfx('swap', { vol: st.p.isAI ? 0.3 : 0.7 }); sfx('sparkle', { vol: st.p.isAI ? 0.2 : 0.5 });
     if (auto && !st.p.isAI) particles.popText(this.toScreen(st, 440, 60).x, this.toScreen(st, 440, 60).y, `${STEPS[st.step].n}!`, '#ff6fb1', 50 * Math.max(0.7, st.k));
     st.actor.playOnce('cheer', 0.5, 'idle');
@@ -1170,7 +1181,7 @@ export class Game {
       g.beginPath(); g.arc(x, y, 20, 0, TAU);
       g.fillStyle = done ? '#ff6fb1' : cur ? '#ffd23f' : '#ffffff'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
       if (cur) {
-        const left = 1 - clamp(st.stepT / s.time, 0, 1);
+        const left = 1 - clamp(st.stepT / this.stepTime(st), 0, 1);
         g.beginPath(); g.arc(x, y, 25, -Math.PI / 2, -Math.PI / 2 + TAU * left); g.lineWidth = 5; g.strokeStyle = left < 0.2 ? '#ff4d6d' : p.color; g.stroke();
       }
       if (done) { g.beginPath(); g.moveTo(x - 9, y); g.lineTo(x - 2, y + 8); g.lineTo(x + 10, y - 8); g.lineWidth = 5; g.strokeStyle = '#ffffff'; g.stroke(); }

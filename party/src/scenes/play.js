@@ -57,10 +57,28 @@ export class PlayScene {
       // A time limit the game runs on. The play scene draws its countdown (so no limit is ever
       // hidden): left() returns the seconds left, or null while it isn't running. Shown for the
       // last `showAt` seconds (Infinity = always), at (x, y) with an optional label under it.
-      limit: (left, o = {}) => { host.limits.push({ left, showAt: o.showAt ?? 10, x: o.x ?? W / 2, y: o.y ?? 64, label: o.label || null }); },
+      // timeUp: { more(), done(), moreLabel } turns the end into a "Time's up!" question instead of
+      // an ending (Play Studio): the game pauses and the kids choose Keep playing (the default, so
+      // someone still mashing A just gets more time) or All done. All-CPU games just call done().
+      limit: (left, o = {}) => { host.limits.push({ left, showAt: o.showAt ?? 10, x: o.x ?? W / 2, y: o.y ?? 64, label: o.label || null, timeUp: o.timeUp || null, fired: false }); },
+      // A whole-game clock for a Play Studio game that has no clock of its own: shown the whole time;
+      // at 0 it asks "Time's up!"; Keep playing adds `more` seconds, All done ends the game
+      // (game.onDone(), as the pause menu's "All done!").
+      // o.active(): false while the clock shouldn't run or show (e.g. the gallery show, a finale).
+      studioClock: (seconds, o = {}) => {
+        const clock = { left: seconds, active: o.active || (() => true) };
+        host.studioClocks.push(clock);
+        api.limit(() => (host.state === 'play' && clock.active() ? clock.left : null), {
+          showAt: Infinity, x: o.x ?? W / 2, y: o.y ?? 64, label: o.label || null,
+          timeUp: { more: () => { clock.left += o.more ?? 60; }, done: () => host.allDone(), moreLabel: o.moreLabel },
+        });
+        return clock;
+      },
       camera: new Camera(),
     };
     this.limits = [];
+    this.studioClocks = [];
+    this.timeUp = null;   // the open "Time's up!" question: { L, sel, t }
     this.camera = api.camera;
     // Big parties spread players to the screen edges: zoom less so nobody
     // loses sight of their character during punch-ins.
@@ -161,10 +179,11 @@ export class PlayScene {
 
   update(dt, inputOpen) {
     if (this.state === 'loading' || this.leaving) return;
-    const held = !!(this.paused || this.howto);
+    const held = !!(this.paused || this.howto || this.timeUp);
     if (held !== !!this._ducked) { this._ducked = held; duckLoops(held); }
     if (this.howto) { this.updateHowto(dt); return; }
     if (this.paused) { this.updatePause(); return; }
+    if (this.timeUp) { this.updateTimeUp(dt); return; }
     this.t += dt; // after the pause check so a pause during 3-2-1 doesn't skip the countdown
     if (this.usesCamera) { this.camera.update(dt); this.camera.tickPunch(dt); }
     if (inputOpen && this.state !== 'finish' && this.state !== 'error') {
@@ -180,6 +199,8 @@ export class PlayScene {
     if (this.state === 'play') {
       if (this.skipping) { this.fastForward(); return; }
       this.playTime += dt;
+      for (const c of this.studioClocks) { let on = true; try { on = c.active(); } catch (e) { on = false; } if (on) c.left = Math.max(0, c.left - dt); }
+      if (this.checkTimeUp()) return;
       this.safe(() => this.game.update(dt));
       // Every human is out: offer to skip to the end (the game plays on, fast and silent).
       this.canSkip = this.state === 'play' && session.players.some((p) => !p.isAI) && !!this.game?.humansOut && (() => { try { return this.game.humansOut(); } catch (e) { return false; } })();
@@ -259,6 +280,67 @@ export class PlayScene {
     ui.hints(g, [['a', 'Back to the game']], W / 2, py + ph - 40, { size: 36 });
   }
 
+  /** A limit with timeUp reached 0: ask the kids (or, with no kids playing, just finish it). */
+  checkTimeUp() {
+    for (const L of this.limits) {
+      if (!L.timeUp) continue;
+      let left = null;
+      try { left = L.left(); } catch (e) { left = null; }
+      if (left == null || left > 0) { L.fired = false; continue; }
+      if (L.fired) continue;
+      L.fired = true;
+      if (!session.players.some((p) => !p.isAI)) { this.safe(() => L.timeUp.done()); continue; }
+      this.timeUp = { L, sel: 0, t: 0 };
+      sfx('whistle');
+      return true;
+    }
+    return false;
+  }
+
+  timeUpItems() { return [[this.timeUp.L.timeUp.moreLabel || 'Keep playing!', 'more'], ['All done!', 'done']]; }
+
+  updateTimeUp(dt) {
+    const T = this.timeUp;
+    T.t += dt;
+    if (T.t < 0.6) return;   // a beat to read it (and so an A already being mashed lands on "Keep playing")
+    const items = this.timeUpItems();
+    for (const c of input.humans()) {
+      if (c.nav.y) { T.sel = (T.sel + c.nav.y + items.length) % items.length; sfx('move'); }
+    }
+    const lay = this.pauseLayout(items.length);
+    for (let i = 0; i < items.length; i++) {
+      const r = lay.item(i);
+      if (input.pointer.moved && input.pointerOver(r) && T.sel !== i) { T.sel = i; sfx('move'); }
+      if (input.clicked(r)) { T.sel = i; this.chooseTimeUp(items[i][1]); return; }
+    }
+    if (input.humans().some((c) => c.pressed('a'))) this.chooseTimeUp(items[T.sel][1]);
+    else if (input.humans().some((c) => c.pressed('b'))) this.chooseTimeUp('more');
+  }
+
+  chooseTimeUp(act) {
+    const L = this.timeUp.L;
+    this.timeUp = null; sfx('select');
+    if (act === 'more') { this.safe(() => L.timeUp.more()); L.fired = false; }
+    else this.safe(() => L.timeUp.done());
+  }
+
+  /** "All done!": end a Play Studio game the way the pause menu does. */
+  allDone() { this.safe(() => (this.game.onDone ? this.game.onDone() : this.finish({ showcase: true }))); }
+
+  drawTimeUp(g) {
+    g.save(); g.fillStyle = 'rgba(36,22,63,0.55)'; g.fillRect(0, 0, W, H); g.restore();
+    const items = this.timeUpItems();
+    const { h, top, item } = this.pauseLayout(items.length);
+    ui.panel(g, W / 2 - 330, top, 660, h, { fill: '#fff8ec' });
+    ui.text(g, "Time's up!", W / 2, top + 64, { size: 70, color: '#ff6fb1' });
+    items.forEach(([label], i) => {
+      const r = item(i), y = r.y + r.h / 2;
+      const sel = i === this.timeUp.sel;
+      if (sel) ui.panel(g, r.x, r.y, r.w, r.h, { r: 36, fill: '#ffd23f', shadow: false, lineWidth: 5 });
+      ui.text(g, label, W / 2, y, { size: 44, color: sel ? '#24163f' : '#6b5a85', stroke: false, weight: 700 });
+    });
+  }
+
   /** Countdowns for the game's time limits (api.limit): nothing ends on a clock nobody can see. */
   drawLimits(g) {
     for (const L of this.limits) {
@@ -324,8 +406,8 @@ export class PlayScene {
     else if (act === 'done') { this.safe(() => (this.game.onDone ? this.game.onDone() : this.finish({ showcase: true }))); }
   }
 
-  pauseLayout() {
-    const n = this.pauseItems().length, h = 140 + n * 90, top = H / 2 - h / 2;
+  pauseLayout(count = null) {
+    const n = count ?? this.pauseItems().length, h = 140 + n * 90, top = H / 2 - h / 2;
     return {
       h, top,
       box: { x: W / 2 - 330, y: top, w: 660, h },
@@ -362,7 +444,7 @@ export class PlayScene {
       ui.banner(g, 'Oopsie!', this.t, { size: 150, color: '#ff6fb1' });
       ui.text(g, 'This game tripped over its shoelaces. Everyone gets a star!', W / 2, H / 2 + 130, { size: 40 });
     }
-    if ((this.state === 'play' || this.state === 'countdown') && !this.paused && !this.howto) this.drawLimits(g);
+    if ((this.state === 'play' || this.state === 'countdown') && !this.paused && !this.howto && !this.timeUp) this.drawLimits(g);
     if (this.state === 'play' && !this.paused && !this.howto) this.drawCornerControls(g);
     if (this.state === 'play' && this.skipping) {
       g.save(); g.fillStyle = 'rgba(36,22,63,0.35)'; g.fillRect(0, 0, W, H); g.restore();
@@ -375,6 +457,7 @@ export class PlayScene {
       ui.hints(g, [['b', 'Skip to the end']], 0, 2, { size: 34 });
       g.restore();
     }
+    if (this.timeUp) this.drawTimeUp(g);
     if (this.paused) this.drawPause(g);
     if (this.howto) this.drawHowto(g);
   }

@@ -108,6 +108,9 @@ const LEGEND = { x: 1650, y: GY - 14, w: 248, h: PANEL.h };
 const SINGER_X = 120;
 const STAGE_Y = 812, FEET_Y = 1064;
 const TBY = 16, TBH = 84;
+// The composing clock (Play Studio, shown all along under the legend): at 0 it asks "Time's up!"
+// (Keep playing = +2 min, All done = the concert, like the Concert! button).
+const EDIT_TIME = 300, EDIT_MORE = 120;
 const TB = [
   { id: 'songs', x: 22, w: 236 },
   { id: 'groove', x: 272, w: 262 },
@@ -466,6 +469,11 @@ export class Game {
     this.humans = this.players.filter((p) => !p.isAI).length;
     this.t = 0;
     this.phase = 'edit';
+    this.editLeft = EDIT_TIME;
+    api.limit(() => (this.phase === 'edit' && !this.picker ? this.editLeft : null), {
+      showAt: Infinity, x: LEGEND.x + LEGEND.w / 2, y: 862,
+      timeUp: { more: () => { this.editLeft += EDIT_MORE; }, done: () => this.startConcert() },
+    });
     this.pages = Array.from({ length: NPAGES }, emptyPage);
     this.page = 0;
     this.tempo = 1;
@@ -1228,6 +1236,7 @@ export class Game {
     if (!this.picker) this.tickSequencer(dt);
     if (this.phase === 'concert') { this.updateConcert(dt); return; }
     if (this.picker) { this.updatePicker(dt); return; }
+    this.editLeft = Math.max(0, this.editLeft - dt);
     // sparkle notes pop in one by one
     while (this.sparkleQ.length && this.sparkleQ[0].at <= this.t) {
       const q = this.sparkleQ.shift(), x = colX(q.col) + CW / 2, y = rowMid(q.R);

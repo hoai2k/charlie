@@ -75,7 +75,11 @@ export class Game {
     this.phase = 'build';
     this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME;
     // Building runs until sunset: the play scene draws that clock the whole time (api.limit).
-    api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), { showAt: Infinity, x: W - 150, y: 54 });
+    // At sunset the play scene asks "Time's up!": Keep playing adds a minute, All done starts the finale.
+    api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), {
+      showAt: Infinity, x: W - 150, y: 54,
+      timeUp: { more: () => { this.timeLeft += 60; }, done: () => this.startFinale() },
+    });
     this.crabs = [];
     this.crabT = rand(3, 6);
     this.finale = null;
@@ -570,7 +574,7 @@ export class Game {
   }
 
   updateBuild(dt) {
-    this.timeLeft -= dt;
+    this.timeLeft = Math.max(0, this.timeLeft - dt);   // waits at 0 for the "Time's up!" question
     this.crabT -= dt;
     const maxCrabs = this.n <= 2 ? 2 : 3;
     if (this.crabT <= 0) { this.crabT = rand(7, 12); if (this.crabs.length < maxCrabs) this.spawnCrab(); }
@@ -639,7 +643,7 @@ export class Game {
     }
     const allReady = this.stations.every((s) => s.ready && s.readyT > 0.8);
     const humansReady = this.humans && this.stations.every((s) => s.p.isAI || (s.ready && s.readyT > 0.8));
-    if (allReady || humansReady || this.timeLeft <= 0) this.startFinale();
+    if (allReady || humansReady) this.startFinale();
   }
 
   /** The character walks over to stand beside the hand. */

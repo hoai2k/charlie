@@ -175,8 +175,12 @@ export class Game {
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
-    // The gentle making clock (the play scene draws its last 40 s).
-    api.limit(() => (this.phase === 'make' && !this.cpuOnly ? Math.max(0, this.setupLeft) : null), { showAt: 40, x: this.n <= 2 ? W / 2 + 520 : W / 2 + 470, y: 56 });
+    // The gentle making clock (the play scene draws its last 40 s). At 0 it asks "Time's up!":
+    // Keep playing adds a minute, All done starts the show.
+    api.limit(() => (this.phase === 'make' && !this.cpuOnly ? Math.max(0, this.setupLeft) : null), {
+      showAt: 40, x: this.n <= 2 ? W / 2 + 520 : W / 2 + 470, y: 56,
+      timeUp: { more: () => { this.setupLeft = Math.max(0, this.setupLeft) + 60; }, done: () => this.startShow() },
+    });
     sfx('magic'); snd('jingle/round', null, { vol: 0.7 });
   }
 
@@ -460,7 +464,7 @@ export class Game {
   updateMake(dt) {
     const cam = this.api.camera;
     if (cam) cam.follow(W / 2, H / 2, 1, 8);
-    if (!this.cpuOnly) this.setupLeft -= dt;
+    if (!this.cpuOnly) this.setupLeft = Math.max(0, this.setupLeft - dt);   // waits at 0 for "Time's up!"
     for (const st of this.stations) {
       if (st.p.isAI) this.updateAI(st, dt);
       st.palBump = Math.max(0, st.palBump - dt); st.tabBump = Math.max(0, st.tabBump - dt);
@@ -474,7 +478,7 @@ export class Game {
       this.updatePreview(st, dt);
     }
     const allReady = this.stations.every((s) => s.ready && s.readyT > 0.7);
-    if (allReady || this.setupLeft <= 0) this.startShow();
+    if (allReady) this.startShow();
   }
 
   // =================================================================================

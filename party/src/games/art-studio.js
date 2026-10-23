@@ -36,6 +36,9 @@ const SIZES = [{ name: 'Small', r: 6, stamp: 50 }, { name: 'Medium', r: 14, stam
 const SHAPE_STAMPS = ['star', 'heart', 'flower', 'butterfly', 'rainbow', 'crown', 'horn', 'cupcake'];
 const MAX_LIVE = 48;      // strokes kept for undo; older ones are baked
 const GRID = 50, GX = CW / GRID, GY = CH / GRID;
+// The painting clock (Play Studio): shown all along; at 0 it asks "Time's up!" (Keep painting = +2 min,
+// All done = hang it in the museum, like the Done! button).
+const PAINT_TIME = 300, PAINT_MORE = 120;
 const BTN = { page: { x: 250, y: 24, w: 290, h: 68, label: 'New page' }, done: { x: 1400, y: 24, w: 270, h: 68, label: 'Done!' } };
 const snd = (key, fallback) => (hasSound(key) ? sfx(key) : fallback && sfx(fallback));
 
@@ -160,6 +163,11 @@ export class Game {
     const owner = this.players.find((p) => !p.isAI) || this.players[0];
     this.picker = { owner, sel: 1, t: 0, first: true };
     this.paintT = 0;
+    this.paintLeft = PAINT_TIME;
+    api.limit(() => (this.phase === 'paint' && !this.picker ? this.paintLeft : null), {
+      showAt: Infinity, x: 1290, y: 58,
+      timeUp: { more: () => { this.paintLeft += PAINT_MORE; }, done: () => this.startGallery(), moreLabel: 'Keep painting!' },
+    });
     this.toast = null;
     sfx('magic');
   }
@@ -727,6 +735,7 @@ export class Game {
     for (const st of this.stations) st.actor.update(dt);
     if (this.picker) { this.updatePicker(dt); return; }
     this.paintT += dt;
+    this.paintLeft = Math.max(0, this.paintLeft - dt);
     if (this.oldPic && (this.oldPic.t += dt) > 8) this.oldPic = null;
     for (const st of this.stations) {
       if (st.p.isAI) this.updateAI(st, dt);

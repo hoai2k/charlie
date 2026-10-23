@@ -62,10 +62,27 @@ export class Game {
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     // Soft limits (the play scene draws them): rolling, then each yard's decorating.
-    api.limit(() => (this.phase === 'build' && this.stations.some((s) => s.mode === 'roll') ? Math.max(0, ROLL_TIME - this.t) : null), { showAt: 25, x: W - 120, y: 56 });
+    // A kid's clock reaching 0 is the play scene's "Time's up!" question: Keep playing adds 30 s
+    // (rolling) or 45 s (that yard's decorating); All done lets the snow fairy finish (rolling) or
+    // calls that yard ready (decorating). CPU yards still finish on their own clocks.
+    this.rollTime = ROLL_TIME;
+    const kidRolling = (s) => s.mode === 'roll' && (!s.p.isAI || this.cpuOnly);
+    api.limit(() => (this.phase === 'build' && this.stations.some(kidRolling) ? Math.max(0, this.rollTime - this.t) : null), {
+      showAt: 25, x: W - 120, y: 56,
+      timeUp: {
+        more: () => { this.rollTime = Math.max(this.rollTime, this.t) + 30; },
+        done: () => { for (const st of this.stations) this.autoBuild(st); },
+      },
+    });
     for (const st of this.stations) {
-      api.limit(() => (this.phase === 'build' && st.mode === 'deco' && !st.ready ? Math.max(0, DECO_TIME - (this.t - st.decoStart)) : null),
-        { showAt: 20, x: st.r.x + (st.r.w - this.listW(st)) / 2, y: st.r.y + 62, label: 'Showtime!' });
+      const kid = !st.p.isAI || this.cpuOnly;
+      api.limit(() => (this.phase === 'build' && st.mode === 'deco' && !st.ready ? Math.max(0, st.decoTime - (this.t - st.decoStart)) : null), {
+        showAt: 20, x: st.r.x + (st.r.w - this.listW(st)) / 2, y: st.r.y + 62, label: 'Showtime!',
+        timeUp: kid ? {
+          more: () => { st.decoTime = Math.max(st.decoTime, this.t - st.decoStart) + 45; },
+          done: () => { if (st.mode === 'deco' && !st.ready) this.setReady(st, true); },
+        } : null,
+      });
     }
     this.flakes = Array.from({ length: 110 }, () => ({ x: rand(W), y: rand(H), s: rand(2, 6), v: rand(30, 80), ph: rand(TAU) }));
     this.stars = Array.from({ length: 90 }, () => ({ x: rand(W), y: rand(20, 640), s: rand(1.5, 4), ph: rand(TAU) }));
@@ -97,7 +114,7 @@ export class Game {
       mode: 'roll', ball: null, dir: -0.3, lift: null, pat: 0, nearT: 0, canStack: false, tipCD: 0,
       cols, rows, depth, trail, tctx: trail.getContext('2d'), refillT: 0, puffT: 0, rollSndT: 0,
       stackBump: 0, builtT: 0, cursor: { x: spot.x, y: spot.y - 200 }, sel: 0, held: null, hover: null,
-      history: [], ready: false, readyT: 0, listBump: 0, cheerCD: 0, decoStart: 0, placed: 0, ai: null,
+      history: [], ready: false, readyT: 0, listBump: 0, cheerCD: 0, decoStart: 0, decoTime: DECO_TIME, placed: 0, ai: null,
       scenery: this.makeScenery(VW), sparkles: Array.from({ length: Math.round(VW / 30) }, () => ({ x: rand(VW), y: rand(20, FIELD_H), ph: rand(TAU) })),
       lastMilestone: 0, rolled: 0,
     };
@@ -651,14 +668,14 @@ export class Game {
       if (st.mode === 'roll') {
         if (st.p.isAI) this.updateRollAI(st, dt);
         this.updateRoll(st, dt);
-        if (this.t > ROLL_TIME) this.autoBuild(st);
+        if (st.p.isAI && !this.cpuOnly && this.t > this.rollTime) this.autoBuild(st);   // a kid's yard waits for "Time's up!"
       } else if (st.mode === 'built') {
         st.builtT += dt;
         if (st.p.isAI) st.p.ctrl.move(0, 0);
         if (st.builtT > 1.5) this.startDecorate(st);
       } else if (st.mode === 'deco') {
         this.updateDeco(st, dt);
-        if (!st.ready && this.t - st.decoStart > DECO_TIME) this.setReady(st, true);
+        if (st.p.isAI && !this.cpuOnly && !st.ready && this.t - st.decoStart > st.decoTime) this.setReady(st, true);
       }
       a.update(dt);
     }
@@ -815,9 +832,9 @@ export class Game {
     g.restore();
     this.drawMiniSnowman(g, W / 2 - 385, 92, 0.42);
     this.drawMiniSnowman(g, W / 2 + 385, 92, 0.42);
-    const left = this.t < ROLL_TIME ? ROLL_TIME - this.t : 0;
+    const left = this.t < this.rollTime ? this.rollTime - this.t : 0;
     // (the rolling clock shows there instead: api.limit)
-    if (!(left > 0 && left < 25 && this.stations.some((s) => s.mode === 'roll')) && this.n <= 2 && this.stations.some((s) => s.mode === 'deco' && !s.ready && !s.p.isAI)) {
+    if (!(left > 0 && left < 25 && this.stations.some((s) => s.mode === 'roll' && (!s.p.isAI || this.cpuOnly))) && this.n <= 2 && this.stations.some((s) => s.mode === 'deco' && !s.ready && !s.p.isAI)) {
       ui.hints(g, [['y', 'Surprise!']], W - 200, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);

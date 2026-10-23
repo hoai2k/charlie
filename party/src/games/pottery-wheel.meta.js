@@ -19,7 +19,7 @@ export const meta = {
     'Hold A with the brush or dots and the wheel paints all the way round!',
   ],
   music: 'cozy',
-  duration: 'about 3 min',
+  duration: 'about 4 min, then you choose',
   minPlayers: 1,
   maxPlayers: 8,
   countdown: false,
