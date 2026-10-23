@@ -168,11 +168,14 @@ function drawCloudFloor() {
     const x = gap.start - state.camera;
     const top = PATH_TOP - 40;
     const sky = ctx.createLinearGradient(0, top, 0, H);
-    sky.addColorStop(0, "#d5ecff");
-    sky.addColorStop(0.5, "#9cc8f3");
+    // Fading in from clear at the top, so it melts into the sky behind.
+    sky.addColorStop(0, "#d5ecff00");
+    sky.addColorStop(0.3, "#c4e2ff");
+    sky.addColorStop(0.6, "#9cc8f3");
     sky.addColorStop(1, "#6f9fe0");
     ctx.fillStyle = sky;
-    ctx.fillRect(x - 10, top, gap.end - gap.start + 20, H - top);
+    // Wider than the gap: the clouds' rounded ends, drawn over it, shape the hole.
+    ctx.fillRect(x - CLOUD_GAP_SKY_OVERHANG, top, gap.end - gap.start + 2 * CLOUD_GAP_SKY_OVERHANG, H - top);
     ctx.save();
     ctx.globalAlpha = 0.55;
     ctx.fillStyle = "#ffffff";

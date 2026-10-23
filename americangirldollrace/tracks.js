@@ -39,6 +39,8 @@
 // circle her head; "acorns" are flung in an arc to bonk each one; "laser"
 // guns (the trigger) swell and fade as they fire a volley of short red bolts
 // at each one, which shocks rather than dazes.
+// `powerupArtVersion`: that track's power-up sheet's cache stamp; bump it
+// when the sheet changes (else config.js's shared one applies).
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
 // (game-terrain.js); fall through one and you're back a moment later.
 // `music` is the track's own song. Tracks without one take turns with the
@@ -97,7 +99,7 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs)
 // and "frog" (§10).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {

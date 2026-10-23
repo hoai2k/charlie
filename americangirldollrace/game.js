@@ -333,6 +333,7 @@ const CLOUD_GAP_EDGE_GRACE = 14; // px into a gap before her feet are off the cl
 const CLOUD_FLOOR_SAFE_START = 1400; // no gaps before here
 const CLOUD_FLOOR_SAFE_END = 800; // or this close to the finish
 const CLOUD_FALL_TIME = 1.3;
+const CLOUD_GAP_SKY_OVERHANG = 90; // px the sky painted in a gap runs under the clouds either side
 const CLOUD_BOUNCE = 7; // px a doll bounces up as she runs on the clouds
 const CLOUD_BOUNCE_STRIDE = 70; // world px per bounce
 const CLOUD_SINK = 9; // px she sinks into a cloud standing still
@@ -964,15 +965,21 @@ function loadArtOnce(key, src) {
   return trackArtLoads.get(key);
 }
 
+// A track's power-up sheet's cache stamp: its own (tracks.js
+// powerupArtVersion, bumped when that sheet changes) or the shared one.
+function powerupArtVersion(trackKey) {
+  return TRACK_THEMES[trackKey]?.powerupArtVersion || window.GAME_CONFIG?.powerupArtVersion || "1";
+}
+
 function preloadTrackArt(background) {
   if (!background) return;
   const theme = getTrackTheme(background);
-  for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp${file === "powerups" ? "?v=" + (window.GAME_CONFIG?.powerupArtVersion || "1") : ""}`);
+  for (const file of theme.art || []) loadArtOnce(trackArtKey(background.key, file), `assets/tracks/${background.key}/${file}.webp${file === "powerups" ? "?v=" + powerupArtVersion(background.key) : ""}`);
   for (const type of [...Object.keys(theme.mountOdds || {}), theme.baseMount].flat()) {
     if (THEMED_MOUNT_TYPES.includes(type)) loadArtOnce(type, `assets/${type}_sprites.webp`);
   }
-  if (getTrackTheme(background).rideToys?.boost === "skates") loadArtOnce(trackArtKey(SKATES_ICON_TRACK, "powerups"), `assets/tracks/${SKATES_ICON_TRACK}/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
-  if (pogoEligible(background)) loadArtOnce(trackArtKey(POGO_ICON_TRACK, "powerups"), `assets/tracks/${POGO_ICON_TRACK}/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
+  if (getTrackTheme(background).rideToys?.boost === "skates") loadArtOnce(trackArtKey(SKATES_ICON_TRACK, "powerups"), `assets/tracks/${SKATES_ICON_TRACK}/powerups.webp?v=${powerupArtVersion(SKATES_ICON_TRACK)}`);
+  if (pogoEligible(background)) loadArtOnce(trackArtKey(POGO_ICON_TRACK, "powerups"), `assets/tracks/${POGO_ICON_TRACK}/powerups.webp?v=${powerupArtVersion(POGO_ICON_TRACK)}`);
   if (theme.monster && theme.monster !== "troll" && window.MONSTERS?.[theme.monster]) {
     loadArtOnce(theme.monster, monsterSheetUrl(theme.monster));
     const particleArt = window.MONSTERS[theme.monster].particles;

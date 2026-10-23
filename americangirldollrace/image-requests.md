@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** no outstanding art; runtime integration is with the gameplay agent. Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** none. Everything is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1004,3 +1004,14 @@ MB1 revised art delivered:768×256, side/three-quarter/front views, closed padde
 
 CL2 art delivered:128×128 soft white-lilac cloud puff, registered in the
 Cloud Kingdom art list, source/prompt/report in `tools/tracks/cloud-floor/`.
+
+CL1, LZ1 and MB1 checked in game: the billowy floor clouds step and dome
+naturally with dolls standing, bouncing and sinking on them, and each gap
+reads as a hole (the sky painted in it now runs under the clouds' rounded
+ends and fades in at the top, so there's no straight edge). The laser
+trigger reads at pickup size (Moon Base's own `powerupArtVersion` is now
+honoured, so the new sheet isn't cached over). The moon boots are
+registered (`moon_boot` in TRACK_SHARED_ART) and cover both feet in
+standing, running, crouching and landing poses, both facings, with closed
+cuffs matching the jump pose's boots.
+
