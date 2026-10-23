@@ -19,7 +19,7 @@ const PICKUP_DEFAULTS = {
   snowball: ["SNOWBALLS", "powerup_snowball_pickup"]
 };
 
-const PICKUP_ITEM_NAMES = { spellBook: "SPELL BOOK", surfboard: "SURFBOARD", windupCars: "WIND-UP CARS", skates: "SKATES", moonBoots: "MOON BOOTS" };
+const PICKUP_ITEM_NAMES = { spellBook: "MAGIC WAND", surfboard: "SURFBOARD", windupCars: "WIND-UP CARS", skates: "SKATES", moonBoots: "MOON BOOTS" };
 
 function pickupLook(type, { pogo = false } = {}) {
   const theme = getTrackTheme();

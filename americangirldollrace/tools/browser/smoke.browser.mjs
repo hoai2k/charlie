@@ -228,10 +228,12 @@ test('a missed throw comes down: splash, melting snow, a pop in the air, or a ro
   }
 });
 
-test('the Beach has no EMPs or horses, and surfing knocks trolls down', { skip: skip() }, async () => {
+test('no EMPs on Beach or Wizard School, no horses on the Beach, and surfing knocks trolls down', { skip: skip() }, async () => {
   await onTrack('beach');
   const r = await page.evaluate(() => {
     let banned = 0; for (let i = 0; i < 5; i++) { startRace('two'); banned += state.powerups.filter(q => q.type === 'emp' || (q.type === 'horse' && !q.loose)).length; }
+    setBackground('wizard'); for (let i = 0; i < 5; i++) { startRace('two'); banned += state.powerups.filter(q => q.type === 'emp').length; }
+    setBackground('beach');
     startRace('two'); state.running = false; state.obstacles = []; state.powerups = [];
     const [a, b] = state.racers; b.x = 1000; a.x = 8100; a.y = PATH_TOP + 90; a.z = 0;
     const m = spawnMonster(8400, a.y, { active: true, riding: false }); m.x = 8400; m.y = a.y; m.riding = false; m.state = 'walk'; state.monsters = [m];

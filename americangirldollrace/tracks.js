@@ -162,10 +162,11 @@ window.TRACK_THEMES = {
     itemEffects: { boost: "surfboard" }
   },
   wizard: {
+    noPowerups: ["emp"], // the magic wand stands in
     empStyle: "lightning",
     monster: "skeleton",
     name: "Wizard School", music: "assets/music/Oops-a-Daisy Wizard School.mp3", dirtTop: 507, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
-    labels: { jump: "SPELL BOOK", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
+    labels: { jump: "MAGIC WAND", boost: "POTION", emp: "WAND ZAP", oil: "CAULDRON SPILL", snowball: "PIXIE PUFFS" },
     sounds: { emp: "pickup_wand_zap", jump: "spell_cast" },
     mountOdds: { unicorn: 0.05, pegasus: 0.05 },
     baseMount: ["griffon", "broom"],
