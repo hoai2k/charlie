@@ -301,3 +301,20 @@ test('the pause screen shows its corner buttons', { skip: skip() }, async () => 
   await page.evaluate(() => togglePause());
   assert.deepEqual(errors, []);
 });
+
+test('in the menu settings, left/right change a setting and A closes it', { skip: skip() }, async () => {
+  await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
+  const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };
+  const open = () => page.evaluate(() => !document.querySelector('#lbSettings').classList.contains('off'));
+  await key('KeyR');
+  assert.ok(await open(), 'Y opens settings');
+  await key('KeyS');
+  const before = await page.evaluate(() => state.difficulty);
+  await key('KeyD');
+  const after = await page.evaluate(() => state.difficulty);
+  assert.notEqual(after, before, 'right changes the difficulty');
+  await key('Space');
+  assert.equal(await open(), false, 'A closes settings');
+  assert.equal(await page.evaluate(() => state.difficulty), after, 'A leaves the setting alone');
+  assert.deepEqual(errors, []);
+});
