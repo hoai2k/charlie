@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §21 Cloud Kingdom floor clouds (CL1); §22 Moon Base laser trigger (LZ1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §21 Cloud Kingdom floor clouds (CL1); §22 Moon Base laser trigger (LZ1); §23 moon boots (MB1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -963,4 +963,28 @@ Moon Base's EMP is LASER: lasers zap everyone in range. Its pickup today
 
 Acceptance: race Moon Base (or the workbench on Moon Base): the LASER pickup
 reads as laser guns round a button at its in-game size (about 68 px).
+
+## 23. Open: moon boots to wear in every pose
+
+With MOON BOOTS on (Moon Base's jump pickup) a doll's jumping pose already
+shows her in big white moon boots (actions sheet, row 3 cell 3). In every
+other pose the game will now draw a moon boot over each foot, at the foot's
+measured position and angle (`feet.js`, from `tools/dolls/measure_feet.py`).
+It needs the boot, **matching the boots in that jumping pose** (see
+`assets/doll_barbie_actions.webp`, the bottom-right cell): chunky, padded,
+glossy white moon boots with a flat grey rubber sole and a soft cuff.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| MB1 | `assets/moon_boot_sprites.webp` | 512×256 (2 cells of 256), alpha | One moon boot, two views: (1) **side view, toe pointing right**; (2) **front view**, toe towards us. |
+
+Each cell: the sole's bottom centre at **(128, 244)**, sole flat and level;
+the boot about 150 px wide in the side view (about 110 px in the front view)
+and about 170 px tall including the cuff. No leg, shadow or text. The game
+scales each boot to the foot it covers and tilts the side view to the
+foot's angle.
+
+Acceptance: on Moon Base (or the workbench on Moon Base) take MOON BOOTS:
+standing, running, pushing, falling back and landing, both boots cover the
+feet in the same boots as the jumping pose, facing the right way.
 
