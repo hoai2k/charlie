@@ -91,9 +91,14 @@ Pushes to `main` build and deploy only; they run no tests. Tests are your job
 before you commit:
 
 - Run the tests your change affects: a change to `party/` runs
-  `node --test party/tools/sprites/*.test.mjs`. The other games have no
-  automated tests; check the change in a browser (local server) before
-  committing. For a change to shared code, run all of them.
+  `node --test party/tools/sprites/*.test.mjs`. A change to
+  `americangirldollrace/` runs its unit tests,
+  `node --test americangirldollrace/tools/*/*.test.mjs americangirldollrace/tools/dolls/*.test.mjs americangirldollrace/tools/dolls/*/*.test.mjs`,
+  and its browser smoke tests (headless Chromium, ~15 s),
+  `node --test americangirldollrace/tools/browser/smoke.browser.mjs`;
+  add a check there for new gameplay. The other games have no automated
+  tests; check the change in a browser (local server) before committing.
+  For a change to shared code, run all of them.
 - Say in the commit message what you ran and that it passed.
 
 Every deploy is paid for in GitHub Actions minutes while the repository is
