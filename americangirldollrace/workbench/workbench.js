@@ -14,7 +14,7 @@ const POWERUPS = [
 ];
 const MOUNT_NAMES = {
   horse: "Horse", unicorn: "Unicorn", pegasus: "Pegasus", griffon: "Griffon", broom: "Broom", pony: "Pony",
-  reindeer: "Reindeer", rocking_horse: "Rocking horse", carousel_horse: "Carousel", moon_buggy: "Moon buggy", skeleton_horse: "Skeleton horse"
+  reindeer: "Reindeer", rocking_horse: "Rocking horse", carousel_horse: "Carousel", moon_buggy: "Moon buggy", skeleton_horse: "Skeleton horse", wings: "Fairy wings"
 };
 
 let game = null; // the frame's window, once the bench is ready
@@ -203,7 +203,26 @@ function mountTiles() {
   for (const type of g.Bench.MOUNT_TYPES) {
     const { button, canvas } = tile(MOUNT_NAMES[type] || type, () => g.Bench.drop(type));
     draggable(button, canvas, at => g.Bench.dropAt(type, at.x, at.y));
-    if (type === "broom") paint(canvas, () => g.Bench.images.broom, image => [0, 0, image.width, image.height]);
+    if (type === "wings") {
+      // Plain wings until the sheet is in (image-requests.md §27).
+      const c = canvas.getContext("2d");
+      c.save();
+      c.translate(canvas.width * 0.62, canvas.height * 0.62);
+      c.globalAlpha = 0.7;
+      c.fillStyle = "#e6c8f5";
+      c.strokeStyle = "white";
+      for (const [length, width, tilt] of [[0.55, 0.2, -2.25], [0.33, 0.13, -3.0]]) {
+        c.save();
+        c.rotate(tilt);
+        c.beginPath();
+        c.ellipse(length * canvas.width / 2, 0, length * canvas.width / 2, width * canvas.width / 2, 0, 0, Math.PI * 2);
+        c.fill();
+        c.stroke();
+        c.restore();
+      }
+      c.restore();
+      paint(canvas, () => g.getSharedArt("fairy_wings"), image => [0, 0, image.height, image.height]);
+    } else if (type === "broom") paint(canvas, () => g.Bench.images.broom, image => [0, 0, image.width, image.height]);
     else {
       if (type === "skeleton_horse") g.getSharedArt("skeleton_horse");
       else if (!g.Bench.images[type]) g.loadArtOnce(type, `assets/${type}_sprites.webp`);

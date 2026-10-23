@@ -1,4 +1,4 @@
-// Mounts: horses and themed ponies, unicorns, pegasi, gryphons and broomsticks, the wizard-mount unlock, dismounting, and the unicorn rainbow.
+// Mounts: horses and themed ponies, unicorns, pegasi, gryphons, broomsticks and fairy wings, the wizard-mount unlock, dismounting, and the unicorn rainbow.
 // Part of the race's game code: these functions share game.js's constants and
 // state, and load before it (see the <script> order in index.html).
 
@@ -10,10 +10,10 @@ function isAlwaysMountedTrack() {
 }
 
 // Whether this racer can pick up and use power-ups: on foot, anywhere riders
-// may (Horse Show, Horsing Around), on a broomstick, which she runs with, or
-// on a unicorn.
+// may (Horse Show, Horsing Around), on a broomstick or with fairy wings,
+// which she runs with, or on a unicorn.
 function canRacerUsePowerups(racer) {
-  return !isMounted(racer) || canMountedRacersUsePowerups() || racer.horseType === "broom" || racer.horseType === "unicorn";
+  return !isMounted(racer) || canMountedRacersUsePowerups() || isCarriedMount(racer.horseType) || racer.horseType === "unicorn";
 }
 
 function canMountedRacersUsePowerups() {
@@ -25,10 +25,17 @@ function isHorsingAroundMode() {
 }
 
 function isFlyingMountType(type) {
-  return type === "pegasus" || type === "griffon" || type === "broom";
+  return type === "pegasus" || type === "griffon" || type === "broom" || type === "wings";
+}
+
+// Mounts she doesn't sit on while running: the broomstick she carries and
+// fairy wings on her back.
+function isCarriedMount(type) {
+  return type === "broom" || type === "wings";
 }
 
 function mountLabel(type) {
+  if (type === "wings") return "FAIRY WINGS";
   return type.replace(/_/g, " ").toUpperCase();
 }
 
@@ -361,6 +368,127 @@ function drawBroomProp(x, y, width, angle, facing, alpha = 1) {
   ctx.scale(facing < 0 ? -1 : 1, 1);
   ctx.rotate(angle);
   ctx.drawImage(image, -width * gx, -height * gy, width, height);
+  ctx.restore();
+}
+
+// Fairy wings (Fairy Woods): drawn behind her own pose, rooted on her back.
+// They flutter on the ground and beat while she flies. The sheet
+// (image-requests.md §27 FW1: 6 cells of 512, root at (330, 300): 1-2 rest
+// and flutter, 3-6 one wingbeat) is used once "fairy_wings" is listed in
+// TRACK_SHARED_ART; until then see-through wings are drawn in code.
+const WING_ROOT = [330, 300];
+const wingRootCache = new Map();
+
+// Where the wings join her back in each cell of a sheet (frame px, facing
+// right): just behind her middle, about a third of the way down her
+// figure. Measured once per sheet from its pixels.
+function wingRoot(image, sx, sy) {
+  let cells = wingRootCache.get(image);
+  if (!cells) {
+    cells = new Map();
+    wingRootCache.set(image, cells);
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const c = canvas.getContext("2d", { willReadFrequently: true });
+      c.drawImage(image, 0, 0);
+      const data = c.getImageData(0, 0, image.width, image.height).data;
+      for (let cy = 0; cy + FRAME <= image.height; cy += FRAME) {
+        for (let cx = 0; cx + FRAME <= image.width; cx += FRAME) {
+          const solid = (x, y) => data[((cy + y) * image.width + cx + x) * 4 + 3] > 60;
+          let top = -1, bottom = -1;
+          for (let y = 0; y < FRAME; y += 2) {
+            for (let x = 0; x < FRAME; x += 3) if (solid(x, y)) { if (top < 0) top = y; bottom = y; break; }
+          }
+          if (top < 0) continue;
+          const xs = [];
+          const from = Math.round(top + 0.33 * (bottom - top)), to = Math.round(top + 0.41 * (bottom - top));
+          for (let y = from; y <= to; y += 2) for (let x = 0; x < FRAME; x += 2) if (solid(x, y)) xs.push(x);
+          xs.sort((a, b) => a - b);
+          if (xs.length) cells.set(`${cx},${cy}`, [xs[Math.floor(xs.length * 0.3)], (from + to) / 2]);
+        }
+      }
+    } catch (error) {
+      // Unreadable pixels (opened from file://): the fixed spot below.
+    }
+  }
+  if (!image.complete || !image.width) wingRootCache.delete(image);
+  return cells.get(`${sx},${sy}`) || [SPRITE_ANCHOR_X - 30, FRAME * 0.45];
+}
+
+function isWingFlying(racer) {
+  return racer.z > 8 || racer.pegasusGliding;
+}
+
+// Wings for her pose (cell sx, sy of image) drawn at (x, y) w px wide.
+function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
+  const [rx, ry] = wingRoot(image, sx, sy);
+  const k = w / FRAME;
+  const t = performance.now() / 1000 + (racer.playerIndex || 0) * 0.37;
+  const flying = isWingFlying(racer);
+  const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
+  if (flashing) return;
+  const rootX = screenX + (x + rx * k - screenX) * facing;
+  const rootY = y + ry * k;
+  const sheet = getSharedArt("fairy_wings");
+  ctx.save();
+  ctx.translate(rootX, rootY);
+  ctx.scale(facing < 0 ? -1 : 1, 1);
+  if (sheet?.complete && sheet.width) {
+    const cell = sheet.height;
+    const index = flying ? 2 + Math.floor(t * 18) % 4 : Math.floor(t * 5) % 2;
+    const size = cell * k * 0.72;
+    ctx.drawImage(sheet, index * cell, 0, cell, cell, -WING_ROOT[0] / cell * size, -WING_ROOT[1] / cell * size, size, size);
+  } else {
+    // Flying, a full beat; otherwise a gentle flutter.
+    const beat = flying ? Math.sin(t * 28) * 0.55 : Math.sin(t * 9) * 0.07;
+    drawWingStandIn(k, beat - 0.12, 0.8, 0.82);
+    drawWingStandIn(k, beat, 1, 1);
+  }
+  ctx.restore();
+}
+
+// One code-drawn wing (upper and lower lobe) rising up and back from the
+// root, swung by `angle` (radians, positive lowers it).
+function drawWingStandIn(k, angle, shade, size) {
+  ctx.save();
+  ctx.rotate(angle);
+  ctx.scale(size, size);
+  ctx.globalAlpha *= 0.62 * shade;
+  const gradient = ctx.createLinearGradient(0, 0, -150 * k, -170 * k);
+  gradient.addColorStop(0, "#f7c6ec");
+  gradient.addColorStop(0.55, "#d8c8ff");
+  gradient.addColorStop(1, "#bff3f0");
+  ctx.fillStyle = gradient;
+  ctx.strokeStyle = "rgba(255,255,255,0.9)";
+  ctx.lineWidth = 3 * k;
+  for (const [length, width, tilt] of [[215, 74, -2.2], [130, 50, -2.95]]) {
+    ctx.save();
+    ctx.rotate(tilt);
+    ctx.beginPath();
+    ctx.ellipse(length * k / 2, 0, length * k / 2, width * k / 2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+// The wings lying as a pickup: resting, bobbing gently.
+function drawWingsPickup(x, y, t) {
+  ctx.save();
+  ctx.translate(x - 26, y);
+  const sheet = getSharedArt("fairy_wings");
+  if (sheet?.complete && sheet.width) {
+    const cell = sheet.height;
+    ctx.drawImage(sheet, (Math.floor(t * 1.6) % 2) * cell, 0, cell, cell, -WING_ROOT[0] / cell * 120, -WING_ROOT[1] / cell * 120 + 30, 120, 120);
+  } else {
+    const beat = Math.sin(t * 3) * 0.08;
+    ctx.translate(0, 30);
+    drawWingStandIn(0.45, beat - 0.12, 0.8, 0.82);
+    drawWingStandIn(0.45, beat, 1, 1);
+  }
   ctx.restore();
 }
 

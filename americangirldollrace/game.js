@@ -2120,7 +2120,7 @@ function getThrowHand(racer) {
   if (!hands) return null;
   const scale = racerDepthScale(racer);
   const facing = racer.facing || 1;
-  if (isMounted(racer) && racer.horseType !== "broom" && hands.ride) {
+  if (isMounted(racer) && !isCarriedMount(racer.horseType) && hands.ride) {
     const horseScale = scale * 1.08;
     const horseRow = racer.pegasusGliding ? 1 : isDrawnJumping(racer) ? 2 : racer.moving ? 1 : 0;
     const horseCol = racer.pegasusGliding || !isDrawnJumping(racer) ? racer.frame : racer.jumpFrame;

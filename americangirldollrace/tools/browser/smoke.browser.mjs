@@ -847,3 +847,34 @@ test('Cloud Kingdom: riders fall through gaps too, but a pegasus rider can fly b
   assert.equal(r.pegasus.fell, true);
   assert.equal(r.pegasus.flewBack, true, 'a pegasus flies back up out of the gap');
 });
+
+test('Fairy Woods: fairy wings are worn over her own poses and fly like a broom', { skip: skip() }, async () => {
+  await onTrack('fairy');
+  const r = await page.evaluate(() => {
+    const [a, b] = state.racers; state.obstacles = []; state.monsters = []; b.x = 1000;
+    Object.assign(a, { x: 3000, y: PATH_TOP + 90, z: 0, vy: 0, horseType: 'wings', horseTimer: 30, facing: 1 });
+    const drawn = () => {
+      let wings = 0, sheet = false, horse = false;
+      const original = window.drawWingStandIn, art = getSharedArt('fairy_wings'), draw = ctx.drawImage.bind(ctx);
+      window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
+      ctx.drawImage = (...args) => {
+        if (art && args[0] === art) wings += 2;
+        if (args[0] === a.sheet) sheet = true;
+        if (args[0] === images.horse) horse = true;
+        return draw(...args);
+      };
+      try { drawRacer(a); } finally { window.drawWingStandIn = original; ctx.drawImage = draw; }
+      return { wings: wings >= 2, sheet, horse };
+    };
+    const ground = drawn();
+    keys.clear(); keys.add('Space');
+    let top = 0;
+    for (let i = 0; i < 90; i++) { update(1 / 60); top = Math.max(top, a.z); }
+    keys.clear();
+    return { ground, flying: drawn(), flew: top > 60, powerups: canRacerUsePowerups(a), label: mountLabel('wings'), odds: 'wings' in getTrackTheme().mountOdds };
+  });
+  assert.deepEqual(r, {
+    ground: { wings: true, sheet: true, horse: false }, flying: { wings: true, sheet: true, horse: false },
+    flew: true, powerups: true, label: 'FAIRY WINGS', odds: true
+  });
+});

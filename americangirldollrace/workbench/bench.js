@@ -8,7 +8,7 @@
   const TROLL_GRAB_RANGE_X = 140;
   const TROLL_GRAB_RANGE_Y = 64;
   const TROLL_GRAB_TIMES = [0.24, 0.74, 1.02]; // grab, lift, throw, as the trolls do
-  const MOUNT_TYPES = ["horse", "unicorn", "pegasus", "griffon", "broom", "pony", "reindeer", "rocking_horse", "carousel_horse", "moon_buggy", "skeleton_horse"];
+  const MOUNT_TYPES = ["horse", "unicorn", "pegasus", "griffon", "broom", "pony", "reindeer", "rocking_horse", "carousel_horse", "moon_buggy", "skeleton_horse", "wings"];
 
   const bench = { player: { kind: "doll", key: "whirlpool" }, hurdles: false };
 

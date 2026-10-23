@@ -87,6 +87,9 @@
 // baseMount may be a list to pick from. unlocksWizardMounts: finishing this
 // track unlocks gryphons and broomsticks on every other track for the rest of
 // that day (until then they're left out of mount pickups there).
+// Fairy wings ("wings" in mountOdds, Fairy Woods) fly like the broomstick
+// but are worn: drawn on her back over her own poses (game-mounts.js
+// drawFairyWings), fluttering on the ground and beating in flight.
 // noPowerups: power-up kinds this track never hands out (the Toy Room has no
 // EMP, since its wind-up cars do much the same).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
@@ -116,7 +119,7 @@ window.TRACK_THEMES = {
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "TOADSTOOL", boost: "FAIRY DUST", emp: "WAND ZAP", oil: "HONEY", snowball: "BUBBLES" },
     sounds: { emp: "pickup_wand_zap" },
-    mountOdds: { unicorn: 0.2, pegasus: 0.2, griffon: 0.05, broom: 0.05 }
+    mountOdds: { wings: 0.3, unicorn: 0.15, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
   },
   town: {
     empStyle: "bell",

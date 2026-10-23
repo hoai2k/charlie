@@ -808,6 +808,10 @@ function drawPowerup(powerup) {
     drawPowerupIcon(iconIndex, x, drawY - 34 + Math.sin(t) * 5, t, { pogo: powerup.pogo });
     return;
   }
+  if (powerup.type === "horse" && powerup.horseType === "wings") {
+    drawWingsPickup(x, drawY - 32 + Math.sin(t) * 5, t);
+    return;
+  }
   if (powerup.type === "horse" && powerup.loose && powerup.horseType !== "broom") {
     drawLooseMount(powerup, x, t);
     return;
