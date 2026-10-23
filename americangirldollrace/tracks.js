@@ -37,6 +37,8 @@
 // and crackle; "rooster" sound waves, "bell" rings with music notes and "gong"
 // a heavy ring spread out from the trigger; "crows" fly to each one and
 // circle her head; "acorns" are flung in an arc to bonk each one.
+// `empLaser`: a lightning-style EMP drawn as smooth red laser beams, keeping
+// the track's own trigger icon (Moon Base).
 // `cloudFloor`: the course is a row of bumpy clouds with the odd gap to jump
 // (game-terrain.js); fall through one and you're back a moment later.
 // `music` is the track's own song. Tracks without one take turns with the
@@ -213,6 +215,7 @@ window.TRACK_THEMES = {
     baseMount: "moon_buggy",
     monster: "robot",
     empStyle: "lightning",
+    empLaser: true,
     moonBoots: true,
     name: "Moon Base", music: "assets/music/Pocketful of Comets Moon Base.mp3", dirtTop: 487, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "MOON BOOTS", boost: "ROCKET", emp: "LASER", oil: "SPACE GOO", snowball: "MOON ROCKS" },

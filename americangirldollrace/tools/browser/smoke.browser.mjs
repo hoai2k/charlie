@@ -528,7 +528,9 @@ test('lightning EMPs show the original icon and shock; the others play their own
       return { style, icon: pickupLook('emp').sheet ? 'own' : 'original', hit: dizzy ? 'dizzy' : 'shocked', done: state.empArcs.length === 0 };
     });
   }
-  for (const track of ['clouds', 'space', 'winter']) assert.deepEqual(seen[track], { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, track);
+  for (const track of ['clouds', 'winter']) assert.deepEqual(seen[track], { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, track);
+  // Moon Base's lasers shock like lightning but keep their own trigger.
+  assert.deepEqual(seen.space, { style: 'lightning', icon: 'own', hit: 'shocked', done: true }, 'space');
   const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', castles: 'gong', autumn: 'crows', woods: 'acorns' };
   for (const [track, style] of Object.entries(styles)) assert.deepEqual(seen[track], { style, icon: 'own', hit: 'dizzy', done: true }, track);
   assert.deepEqual(errors, []);

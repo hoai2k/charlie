@@ -263,7 +263,8 @@ function updateEmpArcs(dt) {
 
 // A jagged bolt from a to b that arcs up and comes down onto b, re-drawn
 // each frame so it flickers.
-function drawLightning(ax, ay, bx, by, alpha) {
+// A laser (tracks.js empLaser) is a smooth red beam on the same arc.
+function drawLightning(ax, ay, bx, by, alpha, laser = false) {
   const length = Math.hypot(bx - ax, by - ay) || 1;
   const nx = -(by - ay) / length;
   const ny = (bx - ax) / length;
@@ -271,7 +272,7 @@ function drawLightning(ax, ay, bx, by, alpha) {
   const points = [[ax, ay]];
   for (let i = 1; i < steps; i += 1) {
     const k = i / steps;
-    const jitter = (Math.random() - 0.5) * 36 * Math.sin(Math.PI * k);
+    const jitter = laser ? 0 : (Math.random() - 0.5) * 36 * Math.sin(Math.PI * k);
     const bow = Math.sin(Math.PI * k) * Math.min(LIGHTNING_ARC_MAX, length * 0.3);
     points.push([ax + (bx - ax) * k + nx * jitter, ay + (by - ay) * k + ny * jitter - bow]);
   }
@@ -280,10 +281,11 @@ function drawLightning(ax, ay, bx, by, alpha) {
   ctx.globalAlpha = alpha;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
-  for (const [width, color, blur] of [[9, "#b45cff", 18], [3, "#ffffff", 6]]) {
+  const glowColor = laser ? "#ff3b5c" : "#b45cff";
+  for (const [width, color, blur] of [[9, glowColor, 18], [3, laser ? "#ffe0e6" : "#ffffff", 6]]) {
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
-    ctx.shadowColor = "#b45cff";
+    ctx.shadowColor = glowColor;
     ctx.shadowBlur = blur;
     ctx.beginPath();
     points.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
@@ -315,7 +317,7 @@ function drawEmpArcs() {
     ctx.restore();
     for (const target of arc.targets) {
       const to = spellTargetPoint(target);
-      drawLightning(fromX, from.y, to.x - state.camera, to.y, alpha);
+      drawLightning(fromX, from.y, to.x - state.camera, to.y, alpha, Boolean(getTrackTheme().empLaser) && arc.style === "lightning");
     }
   }
 }
