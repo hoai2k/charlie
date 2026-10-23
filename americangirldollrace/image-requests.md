@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** §27 FW2 twilight re-render of the fairy wings (new files beside FW1). SW2, MB2, the first wings, TF1 and all fifteen dolls' ledge sheets are delivered, in the game and checked.
+> **Current art queue:** clear. FW2 twilight wing art is delivered; registration/integration remains with the other agent. SW2, MB2, FW1, TF1 and all15 ledge sheets are integrated and checked.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1124,7 +1124,7 @@ agent handles registration, view selection and live acceptance.
 
 **In the game and checked (FW1):** listed in `TRACK_SHARED_ART`; the side row for running and knocked-about poses, three-quarter for jumping, actions poses and trolls, and the single wing as a mirrored pair (85% size) for standing poses facing us, rooted on the measured middle of her back. Placement checked on six dolls in every pose and flying. FW1 stays as the pastel wings for the bright Fairy board (where wings turn up once they've been found in Fairy Woods that day); FW2 above is Fairy Woods' own.
 
-**Open: FW2 twilight re-render (checked in game on Fairy Woods).** The
+**FW2 twilight art delivered (integration separate).** The
 wings belong to **Fairy Woods** (`woods`), a dusky twilight woodland lit by
 warm lanterns, glowing purple and pink toadstools and fireflies. Against
 it FW1's pale, cool, very see-through pastels wash out; on a small doll at
@@ -1139,6 +1139,12 @@ doll (dark-haired ones included) and on the winged trolls, and look like
 they belong with the glowing toadstools and fireflies. List both as
 `"fairy_wings_twilight"` and `"fairy_wing_single_twilight"` in
 `TRACK_SHARED_ART`; the game then uses them on Fairy Woods.
+
+FW2 delivery: `tools/mounts/fairy-wings-twilight/` contains the exact built-in
+ImageGen prompts, sources, deterministic registration/export, alpha/geometry
+report and all15-doll/troll race-scale woodland review. FW1 stays byte-for-byte
+unchanged; FW2 alpha0..191 and every outline/root/phase matches FW1.
+Per owner, gameplay registration is left to the integration agent.
 
 ## 28. Art delivered: flying troll
 
