@@ -1,0 +1,280 @@
+{
+  "side": {
+    "frames": [
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          10,
+          91,
+          338,
+          407
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          16,
+          75,
+          338,
+          415
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          92,
+          67,
+          337,
+          407
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          10,
+          198,
+          337,
+          432
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          67,
+          295,
+          359,
+          499
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          10,
+          98,
+          338,
+          438
+        ],
+        "alphaSupportMatchesFW1": true
+      }
+    ],
+    "repaintEdgeFillPixels": 1420,
+    "edgeFillDistance99": 3.1622776601683795
+  },
+  "quarter": {
+    "frames": [
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          12,
+          78,
+          433,
+          418
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          25,
+          84,
+          423,
+          424
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          88,
+          70,
+          417,
+          410
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          38,
+          158,
+          500,
+          432
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          136,
+          293,
+          438,
+          499
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          49,
+          92,
+          453,
+          432
+        ],
+        "alphaSupportMatchesFW1": true
+      }
+    ],
+    "repaintEdgeFillPixels": 5064,
+    "edgeFillDistance99": 3.605551275463989
+  },
+  "single": {
+    "frames": [
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          10,
+          95,
+          338,
+          404
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          10,
+          76,
+          338,
+          416
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          95,
+          66,
+          336,
+          406
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          10,
+          215,
+          336,
+          430
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          63,
+          292,
+          358,
+          500
+        ],
+        "alphaSupportMatchesFW1": true
+      },
+      {
+        "root": [
+          330,
+          300
+        ],
+        "bounds": [
+          14,
+          92,
+          338,
+          432
+        ],
+        "alphaSupportMatchesFW1": true
+      }
+    ],
+    "repaintEdgeFillPixels": 1951,
+    "edgeFillDistance99": 3.605551275463989
+  },
+  "fairy_wings_twilight_sprites": {
+    "size": [
+      3072,
+      1024
+    ],
+    "alphaRange": [
+      0,
+      191
+    ],
+    "sha256": "76ede18529735593d9ce6600121ebe9343310a3ab297a2e85b492b991a8e8539"
+  },
+  "fairy_wing_single_twilight_sprites": {
+    "size": [
+      3072,
+      512
+    ],
+    "alphaRange": [
+      0,
+      191
+    ],
+    "sha256": "433620b679e87d8f075346b475cea74ebf912cbd1c446c910d8d8862984b365b"
+  },
+  "unchangedFW1": {
+    "fairy_wings_sprites": "95d6327808fb7432d743a74f8dbfa09de4fb20c4480ca60b7a15d0c90c48fe02",
+    "fairy_wing_single_sprites": "7ffe876557f0db2179afe3e1ef7fe511e8c65aefe9487fc7a7e12023320b3101"
+  }
+}
