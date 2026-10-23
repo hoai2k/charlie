@@ -119,18 +119,87 @@ function updateCloudFall(racer, dt) {
 function updateCloudFooting(racer, dt) {
   if (!state.cloudFloor) return;
   const onFoot = racer.z === 0 && !isMounted(racer) && !(racer.cloudFallTimer > 0) && !racer.grabbedBy;
-  const still = onFoot && !racer.moving;
+  const still = onFoot && !racer.moving && !(racer.cloudHop > 0);
   const target = still ? 1 : 0;
   const rate = dt / (still ? CLOUD_SINK_TIME : CLOUD_SINK_TIME * 0.35);
   racer.cloudSink = clamp((racer.cloudSink || 0) + Math.sign(target - (racer.cloudSink || 0)) * rate, 0, 1);
-  racer.cloudStride = onFoot && racer.moving ? (racer.cloudStride || 0) + Math.abs(racer.speed) * dt : 0;
+  // A calm hop: each step on the cloud starts a bounce, which rises and
+  // falls under its own soft gravity, so when she stops the last one just
+  // finishes; she only sinks in once it has.
+  racer.cloudHop = racer.cloudHop || 0;
+  racer.cloudHopV = racer.cloudHopV || 0;
+  if (racer.cloudHop > 0 || racer.cloudHopV > 0) {
+    racer.cloudHopV -= CLOUD_HOP_GRAVITY * dt;
+    racer.cloudHop = Math.max(0, racer.cloudHop + racer.cloudHopV * dt);
+    if (racer.cloudHop === 0) racer.cloudHopV = 0;
+  } else if (onFoot && racer.moving && Math.abs(racer.speed) > 20) {
+    racer.cloudHopV = CLOUD_HOP_SPEED;
+  }
+  if (!onFoot) { racer.cloudHop = 0; racer.cloudHopV = 0; }
 }
 
 // How far below her normal place she's drawn (px, down positive).
 function cloudFootingOffset(racer) {
   if (!state.cloudFloor) return 0;
-  const bounce = racer.cloudStride > 0 ? Math.abs(Math.sin(Math.PI * racer.cloudStride / CLOUD_BOUNCE_STRIDE)) * CLOUD_BOUNCE : 0;
-  return (racer.cloudSink || 0) * CLOUD_SINK - bounce;
+  return (racer.cloudSink || 0) * CLOUD_SINK - (racer.cloudHop || 0);
+}
+
+// The cloud puff art with its edges blurred away (made once): scaled down
+// and back up for a soft halo, with the crisp puff fading in towards the
+// middle, so it melts into the clouds around it.
+let softPuff = null;
+function softCloudPuff() {
+  const puff = getTrackArt("puff");
+  if (!puff) return null;
+  if (softPuff?.source === puff) return softPuff.canvas;
+  // The puff fills only a band of its cell: crop to it first.
+  const probe = document.createElement("canvas");
+  probe.width = puff.width;
+  probe.height = puff.height;
+  const p = probe.getContext("2d");
+  p.drawImage(puff, 0, 0);
+  const data = p.getImageData(0, 0, puff.width, puff.height).data;
+  let x0 = puff.width, y0 = puff.height, x1 = 0, y1 = 0;
+  for (let y = 0; y < puff.height; y += 1) {
+    for (let x = 0; x < puff.width; x += 1) {
+      if (data[(y * puff.width + x) * 4 + 3] > 20) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+    }
+  }
+  const cw = Math.max(1, x1 - x0 + 1), ch = Math.max(1, y1 - y0 + 1);
+  // A padded canvas: a blurred halo of the puff (scaled down and back up),
+  // with the crisp puff fading in towards the middle.
+  const pad = 0.18;
+  const w = 240, h = Math.round(w * ch / cw);
+  const W = Math.round(w * (1 + 2 * pad)), Hh = Math.round(h * (1 + 2 * pad));
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = Hh;
+  const c = canvas.getContext("2d");
+  const small = document.createElement("canvas");
+  small.width = 24;
+  small.height = Math.max(4, Math.round(24 * Hh / W));
+  const sc = small.getContext("2d");
+  sc.drawImage(puff, x0, y0, cw, ch, small.width * pad / (1 + 2 * pad), small.height * pad / (1 + 2 * pad), small.width / (1 + 2 * pad), small.height / (1 + 2 * pad));
+  c.imageSmoothingQuality = "high";
+  c.drawImage(small, 0, 0, W, Hh);
+  const middle = document.createElement("canvas");
+  middle.width = W;
+  middle.height = Hh;
+  const m = middle.getContext("2d");
+  m.drawImage(puff, x0, y0, cw, ch, W * pad / (1 + 2 * pad), Hh * pad / (1 + 2 * pad), w, h);
+  m.globalCompositeOperation = "destination-in";
+  m.save();
+  m.translate(W / 2, Hh / 2);
+  m.scale(1, Hh / W);
+  const fade = m.createRadialGradient(0, 0, W * 0.12, 0, 0, W * 0.4);
+  fade.addColorStop(0, "#000");
+  fade.addColorStop(1, "#0000");
+  m.fillStyle = fade;
+  m.fillRect(-W, -W, 2 * W, 2 * W);
+  m.restore();
+  c.drawImage(middle, 0, 0);
+  softPuff = { source: puff, canvas };
+  return canvas;
 }
 
 // Soft cloud fluff over the feet of someone sunk into the clouds.
@@ -140,17 +209,23 @@ function drawCloudFluff(racer) {
   const x = racer.x - state.camera;
   const y = racer.y + 54 + 2;
   const scale = racerDepthScale(racer) / 0.45;
-  const puff = getTrackArt("puff"); // image-requests.md §21 CL2, else soft ellipses
+  const puff = softCloudPuff(); // image-requests.md §21 CL2, softened; else ellipses
   ctx.save();
   ctx.globalAlpha = Math.min(1, sink * 1.4);
   ctx.fillStyle = "#fbf8ff";
-  for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
-    if (puff) {
-      // Big enough to bury her feet up to the ankles.
-      const size = r * 3.6 * scale;
-      ctx.drawImage(puff, x + dx * scale - size / 2, y - r * 0.55 * scale - size / 2, size, size);
-      continue;
+  if (puff) {
+    // A soft mound of cloud, wider than her stance and up over her feet,
+    // with blurred edges so it reads as the cloud below swelling round them.
+    // (Her feet are sunk CLOUD_SINK below y; the mound is centred on them.)
+    for (const [dx, dy, size] of [[-38, 8, 120], [38, 8, 120], [-12, -2, 140], [14, 0, 134]]) {
+      const w = size * scale;
+      const h = w * puff.height / puff.width;
+      ctx.drawImage(puff, x + dx * scale - w / 2, y + dy * scale - h / 2, w, h);
     }
+    ctx.restore();
+    return;
+  }
+  for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
     ctx.beginPath();
     ctx.ellipse(x + dx * scale, y - r * 0.15 * scale, r * scale, r * 0.55 * scale, 0, 0, Math.PI * 2);
     ctx.fill();
