@@ -411,7 +411,7 @@ whenever a toy starts, ends or she falls, so any difference flickers on screen.
 | K2 | `assets/masks/<key>_toys_mask.webp` | 1254×1672, same as K1 | The outfit mask for K1, made exactly like `assets/masks/<key>_sheet_mask.webp` (the same clothing areas, on the same black background). The game uses it to recolour her outfit on skates and on the pogo stick, as it does in every other pose. Skates and the stick are not clothing. |
 
 Once a doll's K1 and K2 are in, add her key to `RIDE_TOY_SHEETS` in
-`tracks.js` in the same commit; the game uses the sheet only once it's listed.
+`doll-art.js` in the same commit; the game uses the sheet only once it's listed.
 
 | Row | On | Frames (left to right) |
 | --- | --- | --- |
@@ -551,7 +551,7 @@ only once it's listed.
 | A1 | `assets/doll_<key>_actions.webp` | 1254×1254 (3×3 of 418), alpha | Same frame, scale, facing (right) and foot baseline 409 as the doll's sheet. She must match her sheet exactly: the same outfit, shoes and accessories as the matching sprite-sheet pose (§4), with only the wand or surfboard added. |
 | A2 | `assets/masks/<key>_actions_mask.webp` | 1254×1254 | Its outfit mask, made like `<key>_sheet_mask.webp`. |
 
-Add the doll's asset key to `ACTION_SHEETS` in `tracks.js` when both land.
+Add the doll's asset key to `ACTION_SHEETS` in `doll-art.js` when both land.
 **Delivered and reviewed:** all fifteen dolls, including Marisol’s complete `marisol-v2` migration. Their nine poses, alternate outfits, both directions, saddle seat and wand-tip origins pass; see `tools/dolls/actions/reports/`.
 
 | Row | Frames (left to right) |

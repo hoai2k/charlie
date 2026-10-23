@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const game=fs.readFileSync(new URL('../../../game.js',import.meta.url),'utf8');
-const tracks=fs.readFileSync(new URL('../../../tracks.js',import.meta.url),'utf8');
+const tracks=fs.readFileSync(new URL('../../../doll-art.js',import.meta.url),'utf8');
 const frames=JSON.parse(tracks.match(/window.ACTION_FRAMES = (.*?);/s)[1]);
 function body(name,next){return game.slice(game.indexOf(`function ${name}(`),game.indexOf(`function ${next}(`));}
 const context={window:{ACTION_FRAMES:frames},FRAME:418,SPRITE_ANCHOR_X:225,SPRITE_ANCHOR_Y:409,SPELL_CAST_TIME:1,WAND_HAND:{x:349,y:151},dollAssetKey:k=>k,racerDepthScale:()=>.45,getActionSheet:()=>({})};

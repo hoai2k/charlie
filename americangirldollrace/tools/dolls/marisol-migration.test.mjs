@@ -9,7 +9,7 @@ async function runtime(legacy){
  const window={GAME_CONFIG:{dollArtVersion:'test-version',legacyDollArt:{marisol:legacy}}};
  const c={window,TRACK_THEMES:{},loadImage:path=>path,DEFAULT_RIDER_X_OFFSET:0,DEFAULT_RIDER_Y_OFFSET:100,
  fetch:async()=>({ok:true,json:async()=>JSON.parse(read('assets/masks/outfits.json'))})};
- vm.createContext(c);vm.runInContext(read('dolls.js'),c);vm.runInContext(read('tracks.js'),c);
+ vm.createContext(c);vm.runInContext(read('dolls.js'),c);vm.runInContext(read('tracks.js'),c);vm.runInContext(read('doll-art.js'),c);
  const source=read('game.js');const start=source.indexOf('const extraDolls =');const end=source.indexOf('const state =',start);
  vm.runInContext(source.slice(start,end)+'\nglobalThis.selected={images,characters,jumpSpriteScale};',c);
  vm.runInContext(read('recolor.js'),c);vm.runInContext(read('outfits.js'),c);await window.DollOutfits.ready;return c;

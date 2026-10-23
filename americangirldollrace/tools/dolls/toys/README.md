@@ -20,5 +20,5 @@ masks protect natural hair/skin and skate/pogo hardware.
 For a new doll, keep the existing identity reference, source, action source,
 prompt, mask and frame report. Add only reviewed asset keys to
 `RIDE_TOY_SHEETS`; register frame anchors and renderScale values in
-`RIDE_TOY_FRAMES` in the same batch. The registry uses current versioned asset
+`RIDE_TOY_FRAMES` in the same batch (both in `../../../doll-art.js`). The registry uses current versioned asset
 keys so legacy Rumi/Claudia can fall back safely.
