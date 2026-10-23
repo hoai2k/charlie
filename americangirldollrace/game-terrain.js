@@ -237,6 +237,7 @@ function cloudLedgePhase(racer) {
 function getLedgeSheet(racer) {
   const key = dollAssetKey(racer.spriteKey);
   if (!(window.LEDGE_SHEETS || []).includes(key)) return null;
+  if (racer.outfit && window.DollOutfits) return DollOutfits.getSync(racer.spriteKey, "ledge", racer.outfit);
   loadArtOnce(`ledge_${key}`, `assets/doll_${key}_ledge.webp`);
   return images[`ledge_${key}`] || null;
 }
@@ -254,9 +255,12 @@ function drawLedgeRacer(racer, scale) {
   const edgeX = ledge.edgeX - state.camera;
   const w = FRAME * scale;
   const sheet = getLedgeSheet(racer);
-  if (sheet?.complete && sheet.width) {
+  if (sheet?.width && (sheet.complete || sheet instanceof HTMLCanvasElement)) {
     const col = { hang: 0, climb: 1, top: 2 }[phase];
-    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - LEDGE_CORNER[0] * scale, surfaceY - LEDGE_CORNER[1] * scale, w, w, ledge.side, edgeX);
+    const frame = window.LEDGE_FRAMES?.[dollAssetKey(racer.spriteKey)]?.[col];
+    const corner = frame?.corner || LEDGE_CORNER;
+    const poseScale = scale * (frame?.scale || 1);
+    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - corner[0] * poseScale, surfaceY - corner[1] * poseScale, FRAME * poseScale, FRAME * poseScale, ledge.side, edgeX);
     return;
   }
   const x = racer.x - state.camera;

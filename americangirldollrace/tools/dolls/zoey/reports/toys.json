@@ -1,0 +1,331 @@
+{
+  "assetKey": "zoey",
+  "frames": [
+    {
+      "bounds": [
+        27,
+        31,
+        370,
+        409
+      ],
+      "source": "sources/zoey/toy-skate.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        430,
+        704
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        369,
+        203
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        102,
+        29,
+        340,
+        409
+      ],
+      "source": "sources/zoey/toy-skate.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        261,
+        700
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        338,
+        205
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        7,
+        31,
+        331,
+        409
+      ],
+      "source": "sources/zoey/toy-skate.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        415,
+        704
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        329,
+        179
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        110,
+        21,
+        312,
+        409
+      ],
+      "source": "sources/zoey/toy-skate-actions.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        350,
+        713
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        310,
+        234
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        6,
+        32,
+        389,
+        409
+      ],
+      "source": "sources/zoey/toy-skate-actions.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        462,
+        694
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 232.92957746478874,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        388,
+        172
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        40,
+        88,
+        403,
+        409
+      ],
+      "source": "sources/zoey/toy-skate-actions.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        366,
+        671
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        402,
+        268
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        127,
+        56,
+        288,
+        409
+      ],
+      "source": "sources/zoey/toy-pogo.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1.1,
+      "sourceAnchor": [
+        435,
+        708
+      ],
+      "packedScale": 0.6042253521126761,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        286,
+        277
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        139,
+        9,
+        280,
+        409
+      ],
+      "source": "sources/zoey/toy-pogo.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1.1,
+      "sourceAnchor": [
+        318,
+        710
+      ],
+      "packedScale": 0.5722460658082976,
+      "scale": 1.0558838028169015,
+      "renderScale": 1.0558838028169015,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        271,
+        152
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        138,
+        28,
+        293,
+        409
+      ],
+      "source": "sources/zoey/toy-pogo.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1.1,
+      "sourceAnchor": [
+        337,
+        647
+      ],
+      "packedScale": 0.6042253521126761,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        291,
+        253
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        130,
+        9,
+        294,
+        409
+      ],
+      "source": "sources/zoey/toy-pogo-actions.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1.04,
+      "sourceAnchor": [
+        350,
+        710
+      ],
+      "packedScale": 0.5698005698005698,
+      "scale": 1.002574647887324,
+      "renderScale": 1.002574647887324,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        288,
+        167
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        77,
+        9,
+        360,
+        409
+      ],
+      "source": "sources/zoey/toy-pogo-actions.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1.04,
+      "sourceAnchor": [
+        403,
+        713
+      ],
+      "packedScale": 0.5673758865248227,
+      "scale": 1.0068591549295776,
+      "renderScale": 1.0068591549295776,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        358,
+        98
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        24,
+        101,
+        408,
+        409
+      ],
+      "source": "sources/zoey/toy-pogo-actions.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1.04,
+      "sourceAnchor": [
+        396,
+        634
+      ],
+      "packedScale": 0.5712676056338029,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        345,
+        171
+      ],
+      "wandTip": null
+    }
+  ],
+  "sha256": "7c61b2b45910d82a96676511f6753e703b5980e423afe7cbf49796c1c1a8ec24",
+  "maskSha256": "d025df5ac7ef46d57171fd8c585dfa7b245f600daf25595e302cb7d373a96266"
+}

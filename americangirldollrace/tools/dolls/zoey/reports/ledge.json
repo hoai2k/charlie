@@ -1,0 +1,100 @@
+{
+  "assetKey": "zoey",
+  "frames": [
+    {
+      "bounds": [
+        109,
+        138,
+        348,
+        412
+      ],
+      "source": "sources/zoey/ledge.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        590,
+        260
+      ],
+      "packedScale": 0.39651416122004357,
+      "scale": 1.3853118712273642,
+      "renderScale": 1.3853118712273642,
+      "anchorX": 316,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        347,
+        220
+      ],
+      "wandTip": null,
+      "corner": [
+        300,
+        230
+      ]
+    },
+    {
+      "bounds": [
+        183,
+        86,
+        368,
+        412
+      ],
+      "source": "sources/zoey/ledge.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        357,
+        310
+      ],
+      "packedScale": 0.4751958224543081,
+      "scale": 1.1559356136820926,
+      "renderScale": 1.1559356136820926,
+      "anchorX": 316,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        364,
+        297
+      ],
+      "wandTip": null,
+      "corner": [
+        300,
+        230
+      ]
+    },
+    {
+      "bounds": [
+        193,
+        6,
+        388,
+        234
+      ],
+      "source": "sources/zoey/ledge.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        392,
+        575
+      ],
+      "packedScale": 0.4,
+      "scale": 1.3732394366197183,
+      "renderScale": 1.3732394366197183,
+      "anchorX": 316,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        362,
+        52
+      ],
+      "wandTip": null,
+      "corner": [
+        300,
+        230
+      ]
+    }
+  ],
+  "sha256": "0c0461a9bc01352d8653eea8c053ff26052f2e511351d5a775546f5c34d102ad",
+  "maskSha256": "79b9e8204a1aaa31991819564f015ab145cb52e8d98a7f90b3b9230b60265b8a"
+}

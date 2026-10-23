@@ -229,6 +229,26 @@ seated rider, skate push and pogo push frames and writes `../../hands.js`.
 Snowballs start from that hand. Re-run it after adding a doll or a toys
 sheet.
 
+## Zoey
+
+Zoey's approved reference is `sources/zoey/canonical.webp`. Rebuild her complete
+character with `python3 americangirldollrace/tools/dolls/zoey/build.py`, then
+rerun `measure_hands.py`, `measure_feet.py` and the cache stamper. She has twelve
+race frames, portrait/wave/cheer/ride, twelve skating/pogo frames, nine special
+actions and three cloud-ledge phases. Her rider was redrawn looking forward
+right, following the owner's correction. All sources and exact built-in
+ImageGen prompts are retained; `zoey/prompts.json` records the generation round.
+
+The `teal-top` mask changes only her top for seven alternate colours. Measured
+Oklab statistics are in her manifest; black hair, skin, navy/yellow trousers,
+straps/tassel and footwear stay fixed. The ledge renderer supports alternate
+outfits and explicit contact/scale calibration, so the hang, pull-up and
+kneeling recovery retain her anatomical scale without clipping the sheet.
+Hand, broom-grip, seat, wand-tip and cloud-contact calibration is retained in
+`zoey/reports/`; moon-boot feet are exported to `feet.js`, and fairy-wing roots
+use the runtime's per-cell torso measurement. Native art reviews are in
+`reports/zoey-*.jpg`; actual-renderer and portrait-roster evidence is in `zoey/`.
+
 ## Marisol version 2
 
 Marisol now uses the approved lower-hairline canonical across normal, menu, toy

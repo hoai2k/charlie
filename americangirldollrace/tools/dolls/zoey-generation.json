@@ -1,0 +1,19 @@
+{
+  "tool": "built-in image_gen",
+  "canonical": "sources/zoey/canonical.webp",
+  "status": "Complete playable character exported and registered.",
+  "notes": [
+    "Rider redrawn facing forward right after user correction.",
+    "Ledge hang, pull-up and kneeling recovery included.",
+    "Alternate outfit mask changes teal top only.",
+    "All prompts retained; source anatomy ratios and attachment calibration recorded in builder and reports."
+  ],
+  "prompts": "zoey/prompts.json",
+  "builder": "zoey/build.py",
+  "validation": {
+    "automated": "15 Python exporter/Zoey tests and 20 Node doll/toy/action/cache tests passed.",
+    "browser": "Roster at 390x844; actual renderer across race, mounted/mirrored rider, broom, skates, pogo, casting, surfing, float, saddle throw and 3 ledge phases, mirrored alternate-outfit ledge; no page errors.",
+    "recolour": "Browser pixel comparison verified visible alternate-top colour changes on normal, toys, actions and ledge sheets.",
+    "evidence": "zoey/browser-review.json and zoey/runtime-review.webp"
+  }
+}

@@ -94,6 +94,21 @@ def neutral_mask(src, chin, raised_sleeves=()):
 
 
 def clothing_mask(src, spec, mode):
+    if mode == 'teal-top':
+        # Zoey: tint the turquoise top only; keep skin, navy/yellow trousers,
+        # shoes, hardware and the lower turquoise straps/tassel unchanged.
+        a = np.asarray(src).astype(np.float32)
+        r, g, b, alpha = [a[:, :, i] for i in range(4)]
+        weight = np.clip((g-r-18)/12, 0, 1) * np.clip((b-r-12)/10, 0, 1)
+        weight *= (alpha > 16)
+        weight[:round(spec['chin'])] = 0
+        weight[round(spec['garmentBottom']):] = 0
+        for x0, y0, x1, y1 in spec.get('protectedRegions', []):
+            weight[y0:y1, x0:x1] = 0
+        out = np.zeros_like(a, dtype=np.uint8)
+        out[:, :, 0] = np.round(weight * 255).astype(np.uint8)
+        out[:, :, 3] = 255
+        return Image.fromarray(out)
     if mode == 'marisol-varsity':
         a = np.asarray(src).astype(np.float32)
         r, g, b, alpha = [a[:, :, i] for i in range(4)]

@@ -231,6 +231,31 @@ window.EXTRA_DOLLS = {
         "red"
       ]
     }
+  },
+  "zoey": {
+    "name": "Zoey",
+    "color": "#25c8c7",
+    "spriteKey": "zoey",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": -2.829441,
+        "L": 0.691173,
+        "C": 0.114331,
+        "beta": 0.7
+      },
+      "outfits": [
+        "pink",
+        "red",
+        "mint",
+        "purple",
+        "orange",
+        "blue",
+        "yellow"
+      ]
+    }
   }
 };
 for (const key of Object.keys(window.EXTRA_DOLLS)) {

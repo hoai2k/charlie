@@ -17,7 +17,8 @@
     wave: key => `assets/portraits/${assetKey(key)}_wave.webp`,
     ride: key => `assets/portraits/${assetKey(key)}_ride.webp`,
     toys: key => `assets/doll_${assetKey(key)}_toys.webp?v=${window.RIDE_TOY_ART_VERSION || "1"}`,
-    actions: key => `assets/doll_${assetKey(key)}_actions.webp?v=${window.ACTION_ART_VERSION || "1"}`
+    actions: key => `assets/doll_${assetKey(key)}_actions.webp?v=${window.ACTION_ART_VERSION || "1"}`,
+    ledge: key => `assets/doll_${assetKey(key)}_ledge.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`
   };
 
   let data = null;

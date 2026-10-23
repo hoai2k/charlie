@@ -1,0 +1,282 @@
+{
+  "key": "zoey",
+  "standingHeight": 390,
+  "baseline": 409,
+  "frames": {
+    "idle-0": {
+      "bounds": [
+        124,
+        19,
+        306,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        450,
+        717
+      ]
+    },
+    "idle-1": {
+      "bounds": [
+        143,
+        21,
+        309,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        275,
+        714
+      ]
+    },
+    "idle-2": {
+      "bounds": [
+        161,
+        19,
+        341,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        275,
+        717
+      ]
+    },
+    "run-0": {
+      "bounds": [
+        31,
+        20,
+        363,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        420,
+        712
+      ]
+    },
+    "run-1": {
+      "bounds": [
+        113,
+        28,
+        336,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        274,
+        702
+      ]
+    },
+    "run-2": {
+      "bounds": [
+        56,
+        50,
+        329,
+        409
+      ],
+      "scale": 0.2966197183098592,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        660,
+        1233
+      ]
+    },
+    "jump-0": {
+      "bounds": [
+        106,
+        89,
+        326,
+        409
+      ],
+      "scale": 0.5273239436619719,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        460,
+        703
+      ]
+    },
+    "jump-1": {
+      "bounds": [
+        73,
+        94,
+        348,
+        409
+      ],
+      "scale": 0.5273239436619719,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        340,
+        609
+      ]
+    },
+    "jump-2": {
+      "bounds": [
+        92,
+        97,
+        320,
+        409
+      ],
+      "scale": 0.5273239436619719,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        306,
+        706
+      ]
+    },
+    "ride": {
+      "bounds": [
+        157,
+        23,
+        395,
+        360
+      ],
+      "scale": 0.2911267605633803,
+      "anchor": [
+        209,
+        264
+      ],
+      "sourceAnchor": [
+        525,
+        875
+      ]
+    },
+    "push": {
+      "bounds": [
+        25,
+        57,
+        344,
+        409
+      ],
+      "scale": 0.5053521126760564,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        429,
+        709
+      ]
+    },
+    "fall": {
+      "bounds": [
+        69,
+        99,
+        395,
+        409
+      ],
+      "scale": 0.5053521126760564,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        362,
+        676
+      ]
+    },
+    "wave": {
+      "bounds": [
+        124,
+        21,
+        307,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        445,
+        711
+      ]
+    },
+    "cheer": {
+      "bounds": [
+        138,
+        21,
+        321,
+        409
+      ],
+      "scale": 0.5492957746478874,
+      "anchor": [
+        209.0,
+        409
+      ],
+      "sourceAnchor": [
+        280,
+        710
+      ]
+    }
+  },
+  "runtime": {
+    "name": "Zoey",
+    "color": "#25c8c7",
+    "spriteKey": "zoey",
+    "jumpScale": 1,
+    "riderXOffset": 8.28,
+    "riderYOffset": 122.164,
+    "outfitData": {
+      "stats": {
+        "h": -2.829441,
+        "L": 0.691173,
+        "C": 0.114331,
+        "beta": 0.7
+      },
+      "outfits": [
+        "pink",
+        "red",
+        "mint",
+        "purple",
+        "orange",
+        "blue",
+        "yellow"
+      ]
+    }
+  },
+  "sha256": {
+    "assets/doll_zoey_sprites.webp": "d0dd62618355dfb02a7da526f5d49a37ee05a695a8ed5b35e503da009729444b",
+    "assets/masks/zoey_sheet_mask.webp": "db2723fd328be9eb9b360cafe3250fe54498c603a534ee062d1f3f80d10a652d",
+    "assets/portraits/zoey.webp": "2c07660ab22ea10bd567420b5c5af68df4a700411a7cbbf0e7e36729154cf0f1",
+    "assets/masks/zoey_portrait_mask.webp": "cba1cf8129fc9121ae61f555350f249dc9ce4812dfe57b7ef68021e1e8780f4b",
+    "assets/portraits/zoey_wave.webp": "74f8792aea894aa423956992c2a92ee4b2514b41c35e866094b259fe13432779",
+    "assets/masks/zoey_wave_mask.webp": "bd2c8b6ced1ff70bdfee79d55f29f3ff2db5d1d38ec0419d6069936cf8219695",
+    "assets/portraits/zoey_cheer.webp": "7523a000d93dfb6481bb2eabe588466825df70d2b527750977b7eefa4211347a",
+    "assets/masks/zoey_cheer_mask.webp": "7149d3b2cf131f5b29061fa61e1fdee75f2b75090c35e6995c4ae3e9677200b9",
+    "assets/portraits/zoey_ride.webp": "8b9a1087b6409105b678e64752929653cdb9b003d6b935159ed0fa21fd0084a2",
+    "assets/masks/zoey_ride_mask.webp": "4bb1b8fea51dafc0de0810b84bc5e90a1cafc4c4db9a8dc8a94e0be8a3c3e7cd"
+  }
+}

@@ -6,7 +6,24 @@
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
 window.RIDE_TOY_ART_VERSION = "20261022-marisol-toys2";
-window.RIDE_TOY_SHEETS = ["lily", "mira", "hermione", "whirlpool", "juliette", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "barbie", "cinnamon", "felicity", "luna", "marisol-v2"];
+window.RIDE_TOY_SHEETS = [
+  "lily",
+  "mira",
+  "hermione",
+  "whirlpool",
+  "juliette",
+  "claudia-v2",
+  "kaya",
+  "amanda",
+  "penelope",
+  "rumi-v2",
+  "barbie",
+  "cinnamon",
+  "felicity",
+  "luna",
+  "marisol-v2",
+  "zoey"
+];
 // Packed frame calibration preserves anatomy when long hair or fall poses need more room.
 window.RIDE_TOY_FRAMES = {
   "lily": {
@@ -458,11 +475,58 @@ window.RIDE_TOY_FRAMES = {
       1.1237237004950495,
       1.265382920529128
     ]
+  },
+  "zoey": {
+    "anchorX": [
+      225,
+      225,
+      225,
+      225,
+      232.92957746478874,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225,
+      225
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0558838028169015,
+      1.0,
+      1.002574647887324,
+      1.0068591549295776,
+      1.0
+    ]
   }
 };
 // Dolls (asset keys) whose actions sheet is delivered: wand casting, surfing,
 // saddle push, stuck in a puddle, moon-boots float (image-requests.md §10).
-window.ACTION_SHEETS = ["hermione", "lily", "mira", "whirlpool", "claudia-v2", "kaya", "amanda", "penelope", "rumi-v2", "juliette", "barbie", "cinnamon", "felicity", "luna", "marisol-v2"];
+window.ACTION_SHEETS = [
+  "hermione",
+  "lily",
+  "mira",
+  "whirlpool",
+  "claudia-v2",
+  "kaya",
+  "amanda",
+  "penelope",
+  "rumi-v2",
+  "juliette",
+  "barbie",
+  "cinnamon",
+  "felicity",
+  "luna",
+  "marisol-v2",
+  "zoey"
+];
 window.ACTION_ART_VERSION = "20261022-marisol-v2";
 window.ACTION_FRAMES = {
   "hermione": [
@@ -2923,6 +2987,362 @@ window.ACTION_FRAMES = {
       "sourceScale": 0.5683453237410072,
       "packedScale": 0.5683453237410072,
       "pivotMethod": "glasses or skin highlight with reviewed head-scale calibration"
+    }
+  ],
+  "zoey": [
+    {
+      "bounds": [
+        110,
+        22,
+        329,
+        409
+      ],
+      "source": "sources/zoey/special-wand.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        400,
+        714
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        295,
+        100
+      ],
+      "wandTip": [
+        315,
+        27
+      ]
+    },
+    {
+      "bounds": [
+        103,
+        21,
+        359,
+        409
+      ],
+      "source": "sources/zoey/special-wand.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        330,
+        715
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        357,
+        127
+      ],
+      "wandTip": [
+        352,
+        131
+      ]
+    },
+    {
+      "bounds": [
+        99,
+        21,
+        341,
+        409
+      ],
+      "source": "sources/zoey/special-wand.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        302,
+        714
+      ],
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        339,
+        128
+      ],
+      "wandTip": [
+        334,
+        134
+      ]
+    },
+    {
+      "bounds": [
+        24,
+        42,
+        402,
+        409
+      ],
+      "source": "sources/zoey/special-surf.webp",
+      "cell": 0,
+      "sourceScaleRatio": 0.98,
+      "sourceAnchor": [
+        370,
+        691
+      ],
+      "packedScale": 0.5383098591549296,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        369,
+        207
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        17,
+        45,
+        390,
+        409
+      ],
+      "source": "sources/zoey/special-surf.webp",
+      "cell": 1,
+      "sourceScaleRatio": 0.98,
+      "sourceAnchor": [
+        371,
+        691
+      ],
+      "packedScale": 0.5383098591549296,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        338,
+        281
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        52,
+        35,
+        393,
+        409
+      ],
+      "source": "sources/zoey/special-surf.webp",
+      "cell": 2,
+      "sourceScaleRatio": 0.98,
+      "sourceAnchor": [
+        325,
+        704
+      ],
+      "packedScale": 0.5383098591549296,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        341,
+        278
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        90,
+        55,
+        379,
+        409
+      ],
+      "source": "sources/zoey/special-other.webp",
+      "cell": 0,
+      "sourceScaleRatio": 0.94,
+      "sourceAnchor": [
+        320,
+        704
+      ],
+      "packedScale": 0.5163380281690141,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 366.7512676056338,
+      "offsetX": 38.72535211267606,
+      "hand": [
+        345,
+        184
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        33,
+        57,
+        397,
+        409
+      ],
+      "source": "sources/zoey/special-other.webp",
+      "cell": 1,
+      "sourceScaleRatio": 0.94,
+      "sourceAnchor": [
+        384,
+        710
+      ],
+      "packedScale": 0.5163380281690141,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        396,
+        225
+      ],
+      "wandTip": null
+    },
+    {
+      "bounds": [
+        51,
+        56,
+        400,
+        409
+      ],
+      "source": "sources/zoey/special-other.webp",
+      "cell": 2,
+      "sourceScaleRatio": 0.94,
+      "sourceAnchor": [
+        331,
+        697
+      ],
+      "packedScale": 0.5163380281690141,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        380,
+        153
+      ],
+      "wandTip": null
+    }
+  ]
+};
+
+window.LEDGE_SHEETS = [
+  "zoey"
+];
+
+window.LEDGE_FRAMES = {
+  "zoey": [
+    {
+      "bounds": [
+        109,
+        138,
+        348,
+        412
+      ],
+      "source": "sources/zoey/ledge.webp",
+      "cell": 0,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        590,
+        260
+      ],
+      "packedScale": 0.39651416122004357,
+      "scale": 1.3853118712273642,
+      "renderScale": 1.3853118712273642,
+      "anchorX": 316,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        347,
+        220
+      ],
+      "wandTip": null,
+      "corner": [
+        300,
+        230
+      ]
+    },
+    {
+      "bounds": [
+        183,
+        86,
+        368,
+        412
+      ],
+      "source": "sources/zoey/ledge.webp",
+      "cell": 1,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        357,
+        310
+      ],
+      "packedScale": 0.4751958224543081,
+      "scale": 1.1559356136820926,
+      "renderScale": 1.1559356136820926,
+      "anchorX": 316,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        364,
+        297
+      ],
+      "wandTip": null,
+      "corner": [
+        300,
+        230
+      ]
+    },
+    {
+      "bounds": [
+        193,
+        6,
+        388,
+        234
+      ],
+      "source": "sources/zoey/ledge.webp",
+      "cell": 2,
+      "sourceScaleRatio": 1,
+      "sourceAnchor": [
+        392,
+        575
+      ],
+      "packedScale": 0.4,
+      "scale": 1.3732394366197183,
+      "renderScale": 1.3732394366197183,
+      "anchorX": 316,
+      "baseline": 409,
+      "targetY": 409,
+      "offsetX": 0,
+      "hand": [
+        362,
+        52
+      ],
+      "wandTip": null,
+      "corner": [
+        300,
+        230
+      ]
     }
   ]
 };
