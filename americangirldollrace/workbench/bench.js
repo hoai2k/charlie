@@ -290,6 +290,61 @@
     bench.hurdles = on;
   }
 
+  // ---------- dragging in the scene ----------
+  // A point in the frame's window (client px) as a world point, or null
+  // outside the scene.
+  function screenToWorld(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return null;
+    const cx = (clientX - rect.left) * canvas.width / rect.width;
+    const cy = (clientY - rect.top) * canvas.height / rect.height;
+    return { x: state.camera + cx / state.cameraZoom, y: H + (cy - H) / state.cameraZoom };
+  }
+
+  // Whatever is under a world point: a power-up first, then anyone.
+  function pickAt(x, y) {
+    const powerup = state.powerups.find(q => !q.taken && Math.abs(q.x - x) < 42 && Math.abs(q.y - 30 - y) < 48);
+    if (powerup) return powerup;
+    const racer = state.racers.find(r => Math.abs(r.x - x) < 48 && y > r.y - 120 - r.z && y < r.y + 64 - r.z);
+    if (racer) return racer;
+    return state.monsters.find(m => Math.abs(m.x - x) < 75 && y > m.y - 190 && y < m.y + 64) || null;
+  }
+
+  // Put something where the pointer is (its feet on that point).
+  function moveTo(thing, x, y) {
+    if (state.powerups.includes(thing)) {
+      thing.x = x;
+      thing.y = clamp(y, TRACK_TOP + 54, TRACK_BOTTOM + 54);
+      return;
+    }
+    thing.x = x;
+    thing.y = clamp(y - 54, TRACK_TOP, TRACK_BOTTOM);
+    thing.z = 0;
+    thing.vy = 0;
+    thing.knockbackX = 0;
+  }
+
+  // Dragged out of the scene: gone (except the player).
+  function remove(thing) {
+    state.powerups = state.powerups.filter(q => q !== thing);
+    state.monsters = state.monsters.filter(m => m !== thing);
+    if (thing.dummy) state.racers = state.racers.filter(r => r !== thing);
+  }
+
+  function addTargetAt(spec, x, y) {
+    addTarget(spec);
+    const added = spec.kind === "troll" ? state.monsters.at(-1) : state.racers.at(-1);
+    moveTo(added, x, y);
+    added.facing = player() && player().x > x ? 1 : -1;
+  }
+
+  function dropAt(kind, x, y) {
+    drop(kind);
+    const powerup = state.powerups.at(-1);
+    moveTo(powerup, x, y);
+    powerup.dropStartY = powerup.y - 420;
+  }
+
   // Once every image is in (the game resets the race then), call back.
   function whenReady(callback) {
     const poll = () => (assetsReady ? setTimeout(callback, 200) : setTimeout(poll, 100));
@@ -299,7 +354,7 @@
   // The panels outside read the game's own tables through here (its
   // top-level consts aren't properties of window).
   window.Bench = {
-    setup, whenReady, setPlayer, addTarget, clearTargets, drop, setHurdles, monsterImage, MOUNT_TYPES,
+    setup, whenReady, setPlayer, addTarget, addTargetAt, dropAt, screenToWorld, pickAt, moveTo, remove, clearTargets, drop, setHurdles, monsterImage, MOUNT_TYPES,
     characters, images, BACKGROUNDS, FRAME, POWERUP_ICON_RECTS, TRACK_POWERUP_CELL
   };
 })();

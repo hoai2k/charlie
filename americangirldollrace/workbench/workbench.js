@@ -30,10 +30,81 @@ function tile(label, onClick) {
   name.textContent = label;
   button.append(canvas, name);
   button.addEventListener("click", () => {
+    if (button.dragged) { button.dragged = false; return; }
     onClick(button);
     frame.contentWindow.focus(); // keys go back to the game
   });
   return { button, canvas };
+}
+
+// ---------- dragging tiles into the scene ----------
+// While a tile is dragged, a clear shield over the frame keeps the pointer
+// events here; letting go over the scene places the thing there.
+const shield = $("#shield");
+const ghost = $("#ghost");
+
+function draggable(button, canvas, onDrop) {
+  button.addEventListener("pointerdown", down => {
+    if (down.button !== 0) return;
+    let dragging = false;
+    const move = event => {
+      if (!dragging && Math.hypot(event.clientX - down.clientX, event.clientY - down.clientY) < 6) return;
+      if (!dragging) {
+        dragging = true;
+        shield.style.display = "block";
+        ghost.style.display = "block";
+        ghost.getContext("2d").clearRect(0, 0, ghost.width, ghost.height);
+        ghost.getContext("2d").drawImage(canvas, 0, 0);
+      }
+      ghost.style.left = `${event.clientX}px`;
+      ghost.style.top = `${event.clientY}px`;
+    };
+    const up = event => {
+      document.removeEventListener("pointermove", move);
+      document.removeEventListener("pointerup", up);
+      shield.style.display = "none";
+      ghost.style.display = "none";
+      if (!dragging) return;
+      button.dragged = true;
+      setTimeout(() => { button.dragged = false; }, 0);
+      const rect = frame.getBoundingClientRect();
+      const world = game.Bench.screenToWorld(event.clientX - rect.left, event.clientY - rect.top);
+      if (world) onDrop(world);
+      frame.contentWindow.focus();
+    };
+    document.addEventListener("pointermove", move);
+    document.addEventListener("pointerup", up);
+  });
+}
+
+// ---------- dragging things in the scene ----------
+// Pick up anyone or anything with the pointer and move it; let go outside
+// the scene and it's removed (the player just stays where it was).
+function sceneDragging() {
+  const w = frame.contentWindow;
+  const sceneCanvas = w.document.querySelector("#game");
+  sceneCanvas.addEventListener("pointerdown", event => {
+    const world = game.Bench.screenToWorld(event.clientX, event.clientY);
+    const thing = world && game.Bench.pickAt(world.x, world.y);
+    if (!thing) return;
+    event.preventDefault();
+    sceneCanvas.setPointerCapture(event.pointerId);
+    sceneCanvas.style.cursor = "grabbing";
+    const move = e => {
+      const at = game.Bench.screenToWorld(e.clientX, e.clientY);
+      document.body.classList.toggle("removing", !at);
+      if (at) game.Bench.moveTo(thing, at.x, at.y);
+    };
+    const up = e => {
+      sceneCanvas.removeEventListener("pointermove", move);
+      sceneCanvas.removeEventListener("pointerup", up);
+      sceneCanvas.style.cursor = "";
+      document.body.classList.remove("removing");
+      if (!game.Bench.screenToWorld(e.clientX, e.clientY)) game.Bench.remove(thing);
+    };
+    sceneCanvas.addEventListener("pointermove", move);
+    sceneCanvas.addEventListener("pointerup", up);
+  });
 }
 
 // Draws part of an image (from the game's page) into a tile once it loads.
@@ -77,7 +148,9 @@ function characterTiles(container, onPick, markPlayer) {
   for (const [key, character] of Object.entries(g.Bench.characters)) {
     if (!character.image) continue;
     const id = `doll:${key}`;
-    const { button, canvas } = tile(character.name, b => onPick({ kind: "doll", key }, id, b));
+    const spec = { kind: "doll", key };
+    const { button, canvas } = tile(character.name, b => onPick(spec, id, b));
+    draggable(button, canvas, at => g.Bench.addTargetAt(spec, at.x, at.y));
     paint(canvas, () => character.image(), image => trimmedCell(image, 0, 0, g.Bench.FRAME));
     button.dataset.id = id;
     tiles.push(button);
@@ -85,7 +158,9 @@ function characterTiles(container, onPick, markPlayer) {
   for (const [key, name] of TROLLS) {
     if (key !== "troll" && !g.MONSTERS[key]) continue;
     const id = `troll:${key}`;
-    const { button, canvas } = tile(name, b => onPick({ kind: "troll", key, name }, id, b));
+    const spec = { kind: "troll", key, name };
+    const { button, canvas } = tile(name, b => onPick(spec, id, b));
+    draggable(button, canvas, at => g.Bench.addTargetAt(spec, at.x, at.y));
     paint(canvas, () => g.Bench.monsterImage(key), image => trimmedCell(image, 0, 0, g.Bench.FRAME));
     button.dataset.id = id;
     tiles.push(button);
@@ -107,6 +182,7 @@ function powerupTiles() {
     const index = { jump: 0, boost: 1, emp: 2, oil: 3, snowball: 4 }[type];
     const look = g.pickupLook(type, { pogo: kind === "pogo" });
     const { button, canvas } = tile(kind === "pogo" ? "Pogo" : look.label || label, () => g.Bench.drop(kind));
+    draggable(button, canvas, at => g.Bench.dropAt(kind, at.x, at.y));
     paint(canvas, () => g.pickupLook(type, { pogo: kind === "pogo" }).sheet || g.Bench.images.powerupIcons, image => {
       if (image === g.Bench.images.powerupIcons) {
         const r = g.Bench.POWERUP_ICON_RECTS[index];
@@ -124,6 +200,7 @@ function mountTiles() {
   container.innerHTML = "";
   for (const type of g.Bench.MOUNT_TYPES) {
     const { button, canvas } = tile(MOUNT_NAMES[type] || type, () => g.Bench.drop(type));
+    draggable(button, canvas, at => g.Bench.dropAt(type, at.x, at.y));
     if (type === "broom") paint(canvas, () => g.Bench.images.broom, image => [0, 0, image.width, image.height]);
     else {
       if (type === "skeleton_horse") g.getSharedArt("skeleton_horse");
@@ -160,8 +237,8 @@ function start() {
     markOn($("#players"), id);
     g.Bench.setPlayer(spec);
   }, true);
-  characterTiles($("#targets"), spec => g.Bench.addTarget(spec), false);
   mountTiles();
+  sceneDragging();
   setupTrack("farm");
   frame.contentWindow.focus();
 }

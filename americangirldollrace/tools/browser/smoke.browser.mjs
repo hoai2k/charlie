@@ -608,7 +608,24 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
     for (let i = 0; i < 80; i++) { tick(1); held ||= doll.grabbedBy === troll; }
     return { running: state.running, held, thrown: !doll.grabbedBy && Math.abs(doll.x - troll.x) > 150, still: doll.dummy };
   });
+  // Dragging: a tile let go over the scene adds it there; dragged out, gone.
+  const tileBox = async name => { for (const t of await bench.$$('#players .tile, #mounts .tile')) if ((await t.innerText()).trim() === name) return t.boundingBox(); };
+  const sceneBox = await (await bench.$('#game')).boundingBox();
+  const dragTo = async (from, to) => {
+    await bench.mouse.move(from.x, from.y); await bench.mouse.down();
+    for (let i = 1; i <= 8; i++) await bench.mouse.move(from.x + (to.x - from.x) * i / 8, from.y + (to.y - from.y) * i / 8);
+    await bench.mouse.up();
+  };
+  const lily = await tileBox('Lily');
+  const spot = { x: sceneBox.x + sceneBox.width * 0.6, y: sceneBox.y + sceneBox.height * 0.75 };
+  await dragTo({ x: lily.x + 30, y: lily.y + 30 }, spot);
+  const pony = await tileBox('Pony');
+  await dragTo({ x: pony.x + 30, y: pony.y + 30 }, { x: spot.x - 120, y: spot.y });
+  const added = await frame.evaluate(() => ({ lily: state.racers.some(r => r.name === 'Lily' && r.dummy), pony: state.powerups.some(q => q.horseType === 'pony') }));
+  await dragTo({ x: spot.x, y: spot.y - 10 }, { x: 5, y: 300 }); // Lily out of the scene
+  const removed = await frame.evaluate(() => !state.racers.some(r => r.name === 'Lily'));
   await bench.close();
   assert.deepEqual(r, { running: true, held: true, thrown: true, still: true });
+  assert.deepEqual({ ...added, removed }, { lily: true, pony: true, removed: true });
   assert.deepEqual(benchErrors, []);
 });

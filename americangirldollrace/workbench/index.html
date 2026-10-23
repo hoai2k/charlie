@@ -34,19 +34,22 @@
   select, button.plain { font: inherit; background: #221f35; color: var(--text); border: 1px solid var(--edge); border-radius: 6px; padding: 4px 8px; }
   button.plain { cursor: pointer; }
   .note { color: var(--muted); font-size: 12px; margin: 4px 0; }
+  .note b { color: var(--text); }
+  #shield { position: absolute; inset: 0; display: none; cursor: grabbing; }
+  #ghost { position: fixed; pointer-events: none; width: 72px; height: 72px; display: none; transform: translate(-50%, -80%); z-index: 9; }
+  body.removing #ghost, body.removing iframe { opacity: 0.55; }
 </style>
 </head>
 <body>
 <aside class="left">
-  <h2>Play as</h2>
+  <h2>Characters</h2>
+  <p class="note"><b>Click</b> to play as one. <b>Drag</b> one into the scene to add it as a target (it stands still to be hit, grabbed or zapped).</p>
   <div class="grid" id="players"></div>
-  <h2>Add a target</h2>
-  <p class="note">They stand still to be hit, grabbed or zapped.</p>
-  <div class="grid" id="targets"></div>
   <div class="row"><button class="plain" id="clearTargets">Clear targets</button></div>
 </aside>
 <main>
   <iframe id="game" src="../index.html?workbench" title="Race"></iframe>
+  <div id="shield"></div>
   <div class="help">
     <b>WASD</b> move · <b>Space</b> jump · <b>F</b> push (or throw; a troll grabs and throws) · controller works too.
     Click the scene to give it the keys.
@@ -62,12 +65,14 @@
     <button class="plain" id="reset">Reset scene</button>
   </div>
   <h2>Power-ups</h2>
-  <p class="note">Drops in just ahead of you. Each track has its own look and EMP.</p>
+  <p class="note"><b>Click</b> to drop one just ahead of you, or <b>drag</b> it to a spot. Each track has its own look and EMP.</p>
   <div class="grid" id="powerups"></div>
   <h2>Mounts</h2>
   <p class="note">Anyone can ride any of them here.</p>
+  <p class="note">In the scene, drag anyone or anything to move it, or out of the scene to remove it.</p>
   <div class="grid" id="mounts"></div>
 </aside>
+<canvas id="ghost" width="112" height="112"></canvas>
 <script src="workbench.js"></script>
 </body>
 </html>

@@ -158,7 +158,8 @@ hook to get round it.
   `/charlie/americangirldollrace/workbench/`): the race runs in a frame, and
   `workbench/bench.js`, added to that page, gives one player (any doll or any
   troll; a troll's push grabs and throws), still targets, and power-ups and
-  mounts dropped in from the side panels (`workbench.js`). It wraps game
+  mounts clicked or dragged in from the side panels (`workbench.js`);
+  anything in the scene can be dragged about, or out to remove it. It wraps game
   functions from outside rather than changing them; keep it working when
   renaming the functions it wraps (the smoke suite loads it).
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
