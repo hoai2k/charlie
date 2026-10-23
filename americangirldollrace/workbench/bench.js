@@ -215,7 +215,6 @@
     if (secondaryPressed() && def.lightning && !troll.benchLightning && !troll.benchGrab && !isMounted(troll)
       && !troll.grabbedBy && troll.fallBackTimer <= 0) {
       loadArtOnce("cloudtroll_lightning", "assets/cloudtroll_lightning.webp");
-      loadArtOnce("cloudtroll_bolt", "assets/cloudtroll_bolt.webp");
       troll.benchLightning = { t: 0, released: false };
     }
     const cast = troll.benchLightning;

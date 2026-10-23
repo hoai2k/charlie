@@ -998,7 +998,6 @@ function preloadTrackArt(background) {
     if (particleArt) loadArtOnce(particleArt, `assets/${particleArt}.webp`);
     if (window.MONSTERS[theme.monster].lightning) {
       loadArtOnce("cloudtroll_lightning", "assets/cloudtroll_lightning.webp");
-      loadArtOnce("cloudtroll_bolt", "assets/cloudtroll_bolt.webp");
     }
   }
   if (theme.trollMount) {

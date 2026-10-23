@@ -323,7 +323,7 @@ test('the pause screen shows its corner buttons', { skip: skip() }, async () => 
 test('storm troll casts one bolt after windup, hits in either direction, and fully dissipates', { skip: skip() }, async () => {
   await onTrack('clouds');
   const result = await page.evaluate(async () => {
-    await Promise.all([loadArtOnce('cloudtroll_lightning','assets/cloudtroll_lightning.webp'),loadArtOnce('cloudtroll_bolt','assets/cloudtroll_bolt.webp')]);
+    await Promise.all([loadArtOnce('cloudtroll_lightning','assets/cloudtroll_lightning.webp')]);
     const hits=[];
     for (const facing of [-1,1]) {
       const a=state.racers[0];a.x=8400+facing*300;a.y=PATH_TOP+80;a.z=0;a.horseTimer=0;a.fallBackTimer=0;a.grabbedBy=null;
@@ -618,7 +618,7 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   });
   // Y (R): a cloud troll player throws lightning that knocks a target down.
   const zap = await frame.evaluate(async () => {
-    await Promise.all([loadArtOnce('cloudtroll_lightning', 'assets/cloudtroll_lightning.webp'), loadArtOnce('cloudtroll_bolt', 'assets/cloudtroll_bolt.webp')]);
+    await Promise.all([loadArtOnce('cloudtroll_lightning', 'assets/cloudtroll_lightning.webp')]);
     Bench.setup('farm');
     Bench.setPlayer({ kind: 'troll', key: 'cloudtroll', name: 'Cloud troll' });
     Bench.addTarget({ kind: 'doll', key: 'juliette' });
@@ -891,7 +891,7 @@ test('the storm troll aims his lightning at fliers and knocks them off their mou
       updateMonsterLightning(m, 0.5);
       const bolt = state.monsterBolts[0];
       for (let i = 0; i < 60; i++) { a.z = z; updateMonsterBolts(1 / 60); }
-      return { aimedUp: bolt.vz > 0, hit: a.fallBackTimer > 0, dropped: !isMounted(a) && state.powerups.some(p => p.horseType === type) };
+      return { aimedUp: bolt.vz > 0, hit: a.fallBackTimer > 0 && a.frozenTimer > 0, dropped: !isMounted(a) && state.powerups.some(p => p.horseType === type) };
     };
     return { wings: shoot(220, 'wings'), broom: shoot(150, 'broom') };
   });
