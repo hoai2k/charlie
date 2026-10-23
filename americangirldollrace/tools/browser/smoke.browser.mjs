@@ -692,3 +692,24 @@ test('a thrown apple bounces off whoever it hits and stays on the ground until s
   });
   assert.deepEqual(r, { hit: true, bounced: true, stays: true, squished: true, gone: true });
 });
+
+test('Pumpkin Patch uses the CROWS trigger and four-frame crow art, mirrored along its flight', { skip: skip() }, async () => {
+  await onTrack('autumn');
+  const r=await page.evaluate(async()=>{
+    for(let i=0;i<50&&!getSharedArt('crow');i++) await new Promise(r=>setTimeout(r,100));
+    const sheet=getSharedArt('crow'),frames=[],directions=[];
+    const draw=ctx.drawImage.bind(ctx),scale=ctx.scale.bind(ctx),clock=performance.now.bind(performance);let tick=0;
+    performance.now=()=>tick;
+    ctx.drawImage=(...a)=>{if(a[0]===sheet)frames.push([a[1],a[3],a[4],a[7],a[8]]);return draw(...a);};
+    ctx.scale=(x,y)=>{directions.push(x);return scale(x,y);};
+    try {for(const dir of [1,-1])for(tick=0;tick<280;tick+=70)drawCrow(300,300,dir,0,1);}
+    finally {ctx.drawImage=draw;ctx.scale=scale;performance.now=clock;}
+    const [a,b]=state.racers;b.x=a.x+300;b.y=a.y;state.monsters=[];applyPowerup(a,'emp');
+    for(let i=0;i<60;i++){update(1/60);drawScene(0);}
+    return {label:pickupLook('emp').label,size:sheet&&[sheet.width,sheet.height],frames,directions,dizzy:b.empDizzy};
+  });
+  assert.equal(r.label,'CROWS');assert.deepEqual(r.size,[512,128]);
+  assert.deepEqual(r.frames.map(f=>f[0]),[0,128,256,384,0,128,256,384]);
+  for(const f of r.frames)assert.deepEqual(f.slice(1),[128,128,64,64]);
+  assert.deepEqual(r.directions,[1,1,1,1,-1,-1,-1,-1]);assert.equal(r.dizzy,true);assert.deepEqual(errors,[]);
+});

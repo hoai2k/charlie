@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §20 Pumpkin Patch crows EMP icon (CR1) and flying crow sprites (CR2). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** none. Everything is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -887,7 +887,7 @@ the existing pop/bob. All three cells and facing directions passed silent
 browser review. Source, built-in ImageGen prompt and packing report:
 `tools/effects/rooster-crow/`.
 
-## 20. Open: Pumpkin Patch crows: the EMP trigger and flying crows
+## 20. Delivered: Pumpkin Patch crows: the EMP trigger and flying crows
 
 Pumpkin Patch's EMP sends crows flying from the trigger to everyone it hits;
 they circle each head and leave them dizzy. Today the trigger is a pumpkin
@@ -910,3 +910,9 @@ take the CROWS EMP with someone in range: the pickup reads as crows on a
 button at its in-game size, and the crows that fly out and circle each head
 flap smoothly, facing the way they fly.
 
+
+CR1/CR2 delivered: five glossy black crows gather around the orange hay-crate
+button; other four decoded pickup cells are pixel-identical. Four right-facing
+flight cells use uniform scale and fixed head/body alignment. Shared crow art
+and CROWS label registered; actual flight, circling and both directions passed
+review. Sources, prompts, export report and proofs: `tools/effects/autumn-crows/`.
