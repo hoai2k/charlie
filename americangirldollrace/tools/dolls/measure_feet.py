@@ -3,11 +3,11 @@
 With MOON BOOTS on, the game draws a boot over each foot (game-draw.js
 drawMoonBoots). For every frame of a doll's sprites sheet and actions sheet
 this finds her feet: the separate blobs in the bottom band of her figure.
-Each foot is [x, y, width, angle, view, turn]: the sole's bottom centre
+Each foot is [x, y, width, angle, view, turn, cy]: the sole's bottom centre
 (frame pixels, facing right), how wide the foot is, the tilt of its sole in
 the picture in radians (toe down positive), which way it faces us as a view
 ("side", "three" for three-quarter, or "front") and as degrees (90 side on,
-0 toe towards us), from its shape. Frames
+0 toe towards us), from its shape, and the foot's middle height (cy). Frames
 with no clear feet (riding, the tumble, the actions sheet's own moon-boots
 jump) are null.
 
@@ -28,7 +28,11 @@ SOLID_FOOT = 0.7  # share of solid pixels round a leg's end for it to be a foot,
 # are planted, so they're only looked for along the bottom.
 CROUCHES = {6, 8}
 CROUCH_ZONE = 0.84
-SKIP = {'sprites': {9, 11}, 'actions': {8}}  # ride, tumble; the moon-boots jump
+SKIP = {'sprites': set(), 'actions': {8}}  # the actions sheet's moon-boots jump has its own boots
+# Riding and the tumble: her legs stick out sideways or up, so feet are looked
+# for low down and in front of her.
+LOOSE = {9, 11}
+LOOSE_ZONE = 0.55
 
 
 def geodesic(mask, seed):
@@ -50,7 +54,7 @@ def geodesic(mask, seed):
     return out
 
 
-def feet(cell, zone=None):
+def feet(cell, zone=None, forward=False):
     """Her feet: the two far ends of her legs, measured along the figure from
     her hips, so a foot lifted mid-stride counts as well as one on the ground."""
     rgba = np.asarray(cell.convert('RGBA'))[::2, ::2].astype(float)  # half size is plenty and much quicker
@@ -65,7 +69,9 @@ def feet(cell, zone=None):
     row = np.nonzero(a[hip_y])[0]
     if len(row) == 0:
         return None
-    hip = (hip_y, int(row[np.argmin(np.abs(row - np.median(xs)))]))
+    # (Sitting or tumbling, her seat is back from her middle.)
+    seat_x = np.percentile(xs, 35) if forward else np.median(xs)
+    hip = (hip_y, int(row[np.argmin(np.abs(row - seat_x))]))
     below = a.copy()
     below[:int(top + 0.4 * height)] = False  # no arms or hair above the hips
     labels, _ = ndimage.label(below)
@@ -76,6 +82,8 @@ def feet(cell, zone=None):
     shoe = max(8, 0.075 * height)  # half-size px of a shoe's length
     # Feet are low down (a foot lifted mid-stride reaches up to FOOT_ZONE).
     low = np.indices(a.shape)[0] > top + (zone or FOOT_ZONE) * height
+    if forward:  # sitting or tumbling, her feet stick out in front (right)
+        low &= np.indices(a.shape)[1] > np.percentile(xs, 55)
     # Leg ends: points further along the figure than anything round them.
     reach = np.where(finite, dist, -1)
     ends = (reach >= ndimage.maximum_filter(reach, size=max(5, int(0.12 * height)))) & finite & low & (reach > 0.25 * height)
@@ -114,7 +122,29 @@ def feet(cell, zone=None):
         turn = int(round(float(np.clip((ratio - 1) / 1.2, 0, 1)) * 90))
         view = 'side' if turn > 60 else 'three' if turn > 20 else 'front'
         # Frame px: where the sole sits (the bottom of the foot), and its size.
-        out.append([int(round(cx * 2)), int(round(fy.max() * 2)), int(round(max(length, across) * 2)), round(angle, 3), view, turn])
+        out.append([int(round(cx * 2)), int(round(fy.max() * 2)), int(round(max(length, across) * 2)), round(angle, 3), view, turn, int(round(cy * 2))])
+    if forward and len(out) < 2:
+        # Sitting, her feet are also simply her lowest points: the separate
+        # shapes along her bottom edge, in front of her seat.
+        band = a & (np.indices(a.shape)[0] > bottom - 0.13 * height) & (np.indices(a.shape)[1] > seat_x)
+        labels, count = ndimage.label(band)
+        blobs = []
+        for n in range(1, count + 1):
+            by, bx = np.nonzero(labels == n)
+            # Feet side by side make one wide shape: split it down the middle.
+            if np.ptp(bx) > 0.22 * height:
+                mid = (bx.min() + bx.max()) / 2
+                blobs += [(by[bx < mid], bx[bx < mid]), (by[bx >= mid], bx[bx >= mid])]
+            else:
+                blobs.append((by, bx))
+        for by, bx in sorted(blobs, key=lambda b: -len(b[0])):
+            if len(out) == 2 or len(bx) < 20:
+                break
+            cx, cy = bx.mean(), by.mean()
+            if any(abs(cx * 2 - f[0]) < 0.12 * height * 2 for f in out):
+                continue
+            width = (np.ptp(bx) + 1) * 2
+            out.append([int(round(cx * 2)), int(by.max() * 2), int(width), 0.0, 'side', 80, int(round(cy * 2))])
     return sorted(out) or None
 
 
@@ -127,7 +157,9 @@ def sheet_feet(path, kind):
     for i in range(rows * cols):
         r, c = divmod(i, cols)
         cell = sheet.crop((c * F, r * F, (c + 1) * F, (r + 1) * F))
-        frames.append(None if i in SKIP[kind] else feet(cell, CROUCH_ZONE if kind == 'sprites' and i in CROUCHES else None))
+        zone = CROUCH_ZONE if kind == 'sprites' and i in CROUCHES else None
+        loose = kind == 'sprites' and i in LOOSE
+        frames.append(None if i in SKIP[kind] else feet(cell, LOOSE_ZONE if loose else zone, loose))
     return frames
 
 
@@ -147,7 +179,7 @@ if __name__ == '__main__':
             out[key] = entry
     (GAME / 'feet.js').write_text(
         '// Generated by tools/dolls/measure_feet.py: each doll\'s feet per frame\n'
-        '// ([x, y, width, angle, view, turn], frame pixels facing right), where the game\n'
+        '// ([x, y, width, angle, view, turn, cy], frame pixels facing right), where the game\n'
         '// draws moon boots.\n'
         'window.DOLL_FEET = ' + json.dumps(out, separators=(',', ':')) + ';\n')
     print(len(out), 'dolls')

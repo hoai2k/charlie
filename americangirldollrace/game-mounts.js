@@ -406,6 +406,7 @@ function drawBroomRacer(racer, screenX, scale, facing) {
     ctx.save();
     ctx.globalAlpha *= blend;
     drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, FRAME * riderScale, FRAME * riderScale, facing, screenX);
+    if (racer.moonBootsTimer > 0) drawMoonBootsOn(racer, "sprites", 9, riderX, riderY, FRAME * riderScale, facing, screenX);
     ctx.restore();
   }
 }

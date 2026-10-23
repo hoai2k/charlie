@@ -664,6 +664,8 @@ function drawRacer(racer) {
       drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, box.x, box.y, box.w, box.h, drawFacing, screenX);
     }
     else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+    // Her moon boots stay on in the saddle (her riding frame, sprites 9).
+    if (racer.moonBootsTimer > 0 && !(racer.pushTimer > 0 && actions)) drawMoonBootsOn(racer, "sprites", 9, riderX, riderY, riderW, drawFacing, screenX);
     ctx.restore();
   } else {
     const toyPose = getRideToyPose(racer, jumping);
@@ -814,11 +816,16 @@ function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
 // §23 MB1: side, three-quarter and front views), else boots drawn in code. Her sprites and
 // actions poses get them, except the actions sheet's own moon-boots jump.
 function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
-  const feet = window.DOLL_FEET?.[dollAssetKey(racer.spriteKey)];
-  if (!feet) return;
   const kind = image === getActionSheet(racer) ? "actions" : image === racer.sheet ? "sprites" : null;
-  if (!kind) return;
-  const frame = feet[kind]?.[(sy / FRAME) * 3 + sx / FRAME];
+  if (kind) drawMoonBootsOn(racer, kind, (sy / FRAME) * 3 + sx / FRAME, x, y, w, facing, screenX);
+}
+
+// Boots over the feet of frame `index` of her `kind` sheet, drawn at (x, y)
+// w wide. Each boot's foot is centred on the foot's middle (feet.js cy) and
+// turned to it, so it covers the foot whatever its angle.
+function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
+  const feet = window.DOLL_FEET?.[dollAssetKey(racer.spriteKey)];
+  const frame = feet?.[kind]?.[index];
   if (!frame) return;
   const scale = w / FRAME;
   const art = getSharedArt("moon_boot");
@@ -828,17 +835,21 @@ function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
     ctx.scale(-1, 1);
     ctx.translate(-screenX, 0);
   }
-  for (const [fx, fy, size, angle, view] of frame) { // (feet.js also gives the turn in degrees)
-    const bootW = Math.max(size * MOON_BOOT_GROW, MOON_BOOT_MIN) * scale;
+  for (const [fx, fy, size, angle, view, , cy] of frame) { // (feet.js also gives the turn in degrees)
+    const bootW = clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW * scale;
+    const cell = [0, 1, 2][view === "side" ? 0 : view === "three" ? 1 : 2];
+    const k = bootW / [150, 130, 110][cell];
     ctx.save();
-    ctx.translate(x + fx * scale, y + fy * scale);
+    // Centred on the middle of her foot (older data: on the sole).
+    ctx.translate(x + fx * scale, y + (cy ?? fy) * scale);
     if (view !== "front") ctx.rotate(angle * (view === "side" ? 1 : 0.6));
+    // The boot's own foot middle, in its cell (sole at y 244), goes there.
+    const footMid = cy === undefined ? 0 : MOON_BOOT_FOOT_MID * k;
+    ctx.translate(0, footMid);
     if (art) {
       // Cells: side, three-quarter, front.
-      const cell = art.height;
-      const index = view === "side" ? 0 : view === "three" ? 1 : 2;
-      const k = bootW / [150, 130, 110][index];
-      ctx.drawImage(art, index * cell, 0, cell, cell, -128 * k, -244 * k, cell * k, cell * k);
+      const size = art.height;
+      ctx.drawImage(art, cell * size, 0, size, size, -128 * k, -244 * k, size * k, size * k);
     } else {
       drawMoonBootStandIn(bootW, view);
     }

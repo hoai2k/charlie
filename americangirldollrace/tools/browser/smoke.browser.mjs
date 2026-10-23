@@ -773,7 +773,7 @@ test('Cloud floor art uses all six cells at varied widths and keeps open jumping
   assert.ok(r.gap>=r.min&&r.gap<=r.max,`gap ${r.gap}`);assert.equal(r.hasGap,true);assert.deepEqual(errors,[]);
 });
 
-test('moon boots are drawn over both feet in her poses (not the jump pose with its own boots)', { skip: skip() }, async () => {
+test('moon boots are drawn over both feet in every pose, knocked back and riding too (not the jump pose with its own boots)', { skip: skip() }, async () => {
   await onTrack('space');
   const r = await page.evaluate(() => {
     const a = state.racers[0];
@@ -793,11 +793,18 @@ test('moon boots are drawn over both feet in her poses (not the jump pose with i
     a.moonBootsTimer = 5;
     const standing = count(a.sheet, 0, 0);
     const running = count(a.sheet, 1, 1);
+    const knocked = count(a.sheet, 3, 2);
     const actions = getActionSheet(a);
     const jump = actions ? count(actions, 2, 2) : 0;
-    return { off, standing, running, jump, dolls: Object.keys(window.DOLL_FEET || {}).length };
+    // Riding: the boots stay on in the saddle.
+    let riding = 0;
+    const art = getSharedArt('moon_boot'), draw = ctx.drawImage.bind(ctx), original = window.drawMoonBootStandIn;
+    window.drawMoonBootStandIn = (...args) => { riding += 1; return original(...args); };
+    ctx.drawImage = (...args) => { if (art && args[0] === art) riding += 1; return draw(...args); };
+    try { a.horseType = 'horse'; a.horseTimer = 20; drawRacer(a); } finally { ctx.drawImage = draw; window.drawMoonBootStandIn = original; a.horseTimer = 0; }
+    return { off, standing, running, knocked, jump, riding, dolls: Object.keys(window.DOLL_FEET || {}).length };
   });
-  assert.deepEqual({ ...r, dolls: r.dolls > 10 }, { off: 0, standing: 2, running: 2, jump: 0, dolls: true });
+  assert.deepEqual({ ...r, dolls: r.dolls > 10 }, { off: 0, standing: 2, running: 2, knocked: 2, jump: 0, riding: 2, dolls: true });
 });
 
 test('on the clouds a doll bounces as she runs and sinks in a little standing still', { skip: skip() }, async () => {

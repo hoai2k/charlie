@@ -321,12 +321,17 @@
     state.racers = [racer, ...state.racers.filter(r => r !== old)];
   }
 
+  // A random spot across the track's depth, for things clicked in.
+  function randomLane() {
+    return TRACK_TOP + Math.random() * (TRACK_BOTTOM - TRACK_TOP);
+  }
+
   // A character who stands there to be hit: a doll, or a monster of any kind.
   function addTarget(spec) {
     const me = player();
     const count = state.racers.filter(r => r.dummy).length + state.monsters.length;
     const x = me.x + me.facing * TARGET_GAP * (1 + count * 0.6);
-    const y = clamp(me.y + ((count % 3) - 1) * 40, TRACK_TOP, TRACK_BOTTOM);
+    const y = randomLane(); // anywhere across the track (dragging places it exactly)
     if (spec.kind === "troll") {
       monsterImage(spec.key);
       const monster = spawnMonster(x, y, { active: true, riding: false });
@@ -350,7 +355,7 @@
     const me = player();
     if (!me) return;
     const x = me.x + me.facing * 220;
-    const groundY = me.y + 54;
+    const groundY = randomLane() + 54;
     const type = kind === "pogo" || kind === "spring" ? "jump" : MOUNT_TYPES.includes(kind) ? "horse" : kind;
     const powerup = makePowerup(type, x, groundY, { dropDuration: 0.6, dropStartY: groundY - 420 });
     if (type === "horse") {
