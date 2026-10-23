@@ -171,7 +171,9 @@ function joinAmanda(obstacle, leader) {
     speed: 0,
     finished: false,
     timesPushed: 0,
-    runningAway: false
+    runningAway: false,
+    clock: 0,
+    trail: [] // where her player has been: { t, x, y }
   };
   sfx("amanda_giggle_sting", obstacle.x);
   GameAudio.voice("amanda", "taunt", { worldX: obstacle.x, chance: 1 });
@@ -257,22 +259,36 @@ function updateAmandaAlly(dt) {
     ally.leader = state.racers.find(r => !r.ai) || ally.leader;
   }
   const leader = ally.leader;
+  ally.clock += dt;
+  ally.trail.push({ t: ally.clock, x: leader.x, y: leader.y });
+  while (ally.trail.length > 2 && ally.trail[1].t <= ally.clock - AMANDA_ALLY_FOLLOW_DELAY) ally.trail.shift();
   ally.pushTimer = Math.max(0, ally.pushTimer - dt);
   ally.pushCooldown = Math.max(0, ally.pushCooldown - dt);
   const enemy = leader.finished ? null : amandaAllyTarget(ally);
   if (enemy && state.monsters.includes(enemy)) ally.foe = enemy;
   // While her foe is down, she waits nearby for it to get up.
   const waiting = !enemy && ally.foe;
-  // Head for the enemy, or a spot just behind her player.
-  const goalX = enemy ? enemy.x - Math.sign(enemy.x - ally.x || 1) * 40 : waiting ? ally.x : leader.x - (leader.facing || 1) * AMANDA_ALLY_FOLLOW_GAP;
-  const goalY = enemy ? enemy.y : waiting ? ally.y : clamp(leader.y + 24, TRACK_TOP, TRACK_BOTTOM);
+  // Head for the enemy, or follow her player's path a moment behind, coming
+  // to stand right beside her when she stops.
+  const behind = ally.trail[0];
+  // She keeps behind her player while she runs, and stays on her side when she stops.
+  const leaderDir = Math.abs(leader.speed || 0) > 20 ? Math.sign(leader.speed) : 0;
+  const side = leaderDir ? -leaderDir : Math.sign(ally.x - leader.x) || -(leader.facing || 1);
+  const besideX = leader.x + side * AMANDA_ALLY_STAND_GAP;
+  const followX = side < 0 ? Math.min(behind.x, besideX) : Math.max(behind.x, besideX);
+  const goalX = enemy ? enemy.x - Math.sign(enemy.x - ally.x || 1) * 40 : waiting ? ally.x : followX;
+  const goalY = enemy ? enemy.y : waiting ? ally.y : clamp(behind.y + 24, TRACK_TOP, TRACK_BOTTOM);
   const dx = goalX - ally.x;
   const dy = goalY - ally.y;
-  const step = Math.sign(dx) * Math.min(Math.abs(dx), AMANDA_ALLY_SPEED * dt);
-  ally.moving = Math.abs(dx) > 8 || Math.abs(dy) > 8;
+  const speed = Math.max(AMANDA_ALLY_SPEED, Math.abs(leader.speed || 0)) * AMANDA_ALLY_CATCH_UP;
+  const step = Math.sign(dx) * Math.min(Math.abs(dx), speed * dt);
+  const laneStep = Math.sign(dy) * Math.min(Math.abs(dy), PLAYER_LANE_SPEED * dt);
+  // She runs (and her legs move) whenever she's actually going somewhere.
+  ally.moving = Math.abs(step) > 20 * dt || Math.abs(laneStep) > 20 * dt;
   ally.x = clamp(ally.x + step, 40, FINISH);
-  ally.y = clamp(ally.y + Math.sign(dy) * Math.min(Math.abs(dy), PLAYER_LANE_SPEED * dt), TRACK_TOP, TRACK_BOTTOM);
+  ally.y = clamp(ally.y + laneStep, TRACK_TOP, TRACK_BOTTOM);
   if (Math.abs(dx) > 4) ally.facing = dx < 0 ? -1 : 1;
+  else if (!enemy && !ally.moving) ally.facing = leader.facing || ally.facing;
   if (enemy && Math.abs(enemy.x - ally.x) < 160) ally.facing = enemy.x < ally.x ? -1 : 1;
   // Hop any hurdle in her way.
   if (ally.z === 0 && Math.abs(step) > 0) {

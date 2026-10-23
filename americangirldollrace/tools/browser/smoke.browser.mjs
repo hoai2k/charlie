@@ -397,3 +397,22 @@ test('a throw on the run carries her speed and goes further (not bubbles)', { sk
   assert.ok(run.reach > stand.reach * 1.2, `farm: running throw goes further (${stand.reach} -> ${run.reach})`);
   assert.equal(distances.fairy[0].vx, distances.fairy[1].vx, 'bubbles keep their own speed');
 });
+
+test('Amanda runs after her player a moment behind and stands beside her when she stops', { skip: skip() }, async () => {
+  await onTrack('town');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0]; state.amandaAlly = null;
+    joinAmanda({ x: a.x - 100, y: a.y + 36, amandaState: 'sitting' }, a);
+    for (let i = 0; i < 60; i++) update(1 / 60);
+    keys.clear(); keys.add('KeyD');
+    let still = 0, gap = 0;
+    for (let i = 0; i < 150; i++) { update(1 / 60); if (i > 60) { still += state.amandaAlly.moving ? 0 : 1; gap = a.x - state.amandaAlly.x; } }
+    keys.clear();
+    for (let i = 0; i < 120; i++) update(1 / 60);
+    return { still, gap: Math.round(gap), stopGap: Math.round(a.x - state.amandaAlly.x), stopped: !state.amandaAlly.moving };
+  });
+  assert.equal(r.still, 0, 'running pose the whole way');
+  assert.ok(r.gap > 120 && r.gap < 220, `trails a moment behind (${r.gap})`);
+  assert.ok(r.stopGap > 40 && r.stopGap < 70, `stands beside her (${r.stopGap})`);
+  assert.equal(r.stopped, true);
+});
