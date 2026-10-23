@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Race Workbench</title>
+<style>
+  :root {
+    --bg: #1d1a2b;
+    --panel: #2a2640;
+    --edge: #433d63;
+    --text: #f4f0ff;
+    --muted: #b9b1d8;
+    --accent: #ffcf4a;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.35 system-ui, sans-serif; }
+  body { display: grid; grid-template-columns: 230px 1fr 270px; height: 100vh; }
+  aside { background: var(--panel); border-right: 1px solid var(--edge); overflow-y: auto; padding: 10px; }
+  aside.right { border-right: 0; border-left: 1px solid var(--edge); }
+  main { position: relative; display: flex; flex-direction: column; min-width: 0; }
+  iframe { flex: 1; border: 0; width: 100%; background: #000; }
+  .help { padding: 6px 10px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--edge); }
+  .help b { color: var(--text); }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin: 14px 0 6px; }
+  h2:first-child { margin-top: 2px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tile { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 2px 5px; border: 2px solid var(--edge);
+    border-radius: 8px; background: #221f35; color: var(--text); cursor: pointer; font: inherit; font-size: 11px; text-align: center; }
+  .tile:hover { border-color: var(--muted); }
+  .tile.on { border-color: var(--accent); background: #3a3350; }
+  .tile canvas { width: 56px; height: 56px; }
+  .row { display: flex; gap: 6px; align-items: center; margin: 4px 0; flex-wrap: wrap; }
+  select, button.plain { font: inherit; background: #221f35; color: var(--text); border: 1px solid var(--edge); border-radius: 6px; padding: 4px 8px; }
+  button.plain { cursor: pointer; }
+  .note { color: var(--muted); font-size: 12px; margin: 4px 0; }
+</style>
+</head>
+<body>
+<aside class="left">
+  <h2>Play as</h2>
+  <div class="grid" id="players"></div>
+  <h2>Add a target</h2>
+  <p class="note">They stand still to be hit, grabbed or zapped.</p>
+  <div class="grid" id="targets"></div>
+  <div class="row"><button class="plain" id="clearTargets">Clear targets</button></div>
+</aside>
+<main>
+  <iframe id="game" src="../index.html?workbench" title="Race"></iframe>
+  <div class="help">
+    <b>WASD</b> move · <b>Space</b> jump · <b>F</b> push (or throw; a troll grabs and throws) · controller works too.
+    Click the scene to give it the keys.
+  </div>
+</main>
+<aside class="right">
+  <h2>Track</h2>
+  <div class="row">
+    <select id="track"></select>
+  </div>
+  <div class="row">
+    <label><input type="checkbox" id="hurdles"> Hurdles</label>
+    <button class="plain" id="reset">Reset scene</button>
+  </div>
+  <h2>Power-ups</h2>
+  <p class="note">Drops in just ahead of you. Each track has its own look and EMP.</p>
+  <div class="grid" id="powerups"></div>
+  <h2>Mounts</h2>
+  <p class="note">Anyone can ride any of them here.</p>
+  <div class="grid" id="mounts"></div>
+</aside>
+<script src="workbench.js"></script>
+</body>
+</html>

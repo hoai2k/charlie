@@ -582,3 +582,33 @@ test('a song picks up where it was left when its board comes round again', { ski
   // Town's song starts fresh; the Farm's comes back at 42 s, flagged to fade in.
   assert.deepEqual(r, { town: false, back: true, at: 42 });
 });
+
+test('the workbench runs: any player, still targets, every power-up and mount drops in, a troll grabs and throws', { skip: skip() }, async () => {
+  const bench = await browser.newPage({ viewport: { width: 1500, height: 820 } });
+  const benchErrors = [];
+  bench.on('pageerror', e => benchErrors.push(String(e.stack || e)));
+  await bench.goto(base + 'workbench/');
+  await bench.waitForFunction(() => document.querySelectorAll('#mounts .tile').length > 0, null, { timeout: 30000 });
+  const frame = bench.frames().find(f => f.url().includes('index.html'));
+  const r = await frame.evaluate(async () => {
+    const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
+    Bench.setup('festival');
+    Bench.addTarget({ kind: 'doll', key: 'juliette' });
+    Bench.addTarget({ kind: 'troll', key: 'cloudtroll' });
+    for (const kind of ['spring', 'pogo', 'boost', 'emp', 'oil', 'snowball', ...Bench.MOUNT_TYPES]) { Bench.drop(kind); tick(5); }
+    tick(60);
+    // A troll player grabs the doll in front of it and throws her.
+    Bench.setup('farm');
+    Bench.setPlayer({ kind: 'troll', key: 'troll', name: 'Troll' });
+    Bench.addTarget({ kind: 'doll', key: 'juliette' });
+    const [troll, doll] = state.racers;
+    troll.x = doll.x - 110; troll.facing = 1; troll.pushCooldown = 0;
+    keys.add('KeyF'); tick(2); keys.delete('KeyF');
+    let held = false;
+    for (let i = 0; i < 80; i++) { tick(1); held ||= doll.grabbedBy === troll; }
+    return { running: state.running, held, thrown: !doll.grabbedBy && Math.abs(doll.x - troll.x) > 150, still: doll.dummy };
+  });
+  await bench.close();
+  assert.deepEqual(r, { running: true, held: true, thrown: true, still: true });
+  assert.deepEqual(benchErrors, []);
+});

@@ -154,6 +154,13 @@ hook to get round it.
   prefix and defeat effect. Their sheets are packed by
   `americangirldollrace/tools/effects/build.py`; after a rebuild, re-measure
   any grab-hand points whose pose moved and run `tools/effects/check.py`.
+- `americangirldollrace/workbench/` is a testing sandbox (served at
+  `/charlie/americangirldollrace/workbench/`): the race runs in a frame, and
+  `workbench/bench.js`, added to that page, gives one player (any doll or any
+  troll; a troll's push grabs and throws), still targets, and power-ups and
+  mounts dropped in from the side panels (`workbench.js`). It wraps game
+  functions from outside rather than changing them; keep it working when
+  renaming the functions it wraps (the smoke suite loads it).
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Fairies in the Woods" is reserved for a wooded fairy board.
