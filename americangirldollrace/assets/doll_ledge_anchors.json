@@ -1,0 +1,361 @@
+{
+  "frameSize": 418,
+  "alignment": "Place each pose ledgeContact on the same world ledge corner/top. Preserve normal body scale; do not use the superseded fixed300,230.",
+  "dolls": {
+    "hermione": [
+      {
+        "ledgeContact": [
+          289,
+          197
+        ],
+        "sourceScale": 0.57,
+        "bounds": [
+          42,
+          59,
+          376,
+          358
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          591,
+          530
+        ],
+        "placement": [
+          42,
+          59
+        ]
+      },
+      {
+        "ledgeContact": [
+          241,
+          230
+        ],
+        "sourceScale": 0.57,
+        "bounds": [
+          65,
+          27,
+          353,
+          390
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          511,
+          641
+        ],
+        "placement": [
+          65,
+          27
+        ]
+      },
+      {
+        "ledgeContact": [
+          97,
+          360
+        ],
+        "sourceScale": 0.57,
+        "bounds": [
+          89,
+          57,
+          329,
+          361
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          426,
+          538
+        ],
+        "placement": [
+          89,
+          57
+        ]
+      }
+    ],
+    "mira": [
+      {
+        "ledgeContact": [
+          298,
+          196
+        ],
+        "sourceScale": 0.56,
+        "bounds": [
+          23,
+          48,
+          395,
+          370
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          670,
+          580
+        ],
+        "placement": [
+          23,
+          48
+        ]
+      },
+      {
+        "ledgeContact": [
+          243,
+          243
+        ],
+        "sourceScale": 0.56,
+        "bounds": [
+          56,
+          17,
+          362,
+          401
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          551,
+          691
+        ],
+        "placement": [
+          56,
+          17
+        ]
+      },
+      {
+        "ledgeContact": [
+          102,
+          364
+        ],
+        "sourceScale": 0.56,
+        "bounds": [
+          77,
+          52,
+          341,
+          365
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          476,
+          564
+        ],
+        "placement": [
+          77,
+          52
+        ]
+      }
+    ],
+    "claudia-v2": [
+      {
+        "ledgeContact": [
+          298,
+          204
+        ],
+        "sourceScale": 0.6,
+        "bounds": [
+          21,
+          46,
+          396,
+          372
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          630,
+          549
+        ],
+        "placement": [
+          21,
+          46
+        ]
+      },
+      {
+        "ledgeContact": [
+          242,
+          246
+        ],
+        "sourceScale": 0.6,
+        "bounds": [
+          58,
+          10,
+          359,
+          408
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          506,
+          669
+        ],
+        "placement": [
+          58,
+          10
+        ]
+      },
+      {
+        "ledgeContact": [
+          108,
+          373
+        ],
+        "sourceScale": 0.6,
+        "bounds": [
+          88,
+          43,
+          330,
+          374
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          409,
+          556
+        ],
+        "placement": [
+          88,
+          43
+        ]
+      }
+    ],
+    "amanda": [
+      {
+        "ledgeContact": [
+          285,
+          189
+        ],
+        "sourceScale": 0.54,
+        "bounds": [
+          50,
+          56,
+          368,
+          362
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          593,
+          571
+        ],
+        "placement": [
+          50,
+          56
+        ]
+      },
+      {
+        "ledgeContact": [
+          237,
+          232
+        ],
+        "sourceScale": 0.54,
+        "bounds": [
+          82,
+          34,
+          336,
+          384
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          475,
+          654
+        ],
+        "placement": [
+          82,
+          34
+        ]
+      },
+      {
+        "ledgeContact": [
+          131,
+          351
+        ],
+        "sourceScale": 0.54,
+        "bounds": [
+          103,
+          66,
+          315,
+          352
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          397,
+          534
+        ],
+        "placement": [
+          103,
+          66
+        ]
+      }
+    ],
+    "penelope": [
+      {
+        "ledgeContact": [
+          280,
+          189
+        ],
+        "sourceScale": 0.54,
+        "bounds": [
+          59,
+          57,
+          358,
+          361
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          559,
+          568
+        ],
+        "placement": [
+          59,
+          57
+        ]
+      },
+      {
+        "ledgeContact": [
+          238,
+          234
+        ],
+        "sourceScale": 0.54,
+        "bounds": [
+          76,
+          31,
+          342,
+          387
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          498,
+          664
+        ],
+        "placement": [
+          76,
+          31
+        ]
+      },
+      {
+        "ledgeContact": [
+          110,
+          354
+        ],
+        "sourceScale": 0.54,
+        "bounds": [
+          112,
+          63,
+          305,
+          355
+        ],
+        "sourceBounds": [
+          5,
+          5,
+          363,
+          546
+        ],
+        "placement": [
+          112,
+          63
+        ]
+      }
+    ]
+  }
+}

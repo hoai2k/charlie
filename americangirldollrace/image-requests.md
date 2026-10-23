@@ -1185,3 +1185,8 @@ it: she catches the edge in the hug hold, with her arms on the cloud top
 and the rest of her hanging in the gap, then climbs up (cell 2) and is back
 on top (cell 3) before she stands, for every doll and outfit.
 
+
+LG1/LG2 first art batch delivered: Hermione, Mira, Claudia-v2, Amanda and
+Penelope. Per-pose contact anchors, source art, exact built-in prompts and
+mask/identity reviews are under `tools/dolls/ledge/`; gameplay integration
+and registration remain with the other agent per owner.
