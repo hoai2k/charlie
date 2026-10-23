@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §25 Beach seaweed puddle (SW1); §26 more moon boot angles (MB2); §27 fairy wings (FW1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1055,4 +1055,27 @@ drawMoonBootsOn.
 Acceptance: on Moon Base with MOON BOOTS, running (both feet, front and
 kicked back), knocked back, landing and riding, both boots cover the feet
 and look like the jump pose's boots from the angle the foot is seen at.
+
+## 27. Open: fairy wings
+
+On Fairy Woods a mount pickup can be **fairy wings**. They work like the
+broomstick (she runs with them and flies up with jump), but nothing is
+ridden: the wings are drawn on her back, behind her, over every doll's own
+poses. They flutter a little while she stands or runs and beat properly
+while she flies. Until this sheet is in, the game draws plain see-through
+stand-in wings.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| FW1 | `assets/fairy_wings_sprites.webp` | 3072×512 (6 cells of 512), alpha | One pair of delicate fairy wings, seen from the side as on a girl facing right: both wings rise up and back (to the left) from one root point, the near wing in front of and a little lower than the far one. Gauzy and see-through (partly transparent, the background shows through), iridescent pink, lilac and pale aqua with fine darker veins and a soft glittery edge, like dragonfly or butterfly-shaped fairy wings: an upper and a lower lobe each. Cells: (1) **resting**, half open, swept back; (2) the same a touch more open (cells 1–2 alternate for the gentle flutter while she stands or runs); (3–6) **one full wingbeat** for flying: (3) raised high, (4) level and spread wide, (5) swept down below the root, (6) coming back up (between 5 and 3). |
+
+Rules: the root (where the wings join her back) at **(330, 300)** in every
+cell, so cells swap without the wings jumping; the pair about 340 px tall
+at rest and never reaching the cell's edges; no girl, body, shadow,
+sparkles floating off them, or text. Same colours and wing shapes in every
+cell; only their spread and angle change.
+
+Acceptance: on Fairy Woods with the WINGS pickup, standing, running and
+flying, the wings sit on her back for every doll, flutter softly on the
+ground and beat while she flies, and the pickup shows the resting wings.
 
