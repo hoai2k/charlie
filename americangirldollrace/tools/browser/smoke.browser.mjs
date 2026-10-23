@@ -764,11 +764,11 @@ test('Cloud floor art uses all six cells at varied widths and keeps open jumping
     try {for(let n=0;n<6;n++)drawCloudFloorArt(art,{variant:n,x:8000+n*500,w:n%2?670:430,h:n*5});}
     finally {ctx.drawImage=draw;}
     const gap=state.cloudFloor.gaps[0];state.camera=gap.start-250;drawScene(0);
-    return {size:art&&[art.width,art.height],calls,gap:gap.end-gap.start,hasGap:!!cloudGapAt((gap.start+gap.end)/2)};
+    return {size:art&&[art.width,art.height],calls,gap:gap.end-gap.start,min:CLOUD_GAP_MIN,max:CLOUD_GAP_MAX,hasGap:!!cloudGapAt((gap.start+gap.end)/2)};
   });
   assert.deepEqual(r.size,[2304,640]);assert.equal(r.calls.length,6);
   r.calls.forEach((c,n)=>{assert.deepEqual(c.slice(0,4),[n%3*768,Math.floor(n/3)*320,768,320]);assert.equal(c[6],n%2?670:430);assert.equal(c[7],320);});
-  assert.ok(r.gap>=95&&r.gap<=130);assert.equal(r.hasGap,true);assert.deepEqual(errors,[]);
+  assert.ok(r.gap>=r.min&&r.gap<=r.max,`gap ${r.gap}`);assert.equal(r.hasGap,true);assert.deepEqual(errors,[]);
 });
 
 test('moon boots are drawn over both feet in her poses (not the jump pose with its own boots)', { skip: skip() }, async () => {
