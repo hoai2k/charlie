@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
-const source=fs.readFileSync(new URL('game.js',game),'utf8');
+import { gameSource as source } from '../game-source.mjs';
 const data=JSON.parse(fs.readFileSync(new URL('tools/mounts/troll-alignment.json',game),'utf8'));
 const fn=name=>source.match(new RegExp(`function ${name}\\([^]*?\\n\\}`))[0];
 function context(){

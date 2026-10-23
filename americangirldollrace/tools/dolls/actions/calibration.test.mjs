@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-const game=fs.readFileSync(new URL('../../../game.js',import.meta.url),'utf8');
+import { gameSource as game } from '../../game-source.mjs';
 const tracks=fs.readFileSync(new URL('../../../doll-art.js',import.meta.url),'utf8');
 const frames=JSON.parse(tracks.match(/window.ACTION_FRAMES = (.*?);/s)[1]);
 function body(name,next){return game.slice(game.indexOf(`function ${name}(`),game.indexOf(`function ${next}(`));}

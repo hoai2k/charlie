@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-const source=fs.readFileSync(new URL('../../../game.js',import.meta.url),'utf8');
+import { gameSource as source } from '../../game-source.mjs';
 const body=source.slice(source.indexOf('function getRideToyPose('),source.indexOf('\nfunction getBoostMultiplier'));
 const context=vm.createContext({getRideToySheet:r=>r.missing?null:{},isMounted:r=>Boolean(r.mounted),SKATE_STRIDE_PX:100,POGO_BOUNCE_HEIGHT:12});
 vm.runInContext(body,context);

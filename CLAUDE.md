@@ -129,6 +129,13 @@ hook to get round it.
   Horse Show riding rules (everyone mounted, mount swaps, troll on a horse,
   longer course) are `tracks.js` flags; see its header comment.
   Briefs are in `americangirldollrace/image-requests.md` §5.
+- The race's game code is plain scripts sharing one global scope, loaded in
+  `americangirldollrace/index.html` order: the area files hold functions
+  (`game-audio`, `-monsters`, `-amanda`, `-mounts`, `-powerups`, `-items`,
+  `-camera`, `-players`, `-draw`.js) and load before `game.js`, which keeps
+  the constants, state, race flow, menus and the main loop. Put new code in
+  the file for its area; keep top-level statements that run at load in
+  `game.js`. Tests read all of it via `tools/game-source.mjs`.
   Track monsters (troll, scarecrow, skeleton, robot, tin toy, sand monster)
   each have one entry in `americangirldollrace/monsters.js`: sheet, size,
   grab-hand points, sound prefix and defeat effect.

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
-const source=fs.readFileSync(new URL('game.js',game),'utf8');
+import { gameSource as source } from '../game-source.mjs';
 const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','monsterSpeed','mountOutrunsMonster','isMounted','broomRideBlend'];
 function setup(){
   const math=Object.create(Math);

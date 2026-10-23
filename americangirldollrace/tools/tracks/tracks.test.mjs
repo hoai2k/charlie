@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 const game=new URL('../../',import.meta.url);
-const source=fs.readFileSync(new URL('game.js',game),'utf8');
+import { gameSource as source } from '../game-source.mjs';
 const draw=source.match(/function drawBackground\(\) \{[^]*?\n\}/)[0];
 function renderer(loopMode,camera){
  const calls=[];const bg={width:2172,height:724};

@@ -15,7 +15,7 @@ Processing trims silence, adds 5 ms / 40 ms fades and levels each take to
 about -16 LUFS (peak-levelled to -3 dBFS when a clip is too short for a
 loudness reading), limited at -1 dBFS, 44.1 kHz stereo 128k MP3. Add new keys
 and their take numbers to `assets/audio/manifest.json` and the identical
-`manifest.js`. Which sound plays where is set in `game.js` and `tracks.js`
+`manifest.js`. Which sound plays where is set in `game-audio.js` (and the other `game-*.js` files) and `tracks.js`
 (`sounds` per track).
 
 These are original sounds generated with ElevenLabs, used under the terms of

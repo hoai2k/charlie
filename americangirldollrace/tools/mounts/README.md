@@ -50,7 +50,7 @@ hand centers for each doll's idle/run frames. `build_broom.py` trims transparent
 padding, exports lossless art, and generates `broom.js`. Run it after changing
 the source or hand calibration; use `--check` to validate without rewriting.
 
-`game.js` draws the carried broom in front of clothing/hair, then restores a
+`game-mounts.js` draws the carried broom in front of clothing/hair, then restores a
 small patch of the actual gripping hand over the shaft. Altitude blends the
 normal doll with its calibrated seated sprite over the first 85 world pixels;
 descent reverses it. Flight uses the existing saddle offsets so all dolls and

@@ -1,0 +1,777 @@
+// Drawing the race: the scene, the course, racers, particles, the progress tracker and the victory screen.
+// Part of the race's game code: these functions share game.js's constants and
+// state, and load before it (see the <script> order in index.html).
+
+// World-space sparkles, puffs and rings. y is the ground line, z the height.
+function spawnParticles(x, y, z, count, options = {}) {
+  const { color = "#ffffff", kind = "spark", speed = 160, lift = 300, life = 0.6, size = 5, gravity = 900, dirX = 0 } = options;
+  for (let i = 0; i < count; i += 1) {
+    const angle = Math.random() * Math.PI * 2;
+    state.particles.push({
+      x, y: y + (Math.random() - 0.5) * 10, z,
+      vx: (dirX ? dirX * (0.5 + Math.random()) : Math.cos(angle)) * speed,
+      vz: lift * (0.55 + Math.random() * 0.45),
+      gravity, kind, color, size: size * (0.7 + Math.random() * 0.6),
+      life, maxLife: life
+    });
+  }
+  if (state.particles.length > 400) state.particles.splice(0, state.particles.length - 400);
+}
+
+function updateParticles(dt) {
+  for (const p of state.particles) {
+    p.x += p.vx * dt;
+    p.z = Math.max(0, p.z + p.vz * dt);
+    p.vz -= p.gravity * dt;
+    p.vx *= Math.pow(0.3, dt);
+    p.life -= dt;
+  }
+  state.particles = state.particles.filter(p => p.life > 0);
+}
+
+function drawParticles() {
+  const viewWidth = getWorldViewportWidth();
+  for (const p of state.particles) {
+    const x = p.x - state.camera;
+    if (x < -60 || x > viewWidth + 60) continue;
+    const t = p.life / p.maxLife;
+    const y = p.y - p.z;
+    ctx.save();
+    if (p.kind === "puff") {
+      ctx.globalAlpha = 0.45 * t;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(x, y - 6, p.size * (1.6 - t * 0.6), 0, Math.PI * 2);
+      ctx.fill();
+    } else if (p.kind === "drop") {
+      // A water droplet: a teardrop stretched along its fall, with a glint.
+      ctx.globalAlpha = Math.min(1, t * 2);
+      ctx.translate(x, y);
+      ctx.rotate(Math.atan2(-p.vz, p.vx) - Math.PI / 2); // the point trails
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -p.size * 1.9);
+      ctx.quadraticCurveTo(p.size, 0, 0, p.size);
+      ctx.quadraticCurveTo(-p.size, 0, 0, -p.size * 1.9);
+      ctx.fill();
+      ctx.fillStyle = "#ffffffcc";
+      ctx.beginPath();
+      ctx.arc(-p.size * 0.3, -p.size * 0.1, p.size * 0.28, 0, Math.PI * 2);
+      ctx.fill();
+    } else if (p.kind === "ring") {
+      ctx.globalAlpha = 0.8 * t;
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.ellipse(x, p.y - 4, p.size * (1.6 - t), p.size * 0.32 * (1.6 - t), 0, 0, Math.PI * 2);
+      ctx.stroke();
+    } else {
+      // A little four-pointed star with a soft glow.
+      ctx.globalAlpha = Math.min(1, t * 1.6);
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 8;
+      const r = p.size;
+      ctx.beginPath();
+      ctx.moveTo(x, y - r * 1.6);
+      ctx.lineTo(x + r * 0.45, y - r * 0.45);
+      ctx.lineTo(x + r * 1.6, y);
+      ctx.lineTo(x + r * 0.45, y + r * 0.45);
+      ctx.lineTo(x, y + r * 1.6);
+      ctx.lineTo(x - r * 0.45, y + r * 0.45);
+      ctx.lineTo(x - r * 1.6, y);
+      ctx.lineTo(x - r * 0.45, y - r * 0.45);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+function drawScene(dt) {
+  const legoSplitRendering = updateLegoSplitState(dt);
+  if (state.legoCrossfadeRequested) {
+    // A layout change that can't be seamless: keep the last frame and fade
+    // it out over the new layout instead of cutting.
+    state.legoCrossfadeRequested = false;
+    if (legoCrossfadeCanvas.width !== canvas.width || legoCrossfadeCanvas.height !== canvas.height) {
+      legoCrossfadeCanvas.width = canvas.width;
+      legoCrossfadeCanvas.height = canvas.height;
+    }
+    const fadeCtx = legoCrossfadeCanvas.getContext("2d");
+    fadeCtx.clearRect(0, 0, legoCrossfadeCanvas.width, legoCrossfadeCanvas.height);
+    fadeCtx.drawImage(canvas, 0, 0);
+    state.legoCrossfade = 1;
+  }
+  ctx.clearRect(0, 0, W, H);
+  if (legoSplitRendering) {
+    drawLegoSplitScene(dt);
+  } else {
+    drawSharedCameraScene();
+  }
+  if (!legoSplitRendering && state.legoSplitLineAlpha > 0) {
+    drawLegoSplitLines(getLegoLinePositionsForOverlay(), state.legoSplitLineAlpha);
+  }
+  if (state.legoCrossfade > 0) {
+    if (legoCrossfadeCanvas.width === canvas.width && state.running) {
+      ctx.save();
+      ctx.globalAlpha = state.legoCrossfade;
+      ctx.drawImage(legoCrossfadeCanvas, 0, 0);
+      ctx.restore();
+    }
+    state.legoCrossfade = Math.max(0, state.legoCrossfade - dt / LEGO_CROSSFADE_SECONDS);
+  }
+  if (startPanel.classList.contains("hidden")) {
+    drawRaceProgressTracker();
+  }
+
+  if (state.done && state.winner) {
+    drawVictoryScene();
+  }
+
+  if (!state.running && startPanel.classList.contains("hidden") && !state.done) {
+    drawCenterText("Press Start Race");
+  }
+}
+
+function drawSharedCameraScene() {
+  ctx.save();
+  applyWorldZoomTransform();
+  drawWorldScene();
+  ctx.restore();
+}
+
+function drawWorldScene() {
+  drawBackground();
+  drawFinishLine();
+
+  if (!state.running && !startPanel.classList.contains("hidden")) {
+    drawMenuCharacters();
+  } else {
+    const drawables = [
+      ...state.obstacles.map(obstacle => ({ type: "obstacle", y: obstacle.y, item: obstacle })),
+      // Puddles lie flat, so anyone standing in one is drawn over it.
+      ...state.powerups.filter(powerup => !powerup.taken).map(powerup => ({ type: "powerup", y: powerup.type === "oil" ? powerup.y - 60 : powerup.y, item: powerup })),
+      ...state.projectiles.map(projectile => ({ type: "projectile", y: projectile.y, item: projectile })),
+      ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.y, item: beam })),
+      ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
+      ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
+      ...state.monsters.map(monster => ({ type: "monster", y: monster.y + 56, item: monster })),
+      ...state.runawayHorses.map(horse => ({ type: "runawayHorse", y: horse.y + 56, item: horse })),
+      ...state.beachBalls.map(ball => ({ type: "beachBall", y: ball.y, item: ball })),
+      ...state.windupCars.map(car => ({ type: "windupCar", y: car.y, item: car })),
+      ...state.racers.map(racer => ({ type: "racer", y: racer.y + 54, item: racer }))
+    ].sort((a, b) => a.y - b.y);
+    drawSpellAimRings();
+    for (const drawable of drawables) {
+      if (drawable.type === "obstacle") {
+        drawObstacle(drawable.item);
+      } else if (drawable.type === "powerup") {
+        drawPowerup(drawable.item);
+      } else if (drawable.type === "projectile") {
+        drawSnowball(drawable.item);
+      } else if (drawable.type === "rainbow") {
+        drawRainbowBeam(drawable.item);
+      } else if (drawable.type === "storm") {
+        drawStormCloud(drawable.item);
+      } else if (drawable.type === "rewardCloud") {
+        drawRewardCloud(drawable.item);
+      } else if (drawable.type === "monster") {
+        drawMonster(drawable.item);
+      } else if (drawable.type === "runawayHorse") {
+        drawRunawayHorse(drawable.item);
+      } else if (drawable.type === "beachBall") {
+        drawBeachBall(drawable.item);
+      } else if (drawable.type === "windupCar") {
+        drawWindupCar(drawable.item);
+      } else {
+        drawRacer(drawable.item);
+      }
+    }
+    drawSpells();
+    drawEmpArcs();
+    drawParticles();
+  }
+}
+
+function drawRaceProgressTracker() {
+  const racers = state.racers.filter(Boolean).slice().sort((a, b) => a.playerIndex - b.playerIndex);
+  if (racers.length === 0) return;
+
+  const width = RACE_TRACKER_WIDTH;
+  const height = 34;
+  const x = W - RACE_TRACKER_RIGHT - width;
+  // The compact 5-8 player HUD takes two short rows at the top.
+  // The compact 5-8 player HUD takes two short rows at the top; with four
+  // racers the P4 card sits where the tracker would be, so drop below it.
+  const compactHud = hudElement?.classList.contains("compact");
+  const y = compactHud ? RACE_TRACKER_TOP - 18 : racers.length === 4 ? RACE_TRACKER_TOP + 56 : RACE_TRACKER_TOP;
+  const trackX = x + 16;
+  const trackY = y + height / 2;
+  const trackWidth = width - 32;
+
+  ctx.save();
+  ctx.fillStyle = "rgba(255,255,255,0.86)";
+  ctx.strokeStyle = "rgba(23,33,38,0.2)";
+  ctx.lineWidth = 2;
+  roundRect(x, y, width, height, 8);
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.strokeStyle = "rgba(36,49,58,0.22)";
+  ctx.lineWidth = 6;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  ctx.moveTo(trackX, trackY);
+  ctx.lineTo(trackX + trackWidth, trackY);
+  ctx.stroke();
+
+  for (let index = 0; index < racers.length; index += 1) {
+    const racer = racers[index];
+    const progress = clamp(racer.x / FINISH, 0, 1);
+    const markerX = trackX + progress * trackWidth;
+    const markerY = trackY + (index - (racers.length - 1) / 2) * 2.5;
+
+    ctx.fillStyle = shouldTagRacerNames() && !racer.ai ? slotColor(racer.playerIndex) : "#ffffff";
+    ctx.strokeStyle = racer.color;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(markerX, markerY, 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function drawMenuCharacters() {
+  for (const item of menuCharacterPreview.filter(item => isAllDollsMode() || !characters[item.key].hidden)) {
+    const character = characters[item.key];
+    drawRacer({
+      name: character.name,
+      spriteKey: character.spriteKey,
+      sheet: character.image(),
+      x: item.x,
+      y: item.y,
+      z: 0,
+      speed: 0,
+      moving: false,
+      frame: Math.floor(performance.now() / 420) % 3,
+      jumpStarted: false,
+      jumpFrame: 0,
+      landingTimer: 0,
+      pushTimer: 0,
+      fallBackTimer: 0,
+      fallBackFacing: 1,
+      horseTimer: 0,
+      color: character.color,
+      facing: 1,
+      showLabel: item.showLabel
+    });
+  }
+}
+
+function drawVictoryScene() {
+  const winner = state.winner;
+  const elapsed = performance.now() - state.victoryStartTime;
+  ctx.save();
+  const skyGradient = ctx.createLinearGradient(0, 0, 0, H);
+  skyGradient.addColorStop(0, "rgba(18, 29, 62, 0.58)");
+  skyGradient.addColorStop(0.55, "rgba(52, 94, 146, 0.34)");
+  skyGradient.addColorStop(1, "rgba(255, 255, 255, 0.04)");
+  ctx.fillStyle = skyGradient;
+  ctx.fillRect(0, 0, W, H);
+  drawVictoryFireworks(elapsed);
+  drawVictoryPodium(winner, elapsed);
+  drawVictoryConfetti(elapsed);
+  drawVictoryBanner(winner, elapsed);
+  ctx.restore();
+}
+
+function drawVictoryFireworks(elapsed) {
+  const colors = ["#ff4f81", "#ffd84d", "#67e8f9", "#8cff73", "#c084fc", "#ff9f43"];
+  for (let i = 0; i < VICTORY_FIREWORK_COUNT; i += 1) {
+    const cycle = (elapsed * 0.00042 + i * 0.173) % 1;
+    const burst = cycle < 0.12 ? cycle / 0.12 : cycle < 0.78 ? 1 : 1 - (cycle - 0.78) / 0.22;
+    const radius = 24 + cycle * 132;
+    const cx = W * (0.16 + ((i * 0.137) % 0.72));
+    const cy = H * (0.13 + ((i * 0.211) % 0.32));
+    ctx.save();
+    ctx.globalAlpha = clamp(burst, 0, 1) * 0.8;
+    ctx.fillStyle = colors[i % colors.length];
+    // Sparkle dots instead of thin lines read better on a TV.
+    for (let ray = 0; ray < 16; ray += 1) {
+      const angle = (Math.PI * 2 * ray) / 16 + i * 0.4;
+      for (let step = 0; step < 3; step += 1) {
+        const r = radius * (0.45 + step * 0.27);
+        ctx.beginPath();
+        ctx.arc(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r, 4.2 - step * 1.1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+}
+
+// Falling confetti from assets/ui/confetti.webp (six 64px pieces in a row).
+function drawVictoryConfetti(elapsed) {
+  const sheet = images.confetti;
+  if (!sheet?.complete || !sheet.naturalWidth) return;
+  const cell = sheet.naturalHeight;
+  const t = elapsed / 1000;
+  for (let i = 0; i < 46; i += 1) {
+    const seed = (i * 7919) % 1000 / 1000;
+    const speed = 70 + seed * 90;
+    const size = 18 + ((i * 37) % 14);
+    const y = ((t * speed + seed * (H + 120)) % (H + 120)) - 60;
+    const x = ((i * 0.61803) % 1) * W + Math.sin(t * (1.2 + seed) + i) * 26;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(t * (1.5 + seed * 2) + i);
+    ctx.globalAlpha = 0.92;
+    ctx.drawImage(sheet, (i % 6) * cell, 0, cell, cell, -size / 2, -size / 2, size, size);
+    ctx.restore();
+  }
+}
+
+const portraitImages = new Map();
+
+function getPortraitImage(spriteKey, pose) {
+  const src = `assets/portraits/${dollAssetKey(spriteKey)}${pose ? `_${pose}` : ""}.webp`;
+  if (!portraitImages.has(src)) portraitImages.set(src, loadImage(src));
+  const image = portraitImages.get(src);
+  return image.complete && image.naturalWidth ? image : null;
+}
+
+const PODIUM_STEPS = [
+  { place: 1, dx: 0, height: 112, color: "#f2c94c", edge: "#c99a1b", pose: "cheer", size: 300 },
+  { place: 2, dx: -190, height: 78, color: "#dfe6ee", edge: "#9aa9b8", pose: "wave", size: 236 },
+  { place: 3, dx: 190, height: 56, color: "#e8a66a", edge: "#b56f34", pose: "wave", size: 220 }
+];
+
+function drawVictoryPodium(winner, elapsed) {
+  const order = (state.finishOrder?.length ? state.finishOrder : [winner]).slice(0, 3);
+  const baseY = H - 132;
+  const blockW = 176;
+  order.forEach((racer, index) => {
+    const step = PODIUM_STEPS[index];
+    const cx = W / 2 + (order.length === 1 ? 0 : step.dx);
+    const top = baseY - step.height;
+    // Block
+    ctx.save();
+    ctx.fillStyle = step.color;
+    ctx.strokeStyle = step.edge;
+    ctx.lineWidth = 4;
+    roundRect(cx - blockW / 2, top, blockW, step.height + 12, 14);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = step.edge;
+    ctx.font = `700 ${index === 0 ? 50 : 40}px Fredoka, system-ui, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(step.place), cx, top + Math.min(step.height / 2 + 4, 52));
+    ctx.restore();
+
+    // Doll: the winner hops, the others sway.
+    const hop = index === 0 ? Math.abs(Math.sin(elapsed * VICTORY_JUMP_SPEED)) * 34 : 0;
+    const sway = index === 0 ? 0 : Math.sin(elapsed * 0.003 + index) * 0.04;
+    const image = (racer.outfit && window.DollOutfits?.getSync(racer.spriteKey, step.pose, racer.outfit)) || getPortraitImage(racer.spriteKey, step.pose);
+    ctx.save();
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = "#142027";
+    ctx.beginPath();
+    ctx.ellipse(cx, top + 2, 54 * (1 - hop / 120), 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+    if (image) {
+      ctx.save();
+      ctx.translate(cx, top + 8 - hop);
+      ctx.rotate(sway);
+      ctx.drawImage(image, -step.size / 2, -step.size, step.size, step.size);
+      ctx.restore();
+    } else {
+      const scale = step.size / FRAME;
+      drawFacingImage(racer.sheet, 0, 0, FRAME, FRAME, cx - SPRITE_ANCHOR_X * scale, top - hop - SPRITE_ANCHOR_Y * scale, FRAME * scale, FRAME * scale, 1, cx);
+    }
+
+    // Name tag under the block top.
+    ctx.save();
+    ctx.font = "700 21px Fredoka, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = racer.ai ? "#4a4f5c" : slotColor(racer.playerIndex);
+    const label = racer.ai ? racer.name : `P${racer.playerIndex + 1} ${racer.name}`;
+    ctx.strokeText(label, cx, baseY + 4);
+    ctx.fillText(label, cx, baseY + 4);
+    ctx.restore();
+  });
+}
+
+function drawVictoryBanner(winner, elapsed) {
+  const pulse = 1 + Math.sin(elapsed * 0.006) * 0.035;
+  ctx.save();
+  ctx.translate(W / 2, H * 0.16);
+  ctx.scale(pulse, pulse);
+  ctx.textAlign = "center";
+  ctx.lineJoin = "round";
+  ctx.font = "700 64px Fredoka, system-ui, sans-serif";
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = "white";
+  ctx.fillStyle = winner.ai ? winner.color : slotColor(winner.playerIndex);
+  // With two of the same doll racing, say which player won.
+  const twin = state.racers.some(racer => racer !== winner && racer.name === winner.name);
+  const title = `${twin && !winner.ai ? `P${winner.playerIndex + 1} ` : ""}${winner.name} Wins!`;
+  ctx.strokeText(title, 0, 0);
+  ctx.fillText(title, 0, 0);
+  ctx.font = "700 26px Fredoka, system-ui, sans-serif";
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = "#7a3b12";
+  ctx.fillStyle = "#ffe36e";
+  ctx.strokeText("Champion of the track", 0, 42);
+  ctx.fillText("Champion of the track", 0, 42);
+  ctx.restore();
+}
+
+function drawBackground() {
+  const bg = images[getCurrentBackground().imageKey];
+  const viewWidth = getWorldViewportWidth();
+  const viewTop = getWorldViewportTop();
+  ctx.fillStyle = "#7fc6e8";
+  ctx.fillRect(0, viewTop, viewWidth, H - viewTop);
+  if (!bg) {
+    // This track's background is still loading: a plain path for now.
+    ctx.fillStyle = "#dcae6c";
+    ctx.fillRect(0, PATH_TOP + FOOT_OFFSET_Y, viewWidth, H - PATH_TOP - FOOT_OFFSET_Y);
+    return;
+  }
+  const scale = H / bg.height;
+  const bgW = bg.width * scale;
+  // Reviewed periodic art repeats without reflection. Older backgrounds keep
+  // their mirror fallback; a tileable prompt alone is not a seamless texture.
+  const directRepeat = getTrackTheme().loopMode === "repeat";
+  const firstTile = Math.floor(state.camera / bgW);
+  for (let tile = firstTile, x = tile * bgW - state.camera; x < viewWidth; tile += 1, x += bgW) {
+    if (directRepeat || tile % 2 === 0) {
+      ctx.drawImage(bg, x, 0, bgW, H);
+      continue;
+    }
+    ctx.save();
+    ctx.translate(x + bgW, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(bg, 0, 0, bgW, H);
+    ctx.restore();
+  }
+  ctx.fillStyle = "rgba(255, 255, 255, 0.16)";
+  ctx.fillRect(0, PATH_TOP - 8, viewWidth, TRACK_BOTTOM - PATH_TOP + 86);
+}
+
+function drawFinishLine() {
+  const x = FINISH - state.camera;
+  const viewWidth = getWorldViewportWidth();
+  if (x < -80 || x > viewWidth + 80) return;
+  ctx.save();
+  ctx.fillStyle = "rgba(255,255,255,0.86)";
+  ctx.fillRect(x, PATH_TOP - 12, 24, TRACK_BOTTOM - PATH_TOP + 92);
+  for (let y = PATH_TOP - 12; y < TRACK_BOTTOM + 80; y += 24) {
+    ctx.fillStyle = (Math.floor((y - PATH_TOP) / 24) % 2) ? "#111" : "#fff";
+    ctx.fillRect(x, y, 24, 24);
+  }
+  ctx.fillStyle = "#172126";
+  ctx.font = "800 24px system-ui";
+  ctx.fillText("FINISH", x - 34, PATH_TOP - 24);
+  ctx.restore();
+}
+
+function drawObstacle(obstacle) {
+  const x = obstacle.x - state.camera;
+  const viewWidth = getWorldViewportWidth();
+  if (x < -100 || x > viewWidth + 100) return;
+  ctx.save();
+  ctx.translate(x, obstacle.y);
+  drawAmandaBehindFence(obstacle);
+  const hurdleArt = getTrackArt("hurdle");
+  if (hurdleArt) {
+    // Same 64×68 footprint as the drawn picket, base on the same line.
+    ctx.shadowColor = "rgba(23,33,38,0.22)";
+    ctx.shadowBlur = 6;
+    ctx.shadowOffsetY = 4;
+    ctx.drawImage(hurdleArt, -32, -42, 64, 68);
+    ctx.shadowColor = "transparent";
+    drawCaughtAmanda(obstacle);
+    ctx.restore();
+    return;
+  }
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.shadowColor = "rgba(23,33,38,0.22)";
+  ctx.shadowBlur = 6;
+  ctx.shadowOffsetY = 4;
+  ctx.fillStyle = "#f8f7ef";
+  ctx.strokeStyle = "#d4cbb6";
+  ctx.lineWidth = 3;
+  for (const postX of [-24, 0, 24]) {
+    roundRect(postX - 5, -42, 10, 68, 4);
+    ctx.fill();
+    ctx.stroke();
+  }
+  ctx.shadowColor = "transparent";
+  ctx.fillStyle = "#ffffff";
+  ctx.strokeStyle = "#cfc7b6";
+  for (const railY of [-28, -8, 12]) {
+    roundRect(-32, railY, 64, 10, 4);
+    ctx.fill();
+    ctx.stroke();
+  }
+  ctx.fillStyle = "rgba(255,255,255,0.75)";
+  ctx.fillRect(-28, -26, 56, 3);
+  ctx.fillRect(-28, -6, 56, 3);
+  ctx.fillRect(-28, 14, 56, 3);
+  drawCaughtAmanda(obstacle);
+  ctx.restore();
+}
+
+function drawRacer(racer) {
+  const screenX = racer.x - state.camera;
+  const jumping = isDrawnJumping(racer);
+  // A troll lifts a grabbed rider out of the saddle; the horse comes back on landing.
+  const mounted = isMounted(racer) && !racer.grabbedBy;
+  const row = racer.grabbedBy || racer.fallBackTimer > 0 ? 3 : racer.pushTimer > 0 ? 3 : jumping ? 2 : racer.moving ? 1 : 0;
+  const col = racer.grabbedBy ? 2 : racer.fallBackTimer > 0 ? 2 : racer.pushTimer > 0 ? 1 : jumping ? racer.jumpFrame : racer.frame;
+  const drawFacing = racer.fallBackTimer > 0 ? racer.fallBackFacing : racer.facing;
+  const horseRow = racer.pegasusGliding ? 1 : jumping ? 2 : racer.moving ? 1 : 0;
+  const horseCol = racer.pegasusGliding ? racer.frame : jumping ? racer.jumpFrame : racer.frame;
+  const scale = racerDepthScale(racer);
+  const spriteScale = scale * (jumping && !mounted ? jumpSpriteScale[racer.spriteKey] || jumpSpriteScale.default : 1);
+  const sx = col * FRAME;
+  const sy = row * FRAME;
+  const drawW = FRAME * spriteScale;
+  const drawH = FRAME * spriteScale;
+  const drawX = screenX - SPRITE_ANCHOR_X * spriteScale;
+  const drawY = racer.y + 54 - SPRITE_ANCHOR_Y * spriteScale - racer.z;
+
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(screenX, racer.y + 40, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+  drawPowerupAura(racer, screenX, scale, mounted);
+
+  if (racer.frozenTimer > 0) drawElectricEffect(screenX, drawY, drawW, drawH);
+  if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
+
+  const actions = getActionSheet(racer);
+  if (racer.frogTimer > 0) {
+    racer.lastBody = null;
+    drawFrog(screenX, racer.y + 54 - racer.z, scale, false, racer.frogPhase, racer.facing);
+  } else if (mounted && racer.horseType === "broom") {
+    drawBroomRacer(racer, screenX, scale, drawFacing);
+  } else if (mounted) {
+    const flashing = racer.horseTimer < HORSE_FLASH_TIME && Math.floor(performance.now() / 110) % 2 === 0;
+    const horseScale = scale * 1.08;
+    const horseW = FRAME * horseScale;
+    const horseH = FRAME * horseScale;
+    const calibration = getMountFrameCalibration(racer.horseType, horseRow, horseCol);
+    const horseX = screenX - SPRITE_ANCHOR_X * horseScale;
+    const horseBaseY = racer.y + 58 - SPRITE_ANCHOR_Y * horseScale - racer.z;
+    const horseY = horseBaseY + calibration.groundShift * horseScale;
+    const riderScale = scale * 0.7;
+    const riderW = FRAME * riderScale;
+    const riderH = FRAME * riderScale;
+    // Positions are in "facing right" space; drawFacingImage mirrors both the
+    // mount and the rider around screenX, so the rider stays on the saddle
+    // when facing left too.
+    const seatDX = (calibration.seatX - MOUNT_SEAT_REFERENCE.x) * horseScale;
+    const seatDY = (calibration.seatY - MOUNT_SEAT_REFERENCE.y) * horseScale;
+    const riderX = screenX - SPRITE_ANCHOR_X * riderScale + (9 + racer.riderXOffset) * scale + seatDX;
+    const riderY = horseBaseY - 60 * scale + racer.riderYOffset * scale + seatDY;
+    if (!flashing) {
+      const horseImage = images[racer.horseType] || images.horse;
+      drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);
+    }
+    // Pushing or throwing from the saddle has its own pose once the actions sheet is in.
+    if (racer.pushTimer > 0 && actions) {
+      const box = actionFrameBox(racer, 0, 2 * FRAME, riderX, riderY, riderW, riderH);
+      drawFacingImage(actions, 0, 2 * FRAME, FRAME, FRAME, box.x, box.y, box.w, box.h, drawFacing, screenX);
+    }
+    else drawFacingImage(racer.sheet, 0, 3 * FRAME, FRAME, FRAME, riderX, riderY, riderW, riderH, drawFacing, screenX);
+  } else {
+    const toyPose = getRideToyPose(racer, jumping);
+    const fullX = screenX - SPRITE_ANCHOR_X * scale;
+    const fullY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z;
+    if (racer.surfTimer > 0) {
+      drawSurfWave(racer, screenX, scale);
+      if (actions) drawRacerBody(racer, actions, (Math.floor(performance.now() / 450) % 3) * FRAME, FRAME, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
+      else drawRacerBody(racer, racer.sheet, 0, 0, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
+    } else if (racer.castTimer > 0) {
+      const progress = 1 - racer.castTimer / SPELL_CAST_TIME;
+      if (actions) {
+        drawRacerBody(racer, actions, (progress < 0.25 ? 0 : progress < 0.6 ? 1 : 2) * FRAME, 0, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+      } else {
+        drawRacerBody(racer, racer.sheet, FRAME, 3 * FRAME, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+        drawWandStandIn(racer, screenX, scale, racer.facing);
+      }
+    } else if (actions && racer.oilTimer > 0 && racer.oilSticky) {
+      drawRacerBody(racer, actions, FRAME, 2 * FRAME, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+    } else if (actions && racer.moonBootsTimer > 0 && racer.z > 20 && !racer.grabbedBy) {
+      drawRacerBody(racer, actions, 2 * FRAME, 2 * FRAME, fullX, fullY, FRAME * scale, FRAME * scale, drawFacing, screenX);
+    } else if (toyPose) {
+      const toyFrame = toyPose.row * 3 + toyPose.col;
+      const toyCalibration = window.RIDE_TOY_FRAMES?.[dollAssetKey(racer.spriteKey)];
+      const toyScale = scale * (toyCalibration?.scale[toyFrame] || 1);
+      const toyAnchorX = toyCalibration?.anchorX[toyFrame] || SPRITE_ANCHOR_X;
+      const toyY = racer.y + 54 - SPRITE_ANCHOR_Y * toyScale - racer.z - toyPose.lift * scale / 0.45;
+      drawRacerBody(racer, toyPose.sheet, toyPose.col * FRAME, toyPose.row * FRAME,
+        screenX - toyAnchorX * toyScale, toyY, FRAME * toyScale, FRAME * toyScale, drawFacing, screenX);
+
+    } else if (racer.oilTimer > 0 && racer.oilSticky) {
+      racer.lastBody = null;
+      drawStuckRacer(racer, screenX, scale);
+    } else {
+      drawRacerBody(racer, racer.sheet, sx, sy, drawX, drawY, drawW, drawH, drawFacing, screenX);
+    }
+  }
+
+  ctx.save();
+  const labelY = mounted ? drawY - 42 : drawY - 8;
+  if (racer.showLabel !== false) {
+    const label = shouldTagRacerNames() && racer.playerIndex !== undefined ? `${racerTag(racer)} ${racer.name}` : racer.name;
+    ctx.fillStyle = racer.color;
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 4;
+    ctx.font = "800 18px system-ui";
+    ctx.textAlign = "center";
+    ctx.strokeText(label, screenX, labelY);
+    ctx.fillText(label, screenX, labelY);
+    if (racer.playerIndex !== undefined && !racer.ai && shouldTagRacerNames()) {
+      const width = ctx.measureText(label).width;
+      ctx.fillStyle = slotColor(racer.playerIndex);
+      ctx.fillRect(screenX - width / 2, labelY + 4, width, 4);
+    }
+  }
+  const activeLabels = [
+    mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
+    racer.speedBoostTimer > 0 ? stackLabel(pickupLook("boost").label, racer.speedBoostStacks.length) : "",
+    racer.highJumpTimer > 0 ? stackLabel(racerJumpLabel(racer), racer.highJumpStacks.length) : "",
+    racer.moonBootsTimer > 0 ? pickupLook("jump").label : "",
+    racer.snowballs > 0 ? `${pickupLook("snowball").label} ${racer.snowballs}` : ""
+  ].filter(Boolean);
+  if (activeLabels.length > 0) {
+    ctx.font = "800 13px system-ui";
+    ctx.fillStyle = mounted ? "#9a6426"
+      : racer.snowballs > 0 ? POWERUP_TEXT_COLORS.snowball
+      : racer.speedBoostTimer > 0 ? POWERUP_TEXT_COLORS.boost
+      : POWERUP_TEXT_COLORS.jump;
+    const text = activeLabels.slice(0, 2).join(" + ");
+    ctx.strokeText(text, screenX, labelY - 18);
+    ctx.fillText(text, screenX, labelY - 18);
+  }
+  ctx.restore();
+}
+
+// Draws the doll and remembers the frame for the speed after-images, which
+// are drawn first, fading with age.
+function actionFrameBox(racer, sx, sy, x, y, w, h) {
+  const frame = window.ACTION_FRAMES?.[dollAssetKey(racer.spriteKey)]?.[sy / FRAME * 3 + sx / FRAME];
+  if (!frame) return { x, y, w, h };
+  const scale = w / FRAME;
+  return {
+    x: x + SPRITE_ANCHOR_X * scale + (frame.offsetX || 0) * scale - frame.anchorX * scale * frame.scale,
+    y: y + frame.targetY * scale - frame.baseline * scale * frame.scale,
+    w: w * frame.scale, h: h * frame.scale
+  };
+}
+
+function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
+  if (image === getActionSheet(racer)) ({ x, y, w, h } = actionFrameBox(racer, sx, sy, x, y, w, h));
+  if (racer.ghosts?.length && racer.speedBoostTimer > 0) {
+    racer.ghosts.forEach((ghost, i) => {
+      const gx = ghost.x - state.camera;
+      ctx.save();
+      ctx.globalAlpha = 0.1 + 0.08 * i;
+      drawFacingImage(ghost.image, ghost.sx, ghost.sy, FRAME, FRAME, gx + ghost.dx, ghost.y + ghost.dy - ghost.z, ghost.w, ghost.h, ghost.facing, gx);
+      ctx.restore();
+    });
+  }
+  drawFacingImage(image, sx, sy, FRAME, FRAME, x, y, w, h, facing, screenX);
+  racer.lastBody = { image, sx, sy, dx: x - screenX, dy: y - (racer.y - racer.z), w, h, facing };
+}
+
+// Stuck in a sticky puddle: the forward-leaning push frame, tipped further
+// forward around the feet, which stay planted in the puddle.
+const STUCK_LEAN = 0.5;
+
+const STUCK_LEAN_IN_TIME = 0.22;
+
+function drawStuckRacer(racer, screenX, scale) {
+  const elapsed = OIL_SLIDE_DURATION - racer.oilTimer;
+  const lean = STUCK_LEAN * smoothAmandaHazardProgress(elapsed / STUCK_LEAN_IN_TIME) * Math.min(1, racer.oilTimer / 0.18);
+  const feetY = racer.y + 54 - racer.z;
+  ctx.save();
+  ctx.translate(screenX, feetY);
+  ctx.rotate(lean * racer.facing);
+  ctx.translate(-screenX, -feetY);
+  drawFacingImage(racer.sheet, FRAME, 3 * FRAME, FRAME, FRAME,
+    screenX - SPRITE_ANCHOR_X * scale, feetY - SPRITE_ANCHOR_Y * scale,
+    FRAME * scale, FRAME * scale, racer.facing, screenX);
+  ctx.restore();
+}
+
+function drawFacingImage(image, sx, sy, sw, sh, dx, dy, dw, dh, facing, anchorX) {
+  if (facing < 0) {
+    ctx.save();
+    ctx.translate(anchorX, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(image, sx, sy, sw, sh, dx - anchorX, dy, dw, dh);
+    ctx.restore();
+  } else {
+    ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  }
+}
+
+// More than four racers (or two players on the same doll) and the doll name
+// alone no longer identifies a player, so labels gain their P# tag.
+function shouldTagRacerNames() {
+  if (!state.running && !state.done) return false;
+  if (state.racers.length > 4) return true;
+  const names = state.racers.map(racer => racer.spriteKey);
+  return new Set(names).size !== names.length;
+}
+
+function drawJoinFlash(racer, screenX, scale) {
+  const t = racer.joinFlashTimer;
+  ctx.save();
+  ctx.globalAlpha = clamp(t / 0.6, 0, 1) * 0.85;
+  ctx.strokeStyle = slotColor(racer.playerIndex);
+  ctx.lineWidth = 6;
+  const radius = (60 + (1.4 - t) * 90) * scale * 2;
+  ctx.beginPath();
+  ctx.ellipse(screenX, racer.y + 40, radius, radius * 0.3, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawCenterText(text) {
+  ctx.save();
+  ctx.fillStyle = "rgba(255,255,255,0.9)";
+  ctx.strokeStyle = "rgba(23,33,38,0.2)";
+  roundRect(W / 2 - 160, H / 2 - 34, 320, 68, 8);
+  ctx.fill();
+  ctx.stroke();
+  ctx.fillStyle = "#172126";
+  ctx.font = "800 28px system-ui";
+  ctx.textAlign = "center";
+  ctx.fillText(text, W / 2, H / 2 + 10);
+  ctx.restore();
+}
+
+function roundRect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
