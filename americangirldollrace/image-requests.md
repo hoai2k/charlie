@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** none. Everything is delivered and checked; see delivery notes below.
+> **Current queue:** §21 Cloud Kingdom floor clouds (CL1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -916,3 +916,39 @@ button; other four decoded pickup cells are pixel-identical. Four right-facing
 flight cells use uniform scale and fixed head/body alignment. Shared crow art
 and CROWS label registered; actual flight, circling and both directions passed
 review. Sources, prompts, export report and proofs: `tools/effects/autumn-crows/`.
+
+## 21. Open: Cloud Kingdom floor clouds
+
+Cloud Kingdom's course is now a row of separate clouds (game-terrain.js):
+each cloud sits a little higher or lower than the last (steps of up to 12
+px), its middle domed up about 8 px, neighbours overlapping by about 60 px,
+and now and then a 95–130 px gap between two that the dolls must jump (the
+game paints falling-away sky in the gaps). Today the clouds are plain shapes
+drawn in code. The background's own flat cloud floor is covered by them.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| CL1 | `assets/tracks/clouds/floor.webp` | 2304×640 (3×2 cells of 768×320), alpha | **Six walkable floor clouds**, one per cell, in the background's soft pastel style (white tops, lilac-pink shading underneath). Seen from a little above, as the ground the dolls run on: a broad, fairly flat, softly puffy top surface filling the cell from its back edge down to the bottom of the cell. |
+
+Each cell: the cloud's **back edge** (its far, top silhouette: a row of soft
+puffs) sits at about **y = 40**, gently domed (the middle about 8 px higher
+than the ends). Below the back edge the whole cell is cloud top, getting
+slightly lilac towards the bottom, which is cut off straight (it carries on
+below the screen). The **left and right ends are rounded, puffy cloud
+ends**, curling under, filling the cell edge to edge (about 6 px padding),
+so that where two clouds overlap they read as one cloud tucked against the
+next, and at a gap they plainly end with open sky between. Vary the six:
+puff sizes, a few little wisps or lumps on top, one or two with a faint
+rainbow glint; no objects, characters, shadows or text. Keep the top surface
+smooth enough for dolls' feet (no tall lumps).
+
+In the same commit add `"floor"` to the `clouds` track's `art` list in
+`tracks.js`; the game then draws each cloud from a random cell, stretched to
+its width (about 430–670 px), instead of the code shapes. If the back edge
+sits elsewhere than y = 40, set `CLOUD_FLOOR_ART_TOP` in `game.js` to match.
+
+Acceptance: race Cloud Kingdom (or the workbench on Cloud Kingdom): the
+floor reads as separate soft clouds one after another, steps between them
+look natural, dolls' feet sit on the tops, and each gap looks like a hole
+between two clouds.
+
