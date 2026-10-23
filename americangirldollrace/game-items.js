@@ -424,6 +424,28 @@ function drawEmpWaves(arc, from) {
     }
     ctx.restore();
   }
+  // The bell or gong itself, ringing out the rings: drawn over them.
+  if (arc.style === "bell" || arc.style === "gong") drawRingingTrigger(arc, from);
+}
+
+// A bell or gong ringing: its trigger icon swings (a bell) or shudders (a
+// gong) as it swells and fades, so the rings plainly come from it.
+function drawRingingTrigger(arc, from) {
+  const art = getTrackArt("powerups");
+  if (!art) return;
+  const life = empArcDuration(arc);
+  const k = Math.min(1, arc.t / life);
+  const size = POWERUP_ICON_TARGET_SIZE * (1 + 0.9 * Math.min(1, k * 1.6));
+  const alpha = Math.min(1, arc.t * 10) * (1 - k * k);
+  const gong = arc.style === "gong";
+  const swing = gong ? 0 : Math.sin(arc.t * 22) * 0.35 * (1 - k);
+  const shake = gong ? Math.sin(arc.t * 70) * 4 * (1 - k) : 0;
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(from.x - state.camera + shake, from.y);
+  ctx.rotate(swing);
+  ctx.drawImage(art, 2 * TRACK_POWERUP_CELL, 0, TRACK_POWERUP_CELL, TRACK_POWERUP_CELL, -size / 2, -size / 2, size, size);
+  ctx.restore();
 }
 
 // The rooster that crows the waves out: it pops up in front of her, bobs and
