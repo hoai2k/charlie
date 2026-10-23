@@ -378,11 +378,14 @@ function drawBroomProp(x, y, width, angle, facing, alpha = 1) {
 // three-quarter) is used once "fairy_wings" is listed in TRACK_SHARED_ART;
 // until then see-through wings are drawn in code.
 const WING_ROOT = [330, 300];
+const WING_TORSO_HALF = 0.15; // at most this share of her height either side of her middle is torso
 const wingRootCache = new Map();
 
-// Where the wings join her back in each cell of a sheet (frame px, facing
-// right): just behind her middle, about a third of the way down her
-// figure. Measured once per sheet from its pixels.
+// Her back at shoulder-blade height in each cell of a sheet (frame px,
+// facing right): the span of her torso there ([left, right, y]), measured
+// once per sheet from its pixels. In each row of a band about two fifths of
+// the way down her figure, the torso is the solid run through her middle
+// (the middle of her hips), so arms held out clear of her body don't count.
 function wingRoot(image, sx, sy) {
   let cells = wingRootCache.get(image);
   if (!cells) {
@@ -403,11 +406,26 @@ function wingRoot(image, sx, sy) {
             for (let x = 0; x < FRAME; x += 3) if (solid(x, y)) { if (top < 0) top = y; bottom = y; break; }
           }
           if (top < 0) continue;
-          const xs = [];
-          const from = Math.round(top + 0.33 * (bottom - top)), to = Math.round(top + 0.41 * (bottom - top));
-          for (let y = from; y <= to; y += 2) for (let x = 0; x < FRAME; x += 2) if (solid(x, y)) xs.push(x);
-          xs.sort((a, b) => a - b);
-          if (xs.length) cells.set(`${cx},${cy}`, [xs[Math.floor(xs.length * 0.3)], (from + to) / 2]);
+          const height = bottom - top;
+          const hips = [];
+          for (let y = Math.round(top + 0.5 * height); y <= top + 0.6 * height; y += 2) for (let x = 0; x < FRAME; x += 2) if (solid(x, y)) hips.push(x);
+          if (!hips.length) continue;
+          hips.sort((a, b) => a - b);
+          const middle = hips[Math.floor(hips.length / 2)];
+          const from = Math.round(top + 0.36 * height), to = Math.round(top + 0.42 * height);
+          let left = 0, right = 0, rows = 0;
+          for (let y = from; y <= to; y += 2) {
+            if (!solid(middle, y)) continue;
+            let l = middle, r = middle;
+            while (l > 0 && solid(l - 1, y)) l -= 1;
+            while (r < FRAME - 1 && solid(r + 1, y)) r += 1;
+            // (An arm against her side or long hair down her back joins the
+            // run; a torso is never wider than this.)
+            left += Math.max(l, middle - WING_TORSO_HALF * height);
+            right += Math.min(r, middle + WING_TORSO_HALF * height);
+            rows += 1;
+          }
+          if (rows) cells.set(`${cx},${cy}`, [left / rows, right / rows, (from + to) / 2]);
         }
       }
     } catch (error) {
@@ -415,10 +433,15 @@ function wingRoot(image, sx, sy) {
     }
   }
   if (!image.complete || !image.width) wingRootCache.delete(image);
-  return cells.get(`${sx},${sy}`) || [SPRITE_ANCHOR_X - 30, FRAME * 0.45];
+  return cells.get(`${sx},${sy}`) || [SPRITE_ANCHOR_X - 60, SPRITE_ANCHOR_X + 30, FRAME * 0.45];
 }
 
-// (A winged troll, too: he has no horseTimer and never flashes.)
+// Where on her back the wings join, across her torso's span from its back
+// (left, facing right): the middle of her back is towards the back edge
+// seen side on, nearer the middle seen three-quarter, and in the middle
+// seen from the front (a mirrored pair, once that art is in).
+const WING_ROOT_ACROSS = [0.28, 0.4, 0.5];
+
 // Which row of the wing sheet suits her pose: side on (0) while she runs or
 // is knocked about (sprites rows 1 and 3), three-quarter (1) standing,
 // jumping, in her actions poses, and on a troll.
@@ -427,13 +450,15 @@ function wingView(wearer, image, sy) {
   return [1, 0, 1, 0][Math.round(sy / FRAME)] ?? 1;
 }
 
+// (A winged troll, too: he has no horseTimer and never flashes.)
 function isWingFlying(racer) {
   return racer.z > 8 || racer.pegasusGliding;
 }
 
 // Wings for her pose (cell sx, sy of image) drawn at (x, y) w px wide.
 function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
-  const [rx, ry] = wingRoot(image, sx, sy);
+  const [left, right, ry] = wingRoot(image, sx, sy);
+  const rx = left + (right - left) * WING_ROOT_ACROSS[wingView(racer, image, sy)];
   const k = w / FRAME;
   const t = performance.now() / 1000 + (racer.playerIndex || 0) * 0.37;
   const flying = isWingFlying(racer);
