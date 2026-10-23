@@ -146,8 +146,9 @@ function drawCloudFluff(racer) {
   ctx.fillStyle = "#fbf8ff";
   for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
     if (puff) {
-      const size = r * 2.4 * scale;
-      ctx.drawImage(puff, x + dx * scale - size / 2, y - r * 0.15 * scale - size / 2, size, size);
+      // Big enough to bury her feet up to the ankles.
+      const size = r * 3.6 * scale;
+      ctx.drawImage(puff, x + dx * scale - size / 2, y - r * 0.55 * scale - size / 2, size, size);
       continue;
     }
     ctx.beginPath();
