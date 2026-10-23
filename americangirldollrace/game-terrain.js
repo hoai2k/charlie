@@ -114,6 +114,43 @@ function updateCloudFall(racer, dt) {
   sfx("mount_expire_poof", racer.x, { gain: 0.8 });
 }
 
+// On the clouds a doll bounces as she runs and, standing still, sinks in a
+// little (cloudSink 0..1). Riders and fliers don't.
+function updateCloudFooting(racer, dt) {
+  if (!state.cloudFloor) return;
+  const onFoot = racer.z === 0 && !isMounted(racer) && !(racer.cloudFallTimer > 0) && !racer.grabbedBy;
+  const still = onFoot && !racer.moving;
+  const target = still ? 1 : 0;
+  const rate = dt / (still ? CLOUD_SINK_TIME : CLOUD_SINK_TIME * 0.35);
+  racer.cloudSink = clamp((racer.cloudSink || 0) + Math.sign(target - (racer.cloudSink || 0)) * rate, 0, 1);
+  racer.cloudStride = onFoot && racer.moving ? (racer.cloudStride || 0) + Math.abs(racer.speed) * dt : 0;
+}
+
+// How far below her normal place she's drawn (px, down positive).
+function cloudFootingOffset(racer) {
+  if (!state.cloudFloor) return 0;
+  const bounce = racer.cloudStride > 0 ? Math.abs(Math.sin(Math.PI * racer.cloudStride / CLOUD_BOUNCE_STRIDE)) * CLOUD_BOUNCE : 0;
+  return (racer.cloudSink || 0) * CLOUD_SINK - bounce;
+}
+
+// Soft cloud fluff over the feet of someone sunk into the clouds.
+function drawCloudFluff(racer) {
+  const sink = racer.cloudSink || 0;
+  if (sink < 0.05) return;
+  const x = racer.x - state.camera;
+  const y = racer.y + 54 + 2;
+  const scale = racerDepthScale(racer) / 0.45;
+  ctx.save();
+  ctx.globalAlpha = Math.min(1, sink * 1.4);
+  ctx.fillStyle = "#fbf8ff";
+  for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
+    ctx.beginPath();
+    ctx.ellipse(x + dx * scale, y - r * 0.15 * scale, r * scale, r * 0.55 * scale, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
 function drawCloudFloor() {
   const floor = state.cloudFloor;
   if (!floor) return;

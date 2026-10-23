@@ -222,8 +222,14 @@ function drawWorldScene() {
       const lifted = state.cloudFloor && drawable.item && Number.isFinite(drawable.item.x) && drawable.type !== "storm" && drawable.type !== "rewardCloud";
       ctx.save();
       if (lifted) ctx.translate(0, -groundLift(drawable.item.x));
-      if (drawable.item?.cloudFallTimer > 0) ctx.globalAlpha = clamp(drawable.item.cloudFallTimer / CLOUD_FALL_TIME * 1.6, 0, 1);
+      const racer = drawable.type === "racer" ? drawable.item : null;
+      if (racer?.cloudFallTimer > 0) ctx.globalAlpha = clamp(racer.cloudFallTimer / CLOUD_FALL_TIME * 1.6, 0, 1);
+      // Bouncing or sunk in on the clouds; fluff over her feet when sunk.
+      const footing = racer && lifted ? cloudFootingOffset(racer) : 0;
+      ctx.translate(0, footing);
       drawDrawable(drawable);
+      ctx.translate(0, -footing);
+      if (racer && lifted) drawCloudFluff(racer);
       ctx.restore();
     }
     drawSpells();
@@ -802,7 +808,7 @@ function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
 
 // Moon boots over her feet in this pose (feet.js, measured per frame by
 // tools/dolls/measure_feet.py): the boot art once it's in (image-requests.md
-// §23 MB1: side and front views), else boots drawn in code. Her sprites and
+// §23 MB1: side, three-quarter and front views), else boots drawn in code. Her sprites and
 // actions poses get them, except the actions sheet's own moon-boots jump.
 function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
   const feet = window.DOLL_FEET?.[dollAssetKey(racer.spriteKey)];
@@ -823,11 +829,13 @@ function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
     const bootW = Math.max(size * MOON_BOOT_GROW, MOON_BOOT_MIN) * scale;
     ctx.save();
     ctx.translate(x + fx * scale, y + fy * scale);
-    if (view === "side") ctx.rotate(angle);
+    if (view !== "front") ctx.rotate(angle * (view === "side" ? 1 : 0.6));
     if (art) {
+      // Cells: side, three-quarter, front.
       const cell = art.height;
-      const k = bootW / (view === "side" ? 150 : 110);
-      ctx.drawImage(art, (view === "side" ? 0 : 1) * cell, 0, cell, cell, -128 * k, -244 * k, cell * k, cell * k);
+      const index = view === "side" ? 0 : view === "three" ? 1 : 2;
+      const k = bootW / [150, 130, 110][index];
+      ctx.drawImage(art, index * cell, 0, cell, cell, -128 * k, -244 * k, cell * k, cell * k);
     } else {
       drawMoonBootStandIn(bootW, view);
     }
@@ -839,8 +847,8 @@ function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
 // A chunky white moon boot, its sole's bottom centre at the origin, toe right.
 function drawMoonBootStandIn(bootW, view) {
   const front = view !== "side";
-  const bw = front ? bootW * 0.72 : bootW;
-  const h = bootW * (front ? 1.25 : 1.05);
+  const bw = bootW * (view === "side" ? 1 : view === "three" ? 0.85 : 0.72);
+  const h = bootW * (view === "side" ? 1.05 : view === "three" ? 1.15 : 1.25);
   ctx.lineWidth = Math.max(1, bootW * 0.035);
   ctx.strokeStyle = "#a9adb8";
   ctx.fillStyle = "#f7f8fb";

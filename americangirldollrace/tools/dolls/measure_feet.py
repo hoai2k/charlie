@@ -5,7 +5,8 @@ drawMoonBoots). For every frame of a doll's sprites sheet and actions sheet
 this finds her feet: the separate blobs in the bottom band of her figure.
 Each foot is [x, y, width, angle, view]: the sole's bottom centre (frame
 pixels, facing right), how wide the foot is, the slope of its sole in
-radians (toe down positive), and "side" or "front" from its shape. Frames
+radians (toe down positive), and "side", "three" (three-quarter) or
+"front" from its shape. Frames
 with no clear feet (riding, the tumble, the actions sheet's own moon-boots
 jump) are null.
 
@@ -106,7 +107,8 @@ def feet(cell, zone=None):
         angle = float(np.clip(np.arctan2(major[1], major[0]), -1.0, 1.0))
         length = 4 * np.sqrt(max(vals[1], 1e-6))
         across = 4 * np.sqrt(max(vals[0], 1e-6))
-        view = 'side' if length > 1.4 * across else 'front'
+        ratio = length / max(across, 1e-6)
+        view = 'side' if ratio > 1.8 else 'three' if ratio > 1.25 else 'front'
         # Frame px: where the sole sits (the bottom of the foot), and its size.
         out.append([int(round(cx * 2)), int(round(fy.max() * 2)), int(round(max(length, across) * 2)), round(angle, 3), view])
     return sorted(out) or None
