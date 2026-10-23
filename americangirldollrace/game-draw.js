@@ -515,8 +515,13 @@ function drawBackground() {
   // A light wash over the path (not on a cloud floor, where it showed as a
   // straight band across the clouds).
   if (state.cloudFloor) return;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.16)";
-  ctx.fillRect(0, PATH_TOP - 8, viewWidth, TRACK_BOTTOM - PATH_TOP + 86);
+  // Its top fades in, so it leaves no line across the scenery.
+  const washTop = PATH_TOP - 48;
+  const wash = ctx.createLinearGradient(0, washTop, 0, PATH_TOP);
+  wash.addColorStop(0, "rgba(255, 255, 255, 0)");
+  wash.addColorStop(1, "rgba(255, 255, 255, 0.16)");
+  ctx.fillStyle = wash;
+  ctx.fillRect(0, washTop, viewWidth, TRACK_BOTTOM - washTop + 78);
 }
 
 function drawFinishLine() {
@@ -613,7 +618,7 @@ function drawRacer(racer) {
   ctx.restore();
   drawPowerupAura(racer, screenX, scale, mounted);
 
-  if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, drawY, drawW, drawH, racer.empLaser ? LASER_SHOCK_COLOR : undefined);
+  if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, drawY, drawW, drawH, racer.shockColor || undefined);
   if (racer.joinFlashTimer > 0) drawJoinFlash(racer, screenX, scale);
 
   const actions = getActionSheet(racer);

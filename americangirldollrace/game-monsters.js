@@ -633,12 +633,11 @@ function updateMonsterBolts(dt) {
     for (const racer of state.racers) {
       if (racer.finished || racer.grabbedBy || racer.fallBackTimer > 0 || Math.abs(racer.z - (bolt.z || 0)) > MONSTER_BOLT_REACH_Z) continue;
       if (racer.x < Math.min(previousX, bolt.x) - 35 || racer.x > Math.max(previousX, bolt.x) + 35 || Math.abs(racer.y - bolt.y) > 44) continue;
+      if (racer === bolt.owner) continue;
+      // Knocked off any mount and shocked, as by a lightning EMP.
       if (isMounted(racer)) dismountIntoPickup(racer);
-      racer.fallBackTimer = 0.6;
-      racer.fallBackFacing = -Math.sign(bolt.vx);
-      racer.hitTimer = 0.3;
-      racer.knockbackX = Math.sign(bolt.vx) * PUSH_FORCE;
-      racer.vy = Math.max(racer.vy, 130);
+      applyEmpHit({ x: racer.x - (Math.sign(bolt.vx) || 1) }, racer, "lightning", MONSTER_BOLT_COLOR);
+      racer.fallBackTimer = Math.max(racer.fallBackTimer, 0.6);
       bolt.life = 0;
       break;
     }
@@ -646,15 +645,28 @@ function updateMonsterBolts(dt) {
   state.monsterBolts = (state.monsterBolts || []).filter(bolt => bolt.life > 0);
 }
 
+// A plain bright zigzag lightning bolt, pointing the way it flies.
+const MONSTER_BOLT_SHAPE = [[-46, -9], [-4, -13], [-8, -3], [46, 0], [2, 14], [6, 4], [-46, 2]];
+
 function drawMonsterBolt(bolt) {
-  const art = images.cloudtroll_bolt;
-  if (!art) return;
   const x = bolt.x - state.camera;
   ctx.save();
   ctx.translate(x, bolt.drawY - (bolt.z || 0));
   ctx.scale(Math.sign(bolt.vx) || 1, 1);
   ctx.rotate(-Math.atan2(bolt.vz || 0, Math.abs(bolt.vx)));
-  ctx.drawImage(art, -48, -24, 96, 48);
+  ctx.scale(1.3, 1.3);
+  ctx.beginPath();
+  MONSTER_BOLT_SHAPE.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)));
+  ctx.closePath();
+  ctx.shadowColor = MONSTER_BOLT_COLOR;
+  ctx.shadowBlur = 18;
+  ctx.fillStyle = MONSTER_BOLT_COLOR;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineJoin = "round";
+  ctx.lineWidth = 3;
+  ctx.strokeStyle = "#fff8c8";
+  ctx.stroke();
   ctx.restore();
 }
 

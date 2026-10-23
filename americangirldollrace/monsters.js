@@ -19,7 +19,7 @@
 //              "dissipate" (it fades away and leaves nothing)
 //   particles  a sheet of 8 particle sprites (128px cells) it bursts into
 //   lightning  now and then throws a lightning bolt (cloudtroll_lightning
-//              attack frames and cloudtroll_bolt)
+//              attack frames; the bolt itself is drawn in code)
 // Bump when any monster sheet changes, so browsers don't pair a cached sheet
 // with new grab-hand points.
 window.MONSTER_SHEET_VERSION = "2";

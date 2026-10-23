@@ -34,10 +34,12 @@ function empHitTime(arc, target, from) {
   return lastRing + Math.hypot(to.x - origin.x, to.y - origin.y) / empWaveReach(arc, origin) * EMP_WAVE_TIME;
 }
 
-// A lightning EMP shocks her; any other leaves her dizzy for as long.
-function applyEmpHit(attacker, target, style = "lightning") {
+// A lightning EMP shocks her; any other leaves her dizzy for as long. The
+// shock crackles in the colour of whatever shocked her (`color`, else the
+// EMP's own).
+function applyEmpHit(attacker, target, style = "lightning", color = null) {
   target.empDizzy = !isShockEmp(style);
-  target.empLaser = style === "laser";
+  target.shockColor = color || (style === "laser" ? LASER_SHOCK_COLOR : EMP_SHOCK_COLOR);
   sfx(target.empDizzy ? "emp_dizzy" : "frozen_start", target.x);
   racerVoice(target, "frozen", { chance: 0.6, priority: 1 });
   target.grabbedBy = null;
