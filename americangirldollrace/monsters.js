@@ -37,6 +37,15 @@ window.MONSTERS = {
     grabHands: [[325, 210], [290, 120], [340, 155]],
     rowScale: [1, 1, 1, 1.45] // its knocked-down row is painted about 2/3 size
   },
+  candytroll: {
+    particles: "candy_particles",
+    grabHands: [[330, 230], [285, 100], [330, 200]]
+  },
+  cloudtroll: {
+    grabHands: [[330, 230], [285, 90], [330, 185]],
+    defeated: "dissipate",
+    lightning: true
+  },
   sandtroll: {
     grabHands: [[325, 180], [310, 55], [350, 135]]
   }

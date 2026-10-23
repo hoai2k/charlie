@@ -43,6 +43,7 @@ before(async () => {
   page.on('pageerror', e => errors.push(String(e.stack || e)));
   page.on('console', m => m.type() === 'error' && errors.push(m.text()));
   page.on('response', r => { if (r.status() >= 400 && r.url().startsWith(base)) errors.push(`${r.status()} ${r.url()}`); });
+  await page.addInitScript(() => { window.RACE_TEST_SILENT = true; });
   await page.goto(base);
   await page.waitForFunction(() => typeof startRace === 'function' && typeof BACKGROUNDS !== 'undefined', null, { timeout: 30000 });
   await page.waitForTimeout(1500);
@@ -68,8 +69,9 @@ const onTrack = key => page.evaluate(async key => {
   const [a, b] = state.racers; a.x = 8100; a.y = PATH_TOP + 90; a.z = 0; a.facing = 1; b.x = 1000; b.ai = false;
 }, key);
 
-test('the page loads with no errors or missing files', { skip: skip() }, () => {
+test('the page loads silently with no errors or missing files', { skip: skip() }, async () => {
   assert.deepEqual(errors, []);
+  assert.ok(await page.evaluate(() => {const before=JSON.stringify(localStorage);GameAudio.setMuted(false);return GameAudio.isMuted && JSON.stringify(localStorage)===before;}));
 });
 
 test('every track races for a few seconds with no errors', { skip: skip() }, async () => {
@@ -90,7 +92,7 @@ test('every track races for a few seconds with no errors', { skip: skip() }, asy
 });
 
 test("each track's monster walks in, grabs, lifts and throws a doll held in its hands", { skip: skip() }, async () => {
-  for (const [track, monster] of [['farm', 'troll'], ['space', 'robot'], ['autumn', 'scarecrow'], ['wizard', 'skeleton'], ['toyroom', 'tintroll'], ['beach', 'sandtroll']]) {
+  for (const [track, monster] of [['farm', 'troll'], ['space', 'robot'], ['autumn', 'scarecrow'], ['wizard', 'skeleton'], ['toyroom', 'tintroll'], ['beach', 'sandtroll'], ['candy', 'candytroll'], ['clouds', 'cloudtroll']]) {
     await onTrack(track);
     const r = await page.evaluate(() => {
       const a = state.racers[0];
@@ -300,4 +302,40 @@ test('the pause screen shows its corner buttons', { skip: skip() }, async () => 
   for (const id of ['#pauseSoundButton', '#pauseSettingsButton']) assert.ok(await page.isVisible(id), id);
   await page.evaluate(() => togglePause());
   assert.deepEqual(errors, []);
+});
+
+test('storm troll casts one bolt after windup, hits in either direction, and fully dissipates', { skip: skip() }, async () => {
+  await onTrack('clouds');
+  const result = await page.evaluate(async () => {
+    await Promise.all([loadArtOnce('cloudtroll_lightning','assets/cloudtroll_lightning.webp'),loadArtOnce('cloudtroll_bolt','assets/cloudtroll_bolt.webp')]);
+    const hits=[];
+    for (const facing of [-1,1]) {
+      const a=state.racers[0];a.x=8400+facing*300;a.y=PATH_TOP+80;a.z=0;a.horseTimer=0;a.fallBackTimer=0;a.grabbedBy=null;
+      const m=spawnMonster(8400,a.y,{active:true,riding:false});m.x=8400;m.state='lightning';m.facing=facing;m.lightningTime=0;m.lightningReleased=false;state.monsters=[m];state.monsterBolts=[];
+      updateMonsterLightning(m,.44);if(state.monsterBolts.length)throw Error('released before windup');
+      updateMonsterLightning(m,.02);const once=state.monsterBolts.length;updateMonsterLightning(m,.1);
+      if(once!==1||state.monsterBolts.length!==1)throw Error('bolt release duplicated');
+      drawMonster(m);for(let i=0;i<60;i++)updateMonsterBolts(1/60);hits.push(a.fallBackTimer>0);
+      for(let n=0;n<5;n++){applyMonsterKnockback(m,1);updateMonsters(.56);}
+      const ground=m.state;updateMonsters(1.1);if(ground!=='ground'||m.state!=='sleeping')throw Error('defeat state');
+      const canvas=document.createElement('canvas');canvas.width=1254;canvas.height=1672;const c=canvas.getContext('2d');c.drawImage(images.cloudtroll,0,0);
+      if(c.getImageData(836,1254,418,418).data.some((v,i)=>i%4===3&&v))throw Error('final cloud cell not empty');
+      drawMonster(m);
+    }
+    return hits;
+  });
+  assert.deepEqual(result,[true,true]);
+  assert.deepEqual(errors,[]);
+});
+
+test('Candy Troll breaks into candy particles after five hits', { skip: skip() }, async () => {
+  await onTrack('candy');
+  const burst = await page.evaluate(async () => {
+    await loadArtOnce('candy_particles','assets/candy_particles.webp');
+    const a=state.racers[0],m=spawnMonster(8400,a.y,{active:true,riding:false});m.x=8400;state.monsters=[m];state.particles=[];
+    for(let n=0;n<5;n++){applyMonsterKnockback(m,1);updateMonsters(.56);}
+    drawParticles();
+    return {ground:m.state,count:state.particles.filter(p=>p.kind==='candy'&&p.spriteIndex>=0&&p.spriteIndex<8).length};
+  });
+  assert.deepEqual(burst,{ground:'ground',count:18});
 });

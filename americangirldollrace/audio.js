@@ -113,7 +113,7 @@ const GameAudio = (() => {
 
   let manifest = { sfx: {}, vo: {} };
   let unlocked = false;
-  let muted = false;
+  let muted = Boolean(window.RACE_TEST_SILENT);
   let context = null;
   let masterNode = null;
   const busNodes = {};
@@ -568,12 +568,12 @@ const GameAudio = (() => {
 
   // Sound on/off (the pause screen's speaker button); remembered per device.
   function setMuted(value) {
-    muted = Boolean(value);
+    muted = Boolean(window.RACE_TEST_SILENT || value);
     if (muted) stopAll();
     refreshLiveVolumes();
     updateMusicVolume();
     try {
-      window.localStorage?.setItem(`${STORAGE_KEY}:muted`, muted ? "1" : "0");
+      if (!window.RACE_TEST_SILENT) window.localStorage?.setItem(`${STORAGE_KEY}:muted`, muted ? "1" : "0");
     } catch (error) {
       /* not fatal */
     }
@@ -599,7 +599,7 @@ const GameAudio = (() => {
 
   loadOverrides();
   try {
-    muted = window.localStorage?.getItem(`${STORAGE_KEY}:muted`) === "1";
+    muted = Boolean(window.RACE_TEST_SILENT) || window.localStorage?.getItem(`${STORAGE_KEY}:muted`) === "1";
   } catch (error) {
     /* not fatal */
   }

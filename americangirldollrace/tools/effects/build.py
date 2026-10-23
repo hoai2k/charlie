@@ -13,8 +13,8 @@ def place(cell,frame_size,scale,baseline,center=None):
     frame=Image.new('RGBA',frame_size);frame.alpha_composite(art,(x,y));return frame
 
 def build(key):
-    src=packing.packing.clean(Image.open(HERE/f'sources/{key}.webp'));rows=1 if key=='wave' else 4 if key in ['scarecrow','skeleton','robot','tintroll','sandtroll'] else 2
-    if key in ['robot','tintroll','sandtroll']:
+    src=packing.packing.clean(Image.open(HERE/f'sources/{key}.webp'));rows=1 if key=='wave' else 4 if key in ['scarecrow','skeleton','robot','tintroll','sandtroll','candytroll','cloudtroll'] else 2
+    if key in ['robot','tintroll','sandtroll','candytroll','cloudtroll']:
         b=packing.packing.bounds(src);assert min(b[:2])>0 and b[2]<src.width and b[3]<src.height,('Clipped robot source',b)
     cells=packing.full_cells(src,rows=rows)
     for n in range(len(cells)):
@@ -22,16 +22,18 @@ def build(key):
         if override.exists(): cells[n]=packing.packing.clean(Image.open(override))
     boxes=[packing.packing.bounds(c) for c in cells]
     calibration=json.loads((HERE/'monster-calibration.json').read_text()).get(key,{})
-    if key in ['scarecrow','skeleton','robot','tintroll','sandtroll']:
+    if key in ['scarecrow','skeleton','robot','tintroll','sandtroll','candytroll','cloudtroll']:
         target=GAME/f'assets/{key}_sprites.webp';size=(418,418);sheet=Image.new('RGBA',(1254,1672));reference=Image.open(GAME/'assets/monster_sprites.webp').convert('RGBA')
         common=(packing.packing.bounds(reference.crop((0,0,418,418)))[3]-packing.packing.bounds(reference.crop((0,0,418,418)))[1])/(boxes[0][3]-boxes[0][1])
-        if key in ['tintroll','sandtroll']:
+        if key in ['tintroll','sandtroll','candytroll','cloudtroll']:
             common /= 1-calibration['headTopInsetRatio']  # exclude key / seaweed above head
         for n,c in enumerate(cells):
             b=boxes[n];ref=packing.packing.bounds(reference.crop((n%3*418,n//3*418,n%3*418+418,n//3*418+418)))
             # The three ground/defeated poses have their own low silhouettes.
             factor=min(common,402/(b[2]-b[0]),402/(b[3]-b[1])) if n<9 else min((ref[2]-ref[0])/(b[2]-b[0]),(ref[3]-ref[1])/(b[3]-b[1]))
-            f=place(c,size,factor,409,(ref[0]+ref[2])/2);sheet.paste(f,(n%3*418,n//3*418))
+            f=place(c,size,factor,409,(ref[0]+ref[2])/2)
+            if key=='cloudtroll' and n==11: f=Image.new('RGBA',size) # dissipated completely
+            sheet.paste(f,(n%3*418,n//3*418))
     else:
         fw,fh=(512,384) if key=='wave' else (256,256);size=(fw,fh);sheet=Image.new('RGBA',(fw*3,fh*rows))
         target=GAME/('assets/frog_sprites.webp' if key=='frog' else f'assets/tracks/{"beach" if key=="wave" else "toyroom"}/{key}.webp')
@@ -46,4 +48,4 @@ def build(key):
     (HERE/f'reports/{key}.json').write_text(json.dumps(report,indent=2)+'\n');print(key,report['size'])
 
 if __name__=='__main__':
-    for key in sys.argv[1:] or ['frog','wave','windup_car','scarecrow','skeleton','robot','tintroll','sandtroll']:build(key)
+    for key in sys.argv[1:] or ['frog','wave','windup_car','scarecrow','skeleton','robot','tintroll','sandtroll','candytroll','cloudtroll']:build(key)

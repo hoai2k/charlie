@@ -12,7 +12,7 @@ function spawnParticles(x, y, z, count, options = {}) {
       vx: (dirX ? dirX * (0.5 + Math.random()) : Math.cos(angle)) * speed,
       vz: lift * (0.55 + Math.random() * 0.45),
       gravity, kind, color, size: size * (0.7 + Math.random() * 0.6),
-      life, maxLife: life
+      life, maxLife: life, spriteIndex: kind === "candy" ? Math.floor(Math.random() * 8) : undefined
     });
   }
   if (state.particles.length > 400) state.particles.splice(0, state.particles.length - 400);
@@ -37,7 +37,13 @@ function drawParticles() {
     const t = p.life / p.maxLife;
     const y = p.y - p.z;
     ctx.save();
-    if (p.kind === "puff") {
+    if (p.kind === "candy" && images.candy_particles) {
+      ctx.globalAlpha = Math.min(1, t * 3);
+      ctx.translate(x, y);
+      ctx.rotate((1 - t) * 5 * Math.sign(p.vx));
+      const n = p.spriteIndex || 0;
+      ctx.drawImage(images.candy_particles, n % 4 * 128, Math.floor(n / 4) * 128, 128, 128, -p.size, -p.size, p.size * 2, p.size * 2);
+    } else if (p.kind === "puff") {
       ctx.globalAlpha = 0.45 * t;
       ctx.fillStyle = p.color;
       ctx.beginPath();
@@ -162,6 +168,7 @@ function drawWorldScene() {
       // Puddles lie flat, so anyone standing in one is drawn over it.
       ...state.powerups.filter(powerup => !powerup.taken).map(powerup => ({ type: "powerup", y: powerup.type === "oil" ? powerup.y - 60 : powerup.y, item: powerup })),
       ...state.projectiles.map(projectile => ({ type: "projectile", y: projectile.y, item: projectile })),
+      ...(state.monsterBolts || []).map(bolt => ({ type: "monsterBolt", y: bolt.y + 54, item: bolt })),
       ...state.thrownLeftovers.map(item => ({ type: "leftover", y: item.groundY - 20, item })),
       // Drawn just in front of the unicorn, so it comes out of the horn.
       ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.owner ? beam.owner.y + 54.5 : beam.y, item: beam })),
@@ -182,6 +189,8 @@ function drawWorldScene() {
         drawPowerup(drawable.item);
       } else if (drawable.type === "projectile") {
         drawSnowball(drawable.item);
+      } else if (drawable.type === "monsterBolt") {
+        drawMonsterBolt(drawable.item);
       } else if (drawable.type === "leftover") {
         drawThrownLeftover(drawable.item);
       } else if (drawable.type === "rainbow") {

@@ -173,7 +173,9 @@ function updateDefeatedSparks(monster, dt) {
 }
 
 function updateMonsters(dt) {
+  updateMonsterBolts(dt);
   for (const monster of state.monsters) {
+    monster.lightningCooldown = Math.max(0, (monster.lightningCooldown ?? 2.5) - dt);
     const previousX = monster.x;
     const previousY = monster.y;
     monster.frameTime += dt * (monster.state === "walk" ? 8 : 3);
@@ -226,6 +228,7 @@ function updateMonsters(dt) {
         if (monster.knockedBacks >= MONSTER_SLEEP_KNOCKBACKS) {
           monster.state = "ground";
           monster.timer = 1;
+          if (monsterDef().particles === "candy_particles") spawnParticles(monster.x, monster.y + 54, 85, 18, {kind: "candy", size: 14, speed: 180, lift: 220, life: 1.5});
         } else {
           monster.state = monster.active ? "walk" : "idle";
         }
@@ -241,6 +244,11 @@ function updateMonsters(dt) {
 
     if (monster.state === "grab" || monster.state === "lift" || monster.state === "throw") {
       updateMonsterGrabSequence(monster, dt);
+      continue;
+    }
+
+    if (monster.state === "lightning") {
+      updateMonsterLightning(monster, dt);
       continue;
     }
 
@@ -260,6 +268,13 @@ function updateMonsters(dt) {
     const dx = target.x - monster.x;
     const dy = target.y - monster.y;
     monster.facing = dx < 0 ? -1 : 1;
+    if (monsterDef().lightning && !monster.riding && monster.lightningCooldown === 0 && Math.abs(dx) > 180 && Math.abs(dx) < 620 && Math.abs(dy) < 90 && !target.grabbedBy) {
+      monster.state = "lightning";
+      monster.lightningTime = 0;
+      monster.lightningReleased = false;
+      monster.lightningCooldown = 4;
+      continue;
+    }
     monster.state = "walk";
     const riding = monster.riding;
     const speed = riding ? MOUNTED_MONSTER_SPEED : MONSTER_SPEED;
@@ -454,21 +469,27 @@ function stunMonsterWithEmp(monster) {
 }
 
 function drawMonster(monster) {
+  const dissipating = monsterDef().defeated === "dissipate";
+  if (dissipating && monster.state === "sleeping") return;
   const screenX = monster.x - state.camera;
   const viewWidth = getWorldViewportWidth();
   if (screenX < -280 || screenX > viewWidth + 280) return;
   const frame = monsterFrame(monster);
+  const attack = monster.state === "lightning" && images.cloudtroll_lightning;
   const scale = monsterScale(monster) * monsterRowScale(frame.row);
   const visualY = monsterDrawY(monster);
-  const sx = frame.col * FRAME;
-  const sy = frame.row * FRAME;
+  const cellSize = attack ? 512 : FRAME;
+  const sx = (attack ? monster.lightningTime < 0.45 ? 0 : monster.lightningTime < 0.65 ? 1 : 2 : frame.col) * cellSize;
+  const sy = attack ? 0 : frame.row * FRAME;
   const drawW = FRAME * scale;
   const drawH = FRAME * scale;
   const drawX = screenX - SPRITE_ANCHOR_X * scale;
   const drawY = visualY + 58 - SPRITE_ANCHOR_Y * scale;
+  ctx.save();
+  if (dissipating && monster.state === "ground") ctx.globalAlpha = clamp(monster.timer, 0, 1);
 
   ctx.save();
-  ctx.globalAlpha = monster.state === "drop" ? 0.14 : 0.32;
+  ctx.globalAlpha *= monster.state === "drop" ? 0.14 : 0.32;
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, monster.y + 42, 62 * scale, 15 * scale, 0, 0, Math.PI * 2);
@@ -478,13 +499,65 @@ function drawMonster(monster) {
   const drawFacing = monster.state === "fall" ? -monster.facing : monster.facing;
   if (monster.frogTimer > 0) {
     drawFrog(screenX, monster.y + 54, racerDepthScale(monster), true, monster.frogPhase || 0, monster.facing);
+    ctx.restore();
     return;
   }
   if (monster.riding && getTrollMountImage()) {
     drawMountedMonster(monster, getTrollMountImage(), screenX, visualY, drawFacing);
+    ctx.restore();
     return;
   }
-  drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+  if (attack) {
+    drawFacingImage(attack, sx, sy, 512, 512, screenX - 256 * scale, visualY + 58 - 503 * scale, 512 * scale, 512 * scale, drawFacing, screenX);
+  } else drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+  ctx.restore();
+}
+
+function updateMonsterLightning(monster, dt) {
+  monster.lightningTime += dt;
+  if (!monster.lightningReleased && monster.lightningTime >= 0.45) {
+    monster.lightningReleased = true;
+    const scale = monsterScale(monster);
+    (state.monsterBolts ||= []).push({
+      x: monster.x + (450 - 256) * scale * monster.facing,
+      y: monster.y, drawY: monster.y + 58 + (280 - 503) * scale,
+      vx: monster.facing * 540, life: 1.3
+    });
+    sfx("emp_zap", monster.x);
+  }
+  if (monster.lightningTime >= 0.9) monster.state = "walk";
+}
+
+function updateMonsterBolts(dt) {
+  for (const bolt of state.monsterBolts || []) {
+    const previousX = bolt.x;
+    bolt.x += bolt.vx * dt;
+    bolt.life -= dt;
+    for (const racer of state.racers) {
+      if (racer.finished || racer.grabbedBy || racer.fallBackTimer > 0 || racer.z > 110) continue;
+      if (racer.x < Math.min(previousX, bolt.x) - 35 || racer.x > Math.max(previousX, bolt.x) + 35 || Math.abs(racer.y - bolt.y) > 44) continue;
+      if (isMounted(racer)) dismountIntoPickup(racer);
+      racer.fallBackTimer = 0.6;
+      racer.fallBackFacing = -Math.sign(bolt.vx);
+      racer.hitTimer = 0.3;
+      racer.knockbackX = Math.sign(bolt.vx) * PUSH_FORCE;
+      racer.vy = Math.max(racer.vy, 130);
+      bolt.life = 0;
+      break;
+    }
+  }
+  state.monsterBolts = (state.monsterBolts || []).filter(bolt => bolt.life > 0);
+}
+
+function drawMonsterBolt(bolt) {
+  const art = images.cloudtroll_bolt;
+  if (!art) return;
+  const x = bolt.x - state.camera;
+  ctx.save();
+  ctx.translate(x, bolt.drawY);
+  ctx.scale(Math.sign(bolt.vx) || 1, 1);
+  ctx.drawImage(art, -48, -24, 96, 48);
+  ctx.restore();
 }
 
 // A troll on horseback. Knocked down (fall/ground/sleeping) he's on foot in

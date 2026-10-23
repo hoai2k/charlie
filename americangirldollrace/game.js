@@ -807,6 +807,7 @@ function resetRace(mode = state.mode) {
   state.victoryStartTime = 0;
   state.obstacles = makeObstacles();
   state.projectiles = [];
+  state.monsterBolts = [];
   state.thrownLeftovers = [];
   state.rainbowBeams = [];
   state.empArcs = [];
@@ -919,6 +920,12 @@ function preloadTrackArt(background) {
   if (pogoEligible(background)) loadArtOnce(trackArtKey(POGO_ICON_TRACK, "powerups"), `assets/tracks/${POGO_ICON_TRACK}/powerups.webp?v=${window.GAME_CONFIG?.powerupArtVersion || "1"}`);
   if (theme.monster && theme.monster !== "troll" && window.MONSTERS?.[theme.monster]) {
     loadArtOnce(theme.monster, monsterSheetUrl(theme.monster));
+    const particleArt = window.MONSTERS[theme.monster].particles;
+    if (particleArt) loadArtOnce(particleArt, `assets/${particleArt}.webp`);
+    if (window.MONSTERS[theme.monster].lightning) {
+      loadArtOnce("cloudtroll_lightning", "assets/cloudtroll_lightning.webp");
+      loadArtOnce("cloudtroll_bolt", "assets/cloudtroll_bolt.webp");
+    }
   }
   if (theme.trollMount) {
     for (const name of window.TRACK_SHARED_ART || []) loadArtOnce(name, `assets/${name}_sprites.webp`);

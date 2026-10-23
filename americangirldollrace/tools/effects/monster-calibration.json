@@ -32,5 +32,39 @@
         135
       ]
     ]
+  },
+  "candytroll": {
+    "headTopInsetRatio": 0,
+    "grabHands": [
+      [
+        330,
+        230
+      ],
+      [
+        285,
+        100
+      ],
+      [
+        330,
+        200
+      ]
+    ]
+  },
+  "cloudtroll": {
+    "headTopInsetRatio": 0,
+    "grabHands": [
+      [
+        330,
+        230
+      ],
+      [
+        285,
+        90
+      ],
+      [
+        330,
+        185
+      ]
+    ]
   }
 }

@@ -145,6 +145,7 @@ window.TRACK_THEMES = {
     itemEffects: { boost: "windupCars" }
   },
   candy: {
+    monster: "candytroll",
     empStyle: "firework",
     name: "Candy Land", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
@@ -182,6 +183,7 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_crows" }
   },
   clouds: {
+    monster: "cloudtroll",
     projectileLanding: "snow",
     empStyle: "lightning",
     name: "Cloud Kingdom", dirtTop: 535, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],

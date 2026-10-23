@@ -29,3 +29,14 @@ the sand collapse pours into a plain heap. `monster-calibration.json` retains
 head inset and measured empty-hand anchors used by game.js. Sources, exact
 built-in prompts and light/dark alpha and browser proofs are retained.
 `overrides/tintroll-11.webp` replaces only the final toy frame.
+
+Candy and storm Cloud trolls use approved canonicals under `candy-troll/` and
+`cloud-troll/`. `new-trolls/` retains source sheets and exact built-in ImageGen
+prompts. Build normal sheets with `build.py candytroll cloudtroll`; then
+`new-trolls/build.py` exports the 512px lightning cells and bolt. The corrected
+release pose has exactly two arms. Candy’s last cell is a headless sweets
+heap; Cloud’s last cell is intentionally empty and its ground pose fades away.
+Eight 128px candy particle cells are available as a 512×256 atlas and separate
+assets under `assets/particles/candy/`. Browser smoke tests force
+`window.RACE_TEST_SILENT=true` before audio loads: no sound and no stored
+audio-preference changes. Temporary manual QA rigs must set the same flag.
