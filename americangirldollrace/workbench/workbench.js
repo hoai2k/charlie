@@ -262,6 +262,7 @@ function start() {
   sceneDragging();
   setupTrack("farm");
   frame.contentWindow.focus();
+  verifyReady();
 }
 
 // Clicks and keys out here count as playing too: they unlock the game's

@@ -786,95 +786,95 @@
   "ledge": [
     {
       "bounds": [
-        109,
-        138,
-        348,
-        412
+        43,
+        29,
+        375,
+        409
       ],
       "source": "sources/zoey/ledge.webp",
       "cell": 0,
       "sourceScaleRatio": 1,
       "sourceAnchor": [
-        590,
-        260
+        411.0,
+        719
       ],
-      "packedScale": 0.39651416122004357,
-      "scale": 1.3853118712273642,
-      "renderScale": 1.3853118712273642,
-      "anchorX": 316,
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        347,
-        220
+        374,
+        144
       ],
       "wandTip": null,
       "corner": [
-        300,
-        230
+        307.32,
+        156.87
       ]
     },
     {
       "bounds": [
-        183,
-        86,
-        368,
-        412
+        102,
+        33,
+        316,
+        409
       ],
       "source": "sources/zoey/ledge.webp",
       "cell": 1,
       "sourceScaleRatio": 1,
       "sourceAnchor": [
-        357,
-        310
+        306.0,
+        693
       ],
-      "packedScale": 0.4751958224543081,
-      "scale": 1.1559356136820926,
-      "renderScale": 1.1559356136820926,
-      "anchorX": 316,
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        364,
-        297
+        312,
+        276
       ],
       "wandTip": null,
       "corner": [
-        300,
-        230
+        237.01,
+        198.62
       ]
     },
     {
       "bounds": [
-        193,
-        6,
-        388,
-        234
+        75,
+        95,
+        343,
+        409
       ],
       "source": "sources/zoey/ledge.webp",
       "cell": 2,
       "sourceScaleRatio": 1,
       "sourceAnchor": [
-        392,
-        575
+        369.0,
+        586
       ],
-      "packedScale": 0.4,
-      "scale": 1.3732394366197183,
-      "renderScale": 1.3732394366197183,
-      "anchorX": 316,
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        362,
-        52
+        307,
+        158
       ],
       "wandTip": null,
       "corner": [
-        300,
-        230
+        221.63,
+        402.96
       ]
     }
   ]

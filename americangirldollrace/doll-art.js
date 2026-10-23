@@ -3245,104 +3245,352 @@ window.ACTION_FRAMES = {
   ]
 };
 
-window.LEDGE_SHEETS = [
-  "zoey"
-];
 
 window.LEDGE_FRAMES = {
   "zoey": [
     {
       "bounds": [
-        109,
-        138,
-        348,
-        412
+        43,
+        29,
+        375,
+        409
       ],
       "source": "sources/zoey/ledge.webp",
       "cell": 0,
       "sourceScaleRatio": 1,
       "sourceAnchor": [
-        590,
-        260
+        411.0,
+        719
       ],
-      "packedScale": 0.39651416122004357,
-      "scale": 1.3853118712273642,
-      "renderScale": 1.3853118712273642,
-      "anchorX": 316,
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        347,
-        220
+        374,
+        144
       ],
       "wandTip": null,
       "corner": [
-        300,
-        230
+        307.32,
+        156.87
       ]
     },
     {
       "bounds": [
-        183,
-        86,
-        368,
-        412
+        102,
+        33,
+        316,
+        409
       ],
       "source": "sources/zoey/ledge.webp",
       "cell": 1,
       "sourceScaleRatio": 1,
       "sourceAnchor": [
-        357,
-        310
+        306.0,
+        693
       ],
-      "packedScale": 0.4751958224543081,
-      "scale": 1.1559356136820926,
-      "renderScale": 1.1559356136820926,
-      "anchorX": 316,
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        364,
-        297
+        312,
+        276
       ],
       "wandTip": null,
       "corner": [
-        300,
-        230
+        237.01,
+        198.62
       ]
     },
     {
       "bounds": [
-        193,
-        6,
-        388,
-        234
+        75,
+        95,
+        343,
+        409
       ],
       "source": "sources/zoey/ledge.webp",
       "cell": 2,
       "sourceScaleRatio": 1,
       "sourceAnchor": [
-        392,
-        575
+        369.0,
+        586
       ],
-      "packedScale": 0.4,
-      "scale": 1.3732394366197183,
-      "renderScale": 1.3732394366197183,
-      "anchorX": 316,
+      "packedScale": 0.5492957746478874,
+      "scale": 1.0,
+      "renderScale": 1.0,
+      "anchorX": 225,
       "baseline": 409,
       "targetY": 409,
       "offsetX": 0,
       "hand": [
-        362,
-        52
+        307,
+        158
       ],
       "wandTip": null,
       "corner": [
-        300,
-        230
+        221.63,
+        402.96
       ]
     }
   ]
 };
+
+// Dolls (asset keys) whose cloud ledge sheet is delivered (image-requests.md
+// §29: hug hold, climbing up, kneeling on top), and in each of its three
+// poses the point that goes on the cloud's edge, in frame px (copied from
+// assets/doll_ledge_anchors.json, written by tools/dolls/ledge).
+window.LEDGE_ART_VERSION = "20261023-ledge2";
+window.LEDGE_ANCHORS = {
+  "amanda": [
+    [
+      285,
+      189
+    ],
+    [
+      237,
+      232
+    ],
+    [
+      131,
+      351
+    ]
+  ],
+  "barbie": [
+    [
+      282,
+      197
+    ],
+    [
+      232,
+      246
+    ],
+    [
+      144,
+      358
+    ]
+  ],
+  "cinnamon": [
+    [
+      286,
+      207
+    ],
+    [
+      238,
+      252
+    ],
+    [
+      113,
+      363
+    ]
+  ],
+  "claudia-v2": [
+    [
+      298,
+      204
+    ],
+    [
+      242,
+      246
+    ],
+    [
+      108,
+      373
+    ]
+  ],
+  "felicity": [
+    [
+      293,
+      203
+    ],
+    [
+      240,
+      248
+    ],
+    [
+      129,
+      360
+    ]
+  ],
+  "hermione": [
+    [
+      289,
+      197
+    ],
+    [
+      241,
+      230
+    ],
+    [
+      97,
+      360
+    ]
+  ],
+  "juliette": [
+    [
+      287,
+      177
+    ],
+    [
+      239,
+      216
+    ],
+    [
+      129,
+      353
+    ]
+  ],
+  "kaya": [
+    [
+      285,
+      188
+    ],
+    [
+      237,
+      237
+    ],
+    [
+      177,
+      361
+    ]
+  ],
+  "lily": [
+    [
+      286,
+      198
+    ],
+    [
+      238,
+      253
+    ],
+    [
+      112,
+      354
+    ]
+  ],
+  "luna": [
+    [
+      292,
+      185
+    ],
+    [
+      239,
+      233
+    ],
+    [
+      102,
+      360
+    ]
+  ],
+  "marisol-v2": [
+    [
+      287,
+      190
+    ],
+    [
+      235,
+      260
+    ],
+    [
+      119,
+      357
+    ]
+  ],
+  "mira": [
+    [
+      298,
+      196
+    ],
+    [
+      243,
+      243
+    ],
+    [
+      102,
+      364
+    ]
+  ],
+  "penelope": [
+    [
+      280,
+      189
+    ],
+    [
+      238,
+      234
+    ],
+    [
+      110,
+      354
+    ]
+  ],
+  "rumi-v2": [
+    [
+      285,
+      196
+    ],
+    [
+      236,
+      221
+    ],
+    [
+      140,
+      339
+    ]
+  ],
+  "whirlpool": [
+    [
+      284,
+      195
+    ],
+    [
+      237,
+      233
+    ],
+    [
+      104,
+      351
+    ]
+  ],
+  "zoey": [
+    [
+      307.32,
+      156.87
+    ],
+    [
+      237.01,
+      198.62
+    ],
+    [
+      221.63,
+      402.96
+    ]
+  ]
+};
+
+window.LEDGE_SHEETS = [
+  "amanda",
+  "barbie",
+  "cinnamon",
+  "claudia-v2",
+  "felicity",
+  "hermione",
+  "juliette",
+  "kaya",
+  "lily",
+  "luna",
+  "marisol-v2",
+  "mira",
+  "penelope",
+  "rumi-v2",
+  "whirlpool",
+  "zoey"
+];

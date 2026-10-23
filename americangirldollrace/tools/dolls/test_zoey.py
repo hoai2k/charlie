@@ -42,7 +42,8 @@ class ZoeyTests(unittest.TestCase):
     def test_ledge_has_explicit_contact_and_restores_anatomical_scale(self):
         data=json.loads((build.HERE/'zoey/reports/ledge.json').read_text())
         for f in data['frames']:
-            self.assertEqual(f['corner'],[300,230])
+            self.assertTrue(all(0<v<418 for v in f['corner']))
+            self.assertEqual(f['scale'],1)
             self.assertAlmostEqual(f['packedScale']*f['scale'],390/710,places=6)
 
 

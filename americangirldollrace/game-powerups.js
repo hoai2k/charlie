@@ -383,6 +383,7 @@ function applyPowerup(racer, powerupOrType) {
     racer.knockbackX = 0;
     racer.pegasusGliding = false;
     racer.powerupMessage = mountLabel(racer.horseType);
+    noteMountFound(racer.horseType);
     playMountAudio(racer);
   }
   return true;

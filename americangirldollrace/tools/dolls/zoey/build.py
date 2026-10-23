@@ -55,12 +55,11 @@ def pack(im, spec, desired, contact=None):
     # Explicit anatomical source scales are retained; packing reductions are
     # recorded and restored by runtime calibration, never hidden fit-to-cell.
     if contact:
-        anchor, target = contact, [300, 230]
-        limits = [desired]
-        for i in range(2):
-            if anchor[i] > b[i]: limits.append((target[i] - 6) / (anchor[i] - b[i]))
-            if b[i+2] > anchor[i]: limits.append((412 - target[i]) / (b[i+2] - anchor[i]))
-        factor = min(limits)
+        # Current ledge contract: preserve anatomy and move each measured
+        # contact to the world edge, rather than squeeze into fixed (300,230).
+        factor = desired
+        pivot = (b[0] + b[2])/2
+        anchor, target = [pivot,b[3]], [209,409]
     else:
         factor = min(desired, 400/(b[2]-b[0]), 400/(b[3]-b[1]))
         pivot = spec['hipX']
@@ -120,7 +119,7 @@ def supplement(kind, groups, common):
                     'anchorX':target[0]+16,'baseline':409,'targetY':409,'offsetX':0,
                     'hand':skin_hand(frame),'wandTip':None}
             if kind=='actions' and n<3:record['wandTip']=star_tip(frame,n)
-            if kind=='ledge':record.update(corner=target)
+            if kind=='ledge':record.update(corner=point(transform,contact))
             frames.append(frame);masks.append(mask);records.append(record)
     sheet=Image.new('RGBA',(1254,418*(len(frames)//3)))
     mask=Image.new('RGB',sheet.size)
@@ -183,6 +182,13 @@ def main():
     assignment(path,'RIDE_TOY_FRAMES',toyregistry)
     acts=read_assignment(path,'ACTION_FRAMES',{});acts['zoey']=act['frames'];assignment(path,'ACTION_FRAMES',acts)
     ledges=read_assignment(path,'LEDGE_FRAMES',{});ledges['zoey']=ledge['frames'];assignment(path,'LEDGE_FRAMES',ledges)
+    contacts=read_assignment(path,'LEDGE_ANCHORS',{});contacts['zoey']=[f['corner'] for f in ledge['frames']]
+    assignment(path,'LEDGE_ANCHORS',contacts)
+    anchor_path=G/'assets/doll_ledge_anchors.json'
+    anchors_data=json.loads(anchor_path.read_text())
+    anchors_data['dolls']['zoey']=[{'ledgeContact':f['corner'],'sourceScale':f['packedScale'],
+                                  'bounds':f['bounds']} for f in ledge['frames']]
+    anchor_path.write_text(json.dumps(anchors_data,indent=2)+'\n')
     # Measured broom grip per idle/run frame, plus exported semantic anchors.
     sheet=Image.open(G/'assets/doll_zoey_sprites.webp').convert('RGBA')
     anchors={};grips=[[],[]]

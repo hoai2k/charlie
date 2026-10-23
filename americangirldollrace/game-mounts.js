@@ -71,6 +71,11 @@ function chooseHorseType() {
   if (!getTrackTheme().unlocksWizardMounts && !areWizardMountsUnlocked()) {
     for (const type of WIZARD_MOUNTS) delete odds[type];
   }
+  // Mounts this track hands out only once they've been found elsewhere
+  // today (fairy wings on the Fairy board, after Fairy Woods).
+  for (const [type, chance] of Object.entries(getTrackTheme().foundMountOdds || {})) {
+    if (isMountFoundToday(type)) odds[type] = chance;
+  }
   // Everyone already rides a horse there, so the pickup is always a special mount.
   const total = isAlwaysMountedTrack() ? Object.values(odds).reduce((sum, chance) => sum + chance, 0) : 1;
   let roll = Math.random() * total;
@@ -86,6 +91,33 @@ function chooseHorseType() {
 }
 
 const WIZARD_MOUNTS = ["griffon", "broom"];
+
+// A mount found today (tracks.js findsMounts: fairy wings put on in Fairy
+// Woods), so tracks with it in foundMountOdds hand it out too, for the rest
+// of the day (the device's local date).
+const MOUNT_FOUND_KEY = "agdr.mountFoundOn.";
+const mountsFoundOn = {};
+
+function isMountFoundToday(type) {
+  if (!(type in mountsFoundOn)) {
+    try {
+      mountsFoundOn[type] = localStorage.getItem(MOUNT_FOUND_KEY + type) || "";
+    } catch (error) {
+      mountsFoundOn[type] = "";
+    }
+  }
+  return mountsFoundOn[type] === localDateKey();
+}
+
+function noteMountFound(type) {
+  if (!(getTrackTheme().findsMounts || []).includes(type) || isMountFoundToday(type)) return;
+  mountsFoundOn[type] = localDateKey();
+  try {
+    localStorage.setItem(MOUNT_FOUND_KEY + type, mountsFoundOn[type]);
+  } catch (error) {
+    // Private browsing: found for this visit only.
+  }
+}
 
 // The unlock lasts for the rest of the day it was earned (the device's local
 // date); the next day they have to finish a Wizard School race again.
@@ -378,6 +410,8 @@ function drawBroomProp(x, y, width, angle, facing, alpha = 1) {
 // three-quarter) is used once "fairy_wings" is listed in TRACK_SHARED_ART;
 // until then see-through wings are drawn in code.
 const WING_ROOT = [330, 300];
+const WING_SCALE = 0.72; // the wing sheet's cells against her frame
+const WING_FRONT_SCALE = 0.85; // a facing pair spreads both ways, so a little smaller
 const WING_TORSO_HALF = 0.15; // at most this share of her height either side of her middle is torso
 const wingRootCache = new Map();
 
@@ -442,12 +476,22 @@ function wingRoot(image, sx, sy) {
 // seen from the front (a mirrored pair, once that art is in).
 const WING_ROOT_ACROSS = [0.28, 0.4, 0.5];
 
-// Which row of the wing sheet suits her pose: side on (0) while she runs or
-// is knocked about (sprites rows 1 and 3), three-quarter (1) standing,
-// jumping, in her actions poses, and on a troll.
+// How her pose is turned, for the wings: side on (0) while she runs or is
+// knocked about (sprites rows 1 and 3), from the front (2) standing (row 0:
+// a mirrored pair of the single wing), three-quarter (1) jumping, in her
+// actions poses, and on a troll.
 function wingView(wearer, image, sy) {
   if (wearer.sheet !== image) return 1;
-  return [1, 0, 1, 0][Math.round(sy / FRAME)] ?? 1;
+  return [2, 0, 1, 0][Math.round(sy / FRAME)] ?? 1;
+}
+
+// A wing sheet in this track's style (tracks.js wingStyle: Fairy Woods'
+// "twilight" wings, image-requests.md §27 FW2) once that's in, else the
+// pastel wings (FW1).
+function getWingArt(name) {
+  const style = getTrackTheme().wingStyle;
+  const styled = style && getSharedArt(`${name}_${style}`);
+  return styled?.complete && styled.width ? styled : getSharedArt(name);
 }
 
 // (A winged troll, too: he has no horseTimer and never flashes.)
@@ -466,15 +510,27 @@ function drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX) {
   if (flashing) return;
   const rootX = screenX + (x + rx * k - screenX) * facing;
   const rootY = y + ry * k;
-  const sheet = getSharedArt("fairy_wings");
+  const sheet = getWingArt("fairy_wings");
   ctx.save();
   ctx.translate(rootX, rootY);
   ctx.scale(facing < 0 ? -1 : 1, 1);
-  if (sheet?.complete && sheet.width) {
+  const view = wingView(racer, image, sy);
+  const single = view === 2 ? getWingArt("fairy_wing_single") : null;
+  const index = flying ? 2 + Math.floor(t * 18) % 4 : Math.floor(t * 5) % 2;
+  if (single?.complete && single.width) {
+    // Facing us: one wing out to each side of her spine.
+    const cell = single.width / 6;
+    const size = cell * k * WING_SCALE * WING_FRONT_SCALE;
+    for (const side of [1, -1]) {
+      ctx.save();
+      ctx.scale(side, 1);
+      ctx.drawImage(single, index * cell, 0, cell, cell, -WING_ROOT[0] / cell * size, -WING_ROOT[1] / cell * size, size, size);
+      ctx.restore();
+    }
+  } else if (sheet?.complete && sheet.width) {
     const cell = sheet.width / 6;
-    const index = flying ? 2 + Math.floor(t * 18) % 4 : Math.floor(t * 5) % 2;
-    const row = Math.min(wingView(racer, image, sy), Math.round(sheet.height / cell) - 1);
-    const size = cell * k * 0.72;
+    const row = Math.min(view, 1, Math.round(sheet.height / cell) - 1);
+    const size = cell * k * WING_SCALE;
     ctx.drawImage(sheet, index * cell, row * cell, cell, cell, -WING_ROOT[0] / cell * size, -WING_ROOT[1] / cell * size, size, size);
   } else {
     // Flying, a full beat; otherwise a gentle flutter.
@@ -515,7 +571,7 @@ function drawWingStandIn(k, angle, shade, size) {
 function drawWingsPickup(x, y, t) {
   ctx.save();
   ctx.translate(x - 26, y);
-  const sheet = getSharedArt("fairy_wings");
+  const sheet = getWingArt("fairy_wings");
   if (sheet?.complete && sheet.width) {
     const cell = sheet.width / 6;
     ctx.drawImage(sheet, (Math.floor(t * 1.6) % 2) * cell, 0, cell, cell, -WING_ROOT[0] / cell * 120, -WING_ROOT[1] / cell * 120 + 30, 120, 120);

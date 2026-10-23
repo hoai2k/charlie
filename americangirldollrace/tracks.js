@@ -93,7 +93,10 @@
 // but are worn: drawn on her back over her own poses (game-mounts.js
 // drawFairyWings), fluttering on the ground and beating in flight. She can
 // push in the air in them. `wingedMonsters`: the share of trolls there that
-// wear wings too and fly up after anyone in the air.
+// wear wings too and fly up after anyone in the air. `findsMounts`: mounts
+// that, once put on there, other tracks hand out for the rest of the day at
+// their `foundMountOdds` (the Fairy board's wings). `wingStyle`: the
+// track's own wing sheets, `<name>_<style>` in TRACK_SHARED_ART.
 // noPowerups: power-up kinds this track never hands out (the Toy Room has no
 // EMP, since its wind-up cars do much the same).
 // itemEffects: a speed or high-jump pickup that does its own thing instead:
@@ -107,7 +110,7 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs)
 // and "frog" (§10).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "rooster_crow", "crow", "moon_boot", "fairy_wings", "fairy_wing_single", "troll_flying"];
 window.TRACK_GENERAL_MUSIC = ["assets/music/Plastic Shoes.mp3", "assets/music/Bubblegum Radar.mp3"];
 window.TRACK_THEMES = {
   farm: {
@@ -123,9 +126,8 @@ window.TRACK_THEMES = {
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "TOADSTOOL", boost: "FAIRY DUST", emp: "WAND ZAP", oil: "HONEY", snowball: "BUBBLES" },
     sounds: { emp: "pickup_wand_zap" },
-    wingedMonsters: 0.5,
-    baseMount: "wings", // fairy wings instead of the plain horse
-    mountOdds: { unicorn: 0.15, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
+    mountOdds: { unicorn: 0.2, pegasus: 0.2, griffon: 0.05, broom: 0.05 },
+    foundMountOdds: { wings: 0.25 } // once fairy wings are found in Fairy Woods today
   },
   town: {
     empStyle: "bell",
@@ -238,9 +240,13 @@ window.TRACK_THEMES = {
   // Twilight woodland track with its own looped art and song.
   woods: {
     empStyle: "acorns",
-    name: "Fairy Woods", music: "assets/music/Fairies in the Woods.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
+    name: "Fairy Woods", music: "assets/music/Forest Fairy Spin.mp3", dirtTop: 480, loopMode: "repeat", art: ["background", "card", "hurdle", "powerups", "projectile"],
     labels: { jump: "MUSHROOM", boost: "FIREFLIES", emp: "ACORN TOSS", oil: "MOSSY BOG", snowball: "ACORNS" },
     sounds: { emp: "pickup_acorn_bell" },
+    wingedMonsters: 0.5,
+    baseMount: "wings", // fairy wings instead of the plain horse
+    findsMounts: ["wings"], // putting them on here lets the Fairy board hand them out today
+    wingStyle: "twilight", // its own glowing wings (FW2) once they're in
     mountOdds: { unicorn: 0.2, pegasus: 0.15, griffon: 0.05, broom: 0.05 }
   },
   festival: {

@@ -834,9 +834,8 @@ function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
 // w wide. Each boot's foot is centred on the foot's middle (feet.js cy) and
 // turned to it, so it covers the foot whatever its angle.
 function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
-  const feet = window.DOLL_FEET?.[dollAssetKey(racer.spriteKey)];
-  const frame = feet?.[kind]?.[index];
-  if (!frame) return;
+  const boots = moonBootPlacements(dollAssetKey(racer.spriteKey), kind, index);
+  if (!boots.length) return;
   const scale = w / FRAME;
   const art = getSharedArt("moon_boot");
   ctx.save();
@@ -845,28 +844,49 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
     ctx.scale(-1, 1);
     ctx.translate(-screenX, 0);
   }
-  for (const foot of frame) { // (feet.js also gives the turn in degrees)
-    const [fx, fy, size, angle, view, , cy] = foot;
-    const bootW = clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW * scale;
-    const look = art && art.width >= art.height * 7 ? moonBootView(kind, index, foot, frame) : { cell: [0, 1, 2][view === "side" ? 0 : view === "three" ? 1 : 2], tilt: 0 };
-    const k = bootW / MOON_BOOT_CELL_WIDTHS[look.cell];
+  for (const boot of boots) {
+    const bootW = boot.width * scale;
+    const k = bootW / MOON_BOOT_CELL_WIDTHS[boot.cell];
     ctx.save();
-    // Centred on the middle of her foot (older data: on the sole).
-    ctx.translate(x + fx * scale, y + (cy ?? fy) * scale);
-    if (view !== "front" && look.cell !== 4) ctx.rotate(angle * (view === "side" ? 1 : 0.6) - look.tilt);
-    if (look.mirror) ctx.scale(-1, 1);
+    ctx.translate(x + boot.x * scale, y + boot.y * scale);
+    ctx.rotate(boot.angle);
+    if (boot.mirror) ctx.scale(-1, 1);
     // The boot's own foot middle, in its cell (sole at y 244), goes there.
-    const footMid = cy === undefined ? 0 : MOON_BOOT_FOOT_MID * k;
-    ctx.translate(0, footMid);
+    ctx.translate(0, MOON_BOOT_FOOT_MID * k);
     if (art) {
       const size = art.height;
-      ctx.drawImage(art, look.cell * size, 0, size, size, -128 * k, -244 * k, size * k, size * k);
+      ctx.drawImage(art, boot.cell * size, 0, size, size, -128 * k, -244 * k, size * k, size * k);
     } else {
-      drawMoonBootStandIn(bootW, view);
+      drawMoonBootStandIn(bootW, MOON_BOOT_CELL_VIEWS[boot.cell]);
     }
     ctx.restore();
   }
   ctx.restore();
+}
+
+// Where each moon boot goes on frame `index` of a doll's `kind` sheet
+// (frame px, facing right): { cell, x, y, angle, width, mirror }, with (x, y)
+// the middle of the foot it covers (the boot turns about it), its angle in
+// radians, and its width in frame px. From MOON_BOOT_OVERRIDES where the
+// owner set it by hand (the workbench's verification queue), else worked
+// out from the measured feet (feet.js).
+function moonBootPlacements(assetKey, kind, index) {
+  const set = window.MOON_BOOT_OVERRIDES?.[`${assetKey}/${kind}/${index}`];
+  if (set) return set;
+  const frame = window.DOLL_FEET?.[assetKey]?.[kind]?.[index];
+  if (!frame) return [];
+  return frame.map(foot => {
+    const [fx, fy, size, angle, view, , cy] = foot; // (feet.js also gives the turn in degrees)
+    const look = moonBootView(kind, index, foot, frame);
+    return {
+      cell: look.cell,
+      x: fx,
+      y: cy ?? fy,
+      angle: view !== "front" && look.cell !== 4 ? angle * (view === "side" ? 1 : 0.6) - look.tilt : 0,
+      width: clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW,
+      mirror: Boolean(look.mirror)
+    };
+  });
 }
 
 // The boot sheet's cells (image-requests.md §23 MB1, §26 MB2): side, three-
@@ -874,6 +894,7 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
 // left), with how wide each boot is in its cell, so every view covers the
 // foot alike.
 const MOON_BOOT_CELL_WIDTHS = [150, 130, 110, 150, 92, 120, 150];
+const MOON_BOOT_CELL_VIEWS = ["side", "three", "front", "side", "front", "side", "side"]; // for the code-drawn stand-in
 
 // Which boot view suits this foot: a foot kicked up behind her mid-stride
 // shows the back of the boot; one pointing well down, the pointed toe;

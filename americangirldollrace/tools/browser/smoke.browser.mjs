@@ -599,6 +599,13 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   await bench.waitForFunction(() => document.querySelectorAll('#mounts .tile').length > 0, null, { timeout: 30000 });
   const frame = bench.frames().find(f => f.url().includes('index.html'));
   assert.equal(await frame.evaluate(() => getComputedStyle(document.querySelector('#startPanel')).display), 'none', 'no title screen in the workbench');
+  // The verification queue opens in the viewer's place with the moon-boot poses to check.
+  await bench.waitForFunction(() => !document.querySelector('#verifyOpen').disabled, null, { timeout: 30000 });
+  await bench.click('#verifyOpen');
+  const queue = await bench.evaluate(() => ({ open: document.body.classList.contains('verifying'), items: verify.items.length, first: verify.items[0]?.id, boots: verify.boots.length }));
+  assert.ok(queue.open && queue.items > 50 && queue.first === 'barbie/sprites/0' && queue.boots === 2, JSON.stringify(queue));
+  await bench.evaluate(() => localStorage.removeItem('agdr.verify.moonBoots'));
+  await bench.click('#vClose');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
     Bench.setup('festival');
@@ -850,16 +857,16 @@ test('Cloud Kingdom: riders fall through gaps too, but a pegasus rider can fly b
 });
 
 test('Fairy Woods: fairy wings are worn over her own poses and fly like a broom', { skip: skip() }, async () => {
-  await onTrack('fairy');
+  await onTrack('woods');
   const r = await page.evaluate(() => {
     const [a, b] = state.racers; state.obstacles = []; state.monsters = []; b.x = 1000;
     Object.assign(a, { x: 3000, y: PATH_TOP + 90, z: 0, vy: 0, horseType: 'wings', horseTimer: 30, facing: 1 });
     const drawn = () => {
       let wings = 0, sheet = false, horse = false;
-      const original = window.drawWingStandIn, art = getSharedArt('fairy_wings'), draw = ctx.drawImage.bind(ctx);
+      const original = window.drawWingStandIn, arts = [getSharedArt('fairy_wings'), getSharedArt('fairy_wing_single')], draw = ctx.drawImage.bind(ctx);
       window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
       ctx.drawImage = (...args) => {
-        if (art && args[0] === art) wings += 2;
+        if (arts.includes(args[0])) wings += 2;
         if (args[0] === a.sheet) sheet = true;
         if (args[0] === images.horse) horse = true;
         return draw(...args);
@@ -900,7 +907,7 @@ test('the storm troll aims his lightning at fliers and knocks them off their mou
 });
 
 test('Fairy Woods: fliers in wings push each other in the air, and a winged troll flies up to grab them', { skip: skip() }, async () => {
-  await onTrack('fairy');
+  await onTrack('woods');
   const r = await page.evaluate(() => {
     const [a, b] = state.racers; state.obstacles = []; state.monsters = []; state.powerups = [];
     const reset = (racer, x, z, wings) => Object.assign(racer, { x, y: PATH_TOP + 90, z, vy: 0, horseType: 'wings', horseTimer: wings ? 30 : 0, fallBackTimer: 0, pushTimer: 0, pushCooldown: 0, grabbedBy: null, facing: 1 });
@@ -966,4 +973,25 @@ test('Cloud Kingdom: no shadows or oil; off the cloud once her middle passes its
       noShadow: shadowAlpha === 0, noOil: !trackPowerupTypes(POWERUP_TYPES).includes('oil') };
   });
   assert.deepEqual(r, { on: true, off: true, caught: true, phases: 'hang,climb,top', climbed: true, deep: true, neck: true, slow: true, rising: true, noShadow: true, noOil: true });
+});
+
+test('fairy wings turn up on the Fairy board only once found in Fairy Woods that day', { skip: skip() }, async () => {
+  await onTrack('fairy');
+  const before = await page.evaluate(() => {
+    localStorage.removeItem('agdr.mountFoundOn.wings'); delete mountsFoundOn.wings;
+    let wings = 0; for (let i = 0; i < 400; i++) wings += chooseHorseType() === 'wings';
+    noteMountFound('wings'); // putting them on here doesn't count
+    return { wings, found: isMountFoundToday('wings') };
+  });
+  await onTrack('woods');
+  await page.evaluate(() => noteMountFound('wings'));
+  await onTrack('fairy');
+  const after = await page.evaluate(() => {
+    let wings = 0; for (let i = 0; i < 400; i++) wings += chooseHorseType() === 'wings';
+    const stored = localStorage.getItem('agdr.mountFoundOn.wings') === localDateKey();
+    localStorage.removeItem('agdr.mountFoundOn.wings'); delete mountsFoundOn.wings;
+    return { wings, stored };
+  });
+  assert.deepEqual(before, { wings: 0, found: false });
+  assert.ok(after.wings > 40 && after.stored, JSON.stringify(after));
 });

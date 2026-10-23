@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** §25 SW2 seaweed redo; §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1, MB2 and all three wing views are delivered; gameplay integration remains separate.
+> **Current art queue:** §27 FW2 twilight re-render of the fairy wings (new files beside FW1). SW2, MB2, the first wings, TF1 and all fifteen dolls' ledge sheets are delivered, in the game and checked.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -303,7 +303,7 @@ priority order:
 | T7 | **Cloud Kingdom** (`clouds`) | A sky kingdom: cloud castles, rainbows and hot-air balloons, with a puffy cloud bank along the back; a firm pastel cloud path. | Cloud puff wall with a rainbow arch | cloud puff spring · rainbow · thunderclap cloud · rain puddle · hailstone pile | hailstone |
 | T8 | **Moon Base** (`space`) | Moon surface with Earth in a starry sky, domes and a parked rocket behind a row of glowing beacons; grey moon-dust path. | Moon-rock wall with a little flag | moon boots · rocket · laser blaster (toy) · glowing space goo · moon-rock pile | moon rock |
 | T9 | **Night Festival** (`festival`) | An evening fair: lanterns, a Ferris wheel, carousel and fireworks behind a string-light rope fence; a warm lantern-lit path. Keep the path bright enough to see the dolls. | Lantern-post rope barrier | trampoline · sparkler · firework burst · fizzy soda puddle · water balloons | water balloon |
-| T10 | **Fairy Woods** (`woods`) | A deep, mossy fairy forest at twilight: giant old trees with fairy doors, glowing toadstools, fireflies, ferns and a babbling brook, behind a fence of twisted branches and roots; a soft, mossy dirt path. Its song is "Fairies in the Woods". | A fallen log with mushrooms and moss | giant bouncy mushroom · swirl of fireflies · acorn bell · mossy bog puddle · pile of acorns | acorn |
+| T10 | **Fairy Woods** (`woods`) | A deep, mossy fairy forest at twilight: giant old trees with fairy doors, glowing toadstools, fireflies, ferns and a babbling brook, behind a fence of twisted branches and roots; a soft, mossy dirt path. Its song is "Forest Fairy Spin". | A fallen log with mushrooms and moss | giant bouncy mushroom · swirl of fireflies · acorn bell · mossy bog puddle · pile of acorns | acorn |
 
 ### 5.6 New mounts (later, optional)
 
@@ -1033,15 +1033,21 @@ Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
 seaweed patch lying on the sand at its in-game size, and a doll slides on
 it as before.
 
-**Open: SW2 redo (checked in game).** SW1 is lovely close up, but at its
+**SW2 art delivered (integration separate).** SW1 is lovely close up, but at its
 in-game size (about 55 px across) the tall, bushy tangle reads as a little
 dark shrub sitting on the sand, not something slippery lying flat.
+
+**SW2 checked in game:** at race size it reads as flat kelp ribbons in a shiny pool, a wet slippery spill. Accepted.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
 | SW2 | `assets/tracks/beach/powerups.webp` | cell 3 only (x 768–1023) | The same slippery seaweed, redrawn **flat and wide**: a low, spread-out mat of glossy green and olive kelp ribbons lying flat on the sand, much wider than tall (filling most of the cell's width, like the other tracks' puddles), with few bladders and no height or bushy clumps, sitting in a **bright, shiny pool of seawater** that shows round its edges with white glints, so even small it reads as a wet, slippery spill. Lighter, brighter greens than SW1, so it stands out against the sand. Keep the other four cells pixel-identical and bump the beach track's `powerupArtVersion` in `tracks.js`. |
 
 Acceptance as SW1, judged at the size it's drawn in a race.
+
+SW2 sources, exact built-in prompt, decoded-cell checks and55px review:
+`tools/tracks/beach-seaweed-v2/`. Other atlas cells remain unchanged.
+Per owner, the gameplay agent handles the Beach cache-version bump.
 
 ## 26. Art delivered: more moon boot angles
 
@@ -1116,7 +1122,25 @@ joints. Source, built-in prompts, rebuild and all-doll review:
 `tools/mounts/fairy-wings/`. Owner requests art-only delivery; the gameplay
 agent handles registration, view selection and live acceptance.
 
-## 28. Open: flying troll
+**In the game and checked (FW1):** listed in `TRACK_SHARED_ART`; the side row for running and knocked-about poses, three-quarter for jumping, actions poses and trolls, and the single wing as a mirrored pair (85% size) for standing poses facing us, rooted on the measured middle of her back. Placement checked on six dolls in every pose and flying. FW1 stays as the pastel wings for the bright Fairy board (where wings turn up once they've been found in Fairy Woods that day); FW2 above is Fairy Woods' own.
+
+**Open: FW2 twilight re-render (checked in game on Fairy Woods).** The
+wings belong to **Fairy Woods** (`woods`), a dusky twilight woodland lit by
+warm lanterns, glowing purple and pink toadstools and fireflies. Against
+it FW1's pale, cool, very see-through pastels wash out; on a small doll at
+race size they nearly vanish. The shapes, layout and wingbeat are right.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| FW2 | **new files** `assets/fairy_wings_twilight_sprites.webp` and `assets/fairy_wing_single_twilight_sprites.webp` (keep FW1's files as they are: the bright Fairy board keeps the pastel wings) | as FW1 (3072×1024 two rows, and 3072×512) | The same wings, cell for cell (same shapes, spread in each of the six phases, views and root (330, 300)), repainted for a twilight fairy wood: **luminous**, as if lit from within like the board's glowing toadstools: richer violet, magenta and teal, a soft glowing rim and glowing veins, a faint warm-gold shimmer near the root, and more opaque (about 75%, so they hold their colour against dark foliage), with the background still faintly showing through the membranes. No sparkles floating off them, no halo beyond the wing edge. |
+
+Acceptance: on Fairy Woods at race size, the wings read clearly on every
+doll (dark-haired ones included) and on the winged trolls, and look like
+they belong with the glowing toadstools and fireflies. List both as
+`"fairy_wings_twilight"` and `"fairy_wing_single_twilight"` in
+`TRACK_SHARED_ART`; the game then uses them on Fairy Woods.
+
+## 28. Art delivered: flying troll
 
 Half of Fairy Woods' trolls wear fairy wings and fly up after girls in the
 air. Today they fly in their walking poses; give the troll real flying
@@ -1148,7 +1172,13 @@ remain decoded-RGBA pixel-identical. Added back-quarter, grey tread sole,
 extended pointed toe and inside-left views with sole/heel anchors128,244.
 Source, prompts and export report: `tools/effects/boot-angles/`.
 
-## 29. Open: cloud ledge grab (every doll)
+TF1 art delivered: `tools/effects/flying-troll/` contains source, prompts,
+scale/hip calibration and native-size comparison. No wings or ground shadow
+are baked in. Per owner, the gameplay agent handles registration and use.
+
+**In the game and checked:** listed in `TRACK_SHARED_ART`; a winged troll swoops (cells 1–2) after a flier and hovers (cell 3) once he's level with her, wings on his back. About the size of the walking troll, which reads right next to him and the dolls.
+
+## 29. Delivered: cloud ledge grab (every doll)
 
 On Cloud Kingdom a girl who falls into a gap can press towards the cloud
 to catch its edge and climb back up. She catches it like hugging a big
@@ -1177,3 +1207,20 @@ it: she catches the edge in the hug hold, with her arms on the cloud top
 and the rest of her hanging in the gap, then climbs up (cell 2) and is back
 on top (cell 3) before she stands, for every doll and outfit.
 
+
+LG1/LG2 first art batch delivered: Hermione, Mira, Claudia-v2, Amanda and
+Penelope. Per-pose contact anchors, source art, exact built-in prompts and
+mask/identity reviews are under `tools/dolls/ledge/`; gameplay integration
+and registration remain with the other agent per owner.
+
+LG1/LG2 second art batch delivered: Barbie, Cinnamon, Felicity, Luna and
+Marisol-v2. Corrected Cinnamon/Felicity/Marisol have no glasses; Luna keeps
+her canonical pink glasses. All five include masks and contact anchors.
+
+LG1/LG2 final art batch delivered: Lily, Whirlpool, Kaya, Rumi-v2 and
+Juliette. All15 dolls now have all three poses, matching outfit masks and
+per-pose contact anchors. No cloud is baked into the sprites. Juliette
+retains her moon purse; hair/skin/accessories are protected in the masks.
+Gameplay registration and live acceptance are left to the integration agent.
+
+**In the game and checked (all fifteen dolls):** `LEDGE_SHEETS`, `LEDGE_ART_VERSION` and `LEDGE_ANCHORS` (from the anchors JSON) in `doll-art.js`, outfits through `DollOutfits` ("ledge"). The hug hold, climb and kneel sit on the cloud edge.

@@ -1,0 +1,80 @@
+{
+  "assetKey": "marisol-v2",
+  "size": [
+    1254,
+    418
+  ],
+  "frames": [
+    {
+      "ledgeContact": [
+        287,
+        190
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        45,
+        51,
+        372,
+        367
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        599,
+        580
+      ],
+      "placement": [
+        45,
+        51
+      ]
+    },
+    {
+      "ledgeContact": [
+        235,
+        260
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        87,
+        53,
+        330,
+        364
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        446,
+        571
+      ],
+      "placement": [
+        87,
+        53
+      ]
+    },
+    {
+      "ledgeContact": [
+        119,
+        357
+      ],
+      "sourceScale": 0.55,
+      "bounds": [
+        103,
+        59,
+        314,
+        358
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        389,
+        549
+      ],
+      "placement": [
+        103,
+        59
+      ]
+    }
+  ],
+  "sha256": "7f037b989f7d73665a7207602ea89cb0fe5eb688a29988cc55637b0f87f98319",
+  "maskSha256": "ec7c5eed098e5ed495a71b234c30753223ec80b4ced652439eed1307a114e68f"
+}

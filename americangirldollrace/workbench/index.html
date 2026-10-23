@@ -36,6 +36,27 @@
   .note { color: var(--muted); font-size: 12px; margin: 4px 0; }
   .note b { color: var(--text); }
   #shield { position: absolute; inset: 0; display: none; cursor: grabbing; }
+  .below { display: flex; gap: 8px; align-items: center; padding: 6px 10px; border-top: 1px solid var(--edge); }
+  button.big { font: inherit; font-weight: 600; background: var(--accent); color: #2a2100; border: 0; border-radius: 8px; padding: 6px 14px; cursor: pointer; }
+  button.big:disabled { opacity: 0.5; cursor: default; }
+  /* The verification queue takes the viewer's place. */
+  #verify { flex: 1; display: none; min-height: 0; flex-direction: column; background: #262236; }
+  body.verifying #verify { display: flex; }
+  body.verifying #game, body.verifying .help, body.verifying .below { display: none; }
+  #verify .bar { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; padding: 8px 10px; border-bottom: 1px solid var(--edge); }
+  #verify .bar .title { font-weight: 700; margin-right: 6px; }
+  #verify .bar .spacer { flex: 1; }
+  #verify .work { flex: 1; display: flex; min-height: 0; }
+  #verify .stage { flex: 1; position: relative; min-width: 0; }
+  #verify canvas.view { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: default; }
+  #verify .tools { width: 200px; padding: 10px; border-left: 1px solid var(--edge); overflow-y: auto; }
+  #verify .tools .views { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  #verify .tools .views button { padding: 2px; border: 2px solid var(--edge); border-radius: 8px; background: #1d1a2b; cursor: pointer; }
+  #verify .tools .views button.on { border-color: var(--accent); }
+  #verify .tools .views canvas { width: 100%; display: block; }
+  #verify .tools button.plain { width: 100%; margin: 3px 0; }
+  #verify .status { font-size: 12px; color: var(--muted); }
+  #verify .status b { color: var(--accent); }
   #ghost { position: fixed; pointer-events: none; width: 72px; height: 72px; display: none; transform: translate(-50%, -80%); z-index: 9; }
   body.removing #ghost, body.removing iframe { opacity: 0.55; }
 </style>
@@ -55,6 +76,40 @@
     <b>R</b> / Y a troll's own move (the cloud troll's lightning) · controller works too.
     Click the scene to give it the keys.
   </div>
+  <div class="below">
+    <button class="big" id="verifyOpen" disabled>Verification Queue</button>
+    <span class="note">Check poses one by one, fix what's off, then Export a file to send back.</span>
+  </div>
+  <section id="verify">
+    <div class="bar">
+      <span class="title">Verification queue · Moon boots</span>
+      <select id="vJump"></select>
+      <button class="plain" id="vPrev">◀ Prev</button>
+      <button class="big" id="vOk">✓ Looks right</button>
+      <button class="plain" id="vNext">Next ▶</button>
+      <span class="spacer"></span>
+      <span class="status" id="vStatus"></span>
+      <button class="big" id="vExport">Export</button>
+      <button class="plain" id="vClose">Back to the race</button>
+    </div>
+    <div class="work">
+      <div class="stage"><canvas class="view" id="vCanvas"></canvas></div>
+      <div class="tools">
+        <h2>Selected boot</h2>
+        <p class="note" id="vHint">Click a boot to pick it. Drag it to move it; drag the ring's handle to turn it.</p>
+        <div class="views" id="vViews"></div>
+        <button class="plain" id="vMirror">Mirror ⇆</button>
+        <div class="row"><button class="plain" id="vSmaller" style="width:48%">Smaller −</button><button class="plain" id="vBigger" style="width:48%">Bigger +</button></div>
+        <button class="plain" id="vDelete">Remove this boot</button>
+        <h2>This pose</h2>
+        <button class="plain" id="vAdd">Add a boot</button>
+        <button class="plain" id="vReset">Undo my changes</button>
+        <label class="note"><input type="checkbox" id="vSeeThrough"> See-through boots</label><br>
+        <label class="note"><input type="checkbox" id="vZoom" checked> Zoom on the feet</label>
+        <p class="note">Keys: ←/→ prev/next, Enter = looks right, Delete removes the boot, [ and ] turn it, −/+ size.</p>
+      </div>
+    </div>
+  </section>
 </main>
 <aside class="right">
   <h2>Track</h2>
@@ -75,5 +130,6 @@
 </aside>
 <canvas id="ghost" width="112" height="112"></canvas>
 <script src="workbench.js"></script>
+<script src="verify.js"></script>
 </body>
 </html>

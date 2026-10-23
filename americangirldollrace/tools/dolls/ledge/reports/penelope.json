@@ -1,0 +1,80 @@
+{
+  "assetKey": "penelope",
+  "size": [
+    1254,
+    418
+  ],
+  "frames": [
+    {
+      "ledgeContact": [
+        280,
+        189
+      ],
+      "sourceScale": 0.54,
+      "bounds": [
+        59,
+        57,
+        358,
+        361
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        559,
+        568
+      ],
+      "placement": [
+        59,
+        57
+      ]
+    },
+    {
+      "ledgeContact": [
+        238,
+        234
+      ],
+      "sourceScale": 0.54,
+      "bounds": [
+        76,
+        31,
+        342,
+        387
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        498,
+        664
+      ],
+      "placement": [
+        76,
+        31
+      ]
+    },
+    {
+      "ledgeContact": [
+        110,
+        354
+      ],
+      "sourceScale": 0.54,
+      "bounds": [
+        112,
+        63,
+        305,
+        355
+      ],
+      "sourceBounds": [
+        5,
+        5,
+        363,
+        546
+      ],
+      "placement": [
+        112,
+        63
+      ]
+    }
+  ],
+  "sha256": "3a22749099b0116c1beecdeb0bb373a0fe15ed42acbb2a1832bca4d01d74712b",
+  "maskSha256": "868f128f73e7a2243b9893bccec790995beaf19962f4c24c8c8ac473e5adc9e3"
+}

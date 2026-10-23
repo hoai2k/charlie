@@ -18,7 +18,7 @@
     ride: key => `assets/portraits/${assetKey(key)}_ride.webp`,
     toys: key => `assets/doll_${assetKey(key)}_toys.webp?v=${window.RIDE_TOY_ART_VERSION || "1"}`,
     actions: key => `assets/doll_${assetKey(key)}_actions.webp?v=${window.ACTION_ART_VERSION || "1"}`,
-    ledge: key => `assets/doll_${assetKey(key)}_ledge.webp?v=${window.GAME_CONFIG?.dollArtVersion || "1"}`
+    ledge: key => `assets/doll_${assetKey(key)}_ledge.webp?v=${window.LEDGE_ART_VERSION || "1"}`
   };
 
   let data = null;
@@ -122,7 +122,7 @@
       const source = await loadImage(KINDS[kind](key));
       if (!n || !colorOf(key, n) || !window.DollRecolor) return source;
       try {
-        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=${kind === "toys" ? window.RIDE_TOY_ART_VERSION || "1" : kind === "actions" ? window.ACTION_ART_VERSION || "1" : window.GAME_CONFIG?.dollArtVersion || "20261002k"}`);
+        const maskImage = await loadImage(`assets/masks/${assetKey(key)}_${kind}_mask.webp?v=${kind === "toys" ? window.RIDE_TOY_ART_VERSION || "1" : kind === "actions" ? window.ACTION_ART_VERSION || "1" : kind === "ledge" ? window.LEDGE_ART_VERSION || "1" : window.GAME_CONFIG?.dollArtVersion || "20261002k"}`);
         entry.canvas = recolor(key, kind, n, source, maskImage);
         return entry.canvas;
       } catch (error) {

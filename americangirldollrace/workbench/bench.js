@@ -434,6 +434,8 @@
   // top-level consts aren't properties of window).
   window.Bench = {
     setup, whenReady, setPlayer, addTarget, addTargetAt, dropAt, screenToWorld, pickAt, moveTo, remove, clearTargets, drop, setHurdles, monsterImage, MOUNT_TYPES,
-    characters, images, BACKGROUNDS, FRAME, POWERUP_ICON_RECTS, TRACK_POWERUP_CELL
+    characters, images, BACKGROUNDS, FRAME, POWERUP_ICON_RECTS, TRACK_POWERUP_CELL,
+    // For the verification queue (verify.js): how the moon boots are drawn.
+    moonBoots: { cellWidths: MOON_BOOT_CELL_WIDTHS, footMid: MOON_BOOT_FOOT_MID, placements: moonBootPlacements }
   };
 })();

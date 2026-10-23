@@ -6,7 +6,8 @@
     "Rider redrawn facing forward right after user correction.",
     "Ledge hang, pull-up and kneeling recovery included.",
     "Alternate outfit mask changes teal top only.",
-    "All prompts retained; source anatomy ratios and attachment calibration recorded in builder and reports."
+    "All prompts retained; source anatomy ratios and attachment calibration recorded in builder and reports.",
+    "Integrated concurrent shared ledge implementation; contacts use LEDGE_ANCHORS and assets/doll_ledge_anchors.json, preserving one anatomical scale across all three poses."
   ],
   "prompts": "zoey/prompts.json",
   "builder": "zoey/build.py",
