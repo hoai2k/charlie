@@ -16,7 +16,8 @@ function monsterDef() {
 }
 
 function monsterSheetUrl(key) {
-  return window.MONSTERS?.[key]?.sheet || `assets/${key}_sprites.webp`;
+  const url = window.MONSTERS?.[key]?.sheet || `assets/${key}_sprites.webp`;
+  return `${url}?v=${window.MONSTER_SHEET_VERSION || "1"}`;
 }
 
 function getMonsterImage() {
@@ -159,7 +160,7 @@ function updateDefeatedSparks(monster, dt) {
   if (monster.sparkTimer > 0) return;
   const big = Math.random() < 0.18;
   monster.sparkTimer = big ? 0.5 + Math.random() * 0.6 : 0.08 + Math.random() * 0.18;
-  const scale = monsterScale(monster) * monsterRowScale(3);
+  const scale = monsterScale(monster) * monsterRowScale(3, 2);
   // somewhere along the body lying on the ground
   const x = monster.x + (Math.random() - 0.5) * 150 * scale;
   const groundY = monster.y + 54;
@@ -219,6 +220,7 @@ function updateMonsters(dt) {
 
     if (monster.state === "sleeping") {
       updateDefeatedSparks(monster, dt);
+      if (monsterDef().particles && !monster.scattered) checkCandyPile(monster);
       continue;
     }
 
@@ -228,7 +230,11 @@ function updateMonsters(dt) {
         if (monster.knockedBacks >= MONSTER_SLEEP_KNOCKBACKS) {
           monster.state = "ground";
           monster.timer = 1;
-          if (monsterDef().particles === "candy_particles") spawnParticles(monster.x, monster.y + 54, 85, 18, {kind: "candy", size: 14, speed: 180, lift: 220, life: 1.5});
+          if (monsterDef().particles === "candy_particles") {
+            spawnParticles(monster.x, monster.y + 54, 85, 18, {kind: "candy", size: 14, speed: 180, lift: 220, life: 1.5});
+            state.racers.forEach(getCheerImage); // ready for whoever reaches the pile
+          }
+          if (monsterDef().defeated === "dissipate") dissipateMonster(monster);
         } else {
           monster.state = monster.active ? "walk" : "idle";
         }
@@ -429,6 +435,38 @@ function monsterDetourY(monster, direction) {
   return detour.y;
 }
 
+// A cloud troll beaten for good puffs apart into drifting wisps as he fades.
+function dissipateMonster(monster) {
+  const scale = monsterScale(monster);
+  sfx("cloud_dissipate", monster.x, { gain: 0.8 });
+  // Little wisps all over where he lay, drifting up and fading.
+  for (let i = 0; i < 18; i += 1) {
+    spawnParticles(monster.x + (Math.random() - 0.5) * 300 * scale, monster.y + 54, 10 + Math.random() * 120 * scale, 1,
+      { kind: "puff", color: i % 3 ? "#d7deeb" : "#aab4c8", speed: 30, lift: 50, gravity: -30, life: 1.1 + Math.random() * 0.6, size: 5 + Math.random() * 5 });
+  }
+}
+
+// Walking into a candy troll's pile scatters the sweets (they fly off and fall
+// away off the screen) and she gives a quick cheer.
+function checkCandyPile(monster) {
+  const racer = state.racers.find(r => !r.finished && !r.grabbedBy && r.z < 40
+    && Math.abs(r.x - monster.x) < CANDY_PILE_REACH_X && Math.abs(r.y - monster.y) < CANDY_PILE_REACH_Y);
+  if (!racer) return;
+  monster.scattered = true;
+  const groundY = monster.y + 54;
+  for (const dir of [-1, 1]) {
+    spawnParticles(monster.x, groundY, 20, 14, { kind: "candy", size: 16, speed: 260, lift: 760, gravity: 1500, life: 2.2, dirX: dir, fallThrough: true });
+  }
+  sfx("candy_celebrate", monster.x);
+  racerVoice(racer, "taunt", { chance: 0.5 });
+  if (!isMounted(racer)) {
+    racer.celebrateTimer = CANDY_CELEBRATE_TIME;
+    racer.z = 0;
+    racer.vy = 0;
+    getCheerImage(racer); // start loading her cheer pose
+  }
+}
+
 function isMonsterVisible(monster) {
   return isWorldXVisibleInAnyView(monster.x);
 }
@@ -501,6 +539,7 @@ function stunMonsterWithEmp(monster) {
 }
 
 function drawMonster(monster) {
+  if (monster.scattered) return; // its candy pile is gone
   const dissipating = monsterDef().defeated === "dissipate";
   if (dissipating && monster.state === "sleeping") return;
   const screenX = monster.x - state.camera;
@@ -508,7 +547,7 @@ function drawMonster(monster) {
   if (screenX < -280 || screenX > viewWidth + 280) return;
   const frame = monsterFrame(monster);
   const attack = monster.state === "lightning" && images.cloudtroll_lightning;
-  const scale = monsterScale(monster) * monsterRowScale(frame.row);
+  const scale = monsterScale(monster) * monsterRowScale(frame.row, frame.col);
   const visualY = monsterDrawY(monster);
   const cellSize = attack ? 512 : FRAME;
   const sx = (attack ? monster.lightningTime < 0.45 ? 0 : monster.lightningTime < 0.65 ? 1 : 2 : frame.col) * cellSize;
@@ -541,6 +580,12 @@ function drawMonster(monster) {
   }
   if (attack) {
     drawFacingImage(attack, sx, sy, 512, 512, screenX - 256 * scale, visualY + 58 - 503 * scale, 512 * scale, 512 * scale, drawFacing, screenX);
+  } else if (dissipating && monster.state === "ground") {
+    // Fading, he swells a little and drifts up, like a cloud breaking apart.
+    const gone = 1 - clamp(monster.timer, 0, 1);
+    const swell = 1 + gone * 0.25;
+    drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * scale * swell, visualY + 58 - SPRITE_ANCHOR_Y * scale * swell - gone * 40 * scale,
+      drawW * swell, drawH * swell, drawFacing, screenX);
   } else drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
   ctx.restore();
 }
@@ -555,7 +600,7 @@ function updateMonsterLightning(monster, dt) {
       y: monster.y, drawY: monster.y + 58 + (280 - 503) * scale,
       vx: monster.facing * 540, life: 1.3
     });
-    sfx("emp_zap", monster.x);
+    sfx("storm_lightning", monster.x, { gain: 0.8 });
   }
   if (monster.lightningTime >= 0.9) monster.state = "walk";
 }
@@ -646,7 +691,7 @@ function drawMountedMonster(monster, horseImage, screenX, visualY, facing) {
 
   const frame = monsterFrame(monster);
   if (unhorsed) {
-    const trollScale = monsterScale(monster) * monsterRowScale(frame.row);
+    const trollScale = monsterScale(monster) * monsterRowScale(frame.row, frame.col);
     drawFacingImage(getMonsterImage(), frame.col * FRAME, frame.row * FRAME, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * trollScale, visualY + 58 - SPRITE_ANCHOR_Y * trollScale, FRAME * trollScale, FRAME * trollScale, facing, screenX);
     return;
   }
@@ -678,8 +723,9 @@ function monsterScale(monster) {
 
 // A sheet's own correction for one sprite row painted at a different size
 // from the rest (monsters.js rowScale), drawn around the feet.
-function monsterRowScale(row) {
-  return monsterDef().rowScale?.[row] || 1;
+function monsterRowScale(row, col = 0) {
+  const scale = monsterDef().rowScale?.[row];
+  return (Array.isArray(scale) ? scale[col] : scale) || 1;
 }
 
 function monsterDrawY(monster) {

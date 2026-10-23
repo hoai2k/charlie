@@ -10,14 +10,14 @@
   ],
   "frames": [
     [
-      92,
+      93,
       66,
-      324,
+      325,
       409
     ],
     [
       94,
-      65,
+      66,
       324,
       409
     ],
@@ -36,35 +36,35 @@
     [
       98,
       65,
-      321,
+      320,
       409
     ],
     [
       82,
-      64,
+      66,
       335,
       409
     ],
     [
       32,
-      18,
+      96,
       388,
       409
     ],
     [
-      25,
+      66,
       42,
-      392,
+      352,
       409
     ],
     [
       52,
-      81,
+      80,
       367,
       409
     ],
     [
-      51,
+      50,
       151,
       366,
       409
@@ -77,27 +77,10 @@
     ],
     [
       57,
-      268,
+      270,
       363,
       409
     ]
   ],
-  "sha256": "687f7724d6a6aaf772a90d6ddf9f1cc12303795c81923527ccf1ab7ed2da3015",
-  "sourceBounds": [
-    33,
-    38,
-    1073,
-    1428
-  ],
-  "baseline": 409,
-  "reference": "assets/monster_sprites.webp",
-  "browserReview": [
-    "Moon Base Extra controlled scene",
-    "grab lift throw",
-    "mirrored facing",
-    "push",
-    "snowball",
-    "EMP",
-    "five knockbacks -> sleeping with live sparks"
-  ]
+  "sha256": "13f5218077022d77ff24db73cc7560472495a51193d02ce95023769993f7aaaf"
 }

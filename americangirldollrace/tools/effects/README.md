@@ -40,3 +40,10 @@ Eight 128px candy particle cells are available as a 512×256 atlas and separate
 assets under `assets/particles/candy/`. Browser smoke tests force
 `window.RACE_TEST_SILENT=true` before audio loads: no sound and no stored
 audio-preference changes. Temporary manual QA rigs must set the same flag.
+
+Packing drops near-invisible specks (alpha 12 or less) before measuring each
+pose. Stray specks had pulled some poses off centre (the candy troll's middle
+walk frame, the robot's and sand monster's lift) and shrunk others (three tin
+troll poses). After that rebuild the lift-frame grab hands moved with their
+art (robot, sand monster, tin troll), and the tin troll's knocked-down row
+correction is per cell (`rowScale` in monsters.js).

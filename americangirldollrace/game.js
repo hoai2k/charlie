@@ -192,6 +192,9 @@ const AMANDA_HIT_RANGE_Y = 60;
 // Tag the sitting Amanda (walk up to her without pushing) and she follows you.
 const AMANDA_TAG_RANGE_X = 70;
 const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
+const CANDY_PILE_REACH_X = 70; // walk this close to a beaten candy troll's pile to scatter it
+const CANDY_PILE_REACH_Y = 46;
+const CANDY_CELEBRATE_TIME = 0.8; // s she stops to cheer
 const AMANDA_ALLY_FOLLOW_DELAY = 0.45; // s: she goes where her player was this long ago
 const AMANDA_ALLY_STAND_GAP = 56; // and when her player stops, stands this close beside her
 const AMANDA_ALLY_CATCH_UP = 1.15; // her top speed, against her player's
@@ -1653,6 +1656,14 @@ function update(dt) {
       // On the Horse Show a special mount running out leaves her on a horse,
       // unless a troll pulled her off and she hasn't got back on yet.
       if (isAlwaysMountedTrack() && !racer.dismounted) racer.horseTimer = Infinity;
+    }
+
+    if (racer.celebrateTimer > 0) {
+      // A quick cheer after scattering a candy pile.
+      racer.celebrateTimer = Math.max(0, racer.celebrateTimer - dt);
+      racer.speed = 0;
+      racer.moving = false;
+      continue;
     }
 
     if (racer.grabbedBy) {

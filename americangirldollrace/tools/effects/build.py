@@ -20,6 +20,11 @@ def build(key):
     for n in range(len(cells)):
         override=HERE/f'overrides/{key}-{n}.webp'
         if override.exists(): cells[n]=packing.packing.clean(Image.open(override))
+    if key in ['scarecrow','skeleton','robot','tintroll','sandtroll','candytroll','cloudtroll']:
+        # Near-invisible specks (alpha <= 12) would widen a pose's bounds and
+        # throw off its centring and size, so they're dropped first.
+        for n,c in enumerate(cells):
+            r,g,bl,a=c.split();cells[n]=Image.merge('RGBA',(r,g,bl,a.point(lambda v:0 if v<=12 else v)))
     boxes=[packing.packing.bounds(c) for c in cells]
     calibration=json.loads((HERE/'monster-calibration.json').read_text()).get(key,{})
     if key in ['scarecrow','skeleton','robot','tintroll','sandtroll','candytroll','cloudtroll']:

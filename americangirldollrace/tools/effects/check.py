@@ -25,7 +25,7 @@ import re
 calibration=json.loads((H/'monster-calibration.json').read_text())
 game=(G/'monsters.js').read_text()
 for key,cal in calibration.items():
- hands=json.loads(re.search(r'  '+key+r': \{\s*grabHands: (\[.*\])',game)[1])
+ hands=json.loads(re.search(r'  '+key+r': \{[^}]*?grabHands: (\[\[.*?\]\])',game)[1])
  assert hands==cal['grabHands'],(key,'runtime calibration drift')
  im=Image.open(G/f'assets/{key}_sprites.webp').convert('RGBA')
  for n,(x,y) in enumerate(hands):assert im.getpixel((418*n+x,836+y))[3]>128,(key,n,'hand outside art')

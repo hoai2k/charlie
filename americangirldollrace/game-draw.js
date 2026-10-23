@@ -4,7 +4,8 @@
 
 // World-space sparkles, puffs and rings. y is the ground line, z the height.
 function spawnParticles(x, y, z, count, options = {}) {
-  const { color = "#ffffff", kind = "spark", speed = 160, lift = 300, life = 0.6, size = 5, gravity = 900, dirX = 0 } = options;
+  // fallThrough: it doesn't stop on the ground but drops on off the screen.
+  const { color = "#ffffff", kind = "spark", speed = 160, lift = 300, life = 0.6, size = 5, gravity = 900, dirX = 0, fallThrough = false } = options;
   for (let i = 0; i < count; i += 1) {
     const angle = Math.random() * Math.PI * 2;
     state.particles.push({
@@ -12,7 +13,7 @@ function spawnParticles(x, y, z, count, options = {}) {
       vx: (dirX ? dirX * (0.5 + Math.random()) : Math.cos(angle)) * speed,
       vz: lift * (0.55 + Math.random() * 0.45),
       gravity, kind, color, size: size * (0.7 + Math.random() * 0.6),
-      life, maxLife: life, spriteIndex: kind === "candy" ? Math.floor(Math.random() * 8) : undefined
+      life, maxLife: life, fallThrough, spriteIndex: kind === "candy" ? Math.floor(Math.random() * 8) : undefined
     });
   }
   if (state.particles.length > 400) state.particles.splice(0, state.particles.length - 400);
@@ -21,9 +22,9 @@ function spawnParticles(x, y, z, count, options = {}) {
 function updateParticles(dt) {
   for (const p of state.particles) {
     p.x += p.vx * dt;
-    p.z = Math.max(0, p.z + p.vz * dt);
+    p.z = p.fallThrough ? p.z + p.vz * dt : Math.max(0, p.z + p.vz * dt);
     p.vz -= p.gravity * dt;
-    p.vx *= Math.pow(0.3, dt);
+    if (!p.fallThrough) p.vx *= Math.pow(0.3, dt);
     p.life -= dt;
   }
   state.particles = state.particles.filter(p => p.life > 0);
@@ -38,7 +39,7 @@ function drawParticles() {
     const y = p.y - p.z;
     ctx.save();
     if (p.kind === "candy" && images.candy_particles) {
-      ctx.globalAlpha = Math.min(1, t * 3);
+      ctx.globalAlpha = p.fallThrough ? 1 : Math.min(1, t * 3);
       ctx.translate(x, y);
       ctx.rotate((1 - t) * 5 * Math.sign(p.vx));
       const n = p.spriteIndex || 0;
@@ -629,7 +630,12 @@ function drawRacer(racer) {
     const toyPose = getRideToyPose(racer, jumping);
     const fullX = screenX - SPRITE_ANCHOR_X * scale;
     const fullY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z;
-    if (racer.surfTimer > 0) {
+    if (racer.celebrateTimer > 0) drawCelebrationStar(racer, screenX, fullY, scale);
+    const cheer = racer.celebrateTimer > 0 ? getCheerImage(racer) : null;
+    if (cheer) {
+      racer.lastBody = null;
+      drawFacingImage(cheer, 0, 0, FRAME, FRAME, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
+    } else if (racer.surfTimer > 0) {
       drawSurfWave(racer, screenX, scale);
       if (actions) drawRacerBody(racer, actions, (Math.floor(performance.now() / 450) % 3) * FRAME, FRAME, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
       else drawRacerBody(racer, racer.sheet, 0, 0, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
@@ -696,6 +702,39 @@ function drawRacer(racer) {
     ctx.strokeText(text, screenX, labelY - 18);
     ctx.fillText(text, screenX, labelY - 18);
   }
+  ctx.restore();
+}
+
+// Her cheer pose (the podium's, in her outfit), or null until it's loaded.
+function getCheerImage(racer) {
+  return (racer.outfit && window.DollOutfits?.getSync(racer.spriteKey, "cheer", racer.outfit)) || getPortraitImage(racer.spriteKey, "cheer");
+}
+
+// A gold star that pops up and turns slowly behind a cheering doll.
+function drawCelebrationStar(racer, screenX, topY, scale) {
+  const t = 1 - racer.celebrateTimer / CANDY_CELEBRATE_TIME;
+  const grow = Math.min(1, t * 5) * (1 - Math.max(0, t - 0.8) * 5);
+  const radius = 230 * scale * grow;
+  if (radius <= 0) return;
+  const cx = screenX;
+  const cy = topY + 165 * scale;
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(t * 0.9);
+  ctx.fillStyle = "#ffd84a";
+  ctx.strokeStyle = "#fff6c8";
+  ctx.lineWidth = 5;
+  ctx.shadowColor = "#ffe98a";
+  ctx.shadowBlur = 24;
+  ctx.beginPath();
+  for (let i = 0; i < 10; i += 1) {
+    const r = i % 2 ? radius * 0.45 : radius;
+    const a = -Math.PI / 2 + i * Math.PI / 5;
+    ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
   ctx.restore();
 }
 
