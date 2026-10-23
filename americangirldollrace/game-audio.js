@@ -26,6 +26,7 @@ function updateAudioListener() {
 
 function mountLoopKey(racer) {
   if (racer.horseType === "broom") return racer.z > 8 ? "pegasus_glide_loop" : null;
+  if (racer.horseType === "wings") return racer.pegasusGliding ? "pegasus_glide_loop" : racer.z > 8 ? "pegasus_flight_loop" : null;
   if (isFlyingMountType(racer.horseType)) {
     if (racer.pegasusGliding) return "pegasus_glide_loop";
     return racer.z > 8 ? "pegasus_flight_loop" : "horse_canter_loop";

@@ -120,6 +120,8 @@ const LOOSE_MOUNT_PICKUP_X = 60;
 const HORSE_SHOW_SPARE_HORSES = [1 / 3, 2 / 3];
 const UNICORN_DURATION_MULTIPLIER = 1.2;
 const PEGASUS_DURATION_MULTIPLIER = 1.2;
+const MONSTER_BOLT_SPEED = 540; // px/s a cloud troll's lightning bolt flies
+const MONSTER_BOLT_REACH_Z = 90; // px of height either side of a bolt that it hits (a jump over it dodges)
 const SKELETON_HORSE_TIME = HORSE_DURATION * 1.2; // s a girl rides a troll's skeleton horse // flying mounts: pegasus, griffon, broomstick
 const HORSE_FLASH_TIME = 2.4;
 const UNICORN_BEAM_RANGE = 520;
@@ -2120,7 +2122,7 @@ function getThrowHand(racer) {
   if (!hands) return null;
   const scale = racerDepthScale(racer);
   const facing = racer.facing || 1;
-  if (isMounted(racer) && racer.horseType !== "broom" && hands.ride) {
+  if (isMounted(racer) && !isCarriedMount(racer.horseType) && hands.ride) {
     const horseScale = scale * 1.08;
     const horseRow = racer.pegasusGliding ? 1 : isDrawnJumping(racer) ? 2 : racer.moving ? 1 : 0;
     const horseCol = racer.pegasusGliding || !isDrawnJumping(racer) ? racer.frame : racer.jumpFrame;

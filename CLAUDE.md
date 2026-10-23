@@ -173,6 +173,9 @@ hook to get round it.
   Whenever a foot angle isn't covered well by the boot views on hand, file
   another view in `image-requests.md` straight away: each is just one more
   cell of `moon_boot_sprites.webp`, shared by every doll (the owner's rule).
+- Fairy wings (Fairy Woods mount `wings`) fly like the broom but are worn:
+  `drawFairyWings` in game-mounts.js draws them behind any body pose from
+  `drawRacerBody`, rooted on her back (measured from the sheet's pixels).
 - New `americangirldollrace/` dolls use `americangirldollrace/tools/dolls/README.md`: canonical reference, pose art, manifest, deterministic export/validation and generated roster registration. The older imagegen/recolour tools remain for existing assets.
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work

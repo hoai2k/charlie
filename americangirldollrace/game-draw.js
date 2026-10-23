@@ -588,7 +588,8 @@ function drawRacer(racer) {
   const screenX = racer.x - state.camera;
   const jumping = isDrawnJumping(racer);
   // A troll lifts a grabbed rider out of the saddle; the horse comes back on landing.
-  const mounted = isMounted(racer) && !racer.grabbedBy;
+  // Fairy wings are worn, not ridden: she's drawn in her own poses.
+  const mounted = isMounted(racer) && !racer.grabbedBy && racer.horseType !== "wings";
   const row = racer.grabbedBy || racer.fallBackTimer > 0 ? 3 : racer.pushTimer > 0 ? 3 : jumping ? 2 : racer.moving ? 1 : 0;
   const col = racer.grabbedBy ? 2 : racer.fallBackTimer > 0 ? 2 : racer.pushTimer > 0 ? 1 : jumping ? racer.jumpFrame : racer.frame;
   const drawFacing = racer.fallBackTimer > 0 ? racer.fallBackFacing : racer.facing;
@@ -730,7 +731,7 @@ function drawRacer(racer) {
     }
   }
   const activeLabels = [
-    mounted && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
+    isMounted(racer) && !racer.grabbedBy && !(racer.horseType === "horse" && isAlwaysMountedTrack()) ? mountLabel(racer.horseType) : "",
     racer.speedBoostTimer > 0 ? stackLabel(pickupLook("boost").label, racer.speedBoostStacks.length) : "",
     racer.highJumpTimer > 0 ? stackLabel(racerJumpLabel(racer), racer.highJumpStacks.length) : "",
     racer.moonBootsTimer > 0 ? pickupLook("jump").label : "",
@@ -738,7 +739,7 @@ function drawRacer(racer) {
   ].filter(Boolean);
   if (activeLabels.length > 0) {
     ctx.font = "800 13px system-ui";
-    ctx.fillStyle = mounted ? "#9a6426"
+    ctx.fillStyle = isMounted(racer) && !racer.grabbedBy ? "#9a6426"
       : racer.snowballs > 0 ? POWERUP_TEXT_COLORS.snowball
       : racer.speedBoostTimer > 0 ? POWERUP_TEXT_COLORS.boost
       : POWERUP_TEXT_COLORS.jump;
@@ -806,6 +807,7 @@ function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
       ctx.restore();
     });
   }
+  if (isMounted(racer) && racer.horseType === "wings" && !racer.grabbedBy) drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX);
   drawFacingImage(image, sx, sy, FRAME, FRAME, x, y, w, h, facing, screenX);
   if (racer.moonBootsTimer > 0) drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX);
   racer.lastBody = { image, sx, sy, dx: x - screenX, dy: y - (racer.y - racer.z), w, h, facing };

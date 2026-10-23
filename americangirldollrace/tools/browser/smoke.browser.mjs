@@ -610,7 +610,7 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
     Bench.setPlayer({ kind: 'troll', key: 'troll', name: 'Troll' });
     Bench.addTarget({ kind: 'doll', key: 'juliette' });
     const [troll, doll] = state.racers;
-    troll.x = doll.x - 110; troll.facing = 1; troll.pushCooldown = 0;
+    troll.x = doll.x - 110; troll.y = doll.y; troll.facing = 1; troll.pushCooldown = 0; // targets land at a random depth
     keys.add('KeyF'); tick(2); keys.delete('KeyF');
     let held = false;
     for (let i = 0; i < 80; i++) { tick(1); held ||= doll.grabbedBy === troll; }
@@ -846,4 +846,54 @@ test('Cloud Kingdom: riders fall through gaps too, but a pegasus rider can fly b
   assert.deepEqual(r.horse, { fell: true, flewBack: false, mounted: true });
   assert.equal(r.pegasus.fell, true);
   assert.equal(r.pegasus.flewBack, true, 'a pegasus flies back up out of the gap');
+});
+
+test('Fairy Woods: fairy wings are worn over her own poses and fly like a broom', { skip: skip() }, async () => {
+  await onTrack('fairy');
+  const r = await page.evaluate(() => {
+    const [a, b] = state.racers; state.obstacles = []; state.monsters = []; b.x = 1000;
+    Object.assign(a, { x: 3000, y: PATH_TOP + 90, z: 0, vy: 0, horseType: 'wings', horseTimer: 30, facing: 1 });
+    const drawn = () => {
+      let wings = 0, sheet = false, horse = false;
+      const original = window.drawWingStandIn, art = getSharedArt('fairy_wings'), draw = ctx.drawImage.bind(ctx);
+      window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
+      ctx.drawImage = (...args) => {
+        if (art && args[0] === art) wings += 2;
+        if (args[0] === a.sheet) sheet = true;
+        if (args[0] === images.horse) horse = true;
+        return draw(...args);
+      };
+      try { drawRacer(a); } finally { window.drawWingStandIn = original; ctx.drawImage = draw; }
+      return { wings: wings >= 2, sheet, horse };
+    };
+    const ground = drawn();
+    keys.clear(); keys.add('Space');
+    let top = 0;
+    for (let i = 0; i < 90; i++) { update(1 / 60); top = Math.max(top, a.z); }
+    keys.clear();
+    return { ground, flying: drawn(), flew: top > 60, powerups: canRacerUsePowerups(a), label: mountLabel('wings'), odds: 'wings' in getTrackTheme().mountOdds };
+  });
+  assert.deepEqual(r, {
+    ground: { wings: true, sheet: true, horse: false }, flying: { wings: true, sheet: true, horse: false },
+    flew: true, powerups: true, label: 'FAIRY WINGS', odds: true
+  });
+});
+
+test('the storm troll aims his lightning at fliers and knocks them off their mount', { skip: skip() }, async () => {
+  await onTrack('clouds');
+  const r = await page.evaluate(() => {
+    const shoot = (z, type) => {
+      const a = state.racers[0];
+      Object.assign(a, { x: 8800, y: PATH_TOP + 80, z, vy: 0, horseType: type, horseTimer: 20, fallBackTimer: 0, grabbedBy: null });
+      const m = spawnMonster(8400, a.y, { active: true, riding: false });
+      Object.assign(m, { x: 8400, state: 'lightning', facing: 1, lightningTime: 0, lightningReleased: false, target: a });
+      state.monsters = [m]; state.monsterBolts = []; state.powerups = [];
+      updateMonsterLightning(m, 0.5);
+      const bolt = state.monsterBolts[0];
+      for (let i = 0; i < 60; i++) { a.z = z; updateMonsterBolts(1 / 60); }
+      return { aimedUp: bolt.vz > 0, hit: a.fallBackTimer > 0, dropped: !isMounted(a) && state.powerups.some(p => p.horseType === type) };
+    };
+    return { wings: shoot(220, 'wings'), broom: shoot(150, 'broom') };
+  });
+  assert.deepEqual(r, { wings: { aimedUp: true, hit: true, dropped: true }, broom: { aimedUp: true, hit: true, dropped: true } });
 });

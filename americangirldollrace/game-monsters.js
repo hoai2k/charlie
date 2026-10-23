@@ -609,10 +609,15 @@ function updateMonsterLightning(monster, dt) {
   if (!monster.lightningReleased && monster.lightningTime >= 0.45) {
     monster.lightningReleased = true;
     const scale = monsterScale(monster);
+    const x = monster.x + (450 - 256) * scale * monster.facing;
+    // Aimed at where she'll be: a flier (wings, broom, pegasus) is shot at
+    // up in the air, and knocked off her mount unless she dodges.
+    const target = monster.target;
+    const time = target ? Math.max(0.1, Math.abs(target.x - x) / MONSTER_BOLT_SPEED) : 1;
+    const aimZ = target ? clamp(target.z + (target.vy || 0) * time * 0.5, 0, 320) : 0;
     (state.monsterBolts ||= []).push({
-      x: monster.x + (450 - 256) * scale * monster.facing,
-      y: monster.y, drawY: monster.y + 58 + (280 - 503) * scale,
-      vx: monster.facing * 540, life: 1.3
+      x, y: monster.y, z: 0, drawY: monster.y + 58 + (280 - 503) * scale,
+      vx: monster.facing * MONSTER_BOLT_SPEED, vz: aimZ / time, life: 1.3
     });
     sfx("storm_lightning", monster.x, { gain: 0.8 });
   }
@@ -623,9 +628,10 @@ function updateMonsterBolts(dt) {
   for (const bolt of state.monsterBolts || []) {
     const previousX = bolt.x;
     bolt.x += bolt.vx * dt;
+    bolt.z = Math.max(0, (bolt.z || 0) + (bolt.vz || 0) * dt);
     bolt.life -= dt;
     for (const racer of state.racers) {
-      if (racer.finished || racer.grabbedBy || racer.fallBackTimer > 0 || racer.z > 110) continue;
+      if (racer.finished || racer.grabbedBy || racer.fallBackTimer > 0 || Math.abs(racer.z - (bolt.z || 0)) > MONSTER_BOLT_REACH_Z) continue;
       if (racer.x < Math.min(previousX, bolt.x) - 35 || racer.x > Math.max(previousX, bolt.x) + 35 || Math.abs(racer.y - bolt.y) > 44) continue;
       if (isMounted(racer)) dismountIntoPickup(racer);
       racer.fallBackTimer = 0.6;
@@ -645,8 +651,9 @@ function drawMonsterBolt(bolt) {
   if (!art) return;
   const x = bolt.x - state.camera;
   ctx.save();
-  ctx.translate(x, bolt.drawY);
+  ctx.translate(x, bolt.drawY - (bolt.z || 0));
   ctx.scale(Math.sign(bolt.vx) || 1, 1);
+  ctx.rotate(-Math.atan2(bolt.vz || 0, Math.abs(bolt.vx)));
   ctx.drawImage(art, -48, -24, 96, 48);
   ctx.restore();
 }
