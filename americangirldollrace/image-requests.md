@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current art queue:** §25 SW2 seaweed redo; §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1, MB2 and all three wing views are delivered; gameplay integration remains separate.
+> **Current art queue:** §29 cloud ledge grab and masks (LG1/LG2). SW1, MB2 and all three wing views are delivered; gameplay integration remains separate.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1033,7 +1033,7 @@ Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
 seaweed patch lying on the sand at its in-game size, and a doll slides on
 it as before.
 
-**Open: SW2 redo (checked in game).** SW1 is lovely close up, but at its
+**SW2 art delivered (integration separate).** SW1 is lovely close up, but at its
 in-game size (about 55 px across) the tall, bushy tangle reads as a little
 dark shrub sitting on the sand, not something slippery lying flat.
 
@@ -1042,6 +1042,10 @@ dark shrub sitting on the sand, not something slippery lying flat.
 | SW2 | `assets/tracks/beach/powerups.webp` | cell 3 only (x 768–1023) | The same slippery seaweed, redrawn **flat and wide**: a low, spread-out mat of glossy green and olive kelp ribbons lying flat on the sand, much wider than tall (filling most of the cell's width, like the other tracks' puddles), with few bladders and no height or bushy clumps, sitting in a **bright, shiny pool of seawater** that shows round its edges with white glints, so even small it reads as a wet, slippery spill. Lighter, brighter greens than SW1, so it stands out against the sand. Keep the other four cells pixel-identical and bump the beach track's `powerupArtVersion` in `tracks.js`. |
 
 Acceptance as SW1, judged at the size it's drawn in a race.
+
+SW2 sources, exact built-in prompt, decoded-cell checks and55px review:
+`tools/tracks/beach-seaweed-v2/`. Other atlas cells remain unchanged.
+Per owner, the gameplay agent handles the Beach cache-version bump.
 
 ## 26. Art delivered: more moon boot angles
 
@@ -1116,7 +1120,7 @@ joints. Source, built-in prompts, rebuild and all-doll review:
 `tools/mounts/fairy-wings/`. Owner requests art-only delivery; the gameplay
 agent handles registration, view selection and live acceptance.
 
-## 28. Open: flying troll
+## 28. Art delivered: flying troll
 
 Half of Fairy Woods' trolls wear fairy wings and fly up after girls in the
 air. Today they fly in their walking poses; give the troll real flying
@@ -1147,6 +1151,10 @@ MB2 art delivered: seven256px boot cells at1792×256; original three cells
 remain decoded-RGBA pixel-identical. Added back-quarter, grey tread sole,
 extended pointed toe and inside-left views with sole/heel anchors128,244.
 Source, prompts and export report: `tools/effects/boot-angles/`.
+
+TF1 art delivered: `tools/effects/flying-troll/` contains source, prompts,
+scale/hip calibration and native-size comparison. No wings or ground shadow
+are baked in. Per owner, the gameplay agent handles registration and use.
 
 ## 29. Open: cloud ledge grab (every doll)
 
