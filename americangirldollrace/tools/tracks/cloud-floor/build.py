@@ -18,3 +18,8 @@ review=Image.new('RGB',(2304,1280))
 for y,c in [(0,'#94c8ee'),(640,'#18233c')]:
  bg=Image.new('RGBA',sheet.size,c);bg.alpha_composite(sheet);review.paste(bg.convert('RGB'),(0,y))
 review.save(HERE/'alpha-review.webp',quality=90,method=6)
+
+# CL2 shares this tile palette; retain soft generated alpha at its edges.
+puff=p.icon(p.clean(Image.open(HERE/'puff-source.webp')),(128,128),(112,88))
+puff.save(GAME/'assets/tracks/clouds/puff.webp',lossless=True,exact=True,method=6)
+(HERE/'puff-report.json').write_text(json.dumps({'size':[128,128],'bounds':p.bounds(puff),'sha256':hashlib.sha256((GAME/'assets/tracks/clouds/puff.webp').read_bytes()).hexdigest()},indent=2)+'\n')

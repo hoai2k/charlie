@@ -30,7 +30,7 @@ test('every advertised themed file exists, and every new track declares reviewed
  for(const [key,t] of Object.entries(c.window.TRACK_THEMES)){
   const expected=t.name?['background','hurdle','powerups','projectile','card']:['hurdle','powerups','projectile'];
   if (key === 'beach') expected.push('wave');
-  if (key === 'clouds') expected.push('floor');
+  if (key === 'clouds') expected.push('floor', 'puff');
   if (key === 'toyroom') expected.push('windup_car');
   for (const file of t.art) assert.ok(expected.includes(file), `${key}: unknown art ${file}`);
   for(const file of t.art)assert.ok(fs.existsSync(new URL(`assets/tracks/${key}/${file}.webp`,game)),`${key}/${file}`);

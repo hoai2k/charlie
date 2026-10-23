@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §21 cloud puff (CL2); MB1 runtime integration is with the gameplay agent. Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** no outstanding art; runtime integration is with the gameplay agent. Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1001,3 +1001,6 @@ and a central red button; other four decoded pickup cells remain identical.
 36 unit and34 silent browser checks passed. Sources/prompts/proofs:
 `tools/tracks/cloud-floor/` and `tools/effects/moon-equipment/`.
 MB1 revised art delivered:768×256, side/three-quarter/front views, closed padded cuff tops, no visible openings. Soles at(128,244), widths150/130/110, height170. Runtime view selection/registration is left to the gameplay agent per the owner. CL1 now uses the updated fully billowy cloud surface brief; the earlier smooth floor was superseded before publishing.
+
+CL2 art delivered:128×128 soft white-lilac cloud puff, registered in the
+Cloud Kingdom art list, source/prompt/report in `tools/tracks/cloud-floor/`.

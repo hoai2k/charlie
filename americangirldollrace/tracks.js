@@ -206,7 +206,7 @@ window.TRACK_THEMES = {
     monster: "cloudtroll",
     projectileLanding: "snow",
     empStyle: "lightning",
-    name: "Cloud Kingdom", music: "assets/music/Cloud Map of Gold.mp3", dirtTop: 535, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "floor"],
+    name: "Cloud Kingdom", music: "assets/music/Cloud Map of Gold.mp3", dirtTop: 535, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "floor", "puff"],
     labels: { jump: "CLOUD PUFF", boost: "RAINBOW", emp: "THUNDERCLAP", oil: "RAIN PUDDLE", snowball: "HAILSTONES" },
     sounds: { emp: "storm_lightning" },
     mountOdds: { unicorn: 0.1, pegasus: 0.3, griffon: 0.1, broom: 0.05 }
