@@ -915,13 +915,21 @@ test('Fairy Woods: fliers in wings push each other in the air, and a winged trol
     m.facing = 1; state.monsters = [m];
     let top = 0, grabbed = false;
     for (let i = 0; i < 120 && !grabbed; i++) { a.z = 160; a.vy = 0; updateMonsters(1 / 60); top = Math.max(top, m.z); grabbed = a.grabbedBy === m; }
+    // They fall together; he throws her only once they're down.
+    const grabZ = m.z;
+    let thrownAt = null, heldWhileFalling = true;
+    for (let i = 0; i < 240 && thrownAt === null; i++) {
+      updateMonsters(1 / 60);
+      if (m.z > 0 && m.state !== 'grab') heldWhileFalling = false;
+      if (a.grabbedBy !== m) thrownAt = m.z;
+    }
     let wings = 0; const original = window.drawWingStandIn, art = getSharedArt('fairy_wings'), draw = ctx.drawImage.bind(ctx);
     window.drawWingStandIn = (...args) => { wings += 1; return original(...args); };
     ctx.drawImage = (...args) => { if (art && args[0] === art) wings += 2; return draw(...args); };
     state.camera = m.x - 400;
     try { drawMonster(m); } finally { window.drawWingStandIn = original; ctx.drawImage = draw; }
     const plain = spawnMonster(3000, a.y, { winged: false });
-    return { airPush, groundCantReach, flewUp: top > 100, grabbed, droppedWings: state.powerups.some(p => p.horseType === 'wings'), wingsDrawn: wings >= 2, plainStays: !plain.winged, share: getTrackTheme().wingedMonsters };
+    return { fellTogether: grabZ > 100 && heldWhileFalling && thrownAt === 0, airPush, groundCantReach, flewUp: top > 100, grabbed, droppedWings: state.powerups.some(p => p.horseType === 'wings'), wingsDrawn: wings >= 2, plainStays: !plain.winged, share: getTrackTheme().wingedMonsters };
   });
-  assert.deepEqual(r, { airPush: true, groundCantReach: true, flewUp: true, grabbed: true, droppedWings: true, wingsDrawn: true, plainStays: true, share: 0.5 });
+  assert.deepEqual(r, { fellTogether: true, airPush: true, groundCantReach: true, flewUp: true, grabbed: true, droppedWings: true, wingsDrawn: true, plainStays: true, share: 0.5 });
 });

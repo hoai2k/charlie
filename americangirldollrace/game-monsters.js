@@ -322,17 +322,26 @@ function updateMonsters(dt) {
 // Decide once per hurdle whether to jump it on approach; a balked horse stands
 // at the hurdle a moment, then jumps after all.
 // A troll in wings flies up to whoever he's after when she's in the air (and
-// over hurdles in his way), and drifts back down otherwise. Holding someone he
-// stays put; knocked over he drops.
+// over hurdles in his way), and drifts back down otherwise. Once he grabs
+// her they fall together to the ground (he throws her when they land, see
+// updateMonsterGrabSequence); knocked over he drops.
 function updateWingedMonsterHeight(monster, dt) {
   const holding = ["grab", "lift", "throw"].includes(monster.state);
   const down = ["fall", "ground", "sleeping"].includes(monster.state);
   monster.hurdleHop = Math.max(0, (monster.hurdleHop || 0) - dt);
+  if (holding) {
+    if (monster.z > 0) {
+      monster.fallVy = (monster.fallVy || 0) - GRAVITY * dt;
+      monster.z = Math.max(0, monster.z + monster.fallVy * dt);
+    }
+    monster.vy = 0;
+    return;
+  }
+  monster.fallVy = 0;
   let goal = 0;
   const target = monster.target;
   if (monster.state === "walk" && target && !target.finished && target.z > 30) goal = Math.min(target.z, WINGED_MONSTER_MAX_Z);
   if (monster.hurdleHop > 0) goal = Math.max(goal, hurdleTopZ() + 24);
-  if (holding) goal = monster.z;
   const speed = down ? WINGED_MONSTER_CLIMB * 2 : WINGED_MONSTER_CLIMB;
   if (goal > monster.z + 2 && monster.z <= 2) sfx("pegasus_wing_flap", monster.x, { gain: 0.6 });
   monster.z += clamp(goal - monster.z, -speed * dt, speed * dt);
@@ -377,6 +386,8 @@ function updateMonsterGrabSequence(monster, dt) {
     setGrabbedRacerPosition(monster, target);
   }
   if (monster.timer > 0) return;
+  // Grabbed in the air, she's held until they've fallen to the ground.
+  if (monster.state === "grab" && monster.winged && monster.z > 0) return;
 
   if (monster.state === "grab") {
     monster.state = "lift";
@@ -388,7 +399,7 @@ function updateMonsterGrabSequence(monster, dt) {
     if (target && target.grabbedBy === monster) {
       target.grabbedBy = null;
       target.x = clamp(monster.x + 56 * monster.facing, 40, FINISH);
-      target.z = 78 + (monster.winged ? monster.z : 0);
+      target.z = 78;
       target.vy = 170;
       const throwDirection = monster.x > FINISH - MONSTER_FINISH_BACK_THROW_DISTANCE ? -1 : monster.facing;
       target.fallBackTimer = 0.85;
@@ -611,6 +622,17 @@ function drawMonster(monster) {
   }
   if (monster.riding && getTrollMountImage()) {
     drawMountedMonster(monster, getTrollMountImage(), screenX, visualY, drawFacing);
+    ctx.restore();
+    return;
+  }
+  // Flying, a winged troll swoops (cells 1-2) or hovers level with her
+  // (cell 3) once the flying sheet is in (image-requests.md §28 TF1).
+  const flyingArt = monster.winged && monster.z > 20 && monster.state === "walk" ? getSharedArt("troll_flying") : null;
+  if (flyingArt?.complete && flyingArt.width) {
+    const near = monster.target && Math.abs(monster.target.x - monster.x) < 120;
+    const col = near ? 2 : Math.floor(monster.frameTime / 2) % 2;
+    drawFairyWings(monster, flyingArt, col * FRAME, 0, drawX, drawY, drawW, drawFacing, screenX);
+    drawFacingImage(flyingArt, col * FRAME, 0, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
     ctx.restore();
     return;
   }
