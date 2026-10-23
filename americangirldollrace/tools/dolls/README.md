@@ -198,7 +198,7 @@ masks and `outfits.json` data stay byte-for-byte unchanged at their old paths.
 `rumi-legacy.json` records their hashes, checked by the migration tests.
 
 To revert, set `GAME_CONFIG.legacyDollArt.rumi` to `true` in `../../config.js`
-and bump the asset version in `../../index.html`. This removes the generated
+and run `node americangirldollrace/tools/stamp/stamp.mjs`. This removes the generated
 override and restores the original race/menu/HUD art, outfit statistics, jump
 scale, riding offsets and broom hand anchors together. Set it back to `false`
 to use the update. No copying, deleting or rebuilding art is needed.

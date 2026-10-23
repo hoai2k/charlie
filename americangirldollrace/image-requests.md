@@ -196,7 +196,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
       art.
 - [ ] Badges and glyphs stay legible at 50% size.
 - [ ] Commit per batch with a message listing the files. If any CSS or JS
-      changes, bump the `?v=` string in `index.html`.
+      changes, run `node americangirldollrace/tools/stamp/stamp.mjs`.
 
 ---
 
@@ -229,7 +229,7 @@ makes you slip.
   back to today's look, so tracks can be delivered one file at a time.
 - A **new** track joins the race rotation (and the track picker) as soon as
   its `background` is listed.
-- Bump the `?v=` string in `index.html` when `tracks.js` changes.
+- After changing `tracks.js`, run `node americangirldollrace/tools/stamp/stamp.mjs`.
 - `tracks.js` also holds each track's power-up names (shown in the pop-up
   text once its power-up art is in) and its mount odds. Edit those freely.
 

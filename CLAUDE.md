@@ -62,8 +62,11 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
 
 - Images are WebP (lossless alpha). Convert new art with Pillow
   (`quality=82-90, method=6`) rather than committing large PNGs.
-- `americangirldollrace/index.html` loads its CSS and JS with a `?v=` string;
-  bump it whenever those files change, since Pages caches for ~10 minutes.
+- `americangirldollrace/index.html` loads its CSS and JS with content-hash
+  `?v=` stamps (Pages caches for ~10 minutes): run
+  `node americangirldollrace/tools/stamp/stamp.mjs` after changing any of them
+  (a test fails while a stamp is stale). On a merge conflict in those lines,
+  take either side and run it again.
 - `party/index.html` carries a content-hashed import map for every module in
   `party/src/`; run `node party/tools/stamp-modules.mjs` after changing any
   party code (it also stamps `main.js?v=`).
