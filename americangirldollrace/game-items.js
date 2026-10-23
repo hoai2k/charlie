@@ -448,39 +448,56 @@ function drawRingingTrigger(arc, from) {
   ctx.restore();
 }
 
-// The rooster that crows the waves out: it pops up in front of her, bobs and
-// tips its head back to crow, then fades. It's the Farm's EMP icon until a
-// crowing rooster sheet (image-requests.md RC1) is in.
+// The rooster that crows the waves out: it pops up in front of her, bobs
+// and rocks through its three crowing poses (rooster_crow_sprites), then
+// fades. Until that sheet loads, the Farm's EMP icon stands in.
 function roosterSpot(arc, from) {
   const facing = arc.source?.facing || 1;
   return { x: from.x + facing * ROOSTER_AHEAD, y: from.y + 54, facing };
 }
 
-function roosterBeak(arc, from) {
+// Where it's drawn this moment: bob, rock, size and pose.
+function roosterPose(arc, from) {
   const spot = roosterSpot(arc, from);
-  return { x: spot.x + spot.facing * 30, y: spot.y - 80 };
+  const sheet = getSharedArt("rooster_crow");
+  return {
+    ...spot,
+    sheet,
+    bob: Math.abs(Math.sin(arc.t * 14)) * 12,
+    tilt: sheet ? -Math.sin(arc.t * 14) * 0.06 : -0.25 - Math.sin(arc.t * 14) * 0.12,
+    size: 96 * Math.min(1, arc.t * 8),
+    frame: Math.floor(arc.t * 8) % 3
+  };
+}
+
+// Its beak tip in each pose (sheet cell pixels; 256 cells, feet at y 250).
+const ROOSTER_BEAKS = [[212, 98], [198, 82], [210, 76]];
+
+// The point the waves come from: its beak, as drawn this moment.
+function roosterBeak(arc, from) {
+  const pose = roosterPose(arc, from);
+  const [bx, by] = pose.sheet ? ROOSTER_BEAKS[pose.frame] : [200, 80];
+  const s = pose.size / 256;
+  const lx = (bx - 128) * s;
+  const ly = -pose.size + by * s;
+  const cos = Math.cos(pose.tilt), sin = Math.sin(pose.tilt);
+  return { x: pose.x + pose.facing * (lx * cos - ly * sin), y: pose.y - pose.bob + lx * sin + ly * cos };
 }
 
 function drawCrowingRooster(arc, from) {
-  const sheet = getSharedArt("rooster_crow");
-  const art = sheet || getTrackArt("powerups");
+  const pose = roosterPose(arc, from);
+  const art = pose.sheet || getTrackArt("powerups");
   if (!art) return;
-  const { x: spotX, y: spotY, facing } = roosterSpot(arc, from);
   const life = empArcDuration(arc);
-  const pop = Math.min(1, arc.t * 8);
-  const alpha = Math.min(1, (life - arc.t) * 5);
-  const bob = Math.abs(Math.sin(arc.t * 14)) * 12;
-  const tilt = -0.25 - Math.sin(arc.t * 14) * 0.12;
-  const size = 96 * pop;
   ctx.save();
-  ctx.globalAlpha = alpha;
-  ctx.translate(spotX - state.camera, spotY - bob);
-  ctx.scale(facing, 1);
-  ctx.rotate(tilt);
-  if (sheet) {
-    const frame = Math.floor(arc.t * 8) % 3;
-    const cell = sheet.width / 3;
-    ctx.drawImage(sheet, frame * cell, 0, cell, sheet.height, -size / 2, -size, size, size * sheet.height / cell);
+  ctx.globalAlpha = Math.min(1, (life - arc.t) * 5);
+  ctx.translate(pose.x - state.camera, pose.y - pose.bob);
+  ctx.scale(pose.facing, 1);
+  ctx.rotate(pose.tilt);
+  const size = pose.size;
+  if (pose.sheet) {
+    const cell = pose.sheet.width / 3;
+    ctx.drawImage(pose.sheet, pose.frame * cell, 0, cell, pose.sheet.height, -size / 2, -size, size, size * pose.sheet.height / cell);
   } else {
     ctx.drawImage(art, 2 * TRACK_POWERUP_CELL, 0, TRACK_POWERUP_CELL, TRACK_POWERUP_CELL, -size / 2, -size, size, size);
   }
