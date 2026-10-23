@@ -178,7 +178,9 @@ function powerupTiles() {
   const g = game;
   const container = $("#powerups");
   container.innerHTML = "";
-  for (const [kind, type, label] of POWERUPS) {
+  // Only what this track hands out (tracks.js noPowerups), as in its race.
+  const left = g.getTrackTheme().noPowerups || [];
+  for (const [kind, type, label] of POWERUPS.filter(([, type]) => !left.includes(type))) {
     const index = { jump: 0, boost: 1, emp: 2, oil: 3, snowball: 4 }[type];
     const look = g.pickupLook(type, { pogo: kind === "pogo" });
     const { button, canvas } = tile(kind === "pogo" ? "Pogo" : look.label || label, () => g.Bench.drop(kind));

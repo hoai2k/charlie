@@ -273,7 +273,9 @@ function applyPowerup(racer, powerupOrType) {
   const type = typeof powerupOrType === "string" ? powerupOrType : powerupOrType.type;
   if (hasActivePowerup(racer, type)) return false;
   // A spare or left-behind mount is only for someone without one.
-  if (type === "horse" && powerupOrType.loose && isMounted(racer)) return false;
+  // (A troll's skeleton horse may be swapped for a plain horse, though.)
+  const swapForSkeleton = powerupOrType.horseType === "skeleton_horse" && racer.horseType === "horse";
+  if (type === "horse" && powerupOrType.loose && isMounted(racer) && !swapForSkeleton) return false;
   // A unicorn rider keeps her unicorn rather than swap it for another mount.
   if (type === "horse" && isMounted(racer) && racer.horseType === "unicorn") return false;
   playPowerupAudio(racer, type, typeof powerupOrType === "string" ? null : powerupOrType);

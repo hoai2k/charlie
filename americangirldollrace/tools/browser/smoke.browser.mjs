@@ -644,3 +644,30 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   assert.deepEqual({ ...added, removed }, { lily: true, pony: true, removed: true });
   assert.deepEqual(benchErrors, []);
 });
+
+test('Horse Show: a troll knocked off leaves his skeleton horse to ride; it bowls everyone over except magic mounts', { skip: skip() }, async () => {
+  await onTrack('horseshow');
+  const r = await page.evaluate(async () => {
+    for (let i = 0; i < 50 && !images.skeleton_horse; i++) await new Promise(r => setTimeout(r, 100));
+    const [a, b] = state.racers;
+    a.x = 9000; a.y = PATH_TOP + 90; a.horseType = 'horse'; a.horseTimer = Infinity; a.facing = 1;
+    b.x = 12000; b.ai = false;
+    const m = spawnMonster(9300, a.y, { active: true, riding: true }); m.x = 9300; m.y = a.y; m.riding = true; m.state = 'walk'; state.monsters = [m];
+    applyMonsterKnockback(m, 1, { unhorse: true });
+    const loose = state.powerups.find(q => q.loose && q.horseType === 'skeleton_horse');
+    const swapped = Boolean(loose) && applyPowerup(a, loose) && a.horseType === 'skeleton_horse';
+    state.monsters = [];
+    // Run into a girl on a plain horse: she's knocked off.
+    const runInto = (horseType) => {
+      b.x = a.x + 60; b.y = a.y; b.z = 0; b.horseType = horseType; b.horseTimer = 30; b.fallBackTimer = 0; b.grabbedBy = null;
+      a.speed = HORSE_RUN_SPEED; a.mountBumpCooldown = 0; a.fallBackTimer = 0;
+      bumpWithSkeletonHorses();
+      return { other: isMounted(b) ? b.horseType : 'off', me: isMounted(a) ? a.horseType : 'off' };
+    };
+    const horse = runInto('horse');
+    a.horseType = 'skeleton_horse'; a.horseTimer = 12;
+    const unicorn = runInto('unicorn');
+    return { loose: Boolean(loose), swapped, horse, unicorn };
+  });
+  assert.deepEqual(r, { loose: true, swapped: true, horse: { other: 'off', me: 'skeleton_horse' }, unicorn: { other: 'off', me: 'off' } });
+});

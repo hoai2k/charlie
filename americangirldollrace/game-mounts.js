@@ -115,6 +115,7 @@ function horseDurationForType(horseType) {
   if (isHorsingAroundMode() && isSpecialMountType(horseType)) return Infinity;
   if (horseType === "unicorn") return HORSE_DURATION * UNICORN_DURATION_MULTIPLIER;
   if (isFlyingMountType(horseType)) return HORSE_DURATION * PEGASUS_DURATION_MULTIPLIER;
+  if (horseType === "skeleton_horse") return SKELETON_HORSE_TIME;
   return HORSE_DURATION;
 }
 
@@ -245,6 +246,53 @@ function bumpMonstersWithSpecialMounts() {
       break;
     }
   }
+}
+
+// A troll's skeleton horse, ridden, knocks over anyone it runs into: dolls
+// (riders thrown off their mounts) and monsters. A unicorn, pegasus or
+// griffon stands its ground: they collide and both riders fall off.
+function bumpWithSkeletonHorses() {
+  for (const racer of state.racers) {
+    if (racer.horseType !== "skeleton_horse" || !isMounted(racer) || racer.finished || racer.grabbedBy) continue;
+    if (racer.mountBumpCooldown > 0 || Math.abs(racer.speed) < HORSE_RUN_SPEED * 0.28) continue;
+    const ahead = target => {
+      const dx = target.x - racer.x;
+      return Math.abs(dx) < 74 && Math.abs(target.y - racer.y) < 54 && Math.abs((target.z || 0) - racer.z) < 90
+        && (dx >= 0 ? racer.facing > 0 : racer.facing < 0);
+    };
+    const direction = racer.facing;
+    const other = state.racers.find(r => r !== racer && !r.finished && !r.grabbedBy && r.fallBackTimer <= 0 && ahead(r));
+    if (other) {
+      racer.mountBumpCooldown = 0.6;
+      if (isMounted(other) && ["unicorn", "pegasus", "griffon"].includes(other.horseType)) {
+        // Head on into a magical mount: both girls come off.
+        sfx("knockback_tumble", racer.x);
+        throwOffMount(racer, -direction);
+        throwOffMount(other, direction);
+      } else {
+        sfx("push_impact", other.x);
+        throwOffMount(other, direction);
+      }
+      continue;
+    }
+    const monster = state.monsters.find(m => !["sleeping", "ground", "fall", "drop"].includes(m.state) && ahead(m));
+    if (monster) {
+      racer.mountBumpCooldown = 0.6;
+      applyMonsterKnockback(monster, direction, { unhorse: true });
+    }
+  }
+}
+
+// Knocked over (off her mount if she's on one, which is left standing).
+function throwOffMount(racer, direction) {
+  if (isMounted(racer)) dismountIntoPickup(racer);
+  racer.fallBackTimer = 0.8;
+  racer.fallBackFacing = -direction;
+  racer.hitTimer = 0.35;
+  racer.knockbackX = direction * PUSH_FORCE;
+  racer.vy = Math.max(racer.vy, 160);
+  racer.jumpStarted = false;
+  racerVoice(racer, "hit", { chance: 0.6, priority: 1 });
 }
 
 function isRacerRunningAtMonster(racer, dx) {

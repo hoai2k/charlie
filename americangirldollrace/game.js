@@ -119,7 +119,8 @@ const HORSE_DURATION = 10;
 const LOOSE_MOUNT_PICKUP_X = 60;
 const HORSE_SHOW_SPARE_HORSES = [1 / 3, 2 / 3];
 const UNICORN_DURATION_MULTIPLIER = 1.2;
-const PEGASUS_DURATION_MULTIPLIER = 1.2; // flying mounts: pegasus, griffon, broomstick
+const PEGASUS_DURATION_MULTIPLIER = 1.2;
+const SKELETON_HORSE_TIME = HORSE_DURATION * 1.2; // s a girl rides a troll's skeleton horse // flying mounts: pegasus, griffon, broomstick
 const HORSE_FLASH_TIME = 2.4;
 const UNICORN_BEAM_RANGE = 520;
 const UNICORN_BEAM_DURATION = 0.2;
@@ -1861,6 +1862,7 @@ function update(dt) {
   updateEmpArcs(dt);
   updateWindupCars(dt);
   bumpMonstersWithSpecialMounts();
+  bumpWithSkeletonHorses();
   pushRacers(dt);
   updateAmandaHazards(dt);
   updateAmandaAlly(dt);

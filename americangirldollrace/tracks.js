@@ -52,7 +52,11 @@
 // had left. Unicorns and gryphons knock a troll down instead while moving
 // faster than him; standing still (or slower) they can be grabbed too.
 //   trollMount          what trolls ride: an image key (falls back to a
-//                       darkened horse until its sheet is in TRACK_SHARED_ART)
+//                       darkened horse until its sheet is in TRACK_SHARED_ART).
+//                       A skeleton horse knocked out from under its troll
+//                       stays for a girl to ride (even off a plain horse);
+//                       ridden, it knocks over anyone it runs into, except
+//                       a unicorn, pegasus or griffon: then both riders fall.
 //   hurdleGapScale      spaces the hurdles further apart
 //   lengthScale         makes the course longer
 //   amandaPushesTrolls  Amanda pops up for trolls too and shoves them back

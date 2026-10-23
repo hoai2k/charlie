@@ -507,6 +507,14 @@ function unhorseMonster(monster, direction) {
   monster.restTimer = 0;
   monster.z = 0;
   monster.vy = 0;
+  if (getTrackTheme().trollMount === "skeleton_horse" && images.skeleton_horse) {
+    // His skeleton horse stays, for anyone to ride (game-mounts.js bumps).
+    const facing = direction < 0 ? -1 : 1;
+    state.powerups.push(makeLooseMount("skeleton_horse", monster.x + facing * 80, monster.y + 54, SKELETON_HORSE_TIME, facing));
+    sfx("troll_unhorsed", monster.x);
+    sfx("skeleton_horse_whinny", monster.x, { gain: 0.8 });
+    return;
+  }
   state.runawayHorses.push({
     x: monster.x,
     y: monster.y,
