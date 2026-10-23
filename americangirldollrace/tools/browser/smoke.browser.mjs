@@ -598,6 +598,7 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   await bench.goto(base + 'workbench/');
   await bench.waitForFunction(() => document.querySelectorAll('#mounts .tile').length > 0, null, { timeout: 30000 });
   const frame = bench.frames().find(f => f.url().includes('index.html'));
+  assert.equal(await frame.evaluate(() => getComputedStyle(document.querySelector('#startPanel')).display), 'none', 'no title screen in the workbench');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
     Bench.setup('festival');

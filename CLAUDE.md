@@ -173,6 +173,11 @@ hook to get round it.
   Whenever a foot angle isn't covered well by the boot views on hand, file
   another view in `image-requests.md` straight away: each is just one more
   cell of `moon_boot_sprites.webp`, shared by every doll (the owner's rule).
+- Every art delivery (boots, wings, monsters, anything) is judged in the
+  game, not just wired in: screenshot it in the poses and sizes it's used
+  at, fix sizing and anchoring in code, and if the art itself doesn't look
+  or feel right, file a re-generation request at once with what to change
+  (the owner's rule: don't be shy about asking again).
 - Fairy wings (Fairy Woods mount `wings`) fly like the broom but are worn:
   `drawFairyWings` in game-mounts.js draws them behind any body pose from
   `drawRacerBody`, rooted on her back (measured from the sheet's pixels).

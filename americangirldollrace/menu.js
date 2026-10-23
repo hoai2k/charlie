@@ -161,6 +161,10 @@
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let titleLayers = [];
   let titleFallbackStart = null;
+  // Settled once the title screen is shown (see the end of this file); the
+  // racers make their entrance only then.
+  let showTitle;
+  const titleShown = new Promise(resolve => { showTitle = resolve; });
 
   async function loadTitleHero() {
     try {
@@ -192,6 +196,7 @@
       await Promise.all([true, false].map(async runner => {
         const members = group(runner);
         await Promise.all(members.map(layer => layer.image.decode()));
+        await titleShown;
         for (const layer of members) layer.startAt = lobby.time;
       }));
     } catch (error) {
@@ -200,6 +205,7 @@
       console.warn("Using the original title artwork", error);
       titleLayers = [];
       titleHero.replaceChildren();
+      await titleShown;
       titleFallbackStart = lobby.time;
       titleHero.classList.add("fallback");
     }
@@ -1017,12 +1023,26 @@
     }
   };
 
-  loadTitleHero();
   buildGrid();
   if (touchOnly()) $("#lbPressStart").textContent = "Tap to start";
   glyphs();
   root.dataset.screen = "title";
   fit();
+  // In the workbench's frame the race starts straight away: no title screen.
+  if (document.documentElement.classList.contains("workbench")) return;
+  loadTitleHero();
+  // Show the title once its art is in (or after a moment regardless), all at
+  // once rather than piece by piece.
+  const titleArt = ["title_sky", "title_clouds", "title_hills", "logo"].map(name => {
+    const image = new Image();
+    image.src = `assets/ui/${name}.webp`;
+    return image.decode().catch(() => {});
+  });
+  Promise.race([Promise.all(titleArt), new Promise(resolve => setTimeout(resolve, 2500))]).then(() => {
+    fit();
+    stage.classList.add("ready");
+    showTitle();
+  });
   startLoop();
 })();
 

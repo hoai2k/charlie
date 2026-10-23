@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §27 two-view fairy wings (FW1); §28 flying troll (TF1). SW1 and MB2 art is delivered; see delivery notes below.
+> **Current queue:** §27 two-view fairy wings (FW1); §28 flying troll (TF1); §29 cloud ledge grab and masks (LG1/LG2). SW1 and MB2 art is delivered; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1104,7 +1104,6 @@ Acceptance: on Fairy Woods, a winged troll chasing a flier swoops along in
 cells 1–2 and hovers in cell 3 when he's level with her, with the wings on
 his back, and is back in his walk cells once he's landed.
 
-
 SW1 delivered: glossy dark-green/olive seaweed ribbons and wrack in a thin
 water film, same flat puddle angle. Cells0,1,2,4 remain decoded-RGBA identical;
 Beach cache version bumped. Native/68px and light/dark alpha reviewed.
@@ -1114,3 +1113,27 @@ MB2 art delivered: seven256px boot cells at1792×256; original three cells
 remain decoded-RGBA pixel-identical. Added back-quarter, grey tread sole,
 extended pointed toe and inside-left views with sole/heel anchors128,244.
 Source, prompts and export report: `tools/effects/boot-angles/`.
+
+## 29. Open: cloud ledge grab (every doll)
+
+On Cloud Kingdom a girl who falls into a gap can press towards the cloud
+to catch its edge and climb back up. She catches it like hugging a big
+pillow, not hanging straight down from her fingers. Until these sheets are
+in, the game borrows her other poses.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| LG1 | `assets/doll_<key>_ledge.webp` for every key in `ACTION_SHEETS` (`doll-art.js`: hermione, lily, mira, whirlpool, claudia-v2, kaya, amanda, penelope, rumi-v2, juliette, barbie, cinnamon, felicity, luna, marisol-v2) | 1254×418 (3 cells of 418), alpha | Facing right, towards a soft cloud edge that is **not drawn**: imagine the cloud's flat top at **y 230** and its rounded front corner at **x 300**, with the cloud filling everything right of and below that corner. (1) **Hug hold:** both arms wrapped over the top of the cloud edge as if hugging a big pillow, forearms and hands resting on the top (right of x 300, along y 230), her cheek or chin resting on it, chest against the cloud's side, body hanging a little slanted below with legs dangling and feet loose, a determined, slightly worried face. (2) **Climbing up:** pulling herself up, one knee hooked over onto the top (on y 230 just right of the corner), hips level with the top, arms pushing down on it. (3) **Back on top:** kneeling on the cloud top just right of the corner (knees and shins on y 230), body upright, about to stand, a relieved smile. |
+| LG2 | `assets/masks/<key>_ledge_mask.webp` | 1254×418 | Its outfit mask, made like `<key>_actions_mask.webp`. |
+
+She must match her sprite sheet exactly: the same outfit, hair, shoes and
+accessories, at the same scale as her sheet (her whole figure in cell 3
+about as tall as her crouch). Nothing touches a cell edge; no cloud,
+shadow or text. Add the key to a new `LEDGE_SHEETS` list in `doll-art.js`
+when both land (the game uses a doll's ledge sheet only once she's listed).
+
+Acceptance: on Cloud Kingdom, run off a gap's edge and press back towards
+it: she catches the edge in the hug hold, with her arms on the cloud top
+and the rest of her hanging in the gap, then climbs up (cell 2) and is back
+on top (cell 3) before she stands, for every doll and outfit.
+
