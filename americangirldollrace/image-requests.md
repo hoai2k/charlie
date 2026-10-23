@@ -1015,3 +1015,8 @@ registered (`moon_boot` in TRACK_SHARED_ART) and cover both feet in
 standing, running, crouching and landing poses, both facings, with closed
 cuffs matching the jump pose's boots.
 
+CL2 retired by the owner's direction: rather than a cloud over sunk feet,
+the floor's own clouds are painted back over them below the surface with a
+feathered edge (game-terrain.js drawCloudSink), so the feet sink into the
+cloud under them. `puff.webp` is kept but no longer loaded.
+

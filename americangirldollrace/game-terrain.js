@@ -144,92 +144,60 @@ function cloudFootingOffset(racer) {
   return (racer.cloudSink || 0) * CLOUD_SINK - (racer.cloudHop || 0);
 }
 
-// The cloud puff art with its edges blurred away (made once): scaled down
-// and back up for a soft halo, with the crisp puff fading in towards the
-// middle, so it melts into the clouds around it.
-let softPuff = null;
-function softCloudPuff() {
-  const puff = getTrackArt("puff");
-  if (!puff) return null;
-  if (softPuff?.source === puff) return softPuff.canvas;
-  // The puff fills only a band of its cell: crop to it first.
-  const probe = document.createElement("canvas");
-  probe.width = puff.width;
-  probe.height = puff.height;
-  const p = probe.getContext("2d");
-  p.drawImage(puff, 0, 0);
-  const data = p.getImageData(0, 0, puff.width, puff.height).data;
-  let x0 = puff.width, y0 = puff.height, x1 = 0, y1 = 0;
-  for (let y = 0; y < puff.height; y += 1) {
-    for (let x = 0; x < puff.width; x += 1) {
-      if (data[(y * puff.width + x) * 4 + 3] > 20) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
-    }
-  }
-  const cw = Math.max(1, x1 - x0 + 1), ch = Math.max(1, y1 - y0 + 1);
-  // A padded canvas: a blurred halo of the puff (scaled down and back up),
-  // with the crisp puff fading in towards the middle.
-  const pad = 0.18;
-  const w = 240, h = Math.round(w * ch / cw);
-  const W = Math.round(w * (1 + 2 * pad)), Hh = Math.round(h * (1 + 2 * pad));
-  const canvas = document.createElement("canvas");
-  canvas.width = W;
-  canvas.height = Hh;
-  const c = canvas.getContext("2d");
-  const small = document.createElement("canvas");
-  small.width = 24;
-  small.height = Math.max(4, Math.round(24 * Hh / W));
-  const sc = small.getContext("2d");
-  sc.drawImage(puff, x0, y0, cw, ch, small.width * pad / (1 + 2 * pad), small.height * pad / (1 + 2 * pad), small.width / (1 + 2 * pad), small.height / (1 + 2 * pad));
-  c.imageSmoothingQuality = "high";
-  c.drawImage(small, 0, 0, W, Hh);
-  const middle = document.createElement("canvas");
-  middle.width = W;
-  middle.height = Hh;
-  const m = middle.getContext("2d");
-  m.drawImage(puff, x0, y0, cw, ch, W * pad / (1 + 2 * pad), Hh * pad / (1 + 2 * pad), w, h);
-  m.globalCompositeOperation = "destination-in";
-  m.save();
-  m.translate(W / 2, Hh / 2);
-  m.scale(1, Hh / W);
-  const fade = m.createRadialGradient(0, 0, W * 0.12, 0, 0, W * 0.4);
-  fade.addColorStop(0, "#000");
-  fade.addColorStop(1, "#0000");
-  m.fillStyle = fade;
-  m.fillRect(-W, -W, 2 * W, 2 * W);
-  m.restore();
-  c.drawImage(middle, 0, 0);
-  softPuff = { source: puff, canvas };
-  return canvas;
-}
-
-// Soft cloud fluff over the feet of someone sunk into the clouds.
-function drawCloudFluff(racer) {
+// Sinking into the cloud: the floor's own clouds are painted back over her
+// feet, faded in below the surface she stands on (a feathered mask), so her
+// feet go down into the very cloud under her. Drawn in the course's unlifted
+// coordinates, like the floor.
+let sinkLayer = null;
+function drawCloudSink(racer) {
   const sink = racer.cloudSink || 0;
   if (sink < 0.05) return;
-  const x = racer.x - state.camera;
-  const y = racer.y + 54 + 2;
+  const art = getTrackArt("floor");
   const scale = racerDepthScale(racer) / 0.45;
-  const puff = softCloudPuff(); // image-requests.md §21 CL2, softened; else ellipses
+  const surface = racer.y + 54 - groundLift(racer.x); // where she stands, unlifted
+  const halfW = Math.ceil(70 * scale);
+  const above = CLOUD_SINK_FEATHER;
+  const below = Math.ceil(CLOUD_SINK * sink + CLOUD_SINK_FEATHER + 6);
+  const x0 = Math.floor(racer.x - state.camera - halfW);
+  const y0 = Math.floor(surface - above);
+  const w = halfW * 2;
+  const h = above + below;
+  sinkLayer ||= document.createElement("canvas");
+  if (sinkLayer.width < w || sinkLayer.height < h) {
+    sinkLayer.width = Math.max(sinkLayer.width, w);
+    sinkLayer.height = Math.max(sinkLayer.height, h);
+  }
+  const c = sinkLayer.getContext("2d");
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  c.globalCompositeOperation = "source-over";
+  c.clearRect(0, 0, sinkLayer.width, sinkLayer.height);
+  c.setTransform(1, 0, 0, 1, -x0, -y0);
+  for (const cloud of state.cloudFloor.clouds) {
+    if (cloud.x - state.camera > x0 + w || cloud.x + cloud.w - state.camera < x0) continue;
+    if (art) drawCloudFloorArt(art, cloud, c);
+    else drawCloudFloorStandIn(cloud, c);
+  }
+  // Keep only what lies below the surface, fading in over a few pixels.
+  c.setTransform(1, 0, 0, 1, 0, 0);
+  c.globalCompositeOperation = "destination-in";
+  const fade = c.createLinearGradient(0, 0, 0, h);
+  fade.addColorStop(0, "#0000");
+  fade.addColorStop(above / h, "#0000");
+  fade.addColorStop(Math.min(1, (above + CLOUD_SINK_FEATHER) / h), "#000");
+  fade.addColorStop(1, "#000");
+  c.fillStyle = fade;
+  c.fillRect(0, 0, w, h);
+  // And soften its sides, so it melts into the floor around her.
+  const sides = c.createLinearGradient(0, 0, w, 0);
+  sides.addColorStop(0, "#0000");
+  sides.addColorStop(0.25, "#000");
+  sides.addColorStop(0.75, "#000");
+  sides.addColorStop(1, "#0000");
+  c.fillStyle = sides;
+  c.fillRect(0, 0, w, h);
   ctx.save();
   ctx.globalAlpha = Math.min(1, sink * 1.4);
-  ctx.fillStyle = "#fbf8ff";
-  if (puff) {
-    // A soft mound of cloud, wider than her stance and up over her feet,
-    // with blurred edges so it reads as the cloud below swelling round them.
-    // (Her feet are sunk CLOUD_SINK below y; the mound is centred on them.)
-    for (const [dx, dy, size] of [[-38, 8, 120], [38, 8, 120], [-12, -2, 140], [14, 0, 134]]) {
-      const w = size * scale;
-      const h = w * puff.height / puff.width;
-      ctx.drawImage(puff, x + dx * scale - w / 2, y + dy * scale - h / 2, w, h);
-    }
-    ctx.restore();
-    return;
-  }
-  for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
-    ctx.beginPath();
-    ctx.ellipse(x + dx * scale, y - r * 0.15 * scale, r * scale, r * 0.55 * scale, 0, 0, Math.PI * 2);
-    ctx.fill();
-  }
+  ctx.drawImage(sinkLayer, 0, 0, w, h, x0, y0, w, h);
   ctx.restore();
 }
 
@@ -272,35 +240,35 @@ function drawCloudFloor() {
 
 // The floor sheet (image-requests.md §21 CL1): six 768×320 cloud cells, each
 // stretched to its cloud's width, its back edge at the cloud's height.
-function drawCloudFloorArt(art, cloud) {
+function drawCloudFloorArt(art, cloud, c = ctx) {
   const cellW = CLOUD_FLOOR_CELL_W;
   const cellH = CLOUD_FLOOR_CELL_H;
   const col = cloud.variant % 3;
   const row = Math.floor(cloud.variant / 3);
   const top = PATH_TOP - CLOUD_FLOOR_BACK_EDGE - cloud.h;
-  ctx.drawImage(art, col * cellW, row * cellH, cellW, cellH, cloud.x - state.camera, top - CLOUD_FLOOR_ART_TOP, cloud.w, cellH);
+  c.drawImage(art, col * cellW, row * cellH, cellW, cellH, cloud.x - state.camera, top - CLOUD_FLOOR_ART_TOP, cloud.w, cellH);
 }
 
 // Until the floor sheet is in: a soft puffy slab drawn in code.
-function drawCloudFloorStandIn(cloud) {
+function drawCloudFloorStandIn(cloud, c = ctx) {
   const x0 = cloud.x - state.camera;
   const back = PATH_TOP - CLOUD_FLOOR_BACK_EDGE - cloud.h;
   const r = 34;
-  ctx.save();
-  const body = ctx.createLinearGradient(0, back - 30, 0, H);
+  c.save();
+  const body = c.createLinearGradient(0, back - 30, 0, H);
   body.addColorStop(0, "#ffffff");
   body.addColorStop(0.35, "#f6f0ff");
   body.addColorStop(1, "#e2d5f6");
-  ctx.fillStyle = body;
-  ctx.beginPath();
+  c.fillStyle = body;
+  c.beginPath();
   // The puffy back edge, following the dome.
   const steps = Math.max(3, Math.round(cloud.w / 46));
   for (let i = 0; i <= steps; i += 1) {
     const k = i / steps;
     const px = x0 + r + (cloud.w - 2 * r) * k;
     const py = back - Math.sin(Math.PI * k) * CLOUD_DOME + Math.sin(cloud.seed + i * 1.7) * 5;
-    ctx.moveTo(px + r, py);
-    ctx.arc(px, py, r * (0.85 + 0.25 * Math.abs(Math.sin(cloud.seed * 3 + i))), 0, Math.PI * 2);
+    c.moveTo(px + r, py);
+    c.arc(px, py, r * (0.85 + 0.25 * Math.abs(Math.sin(cloud.seed * 3 + i))), 0, Math.PI * 2);
   }
   // Rounded puffy ends down to the bottom, only where a gap shows them
   // (elsewhere the next cloud carries straight on).
@@ -310,22 +278,22 @@ function drawCloudFloorStandIn(cloud) {
   const ends = [gapBefore && [x0 + r * 0.9, 1], gapAfter && [x0 + cloud.w - r * 0.9, -1]].filter(Boolean);
   for (const [ex] of ends) {
     for (let y = back + 20; y < H + r; y += 44) {
-      ctx.moveTo(ex + r, y);
-      ctx.arc(ex, y, r, 0, Math.PI * 2);
+      c.moveTo(ex + r, y);
+      c.arc(ex, y, r, 0, Math.PI * 2);
     }
   }
-  ctx.rect(gapBefore ? x0 + r * 0.9 : x0, back, cloud.w - (gapBefore ? r * 0.9 : 0) - (gapAfter ? r * 0.9 : 0), H - back + 10);
-  ctx.fill();
+  c.rect(gapBefore ? x0 + r * 0.9 : x0, back, cloud.w - (gapBefore ? r * 0.9 : 0) - (gapAfter ? r * 0.9 : 0), H - back + 10);
+  c.fill();
   // A little shading along the ends so gaps read as gaps.
-  ctx.globalAlpha = 0.18;
-  ctx.fillStyle = "#9b88c9";
+  c.globalAlpha = 0.18;
+  c.fillStyle = "#9b88c9";
   for (const [ex0, dir] of ends) {
     const ex = ex0 - dir * r * 0.9 + dir * 6;
-    const shade = ctx.createLinearGradient(ex, 0, ex + dir * 40, 0);
+    const shade = c.createLinearGradient(ex, 0, ex + dir * 40, 0);
     shade.addColorStop(0, "#8b78c0");
     shade.addColorStop(1, "#8b78c000");
-    ctx.fillStyle = shade;
-    ctx.fillRect(Math.min(ex, ex + dir * 40), back + 10, 40, H - back);
+    c.fillStyle = shade;
+    c.fillRect(Math.min(ex, ex + dir * 40), back + 10, 40, H - back);
   }
-  ctx.restore();
+  c.restore();
 }

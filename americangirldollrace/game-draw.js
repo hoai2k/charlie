@@ -229,7 +229,10 @@ function drawWorldScene() {
       ctx.translate(0, footing);
       drawDrawable(drawable);
       ctx.translate(0, -footing);
-      if (racer && lifted) drawCloudFluff(racer);
+      if (racer && lifted) {
+        ctx.translate(0, groundLift(racer.x)); // the floor's own coordinates
+        drawCloudSink(racer);
+      }
       ctx.restore();
     }
     drawSpells();
@@ -601,7 +604,7 @@ function drawRacer(racer) {
   const drawY = racer.y + 54 - SPRITE_ANCHOR_Y * spriteScale - racer.z;
 
   ctx.save();
-  ctx.globalAlpha = 0.28;
+  ctx.globalAlpha = 0.28 * (1 - (racer.cloudSink || 0)); // no shadow sunk into a cloud
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, racer.y + 40, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);
