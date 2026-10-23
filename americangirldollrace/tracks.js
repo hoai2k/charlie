@@ -80,7 +80,7 @@
 // TRACK_SHARED_ART lists delivered sheets at assets/<name>_sprites.webp that
 // several tracks may use: "skeleton_horse", "troll_riding" (§6 of the briefs),
 // "scarecrow", "skeleton" (§9).
-window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton", "robot"];
+window.TRACK_SHARED_ART = ["skeleton_horse", "troll_riding", "frog", "scarecrow", "skeleton", "robot", "tintroll", "sandtroll"];
 // Dolls (asset keys) whose roller-skate / pogo sheet is delivered:
 // assets/doll_<key>_toys.webp and its mask (image-requests.md §8).
 window.RIDE_TOY_ART_VERSION = "20261022-marisol-toys2";
@@ -3052,6 +3052,7 @@ window.TRACK_THEMES = {
     standInBackground: "farm"
   },
   toyroom: {
+    monster: "tintroll",
     name: "Toy Room", music: "assets/music/Little Toy-Box.mp3", dirtTop: 481, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "windup_car"],
     labels: { jump: "POGO", boost: "WIND-UP KEY", emp: "TOY DRUM", oil: "SPILLED JUICE", snowball: "MARSHMALLOWS" },
     sounds: { emp: "pickup_toy_drum", jump: "pickup_jack_in_box", boost: "windup_release" },
@@ -3067,6 +3068,7 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   beach: {
+    monster: "sandtroll",
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "wave"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
     projectileBurst: "water",

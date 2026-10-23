@@ -751,7 +751,7 @@ and no object in the front draws the eye ahead of the scenery.
 
 ---
 
-## 16. Two more track monsters: a wind-up tin toy troll and a sand monster (open)
+## 16. Delivered Toy Room and Beach monsters
 
 Two more alternates for the troll, in the **same painted, slightly photoreal
 style as `assets/monster_sprites.webp`** (look at it side by side). They
@@ -791,3 +791,5 @@ C1 delivered: the five original track cards are landscape-only. Native/half-size
 C2 first batch delivered: Horse Show, Toy Room, Candy Land, Beach and Wizard School cards now have empty foregrounds; native/half-size and browser checks passed.
 
 C2 final batch delivered: Pumpkin Patch, Cloud Kingdom, Moon Base, Fairy Woods and Night Festival. All fifteen C1/C2 cards pass RGB/dimensions/hash, half-size landmark readability and browser rendering checks. `tools/tracks/card-redo/` retains sources, prompts and evidence.
+
+M4/M5 delivered with the owner’s revised designs: M4 is a glossy vintage wind-up lagoon creature, with gills, webbed hands/feet and a brass key. Its final frame lies flat on its back, legs straight and rigid arms straight up. M5 is made purely of loose sand, without eyes, shells or seaweed; sand spills from all poses and its collapse ends in a plain heap. These later instructions supersede the initial character descriptions above. Twelve poses each, true alpha, baseline409, original-troll scale comparison and measured hand anchors verified. Browser review passed grabs/lifts/throws in both directions, push/snowball/EMP and five-hit defeat states. Sources, exact built-in ImageGen prompts and proofs: `tools/effects/`.

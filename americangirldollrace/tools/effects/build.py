@@ -13,13 +13,20 @@ def place(cell,frame_size,scale,baseline,center=None):
     frame=Image.new('RGBA',frame_size);frame.alpha_composite(art,(x,y));return frame
 
 def build(key):
-    src=packing.packing.clean(Image.open(HERE/f'sources/{key}.webp'));rows=1 if key=='wave' else 4 if key in ['scarecrow','skeleton','robot'] else 2
-    if key=='robot':
+    src=packing.packing.clean(Image.open(HERE/f'sources/{key}.webp'));rows=1 if key=='wave' else 4 if key in ['scarecrow','skeleton','robot','tintroll','sandtroll'] else 2
+    if key in ['robot','tintroll','sandtroll']:
         b=packing.packing.bounds(src);assert min(b[:2])>0 and b[2]<src.width and b[3]<src.height,('Clipped robot source',b)
-    cells=packing.full_cells(src,rows=rows);boxes=[packing.packing.bounds(c) for c in cells]
-    if key in ['scarecrow','skeleton','robot']:
+    cells=packing.full_cells(src,rows=rows)
+    for n in range(len(cells)):
+        override=HERE/f'overrides/{key}-{n}.webp'
+        if override.exists(): cells[n]=packing.packing.clean(Image.open(override))
+    boxes=[packing.packing.bounds(c) for c in cells]
+    calibration=json.loads((HERE/'monster-calibration.json').read_text()).get(key,{})
+    if key in ['scarecrow','skeleton','robot','tintroll','sandtroll']:
         target=GAME/f'assets/{key}_sprites.webp';size=(418,418);sheet=Image.new('RGBA',(1254,1672));reference=Image.open(GAME/'assets/monster_sprites.webp').convert('RGBA')
         common=(packing.packing.bounds(reference.crop((0,0,418,418)))[3]-packing.packing.bounds(reference.crop((0,0,418,418)))[1])/(boxes[0][3]-boxes[0][1])
+        if key in ['tintroll','sandtroll']:
+            common /= 1-calibration['headTopInsetRatio']  # exclude key / seaweed above head
         for n,c in enumerate(cells):
             b=boxes[n];ref=packing.packing.bounds(reference.crop((n%3*418,n//3*418,n%3*418+418,n//3*418+418)))
             # The three ground/defeated poses have their own low silhouettes.
@@ -35,7 +42,8 @@ def build(key):
             f=place(c,size,scale,fh-1);sheet.paste(f,(n%3*fw,n//3*fh))
     packing.packing.save(sheet,target,exact=True)
     report={'path':str(target.relative_to(GAME)),'size':sheet.size,'frameSize':size,'frames':[packing.packing.bounds(sheet.crop((n%3*size[0],n//3*size[1],n%3*size[0]+size[0],n//3*size[1]+size[1]))) for n in range(len(cells))],'sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
+    report.update(calibration)
     (HERE/f'reports/{key}.json').write_text(json.dumps(report,indent=2)+'\n');print(key,report['size'])
 
 if __name__=='__main__':
-    for key in sys.argv[1:] or ['frog','wave','windup_car','scarecrow','skeleton','robot']:build(key)
+    for key in sys.argv[1:] or ['frog','wave','windup_car','scarecrow','skeleton','robot','tintroll','sandtroll']:build(key)

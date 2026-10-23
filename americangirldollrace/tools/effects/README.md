@@ -1,7 +1,7 @@
 # Shared item effects and track enemies
 
 The built-in ImageGen prompts and selected alpha sources are retained here.
-`build.py` exports the frog, three-frame wave, wind-up cars and two 12-pose
+`build.py` exports the frog, three-frame wave, wind-up cars and five 12-pose
 track monsters. `check.py` verifies alpha gutters, baseline, dimensions and
 hashes. Run both from any directory.
 
@@ -20,3 +20,12 @@ pose and no painted sparks in that final cell. Runtime supplies the sparks.
 light/dark alpha, overlay, style comparison and in-game proof are retained.
 Browser review exercised empty-hand grab/lift/throw, push, snowball, EMP and
 five knockbacks through the actual gameplay functions on Moon Base Extra.
+
+M4/M5 are registered on Toy Room and Beach. The owner’s final design replaces
+the initial troll-shaped tin and decorated sand concepts: a glossy wind-up
+lagoon creature and a faceless heap made purely of spilling sand. The toy’s
+final cell is flat on its back with straight legs and rigid upright arms;
+the sand collapse pours into a plain heap. `monster-calibration.json` retains
+head inset and measured empty-hand anchors used by game.js. Sources, exact
+built-in prompts and light/dark alpha and browser proofs are retained.
+`overrides/tintroll-11.webp` replaces only the final toy frame.

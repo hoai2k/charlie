@@ -207,7 +207,9 @@ const MONSTER_GRAB_HANDS = {
   monster: [[336, 181], [296, 122], [335, 114]],
   robot: [[363, 208], [365, 148], [342, 130]],
   scarecrow: [[354, 177], [305, 117], [339, 132]],
-  skeleton: [[348, 189], [300, 116], [349, 122]]
+  skeleton: [[348, 189], [300, 116], [349, 122]],
+  tintroll: [[325, 210], [290, 120], [340, 155]],
+  sandtroll: [[325, 180], [310, 55], [350, 135]]
 };
 const MONSTER_WAIT_FROM_BOARD_END = EXPECTED_VIEW_WIDTH;
 let MONSTER_COURSE_START_X = FINISH / 3 + 120;

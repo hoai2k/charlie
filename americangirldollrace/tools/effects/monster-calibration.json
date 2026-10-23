@@ -1,0 +1,36 @@
+{
+  "tintroll": {
+    "headTopInsetRatio": 0.16,
+    "grabHands": [
+      [
+        325,
+        210
+      ],
+      [
+        290,
+        120
+      ],
+      [
+        340,
+        155
+      ]
+    ]
+  },
+  "sandtroll": {
+    "headTopInsetRatio": 0,
+    "grabHands": [
+      [
+        325,
+        180
+      ],
+      [
+        310,
+        55
+      ],
+      [
+        350,
+        135
+      ]
+    ]
+  }
+}
