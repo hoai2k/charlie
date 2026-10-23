@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §16 tin toy and sand monster trolls (M4, M5). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** none. Every request is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
