@@ -1190,3 +1190,7 @@ LG1/LG2 first art batch delivered: Hermione, Mira, Claudia-v2, Amanda and
 Penelope. Per-pose contact anchors, source art, exact built-in prompts and
 mask/identity reviews are under `tools/dolls/ledge/`; gameplay integration
 and registration remain with the other agent per owner.
+
+LG1/LG2 second art batch delivered: Barbie, Cinnamon, Felicity, Luna and
+Marisol-v2. Corrected Cinnamon/Felicity/Marisol have no glasses; Luna keeps
+her canonical pink glasses. All five include masks and contact anchors.
