@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §21 Cloud Kingdom floor clouds (CL1); §22 Moon Base laser trigger (LZ1); §23 moon boots (MB1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §23 moon boots (MB1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -917,7 +917,7 @@ flight cells use uniform scale and fixed head/body alignment. Shared crow art
 and CROWS label registered; actual flight, circling and both directions passed
 review. Sources, prompts, export report and proofs: `tools/effects/autumn-crows/`.
 
-## 21. Open: Cloud Kingdom floor clouds
+## 21. Delivered: Cloud Kingdom floor clouds
 
 Cloud Kingdom's course is now a row of separate clouds (game-terrain.js):
 each cloud sits a little higher or lower than the last (steps of up to 12
@@ -952,7 +952,7 @@ floor reads as separate soft clouds one after another, steps between them
 look natural, dolls' feet sit on the tops, and each gap looks like a hole
 between two clouds.
 
-## 22. Open: Moon Base laser trigger
+## 22. Delivered: Moon Base laser trigger
 
 Moon Base's EMP is LASER: lasers zap everyone in range. Its pickup today
 (E14, a red console button under a flip-up cover) doesn't say "lasers".
@@ -988,3 +988,11 @@ Acceptance: on Moon Base (or the workbench on Moon Base) take MOON BOOTS:
 standing, running, pushing, falling back and landing, both boots cover the
 feet in the same boots as the jumping pose, facing the right way.
 
+
+CL1/LZ1 delivered: six pastel cloud-floor cells at2304×640 with transparent
+rounded ends and back edge40; actual overlapping steps, open gaps, doll feet
+and right-to-left scrolling reviewed. Laser trigger has four outward ray guns
+and a central red button; other four decoded pickup cells remain identical.
+36 unit and34 silent browser checks passed. Sources/prompts/proofs:
+`tools/tracks/cloud-floor/` and `tools/effects/moon-equipment/`.
+MB1 side/front boot art is generated and exported; pose integration is next.
