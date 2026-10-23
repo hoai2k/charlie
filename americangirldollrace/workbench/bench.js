@@ -165,7 +165,7 @@
     ctx.ellipse(screenX, racer.y + 42, 62 * scale, 15 * scale, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
-    if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, racer.y + 58 - SPRITE_ANCHOR_Y * scale - racer.z, FRAME * scale, FRAME * scale, racer.empLaser ? LASER_SHOCK_COLOR : undefined);
+    if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, racer.y + 58 - SPRITE_ANCHOR_Y * scale - racer.z, FRAME * scale, FRAME * scale, racer.shockColor || undefined);
     const facing = racer.fallBackTimer > 0 && !grab ? racer.fallBackFacing : racer.facing;
     const cast = racer.benchLightning;
     const attack = cast && images.cloudtroll_lightning;

@@ -313,7 +313,10 @@ const MOON_BOOT_GROW = 1.45; // a moon boot is this much bigger than the foot it
 const MOON_BOOT_FOOT_MIN = 44; // the foot sizes (frame px) a moon boot is scaled from, at least
 const MOON_BOOT_FOOT_MAX = 64; // and at most (a long measurement is part of her leg)
 const MOON_BOOT_FOOT_MID = 34; // px up from its sole, in the boot art, that sits on the foot's middle
-const LASER_SHOCK_COLOR = "#ff4d64"; // crackles on someone a laser shocked
+// The crackles on someone shocked match what shocked her.
+const LASER_SHOCK_COLOR = "#ff4d64"; // a Moon Base laser's red
+const EMP_SHOCK_COLOR = "#c58aff"; // the lightning EMP's purple bolts
+const MONSTER_BOLT_COLOR = "#ffe23a"; // the storm troll's yellow bolt
 const LASER_SHOTS = 4; // bolts the laser trigger fires at each target
 const LASER_FIRST_SHOT = 0.12; // s before the first
 const LASER_SHOT_GAP = 0.13; // s between bolts
@@ -1697,7 +1700,7 @@ function update(dt) {
     if (previousFrozenTimer > 0 && racer.frozenTimer === 0) {
       if (!racer.empDizzy) sfx("frozen_break", racer.x);
       racer.empDizzy = false;
-      racer.empLaser = false;
+      racer.shockColor = null;
     }
     updateStackTimers(racer, dt);
     racer.empTimer = Math.max(0, racer.empTimer - dt);

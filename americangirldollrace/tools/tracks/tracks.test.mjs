@@ -7,7 +7,7 @@ import { gameSource as source } from '../game-source.mjs';
 const draw=source.match(/function drawBackground\(\) \{[^]*?\n\}/)[0];
 function renderer(loopMode,camera){
  const calls=[];const bg={width:2172,height:724};
- const ctx={fillRect(){},drawImage(...args){calls.push(['draw',...args.slice(1)]);},save(){},restore(){},translate(...xy){calls.push(['translate',...xy]);},scale(...xy){calls.push(['scale',...xy]);}};
+ const ctx={fillRect(){},createLinearGradient:()=>({addColorStop(){}}),drawImage(...args){calls.push(['draw',...args.slice(1)]);},save(){},restore(){},translate(...xy){calls.push(['translate',...xy]);},scale(...xy){calls.push(['scale',...xy]);}};
  const c={ctx,images:{bg},state:{camera},H:720,TRACK_TOP:480,PATH_TOP:480,TRACK_BOTTOM:665,
   getCurrentBackground:()=>({imageKey:'bg'}),getTrackTheme:()=>({loopMode}),
   getWorldViewportWidth:()=>1280,getWorldViewportTop:()=>0};

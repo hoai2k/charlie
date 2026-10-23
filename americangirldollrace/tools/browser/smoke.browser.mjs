@@ -769,7 +769,7 @@ test('Cloud floor art uses all six cells at varied widths and keeps open jumping
     return {size:art&&[art.width,art.height],calls,gap:gap.end-gap.start,min:CLOUD_GAP_MIN,max:CLOUD_GAP_MAX,hasGap:!!cloudGapAt((gap.start+gap.end)/2)};
   });
   assert.deepEqual(r.size,[2304,640]);assert.equal(r.calls.length,6);
-  r.calls.forEach((c,n)=>{assert.deepEqual(c.slice(0,4),[n%3*768,Math.floor(n/3)*320,768,320]);assert.equal(c[6],n%2?670:430);assert.equal(c[7],320);});
+  r.calls.forEach((c,n)=>{assert.deepEqual(c.slice(0,4),[n%3*768,Math.floor(n/3)*320+1,768,319]);assert.equal(c[6],n%2?670:430);assert.equal(c[7],319);});
   assert.ok(r.gap>=r.min&&r.gap<=r.max,`gap ${r.gap}`);assert.equal(r.hasGap,true);assert.deepEqual(errors,[]);
 });
 

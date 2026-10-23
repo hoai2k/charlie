@@ -636,7 +636,7 @@ function updateMonsterBolts(dt) {
       if (racer === bolt.owner) continue;
       // Knocked off any mount and shocked, as by a lightning EMP.
       if (isMounted(racer)) dismountIntoPickup(racer);
-      applyEmpHit({ x: racer.x - (Math.sign(bolt.vx) || 1) }, racer, "lightning");
+      applyEmpHit({ x: racer.x - (Math.sign(bolt.vx) || 1) }, racer, "lightning", MONSTER_BOLT_COLOR);
       racer.fallBackTimer = Math.max(racer.fallBackTimer, 0.6);
       bolt.life = 0;
       break;
@@ -658,9 +658,9 @@ function drawMonsterBolt(bolt) {
   ctx.beginPath();
   MONSTER_BOLT_SHAPE.forEach(([px, py], i) => (i ? ctx.lineTo(px, py) : ctx.moveTo(px, py)));
   ctx.closePath();
-  ctx.shadowColor = "rgba(255, 236, 90, 0.95)";
+  ctx.shadowColor = MONSTER_BOLT_COLOR;
   ctx.shadowBlur = 18;
-  ctx.fillStyle = "#ffe23a";
+  ctx.fillStyle = MONSTER_BOLT_COLOR;
   ctx.fill();
   ctx.shadowBlur = 0;
   ctx.lineJoin = "round";

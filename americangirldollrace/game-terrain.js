@@ -288,7 +288,10 @@ function drawCloudFloorArt(art, cloud, c = ctx) {
   const col = cloud.variant % 3;
   const row = Math.floor(cloud.variant / 3);
   const top = PATH_TOP - CLOUD_FLOOR_BACK_EDGE - cloud.h;
-  c.drawImage(art, col * cellW, row * cellH, cellW, cellH, cloud.x - state.camera, top - CLOUD_FLOOR_ART_TOP, cloud.w, cellH);
+  // One clear row in from the cell's top: stretched, a cell would otherwise
+  // pick up the bottom row of the cell above it as a faint line.
+  const inset = 1;
+  c.drawImage(art, col * cellW, row * cellH + inset, cellW, cellH - inset, cloud.x - state.camera, top - CLOUD_FLOOR_ART_TOP + inset, cloud.w, cellH - inset);
 }
 
 // Until the floor sheet is in: a soft puffy slab drawn in code.
