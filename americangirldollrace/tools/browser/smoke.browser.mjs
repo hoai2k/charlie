@@ -148,7 +148,7 @@ test('an EMP reaches a screen width, and backfires with nobody in range', { skip
       state.powerups = [makePowerup('emp', 8100, a.y + 54)];
       // The Farm's rooster waves take a moment to reach whoever they hit.
       let self = false, other = false;
-      for (let i = 0; i < 70; i++) { update(1 / 60); self ||= a.frozenTimer > 0; other ||= b.frozenTimer > 0; }
+      for (let i = 0; i < 120; i++) { update(1 / 60); self ||= a.frozenTimer > 0; other ||= b.frozenTimer > 0; }
       return { self, other };
     };
     return { near: run(1100), far: run(1500) };
@@ -521,7 +521,7 @@ test('lightning EMPs show the original icon and shock; the others play their own
       update(1 / 60);
       const style = state.empArcs[0]?.style;
       let dizzy = false;
-      for (let i = 0; i < 100; i++) { update(1 / 60); drawScene(0); dizzy ||= Boolean(b.empDizzy); }
+      for (let i = 0; i < 140; i++) { update(1 / 60); drawScene(0); dizzy ||= Boolean(b.empDizzy); } // the rooster hops about a while
       return { style, icon: pickupLook('emp').sheet ? 'own' : 'original', hit: dizzy ? 'dizzy' : 'shocked', done: state.empArcs.length === 0 };
     });
   }
@@ -544,7 +544,8 @@ test('an EMP stuns each target when its effect reaches them: lightning at once, 
     });
   }
   assert.equal(when.clouds, 1, 'lightning is instant');
-  for (const track of ['festival', 'farm', 'autumn']) assert.ok(when[track] > 10 && when[track] < 60, `${track} lands after ${when[track]} frames`);
+  // (A sound wave stuns once it has passed right through.)
+  for (const track of ['festival', 'farm', 'autumn']) assert.ok(when[track] > 10 && when[track] < 90, `${track} lands after ${when[track]} frames`);
 });
 
 test('Farm rooster uses all three delivered crowing cells in front of the doll in either direction', { skip: skip() }, async () => {
@@ -608,6 +609,20 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
     for (let i = 0; i < 80; i++) { tick(1); held ||= doll.grabbedBy === troll; }
     return { running: state.running, held, thrown: !doll.grabbedBy && Math.abs(doll.x - troll.x) > 150, still: doll.dummy };
   });
+  // Y (R): a cloud troll player throws lightning that knocks a target down.
+  const zap = await frame.evaluate(async () => {
+    await Promise.all([loadArtOnce('cloudtroll_lightning', 'assets/cloudtroll_lightning.webp'), loadArtOnce('cloudtroll_bolt', 'assets/cloudtroll_bolt.webp')]);
+    Bench.setup('farm');
+    Bench.setPlayer({ kind: 'troll', key: 'cloudtroll', name: 'Cloud troll' });
+    Bench.addTarget({ kind: 'doll', key: 'juliette' });
+    const [troll, doll] = state.racers;
+    doll.x = troll.x + 350; doll.y = troll.y; troll.facing = 1;
+    keys.add('KeyR'); update(1 / 60); keys.delete('KeyR');
+    let hit = false;
+    for (let i = 0; i < 90; i++) { update(1 / 60); drawScene(0); hit ||= doll.fallBackTimer > 0; }
+    return hit;
+  });
+  assert.equal(zap, true, 'the cloud troll\'s lightning hits');
   // Dragging: a tile let go over the scene adds it there; dragged out, gone.
   const tileBox = async name => { for (const t of await bench.$$('#players .tile, #mounts .tile')) if ((await t.innerText()).trim() === name) return t.boundingBox(); };
   const sceneBox = await (await bench.$('#game')).boundingBox();

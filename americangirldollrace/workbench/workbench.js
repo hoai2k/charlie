@@ -243,6 +243,12 @@ function start() {
   frame.contentWindow.focus();
 }
 
+// Clicks and keys out here count as playing too: they unlock the game's
+// sound, which the browser holds back until someone interacts.
+for (const type of ["pointerdown", "keydown"]) {
+  document.addEventListener(type, () => game?.GameAudio?.unlock(), true);
+}
+
 // Once the race's scripts are up, add the bench to its page and begin.
 frame.addEventListener("load", () => {
   const w = frame.contentWindow;

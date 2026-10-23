@@ -14,11 +14,20 @@ for (cell,box),seat in zip(split,seats):
  b=p.bounds(cell);assert b and min(b[:2])>0 and b[2]<cell.width and b[3]<cell.height,('clipped source',box,b)
  local=[seat[0]-box[0],seat[1]-box[1]];items.append((cell,b,local))
 scale=min(360/max(b[2]-b[0] for _,b,_ in items),375/max(b[3]-b[1] for _,b,_ in items),220/max(seat[0]-b[0] for _,b,seat in items),186/max(b[2]-seat[0] for _,b,seat in items))
-sheet=Image.new('RGBA',(1254,1254));frames=[]
+import numpy as np
+# The hand-picked seat x is only approximate, so each pose is then slid to
+# line its wheels and chassis (the bottom of the frame) up with the first
+# pose's; otherwise the rover jumps sideways between frames under its rider.
+def chassis(art,x,y):
+ frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(x,y));return np.asarray(frame)[250:409,:,3].astype(float)
+sheet=Image.new('RGBA',(1254,1254));frames=[];reference=None
 for n,(cell,b,seat) in enumerate(items):
  art=cell.crop(b).resize((round((b[2]-b[0])*scale),round((b[3]-b[1])*scale)),Image.Resampling.LANCZOS)
  seatX=(seat[0]-b[0])*scale
  x=round(226-seatX);y=409-p.bounds(art)[3]
+ if reference is None: reference=chassis(art,x,y)
+ else:
+  low=chassis(art,x,y);x+=min(range(-30,31),key=lambda d:np.abs(np.roll(low,d,axis=1)-reference).mean())
  assert x>0 and x+art.width<418 and y>0,(n,x,y,art.size)
  frame=Image.new('RGBA',(418,418));frame.alpha_composite(art,(x,y));sheet.paste(frame,(n%3*418,n//3*418))
  frames.append({'bounds':p.bounds(frame),'seat':[226,round(y+(seat[1]-b[1])*scale,2)],'groundShift':0})

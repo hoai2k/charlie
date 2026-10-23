@@ -167,8 +167,16 @@
     ctx.restore();
     if (racer.frozenTimer > 0 && !racer.empDizzy) drawElectricEffect(screenX, racer.y + 58 - SPRITE_ANCHOR_Y * scale - racer.z, FRAME * scale, FRAME * scale);
     const facing = racer.fallBackTimer > 0 && !grab ? racer.fallBackFacing : racer.facing;
-    drawFacingImage(sheet, pose[1] * FRAME, pose[0] * FRAME, FRAME, FRAME,
-      screenX - SPRITE_ANCHOR_X * scale, racer.y + 58 - SPRITE_ANCHOR_Y * scale - racer.z, FRAME * scale, FRAME * scale, facing, screenX);
+    const cast = racer.benchLightning;
+    const attack = cast && images.cloudtroll_lightning;
+    if (attack) {
+      // The lightning throw's own 512px frames, feet on the same ground line.
+      const col = cast.t < BOLT_RELEASE ? 0 : cast.t < 0.65 ? 1 : 2;
+      drawFacingImage(attack, col * 512, 0, 512, 512, screenX - 256 * scale, racer.y + 58 - 503 * scale - racer.z, 512 * scale, 512 * scale, facing, screenX);
+    } else {
+      drawFacingImage(sheet, pose[1] * FRAME, pose[0] * FRAME, FRAME, FRAME,
+        screenX - SPRITE_ANCHOR_X * scale, racer.y + 58 - SPRITE_ANCHOR_Y * scale - racer.z, FRAME * scale, FRAME * scale, facing, screenX);
+    }
     if (racer.frozenTimer > 0 && racer.empDizzy) drawDizzyStars(screenX, racer.y + 58 - racer.z - 330 * scale, scale * 0.8, Math.min(1, racer.frozenTimer * 3));
     ctx.save();
     ctx.font = "800 18px system-ui";
@@ -182,16 +190,83 @@
     ctx.restore();
   };
 
+  // ---------- a troll's own move (Y) ----------
+  // Workbench only: R or a controller's Y gives a troll player its own move.
+  // The cloud troll throws a lightning bolt, as it does in the race.
+  const BOLT_RELEASE = 0.45;
+  const BOLT_END = 0.9;
+  let secondaryHeld = false;
+
+  function secondaryPressed() {
+    const pads = connectedGamepads(navigator.getGamepads ? navigator.getGamepads() : []);
+    const down = keys.has("KeyR") || pads.some(pad => pad.buttons[3]?.pressed);
+    const pressed = down && !secondaryHeld;
+    secondaryHeld = down;
+    return pressed;
+  }
+
+  function trollScale(racer) {
+    const def = window.MONSTERS?.[racer.monsterKey] || {};
+    return racerDepthScale(racer) * MONSTER_HEIGHT_SCALE * (def.scale || 1);
+  }
+
+  function updateTrollSecondary(troll, dt) {
+    const def = window.MONSTERS?.[troll.monsterKey] || {};
+    if (secondaryPressed() && def.lightning && !troll.benchLightning && !troll.benchGrab && !isMounted(troll)
+      && !troll.grabbedBy && troll.fallBackTimer <= 0) {
+      loadArtOnce("cloudtroll_lightning", "assets/cloudtroll_lightning.webp");
+      loadArtOnce("cloudtroll_bolt", "assets/cloudtroll_bolt.webp");
+      troll.benchLightning = { t: 0, released: false };
+    }
+    const cast = troll.benchLightning;
+    if (!cast) return;
+    cast.t += dt;
+    if (!cast.released && cast.t >= BOLT_RELEASE) {
+      cast.released = true;
+      const scale = trollScale(troll);
+      (state.monsterBolts ||= []).push({
+        x: troll.x + (450 - 256) * scale * troll.facing,
+        y: troll.y, drawY: troll.y + 58 - troll.z + (280 - 503) * scale,
+        vx: troll.facing * 540, life: 1.3, owner: troll
+      });
+      sfx("storm_lightning", troll.x, { gain: 0.8 });
+    }
+    if (cast.t >= BOLT_END || troll.fallBackTimer > 0) troll.benchLightning = null;
+  }
+
+  // The player's bolts knock down the monsters they reach too.
+  function boltsHitMonsters() {
+    for (const bolt of state.monsterBolts || []) {
+      if (!bolt.owner || bolt.life <= 0) continue;
+      const monster = state.monsters.find(m => !["sleeping", "ground", "fall"].includes(m.state)
+        && Math.abs(m.x - bolt.x) < 50 && Math.abs(m.y - bolt.y) < 50);
+      if (!monster) continue;
+      asKind(monster, () => applyMonsterKnockback(monster, Math.sign(bolt.vx) || 1));
+      bolt.life = 0;
+    }
+  }
+
+  // A troll casting stands still.
+  const playerInputOriginal = window.playerInput;
+  window.playerInput = function (index, gamepads) {
+    const input = playerInputOriginal(index, gamepads);
+    const racer = state.racers.find(r => r.playerIndex === index && !r.dummy);
+    if (racer?.benchLightning) return { ...input, horizontal: 0, vertical: 0, jump: false, push: false };
+    return input;
+  };
+
   // ---------- keep the sandbox going ----------
   const updateOriginal = window.update;
   window.update = function (dt) {
     updateOriginal(dt);
     for (const racer of state.racers) {
       if (racer.monsterKey) updateTrollGrab(racer, dt);
+      if (racer.monsterKey && !racer.dummy) updateTrollSecondary(racer, dt);
       // Nobody reaches the finish line, so the race never ends.
       racer.x = clamp(racer.x, 200, FINISH - 600);
       racer.finished = false;
     }
+    boltsHitMonsters();
     state.stormTimer = Infinity;
     state.rewardTimer = Infinity;
   };

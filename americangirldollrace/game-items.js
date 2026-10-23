@@ -20,9 +20,12 @@ function empHitTarget(attacker, target, style) {
 function empHitTime(arc, target, from) {
   if (arc.style === "firework" || arc.style === "poprocks") return EMP_ROCKET_TIME;
   if (arc.style === "crows") return EMP_CROW_TIME;
+  // A sound wave stuns once it has passed right through her: when its last
+  // ring reaches her.
   const origin = arc.style === "rooster" ? roosterBeak(arc, from) : from;
   const to = spellTargetPoint(target);
-  return Math.hypot(to.x - origin.x, to.y - origin.y) / empWaveReach(arc, origin) * EMP_WAVE_TIME;
+  const lastRing = 2 * empWaveLook(arc).gap;
+  return lastRing + Math.hypot(to.x - origin.x, to.y - origin.y) / empWaveReach(arc, origin) * EMP_WAVE_TIME;
 }
 
 // A lightning EMP shocks her; any other leaves her dizzy for as long.
@@ -150,7 +153,13 @@ function empSourcePoint(arc) {
 }
 
 function empArcDuration(arc) {
-  return arc.style === "lightning" ? EMP_ARC_TIME : arc.style === "crows" ? EMP_EFFECT_TIME + 0.3 : EMP_EFFECT_TIME;
+  if (arc.style === "lightning") return EMP_ARC_TIME;
+  if (arc.style === "crows") return EMP_EFFECT_TIME + 0.3;
+  if (arc.style === "firework" || arc.style === "poprocks") return EMP_EFFECT_TIME;
+  // Sound waves last until their last ring has spread right out (and past
+  // everyone, who it stuns as it goes); the rooster then hops about a while.
+  const waves = 2 * empWaveLook(arc).gap + EMP_WAVE_TIME * 1.15;
+  return arc.style === "rooster" ? Math.max(waves, ROOSTER_CROW_TIME + ROOSTER_LINGER) : waves;
 }
 
 // A firework or pop-rocks rocket's path: up from the trigger in an arc that
@@ -368,6 +377,14 @@ function drawEmpRockets(arc, from) {
 // Sound waves spreading out from the trigger: the rooster's crow as curved
 // ripples to either side, a bell's ringing gold circles with music notes, a
 // gong's heavy bronze rings.
+function empWaveLook(arc) {
+  return {
+    rooster: { color: "#ffffff", edge: "#c7522a", width: 7, gap: 0.22 },
+    bell: { color: "#ffd84a", edge: "#a8741a", width: 5, gap: 0.2 },
+    gong: { color: "#e0a64a", edge: "#7a4a12", width: 11, gap: 0.26 }
+  }[arc.style] || { color: "#ffffff", edge: "#555555", width: 5, gap: 0.2 };
+}
+
 function drawEmpWaves(arc, from) {
   if (arc.style === "rooster") {
     // The waves come out of the rooster's beak, in front of her.
@@ -376,11 +393,7 @@ function drawEmpWaves(arc, from) {
   }
   const reach = empWaveReach(arc, from);
   const x = from.x - state.camera;
-  const look = {
-    rooster: { color: "#ffffff", edge: "#c7522a", width: 7, gap: 0.22 },
-    bell: { color: "#ffd84a", edge: "#a8741a", width: 5, gap: 0.2 },
-    gong: { color: "#e0a64a", edge: "#7a4a12", width: 11, gap: 0.26 }
-  }[arc.style] || { color: "#ffffff", edge: "#555555", width: 5, gap: 0.2 };
+  const look = empWaveLook(arc);
   for (let i = 0; i < 3; i += 1) {
     const k = (arc.t - i * look.gap) / EMP_WAVE_TIME;
     if (k <= 0 || k >= 1.15) continue;
@@ -457,16 +470,33 @@ function roosterSpot(arc, from) {
 }
 
 // Where it's drawn this moment: bob, rock, size and pose.
+// Crowing, it bobs through its three poses; then it hops about a while,
+// to and fro, before it fades.
 function roosterPose(arc, from) {
   const spot = roosterSpot(arc, from);
   const sheet = getSharedArt("rooster_crow");
+  const size = 96 * Math.min(1, arc.t * 8);
+  if (arc.t < ROOSTER_CROW_TIME || !sheet) {
+    return {
+      ...spot,
+      sheet,
+      bob: Math.abs(Math.sin(arc.t * 14)) * 12,
+      tilt: sheet ? -Math.sin(arc.t * 14) * 0.06 : -0.25 - Math.sin(arc.t * 14) * 0.12,
+      size,
+      frame: Math.floor(arc.t * 8) % 3
+    };
+  }
+  const h = arc.t - ROOSTER_CROW_TIME;
+  const wander = Math.sin(h * 3.2);
   return {
     ...spot,
+    x: spot.x + spot.facing * wander * 40,
+    facing: Math.cos(h * 3.2) >= 0 ? spot.facing : -spot.facing,
     sheet,
-    bob: Math.abs(Math.sin(arc.t * 14)) * 12,
-    tilt: sheet ? -Math.sin(arc.t * 14) * 0.06 : -0.25 - Math.sin(arc.t * 14) * 0.12,
-    size: 96 * Math.min(1, arc.t * 8),
-    frame: Math.floor(arc.t * 8) % 3
+    bob: Math.abs(Math.sin(h * 11)) * 26,
+    tilt: Math.sin(h * 11) * 0.08,
+    size,
+    frame: 0
   };
 }
 

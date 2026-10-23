@@ -301,12 +301,14 @@ const EMP_STREAM_TIME = 0.3;
 const EMP_EFFECT_TIME = 1.1; // s the non-lightning EMP effects play
 const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive onto its target
 const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
-const EMP_CROW_TIME = 0.6;
+const EMP_CROW_TIME = 0.6; // s a crow takes to reach its target
 const ROVER_BOUNCE = 12; // sprite px the moon buggy hops over each bump as it drives
 const ROVER_BUMP_SPACING = 45; // bumps come every pi times this many world px (about 4 a second at full speed)
 const ROVER_LANDING_TIME = 0.35; // s its landing squash and recoil last
 const ROVER_LANDING_SQUASH = 16; // sprite px it squashes down on landing
-const ROOSTER_AHEAD = 90; // px in front of her that the ROOSTER EMP's rooster stands // s a crow takes to reach its target
+const ROOSTER_CROW_TIME = 0.8; // s the rooster crows (the waves go out), then
+const ROOSTER_LINGER = 1.2; // s it hops about before fading
+const ROOSTER_AHEAD = 90; // px in front of her that the ROOSTER EMP's rooster stands
 const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
 // Each kind of power-up glows its own colour on every track, whatever its art.
 const POWERUP_GLOW_COLORS = {
