@@ -1066,6 +1066,16 @@ Acceptance: on Moon Base with MOON BOOTS, running (both feet, front and
 kicked back), knocked back, landing and riding, both boots cover the feet
 and look like the jump pose's boots from the angle the foot is seen at.
 
+
+**Integrated and checked in game:** drawMoonBootsOn now picks the view per
+foot (game-draw.js moonBootView): back three-quarter for a foot kicked up
+behind her, pointed toe for a foot pointing well down, the sole for feet
+turned towards us as she's knocked over, the inside view (mirrored) for
+her planted back foot. Checked running, crouching, knocked over and
+standing across Barbie, Felicity, Lily, Juliette, Mira, Whirlpool and
+Kaya: the boots cover the feet. Mira's knee-high boots still show above
+the moon boots' cuffs, which reads as boots over boots.
+
 ## 27. Open: fairy wings
 
 On Fairy Woods a mount pickup can be **fairy wings**. They work like the
