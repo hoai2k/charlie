@@ -529,8 +529,8 @@ test('lightning EMPs show the original icon and shock; the others play their own
     });
   }
   for (const track of ['clouds', 'winter']) assert.deepEqual(seen[track], { style: 'lightning', icon: 'original', hit: 'shocked', done: true }, track);
-  // Moon Base's lasers shock like lightning but keep their own trigger.
-  assert.deepEqual(seen.space, { style: 'lightning', icon: 'own', hit: 'shocked', done: true }, 'space');
+  // Moon Base's laser bolts shock, from its own laser-gun trigger.
+  assert.deepEqual(seen.space, { style: 'laser', icon: 'own', hit: 'shocked', done: true }, 'space');
   const styles = { festival: 'firework', candy: 'poprocks', farm: 'rooster', town: 'bell', castles: 'gong', autumn: 'crows', woods: 'acorns' };
   for (const [track, style] of Object.entries(styles)) assert.deepEqual(seen[track], { style, icon: 'own', hit: 'dizzy', done: true }, track);
   assert.deepEqual(errors, []);
@@ -538,7 +538,7 @@ test('lightning EMPs show the original icon and shock; the others play their own
 
 test('an EMP stuns each target when its effect reaches them: lightning at once, the others a moment later', { skip: skip() }, async () => {
   const when = {};
-  for (const track of ['clouds', 'festival', 'farm', 'autumn']) {
+  for (const track of ['clouds', 'festival', 'farm', 'autumn', 'space']) {
     await onTrack(track);
     when[track] = await page.evaluate(async () => {
       for (let i = 0; i < 50 && !getTrackArt('powerups'); i++) await new Promise(r => setTimeout(r, 100));
@@ -550,7 +550,7 @@ test('an EMP stuns each target when its effect reaches them: lightning at once, 
   }
   assert.equal(when.clouds, 1, 'lightning is instant');
   // (A sound wave stuns once it has passed right through.)
-  for (const track of ['festival', 'farm', 'autumn']) assert.ok(when[track] > 10 && when[track] < 90, `${track} lands after ${when[track]} frames`);
+  for (const track of ['festival', 'farm', 'autumn', 'space']) assert.ok(when[track] > 5 && when[track] < 90, `${track} lands after ${when[track]} frames`);
 });
 
 test('Farm rooster uses all three delivered crowing cells in front of the doll in either direction', { skip: skip() }, async () => {

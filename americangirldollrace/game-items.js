@@ -11,13 +11,19 @@ function shockEmpPresser(racer, style = "lightning") {
 // The EMP reaching one of its targets: a monster is knocked down, a racer
 // shocked or dizzy (her own backfire included).
 function empHitTarget(attacker, target, style) {
-  if (state.monsters.includes(target)) stunMonsterWithEmp(target, { dizzy: style !== "lightning" });
+  if (state.monsters.includes(target)) stunMonsterWithEmp(target, { dizzy: !isShockEmp(style) });
   else if (target === attacker) shockEmpPresser(attacker, style);
   else if (!target.finished) applyEmpHit(attacker, target, style);
 }
 
+// Lightning and lasers shock; every other EMP leaves you dizzy.
+function isShockEmp(style) {
+  return style === "lightning" || style === "laser";
+}
+
 // When the effect reaches a target, in seconds after it goes off.
 function empHitTime(arc, target, from) {
+  if (arc.style === "laser") return LASER_FIRST_SHOT + laserTravel(from, target) / LASER_SPEED;
   if (isFlungEmp(arc)) return EMP_ROCKET_TIME;
   if (arc.style === "crows") return EMP_CROW_TIME;
   // A sound wave stuns once it has passed right through her: when its last
@@ -30,7 +36,7 @@ function empHitTime(arc, target, from) {
 
 // A lightning EMP shocks her; any other leaves her dizzy for as long.
 function applyEmpHit(attacker, target, style = "lightning") {
-  target.empDizzy = style !== "lightning";
+  target.empDizzy = !isShockEmp(style);
   sfx(target.empDizzy ? "emp_dizzy" : "frozen_start", target.x);
   racerVoice(target, "frozen", { chance: 0.6, priority: 1 });
   target.grabbedBy = null;
@@ -159,6 +165,7 @@ function isFlungEmp(arc) {
 
 function empArcDuration(arc) {
   if (arc.style === "lightning") return EMP_ARC_TIME;
+  if (arc.style === "laser") return LASER_TIME;
   if (arc.style === "crows") return EMP_EFFECT_TIME + 0.3;
   if (isFlungEmp(arc)) return EMP_EFFECT_TIME;
   // Sound waves last until their last ring has spread right out (and past
@@ -194,6 +201,10 @@ function updateEmpArcs(dt) {
     if (before === 0 && arc.wand) {
       // The wand goes off: a sparkle flash where it was.
       for (let i = 0; i < 16; i += 1) spawnParticles(from.x, from.y, 0, 1, { color: i % 2 ? "#ffffff" : "#d6a8ff", speed: 220, lift: 60, life: 0.4, size: 5, gravity: 0 });
+    }
+    if (arc.style === "laser") {
+      updateEmpLasers(arc, from, before);
+      continue;
     }
     if (arc.style === "lightning") {
       if (before === 0) {
@@ -263,8 +274,7 @@ function updateEmpArcs(dt) {
 
 // A jagged bolt from a to b that arcs up and comes down onto b, re-drawn
 // each frame so it flickers.
-// A laser (tracks.js empLaser) is a smooth red beam on the same arc.
-function drawLightning(ax, ay, bx, by, alpha, laser = false) {
+function drawLightning(ax, ay, bx, by, alpha) {
   const length = Math.hypot(bx - ax, by - ay) || 1;
   const nx = -(by - ay) / length;
   const ny = (bx - ax) / length;
@@ -272,7 +282,7 @@ function drawLightning(ax, ay, bx, by, alpha, laser = false) {
   const points = [[ax, ay]];
   for (let i = 1; i < steps; i += 1) {
     const k = i / steps;
-    const jitter = laser ? 0 : (Math.random() - 0.5) * 36 * Math.sin(Math.PI * k);
+    const jitter = (Math.random() - 0.5) * 36 * Math.sin(Math.PI * k);
     const bow = Math.sin(Math.PI * k) * Math.min(LIGHTNING_ARC_MAX, length * 0.3);
     points.push([ax + (bx - ax) * k + nx * jitter, ay + (by - ay) * k + ny * jitter - bow]);
   }
@@ -281,11 +291,10 @@ function drawLightning(ax, ay, bx, by, alpha, laser = false) {
   ctx.globalAlpha = alpha;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
-  const glowColor = laser ? "#ff3b5c" : "#b45cff";
-  for (const [width, color, blur] of [[9, glowColor, 18], [3, laser ? "#ffe0e6" : "#ffffff", 6]]) {
+  for (const [width, color, blur] of [[9, "#b45cff", 18], [3, "#ffffff", 6]]) {
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
-    ctx.shadowColor = glowColor;
+    ctx.shadowColor = "#b45cff";
     ctx.shadowBlur = blur;
     ctx.beginPath();
     points.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
@@ -299,6 +308,7 @@ function drawEmpArcs() {
     const from = empSourcePoint(arc);
     const fromX = from.x - state.camera;
     if (isFlungEmp(arc)) drawEmpRockets(arc, from);
+    else if (arc.style === "laser") drawEmpLasers(arc, from);
     else if (arc.style === "crows") drawEmpCrows(arc, from);
     else if (arc.style !== "lightning") drawEmpWaves(arc, from);
     if (arc.style !== "lightning") continue;
@@ -317,7 +327,7 @@ function drawEmpArcs() {
     ctx.restore();
     for (const target of arc.targets) {
       const to = spellTargetPoint(target);
-      drawLightning(fromX, from.y, to.x - state.camera, to.y, alpha, Boolean(getTrackTheme().empLaser) && arc.style === "lightning");
+      drawLightning(fromX, from.y, to.x - state.camera, to.y, alpha);
     }
   }
 }
@@ -471,6 +481,61 @@ function drawEmpWaves(arc, from) {
   if (arc.style === "bell" || arc.style === "gong") drawRingingTrigger(arc, from);
 }
 
+// Lasers (Moon Base): the laser-gun trigger swells and fades like the gong
+// while it fires a volley of short red bolts at each target, straight and
+// fast; the first to land shocks her.
+function laserTravel(from, target) {
+  const to = spellTargetPoint(target);
+  return Math.hypot(to.x - from.x, to.y - from.y);
+}
+
+function updateEmpLasers(arc, from, before) {
+  for (let shot = 0; shot < LASER_SHOTS; shot += 1) {
+    const fired = LASER_FIRST_SHOT + shot * LASER_SHOT_GAP;
+    if (before < fired && arc.t >= fired) sfx("pickup_laser", from.x, { gain: 0.55, throttleKey: `laser${shot}` });
+    for (const target of arc.targets) {
+      const lands = fired + laserTravel(from, target) / LASER_SPEED;
+      if (before < lands && arc.t >= lands) {
+        const to = spellTargetPoint(target);
+        spawnParticles(to.x, to.y + 40, 40, 5, { kind: "dot", color: "#ff5a6e", speed: 150, lift: 90, life: 0.3, size: 3, gravity: 200 });
+      }
+    }
+  }
+}
+
+function drawEmpLasers(arc, from) {
+  drawRingingTrigger(arc, from);
+  for (const [n, target] of arc.targets.entries()) {
+    const to = spellTargetPoint(target);
+    const distance = laserTravel(from, target) || 1;
+    const dx = (to.x - from.x) / distance;
+    const dy = (to.y - from.y) / distance;
+    for (let shot = 0; shot < LASER_SHOTS; shot += 1) {
+      const head = (arc.t - LASER_FIRST_SHOT - shot * LASER_SHOT_GAP) * LASER_SPEED;
+      if (head <= 0 || head - LASER_BOLT_LENGTH >= distance) continue;
+      // From one of the guns (alternating sides), clipped where it hits.
+      const side = (shot + n) % 2 ? 1 : -1;
+      const ox = from.x + side * 14;
+      const oy = from.y - 10;
+      const a = Math.max(0, head - LASER_BOLT_LENGTH);
+      const b = Math.min(distance, head);
+      ctx.save();
+      ctx.lineCap = "round";
+      for (const [width, color, blur] of [[8, "#ff2d4b", 16], [3, "#ffe3e8", 4]]) {
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.shadowColor = "#ff2d4b";
+        ctx.shadowBlur = blur;
+        ctx.beginPath();
+        ctx.moveTo(ox + dx * a - state.camera, oy + dy * a);
+        ctx.lineTo(ox + dx * b - state.camera, oy + dy * b);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+}
+
 // A bell or gong ringing: its trigger icon swings (a bell) or shudders (a
 // gong) as it swells and fades, so the rings plainly come from it.
 function drawRingingTrigger(arc, from) {
@@ -480,7 +545,7 @@ function drawRingingTrigger(arc, from) {
   const k = Math.min(1, arc.t / life);
   const size = POWERUP_ICON_TARGET_SIZE * (1 + 0.9 * Math.min(1, k * 1.6));
   const alpha = Math.min(1, arc.t * 10) * (1 - k * k);
-  const gong = arc.style === "gong";
+  const gong = arc.style === "gong" || arc.style === "laser";
   const swing = gong ? 0 : Math.sin(arc.t * 22) * 0.35 * (1 - k);
   const shake = gong ? Math.sin(arc.t * 70) * 4 * (1 - k) : 0;
   ctx.save();

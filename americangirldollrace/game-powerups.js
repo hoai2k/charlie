@@ -42,9 +42,8 @@ function pickupLook(type, { pogo = false } = {}) {
   if (type === "jump" && pogo) {
     return { sheet: images[trackArtKey(POGO_ICON_TRACK, "powerups")] || null, label: "POGO", sound: "pickup_pogo" };
   }
-  if (type === "emp" && empStyle() === "lightning" && !theme.empLaser) {
-    // Every lightning shock shows the original EMP icon (named as the track
-    // has it); lasers (Moon Base) keep their own trigger.
+  if (type === "emp" && empStyle() === "lightning") {
+    // Every lightning shock shows the original EMP icon (named as the track has it).
     return { sheet: null, label: art ? theme.labels?.emp || label : label, sound: art ? theme.sounds?.emp || sound : sound };
   }
   const change = type === "jump" ? theme.itemEffects?.jump || (theme.moonBoots ? "moonBoots" : null)
