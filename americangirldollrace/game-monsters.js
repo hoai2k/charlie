@@ -390,7 +390,9 @@ function isMonsterVisible(monster) {
 }
 
 function getMonsterTarget(monster) {
-  const candidates = state.racers.filter(racer => !racer.finished && !racer.grabbedBy);
+  // Racers, and Amanda when she's on a player's side (she fights back).
+  const ally = state.amandaAlly;
+  const candidates = [...state.racers, ...(ally && !ally.runningAway ? [ally] : [])].filter(racer => !racer.finished && !racer.grabbedBy);
   if (candidates.length === 0 || !monster.active) return null;
   return candidates.reduce((best, racer) => {
     const score = Math.abs(racer.x - monster.x) + Math.abs(racer.y - monster.y) * 1.6;

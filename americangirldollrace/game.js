@@ -192,9 +192,11 @@ const AMANDA_HIT_RANGE_Y = 60;
 const AMANDA_TAG_RANGE_X = 70;
 const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
 const AMANDA_ALLY_FOLLOW_GAP = 90;
-const AMANDA_ALLY_GUARD_RANGE = 320; // she goes for monsters this close to her player
+const AMANDA_ALLY_GUARD_RANGE = 320; // she goes for monsters this close to her player (or to her)
+const AMANDA_ALLY_FIGHT_RANGE = 800; // and keeps fighting one until it's this far away
 const AMANDA_ALLY_PUSH_RANGE = 96;
 const AMANDA_ALLY_PUSH_COOLDOWN = 1.1;
+const AMANDA_ALLY_MAX_PUSHES = 5; // pushed this often, she runs off out of the race
 const OIL_SLIDE_DURATION = 1.5;
 const OIL_SLIDE_SPEED = 430;
 const SNOWBALL_PICKUP_COUNT = 5;
@@ -1975,6 +1977,15 @@ function performPushAttack(attacker) {
   if (amanda && !attacker.pushedTargets.has(amanda) && attacker.z <= 64 && (amanda.x - attacker.x) * attacker.facing > -10) {
     hitAmanda(amanda, attacker.facing);
     attacker.pushedTargets.add(amanda);
+  }
+  const ally = state.amandaAlly;
+  if (ally && !attacker.pushedTargets.has(ally)) {
+    const dx = ally.x - attacker.x;
+    const inFront = attacker.facing > 0 ? dx > 2 && dx < reach : dx < -2 && dx > -reach;
+    if (inFront && Math.abs(ally.y - attacker.y) <= PUSH_RANGE_Y && Math.max(attacker.z, ally.z) <= 64) {
+      pushAmandaAlly(ally, attacker, attacker.facing);
+      attacker.pushedTargets.add(ally);
+    }
   }
   for (const ball of state.beachBalls) {
     const dx = ball.x - attacker.x;

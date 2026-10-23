@@ -244,6 +244,31 @@ test('no EMPs on Beach or Wizard School, no horses on the Beach, and surfing kno
   assert.deepEqual(r, { banned: 0, knocked: true, grabbed: false });
 });
 
+test('Amanda runs off after five pushes, and fights a troll left with her', { skip: skip() }, async () => {
+  await onTrack('town');
+  const r = await page.evaluate(() => {
+    const setup = () => {
+      startRace('two'); state.running = false; state.obstacles = []; state.powerups = []; state.monsters = [];
+      const fence = { x: 8500, y: PATH_TOP + 60, hitW: HURDLE_HIT_W, hitH: HURDLE_HIT_H, amandaHazard: true, amandaState: 'sitting', amandaTimer: 0, amandaReveal: 0, amandaCooldown: 0, amandaFacing: -1, amandaTarget: null };
+      state.obstacles = [fence]; state.amandaCaught = fence;
+      const [a, b] = state.racers; a.x = 8400; a.y = PATH_TOP + 60 + 18 - 54; b.x = 1000; b.ai = false;
+      keys.clear(); keys.add('KeyD'); for (let i = 0; i < 20 && !state.amandaAlly; i++) update(1 / 60); keys.clear();
+      state.obstacles = []; return [a, b, state.amandaAlly];
+    };
+    let [a, b, ally] = setup();
+    for (let n = 0; n < 5; n++) { b.x = ally.x - 50; b.y = ally.y; b.facing = 1; b.pushedTargets.clear(); performPushAttack(b); for (let i = 0; i < 50; i++) update(1 / 60); }
+    for (let i = 0; i < 1200 && state.amandaAlly; i++) update(1 / 60);
+    const ranOff = !state.amandaAlly;
+    [a, b, ally] = setup();
+    a.x = 13000; ally.x = 8600; ally.y = PATH_TOP + 90; ally.z = 0;
+    const m = spawnMonster(8900, ally.y, { active: true, riding: false }); m.x = 8900; m.y = ally.y; m.riding = false; m.state = 'walk'; state.monsters = [m];
+    let grabbed = false, knocked = false;
+    for (let i = 0; i < 60 * 12; i++) { a.x = 13000; update(1 / 60); grabbed ||= ally.grabbedBy === m; knocked ||= m.state === 'fall'; }
+    return { ranOff, grabbed, knocked };
+  });
+  assert.deepEqual(r, { ranOff: true, grabbed: true, knocked: true });
+});
+
 test('the pause screen shows its corner buttons', { skip: skip() }, async () => {
   await page.evaluate(() => { startRace('two'); state.running = true; togglePause(); });
   for (const id of ['#pauseSoundButton', '#pauseSettingsButton']) assert.ok(await page.isVisible(id), id);

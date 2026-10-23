@@ -155,33 +155,104 @@ function joinAmanda(obstacle, leader) {
     x: obstacle.x,
     y: obstacle.y + 18 - 54,
     z: hurdleTopZ(),
-    vz: 260,
+    vy: 260,
     facing: leader.x < obstacle.x ? -1 : 1,
     frame: 0,
     frameTime: 0,
     moving: false,
     pushTimer: 0,
-    pushCooldown: 0.4
+    pushCooldown: 0.4,
+    // racer-like fields, so monsters can grab and throw her like a racer
+    grabbedBy: null,
+    fallBackTimer: 0,
+    fallBackFacing: 1,
+    hitTimer: 0,
+    knockbackX: 0,
+    speed: 0,
+    finished: false,
+    timesPushed: 0,
+    runningAway: false
   };
   sfx("amanda_giggle_sting", obstacle.x);
   GameAudio.voice("amanda", "taunt", { worldX: obstacle.x, chance: 1 });
   spawnParticles(obstacle.x, obstacle.y + 18, 80, 14, { color: "#ffd84a", speed: 160, lift: 200, life: 0.5 });
 }
 
-// Someone she should push: a monster coming for her player, or another racer
-// (or monster) right by her.
+// Someone she should push: a monster near her player or near her (she stands
+// and fights it), or another racer right by her.
 function amandaAllyTarget(ally) {
   const leader = ally.leader;
+  // A monster she's already fighting stays her foe until it's beaten or gone.
+  const foe = ally.foe;
+  if (foe && foe.active && !["sleeping", "ground", "drop"].includes(foe.state) && !(foe.frogTimer > 0)
+    && Math.abs(foe.x - ally.x) < AMANDA_ALLY_FIGHT_RANGE) {
+    return foe.state === "fall" ? null : foe;
+  }
+  ally.foe = null;
   const monsters = state.monsters.filter(m => m.active && !["sleeping", "ground", "fall", "drop"].includes(m.state) && !(m.frogTimer > 0));
   const near = (list, from, range) => list.filter(c => Math.abs(c.x - from.x) < range && Math.abs(c.y - from.y) < 120)
     .sort((a, b) => Math.abs(a.x - from.x) - Math.abs(b.x - from.x))[0] || null;
   return near(monsters, leader, AMANDA_ALLY_GUARD_RANGE)
-    || near([...monsters, ...state.racers.filter(r => r !== leader && !r.finished && !r.grabbedBy)], ally, AMANDA_ALLY_PUSH_RANGE * 1.6);
+    || near(monsters, ally, AMANDA_ALLY_GUARD_RANGE)
+    || near(state.racers.filter(r => r !== leader && !r.finished && !r.grabbedBy), ally, AMANDA_ALLY_PUSH_RANGE * 1.6);
+}
+
+// Her own jumps, and being thrown or shoved: falling back and sliding.
+function allyFallAndSlide(ally, dt) {
+  if (ally.z > 0 || ally.vy > 0) {
+    ally.z += ally.vy * dt;
+    ally.vy -= GRAVITY * dt;
+    if (ally.z <= 0) { ally.z = 0; ally.vy = 0; }
+  }
+  if (ally.knockbackX) {
+    ally.x = clamp(ally.x + ally.knockbackX * dt, 40, FINISH);
+    ally.knockbackX *= Math.pow(0.04, dt);
+    if (Math.abs(ally.knockbackX) < 6) ally.knockbackX = 0;
+  }
+}
+
+// Someone pushed her: she stumbles back; the fifth push and she's had enough
+// and runs off the way she came, out of the race.
+function pushAmandaAlly(ally, attacker, direction) {
+  if (ally.runningAway || ally.grabbedBy || ally.fallBackTimer > 0.2) return;
+  ally.timesPushed += 1;
+  ally.fallBackTimer = 0.55;
+  ally.fallBackFacing = -direction;
+  ally.knockbackX = direction * PUSH_FORCE;
+  ally.vy = Math.max(ally.vy, 160);
+  sfx("amanda_bonk", ally.x);
+  if (ally.timesPushed >= AMANDA_ALLY_MAX_PUSHES) {
+    ally.runningAway = true;
+    GameAudio.voice("amanda", "hit", { worldX: ally.x, chance: 1 });
+  }
 }
 
 function updateAmandaAlly(dt) {
   const ally = state.amandaAlly;
   if (!ally) return;
+  ally.fallBackTimer = Math.max(0, ally.fallBackTimer - dt);
+  ally.hitTimer = Math.max(0, ally.hitTimer - dt);
+  ally.frameTime += dt * (ally.moving ? 9.5 : 3.2);
+  ally.frame = Math.floor(ally.frameTime) % 3;
+  // A monster has her: it moves her about (updateMonsterGrabSequence).
+  if (ally.grabbedBy) {
+    ally.moving = false;
+    return;
+  }
+  if (ally.fallBackTimer > 0) {
+    ally.moving = false;
+    allyFallAndSlide(ally, dt);
+    return;
+  }
+  if (ally.runningAway) {
+    ally.facing = -1;
+    ally.moving = true;
+    ally.x -= AMANDA_ALLY_SPEED * 1.25 * dt;
+    allyFallAndSlide(ally, dt);
+    const left = Math.min(...getActiveWorldViewRanges().map(range => range.left), state.camera);
+    if (ally.x < left - 300 || ally.x < 0) state.amandaAlly = null;
+    return;
+  }
   if (!state.racers.includes(ally.leader)) {
     ally.leader = state.racers.find(r => !r.ai) || ally.leader;
   }
@@ -189,9 +260,12 @@ function updateAmandaAlly(dt) {
   ally.pushTimer = Math.max(0, ally.pushTimer - dt);
   ally.pushCooldown = Math.max(0, ally.pushCooldown - dt);
   const enemy = leader.finished ? null : amandaAllyTarget(ally);
+  if (enemy && state.monsters.includes(enemy)) ally.foe = enemy;
+  // While her foe is down, she waits nearby for it to get up.
+  const waiting = !enemy && ally.foe;
   // Head for the enemy, or a spot just behind her player.
-  const goalX = enemy ? enemy.x - Math.sign(enemy.x - ally.x || 1) * 40 : leader.x - (leader.facing || 1) * AMANDA_ALLY_FOLLOW_GAP;
-  const goalY = enemy ? enemy.y : clamp(leader.y + 24, TRACK_TOP, TRACK_BOTTOM);
+  const goalX = enemy ? enemy.x - Math.sign(enemy.x - ally.x || 1) * 40 : waiting ? ally.x : leader.x - (leader.facing || 1) * AMANDA_ALLY_FOLLOW_GAP;
+  const goalY = enemy ? enemy.y : waiting ? ally.y : clamp(leader.y + 24, TRACK_TOP, TRACK_BOTTOM);
   const dx = goalX - ally.x;
   const dy = goalY - ally.y;
   const step = Math.sign(dx) * Math.min(Math.abs(dx), AMANDA_ALLY_SPEED * dt);
@@ -208,15 +282,9 @@ function updateAmandaAlly(dt) {
       const ahead = ally.facing > 0 ? b.left - ally.x : ally.x - b.right;
       return ahead > -10 && ahead < 60 && footY + 12 > b.top && footY - 12 < b.bottom;
     });
-    if (hurdle) ally.vz = JUMP_POWER;
+    if (hurdle) ally.vy = JUMP_POWER;
   }
-  if (ally.z > 0 || ally.vz > 0) {
-    ally.z += ally.vz * dt;
-    ally.vz -= GRAVITY * dt;
-    if (ally.z <= 0) { ally.z = 0; ally.vz = 0; }
-  }
-  ally.frameTime += dt * (ally.moving ? 9.5 : 3.2);
-  ally.frame = Math.floor(ally.frameTime) % 3;
+  allyFallAndSlide(ally, dt);
   // Push whoever is right in front of her.
   if (!enemy || ally.pushCooldown > 0 || ally.z > 64) return;
   const ex = enemy.x - ally.x;
@@ -239,10 +307,11 @@ function drawAmandaAlly(ally) {
   ctx.ellipse(screenX, ally.y + 42, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);
   ctx.fill();
   ctx.restore();
-  const [row, col] = ally.pushTimer > 0 ? [3, 1] : ally.z > 0 ? [2, 1] : ally.moving ? [1, ally.frame] : [0, ally.frame];
+  const fallen = ally.grabbedBy || ally.fallBackTimer > 0;
+  const [row, col] = fallen ? [3, 2] : ally.pushTimer > 0 ? [3, 1] : ally.z > 0 ? [2, 1] : ally.moving ? [1, ally.frame] : [0, ally.frame];
   drawFacingImage(images.amanda, col * FRAME, row * FRAME, FRAME, FRAME,
     screenX - SPRITE_ANCHOR_X * scale, ally.y + 54 - SPRITE_ANCHOR_Y * scale - ally.z,
-    FRAME * scale, FRAME * scale, ally.facing, screenX);
+    FRAME * scale, FRAME * scale, fallen ? ally.fallBackFacing : ally.facing, screenX);
   ctx.save();
   ctx.font = "800 15px system-ui";
   ctx.textAlign = "center";
