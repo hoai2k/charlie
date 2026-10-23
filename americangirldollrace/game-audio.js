@@ -219,6 +219,29 @@ function playVictoryAudio(winner) {
   }
 }
 
+// Where each song was left this session, so a board met again picks its song
+// up from there (fading in) rather than from the start.
+const songPositions = new Map();
+
+function rememberSongPosition(element) {
+  const src = element.getAttribute("src");
+  if (src && element.currentTime > 0 && !element.ended) songPositions.set(src, element.currentTime);
+}
+
+// Seek a newly loaded song to where it was left; returns whether it resumes.
+function resumeSongPosition(element) {
+  const position = songPositions.get(element.getAttribute("src")) || 0;
+  const seek = () => {
+    const duration = element.duration || Infinity;
+    element.currentTime = position < duration - 3 ? position : 0;
+  };
+  if (element.readyState >= 1) seek();
+  else element.addEventListener("loadedmetadata", seek, { once: true });
+  // startMusic fades a resumed song in (the board change may come first).
+  element.resumePending = position > 0;
+  return position > 0;
+}
+
 function startMusic(options = {}) {
   stopMusicTransitions();
   const desiredTrack = getCurrentBackground().music;
@@ -230,8 +253,13 @@ function startMusic(options = {}) {
     setMusicGain(nextMusic, 0);
   }
   syncBackgroundMusic();
-  if (options.fadeInMs > 0) {
-    fadeMusicGain(music, 1, options.fadeInMs);
+  const resumed = Boolean(music.resumePending);
+  music.resumePending = false;
+  const fadeInMs = options.fadeInMs > 0 ? options.fadeInMs : resumed ? SONG_RESUME_FADE_MS : 0;
+  if (fadeInMs > 0) {
+    // (A preview already fading in from the last board carries on from its level.)
+    if (resumed && music.paused) setMusicGain(music, 0);
+    fadeMusicGain(music, 1, fadeInMs);
   } else {
     setMusicGain(music, 1);
   }
@@ -240,13 +268,16 @@ function startMusic(options = {}) {
   });
 }
 
+// Puts the board's song on the main player; true if it picks up where it was left.
 function syncBackgroundMusic() {
   const track = getCurrentBackground().music;
-  if (!track || music.getAttribute("src") === track) return;
+  if (!track || music.getAttribute("src") === track) return false;
   cancelMusicFade(music);
+  rememberSongPosition(music);
   music.pause();
   music.setAttribute("src", track);
   music.load();
+  return resumeSongPosition(music);
 }
 
 function setMusicGain(element, gain) {
@@ -293,16 +324,21 @@ function beginBoardEndMusic(nextBackground) {
   nextTrackCrossfadeTimer = setTimeout(() => {
     nextTrackCrossfadeTimer = null;
     const nextTrack = nextBackground.music;
+    rememberSongPosition(nextMusic);
     nextMusic.pause();
     if (nextMusic.getAttribute("src") !== nextTrack) {
       nextMusic.setAttribute("src", nextTrack);
       nextMusic.load();
     }
-    nextMusic.currentTime = 0;
+    // The next board's song comes in where it was left (or from the top).
+    resumeSongPosition(nextMusic);
     setMusicGain(nextMusic, 0);
     nextMusic.play().catch(() => {});
     const outgoingMusic = music;
-    fadeMusicGain(outgoingMusic, 0, NEXT_TRACK_CROSSFADE_MS, () => outgoingMusic.pause());
+    fadeMusicGain(outgoingMusic, 0, NEXT_TRACK_CROSSFADE_MS, () => {
+      rememberSongPosition(outgoingMusic);
+      outgoingMusic.pause();
+    });
     fadeMusicGain(nextMusic, NEXT_TRACK_PREVIEW_GAIN, NEXT_TRACK_CROSSFADE_MS);
   }, NEXT_TRACK_CROSSFADE_DELAY_MS);
 }

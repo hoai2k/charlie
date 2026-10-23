@@ -480,6 +480,7 @@ const CELEBRATION_MUSIC_GAIN = 0.35;
 const CELEBRATION_MUSIC_FADE_MS = 260;
 const NEXT_TRACK_CROSSFADE_DELAY_MS = 900;
 const NEXT_TRACK_CROSSFADE_MS = 2400;
+const SONG_RESUME_FADE_MS = 1500; // a song picked up where it was left fades in over this
 const NEXT_TRACK_PREVIEW_GAIN = 0.55;
 
 const extraDolls = window.EXTRA_DOLLS || {};

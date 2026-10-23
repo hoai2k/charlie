@@ -33,7 +33,17 @@ before(async () => {
   server = http.createServer(async (req, res) => {
     const file = path.join(repo, decodeURIComponent(new URL(req.url, 'http://x').pathname).replace(/\/$/, '/index.html'));
     if (!file.startsWith(repo)) { res.writeHead(403).end(); return; }
-    try { res.writeHead(200, { 'content-type': TYPES[path.extname(file)] || 'application/octet-stream' }).end(await readFile(file)); }
+    try {
+      const body = await readFile(file);
+      const type = TYPES[path.extname(file)] || 'application/octet-stream';
+      // Byte ranges, as GitHub Pages serves them, so songs can be seeked.
+      const range = /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+      if (range) {
+        const start = range[1] ? Number(range[1]) : Math.max(0, body.length - Number(range[2]));
+        const end = range[1] && range[2] ? Math.min(Number(range[2]), body.length - 1) : body.length - 1;
+        res.writeHead(206, { 'content-type': type, 'accept-ranges': 'bytes', 'content-range': `bytes ${start}-${end}/${body.length}`, 'content-length': end - start + 1 }).end(body.subarray(start, end + 1));
+      } else res.writeHead(200, { 'content-type': type, 'accept-ranges': 'bytes' }).end(body);
+    }
     catch (error) { res.writeHead(404).end(); }
   });
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
@@ -556,4 +566,19 @@ test('Farm rooster uses all three delivered crowing cells in front of the doll i
   assert.deepEqual(r.facing,[1,1,1,-1,-1,-1]);
   assert.ok(r.spots.slice(0,3).every(p=>p.x>r.x));assert.ok(r.spots.slice(3).every(p=>p.x<r.x));
   assert.deepEqual(errors,[]);
+});
+
+test('a song picks up where it was left when its board comes round again', { skip: skip() }, async () => {
+  const r = await page.evaluate(async () => {
+    const wait = el => new Promise(r => el.readyState >= 1 ? r() : el.addEventListener('loadedmetadata', r, { once: true }));
+    songPositions.clear(); // earlier tests have played these songs
+    setBackground('farm'); syncBackgroundMusic(); await wait(music);
+    music.currentTime = 42; await new Promise(r => setTimeout(r, 100));
+    setBackground('town'); await wait(music); const town = Boolean(music.resumePending);
+    setBackground('farm'); await wait(music); await new Promise(r => setTimeout(r, 200));
+    const back = Boolean(music.resumePending);
+    return { town, back, at: Math.round(music.currentTime) };
+  });
+  // Town's song starts fresh; the Farm's comes back at 42 s, flagged to fade in.
+  assert.deepEqual(r, { town: false, back: true, at: 42 });
 });
