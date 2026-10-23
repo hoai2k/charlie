@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** none. Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §19 crowing rooster for the Farm's EMP (RC1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -851,3 +851,31 @@ B1 owner follow-up delivered: thinner Apollo frame/small wheels, no painted dirt
 or dust in any frame. Level animation poses cover wheels and suspension; code
 adds shared driver/chassis driving bounce and jump tilt. Pickup remains smaller
 than the ridden rover, matching other mounts.
+
+## 19. Open: a crowing rooster for the Farm's EMP
+
+The Farm's EMP is a ROOSTER: when a doll takes it, a rooster pops up in front
+of her, bobs and crows, and sound waves ripple out from it to everyone it
+hits (they're left dizzy). Today the game bobs the pickup icon (cell 2 of
+`assets/tracks/farm/powerups.webp`) as a stand-in.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| RC1 | `assets/rooster_crow_sprites.webp` | 768×256 (3 cells of 256 in one row), alpha | The same rooster as the Farm's EMP icon (same colours and style), **full body, side view facing right**, standing, crowing. |
+
+| Cell | Pose |
+| --- | --- |
+| 1 | Winding up: chest puffed, head pulled back a little, beak closed |
+| 2 | Crowing: head thrown back, beak wide open, wings lifted slightly from the body |
+| 3 | Crow at full stretch: neck stretched up and forward, beak open, tail feathers fanned |
+
+Feet on a common baseline at y = 250 in every cell, centred at x = 128, about
+200 px tall with its comb; no ground, shadow, sound lines or text (the game
+draws the waves). In the same commit add `"rooster_crow"` to
+`TRACK_SHARED_ART` in `tracks.js`; the game then uses the sheet (cycling the
+three cells while it bobs) instead of the icon.
+
+Acceptance: race the Farm, take the ROOSTER EMP facing each way, and check
+the rooster stands in front of the doll on the ground, crows through the
+three poses, and reads clearly at its in-game size (about 96 px).
+
