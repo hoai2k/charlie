@@ -610,7 +610,7 @@ function drawRacer(racer) {
   const drawY = racer.y + 54 - SPRITE_ANCHOR_Y * spriteScale - racer.z;
 
   ctx.save();
-  ctx.globalAlpha = racer.cloudFalling ? 0 : 0.28 * (1 - (racer.cloudSink || 0)); // none sunk into a cloud or falling through one
+  ctx.globalAlpha = floorShadowAlpha(0.28);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, racer.y + 40, 48 * scale * 2, 13 * scale * 2, 0, 0, Math.PI * 2);
@@ -625,6 +625,9 @@ function drawRacer(racer) {
   if (racer.frogTimer > 0) {
     racer.lastBody = null;
     drawFrog(screenX, racer.y + 54 - racer.z, scale, false, racer.frogPhase, racer.facing);
+  } else if (racer.ledge) {
+    racer.lastBody = null;
+    drawLedgeRacer(racer, scale);
   } else if (mounted && racer.horseType === "broom") {
     drawBroomRacer(racer, screenX, scale, drawFacing);
   } else if (mounted) {

@@ -875,7 +875,7 @@ function aiInput(racer) {
   if (aheadBy <= viewWidth * AI_AHEAD_WANDER_END) racer.aiWanderAhead = false;
 
   // A gap in a cloud floor just ahead: jump it.
-  const gapJump = Boolean(cloudGapAhead(racer.x, racer.facing, isMounted(racer) ? 90 : 60));
+  const gapJump = Boolean(cloudGapAhead(racer.x, racer.facing, isMounted(racer) ? 90 : 60, racer.y + 54));
 
   if (racer.aiWanderAhead) {
     const wander = Math.sin(performance.now() * 0.0017 + racer.playerIndex * 2.4);

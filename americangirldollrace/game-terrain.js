@@ -7,6 +7,11 @@
 // Part of the race's game code: these functions share game.js's constants and
 // state, and load before it (see the <script> order in index.html).
 
+// Shadows on the ground (alpha), or none on a cloud floor.
+function floorShadowAlpha(alpha) {
+  return state.cloudFloor ? 0 : alpha;
+}
+
 function makeCloudFloor() {
   if (!getTrackTheme().cloudFloor) return null;
   const clouds = [];
@@ -18,12 +23,13 @@ function makeCloudFloor() {
   while (x < FINISH + 1800) {
     const w = CLOUD_WIDTH_MIN + Math.random() * CLOUD_WIDTH_RANGE;
     clouds.push({ x, w, h, variant: Math.floor(Math.random() * 6), seed: Math.random() * 1000 });
+    if (gaps.length && gaps.at(-1).end === x) gaps.at(-1).after = clouds.at(-1);
     x += w;
     sinceGap += w;
     const open = x > CLOUD_FLOOR_SAFE_START && x < FINISH - CLOUD_FLOOR_SAFE_END;
     if (open && sinceGap > nextGapAfter) {
       const width = CLOUD_GAP_MIN + Math.random() * (CLOUD_GAP_MAX - CLOUD_GAP_MIN);
-      gaps.push({ start: x, end: x + width });
+      gaps.push({ start: x, end: x + width, before: clouds.at(-1) });
       x += width;
       sinceGap = 0;
       nextGapAfter = CLOUD_GAP_EVERY_MIN + Math.random() * CLOUD_GAP_EVERY_RANGE;
@@ -50,15 +56,74 @@ function clearCloudGaps() {
   }
 }
 
-function cloudGapAt(x) {
-  return state.cloudFloor?.gaps.find(gap => x > gap.start + CLOUD_GAP_EDGE_GRACE && x < gap.end - CLOUD_GAP_EDGE_GRACE) || null;
+// How far in from each end of its cell the floor art's cloud starts, per
+// variant and cell row (cell px), from the art's pixels: the ends are
+// rounded, much more so at the back.
+let cloudArtInsets = null;
+function cloudInset(variant, row, side) {
+  const art = getTrackArt("floor");
+  if (!art) return 0;
+  if (!cloudArtInsets) {
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = art.width;
+      canvas.height = art.height;
+      const c = canvas.getContext("2d", { willReadFrequently: true });
+      c.drawImage(art, 0, 0);
+      const data = c.getImageData(0, 0, art.width, art.height).data;
+      cloudArtInsets = [];
+      for (let v = 0; v < 6; v += 1) {
+        const left = [], right = [];
+        const cx = (v % 3) * CLOUD_FLOOR_CELL_W, cy = Math.floor(v / 3) * CLOUD_FLOOR_CELL_H;
+        for (let y = 0; y < CLOUD_FLOOR_CELL_H; y += 1) {
+          const solid = x => data[((cy + y) * art.width + cx + x) * 4 + 3] > 128;
+          let l = 0, r = 0;
+          while (l < CLOUD_FLOOR_CELL_W && !solid(l)) l += 1;
+          while (r < CLOUD_FLOOR_CELL_W && !solid(CLOUD_FLOOR_CELL_W - 1 - r)) r += 1;
+          left.push(l < CLOUD_FLOOR_CELL_W ? l : 0);
+          right.push(r < CLOUD_FLOOR_CELL_W ? r : 0);
+        }
+        cloudArtInsets.push({ left, right });
+      }
+    } catch (error) {
+      cloudArtInsets = [];
+    }
+  }
+  const insets = cloudArtInsets[variant];
+  if (!insets) return 0;
+  return insets[side][clamp(Math.round(row), 0, CLOUD_FLOOR_CELL_H - 1)];
+}
+
+// A gap as it looks at the depth of footY (where someone's feet are): from
+// where the cloud before it visibly ends to where the next visibly starts.
+function visibleCloudGap(gap, footY) {
+  const row = CLOUD_FLOOR_ART_TOP + CLOUD_FLOOR_BACK_EDGE + footY - PATH_TOP;
+  const before = gap.before, after = gap.after;
+  return {
+    start: gap.start - (before ? cloudInset(before.variant, row, "right") * before.w / CLOUD_FLOOR_CELL_W : 0),
+    end: gap.end + (after ? cloudInset(after.variant, row, "left") * after.w / CLOUD_FLOOR_CELL_W : 0),
+    gap
+  };
+}
+
+// The gap (as seen at footY) whose open sky x is over, if any: someone
+// whose middle is past the cloud's visible edge is off it.
+function cloudGapAt(x, footY = PATH_TOP + 144) {
+  for (const gap of state.cloudFloor?.gaps || []) {
+    if (x < gap.start - 200 || x > gap.end + 200) continue;
+    const seen = visibleCloudGap(gap, footY);
+    if (x > seen.start && x < seen.end) return seen;
+  }
+  return null;
 }
 
 // The next gap ahead of x the way she's facing, within reach.
-function cloudGapAhead(x, facing, reach) {
-  return state.cloudFloor?.gaps.find(gap => (facing >= 0
-    ? gap.start - x > 0 && gap.start - x < reach
-    : x - gap.end > 0 && x - gap.end < reach)) || null;
+function cloudGapAhead(x, facing, reach, footY = PATH_TOP + 144) {
+  for (const gap of state.cloudFloor?.gaps || []) {
+    const seen = visibleCloudGap(gap, footY);
+    if (facing >= 0 ? seen.start - x > 0 && seen.start - x < reach : x - seen.end > 0 && x - seen.end < reach) return seen;
+  }
+  return null;
 }
 
 // How far above the flat course the floor is at x: the cloud's height plus
@@ -87,12 +152,14 @@ function groundLift(x) {
 // back a moment later on the cloud she ran off.
 function checkCloudFall(racer) {
   if (!state.cloudFloor || racer.cloudFalling || racer.z > 0 || racer.finished || racer.grabbedBy) return;
-  const gap = cloudGapAt(racer.x);
+  const gap = cloudGapAt(racer.x, racer.y + 54);
   if (!gap) return;
   racer.cloudFalling = true;
   racer.cloudFallGap = gap;
   racer.cloudFallVx = racer.speed || 0;
   racer.cloudGone = 0;
+  racer.cloudSink = 0;
+  racer.cloudDeep = 0;
   racer.cloudRespawnX = racer.x < (gap.start + gap.end) / 2 ? gap.start - 70 : gap.end + 70;
   racer.vy = Math.min(racer.vy, 0);
   racer.jumpStarted = false;
@@ -115,6 +182,89 @@ function cloudFallRescue(racer, jumping) {
   racer.vy = HORSE_JUMP_POWER;
   racer.cloudRescued = true;
   return true;
+}
+
+// Falling into a gap on foot, pressing towards one of its edges while it's
+// in reach catches it: she hugs the cloud's edge like a pillow, then climbs
+// back on (updateCloudLedge). True when she's caught it.
+function catchCloudLedge(racer, horizontal) {
+  if (!racer.cloudFalling || racer.cloudRescued || racer.ledge || isMounted(racer)) return false;
+  if (racer.z < -LEDGE_REACH_DEPTH || Math.abs(horizontal) < 0.3) return false;
+  const gap = racer.cloudFallGap;
+  const side = horizontal > 0 ? 1 : -1; // the cloud she's reaching for: ahead (1) or behind (-1)
+  const edgeX = side > 0 ? gap.end : gap.start;
+  if (Math.abs(edgeX - racer.x) > LEDGE_REACH_X) return false;
+  racer.ledge = { side, edgeX, t: 0 };
+  racer.facing = side;
+  racer.vy = 0;
+  racer.speed = 0;
+  racer.moving = false;
+  racer.cloudFallVx = 0;
+  sfx("powerup_pickup_generic", racer.x, { gain: 0.5 });
+  racerVoice(racer, "jump", { chance: 0.5 });
+  return true;
+}
+
+// Hanging on, then climbing up onto the cloud, then she's off again.
+function updateCloudLedge(racer, dt) {
+  const ledge = racer.ledge;
+  ledge.t += dt;
+  const hangZ = -LEDGE_HANG_DEPTH * racerDepthScale(racer);
+  const climb = clamp((ledge.t - LEDGE_HANG_TIME) / LEDGE_CLIMB_TIME, 0, 1);
+  const eased = climb * climb * (3 - 2 * climb);
+  racer.z = hangZ * (1 - eased);
+  racer.x = ledge.edgeX + ledge.side * (-14 + 54 * eased);
+  racer.speed = 0;
+  racer.moving = false;
+  racer.vy = 0;
+  if (climb < 1) return;
+  racer.ledge = null;
+  racer.cloudFalling = false;
+  racer.z = 0;
+  racer.landingTimer = UNMOUNTED_LANDING_PAUSE_DURATION;
+  racer.jumpStarted = false;
+}
+
+// Which part of the climb she's in: "hang", "climb" or "top".
+function cloudLedgePhase(racer) {
+  const t = racer.ledge.t - LEDGE_HANG_TIME;
+  return t < 0 ? "hang" : t < LEDGE_CLIMB_TIME * 0.65 ? "climb" : "top";
+}
+
+// Her ledge sheet (image-requests.md §29 LG1: hug hold, climbing, kneeling
+// on top; the cloud's corner at (300, 230) in each cell) once her key is in
+// LEDGE_SHEETS, else null.
+function getLedgeSheet(racer) {
+  const key = dollAssetKey(racer.spriteKey);
+  if (!(window.LEDGE_SHEETS || []).includes(key)) return null;
+  loadArtOnce(`ledge_${key}`, `assets/doll_${key}_ledge.webp`);
+  return images[`ledge_${key}`] || null;
+}
+
+const LEDGE_CORNER = [300, 230];
+const LEDGE_STAND_IN_CHEST = [209, 175]; // her chest in the arms-up jump pose (sprites third row, middle)
+
+// Drawn on the cloud's edge: her ledge poses once they're in; until then her
+// arms-up jump pose with her chest at the cloud's top and arms over it, then
+// her crouch climbing up.
+function drawLedgeRacer(racer, scale) {
+  const ledge = racer.ledge;
+  const phase = cloudLedgePhase(racer);
+  const surfaceY = racer.y + 54;
+  const edgeX = ledge.edgeX - state.camera;
+  const w = FRAME * scale;
+  const sheet = getLedgeSheet(racer);
+  if (sheet?.complete && sheet.width) {
+    const col = { hang: 0, climb: 1, top: 2 }[phase];
+    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - LEDGE_CORNER[0] * scale, surfaceY - LEDGE_CORNER[1] * scale, w, w, ledge.side, edgeX);
+    return;
+  }
+  const x = racer.x - state.camera;
+  if (phase === "hang") {
+    drawFacingImage(racer.sheet, FRAME, 2 * FRAME, FRAME, FRAME, x - LEDGE_STAND_IN_CHEST[0] * scale, surfaceY - LEDGE_STAND_IN_CHEST[1] * scale, w, w, ledge.side, x);
+  } else {
+    drawFacingImage(racer.sheet, 0, 2 * FRAME, FRAME, FRAME, x - SPRITE_ANCHOR_X * scale, surfaceY - SPRITE_ANCHOR_Y * scale - racer.z, w, w, ledge.side, x);
+  }
 }
 
 // After her vertical motion: out of the gap once she's flown back above the
@@ -157,12 +307,18 @@ function clipToCloudGap(racer) {
 }
 
 // On the clouds a doll bounces as she runs and, standing still, sinks in a
-// little (cloudSink 0..1). Riders and fliers don't.
+// little (cloudSink 0..1), then on and on, slowly, until only her eyes and
+// above show (cloudDeep 0..1). Moving, she wades slowly and rises slowly back out;
+// a jump pops her straight out. Riders and fliers don't sink.
 function updateCloudFooting(racer, dt) {
   if (!state.cloudFloor) return;
   const onFoot = racer.z === 0 && !isMounted(racer) && !racer.cloudFalling && !racer.grabbedBy;
   const still = onFoot && !racer.moving && !(racer.cloudHop > 0);
-  const target = still ? 1 : 0;
+  racer.cloudDeep = racer.cloudDeep || 0;
+  if (still && racer.cloudSink >= 1) racer.cloudDeep = Math.min(1, racer.cloudDeep + dt / CLOUD_DEEP_TIME);
+  else if (onFoot) racer.cloudDeep = Math.max(0, racer.cloudDeep - (racer.moving ? dt / CLOUD_RISE_TIME : 0));
+  else racer.cloudDeep = Math.max(0, racer.cloudDeep - dt / 0.25); // jumped out
+  const target = still || racer.cloudDeep > 0 ? 1 : 0;
   const rate = dt / (still ? CLOUD_SINK_TIME : CLOUD_SINK_TIME * 0.35);
   racer.cloudSink = clamp((racer.cloudSink || 0) + Math.sign(target - (racer.cloudSink || 0)) * rate, 0, 1);
   // A calm hop: each step on the cloud starts a bounce, which rises and
@@ -174,7 +330,7 @@ function updateCloudFooting(racer, dt) {
     racer.cloudHopV -= CLOUD_HOP_GRAVITY * dt;
     racer.cloudHop = Math.max(0, racer.cloudHop + racer.cloudHopV * dt);
     if (racer.cloudHop === 0) racer.cloudHopV = 0;
-  } else if (onFoot && racer.moving && Math.abs(racer.speed) > 20) {
+  } else if (onFoot && racer.moving && Math.abs(racer.speed) > 20 && racer.cloudDeep === 0) {
     racer.cloudHopV = CLOUD_HOP_SPEED;
   }
   if (!onFoot) { racer.cloudHop = 0; racer.cloudHopV = 0; }
@@ -183,7 +339,16 @@ function updateCloudFooting(racer, dt) {
 // How far below her normal place she's drawn (px, down positive).
 function cloudFootingOffset(racer) {
   if (!state.cloudFloor) return 0;
-  return (racer.cloudSink || 0) * CLOUD_SINK - (racer.cloudHop || 0);
+  return cloudSinkDepth(racer) - (racer.cloudHop || 0);
+}
+
+function cloudSinkDepth(racer) {
+  return (racer.cloudSink || 0) * CLOUD_SINK + (racer.cloudDeep || 0) * CLOUD_DEEP_SINK * racerDepthScale(racer);
+}
+
+// Her speed share wading through a cloud she's sunk deep into.
+function cloudWadeScale(racer) {
+  return 1 - CLOUD_DEEP_SLOW * (racer.cloudDeep || 0);
 }
 
 // Sinking into the cloud: the floor's own clouds are painted back over her
@@ -197,9 +362,9 @@ function drawCloudSink(racer) {
   const art = getTrackArt("floor");
   const scale = racerDepthScale(racer) / 0.45;
   const surface = racer.y + 54 - groundLift(racer.x); // where she stands, unlifted
-  const halfW = Math.ceil(70 * scale);
+  const halfW = Math.ceil((70 + 60 * (racer.cloudDeep || 0)) * scale);
   const above = CLOUD_SINK_FEATHER;
-  const below = Math.ceil(CLOUD_SINK * sink + CLOUD_SINK_FEATHER + 6);
+  const below = Math.ceil(cloudSinkDepth(racer) + CLOUD_SINK_FEATHER + 6);
   const x0 = Math.floor(racer.x - state.camera - halfW);
   const y0 = Math.floor(surface - above);
   const w = halfW * 2;

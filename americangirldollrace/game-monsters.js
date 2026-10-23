@@ -607,7 +607,7 @@ function drawMonster(monster) {
   if (dissipating && monster.state === "ground") ctx.globalAlpha = clamp(monster.timer, 0, 1);
 
   ctx.save();
-  ctx.globalAlpha *= monster.state === "drop" ? 0.14 : 0.32;
+  ctx.globalAlpha *= floorShadowAlpha(monster.state === "drop" ? 0.14 : 0.32);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, monster.y + 42, 62 * scale, 15 * scale, 0, 0, Math.PI * 2);
@@ -740,7 +740,7 @@ function drawRunawayHorse(horse) {
   const calibration = getMountFrameCalibration("horse", 1, horse.frame);
   const horseW = FRAME * horseScale;
   ctx.save();
-  ctx.globalAlpha = 0.28;
+  ctx.globalAlpha = floorShadowAlpha(0.28);
   ctx.fillStyle = "#142027";
   ctx.beginPath();
   ctx.ellipse(screenX, horse.y + 42, 70 * horseScale, 16 * horseScale, 0, 0, Math.PI * 2);

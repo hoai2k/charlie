@@ -742,7 +742,7 @@ test('Cloud Kingdom: a bumpy cloud floor with gaps; walk into one and fall, jump
         if (pressed && pressed++ > 4) keys.delete('Space');
         if (jump && !pressed && gap.start - a.x < 40) { keys.add('Space'); pressed = 1; }
         update(1 / 60);
-        if (a.cloudFalling && !fell) { fell = true; runningOff = a.moving && a.speed > 100; }
+        if (a.cloudFalling && !fell) { fell = true; runningOff = a.moving && a.speed > 100; keys.delete('KeyD'); } // (holding on would catch the far edge)
         if (fell && !a.cloudFalling) { back = a.x < gap.start && a.z === 0; break; }
       }
       keys.clear();
@@ -933,4 +933,37 @@ test('Fairy Woods: fliers in wings push each other in the air, and a winged trol
     return { fellTogether: grabZ > 100 && heldWhileFalling && thrownAt === 0, airPush, groundCantReach, flewUp: top > 100, grabbed, droppedWings: state.powerups.some(p => p.horseType === 'wings'), wingsDrawn: wings >= 2, plainStays: !plain.winged, share: getTrackTheme().wingedMonsters };
   });
   assert.deepEqual(r, { fellTogether: true, airPush: true, groundCantReach: true, flewUp: true, grabbed: true, droppedWings: true, wingsDrawn: true, plainStays: true, share: 0.5 });
+});
+
+test('Cloud Kingdom: no shadows or oil; off the cloud once her middle passes its visible edge; catch the edge and climb back; sink to the eyes standing still', { skip: skip() }, async () => {
+  await onTrack('clouds', { gaps: true });
+  const r = await page.evaluate(async () => {
+    for (let i = 0; i < 50 && !getTrackArt('floor'); i++) await new Promise(r => setTimeout(r, 100));
+    const gap = state.cloudFloor.gaps[1];
+    const [a, b] = state.racers; state.obstacles = []; state.monsters = []; b.x = gap.start - 1500;
+    const y = PATH_TOP + 10, seen = visibleCloudGap(gap, y + 54);
+    // Standing just short of the visible edge she's on the cloud; just past it she's off.
+    const on = !cloudGapAt(seen.start - 3, y + 54), off = !!cloudGapAt(seen.start + 3, y + 54);
+    // Run off and press on towards the far edge: she catches it and climbs up.
+    Object.assign(a, { x: gap.start - 150, y: PATH_TOP + 90, z: 0, vy: 0, facing: 1, cloudFalling: false, ledge: null, landingTimer: 0, jumpStarted: false });
+    keys.clear(); keys.add('KeyD');
+    let caught = false;
+    for (let i = 0; i < 90 && !caught; i++) { update(1 / 60); caught = !!a.ledge; }
+    let phases = new Set();
+    for (let i = 0; i < 120 && a.ledge; i++) { phases.add(cloudLedgePhase(a)); drawRacer(a); update(1 / 60); }
+    keys.clear();
+    const climbed = !a.ledge && !a.cloudFalling && a.z === 0 && a.x > gap.end;
+    // Standing still she sinks slowly to her neck, wades slowly out, or jumps out.
+    Object.assign(a, { x: gap.end + 300, cloudSink: 0, cloudDeep: 0 });
+    for (let i = 0; i < 60 * 7; i++) update(1 / 60);
+    const deep = a.cloudDeep, sunk = cloudFootingOffset(a);
+    keys.add('KeyD'); const x0 = a.x; update(1 / 60); const wade = (a.x - x0) * 60; for (let i = 0; i < 30; i++) update(1 / 60);
+    const rising = a.cloudDeep < deep; keys.clear();
+    let shadowAlpha = 1; const fill = ctx.fill.bind(ctx);
+    ctx.fill = (...args) => { if (ctx.fillStyle === '#142027') shadowAlpha = Math.min(shadowAlpha, ctx.globalAlpha); return fill(...args); };
+    try { drawRacer(a); } finally { ctx.fill = fill; }
+    return { on, off, caught, phases: [...phases].join(), climbed, deep: deep === 1, neck: sunk > 80, slow: wade < PLAYER_RUN_SPEED * 0.4, rising,
+      noShadow: shadowAlpha === 0, noOil: !trackPowerupTypes(POWERUP_TYPES).includes('oil') };
+  });
+  assert.deepEqual(r, { on: true, off: true, caught: true, phases: 'hang,climb,top', climbed: true, deep: true, neck: true, slow: true, rising: true, noShadow: true, noOil: true });
 });
