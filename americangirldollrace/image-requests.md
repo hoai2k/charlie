@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §21 Cloud Kingdom floor clouds (CL1); §22 Moon Base laser trigger (LZ1); §23 moon boots (MB1); §24 beach ball (BB1) and effect sprites (FX1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §21 Cloud Kingdom floor clouds (CL1); §22 Moon Base laser trigger (LZ1); §23 moon boots (MB1); §24 effect sprites (FX1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -992,20 +992,18 @@ Acceptance: on Moon Base (or the workbench on Moon Base) take MOON BOOTS:
 standing, running, pushing, falling back and landing, both boots cover the
 feet in the same boots as the jumping pose, facing the right way.
 
-## 24. Open: beach ball and effect sprites
+## 24. Open: effect sprites
 
 These are still drawn in code; give them art so nothing is a stand-in.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| BB1 | `assets/tracks/beach/beachball.webp` | 256×256, alpha | **A classic inflatable beach ball**: white with red, yellow, blue and green panels meeting at a small white cap, glossy highlight top left, seen straight on, filling the cell (about 6 px padding). The game spins it as it rolls, so no shadow and no fixed light that would look wrong rotated beyond the soft highlight. In the same commit add `"beachball"` to the `beach` track's `art` list in `tracks.js`. |
 | FX1 | `assets/fx_sprites.webp` | 640×128 (5 cells of 128), alpha | Small effect sprites in the race's glossy cartoon style, each centred in its cell: (1) **a dizzy star**: a chubby five-pointed yellow star with a light outline (four of these circle a dazed head); (2) **a big celebration star**: a shiny gold five-pointed star with a glow and a few sparkles, filling the cell (drawn large behind a cheering doll); (3) **a music note** ♪ in purple with a white outline; (4) **two beamed notes** ♫ to match; (5) **a soft cloud puff**: a little white-lilac cloud lump, wider than tall (a few gather over a doll's feet when she sinks into a cloud). |
 
 In the same commit add `"fx"` to `TRACK_SHARED_ART` in `tracks.js`; the game
 then draws these from the sheet instead of code shapes.
 
-Acceptance: Beach: the beach balls roll and spin and read as beach balls.
-FX1: a dizzy hit (e.g. the Village BELL) shows the stars; a doll scattering
+Acceptance: a dizzy hit (e.g. the Village BELL) shows the stars; a doll scattering
 a candy pile on Candy Land cheers in front of the gold star; the bell's
 rings carry the notes; a doll standing still on Cloud Kingdom has cloud
 puffs over her feet.
