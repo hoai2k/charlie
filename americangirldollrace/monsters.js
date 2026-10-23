@@ -11,10 +11,18 @@
 //              (e.g. a squat robot, or a sheet whose height includes a hat)
 //   grabHands  its front hand in the grab, lift and throw cells (row 3),
 //              frame pixels facing right: the grabbed doll is held there
-//   rowScale   per sprite row, a size correction for a row painted smaller
-//              or larger than the others ([idle, walk, grab, fall] rows)
+//   rowScale   per sprite row ([idle, walk, grab, fall]), or per cell as a
+//              list of three, a size correction for poses painted smaller or
+//              larger than the others
 //   snores     plays the troll's sleep loop when defeated
-//   defeated   an effect drawn over its defeated pose: "sparks"
+//   defeated   how it's defeated: "sparks" drawn over its defeated pose, or
+//              "dissipate" (it fades away and leaves nothing)
+//   particles  a sheet of 8 particle sprites (128px cells) it bursts into
+//   lightning  now and then throws a lightning bolt (cloudtroll_lightning
+//              attack frames and cloudtroll_bolt)
+// Bump when any monster sheet changes, so browsers don't pair a cached sheet
+// with new grab-hand points.
+window.MONSTER_SHEET_VERSION = "2";
 window.MONSTERS = {
   troll: {
     sheet: "assets/monster_sprites.webp",
@@ -30,12 +38,13 @@ window.MONSTERS = {
   },
   robot: {
     scale: 1.15, // stands squat
-    grabHands: [[363, 208], [365, 148], [342, 130]],
+    grabHands: [[363, 208], [326, 148], [342, 130]],
     defeated: "sparks"
   },
   tintroll: {
-    grabHands: [[325, 210], [290, 120], [340, 155]],
-    rowScale: [1, 1, 1, 1.45] // its knocked-down row is painted about 2/3 size
+    grabHands: [[325, 210], [296, 97], [340, 155]],
+    // its knocked-down poses are painted small (the first a little less so)
+    rowScale: [1, 1, 1, [1.2, 1.45, 1.45]]
   },
   candytroll: {
     particles: "candy_particles",
@@ -47,6 +56,6 @@ window.MONSTERS = {
     lightning: true
   },
   sandtroll: {
-    grabHands: [[325, 180], [310, 55], [350, 135]]
+    grabHands: [[325, 180], [282, 56], [350, 135]]
   }
 };

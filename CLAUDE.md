@@ -148,9 +148,12 @@ hook to get round it.
   the constants, state, race flow, menus and the main loop. Put new code in
   the file for its area; keep top-level statements that run at load in
   `game.js`. Tests read all of it via `tools/game-source.mjs`.
-  Track monsters (troll, scarecrow, skeleton, robot, tin toy, sand monster)
-  each have one entry in `americangirldollrace/monsters.js`: sheet, size,
-  grab-hand points, sound prefix and defeat effect.
+  Track monsters (troll, scarecrow, skeleton, robot, tin toy, sand monster,
+  candy troll, cloud troll) each have one entry in
+  `americangirldollrace/monsters.js`: sheet, size, grab-hand points, sound
+  prefix and defeat effect. Their sheets are packed by
+  `americangirldollrace/tools/effects/build.py`; after a rebuild, re-measure
+  any grab-hand points whose pose moved and run `tools/effects/check.py`.
 - `americangirldollrace/intake/` is the owner's drop folder for the race (see
   its README). Songs not tied to one board are listed in `TRACK_GENERAL_MUSIC`
   in `tracks.js`; "Fairies in the Woods" is reserved for a wooded fairy board.

@@ -456,3 +456,39 @@ test('rover shares gentle driving bob and mirrored jump tilt with its rider; pic
   assert.equal(r.widths.length,2); assert.ok(r.widths[0]<r.widths[1]*0.7,`pickup ${r.widths[0]} < mounted ${r.widths[1]}`);
   assert.deepEqual(errors,[]);
 });
+
+test('walking into a candy pile scatters the sweets off the screen and she cheers; a cloud troll puffs away', { skip: skip() }, async () => {
+  await onTrack('candy');
+  const candy = await page.evaluate(async () => {
+    const a = state.racers[0]; a.x = 8000; a.y = PATH_TOP + 90;
+    const m = spawnMonster(8300, a.y, { active: true, riding: false }); m.riding = false; m.x = 8300; m.y = a.y; m.state = 'walk'; state.monsters = [m];
+    m.knockedBacks = MONSTER_SLEEP_KNOCKBACKS - 1; applyMonsterKnockback(m, 1);
+    for (let i = 0; i < 150; i++) { a.x = 8000; update(1 / 60); }
+    await new Promise(r => setTimeout(r, 300)); // her cheer pose loads while the pile lies there
+    const pile = m.state; state.particles = [];
+    keys.clear(); keys.add('KeyD');
+    let cheering = false, lowest = 0;
+    for (let i = 0; i < 160; i++) {
+      update(1 / 60);
+      cheering ||= a.celebrateTimer > 0;
+      if (a.celebrateTimer > 0) drawScene(0);
+      for (const p of state.particles) if (p.kind === 'candy' && p.fallThrough) lowest = Math.min(lowest, p.z);
+    }
+    keys.clear();
+    return { pile, scattered: Boolean(m.scattered), cheering, cheerArt: Boolean(getCheerImage(a)), offScreen: lowest < -(H - PATH_TOP), moved: a.x > 8300 };
+  });
+  assert.deepEqual(candy, { pile: 'sleeping', scattered: true, cheering: true, cheerArt: true, offScreen: true, moved: true });
+  await onTrack('clouds');
+  const cloud = await page.evaluate(() => {
+    const a = state.racers[0];
+    const m = spawnMonster(8300, a.y, { active: true, riding: false }); m.riding = false; m.x = 8300; m.y = a.y; m.state = 'walk'; state.monsters = [m]; state.particles = [];
+    m.knockedBacks = MONSTER_SLEEP_KNOCKBACKS - 1; applyMonsterKnockback(m, 1);
+    for (let i = 0; i < 45; i++) update(1 / 60);
+    return { state: m.state, wisps: state.particles.filter(p => p.kind === 'puff').length };
+  });
+  assert.equal(cloud.state, 'ground');
+  assert.ok(cloud.wisps >= 10, `wisps: ${cloud.wisps}`);
+  const sounds = await page.evaluate(() => ['storm_lightning', 'cloud_dissipate', 'candy_celebrate'].filter(n => !window.AUDIO_MANIFEST.sfx[n]));
+  assert.deepEqual(sounds, [], 'its sounds exist');
+  assert.deepEqual(errors, []);
+});

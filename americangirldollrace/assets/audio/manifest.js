@@ -81,6 +81,14 @@ window.AUDIO_MANIFEST = {
    2,
    3
   ],
+  "candy_celebrate": [
+   1,
+   2
+  ],
+  "cloud_dissipate": [
+   1,
+   2
+  ],
   "countdown_go": [
    1
   ],
