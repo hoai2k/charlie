@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §15 track picker cards without a foreground hurdle (C1, C2); §16 tin toy and sand monster trolls (M4, M5). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §16 tin toy and sand monster trolls (M4, M5). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -725,7 +725,7 @@ M3 delivered: twelve transparent poses registered on Moon Base, with troll-size 
 
 ---
 
-## 15. Track picker cards without a foreground hurdle (open)
+## 15. Delivered track picker cards without a foreground hurdle
 
 The track cards on the select screen each show a hurdle or obstacle front and
 centre (the picket and pole jumps, Beach's sandcastle, Night Festival's rope,
@@ -789,3 +789,5 @@ ends in its defeated pose.
 C1 delivered: the five original track cards are landscape-only. Native/half-size and browser card rendering passed; the ten C2 cards and M4/M5 are being verified separately.
 
 C2 first batch delivered: Horse Show, Toy Room, Candy Land, Beach and Wizard School cards now have empty foregrounds; native/half-size and browser checks passed.
+
+C2 final batch delivered: Pumpkin Patch, Cloud Kingdom, Moon Base, Fairy Woods and Night Festival. All fifteen C1/C2 cards pass RGB/dimensions/hash, half-size landmark readability and browser rendering checks. `tools/tracks/card-redo/` retains sources, prompts and evidence.

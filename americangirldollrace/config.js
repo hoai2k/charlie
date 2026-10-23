@@ -7,7 +7,7 @@
  */
 window.GAME_CONFIG = {
   powerupArtVersion: "20261022-emp3",
-  trackCardArtVersion: "20261023-cards2",
+  trackCardArtVersion: "20261023-cards3",
   dollArtVersion: "20261022-run-redo",
   // Set a doll to true to restore her original art, outfits and alignment.
   legacyDollArt: { rumi: false, claudia: false, marisol: false },
