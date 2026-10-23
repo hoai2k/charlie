@@ -928,7 +928,7 @@ drawn in code. The background's own flat cloud floor is covered by them.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| CL1 | `assets/tracks/clouds/floor.webp` | 2304×640 (3×2 cells of 768×320), alpha | **Six walkable floor clouds**, one per cell, in the background's soft pastel style (white tops, lilac-pink shading underneath). Seen from a little above, as the ground the dolls run on: a broad, fairly flat, softly puffy top surface filling the cell from its back edge down to the bottom of the cell. |
+| CL1 | `assets/tracks/clouds/floor.webp` | 2304×640 (3×2 cells of 768×320), alpha | **Six walkable floor clouds**, one per cell, in the background's soft pastel style (white tops, lilac-pink shading underneath). Seen from a little above, as the ground the dolls run on: **plainly a big soft puffy cloud, not flat ground**: the whole top is rounded billows and lumps of different sizes, soft and fluffy, with gentle shading between the puffs, filling the cell from its back edge down to the bottom. Dolls sink a little into it when they stand still and bounce on it as they run, so it should look soft enough for that. |
 
 Each cell: the cloud's **back edge** (its far, top silhouette: a row of soft
 puffs) sits at about **y = 40**, gently domed (the middle about 8 px higher
@@ -938,9 +938,10 @@ below the screen). The **left and right ends are rounded, puffy cloud
 ends**, curling under, filling the cell edge to edge (about 6 px padding),
 so that where two clouds overlap they read as one cloud tucked against the
 next, and at a gap they plainly end with open sky between. Vary the six:
-puff sizes, a few little wisps or lumps on top, one or two with a faint
-rainbow glint; no objects, characters, shadows or text. Keep the top surface
-smooth enough for dolls' feet (no tall lumps).
+puff sizes, a few little wisps on top, one or two with a faint rainbow
+glint; no objects, characters, shadows or text. The billows can be clearly
+lumpy (that's the point) but keep any single lump under about 20 px tall so
+dolls' feet still sit on the top.
 
 In the same commit add `"floor"` to the `clouds` track's `art` list in
 `tracks.js`; the game then draws each cloud from a random cell, stretched to
@@ -976,13 +977,16 @@ glossy white moon boots with a flat grey rubber sole and a soft cuff.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| MB1 | `assets/moon_boot_sprites.webp` | 512×256 (2 cells of 256), alpha | One moon boot, two views: (1) **side view, toe pointing right**; (2) **front view**, toe towards us. |
+| MB1 | `assets/moon_boot_sprites.webp` | 768×256 (3 cells of 256), alpha | One moon boot as **worn**, three views: (1) **side view, toe pointing right**; (2) **three-quarter view**, toe pointing towards us and to the right (about halfway between side and front: the dolls' feet are most often like this); (3) **front view**, toe towards us. |
 
-Each cell: the sole's bottom centre at **(128, 244)**, sole flat and level;
-the boot about 150 px wide in the side view (about 110 px in the front view)
-and about 170 px tall including the cuff. No leg, shadow or text. The game
-scales each boot to the foot it covers and tilts the side view to the
-foot's angle.
+The boots are on the dolls' feet, so **don't show the opening at the top**:
+the cuff is closed off (a soft rounded padded top, as if the leg goes in
+behind it), never a visible hole or inside lining. Each cell: the sole's
+bottom centre at **(128, 244)**, sole flat and level; the boot about 150 px
+wide in the side view (about 130 px in three-quarter, 110 px in front) and
+about 170 px tall including the cuff. No leg, shadow or text. The game picks
+the view nearest each foot's measured shape, scales the boot to the foot and
+tilts it to the foot's angle.
 
 Acceptance: on Moon Base (or the workbench on Moon Base) take MOON BOOTS:
 standing, running, pushing, falling back and landing, both boots cover the
