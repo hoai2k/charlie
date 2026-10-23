@@ -339,3 +339,43 @@ test('Candy Troll breaks into candy particles after five hits', { skip: skip() }
   });
   assert.deepEqual(burst,{ground:'ground',count:18});
 });
+
+test('in the menu settings, left/right change a setting and A closes it', { skip: skip() }, async () => {
+  await page.evaluate(() => { state.running = false; startPanel.classList.remove('hidden'); Lobby.showSelect(); });
+  const key = async code => { await page.keyboard.down(code); await page.keyboard.up(code); };
+  const open = () => page.evaluate(() => !document.querySelector('#lbSettings').classList.contains('off'));
+  await key('KeyR');
+  assert.ok(await open(), 'Y opens settings');
+  await key('KeyS');
+  const before = await page.evaluate(() => state.difficulty);
+  await key('KeyD');
+  const after = await page.evaluate(() => state.difficulty);
+  assert.notEqual(after, before, 'right changes the difficulty');
+  await key('Space');
+  assert.equal(await open(), false, 'A closes settings');
+  assert.equal(await page.evaluate(() => state.difficulty), after, 'A leaves the setting alone');
+  assert.deepEqual(errors, []);
+});
+
+test('a troll steps round a hurdle, stops when you get away and chases again when you come back', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(() => {
+    const a = state.racers[0];
+    const o = { x: 8300, y: a.y + 36, w: 54, h: 58, hitW: 54, hitH: 32, kind: 'hurdle' }; state.obstacles = [o];
+    const m = spawnMonster(8100, a.y, { active: true, riding: false }); m.riding = false; m.x = 8100; m.y = a.y; m.state = 'walk'; state.monsters = [m];
+    a.x = 8700; let grabbed = false;
+    for (let i = 0; i < 600 && !grabbed; i++) { a.x = 8700; a.z = 0; update(1 / 60); grabbed = Boolean(a.grabbedBy); }
+    startRace('two'); state.running = false; state.obstacles = []; state.powerups = [];
+    const b = state.racers[0]; b.x = 8100 + MONSTER_SIGHT_RANGE + 400; state.racers[1].x = b.x + 50; b.y = PATH_TOP + 90;
+    const t = spawnMonster(8100, b.y, { active: true, riding: false }); t.riding = false; t.x = 8100; t.y = b.y; t.state = 'walk'; state.monsters = [t];
+    for (let i = 0; i < 60; i++) update(1 / 60);
+    const paused = { state: t.state, moved: Math.abs(t.x - 8100) };
+    b.x = 8100 + 600; state.racers[1].x = b.x + 50;
+    for (let i = 0; i < 30; i++) update(1 / 60);
+    return { grabbed, paused, resumed: { state: t.state, moved: t.x - 8100 } };
+  });
+  assert.equal(r.grabbed, true, 'gets round the hurdle to the doll');
+  assert.deepEqual(r.paused, { state: 'idle', moved: 0 });
+  assert.equal(r.resumed.state, 'walk');
+  assert.ok(r.resumed.moved > 20, `chases again (${r.resumed.moved})`);
+});

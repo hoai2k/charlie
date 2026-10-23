@@ -34,7 +34,7 @@ ending (no long fade-out) loops best.
 | Night Festival | One More Spin at the Night Festival |
 | Fairy Woods | Fairies in the Woods |
 | Horse Show | Race to the Ribbon |
-| **Candy Land** | **Open: M2** |
+| Candy Land | Bubblegum Radar |
 | Pumpkin Patch | Hey, Hay! |
 | **Cloud Kingdom** | **Open: M4** |
 | Moon Base | Pocketful of Comets |
@@ -120,41 +120,6 @@ Flutter flutter fly!...
 
 [Outro]
 (Whisper) Goodnight, fairies
-```
-
-### M2. Candy Land: "Sugar Rush!"
-
-**Style:** bubblegum K-pop, 130 BPM, bouncy disco bassline, music-box and toy-piano hook, fizzing pop-rocks percussion, wrapper-crinkle and gumball-machine sound effects, cheeky shouted chants, sugar-high tempo burst in the bridge, key change final chorus, super sweet and playful
-
-**Lyrics:**
-```
-[Intro]
-Three, two, one... SUGAR RUSH!
-
-[Verse 1]
-Lollipop trees and a chocolate stream
-Gumdrop mountains, peppermint dream
-Licorice ladders, candy-cane lane
-Sprinkles falling just like rain
-
-[Pre-Chorus]
-Unwrap it, unwrap it, pop!
-
-[Chorus]
-Sugar rush! (Sweet! Sweet!)
-Can't slow down, I'm on a sugar rush! (Sweet! Sweet!)
-Jelly beans and jumping beans
-Sugar, sugar, sugar rush!
-
-[Bridge: tempo doubles, rapid chant]
-Candy candy candy candy GO GO GO!
-(Brakes squeak) ...wait, one more?
-
-[Final Chorus, key change]
-Sugar rush! (Sweet! Sweet!)...
-
-[Outro]
-(Burp) ...oops! Excuse me!
 ```
 
 ### M4. Cloud Kingdom: "Head in the Clouds"

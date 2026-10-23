@@ -877,9 +877,10 @@
   function press(device, action) {
     if (lobby.screen === "title") { startFrom(device); return; }
     if (lobby.settingsOpen) {
-      if (action === "b" || action === "y" || action === "start") openSettings(false);
+      // A closes the menu like B; left/right change the chosen setting.
+      if (action === "a" || action === "b" || action === "y" || action === "start") openSettings(false);
       else if (action === "up" || action === "down") { lobby.setRow = (lobby.setRow + (action === "up" ? SETTING_ROWS - 1 : 1)) % SETTING_ROWS; sound("ui_hover"); renderSettings(); }
-      else if (action === "left" || action === "right" || action === "a") changeSetting(lobby.setRow, action === "left" ? -1 : 1);
+      else if (action === "left" || action === "right") changeSetting(lobby.setRow, action === "left" ? -1 : 1);
       return;
     }
     if (action === "y") { openSettings(true); return; }

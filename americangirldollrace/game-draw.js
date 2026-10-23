@@ -475,15 +475,19 @@ function drawBackground() {
   // their mirror fallback; a tileable prompt alone is not a seamless texture.
   const directRepeat = getTrackTheme().loopMode === "repeat";
   const firstTile = Math.floor(state.camera / bgW);
+  // Each tile overlaps its neighbours by a couple of screen pixels, so no
+  // sky shows through a sub-pixel gap where they meet (GPUs leave one at
+  // some zooms). The few stretched pixels are the same art either way.
+  const overlap = 2 / Math.max(state.cameraZoom || 1, 0.1);
   for (let tile = firstTile, x = tile * bgW - state.camera; x < viewWidth; tile += 1, x += bgW) {
     if (directRepeat || tile % 2 === 0) {
-      ctx.drawImage(bg, x, 0, bgW, H);
+      ctx.drawImage(bg, x - overlap, 0, bgW + overlap * 2, H);
       continue;
     }
     ctx.save();
     ctx.translate(x + bgW, 0);
     ctx.scale(-1, 1);
-    ctx.drawImage(bg, 0, 0, bgW, H);
+    ctx.drawImage(bg, -overlap, 0, bgW + overlap * 2, H);
     ctx.restore();
   }
   ctx.fillStyle = "rgba(255, 255, 255, 0.16)";

@@ -118,8 +118,8 @@ const HORSE_DURATION = 10;
 // way along at the bottom of the track, for anyone on foot.
 const LOOSE_MOUNT_PICKUP_X = 60;
 const HORSE_SHOW_SPARE_HORSES = [1 / 3, 2 / 3];
-const UNICORN_DURATION_MULTIPLIER = 2;
-const PEGASUS_DURATION_MULTIPLIER = 1.5;
+const UNICORN_DURATION_MULTIPLIER = 1.2;
+const PEGASUS_DURATION_MULTIPLIER = 1.2; // flying mounts: pegasus, griffon, broomstick
 const HORSE_FLASH_TIME = 2.4;
 const UNICORN_BEAM_RANGE = 520;
 const UNICORN_BEAM_DURATION = 0.2;
@@ -323,6 +323,7 @@ const MONSTER_COUNTS_BY_DIFFICULTY = {
 };
 const MONSTER_SPEED = 150;
 const MONSTER_LANE_SPEED = 130;
+const MONSTER_SIGHT_RANGE = 1300; // px, about a screen: farther away than this, a monster stops chasing
 const MONSTER_GRAB_RANGE_X = 58;
 const MONSTER_GRAB_RANGE_Y = 50;
 const MONSTER_THROW_FORCE = 1020;

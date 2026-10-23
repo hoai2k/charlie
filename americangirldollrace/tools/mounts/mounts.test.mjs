@@ -7,7 +7,7 @@ import { gameSource as source } from '../game-source.mjs';
 const names=['isAlwaysMountedTrack','isFlyingMountType','isSpecialMountType','chooseHorseType','updateRacerVerticalMotion','horseDurationForType','mountLoopKey','bumpMonstersWithSpecialMounts','mountBeatsTrolls','monsterSpeed','mountOutrunsMonster','isMounted','broomRideBlend'];
 function setup(){
   const math=Object.create(Math);
-  const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:2,PEGASUS_DURATION_MULTIPLIER:1.5,MONSTER_SPEED:150,MOUNTED_MONSTER_SPEED:515,
+  const c={Math:math,characters:{},getTrackTheme:()=>({}),clamp:(n,a,b)=>Math.max(a,Math.min(b,n)),state:{specials:'none',racers:[],monsters:[]},GRAVITY:2100,PEGASUS_HOVER_Z:940**2/(2*2100),HORSE_DURATION:10,UNICORN_DURATION_MULTIPLIER:1.2,PEGASUS_DURATION_MULTIPLIER:1.2,MONSTER_SPEED:150,MOUNTED_MONSTER_SPEED:515,
     isHorsingAroundMode:()=>c.state.specials==='horsing',applyMonsterKnockback:(m,d)=>{m.hit=d;},isRacerRunningAtMonster:()=>true,
     WIZARD_MOUNTS:['griffon','broom'],wizardUnlocked:true,areWizardMountsUnlocked:()=>c.wizardUnlocked};
   vm.createContext(c);
@@ -49,7 +49,7 @@ test('griffon holds at the pegasus glide height, falls on release and cannot gli
 });
 
 test('griffon gets pegasus duration, flying audio and special-mount monster bumps',()=>{
- const c=setup();assert.equal(c.horseDurationForType('griffon'),15);
+ const c=setup();assert.equal(c.horseDurationForType('griffon'),12);
  c.state.specials='horsing';assert.equal(c.horseDurationForType('griffon'),Infinity);c.state.specials='none';
  assert.equal(c.mountLoopKey({horseType:'griffon',pegasusGliding:true,z:200}),'pegasus_glide_loop');
  assert.equal(c.mountLoopKey({horseType:'griffon',pegasusGliding:false,z:100}),'pegasus_flight_loop');
@@ -95,7 +95,7 @@ test('broom transition follows altitude and returns exactly to carrying on landi
  assert.equal(c.broomRideBlend({z:210}),1);
  const ascent=[0,10,30,60,85].map(z=>c.broomRideBlend({z}));
  assert.deepEqual(ascent,[...ascent].sort((a,b)=>a-b));
- assert.equal(c.horseDurationForType('broom'),15);
+ assert.equal(c.horseDurationForType('broom'),12);
  assert.equal(c.mountLoopKey({horseType:'broom',z:0}),null);
  assert.equal(c.mountLoopKey({horseType:'broom',z:200}),'pegasus_glide_loop');
 });

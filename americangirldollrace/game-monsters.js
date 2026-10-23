@@ -117,11 +117,11 @@ function resolveMonsterObstacleCollisions(monster, previousX, previousY) {
     if (footOverlapsY && crossedFromLeft) {
       monster.x = bounds.left - MONSTER_FOOT_W / 2;
       monster.knockbackX = Math.min(0, monster.knockbackX);
-      monster.blockedByHurdle = true;
+      monster.blockedByHurdle = obstacle;
     } else if (footOverlapsY && crossedFromRight) {
       monster.x = bounds.right + MONSTER_FOOT_W / 2;
       monster.knockbackX = Math.max(0, monster.knockbackX);
-      monster.blockedByHurdle = true;
+      monster.blockedByHurdle = obstacle;
     } else if (footOverlapsX && crossedFromAbove) {
       monster.y = bounds.top - 54 - MONSTER_FOOT_H / 2;
     } else if (footOverlapsX && crossedFromBelow) {
@@ -261,12 +261,15 @@ function updateMonsters(dt) {
     const target = getMonsterTarget(monster);
     monster.target = target;
     if (!target) {
-      monster.state = monster.active ? "walk" : "idle";
+      // Nobody in sight: he waits, and gives a shout when he spots someone.
+      monster.state = "idle";
+      monster.detour = null;
       continue;
     }
 
     const dx = target.x - monster.x;
-    const dy = target.y - monster.y;
+    const detourY = monsterDetourY(monster, Math.sign(dx));
+    const dy = (detourY ?? target.y) - monster.y;
     monster.facing = dx < 0 ? -1 : 1;
     if (monsterDef().lightning && !monster.riding && monster.lightningCooldown === 0 && Math.abs(dx) > 180 && Math.abs(dx) < 620 && Math.abs(dy) < 90 && !target.grabbedBy) {
       monster.state = "lightning";
@@ -282,6 +285,7 @@ function updateMonsters(dt) {
     monster.x = clamp(monster.x + Math.sign(dx) * Math.min(Math.abs(dx), speed * dt), MONSTER_COURSE_START_X, FINISH - 120);
     monster.y = clamp(monster.y + Math.sign(dy) * Math.min(Math.abs(dy), laneSpeed * dt), TRACK_TOP, TRACK_BOTTOM);
     resolveMonsterObstacleCollisions(monster, previousX, previousY);
+    if (!riding && monster.blockedByHurdle && !monster.detour) startMonsterDetour(monster, monster.blockedByHurdle, Math.sign(dx), target);
 
     if (riding) updateMountedMonsterJump(monster, Math.sign(dx), dt);
 
@@ -400,6 +404,31 @@ function setGrabbedRacerPosition(monster, racer) {
   racer.moving = false;
 }
 
+// A troll on foot can't jump: stopped by a hurdle, he steps round its nearer
+// end (toward his target) and goes back to chasing once he's past it.
+function startMonsterDetour(monster, obstacle, direction, target) {
+  const bounds = getObstacleHitBounds(obstacle);
+  const above = bounds.top - 54 - MONSTER_FOOT_H / 2 - 2;
+  const below = bounds.bottom - 54 + MONSTER_FOOT_H / 2 + 2;
+  const options = [above, below].filter(y => y >= TRACK_TOP && y <= TRACK_BOTTOM);
+  if (!options.length || !direction) return;
+  const y = options.reduce((best, y) => Math.abs(y - target.y) < Math.abs(best - target.y) ? y : best);
+  monster.detour = { obstacle, direction, y };
+}
+
+// The lane a detouring troll heads for, or null once he's round the hurdle.
+function monsterDetourY(monster, direction) {
+  const detour = monster.detour;
+  if (!detour) return null;
+  const bounds = getObstacleHitBounds(detour.obstacle);
+  const past = detour.direction > 0 ? monster.x - MONSTER_FOOT_W / 2 > bounds.right : monster.x + MONSTER_FOOT_W / 2 < bounds.left;
+  if (past || direction !== detour.direction || monster.riding || !state.obstacles.includes(detour.obstacle)) {
+    monster.detour = null;
+    return null;
+  }
+  return detour.y;
+}
+
 function isMonsterVisible(monster) {
   return isWorldXVisibleInAnyView(monster.x);
 }
@@ -407,7 +436,10 @@ function isMonsterVisible(monster) {
 function getMonsterTarget(monster) {
   // Racers, and Amanda when she's on a player's side (she fights back).
   const ally = state.amandaAlly;
-  const candidates = [...state.racers, ...(ally && !ally.runningAway ? [ally] : [])].filter(racer => !racer.finished && !racer.grabbedBy);
+  // He only chases someone he can see: get far enough away and he stops,
+  // come back in sight and he's after you again.
+  const inSight = racer => Math.abs(racer.x - monster.x) <= MONSTER_SIGHT_RANGE;
+  const candidates = [...state.racers, ...(ally && !ally.runningAway ? [ally] : [])].filter(racer => !racer.finished && !racer.grabbedBy && inSight(racer));
   if (candidates.length === 0 || !monster.active) return null;
   return candidates.reduce((best, racer) => {
     const score = Math.abs(racer.x - monster.x) + Math.abs(racer.y - monster.y) * 1.6;
