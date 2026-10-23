@@ -195,7 +195,7 @@ const AMANDA_TAG_RANGE_X = 70;
 const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
 const CANDY_PILE_REACH_X = 70; // walk this close to a beaten candy troll's pile to scatter it
 const CANDY_PILE_REACH_Y = 46;
-const CANDY_CELEBRATE_TIME = 0.8; // s she stops to cheer
+const CANDY_CELEBRATE_TIME = 0.8; // s she cheers (running on)
 const AMANDA_ALLY_FOLLOW_DELAY = 0.45; // s: she goes where her player was this long ago
 const AMANDA_ALLY_STAND_GAP = 56; // and when her player stops, stands this close beside her
 const AMANDA_ALLY_CATCH_UP = 1.15; // her top speed, against her player's
@@ -214,6 +214,8 @@ const SNOWBALL_HAND_DRAW_Y_OFFSET = 200;
 // A missed throw starts dropping at this share of its range, landing at the end.
 const SNOWBALL_ARC_START = 0.55;
 const THROWN_ROLL_KEEP = 30; // thrown apples and the like left lying on the ground at most
+const THROWN_BOUNCE = 0.35; // share of its speed a dropped apple bounces back up with
+const THROWN_BOUNCE_MIN = 70; // px/s below which it stops bouncing
 const THROWN_SQUISH_TIME = 0.7; // s one stepped on takes to fade
 const SNOW_PILE_LIFE = 1.6;
 const MONSTER_SPRITE_ROWS = 4;
@@ -348,7 +350,7 @@ const CLOUD_FLOOR_CELL_H = 320;
 const CLOUD_FLOOR_ART_TOP = 40; // px down a cell its back edge is
 const ROOSTER_CROW_TIME = 0.8; // s the rooster crows (the waves go out), then
 const ROOSTER_LINGER = 1.2; // s it hops about before fading
-const ROOSTER_AHEAD = 90; // px in front of her that the ROOSTER EMP's rooster stands
+const ROOSTER_FEET_BELOW_ICON = 30; // px below the trigger icon's centre the rooster stands
 const EMP_FIREWORK_COLORS = ["#ff4d6d", "#ffd84a", "#4cc3ff", "#7dff8a", "#c48bff"];
 // Each kind of power-up glows its own colour on every track, whatever its art.
 const POWERUP_GLOW_COLORS = {
@@ -1722,13 +1724,9 @@ function update(dt) {
       if (isAlwaysMountedTrack() && !racer.dismounted) racer.horseTimer = Infinity;
     }
 
-    if (racer.celebrateTimer > 0) {
-      // A quick cheer after scattering a candy pile.
-      racer.celebrateTimer = Math.max(0, racer.celebrateTimer - dt);
-      racer.speed = 0;
-      racer.moving = false;
-      continue;
-    }
+    // A quick cheer after scattering a candy pile, on the move (drawn in
+    // her cheer pose; she doesn't stop).
+    if (racer.celebrateTimer > 0) racer.celebrateTimer = Math.max(0, racer.celebrateTimer - dt);
 
     if (racer.grabbedBy) {
       racer.speed = 0;

@@ -237,7 +237,7 @@ function updateEmpArcs(dt) {
           // A bonk on the head: the acorn bounces off and lands, like a thrown one.
           sfx("snowball_hit", to.x, { gain: 0.8, throttleKey: "acorns" });
           spawnParticles(to.x, to.y, 0, 5, { kind: "puff", color: "#e8d6b0", speed: 80, lift: 60, life: 0.4, size: 7, gravity: 0 });
-          addRolledThrowable({ x: to.x - Math.sign(to.x - from.x || 1) * 30, groundY: target.y + 54, vx: -Math.sign(to.x - from.x || 1) * 160, spin: n, hop: 260, vhop: 200 });
+          addRolledThrowable({ x: to.x - Math.sign(to.x - from.x || 1) * 30, groundY: target.y + 54, vx: -Math.sign(to.x - from.x || 1) * 160, spin: n, hop: 80, vhop: 240 });
         } else if (before < EMP_ROCKET_TIME) {
           // It bursts on her: a firework, or a crackle of popping candy.
           sfx(candy ? "pickup_pop_rocks" : "firework_burst", to.x, { gain: 0.8, throttleKey: arc.style });
@@ -445,20 +445,8 @@ function drawEmpWaves(arc, from) {
       ctx.lineWidth = width;
       ctx.strokeStyle = color;
       ctx.beginPath();
-      if (arc.style === "rooster") {
-        // ))) and ((( : the crow ripples out both ways, a tight bunch of
-        // short arcs that shrink a little as they spread.
-        for (let d = 0; d < 3; d += 1) {
-          const rr = Math.max(4, r - d * 22);
-          const span = 0.5 * (1 - Math.min(1, k) * 0.5);
-          ctx.moveTo(x + rr * Math.cos(-span), from.y + rr * Math.sin(-span));
-          ctx.arc(x, from.y, rr, -span, span);
-          ctx.moveTo(x - rr * Math.cos(span), from.y - rr * Math.sin(span));
-          ctx.arc(x, from.y, rr, Math.PI + span, Math.PI - span, true);
-        }
-      } else {
-        ctx.ellipse(x, from.y, r, r * 0.55, 0, 0, Math.PI * 2);
-      }
+      // Whole rings spreading out (the rooster's a little rounder).
+      ctx.ellipse(x, from.y, r, r * (arc.style === "rooster" ? 0.8 : 0.55), 0, 0, Math.PI * 2);
       ctx.stroke();
     }
     if (arc.style === "bell") {
@@ -562,7 +550,8 @@ function drawRingingTrigger(arc, from) {
 // fades. Until that sheet loads, the Farm's EMP icon stands in.
 function roosterSpot(arc, from) {
   const facing = arc.source?.facing || 1;
-  return { x: from.x + facing * ROOSTER_AHEAD, y: from.y + 54, facing };
+  // It pops up just where the trigger was: its feet on the trigger's ground.
+  return { x: from.x, y: from.y + ROOSTER_FEET_BELOW_ICON, facing };
 }
 
 // Where it's drawn this moment: bob, rock, size and pose.

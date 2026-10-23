@@ -501,7 +501,7 @@ function landProjectile(projectile) {
     state.thrownLeftovers.push({ kind: "snow", x, groundY, life: SNOW_PILE_LIFE });
   } else {
     sfx("snowball_hit", x, { gain: 0.4 });
-    addRolledThrowable({ x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 180 });
+    addRolledThrowable({ x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 160 });
   }
 }
 
@@ -537,7 +537,8 @@ function updateThrownLeftovers(dt) {
     item.spin += (item.vx / SNOWBALL_RADIUS) * dt;
     item.vx *= Math.pow(0.35, dt);
     item.hop = Math.max(0, item.hop + item.vhop * dt);
-    item.vhop = item.hop > 0 ? item.vhop - 1400 * dt : Math.abs(item.vhop) > 60 ? -item.vhop * 0.35 : 0;
+    // (hop is screen px above the ground, under the game's own gravity)
+    item.vhop = item.hop > 0 ? item.vhop - GRAVITY * dt : Math.abs(item.vhop) > THROWN_BOUNCE_MIN ? -item.vhop * THROWN_BOUNCE : 0;
     for (const obstacle of state.obstacles) {
       const b = getObstacleHitBounds(obstacle);
       if (item.groundY < b.top - 6 || item.groundY > b.bottom + 6) continue;
@@ -586,7 +587,7 @@ function drawThrownLeftover(item) {
     ctx.restore();
     return;
   }
-  ctx.translate(x, item.groundY - SNOWBALL_RADIUS - item.hop * 0.3);
+  ctx.translate(x, item.groundY - SNOWBALL_RADIUS - item.hop);
   ctx.rotate(item.spin);
   const art = getTrackArt("projectile");
   const size = SNOWBALL_RADIUS * 2.6;
@@ -610,7 +611,7 @@ function projectileImpact(projectile, groundY) {
     const height = Math.max(0, projectile.groundY - SNOWBALL_RADIUS - (projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1)));
     // It starts back off her and rolls a little further, so it lands clear.
     const back = -Math.sign(projectile.vx) || -1;
-    addRolledThrowable({ x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height / 0.3, vhop: 260 });
+    addRolledThrowable({ x: projectile.x + back * 30, groundY: projectile.groundY ?? groundY, vx: back * 180, spin: projectile.distance * 0.02, hop: height, vhop: 260 });
     return;
   }
   if (projectileLanding() !== "water") {

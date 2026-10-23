@@ -231,10 +231,8 @@ function updateMonsters(dt) {
         if (monster.knockedBacks >= MONSTER_SLEEP_KNOCKBACKS) {
           monster.state = "ground";
           monster.timer = 1;
-          if (monsterDef().particles === "candy_particles") {
-            spawnParticles(monster.x, monster.y + 54, 85, 18, {kind: "candy", size: 14, speed: 180, lift: 220, life: 1.5});
-            state.racers.forEach(getCheerImage); // ready for whoever reaches the pile
-          }
+          // (A candy troll's sweets fly only when someone runs into his pile.)
+          if (monsterDef().particles === "candy_particles") state.racers.forEach(getCheerImage);
           if (monsterDef().defeated === "dissipate") dissipateMonster(monster);
         } else {
           monster.state = monster.active ? "walk" : "idle";
@@ -460,11 +458,10 @@ function checkCandyPile(monster) {
   }
   sfx("candy_celebrate", monster.x);
   racerVoice(racer, "taunt", { chance: 0.5 });
+  // She cheers as she goes, without stopping.
   if (!isMounted(racer)) {
     racer.celebrateTimer = CANDY_CELEBRATE_TIME;
-    racer.z = 0;
-    racer.vy = 0;
-    getCheerImage(racer); // start loading her cheer pose
+    getCheerImage(racer);
   }
 }
 

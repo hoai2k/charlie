@@ -344,7 +344,7 @@ test('storm troll casts one bolt after windup, hits in either direction, and ful
   assert.deepEqual(errors,[]);
 });
 
-test('Candy Troll breaks into candy particles after five hits', { skip: skip() }, async () => {
+test('Candy Troll goes down to a candy pile with no burst of sweets (they fly when the pile is run into)', { skip: skip() }, async () => {
   await onTrack('candy');
   const burst = await page.evaluate(async () => {
     await loadArtOnce('candy_particles','assets/candy_particles.webp');
@@ -353,7 +353,7 @@ test('Candy Troll breaks into candy particles after five hits', { skip: skip() }
     drawParticles();
     return {ground:m.state,count:state.particles.filter(p=>p.kind==='candy'&&p.spriteIndex>=0&&p.spriteIndex<8).length};
   });
-  assert.deepEqual(burst,{ground:'ground',count:18});
+  assert.deepEqual(burst,{ground:'ground',count:0});
 });
 
 test('Moon Base gives a rover with nine calibrated rider frames in either direction', { skip: skip() }, async () => {
@@ -487,17 +487,19 @@ test('walking into a candy pile scatters the sweets off the screen and she cheer
     await new Promise(r => setTimeout(r, 300)); // her cheer pose loads while the pile lies there
     const pile = m.state; state.particles = [];
     keys.clear(); keys.add('KeyD');
-    let cheering = false, lowest = 0;
+    let cheering = false, lowest = 0, cheerX = 0, cheerMoved = 0;
     for (let i = 0; i < 160; i++) {
       update(1 / 60);
+      if (a.celebrateTimer > 0 && !cheering) cheerX = a.x;
+      if (a.celebrateTimer > 0) cheerMoved = a.x - cheerX;
       cheering ||= a.celebrateTimer > 0;
       if (a.celebrateTimer > 0) drawScene(0);
       for (const p of state.particles) if (p.kind === 'candy' && p.fallThrough) lowest = Math.min(lowest, p.z);
     }
     keys.clear();
-    return { pile, scattered: Boolean(m.scattered), cheering, cheerArt: Boolean(getCheerImage(a)), offScreen: lowest < -(H - PATH_TOP), moved: a.x > 8300 };
+    return { pile, scattered: Boolean(m.scattered), cheering, cheerArt: Boolean(getCheerImage(a)), offScreen: lowest < -(H - PATH_TOP), moved: a.x > 8300, runsOn: cheerMoved > 40 };
   });
-  assert.deepEqual(candy, { pile: 'sleeping', scattered: true, cheering: true, cheerArt: true, offScreen: true, moved: true });
+  assert.deepEqual(candy, { pile: 'sleeping', scattered: true, cheering: true, cheerArt: true, offScreen: true, moved: true, runsOn: true });
   await onTrack('clouds');
   const cloud = await page.evaluate(() => {
     const a = state.racers[0];
@@ -553,7 +555,7 @@ test('an EMP stuns each target when its effect reaches them: lightning at once, 
   for (const track of ['festival', 'farm', 'autumn', 'space']) assert.ok(when[track] > 5 && when[track] < 90, `${track} lands after ${when[track]} frames`);
 });
 
-test('Farm rooster uses all three delivered crowing cells in front of the doll in either direction', { skip: skip() }, async () => {
+test('Farm rooster uses all three delivered crowing cells, popping up on its trigger, in either direction', { skip: skip() }, async () => {
   await onTrack('farm');
   const r = await page.evaluate(async () => {
     for(let i=0;i<50&&!getSharedArt('rooster_crow');i++) await new Promise(r=>setTimeout(r,100));
@@ -570,7 +572,7 @@ test('Farm rooster uses all three delivered crowing cells in front of the doll i
   assert.deepEqual(r.frames.map(f=>f[0]),[0,256,512,0,256,512]);
   for(const f of r.frames) assert.deepEqual(f.slice(1),[256,256,96,96]);
   assert.deepEqual(r.facing,[1,1,1,-1,-1,-1]);
-  assert.ok(r.spots.slice(0,3).every(p=>p.x>r.x));assert.ok(r.spots.slice(3).every(p=>p.x<r.x));
+  assert.ok(r.spots.every(p=>p.x===r.x)); // on the trigger (here at her x)
   assert.deepEqual(errors,[]);
 });
 
