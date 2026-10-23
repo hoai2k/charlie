@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** none. Everything is delivered and checked; see delivery notes below.
+> **Current queue:** §25 Beach seaweed puddle (SW1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -1019,4 +1019,17 @@ CL2 retired by the owner's direction: rather than a cloud over sunk feet,
 the floor's own clouds are painted back over them below the surface with a
 feathered edge (game-terrain.js drawCloudSink), so the feet sink into the
 cloud under them. `puff.webp` is kept but no longer loaded.
+
+## 25. Open: Beach seaweed puddle
+
+The Beach's oil pickup is SEAWEED, but its cell (an R-series puddle redo)
+reads as a plain blue water puddle.
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| SW1 | `assets/tracks/beach/powerups.webp` | cell 3 only (x 768–1023) | **A slippery patch of seaweed** lying flat on the sand, seen from a little above like the other tracks' puddles: a tangle of glossy dark-green and olive kelp ribbons and bladder-wrack with a wet sheen and a thin film of seawater round it, so it plainly looks slippery and not like plain water. No other objects; same style, size and flat-lying angle as the other puddle cells; keep the other four cells pixel-identical. In the same commit bump the beach track's `powerupArtVersion` in `tracks.js` (add one if it has none). |
+
+Acceptance: race the Beach: the SEAWEED pickup reads as a slippery
+seaweed patch lying on the sand at its in-game size, and a doll slides on
+it as before.
 
