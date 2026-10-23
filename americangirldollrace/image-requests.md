@@ -212,7 +212,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §15 track picker cards without a foreground hurdle (C1, C2). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §15 track picker cards without a foreground hurdle (C1, C2); §16 tin toy and sand monster trolls (M4, M5). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -748,3 +748,40 @@ the card edge to edge and the main landmark readable at half size. No text.
 
 Acceptance: on the select screen, each card reads at a glance as its track,
 and no object in the front draws the eye ahead of the scenery.
+
+---
+
+## 16. Two more track monsters: a wind-up tin toy troll and a sand monster (open)
+
+Two more alternates for the troll, in the **same painted, slightly photoreal
+style as `assets/monster_sprites.webp`** (look at it side by side). They
+behave exactly like the troll; only the look changes. Both kid-friendly:
+grumpy and funny, not scary. Like the troll, each fills the frame to about
+the troll's height (feet to the top of the head, not counting a hat or key).
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| M4 | `assets/tintroll_sprites.webp` | 1254×1672 (3×4 of 418), alpha | For the **Toy Room** (`toyroom`): a **wind-up tin toy troll**, the troll's hunched shape made as a vintage painted tin toy: bright chipped enamel (green body, red and yellow trim), visible seams and tabs, round rivet eyes and a big painted grin, stiff jointed arms and legs, and a large brass **wind-up key** turning in its back. |
+| M5 | `assets/sandtroll_sprites.webp` | 1254×1672 (3×4 of 418), alpha | For the **Beach** (`beach`): a **sand monster troll**, the troll's hunched shape made of packed wet and dry sand, with seashell eyes, a seaweed tuft for hair, little shells and a starfish stuck in it, and sand trickling from its elbows and fingers. |
+
+**Use exactly the troll sheet's layout, scale, facing (right, matching the
+actual source sheet) and foot baseline**, cell for cell, because the game
+swaps the sheet in without other changes:
+
+| Row | Cells (left to right) |
+| --- | --- |
+| 1 | Idle, 3 frames of a slight sway (the tin troll's key turning; sand trickling) |
+| 2 | Walk cycle, 3 frames (stiff toy steps; heavy sandy steps) |
+| 3 | **Grab** (lunging forward with arms out), **lift** (arms raised overhead), **throw** (arms flung forward). The game draws the grabbed doll, so the hands are empty. |
+| 4 | **Knocked over** (falling backwards), **collapsing**, and **defeated**. The tin troll's defeated cell is **the toy tipped over on its side, legs stuck mid-step and its key stopped**. The sand monster's is **a slumped mound of sand with its shell eyes and seaweed on top**. Both stay put until the race ends. |
+
+In the same commit, add `"tintroll"` / `"sandtroll"` to `TRACK_SHARED_ART`
+in `tracks.js`, and set `monster: "tintroll"` on `toyroom` and
+`monster: "sandtroll"` on `beach`. The game loads a sheet only once it's
+listed. Their sounds (`tintroll_*`, `sandtroll_*`) are already in the game.
+
+Acceptance: overlay each sheet on `monster_sprites.webp` and check that the
+feet sit on the same baseline in rows 1–3 and the figures are about the same
+size. Then race the Toy Room and the Beach on "Extra" monsters. Each one walks
+in, grabs and throws a doll (held in its hands), and after five knock-backs
+ends in its defeated pose.
