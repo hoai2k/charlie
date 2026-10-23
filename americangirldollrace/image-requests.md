@@ -1069,6 +1069,15 @@ stand-in wings.
 | --- | --- | --- | --- |
 | FW1 | `assets/fairy_wings_sprites.webp` | 3072×1024 (2 rows of 6 cells of 512), alpha | One pair of delicate fairy wings in **two views**, one per row. **Row 1, side view**, as on a girl facing right and seen side on (running): both wings rise up and back (to the left) from one root point, the near wing in front of and a little lower than the far one. **Row 2, three-quarter view**, as on a girl facing right but turned half towards us (most of the dolls' standing and jumping poses are between facing us and facing right): we see more of her back, so the near wing spreads up and back to the left, broad and open towards us, and the far wing shows above and behind her far (right) shoulder, smaller and foreshortened. Both rows have the same six cells (below), so every flutter and wingbeat frame exists in both views. Gauzy and see-through (partly transparent, the background shows through), iridescent pink, lilac and pale aqua with fine darker veins and a soft glittery edge, like dragonfly or butterfly-shaped fairy wings: an upper and a lower lobe each. Cells: (1) **resting**, half open, swept back; (2) the same a touch more open (cells 1–2 alternate for the gentle flutter while she stands or runs); (3–6) **one full wingbeat** for flying: (3) raised high, (4) level and spread wide, (5) swept down below the root, (6) coming back up (between 5 and 3). |
 
+**Owner addition:** also deliver a separate **single wing, seen side-on**,
+which the renderer can mirror to make a left/right pair for idle dolls
+whose bodies face almost straight towards the camera. This is additional
+to both FW1 views above, not a replacement. Use
+`assets/fairy_wing_single_sprites.webp`, six 512px cells (3072×512, alpha),
+the same six phases, colours, material, scale and root (330, 300).
+Draw only one wing with its upper and lower lobes; no second wing or body.
+Check a mirrored pair behind a nearly front-facing idle doll before delivery.
+
 Rules: the root (where the wings join her back) at **(330, 300)** in every
 cell of both rows, so cells and views swap without the wings jumping; the pair about 340 px tall
 at rest and never reaching the cell's edges; no girl, body, shadow,
