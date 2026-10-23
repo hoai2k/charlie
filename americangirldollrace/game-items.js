@@ -29,7 +29,6 @@ function burstWaterBalloon(x, groundY, height) {
     spawnParticles(x, groundY + (Math.random() - 0.5) * 30, height, 1, { kind: "drop", color: colors[i % colors.length], speed: 260 + Math.random() * 200, lift: 380, life: 0.9, size: 6.5, gravity: 1400 });
   }
   spawnParticles(x, groundY, height, 6, { kind: "puff", color: "#d8f4ff", speed: 110, lift: 60, life: 0.5, size: 22, gravity: 0 });
-  spawnParticles(x, groundY, 0, 1, { kind: "ring", color: "#9fdcff", speed: 0, lift: 0, life: 0.7, size: 70, gravity: 0 });
 }
 
 function applyItemEffect(racer, effect, type) {
@@ -38,6 +37,7 @@ function applyItemEffect(racer, effect, type) {
     racer.powerupMessage = pickupLook(type).label;
   } else if (effect === "surfboard") {
     racer.surfTimer = SURF_DURATION;
+    racer.surfHits = new Set();
     racer.surfLaneV = 0;
     racer.facing = 1;
     spawnParticles(racer.x, racer.y + 54, 0, 12, { color: "#e8fbff", kind: "puff", speed: 160, lift: 60, life: 0.7, size: 12, gravity: 0 });
@@ -439,6 +439,19 @@ function windupCarDirection(racer) {
   if (!others.length) return 1;
   const closest = others.reduce((a, b) => (Math.abs(b.x - racer.x) < Math.abs(a.x - racer.x) ? b : a));
   return closest.x < racer.x ? -1 : 1;
+}
+
+// Surfing over a monster knocks it down (each one once per ride).
+function surfKnockMonsters(racer) {
+  racer.surfHits ||= new Set();
+  for (const monster of state.monsters) {
+    if (!monster.active || ["sleeping", "ground", "fall", "drop"].includes(monster.state) || racer.surfHits.has(monster)) continue;
+    if (Math.abs(monster.x - racer.x) > 80 || Math.abs(monster.y - racer.y) > 60) continue;
+    racer.surfHits.add(monster);
+    applyMonsterKnockback(monster, 1, { unhorse: true });
+    spawnParticles(monster.x, monster.y + 54, 20, 14, { kind: "drop", color: "#bdeeff", speed: 220, lift: 320, life: 0.7, size: 6, gravity: 1300 });
+    sfx("water_balloon_burst", monster.x, { gain: 0.7 });
+  }
 }
 
 function releaseWindupCars(racer) {

@@ -25,8 +25,10 @@
 // plain horse on a track (the rest of a mount pickup's roll). `beachBalls` is
 // how many kickable beach balls are spread along the track (art: "beachball",
 // 256×256 alpha, optional; drawn in code until then).
-// `projectileBurst: "water"` makes thrown snowballs water balloons that burst
-// into a splash of droplets on a hit or where they land.
+// `projectileLanding` is what a thrown "snowball" does when it misses: it
+// arcs down to the ground, then "water" (balloons) bursts into a splash
+// (also on a hit), "snow" leaves a little pile that melts away, "pop"
+// (bubbles) stays up and pops in the air; otherwise it rolls to a stop.
 // `empStyle` is how the EMP pickup reaches whoever it hits: "lightning" arcs
 // (the plain EMP always does), "firework" multicoloured sparks, or the
 // default "sparks" (gold).
@@ -92,6 +94,7 @@ window.TRACK_THEMES = {
     mountOdds: { pony: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   fairy: {
+    projectileLanding: "pop",
     empStyle: "lightning",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "TOADSTOOL", boost: "FAIRY DUST", emp: "WAND ZAP", oil: "HONEY", snowball: "BUBBLES" },
@@ -101,11 +104,12 @@ window.TRACK_THEMES = {
   town: {
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "SKATES", emp: "BELL", oil: "LEMONADE", snowball: "WATER BALLOONS" },
-    projectileBurst: "water",
+    projectileLanding: "water",
     sounds: { emp: "pickup_hand_bell", boost: "pickup_skates", jump: "pickup_pogo" },
     rideToys: { boost: "skates" }
   },
   winter: {
+    projectileLanding: "snow",
     empStyle: "lightning",
     art: ["powerups", "projectile", "hurdle"],
     labels: { jump: "SKI JUMP", boost: "SLED", emp: "THUNDERSNOW", oil: "ICE", snowball: "SNOWBALLS" },
@@ -148,10 +152,11 @@ window.TRACK_THEMES = {
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   },
   beach: {
+    noPowerups: ["emp", "horse"], // the surfboard stands in for both
     monster: "sandtroll",
     name: "Beach", music: "assets/music/Ride the Beach Tide.mp3", dirtTop: 514, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle", "wave"],
     labels: { jump: "POOL SPRING", boost: "SURFBOARD", emp: "CONCH SHELL", oil: "SEAWEED", snowball: "WATER BALLOONS" },
-    projectileBurst: "water",
+    projectileLanding: "water",
     sounds: { emp: "pickup_conch", boost: "surf_pickup" },
     beachBalls: 4,
     itemEffects: { boost: "surfboard" }
@@ -176,6 +181,7 @@ window.TRACK_THEMES = {
     sounds: { emp: "pickup_crows" }
   },
   clouds: {
+    projectileLanding: "snow",
     empStyle: "lightning",
     name: "Cloud Kingdom", dirtTop: 535, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "CLOUD PUFF", boost: "RAINBOW", emp: "THUNDERCLAP", oil: "RAIN PUDDLE", snowball: "HAILSTONES" },
@@ -202,7 +208,7 @@ window.TRACK_THEMES = {
     rideToys: { boost: "skates" },
     name: "Night Festival", music: "assets/music/One More Spin at the Night Festival.mp3", dirtTop: 513, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "SKATES", emp: "FIREWORK", oil: "SPILLED SODA", snowball: "WATER BALLOONS" },
-    projectileBurst: "water",
+    projectileLanding: "water",
     sounds: { emp: "firework_burst", boost: "pickup_sparkler" },
     mountOdds: { carousel_horse: 0.25, unicorn: 0.1, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
   }

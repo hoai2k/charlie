@@ -209,6 +209,39 @@ test('a tagged Amanda follows her player and pushes a troll away', { skip: skip(
   assert.deepEqual(r, { tagged: true, following: true, pushed: true });
 });
 
+test('a missed throw comes down: splash, melting snow, a pop in the air, or a roll', { skip: skip() }, async () => {
+  for (const [track, leftover, lands] of [['town', '', true], ['winter', 'snow', true], ['fairy', '', false], ['farm', 'roll', true]]) {
+    await onTrack(track);
+    const r = await page.evaluate(() => {
+      const a = state.racers[0]; a.snowballs = 1; launchSnowball(a);
+      let lowest = Infinity, kinds = '';
+      for (let i = 0; i < 90; i++) {
+        update(1 / 60);
+        const q = state.projectiles[0];
+        if (q) lowest = Math.min(lowest, q.groundY - (q.drawY - q.z * 0.28 * (q.height ?? 1)));
+        if (!kinds && state.thrownLeftovers.length) kinds = state.thrownLeftovers.map(t => t.kind).join();
+      }
+      return { lowest, kinds };
+    });
+    assert.equal(r.kinds, leftover, `${track}: what's left`);
+    assert.equal(r.lowest < 40, lands, `${track}: comes down to the ground (${Math.round(r.lowest)}px)`);
+  }
+});
+
+test('the Beach has no EMPs or horses, and surfing knocks trolls down', { skip: skip() }, async () => {
+  await onTrack('beach');
+  const r = await page.evaluate(() => {
+    let banned = 0; for (let i = 0; i < 5; i++) { startRace('two'); banned += state.powerups.filter(q => q.type === 'emp' || (q.type === 'horse' && !q.loose)).length; }
+    startRace('two'); state.running = false; state.obstacles = []; state.powerups = [];
+    const [a, b] = state.racers; b.x = 1000; a.x = 8100; a.y = PATH_TOP + 90; a.z = 0;
+    const m = spawnMonster(8400, a.y, { active: true, riding: false }); m.x = 8400; m.y = a.y; m.riding = false; m.state = 'walk'; state.monsters = [m];
+    applyPowerup(a, 'boost');
+    let knocked = false, grabbed = false; for (let i = 0; i < 60; i++) { update(1 / 60); knocked ||= m.state === 'fall'; grabbed ||= Boolean(a.grabbedBy); }
+    return { banned, knocked, grabbed };
+  });
+  assert.deepEqual(r, { banned: 0, knocked: true, grabbed: false });
+});
+
 test('the pause screen shows its corner buttons', { skip: skip() }, async () => {
   await page.evaluate(() => { startRace('two'); state.running = true; togglePause(); });
   for (const id of ['#pauseSoundButton', '#pauseSettingsButton']) assert.ok(await page.isVisible(id), id);

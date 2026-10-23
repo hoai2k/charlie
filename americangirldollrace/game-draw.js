@@ -162,6 +162,7 @@ function drawWorldScene() {
       // Puddles lie flat, so anyone standing in one is drawn over it.
       ...state.powerups.filter(powerup => !powerup.taken).map(powerup => ({ type: "powerup", y: powerup.type === "oil" ? powerup.y - 60 : powerup.y, item: powerup })),
       ...state.projectiles.map(projectile => ({ type: "projectile", y: projectile.y, item: projectile })),
+      ...state.thrownLeftovers.map(item => ({ type: "leftover", y: item.groundY - 20, item })),
       ...state.rainbowBeams.map(beam => ({ type: "rainbow", y: beam.y, item: beam })),
       ...(state.stormCloud ? [{ type: "storm", y: TRACK_TOP - 220, item: state.stormCloud }] : []),
       ...(state.rewardCloud ? [{ type: "rewardCloud", y: TRACK_TOP - 230, item: state.rewardCloud }] : []),
@@ -180,6 +181,8 @@ function drawWorldScene() {
         drawPowerup(drawable.item);
       } else if (drawable.type === "projectile") {
         drawSnowball(drawable.item);
+      } else if (drawable.type === "leftover") {
+        drawThrownLeftover(drawable.item);
       } else if (drawable.type === "rainbow") {
         drawRainbowBeam(drawable.item);
       } else if (drawable.type === "storm") {

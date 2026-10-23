@@ -405,12 +405,17 @@ function launchSnowball(racer) {
 function updateProjectiles(dt) {
   for (const projectile of state.projectiles) {
     projectile.x += projectile.vx * dt;
-    projectile.drawY = projectile.groundY !== undefined ? projectile.groundY - projectile.lift : snowballDrawY(projectile.owner);
     projectile.distance += Math.abs(projectile.vx) * dt;
-    // A water balloon that reaches the end of its throw bursts on the ground.
-    if (projectile.distance >= SNOWBALL_RANGE && !projectile.burst && getTrackTheme().projectileBurst === "water") {
+    // Toward the end of its throw it drops to the ground (bubbles stay up).
+    const drop = projectileLanding() === "pop" ? 0
+      : clamp((projectile.distance / SNOWBALL_RANGE - SNOWBALL_ARC_START) / (1 - SNOWBALL_ARC_START), 0, 1);
+    projectile.height = 1 - drop * drop;
+    projectile.drawY = projectile.groundY !== undefined
+      ? projectile.groundY - SNOWBALL_RADIUS - (projectile.lift - SNOWBALL_RADIUS) * projectile.height
+      : snowballDrawY(projectile.owner);
+    if (projectile.distance >= SNOWBALL_RANGE && !projectile.burst) {
       projectile.burst = true;
-      burstWaterBalloon(projectile.x, projectile.groundY, 0);
+      landProjectile(projectile);
     }
     const amanda = projectile.distance < SNOWBALL_RANGE && amandaAt(projectile.x, projectile.groundY);
     if (amanda && !projectile.hitTargets.has(amanda)) {
@@ -445,10 +450,100 @@ function updateProjectiles(dt) {
   state.projectiles = state.projectiles.filter(projectile => projectile.distance < SNOWBALL_RANGE);
 }
 
+function projectileLanding() {
+  return getTrackTheme().projectileLanding || "roll";
+}
+
+// A throw that missed everyone, where it comes down (see tracks.js
+// projectileLanding): a splash, a melting pile of snow, a pop in the air, or
+// it rolls along the ground to a stop.
+function landProjectile(projectile) {
+  const landing = projectileLanding();
+  const x = projectile.x;
+  const groundY = projectile.groundY ?? projectile.y + 22;
+  if (landing === "water") {
+    burstWaterBalloon(x, groundY, 0);
+  } else if (landing === "pop") {
+    const height = Math.max(0, groundY - (projectile.drawY - projectile.z * 0.28));
+    sfx("bubble_pop", x, { gain: 0.7 });
+    spawnParticles(x, groundY, height, 10, { kind: "dot", color: "#d8f4ff", speed: 120, lift: 60, life: 0.35, size: 3.5, gravity: 0 });
+    spawnParticles(x, groundY, height, 1, { kind: "ring", color: "#bfe8ff", speed: 0, lift: 0, life: 0.3, size: 20, gravity: 0 });
+  } else if (landing === "snow") {
+    sfx("snowball_hit", x, { gain: 0.5 });
+    spawnParticles(x, groundY, 0, 6, { kind: "puff", color: "#f4fbff", speed: 70, lift: 30, life: 0.5, size: 10, gravity: 0 });
+    state.thrownLeftovers.push({ kind: "snow", x, groundY, life: SNOW_PILE_LIFE });
+  } else {
+    sfx("snowball_hit", x, { gain: 0.4 });
+    state.thrownLeftovers.push({ kind: "roll", x, groundY, vx: projectile.vx * 0.45, spin: projectile.distance * 0.02, hop: 0, vhop: 180, life: THROWN_ROLL_LIFE });
+  }
+}
+
+function updateThrownLeftovers(dt) {
+  for (const item of state.thrownLeftovers) {
+    item.life -= dt;
+    if (item.kind !== "roll") continue;
+    // Rolls on, bounces a little, slows down, and stops at hurdles.
+    item.x += item.vx * dt;
+    item.spin += (item.vx / SNOWBALL_RADIUS) * dt;
+    item.vx *= Math.pow(0.35, dt);
+    item.hop = Math.max(0, item.hop + item.vhop * dt);
+    item.vhop = item.hop > 0 ? item.vhop - 1400 * dt : Math.abs(item.vhop) > 60 ? -item.vhop * 0.35 : 0;
+    for (const obstacle of state.obstacles) {
+      const b = getObstacleHitBounds(obstacle);
+      if (item.groundY < b.top - 6 || item.groundY > b.bottom + 6) continue;
+      if (item.x + SNOWBALL_RADIUS > b.left && item.x - SNOWBALL_RADIUS < b.right) {
+        item.x = item.vx > 0 ? b.left - SNOWBALL_RADIUS : b.right + SNOWBALL_RADIUS;
+        item.vx = -item.vx * 0.4;
+      }
+    }
+  }
+  state.thrownLeftovers = state.thrownLeftovers.filter(item => item.life > 0);
+}
+
+function drawThrownLeftover(item) {
+  const x = item.x - state.camera;
+  if (x < -80 || x > getWorldViewportWidth() + 80) return;
+  const fade = clamp(item.life / 0.5, 0, 1);
+  ctx.save();
+  ctx.globalAlpha = fade;
+  if (item.kind === "snow") {
+    // A little heap of snow that sinks as it melts.
+    const melt = clamp(item.life / SNOW_PILE_LIFE, 0, 1);
+    ctx.fillStyle = "#f6fbff";
+    ctx.strokeStyle = "#c9e6f3";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.ellipse(x, item.groundY - 4, 22, 4 + 9 * melt, 0, Math.PI, 0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+    return;
+  }
+  ctx.globalAlpha = 0.25 * fade;
+  ctx.fillStyle = "#142027";
+  ctx.beginPath();
+  ctx.ellipse(x, item.groundY, SNOWBALL_RADIUS, 4, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.globalAlpha = fade;
+  ctx.translate(x, item.groundY - SNOWBALL_RADIUS - item.hop * 0.3);
+  ctx.rotate(item.spin);
+  const art = getTrackArt("projectile");
+  const size = SNOWBALL_RADIUS * 2.6;
+  if (art) ctx.drawImage(art, -size / 2, -size / 2, size, size);
+  else {
+    ctx.fillStyle = "#f8fdff";
+    ctx.beginPath();
+    ctx.arc(0, 0, SNOWBALL_RADIUS, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.restore();
+}
+
 // A hit: water balloons burst into a splash, snowballs just thud.
 function projectileImpact(projectile, groundY) {
   projectile.burst = true;
-  if (getTrackTheme().projectileBurst !== "water") {
+  if (projectileLanding() !== "water") {
     sfx("snowball_hit", projectile.x);
     return;
   }
@@ -747,7 +842,7 @@ function drawSnowball(projectile) {
   const viewWidth = getWorldViewportWidth();
   if (x < -80 || x > viewWidth + 80) return;
   ctx.save();
-  ctx.translate(x, projectile.drawY - projectile.z * 0.28);
+  ctx.translate(x, projectile.drawY - projectile.z * 0.28 * (projectile.height ?? 1));
   const projectileArt = getTrackArt("projectile");
   if (projectileArt) {
     const size = SNOWBALL_RADIUS * 2.6;

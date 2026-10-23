@@ -76,6 +76,11 @@ window.AUDIO_MANIFEST = {
    2,
    3
   ],
+  "bubble_pop": [
+   1,
+   2,
+   3
+  ],
   "countdown_go": [
    1
   ],

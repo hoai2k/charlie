@@ -202,6 +202,10 @@ const SNOWBALL_SPEED = 760;
 const SNOWBALL_RANGE = 520;
 const SNOWBALL_RADIUS = 13;
 const SNOWBALL_HAND_DRAW_Y_OFFSET = 200;
+// A missed throw starts dropping at this share of its range, landing at the end.
+const SNOWBALL_ARC_START = 0.55;
+const THROWN_ROLL_LIFE = 2.6;
+const SNOW_PILE_LIFE = 1.6;
 const MONSTER_SPRITE_ROWS = 4;
 const MONSTER_HEIGHT_SCALE = 1.3;
 const MONSTER_WAIT_FROM_BOARD_END = EXPECTED_VIEW_WIDTH;
@@ -586,6 +590,7 @@ const state = {
   obstacles: [],
   powerups: [],
   projectiles: [],
+  thrownLeftovers: [],
   rainbowBeams: [],
   empArcs: [],
   monsters: [],
@@ -799,6 +804,7 @@ function resetRace(mode = state.mode) {
   state.victoryStartTime = 0;
   state.obstacles = makeObstacles();
   state.projectiles = [];
+  state.thrownLeftovers = [];
   state.rainbowBeams = [];
   state.empArcs = [];
   state.amandaCaught = null;
@@ -1805,6 +1811,7 @@ function update(dt) {
   updateStormCloud(dt);
   updateRewardCloud(dt);
   updateProjectiles(dt);
+  updateThrownLeftovers(dt);
   updateRainbowBeams(dt);
   updatePowerupDrops(dt);
   updateRunawayHorses(dt);
@@ -1904,6 +1911,7 @@ function getObstacleHitBounds(obstacle) {
 
 function resolveObstacleCollisions(racer, previousX, previousY, previousZ) {
   if (racer.surfTimer > 0 && !isMounted(racer)) {
+    surfKnockMonsters(racer);
     racer.onObstacle = false;
     return; // the wave washes over hurdles
   }
