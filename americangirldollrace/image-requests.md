@@ -1037,6 +1037,8 @@ it as before.
 in-game size (about 55 px across) the tall, bushy tangle reads as a little
 dark shrub sitting on the sand, not something slippery lying flat.
 
+**SW2 checked in game:** at race size it reads as flat kelp ribbons in a shiny pool, a wet slippery spill. Accepted.
+
 | # | File | Size | What |
 | --- | --- | --- | --- |
 | SW2 | `assets/tracks/beach/powerups.webp` | cell 3 only (x 768–1023) | The same slippery seaweed, redrawn **flat and wide**: a low, spread-out mat of glossy green and olive kelp ribbons lying flat on the sand, much wider than tall (filling most of the cell's width, like the other tracks' puddles), with few bladders and no height or bushy clumps, sitting in a **bright, shiny pool of seawater** that shows round its edges with white glints, so even small it reads as a wet, slippery spill. Lighter, brighter greens than SW1, so it stands out against the sand. Keep the other four cells pixel-identical and bump the beach track's `powerupArtVersion` in `tracks.js`. |
@@ -1120,6 +1122,8 @@ joints. Source, built-in prompts, rebuild and all-doll review:
 `tools/mounts/fairy-wings/`. Owner requests art-only delivery; the gameplay
 agent handles registration, view selection and live acceptance.
 
+**In the game and checked (FW1):** listed in `TRACK_SHARED_ART`; the side row for running and knocked-about poses, three-quarter for jumping, actions poses and trolls, and the single wing as a mirrored pair (85% size) for standing poses facing us, rooted on the measured middle of her back. Placement checked on six dolls in every pose and flying. FW1 stays as the pastel wings for the bright Fairy board (where wings turn up once they've been found in Fairy Woods that day); FW2 above is Fairy Woods' own.
+
 **Open: FW2 twilight re-render (checked in game on Fairy Woods).** The
 wings belong to **Fairy Woods** (`woods`), a dusky twilight woodland lit by
 warm lanterns, glowing purple and pink toadstools and fireflies. Against
@@ -1128,11 +1132,13 @@ race size they nearly vanish. The shapes, layout and wingbeat are right.
 
 | # | File | Size | What |
 | --- | --- | --- | --- |
-| FW2 | `assets/fairy_wings_sprites.webp` and `assets/fairy_wing_single_sprites.webp` | as FW1 (3072×1024 two rows, and 3072×512) | The same wings, cell for cell (same shapes, spread in each of the six phases, views and root (330, 300)), repainted for a twilight fairy wood: **luminous**, as if lit from within like the board's glowing toadstools: richer violet, magenta and teal, a soft glowing rim and glowing veins, a faint warm-gold shimmer near the root, and more opaque (about 75%, so they hold their colour against dark foliage), with the background still faintly showing through the membranes. No sparkles floating off them, no halo beyond the wing edge. |
+| FW2 | **new files** `assets/fairy_wings_twilight_sprites.webp` and `assets/fairy_wing_single_twilight_sprites.webp` (keep FW1's files as they are: the bright Fairy board keeps the pastel wings) | as FW1 (3072×1024 two rows, and 3072×512) | The same wings, cell for cell (same shapes, spread in each of the six phases, views and root (330, 300)), repainted for a twilight fairy wood: **luminous**, as if lit from within like the board's glowing toadstools: richer violet, magenta and teal, a soft glowing rim and glowing veins, a faint warm-gold shimmer near the root, and more opaque (about 75%, so they hold their colour against dark foliage), with the background still faintly showing through the membranes. No sparkles floating off them, no halo beyond the wing edge. |
 
 Acceptance: on Fairy Woods at race size, the wings read clearly on every
 doll (dark-haired ones included) and on the winged trolls, and look like
-they belong with the glowing toadstools and fireflies.
+they belong with the glowing toadstools and fireflies. List both as
+`"fairy_wings_twilight"` and `"fairy_wing_single_twilight"` in
+`TRACK_SHARED_ART`; the game then uses them on Fairy Woods.
 
 ## 28. Art delivered: flying troll
 
@@ -1169,6 +1175,8 @@ Source, prompts and export report: `tools/effects/boot-angles/`.
 TF1 art delivered: `tools/effects/flying-troll/` contains source, prompts,
 scale/hip calibration and native-size comparison. No wings or ground shadow
 are baked in. Per owner, the gameplay agent handles registration and use.
+
+**In the game and checked:** listed in `TRACK_SHARED_ART`; a winged troll swoops (cells 1–2) after a flier and hovers (cell 3) once he's level with her, wings on his back. About the size of the walking troll, which reads right next to him and the dolls.
 
 ## 29. Open: cloud ledge grab (every doll)
 
@@ -1208,3 +1216,5 @@ and registration remain with the other agent per owner.
 LG1/LG2 second art batch delivered: Barbie, Cinnamon, Felicity, Luna and
 Marisol-v2. Corrected Cinnamon/Felicity/Marisol have no glasses; Luna keeps
 her canonical pink glasses. All five include masks and contact anchors.
+
+**In the game and checked (ten dolls):** `LEDGE_SHEETS`, `LEDGE_ART_VERSION` and `LEDGE_ANCHORS` (from the anchors JSON) in `doll-art.js`, outfits through `DollOutfits` ("ledge"). The hug hold, climb and kneel all sit on the cloud edge (checked for Hermione, Barbie, Felicity and Mira). Still open: Lily, Whirlpool, Kaya, Rumi-v2 and Juliette, who borrow their jump and crouch poses until then.
