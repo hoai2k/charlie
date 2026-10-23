@@ -11,6 +11,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
 import { depthScale } from '../engine/camera.js';
+import { bodyRadius } from '../engine/crowd.js';
 import { rand, randInt, pick, chance, clamp, lerp, damp, ease, shuffle, TAU } from '../engine/util.js';
 
 const T = 136;                       // cell size
@@ -27,62 +28,8 @@ const CRUMBLE_START = 17;            // random crumbling begins
 const NAVY = '#24163f';
 const pickPose = (...names) => names.find((n) => POSE_NAMES.includes(n)) || 'idle';
 
-export const meta = {
-  id: 'cookie-crumble',
-  title: 'Cookie Crumble',
-  category: 'party',
-  type: 'Last one standing',
-  goal: 'Stay on the cookies! Cookies you leave crack and fall into the milk.',
-  controls: [['stick', 'Run around'], ['a', 'Hop over a gap']],
-  tips: [
-    'Every cookie you step off cracks and falls, so plan your path!',
-    'Press A while running to hop over one missing cookie.',
-    'Bump your friends toward the milk, but watch your own step!',
-  ],
-  music: 'chase',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save(); g.translate(x, y);
-    const gr = g.createLinearGradient(0, 0, w, h);
-    gr.addColorStop(0, '#fffdf6'); gr.addColorStop(1, '#cfe8ff');
-    g.fillStyle = gr; g.fillRect(0, 0, w, h);
-    g.strokeStyle = 'rgba(120,180,230,0.35)'; g.lineWidth = h * 0.012;
-    for (let i = 0; i < 6; i++) { g.beginPath(); for (let k = 0; k <= 20; k++) { const xx = (k / 20) * w, yy = h * (0.12 + i * 0.16) + Math.sin(k * 0.7 + t * 2 + i) * h * 0.012; k ? g.lineTo(xx, yy) : g.moveTo(xx, yy); } g.stroke(); }
-    const cols = 5, rows = 3, cs = Math.min(w / (cols + 0.4), h / (rows + 0.5)), ox = (w - cols * cs) / 2, oy = (h - rows * cs) / 2;
-    const missing = new Set(['1,1', '2,0', '3,2']);
-    const cracked = new Set(['2,1', '4,1']);
-    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
-      const cx = ox + c * cs + cs / 2, cy = oy + r * cs + cs / 2, key = `${c},${r}`;
-      if (missing.has(key)) {
-        const ph = (t * 0.8 + c * 0.3) % 1;
-        g.strokeStyle = `rgba(255,255,255,${0.9 - ph})`; g.lineWidth = cs * 0.05; g.beginPath(); g.ellipse(cx, cy, cs * (0.15 + ph * 0.3), cs * (0.1 + ph * 0.2), 0, 0, TAU); g.stroke();
-        continue;
-      }
-      const hs = cs * 0.43;
-      if (drawArt(g, cracked.has(key) ? 'prop/cookie-tile-cracked' : (c + r) % 3 === 0 ? 'prop/cookie-2' : 'prop/cookie-1', cx, cy + cs * 0.03, hs * 2.25, hs * 2.25)) continue;
-      g.fillStyle = 'rgba(80,120,170,0.25)'; ui.roundRect(g, cx - hs + 3, cy - hs + cs * 0.1, hs * 2, hs * 2, hs * 0.5); g.fill();
-      g.fillStyle = '#b97a3a'; ui.roundRect(g, cx - hs, cy - hs + cs * 0.07, hs * 2, hs * 2, hs * 0.5); g.fill();
-      g.fillStyle = (c + r) % 3 === 0 ? '#f7b5d0' : '#e8b068'; ui.roundRect(g, cx - hs, cy - hs, hs * 2, hs * 2, hs * 0.5); g.fill();
-      g.strokeStyle = '#6b3f1d'; g.lineWidth = cs * 0.04; g.stroke();
-      g.fillStyle = (c + r) % 3 === 0 ? '#ffffff' : '#5a3418';
-      for (let k = 0; k < 4; k++) { g.beginPath(); g.ellipse(cx + Math.cos(k * 2.1 + c) * hs * 0.5, cy + Math.sin(k * 2.1 + r) * hs * 0.5, cs * 0.07, cs * 0.05, k, 0, TAU); g.fill(); }
-      if (cracked.has(key)) {
-        g.strokeStyle = '#3a200d'; g.lineWidth = cs * 0.035; g.beginPath(); g.moveTo(cx - hs * 0.6, cy - hs * 0.5); g.lineTo(cx - hs * 0.1, cy); g.lineTo(cx + hs * 0.1, cy + hs * 0.2); g.lineTo(cx + hs * 0.6, cy + hs * 0.6); g.stroke();
-      }
-    }
-    // a swimmer popping up in a hole
-    const sx = ox + 1.5 * cs, sy = oy + 1.5 * cs + Math.sin(t * 4) * cs * 0.03;
-    g.fillStyle = '#ffd9b3'; g.strokeStyle = NAVY; g.lineWidth = cs * 0.04;
-    g.beginPath(); g.arc(sx, sy - cs * 0.05, cs * 0.24, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = NAVY; g.beginPath(); g.arc(sx - cs * 0.08, sy - cs * 0.08, cs * 0.03, 0, TAU); g.arc(sx + cs * 0.08, sy - cs * 0.08, cs * 0.03, 0, TAU); g.fill();
-    g.strokeStyle = NAVY; g.beginPath(); g.arc(sx, sy - cs * 0.02, cs * 0.07, 0.2, Math.PI - 0.2); g.stroke();
-    g.strokeStyle = '#ffffff'; g.lineWidth = cs * 0.05; g.beginPath(); g.ellipse(sx, sy + cs * 0.14, cs * 0.3, cs * 0.08, 0, 0, TAU); g.stroke();
-    g.restore();
-  },
-};
+import { meta } from './cookie-crumble.meta.js';
+export { meta };
 
 // ---------------------------------------------------------------------------
 // procedural cookie sprites
@@ -178,6 +125,7 @@ export class Game {
     this.clock = 0;
     this.ended = false;
     this.endT = 0;
+    api.limit(() => (this.ended ? null : Math.max(0, TIME_LIMIT - this.t)), { showAt: Infinity, x: W / 2, y: 60 });
     this.msg = null;
     this.crumbleNext = CRUMBLE_START;
     this.sounds = { crack: 0, crumble: 0, splash: 0 };
@@ -506,7 +454,8 @@ export class Game {
     for (let i = 0; i < list.length; i++) for (let j = i + 1; j < list.length; j++) {
       const a = list[i], b = list[j];
       let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
-      const min = PR * 2;
+      // sized from the sprites (wide ones need more room), but kept under a cookie apart
+      const min = bodyRadius(a.a, PR, 0.22) + bodyRadius(b.a, PR, 0.22);
       if (d < min) {
         if (d < 0.01) { dx = rand(-1, 1); dy = rand(-1, 1); d = Math.hypot(dx, dy); }
         const nx = dx / d, ny = dy / d, ov = (min - d) / 2;
@@ -877,8 +826,6 @@ export class Game {
   /** Screen-space HUD (drawn by the host after the camera). */
   drawHUD(g) {
     const left = this.aliveCount();
-    const timeLeft = Math.max(0, TIME_LIMIT - this.t);
-    ui.timer(g, timeLeft, W / 2, 60);
     ui.text(g, this.n === 1 ? 'Stay on the cookies!' : `${left} left`, W / 2, 128, { size: 34, color: '#ffffff', strokeWidth: 8 });
     const vals = this.ps.map((s) => (s.state === 'play' ? 1 : 0));
     ui.scoreboard(g, this.players, vals, { y: 996, format: (v) => (v ? 'In!' : 'Out'), out: vals.map((v) => !v) });

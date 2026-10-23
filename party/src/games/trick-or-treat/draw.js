@@ -577,28 +577,3 @@ export function drawCandyPile(g, x, y, n, t) {
   }
   g.restore();
 }
-
-// --- thumbnail -------------------------------------------------------------------------
-export function drawIcon(g, x, y, w, h, t = 0) {
-  const th = art('thumb/trick-or-treat');
-  if (th) { g.drawImage(th, x, y, w, h); return; }
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = w / 400;
-  g.translate(x, y); g.scale(s, s);
-  const hh = h / s;
-  const sky = g.createLinearGradient(0, 0, 0, hh);
-  sky.addColorStop(0, '#3a2a7a'); sky.addColorStop(0.7, '#9a5ab8'); sky.addColorStop(1, '#ffb58a');
-  g.fillStyle = sky; g.fillRect(0, 0, 400, hh);
-  g.fillStyle = '#fff4c8'; g.beginPath(); g.arc(330, 50, 30, 0, TAU); g.fill();
-  // house
-  g.fillStyle = '#c9b0ff'; line(g, 4); rr(g, 120, 90, 160, 140, 8); g.fill(); g.stroke();
-  g.fillStyle = '#6a3fa0'; g.beginPath(); g.moveTo(108, 94); g.lineTo(200, 30); g.lineTo(292, 94); g.closePath(); g.fill(); g.stroke();
-  g.fillStyle = '#ffcf7a'; rr(g, 176, 140, 48, 90, 6); g.fill(); g.stroke();
-  g.fillStyle = '#d8c0b0'; g.fillRect(100, 228, 200, 22);
-  g.save(); g.translate(200, 230); g.scale(0.6, 0.6); drawVisitor(g, 'mummy', 0, 0, t, 1, true); g.restore();
-  drawLantern(g, 140, 240, 1, 1, t);
-  drawLantern(g, 262, 240, 0.8, 1, t);
-  for (let i = 0; i < 5; i++) drawCandy(g, i, 60 + i * 70, 40 + ((i * 37) % 30) + Math.sin(t * 3 + i) * 6, 30, t + i);
-  g.restore();
-}

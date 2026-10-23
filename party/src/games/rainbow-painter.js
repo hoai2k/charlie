@@ -21,32 +21,14 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { clamp, approach, lerp, rand, pick, chance, ease, TAU, later } from '../engine/util.js';
-import { drawRainbowIcon } from './rainbow-painter/icon.js';
+import { meta } from './rainbow-painter.meta.js';
 
 const NAVY = '#24163f';
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'rainbow-painter',
-  title: 'Rainbow Painter',
-  category: 'molly',
-  type: 'Team paint',
-  goal: 'Fly your paint cloud and colour in the whole grey world together!',
-  controls: [['stick', 'Fly your cloud'], ['a', 'Hold to rain paint']],
-  tips: ['Rain paint on the grey rainbow: the sparkly stripe is a good place to start!', 'Grab the golden Paint Star for a MEGA SPLASH!', 'Paint the sleepy sun last to wake him up.'],
-  // Easy (A only): your cloud floats by itself to the next grey spot.
-  goalEasy: 'Rain paint on the grey world and colour it in together!',
-  controlsEasy: [['a', 'Hold to rain paint'], ['stick', 'Fly (if you like)']],
-  tipsEasy: ['Your cloud flies all by itself!', 'Want to fly somewhere else? Move with either stick if you like!', 'Hold A when the big A bounces over grey!', 'Your cloud zooms to the golden star - hold A to catch it for a MEGA SPLASH!'],
-  music: 'bouncy',
-  duration: '66 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) { drawRainbowIcon(g, x, y, w, h, t || 0); },
-};
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 66;
@@ -122,6 +104,8 @@ export class Game {
     this.t = 0;
     this.started = false;
     this.timeLeft = DURATION;
+    // the painting clock, shown all game (the magic finish or the party follows it)
+    api.limit(() => (this.started && this.isPlaying() ? this.timeLeft : null), { showAt: Infinity });
     this.scale = n <= 2 ? 0.86 : n <= 4 ? 0.8 : n <= 6 ? 0.72 : 0.66;
     // fill speed: fewer painters paint faster so a solo round still finishes
     this.fillRate = 6.5 / Math.pow(n, 0.62);
@@ -203,11 +187,13 @@ export class Game {
     for (const e of this.ents) { this.placeActor(e); e.a.update(dt); }
   }
 
+  isPlaying() { return this.phase === 'rainbow' || this.phase === 'world' || this.phase === 'sun'; }
+
   update(dt) {
     this.t += dt;
     if (!this.started) { this.started = true; this.startT = this.t - dt; this.banner = { text: 'Paint the rainbow!', t: -1 }; }   // waits out the countdown's GO!
     this.phaseT += dt;
-    const playing = this.phase === 'rainbow' || this.phase === 'world' || this.phase === 'sun';
+    const playing = this.isPlaying();
     if (playing) this.timeLeft = Math.max(0, DURATION - (this.t - this.startT));
     if (this.banner) { this.banner.t += dt; if (this.banner.t > 2.2) this.banner = null; }
     this.ambient(dt);
@@ -555,8 +541,7 @@ export class Game {
   finish() {
     this.finished = true;
     const stats = this.ents.map((e) => `${e.score} splats`);
-    const best = Math.max(...this.ents.map((e) => e.score));
-    this.api.finish({ showcase: true, placements: this.ents.map(() => 1), highlight: null, stats, title: 'Rainbow world!', focus: { x: SUN.x - 300, y: 500 }, best });
+    this.api.finishTogether({ stats, title: 'Rainbow world!', focus: { x: SUN.x - 300, y: 500 } });
   }
 
   // ------------------------------------------------------------------- AI
@@ -683,7 +668,8 @@ export class Game {
       if (showTags || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when there's grey to paint and A isn't held
       if (e.ez && !e.spraying && this.phase !== 'party' && this.phase !== 'magic' && this.started && (e.ez.starCue || this.overGrey(e))) {
-        ui.glyph(g, 'a', e.x, top - 62 + Math.sin(this.t * 8) * 6, 58, { pulse: true });
+        const s = e.ez.starCue && this.star;
+        easyPrompt(g, e.p, { target: s ? { x: s.x, y: s.y } : null, child: { x: e.x, y: e.a.y - e.a.height } });
       }
     }
   }
@@ -968,7 +954,6 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 14, avoidCenter: true, format: (v) => String(v) });
     this.drawChecklist(g);
     if (this.banner) {

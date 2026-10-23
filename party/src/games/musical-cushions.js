@@ -21,10 +21,11 @@ import { art } from '../engine/art.js';
 import { input } from '../engine/input.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, TAU, placementsFromScores } from '../engine/util.js';
+import { spread, bodyRadius } from '../engine/crowd.js';
 import { session, freeCharacters, playerName } from '../state.js';
 import { PLAYER_COLORS } from '../data/characters.js';
 import { Tune } from './musical-cushions/tune.js';
-import { NAVY, C, WALL_Y, RP, SPEAKERS, CUSHION_COLORS, roomBackground, drawCushion, drawRecordPlayer, drawSpeaker, drawIcon } from './musical-cushions/draw.js';
+import { NAVY, C, WALL_Y, RP, SPEAKERS, CUSHION_COLORS, roomBackground, drawCushion, drawRecordPlayer, drawSpeaker } from './musical-cushions/draw.js';
 
 const ROOM = { x0: 250, x1: 1670, y0: 455, y1: 1030 };
 const WALK = 370;
@@ -41,21 +42,8 @@ const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const ds = (y) => depthScale(y, { top: ROOM.y0, near: ROOM.y1, far: 0.88, nearScale: 1.04 });
 const DANCE_MOVES = ['dance-star', 'dance-up', 'dance-side', 'dance-down'];
 
-export const meta = {
-  id: 'musical-cushions',
-  title: 'Musical Cushions',
-  category: 'party',
-  type: 'Musical chairs',
-  goal: 'Dance around the cushions - when the music stops, plop down on one! Last one sitting wins.',
-  controls: [['stick', 'Dance around the ring the way the arrows go'], ['a', 'Sit on a cushion (only when the music stops!)'], ['b', 'Dash (uses energy)'], ['x', 'Hip-bump a friend (uses energy)']],
-  tips: ['Watch the record player: when the needle lifts, get ready!', 'Sitting while the music plays makes you dizzy - and sometimes it only pretends to stop!', 'Follow the arrows round the ring to fill your energy bar, then B dashes and X bumps!'],
-  music: 'gameon',
-  duration: '30-60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon,
-};
+import { meta } from './musical-cushions.meta.js';
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -111,6 +99,8 @@ export class Game {
     this.musicT = 0; this.musicDur = 5;
     this.winner = null; this.endT = 0; this.finished = false;
     this.notesT = 0;
+    // the scramble's countdown (drawn by the play scene where the music pill sits)
+    api.limit(() => (this.phase === 'scramble' ? SCRAMBLE_MAX - this.pt : null), { showAt: Infinity, x: W / 2, y: 54 });
     this.bpm = 128;
   }
 
@@ -684,6 +674,8 @@ export class Game {
         if (d < min) { const push = (min - d) / 2, nx = dx / d, ny = dy / d; A.x -= nx * push; A.y -= ny * push; B.x += nx * push; B.y += ny * push; }
       }
     }
+    // personal space sized from the sprites (a softer push, so wide costumes don't pile up)
+    spread(U, { radius: (u) => Math.max(R, bodyRadius(u.a, R) * 0.8), strength: Math.min(1, dt * 10) });
     const solidAll = this.phase === 'music' || this.phase === 'tell' || this.phase === 'reset' || this.phase === 'ready';
     for (const u of U) {
       for (const c of this.live) {
@@ -1003,7 +995,7 @@ export class Game {
     let fill = '#ffffff', label = '', col = NAVY;
     if (ph === 'music') { fill = '#8fe3c5'; }
     else if (ph === 'tell') { fill = '#ffe27a'; }
-    else if (ph === 'scramble') { fill = '#ff6fb1'; label = `SIT! ${Math.max(1, Math.ceil(SCRAMBLE_MAX - this.pt))}`; col = '#ffffff'; }   // the scramble's countdown
+    else if (ph === 'scramble') return;   // the scramble's countdown sits here (api.limit)
     else if (ph === 'out' || ph === 'end') { fill = '#e8dbff'; label = 'Stop'; }
     else { label = 'Ready'; }
     const shake = ph === 'tell' ? Math.sin(t * 50) * 4 : 0;

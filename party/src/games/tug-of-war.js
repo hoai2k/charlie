@@ -19,7 +19,7 @@ import { randomFreeCharacter } from '../state.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, later, TAU } from '../engine/util.js';
 import {
   TEAMS, JELLY, NAVY, drawBackground, drawMat, drawGoalFlag, drawPool, drawRipple, drawRope, ropeYAt,
-  drawBow, drawBanana, drawBeatHeart, drawIcon,
+  drawBow, drawBanana, drawBeatHeart,
 } from './tug-of-war/draw.js';
 
 const GROUND = 862;                         // feet line
@@ -60,25 +60,8 @@ class GhostCtrl {
   held(b) { return this.now.has(b); }
 }
 
-export const meta = {
-  id: 'tug-of-war',
-  title: 'Rainbow Tug-of-War',
-  category: 'party',
-  type: 'Team game',
-  goal: 'Pink Team vs Blue Team: pull the rope on the beat and splash the other team into the jelly!',
-  controls: [['a', 'Pull - right on the beat!'], ['x', 'SUPER PULL: mash X or A!'], ['b', 'Hop over the banana']],
-  tips: [
-    'Press A as the ring hits the heart. One pull per beat!',
-    'Whole team on the beat = TEAM HEAVE!',
-    'Win 2 of 3 pulls. A smaller team pulls extra hard.',
-  ],
-  music: 'gameon',
-  duration: '~1 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon,
-};
+import { meta } from './tug-of-war.meta.js';
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -131,6 +114,7 @@ export class Game {
     this.jig = { p: 0, v: 0 };    // rope wobble spring
     this.poolWob = 0;
     this.event = null;
+    api.limit(() => (this.phase === 'pull' || this.phase === 'countdown' ? ROUND_TIME - this.roundT : null), { showAt: Infinity, x: W / 2, y: 64 });
     this.events = [];
     this.mashing = false;
     this.finished = false;
@@ -791,7 +775,6 @@ export class Game {
       g.restore();
     }
     // --- timer / round
-    if (this.phase === 'pull' || this.phase === 'countdown') ui.timer(g, ROUND_TIME - this.roundT, W / 2, 64);
     ui.panel(g, W / 2 - 110, 120, 220, 46, { r: 23, fill: '#ffffff', lineWidth: 5 });
     ui.text(g, `Round ${Math.min(this.round, ROUNDS)} of ${ROUNDS}`, W / 2, 144, { size: 28, color: NAVY, stroke: false, weight: 800 });
     // --- tug meter

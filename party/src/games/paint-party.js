@@ -8,8 +8,9 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art, drawArt } from '../engine/art.js';
+import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
+import { bodyRadius } from '../engine/crowd.js';
 import { placementsFromScores, rand, randInt, pick, chance, clamp, lerp, damp, ease, TAU } from '../engine/util.js';
 
 const CS = 40;                       // cell size
@@ -29,56 +30,8 @@ const PR = 34;
 const pickPose = (...names) => names.find((n) => POSE_NAMES.includes(n)) || 'idle';
 const cv = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
 
-export const meta = {
-  id: 'paint-party',
-  title: 'Paint Party',
-  category: 'party',
-  type: 'Territory',
-  goal: 'Paint the plaza your color! Most painted ground wins.',
-  controls: [['stick', 'Run and paint'], ['a', 'Throw a splat bomb']],
-  tips: [
-    'You can paint right over your friends’ colors!',
-    'Splat bombs paint a big circle. They refill in a few seconds.',
-    'Grab the rainbow roller for a giant brush. The last 10 seconds are double brush!',
-  ],
-  music: 'party',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save(); g.translate(x, y);
-    g.fillStyle = '#f3ece0'; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#e7dfd1';
-    const s = h / 8;
-    for (let r = 0; r < 8; r++) for (let c = 0; c < Math.ceil(w / s); c++) if ((r + c) % 2) g.fillRect(c * s, r * s, s, s);
-    const blob = (cx, cy, r, col) => {
-      g.fillStyle = col;
-      g.beginPath(); g.arc(cx, cy, r, 0, TAU); g.fill();
-      for (let k = 0; k < 9; k++) { const a = k * 0.7 + cx * 0.01; g.beginPath(); g.arc(cx + Math.cos(a) * r * 0.82, cy + Math.sin(a) * r * 0.82, r * (0.22 + (k % 3) * 0.05), 0, TAU); g.fill(); }
-    };
-    const cols = ['#ff4d6d', '#3fa7ff', '#ffd23f', '#36d17a'];
-    blob(w * 0.22, h * 0.32, h * 0.26, cols[0]);
-    blob(w * 0.52, h * 0.7, h * 0.3, cols[1]);
-    blob(w * 0.8, h * 0.28, h * 0.24, cols[2]);
-    blob(w * 0.12, h * 0.8, h * 0.16, cols[3]);
-    blob(w * 0.5, h * 0.25, h * 0.14, cols[3]);
-    // splat bomb in the air
-    const bx = w * 0.64, by = h * 0.5 - Math.abs(Math.sin(t * 3)) * h * 0.12;
-    g.fillStyle = 'rgba(0,0,0,0.2)'; g.beginPath(); g.ellipse(bx, h * 0.68, h * 0.07, h * 0.03, 0, 0, TAU); g.fill();
-    if (!drawArt(g, 'prop/paint-bomb', bx, by - h * 0.02, h * 0.22, h * 0.22)) {
-      g.fillStyle = '#ff4d6d'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02; g.beginPath(); g.arc(bx, by, h * 0.08, 0, TAU); g.fill(); g.stroke();
-      g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.ellipse(bx - h * 0.03, by - h * 0.03, h * 0.02, h * 0.012, -0.6, 0, TAU); g.fill();
-    }
-    // brush
-    g.save(); g.translate(w * 0.34, h * 0.56); g.rotate(-0.7);
-    g.fillStyle = '#c28a4d'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02; ui.roundRect(g, -h * 0.03, -h * 0.34, h * 0.06, h * 0.3, h * 0.02); g.fill(); g.stroke();
-    g.fillStyle = '#9aa7b8'; g.fillRect(-h * 0.035, -h * 0.06, h * 0.07, h * 0.06); g.strokeRect(-h * 0.035, -h * 0.06, h * 0.07, h * 0.06);
-    g.fillStyle = '#ff4d6d'; ui.roundRect(g, -h * 0.05, 0, h * 0.1, h * 0.12, h * 0.04); g.fill(); g.stroke();
-    g.restore();
-    g.restore();
-  },
-};
+import { meta } from './paint-party.meta.js';
+export { meta };
 
 const hex2rgb = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
 const mix = (h, t, amt) => { const a = hex2rgb(h), b = t === 'w' ? [255, 255, 255] : [0, 0, 0]; return `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * amt)).join(',')})`; };
@@ -115,6 +68,7 @@ export class Game {
     this.n = this.players.length;
     this.t = 0; this.clock = 0;
     this.ended = false; this.endT = 0;
+    api.limit(() => (this.ended ? null : Math.max(0, TIME - this.t)), { showAt: Infinity, x: W / 2, y: 52 });
     this.owner = new Int16Array(COLS * ROWS).fill(-1);
     this.counts = this.players.map(() => 0);
     this.dirty = new Set();
@@ -358,9 +312,10 @@ export class Game {
     for (let i = 0; i < this.n; i++) for (let j = i + 1; j < this.n; j++) {
       const a = this.ps[i], b = this.ps[j];
       let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
-      if (d >= PR * 2) continue;
+      const min = bodyRadius(a.a, PR, 0.3) + bodyRadius(b.a, PR, 0.3);   // sized from the sprites
+      if (d >= min) continue;
       if (d < 0.01) { dx = rand(-1, 1); dy = rand(-1, 1); d = Math.hypot(dx, dy); }
-      const nx = dx / d, ny = dy / d, ov = (PR * 2 - d) / 2;
+      const nx = dx / d, ny = dy / d, ov = (min - d) / 2;
       a.x -= nx * ov; a.y -= ny * ov; b.x += nx * ov; b.y += ny * ov;
       const rel = (a.vx - b.vx) * nx + (a.vy - b.vy) * ny;
       const imp = 170 + Math.max(0, rel) * 0.6;
@@ -611,8 +566,6 @@ export class Game {
   /** Screen-space HUD (drawn by the host after the camera). */
   drawHUD(g) {
     const total = COLS * ROWS;
-    const left = Math.max(0, TIME - this.t);
-    ui.timer(g, left, W / 2, 52);
     // territory bar
     const bx = 70, bw = 760, by = 34, bh = 30;
     g.save();

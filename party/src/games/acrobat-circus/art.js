@@ -4,7 +4,6 @@
 import { W, H } from '../../engine/canvas.js';
 import * as ui from '../../engine/ui.js';
 import { art, drawArt } from '../../engine/art.js';
-import { getBaseImage } from '../../engine/sprites.js';
 import { drawStarShape } from '../../engine/emotes.js';
 import { TAU, clamp } from '../../engine/util.js';
 
@@ -427,39 +426,3 @@ export function drawActIcon(g, id, x, y, s) {
 // ---------------------------------------------------------------------------
 // Thumbnail
 
-export function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const ax = x + w / 2, ay = y - h * 0.2;
-  g.fillStyle = '#5b1f47'; g.fillRect(x, y, w, h);
-  for (let i = 0; i < 16; i++) {
-    const a0 = Math.PI * (i / 16), a1 = Math.PI * ((i + 1) / 16);
-    g.beginPath(); g.moveTo(ax, ay);
-    g.lineTo(ax + Math.cos(a0) * w * 2, ay + Math.sin(a0) * w * 2);
-    g.lineTo(ax + Math.cos(a1) * w * 2, ay + Math.sin(a1) * w * 2);
-    g.closePath(); g.fillStyle = i % 2 ? '#d93a55' : '#f7e4c9'; g.fill();
-  }
-  const gr = g.createRadialGradient(ax, y + h * 0.55, h * 0.1, ax, y + h * 0.55, w * 0.7);
-  gr.addColorStop(0, 'rgba(255,245,210,0.25)'); gr.addColorStop(1, 'rgba(50,10,40,0.55)');
-  g.fillStyle = gr; g.fillRect(x, y, w, h);
-  g.fillStyle = '#ecbf7a'; g.fillRect(x, y + h * 0.86, w, h * 0.14);
-  g.fillStyle = RED; g.fillRect(x, y + h * 0.85, w, h * 0.03);
-  const s = h / 300;
-  drawTrampoline(g, ax, y + h * 0.92, s * 0.95, 0.3 + 0.3 * Math.sin(t * 6));
-  // fox mid-flip
-  const img = getBaseImage('fox');
-  const ph = (t * 0.9) % 1, z = Math.sin(ph * Math.PI) * h * 0.22;
-  g.save(); g.translate(ax, y + h * 0.48 - z); g.rotate(ph * TAU);
-  if (img) { const ih = h * 0.34, iw = (img.width / img.height) * ih; g.drawImage(img, -iw / 2, -ih / 2, iw, ih); }
-  else { g.fillStyle = '#ff6a1a'; g.beginPath(); g.arc(0, 0, h * 0.12, 0, TAU); g.fill(); }
-  g.restore();
-  // confetti
-  const cols = ['#ff4d6d', '#ffd23f', '#3fa7ff', '#5ddc6a', '#ff6fd0'];
-  for (let i = 0; i < 18; i++) {
-    const p = (t * 0.25 + i * 0.137) % 1;
-    g.save(); g.translate(x + w * ((i * 0.53) % 1), y + h * p); g.rotate(t * 3 + i);
-    g.fillStyle = cols[i % 5]; g.fillRect(-4 * s, -2.5 * s, 8 * s, 5 * s); g.restore();
-  }
-  ui.text(g, 'Acrobat Circus', x + w / 2, y + h * 0.1, { size: h * 0.11, color: '#ffffff', maxWidth: w * 0.9 });
-  g.restore();
-}

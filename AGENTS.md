@@ -20,3 +20,13 @@ local-only work or a tool requires additional approval.
 - Confirm that the push succeeded before reporting the work as published.
   If authentication or approval prevents the push, report the local commit IDs
   and the specific blocker.
+
+## Combining commits safely
+
+Before squashing or otherwise combining commits for `main`, first bring the latest
+`origin/main` into your branch (`git fetch origin && git rebase origin/main`, or a
+merge), then combine. Never `git reset --soft origin/main` (or any newer base) from a
+branch that hasn't integrated it: the new commit keeps your old copy of every file and
+silently reverts whatever landed on `main` in between. Before pushing, check that
+`git diff --stat origin/main HEAD` lists only the files you meant to change.
+

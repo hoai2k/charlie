@@ -15,15 +15,14 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, showstopper } from '../engine/util.js';
 import { drawPortrait } from '../engine/sprites.js';
 import { playerName } from '../state.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   NAVY, WIN, BOARD_Y, BOARD_B, FEET_Y, BACKDROPS, PROPS, PROP_BY_ID, THEME_PROPS, PICTURES, PIC_BY_ID,
   drawBackdrop, drawProp, propRect, drawRoom, drawBoothBack, drawBoothFront, drawCurtains,
-  makeAudience, drawAudience, drawSock, sockHair, drawStick, drawPictureBubble, drawPicture, drawRose, drawThumb,
-} from './puppet-theater/art.js';
+  makeAudience, drawAudience, drawSock, sockHair, drawStick, drawPictureBubble, drawPicture, drawRose, } from './puppet-theater/art.js';
 
 /** A recorded sound when it exists, else a synth stand-in. */
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -49,31 +48,9 @@ const DPAD_PICS = { up: 'heart', right: 'star', down: 'wow', left: 'sad' };
 // Sock-puppet moods for the photo poses at the curtain call.
 const POSE_MOOD = { surprised: 'wow', photo: 'happy', 'pose-twirl': 'spin', sad: 'sad', giggle: 'laugh', tumble: 'wow', 'hip-bump': 'happy', 'dance-star': 'happy', sit: 'sleep', 'high-five': 'happy', strike3: 'happy', dizzy: 'wow', pout: 'sad' };
 
-export const meta = {
-  id: 'puppet-theater',
-  title: 'Puppet Theater',
-  category: 'studio',
-  type: 'Show time · Everyone together',
-  goal: 'Set the stage, then put on a puppet show that makes the audience laugh!',
-  controls: [
-    ['stick', 'Move your hand · your puppet'],
-    ['a', 'Place a prop · Jump'],
-    ['b', 'Remove · Hold: pictures'],
-    ['x', 'Sock or stick · Twirl'],
-    ['y', 'Ready! · Silly sound'],
-  ],
-  tips: [
-    'Stick down hides you behind the stage. Pop up: Peekaboo!',
-    'Hold B and point the stick to say a picture. Answer your friends!',
-    'Different tricks make the audience laugh more and fill the Bravo meter.',
-  ],
-  music: 'bouncy',
-  duration: '3 min',
-  minPlayers: 1, maxPlayers: 8,
-  countdown: false,
-  flyIn: false,
-  drawIcon(g, x, y, w, h, t) { drawThumb(g, x, y, w, h, t, getBaseImage('fox')); },
-};
+import { meta } from './puppet-theater.meta.js';
+
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -103,6 +80,9 @@ export class Game {
     const h = this.n <= 3 ? 250 : this.n <= 5 ? 220 : 185;
     this.puppetH = h;
     this.pp = this.players.map((p, i) => this.makePuppet(p, i));
+    // Setting the stage and each act run on a clock (the play scene draws it).
+    api.limit(() => (this.phase === 'setup' && !this.trans ? Math.max(0, this.setupTime - this.phaseT) : null), { showAt: Infinity, x: W / 2, y: 62 });
+    api.limit(() => (this.phase === 'act' && !this.trans ? Math.max(0, ACT_TIME - this.phaseT + 0.8) : null), { showAt: Infinity, x: W / 2, y: 62 });
     this.startTransition('Puppet Theater', 'Set the stage!', () => this.startSetup(0), { first: true });
   }
 
@@ -250,11 +230,8 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     for (const pp of this.pp) if (pp.ai) { pp.p.ctrl.move(0, 0); }
-    const scores = this.pp.map((pp) => pp.laughs);
     // with kids playing, only a kid can be the Showstopper
-    if (this.humans.length) this.pp.forEach((pp, i) => { if (pp.p.isAI) scores[i] = -1; });
-    const best = Math.max(...scores);
-    const highlight = this.n > 1 && best > 0 && scores.filter((s) => s === best).length === 1 ? scores.indexOf(best) : null;
+    const highlight = this.n > 1 ? showstopper(this.pp.map((pp) => pp.p), this.pp.map((pp) => pp.laughs)) : null;
     const stats = this.pp.map((pp) => {
       const bits = [`${pp.laughs} laugh${pp.laughs === 1 ? '' : 's'}`];
       if (pp.peeks) bits.push(`${pp.peeks} peekaboo${pp.peeks === 1 ? '' : 's'}`);
@@ -1083,10 +1060,8 @@ export class Game {
     if (!this.trans) {
       if (this.phase === 'setup') {
         this.headerPill(g, `Scene ${this.sceneIdx + 1} · Set the stage!`);
-        ui.timer(g, this.setupTime - this.phaseT, W / 2, 62);
       } else if (this.phase === 'act') {
         this.headerPill(g, `Act ${this.sceneIdx + 1} · ${BACKDROPS.find((b) => b.id === this.scene.backdrop).name}`);
-        ui.timer(g, ACT_TIME - this.phaseT + 0.8, W / 2, 62);
         this.drawMeter(g, t);
       } else if (this.phase === 'replay') {
         this.drawReplayFrame(g, t);

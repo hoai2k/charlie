@@ -16,7 +16,7 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { drawHeartShape } from '../engine/emotes.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
@@ -24,43 +24,9 @@ import {
   GROUND_Y, BED, NAVY, drawKitten, drawYarn, drawBasketBack, drawBasketFront, drawCatTree, perchPoint, drawBed, drawBedFront, drawRoom, YARN,
 } from './kitten-yarn/art.js';
 
-export const meta = {
-  id: 'kitten-yarn',
-  title: 'Kitten Cuddles',
-  category: 'molly',
-  type: 'Everyone plays',
-  goal: 'Catch the bouncy kittens in your basket and give them cuddles!',
-  controls: [['stick', 'Run with your basket'], ['a', 'Cuddle! (or hop)']],
-  tips: ['Kittens bounce off your head into the basket.', 'Cuddle 3 at once for a Triple Cuddle!', 'Fairy kittens count for 3!'],
-  goalEasy: 'Your basket runs to the kittens by itself. Press A to cuddle them!',
-  controlsEasy: [['a', 'Cuddle! (or hop)'], ['stick', 'Run with either stick if you like']],
-  tipsEasy: ['You run to the kittens all by yourself - or steer with the stick.', 'When the A glows, press it for cuddles!', 'Wait for 3 kittens for a Triple Cuddle!'],
-  music: 'bouncy',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400; g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    g.fillStyle = '#ffe7d6'; g.fillRect(0, 0, 400, hh);
-    g.fillStyle = '#ffd9c4'; for (let i = 0; i < 400; i += 40) g.fillRect(i, 0, 20, hh);
-    g.fillStyle = '#e9b57c'; g.fillRect(0, hh * 0.78, 400, hh);
-    g.save(); g.translate(60, hh * 0.86); g.scale(0.32, 0.32); drawCatTree(g, 0, 0, 1, t); g.restore();
-    drawBasketBack(g, 230, hh * 0.92, 170);
-    g.save(); g.translate(195, hh * 0.68); drawKitten(g, { coat: 0 }, 'cuddle', t, 0.8); g.restore();
-    g.save(); g.translate(262, hh * 0.7); drawKitten(g, { coat: 3 }, 'sit', t, 0.7); g.restore();
-    drawBasketFront(g, 230, hh * 0.92, 170, t);
-    const k = (t * 0.8) % 1;
-    g.save(); g.translate(120 + k * 90, hh * 0.25 + Math.sin(k * Math.PI) * -30 + k * 40); g.rotate(t * 6); drawKitten(g, { coat: 4 }, 'tumble', t, 0.55); g.restore();
-    g.save(); g.translate(350, hh * 0.3 + Math.sin(t * 3) * 8); drawKitten(g, { fairy: true }, 'sit', t, 0.5); g.restore();
-    g.save(); g.translate(340 - ((t * 60) % 120), hh * 0.86); drawYarn(g, 0, -t * 5, 0.5); g.restore();
-    for (let i = 0; i < 4; i++) { g.save(); g.translate(150 + i * 50, hh * 0.45 - ((t * 40 + i * 30) % 60)); g.globalAlpha = 0.85; drawHeartShape(g, 16, '#ff6fb1'); g.restore(); }
-    g.restore();
-  },
-};
+import { meta } from './kitten-yarn.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 45;
@@ -94,6 +60,8 @@ export class Game {
     this.easy = !!api.easy;     // Molly Easy: humans auto-run to kittens, A cuddles
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.party = false; this.partyT = 0;
+    // the nap clock, shown the whole game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.scale = n <= 3 ? 1 : n <= 4 ? 0.92 : n <= 6 ? 0.84 : 0.76;
     this.kittens = [];
     this.balls = [];            // loose yarn balls (after the rider hopped off)
@@ -760,10 +728,13 @@ export class Game {
       if (!this.done && (e.basket.length || e.head) && (!e.p.isAI || this.n === 1)) {
         const full = e.basket.length >= CAP || e.head;
         const pulse = 1 + Math.sin(this.t * (full ? 12 : 6)) * 0.12;
-        const big = this.easy && !e.p.isAI;   // Molly Easy: the same big A as the other Sister games
-        g.save(); g.translate(e.x + (big ? 110 : 80) * this.scale, top - (big ? 30 : 10)); g.scale(pulse, pulse);
-        ui.glyph(g, 'a', 0, 0, big ? (full ? 92 : 80) : full ? 54 : 42);
-        g.restore();
+        // Molly Easy: the same big A as the other Sister games (cuddling isn't tied to a target: over the tag)
+        if (this.easy && !e.p.isAI) easyPrompt(g, e.p, { child: { x: e.x, y: top + 26 }, size: full ? 92 : 80 });
+        else {
+          g.save(); g.translate(e.x + 80 * this.scale, top - 10); g.scale(pulse, pulse);
+          ui.glyph(g, 'a', 0, 0, full ? 54 : 42);
+          g.restore();
+        }
       }
     }
   }
@@ -790,7 +761,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the nap clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 990, format: (v) => '♥ ' + v });
     if (this.n === 1) ui.text(g, `Goal: ${SOLO_GOAL} ♥`, W - 200, 64, { size: 42, color: '#ff4d8d' });
     if (this.party) {

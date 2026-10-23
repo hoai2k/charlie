@@ -33,58 +33,8 @@ const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s
 const smooth = (t) => t * t * (3 - 2 * t);
 const ordinal = (n) => (n === 1 ? '1st' : n === 2 ? '2nd' : n === 3 ? '3rd' : n + 'th');
 
-export const meta = {
-  id: 'broomstick-dash',
-  title: 'Broomstick Dash',
-  category: 'party',
-  type: 'Race',
-  goal: 'Zoom through the sky and reach the castle tower first!',
-  controls: [['a', 'Hold to fly UP, let go to glide DOWN']],
-  tips: ['Fly through the star rings for a speed boost!', 'Grumpy storm clouds zap you and slow you down.', 'Owl-mail envelopes give a little bonus zoom.'],
-  music: 'spooky',
-  duration: '40 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  flyIn: false,   // lanes need a fixed view
-  drawIcon(g, x, y, w, h, t = 0) {
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#3b2a86'); gr.addColorStop(0.6, '#a465cf'); gr.addColorStop(1, '#ffb7a0');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    g.fillStyle = '#fff';
-    for (let i = 0; i < 14; i++) { g.globalAlpha = 0.4 + 0.5 * Math.abs(Math.sin(t * 2 + i)); g.beginPath(); g.arc(x + hh(i) * w, y + hh(i + 40) * h * 0.6, 2 + hh(i + 9) * 3, 0, TAU); g.fill(); }
-    g.globalAlpha = 1;
-    // distant castle
-    g.fillStyle = 'rgba(60,38,120,0.85)';
-    const bx = x + w * 0.72, by = y + h;
-    g.fillRect(bx - w * 0.07, by - h * 0.42, w * 0.14, h * 0.42);
-    g.beginPath(); g.moveTo(bx - w * 0.09, by - h * 0.42); g.lineTo(bx, by - h * 0.62); g.lineTo(bx + w * 0.09, by - h * 0.42); g.fill();
-    g.fillRect(bx + w * 0.1, by - h * 0.28, w * 0.1, h * 0.28);
-    // clouds
-    ui.cloud(g, x + w * 0.2, y + h * 0.86, h / 420, '#ffd9ec', 0.9);
-    ui.cloud(g, x + w * 0.85, y + h * 0.9, h / 520, '#ffd9ec', 0.9);
-    // star ring
-    const rx = x + w * 0.7, ry = y + h * 0.4 + Math.sin(t * 2) * 4, rr = h * 0.2;
-    g.lineWidth = h * 0.045; g.strokeStyle = '#ffd23f'; g.beginPath(); g.ellipse(rx, ry, rr * 0.35, rr, 0, 0, TAU); g.stroke();
-    // storm cloud
-    stormCloud(g, x + w * 0.2, y + h * 0.3, h * 0.13, t, 0, false);
-    // wizard on a broom
-    g.save(); g.translate(x + w * 0.46, y + h * 0.62 + Math.sin(t * 3) * 3); g.rotate(-0.12);
-    const s = h / 300;
-    g.scale(s, s);
-    drawBroomShape(g, 100, t);
-    g.strokeStyle = '#ff6fb1'; g.lineWidth = 12; g.lineCap = 'round'; g.beginPath(); g.moveTo(-14, -34); g.quadraticCurveTo(-60, -30, -105, -52 + Math.sin(t * 6) * 8); g.stroke(); // scarf
-    g.lineWidth = 6; g.strokeStyle = NAVY; g.fillStyle = '#9b5cff';
-    g.beginPath(); g.moveTo(-26, -30); g.lineTo(18, -30); g.lineTo(28, -4); g.lineTo(-32, -4); g.closePath(); g.fill(); g.stroke(); // robe
-    g.fillStyle = '#ffe2c8'; g.beginPath(); g.arc(-4, -56, 24, 0, TAU); g.fill(); g.stroke();   // head
-    g.fillStyle = NAVY; g.beginPath(); g.arc(4, -58, 3.5, 0, TAU); g.arc(-12, -58, 3.5, 0, TAU); g.fill();
-    g.lineWidth = 3.5; g.beginPath(); g.arc(-4, -50, 8, 0.2, Math.PI - 0.2); g.stroke();
-    g.fillStyle = '#7a4fc2'; g.lineWidth = 6;
-    g.beginPath(); g.moveTo(-34, -70); g.quadraticCurveTo(-8, -84, 24, -70); g.lineTo(0, -140); g.closePath(); g.fill(); g.stroke(); // hat
-    g.fillStyle = '#ffd23f'; g.beginPath(); g.arc(-2, -92, 6, 0, TAU); g.fill();
-    g.restore();
-  },
-};
+import { meta } from './broomstick-dash.meta.js';
+export { meta };
 
 // --- vector props ------------------------------------------------------------
 function drawBroomShape(g, h, t = 0, flutter = 0) {
@@ -213,6 +163,9 @@ export class Game {
     this.t = 0;
     this.over = false;
     this.firstFin = null;
+    // the race cap (shown for its last 10 s) and, once someone lands, the 7 s finish window
+    api.limit(() => (this.firstFin === null && !this.over ? Math.max(0, TIME_CAP - this.t) : null), { x: 190, y: 62 });
+    api.limit(() => (this.firstFin !== null && !this.over ? Math.max(0, 7 - (this.t - this.firstFin)) : null), { showAt: Infinity, x: 190, y: 62, label: 'Hurry to the tower!' });
     this.finCount = 0;
     this.buildCourse();
     this.lanes = this.players.map((p, i) => this.makeLane(p, i));
@@ -826,12 +779,6 @@ export class Game {
     }
     // no clock until the first rider lands (then it counts the 7 s to finish), or until the
     // last 10 s of the race's time cap, so every limit is on screen
-    if (this.firstFin === null && !this.over && TIME_CAP - this.t <= 10) ui.timer(g, Math.max(0, TIME_CAP - this.t), 190, 62);
-    if (this.firstFin !== null && !this.over) {
-      const left = Math.max(0, 7 - (this.t - this.firstFin));
-      ui.timer(g, left, 190, 62);
-      ui.text(g, `Finish in ${Math.ceil(left)}!`, W / 2, LANES_TOP + 6 + 24, { size: 40, color: '#ffe46b' });
-    }
     if (this.t < 4) {
       const a = this.t < 3.4 ? 1 : 1 - (this.t - 3.4) / 0.6;
       g.save(); g.globalAlpha = a;

@@ -16,26 +16,12 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
-import { drawSparkleShape, drawHeartShape, drawStarShape, starPath } from '../engine/emotes.js';
+import { drawSparkleShape, drawStarShape, starPath } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { CW, CH, PAGES, pageCanvas } from './art-studio/pages.js';
+import { meta } from './art-studio.meta.js';
 
-export const meta = {
-  id: 'art-studio',
-  title: 'Art Studio',
-  category: 'studio',
-  type: 'Paint together · Everyone wins',
-  goal: 'Paint a masterpiece together on one big canvas, then hang it in the museum!',
-  controls: [['stick', 'Move your paintbrush'], ['a', 'Hold to paint'], ['x', 'Change tool (or D-pad up/down)'], ['rb', 'Color / stamp (LB/RB or D-pad left/right)'], ['y', 'Brush size']],
-  cornerControls: { at: 'br', items: [['a', 'Paint'], ['x', 'Tool'], ['rb', 'Color'], ['y', 'Size'], ['b', 'Undo']] },
-  tips: ['B takes back your last stroke.', 'Go to "Done!" at the top when your picture is finished.', 'In the museum, press X to save your picture.'],
-  music: 'cozy',
-  duration: 'as long as you like',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+export { meta };
 
 // Frame placement of the canvas on screen.
 const FX = 240, FY = 118, S = 0.9, FW = CW * S, FH = CH * S;
@@ -727,7 +713,7 @@ export class Game {
       if (st.fills) parts.push(`${st.fills} fill${st.fills === 1 ? '' : 's'}`);
       return parts.slice(0, 2).join(' · ') || 'Art fan!';
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Masterpiece!' });
+    this.api.finishTogether({ stats, title: 'Masterpiece!' });
   }
 
   onDone() {
@@ -1033,32 +1019,3 @@ export class Game {
   }
 }
 
-// --- menu / how-to thumbnail --------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  const s = Math.min(w / 860, h / 520);
-  const gr = g.createLinearGradient(x, y, x, y + h);
-  gr.addColorStop(0, '#fff1dc'); gr.addColorStop(1, '#ffd9ec');
-  g.fillStyle = gr; g.fillRect(x, y, w, h);
-  // easel + canvas
-  const cx = x + w / 2, cw = 520 * s, ch = 300 * s, top = y + 50 * s;
-  g.fillStyle = '#a8703e'; g.strokeStyle = '#24163f'; g.lineWidth = 4 * s;
-  for (const [a, b] of [[-150, -230], [150, 230]]) { g.beginPath(); g.moveTo(cx + a * s - 12 * s, top + ch); g.lineTo(cx + a * s + 12 * s, top + ch); g.lineTo(cx + b * s + 12 * s, y + h); g.lineTo(cx + b * s - 12 * s, y + h); g.closePath(); g.fill(); g.stroke(); }
-  g.fillStyle = '#fff'; g.fillRect(cx - cw / 2, top, cw, ch);
-  g.save(); g.beginPath(); g.rect(cx - cw / 2, top, cw, ch); g.clip();
-  RAINBOW.slice(0, 6).forEach((c, i) => { g.beginPath(); g.arc(cx - 40 * s, top + ch * 0.95, (230 - i * 26) * s, Math.PI, TAU); g.lineWidth = 26 * s; g.strokeStyle = c; g.stroke(); });
-  drawStamp(g, 'heart', cx + 170 * s, top + 80 * s, 90 * s, '#ff6fd0', 0.2);
-  drawStamp(g, 'star', cx + 120 * s, top + 220 * s, 70 * s, '#ffd23f', -0.2);
-  drawStamp(g, 'flower', cx - 190 * s, top + 70 * s, 80 * s, '#9b5cff');
-  for (let i = 0; i < 18; i++) { const a = i * 2.4, r = (8 + i * 4) * s; g.fillStyle = i % 3 ? '#ffe066' : '#fff'; g.beginPath(); g.arc(cx + 30 * s + Math.cos(a) * r, top + 120 * s + Math.sin(a) * r, 4 * s, 0, TAU); g.fill(); }
-  g.restore();
-  g.lineWidth = 18 * s; g.strokeStyle = '#c98a4b'; g.strokeRect(cx - cw / 2 - 9 * s, top - 9 * s, cw + 18 * s, ch + 18 * s);
-  g.lineWidth = 4 * s; g.strokeStyle = '#24163f'; g.strokeRect(cx - cw / 2 - 18 * s, top - 18 * s, cw + 36 * s, ch + 36 * s);
-  // brush painting
-  const bx = cx + 200 * s + Math.sin(t * 3) * 30 * s, by = top + ch * 0.55 + Math.cos(t * 3) * 20 * s;
-  drawToolIcon(g, 'brush', bx, by, 120 * s, '#3fa7ff');
-  drawPortrait(g, 'unicorn', x + 90 * s, y + h - 100 * s, 70 * s, { ring: '#ff6fd0', ringWidth: 6 * s, expr: 'happy' });
-  drawPortrait(g, 'felicity', x + w - 90 * s, y + h - 100 * s, 70 * s, { ring: '#3fa7ff', ringWidth: 6 * s, expr: 'happy' });
-  for (let i = 0; i < 4; i++) { const k = (t * 0.8 + i * 0.25) % 1; g.save(); g.globalAlpha = Math.sin(k * Math.PI); g.translate(x + w * (0.15 + i * 0.23), y + h * (0.2 + (i % 2) * 0.1)); drawSparkleShape(g, 40 * s, '#fff6a8'); g.restore(); }
-  g.restore();
-}

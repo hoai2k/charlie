@@ -18,12 +18,14 @@ import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { outfitItem } from '../engine/outfits.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import {
   NAVY, hh, drawBackground, puff, drawMoon, drawJar, drawPickup, drawBee, drawFairy, FAIRY_COLS,
-  drawStream, flowerHead, glow, RAINBOW_BANDS,
+  drawStream, glow, RAINBOW_BANDS,
 } from './fairy-flutter/art.js';
+import { meta } from './fairy-flutter.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -45,49 +47,7 @@ const EASY_REACH = 430;      // Easy: an A-zoom reaches sparkles this close
 const WINGS = ['fairy-wings', 'butterfly-wings', 'petal-wings', 'dragonfly-wings', 'angel-wings'];
 const WING_COL = [0, 3, 2, 4, 7, 1, 5, 6];
 
-export const meta = {
-  id: 'fairy-flutter',
-  title: 'Fairy Flutter',
-  category: 'molly',
-  type: 'Team up!',
-  goal: 'Fly around and fill the Moon\'s sparkle jar together!',
-  controls: [['stick', 'Fly anywhere'], ['a', 'Loop-de-loop zoom']],
-  tips: ['Loop-de-loops pull in everything nearby!', 'Boop a bumblebee for a sparkle shower.', 'Ride the rainbow wind - wheee!'],
-  // Easy (A only): your fairy floats up and down by herself; A zooms to the
-  // nearest sparkle when the big A shows.
-  goalEasy: 'Zoom to the sparkles and fill the Moon\'s jar together!',
-  controlsEasy: [['a', 'Zoom to the sparkle!'], ['stick', 'Fly (if you like)']],
-  tipsEasy: ['Your fairy flies all by herself!', 'Fly somewhere else with either stick if you like!', 'When the big A bounces, press A to ZOOM!', 'Zooming pulls in everything nearby!'],
-  music: 'bouncy',
-  duration: 'About 45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#6a49b8'); gr.addColorStop(0.55, '#e39bd8'); gr.addColorStop(1, '#ffd2b0');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    const s = h / 500;
-    // rainbow swoop
-    const pts = [];
-    for (let i = 0; i <= 24; i++) { const u = i / 24; pts.push({ x: x + u * w, y: y + h * (0.72 - Math.sin(u * Math.PI) * 0.32) }); }
-    g.save(); g.scale(1, 1); g.lineCap = 'round';
-    RAINBOW_BANDS.forEach((c, i) => {
-      g.strokeStyle = c; g.lineWidth = 9 * s + 1; g.beginPath();
-      pts.forEach((p, k) => (k ? g.lineTo(p.x, p.y + (i - 2.5) * 9 * s) : g.moveTo(p.x, p.y + (i - 2.5) * 9 * s))); g.stroke();
-    });
-    g.restore();
-    for (let i = 0; i < 4; i++) flowerHead(g, x + w * (0.1 + i * 0.27), y + h * 0.95, 46 * s, ['#ff7ac6', '#ffd23f', '#6fd0ff', '#b98bff'][i], '#fff3fb');
-    drawMoon(g, x + w * 0.8, y + h * 0.22, 170 * s, t, false);
-    drawJar(g, x + w * 0.92, y + h * 0.33, 70 * s, 88 * s, 0.6, t, 0);
-    for (let i = 0; i < 6; i++) drawPickup(g, i % 3 ? 'sparkle' : 'dew', x + w * (0.15 + i * 0.13), y + h * (0.32 + Math.sin(i * 1.7 + t) * 0.08), s * 0.9, t, i);
-    drawBee(g, x + w * 0.22, y + h * 0.6, s * 0.9, t, 1, false, 0);
-    drawFairy(g, x + w * 0.5, y + h * 0.5 + Math.sin(t * 2) * 8, s * 2.2, FAIRY_COLS[0], t, 1);
-    drawFairy(g, x + w * 0.66, y + h * 0.66 + Math.cos(t * 2) * 8, s * 1.9, FAIRY_COLS[1], t + 1, -1);
-    g.restore();
-  },
-};
+export { meta };
 
 function wingOutfit(p, i) {
   const look = (p.outfit || []).filter((e) => e && outfitItem(e.id));
@@ -218,6 +178,8 @@ export class Game {
       if (e.p.isAI && this.phase === 'play') this.aiThink(e, dt);
       this.updateEnt(e, dt);
     }
+    // gentle push apart so fairies don't stack (sized from the sprites)
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.8, strength: 0.5, bounds: { x0: LEFT, x1: RIGHT, y0: TOP, y1: BOTTOM } });
     this.updatePickups(dt);
     this.updateStreams(dt);
     this.updateBees(dt, true);
@@ -285,12 +247,6 @@ export class Game {
     e.tilt = lerp(e.tilt, clamp(e.vx / MAXV, -1, 1) * 0.18 + clamp(e.vy / MAXV, -1, 1) * 0.08 * a.facing, 1 - Math.exp(-8 * dt));
     a.x = e.x; a.y = e.y + Math.sin(this.t * 3 + e.p.index) * 6;
     a.update(dt);
-    // gentle push apart so fairies don't stack
-    for (const o of this.ents) {
-      if (o === e) continue;
-      const dx = e.x - o.x, dy = e.y - o.y, d = Math.hypot(dx, dy), r = (a.radius + o.a.radius) * 0.8;
-      if (d > 0.1 && d < r) { e.x += (dx / d) * (r - d) * 0.25; e.y += (dy / d) * (r - d) * 0.25; }
-    }
   }
 
   /** Molly Easy: float gently up and down around this fairy's patch of sky,
@@ -322,14 +278,7 @@ export class Game {
 
   /** Molly Easy: the closest sparkle on screen, however far (A with none in reach zooms at it). */
   nearestPickup(e) {
-    const cx = e.x, cy = e.y - e.a.height * 0.5;
-    let best = null, bd = Infinity;
-    for (const pk of this.pickups) {
-      if (pk.dead || pk.x > W - 40 || pk.x < 40 || pk.y < TOP - 140) continue;
-      const d = dist(cx, cy, pk.x, pk.y);
-      if (d < bd) { bd = d; best = pk; }
-    }
-    return best;
+    return easyNearest(e.x, e.y - e.a.height * 0.5, this.pickups, (pk) => pk, (pk) => pk.dead || pk.x > W - 40 || pk.x < 40 || pk.y < TOP - 140);
   }
 
   startLoop(e, ix, iy) {
@@ -514,8 +463,8 @@ export class Game {
   finish() {
     if (this.finished) return;
     this.finished = true; this.phase = 'done';
-    this.api.finish({
-      placements: this.players.map(() => 1), showcase: true, title: 'Jar full!',
+    this.api.finishTogether({
+      title: 'Jar full!',
       stats: this.ents.map((e) => `${e.score} sparkles`), focus: { x: JAR.x, y: JAR.y + 120, zoom: 1.15 },
     });
   }
@@ -605,7 +554,7 @@ export class Game {
       g.globalAlpha = 0.7 + pulse * 0.3; g.lineWidth = 6;
       g.beginPath(); g.arc(pk.x, pk.y, 46 + pulse * 10, 0, TAU); g.stroke();
       g.restore();
-      ui.glyph(g, 'a', e.x, a.y - a.height - 90 - (a.emotes.length ? 50 : 0) + Math.sin(t * 8) * 6, 56, { pulse: true });
+      easyPrompt(g, e.p, { target: { x: pk.x, y: pk.y }, child: { x: e.x, y: a.y - a.height } });
     }
   }
 

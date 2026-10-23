@@ -12,11 +12,11 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art, drawArt } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
 import { outfitItem } from '../engine/outfits.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, later } from '../engine/util.js';
 import { NAVY, BFLY, drawButterfly, drawPetal, drawTeacher, drawMovePicto, drawTutu, wantsTutu, drawStageBg } from './ballet-butterflies/art.js';
+import { meta } from './ballet-butterflies.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -53,35 +53,7 @@ function drawStickHint(g, move, x, y, size, t, sideDir = 1) {
   g.restore();
 }
 
-export const meta = {
-  id: 'ballet-butterflies',
-  title: 'Butterfly Ballet',
-  category: 'molly',
-  type: 'Copy the dance',
-  goal: 'Copy the butterfly teacher\'s ballet moves to fill the stage with butterflies!',
-  controls: [['stick', 'Up = arms up, down = plié, side = side step'], ['a', 'Twirl']],
-  tips: ['Watch the big picture: it shows the move to copy.', 'Copy quickly for two butterflies!', 'At the end it\'s freestyle - dance any move you like!'],
-  music: 'dance',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    if (drawArt(g, 'thumb/ballet-butterflies', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) return;
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#c9b2ff'); gr.addColorStop(0.6, '#ffc8e4'); gr.addColorStop(1, '#ff9fd0');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    g.fillStyle = '#ffd6ec'; g.strokeStyle = NAVY; g.lineWidth = Math.max(2, h * 0.012);
-    g.beginPath(); g.ellipse(x + w / 2, y + h * 0.92, w * 0.46, h * 0.14, 0, 0, TAU); g.fill(); g.stroke();
-    drawTeacher(g, x + w * 0.5, y + h * 0.88, h * 0.78, t, 'twirl', (t * 0.5) % 1);
-    for (let i = 0; i < 7; i++) {
-      const a = t * 1.6 + i * TAU / 7;
-      drawButterfly(g, x + w * 0.5 + Math.cos(a) * w * 0.36, y + h * 0.5 + Math.sin(a) * h * 0.3, h * 0.14, BFLY[i % 4], Math.sin(t * 14 + i), Math.sin(a) * 0.3);
-    }
-    g.restore();
-  },
-};
+export { meta };
 
 export class Game {
   constructor(api) {

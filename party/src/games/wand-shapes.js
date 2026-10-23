@@ -14,7 +14,7 @@ import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { drawArt } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { outfitItem } from '../engine/outfits.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, shuffle } from '../engine/util.js';
 import {
@@ -52,42 +52,9 @@ function drawShapeIcon(g, id, x, y, s, t) {
   g.restore();
 }
 
-export const meta = {
-  id: 'wand-shapes',
-  title: 'Magic Wand Shapes',
-  category: 'molly',
-  type: 'Team magic',
-  goal: 'Trace the dotted shapes together with your wand sparkle to bring them to life!',
-  controls: [['stick', 'Fly your wand sparkle'], ['a', 'Sparkle burst']],
-  tips: ['Touch the dots to light them up - any order is fine!', 'Press A for a big sparkle burst.', 'Finish a shape and it comes alive!'],
-  goalEasy: 'Hold A and your wand sparkle flies along the dots to light them up!',
-  controlsEasy: [['a', 'Hold: fly to the dots'], ['a', 'Tap: sparkle burst'], ['stick', 'Move (if you like)']],
-  tipsEasy: ['Hold A - your sparkle finds the dots by itself!', 'Let go of A and it waits for you.', 'Move with either stick if you like!', 'Light every dot and the shape comes alive!'],
-  music: 'bouncy',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    if (drawArt(g, 'thumb/wand-shapes', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) return;
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#2b1b66'); gr.addColorStop(0.6, '#7b4fb8'); gr.addColorStop(1, '#ff9fc8');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    // dotted heart, half lit
-    const dots = shapeDots('heart'), k = h / 900, ox = x + w * 0.38 - CX * k, oy = y + h * 0.52 - CY * k;
-    const lit = Math.floor(((t * 0.4) % 1) * dots.length);
-    dots.forEach((d, i) => {
-      g.fillStyle = i < lit ? '#ff7ac6' : 'rgba(255,255,255,0.75)';
-      g.beginPath(); g.arc(ox + d.x * k, oy + d.y * k, (i < lit ? 9 : 6) * k * 1.6, 0, TAU); g.fill();
-    });
-    const cur = dots[lit % dots.length];
-    drawSparkle(g, ox + cur.x * k, oy + cur.y * k, h * 0.09, t * 3, '#ffd23f');
-    drawSleepyMoon(g, x + w * 0.83, y + h * 0.25, h * 0.14, t);
-    drawFrogBubble(g, x + w * 0.82, y + h * 0.7, h * 0.15, t);
-    g.restore();
-  },
-};
+import { meta } from './wand-shapes.meta.js';
+
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -97,6 +64,8 @@ export class Game {
     const n = this.players.length;
     this.n = n;
     this.t = 0; this.time = 0; this.done = false;
+    // the spell clock, shown the whole game
+    api.limit(() => (this.done ? null : Math.max(0, DURATION - this.time)), { showAt: Infinity, y: 58 });
     this.scores = this.players.map(() => 0);
     this.spells = [];            // ids of finished shapes (HUD row)
     this.creatures = [];
@@ -423,8 +392,7 @@ export class Game {
       this.completeShape();
     }
     for (const e of this.ents) e.a.setPose('celebrate');
-    this.api.finish({
-      placements: this.players.map(() => 1), showcase: true, highlight: null,
+    this.api.finishTogether({
       stats: this.scores.map((s) => `${s} sparkles`),
       title: `${this.spells.length} spells!`,
       focus: { x: CX, y: CY },
@@ -478,7 +446,8 @@ export class Game {
       }
       drawSparkle(g, e.cx, e.cy, 52 * pulse, e.rot, e.p.color);
       if (this.n > 1 || this.time < 4) ui.playerTag(g, e.p, e.cx, e.cy - 52);
-      if (this.easy && !e.p.isAI && !this.done && e.idleT > 1.2 && this.time > 0) ui.glyph(g, 'a', e.cx + 62, e.cy + 46, 60, { pulse: true });
+      // Molly Easy: hold A to fly - the big A sits beside the dot it flies to (or over the sparkle)
+      if (this.easy && !e.p.isAI && !this.done && e.idleT > 1.2 && this.time > 0) easyPrompt(g, e.p, { target: e.et ? { x: e.et.x, y: e.et.y } : null, child: { x: e.cx, y: e.cy - 26 } });
     }
   }
 
@@ -536,8 +505,7 @@ export class Game {
 
   drawHUD(g) {
     ui.scoreboard(g, this.players, this.players.map(() => ''), { y: 18, avoidCenter: true, format: (v) => v });
-    ui.timer(g, Math.max(0, DURATION - this.time), W / 2, 58);
-    // spells cast so far, under the timer
+    // spells cast so far, under the timer (api.limit's clock, drawn by the play scene)
     const n = this.spells.length;
     if (n) {
       const sz = 46, w = Math.min(n, 12) * (sz + 8);

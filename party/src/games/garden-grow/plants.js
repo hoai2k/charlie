@@ -215,23 +215,4 @@ export function drawRainCloud(g, t) {
   face(g, 0, 0, 1.6, { closed: Math.sin(t * 2) > 0.9 });
 }
 
-/** Thumbnail (menus + how-to). */
-export function drawGardenIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  if (drawArt(g, 'thumb/garden-grow', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) { g.restore(); return; }
-  const s = w / 400, hh = h / s;
-  g.translate(x, y); g.scale(s, s);
-  ui.sky(g, '#8fd6ff', '#d8f3ff', hh * 0.4);
-  g.fillStyle = '#7fd36a'; g.fillRect(0, hh * 0.38, 400, hh);
-  g.fillStyle = '#fff'; for (let i = 0; i < 12; i++) { ui.roundRect(g, i * 36, hh * 0.24, 22, hh * 0.18, 8); g.fill(); }
-  g.fillRect(0, hh * 0.3, 400, 8);
-  g.fillStyle = '#6cc35a'; for (let i = 0; i < 6; i++) g.fillRect(0, hh * 0.45 + i * 30, 400, 12);
-  g.save(); g.translate(105, hh * 0.92); g.scale(0.42, 0.42); drawDirt(g, 0, 0); drawSunflower(g, 1, t, Math.sin(t * 2) > 0 ? 1 : 0); g.restore();
-  g.save(); g.translate(230, hh * 0.86); g.scale(0.6, 0.6); drawDirt(g, 0, 0); drawCarrot(g, 1, t, 0); g.restore();
-  g.save(); g.translate(330 - ((t * 40) % 60), hh * 0.8); g.scale(0.45, 0.45); drawPumpkin(g, t * 2, t, false); g.restore();
-  for (let i = 0; i < 3; i++) { g.save(); g.translate(80 + i * 120 + Math.sin(t + i) * 10, 50 + i * 15 + Math.cos(t * 2 + i) * 8); g.rotate(0.3); drawButterfly(g, t + i, ['#ff8fd0', '#ffd23f', '#9b8cff'][i], '#ffffff', 0.5); g.restore(); }
-  g.restore();
-}
-
 export const clamp01 = (v) => clamp(v, 0, 1);

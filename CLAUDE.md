@@ -70,6 +70,13 @@ to `main`, so `<game>/index.html` is served at `/charlie/<game>/`.
 - `party/index.html` carries a content-hashed import map for every module in
   `party/src/`; run `node party/tools/stamp-modules.mjs` after changing any
   party code (it also stamps `main.js?v=`).
+- Party games load on demand: the menu reads each game's `src/games/<id>.meta.js`
+  (plain data: title, category, how-to text), and the game's code and art preload
+  on its intro (how-to) screen. Shared helpers for games: `api.limit` (every time
+  limit is drawn by the play scene, so none is hidden; Play Studio has none),
+  `api.finishTogether`, `showstopper()` in `engine/util.js`, `engine/easy.js`
+  (Sister Party Easy: the stick is optional, A does everything, `easyPrompt` is
+  the one big-A cue) and `engine/crowd.js` (8-player spacing).
 - Audio in the race goes through the Web Audio engine in `audio.js`; don't set
   `HTMLAudioElement.volume` directly (iOS ignores it).
 
@@ -91,7 +98,10 @@ Pushes to `main` build and deploy only; they run no tests. Tests are your job
 before you commit:
 
 - Run the tests your change affects: a change to `party/` runs
-  `node --test party/tools/sprites/*.test.mjs`. A change to
+  `node --test party/tools/*.test.mjs party/tools/sprites/*.test.mjs` (the first
+  also fails if the import-map stamp is stale), and a change to party game code
+  also runs `node party/tools/smoke.mjs <game ids>` (every changed game played
+  all-CPU to the end; no ids = every shelf game). A change to
   `americangirldollrace/` runs its unit tests,
   `node --test americangirldollrace/tools/*/*.test.mjs americangirldollrace/tools/dolls/*.test.mjs americangirldollrace/tools/dolls/*/*.test.mjs`,
   and its browser smoke tests (headless Chromium, ~15 s),

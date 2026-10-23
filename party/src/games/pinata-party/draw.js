@@ -523,35 +523,3 @@ export function buildBackground() {
   g.fillStyle = vg; g.fillRect(0, LAWN_Y, W, H - LAWN_Y);
   return cv;
 }
-
-/** Thumbnail: a star piñata swinging over the lawn, a bat and some candy. */
-export function drawIconArt(g, x, y, w, h, t = 0) {
-  g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-  g.translate(x, y); const s = w / 400; g.scale(s, s);
-  const hh2 = h / s;
-  const sk = g.createLinearGradient(0, 0, 0, hh2 * 0.55); sk.addColorStop(0, '#7fd0ff'); sk.addColorStop(1, '#e6f7ff');
-  g.fillStyle = sk; g.fillRect(0, 0, 400, hh2);
-  ui.cloud(g, 70, hh2 * 0.3, 0.4); ui.cloud(g, 330, hh2 * 0.22, 0.35);
-  g.fillStyle = '#5cc26a'; g.fillRect(0, hh2 * 0.6, 400, hh2);
-  g.fillStyle = '#7ad46a'; g.fillRect(0, hh2 * 0.66, 400, hh2);
-  g.fillStyle = '#c98a4f'; g.strokeStyle = NAVY; g.lineWidth = 3; g.fillRect(-5, 8, 410, 12); g.strokeRect(-5, 8, 410, 12);
-  bunting(g, 10, 390, 20, 10, 14);
-  // the bat, mid-swing (behind the piñata)
-  drawBat(g, 34, hh2 * 0.94, -0.75 + Math.sin(t * 3) * 0.15, 118, '#ff5fa2');
-  const ang = Math.sin(t * 1.8) * 0.28;
-  const px = 200 + Math.sin(ang) * 150, py = 20 + Math.cos(ang) * 120;
-  g.strokeStyle = NAVY; g.lineWidth = 5; g.beginPath(); g.moveTo(200, 20); g.lineTo(px, py - 30); g.stroke();
-  g.strokeStyle = '#e8c48a'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(200, 20); g.lineTo(px, py - 30); g.stroke();
-  g.save(); g.translate(px, py + 30); g.rotate(-ang * 0.6); g.scale(0.58, 0.58);
-  drawPinata(g, 'star', { t, sway: -ang });
-  g.restore();
-  // candy on the grass
-  const cs = [['sweet', 0, 70, 0.82], ['pop', 1, 120, 0.9], ['gold', 0, 300, 0.86], ['sweet', 3, 345, 0.92], ['sweet', 1, 250, 0.95]];
-  for (const [k, v, cx, cy] of cs) drawCandy(g, k, v, cx, hh2 * cy, 0.8, (cx % 7) * 0.3, t);
-  // confetti
-  for (let i = 0; i < 16; i++) {
-    const cx = (i * 53 + t * 30) % 400, cy = (i * 37 + t * 60 * (0.5 + (i % 3) * 0.3)) % hh2;
-    g.fillStyle = RAINBOW6[i % 6]; g.save(); g.translate(cx, cy); g.rotate(t * 3 + i); g.fillRect(-4, -2, 8, 4); g.restore();
-  }
-  g.restore();
-}

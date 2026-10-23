@@ -24,6 +24,7 @@ import { depthScale } from '../engine/camera.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, makesMistake } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, chance, TAU, ease, dist, placementsFromScores } from '../engine/util.js';
+import { spread, bodyRadius, claimed } from '../engine/crowd.js';
 import {
   NAVY, SHORE, LOOT, buildBeach, heatColor, drawLoot, drawCrab, drawSeaweed, drawSock, drawDuck,
   drawChest, drawDetector, drawBang, drawHole,
@@ -59,67 +60,8 @@ const weighted = (table) => {
 };
 const heatOf = (d) => clamp(1 - (d - NEAR0) / RANGE, 0, 1);
 
-export const meta = {
-  id: 'treasure-dig',
-  title: 'Treasure Dig',
-  category: 'party',
-  type: 'Hot & cold hunt',
-  goal: 'Follow your shell detector to buried treasure and dig it up!',
-  controls: [['stick', 'Walk along the beach'], ['a', 'Dig!']],
-  tips: [
-    'Your ring and shell go blue (cold), yellow (warm), RED (hot!). Dig when the red "!" pops up.',
-    'Dig in the wrong spot and you might find a crab, a sock... or seaweed!',
-    'Found a treasure chest? Dig it with a friend - together counts double!',
-    'Gold Rush at the end: extra treasure, and the crown shows up more!',
-  ],
-  music: 'gameon',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    g.translate(x, y);
-    const s = h / 250;
-    // sea + sand
-    const sea = g.createLinearGradient(0, 0, 0, h * 0.3); sea.addColorStop(0, '#2f9ee0'); sea.addColorStop(1, '#7fe0f0');
-    g.fillStyle = sea; g.fillRect(0, 0, w, h * 0.34);
-    g.fillStyle = '#f6dea4'; g.beginPath(); g.moveTo(0, h);
-    for (let i = 0; i <= 20; i++) g.lineTo((i / 20) * w, h * 0.28 + Math.sin(i * 0.9 + t * 1.5) * h * 0.02);
-    g.lineTo(w, h); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(255,255,255,0.9)'; g.lineWidth = 4 * s; g.beginPath();
-    for (let i = 0; i <= 20; i++) g.lineTo((i / 20) * w, h * 0.28 + Math.sin(i * 0.9 + t * 1.5) * h * 0.02);
-    g.stroke();
-    g.fillStyle = 'rgba(214,170,100,0.5)';
-    for (let i = 0; i < 40; i++) { g.beginPath(); g.arc(((i * 97) % 400) / 400 * w, h * 0.36 + ((i * 61) % 100) / 100 * h * 0.6, 2 * s, 0, TAU); g.fill(); }
-    // chest half dug out, glowing
-    g.save(); g.translate(w * 0.68, h * 0.72);
-    g.save(); g.globalCompositeOperation = 'lighter';
-    const rg = g.createRadialGradient(0, -30 * s, 4, 0, -30 * s, 110 * s); rg.addColorStop(0, 'rgba(255,236,140,0.8)'); rg.addColorStop(1, 'rgba(255,200,60,0)');
-    g.fillStyle = rg; g.fillRect(-120 * s, -150 * s, 240 * s, 240 * s); g.restore();
-    drawChest(g, 120 * s, 1, t);
-    g.fillStyle = '#e8c27e'; g.strokeStyle = NAVY; g.lineWidth = 3 * s;
-    g.beginPath(); g.ellipse(0, 4 * s, 88 * s, 18 * s, 0, 0, Math.PI); g.fill();
-    g.restore();
-    for (let i = 0; i < 4; i++) { const a = t * 2 + i * 1.6; g.save(); g.translate(w * 0.68 + Math.cos(a) * 50 * s, h * 0.36 + Math.sin(a * 1.3) * 16 * s); g.rotate(a); g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = 2 * s; g.beginPath(); g.ellipse(0, 0, 6 * s, 6 * s * Math.abs(Math.cos(a)), 0, 0, TAU); g.fill(); g.stroke(); g.restore(); }
-    // the detector with hot ripples
-    const dx = w * 0.27, dy = h * 0.6;
-    for (let k = 0; k < 3; k++) {
-      const q = ((t * 1.6 + k / 3) % 1);
-      g.strokeStyle = heatColor(0.95, 0, 1 - q); g.lineWidth = (6 - q * 4) * s;
-      g.beginPath(); g.ellipse(dx, dy + 40 * s, (40 + q * 90) * s, (14 + q * 32) * s, 0, 0, TAU); g.stroke();
-    }
-    g.save(); g.translate(dx, dy + Math.sin(t * 3) * 4 * s);
-    drawDetector(g, 84 * s, 0.95, Math.max(0, Math.sin(t * 9)), t, true);
-    g.translate(30 * s, -64 * s); drawBang(g, 36 * s, t);
-    g.restore();
-    // crab peeking from a hole
-    drawHole(g, w * 0.1, h * 0.9, 34 * s, 1);
-    g.save(); g.translate(w * 0.1, h * 0.86 - Math.abs(Math.sin(t * 2)) * 8 * s); drawCrab(g, 62 * s, t, 0.6); g.restore();
-    g.restore();
-  },
-};
+import { meta } from './treasure-dig.meta.js';
+export { meta };
 
 // --- the game --------------------------------------------------------------------------
 export class Game {
@@ -130,6 +72,7 @@ export class Game {
     this.n = n;
     this.t = 0; this.t0 = 0;
     this.over = false;
+    api.limit(() => (this.over ? null : DURATION - this.t), { showAt: Infinity, x: W / 2, y: 54 });
     this.scale = n <= 2 ? 0.95 : n <= 4 ? 0.88 : n <= 6 ? 0.8 : 0.72;
     this.R = n <= 4 ? 55 : 48;   // wide enough that two diggers never fully overlap
     this.units = this.players.map((p, i) => this.makeUnit(p, i));
@@ -250,7 +193,7 @@ export class Game {
     }
     this.updateWave(dt);
     for (const U of this.units) this.updateUnit(U, dt);
-    this.collide();
+    this.collide(dt);
     this.updateThings(dt);
     // leader
     const sc = this.units.map((u) => u.score), m = Math.max(...sc);
@@ -338,7 +281,7 @@ export class Game {
     this.placeActor(U);
   }
 
-  collide() {
+  collide(dt) {
     const R = this.R, list = this.units;
     for (let i = 0; i < list.length; i++) {
       for (let j = i + 1; j < list.length; j++) {
@@ -351,6 +294,8 @@ export class Game {
         }
       }
     }
+    // personal space sized from the sprites (a softer push; a digger stays put)
+    spread(list, { radius: (u) => Math.max(R, bodyRadius(u.a, R) * 0.8), strength: Math.min(1, dt * 10), skip: (u) => u.dig > 0 });
     for (const u of list) {
       u.x = clamp(u.x, ARENA.x0, ARENA.x1); u.y = clamp(u.y, ARENA.y0, ARENA.y1);
       u.a.x = u.x; u.a.y = u.y;
@@ -604,8 +549,15 @@ export class Game {
     if (chance(dt * [0.1, 0.035, 0][lvl])) { A.distract = rand(0.6, 1.4); U.a.emote('question', 0.8); p.ctrl.move(0, 0); return; }
     // Visible goals first: a washed-up starfish nearby, or a chest someone uncovered.
     let goal = null;
-    let gd = [260, 380, 520][lvl];
-    for (const gft of this.gifts) { const d = dist(U.x, U.y, gft.x, gft.y); if (d < gd) { gd = d; goal = { x: gft.x, y: gft.y, kind: 'gift' }; } }
+    const reach = [260, 380, 520][lvl];
+    // nearest starfish in reach, preferring one no other CPU is already heading for
+    let gc = Infinity; A.gift = null;
+    for (const gft of this.gifts) {
+      const d = dist(U.x, U.y, gft.x, gft.y);
+      if (d >= reach) continue;
+      const c = d + claimed(this.units, U, gft, (o) => o.ai && o.ai.gift) * 220;
+      if (c < gc) { gc = c; A.gift = gft; goal = { x: gft.x, y: gft.y, kind: 'gift' }; }
+    }
     const C = this.chest;
     if (!goal && C && C.revealed && !C.opened) {
       if (A.chestPref === null || t > A.prefT) { A.chestPref = chance([0.5, 0.75, 0.95][lvl]); A.prefT = t + 4; }
@@ -908,7 +860,6 @@ export class Game {
     const scores = this.units.map((u) => u.score);
     const m = Math.max(...scores);
     ui.scoreboard(g, this.players, scores, { y: 14, avoidCenter: true, format: (v) => String(v), highlight: scores.map((s) => m > 0 && s === m) });
-    ui.timer(g, DURATION - t, W / 2, 54);
     let pillY = 148;
     if (this.rush) {
       const pulse = 1 + Math.sin(t * 8) * 0.04;

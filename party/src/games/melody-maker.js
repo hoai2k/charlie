@@ -28,7 +28,7 @@
 // song by itself and puts on the concert.
 import { W, H } from '../engine/canvas.js';
 import { input } from '../engine/input.js';
-import { Actor, drawPortrait } from '../engine/sprites.js';
+import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
@@ -38,22 +38,9 @@ import { aiProfile } from '../engine/ai.js';
 import { playerName } from '../state.js';
 import { clamp, lerp, rand, randInt, pick, chance, ease, TAU } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
+import { meta } from './melody-maker.meta.js';
 
-export const meta = {
-  id: 'melody-maker',
-  title: 'Melody Maker',
-  category: 'studio',
-  type: 'Make music together · Everyone wins',
-  goal: 'Make a song together on the magic music garden, then put on a concert!',
-  controls: [['stick', 'Move'], ['a', 'Add or remove a note'], ['x', 'Change your sound'], ['y', 'Surprise sparkle!'], ['lb', 'Flip pages (LB / RB)'], ['b', 'Oops! Undo']],
-  tips: ['Every note sounds nice together, so try anything!', 'Move up to the buttons for songs, drums and speed.', 'Press Concert! when your song is ready.'],
-  music: 'melody',        // no such song: the background music stays off (our tune is the music)
-  duration: 'as long as you like',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+export { meta };
 
 const NAVY = '#24163f';
 const STEPS = 16, NPAGES = 4, NP = 8, ND = 3, NROWS = NP + ND;
@@ -1191,7 +1178,7 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const stats = this.stations.map((st) => (st.placed ? `${st.placed} note${st.placed === 1 ? '' : 's'} · ${INSTS[st.inst].name}` : 'Music fan!'));
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Bravo!' });
+    this.api.finishTogether({ stats, title: 'Bravo!' });
   }
 
   onDone() {
@@ -1731,39 +1718,3 @@ function playDrumNow(game, d) {
   playDrum(game.ac, game.bus, d, game.ac.currentTime + 0.01 + d * 0.12);
 }
 
-// --- menu / how-to thumbnail -----------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  const s = Math.min(w / 860, h / 520);
-  const gr = g.createLinearGradient(x, y, x, y + h);
-  gr.addColorStop(0, '#ffd9ef'); gr.addColorStop(1, '#c9b8ff');
-  g.fillStyle = gr; g.fillRect(x, y, w, h);
-  // a little music sheet with rainbow notes and a playhead
-  const gx = x + w * 0.17, gy = y + h * 0.1, gw = w * 0.76, gh = h * 0.6;
-  ui.panel(g, gx, gy, gw, gh, { r: 22 * s, fill: '#fffaf0', lineWidth: 5 * s, shadow: false });
-  const rows = 6, cols = 8, rh = gh / rows, cw = gw / cols;
-  for (let R = 0; R < rows; R++) { g.fillStyle = lighten(PITCHES[7 - R].color, 0.78); g.fillRect(gx + 8 * s, gy + R * rh + 3 * s, gw - 16 * s, rh - 6 * s); }
-  const head = Math.floor(t * 4) % cols;
-  g.fillStyle = 'rgba(255,236,150,0.85)'; ui.roundRect(g, gx + head * cw + 4 * s, gy + 4 * s, cw - 8 * s, gh - 8 * s, 10 * s); g.fill();
-  const tune = [3, 2, 1, 2, 3, 3, 0, 4];
-  tune.forEach((R, c) => {
-    const inst = c % 4 === 3 ? 3 : c % 2 ? 1 : 0;
-    const bounce = c === head ? 1.25 : 1;
-    g.save(); g.translate(gx + (c + 0.5) * cw, gy + (R + 0.5) * rh - (c === head ? 6 * s : 0)); g.scale(bounce, bounce);
-    drawNoteShape(g, INSTS[inst].id, PITCHES[7 - R].color, 46 * s);
-    g.restore();
-  });
-  for (let R = 0; R < rows; R++) drawFlower(g, x + w * 0.09, gy + (R + 0.5) * rh, 22 * s, PITCHES[7 - R].color, tune[head] === R ? 1 : 0, t, 7 - R);
-  // characters on the stage below
-  g.fillStyle = '#d9a066'; g.fillRect(x, y + h * 0.78, w, h * 0.22);
-  drawPortrait(g, 'felicity', x + w * 0.3, y + h * 0.86, 62 * s, { ring: '#ff6fd0', ringWidth: 6 * s, expr: 'happy' });
-  drawPortrait(g, 'unicorn', x + w * 0.7, y + h * 0.86, 62 * s, { ring: '#3fa7ff', ringWidth: 6 * s, expr: 'happy' });
-  drawInstIcon(g, 0, x + w * 0.42, y + h * 0.84, 60 * s);
-  drawInstIcon(g, 3, x + w * 0.58, y + h * 0.84, 60 * s);
-  for (let i = 0; i < 4; i++) {
-    const k = (t * 0.7 + i * 0.25) % 1;
-    g.save(); g.globalAlpha = Math.sin(k * Math.PI); g.translate(x + w * (0.25 + i * 0.17), y + h * (0.78 - k * 0.2));
-    drawMusicNotes(g, 0, 0, 40 * s, PITCHES[(i * 2 + 1) % 8].color); g.restore();
-  }
-  g.restore();
-}

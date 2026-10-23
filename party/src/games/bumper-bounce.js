@@ -26,48 +26,8 @@ import { clamp, lerp, damp, approach, rand, pick, chance, ease, TAU } from '../e
 import { depthScale } from '../engine/camera.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 
-export const meta = {
-  id: 'bumper-bounce',
-  title: 'Bumper Bounce',
-  category: 'party',
-  type: 'Last one standing',
-  goal: 'Bump everyone off the floating cake!',
-  controls: [['stick', 'Slide around'], ['a', 'Hip bump!']],
-  tips: ['You slide on the frosting - steer early!', 'Slide in with a hip bump to knock friends off!', 'The edge crumbles - stay near the middle!'],
-  music: 'gameon',
-  duration: 'Up to 60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const gr = g.createLinearGradient(0, 0, 0, hh); gr.addColorStop(0, '#6cc5ff'); gr.addColorStop(1, '#d9f1ff');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    ui.cloud(g, 70, hh * 0.85, 0.7, '#fff', 0.95); ui.cloud(g, 330, hh * 0.9, 0.8, '#fff', 0.95);
-    ui.cloud(g, 60, hh * 0.18, 0.4, '#fff', 0.8);
-    const cx = 200, cy = hh * 0.5, R = 130, k = 0.62;
-    drawPlatformShape(g, cx, cy, R, k, 46 * (R / 500) * 1.6, 0, 0, 0);
-    // two bumpers
-    const bob = Math.sin((t || 0) * 5) * 4;
-    for (const [bx, by, col] of [[cx - 38 - bob, cy + 6, '#ff6fb1'], [cx + 38 + bob, cy + 6, '#3fa7ff']]) {
-      g.fillStyle = 'rgba(36,22,63,0.25)'; g.beginPath(); g.ellipse(bx, by + 2, 24, 8, 0, 0, TAU); g.fill();
-      g.fillStyle = col; g.strokeStyle = '#24163f'; g.lineWidth = 4;
-      g.beginPath(); g.arc(bx, by - 26, 24, 0, TAU); g.fill(); g.stroke();
-      g.fillStyle = '#fff'; g.beginPath(); g.arc(bx - 8, by - 30, 6, 0, TAU); g.arc(bx + 8, by - 30, 6, 0, TAU); g.fill();
-      g.fillStyle = '#24163f'; g.beginPath(); g.arc(bx - 7, by - 29, 3, 0, TAU); g.arc(bx + 9, by - 29, 3, 0, TAU); g.fill();
-    }
-    const pk = ((t || 0) * 1.5) % 1;
-    g.save(); g.translate(cx, cy - 22); g.scale(0.6 + pk * 0.5, 0.6 + pk * 0.5); g.globalAlpha = 1 - pk;
-    g.fillStyle = '#ffd23f'; g.strokeStyle = '#24163f'; g.lineWidth = 4;
-    g.beginPath();
-    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + (i * Math.PI) / 5, r = i % 2 ? 11 : 24; g.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
-    g.closePath(); g.fill(); g.stroke(); g.restore();
-    g.restore();
-  },
-};
+import { meta } from './bumper-bounce.meta.js';
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const CX = 960, CY = 505, K = 0.62;      // platform centre (screen) and 3/4 squash
@@ -109,6 +69,7 @@ export class Game {
     const n = players.length;
     this.n = n;
     this.t = 0; this.playT = 0;
+    api.limit(() => (this.ends ? null : Math.max(0, TIME_CAP - this.playT)), { showAt: Infinity });
     this.scale = n <= 2 ? 1.12 : n <= 4 ? 1.02 : n <= 6 ? 0.8 : 0.7;
     this.cam = api.camera; if (this.cam) { this.cam.maxZoom = 1.3; }
     this.R = R0; this.Rt = R0;
@@ -703,8 +664,6 @@ export class Game {
   }
 
   drawHud(g) {
-    const left = Math.max(0, TIME_CAP - this.playT);
-    ui.timer(g, left);
     const aliveFlags = this.ents.map((e) => e.state === 'alive');
     ui.scoreboard(g, this.players, this.ents.map((e) => (e.state === 'alive' ? 'IN' : 'OUT')), { y: 985, out: aliveFlags.map((v) => !v) });
     if (this.tele && this.tele.k > 0.1 && !this.ends) {

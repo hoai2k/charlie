@@ -31,12 +31,13 @@ import { art } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, TAU, placementsFromScores } from '../engine/util.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import {
   NAVY, TROLL, A, FLOWER_SPOTS, BOW_SPOTS, FLOWER_COLS, configureTrollArt, toScreen, meadowBackground, drawTroll, drawBasket,
-  drawItem, drawBush, drawSwat, drawMirror, drawIcon,
+  drawItem, drawBush, drawSwat, drawMirror,
 } from './prank-troll/draw.js';
 import { drawShock, drawSteam, drawShout } from '../engine/fluster.js';
+import { meta } from './prank-troll.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -59,27 +60,7 @@ const STATIONS = [
 ];
 const ITEM_ART = { crayon: 'prop/ptroll-crayon', flower: 'prop/ptroll-flower', bow: 'prop/ptroll-bow', hat: 'prop/ptroll-party-hat', feather: 'prop/ptroll-feather', glitter: 'prop/ptroll-glitter', polish: 'prop/ptroll-polish' };
 
-export const meta = {
-  id: 'prank-troll',
-  title: 'Prank the Sleeping Troll',
-  category: 'molly',
-  type: 'Sneaky pranks',
-  goal: 'Sneak up and give the sleeping troll a silly makeover!',
-  controls: [['stick', 'Tiptoe around'], ['a', 'Grab a prank / prank the troll']],
-  tips: ['Grab a prank from a basket, then press A next to the troll!', 'When he stirs and the "!" pops up: FREEZE and you turn into a bush!', 'Three feather tickles make him sneeze!'],
-  goalEasy: 'Hold A to tiptoe to a prank basket and then to the troll - let go when he stirs!',
-  controlsEasy: [['a', 'Hold: tiptoe, grab and prank'], ['a', 'Let go of everything: freeze like a bush'], ['stick', 'Tiptoe anywhere with either stick if you like']],
-  tipsEasy: ['Hold A and you tiptoe where the arrow points (or steer with a stick)!', 'When the "!" pops up, LET GO of everything and you turn into a bush!', 'Three feather tickles make him sneeze!'],
-  music: 'sneaky',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const img = art('thumb/prank-troll');
-    if (img) g.drawImage(img, x, y, w, h); else drawIcon(g, x, y, w, h, t || 0);
-  },
-};
+export { meta };
 
 const inZone = (x, y, z = ZONE, k = 1) => ((x - z.x) / (z.rx * k)) ** 2 + ((y - z.y) / (z.ry * k)) ** 2;
 
@@ -129,6 +110,8 @@ export class Game {
     this.noise = 0;
     this.phase = 'sneak'; this.pt = 0;
     this.round = 0;
+    // the prank clock, shown all game
+    api.limit(() => (this.finished || this.phase === 'end' ? null : Math.max(0, GAME_T - this.t)), { showAt: Infinity });
     this.banner = null;
     this.finished = false;
     // the mirror fairy: a garden fairy nobody is playing as
@@ -864,7 +847,7 @@ export class Game {
           g.save(); g.translate(tx, ty + b); g.fillStyle = U.p.color; g.strokeStyle = NAVY; g.lineWidth = 5;
           g.beginPath(); g.moveTo(-26, -30); g.lineTo(26, -30); g.lineTo(0, 6); g.closePath(); g.fill(); g.stroke(); g.restore();
         }
-        if (E.idle > 0.8) ui.glyph(g, 'a', U.x + 54, U.y - a.height - 70, 52, { pulse: true });
+        if (E.idle > 0.8) easyPrompt(g, U.p, { child: { x: U.x, y: U.y - a.height - (U.item ? 70 : 0) } });
       }
     }
     // prank prompt for a human carrying next to the troll
@@ -883,7 +866,6 @@ export class Game {
       y: 16, avoidCenter: true, format: (v) => `${v}`,
       expr: this.units.map((U) => (U.stun > 0 ? 'happy' : U.bush > 0.5 ? 'surprised' : 'neutral')),
     });
-    ui.timer(g, Math.max(0, GAME_T - this.t));
     // shared tally
     g.save();
     ui.panel(g, W - 300, 108, 270, 66, { r: 33, fill: '#fff8ec' });

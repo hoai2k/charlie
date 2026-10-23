@@ -32,6 +32,7 @@ import {
   shapePath, drawShape, drawAnimal, drawPassenger, drawEngine, drawCar, drawWindowBack, drawWindowFrame, drawCow, drawTunnelPortal,
   buildBackdrop, roundRectPath,
 } from './shape-train/art.js';
+import { meta } from './shape-train.meta.js';
 
 const TRAINS = 3;
 const ARENA = { x0: 110, y0: 592, x1: 1810, y1: 1030 };
@@ -56,65 +57,7 @@ function toot(big = true) {
   if (big) later(() => blast(1), 420);
 }
 
-export const meta = {
-  id: 'shape-train',
-  title: 'Choo-Choo Shapes',
-  category: 'molly',
-  type: 'Team up!',
-  goal: 'Help the animals ride the train - match their shape to the window!',
-  controls: [['stick', 'Run around the platform'], ['a', 'Pick up a friend / pop them in']],
-  tips: [
-    'Look at the shape your animal holds, then find the window with the same shape. An arrow shows the way!',
-    'Wrong window? Boing! Your friend bounces back - try another car.',
-    'Fill every seat and the train goes TOOT TOOT and zooms around the loop!',
-  ],
-  music: 'bouncy',
-  duration: '~60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    g.translate(x, y);
-    const thumb = art('thumb/shape-train');
-    if (thumb) { g.drawImage(thumb, 0, 0, w, h); g.restore(); return; }
-    const sky = g.createLinearGradient(0, 0, 0, h); sky.addColorStop(0, '#7fd0ff'); sky.addColorStop(1, '#e6f7ff');
-    g.fillStyle = sky; g.fillRect(0, 0, w, h);
-    // rainbow
-    const cols = ['#ff8f8f', '#ffc46b', '#ffe86e', '#8fe6a3', '#8fd0ff', '#c4a3ff'];
-    g.lineWidth = h * 0.035;
-    cols.forEach((c, i) => { g.strokeStyle = c; g.beginPath(); g.arc(w * 0.62, h * 0.78, h * (0.62 - i * 0.035), Math.PI, TAU); g.stroke(); });
-    g.fillStyle = '#9fe08f'; g.fillRect(0, h * 0.7, w, h * 0.3);
-    g.fillStyle = '#b8a48a'; g.fillRect(0, h * 0.82, w, h * 0.06);
-    g.fillStyle = '#c9cede'; g.fillRect(0, h * 0.86, w, h * 0.02);
-    const s = (h * 0.48) / ENGINE_H;
-    const ex = w * 0.5 - (ENGINE_W - CAR_W - GAP) * s / 2;
-    g.save(); g.translate(ex + Math.sin(t * 2) * 4, h * 0.87); g.scale(s, s);
-    const bounce = Math.abs(Math.sin(t * 7)) * 3;
-    g.translate(0, -bounce);
-    drawEngine(g, ENGINE_COLORS[0], t, t * 6, { mouth: 'grin', look: 0.5 });
-    g.save(); g.translate(-CAR_W - GAP, 0);
-    drawCar(g, 'heart', t, t * 6);
-    const wx = CAR_W / 2, wy = -CAR_H * 0.54, r = 48;
-    g.save(); g.translate(wx, wy); drawWindowBack(g, 'heart', r, true); shapePath(g, 'heart', r); g.clip();
-    g.translate(0, r * 1.38 + Math.sin(t * 5) * 3); drawAnimal(g, 'bunny', r * 2.15, t, { arms: 'wave' }); g.restore();
-    g.save(); g.translate(wx, wy); drawWindowFrame(g, 'heart', r); g.restore();
-    g.restore();
-    g.restore();
-    // steam puffs
-    for (let i = 0; i < 4; i++) {
-      const k = (t * 0.6 + i / 4) % 1;
-      g.globalAlpha = 1 - k; g.fillStyle = '#fff';
-      g.beginPath(); g.arc(ex + ENGINE_W * s * 0.66 - k * w * 0.25, h * 0.87 - ENGINE_H * s * 1.05 - k * h * 0.3, (8 + k * 26) * (h / 250), 0, TAU); g.fill();
-    }
-    g.globalAlpha = 1;
-    // a star the animals hold
-    g.save(); g.translate(w * 0.12, h * 0.2 + Math.sin(t * 3) * 6); g.rotate(Math.sin(t * 2) * 0.2); drawShape(g, 'star', h * 0.11); g.restore();
-    g.save(); g.translate(w * 0.9, h * 0.2 + Math.sin(t * 3 + 1) * 6); g.rotate(Math.sin(t * 2 + 1) * 0.2); drawShape(g, 'circle', h * 0.08); g.restore();
-    g.restore();
-  },
-};
+export { meta };
 
 // --- the game ------------------------------------------------------------------------------
 export class Game {

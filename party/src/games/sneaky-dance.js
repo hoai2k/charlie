@@ -33,13 +33,15 @@ import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, dist, placementsFromScores } from '../engine/util.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { Tune } from './sneaky-dance/tune.js';
 import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from '../engine/fluster.js';
 import {
   NAVY, SEAT, LAMP, BALL, BOOK_COLS, libraryBackground, drawChairBack, drawChairFront, drawHoot, drawLamp, drawBook,
-  drawDiscoBall, drawBeams, drawDisguise, drawPlinth, drawBubble, drawStarPickup, drawIcon,
+  drawDiscoBall, drawBeams, drawDisguise, drawPlinth, drawBubble, drawStarPickup,
 } from './sneaky-dance/draw.js';
+import { meta } from './sneaky-dance.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -55,24 +57,7 @@ const MOVES = { up: 'dance-up', down: 'dance-down', left: 'dance-side', right: '
 const DISGUISES = ['book', 'lamp', 'statue'];
 const BUBBLE = { x: 1150, y: 200 };
 
-export const meta = {
-  id: 'sneaky-dance',
-  title: 'Sneaky Dance',
-  category: 'molly',
-  type: 'Sneaky freeze',
-  goal: 'Dance like crazy while Professor Hoot naps - FREEZE when he peeks!',
-  controls: [['stick', 'Wiggle to dance'], ['a', 'Big jump-spin']],
-  tips: ['Zzz = dance! When the snoring stops and his eye opens: let go and freeze!', 'Wild wiggles and spins earn more stars.', 'Caught? Grab your bouncing stars back!'],
-  goalEasy: 'Hold A to dance while Professor Hoot naps - let go to FREEZE when he peeks!',
-  controlsEasy: [['a', 'Hold to dance, let go to freeze'], ['stick', 'Dance around with either stick if you like']],
-  tipsEasy: ['Zzz = hold A and dance - or wiggle a stick!', 'His eye opens? Let go of everything - freeze!', 'Tap A for a big jump-spin!'],
-  music: 'sneaky',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon,
-};
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -109,6 +94,8 @@ export class Game {
     this.tune = new Tune();
     this.tune.vol = 0.5;
     this.phase = 'ready'; this.pt = 0;
+    // the dance clock, shown all game (the finale party runs to the end of it, or a little past)
+    api.limit(() => (this.phase === 'end' || this.finished ? null : Math.max(0, (this.phase === 'party' ? this.partyEnd : GAME_T) - this.t)), { showAt: Infinity });
     this.round = 0;
     this.level = 0; this.meter = 0;
     this.lastFake = false;
@@ -610,16 +597,7 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.units;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const r = (A.a.radius + B.a.radius) * 0.6;
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy);
-      if (d < r && d > 0.01) {
-        const k = ((r - d) / d) * 0.5 * Math.min(1, dt * 12);
-        A.x -= dx * k; A.y -= (dy / 1.6) * k; B.x += dx * k; B.y += (dy / 1.6) * k;
-      }
-    }
+    spread(this.units, { radius: (U) => bodyRadius(U.a) * 0.8, yScale: 1.6, strength: Math.min(1, dt * 12) });
   }
 
   /** Molly Easy (humans): while A is held the dancer picks its own moves, on the beat. */
@@ -802,9 +780,7 @@ export class Game {
     }
     // Easy: Hoot is snoring and you're standing still - a bouncing A says "dance!"
     if (this.easy && !U.p.isAI && this.danceOn && U.state !== 'caught' && !U.p.ctrl.held('a') && !U.p.ctrl.held('x') && Math.hypot(U.p.ctrl.x, U.p.ctrl.y) <= 0.3) {
-      const b = Math.abs(Math.sin(t * 8));
-      g.save(); g.translate(U.x + 70, U.y - U.z - a.height - 20 - b * 14); g.scale(1 + b * 0.15, 1 + b * 0.15);
-      ui.glyph(g, 'a', 0, 0, 50); g.restore();
+      easyPrompt(g, U.p, { child: { x: U.x, y: U.y - U.z - a.height } });
     }
     if (this.t < 5 || (!U.p.isAI && this.n > 1 && this.t < 12)) {
       const sc = this.n > 4 ? 0.8 : 0.95;
@@ -817,7 +793,6 @@ export class Game {
       y: 16, avoidCenter: true, format: (v) => `${v} ★`,
       expr: this.units.map((U) => (U.state === 'caught' ? 'surprised' : U.state === 'still' ? 'neutral' : 'happy')),
     });
-    ui.timer(g, Math.max(0, GAME_T - this.t));
     // party meter (shared): fills toward the next surprise
     if (this.level < 3 && this.phase !== 'wake' && this.phase !== 'party' && this.phase !== 'end') {
       const k = clamp(Math.max(this.meter, this.t / 16) - this.level, 0, 1);

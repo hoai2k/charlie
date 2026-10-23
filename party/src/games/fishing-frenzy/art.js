@@ -438,49 +438,6 @@ export function buildDocks(slots, colors) {
   return cv;
 }
 
-/** Menu / how-to thumbnail. */
-export function drawIconArt(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const sk = g.createLinearGradient(0, y, 0, y + h * 0.3);
-  sk.addColorStop(0, '#8fd3ff'); sk.addColorStop(1, '#dff4ff');
-  g.fillStyle = sk; g.fillRect(x, y, w, h * 0.3);
-  g.fillStyle = '#7fd36f'; g.fillRect(x, y + h * 0.26, w, h * 0.74);
-  const cx = x + w * 0.52, cy = y + h * 0.62, rx = w * 0.46, ry = h * 0.3;
-  g.fillStyle = '#efdcae'; g.strokeStyle = NAVY; g.lineWidth = h * 0.012;
-  g.beginPath(); g.ellipse(cx, cy, rx + h * 0.03, ry + h * 0.025, 0, 0, TAU); g.fill(); g.stroke();
-  const wg = g.createLinearGradient(0, cy - ry, 0, cy + ry); wg.addColorStop(0, '#2f9fd8'); wg.addColorStop(1, '#6ccaf0');
-  g.fillStyle = wg; g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, TAU); g.fill(); g.stroke();
-  // lily pad
-  drawLilyPad(g, x + w * 0.22, y + h * 0.6, h * 0.07, 0.4, true, t);
-  // ripples + bobber
-  const bx = x + w * 0.66, by = y + h * 0.7;
-  g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = h * 0.008;
-  for (let k = 0; k < 3; k++) { const r = ((t * 0.6 + k / 3) % 1); g.globalAlpha = 1 - r; g.beginPath(); g.ellipse(bx, by, h * (0.03 + r * 0.12), h * (0.012 + r * 0.045), 0, 0, TAU); g.stroke(); }
-  g.globalAlpha = 1;
-  drawBobber(g, bx, by, h / 260, Math.max(0, Math.sin(t * 3)) * 0.6);
-  // golden fish leaping in an arc
-  const u = (t * 0.45) % 1;
-  const fx = x + w * (0.36 + u * 0.2), fy = y + h * (0.6 - Math.sin(u * Math.PI) * 0.42);
-  g.save(); g.translate(fx, fy); g.rotate(-0.9 + u * 1.8);
-  drawCatch(g, 'golden', h * 0.22, t * 2, { fast: true });
-  g.restore();
-  for (let i = 0; i < 5; i++) {
-    g.fillStyle = 'rgba(255,255,255,0.9)'; g.beginPath(); g.arc(x + w * 0.36 + Math.cos(i * 1.3) * h * 0.05, y + h * 0.6 - ((t * 0.8 + i * 0.2) % 1) * h * 0.12, h * 0.012, 0, TAU); g.fill();
-  }
-  // rod from the corner, line to the bobber
-  const hx = x + w * 0.08, hy = y + h * 0.98, tx = x + w * 0.4, ty = y + h * 0.3;
-  g.strokeStyle = 'rgba(255,255,255,0.95)'; g.lineWidth = Math.max(1.5, h * 0.006);
-  g.beginPath(); g.moveTo(tx, ty); g.quadraticCurveTo((tx + bx) / 2, (ty + by) / 2 + h * 0.1, bx, by - h * 0.12); g.stroke();
-  drawRod(g, hx, hy, tx, ty, -h * 0.04, '#ff6fb1', h / 400);
-  // "!" pop
-  const k = 1 + Math.max(0, Math.sin(t * 3)) * 0.2;
-  g.save(); g.translate(bx + w * 0.02, by - h * 0.26); g.scale(k, k);
-  drawBang(g, 0, 0, h * 0.09);
-  g.restore();
-  g.restore();
-}
-
 /** The big yellow "!" bubble (bite!). */
 export function drawBang(g, x, y, r) {
   g.save(); g.translate(x, y);

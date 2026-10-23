@@ -16,7 +16,7 @@ import { fx } from '../engine/fx.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, makesMistake } from '../engine/ai.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, showstopper } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { CHARACTERS } from '../data/characters.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
@@ -24,22 +24,9 @@ import {
   NAVY, SHAPES, BEAD_COLORS, CHARMS, TYPES, ROUND_KINDS, FREE_TRAY, CHARM_TRAY, charmAt,
   sameTok, drawToken, drawCharm, drawGlint, drawLoop, strandPoints, drawTypeIcon, makeOrder, endsGroup, trayFor, autoDesign,
 } from './bead-bracelets/beads.js';
+import { meta } from './bead-bracelets.meta.js';
 
-export const meta = {
-  id: 'bead-bracelets',
-  title: 'Sparkle Bead Shop',
-  category: 'studio',
-  type: 'Patterns · Everyone wins',
-  goal: 'Finish each customer\'s bead pattern, then design your own sparkly jewelry!',
-  controls: [['stick', 'Pick a bead'], ['lb', 'Slide along the tray'], ['a', 'Thread the bead'], ['b', 'Take the last bead off'], ['y', 'Show me! (hint) / Done'], ['x', 'Beads or charms']],
-  tips: ['Look at the card: what comes next?', 'Press Y and the next bead sparkles.', 'Last round: make anything you like, then twirl!'],
-  music: 'cozy',
-  duration: 'about 3 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+export { meta };
 
 // --- station design (local units; each station is scaled by k) ---------------
 const SW = 860, SH = 600;
@@ -98,6 +85,11 @@ export class Game {
     this.t = 0;
     this.orders = [[], []];
     this.flashT = 0;
+    // The round clock, shown all game (the intros show the full time to come).
+    api.limit(() => {
+      const P = this.phase;
+      return P === 'play' || P === 'design' ? this.timeLeft : P === 'intro' ? ROUND_TIME : P === 'designIntro' ? DESIGN_TIME : null;
+    }, { showAt: Infinity, x: W / 2, y: 54 });
     const rects = layoutStations(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
     this.ptrSt = this.stations.find((s) => !s.p.isAI) || null;
@@ -307,13 +299,9 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     const done = this.stations.map((s) => s.done);
-    // with kids playing, only a kid can be the Showstopper
-    const kids = this.stations.some((s) => !s.p.isAI);
-    const elig = kids ? this.stations.map((s, i) => (s.p.isAI ? -1 : done[i])) : done;
-    const best = Math.max(...elig), top = elig.filter((v) => v === best).length;
     this.api.finish({
       showcase: true,
-      highlight: best > 0 && top === 1 ? elig.indexOf(best) : null,
+      highlight: showstopper(this.players, done),  // with kids playing, only a kid can be it
       stats: done.map((v) => plural(v, 'bracelet')),
       title: 'Sparkly!',
     });
@@ -775,13 +763,10 @@ export class Game {
     const tx = 28;
     [[0, 0], [2, 3], [1, 5], [3, 6]].forEach(([s, c], i) => drawToken(g, { s, c }, tx + 16 + i * 28, 54 + Math.sin(this.t * 3 + i) * 3, 12));
     ui.text(g, 'Sparkle Bead Shop', tx + 126, 54, { size: 44, color: '#ff6fb1', align: 'left', strokeWidth: 9, maxWidth: 470 });
-    // round + timer
-    const P = this.phase;
+    // round (the clock beside it is the play scene's api.limit countdown)
     const label = this.round === 2 ? 'Design' : `Round ${this.round + 1}`;
     ui.panel(g, W / 2 - 310, 26, 196, 56, { r: 28, fill: this.round === 2 ? '#b98bff' : '#ff7ac6', lineWidth: 4 });
     ui.text(g, label, W / 2 - 212, 55, { size: 34, strokeWidth: 6 });
-    if (P === 'play' || P === 'design') ui.timer(g, this.timeLeft, W / 2, 54);
-    else ui.timer(g, P === 'intro' ? ROUND_TIME : P === 'designIntro' ? DESIGN_TIME : 0, W / 2, 54);
     // controls legend (top-right corner)
     const anyPick = this.stations.some((s) => s.mode === 'pick');
     let list;
@@ -1414,39 +1399,3 @@ export class Game {
 const CHEESE_TIME = 6, PHOTO_PIN = 2.4, PHOTO_FLY = 0.8;
 const PIN = { x: 260, y: 230, w: 300, rot: -0.09 };
 
-// --- menu / how-to thumbnail ------------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = Math.min(w / 860, h / 520);
-  const bg = g.createLinearGradient(x, y, x, y + h);
-  bg.addColorStop(0, '#ffd6ee'); bg.addColorStop(1, '#e9d6ff');
-  g.fillStyle = bg; g.fillRect(x, y, w, h);
-  g.fillStyle = 'rgba(255,255,255,0.4)';
-  for (let i = 0; i < 12; i++) g.fillRect(x + i * w / 12, y, w / 24, h);
-  // table
-  g.fillStyle = '#f0c08f'; g.fillRect(x, y + h * 0.72, w, h * 0.28);
-  g.fillStyle = '#c98a55'; g.fillRect(x, y + h * 0.72, w, 10 * s);
-  // a strand of beads across the top with a needle
-  const pat = [{ s: 0, c: 0 }, { s: 1, c: 5 }, { s: 0, c: 0 }, { s: 1, c: 5 }, { s: 0, c: 0 }, { s: 1, c: 5 }, { s: 0, c: 0 }];
-  g.beginPath(); g.moveTo(x + w * 0.08, y + h * 0.22); g.quadraticCurveTo(x + w * 0.5, y + h * 0.36, x + w * 0.92, y + h * 0.22);
-  g.lineWidth = 6 * s; g.strokeStyle = NAVY; g.stroke();
-  pat.forEach((tk, i) => {
-    const u = 0.14 + i * 0.11, bx = x + w * u, by = y + h * (0.22 + 0.14 * 4 * u * (1 - u) * 0.5) + Math.sin(t * 3 + i) * 3 * s;
-    drawToken(g, tk, bx, by, 34 * s);
-  });
-  // the "what's next?" ghost bead
-  g.save(); g.globalAlpha = 0.5 + 0.3 * Math.sin(t * 5);
-  drawToken(g, { s: 1, c: 5 }, x + w * 0.91, y + h * 0.2 - Math.abs(Math.sin(t * 4)) * 10 * s, 34 * s);
-  g.restore();
-  // a finished bracelet spinning in the middle
-  drawLoop(g, [{ s: 0, c: 0 }, { s: 2, c: 3 }, { s: 3, c: 6 }, { s: 2, c: 3 }, { s: 1, c: 5 }, { s: 2, c: 3 }, { s: 0, c: 0 }, { s: 2, c: 3 }, { charm: 0 }, { s: 2, c: 3 }, { s: 4, c: 4 }, { s: 2, c: 3 }],
-    x + w * 0.42, y + h * 0.6, 150 * s, 62 * s, 22 * s, { spin: t * 0.8 });
-  drawPortrait(g, 'cotton-candy', x + w * 0.82, y + h * 0.62, 92 * s, { ring: '#ff7ac6', ringWidth: 8 * s, expr: 'happy' });
-  for (let i = 0; i < 6; i++) {
-    const k = (t * 0.9 + i * 0.37) % 1;
-    g.save(); g.translate(x + w * ((i * 0.31 + 0.07) % 1), y + h * (0.45 + (i % 3) * 0.12)); g.globalAlpha = Math.sin(k * Math.PI);
-    drawSparkleShape(g, 46 * s, '#ffffff'); g.restore();
-  }
-  g.restore();
-}

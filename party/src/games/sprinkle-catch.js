@@ -19,46 +19,8 @@ import { drawSparkleShape } from '../engine/emotes.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 
-export const meta = {
-  id: 'sprinkle-catch',
-  title: 'Sprinkle Catch',
-  category: 'party',
-  type: 'Free-for-all',
-  goal: 'Catch the most treats from the giant cake!',
-  controls: [['stick', 'Run left and right'], ['a', 'Jump']],
-  tips: ['Golden cupcakes are worth 5 - listen for the chime!', 'Grumpy broccoli makes you dizzy. Jump over it!', 'Sugar Rush at the end: treats rain twice as fast!'],
-  music: 'party',
-  duration: '40 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400;
-    g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const grd = g.createLinearGradient(0, 0, 0, hh);
-    grd.addColorStop(0, '#9fdcff'); grd.addColorStop(1, '#ffe3f2');
-    g.fillStyle = grd; g.fillRect(0, 0, 400, hh);
-    ui.cloud(g, 60, hh * 0.2, 0.45, '#fff', 0.9);
-    ui.cloud(g, 340, hh * 0.28, 0.4, '#fff', 0.9);
-    g.fillStyle = '#ff9ccf'; g.fillRect(0, hh * 0.84, 400, hh * 0.2);
-    g.fillStyle = '#fff'; for (let i = 0; i < 9; i++) { g.beginPath(); g.arc(i * 52 + 10, hh * 0.84, 14, Math.PI, 0); g.fill(); }
-    drawCake(g, 200, hh * 0.5, 0.31, 0, 0, t || 0, false);
-    // falling treats
-    const tt = (t || 0) * 1.2;
-    for (let i = 0; i < 5; i++) {
-      const ty = hh * 0.5 + ((tt + i * 0.37) % 1) * hh * 0.3;
-      const tx = 130 + i * 35 + Math.sin(tt + i) * 6;
-      g.save(); g.translate(tx, ty); g.scale(0.6, 0.6);
-      const ik = i === 2 ? 'prop/golden-cupcake' : ['prop/treat-donut', 'prop/treat-candy', null, 'prop/treat-cupcake', 'prop/treat-lollipop'][i];
-      if (!drawArt(g, ik, 0, 0, 80, 80)) { if (i === 2) drawCupcake(g, true, 0, '#ffe066', t || 0); else if (i % 2) drawCupcake(g, false, i, '#ff8fc7', t || 0); else drawSprinkle(g, i); }
-      g.restore();
-    }
-    g.restore();
-  },
-};
+import { meta } from './sprinkle-catch.meta.js';
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 40;
@@ -95,6 +57,7 @@ export class Game {
     this.n = n;
     this.t = 0;
     this.timeLeft = DURATION;
+    api.limit(() => (this.started && !this.done ? this.timeLeft : null), { showAt: Infinity });
     this.scale = n <= 3 ? 1.0 : n <= 4 ? 0.92 : n <= 6 ? 0.82 : 0.72;
     this.treats = [];
     this.beams = [];
@@ -541,7 +504,6 @@ export class Game {
   }
 
   drawHud(g) {
-    ui.timer(g, this.timeLeft);
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 985, format: (v) => String(v), out: null });
     if (this.n === 1) ui.text(g, `Goal: ${SOLO_GOAL} treats`, 190, 64, { size: 42, color: '#ffd23f' });
     if (this.rush) {

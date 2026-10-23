@@ -1,4 +1,4 @@
-import { loadRhythmSongs, chooseSong, rhythmChoice, rhythmOptions, musicKey } from './rhythm/songs.js';
+import { loadRhythmSongs, chooseSong, rhythmChoice, musicKey } from './rhythm/songs.js';
 import { drawNpcSprite } from '../engine/npc-art.js';
 // Spotlight Dance-Off - memory game.
 // Cute Shadow Imps stole the spotlight! They perform a dance sequence (arrows +
@@ -42,46 +42,8 @@ const IMP_EYES = ['#7dfff0', '#ffe66d', '#ff9be8', '#a9ff7d', '#8fb4ff', '#ffb07
 
 loadRhythmSongs();
 
-export const meta = {
-  id: 'spotlight-dance',
-  title: 'Spotlight Dance-Off',
-  category: 'party',
-  type: 'Memory',
-  goal: 'Watch the Shadow Imps dance, then copy their moves from memory!',
-  controls: [['dpad', 'Arrow moves (or the stick)'], ['a', 'Sparkle move']],
-  tips: [
-    'Watch closely - the dances get longer and trickier every round!',
-    'A perfect copy zaps an imp with a sparkle beam: +1 point.',
-    'Careful! A wrong move or running out of time costs a heart.',
-  ],
-  music: 'dance',
-  options: rhythmOptions('spotlight-dance', { levelLabel: 'Dance', defaultLevel: 1 }),
-  duration: '~1.5 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#1b0c40'); gr.addColorStop(0.65, '#5a2090'); gr.addColorStop(1, '#2a1250');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    // light cones
-    const cols = ['rgba(120,255,240,0.28)', 'rgba(255,120,200,0.3)', 'rgba(255,230,110,0.25)'];
-    cols.forEach((c, i) => {
-      const sx = x + w * (0.2 + i * 0.3), sway = Math.sin(t * 1.4 + i * 2) * w * 0.08;
-      g.fillStyle = c; g.beginPath(); g.moveTo(sx - 6, y); g.lineTo(sx + 6, y); g.lineTo(sx + sway + w * 0.17, y + h * 0.85); g.lineTo(sx + sway - w * 0.17, y + h * 0.85); g.closePath(); g.fill();
-    });
-    // floor
-    g.fillStyle = '#3a1670'; g.fillRect(x, y + h * 0.78, w, h * 0.22);
-    g.fillStyle = 'rgba(255,255,255,0.12)'; g.beginPath(); g.ellipse(x + w * 0.5, y + h * 0.88, w * 0.3, h * 0.06, 0, 0, TAU); g.fill();
-    // imp
-    drawImp(g, x + w * 0.5, y + h * 0.92, h * 0.0037, { t, seed: 1, move: MOVES[Math.floor(t * 1.5) % 5], mt: (t * 1.5) % 1 * 0.5, eye: IMP_EYES[0] });
-    drawImp(g, x + w * 0.17, y + h * 0.86, h * 0.0024, { t, seed: 3, move: null, eye: IMP_EYES[1] });
-    drawImp(g, x + w * 0.84, y + h * 0.86, h * 0.0024, { t, seed: 5, move: null, eye: IMP_EYES[2] });
-    // arrow icons
-    const mv = ['U', 'R', 'A'];
-    mv.forEach((m, i) => drawMoveIcon(g, m, x + w * (0.34 + i * 0.16), y + h * 0.2, h * 0.17, { pop: 0.9 + 0.1 * Math.sin(t * 4 + i) }));
-  },
-};
+import { meta } from './spotlight-dance.meta.js';
+export { meta };
 
 // ---------------------------------------------------------------------------
 // Drawing helpers
@@ -326,6 +288,8 @@ export class Game {
     this.makePlayers();
     this.makeImps();
     this.input = { timeLeft: 0, limit: 1 };
+    // the copy phase runs on a clock (the play scene draws it where the old time bar was)
+    api.limit(() => (this.phase === 'input' ? Math.max(0, this.input.timeLeft) : null), { showAt: Infinity, x: W / 2, y: this.L.promptY + 37 });
     this.banner = null;
     this.setPhase('intro');
   }
@@ -946,10 +910,7 @@ export class Game {
     } else if (this.phase === 'ready' && this.banner) {
       ui.banner(g, 'Your turn!', this.banner.t, { size: 150, y: cy, color: '#7dfff0' });
     } else if (this.phase === 'input') {
-      const frac = clamp(this.input.timeLeft / this.input.limit, 0, 1);
-      const bw = this.rows === 1 ? 760 : 620;
       ui.text(g, 'Copy the dance!', cx, cy - 50, { size: this.rows === 1 ? 84 : 64, color: '#7dfff0' });
-      ui.bar(g, cx - bw / 2, cy + 20, bw, 34, frac, frac < 0.25 ? '#ff4d6d' : frac < 0.5 ? '#ffd23f' : '#5ddc6a', { bg: 'rgba(18,8,46,0.55)' });
       const done = this.pl.filter((q) => q.status === 'done').length, alive = this.pl.filter((q) => q.alive).length;
       if (this.round <= this.hintRounds) {
         ui.hints(g, [['dpad', 'Arrows'], ['a', 'Sparkle!']], cx, cy + 100, { size: this.rows === 1 ? 44 : 36 });

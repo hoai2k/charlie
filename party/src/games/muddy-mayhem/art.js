@@ -443,33 +443,3 @@ export function drawGoose(g, o) {
   g.restore();
   return nozzle || { x: 60, y: -90 };
 }
-
-// ---------------------------------------------------------------- thumbnail
-export function drawThumb(g, x, y, w, h, t, ICON_BLOBS, ICON_SPLATS) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = w / 400;
-  g.translate(x, y); g.scale(s, s);
-  const hh = h / s;
-  const gr = g.createLinearGradient(0, 0, 0, hh);
-  gr.addColorStop(0, '#fff1d6'); gr.addColorStop(0.2, '#fff1d6'); gr.addColorStop(0.21, '#d9a46a'); gr.addColorStop(0.32, '#d9a46a'); gr.addColorStop(0.33, '#7fd66e'); gr.addColorStop(1, '#55c25a');
-  g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-  // line + sheet
-  g.strokeStyle = '#f4ecff'; g.lineWidth = 3; g.beginPath(); g.moveTo(-10, 40); g.quadraticCurveTo(200, 60, 410, 40); g.stroke();
-  g.save(); g.translate(150, 50); g.scale(0.82, 0.82);
-  const T = { kind: 'sheet', sway: Math.sin(t * 2) * 0.4, n: 0 };
-  drawTarget(g, T, t);
-  g.save(); targetPath(g, T, T.sway); g.clip();
-  ICON_SPLATS.forEach((sp, i) => drawSplat(g, sp.s, sp.x, sp.y, Math.min(1, (t * 2 + i * 0.3) % 6 / 0.3)));
-  g.restore();
-  g.restore();
-  // goose peeking
-  g.save(); g.translate(330, hh * 0.88); g.scale(-0.55, 0.55); drawGoose(g, { t, pose: 'gasp' }); g.restore();
-  // muddy puppy shaking
-  g.save(); g.translate(105, hh * 0.95); g.scale(0.85, 0.85); g.rotate(Math.sin(t * 30) * 0.08);
-  drawPuppy(g, { breed: 1, mud: 0.8, t, shake: 1, eyesShut: true, wag: true });
-  drawMudBlobs(g, ICON_BLOBS, 0.8, t);
-  g.restore();
-  for (let i = 0; i < 8; i++) { const a = (i / 8) * TAU + t * 2; g.fillStyle = i % 2 ? MUD : MUD_DARK; g.beginPath(); g.arc(130 + Math.cos(a) * (70 + (t * 60 + i * 9) % 30), hh * 0.8 + Math.sin(a) * 40, 7, 0, TAU); g.fill(); }
-  g.restore();
-}

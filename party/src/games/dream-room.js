@@ -29,12 +29,13 @@ import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, TAU, later } from
 import { drawHeartShape, drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
-  ITEMS, ITEM, GROUPS, NAVY, shade, drawItem, paintItem, drawItemGlow, drawItemFront, drawIconOf, localBox, CHAR_IDS,
+  ITEMS, ITEM, GROUPS, NAVY, shade, paintItem, drawItemGlow, drawItemFront, drawIconOf, localBox, CHAR_IDS,
 } from './dream-room/items.js';
 import {
   WALLPAPERS, FLOORS, WALL, WALL_S, FLOOR_Y0, FLOOR_Y1, POLY, polyPath, roomPath, proj, depthAt, floorHalf,
   wallCanvas, floorCanvas, swatch, FLOOR_BOX, DOOR, DOOR_FOOT, SWITCH, SWITCH_HIT, HALF,
 } from './dream-room/room.js';
+import { meta } from './dream-room.meta.js';
 
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
 
@@ -83,20 +84,7 @@ function glowSprite(color) {
 const WARM = 'rgba(255,210,130,1)', MOON = 'rgba(170,190,255,1)';
 let outsideCache = null;
 
-export const meta = {
-  id: 'dream-room',
-  title: 'Dream Room',
-  category: 'studio',
-  type: 'Decorate · Everyone wins',
-  goal: 'Decorate a cozy bedroom together, then give everyone a room tour!',
-  controls: [['stick', 'Move your hand'], ['lb', 'LB / RB / D-pad: pick an item'], ['a', 'Place it'], ['x', 'Tool: place, move, paint'], ['b', 'Remove'], ['y', 'Surprise present!']],
-  tips: ['Paint the wall or the floor for new wallpaper!', 'Flip the light switch by the door for night time.', 'A pet bed brings a sleepy kitty!'],
-  music: 'cozy',
-  duration: 'about 3 min',
-  minPlayers: 1, maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+export { meta };
 
 // =============================================================================
 export class Game {
@@ -118,6 +106,10 @@ export class Game {
     this.night = false; this.nightK = 0; this.switchUsed = false;
     this.doorK = 0; this.doorHold = 0;
     this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME;
+    // The build clock: the m:ss chip (with its +1 min button) shows it all along; the play
+    // scene's countdown takes over under it for the last 10 s.
+    // registered, but drawn by the game's own m:ss clock (it carries the +1 min button) the whole build
+    api.limit(() => (this.phase === 'build' && !this.prompt ? this.timeLeft : null), { showAt: 0 });
     this.prompt = null; this.toast = null; this.banner = null; this.poof = null;
     this.photos = []; this.bigPhoto = null;
     this.finished = false;
@@ -1200,7 +1192,7 @@ export class Game {
       else if (s.paints) parts.push(`${s.paints} paint${s.paints === 1 ? '' : 's'}`);
       return (this.n > 4 ? parts.slice(0, 1) : parts).join(' · ') || 'Room helper!';
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Dreamy room!', focus: { x: W / 2, y: H / 2, zoom: 1.08 } });
+    this.api.finishTogether({ stats, title: 'Dreamy room!', focus: { x: W / 2, y: H / 2, zoom: 1.08 } });
   }
 
   onDone() {
@@ -1843,30 +1835,3 @@ export class Game {
   }
 }
 
-// --- menu / how-to thumbnail ----------------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = Math.min(w / 800, h / 500);
-  const wallH = h * 0.66;
-  const img = wallCanvas(0);
-  g.drawImage(img, 0, 0, img.width, img.height * 0.9, x, y, w, wallH);
-  g.fillStyle = '#e9b97f'; g.fillRect(x, y + wallH, w, h - wallH);
-  g.strokeStyle = 'rgba(120,70,30,0.4)'; g.lineWidth = Math.max(1, 2 * s);
-  for (let i = 1; i < 4; i++) { const yy = y + wallH + (h - wallH) * (i / 4) ** 0.8; g.beginPath(); g.moveTo(x, yy); g.lineTo(x + w, yy); g.stroke(); }
-  g.fillStyle = '#ffffff'; g.fillRect(x, y + wallH - 8 * s, w, 10 * s);
-  const env = { t, night: 0 };
-  const put = (id, px, py, sc, color = 0, flip = 1) => { g.save(); g.translate(x + px * w, y + py * h); g.scale(sc * s * flip, sc * s); drawItem(g, ITEM[id], { color, seed: 0.3 }, env); g.restore(); };
-  put('window', 0.24, 0.3, 1.25, 0);
-  put('fairylights', 0.66, 0.12, 1.1, 0);
-  put('picture', 0.62, 0.36, 1.0, 10);
-  put('rug-round', 0.55, 0.88, 1.15, 1);
-  put('bed', 0.6, 0.86, 1.25, 0);
-  put('plushie', 0.5, 0.67, 1.05, 11);
-  put('nightstand', 0.88, 0.9, 1.1, 1);
-  put('lamp', 0.88, 0.665, 1.05, 4);
-  put('plant', 0.1, 0.92, 1.15, 0);
-  put('teddy', 0.33, 0.96, 1.1, 0);
-  for (let i = 0; i < 4; i++) { const k = (t * 0.7 + i * 0.25) % 1; g.save(); g.globalAlpha = Math.sin(k * Math.PI); g.translate(x + w * (0.12 + i * 0.25), y + h * (0.16 + (i % 2) * 0.24)); drawSparkleShape(g, 34 * s, '#fff6a8'); g.restore(); }
-  g.restore();
-}

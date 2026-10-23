@@ -577,26 +577,3 @@ export function drawStudio(g, W, H, t) {
   for (let x = 0; x < W; x += 120) { g.beginPath(); g.moveTo(x, H - 190); g.lineTo(x - 60, H); g.stroke(); }
 }
 
-// ---------------------------------------------------------------------------
-// The game-select thumbnail.
-export function drawThumb(g, x, y, w, h, t, drawLightsFn = drawLights) {
-  g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-  drawBackdrop(g, 'stars', x, y, w, h * 0.72, t);
-  drawLightsFn(g, LIGHTS[0], x, y, w, h * 0.72, t, t * 2, 0, 1);
-  drawFloor(g, x, y + h * 0.72, w, h * 0.28, LIGHTS[1], t);
-  drawMirrorBall(g, x + w / 2, y + h * 0.2, h * 0.12, t);
-  // three move cards dancing on the floor
-  const ids = ['star', 'twirl', 'tada'];
-  ids.forEach((id, i) => {
-    const m = MOVES[MOVE[id]], s = h * 0.36;
-    const cx = x + w * (0.25 + i * 0.25), cy = y + h * 0.66 - Math.abs(Math.sin(t * 4 + i)) * h * 0.05;
-    g.save(); g.translate(cx, cy); g.rotate((i - 1) * 0.12);
-    g.fillStyle = '#fff8ec'; g.strokeStyle = NAVY; g.lineWidth = Math.max(2, s * 0.04);
-    ui.roundRect(g, -s / 2, -s / 2, s, s, s * 0.16); g.fill(); g.stroke();
-    g.fillStyle = rgba(m.color, 0.35); ui.roundRect(g, -s / 2 + s * 0.06, -s / 2 + s * 0.06, s * 0.88, s * 0.88, s * 0.12); g.fill();
-    drawMovePicto(g, m, 0, 0, s * 0.92, t, true);
-    g.restore();
-  });
-  drawCurtains(g, x, y, w, h, 1, t);
-  g.restore();
-}

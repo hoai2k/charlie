@@ -258,46 +258,4 @@ export function drawCrown(g, w) {
   g.restore();
 }
 
-/** Tilted tower for the game-select thumbnail. */
-export function drawIconScene(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = w / 400, hh = h / s;
-  g.translate(x, y); g.scale(s, s);
-  // wall
-  const grd = g.createLinearGradient(0, 0, 0, hh);
-  grd.addColorStop(0, '#ffe6a8'); grd.addColorStop(1, '#ffd0e4');
-  g.fillStyle = grd; g.fillRect(0, 0, 400, hh);
-  g.fillStyle = 'rgba(255,255,255,0.35)'; for (let i = 0; i < 8; i++) g.fillRect(i * 56, 0, 26, hh);
-  // counter
-  g.fillStyle = '#ff9fc8'; g.fillRect(0, hh * 0.84, 400, hh * 0.2);
-  g.fillStyle = '#ffd1e4'; g.fillRect(0, hh * 0.82, 400, hh * 0.04);
-  // stack
-  const tt = t || 0;
-  g.save(); g.translate(160, hh * 0.86); g.scale(0.7, 0.7);
-  drawPlate(g, '#ff6fb1');
-  let yy = -18;
-  const lean = Math.sin(tt * 2.2) * 3;
-  const list = ['pancake', 'waffle', 'pancake', 'golden', 'pancake', 'butter'];
-  list.forEach((kind, i) => {
-    const k = KINDS[kind];
-    const it = { kind, w: k.w, h: k.h, topping: !!k.topping, covered: i < list.length - 1 && !!k.topping, glaze: i === 4, seed: 2 };
-    g.save(); g.translate(lean * i * i * 0.12 + (i % 2 ? 6 : -4), yy); g.rotate(lean * i * 0.004);
-    drawItem(g, it, tt);
-    g.restore();
-    yy -= it.covered ? k.squishH : k.h;
-  });
-  g.restore();
-  // pan flipping a pancake
-  g.save(); g.translate(318, hh * 0.36); g.scale(0.46, 0.46); g.rotate(-0.12);
-  const u = (tt * 0.8) % 1, lift = 4 * u * (1 - u) * 120;
-  g.save(); g.translate(0, -10 - lift); g.rotate(u * TAU); g.translate(0, 15); drawPancake(g, 200, 30); g.restore();
-  drawPan(g, tt, -0.5, 0.8);
-  g.restore();
-  // syrup drip sparkle
-  g.fillStyle = '#ffffff';
-  for (let i = 0; i < 5; i++) { const a = tt * 2 + i; const px = 60 + i * 70, py = 40 + (i * 37) % 60; const k = 0.5 + 0.5 * Math.sin(a); g.save(); g.translate(px, py); g.scale(k, k); g.beginPath(); for (let j = 0; j < 8; j++) { const rr = j % 2 ? 2 : 7; g.lineTo(Math.cos(j * TAU / 8) * rr, Math.sin(j * TAU / 8) * rr); } g.fill(); g.restore(); }
-  g.restore();
-}
-
 function lerpX(a, b, t) { return a + (b - a) * t; }

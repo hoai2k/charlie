@@ -8,7 +8,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import * as ui from '../engine/ui.js';
 import { session, sitOut, mollyEasy } from '../state.js';
-import { gameById } from '../games/index.js';
+import { gameById, loadGame } from '../games/index.js';
 import { Camera } from '../engine/camera.js';
 import { corner } from '../engine/corner.js';
 import { hasArtGroup, ensureGameArt, releaseGameArt } from '../engine/art.js';
@@ -49,8 +49,18 @@ export class PlayScene {
       get time() { return host.playTime; },
       get state() { return host.state; },
       finish: (result) => this.finish(result),
+      // Everyone wins together (co-op / studio): one podium, a team headline, no ranking.
+      finishTogether: ({ title = null, stats = null, focus = null } = {}) => this.finish({
+        placements: session.players.map(() => 1), showcase: true, highlight: null, title, focus,
+        stats: stats || session.players.map(() => ''),
+      }),
+      // A time limit the game runs on. The play scene draws its countdown (so no limit is ever
+      // hidden): left() returns the seconds left, or null while it isn't running. Shown for the
+      // last `showAt` seconds (Infinity = always), at (x, y) with an optional label under it.
+      limit: (left, o = {}) => { host.limits.push({ left, showAt: o.showAt ?? 10, x: o.x ?? W / 2, y: o.y ?? 64, label: o.label || null }); },
       camera: new Camera(),
     };
+    this.limits = [];
     this.camera = api.camera;
     // Big parties spread players to the screen edges: zoom less so nobody
     // loses sight of their character during punch-ins.
@@ -60,20 +70,24 @@ export class PlayScene {
     this.usesCamera = false;
     this.drawsParticles = true;
     this.lastCount = -1;
-    if (hasArtGroup(gameId)) {
-      this.state = 'loading';
-      this._artGroup = gameId;
-      // Constructors can bake their first canvases: finish loading before any
-      // game code runs, and invalidate this continuation on exit or reuse.
-      ensureGameArt(gameId).then(() => this.startGame(epoch), () => this.startGame(epoch));
-    } else this.startGame(epoch);
+    // The game's code and art (the intro screen started both, so usually they are ready).
+    // Constructors can bake their first canvases: finish loading before any game code
+    // runs, and invalidate this continuation on exit or reuse.
+    this.state = 'loading';
+    this.module = null;
+    if (hasArtGroup(gameId)) this._artGroup = gameId;
+    // already loaded (the usual case after the intro screen) and no art to wait for: start now
+    if (!this._artGroup && this.meta.module) { this.module = this.meta.module; this.startGame(epoch); return; }
+    const art = this._artGroup ? ensureGameArt(gameId).catch(() => {}) : null;
+    Promise.all([loadGame(gameId), art]).then(([mod]) => { this.module = mod; this.startGame(epoch); },
+      (e) => { if (epoch === this._loadEpoch && !this.leaving) this.crash(e); });
   }
 
   startGame(epoch) {
     if (epoch !== this._loadEpoch || this.leaving) return;
     this.state = this.meta.countdown === false ? 'play' : 'countdown';
     try {
-      this.game = new this.meta.module.Game(this.api);
+      this.game = new this.module.Game(this.api);
     } catch (e) { this.crash(e); }
     this.usesCamera = !!(this.game && this.game.drawHUD);
     this.drawsParticles = true; // particles go inside the camera (or right after the game)
@@ -245,6 +259,17 @@ export class PlayScene {
     ui.hints(g, [['a', 'Back to the game']], W / 2, py + ph - 40, { size: 36 });
   }
 
+  /** Countdowns for the game's time limits (api.limit): nothing ends on a clock nobody can see. */
+  drawLimits(g) {
+    for (const L of this.limits) {
+      let left = null;
+      try { left = L.left(); } catch (e) { left = null; }
+      if (left == null || !(left > 0) || left > L.showAt) continue;
+      ui.timer(g, left, L.x, L.y);
+      if (L.label) ui.text(g, L.label, L.x, L.y + 64, { size: 30, color: '#ffffff' });
+    }
+  }
+
   /** A compact controls legend in a free corner during play (meta.cornerControls). */
   drawCornerControls(g) {
     const cc = this.meta.cornerControls;
@@ -337,6 +362,7 @@ export class PlayScene {
       ui.banner(g, 'Oopsie!', this.t, { size: 150, color: '#ff6fb1' });
       ui.text(g, 'This game tripped over its shoelaces. Everyone gets a star!', W / 2, H / 2 + 130, { size: 40 });
     }
+    if ((this.state === 'play' || this.state === 'countdown') && !this.paused && !this.howto) this.drawLimits(g);
     if (this.state === 'play' && !this.paused && !this.howto) this.drawCornerControls(g);
     if (this.state === 'play' && this.skipping) {
       g.save(); g.fillStyle = 'rgba(36,22,63,0.35)'; g.fillRect(0, 0, W, H); g.restore();

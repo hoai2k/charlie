@@ -19,7 +19,7 @@ import { particles } from '../engine/particles.js';
 import { fx } from '../engine/fx.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
-import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist, later } from '../engine/util.js';
+import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist, later, showstopper } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape, drawEmote } from '../engine/emotes.js';
 import { THINGS, drawThing, thingWidth, SYNTH_FALLBACK } from './seek-and-find/things.js';
 import { SCENES, buildScene } from './seek-and-find/scenes.js';
@@ -41,51 +41,9 @@ const MAX_SPEED = 920;
 const snd = (key, fallback, o) => { if (hasSound(key)) sfx(key, o); else if (fallback) sfx(fallback, o); };
 function makeCanvas(w, h) { const c = document.createElement('canvas'); c.width = Math.round(w); c.height = Math.round(h); return c; }
 
-export const meta = {
-  id: 'seek-and-find',
-  title: 'Hide & Seek Picnic',
-  category: 'studio',
-  type: 'I spy · Together',
-  goal: 'Find everything in the picture list! Move your magnifying glass and spot them.',
-  controls: [['stick', 'Move your glass'], ['a', 'Spot it!'], ['y', 'Hint'], ['x', 'Big glass'], ['rb', 'Zoom']],
-  tips: ['Look behind bushes, trees and toys!', 'Watch closely: hiding friends wiggle and blink.', 'Stuck? Press Y for a hint ripple.'],
-  music: 'cozy',
-  duration: '3-5 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon(g, x, y, w, h, t) {
-    const sky = g.createLinearGradient(x, y, x, y + h);
-    sky.addColorStop(0, '#8fd8ff'); sky.addColorStop(0.55, '#e6f8ff'); sky.addColorStop(0.56, '#8fd86a'); sky.addColorStop(1, '#5cb845');
-    g.fillStyle = sky; g.fillRect(x, y, w, h);
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    // blanket
-    g.fillStyle = '#ffffff'; g.beginPath(); g.moveTo(x + w * 0.08, y + h * 0.78); g.lineTo(x + w * 0.5, y + h * 0.78); g.lineTo(x + w * 0.56, y + h); g.lineTo(x, y + h); g.fill();
-    g.fillStyle = 'rgba(255,77,109,0.55)'; for (let i = 0; i < 5; i++) g.fillRect(x + i * w * 0.11, y + h * 0.78, w * 0.055, h * 0.22);
-    // a bunny peeking over a bush
-    const bx = x + w * 0.32, by = y + h * 0.72;
-    drawThing(g, 'bunny', bx, by - h * 0.18, h * 0.42, t, { seed: 1 });
-    g.fillStyle = '#4fae47'; g.strokeStyle = NAVY; g.lineWidth = Math.max(3, h * 0.03);
-    g.beginPath(); for (const [cx, cy, r] of [[-0.12, 0, 0.11], [0, -0.05, 0.13], [0.12, 0, 0.11]]) { g.moveTo(bx + cx * w + r * h, by + cy * h); g.arc(bx + cx * w, by + cy * h, r * h, 0, TAU); }
-    g.stroke(); g.fill();
-    drawThing(g, 'ladybug', x + w * 0.16, y + h * 0.88, h * 0.12, t, { seed: 2 });
-    // the magnifying glass
-    const mx = x + w * 0.66 + Math.sin(t * 0.9) * w * 0.05, my = y + h * 0.42 + Math.cos(t * 1.1) * h * 0.04, r = h * 0.24;
-    g.save(); g.translate(mx, my); g.rotate(0.75);
-    g.fillStyle = NAVY; ui.roundRect(g, r * 0.9, -h * 0.05, r * 1.25, h * 0.1, h * 0.05); g.fill();
-    g.fillStyle = '#ff6fb1'; ui.roundRect(g, r * 1.0, -h * 0.035, r * 1.1, h * 0.07, h * 0.035); g.fill();
-    g.restore();
-    g.fillStyle = 'rgba(220,245,255,0.55)'; g.beginPath(); g.arc(mx, my, r, 0, TAU); g.fill();
-    drawThing(g, 'goldcupcake', mx, my + r * 0.05, r * 1.15, t, { seed: 3 });
-    g.lineWidth = h * 0.05; g.strokeStyle = NAVY; g.stroke(); g.lineWidth = h * 0.03; g.strokeStyle = '#ffd23f'; g.stroke();
-    g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.arc(mx - r * 0.35, my - r * 0.4, r * 0.18, 0, TAU); g.fill();
-    g.restore();
-    for (let i = 0; i < 4; i++) {
-      g.save(); g.globalAlpha = 0.5 + 0.5 * Math.sin(t * 3 + i * 1.7);
-      g.translate(x + w * (0.12 + i * 0.27), y + h * (0.15 + (i % 2) * 0.12)); drawSparkleShape(g, h * 0.08, '#ffffff'); g.restore();
-    }
-  },
-};
+import { meta } from './seek-and-find.meta.js';
+
+export { meta };
 
 const SCENE_ICON = ['sun', 'block', 'moon'];
 
@@ -668,10 +626,7 @@ export class Game {
     this.finished = true;
     const finds = this.seekers.map((s) => s.finds);
     // with kids playing, only a kid can be the Showstopper
-    const elig = this.humanSeekers.length ? this.seekers.map((s, i) => (s.p.isAI ? -1 : finds[i])) : finds;
-    const best = Math.max(...elig);
-    const tops = elig.filter((f) => f === best).length;
-    const highlight = this.n > 1 && best > 0 && tops === 1 ? elig.indexOf(best) : null;
+    const highlight = this.n > 1 ? showstopper(this.seekers.map((s) => s.p), finds) : null;
     this.api.finish({
       showcase: true, highlight,
       stats: finds.map((f) => `${f} find${f === 1 ? '' : 's'}`),

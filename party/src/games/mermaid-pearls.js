@@ -20,7 +20,8 @@ import { sfx, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, Brain, steer } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, approach, rand, randInt, pick, chance, TAU, dist, ease } from '../engine/util.js';
@@ -29,45 +30,9 @@ const NAVY = '#24163f';
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const poseOr = (n, fb) => (POSE_NAMES.includes(n) ? n : fb);
 
-export const meta = {
-  id: 'mermaid-pearls',
-  title: 'Mermaid Pearls',
-  category: 'molly',
-  type: 'Team',
-  goal: 'Swim and grab pearls to fill the treasure chest together!',
-  controls: [['stick', 'Swim'], ['a', 'Zoom! (and tickle the octopus)']],
-  tips: ['Swim into open clams to grab their pearls.', 'Press A next to the sleepy octopus to tickle it - it throws pearls!', 'Bubble currents whoosh you up. Wheee!'],
-  // Molly Easy: you swim by yourself (slowly) toward pearls; A zooms to grab them
-  goalEasy: 'You swim by yourself to the pearls. Press A to ZOOM and grab them!',
-  controlsEasy: [['a', 'Zoom! (and tickle the octopus)'], ['stick', 'Swim with either stick if you like']],
-  tipsEasy: ['Press A when the big A pops up: ZOOM!', 'Want a different pearl? Swim over with the stick, then press A!', 'Next to the sleepy octopus? Press A again and again to tickle it!'],
-  music: 'splash',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    t = t || 0;
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const gr = g.createLinearGradient(0, 0, 0, hh);
-    gr.addColorStop(0, '#7fe6ef'); gr.addColorStop(1, '#2f8fd0');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    g.save(); g.globalAlpha = 0.18; g.fillStyle = '#fff';
-    for (let i = 0; i < 4; i++) { g.beginPath(); g.moveTo(40 + i * 100, 0); g.lineTo(80 + i * 100, 0); g.lineTo(20 + i * 100, hh); g.lineTo(-20 + i * 100, hh); g.fill(); }
-    g.restore();
-    g.fillStyle = '#ffe6b8'; g.beginPath(); g.moveTo(0, hh); g.lineTo(0, hh * 0.85); g.quadraticCurveTo(200, hh * 0.76, 400, hh * 0.86); g.lineTo(400, hh); g.fill();
-    drawOctopus(g, 300, hh * 0.92, 0.42, t, Math.sin(t * 2) > 0.3);
-    drawClam(g, 110, hh * 0.9, 0.62, 0.5 + 0.5 * Math.sin(t * 2), t);
-    drawPearl(g, 110, hh * 0.9 - 30 - 6 * Math.sin(t * 2), 12, false, t);
-    for (let i = 0; i < 6; i++) { const by = ((hh - (t * 50 + i * 40) % hh) + hh) % hh; g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.arc(200 + Math.sin(t * 2 + i) * 12, by, 4 + (i % 3) * 2, 0, TAU); g.fill(); }
-    drawFish(g, 205 + Math.sin(t) * 40, hh * 0.35, 0.8, 0, Math.cos(t) > 0 ? 1 : -1, t);
-    drawFish(g, 60 + ((t * 40) % 300), hh * 0.2, 0.55, 2, 1, t);
-    g.restore();
-  },
-};
+import { meta } from './mermaid-pearls.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 60;
@@ -93,6 +58,8 @@ export class Game {
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0;
     this.timeLeft = DURATION;
+    // the swim clock, shown the whole game (the finale fills the chest without one)
+    api.limit(() => (this.finale || this.done ? null : this.timeLeft), { showAt: Infinity });
     this.done = false; this.finale = 0; this.storm = false; this.stormT = 0;
     this.target = Math.round(Math.min(175, 70 + 14 * (n - 1)));
     this.filled = 0; this.shown = 0; this.mile = 0;
@@ -512,16 +479,8 @@ export class Game {
   }
 
   pushApart(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const r = (A.a.radius + B.a.radius) * 0.6;
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.3, d = Math.hypot(dx, dy);
-      if (d < r && d > 0.01) {
-        const k = (r - d) / d * 0.5 * Math.min(1, dt * 12);
-        A.x -= dx * k; A.y -= dy * k / 1.3; B.x += dx * k; B.y += dy * k / 1.3;
-      }
-    }
+    // swimmers may brush past each other in the water: a little under the sprite's half-width
+    spread(this.ents, { radius: (e) => bodyRadius(e.a, 34, 0.32), yScale: 1.3, strength: Math.min(1, dt * 12) });
   }
 
   pop(e, str, color, size) {
@@ -638,10 +597,8 @@ export class Game {
   finish() {
     this.done = true;
     this.ents.forEach((e) => { e.a._once = null; e.a.setPose('celebrate'); e.a.emote('heart', 2); });
-    this.api.finish({
-      showcase: true,
+    this.api.finishTogether({
       title: this.full ? 'Treasure chest full!' : 'What a treasure!',
-      placements: this.ents.map(() => 1),
       stats: this.ents.map((e) => `${e.pearls} pearls`),
       focus: { x: CHEST.x - 200, y: CHEST.y - 220 },
     });
@@ -682,12 +639,15 @@ export class Game {
       g.strokeStyle = au.near ? '#ffd23f' : e.p.color; g.lineWidth = au.near ? 8 : 6; g.globalAlpha = au.near ? 0.7 + 0.3 * pulse : 0.6;
       g.beginPath(); g.arc(tg.x, tg.y, (tg.kind === 'octo' ? 90 : 56) + pulse * 8, 0, TAU); g.stroke();
       g.restore();
-      if (au.near) ui.glyph(g, 'a', e.x + e.a.facing * 70, e.a.y - e.a.height - 90 + Math.sin(t * 9) * 6, 84, { pulse: true });
+      if (au.near) {
+        const o = this.octo, target = tg.kind === 'octo' ? { x: o.x, y: o.y - 150 } : tg;
+        easyPrompt(g, e.p, { target, child: { x: e.x, y: e.a.y - e.a.height } });
+      }
     }
   }
 
   drawHUD(g) {
-    ui.timer(g, this.finale ? 0 : this.timeLeft);
+    // (the swim clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.pearls), { y: 22, avoidCenter: true, format: (v) => String(v) });
     // shared chest meter
     const w = 640, x = W / 2 - w / 2, y = 124;

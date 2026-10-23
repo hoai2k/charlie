@@ -44,21 +44,8 @@ const AI_AIM_ERR = [0.06, 0.03, 0.012];
 const AI_OFFSETS = [[0, -0.12, 0.12], [-0.24, -0.12, 0, 0.12, 0.24], [-0.4, -0.22, -0.1, 0, 0.1, 0.22, 0.4]];
 const SIM_BUDGET = 12;             // CPU shot simulations per frame (all CPUs together)
 
-export const meta = {
-  id: 'mini-golf',
-  title: 'Candy Mini-Golf',
-  category: 'party',
-  type: 'Everyone putts at once',
-  goal: 'Putt your ball into the cup before everyone else - 3 candy holes!',
-  controls: [['stick', 'Move the target: the longer the line, the harder the putt'], ['a', 'Putt!']],
-  tips: ['The first ball in the cup gets the most points!', 'Put the target on the cup to roll right up to it. Watch out for bumpers!', 'A hole in one wins a bonus!'],
-  music: 'gameon',
-  duration: '3 holes, about 60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) { D.drawIcon(g, x, y, w, h, t); },
-};
+import { meta } from './mini-golf.meta.js';
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -77,6 +64,11 @@ export class Game {
     this.frame = 0;
     this.hioT = -10; this.hioWho = null;
     this.over = false;
+    // each hole's clock, shown all game (full between holes, frozen on the hole summary)
+    api.limit(() => {
+      if (this.over) return null;
+      return this.phase === 'play' || this.phase === 'holeEnd' ? Math.max(0, HOLE_T - this.ht) : HOLE_T;
+    }, { showAt: Infinity, x: W / 2, y: 60 });
     this.units = this.players.map((p, i) => ({
       p, i, a: new Actor(p, { scale: this.scale }), pts: 0, timeBonus: 0, hio: 0, sunk: 0,
       ball: null, aim: 0, side: -1, turnHold: 0, ai: { phase: 'idle' }, guide: null,
@@ -707,8 +699,6 @@ export class Game {
   drawHUD(g) {
     const hole = this.hole;
     ui.scoreboard(g, this.players, this.units.map((U) => U.pts), { y: 18, avoidCenter: true, format: (v) => String(v), highlight: this.units.map((U) => U.done) });
-    const left = this.phase === 'play' || this.phase === 'holeEnd' || this.phase === 'over' ? Math.max(0, HOLE_T - this.ht) : HOLE_T;
-    ui.timer(g, left, this.timerX(), 60);
     // hole pill
     const label = `Hole ${this.holeIdx + 1} of ${HOLES.length}: ${hole.name}`;
     g.save(); g.font = `700 30px ${ui.FONT}`;
@@ -732,8 +722,6 @@ export class Game {
     if (this.phase === 'wipe') this.drawWipe(g, this.pt / 0.9);
   }
 
-  /** Centre of the gap ui.scoreboard leaves for the timer (it is off-centre for odd player counts). */
-  timerX() { return W / 2; }   // ui.scoreboard centres its gap
 
 
   drawMiniFlag(g, x, y) {

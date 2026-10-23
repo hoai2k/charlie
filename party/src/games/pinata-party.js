@@ -19,8 +19,9 @@ import { depthScale } from '../engine/camera.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, approach, rand, pick, chance, shuffle, TAU, ease, placementsFromScores } from '../engine/util.js';
+import { spread, bodyRadius } from '../engine/crowd.js';
 import {
-  NAVY, PINATAS, PINATA_KINDS, CANDY_R, BAR_Y, makeCracks, drawPinata, drawCandy, drawBat, buildBackground, drawIconArt,
+  NAVY, PINATAS, PINATA_KINDS, CANDY_R, BAR_Y, makeCracks, drawPinata, drawCandy, drawBat, buildBackground,
 } from './pinata-party/draw.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -44,29 +45,8 @@ const SCRAMBLE = 5.5;               // seconds between a burst and the next piñ
 const PS = 0.86;                    // piñata draw scale at size 1
 const ROUNDS = 3;
 
-export const meta = {
-  id: 'pinata-party',
-  title: 'Piñata Party',
-  category: 'party',
-  type: 'Free-for-all',
-  goal: 'Whack the swinging piñatas, then grab the most candy!',
-  controls: [['stick', 'Run around the yard'], ['a', 'Swing your party bat (X works too)'], ['b', 'Dash!']],
-  tips: [
-    'Swing when the piñata is over your ring - right in the middle is a big CRACK!',
-    'The hit that bursts it open gets +5 and a candy shower!',
-    'Golden candy is worth 5. Bonking a friend just makes them dizzy.',
-  ],
-  music: 'party',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    const th = art('thumb/pinata-party');
-    if (th) { g.drawImage(th, x, y, w, h); return; }
-    drawIconArt(g, x, y, w, h, t);
-  },
-};
+import { meta } from './pinata-party.meta.js';
+export { meta };
 
 let serial = 0;
 
@@ -92,6 +72,14 @@ export class Game {
     this.kindBag = [];
     this.bg = null;
     this.startRound(0, true);
+    api.limit(() => (this.over ? null : DURATION - this.t), { showAt: Infinity, x: W / 2, y: 62 });
+    // each piñata's own clock: the last few seconds before it tires out and bursts by itself
+    api.limit(() => {
+      if (this.over) return null;
+      let left = null;
+      for (const P of this.pinatas) if (P.state === 'hang') { const l = P.deadline + 1.6 - this.t; if (left === null || l < left) left = l; }
+      return left;
+    }, { showAt: 6.6, x: W / 2, y: 210, label: 'Piñata!' });
   }
 
   makeUnit(p, i) {
@@ -198,7 +186,7 @@ export class Game {
       if (U.p.isAI && !this.over) this.aiThink(U, dt);
       this.updateUnit(U, dt);
     }
-    this.collide();
+    this.collide(dt);
     this.updateCandies(dt);
     for (const U of this.units) U.a.update(dt);
     if (this.t >= DURATION && !this.over) this.endGame();
@@ -514,7 +502,7 @@ export class Game {
     if (!O.p.isAI) O.p.ctrl.rumble(0.6, 200);
   }
 
-  collide() {
+  collide(dt) {
     const U = this.units;
     const R = 30 * this.scale + 6;
     for (let i = 0; i < U.length; i++) {
@@ -527,6 +515,8 @@ export class Game {
         }
       }
     }
+    // personal space sized from the sprites (a softer push, so wide costumes don't pile up)
+    spread(U, { radius: (u) => Math.max(R, bodyRadius(u.a, R) * 0.8), yScale: 1.6, strength: Math.min(1, dt * 10) });
     for (const u of U) {
       u.x = clamp(u.x, ARENA.x0 + R, ARENA.x1 - R); u.y = clamp(u.y, ARENA.y0, ARENA.y1);
       u.a.x = u.x; u.a.y = u.y;
@@ -774,21 +764,6 @@ export class Game {
       sway: clamp(-P.vu / 900, -0.6, 0.6) * P.facing - theta * 0.5, gold: P.mega,
     });
     g.restore();
-    // its own clock: the last few seconds before it tires out and bursts by itself
-    const left = P.deadline + 1.6 - this.t;
-    if (P.state === 'hang' && left < 6.6) this.drawPinataClock(g, cx + 150 * s, cy - 150 * s, left, P.tired);
-  }
-
-  drawPinataClock(g, x, y, left, tired) {
-    const k = clamp(left / 6.6, 0, 1), r = 34;
-    const pulse = tired ? 1 + Math.max(0, Math.sin(this.t * 14)) * 0.12 : 1;
-    g.save(); g.translate(x, y); g.scale(pulse, pulse);
-    g.fillStyle = tired ? '#ff4d6d' : '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 5;
-    g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill(); g.stroke();
-    g.strokeStyle = tired ? '#ffe680' : '#ff6fb1'; g.lineWidth = 8; g.lineCap = 'round';
-    g.beginPath(); g.arc(0, 0, r - 9, -Math.PI / 2, -Math.PI / 2 + TAU * k); g.stroke();
-    ui.text(g, String(Math.max(1, Math.ceil(left))), 0, 2, { size: 34, color: tired ? '#fff' : NAVY, stroke: tired ? NAVY : false, strokeWidth: 5, weight: 800 });
-    g.restore();
   }
 
   drawRope(g, ax, ex, ey) {
@@ -803,7 +778,6 @@ export class Game {
     const scores = this.units.map((u) => u.score);
     const top = Math.max(...scores);
     ui.scoreboard(g, this.players, scores, { y: 18, avoidCenter: true, format: (v) => String(v), highlight: scores.map((s) => top > 0 && s === top && this.n > 1) });
-    ui.timer(g, DURATION - this.t, W / 2, 62);
     // which piñata
     const label = this.round >= ROUNDS ? 'Bonus piñata!' : `Piñata ${this.round + 1} of ${ROUNDS}`;
     g.save(); ui.panel(g, W / 2 - 120, 112, 240, 42, { r: 21, fill: this.round === ROUNDS - 1 ? '#ffe680' : '#ffffff', lineWidth: 4 });

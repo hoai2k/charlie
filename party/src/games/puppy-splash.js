@@ -25,50 +25,13 @@ import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later } from
 import {
   NAVY, POOL, PUDDLES, PORCH_Y, BREEDS, drawPuppy, drawMud, makeBlobs, drawBackyard, drawPuddle, drawPool, drawBed, drawNozzle,
 } from './puppy-splash/art.js';
+import { meta } from './puppy-splash.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const poseName = (n) => (POSE_NAMES.includes(n) ? n : n === 'hose-spray' ? 'action' : 'idle');
 
-export const meta = {
-  id: 'puppy-splash',
-  title: 'Puppy Splash',
-  category: 'molly',
-  type: 'Team up',
-  goal: 'Splash the muddy puppies until they are clean and fluffy!',
-  controls: [['stick', 'Run and aim'], ['a', 'Hold to spray water']],
-  tips: ['Hold A near a muddy puppy - the water finds it!', 'Run through the bubble pool for a bubble hose.', 'Clean puppies shake - watch out, you get wet!'],
-  music: 'party',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const thumb = art('thumb/puppy-splash');
-    if (thumb) { g.drawImage(thumb, x, y, w, h); g.restore(); return; }
-    const s = w / 400;
-    g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const gr = g.createLinearGradient(0, 0, 0, hh);
-    gr.addColorStop(0, '#9fd6f5'); gr.addColorStop(0.25, '#9fd6f5'); gr.addColorStop(0.26, '#d9a46a'); gr.addColorStop(0.4, '#d9a46a'); gr.addColorStop(0.41, '#7fd66e'); gr.addColorStop(1, '#55c25a');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    // water arc
-    g.save(); g.lineCap = 'round';
-    for (const [c, lw] of [['rgba(127,211,255,0.9)', 22], ['#ffffff', 8]]) {
-      g.strokeStyle = c; g.lineWidth = lw; g.beginPath(); g.moveTo(70, hh * 0.62); g.quadraticCurveTo(160, hh * 0.3, 250, hh * 0.58); g.stroke();
-    }
-    g.restore();
-    for (let i = 0; i < 10; i++) { const a = t * 3 + i; g.fillStyle = i % 2 ? '#ffffff' : '#9fe0ff'; g.beginPath(); g.arc(255 + Math.cos(a) * (20 + i * 4), hh * 0.58 + Math.sin(a) * 18, 5, 0, TAU); g.fill(); }
-    g.save(); g.translate(60, hh * 0.68); g.scale(1.1, 1.1); drawNozzle(g); g.restore();
-    g.save(); g.translate(290, hh * 0.92); g.scale(-0.95, 0.95); drawPuppy(g, { breed: 0, mud: 0.6, t, run: 0, wag: true, tongue: true }); drawMud(g, ICON_BLOBS, 0.6, t); g.restore();
-    g.save(); g.translate(140, hh * 0.95); g.scale(0.7, 0.7); g.rotate(Math.sin(t * 30) * 0.08); drawPuppy(g, { breed: 1, mud: 0, t, shake: 1, eyesShut: true }); g.restore();
-    for (let i = 0; i < 6; i++) { const a = (i / 6) * TAU + t; g.fillStyle = '#bfeaff'; g.beginPath(); g.arc(160 + Math.cos(a) * 70, hh * 0.78 + Math.sin(a) * 40, 6, 0, TAU); g.fill(); }
-    g.restore();
-  },
-};
+export { meta };
 
-const ICON_BLOBS = makeBlobs(9);
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 50;

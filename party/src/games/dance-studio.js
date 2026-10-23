@@ -19,25 +19,11 @@ import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU } fr
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   NAVY, MOVES, MOVE, MUSIC, LIGHTS, STAGES, rgba, mix,
-  drawBackdrop, drawFloor, drawLights, drawCurtains, drawMirrorBall, drawMovePicto, drawStudio, drawThumb,
-} from './dance-studio/stage.js';
+  drawBackdrop, drawFloor, drawLights, drawCurtains, drawMirrorBall, drawMovePicto, drawStudio, } from './dance-studio/stage.js';
 
-export const meta = {
-  id: 'dance-studio',
-  title: 'Dance Studio',
-  category: 'studio',
-  type: 'Make a dance · Everyone wins',
-  goal: 'Make up your own dance, pick the music, lights and stage, then put on a show together!',
-  controls: [['stick', 'Pick a beat (1 to 8)'], ['dpad', 'Pick a dance move'], ['a', 'Put the move in, or pick one up to move it'], ['b', 'Take a move out'], ['lb', 'Steps: moves, music, lights, stage (LB / RB)'], ['y', 'Surprise me!']],
-  tips: ['Every card is one beat. Fill all 8 beats!', 'In the show everybody dances YOUR dance together.', 'Free dance at the end: every button is a pose!'],
-  music: 'dance',
-  duration: 'about 3 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  flyIn: false,
-  drawIcon,
-};
+import { meta } from './dance-studio.meta.js';
+
+export { meta };
 
 const TABS = [
   { id: 'moves', name: 'Moves' },
@@ -189,6 +175,8 @@ export class Game {
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
+    // The gentle making clock (the play scene draws its last 40 s).
+    api.limit(() => (this.phase === 'make' && !this.cpuOnly ? Math.max(0, this.setupLeft) : null), { showAt: 40, x: this.n <= 2 ? W / 2 + 520 : W / 2 + 470, y: 56 });
     sfx('magic'); snd('jingle/round', null, { vol: 0.7 });
   }
 
@@ -819,7 +807,7 @@ export class Game {
       if (counts.size >= 6) return `${counts.size} different moves!`;
       return `${MOVES[top[0]].name} ×${top[1]} · ${STAGES[st.stage].name}`;
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'What a show!', focus: { x: W / 2, y: 700 } });
+    this.api.finishTogether({ stats, title: 'What a show!', focus: { x: W / 2, y: 700 } });
   }
 
   onDone() {
@@ -866,10 +854,6 @@ export class Game {
     if (this.n <= 2) {
       ui.hints(g, [['lb', ''], ['rb', 'Steps']], 230, 56, { size: 34 });
       ui.hints(g, [['y', 'Surprise!']], W - 210, 56, { size: 34 });
-    }
-    if (!this.cpuOnly && this.setupLeft < 40) {
-      const x = this.n <= 2 ? W / 2 + 520 : W / 2 + 470;
-      ui.timer(g, Math.max(0, this.setupLeft), x, 56);
     }
   }
 
@@ -1299,6 +1283,3 @@ export class Game {
 
 function pick2(arr, i) { return arr[mod(i * 7 + 3, arr.length)]; }
 
-function drawIcon(g, x, y, w, h, t) {
-  drawThumb(g, x, y, w, h, t || 0);
-}

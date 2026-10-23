@@ -21,7 +21,7 @@ import { drawHeartShape } from '../engine/emotes.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, BUNNIES, ROPE_COLORS, GOLD_ROPE, drawBunny, drawHandle, strokeRope, ghostRope,
-  buildBackground, drawClouds, drawThumb,
+  buildBackground, drawClouds,
 } from './jump-rope/art.js';
 
 const DURATION = 50;
@@ -70,25 +70,8 @@ const wrapPi = (a) => { a = wrap(a); return a > Math.PI ? a - TAU : a; };
 const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 0.5;
 const rhoAt = (s, R) => HAND_R + R * Math.pow(Math.max(0, Math.sin(Math.PI * clamp(s, 0, 1))), EXP);
 
-export const meta = {
-  id: 'jump-rope',
-  title: 'Jump Rope Jamboree',
-  category: 'party',
-  type: 'Survival',
-  goal: 'Hop over the giant jump rope - last one jumping wins!',
-  controls: [['a', 'Jump']],
-  tips: [
-    'Jump when the shrinking circle meets your ring and the rope shadow reaches your feet!',
-    'Getting tangled costs a heart. Lose all 3 and you cheer from the blanket.',
-    'Watch out for tricks: Double Dutch, a sneaky slow-down and Super Speed! Golden ropes give a heart back.',
-  ],
-  music: 'bouncy',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) { drawThumb(g, x, y, w, h, t); },
-};
+import { meta } from './jump-rope.meta.js';
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -98,6 +81,7 @@ export class Game {
     this.n = n;
     this.t = 0; this.pre = 0;
     this.over = false; this.endAt = -1;
+    api.limit(() => (this.over ? null : DURATION - this.t), { showAt: Infinity });
     this.rows = n >= 5 ? 2 : 1;
     this.R = this.rows === 2 ? 245 : 215;
     this.bpm = BPM_FALLBACK;
@@ -804,7 +788,6 @@ export class Game {
   // --- HUD (screen space) ----------------------------------------------------------
   drawHUD(g) {
     this.drawChips(g);
-    ui.timer(g, DURATION - this.t);
     if (this.banner && this.banner.t < 1.8) {
       const b = this.banner;
       g.save(); g.globalAlpha = 1 - clamp((b.t - 1.4) / 0.4, 0, 1);

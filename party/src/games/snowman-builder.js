@@ -16,28 +16,15 @@ import { art } from '../engine/art.js';
 import { aiProfile, steer } from '../engine/ai.js';
 import { clamp, lerp, rand, randInt, pick, chance, ease, TAU } from '../engine/util.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
-import { drawHeartShape } from '../engine/emotes.js';
 import {
   NAVY, ITEMS, ITEM, itemDef, MIN_STACK_R, MAX_R, KY, newSnowman, ballCenters, stackTop, stackHeight,
   itemPos, attachAt, makeItem, itemHit, drawBall, drawShadow, drawSnowman, drawItem, drawItemIcon,
   sparkleAt, lerpAngle,
 } from './snowman-builder/snowman.js';
 
-export const meta = {
-  id: 'snowman-builder',
-  title: 'Snowman Builder',
-  category: 'studio',
-  type: 'Roll & decorate · Everyone wins',
-  goal: 'Roll snowballs that grow bigger, stack them into a snowman, then dress it up and watch it come alive!',
-  controls: [['stick', 'Push your snowball / move your hand'], ['a', 'Stack it! Then: add a decoration, or pick one up'], ['dpad', 'Pick a decoration (X on keyboard)'], ['b', 'Take a decoration off'], ['y', 'Surprise me!']],
-  tips: ['Roll through fresh white snow to grow fast. Big ball first!', 'Push your snowball onto the snowman spot and press A to stack it.', 'Press A on a decoration to move it. B takes it off.'],
-  music: 'chill',
-  duration: 'about 3 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+import { meta } from './snowman-builder.meta.js';
+
+export { meta };
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const ROLL_POSE = POSES['roll-push'] ? 'roll-push' : 'walk';
@@ -74,6 +61,12 @@ export class Game {
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
+    // Soft limits (the play scene draws them): rolling, then each yard's decorating.
+    api.limit(() => (this.phase === 'build' && this.stations.some((s) => s.mode === 'roll') ? Math.max(0, ROLL_TIME - this.t) : null), { showAt: 25, x: W - 120, y: 56 });
+    for (const st of this.stations) {
+      api.limit(() => (this.phase === 'build' && st.mode === 'deco' && !st.ready ? Math.max(0, DECO_TIME - (this.t - st.decoStart)) : null),
+        { showAt: 20, x: st.r.x + (st.r.w - this.listW(st)) / 2, y: st.r.y + 62, label: 'Showtime!' });
+    }
     this.flakes = Array.from({ length: 110 }, () => ({ x: rand(W), y: rand(H), s: rand(2, 6), v: rand(30, 80), ph: rand(TAU) }));
     this.stars = Array.from({ length: 90 }, () => ({ x: rand(W), y: rand(20, 640), s: rand(1.5, 4), ph: rand(TAU) }));
     this.banner = { text: 'Roll a snowball!', t: 0 };
@@ -778,7 +771,7 @@ export class Game {
       else { const n = Math.max(1, Math.round(st.rolled / 60)); bits.push(`Rolled ${n} step${n === 1 ? '' : 's'}`); }
       return bits.join(' · ');
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Snow-tastic!' });
+    this.api.finishTogether({ stats, title: 'Snow-tastic!' });
   }
 
   onDone() {
@@ -823,9 +816,8 @@ export class Game {
     this.drawMiniSnowman(g, W / 2 - 385, 92, 0.42);
     this.drawMiniSnowman(g, W / 2 + 385, 92, 0.42);
     const left = this.t < ROLL_TIME ? ROLL_TIME - this.t : 0;
-    if (left > 0 && left < 25 && this.stations.some((s) => s.mode === 'roll')) {
-      ui.timer(g, left, W - 120, 56);
-    } else if (this.n <= 2 && this.stations.some((s) => s.mode === 'deco' && !s.ready && !s.p.isAI)) {
+    // (the rolling clock shows there instead: api.limit)
+    if (!(left > 0 && left < 25 && this.stations.some((s) => s.mode === 'roll')) && this.n <= 2 && this.stations.some((s) => s.mode === 'deco' && !s.ready && !s.p.isAI)) {
       ui.hints(g, [['y', 'Surprise!']], W - 200, 56, { size: 34 });
     }
     for (const st of this.stations) this.drawStation(g, st);
@@ -1074,14 +1066,6 @@ export class Game {
         else { g.save(); g.setLineDash([4, 4]); g.lineWidth = 2.5; g.strokeStyle = 'rgba(36,22,63,0.4)'; g.beginPath(); g.arc(cx, y, rr, 0, TAU); g.stroke(); g.restore(); }
       }
       px += w + 10;
-      const left = ROLL_TIME - this.t;
-      if (st.mode === 'roll' && left < 20 && left > 0 && this.n > 1) ui.text(g, `${Math.ceil(left)}`, px + 22, y + 1, { size: sz * 0.8, color: left < 6 ? '#ff4d6d' : '#fff' });
-    } else if (st.mode === 'deco' && !st.ready) {
-      const left = DECO_TIME - (this.t - st.decoStart);
-      if (left < 20) {
-        ui.panel(g, px, y - sz / 2, sz * 3.4, sz, { r: sz / 2, fill: left < 6 ? '#ff4d6d' : '#ffffff', lineWidth: 3, shadow: false });
-        ui.text(g, `Showtime ${Math.ceil(left)}`, px + sz * 1.7, y + 1, { size: sz * 0.5, color: left < 6 ? '#fff' : NAVY, stroke: false, weight: 800 });
-      }
     }
   }
 
@@ -1299,53 +1283,4 @@ export class Game {
     const n = this.n, wakeAt = (i) => 1.6 + i * Math.min(0.5, 3 / n);
     return wakeAt(n - 1) + 1.0 + 5.5 + 3;
   }
-}
-
-// --- menu / how-to thumbnail --------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  if (art('thumb/snowman-builder')) { g.drawImage(art('thumb/snowman-builder'), x, y, w, h); return; }
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = Math.min(w / 800, h / 500);
-  const sky = g.createLinearGradient(x, y, x, y + h);
-  sky.addColorStop(0, '#7cc0ff'); sky.addColorStop(0.6, '#d7eeff'); sky.addColorStop(1, '#ffffff');
-  g.fillStyle = sky; g.fillRect(x, y, w, h);
-  g.fillStyle = '#e3eefc'; g.beginPath(); g.moveTo(x, y + h * 0.62);
-  for (let xx = 0; xx <= w; xx += 20) g.lineTo(x + xx, y + h * 0.56 - Math.sin(xx / w * 6 + 1) * 18 * s);
-  g.lineTo(x + w, y + h); g.lineTo(x, y + h); g.closePath(); g.fill();
-  g.fillStyle = '#f8fbff'; g.fillRect(x, y + h * 0.66, w, h * 0.34);
-  // a grassy track to the rolling ball
-  g.strokeStyle = 'rgba(146,198,128,0.6)'; g.lineWidth = 40 * s; g.lineCap = 'round';
-  g.beginPath(); g.moveTo(x + w * 0.98, y + h * 0.95); g.quadraticCurveTo(x + w * 0.85, y + h * 0.78, x + w * 0.74, y + h * 0.86); g.stroke();
-  // the snowman
-  const sm = newSnowman(0, 0);
-  sm.balls = [{ r: 82 }, { r: 60 }, { r: 44 }];
-  const cs = ballCenters(sm);
-  const add = (kind, c, u, v, extra = {}) => { const att = attachAt(sm, cs[c].x + u * cs[c].r, cs[c].y + v * cs[c].r, kind); if (att) sm.items.push({ ...makeItem(kind), ...att, ...extra }); };
-  add('arm', 1, -0.86, -0.25); add('arm', 1, 0.86, -0.25);
-  add('coal', 2, -0.33, -0.2); add('coal', 2, 0.33, -0.2); add('carrot', 2, -0.05, 0.08); add('smile', 2, 0, 0.42);
-  add('cheek', 2, -0.55, 0.22); add('cheek', 2, 0.55, 0.22);
-  add('bobble', 2, 0, -0.97, { color: '#ff4d6d' }); add('scarf', 1, 0, -0.8, { color: '#3fa7ff' });
-  for (let j = 0; j < 3; j++) add('button', 1, 0, -0.2 + j * 0.32);
-  add('bird', 1, 0.5, -0.95);
-  const k = 1.1 * s;
-  g.save(); g.translate(x + w * 0.42, y + h * 0.92); g.scale(k, k);
-  drawSnowman(g, sm, 0, 0, { t, anim: { hop: Math.abs(Math.sin(t * 3)) * 8, wave: 0.8, sway: Math.sin(t * 1.5) * 4, flap: 1 } });
-  g.restore();
-  // the rolling snowball and its pusher
-  g.save(); g.translate(x + w * 0.76, y + h * 0.88); g.scale(s, s);
-  drawShadow(g, 0, 0, 56);
-  drawBall(g, 0, -56, 56, { spin: t * 3, dir: Math.PI, seed: 4 });
-  g.restore();
-  drawPortrait(g, 'fox', x + w * 0.9, y + h * 0.66, 62 * s, { ring: '#ff9f1c', ringWidth: 6 * s, expr: 'happy' });
-  for (let i = 0; i < 26; i++) {
-    const fx2 = x + ((i * 157 + t * 30 * (1 + (i % 3))) % w), fy = y + ((i * 89 + t * 50 * (1 + (i % 2))) % h);
-    g.fillStyle = 'rgba(255,255,255,0.9)'; g.beginPath(); g.arc(fx2, fy, (2 + (i % 3)) * s * 1.6, 0, TAU); g.fill();
-  }
-  for (let i = 0; i < 4; i++) {
-    const u = (t * 0.4 + i / 4) % 1;
-    g.save(); g.globalAlpha = Math.sin(u * Math.PI); g.translate(x + w * (0.2 + i * 0.07), y + h * (0.45 - u * 0.3));
-    drawHeartShape(g, 26 * s, '#ff6fb1'); g.restore();
-  }
-  g.restore();
 }

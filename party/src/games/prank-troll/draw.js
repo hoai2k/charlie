@@ -438,25 +438,3 @@ export function drawMirror(g, x, y, s, t) {
   g.fillStyle = '#ffffff'; g.globalAlpha = 0.8; g.beginPath(); g.ellipse(-14, -18, 7, 18, 0.4, 0, TAU); g.fill();
   g.restore();
 }
-
-// --- thumbnail -----------------------------------------------------------------------------------
-export function drawIcon(g, x, y, w, h, t = 0) {
-  g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-  g.translate(x, y); g.scale(w / 800, h / 500);
-  g.drawImage(meadowBackground(), 560, 0, 800, 500, 0, 0, 800, 500);
-  g.save(); g.translate(400 - 960 * 0.62, 520 - 720 * 0.62); g.scale(0.62, 0.62);
-  const P = { tache: 2, flowers: ['#ff7ac6', '#ffd23f', '#7fc8ff', '#ffffff'], bows: 2, hats: 1, glitter: 2, toes: 6 };
-  drawTroll(g, { eyeL: 0, eyeR: 0, look: 0, mouth: 0.5 + Math.sin(t * 2) * 0.3, sway: 0, breath: Math.sin(t * 2), tickle: 1 }, P, t, null, null);
-  g.restore();
-  // Zzz
-  for (let k = 0; k < 3; k++) {
-    const zt = (t * 0.5 + k / 3) % 1;
-    g.save(); g.globalAlpha = Math.sin(zt * Math.PI);
-    g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 6; g.font = `900 ${40 + zt * 30}px Fredoka, sans-serif`;
-    g.strokeText('Z', 560 + zt * 80, 120 - zt * 90); g.fillText('Z', 560 + zt * 80, 120 - zt * 90);
-    g.restore();
-  }
-  drawBush(g, 130, 470, 150, 170, 1, t, 1);
-  drawItem(g, 'crayon', 690, 380, 1.2, t);
-  g.restore();
-}

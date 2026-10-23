@@ -21,10 +21,12 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
+import { easyPrompt } from '../engine/easy.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 
 const NAVY = '#24163f';
 const PLAY_T = 45;            // stacking time; then the birthday finale
+const BREEZE_T = 8;           // blowing time; then a magic breeze puts out the last candles
 const GOLDEN_AT = 22;         // Golden Time: everyone's next cupcake is golden
 const GROUND = 950;           // lawn / cake stand foot (world y)
 const STAND_X = W / 2;
@@ -49,60 +51,9 @@ const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const gauss = () => { let u = 0; while (!u) u = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * Math.random()); };
 const hash = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 
-export const meta = {
-  id: 'cupcake-stack',
-  title: 'Cupcake Tower',
-  category: 'molly',
-  type: 'Build together',
-  goal: 'Stack the tallest cupcake tower in the world together!',
-  controls: [['a', 'Drop your cupcake']],
-  tips: [
-    'Drop it when your fairy is over the tower. Right on top = sparkly Perfect!',
-    'Sticky icing: crooked cupcakes still stick. The tower just giggles!',
-    'At the end, press A again and again to blow out the birthday candles!',
-  ],
-  goalEasy: 'Stack the tallest cupcake tower together - press A to drop your cupcake!',
-  controlsEasy: [['a', 'Drop your cupcake']],
-  tipsEasy: [
-    'Your fairy flies by herself. Press A when the arrow and the A show up!',
-    'Crooked cupcakes still stick. The tower just giggles!',
-    'At the end, press A again and again to blow out the candles!',
-  ],
-  music: 'bouncy',
-  duration: '55 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const img = art('thumb/cupcake-stack');
-    if (img) { g.drawImage(img, x, y, w, h); return; }
-    t = t || 0;
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const gr = g.createLinearGradient(0, 0, 0, hh);
-    gr.addColorStop(0, '#ffb3d9'); gr.addColorStop(1, '#9fdcff');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    ui.cloud(g, 70, hh * 0.25, 0.45, '#fff', 0.9); ui.cloud(g, 330, hh * 0.15, 0.4, '#fff', 0.9);
-    g.fillStyle = '#7ed68a'; g.fillRect(0, hh * 0.88, 400, hh);
-    drawStand(g, 200, hh * 0.94, 0.42);
-    const base = hh * 0.94 - 228 * 0.42;
-    for (let i = 0; i < 4; i++) {
-      const off = Math.sin(t * 3 + i * 0.7) * i * 2.2;
-      g.save(); g.translate(200 + off + (i % 2 ? 6 : -5), base - i * CUP_H * 0.42); g.scale(0.42, 0.42); g.rotate((i % 2 ? 0.08 : -0.06));
-      drawCupcake(g, FLAVORS[i], WRAPS[i], { happy: true, t });
-      if (i === 3) { drawCandle(g, -24, -82, -0.3, true, t); drawCherry(g, 28, -80, 0.35); }
-      g.restore();
-    }
-    // a falling one with a fairy
-    const fx0 = 200 + Math.sin(t * 2.2) * 80;
-    g.save(); g.translate(fx0, base - 4 * CUP_H * 0.42 - 70); g.scale(0.42, 0.42);
-    drawCupcake(g, 'gold', '#e8a81c', { happy: true, t, gold: true });
-    g.restore();
-    drawFairyProc(g, fx0, base - 4 * CUP_H * 0.42 - 118, 0.75, 'pink', t, 1);
-    g.restore();
-  },
-};
+import { meta } from './cupcake-stack.meta.js';
+
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -122,6 +73,9 @@ export class Game {
     this.gusts = [];
     this.topper = null;
     this.finished = false;
+    // the stacking clock (shown the whole time), and the candle-blowing window before the magic breeze
+    api.limit(() => (this.phase === 'play' ? Math.max(0, PLAY_T - this.time) : null), { showAt: Infinity });
+    api.limit(() => (this.phase === 'blow' ? Math.max(0, BREEZE_T - this.ph) : null), { showAt: Infinity, x: W - 200, y: 400 });   // right side, under the tower counter
     this.humans = this.players.some((p) => !p.isAI);
     if (api.camera) { this._clampWas = api.camera.clampToStage; api.camera.clampToStage = false; }
     this.cam = { x: W / 2, y: H / 2, z: 1 };
@@ -463,7 +417,7 @@ export class Game {
         if (e.p.ctrl.pressed('a')) this.blow(e);
       }
       const lit = this.candles.filter((c) => c.lit && !c.target);
-      if (this.ph > 8 && lit.length) {
+      if (this.ph > BREEZE_T && lit.length) {
         // a big magic breeze helps with the last ones
         for (const c of lit) { c.lit = false; this.puffOut(c, null); }
         sfx('whoosh'); fx.shake(6, 0.2);
@@ -547,8 +501,7 @@ export class Game {
     this.finished = true;
     // one shared tower: everybody wins together, the team total is the headline
     const len = this.tower.length;
-    this.api.finish({
-      placements: this.ents.map(() => 1), showcase: true, highlight: null,
+    this.api.finishTogether({
       title: `${len} cupcake${len === 1 ? '' : 's'} tall!`,
       stats: this.ents.map((e) => `${e.cups} cupcake${e.cups === 1 ? '' : 's'}`),
       focus: { x: STAND_X, y: this.topY - 120, zoom: 1.15 },
@@ -582,7 +535,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    if (this.phase === 'play') ui.timer(g, PLAY_T - this.time);
+    // (the clocks are api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 18, avoidCenter: this.phase === 'play', format: (v) => v });
     // shared tower counter: the team's score (right side, below the player chips)
     const len = this.tower.length;
@@ -690,7 +643,7 @@ export class Game {
       if (over) {
         g.save(); g.translate(s.x, s.y + 40 + Math.abs(Math.sin(t * 10)) * 14); g.fillStyle = '#ffffff'; g.strokeStyle = NAVY; g.lineWidth = 4;
         g.beginPath(); g.moveTo(-18, 0); g.lineTo(18, 0); g.lineTo(0, 22); g.closePath(); g.fill(); g.stroke(); g.restore();
-        if (this.easy && !e.p.isAI) ui.glyph(g, 'a', s.x + 70, s.y - 10, 56, { pulse: true });
+        if (this.easy && !e.p.isAI) easyPrompt(g, e.p, { target: { x: s.x, y: s.y }, child: { x: s.x, y: fyY - 30 } });
       }
       const ps = 1 + s.pop * 0.5;
       g.save(); g.translate(s.x, s.y); g.scale(ps, ps); g.rotate(Math.sin(t * 6 + e.i) * 0.06);

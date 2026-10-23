@@ -21,15 +21,15 @@ import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer, mash } from '../engine/ai.js';
 import { bodyRadius, claimed, spread } from '../engine/crowd.js';
-import { easySteer, easyManual } from '../engine/easy.js';
+import { easySteer, easyManual, easyNearest, easyPrompt } from '../engine/easy.js';
 import { clamp, lerp, rand, pick, chance, TAU, ease, placementsFromScores, dist, later } from '../engine/util.js';
 import {
   NAVY, GUESTS, GUEST_KINDS, GATES, drawGuest, drawGuestFx, guestHeadTop, drawHat, drawTable, drawChairBack, drawChairFront, CHAIR_SEAT,
   drawThrone, drawThroneFront, THRONE_SEAT, drawCushion, drawBasket, drawButler, drawFrog, drawMoon, drawPuff, drawGarden,
 } from './whoopee-tea/art.js';
+import { meta } from './whoopee-tea.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -66,50 +66,7 @@ const MOON = { x: 1640, y: 230 };
 // sneaking with a cushion: the requested `tiptoe` pose once it exists, else `carry`
 const SNEAK = POSES.tiptoe ? 'tiptoe' : 'carry';
 
-export const meta = {
-  id: 'whoopee-tea',
-  title: 'Whoopee Tea Party',
-  category: 'molly',
-  type: 'Cheeky pranks',
-  goal: 'Sneak whoopee cushions onto the chairs before the posh guests sit down. PFFFT!',
-  controls: [['stick', 'Run'], ['a', 'Grab a cushion / put it on a chair']],
-  tips: ['A glowing chair means a guest is coming!', 'The butler takes cushions back. Run!', 'At the end, push the golden cushion to the throne!'],
-  // Molly Easy: you walk all by yourself (or steer with the stick); A does the
-  // prank when the big A shows, and A anywhere else walks you to the next thing
-  goalEasy: 'Walk to the basket, then to a chair. Press A when the A shows. PFFFT!',
-  controlsEasy: [['a', 'Grab a cushion / put it on a chair'], ['stick', 'Run anywhere you like (or let it walk you)']],
-  tipsEasy: ['You walk all by yourself, or run with either stick!', 'Press A when the big A bounces.', 'At the end, tap A to push the golden cushion!'],
-  music: 'sneaky',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    if (drawArt(g, 'thumb/whoopee-tea', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) return;
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#9fdcff'); gr.addColorStop(0.45, '#dff4ff'); gr.addColorStop(0.46, '#58b56a'); gr.addColorStop(0.6, '#9fe08a'); gr.addColorStop(1, '#7fcf72');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    const s = h / 500;
-    const k = (t * 0.7) % 1, jump = k < 0.5 ? Math.sin(k / 0.5 * Math.PI) : 0;
-    // the Duchess jolting up off a whoopee cushion on her throne
-    g.save(); g.translate(x + w * 0.42, y + h * 0.97); g.scale(s, s);
-    drawThrone(g, 0, 0, t);
-    drawThroneFront(g, 0, 0);
-    drawCushion(g, 0, -THRONE_SEAT - 4, 140, { golden: true, flat: true, t });
-    drawGuest(g, 'duchess', 0, -THRONE_SEAT - jump * 70, 230, k < 0.5 ? 'shock' : 'scold', { t, hat: false, monocle: k > 0.5 });
-    if (k >= 0.5) drawGuestFx(g, 'duchess', 0, -THRONE_SEAT, 230, 'scold', ['steam', 'scold'], t, 1);
-    g.restore();
-    if (jump > 0) {
-      drawPuff(g, x + w * 0.42, y + h * 0.74, h * 0.4, jump);
-      drawHat(g, 'duchess', x + w * (0.42 + k * 0.6), y + h * (0.3 - k * 0.5), h * 0.28, k * 12);
-      ui.text(g, 'PFFFT!', x + w * 0.75, y + h * 0.3, { size: h * 0.16, color: '#ff7ac6', strokeWidth: h * 0.03 });
-    }
-    // a giggling cushion in the corner (the pranksters are the ones laughing)
-    drawCushion(g, x + w * 0.85, y + h * 0.82 + Math.sin(t * 5) * h * 0.02, h * 0.28, { sq: Math.sin(t * 8) * 0.15 });
-    g.restore();
-  },
-};
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -122,6 +79,8 @@ export class Game {
     this.time = 0;
     this.done = false;
     this.phase = 'party';      // party | super | finale
+    // the tea-time clock, shown all game: at 0 the Duchess sits down
+    api.limit(() => (this.phase === 'finale' || this.done ? null : Math.max(0, FINALE_AT - this.time)), { showAt: Infinity });
     this.scale = n <= 4 ? 1 : n <= 6 ? 0.9 : 0.82;
     this.banner = null;
     this.tables = TABLES.map((tb, i) => ({ ...tb, i, jump: 0, jelly: 0, frog: null }));
@@ -1064,7 +1023,8 @@ export class Game {
         else if (act.kind === 'heave') { x = act.target.x; y = act.target.y - 200; }
         else if (act.kind === 'hide') { x = act.target.x - 80; y = act.target.y - 230; }
         else { x = act.target.x; y = act.target.y - 150; }
-        ui.glyph(g, 'a', x, y + Math.sin(t * 8) * 5, e.auto ? 84 : 60, { pulse: true });
+        if (e.auto) easyPrompt(g, e.p, { target: { x, y: y + 30 }, child: { x: e.x, y: e.y - e.a.height - (e.held ? 70 : 0) } });
+        else ui.glyph(g, 'a', x, y + Math.sin(t * 8) * 5, 60, { pulse: true });
         if (act.kind === 'place') { g.save(); g.strokeStyle = e.p.color; g.lineWidth = 6; g.beginPath(); g.ellipse(act.target.x, act.target.y - CHAIR_SEAT, 70, 20, 0, 0, TAU); g.stroke(); g.restore(); }
         continue;
       }
@@ -1072,11 +1032,11 @@ export class Game {
       let tx = null, ty = null;
       if (this.phase === 'super' && this.golden && !this.golden.arrived) { tx = this.golden.x; ty = this.golden.y - 210; }
       else if (this.phase === 'party' && !e.held) {
-        const b = BASKETS.reduce((best, k) => (dist(k.x, k.y, e.x, e.y) < dist(best.x, best.y, e.x, e.y) ? k : best));
+        const b = easyNearest(e.x, e.y, BASKETS);
         tx = b.x; ty = b.y - 190;
       } else if (this.phase === 'party' && e.held === 'cushion') {
         const coming = this.chairs.filter((c) => c.guest && c.guest.state === 'walk' && !c.cushion);
-        if (coming.length) { const c = coming.reduce((b, k) => (dist(k.x, k.y, e.x, e.y) < dist(b.x, b.y, e.x, e.y) ? k : b)); tx = c.x; ty = c.y - CHAIR_SEAT - 70; }
+        if (coming.length) { const c = easyNearest(e.x, e.y, coming); tx = c.x; ty = c.y - CHAIR_SEAT - 70; }
       }
       if (tx === null) continue;
       g.save(); g.translate(tx, ty + Math.sin(t * 7 + e.i) * 10);
@@ -1091,8 +1051,6 @@ export class Game {
   }
 
   drawHUD(g) {
-    const left = Math.max(0, FINALE_AT - this.time);
-    ui.timer(g, left);
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: true, format: (v) => String(v) });
     if (this.banner) {
       const k = this.banner.t;

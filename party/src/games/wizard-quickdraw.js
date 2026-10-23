@@ -25,79 +25,8 @@ const FEET_Y = 985;
 /** First pose from the list that the engine knows (new poses can be added to the engine later). */
 const pickPose = (...names) => names.find((n) => POSE_NAMES.includes(n)) || 'idle';
 
-export const meta = {
-  id: 'wizard-quickdraw',
-  title: 'Wizard Quick-Draw',
-  category: 'party',
-  type: 'Reaction duel',
-  goal: 'Wait for the lantern to burst GOLD, then cast first! First to 3 points wins.',
-  controls: [['a', 'Cast your spell']],
-  tips: [
-    "Don't cast early! Your wand will fizzle and you're out for the round.",
-    'Professor Hoot loves fake-outs: flickers, feather ruffles, hoots and moths.',
-    'Only the golden CAST! light counts. Stay calm and wait for it.',
-  ],
-  music: 'spooky',
-  duration: '1 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.translate(x, y);
-    const gr = g.createLinearGradient(0, 0, 0, h);
-    gr.addColorStop(0, '#1b1550'); gr.addColorStop(0.7, '#4a2c86'); gr.addColorStop(1, '#7a4aa8');
-    g.fillStyle = gr; g.fillRect(0, 0, w, h);
-    for (let i = 0; i < 22; i++) {
-      const sx = (i * 0.618 * w * 3.1) % w, sy = (i * 0.37 * h * 2.3) % (h * 0.6);
-      g.globalAlpha = 0.5 + Math.sin(t * 3 + i) * 0.4; g.fillStyle = '#fff';
-      g.beginPath(); g.arc(sx, sy, h * 0.008 + (i % 3) * h * 0.004, 0, TAU); g.fill();
-    }
-    g.globalAlpha = 1;
-    // moon
-    g.fillStyle = '#fff6c8'; g.beginPath(); g.arc(w * 0.84, h * 0.2, h * 0.11, 0, TAU); g.fill();
-    g.fillStyle = '#e8dca0'; g.beginPath(); g.arc(w * 0.81, h * 0.18, h * 0.03, 0, TAU); g.fill();
-    // castle silhouette
-    g.fillStyle = '#1a1038';
-    const bw = w * 0.07;
-    [[0.08, 0.48], [0.2, 0.38], [0.32, 0.52], [0.62, 0.45], [0.74, 0.36], [0.88, 0.5]].forEach(([cx, top], i) => {
-      g.fillRect(w * cx, h * top, bw, h * 0.75);
-      g.beginPath(); g.moveTo(w * cx - bw * 0.15, h * top); g.lineTo(w * cx + bw / 2, h * (top - 0.16 - (i % 2) * 0.05)); g.lineTo(w * cx + bw * 1.15, h * top); g.closePath(); g.fill();
-      g.fillStyle = '#ffd86a'; g.fillRect(w * cx + bw * 0.35, h * (top + 0.1), bw * 0.28, bw * 0.4); g.fillStyle = '#1a1038';
-    });
-    g.fillRect(0, h * 0.78, w, h * 0.3);
-    // golden lantern burst
-    const lx = w * 0.3, ly = h * 0.34, burst = 0.8 + Math.sin(t * 4) * 0.2;
-    const rg = g.createRadialGradient(lx, ly, 0, lx, ly, h * 0.5 * burst);
-    rg.addColorStop(0, 'rgba(255,230,120,0.95)'); rg.addColorStop(0.4, 'rgba(255,200,60,0.4)'); rg.addColorStop(1, 'rgba(255,200,60,0)');
-    g.fillStyle = rg; g.fillRect(0, 0, w, h);
-    g.fillStyle = '#ffe680'; g.strokeStyle = '#6b4510'; g.lineWidth = h * 0.016;
-    ui.roundRect(g, lx - h * 0.07, ly - h * 0.09, h * 0.14, h * 0.18, h * 0.04); g.fill(); g.stroke();
-    g.fillStyle = '#fffbe0'; g.beginPath(); g.ellipse(lx, ly, h * 0.03, h * 0.05, 0, 0, TAU); g.fill();
-    // crystal + wand beam
-    const cx = w * 0.72, cy = h * 0.58, wx = w * 0.42, wy = h * 0.74;
-    g.lineCap = 'round';
-    g.strokeStyle = 'rgba(255,111,177,0.55)'; g.lineWidth = h * 0.05; g.beginPath(); g.moveTo(wx, wy); g.lineTo(cx, cy); g.stroke();
-    g.strokeStyle = '#fff'; g.lineWidth = h * 0.014; g.stroke();
-    g.fillStyle = '#7fe6ff'; g.strokeStyle = NAVY; g.lineWidth = h * 0.018;
-    g.beginPath(); g.moveTo(cx, cy - h * 0.14); g.lineTo(cx + h * 0.09, cy - h * 0.02); g.lineTo(cx + h * 0.05, cy + h * 0.12); g.lineTo(cx - h * 0.05, cy + h * 0.12); g.lineTo(cx - h * 0.09, cy - h * 0.02); g.closePath(); g.fill(); g.stroke();
-    g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.moveTo(cx - h * 0.03, cy - h * 0.06); g.lineTo(cx, cy - h * 0.11); g.lineTo(cx - h * 0.005, cy + h * 0.02); g.closePath(); g.fill();
-    // wand
-    g.strokeStyle = '#5a3a1a'; g.lineWidth = h * 0.03; g.beginPath(); g.moveTo(wx - w * 0.07, wy + h * 0.14); g.lineTo(wx, wy); g.stroke();
-    g.save(); g.translate(wx, wy); drawStarShape(g, h * 0.17 * (1 + Math.sin(t * 6) * 0.1), '#ffd23f'); g.restore();
-    // fireworks
-    const cols = ['#ff6fb1', '#ffd23f', '#7fe6ff'];
-    for (let k = 0; k < 3; k++) {
-      const fx0 = w * (0.58 + k * 0.15), fy0 = h * (0.2 + (k % 2) * 0.12), ph = (t * 0.9 + k * 0.33) % 1;
-      g.strokeStyle = cols[k]; g.lineWidth = h * 0.015; g.globalAlpha = 1 - ph * 0.7;
-      for (let r = 0; r < 10; r++) {
-        const a = (r / 10) * TAU, r0 = h * 0.03 + ph * h * 0.05, r1 = r0 + h * 0.045;
-        g.beginPath(); g.moveTo(fx0 + Math.cos(a) * r0, fy0 + Math.sin(a) * r0); g.lineTo(fx0 + Math.cos(a) * r1, fy0 + Math.sin(a) * r1); g.stroke();
-      }
-    }
-    g.restore();
-  },
-};
+import { meta } from './wizard-quickdraw.meta.js';
+export { meta };
 
 // ---------------------------------------------------------------------------
 
@@ -141,6 +70,8 @@ export class Game {
     this.waitLen = 3;
     this.goT = 0;
     this.fakes = [];
+    // "too slow": after CAST! someone has to cast within 6 s (shown for the last 3)
+    api.limit(() => (this.st === 'go' ? Math.max(0, 6 - this.goT) : null), { showAt: 3, x: 1390, y: 490 });
     this.winner = -1;
     this.res = null;
     this.finishing = false;
@@ -940,7 +871,6 @@ export class Game {
       ui.text(g, 'CAST!', 0, 0, { size: 230, color: '#ffe14a', strokeWidth: 36, weight: 800 });
       g.restore();
       // the NOW! window closes after 6 s ("Too slow!"): show its last 3 s
-      if (this.goT > 3) ui.timer(g, 6 - this.goT, 1390, 490);
     }
 
     // messages

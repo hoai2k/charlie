@@ -1,0 +1,15 @@
+export const meta = {
+  id: 'pass-the-present',
+  title: 'Pass the Present',
+  category: 'party',
+  type: 'Hot potato',
+  goal: "Throw the present at a friend before it pops on you!",
+  controls: [['stick', 'Run around'], ['rstick', 'Aim'], ['rt', 'Throw the present (or A)'], ['lt', 'Dash out of the way (or B)']],
+  cornerControls: { at: 'br', items: [['rstick', 'Aim'], ['rt', 'Throw'], ['lt', 'Dash']] },
+  tips: ['Miss, and the present flies right back to you!', 'Dash when it comes your way to dodge it.', 'Listen: the ticking gets faster and the present turns red!', 'No right stick? You throw the way you walk.', 'Lose all your hearts and you cheer from the side.'],
+  music: 'tense',
+  duration: 'About 45 sec',
+  minPlayers: 1,
+  maxPlayers: 8,
+  countdown: true,
+};

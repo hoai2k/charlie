@@ -20,9 +20,10 @@ import { sfx, voice, music, audioRunning, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, ease, TAU, placementsFromScores } from '../engine/util.js';
-import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
-import { loadRhythmSongs, chooseSong, rhythmChoice, rhythmOptions, buildChart, songPlan, musicKey } from './rhythm/songs.js';
+import { drawStarShape } from '../engine/emotes.js';
+import { loadRhythmSongs, chooseSong, rhythmChoice, buildChart, songPlan, musicKey } from './rhythm/songs.js';
 import { musicReady } from '../engine/audio.js';
+import { meta } from './pop-star-stage.meta.js';
 
 loadRhythmSongs();
 
@@ -275,55 +276,7 @@ function drawNote(g, btn, x, y, size, t, o = {}) {
 
 // ---------------------------------------------------------------------------
 
-export const meta = {
-  id: 'pop-star-stage',
-  title: 'Pop Star Stage',
-  category: 'studio',
-  type: 'Rhythm · Highest score wins',
-  goal: 'Press the matching button when each note reaches the line — your music poofs the Shadow Imps!',
-  controls: [['a', 'Green notes'], ['b', 'Red notes'], ['x', 'Blue notes'], ['y', 'Yellow notes']],
-  tips: ['Press right when the note touches the circle!', 'Play really well and your stars go up: trickier notes, more points! Miss a few and it gets easier.', 'Hit 20 in a row for rainbow FEVER — double points!'],
-  music: 'dance',
-  options: rhythmOptions('pop-star-stage'),
-  duration: 'about 1–1½ min',
-  minPlayers: 1, maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const s = h / 200;
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#1a0b3d'); gr.addColorStop(1, '#5b1f8a');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    // spotlights
-    g.save(); g.globalCompositeOperation = 'lighter';
-    ['#ff6fd0', '#3fd3ff', '#ffd23f'].forEach((c, i) => {
-      const sx = x + w * (0.2 + i * 0.3), sw = Math.sin(t * 1.3 + i * 2) * w * 0.12;
-      g.globalAlpha = 0.22; g.fillStyle = c;
-      g.beginPath(); g.moveTo(sx - 8 * s, y); g.lineTo(sx + 8 * s, y); g.lineTo(sx + sw + 50 * s, y + h); g.lineTo(sx + sw - 50 * s, y + h); g.closePath(); g.fill();
-    });
-    g.restore();
-    // stage floor
-    g.fillStyle = '#2a1650'; g.fillRect(x, y + h * 0.84, w, h * 0.16);
-    for (let i = 0; i < 8; i++) { g.fillStyle = RAINBOW[(i + Math.floor(t * 4)) % RAINBOW.length]; g.globalAlpha = 0.7; g.fillRect(x + (i * w) / 8 + 2, y + h * 0.86, w / 8 - 4, h * 0.03); }
-    g.globalAlpha = 1;
-    // idol
-    const img = getBaseImage('kpop-girl-center');
-    if (img) {
-      const ih = h * 0.72, iw = (img.width / img.height) * ih, bob = Math.abs(Math.sin(t * Math.PI * 2)) * 6 * s;
-      g.drawImage(img, x + w * 0.5 - iw / 2, y + h * 0.88 - ih - bob, iw, ih);
-    }
-    // note highway hint
-    const lx = x + w * 0.2;
-    drawNote(g, 'a', lx, y + h * (0.25 + ((t * 0.5) % 1) * 0.4), 34 * s, t);
-    drawNote(g, 'b', x + w * 0.8, y + h * (0.2 + ((t * 0.5 + 0.5) % 1) * 0.4), 34 * s, t);
-    // imp being zapped
-    const ix = x + w * 0.84, iy = y + h * 0.72;
-    drawImp(g, ix, iy, 22 * s, t, { mood: 'eep', flip: true });
-    g.save(); g.globalCompositeOperation = 'lighter'; g.strokeStyle = '#fff6a8'; g.lineWidth = 6 * s; g.globalAlpha = 0.5 + 0.5 * Math.sin(t * 8);
-    g.beginPath(); g.moveTo(x + w * 0.58, y + h * 0.5); g.lineTo(ix - 18 * s, iy - 6 * s); g.stroke(); g.restore();
-    for (let i = 0; i < 4; i++) { g.save(); g.translate(ix + Math.cos(t * 3 + i * 1.6) * 30 * s, iy + Math.sin(t * 3 + i * 1.6) * 24 * s); drawSparkleShape(g, 18 * s, '#fff6a8'); g.restore(); }
-    ui.text(g, 'Pop Star Stage', x + w / 2, y + h * 0.1, { size: h * 0.1, color: '#ffffff', maxWidth: w * 0.9 });
-  },
-};
+export { meta };
 
 // ---------------------------------------------------------------------------
 

@@ -4,7 +4,7 @@ import vm from 'node:vm';
 
 const available = new Set();
 const source = fs.readFileSync(new URL('../../src/games/ladybug-spots.js', import.meta.url), 'utf8')
-  .replace(/^import .*\n/gm, '').replace(/export (const|class) /g, '$1 ');
+  .replace(/^import .*\n/gm, '').replace(/^export \{[^}]*\};?\n/gm, '').replace(/export (const|class) /g, '$1 ');
 const calls = [];
 const sandbox = {
   W: 1920, H: 1080, TAU: Math.PI * 2, Math,

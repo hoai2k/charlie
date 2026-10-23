@@ -33,8 +33,9 @@ import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores, later
 import { nextKind, sayFor, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
 import {
   NAVY, BED, DOOR, CEIL, FLOOR, configureBedArt, roomBackground, drawDoor, doorway, doorwayPath, slabEdge, drawBedBack, drawBedFront, drawTuck,
-  drawGlowStar, drawStar, drawFeather, drawPillow, drawTeddy, drawCat, drawCow, drawIcon,
+  drawGlowStar, drawStar, drawFeather, drawPillow, drawTeddy, drawCat, drawCow,
 } from './bed-bounce/draw.js';
+import { meta } from './bed-bounce.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -48,27 +49,7 @@ const MAX_LV = 5;
 const LEVELS = [0, 0.24, 0.43, 0.62, 0.82, 1.04];   // fraction of the ceiling height
 const LVL = 2;                                       // clamp for aiLevel lookups
 
-export const meta = {
-  id: 'bed-bounce',
-  title: 'No Jumping on the Bed!',
-  category: 'molly',
-  type: 'Sneaky bouncing',
-  goal: 'Bounce on the bed and grab stars - but hide when Nanny Moo comes!',
-  controls: [['stick', 'Steer left and right'], ['a', 'Hold: bounce higher! Tap: pillow bonk']],
-  tips: ['Light under the door + thump thump = LET GO to hide under the duvet!', 'Touch the glowing ceiling stars for big points.', 'Caught? A few stars fall out - grab them back!'],
-  goalEasy: 'Hold A to bounce on the bed and grab stars - let go to hide when Nanny Moo comes!',
-  controlsEasy: [['a', 'Hold: bounce higher! Let go: hide'], ['stick', 'Float left or right if you like']],
-  tipsEasy: ['Hold A - you float to the stars by yourself (or steer with either stick)!', 'Light under the door + thump thump = let go of A!', 'Tap A in the air for a pillow bonk!'],
-  music: 'sneaky',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const img = art('thumb/bed-bounce');
-    if (img) g.drawImage(img, x, y, w, h); else drawIcon(g, x, y, w, h, t || 0);
-  },
-};
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -103,6 +84,8 @@ export class Game {
     this.glow = Array.from({ length: 10 }, (_, k) => ({ x: lerp(BED.x0 - 10, BED.x1 + 10, k / 9), y: CEIL + (k % 2 ? 16 : -6), glow: 0, lit: false }));
     this.buddies = [];
     this.phase = 'intro'; this.pt = 0;
+    // the bedtime clock, shown all game
+    api.limit(() => (this.finished || this.phase === 'end' ? null : Math.max(0, GAME_T - this.t)), { showAt: Infinity });
     this.round = 0;
     this.mult = 1;
     this.door = 1; this.hall = 1; this.wiggle = 0;
@@ -940,7 +923,6 @@ export class Game {
       y: 16, avoidCenter: true, format: (v) => `${v} ★`,
       expr: this.units.map((U) => (U.caughtNow && this.phase === 'peek' ? 'surprised' : U.state === 'air' ? 'happy' : 'neutral')),
     });
-    ui.timer(g, Math.max(0, GAME_T - this.t));
     // state badge: bounce! / shhh!
     const sneaky = (this.phase === 'warn' && !(this.fake && this.pt > 1.6)) || this.phase === 'peek' || (this.phase === 'finale' && this.pt < 1.6);
     if (this.phase !== 'intro' && this.phase !== 'end') {

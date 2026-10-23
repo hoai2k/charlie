@@ -19,7 +19,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, rand, randInt, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
@@ -28,48 +28,9 @@ import { GHOST_COLORS, FIRE, TRUNKS, roomWindows, roomFire, drawGhostShape, tint
 const NAVY = '#24163f';
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'ghost-giggles',
-  title: 'Ghost Giggles',
-  category: 'molly',
-  type: 'Team up',
-  goal: 'Tickle the ghosts to make them colourful, then dance!',
-  controls: [['stick', 'Run around the house'], ['a', 'Tickle!']],
-  tips: ['Run to a white ghost and press A to tickle it.', 'Shy ghosts hide behind the curtains - press A at the window!', 'Press A at a costume trunk to change your costume.'],
-  // Molly Easy: you walk to the ghosts by yourself; A tickles, X changes your costume
-  goalEasy: 'You walk to the ghosts by yourself. Press A to tickle them colourful!',
-  controlsEasy: [['a', 'Tickle! (A runs you to the nearest ghost)'], ['x', 'New costume'], ['stick', 'Move with either stick if you like']],
-  tipsEasy: ['Press A when the big A bounces over a ghost.', 'Want a different ghost? Walk over with the stick, then press A!', 'At a window? Press A for a Peekaboo!', 'Press X for a new costume.'],
-  music: 'spooky',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    g.fillStyle = '#6c3f8f'; g.fillRect(0, 0, 400, hh);
-    for (let i = 0; i < 10; i++) { g.fillStyle = '#7c4ba0'; g.fillRect(i * 40, 0, 20, hh * 0.62); }
-    g.fillStyle = '#c4865a'; g.fillRect(0, hh * 0.62, 400, hh * 0.38);
-    g.fillStyle = '#ff9fcf'; g.beginPath(); g.ellipse(200, hh * 0.82, 170, 34, 0, 0, TAU); g.fill();
-    // disco ball + beams
-    g.save(); g.globalAlpha = 0.25;
-    for (let i = 0; i < 5; i++) { g.fillStyle = RAINBOW[i]; g.beginPath(); g.moveTo(200, 40); const a = 0.6 + i * 0.45 + Math.sin(t) * 0.2; g.lineTo(200 + Math.cos(a) * 300 - 30, 40 + Math.sin(a) * 300); g.lineTo(200 + Math.cos(a) * 300 + 30, 40 + Math.sin(a) * 300); g.fill(); }
-    g.restore();
-    drawDiscoBall(g, 200, 40, 22, t);
-    const cols = [null, GHOST_COLORS[0], GHOST_COLORS[6]];
-    cols.forEach((c, i) => {
-      g.save(); g.translate(90 + i * 110, hh * 0.52 + Math.sin(t * 3 + i) * 10); g.rotate(Math.sin(t * 2 + i) * 0.1);
-      const key = i === 1 ? 'prop/gg-ghost-giggle' : 'prop/gg-ghost';
-      const img = tintedArt(key, c);
-      if (img) g.drawImage(img, -45, -56, 90, 112); else drawGhostShape(g, 80, c, { t: t + i, giggle: i === 1 });
-      g.restore();
-    });
-    g.restore();
-  },
-};
+import { meta } from './ghost-giggles.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 50;
@@ -111,6 +72,8 @@ export class Game {
     this.n = n;
     this.t = 0; this.playT = 0;
     this.timeLeft = DURATION;
+    // the house clock, shown the whole game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.done = false;
     this.wave = 0;
     this.party = null;        // { t, final }
@@ -551,18 +514,13 @@ export class Game {
   // ------------------------------------------------------------- Molly Easy
   /** Easy: the nearest white ghost or shy window from where the kid is now. */
   easyNearest(e) {
-    let best = null, bd = Infinity;
-    for (const g0 of this.ghosts) {
-      if (g0.col || (!this.tickleable(g0) && g0.state !== 'enter')) continue;
-      const d = this.dist(e, g0.x, g0.y);
-      if (d < bd) { bd = d; best = { kind: 'ghost', g0 }; }
-    }
-    for (const w of this.wins) {
-      if (!w.shy) continue;
-      const d = this.dist(e, w.x, WIN_Y);
-      if (d < bd) { bd = d; best = { kind: 'win', w }; }
-    }
-    return best;
+    const items = [
+      ...this.ghosts.filter((g0) => !g0.col && (this.tickleable(g0) || g0.state === 'enter')).map((g0) => ({ kind: 'ghost', g0, x: g0.x, y: g0.y })),
+      ...this.wins.filter((w) => w.shy).map((w) => ({ kind: 'win', w, x: w.x, y: WIN_Y })),
+    ];
+    // measured like this.dist (the floor is seen at an angle)
+    const b = easyNearest(e.x, e.y, items, (it) => ({ x: it.x, y: e.y + (it.y - e.y) * 1.3 }));
+    return b && (b.kind === 'ghost' ? { kind: 'ghost', g0: b.g0 } : { kind: 'win', w: b.w });
   }
 
   /** Easy (A only): walk to the nearest white ghost / shy window nobody else is after.
@@ -719,14 +677,14 @@ export class Game {
         if (!e.auto) continue;
         const b = this.tickleTarget(e);
         if (!b || (b.kind === 'ghost' && b.g0.col)) continue;
-        const y = b.kind === 'ghost' ? b.y - b.g0.z - 190 * DS(b.y) : (b.w.top + b.w.bot) / 2;
-        ui.glyph(g, 'a', b.x, y + Math.sin(this.t * 9 + e.i) * 6, 84, { pulse: true });
+        const y = b.kind === 'ghost' ? b.y - b.g0.z - 110 * DS(b.y) : (b.w.top + b.w.bot) / 2;
+        easyPrompt(g, e.p, { target: { x: b.x, y }, child: { x: e.x, y: e.a.y - e.a.height } });
       }
     }
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the house clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 990, format: (v) => String(v) });
     this.drawMeter(g);
     if (this.party && this.party.t < 2.4) {

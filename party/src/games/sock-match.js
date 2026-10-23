@@ -12,7 +12,7 @@
 // Sounds with synth fallbacks: sock-pickup, sock-match, sock-rocket,
 // sock-pin, sock-basket-burst, sock-puppy-yip, sock-puppy-grab, sock-flyoff.
 import { W, H } from '../engine/canvas.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { Actor } from '../engine/sprites.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -24,44 +24,9 @@ import { clamp, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js
 import { art } from '../engine/art.js';
 import { PATTERNS, PAT_COLOR, drawSock, drawPuppy, drawBasket, drawLine, drawPin, drawYard, lineY, LINE } from './sock-match/draw.js';
 
-export const meta = {
-  id: 'sock-match',
-  title: 'Silly Sock Match',
-  category: 'molly',
-  type: 'Team',
-  goal: 'Find each silly sock its twin and hang the pairs on the line!',
-  controls: [['stick', 'Run'], ['a', 'Grab a sock']],
-  tips: ['Carry a sock to the one that looks the same.', 'The puppy steals socks! Run into him and he drops it.', 'Holding twins with a friend? Run together for a high-five!'],
-  // Molly Easy: you walk by yourself to a sock, A grabs it, then you carry it to its twin
-  goalEasy: 'Press A to go grab a sock. You carry it to its twin all by yourself!',
-  controlsEasy: [['a', 'Grab a sock / catch the puppy'], ['stick', 'Move with either stick if you like']],
-  tipsEasy: ['Press A: you walk to the nearest sock and grab it.', 'Want a different sock? Walk over with the stick, then press A!', 'The puppy has a sock? Press A when he runs by!'],
-  music: 'bouncy',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400;
-    g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const grd = g.createLinearGradient(0, 0, 0, hh);
-    grd.addColorStop(0, '#8fd0ff'); grd.addColorStop(0.6, '#d8f1ff'); grd.addColorStop(0.6, '#8ad873'); grd.addColorStop(1, '#5fc65a');
-    g.fillStyle = grd; g.fillRect(0, 0, 400, hh);
-    g.strokeStyle = '#24163f'; g.lineWidth = 3;
-    g.beginPath(); g.moveTo(0, 40); g.quadraticCurveTo(200, 80, 400, 40); g.stroke();
-    ['stripes', 'googly', 'hearts', 'dots', 'rainbow'].forEach((p, i) => {
-      const px = 40 + i * 80, py = 52 + Math.sin((px / 400) * Math.PI) * 18;
-      g.save(); g.translate(px, py + 30); g.rotate(Math.sin(t * 3 + i) * 0.12); drawSock(g, p, 0.42, t, i % 2 === 1); g.restore();
-    });
-    // dancing pair
-    for (const k of [-1, 1]) { g.save(); g.translate(230 + k * 26, hh * 0.58 + Math.sin(t * 8 + k) * 8); g.rotate(k * 0.3 + Math.sin(t * 6) * 0.2); drawSock(g, 'stars', 0.5, t, k > 0); g.restore(); }
-    g.save(); g.translate(110, hh * 0.95); g.scale(0.62, 0.62); drawPuppy(g, 'run', 1, t, 'stripes'); g.restore();
-    g.restore();
-  },
-};
+import { meta } from './sock-match.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 60;
@@ -114,6 +79,8 @@ export class Game {
         auto: this.easy && !p.isAI ? { ix: 0, iy: 0, sock: null, t: 0 } : null };
     });
     this.burst(this.pairsPerWave, true);
+    // the game clock, shown the whole game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
   }
 
   // ------------------------------------------------------------------ socks
@@ -591,8 +558,7 @@ export class Game {
     // one shared washing line: everybody wins together, the team total is the headline
     const scores = this.ents.map((e) => e.score), tot = this.total;   // e.score: pairs each player helped hang
     this.ents.forEach((e) => { e.a.clearEmotes(); e.a.setPose('celebrate'); });
-    this.api.finish({
-      placements: this.ents.map(() => 1), showcase: true, highlight: null,
+    this.api.finishTogether({
       title: `${tot} pair${tot === 1 ? '' : 's'} together!`,
       stats: scores.map((s) => (s ? 'Sock helper!' : 'Cheer squad!')),   // no per-player counts to compare
       focus: { x: W / 2, y: 500 },
@@ -659,14 +625,12 @@ export class Game {
     for (const e of this.ents) {
       if (!e.auto) continue;
       const act = this.easyAction(e);
-      if (act === 'puppy') { ui.glyph(g, 'a', this.puppy.x, this.puppy.y - 260 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue; }
+      const child = { x: e.x, y: e.y - e.a.height - (e.held ? 120 : 0) };
+      if (act === 'puppy') { easyPrompt(g, e.p, { target: { x: this.puppy.x, y: this.puppy.y - 110 }, child }); continue; }
       if (act === 'grab') {
         // beside the sock, on the far side from the kid, so it never covers their head or tag
-        const s = this.nearestSock(e), off = e.a.height * 0.3 + 60;
-        let side = s.x >= e.x ? 1 : -1;
-        if (e.x + side * off > W - 60 || e.x + side * off < 60) side = -side;
-        const gx = side > 0 ? Math.max(s.x, e.x + off) : Math.min(s.x, e.x - off);
-        ui.glyph(g, 'a', gx, s.y - 190 + Math.sin(t * 9) * 6, 84, { pulse: true }); continue;
+        const s = this.nearestSock(e);
+        easyPrompt(g, e.p, { target: { x: s.x, y: s.y - 70 }, child }); continue;
       }
       const s = !e.held && e.auto.sock;
       if (!s || s.state !== 'ground') continue;
@@ -718,7 +682,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the game clock is api.limit's, drawn by the play scene)
     // co-op: no per-player numbers to compare, just a heart once you've helped (the team count is below)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 18, avoidCenter: true, format: (v) => (v ? '♥' : '') });
     // shared count: a sock-pair badge under the timer

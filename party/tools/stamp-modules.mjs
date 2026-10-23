@@ -5,6 +5,7 @@
 // visitor never mixes old and new modules. Run before committing code:
 //
 //   node party/tools/stamp-modules.mjs
+//   node party/tools/stamp-modules.mjs --check   (exit 1 if a stamp is stale; party/tools/stamp.test.mjs)
 //
 // Browsers without import maps just ignore it (plain caching, as before).
 import { createHash } from 'node:crypto';
@@ -12,6 +13,9 @@ import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const CHECK = process.argv.includes('--check');
+const stale = [];
+const save = (file, text) => { if (readFileSync(file, 'utf8') === text) return; if (CHECK) stale.push(path.relative(root, file)); else writeFileSync(file, text); };
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = path.join(root, 'index.html');
 
@@ -39,13 +43,15 @@ const main = /<script type="module" src="src\/main\.js(\?v=[^"]*)?"><\/script>/;
 if (!main.test(page)) throw new Error('main.js <script> not found in index.html');
 page = block.test(page) ? page.replace(block, () => map.trimStart()) : page.replace(main, (m) => `${map.trimStart()}\n    ${m}`);
 page = page.replace(main, `<script type="module" src="src/main.js?v=${hash(path.join(root, 'src/main.js'))}"></script>`);
-writeFileSync(html, page);
-console.log(`Stamped ${Object.keys(imports).length} modules in index.html`);
+save(html, page);
+if (!CHECK) console.log(`Stamped ${Object.keys(imports).length} modules in index.html`);
 
 // The sprite workbench (workbench/index.html, <base href="../">) shares the
 // game's modules: give it the same map plus its own modules, and stamp its entry.
 const wbHtml = path.join(root, 'workbench', 'index.html');
-try { statSync(wbHtml); } catch (e) { process.exit(0); }
+let hasWb = true;
+try { statSync(wbHtml); } catch (e) { hasWb = false; }
+if (hasWb) {
 const wbImports = { ...imports };
 for (const file of modules(path.join(root, 'workbench')).sort()) {
   const rel = './' + path.relative(root, file).split(path.sep).join('/');
@@ -57,5 +63,7 @@ if (!wbMain.test(wb)) throw new Error('workbench/main.js <script> not found in w
 wb = block.test(wb) ? wb.replace(block, () => mapOf(wbImports).trimStart()) : wb.replace(wbMain, (m) => `${mapOf(wbImports).trimStart()}\n    ${m}`);
 wb = wb.replace(wbMain, `<script type="module" src="workbench/main.js?v=${hash(path.join(root, 'workbench/main.js'))}"></script>`);
 wb = wb.replace(/href="workbench\/workbench\.css(\?v=[^"]*)?"/, `href="workbench/workbench.css?v=${hash(path.join(root, 'workbench/workbench.css'))}"`);
-writeFileSync(wbHtml, wb);
-console.log(`Stamped ${Object.keys(wbImports).length} modules in workbench/index.html`);
+save(wbHtml, wb);
+if (!CHECK) console.log(`Stamped ${Object.keys(wbImports).length} modules in workbench/index.html`);
+}
+if (CHECK && stale.length) { console.error('Stale module stamps in ' + stale.join(', ') + ': run node party/tools/stamp-modules.mjs'); process.exit(1); }

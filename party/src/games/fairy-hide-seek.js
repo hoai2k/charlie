@@ -20,12 +20,13 @@ import { particles, RAINBOW } from '../engine/particles.js';
 import { sfx, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
 import { bodyRadius, claimed } from '../engine/crowd.js';
 import { clamp, lerp, rand, pick, chance, shuffle, TAU, dist, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, SPOTS, peekFor, bgImage, drawSpot, drawFairy, FAIRY_COLS, drawFrog, drawSnail, drawLadybug, bubble, drawMagnifier, glow,
 } from './fairy-hide-seek/art.js';
+import { meta } from './fairy-hide-seek.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -43,43 +44,7 @@ const DECOYS = ['frog', 'snail', 'ladybug'];
 const CPU_CAP = [0.55, 0.68, 0.8];
 const MIN_Y = 330, MAX_Y = 975;
 
-export const meta = {
-  id: 'fairy-hide-seek',
-  title: 'Fairy Hide & Seek',
-  category: 'molly',
-  type: 'Seek & find',
-  goal: 'Find the fairies hiding in the garden!',
-  controls: [['stick', 'Walk with your magnifying glass'], ['a', 'Peek! Check a hiding spot']],
-  tips: ['Look through your glass to see who is hiding.', 'Wiggly, sparkly spots have a fairy!', 'Frogs and snails are just being silly.'],
-  // Easy (A only): you walk from spot to spot by yourself and stop to look;
-  // the stick still walks you if you like, and A off a spot walks to the nearest one.
-  goalEasy: 'Find the fairies hiding in the garden!',
-  controlsEasy: [['a', 'Peek! when you see a fairy'], ['stick', 'Walk anywhere you like (or let it walk you)']],
-  tipsEasy: ['You walk to the hiding spots all by yourself, or move with either stick!', 'See a fairy in your glass? Press A quick!', 'Frogs and snails are just being silly.'],
-  music: 'sneaky',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = h / 500;
-    const img = bgImage();
-    g.drawImage(img, 300, 160, 1300, 812, x, y, w, h);
-    g.save(); g.translate(x + w * 0.38, y + h * 0.82); g.scale(s * 1.25, s * 1.25); drawSpot(g, 'mushroom', 230, 215, t); g.restore();
-    g.save(); g.translate(x + w * 0.8, y + h * 0.86); g.scale(s, s); drawSpot(g, 'teapot', 240, 205, t); g.restore();
-    drawFrog(g, x + w * 0.66, y + h * 0.86, s * 0.7, t);
-    g.save(); g.translate(x + w * 0.12, y + h * 0.95); g.scale(s, s); drawSpot(g, 'flower-pink', 210, 300, t); g.restore();
-    // the lens: a fairy revealed behind the mushroom
-    const lx = x + w * 0.4 + Math.sin(t * 1.2) * 10, ly = y + h * 0.55, r = h * 0.2;
-    g.save(); g.beginPath(); g.arc(lx, ly, r, 0, TAU); g.clip();
-    g.fillStyle = 'rgba(255,255,255,0.25)'; g.fillRect(lx - r, ly - r, r * 2, r * 2);
-    drawFairy(g, lx, ly, s * 2.2, FAIRY_COLS[0], t, 1, { happy: true });
-    g.restore();
-    drawMagnifier(g, lx, ly, r, '#ff4d6d', lx + r * 2, ly + r * 2, t);
-    g.restore();
-  },
-};
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -91,6 +56,8 @@ export class Game {
     this.t = 0;
     this.timeLeft = DURATION;
     this.done = false;
+    // the seeking clock, shown all game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.sc = n <= 4 ? 0.86 : 0.7;
     this.lensR = n <= 4 ? 86 : 76;
     const types = shuffle([...TYPES, ...shuffle(TYPES).slice(0, LAYOUT.length - TYPES.length)]);
@@ -483,9 +450,7 @@ export class Game {
     const taken = (s) => this.ents.some((o) => o !== e && o.ez && o.ez.spot === s);
     const pool = this.spots.filter((s) => !taken(s));
     const list = pool.length ? pool : (any ? this.spots : []);
-    let best = null, bd = 1e9;
-    for (const s of list) { const d = dist(e.lx, e.ly, s.x, s.y - s.h / 2); if (d < bd) { bd = d; best = s; } }
-    return best;
+    return easyNearest(e.lx, e.ly, list, (s) => ({ x: s.x, y: s.y - s.h / 2 }));
   }
 
   easyPilot(e, dt) {
@@ -557,7 +522,7 @@ export class Game {
     // Easy: a fairy in the glass gets a big bouncing A
     for (const e of this.ents) {
       if (!e.ez || this.done || e.cd > 0 || !(e.spot && e.spot.c && e.spot.c.kind === 'fairy' && e.spot.busy <= 0)) continue;
-      ui.glyph(g, 'a', e.lx + this.lensR + 44, e.ly - 20 + Math.sin(t * 8) * 6, 64, { pulse: true });
+      easyPrompt(g, e.p, { target: { x: e.lx, y: e.ly }, child: { x: e.x, y: e.y - e.a.height }, gap: this.lensR - 20 });
     }
   }
 
@@ -638,7 +603,6 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 990, format: (v) => String(v) });
     const time = this.api.time;
     if (time < 4 && !this.done) {

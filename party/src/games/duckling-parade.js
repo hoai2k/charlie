@@ -21,56 +21,19 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { drawEmote, drawSparkleShape } from '../engine/emotes.js';
-import { easySteer } from '../engine/easy.js';
-import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, dist, lerp, later } from '../engine/util.js';
+import { easySteer, easyNearest, easyErrand, easyErrandStep, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
+import { clamp, damp, rand, randInt, pick, chance, shuffle, TAU, dist, lerp, later, showstopper } from '../engine/util.js';
 import {
   NAVY, POND, NEST, drawDuckling, drawHat, drawMama, drawNest, drawLily, drawReeds, drawBoot,
-  drawBush, drawMushroom, drawMeadow, drawPond,
+  drawBush, drawMushroom, drawMeadow,
 } from './duckling-parade/art.js';
+import { meta } from './duckling-parade.meta.js';
 
 /** Play a recorded sound when it exists, else a stand-in. */
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'duckling-parade',
-  title: 'Duckling Parade',
-  category: 'molly',
-  type: 'Team up',
-  goal: 'Find the lost ducklings and lead them home to Mama Duck!',
-  controls: [['stick', 'Run - ducklings follow you'], ['a', 'Quack call']],
-  tips: ['Run close to a duckling and it hops in line behind you.', 'Run your line to Mama\'s nest to bring them home.', 'Catch the sparkly golden duckling for 3!'],
-  goalEasy: 'You walk round the pond by yourself - quack with A to call the lost ducklings!',
-  controlsEasy: [['a', 'Quack call'], ['stick', 'Walk (if you like)']],
-  tipsEasy: ['When a duckling sparkles and the A pops up, press A!', 'No duckling close? Press A and you walk to the nearest one!', 'You walk by yourself - or move with either stick if you like!', 'Every lap you pass Mama\'s nest and your ducklings go home.', 'Catch the sparkly golden duckling for 3!'],
-  music: 'splash',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const thumb = art('thumb/duckling-parade');
-    if (thumb) { g.drawImage(thumb, x, y, w, h); g.restore(); return; }
-    const s = w / 400;
-    g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const sky = g.createLinearGradient(0, 0, 0, hh);
-    sky.addColorStop(0, '#9fdcff'); sky.addColorStop(0.35, '#d8f3ff'); sky.addColorStop(0.36, '#8ee07a'); sky.addColorStop(1, '#5cc65a');
-    g.fillStyle = sky; g.fillRect(0, 0, 400, hh);
-    ui.cloud(g, 70, hh * 0.12, 0.4, '#fff', 0.9); ui.cloud(g, 320, hh * 0.18, 0.35, '#fff', 0.9);
-    g.save(); g.translate(200, hh * 0.68); g.scale(0.42, 0.42); g.translate(-960, -650); drawPond(g, t); g.restore();
-    // mama leading a line
-    const bob = (k) => -Math.abs(Math.sin(t * 7 + k)) * 5;
-    g.save(); g.translate(300, hh * 0.62 + bob(0)); g.scale(-0.42, 0.42); drawMama(g, t, { walk: true, quack: Math.sin(t * 3) > 0.7 }); g.restore();
-    const hats = ['flower', null, 'bow', null, 'crown'];
-    for (let i = 0; i < 5; i++) {
-      g.save(); g.translate(250 - i * 40, hh * 0.66 + i * 6 + bob(i + 1)); g.scale(-0.62, 0.62);
-      drawDuckling(g, { quack: Math.sin(t * 5 + i * 2) > 0.8 }); drawHat(g, hats[i], t); g.restore();
-    }
-    g.restore();
-  },
-};
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const PLAY = 52;              // seconds of finding before the parade
@@ -124,6 +87,8 @@ export class Game {
     this.t = 0;
     this.playT = 0;
     this.phase = 'play';
+    // the finding clock, shown all game (the parade follows it)
+    api.limit(() => (this.phase === 'play' ? Math.max(0, PLAY - this.playT) : null), { showAt: Infinity });
     this.baseScale = n <= 2 ? 0.86 : n <= 4 ? 0.8 : 0.7;
     this.ducks = [];
     this.team = 0;
@@ -493,7 +458,11 @@ export class Game {
     this.pushTrail(e, e.line.length);
     if (c.pressed('a') && e.callCd <= 0 && this.phase !== 'done') {
       // Molly Easy: A with no duckling in range walks her to the nearest lost one and quacks there
-      if (this.easy && !p.isAI && this.phase === 'play' && !e.ezNear) e.ezGo = this.nearestLost(e);
+      if (this.easy && !p.isAI && this.phase === 'play' && !e.ezNear) {
+        const go = this.nearestLost(e);
+        if (go) easyErrand(e, go, { reach: CALL_R * 0.6, timeout: 30, valid: (d) => this.phase === 'play' && (d.state === 'hide' || d.state === 'wander'),
+          act: () => { e.ezBack = true; if (e.callCd <= 0) this.quackCall(e); } });
+      }
       this.quackCall(e);
     }
     const moving = Math.hypot(e.vx, e.vy);
@@ -507,20 +476,17 @@ export class Game {
     let near = 0;
     for (const d of this.ducks) if ((d.state === 'hide' || d.state === 'wander') && dist(d.x, d.y, e.x, e.y) < CALL_R + e.a.radius - 20) near++;
     e.ezNear = this.phase === 'play' ? near : 0;
-    if (this.phase !== 'play') { e.ezGo = null; return [0, 0]; }
     // either stick still walks her anywhere (like Medium); the loop waits for her
     const st = easySteer(e, e.p.ctrl, dt);
-    if (st.pushing) e.ezGo = null;
-    if (st.manual && !e.ezGo) { e.ezBack = true; return [st.x, st.y]; }
-    const go = e.ezGo;
-    if (go && (go.state === 'hide' || go.state === 'wander')) {
-      const d = Math.hypot(go.x - e.x, go.y - e.y);
-      if (d < CALL_R * 0.6) { e.ezGo = null; e.ezBack = true; if (e.callCd <= 0) this.quackCall(e); return [0, 0]; }
+    // an A press with no duckling in range: walk to the nearest lost one, quack on arrival
+    const go = easyErrandStep(e, dt, { x: e.x, y: e.y, steering: st.pushing });
+    if (this.phase !== 'play') return [0, 0];
+    if (st.manual && !go) { e.ezBack = true; return [st.x, st.y]; }
+    if (go) {
       const wp = this.aroundPond(e.x, e.y, go.x, go.y);   // round the pond, not into it
       const wx = wp.x - e.x, wy = wp.y - e.y, wd = Math.hypot(wx, wy) || 1, k = LOOP_SPEED * 1.15;
       return [wx / wd * k, wy / wd * k];
     }
-    e.ezGo = null;
     if (e.ezBack) {
       // back on the loop from wherever she is now (the closest point, no snapping back)
       e.ezBack = false;
@@ -541,13 +507,7 @@ export class Game {
 
   /** Molly Easy: the closest lost duckling to this player (for an A press with none in range). */
   nearestLost(e) {
-    let best = null, bd = Infinity;
-    for (const d of this.ducks) {
-      if (d.state !== 'hide' && d.state !== 'wander') continue;
-      const dd = dist(d.x, d.y, e.x, e.y);
-      if (dd < bd) { bd = dd; best = d; }
-    }
-    return best;
+    return easyNearest(e.x, e.y, this.ducks, (d) => d, (d) => d.state !== 'hide' && d.state !== 'wander');
   }
 
   quackCall(e) {
@@ -570,16 +530,7 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const r = (A.a.radius + B.a.radius) * 0.62;
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy);
-      if (d < r && d > 0.01) {
-        const k = ((r - d) / d) * 0.5 * Math.min(1, dt * 14);
-        A.x -= dx * k; A.y -= (dy / 1.6) * k; B.x += dx * k; B.y += (dy / 1.6) * k;
-      }
-    }
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.85, yScale: 1.6, strength: Math.min(1, dt * 14) });
   }
 
   pickups() {
@@ -784,9 +735,7 @@ export class Game {
   finish() {
     this.done = true; this.phase = 'done';
     const scores = this.ents.map((e) => e.delivered);
-    const top = Math.max(...scores);
-    const tops = scores.filter((s) => s === top).length;
-    const highlight = top > 0 && tops === 1 && this.n > 1 ? scores.indexOf(top) : null;
+    const highlight = this.n > 1 ? showstopper(this.players, scores) : null;
     for (const e of this.ents) { e.a.clearEmotes(); e.a.setPose('celebrate'); }
     snd('dp-hooray', 'yay');
     this.api.finish({
@@ -831,13 +780,15 @@ export class Game {
       // Molly Easy: lost ducklings in quack range sparkle, and a big A says "quack now!"
       for (const e of this.ents) {
         if (e.p.isAI || !e.ezNear) continue;
+        let near = null, nd = Infinity;
         for (const d of this.ducks) {
           if ((d.state !== 'hide' && d.state !== 'wander') || dist(d.x, d.y, e.x, e.y) >= CALL_R + e.a.radius - 20) continue;
+          const dd = dist(d.x, d.y, e.x, e.y); if (dd < nd) { nd = dd; near = d; }
           const b = Math.abs(Math.sin(this.t * 6 + d.id)) * 14;
           g.save(); g.translate(d.x, d.y - 78 - b); g.fillStyle = e.p.color; g.strokeStyle = NAVY; g.lineWidth = 4;
           g.beginPath(); g.moveTo(-18, -22); g.lineTo(18, -22); g.lineTo(0, 4); g.closePath(); g.fill(); g.stroke(); g.restore();
         }
-        if (e.callCd <= 0) ui.glyph(g, 'a', e.x + 64, e.y - e.a.height - 60, 60, { pulse: true });
+        if (e.callCd <= 0) easyPrompt(g, e.p, { target: near ? { x: near.x, y: near.y - 60 } : null, child: { x: e.x, y: e.y - e.a.height } });
       }
     }
   }
@@ -998,7 +949,6 @@ export class Game {
   }
 
   drawHUD(g) {
-    if (this.phase === 'play') ui.timer(g, PLAY - this.playT);
     ui.scoreboard(g, this.players, this.ents.map((e) => e.delivered), { y: 985, format: (v) => String(v), out: null });
     // team counter: mama + ducklings home
     const x = W - 250, y = 26;

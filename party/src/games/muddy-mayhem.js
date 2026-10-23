@@ -37,44 +37,18 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art, drawArt } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { bodyRadius, claimed, spread } from '../engine/crowd.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
 import { clamp, damp, rand, randInt, pick, chance, TAU, dist, lerp, later, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, PORCH_Y, PUDDLES, MEGA, MUD, MUD_COLS, drawPuppy, drawMudBlobs, makeBlobs, drawBackyard, drawLine, lineY,
-  drawPuddle, drawMegaPuddle, drawMegaBubbles, targetPath, drawTarget, makeSplat, drawSplat, drawGoose, drawThumb,
+  drawPuddle, drawMegaPuddle, drawMegaBubbles, targetPath, drawTarget, makeSplat, drawSplat, drawGoose,
 } from './muddy-mayhem/art.js';
 import { nextKind, sayFor, drawShock, drawSteam, drawWag, drawShout } from '../engine/fluster.js';
+import { meta } from './muddy-mayhem.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-const ICON_BLOBS = makeBlobs(9);
-const ICON_SPLATS = [[-60, 50, 34], [40, 90, 42], [-20, 150, 30], [70, 30, 26], [-80, 120, 22]].map(([x, y, r]) => ({ x, y, s: makeSplat(r) }));
-
-export const meta = {
-  id: 'muddy-mayhem',
-  title: 'Muddy Mayhem',
-  category: 'molly',
-  type: 'Free-for-all',
-  goal: 'Get super muddy and splat mud on Granny Goose\'s clean washing!',
-  controls: [['stick', 'Run (through the mud!)'], ['a', 'Shake and SPLAT']],
-  tips: ['Run through puddles - the muddier you are, the bigger the splat!', 'Granny Goose\'s "!" means hose time - run, or just get muddy again.', 'The puppies follow the muddiest player and splat too!'],
-  // Easy (A only): you trot to a puddle and roll by yourself, then walk to the
-  // washing; it glows and a big A bounces when it's splat time. The stick still
-  // runs you anywhere; A away from the washing walks you to the nearest bit and splats.
-  goalEasy: 'Splat mud on Granny Goose\'s clean washing!',
-  controlsEasy: [['a', 'SPLAT when it glows!'], ['stick', 'Run anywhere you like (or let it walk you)']],
-  tipsEasy: ['You walk to the mud all by yourself, or run with either stick!', 'When the washing glows, press A to splat it!', 'Press A lots - splat, splat, splat!'],
-  music: 'party',
-  duration: '55 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    const th = art('thumb/muddy-mayhem');
-    if (th) { g.drawImage(th, x, y, w, h); return; }
-    drawThumb(g, x, y, w, h, t, ICON_BLOBS, ICON_SPLATS);
-  },
-};
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 55;
@@ -155,6 +129,8 @@ export class Game {
     this.n = n;
     this.t = 0; this.playT = 0; this.timeLeft = DURATION;
     this.phase = 'play'; this.ft = 0;
+    // the muddy clock, shown all game (Granny's finale follows it)
+    api.limit(() => (this.phase === 'play' ? this.timeLeft : null), { showAt: Infinity });
     this.baseScale = n <= 2 ? 0.9 : n <= 4 ? 0.84 : 0.74;
     this.party = false; this.partyT = 0;
     this.banner = null;
@@ -220,10 +196,7 @@ export class Game {
     return best;
   }
   nearestPuddle(x, y) {
-    let best = PUDDLES[0], bd = 1e9;
-    const list = this.mega.state === 'open' ? [...PUDDLES, MEGA] : PUDDLES;
-    for (const p of list) { const d = dist(x, y, p.x, p.y); if (d < bd) { bd = d; best = p; } }
-    return best;
+    return easyNearest(x, y, this.mega.state === 'open' ? [...PUDDLES, MEGA] : PUDDLES) || PUDDLES[0];
   }
   puddleAt(x, y) {
     if (this.mega.state === 'open' && ell(x, y, MEGA, 0.92) < 1) return MEGA;
@@ -983,8 +956,12 @@ export class Game {
     if (this.cueUp(e)) {
       // "press A" bubble over a muddy player next to something clean
       const bob = Math.sin(t * 8) * 5;
-      if (e.ez) ui.glyph(g, 'a', e.x, top - 46 + bob, 88, { pulse: true });
-      else ui.glyph(g, 'a', e.x, top - 30 + bob, 54, { pulse: true });
+      if (e.ez) {
+        // beside the bit of washing right by her
+        const T = this.targets.find((T) => this.inHit(e, T));
+        const tx = clamp(e.x, T.x - T.hit.rx * 0.6, T.x + T.hit.rx * 0.6);
+        easyPrompt(g, e.p, { target: { x: tx, y: T.flat ? T.y - 40 : T.y }, child: { x: e.x, y: e.y - e.a.height } });
+      } else ui.glyph(g, 'a', e.x, top - 30 + bob, 54, { pulse: true });
     } else if (!e.ez && e.mud < 0.12 && (this.playT < 12 || e.hintT > 0)) {
       // arrow toward the nearest puddle
       const p = this.nearestPuddle(e.x, e.y);
@@ -1229,7 +1206,6 @@ export class Game {
       y: 16, avoidCenter: true, format: (v) => String(v),
       expr: this.ents.map((e) => (e.cleanT > 0 ? 'surprised' : e.splatFlash > 0 ? 'happy' : 'neutral')),
     });
-    if (this.phase === 'play') ui.timer(g, this.timeLeft);
     if (this.banner) {
       const b = this.banner, fade = clamp((b.dur - b.t) / 0.3, 0, 1);
       g.save(); g.globalAlpha = fade;

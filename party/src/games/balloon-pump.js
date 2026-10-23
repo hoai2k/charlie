@@ -10,7 +10,7 @@ import * as ui from '../engine/ui.js';
 import { particles } from '../engine/particles.js';
 import { sfx, voice, host, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
-import { art, drawArt } from '../engine/art.js';
+import { art } from '../engine/art.js';
 import { PLAYER_COLORS } from '../data/characters.js';
 import { aiProfile } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, chance, pick, placementsFromScores, ease, TAU, later } from '../engine/util.js';
@@ -31,66 +31,8 @@ const SWEET = 0.4;              // gauge: below this is "weak"
 // Simulated: 4 taps/s pops in ~13.8 s, 5/s ~10.4 s, 6/s ~8.4 s, best ~7/s ~7.8 s, 10+/s ~9 s.
 const flowEff = (p) => (p > RED ? 0.45 + 0.4 * (1 - (p - RED) / (1 - RED)) : 1);
 
-export const meta = {
-  id: 'balloon-pump',
-  title: 'Balloon Pump',
-  category: 'party',
-  type: 'Button race',
-  goal: 'Pump your balloon until it POPS first! Best of 3.',
-  controls: [['a', 'Mash to pump']],
-  tips: [
-    'Keep the needle in the green - the red zone wastes air!',
-    'Rhythm beats panic: steady, quick pumps win.',
-    'First balloon to pop wins the round. Win 2 rounds!',
-  ],
-  music: 'party',
-  duration: '~40 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const grd = g.createLinearGradient(0, y, 0, y + h);
-    grd.addColorStop(0, '#ffd6ec'); grd.addColorStop(1, '#fff1c9');
-    g.fillStyle = grd; g.fillRect(x, y, w, h);
-    g.fillStyle = 'rgba(255,255,255,0.5)';
-    for (let i = 0; i < 8; i++) { g.beginPath(); g.arc(x + w * ((i * 0.37 + 0.1) % 1), y + h * ((i * 0.53 + 0.05) % 1), h * 0.04, 0, TAU); g.fill(); }
-    // floor
-    g.fillStyle = '#ffe08a'; g.fillRect(x, y + h * 0.82, w, h * 0.18);
-    const k = 0.5 + 0.5 * Math.sin(t * 2.2);
-    const r = h * (0.2 + 0.1 * k);
-    const cx = x + w * 0.62, cy = y + h * 0.7 - r;
-    // pump
-    const px = x + w * 0.27, py = y + h * 0.84;
-    const iconPump = art('prop/pump');
-    if (iconPump) {
-      const dip = Math.abs(Math.sin(t * 6)) * 0.06;
-      const ph = h * 0.48, pw = ph * iconPump.width / iconPump.height;
-      g.drawImage(iconPump, px - pw * 0.39, py - ph * (1 - dip), pw, ph * (1 - dip));
-    } else {
-    g.fillStyle = '#9aa5c4'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02;
-    ui.roundRect(g, px - w * 0.07, py - h * 0.3, w * 0.14, h * 0.3, h * 0.03); g.fill(); g.stroke();
-    const dip = Math.abs(Math.sin(t * 6)) * h * 0.06;
-    g.fillStyle = '#ff6fb1'; ui.roundRect(g, px - w * 0.1, py - h * 0.4 + dip, w * 0.2, h * 0.05, h * 0.025); g.fill(); g.stroke();
-    g.beginPath(); g.moveTo(px, py - h * 0.35 + dip); g.lineTo(px, py - h * 0.3); g.stroke();
-    // hose
-    g.strokeStyle = NAVY; g.lineWidth = h * 0.03; g.beginPath(); g.moveTo(px + w * 0.07, py - h * 0.08);
-    g.quadraticCurveTo(x + w * 0.45, py + h * 0.08, cx, cy + r + h * 0.02); g.stroke();
-    }
-    // balloon
-    if (!drawArt(g, 'prop/balloon', cx, cy + r * 1.16, r * 2.4, r * 2.4, { anchor: 'bottom' })) {
-      drawBalloonShape(g, cx, cy, r, '#ff4d6d', h * 0.022);
-      g.fillStyle = 'rgba(255,255,255,0.6)'; g.beginPath(); g.ellipse(cx - r * 0.4, cy - r * 0.45, r * 0.18, r * 0.3, -0.5, 0, TAU); g.fill();
-    }
-    // POP star burst
-    const bx = x + w * 0.2, by = y + h * 0.2;
-    g.save(); g.translate(bx, by); g.rotate(Math.sin(t * 2) * 0.15);
-    g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02;
-    g.beginPath(); for (let i = 0; i < 16; i++) { const a = i * TAU / 16, rr = i % 2 ? h * 0.1 : h * 0.17; g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
-    g.closePath(); g.fill(); g.stroke();
-    ui.text(g, 'POP', 0, 0, { size: h * 0.12, color: '#ff4d6d', strokeWidth: h * 0.02, shadow: false });
-    g.restore();
-  },
-};
+import { meta } from './balloon-pump.meta.js';
+export { meta };
 
 /** Cute balloon outline: round top, pinched knot at the bottom (center cx,cy; radius r). */
 function drawBalloonShape(g, cx, cy, r, color, lw = 5) {
@@ -193,6 +135,8 @@ export class Game {
     this.hint = 5;
     this.tick = 0;
     this.resultText = null;
+    // solo: each balloon has to pop in time
+    if (this.solo) api.limit(() => (this.phase === 'play' ? Math.max(0, this.st[0].timeLeft) : null), { showAt: Infinity, x: W - 130, y: 190 });
   }
 
   // ---- layout -------------------------------------------------------------
@@ -713,7 +657,6 @@ export class Game {
     const label = `Round ${Math.min(this.round, ROUNDS)} of ${ROUNDS}`;
     ui.panel(g, W / 2 - 130, 128, 260, 52, { r: 26, fill: '#ffffff', lineWidth: 5 });
     ui.text(g, label, W / 2, 155, { size: 32, color: NAVY, stroke: false, weight: 800 });
-    if (this.solo && this.phase === 'play') ui.timer(g, this.st[0].timeLeft, W - 130, 190);
     if (this.hint > 0 && this.phase === 'play') {
       g.save(); g.globalAlpha = clamp(this.hint, 0, 1);
       ui.panel(g, W / 2 - 430, 196, 860, 70, { r: 35, fill: '#fff8ec' });

@@ -15,7 +15,7 @@ import { aiProfile, reactionTime, mash } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, POND, inPond, clampPond, edgeY, edgeX, pondDepth, hh, drawCatch, drawBobber, drawRod, drawBasket,
-  drawLilyPad, drawFrog, drawPondBackground, buildBackground, buildDocks, drawIconArt, drawBang,
+  drawLilyPad, drawFrog, drawPondBackground, buildBackground, buildDocks, drawBang,
 } from './fishing-frenzy/art.js';
 
 const DURATION = 60;
@@ -46,25 +46,8 @@ const KINDS = {
 };
 const SPAWN_KINDS = Object.keys(KINDS).filter((k) => k !== 'golden');
 
-export const meta = {
-  id: 'fishing-frenzy',
-  title: 'Fishing Frenzy',
-  category: 'party',
-  type: 'Free-for-all',
-  goal: 'Catch the most fish points in 60 seconds!',
-  controls: [['stick', 'Aim your cast'], ['a', 'Cast, then press A when a fish bites, and tap A to reel it in']],
-  tips: [
-    'Cast near a fish and wait for it to bite.',
-    'Tap A fast to reel it in!',
-    'Big fish and golden fish are worth lots of points.',
-  ],
-  music: 'splash',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) { drawIconArt(g, x, y, w, h, t); },
-};
+import { meta } from './fishing-frenzy.meta.js';
+export { meta };
 
 /** Player spots: the near shore first (left to right), then the sides. */
 function layoutSlots(n) {
@@ -90,6 +73,7 @@ export class Game {
     this.n = this.players.length;
     this.t = 0; this.clock = 0;
     this.over = false;
+    api.limit(() => (this.over ? null : DURATION - this.t), { showAt: Infinity, x: W / 2, y: 60 });
     this.frenzy = false; this.frenzyT = -10;
     this.scale = this.n <= 4 ? 1 : 0.86;
     this.slots = layoutSlots(this.n);
@@ -1020,14 +1004,10 @@ export class Game {
     g.restore();
   }
 
-  /** Centre of the scoreboard's timer gap (off-centre for odd player counts). */
-  timerX() { return W / 2; }   // ui.scoreboard centres its gap
-
   drawHUD(g) {
     const scores = this.units.map((u) => u.score);
     const m = Math.max(...scores);
     ui.scoreboard(g, this.players, scores, { y: 22, avoidCenter: true, format: (v) => `${v}`, highlight: scores.map((s) => m > 0 && s === m) });
-    ui.timer(g, DURATION - this.t, this.timerX(), 60);
     if (this.frenzy) {
       const k = this.t - this.frenzyT;
       const pulse = 1 + Math.sin(this.t * 8) * 0.05;

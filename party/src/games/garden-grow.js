@@ -23,35 +23,19 @@ import { fx } from '../engine/fx.js';
 import { art, hasArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, pick, chance, shuffle, TAU, ease } from '../engine/util.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import {
   KINDS, drawDirt, drawSeed, drawSprout, drawBud, drawSunflower, drawCarrot, drawStrawberryBush, drawStrawberry,
-  drawPumpkin, drawVine, drawSneezy, drawCan, drawButterfly, drawRainCloud, drawGardenIcon,
+  drawPumpkin, drawVine, drawSneezy, drawCan, drawButterfly, drawRainCloud,
 } from './garden-grow/plants.js';
+import { meta } from './garden-grow.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'garden-grow',
-  title: 'Silly Garden',
-  category: 'molly',
-  type: 'Grow together',
-  goal: 'Plant seeds, water them and see what silly plant pops up!',
-  controls: [['stick', 'Run around the garden'], ['a', 'Hold on dirt: plant, then water']],
-  tips: ['Hold A by a patch: a seed goes in, then water it until it pops!', 'Watch out for the rolling pumpkin and the sneezy flower!', 'Water together to grow plants super fast.'],
-  // Easy (A only): you walk to the next patch by yourself.
-  goalEasy: 'Plant seeds, water them and see what silly plant pops up!',
-  controlsEasy: [['a', 'Hold: plant, then water'], ['stick', 'Walk (if you like)']],
-  tipsEasy: ['You walk to a dirt patch all by yourself!', 'Want a different patch? Walk there with either stick if you like!', 'When the big A bounces, hold A to plant and water!', 'Keep holding until the plant pops up!'],
-  music: 'bouncy',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) { drawGardenIcon(g, x, y, w, h, t || 0); },
-};
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 50;
@@ -86,6 +70,8 @@ export class Game {
     this.started = false;
     this.timeLeft = DURATION;
     this.phase = 'play';
+    // the growing clock, shown all game (the bloom party follows it)
+    api.limit(() => (this.phase === 'play' ? this.timeLeft : null), { showAt: Infinity });
     this.partyT = 0;
     this.finished = false;
     this.grown = 0;             // team total: plants grown together
@@ -222,13 +208,8 @@ export class Game {
   }
 
   pushPlayers() {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.8, d = Math.hypot(dx, dy) || 1;
-      const min = 70;
-      if (d < min) { const k = (min - d) / d * 0.5; A.x -= dx * k; B.x += dx * k; A.y -= dy * k / 1.8; B.y += dy * k / 1.8; }
-    }
+    // sized from the sprites, a little snug so friends can share a patch
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.7, yScale: 1.8, strength: 1, bounds: { x0: X_MIN, x1: X_MAX, y0: Y_MIN, y1: Y_MAX } });
   }
 
   nearestPlot(e, max = REACH) {
@@ -532,10 +513,7 @@ export class Game {
     // one garden grown together: everybody wins, the team total is the headline
     const stats = this.ents.map((e) => `helped ${e.score}`);
     const n = this.grown;
-    this.api.finish({
-      placements: this.ents.map(() => 1), showcase: true, highlight: null, stats,
-      title: `${n} plant${n === 1 ? '' : 's'} grown!`, focus: { x: W / 2, y: 640 },
-    });
+    this.api.finishTogether({ stats, title: `${n} plant${n === 1 ? '' : 's'} grown!`, focus: { x: W / 2, y: 640 } });
   }
 
   // ---------------------------------------------------------------------- AI
@@ -663,7 +641,7 @@ export class Game {
       ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when standing at a patch that wants A
       if (e.ez && this.phase === 'play' && !e.watering && e.stun <= 0 && e.ez.plot && this.nearPlot(e, e.ez.plot)) {
-        ui.glyph(g, 'a', e.x, top - 62 + Math.sin(this.t * 8) * 6, 58, { pulse: true });
+        easyPrompt(g, e.p, { target: { x: e.ez.plot.x, y: e.ez.plot.y - 20 }, child: { x: e.x, y: e.y - e.a.height } });
       }
     }
   }
@@ -783,7 +761,6 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
     ui.scoreboard(g, this.players, this.ents.map(() => ''), { y: 14, avoidCenter: true, format: (v) => v });
     // shared team counter under the timer: plants grown together
     g.save(); g.translate(W / 2, 150);

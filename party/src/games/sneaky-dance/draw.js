@@ -447,33 +447,3 @@ export function drawStarPickup(g, x, y, r, t, blink = 1) {
   g.fillStyle = 'rgba(255,255,255,0.7)'; g.beginPath(); g.arc(-r * 0.25, -r * 0.3, r * 0.18, 0, TAU); g.fill();
   g.restore();
 }
-
-// ------------------------------------------------------------------ thumbnail
-export function drawIcon(g, x, y, w, h, t = 0) {
-  const th = art('thumb/sneaky-dance');
-  if (th) { g.drawImage(th, x, y, w, h); return; }
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = w / 400; g.translate(x, y); g.scale(s, s);
-  const hh = h / s;
-  const bg = g.createLinearGradient(0, 0, 0, hh);
-  bg.addColorStop(0, '#3a2350'); bg.addColorStop(0.62, '#5a3468'); bg.addColorStop(0.63, '#b77a46'); bg.addColorStop(1, '#d9a066');
-  g.fillStyle = bg; g.fillRect(0, 0, 400, hh);
-  for (let k = 0; k < 12; k++) { g.fillStyle = BOOK_COLS[k % 5]; g.fillRect(6 + k * 14, 20 + (k % 3) * 4, 11, 60 - (k % 3) * 4); g.fillRect(400 - 172 + k * 14, 24 + (k % 2) * 6, 11, 56 - (k % 2) * 6); }
-  // Hoot asleep in the chair
-  g.save(); g.translate(200, hh * 0.66); g.scale(0.34, 0.34);
-  const keep = { ...CHAIR }; // draw chair around origin
-  g.translate(-keep.x, -keep.y);
-  const hasArt = drawChairBack(g);
-  g.save(); g.translate(SEAT.x, SEAT.y);
-  drawHoot(g, { t, eyeL: Math.sin(t * 1.5) > 0.6 ? 1 : 0, eyeR: 0, mouth: 'snore', hatTip: 1, book: true, breathe: 1 });
-  g.restore();
-  drawChairFront(g, hasArt);
-  g.restore();
-  drawBubble(g, 290, 40, 'zzz', 0.42, t);
-  // sneaky dancers: notes and a flying book
-  for (let i = 0; i < 5; i++) { const a = t * 3 + i * 1.3; g.save(); g.translate(60 + i * 70, hh - 40 + Math.sin(a) * 10); g.fillStyle = RAINBOW[i % 7]; line(g, 3); g.beginPath(); g.ellipse(0, 0, 10, 8, -0.4, 0, TAU); g.fill(); g.stroke(); g.fillRect(7, -26, 4, 26); g.restore(); }
-  drawBook(g, 70, 120 + Math.sin(t * 2) * 10, t * 8, '#3fc1c9', 0, 0.2);
-  drawBook(g, 340, 140 + Math.cos(t * 2) * 10, t * 8 + 1, '#ff5a7a', 1, -0.2);
-  g.restore();
-}

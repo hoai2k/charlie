@@ -1,80 +1,160 @@
 // Minigame registry. Order here is the order on the Game Select screen
 // (party games: page 1 = the first 11, page 2 = the rest, Crown Keeper last; see PARTY_PAGES).
-import * as g0 from './sprinkle-catch.js';
-import * as g1 from './bumper-bounce.js';
-import * as g2 from './pass-the-present.js';
-import * as g3 from './balloon-pump.js';
-import * as g4 from './troll-trouble.js';
-import * as g5 from './spotlight-dance.js';
-import * as g6 from './wizard-quickdraw.js';
-import * as g7 from './cookie-crumble.js';
-import * as g8 from './paint-party.js';
-import * as g9 from './broomstick-dash.js';
-import * as g10 from './fairy-count.js';
-import * as g11 from './crown-keeper.js';
-import * as g12 from './pinata-party.js';
-import * as g13 from './musical-cushions.js';
-import * as g14 from './snowball-splat.js';
-import * as g15 from './jump-rope.js';
-import * as g16 from './fishing-frenzy.js';
-import * as g17 from './tug-of-war.js';
-import * as g18 from './cloud-hop.js';
-import * as g19 from './pancake-tower.js';
-import * as g20 from './treasure-dig.js';
-import * as g21 from './mini-golf.js';
-import * as g22 from './fashion-show.js';
-import * as g23 from './art-studio.js';
-import * as g24 from './cake-bakery.js';
-import * as g25 from './pet-spa.js';
-import * as g26 from './pop-star-stage.js';
-import * as g27 from './fairy-garden.js';
-import * as g28 from './potion-class.js';
-import * as g29 from './memory-match.js';
-import * as g30 from './melody-maker.js';
-import * as g31 from './bead-bracelets.js';
-import * as g32 from './dream-room.js';
-import * as g33 from './seek-and-find.js';
-import * as g34 from './star-maker.js';
-import * as g35 from './sandcastle-beach.js';
-import * as g36 from './puppet-theater.js';
-import * as g37 from './snowman-builder.js';
-import * as g38 from './nail-studio.js';
-import * as g39 from './pottery-wheel.js';
-import * as g40 from './hair-salon.js';
-import * as g41 from './dance-studio.js';
-import * as g42 from './acrobat-circus.js';
-import * as g43 from './aquarium.js';
-import * as g44 from './tea-party.js';
-import * as g45 from './sock-match.js';
-import * as g46 from './unicorn-jump.js';
-import * as g47 from './mermaid-pearls.js';
-import * as g48 from './pumpkin-peekaboo.js';
-import * as g49 from './ghost-giggles.js';
-import * as g50 from './kitten-yarn.js';
-import * as g51 from './snowflake-catch.js';
-import * as g52 from './trick-or-treat.js';
-import * as g53 from './dance-freeze.js';
-import * as g54 from './shape-train.js';
-import * as g55 from './ballet-butterflies.js';
-import * as g56 from './wand-shapes.js';
-import * as g57 from './cupcake-stack.js';
-import * as g58 from './ladybug-spots.js';
-import * as g59 from './bubble-pop.js';
-import * as g60 from './balloon-float.js';
-import * as g61 from './duckling-parade.js';
-import * as g62 from './puppy-splash.js';
-import * as g63 from './rainbow-painter.js';
-import * as g64 from './garden-grow.js';
-import * as g65 from './fairy-flutter.js';
-import * as g66 from './fairy-hide-seek.js';
-import * as g67 from './muddy-mayhem.js';
-import * as g68 from './sneaky-dance.js';
-import * as g69 from './bed-bounce.js';
-import * as g70 from './prank-troll.js';
-import * as g71 from './opposite-ballet.js';
-import * as g72 from './whoopee-tea.js';
+//
+// Games load on demand: the menu only needs each game's small <id>.meta.js (title,
+// category, how-to text). loadGame(id) imports the game's code; the intro (how-to)
+// screen starts it so it is ready by the time play begins, and the play scene waits for it.
+import { meta as m0 } from './sprinkle-catch.meta.js';
+import { meta as m1 } from './bumper-bounce.meta.js';
+import { meta as m2 } from './pass-the-present.meta.js';
+import { meta as m3 } from './balloon-pump.meta.js';
+import { meta as m4 } from './troll-trouble.meta.js';
+import { meta as m5 } from './spotlight-dance.meta.js';
+import { meta as m6 } from './wizard-quickdraw.meta.js';
+import { meta as m7 } from './cookie-crumble.meta.js';
+import { meta as m8 } from './paint-party.meta.js';
+import { meta as m9 } from './broomstick-dash.meta.js';
+import { meta as m10 } from './fairy-count.meta.js';
+import { meta as m11 } from './crown-keeper.meta.js';
+import { meta as m12 } from './pinata-party.meta.js';
+import { meta as m13 } from './musical-cushions.meta.js';
+import { meta as m14 } from './snowball-splat.meta.js';
+import { meta as m15 } from './jump-rope.meta.js';
+import { meta as m16 } from './fishing-frenzy.meta.js';
+import { meta as m17 } from './tug-of-war.meta.js';
+import { meta as m18 } from './cloud-hop.meta.js';
+import { meta as m19 } from './pancake-tower.meta.js';
+import { meta as m20 } from './treasure-dig.meta.js';
+import { meta as m21 } from './mini-golf.meta.js';
+import { meta as m22 } from './fashion-show.meta.js';
+import { meta as m23 } from './art-studio.meta.js';
+import { meta as m24 } from './cake-bakery.meta.js';
+import { meta as m25 } from './pet-spa.meta.js';
+import { meta as m26 } from './pop-star-stage.meta.js';
+import { meta as m27 } from './fairy-garden.meta.js';
+import { meta as m28 } from './potion-class.meta.js';
+import { meta as m29 } from './memory-match.meta.js';
+import { meta as m30 } from './melody-maker.meta.js';
+import { meta as m31 } from './bead-bracelets.meta.js';
+import { meta as m32 } from './dream-room.meta.js';
+import { meta as m33 } from './seek-and-find.meta.js';
+import { meta as m34 } from './star-maker.meta.js';
+import { meta as m35 } from './sandcastle-beach.meta.js';
+import { meta as m36 } from './puppet-theater.meta.js';
+import { meta as m37 } from './snowman-builder.meta.js';
+import { meta as m38 } from './nail-studio.meta.js';
+import { meta as m39 } from './pottery-wheel.meta.js';
+import { meta as m40 } from './hair-salon.meta.js';
+import { meta as m41 } from './dance-studio.meta.js';
+import { meta as m42 } from './acrobat-circus.meta.js';
+import { meta as m43 } from './aquarium.meta.js';
+import { meta as m44 } from './tea-party.meta.js';
+import { meta as m45 } from './sock-match.meta.js';
+import { meta as m46 } from './unicorn-jump.meta.js';
+import { meta as m47 } from './mermaid-pearls.meta.js';
+import { meta as m48 } from './pumpkin-peekaboo.meta.js';
+import { meta as m49 } from './ghost-giggles.meta.js';
+import { meta as m50 } from './kitten-yarn.meta.js';
+import { meta as m51 } from './snowflake-catch.meta.js';
+import { meta as m52 } from './trick-or-treat.meta.js';
+import { meta as m53 } from './dance-freeze.meta.js';
+import { meta as m54 } from './shape-train.meta.js';
+import { meta as m55 } from './ballet-butterflies.meta.js';
+import { meta as m56 } from './wand-shapes.meta.js';
+import { meta as m57 } from './cupcake-stack.meta.js';
+import { meta as m58 } from './ladybug-spots.meta.js';
+import { meta as m59 } from './bubble-pop.meta.js';
+import { meta as m60 } from './balloon-float.meta.js';
+import { meta as m61 } from './duckling-parade.meta.js';
+import { meta as m62 } from './puppy-splash.meta.js';
+import { meta as m63 } from './rainbow-painter.meta.js';
+import { meta as m64 } from './garden-grow.meta.js';
+import { meta as m65 } from './fairy-flutter.meta.js';
+import { meta as m66 } from './fairy-hide-seek.meta.js';
+import { meta as m67 } from './muddy-mayhem.meta.js';
+import { meta as m68 } from './sneaky-dance.meta.js';
+import { meta as m69 } from './bed-bounce.meta.js';
+import { meta as m70 } from './prank-troll.meta.js';
+import { meta as m71 } from './opposite-ballet.meta.js';
+import { meta as m72 } from './whoopee-tea.meta.js';
 
-export const GAMES = [g0, g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, g23, g24, g25, g26, g27, g28, g29, g30, g31, g32, g33, g34, g35, g36, g37, g38, g39, g40, g41, g42, g43, g44, g45, g46, g47, g48, g49, g50, g51, g52, g53, g54, g55, g56, g57, g58, g59, g60, g61, g62, g63, g64, g65, g66, g67, g68, g69, g70, g71, g72].map((m) => ({ ...m.meta, module: m }));
+const LOADERS = {
+  'sprinkle-catch': () => import('./sprinkle-catch.js'),
+  'bumper-bounce': () => import('./bumper-bounce.js'),
+  'pass-the-present': () => import('./pass-the-present.js'),
+  'balloon-pump': () => import('./balloon-pump.js'),
+  'troll-trouble': () => import('./troll-trouble.js'),
+  'spotlight-dance': () => import('./spotlight-dance.js'),
+  'wizard-quickdraw': () => import('./wizard-quickdraw.js'),
+  'cookie-crumble': () => import('./cookie-crumble.js'),
+  'paint-party': () => import('./paint-party.js'),
+  'broomstick-dash': () => import('./broomstick-dash.js'),
+  'fairy-count': () => import('./fairy-count.js'),
+  'crown-keeper': () => import('./crown-keeper.js'),
+  'pinata-party': () => import('./pinata-party.js'),
+  'musical-cushions': () => import('./musical-cushions.js'),
+  'snowball-splat': () => import('./snowball-splat.js'),
+  'jump-rope': () => import('./jump-rope.js'),
+  'fishing-frenzy': () => import('./fishing-frenzy.js'),
+  'tug-of-war': () => import('./tug-of-war.js'),
+  'cloud-hop': () => import('./cloud-hop.js'),
+  'pancake-tower': () => import('./pancake-tower.js'),
+  'treasure-dig': () => import('./treasure-dig.js'),
+  'mini-golf': () => import('./mini-golf.js'),
+  'fashion-show': () => import('./fashion-show.js'),
+  'art-studio': () => import('./art-studio.js'),
+  'cake-bakery': () => import('./cake-bakery.js'),
+  'pet-spa': () => import('./pet-spa.js'),
+  'pop-star-stage': () => import('./pop-star-stage.js'),
+  'fairy-garden': () => import('./fairy-garden.js'),
+  'potion-class': () => import('./potion-class.js'),
+  'memory-match': () => import('./memory-match.js'),
+  'melody-maker': () => import('./melody-maker.js'),
+  'bead-bracelets': () => import('./bead-bracelets.js'),
+  'dream-room': () => import('./dream-room.js'),
+  'seek-and-find': () => import('./seek-and-find.js'),
+  'star-maker': () => import('./star-maker.js'),
+  'sandcastle-beach': () => import('./sandcastle-beach.js'),
+  'puppet-theater': () => import('./puppet-theater.js'),
+  'snowman-builder': () => import('./snowman-builder.js'),
+  'nail-studio': () => import('./nail-studio.js'),
+  'pottery-wheel': () => import('./pottery-wheel.js'),
+  'hair-salon': () => import('./hair-salon.js'),
+  'dance-studio': () => import('./dance-studio.js'),
+  'acrobat-circus': () => import('./acrobat-circus.js'),
+  'aquarium': () => import('./aquarium.js'),
+  'tea-party': () => import('./tea-party.js'),
+  'sock-match': () => import('./sock-match.js'),
+  'unicorn-jump': () => import('./unicorn-jump.js'),
+  'mermaid-pearls': () => import('./mermaid-pearls.js'),
+  'pumpkin-peekaboo': () => import('./pumpkin-peekaboo.js'),
+  'ghost-giggles': () => import('./ghost-giggles.js'),
+  'kitten-yarn': () => import('./kitten-yarn.js'),
+  'snowflake-catch': () => import('./snowflake-catch.js'),
+  'trick-or-treat': () => import('./trick-or-treat.js'),
+  'dance-freeze': () => import('./dance-freeze.js'),
+  'shape-train': () => import('./shape-train.js'),
+  'ballet-butterflies': () => import('./ballet-butterflies.js'),
+  'wand-shapes': () => import('./wand-shapes.js'),
+  'cupcake-stack': () => import('./cupcake-stack.js'),
+  'ladybug-spots': () => import('./ladybug-spots.js'),
+  'bubble-pop': () => import('./bubble-pop.js'),
+  'balloon-float': () => import('./balloon-float.js'),
+  'duckling-parade': () => import('./duckling-parade.js'),
+  'puppy-splash': () => import('./puppy-splash.js'),
+  'rainbow-painter': () => import('./rainbow-painter.js'),
+  'garden-grow': () => import('./garden-grow.js'),
+  'fairy-flutter': () => import('./fairy-flutter.js'),
+  'fairy-hide-seek': () => import('./fairy-hide-seek.js'),
+  'muddy-mayhem': () => import('./muddy-mayhem.js'),
+  'sneaky-dance': () => import('./sneaky-dance.js'),
+  'bed-bounce': () => import('./bed-bounce.js'),
+  'prank-troll': () => import('./prank-troll.js'),
+  'opposite-ballet': () => import('./opposite-ballet.js'),
+  'whoopee-tea': () => import('./whoopee-tea.js'),
+};
+
+export const GAMES = [m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22, m23, m24, m25, m26, m27, m28, m29, m30, m31, m32, m33, m34, m35, m36, m37, m38, m39, m40, m41, m42, m43, m44, m45, m46, m47, m48, m49, m50, m51, m52, m53, m54, m55, m56, m57, m58, m59, m60, m61, m62, m63, m64, m65, m66, m67, m68, m69, m70, m71, m72].map((m) => ({ ...m }));
 export const PARTY_GAMES = GAMES.filter((g) => g.category === 'party');
 export const STUDIO_GAMES = GAMES.filter((g) => g.category === 'studio');
 // Party Games shows 11 games at a time; the 12th tile is "More Games", which
@@ -98,3 +178,14 @@ export const MOLLY_GAMES = mollyAll.filter((g) => !swapIns.has(g.id))
 // and a "More Play" tile.
 export const STUDIO_PAGES = STUDIO_GAMES.length <= 12 ? [STUDIO_GAMES] : [STUDIO_GAMES.slice(0, 11), STUDIO_GAMES.slice(11)];
 export const gameById = (id) => GAMES.find((g) => g.id === id);
+
+/** The game's code (its module), loaded once on demand; also kept on the entry as `.module`. */
+const loading = new Map();
+export function loadGame(id) {
+  const g = gameById(id);
+  if (!g || !LOADERS[id]) return Promise.reject(new Error('Unknown game ' + id));
+  if (!loading.has(id)) {
+    loading.set(id, LOADERS[id]().then((mod) => { g.module = mod; return mod; }, (e) => { loading.delete(id); throw e; }));
+  }
+  return loading.get(id);
+}

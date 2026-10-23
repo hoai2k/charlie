@@ -20,27 +20,15 @@ import { drawStarShape } from '../engine/emotes.js';
 import { PHOTO_POSES, photoPosePressed, strikePhotoPose, randomPhotoPose } from '../engine/photo-poses.js';
 import {
   NAVY, GOLD, RED, drawBigTop, drawSpotCones, drawStationRing, drawTrampoline, TRAMP_BED, drawRope, drawBar,
-  drawTower, drawNet, drawBall, drawBalloon, drawParasol, drawActIcon, drawIcon, BALLOON_COLORS,
+  drawTower, drawNet, drawBall, drawBalloon, drawParasol, drawActIcon, BALLOON_COLORS,
 } from './acrobat-circus/art.js';
 import {
   newAir, airInput, updateAir, recordAir, judge, twistScale, planTrick, playTrick, endTrick, wrapAngle,
 } from './acrobat-circus/tricks.js';
 
-export const meta = {
-  id: 'acrobat-circus',
-  title: 'Acrobat Circus',
-  category: 'studio',
-  type: 'Circus show · Everyone wins',
-  goal: 'Bounce, swing, balance and flip through four circus acts, build a human pyramid, then star in the finale show!',
-  controls: [['stick', 'In the air: flip! (and balance, roll)'], ['a', 'Bounce higher, leap, hop'], ['b', 'Tuck: spin faster'], ['x', 'Twist'], ['y', 'Star jump']],
-  tips: ['Let go of the stick to land on your feet!', 'On the trampoline, press A just as you land to bounce higher.', 'A wobbly landing? The safety net bounces you right back up!'],
-  music: 'bouncy',
-  duration: 'about 3 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+import { meta } from './acrobat-circus.meta.js';
+
+export { meta };
 
 const G = 1500;                 // gravity in station units / s²
 const ACT_TIME = 28;
@@ -97,6 +85,8 @@ export class Game {
     this.cpuOnly = this.players.every((p) => p.isAI);
     const rects = stationRects(this.n);
     this.stations = this.players.map((p, i) => this.makeStation(p, i, rects[i]));
+    // Each act runs on a clock (the play scene draws it, the whole act).
+    api.limit(() => (this.phase === 'acts' && this.outroT < 0 ? Math.max(0, ACT_TIME - this.actT) : null), { showAt: Infinity, x: W - 190, y: 56 });
     this.glimmer = new Actor('glimmer', { scale: 1.1, x: 300, y: 420 });
     this.glimmer.setPose('float');
     let start = null;
@@ -1016,7 +1006,7 @@ export class Game {
       const b = st.best ? st.best.name : 'Big Bounce';
       return this.n > 4 ? `${st.claps} claps` : `${b} · ${st.claps} claps`;
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Bravo!', focus: { x: W / 2, y: FLOOR - 160, zoom: 1.05 } });
+    this.api.finishTogether({ stats, title: 'Bravo!', focus: { x: W / 2, y: FLOOR - 160, zoom: 1.05 } });
   }
 
   onDone() {
@@ -1229,8 +1219,6 @@ export class Game {
     ui.panel(g, -330, -40, 660, 80, { r: 40, fill: RED });
     ui.text(g, this.act.name, 0, 2, { size: 50, weight: 800 });
     g.restore();
-    const left = Math.max(0, ACT_TIME - this.actT);
-    ui.timer(g, left, W - 190, 56);
   }
 
   drawActIntro(g) {

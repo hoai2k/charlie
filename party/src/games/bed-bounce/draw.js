@@ -471,34 +471,3 @@ export function drawCow(g, x, y, h, o = {}) {
   g.restore();
   g.restore();
 }
-
-// --- thumbnail -----------------------------------------------------------------------------------
-export function drawIcon(g, x, y, w, h, t = 0) {
-  g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-  g.translate(x, y); g.scale(w / 800, h / 500);
-  const wall = g.createLinearGradient(0, 0, 0, 500);
-  wall.addColorStop(0, '#2b2160'); wall.addColorStop(1, '#5a48a0');
-  g.fillStyle = wall; g.fillRect(0, 0, 800, 500);
-  // window + moon
-  g.fillStyle = '#1b1f55'; g.beginPath(); g.arc(150, 120, 80, 0, TAU); g.fill(); ink(g, 6);
-  g.fillStyle = '#fff1a8'; g.beginPath(); g.arc(150, 120, 46, 0, TAU); g.fill();
-  g.fillStyle = '#1b1f55'; g.beginPath(); g.arc(172, 104, 42, 0, TAU); g.fill();
-  // glow stars
-  for (let k = 0; k < 6; k++) drawGlowStar(g, 300 + k * 85, 40 + (k % 2) * 16, 14, k % 2 ? 1 : 0.4, t);
-  // door peek
-  g.fillStyle = '#ffe6a0'; g.fillRect(660, 160, 140, 340);
-  drawCow(g, 700, 520, 300, { face: 'sus', t, look: -1 });
-  g.fillStyle = '#f3e3c3'; g.fillRect(740, 160, 60, 340); g.strokeStyle = NAVY; g.lineWidth = 5; g.strokeRect(740, 160, 60, 340);
-  // bed
-  g.fillStyle = '#ffffff'; rr(g, 40, 400, 620, 60, 24); g.fill(); ink(g, 5);
-  g.fillStyle = '#ff9ccc'; rr(g, 90, 380, 580, 120, 30); g.fill(); ink(g, 5);
-  g.fillStyle = '#c98a5a'; rr(g, 20, 300, 80, 220, 36); g.fill(); ink(g, 5);
-  // bouncing teddy + cat with pillows and feathers
-  const b = Math.abs(Math.sin(t * 3)) * 40;
-  drawTeddy(g, 280, 360 - b - 80, 1.15, t);
-  drawPillow(g, 350, 220 - b, 90, 0.5 + Math.sin(t * 6) * 0.3);
-  drawCat(g, 500, 340 - (40 - b) - 40, 1.05, t);
-  for (let k = 0; k < 10; k++) drawFeather(g, 220 + ((k * 137) % 360), 120 + ((k * 71 + t * 40) % 220), 0.9, k + t, null);
-  drawStar(g, 420, 140, 26, true, t);
-  g.restore();
-}

@@ -17,6 +17,7 @@ import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
 import { charById } from '../data/characters.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, ease, TAU, dist, later } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
+import { meta } from './fairy-garden.meta.js';
 
 const NAVY = '#24163f';
 function snd(key, fallback, opts) { if (hasSound(key)) sfx(key, opts); else if (fallback) sfx(fallback, opts); }
@@ -295,47 +296,7 @@ function drawFirefly(g, x, y, t, ph, k = 1) {
 
 // ---------------------------------------------------------------------------
 
-export const meta = {
-  id: 'fairy-garden',
-  title: 'Fairy Garden',
-  category: 'studio',
-  type: 'Cooperative · Grow it together',
-  goal: 'Plant magic seeds, water them and watch them bloom — then catch fireflies at night!',
-  controls: [['stick', 'Walk'], ['a', 'Plant / water / catch'], ['rb', 'Pick a seed (LB / RB or D-pad)'], ['x', 'Sing to plants'], ['y', 'Fairy dust']],
-  cornerControls: { at: 'tr', top: 180, items: [['a', 'Plant / water'], ['rb', 'Seed'], ['x', 'Sing'], ['y', 'Fairy dust']] },
-  tips: ['A blue drop means a plant is thirsty — water it!', 'Singing and fairy dust make plants grow faster.', 'When night falls, press A next to a firefly to catch it.'],
-  music: 'chill',
-  duration: 'About 2 min',
-  minPlayers: 1, maxPlayers: 8,
-  countdown: false,
-  drawIcon(g, x, y, w, h, t) {
-    const s = h / 200;
-    // dusk sky
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#2b2a7a'); gr.addColorStop(0.55, '#c76fb8'); gr.addColorStop(1, '#ffc88a');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    for (let i = 0; i < 12; i++) {
-      g.save(); g.globalAlpha = 0.5 + 0.5 * Math.sin(t * 2 + i);
-      g.translate(x + ((i * 97) % w), y + ((i * 41) % (h * 0.4))); drawSparkleShape(g, 10 * s, '#ffffff'); g.restore();
-    }
-    g.fillStyle = '#fff6c8'; g.beginPath(); g.arc(x + w * 0.82, y + h * 0.2, 16 * s, 0, TAU); g.fill();
-    g.fillStyle = '#2b2a7a'; g.beginPath(); g.arc(x + w * 0.82 + 7 * s, y + h * 0.18, 14 * s, 0, TAU); g.fill();
-    // hill
-    g.fillStyle = '#3f8f5a'; g.beginPath(); g.ellipse(x + w / 2, y + h * 1.05, w * 0.75, h * 0.42, 0, 0, TAU); g.fill();
-    // flowers
-    const kinds = [1, 0, 2, 3, 5, 4];
-    kinds.forEach((k, i) => {
-      const fx2 = x + w * (0.12 + i * 0.155), fy = y + h * (0.9 - Math.sin((i / 5) * Math.PI) * 0.1);
-      drawPlant(g, k, 3, fx2, fy, s * 0.62, t, { glow: 0.8, seed: i });
-    });
-    // fairy & fireflies
-    drawFairy(g, x + w * 0.5 + Math.cos(t * 1.5) * 30 * s, y + h * 0.36 + Math.sin(t * 3) * 8 * s, 18 * s, t, '#ff8fd0', 0.8);
-    for (let i = 0; i < 6; i++) drawFirefly(g, x + w * (0.1 + ((i * 0.37 + t * 0.03) % 0.8)), y + h * (0.4 + 0.25 * Math.sin(t + i * 2)), t, i, s * 1.2);
-    // watering can
-    drawCan(g, x + w * 0.16, y + h * 0.48, 34 * s, -0.4 + Math.sin(t * 2) * 0.1);
-    ui.text(g, 'Fairy Garden', x + w / 2, y + h * 0.1, { size: h * 0.11, color: '#ffffff', maxWidth: w * 0.9 });
-  },
-};
+export { meta };
 
 // ---------------------------------------------------------------------------
 
@@ -358,6 +319,11 @@ export class Game {
     this.phaseT = 0;
     this.tod = 0;            // 0 day, 1 sunset, 2 night
     this.finished = false;
+    // Time limits, left of the status chip (the corner controls sit below it): the day ends at
+    // DAY_MAX even if the garden isn't full (shown for its last 20 s), and the night's
+    // firefly hunt is counted down all night.
+    api.limit(() => (this.phase === 'day' ? DAY_MAX - this.phaseT : null), { showAt: 20, x: W - 639, y: 134, label: 'Sunset' });
+    api.limit(() => (this.phase === 'night' ? NIGHT_LEN - this.phaseT : null), { showAt: Infinity, x: W - 639, y: 134 });
     // Plots
     const cols = n <= 2 ? 6 : n <= 5 ? 8 : 10, rows = n <= 2 ? 2 : 3;
     const rowY = rows === 2 ? [610, 850] : [520, 720, 920];
@@ -777,7 +743,7 @@ export class Game {
       if (m.jar) bits.push(`${m.jar} firefl${m.jar === 1 ? 'y' : 'ies'}`);
       return bits.join(' · ');
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Magical!', focus: this.phase === 'finale' ? { x: W / 2, y: 880, zoom: 1.25 } : undefined });
+    this.api.finishTogether({ stats, title: 'Magical!', focus: this.phase === 'finale' ? { x: W / 2, y: 880, zoom: 1.25 } : undefined });
   }
 
   postUpdate(dt) {
@@ -1077,29 +1043,13 @@ export class Game {
       drawPlant(g, 0, 3, W - 430, y + 52, 0.32, this.t);
       ui.bar(g, W - 400, y + 18, 230, 26, b / tot, '#ff8fd0', { lineWidth: 3 });
       ui.text(g, `${b} / ${tot}`, W - 100, y + 31, { size: 30, color: NAVY, stroke: false, weight: 800 });
-      // the day ends at DAY_MAX even if the garden isn't full: say so for its last 20 s
-      const left = DAY_MAX - this.phaseT;
-      if (this.phase === 'day' && left < 20) {
-        const cy = y + 30, x0 = W - 784, k = clamp((20 - left) / 0.3, 0, 1);   // left of the bloom bar (the corner controls sit below it)
-        g.save(); g.globalAlpha = k;
-        ui.panel(g, x0, cy - 30, 290, 60, { r: 30, fill: '#ffe2b0', lineWidth: 4 });
-        g.fillStyle = '#ff9f43'; g.strokeStyle = NAVY; g.lineWidth = 3;
-        g.beginPath(); g.arc(x0 + 38, cy + 6, 18, Math.PI, TAU); g.closePath(); g.fill(); g.stroke();
-        g.beginPath(); g.moveTo(x0 + 12, cy + 8); g.lineTo(x0 + 64, cy + 8); g.stroke();
-        ui.text(g, `Sunset in ${Math.max(1, Math.ceil(left))}`, x0 + 74, cy + 2, { size: 30, color: NAVY, stroke: false, weight: 800, align: 'left' });
-        g.restore();
-      }
+      // (the day's DAY_MAX "Sunset" countdown is an api.limit, left of this bar)
     } else if (this.phase === 'night') {
-      const left = Math.max(0, NIGHT_LEN - this.phaseT);
       ui.panel(g, W - 470, y, 430, 60, { r: 30, fill: 'rgba(255,255,255,0.9)', lineWidth: 4 });
       drawFirefly(g, W - 430, y + 30, this.t, 0, 1.2);
       const caught = this.movers.reduce((s, m) => s + m.jar, 0);
       ui.text(g, `Fireflies: ${caught}`, W - 400, y + 31, { size: 30, color: NAVY, stroke: false, weight: 800, align: 'left' });
-      // moon-timer
-      g.save(); g.translate(W - 80, y + 30);
-      g.fillStyle = '#2b2a7a'; g.beginPath(); g.arc(0, 0, 22, 0, TAU); g.fill();
-      g.fillStyle = '#fff6c8'; g.beginPath(); g.moveTo(0, 0); g.arc(0, 0, 22, -Math.PI / 2, -Math.PI / 2 + TAU * (left / NIGHT_LEN)); g.closePath(); g.fill();
-      g.restore();
+      // (the night's countdown is an api.limit, left of this chip)
     }
   }
 

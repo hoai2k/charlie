@@ -31,54 +31,8 @@ const ROCKS = [
   { x: 380, y: 860, r: 54 }, { x: 1540, y: 870, r: 48 }, { x: 1010, y: 360, r: 36 },
 ];
 
-export const meta = {
-  id: 'troll-trouble',
-  title: 'Troll Trouble',
-  category: 'party',
-  type: 'Survive & collect',
-  goal: 'Grab the most gems - and dodge the grumpy Troll\'s ground-pound!',
-  controls: [['stick', 'Run around'], ['a', 'Dash (short cooldown)']],
-  tips: [
-    'Run away from the growing shadow circle!',
-    'Hit by a slam? You drop half your gems - grab them back!',
-    'When the Troll naps, it is gem-grabbing time.',
-  ],
-  music: 'spooky',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#a6ec82'); gr.addColorStop(1, '#6fcf6b');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    g.fillStyle = 'rgba(255,255,255,0.08)';
-    for (let i = 0; i < 6; i++) g.fillRect(x + i * w / 6, y, w / 12, h);
-    // flowers
-    for (let i = 0; i < 9; i++) drawFlower(g, x + w * ((i * 0.37 + 0.08) % 1), y + h * (0.12 + ((i * 0.53) % 0.8)), h * 0.035, i);
-    // slam circle
-    const k = (t * 0.7) % 1;
-    const cx = x + w * 0.5, cy = y + h * 0.62;
-    g.save();
-    g.fillStyle = 'rgba(60,20,40,0.28)'; g.beginPath(); g.ellipse(cx, cy, w * 0.3 * (0.4 + 0.6 * k), h * 0.2 * (0.4 + 0.6 * k), 0, 0, TAU); g.fill();
-    g.strokeStyle = '#ff4d6d'; g.lineWidth = h * 0.02; g.setLineDash([h * 0.05, h * 0.04]);
-    g.beginPath(); g.ellipse(cx, cy, w * 0.3, h * 0.2, 0, 0, TAU); g.stroke();
-    g.restore();
-    // troll-ish blob
-    g.fillStyle = '#7f9a45'; g.strokeStyle = NAVY; g.lineWidth = h * 0.025;
-    g.beginPath(); g.ellipse(cx, cy - h * 0.12, w * 0.12, h * 0.17, 0, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = '#7f9a45'; g.beginPath(); g.arc(cx, cy - h * 0.34, h * 0.1, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = '#fff'; g.beginPath(); g.arc(cx - h * 0.04, cy - h * 0.35, h * 0.028, 0, TAU); g.arc(cx + h * 0.04, cy - h * 0.35, h * 0.028, 0, TAU); g.fill();
-    g.fillStyle = NAVY; g.beginPath(); g.arc(cx - h * 0.04, cy - h * 0.34, h * 0.012, 0, TAU); g.arc(cx + h * 0.04, cy - h * 0.34, h * 0.012, 0, TAU); g.fill();
-    g.lineWidth = h * 0.02; g.beginPath(); g.moveTo(cx - h * 0.07, cy - h * 0.41); g.lineTo(cx - h * 0.01, cy - h * 0.38); g.moveTo(cx + h * 0.07, cy - h * 0.41); g.lineTo(cx + h * 0.01, cy - h * 0.38); g.stroke();
-    // gems
-    const gems = [[0.18, 0.3], [0.82, 0.25], [0.2, 0.78], [0.84, 0.74]];
-    gems.forEach(([gx, gy], i) => drawGemShape(g, x + w * gx, y + h * gy + Math.sin(t * 3 + i) * 4, h * 0.075, i, 1));
-    // exclamation
-    g.save(); g.translate(cx + w * 0.17, cy - h * 0.42 + Math.sin(t * 6) * 3);
-    ui.text(g, '!', 0, 0, { size: h * 0.2, color: '#ff4d6d', strokeWidth: h * 0.03 }); g.restore();
-  },
-};
+import { meta } from './troll-trouble.meta.js';
+export { meta };
 
 // ---- small shared drawing helpers -------------------------------------------
 function drawFlower(g, x, y, s, seed) {
@@ -146,6 +100,7 @@ export class Game {
     this.n = this.players.length;
     this.t = 0;
     this.left = DURATION;
+    api.limit(() => (this.finished ? null : this.left), { showAt: Infinity });
     this.angry = false;
     this.angerBanner = 0;
     this.gems = [];
@@ -759,7 +714,6 @@ export class Game {
       avoidCenter: true, format: (v) => `${v}`,
       expr: this.pl.map((q) => (q.stun > 0 ? 'sad' : 'neutral')),
     });
-    ui.timer(g, this.left);
     if (this.hint > 0) {
       g.save(); g.globalAlpha = clamp(this.hint, 0, 1);
       // Left-aligned message, then the A Dash hint in its own space at the right

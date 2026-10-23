@@ -20,7 +20,8 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { drawSparkleShape, drawHeartShape } from '../engine/emotes.js';
 import { clamp, lerp, rand, randInt, pick, chance, TAU, ease, placementsFromScores } from '../engine/util.js';
 import { drawPumpkin, drawCandy, drawBucket, drawBat, drawPatchBackground, drawMoonFace } from './pumpkin-peekaboo/art.js';
@@ -34,56 +35,9 @@ function holeOpening(h, s) {
 }
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'pumpkin-peekaboo',
-  title: 'Pumpkin Peekaboo',
-  category: 'molly',
-  type: 'Candy hunt',
-  goal: 'Boop the silly pumpkins to get candy!',
-  controls: [['stick', 'Run around the patch'], ['a', 'Boop!']],
-  tips: ['Run to a pumpkin and press A. Boop boop!', 'Golden pumpkins make it rain candy for everyone!', 'Boop the kitty in the witch hat for a big lollipop.'],
-  // Molly Easy: you walk to the pumpkins by yourself; A boops
-  goalEasy: 'You walk to the pumpkins by yourself. Press A to boop them!',
-  controlsEasy: [['a', 'Boop! (A runs you to the nearest pumpkin)'], ['stick', 'Move with either stick if you like']],
-  tipsEasy: ['Press A when the big A bounces. Boop boop!', 'Want a different pumpkin? Walk over with the stick, then press A!', 'Golden pumpkins make it rain candy for everyone!'],
-  music: 'spooky',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const sky = g.createLinearGradient(0, 0, 0, hh);
-    sky.addColorStop(0, '#22185a'); sky.addColorStop(0.55, '#6a3f9c'); sky.addColorStop(0.56, '#3f6e36'); sky.addColorStop(1, '#2c5128');
-    g.fillStyle = sky; g.fillRect(0, 0, 400, hh);
-    g.fillStyle = '#fff';
-    for (let i = 0; i < 18; i++) { g.globalAlpha = 0.4 + 0.4 * Math.sin(t * 3 + i); g.fillRect((i * 97) % 400, (i * 37) % (hh * 0.45), 3, 3); }
-    g.globalAlpha = 1;
-    drawMoonFace(g, 330, hh * 0.18, 34, t);
-    const holes = [[90, hh * 0.78, 0, 0.75], [200, hh * 0.86, 1, 1], [312, hh * 0.76, 2, 0.6]];
-    holes.forEach(([hx, hy, f, r], i) => {
-      g.fillStyle = '#24160f'; g.beginPath(); g.ellipse(hx, hy, 52, 17, 0, 0, TAU); g.fill();
-      const rise = clamp(r + Math.sin(t * 2.4 + i * 2) * 0.12, 0, 1);
-      g.save(); g.beginPath(); g.rect(hx - 80, hy - 200, 160, 200); g.clip();
-      g.translate(hx, hy + (1 - rise) * 90);
-      const key = i === 2 ? 'prop/pp-witch-cat' : i === 1 ? 'prop/pp-pumpkin-giggle' : 'prop/pp-pumpkin-1';
-      if (!drawArt(g, key, 0, 0, 104, 104, { anchor: 'bottom' })) drawPumpkin(g, 92, i === 2 ? 'cat' : i === 1 ? 'giggle' : 0, { t, golden: false });
-      g.restore();
-    });
-    // candy spraying out of the giggling pumpkin
-    for (let i = 0; i < 4; i++) {
-      const k = (t * 0.9 + i / 4) % 1;
-      const cx = 200 + (i - 1.5) * 70 * k, cy = hh * 0.62 - Math.sin(k * Math.PI) * 80;
-      g.save(); g.translate(cx, cy); g.rotate(t * 4 + i);
-      if (!drawArt(g, `prop/pp-candy-${(i % 4) + 1}`, 0, 0, 34, 34)) drawCandy(g, i % 4, 15);
-      g.restore();
-    }
-    g.restore();
-  },
-};
+import { meta } from './pumpkin-peekaboo.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 45;
@@ -115,6 +69,8 @@ export class Game {
     this.n = n;
     this.t = 0; this.playT = 0;
     this.timeLeft = DURATION;
+    // the patch clock, shown the whole game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.party = false; this.partyT = 0;
     this.done = false;
     this.baseScale = n <= 4 ? 0.95 : n <= 6 ? 0.86 : 0.8;
@@ -320,17 +276,7 @@ export class Game {
   }
 
   separate(dt) {
-    const E = this.ents;
-    for (let i = 0; i < E.length; i++) for (let j = i + 1; j < E.length; j++) {
-      const A = E[i], B = E[j];
-      const r = (A.a.radius + B.a.radius) * 0.7;
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.6, d = Math.hypot(dx, dy);
-      if (d < r && d > 0.01) {
-        const push = (r - d) * 0.5 * Math.min(1, dt * 12);
-        A.x -= (dx / d) * push; B.x += (dx / d) * push;
-        A.y -= (dy / d) * push * 0.5; B.y += (dy / d) * push * 0.5;
-      }
-    }
+    spread(this.ents, { radius: (e) => bodyRadius(e.a) * 0.8, yScale: 1.6, strength: Math.min(1, dt * 12), bounds: MOVE });
   }
 
   /** Distance used for booping (the patch is seen at an angle, so rows are squashed). */
@@ -512,13 +458,8 @@ export class Game {
 
   /** Easy: the nearest pumpkin that's up (from where the kid is now). */
   easyNearest(e) {
-    let best = null, bd = Infinity;
-    for (const pk of this.pumpkins) {
-      if (pk.phase !== 'up' && pk.phase !== 'rise') continue;
-      const d = this.boopDist(e, pk);
-      if (d < bd) { bd = d; best = pk; }
-    }
-    return best;
+    // rows are squashed (seen at an angle): measure like boopDist
+    return easyNearest(e.x, e.y, this.pumpkins, (pk) => ({ x: pk.h.x, y: e.y + (pk.h.y - e.y) * 1.35 }), (pk) => pk.phase !== 'up' && pk.phase !== 'rise');
   }
 
   /** Easy (A only): walk to the best pumpkin nobody else is going for (or rain candy).
@@ -669,13 +610,13 @@ export class Game {
         const pk = this.boopable(e);
         if (!pk) continue;
         const s = DS(pk.h.y);
-        ui.glyph(g, 'a', pk.h.x, pk.h.y - 200 * s + Math.sin(this.t * 9 + e.i) * 6, 84 * s, { pulse: true });
+        easyPrompt(g, e.p, { target: { x: pk.h.x, y: pk.h.y - 110 * s }, child: { x: e.x, y: e.a.y - e.a.height }, size: 86 * s });
       }
     }
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the patch clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 990, format: (v) => String(v) });
     if (this.n === 1) {
       const e = this.ents[0];

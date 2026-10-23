@@ -23,49 +23,9 @@ import { clamp, rand, pick, chance, TAU, placementsFromScores, ease } from '../e
 import {
   ITEMS, ITEM_COLOR, drawItem, drawGuest, drawHat, drawBubble, drawCart, drawTable, drawTeapot, drawGarden, TABLE,
 } from './tea-party/draw.js';
+import { meta } from './tea-party.meta.js';
 
-export const meta = {
-  id: 'tea-party',
-  title: 'Teddy Tea Party',
-  category: 'molly',
-  type: 'Everyone plays',
-  goal: 'Give each tea party guest the treat in their bubble!',
-  controls: [['stick', 'Run'], ['a', 'Grab a treat / toss it to a guest']],
-  tips: ['Look at the bubble: pink cup, cupcake, strawberry or cookie.', 'Wrong treat? It just bounces back. Try another guest!', 'A rainbow cake is a super treat: 3 hearts!'],
-  music: 'bouncy',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400;
-    g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const grd = g.createLinearGradient(0, 0, 0, hh);
-    grd.addColorStop(0, '#9fdcff'); grd.addColorStop(1, '#c9f2b8');
-    g.fillStyle = grd; g.fillRect(0, 0, 400, hh);
-    ui.cloud(g, 70, hh * 0.18, 0.4, '#fff', 0.9);
-    // guests
-    g.save(); g.translate(130, hh * 0.72); g.scale(0.55, 0.55);
-    drawGuest(g, 'teddy', { happy: true, t });
-    g.save(); g.translate(0, -230 + Math.sin(t * 4) * 6); g.rotate(Math.PI + Math.sin(t * 3) * 0.1); drawItem(g, 'cup', 110, t); g.restore();
-    g.restore();
-    g.save(); g.translate(275, hh * 0.72); g.scale(0.55, 0.55); drawGuest(g, 'unicorn', { t }); g.restore();
-    // table
-    g.fillStyle = '#ffd6ea'; g.fillRect(0, hh * 0.7, 400, hh * 0.3);
-    g.fillStyle = 'rgba(255,111,177,0.35)';
-    for (let i = 0; i < 18; i++) g.fillRect(i * 24, hh * 0.7, 12, hh * 0.3);
-    g.fillStyle = '#fff3f9'; g.fillRect(0, hh * 0.68, 400, 16);
-    // tea drops
-    g.fillStyle = '#c98a4a';
-    for (let i = 0; i < 4; i++) { const k = (t * 1.5 + i * 0.25) % 1; g.beginPath(); g.arc(100 + i * 18, hh * 0.18 + k * 60, 5, 0, TAU); g.fill(); }
-    // flying cupcake
-    g.save(); g.translate(345, hh * 0.25 + Math.sin(t * 3) * 8); g.rotate(Math.sin(t * 2) * 0.3); drawItem(g, 'cupcake', 60, t); g.restore();
-    g.restore();
-  },
-};
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 60;

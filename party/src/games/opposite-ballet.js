@@ -26,6 +26,7 @@ import {
   NAVY, BFLY, drawButterfly, drawPetal, drawTeacher, drawTiara, drawImp, drawFlipArrow, drawMovePicto, drawTutu, wantsTutu, drawStageBg,
 } from './opposite-ballet/art.js';
 import { nextKind, drawShock, drawSteam, drawWag } from '../engine/fluster.js';
+import { meta } from './opposite-ballet.meta.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -74,46 +75,7 @@ function drawAnswerHint(g, move, x, y, size, t) {
   g.fill(); g.stroke(); g.restore();
 }
 
-export const meta = {
-  id: 'opposite-ballet',
-  title: 'Opposite Ballet',
-  category: 'molly',
-  type: 'Do the opposite',
-  goal: 'Madame shows a move... do the OPPOSITE and make her flustered!',
-  controls: [['stick', 'Up = arms up, down = plié, left / right = step'], ['a', 'Twirl']],
-  tips: ['The cheeky imp flips the card to show the opposite: up is down, left is right!', 'She twirls? Stand still like a statue. She stands still? Twirl!', 'A golden card means copy her for real!'],
-  goalEasy: 'Wait for the cheeky imp to flip the card, then press A to do the OPPOSITE!',
-  controlsEasy: [['a', 'Dance the flipped card'], ['stick', 'Or dance it yourself with either stick']],
-  tipsEasy: ['Wait... wait... the card flips - press A!', 'A crossed-out A? Stand still like a statue!', 'Golden card? Press A straight away!'],
-  music: 'dance',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    if (drawArt(g, 'thumb/opposite-ballet', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) return;
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#c9b2ff'); gr.addColorStop(0.6, '#ffc8e4'); gr.addColorStop(1, '#ff9fd0');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    g.fillStyle = '#ffd6ec'; g.strokeStyle = NAVY; g.lineWidth = Math.max(2, h * 0.012);
-    g.beginPath(); g.ellipse(x + w / 2, y + h * 0.92, w * 0.46, h * 0.14, 0, 0, TAU); g.fill(); g.stroke();
-    // flustered Madame doing "up", her tiara flying, and a cheeky imp with the flip arrow
-    drawTeacher(g, x + w * 0.38, y + h * 0.97, h * 0.66, t, 'up', 0.5, 1, { fluster: 0.8, tiaraOff: true, sproing: 0.5 + 0.5 * Math.sin(t * 3) });
-    drawTiara(g, x + w * 0.38 + Math.cos(t * 4) * w * 0.08, y + h * 0.14 + Math.sin(t * 4) * h * 0.03, h * 0.1, t * 6);
-    drawImp(g, x + w * 0.78, y + h * 0.66 + Math.abs(Math.sin(t * 5)) * -h * 0.05, h * 0.36, t, 'flip', -1);
-    drawFlipArrow(g, x + w * 0.62, y + h * 0.3, h * 0.26, Math.sin(t * 2) * 0.4);
-    g.save(); g.translate(x + w * 0.8, y + h * 0.25); g.rotate(Math.sin(t * 3) * 0.1);
-    ui.panel(g, -h * 0.13, -h * 0.13, h * 0.26, h * 0.26, { r: h * 0.04, fill: '#fff', stroke: '#ffd23f', lineWidth: Math.max(2, h * 0.012), shadow: false });
-    drawMovePicto(g, 'down', 0, 0, h * 0.22, t);
-    g.restore();
-    for (let i = 0; i < 6; i++) {
-      const a = t * 1.6 + i * TAU / 6;
-      drawButterfly(g, x + w * 0.5 + Math.cos(a) * w * 0.42, y + h * 0.55 + Math.sin(a) * h * 0.32, h * 0.12, BFLY[i % 4], Math.sin(t * 14 + i), Math.sin(a) * 0.3);
-    }
-    g.restore();
-  },
-};
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -126,6 +88,8 @@ export class Game {
     this.time = 0;       // seconds since GO
     this.done = false;
     this.phase = 'dance';  // dance | silly | bow
+    // the dance clock, shown all game (then the bow)
+    api.limit(() => (this.phase === 'bow' || this.done ? null : Math.max(0, PLAY_TIME - this.time)), { showAt: Infinity, x: W / 2, y: 58 });
     this.scores = this.players.map(() => 0);
     this.cheeky = this.players.map(() => 0);
     this.petals = [];
@@ -901,7 +865,6 @@ export class Game {
 
   drawHUD(g) {
     ui.scoreboard(g, this.players, this.scores, { y: 18, avoidCenter: true, format: (v) => String(v) });
-    ui.timer(g, Math.max(0, PLAY_TIME - this.time), W / 2, 58);
     if (this.banner) {
       const k = this.banner.t;
       g.save(); g.globalAlpha = clamp((1.8 - k) / 0.4, 0, 1);

@@ -23,8 +23,9 @@ import { art } from '../engine/art.js';
 import { input } from '../engine/input.js';
 import { aiProfile, Brain } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
+import { spread, bodyRadius } from '../engine/crowd.js';
 import {
-  NAVY, ARENA, POND, WALL_H, buildBackground, drawThumb, drawSnowball, drawShadow, drawGiantBall, drawMitten,
+  NAVY, ARENA, POND, WALL_H, buildBackground, drawSnowball, drawShadow, drawGiantBall, drawMitten,
   drawGroundSplat, drawFaceSplat, drawPowerup, drawWall, drawRubble, drawSnowman, drawSnowmanPile, drawHat,
 } from './snowball-splat/art.js';
 
@@ -71,21 +72,8 @@ const ARENA_TOP = 280, ARENA_TOP_ART = 280;
 const inIce = (x, y) => ((x - POND.x) / POND.rx) ** 2 + ((y - POND.y) / POND.ry) ** 2 < 1;
 const angDiff = (a, b) => Math.atan2(Math.sin(a - b), Math.cos(a - b));
 
-export const meta = {
-  id: 'snowball-splat',
-  title: 'Snowball Splat',
-  category: 'party',
-  type: 'Free-for-all',
-  goal: 'Splat your friends with snowballs! Most splats wins.',
-  controls: [['stick', 'Run around the snowy garden'], ['a', 'Hold: make snowballs'], ['rt', 'Throw! (X or RB works too)'], ['rstick', 'Aim (or just throw the way you face)']],
-  tips: ['Hide behind snow walls and snowmen - they crumble, then pop back up!', 'Grab the GIANT snowball - it rolls over everyone!', 'The red mitten throws three at once. No snow on the ice!'],
-  music: 'chase',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) { drawThumb(g, x, y, w, h, t); },
-};
+import { meta } from './snowball-splat.meta.js';
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -103,6 +91,7 @@ export class Game {
     this.n = n;
     this.t = 0; this.t0 = 0;
     this.over = false;
+    api.limit(() => (this.over ? null : DURATION - this.t), { showAt: Infinity, x: W / 2, y: 148 });
     this.frenzy = false; this.frenzyT = -10;
     this.scale = n <= 4 ? 1.0 : n <= 6 ? 0.86 : 0.76;
     this.R = n <= 4 ? 32 : n <= 6 ? 30 : 27;
@@ -197,7 +186,7 @@ export class Game {
     this.updateObstacles(dt);
     this.updatePowerups(dt);
     for (const U of this.units) this.updateUnit(U, dt);
-    this.collide();
+    this.collide(dt);
     this.updateBalls(dt);
     this.updateGiants(dt);
     this.updateDecals(dt);
@@ -615,7 +604,7 @@ export class Game {
   }
 
   // --- collisions ---------------------------------------------------------------------------
-  collide() {
+  collide(dt) {
     const R = this.R, U = this.units;
     for (let i = 0; i < U.length; i++) {
       for (let j = i + 1; j < U.length; j++) {
@@ -627,6 +616,8 @@ export class Game {
         }
       }
     }
+    // personal space sized from the sprites (a softer push, so wide costumes don't pile up)
+    spread(U, { radius: (u) => Math.max(R, bodyRadius(u.a, R) * 0.8), strength: Math.min(1, dt * 10) });
     for (const u of U) {
       u.x = clamp(u.x, ARENA.x0 + R, ARENA.x1 - R); u.y = clamp(u.y, ARENA.y0 + R * 0.5, ARENA.y1 - R * 0.5);
       for (const o of this.obstacles) {
@@ -1022,7 +1013,6 @@ export class Game {
     const scores = this.units.map((u) => u.score);
     const m = Math.max(...scores);
     ui.scoreboard(g, this.players, scores, { y: 18, format: (v) => `${v}`, highlight: scores.map((s) => m > 0 && s === m) });
-    ui.timer(g, DURATION - this.t, W / 2, 148);
     if (this.frenzy) {
       const k = this.t - this.frenzyT;
       const pulse = 1 + Math.sin(this.t * 8) * 0.04;

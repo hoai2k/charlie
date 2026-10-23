@@ -12,11 +12,12 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile, makesMistake, reactionTime } from '../engine/ai.js';
-import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU, later } from '../engine/util.js';
+import { clamp, lerp, damp, ease, rand, pick, shuffle, TAU, later, showstopper } from '../engine/util.js';
 import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { INGREDIENTS, SHELF_SIZE, drawIngredient, drawBottle, drawCauldron, hexRgb, rgbStr, hexA } from './potion-class/ingredients.js';
 import { drawHoot, speechBubble } from './potion-class/hoot.js';
 import { charById } from '../data/characters.js';
+import { meta } from './potion-class.meta.js';
 
 const NAVY = '#24163f';
 const SW = 480, SH = 436;            // station design size (scaled by k)
@@ -52,45 +53,7 @@ const LINES = {
   surprise: ['What a surprise!', 'Ooh, how magical!', 'Hoo! Never seen that before!'],
 };
 
-export const meta = {
-  id: 'potion-class',
-  title: 'Potion Class',
-  category: 'studio',
-  type: 'Wizard School',
-  goal: 'Brew Professor Hoot\'s recipes and see what magic happens!',
-  controls: [['stick', 'Pick an ingredient / stir in circles'], ['a', 'Toss it in'], ['b', 'Oops! Take it out'], ['y', 'Wave your wand: POOF!']],
-  tips: ['Match the ingredients on the chalkboard.', 'Spin the stick round and round to stir.', 'The last round is a free experiment!'],
-  music: 'spooky',
-  duration: '3 recipes',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon(g, x, y, w, h, t) {
-    const gr = g.createLinearGradient(x, y, x, y + h);
-    gr.addColorStop(0, '#4a3486'); gr.addColorStop(1, '#8a5fc8');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    // window glow + stars
-    g.save();
-    for (let i = 0; i < 12; i++) {
-      g.globalAlpha = 0.5 + 0.5 * Math.sin(t * 2 + i);
-      g.save(); g.translate(x + w * ((i * 0.37 + 0.05) % 1), y + h * ((i * 0.23 + 0.04) % 0.5)); drawSparkleShape(g, h * 0.06, '#fff6c2'); g.restore();
-    }
-    g.restore();
-    g.fillStyle = '#6b4a2c'; g.fillRect(x, y + h * 0.8, w, h * 0.2);
-    const s = Math.min(w, h) / 420;
-    drawCauldron(g, x + w * 0.6, y + h * 0.6, s * 1.15, { brew: [255, 120, 210], t, bubbling: 0.8, stir: t * 2, spoonAngle: t * 2 });
-    // rising sparkly bubbles
-    for (let i = 0; i < 6; i++) {
-      const p = (t * 0.5 + i / 6) % 1;
-      g.save(); g.globalAlpha = 1 - p;
-      g.translate(x + w * 0.6 + Math.sin(i * 2 + t * 2) * w * 0.08, y + h * (0.55 - p * 0.45));
-      drawSparkleShape(g, h * 0.08, ['#fff', '#ffd23f', '#ff9ad5'][i % 3]); g.restore();
-    }
-    drawHoot(g, x + w * 0.2, y + h * 0.96, s * 1.05, { t, flap: Math.max(0, Math.sin(t * 3)) * 0.5, look: [1, 0] });
-    drawIngredient(g, 'starflower', x + w * 0.88, y + h * 0.3, h * 0.2);
-    drawIngredient(g, 'moonberry', x + w * 0.4, y + h * 0.2, h * 0.17);
-  },
-};
+export { meta };
 
 // --- helpers ---------------------------------------------------------------
 
@@ -133,6 +96,10 @@ export class Game {
     this.rounds.push({ experiment: true, ings: [null, null, null] });
 
     this.layout();
+    // The recipe's soft cap (auto-POOF), counted down for its last 20 s.
+    // (With side stations the top-right corner is a station; use the gap above the board.)
+    api.limit(() => (this.phase === 'brew' ? ROUND_TIME - this.brewT : null),
+      this.perch ? { showAt: 20, x: 1400 - 30, y: 140 } : { showAt: 20, x: W - 120, y: 70 });
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
     this.hoot = { flap: 0, flapT: 0, point: 0, mood: 'happy', moodT: 0, blink: 0, blinkT: 2, tilt: 0, look: [0.5, 0.3], hop: 0 };
     this.speech = null;
@@ -317,11 +284,9 @@ export class Game {
     if (this.done) return;
     this.done = true;
     const scores = this.stations.map((s) => s.score);
-    const best = Math.max(...scores);
-    const top = scores.filter((s) => s === best).length;
     this.api.finish({
       showcase: true,
-      highlight: best > 0 && top === 1 ? scores.indexOf(best) : null,
+      highlight: showstopper(this.players, scores),
       stats: scores.map((s) => plural(s, 'potion')),
       title: 'Magical!',
     });
@@ -674,11 +639,6 @@ export class Game {
     this.drawBoard(g);
     this.drawHootAndSpeech(g);
     for (const st of this.stations) this.drawStation(g, st);
-    if (this.phase === 'brew' && this.brewT > ROUND_TIME - 20) {
-      // (with side stations the top-right corner is a station; use the gap above the board)
-      if (this.perch) ui.timer(g, ROUND_TIME - this.brewT, 1400 - 30, 140);
-      else ui.timer(g, ROUND_TIME - this.brewT, W - 120, 70);
-    }
     if (this.phase === 'end' || this.phase === 'outro') {
       // nothing extra: Hoot's speech carries the moment
     }

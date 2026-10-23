@@ -21,7 +21,8 @@ import { art } from '../engine/art.js';
 import { reactionTime } from '../engine/ai.js';
 import { clamp, lerp, damp, rand, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import { Tune } from './dance-freeze/tune.js';
-import { NAVY, BOOTH, hallBackground, drawFloor, drawDiscoBall, drawBeams, drawBooth, drawFeather, drawSnowflake, drawNotes, drawIcon } from './dance-freeze/draw.js';
+import { NAVY, BOOTH, hallBackground, drawFloor, drawDiscoBall, drawBeams, drawBooth, drawFeather, drawSnowflake, drawNotes } from './dance-freeze/draw.js';
+import { meta } from './dance-freeze.meta.js';
 
 const GAME_T = 58;
 const TELL = 0.6;           // record slows down before every stop
@@ -32,21 +33,7 @@ const PERFECT = 3;
 const MOVES = { up: 'dance-up', down: 'dance-down', left: 'dance-side', right: 'dance-side' };
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'dance-freeze',
-  title: 'Dance & Freeze',
-  category: 'molly',
-  type: 'Musical statues',
-  goal: 'Dance while the music plays - when it stops, FREEZE!',
-  controls: [['stick', 'Wiggle to dance'], ['a', 'Jump and spin']],
-  tips: ['When the lights go blue and you see the snowflake: let go and freeze!', 'Frozen friends earn stars. Wigglers get tickled by the feather!', 'The last dance is a Disco Party: double stars!'],
-  music: 'dance',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon,
-};
+export { meta };
 
 export class Game {
   constructor(api) {

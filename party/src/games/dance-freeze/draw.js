@@ -231,30 +231,3 @@ export function drawNotes(g, x, y, r, t) {
   }
   g.restore();
 }
-
-export function drawIcon(g, x, y, w, h, t = 0) {
-  const th = art('thumb/dance-freeze');
-  if (th) { g.drawImage(th, x, y, w, h); return; }
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = w / 400; g.translate(x, y); g.scale(s, s);
-  const hh = h / s;
-  const bg = g.createLinearGradient(0, 0, 0, hh);
-  bg.addColorStop(0, '#2a1650'); bg.addColorStop(1, '#6a2a9a');
-  g.fillStyle = bg; g.fillRect(0, 0, 400, hh);
-  // floor
-  for (let r = 0; r < 3; r++) for (let c = 0; c < 8; c++) {
-    g.globalAlpha = (r + c + Math.floor(t * 3)) % 3 ? 0.45 : 0.95;
-    g.fillStyle = c < 4 ? RAINBOW[(r + c) % 7] : '#bfe9ff';
-    g.fillRect(c * 50 + 2, hh - 80 + r * 27, 46, 24);
-  }
-  g.globalAlpha = 1;
-  // ball
-  g.strokeStyle = '#d9a300'; g.lineWidth = 3; g.beginPath(); g.moveTo(200, 0); g.lineTo(200, 30); g.stroke();
-  g.fillStyle = '#c8d2e8'; line(g, 4); g.beginPath(); g.arc(200, 58, 30, 0, TAU); g.fill(); g.stroke();
-  g.fillStyle = '#fff'; for (let i = 0; i < 6; i++) g.fillRect(186 + (i % 3) * 10, 44 + Math.floor(i / 3) * 14, 7, 7);
-  drawNotes(g, 95, 135, 52, t);
-  drawSnowflake(g, 305, 135, 52, t * 0.5);
-  drawFeather(g, 360, 240, -0.6 + Math.sin(t * 8) * 0.2, 0.45, t);
-  g.restore();
-}

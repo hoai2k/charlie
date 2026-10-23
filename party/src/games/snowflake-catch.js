@@ -17,51 +17,14 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, dist } from '../engine/util.js';
 import { ARENA, BIG, FRIEND, NAVY, drawFlake, drawSnowball, drawPenguin, drawFriend, drawBigSnowman, drawMeadow, drawTongue, friendHand } from './snowflake-catch/art.js';
 
-export const meta = {
-  id: 'snowflake-catch',
-  title: 'Snowflake Giggles',
-  category: 'molly',
-  type: 'Team up',
-  goal: 'Catch snowflakes on your tongue to build a giant snowman together!',
-  controls: [['stick', 'Run around'], ['a', 'Hold: tongue out!']],
-  tips: ['Stand on a flake\'s shadow and stick your tongue out.', 'Big sparkly flakes count for 3!', 'Snowballs go POOF into glitter - a bonus!'],
-  goalEasy: 'You run to the snowflakes by yourself. Press A to catch them on your tongue!',
-  controlsEasy: [['a', 'Tongue out!'], ['stick', 'Run with either stick if you like']],
-  tipsEasy: ['You walk to a snowflake all by yourself - or steer with the stick.', 'When the big A bounces, press A!', 'Big sparkly flakes count for 3!'],
-  music: 'chase',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400; g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const sky = g.createLinearGradient(0, 0, 0, hh);
-    sky.addColorStop(0, '#9a8cf0'); sky.addColorStop(0.5, '#f2b6e4'); sky.addColorStop(0.52, '#f7f9ff'); sky.addColorStop(1, '#e3ecff');
-    g.fillStyle = sky; g.fillRect(0, 0, 400, hh);
-    g.save(); g.translate(110, hh * 0.86); g.scale(0.55, 0.55); drawBigSnowman(g, 0, 0, 6, t, 0, 1); g.restore();
-    g.save(); g.translate(300 - ((t * 120) % 520) + 200, hh * 0.8); g.scale(0.55, 0.55); drawPenguin(g, -1, t); g.restore();
-    for (let i = 0; i < 7; i++) {
-      const fy = ((t * 40 + i * 47) % (hh + 40)) - 20;
-      g.save(); g.translate(30 + i * 56 + Math.sin(t * 2 + i) * 8, fy); drawFlake(g, i === 3 ? 46 : 22, t + i, t, i === 3); g.restore();
-    }
-    // a happy face with a tongue out
-    g.save(); g.translate(270, hh * 0.52);
-    g.beginPath(); g.arc(0, 0, 40, 0, TAU); g.fillStyle = '#ffd9b8'; g.fill(); g.lineWidth = 4; g.strokeStyle = NAVY; g.stroke();
-    g.fillStyle = '#ff7ac6'; g.beginPath(); g.arc(0, -14, 42, Math.PI * 1.05, Math.PI * 1.95); g.fill(); g.stroke();
-    g.lineWidth = 3.5; g.beginPath(); g.arc(-14, 0, 6, 1.1 * Math.PI, 1.9 * Math.PI); g.arc(14, 0, 6, 1.1 * Math.PI, 1.9 * Math.PI); g.stroke();
-    g.translate(0, 18); drawTongue(g, 1, Math.sin(t * 6) * 0.1);
-    g.restore();
-    g.restore();
-  },
-};
+import { meta } from './snowflake-catch.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 45;
@@ -88,6 +51,8 @@ export class Game {
     this.easy = !!api.easy;     // Molly Easy: humans auto-walk under flakes, A = tongue
     const n = this.n = this.players.length;
     this.t = 0; this.timeLeft = DURATION; this.done = false; this.storm = false; this.stormT = 0;
+    // the snow clock, shown the whole game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.base = n <= 2 ? 1 : n <= 4 ? 0.92 : n <= 6 ? 0.84 : 0.78;
     this.flakes = []; this.balls = []; this.penguins = []; this.motes = []; this.poofs = [];
     this.spawnT = 0.2; this.bigT = rand(4, 6); this.ballT = rand(3, 4); this.pengT = rand(5, 7);
@@ -508,8 +473,8 @@ export class Game {
     this.ents.forEach((e) => { e.a.clearEmotes(); e.a.tint(null); e.tongue = 0; e.a.setPose('celebrate'); });
     const scores = this.ents.map((e) => e.score);
     sfx('cheer', { vol: 0.6 });
-    this.api.finish({
-      placements: this.ents.map(() => 1), showcase: true, highlight: null, title: 'Snow pals!',
+    this.api.finishTogether({
+      title: 'Snow pals!',
       stats: scores.map((s) => `${s} flake${s === 1 ? '' : 's'}`), focus: { x: BIG.x, y: BIG.y - 160 },
     });
   }
@@ -588,9 +553,8 @@ export class Game {
       ui.playerTag(g, e.p, e.x, top);
       // Easy: a big bouncing A when your flake is right above your tongue
       if (this.easy && !this.done && !e.p.isAI && this.easyNow(e)) {
-        const pulse = 1 + Math.abs(Math.sin(this.t * 10)) * 0.25;
-        g.save(); g.translate(e.x + 70, top - 20 - Math.abs(Math.sin(this.t * 10)) * 14); g.scale(pulse, pulse);
-        ui.glyph(g, 'a', 0, 0, 52); g.restore();
+        const f = e.target;
+        easyPrompt(g, e.p, { target: { x: f.x, y: f.y - f.z }, child: { x: e.x, y: e.y - e.a.height } });
       }
     }
   }
@@ -610,7 +574,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the snow clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 14, avoidCenter: true, format: (v) => '❄ ' + v });
     if (this.storm) {
       const pulse = 1 + Math.sin(this.t * 9) * 0.06;

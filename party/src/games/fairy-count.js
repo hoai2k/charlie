@@ -121,48 +121,8 @@ function drawFlowerHead(g, x, y, r, f, t, phase = 0) {
   g.restore();
 }
 
-export const meta = {
-  id: 'fairy-count',
-  title: 'Fairy Count',
-  category: 'party',
-  type: 'Counting',
-  goal: 'Count the fairies of ONE color, then pick the right number!',
-  controls: [['dpad', 'Pick your number up and down'], ['a', 'Lock in your answer']],
-  tips: ['Only count the color the question asks for.', 'Some fairies hide behind flowers - keep counting!', 'Exact answer = 3 points. One off = 1 point.'],
-  music: 'chill',
-  duration: '3 rounds',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    const gr = g.createLinearGradient(0, y, 0, y + h);
-    gr.addColorStop(0, '#190f47'); gr.addColorStop(0.6, '#5a3392'); gr.addColorStop(1, '#e58bb3');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    g.fillStyle = '#fff';
-    for (let i = 0; i < 18; i++) { g.globalAlpha = 0.3 + 0.6 * Math.abs(Math.sin(t * 2 + i)); g.beginPath(); g.arc(x + hh(i) * w, y + hh(i + 40) * h * 0.7, 1.5 + hh(i + 3) * 2.5, 0, TAU); g.fill(); }
-    g.globalAlpha = 1;
-    // moon
-    glow(g, x + w * 0.8, y + h * 0.22, h * 0.34, '#fff3c0', 0.9);
-    g.fillStyle = '#fff8d8'; g.beginPath(); g.arc(x + w * 0.8, y + h * 0.22, h * 0.13, 0, TAU); g.fill();
-    // hills + glowing flowers
-    g.fillStyle = '#2a1f66'; g.beginPath(); g.moveTo(x, y + h); g.quadraticCurveTo(x + w * 0.3, y + h * 0.62, x + w * 0.6, y + h * 0.82); g.quadraticCurveTo(x + w * 0.85, y + h * 0.7, x + w, y + h * 0.8); g.lineTo(x + w, y + h); g.fill();
-    for (let i = 0; i < 5; i++) {
-      const fx0 = x + w * (0.12 + i * 0.19), fy0 = y + h * (0.86 + (i % 2) * 0.05);
-      drawFlowerHead(g, fx0, fy0, h * 0.07, [FLOWERS[0], FLOWERS[1], FLOWERS[2]][i % 3], t, i);
-    }
-    // fairies
-    FAIRY_COLORS.slice(0, 4).forEach((c, i) => {
-      const fxp = x + w * (0.2 + i * 0.2) + Math.sin(t * 1.5 + i) * 6, fyp = y + h * (0.28 + (i % 2) * 0.22) + Math.cos(t * 2 + i) * 7;
-      drawFairy(g, fxp, fyp, h / 150, c, t + i, i % 2 ? -1 : 1);
-    });
-    // number bubble
-    g.save(); g.translate(x + w * 0.5, y + h * 0.62);
-    g.fillStyle = '#fff'; g.strokeStyle = '#ff6fb1'; g.lineWidth = h * 0.03;
-    g.beginPath(); g.arc(0, 0, h * 0.14, 0, TAU); g.fill(); g.stroke();
-    ui.text(g, '3', 0, h * 0.01, { size: h * 0.2, color: NAVY, stroke: false, weight: 800 });
-    g.restore();
-  },
-};
+import { meta } from './fairy-count.meta.js';
+export { meta };
 
 // --- the game -------------------------------------------------------------
 export class Game {
@@ -175,6 +135,7 @@ export class Game {
     this.round = -1;
     this.phase = 'intro';
     this.pt = 0;
+    api.limit(() => (this.phase === 'guess' ? Math.max(0, GUESS_TIME - this.pt) : null), { showAt: Infinity, x: W - 150, y: 220 });
     this.points = this.players.map(() => 0);
     this.exacts = this.players.map(() => 0);
     this.totalErr = this.players.map(() => 0);
@@ -632,8 +593,6 @@ export class Game {
       this.drawQuestion(g, W / 2, 156, 54, 46);
     }
     if (this.phase === 'guess') {
-      const left = Math.max(0, GUESS_TIME - this.pt);
-      ui.timer(g, left, W - 150, 190 + 30);
       if (this.pt < 5 && this.choice.some((c) => !c.locked)) {
         ui.hints(g, [['dpad', 'Pick'], ['a', 'Lock in']], W / 2, 236, { size: 40 });
       }

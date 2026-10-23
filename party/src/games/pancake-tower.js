@@ -24,7 +24,7 @@ import {
   KINDS, PERFECT, PLATE_HALF, makeItem, itemH, towerHeight, towerValue, stability, drop, aiTarget,
   makeSequence, supportHalf,
 } from './pancake-tower/stack.js';
-import { drawItem, drawPlate, drawPan, panItemLift, drawSyrupBottle, drawCrown, drawIconScene } from './pancake-tower/draw.js';
+import { drawItem, drawPlate, drawPan, panItemLift, drawSyrupBottle, drawCrown } from './pancake-tower/draw.js';
 
 const NAVY = ui.NAVY;
 const DURATION = 50;
@@ -44,29 +44,8 @@ const gauss = () => { let u = 0; while (!u) u = Math.random(); return Math.sqrt(
 const CRUMB = { pancake: ['#e7a14c', '#f8cf7f', '#c97a2c'], golden: ['#ffd23f', '#fff3a6', '#e89a14'], waffle: ['#f7c66a', '#d48a2c'],
   butter: ['#fff1a0', '#ffe36b'], berries: ['#ff4d6d', '#ff8fa8', '#36d17a'], cream: ['#ffffff', '#f3f0ff', '#ff3b5c'] };
 
-export const meta = {
-  id: 'pancake-tower',
-  title: 'Pancake Tower',
-  category: 'party',
-  type: 'Stacking',
-  goal: 'Stack the tallest pancake tower before time runs out!',
-  controls: [['a', 'Drop the pancake']],
-  tips: [
-    'Drop it right on top for a PERFECT! 3 in a row = sticky syrup.',
-    'Leaning tower? Drop the next one on the other side to balance it.',
-    'Golden pancakes are extra wide and worth 3!',
-  ],
-  music: 'gameon',
-  duration: '50 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const img = art('thumb/pancake-tower');
-    if (img) { g.drawImage(img, x, y, w, h); return; }
-    drawIconScene(g, x, y, w, h, t || 0);
-  },
-};
+import { meta } from './pancake-tower.meta.js';
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -80,6 +59,7 @@ export class Game {
     this.humans = this.players.some((p) => !p.isAI);
     this.finale = false;
     this.ending = false; this.endT = 0; this.finished = false;
+    api.limit(() => (this.ending ? null : DURATION - this.time), { showAt: Infinity, x: W / 2, y: 62 });
     this.msg = null;
     this.punchCd = 0;
     this.bg = null;
@@ -716,7 +696,6 @@ export class Game {
       highlight: vals.map((v) => best > 0 && v === best),
       expr: this.lanes.map((L) => (L.dizzyT > 0 ? 'sad' : L.streak >= 2 ? 'happy' : 'neutral')),
     });
-    ui.timer(g, Math.max(0, DURATION - this.time), this.timerX(), 62);
     if (this.time < 4.5 && !this.ending) {
       g.save(); g.globalAlpha = clamp(4.5 - this.time, 0, 1);
       const y = 190;
@@ -728,9 +707,6 @@ export class Game {
     if (this.msg) ui.banner(g, this.msg.text, this.msg.t, { size: 96, y: 300, color: this.msg.color, strokeWidth: 20 });
     if (this.ending && !this.finished) ui.banner(g, 'Time!', this.endT, { size: 120, y: 320, color: '#ffffff' });
   }
-
-  /** Centre of the gap ui.scoreboard leaves for the timer (it is off-centre for odd counts). */
-  timerX() { return W / 2; }   // ui.scoreboard centres its gap
 
   destroy() {
     for (const L of this.lanes) if (L.hatAtt) L.a.detach(L.hatAtt);

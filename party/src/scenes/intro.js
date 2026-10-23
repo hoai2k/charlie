@@ -1,4 +1,4 @@
-import { drawArt } from '../engine/art.js';
+import { drawArt, hasArtGroup, ensureGameArt, releaseGameArt } from '../engine/art.js';
 // How-to-play screen shown before every minigame (Mario Party style):
 // title, picture, goal, controls with button glyphs and tips, then every
 // human presses A to ready up (CPUs ready themselves). A game may declare
@@ -19,7 +19,7 @@ import { drawHost, hostBubble } from '../engine/host.js';
 import { rand } from '../engine/util.js';
 import { particles } from '../engine/particles.js';
 import { session, restoreRoster, mollyEasy } from '../state.js';
-import { gameById } from '../games/index.js';
+import { gameById, loadGame } from '../games/index.js';
 import { drawGameIcon } from './common.js';
 import { MollySeats } from './molly-seats.js';
 
@@ -28,6 +28,11 @@ export class IntroScene {
     restoreRoster();
     this.meta = gameById(gameId);
     this.gameId = gameId;
+    // Preload the game (its code and its art) while the players read the how-to
+    this.toPlay = false;
+    loadGame(gameId).catch((e) => console.warn(e));
+    this.artGroup = hasArtGroup(gameId) ? gameId : null;
+    if (this.artGroup) ensureGameArt(gameId).catch(() => {});
     this.t = 0;
     this.ready = session.players.map(() => false);
     this.out = session.players.map(() => false);   // sitting this game out (party marathon)
@@ -54,12 +59,19 @@ export class IntroScene {
     this.said = 0;
   }
 
+  exit() {
+    // backing out: drop the preloaded art (the play scene keeps it when the game starts)
+    if (this.artGroup && !this.toPlay) releaseGameArt(this.artGroup);
+    this.artGroup = null;
+  }
+
   update(dt, inputOpen) {
     this.t += dt;
     for (const a of this.actors) a.update(dt);
     if (this.go !== null) {
       this.go += dt;
       if (this.go > 0.9) {
+        this.toPlay = true;
         this.manager.go('play', { gameId: this.gameId, playing: this.molly ? this.molly.players() : session.players.filter((p, i) => !this.out[i]) });
       }
       return;

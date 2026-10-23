@@ -71,68 +71,8 @@ const PAL = {
   tramp: ['#24163f', '#cfdcff', '#ffffff', '#ffffff'],
 };
 
-export const meta = {
-  id: 'cloud-hop',
-  title: 'Cloud Hop',
-  category: 'party',
-  type: 'Race',
-  goal: 'Bounce up the sky tower of clouds and reach the golden rainbow first!',
-  controls: [['stick', 'Steer left and right'], ['a', 'Air Hop (double jump)']],
-  tips: ['You bounce by yourself! Pink clouds and trampolines bounce you super high.', 'Grab 3 stars for a ROCKET BOUNCE!', 'Grey rain clouds puff away after one bounce. Bonk off heads for a boost!'],
-  music: 'gameon',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    if (drawArt(g, 'thumb/cloud-hop', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) { g.restore(); return; }
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const gr = g.createLinearGradient(0, 0, 0, hh);
-    gr.addColorStop(0, '#b993ff'); gr.addColorStop(0.45, '#ffc6e6'); gr.addColorStop(1, '#a6e0ff');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    // rainbow arch with golden clouds at its feet
-    const ry = hh * 0.44;
-    g.save(); g.lineWidth = 11;
-    ['#ff4d6d', '#ff9f1c', '#ffd23f', '#5ddc6a', '#3fa7ff', '#9b5cff'].forEach((c, i) => { g.strokeStyle = c; g.beginPath(); g.ellipse(200, ry, 165 - i * 11, 82 - i * 11, 0, Math.PI, TAU); g.stroke(); });
-    g.restore();
-    puffShape(g, 40, ry - 6, 110, PAL.summit, 0, makePuffs(110, 3));
-    puffShape(g, 360, ry - 6, 110, PAL.summit, 0, makePuffs(110, 4));
-    for (let i = 0; i < 6; i++) { g.save(); g.globalAlpha = 0.5 + 0.5 * Math.sin(t * 3 + i); g.translate(30 + i * 68, 22 + (i % 2) * 40); drawSparkleShape(g, 12, '#fff'); g.restore(); }
-    // clouds climbing up
-    puffShape(g, 95, hh * 0.86, 160, PAL.cloud, 0, makePuffs(160, 7), 1, true);
-    puffShape(g, 120, hh * 0.6, 100, PAL.rain, 0, makePuffs(100, 5), 1, true, 'sleepy');
-    const sq = Math.max(0, Math.sin(t * 3 + 1.2)) * 0.25;
-    puffShape(g, 292, hh * 0.84, 130, PAL.pink, sq, makePuffs(130, 3), 1, true, 'wow');
-    // a star
-    g.save(); g.translate(205, hh * 0.64 + Math.sin(t * 3) * 5); g.rotate(Math.sin(t * 2) * 0.2); drawStarShape(g, 20, '#ffd23f'); g.restore();
-    // a happy hopper bouncing off the pink cloud
-    const by = hh * 0.8 - Math.abs(Math.sin(t * 3)) * hh * 0.28;
-    g.save(); g.translate(292, by); g.scale(1.15, 1.15);
-    g.lineJoin = 'round'; g.lineCap = 'round'; g.strokeStyle = NAVY; g.lineWidth = 4;
-    g.beginPath(); g.moveTo(-7, -14); g.lineTo(-9, -2); g.moveTo(7, -14); g.lineTo(9, -2); g.stroke();
-    g.fillStyle = '#ff6fb1'; g.beginPath(); g.ellipse(-10, -1, 6, 4, 0, 0, TAU); g.ellipse(10, -1, 6, 4, 0, 0, TAU); g.fill(); g.stroke();
-    g.beginPath(); g.moveTo(-9, -36); g.lineTo(-24, -58); g.moveTo(9, -36); g.lineTo(24, -58); g.lineWidth = 9; g.stroke(); g.strokeStyle = '#ffe2c8'; g.lineWidth = 4.5; g.stroke();
-    g.strokeStyle = NAVY; g.lineWidth = 4;
-    g.fillStyle = '#ff6fb1'; g.beginPath(); g.moveTo(-20, -12); g.lineTo(20, -12); g.lineTo(10, -42); g.lineTo(-10, -42); g.closePath(); g.fill(); g.stroke();
-    g.fillStyle = '#fff'; g.beginPath(); g.arc(0, -42, 7, 0, Math.PI); g.fill();
-    g.fillStyle = '#7a4a2a';
-    for (const s of [-1, 1]) { g.beginPath(); g.arc(s * 20, -62, 8, 0, TAU); g.fill(); g.stroke(); }
-    g.fillStyle = '#ffe2c8'; g.beginPath(); g.arc(0, -58, 17, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = '#7a4a2a'; g.beginPath(); g.arc(0, -61, 17.5, Math.PI * 1.02, Math.PI * 1.98); g.quadraticCurveTo(0, -66, -17.3, -63); g.fill();
-    g.fillStyle = '#ff6fb1'; for (const s of [-1, 1]) { g.beginPath(); g.arc(s * 15, -72, 4.5, 0, TAU); g.fill(); }
-    g.fillStyle = NAVY; g.beginPath(); g.ellipse(-6, -55, 2.6, 3.6, 0, 0, TAU); g.ellipse(6, -55, 2.6, 3.6, 0, 0, TAU); g.fill();
-    g.fillStyle = 'rgba(255,111,177,0.5)'; g.beginPath(); g.ellipse(-11, -49, 4, 2.5, 0, 0, TAU); g.ellipse(11, -49, 4, 2.5, 0, 0, TAU); g.fill();
-    g.lineWidth = 2.5; g.beginPath(); g.arc(0, -50, 5, 0.2, Math.PI - 0.2); g.stroke();
-    g.restore();
-    // motion lines
-    g.strokeStyle = 'rgba(255,255,255,0.85)'; g.lineWidth = 4; g.lineCap = 'round';
-    for (let i = -1; i <= 1; i++) { g.beginPath(); g.moveTo(292 + i * 13, by + 10); g.lineTo(292 + i * 13, by + 28); g.stroke(); }
-    g.restore();
-  },
-};
+import { meta } from './cloud-hop.meta.js';
+export { meta };
 
 // --- cloud shapes -------------------------------------------------------------
 let seedN = 1;
@@ -205,6 +145,7 @@ export class Game {
     this.deadline = DURATION;
     this.timeLeft = DURATION;
     this.done = false; this.endT = -1;
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });   // shrinks to HURRY once someone tops out
     this.finishCount = 0;
     this.scale = n <= 2 ? 0.7 : n <= 4 ? 0.64 : 0.56;
     this.bounceSndAt = -1; this.voiceAt = -1;
@@ -1071,7 +1012,6 @@ export class Game {
       highlight: this.ents.map((e) => e.place === 1),
     });
     this.drawStarPips(g);
-    ui.timer(g, this.timeLeft);
     this.drawTrack(g);
     this.drawOffscreen(g);
     if (this.n === 1 && this.playT < 5 && !this.done) {

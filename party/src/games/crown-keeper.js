@@ -34,41 +34,8 @@ const POSE = { dash: 'dash', bonked: 'hurt', dizzy: 'dizzy', win: 'cheer' };
 
 const hh = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 
-export const meta = {
-  id: 'crown-keeper',
-  title: 'Crown Keeper',
-  category: 'party',
-  type: 'Keep-away',
-  goal: 'Wear the crown for the most seconds - bump the holder to steal it!',
-  controls: [['stick', 'Run around the garden'], ['a', 'Dash: bump the crown loose (or get away with it)']],
-  tips: ['The crown holder runs a little slower - and earns points.', 'Dash into the holder to knock the crown off!', 'Wearing the crown? Dash away from the chasers!', 'A bonk sends the crown flying the way you hit it.', 'The last 10 seconds count DOUBLE!'],
-  music: 'gameon',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    // lawn stripes
-    for (let i = 0; i < 12; i++) { g.fillStyle = i % 2 ? '#68c96d' : '#74d479'; g.fillRect(x + (i * w) / 12, y, w / 12 + 1, h); }
-    // path + fountain
-    g.fillStyle = '#f3e4c2'; g.fillRect(x, y + h * 0.42, w, h * 0.16); g.fillRect(x + w * 0.44, y, w * 0.12, h);
-    const cx = x + w / 2, cy = y + h * 0.5;
-    g.fillStyle = '#e9e1f3'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02; g.beginPath(); g.arc(cx, cy, h * 0.24, 0, TAU); g.fill(); g.stroke();
-    g.fillStyle = '#7fd6ff'; g.beginPath(); g.arc(cx, cy, h * 0.19, 0, TAU); g.fill();
-    g.strokeStyle = 'rgba(255,255,255,0.8)'; g.lineWidth = h * 0.012; g.beginPath(); g.arc(cx, cy, h * 0.12 + Math.sin(t * 3) * 2, 0, TAU); g.stroke();
-    // hedges
-    g.fillStyle = '#2f8f4e'; g.strokeStyle = NAVY; g.lineWidth = h * 0.02;
-    for (const [hx, hy, hw, hh2] of [[0.08, 0.1, 0.3, 0.1], [0.66, 0.78, 0.3, 0.1]]) { ui.roundRect(g, x + w * hx, y + h * hy, w * hw, h * hh2, h * 0.04); g.fill(); g.stroke(); }
-    // flower beds
-    for (const [fx0, fy0] of [[0.15, 0.78], [0.85, 0.2]]) for (let i = 0; i < 6; i++) { g.fillStyle = ['#ff8ad0', '#ffe46b', '#c49bff'][i % 3]; g.beginPath(); g.arc(x + w * fx0 + Math.cos(i * 1.2) * h * 0.08, y + h * fy0 + Math.sin(i * 1.2) * h * 0.06, h * 0.025, 0, TAU); g.fill(); }
-    // big crown floating over the fountain
-    g.save(); g.translate(cx, cy - h * 0.1 + Math.sin(t * 3) * 3); g.rotate(Math.sin(t * 2) * 0.08);
-    drawCrown(g, 0, 0, h * 0.3, 0.8, t);
-    g.restore();
-    for (let i = 0; i < 5; i++) { g.globalAlpha = 0.4 + 0.6 * Math.abs(Math.sin(t * 3 + i * 1.7)); drawSpark(g, cx + Math.cos(i * 2.4) * h * 0.3, cy - h * 0.2 + Math.sin(i * 3.1) * h * 0.2, h * 0.04, '#fff6a8'); }
-    g.globalAlpha = 1;
-  },
-};
+import { meta } from './crown-keeper.meta.js';
+export { meta };
 
 function drawSpark(g, x, y, r, color) {
   g.save(); g.translate(x, y); g.fillStyle = color; g.beginPath();
@@ -138,6 +105,7 @@ export class Game {
     this.scale = n <= 4 ? 1.02 : n <= 6 ? 0.84 : 0.74;
     this.R = n <= 4 ? 34 : n <= 6 ? 31 : 28;
     this.units = this.players.map((p, i) => this.makeUnit(p, i));
+    api.limit(() => (this.over ? null : DURATION - this.t), { showAt: Infinity, x: W / 2, y: 150 });
     this.crown = { state: 'air', x: C.x, y: C.y, sx: C.x, sy: C.y, tx: C.x, ty: C.y, u: 0, z: 0, spin: 0, holder: -1 };
     this.waitCrown = true;           // hovering above the fountain until GO
     this.holder = -1;
@@ -759,7 +727,6 @@ export class Game {
       g.save(); g.fillStyle = '#ffd23f'; g.strokeStyle = NAVY; g.lineWidth = 4;
       g.beginPath(); g.moveTo(cx - 14, 14); g.lineTo(cx + 14, 14); g.lineTo(cx, 28); g.closePath(); g.fill(); g.stroke(); g.restore();
     }
-    ui.timer(g, DURATION - this.t, W / 2, 150);
     if (this.double) {
       const k = this.t - this.bannerT;
       const pulse = 1 + Math.sin(this.t * 8) * 0.04;

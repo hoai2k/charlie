@@ -20,22 +20,9 @@ import {
   makeDeco, sprinkle, drawDecoShape, drawSprinkles, drawDecoIcon, drawShaker,
   decoDef, isSpray, isCandle, candleTop, DECO_BOX,
 } from './cake-bakery/cake.js';
+import { meta } from './cake-bakery.meta.js';
 
-export const meta = {
-  id: 'cake-bakery',
-  title: 'Cake Bakery',
-  category: 'studio',
-  type: 'Bake & decorate · Everyone wins',
-  goal: 'Bake the most beautiful birthday cake, then blow out the candles and taste it!',
-  controls: [['lb', 'Next / previous step (LB / RB)'], ['dpad', 'Pick: shape, flavor, topping...'], ['stick', 'Move your topping hand'], ['a', 'Add topping, or pick one up to move it'], ['b', 'Take a topping off'], ['y', 'Surprise me!']],
-  tips: ['Hold A over your cake to shake sprinkles.', 'Press A on a topping to pick it up, then A again to put it somewhere new!', 'B over a topping takes it off.'],
-  music: 'bouncy',
-  duration: 'about 2 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+export { meta };
 
 const TABS = [
   { id: 'shape', name: 'Shape' },
@@ -797,7 +784,7 @@ export class Game {
       return `${SHAPES[c.shape].name} · ${c.layers} layer${c.layers > 1 ? 's' : ''}`;
     });
     snd('applause', 'cheer');
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Delicious!' });
+    this.api.finishTogether({ stats, title: 'Delicious!' });
   }
 
   destroy() { for (const st of this.stations) if (st.shakeLoop) st.shakeLoop.stop(); }
@@ -1253,48 +1240,3 @@ export class Game {
 
 function c_release(p) { if (p.isAI) { p.ctrl.move(0, 0); p.ctrl.hold('a', false); } }
 
-// --- menu / how-to thumbnail --------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  const s = Math.min(w / 860, h / 520);
-  const bg = g.createLinearGradient(x, y, x, y + h);
-  bg.addColorStop(0, '#ffd6ec'); bg.addColorStop(1, '#ffb3d6');
-  g.fillStyle = bg; g.fillRect(x, y, w, h);
-  g.strokeStyle = 'rgba(255,255,255,0.7)'; g.lineWidth = 3;
-  for (let xx = x; xx < x + w; xx += 50 * s) { g.beginPath(); g.moveTo(xx, y); g.lineTo(xx, y + h * 0.78); g.stroke(); }
-  for (let yy = y; yy < y + h * 0.78; yy += 50 * s) { g.beginPath(); g.moveTo(x, yy); g.lineTo(x + w, yy); g.stroke(); }
-  // bunting
-  for (let i = 0; i < 12; i++) {
-    const u = (i + 0.5) / 12, bx = x + u * w, by = y + 20 * s + Math.sin(u * Math.PI) * 24 * s;
-    g.beginPath(); g.moveTo(bx - 22 * s, by); g.lineTo(bx + 22 * s, by); g.lineTo(bx, by + 36 * s); g.closePath();
-    g.fillStyle = RAINBOW[i % 7]; g.fill(); g.lineWidth = 2; g.strokeStyle = NAVY; g.stroke();
-  }
-  g.fillStyle = '#f2b98b'; g.fillRect(x, y + h * 0.78, w, h * 0.05);
-  g.fillStyle = '#ffe0ef'; g.fillRect(x, y + h * 0.83, w, h * 0.17);
-  // a cake
-  const cake = newCake();
-  cake.shape = 1; cake.layers = 3; cake.flavors = [2, 0, 7]; cake.frosting = 0; cake.style = 1; cake.drizzle = 1;
-  const k = 0.95 * s;
-  const cx = x + w * 0.5, cy = y + h * 0.78 - 94 * k;
-  drawBody(g, cake, cx, cy, k);
-  g.save(); g.translate(cx, cy); g.scale(k, k);
-  const T = topLayer(cake);
-  const sp = [];
-  for (let i = 0; i < 70; i++) { const xx = rand(-0.3, 0.3) * T.w; const fr = faceRange(cake, 2, xx); if (fr) sp.push({ x: xx, y: rand(fr[0] + 6, fr[1] - 6), rot: rand(TAU), color: pick(['#ff4d6d', '#ffd23f', '#3fa7ff', '#36d17a', '#fff']), state: 'stuck' }); }
-  // deterministic look per frame: seed by not re-randomizing
-  drawIcon.sp = drawIcon.sp || sp;
-  drawSprinkles(g, drawIcon.sp);
-  for (const [dx, kind] of [[-46, 'candle'], [0, 'candle'], [46, 'candle'], [-90, 'cherry'], [90, 'cherry']]) {
-    const fr = faceRange(cake, 2, dx) || [T.yt, T.yt];
-    drawDecoShape(g, { kind, x: dx, y: lerp(fr[0], fr[1], kind === 'cherry' ? 0.6 : 0.4), color: '#ff6fd0' }, t, { lit: true, flame: 1 });
-  }
-  g.restore();
-  drawPortrait(g, 'marshmallow-birthday-cake', x + w * 0.16, y + h * 0.62, 80 * s, { ring: '#ff6fb1', ringWidth: 7 * s, expr: 'happy' });
-  drawPortrait(g, 'hotdog', x + w * 0.84, y + h * 0.62, 80 * s, { ring: '#3fa7ff', ringWidth: 7 * s, expr: 'happy' });
-  for (let i = 0; i < 5; i++) {
-    const u = (t * 0.45 + i / 5) % 1;
-    g.save(); g.globalAlpha = Math.sin(u * Math.PI); g.translate(x + w * (0.25 + i * 0.12), y + h * (0.55 - u * 0.35));
-    drawHeartShape(g, 30 * s, '#ff4f8b'); g.restore();
-  }
-  g.restore();
-}

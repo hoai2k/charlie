@@ -24,6 +24,7 @@ import { depthScale } from '../engine/camera.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
 import { drawSparkleShape } from '../engine/emotes.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, TAU, placementsFromScores, later, dist } from '../engine/util.js';
+import { meta } from './ladybug-spots.meta.js';
 
 const NAVY = '#24163f';
 const DURATION = 60;
@@ -58,49 +59,7 @@ const WING_LAYOUT = { 1: [[0, 0]], 2: [[0, -0.42], [0, 0.42]], 3: [[0, -0.5], [-
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 const CHIME = [72, 76, 79, 84, 88, 91];
 
-export const meta = {
-  id: 'ladybug-spots',
-  title: 'Ladybug Spots',
-  category: 'molly',
-  type: 'Count together',
-  goal: 'Catch bouncy dots and give the ladybug just the right number of spots!',
-  controls: [['stick', 'Run around'], ['a', 'Zoom dash']],
-  tips: [
-    'Run into a dot to catch it, then run to the ladybug to give it to her.',
-    'Empty circles on her back show how many she wants. Count them!',
-    'Bees want yellow fluff. Butterflies want their own colour. Too many? ACHOO!',
-  ],
-  music: 'bouncy',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const img = art('thumb/ladybug-spots');
-    if (img) { g.drawImage(img, x, y, w, h); return; }
-    t = t || 0;
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    drawMeadow(g, 400, hh, t, 0.4);
-    g.save(); g.translate(200, hh * 0.58); g.scale(0.55, 0.55);
-    drawDaisy(g, 0, 50, 1);
-    const fake = { kind: 'ladybug', want: 'black', n: 5, filled: 3, facing: 1, flap: 0, face: 'happy', t };
-    drawCritter(g, fake, t);
-    LAYOUT[5].forEach(([u, v], i) => {
-      g.save(); g.translate(-16 + u * 96, v * 74); g.scale(0.8, 0.8);
-      if (i < 3) drawDot(g, 'black', t + i, true);
-      else { g.setLineDash([8, 7]); g.lineWidth = 5; g.strokeStyle = NAVY; g.fillStyle = 'rgba(255,255,255,0.45)'; g.beginPath(); g.arc(0, 0, 26, 0, TAU); g.fill(); g.stroke(); }
-      g.restore();
-    });
-    g.restore();
-    for (let i = 0; i < 5; i++) {
-      const dx = 50 + i * 75 + Math.sin(t * 2 + i) * 8, dy = hh * 0.22 + Math.abs(Math.sin(t * 4 + i * 1.3)) * -18 + (i % 2) * 30;
-      g.save(); g.translate(dx, dy); g.scale(0.55, 0.55); drawDot(g, ['black', 'pollen', 'pink', 'black', 'blue'][i], t + i); g.restore();
-    }
-    g.restore();
-  },
-};
+export { meta };
 
 export class Game {
   constructor(api) {

@@ -10,7 +10,7 @@
 //   'toss' -> throw, 'catch-present' -> surprised, 'sooty' -> dizzy
 import { playerName } from '../state.js';
 import { W, H } from '../engine/canvas.js';
-import { Actor, POSE_NAMES, drawPortrait } from '../engine/sprites.js';
+import { Actor, POSE_NAMES } from '../engine/sprites.js';
 import { charById } from '../data/characters.js';
 import * as ui from '../engine/ui.js';
 import { particles, RAINBOW } from '../engine/particles.js';
@@ -23,41 +23,8 @@ import { drawHeartShape } from '../engine/emotes.js';
 import { bodyRadius } from '../engine/crowd.js';
 import { clamp, lerp, damp, rand, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
 
-export const meta = {
-  id: 'pass-the-present',
-  title: 'Pass the Present',
-  category: 'party',
-  type: 'Hot potato',
-  goal: "Throw the present at a friend before it pops on you!",
-  controls: [['stick', 'Run around'], ['rstick', 'Aim'], ['rt', 'Throw the present (or A)'], ['lt', 'Dash out of the way (or B)']],
-  cornerControls: { at: 'br', items: [['rstick', 'Aim'], ['rt', 'Throw'], ['lt', 'Dash']] },
-  tips: ['Miss, and the present flies right back to you!', 'Dash when it comes your way to dodge it.', 'Listen: the ticking gets faster and the present turns red!', 'No right stick? You throw the way you walk.', 'Lose all your hearts and you cheer from the side.'],
-  music: 'tense',
-  duration: 'About 45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const wall = g.createLinearGradient(0, 0, 0, hh * 0.45); wall.addColorStop(0, '#ffc4e1'); wall.addColorStop(1, '#ffe9f4');
-    g.fillStyle = wall; g.fillRect(0, 0, 400, hh);
-    g.fillStyle = '#e1a868'; g.fillRect(0, hh * 0.42, 400, hh);
-    drawRug(g, 200, hh * 0.68, 190, 80);
-    const tt = t || 0, heat = 0.5 + 0.5 * Math.sin(tt * 3);
-    // three friends around the rug
-    const faces = [['fox', 70, hh * 0.64], ['marina', 330, hh * 0.64], ['felicity', 200, hh * 0.9]];
-    for (const [c, fx_, fy_] of faces) { try { drawPortrait(g, c, fx_, fy_, 34, { expr: 'happy' }); } catch (e) { /* portraits not loaded */ } }
-    // arc arrows
-    g.save(); g.strokeStyle = '#ffffff'; g.lineWidth = 6; g.setLineDash([12, 10]); g.lineDashOffset = -tt * 40; g.lineCap = 'round';
-    g.beginPath(); g.moveTo(104, hh * 0.58); g.quadraticCurveTo(200, hh * 0.18, 296, hh * 0.58); g.stroke(); g.restore();
-    const px = 200, py = hh * 0.38 + Math.sin(tt * 2) * 4;
-    drawPresent(g, px, py, 74, heat, tt, 1);
-    g.restore();
-  },
-};
+import { meta } from './pass-the-present.meta.js';
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 // RY leaves room between the back and front rows for name tags + the overhead present.

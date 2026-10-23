@@ -16,6 +16,7 @@ import { clamp, lerp, damp, ease, rand, pick, shuffle, chance, placementsFromSco
 import { drawStarShape, drawSparkleShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { allFaces, drawCardBack, drawCardFace, drawUnicornHead } from './memory-match/cards.js';
+import { meta } from './memory-match.meta.js';
 
 const NAVY = '#24163f';
 const SIDE_W = 340;
@@ -23,46 +24,7 @@ const REMEMBER = [0.35, 0.55, 0.75];  // chance a CPU remembers a revealed card 
 const FORGET = [0.18, 0.1, 0.05];      // ...and forgets each remembered card after every turn
 const snd = (key, fallback, o) => (hasSound(key) ? sfx(key, o) : fallback && sfx(fallback, o));
 
-export const meta = {
-  id: 'memory-match',
-  title: 'Unicorn Memory Match',
-  category: 'studio',
-  type: 'Memory · Take turns',
-  goal: 'Flip two cards to find matching pairs. Most pairs wins!',
-  controls: [['stick', 'Move your cursor'], ['a', 'Flip a card']],
-  tips: ['Find a pair and you go again!', 'Watch every card and remember it!', 'Alone? Find all pairs in few tries.'],
-  music: 'menu',
-  duration: '2-4 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    const gr = g.createLinearGradient(x, y, x, y + h);
-    gr.addColorStop(0, '#ffc6ea'); gr.addColorStop(1, '#c4b2ff');
-    g.fillStyle = gr; g.fillRect(x, y, w, h);
-    const cols = ['#ff6b8b', '#ffb04d', '#ffe066', '#7fe08a', '#7fc8ff', '#b48cff'];
-    g.save(); g.globalAlpha = 0.5;
-    cols.forEach((c, i) => { g.strokeStyle = c; g.lineWidth = h * 0.05; g.beginPath(); g.arc(x + w / 2, y + h * 1.05, h * (0.95 - i * 0.05), Math.PI, TAU); g.stroke(); });
-    g.restore();
-    const cw = h * 0.42, ch = h * 0.56;
-    const faces = allFaces();
-    // left: face-down, right: flipped
-    const flip = Math.abs(Math.cos(t * 1.2));
-    g.save(); g.translate(x + w * 0.3, y + h * 0.52); g.rotate(-0.12);
-    drawCardBack(g, 0, 0, cw, ch); g.restore();
-    g.save(); g.translate(x + w * 0.52, y + h * 0.5); g.rotate(0.02); g.scale(1, 1);
-    drawCardFace(g, faces.find((f) => f.key === 'unicorn') || faces[0], 0, 0, cw, ch); g.restore();
-    g.save(); g.translate(x + w * 0.74, y + h * 0.52); g.rotate(0.12); g.scale(Math.max(0.05, flip), 1);
-    if (Math.cos(t * 1.2) > 0) drawCardFace(g, faces.find((f) => f.key === 'unicorn') || faces[0], 0, 0, cw, ch);
-    else drawCardBack(g, 0, 0, cw, ch);
-    g.restore();
-    for (let i = 0; i < 6; i++) {
-      g.save(); g.globalAlpha = 0.5 + 0.5 * Math.sin(t * 3 + i * 1.3);
-      g.translate(x + w * ((i * 0.31 + 0.08) % 1), y + h * ((i * 0.43 + 0.08) % 0.9));
-      drawSparkleShape(g, h * 0.09, '#ffffff'); g.restore();
-    }
-  },
-};
+export { meta };
 
 const turnName = (p) => (p.isAI ? playerName(p) : p.tag);
 /** "Fox's" / "KPop Girls'" / "P1's" */

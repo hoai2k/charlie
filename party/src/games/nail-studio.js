@@ -26,21 +26,9 @@ import {
   drawSparkleShape, drawStarShape, drawHeartShape,
 } from './nail-studio/hand.js';
 
-export const meta = {
-  id: 'nail-studio',
-  title: 'Sparkle Nails',
-  category: 'studio',
-  type: 'Nail salon · Everyone wins',
-  goal: 'Paint your client\'s nails, add sparkly designs and gems, then dry them for the big show!',
-  controls: [['stick', 'Move your brush'], ['a', 'Paint / decorate / stick a gem'], ['rb', 'Colour or gem (LB/RB or D-pad ← →)'], ['x', 'Design (or D-pad ↑ ↓) · Paint all'], ['b', 'Wipe off / take off'], ['y', 'Next step']],
-  tips: ['Hold A on a nail to paint it. X paints all five!', 'Press A on a gem to move it, B to take it off.', 'Wave the fan over wet nails until they sparkle dry.'],
-  music: 'cozy',
-  duration: 'about 3 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+import { meta } from './nail-studio.meta.js';
+
+export { meta };
 
 // --- station design (local units; each station is scaled by k) -------------------
 const SW = 860, SH = 600;
@@ -106,6 +94,12 @@ export class Game {
       if (!id) id = pick(CLIENTS.filter((c) => c !== p.charId));
       return this.makeStation(p, i, rects[i], id);
     });
+    // Each step has a gentle clock (the ring on the step list shows how much is left);
+    // its last seconds are counted down by the play scene, over the station's step list.
+    for (const st of this.stations) {
+      api.limit(() => (this.phase === 'play' && st.mode === 'work' ? Math.max(0, STEPS[st.step].time - st.stepT) : null),
+        { x: st.ox + (PANEL.x + PANEL.w / 2) * st.k, y: st.oy + Math.max(44, 70 * st.k) });
+    }
     this.sideRoom = Math.min(...rects.map((r) => r.x)) > 240;
     this.bulbs = Array.from({ length: 22 }, (_, i) => ({ x: 40 + i * 88, c: RAINBOW[i % RAINBOW.length] }));
     sfx('magic'); snd('jingle/round', null, { vol: 0.7 });
@@ -877,7 +871,7 @@ export class Game {
     const stats = this.stations.map((s) => (s.gems.length && this.n <= 4 ? `${s.design || this.designName(s)} · ${plural(s.gems.length, 'gem')}` : s.design || this.designName(s)));
     // everyone wins: no showstopper (like the other studio games)
     const focus = this.phase === 'show' ? { x: W / 2, y: 640, zoom: 1.1 } : undefined;
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Gorgeous!', focus });
+    this.api.finishTogether({ stats, title: 'Gorgeous!', focus });
   }
 
   // --- helpers ------------------------------------------------------------------------------
@@ -1346,45 +1340,4 @@ export class Game {
     // the artist
     if (appear >= 1) st.actor.draw(g, { ring: st.p.color });
   }
-}
-
-// --- menu / how-to thumbnail ----------------------------------------------------------------
-const ICON_STYLE = { kind: 'hand', skin: '#ffd9c4', shade: '#f2b49a', cuff: '#ff7ac6' };
-const ICON_NAILS = [
-  { color: 6, cover: 1, art: { tool: 'stars', color: '#ffd23f', t: 1, seed: 3 } },
-  { color: 0, cover: 1, art: { tool: 'dots', color: '#ffffff', t: 1, seed: 1 } },
-  { color: 5, cover: 1, art: { tool: 'rainbow', color: '#ffffff', t: 1, seed: 2 } },
-  { color: 8, cover: 1, glitter: { color: '#ffffff', t: 1, seed: 4 } },
-  { color: 1, cover: 1, art: { tool: 'hearts', color: '#ffffff', t: 1, seed: 5 } },
-];
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  if (drawArt(g, 'thumb/nail-studio', x + w / 2, y + h / 2, w, h, { fit: 'cover' })) { g.restore(); return; }
-  const s = Math.min(w / 800, h / 500);
-  const bg = g.createLinearGradient(x, y, x, y + h);
-  bg.addColorStop(0, '#f6dcff'); bg.addColorStop(1, '#ffd6ec');
-  g.fillStyle = bg; g.fillRect(x, y, w, h);
-  g.globalAlpha = 0.4;
-  for (let j = 0; j < 6; j++) for (let i = 0; i < 10; i++) { g.save(); g.translate(x + (i + (j % 2) * 0.5) * w / 9, y + j * h / 5.5); drawHeartShape(g, 18 * s, '#ffffff'); g.restore(); }
-  g.globalAlpha = 1;
-  g.fillStyle = '#ffc2e2'; g.fillRect(x, y + h * 0.8, w, h * 0.2);
-  // cushion + hand
-  const cx = x + w * 0.48, cy = y + h * 0.56, hs = 0.95 * s;
-  g.beginPath(); g.ellipse(cx, cy + 150 * hs, 210 * hs, 58 * hs, 0, 0, TAU); g.fillStyle = '#ff9fcf'; g.fill(); g.lineWidth = 5 * s; g.strokeStyle = NAVY; g.stroke();
-  const G = geom(ICON_STYLE, 0.4, t);
-  g.save(); g.translate(cx, cy); g.scale(hs, hs);
-  drawHandBase(g, ICON_STYLE, G, { wrist: false });
-  G.nails.forEach((n, i) => drawNail(g, n, ICON_NAILS[i], t, { line: 5 }));
-  const n2 = G.nails[2], q = fromNail(n2, 0, 0.2 * n2.h);
-  drawSticker(g, 'gem-pink', q.x, q.y, 34, 0, t);
-  g.restore();
-  drawBottle(g, '#ff6fb1', x + w * 0.13, y + h * 0.86, 150 * s);
-  drawFan(g, x + w * 0.85, y + h * 0.5, 190 * s, t * 12, 0.4);
-  for (let i = 0; i < 6; i++) {
-    const k = (t * 0.9 + i * 0.37) % 1;
-    g.save(); g.translate(x + w * ((i * 0.31 + 0.07) % 1), y + h * (0.15 + (i % 3) * 0.12)); g.globalAlpha = Math.sin(k * Math.PI);
-    drawSparkleShape(g, 46 * s, '#ffffff'); g.restore();
-  }
-  g.restore();
 }

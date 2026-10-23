@@ -25,21 +25,9 @@ import {
   NAVY, TYPES, TYPE, TEMPLATES, drawCreature, drawMoon, drawStar, starShape, glowSprite, mixHex, rgba, bbox, creatureSize,
 } from './star-maker/creatures.js';
 
-export const meta = {
-  id: 'star-maker',
-  title: 'Star Maker',
-  category: 'studio',
-  type: 'Night sky · Everyone wins',
-  goal: 'Put stars in the night sky, join them up, and watch your star pictures come alive!',
-  controls: [['stick', 'Move your star wand'], ['a', 'Put a star (it joins the last one)'], ['a', 'On a star: join to it, or hold to move it'], ['b', 'Take a star away'], ['x', 'Start a new line'], ['y', 'Finish! Choose what it is'], ['rb', 'Star colour (LB/RB or D-pad)']],
-  tips: ['Make a shape, then press Y: it comes alive!', 'Touch a shooting star to catch a wish.', 'Press A on the Moon when you are all done.'],
-  music: 'cozy',
-  duration: 'about 3 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+import { meta } from './star-maker.meta.js';
+
+export { meta };
 
 const SKY = { x0: 70, x1: W - 70, y0: 128, y1: 800 };
 const FEET_Y = 1036;
@@ -66,6 +54,8 @@ export class Game {
     this.cpuOnly = this.players.every((p) => p.isAI);
     this.night = this.cpuOnly ? NIGHT_CPU : NIGHT;
     this.timeLeft = this.night;
+    // The night is the one time limit (the Moon moving across the sky is its decoration).
+    api.limit(() => (this.phase === 'play' ? Math.max(0, this.timeLeft) : null), { showAt: Infinity, x: W / 2, y: 54 });
     this.stars = []; this.cons = []; this.creatures = []; this.shooting = []; this.beams = [];
     this.starCap = clamp(Math.floor(150 / this.n), 18, 48);
     this.cpuCap = this.n <= 2 ? 4 : this.n <= 4 ? 3 : 2;
@@ -882,7 +872,7 @@ export class Game {
       if (st.wishes) parts.push(st.wishes === 1 ? '1 wish' : `${st.wishes} wishes`);
       return parts.join(' · ');
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Starry Night!' });
+    this.api.finishTogether({ stats, title: 'Starry Night!' });
   }
 
   onDone() {
@@ -1194,7 +1184,6 @@ export class Game {
     g.restore();
     g.save(); g.translate(56, 52); drawStar(g, 0, 0, 14, '#ffe27a', { tw: this.t * 3 }); g.restore();
     ui.text(g, 'Star Maker', 90, 52, { size: 46, color: '#fff6a8', align: 'left', strokeWidth: 9 });
-    ui.timer(g, Math.max(0, this.timeLeft), W / 2, 54);
     ui.hints(g, [['a', 'Star'], ['b', 'Remove'], ['x', 'New line'], ['y', 'Finish!'], ['rb', 'Colour']], W - 24, 52, { size: 30, gap: 18, align: 'right' });
   }
 
@@ -1231,44 +1220,4 @@ export class Game {
     ui.text(g, 'Our Starry Night', 0, ph / 2 + 50, { size: 44, color: '#7a4ad8', stroke: false, weight: 800 });
     g.restore();
   }
-}
-
-// --- menu / how-to thumbnail ---------------------------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = Math.min(w / 860, h / 520);
-  const gr = g.createLinearGradient(x, y, x, y + h);
-  gr.addColorStop(0, '#120c36'); gr.addColorStop(0.6, '#3a2a86'); gr.addColorStop(1, '#7a52a8');
-  g.fillStyle = gr; g.fillRect(x, y, w, h);
-  g.fillStyle = '#ffffff';
-  for (let i = 0; i < 60; i++) {
-    const px = x + ((i * 137.5) % 860) * (w / 860), py = y + ((i * 71.3) % 380) * (h / 520);
-    g.globalAlpha = 0.3 + 0.7 * (0.5 + 0.5 * Math.sin(t * 2 + i));
-    g.fillRect(px, py, 2.4 * s, 2.4 * s);
-  }
-  g.globalAlpha = 1;
-  // hill
-  g.fillStyle = '#3a2a6e'; g.beginPath(); g.moveTo(x, y + h);
-  for (let i = 0; i <= 20; i++) g.lineTo(x + (i / 20) * w, y + h - 70 * s - Math.sin(i * 0.4) * 18 * s);
-  g.lineTo(x + w, y + h); g.closePath(); g.fill();
-  // a bunny constellation coming alive
-  const cx = x + w * 0.42, cy = y + h * 0.44, S = 150 * s;
-  const tpl = TEMPLATES.bunny, pts = tpl.pts.map(([px, py]) => ({ x: cx + px * S, y: cy + py * S * 0.85 }));
-  drawCreature(g, 'bunny', cx + 6 * s, cy - 6 * s + Math.sin(t * 3) * 6 * s, S * 0.95, { color: '#ff6fd0', ph: t * 2, alpha: 0.85 });
-  g.lineCap = 'round'; g.strokeStyle = 'rgba(255,248,220,0.85)'; g.lineWidth = 3.5 * s;
-  let prev = null;
-  for (const e of tpl.path) {
-    if (e === 'x') { prev = null; continue; }
-    if (prev !== null) { g.beginPath(); g.moveTo(pts[prev].x, pts[prev].y); g.lineTo(pts[e].x, pts[e].y); g.stroke(); }
-    prev = e;
-  }
-  pts.forEach((p, i) => drawStar(g, p.x, p.y, 8 * s, i % 2 ? '#ffe27a' : '#ffffff', { tw: t * 3 + i }));
-  // moon friend + shooting star
-  drawMoon(g, x + w * 0.82, y + h * 0.26, 62 * s, 'happy', t);
-  const k = (t * 0.5) % 1, sx = x + w * (0.1 + k * 0.5), sy = y + h * (0.08 + k * 0.2);
-  g.strokeStyle = 'rgba(255,250,220,0.8)'; g.lineWidth = 5 * s; g.beginPath(); g.moveTo(sx - 90 * s, sy - 30 * s); g.lineTo(sx, sy); g.stroke();
-  drawStar(g, sx, sy, 8 * s, '#fff6a8', { tw: t * 10 });
-  drawPortrait(g, 'felicity', x + w * 0.78, y + h - 95 * s, 66 * s, { ring: '#ff6fd0', ringWidth: 6 * s, expr: 'happy' });
-  g.restore();
 }

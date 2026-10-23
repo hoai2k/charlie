@@ -20,50 +20,15 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, placementsFromScores } from '../engine/util.js';
 import { BALLOONS, drawBalloon, drawHeart, drawStar, drawGoldenStar, drawFaceCloud, drawBird, drawSky } from './balloon-float/art.js';
 
 const snd = (k, fb, o = {}) => sfx(k, { ...o, fallback: fb });
 
-export const meta = {
-  id: 'balloon-float',
-  title: 'Balloon Float',
-  category: 'molly',
-  type: 'Free-for-all',
-  goal: 'Fly with your balloons and grab the hearts and stars!',
-  controls: [['stick', 'Fly left and right'], ['a', 'Hold to go up, let go to go down']],
-  tips: ['Big gold stars are worth 3!', 'Bump through the silly clouds - they sneeze out hearts.', 'Touch the grass for a big BOING!'],
-  goalEasy: 'Hold A to float up and let go to float down - grab the hearts and stars flying by!',
-  controlsEasy: [['a', 'Hold to go up, let go to go down'], ['stick', 'Fly about (if you like)']],
-  tipsEasy: ['The ring shows your next heart - the arrow says up or down!', 'Treats only come to you after you press A!', 'You drift by yourself - or fly with either stick if you like!', 'Big gold stars are worth 3!', 'Touch the grass for a big BOING!'],
-  music: 'chase',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const thumb = art('thumb/balloon-float');
-    if (thumb) { g.drawImage(thumb, x, y, w, h); g.restore(); return; }
-    const s = w / 400; g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const gr = g.createLinearGradient(0, 0, 0, hh); gr.addColorStop(0, '#6cc6ff'); gr.addColorStop(1, '#ffe6d0');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    g.fillStyle = '#62c95a'; g.fillRect(0, hh * 0.86, 400, hh);
-    g.save(); g.translate(300, hh * 0.3); drawFaceCloud(g, 0.3, Math.sin(t * 2) > 0.3 ? 1 : 0, t, 1); g.restore();
-    // a bunch of balloons
-    const bx = 170, by = hh * 0.36 + Math.sin(t * 2) * 6;
-    for (let i = 0; i < 5; i++) {
-      const a = (i - 2) * 0.32;
-      g.strokeStyle = 'rgba(36,22,63,0.7)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(bx, by + 90); g.lineTo(bx + Math.sin(a) * 50, by + 30 - Math.cos(a) * 30); g.stroke();
-      g.save(); g.translate(bx + Math.sin(a) * 50, by + 30 - Math.cos(a) * 30); g.rotate(a * 0.6); drawBalloon(g, BALLOONS[i], 0.6); g.restore();
-    }
-    for (let i = 0; i < 4; i++) { g.save(); g.translate(((i * 110 - t * 80) % 440 + 440) % 440 - 20, hh * 0.6 + (i % 2) * 40); if (i % 2) drawStar(g, 0.4); else drawHeart(g, 0.4); g.restore(); }
-    g.save(); g.translate(80, hh * 0.2); g.scale(0.5, 0.5); drawBird(g, t * 12, Math.sin(t * 2) > 0); g.restore();
-    g.restore();
-  },
-};
+import { meta } from './balloon-float.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 45;
@@ -86,6 +51,8 @@ export class Game {
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0; this.timeLeft = DURATION;
+    // the flight clock, shown the whole game
+    api.limit(() => (this.done ? null : this.timeLeft), { showAt: Infinity });
     this.scale = n <= 2 ? 0.95 : n <= 4 ? 0.85 : n <= 6 ? 0.76 : 0.68;
     this.scroll = 0; this.wind = WIND; this.gust = 0; this.gustT = rand(7, 9);
     this.items = []; this.clouds = []; this.birds = []; this.streaks = [];
@@ -504,11 +471,13 @@ export class Game {
           const y = b.y + dir * Math.abs(Math.sin(this.t * 6)) * 16;
           g.save(); g.translate(x, y); g.fillStyle = e.p.color; g.strokeStyle = '#24163f'; g.lineWidth = 5;
           g.beginPath(); g.moveTo(-24, -dir * 4); g.lineTo(24, -dir * 4); g.lineTo(0, dir * 34); g.closePath(); g.fill(); g.stroke(); g.restore();
-          if ((e.ezHint === 'up' || !this.ezGrab(e)) && !e.p.ctrl.held('a')) ui.glyph(g, 'a', x, y - 62, 52, { pulse: true });
-        } else if (it && !this.ezGrab(e) && !e.p.ctrl.held('a')) {
-          // right on course but A hasn't been pressed lately: the grab needs it
-          const b = this.body(e);
-          ui.glyph(g, 'a', b.x + e.a.width * 0.5 + 60, b.y - 40, 52, { pulse: true });
+        }
+        // the big A (beside the next treat): up needs A held; right on course but A not
+        // pressed lately also shows it, since the grab needs it
+        const wantA = e.ezHint === 'up' || e.ezHint === 'down' ? e.ezHint === 'up' || !this.ezGrab(e) : it && !this.ezGrab(e);
+        if (it && wantA && !e.p.ctrl.held('a')) {
+          const u = this.bunch(e);
+          easyPrompt(g, e.p, { target: { x: it.x, y: it.y }, child: { x: u.x, y: u.y - 70 * this.scale + 52 } });
         }
       }
     }
@@ -556,7 +525,7 @@ export class Game {
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the flight clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 40, avoidCenter: true, format: (v) => String(v) });
     if (this.gust > 1.4) {
       g.save(); g.globalAlpha = clamp((this.gust - 1.4) * 2, 0, 1);

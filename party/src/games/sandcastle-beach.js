@@ -26,25 +26,12 @@ import { drawHeartShape } from '../engine/emotes.js';
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   NAVY, SAND, SAND_L, SAND_D, SAND_DD, DEFS,
-  foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, drawBucket,
-} from './sandcastle-beach/pieces.js';
+  foot, silhouette, topHeight, canStack, drawPiece, drawPieceShadow, drawCrab, drawToolIcon, } from './sandcastle-beach/pieces.js';
 import { drawBackdrop, drawSun, drawShore, drawWave, HORIZON, SHORE, WET } from './sandcastle-beach/beach.js';
 
-export const meta = {
-  id: 'sandcastle-beach',
-  title: 'Sandcastle Beach',
-  category: 'studio',
-  type: 'Build & decorate · Everyone wins',
-  goal: 'Build the dreamiest sandcastle on the beach, then watch the sunset!',
-  controls: [['stick', 'Move your hand'], ['lb', 'LB / RB (or D-pad): pick a tool'], ['a', 'Build! (or pick up with the hand)'], ['b', 'Take it away'], ['x', 'Change the style'], ['y', 'Hold: all done!']],
-  tips: ['Build on top of a tower to make it taller!', 'Hold A with the spade to dig a moat; the sea fills it up.', 'Tickle a crab with A. Crabs love a pretty castle!'],
-  music: 'splash',
-  duration: 'about 3 min',
-  minPlayers: 1, maxPlayers: 8,
-  countdown: false,
-  flyIn: false,
-  drawIcon,
-};
+import { meta } from './sandcastle-beach.meta.js';
+
+export { meta };
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
@@ -87,6 +74,8 @@ export class Game {
     this.t = 0;
     this.phase = 'build';
     this.timeLeft = this.humans ? BUILD_TIME : CPU_TIME;
+    // Building runs until sunset: the play scene draws that clock the whole time (api.limit).
+    api.limit(() => (this.phase === 'build' ? Math.max(0, this.timeLeft) : null), { showAt: Infinity, x: W - 150, y: 54 });
     this.crabs = [];
     this.crabT = rand(3, 6);
     this.finale = null;
@@ -829,7 +818,7 @@ export class Game {
     if (this.finished) return;
     this.finished = true;
     snd('applause', 'cheer');
-    this.api.finish({ showcase: true, highlight: null, stats: this.stations.map((st) => this.stats(st).text), title: 'Beautiful castles!', focus: { x: W / 2, y: 640, zoom: 1.05 } });
+    this.api.finishTogether({ stats: this.stations.map((st) => this.stats(st).text), title: 'Beautiful castles!', focus: { x: W / 2, y: 640, zoom: 1.05 } });
   }
   onDone() {
     if (!this.finale) { this.startFinale(); return; }
@@ -1038,22 +1027,9 @@ export class Game {
     if (this.flash > 0) { g.save(); g.globalAlpha = this.flash; g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); g.restore(); }
   }
 
+  /** The sunset clock itself is the play scene's (api.limit); this is just its warning. */
   drawClock(g) {
-    const s = Math.max(0, Math.ceil(this.timeLeft));
-    const txt = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
-    const x = W - 150, y = 50, low = s <= 10;
-    g.save(); g.translate(x, y);
-    if (low) { const k = 1 + Math.sin(this.t * 6) * 0.04; g.scale(k, k); }
-    ui.panel(g, -110, -36, 220, 72, { r: 36, fill: low ? '#ffb36b' : '#ffffff' });
-    // a little sun that sinks as time runs out
-    const frac = clamp(this.timeLeft / (this.humans ? BUILD_TIME : CPU_TIME), 0, 1);
-    g.save(); g.beginPath(); g.rect(-100, -30, 60, 52); g.clip();
-    g.fillStyle = '#ffd84a'; g.beginPath(); g.arc(-70, 20 - frac * 30, 15, 0, TAU); g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
-    g.restore();
-    g.fillStyle = '#3fc6e0'; g.fillRect(-100, 14, 60, 8); g.strokeStyle = NAVY; g.lineWidth = 3; g.strokeRect(-100, 14, 60, 8);
-    ui.text(g, txt, 30, 3, { size: 44, color: NAVY, stroke: false, weight: 800 });
-    g.restore();
-    if (low) ui.text(g, 'Almost sunset!', x, 106, { size: 28, color: '#ffd23f' });
+    if (Math.ceil(this.timeLeft) <= 10) ui.text(g, 'Almost sunset!', W - 150, 116, { size: 28, color: '#ffd23f' });
   }
 
   drawStrip(g, st) {
@@ -1157,47 +1133,4 @@ export class Game {
 function ai_on(st, step) {
   const pc = st.ai.pieceOf[step.on];
   return pc && st.pieces.includes(pc) ? pc : null;
-}
-
-// --- menu / how-to thumbnail ---------------------------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  const img = art('thumb/sandcastle-beach');
-  if (img) { g.drawImage(img, x, y, w, h); return; }
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = Math.min(w / 800, h / 500);
-  // sky, sea, sand
-  let gr = g.createLinearGradient(x, y, x, y + h * 0.3);
-  gr.addColorStop(0, '#8fd8ff'); gr.addColorStop(1, '#d8f4ff');
-  g.fillStyle = gr; g.fillRect(x, y, w, h * 0.3);
-  gr = g.createLinearGradient(x, y + h * 0.3, x, y + h * 0.5);
-  gr.addColorStop(0, '#3cc6d9'); gr.addColorStop(1, '#7fe3e0');
-  g.fillStyle = gr; g.fillRect(x, y + h * 0.3, w, h * 0.2);
-  gr = g.createLinearGradient(x, y + h * 0.5, x, y + h);
-  gr.addColorStop(0, '#f7dc9e'); gr.addColorStop(1, '#efc77c');
-  g.fillStyle = gr; g.fillRect(x, y + h * 0.5, w, h * 0.5);
-  g.strokeStyle = 'rgba(255,255,255,0.9)'; g.lineWidth = 6 * s;
-  g.beginPath(); for (let i = 0; i <= 20; i++) { const xx = x + (i / 20) * w, yy = y + h * 0.5 + Math.sin(i * 1.3 + t * 2) * 5 * s; i ? g.lineTo(xx, yy) : g.moveTo(xx, yy); } g.stroke();
-  // sun
-  g.fillStyle = '#ffd84a'; g.beginPath(); g.arc(x + w * 0.86, y + h * 0.12, 34 * s, 0, TAU); g.fill(); g.lineWidth = 4 * s; g.strokeStyle = NAVY; g.stroke();
-  // the castle
-  const k = 1.45 * s;
-  g.save(); g.translate(x + w * 0.5, y + h * 0.8); g.scale(k, k);
-  // moat ring
-  g.fillStyle = '#c99a55'; g.beginPath(); g.ellipse(0, 10, 200, 58, 0, 0, TAU); g.fill();
-  g.fillStyle = '#5fcff0'; g.beginPath(); g.ellipse(0, 11, 188, 50, 0, 0, TAU); g.fill();
-  g.fillStyle = '#f7dc9e'; g.beginPath(); g.ellipse(0, 4, 160, 38, 0, 0, TAU); g.fill();
-  const P = (type, px, py, style = 0, z = 0) => drawPiece(g, { type, x: px, y: py, z, style, seed: px + py }, t);
-  P('wall', -62, -14); P('wall', 62, -14);
-  P('pointy', -132, -8); P('pointy', 132, -8);
-  P('tower', 0, -10, 2); P('tower', 0, -10, 1, 92); P('flag', 0, -10, 0, 184);
-  P('flag', -62, -14, 1, 58); P('flag', 62, -14, 3, 58);
-  P('dome', -86, 22); P('dome', 86, 22);
-  P('star', -30, 30, 0); P('shell', 34, 30, 0); P('shell', 120, 34, 1);
-  g.restore();
-  // crab
-  g.save(); g.translate(x + w * 0.16, y + h * 0.9); drawCrab(g, t, { walk: t * 6, happy: (Math.sin(t * 2) + 1) / 2, scale: 1.5 * s }); g.restore();
-  // bucket
-  g.save(); g.translate(x + w * 0.86, y + h * 0.88); drawBucket(g, 2 * s); g.restore();
-  g.restore();
 }

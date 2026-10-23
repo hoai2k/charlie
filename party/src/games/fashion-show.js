@@ -17,27 +17,14 @@ import { fx } from '../engine/fx.js';
 import { sfx, voice, hasSound, host } from '../engine/audio.js';
 import { art } from '../engine/art.js';
 import { aiProfile } from '../engine/ai.js';
-import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU } from '../engine/util.js';
+import { clamp, lerp, rand, randInt, pick, chance, shuffle, ease, TAU, showstopper } from '../engine/util.js';
 import { drawSparkleShape, drawStarShape } from '../engine/emotes.js';
 import { charById } from '../data/characters.js';
 import { CATS, CAT, PALETTE, NAVY, heartPath, starAt, drawItemIconArt, drawOutfit, outfitItem, saveLook, rememberAdj, recallAdj } from '../engine/outfits.js';
 import { photoPosePressed, photoMove, strikePhotoPose, photoPoseHints } from '../engine/photo-poses.js';
+import { meta } from './fashion-show.meta.js';
 
-export const meta = {
-  id: 'fashion-show',
-  title: 'Royal Fashion Show',
-  category: 'studio',
-  type: 'Dress up · Everyone wins',
-  goal: 'Dress up like royalty, then strut down the runway and strike your best poses!',
-  controls: [['lb', 'LB / RB or D-pad left/right: pick a spot'], ['dpad', 'D-pad or stick up/down: try on items'], ['a', 'Pick it (again: change color)'], ['y', 'Take it all off (again: surprise me!)'], ['x', "I'm ready!"], ['rstick', 'Nudge the item · press it in + up/down: size · tap it: reset'], ['stick', 'Runway: walk around, A jumps, other buttons pose']],
-  tips: ['Press A to pick an item, and A again to change its color.', 'Press X when you love your look!', 'Wings and capes go on your back, wands and balloons in your hand.', 'On the runway, walk around with the stick and press different buttons for different poses!', 'Press the View button when you are done on the runway.', 'Press B if you want to change your outfit again.'],
-  music: 'runway',
-  duration: 'about 2 min',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+export { meta };
 
 const COMPLIMENTS = ['Fabulous!', 'Gorgeous!', 'So royal!', 'Sparkly!', 'Wow!', 'Stunning!', 'Magical!', 'Lovely!', 'Dazzling!', 'Super cute!'];
 const POSE_SET = ['strike1', 'strike2', 'strike3', 'ready', 'cheer'];
@@ -90,6 +77,10 @@ export class Game {
     this.t = 0;
     this.phase = 'dress';
     this.phaseT = 0;
+    // A group with a human in it plays on the runway for HUMAN_POSE s (Done ends it early):
+    // counted down all turn, beside the "Strike a pose" line. (CPU-only turns just auto-advance.)
+    api.limit(() => (this.phase === 'runway' && this.humanGroup && this.group && this.group[0].rw.state === 'pose'
+      ? WALK + this.poseDur - this.groupT : null), { showAt: Infinity, x: W / 2 + 170, y: 176 });
     this.flashes = [];
     this.curtain = 0;
     this.lastCheer = -9;
@@ -635,11 +626,9 @@ export class Game {
     this.finished = true;
     for (const st of this.stations) this.saveLook(st);
     const poses = this.stations.map((s) => s.poses);
-    const max = Math.max(...poses);
-    const top = poses.filter((v) => v === max).length;
     this.api.finish({
       showcase: true,
-      highlight: max > 0 && top === 1 ? poses.indexOf(max) : null,
+      highlight: showstopper(this.players, poses),
       stats: poses.map((v) => `${v} pose${v === 1 ? '' : 's'}`),
       title: 'Gorgeous!',
     });
@@ -984,12 +973,11 @@ export class Game {
       if (st0.rw.state === 'pose' && this.humanGroup) {
         // free turn: move/jump/pose hints at the top, then the timer and Done
         const humans = this.group.filter((s) => !s.p.isAI);
-        const left = Math.max(0, WALK + this.poseDur - this.groupT);
         g.save(); ui.roundRect(g, W / 2 - 880, 12, 1760, 214, 30); g.fillStyle = 'rgba(36,22,63,0.6)'; g.fill(); g.restore();
         const [r1, r2] = photoPoseHints(humans.some((s) => s.p.ctrl.kind === 'pad'));
         ui.hints(g, r1, W / 2, 56, { size: 36 }); ui.hints(g, r2, W / 2, 112, { size: 36 });
         ui.text(g, 'Strike a pose for the cameras!', W / 2 - 330, 180, { size: 40, color: '#ffd23f', weight: 800 });
-        ui.bar(g, W / 2 + 20, 170, 300, 20, left / this.poseDur, '#ff7ac6');
+        // (the turn's countdown beside this is an api.limit)
         ui.hints(g, [[DONE_BTN, 'Done']], W / 2 + 500, 180, { size: 36 });
       } else if (st0.rw.state === 'pose') {
         const left = Math.max(0, WALK + POSE - this.groupT);
@@ -1142,57 +1130,3 @@ export class Game {
   }
 }
 
-// --- menu / how-to thumbnail --------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  const s = Math.min(w / 860, h / 520);
-  const bg = g.createLinearGradient(x, y, x, y + h);
-  bg.addColorStop(0, '#3a1a6a'); bg.addColorStop(1, '#8a3fb0');
-  g.fillStyle = bg; g.fillRect(x, y, w, h);
-  // curtain
-  for (let i = 0; i < 16; i++) { g.fillStyle = i % 2 ? '#a3124a' : '#d92a6e'; g.fillRect(x + (i / 16) * w, y, w / 16 + 1, h * 0.38); }
-  g.fillStyle = '#7a0c3a'; g.fillRect(x, y, w, h * 0.06);
-  // runway
-  const cx = x + w / 2;
-  g.beginPath(); g.moveTo(cx - w * 0.1, y + h * 0.38); g.lineTo(cx + w * 0.1, y + h * 0.38); g.lineTo(cx + w * 0.34, y + h); g.lineTo(cx - w * 0.34, y + h); g.closePath();
-  g.fillStyle = '#ff6fb1'; g.fill(); g.lineWidth = 8 * s; g.strokeStyle = '#ffd23f'; g.stroke();
-  // spotlights
-  g.save(); g.globalCompositeOperation = 'lighter'; g.fillStyle = 'rgba(255,246,200,0.16)';
-  for (const sx of [-1, 1]) { g.beginPath(); g.moveTo(cx + sx * w * 0.45, y); g.lineTo(cx + sx * w * 0.02 + 90 * s, y + h * 0.8); g.lineTo(cx + sx * w * 0.02 - 90 * s, y + h * 0.8); g.closePath(); g.fill(); }
-  g.restore();
-  // crowd silhouettes
-  g.fillStyle = '#2a1748';
-  for (let i = 0; i < 9; i++) for (const sx of [-1, 1]) {
-    const px = cx + sx * (w * 0.3 + i * 52 * s), py = y + h * 0.86 + (i % 2) * 18 * s;
-    g.beginPath(); g.arc(px, py - 34 * s, 22 * s, 0, TAU); g.fill(); g.beginPath(); g.ellipse(px, py + 10 * s, 36 * s, 26 * s, 0, Math.PI, TAU); g.fill();
-  }
-  // star model: portrait with crown + heart shades + wings
-  const pr = 120 * s, py = y + h * 0.52;
-  g.save(); g.translate(cx, py);
-  const flap = Math.sin(t * 6) * 0.1;
-  for (const sx of [-1, 1]) {
-    g.save(); g.scale(sx, 1); g.rotate(-flap); g.globalAlpha = 0.85;
-    g.fillStyle = '#9fe6ff'; g.beginPath(); g.ellipse(pr * 1.15, -pr * 0.35, pr * 0.75, pr * 0.42, -0.5, 0, TAU); g.fill();
-    g.lineWidth = 5 * s; g.strokeStyle = NAVY; g.stroke();
-    g.beginPath(); g.ellipse(pr * 0.95, pr * 0.4, pr * 0.48, pr * 0.28, 0.5, 0, TAU); g.fill(); g.stroke();
-    g.restore();
-  }
-  g.restore();
-  drawPortrait(g, 'princess-amber', cx, py, pr, { ring: '#ffd23f', ringWidth: 8 * s, expr: 'happy' });
-  g.save(); g.translate(cx, py - pr * 0.92);
-  CATS[0].items[1].draw(g, pr * 1.2, PALETTE[1], t);
-  g.restore();
-  // camera flashes + sparkles
-  for (let i = 0; i < 6; i++) {
-    const k = (t * 1.3 + i * 0.37) % 1;
-    g.save(); g.translate(x + w * ((i * 0.29 + 0.1) % 1), y + h * (0.7 + (i % 3) * 0.08)); g.globalAlpha = Math.max(0, 1 - k * 2.5);
-    drawSparkleShape(g, 50 * s, '#ffffff'); g.restore();
-  }
-  for (let i = 0; i < 5; i++) {
-    const u = (t * 0.4 + i / 5) % 1;
-    g.save(); g.globalAlpha = Math.sin(u * Math.PI);
-    heartPath(g, cx + Math.sin(i * 2 + t) * pr * 1.6, py + pr - u * pr * 2.4, 34 * s); g.fillStyle = '#ff7ac6'; g.fill(); g.lineWidth = 3 * s; g.strokeStyle = NAVY; g.stroke();
-    g.restore();
-  }
-  g.restore();
-}

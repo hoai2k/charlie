@@ -23,7 +23,7 @@ import { fx } from '../engine/fx.js';
 import { art, drawArt } from '../engine/art.js';
 import { drawMirroredScroll } from '../engine/scroll-art.js';
 import { aiProfile, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { outfitItem } from '../engine/outfits.js';
 import { charById } from '../data/characters.js';
 import { drawSparkleShape, drawStarShape, drawHeartShape } from '../engine/emotes.js';
@@ -32,55 +32,9 @@ import { clamp, lerp, approach, rand, randInt, pick, chance, TAU, placementsFrom
 const NAVY = '#24163f';
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
 
-export const meta = {
-  id: 'unicorn-jump',
-  title: 'Unicorn Hop',
-  category: 'molly',
-  type: 'Hop & collect',
-  goal: 'Ride your unicorn, hop over things and grab the treats!',
-  controls: [['a', 'Hop!'], ['stick', 'Gallop faster or slower']],
-  tips: ['Hop over puddles, mushrooms and sleepy bunnies to grow a rainbow trail.', 'Stars float up high - hop to grab them!', 'Bumping is just silly: mushrooms go BOING!'],
-  // Molly Easy: the unicorn gallops by itself; A hops when the big A shows
-  goalEasy: 'Your unicorn gallops by itself. Press A to hop over things!',
-  controlsEasy: [['a', 'Hop!'], ['stick', 'Gallop faster or slower with either stick if you like']],
-  tipsEasy: ['Press A when the big A pops up!', 'No need to steer - your unicorn gallops by itself.', 'Hop over things to win the treats after them!', 'Bumping is just silly: mushrooms go BOING!'],
-  music: 'bouncy',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t) {
-    t = t || 0;
-    g.save();
-    g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const s = w / 400, hh = h / s;
-    g.translate(x, y); g.scale(s, s);
-    const gr = g.createLinearGradient(0, 0, 0, hh);
-    gr.addColorStop(0, '#ffc2e6'); gr.addColorStop(1, '#d8c8ff');
-    g.fillStyle = gr; g.fillRect(0, 0, 400, hh);
-    g.save(); g.globalAlpha = 0.55; g.lineWidth = 12;
-    RAINBOW.slice(0, 6).forEach((c, i) => { g.strokeStyle = c; g.beginPath(); g.arc(200, hh + 40, 250 - i * 12, Math.PI * 1.05, Math.PI * 1.95); g.stroke(); });
-    g.restore();
-    ui.cloud(g, 70, hh * 0.18, 0.35, '#fff', 0.9);
-    ui.cloud(g, 330, hh * 0.25, 0.3, '#fff', 0.9);
-    g.fillStyle = '#9be8b8'; g.fillRect(0, hh * 0.8, 400, hh * 0.2);
-    g.fillStyle = '#c6f5d6'; for (let i = 0; i < 10; i++) { g.beginPath(); g.arc(i * 44 + 10, hh * 0.8, 16, Math.PI, 0); g.fill(); }
-    // rainbow trail
-    const hop = Math.abs(Math.sin(t * 2.4));
-    const uy = hh * 0.8 - hop * 50;
-    g.save(); g.lineCap = 'round';
-    RAINBOW.slice(0, 6).forEach((c, i) => {
-      g.strokeStyle = c; g.lineWidth = 7; g.beginPath();
-      for (let k = 0; k <= 20; k++) { const px = 175 - k * 9; const py = uy - 70 + i * 6 + Math.sin(t * 6 - k * 0.5) * 5; if (k) g.lineTo(px, py); else g.moveTo(px, py); }
-      g.stroke();
-    });
-    g.restore();
-    drawPuddle(g, 300 - ((t * 60) % 120), hh * 0.82, 0.5, t);
-    drawUnicorn(g, 210, uy, 0.62, t * 9, hop > 0.3, { saddle: '#ff6fb1' });
-    for (let i = 0; i < 3; i++) { g.save(); g.translate(290 + i * 34, hh * 0.32 + Math.sin(t * 3 + i) * 6); drawStar(g, 15, t + i); g.restore(); }
-    g.restore();
-  },
-};
+import { meta } from './unicorn-jump.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const DURATION = 45;
@@ -113,6 +67,8 @@ export class Game {
     const n = this.n = this.players.length;
     this.t = 0; this.time = 0;
     this.timeLeft = DURATION;
+    // the ride clock, shown the whole game
+    api.limit(() => (this.done || !this.started ? null : this.timeLeft), { showAt: Infinity });
     this.rush = false; this.rushT = 0;
     this.done = false;
     this.dist = 0;               // ground distance travelled (px at scale 1)
@@ -547,13 +503,13 @@ export class Game {
     g.beginPath(); g.ellipse(next.x, gy - next.hgt * 0.4, next.w * 0.62 + pulse * 6, (next.hgt * 0.5 + 34) * Math.max(0.7, s), 0, 0, TAU); g.stroke();
     g.restore();
     if (now) {
-      const top = gy - this.seatH(e) - e.a.height * (e.quad ? 0.5 : 0.82) - 70 * s;
-      ui.glyph(g, 'a', e.x + 110 * s, top + Math.sin(this.t * 10) * 6, 84 * clamp(s * 1.1, 0.75, 1.1), { pulse: true });
+      const head = gy - e.z - this.seatH(e) - e.a.height * (e.quad ? 0.5 : 0.82);
+      easyPrompt(g, e.p, { target: { x: next.x, y: gy - next.hgt * 0.6 }, child: { x: e.x, y: head }, size: 86 * clamp(s * 1.1, 0.75, 1.1) });
     }
   }
 
   drawHUD(g) {
-    ui.timer(g, this.timeLeft);
+    // (the ride clock is api.limit's, drawn by the play scene)
     ui.scoreboard(g, this.players, this.ents.map((e) => e.score), { y: 22, avoidCenter: true, format: (v) => String(v) });
     if (this.n === 1) ui.text(g, `Goal: ${SOLO_GOAL}`, W / 2, 140, { size: 38, color: '#ffd23f' });
     if (this.rush) {

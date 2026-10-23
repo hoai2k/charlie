@@ -439,39 +439,3 @@ export function buildBackground() {
   for (let i = 0; i < 70; i++) sparkle(g, 100 + hh(i + 300) * (W - 200), 280 + hh(i + 400) * (H - 300), 3 + hh(i + 500) * 4);
   return cv;
 }
-
-// --- menu thumbnail -----------------------------------------------------------------
-export function drawThumb(g, x, y, w, h, t = 0) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = w / 400, hh2 = h / s;
-  g.translate(x, y); g.scale(s, s);
-  const sk = g.createLinearGradient(0, 0, 0, hh2);
-  sk.addColorStop(0, '#9ed4fb'); sk.addColorStop(0.42, '#e3f3ff'); sk.addColorStop(0.43, '#f6faff'); sk.addColorStop(1, '#dbe9fb');
-  g.fillStyle = sk; g.fillRect(0, 0, 400, hh2);
-  pine(g, 40, hh2 * 0.44, 0.55); pine(g, 360, hh2 * 0.44, 0.6); pine(g, 300, hh2 * 0.42, 0.42);
-  // fort wall (left) and snowman (right)
-  drawWall(g, { x: 92, y: hh2 * 0.8, w: 120, d: 26, wob: 0, seed: 3 }, 0.7, 0, t);
-  g.save(); g.translate(318, hh2 * 0.86); g.scale(0.62, 0.62); drawSnowman(g, { x: 0, y: 0, hp: 3, wob: 0, seed: 1, scarf: '#ff4d6d', hat: '#3fa7ff' }, 1, t); g.restore();
-  // a snowball arc with a dotted trail
-  const u = (t * 0.6) % 1;
-  const sx = 110, sy = hh2 * 0.52, ex = 300, ey = hh2 * 0.42;
-  g.fillStyle = 'rgba(255,255,255,0.95)'; g.strokeStyle = NAVY; g.lineWidth = 1.5;
-  for (let i = 0; i <= 10; i++) {
-    const k = i / 10; if (k > u) break;
-    const px = lerp(sx, ex, k), py = lerp(sy, ey, k) - Math.sin(k * Math.PI) * 50;
-    g.beginPath(); g.arc(px, py, 3, 0, TAU); g.fill();
-  }
-  const bx = lerp(sx, ex, u), by = lerp(sy, ey, u) - Math.sin(u * Math.PI) * 50;
-  drawSnowball(g, bx, by, 13);
-  // splat burst near the end
-  const k2 = clamp((u - 0.85) / 0.15, 0, 1);
-  if (k2 > 0) { g.save(); g.globalAlpha = k2; drawFaceSplat(g, ex + 8, ey, 18 + k2 * 6); g.restore(); }
-  // big title-ish snowball + mitten
-  drawGiantBall(g, 205, hh2 * 0.95, 34, t * 2);
-  drawMitten(g, 60, hh2 * 0.3, 42, -0.3 + Math.sin(t * 3) * 0.1);
-  // flakes
-  g.fillStyle = '#ffffff';
-  for (let i = 0; i < 26; i++) { const fx = (hh(i) * 400 + Math.sin(t + i) * 8) % 400, fy = (hh(i + 7) * hh2 + t * 30 * (0.6 + hh(i + 3))) % hh2; g.beginPath(); g.arc(fx, fy, 1.6 + hh(i + 2) * 2.4, 0, TAU); g.fill(); }
-  g.restore();
-}

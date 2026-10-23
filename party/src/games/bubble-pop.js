@@ -20,48 +20,15 @@ import { sfx, voice } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, Brain, steer } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyPrompt } from '../engine/easy.js';
 import { clamp, approach, rand, randInt, pick, chance, TAU, later } from '../engine/util.js';
 import { drawBubble, drawDuckling, drawStarFace, drawCupcake, drawFrog, drawRainbow, drawRubberDuck, drawMachine, drawGarden, drawSparkle } from './bubble-pop/art.js';
 
 const snd = (k, fb, o = {}) => sfx(k, { ...o, fallback: fb });
 
-export const meta = {
-  id: 'bubble-pop',
-  title: 'Bubble Pop',
-  category: 'molly',
-  type: 'Team-up',
-  goal: 'Jump and pop the bubbles to fill the bubble meter for a bubble bath!',
-  controls: [['stick', 'Run'], ['a', 'Jump and pop']],
-  tips: ['Every pop bounces you up again - pop pop pop in the air!', 'Giant bubbles need three bonks.', 'Every bubble has a surprise inside!'],
-  goalEasy: 'You run under the bubbles by yourself - press A to jump and pop them!',
-  controlsEasy: [['a', 'Jump and pop'], ['stick', 'Run (if you like)']],
-  tipsEasy: ['Jump when the A pops up over your head!', 'You run by yourself - or move with either stick if you like!', 'Every pop bounces you up again - pop pop pop!', 'Every bubble has a surprise inside!'],
-  music: 'bouncy',
-  duration: '45 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon(g, x, y, w, h, t = 0) {
-    g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
-    const thumb = art('thumb/bubble-pop');
-    if (thumb) { g.drawImage(thumb, x, y, w, h); g.restore(); return; }
-    const s = w / 400; g.translate(x, y); g.scale(s, s);
-    const hh = h / s;
-    const grd = g.createLinearGradient(0, 0, 0, hh); grd.addColorStop(0, '#7fd0ff'); grd.addColorStop(1, '#d8f4ff');
-    g.fillStyle = grd; g.fillRect(0, 0, 400, hh);
-    g.fillStyle = '#6ccf62'; g.fillRect(0, hh * 0.82, 400, hh);
-    g.save(); g.translate(200, hh * 0.42); g.scale(0.32, 0.32); drawMachine(g, t, Math.max(0, Math.sin(t * 3)), t * 2); g.restore();
-    const items = [drawDuckling, (gg) => drawStarFace(gg), (gg) => drawCupcake(gg), (gg) => { gg.translate(0, 40); drawFrog(gg, false, 0.8); }];
-    for (let i = 0; i < 4; i++) {
-      const bx = 70 + i * 88, by = hh * 0.62 + Math.sin(t * 2 + i * 1.7) * 10 - (i % 2) * 40;
-      g.save(); g.translate(bx, by);
-      g.save(); g.scale(0.45, 0.45); items[i](g); g.restore();
-      drawBubble(g, 36, t + i); g.restore();
-    }
-    g.restore();
-  },
-};
+import { meta } from './bubble-pop.meta.js';
+
+export { meta };
 
 // --- tuning -----------------------------------------------------------------
 const MAX_TIME = 52;         // the meter is forced full by now
@@ -87,6 +54,8 @@ export class Game {
     this.players = api.players;
     const n = this.n = this.players.length;
     this.t = 0; this.el = 0;
+    // the tub fills itself at MAX_TIME: the last 10 seconds count down so it isn't a surprise
+    api.limit(() => (this.finale || this.done ? null : Math.max(0, MAX_TIME - this.el)), { y: 172 });
     this.scale = n <= 3 ? 1.0 : n <= 4 ? 0.92 : n <= 6 ? 0.82 : 0.74;
     this.bubbles = []; this.goodies = []; this.rainbows = []; this.ducks = [];
     this.meter = 0; this.meterShow = 0; this.meterPulse = 0;
@@ -528,11 +497,10 @@ export class Game {
   finish() {
     this.done = true;
     for (const e of this.ents) { e.a.clearEmotes(); e.a.setPose('celebrate'); }
-    const total = this.ents.reduce((s, e) => s + e.pops, 0);
-    this.api.finish({
-      placements: this.ents.map(() => 1), showcase: true, title: 'Bubble Bath!',
+    this.api.finishTogether({
+      title: 'Bubble Bath!',
       stats: this.ents.map((e) => `${e.pops} pop${e.pops === 1 ? '' : 's'}`),
-      focus: { x: W / 2, y: GROUND_Y - 200, zoom: 1.12 }, total,
+      focus: { x: W / 2, y: GROUND_Y - 200, zoom: 1.12 },
     });
   }
 
@@ -567,7 +535,7 @@ export class Game {
     for (const e of order) {
       const a = e.a, top = a.y - e.z - a.height - 22 - (a.emotes.length ? 50 : 0);
       if (this.el < 6 || !e.p.isAI) ui.playerTag(g, e.p, e.x, top);
-      if (this.easy && !e.p.isAI && e.ezReady && !this.finale) ui.glyph(g, 'a', e.x + 70, top - 10, 62, { pulse: true });
+      if (this.easy && !e.p.isAI && e.ezReady && !this.finale && e.target) easyPrompt(g, e.p, { target: { x: e.target.x, y: e.target.y }, child: { x: e.x, y: a.y - e.z - a.height } });
     }
   }
 
@@ -656,8 +624,7 @@ export class Game {
     g.save(); g.translate(mx + mw + 50, my + mh / 2 + 6); drawTub(g, this.t, this.finale); g.restore();
     g.restore();
     ui.scoreboard(g, this.players, this.ents.map((e) => e.pops), { y: 985, format: (v) => String(v) });
-    // the tub fills itself at MAX_TIME: count the last 10 seconds down so it isn't a surprise
-    if (!this.finale && MAX_TIME - this.el <= 10) ui.timer(g, MAX_TIME - this.el, W / 2, 172);
+    // (the tub's last-10-seconds countdown is api.limit's, drawn by the play scene)
     if (this.finale) {
       const k = this.finaleT;
       g.save(); g.globalAlpha = clamp(3.4 - k, 0, 1);

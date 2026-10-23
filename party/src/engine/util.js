@@ -47,6 +47,14 @@ export function shuffle(arr) {
  * Turn per-player scores into placements (1 = best). Ties share a place.
  * `higherIsBetter` false for things like finish times.
  */
+/** The studio "Showstopper": the unique top score above 0; with kids playing, only a kid can be it. */
+export function showstopper(players, scores) {
+  const kids = players.some((p) => !p.isAI);
+  const elig = scores.map((v, i) => (kids && players[i].isAI ? -1 : v));
+  const best = Math.max(...elig);
+  return best > 0 && elig.filter((v) => v === best).length === 1 ? elig.indexOf(best) : null;
+}
+
 export function placementsFromScores(scores, higherIsBetter = true) {
   return scores.map((s) => 1 + scores.filter((o) => (higherIsBetter ? o > s : o < s)).length);
 }

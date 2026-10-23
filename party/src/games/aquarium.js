@@ -34,11 +34,11 @@ import { drawStarShape, drawSparkleShape, drawHeartShape } from '../engine/emote
 import { photoPosePressed, photoMove, strikePhotoPose, randomPhotoPose, photoPoseHints } from '../engine/photo-poses.js';
 import {
   NAVY, WATER, LID, BASE_Y0, BASE_Y1, SWITCH, SWITCH_HIT, SANDS, shade, depthOfY, yOfDepth, decorScale, fishScale,
-  sandSwatch, glow, glowSprite, drawRoom, drawWaterBack, drawSurface, drawSand, drawTankFront, drawSwitch, drawTitle, drawNightShade, sandCanvas, drawLidLights,
+  sandSwatch, glow, glowSprite, drawRoom, drawWaterBack, drawSurface, drawSand, drawTankFront, drawSwitch, drawTitle, drawNightShade, drawLidLights,
 } from './aquarium/tank.js';
-import { DECOR, DECOR_BY_ID, drawDecor, drawDecorGlow, decorLights, decorBox, drawDecorIcon, decorDoor, decorOut } from './aquarium/decor.js';
+import { DECOR, drawDecor, drawDecorGlow, decorLights, decorBox, drawDecorIcon, decorDoor, decorOut } from './aquarium/decor.js';
 import {
-  KINDS, KIND, makeFish, nameChoices, fishRange, bandY, wanderTarget, steerTo, integrate, emote, drawFish, drawFishGlowBits, fishGlowColor, drawFishIcon,
+  KINDS, makeFish, nameChoices, fishRange, bandY, wanderTarget, steerTo, integrate, emote, drawFish, drawFishGlowBits, fishGlowColor, drawFishIcon,
 } from './aquarium/fish.js';
 
 const snd = (k, fb, o) => (hasSound(k) ? sfx(k, o) : fb && sfx(fb, o));
@@ -62,8 +62,9 @@ const MAX_DECOR = 50, MAX_FISH = 26;
 // --- screen layout --------------------------------------------------------------------
 const BAR = { y: 950, h: 124 };
 const SHOW_BTN = { x: 1672, y: 16, w: 232, h: 86 };
-const CLOCK = { x: 1688, y: 112, w: 200, h: 58 };
-const CLOCK_PLUS = { x: CLOCK.x + CLOCK.w - 58, y: CLOCK.y, w: 58, h: CLOCK.h };
+// The build clock is the play scene's own timer (api.limit) at CLOCK; its "+1 min" button sits beside it.
+const CLOCK = { x: 1764, y: 162 };
+const CLOCK_PLUS = { x: 1852, y: 132, w: 56, h: 60 };
 const LEGEND = { x: 14, y: 14, w: 250 };
 const LEGEND_ROWS = [[['stick'], 'Move'], [['lb', 'rb'], 'Items'], [['lt', 'rt'], 'Colour'], [['a'], 'Place'], [['b'], 'Remove'], [['x'], 'Tap glass'], [['y'], 'Feed']];
 const inRect = (r, x, y) => x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h;
@@ -73,20 +74,9 @@ const LINEUP = 1.0, CHEESE_TIME = 6, PHOTO_PIN = 2.4, PHOTO_FLY = 0.8;
 const PIN = { x: 960, y: 96, w: 250, rot: 0.04 };
 const ROW_Y = 1052;
 
-export const meta = {
-  id: 'aquarium',
-  title: 'Dream Aquarium',
-  category: 'studio',
-  type: 'Create · Everyone wins',
-  goal: 'Design a fish tank, name your fish, then put on a glowing night show!',
-  controls: [['stick', 'Move your hand'], ['lb', 'LB / RB: things,  LT / RT: colours'], ['a', 'Place or pick up  (B removes)'], ['x', 'Tap the glass gently'], ['y', 'Feed the fish']],
-  tips: ['Name each new fish: left and right, then A.', 'Bubblers give fish rides; castles are for peekaboo!', 'Press the moon on the lid for glowing night lights.', 'On a keyboard, press Y while carrying something (or on the item bar) to change its colour.'],
-  music: 'splash',
-  duration: 'about 3 min',
-  minPlayers: 1, maxPlayers: 8,
-  countdown: false,
-  drawIcon,
-};
+import { meta } from './aquarium.meta.js';
+
+export { meta };
 
 // =============================================================================
 export class Game {
@@ -105,6 +95,7 @@ export class Game {
     this.photos = []; this.bigPhoto = null; this.finished = false;
     this.playT = 4; this.bubbleSnd = 0; this.reactT = 0;
     this.stations = this.players.map((p, i) => this.makeStation(p, i));
+    api.limit(() => (this.phase === 'build' && !this.prompt ? Math.max(0, this.timeLeft) : null), { showAt: Infinity, x: CLOCK.x, y: CLOCK.y });
     this.layoutPanels();
     this.layoutActors();
     this.cpuNight = !this.humans && chance(0.5) ? rand(20, 34) : -1;
@@ -799,7 +790,7 @@ export class Game {
   addTime(s) {
     this.timeLeft = Math.min(599, Math.max(0, this.timeLeft) + s);
     sfx('collect', { step: 6 }); sfx('star');
-    particles.popText(CLOCK.x + CLOCK.w / 2, CLOCK.y + CLOCK.h + 20, '+1 min', '#36d17a', 36);
+    particles.popText(CLOCK.x, CLOCK.y + 64, '+1 min', '#36d17a', 36);
     this.clockBump = this.t;
   }
 
@@ -1380,7 +1371,7 @@ export class Game {
       if (s.fed) parts.push(`${s.fed} snack${s.fed === 1 ? '' : 's'}`);
       return (this.n > 4 ? parts.slice(0, 1) : parts.slice(0, 2)).join(' · ') || 'Fish friend!';
     });
-    this.api.finish({ showcase: true, highlight: null, stats, title: 'Dreamy aquarium!', focus: { x: W / 2, y: H / 2, zoom: 1.08 } });
+    this.api.finishTogether({ stats, title: 'Dreamy aquarium!', focus: { x: W / 2, y: H / 2, zoom: 1.08 } });
   }
 
   onDone() {
@@ -1617,19 +1608,11 @@ export class Game {
     g.restore();
     ui.text(g, 'Show!', 30, 2, { size: 46, weight: 800 });
     g.restore();
-    const c = CLOCK, bump = this.clockBump !== undefined ? clamp(1 - (this.t - this.clockBump) / 0.4, 0, 1) : 0;
-    g.save(); g.translate(c.x + c.w / 2, c.y + c.h / 2); g.scale(1 + bump * 0.1, 1 + bump * 0.1); g.translate(-(c.x + c.w / 2), -(c.y + c.h / 2));
-    ui.panel(g, c.x, c.y, c.w, c.h, { r: c.h / 2, fill: '#fff8ec', lineWidth: 4 });
-    const cx = c.x + 30, cy = c.y + c.h / 2;
-    g.beginPath(); g.arc(cx, cy, 18, 0, TAU); g.fillStyle = '#7fe8ff'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
-    const frac = clamp(this.timeLeft / BUILD_TIME, 0, 1);
-    g.beginPath(); g.moveTo(cx, cy); g.arc(cx, cy, 14, -Math.PI / 2, -Math.PI / 2 + frac * TAU); g.closePath(); g.fillStyle = '#3fa7ff'; g.fill();
-    const s = Math.max(0, Math.ceil(this.timeLeft));
-    ui.text(g, `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`, c.x + 92, cy + 1, { size: 32, color: this.timeLeft < 30 ? '#ff4d6d' : NAVY, stroke: false, weight: 800 });
     const p = CLOCK_PLUS, phot = this.stations.some((st) => !st.p.isAI && inRect(p, st.cur.x, st.cur.y));
-    g.beginPath(); g.arc(p.x + p.w / 2, cy, phot ? 23 : 20, 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
-    ui.text(g, '+', p.x + p.w / 2, cy - 1, { size: 36, weight: 800 });
-    g.restore();
+    const bump = this.clockBump !== undefined ? clamp(1 - (this.t - this.clockBump) / 0.4, 0, 1) : 0;
+    const px = p.x + p.w / 2, py = p.y + p.h / 2;
+    g.beginPath(); g.arc(px, py, (phot ? 23 : 20) * (1 + bump * 0.2), 0, TAU); g.fillStyle = '#36d17a'; g.fill(); g.lineWidth = 3; g.strokeStyle = NAVY; g.stroke();
+    ui.text(g, '+', px, py - 1, { size: 36, weight: 800 });
     if (this.humans > 1) {
       // one dot per kid under the button; filled once that kid is ready for the show
       const kids = this.stations.filter((s) => !s.p.isAI), gap = 30, x0 = b.x + b.w / 2 - ((kids.length - 1) * gap) / 2;
@@ -1640,7 +1623,7 @@ export class Game {
     }
     for (const st of this.stations) {
       if (!st.confirm) continue;
-      const w = 420, h = 150, px = W - w - 20, py = 186;
+      const w = 420, h = 150, px = W - w - 20, py = 214;
       ui.panel(g, px, py, w, h, { r: 26, fill: '#fff8ec', stroke: st.p.color, lineWidth: 6 });
       ui.text(g, this.humans > 1 ? 'Ready for the show?' : 'Night show now?', px + w / 2, py + 42, { size: 38, color: NAVY, stroke: false, weight: 800 });
       ui.hints(g, [['a', 'Yes!'], ['b', 'Not yet']], px + w / 2, py + 106, { size: 40, color: '#7fe8ff' });
@@ -1839,47 +1822,4 @@ export class Game {
     }
     g.restore();
   }
-}
-
-// --- menu / how-to thumbnail ----------------------------------------------------------
-function drawIcon(g, x, y, w, h, t) {
-  g.save();
-  g.beginPath(); g.rect(x, y, w, h); g.clip();
-  const s = Math.min(w / 800, h / 500);
-  const gr = g.createLinearGradient(0, y, 0, y + h);
-  gr.addColorStop(0, '#9be9f2'); gr.addColorStop(0.55, '#4fbde3'); gr.addColorStop(1, '#2a79c4');
-  g.fillStyle = gr; g.fillRect(x, y, w, h);
-  // light rays
-  g.save(); g.globalAlpha = 0.12; g.fillStyle = '#ffffff';
-  for (let k = 0; k < 4; k++) { const bx = x + w * (0.1 + k * 0.25) + Math.sin(t * 0.5 + k) * 10 * s; g.beginPath(); g.moveTo(bx, y); g.lineTo(bx + 40 * s, y); g.lineTo(bx + 140 * s, y + h * 0.8); g.lineTo(bx + 90 * s, y + h * 0.8); g.closePath(); g.fill(); }
-  g.restore();
-  const sand = sandCanvas(0);
-  g.drawImage(sand, 0, 0, sand.width, sand.height, x, y + h * 0.74, w, h * 0.3);
-  const env = { t, night: 0 };
-  const put = (id, px, py, sc, color = 0) => { const d = DECOR_BY_ID[id]; g.save(); g.translate(x + px * w, y + py * h); g.scale(sc * s, sc * s); drawDecor(g, d, { color, seed: px, open: 0 }, env); g.restore(); };
-  put('kelp', 0.1, 0.96, 1.0, 0);
-  put('castle', 0.7, 0.92, 0.95, 0);
-  put('anemone', 0.34, 0.94, 0.95, 0);
-  put('diver', 0.9, 0.97, 0.9, 0);
-  put('starfish', 0.5, 0.98, 1.1, 3);
-  put('seagrass', 0.22, 0.99, 0.9, 0);
-  put('scallop', 0.6, 1.0, 1.1, 1);
-  // bubbles
-  for (let i = 0; i < 9; i++) { const k = (t * 0.35 + i / 9) % 1; const bx = x + w * 0.9 + Math.sin(k * 12 + i) * 8 * s, by = y + h * (0.66 - k * 0.66); g.beginPath(); g.arc(bx, by, (5 + (i % 3) * 3) * s, 0, TAU); g.lineWidth = 2.5 * s; g.strokeStyle = 'rgba(255,255,255,0.9)'; g.stroke(); }
-  const fish = (id, color, px, py, sc, dir) => {
-    const k = KIND[id], f = makeFish(k, color, x + px * w, y + py * h, -1, -9);
-    f.fd = 1; f.face = dir; f.dir = dir; f.wig = t * k.wig; f.tilt = 0; f.puff = id === 'puffer' ? 0.5 + 0.5 * Math.sin(t * 1.5) : 0; f.pulse = (t * 0.5) % 1;
-    if (f.mates) f.mates.forEach((m, i) => { m.x = f.x - dir * (40 + i * 16) * s * sc; m.y = f.y + (i ? 18 : -16) * s * sc; m.face = dir; m.wig = f.wig + i; });
-    g.save(); g.translate(f.x, f.y); g.scale(s * sc, s * sc); g.translate(-f.x, -f.y);
-    if (f.mates) f.mates.forEach((m) => { m.x = f.x + (m.x - f.x) / (s * sc); m.y = f.y + (m.y - f.y) / (s * sc); });
-    drawFish(g, f, { t: 99 }, { photo: true });
-    g.restore();
-  };
-  fish('goldfish', 0, 0.3 + Math.sin(t * 0.6) * 0.03, 0.34, 1.6, 1);
-  fish('clownfish', 0, 0.42, 0.66 + Math.sin(t) * 0.02, 1.3, -1);
-  fish('puffer', 0, 0.74, 0.3, 1.3, -1);
-  fish('seahorse', 1, 0.08 + 0.1, 0.5, 1.2, 1);
-  fish('tetra', 0, 0.55, 0.16, 1.4, 1);
-  for (let i = 0; i < 3; i++) { const k = (t * 0.7 + i * 0.33) % 1; g.save(); g.globalAlpha = Math.sin(k * Math.PI); g.translate(x + w * (0.2 + i * 0.3), y + h * (0.12 + (i % 2) * 0.2)); drawSparkleShape(g, 30 * s, '#fff6a8'); g.restore(); }
-  g.restore();
 }

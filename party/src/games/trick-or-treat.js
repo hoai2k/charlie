@@ -23,11 +23,12 @@ import { sfx, voice, hasSound } from '../engine/audio.js';
 import { fx } from '../engine/fx.js';
 import { art } from '../engine/art.js';
 import { aiProfile, reactionTime, steer, Brain } from '../engine/ai.js';
-import { easySteer } from '../engine/easy.js';
+import { easySteer, easyNearest, easyPrompt } from '../engine/easy.js';
+import { bodyRadius, spread } from '../engine/crowd.js';
 import { clamp, lerp, damp, rand, randInt, pick, chance, shuffle, TAU, ease, later, placementsFromScores } from '../engine/util.js';
 import {
   NAVY, GROUND_Y, WALK, HOUSE_X, DOOR, CANDY_COLS, VISITORS, streetBackground, drawHouse, drawDoor, drawLantern, paintedHouse, porchLight,
-  drawCandy, drawBucket, drawVisitor, drawChicken, drawJack, drawCandyGhost, drawCandyPile, drawIcon,
+  drawCandy, drawBucket, drawVisitor, drawChicken, drawJack, drawCandyGhost, drawCandyPile,
 } from './trick-or-treat/draw.js';
 
 const GAME_T = 55;          // seconds of trick-or-treating, then the candy-pile finale
@@ -54,24 +55,9 @@ const COSTUMES = [
 const VISITOR_SAY = { skeleton: ['Rattle!', 'Dance!'], witch: ['Cookies!', 'Hee hee!'], scarecrow: ['Howdy!', 'Yee-haw!'], mummy: ['Hee hee!', 'Giggle!'], cat: ['Meow!', 'Purr!'], ghost: ['Boo-hoo-hoo!', 'Wheee!'], troll: ['Hop hop!', 'Ho ho!'] };
 const VISITOR_SND = { skeleton: ['tot-skeleton', 'crumble-plop'], witch: ['tot-witch', 'magic'], scarecrow: ['tot-scarecrow', 'pt-honk'], mummy: ['tot-mummy', 'giggle'], cat: ['tot-meow', 'tiny-squeak'], ghost: ['tot-ghost', 'npc/imp/giggle'], troll: [null, 'npc/troll/laugh'] };
 
-export const meta = {
-  id: 'trick-or-treat',
-  title: 'Trick or Treat!',
-  category: 'molly',
-  type: 'Candy hunt',
-  goal: 'Knock on doors and fill your pumpkin bucket with candy!',
-  controls: [['stick', 'Run along the street'], ['a', 'Knock on a door (or jump and spin!)']],
-  tips: ['Knock where the porch light is on - everyone at the door gets candy!', 'Golden doors make a candy fountain!', 'When the Candy Ghost flies by, run and scoop up the candy!'],
-  goalEasy: 'Press A and you walk to the nearest lit door and knock. Get candy!',
-  controlsEasy: [['a', 'Go to a door and knock knock!'], ['stick', 'Move with either stick if you like']],
-  tipsEasy: ['Press A: you walk to the nearest lit door and knock.', 'Want a different door? Walk over with the stick, then press A!', 'Golden doors make a candy fountain!'],
-  music: 'spooky',
-  duration: '60 sec',
-  minPlayers: 1,
-  maxPlayers: 8,
-  countdown: true,
-  drawIcon,
-};
+import { meta } from './trick-or-treat.meta.js';
+
+export { meta };
 
 export class Game {
   constructor(api) {
@@ -106,6 +92,8 @@ export class Game {
     this.pile = 0; this.pileShown = 0;
     this.finished = false;
     this.lastVisitor = null;
+    // the trick-or-treat clock, shown the whole game (the candy-pile finale has none)
+    api.limit(() => (this.phase === 'play' ? Math.max(0, GAME_T - this.t) : null), { showAt: Infinity });
   }
 
   // --- helpers -----------------------------------------------------------------------
@@ -225,12 +213,8 @@ export class Game {
   }
 
   separate() {
-    const R = 40 * this.scale / 0.9;
-    for (let i = 0; i < this.units.length; i++) for (let j = i + 1; j < this.units.length; j++) {
-      const A = this.units[i], B = this.units[j];
-      const dx = B.x - A.x, dy = (B.y - A.y) * 1.5, d = Math.hypot(dx, dy) || 0.01;
-      if (d < R * 2) { const push = (R * 2 - d) / 2, nx = dx / d, ny = dy / d; A.x -= nx * push * 0.5; B.x += nx * push * 0.5; A.y -= ny * push * 0.3; B.y += ny * push * 0.3; }
-    }
+    // sized from the sprites (several trick-or-treaters still fit at one door)
+    spread(this.units, { radius: (U) => bodyRadius(U.a) * 0.7, yScale: 1.5 });
   }
 
   animate(U, dt) {
@@ -539,13 +523,9 @@ export class Game {
 
   // --- Molly Easy (humans): walk by yourself, A knocks ----------------------------------
   easyNearestDoor(U) {
-    let best = null, bs = Infinity;
-    for (const d of this.doors) {
-      let s = Math.abs(d.x - U.x);
-      if (d.state !== 'ready') s += 2000;               // a lit door if there is one
-      if (s < bs) { bs = s; best = d; }
-    }
-    return best;
+    // along the street: a lit door if there is one, else the nearest door
+    const along = (d) => ({ x: d.x, y: 0 });
+    return easyNearest(U.x, 0, this.doors, along, (d) => d.state !== 'ready') || easyNearest(U.x, 0, this.doors, along);
   }
 
   easyMove(U, dt) {
@@ -685,6 +665,17 @@ export class Game {
     for (const e of list) e.fn();
     for (const c of this.flying) if (c.t >= 0) drawCandy(g, c.kind, c.x, c.y, 40, c.rot, c.gold);
     for (const c of this.chickens) drawChicken(g, c.x, c.y, 90, c.rot);
+    if (this.easy && this.phase === 'play') this.drawEasyPrompts(g);
+  }
+
+  /** Molly Easy: the big A beside the lit door a kid is standing at (A knocks). */
+  drawEasyPrompts(g) {
+    for (const U of this.units) {
+      if (U.p.isAI) continue;
+      const d = this.doorAt(U);
+      if (!d || d.state !== 'ready') continue;
+      easyPrompt(g, U.p, { target: { x: d.x, y: GROUND_Y + DOOR.top + 70 }, child: { x: U.x, y: U.y - U.z - U.a.height } });
+    }
   }
 
   drawDoorCue(g, d, t) {
@@ -693,7 +684,8 @@ export class Game {
     if (d.state === 'ready') {
       const human = this.units.some((U) => !U.p.isAI && this.inZone(U, d));
       if (human) {
-        ui.glyph(g, 'a', d.x, y + Math.sin(t * 8) * 5, 62, { pulse: true });
+        // Easy: the big A prompt is drawn over the players (drawEasyPrompts)
+        if (!this.easy) ui.glyph(g, 'a', d.x, y + Math.sin(t * 8) * 5, 62, { pulse: true });
       } else {
         const b = Math.abs(Math.sin(t * 4 + d.i)) * 16;
         g.save(); g.translate(d.x, y - b);
@@ -731,7 +723,7 @@ export class Game {
     });
     // a tiny candy on every chip
     rects.forEach((r, i) => drawCandy(g, i % 6, r.x + 98, r.y + 52, 26, 0.3));
-    ui.timer(g, this.phase === 'play' ? GAME_T - this.t : 0);
+    // (the clock is api.limit's, drawn by the play scene)
     if (this.banner) {
       const b = this.banner, fade = clamp((b.dur - b.t) / 0.25, 0, 1);
       g.save(); g.globalAlpha = fade;
