@@ -146,7 +146,7 @@ window.TRACK_THEMES = {
   },
   candy: {
     empStyle: "firework",
-    name: "Candy Land", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
+    name: "Candy Land", music: "assets/music/Bubblegum Radar.mp3", dirtTop: 517, loopMode: "repeat", art: ["background", "card", "powerups", "projectile", "hurdle"],
     labels: { jump: "POGO", boost: "PEPPERMINT", emp: "POP ROCKS", oil: "CHOCOLATE", snowball: "GUMBALLS" },
     sounds: { emp: "pickup_pop_rocks" },
     mountOdds: { unicorn: 0.2, pegasus: 0.1, griffon: 0.05, broom: 0.05 }
