@@ -787,3 +787,5 @@ in, grabs and throws a doll (held in its hands), and after five knock-backs
 ends in its defeated pose.
 
 C1 delivered: the five original track cards are landscape-only. Native/half-size and browser card rendering passed; the ten C2 cards and M4/M5 are being verified separately.
+
+C2 first batch delivered: Horse Show, Toy Room, Candy Land, Beach and Wizard School cards now have empty foregrounds; native/half-size and browser checks passed.
