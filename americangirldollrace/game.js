@@ -197,9 +197,10 @@ const SNOWBALL_RADIUS = 13;
 const SNOWBALL_HAND_DRAW_Y_OFFSET = 200;
 const MONSTER_SPRITE_ROWS = 4;
 const MONSTER_HEIGHT_SCALE = 1.3;
-// Per-sheet size tweaks on top of that (the robot stands squat, so it's drawn
-// a little bigger to read as large as the troll).
-const MONSTER_ART_SCALE = { robot: 1.15 };
+// Per-sheet size tweaks on top of that, so each reads as large as the troll:
+// the robot stands squat, and the scarecrow's sheet height includes its tall
+// hat (feet to the top of the pumpkin is ~298px against the troll's ~342px).
+const MONSTER_ART_SCALE = { robot: 1.15, scarecrow: 1.15 };
 // Where each monster's front hand is in its grab, lift and throw frames
 // (sprite row 3), frame pixels facing right; the grabbed doll is held there.
 const MONSTER_GRAB_HANDS = {
