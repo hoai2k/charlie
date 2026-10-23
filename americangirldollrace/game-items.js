@@ -471,7 +471,9 @@ function drawEmpWaves(arc, from) {
       for (const a of [-2.4, -1.6, -0.8, 0.4, 2.6]) {
         const nx = x + Math.cos(a + i) * r;
         const ny = from.y + Math.sin(a + i) * r * 0.55;
-        const note = (i + a > 0) ? "\u266A" : "\u266B";
+        const single = i + a > 0;
+        if (drawFxSprite(single ? FX_NOTE : FX_NOTES, nx, ny - 8, 30, 0)) continue;
+        const note = single ? "\u266A" : "\u266B";
         ctx.strokeText(note, nx, ny);
         ctx.fillText(note, nx, ny);
       }
@@ -701,6 +703,27 @@ function drawCrow(x, y, dir, flap, alpha) {
   ctx.restore();
 }
 
+// The effect sprites (image-requests.md §24 FX1): five 128px cells.
+const FX_DIZZY_STAR = 0;
+const FX_CELEBRATION_STAR = 1;
+const FX_NOTE = 2;
+const FX_NOTES = 3;
+const FX_CLOUD_PUFF = 4;
+
+// Draws one effect sprite centred at (x, y), size px across, turned by
+// angle; false (draw nothing) until the sheet is in.
+function drawFxSprite(index, x, y, size, angle = 0) {
+  const sheet = getSharedArt("fx");
+  if (!sheet) return false;
+  const cell = sheet.height;
+  ctx.save();
+  ctx.translate(x, y);
+  if (angle) ctx.rotate(angle);
+  ctx.drawImage(sheet, index * cell, 0, cell, cell, -size / 2, -size / 2, size, size);
+  ctx.restore();
+  return true;
+}
+
 // Stars circling a dizzy head (an EMP that isn't a shock, or a bonk).
 function drawDizzyStars(x, y, scale, alpha) {
   const t = performance.now() / 1000;
@@ -713,6 +736,7 @@ function drawDizzyStars(x, y, scale, alpha) {
     const sx = x + Math.cos(a) * rx;
     const sy = y + Math.sin(a) * ry;
     const r = 34 * scale * (0.8 + 0.25 * Math.sin(a));
+    if (drawFxSprite(FX_DIZZY_STAR, sx, sy, r * 2.4, t * 3)) continue;
     ctx.fillStyle = i % 2 ? "#ffd84a" : "#fff2a8";
     ctx.strokeStyle = "#c98a12";
     ctx.lineWidth = 1.5;

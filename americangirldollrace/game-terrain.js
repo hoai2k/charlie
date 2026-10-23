@@ -144,6 +144,7 @@ function drawCloudFluff(racer) {
   ctx.globalAlpha = Math.min(1, sink * 1.4);
   ctx.fillStyle = "#fbf8ff";
   for (const [dx, r] of [[-30, 15], [-12, 19], [8, 18], [27, 14]]) {
+    if (drawFxSprite(FX_CLOUD_PUFF, x + dx * scale, y - r * 0.15 * scale, r * 2.4 * scale)) continue;
     ctx.beginPath();
     ctx.ellipse(x + dx * scale, y - r * 0.15 * scale, r * scale, r * 0.55 * scale, 0, 0, Math.PI * 2);
     ctx.fill();

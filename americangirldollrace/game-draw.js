@@ -757,6 +757,7 @@ function drawCelebrationStar(racer, screenX, topY, scale) {
   if (radius <= 0) return;
   const cx = screenX;
   const cy = topY + 165 * scale;
+  if (drawFxSprite(FX_CELEBRATION_STAR, cx, cy, radius * 2.2, t * 0.9)) return;
   ctx.save();
   ctx.translate(cx, cy);
   ctx.rotate(t * 0.9);
@@ -825,7 +826,7 @@ function drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX) {
     ctx.scale(-1, 1);
     ctx.translate(-screenX, 0);
   }
-  for (const [fx, fy, size, angle, view] of frame) {
+  for (const [fx, fy, size, angle, view] of frame) { // (feet.js also gives the turn in degrees)
     const bootW = Math.max(size * MOON_BOOT_GROW, MOON_BOOT_MIN) * scale;
     ctx.save();
     ctx.translate(x + fx * scale, y + fy * scale);
