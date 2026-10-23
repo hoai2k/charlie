@@ -213,7 +213,7 @@ Sizes are final pixel sizes. The game scales art down but never up.
 > Beach's R8 jump cell is now a pool-ring spring, with its new POOL SPRING label.
 > The §8 riding toys are in for fourteen dolls; K3 (trial falls) and the
 > §8.1 icons R10, R12–R14 are delivered.
-> **Current queue:** §21 Cloud Kingdom floor clouds (CL1). Everything else is delivered and checked; see delivery notes below.
+> **Current queue:** §21 Cloud Kingdom floor clouds (CL1); §22 Moon Base laser trigger (LZ1). Everything else is delivered and checked; see delivery notes below.
 > Delivered: Hermione/Lily/Mira action trial, all §10.2 shared sprites and both
 > §9 monsters; retained sources, calibration and in-game reviews accompany them.
 
@@ -951,4 +951,16 @@ Acceptance: race Cloud Kingdom (or the workbench on Cloud Kingdom): the
 floor reads as separate soft clouds one after another, steps between them
 look natural, dolls' feet sit on the tops, and each gap looks like a hole
 between two clouds.
+
+## 22. Open: Moon Base laser trigger
+
+Moon Base's EMP is LASER: lasers zap everyone in range. Its pickup today
+(E14, a red console button under a flip-up cover) doesn't say "lasers".
+
+| # | File | Size | What |
+| --- | --- | --- | --- |
+| LZ1 | `assets/tracks/space/powerups.webp` | cell 2 only (x 512–767) | **Laser guns round a button**: a big round red push-button in the middle of a small silver-and-white space console, with four chunky toy-like ray guns mounted on it pointing **outward** (left, right and two up at angles), glowing tips. Same style, size and padding as the other cells; keep the other four cells pixel-identical. |
+
+Acceptance: race Moon Base (or the workbench on Moon Base): the LASER pickup
+reads as laser guns round a button at its in-game size (about 68 px).
 
