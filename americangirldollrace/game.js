@@ -198,6 +198,9 @@ const AMANDA_HIT_RANGE_Y = 60;
 // Tag the sitting Amanda (walk up to her without pushing) and she follows you.
 const AMANDA_TAG_RANGE_X = 70;
 const AMANDA_ALLY_SPEED = PLAYER_RUN_SPEED;
+const LIGHTS_OUT_TIME = 2.2; // seconds for a beaten scarecrow's jack-o'-lantern to flicker out
+const SAND_PILE_REACH_X = 80; // walking this close to a beaten sand troll's pile gets her sandy
+const SAND_SHAKE_TIME = 2.2; // seconds of moving for the sand to shake off her
 const CANDY_PILE_REACH_X = 70; // walk this close to a beaten candy troll's pile to scatter it
 const CANDY_PILE_REACH_Y = 46;
 const CANDY_CELEBRATE_TIME = 0.8; // s she cheers (running on)
@@ -2191,11 +2194,16 @@ function performPushAttack(attacker) {
     attacker.pushedTargets.add(ball);
   }
   for (const monster of state.monsters) {
-    if (monster.state === "sleeping" || monster.state === "ground" || attacker.pushedTargets.has(monster)) continue;
+    if (monster.state === "ground" || attacker.pushedTargets.has(monster)) continue;
     const dx = monster.x - attacker.x;
     const dy = (monster.y + 54) - (attacker.y + 54);
     const inFront = attacker.facing > 0 ? dx > 2 && dx < reach + 28 : dx < -2 && dx > -reach - 28;
     if (!inFront || Math.abs(dy) > PUSH_RANGE_Y + 18 || !pushReachesHeight(attacker, monster)) continue;
+    if (monster.state === "sleeping") {
+      // A candy troll's pile scatters when pushed, as when walked into.
+      if (monsterDef().particles && !monster.scattered) scatterCandyPile(monster, attacker);
+      continue;
+    }
     applyMonsterKnockback(monster, attacker.facing, { unhorse: true });
     attacker.pushedTargets.add(monster);
   }

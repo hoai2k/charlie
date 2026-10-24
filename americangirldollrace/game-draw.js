@@ -6,6 +6,7 @@
 function spawnParticles(x, y, z, count, options = {}) {
   // fallThrough: it doesn't stop on the ground but drops on off the screen.
   const { color = "#ffffff", kind = "spark", speed = 160, lift = 300, life = 0.6, size = 5, gravity = 900, dirX = 0, fallThrough = false } = options;
+  if (kind === "candy") loadArtOnce("candy_particles", "assets/candy_particles.webp"); // (normally loaded with the Candy track)
   for (let i = 0; i < count; i += 1) {
     const angle = Math.random() * Math.PI * 2;
     state.particles.push({
@@ -65,6 +66,11 @@ function drawParticles() {
       ctx.beginPath();
       ctx.arc(-p.size * 0.3, -p.size * 0.1, p.size * 0.28, 0, Math.PI * 2);
       ctx.fill();
+    } else if (p.kind === "grain") {
+      // A grain of sand: a tiny plain square.
+      ctx.globalAlpha = Math.min(1, t * 3);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(x - p.size / 2, y - p.size / 2, p.size, p.size);
     } else if (p.kind === "dot") {
       // A plain glowing dot (EMP triggers other than the wand).
       ctx.globalAlpha = Math.min(1, t * 1.6);
@@ -898,7 +904,52 @@ function drawRacerBody(racer, image, sx, sy, x, y, w, h, facing, screenX) {
   if (isMounted(racer) && racer.horseType === "wings" && !racer.grabbedBy) drawFairyWings(racer, image, sx, sy, x, y, w, facing, screenX);
   drawFacingImage(image, sx, sy, FRAME, FRAME, x, y, w, h, facing, screenX);
   if (racer.moonBootsTimer > 0) drawMoonBoots(racer, image, sx, sy, x, y, w, facing, screenX);
+  if (racer.sand > 0) drawSandPatches(racer, image, sx, sy, x, y, w, h, facing, screenX);
   racer.lastBody = { image, sx, sy, dx: x - screenX, dy: y - (racer.y - racer.z), w, h, facing };
+}
+
+// Sand on her from a sand troll's pile (racer.sand, checkSandPile): patches
+// mostly on her legs and hem, fewer higher up, kept to her figure in this pose.
+// Each patch goes when the sand left drops below its share, so they shake off
+// one by one.
+const sandCanvas = document.createElement("canvas");
+function drawSandPatches(racer, image, sx, sy, x, y, w, h, facing, screenX) {
+  if (!racer.sandPatches) {
+    racer.sandPatches = Array.from({ length: 26 }, () => {
+      const up = Math.random() ** 1.7 * 250;
+      return {
+        x: SPRITE_ANCHOR_X + (Math.random() - 0.5) * (70 + up * 0.25),
+        y: SPRITE_ANCHOR_Y - 6 - up,
+        r: 9 + Math.random() * 14,
+        share: Math.random() * 0.95,
+        grains: Array.from({ length: 5 }, () => [(Math.random() - 0.5) * 1.6, (Math.random() - 0.5) * 1.2, 0.35 + Math.random() * 0.4])
+      };
+    });
+  }
+  sandCanvas.width = FRAME;
+  sandCanvas.height = FRAME;
+  const c = sandCanvas.getContext("2d");
+  for (const patch of racer.sandPatches) {
+    if (racer.sand <= patch.share) continue;
+    c.fillStyle = "rgba(230, 196, 128, 0.92)";
+    c.beginPath();
+    for (const [gx, gy, gr] of patch.grains) {
+      c.moveTo(patch.x + gx * patch.r + gr * patch.r, patch.y + gy * patch.r);
+      c.arc(patch.x + gx * patch.r, patch.y + gy * patch.r, gr * patch.r, 0, Math.PI * 2);
+    }
+    c.fill();
+    // Grains: darker and lighter specks.
+    for (const [gx, gy, gr] of patch.grains) {
+      c.fillStyle = "rgba(168, 128, 66, 0.8)";
+      c.fillRect(patch.x + gx * patch.r * 0.8, patch.y + gy * patch.r * 0.8, 3, 3);
+      c.fillStyle = "rgba(250, 232, 190, 0.9)";
+      c.fillRect(patch.x + (gx + gr) * patch.r * 0.6, patch.y + (gy - gr) * patch.r * 0.6, 2, 2);
+    }
+  }
+  c.globalCompositeOperation = "destination-in";
+  c.drawImage(image, sx, sy, FRAME, FRAME, 0, 0, FRAME, FRAME);
+  c.globalCompositeOperation = "source-over";
+  drawFacingImage(sandCanvas, 0, 0, FRAME, FRAME, x, y, w, h, facing, screenX);
 }
 
 // Moon boots over her feet in this pose (feet.js, measured per frame by

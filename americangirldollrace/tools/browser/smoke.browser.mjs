@@ -515,6 +515,49 @@ test('walking into a candy pile scatters the sweets off the screen and she cheer
   assert.deepEqual(errors, []);
 });
 
+test('beaten piles: knocked-down trolls lie head first the way they were hit, the jack-o\'-lantern goes dark, a pushed candy pile scatters, sand rubs off as she moves', { skip: skip() }, async () => {
+  const knockedFacing = await page.evaluate(() => {
+    const a = state.racers[0], m = spawnMonster(8400, a.y, { active: true, riding: false }); m.riding = false; state.monsters = [m];
+    m.knockedBacks = MONSTER_SLEEP_KNOCKBACKS - 1; applyMonsterKnockback(m, -1); // hit from the right
+    const seen = []; let draws = 0; const orig = drawFacingImage;
+    drawFacingImage = (img, sx, sy, sw, sh, dx, dy, dw, dh, facing, ax) => { if (sy === FRAME * 3) seen.push(facing); draws++; return orig(img, sx, sy, sw, sh, dx, dy, dw, dh, facing, ax); };
+    try { for (let i = 0; i < 120; i++) { update(1 / 60); state.camera = m.x - 400; drawMonster(m); } } finally { drawFacingImage = orig; }
+    return [...new Set(seen)];
+  });
+  assert.deepEqual(knockedFacing, [1], 'every knocked-down cell drawn unflipped (head to the left)');
+  await onTrack('autumn');
+  const lights = await page.evaluate(() => {
+    const a = state.racers[0], m = spawnMonster(8400, a.y, { active: true, riding: false }); m.riding = false; state.monsters = [m];
+    m.knockedBacks = MONSTER_SLEEP_KNOCKBACKS - 1; applyMonsterKnockback(m, -1);
+    for (let i = 0; i < 240; i++) update(1 / 60);
+    return { state: m.state, out: m.lightsOut, art: Boolean(getLightsOutArt(getMonsterImage(), monsterDef().lights)) };
+  });
+  assert.deepEqual(lights, { state: 'sleeping', out: 1, art: true });
+  await onTrack('candy');
+  const pushed = await page.evaluate(() => {
+    const a = state.racers[0]; a.x = 8350; a.facing = 1;
+    const m = spawnMonster(8400, a.y, { active: true, riding: false }); m.riding = false; m.state = 'sleeping'; m.x = 8400; m.y = a.y; state.monsters = [m]; state.particles = [];
+    performPushAttack(a);
+    return { scattered: Boolean(m.scattered), candy: state.particles.filter(p => p.kind === 'candy').length > 0 };
+  });
+  assert.deepEqual(pushed, { scattered: true, candy: true });
+  await onTrack('beach');
+  const sand = await page.evaluate(() => {
+    const a = state.racers[0]; a.x = 8300;
+    const m = spawnMonster(8400, a.y, { active: true, riding: false }); m.riding = false; m.state = 'sleeping'; m.x = 8400; m.y = a.y; state.monsters = [m]; state.particles = [];
+    keys.clear(); keys.add('KeyD');
+    for (let i = 0; i < 12; i++) update(1 / 60);
+    const sandy = a.sand, grains = state.particles.filter(p => p.kind === 'grain').length;
+    keys.clear(); for (let i = 0; i < 40; i++) update(1 / 60); a.x = 8600; for (let i = 0; i < 60; i++) update(1 / 60);
+    const still = a.sand;
+    drawScene(0);
+    keys.add('KeyD'); for (let i = 0; i < 200; i++) update(1 / 60); keys.clear();
+    return { sandy, kicked: grains > 0, still, after: a.sand };
+  });
+  assert.deepEqual(sand, { sandy: 1, kicked: true, still: 1, after: 0 });
+  assert.deepEqual(errors, []);
+});
+
 test('lightning EMPs show the original icon and shock; the others play their own effect and leave you dizzy', { skip: skip() }, async () => {
   const seen = {};
   for (const track of ['clouds', 'space', 'winter', 'festival', 'candy', 'farm', 'town', 'castles', 'autumn', 'woods']) {

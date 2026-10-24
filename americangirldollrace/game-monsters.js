@@ -178,6 +178,7 @@ function updateDefeatedSparks(monster, dt) {
 
 function updateMonsters(dt) {
   updateMonsterBolts(dt);
+  state.racers.forEach(racer => shakeOffSand(racer, dt));
   for (const monster of state.monsters) {
     monster.lightningCooldown = Math.max(0, (monster.lightningCooldown ?? 2.5) - dt);
     const previousX = monster.x;
@@ -225,6 +226,8 @@ function updateMonsters(dt) {
 
     if (monster.state === "sleeping") {
       updateDefeatedSparks(monster, dt);
+      updateLightsOut(monster, dt);
+      if (monsterDef().sandPile) checkSandPile(monster, dt);
       if (monsterDef().particles && !monster.scattered) checkCandyPile(monster);
       continue;
     }
@@ -246,6 +249,7 @@ function updateMonsters(dt) {
     }
 
     if (monster.state === "ground") {
+      updateLightsOut(monster, dt);
       monster.timer -= dt;
       if (monster.timer <= 0) monster.state = "sleeping";
       continue;
@@ -481,12 +485,15 @@ function dissipateMonster(monster) {
   }
 }
 
-// Walking into a candy troll's pile scatters the sweets (they fly off and fall
-// away off the screen) and she gives a quick cheer.
+// Walking into a candy troll's pile (or pushing it, performPushAttack) scatters
+// the sweets (they fly off and fall away off the screen) and she gives a quick cheer.
 function checkCandyPile(monster) {
   const racer = state.racers.find(r => !r.finished && !r.grabbedBy && r.z < 40
     && Math.abs(r.x - monster.x) < CANDY_PILE_REACH_X && Math.abs(r.y - monster.y) < CANDY_PILE_REACH_Y);
-  if (!racer) return;
+  if (racer) scatterCandyPile(monster, racer);
+}
+
+function scatterCandyPile(monster, racer) {
   monster.scattered = true;
   const groundY = monster.y + 54;
   for (const dir of [-1, 1]) {
@@ -500,6 +507,39 @@ function checkCandyPile(monster) {
     getCheerImage(racer);
   }
 }
+
+// Walking through a sand troll's pile kicks the sand up and leaves her sandy
+// (racer.sand, 1 = fresh; drawn by drawSandPatches); it shakes off as she
+// moves on, over SAND_SHAKE_TIME, and stays on while she stands still.
+function checkSandPile(monster, dt) {
+  for (const racer of state.racers) {
+    if (racer.finished || racer.grabbedBy || racer.z > 20 || isMounted(racer)) continue;
+    if (Math.abs(racer.x - monster.x) > SAND_PILE_REACH_X || Math.abs(racer.y - monster.y) > CANDY_PILE_REACH_Y) continue;
+    if (!racer.moving) continue;
+    racer.sand = 1;
+    racer.inSand = 0.1;
+    racer.sandKickTimer = (racer.sandKickTimer || 0) - dt;
+    if (racer.sandKickTimer > 0) continue;
+    racer.sandKickTimer = 0.07;
+    const groundY = racer.y + 54;
+    spawnParticles(racer.x, groundY, 4, 5, { kind: "grain", color: SAND_COLORS[Math.floor(Math.random() * 3)], speed: 110, lift: 260, gravity: 900, life: 0.8, size: 3 });
+    spawnParticles(racer.x, groundY, 0, 1, { kind: "puff", color: "#e2c992", speed: 40, lift: 40, gravity: 0, life: 0.7, size: 9 });
+  }
+}
+
+function shakeOffSand(racer, dt) {
+  racer.inSand = Math.max(0, (racer.inSand || 0) - dt);
+  if (!(racer.sand > 0) || !racer.moving || racer.inSand > 0) return;
+  racer.sand = Math.max(0, racer.sand - dt / SAND_SHAKE_TIME);
+  racer.sandShakeTimer = (racer.sandShakeTimer || 0) - dt;
+  if (racer.sandShakeTimer > 0) return;
+  racer.sandShakeTimer = 0.06 + 0.12 * (1 - racer.sand);
+  // Grains drop off her legs and dress as she goes.
+  const scale = racerDepthScale(racer);
+  spawnParticles(racer.x + (Math.random() - 0.5) * 50 * scale, racer.y + 54, racer.z + (20 + Math.random() * 150) * scale, 2,
+    { kind: "grain", color: SAND_COLORS[Math.floor(Math.random() * 3)], speed: 30, lift: 40, gravity: 900, life: 0.9, size: 2.5 });
+}
+const SAND_COLORS = ["#e3c68a", "#cfa863", "#f0dcae"];
 
 function isMonsterVisible(monster) {
   return isWorldXVisibleInAnyView(monster.x);
@@ -584,6 +624,60 @@ function stunMonsterWithEmp(monster, { dizzy = false } = {}) {
   monster.knockbackX = 0;
 }
 
+// Once he's a pile, a monster's lights (the scarecrow's jack-o'-lantern, monsters.js
+// `lights`) flicker out to dark over LIGHTS_OUT_TIME: sputtering back now and then,
+// less often as they fade.
+function updateLightsOut(monster, dt) {
+  if (!monsterDef().lights) return;
+  monster.lightsOutTime = (monster.lightsOutTime || 0) + dt;
+  monster.flickerTimer = (monster.flickerTimer || 0) - dt;
+  if (monster.flickerTimer > 0) return;
+  monster.flickerTimer = 0.05 + Math.random() * 0.08;
+  const t = clamp(monster.lightsOutTime / LIGHTS_OUT_TIME, 0, 1);
+  monster.lightsOut = t >= 1 ? 1 : Math.random() < 0.4 * (1 - t) ? Math.random() * 0.3 : clamp(t + (Math.random() - 0.3) * 0.5, 0, 1);
+}
+
+// The knocked-down row with only its lights, darkened (unlit pumpkin skin, black
+// eyes and mouth), drawn over the sheet as they go out. Made once per sheet.
+const lightsOutArt = new WeakMap();
+function getLightsOutArt(image, lights) {
+  if (!image?.complete || !image.width) return null;
+  if (lightsOutArt.has(image)) return lightsOutArt.get(image);
+  let canvas = null;
+  try {
+    canvas = document.createElement("canvas");
+    canvas.width = FRAME * 3;
+    canvas.height = FRAME;
+    const c = canvas.getContext("2d");
+    c.drawImage(image, 0, FRAME * 3, FRAME * 3, FRAME, 0, 0, FRAME * 3, FRAME);
+    const data = c.getImageData(0, 0, FRAME * 3, FRAME);
+    const px = data.data;
+    const keep = new Uint8Array(FRAME * 3 * FRAME);
+    for (const [cell, cx, cy, radius] of lights) {
+      for (let y = Math.max(0, cy - radius); y < Math.min(FRAME, cy + radius); y++) {
+        for (let x = Math.max(0, cx - radius); x < Math.min(FRAME, cx + radius); x++) {
+          if ((x - cx) ** 2 + (y - cy) ** 2 >= radius * radius) continue;
+          const i = y * FRAME * 3 + cell * FRAME + x;
+          const [r, g, b, a] = [px[i * 4], px[i * 4 + 1], px[i * 4 + 2], px[i * 4 + 3]];
+          if (!a || !((r > 150 && r - b > 90) || r + g + b > 600)) continue;
+          // The hotter (yellower) the glow, the darker it goes: the cut-outs go nearly black.
+          const k = 0.55 - 0.45 * clamp((g - 60) / 150, 0, 1);
+          px[i * 4] = r * k;
+          px[i * 4 + 1] = g * k;
+          px[i * 4 + 2] = b * k;
+          keep[i] = 1;
+        }
+      }
+    }
+    for (let i = 0; i < keep.length; i++) if (!keep[i]) px[i * 4 + 3] = 0;
+    c.putImageData(data, 0, 0);
+  } catch {
+    canvas = null; // (a sheet the page can't read back: the lights just stay on)
+  }
+  lightsOutArt.set(image, canvas);
+  return canvas;
+}
+
 function drawMonster(monster) {
   if (monster.scattered) return; // its candy pile is gone
   const dissipating = monsterDef().defeated === "dissipate";
@@ -614,7 +708,10 @@ function drawMonster(monster) {
   ctx.fill();
   ctx.restore();
 
-  const drawFacing = monster.state === "fall" ? -monster.facing : monster.facing;
+  // Every sheet's knocked-down cells (fall, ground, pile) lie head to the left, so a troll knocked
+  // left (facing -1) draws them unflipped and stays head-first the way he was hit, pile and all.
+  const knockedDown = monster.state === "fall" || monster.state === "ground" || monster.state === "sleeping";
+  const drawFacing = knockedDown ? -monster.facing : monster.facing;
   if (monster.frogTimer > 0) {
     drawFrog(screenX, monster.y + 54, racerDepthScale(monster), true, monster.frogPhase || 0, monster.facing);
     ctx.restore();
@@ -647,7 +744,15 @@ function drawMonster(monster) {
     const swell = 1 + gone * 0.25;
     drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, screenX - SPRITE_ANCHOR_X * scale * swell, visualY + 58 - SPRITE_ANCHOR_Y * scale * swell - gone * 40 * scale,
       drawW * swell, drawH * swell, drawFacing, screenX);
-  } else drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+  } else {
+    drawFacingImage(getMonsterImage(), sx, sy, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+    const lights = monsterDef().lights;
+    const dark = lights && monster.lightsOut > 0 && frame.row === 3 && getLightsOutArt(getMonsterImage(), lights);
+    if (dark) {
+      ctx.globalAlpha *= monster.lightsOut;
+      drawFacingImage(dark, sx, 0, FRAME, FRAME, drawX, drawY, drawW, drawH, drawFacing, screenX);
+    }
+  }
   ctx.restore();
   if (monster.dizzyTimer > 0 && monster.state === "fall") {
     // Seeing stars over his head where he lies.

@@ -18,6 +18,10 @@
 //   defeated   how it's defeated: "sparks" drawn over its defeated pose, or
 //              "dissipate" (it fades away and leaves nothing)
 //   particles  a sheet of 8 particle sprites (128px cells) it bursts into
+//   lights     glowing lights in its knocked-down cells that flicker out once it's a pile:
+//              [cell of row 4, centre x, centre y, radius] (frame pixels)
+//   sandPile   its pile is sand: walking through it kicks sand up and leaves
+//              patches on her that shake off as she goes (game-monsters.js)
 //   lightning  now and then throws a lightning bolt (cloudtroll_lightning
 //              attack frames; the bolt itself is drawn in code)
 // Bump when any monster sheet changes, so browsers don't pair a cached sheet
@@ -31,6 +35,7 @@ window.MONSTERS = {
   },
   scarecrow: {
     scale: 1.15, // the sheet height includes its tall hat
+    lights: [[1, 107, 332, 26], [2, 217, 320, 34]], // the jack-o'-lantern
     grabHands: [[354, 177], [305, 117], [339, 132]]
   },
   skeleton: {
@@ -56,6 +61,7 @@ window.MONSTERS = {
     lightning: true
   },
   sandtroll: {
+    sandPile: true,
     grabHands: [[325, 180], [282, 56], [350, 135]]
   }
 };
