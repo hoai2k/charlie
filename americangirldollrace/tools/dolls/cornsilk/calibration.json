@@ -2,6 +2,8 @@
   "notes": "Explicit source fractions measured on the plush paws and torso, excluding long ears. Group scales preserve head/body anatomy across generated canvases; packing reductions are restored by runtime frame metadata.",
   "earFraction": 0.266,
   "earFractionNote": "Share of her standing outline (idle-0) above the top of her head: head top y=103, outline 7..368. Her height is measured to her head, so the game draws her bodyScale = 1/(1-earFraction) larger.",
+  "sizeTrim": 0.9,
+  "sizeTrimNote": "The owner's call after seeing her beside the dolls: 10% smaller than sized-by-head (her plush bulk reads big).",
   "anatomicalScales": {
     "menu": 0.56,
     "toys": 1.1,

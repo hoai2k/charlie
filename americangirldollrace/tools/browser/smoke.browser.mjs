@@ -1104,9 +1104,11 @@ test('the workbench runs: any player, still targets, every power-up and mount dr
   assert.ok(queue.items === 0 || (queue.open && !queue.first.startsWith('barbie/') && queue.startsAfterPlaced && queue.boots >= 1), JSON.stringify(queue));
   const hidden = await bench.evaluate(() => ['annie', 'katniss', 'cornsilk'].map(key => ({
     key, listed: Boolean(game.Bench.characters[key]?.hidden),
-    queued: verify.items.filter(item => item.asset === key).length
+    queued: verify.items.filter(item => item.asset === key).length,
+    placed: Object.keys(game.MOON_BOOT_OVERRIDES).filter(id => id.startsWith(`${key}/`)).length
   })));
-  for (const doll of hidden) { assert.ok(doll.listed, doll.key); assert.equal(doll.queued, 20, doll.key); }
+  // (Twenty boot poses each, less those the owner has placed: they leave the queue.)
+  for (const doll of hidden) { assert.ok(doll.listed, doll.key); assert.equal(doll.queued + doll.placed, 20, doll.key); }
   if (queue.open) await bench.click('#vClose');
   const r = await frame.evaluate(async () => {
     const tick = n => { for (let i = 0; i < n; i++) update(1 / 60); };
@@ -1615,8 +1617,8 @@ test('Annie, Katniss and Cornsilk: on skates and pogo as tall as the other dolls
   for (const [key, [skates, pogo]] of Object.entries(r.toys)) {
     assert.ok(skates > 0.93 && skates < 1.08 && pogo > 0.93 && pogo < 1.12, `${key} skates ${skates} pogo ${pogo}`);
   }
-  assert.equal(r.cornsilk[0], 1.36);
-  assert.ok(Math.abs(r.cornsilk[1] - 1.36) < 0.05, `Cornsilk drawn ${r.cornsilk[1]}x`);
+  assert.equal(r.cornsilk[0], 1.23);
+  assert.ok(Math.abs(r.cornsilk[1] - 1.23) < 0.05, `Cornsilk drawn ${r.cornsilk[1]}x`);
 });
 
 test('Annie, Katniss and Cornsilk are hidden until All Dolls and have complete playable art', { skip: skip() }, async () => {

@@ -336,7 +336,7 @@ window.EXTRA_DOLLS = {
     "hidden": true,
     "verifyAllMoonBoots": true,
     "spriteKey": "cornsilk",
-    "bodyScale": 1.36,
+    "bodyScale": 1.23,
     "jumpScale": 1,
     "riderXOffset": 8.28,
     "riderYOffset": 122.164,
