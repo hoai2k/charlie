@@ -1578,6 +1578,47 @@ test('standings add up over a set of races (from the menu they start again), Ski
 });
 
 
+test('Annie, Katniss and Cornsilk: on skates and pogo as tall as the other dolls are (by height, not face size); Cornsilk sized by her head, her ears above', { skip: skip() }, async () => {
+  await onTrack('farm');
+  const r = await page.evaluate(async () => {
+    const load = src => new Promise(res => { const im = new Image(); im.onload = () => res(im); im.src = src; });
+    const height = (im, n) => {
+      const c = document.createElement('canvas'); c.width = c.height = FRAME; const g = c.getContext('2d');
+      g.drawImage(im, (n % 3) * FRAME, Math.floor(n / 3) * FRAME, FRAME, FRAME, 0, 0, FRAME, FRAME);
+      const a = g.getImageData(0, 0, FRAME, FRAME).data; let top = FRAME, bottom = 0;
+      for (let y = 0; y < FRAME; y++) for (let x = 0; x < FRAME; x++) if (a[(y * FRAME + x) * 4 + 3] > 40) { top = Math.min(top, y); bottom = Math.max(bottom, y); }
+      return bottom - top + 1;
+    };
+    const median = v => v.slice().sort((a, b) => a - b)[v.length >> 1];
+    const out = {};
+    for (const key of ['juliette', 'annie', 'katniss', 'cornsilk']) {
+      const sprites = await load(`assets/doll_${key}_sprites.webp`), toys = await load(`assets/doll_${key}_toys.webp`);
+      const stand = median([0, 1, 2].map(n => height(sprites, n)));
+      const scale = RIDE_TOY_FRAMES[key].scale;
+      out[key] = [0, 6].map(from => +(median([0, 1, 2, 3, 4, 5].map(i => height(toys, from + i) * scale[from + i])) / stand).toFixed(2));
+    }
+    // Cornsilk is drawn bodyScale larger, about her feet.
+    const d = characters.cornsilk, racer = makeRacer(d.name, 'cornsilk', d.image(), 0, 3000, PATH_TOP + 90, false, d.color, 500, d.riderYOffset, d.riderXOffset);
+    racer.showLabel = false; state.camera = 3000 - 400;
+    const bodyScale = d.bodyScale;
+    const drawn = scaleOn => {
+      d.bodyScale = scaleOn ? bodyScale : 1;
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height); drawRacer(racer); ctx.restore();
+      const a = ctx.getImageData(0, 0, canvas.width, racer.y + 60).data; let top = Infinity;
+      for (let i = 3; i < a.length; i += 4) if (a[i] > 40) { top = Math.floor(i / 4 / canvas.width); break; }
+      return racer.y + 54 - top;
+    };
+    const plain = drawn(false), big = drawn(true);
+    d.bodyScale = bodyScale;
+    return { toys: out, cornsilk: [bodyScale, +(big / plain).toFixed(2)] };
+  });
+  for (const [key, [skates, pogo]] of Object.entries(r.toys)) {
+    assert.ok(skates > 0.93 && skates < 1.08 && pogo > 0.93 && pogo < 1.12, `${key} skates ${skates} pogo ${pogo}`);
+  }
+  assert.equal(r.cornsilk[0], 1.36);
+  assert.ok(Math.abs(r.cornsilk[1] - 1.36) < 0.05, `Cornsilk drawn ${r.cornsilk[1]}x`);
+});
+
 test('Annie, Katniss and Cornsilk are hidden until All Dolls and have complete playable art', { skip: skip() }, async () => {
   await onTrack('farm');
   const result = await page.evaluate(async () => {

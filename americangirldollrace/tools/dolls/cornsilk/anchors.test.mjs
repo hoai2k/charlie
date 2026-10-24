@@ -22,7 +22,7 @@ test('plush wing roots use measured chest points for every sheet, with legacy fa
 test('ledge anatomical scale preserves the measured corner in either facing direction',()=>{
  const c={window:{LEDGE_FRAMES:{cornsilk:[{renderScale:1.3} ]},LEDGE_ANCHORS:{cornsilk:[[300,220]]}},
   FRAME:418,state:{camera:100},cloudLedgePhase:()=> 'hang',getLedgeSheet:()=>({complete:true,width:1254}),dollAssetKey:k=>k,
-  drawFacingImage:(...args)=>{c.drawn=args}};
+  drawFacingImage:(...args)=>{c.drawn=args},withDollScale:(racer,x,y,fn)=>fn()};
  vm.createContext(c);const code=read('game-terrain.js');vm.runInContext(code.slice(code.indexOf('function drawLedgeRacer('),code.indexOf('// After her vertical motion')),c);
  for(const side of [-1,1]){
   c.racer={spriteKey:'cornsilk',y:390,ledge:{side,edgeX:600}};

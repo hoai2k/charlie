@@ -371,6 +371,16 @@
     placeCorner();
   }
 
+  // A doll sized by her head rather than her ears (dolls.js bodyScale,
+  // Cornsilk) stands that much larger on her pedestal: her portrait fits her
+  // whole outline to its box. Grown from the bottom, its animations untouched.
+  function sizeStallDoll(doll, key) {
+    const s = characters[key]?.bodyScale || 1;
+    if (s === 1) return;
+    doll.style.width = doll.style.height = `${200 * s}px`;
+    doll.style.left = `${-24 - 100 * (s - 1)}px`;
+  }
+
   function renderPlayer(el, index, bounce) {
     const slot = lobby.slots[index];
     const color = slotColor(index);
@@ -386,7 +396,7 @@
       <div class="lb-device">${deviceName(slot.device)}</div>`;
     const doll = el.querySelector(".lb-doll");
     if (key === RANDOM) doll.style.backgroundImage = `url(${art(RANDOM)})`;
-    else setOutfitBackground(doll, key, slot.locked ? "cheer" : "wave", outfit);
+    else { setOutfitBackground(doll, key, slot.locked ? "cheer" : "wave", outfit); sizeStallDoll(doll, key); }
     if (slot.locked && outfitCount(key) > 1) el.appendChild(outfitSwatches(index, key));
     const b = badge(index, 52);
     b.classList.add("lb-badge");
@@ -432,6 +442,7 @@
       <div class="lb-badge lb-ai"></div>
       <div class="lb-device">Computer</div>`;
     setOutfitBackground(el.querySelector(".lb-doll"), key, "cheer", outfit);
+    sizeStallDoll(el.querySelector(".lb-doll"), key);
   }
 
   // Computer racers on a doll a player has get the next free outfits.

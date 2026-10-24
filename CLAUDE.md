@@ -216,6 +216,12 @@ hook to get round it.
   They replace the plain horse there (`baseMount`); fliers in wings push in
   the air; `wingedMonsters` trolls wear them too and fly up after fliers.
 - New `americangirldollrace/` dolls use `americangirldollrace/tools/dolls/README.md`: canonical reference, pose art, manifest, deterministic export/validation and generated roster registration. The older imagegen/recolour tools remain for existing assets.
+  A doll's height is measured to the top of her head (Cornsilk's long ears
+  don't count): when that won't fit the 418 px cells, `dolls.js` `bodyScale`
+  draws her larger (`withDollScale` in game-draw.js, about her feet, seat or
+  ledge hold; her stall and podium portraits too). Toy frames are sized by
+  height against the other dolls (`TOY_HEIGHT_TO_STANDING` in
+  `tools/dolls/hidden/build.py`), not face area.
 
 - `party/` (Charlie Party): read `party/HANDOFF.md` first for in-progress work
   and resume notes, then `party/PLAN.md`.

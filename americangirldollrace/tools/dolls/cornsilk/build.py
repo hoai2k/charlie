@@ -77,6 +77,9 @@ def main():
     manifest['broomHandsSource']=[sourcehands[:3],sourcehands[3:6]]
     (H/f'manifests/{KEY}.json').write_text(json.dumps(manifest,indent=2)+'\n')
     runtime=B.build(manifest);B.check(manifest)
+    # Sized to the top of her head, not her ear tips: the 418 px cells can't
+    # hold her that tall, so the game draws her bodyScale larger.
+    runtime['bodyScale']=round(1/(1-calibration['earFraction']),2)
     registry=Z.read_assignment(G/'dolls.js','EXTRA_DOLLS',{});registry[KEY]=runtime;Z.assignment(G/'dolls.js','EXTRA_DOLLS',registry)
     report=json.loads((H/f'reports/{KEY}.json').read_text())
     normalrecords=[report['frames'][name] for name in B.POSES]

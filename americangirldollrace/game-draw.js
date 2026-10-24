@@ -520,7 +520,10 @@ function drawVictoryPodium(winner, elapsed) {
       ctx.save();
       ctx.translate(cx, top + 8 - hop);
       ctx.rotate(sway);
-      ctx.drawImage(image, -step.size / 2, -step.size, step.size, step.size);
+      // (Portraits fit her whole outline to the box; a doll sized by her head
+      // rather than her ears, dolls.js bodyScale, stands that much larger.)
+      const size = step.size * dollBodyScale(racer);
+      ctx.drawImage(image, -size / 2, -size, size, size);
       ctx.restore();
     } else {
       const scale = step.size / FRAME;
@@ -676,6 +679,24 @@ function drawObstacle(obstacle) {
   ctx.restore();
 }
 
+// A doll drawn larger than her sheet's cells allow (dolls.js bodyScale:
+// Cornsilk, sized by the top of her head, her long ears rising above it):
+// everything drawn in fn is scaled about (px, py), where she meets the ground,
+// the saddle or the cloud's edge, so her hands, boots and wings stay on her.
+function dollBodyScale(racer) {
+  return characters[racer.spriteKey]?.bodyScale || 1;
+}
+
+function withDollScale(racer, px, py, fn) {
+  const s = dollBodyScale(racer);
+  if (s === 1) return fn();
+  ctx.save();
+  ctx.translate(px, py);
+  ctx.scale(s, s);
+  ctx.translate(-px, -py);
+  try { return fn(); } finally { ctx.restore(); }
+}
+
 function drawRacer(racer) {
   const screenX = racer.x - state.camera;
   const jumping = isDrawnJumping(racer);
@@ -716,7 +737,7 @@ function drawRacer(racer) {
     racer.lastBody = null;
     drawLedgeRacer(racer, scale);
   } else if (mounted && racer.horseType === "broom") {
-    drawBroomRacer(racer, screenX, scale, drawFacing);
+    withDollScale(racer, screenX, racer.y + 54 - racer.z, () => drawBroomRacer(racer, screenX, scale, drawFacing));
   } else if (mounted) {
     const rover = roverMotion(racer, scale);
     const pivotY = racer.y + 58 - racer.z;
@@ -754,6 +775,9 @@ function drawRacer(racer) {
       const horseImage = images[racer.horseType] || images.horse;
       drawFacingImage(horseImage, horseCol * FRAME, horseRow * FRAME, FRAME, FRAME, horseX, horseY, horseW, horseH, drawFacing, screenX);
     }
+    // (A larger doll grows about her seat: the ride pose's seat, 225,280 in its cell.)
+    const seatX = riderX + 225 * riderScale, seatY = riderY + 280 * riderScale;
+    withDollScale(racer, drawFacing < 0 ? 2 * screenX - seatX : seatX, seatY, () => {
     // Pushing or throwing from the saddle has its own pose once the actions sheet is in.
     if (racer.pushTimer > 0 && actions) {
       const box = actionFrameBox(racer, 0, 2 * FRAME, riderX, riderY, riderW, riderH);
@@ -766,6 +790,7 @@ function drawRacer(racer) {
     }
     // Her moon boots stay on in the saddle (her riding frame, sprites 9).
     if (racer.moonBootsTimer > 0 && !(racer.pushTimer > 0 && actions)) drawMoonBootsOn(racer, "sprites", 9, riderX, riderY, riderW, drawFacing, screenX);
+    });
     ctx.restore();
   } else {
     const toyPose = getRideToyPose(racer, jumping);
@@ -773,11 +798,13 @@ function drawRacer(racer) {
     const fullY = racer.y + 54 - SPRITE_ANCHOR_Y * scale - racer.z;
     if (racer.celebrateTimer > 0) drawCelebrationStar(racer, screenX, fullY, scale);
     const cheer = racer.celebrateTimer > 0 ? getCheerImage(racer) : null;
+    // (The wave isn't her: drawn at its own size before a larger doll is scaled.)
+    if (!cheer && racer.surfTimer > 0) drawSurfWave(racer, screenX, scale);
+    withDollScale(racer, screenX, racer.y + 54 - racer.z, () => {
     if (cheer) {
       racer.lastBody = null;
       drawFacingImage(cheer, 0, 0, FRAME, FRAME, fullX, fullY, FRAME * scale, FRAME * scale, racer.facing, screenX);
     } else if (racer.surfTimer > 0) {
-      drawSurfWave(racer, screenX, scale);
       if (actions) drawRacerBody(racer, actions, (Math.floor(performance.now() / 450) % 3) * FRAME, FRAME, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
       else drawRacerBody(racer, racer.sheet, 0, 0, fullX, fullY - 8 * scale, FRAME * scale, FRAME * scale, 1, screenX);
     } else if (racer.castTimer > 0) {
@@ -807,13 +834,17 @@ function drawRacer(racer) {
     } else {
       drawRacerBody(racer, racer.sheet, sx, sy, drawX, drawY, drawW, drawH, drawFacing, screenX);
     }
+    });
   }
 
+  // (Her head, on foot, as high as a larger doll stands.)
+  const footY = racer.y + 54 - racer.z;
+  const topY = mounted ? drawY : footY - (footY - drawY) * dollBodyScale(racer);
   // Dizzy (a non-lightning EMP): stars circle her head, in front of her.
-  if (racer.frozenTimer > 0 && racer.empDizzy) drawDizzyStars(screenX, (mounted ? drawY - 30 * scale : drawY) + 62 * scale, scale, Math.min(1, racer.frozenTimer * 3));
+  if (racer.frozenTimer > 0 && racer.empDizzy) drawDizzyStars(screenX, (mounted ? drawY - 30 * scale : topY) + 62 * scale, scale, Math.min(1, racer.frozenTimer * 3));
 
   ctx.save();
-  const labelY = mounted ? drawY - 42 : drawY - 8;
+  const labelY = mounted ? drawY - 42 : topY - 8;
   if (racer.showLabel !== false) {
     const label = shouldTagRacerNames() && racer.playerIndex !== undefined ? `${racerTag(racer)} ${racer.name}` : racer.name;
     ctx.fillStyle = racer.color;

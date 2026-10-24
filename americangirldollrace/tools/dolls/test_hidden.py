@@ -29,7 +29,9 @@ class HiddenCharacterTests(unittest.TestCase):
                 self.assertEqual(len(data['frames']),rows*3)
                 self.assertEqual(data['sha256'],hashlib.sha256(path.read_bytes()).hexdigest())
                 for i,f in enumerate(data['frames']):
-                    self.assertGreaterEqual(f['scale'],1)
+                    # (Toy frames are sized by height afterwards, TOY_HEIGHT_TO_STANDING,
+                    # so some draw a little smaller than packed: resolution to spare.)
+                    self.assertGreaterEqual(f['scale'],.8 if kind=='toys' else 1)
                     if kind=='ledge':self.assertTrue(all(0<v<418 for v in f['ledgeContact']))
                     if f['wandTip']:
                         x,y=f['wandTip'];r,g,b,a=art.getpixel((i%3*418+x,i//3*418+y))

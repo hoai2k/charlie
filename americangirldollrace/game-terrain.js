@@ -263,7 +263,7 @@ function drawLedgeRacer(racer, scale) {
     const [ax, ay] = window.LEDGE_ANCHORS?.[dollAssetKey(racer.spriteKey)]?.[col] || [300, 230];
     const poseScale = scale * (window.LEDGE_FRAMES?.[dollAssetKey(racer.spriteKey)]?.[col]?.renderScale || 1);
     const poseW = FRAME * poseScale;
-    drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - ax * poseScale, surfaceY - ay * poseScale, poseW, poseW, ledge.side, edgeX);
+    withDollScale(racer, edgeX, surfaceY, () => drawFacingImage(sheet, col * FRAME, 0, FRAME, FRAME, edgeX - ax * poseScale, surfaceY - ay * poseScale, poseW, poseW, ledge.side, edgeX));
     return;
   }
   const x = racer.x - state.camera;

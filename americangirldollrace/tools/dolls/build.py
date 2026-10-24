@@ -103,6 +103,9 @@ def clothing_mask(src, spec, mode):
         if mode == 'annie-red':
             # Red fabric has more blue than copper hair or warm vinyl skin.
             weight = np.clip((r-g-25)/20,0,1)*np.clip((r-b-25)/20,0,1)*np.clip((b-g*.85)/6,0,1)
+            # The skirt's shadowed lining is a deep red with almost no green or
+            # blue (e.g. 126,3,2), darker than any curl or skin: kept too.
+            weight = np.maximum(weight, np.clip((r-70)/20,0,1)*np.clip((24-g)/8,0,1)*np.clip((24-b)/8,0,1))
             weight *= alpha>16
         else:
             weight = np.array(neutral_mask(src, spec['chin']).getchannel('R'))/255.

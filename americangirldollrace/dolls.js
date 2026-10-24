@@ -285,9 +285,9 @@ window.EXTRA_DOLLS = {
     "riderYOffset": 122.164,
     "outfitData": {
       "stats": {
-        "h": 0.463855,
-        "L": 0.568647,
-        "C": 0.225368,
+        "h": 0.464253,
+        "L": 0.566186,
+        "C": 0.224424,
         "beta": 0.7,
         "tintNeutral": false
       },
@@ -336,6 +336,7 @@ window.EXTRA_DOLLS = {
     "hidden": true,
     "verifyAllMoonBoots": true,
     "spriteKey": "cornsilk",
+    "bodyScale": 1.36,
     "jumpScale": 1,
     "riderXOffset": 8.28,
     "riderYOffset": 122.164,

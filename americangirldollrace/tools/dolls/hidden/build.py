@@ -97,6 +97,28 @@ def pack(key,im,spec,desired,kind,index):
         'hand':Z.skin_hand(frame),'wandTip':None}
 
 
+# On the toys, the established dolls stand this many times their standing
+# height (median over the skating frames 0-5 and the pogo frames 6-11; Juliette,
+# Kaya, Lily... all within a few percent). Face-area matching alone misjudged
+# Annie (her curls) by about a third, so the toy scales are set by height.
+TOY_HEIGHT_TO_STANDING = (0.99, 1.02)
+
+
+def alpha_height(im):
+    a=np.array(im.getchannel('A'))>40;ys=np.flatnonzero(a.any(1))
+    return float(ys[-1]-ys[0]+1) if len(ys) else 0.0
+
+
+def correct_toy_scales(frames,records,standing):
+    """Rescale the toy records so each group stands TOY_HEIGHT_TO_STANDING x her standing height."""
+    for group,(lo,hi) in enumerate([(0,6),(6,12)]):
+        now=float(np.median([alpha_height(frames[n])*records[n]['scale']/standing for n in range(lo,hi)]))
+        k=TOY_HEIGHT_TO_STANDING[group]/now
+        for n in range(lo,hi):
+            for field in ('scale','renderScale','sourceScale'):records[n][field]*=k
+    return records
+
+
 def main(key):
     mode='annie-red' if key=='annie' else 'katniss-jacket'
     normal=cells(key,'normal',4);menu=cells(key,'menu',1)
@@ -162,6 +184,10 @@ def main(key):
                 record['ledgeContact']=[round(record['anchorX']-16+(point[0]-record['sourceAnchor'][0])*record['packedScale'],2),round(409+(point[1]-b[3])*record['packedScale'],2)]
             xy=(n%3*418,n//3*418);sheet.paste(frame,xy);masks.paste(m,xy);records.append(record)
             x,y=n%3*418,n//3*442;draw.rectangle((x,y,x+417,y+441),fill='#344c5b' if n%2 else '#eee8db');draw.text((x+5,y+5),f'{key} {kind}-{n}',fill='#ffb24a');review.paste(frame,(x,y+24),frame)
+        if kind=='toys':
+            sprites=Image.open(G/f'assets/doll_{key}_sprites.webp').convert('RGBA')
+            standing=float(np.median([alpha_height(sprites.crop((c*418,0,c*418+418,418))) for c in range(3)]))
+            correct_toy_scales([sheet.crop((n%3*418,n//3*418,n%3*418+418,n//3*418+418)) for n in range(12)],records,standing)
         art=G/f'assets/doll_{key}_{kind}.webp';maskpath=G/f'assets/masks/{key}_{kind}_mask.webp'
         B.save_webp(sheet,art);B.save_webp(masks,maskpath)
         report={'assetKey':key,'sourceAnatomicalRatio':ratio,'frames':records,'sha256':hashlib.sha256(art.read_bytes()).hexdigest(),'maskSha256':hashlib.sha256(maskpath.read_bytes()).hexdigest()}
