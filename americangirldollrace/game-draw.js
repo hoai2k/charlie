@@ -844,7 +844,8 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
     ctx.scale(-1, 1);
     ctx.translate(-screenX, 0);
   }
-  for (const boot of boots) {
+  // The further foot (higher up the picture) first, so the nearer boot is in front of it.
+  for (const boot of moonBootsFarToNear(boots)) {
     const bootW = boot.width * scale;
     const k = bootW / MOON_BOOT_CELL_WIDTHS[boot.cell];
     ctx.save();
@@ -864,8 +865,14 @@ function drawMoonBootsOn(racer, kind, index, x, y, w, facing, screenX) {
   ctx.restore();
 }
 
+// (A boot the owner brought to the front in the verification queue has a
+// higher `layer`.)
+function moonBootsFarToNear(boots) {
+  return boots.slice().sort((a, b) => (a.layer || 0) - (b.layer || 0) || a.y - b.y);
+}
+
 // Where each moon boot goes on frame `index` of a doll's `kind` sheet
-// (frame px, facing right): { cell, x, y, angle, width, mirror }, with (x, y)
+// (frame px, facing right): { cell, x, y, angle, width, mirror, layer? }, with (x, y)
 // the middle of the foot it covers (the boot turns about it), its angle in
 // radians, and its width in frame px. From MOON_BOOT_OVERRIDES where the
 // owner set it by hand (the workbench's verification queue), else worked
@@ -876,15 +883,15 @@ function moonBootPlacements(assetKey, kind, index) {
   const frame = window.DOLL_FEET?.[assetKey]?.[kind]?.[index];
   if (!frame) return [];
   return frame.map(foot => {
-    const [fx, fy, size, angle, view, , cy] = foot; // (feet.js also gives the turn in degrees)
-    const look = moonBootView(kind, index, foot, frame);
+    const [fx, fy, size, , , , cy] = foot; // (feet.js also gives the turn in degrees)
+    const pose = moonBootPose(kind, index, foot, frame);
     return {
-      cell: look.cell,
+      cell: pose.cell,
       x: fx,
       y: cy ?? fy,
-      angle: view !== "front" && look.cell !== 4 ? angle * (view === "side" ? 1 : 0.6) - look.tilt : 0,
-      width: clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW,
-      mirror: Boolean(look.mirror)
+      angle: pose.angle,
+      width: clamp(size, MOON_BOOT_FOOT_MIN, MOON_BOOT_FOOT_MAX) * MOON_BOOT_GROW * pose.size,
+      mirror: pose.mirror
     };
   });
 }
@@ -896,25 +903,39 @@ function moonBootPlacements(assetKey, kind, index) {
 const MOON_BOOT_CELL_WIDTHS = [150, 130, 110, 150, 92, 120, 150];
 const MOON_BOOT_CELL_VIEWS = ["side", "three", "front", "side", "front", "side", "side"]; // for the code-drawn stand-in
 
-// Which boot view suits this foot: a foot kicked up behind her mid-stride
-// shows the back of the boot; one pointing well down, the pointed toe;
-// soles up as she tumbles, the sole; her back foot planted in a stride,
-// the inside of the boot (mirrored to point her way); otherwise the view
-// measured from the foot. tilt: how far the art's own boot already leans
-// (radians), taken off the foot's angle.
-function moonBootView(kind, index, foot, frame) {
+// The boot for this foot: its view (cell), angle (radians), whether it's
+// mirrored, and a size share. The rules follow how the owner placed
+// Barbie's boots by hand (the workbench's verification queue): standing,
+// both feet three-quarter, splayed out (the back one mirrored) and a little
+// smaller; running, a back foot kicked up turned well over, sole to the
+// back; crouching and landing, toes a little down; in the air, both toes
+// pointed (the back one more); riding, three-quarter and level; pushing,
+// the back foot tipped further; knocked over, a gentler turn with the lower
+// foot three-quarter. Otherwise the view and angle measured from the foot.
+function moonBootPose(kind, index, foot, frame) {
   const [fx, fy, , angle, view] = foot;
-  const base = { cell: view === "side" ? 0 : view === "three" ? 1 : 2, tilt: 0 };
-  if (kind !== "sprites") return base;
-  if (index === 11 && view !== "side") return { cell: 4, tilt: 0 }; // knocked over, soles towards us
-  if (view === "side" && angle > 0.45) return { cell: 5, tilt: 0.6 };
+  const measured = view === "front" ? 0 : angle * (view === "side" ? 1 : 0.6);
+  const pose = { cell: view === "side" ? 0 : view === "three" ? 1 : 2, angle: measured, mirror: false, size: 1 };
+  if (kind !== "sprites") return pose;
   const other = frame.find(f => f !== foot);
-  const running = index >= 3 && index <= 5;
-  if (running && other && fx < other[0]) {
-    if (fy < other[1] - 40) return { cell: 3, tilt: 0 };
-    if (view === "side") return { cell: 6, tilt: 0, mirror: true };
+  const back = Boolean(other) && fx < other[0];
+  const raisedBy = other ? other[1] - fy : 0; // px above the other foot
+  const pointed = view === "side" && angle > 0.45;
+  if (index <= 2) {
+    // (A foot lifted behind her while she stands turns sole up.)
+    return raisedBy > 40 ? { ...pose, cell: 1, angle: 1.6, size: 0.84 } : { ...pose, cell: 1, mirror: back, size: 0.84 };
   }
-  return base;
+  if (index <= 5) {
+    if (back && raisedBy > 12) return { ...pose, cell: pointed ? 5 : 1, angle: pointed ? 1.45 : 1.25 };
+    if (back && view === "side") return { ...pose, cell: 6, mirror: true };
+  }
+  if (index === 6 || index === 8) return { ...pose, angle: Math.max(measured, 0.3) };
+  if (index === 7) return { ...pose, cell: 5, angle: back ? 1.4 : 0.75 };
+  if (index === 9) return { ...pose, cell: 1, angle: -0.05, size: 0.92 };
+  if (index === 10) return back ? { ...pose, cell: 1, angle: measured + 0.4 } : { ...pose, angle: measured + 0.15 };
+  if (index === 11) return { ...pose, cell: other && fy > other[1] ? 1 : 0, angle: Math.max(measured, -0.6), size: 0.9 };
+  if (pointed) return { ...pose, cell: 5, angle: measured - 0.6 };
+  return pose;
 }
 
 // A chunky white moon boot, its sole's bottom centre at the origin, toe right.

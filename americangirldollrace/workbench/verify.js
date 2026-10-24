@@ -68,7 +68,8 @@ const copyBoots = boots => boots.map(boot => ({ ...boot }));
 const sameBoots = (a, b) => JSON.stringify(roundBoots(a)) === JSON.stringify(roundBoots(b));
 const roundBoots = boots => boots.map(boot => ({
   cell: boot.cell, x: Math.round(boot.x * 10) / 10, y: Math.round(boot.y * 10) / 10,
-  angle: Math.round(boot.angle * 1000) / 1000, width: Math.round(boot.width * 10) / 10, mirror: Boolean(boot.mirror)
+  angle: Math.round(boot.angle * 1000) / 1000, width: Math.round(boot.width * 10) / 10, mirror: Boolean(boot.mirror),
+  ...(boot.layer ? { layer: boot.layer } : {})
 }));
 
 function originalBoots(item) {
@@ -133,7 +134,7 @@ function renderVerifyStatus() {
     option.textContent = `${mark}${it.name} · ${it.label}${it.kind === "actions" ? " (actions)" : ""}`;
   }
   const boot = verify.boots[verify.selected];
-  for (const id of ["#vMirror", "#vSmaller", "#vBigger", "#vDelete"]) v$(id).disabled = !boot;
+  for (const id of ["#vMirror", "#vFront", "#vSmaller", "#vBigger", "#vDelete"]) v$(id).disabled = !boot;
 }
 
 function renderViewButtons() {
@@ -223,7 +224,8 @@ function drawVerify() {
   vctx.imageSmoothingQuality = "high";
   vctx.drawImage(sheet, sx, sy, FRAME, FRAME, layout.ox, layout.oy, FRAME * layout.scale, FRAME * layout.scale);
   const size = art.height;
-  verify.boots.forEach(boot => {
+  // Further foot first, as the game draws them (moonBootsFarToNear).
+  game.moonBootsFarToNear(verify.boots).forEach(boot => {
     const t = bootTransform(boot, layout);
     vctx.save();
     vctx.translate(t.x, t.y);
@@ -295,8 +297,10 @@ function canvasPoint(event) {
 }
 
 function bootAt(point, layout) {
-  for (let i = verify.boots.length - 1; i >= 0; i -= 1) {
-    const boot = verify.boots[i];
+  // The nearest boot (drawn last, on top) is picked first.
+  const order = game.moonBootsFarToNear(verify.boots).reverse();
+  for (const boot of order) {
+    const i = verify.boots.indexOf(boot);
     const t = bootTransform(boot, layout);
     const dx = point.x - t.x, dy = point.y - t.y;
     const c = Math.cos(-boot.angle), s = Math.sin(-boot.angle);
@@ -394,6 +398,13 @@ v$("#vJump").addEventListener("change", event => { recordItem(); openItem(Number
 v$("#vMirror").addEventListener("click", () => {
   const boot = verify.boots[verify.selected];
   if (boot) { boot.mirror = !boot.mirror; changed(); }
+});
+v$("#vFront").addEventListener("click", () => {
+  const boot = verify.boots[verify.selected];
+  if (!boot) return;
+  // In front of every other boot in this pose.
+  boot.layer = Math.max(0, ...verify.boots.filter(b => b !== boot).map(b => b.layer || 0)) + 1;
+  changed();
 });
 v$("#vSmaller").addEventListener("click", () => resizeBoot(1 / 1.06));
 v$("#vBigger").addEventListener("click", () => resizeBoot(1.06));

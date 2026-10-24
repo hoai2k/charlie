@@ -318,7 +318,7 @@ const EMP_ROCKET_TIME = 0.55; // s a firework/pop rocks rocket takes to dive ont
 const EMP_WAVE_TIME = 0.8; // s a sound wave takes to spread to the farthest target
 const MOON_BOOT_GROW = 1.55; // a moon boot is this much bigger than the foot it covers
 const MOON_BOOT_FOOT_MIN = 44; // the foot sizes (frame px) a moon boot is scaled from, at least
-const MOON_BOOT_FOOT_MAX = 64; // and at most (a long measurement is part of her leg)
+const MOON_BOOT_FOOT_MAX = 56; // and at most (a long measurement is part of her leg; the owner's hand-placed boots top out about here)
 const MOON_BOOT_FOOT_MID = 34; // px up from its sole, in the boot art, that sits on the foot's middle
 // The crackles on someone shocked match what shocked her.
 const LASER_SHOCK_COLOR = "#ff4d64"; // a Moon Base laser's red
